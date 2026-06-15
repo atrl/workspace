@@ -1,0 +1,3 @@
+source_label,path,exists,role
+strict_candidate_retention_filter,runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json,True,current strict no-promotion candidate filter and SOXLBacktest reference baseline
+bull_reentry_joint_target_contract,runtime/model_selection/card/bull_reentry_joint_target_contract_v1/summary.json,True,fold-local bull reentry target contract for BC warm-start handoff

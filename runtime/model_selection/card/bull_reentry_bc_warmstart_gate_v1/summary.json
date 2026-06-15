@@ -1,0 +1,59 @@
+{
+  "actor_retention_allowed": false,
+  "bc_warm_start_allowed": true,
+  "blocked_promotions": [
+    "strict_candidate_retention_filter_no_promotable_candidates",
+    "no_actor_retention_allowed",
+    "reference_baseline_comparison_only"
+  ],
+  "blockers": [],
+  "decision": "bull_reentry_bc_warmstart_allowed_no_promotion",
+  "experiment": "bull_reentry_bc_warmstart_gate_v1",
+  "next_mechanism": "wire_fold_local_bull_reentry_joint_targets_into_bc_warm_start_then_full_walkforward_gate",
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "required_gates": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ]
+  },
+  "required_next_gate": "full_fixed_split_and_walkforward_retention_gate",
+  "sidecars": {
+    "markdown": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/bc_warmstart_strict_gate.md",
+    "selection_json": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/selection.json",
+    "source_manifest_csv": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/source_manifest.csv",
+    "summary_json": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/summary.json"
+  },
+  "source_paths": {
+    "bull_reentry_joint_target_contract": "runtime/model_selection/card/bull_reentry_joint_target_contract_v1/summary.json",
+    "strict_candidate_retention_filter": "runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json"
+  },
+  "source_target_contract": {
+    "bull_reentry_target_rows": 2,
+    "decision": "joint_target_contract_bull_reentry_gate_ready_for_training_handoff",
+    "eval_overlap_rows": 0,
+    "experiment": "bull_reentry_joint_target_contract_v1",
+    "risk_conflict_target_rows": 0,
+    "rows": 3
+  },
+  "stop_conditions": [
+    "do_not_promote_bc_warmstart_without_full_fixed_split_gate",
+    "do_not_retain_actor_without_required_walkforward_windows",
+    "do_not_continue_ppo_until_bc_candidate_passes_drawdown_drift_screen"
+  ],
+  "strict_candidate_filter": {
+    "actor_retention_allowed_count": 0,
+    "decision": "strict_candidate_retention_filter_no_promotable_candidates",
+    "next_mechanism": "train_bull_trend_participation_with_drawdown_drift_stop_no_promotion",
+    "passing_profile_count": 0,
+    "ppo_allowed_next": false,
+    "promotable_profile_count": 0
+  },
+  "training_allowed_next": true
+}

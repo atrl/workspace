@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T21:20:36.329496+00:00",
+  "generated_at": "2026-06-15T21:48:54.978467+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -5172,6 +5172,30 @@
       "category": "model",
       "suffix": ".md",
       "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/bc_warmstart_strict_gate.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 434
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 780
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 418
+    },
+    {
+      "path": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2585
     },
     {
       "path": "runtime/model_selection/card/bull_reentry_joint_target_contract_v1/joint_target_contract.csv",
@@ -12810,6 +12834,12 @@
       "category": "production",
       "suffix": ".json",
       "bytes": 1495
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_latest_decision_matrix_v1/notes.md",
+      "category": "production",
+      "suffix": ".md",
+      "bytes": 836
     },
     {
       "path": "runtime/production/card/dashboard_v2_latest_price_diff_v1/summary.json",

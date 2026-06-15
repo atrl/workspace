@@ -1,0 +1,21 @@
+{
+  "actor_retention_allowed": false,
+  "bc_warm_start_allowed": true,
+  "decision": "bull_reentry_bc_warmstart_allowed_no_promotion",
+  "experiment": "bull_reentry_bc_warmstart_gate_v1",
+  "next_mechanism": "wire_fold_local_bull_reentry_joint_targets_into_bc_warm_start_then_full_walkforward_gate",
+  "promotion_allowed": false,
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "required_gates": {
+    "max_walkforward_drawdown_pct": 20.0,
+    "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ]
+  },
+  "required_next_gate": "full_fixed_split_and_walkforward_retention_gate",
+  "training_allowed_next": true
+}
