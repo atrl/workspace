@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T06:45:52.556979+00:00",
+  "generated_at": "2026-06-15T07:10:01.975741+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6239,19 +6239,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 529
+      "bytes": 522
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 72102
+      "bytes": 72594
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 177883
+      "bytes": 178984
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -8604,6 +8604,60 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1259595
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 806
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/daily_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 622
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/gate_gaps.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 933
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/historical_objective_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 935
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/recipe_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 258072
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1603
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/selected_reward_patch.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 383
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6830
+    },
+    {
+      "path": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6830
     },
     {
       "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/best_candidate_window_gaps.csv",

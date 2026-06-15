@@ -1,0 +1,146 @@
+{
+  "acceptance_criteria": "Recipe must cover >=50% drawdown-breach rows and >=50% trend-underparticipation rows with <=25% overreach; final actor still requires official WF relative >=30pp and MaxDD <20%.",
+  "accepted_tradeoff": "This can only unlock a short fold-local training screen; it cannot promote or retain an actor before official replay gates pass.",
+  "actor_retention_allowed": false,
+  "artifact_paths": {
+    "daily_manifest": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/daily_manifest.csv",
+    "gate_gaps": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/gate_gaps.csv",
+    "historical_objective_comparison": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/historical_objective_comparison.csv",
+    "recipe_scores": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/recipe_scores.csv",
+    "review": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/review.md",
+    "selected_reward_patch": "runtime/model_selection/card/release16_drawdown_drift_reward_recipe_v1/selected_reward_patch.json"
+  },
+  "bc_readiness_gate": true,
+  "bc_screen_allowed_next": true,
+  "canonical_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "changed_layer": [
+    "reward",
+    "checkpoint_objective",
+    "model_selection"
+  ],
+  "closest_historical_failure_case": "release16_downtrend_drawdown_objective_screen_v1",
+  "closest_historical_success_case": "release16_risk_gated_state_head_objective_screen_v1",
+  "created_at": "2026-06-15T07:10:00.368177+00:00",
+  "decision": "release16_drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "direct_comparison_baseline": "release16_trend_bc_slice_failure_drilldown_v1",
+  "drawdown_failure_capture": 0.9032258064516129,
+  "experiment": "release16_drawdown_drift_reward_recipe_v1",
+  "hypothesis": "A joint drawdown-drift penalty plus trend-preservation floor can correct the release16 pattern where wf_2020/wf_2022 need de-risking but wf_2023_2024 needs participation restored.",
+  "max_drawdown_gap_to_target_pp": 6.568903868944982,
+  "max_relative_gap_to_target_pp": 17.713537399378303,
+  "metrics": [
+    {
+      "drawdown_gap_to_target_pct": 6.568903868944982,
+      "max_dd_pct": 26.568903868944982,
+      "relative_gap_to_target_pp": 17.713537399378303,
+      "relative_return_pct": 12.286462600621697,
+      "window": "wf_2020"
+    },
+    {
+      "drawdown_gap_to_target_pct": 4.711474610054086,
+      "max_dd_pct": 24.711474610054086,
+      "relative_gap_to_target_pp": 0.0,
+      "relative_return_pct": 65.26901756236428,
+      "window": "wf_2022"
+    },
+    {
+      "drawdown_gap_to_target_pct": 0.0,
+      "max_dd_pct": 14.80389322568818,
+      "relative_gap_to_target_pp": 10.964279511611725,
+      "relative_return_pct": 19.035720488388275,
+      "window": "wf_2023_2024"
+    }
+  ],
+  "min_wf_relative_return_pp": 12.286462600621697,
+  "next_action": "run short fold-local BC/PPO training screen with selected reward patch, then official three-fold replay before retention review",
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+  "overreach_share": 0.0,
+  "ppo_allowed_next": false,
+  "primary_blocker": "training_contract_ready",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "reward_objective_patch": {
+    "drawdown_drift_penalty": 1.5,
+    "drawdown_drift_position_threshold": 0.05,
+    "drawdown_drift_reward_enabled": true,
+    "drawdown_drift_threshold_pct": 18.0,
+    "trend_preservation_floor_enabled": true,
+    "trend_preservation_floor_penalty": 1.0,
+    "trend_preservation_floor_position": 0.25,
+    "trend_preservation_lookback": 21,
+    "trend_preservation_min_buyhold_return_pct": 5.0
+  },
+  "reward_recipe_gate": true,
+  "risk_notes": [
+    "This screen uses existing failure daily paths and does not prove post-training performance.",
+    "The selected patch is intentionally low-burden: dd penalty 1.5, threshold 18%, position threshold 0.05, trend floor 0.25.",
+    "The next run must still pass official three-fold replay and retention gate before any actor is kept."
+  ],
+  "role": "diagnose_reward_objective_recipe",
+  "selected_active_rows": 121,
+  "selected_by_fold": {
+    "wf_2020": {
+      "drawdown_gap_to_target_pct": 6.568903868944982,
+      "relative_gap_to_target_pp": 17.713537399378303,
+      "selected_candidate": "release16_trend_selected",
+      "selected_failure_type": "joint_tradeoff",
+      "selected_max_dd": 26.568903868944982,
+      "selected_relative_return": 12.286462600621697
+    },
+    "wf_2022": {
+      "drawdown_gap_to_target_pct": 4.711474610054086,
+      "relative_gap_to_target_pp": 0.0,
+      "selected_candidate": "release16_trend_selected",
+      "selected_failure_type": "drawdown_control",
+      "selected_max_dd": 24.711474610054086,
+      "selected_relative_return": 65.26901756236428
+    },
+    "wf_2023_2024": {
+      "drawdown_gap_to_target_pct": 0.0,
+      "relative_gap_to_target_pp": 10.964279511611725,
+      "selected_candidate": "release16_trend_selected",
+      "selected_failure_type": "underparticipation",
+      "selected_max_dd": 14.80389322568818,
+      "selected_relative_return": 19.035720488388275
+    }
+  },
+  "selected_drawdown_breach_rows": 62,
+  "selected_drawdown_captured_rows": 56,
+  "selected_recipe": "dd1.5_thr18_pos0.05_tf1_floor0.25_lb21",
+  "selected_reward_recipe_loss": 1.7180682457913017,
+  "selected_trend_captured_rows": 45,
+  "selected_trend_opportunity_rows": 45,
+  "short_training_screen_allowed_next": true,
+  "source_daily_experiment": "release16_wf2020_trend_target_bc_official_replay_v1",
+  "source_experiment": "release16_trend_bc_slice_failure_drilldown_v1",
+  "target_contract_gate": true,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_fold_pp": {
+    "wf_2020": 30.0,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "training_allowed_next": true,
+  "training_handoff": [
+    {
+      "action": "short_foldlocal_bc_or_ppo_training_screen",
+      "decision": "ready",
+      "next_action": "run short fold-local BC/PPO training screen with selected reward patch, then official three-fold replay before retention review",
+      "source_experiment": "release16_trend_bc_slice_failure_drilldown_v1"
+    }
+  ],
+  "trend_underparticipation_capture": 1.0,
+  "why_not_duplicate": "This screen scores a joint drawdown-drift plus trend-preservation reward patch on official release16 failure paths; it does not tune BC class weights, hard de-risking thresholds, or reuse a static path blend.",
+  "worst_wf_max_drawdown_pct": 26.568903868944982
+}
