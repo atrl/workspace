@@ -1,0 +1,6 @@
+term,applies_to,formula,reason,hard_gate
+fold_weighted_relative_return_gap,"wf_2020,wf_2022,wf_2023_2024","sum(window_weight * max(0, 30 - official_relative_return_pp))",wf_2020 and wf_2023_2024 still miss the required relative return even after slice repair,True
+drawdown_drift_stop_loss,"wf_2020,wf_2022,wf_2023_2024","sum(window_weight * max(0, official_max_dd_pct - 20))",release64 official replay breaches MaxDD on wf_2020 and wf_2022,True
+state_head_slice_fit_guard,"wf_2020,wf_2022,wf_2023_2024",block PPO continuation until required sparse slices pass fold-local fit gates,readiness card still has state_head_slice_precondition_gate=false,True
+release64_branch_exclusion,release64_no_objective,exclude selected release-gate BC weighting branch from actor retention,supervised slice repair did not transfer to official daily path gates,True
+official_daily_path_metric_basis,"wf_2020,wf_2022,wf_2023_2024","score candidates from official_daily_paths, not raw backtest-only metrics",previous screens recorded metric-basis mismatch risk,True

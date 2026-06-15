@@ -1,0 +1,14 @@
+{
+  "actor_retention_allowed": false,
+  "bc_readiness_gate": true,
+  "bc_screen_allowed_next": true,
+  "decision": "release16_nonconvex_checkpoint_training_contract_ready_no_actor_retention",
+  "direct_comparison_baseline": "release16_release_gate_bc_official_replay_v1",
+  "experiment": "release16_nonconvex_checkpoint_training_contract_v1",
+  "next_mechanism": "train_nonconvex_checkpoint_objective_with_release_slice_guard_and_drawdown_drift_stop_then_official_three_fold_replay",
+  "promotion_allowed": false,
+  "selected_bc_config": "release64_no_objective",
+  "source_card": "release16_nonconvex_checkpoint_objective_readiness_v1",
+  "target_contract_gate": true,
+  "training_contract_ready": true
+}

@@ -1,0 +1,60 @@
+{
+  "allowed_next_action": "train_nonconvex_checkpoint_objective_with_release_slice_guard_and_drawdown_drift_stop_then_official_three_fold_replay",
+  "direct_comparison_baseline": "release16_release_gate_bc_official_replay_v1",
+  "excluded_branches": [
+    {
+      "branch": "release64_no_objective",
+      "failed_folds": [
+        "wf_2020",
+        "wf_2022",
+        "wf_2023_2024"
+      ],
+      "reason": "official_daily_path gates failed after supervised slice repair"
+    }
+  ],
+  "experiment": "release16_nonconvex_checkpoint_training_contract_v1",
+  "must_not_retain_actor_until": [
+    "all official wf windows have relative_return_pp >= 30",
+    "all official wf windows have MaxDD < 20",
+    "required sparse slice fit gates pass",
+    "dashboard replay evidence exists for any retained actor"
+  ],
+  "objective_terms": [
+    {
+      "applies_to": "wf_2020,wf_2022,wf_2023_2024",
+      "formula": "sum(window_weight * max(0, 30 - official_relative_return_pp))",
+      "hard_gate": true,
+      "reason": "wf_2020 and wf_2023_2024 still miss the required relative return even after slice repair",
+      "term": "fold_weighted_relative_return_gap"
+    },
+    {
+      "applies_to": "wf_2020,wf_2022,wf_2023_2024",
+      "formula": "sum(window_weight * max(0, official_max_dd_pct - 20))",
+      "hard_gate": true,
+      "reason": "release64 official replay breaches MaxDD on wf_2020 and wf_2022",
+      "term": "drawdown_drift_stop_loss"
+    },
+    {
+      "applies_to": "wf_2020,wf_2022,wf_2023_2024",
+      "formula": "block PPO continuation until required sparse slices pass fold-local fit gates",
+      "hard_gate": true,
+      "reason": "readiness card still has state_head_slice_precondition_gate=false",
+      "term": "state_head_slice_fit_guard"
+    },
+    {
+      "applies_to": "release64_no_objective",
+      "formula": "exclude selected release-gate BC weighting branch from actor retention",
+      "hard_gate": true,
+      "reason": "supervised slice repair did not transfer to official daily path gates",
+      "term": "release64_branch_exclusion"
+    },
+    {
+      "applies_to": "wf_2020,wf_2022,wf_2023_2024",
+      "formula": "score candidates from official_daily_paths, not raw backtest-only metrics",
+      "hard_gate": true,
+      "reason": "previous screens recorded metric-basis mismatch risk",
+      "term": "official_daily_path_metric_basis"
+    }
+  ],
+  "source_card": "release16_nonconvex_checkpoint_objective_readiness_v1"
+}

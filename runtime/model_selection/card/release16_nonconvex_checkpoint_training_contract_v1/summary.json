@@ -1,0 +1,164 @@
+{
+  "actor_retention_allowed": false,
+  "bc_readiness_gate": true,
+  "bc_screen_allowed_next": true,
+  "best_existing_single_candidate": {
+    "alignment_loss": 0.25793455000000004,
+    "candidate": "position_cap_0.20",
+    "checkpoint_objective_loss": 0.5158691000000001,
+    "checkpoint_selection_score": -0.5158691000000001,
+    "coverage_gate": true,
+    "family": "position_cap_fallback",
+    "fold_count": 3,
+    "gate_pass_count": 1,
+    "max_drawdown_gap_pp": 0.0,
+    "max_drawdown_pct": 16.652151,
+    "max_relative_gap_pp": 18.579418,
+    "mean_avg_pos": 0.13763599999999998,
+    "min_relative_return_pp": 11.420582,
+    "missing_target_ratio": 0.0,
+    "rebound_position_mae": 0.0,
+    "risk_cap_violation": 0.0,
+    "score": 0.0,
+    "window_gate": false,
+    "window_gate_loss": 25.793455
+  },
+  "canonical_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_objective",
+    "training_contract",
+    "slice_guard"
+  ],
+  "created_at": "2026-06-15T00:28:30.534743+00:00",
+  "decision": "release16_nonconvex_checkpoint_training_contract_ready_no_actor_retention",
+  "direct_comparison_baseline": "release16_release_gate_bc_official_replay_v1",
+  "drawdown_gate_operator": "<",
+  "experiment": "release16_nonconvex_checkpoint_training_contract_v1",
+  "max_drawdown_gap_to_target_pp": 0.0,
+  "max_relative_gap_to_target_pp": 8.66687,
+  "metric_basis": "training_contract_from_official_daily_path_failure_and_nonconvex_readiness_no_actor",
+  "metrics": [
+    {
+      "avg_pos": 0.307464,
+      "max_dd_pct": 16.652151,
+      "relative_return_pct": 21.33313,
+      "return_pct": 79.4267,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.086368,
+      "max_dd_pct": 15.341329,
+      "relative_return_pct": 72.242874,
+      "return_pct": -14.345198,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.097579,
+      "max_dd_pct": 5.546722,
+      "relative_return_pct": 22.785963,
+      "return_pct": 22.429328,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "min_wf_relative_return_pp": 21.33313,
+  "next_mechanism": "train_nonconvex_checkpoint_objective_with_release_slice_guard_and_drawdown_drift_stop_then_official_three_fold_replay",
+  "next_training_allowed_after_objective_screen": true,
+  "objective_terms": [
+    {
+      "applies_to": "wf_2020,wf_2022,wf_2023_2024",
+      "formula": "sum(window_weight * max(0, 30 - official_relative_return_pp))",
+      "hard_gate": true,
+      "reason": "wf_2020 and wf_2023_2024 still miss the required relative return even after slice repair",
+      "term": "fold_weighted_relative_return_gap"
+    },
+    {
+      "applies_to": "wf_2020,wf_2022,wf_2023_2024",
+      "formula": "sum(window_weight * max(0, official_max_dd_pct - 20))",
+      "hard_gate": true,
+      "reason": "release64 official replay breaches MaxDD on wf_2020 and wf_2022",
+      "term": "drawdown_drift_stop_loss"
+    },
+    {
+      "applies_to": "wf_2020,wf_2022,wf_2023_2024",
+      "formula": "block PPO continuation until required sparse slices pass fold-local fit gates",
+      "hard_gate": true,
+      "reason": "readiness card still has state_head_slice_precondition_gate=false",
+      "term": "state_head_slice_fit_guard"
+    },
+    {
+      "applies_to": "release64_no_objective",
+      "formula": "exclude selected release-gate BC weighting branch from actor retention",
+      "hard_gate": true,
+      "reason": "supervised slice repair did not transfer to official daily path gates",
+      "term": "release64_branch_exclusion"
+    },
+    {
+      "applies_to": "wf_2020,wf_2022,wf_2023_2024",
+      "formula": "score candidates from official_daily_paths, not raw backtest-only metrics",
+      "hard_gate": true,
+      "reason": "previous screens recorded metric-basis mismatch risk",
+      "term": "official_daily_path_metric_basis"
+    }
+  ],
+  "official_replay_failed_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "official_replay_required_next": true,
+  "output_paths": {
+    "release64_official_replay_failure_by_fold": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/release64_official_replay_failure_by_fold.csv",
+    "selection": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/selection.json",
+    "slice_guard_official_replay_reconciliation": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/slice_guard_official_replay_reconciliation.csv",
+    "summary": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/summary.json",
+    "training_contract": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/training_contract.json",
+    "training_objective_terms": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/training_objective_terms.csv"
+  },
+  "ppo_allowed_next": false,
+  "primary_blocker": "training_contract_ready",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "release64_excluded_from_retention": true,
+  "release64_official_replay_gate": false,
+  "release64_supervised_slice_gate": true,
+  "role": "diagnose",
+  "selected_bc_config": "release64_no_objective",
+  "selected_bc_official_fold_count": 3,
+  "selected_bc_official_gate_count_20dd": 0,
+  "selected_bc_official_min_relative_return_pp": 14.302062458265096,
+  "selected_bc_official_worst_max_dd_pct": 26.860564588917736,
+  "source_bc_weight_screen_experiment": "release16_release_gate_bc_weight_screen_v1",
+  "source_card": "release16_nonconvex_checkpoint_objective_readiness_v1",
+  "source_official_replay_experiment": "release16_release_gate_bc_official_replay_v1",
+  "state_head_slice_failed_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "state_head_slice_precondition_gate": false,
+  "summary_points": [
+    "release64_no_objective passes supervised required slice gates but fails official daily-path gates on all three folds, so it is excluded from retention.",
+    "The current readiness card still needs a nonconvex checkpoint/reward objective because the best retained-like teacher mix misses the 30pp relative-return floor on wf_2020 and wf_2023_2024.",
+    "Next training must use official daily-path metrics, drawdown drift stop loss, and sparse slice guards before any PPO continuation or actor retention."
+  ],
+  "target_contract_gate": true,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_window_pp": {
+    "wf_2020": 30.0,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "training_allowed_from_this_card": true,
+  "training_contract_ready": true,
+  "worst_wf_max_drawdown_pct": 16.652151
+}
