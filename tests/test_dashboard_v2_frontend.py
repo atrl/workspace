@@ -65,5 +65,7 @@ def test_dashboard_v2_run_window_is_separate_from_chart_window():
     assert "Use chart range" in source
     assert "startDate: state.runStart" in source
     assert "endDate: state.runEnd" in source
+    assert "running ${sourceProfile} | ${state.runStart} to ${state.runEnd}" in source
     assert "startDate: state.start" not in source
     assert "endDate: state.end" not in source
+    assert "running ${sourceProfile} | ${state.start} to ${state.end}" not in source

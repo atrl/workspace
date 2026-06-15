@@ -532,7 +532,7 @@ async function main(): Promise<void> {
       const statusNode = document.getElementById('run-status');
       if (statusNode) {
         statusNode.dataset.tone = 'muted';
-        statusNode.textContent = `running ${sourceProfile} | ${state.start} to ${state.end}`;
+        statusNode.textContent = `running ${sourceProfile} | ${state.runStart} to ${state.runEnd}`;
       }
       let rerunModel: ModelPayload;
       try {

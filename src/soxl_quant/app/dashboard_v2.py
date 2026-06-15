@@ -795,7 +795,11 @@ def _auto_update_status(
         "run_now_command": f"{_relative_to(root, dashboard_refresh_installer)} --run-now",
         "refresh_pipeline": [
             "scripts/refresh_dashboard_model_replays.py",
-            "scripts/build_dashboard_bundle.py",
+            "scripts/review_model_retention_gates.py",
+            "scripts/review_model_retention_frontier.py",
+            "scripts/build_dashboard_v2_data.py --detect-launchd",
+            "npm --prefix web/dashboard-v2 run build",
+            "scripts/check_dashboard_v2_data.py",
             "scripts/check_dashboard_static_export.py",
         ],
         "model_replay_freshness": {

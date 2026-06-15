@@ -12,7 +12,7 @@
         "refreshed": 0,
         "skipped": 0
       },
-      "generated_at": "2026-06-14T23:23:09+00:00",
+      "generated_at": "2026-06-15T08:18:59+00:00",
       "latest_data_date": "2026-06-10",
       "note": "No replay actor candidates are exposed by model_replay_freshness.json; the refresh task still rebuilds dashboard bundles and reference/evidence exports.",
       "profile_count": 0,
@@ -22,7 +22,11 @@
     },
     "refresh_pipeline": [
       "scripts/refresh_dashboard_model_replays.py",
-      "scripts/build_dashboard_bundle.py",
+      "scripts/review_model_retention_gates.py",
+      "scripts/review_model_retention_frontier.py",
+      "scripts/build_dashboard_v2_data.py --detect-launchd",
+      "npm --prefix web/dashboard-v2 run build",
+      "scripts/check_dashboard_v2_data.py",
       "scripts/check_dashboard_static_export.py"
     ],
     "remote_deploy_required": false,
@@ -86,14 +90,14 @@
     "drawdown_rebound_reward_train_v1",
     "mode_conditioned_rebound_reward_train_v2"
   ],
-  "generated_at": "2026-06-15T05:57:55.260612+00:00",
+  "generated_at": "2026-06-15T08:19:12.286693+00:00",
   "latest_market_date": "2026-06-10",
   "model_retention_frontier": {
-    "completed_handoff_count": 129,
+    "completed_handoff_count": 132,
     "max_walkforward_drawdown_pct": 20.0,
-    "recommended_next_action": "repair_trend_slice_sampling_or_state_loss_before_official_replay",
-    "recommended_next_source": "release16_wf2020_trend_target_bc_official_replay_v1",
-    "recommended_primary_blocker": "bc_candidate_or_slice_gate_failed",
+    "recommended_next_action": "revise_reward_patch_or_checkpoint_selection_before_full_training",
+    "recommended_next_source": "release16_drawdown_drift_short_training_screen_v1",
+    "recommended_primary_blocker": "short_training_gate_failed",
     "reference_return_pct": 132.077978,
     "required_best_return_pct": 213.143462,
     "required_wf_windows": [
@@ -101,7 +105,7 @@
       "wf_2022",
       "wf_2023_2024"
     ],
-    "rows_scanned": 166,
+    "rows_scanned": 169,
     "source_path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json"
   },
   "model_retention_gate": {

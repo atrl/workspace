@@ -421,12 +421,15 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             return
 
         profile_name = req.get("profile", "")
-        start_date = req.get("start_date", "")
-        end_date = req.get("end_date", "")
+        start_date = req.get("start_date") or req.get("startDate") or ""
+        end_date = req.get("end_date") or req.get("endDate") or ""
         tag = req.get("tag", "")
 
         if not profile_name or not start_date or not end_date:
-            self._send_json({"error": "Missing required fields: profile, start_date, end_date"}, 400)
+            self._send_json(
+                {"error": "Missing required fields: profile, start_date/startDate, end_date/endDate"},
+                400,
+            )
             return
 
         try:

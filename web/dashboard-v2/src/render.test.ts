@@ -62,7 +62,9 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('install auto update');
     expect(panel.textContent).toContain('production/install_dashboard_refresh_launchagent.sh');
     expect(panel.textContent).toContain('--run-now');
-    expect(panel.textContent).toContain('scripts/refresh_dashboard_model_replays.py -> scripts/build_dashboard_bundle.py');
+    expect(panel.textContent).toContain('scripts/refresh_dashboard_model_replays.py -> scripts/review_model_retention_gates.py');
+    expect(panel.textContent).toContain('scripts/review_model_retention_frontier.py');
+    expect(panel.textContent).toContain('scripts/build_dashboard_v2_data.py --detect-launchd');
     expect(panel.textContent).toContain('installed');
     expect(panel.textContent).toContain('loaded');
     expect(panel.textContent).toContain('runtime/soxl/paper_trading/dashboard_refresh.log');

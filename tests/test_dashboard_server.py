@@ -232,6 +232,56 @@ def test_run_backtest_runs_soxlbacktest_reference_profile(monkeypatch):
     }
 
 
+def test_run_backtest_accepts_frontend_camel_case_dates(monkeypatch):
+    body = json.dumps(
+        {
+            "profile": "soxl_backtest_policy_reimplementation_v1",
+            "startDate": "2026-01-02",
+            "endDate": "2026-01-31",
+        }
+    ).encode("utf-8")
+    sent: dict[str, object] = {}
+    captured: dict[str, object] = {}
+    handler = object.__new__(dashboard_server.DashboardHandler)
+    handler.headers = {"Content-Length": str(len(body))}
+    handler.rfile = io.BytesIO(body)
+    handler._send_json = lambda data, status=200: sent.update({"data": data, "status": status})
+    monkeypatch.setattr(dashboard_server, "_load_market_lookup", lambda: {})
+
+    def fake_replay(**kwargs):
+        captured.update(kwargs)
+        return dashboard_server.LegacySoxlReplayResult(
+            daily=pd.DataFrame(
+                [
+                    {
+                        "date": "2026-01-02",
+                        "price": 47.24,
+                        "strategy_nav": 100000.0,
+                        "buyhold_nav": 100000.0,
+                        "position": 0.0,
+                        "excess": 0.0,
+                        "excess_pct": 0.0,
+                        "action": "HOLD",
+                        "panic_score": 0.0,
+                        "HV_20": 1.0,
+                        "HV_30": 1.0,
+                        "VOL_COEF": 1.0,
+                    }
+                ]
+            ),
+            trades=pd.DataFrame(),
+            metrics={"rulebase_return_pct": 0.0, "trade_count": 0},
+        )
+
+    monkeypatch.setattr(dashboard_server, "replay_legacy_soxl_policy", fake_replay)
+
+    handler._handle_run_backtest()
+
+    assert sent["status"] == 200
+    assert captured["start"] == "2026-01-02"
+    assert captured["end"] == "2026-01-31"
+
+
 def test_run_backtest_returns_400_for_unknown_non_reference_profile(monkeypatch):
     body = json.dumps(
         {
