@@ -2,6 +2,8 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 import {
   renderDeltaChart,
   renderMarketChart,
+  renderNavChart,
+  renderPositionChart,
   syncCrosshairPositions,
   syncVisibleTimeRanges,
 } from './chart';
@@ -82,7 +84,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders price candles with close line, MA, volume and model position overlays on the main chart', () => {
+  test('renders price candles with close line, MA and volume without position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -99,8 +101,6 @@ describe('dashboard v2 chart rendering', () => {
       'line',
       'line',
       'histogram',
-      'line',
-      'line',
     ]);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       title: 'SOXL close',
@@ -129,19 +129,7 @@ describe('dashboard v2 chart rendering', () => {
         color: row.close >= row.open ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
       })),
     );
-    expect(chartMocks.seriesRecords[4].options).toMatchObject({
-      title: '',
-      priceScaleId: 'position',
-      priceLineVisible: false,
-      lastValueVisible: false,
-    });
-    expect(chartMocks.seriesRecords[4].data).toEqual(
-      modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
-    );
-    expect(chartMocks.seriesRecords[5].options).toMatchObject({
-      title: '',
-      priceScaleId: 'position',
-    });
+    expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
   test('adds selected model action-difference markers directly on the main K-line', () => {
@@ -171,16 +159,58 @@ describe('dashboard v2 chart rendering', () => {
 
     renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
 
-    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume', 'position']);
+    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.03, bottom: 0.34 },
+      scaleMargins: { top: 0.04, bottom: 0.24 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.90, bottom: 0.02 },
+      scaleMargins: { top: 0.86, bottom: 0.02 },
     });
-    expect(chartMocks.priceScaleRecords[2].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.74, bottom: 0.12 },
-    });
+  });
+
+  test('renders actual model positions in the dedicated position pane', () => {
+    const container = document.createElement('div');
+    const challenger = {
+      ...modelFixture,
+      profile: 'balanced_rule_residual_v22',
+      rows: modelFixture.rows.map((row) => ({ ...row, position: row.position / 2 })),
+    };
+
+    renderPositionChart(container, { smoke: modelFixture, balanced_rule_residual_v22: challenger }, 'smoke');
+
+    expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke', 'BRR v22']);
+    expect(chartMocks.seriesRecords[0].data).toEqual([
+      { time: '2026-01-02', value: 0 },
+      { time: '2026-01-05', value: 0.7 },
+      { time: '2026-01-06', value: 0.2 },
+    ]);
+    expect(chartMocks.seriesRecords[1].data).toEqual([
+      { time: '2026-01-02', value: 0 },
+      { time: '2026-01-05', value: 0.35 },
+      { time: '2026-01-06', value: 0.1 },
+    ]);
+  });
+
+  test('extends the dedicated position pane with latest signal rows', () => {
+    const container = document.createElement('div');
+    const latestModel = {
+      ...modelFixture,
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.55,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+
+    renderPositionChart(container, { smoke: latestModel }, 'smoke');
+
+    expect(chartMocks.seriesRecords[0].data).toEqual([
+      ...modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
+      { time: '2026-01-07', value: 0.55 },
+    ]);
   });
 
   test('renders position deltas against the comparison baseline in the position pane', () => {
@@ -211,7 +241,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords[0].data).toEqual([{ time: '2026-01-05', value: 0.7 }]);
   });
 
-  test('extends main chart position overlay with latest signal without adding NAV rows', () => {
+  test('keeps latest signal out of the main price chart position overlays', () => {
     const container = document.createElement('div');
     const latestModel = {
       ...modelFixture,
@@ -227,10 +257,7 @@ describe('dashboard v2 chart rendering', () => {
 
     renderMarketChart(container, marketFixture, latestModel, { smoke: latestModel }, () => {});
 
-    expect(chartMocks.seriesRecords[4].data).toEqual([
-      ...modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
-      { time: '2026-01-07', value: 0.55 },
-    ]);
+    expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
   test('adds latest signal buy and sell markers on the main K-line for selected models', () => {
@@ -299,6 +326,33 @@ describe('dashboard v2 chart rendering', () => {
       { time: '2026-01-02', value: 0 },
       { time: '2026-01-05', value: 5 },
       { time: '2026-01-06', value: 2 },
+    ]);
+  });
+
+  test('renders rebased NAV curves for all selected models in the NAV pane', () => {
+    const container = document.createElement('div');
+    const challenger = {
+      ...modelFixture,
+      profile: 'balanced_rule_residual_v22',
+      rows: [
+        { ...modelFixture.rows[0], strategy_nav: 200 },
+        { ...modelFixture.rows[1], strategy_nav: 220 },
+        { ...modelFixture.rows[2], strategy_nav: 210 },
+      ],
+    };
+
+    renderNavChart(container, { smoke: modelFixture, balanced_rule_residual_v22: challenger });
+
+    expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke', 'BRR v22']);
+    expect(chartMocks.seriesRecords[0].data).toEqual([
+      { time: '2026-01-02', value: 100 },
+      { time: '2026-01-05', value: 105 },
+      { time: '2026-01-06', value: 103 },
+    ]);
+    expect(chartMocks.seriesRecords[1].data).toEqual([
+      { time: '2026-01-02', value: 100 },
+      { time: '2026-01-05', value: 110 },
+      { time: '2026-01-06', value: 105 },
     ]);
   });
 

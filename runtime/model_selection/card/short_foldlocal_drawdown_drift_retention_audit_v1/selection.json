@@ -1,0 +1,19 @@
+{
+  "actor_retention_allowed": false,
+  "blocked_paths": [
+    "retain any actor without strict walk-forward profile pass",
+    "retain SOXLBacktest reference as actor",
+    "extend reward_ppo_selected despite wf_2022 drawdown drift",
+    "promote two-fold near miss without wf_2020 and fixed-split replay"
+  ],
+  "decision": "short_foldlocal_drawdown_drift_no_retained_actor",
+  "experiment": "short_foldlocal_drawdown_drift_retention_audit_v1",
+  "long_ppo_allowed": false,
+  "next_mechanism": "fold_local_drawdown_drift_reward_or_checkpoint_screen_with_full_wf2020_wf2022_wf2023_2024_gate",
+  "promotion_allowed": false,
+  "selected_diagnostic_candidate": "official_replay::short_volshock_cap05_hit2_no_guard",
+  "selected_diagnostic_candidate_reason": "closest official replay near miss but still not retention eligible",
+  "selected_reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "soxlbacktest_reference_role": "qlib_reference_baseline_not_actor",
+  "training_allowed_next": true
+}

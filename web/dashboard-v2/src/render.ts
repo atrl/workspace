@@ -100,6 +100,13 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     banner.appendChild(element('span', undefined, 'Showing SOXLBacktest reference baseline only.'));
     container.appendChild(banner);
   }
+  const profileSummaries = manifest.profile_summaries ?? {};
+  const baselineEnd = profileSummaries[manifest.default_baseline_profile]?.replay_end ?? null;
+  const actorEnd = maxDate(
+    manifest.default_comparison_profiles
+      .filter((profile) => profileSummaries[profile]?.status !== 'reference')
+      .map((profile) => profileSummaries[profile]?.replay_end),
+  );
   const strip = element('div', 'status-strip');
   const rows: [string, string][] = [
     ['Price', manifest.latest_market_date],
@@ -107,6 +114,12 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     ['Baseline', formatProfileLabel(manifest.default_baseline_profile)],
     ['Blocked', String(blockedCount)],
   ];
+  if (baselineEnd) {
+    rows.splice(3, 0, ['Baseline End', baselineEnd]);
+  }
+  if (actorEnd) {
+    rows.splice(baselineEnd ? 4 : 3, 0, ['Actor End', actorEnd]);
+  }
   if (manifest.canonical_data_date && manifest.canonical_data_date !== manifest.latest_market_date) {
     rows.splice(1, 0, ['Canonical', manifest.canonical_data_date]);
   }
@@ -137,7 +150,6 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     strip.appendChild(item);
   }
   container.appendChild(strip);
-  const profileSummaries = manifest.profile_summaries ?? {};
   const freshnessRows = manifest.default_comparison_profiles
     .map((profile) => [profile, profileSummaries[profile]?.replay_end] as const)
     .filter(([, replayEnd]) => replayEnd);
@@ -152,12 +164,6 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     }
     container.appendChild(freshness);
   }
-  const baselineEnd = profileSummaries[manifest.default_baseline_profile]?.replay_end ?? null;
-  const actorEnd = maxDate(
-    manifest.default_comparison_profiles
-      .filter((profile) => profileSummaries[profile]?.status !== 'reference')
-      .map((profile) => profileSummaries[profile]?.replay_end),
-  );
   if (
     (actorEnd && actorEnd < manifest.latest_market_date) ||
     (baselineEnd && baselineEnd < manifest.latest_market_date) ||
@@ -303,13 +309,13 @@ export function renderModelDeltaStrip(
     const name = element('td');
     name.appendChild(element('strong', 'model-difference-name', formatProfileLabel(profile)));
     row.appendChild(name);
-    const replay = element(
-      'td',
-      'model-difference-date',
-      `${replayEnd ? `Replay ${replayEnd.slice(5)}` : 'Replay n/a'} ${
-        freshness.status === 'latest' ? freshness.label : 'Replay cut'
-      }`,
-    );
+    const replayState =
+      freshness.status === 'latest'
+        ? 'latest'
+        : freshness.status === 'stale'
+          ? 'cut'
+          : 'common';
+    const replay = element('td', 'model-difference-date', `${replayEnd ?? 'n/a'} ${replayState}`);
     row.appendChild(replay);
     const signal = element('td', latestSignal ? 'model-difference-signal' : 'model-difference-gap');
     if (latestSignal) {

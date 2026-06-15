@@ -1,0 +1,28 @@
+{
+  "checked_at": "2026-06-15T20:25:00+00:00",
+  "url": "http://127.0.0.1:5179/",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "screenshot": "runtime/production/card/dashboard_v2_kline_readability_v1/dashboard_v2_kline_readability_2026-06-16.png",
+  "non_dark_ratio": 0.1336,
+  "status_readout": {
+    "price": "2026-06-15",
+    "safe_replay": "2026-06-12",
+    "baseline": "SOXLBacktest",
+    "baseline_end": "2026-06-15",
+    "actor_end": "2026-06-12",
+    "latest_signals": "5@2026-06-15"
+  },
+  "visible_panes": [
+    "K-line",
+    "Position",
+    "Rebased NAV"
+  ],
+  "notes": [
+    "The main K-line no longer carries position overlays.",
+    "SOXLBacktest reference baseline is visible through the latest market date.",
+    "Actor replay curves remain clipped to the safe replay date while latest stateless signals are shown separately."
+  ]
+}

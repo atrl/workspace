@@ -1,0 +1,72 @@
+{
+  "actor_retention_allowed": false,
+  "best_near_miss": {
+    "actor_retention_allowed": "False",
+    "blocker": "near_miss_no_promotion:missing_wf_2020_or_30pp_15dd_gate",
+    "candidate_id": "official_replay::short_volshock_cap05_hit2_no_guard",
+    "candidate_type": "official_warm_start_replay",
+    "current_best_alignment_pass": "False",
+    "max_dd_pct": "15.107381",
+    "min_relative_return_pp": "29.817263",
+    "next_mechanism": "checkpoint_objective_or_fold_local_drawdown_drift_training_target",
+    "promotion_allowed": "False",
+    "retention_gate_pass": "False",
+    "screen_gate_pass": "False",
+    "source_label": "short_volshock_sell_guard_official_replay_v1",
+    "walkforward_drawdown_pass": "True",
+    "wf2020_covered": "False",
+    "windows_evaluated": "wf_2022,wf_2023_2024",
+    "ytd_return_pct": ""
+  },
+  "candidate_row_count": 9,
+  "conclusion": [
+    "No current trained actor or short training candidate is eligible for retention.",
+    "SOXLBacktest is preserved as a Qlib-aligned buy/sell reference baseline, not as a runnable actor.",
+    "BC initialization is useful diagnostic evidence on two evaluated folds but cannot be retained because wf_2020 and full fixed-split validation are missing.",
+    "The reward PPO selected checkpoint expands drawdown in wf_2022, so longer PPO is blocked until drawdown-drift is part of the objective/checkpoint gate.",
+    "The closest official replay remains a near miss, not promotion evidence."
+  ],
+  "decision": "short_foldlocal_drawdown_drift_no_retained_actor",
+  "experiment": "short_foldlocal_drawdown_drift_retention_audit_v1",
+  "generated_at": "2026-06-15T20:27:03.273418+00:00",
+  "promotion_allowed": false,
+  "required_gates": {
+    "current_best_return_pct": 224.361539,
+    "max_walkforward_drawdown_pct": 20.0,
+    "reference_max_drawdown_pct": 13.554089,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "reference_return_pct": 145.736343,
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "short_screen_target_max_dd_pct": 15.0,
+    "short_screen_target_relative_return_pp": 30.0
+  },
+  "retention_gate_pass_count": 0,
+  "short_reward_screen": {
+    "bc_initialization_selector_gate_pass": true,
+    "decision": "short_volshock_reward_ppo_drift_failed_no_promotion",
+    "promotion_allowed": false,
+    "reward_ppo_selected_max_dd_pct": 22.780772473197867
+  },
+  "source_card_count": 17,
+  "soxlbacktest_reference": {
+    "actor_retention_allowed": false,
+    "profile": "soxl_backtest_policy_reimplementation_v1",
+    "promotion_allowed": false,
+    "role": "qlib_reference_baseline_not_actor",
+    "summary_decision": "soxlbacktest_reference_qlib_aligned_not_promotable"
+  },
+  "strict_candidate_retention": {
+    "actor_retention_allowed_count": 0,
+    "decision": "strict_candidate_retention_filter_no_promotable_candidates",
+    "next_mechanism": "train_bull_trend_participation_with_drawdown_drift_stop_no_promotion",
+    "passing_profile_count": 0,
+    "ppo_allowed_next": false,
+    "promotable_profile_count": 0,
+    "reference_visible_count": 2
+  }
+}

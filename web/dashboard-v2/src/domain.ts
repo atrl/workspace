@@ -85,7 +85,9 @@ export function computeDefaultDateRange(input: {
       : null;
   }
   const marketDates = sortedDates(input.marketRows);
-  const end = common.end;
+  const end = marketDates.includes(input.manifest.latest_market_date)
+    ? input.manifest.latest_market_date
+    : marketDates[marketDates.length - 1] ?? common.end;
   const endYear = end.slice(0, 4);
   const ytdDates = marketDates.filter((date) => date >= common.start && date <= end);
   const ytdStart = ytdDates.length ? snapStart(ytdDates, `${endYear}-01-01`) : common.start;

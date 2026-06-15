@@ -162,7 +162,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.03, bottom: 0.34 },
+    scaleMargins: { top: 0.04, bottom: 0.24 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -212,7 +212,7 @@ export function renderMarketChart(
     lastValueVisible: false,
   });
   volumeBars.priceScale().applyOptions({
-    scaleMargins: { top: 0.90, bottom: 0.02 },
+    scaleMargins: { top: 0.86, bottom: 0.02 },
   });
   volumeBars.setData(
     market.rows.map((row) => ({
@@ -221,29 +221,6 @@ export function renderMarketChart(
       color: Number(row.close) >= Number(row.open) ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
     })),
   );
-
-  let positionScaleConfigured = false;
-  for (const [index, [profile, candidate]] of Object.entries(models).entries()) {
-    if (!candidate.rows.length) continue;
-    const isPrimary = profile === model.profile;
-    const positionLine = chart.addSeries(LineSeries, {
-      color: MODEL_COLORS[index % MODEL_COLORS.length],
-      lineWidth: isPrimary ? 2 : 1,
-      lastValueVisible: false,
-      priceLineVisible: false,
-      priceScaleId: 'position',
-      title: '',
-    });
-    if (!positionScaleConfigured) {
-      positionLine.priceScale().applyOptions({
-        scaleMargins: { top: 0.74, bottom: 0.12 },
-      });
-      positionScaleConfigured = true;
-    }
-    positionLine.setData(
-      positionOverlayData(candidate),
-    );
-  }
 
   const markerStart = market.rows[0]?.date;
   const markerEnd = market.rows.at(-1)?.date;
@@ -358,18 +335,24 @@ export function renderPositionChart(
     timeScale: { borderColor: '#30343a' },
   });
   let primarySeries: ISeriesApi<'Line'> | null = null;
-  let primaryRows: ModelPayload['rows'] | null = null;
+  let primaryRows: { time: Time; value: number }[] | null = null;
   for (const [index, [profile, model]] of Object.entries(models).entries()) {
     const isPrimary = profile === primaryProfile;
+    const rows = positionOverlayData(model);
     const line = chart.addSeries(LineSeries, {
       color: MODEL_COLORS[index % MODEL_COLORS.length],
       lineWidth: isPrimary ? 2 : 1,
+      lastValueVisible: false,
+      priceLineVisible: false,
       title: formatProfileLabel(profile),
     });
-    line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
+    line.priceScale().applyOptions({
+      scaleMargins: { top: 0.08, bottom: 0.10 },
+    });
+    line.setData(rows);
     if (isPrimary || !primarySeries) {
       primarySeries = line;
-      primaryRows = model.rows;
+      primaryRows = rows;
     }
   }
   if (!primarySeries || !primaryRows) {
@@ -380,7 +363,7 @@ export function renderPositionChart(
   return {
     chart,
     primarySeries,
-    valueByTime: new Map(primaryRows.map((row) => [row.date, row.position])),
+    valueByTime: new Map(primaryRows.map((row) => [String(row.time), row.value])),
   };
 }
 

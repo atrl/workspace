@@ -81,6 +81,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Market 2026-01-06');
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Actors 2026-01-05');
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Baseline 2026-01-06');
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('Baseline End');
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('2026-01-06');
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('Actor End');
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('2026-01-05');
   });
 
   test('keeps source warnings inside a collapsed diagnostics block', () => {
@@ -436,8 +440,7 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.querySelector('.model-diff-table')).not.toBeNull();
     expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
-    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay 01-06');
-    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay cut');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('2026-01-06 cut');
     expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Price gap 2026-01-07');
     expect(panel.textContent).toContain('Ret 42.00%');
     expect(panel.textContent).toContain('-8.00%');
@@ -513,8 +516,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.model-difference-name')?.textContent).toBe('smoke');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22 2026-01-07');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Price 2026-01-07');
-    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay 01-06');
-    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay cut');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('2026-01-06 cut');
   });
 
   test('renders clickable action mismatch rows with feature context', () => {

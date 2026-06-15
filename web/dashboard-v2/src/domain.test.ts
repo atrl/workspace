@@ -80,7 +80,7 @@ describe('dashboard v2 domain helpers', () => {
     });
   });
 
-  test('defaults visible range to the model comparison window when price extends past replay actors', () => {
+  test('defaults visible range through latest market date when price extends past replay actors', () => {
     const marketRows = [
       ...marketFixture.rows,
       { date: '2026-01-07', open: 10.7, high: 10.9, low: 10.2, close: 10.4, volume: 1400 },
@@ -123,7 +123,7 @@ describe('dashboard v2 domain helpers', () => {
       }),
     ).toEqual({
       start: '2026-01-02',
-      end: '2026-01-06',
+      end: '2026-01-07',
     });
   });
 

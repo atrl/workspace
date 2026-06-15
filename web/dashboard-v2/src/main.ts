@@ -1,7 +1,8 @@
 import './styles.css';
 import {
-  renderDeltaChart,
   renderMarketChart,
+  renderNavChart,
+  renderPositionChart,
   syncCrosshairPositions,
   syncVisibleTimeRanges,
 } from './chart';
@@ -61,18 +62,18 @@ function createShell(app: HTMLElement): void {
       <section class="chart-column">
         <div class="chart-title-row">
           <h1>SOXL</h1>
-          <span>K-line replay with model delta panes</span>
+          <span>K-line, model positions and rebased NAV</span>
           <div id="action-legend" class="action-legend"></div>
         </div>
         <div id="model-delta-strip" class="model-delta-strip"></div>
         <div id="market-chart" class="chart chart-main"></div>
         <div class="lower-charts">
           <section>
-            <h2>Position Δ</h2>
+            <h2>Position</h2>
             <div id="position-chart" class="chart chart-small"></div>
           </section>
           <section>
-            <h2>NAV Δ</h2>
+            <h2>Rebased NAV</h2>
             <div id="nav-chart" class="chart chart-small"></div>
           </section>
         </div>
@@ -269,21 +270,14 @@ function renderDashboard(data: DashboardData, state: ViewState, update: UpdateSt
     data.comparison,
     state.selectedProfiles,
   );
-  const positionHandles = renderDeltaChart(
+  const positionHandles = renderPositionChart(
     positionChart,
-    data.comparison,
-    state.selectedProfiles,
-    'position_delta_vs_baseline',
-    state.start,
-    state.end,
+    models,
+    primary.profile,
   );
-  const navHandles = renderDeltaChart(
+  const navHandles = renderNavChart(
     navChart,
-    data.comparison,
-    state.selectedProfiles,
-    'nav_delta_vs_baseline',
-    state.start,
-    state.end,
+    models,
   );
   const timeCleanup = syncVisibleTimeRanges(
     [marketHandles.chart, positionHandles.chart, navHandles.chart],
