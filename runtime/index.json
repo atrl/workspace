@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T10:16:36.604032+00:00",
+  "generated_at": "2026-06-15T10:29:49.783079+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6239,19 +6239,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 582
+      "bytes": 586
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 74861
+      "bytes": 75492
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 183779
+      "bytes": 185030
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -9570,6 +9570,36 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1564
+    },
+    {
+      "path": "runtime/model_selection/card/release16_holdout_slice_repair_candidate_screen_v1/candidate_repair_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2497
+    },
+    {
+      "path": "runtime/model_selection/card/release16_holdout_slice_repair_candidate_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 894
+    },
+    {
+      "path": "runtime/model_selection/card/release16_holdout_slice_repair_candidate_screen_v1/holdout_repair_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1866
+    },
+    {
+      "path": "runtime/model_selection/card/release16_holdout_slice_repair_candidate_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4776
+    },
+    {
+      "path": "runtime/model_selection/card/release16_holdout_slice_repair_candidate_screen_v1/training_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1155
     },
     {
       "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_action_distribution.csv",

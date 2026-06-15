@@ -14,8 +14,10 @@ from src.soxl_quant.app.state_objective_bc import (
     evaluate_bc_actor_slice_fit,
     fit_bc_actor,
     fit_state_objective_bc_actor_from_frame,
+    score_state_objective_holdout_repair_candidates,
     score_bc_walkforward_drift,
     state_objective_bc_sample_weights,
+    summarize_state_objective_holdout_repair_screen,
     summarize_bc_walkforward_drift_screen,
     summarize_bc_slice_fit,
 )
@@ -358,3 +360,126 @@ def test_summarize_bc_walkforward_drift_screen_counts_gates_and_keeps_no_promoti
     assert summary["drift_gate_pass_count"] == 2
     assert summary["decision"] == "bc_walkforward_drift_mixed_no_promotion"
     assert summary["failed_folds"] == ["wf_2023_2024"]
+
+
+def test_holdout_repair_screen_blocks_partial_slice_repair_before_checkpoint_screen():
+    rows = pd.DataFrame(
+        [
+            {
+                "source_label": "position_loss",
+                "fold": "wf_2020",
+                "candidate": "ordinal_mid_aux",
+                "relative_return": -13.66,
+                "max_dd": 25.58,
+                "holdout_slice_gate": True,
+                "failed_slices": "",
+            },
+            {
+                "source_label": "position_loss",
+                "fold": "wf_2022",
+                "candidate": "ordinal_high_aux",
+                "relative_return": 59.32,
+                "max_dd": 28.34,
+                "holdout_slice_gate": False,
+                "failed_slices": "is_downtrend_state",
+            },
+            {
+                "source_label": "position_loss",
+                "fold": "wf_2023_2024",
+                "candidate": "ordinal_drawdown_aux",
+                "relative_return": 41.29,
+                "max_dd": 13.88,
+                "holdout_slice_gate": False,
+                "failed_slices": "is_downtrend_state,drawdown_control_state",
+            },
+            {
+                "source_label": "drawdown_objective",
+                "fold": "wf_2020",
+                "candidate": "dd_control_checkpoint",
+                "relative_return": -5.60,
+                "max_dd": 16.63,
+                "holdout_slice_gate": False,
+                "failed_slices": "is_rebound_cluster",
+            },
+            {
+                "source_label": "drawdown_objective",
+                "fold": "wf_2022",
+                "candidate": "dd_control_weighted",
+                "relative_return": 72.98,
+                "max_dd": 17.69,
+                "holdout_slice_gate": False,
+                "failed_slices": "is_downtrend_state",
+            },
+            {
+                "source_label": "drawdown_objective",
+                "fold": "wf_2023_2024",
+                "candidate": "dd_control_overaction",
+                "relative_return": 33.37,
+                "max_dd": 15.33,
+                "holdout_slice_gate": False,
+                "failed_slices": "aux_state_head_release_state,is_rebound_cluster,is_downtrend_state",
+            },
+        ]
+    )
+
+    scored = score_state_objective_holdout_repair_candidates(
+        rows,
+        required_folds=("wf_2020", "wf_2022", "wf_2023_2024"),
+        target_relative_return_pp=30.0,
+        target_max_dd_pct=20.0,
+    )
+    summary = summarize_state_objective_holdout_repair_screen(scored)
+
+    assert scored.iloc[0]["source_label"] == "drawdown_objective"
+    assert bool(scored.iloc[0]["target_gate"]) is False
+    assert bool(scored.iloc[0]["holdout_repair_gate"]) is False
+    assert summary["decision"] == "state_objective_holdout_repair_not_ready_no_training"
+    assert summary["checkpoint_screen_allowed_next"] is False
+    assert summary["ppo_allowed_next"] is False
+    assert "drawdown_state_aux_loss" in summary["required_repair_terms"]
+    assert "trend_preservation_floor" in summary["required_repair_terms"]
+
+
+def test_holdout_repair_screen_allows_checkpoint_screen_only_after_all_required_folds_pass():
+    rows = pd.DataFrame(
+        [
+            {
+                "source_label": "candidate_a",
+                "fold": "wf_2020",
+                "relative_return": 35.0,
+                "max_dd": 18.0,
+                "holdout_slice_gate": True,
+                "failed_slices": "",
+            },
+            {
+                "source_label": "candidate_a",
+                "fold": "wf_2022",
+                "relative_return": 55.0,
+                "max_dd": 16.0,
+                "holdout_slice_gate": True,
+                "failed_slices": "",
+            },
+            {
+                "source_label": "candidate_a",
+                "fold": "wf_2023_2024",
+                "relative_return": 42.0,
+                "max_dd": 14.0,
+                "holdout_slice_gate": True,
+                "failed_slices": "",
+            },
+        ]
+    )
+
+    scored = score_state_objective_holdout_repair_candidates(
+        rows,
+        required_folds=("wf_2020", "wf_2022", "wf_2023_2024"),
+        target_relative_return_pp=30.0,
+        target_max_dd_pct=20.0,
+    )
+    summary = summarize_state_objective_holdout_repair_screen(scored)
+
+    assert bool(scored.iloc[0]["holdout_repair_gate"]) is True
+    assert summary["decision"] == "state_objective_holdout_repair_ready_for_reward_checkpoint_screen"
+    assert summary["checkpoint_screen_allowed_next"] is True
+    assert summary["promotion_allowed"] is False
+    assert summary["ppo_allowed_next"] is False

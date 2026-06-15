@@ -57,6 +57,16 @@ class StateObjectiveBCDataset:
     metadata: pd.DataFrame
 
 
+@dataclass(frozen=True)
+class StateObjectiveHoldoutRepairConfig:
+    target_relative_return_pp: float = 30.0
+    target_max_dd_pct: float = 20.0
+    relative_gap_weight: float = 1.0
+    max_dd_gap_weight: float = 10.0
+    holdout_slice_failure_penalty: float = 25.0
+    missing_fold_penalty: float = 100.0
+
+
 def _actor_logits(actor: Any, obs_tensor: torch.Tensor) -> torch.Tensor:
     out = actor(obs_tensor)
     return out[0] if isinstance(out, tuple) else out
@@ -380,6 +390,212 @@ def summarize_bc_walkforward_drift_screen(
         "drift_gate_pass_count": int(drift_gate_pass_count),
         "slice_gate_pass_count": _bool_sum(scored, "slice_gate"),
         "next_mechanism": next_mechanism,
+    }
+
+
+def _first_existing_column(frame: pd.DataFrame, names: tuple[str, ...]) -> str:
+    for name in names:
+        if name in frame.columns:
+            return name
+    raise ValueError(f"frame must include one of: {list(names)}")
+
+
+def _split_failed_slices(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, float) and np.isnan(value):
+        return []
+    if isinstance(value, list | tuple | set):
+        return [str(item).strip() for item in value if str(item).strip()]
+    return [part.strip() for part in str(value).split(",") if part.strip()]
+
+
+def _holdout_repair_required_terms(*, failed_slices: set[str], relative_gap: float, max_dd_gap: float) -> list[str]:
+    terms = ["checkpoint_objective_loss"]
+    failed_text = " ".join(sorted(failed_slices))
+    if (
+        "drawdown_control_state" in failed_slices
+        or "is_downtrend_state" in failed_slices
+        or max_dd_gap > 0.0
+    ):
+        terms.append("drawdown_state_aux_loss")
+    if (
+        "release_gate_state" in failed_slices
+        or "is_rebound_cluster" in failed_slices
+        or "aux_state_head" in failed_text
+        or "failedfold_state_head" in failed_text
+    ):
+        terms.append("release_state_aux_loss")
+    if relative_gap > 0.0:
+        terms.append("trend_preservation_floor")
+    return terms
+
+
+def score_state_objective_holdout_repair_candidates(
+    fold_rows: pd.DataFrame,
+    *,
+    required_folds: tuple[str, ...],
+    target_relative_return_pp: float = 30.0,
+    target_max_dd_pct: float = 20.0,
+    config: StateObjectiveHoldoutRepairConfig | None = None,
+) -> pd.DataFrame:
+    """Rank state-objective BC repair evidence before reward/checkpoint handoff.
+
+    This screen compares already-evaluated repair cards. It intentionally does
+    not promote or retain an actor; it only determines whether all required
+    folds have both path gates and holdout sparse-slice gates.
+    """
+
+    required = {"fold", "relative_return", "max_dd", "holdout_slice_gate"}
+    missing = sorted(required - set(fold_rows.columns))
+    if missing:
+        raise ValueError(f"holdout repair rows missing columns: {missing}")
+    if not required_folds:
+        raise ValueError("required_folds must contain at least one fold")
+    if fold_rows.empty:
+        return pd.DataFrame(
+            columns=[
+                "source_label",
+                "holdout_repair_gate",
+                "repair_loss",
+                "required_repair_terms",
+            ]
+        )
+
+    cfg = config or StateObjectiveHoldoutRepairConfig(
+        target_relative_return_pp=float(target_relative_return_pp),
+        target_max_dd_pct=float(target_max_dd_pct),
+    )
+    frame = fold_rows.copy()
+    label_col = _first_existing_column(frame, ("source_label", "repair_label", "profile", "candidate"))
+    frame[label_col] = frame[label_col].fillna("").astype(str)
+    frame["fold"] = frame["fold"].astype(str)
+    frame["relative_return"] = pd.to_numeric(frame["relative_return"], errors="coerce")
+    frame["max_dd"] = pd.to_numeric(frame["max_dd"], errors="coerce")
+    frame["holdout_slice_gate"] = frame["holdout_slice_gate"].fillna(False).astype(bool)
+    if "failed_slices" not in frame.columns:
+        frame["failed_slices"] = ""
+
+    rows: list[dict[str, Any]] = []
+    required_set = set(str(fold) for fold in required_folds)
+    for label, group in frame.groupby(label_col, sort=True):
+        scoped = group[group["fold"].isin(required_set)].copy()
+        present = set(scoped["fold"].astype(str).tolist())
+        missing_folds = [fold for fold in required_folds if fold not in present]
+        if scoped.empty:
+            rows.append(
+                {
+                    "source_label": str(label),
+                    "fold_count": 0,
+                    "missing_folds": ",".join(missing_folds),
+                    "target_gate": False,
+                    "holdout_slice_gate": False,
+                    "holdout_repair_gate": False,
+                    "target_gate_pass_count": 0,
+                    "holdout_slice_gate_pass_count": 0,
+                    "fold_repair_gate_pass_count": 0,
+                    "min_relative_return": float("nan"),
+                    "max_max_dd": float("nan"),
+                    "relative_gap_loss": 0.0,
+                    "max_dd_gap_loss": 0.0,
+                    "holdout_slice_loss": 0.0,
+                    "missing_fold_loss": float(len(missing_folds) * cfg.missing_fold_penalty),
+                    "repair_loss": float(len(missing_folds) * cfg.missing_fold_penalty),
+                    "failed_folds": ",".join(required_folds),
+                    "failed_slices": "",
+                    "required_repair_terms": ["checkpoint_objective_loss"],
+                }
+            )
+            continue
+
+        relative_gap = (float(cfg.target_relative_return_pp) - scoped["relative_return"]).clip(lower=0.0)
+        max_dd_gap = (scoped["max_dd"] - float(cfg.target_max_dd_pct)).clip(lower=0.0)
+        target_fold_gate = (
+            (scoped["relative_return"] >= float(cfg.target_relative_return_pp))
+            & (scoped["max_dd"] <= float(cfg.target_max_dd_pct))
+        ).fillna(False)
+        holdout_gate = scoped["holdout_slice_gate"].fillna(False).astype(bool)
+        fold_repair_gate = target_fold_gate & holdout_gate
+        failed_folds = scoped.loc[~fold_repair_gate, "fold"].astype(str).tolist() + missing_folds
+        failed_slices: set[str] = set()
+        for value in scoped.loc[~holdout_gate, "failed_slices"].tolist():
+            failed_slices.update(_split_failed_slices(value))
+
+        relative_loss = float(relative_gap.sum() * float(cfg.relative_gap_weight))
+        max_dd_loss = float(max_dd_gap.sum() * float(cfg.max_dd_gap_weight))
+        slice_loss = float((~holdout_gate).sum() * float(cfg.holdout_slice_failure_penalty))
+        missing_loss = float(len(missing_folds) * float(cfg.missing_fold_penalty))
+        total_loss = relative_loss + max_dd_loss + slice_loss + missing_loss
+        all_required_present = not missing_folds and len(scoped) >= len(required_folds)
+        target_gate = bool(all_required_present and target_fold_gate.all())
+        holdout_all_gate = bool(all_required_present and holdout_gate.all())
+        repair_gate = bool(all_required_present and fold_repair_gate.all())
+        terms = _holdout_repair_required_terms(
+            failed_slices=failed_slices,
+            relative_gap=float(relative_gap.max()) if len(relative_gap) else 0.0,
+            max_dd_gap=float(max_dd_gap.max()) if len(max_dd_gap) else 0.0,
+        )
+        rows.append(
+            {
+                "source_label": str(label),
+                "fold_count": int(len(scoped)),
+                "missing_folds": ",".join(missing_folds),
+                "target_gate": target_gate,
+                "holdout_slice_gate": holdout_all_gate,
+                "holdout_repair_gate": repair_gate,
+                "target_gate_pass_count": int(target_fold_gate.sum()),
+                "holdout_slice_gate_pass_count": int(holdout_gate.sum()),
+                "fold_repair_gate_pass_count": int(fold_repair_gate.sum()),
+                "min_relative_return": float(scoped["relative_return"].min()),
+                "max_max_dd": float(scoped["max_dd"].max()),
+                "relative_gap_loss": relative_loss,
+                "max_dd_gap_loss": max_dd_loss,
+                "holdout_slice_loss": slice_loss,
+                "missing_fold_loss": missing_loss,
+                "repair_loss": float(total_loss),
+                "failed_folds": ",".join(failed_folds),
+                "failed_slices": ",".join(sorted(failed_slices)),
+                "required_repair_terms": terms,
+            }
+        )
+    return pd.DataFrame(rows).sort_values(
+        ["holdout_repair_gate", "target_gate", "repair_loss", "source_label"],
+        ascending=[False, False, True, True],
+    ).reset_index(drop=True)
+
+
+def summarize_state_objective_holdout_repair_screen(scored: pd.DataFrame) -> dict[str, Any]:
+    """Summarize whether repaired BC evidence may advance to checkpoint screening."""
+
+    if scored.empty:
+        return {
+            "decision": "state_objective_holdout_repair_no_candidates",
+            "selected_source": "",
+            "checkpoint_screen_allowed_next": False,
+            "ppo_allowed_next": False,
+            "promotion_allowed": False,
+            "required_repair_terms": ["checkpoint_objective_loss"],
+            "next_mechanism": "collect_state_objective_holdout_repair_candidates",
+        }
+    top = scored.iloc[0]
+    gate = bool(top.get("holdout_repair_gate", False))
+    return {
+        "decision": "state_objective_holdout_repair_ready_for_reward_checkpoint_screen"
+        if gate
+        else "state_objective_holdout_repair_not_ready_no_training",
+        "selected_source": str(top.get("source_label", "")),
+        "selected_repair_loss": float(top.get("repair_loss", 0.0)),
+        "selected_min_relative_return": float(top.get("min_relative_return", 0.0)),
+        "selected_max_max_dd": float(top.get("max_max_dd", 0.0)),
+        "selected_failed_folds": str(top.get("failed_folds", "")),
+        "selected_failed_slices": str(top.get("failed_slices", "")),
+        "checkpoint_screen_allowed_next": bool(gate),
+        "ppo_allowed_next": False,
+        "promotion_allowed": False,
+        "required_repair_terms": list(top.get("required_repair_terms", [])),
+        "next_mechanism": "run_reward_checkpoint_screen_with_repaired_holdout_slice_gate"
+        if gate
+        else "train_state_conditioned_action_head_or_aux_state_loss_then_repeat_holdout_slice_screen",
     }
 
 
@@ -727,6 +943,7 @@ __all__ = [
     "StateObjectiveBCDataset",
     "StateObjectiveBCSampleWeightConfig",
     "StateObjectiveBCTrainingConfig",
+    "StateObjectiveHoldoutRepairConfig",
     "action_distribution_frame",
     "build_state_objective_bc_dataset_from_frame",
     "evaluate_bc_actor",
@@ -734,7 +951,9 @@ __all__ = [
     "fit_bc_actor",
     "fit_state_objective_bc_actor_from_frame",
     "score_bc_walkforward_drift",
+    "score_state_objective_holdout_repair_candidates",
     "state_objective_bc_sample_weights",
     "summarize_bc_walkforward_drift_screen",
+    "summarize_state_objective_holdout_repair_screen",
     "summarize_bc_slice_fit",
 ]
