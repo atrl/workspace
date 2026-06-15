@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T09:35:18.419601+00:00",
+  "generated_at": "2026-06-15T09:55:47.052163+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6239,19 +6239,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 610
+      "bytes": 594
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 73661
+      "bytes": 74262
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 181375
+      "bytes": 182576
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -10248,6 +10248,48 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 3010
+    },
+    {
+      "path": "runtime/model_selection/card/release16_post_short_training_reward_checkpoint_contract_v1/bc_holdout_slice_readout.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 707
+    },
+    {
+      "path": "runtime/model_selection/card/release16_post_short_training_reward_checkpoint_contract_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1262
+    },
+    {
+      "path": "runtime/model_selection/card/release16_post_short_training_reward_checkpoint_contract_v1/gate_gaps.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3592
+    },
+    {
+      "path": "runtime/model_selection/card/release16_post_short_training_reward_checkpoint_contract_v1/reward_checkpoint_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1090
+    },
+    {
+      "path": "runtime/model_selection/card/release16_post_short_training_reward_checkpoint_contract_v1/reward_checkpoint_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1425
+    },
+    {
+      "path": "runtime/model_selection/card/release16_post_short_training_reward_checkpoint_contract_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4227
+    },
+    {
+      "path": "runtime/model_selection/card/release16_post_short_training_reward_checkpoint_contract_v1/training_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1126
     },
     {
       "path": "runtime/model_selection/card/release16_release_gate_bc_official_replay_v1/bc_official_replay_metrics.csv",

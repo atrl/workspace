@@ -1,0 +1,101 @@
+{
+  "actor_retention_allowed": false,
+  "bc_holdout_slice_gate": false,
+  "canonical_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "changed_layer": "reward,selection",
+  "created_at": "2026-06-15T09:53:18.650328+00:00",
+  "decision": "release16_post_short_training_contract_no_training",
+  "direct_comparison_baseline": "release16_constrained_checkpoint_repair_screen_v1",
+  "experiment": "release16_post_short_training_reward_checkpoint_contract_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "max_drawdown_gap_to_target_pp": 6.832912018376199,
+  "max_relative_gap_to_target_pp": 294.72889421266575,
+  "min_wf_relative_return_pp": -264.72889421266575,
+  "next_action": "rebuild_fold_local_joint_target_with_holdout_slice_gate_then_reward_checkpoint_screen",
+  "next_mechanism": "rebuild_fold_local_joint_target_with_holdout_slice_gate_then_reward_checkpoint_screen",
+  "next_training_allowed_after_target_revision": false,
+  "ppo_allowed_next": false,
+  "primary_blocker": "bc_candidate_or_slice_gate_failed",
+  "promotion_allowed": false,
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "required_objective_terms": [
+    "checkpoint_objective_loss",
+    "drawdown_drift_penalty",
+    "trend_preservation_floor"
+  ],
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "role": "diagnose",
+  "selected_by_fold": {
+    "wf_2020": {
+      "failure_type": "joint_tradeoff",
+      "max_dd_gap_to_target_pp": 0.9186290631220224,
+      "relative_gap_to_target_pp": 294.72889421266575,
+      "selected_avg_pos": 0.3912137287979325,
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_daily_path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2020__bc_initialization_daily_path.csv",
+      "selected_max_dd": 20.918629063122022,
+      "selected_relative_return": -264.72889421266575,
+      "selected_trade_count": 0
+    },
+    "wf_2022": {
+      "failure_type": "drawdown_control",
+      "max_dd_gap_to_target_pp": 6.832912018376199,
+      "relative_gap_to_target_pp": 0.0,
+      "selected_avg_pos": 0.1625694422031703,
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_daily_path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2022__bc_initialization_daily_path.csv",
+      "selected_max_dd": 26.8329120183762,
+      "selected_relative_return": 55.748205716257715,
+      "selected_trade_count": 0
+    },
+    "wf_2023_2024": {
+      "failure_type": "drawdown_control",
+      "max_dd_gap_to_target_pp": 2.9240031166293186,
+      "relative_gap_to_target_pp": 0.0,
+      "selected_avg_pos": 0.1859293193717277,
+      "selected_candidate": "bc_initialization",
+      "selected_candidate_gate": false,
+      "selected_daily_path": "runtime/model_selection/card/release16_drawdown_drift_short_training_screen_v1/selected_daily_paths/wf_2023_2024__bc_initialization_daily_path.csv",
+      "selected_max_dd": 22.92400311662932,
+      "selected_relative_return": 32.13365273834743,
+      "selected_trade_count": 0
+    }
+  },
+  "selected_candidate": "bc_initialization",
+  "selected_failure_mix": "drawdown_control:2,joint_tradeoff:1",
+  "selected_gate_gap_loss": 401.48433619394115,
+  "selected_holdout_gate_by_fold": {
+    "wf_2020": false,
+    "wf_2022": false,
+    "wf_2023_2024": false
+  },
+  "selected_max_max_dd": 26.8329120183762,
+  "selected_min_relative_return": -264.72889421266575,
+  "selected_reward_checkpoint_loss": 401.48433619394115,
+  "sidecars": [
+    "gate_gaps.csv",
+    "reward_checkpoint_scores.csv",
+    "bc_holdout_slice_readout.csv",
+    "reward_checkpoint_review.md",
+    "training_contract.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_experiment": "release16_constrained_checkpoint_repair_screen_v1",
+  "source_short_training_experiment": "release16_drawdown_drift_short_training_screen_v1",
+  "target_contract_gate": true,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_next": false,
+  "worst_wf_max_drawdown_pct": 26.8329120183762
+}
