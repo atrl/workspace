@@ -1,0 +1,10 @@
+fold,slice,samples,accuracy,slice_gate,failure_reason,accuracy_gap_to_0_60,sample_gate_observed
+wf_2020,drawdown_control_state,158,0.6265822784810127,True,pass,0.0,True
+wf_2020,is_downtrend_state,157,0.6305732484076433,True,pass,0.0,True
+wf_2020,release_gate_state,13,0.4615384615384615,False,accuracy_below_0.60,0.13846153846153847,True
+wf_2022,drawdown_control_state,6,0.3333333333333333,False,accuracy_below_0.60,0.26666666666666666,True
+wf_2022,is_downtrend_state,24,0.5416666666666666,False,accuracy_below_0.60,0.05833333333333335,True
+wf_2022,release_gate_state,3,0.0,False,accuracy_below_0.60,0.6,True
+wf_2023_2024,drawdown_control_state,7,0.2857142857142857,False,accuracy_below_0.60,0.3142857142857143,True
+wf_2023_2024,is_downtrend_state,98,0.5102040816326531,False,accuracy_below_0.60,0.0897959183673469,True
+wf_2023_2024,release_gate_state,3,0.3333333333333333,False,accuracy_below_0.60,0.26666666666666666,True

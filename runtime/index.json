@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T09:55:47.052163+00:00",
+  "generated_at": "2026-06-15T10:16:36.604032+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6239,19 +6239,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 594
+      "bytes": 582
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 74262
+      "bytes": 74861
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 182576
+      "bytes": 183779
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
@@ -9846,6 +9846,66 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1013
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 368
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 862
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/holdout_slice_gate.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 924
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/source_replay_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 869
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4549
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/target_contract_gate.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1070
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/target_holdout_alignment.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1200
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 684
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 532
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_target_holdout_slice_repair_v1/training_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1339
     },
     {
       "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/bc_action_distribution.csv",

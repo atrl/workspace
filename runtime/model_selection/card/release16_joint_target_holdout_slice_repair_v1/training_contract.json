@@ -1,0 +1,33 @@
+{
+  "actor_retention_allowed": false,
+  "blocked_reason": "fold_local_target_ready_but_holdout_slice_gate_failed",
+  "canonical_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "created_at": "2026-06-15T10:15:17.451991+00:00",
+  "direct_comparison_baseline": "release16_post_short_training_reward_checkpoint_contract_v1",
+  "experiment": "release16_joint_target_holdout_slice_repair_v1",
+  "holdout_slice_gate": false,
+  "next_mechanism": "repair_state_conditioned_action_head_or_aux_state_loss_before_reward_checkpoint_screen",
+  "ppo_allowed_next": false,
+  "required_objective_terms": [
+    "checkpoint_objective_loss",
+    "drawdown_drift_penalty",
+    "trend_preservation_floor"
+  ],
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "role": "diagnose",
+  "source_holdout_replay_experiment": "release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1",
+  "source_post_short_experiment": "release16_post_short_training_reward_checkpoint_contract_v1",
+  "source_target_experiment": "release16_joint_drawdown_release_target_contract_v1",
+  "target_contract_gate": false,
+  "target_lift_gate": true,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "target_scope_gate": true,
+  "target_side_gate": true,
+  "train_bc_readiness_gate": true,
+  "training_allowed_next": false
+}
