@@ -2,6 +2,7 @@ import { computeVisibleComparison, formatProfileLabel } from './domain';
 import type { ActionMismatchRow, ComparisonPayload, InspectorRow, Manifest, ModelPayload } from './types';
 
 const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
+const MATERIAL_POSITION_DELTA = 0.05;
 
 function element<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -21,6 +22,10 @@ function formatPct(value: number | null | undefined): string {
 function formatSigned(value: number, digits: number): string {
   const sign = value > 0 ? '+' : '';
   return `${sign}${value.toFixed(digits)}`;
+}
+
+function isMaterialPositionDifference(value: number | undefined): boolean {
+  return typeof value === 'number' && Number.isFinite(value) && Math.abs(value) >= MATERIAL_POSITION_DELTA;
 }
 
 function readableProfile(profile: string): string {
@@ -174,7 +179,9 @@ function mismatchFeatureLabel(row: ActionMismatchRow): string {
     .slice(0, 3)
     .map(([key, value]) => `${key} ${formatFeatureValue(value)}`)
     .join(' | ');
-  const prefix = `Last diff ${row.date} ${row.model_action} vs ${row.baseline_action}`;
+  const prefix =
+    `Last diff ${row.date} ${row.model_action} vs ${row.baseline_action}` +
+    ` | Δpos ${formatSigned(row.position_delta_vs_baseline, 3)}`;
   return features ? `${prefix} | ${features}` : prefix;
 }
 
@@ -494,7 +501,10 @@ export function renderModelDeltaStrip(
     const values = last.profiles[profile];
     if (!values) continue;
     const profileRows = visible.filter((row) => row.profiles[profile]);
-    const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const actionMismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const positionDiffCount = profileRows.filter((row) =>
+      isMaterialPositionDifference(row.profiles[profile].position_delta_vs_baseline),
+    ).length;
     const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
     const ranking = rankingByProfile.get(profile);
     const freshness = freshnessLabel(replayEnd, last.date, manifest);
@@ -525,7 +535,9 @@ export function renderModelDeltaStrip(
     metrics.appendChild(element('span', undefined, ranking ? `AvgPos ${ranking.avg_position.toFixed(3)}` : 'AvgPos n/a'));
     metrics.appendChild(element('span', undefined, `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`));
     metrics.appendChild(element('span', undefined, `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`));
-    metrics.appendChild(element('span', undefined, `Mismatch ${mismatchCount}`));
+    if (actionMismatchCount > 0) metrics.appendChild(element('span', undefined, `ActionDiff ${actionMismatchCount}`));
+    if (positionDiffCount > 0) metrics.appendChild(element('span', undefined, `PosDiff ${positionDiffCount}`));
+    if (actionMismatchCount === 0 && positionDiffCount === 0) metrics.appendChild(element('span', undefined, 'Aligned'));
     card.appendChild(metrics);
     if (latestMismatch) {
       const feature = element('span', 'model-difference-card-feature', mismatchFeatureLabel(latestMismatch));
@@ -541,7 +553,7 @@ export function renderModelDeltaStrip(
   const table = element('table', 'model-diff-table');
   const thead = element('thead');
   const header = element('tr');
-  for (const label of ['Model', 'Replay', 'Latest signal', 'Ret', 'MaxDD', 'AvgPos', 'ΔNAV', 'ΔPos', 'Mismatch', 'Action', 'Last feature diff']) {
+  for (const label of ['Model', 'Replay', 'Latest signal', 'Ret', 'MaxDD', 'AvgPos', 'ΔNAV', 'ΔPos', 'ActionDiff', 'PosDiff', 'Action', 'Last feature diff']) {
     header.appendChild(element('th', undefined, label));
   }
   thead.appendChild(header);
@@ -551,7 +563,10 @@ export function renderModelDeltaStrip(
     const values = last.profiles[profile];
     if (!values) continue;
     const profileRows = visible.filter((row) => row.profiles[profile]);
-    const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const actionMismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const positionDiffCount = profileRows.filter((row) =>
+      isMaterialPositionDifference(row.profiles[profile].position_delta_vs_baseline),
+    ).length;
     const rebasedNav = values.strategy_nav_rebased ?? values.strategy_nav;
     const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
     const ranking = rankingByProfile.get(profile);
@@ -588,7 +603,8 @@ export function renderModelDeltaStrip(
     row.appendChild(element('td', undefined, ranking ? ranking.avg_position.toFixed(3) : 'n/a'));
     row.appendChild(element('td', undefined, formatSigned(values.nav_delta_vs_baseline, 2)));
     row.appendChild(element('td', undefined, formatSigned(values.position_delta_vs_baseline, 3)));
-    row.appendChild(element('td', undefined, String(mismatchCount)));
+    row.appendChild(element('td', undefined, String(actionMismatchCount)));
+    row.appendChild(element('td', undefined, String(positionDiffCount)));
     row.appendChild(element('td', undefined, values.action));
     const latestMismatch = latestMismatchForProfile(mismatchRows, profile);
     const feature = element('td', 'model-difference-feature');
@@ -668,7 +684,10 @@ export function renderComparisonPanel(
   const cards = element('div', 'comparison-cards');
   for (const profile of comparison.compared_profiles) {
     const profileRows = visible.filter((row) => row.profiles[profile]);
-    const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const actionMismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const positionDiffCount = profileRows.filter((row) =>
+      isMaterialPositionDifference(row.profiles[profile].position_delta_vs_baseline),
+    ).length;
     const values = last?.profiles[profile];
     const card = element('article', 'comparison-card');
     card.appendChild(element('div', 'comparison-card-title', formatProfileLabel(profile)));
@@ -676,17 +695,19 @@ export function renderComparisonPanel(
     card.appendChild(element('strong', undefined, values ? values.nav_delta_vs_baseline.toFixed(2) : 'n/a'));
     card.appendChild(element('span', 'metric-label', 'Position delta'));
     card.appendChild(element('strong', undefined, values ? values.position_delta_vs_baseline.toFixed(3) : 'n/a'));
-    card.appendChild(element('span', 'metric-label', 'Mismatch Days'));
-    card.appendChild(element('strong', undefined, String(mismatchCount)));
+    card.appendChild(element('span', 'metric-label', 'ActionDiff Days'));
+    card.appendChild(element('strong', undefined, String(actionMismatchCount)));
+    card.appendChild(element('span', 'metric-label', 'PosDiff Days'));
+    card.appendChild(element('strong', undefined, String(positionDiffCount)));
     cards.appendChild(card);
   }
   container.appendChild(cards);
 
   const mismatchSection = element('details', 'mismatch-section comparison-diagnostics') as HTMLDetailsElement;
-  mismatchSection.appendChild(element('summary', undefined, `Action mismatches (${mismatchRows.length})`));
+  mismatchSection.appendChild(element('summary', undefined, `Action/position differences (${mismatchRows.length})`));
   const visibleMismatchRows = mismatchRows.slice(-12);
   if (visibleMismatchRows.length === 0) {
-    mismatchSection.appendChild(element('p', 'empty-note', 'No visible buy/sell action differences.'));
+    mismatchSection.appendChild(element('p', 'empty-note', 'No visible buy/sell or material position differences.'));
   } else {
     if (mismatchRows.length > visibleMismatchRows.length) {
       mismatchSection.appendChild(

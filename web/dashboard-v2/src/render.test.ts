@@ -324,7 +324,8 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('smoke');
     expect(panel.textContent).toContain('balanced_rule_residual_v22');
     expect(panel.textContent).toContain('Rebased NAV delta');
-    expect(panel.textContent).toContain('Mismatch Days');
+    expect(panel.textContent).toContain('ActionDiff Days');
+    expect(panel.textContent).toContain('PosDiff Days');
     expect(panel.textContent).toContain('1');
   });
 
@@ -598,8 +599,41 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(card?.textContent).toContain('AvgPos 0.510');
     expect(card?.textContent).toContain('ΔNAV +2.00');
     expect(card?.textContent).toContain('ΔPos +0.200');
-    expect(card?.textContent).toContain('Mismatch 2');
+    expect(card?.textContent).toContain('ActionDiff 2');
+    expect(card?.textContent).toContain('PosDiff 2');
     expect(card?.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
+  });
+
+  test('renders material position-difference counts when action labels are identical', () => {
+    const panel = document.createElement('div');
+    const sameActionComparison = {
+      ...comparisonFixture,
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        action_mismatch_count: 0,
+        profiles: {
+          smoke: { ...row.profiles.smoke, action: 'HOLD' as const, action_mismatch: false },
+          balanced_rule_residual_v22: {
+            ...row.profiles.balanced_rule_residual_v22,
+            action: 'HOLD' as const,
+            action_mismatch: false,
+          },
+        },
+      })),
+    };
+
+    renderModelDeltaStrip(
+      panel,
+      sameActionComparison,
+      '2026-01-02',
+      '2026-01-06',
+      ['smoke', 'balanced_rule_residual_v22'],
+      manifestFixture,
+    );
+
+    const card = panel.querySelector('[data-profile="smoke"]');
+    expect(card?.textContent).toContain('PosDiff 2');
+    expect(card?.textContent).not.toContain('Mismatch 0');
   });
 
   test('renders a latest decision matrix for baseline versus actor signals', () => {
@@ -884,11 +918,12 @@ describe('dashboard v2 DOM render helpers', () => {
       (date) => clicked.push(date),
     );
 
-    expect(panel.textContent).toContain('Mismatch Days');
+    expect(panel.textContent).toContain('ActionDiff Days');
+    expect(panel.textContent).toContain('PosDiff Days');
     const diagnostics = panel.querySelector<HTMLDetailsElement>('details.comparison-diagnostics');
     expect(diagnostics).not.toBeNull();
     expect(diagnostics?.open).toBe(false);
-    expect(diagnostics?.querySelector('summary')?.textContent).toContain('Action mismatches');
+    expect(diagnostics?.querySelector('summary')?.textContent).toContain('Action/position differences');
     expect(panel.textContent).toContain('BUY vs HOLD');
     expect(panel.textContent).toContain('rsi6 60');
     panel.querySelector<HTMLButtonElement>('.mismatch-date-button')?.click();

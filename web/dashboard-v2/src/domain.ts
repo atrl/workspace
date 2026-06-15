@@ -13,6 +13,7 @@ import type {
 } from './types';
 
 const DIFF_MARKER_COLOR = '#22c7a9';
+const MATERIAL_POSITION_DELTA = 0.05;
 
 export function formatProfileLabel(profile: string): string {
   if (profile === 'soxl_backtest_policy_reimplementation_v1') return 'SOXLBacktest';
@@ -208,12 +209,16 @@ function markerPositionForAction(action: string): ActionMarker['position'] {
   return action === 'BUY' ? 'belowBar' : 'aboveBar';
 }
 
+function isMaterialPositionDifference(positionDelta: number | undefined): boolean {
+  return typeof positionDelta === 'number' && Number.isFinite(positionDelta) && Math.abs(positionDelta) >= MATERIAL_POSITION_DELTA;
+}
+
 export function buildModelDifferenceMarkers(
   comparison: ComparisonPayload,
   profiles: readonly string[],
   start: string,
   end: string,
-  limit = 80,
+  limit = 36,
 ): ActionMarker[] {
   const selectedProfiles = profiles.filter(
     (profile, index) =>
@@ -229,19 +234,40 @@ export function buildModelDifferenceMarkers(
       count: number;
     }
   >();
+  const previousByProfile = new Map<string, { active: boolean; action: string; delta: number }>();
   for (const row of comparison.rows) {
     if (row.date < start || row.date > end) continue;
     const baseline = row.profiles[comparison.baseline_profile];
     if (!baseline) continue;
     for (const profile of selectedProfiles) {
       const value = row.profiles[profile];
-      if (!value?.action_mismatch) continue;
-      const key = `${row.date}:${value.action}`;
+      if (!value) continue;
+      const delta = Number(value.position_delta_vs_baseline);
+      const active = Boolean(value.action_mismatch || isMaterialPositionDifference(delta));
+      if (!active) {
+        previousByProfile.set(profile, { active: false, action: value.action, delta });
+        continue;
+      }
+      const markerAction = value.action_mismatch
+        ? value.action
+        : delta >= 0
+          ? 'BUY'
+          : 'SELL';
+      const previous = previousByProfile.get(profile);
+      const materialDeltaShift = !previous || Math.abs(delta - previous.delta) >= 0.15;
+      const shouldMark =
+        value.action_mismatch ||
+        !previous?.active ||
+        previous.action !== markerAction ||
+        materialDeltaShift;
+      previousByProfile.set(profile, { active: true, action: markerAction, delta });
+      if (!shouldMark) continue;
+      const key = `${row.date}:${markerAction}`;
       const current = grouped.get(key);
       if (current) {
         current.count += 1;
       } else {
-        grouped.set(key, { time: row.date, action: value.action, count: 1 });
+        grouped.set(key, { time: row.date, action: markerAction, count: 1 });
       }
     }
   }
@@ -256,7 +282,7 @@ export function buildModelDifferenceMarkers(
       position: markerPositionForAction(marker.action),
       color: DIFF_MARKER_COLOR,
       shape: 'circle' as const,
-      text: marker.count > 1 ? `D${marker.count}` : 'D',
+      text: '',
     }))
     .slice(-limit);
 }
@@ -294,7 +320,7 @@ export function computeActionMismatchRows(
     for (const profile of comparison.compared_profiles) {
       if (profile === comparison.baseline_profile) continue;
       const value = row.profiles[profile];
-      if (!value?.action_mismatch) continue;
+      if (!value?.action_mismatch && !isMaterialPositionDifference(value?.position_delta_vs_baseline)) continue;
       rows.push({
         date: row.date,
         profile,

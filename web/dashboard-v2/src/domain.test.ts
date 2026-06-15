@@ -187,15 +187,96 @@ describe('dashboard v2 domain helpers', () => {
         position: 'belowBar',
         color: '#22c7a9',
         shape: 'circle',
-        text: 'D',
+        text: '',
       },
       {
         time: '2026-01-06',
         position: 'aboveBar',
         color: '#22c7a9',
         shape: 'circle',
-        text: 'D',
+        text: '',
       },
+    ]);
+  });
+
+  test('builds model-difference markers for material position divergence even when actions match', () => {
+    const sameActionComparison = {
+      ...comparisonFixture,
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        action_mismatch_count: 0,
+        profiles: {
+          smoke: { ...row.profiles.smoke, action: 'HOLD' as const, action_mismatch: false },
+          balanced_rule_residual_v22: {
+            ...row.profiles.balanced_rule_residual_v22,
+            action: 'HOLD' as const,
+            action_mismatch: false,
+          },
+        },
+      })),
+    };
+
+    expect(
+      buildModelDifferenceMarkers(sameActionComparison, ['smoke', 'balanced_rule_residual_v22'], '2026-01-02', '2026-01-06'),
+    ).toEqual([
+      {
+        time: '2026-01-05',
+        position: 'belowBar',
+        color: '#22c7a9',
+        shape: 'circle',
+        text: '',
+      },
+      {
+        time: '2026-01-06',
+        position: 'belowBar',
+        color: '#22c7a9',
+        shape: 'circle',
+        text: '',
+      },
+    ]);
+  });
+
+  test('keeps K-line readable by marking only position divergence transitions', () => {
+    const steadyDivergence = {
+      ...comparisonFixture,
+      rows: [
+        ...comparisonFixture.rows,
+        {
+          date: '2026-01-07',
+          action_mismatch_count: 0,
+          profiles: {
+            smoke: {
+              ...comparisonFixture.rows[2].profiles.smoke,
+              action: 'HOLD' as const,
+              action_mismatch: false,
+              position_delta_vs_baseline: 0.2,
+            },
+            balanced_rule_residual_v22: {
+              ...comparisonFixture.rows[2].profiles.balanced_rule_residual_v22,
+              action: 'HOLD' as const,
+              action_mismatch: false,
+            },
+          },
+        },
+      ].map((row) => ({
+        ...row,
+        action_mismatch_count: 0,
+        profiles: {
+          smoke: { ...row.profiles.smoke, action: 'HOLD' as const, action_mismatch: false },
+          balanced_rule_residual_v22: {
+            ...row.profiles.balanced_rule_residual_v22,
+            action: 'HOLD' as const,
+            action_mismatch: false,
+          },
+        },
+      })),
+    };
+
+    expect(
+      buildModelDifferenceMarkers(steadyDivergence, ['smoke', 'balanced_rule_residual_v22'], '2026-01-02', '2026-01-07'),
+    ).toEqual([
+      { time: '2026-01-05', position: 'belowBar', color: '#22c7a9', shape: 'circle', text: '' },
+      { time: '2026-01-06', position: 'belowBar', color: '#22c7a9', shape: 'circle', text: '' },
     ]);
   });
 
@@ -223,16 +304,46 @@ describe('dashboard v2 domain helpers', () => {
         position: 'belowBar',
         color: '#22c7a9',
         shape: 'circle',
-        text: 'D2',
+        text: '',
       },
       {
         time: '2026-01-06',
         position: 'aboveBar',
         color: '#22c7a9',
         shape: 'circle',
-        text: 'D2',
+        text: '',
       },
     ]);
+  });
+
+  test('limits model-difference markers to a compact recent set by default', () => {
+    const rows = Array.from({ length: 50 }, (_, index) => ({
+      date: `2026-02-${String(index + 1).padStart(2, '0')}`,
+      action_mismatch_count: 0,
+      profiles: {
+        smoke: {
+          ...comparisonFixture.rows[0].profiles.smoke,
+          action: 'HOLD' as const,
+          action_mismatch: false,
+          position_delta_vs_baseline: index % 2 === 0 ? 0.2 : 0.5,
+        },
+        balanced_rule_residual_v22: {
+          ...comparisonFixture.rows[0].profiles.balanced_rule_residual_v22,
+          action: 'HOLD' as const,
+          action_mismatch: false,
+        },
+      },
+    }));
+
+    const markers = buildModelDifferenceMarkers(
+      { ...comparisonFixture, rows },
+      ['smoke', 'balanced_rule_residual_v22'],
+      '2026-02-01',
+      '2026-02-50',
+    );
+
+    expect(markers).toHaveLength(36);
+    expect(markers[0].time).toBe('2026-02-15');
   });
 
   test('computes visible comparison deltas against baseline', () => {
@@ -268,6 +379,31 @@ describe('dashboard v2 domain helpers', () => {
         close: 10.8,
         features: { rsi6: '58', vix: '18.5' },
       },
+    ]);
+  });
+
+  test('computes model-difference rows for material position divergence with same action labels', () => {
+    const sameActionComparison = {
+      ...comparisonFixture,
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        action_mismatch_count: 0,
+        profiles: {
+          smoke: { ...row.profiles.smoke, action: 'HOLD' as const, action_mismatch: false },
+          balanced_rule_residual_v22: {
+            ...row.profiles.balanced_rule_residual_v22,
+            action: 'HOLD' as const,
+            action_mismatch: false,
+          },
+        },
+      })),
+    };
+
+    const rows = computeActionMismatchRows(sameActionComparison, marketFixture, '2026-01-02', '2026-01-06');
+
+    expect(rows.map((row) => `${row.date}:${row.profile}:${row.position_delta_vs_baseline}`)).toEqual([
+      '2026-01-05:smoke:0.7',
+      '2026-01-06:smoke:0.2',
     ]);
   });
 

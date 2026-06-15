@@ -244,6 +244,9 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
 
     assert manifest["safe_backtest_end"] == "2026-01-06"
     assert manifest["default_baseline_profile"] == "smoke"
+    assert manifest["baseline_profile"] == "smoke"
+    assert manifest["models"] == ["smoke"]
+    assert manifest["comparison_profiles"] == ["smoke"]
     assert manifest["profile_summaries"]["smoke"]["status"] == "canonical"
     assert manifest["profile_summaries"]["smoke"]["replay_end"] == "2026-01-06"
     assert manifest["profile_summaries"]["smoke"]["row_count"] == 3

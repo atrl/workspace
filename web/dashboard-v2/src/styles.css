@@ -190,13 +190,16 @@ h3 {
 }
 
 .model-delta-strip {
-  order: 3;
+  order: 0;
   display: block;
   min-width: 0;
+  max-height: 260px;
   padding: 5px 12px 6px;
   border-bottom: 1px solid var(--line-soft);
   border-top: 1px solid var(--line-soft);
   background: #121417;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .model-delta-summary {
@@ -519,13 +522,13 @@ h3 {
 .chart-main {
   order: 1;
   flex: 0 0 auto;
-  height: clamp(310px, 36vh, 500px);
-  min-height: 310px;
+  height: clamp(360px, 39vh, 540px);
+  min-height: 360px;
 }
 
 .chart-small {
-  height: 118px;
-  min-height: 118px;
+  height: 130px;
+  min-height: 130px;
 }
 
 .lower-charts {

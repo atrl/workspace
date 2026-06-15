@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-15T22:53:30.541471+00:00",
+  "generated_at": "2026-06-15T23:19:27.178673+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -12833,7 +12833,19 @@
       "path": "runtime/production/card/dashboard_v2_kline_model_diff_latest_v1/summary.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 2104
+      "bytes": 2732
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_kline_model_diff_latest_v1/visual_check.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 221
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_kline_model_diff_latest_v1/visual_readout.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 6576
     },
     {
       "path": "runtime/production/card/dashboard_v2_kline_model_diff_v2/visual_check_summary.json",

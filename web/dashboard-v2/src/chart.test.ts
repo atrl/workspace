@@ -149,8 +149,8 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toEqual([
       { time: '2026-01-05', position: 'belowBar', color: '#0f766e', shape: 'arrowUp', text: '' },
       { time: '2026-01-06', position: 'aboveBar', color: '#b91c1c', shape: 'arrowDown', text: '' },
-      { time: '2026-01-05', position: 'belowBar', color: '#22c7a9', shape: 'circle', text: 'D' },
-      { time: '2026-01-06', position: 'aboveBar', color: '#22c7a9', shape: 'circle', text: 'D' },
+      { time: '2026-01-05', position: 'belowBar', color: '#22c7a9', shape: 'circle', text: '' },
+      { time: '2026-01-06', position: 'aboveBar', color: '#22c7a9', shape: 'circle', text: '' },
     ]);
   });
 

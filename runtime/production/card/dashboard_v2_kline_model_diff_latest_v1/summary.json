@@ -1,6 +1,6 @@
 {
   "card": "dashboard_v2_kline_model_diff_latest_v1",
-  "generated_at": "2026-06-16T06:31:00+08:00",
+  "generated_at": "2026-06-16T07:18:00+08:00",
   "purpose": "Improve Dashboard V2 first-screen K-line readability while keeping multi-model differences and latest data dates visible.",
   "data_contract": {
     "latest_market_date": "2026-06-15",
@@ -10,33 +10,40 @@
     "actor_replay_end": "2026-06-12",
     "actor_latest_signal_date": "2026-06-15",
     "comparison_profiles": 6,
-    "comparison_rows": 112
+    "comparison_rows": 112,
+    "position_divergence_rows": 103
   },
   "ui_changes": [
-    "Main K-line restores historical model-difference markers as compact grouped D/Dn circles.",
+    "Main K-line marks material model position divergences with compact unlabeled circles instead of dense D/Dn text labels.",
+    "Model-difference markers are capped to a compact recent set so candles remain readable.",
+    "Model-difference strip is placed before the main K-line and shows latest baseline-vs-actor decisions plus ActionDiff/PosDiff counts.",
     "Data status labels distinguish SOXL K-line latest, baseline latest, actor replay, and actor latest signal dates.",
-    "Latest actor-vs-baseline signal matrix remains visible; duplicate latest-signal strip is suppressed when the matrix is shown.",
-    "Historical model-difference table is kept available but defaults collapsed so the K-line and lower panes are visible sooner."
+    "Manifest now exposes lightweight models/comparison_profiles aliases so old consumers do not read the v2 data as zero models.",
+    "Historical model-difference table remains collapsed by default, with buy/sell feature context still available."
   ],
   "visual_evidence": {
-    "final_screenshot": "runtime/production/card/dashboard_v2_kline_model_diff_latest_v1/dashboard_v2_kline_model_diff_latest_final_20260616.png",
+    "final_screenshot": "runtime/production/card/dashboard_v2_kline_model_diff_latest_v1/dashboard_v2_kline_model_diff_1440x1000.png",
+    "visual_readout": "runtime/production/card/dashboard_v2_kline_model_diff_latest_v1/visual_readout.json",
+    "visual_check": "runtime/production/card/dashboard_v2_kline_model_diff_latest_v1/visual_check.json",
     "final_viewport": {
-      "delta_strip_height_px": 149,
-      "market_chart_top_px": 351,
-      "market_chart_height_px": 340,
-      "position_top_px": 722,
-      "viewport_height_px": 765,
+      "delta_strip_height_px": 260,
+      "market_chart_top_px": 462.1875,
+      "market_chart_height_px": 390,
+      "viewport_height_px": 1000,
+      "model_difference_card_count": 5,
+      "latest_decision_card_count": 6,
+      "visible_diff_marker_labels": 0,
       "duplicate_latest_signal_strip": false,
       "historical_diff_open": false
     }
   },
   "verification": [
-    "npm --prefix web/dashboard-v2 test -- --run",
-    "npm --prefix web/dashboard-v2 run build",
-    "PYTHONPATH=. qlib_venv/bin/python scripts/refresh_dashboard_model_replays.py --python qlib_venv/bin/python",
+    "npm test (in web/dashboard-v2)",
+    "npm run build (in web/dashboard-v2)",
     "PYTHONPATH=. qlib_venv/bin/python scripts/build_dashboard_v2_data.py",
-    "PYTHONPATH=. qlib_venv/bin/python scripts/build_backtest_dashboard.py",
-    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py",
-    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py"
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_dashboard_v2_layout.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check"
   ]
 }

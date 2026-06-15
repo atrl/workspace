@@ -7,6 +7,7 @@
     "balanced_rule_residual_v19_reg",
     "balanced_rule_residual_v19"
   ],
+  "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
   "blocked_profiles": {
     "balanced": {
       "code": "missing_final_retention_decision",
@@ -94,6 +95,14 @@
     }
   },
   "canonical_data_date": "2026-06-15",
+  "comparison_profiles": [
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v22",
+    "mode_conditioned_rebound_reward_train_v2",
+    "smoke",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19"
+  ],
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
@@ -114,7 +123,7 @@
     "balanced_rule_residual_v19"
   ],
   "filtered_profile_count": 7,
-  "generated_at": "2026-06-15T22:25:27.107539+00:00",
+  "generated_at": "2026-06-15T23:08:42.582301+00:00",
   "latest_market_date": "2026-06-15",
   "latest_signal": {
     "available_count": 5,
@@ -122,6 +131,14 @@
     "date": "2026-06-15",
     "source": "latest_signal_stateless"
   },
+  "models": [
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v22",
+    "mode_conditioned_rebound_reward_train_v2",
+    "smoke",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19"
+  ],
   "profile_summaries": {
     "balanced_rule_residual_v19": {
       "latest_signal_date": "2026-06-15",

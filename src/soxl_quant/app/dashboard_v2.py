@@ -27,6 +27,7 @@ DIAGNOSTIC_PROFILE_PREFERENCES = (
     "state_conditioned_drawdown_rebound_reward_train_v1",
 )
 MAX_DEFAULT_COMPARISON_PROFILES = 6
+MATERIAL_POSITION_DELTA = 0.05
 MODEL_DATE_FIELDS = ("datetime", "date")
 REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
@@ -733,6 +734,7 @@ def build_comparison_payload(
         running_peaks[baseline_profile] = max(running_peaks[baseline_profile], baseline_nav)
         running_drawdowns[baseline_profile] = baseline_nav / running_peaks[baseline_profile] - 1.0
         action_mismatch_count = 0
+        position_divergence_count = 0
         profile_values: dict[str, dict[str, Any]] = {}
         for profile in profiles:
             row = by_profile[profile][date]
@@ -741,18 +743,29 @@ def build_comparison_payload(
             running_peaks[profile] = max(running_peaks[profile], nav)
             running_drawdowns[profile] = nav / running_peaks[profile] - 1.0
             action_mismatch = row["action"] != baseline_row["action"]
+            position_delta = float(row["position"]) - float(baseline_row["position"])
+            position_divergence = abs(position_delta) >= MATERIAL_POSITION_DELTA
             action_mismatch_count += int(action_mismatch)
+            position_divergence_count += int(position_divergence)
             profile_values[profile] = {
                 "strategy_nav": nav,
                 "strategy_nav_rebased": nav_rebased,
                 "position": row["position"],
                 "action": row["action"],
                 "nav_delta_vs_baseline": nav_rebased - baseline_nav_rebased,
-                "position_delta_vs_baseline": row["position"] - baseline_row["position"],
+                "position_delta_vs_baseline": position_delta,
                 "action_mismatch": action_mismatch,
+                "position_divergence": position_divergence,
                 "drawdown_delta_vs_baseline": running_drawdowns[profile] - running_drawdowns[baseline_profile],
             }
-        rows.append({"date": date, "profiles": profile_values, "action_mismatch_count": action_mismatch_count})
+        rows.append(
+            {
+                "date": date,
+                "profiles": profile_values,
+                "action_mismatch_count": action_mismatch_count,
+                "position_divergence_count": position_divergence_count,
+            }
+        )
     rankings = sorted(
         (
             {"profile": profile, **compute_metrics([by_profile[profile][date] for date in common_dates])}
@@ -915,6 +928,9 @@ def build_dashboard_v2_data(
         },
         "default_baseline_profile": baseline,
         "default_comparison_profiles": defaults,
+        "baseline_profile": baseline,
+        "models": defaults,
+        "comparison_profiles": defaults,
         "profile_summaries": {
             profile_name: {
                 "status": payload.get("status"),

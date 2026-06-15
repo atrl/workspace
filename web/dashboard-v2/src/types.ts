@@ -8,8 +8,11 @@ export interface Manifest {
   canonical_data_date?: string | null;
   safe_backtest_end: string;
   available_profiles: string[];
+  models?: string[];
+  comparison_profiles?: string[];
   deployable_profiles?: string[];
   diagnostic_profiles?: string[];
+  baseline_profile?: string;
   default_baseline_profile: string;
   default_comparison_profiles: string[];
   retention_filter?: {
@@ -164,6 +167,7 @@ export interface ComparisonProfileValue {
   nav_delta_vs_baseline: number;
   position_delta_vs_baseline: number;
   action_mismatch: boolean;
+  position_divergence?: boolean;
   drawdown_delta_vs_baseline?: number;
 }
 
@@ -171,6 +175,7 @@ export interface ComparisonRow {
   date: string;
   profiles: Record<string, ComparisonProfileValue>;
   action_mismatch_count: number;
+  position_divergence_count?: number;
 }
 
 export interface ComparisonRanking {
