@@ -26,6 +26,7 @@ function eventDate(param: MouseEventParams<Time>): string | null {
 export interface ChartHandles {
   chart: IChartApi;
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
+  valueByTime: Map<string, number>;
 }
 
 const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
@@ -61,6 +62,44 @@ export function syncVisibleTimeRanges(charts: readonly IChartApi[]): () => void 
   return () => {
     for (const { chart, handler } of subscriptions) {
       chart.timeScale().unsubscribeVisibleLogicalRangeChange(handler);
+    }
+  };
+}
+
+export function syncCrosshairPositions(handles: readonly ChartHandles[]): () => void {
+  let syncing = false;
+  const subscriptions: { handle: ChartHandles; handler: (param: MouseEventParams<Time>) => void }[] = [];
+  for (const source of handles) {
+    const handler = (param: MouseEventParams<Time>) => {
+      if (syncing) return;
+      syncing = true;
+      try {
+        const date = eventDate(param);
+        if (!date || !param.time) {
+          for (const target of handles) {
+            if (target !== source) target.chart.clearCrosshairPosition();
+          }
+          return;
+        }
+        for (const target of handles) {
+          if (target === source) continue;
+          const value = target.valueByTime.get(date);
+          if (value === undefined) {
+            target.chart.clearCrosshairPosition();
+          } else {
+            target.chart.setCrosshairPosition(value, param.time, target.primarySeries);
+          }
+        }
+      } finally {
+        syncing = false;
+      }
+    };
+    source.chart.subscribeCrosshairMove(handler);
+    subscriptions.push({ handle: source, handler });
+  }
+  return () => {
+    for (const { handle, handler } of subscriptions) {
+      handle.chart.unsubscribeCrosshairMove(handler);
     }
   };
 }
@@ -130,7 +169,11 @@ export function renderMarketChart(
   });
   chart.timeScale().fitContent();
   trackChart(container, chart);
-  return { chart, primarySeries: candleSeries };
+  return {
+    chart,
+    primarySeries: candleSeries,
+    valueByTime: new Map(market.rows.map((row) => [row.date, Number(row.close)])),
+  };
 }
 
 export function renderPositionChart(container: HTMLElement, model: ModelPayload): ChartHandles {
@@ -146,10 +189,14 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   chart.timeScale().fitContent();
   trackChart(container, chart);
-  return { chart, primarySeries: line };
+  return {
+    chart,
+    primarySeries: line,
+    valueByTime: new Map(model.rows.map((row) => [row.date, row.position])),
+  };
 }
 
-export function renderNavChart(container: HTMLElement, models: Record<string, ModelPayload>): IChartApi {
+export function renderNavChart(container: HTMLElement, models: Record<string, ModelPayload>): ChartHandles {
   replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
@@ -159,11 +206,24 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
     timeScale: { borderColor: '#374151' },
   });
   const colors = ['#38bdf8', '#a78bfa', '#f59e0b', '#22c55e'];
-  Object.entries(models).forEach(([profile, model], index) => {
+  let primarySeries: ISeriesApi<'Line'> | null = null;
+  let primaryRows: ModelPayload['rows'] | null = null;
+  for (const [index, [profile, model]] of Object.entries(models).entries()) {
     const series = chart.addSeries(LineSeries, { color: colors[index % colors.length], lineWidth: 2, title: profile });
     series.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.strategy_nav })));
-  });
+    if (!primarySeries) {
+      primarySeries = series;
+      primaryRows = model.rows;
+    }
+  }
+  if (!primarySeries || !primaryRows) {
+    throw new Error('nav chart requires at least one model');
+  }
   chart.timeScale().fitContent();
   trackChart(container, chart);
-  return chart;
+  return {
+    chart,
+    primarySeries,
+    valueByTime: new Map(primaryRows.map((row) => [row.date, row.strategy_nav])),
+  };
 }

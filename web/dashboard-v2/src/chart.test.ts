@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { renderMarketChart, syncVisibleTimeRanges } from './chart';
+import { renderMarketChart, syncCrosshairPositions, syncVisibleTimeRanges } from './chart';
 import { marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
@@ -7,8 +7,11 @@ const chartMocks = vi.hoisted(() => {
   const chartRecords: {
     addSeries: ReturnType<typeof vi.fn>;
     remove: ReturnType<typeof vi.fn>;
+    clearCrosshairPosition: ReturnType<typeof vi.fn>;
+    setCrosshairPosition: ReturnType<typeof vi.fn>;
     subscribeClick: ReturnType<typeof vi.fn>;
     subscribeCrosshairMove: ReturnType<typeof vi.fn>;
+    unsubscribeCrosshairMove: ReturnType<typeof vi.fn>;
     timeScaleApi: { fitContent: ReturnType<typeof vi.fn> };
   }[] = [];
   const addSeries = vi.fn((kind: string, options: Record<string, unknown> = {}) => {
@@ -26,8 +29,11 @@ const chartMocks = vi.hoisted(() => {
       const chart = {
         addSeries,
         remove: vi.fn(),
+        clearCrosshairPosition: vi.fn(),
+        setCrosshairPosition: vi.fn(),
         subscribeClick: vi.fn(),
         subscribeCrosshairMove: vi.fn(),
+        unsubscribeCrosshairMove: vi.fn(),
         timeScaleApi: { fitContent: vi.fn() },
       };
       chartRecords.push(chart);
@@ -104,5 +110,41 @@ describe('dashboard v2 chart rendering', () => {
     expect(fakeCharts[0].timeScale().unsubscribeVisibleLogicalRangeChange).toHaveBeenCalledTimes(1);
     expect(fakeCharts[1].timeScale().unsubscribeVisibleLogicalRangeChange).toHaveBeenCalledTimes(1);
     expect(fakeCharts[2].timeScale().unsubscribeVisibleLogicalRangeChange).toHaveBeenCalledTimes(1);
+  });
+
+  test('syncs crosshair position and clears it across chart panes', () => {
+    const subscriptions: ((param: { time?: string }) => void)[] = [];
+    const handles = [
+      { value: 11 },
+      { value: 0.7 },
+      { value: 105 },
+    ].map(({ value }) => {
+      const chart = {
+        setCrosshairPosition: vi.fn(),
+        clearCrosshairPosition: vi.fn(),
+        subscribeCrosshairMove: vi.fn((callback) => subscriptions.push(callback)),
+        unsubscribeCrosshairMove: vi.fn(),
+      };
+      const primarySeries = {};
+      return {
+        chart,
+        primarySeries,
+        valueByTime: new Map([['2026-01-05', value]]),
+      };
+    });
+
+    const cleanup = syncCrosshairPositions(handles as never);
+    subscriptions[0]({ time: '2026-01-05' });
+    subscriptions[1]({});
+    cleanup();
+
+    expect(handles[0].chart.setCrosshairPosition).not.toHaveBeenCalled();
+    expect(handles[1].chart.setCrosshairPosition).toHaveBeenCalledWith(0.7, '2026-01-05', handles[1].primarySeries);
+    expect(handles[2].chart.setCrosshairPosition).toHaveBeenCalledWith(105, '2026-01-05', handles[2].primarySeries);
+    expect(handles[0].chart.clearCrosshairPosition).toHaveBeenCalledTimes(1);
+    expect(handles[2].chart.clearCrosshairPosition).toHaveBeenCalledTimes(1);
+    expect(handles[0].chart.unsubscribeCrosshairMove).toHaveBeenCalledTimes(1);
+    expect(handles[1].chart.unsubscribeCrosshairMove).toHaveBeenCalledTimes(1);
+    expect(handles[2].chart.unsubscribeCrosshairMove).toHaveBeenCalledTimes(1);
   });
 });

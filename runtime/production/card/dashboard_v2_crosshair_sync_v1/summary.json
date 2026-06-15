@@ -1,0 +1,27 @@
+{
+  "created_at": "2026-06-15T20:12:24+08:00",
+  "decision": "dashboard_v2_crosshair_sync_added",
+  "scope": "frontend_ui",
+  "changes": [
+    "Added crosshair synchronization across the market, position, and NAV panes.",
+    "Mapped each pane's primary series values by date so synced crosshairs use pane-local y values.",
+    "Clear synced crosshairs when the source pane leaves a valid date.",
+    "Unsubscribe crosshair handlers during dashboard re-render cleanup."
+  ],
+  "browser_verification": {
+    "tool": "kimi_webbridge",
+    "url": "http://127.0.0.1:5173/",
+    "title": "SOXL Dashboard V2",
+    "chart_container_count": 3,
+    "canvas_count": 24,
+    "mismatch_button_count": 35,
+    "inspector_date": "date2026-06-09"
+  },
+  "screenshots": [
+    "runtime/production/card/dashboard_v2_crosshair_sync_v1/kimi_dashboard_crosshair_sync_20260615.png"
+  ],
+  "verification": [
+    "npm --prefix web/dashboard-v2 test -- --run",
+    "npm --prefix web/dashboard-v2 run build"
+  ]
+}

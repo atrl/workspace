@@ -1,5 +1,11 @@
 import './styles.css';
-import { renderMarketChart, renderNavChart, renderPositionChart, syncVisibleTimeRanges } from './chart';
+import {
+  renderMarketChart,
+  renderNavChart,
+  renderPositionChart,
+  syncCrosshairPositions,
+  syncVisibleTimeRanges,
+} from './chart';
 import {
   clampComparisonProfiles,
   clipRowsByDate,
@@ -205,7 +211,12 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
   const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
   const positionHandles = renderPositionChart(positionChart, primary);
   const navHandles = renderNavChart(navChart, models);
-  disposeChartSync = syncVisibleTimeRanges([marketHandles.chart, positionHandles.chart, navHandles]);
+  const timeCleanup = syncVisibleTimeRanges([marketHandles.chart, positionHandles.chart, navHandles.chart]);
+  const crosshairCleanup = syncCrosshairPositions([marketHandles, positionHandles, navHandles]);
+  disposeChartSync = () => {
+    timeCleanup();
+    crosshairCleanup();
+  };
   renderInspector(data, state);
   renderComparisonPanel(
     comparison,
