@@ -135,6 +135,108 @@ def test_update_master_csv_polygon_provider_uses_cboe_vix():
         assert updated.iloc[-1]["vix"] == 18.0
 
 
+def test_normalize_futu_kline_frame_maps_ohlcv_fields():
+    frame = pd.DataFrame(
+        {
+            "time_key": ["2026-06-15 00:00:00"],
+            "open": [265.91],
+            "high": [272.18],
+            "low": [261.6019],
+            "close": [271.44],
+            "volume": [24_818_910],
+            "turnover": [6_619_473_000.0],
+        }
+    )
+
+    result = update_market_data._normalize_futu_kline_frame(frame)
+
+    assert result.to_dict("records") == [
+        {
+            "date": pd.Timestamp("2026-06-15"),
+            "open": 265.91,
+            "high": 272.18,
+            "low": 261.6019,
+            "close": 271.44,
+            "volume": 24_818_910,
+        }
+    ]
+
+
+def test_update_master_csv_futu_provider_uses_futu_daily_and_cboe_vix():
+    with TemporaryDirectory() as tmp:
+        csv_path = Path(tmp) / "panel.csv"
+        pd.DataFrame(
+            {
+                "date": pd.to_datetime(["2026-06-12"]),
+                "soxl_open": [222.22],
+                "soxl_high": [242.40],
+                "soxl_low": [214.7406],
+                "soxl_close": [234.68],
+                "soxl_volume": [50_419_140],
+                "soxx_open": [584.64],
+                "soxx_high": [602.69],
+                "soxx_low": [578.53],
+                "soxx_close": [596.25],
+                "soxx_volume": [9_947_173],
+                "vix": [17.68],
+            }
+        ).to_csv(csv_path, index=False)
+
+        calls = []
+
+        def fake_fetch_futu_daily(code: str, start: str | None = None):
+            calls.append((code, start))
+            if code == "US.SOXL":
+                return pd.DataFrame(
+                    {
+                        "date": pd.to_datetime(["2026-06-15"]),
+                        "open": [265.91],
+                        "high": [272.18],
+                        "low": [261.6019],
+                        "close": [271.44],
+                        "volume": [24_818_910],
+                    }
+                )
+            return pd.DataFrame(
+                {
+                    "date": pd.to_datetime(["2026-06-15"]),
+                    "open": [623.25],
+                    "high": [627.47],
+                    "low": [618.45],
+                    "close": [626.77],
+                    "volume": [4_381_522],
+                }
+            )
+
+        def fake_fetch_cboe_vix(start: str | None = None):
+            calls.append(("CBOE_VIX", start))
+            return pd.DataFrame({"date": pd.to_datetime(["2026-06-15"]), "vix": [16.95]})
+
+        original_fetch_futu_daily = update_market_data._fetch_futu_daily
+        original_fetch_cboe_vix = update_market_data._fetch_cboe_vix
+        update_market_data._fetch_futu_daily = fake_fetch_futu_daily
+        update_market_data._fetch_cboe_vix = fake_fetch_cboe_vix
+        try:
+            result = update_master_csv(csv_path=csv_path, dry_run=False, provider="futu")
+        finally:
+            update_market_data._fetch_futu_daily = original_fetch_futu_daily
+            update_market_data._fetch_cboe_vix = original_fetch_cboe_vix
+
+        assert result["new_rows"] == 1
+        assert result["last_date"] == "2026-06-15"
+        assert calls == [
+            ("US.SOXL", "2026-06-02"),
+            ("US.SOXX", "2026-06-02"),
+            ("CBOE_VIX", "2026-06-02"),
+        ]
+
+        updated = pd.read_csv(csv_path, parse_dates=["date"])
+        assert updated["date"].dt.strftime("%Y-%m-%d").tolist() == ["2026-06-12", "2026-06-15"]
+        assert updated.iloc[-1]["soxl_close"] == 271.44
+        assert updated.iloc[-1]["soxx_close"] == 626.77
+        assert updated.iloc[-1]["vix"] == 16.95
+
+
 def test_update_master_csv_reports_provider_leg_coverage_when_vix_lags():
     with TemporaryDirectory() as tmp:
         csv_path = Path(tmp) / "panel.csv"

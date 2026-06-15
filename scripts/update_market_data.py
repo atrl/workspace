@@ -4,6 +4,7 @@
 用法:
     python scripts/update_market_data.py [--dry-run] [--force-full]
     python scripts/update_market_data.py --provider polygon
+    python scripts/update_market_data.py --provider futu
     python scripts/update_market_data.py --local-only
 
 环境依赖:
@@ -32,7 +33,7 @@ from src.soxl_quant.settings import CSV_PATH, QLIB_DATA_PATH, RAW_DATA_DIR
 
 RAW_SYMBOL_DIR = RAW_DATA_DIR / "symbols"
 RAW_EXTERNAL_DIR = RAW_DATA_DIR / "external"
-REMOTE_DATA_PROVIDERS = ("yfinance", "yahoo_api", "polygon")
+REMOTE_DATA_PROVIDERS = ("yfinance", "yahoo_api", "polygon", "futu")
 POLYGON_API_KEY_ENV = "POLYGON_API_KEY"
 CBOE_VIX_HISTORY_URL = "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
 DNS_ERROR_SNIPPETS = (
@@ -192,6 +193,65 @@ def _fetch_polygon(ticker: str, start: str | None = None) -> pd.DataFrame:
     return result
 
 
+def _normalize_futu_kline_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    """Normalize Futu daily K-line rows into the updater's OHLCV schema."""
+    if frame.empty:
+        return pd.DataFrame(columns=["date", "open", "high", "low", "close", "volume"])
+    date_col = "time_key" if "time_key" in frame.columns else "date"
+    missing = [column for column in (date_col, "open", "high", "low", "close", "volume") if column not in frame.columns]
+    if missing:
+        raise RuntimeError(f"Futu K-line rows missing columns: {', '.join(missing)}")
+    result = pd.DataFrame(
+        {
+            "date": pd.to_datetime(frame[date_col], errors="coerce").dt.normalize(),
+            "open": pd.to_numeric(frame["open"], errors="coerce"),
+            "high": pd.to_numeric(frame["high"], errors="coerce"),
+            "low": pd.to_numeric(frame["low"], errors="coerce"),
+            "close": pd.to_numeric(frame["close"], errors="coerce"),
+            "volume": pd.to_numeric(frame["volume"], errors="coerce"),
+        }
+    ).dropna(subset=["date", "open", "high", "low", "close", "volume"])
+    result["volume"] = result["volume"].astype(int)
+    return result.sort_values("date").reset_index(drop=True)
+
+
+def _fetch_futu_daily(code: str, start: str | None = None) -> pd.DataFrame:
+    """Fetch adjusted daily K-line data from a local Futu OpenD instance."""
+    try:
+        from futu import AuType, KLType, OpenQuoteContext, RET_OK
+    except Exception as exc:
+        raise RuntimeError("futu-api is not installed; install futu-api or use another provider") from exc
+
+    end = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+    frames: list[pd.DataFrame] = []
+    page_req_key = None
+    ctx = OpenQuoteContext(host="127.0.0.1", port=11111)
+    try:
+        while True:
+            ret, data, page_req_key = ctx.request_history_kline(
+                code,
+                start=start,
+                end=end,
+                ktype=KLType.K_DAY,
+                autype=AuType.QFQ,
+                max_count=1000,
+                page_req_key=page_req_key,
+            )
+            if ret != RET_OK:
+                raise RuntimeError(f"Futu request_history_kline failed for {code}: {data}")
+            frames.append(data)
+            if page_req_key is None:
+                break
+    finally:
+        ctx.close()
+    if not frames:
+        raise RuntimeError(f"No data returned for {code} from Futu")
+    result = _normalize_futu_kline_frame(pd.concat(frames, ignore_index=True))
+    if result.empty:
+        raise RuntimeError(f"No usable OHLCV rows returned for {code} from Futu")
+    return result
+
+
 def _fetch_cboe_vix(start: str | None = None) -> pd.DataFrame:
     """Fetch VIX daily close from CBOE's public historical CSV."""
     try:
@@ -220,6 +280,12 @@ def _fetch_cboe_vix(start: str | None = None) -> pd.DataFrame:
 def _fetch_market_frames(provider: str, start: str | None) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     if provider == "polygon":
         return _fetch_polygon("SOXL", start=start), _fetch_polygon("SOXX", start=start), _fetch_cboe_vix(start=start)
+    if provider == "futu":
+        return (
+            _fetch_futu_daily("US.SOXL", start=start),
+            _fetch_futu_daily("US.SOXX", start=start),
+            _fetch_cboe_vix(start=start),
+        )
 
     fetchers = {
         "yfinance": _fetch_yfinance,

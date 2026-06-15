@@ -1,0 +1,41 @@
+{
+  "created_at": "2026-06-15T16:31:00+00:00",
+  "direction": "production",
+  "experiment": "dashboard_v2_kline_gap_v1",
+  "decision": "keep_dashboard_v2_readability_fix",
+  "scope": [
+    "dashboard_v2_kline_readability",
+    "model_difference_first_view",
+    "market_replay_freshness_visibility",
+    "market_data_futu_provider_fallback"
+  ],
+  "data_status": {
+    "canonical_latest_market_date": "2026-06-12",
+    "actor_safe_backtest_end": "2026-06-11",
+    "soxlbacktest_reference_end": "2026-06-12",
+    "strict_retention_gate": "0/12"
+  },
+  "refresh_findings": [
+    "Yahoo API returned HTTP 429 for VIX during dry-run.",
+    "Futu OpenD returned SOXL and SOXX daily rows through 2026-06-15.",
+    "Futu did not support VIX index daily rows.",
+    "CBOE VIX CSV and Polygon dry-run both ended at 2026-06-12, so the canonical SOXL/SOXX/VIX panel was not advanced beyond 2026-06-12."
+  ],
+  "ui_changes": [
+    "Main chart now emphasizes candlesticks with MA180 instead of a SOXL close line drawn over candles.",
+    "Data Status renders a visible Latest gap row for market, actor, baseline, and safe replay dates.",
+    "The chart title row renders compact model delta pills so NAV delta, position delta, and mismatch counts are visible before opening the comparison details."
+  ],
+  "artifacts": {
+    "screenshot": "runtime/production/card/dashboard_v2_kline_gap_v1/dashboard_v2_first_view.png",
+    "dashboard_manifest": "dashboard_data/v2/manifest.json",
+    "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
+  },
+  "verification": [
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_update_market_data.py tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py -q",
+    "cd web/dashboard-v2 && npm test",
+    "cd web/dashboard-v2 && npm run build",
+    "Google Chrome headless screenshot at 1440x1100"
+  ]
+}

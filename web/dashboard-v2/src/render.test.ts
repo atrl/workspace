@@ -1,5 +1,11 @@
 import { describe, expect, test } from 'vitest';
-import { renderActionLegend, renderComparisonPanel, renderDataSourcePanel, renderInspectorPanel } from './render';
+import {
+  renderActionLegend,
+  renderComparisonPanel,
+  renderDataSourcePanel,
+  renderInspectorPanel,
+  renderModelDeltaStrip,
+} from './render';
 import { comparisonFixture, manifestFixture } from './testFixtures';
 
 describe('dashboard v2 DOM render helpers', () => {
@@ -43,6 +49,38 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.freshness-strip')?.textContent).toContain('2026-01-06');
     expect(panel.querySelector('.freshness-strip')?.textContent).toContain('BRR v22');
     expect(panel.querySelector('.freshness-strip')?.textContent).toContain('2026-01-05');
+  });
+
+  test('renders latest market versus actor and baseline dates as a visible freshness alert', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      latest_market_date: '2026-01-06',
+      safe_backtest_end: '2026-01-05',
+      default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+      default_comparison_profiles: ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22'],
+      profile_summaries: {
+        soxl_backtest_policy_reimplementation_v1: {
+          status: 'reference',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-06',
+          row_count: 3,
+          source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+        },
+        balanced_rule_residual_v22: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-05',
+          row_count: 2,
+          source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
+        },
+      },
+    });
+
+    expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Market 2026-01-06');
+    expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Actors 2026-01-05');
+    expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Baseline 2026-01-06');
   });
 
   test('keeps source warnings inside a collapsed diagnostics block', () => {
@@ -213,6 +251,18 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('Rebased NAV delta');
     expect(panel.textContent).toContain('Mismatch Days');
     expect(panel.textContent).toContain('1');
+  });
+
+  test('renders compact model delta strip outside the collapsed comparison panel', () => {
+    const panel = document.createElement('div');
+
+    renderModelDeltaStrip(panel, comparisonFixture, '2026-01-02', '2026-01-06');
+
+    expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(2);
+    expect(panel.textContent).toContain('smoke');
+    expect(panel.textContent).toContain('NAV +2.00');
+    expect(panel.textContent).toContain('Pos +0.200');
+    expect(panel.textContent).toContain('Mismatch 2');
   });
 
   test('renders clickable action mismatch rows with feature context', () => {

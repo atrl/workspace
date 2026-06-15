@@ -16,9 +16,9 @@ export const manifestFixture: Manifest = {
 export const marketFixture: MarketPayload = {
   symbol: 'SOXL',
   rows: [
-    { date: '2026-01-02', open: 9.5, high: 10.2, low: 9.4, close: 10.0, volume: 1000, vix: 19.0, rsi6: 50.0 },
-    { date: '2026-01-05', open: 10.2, high: 11.5, low: 10.1, close: 11.0, volume: 1200, vix: 18.0, rsi6: 60.0, spread: 0.4 },
-    { date: '2026-01-06', open: 11.0, high: 11.1, low: 10.5, close: 10.8, volume: 1300, vix: 18.5, rsi6: 58.0 },
+    { date: '2026-01-02', open: 9.5, high: 10.2, low: 9.4, close: 10.0, volume: 1000, vix: 19.0, rsi6: 50.0, ma180: 9.8 },
+    { date: '2026-01-05', open: 10.2, high: 11.5, low: 10.1, close: 11.0, volume: 1200, vix: 18.0, rsi6: 60.0, spread: 0.4, ma180: 10.1 },
+    { date: '2026-01-06', open: 11.0, high: 11.1, low: 10.5, close: 10.8, volume: 1300, vix: 18.5, rsi6: 58.0, ma180: 10.3 },
   ],
 };
 

@@ -16,8 +16,18 @@ function formatPct(value: number | null | undefined): string {
   return typeof value === 'number' && Number.isFinite(value) ? `${value.toFixed(2)}%` : 'n/a';
 }
 
+function formatSigned(value: number, digits: number): string {
+  const sign = value > 0 ? '+' : '';
+  return `${sign}${value.toFixed(digits)}`;
+}
+
 function readableProfile(profile: string): string {
   return formatProfileLabel(profile).replaceAll('_', ' ');
+}
+
+function maxDate(values: readonly (string | undefined | null)[]): string | null {
+  const dates = values.filter((value): value is string => Boolean(value)).sort();
+  return dates.at(-1) ?? null;
 }
 
 export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
@@ -79,6 +89,35 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     }
     container.appendChild(freshness);
   }
+  const baselineEnd = profileSummaries[manifest.default_baseline_profile]?.replay_end ?? null;
+  const actorEnd = maxDate(
+    manifest.default_comparison_profiles
+      .filter((profile) => profileSummaries[profile]?.status !== 'reference')
+      .map((profile) => profileSummaries[profile]?.replay_end),
+  );
+  if (
+    (actorEnd && actorEnd < manifest.latest_market_date) ||
+    (baselineEnd && baselineEnd < manifest.latest_market_date) ||
+    manifest.safe_backtest_end < manifest.latest_market_date
+  ) {
+    const alert = element('div', 'freshness-alert');
+    alert.appendChild(element('strong', undefined, 'Latest gap'));
+    alert.appendChild(
+      element(
+        'span',
+        undefined,
+        [
+          `Market ${manifest.latest_market_date}`,
+          actorEnd ? `Actors ${actorEnd}` : null,
+          baselineEnd ? `Baseline ${baselineEnd}` : null,
+          `Safe ${manifest.safe_backtest_end}`,
+        ]
+          .filter(Boolean)
+          .join(' | '),
+      ),
+    );
+    container.appendChild(alert);
+  }
   const gate = manifest.strict_retention_gate;
   const gateWarnings = gate
     ? [
@@ -115,6 +154,36 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     }
     diagnostics.appendChild(warningList);
     container.appendChild(diagnostics);
+  }
+}
+
+export function renderModelDeltaStrip(
+  container: HTMLElement,
+  comparison: ComparisonPayload,
+  start: string,
+  end: string,
+  profiles: readonly string[] = comparison.compared_profiles,
+): void {
+  container.replaceChildren();
+  const visible = computeVisibleComparison(comparison, start, end);
+  const last = visible.at(-1);
+  if (!last) {
+    container.appendChild(element('span', 'empty-note', 'No comparison rows'));
+    return;
+  }
+  const selected = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
+  for (const profile of selected) {
+    const values = last.profiles[profile];
+    if (!values) continue;
+    const profileRows = visible.filter((row) => row.profiles[profile]);
+    const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+    const pill = element('span', 'model-delta-pill');
+    pill.title = profile;
+    pill.appendChild(element('strong', undefined, formatProfileLabel(profile)));
+    pill.appendChild(element('span', undefined, `NAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`));
+    pill.appendChild(element('span', undefined, `Pos ${formatSigned(values.position_delta_vs_baseline, 3)}`));
+    pill.appendChild(element('span', undefined, `Mismatch ${mismatchCount}`));
+    container.appendChild(pill);
   }
 }
 

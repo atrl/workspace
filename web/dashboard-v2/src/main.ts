@@ -22,7 +22,13 @@ import {
   type KeyboardRangeAction,
 } from './domain';
 import { loadDashboardData, type DashboardData } from './data';
-import { renderActionLegend, renderComparisonPanel, renderDataSourcePanel, renderInspectorPanel } from './render';
+import {
+  renderActionLegend,
+  renderComparisonPanel,
+  renderDataSourcePanel,
+  renderInspectorPanel,
+  renderModelDeltaStrip,
+} from './render';
 import type { ModelPayload } from './types';
 import { viewUpdateRequiresChartRender } from './viewState';
 
@@ -57,6 +63,7 @@ function createShell(app: HTMLElement): void {
         <div class="chart-title-row">
           <h1>SOXL</h1>
           <span>K-line replay with model position overlay</span>
+          <div id="model-delta-strip" class="model-delta-strip"></div>
           <div id="action-legend" class="action-legend"></div>
         </div>
         <div id="market-chart" class="chart chart-main"></div>
@@ -218,9 +225,11 @@ function renderReadoutPanels(data: DashboardData, state: ViewState, update: Upda
   const toolbar = requireElement('toolbar');
   const comparison = requireElement('comparison-panel');
   const source = requireElement('source-panel');
+  const deltaStrip = requireElement('model-delta-strip');
 
   renderToolbar(toolbar, data, state, update);
   renderInspector(data, state);
+  renderModelDeltaStrip(deltaStrip, data.comparison, state.start, state.end, state.selectedProfiles);
   renderComparisonPanel(
     comparison,
     data.comparison,

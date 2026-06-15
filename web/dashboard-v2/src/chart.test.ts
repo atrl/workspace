@@ -70,7 +70,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders candles with SOXL close and position overlays on the main chart', () => {
+  test('renders candles with MA and position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -83,8 +83,12 @@ describe('dashboard v2 chart rendering', () => {
     );
 
     expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'line']);
+    expect(chartMocks.seriesRecords[1].options).toMatchObject({
+      title: 'MA180',
+      priceLineVisible: false,
+    });
     expect(chartMocks.seriesRecords[1].data).toEqual(
-      marketFixture.rows.map((row) => ({ time: row.date, value: row.close })),
+      marketFixture.rows.map((row) => ({ time: row.date, value: row.ma180 })),
     );
     expect(chartMocks.seriesRecords[2].options).toMatchObject({
       priceScaleId: 'left',

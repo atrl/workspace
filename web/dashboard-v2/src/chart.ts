@@ -124,7 +124,7 @@ export function renderMarketChart(
     grid: { vertLines: { color: '#23272c' }, horzLines: { color: '#23272c' } },
     leftPriceScale: { visible: false, borderColor: '#30343a' },
     rightPriceScale: { borderColor: '#30343a' },
-    timeScale: { borderColor: '#30343a', timeVisible: false },
+    timeScale: { borderColor: '#30343a', timeVisible: false, barSpacing: 8, minBarSpacing: 3 },
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
@@ -136,7 +136,9 @@ export function renderMarketChart(
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
     downColor: '#d96b5f',
-    borderVisible: false,
+    borderVisible: true,
+    borderUpColor: '#1fb981',
+    borderDownColor: '#d96b5f',
     wickUpColor: '#62d7ad',
     wickDownColor: '#ee958b',
   });
@@ -149,13 +151,17 @@ export function renderMarketChart(
       close: Number(row.close),
     })),
   );
-  const closeLine = chart.addSeries(LineSeries, {
-    color: '#edf0f3',
+  const maLine = chart.addSeries(LineSeries, {
+    color: '#e1aa3e',
     lineWidth: 1,
     priceLineVisible: false,
-    title: 'SOXL Close',
+    title: 'MA180',
   });
-  closeLine.setData(market.rows.map((row) => ({ time: toTime(row.date), value: Number(row.close) })));
+  maLine.setData(
+    market.rows
+      .filter((row) => typeof row.ma180 === 'number' && Number.isFinite(row.ma180))
+      .map((row) => ({ time: toTime(row.date), value: Number(row.ma180) })),
+  );
 
   const primaryIndex = Math.max(0, Object.keys(models).indexOf(model.profile));
   const positionLine = chart.addSeries(LineSeries, {
