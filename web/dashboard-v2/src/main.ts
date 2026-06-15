@@ -1,5 +1,5 @@
 import './styles.css';
-import { renderMarketChart, renderNavChart, renderPositionChart } from './chart';
+import { renderMarketChart, renderNavChart, renderPositionChart, syncVisibleTimeRanges } from './chart';
 import {
   clampComparisonProfiles,
   clipRowsByDate,
@@ -85,6 +85,8 @@ function visibleContext(data: DashboardData, state: ViewState) {
   const primary = models[state.baselineProfile] ?? Object.values(models)[0];
   return { models, market, primary };
 }
+
+let disposeChartSync: (() => void) | null = null;
 
 function renderToolbar(
   container: HTMLElement,
@@ -196,11 +198,14 @@ function renderDashboard(data: DashboardData, state: ViewState, update: (next: P
   const actionLegend = requireElement('action-legend');
   const { models, market, primary } = visibleContext(data, state);
 
+  disposeChartSync?.();
+  disposeChartSync = null;
   renderToolbar(toolbar, data, state, update);
   renderActionLegend(actionLegend);
-  renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
-  renderPositionChart(positionChart, primary);
-  renderNavChart(navChart, models);
+  const marketHandles = renderMarketChart(marketChart, market, primary, (date) => update({ hoveredDate: date }));
+  const positionHandles = renderPositionChart(positionChart, primary);
+  const navHandles = renderNavChart(navChart, models);
+  disposeChartSync = syncVisibleTimeRanges([marketHandles.chart, positionHandles.chart, navHandles]);
   renderInspector(data, state);
   renderComparisonPanel(
     comparison,

@@ -5,6 +5,7 @@ import {
   createSeriesMarkers,
   type IChartApi,
   type ISeriesApi,
+  type LogicalRange,
   type MouseEventParams,
   type Time,
 } from 'lightweight-charts';
@@ -27,13 +28,50 @@ export interface ChartHandles {
   primarySeries: ISeriesApi<'Candlestick'> | ISeriesApi<'Line'>;
 }
 
+const chartByContainer = new WeakMap<HTMLElement, IChartApi>();
+
+function replaceChart(container: HTMLElement): void {
+  chartByContainer.get(container)?.remove();
+  chartByContainer.delete(container);
+  container.replaceChildren();
+}
+
+function trackChart(container: HTMLElement, chart: IChartApi): void {
+  chartByContainer.set(container, chart);
+}
+
+export function syncVisibleTimeRanges(charts: readonly IChartApi[]): () => void {
+  let syncing = false;
+  const subscriptions: { chart: IChartApi; handler: (range: LogicalRange | null) => void }[] = [];
+  for (const source of charts) {
+    const handler = (range: LogicalRange | null) => {
+      if (syncing || !range) return;
+      syncing = true;
+      try {
+        for (const target of charts) {
+          if (target !== source) target.timeScale().setVisibleLogicalRange(range);
+        }
+      } finally {
+        syncing = false;
+      }
+    };
+    source.timeScale().subscribeVisibleLogicalRangeChange(handler);
+    subscriptions.push({ chart: source, handler });
+  }
+  return () => {
+    for (const { chart, handler } of subscriptions) {
+      chart.timeScale().unsubscribeVisibleLogicalRangeChange(handler);
+    }
+  };
+}
+
 export function renderMarketChart(
   container: HTMLElement,
   market: MarketPayload,
   model: ModelPayload,
   onDate: (date: string) => void,
 ): ChartHandles {
-  container.replaceChildren();
+  replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
     layout: { background: { color: '#111827' }, textColor: '#d1d5db' },
@@ -91,11 +129,12 @@ export function renderMarketChart(
     if (date) onDate(date);
   });
   chart.timeScale().fitContent();
+  trackChart(container, chart);
   return { chart, primarySeries: candleSeries };
 }
 
 export function renderPositionChart(container: HTMLElement, model: ModelPayload): ChartHandles {
-  container.replaceChildren();
+  replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
@@ -106,11 +145,12 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   const line = chart.addSeries(LineSeries, { color: '#38bdf8', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
   chart.timeScale().fitContent();
+  trackChart(container, chart);
   return { chart, primarySeries: line };
 }
 
 export function renderNavChart(container: HTMLElement, models: Record<string, ModelPayload>): IChartApi {
-  container.replaceChildren();
+  replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
     layout: { background: { color: '#0b1220' }, textColor: '#d1d5db' },
@@ -124,5 +164,6 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
     series.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.strategy_nav })));
   });
   chart.timeScale().fitContent();
+  trackChart(container, chart);
   return chart;
 }
