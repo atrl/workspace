@@ -1,0 +1,42 @@
+{
+  "actor_retention_allowed": false,
+  "decision": "strict_candidate_retention_filter_no_promotable_candidates",
+  "experiment": "strict_candidate_retention_filter_v1",
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "sidecars": {
+    "candidate_retention_filter_csv": "runtime/model_selection/card/strict_candidate_retention_filter_v1/candidate_retention_filter.csv",
+    "markdown": "runtime/model_selection/card/strict_candidate_retention_filter_v1/strict_candidate_retention_filter.md",
+    "selection_json": "runtime/model_selection/card/strict_candidate_retention_filter_v1/selection.json",
+    "source_manifest_csv": "runtime/model_selection/card/strict_candidate_retention_filter_v1/source_manifest.csv",
+    "summary_json": "runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json"
+  },
+  "source_paths": [
+    {
+      "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json",
+      "role": "strict gate payload and current retention rows",
+      "source_label": "strict_walkforward_gate"
+    },
+    {
+      "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/summary.json",
+      "role": "SOXLBacktest converted-to-Qlib reference screen",
+      "source_label": "soxlbacktest_qlib_screen"
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/selection.json",
+      "role": "three-fold checkpoint selector decision",
+      "source_label": "checkpoint_selector"
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_selection_by_fold.csv",
+      "role": "per-fold selected checkpoint gates",
+      "source_label": "checkpoint_selection_by_fold"
+    },
+    {
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_candidate_metrics.csv",
+      "role": "BC/PPO candidate drift and relative-return metrics",
+      "source_label": "checkpoint_candidate_metrics"
+    }
+  ]
+}

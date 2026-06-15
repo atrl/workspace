@@ -1,0 +1,67 @@
+{
+  "candidate_type_counts": {
+    "checkpoint_selector": 1,
+    "profile": 12,
+    "qlib_reference_screen": 1,
+    "reference_baseline": 1
+  },
+  "experiment": "strict_candidate_retention_filter_v1",
+  "row_count": 15,
+  "sidecars": {
+    "candidate_retention_filter_csv": "runtime/model_selection/card/strict_candidate_retention_filter_v1/candidate_retention_filter.csv",
+    "markdown": "runtime/model_selection/card/strict_candidate_retention_filter_v1/strict_candidate_retention_filter.md",
+    "selection_json": "runtime/model_selection/card/strict_candidate_retention_filter_v1/selection.json",
+    "source_manifest_csv": "runtime/model_selection/card/strict_candidate_retention_filter_v1/source_manifest.csv",
+    "summary_json": "runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json"
+  },
+  "source_manifest": [
+    {
+      "exists": true,
+      "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json",
+      "role": "strict gate payload and current retention rows",
+      "source_label": "strict_walkforward_gate"
+    },
+    {
+      "exists": true,
+      "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/summary.json",
+      "role": "SOXLBacktest converted-to-Qlib reference screen",
+      "source_label": "soxlbacktest_qlib_screen"
+    },
+    {
+      "exists": true,
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/selection.json",
+      "role": "three-fold checkpoint selector decision",
+      "source_label": "checkpoint_selector"
+    },
+    {
+      "exists": true,
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_selection_by_fold.csv",
+      "role": "per-fold selected checkpoint gates",
+      "source_label": "checkpoint_selection_by_fold"
+    },
+    {
+      "exists": true,
+      "path": "runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_candidate_metrics.csv",
+      "role": "BC/PPO candidate drift and relative-return metrics",
+      "source_label": "checkpoint_candidate_metrics"
+    }
+  ],
+  "summary": {
+    "actor_retention_allowed_count": 0,
+    "decision": "strict_candidate_retention_filter_no_promotable_candidates",
+    "max_walkforward_drawdown_pct": 20.0,
+    "next_mechanism": "train_bull_trend_participation_with_drawdown_drift_stop_no_promotion",
+    "passing_profile_count": 0,
+    "ppo_allowed_next": false,
+    "profiles_scanned": 12,
+    "promotable_profile_count": 0,
+    "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+    "reference_visible_count": 2,
+    "required_best_return_pct": 213.143462,
+    "required_wf_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ]
+  }
+}

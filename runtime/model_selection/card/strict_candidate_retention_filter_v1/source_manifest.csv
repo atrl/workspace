@@ -1,0 +1,6 @@
+source_label,path,exists,role
+strict_walkforward_gate,runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json,True,strict gate payload and current retention rows
+soxlbacktest_qlib_screen,runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/summary.json,True,SOXLBacktest converted-to-Qlib reference screen
+checkpoint_selector,runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/selection.json,True,three-fold checkpoint selector decision
+checkpoint_selection_by_fold,runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_selection_by_fold.csv,True,per-fold selected checkpoint gates
+checkpoint_candidate_metrics,runtime/model_selection/card/cap10_three_fold_checkpoint_drift_selector_v1/checkpoint_candidate_metrics.csv,True,BC/PPO candidate drift and relative-return metrics
