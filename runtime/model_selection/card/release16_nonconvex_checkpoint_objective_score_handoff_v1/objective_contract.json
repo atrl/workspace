@@ -1,0 +1,33 @@
+{
+  "actor_retention_before_replay": false,
+  "best_runnable_reference_candidate_id": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+  "best_training_target_candidate_id": "release16_nonconvex_checkpoint_objective_readiness_v1::per_fold_teacher_mix",
+  "canonical_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "created_at": "2026-06-15T00:56:59.949660+00:00",
+  "direct_comparison_baseline": "release16_expanded_official_candidate_pool_v1",
+  "drawdown_drift_weight": 2.0,
+  "experiment": "release16_nonconvex_checkpoint_objective_score_handoff_v1",
+  "objective_pass_candidate_count": 0,
+  "readiness_reference": "release16_nonconvex_checkpoint_objective_readiness_v1",
+  "required_next_action": "train_fold_local_nonconvex_checkpoint_actor_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+  "required_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "runnable_objective_pass_candidate_count": 0,
+  "source_card": "release16_expanded_official_candidate_pool_v1",
+  "source_paths": [
+    "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/summary.json",
+    "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/candidate_window_metrics_20dd.csv",
+    "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_scores_20dd.csv",
+    "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/best_candidate_window_gaps.csv",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/summary.json",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/selected_fold_teacher_metrics.csv",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/state_head_slice_precondition.csv",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/objective_recipe.json"
+  ],
+  "sparse_slice_guard_weight": 5.0,
+  "target_max_dd_pct_strict_lt": 20.0,
+  "target_relative_return_pp": 30.0
+}

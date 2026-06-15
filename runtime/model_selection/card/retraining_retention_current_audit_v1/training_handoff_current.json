@@ -1,21 +1,21 @@
 {
   "actor_retention_allowed": false,
-  "decision": "diagnose_release16_failed_folds_before_full_retained_actor_training",
-  "next_training_allowed": false,
+  "decision": "train_release16_nonconvex_checkpoint_objective_before_retention_review",
+  "next_training_allowed": true,
   "promotion_allowed": false,
   "recommended_failed_wf_windows": [
     "wf_2020",
     "wf_2023_2024"
   ],
-  "recommended_min_wf_relative_return_pp": 14.3,
-  "recommended_next_action": "train_nonconvex_checkpoint_objective_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
-  "recommended_next_source": "release16_expanded_official_candidate_pool_v1",
-  "recommended_primary_blocker": "walkforward_relative_return_gap",
-  "recommended_relative_gap_to_target_pp": 15.7,
-  "recommended_worst_wf_max_drawdown_pct": 21.11,
+  "recommended_min_wf_relative_return_pp": 21.33,
+  "recommended_next_action": "train_fold_local_nonconvex_checkpoint_actor_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+  "recommended_next_source": "release16_nonconvex_checkpoint_objective_score_handoff_v1",
+  "recommended_primary_blocker": "training_contract_ready",
+  "recommended_relative_gap_to_target_pp": 8.67,
+  "recommended_worst_wf_max_drawdown_pct": 16.65,
   "required_controls_before_training": [
     "Use official daily-path metrics as the selection basis, not raw backtest metrics.",
-    "Diagnose wf_2020 and wf_2023_2024 relative-return gaps before launching a full retained actor run.",
+    "Use the recommended frontier card as the current training contract; do not start from stale raw backtest metrics.",
     "Keep MaxDD < 20% across wf_2020/wf_2022/wf_2023_2024 as a hard gate.",
     "After any full actor run, rebuild model replays and dashboard bundle before retention review.",
     "Do not retain actor checkpoints until retention_gate.csv shows strict_actor_retention_pass=True."

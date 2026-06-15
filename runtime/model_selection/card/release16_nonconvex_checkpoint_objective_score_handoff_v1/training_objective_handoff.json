@@ -1,0 +1,46 @@
+{
+  "decision": "train_nonconvex_checkpoint_objective_with_sparse_slice_guard",
+  "input_counts": {
+    "feature_groups": 2,
+    "poor_window_clusters": 2,
+    "walkforward_candidates": 42
+  },
+  "next_action": "train_fold_local_nonconvex_checkpoint_actor_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+  "objective_terms": [
+    "official_replay_relative_floor_loss",
+    "official_replay_drawdown_drift_stop_loss",
+    "state_head_sparse_slice_fit_guard",
+    "fold_local_teacher_alignment_loss"
+  ],
+  "primary_underparticipation_cluster": {
+    "cluster_end": "2020-12-30",
+    "cluster_id": "wf_2020_relative_floor_and_drawdown_drift",
+    "cluster_start": "2020-01-02",
+    "dominant_failure_type": "underparticipation",
+    "mean_avg_pos": 0.23693500161968403,
+    "mean_excess_return": -23.416298606436335,
+    "source_card": "release16_expanded_official_candidate_pool_v1"
+  },
+  "promotion": "blocked",
+  "risk_gap": {
+    "max_dd_gap": 1.65,
+    "observed_max_dd": 16.65,
+    "observed_min_relative_return": 21.33,
+    "relative_gap": 8.67,
+    "target_max_dd": 15.0,
+    "target_relative_return": 30.0,
+    "worst_window": "wf_2023_2024"
+  },
+  "router_cluster_delta_max": 0.0,
+  "selected_diagnostic_candidate": "release16_nonconvex_checkpoint_objective_readiness_v1::per_fold_teacher_mix",
+  "selected_dominant_failure_type": "joint_tradeoff",
+  "selected_runnable_reference_candidate": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+  "state_feature_groups": [
+    "state_head_sparse_release_slice",
+    "relative_strength_spread"
+  ],
+  "stop_mechanisms": [
+    "path_level_threshold_router_search",
+    "actor_retention_before_official_three_fold_replay"
+  ]
+}

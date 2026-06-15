@@ -1,0 +1,282 @@
+{
+  "actor_retention_allowed": false,
+  "bc_readiness_gate": true,
+  "bc_screen_allowed_next": true,
+  "best_runnable_reference": {
+    "candidate": "bull65_hold3",
+    "candidate_id": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+    "candidate_role": "official_replay_candidate",
+    "drawdown_loss": 2.212312134484705,
+    "max_max_dd": 21.106156067242352,
+    "mean_avg_pos": 0.23693500161968403,
+    "mechanism": "official_daily_path_pool",
+    "metric_failed_windows": "wf_2020,wf_2023_2024",
+    "min_relative_return": 14.302062458265096,
+    "objective_failed_windows": "wf_2020,wf_2022,wf_2023_2024",
+    "objective_loss": 45.62861074092104,
+    "objective_pass": false,
+    "objective_rank": 2,
+    "objective_window_pass_count": 0,
+    "relative_loss": 23.416298606436335,
+    "runnable_actor_candidate": true,
+    "slice_failed_windows": "wf_2020,wf_2022,wf_2023_2024",
+    "slice_pass_count": 0,
+    "slice_precondition_gate": false,
+    "source_label": "release16_bull_reentry_participation_objective_replay_v1",
+    "sparse_slice_guard_loss": 20.0,
+    "window_count": 3,
+    "window_gate": false,
+    "window_metric_loss": 25.62861074092104,
+    "window_pass_count": 1,
+    "worst_window": "wf_2023_2024"
+  },
+  "best_training_target": {
+    "candidate": "per_fold_teacher_mix",
+    "candidate_id": "release16_nonconvex_checkpoint_objective_readiness_v1::per_fold_teacher_mix",
+    "candidate_role": "diagnostic_per_fold_teacher_mix",
+    "drawdown_loss": 0.0,
+    "max_max_dd": 16.652151,
+    "mean_avg_pos": 0.16380366666666668,
+    "mechanism": "per_fold_teacher_diagnostic",
+    "metric_failed_windows": "wf_2020,wf_2023_2024",
+    "min_relative_return": 21.33313,
+    "objective_failed_windows": "wf_2020,wf_2022,wf_2023_2024",
+    "objective_loss": 35.880907,
+    "objective_pass": false,
+    "objective_rank": 1,
+    "objective_window_pass_count": 0,
+    "relative_loss": 15.880907,
+    "runnable_actor_candidate": false,
+    "slice_failed_windows": "wf_2020,wf_2022,wf_2023_2024",
+    "slice_pass_count": 0,
+    "slice_precondition_gate": false,
+    "source_label": "release16_nonconvex_checkpoint_objective_readiness_v1",
+    "sparse_slice_guard_loss": 20.0,
+    "window_count": 3,
+    "window_gate": false,
+    "window_metric_loss": 15.880907,
+    "window_pass_count": 1,
+    "worst_window": "wf_2023_2024"
+  },
+  "changed_layer": [
+    "model_selection",
+    "checkpoint_objective",
+    "state_head_slice_guard"
+  ],
+  "created_at": "2026-06-15T00:56:59.950216+00:00",
+  "decision": "nonconvex_checkpoint_objective_scored_training_contract_no_actor_retention",
+  "direct_comparison_baseline": "release16_expanded_official_candidate_pool_v1",
+  "drawdown_gate_operator": "<",
+  "experiment": "release16_nonconvex_checkpoint_objective_score_handoff_v1",
+  "failed_folds": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "max_drawdown_gap_to_target_pp": 0.0,
+  "max_relative_gap_to_target_pp": 8.66687,
+  "metric_basis": "diagnostic_per_fold_teacher_mix_not_retained_actor_objective_target",
+  "metrics": [
+    {
+      "avg_pos": 0.307464,
+      "max_dd_pct": 16.652151,
+      "relative_return_pct": 21.33313,
+      "split_type": "walk_forward_test",
+      "window": "wf_2020"
+    },
+    {
+      "avg_pos": 0.086368,
+      "max_dd_pct": 15.341329,
+      "relative_return_pct": 72.242874,
+      "split_type": "walk_forward_test",
+      "window": "wf_2022"
+    },
+    {
+      "avg_pos": 0.097579,
+      "max_dd_pct": 5.546722,
+      "relative_return_pct": 22.785963,
+      "split_type": "walk_forward_test",
+      "window": "wf_2023_2024"
+    }
+  ],
+  "min_wf_relative_return_pp": 21.33313,
+  "next_mechanism": "train_fold_local_nonconvex_checkpoint_actor_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+  "next_training_allowed_after_target_revision": false,
+  "objective_pass_candidate_count": 0,
+  "objective_terms": {
+    "actor_retention_before_replay": false,
+    "best_runnable_reference_candidate_id": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+    "best_training_target_candidate_id": "release16_nonconvex_checkpoint_objective_readiness_v1::per_fold_teacher_mix",
+    "canonical_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+    "created_at": "2026-06-15T00:56:59.949660+00:00",
+    "direct_comparison_baseline": "release16_expanded_official_candidate_pool_v1",
+    "drawdown_drift_weight": 2.0,
+    "experiment": "release16_nonconvex_checkpoint_objective_score_handoff_v1",
+    "objective_pass_candidate_count": 0,
+    "readiness_reference": "release16_nonconvex_checkpoint_objective_readiness_v1",
+    "required_next_action": "train_fold_local_nonconvex_checkpoint_actor_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+    "required_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "runnable_objective_pass_candidate_count": 0,
+    "source_card": "release16_expanded_official_candidate_pool_v1",
+    "source_paths": [
+      "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/summary.json",
+      "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/candidate_window_metrics_20dd.csv",
+      "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_scores_20dd.csv",
+      "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/best_candidate_window_gaps.csv",
+      "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/summary.json",
+      "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/selected_fold_teacher_metrics.csv",
+      "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/state_head_slice_precondition.csv",
+      "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/objective_recipe.json"
+    ],
+    "sparse_slice_guard_weight": 5.0,
+    "target_max_dd_pct_strict_lt": 20.0,
+    "target_relative_return_pp": 30.0
+  },
+  "official_pool_candidate_count": 41,
+  "official_pool_window_count": 123,
+  "ppo_allowed_next": false,
+  "primary_blocker": "training_contract_ready",
+  "promotion_allowed": false,
+  "readiness_reference": "release16_nonconvex_checkpoint_objective_readiness_v1",
+  "reference_baseline": "soxlbacktest_qlib_walkforward_baseline_v1",
+  "role": "diagnose",
+  "runnable_objective_pass_candidate_count": 0,
+  "selected_by_fold": {
+    "wf_2020": {
+      "drawdown_gap_to_target_pp": 0.0,
+      "objective_window_pass": false,
+      "relative_gap_to_target_pp": 8.66687,
+      "selected_avg_pos": 0.307464,
+      "selected_candidate": "per_fold_teacher_mix",
+      "selected_candidate_gate": false,
+      "selected_max_dd": 16.652151,
+      "selected_relative_return": 21.33313,
+      "selected_role": "diagnostic_per_fold_teacher_mix",
+      "slice_gate": false,
+      "sparse_slice_failed_count": 1
+    },
+    "wf_2022": {
+      "drawdown_gap_to_target_pp": 0.0,
+      "objective_window_pass": false,
+      "relative_gap_to_target_pp": 0.0,
+      "selected_avg_pos": 0.086368,
+      "selected_candidate": "per_fold_teacher_mix",
+      "selected_candidate_gate": true,
+      "selected_max_dd": 15.341329,
+      "selected_relative_return": 72.242874,
+      "selected_role": "diagnostic_per_fold_teacher_mix",
+      "slice_gate": false,
+      "sparse_slice_failed_count": 1
+    },
+    "wf_2023_2024": {
+      "drawdown_gap_to_target_pp": 0.0,
+      "objective_window_pass": false,
+      "relative_gap_to_target_pp": 7.214037000000001,
+      "selected_avg_pos": 0.097579,
+      "selected_candidate": "per_fold_teacher_mix",
+      "selected_candidate_gate": false,
+      "selected_max_dd": 5.546722,
+      "selected_relative_return": 22.785963,
+      "selected_role": "diagnostic_per_fold_teacher_mix",
+      "slice_gate": false,
+      "sparse_slice_failed_count": 2
+    }
+  },
+  "sidecars": {
+    "best_runnable_window_terms": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/best_runnable_window_terms.csv",
+    "conclusion": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/conclusion.md",
+    "objective_candidate_scores": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/objective_candidate_scores.csv",
+    "objective_contract": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/objective_contract.json",
+    "objective_window_terms": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/objective_window_terms.csv",
+    "poor_window_clusters": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/poor_window_clusters.csv",
+    "selection": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/selection.json",
+    "source_manifest": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/source_manifest.csv",
+    "summary": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/summary.json",
+    "training_objective_handoff": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/training_objective_handoff.json"
+  },
+  "source_card": "release16_expanded_official_candidate_pool_v1",
+  "source_path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/summary.json",
+  "source_paths": [
+    "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/summary.json",
+    "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/candidate_window_metrics_20dd.csv",
+    "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_scores_20dd.csv",
+    "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/best_candidate_window_gaps.csv",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/summary.json",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/selected_fold_teacher_metrics.csv",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/state_head_slice_precondition.csv",
+    "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/objective_recipe.json"
+  ],
+  "state_head_slice_precondition_gate": false,
+  "summary_points": [
+    "Expanded official replay pool still has zero objective pass candidates once relative floor, 20% drawdown, and sparse slice guards are applied.",
+    "Best runnable reference remains release16_bull_reentry_participation_objective_replay_v1::bull65_hold3 with min relative 14.30pp and worst MaxDD 21.11%.",
+    "Best diagnostic training target is release16_nonconvex_checkpoint_objective_readiness_v1::per_fold_teacher_mix with objective loss 35.88; it is not a retained actor.",
+    "Sparse state-head slice precondition fails on every required fold, so PPO/actor retention is blocked until the slice guard is satisfied and official replay passes.",
+    "Next action is fold-local nonconvex checkpoint training with relative floor, drawdown drift stop, and sparse slice guard, followed by official three-fold replay."
+  ],
+  "target_contract_gate": true,
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_by_window_pp": {
+    "wf_2020": 30.0,
+    "wf_2022": 30.0,
+    "wf_2023_2024": 30.0
+  },
+  "target_relative_return_pp": 30.0,
+  "target_window": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "training_allowed_from_this_card": true,
+  "training_objective_handoff": {
+    "decision": "train_nonconvex_checkpoint_objective_with_sparse_slice_guard",
+    "input_counts": {
+      "feature_groups": 2,
+      "poor_window_clusters": 2,
+      "walkforward_candidates": 42
+    },
+    "next_action": "train_fold_local_nonconvex_checkpoint_actor_with_relative_floor_drawdown_drift_stop_and_sparse_slice_guard_then_official_three_fold_replay",
+    "objective_terms": [
+      "official_replay_relative_floor_loss",
+      "official_replay_drawdown_drift_stop_loss",
+      "state_head_sparse_slice_fit_guard",
+      "fold_local_teacher_alignment_loss"
+    ],
+    "primary_underparticipation_cluster": {
+      "cluster_end": "2020-12-30",
+      "cluster_id": "wf_2020_relative_floor_and_drawdown_drift",
+      "cluster_start": "2020-01-02",
+      "dominant_failure_type": "underparticipation",
+      "mean_avg_pos": 0.23693500161968403,
+      "mean_excess_return": -23.416298606436335,
+      "source_card": "release16_expanded_official_candidate_pool_v1"
+    },
+    "promotion": "blocked",
+    "risk_gap": {
+      "max_dd_gap": 1.65,
+      "observed_max_dd": 16.65,
+      "observed_min_relative_return": 21.33,
+      "relative_gap": 8.67,
+      "target_max_dd": 15.0,
+      "target_relative_return": 30.0,
+      "worst_window": "wf_2023_2024"
+    },
+    "router_cluster_delta_max": 0.0,
+    "selected_diagnostic_candidate": "release16_nonconvex_checkpoint_objective_readiness_v1::per_fold_teacher_mix",
+    "selected_dominant_failure_type": "joint_tradeoff",
+    "selected_runnable_reference_candidate": "release16_bull_reentry_participation_objective_replay_v1::bull65_hold3",
+    "state_feature_groups": [
+      "state_head_sparse_release_slice",
+      "relative_strength_spread"
+    ],
+    "stop_mechanisms": [
+      "path_level_threshold_router_search",
+      "actor_retention_before_official_three_fold_replay"
+    ]
+  },
+  "worst_wf_max_drawdown_pct": 16.652151
+}
