@@ -1,0 +1,12 @@
+{
+  "actor_retention_allowed": false,
+  "bc_readiness_gate": true,
+  "checkpoint_objective_allowed_next": true,
+  "full_gate_existing_candidate_count": 0,
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "scope_leakage_gate": true,
+  "state_head_slice_precondition_gate": false,
+  "target_contract_gate": true,
+  "target_lift_gate": true
+}

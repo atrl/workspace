@@ -1,0 +1,5 @@
+term,applies_to,formula,purpose
+fold_weighted_relative_return_gap,"['wf_2020', 'wf_2022', 'wf_2023_2024']","sum(window_weight * max(0, 30 - relative_return_pp))",avoid the current single-candidate underparticipation failure
+drawdown_drift_stop_loss,"['wf_2020', 'wf_2022', 'wf_2023_2024']","sum(window_weight * 2.0 * max(0, max_dd_pct - 20))",reject checkpoints that buy upside by breaching official replay drawdown
+fold_local_state_head_target_alignment,"['wf_2020_train', 'wf_2022_train', 'wf_2023_2024_train']",weighted BC/checkpoint loss over risk_target_position and rebound_target_position,make rulebase-reversal state-head lift learnable before official replay
+state_head_slice_fit_guard,"['wf_2020', 'wf_2022', 'wf_2023_2024']",block PPO continuation until required sparse slices pass fit gates,prevent another actor from passing global fit while missing downtrend/release slices

@@ -1,0 +1,2 @@
+profile,samples,unique_actions,dominant_action_share,action_entropy,sample_gate,label_distribution_gate,fold_local_scope_gate,bc_readiness_gate,bc_readiness_loss,target_scope
+failedfold_state_head_rulebase_reversal,3731,5,0.6376306620209059,0.7058140539393107,True,True,True,True,0.0,fold_local

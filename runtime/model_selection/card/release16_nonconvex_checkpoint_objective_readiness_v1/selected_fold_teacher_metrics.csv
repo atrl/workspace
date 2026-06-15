@@ -1,0 +1,4 @@
+window,split_type,return_pct,relative_return_pct,max_dd_pct,avg_pos,candidate,family,candidate_gate
+wf_2020,walk_forward_test,79.4267,21.33313,16.652151,0.307464,dd_fallback_0.075_10d,drawdown_fallback,False
+wf_2022,walk_forward_test,-14.345198,72.242874,15.341329,0.086368,static_blend_state_0.80,static_blend,True
+wf_2023_2024,walk_forward_test,22.429328,22.785963,5.546722,0.097579,position_cap_0.20,position_cap_fallback,False

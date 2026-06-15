@@ -1,0 +1,139 @@
+{
+  "acceptance_gate": {
+    "actor_retention_before_replay": false,
+    "max_dd_pct_strict_lt": 20.0,
+    "official_replay_required_folds": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "relative_return_pp_min": 30.0
+  },
+  "created_at": "2026-06-15T00:14:05.027523+00:00",
+  "experiment": "release16_nonconvex_checkpoint_objective_readiness_v1",
+  "objective_name": "nonconvex_risk_gated_state_head_checkpoint_objective",
+  "objective_terms": [
+    {
+      "applies_to": [
+        "wf_2020",
+        "wf_2022",
+        "wf_2023_2024"
+      ],
+      "formula": "sum(window_weight * max(0, 30 - relative_return_pp))",
+      "purpose": "avoid the current single-candidate underparticipation failure",
+      "term": "fold_weighted_relative_return_gap"
+    },
+    {
+      "applies_to": [
+        "wf_2020",
+        "wf_2022",
+        "wf_2023_2024"
+      ],
+      "formula": "sum(window_weight * 2.0 * max(0, max_dd_pct - 20))",
+      "purpose": "reject checkpoints that buy upside by breaching official replay drawdown",
+      "term": "drawdown_drift_stop_loss"
+    },
+    {
+      "applies_to": [
+        "wf_2020_train",
+        "wf_2022_train",
+        "wf_2023_2024_train"
+      ],
+      "formula": "weighted BC/checkpoint loss over risk_target_position and rebound_target_position",
+      "purpose": "make rulebase-reversal state-head lift learnable before official replay",
+      "term": "fold_local_state_head_target_alignment"
+    },
+    {
+      "applies_to": [
+        "wf_2020",
+        "wf_2022",
+        "wf_2023_2024"
+      ],
+      "formula": "block PPO continuation until required sparse slices pass fit gates",
+      "purpose": "prevent another actor from passing global fit while missing downtrend/release slices",
+      "term": "state_head_slice_fit_guard"
+    }
+  ],
+  "precondition_gates": {
+    "actor_retention_allowed": false,
+    "bc_readiness_gate": true,
+    "checkpoint_objective_allowed_next": true,
+    "full_gate_existing_candidate_count": 0,
+    "ppo_allowed_next": false,
+    "promotion_allowed": false,
+    "scope_leakage_gate": true,
+    "state_head_slice_precondition_gate": false,
+    "target_contract_gate": true,
+    "target_lift_gate": true
+  },
+  "risk_gated_existing_path_readout": {
+    "best_existing_single_candidate": {
+      "alignment_loss": 0.25793455000000004,
+      "candidate": "position_cap_0.20",
+      "checkpoint_objective_loss": 0.5158691000000001,
+      "checkpoint_selection_score": -0.5158691000000001,
+      "coverage_gate": true,
+      "family": "position_cap_fallback",
+      "fold_count": 3,
+      "gate_pass_count": 1,
+      "max_drawdown_gap_pp": 0.0,
+      "max_drawdown_pct": 16.652151,
+      "max_relative_gap_pp": 18.579418,
+      "mean_avg_pos": 0.13763599999999998,
+      "min_relative_return_pp": 11.420582,
+      "missing_target_ratio": 0.0,
+      "rebound_position_mae": 0.0,
+      "risk_cap_violation": 0.0,
+      "score": 0.0,
+      "window_gate": false,
+      "window_gate_loss": 25.793455
+    },
+    "existing_full_gate_candidate_count": 0,
+    "per_fold_teacher_min_relative_return_pp": 21.33313,
+    "per_fold_teacher_worst_max_dd_pct": 16.652151
+  },
+  "source_card": "release16_risk_gated_state_head_objective_screen_v1",
+  "source_checkpoint_screen": "release16_failedfold_state_head_checkpoint_bc_screen_v1",
+  "source_target_contract": "release16_failedfold_state_head_target_recipe_v1",
+  "target_contract": {
+    "bc_readiness_summary": {
+      "decision": "state_objective_bc_ready_for_training",
+      "next_mechanism": "run_fold_local_bc_warm_start_then_walkforward_ppo",
+      "selected_bc_readiness_gate": true,
+      "selected_bc_readiness_loss": 0.0,
+      "selected_dominant_action_share": 0.6376306620209059,
+      "selected_fold_local_scope_gate": true,
+      "selected_label_distribution_gate": true,
+      "selected_profile": "failedfold_state_head_rulebase_reversal",
+      "selected_samples": 3731,
+      "selected_target_scope": "fold_local",
+      "selected_unique_actions": 5
+    },
+    "lift_summary": {
+      "audited_groups": 3,
+      "blocked_groups": 0,
+      "candidate_release_positive_lift_rows": 1369,
+      "current_positive_rebound_lift_rows": 1368,
+      "decision": "state_objective_target_lift_training_ready",
+      "lift_semantics_gate": true,
+      "max_candidate_release_lift": 0.75,
+      "next_mechanism": "run_fold_local_weighted_bc_or_ppo",
+      "rebound_downtrend_rows": 311,
+      "rebound_rows": 1372,
+      "training_allowed": true
+    },
+    "rows": 3731,
+    "scope_summary": {
+      "audited_groups": 3,
+      "blocked_groups": 0,
+      "decision": "state_objective_targets_training_ready",
+      "eval_overlap_rows": 0,
+      "leakage_gate": true,
+      "next_mechanism": "run_fold_local_state_objective_training_or_bc",
+      "outside_train_eval_rows": 0,
+      "scope_issues": [],
+      "top_scope_issue": "",
+      "training_allowed": true
+    }
+  }
+}

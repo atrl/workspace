@@ -8,9 +8,9 @@
     "wf_2023_2024"
   ],
   "recommended_min_wf_relative_return_pp": 21.33,
-  "recommended_next_action": "train_nonconvex_risk_gated_state_head_checkpoint_objective_then_rerun_official_three_fold_replay",
-  "recommended_next_source": "release16_risk_gated_state_head_objective_screen_v1",
-  "recommended_primary_blocker": "walkforward_relative_return_gap",
+  "recommended_next_action": "train_nonconvex_risk_gated_state_head_checkpoint_objective_with_slice_guard_then_official_three_fold_replay",
+  "recommended_next_source": "release16_nonconvex_checkpoint_objective_readiness_v1",
+  "recommended_primary_blocker": "training_contract_ready",
   "recommended_relative_gap_to_target_pp": 8.67,
   "recommended_worst_wf_max_drawdown_pct": 16.65,
   "required_controls_before_training": [
