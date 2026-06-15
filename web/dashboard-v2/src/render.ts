@@ -14,23 +14,21 @@ function element<K extends keyof HTMLElementTagNameMap>(
 
 export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
   container.replaceChildren();
-  container.appendChild(element('h2', undefined, 'Data Sources'));
-  const grid = element('div', 'source-grid');
+  container.appendChild(element('h2', undefined, 'Data Status'));
+  const strip = element('div', 'status-strip');
   const rows: [string, string][] = [
-    ['safe_backtest_end', manifest.safe_backtest_end],
-    ['latest_market_date', manifest.latest_market_date],
-    ['generated_at', manifest.generated_at],
-    ['baseline', manifest.default_baseline_profile],
-    ['models', manifest.default_comparison_profiles.join(', ')],
-    ...Object.entries(manifest.source_paths),
+    ['Replay safe', manifest.safe_backtest_end],
+    ['Market latest', manifest.latest_market_date],
+    ['Baseline', manifest.default_baseline_profile],
+    ['Models', String(manifest.default_comparison_profiles.length)],
   ];
   for (const [label, value] of rows) {
-    const item = element('div', 'source-row');
+    const item = element('div', 'status-pill');
     item.appendChild(element('span', 'source-label', label));
     item.appendChild(element('span', 'source-value', value));
-    grid.appendChild(item);
+    strip.appendChild(item);
   }
-  container.appendChild(grid);
+  container.appendChild(strip);
   if (warnings.length) {
     const warningList = element('ul', 'warning-list');
     for (const warning of warnings) {
@@ -71,49 +69,46 @@ export function renderComparisonPanel(
   onDate?: (date: string) => void,
 ): void {
   container.replaceChildren();
-  container.appendChild(element('h2', undefined, 'Model Difference'));
+  container.appendChild(element('h2', undefined, 'Model Snapshot'));
   const visible = computeVisibleComparison(comparison, start, end);
+  const last = visible[visible.length - 1];
   const header = element(
     'div',
     'comparison-summary',
-    `${visible.length} rows | baseline ${comparison.baseline_profile} | ${start} to ${end}`,
+    `${visible.length} comparison rows | baseline ${comparison.baseline_profile} | selected ${start} to ${end}`,
   );
   container.appendChild(header);
 
-  const table = element('table', 'comparison-table');
-  const thead = element('thead');
-  const headerRow = element('tr');
-  for (const title of ['Model', 'Last NAV Delta', 'Last Position Delta', 'Action mismatches']) {
-    headerRow.appendChild(element('th', undefined, title));
-  }
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
-
-  const tbody = element('tbody');
-  const last = visible[visible.length - 1];
+  const cards = element('div', 'comparison-cards');
   for (const profile of comparison.compared_profiles) {
     const profileRows = visible.filter((row) => row.profiles[profile]);
     const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
     const values = last?.profiles[profile];
-    const tr = element('tr');
-    tr.appendChild(element('td', undefined, profile));
-    tr.appendChild(element('td', undefined, values ? values.nav_delta_vs_baseline.toFixed(2) : 'n/a'));
-    tr.appendChild(element('td', undefined, values ? values.position_delta_vs_baseline.toFixed(3) : 'n/a'));
-    tr.appendChild(element('td', undefined, String(mismatchCount)));
-    tbody.appendChild(tr);
+    const card = element('article', 'comparison-card');
+    card.appendChild(element('div', 'comparison-card-title', profile));
+    card.appendChild(element('span', 'metric-label', 'NAV delta'));
+    card.appendChild(element('strong', undefined, values ? values.nav_delta_vs_baseline.toFixed(2) : 'n/a'));
+    card.appendChild(element('span', 'metric-label', 'Position delta'));
+    card.appendChild(element('strong', undefined, values ? values.position_delta_vs_baseline.toFixed(3) : 'n/a'));
+    card.appendChild(element('span', 'metric-label', 'Mismatch Days'));
+    card.appendChild(element('strong', undefined, String(mismatchCount)));
+    cards.appendChild(card);
   }
-  table.appendChild(tbody);
-  const tableScroll = element('div', 'table-scroll');
-  tableScroll.appendChild(table);
-  container.appendChild(tableScroll);
+  container.appendChild(cards);
 
   const mismatchSection = element('section', 'mismatch-section');
-  mismatchSection.appendChild(element('h3', undefined, 'Action Mismatch Days'));
-  if (mismatchRows.length === 0) {
+  mismatchSection.appendChild(element('h3', undefined, 'Mismatch Days'));
+  const visibleMismatchRows = mismatchRows.slice(-12);
+  if (visibleMismatchRows.length === 0) {
     mismatchSection.appendChild(element('p', 'empty-note', 'No visible buy/sell action differences.'));
   } else {
+    if (mismatchRows.length > visibleMismatchRows.length) {
+      mismatchSection.appendChild(
+        element('p', 'empty-note', `Showing recent ${visibleMismatchRows.length} of ${mismatchRows.length}.`),
+      );
+    }
     const list = element('div', 'mismatch-list');
-    for (const row of mismatchRows) {
+    for (const row of visibleMismatchRows) {
       const item = element('article', 'mismatch-row');
       const dateButton = element('button', 'mismatch-date-button', row.date);
       dateButton.type = 'button';
@@ -138,6 +133,7 @@ export function renderComparisonPanel(
         'div',
         'mismatch-features',
         Object.entries(row.features)
+          .slice(0, 4)
           .map(([key, value]) => `${key} ${value}`)
           .join(' | '),
       );

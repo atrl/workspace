@@ -12,8 +12,10 @@ import {
   computeActionMismatchRows,
   computeCommonWindow,
   computeDateRangePreset,
+  computeDefaultDateRange,
   computeInspectorRows,
   computeKeyboardDateRange,
+  selectDefaultChartProfile,
   type DateRangePreset,
   type KeyboardRangeAction,
 } from './domain';
@@ -124,7 +126,7 @@ function renderToolbar(
 
   const baselineGroup = document.createElement('label');
   baselineGroup.className = 'toolbar-group';
-  baselineGroup.append('Baseline');
+  baselineGroup.append('Chart Model');
   const baseline = document.createElement('select');
   for (const profile of state.selectedProfiles) {
     const option = document.createElement('option');
@@ -145,7 +147,7 @@ function renderToolbar(
     button.className = 'range-button';
     button.textContent = preset;
     button.addEventListener('click', () => {
-      const range = computeDateRangePreset(data.comparison.rows, preset);
+      const range = computeDateRangePreset(data.market.rows, preset);
       if (range) update({ ...range, hoveredDate: range.end });
     });
     rangeGroup.appendChild(button);
@@ -175,6 +177,9 @@ function warningsFor(data: DashboardData, state: ViewState): string[] {
   if (!common) warnings.push('Selected models have no common overlap with SOXL market rows.');
   if (data.manifest.safe_backtest_end < data.manifest.latest_market_date) {
     warnings.push(`Replay safe end ${data.manifest.safe_backtest_end} is before market latest ${data.manifest.latest_market_date}.`);
+  }
+  if (data.comparison.common_end < state.end) {
+    warnings.push(`Baseline comparison ends ${data.comparison.common_end}; price chart extends to ${state.end}.`);
   }
   return warnings;
 }
@@ -249,13 +254,23 @@ async function main(): Promise<void> {
   try {
     const data = await loadDashboardData();
     const models = selectedModels(data, data.manifest.default_comparison_profiles);
-    const common = computeCommonWindow(data.market.rows, Object.values(models).map((model) => model.rows));
+    const defaultRange = computeDefaultDateRange({
+      manifest: data.manifest,
+      marketRows: data.market.rows,
+      models,
+      comparison: data.comparison,
+    });
+    const common = defaultRange ?? computeCommonWindow(data.market.rows, Object.values(models).map((model) => model.rows));
     const state: ViewState = {
       selectedProfiles: clampComparisonProfiles(
         data.manifest.default_comparison_profiles,
         data.manifest.default_comparison_profiles,
       ),
-      baselineProfile: data.manifest.default_baseline_profile,
+      baselineProfile: selectDefaultChartProfile(
+        data.manifest.default_comparison_profiles,
+        models,
+        data.manifest.default_baseline_profile,
+      ),
       start: common?.start ?? data.comparison.common_start,
       end: common?.end ?? data.comparison.common_end,
       hoveredDate: common?.end ?? data.comparison.common_end,
@@ -267,7 +282,11 @@ async function main(): Promise<void> {
       const needsChartRender = viewUpdateRequiresChartRender(next);
       Object.assign(state, next);
       if (!state.selectedProfiles.includes(state.baselineProfile)) {
-        state.baselineProfile = state.selectedProfiles[0];
+        state.baselineProfile = selectDefaultChartProfile(
+          state.selectedProfiles,
+          selectedModels(data, state.selectedProfiles),
+          data.manifest.default_baseline_profile,
+        );
       }
       if (needsChartRender) {
         renderDashboard(data, state, update);
@@ -279,7 +298,7 @@ async function main(): Promise<void> {
       if (isEditingTarget(event.target)) return;
       const action = keyboardRangeAction(event);
       if (!action) return;
-      const range = computeKeyboardDateRange(data.comparison.rows, state.start, state.end, action);
+      const range = computeKeyboardDateRange(data.market.rows, state.start, state.end, action);
       if (!range) return;
       event.preventDefault();
       update({ ...range, hoveredDate: range.end });

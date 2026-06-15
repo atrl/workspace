@@ -443,10 +443,10 @@ def build_dashboard_v2_data(
     else:
         preferred = [
             SOXL_BACKTEST_REFERENCE_PROFILE,
-            "smoke",
             "balanced_rule_residual_v22",
+            "smoke",
         ]
-        defaults = [name for name in preferred if name in by_name]
+        defaults = [name for name in preferred if name in by_name][:2]
         if len(defaults) < 2:
             defaults.extend(name for name in by_name if name not in defaults)
     if baseline_profile and baseline_profile not in defaults:
@@ -463,6 +463,12 @@ def build_dashboard_v2_data(
     )
     if baseline not in defaults:
         raise ValueError(f"baseline profile not selected or replayable: {baseline}")
+    models_dir = output_dir / "models"
+    if models_dir.exists():
+        selected_model_files = {f"{profile_name}.json" for profile_name in defaults}
+        for stale_path in models_dir.glob("*.json"):
+            if stale_path.name not in selected_model_files:
+                stale_path.unlink()
     model_payloads: dict[str, dict[str, Any]] = {}
     model_paths: dict[str, Path] = {}
     for profile_name in defaults:
@@ -504,6 +510,17 @@ def build_dashboard_v2_data(
         "available_profiles": sorted(by_name),
         "default_baseline_profile": baseline,
         "default_comparison_profiles": defaults,
+        "profile_summaries": {
+            profile_name: {
+                "status": payload.get("status"),
+                "replay_start": payload["replay_start"],
+                "replay_end": payload["replay_end"],
+                "row_count": payload["row_count"],
+                "source_path": payload["source_path"],
+                "window": payload.get("window"),
+            }
+            for profile_name, payload in model_payloads.items()
+        },
         "source_paths": {
             "model_replay_freshness": _relative_to(root, freshness_path),
             "market": "data/processed/panels/soxl_soxx_vix_full.csv",

@@ -6,9 +6,11 @@ import {
   computeActionMismatchRows,
   computeCommonWindow,
   computeDateRangePreset,
+  computeDefaultDateRange,
   computeInspectorRows,
   computeKeyboardDateRange,
   computeVisibleComparison,
+  selectDefaultChartProfile,
 } from './domain';
 import { comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 import { viewUpdateRequiresChartRender } from './viewState';
@@ -29,6 +31,88 @@ describe('dashboard v2 domain helpers', () => {
       start: '2026-01-02',
       end: '2026-01-06',
     });
+  });
+
+  test('defaults visible range to fresh market and replayable actor rows instead of short reference baseline', () => {
+    const referenceModel = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      status: 'reference',
+      replay_end: '2026-01-05',
+      rows: modelFixture.rows.slice(0, 2),
+    };
+    const actorModel = {
+      ...modelFixture,
+      profile: 'balanced_rule_residual_v22',
+      status: 'canonical',
+      replay_end: '2026-01-06',
+    };
+
+    expect(
+      computeDefaultDateRange({
+        manifest: manifestFixture,
+        marketRows: marketFixture.rows,
+        models: {
+          soxl_backtest_policy_reimplementation_v1: referenceModel,
+          balanced_rule_residual_v22: actorModel,
+        },
+        comparison: {
+          ...comparisonFixture,
+          common_end: '2026-01-05',
+          rows: comparisonFixture.rows.slice(0, 2),
+        },
+      }),
+    ).toEqual({
+      start: '2026-01-02',
+      end: '2026-01-06',
+    });
+  });
+
+  test('defaults visible range to YTD instead of all replay history', () => {
+    const marketRows = [
+      { date: '2025-12-31', open: 9, high: 10, low: 8, close: 9.5, volume: 900 },
+      ...marketFixture.rows,
+    ];
+    const longActor = {
+      ...modelFixture,
+      rows: [
+        { date: '2025-12-31', strategy_nav: 99, buyhold_nav: 99, position: 0, action: 'HOLD' as const, price: 9.5, excess: 0, excess_pct: 0 },
+        ...modelFixture.rows,
+      ],
+    };
+
+    expect(
+      computeDefaultDateRange({
+        manifest: manifestFixture,
+        marketRows,
+        models: { smoke: longActor },
+        comparison: comparisonFixture,
+      }),
+    ).toEqual({
+      start: '2026-01-02',
+      end: '2026-01-06',
+    });
+  });
+
+  test('selects a replayable actor as the default chart model ahead of reference baseline', () => {
+    expect(
+      selectDefaultChartProfile(
+        ['soxl_backtest_policy_reimplementation_v1', 'balanced_rule_residual_v22'],
+        {
+          soxl_backtest_policy_reimplementation_v1: {
+            ...modelFixture,
+            profile: 'soxl_backtest_policy_reimplementation_v1',
+            status: 'reference',
+          },
+          balanced_rule_residual_v22: {
+            ...modelFixture,
+            profile: 'balanced_rule_residual_v22',
+            status: 'canonical',
+          },
+        },
+        'soxl_backtest_policy_reimplementation_v1',
+      ),
+    ).toBe('balanced_rule_residual_v22');
   });
 
   test('builds action markers from event rows instead of price movement', () => {

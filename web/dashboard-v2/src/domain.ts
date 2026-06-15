@@ -27,6 +27,17 @@ export function clampComparisonProfiles(
   return filled.slice(0, 4);
 }
 
+export function selectDefaultChartProfile(
+  selectedProfiles: readonly string[],
+  models: Record<string, ModelPayload>,
+  fallbackProfile: string,
+): string {
+  const actorProfile = selectedProfiles.find((profile) => models[profile]?.status !== 'reference');
+  if (actorProfile) return actorProfile;
+  if (selectedProfiles.includes(fallbackProfile)) return fallbackProfile;
+  return selectedProfiles[0] ?? fallbackProfile;
+}
+
 export function computeCommonWindow(
   marketRows: readonly MarketRow[],
   modelRowsList: readonly (readonly ModelRow[])[],
@@ -39,6 +50,35 @@ export function computeCommonWindow(
   const common = [...sets[0]].filter((date) => sets.every((set) => set.has(date))).sort();
   if (common.length === 0) return null;
   return { start: common[0], end: common[common.length - 1] };
+}
+
+export function computeDefaultDateRange(input: {
+  manifest: Manifest;
+  marketRows: readonly MarketRow[];
+  models: Record<string, ModelPayload>;
+  comparison: ComparisonPayload;
+}): { start: string; end: string } | null {
+  const modelList = Object.values(input.models);
+  const replayableModels = modelList.filter((model) => model.status !== 'reference' && model.rows.length > 0);
+  const modelsForWindow = replayableModels.length ? replayableModels : modelList;
+  const common = computeCommonWindow(
+    input.marketRows,
+    modelsForWindow.map((model) => model.rows),
+  );
+  if (!common) {
+    return input.comparison.rows.length
+      ? { start: input.comparison.common_start, end: input.comparison.common_end }
+      : null;
+  }
+  const marketDates = sortedDates(input.marketRows);
+  const latestMarketDate = marketDates.includes(input.manifest.latest_market_date)
+    ? input.manifest.latest_market_date
+    : marketDates[marketDates.length - 1];
+  const end = latestMarketDate && latestMarketDate >= common.start ? latestMarketDate : common.end;
+  const endYear = end.slice(0, 4);
+  const ytdDates = marketDates.filter((date) => date >= common.start && date <= end);
+  const ytdStart = ytdDates.length ? snapStart(ytdDates, `${endYear}-01-01`) : common.start;
+  return { start: ytdStart <= end ? ytdStart : common.start, end };
 }
 
 export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], start: string, end: string): T[] {

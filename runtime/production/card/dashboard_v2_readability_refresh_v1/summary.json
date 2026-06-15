@@ -1,0 +1,45 @@
+{
+  "experiment": "dashboard_v2_readability_refresh_v1",
+  "created_at": "2026-06-15T12:40:00Z",
+  "direction": "production",
+  "root_cause": [
+    "Dashboard v2 default range used the all-model common window, so the short SOXLBacktest reference baseline clipped the main chart comparison to 2026-06-09 even though market data reached 2026-06-12 and actor replay reached 2026-06-11.",
+    "The default chart model followed the reference baseline ordering and could select noisy/non-primary models, making the position and NAV panes look misleading.",
+    "The bottom panels rendered a full comparison table and verbose source list, which made the page hard to scan."
+  ],
+  "changes": [
+    "Default visible range now starts at the latest market year's first available trading day and ends at latest_market_date.",
+    "Default chart model now prefers a non-reference replay actor; generated v2 defaults are SOXLBacktest reference baseline plus balanced_rule_residual_v22.",
+    "Model Snapshot uses compact cards, Data Status uses a short status strip, and mismatch rows are capped to the most recent 12."
+  ],
+  "data_readout": {
+    "market_latest_date": "2026-06-12",
+    "safe_backtest_end": "2026-06-11",
+    "comparison_common_end": "2026-06-09",
+    "default_profiles": [
+      "soxl_backtest_policy_reimplementation_v1",
+      "balanced_rule_residual_v22"
+    ],
+    "default_chart_model": "balanced_rule_residual_v22",
+    "default_start": "2026-01-02",
+    "default_end": "2026-06-12"
+  },
+  "browser_verification": {
+    "url": "http://127.0.0.1:5175/",
+    "title": "SOXL Dashboard V2",
+    "chart_model": "balanced_rule_residual_v22",
+    "start": "2026-01-02",
+    "end": "2026-06-12",
+    "inspector_date": "2026-06-12",
+    "inspector_soxl_close": "234.68",
+    "model_count": 2,
+    "screenshot": "runtime/production/card/dashboard_v2_readability_refresh_v1/kimi_dashboard_readability_ytd_20260615.png"
+  },
+  "verification": [
+    "npm --prefix web/dashboard-v2 test -- --run",
+    "npm --prefix web/dashboard-v2 run build",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2"
+  ],
+  "decision": "keep_dashboard_v2_readability_refresh"
+}

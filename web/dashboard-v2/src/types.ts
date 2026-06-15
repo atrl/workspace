@@ -9,6 +9,17 @@ export interface Manifest {
   available_profiles: string[];
   default_baseline_profile: string;
   default_comparison_profiles: string[];
+  profile_summaries?: Record<
+    string,
+    {
+      status: string | null;
+      replay_start: string;
+      replay_end: string;
+      row_count: number;
+      source_path: string;
+      window?: string | null;
+    }
+  >;
   source_paths: Record<string, string>;
 }
 
