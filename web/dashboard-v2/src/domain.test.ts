@@ -10,12 +10,19 @@ import {
   computeInspectorRows,
   computeKeyboardDateRange,
   computeVisibleComparison,
+  formatProfileLabel,
   selectDefaultChartProfile,
 } from './domain';
 import { comparisonFixture, manifestFixture, marketFixture, modelFixture } from './testFixtures';
 import { viewUpdateRequiresChartRender } from './viewState';
 
 describe('dashboard v2 domain helpers', () => {
+  test('formats long profile ids into readable display labels', () => {
+    expect(formatProfileLabel('soxl_backtest_policy_reimplementation_v1')).toBe('SOXLBacktest');
+    expect(formatProfileLabel('balanced_rule_residual_v22')).toBe('BRR v22');
+    expect(formatProfileLabel('smoke')).toBe('smoke');
+  });
+
   test('clamps comparison profiles to two through four unique models', () => {
     expect(clampComparisonProfiles(['a'], ['a', 'b', 'c'])).toEqual(['a', 'b']);
     expect(clampComparisonProfiles(['a', 'a', 'b', 'c', 'd', 'e'], ['a', 'b', 'c', 'd', 'e'])).toEqual([
@@ -173,6 +180,26 @@ describe('dashboard v2 domain helpers', () => {
     expect(rows.some((row) => row.label === 'SOXL close' && row.value === '11.00')).toBe(true);
     expect(rows.some((row) => row.label === 'smoke action' && row.value === 'BUY')).toBe(true);
     expect(rows.some((row) => row.label === 'action mismatches' && row.value === '1')).toBe(true);
+  });
+
+  test('computes inspector model state from the latest row at or before the hovered market date', () => {
+    const rows = computeInspectorRows({
+      date: '2026-01-07',
+      manifest: manifestFixture,
+      market: {
+        ...marketFixture,
+        rows: [
+          ...marketFixture.rows,
+          { date: '2026-01-07', open: 10.7, high: 10.9, low: 10.2, close: 10.4, volume: 1400 },
+        ],
+      },
+      models: { smoke: modelFixture },
+      comparison: comparisonFixture,
+    });
+
+    expect(rows.some((row) => row.label === 'smoke as-of' && row.value === '2026-01-06')).toBe(true);
+    expect(rows.some((row) => row.label === 'smoke position' && row.value === '0.200')).toBe(true);
+    expect(rows.some((row) => row.label === 'smoke NAV' && row.value === '103.00')).toBe(true);
   });
 
   test('treats hover-only updates as inspector updates instead of chart renders', () => {

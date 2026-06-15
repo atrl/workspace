@@ -87,7 +87,7 @@ def test_legacy_policy_replay_accepts_risk_parameter_overrides():
 def test_export_legacy_soxl_policy_replay_writes_sidecars(tmp_path):
     from scripts.export_legacy_soxl_policy_replay import write_legacy_soxl_policy_replay_outputs
 
-    summary = write_legacy_soxl_policy_replay_outputs(tmp_path)
+    summary = write_legacy_soxl_policy_replay_outputs(tmp_path, end_date="2026-06-09")
 
     expected_files = {
         "new_policy_daily.csv",
@@ -108,3 +108,15 @@ def test_export_legacy_soxl_policy_replay_writes_sidecars(tmp_path):
 
     timing = pd.read_csv(tmp_path / "trade_timing_diagnostics.csv")
     assert timing["date_delta_days"].abs().max() == 0
+
+
+def test_export_legacy_soxl_policy_replay_defaults_to_latest_local_soxl_date(tmp_path):
+    from scripts.export_legacy_soxl_policy_replay import write_legacy_soxl_policy_replay_outputs
+
+    summary = write_legacy_soxl_policy_replay_outputs(tmp_path)
+    expected_end = str(pd.read_csv("data/raw/symbols/SOXL.csv")["date"].max())
+    daily = pd.read_csv(tmp_path / "new_policy_daily.csv")
+
+    assert daily.loc[daily["window"] == "ytd_2026", "date"].max() == expected_end
+    assert daily.loc[daily["window"] == "june_2026", "date"].max() == expected_end
+    assert summary["windows"]["ytd_2026"]["new_policy"]["end"] == expected_end

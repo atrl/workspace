@@ -22,6 +22,7 @@ MODEL_DATE_FIELDS = ("datetime", "date")
 REQUIRED_MODEL_FIELDS = ("strategy_nav", "buyhold_nav", "position", "action", "price")
 ACTION_VALUES = {"BUY", "SELL", "HOLD"}
 SELL_ACTION_ALIASES = {"TAKE_PROFIT", "STOP_LOSS", "STOP", "TRIM", "REDUCE"}
+FINAL_RETENTION_POLICY = "final_model_retained_or_reference"
 
 
 @dataclass(frozen=True)
@@ -93,6 +94,106 @@ def _reference_model_sources(root: Path) -> dict[str, dict[str, Any]]:
             "result": "current",
             "window": SOXL_BACKTEST_REFERENCE_WINDOW,
         }
+    }
+
+
+def _summary_candidates(root: Path, profile_name: str, source: dict[str, Any]) -> list[Path]:
+    candidates: list[Path] = []
+    summary_path = source.get("summary_path")
+    if summary_path:
+        candidates.append(root / str(summary_path))
+    output = source.get("output")
+    if output:
+        card_dir = (root / str(output)).parent
+        candidates.extend(
+            [
+                card_dir / f"soxl_{profile_name}_summary.json",
+                card_dir / f"{profile_name}_summary.json",
+                card_dir / "summary.json",
+            ]
+        )
+        candidates.extend(sorted(card_dir.glob("*_summary.json")))
+    deduped: list[Path] = []
+    for path in candidates:
+        if path not in deduped:
+            deduped.append(path)
+    return deduped
+
+
+def _final_retention_reason(decision: dict[str, Any]) -> str:
+    reason = decision.get("reason") or decision.get("block_reason")
+    if reason:
+        return str(reason)
+    reasons = decision.get("reasons")
+    if isinstance(reasons, list) and reasons:
+        return "; ".join(str(item) for item in reasons)
+    status = decision.get("status")
+    return str(status) if status else "final model retention gate blocked"
+
+
+def _profile_retention_status(root: Path, profile_name: str, source: dict[str, Any]) -> dict[str, Any]:
+    if profile_name == SOXL_BACKTEST_REFERENCE_PROFILE or source.get("status") == "reference":
+        return {
+            "allowed": True,
+            "code": "reference_baseline",
+            "status": "reference_baseline",
+            "reason": "SOXLBacktest reference buy/sell baseline",
+            "summary_path": None,
+            "final_model_retained": True,
+        }
+
+    summary_path = next((path for path in _summary_candidates(root, profile_name, source) if path.exists()), None)
+    if summary_path is None:
+        return {
+            "allowed": False,
+            "code": "missing_summary",
+            "status": "blocked",
+            "reason": "missing summary artifact with final_model_retention_decision",
+            "summary_path": None,
+            "final_model_retained": False,
+        }
+
+    try:
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return {
+            "allowed": False,
+            "code": "invalid_summary_json",
+            "status": "blocked",
+            "reason": f"invalid summary JSON: {exc.msg}",
+            "summary_path": _relative_to(root, summary_path),
+            "final_model_retained": False,
+        }
+    decision = summary.get("final_model_retention_decision") if isinstance(summary, dict) else None
+    if not isinstance(decision, dict):
+        return {
+            "allowed": False,
+            "code": "missing_final_retention_decision",
+            "status": "blocked",
+            "reason": "summary lacks final_model_retention_decision",
+            "summary_path": _relative_to(root, summary_path),
+            "final_model_retained": False,
+        }
+
+    final_model_retained = decision.get("final_model_retained") is True
+    status = str(decision.get("status") or ("passed" if final_model_retained else "blocked"))
+    return {
+        "allowed": final_model_retained,
+        "code": "final_model_retained" if final_model_retained else "final_retention_blocked",
+        "status": status,
+        "reason": _final_retention_reason(decision),
+        "summary_path": _relative_to(root, summary_path),
+        "final_model_retained": final_model_retained,
+    }
+
+
+def _public_retention_status(status: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "code": status["code"],
+        "status": status["status"],
+        "reason": status["reason"],
+        "summary_path": status.get("summary_path"),
+        "final_model_retained": status["final_model_retained"],
     }
 
 
@@ -438,6 +539,15 @@ def build_dashboard_v2_data(
     ]
     by_name = {str(profile["profile"]): profile for profile in ready_profiles}
     by_name.update(_reference_model_sources(root))
+    retention_by_name = {
+        profile_name: _profile_retention_status(root, profile_name, source)
+        for profile_name, source in by_name.items()
+    }
+    allowed_by_name = {
+        profile_name: source
+        for profile_name, source in by_name.items()
+        if retention_by_name[profile_name]["allowed"]
+    }
     if selected_profiles:
         defaults = _dedupe_preserve_order(selected_profiles)
     else:
@@ -446,12 +556,12 @@ def build_dashboard_v2_data(
             "balanced_rule_residual_v22",
             "smoke",
         ]
-        defaults = [name for name in preferred if name in by_name][:2]
+        defaults = [name for name in preferred if name in allowed_by_name][:2]
         if len(defaults) < 2:
-            defaults.extend(name for name in by_name if name not in defaults)
-    if baseline_profile and baseline_profile not in defaults:
+            defaults.extend(name for name in allowed_by_name if name not in defaults)
+    if baseline_profile and baseline_profile in allowed_by_name and baseline_profile not in defaults:
         defaults = [baseline_profile] + defaults
-    defaults = [profile for profile in _dedupe_preserve_order(defaults) if profile in by_name][:4]
+    defaults = [profile for profile in _dedupe_preserve_order(defaults) if profile in allowed_by_name][:4]
     if not defaults:
         raise ValueError("no replayable profiles selected for dashboard v2")
     baseline = baseline_profile or (
@@ -462,7 +572,7 @@ def build_dashboard_v2_data(
         else defaults[0]
     )
     if baseline not in defaults:
-        raise ValueError(f"baseline profile not selected or replayable: {baseline}")
+        baseline = defaults[0]
     models_dir = output_dir / "models"
     if models_dir.exists():
         selected_model_files = {f"{profile_name}.json" for profile_name in defaults}
@@ -472,7 +582,7 @@ def build_dashboard_v2_data(
     model_payloads: dict[str, dict[str, Any]] = {}
     model_paths: dict[str, Path] = {}
     for profile_name in defaults:
-        source = by_name[profile_name]
+        source = allowed_by_name[profile_name]
         replay_path = root / str(source["output"])
         rows = normalize_model_rows(
             replay_path,
@@ -491,6 +601,7 @@ def build_dashboard_v2_data(
             "rows": rows,
             "events": derive_model_events(rows),
             "metrics": {"full": compute_metrics(rows)},
+            "retention": _public_retention_status(retention_by_name[profile_name]),
         }
         if source.get("window"):
             payload["window"] = source.get("window")
@@ -509,11 +620,23 @@ def build_dashboard_v2_data(
         "safe_backtest_end": safe_backtest_end,
         "available_profiles": defaults,
         "filtered_profile_count": max(0, len(by_name) - len(defaults)),
+        "retention_filter": {
+            "policy": FINAL_RETENTION_POLICY,
+            "input_profile_count": len(by_name),
+            "allowed_profile_count": len(allowed_by_name),
+            "blocked_profile_count": len(by_name) - len(allowed_by_name),
+        },
+        "blocked_profiles": {
+            profile_name: _public_retention_status(status)
+            for profile_name, status in sorted(retention_by_name.items())
+            if not status["allowed"]
+        },
         "default_baseline_profile": baseline,
         "default_comparison_profiles": defaults,
         "profile_summaries": {
             profile_name: {
                 "status": payload.get("status"),
+                "retention": payload["retention"],
                 "replay_start": payload["replay_start"],
                 "replay_end": payload["replay_end"],
                 "row_count": payload["row_count"],

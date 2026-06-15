@@ -9,7 +9,7 @@ import {
   type MouseEventParams,
   type Time,
 } from 'lightweight-charts';
-import { buildActionMarkers } from './domain';
+import { buildActionMarkers, formatProfileLabel } from './domain';
 import type { MarketPayload, ModelPayload } from './types';
 
 function toTime(date: string): Time {
@@ -113,11 +113,11 @@ export function renderMarketChart(
   replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
-    layout: { background: { color: '#171613' }, textColor: '#e8e1d4' },
-    grid: { vertLines: { color: '#26231d' }, horzLines: { color: '#26231d' } },
-    leftPriceScale: { visible: true, borderColor: '#343127' },
-    rightPriceScale: { borderColor: '#343127' },
-    timeScale: { borderColor: '#343127', timeVisible: false },
+    layout: { background: { color: '#15171a' }, textColor: '#edf0f3' },
+    grid: { vertLines: { color: '#23272c' }, horzLines: { color: '#23272c' } },
+    leftPriceScale: { visible: true, borderColor: '#30343a' },
+    rightPriceScale: { borderColor: '#30343a' },
+    timeScale: { borderColor: '#30343a', timeVisible: false },
     crosshair: { mode: 1 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
@@ -137,7 +137,7 @@ export function renderMarketChart(
     })),
   );
   const closeLine = chart.addSeries(LineSeries, {
-    color: '#e8e1d4',
+    color: '#edf0f3',
     lineWidth: 1,
     priceLineVisible: false,
     title: 'SOXL Close',
@@ -180,10 +180,10 @@ export function renderPositionChart(container: HTMLElement, model: ModelPayload)
   replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
-    layout: { background: { color: '#10100e' }, textColor: '#e8e1d4' },
-    grid: { vertLines: { color: '#26231d' }, horzLines: { color: '#26231d' } },
-    rightPriceScale: { borderColor: '#343127' },
-    timeScale: { borderColor: '#343127' },
+    layout: { background: { color: '#0f1012' }, textColor: '#edf0f3' },
+    grid: { vertLines: { color: '#23272c' }, horzLines: { color: '#23272c' } },
+    rightPriceScale: { borderColor: '#30343a' },
+    timeScale: { borderColor: '#30343a' },
   });
   const line = chart.addSeries(LineSeries, { color: '#39b7c5', lineWidth: 2 });
   line.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
@@ -200,16 +200,20 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
   replaceChart(container);
   const chart = createChart(container, {
     autoSize: true,
-    layout: { background: { color: '#10100e' }, textColor: '#e8e1d4' },
-    grid: { vertLines: { color: '#26231d' }, horzLines: { color: '#26231d' } },
-    rightPriceScale: { borderColor: '#343127' },
-    timeScale: { borderColor: '#343127' },
+    layout: { background: { color: '#0f1012' }, textColor: '#edf0f3' },
+    grid: { vertLines: { color: '#23272c' }, horzLines: { color: '#23272c' } },
+    rightPriceScale: { borderColor: '#30343a' },
+    timeScale: { borderColor: '#30343a' },
   });
   const colors = ['#39b7c5', '#a597ff', '#d7a138', '#1fb981'];
   let primarySeries: ISeriesApi<'Line'> | null = null;
   let primaryRows: ModelPayload['rows'] | null = null;
   for (const [index, [profile, model]] of Object.entries(models).entries()) {
-    const series = chart.addSeries(LineSeries, { color: colors[index % colors.length], lineWidth: 2, title: profile });
+    const series = chart.addSeries(LineSeries, {
+      color: colors[index % colors.length],
+      lineWidth: 2,
+      title: formatProfileLabel(profile),
+    });
     series.setData(model.rows.map((row) => ({ time: toTime(row.date), value: row.strategy_nav })));
     if (!primarySeries) {
       primarySeries = series;

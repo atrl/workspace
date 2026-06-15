@@ -1,4 +1,4 @@
-import { computeVisibleComparison } from './domain';
+import { computeVisibleComparison, formatProfileLabel } from './domain';
 import type { ActionMismatchRow, ComparisonPayload, InspectorRow, Manifest } from './types';
 
 function element<K extends keyof HTMLElementTagNameMap>(
@@ -15,25 +15,41 @@ function element<K extends keyof HTMLElementTagNameMap>(
 export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest, warnings: string[] = []): void {
   container.replaceChildren();
   container.appendChild(element('h2', undefined, 'Data Status'));
+  const blockedCount =
+    manifest.retention_filter?.blocked_profile_count ?? Object.keys(manifest.blocked_profiles ?? {}).length;
+  const visibleActorCount = manifest.default_comparison_profiles.filter(
+    (profile) => manifest.profile_summaries?.[profile]?.status !== 'reference',
+  ).length;
+  if (blockedCount > 0 && visibleActorCount === 0) {
+    const banner = element('div', 'gate-banner');
+    banner.appendChild(element('strong', undefined, 'No final-retained actor'));
+    banner.appendChild(element('span', undefined, 'Showing SOXLBacktest reference baseline only.'));
+    container.appendChild(banner);
+  }
   const strip = element('div', 'status-strip');
   const rows: [string, string][] = [
-    ['Replay safe', manifest.safe_backtest_end],
-    ['Market latest', manifest.latest_market_date],
-    ['Baseline', manifest.default_baseline_profile],
-    ['Models', String(manifest.default_comparison_profiles.length)],
+    ['Market', manifest.latest_market_date],
+    ['Replay', manifest.safe_backtest_end],
+    ['Baseline', formatProfileLabel(manifest.default_baseline_profile)],
+    ['Blocked', String(blockedCount)],
   ];
   for (const [label, value] of rows) {
     const item = element('div', 'status-pill');
+    if (label === 'Blocked' && blockedCount > 0) item.dataset.tone = 'warning';
     item.appendChild(element('span', 'source-label', label));
     item.appendChild(element('span', 'source-value', value));
     strip.appendChild(item);
   }
   container.appendChild(strip);
-  if (warnings.length) {
+  const blockedWarnings = Object.entries(manifest.blocked_profiles ?? {}).map(
+    ([profile, status]) => `${profile}: ${status.reason}`,
+  );
+  const allWarnings = [...warnings, ...blockedWarnings];
+  if (allWarnings.length) {
     const diagnostics = element('details', 'source-diagnostics') as HTMLDetailsElement;
-    diagnostics.appendChild(element('summary', undefined, `Diagnostics (${warnings.length})`));
+    diagnostics.appendChild(element('summary', undefined, `Diagnostics (${allWarnings.length})`));
     const warningList = element('ul', 'warning-list');
-    for (const warning of warnings) {
+    for (const warning of allWarnings) {
       warningList.appendChild(element('li', undefined, warning));
     }
     diagnostics.appendChild(warningList);
@@ -88,7 +104,7 @@ export function renderComparisonPanel(
     const mismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
     const values = last?.profiles[profile];
     const card = element('article', 'comparison-card');
-    card.appendChild(element('div', 'comparison-card-title', profile));
+    card.appendChild(element('div', 'comparison-card-title', formatProfileLabel(profile)));
     card.appendChild(element('span', 'metric-label', 'NAV delta'));
     card.appendChild(element('strong', undefined, values ? values.nav_delta_vs_baseline.toFixed(2) : 'n/a'));
     card.appendChild(element('span', 'metric-label', 'Position delta'));
@@ -119,7 +135,7 @@ export function renderComparisonPanel(
       const header = element('div', 'mismatch-row-header');
       header.append(
         dateButton,
-        element('span', 'mismatch-profile', row.profile),
+        element('span', 'mismatch-profile', formatProfileLabel(row.profile)),
         element('span', 'mismatch-actions', `${row.model_action} vs ${row.baseline_action}`),
       );
       const metrics = element(

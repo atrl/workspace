@@ -15,6 +15,7 @@ import {
   computeDefaultDateRange,
   computeInspectorRows,
   computeKeyboardDateRange,
+  formatProfileLabel,
   selectDefaultChartProfile,
   type DateRangePreset,
   type KeyboardRangeAction,
@@ -124,7 +125,8 @@ function renderToolbar(
         : state.selectedProfiles.filter((item) => item !== profile);
       update({ selectedProfiles: clampComparisonProfiles(raw, data.manifest.default_comparison_profiles) });
     });
-    label.append(input, document.createTextNode(profile));
+    label.title = profile;
+    label.append(input, document.createTextNode(formatProfileLabel(profile)));
     profileGroup.appendChild(label);
   }
   container.appendChild(profileGroup);
@@ -136,7 +138,8 @@ function renderToolbar(
   for (const profile of state.selectedProfiles) {
     const option = document.createElement('option');
     option.value = profile;
-    option.textContent = profile;
+    option.textContent = formatProfileLabel(profile);
+    option.title = profile;
     option.selected = profile === state.baselineProfile;
     baseline.appendChild(option);
   }

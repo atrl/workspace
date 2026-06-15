@@ -9,7 +9,7 @@ describe('dashboard v2 DOM render helpers', () => {
     renderDataSourcePanel(panel, manifestFixture);
 
     expect(panel.querySelector('.status-strip')).not.toBeNull();
-    expect(panel.textContent).toContain('Replay safe');
+    expect(panel.textContent).toContain('Replay');
     expect(panel.textContent).toContain('2026-01-06');
     expect(panel.textContent).not.toContain('model_replay_freshness.json');
   });
@@ -24,6 +24,45 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(diagnostics?.open).toBe(false);
     expect(diagnostics?.querySelector('summary')?.textContent).toContain('Diagnostics');
     expect(diagnostics?.textContent).toContain('Replay safe end is before market latest.');
+  });
+
+  test('shows a compact retention gate banner when actor models are blocked', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+      default_comparison_profiles: ['soxl_backtest_policy_reimplementation_v1'],
+      profile_summaries: {
+        soxl_backtest_policy_reimplementation_v1: {
+          status: 'reference',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-06',
+          row_count: 3,
+          source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+        },
+      },
+      retention_filter: {
+        policy: 'final_model_retained_or_reference',
+        input_profile_count: 3,
+        allowed_profile_count: 1,
+        blocked_profile_count: 2,
+      },
+      blocked_profiles: {
+        balanced_rule_residual_v22: {
+          code: 'missing_final_retention_decision',
+          status: 'blocked',
+          reason: 'summary lacks final_model_retention_decision',
+          summary_path: 'runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json',
+          final_model_retained: false,
+        },
+      },
+    });
+
+    expect(panel.querySelector('.gate-banner')?.textContent).toContain('No final-retained actor');
+    const warningPill = panel.querySelector<HTMLElement>('.status-pill[data-tone="warning"]');
+    expect(warningPill?.textContent).toContain('Blocked');
+    expect(warningPill?.textContent).toContain('2');
   });
 
   test('renders inspector rows with tone classes', () => {

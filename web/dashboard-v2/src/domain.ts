@@ -12,6 +12,13 @@ import type {
   ModelRow,
 } from './types';
 
+export function formatProfileLabel(profile: string): string {
+  if (profile === 'soxl_backtest_policy_reimplementation_v1') return 'SOXLBacktest';
+  const balanced = profile.match(/^balanced_rule_residual_(.+)$/);
+  if (balanced) return `BRR ${balanced[1].replaceAll('_', ' ')}`;
+  return profile;
+}
+
 export function clampComparisonProfiles(
   selected: readonly string[],
   available: readonly string[],
@@ -232,6 +239,10 @@ function formatNumber(value: number | null | undefined, digits = 2): string {
   return typeof value === 'number' && Number.isFinite(value) ? value.toFixed(digits) : 'n/a';
 }
 
+function latestModelRowAtOrBefore(rows: readonly ModelRow[], date: string): ModelRow | undefined {
+  return [...rows].filter((row) => row.date <= date).sort((a, b) => a.date.localeCompare(b.date)).at(-1);
+}
+
 function rowToneForAction(action: string): InspectorRow['tone'] {
   if (action === 'BUY') return 'buy';
   if (action === 'SELL') return 'sell';
@@ -263,11 +274,15 @@ export function computeInspectorRows(input: {
   }
 
   for (const [profile, model] of Object.entries(input.models)) {
-    const modelRow = model.rows.find((row) => row.date === input.date);
+    const label = formatProfileLabel(profile);
+    const modelRow = model.rows.find((row) => row.date === input.date) ?? latestModelRowAtOrBefore(model.rows, input.date);
     if (modelRow) {
-      rows.push({ label: `${profile} action`, value: modelRow.action, tone: rowToneForAction(modelRow.action) });
-      rows.push({ label: `${profile} position`, value: formatNumber(modelRow.position, 3) });
-      rows.push({ label: `${profile} NAV`, value: formatNumber(modelRow.strategy_nav, 2) });
+      if (modelRow.date !== input.date) {
+        rows.push({ label: `${label} as-of`, value: modelRow.date, tone: 'muted' });
+      }
+      rows.push({ label: `${label} action`, value: modelRow.action, tone: rowToneForAction(modelRow.action) });
+      rows.push({ label: `${label} position`, value: formatNumber(modelRow.position, 3) });
+      rows.push({ label: `${label} NAV`, value: formatNumber(modelRow.strategy_nav, 2) });
     }
   }
 

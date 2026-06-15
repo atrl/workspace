@@ -19,17 +19,16 @@ from src.soxl_quant.policy.legacy_soxl import replay_legacy_soxl_policy
 
 ORACLE_CARD = ROOT / "runtime" / "production" / "card" / "soxl_backtest_jan_june_windows_v1"
 DEFAULT_OUTPUT_DIR = ROOT / "runtime" / "production" / "card" / "soxl_backtest_policy_reimplementation_v1"
+ORACLE_END_DATE = "2026-06-09"
 
-WINDOWS = {
+BASE_WINDOWS = {
     "ytd_2026": {
         "legacy_window": "legacy_ytd_2026_fresh_start",
         "start": "2026-01-01",
-        "end": "2026-06-09",
     },
     "june_2026": {
         "legacy_window": "legacy_june_2026_fresh_start",
         "start": "2026-06-01",
-        "end": "2026-06-09",
     },
 }
 
@@ -60,6 +59,29 @@ def _load_oracle_trades() -> pd.DataFrame:
     return pd.read_csv(path)
 
 
+def _latest_local_soxl_date(root: Path = ROOT) -> str:
+    path = root / "data" / "raw" / "symbols" / "SOXL.csv"
+    if not path.exists():
+        path = root / "data" / "symbols" / "SOXL.csv"
+    if not path.exists():
+        return ORACLE_END_DATE
+    frame = pd.read_csv(path, usecols=["date"])
+    if frame.empty:
+        return ORACLE_END_DATE
+    return pd.to_datetime(frame["date"]).max().date().isoformat()
+
+
+def _window_specs(end_date: str) -> dict[str, dict[str, str]]:
+    return {
+        window: {
+            **spec,
+            "end": end_date,
+            "oracle_end": ORACLE_END_DATE,
+        }
+        for window, spec in BASE_WINDOWS.items()
+    }
+
+
 def _metric_row(window: str, result_metrics: dict[str, object], legacy_row: pd.Series) -> dict[str, object]:
     legacy_return = float(legacy_row["rulebase_return_pct"])
     new_return = float(result_metrics["rulebase_return_pct"])
@@ -72,6 +94,7 @@ def _metric_row(window: str, result_metrics: dict[str, object], legacy_row: pd.S
         "legacy_window": str(legacy_row["window"]),
         "start": str(result_metrics["start"]),
         "end": str(result_metrics["end"]),
+        "oracle_end": ORACLE_END_DATE,
         "new_return_pct": new_return,
         "legacy_return_pct": legacy_return,
         "return_delta_pct": new_return - legacy_return,
@@ -115,11 +138,16 @@ def _timing_rows(window: str, new_trades: pd.DataFrame, legacy_trades: pd.DataFr
     return rows
 
 
-def write_legacy_soxl_policy_replay_outputs(output_dir: Path = DEFAULT_OUTPUT_DIR) -> dict[str, object]:
+def write_legacy_soxl_policy_replay_outputs(
+    output_dir: Path = DEFAULT_OUTPUT_DIR,
+    *,
+    end_date: str | None = None,
+) -> dict[str, object]:
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     oracle_metrics = _load_oracle_metrics()
     oracle_trades = _load_oracle_trades()
+    replay_end = end_date or _latest_local_soxl_date()
 
     daily_frames: list[pd.DataFrame] = []
     trade_frames: list[pd.DataFrame] = []
@@ -127,7 +155,7 @@ def write_legacy_soxl_policy_replay_outputs(output_dir: Path = DEFAULT_OUTPUT_DI
     timing_rows: list[dict[str, object]] = []
     summary_windows: dict[str, object] = {}
 
-    for window, spec in WINDOWS.items():
+    for window, spec in _window_specs(replay_end).items():
         result = replay_legacy_soxl_policy(start=str(spec["start"]), end=str(spec["end"]))
         legacy_window = str(spec["legacy_window"])
         legacy_metric = oracle_metrics.loc[oracle_metrics["window"] == legacy_window].iloc[0]
@@ -149,6 +177,7 @@ def write_legacy_soxl_policy_replay_outputs(output_dir: Path = DEFAULT_OUTPUT_DI
             "legacy": _json_safe(legacy_metric.to_dict()),
             "comparison": _json_safe(metric),
             "trade_timing": _json_safe(timing),
+            "oracle_end": spec["oracle_end"],
         }
 
     daily_path = output_dir / "new_policy_daily.csv"
@@ -167,6 +196,7 @@ def write_legacy_soxl_policy_replay_outputs(output_dir: Path = DEFAULT_OUTPUT_DI
         "experiment": "soxl_backtest_policy_reimplementation_v1",
         "direction": "production",
         "oracle_card": str(ORACLE_CARD.relative_to(ROOT)),
+        "replay_end": replay_end,
         "windows": summary_windows,
         "artifacts": {
             "new_policy_daily": str(daily_path.relative_to(ROOT)) if daily_path.is_relative_to(ROOT) else str(daily_path),
@@ -183,12 +213,19 @@ def write_legacy_soxl_policy_replay_outputs(output_dir: Path = DEFAULT_OUTPUT_DI
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument(
+        "--end-date",
+        help=(
+            "Replay end date. Defaults to the latest local SOXL row; use "
+            f"{ORACLE_END_DATE} to reproduce the original oracle comparison window."
+        ),
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    summary = write_legacy_soxl_policy_replay_outputs(args.output_dir)
+    summary = write_legacy_soxl_policy_replay_outputs(args.output_dir, end_date=args.end_date)
     print(summary["artifacts"]["summary"])
     return 0
 

@@ -18,6 +18,31 @@ def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
     pd.DataFrame(rows).to_csv(path, index=False)
 
 
+def _write_final_retention_summary(
+    root: Path,
+    profile: str,
+    *,
+    retained: bool = True,
+    reason: str = "unit-test final retention fixture",
+) -> Path:
+    summary_path = root / "runtime" / "model" / "card" / profile / f"soxl_{profile}_summary.json"
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(
+        json.dumps(
+            {
+                "profile": profile,
+                "final_model_retention_decision": {
+                    "status": "passed" if retained else "blocked",
+                    "final_model_retained": retained,
+                    "reason": reason,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    return summary_path
+
+
 def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()
@@ -52,6 +77,7 @@ def test_build_dashboard_v2_data_writes_manifest_market_model_and_comparison(tmp
             },
         ],
     )
+    _write_final_retention_summary(tmp_path, "smoke")
     freshness.write_text(
         json.dumps(
             {
@@ -160,6 +186,7 @@ def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path
             }
         ],
     )
+    _write_final_retention_summary(tmp_path, "smoke")
     freshness.write_text(
         json.dumps(
             {
@@ -248,6 +275,7 @@ def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path:
             },
         ],
     )
+    _write_final_retention_summary(tmp_path, "smoke")
     freshness.write_text(
         json.dumps(
             {
@@ -371,6 +399,7 @@ def test_build_dashboard_v2_data_prefers_retained_actor_before_smoke_default(tmp
                 },
             ],
         )
+        _write_final_retention_summary(tmp_path, profile)
     freshness.write_text(
         json.dumps(
             {
@@ -441,6 +470,7 @@ def test_build_dashboard_v2_data_omits_smoke_when_reference_and_retained_actor_e
                 },
             ],
         )
+        _write_final_retention_summary(tmp_path, profile)
     reference_csv = (
         tmp_path
         / "runtime"
@@ -527,6 +557,108 @@ def test_build_dashboard_v2_data_omits_smoke_when_reference_and_retained_actor_e
     assert not stale_smoke.exists()
 
 
+def test_build_dashboard_v2_data_blocks_actor_without_final_retention_decision(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    actor_name = "balanced_rule_residual_v22"
+    actor_csv = tmp_path / "runtime" / "model" / "card" / actor_name / f"{actor_name}_soxl_daily.csv"
+    actor_csv.parent.mkdir(parents=True)
+    _write_csv(
+        actor_csv,
+        [
+            {
+                "datetime": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "datetime": "2026-01-05",
+                "strategy_nav": 101.0,
+                "buyhold_nav": 102.0,
+                "position": 0.2,
+                "action": "BUY",
+                "price": 49.0,
+            },
+        ],
+    )
+    (actor_csv.parent / f"soxl_{actor_name}_summary.json").write_text(
+        json.dumps({"profile": actor_name}),
+        encoding="utf-8",
+    )
+    reference_csv = (
+        tmp_path
+        / "runtime"
+        / "production"
+        / "card"
+        / "soxl_backtest_policy_reimplementation_v1"
+        / "new_policy_daily.csv"
+    )
+    reference_csv.parent.mkdir(parents=True)
+    _write_csv(
+        reference_csv,
+        [
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-02",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 47.24,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-01-05",
+                "strategy_nav": 105.0,
+                "buyhold_nav": 102.0,
+                "position": 0.2,
+                "action": "BUY",
+                "price": 49.0,
+            },
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-13T00:00:00+00:00",
+                "latest_data_date": "2026-01-05",
+                "safe_backtest_end": "2026-01-05",
+                "profiles": [
+                    {
+                        "profile": actor_name,
+                        "status": "canonical",
+                        "output": f"runtime/model/card/{actor_name}/{actor_name}_soxl_daily.csv",
+                        "result": "current",
+                    },
+                ],
+            }
+        )
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-01-02": {"open": 47.0, "high": 48.0, "low": 46.0, "close": 47.24, "volume": 1000},
+            "2026-01-05": {"open": 48.0, "high": 50.0, "low": 47.0, "close": 49.0, "volume": 1000},
+        },
+        selected_profiles=["soxl_backtest_policy_reimplementation_v1", actor_name],
+        baseline_profile="soxl_backtest_policy_reimplementation_v1",
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    assert manifest["default_comparison_profiles"] == ["soxl_backtest_policy_reimplementation_v1"]
+    assert manifest["retention_filter"]["policy"] == "final_model_retained_or_reference"
+    assert manifest["blocked_profiles"][actor_name]["code"] == "missing_final_retention_decision"
+    assert "final_model_retention_decision" in manifest["blocked_profiles"][actor_name]["reason"]
+    assert not (output_dir / "models" / f"{actor_name}.json").exists()
+
+
 def test_build_dashboard_v2_data_manifest_does_not_expose_unselected_old_profiles(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()
@@ -554,6 +686,7 @@ def test_build_dashboard_v2_data_manifest_does_not_expose_unselected_old_profile
                 },
             ],
         )
+    _write_final_retention_summary(tmp_path, "balanced_rule_residual_v22")
     reference_csv = (
         tmp_path
         / "runtime"

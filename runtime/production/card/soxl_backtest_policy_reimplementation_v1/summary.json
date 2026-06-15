@@ -1,21 +1,22 @@
 {
-  "created_at": "2026-06-12T07:42:13+00:00",
+  "created_at": "2026-06-15T14:30:08+00:00",
   "experiment": "soxl_backtest_policy_reimplementation_v1",
   "direction": "production",
   "oracle_card": "runtime/production/card/soxl_backtest_jan_june_windows_v1",
+  "replay_end": "2026-06-12",
   "windows": {
     "ytd_2026": {
       "new_policy": {
         "requested_start": "2026-01-01",
         "start": "2026-01-02",
-        "end": "2026-06-09",
-        "rows": 109,
+        "end": "2026-06-12",
+        "rows": 112,
         "initial_capital": 100000.0,
-        "final_capital": 232077.97795135496,
-        "soxl_buyhold_return_pct": 326.9263184466205,
-        "rulebase_return_pct": 132.07797795135497,
+        "final_capital": 238644.97733306882,
+        "soxl_buyhold_return_pct": 396.7823546516816,
+        "rulebase_return_pct": 138.64497733306882,
         "rulebase_max_drawdown_pct": 13.554088542803521,
-        "average_position_pct": 16.220733944954127,
+        "average_position_pct": 16.212410714285713,
         "end_position_pct": 15.909999999999998,
         "trade_count": 3
       },
@@ -40,10 +41,11 @@
         "window": "ytd_2026",
         "legacy_window": "legacy_ytd_2026_fresh_start",
         "start": "2026-01-02",
-        "end": "2026-06-09",
-        "new_return_pct": 132.07797795135497,
+        "end": "2026-06-12",
+        "oracle_end": "2026-06-09",
+        "new_return_pct": 138.64497733306882,
         "legacy_return_pct": 132.07797795135497,
-        "return_delta_pct": 0.0,
+        "return_delta_pct": 6.566999381713856,
         "new_end_position_pct": 15.909999999999998,
         "legacy_end_position_pct": 15.909999999999998,
         "end_position_delta_pct": 0.0,
@@ -87,22 +89,23 @@
           "new_position_pct": 15.909999999999998,
           "legacy_position_pct": 15.909999999999998
         }
-      ]
+      ],
+      "oracle_end": "2026-06-09"
     },
     "june_2026": {
       "new_policy": {
         "requested_start": "2026-06-01",
         "start": "2026-06-01",
-        "end": "2026-06-09",
-        "rows": 7,
+        "end": "2026-06-12",
+        "rows": 10,
         "initial_capital": 100000.0,
-        "final_capital": 103138.96,
-        "soxl_buyhold_return_pct": -11.165925208122275,
-        "rulebase_return_pct": 3.1389600000000017,
-        "rulebase_max_drawdown_pct": 1.5282090059538125,
-        "average_position_pct": 12.831428571428571,
-        "end_position_pct": 29.94,
-        "trade_count": 1
+        "final_capital": 117465.90969848633,
+        "soxl_buyhold_return_pct": 3.3695960611448417,
+        "rulebase_return_pct": 17.465909698486335,
+        "rulebase_max_drawdown_pct": 4.821062262010388,
+        "average_position_pct": 26.868,
+        "end_position_pct": 59.62,
+        "trade_count": 2
       },
       "legacy": {
         "window": "legacy_june_2026_fresh_start",
@@ -125,17 +128,18 @@
         "window": "june_2026",
         "legacy_window": "legacy_june_2026_fresh_start",
         "start": "2026-06-01",
-        "end": "2026-06-09",
-        "new_return_pct": 3.1389600000000017,
+        "end": "2026-06-12",
+        "oracle_end": "2026-06-09",
+        "new_return_pct": 17.465909698486335,
         "legacy_return_pct": 3.1389599999999973,
-        "return_delta_pct": 4.440892098500626e-15,
-        "new_end_position_pct": 29.94,
+        "return_delta_pct": 14.326949698486338,
+        "new_end_position_pct": 59.62,
         "legacy_end_position_pct": 29.94,
-        "end_position_delta_pct": 0.0,
-        "new_trade_count": 1,
+        "end_position_delta_pct": 29.679999999999996,
+        "new_trade_count": 2,
         "legacy_trade_count": 1,
-        "trade_count_delta": 0,
-        "new_max_drawdown_pct": 1.5282090059538125,
+        "trade_count_delta": 1,
+        "new_max_drawdown_pct": 4.821062262010388,
         "legacy_max_drawdown_pct": 1.5282090059538178
       },
       "trade_timing": [
@@ -149,8 +153,20 @@
           "legacy_type": "buy",
           "new_position_pct": 29.94,
           "legacy_position_pct": 29.94
+        },
+        {
+          "window": "june_2026",
+          "sequence": 2,
+          "new_date": "2026-06-10",
+          "legacy_date": "",
+          "date_delta_days": null,
+          "new_type": "buy",
+          "legacy_type": "",
+          "new_position_pct": 59.62,
+          "legacy_position_pct": null
         }
-      ]
+      ],
+      "oracle_end": "2026-06-09"
     }
   },
   "artifacts": {

@@ -9,10 +9,33 @@ export interface Manifest {
   available_profiles: string[];
   default_baseline_profile: string;
   default_comparison_profiles: string[];
+  retention_filter?: {
+    policy: string;
+    input_profile_count: number;
+    allowed_profile_count: number;
+    blocked_profile_count: number;
+  };
+  blocked_profiles?: Record<
+    string,
+    {
+      code: string;
+      status: string;
+      reason: string;
+      summary_path?: string | null;
+      final_model_retained: boolean;
+    }
+  >;
   profile_summaries?: Record<
     string,
     {
       status: string | null;
+      retention?: {
+        code: string;
+        status: string;
+        reason: string;
+        summary_path?: string | null;
+        final_model_retained: boolean;
+      };
       replay_start: string;
       replay_end: string;
       row_count: number;

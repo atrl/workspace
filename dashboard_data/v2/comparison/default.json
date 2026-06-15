@@ -1,25 +1,17 @@
 {
   "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
-  "common_end": "2026-06-09",
+  "common_end": "2026-06-11",
   "common_start": "2026-01-02",
   "compared_profiles": [
-    "soxl_backtest_policy_reimplementation_v1",
-    "balanced_rule_residual_v22"
+    "soxl_backtest_policy_reimplementation_v1"
   ],
   "rankings": [
     {
-      "avg_position": 0.1622073394495413,
+      "avg_position": 0.16215135135135134,
       "max_drawdown": -0.13554088542803522,
       "profile": "soxl_backtest_policy_reimplementation_v1",
-      "return": 1.3207797795135496,
-      "row_count": 109.0
-    },
-    {
-      "avg_position": 0.27639609331086157,
-      "max_drawdown": -0.2627817370559238,
-      "profile": "balanced_rule_residual_v22",
-      "return": 1.1688264368807038,
-      "row_count": 109.0
+      "return": 1.36517669883728,
+      "row_count": 111.0
     }
   ],
   "rows": [
@@ -27,15 +19,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-02",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 5337194.792403889,
-          "position": 0.336958427605764,
-          "position_delta_vs_baseline": 0.336958427605764,
-          "strategy_nav": 5437194.792403889
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -51,15 +34,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-05",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 5460944.763793659,
-          "position": 0.3566414741165827,
-          "position_delta_vs_baseline": 0.3566414741165827,
-          "strategy_nav": 5560944.763793659
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -75,15 +49,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-06",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 5760319.582595539,
-          "position": 0.3587856640167283,
-          "position_delta_vs_baseline": 0.3587856640167283,
-          "strategy_nav": 5860319.582595539
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -96,18 +61,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-01-07",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.014365546485261227,
-          "nav_delta_vs_baseline": 5676132.889213276,
-          "position": 0.3676458029693554,
-          "position_delta_vs_baseline": 0.3676458029693554,
-          "strategy_nav": 5776132.889213276
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -123,15 +79,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-08",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.046575386528875606,
-          "nav_delta_vs_baseline": 5487372.932853413,
-          "position": 0.3749410415344471,
-          "position_delta_vs_baseline": 0.3749410415344471,
-          "strategy_nav": 5587372.932853413
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -147,15 +94,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-09",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 5794822.878303242,
-          "position": 0.4172494982269156,
-          "position_delta_vs_baseline": 0.4172494982269156,
-          "strategy_nav": 5894822.878303242
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -171,15 +109,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-12",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 5844872.932853413,
-          "position": 0.4329527515620425,
-          "position_delta_vs_baseline": 0.4329527515620425,
-          "strategy_nav": 5944872.932853413
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -195,15 +124,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-13",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 5946402.801933003,
-          "position": 0.447605404438102,
-          "position_delta_vs_baseline": 0.447605404438102,
-          "strategy_nav": 6046402.801933003
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -219,15 +139,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-14",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.008159380614523482,
-          "nav_delta_vs_baseline": 5897067.90012331,
-          "position": 0.4607806923321975,
-          "position_delta_vs_baseline": 0.4607806923321975,
-          "strategy_nav": 5997067.90012331
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -243,15 +154,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-15",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 6090117.954673481,
-          "position": 0.4750430757250383,
-          "position_delta_vs_baseline": 0.4750430757250383,
-          "strategy_nav": 6190117.954673481
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -267,15 +169,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-16",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 6281022.823753071,
-          "position": 0.4769362998087271,
-          "position_delta_vs_baseline": 0.4769362998087271,
-          "strategy_nav": 6381022.823753071
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -291,15 +184,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-20",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03148634689761809,
-          "nav_delta_vs_baseline": 6080107.725562763,
-          "position": 0.4838381821830814,
-          "position_delta_vs_baseline": 0.4838381821830814,
-          "strategy_nav": 6180107.725562763
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -312,18 +196,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-01-21",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 6476958.174067402,
-          "position": 0.5010751010933779,
-          "position_delta_vs_baseline": 0.5010751010933779,
-          "strategy_nav": 6576958.174067402
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -339,15 +214,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-22",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 6493110.287028218,
-          "position": 0.6999999992549419,
-          "position_delta_vs_baseline": 0.6999999992549419,
-          "strategy_nav": 6593110.287028218
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -363,15 +229,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-23",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.021640193874154168,
-          "nav_delta_vs_baseline": 6350434.102183247,
-          "position": 0.7074894823183144,
-          "position_delta_vs_baseline": 0.7074894823183144,
-          "strategy_nav": 6450434.102183247
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -387,15 +244,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-26",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03082703336653969,
-          "nav_delta_vs_baseline": 6289864.256220723,
-          "position": 0.722595694949249,
-          "position_delta_vs_baseline": 0.722595694949249,
-          "strategy_nav": 6389864.256220723
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -411,15 +259,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-27",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 6576562.143259907,
-          "position": 0.7354956773051488,
-          "position_delta_vs_baseline": 0.7354956773051488,
-          "strategy_nav": 6676562.143259907
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -435,15 +274,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-28",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 6921810.958414936,
-          "position": 0.7598512109581392,
-          "position_delta_vs_baseline": 0.7598512109581392,
-          "strategy_nav": 7021810.958414936
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -459,15 +289,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-29",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 6947385.287028218,
-          "position": 0.7526296780139573,
-          "position_delta_vs_baseline": 0.7526296780139573,
-          "strategy_nav": 7047385.287028218
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -483,15 +304,6 @@
       "action_mismatch_count": 0,
       "date": "2026-01-30",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.08289088743502826,
-          "nav_delta_vs_baseline": 6363221.266489888,
-          "position": 0.7298396290026463,
-          "position_delta_vs_baseline": 0.7298396290026463,
-          "strategy_nav": 6463221.266489888
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -507,15 +319,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-02",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.05032664925947039,
-          "nav_delta_vs_baseline": 6592713.999491597,
-          "position": 0.7441720514470941,
-          "position_delta_vs_baseline": 0.7441720514470941,
-          "strategy_nav": 6692713.999491597
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -528,18 +331,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-02-03",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.105572856217516,
-          "nav_delta_vs_baseline": 6203372.69341135,
-          "position": 0.7579304182953729,
-          "position_delta_vs_baseline": 0.7579304182953729,
-          "strategy_nav": 6303372.69341135
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -555,15 +349,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-04",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.16513027997736662,
-          "nav_delta_vs_baseline": 5783648.581472874,
-          "position": 0.75,
-          "position_delta_vs_baseline": 0.75,
-          "strategy_nav": 5883648.581472874
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -579,15 +364,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-05",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.16468414686098432,
-          "nav_delta_vs_baseline": 5786792.653433323,
-          "position": 0.7447366802587335,
-          "position_delta_vs_baseline": 0.7447366802587335,
-          "strategy_nav": 5886792.653433323
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -603,15 +379,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-06",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.10148340192373406,
-          "nav_delta_vs_baseline": 6232192.653433323,
-          "position": 0.6999999992549419,
-          "position_delta_vs_baseline": 0.6999999992549419,
-          "strategy_nav": 6332192.653433323
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -627,15 +394,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-09",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.08453074059343013,
-          "nav_delta_vs_baseline": 6351664.589468479,
-          "position": 0.7213907207158201,
-          "position_delta_vs_baseline": 0.7213907207158201,
-          "strategy_nav": 6451664.589468479
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -651,15 +409,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-10",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.08966114379504042,
-          "nav_delta_vs_baseline": 6315508.661428928,
-          "position": 0.7036677431999175,
-          "position_delta_vs_baseline": 0.7036677431999175,
-          "strategy_nav": 6415508.661428928
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -675,15 +424,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-11",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.05464047416161133,
-          "nav_delta_vs_baseline": 6562312.813345432,
-          "position": 0.7342117316406994,
-          "position_delta_vs_baseline": 0.7342117316406994,
-          "strategy_nav": 6662312.813345432
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -699,15 +439,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-12",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.09144564789683951,
-          "nav_delta_vs_baseline": 6302932.573477268,
-          "position": 0.7482911136753826,
-          "position_delta_vs_baseline": 0.7482911136753826,
-          "strategy_nav": 6402932.573477268
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -723,15 +454,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-13",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.0803669449621165,
-          "nav_delta_vs_baseline": 6381008.461538792,
-          "position": 0.7292458949843657,
-          "position_delta_vs_baseline": 0.7292458949843657,
-          "strategy_nav": 6481008.461538792
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -744,18 +466,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-02-17",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.08582387104195777,
-          "nav_delta_vs_baseline": 6342551.400971318,
-          "position": 0.7420261038807726,
-          "position_delta_vs_baseline": 0.7420261038807726,
-          "strategy_nav": 6442551.400971318
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -771,15 +484,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-18",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.067848103538937,
-          "nav_delta_vs_baseline": 6469233.560395146,
-          "position": 0.7440363419149804,
-          "position_delta_vs_baseline": 0.7440363419149804,
-          "strategy_nav": 6569233.560395146
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -795,15 +499,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-19",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.07766987966682626,
-          "nav_delta_vs_baseline": 6400015.719818974,
-          "position": 0.7193520981712728,
-          "position_delta_vs_baseline": 0.7193520981712728,
-          "strategy_nav": 6500015.719818974
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -819,15 +514,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-20",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.06025011110753398,
-          "nav_delta_vs_baseline": 6522779.540467167,
-          "position": 0.5,
-          "position_delta_vs_baseline": 0.5,
-          "strategy_nav": 6622779.540467167
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -843,15 +529,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-23",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.07183242095374653,
-          "nav_delta_vs_baseline": 6441154.540467167,
-          "position": 0.5000243939995597,
-          "position_delta_vs_baseline": 0.5000243939995597,
-          "strategy_nav": 6541154.540467167
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -867,15 +544,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-24",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.04709262408851078,
-          "nav_delta_vs_baseline": 6615505.420899296,
-          "position": 0.5327998247979847,
-          "position_delta_vs_baseline": 0.5327998247979847,
-          "strategy_nav": 6715505.420899296
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -891,15 +559,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-25",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.01623733369192648,
-          "nav_delta_vs_baseline": 6832954.540467167,
-          "position": 0.5401417130938856,
-          "position_delta_vs_baseline": 0.5401417130938856,
-          "strategy_nav": 6932954.540467167
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -915,15 +574,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-26",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.076650701437744,
-          "nav_delta_vs_baseline": 6407198.261475468,
-          "position": 0.5564848778383904,
-          "position_delta_vs_baseline": 0.5564848778383904,
-          "strategy_nav": 6507198.261475468
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -939,15 +589,6 @@
       "action_mismatch_count": 0,
       "date": "2026-02-27",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1004638923074399,
-          "nav_delta_vs_baseline": 6239377.530503178,
-          "position": 0.5978575989502941,
-          "position_delta_vs_baseline": 0.5978575989502941,
-          "strategy_nav": 6339377.530503178
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -960,18 +601,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-03-02",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.08685213557736926,
-          "nav_delta_vs_baseline": 6335304.824613285,
-          "position": 0.5893658124822012,
-          "position_delta_vs_baseline": 0.5893658124822012,
-          "strategy_nav": 6435304.824613285
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -987,15 +619,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-03",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.18717842437164223,
-          "nav_delta_vs_baseline": 5628266.813062382,
-          "position": 0.5966186239207192,
-          "position_delta_vs_baseline": 0.5966186239207192,
-          "strategy_nav": 5728266.813062382
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1011,15 +634,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-04",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.15280538417467782,
-          "nav_delta_vs_baseline": 5870506.8708168985,
-          "position": 0.5963076740880104,
-          "position_delta_vs_baseline": 0.5963076740880104,
-          "strategy_nav": 5970506.8708168985
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1035,15 +649,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-05",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.17235504284763092,
-          "nav_delta_vs_baseline": 5732732.893918705,
-          "position": 0.6999999992549419,
-          "position_delta_vs_baseline": 0.6999999992549419,
-          "strategy_nav": 5832732.893918705
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1059,15 +664,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-06",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.24657930718747312,
-          "nav_delta_vs_baseline": 5209645.9054696085,
-          "position": 0.742431729491247,
-          "position_delta_vs_baseline": 0.742431729491247,
-          "strategy_nav": 5309645.9054696085
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1083,15 +679,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-09",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.18825256523135947,
-          "nav_delta_vs_baseline": 5620696.928571415,
-          "position": 0.7522528498025586,
-          "position_delta_vs_baseline": 0.7522528498025586,
-          "strategy_nav": 5720696.928571415
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1107,15 +694,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-10",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1746107632385454,
-          "nav_delta_vs_baseline": 5716835.963224125,
-          "position": 0.7398059510751794,
-          "position_delta_vs_baseline": 0.7398059510751794,
-          "strategy_nav": 5816835.963224125
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1131,15 +709,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-11",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.15849840448770403,
-          "nav_delta_vs_baseline": 5830385.963224125,
-          "position": 0.6639432815892746,
-          "position_delta_vs_baseline": 0.6639432815892746,
-          "strategy_nav": 5930385.963224125
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1155,15 +724,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-12",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.22090695546726802,
-          "nav_delta_vs_baseline": 5390568.859265995,
-          "position": 0.6959083358557191,
-          "position_delta_vs_baseline": 0.6959083358557191,
-          "strategy_nav": 5490568.859265995
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1176,18 +736,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-03-13",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.19925564060910117,
-          "nav_delta_vs_baseline": 5543154.017042256,
-          "position": 0.6858158197898309,
-          "position_delta_vs_baseline": 0.6858158197898309,
-          "strategy_nav": 5643154.017042256
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1203,15 +754,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-16",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.18458978859172304,
-          "nav_delta_vs_baseline": 5646509.92677126,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5746509.92677126
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1227,15 +769,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-17",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1783678959953966,
-          "nav_delta_vs_baseline": 5690358.00111208,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5790358.00111208
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1251,15 +784,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-18",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1829602390136914,
-          "nav_delta_vs_baseline": 5657993.990491963,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5757993.990491963
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1275,15 +799,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-19",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.17886170746009467,
-          "nav_delta_vs_baseline": 5686877.921461201,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5786877.921461201
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1299,15 +814,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-20",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.19718168896831323,
-          "nav_delta_vs_baseline": 5557769.953321553,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5657769.953321553
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1323,15 +829,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-23",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.187848868910805,
-          "nav_delta_vs_baseline": 5623541.932081318,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5723541.932081318
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1347,15 +844,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-24",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.17831852426741746,
-          "nav_delta_vs_baseline": 5690705.942701436,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5790705.942701436
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1371,15 +859,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-25",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.16804747184547353,
-          "nav_delta_vs_baseline": 5763090.006422139,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5863090.006422139
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1395,15 +874,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-26",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.20789714345301347,
-          "nav_delta_vs_baseline": 5482254.017042256,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5582254.017042256
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1419,15 +889,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-27",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.21955083030214928,
-          "nav_delta_vs_baseline": 5400125.995802022,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 5500125.995802022
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1443,15 +904,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-30",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "BUY",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2535026116380774,
-          "nav_delta_vs_baseline": 5160854.711546803,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 5260854.711546803
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "BUY",
           "action_mismatch": false,
@@ -1467,15 +919,6 @@
       "action_mismatch_count": 0,
       "date": "2026-03-31",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.21315998467416186,
-          "nav_delta_vs_baseline": 5439784.72657671,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 5545164.747252369
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1491,15 +934,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-01",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1890872351959988,
-          "nav_delta_vs_baseline": 5606224.368193531,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 5714814.687743092
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1515,15 +949,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-02",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.18637558191157,
-          "nav_delta_vs_baseline": 5624972.812415028,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 5733924.753203297
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1539,15 +964,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-06",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.17497560159458236,
-          "nav_delta_vs_baseline": 5703792.585235378,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 5814264.806761647
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1563,15 +979,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-07",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.16534651024748115,
-          "nav_delta_vs_baseline": 5770368.383398389,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 5882124.723448658
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1587,15 +994,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-08",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.10474956366919641,
-          "nav_delta_vs_baseline": 6189337.312415028,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 6309174.753203297
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1611,15 +1009,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-09",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.07995737141570791,
-          "nav_delta_vs_baseline": 6360751.201121438,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 6483894.884123707
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1635,15 +1024,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-10",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.05555259740789931,
-          "nav_delta_vs_baseline": 6529486.469349317,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 6655884.729399586
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1659,15 +1039,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-13",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03247596373949291,
-          "nav_delta_vs_baseline": 6689038.938676184,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 6818514.657988453
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1683,15 +1054,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-14",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.00618961888177938,
-          "nav_delta_vs_baseline": 6870783.438676184,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 7003764.657988453
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1707,15 +1069,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-15",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.00259253166761253,
-          "nav_delta_vs_baseline": 6895653.797447462,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 7029114.717497731
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1731,15 +1084,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-16",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 6987865.357317727,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 7123104.860319996
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1755,15 +1099,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-17",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 7229298.484091663,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 7369194.765105152
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1776,18 +1111,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-04-20",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 7243562.619046498,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 7384388.781636525
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1803,15 +1129,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-21",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 7358290.593350697,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 7500703.45143633
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1827,15 +1144,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-22",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 7761173.856198598,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 7909158.616536427
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1851,15 +1159,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-23",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 8141644.769635487,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 8294891.467946339
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1875,15 +1174,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-24",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 8971424.439603137,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 9136147.04579668
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1899,15 +1189,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-27",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.007105492464579144,
-          "nav_delta_vs_baseline": 8708349.356198598,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "strategy_nav": 8869433.616536427
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1923,15 +1204,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-28",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.027038315109061073,
-          "nav_delta_vs_baseline": 7970352.798489857,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 8121230.517476369
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1947,15 +1219,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-29",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.014917195134958705,
-          "nav_delta_vs_baseline": 8419127.413907338,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 8576211.715596486
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1971,15 +1234,6 @@
       "action_mismatch_count": 0,
       "date": "2026-04-30",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.0019313129346677504,
-          "nav_delta_vs_baseline": 8899919.147900868,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 9063652.831166554
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1992,18 +1246,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-05-01",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 9079439.142224597,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 9245696.778508471
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2019,15 +1264,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-04",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.003717295794000819,
-          "nav_delta_vs_baseline": 8930207.921613026,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 9094362.264653493
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2040,18 +1276,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-05-05",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 9901104.292720815,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 10077516.813509084
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2067,15 +1294,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-06",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 10934893.190884879,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 11127312.931673149
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2091,15 +1309,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-07",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.0070715173422092326,
-          "nav_delta_vs_baseline": 10279540.690884879,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 10461812.931673149
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2115,15 +1324,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-08",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 11463464.593638781,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 11664068.754427051
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2139,15 +1339,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-11",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 12105948.148202993,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 12316500.547639944
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2163,15 +1354,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-12",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.007600729609779422,
-          "nav_delta_vs_baseline": 11252798.639108755,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 11450140.8430501
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2187,15 +1369,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-13",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.0026241602980802137,
-          "nav_delta_vs_baseline": 11811397.337289907,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 12017388.902132131
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2211,15 +1384,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-14",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.0017961488680656723,
-          "nav_delta_vs_baseline": 11904338.091837024,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 12111768.754427051
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2235,15 +1399,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-15",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.011142081269191917,
-          "nav_delta_vs_baseline": 10855297.00638781,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 11046484.281770805
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2256,18 +1411,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-05-18",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.016433644404791226,
-          "nav_delta_vs_baseline": 10262692.226938345,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 10444706.167726614
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2283,15 +1429,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-19",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.016533333013823537,
-          "nav_delta_vs_baseline": 10267404.88639269,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 10449522.14673052
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2307,15 +1444,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-20",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.031707427846904834,
-          "nav_delta_vs_baseline": 10984742.024210073,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 11182586.062746145
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2331,15 +1459,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-21",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03540304484607559,
-          "nav_delta_vs_baseline": 11159447.88639269,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 11361122.14673052
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2355,15 +1474,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-22",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.04357816263001346,
-          "nav_delta_vs_baseline": 11569114.36475573,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 11779770.08374224
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2379,15 +1489,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-26",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 12755026.480936147,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "strategy_nav": 12991681.936769582
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2400,18 +1501,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-05-27",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": 0.0036754590864412906,
-          "nav_delta_vs_baseline": 12492126.343118763,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "strategy_nav": 12723018.020753955
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "SELL",
           "action_mismatch": false,
@@ -2427,15 +1519,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-28",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.01920427588549589,
-          "nav_delta_vs_baseline": 12720394.55738268,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "strategy_nav": 12951778.335695364
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2451,15 +1534,6 @@
       "action_mismatch_count": 0,
       "date": "2026-05-29",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.018527060342013346,
-          "nav_delta_vs_baseline": 12710439.724069692,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "strategy_nav": 12941802.041750051
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2472,18 +1546,9 @@
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-06-01",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": 0.00745360523694627,
-          "nav_delta_vs_baseline": 12577305.675035266,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "strategy_nav": 12808867.052986622
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2491,7 +1556,7 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.0699,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 231561.37795135495
+          "strategy_nav": 231561.37786102292
         }
       }
     },
@@ -2499,15 +1564,6 @@
       "action_mismatch_count": 0,
       "date": "2026-06-02",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.009239668168136594,
-          "nav_delta_vs_baseline": 14149927.557686632,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "strategy_nav": 14384396.395637987
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2515,7 +1571,7 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.0699,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 234468.83795135497
+          "strategy_nav": 234468.8384933471
         }
       }
     },
@@ -2523,15 +1579,6 @@
       "action_mismatch_count": 0,
       "date": "2026-06-03",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.004793204019257535,
-          "nav_delta_vs_baseline": 14719097.326636828,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "strategy_nav": 14954618.444588184
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2539,7 +1586,7 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.0699,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 235521.11795135497
+          "strategy_nav": 235521.11858367917
         }
       }
     },
@@ -2547,15 +1594,6 @@
       "action_mismatch_count": 0,
       "date": "2026-06-04",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.037465375549500246,
-          "nav_delta_vs_baseline": 14005033.633487415,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "strategy_nav": 14239234.59143877
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2563,23 +1601,14 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.0699,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 234200.95795135497
+          "strategy_nav": 234200.9588546753
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-06-05",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.22734482793187383,
-          "nav_delta_vs_baseline": 10796548.714759389,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "strategy_nav": 11024817.832710745
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "BUY",
           "action_mismatch": false,
@@ -2587,7 +1616,7 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.1591,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 228269.11795135497
+          "strategy_nav": 228269.1174545288
         }
       }
     },
@@ -2595,15 +1624,6 @@
       "action_mismatch_count": 0,
       "date": "2026-06-08",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.1741525911738041,
-          "nav_delta_vs_baseline": 11949687.981885852,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "strategy_nav": 12183708.199837208
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2611,7 +1631,7 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.1591,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 234020.21795135495
+          "strategy_nav": 234020.2192764282
         }
       }
     },
@@ -2619,15 +1639,6 @@
       "action_mismatch_count": 0,
       "date": "2026-06-09",
       "profiles": {
-        "balanced_rule_residual_v22": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.19211649248633567,
-          "nav_delta_vs_baseline": 11560253.830284288,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "strategy_nav": 11792331.808235643
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2635,7 +1646,37 @@
           "nav_delta_vs_baseline": 0.0,
           "position": 0.1591,
           "position_delta_vs_baseline": 0.0,
-          "strategy_nav": 232077.97795135496
+          "strategy_nav": 232077.9773330688
+        }
+      }
+    },
+    {
+      "action_mismatch_count": 0,
+      "date": "2026-06-10",
+      "profiles": {
+        "soxl_backtest_policy_reimplementation_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 0.0,
+          "position": 0.1591,
+          "position_delta_vs_baseline": 0.0,
+          "strategy_nav": 227893.0075759887
+        }
+      }
+    },
+    {
+      "action_mismatch_count": 0,
+      "date": "2026-06-11",
+      "profiles": {
+        "soxl_backtest_policy_reimplementation_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 0.0,
+          "position": 0.1591,
+          "position_delta_vs_baseline": 0.0,
+          "strategy_nav": 236517.669883728
         }
       }
     }
