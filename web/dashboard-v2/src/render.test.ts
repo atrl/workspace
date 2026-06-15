@@ -303,6 +303,37 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('train_bull_trend_participation_with_drawdown_drift_stop_no_promotion');
   });
 
+  test('renders final walk-forward retention contract status and fresh baseline', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      final_walkforward_retention_contract: {
+        status: 'blocked',
+        source_path: 'runtime/model_selection/card/final_walkforward_retention_contract_v1/summary.json',
+        decision: 'final_walkforward_retention_contract_no_retained_models',
+        reference_baseline: 'soxl_backtest_policy_reimplementation_v1',
+        reference_return_pct: 146.043798,
+        latest_reference_return_pct: 146.04379795135492,
+        reference_is_current: true,
+        strict_passing_profile_count: 0,
+        candidate_filter_actor_retention_allowed_count: 0,
+        final_retained_count: 0,
+        final_retained_profiles: [],
+        global_blockers: [],
+        current_best_return_pct: 224.361539,
+        required_best_return_pct: 213.143462,
+        max_walkforward_drawdown_pct: 20,
+        required_wf_windows: ['wf_2020', 'wf_2022', 'wf_2023_2024'],
+      },
+    });
+
+    expect(panel.textContent).toContain('WF Retain');
+    expect(panel.textContent).toContain('0/0');
+    expect(panel.textContent).toContain('Final retention contract: 0 retained, reference current true');
+    expect(panel.textContent).toContain('baseline 146.04%');
+  });
+
   test('renders inspector rows with tone classes', () => {
     const panel = document.createElement('aside');
 

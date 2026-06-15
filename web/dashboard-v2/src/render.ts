@@ -255,6 +255,12 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   if (manifest.strict_candidate_retention_filter) {
     rows.push(['Final Retain', String(manifest.strict_candidate_retention_filter.actor_retention_allowed_count)]);
   }
+  if (manifest.final_walkforward_retention_contract) {
+    rows.push([
+      'WF Retain',
+      `${manifest.final_walkforward_retention_contract.final_retained_count}/${manifest.final_walkforward_retention_contract.strict_passing_profile_count}`,
+    ]);
+  }
   if (manifest.latest_signal) {
     rows.push(['Signals', `${manifest.latest_signal.available_count}@${manifest.latest_signal.date}`]);
   }
@@ -263,6 +269,9 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     if (label === 'Blocked' && blockedCount > 0) item.dataset.tone = 'warning';
     if (label === 'Strict Gate' && manifest.strict_retention_gate?.status === 'blocked') item.dataset.tone = 'warning';
     if (label === 'Final Retain' && manifest.strict_candidate_retention_filter?.status === 'blocked') {
+      item.dataset.tone = 'warning';
+    }
+    if (label === 'WF Retain' && manifest.final_walkforward_retention_contract?.status === 'blocked') {
       item.dataset.tone = 'warning';
     }
     if (label === 'Signals' && manifest.latest_signal && !manifest.latest_signal.comparison_included) {
@@ -365,10 +374,24 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
         [`PPO allowed next: ${String(candidateFilter.ppo_allowed_next)}.`],
       ].flat()
     : [];
+  const finalContract = manifest.final_walkforward_retention_contract;
+  const finalContractWarnings = finalContract
+    ? [
+        [
+          `Final retention contract: ${finalContract.final_retained_count} retained, ` +
+            `reference current ${String(finalContract.reference_is_current)}, ` +
+            `baseline ${formatPct(finalContract.latest_reference_return_pct ?? finalContract.reference_return_pct)}; ` +
+            `decision ${finalContract.decision ?? finalContract.status}.`,
+        ],
+        finalContract.global_blockers.length
+          ? [`Final contract blockers: ${finalContract.global_blockers.join('; ')}.`]
+          : [],
+      ].flat()
+    : [];
   const blockedWarnings = Object.entries(manifest.blocked_profiles ?? {}).map(
     ([profile, status]) => `${profile}: ${status.reason}`,
   );
-  const allWarnings = [...warnings, ...gateWarnings, ...candidateWarnings, ...blockedWarnings];
+  const allWarnings = [...warnings, ...gateWarnings, ...candidateWarnings, ...finalContractWarnings, ...blockedWarnings];
   if (allWarnings.length) {
     const diagnostics = element('details', 'source-diagnostics') as HTMLDetailsElement;
     diagnostics.appendChild(element('summary', undefined, `Diagnostics (${allWarnings.length})`));

@@ -14,6 +14,7 @@ import {
   computeDateRangePreset,
   computeDateRangeFromLogicalRange,
   computeDefaultDateRange,
+  computeFocusedDateRange,
   computeInspectorRows,
   computeKeyboardDateRange,
   formatProfileLabel,
@@ -248,7 +249,10 @@ function renderReadoutPanels(data: DashboardData, state: ViewState, update: Upda
     state.start,
     state.end,
     mismatchRows,
-    (date) => update({ hoveredDate: date }),
+    (date) => {
+      const range = computeFocusedDateRange(data.market.rows, date, 10);
+      update(range ? { ...range, hoveredDate: date } : { hoveredDate: date });
+    },
   );
   renderDataSourcePanel(source, data.manifest, warningsFor(data, state));
 }

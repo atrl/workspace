@@ -172,6 +172,21 @@ export function computeKeyboardDateRange(
   return { start: dates[nextStart], end: dates[nextStart + width - 1] };
 }
 
+export function computeFocusedDateRange(
+  rows: readonly { date: string }[],
+  targetDate: string,
+  radius = 10,
+): { start: string; end: string } | null {
+  const dates = sortedDates(rows);
+  if (dates.length === 0) return null;
+  const fallback = targetDate < dates[0] ? 0 : dates.length - 1;
+  const targetIndex = nearestIndex(dates, targetDate, fallback);
+  const width = Math.max(0, Math.floor(radius));
+  const startIndex = Math.max(0, targetIndex - width);
+  const endIndex = Math.min(dates.length - 1, targetIndex + width);
+  return { start: dates[startIndex], end: dates[endIndex] };
+}
+
 export function computeDateRangeFromLogicalRange(
   rows: readonly { date: string }[],
   range: { from: number; to: number } | null,

@@ -9,6 +9,7 @@ import {
   computeDateRangePreset,
   computeDefaultDateRange,
   computeDateRangeFromLogicalRange,
+  computeFocusedDateRange,
   computeInspectorRows,
   computeKeyboardDateRange,
   computeVisibleComparison,
@@ -526,6 +527,31 @@ describe('dashboard v2 domain helpers', () => {
     expect(computeKeyboardDateRange(rows, '2026-01-05', '2026-01-08', 'reset')).toEqual({
       start: '2026-01-02',
       end: '2026-01-09',
+    });
+  });
+
+  test('computes a compact focused date range around a mismatch date', () => {
+    const rows = [
+      { date: '2026-01-02' },
+      { date: '2026-01-05' },
+      { date: '2026-01-06' },
+      { date: '2026-01-07' },
+      { date: '2026-01-08' },
+      { date: '2026-01-09' },
+      { date: '2026-01-12' },
+    ];
+
+    expect(computeFocusedDateRange(rows, '2026-01-07', 2)).toEqual({
+      start: '2026-01-05',
+      end: '2026-01-09',
+    });
+    expect(computeFocusedDateRange(rows, '2026-01-01', 2)).toEqual({
+      start: '2026-01-02',
+      end: '2026-01-06',
+    });
+    expect(computeFocusedDateRange(rows, '2026-01-30', 2)).toEqual({
+      start: '2026-01-08',
+      end: '2026-01-12',
     });
   });
 

@@ -65,6 +65,24 @@ export interface Manifest {
     row_count?: number | null;
     candidate_type_counts?: Record<string, number> | null;
   };
+  final_walkforward_retention_contract?: {
+    status: 'passed' | 'blocked';
+    source_path: string;
+    decision?: string | null;
+    reference_baseline?: string | null;
+    reference_return_pct?: number | null;
+    latest_reference_return_pct?: number | null;
+    reference_is_current: boolean;
+    strict_passing_profile_count: number;
+    candidate_filter_actor_retention_allowed_count: number;
+    final_retained_count: number;
+    final_retained_profiles: string[];
+    global_blockers: string[];
+    current_best_return_pct?: number | null;
+    required_best_return_pct?: number | null;
+    max_walkforward_drawdown_pct?: number | null;
+    required_wf_windows: string[];
+  };
   latest_signal?: {
     source: string;
     available_count: number;
