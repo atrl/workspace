@@ -24895,6 +24895,7 @@
       "row_count": 1617.0
     }
   },
+  "min_wf_relative_return_pct": -77.913169,
   "profile": "mode_conditioned_rebound_reward_train_v2",
   "profile_yaml": null,
   "replay_end": "2026-06-09",
@@ -24905,6 +24906,9 @@
   "retention_failures": [
     "wf_max_drawdown_ge_20:wf_2020",
     "wf_max_drawdown_ge_20:wf_2023_2024",
+    "wf_relative_return_below_30:wf_2020",
+    "wf_relative_return_below_30:wf_2022",
+    "wf_relative_return_below_30:wf_2023_2024",
     "ytd_return_below_best_alignment"
   ],
   "retention_gate_pass": false,

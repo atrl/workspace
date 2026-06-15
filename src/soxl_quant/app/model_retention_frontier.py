@@ -214,9 +214,14 @@ def _load_gate_summary(root: Path) -> dict[str, Any]:
             "required_best_return_pct": None,
             "reference_return_pct": None,
             "max_walkforward_drawdown_pct": 20.0,
+            "min_walkforward_relative_return_pct": DEFAULT_TARGET_RELATIVE_RETURN_PP,
             "required_wf_windows": list(DEFAULT_REQUIRED_WF_WINDOWS),
         }
-    return _summary_payload(_load_json(path))
+    summary = dict(_summary_payload(_load_json(path)))
+    summary.setdefault("max_walkforward_drawdown_pct", 20.0)
+    summary.setdefault("min_walkforward_relative_return_pct", DEFAULT_TARGET_RELATIVE_RETURN_PP)
+    summary.setdefault("required_wf_windows", list(DEFAULT_REQUIRED_WF_WINDOWS))
+    return summary
 
 
 def _experiment_name(path: Path, payload: dict[str, Any]) -> str:
@@ -370,6 +375,7 @@ def _row_from_summary(path: Path, payload: dict[str, Any], gate_summary: dict[st
     target_relative = float(
         selection.get("target_relative_return_pp")
         or summary.get("target_relative_return_pp")
+        or gate_summary.get("min_walkforward_relative_return_pct")
         or DEFAULT_TARGET_RELATIVE_RETURN_PP
     )
     target_relative_by_window = _target_relative_by_window(
@@ -570,6 +576,7 @@ def scan_model_retention_frontier(*, root: Path, card_names: Iterable[str] | Non
             "required_best_return_pct": gate_summary.get("required_best_return_pct"),
             "reference_return_pct": gate_summary.get("reference_return_pct"),
             "max_walkforward_drawdown_pct": gate_summary.get("max_walkforward_drawdown_pct"),
+            "min_walkforward_relative_return_pct": gate_summary.get("min_walkforward_relative_return_pct"),
             "required_wf_windows": gate_summary.get("required_wf_windows", list(DEFAULT_REQUIRED_WF_WINDOWS)),
             "downstream_card_roots": list(DOWNSTREAM_CARD_ROOTS),
         },
@@ -603,7 +610,7 @@ def write_retention_frontier_outputs(result: dict[str, Any], *, output_dir: Path
         _sentence_line("Recommended next source", summary.get("recommended_next_source")),
         _sentence_line("Recommended next action", summary.get("recommended_next_action")),
         _sentence_line("Primary blocker", summary.get("recommended_primary_blocker")),
-        f"- Retention gate: MaxDD `< {summary.get('max_walkforward_drawdown_pct')}` and YTD return floor `{summary.get('required_best_return_pct')}` versus SOXLBacktest reference `{summary.get('reference_return_pct')}`.",
+        f"- Retention gate: MaxDD `< {summary.get('max_walkforward_drawdown_pct')}`, WF relative return `>= {summary.get('min_walkforward_relative_return_pct')}` pp, and YTD return floor `{summary.get('required_best_return_pct')}` versus SOXLBacktest reference `{summary.get('reference_return_pct')}`.",
         "",
         "This card ranks model-selection evidence for the next training run. It does not promote or retain actors.",
     ]

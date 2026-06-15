@@ -2,7 +2,7 @@
 
 - Reference baseline: `soxl_backtest_policy_reimplementation_v1` return `132.077978%`, MaxDD `13.554089%`.
 - Current best YTD model return: `224.361539%`; required alignment floor at ratio `0.95` is `213.143462%`.
-- Walk-forward requirement: windows `wf_2020, wf_2022, wf_2023_2024` all present and MaxDD strictly below `20.00%`.
+- Walk-forward requirement: windows `wf_2020, wf_2022, wf_2023_2024` all present, MaxDD strictly below `20.00%`, and relative return at least `30.00pp` in every window.
 - Passing promotable profiles: `none`.
 - Registry keep_actor entries: `0`; keep_actor strict violations: `0`.
 - Registry actor disable plan: `0`; protected exceptions: `0`.

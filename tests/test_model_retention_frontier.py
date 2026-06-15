@@ -106,6 +106,7 @@ def _run_retention_frontier_prioritizes_training_ready_soxlbacktest_contract(tmp
 
     assert result["summary"]["recommended_next_source"] == "target_ready"
     assert result["summary"]["recommended_next_action"] == "run_three_fold_bc_slice_screen_before_any_ppo"
+    assert result["summary"]["min_walkforward_relative_return_pct"] == 30.0
     assert by_experiment["target_ready"]["primary_blocker"] == "training_contract_ready"
     assert by_experiment["target_ready"]["frontier_rank"] == 1
     assert by_experiment["checkpoint_partial"]["failed_wf_windows"] == "wf_2020"

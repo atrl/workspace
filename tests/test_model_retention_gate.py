@@ -37,6 +37,29 @@ def _write_report(root: Path, profile: str, max_drawdowns: dict[str, float]) -> 
     _write_json(root / "runtime" / "model" / "card" / profile / f"{profile}_report.json", payload)
 
 
+def _write_report_with_relative_returns(
+    root: Path,
+    profile: str,
+    metrics: dict[str, tuple[float, float]],
+) -> None:
+    payload = {
+        window: {
+            "profile": profile,
+            "window": window,
+            "main_backtest": {
+                "return": relative_return + 10.0,
+                "sharpe": 1.2,
+                "max_dd": max_dd,
+                "trades": 10,
+            },
+            "buy_and_hold": {"return": 10.0},
+            "relative_outperformance": relative_return,
+        }
+        for window, (max_dd, relative_return) in metrics.items()
+    }
+    _write_json(root / "runtime" / "model" / "card" / profile / f"{profile}_report.json", payload)
+
+
 def test_retention_gate_requires_complete_walkforward_drawdown_and_return_alignment():
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp)
@@ -102,6 +125,69 @@ def _run_retention_gate_requires_complete_walkforward_drawdown_and_return_alignm
     assert result["summary"]["passing_profiles"] == ["passer"]
     assert result["summary"]["closest_wf_drawdown_candidate"]["profile"] == "passer"
     assert result["summary"]["closest_ytd_return_candidate"]["profile"] == "passer"
+
+
+def test_retention_gate_requires_walkforward_relative_return_alignment():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        _run_retention_gate_requires_walkforward_relative_return_alignment(tmp_path)
+
+
+def _run_retention_gate_requires_walkforward_relative_return_alignment(tmp_path: Path) -> None:
+    from src.soxl_quant.app.model_retention_gate import scan_model_retention_gates
+
+    _write_json(
+        tmp_path / "dashboard_data" / "model_replay_freshness.json",
+        {
+            "safe_backtest_end": "2026-06-11",
+            "profiles": [
+                {
+                    "profile": "low_wf_return",
+                    "status": "candidate",
+                    "output": "runtime/model/card/low_wf_return/low_wf_return_soxl_daily.csv",
+                    "result": "current",
+                },
+            ],
+        },
+    )
+    _write_csv(
+        tmp_path / "runtime" / "production" / "card" / "soxl_backtest_policy_reimplementation_v1" / "legacy_comparison_metrics.csv",
+        [{"window": "ytd_2026", "new_return_pct": 100.0, "new_max_drawdown_pct": 12.0}],
+    )
+    _write_csv(
+        tmp_path / "runtime" / "production" / "card" / "current_model_ytd_june_comparison_v1" / "all_model_comparison_metrics.csv",
+        [
+            {
+                "window": "ytd_2026_common",
+                "profile": "low_wf_return",
+                "status": "candidate",
+                "model_return_pct": 130.0,
+                "current_model_max_drawdown_pct": 18.0,
+            },
+        ],
+    )
+    _write_report_with_relative_returns(
+        tmp_path,
+        "low_wf_return",
+        {
+            "wf_2020": (18.0, 5.0),
+            "wf_2022": (12.0, 45.0),
+            "wf_2023_2024": (14.0, 35.0),
+        },
+    )
+
+    result = scan_model_retention_gates(
+        root=tmp_path,
+        max_walkforward_drawdown_pct=20.0,
+        best_return_ratio=0.95,
+    )
+    row = {item["profile"]: item for item in result["rows"]}["low_wf_return"]
+
+    assert row["gate_pass"] is False
+    assert "wf_relative_return_below_30:wf_2020" in row["failures"]
+    assert row["min_wf_relative_return_pct"] == 5.0
+    assert row["wf_relative_return_gap_pct"] == 25.0
+    assert result["summary"]["min_walkforward_relative_return_pct"] == 30.0
 
 
 def test_retention_gate_scans_comparison_models_when_replay_freshness_has_no_profiles():

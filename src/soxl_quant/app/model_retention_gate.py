@@ -20,6 +20,7 @@ import yaml
 
 PRIMARY_REFERENCE_PROFILE = "soxl_backtest_policy_reimplementation_v1"
 REQUIRED_WF_WINDOWS = ("wf_2020", "wf_2022", "wf_2023_2024")
+DEFAULT_MIN_WF_RELATIVE_RETURN_PCT = 30.0
 REFERENCE_METRICS_PATH = (
     "runtime/production/card/soxl_backtest_policy_reimplementation_v1/legacy_comparison_metrics.csv"
 )
@@ -225,8 +226,10 @@ def _reference_row(reference: ReferenceBaseline) -> dict[str, Any]:
         "required_soxlbacktest_return_pct": round(reference.return_pct, 6),
         "wf_windows_present": "",
         "worst_wf_max_drawdown_pct": None,
+        "min_wf_relative_return_pct": None,
         "missing_wf_window_count": 0,
         "wf_drawdown_gap_pct": None,
+        "wf_relative_return_gap_pct": None,
         "best_return_gap_pct": None,
         "soxlbacktest_return_gap_pct": None,
         "gate_pass": True,
@@ -292,6 +295,7 @@ def _evaluate_profile(
     reference: ReferenceBaseline,
     current_best_return_pct: float,
     max_walkforward_drawdown_pct: float,
+    min_walkforward_relative_return_pct: float,
     best_return_ratio: float,
 ) -> dict[str, Any]:
     profile_name = str(profile["profile"])
@@ -311,6 +315,16 @@ def _evaluate_profile(
     for window, metrics in wf_metrics.items():
         if float(metrics["max_drawdown_pct"]) >= max_walkforward_drawdown_pct:
             failures.append(f"wf_max_drawdown_ge_{threshold_label}:{window}")
+
+    relative_threshold_label = _threshold_label(min_walkforward_relative_return_pct)
+    min_wf_relative_return = (
+        min(float(item["relative_return_pct"]) for item in wf_metrics.values())
+        if wf_metrics
+        else None
+    )
+    for window, metrics in wf_metrics.items():
+        if float(metrics["relative_return_pct"]) < min_walkforward_relative_return_pct:
+            failures.append(f"wf_relative_return_below_{relative_threshold_label}:{window}")
 
     ytd_return_column = _first_existing_column(ytd_row, RETURN_COLUMNS) if ytd_row is not None else None
     ytd_max_dd_column = _first_existing_column(ytd_row, MAX_DRAWDOWN_COLUMNS) if ytd_row is not None else None
@@ -341,10 +355,18 @@ def _evaluate_profile(
         "required_soxlbacktest_return_pct": round(reference.return_pct, 6),
         "wf_windows_present": ",".join(sorted(wf_metrics)),
         "worst_wf_max_drawdown_pct": round(worst_wf_max_drawdown, 6) if worst_wf_max_drawdown is not None else None,
+        "min_wf_relative_return_pct": (
+            round(min_wf_relative_return, 6) if min_wf_relative_return is not None else None
+        ),
         "missing_wf_window_count": missing_wf_window_count,
         "wf_drawdown_gap_pct": (
             round(max(0.0, worst_wf_max_drawdown - max_walkforward_drawdown_pct), 6)
             if worst_wf_max_drawdown is not None
+            else None
+        ),
+        "wf_relative_return_gap_pct": (
+            round(max(0.0, min_walkforward_relative_return_pct - min_wf_relative_return), 6)
+            if min_wf_relative_return is not None
             else None
         ),
         "best_return_gap_pct": round(best_return_gap, 6) if best_return_gap is not None else None,
@@ -374,6 +396,7 @@ def _closest_wf_drawdown_candidate(rows: list[dict[str, Any]]) -> dict[str, Any]
         key=lambda item: (
             int(item.get("missing_wf_window_count") or 0),
             float(item.get("wf_drawdown_gap_pct") or 0.0),
+            float(item.get("wf_relative_return_gap_pct") or 0.0),
             float(item.get("best_return_gap_pct") or 0.0),
         ),
     )[0]
@@ -381,6 +404,8 @@ def _closest_wf_drawdown_candidate(rows: list[dict[str, Any]]) -> dict[str, Any]
         "profile": row["profile"],
         "worst_wf_max_drawdown_pct": row.get("worst_wf_max_drawdown_pct"),
         "wf_drawdown_gap_pct": row.get("wf_drawdown_gap_pct"),
+        "min_wf_relative_return_pct": row.get("min_wf_relative_return_pct"),
+        "wf_relative_return_gap_pct": row.get("wf_relative_return_gap_pct"),
         "missing_wf_window_count": row.get("missing_wf_window_count"),
         "ytd_return_pct": row.get("ytd_return_pct"),
         "best_return_gap_pct": row.get("best_return_gap_pct"),
@@ -401,6 +426,7 @@ def _closest_ytd_return_candidate(rows: list[dict[str, Any]]) -> dict[str, Any] 
             float(item.get("best_return_gap_pct") or 0.0),
             int(item.get("missing_wf_window_count") or 0),
             float(item.get("wf_drawdown_gap_pct") or 0.0),
+            float(item.get("wf_relative_return_gap_pct") or 0.0),
         ),
     )[0]
     return {
@@ -409,6 +435,8 @@ def _closest_ytd_return_candidate(rows: list[dict[str, Any]]) -> dict[str, Any] 
         "best_return_gap_pct": row.get("best_return_gap_pct"),
         "worst_wf_max_drawdown_pct": row.get("worst_wf_max_drawdown_pct"),
         "wf_drawdown_gap_pct": row.get("wf_drawdown_gap_pct"),
+        "min_wf_relative_return_pct": row.get("min_wf_relative_return_pct"),
+        "wf_relative_return_gap_pct": row.get("wf_relative_return_gap_pct"),
         "missing_wf_window_count": row.get("missing_wf_window_count"),
     }
 
@@ -417,6 +445,7 @@ def scan_model_retention_gates(
     *,
     root: Path,
     max_walkforward_drawdown_pct: float = 20.0,
+    min_walkforward_relative_return_pct: float = DEFAULT_MIN_WF_RELATIVE_RETURN_PCT,
     best_return_ratio: float = 0.95,
 ) -> dict[str, Any]:
     root = Path(root)
@@ -438,6 +467,7 @@ def scan_model_retention_gates(
                 reference=reference,
                 current_best_return_pct=current_best_return_pct,
                 max_walkforward_drawdown_pct=max_walkforward_drawdown_pct,
+                min_walkforward_relative_return_pct=min_walkforward_relative_return_pct,
                 best_return_ratio=best_return_ratio,
             )
         )
@@ -473,6 +503,7 @@ def scan_model_retention_gates(
             "best_return_ratio": float(best_return_ratio),
             "required_best_return_pct": round(current_best_return_pct * best_return_ratio, 6),
             "max_walkforward_drawdown_pct": float(max_walkforward_drawdown_pct),
+            "min_walkforward_relative_return_pct": float(min_walkforward_relative_return_pct),
             "required_wf_windows": list(REQUIRED_WF_WINDOWS),
             "closest_wf_drawdown_candidate": _closest_wf_drawdown_candidate(rows),
             "closest_ytd_return_candidate": _closest_ytd_return_candidate(rows),
@@ -639,7 +670,7 @@ def write_retention_gate_outputs(result: dict[str, Any], *, output_dir: Path) ->
         "",
         f"- Reference baseline: `{summary['reference_profile']}` return `{summary['reference_return_pct']:.6f}%`, MaxDD `{summary['reference_max_drawdown_pct']:.6f}%`.",
         f"- Current best YTD model return: `{summary['current_best_return_pct']:.6f}%`; required alignment floor at ratio `{summary['best_return_ratio']:.2f}` is `{summary['required_best_return_pct']:.6f}%`.",
-        f"- Walk-forward requirement: windows `{', '.join(summary['required_wf_windows'])}` all present and MaxDD strictly below `{summary['max_walkforward_drawdown_pct']:.2f}%`.",
+        f"- Walk-forward requirement: windows `{', '.join(summary['required_wf_windows'])}` all present, MaxDD strictly below `{summary['max_walkforward_drawdown_pct']:.2f}%`, and relative return at least `{summary.get('min_walkforward_relative_return_pct', DEFAULT_MIN_WF_RELATIVE_RETURN_PCT):.2f}pp` in every window.",
         f"- Passing promotable profiles: `{', '.join(passing) if passing else 'none'}`.",
         f"- Registry keep_actor entries: `{summary.get('registry_keep_actor_count', 0)}`; keep_actor strict violations: `{summary.get('registry_keep_actor_strict_violation_count', 0)}`.",
         f"- Registry actor disable plan: `{summary.get('registry_keep_actor_disable_count', 0)}`; protected exceptions: `0`.",

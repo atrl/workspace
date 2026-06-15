@@ -26,6 +26,7 @@ def main(argv: list[str] | None = None) -> dict[str, object]:
         default=ROOT / "runtime" / "model_selection" / "card" / "model_retention_walkforward_gate_v1",
     )
     parser.add_argument("--max-walkforward-drawdown-pct", type=float, default=20.0)
+    parser.add_argument("--min-walkforward-relative-return-pct", type=float, default=30.0)
     parser.add_argument("--best-return-ratio", type=float, default=0.95)
     parser.add_argument(
         "--apply-registry-retention",
@@ -40,6 +41,7 @@ def main(argv: list[str] | None = None) -> dict[str, object]:
     result = scan_model_retention_gates(
         root=args.root,
         max_walkforward_drawdown_pct=args.max_walkforward_drawdown_pct,
+        min_walkforward_relative_return_pct=args.min_walkforward_relative_return_pct,
         best_return_ratio=args.best_return_ratio,
     )
     write_retention_gate_outputs(result, output_dir=args.output_dir)

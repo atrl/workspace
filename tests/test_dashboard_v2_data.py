@@ -1088,6 +1088,7 @@ def test_build_dashboard_v2_data_attaches_model_retention_gate_status(tmp_path: 
                     "passing_profile_count": 0,
                     "passing_profiles": [],
                     "max_walkforward_drawdown_pct": 20.0,
+                    "min_walkforward_relative_return_pct": 30.0,
                     "required_best_return_pct": 213.14,
                     "reference_profile": "soxl_backtest_policy_reimplementation_v1",
                     "required_wf_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
@@ -1102,6 +1103,7 @@ def test_build_dashboard_v2_data_attaches_model_retention_gate_status(tmp_path: 
                         "retention_decision": "retain_as_evidence_only",
                         "failures": ["wf_max_drawdown_ge_20:wf_2022", "ytd_return_below_best_alignment"],
                         "worst_wf_max_drawdown_pct": 24.2,
+                        "min_wf_relative_return_pct": 5.0,
                         "required_best_return_pct": 213.14,
                     }
                 ],
@@ -1128,6 +1130,7 @@ def test_build_dashboard_v2_data_attaches_model_retention_gate_status(tmp_path: 
 
     assert manifest["model_retention_gate"]["passing_profile_count"] == 0
     assert manifest["model_retention_gate"]["max_walkforward_drawdown_pct"] == 20.0
+    assert manifest["model_retention_gate"]["min_walkforward_relative_return_pct"] == 30.0
     assert manifest["model_retention_gate"]["registry_keep_actor_count"] == 3
     assert manifest["model_retention_gate"]["registry_keep_actor_strict_violation_count"] == 2
     assert manifest["model_retention_gate"]["registry_keep_actor_strict_violations"] == ["high_dd", "missing_replay"]
@@ -1136,6 +1139,7 @@ def test_build_dashboard_v2_data_attaches_model_retention_gate_status(tmp_path: 
     assert model["retention_decision"] == "retain_as_evidence_only"
     assert model["retention_failures"] == ["wf_max_drawdown_ge_20:wf_2022", "ytd_return_below_best_alignment"]
     assert model["worst_wf_max_drawdown_pct"] == 24.2
+    assert model["min_wf_relative_return_pct"] == 5.0
 
 
 def test_build_dashboard_v2_data_loads_market_from_requested_root(tmp_path: Path):

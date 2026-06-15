@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T22:48:40.879012+00:00",
+  "generated_at": "2026-06-15T06:03:41.604399+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6245,19 +6245,19 @@
       "path": "runtime/model_selection/card/model_retention_frontier_v1/retention_frontier.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 57387
+      "bytes": 71667
     },
     {
       "path": "runtime/model_selection/card/model_retention_frontier_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 144367
+      "bytes": 176866
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",
       "category": "model_selection",
       "suffix": ".md",
-      "bytes": 709
+      "bytes": 762
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/dashboard_ref_only_visual_check.json",
@@ -6287,7 +6287,7 @@
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/retention_gate.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 5290
+      "bytes": 5783
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/retrain_handoff.json",
@@ -6299,7 +6299,7 @@
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 14319
+      "bytes": 16202
     },
     {
       "path": "runtime/model_selection/card/official_replay_bad_interval_feature_audit_v1/bc_initialization_wf_2022_official_daily_with_features.csv",
@@ -7754,6 +7754,168 @@
       "bytes": 5085
     },
     {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/bc_action_calibration.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31004
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3180
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/bc_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 60615
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/bc_drift_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1152
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7964
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/bc_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1431
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 22143
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1044
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3607
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2451
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2020__ordinal_drawdown_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31735
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2020__ordinal_high_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31839
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2020__ordinal_low_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31777
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2020__ordinal_mid_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31739
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2022__ordinal_drawdown_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30931
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2022__ordinal_high_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30820
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2022__ordinal_low_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30718
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2022__ordinal_mid_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31006
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2023_2024__ordinal_drawdown_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31080
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2023_2024__ordinal_high_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31235
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2023_2024__ordinal_low_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31415
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/official_daily_paths/wf_2023_2024__ordinal_mid_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31469
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4662
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/soxlbacktest_baseline_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7218
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8009
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/target_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1588
+    },
+    {
+      "path": "runtime/model_selection/card/release16_action_head_position_loss_screen_v1/target_holdout_split.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1259595
+    },
+    {
       "path": "runtime/model_selection/card/release16_bull_reentry_participation_objective_replay_v1/bc_official_replay_metrics.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -8280,6 +8442,234 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 35997
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/bc_action_calibration.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31543
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3390
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/bc_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 61788
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/bc_drift_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1082
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9078
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/bc_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1511
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 22648
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1135
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3723
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2571
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2020__dd_control_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31702
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2020__dd_control_checkpoint_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31752
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2020__dd_control_overaction_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31752
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2020__dd_control_weighted_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31824
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2022__dd_control_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30641
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2022__dd_control_checkpoint_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30240
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2022__dd_control_overaction_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30776
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2022__dd_control_weighted_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30600
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2023_2024__dd_control_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31227
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2023_2024__dd_control_checkpoint_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31162
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2023_2024__dd_control_overaction_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31173
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/official_daily_paths/wf_2023_2024__dd_control_weighted_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31212
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4749
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/soxlbacktest_baseline_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7363
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 8507
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/target_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1588
+    },
+    {
+      "path": "runtime/model_selection/card/release16_downtrend_drawdown_objective_screen_v1/target_holdout_split.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1259595
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/best_candidate_window_gaps.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1654
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/candidate_window_metrics_20dd.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 35240
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_pool_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 5646
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_scores_15dd.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 15649
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_scores_20dd.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 15482
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_candidate_stress_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 24422
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_daily_path_read_errors.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/official_daily_path_window_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 46137
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1052
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/source_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 745
+    },
+    {
+      "path": "runtime/model_selection/card/release16_expanded_official_candidate_pool_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5305
     },
     {
       "path": "runtime/model_selection/card/release16_failed_fold_daily_path_diagnostic_v1/aligned_daily_paths.csv",
@@ -8948,6 +9338,600 @@
       "bytes": 1564
     },
     {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3944
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 74534
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_drift_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1204
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8642
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1484
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 27560
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1052
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4681
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3271
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2020__balanced_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31869
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2020__class_balanced_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31739
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2020__drawdown_heavy_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31798
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2020__release_heavy_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31689
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2020__risk_guarded_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31635
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2022__balanced_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30985
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2022__class_balanced_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30942
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2022__drawdown_heavy_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30338
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2022__release_heavy_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30725
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2022__risk_guarded_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30860
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2023_2024__balanced_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31394
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2023_2024__class_balanced_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31399
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2023_2024__drawdown_heavy_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31230
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2023_2024__release_heavy_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31652
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/official_daily_paths/wf_2023_2024__risk_guarded_aux_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31328
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4717
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/soxlbacktest_baseline_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 8992
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7952
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/target_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1588
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_aux_state_head_bc_holdout_replay_v1/target_holdout_split.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1259595
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/aux_state_head_release_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3031603
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/bc_label_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2641
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 368
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 908
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/drawdown_control_intervals.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1280
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/drawdown_control_training_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1764051
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/joint_auxiliary_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2194899
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/joint_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1288042
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/joint_target_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 986
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/repair_delta_vs_source.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1212
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1333
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/source_target_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 375
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/strict_joint_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1271514
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6451
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/target_audit_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 402
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1175
+    },
+    {
+      "path": "runtime/model_selection/card/release16_joint_drawdown_release_target_contract_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1013
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2251
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/bc_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 12683
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/bc_drift_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1167
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5168
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/bc_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1449
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7235
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 622
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2722
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1853
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2020__balanced_sparse_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31913
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2020__release_heavy_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31913
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2020__risk_guarded_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31754
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2022__balanced_sparse_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30543
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2022__release_heavy_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30048
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2022__risk_guarded_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30556
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2023_2024__balanced_sparse_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31898
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2023_2024__release_heavy_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31928
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/official_daily_paths/wf_2023_2024__risk_guarded_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31559
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2609
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/soxlbacktest_baseline_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3880
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7395
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_bc_official_replay_v1/target_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 647
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 295
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/candidate_gap_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 32761
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/checkpoint_objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 12551
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/global_candidate_objective_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 10649
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/objective_recipe.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4909
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/objective_terms.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 888
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/precondition_gates.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 352
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/selected_fold_teacher_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 431
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9869
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/state_head_slice_precondition.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 194
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9542
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 745
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/target_readiness_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2910
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_readiness_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 532
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/best_runnable_window_terms.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1344
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1509
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/objective_candidate_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 20239
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/objective_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2111
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/objective_window_terms.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 46312
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/poor_window_clusters.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 422
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1938
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 471
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 13637
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/training_objective_handoff.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1755
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_objective_score_handoff_v1/training_objective_handoff.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 782
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/release64_official_replay_failure_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1877
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 706
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/slice_guard_official_replay_reconciliation.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1680
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 6920
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/training_contract.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2460
+    },
+    {
+      "path": "runtime/model_selection/card/release16_nonconvex_checkpoint_training_contract_v1/training_objective_terms.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1046
+    },
+    {
       "path": "runtime/model_selection/card/release16_official_replay_candidate_handoff_v1/candidate_window_metrics.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -9372,6 +10356,42 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 404
+    },
+    {
+      "path": "runtime/model_selection/card/release16_risk_gated_state_head_objective_screen_v1/candidate_grid.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 28475
+    },
+    {
+      "path": "runtime/model_selection/card/release16_risk_gated_state_head_objective_screen_v1/fold_candidate_frontier.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3609
+    },
+    {
+      "path": "runtime/model_selection/card/release16_risk_gated_state_head_objective_screen_v1/objective_recipe.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1224
+    },
+    {
+      "path": "runtime/model_selection/card/release16_risk_gated_state_head_objective_screen_v1/selected_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 654
+    },
+    {
+      "path": "runtime/model_selection/card/release16_risk_gated_state_head_objective_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5145
+    },
+    {
+      "path": "runtime/model_selection/card/release16_risk_gated_state_head_objective_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 5145
     },
     {
       "path": "runtime/model_selection/card/release16_rulebase_reversal_checkpoint_metric_replay_v1/bc_slice_metrics.csv",
@@ -9920,6 +10940,96 @@
       "bytes": 536
     },
     {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/bc_action_distribution_with_selection.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 9090
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/best_representation_by_label.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1367
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1138
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/prior_bc_screen_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 782
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/repair_requirements.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1772
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 9773
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/slice_failure_root_cause.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4081
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/state_head_lift_stability_groups.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31326
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/state_head_lift_stability_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 13159089
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/state_head_lift_stability_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 289
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/state_representation_feature_effects.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 21499
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/state_representation_feature_set_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6678
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/state_representation_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 18300
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4979
+    },
+    {
+      "path": "runtime/model_selection/card/release16_sparse_slice_fit_root_cause_v1/target_slice_coverage_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1608
+    },
+    {
       "path": "runtime/model_selection/card/release16_state_head_post_fullprobe_objective_screen_v1/candidate_gate_matrix.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -9990,6 +11100,366 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 4225
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_revision_handoff_v1/bc_slice_gate_focus.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1104
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_revision_handoff_v1/fold_failure_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1382
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_revision_handoff_v1/revision_recipe.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1255
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_revision_handoff_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2946
+    },
+    {
+      "path": "runtime/model_selection/card/release16_state_head_revision_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2805
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/action_label_counts.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3247
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/bc_readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1260
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 949
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/counterfactual_transfer_audit.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 565
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/feature_overlap_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1021
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/input_profile.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 508
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/profile_label_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 893
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/readiness_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1033
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/selected_trend_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2438396
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3758
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4827
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/target_lift_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1266
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/target_lift_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 536
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/target_position_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 763
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1114
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/trend_target_config.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1777
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/trend_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2438396
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_foldlocal_trend_target_v1/trend_target_counts.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1021
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1587
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/feature_state_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 317
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3702
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 10891
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/trend_overlay_grid.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3652824
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/trend_overlay_top_daily.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 183369
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/wf2020_drawdown_intervals.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 643
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/wf2020_gap_contribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 66432
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_participation_gap_v1/wf2020_monthly_gap_contribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 5928
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3042
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/bc_candidate_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 68551
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/bc_drift_scores.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1181
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/bc_fit_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7416
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/bc_selection_by_fold.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1482
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/bc_slice_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 25569
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/candidate_gate_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 353
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1679
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/drawdown_interval_diagnostic.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3650
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/failure_attribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1168
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_path_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2511
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2020__class_balanced_trend_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31762
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2020__risk_trend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31660
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2020__trend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31706
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2020__trend_heavy_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31718
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2022__class_balanced_trend_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30570
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2022__risk_trend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30620
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2022__trend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30785
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2022__trend_heavy_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 30948
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2023_2024__class_balanced_trend_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31375
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2023_2024__risk_trend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31421
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2023_2024__trend_balanced_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31422
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/official_daily_paths/wf_2023_2024__trend_heavy_official_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 31892
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 7633
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/soxlbacktest_baseline_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 7186
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 11970
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/target_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1750
+    },
+    {
+      "path": "runtime/model_selection/card/release16_wf2020_trend_target_bc_official_replay_v1/target_holdout_split.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2317537
     },
     {
       "path": "runtime/model_selection/card/retention_candidate_overlay_screen_v1/conclusion.md",
@@ -10169,13 +11639,13 @@
       "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/frontier_top_candidates.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 4894
+      "bytes": 4797
     },
     {
       "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/requirement_status.csv",
       "category": "model_selection",
       "suffix": ".csv",
-      "bytes": 1425
+      "bytes": 1406
     },
     {
       "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/soxlbacktest_qlib_alignment.csv",
@@ -10187,13 +11657,13 @@
       "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/summary.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 4633
+      "bytes": 4688
     },
     {
       "path": "runtime/model_selection/card/retraining_retention_current_audit_v1/training_handoff_current.json",
       "category": "model_selection",
       "suffix": ".json",
-      "bytes": 1220
+      "bytes": 1272
     },
     {
       "path": "runtime/model_selection/card/return_preserving_bull_participation_three_fold_checkpoint_metric_replay_v1/bc_slice_metrics.csv",
@@ -15533,7 +17003,7 @@
       "path": "runtime/production/card/dashboard_v2_interaction_fix_v1/summary.json",
       "category": "production",
       "suffix": ".json",
-      "bytes": 1122
+      "bytes": 1689
     },
     {
       "path": "runtime/production/card/dashboard_v2_ops_feature_schema_fix_v1/visual_check.json",
