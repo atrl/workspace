@@ -141,7 +141,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.04, bottom: 0.30 },
+    scaleMargins: { top: 0.03, bottom: 0.34 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -191,7 +191,7 @@ export function renderMarketChart(
     lastValueVisible: false,
   });
   volumeBars.priceScale().applyOptions({
-    scaleMargins: { top: 0.88, bottom: 0.02 },
+    scaleMargins: { top: 0.90, bottom: 0.02 },
   });
   volumeBars.setData(
     market.rows.map((row) => ({
@@ -215,7 +215,7 @@ export function renderMarketChart(
     });
     if (!positionScaleConfigured) {
       positionLine.priceScale().applyOptions({
-        scaleMargins: { top: 0.72, bottom: 0.14 },
+        scaleMargins: { top: 0.74, bottom: 0.12 },
       });
       positionScaleConfigured = true;
     }

@@ -15,19 +15,29 @@
     "canvas_count": 24,
     "main_chart": {
       "width": 1119,
-      "height": 380
+      "height": 340
     },
-    "model_delta_strip_height": 224.09375,
+    "model_delta_table": {
+      "width": 1095,
+      "height": 150
+    },
+    "lower_charts": {
+      "width": 1119,
+      "height": 172,
+      "visible_pixels": 172
+    },
     "screenshots": [
       "runtime/production/card/dashboard_v2_latest_signal_kline_v1/dashboard_v2_latest_signal_kline_1440.png",
-      "runtime/production/card/dashboard_v2_latest_signal_kline_v1/dashboard_v2_latest_signal_kline_compact_1440.png"
+      "runtime/production/card/dashboard_v2_latest_signal_kline_v1/dashboard_v2_latest_signal_kline_compact_1440.png",
+      "runtime/production/card/dashboard_v2_latest_signal_kline_v1/dashboard_v2_ui_compact_kline_2026-06-16.png"
     ]
   },
   "notes": [
     "K-line main chart now overlays selected model position lines in a separate position scale.",
+    "Model differences are now shown in a compact first-viewport table with replay end, latest signal, return, drawdown, NAV delta, position delta, mismatch count, and latest feature-difference context.",
     "Actor replay rows remain bounded by safe_backtest_end for realized NAV/drawdown comparison.",
     "Latest actor signal rows are shown separately for 2026-06-15 and are not included in comparison NAV rows.",
-    "The 2026-06-15 canonical qlib extension uses local SOXL/SOXX raw rows with VIX forward-filled from 2026-06-12."
+    "The first viewport at 1440x1000 includes the model difference table, K-line chart, Position delta pane, NAV delta pane, and right-side inspector."
   ],
   "verification": [
     "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_update_market_data.py tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_strict_candidate_retention_filter.py -q",

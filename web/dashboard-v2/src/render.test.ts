@@ -315,6 +315,24 @@ describe('dashboard v2 DOM render helpers', () => {
 
   test('renders compact model delta strip outside the collapsed comparison panel', () => {
     const panel = document.createElement('div');
+    const latestSmoke = {
+      profile: 'smoke',
+      status: 'canonical',
+      source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+      replay_start: '2026-01-02',
+      replay_end: '2026-01-06',
+      row_count: 3,
+      rows: [],
+      events: [],
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.55,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
 
     renderModelDeltaStrip(
       panel,
@@ -355,17 +373,19 @@ describe('dashboard v2 DOM render helpers', () => {
           features: { rsi6: '60', vix: '18', spread: '0.4' },
         },
       ],
+      { smoke: latestSmoke },
     );
 
-    expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(1);
+    expect(panel.querySelector('.model-diff-table')).not.toBeNull();
+    expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
     expect(panel.textContent).toContain('smoke');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22');
     expect(panel.textContent).toContain('Compare through 2026-01-06');
-    expect(panel.textContent).toContain('Replay 01-06');
+    expect(panel.textContent).toContain('Signal BUY 0.550 @01-07');
     expect(panel.textContent).toContain('Ret +3.00%');
-    expect(panel.textContent).toContain('NAV +2.00');
-    expect(panel.textContent).toContain('Pos +0.200');
-    expect(panel.textContent).toContain('Mismatch 2');
+    expect(panel.textContent).toContain('+2.00');
+    expect(panel.textContent).toContain('+0.200');
+    expect(panel.textContent).toContain('2');
     expect(panel.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
     expect(panel.textContent).toContain('rsi6 60');
   });
@@ -414,16 +434,16 @@ describe('dashboard v2 DOM render helpers', () => {
       },
     );
 
-    expect(panel.querySelector('.model-diff-grid')).not.toBeNull();
+    expect(panel.querySelector('.model-diff-table')).not.toBeNull();
     expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
     expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay 01-06');
     expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Replay cut');
-    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Gap to price 2026-01-07');
+    expect(panel.querySelector('[data-freshness="stale"]')?.textContent).toContain('Price gap 2026-01-07');
     expect(panel.textContent).toContain('Ret 42.00%');
-    expect(panel.textContent).toContain('MaxDD -8.00%');
-    expect(panel.textContent).toContain('AvgPos 0.510');
-    expect(panel.textContent).toContain('ΔNAV +2.00');
-    expect(panel.textContent).toContain('ΔPos +0.200');
+    expect(panel.textContent).toContain('-8.00%');
+    expect(panel.textContent).toContain('0.510');
+    expect(panel.textContent).toContain('+2.00');
+    expect(panel.textContent).toContain('+0.200');
   });
 
   test('renders latest baseline and market date when they extend past actor comparison rows', () => {
@@ -489,7 +509,7 @@ describe('dashboard v2 DOM render helpers', () => {
       },
     });
 
-    expect(panel.querySelectorAll('.model-delta-pill')).toHaveLength(1);
+    expect(panel.querySelectorAll('.model-difference-row')).toHaveLength(1);
     expect(panel.querySelector('.model-difference-name')?.textContent).toBe('smoke');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline BRR v22 2026-01-07');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Price 2026-01-07');

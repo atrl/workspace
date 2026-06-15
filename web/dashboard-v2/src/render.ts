@@ -43,7 +43,7 @@ function freshnessLabel(replayEnd: string | undefined, commonEnd: string, manife
     return {
       label: `${isSafeCut ? 'Cut' : 'Stale'} ${replayEnd}`,
       status: 'stale',
-      gapLabel: `Gap to price ${latestMarketDate}`,
+      gapLabel: `Price gap ${latestMarketDate}`,
     };
   }
   if (replayEnd && replayEnd > commonEnd) {
@@ -256,9 +256,15 @@ export function renderModelDeltaStrip(
     caption.dataset.tone = 'warning';
   }
   const baselineEnd = manifest?.profile_summaries?.[comparison.baseline_profile]?.replay_end;
+  const actorEnd = maxDate(
+    profiles
+      .filter((profile) => manifest?.profile_summaries?.[profile]?.status !== 'reference')
+      .map((profile) => manifest?.profile_summaries?.[profile]?.replay_end),
+  );
   captionParts.push(
     `Baseline ${formatProfileLabel(comparison.baseline_profile)}${baselineEnd ? ` ${baselineEnd}` : ''}`,
   );
+  if (actorEnd) captionParts.push(`Actors ${actorEnd}`);
   if (baselineEnd && baselineEnd > last.date) {
     caption.dataset.tone = 'warning';
   }
@@ -268,7 +274,16 @@ export function renderModelDeltaStrip(
   const deltaProfiles = available.filter((profile) => profile !== comparison.baseline_profile);
   const selected = deltaProfiles.length ? deltaProfiles : available;
   const rankingByProfile = new Map((comparison.rankings ?? []).map((ranking) => [ranking.profile, ranking]));
-  const grid = element('div', 'model-diff-grid');
+  const tableWrap = element('div', 'model-diff-table-wrap');
+  const table = element('table', 'model-diff-table');
+  const thead = element('thead');
+  const header = element('tr');
+  for (const label of ['Model', 'Replay', 'Latest signal', 'Ret', 'MaxDD', 'AvgPos', 'ΔNAV', 'ΔPos', 'Mismatch', 'Action', 'Last feature diff']) {
+    header.appendChild(element('th', undefined, label));
+  }
+  thead.appendChild(header);
+  table.appendChild(thead);
+  const tbody = element('tbody');
   for (const [index, profile] of selected.entries()) {
     const values = last.profiles[profile];
     if (!values) continue;
@@ -279,50 +294,53 @@ export function renderModelDeltaStrip(
     const ranking = rankingByProfile.get(profile);
     const freshness = freshnessLabel(replayEnd, last.date, manifest);
     const latestSignal = models[profile]?.latest_signal;
-    const pill = element('article', 'model-delta-pill model-difference-row');
-    pill.dataset.freshness = freshness.status;
-    pill.dataset.profileStatus = manifest?.profile_summaries?.[profile]?.status ?? '';
-    pill.title = profile;
-    pill.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
-    pill.style.borderLeftWidth = '4px';
-    pill.appendChild(element('strong', 'model-difference-name', formatProfileLabel(profile)));
-    if (replayEnd) pill.appendChild(element('span', undefined, `Replay ${replayEnd.slice(5)}`));
-    pill.appendChild(element('span', 'model-difference-date', freshness.status === 'latest' ? freshness.label : 'Replay cut'));
-    if (latestSignal) {
-      pill.appendChild(
-        element(
-          'span',
-          'model-difference-signal',
-          `Signal ${latestSignal.action} ${latestSignal.position.toFixed(3)} @${latestSignal.date.slice(5)}`,
-        ),
-      );
-    } else if (freshness.gapLabel) {
-      pill.appendChild(element('span', 'model-difference-gap', freshness.gapLabel));
-    }
-    pill.appendChild(
-      element(
-        'span',
-        undefined,
-        ranking ? `Ret ${formatPct(ranking.return * 100)}` : `Ret ${formatSigned(rebasedNav - 100, 2)}%`,
-      ),
+    const row = element('tr', 'model-difference-row');
+    row.dataset.freshness = freshness.status;
+    row.dataset.profileStatus = manifest?.profile_summaries?.[profile]?.status ?? '';
+    row.title = profile;
+    row.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
+    row.style.borderLeftWidth = '4px';
+    const name = element('td');
+    name.appendChild(element('strong', 'model-difference-name', formatProfileLabel(profile)));
+    row.appendChild(name);
+    const replay = element(
+      'td',
+      'model-difference-date',
+      `${replayEnd ? `Replay ${replayEnd.slice(5)}` : 'Replay n/a'} ${
+        freshness.status === 'latest' ? freshness.label : 'Replay cut'
+      }`,
     );
-    if (ranking) {
-      pill.appendChild(element('span', undefined, `MaxDD ${formatPct(ranking.max_drawdown * 100)}`));
-      pill.appendChild(element('span', undefined, `AvgPos ${ranking.avg_position.toFixed(3)}`));
+    row.appendChild(replay);
+    const signal = element('td', latestSignal ? 'model-difference-signal' : 'model-difference-gap');
+    if (latestSignal) {
+      signal.textContent = `Signal ${latestSignal.action} ${latestSignal.position.toFixed(3)} @${latestSignal.date.slice(5)}`;
+    } else {
+      signal.textContent = freshness.gapLabel ?? values.action;
     }
-    pill.appendChild(element('span', undefined, `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`));
-    pill.appendChild(element('span', undefined, `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`));
-    pill.appendChild(element('span', undefined, `Mismatch ${mismatchCount}`));
-    pill.appendChild(element('span', undefined, `Action ${values.action}`));
+    row.appendChild(signal);
+    row.appendChild(
+      element('td', undefined, ranking ? `Ret ${formatPct(ranking.return * 100)}` : `Ret ${formatSigned(rebasedNav - 100, 2)}%`),
+    );
+    row.appendChild(element('td', undefined, ranking ? formatPct(ranking.max_drawdown * 100) : 'n/a'));
+    row.appendChild(element('td', undefined, ranking ? ranking.avg_position.toFixed(3) : 'n/a'));
+    row.appendChild(element('td', undefined, formatSigned(values.nav_delta_vs_baseline, 2)));
+    row.appendChild(element('td', undefined, formatSigned(values.position_delta_vs_baseline, 3)));
+    row.appendChild(element('td', undefined, String(mismatchCount)));
+    row.appendChild(element('td', undefined, values.action));
     const latestMismatch = latestMismatchForProfile(mismatchRows, profile);
+    const feature = element('td', 'model-difference-feature');
     if (latestMismatch) {
-      const feature = element('span', 'model-difference-feature', mismatchFeatureLabel(latestMismatch));
       feature.title = mismatchFeatureLabel(latestMismatch);
-      pill.appendChild(feature);
+      feature.textContent = mismatchFeatureLabel(latestMismatch);
+    } else {
+      feature.textContent = '-';
     }
-    grid.appendChild(pill);
+    row.appendChild(feature);
+    tbody.appendChild(row);
   }
-  container.appendChild(grid);
+  table.appendChild(tbody);
+  tableWrap.appendChild(table);
+  container.appendChild(tableWrap);
 }
 
 export function renderActionLegend(container: HTMLElement): void {

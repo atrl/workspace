@@ -173,13 +173,13 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume', 'position']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.04, bottom: 0.30 },
+      scaleMargins: { top: 0.03, bottom: 0.34 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.88, bottom: 0.02 },
+      scaleMargins: { top: 0.90, bottom: 0.02 },
     });
     expect(chartMocks.priceScaleRecords[2].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.72, bottom: 0.14 },
+      scaleMargins: { top: 0.74, bottom: 0.12 },
     });
   });
 
