@@ -11,7 +11,7 @@ import {
   type Time,
 } from 'lightweight-charts';
 import { buildActionMarkers, formatProfileLabel } from './domain';
-import type { MarketPayload, ModelPayload } from './types';
+import type { ComparisonPayload, MarketPayload, ModelPayload } from './types';
 
 const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
 
@@ -129,7 +129,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.04, bottom: 0.28 },
+    scaleMargins: { top: 0.04, bottom: 0.18 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -167,7 +167,7 @@ export function renderMarketChart(
     lastValueVisible: false,
   });
   volumeBars.priceScale().applyOptions({
-    scaleMargins: { top: 0.9, bottom: 0.02 },
+    scaleMargins: { top: 0.84, bottom: 0.02 },
   });
   volumeBars.setData(
     market.rows.map((row) => ({
@@ -177,21 +177,6 @@ export function renderMarketChart(
     })),
   );
 
-  for (const [index, [profile, payload]] of Object.entries(models).entries()) {
-    const isPrimary = profile === model.profile;
-    const positionLine = chart.addSeries(LineSeries, {
-      color: MODEL_COLORS[index % MODEL_COLORS.length],
-      lineWidth: isPrimary ? 3 : 1,
-      priceScaleId: 'left',
-      priceLineVisible: false,
-      lastValueVisible: false,
-      title: '',
-    });
-    positionLine.priceScale().applyOptions({
-      scaleMargins: { top: 0.76, bottom: 0.08 },
-    });
-    positionLine.setData(payload.rows.map((row) => ({ time: toTime(row.date), value: row.position })));
-  }
   createSeriesMarkers(
     candleSeries,
     buildActionMarkers(model.events, { showText: false }).map((marker) => ({
@@ -213,6 +198,66 @@ export function renderMarketChart(
     chart,
     primarySeries: candleSeries,
     valueByTime: new Map(market.rows.map((row) => [row.date, Number(row.close)])),
+  };
+}
+
+type DeltaMetric = 'position_delta_vs_baseline' | 'nav_delta_vs_baseline';
+
+function deltaLabel(metric: DeltaMetric): string {
+  return metric === 'position_delta_vs_baseline' ? 'Δpos' : 'Δnav';
+}
+
+function deltaData(comparison: ComparisonPayload, profile: string, metric: DeltaMetric): { time: Time; value: number }[] {
+  return comparison.rows
+    .filter((row) => row.profiles[profile]?.[metric] !== undefined)
+    .map((row) => ({
+      time: toTime(row.date),
+      value: Number(row.profiles[profile][metric] ?? 0),
+    }));
+}
+
+export function renderDeltaChart(
+  container: HTMLElement,
+  comparison: ComparisonPayload,
+  profiles: readonly string[],
+  metric: DeltaMetric,
+): ChartHandles {
+  replaceChart(container);
+  const chart = createChart(container, {
+    autoSize: true,
+    layout: { background: { color: '#0f1012' }, textColor: '#edf0f3' },
+    grid: { vertLines: { color: '#23272c' }, horzLines: { color: '#23272c' } },
+    rightPriceScale: { borderColor: '#30343a' },
+    timeScale: { borderColor: '#30343a' },
+  });
+  let primarySeries: ISeriesApi<'Line'> | null = null;
+  let primaryRows: { time: Time; value: number }[] | null = null;
+  const selected = profiles.filter((profile) => comparison.compared_profiles.includes(profile));
+  for (const [index, profile] of selected.entries()) {
+    const rows = deltaData(comparison, profile, metric);
+    if (rows.length === 0) continue;
+    const isBaseline = profile === comparison.baseline_profile;
+    const line = chart.addSeries(LineSeries, {
+      color: isBaseline ? '#a5adb8' : MODEL_COLORS[index % MODEL_COLORS.length],
+      lineWidth: isBaseline ? 1 : 2,
+      priceLineVisible: false,
+      title: `${formatProfileLabel(profile)} ${deltaLabel(metric)}`,
+    });
+    line.setData(rows);
+    if (!primarySeries || !isBaseline) {
+      primarySeries = line;
+      primaryRows = rows;
+    }
+  }
+  if (!primarySeries || !primaryRows) {
+    throw new Error('delta chart requires at least one comparable model');
+  }
+  chart.timeScale().fitContent();
+  trackChart(container, chart);
+  return {
+    chart,
+    primarySeries,
+    valueByTime: new Map(primaryRows.map((row) => [String(row.time), row.value])),
   };
 }
 

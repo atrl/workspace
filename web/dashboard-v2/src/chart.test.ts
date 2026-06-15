@@ -1,6 +1,11 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { renderMarketChart, renderNavChart, renderPositionChart, syncCrosshairPositions, syncVisibleTimeRanges } from './chart';
-import { marketFixture, modelFixture } from './testFixtures';
+import {
+  renderDeltaChart,
+  renderMarketChart,
+  syncCrosshairPositions,
+  syncVisibleTimeRanges,
+} from './chart';
+import { comparisonFixture, marketFixture, modelFixture } from './testFixtures';
 
 const chartMocks = vi.hoisted(() => {
   const seriesRecords: { kind: string; options: Record<string, unknown>; data: unknown[] }[] = [];
@@ -77,7 +82,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders candles with MA, volume, and all selected model position overlays on the main chart', () => {
+  test('renders price candles with MA and volume without model position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -89,13 +94,7 @@ describe('dashboard v2 chart rendering', () => {
       () => {},
     );
 
-    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual([
-      'candlestick',
-      'line',
-      'histogram',
-      'line',
-      'line',
-    ]);
+    expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual(['candlestick', 'line', 'histogram']);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       title: 'MA180',
       priceLineVisible: false,
@@ -116,91 +115,55 @@ describe('dashboard v2 chart rendering', () => {
         color: row.close >= row.open ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
       })),
     );
-    expect(chartMocks.seriesRecords[3].options).toMatchObject({
-      priceScaleId: 'left',
-      lineWidth: 1,
-      priceLineVisible: false,
-      lastValueVisible: false,
-      title: '',
-    });
-    expect(chartMocks.seriesRecords[3].data).toEqual(
-      modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
-    );
-    expect(chartMocks.seriesRecords[4].options).toMatchObject({
-      priceScaleId: 'left',
-      lineWidth: 3,
-      priceLineVisible: false,
-      lastValueVisible: false,
-      title: '',
-    });
-    expect(chartMocks.seriesRecords[4].data).toEqual(
-      challenger.rows.map((row) => ({ time: row.date, value: row.position })),
-    );
+    expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'left')).toBe(false);
   });
 
-  test('separates price candles and position overlay into readable vertical bands', () => {
+  test('keeps price and volume in readable vertical bands', () => {
     const container = document.createElement('div');
 
     renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
 
-    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume', 'left']);
+    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.04, bottom: 0.28 },
+      scaleMargins: { top: 0.04, bottom: 0.18 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.9, bottom: 0.02 },
-    });
-    expect(chartMocks.priceScaleRecords[2].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.76, bottom: 0.08 },
+      scaleMargins: { top: 0.84, bottom: 0.02 },
     });
   });
 
-  test('renders multiple position model lines in the position pane', () => {
+  test('renders position deltas against the comparison baseline in the position pane', () => {
     const container = document.createElement('div');
-    const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
-    renderPositionChart(container, { smoke: modelFixture, balanced_rule_residual_v22: challenger }, 'balanced_rule_residual_v22');
+    renderDeltaChart(container, comparisonFixture, ['smoke', 'balanced_rule_residual_v22'], 'position_delta_vs_baseline');
 
-    expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke', 'BRR v22']);
-    expect(chartMocks.seriesRecords[1].options).toMatchObject({ lineWidth: 2 });
-  });
-
-  test('rebases NAV lines to the visible window start for readable model comparison', () => {
-    const container = document.createElement('div');
-    const reference = {
-      ...modelFixture,
-      profile: 'soxl_backtest_policy_reimplementation_v1',
-      status: 'reference',
-      rows: [
-        { ...modelFixture.rows[0], strategy_nav: 100 },
-        { ...modelFixture.rows[1], strategy_nav: 105 },
-        { ...modelFixture.rows[2], strategy_nav: 103 },
-      ],
-    };
-    const actor = {
-      ...modelFixture,
-      profile: 'balanced_rule_residual_v22',
-      rows: [
-        { ...modelFixture.rows[0], strategy_nav: 1000000 },
-        { ...modelFixture.rows[1], strategy_nav: 1100000 },
-        { ...modelFixture.rows[2], strategy_nav: 1070000 },
-      ],
-    };
-
-    renderNavChart(container, {
-      soxl_backtest_policy_reimplementation_v1: reference,
-      balanced_rule_residual_v22: actor,
-    });
-
+    expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke Δpos', 'BRR v22 Δpos']);
     expect(chartMocks.seriesRecords[0].data).toEqual([
-      { time: '2026-01-02', value: 100 },
-      { time: '2026-01-05', value: 105 },
-      { time: '2026-01-06', value: 103 },
+      { time: '2026-01-02', value: 0 },
+      { time: '2026-01-05', value: 0.7 },
+      { time: '2026-01-06', value: 0.2 },
     ]);
     expect(chartMocks.seriesRecords[1].data).toEqual([
-      { time: '2026-01-02', value: 100 },
-      { time: '2026-01-05', value: 110 },
-      { time: '2026-01-06', value: 107 },
+      { time: '2026-01-02', value: 0 },
+      { time: '2026-01-05', value: 0 },
+      { time: '2026-01-06', value: 0 },
+    ]);
+  });
+
+  test('renders NAV deltas against the comparison baseline in the NAV pane', () => {
+    const container = document.createElement('div');
+
+    renderDeltaChart(container, comparisonFixture, ['smoke', 'balanced_rule_residual_v22'], 'nav_delta_vs_baseline');
+
+    expect(chartMocks.seriesRecords[0].data).toEqual([
+      { time: '2026-01-02', value: 0 },
+      { time: '2026-01-05', value: 5 },
+      { time: '2026-01-06', value: 2 },
+    ]);
+    expect(chartMocks.seriesRecords[1].data).toEqual([
+      { time: '2026-01-02', value: 0 },
+      { time: '2026-01-05', value: 0 },
+      { time: '2026-01-06', value: 0 },
     ]);
   });
 

@@ -1,0 +1,33 @@
+{
+  "experiment": "dashboard_v2_kline_delta_v1",
+  "direction": "production",
+  "decision": "dashboard_v2_kline_and_model_delta_readability_updated",
+  "latest_market_date": "2026-06-15",
+  "canonical_data_date": "2026-06-12",
+  "safe_backtest_end": "2026-06-11",
+  "comparison_common_start": "2026-01-02",
+  "comparison_common_end": "2026-06-11",
+  "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+  "default_comparison_profiles": [
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v22",
+    "mode_conditioned_rebound_reward_train_v2",
+    "smoke",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19"
+  ],
+  "data_note": "SOXL/SOXX raw prices refreshed to 2026-06-15 through Futu, but VIX remained available only through 2026-06-12, so canonical qlib replay safe end remains 2026-06-11.",
+  "ui_note": "Main K-line now renders price candles, MA180, and volume without model position overlays. Position and NAV panes render baseline-relative deltas from the comparison payload.",
+  "screenshot": "runtime/production/card/dashboard_v2_kline_delta_v1/dashboard_v2_kline_delta_20260616_after.png",
+  "pixel_check": {
+    "size": "1440x1000",
+    "non_dark_ratio": 0.1284,
+    "sampled_unique_colors": 1735
+  },
+  "verification": [
+    "cd web/dashboard-v2 && npm test",
+    "cd web/dashboard-v2 && npm run build",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_dashboard_model_replays.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2"
+  ]
+}

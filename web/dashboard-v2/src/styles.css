@@ -50,7 +50,7 @@ select {
 .toolbar {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
   min-height: 46px;
   padding: 7px 12px 9px;
@@ -66,8 +66,10 @@ select {
 }
 
 .profile-group {
-  flex-wrap: wrap;
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
   min-width: 0;
+  overflow-x: auto;
 }
 
 .check-label {
@@ -287,13 +289,13 @@ h3 {
 
 .chart-main {
   flex: 0 0 auto;
-  height: clamp(370px, 46vh, 560px);
-  min-height: 370px;
+  height: clamp(320px, 38vh, 460px);
+  min-height: 320px;
 }
 
 .chart-small {
-  height: 180px;
-  min-height: 180px;
+  height: 160px;
+  min-height: 160px;
 }
 
 .lower-charts {

@@ -248,8 +248,7 @@ export function renderActionLegend(container: HTMLElement): void {
   container.replaceChildren();
   const buy = element('span', 'legend-item legend-buy', 'BUY');
   const sell = element('span', 'legend-item legend-sell', 'SELL');
-  const position = element('span', 'legend-item legend-position', 'Position');
-  container.append(buy, sell, position);
+  container.append(buy, sell);
 }
 
 export function renderInspectorPanel(container: HTMLElement, rows: InspectorRow[]): void {
