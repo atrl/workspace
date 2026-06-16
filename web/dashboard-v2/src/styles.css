@@ -193,7 +193,7 @@ h3 {
   order: 0;
   display: block;
   min-width: 0;
-  max-height: 260px;
+  max-height: 160px;
   padding: 5px 12px 6px;
   border-bottom: 1px solid var(--line-soft);
   border-top: 1px solid var(--line-soft);
@@ -522,13 +522,13 @@ h3 {
 .chart-main {
   order: 1;
   flex: 0 0 auto;
-  height: clamp(360px, 39vh, 540px);
-  min-height: 360px;
+  height: clamp(390px, 45vh, 620px);
+  min-height: 390px;
 }
 
 .chart-small {
-  height: 130px;
-  min-height: 130px;
+  height: 126px;
+  min-height: 126px;
 }
 
 .lower-charts {
@@ -651,6 +651,27 @@ h3 {
   color: var(--muted);
 }
 
+.baseline-latest-readout {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 7px;
+  min-height: 21px;
+  margin-top: 3px;
+  color: var(--accent);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.baseline-latest-readout span {
+  flex: 0 0 auto;
+  color: var(--text);
+  white-space: nowrap;
+}
+
 .freshness-strip > .source-label,
 .status-strip > .source-label,
 .freshness-alert > strong {
@@ -696,6 +717,12 @@ h3 {
   white-space: nowrap;
 }
 
+.freshness-kind {
+  color: var(--muted);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
 .model-difference-cards {
   display: flex;
   flex-wrap: nowrap;
@@ -724,9 +751,14 @@ h3 {
   background: color-mix(in srgb, var(--warn) 5%, var(--bg));
 }
 
+.model-difference-card[data-diff="true"] {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+}
+
 .model-difference-card-title,
 .model-difference-card-replay,
 .model-difference-card-signal,
+.model-difference-card-kind,
 .model-difference-card-feature {
   min-width: 0;
   overflow: hidden;
@@ -736,6 +768,11 @@ h3 {
 
 .model-difference-card-title {
   color: var(--text);
+}
+
+.model-difference-card-kind {
+  color: var(--muted);
+  font-size: 10px;
 }
 
 .model-difference-card-replay {

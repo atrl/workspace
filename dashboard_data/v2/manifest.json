@@ -7,6 +7,17 @@
     "balanced_rule_residual_v19_reg",
     "balanced_rule_residual_v19"
   ],
+  "baseline_latest": {
+    "action": "HOLD",
+    "date": "2026-06-15",
+    "label": "SOXLBacktest",
+    "position": 0.1591,
+    "price": 271.86,
+    "profile": "soxl_backtest_policy_reimplementation_v1",
+    "return_pct": 146.04379795135495,
+    "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+    "strategy_nav": 246043.79795135497
+  },
   "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
   "blocked_profiles": {
     "balanced": {
@@ -103,6 +114,14 @@
     "balanced_rule_residual_v19_reg",
     "balanced_rule_residual_v19"
   ],
+  "comparison_window": {
+    "actor_replay_end": "2026-06-12",
+    "baseline_replay_end": "2026-06-15",
+    "common_end": "2026-06-12",
+    "common_start": "2026-01-02",
+    "latest_market_date": "2026-06-15",
+    "safe_backtest_end": "2026-06-12"
+  },
   "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
   "default_comparison_profiles": [
     "soxl_backtest_policy_reimplementation_v1",
@@ -145,13 +164,51 @@
     "status": "blocked",
     "strict_passing_profile_count": 0
   },
-  "generated_at": "2026-06-15T23:39:22.408675+00:00",
+  "generated_at": "2026-06-16T00:02:11.851466+00:00",
   "latest_market_date": "2026-06-15",
   "latest_signal": {
     "available_count": 5,
     "comparison_included": true,
     "date": "2026-06-15",
     "source": "latest_signal_stateless"
+  },
+  "model_replay_dates": {
+    "balanced_rule_residual_v19": {
+      "latest_signal_date": "2026-06-15",
+      "replay_end": "2026-06-12",
+      "replay_start": "2020-01-02",
+      "source_kind": "diagnostic_actor"
+    },
+    "balanced_rule_residual_v19_reg": {
+      "latest_signal_date": "2026-06-15",
+      "replay_end": "2026-06-12",
+      "replay_start": "2020-01-02",
+      "source_kind": "diagnostic_actor"
+    },
+    "balanced_rule_residual_v22": {
+      "latest_signal_date": "2026-06-15",
+      "replay_end": "2026-06-12",
+      "replay_start": "2020-01-02",
+      "source_kind": "diagnostic_actor"
+    },
+    "mode_conditioned_rebound_reward_train_v2": {
+      "latest_signal_date": "2026-06-15",
+      "replay_end": "2026-06-12",
+      "replay_start": "2020-01-02",
+      "source_kind": "diagnostic_actor"
+    },
+    "smoke": {
+      "latest_signal_date": "2026-06-15",
+      "replay_end": "2026-06-12",
+      "replay_start": "2020-01-02",
+      "source_kind": "diagnostic_actor"
+    },
+    "soxl_backtest_policy_reimplementation_v1": {
+      "latest_signal_date": null,
+      "replay_end": "2026-06-15",
+      "replay_start": "2026-01-02",
+      "source_kind": "reference_baseline"
+    }
   },
   "models": [
     "soxl_backtest_policy_reimplementation_v1",
@@ -161,8 +218,36 @@
     "balanced_rule_residual_v19_reg",
     "balanced_rule_residual_v19"
   ],
+  "profile_labels": {
+    "balanced_rule_residual_v19": "BRR v19",
+    "balanced_rule_residual_v19_reg": "BRR v19 reg",
+    "balanced_rule_residual_v22": "BRR v22",
+    "mode_conditioned_rebound_reward_train_v2": "Mode rebound v2",
+    "smoke": "smoke",
+    "soxl_backtest_policy_reimplementation_v1": "SOXLBacktest"
+  },
+  "profile_source_kinds": {
+    "balanced_rule_residual_v19": "diagnostic_actor",
+    "balanced_rule_residual_v19_reg": "diagnostic_actor",
+    "balanced_rule_residual_v22": "diagnostic_actor",
+    "mode_conditioned_rebound_reward_train_v2": "diagnostic_actor",
+    "smoke": "diagnostic_actor",
+    "soxl_backtest_policy_reimplementation_v1": "reference_baseline"
+  },
   "profile_summaries": {
     "balanced_rule_residual_v19": {
+      "label": "BRR v19",
+      "latest": {
+        "action": "HOLD",
+        "date": "2026-06-12",
+        "label": "BRR v19",
+        "position": 0.0,
+        "price": 234.67999267578125,
+        "profile": "balanced_rule_residual_v19",
+        "return_pct": 1237.7824394052125,
+        "source_path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
+        "strategy_nav": 13377824.394052126
+      },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
       "replay_start": "2020-01-02",
@@ -174,11 +259,24 @@
         "summary_path": "runtime/model/card/balanced_rule_residual_v19/soxl_balanced_rule_residual_v19_summary.json"
       },
       "row_count": 1620,
+      "source_kind": "diagnostic_actor",
       "source_path": "runtime/model/card/balanced_rule_residual_v19/balanced_rule_residual_v19_soxl_daily.csv",
       "status": "archived",
       "window": null
     },
     "balanced_rule_residual_v19_reg": {
+      "label": "BRR v19 reg",
+      "latest": {
+        "action": "HOLD",
+        "date": "2026-06-12",
+        "label": "BRR v19 reg",
+        "position": 0.0,
+        "price": 234.67999267578125,
+        "profile": "balanced_rule_residual_v19_reg",
+        "return_pct": 1026.6527363574126,
+        "source_path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
+        "strategy_nav": 11266527.363574125
+      },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
       "replay_start": "2020-01-02",
@@ -190,11 +288,24 @@
         "summary_path": "runtime/model/card/balanced_rule_residual_v19_reg/soxl_balanced_rule_residual_v19_reg_summary.json"
       },
       "row_count": 1620,
+      "source_kind": "diagnostic_actor",
       "source_path": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
       "status": "candidate",
       "window": null
     },
     "balanced_rule_residual_v22": {
+      "label": "BRR v22",
+      "latest": {
+        "action": "HOLD",
+        "date": "2026-06-12",
+        "label": "BRR v22",
+        "position": 0.0,
+        "price": 234.67999267578125,
+        "profile": "balanced_rule_residual_v22",
+        "return_pct": 1211.5631808235644,
+        "source_path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
+        "strategy_nav": 13115631.808235643
+      },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
       "replay_start": "2020-01-02",
@@ -206,11 +317,24 @@
         "summary_path": "runtime/model/card/balanced_rule_residual_v22/soxl_balanced_rule_residual_v22_summary.json"
       },
       "row_count": 1620,
+      "source_kind": "diagnostic_actor",
       "source_path": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
       "status": "canonical",
       "window": null
     },
     "mode_conditioned_rebound_reward_train_v2": {
+      "label": "Mode rebound v2",
+      "latest": {
+        "action": "HOLD",
+        "date": "2026-06-12",
+        "label": "Mode rebound v2",
+        "position": 0.0,
+        "price": 234.67999267578125,
+        "profile": "mode_conditioned_rebound_reward_train_v2",
+        "return_pct": 1660.0359454954514,
+        "source_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
+        "strategy_nav": 17600359.454954512
+      },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
       "replay_start": "2020-01-02",
@@ -222,11 +346,24 @@
         "summary_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_summary.json"
       },
       "row_count": 1620,
+      "source_kind": "diagnostic_actor",
       "source_path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
       "status": "ablation",
       "window": null
     },
     "smoke": {
+      "label": "smoke",
+      "latest": {
+        "action": "HOLD",
+        "date": "2026-06-12",
+        "label": "smoke",
+        "position": 0.0,
+        "price": 234.67999267578125,
+        "profile": "smoke",
+        "return_pct": 3564.4685751352986,
+        "source_path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+        "strategy_nav": 36644685.75135299
+      },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
       "replay_start": "2020-01-02",
@@ -238,11 +375,24 @@
         "summary_path": "runtime/model/card/smoke/soxl_smoke_summary.json"
       },
       "row_count": 1620,
+      "source_kind": "diagnostic_actor",
       "source_path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
       "status": "canonical",
       "window": null
     },
     "soxl_backtest_policy_reimplementation_v1": {
+      "label": "SOXLBacktest",
+      "latest": {
+        "action": "HOLD",
+        "date": "2026-06-15",
+        "label": "SOXLBacktest",
+        "position": 0.1591,
+        "price": 271.86,
+        "profile": "soxl_backtest_policy_reimplementation_v1",
+        "return_pct": 146.04379795135495,
+        "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+        "strategy_nav": 246043.79795135497
+      },
       "latest_signal_date": null,
       "replay_end": "2026-06-15",
       "replay_start": "2026-01-02",
@@ -254,6 +404,7 @@
         "summary_path": null
       },
       "row_count": 113,
+      "source_kind": "reference_baseline",
       "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
       "status": "reference",
       "window": "ytd_2026"

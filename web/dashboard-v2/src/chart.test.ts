@@ -69,6 +69,7 @@ const chartMocks = vi.hoisted(() => {
 vi.mock('lightweight-charts', () => ({
   CandlestickSeries: 'candlestick',
   HistogramSeries: 'histogram',
+  LineStyle: { Solid: 0, Dashed: 2 },
   LineSeries: 'line',
   createChart: chartMocks.createChart,
   createSeriesMarkers: chartMocks.createSeriesMarkers,
@@ -161,10 +162,10 @@ describe('dashboard v2 chart rendering', () => {
 
     expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.04, bottom: 0.18 },
+      scaleMargins: { top: 0.03, bottom: 0.14 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.90, bottom: 0.02 },
+      scaleMargins: { top: 0.92, bottom: 0.01 },
     });
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       color: 'rgba(237, 240, 243, 0.54)',
@@ -184,6 +185,7 @@ describe('dashboard v2 chart rendering', () => {
     renderPositionChart(container, { smoke: modelFixture, balanced_rule_residual_v22: challenger }, 'smoke');
 
     expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['smoke', 'BRR v22']);
+    expect(chartMocks.seriesRecords.map((record) => record.options.lineWidth)).toEqual([3, 2]);
     expect(chartMocks.seriesRecords[0].data).toEqual([
       { time: '2026-01-02', value: 0 },
       { time: '2026-01-05', value: 0.7 },
@@ -194,6 +196,21 @@ describe('dashboard v2 chart rendering', () => {
       { time: '2026-01-05', value: 0.35 },
       { time: '2026-01-06', value: 0.1 },
     ]);
+  });
+
+  test('draws reference baseline positions as a thin dashed line against thicker actor lines', () => {
+    const container = document.createElement('div');
+    const reference = {
+      ...modelFixture,
+      profile: 'soxl_backtest_policy_reimplementation_v1',
+      status: 'reference',
+    };
+
+    renderPositionChart(container, { soxl_backtest_policy_reimplementation_v1: reference, smoke: modelFixture }, 'smoke');
+
+    expect(chartMocks.seriesRecords.map((record) => record.options.title)).toEqual(['SOXLBacktest', 'smoke']);
+    expect(chartMocks.seriesRecords.map((record) => record.options.lineStyle)).toEqual([2, 0]);
+    expect(chartMocks.seriesRecords.map((record) => record.options.lineWidth)).toEqual([1, 3]);
   });
 
   test('extends the dedicated position pane with latest signal rows', () => {

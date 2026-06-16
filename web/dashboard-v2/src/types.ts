@@ -8,6 +8,36 @@ export interface Manifest {
   canonical_data_date?: string | null;
   safe_backtest_end: string;
   available_profiles: string[];
+  profile_labels?: Record<string, string>;
+  profile_source_kinds?: Record<string, string>;
+  model_replay_dates?: Record<
+    string,
+    {
+      replay_start: string;
+      replay_end: string;
+      latest_signal_date?: string | null;
+      source_kind: string;
+    }
+  >;
+  baseline_latest?: {
+    profile: string;
+    label: string;
+    date: string | null;
+    return_pct: number | null;
+    position: number | null;
+    action: Action | string | null;
+    price: number | null;
+    strategy_nav: number | null;
+    source_path?: string | null;
+  };
+  comparison_window?: {
+    common_start: string;
+    common_end: string;
+    latest_market_date: string;
+    baseline_replay_end: string;
+    actor_replay_end?: string | null;
+    safe_backtest_end: string;
+  };
   models?: string[];
   comparison_profiles?: string[];
   deployable_profiles?: string[];
@@ -103,6 +133,8 @@ export interface Manifest {
     string,
     {
       status: string | null;
+      label?: string;
+      source_kind?: string;
       retention?: {
         code: string;
         status: string;
@@ -115,6 +147,17 @@ export interface Manifest {
       row_count: number;
       source_path: string;
       window?: string | null;
+      latest?: {
+        profile: string;
+        label: string;
+        date: string | null;
+        return_pct: number | null;
+        position: number | null;
+        action: Action | string | null;
+        price: number | null;
+        strategy_nav: number | null;
+        source_path?: string | null;
+      };
       latest_signal_date?: string | null;
     }
   >;

@@ -694,6 +694,107 @@ def test_build_dashboard_v2_data_marks_latest_actor_signals_as_comparison_includ
     }
 
 
+def test_build_dashboard_v2_data_exposes_latest_baseline_and_actor_safe_replay_dates(tmp_path: Path):
+    freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
+    freshness.parent.mkdir()
+    actor_csv = tmp_path / "runtime" / "model" / "card" / "smoke" / "smoke_soxl_daily.csv"
+    actor_csv.parent.mkdir(parents=True)
+    _write_csv(
+        actor_csv,
+        [
+            {
+                "datetime": "2026-06-12",
+                "strategy_nav": 100.0,
+                "buyhold_nav": 100.0,
+                "position": 0.0,
+                "action": "HOLD",
+                "price": 234.68,
+            }
+        ],
+    )
+    _write_final_retention_summary(tmp_path, "smoke", retained=False)
+    reference_csv = (
+        tmp_path
+        / "runtime"
+        / "production"
+        / "card"
+        / "soxl_backtest_policy_reimplementation_v1"
+        / "new_policy_daily.csv"
+    )
+    reference_csv.parent.mkdir(parents=True)
+    _write_csv(
+        reference_csv,
+        [
+            {
+                "window": "ytd_2026",
+                "date": "2026-06-12",
+                "strategy_nav": 100000.0,
+                "buyhold_nav": 100000.0,
+                "position": 0.1591,
+                "action": "HOLD",
+                "price": 234.68,
+            },
+            {
+                "window": "ytd_2026",
+                "date": "2026-06-15",
+                "strategy_nav": 246043.79795135497,
+                "buyhold_nav": 120000.0,
+                "position": 0.1591,
+                "action": "HOLD",
+                "price": 271.86,
+            },
+        ],
+    )
+    freshness.write_text(
+        json.dumps(
+            {
+                "generated_at": "2026-06-15T00:00:00+00:00",
+                "latest_data_date": "2026-06-15",
+                "safe_backtest_end": "2026-06-12",
+                "profiles": [
+                    {
+                        "profile": "smoke",
+                        "status": "canonical",
+                        "output": "runtime/model/card/smoke/smoke_soxl_daily.csv",
+                        "result": "current",
+                    }
+                ],
+            }
+        )
+    )
+
+    output_dir = tmp_path / "dashboard_data" / "v2"
+    build_dashboard_v2_data(
+        root=tmp_path,
+        output_dir=output_dir,
+        freshness_path=freshness,
+        market_rows={
+            "2026-06-12": {"open": 222.22, "high": 242.40, "low": 214.7406, "close": 234.68, "volume": 50_419_140},
+            "2026-06-15": {"open": 265.91, "high": 272.66, "low": 261.6019, "close": 271.86, "volume": 29_256_770},
+        },
+        selected_profiles=["soxl_backtest_policy_reimplementation_v1", "smoke"],
+        baseline_profile="soxl_backtest_policy_reimplementation_v1",
+    )
+
+    manifest = json.loads((output_dir / "manifest.json").read_text())
+    assert manifest["profile_labels"]["soxl_backtest_policy_reimplementation_v1"] == "SOXLBacktest"
+    assert manifest["profile_source_kinds"]["soxl_backtest_policy_reimplementation_v1"] == "reference_baseline"
+    assert manifest["profile_source_kinds"]["smoke"] == "diagnostic_actor"
+    assert manifest["model_replay_dates"]["soxl_backtest_policy_reimplementation_v1"]["replay_end"] == "2026-06-15"
+    assert manifest["model_replay_dates"]["smoke"]["replay_end"] == "2026-06-12"
+    assert manifest["baseline_latest"]["date"] == "2026-06-15"
+    assert manifest["baseline_latest"]["return_pct"] == pytest.approx(146.04379795135497)
+    assert manifest["baseline_latest"]["position"] == pytest.approx(0.1591)
+    assert manifest["comparison_window"] == {
+        "common_start": "2026-06-12",
+        "common_end": "2026-06-12",
+        "latest_market_date": "2026-06-15",
+        "baseline_replay_end": "2026-06-15",
+        "actor_replay_end": "2026-06-12",
+        "safe_backtest_end": "2026-06-12",
+    }
+
+
 def test_build_dashboard_v2_data_adds_soxl_backtest_reference_baseline(tmp_path: Path):
     freshness = tmp_path / "dashboard_data" / "model_replay_freshness.json"
     freshness.parent.mkdir()

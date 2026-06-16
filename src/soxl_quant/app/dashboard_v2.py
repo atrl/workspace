@@ -93,6 +93,33 @@ def _dedupe_preserve_order(values: list[str]) -> list[str]:
     return result
 
 
+def _profile_label(profile_name: str) -> str:
+    if profile_name == SOXL_BACKTEST_REFERENCE_PROFILE:
+        return "SOXLBacktest"
+    if profile_name == "mode_conditioned_rebound_reward_train_v2":
+        return "Mode rebound v2"
+    if profile_name == "state_conditioned_drawdown_rebound_reward_train_v1":
+        return "State drawdown v1"
+    if profile_name == "drawdown_rebound_reward_train_v1":
+        return "DD rebound v1"
+    if profile_name == "balanced_rule_residual_imitation_v4":
+        return "BRR imitation v4"
+    if profile_name == "balanced_macro_v1":
+        return "Balanced macro v1"
+    prefix = "balanced_rule_residual_"
+    if profile_name.startswith(prefix):
+        return f"BRR {profile_name.removeprefix(prefix).replace('_', ' ')}"
+    return profile_name
+
+
+def _profile_source_kind(source: dict[str, Any], retention_status: dict[str, Any]) -> str:
+    if source.get("status") == "reference" or retention_status["code"] == "reference_baseline":
+        return "reference_baseline"
+    if retention_status["allowed"]:
+        return "final_retained_actor"
+    return "diagnostic_actor"
+
+
 def _normalize_action(value: object) -> str:
     action = str(value or "HOLD").upper()
     if action in ACTION_VALUES:
@@ -606,6 +633,37 @@ def compute_metrics(rows: list[dict[str, Any]]) -> dict[str, float]:
     }
 
 
+def _latest_model_row_summary(profile_name: str, payload: dict[str, Any]) -> dict[str, Any]:
+    rows = payload.get("rows") or []
+    if not rows:
+        return {
+            "profile": profile_name,
+            "label": _profile_label(profile_name),
+            "date": None,
+            "return_pct": None,
+            "position": None,
+            "action": None,
+            "price": None,
+            "strategy_nav": None,
+            "source_path": payload.get("source_path"),
+        }
+    first_nav = float(rows[0]["strategy_nav"])
+    latest = rows[-1]
+    latest_nav = float(latest["strategy_nav"])
+    return_pct = (latest_nav / first_nav - 1.0) * 100.0 if first_nav else None
+    return {
+        "profile": profile_name,
+        "label": _profile_label(profile_name),
+        "date": latest["date"],
+        "return_pct": return_pct,
+        "position": latest["position"],
+        "action": latest["action"],
+        "price": latest["price"],
+        "strategy_nav": latest_nav,
+        "source_path": payload.get("source_path"),
+    }
+
+
 def _action_from_position_delta(previous_position: float, target_position: float, threshold: float = 0.01) -> str:
     delta = target_position - previous_position
     if delta > threshold:
@@ -939,12 +997,44 @@ def build_dashboard_v2_data(
         baseline_profile=baseline,
         compared_profiles=defaults,
     )
+    profile_source_kinds = {
+        profile_name: _profile_source_kind(by_name[profile_name], retention_by_name[profile_name])
+        for profile_name in defaults
+    }
+    model_replay_dates = {
+        profile_name: {
+            "replay_start": payload["replay_start"],
+            "replay_end": payload["replay_end"],
+            "latest_signal_date": (payload.get("latest_signal") or {}).get("date")
+            if isinstance(payload.get("latest_signal"), dict)
+            else None,
+            "source_kind": profile_source_kinds[profile_name],
+        }
+        for profile_name, payload in model_payloads.items()
+    }
+    actor_replay_ends = [
+        dates["replay_end"]
+        for profile_name, dates in model_replay_dates.items()
+        if profile_source_kinds[profile_name] != "reference_baseline"
+    ]
     latest_signal_count = sum(1 for payload in model_payloads.values() if payload.get("latest_signal"))
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "latest_market_date": latest_market_date,
         "canonical_data_date": canonical_data_date,
         "safe_backtest_end": safe_backtest_end,
+        "profile_labels": {profile_name: _profile_label(profile_name) for profile_name in defaults},
+        "profile_source_kinds": profile_source_kinds,
+        "model_replay_dates": model_replay_dates,
+        "baseline_latest": _latest_model_row_summary(baseline, model_payloads[baseline]),
+        "comparison_window": {
+            "common_start": comparison["common_start"],
+            "common_end": comparison["common_end"],
+            "latest_market_date": latest_market_date,
+            "baseline_replay_end": model_payloads[baseline]["replay_end"],
+            "actor_replay_end": max(actor_replay_ends) if actor_replay_ends else None,
+            "safe_backtest_end": safe_backtest_end,
+        },
         "available_profiles": defaults,
         "deployable_profiles": [profile for profile in defaults if retention_by_name[profile]["allowed"]],
         "diagnostic_profiles": [profile for profile in defaults if not retention_by_name[profile]["allowed"]],
@@ -974,6 +1064,9 @@ def build_dashboard_v2_data(
                 "row_count": payload["row_count"],
                 "source_path": payload["source_path"],
                 "window": payload.get("window"),
+                "label": _profile_label(profile_name),
+                "source_kind": profile_source_kinds[profile_name],
+                "latest": _latest_model_row_summary(profile_name, payload),
                 "latest_signal_date": (payload.get("latest_signal") or {}).get("date")
                 if isinstance(payload.get("latest_signal"), dict)
                 else None,

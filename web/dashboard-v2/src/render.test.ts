@@ -91,6 +91,67 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Actor signals 2026-01-06');
   });
 
+  test('renders latest baseline return and position as a visible readout', () => {
+    const panel = document.createElement('section');
+
+    renderDataSourcePanel(panel, {
+      ...manifestFixture,
+      latest_market_date: '2026-06-15',
+      safe_backtest_end: '2026-06-12',
+      profile_labels: {
+        soxl_backtest_policy_reimplementation_v1: 'SOXLBacktest',
+        smoke: 'smoke',
+      },
+      profile_source_kinds: {
+        soxl_backtest_policy_reimplementation_v1: 'reference_baseline',
+        smoke: 'diagnostic_actor',
+      },
+      default_baseline_profile: 'soxl_backtest_policy_reimplementation_v1',
+      default_comparison_profiles: ['soxl_backtest_policy_reimplementation_v1', 'smoke'],
+      baseline_latest: {
+        profile: 'soxl_backtest_policy_reimplementation_v1',
+        label: 'SOXLBacktest',
+        date: '2026-06-15',
+        return_pct: 146.04379795135497,
+        position: 0.1591,
+        action: 'HOLD',
+        price: 271.86,
+        strategy_nav: 246043.79795135497,
+        source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+      },
+      profile_summaries: {
+        soxl_backtest_policy_reimplementation_v1: {
+          status: 'reference',
+          label: 'SOXLBacktest',
+          source_kind: 'reference_baseline',
+          replay_start: '2026-01-02',
+          replay_end: '2026-06-15',
+          row_count: 113,
+          source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+        },
+        smoke: {
+          status: 'canonical',
+          label: 'smoke',
+          source_kind: 'diagnostic_actor',
+          replay_start: '2026-01-02',
+          replay_end: '2026-06-12',
+          row_count: 112,
+          source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+        },
+      },
+    });
+
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('Baseline latest');
+    expect(panel.querySelector('.status-strip')?.textContent).toContain('2026-06-15 +146.04% pos 0.159');
+    const readout = panel.querySelector('.baseline-latest-readout');
+    expect(readout?.textContent).toContain('SOXLBacktest latest');
+    expect(readout?.textContent).toContain('2026-06-15');
+    expect(readout?.textContent).toContain('ret +146.04%');
+    expect(readout?.textContent).toContain('pos 0.159');
+    expect(readout?.textContent).toContain('action HOLD');
+    expect(readout?.textContent).toContain('price 271.86');
+  });
+
   test('shows actor replay cutoff and latest signal date in the model freshness strip', () => {
     const panel = document.createElement('section');
 

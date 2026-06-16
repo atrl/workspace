@@ -1,6 +1,7 @@
 import {
   CandlestickSeries,
   HistogramSeries,
+  LineStyle,
   LineSeries,
   createChart,
   createSeriesMarkers,
@@ -194,7 +195,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.04, bottom: 0.18 },
+    scaleMargins: { top: 0.03, bottom: 0.14 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -245,7 +246,7 @@ export function renderMarketChart(
     lastValueVisible: false,
   });
   volumeBars.priceScale().applyOptions({
-    scaleMargins: { top: 0.90, bottom: 0.02 },
+    scaleMargins: { top: 0.92, bottom: 0.01 },
   });
   volumeBars.setData(
     market.rows.map((row) => ({
@@ -371,10 +372,12 @@ export function renderPositionChart(
   let primaryRows: { time: Time; value: number }[] | null = null;
   for (const [index, [profile, model]] of Object.entries(models).entries()) {
     const isPrimary = profile === primaryProfile;
+    const isReference = model.status === 'reference';
     const rows = positionOverlayData(model);
     const line = chart.addSeries(LineSeries, {
       color: MODEL_COLORS[index % MODEL_COLORS.length],
-      lineWidth: isPrimary ? 2 : 1,
+      lineStyle: isReference ? LineStyle.Dashed : LineStyle.Solid,
+      lineWidth: isReference ? 1 : isPrimary ? 3 : 2,
       lastValueVisible: false,
       priceLineVisible: false,
       title: formatProfileLabel(profile),
@@ -420,9 +423,11 @@ export function renderNavChart(container: HTMLElement, models: Record<string, Mo
   let primarySeries: ISeriesApi<'Line'> | null = null;
   let primaryRows: ModelPayload['rows'] | null = null;
   for (const [index, [profile, model]] of Object.entries(models).entries()) {
+    const isReference = model.status === 'reference';
     const series = chart.addSeries(LineSeries, {
       color: MODEL_COLORS[index % MODEL_COLORS.length],
-      lineWidth: 2,
+      lineStyle: isReference ? LineStyle.Dashed : LineStyle.Solid,
+      lineWidth: isReference ? 1 : 2,
       title: formatProfileLabel(profile),
     });
     series.setData(rebasedNavData(model.rows));

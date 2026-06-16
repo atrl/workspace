@@ -19,6 +19,10 @@ function formatPct(value: number | null | undefined): string {
   return typeof value === 'number' && Number.isFinite(value) ? `${value.toFixed(2)}%` : 'n/a';
 }
 
+function formatCompactPct(value: number | null | undefined): string {
+  return typeof value === 'number' && Number.isFinite(value) ? `${formatSigned(value, 2)}%` : 'n/a';
+}
+
 function formatSigned(value: number, digits: number): string {
   const sign = value > 0 ? '+' : '';
   return `${sign}${value.toFixed(digits)}`;
@@ -30,6 +34,14 @@ function isMaterialPositionDifference(value: number | undefined): boolean {
 
 function readableProfile(profile: string): string {
   return formatProfileLabel(profile).replaceAll('_', ' ');
+}
+
+function profileLabel(profile: string, manifest?: Manifest): string {
+  return manifest?.profile_labels?.[profile] ?? formatProfileLabel(profile);
+}
+
+function profileSourceKind(profile: string, manifest?: Manifest): string {
+  return manifest?.profile_source_kinds?.[profile] ?? manifest?.profile_summaries?.[profile]?.source_kind ?? '';
 }
 
 function maxDate(values: readonly (string | undefined | null)[]): string | null {
@@ -216,6 +228,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   }
   const profileSummaries = manifest.profile_summaries ?? {};
   const baselineEnd = profileSummaries[manifest.default_baseline_profile]?.replay_end ?? null;
+  const baselineLatest = manifest.baseline_latest;
   const actorEnd = maxDate(
     manifest.default_comparison_profiles
       .filter((profile) => profileSummaries[profile]?.status !== 'reference')
@@ -234,7 +247,13 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     ['Blocked', String(blockedCount)],
   ];
   if (baselineEnd) {
-    rows.splice(3, 0, ['Baseline latest', baselineEnd]);
+    const baselineValue =
+      baselineLatest?.date === baselineEnd
+        ? `${baselineEnd} ${formatCompactPct(baselineLatest.return_pct)} pos ${
+            typeof baselineLatest.position === 'number' ? baselineLatest.position.toFixed(3) : 'n/a'
+          }`
+        : baselineEnd;
+    rows.splice(3, 0, ['Baseline latest', baselineValue]);
   }
   if (actorEnd) {
     rows.splice(baselineEnd ? 4 : 3, 0, ['Actor replay', actorEnd]);
@@ -306,7 +325,9 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       } else {
         item.dataset.freshness = 'common';
       }
-      item.appendChild(element('span', 'freshness-name', formatProfileLabel(profile)));
+      item.appendChild(element('span', 'freshness-name', profileLabel(profile, manifest)));
+      const sourceKind = profileSourceKind(profile, manifest);
+      if (sourceKind) item.appendChild(element('span', 'freshness-kind', sourceKind.replaceAll('_', ' ')));
       item.appendChild(element('span', 'freshness-date', `replay ${String(replayEnd)}`));
       if (signalDate && signalDate > String(replayEnd)) {
         item.appendChild(element('span', 'freshness-signal', `signal ${signalDate}`));
@@ -338,6 +359,26 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       ),
     );
     container.appendChild(alert);
+  }
+  if (baselineLatest?.date) {
+    const latest = element('div', 'baseline-latest-readout');
+    latest.appendChild(element('strong', undefined, `${profileLabel(baselineLatest.profile, manifest)} latest`));
+    latest.appendChild(
+      element(
+        'span',
+        undefined,
+        [
+          baselineLatest.date,
+          `ret ${formatCompactPct(baselineLatest.return_pct)}`,
+          typeof baselineLatest.position === 'number' ? `pos ${baselineLatest.position.toFixed(3)}` : null,
+          baselineLatest.action ? `action ${baselineLatest.action}` : null,
+          typeof baselineLatest.price === 'number' ? `price ${baselineLatest.price.toFixed(2)}` : null,
+        ]
+          .filter(Boolean)
+          .join(' | '),
+      ),
+    );
+    container.appendChild(latest);
   }
   const gate = manifest.strict_retention_gate;
   const gateWarnings = gate
@@ -441,7 +482,7 @@ export function renderModelDeltaStrip(
       .map((profile) => manifest?.profile_summaries?.[profile]?.replay_end),
   );
   captionParts.push(
-    `Baseline ${formatProfileLabel(comparison.baseline_profile)}${baselineEnd ? ` latest ${baselineEnd}` : ''}`,
+    `Baseline ${profileLabel(comparison.baseline_profile, manifest)}${baselineEnd ? ` latest ${baselineEnd}` : ''}`,
   );
   if (actorEnd) captionParts.push(`Qlib actors safe replay ${actorEnd}`);
   if (manifest?.safe_backtest_end) captionParts.push(`safe end ${manifest.safe_backtest_end}`);
@@ -462,7 +503,7 @@ export function renderModelDeltaStrip(
         element(
           'span',
           undefined,
-          `baseline ${formatProfileLabel(baselineRow.profile)} ${baselineRow.action} ${baselineRow.position.toFixed(3)}`,
+          `baseline ${profileLabel(baselineRow.profile, manifest)} ${baselineRow.action} ${baselineRow.position.toFixed(3)}`,
         ),
       );
     }
@@ -473,7 +514,7 @@ export function renderModelDeltaStrip(
       item.dataset.tone = row.action === 'BUY' ? 'buy' : row.action === 'SELL' ? 'sell' : 'muted';
       item.dataset.diff = String(row.actionDiff || row.positionDiff);
       if (row.isBaseline) item.dataset.role = 'baseline';
-      item.appendChild(element('strong', undefined, formatProfileLabel(row.profile)));
+      item.appendChild(element('strong', undefined, profileLabel(row.profile, manifest)));
       item.appendChild(element('span', 'latest-decision-action', `${row.action} ${row.position.toFixed(3)}`));
       if (!row.isBaseline) {
         item.appendChild(element('span', 'latest-decision-delta', `Δpos ${formatSigned(row.positionDelta, 3)}`));
@@ -500,7 +541,7 @@ export function renderModelDeltaStrip(
         'span',
         'latest-signal-title',
         comparableBaseline
-          ? `Latest signal vs ${formatProfileLabel(firstSignal.baselineProfile)} ` +
+          ? `Latest signal vs ${profileLabel(firstSignal.baselineProfile, manifest)} ` +
               `${firstSignal.baselineAction} ${firstSignal.baselinePosition.toFixed(3)} @${firstSignal.date}`
           : 'Latest signal differences',
       ),
@@ -509,7 +550,7 @@ export function renderModelDeltaStrip(
       const item = element('span', 'latest-signal-pill');
       item.dataset.tone = row.modelAction === 'BUY' ? 'buy' : row.modelAction === 'SELL' ? 'sell' : 'muted';
       item.textContent =
-        `${formatProfileLabel(row.profile)} ${row.modelAction} ${row.modelPosition.toFixed(3)} ` +
+        `${profileLabel(row.profile, manifest)} ${row.modelAction} ${row.modelPosition.toFixed(3)} ` +
         `| Δpos ${formatSigned(row.positionDelta, 3)} | replay ${row.replayAsof}`;
       latestStrip.appendChild(item);
     }
@@ -520,14 +561,25 @@ export function renderModelDeltaStrip(
   const selected = deltaProfiles.length ? deltaProfiles : available;
   const rankingByProfile = new Map((comparison.rankings ?? []).map((ranking) => [ranking.profile, ranking]));
   const cardGrid = element('div', 'model-difference-cards');
-  for (const [index, profile] of selected.entries()) {
-    const values = last.profiles[profile];
+  const differenceStats = selected
+    .map((profile, index) => {
+      const profileRows = visible.filter((row) => row.profiles[profile]);
+      const actionMismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
+      const positionDiffCount = profileRows.filter((row) =>
+        isMaterialPositionDifference(row.profiles[profile].position_delta_vs_baseline),
+      ).length;
+      const values = last.profiles[profile];
+      return { profile, index, actionMismatchCount, positionDiffCount, values };
+    })
+    .filter((item) => item.values)
+    .sort((left, right) => {
+      const leftScore = left.actionMismatchCount * 3 + left.positionDiffCount;
+      const rightScore = right.actionMismatchCount * 3 + right.positionDiffCount;
+      if (rightScore !== leftScore) return rightScore - leftScore;
+      return profileLabel(left.profile, manifest).localeCompare(profileLabel(right.profile, manifest));
+    });
+  for (const { profile, index, actionMismatchCount, positionDiffCount, values } of differenceStats) {
     if (!values) continue;
-    const profileRows = visible.filter((row) => row.profiles[profile]);
-    const actionMismatchCount = profileRows.filter((row) => row.profiles[profile].action_mismatch).length;
-    const positionDiffCount = profileRows.filter((row) =>
-      isMaterialPositionDifference(row.profiles[profile].position_delta_vs_baseline),
-    ).length;
     const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
     const ranking = rankingByProfile.get(profile);
     const freshness = freshnessLabel(replayEnd, last.date, manifest);
@@ -536,8 +588,13 @@ export function renderModelDeltaStrip(
     const card = element('article', 'model-difference-card');
     card.dataset.profile = profile;
     card.dataset.freshness = freshness.status;
+    card.dataset.diff = String(actionMismatchCount > 0 || positionDiffCount > 0);
     card.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
-    card.appendChild(element('strong', 'model-difference-card-title', formatProfileLabel(profile)));
+    card.appendChild(element('strong', 'model-difference-card-title', profileLabel(profile, manifest)));
+    const sourceKind = profileSourceKind(profile, manifest);
+    if (sourceKind) {
+      card.appendChild(element('span', 'model-difference-card-kind', sourceKind.replaceAll('_', ' ')));
+    }
     card.appendChild(element('span', 'model-difference-card-replay', `Replay ${replayEnd ?? 'n/a'} ${freshness.status === 'stale' ? 'cut' : freshness.status}`));
     if (latestSignal) {
       card.appendChild(
@@ -602,7 +659,7 @@ export function renderModelDeltaStrip(
     row.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
     row.style.borderLeftWidth = '4px';
     const name = element('td');
-    name.appendChild(element('strong', 'model-difference-name', formatProfileLabel(profile)));
+    name.appendChild(element('strong', 'model-difference-name', profileLabel(profile, manifest)));
     row.appendChild(name);
     const replayState =
       freshness.status === 'latest'
