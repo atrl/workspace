@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+import src.soxl_quant.app.reward_checkpoint_screen as reward_checkpoint_screen
 from src.soxl_quant.app.reward_checkpoint_screen import (
     RewardCheckpointScreenConfig,
     render_reward_checkpoint_screen_review,
@@ -151,3 +152,62 @@ def test_reward_checkpoint_screen_promotes_only_when_all_windows_pass():
     assert scored.iloc[0]["reward_checkpoint_loss"] == 0.0
     assert summary["decision"] == "reward_checkpoint_promotion_review"
     assert summary["ppo_allowed_next"] is True
+
+
+def test_reward_checkpoint_recipe_contract_blocks_training_until_scope_audit_and_wf2020():
+    screen_summary = {
+        "decision": "reward_checkpoint_screen_no_promotion",
+        "selected_candidate": "teacher_short_volshock_cap05_hit2",
+        "ppo_allowed_next": False,
+        "promotion_allowed": False,
+        "checkpoint_recipe_allowed_next": True,
+        "required_objective_terms": [
+            "checkpoint_objective_loss",
+            "drawdown_drift_penalty",
+            "short_volshock_state_deleverage_consistency",
+            "trend_preservation_floor",
+        ],
+        "final_required_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+        "missing_final_required_windows": ["wf_2020"],
+        "source_teacher_decision": "short_volshock_metric_aligned_teacher_ready_no_promotion",
+    }
+    source_recipe = {
+        "source_screen": "short_volshock_official_replay_screen_v1",
+        "source_variant": "short_volshock_cap05_hit2",
+        "source_candidate": "multi_obj_floor45_cap20_riskfirst",
+        "teacher_usage": "checkpoint_scoring_or_fold_local_target_generation_reference_only",
+        "leakage_guard": {
+            "copy_selected_daily_positions_into_training_labels": False,
+            "eval_window_positions_are_diagnostic_only": True,
+            "next_target_generation_must_be_fold_local": True,
+            "eval_overlap_rows_required": 0,
+        },
+        "target_contract": {
+            "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+            "required_best_return_pct": 213.143462,
+            "final_retention_max_dd_pct": 20.0,
+            "official_eval_relative_return_pp": 30.0,
+            "official_eval_max_dd_pct": 15.0,
+        },
+    }
+
+    assert hasattr(reward_checkpoint_screen, "build_reward_checkpoint_recipe_contract")
+    contract = reward_checkpoint_screen.build_reward_checkpoint_recipe_contract(screen_summary, source_recipe)
+
+    assert contract["decision"] == "reward_checkpoint_recipe_contract_ready"
+    assert contract["training_allowed"] is False
+    assert contract["ppo_allowed_next"] is False
+    assert contract["actor_retention_allowed"] is False
+    assert contract["selected_candidate"] == "teacher_short_volshock_cap05_hit2"
+    assert contract["source_variant"] == "short_volshock_cap05_hit2"
+    assert contract["reference_profile"] == "soxl_backtest_policy_reimplementation_v1"
+    assert contract["missing_final_required_windows"] == ["wf_2020"]
+    assert contract["required_before_training"] == [
+        "consume_reward_checkpoint_recipe_in_code",
+        "fold_local_target_scope_audit",
+        "add_wf_2020_official_replay_coverage",
+        "rerun_strict_final_walkforward_retention_gate",
+    ]
+    assert contract["leakage_guard"]["eval_overlap_rows_required"] == 0
+    assert contract["target_contract"]["final_retention_max_dd_pct"] == 20.0
+    assert "do_not_run_ppo_from_near_miss_without_scope_audit" in contract["blocked_actions"]

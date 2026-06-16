@@ -244,6 +244,75 @@ def summarize_reward_checkpoint_screen(scored: pd.DataFrame) -> dict[str, object
     }
 
 
+def _string_list(value: object) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, (list, tuple, set)):
+        return [str(item) for item in value]
+    return [str(value)]
+
+
+def build_reward_checkpoint_recipe_contract(
+    screen_summary: Mapping[str, object],
+    source_recipe: Mapping[str, object],
+) -> dict[str, object]:
+    """Build a machine-readable handoff before any reward/checkpoint training.
+
+    The contract intentionally keeps training blocked. It records exactly what
+    must be consumed and re-audited before a near-miss teacher can become a
+    fold-local target or checkpoint objective.
+    """
+
+    target_contract_raw = source_recipe.get("target_contract")
+    target_contract = dict(target_contract_raw) if isinstance(target_contract_raw, Mapping) else {}
+    leakage_guard_raw = source_recipe.get("leakage_guard")
+    leakage_guard = dict(leakage_guard_raw) if isinstance(leakage_guard_raw, Mapping) else {}
+    final_windows = _string_list(
+        screen_summary.get("final_required_windows") or target_contract.get("final_required_windows")
+    )
+    missing_windows = _string_list(
+        screen_summary.get("missing_final_required_windows")
+        or target_contract.get("missing_final_required_windows")
+    )
+    required_before_training = [
+        "consume_reward_checkpoint_recipe_in_code",
+        "fold_local_target_scope_audit",
+    ]
+    if missing_windows:
+        required_before_training.append("add_wf_2020_official_replay_coverage")
+    required_before_training.append("rerun_strict_final_walkforward_retention_gate")
+
+    return {
+        "decision": "reward_checkpoint_recipe_contract_ready",
+        "source_teacher_decision": str(screen_summary.get("source_teacher_decision") or ""),
+        "screen_decision": str(screen_summary.get("decision") or ""),
+        "selected_candidate": str(screen_summary.get("selected_candidate") or ""),
+        "source_screen": str(source_recipe.get("source_screen") or ""),
+        "source_variant": str(source_recipe.get("source_variant") or ""),
+        "source_candidate": str(source_recipe.get("source_candidate") or ""),
+        "teacher_usage": str(source_recipe.get("teacher_usage") or ""),
+        "training_allowed": False,
+        "ppo_allowed_next": False,
+        "promotion_allowed": False,
+        "actor_retention_allowed": False,
+        "required_objective_terms": _string_list(screen_summary.get("required_objective_terms")),
+        "final_required_windows": final_windows,
+        "missing_final_required_windows": missing_windows,
+        "required_before_training": required_before_training,
+        "blocked_actions": [
+            "do_not_promote_near_miss_candidate",
+            "do_not_run_ppo_from_near_miss_without_scope_audit",
+            "do_not_copy_eval_window_positions_into_training_labels",
+            "do_not_skip_wf_2020_coverage",
+        ],
+        "reference_profile": str(target_contract.get("reference_profile") or ""),
+        "target_contract": target_contract,
+        "leakage_guard": leakage_guard,
+    }
+
+
 def render_reward_checkpoint_screen_review(
     scored: pd.DataFrame,
     summary: Mapping[str, object],
@@ -296,6 +365,7 @@ def render_reward_checkpoint_screen_review(
 
 __all__ = [
     "RewardCheckpointScreenConfig",
+    "build_reward_checkpoint_recipe_contract",
     "render_reward_checkpoint_screen_review",
     "score_reward_checkpoint_candidates",
     "summarize_reward_checkpoint_screen",

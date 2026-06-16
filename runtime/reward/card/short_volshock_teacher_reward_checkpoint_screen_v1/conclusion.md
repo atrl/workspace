@@ -10,3 +10,5 @@ Required terms: checkpoint_objective_loss, drawdown_drift_penalty, short_volshoc
 No promotion, no actor retention, and no longer PPO are allowed from this card. The teacher is usable only as checkpoint-scoring or fold-local target-generation reference after a target-scope leakage audit.
 
 Next action: `implement_consumed_reward_or_checkpoint_recipe_then_fold_local_target_scope_audit`.
+
+Contract sidecar: `reward_checkpoint_recipe_contract.json` keeps training blocked until the recipe is consumed in code, fold-local target scope is audited, `wf_2020` official replay coverage is added, and strict final walk-forward retention is rerun.

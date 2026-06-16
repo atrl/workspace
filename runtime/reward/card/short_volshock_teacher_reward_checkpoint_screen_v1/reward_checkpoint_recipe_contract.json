@@ -1,0 +1,67 @@
+{
+  "actor_retention_allowed": false,
+  "blocked_actions": [
+    "do_not_promote_near_miss_candidate",
+    "do_not_run_ppo_from_near_miss_without_scope_audit",
+    "do_not_copy_eval_window_positions_into_training_labels",
+    "do_not_skip_wf_2020_coverage"
+  ],
+  "created_at": "2026-06-16T04:35:58+00:00",
+  "decision": "reward_checkpoint_recipe_contract_ready",
+  "experiment": "short_volshock_teacher_reward_checkpoint_screen_v1",
+  "final_required_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "leakage_guard": {
+    "copy_selected_daily_positions_into_training_labels": false,
+    "eval_overlap_rows_required": 0,
+    "eval_window_positions_are_diagnostic_only": true,
+    "next_target_generation_must_be_fold_local": true
+  },
+  "missing_final_required_windows": [
+    "wf_2020"
+  ],
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+  "required_before_training": [
+    "consume_reward_checkpoint_recipe_in_code",
+    "fold_local_target_scope_audit",
+    "add_wf_2020_official_replay_coverage",
+    "rerun_strict_final_walkforward_retention_gate"
+  ],
+  "required_objective_terms": [
+    "checkpoint_objective_loss",
+    "drawdown_drift_penalty",
+    "short_volshock_state_deleverage_consistency",
+    "trend_preservation_floor"
+  ],
+  "screen_decision": "reward_checkpoint_screen_no_promotion",
+  "selected_candidate": "teacher_short_volshock_cap05_hit2",
+  "source_candidate": "multi_obj_floor45_cap20_riskfirst",
+  "source_recipe_path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/teacher_checkpoint_bc_recipe.json",
+  "source_screen": "short_volshock_official_replay_screen_v1",
+  "source_teacher_decision": "short_volshock_metric_aligned_teacher_ready_no_promotion",
+  "source_variant": "short_volshock_cap05_hit2",
+  "summary_path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/summary.json",
+  "target_contract": {
+    "current_best_return_pct": 224.361539,
+    "final_required_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "final_retention_max_dd_pct": 20.0,
+    "missing_final_required_windows": [
+      "wf_2020"
+    ],
+    "official_eval_max_dd_pct": 15.0,
+    "official_eval_relative_return_pp": 30.0,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "required_best_return_pct": 213.143462
+  },
+  "teacher_usage": "checkpoint_scoring_or_fold_local_target_generation_reference_only",
+  "training_allowed": false
+}
