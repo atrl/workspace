@@ -1,0 +1,18 @@
+{
+  "decision": "reward_checkpoint_screen_no_promotion",
+  "next_mechanism": "train_drawdown_drift_reward_or_checkpoint_recipe",
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "required_objective_terms": [
+    "checkpoint_objective_loss",
+    "drawdown_drift_penalty",
+    "short_volshock_state_deleverage_consistency",
+    "trend_preservation_floor"
+  ],
+  "selected_candidate": "teacher_short_volshock_cap05_hit2",
+  "selected_failure_mix": "coverage_missing:1,pass:1,joint_tradeoff:1",
+  "selected_gate_gap_loss": 31.25654454559548,
+  "selected_max_max_dd": 15.1073807852534,
+  "selected_min_relative_return": 0.0,
+  "selected_reward_checkpoint_loss": 31.367858850544028
+}

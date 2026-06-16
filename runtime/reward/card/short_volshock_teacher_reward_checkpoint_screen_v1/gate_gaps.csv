@@ -1,0 +1,7 @@
+profile,window,relative_return,max_dd,relative_gap,max_dd_gap,gate_pass,failure_type
+source_multi_obj_floor45_cap20_riskfirst,wf_2020,0.0,15.0,30.0,0.0,False,coverage_missing
+source_multi_obj_floor45_cap20_riskfirst,wf_2022,59.38802918872206,30.62679867219804,0.0,15.626798672198039,False,drawdown_control
+source_multi_obj_floor45_cap20_riskfirst,wf_2023_2024,30.262520526732697,16.122029233735592,0.0,1.1220292337355922,False,drawdown_control
+teacher_short_volshock_cap05_hit2,wf_2020,0.0,15.0,30.0,0.0,False,coverage_missing
+teacher_short_volshock_cap05_hit2,wf_2022,83.5641825595695,8.746809315242409,0.0,0.0,True,pass
+teacher_short_volshock_cap05_hit2,wf_2023_2024,29.81726330693851,15.1073807852534,0.18273669306148932,0.10738078525339922,False,joint_tradeoff

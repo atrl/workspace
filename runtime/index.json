@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T03:44:33.098777+00:00",
+  "generated_at": "2026-06-16T03:59:55.013376+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -14256,6 +14256,60 @@
       "category": "reward",
       "suffix": ".json",
       "bytes": 2201
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/conclusion.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 817
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/feature_groups.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 153
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/gate_gaps.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 765
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/reward_checkpoint_review.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 969
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/reward_checkpoint_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 917
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/reward_checkpoint_summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 690
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 2625
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/slice_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 207
+    },
+    {
+      "path": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 1922
     },
     {
       "path": "runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/metrics_summary.csv",
