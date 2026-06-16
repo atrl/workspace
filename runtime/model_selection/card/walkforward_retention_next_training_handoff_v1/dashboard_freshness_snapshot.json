@@ -1,0 +1,20 @@
+{
+  "counts": {
+    "current": 12,
+    "failed": 0,
+    "refreshed": 0,
+    "skipped": 0
+  },
+  "dashboard_v2_data_status": {
+    "actor_latest_signal_date": "2026-06-15",
+    "actor_replay_end": "2026-06-12",
+    "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+    "baseline_replay_end": "2026-06-15",
+    "comparison_rows": 112,
+    "latest_market_date": "2026-06-15",
+    "safe_backtest_end": "2026-06-12"
+  },
+  "latest_data_date": "2026-06-15",
+  "safe_backtest_end": "2026-06-12",
+  "terminal_note": "qlib daily backtests require a following calendar boundary, so model replay curves target safe_backtest_end while paper trading/latest signal can use latest_data_date."
+}

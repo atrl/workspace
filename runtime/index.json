@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T02:25:42.387864+00:00",
+  "generated_at": "2026-06-16T02:51:27.413977+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -12420,6 +12420,66 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1363
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 980
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/dashboard_freshness_snapshot.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 694
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/decision_matrix.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1149
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/gate_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 6688
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/gate_state_snapshot.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2838
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/next_action_queue.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2498
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/short_training_noop_assessment.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 838
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/short_training_selection_history.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 573
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/source_manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2513
+    },
+    {
+      "path": "runtime/model_selection/card/walkforward_retention_next_training_handoff_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 4840
     },
     {
       "path": "runtime/model_selection/card/walkforward_weighted_objective_v1/runtime_conclusion.md",

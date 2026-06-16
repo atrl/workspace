@@ -1,0 +1,62 @@
+{
+  "bull_reentry_bc_warmstart_gate": {
+    "exists": true,
+    "path": "runtime/model_selection/card/bull_reentry_bc_warmstart_gate_v1/selection.json"
+  },
+  "dashboard_model_replay_freshness": {
+    "exists": true,
+    "path": "dashboard_data/model_replay_freshness.json"
+  },
+  "dashboard_v2_kline_difference_refresh": {
+    "exists": true,
+    "path": "runtime/model_selection/card/dashboard_v2_kline_difference_refresh_v1/summary.json"
+  },
+  "final_walkforward_retention_contract": {
+    "exists": true,
+    "path": "runtime/model_selection/card/final_walkforward_retention_contract_v1/summary.json"
+  },
+  "joint_reward_target_scope_guard": {
+    "exists": true,
+    "path": "runtime/model_selection/card/joint_reward_target_scope_guard_v1/summary.json"
+  },
+  "metric_alignment_gate_flip_audit": {
+    "exists": true,
+    "path": "runtime/model_selection/card/metric_alignment_gate_flip_audit_v1/selection.json"
+  },
+  "mode_conditioned_drawdown_drift_short_train_summary": {
+    "exists": true,
+    "path": "runtime/model/card/mode_conditioned_drawdown_drift_short_train_v1/soxl_mode_conditioned_drawdown_drift_short_train_v1_wf_2020_summary.json"
+  },
+  "mode_conditioned_drawdown_drift_short_training_screen": {
+    "exists": true,
+    "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/summary.json"
+  },
+  "model_retention_walkforward_gate": {
+    "exists": true,
+    "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
+  },
+  "sequence_trend_joint_metric_reconciliation": {
+    "exists": true,
+    "path": "runtime/model_selection/card/sequence_trend_joint_metric_reconciliation_v1/selection.json"
+  },
+  "soxlbacktest_qlib_walkforward_baseline": {
+    "exists": true,
+    "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/summary.json"
+  },
+  "soxlbacktest_reference_model_score": {
+    "exists": true,
+    "path": "runtime/model_selection/card/soxlbacktest_reference_model_score_v1/summary.json"
+  },
+  "state_head_fold_consensus_target": {
+    "exists": true,
+    "path": "runtime/model_selection/card/state_head_fold_consensus_target_v1/selection.json"
+  },
+  "state_objective_checkpoint_selection": {
+    "exists": true,
+    "path": "runtime/model_selection/card/state_objective_checkpoint_selection_v1/selection.json"
+  },
+  "strict_candidate_retention_filter": {
+    "exists": true,
+    "path": "runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json"
+  }
+}

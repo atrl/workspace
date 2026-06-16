@@ -1,0 +1,22 @@
+{
+  "actor_retention_allowed": false,
+  "all_checkpoints_drawdown_fail_20pct": true,
+  "best_checkpoint_iter": 0.0,
+  "best_checkpoint_score": 32.83699360160846,
+  "best_post_init_iter": 4.0,
+  "best_post_init_score": 24.7608860290418,
+  "handoff_decision": "stop_longer_ppo_on_this_branch",
+  "max_dd_improvement_pp": 1.7763568394002505e-14,
+  "post_init_score_improved": false,
+  "primary_fold": "wf_2020",
+  "primary_gate": false,
+  "promotion_allowed": false,
+  "return_delta_vs_source_pp": 0.0,
+  "screen_decision": "primary_fold_short_training_failed_no_promotion",
+  "short_max_dd_pct": 23.086304019655504,
+  "short_return_pct": 50.08332664590836,
+  "source_max_dd_pct": 23.086304019655522,
+  "source_profile": "mode_conditioned_rebound_reward_train_v2",
+  "source_return_pct": 50.08332664590836,
+  "training_allowed_flag": true
+}
