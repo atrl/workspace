@@ -18,6 +18,28 @@ def test_model_delta_strip_renders_before_main_kline_chart():
     assert re.search(r"\border\s*:\s*0\s*;", body), "model differences must be above the main K-line"
 
 
+def test_model_delta_strip_stays_compact_for_first_viewport():
+    body = _css_rule(".model-delta-strip")
+
+    match = re.search(r"\bmax-height\s*:\s*(?P<height>\d+)px\s*;", body)
+    assert match is not None, "model difference strip must have a fixed compact max-height"
+    assert int(match.group("height")) <= 92, "model difference strip must not crowd out the K-line"
+
+
+def test_latest_signal_cards_do_not_crowd_out_model_difference_table():
+    css = (ROOT / "web/dashboard-v2/src/styles.css").read_text(encoding="utf-8")
+    assert re.search(
+        r"\.model-delta-strip\s+\.latest-decision-matrix\s*\{(?P<body>.*?)\bdisplay\s*:\s*none\s*;",
+        css,
+        re.S,
+    ), "latest signal cards must stay out of the compact first-viewport difference strip"
+    assert re.search(
+        r"\.model-delta-strip\s+\.latest-tail-banner\s*\{(?P<body>.*?)\bdisplay\s*:\s*none\s*;",
+        css,
+        re.S,
+    ), "latest tail banner must not hide the compact model difference table"
+
+
 def test_first_viewport_includes_nav_delta_pane():
     main_ts = (ROOT / "web/dashboard-v2/src/main.ts").read_text(encoding="utf-8")
     lower_body = _css_rule(".lower-charts")

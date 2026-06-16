@@ -1,0 +1,16 @@
+{
+  "screenshot": "runtime/production/card/dashboard_v2_tradingview_compact_v1/dashboard_v2_tradingview_compact_20260616_final3.png",
+  "width": 3800,
+  "height": 1530,
+  "verdict": "visually_verified",
+  "checks": {
+    "kline_visible": true,
+    "model_delta_quick_line_visible": true,
+    "compact_model_difference_table_visible": true,
+    "position_pane_visible": true,
+    "delta_nav_pane_visible": true,
+    "rebased_nav_pane_visible": true,
+    "baseline_latest_date_visible": "2026-06-15",
+    "actor_safe_replay_date_visible": "2026-06-12"
+  }
+}

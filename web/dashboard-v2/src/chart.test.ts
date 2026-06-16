@@ -342,7 +342,7 @@ describe('dashboard v2 chart rendering', () => {
     });
   });
 
-  test('marks the actor replay cutoff and baseline latest tail on the main K-line', () => {
+  test('marks the actor replay cutoff and baseline latest tail without text labels over the candles', () => {
     const container = document.createElement('div');
     const market = {
       ...marketFixture,
@@ -375,14 +375,14 @@ describe('dashboard v2 chart rendering', () => {
       position: 'aboveBar',
       color: '#e1aa3e',
       shape: 'circle',
-      text: 'Actor cut',
+      text: '',
     });
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
       time: '2026-01-07',
       position: 'belowBar',
       color: '#22c7a9',
       shape: 'circle',
-      text: 'Base latest',
+      text: '',
     });
   });
 

@@ -613,7 +613,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(matrix?.textContent).toContain('signal as-of 2026-01-06');
   });
 
-  test('renders always-visible model difference cards with replay, latest signal and common-window deltas', () => {
+  test('renders an always-visible compact model difference table with replay, signal and common-window deltas', () => {
     const panel = document.createElement('div');
     const latestSmoke = {
       ...modelFixture,
@@ -675,20 +675,21 @@ describe('dashboard v2 DOM render helpers', () => {
       { smoke: latestSmoke },
     );
 
-    const cards = panel.querySelector('.model-difference-cards');
-    expect(cards).not.toBeNull();
-    const card = cards?.querySelector('[data-profile="smoke"]');
-    expect(card?.textContent).toContain('smoke');
-    expect(card?.textContent).toContain('Replay 2026-01-06 cut');
-    expect(card?.textContent).toContain('Latest BUY 0.550 @2026-01-07');
-    expect(card?.textContent).toContain('Ret 42.00%');
-    expect(card?.textContent).toContain('MaxDD -8.00%');
-    expect(card?.textContent).toContain('AvgPos 0.510');
-    expect(card?.textContent).toContain('ΔNAV +2.00');
-    expect(card?.textContent).toContain('ΔPos +0.200');
-    expect(card?.textContent).toContain('ActionDiff 2');
-    expect(card?.textContent).toContain('PosDiff 2');
-    expect(card?.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
+    expect(panel.querySelector('.model-difference-cards')).toBeNull();
+    const table = panel.querySelector('.model-difference-summary-table');
+    expect(table).not.toBeNull();
+    expect(panel.querySelector('.model-delta-quick')?.textContent).toContain('smoke ΔNAV +2.00 ΔPos +0.200');
+    const row = table?.querySelector('[data-profile="smoke"]');
+    expect(row?.textContent).toContain('smoke');
+    expect(row?.textContent).toContain('2026-01-06 cut');
+    expect(row?.textContent).toContain('BUY 0.550 @01-07');
+    expect(row?.textContent).toContain('Ret 42.00%');
+    expect(row?.textContent).toContain('MaxDD -8.00%');
+    expect(row?.textContent).toContain('AvgPos 0.510');
+    expect(row?.textContent).toContain('ΔNAV +2.00');
+    expect(row?.textContent).toContain('ΔPos +0.200');
+    expect(row?.textContent).toContain('Diff 2/2');
+    expect(row?.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
   });
 
   test('renders material position-difference counts when action labels are identical', () => {
@@ -718,9 +719,9 @@ describe('dashboard v2 DOM render helpers', () => {
       manifestFixture,
     );
 
-    const card = panel.querySelector('[data-profile="smoke"]');
-    expect(card?.textContent).toContain('PosDiff 2');
-    expect(card?.textContent).not.toContain('Mismatch 0');
+    const row = panel.querySelector('.model-difference-summary-table [data-profile="smoke"]');
+    expect(row?.textContent).toContain('Diff 0/2');
+    expect(row?.textContent).not.toContain('Mismatch 0');
   });
 
   test('renders a latest decision matrix for baseline versus actor signals', () => {

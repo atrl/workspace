@@ -94,7 +94,7 @@ function replayBoundaryMarkers(
       position: 'aboveBar',
       color: '#e1aa3e',
       shape: 'circle',
-      text: 'Actor cut',
+      text: '',
     });
   }
   if (baselineEnd && baselineEnd > actorEnd && baselineEnd >= start && baselineEnd <= end) {
@@ -103,7 +103,7 @@ function replayBoundaryMarkers(
       position: 'belowBar',
       color: '#22c7a9',
       shape: 'circle',
-      text: 'Base latest',
+      text: '',
     });
   }
   return markers;
@@ -292,7 +292,7 @@ export function renderMarketChart(
   const markers = [
     ...buildActionMarkers(model.events, { showText: false }),
     ...(comparison && markerStart && markerEnd
-      ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd, 60)
+      ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd, 32)
       : []),
     ...(markerStart && markerEnd ? replayBoundaryMarkers(comparison, markerStart, markerEnd) : []),
     ...(markerStart && markerEnd ? latestSignalMarkers(models, markerStart, markerEnd) : []),

@@ -1,0 +1,43 @@
+{
+  "card": "dashboard_v2_tradingview_compact_v1",
+  "generated_at": "2026-06-16T12:26:52+08:00",
+  "purpose": "Make Dashboard V2 K-line readable in the first viewport while keeping each selected model's difference versus the SOXLBacktest baseline visible.",
+  "data_contract": {
+    "latest_market_date": "2026-06-15",
+    "safe_backtest_end": "2026-06-12",
+    "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+    "baseline_replay_end": "2026-06-15",
+    "actor_replay_end": "2026-06-12",
+    "actor_latest_signal_date": "2026-06-15",
+    "comparison_profiles": 6,
+    "comparison_rows": 112
+  },
+  "ui_changes": [
+    "Replaced the always-visible model-difference cards with one quick delta line plus a compact comparison table.",
+    "Kept the detailed historical model-difference table collapsed so the K-line and lower position/NAV panes remain visible.",
+    "Removed text from actor-cut and baseline-latest replay boundary markers so labels do not cover candles.",
+    "Capped recent model-difference markers to a smaller set to reduce K-line clutter.",
+    "Reduced first-viewport chart heights enough to show Model Position, Delta NAV vs Baseline, and Rebased NAV below the K-line."
+  ],
+  "visual_evidence": {
+    "final_screenshot": "runtime/production/card/dashboard_v2_tradingview_compact_v1/dashboard_v2_tradingview_compact_20260616_final3.png",
+    "visual_check": "runtime/production/card/dashboard_v2_tradingview_compact_v1/visual_check.json",
+    "final_viewport": {
+      "width_px": 3800,
+      "height_px": 1530,
+      "visible_model_count": 6,
+      "kline_latest_date": "2026-06-15",
+      "lower_panes_visible": true,
+      "compact_model_table_visible": true
+    }
+  },
+  "verification": [
+    "npm test (in web/dashboard-v2)",
+    "npm run build (in web/dashboard-v2)",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_layout.py tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_harness.py"
+  ]
+}
