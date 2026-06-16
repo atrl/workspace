@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T06:56:38.480421+00:00",
+  "generated_at": "2026-06-16T07:37:45.078101+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -10310,6 +10310,240 @@
       "bytes": 503
     },
     {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4134
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/bc_slice_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 13109
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/bc_weight_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1327
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/bc_weight_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2733
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2387481
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1796
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/dataset_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2297
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/fold_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2005
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/fold_dataset_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 525
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2746
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 954
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 13608
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 11802
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 4130
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/bc_slice_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12496
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/bc_weight_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1327
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/bc_weight_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2741
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2844801
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1768
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/dataset_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2302
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/fold_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2013
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/fold_dataset_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 533
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2660
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 958
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 14200
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v2/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 11732
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/bc_action_distribution.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 3830
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/bc_slice_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 12943
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/bc_weight_configs.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1407
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/bc_weight_screen.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2774
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/combined_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2844801
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1828
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/dataset_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2302
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/fold_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1950
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/fold_dataset_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 533
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2674
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 958
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/state_slice_bc_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 13995
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_three_fold_bc_slice_screen_v3/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 11779
+    },
+    {
       "path": "runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/candidate_daily.csv",
       "category": "model_selection",
       "suffix": ".csv",
@@ -12978,6 +13212,42 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 1283
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 872
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 626
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2606
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/target_scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 272
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/wf2020_short_volshock_target_contract.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1696636
+    },
+    {
+      "path": "runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/wf2020_short_volshock_thresholds.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 226
     },
     {
       "path": "runtime/model_selection/card/wf2024_state_coverage_diagnostic_v1/drawdown_intervals.csv",

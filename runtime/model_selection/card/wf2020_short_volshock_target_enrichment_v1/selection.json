@@ -1,0 +1,10 @@
+{
+  "actor_retention_allowed": false,
+  "created_at": "2026-06-16T07:22:37.522479+00:00",
+  "decision": "wf2020_short_volshock_target_enrichment_ready_for_bc_screen",
+  "experiment": "wf2020_short_volshock_target_enrichment_v1",
+  "next_mechanism": "rerun_short_volshock_three_fold_bc_slice_screen_with_wf2020_enriched_targets",
+  "promotion_allowed": false,
+  "target_path": "runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/wf2020_short_volshock_target_contract.csv",
+  "threshold_path": "runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/wf2020_short_volshock_thresholds.csv"
+}

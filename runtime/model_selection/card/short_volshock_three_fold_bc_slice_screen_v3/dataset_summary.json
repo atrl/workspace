@@ -1,0 +1,69 @@
+{
+  "combined_contract": "combined_target_contract.csv",
+  "contract_rows": 3479,
+  "experiment": "short_volshock_three_fold_bc_slice_screen_v3",
+  "feature_frame": "data/soxl_profile_balanced_rule_residual_v22.pkl",
+  "fold_dataset_audit": [
+    {
+      "contract_rows": 2470,
+      "dataset_samples": 2157,
+      "downtrend_samples": 794,
+      "drawdown_control_samples": 640,
+      "dropped_rows_before_dataset": 313,
+      "end": "2019-12-31",
+      "fold": "wf_2020_train",
+      "release_gate_samples": 36,
+      "short_volshock_state_samples": 397,
+      "short_volshock_target_samples": 382,
+      "source_label": "wf2020_short_volshock_target_enrichment",
+      "start": "2010-03-11"
+    },
+    {
+      "contract_rows": 253,
+      "dataset_samples": 253,
+      "downtrend_samples": 152,
+      "drawdown_control_samples": 66,
+      "dropped_rows_before_dataset": 0,
+      "end": "2020-12-31",
+      "fold": "wf_2022_train",
+      "release_gate_samples": 40,
+      "short_volshock_state_samples": 135,
+      "short_volshock_target_samples": 133,
+      "source_label": "short_volshock_target_generation_handoff",
+      "start": "2020-01-02"
+    },
+    {
+      "contract_rows": 756,
+      "dataset_samples": 755,
+      "downtrend_samples": 507,
+      "drawdown_control_samples": 65,
+      "dropped_rows_before_dataset": 1,
+      "end": "2022-12-30",
+      "fold": "wf_2023_2024_train",
+      "release_gate_samples": 40,
+      "short_volshock_state_samples": 341,
+      "short_volshock_target_samples": 335,
+      "source_label": "short_volshock_target_generation_handoff",
+      "start": "2020-01-02"
+    }
+  ],
+  "missing_required_folds": [],
+  "profile": "risk_budget_usage_v1",
+  "required_fold_coverage": true,
+  "required_folds": [
+    "wf_2020_train",
+    "wf_2022_train",
+    "wf_2023_2024_train"
+  ],
+  "short_feature_folds": [
+    "wf_2020_train",
+    "wf_2022_train",
+    "wf_2023_2024_train"
+  ],
+  "short_feature_missing_folds": [],
+  "short_volshock_feature_coverage_gate": true,
+  "source_manifest": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/fold_local_target_manifest.csv",
+  "unique_dates": 3226,
+  "upstream_decision": "foldlocal_target_coverage_training_ready_official_replay_still_blocks_promotion",
+  "upstream_training_allowed": true
+}

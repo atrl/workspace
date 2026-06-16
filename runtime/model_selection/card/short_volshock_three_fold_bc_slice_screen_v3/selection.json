@@ -1,0 +1,72 @@
+{
+  "actor_retention": "no actor retained by this BC learnability screen",
+  "actor_retention_allowed": false,
+  "bc_screen_gate": true,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "model_selection",
+    "training_objective"
+  ],
+  "checkpoint_screen_allowed_next": true,
+  "created_at": "2026-06-16T07:35:07.536476+00:00",
+  "decision": "short_volshock_three_fold_bc_slice_ready_for_ppo_screen_no_promotion",
+  "direct_comparison_baseline": "short_volshock_foldlocal_wf2020_target_manifest_v1",
+  "experiment": "short_volshock_three_fold_bc_slice_screen_v3",
+  "failed_checks": [],
+  "fold_min_accuracy": 0.7,
+  "global_min_accuracy": 0.7,
+  "missing_required_folds": [],
+  "next_mechanism": "run_short_volshock_walkforward_checkpoint_or_ppo_screen_with_official_replay_gate",
+  "ppo_screen_allowed_next": true,
+  "promotion_allowed": false,
+  "promotion_blocker": "BC slice fit is not official replay; promotion still requires retained actor replay across wf_2020/wf_2022/wf_2023_2024, MaxDD < 20%, and YTD return alignment.",
+  "reference_baseline": "soxlbacktest_qlib_buysell_reference",
+  "required_folds": [
+    "wf_2020_train",
+    "wf_2022_train",
+    "wf_2023_2024_train"
+  ],
+  "role": "diagnose",
+  "selected_config": "release24_only_steps1000",
+  "selected_gate_loss": 0.0,
+  "selected_min_fold_accuracy": 0.7756142790913305,
+  "selected_weighted_accuracy": 0.8072669826224329,
+  "short_feature_folds": [
+    "wf_2020_train",
+    "wf_2022_train",
+    "wf_2023_2024_train"
+  ],
+  "short_feature_missing_folds": [],
+  "short_required_slices": {
+    "short_volshock_state": 80,
+    "short_volshock_target_state": 80
+  },
+  "short_slice_min_accuracy": 0.6,
+  "short_volshock_feature_coverage_gate": true,
+  "sidecars": [
+    "source_manifest.csv",
+    "combined_target_contract.csv",
+    "dataset_summary.json",
+    "fold_dataset_audit.csv",
+    "bc_weight_configs.csv",
+    "bc_weight_screen.csv",
+    "fold_bc_metrics.csv",
+    "state_slice_bc_metrics.csv",
+    "bc_action_distribution.csv",
+    "bc_slice_summary.json",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_manifest": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/fold_local_target_manifest.csv",
+  "source_upstream_decision": "foldlocal_target_coverage_training_ready_official_replay_still_blocks_promotion",
+  "target_max_dd_pct": 20.0,
+  "target_relative_return_pp": 30.0,
+  "training_allowed_from_this_card": false,
+  "universal_required_slices": {
+    "drawdown_control_state": 20,
+    "is_downtrend_state": 100,
+    "release_gate_state": 20
+  },
+  "universal_slice_min_accuracy": 0.6
+}

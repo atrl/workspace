@@ -1,0 +1,2 @@
+fold,train_start,train_end,eval_start,eval_end,target_rows,eval_overlap_rows,outside_train_rows,feature_missing_rows,short_volshock_state_rows,short_volshock_target_rows,target_scope_gate
+wf_2020_train,2010-03-11,2019-12-31,2020-01-01,2020-12-31,2470,0,0,253,405,390,True

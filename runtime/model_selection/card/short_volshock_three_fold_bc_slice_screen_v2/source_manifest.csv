@@ -1,0 +1,4 @@
+fold,window,target_fold,final_window,target_path,eval_overlap_rows,outside_train_eval_rows,target_scope,train_start,train_end,eval_start,eval_end,source_label
+wf_2020_train,wf_2020_train,wf_2020_train,wf_2020,runtime/model_selection/card/wf2020_short_volshock_target_enrichment_v1/wf2020_short_volshock_target_contract.csv,0,0,fold_local,2010-03-11,2019-12-31,2020-01-01,2020-12-31,wf2020_short_volshock_target_enrichment
+wf_2022_train,wf_2022_train,wf_2022_train,wf_2022,runtime/model_selection/card/short_volshock_target_generation_handoff_v1/short_volshock_de_risk_targets.csv,0,0,fold_local,2020-01-02,2021-12-31,2022-01-03,2022-12-30,short_volshock_target_generation_handoff
+wf_2023_2024_train,wf_2023_2024_train,wf_2023_2024_train,wf_2023_2024,runtime/model_selection/card/short_volshock_target_generation_handoff_v1/short_volshock_de_risk_targets.csv,0,0,fold_local,2020-01-02,2022-12-30,2023-01-03,2024-12-31,short_volshock_target_generation_handoff
