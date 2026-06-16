@@ -37,10 +37,6 @@ function positionOverlayData(model: ModelPayload): { time: Time; value: number }
   return rows;
 }
 
-function historicalPositionOverlayData(model: ModelPayload): { time: Time; value: number }[] {
-  return model.rows.map((row) => ({ time: toTime(row.date), value: Number(row.position) }));
-}
-
 function latestSignalMarkers(
   models: Record<string, ModelPayload>,
   start: string,
@@ -199,7 +195,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.03, bottom: 0.26 },
+    scaleMargins: { top: 0.03, bottom: 0.18 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -250,7 +246,7 @@ export function renderMarketChart(
     lastValueVisible: false,
   });
   volumeBars.priceScale().applyOptions({
-    scaleMargins: { top: 0.92, bottom: 0.01 },
+    scaleMargins: { top: 0.88, bottom: 0.01 },
   });
   volumeBars.setData(
     market.rows.map((row) => ({
@@ -259,28 +255,6 @@ export function renderMarketChart(
       color: Number(row.close) >= Number(row.open) ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
     })),
   );
-  let positionScaleConfigured = false;
-  for (const [index, [profile, overlayModel]] of Object.entries(models).entries()) {
-    const isPrimary = profile === model.profile;
-    const isReference = overlayModel.status === 'reference';
-    const positionLine = chart.addSeries(LineSeries, {
-      color: MODEL_COLORS[index % MODEL_COLORS.length],
-      lineStyle: isReference ? LineStyle.Dashed : LineStyle.Solid,
-      lineWidth: isPrimary ? 2 : 1,
-      priceScaleId: 'position',
-      priceLineVisible: false,
-      lastValueVisible: false,
-      title: `${formatProfileLabel(profile)} position`,
-    });
-    if (!positionScaleConfigured) {
-      positionLine.priceScale().applyOptions({
-        scaleMargins: { top: 0.76, bottom: 0.09 },
-      });
-      positionScaleConfigured = true;
-    }
-    positionLine.setData(historicalPositionOverlayData(overlayModel));
-  }
-
   const markerStart = market.rows[0]?.date;
   const markerEnd = market.rows.at(-1)?.date;
   const markers = [

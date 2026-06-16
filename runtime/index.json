@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T00:36:39.875319+00:00",
+  "generated_at": "2026-06-16T01:00:20.476221+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6630,6 +6630,12 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1086
+    },
+    {
+      "path": "runtime/model_selection/card/dashboard_v2_kline_readability_v1/dashboard_v2_kline_readability.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1576
     },
     {
       "path": "runtime/model_selection/card/dashboard_v2_mainchart_position_overlay_v1/dashboard_v2_mainchart_position_overlay.md",

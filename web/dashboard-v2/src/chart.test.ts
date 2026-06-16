@@ -88,7 +88,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders price candles with close line, MA, volume and compact model position overlays on the main chart', () => {
+  test('renders price candles with close line, MA and volume without model position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -105,8 +105,6 @@ describe('dashboard v2 chart rendering', () => {
       'line',
       'line',
       'histogram',
-      'line',
-      'line',
     ]);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       title: 'SOXL close',
@@ -135,23 +133,7 @@ describe('dashboard v2 chart rendering', () => {
         color: row.close >= row.open ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
       })),
     );
-    expect(chartMocks.seriesRecords[4].options).toMatchObject({
-      priceScaleId: 'position',
-      title: 'smoke position',
-      priceLineVisible: false,
-      lastValueVisible: false,
-    });
-    expect(chartMocks.seriesRecords[4].data).toEqual([
-      { time: '2026-01-02', value: 0 },
-      { time: '2026-01-05', value: 0.7 },
-      { time: '2026-01-06', value: 0.2 },
-    ]);
-    expect(chartMocks.seriesRecords[5].options).toMatchObject({
-      priceScaleId: 'position',
-      title: 'BRR v22 position',
-      priceLineVisible: false,
-      lastValueVisible: false,
-    });
+    expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
   test('renders compact historical action-difference markers on the main K-line', () => {
@@ -176,20 +158,17 @@ describe('dashboard v2 chart rendering', () => {
     ]);
   });
 
-  test('keeps price candles dominant with position and volume in compact lower lanes', () => {
+  test('keeps price candles dominant with volume in a compact lower lane', () => {
     const container = document.createElement('div');
 
     renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
 
-    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume', 'position']);
+    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.03, bottom: 0.26 },
+      scaleMargins: { top: 0.03, bottom: 0.18 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.92, bottom: 0.01 },
-    });
-    expect(chartMocks.priceScaleRecords[2].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.76, bottom: 0.09 },
+      scaleMargins: { top: 0.88, bottom: 0.01 },
     });
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       color: 'rgba(237, 240, 243, 0.54)',
@@ -287,7 +266,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords[0].data).toEqual([{ time: '2026-01-05', value: 0.7 }]);
   });
 
-  test('keeps latest signal out of the main price chart position overlays', () => {
+  test('keeps model position series out of the main price chart even when latest signals exist', () => {
     const container = document.createElement('div');
     const latestModel = {
       ...modelFixture,
@@ -303,12 +282,7 @@ describe('dashboard v2 chart rendering', () => {
 
     renderMarketChart(container, marketFixture, latestModel, { smoke: latestModel }, () => {});
 
-    const positionSeries = chartMocks.seriesRecords.find((record) => record.options.priceScaleId === 'position');
-    expect(positionSeries?.data).toEqual([
-      { time: '2026-01-02', value: 0 },
-      { time: '2026-01-05', value: 0.7 },
-      { time: '2026-01-06', value: 0.2 },
-    ]);
+    expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
   test('adds named latest signal buy and sell markers on the main K-line for selected models', () => {

@@ -360,26 +360,6 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     );
     container.appendChild(alert);
   }
-  if (baselineLatest?.date) {
-    const latest = element('div', 'baseline-latest-readout');
-    latest.appendChild(element('strong', undefined, `${profileLabel(baselineLatest.profile, manifest)} latest`));
-    latest.appendChild(
-      element(
-        'span',
-        undefined,
-        [
-          baselineLatest.date,
-          `ret ${formatCompactPct(baselineLatest.return_pct)}`,
-          typeof baselineLatest.position === 'number' ? `pos ${baselineLatest.position.toFixed(3)}` : null,
-          baselineLatest.action ? `action ${baselineLatest.action}` : null,
-          typeof baselineLatest.price === 'number' ? `price ${baselineLatest.price.toFixed(2)}` : null,
-        ]
-          .filter(Boolean)
-          .join(' | '),
-      ),
-    );
-    container.appendChild(latest);
-  }
   const gate = manifest.strict_retention_gate;
   const gateWarnings = gate
     ? [
@@ -462,12 +442,16 @@ export function renderModelDeltaStrip(
     container.appendChild(element('span', 'empty-note', 'No comparison rows'));
     return;
   }
+  const first = visible[0];
   const summary = element('div', 'model-delta-summary');
   summary.textContent = [
     `${profiles.length} models`,
     `${visible.length} common rows`,
-    `${start} to ${end}`,
-  ].join(' | ');
+    `Common ${first.date} to ${last.date}`,
+    end > last.date ? `Price view to ${end}` : null,
+  ]
+    .filter(Boolean)
+    .join(' | ');
   container.appendChild(summary);
   const caption = element('div', 'model-delta-caption');
   const captionParts = [`Common comparison ${last.date}`];
@@ -710,8 +694,7 @@ export function renderActionLegend(container: HTMLElement): void {
   const buy = element('span', 'legend-item legend-buy', 'BUY');
   const sell = element('span', 'legend-item legend-sell', 'SELL');
   const diff = element('span', 'legend-item legend-diff', 'DIFF');
-  const position = element('span', 'legend-item legend-position', 'POSITION');
-  container.append(buy, sell, diff, position);
+  container.append(buy, sell, diff);
 }
 
 export function renderInspectorPanel(container: HTMLElement, rows: InspectorRow[]): void {

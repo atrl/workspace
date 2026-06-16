@@ -63,14 +63,14 @@ function createShell(app: HTMLElement): void {
       <section class="chart-column">
         <div class="chart-title-row">
           <h1>SOXL</h1>
-          <span>K-line, model positions and rebased NAV</span>
+          <span>K-line with buy/sell differences; model position and NAV panes below</span>
           <div id="action-legend" class="action-legend"></div>
         </div>
         <div id="model-delta-strip" class="model-delta-strip"></div>
         <div id="market-chart" class="chart chart-main"></div>
         <div class="lower-charts">
           <section>
-            <h2>Position</h2>
+            <h2>Model Position</h2>
             <div id="position-chart" class="chart chart-small"></div>
           </section>
           <section>

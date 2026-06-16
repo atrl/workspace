@@ -144,12 +144,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.status-strip')?.textContent).toContain('Baseline latest');
     expect(panel.querySelector('.status-strip')?.textContent).toContain('2026-06-15 +146.04% pos 0.159');
     const readout = panel.querySelector('.baseline-latest-readout');
-    expect(readout?.textContent).toContain('SOXLBacktest latest');
-    expect(readout?.textContent).toContain('2026-06-15');
-    expect(readout?.textContent).toContain('ret +146.04%');
-    expect(readout?.textContent).toContain('pos 0.159');
-    expect(readout?.textContent).toContain('action HOLD');
-    expect(readout?.textContent).toContain('price 271.86');
+    expect(readout).toBeNull();
   });
 
   test('shows actor replay cutoff and latest signal date in the model freshness strip', () => {
@@ -944,6 +939,8 @@ describe('dashboard v2 DOM render helpers', () => {
 
     expect(panel.querySelector('.model-delta-summary')?.textContent).toContain('2 models');
     expect(panel.querySelector('.model-delta-summary')?.textContent).toContain('3 common rows');
+    expect(panel.querySelector('.model-delta-summary')?.textContent).toContain('Common 2026-01-02 to 2026-01-06');
+    expect(panel.querySelector('.model-delta-summary')?.textContent).not.toContain('2026-01-02 to 2026-01-07');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Common comparison 2026-01-06');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('SOXL K-line 2026-01-07');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline SOXLBacktest latest 2026-01-07');
@@ -1052,6 +1049,6 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('BUY');
     expect(panel.textContent).toContain('SELL');
     expect(panel.textContent).toContain('DIFF');
-    expect(panel.textContent).toContain('POSITION');
+    expect(panel.textContent).not.toContain('POSITION');
   });
 });
