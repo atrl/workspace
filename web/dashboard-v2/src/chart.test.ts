@@ -129,9 +129,10 @@ describe('dashboard v2 chart rendering', () => {
     );
     expect(chartMocks.seriesRecords[3].options).toMatchObject({
       priceScaleId: 'position',
-      title: 'smoke pos',
+      title: '',
       lastValueVisible: false,
       priceLineVisible: false,
+      lineWidth: 1,
     });
     expect(chartMocks.seriesRecords[3].data).toEqual([
       { time: '2026-01-02', value: 0 },
@@ -140,7 +141,8 @@ describe('dashboard v2 chart rendering', () => {
     ]);
     expect(chartMocks.seriesRecords[4].options).toMatchObject({
       priceScaleId: 'position',
-      title: 'BRR v22 pos',
+      title: '',
+      lineWidth: 2,
     });
   });
 
@@ -161,8 +163,8 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toEqual([
       { time: '2026-01-05', position: 'belowBar', color: '#0f766e', shape: 'arrowUp', text: '' },
       { time: '2026-01-06', position: 'aboveBar', color: '#b91c1c', shape: 'arrowDown', text: '' },
-      { time: '2026-01-05', position: 'belowBar', color: '#1fb981', shape: 'circle', text: 'ΔBUY x1' },
-      { time: '2026-01-06', position: 'aboveBar', color: '#d96b5f', shape: 'circle', text: 'ΔSELL x1' },
+      { time: '2026-01-05', position: 'belowBar', color: '#1fb981', shape: 'circle', text: '' },
+      { time: '2026-01-06', position: 'aboveBar', color: '#d96b5f', shape: 'circle', text: '' },
     ]);
   });
 
@@ -216,14 +218,14 @@ describe('dashboard v2 chart rendering', () => {
       position: 'belowBar',
       color: '#1fb981',
       shape: 'circle',
-      text: 'ΔBUY x2',
+      text: '',
     });
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
       time: '2026-01-06',
       position: 'belowBar',
       color: '#22c7a9',
       shape: 'circle',
-      text: 'ΔPOS+ x1',
+      text: '',
     });
   });
 

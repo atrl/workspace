@@ -109,6 +109,18 @@ function replayBoundaryMarkers(
   return markers;
 }
 
+function compactModelDifferenceMarkers(
+  comparison: ComparisonPayload,
+  profiles: readonly string[],
+  start: string,
+  end: string,
+): ActionMarker[] {
+  return buildModelDifferenceMarkers(comparison, profiles, start, end, 8).map((marker) => ({
+    ...marker,
+    text: '',
+  }));
+}
+
 function latestSignalMarkerText(
   action: 'BUY' | 'SELL',
   profiles: readonly { profile: string; position: number }[],
@@ -280,10 +292,10 @@ export function renderMarketChart(
       priceScaleId: 'position',
       color: MODEL_COLORS[index % MODEL_COLORS.length],
       lineStyle: isReference ? LineStyle.Dashed : LineStyle.Solid,
-      lineWidth: isPrimary ? 3 : isReference ? 1 : 2,
+      lineWidth: isPrimary ? 2 : 1,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: `${formatProfileLabel(profile)} pos`,
+      title: '',
     });
     line.setData(rows);
   }
@@ -292,7 +304,7 @@ export function renderMarketChart(
   const markers = [
     ...buildActionMarkers(model.events, { showText: false }),
     ...(comparison && markerStart && markerEnd
-      ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd, 8)
+      ? compactModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd)
       : []),
     ...(markerStart && markerEnd ? replayBoundaryMarkers(comparison, markerStart, markerEnd) : []),
     ...(markerStart && markerEnd ? latestSignalMarkers(models, markerStart, markerEnd) : []),

@@ -1,0 +1,41 @@
+{
+  "experiment": "dashboard_v2_latest_signal_decision_matrix_v1",
+  "direction": "production",
+  "decision": "dashboard_v2_kline_and_latest_signal_readability_improved",
+  "changes": [
+    "Data Status now shows a four-card freshness board for K-line latest, baseline latest, actor replay, and actor latest signal.",
+    "The first-viewport model delta strip always shows the latest decision matrix even when latest_signal_differences is present.",
+    "The main K-line keeps compact position lines and difference dots but suppresses multi-model text labels that obscured candles."
+  ],
+  "data_evidence": {
+    "latest_market_date": "2026-06-15",
+    "safe_backtest_end": "2026-06-12",
+    "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+    "baseline_latest_date": "2026-06-15",
+    "baseline_latest_action": "HOLD",
+    "baseline_latest_position": 0.1591,
+    "actor_replay_end": "2026-06-12",
+    "actor_latest_signal_date": "2026-06-15",
+    "latest_signal_difference_count": 5
+  },
+  "visual_evidence": {
+    "screenshot": "runtime/production/card/dashboard_v2_latest_signal_decision_matrix_v1/dashboard_v2_latest_signal_decision_matrix_20260616.png",
+    "viewport": "1440x1100",
+    "sha256": "b0f429629b068dcafa5ad3225fca127cc87ced758d225e775e78776fd2d8261b",
+    "non_dark_sample_ratio": 0.2569,
+    "browser": "Google Chrome headless via Playwright",
+    "note": "In-app Browser iab was unavailable, so visual verification used local Chrome headless against scripts/dashboard_server.py on 127.0.0.1:49880."
+  },
+  "verification": [
+    "npm --prefix web/dashboard-v2 test -- --run",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py -q",
+    "npm --prefix web/dashboard-v2 run build",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/build_dashboard_v2_data.py",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2"
+  ],
+  "screenshot_readout": [
+    "Freshness board shows K-line latest 2026-06-15, baseline SOXLBacktest 2026-06-15, actor replay 2026-06-12, actor latest signal 2026-06-15.",
+    "Latest model signals matrix shows SOXLBacktest HOLD 0.159 and five actor BUY signals with positions from 0.575 to 0.788.",
+    "Main K-line no longer renders model-name labels or long model-difference labels over the latest candles."
+  ]
+}

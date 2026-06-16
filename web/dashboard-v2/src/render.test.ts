@@ -82,6 +82,15 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Market 2026-01-06');
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Actors 2026-01-05');
     expect(panel.querySelector('.freshness-alert')?.textContent).toContain('Baseline 2026-01-06');
+    const board = panel.querySelector('.freshness-board');
+    expect(board?.textContent).toContain('K-line latest');
+    expect(board?.textContent).toContain('2026-01-06');
+    expect(board?.textContent).toContain('Baseline latest');
+    expect(board?.textContent).toContain('SOXLBacktest 2026-01-06');
+    expect(board?.textContent).toContain('Actor replay');
+    expect(board?.textContent).toContain('2026-01-05');
+    expect(board?.textContent).toContain('Actor latest signal');
+    expect(board?.textContent).toContain('2026-01-06');
     expect(panel.querySelector('.status-strip')?.textContent).toContain('Baseline latest');
     expect(panel.querySelector('.status-strip')?.textContent).toContain('2026-01-06');
     expect(panel.querySelector('.status-strip')?.textContent).toContain('Actor replay');
@@ -843,7 +852,7 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(card?.getAttribute('title')).toContain('Last diff 2026-01-05 BUY vs HOLD');
   });
 
-  test('does not duplicate explicit latest signal differences with a latest decision matrix', () => {
+  test('keeps explicit latest signal differences visible in the latest decision matrix', () => {
     const panel = document.createElement('div');
     const referenceProfile = 'soxl_backtest_policy_reimplementation_v1';
     const referenceModel = {
@@ -938,7 +947,14 @@ describe('dashboard v2 DOM render helpers', () => {
     );
 
     expect(panel.querySelector('.latest-signal-difference-strip')).not.toBeNull();
-    expect(panel.querySelector('.latest-decision-matrix')).toBeNull();
+    const matrix = panel.querySelector('.latest-decision-matrix');
+    expect(matrix).not.toBeNull();
+    expect(matrix?.textContent).toContain('Latest model signals');
+    expect(matrix?.textContent).toContain('baseline SOXLBacktest HOLD 0.200');
+    expect(matrix?.textContent).toContain('smoke');
+    expect(matrix?.textContent).toContain('BUY 0.550');
+    expect(matrix?.textContent).toContain('Δpos +0.350');
+    expect(matrix?.textContent).toContain('signal as-of 2026-01-06');
     expect(panel.querySelector('.model-difference-card[data-profile="smoke"]')?.textContent).toContain(
       'Signal Δpos +0.350 @01-07',
     );

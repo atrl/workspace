@@ -1,0 +1,13 @@
+{
+  "screenshot": "runtime/production/card/dashboard_v2_latest_signal_decision_matrix_v1/dashboard_v2_latest_signal_decision_matrix_20260616.png",
+  "url": "http://127.0.0.1:49880/web/dashboard-v2/dist/index.html",
+  "width": 1440,
+  "height": 1100,
+  "sha256": "b0f429629b068dcafa5ad3225fca127cc87ced758d225e775e78776fd2d8261b",
+  "non_dark_sample_ratio": 0.2569,
+  "freshness_board_visible": true,
+  "latest_decision_matrix_visible": true,
+  "main_kline_text_labels_suppressed": true,
+  "browser": "Google Chrome headless via Playwright",
+  "iab_available": false
+}

@@ -56,6 +56,15 @@ function maxDate(values: readonly (string | undefined | null)[]): string | null 
   return dates.at(-1) ?? null;
 }
 
+function freshnessCard(label: string, value: string, detail?: string, tone?: 'latest' | 'safe' | 'stale'): HTMLElement {
+  const card = element('div', 'freshness-card');
+  if (tone) card.dataset.freshness = tone;
+  card.appendChild(element('span', 'freshness-card-label', label));
+  card.appendChild(element('strong', 'freshness-card-value', value));
+  if (detail) card.appendChild(element('span', 'freshness-card-detail', detail));
+  return card;
+}
+
 function freshnessLabel(replayEnd: string | undefined, commonEnd: string, manifest?: Manifest): {
   label: string;
   status: 'latest' | 'safe' | 'stale';
@@ -325,6 +334,54 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     item.appendChild(element('span', 'source-value', value));
     strip.appendChild(item);
   }
+  const board = element('div', 'freshness-board');
+  const baselineProfile = manifest.default_baseline_profile;
+  const baselineLabel = profileLabel(baselineProfile, manifest);
+  const baselineDate = baselineLatest?.date ?? baselineEnd ?? 'n/a';
+  const baselineDetailParts = [
+    baselineLatest?.action ?? null,
+    typeof baselineLatest?.position === 'number' ? `pos ${baselineLatest.position.toFixed(3)}` : null,
+    typeof baselineLatest?.return_pct === 'number' ? `ret ${formatCompactPct(baselineLatest.return_pct)}` : null,
+  ].filter(Boolean);
+  board.appendChild(
+    freshnessCard(
+      'K-line latest',
+      manifest.latest_market_date,
+      manifest.canonical_data_date && manifest.canonical_data_date !== manifest.latest_market_date
+        ? `canonical ${manifest.canonical_data_date}`
+        : undefined,
+      'latest',
+    ),
+  );
+  board.appendChild(
+    freshnessCard(
+      'Baseline latest',
+      `${baselineLabel} ${baselineDate}`,
+      baselineDetailParts.length ? baselineDetailParts.join(' | ') : undefined,
+      baselineEnd && baselineEnd < manifest.latest_market_date ? 'stale' : 'latest',
+    ),
+  );
+  board.appendChild(
+    freshnessCard(
+      'Actor replay',
+      actorEnd ?? 'n/a',
+      `safe ${manifest.safe_backtest_end}`,
+      actorEnd && actorEnd < manifest.latest_market_date ? 'stale' : 'safe',
+    ),
+  );
+  board.appendChild(
+    freshnessCard(
+      'Actor latest signal',
+      actorSignalEnd ?? 'n/a',
+      manifest.latest_signal?.available_count
+        ? `${manifest.latest_signal.available_count} signals`
+        : actorSignalEnd && actorEnd && actorSignalEnd > actorEnd
+          ? 'stateless signal'
+          : undefined,
+      actorSignalEnd && actorSignalEnd >= manifest.latest_market_date ? 'latest' : 'safe',
+    ),
+  );
+  container.appendChild(board);
   container.appendChild(strip);
   const freshnessRows = manifest.default_comparison_profiles
     .map(
@@ -552,31 +609,8 @@ export function renderModelDeltaStrip(
     }
     container.appendChild(tail);
   }
-  const latestSignalDiffs = visibleLatestSignalDifferences(comparison, profiles, start, end);
-  const latestSignalDiffByProfile = new Map(latestSignalDiffs.map((row) => [row.profile, row]));
-  if (latestSignalDiffs.length > 0) {
-    const latestDiffStrip = element('div', 'latest-signal-difference-strip');
-    const firstDiff = latestSignalDiffs[0];
-    latestDiffStrip.appendChild(
-      element(
-        'span',
-        'latest-signal-difference-title',
-        `Latest signal delta ${firstDiff.date} vs ${profileLabel(firstDiff.baseline_profile, manifest)} ` +
-          `${firstDiff.baseline_action} ${firstDiff.baseline_position.toFixed(3)}`,
-      ),
-    );
-    for (const row of latestSignalDiffs) {
-      const item = element('span', 'latest-signal-difference-pill');
-      item.dataset.tone = row.model_action === 'BUY' ? 'buy' : row.model_action === 'SELL' ? 'sell' : 'muted';
-      item.textContent =
-        `${profileLabel(row.profile, manifest)} ${row.model_action} ${row.model_position.toFixed(3)} ` +
-        `Δpos ${formatSigned(row.position_delta_vs_baseline, 3)} replay ${row.replay_asof ?? 'n/a'}`;
-      latestDiffStrip.appendChild(item);
-    }
-    container.appendChild(latestDiffStrip);
-  }
   const decisionRows = latestDecisionRows(comparison, models, profiles, start, end, manifest);
-  if (decisionRows.length > 1 && latestSignalDiffs.length === 0) {
+  if (decisionRows.length > 1) {
     const decision = element('div', 'latest-decision-matrix');
     const baselineRow = decisionRows.find((row) => row.isBaseline);
     const header = element('div', 'latest-decision-header');
@@ -608,6 +642,29 @@ export function renderModelDeltaStrip(
     }
     decision.appendChild(grid);
     container.appendChild(decision);
+  }
+  const latestSignalDiffs = visibleLatestSignalDifferences(comparison, profiles, start, end);
+  const latestSignalDiffByProfile = new Map(latestSignalDiffs.map((row) => [row.profile, row]));
+  if (latestSignalDiffs.length > 0) {
+    const latestDiffStrip = element('div', 'latest-signal-difference-strip');
+    const firstDiff = latestSignalDiffs[0];
+    latestDiffStrip.appendChild(
+      element(
+        'span',
+        'latest-signal-difference-title',
+        `Latest signal delta ${firstDiff.date} vs ${profileLabel(firstDiff.baseline_profile, manifest)} ` +
+          `${firstDiff.baseline_action} ${firstDiff.baseline_position.toFixed(3)}`,
+      ),
+    );
+    for (const row of latestSignalDiffs) {
+      const item = element('span', 'latest-signal-difference-pill');
+      item.dataset.tone = row.model_action === 'BUY' ? 'buy' : row.model_action === 'SELL' ? 'sell' : 'muted';
+      item.textContent =
+        `${profileLabel(row.profile, manifest)} ${row.model_action} ${row.model_position.toFixed(3)} ` +
+        `Δpos ${formatSigned(row.position_delta_vs_baseline, 3)} replay ${row.replay_asof ?? 'n/a'}`;
+      latestDiffStrip.appendChild(item);
+    }
+    container.appendChild(latestDiffStrip);
   }
   const latestSignalRows = decisionRows.length > 1 ? [] : latestSignalDifferenceRows(comparison, models, start, end);
   if (latestSignalRows.length > 0) {

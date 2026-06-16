@@ -85,6 +85,7 @@ select {
 
 .profile-group::-webkit-scrollbar,
 .status-strip::-webkit-scrollbar,
+.freshness-board::-webkit-scrollbar,
 .freshness-strip::-webkit-scrollbar,
 .freshness-alert::-webkit-scrollbar,
 .baseline-latest-readout::-webkit-scrollbar,
@@ -100,6 +101,7 @@ select {
 
 .profile-group::-webkit-scrollbar-track,
 .status-strip::-webkit-scrollbar-track,
+.freshness-board::-webkit-scrollbar-track,
 .freshness-strip::-webkit-scrollbar-track,
 .freshness-alert::-webkit-scrollbar-track,
 .baseline-latest-readout::-webkit-scrollbar-track,
@@ -114,6 +116,7 @@ select {
 
 .profile-group::-webkit-scrollbar-thumb,
 .status-strip::-webkit-scrollbar-thumb,
+.freshness-board::-webkit-scrollbar-thumb,
 .freshness-strip::-webkit-scrollbar-thumb,
 .freshness-alert::-webkit-scrollbar-thumb,
 .baseline-latest-readout::-webkit-scrollbar-thumb,
@@ -866,6 +869,74 @@ h3 {
   overflow-y: hidden;
   scrollbar-color: var(--line) transparent;
   scrollbar-width: thin;
+}
+
+.freshness-board {
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 5px;
+  overflow-x: auto;
+  scrollbar-color: var(--line) transparent;
+  scrollbar-width: thin;
+}
+
+.freshness-card {
+  min-width: 136px;
+  min-height: 44px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  gap: 1px;
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.freshness-card[data-freshness="latest"] {
+  border-left-color: var(--accent);
+}
+
+.freshness-card[data-freshness="safe"] {
+  border-left-color: var(--position);
+}
+
+.freshness-card[data-freshness="stale"] {
+  border-left-color: var(--warn);
+  background: color-mix(in srgb, var(--warn) 5%, var(--bg));
+}
+
+.freshness-card-label,
+.freshness-card-detail {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.freshness-card-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.freshness-card-value {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.freshness-card-detail {
+  font-size: 10.5px;
 }
 
 .freshness-strip {
