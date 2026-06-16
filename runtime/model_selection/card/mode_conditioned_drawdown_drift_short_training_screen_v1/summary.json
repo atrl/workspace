@@ -1,0 +1,32 @@
+{
+  "actor_retention_allowed": false,
+  "decision": "primary_fold_short_training_failed_no_promotion",
+  "experiment": "mode_conditioned_drawdown_drift_short_training_screen_v1",
+  "final_retained_count": 0,
+  "max_dd_improvement_pp": 1.7763568394002505e-14,
+  "next_mechanism": "revise_reward_patch_or_training_checkpoint_before_full_three_fold_run",
+  "primary_fold": "wf_2020",
+  "primary_gate": false,
+  "promotion_allowed": false,
+  "relative_delta_vs_source_pp": 0.0,
+  "return_delta_vs_source_pp": 0.0,
+  "short_buyhold_return_pct": 58.093570616483994,
+  "short_max_dd_pct": 23.086304019655504,
+  "short_relative_return_pct": -8.010243970575637,
+  "short_return_pct": 50.08332664590836,
+  "sidecars": {
+    "feature_schema_check": "/Users/rziiiii/dev/workspace/runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/feature_schema_check.json",
+    "primary_fold_comparison": "/Users/rziiiii/dev/workspace/runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/primary_fold_comparison.csv",
+    "primary_fold_metrics": "/Users/rziiiii/dev/workspace/runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/primary_fold_metrics.json",
+    "summary": "/Users/rziiiii/dev/workspace/runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/summary.json",
+    "training_plan": "/Users/rziiiii/dev/workspace/runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/training_plan.csv",
+    "training_plan_review": "/Users/rziiiii/dev/workspace/runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/training_plan_review.md"
+  },
+  "source_buyhold_return_pct": 58.093570616483994,
+  "source_max_dd_pct": 23.086304019655522,
+  "source_profile": "mode_conditioned_rebound_reward_train_v2",
+  "source_relative_return_pct": -8.010243970575637,
+  "source_return_pct": 50.08332664590836,
+  "training_allowed": true,
+  "training_profile": "mode_conditioned_drawdown_drift_short_train_v1"
+}

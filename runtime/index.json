@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T01:18:37.827527+00:00",
+  "generated_at": "2026-06-16T01:46:46.340668+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -4340,6 +4340,18 @@
       "bytes": 20836
     },
     {
+      "path": "runtime/model/card/mode_conditioned_drawdown_drift_short_train_v1/mode_conditioned_drawdown_drift_short_train_v1_wf_2020_soxl_daily.csv",
+      "category": "model",
+      "suffix": ".csv",
+      "bytes": 30501
+    },
+    {
+      "path": "runtime/model/card/mode_conditioned_drawdown_drift_short_train_v1/soxl_mode_conditioned_drawdown_drift_short_train_v1_wf_2020_summary.json",
+      "category": "model",
+      "suffix": ".json",
+      "bytes": 6510
+    },
+    {
       "path": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
       "category": "model",
       "suffix": ".csv",
@@ -7362,6 +7374,54 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 7905
+    },
+    {
+      "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/feature_schema_check.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 140
+    },
+    {
+      "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/primary_fold_comparison.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 520
+    },
+    {
+      "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/primary_fold_metrics.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1166
+    },
+    {
+      "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/short_training_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 948
+    },
+    {
+      "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2060
+    },
+    {
+      "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/training_plan.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2839
+    },
+    {
+      "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/training_plan_review.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 859
+    },
+    {
+      "path": "runtime/model_selection/card/mode_conditioned_drawdown_drift_short_training_screen_v1/training_plan_summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 265
     },
     {
       "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/conclusion.md",

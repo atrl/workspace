@@ -1,0 +1,15 @@
+{
+  "final_model_retained": false,
+  "final_model_retention_reason": "walk-forward promotion gate not evaluated",
+  "fold": "wf_2020",
+  "max_dd_pct": 23.086304019655504,
+  "model_path": "/Users/rziiiii/dev/workspace/runtime/model/card/mode_conditioned_drawdown_drift_short_train_v1/soxl_mode_conditioned_drawdown_drift_short_train_v1_wf_2020_actor.pt",
+  "promotion_allowed": false,
+  "return_pct": 50.08332664590836,
+  "review_daily_csv": "/Users/rziiiii/dev/workspace/runtime/model/card/mode_conditioned_drawdown_drift_short_train_v1/mode_conditioned_drawdown_drift_short_train_v1_wf_2020_soxl_daily.csv",
+  "sharpe": 1.4029689366479416,
+  "source_checkpoint_path": "/Users/rziiiii/dev/workspace/runtime/model/card/mode_conditioned_rebound_reward_train_v2/soxl_mode_conditioned_rebound_reward_train_v2_wf_2020_checkpoint_iter8_actor.pt",
+  "source_profile": "mode_conditioned_rebound_reward_train_v2",
+  "summary_path": "/Users/rziiiii/dev/workspace/runtime/model/card/mode_conditioned_drawdown_drift_short_train_v1/soxl_mode_conditioned_drawdown_drift_short_train_v1_wf_2020_summary.json",
+  "training_profile": "mode_conditioned_drawdown_drift_short_train_v1"
+}

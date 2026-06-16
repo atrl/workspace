@@ -1,0 +1,9 @@
+{
+  "actor_retention_allowed": false,
+  "decision": "short_foldlocal_training_plan_ready_no_promotion",
+  "fold_count": 3,
+  "missing_source_folds": [],
+  "next_mechanism": "run_short_foldlocal_ppo_screen",
+  "promotion_allowed": false,
+  "training_allowed": true
+}
