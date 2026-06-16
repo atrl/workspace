@@ -164,7 +164,7 @@
     "status": "blocked",
     "strict_passing_profile_count": 0
   },
-  "generated_at": "2026-06-16T09:00:42.014782+00:00",
+  "generated_at": "2026-06-16T10:11:18.580724+00:00",
   "latest_market_date": "2026-06-15",
   "latest_signal": {
     "available_count": 5,
@@ -176,37 +176,49 @@
     "balanced_rule_residual_v19": {
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "source_kind": "diagnostic_actor"
     },
     "balanced_rule_residual_v19_reg": {
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "source_kind": "diagnostic_actor"
     },
     "balanced_rule_residual_v22": {
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "source_kind": "diagnostic_actor"
     },
     "mode_conditioned_rebound_reward_train_v2": {
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "source_kind": "diagnostic_actor"
     },
     "soxl_backtest_policy_reimplementation_v1": {
       "latest_signal_date": null,
       "replay_end": "2026-06-15",
+      "replay_lag_trading_days": 0,
       "replay_start": "2026-01-02",
+      "replay_status": "latest",
       "source_kind": "reference_baseline"
     },
     "state_conditioned_drawdown_rebound_reward_train_v1": {
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "source_kind": "diagnostic_actor"
     }
   },
@@ -236,6 +248,7 @@
   },
   "profile_summaries": {
     "balanced_rule_residual_v19": {
+      "has_latest_market_signal": true,
       "label": "BRR v19",
       "latest": {
         "action": "HOLD",
@@ -250,7 +263,9 @@
       },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "retention": {
         "code": "missing_final_retention_decision",
         "final_model_retained": false,
@@ -265,6 +280,7 @@
       "window": null
     },
     "balanced_rule_residual_v19_reg": {
+      "has_latest_market_signal": true,
       "label": "BRR v19 reg",
       "latest": {
         "action": "HOLD",
@@ -279,7 +295,9 @@
       },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "retention": {
         "code": "missing_final_retention_decision",
         "final_model_retained": false,
@@ -294,6 +312,7 @@
       "window": null
     },
     "balanced_rule_residual_v22": {
+      "has_latest_market_signal": true,
       "label": "BRR v22",
       "latest": {
         "action": "HOLD",
@@ -308,7 +327,9 @@
       },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "retention": {
         "code": "missing_final_retention_decision",
         "final_model_retained": false,
@@ -323,6 +344,7 @@
       "window": null
     },
     "mode_conditioned_rebound_reward_train_v2": {
+      "has_latest_market_signal": true,
       "label": "Mode rebound v2",
       "latest": {
         "action": "HOLD",
@@ -337,7 +359,9 @@
       },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "retention": {
         "code": "missing_final_retention_decision",
         "final_model_retained": false,
@@ -352,6 +376,7 @@
       "window": null
     },
     "soxl_backtest_policy_reimplementation_v1": {
+      "has_latest_market_signal": false,
       "label": "SOXLBacktest",
       "latest": {
         "action": "HOLD",
@@ -366,7 +391,9 @@
       },
       "latest_signal_date": null,
       "replay_end": "2026-06-15",
+      "replay_lag_trading_days": 0,
       "replay_start": "2026-01-02",
+      "replay_status": "latest",
       "retention": {
         "code": "reference_baseline",
         "final_model_retained": true,
@@ -381,6 +408,7 @@
       "window": "ytd_2026"
     },
     "state_conditioned_drawdown_rebound_reward_train_v1": {
+      "has_latest_market_signal": true,
       "label": "State drawdown v1",
       "latest": {
         "action": "HOLD",
@@ -395,7 +423,9 @@
       },
       "latest_signal_date": "2026-06-15",
       "replay_end": "2026-06-12",
+      "replay_lag_trading_days": 1,
       "replay_start": "2020-01-02",
+      "replay_status": "latest_signal",
       "retention": {
         "code": "missing_final_retention_decision",
         "final_model_retained": false,
@@ -409,6 +439,72 @@
       "status": "ablation",
       "window": null
     }
+  },
+  "replay_freshness": {
+    "latest_market_date": "2026-06-15",
+    "profile_status_counts": {
+      "latest": 1,
+      "latest_signal": 5,
+      "safe_replay": 0,
+      "stale": 0
+    },
+    "profiles": {
+      "balanced_rule_residual_v19": {
+        "has_latest_market_signal": true,
+        "latest_signal_date": "2026-06-15",
+        "replay_end": "2026-06-12",
+        "replay_lag_trading_days": 1,
+        "replay_start": "2020-01-02",
+        "replay_status": "latest_signal",
+        "source_kind": "diagnostic_actor"
+      },
+      "balanced_rule_residual_v19_reg": {
+        "has_latest_market_signal": true,
+        "latest_signal_date": "2026-06-15",
+        "replay_end": "2026-06-12",
+        "replay_lag_trading_days": 1,
+        "replay_start": "2020-01-02",
+        "replay_status": "latest_signal",
+        "source_kind": "diagnostic_actor"
+      },
+      "balanced_rule_residual_v22": {
+        "has_latest_market_signal": true,
+        "latest_signal_date": "2026-06-15",
+        "replay_end": "2026-06-12",
+        "replay_lag_trading_days": 1,
+        "replay_start": "2020-01-02",
+        "replay_status": "latest_signal",
+        "source_kind": "diagnostic_actor"
+      },
+      "mode_conditioned_rebound_reward_train_v2": {
+        "has_latest_market_signal": true,
+        "latest_signal_date": "2026-06-15",
+        "replay_end": "2026-06-12",
+        "replay_lag_trading_days": 1,
+        "replay_start": "2020-01-02",
+        "replay_status": "latest_signal",
+        "source_kind": "diagnostic_actor"
+      },
+      "soxl_backtest_policy_reimplementation_v1": {
+        "has_latest_market_signal": false,
+        "latest_signal_date": null,
+        "replay_end": "2026-06-15",
+        "replay_lag_trading_days": 0,
+        "replay_start": "2026-01-02",
+        "replay_status": "latest",
+        "source_kind": "reference_baseline"
+      },
+      "state_conditioned_drawdown_rebound_reward_train_v1": {
+        "has_latest_market_signal": true,
+        "latest_signal_date": "2026-06-15",
+        "replay_end": "2026-06-12",
+        "replay_lag_trading_days": 1,
+        "replay_start": "2020-01-02",
+        "replay_status": "latest_signal",
+        "source_kind": "diagnostic_actor"
+      }
+    },
+    "safe_backtest_end": "2026-06-12"
   },
   "retention_filter": {
     "allowed_profile_count": 1,

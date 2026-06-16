@@ -1070,6 +1070,13 @@ h3 {
   white-space: nowrap;
 }
 
+.freshness-status {
+  color: var(--warn);
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .model-difference-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(218px, 100%), 1fr));

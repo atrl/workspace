@@ -259,6 +259,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     container.appendChild(banner);
   }
   const profileSummaries = manifest.profile_summaries ?? {};
+  const replayFreshness = manifest.replay_freshness;
   const baselineEnd = profileSummaries[manifest.default_baseline_profile]?.replay_end ?? null;
   const baselineLatest = manifest.baseline_latest;
   const actorEnd = maxDate(
@@ -316,6 +317,13 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
   if (manifest.latest_signal) {
     rows.push(['Signals', `${manifest.latest_signal.available_count}@${manifest.latest_signal.date}`]);
   }
+  if (replayFreshness) {
+    const counts = replayFreshness.profile_status_counts;
+    rows.push([
+      'Replay freshness',
+      `latest ${counts.latest} | signal ${counts.latest_signal} | safe ${counts.safe_replay} | stale ${counts.stale}`,
+    ]);
+  }
   for (const [label, value] of rows) {
     const item = element('div', 'status-pill');
     if (label === 'Blocked' && blockedCount > 0) item.dataset.tone = 'warning';
@@ -329,6 +337,7 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     if (label === 'Signals' && manifest.latest_signal && !manifest.latest_signal.comparison_included) {
       item.dataset.tone = 'warning';
     }
+    if (label === 'Replay freshness' && replayFreshness?.profile_status_counts.stale) item.dataset.tone = 'warning';
     if (label === 'Actor latest signal') item.dataset.tone = 'warning';
     item.appendChild(element('span', 'source-label', label));
     item.appendChild(element('span', 'source-value', value));
@@ -417,6 +426,17 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       const sourceKind = profileSourceKind(profile, manifest);
       if (sourceKind) item.appendChild(element('span', 'freshness-kind', sourceKind.replaceAll('_', ' ')));
       item.appendChild(element('span', 'freshness-date', `replay ${String(replayEnd)}`));
+      const replayStatus = manifest.replay_freshness?.profiles?.[profile]?.replay_status;
+      const replayLag = manifest.replay_freshness?.profiles?.[profile]?.replay_lag_trading_days;
+      if (replayStatus) {
+        item.appendChild(
+          element(
+            'span',
+            'freshness-status',
+            replayLag ? `${replayStatus.replaceAll('_', ' ')} +${replayLag}d` : replayStatus.replaceAll('_', ' '),
+          ),
+        );
+      }
       if (signalDate && signalDate > String(replayEnd)) {
         item.appendChild(element('span', 'freshness-signal', `signal ${signalDate}`));
       }

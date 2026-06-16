@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T09:05:43.103498+00:00",
+  "generated_at": "2026-06-16T10:15:00.213236+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -13590,6 +13590,12 @@
       "category": "production",
       "suffix": ".md",
       "bytes": 836
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_latest_model_diff_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 2349
     },
     {
       "path": "runtime/production/card/dashboard_v2_latest_price_diff_v1/summary.json",

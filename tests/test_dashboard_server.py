@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 
 import scripts.dashboard_server as dashboard_server
-from scripts.dashboard_server import _build_daily_rows, _response_window_from_rows
+from scripts.dashboard_server import _build_daily_rows, _dashboard_static_path, _response_window_from_rows
 
 
 def test_build_daily_rows_include_market_ohlc_for_rerun_kline():
@@ -44,6 +44,21 @@ def test_build_daily_rows_include_market_ohlc_for_rerun_kline():
     assert rows[0]["volume"] == 123
     assert rows[1]["action"] == "BUY"
     assert rows[1]["position"] == 0.5
+
+
+def test_dashboard_server_serves_v2_dashboard_as_default_entry(tmp_path):
+    v2_index = tmp_path / "web" / "dashboard-v2" / "dist" / "index.html"
+    v2_asset = tmp_path / "web" / "dashboard-v2" / "dist" / "assets" / "index.js"
+    legacy = tmp_path / "dashboard.html"
+    v2_asset.parent.mkdir(parents=True)
+    v2_index.write_text("<html>v2</html>", encoding="utf-8")
+    v2_asset.write_text("console.log('v2')", encoding="utf-8")
+    legacy.write_text("<html>legacy</html>", encoding="utf-8")
+
+    assert _dashboard_static_path(tmp_path, "/") == v2_index
+    assert _dashboard_static_path(tmp_path, "/dashboard.html") == v2_index
+    assert _dashboard_static_path(tmp_path, "/assets/index.js") == v2_asset
+    assert _dashboard_static_path(tmp_path, "/legacy-dashboard.html") == legacy
 
 
 def test_response_window_from_rows_uses_actual_row_dates():

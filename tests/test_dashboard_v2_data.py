@@ -693,6 +693,15 @@ def test_build_dashboard_v2_data_marks_latest_actor_signals_as_comparison_includ
         "date": "2026-01-07",
         "comparison_included": True,
     }
+    assert manifest["replay_freshness"]["profile_status_counts"] == {
+        "latest": 1,
+        "latest_signal": 1,
+        "safe_replay": 0,
+        "stale": 0,
+    }
+    assert manifest["replay_freshness"]["profiles"]["smoke"]["replay_status"] == "latest_signal"
+    assert manifest["replay_freshness"]["profiles"]["smoke"]["replay_lag_trading_days"] == 1
+    assert manifest["profile_summaries"]["smoke"]["has_latest_market_signal"] is True
     assert comparison["latest_signal_differences"] == [
         {
             "date": "2026-01-07",
@@ -809,6 +818,15 @@ def test_build_dashboard_v2_data_exposes_latest_baseline_and_actor_safe_replay_d
         "actor_replay_end": "2026-06-12",
         "safe_backtest_end": "2026-06-12",
     }
+    assert manifest["replay_freshness"]["profile_status_counts"] == {
+        "latest": 1,
+        "latest_signal": 0,
+        "safe_replay": 1,
+        "stale": 0,
+    }
+    assert manifest["replay_freshness"]["profiles"]["smoke"]["replay_status"] == "safe_replay"
+    assert manifest["replay_freshness"]["profiles"]["smoke"]["replay_lag_trading_days"] == 1
+    assert manifest["profile_summaries"]["smoke"]["replay_status"] == "safe_replay"
     assert comparison["latest_market_date"] == "2026-06-15"
     assert comparison["safe_backtest_end"] == "2026-06-12"
     assert comparison["baseline_replay_end"] == "2026-06-15"

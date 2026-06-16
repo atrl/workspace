@@ -665,6 +665,67 @@ def _latest_model_row_summary(profile_name: str, payload: dict[str, Any]) -> dic
     }
 
 
+def _trading_day_gap(market_dates: list[str], start_exclusive: str | None, end_inclusive: str | None) -> int:
+    if not start_exclusive or not end_inclusive:
+        return 0
+    return sum(1 for date in market_dates if start_exclusive < date <= end_inclusive)
+
+
+def _replay_status(
+    *,
+    replay_end: str,
+    latest_market_date: str,
+    safe_backtest_end: str | None,
+    latest_signal_date: str | None,
+) -> str:
+    if replay_end >= latest_market_date:
+        return "latest"
+    if latest_signal_date and latest_signal_date >= latest_market_date:
+        return "latest_signal"
+    if safe_backtest_end and replay_end >= safe_backtest_end:
+        return "safe_replay"
+    return "stale"
+
+
+def _build_replay_freshness(
+    *,
+    model_payloads: dict[str, dict[str, Any]],
+    profile_source_kinds: dict[str, str],
+    latest_market_date: str,
+    safe_backtest_end: str | None,
+    market_rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    market_dates = [str(row["date"]) for row in market_rows if row.get("date")]
+    profiles: dict[str, dict[str, Any]] = {}
+    counts = {"latest": 0, "latest_signal": 0, "safe_replay": 0, "stale": 0}
+    for profile_name, payload in model_payloads.items():
+        latest_signal = payload.get("latest_signal") if isinstance(payload.get("latest_signal"), dict) else None
+        latest_signal_date = str(latest_signal.get("date")) if latest_signal and latest_signal.get("date") else None
+        replay_end = str(payload["replay_end"])
+        status = _replay_status(
+            replay_end=replay_end,
+            latest_market_date=latest_market_date,
+            safe_backtest_end=safe_backtest_end,
+            latest_signal_date=latest_signal_date,
+        )
+        counts[status] += 1
+        profiles[profile_name] = {
+            "source_kind": profile_source_kinds[profile_name],
+            "replay_start": payload["replay_start"],
+            "replay_end": replay_end,
+            "latest_signal_date": latest_signal_date,
+            "replay_status": status,
+            "replay_lag_trading_days": _trading_day_gap(market_dates, replay_end, latest_market_date),
+            "has_latest_market_signal": bool(latest_signal_date and latest_signal_date >= latest_market_date),
+        }
+    return {
+        "latest_market_date": latest_market_date,
+        "safe_backtest_end": safe_backtest_end,
+        "profile_status_counts": counts,
+        "profiles": profiles,
+    }
+
+
 def _latest_model_row_at_or_before(rows: list[dict[str, Any]], date: str) -> dict[str, Any] | None:
     eligible = [row for row in rows if str(row.get("date")) <= date]
     if not eligible:
@@ -1081,6 +1142,13 @@ def build_dashboard_v2_data(
         profile_name: _profile_source_kind(by_name[profile_name], retention_by_name[profile_name])
         for profile_name in defaults
     }
+    replay_freshness = _build_replay_freshness(
+        model_payloads=model_payloads,
+        profile_source_kinds=profile_source_kinds,
+        latest_market_date=latest_market_date,
+        safe_backtest_end=safe_backtest_end,
+        market_rows=market_payload_rows,
+    )
     model_replay_dates = {
         profile_name: {
             "replay_start": payload["replay_start"],
@@ -1089,6 +1157,8 @@ def build_dashboard_v2_data(
             if isinstance(payload.get("latest_signal"), dict)
             else None,
             "source_kind": profile_source_kinds[profile_name],
+            "replay_status": replay_freshness["profiles"][profile_name]["replay_status"],
+            "replay_lag_trading_days": replay_freshness["profiles"][profile_name]["replay_lag_trading_days"],
         }
         for profile_name, payload in model_payloads.items()
     }
@@ -1106,6 +1176,7 @@ def build_dashboard_v2_data(
         "profile_labels": {profile_name: _profile_label(profile_name) for profile_name in defaults},
         "profile_source_kinds": profile_source_kinds,
         "model_replay_dates": model_replay_dates,
+        "replay_freshness": replay_freshness,
         "baseline_latest": _latest_model_row_summary(baseline, model_payloads[baseline]),
         "comparison_window": {
             "common_start": comparison["common_start"],
@@ -1146,6 +1217,9 @@ def build_dashboard_v2_data(
                 "window": payload.get("window"),
                 "label": _profile_label(profile_name),
                 "source_kind": profile_source_kinds[profile_name],
+                "replay_status": replay_freshness["profiles"][profile_name]["replay_status"],
+                "replay_lag_trading_days": replay_freshness["profiles"][profile_name]["replay_lag_trading_days"],
+                "has_latest_market_signal": replay_freshness["profiles"][profile_name]["has_latest_market_signal"],
                 "latest": _latest_model_row_summary(profile_name, payload),
                 "latest_signal_date": (payload.get("latest_signal") or {}).get("date")
                 if isinstance(payload.get("latest_signal"), dict)

@@ -19,6 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 DASHBOARD_DATA_DIR = ROOT / "dashboard_data"
+V2_ENTRYPOINTS = {"/", "/index.html", "/dashboard.html", "/dashboard-v2", "/dashboard-v2/"}
 
 try:
     from run_segment_backtest import (
@@ -235,6 +236,19 @@ def _slice_daily_rows(
     ]
 
 
+def _dashboard_static_path(root: Path, request_path: str) -> Path:
+    clean_path = request_path.split("?", 1)[0].split("#", 1)[0]
+    clean_path = urllib.parse.unquote(clean_path) or "/"
+    v2_dist = root / "web" / "dashboard-v2" / "dist"
+    if clean_path in V2_ENTRYPOINTS and (v2_dist / "index.html").exists():
+        return v2_dist / "index.html"
+    if clean_path == "/legacy-dashboard.html":
+        return root / "dashboard.html"
+    if clean_path.startswith("/assets/") and (v2_dist / clean_path.lstrip("/")).exists():
+        return v2_dist / clean_path.lstrip("/")
+    return root / clean_path.lstrip("/")
+
+
 class DashboardHandler(SimpleHTTPRequestHandler):
     """Custom handler: static files + /api/run-backtest endpoint."""
 
@@ -371,12 +385,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
     # Override translate_path to serve from workspace root
     def translate_path(self, path):
-        # Clean up the path
-        path = path.split("?", 1)[0]
-        path = path.split("#", 1)[0]
-        path = urllib.parse.unquote(path)
-        # Serve from workspace root
-        return str(ROOT / path.lstrip("/"))
+        return str(_dashboard_static_path(ROOT, path))
 
 
 def main():

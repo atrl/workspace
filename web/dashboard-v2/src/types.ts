@@ -17,8 +17,32 @@ export interface Manifest {
       replay_end: string;
       latest_signal_date?: string | null;
       source_kind: string;
+      replay_status?: 'latest' | 'latest_signal' | 'safe_replay' | 'stale';
+      replay_lag_trading_days?: number;
     }
   >;
+  replay_freshness?: {
+    latest_market_date: string;
+    safe_backtest_end?: string | null;
+    profile_status_counts: {
+      latest: number;
+      latest_signal: number;
+      safe_replay: number;
+      stale: number;
+    };
+    profiles: Record<
+      string,
+      {
+        source_kind: string;
+        replay_start: string;
+        replay_end: string;
+        latest_signal_date?: string | null;
+        replay_status: 'latest' | 'latest_signal' | 'safe_replay' | 'stale';
+        replay_lag_trading_days: number;
+        has_latest_market_signal: boolean;
+      }
+    >;
+  };
   baseline_latest?: {
     profile: string;
     label: string;
@@ -135,6 +159,9 @@ export interface Manifest {
       status: string | null;
       label?: string;
       source_kind?: string;
+      replay_status?: 'latest' | 'latest_signal' | 'safe_replay' | 'stale';
+      replay_lag_trading_days?: number;
+      has_latest_market_signal?: boolean;
       retention?: {
         code: string;
         status: string;
