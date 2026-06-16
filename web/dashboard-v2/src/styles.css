@@ -193,8 +193,9 @@ h3 {
   order: 0;
   display: block;
   min-width: 0;
-  max-height: 225px;
+  max-height: 125px;
   padding: 5px 12px 6px;
+  border: 0;
   border-bottom: 1px solid var(--line-soft);
   border-top: 1px solid var(--line-soft);
   background: #121417;
@@ -524,20 +525,20 @@ h3 {
 .chart-main {
   order: 1;
   flex: 0 0 auto;
-  height: clamp(420px, 49vh, 660px);
-  min-height: 420px;
+  height: clamp(460px, 54vh, 720px);
+  min-height: 460px;
 }
 
 .chart-small {
-  height: 126px;
-  min-height: 126px;
+  height: 136px;
+  min-height: 136px;
 }
 
 .lower-charts {
   order: 2;
   flex: 0 0 auto;
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: 0.85fr 1fr 1.05fr;
   border-top: 1px solid var(--line);
 }
 
@@ -631,10 +632,30 @@ h3 {
   scrollbar-width: thin;
 }
 
+.freshness-details {
+  margin-top: 3px;
+  color: var(--muted);
+}
+
+.freshness-details > summary {
+  min-height: 21px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.freshness-details .freshness-strip {
+  margin-top: 4px;
+}
+
 .freshness-alert {
+  display: none;
   width: 100%;
   max-width: 100%;
-  display: flex;
   align-items: center;
   flex-wrap: nowrap;
   gap: 7px;

@@ -17,3 +17,11 @@ def test_model_delta_strip_renders_before_main_kline_chart():
 
     assert re.search(r"\border\s*:\s*0\s*;", body), "model differences must be above the main K-line"
 
+
+def test_first_viewport_includes_nav_delta_pane():
+    main_ts = (ROOT / "web/dashboard-v2/src/main.ts").read_text(encoding="utf-8")
+    lower_body = _css_rule(".lower-charts")
+
+    assert 'id="delta-nav-chart"' in main_ts
+    assert "Delta NAV vs Baseline" in main_ts
+    assert "grid-template-columns" in lower_body

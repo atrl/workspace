@@ -154,6 +154,49 @@ describe('dashboard v2 domain helpers', () => {
     });
   });
 
+  test('caps the default K-line window to recent rows when YTD has too many candles', () => {
+    const marketRows = Array.from({ length: 120 }, (_, index) => {
+      const day = index + 1;
+      return {
+        date: `2026-${String(Math.floor((day - 1) / 28) + 1).padStart(2, '0')}-${String(((day - 1) % 28) + 1).padStart(2, '0')}`,
+        open: 10,
+        high: 11,
+        low: 9,
+        close: 10 + index,
+        volume: 1000,
+      };
+    });
+    const longModel = {
+      ...modelFixture,
+      rows: marketRows.map((row, index) => ({
+        date: row.date,
+        strategy_nav: 100 + index,
+        buyhold_nav: 100 + index,
+        position: 0.1,
+        action: 'HOLD' as const,
+        price: row.close,
+        excess: 0,
+        excess_pct: index / 100,
+      })),
+    };
+
+    expect(
+      computeDefaultDateRange({
+        manifest: { ...manifestFixture, latest_market_date: marketRows.at(-1)!.date },
+        marketRows,
+        models: { smoke: longModel },
+        comparison: {
+          ...comparisonFixture,
+          common_start: marketRows[0].date,
+          common_end: marketRows.at(-1)!.date,
+        },
+      }),
+    ).toEqual({
+      start: marketRows[30].date,
+      end: marketRows[119].date,
+    });
+  });
+
   test('preserves the explicit reference baseline as the default action comparison model', () => {
     expect(
       selectDefaultChartProfile(

@@ -14,6 +14,7 @@ import type {
 
 const DIFF_MARKER_COLOR = '#22c7a9';
 const MATERIAL_POSITION_DELTA = 0.05;
+const DEFAULT_VISIBLE_TRADING_DAYS = 90;
 
 export function formatProfileLabel(profile: string): string {
   if (profile === 'soxl_backtest_policy_reimplementation_v1') return 'SOXLBacktest';
@@ -92,7 +93,12 @@ export function computeDefaultDateRange(input: {
   const endYear = end.slice(0, 4);
   const ytdDates = marketDates.filter((date) => date >= common.start && date <= end);
   const ytdStart = ytdDates.length ? snapStart(ytdDates, `${endYear}-01-01`) : common.start;
-  return { start: ytdStart <= end ? ytdStart : common.start, end };
+  const visibleDates = marketDates.filter((date) => date >= ytdStart && date <= end);
+  const cappedStart =
+    visibleDates.length > DEFAULT_VISIBLE_TRADING_DAYS
+      ? visibleDates[visibleDates.length - DEFAULT_VISIBLE_TRADING_DAYS]
+      : ytdStart;
+  return { start: cappedStart <= end ? cappedStart : common.start, end };
 }
 
 export function clipRowsByDate<T extends { date: string }>(rows: readonly T[], start: string, end: string): T[] {

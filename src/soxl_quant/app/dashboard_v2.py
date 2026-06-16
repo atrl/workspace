@@ -796,6 +796,9 @@ def build_comparison_payload(
     *,
     baseline_profile: str,
     compared_profiles: list[str],
+    market_rows: list[dict[str, Any]] | None = None,
+    latest_market_date: str | None = None,
+    safe_backtest_end: str | None = None,
 ) -> dict[str, Any]:
     if baseline_profile not in model_payloads:
         raise ValueError(f"baseline profile not available: {baseline_profile}")
@@ -808,6 +811,7 @@ def build_comparison_payload(
         profile: {row["date"]: row for row in model_payloads[profile]["rows"]}
         for profile in profiles
     }
+    market_by_date = {row["date"]: row for row in market_rows or []}
     baseline_rows = by_profile[baseline_profile]
     rows: list[dict[str, Any]] = []
     running_drawdowns: dict[str, float] = {profile: 0.0 for profile in profiles}
@@ -853,6 +857,11 @@ def build_comparison_payload(
         rows.append(
             {
                 "date": date,
+                "market": {
+                    field: market_by_date[date].get(field)
+                    for field in ("open", "high", "low", "close", "volume")
+                    if date in market_by_date and market_by_date[date].get(field) is not None
+                },
                 "profiles": profile_values,
                 "action_mismatch_count": action_mismatch_count,
                 "position_divergence_count": position_divergence_count,
@@ -866,11 +875,23 @@ def build_comparison_payload(
         key=lambda item: item["return"],
         reverse=True,
     )
+    actor_replay_ends = [
+        str(payload.get("replay_end"))
+        for profile, payload in model_payloads.items()
+        if profile in profiles and profile != baseline_profile and payload.get("status") != "reference" and payload.get("replay_end")
+    ]
+    market_dates = [row["date"] for row in market_rows or [] if row.get("date")]
     return {
         "baseline_profile": baseline_profile,
         "compared_profiles": profiles,
         "common_start": common_dates[0],
         "common_end": common_dates[-1],
+        "latest_market_date": latest_market_date,
+        "safe_backtest_end": safe_backtest_end,
+        "baseline_replay_end": model_payloads[baseline_profile].get("replay_end"),
+        "actor_replay_end": max(actor_replay_ends) if actor_replay_ends else None,
+        "market_start": min(market_dates) if market_dates else None,
+        "market_end": max(market_dates) if market_dates else None,
         "rows": rows,
         "rankings": rankings,
     }
@@ -996,6 +1017,9 @@ def build_dashboard_v2_data(
         model_payloads,
         baseline_profile=baseline,
         compared_profiles=defaults,
+        market_rows=market_payload_rows,
+        latest_market_date=latest_market_date,
+        safe_backtest_end=safe_backtest_end,
     )
     profile_source_kinds = {
         profile_name: _profile_source_kind(by_name[profile_name], retention_by_name[profile_name])

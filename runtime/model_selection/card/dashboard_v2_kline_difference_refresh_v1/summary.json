@@ -1,0 +1,29 @@
+{
+  "experiment": "dashboard_v2_kline_difference_refresh_v1",
+  "verified_at": "2026-06-16T02:24:45Z",
+  "scope": "dashboard_v2_frontend_data_contract_and_kline_readability",
+  "data_status": {
+    "latest_market_date": "2026-06-15",
+    "safe_backtest_end": "2026-06-12",
+    "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+    "baseline_replay_end": "2026-06-15",
+    "actor_replay_end": "2026-06-12",
+    "actor_latest_signal_date": "2026-06-15",
+    "comparison_rows": 112
+  },
+  "browser_measurement": {
+    "url": "http://127.0.0.1:5181/",
+    "source_panel_height_px": 79,
+    "model_delta_strip_height_px": 125,
+    "market_chart_top_px": 301,
+    "market_chart_height_px": 460,
+    "load_errors": []
+  },
+  "screenshot_path": "runtime/model_selection/card/dashboard_v2_kline_difference_refresh_v1/dashboard_v2_kline_difference_refresh_v1.png",
+  "decision": "dashboard_v2_kline_and_model_difference_readability_improved",
+  "notes": [
+    "Comparison payload now carries market latest and replay cutoff metadata plus OHLC on common-window rows.",
+    "First viewport includes dedicated Delta NAV vs Baseline, Model Position, and Rebased NAV panes.",
+    "Top status area is compacted; per-model dates and diagnostics remain available behind collapsed details."
+  ]
+}

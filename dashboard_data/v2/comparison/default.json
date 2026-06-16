@@ -1,5 +1,7 @@
 {
+  "actor_replay_end": "2026-06-12",
   "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+  "baseline_replay_end": "2026-06-15",
   "common_end": "2026-06-12",
   "common_start": "2026-01-02",
   "compared_profiles": [
@@ -10,6 +12,9 @@
     "balanced_rule_residual_v19_reg",
     "balanced_rule_residual_v19"
   ],
+  "latest_market_date": "2026-06-15",
+  "market_end": "2026-06-15",
+  "market_start": "2010-03-11",
   "rankings": [
     {
       "avg_position": 0.34090389846109775,
@@ -58,6 +63,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-01-02",
+      "market": {
+        "close": 47.2400016784668,
+        "high": 48.09000015258789,
+        "low": 45.08000183105469,
+        "open": 45.130001068115234,
+        "volume": 132719700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -131,6 +143,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-05",
+      "market": {
+        "close": 49.220001220703125,
+        "high": 51.220001220703125,
+        "low": 48.630001068115234,
+        "open": 50.349998474121094,
+        "volume": 94987500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -204,6 +223,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-01-06",
+      "market": {
+        "close": 54.0099983215332,
+        "high": 54.29999923706055,
+        "low": 51.06999969482422,
+        "open": 51.11000061035156,
+        "volume": 92678600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -277,6 +303,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-01-07",
+      "market": {
+        "close": 52.290000915527344,
+        "high": 52.7400016784668,
+        "low": 50.84000015258789,
+        "open": 52.20000076293945,
+        "volume": 65698500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -350,6 +383,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-08",
+      "market": {
+        "close": 49.650001525878906,
+        "high": 51.810001373291016,
+        "low": 48.130001068115234,
+        "open": 51.79999923706055,
+        "volume": 79844800
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -423,6 +463,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-01-09",
+      "market": {
+        "close": 53.95000076293945,
+        "high": 54.7599983215332,
+        "low": 50.310001373291016,
+        "open": 51.09000015258789,
+        "volume": 87214400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -496,6 +543,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-12",
+      "market": {
+        "close": 54.650001525878906,
+        "high": 55.150001525878906,
+        "low": 52.349998474121094,
+        "open": 52.38999938964844,
+        "volume": 53193700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -569,6 +623,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-13",
+      "market": {
+        "close": 56.06999969482422,
+        "high": 57.630001068115234,
+        "low": 55.43000030517578,
+        "open": 55.689998626708984,
+        "volume": 61895400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -642,6 +703,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-01-14",
+      "market": {
+        "close": 55.380001068115234,
+        "high": 55.439998626708984,
+        "low": 53.0,
+        "open": 54.88999938964844,
+        "volume": 70434900
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -715,6 +783,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-15",
+      "market": {
+        "close": 58.08000183105469,
+        "high": 61.66999816894531,
+        "low": 58.0099983215332,
+        "open": 60.959999084472656,
+        "volume": 89664300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -788,6 +863,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-16",
+      "market": {
+        "close": 60.75,
+        "high": 62.189998626708984,
+        "low": 59.5,
+        "open": 61.189998626708984,
+        "volume": 58559500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -861,6 +943,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-01-20",
+      "market": {
+        "close": 57.939998626708984,
+        "high": 61.04999923706055,
+        "low": 57.220001220703125,
+        "open": 57.34000015258789,
+        "volume": 71408300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -934,6 +1023,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-01-21",
+      "market": {
+        "close": 63.47999954223633,
+        "high": 65.11000061035156,
+        "low": 59.459999084472656,
+        "open": 60.2400016784668,
+        "volume": 103027300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1007,6 +1103,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-22",
+      "market": {
+        "close": 63.720001220703125,
+        "high": 66.95999908447266,
+        "low": 63.040000915527344,
+        "open": 66.9000015258789,
+        "volume": 62594200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1080,6 +1183,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-23",
+      "market": {
+        "close": 61.599998474121094,
+        "high": 63.36000061035156,
+        "low": 60.150001525878906,
+        "open": 62.47999954223633,
+        "volume": 58613600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1153,6 +1263,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-26",
+      "market": {
+        "close": 60.70000076293945,
+        "high": 61.959999084472656,
+        "low": 59.599998474121094,
+        "open": 60.75,
+        "volume": 42592400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1226,6 +1343,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-27",
+      "market": {
+        "close": 64.95999908447266,
+        "high": 65.98999786376953,
+        "low": 62.540000915527344,
+        "open": 63.310001373291016,
+        "volume": 61155400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1299,6 +1423,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-01-28",
+      "market": {
+        "close": 70.08999633789062,
+        "high": 70.93000030517578,
+        "low": 67.9800033569336,
+        "open": 69.0,
+        "volume": 74205500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1372,6 +1503,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-01-29",
+      "market": {
+        "close": 70.47000122070312,
+        "high": 71.9800033569336,
+        "low": 62.650001525878906,
+        "open": 70.4000015258789,
+        "volume": 78058200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1445,6 +1583,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-01-30",
+      "market": {
+        "close": 61.790000915527344,
+        "high": 69.86000061035156,
+        "low": 60.290000915527344,
+        "open": 67.12000274658203,
+        "volume": 83504200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1518,6 +1663,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-02",
+      "market": {
+        "close": 65.19999694824219,
+        "high": 66.94000244140625,
+        "low": 59.099998474121094,
+        "open": 59.459999084472656,
+        "volume": 66961000
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1591,6 +1743,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-03",
+      "market": {
+        "close": 61.20000076293945,
+        "high": 67.62000274658203,
+        "low": 57.02000045776367,
+        "open": 66.80999755859375,
+        "volume": 101338500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1664,6 +1823,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-02-04",
+      "market": {
+        "close": 53.189998626708984,
+        "high": 61.029998779296875,
+        "low": 49.33000183105469,
+        "open": 59.439998626708984,
+        "volume": 139149400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1737,6 +1903,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-05",
+      "market": {
+        "close": 53.25,
+        "high": 55.4900016784668,
+        "low": 50.0099983215332,
+        "open": 51.310001373291016,
+        "volume": 109350300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1810,6 +1983,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-02-06",
+      "market": {
+        "close": 61.75,
+        "high": 62.25,
+        "low": 55.66999816894531,
+        "open": 56.400001525878906,
+        "volume": 108594200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1883,6 +2063,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-02-09",
+      "market": {
+        "close": 64.02999877929688,
+        "high": 65.05000305175781,
+        "low": 59.290000915527344,
+        "open": 59.9900016784668,
+        "volume": 66670500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -1956,6 +2143,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-10",
+      "market": {
+        "close": 63.34000015258789,
+        "high": 65.20999908447266,
+        "low": 61.41999816894531,
+        "open": 64.66999816894531,
+        "volume": 58273900
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2029,6 +2223,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-02-11",
+      "market": {
+        "close": 68.05000305175781,
+        "high": 69.0999984741211,
+        "low": 63.22999954223633,
+        "open": 67.20999908447266,
+        "volume": 89724200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2102,6 +2303,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-02-12",
+      "market": {
+        "close": 63.099998474121094,
+        "high": 70.86000061035156,
+        "low": 62.77000045776367,
+        "open": 69.66999816894531,
+        "volume": 90896100
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2175,6 +2383,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-13",
+      "market": {
+        "close": 64.58999633789062,
+        "high": 66.25,
+        "low": 61.43000030517578,
+        "open": 63.93000030517578,
+        "volume": 79931300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2248,6 +2463,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-17",
+      "market": {
+        "close": 64.3499984741211,
+        "high": 65.95999908447266,
+        "low": 59.560001373291016,
+        "open": 62.02000045776367,
+        "volume": 79420400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2321,6 +2543,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-18",
+      "market": {
+        "close": 66.29000091552734,
+        "high": 68.44999694824219,
+        "low": 64.06999969482422,
+        "open": 65.26000213623047,
+        "volume": 69349000
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2394,6 +2623,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-02-19",
+      "market": {
+        "close": 65.2300033569336,
+        "high": 65.51000213623047,
+        "low": 62.959999084472656,
+        "open": 64.33000183105469,
+        "volume": 68827500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2467,6 +2703,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-02-20",
+      "market": {
+        "close": 67.11000061035156,
+        "high": 68.22000122070312,
+        "low": 63.58000183105469,
+        "open": 63.7599983215332,
+        "volume": 81017900
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2540,6 +2783,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-02-23",
+      "market": {
+        "close": 65.86000061035156,
+        "high": 67.6500015258789,
+        "low": 63.470001220703125,
+        "open": 65.8499984741211,
+        "volume": 66926300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2613,6 +2863,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-24",
+      "market": {
+        "close": 68.52999877929688,
+        "high": 70.0,
+        "low": 66.3499984741211,
+        "open": 68.11000061035156,
+        "volume": 66892100
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2686,6 +2943,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-02-25",
+      "market": {
+        "close": 71.86000061035156,
+        "high": 72.36000061035156,
+        "low": 70.4800033569336,
+        "open": 70.88999938964844,
+        "volume": 52929300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2759,6 +3023,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-02-26",
+      "market": {
+        "close": 65.33999633789062,
+        "high": 71.11000061035156,
+        "low": 61.630001068115234,
+        "open": 71.02999877929688,
+        "volume": 97787900
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2832,6 +3103,13 @@
     {
       "action_mismatch_count": 3,
       "date": "2026-02-27",
+      "market": {
+        "close": 62.77000045776367,
+        "high": 63.7599983215332,
+        "low": 60.65999984741211,
+        "open": 61.5099983215332,
+        "volume": 70112700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2905,6 +3183,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-03-02",
+      "market": {
+        "close": 62.7599983215332,
+        "high": 62.81999969482422,
+        "low": 58.04999923706055,
+        "open": 58.11000061035156,
+        "volume": 81699800
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -2978,6 +3263,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-03",
+      "market": {
+        "close": 53.41999816894531,
+        "high": 55.86000061035156,
+        "low": 51.36000061035156,
+        "open": 55.119998931884766,
+        "volume": 131198300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3051,6 +3343,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-04",
+      "market": {
+        "close": 56.619998931884766,
+        "high": 57.720001220703125,
+        "low": 54.380001068115234,
+        "open": 55.959999084472656,
+        "volume": 78143300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3124,6 +3423,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-03-05",
+      "market": {
+        "close": 54.79999923706055,
+        "high": 57.689998626708984,
+        "low": 51.130001068115234,
+        "open": 55.31999969482422,
+        "volume": 110055800
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3197,6 +3503,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-06",
+      "market": {
+        "close": 47.88999938964844,
+        "high": 53.36000061035156,
+        "low": 46.79999923706055,
+        "open": 50.09000015258789,
+        "volume": 125241500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3270,6 +3583,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-03-09",
+      "market": {
+        "close": 53.31999969482422,
+        "high": 53.779998779296875,
+        "low": 44.529998779296875,
+        "open": 45.5099983215332,
+        "volume": 114897700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3343,6 +3663,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-10",
+      "market": {
+        "close": 54.59000015258789,
+        "high": 57.779998779296875,
+        "low": 53.36000061035156,
+        "open": 53.36000061035156,
+        "volume": 104717600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3416,6 +3743,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-03-11",
+      "market": {
+        "close": 56.09000015258789,
+        "high": 57.7400016784668,
+        "low": 55.349998474121094,
+        "open": 55.5,
+        "volume": 83007700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3489,6 +3823,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-03-12",
+      "market": {
+        "close": 50.279998779296875,
+        "high": 53.880001068115234,
+        "low": 49.529998779296875,
+        "open": 53.529998779296875,
+        "volume": 105674400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3562,6 +3903,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-03-13",
+      "market": {
+        "close": 50.720001220703125,
+        "high": 53.959999084472656,
+        "low": 50.040000915527344,
+        "open": 51.880001068115234,
+        "volume": 83244300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3635,6 +3983,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-16",
+      "market": {
+        "close": 53.689998626708984,
+        "high": 55.68000030517578,
+        "low": 53.0099983215332,
+        "open": 54.060001373291016,
+        "volume": 79819200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3708,6 +4063,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-03-17",
+      "market": {
+        "close": 54.95000076293945,
+        "high": 55.400001525878906,
+        "low": 53.29999923706055,
+        "open": 55.099998474121094,
+        "volume": 59567700
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3781,6 +4143,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-18",
+      "market": {
+        "close": 54.02000045776367,
+        "high": 56.47999954223633,
+        "low": 54.0,
+        "open": 55.029998779296875,
+        "volume": 75470000
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3854,6 +4223,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-19",
+      "market": {
+        "close": 54.849998474121094,
+        "high": 56.11000061035156,
+        "low": 48.5,
+        "open": 49.529998779296875,
+        "volume": 93732700
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -3927,6 +4303,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-20",
+      "market": {
+        "close": 51.13999938964844,
+        "high": 55.36000061035156,
+        "low": 49.0,
+        "open": 54.689998626708984,
+        "volume": 101773000
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4000,6 +4383,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-03-23",
+      "market": {
+        "close": 53.029998779296875,
+        "high": 56.810001373291016,
+        "low": 52.279998779296875,
+        "open": 54.630001068115234,
+        "volume": 115257400
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4073,6 +4463,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-24",
+      "market": {
+        "close": 54.959999084472656,
+        "high": 56.09000015258789,
+        "low": 51.540000915527344,
+        "open": 51.540000915527344,
+        "volume": 92153500
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4146,6 +4543,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-03-25",
+      "market": {
+        "close": 57.040000915527344,
+        "high": 58.25,
+        "low": 55.59000015258789,
+        "open": 56.63999938964844,
+        "volume": 84440300
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4219,6 +4623,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-03-26",
+      "market": {
+        "close": 48.970001220703125,
+        "high": 54.439998626708984,
+        "low": 48.869998931884766,
+        "open": 54.189998626708984,
+        "volume": 116603800
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4292,6 +4703,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-03-27",
+      "market": {
+        "close": 46.61000061035156,
+        "high": 49.380001068115234,
+        "low": 45.959999084472656,
+        "open": 48.040000915527344,
+        "volume": 99401400
+      },
       "position_divergence_count": 0,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4365,6 +4783,13 @@
     {
       "action_mismatch_count": 4,
       "date": "2026-03-30",
+      "market": {
+        "close": 40.619998931884766,
+        "high": 48.290000915527344,
+        "low": 39.52000045776367,
+        "open": 47.86000061035156,
+        "volume": 139746200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4438,6 +4863,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-03-31",
+      "market": {
+        "close": 47.90999984741211,
+        "high": 48.18000030517578,
+        "low": 42.61000061035156,
+        "open": 42.880001068115234,
+        "volume": 138002100
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4511,6 +4943,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-01",
+      "market": {
+        "close": 52.2599983215332,
+        "high": 54.09000015258789,
+        "low": 49.619998931884766,
+        "open": 50.040000915527344,
+        "volume": 121955600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4584,6 +5023,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-02",
+      "market": {
+        "close": 52.75,
+        "high": 53.06999969482422,
+        "low": 46.04999923706055,
+        "open": 46.060001373291016,
+        "volume": 104471700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4657,6 +5103,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-04-06",
+      "market": {
+        "close": 54.810001,
+        "high": 55.599998,
+        "low": 52.880001,
+        "open": 53.75,
+        "volume": 68780400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4730,6 +5183,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-07",
+      "market": {
+        "close": 56.549999,
+        "high": 56.599998,
+        "low": 52.130001,
+        "open": 54.32,
+        "volume": 107326500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4803,6 +5263,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-08",
+      "market": {
+        "close": 67.5,
+        "high": 67.980003,
+        "low": 63.560001,
+        "open": 66.330002,
+        "volume": 111697300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4876,6 +5343,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-09",
+      "market": {
+        "close": 71.980003,
+        "high": 72.279999,
+        "low": 68.120003,
+        "open": 68.120003,
+        "volume": 79331600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -4949,6 +5423,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-10",
+      "market": {
+        "close": 76.389999,
+        "high": 78.300003,
+        "low": 74.300003,
+        "open": 74.300003,
+        "volume": 78863600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5022,6 +5503,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-13",
+      "market": {
+        "close": 80.559998,
+        "high": 80.739998,
+        "low": 75.25,
+        "open": 75.589996,
+        "volume": 64504600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5095,6 +5583,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-14",
+      "market": {
+        "close": 85.309998,
+        "high": 85.57,
+        "low": 80.709999,
+        "open": 83.269997,
+        "volume": 61657000
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5168,6 +5663,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-15",
+      "market": {
+        "close": 85.959999,
+        "high": 85.980003,
+        "low": 79.760002,
+        "open": 84.660004,
+        "volume": 68425400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5241,6 +5743,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-16",
+      "market": {
+        "close": 88.370003,
+        "high": 89.389999,
+        "low": 83.309998,
+        "open": 85.010002,
+        "volume": 63777500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5314,6 +5823,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-17",
+      "market": {
+        "close": 94.68000030517578,
+        "high": 94.75,
+        "low": 90.66000366210938,
+        "open": 93.1999969482422,
+        "volume": 67081400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5387,6 +5903,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-20",
+      "market": {
+        "close": 95.94000244140624,
+        "high": 96.93000030517578,
+        "low": 92.02999877929688,
+        "open": 95.97000122070312,
+        "volume": 49367800
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5460,6 +5983,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-21",
+      "market": {
+        "close": 98.08999633789062,
+        "high": 99.9499969482422,
+        "low": 95.31999969482422,
+        "open": 97.97000122070312,
+        "volume": 65206900
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5533,6 +6063,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-22",
+      "market": {
+        "close": 105.63999938964844,
+        "high": 106.08999633789062,
+        "low": 99.5999984741211,
+        "open": 102.94000244140624,
+        "volume": 58165200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5606,6 +6143,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-23",
+      "market": {
+        "close": 112.7699966430664,
+        "high": 116.7699966430664,
+        "low": 107.45999908447266,
+        "open": 108.62000274658205,
+        "volume": 96510200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5679,6 +6223,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-24",
+      "market": {
+        "close": 128.32000732421875,
+        "high": 130.1199951171875,
+        "low": 120.23999786376952,
+        "open": 125.20999908447266,
+        "volume": 83092400
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5752,6 +6303,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-27",
+      "market": {
+        "close": 123.38999938964844,
+        "high": 129.58999633789062,
+        "low": 117.79000091552734,
+        "open": 128.3300018310547,
+        "volume": 73334600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5825,6 +6383,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-04-28",
+      "market": {
+        "close": 109.55999755859376,
+        "high": 115.62000274658205,
+        "low": 103.98999786376952,
+        "open": 108.75,
+        "volume": 94099700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5898,6 +6463,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-29",
+      "market": {
+        "close": 117.97000122070312,
+        "high": 118.31999969482422,
+        "low": 112.3000030517578,
+        "open": 114.76000213623048,
+        "volume": 55503700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -5971,6 +6543,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-04-30",
+      "market": {
+        "close": 126.9800033569336,
+        "high": 127.4499969482422,
+        "low": 117.5,
+        "open": 122.80999755859376,
+        "volume": 58536700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6044,6 +6623,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-05-01",
+      "market": {
+        "close": 130.39999389648438,
+        "high": 131.3800048828125,
+        "low": 121.66000366210938,
+        "open": 124.38999938964844,
+        "volume": 40940300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6117,6 +6703,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-05-04",
+      "market": {
+        "close": 127.5500030517578,
+        "high": 133.6699981689453,
+        "low": 123.8000030517578,
+        "open": 132.1999969482422,
+        "volume": 46455700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6190,6 +6783,13 @@
     {
       "action_mismatch_count": 3,
       "date": "2026-05-05",
+      "market": {
+        "close": 144.16,
+        "high": 147.26,
+        "low": 134.02,
+        "open": 135.0,
+        "volume": 52130075
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6263,6 +6863,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-06",
+      "market": {
+        "close": 165.85,
+        "high": 166.0,
+        "low": 149.0617,
+        "open": 157.84,
+        "volume": 65579223
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6336,6 +6943,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-07",
+      "market": {
+        "close": 152.1,
+        "high": 162.9,
+        "low": 147.61,
+        "open": 162.115,
+        "volume": 72375207
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6409,6 +7023,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-08",
+      "market": {
+        "close": 176.94,
+        "high": 177.5,
+        "low": 161.51,
+        "open": 163.0,
+        "volume": 47016488
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6482,6 +7103,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-11",
+      "market": {
+        "close": 190.4199981689453,
+        "high": 191.2899932861328,
+        "low": 178.94000244140625,
+        "open": 181.0,
+        "volume": 50496000
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6555,6 +7183,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-05-12",
+      "market": {
+        "close": 172.52000427246094,
+        "high": 182.2400054931641,
+        "low": 150.5800018310547,
+        "open": 177.6199951171875,
+        "volume": 91705600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6628,6 +7263,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-05-13",
+      "market": {
+        "close": 184.2400054931641,
+        "high": 188.4900054931641,
+        "low": 172.25999450683594,
+        "open": 183.83999633789065,
+        "volume": 59522300
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6701,6 +7343,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-14",
+      "market": {
+        "close": 186.19000244140625,
+        "high": 189.55999755859375,
+        "low": 178.27999877929688,
+        "open": 182.6699981689453,
+        "volume": 43319000
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6774,6 +7423,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-05-15",
+      "market": {
+        "close": 164.17999267578125,
+        "high": 174.39999389648438,
+        "low": 161.13999938964844,
+        "open": 167.0,
+        "volume": 62126600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6847,6 +7503,13 @@
     {
       "action_mismatch_count": 3,
       "date": "2026-05-18",
+      "market": {
+        "close": 151.75,
+        "high": 174.61000061035156,
+        "low": 142.69000244140625,
+        "open": 172.9499969482422,
+        "volume": 75610500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6920,6 +7583,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-19",
+      "market": {
+        "close": 151.88999938964844,
+        "high": 160.60000610351562,
+        "low": 135.02000427246094,
+        "open": 141.24000549316406,
+        "volume": 85384000
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -6993,6 +7663,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-05-20",
+      "market": {
+        "close": 173.1999969482422,
+        "high": 173.6999969482422,
+        "low": 161.0,
+        "open": 161.0,
+        "volume": 58913200
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7066,6 +7743,13 @@
     {
       "action_mismatch_count": 2,
       "date": "2026-05-21",
+      "market": {
+        "close": 178.38999938964844,
+        "high": 179.97000122070312,
+        "low": 168.22999572753906,
+        "open": 171.25999450683594,
+        "volume": 52278700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7139,6 +7823,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-22",
+      "market": {
+        "close": 190.55999755859375,
+        "high": 195.27000427246097,
+        "low": 183.33999633789065,
+        "open": 184.8000030517578,
+        "volume": 45133000
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7212,6 +7903,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-26",
+      "market": {
+        "close": 225.7899932861328,
+        "high": 228.5,
+        "low": 209.88999938964844,
+        "open": 211.3800048828125,
+        "volume": 52533000
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7285,6 +7983,13 @@
     {
       "action_mismatch_count": 5,
       "date": "2026-05-27",
+      "market": {
+        "close": 217.97999572753903,
+        "high": 242.66000366210935,
+        "low": 204.0,
+        "open": 242.66000366210935,
+        "volume": 74732700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7358,6 +8063,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-05-28",
+      "market": {
+        "close": 224.6300048828125,
+        "high": 231.88999938964844,
+        "low": 207.55999755859375,
+        "open": 219.0,
+        "volume": 47153500
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7431,6 +8143,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-05-29",
+      "market": {
+        "close": 224.33999633789065,
+        "high": 239.07000732421875,
+        "low": 218.55999755859375,
+        "open": 231.82000732421875,
+        "volume": 37035700
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7504,6 +8223,13 @@
     {
       "action_mismatch_count": 3,
       "date": "2026-06-01",
+      "market": {
+        "close": 227.02999877929688,
+        "high": 234.05999755859375,
+        "low": 210.13999938964844,
+        "open": 217.27000427246097,
+        "volume": 37499600
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7577,6 +8303,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-06-02",
+      "market": {
+        "close": 266.32,
+        "high": 267.08,
+        "low": 238.8233,
+        "open": 243.18,
+        "volume": 42799670
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7650,6 +8383,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-06-03",
+      "market": {
+        "close": 280.54,
+        "high": 284.58,
+        "low": 257.26,
+        "open": 281.47,
+        "volume": 49817248
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7723,6 +8463,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-06-04",
+      "market": {
+        "close": 262.7,
+        "high": 274.5,
+        "low": 228.55,
+        "open": 242.04,
+        "volume": 59036010
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7796,6 +8543,13 @@
     {
       "action_mismatch_count": 5,
       "date": "2026-06-05",
+      "market": {
+        "close": 182.54,
+        "high": 233.69,
+        "low": 181.81,
+        "open": 230.8482,
+        "volume": 108280347
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7869,6 +8623,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-06-08",
+      "market": {
+        "close": 211.44,
+        "high": 222.19,
+        "low": 201.69,
+        "open": 210.62,
+        "volume": 68180491
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -7942,6 +8703,13 @@
     {
       "action_mismatch_count": 1,
       "date": "2026-06-09",
+      "market": {
+        "close": 201.68,
+        "high": 231.02,
+        "low": 157.561,
+        "open": 227.055,
+        "volume": 124754262
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -8015,6 +8783,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-06-10",
+      "market": {
+        "close": 180.65,
+        "high": 212.99,
+        "low": 177.3001,
+        "open": 191.54,
+        "volume": 94924150
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -8088,6 +8863,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-06-11",
+      "market": {
+        "close": 223.99,
+        "high": 225.63,
+        "low": 192.3,
+        "open": 192.3,
+        "volume": 72493397
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -8161,6 +8943,13 @@
     {
       "action_mismatch_count": 0,
       "date": "2026-06-12",
+      "market": {
+        "close": 234.68,
+        "high": 242.4,
+        "low": 214.7406,
+        "open": 222.22,
+        "volume": 50419140
+      },
       "position_divergence_count": 5,
       "profiles": {
         "balanced_rule_residual_v19": {
@@ -8231,5 +9020,6 @@
         }
       }
     }
-  ]
+  ],
+  "safe_backtest_end": "2026-06-12"
 }

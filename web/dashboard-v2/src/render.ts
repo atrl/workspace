@@ -313,8 +313,15 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     )
     .filter(([, replayEnd]) => replayEnd);
   if (freshnessRows.length > 0) {
+    const freshnessDetails = element('details', 'freshness-details') as HTMLDetailsElement;
+    const summaryParts = [
+      `Model dates`,
+      baselineEnd ? `baseline ${baselineEnd}` : null,
+      actorEnd ? `actors ${actorEnd}` : null,
+      actorSignalEnd && actorSignalEnd > (actorEnd ?? '') ? `signals ${actorSignalEnd}` : null,
+    ].filter(Boolean);
+    freshnessDetails.appendChild(element('summary', undefined, summaryParts.join(' | ')));
     const freshness = element('div', 'freshness-strip');
-    freshness.appendChild(element('span', 'source-label', 'Model dates'));
     for (const [profile, replayEnd, signalDate] of freshnessRows) {
       const item = element('span', 'freshness-pill');
       item.dataset.profile = profile;
@@ -334,7 +341,8 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
       }
       freshness.appendChild(item);
     }
-    container.appendChild(freshness);
+    freshnessDetails.appendChild(freshness);
+    container.appendChild(freshnessDetails);
   }
   if (
     (actorEnd && actorEnd < manifest.latest_market_date) ||
@@ -455,21 +463,27 @@ export function renderModelDeltaStrip(
   container.appendChild(summary);
   const caption = element('div', 'model-delta-caption');
   const captionParts = [`Common comparison ${last.date}`];
-  if (manifest?.latest_market_date && manifest.latest_market_date > last.date) {
-    captionParts.push(`SOXL K-line ${manifest.latest_market_date}`);
+  const latestMarketDate = comparison.latest_market_date ?? manifest?.latest_market_date;
+  const safeBacktestEnd = comparison.safe_backtest_end ?? manifest?.safe_backtest_end;
+  if (latestMarketDate && latestMarketDate > last.date) {
+    captionParts.push(`SOXL K-line ${latestMarketDate}`);
     caption.dataset.tone = 'warning';
   }
-  const baselineEnd = manifest?.profile_summaries?.[comparison.baseline_profile]?.replay_end;
+  const baselineEnd =
+    comparison.baseline_replay_end ?? manifest?.profile_summaries?.[comparison.baseline_profile]?.replay_end;
   const actorEnd = maxDate(
-    profiles
-      .filter((profile) => manifest?.profile_summaries?.[profile]?.status !== 'reference')
-      .map((profile) => manifest?.profile_summaries?.[profile]?.replay_end),
+    [
+      comparison.actor_replay_end,
+      ...profiles
+        .filter((profile) => manifest?.profile_summaries?.[profile]?.status !== 'reference')
+        .map((profile) => manifest?.profile_summaries?.[profile]?.replay_end),
+    ],
   );
   captionParts.push(
     `Baseline ${profileLabel(comparison.baseline_profile, manifest)}${baselineEnd ? ` latest ${baselineEnd}` : ''}`,
   );
   if (actorEnd) captionParts.push(`Qlib actors safe replay ${actorEnd}`);
-  if (manifest?.safe_backtest_end) captionParts.push(`safe end ${manifest.safe_backtest_end}`);
+  if (safeBacktestEnd) captionParts.push(`safe end ${safeBacktestEnd}`);
   if (baselineEnd && baselineEnd > last.date) {
     caption.dataset.tone = 'warning';
   }

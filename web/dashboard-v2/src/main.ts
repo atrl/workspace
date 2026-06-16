@@ -1,5 +1,6 @@
 import './styles.css';
 import {
+  renderDeltaChart,
   renderMarketChart,
   renderNavChart,
   renderPositionChart,
@@ -72,6 +73,10 @@ function createShell(app: HTMLElement): void {
           <section>
             <h2>Model Position</h2>
             <div id="position-chart" class="chart chart-small"></div>
+          </section>
+          <section>
+            <h2>Delta NAV vs Baseline</h2>
+            <div id="delta-nav-chart" class="chart chart-small"></div>
           </section>
           <section>
             <h2>Rebased NAV</h2>
@@ -260,6 +265,7 @@ function renderReadoutPanels(data: DashboardData, state: ViewState, update: Upda
 function renderDashboard(data: DashboardData, state: ViewState, update: UpdateState): void {
   const marketChart = requireElement('market-chart');
   const positionChart = requireElement('position-chart');
+  const deltaNavChart = requireElement('delta-nav-chart');
   const navChart = requireElement('nav-chart');
   const actionLegend = requireElement('action-legend');
   const { models, market, primary } = visibleContext(data, state);
@@ -281,19 +287,27 @@ function renderDashboard(data: DashboardData, state: ViewState, update: UpdateSt
     models,
     primary.profile,
   );
+  const deltaNavHandles = renderDeltaChart(
+    deltaNavChart,
+    data.comparison,
+    state.selectedProfiles,
+    'nav_delta_vs_baseline',
+    state.start,
+    state.end,
+  );
   const navHandles = renderNavChart(
     navChart,
     models,
   );
   const timeCleanup = syncVisibleTimeRanges(
-    [marketHandles.chart, positionHandles.chart, navHandles.chart],
+    [marketHandles.chart, positionHandles.chart, deltaNavHandles.chart, navHandles.chart],
     (logicalRange) => {
       const range = computeDateRangeFromLogicalRange(market.rows, logicalRange);
       if (!range || (range.start === state.start && range.end === state.end)) return;
       update({ ...range, hoveredDate: range.end }, { skipChartRender: true });
     },
   );
-  const crosshairCleanup = syncCrosshairPositions([marketHandles, positionHandles, navHandles]);
+  const crosshairCleanup = syncCrosshairPositions([marketHandles, positionHandles, deltaNavHandles, navHandles]);
   disposeChartSync = () => {
     timeCleanup();
     crosshairCleanup();

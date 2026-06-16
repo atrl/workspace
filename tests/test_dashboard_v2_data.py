@@ -777,6 +777,7 @@ def test_build_dashboard_v2_data_exposes_latest_baseline_and_actor_safe_replay_d
     )
 
     manifest = json.loads((output_dir / "manifest.json").read_text())
+    comparison = json.loads((output_dir / "comparison" / "default.json").read_text())
     assert manifest["profile_labels"]["soxl_backtest_policy_reimplementation_v1"] == "SOXLBacktest"
     assert manifest["profile_source_kinds"]["soxl_backtest_policy_reimplementation_v1"] == "reference_baseline"
     assert manifest["profile_source_kinds"]["smoke"] == "diagnostic_actor"
@@ -792,6 +793,19 @@ def test_build_dashboard_v2_data_exposes_latest_baseline_and_actor_safe_replay_d
         "baseline_replay_end": "2026-06-15",
         "actor_replay_end": "2026-06-12",
         "safe_backtest_end": "2026-06-12",
+    }
+    assert comparison["latest_market_date"] == "2026-06-15"
+    assert comparison["safe_backtest_end"] == "2026-06-12"
+    assert comparison["baseline_replay_end"] == "2026-06-15"
+    assert comparison["actor_replay_end"] == "2026-06-12"
+    assert comparison["market_start"] == "2026-06-12"
+    assert comparison["market_end"] == "2026-06-15"
+    assert comparison["rows"][0]["market"] == {
+        "open": 222.22,
+        "high": 242.40,
+        "low": 214.7406,
+        "close": 234.68,
+        "volume": 50_419_140,
     }
 
 

@@ -234,6 +234,13 @@ export interface ComparisonProfileValue {
 
 export interface ComparisonRow {
   date: string;
+  market?: {
+    open?: number | null;
+    high?: number | null;
+    low?: number | null;
+    close?: number | null;
+    volume?: number | null;
+  };
   profiles: Record<string, ComparisonProfileValue>;
   action_mismatch_count: number;
   position_divergence_count?: number;
@@ -252,6 +259,12 @@ export interface ComparisonPayload {
   compared_profiles: string[];
   common_start: string;
   common_end: string;
+  latest_market_date?: string | null;
+  safe_backtest_end?: string | null;
+  baseline_replay_end?: string | null;
+  actor_replay_end?: string | null;
+  market_start?: string | null;
+  market_end?: string | null;
   rows: ComparisonRow[];
   rankings?: ComparisonRanking[];
 }
