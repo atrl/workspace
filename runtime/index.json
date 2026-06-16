@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T00:08:34.434397+00:00",
+  "generated_at": "2026-06-16T00:23:12.307948+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -11814,6 +11814,36 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 3074
+    },
+    {
+      "path": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/candidate_queue.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 11554
+    },
+    {
+      "path": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/required_gates.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 236
+    },
+    {
+      "path": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 985
+    },
+    {
+      "path": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/strict_retraining_candidate_queue.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 4867
+    },
+    {
+      "path": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1382
     },
     {
       "path": "runtime/model_selection/card/training_objective_handoff_v1/diagnostics/recovery_reentry_conditional_vol_target_v1/feature_differences.csv",

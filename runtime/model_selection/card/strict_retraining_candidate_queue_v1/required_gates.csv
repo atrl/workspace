@@ -1,0 +1,5 @@
+gate,required,current,status
+final_walkforward_retention_contract,True,0.0,blocked
+strict_walkforward_profile_count,1,0.0,blocked
+max_walkforward_drawdown_pct,20.0,21.83172,blocked
+required_best_return_pct,213.143462,177.573569,blocked

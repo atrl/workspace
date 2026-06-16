@@ -1,0 +1,29 @@
+{
+  "actor_retention_allowed_count": 0,
+  "candidate_filter_actor_retention_allowed_count": 0,
+  "current_best_return_pct": 224.361539,
+  "decision": "strict_retraining_candidate_queue_ready_no_promotion",
+  "final_retained_count": 0,
+  "max_walkforward_drawdown_pct": 20.0,
+  "next_action": "short_foldlocal_bc_or_ppo_training_screen_with_drawdown_drift_reward_and_official_wf_gate",
+  "promotion_allowed_count": 0,
+  "queue_count": 14,
+  "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "reference_return_pct": 146.043798,
+  "required_best_return_pct": 213.143462,
+  "required_wf_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "sidecars": {
+    "candidate_queue_csv": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/candidate_queue.csv",
+    "markdown": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/strict_retraining_candidate_queue.md",
+    "required_gates_csv": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/required_gates.csv",
+    "source_manifest_csv": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/source_manifest.csv",
+    "summary_json": "runtime/model_selection/card/strict_retraining_candidate_queue_v1/summary.json"
+  },
+  "source_count": 6,
+  "strict_passing_profile_count": 0,
+  "top_candidate_id": "mode_conditioned_rebound_reward_train_v2"
+}

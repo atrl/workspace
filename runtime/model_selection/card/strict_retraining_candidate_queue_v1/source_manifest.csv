@@ -1,0 +1,7 @@
+source_label,path,exists,role
+strict_walkforward_gate_summary,runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json,True,strict WF gate summary and thresholds
+strict_walkforward_gate_rows,runtime/model_selection/card/model_retention_walkforward_gate_v1/retention_gate.csv,True,per-profile current gate failures and gaps
+final_walkforward_retention_contract,runtime/model_selection/card/final_walkforward_retention_contract_v1/summary.json,True,final actor-retention contract
+strict_candidate_retention_filter,runtime/model_selection/card/strict_candidate_retention_filter_v1/summary.json,True,no-promotion actor retention filter
+soxlbacktest_qlib_walkforward_baseline,runtime/model_selection/card/soxlbacktest_qlib_walkforward_baseline_v1/summary.json,True,SOXLBacktest qlib buy/sell reference baseline
+final_walkforward_retraining_handoff,runtime/model_selection/card/final_walkforward_retraining_handoff_v1/summary.json,True,screen-only next training handoff
