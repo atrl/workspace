@@ -1,5 +1,12 @@
 import { computeVisibleComparison, formatProfileLabel } from './domain';
-import type { ActionMismatchRow, ComparisonPayload, InspectorRow, Manifest, ModelPayload } from './types';
+import type {
+  ActionMismatchRow,
+  ComparisonPayload,
+  InspectorRow,
+  LatestSignalDifference,
+  Manifest,
+  ModelPayload,
+} from './types';
 
 const MODEL_COLORS = ['#39b7c5', '#a597ff', '#e1aa3e', '#1fb981', '#f472b6', '#f97316'];
 const MATERIAL_POSITION_DELTA = 0.05;
@@ -82,6 +89,22 @@ function latestMismatchForProfile(
 function latestModelRowAtOrBefore(model: ModelPayload | undefined, date: string): ModelPayload['rows'][number] | null {
   if (!model) return null;
   return [...model.rows].filter((row) => row.date <= date).sort((a, b) => a.date.localeCompare(b.date)).at(-1) ?? null;
+}
+
+function visibleLatestSignalDifferences(
+  comparison: ComparisonPayload,
+  profiles: readonly string[],
+  start: string,
+  end: string,
+): LatestSignalDifference[] {
+  const allowed = new Set(profiles);
+  return (comparison.latest_signal_differences ?? []).filter(
+    (row) =>
+      row.date >= start &&
+      row.date <= end &&
+      allowed.has(row.profile) &&
+      row.profile !== comparison.baseline_profile,
+  );
 }
 
 function latestSignalDifferenceRows(
@@ -525,6 +548,29 @@ export function renderModelDeltaStrip(
     }
     container.appendChild(tail);
   }
+  const latestSignalDiffs = visibleLatestSignalDifferences(comparison, profiles, start, end);
+  const latestSignalDiffByProfile = new Map(latestSignalDiffs.map((row) => [row.profile, row]));
+  if (latestSignalDiffs.length > 0) {
+    const latestDiffStrip = element('div', 'latest-signal-difference-strip');
+    const firstDiff = latestSignalDiffs[0];
+    latestDiffStrip.appendChild(
+      element(
+        'span',
+        'latest-signal-difference-title',
+        `Latest signal delta ${firstDiff.date} vs ${profileLabel(firstDiff.baseline_profile, manifest)} ` +
+          `${firstDiff.baseline_action} ${firstDiff.baseline_position.toFixed(3)}`,
+      ),
+    );
+    for (const row of latestSignalDiffs) {
+      const item = element('span', 'latest-signal-difference-pill');
+      item.dataset.tone = row.model_action === 'BUY' ? 'buy' : row.model_action === 'SELL' ? 'sell' : 'muted';
+      item.textContent =
+        `${profileLabel(row.profile, manifest)} ${row.model_action} ${row.model_position.toFixed(3)} ` +
+        `Δpos ${formatSigned(row.position_delta_vs_baseline, 3)} replay ${row.replay_asof ?? 'n/a'}`;
+      latestDiffStrip.appendChild(item);
+    }
+    container.appendChild(latestDiffStrip);
+  }
   const decisionRows = latestDecisionRows(comparison, models, profiles, start, end, manifest);
   if (decisionRows.length > 1) {
     const decision = element('div', 'latest-decision-matrix');
@@ -616,6 +662,13 @@ export function renderModelDeltaStrip(
     quick.textContent = differenceStats
       .map(({ profile, values }) => {
         if (!values) return '';
+        const latestDiff = latestSignalDiffByProfile.get(profile);
+        if (latestDiff) {
+          return (
+            `${profileLabel(profile, manifest)} signal ΔPos ${formatSigned(latestDiff.position_delta_vs_baseline, 3)} ` +
+            `@${latestDiff.date.slice(5)}`
+          );
+        }
         return (
           `${profileLabel(profile, manifest)} ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)} ` +
           `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`
@@ -642,6 +695,7 @@ export function renderModelDeltaStrip(
     const freshness = freshnessLabel(replayEnd, last.date, manifest);
     const latestSignal = models[profile]?.latest_signal;
     const latestMismatch = latestMismatchForProfile(mismatchRows, profile);
+    const latestDiff = latestSignalDiffByProfile.get(profile);
     const replayState =
       freshness.status === 'latest'
         ? 'latest'
@@ -686,7 +740,13 @@ export function renderModelDeltaStrip(
       element(
         'td',
         'model-difference-summary-delta',
-        `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)} | ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`,
+        [
+          `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`,
+          `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`,
+          latestDiff ? `signal Δpos ${formatSigned(latestDiff.position_delta_vs_baseline, 3)} @${latestDiff.date.slice(5)}` : null,
+        ]
+          .filter(Boolean)
+          .join(' | '),
       ),
     );
     row.appendChild(element('td', 'model-difference-summary-diff', `Diff ${actionMismatchCount}/${positionDiffCount}`));

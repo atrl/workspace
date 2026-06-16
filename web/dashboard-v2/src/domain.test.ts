@@ -408,6 +408,59 @@ describe('dashboard v2 domain helpers', () => {
     ]);
   });
 
+  test('adds latest actor signal differences to model-difference rows', () => {
+    const rows = computeActionMismatchRows(
+      {
+        ...comparisonFixture,
+        latest_signal_differences: [
+          {
+            date: '2026-01-07',
+            profile: 'smoke',
+            baseline_profile: 'balanced_rule_residual_v22',
+            model_action: 'BUY',
+            baseline_action: 'HOLD',
+            model_position: 0.55,
+            baseline_position: 0.2,
+            position_delta_vs_baseline: 0.35,
+            replay_asof: '2026-01-06',
+            source: 'latest_signal_stateless',
+          },
+        ],
+      },
+      {
+        ...marketFixture,
+        rows: [
+          ...marketFixture.rows,
+          {
+            date: '2026-01-07',
+            open: 10.7,
+            high: 10.9,
+            low: 10.2,
+            close: 10.4,
+            volume: 1400,
+            rsi6: 61,
+            vix: 17.5,
+          },
+        ],
+      },
+      '2026-01-02',
+      '2026-01-07',
+    );
+
+    expect(rows.at(-1)).toEqual({
+      date: '2026-01-07',
+      profile: 'smoke',
+      model_action: 'BUY',
+      baseline_action: 'HOLD',
+      model_position: 0.55,
+      baseline_position: 0.2,
+      position_delta_vs_baseline: 0.35,
+      nav_delta_vs_baseline: 0,
+      close: 10.4,
+      features: { rsi6: '61', vix: '17.5' },
+    });
+  });
+
   test('computes model-difference rows for material position divergence with same action labels', () => {
     const sameActionComparison = {
       ...comparisonFixture,

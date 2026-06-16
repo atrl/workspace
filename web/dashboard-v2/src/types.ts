@@ -195,6 +195,19 @@ export interface LatestSignal {
   raw_action?: number | null;
 }
 
+export interface LatestSignalDifference {
+  date: string;
+  profile: string;
+  baseline_profile: string;
+  model_action: Action | string;
+  baseline_action: Action | string;
+  model_position: number;
+  baseline_position: number;
+  position_delta_vs_baseline: number;
+  replay_asof?: string | null;
+  source?: string | null;
+}
+
 export interface ModelEvent {
   date: string;
   kind: EventKind;
@@ -267,13 +280,14 @@ export interface ComparisonPayload {
   market_end?: string | null;
   rows: ComparisonRow[];
   rankings?: ComparisonRanking[];
+  latest_signal_differences?: LatestSignalDifference[];
 }
 
 export interface ActionMismatchRow {
   date: string;
   profile: string;
-  model_action: Action;
-  baseline_action: Action;
+  model_action: Action | string;
+  baseline_action: Action | string;
   model_position: number;
   baseline_position: number;
   position_delta_vs_baseline: number;

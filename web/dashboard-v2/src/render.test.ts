@@ -613,6 +613,80 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(matrix?.textContent).toContain('signal as-of 2026-01-06');
   });
 
+  test('renders explicit latest signal delta rows without relying on model inference', () => {
+    const panel = document.createElement('div');
+    const referenceProfile = 'soxl_backtest_policy_reimplementation_v1';
+
+    renderModelDeltaStrip(
+      panel,
+      {
+        ...comparisonFixture,
+        baseline_profile: referenceProfile,
+        compared_profiles: [referenceProfile, 'smoke'],
+        latest_market_date: '2026-01-07',
+        safe_backtest_end: '2026-01-06',
+        baseline_replay_end: '2026-01-07',
+        actor_replay_end: '2026-01-06',
+        rows: comparisonFixture.rows.map((row) => ({
+          ...row,
+          profiles: {
+            [referenceProfile]: row.profiles.balanced_rule_residual_v22,
+            smoke: row.profiles.smoke,
+          },
+        })),
+        latest_signal_differences: [
+          {
+            date: '2026-01-07',
+            profile: 'smoke',
+            baseline_profile: referenceProfile,
+            model_action: 'BUY',
+            baseline_action: 'HOLD',
+            model_position: 0.55,
+            baseline_position: 0.2,
+            position_delta_vs_baseline: 0.35,
+            replay_asof: '2026-01-06',
+            source: 'latest_signal_stateless',
+          },
+        ],
+      },
+      '2026-01-02',
+      '2026-01-07',
+      [referenceProfile, 'smoke'],
+      {
+        ...manifestFixture,
+        latest_market_date: '2026-01-07',
+        safe_backtest_end: '2026-01-06',
+        default_baseline_profile: referenceProfile,
+        profile_summaries: {
+          [referenceProfile]: {
+            status: 'reference',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-07',
+            row_count: 4,
+            source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+          },
+          smoke: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+            latest_signal_date: '2026-01-07',
+          },
+        },
+      },
+    );
+
+    const strip = panel.querySelector('.latest-signal-difference-strip');
+    expect(strip).not.toBeNull();
+    expect(strip?.textContent).toContain('Latest signal delta');
+    expect(strip?.textContent).toContain('2026-01-07 vs SOXLBacktest HOLD 0.200');
+    expect(strip?.textContent).toContain('smoke BUY 0.550 Δpos +0.350');
+    expect(panel.querySelector('.model-delta-quick')?.textContent).toContain('smoke signal ΔPos +0.350 @01-07');
+    const row = panel.querySelector('.model-difference-summary-table [data-profile="smoke"]');
+    expect(row?.textContent).toContain('signal Δpos +0.350 @01-07');
+  });
+
   test('renders an always-visible compact model difference table with replay, signal and common-window deltas', () => {
     const panel = document.createElement('div');
     const latestSmoke = {

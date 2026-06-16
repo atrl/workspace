@@ -349,6 +349,35 @@ export function computeActionMismatchRows(
       });
     }
   }
+  for (const latest of comparison.latest_signal_differences ?? []) {
+    if (latest.date < start || latest.date > end) continue;
+    if (!comparison.compared_profiles.includes(latest.profile)) continue;
+    if (
+      latest.model_action === latest.baseline_action &&
+      !isMaterialPositionDifference(latest.position_delta_vs_baseline)
+    ) {
+      continue;
+    }
+    const marketRow = marketByDate.get(latest.date);
+    const features = Object.fromEntries(
+      MISMATCH_FEATURE_KEYS.flatMap((key) => {
+        const value = marketRow?.[key];
+        return value === undefined || value === null ? [] : [[key, String(value)]];
+      }),
+    );
+    rows.push({
+      date: latest.date,
+      profile: latest.profile,
+      model_action: latest.model_action,
+      baseline_action: latest.baseline_action,
+      model_position: latest.model_position,
+      baseline_position: latest.baseline_position,
+      position_delta_vs_baseline: latest.position_delta_vs_baseline,
+      nav_delta_vs_baseline: 0,
+      close: typeof marketRow?.close === 'number' ? marketRow.close : null,
+      features,
+    });
+  }
   return rows.slice(-limit);
 }
 

@@ -664,6 +664,56 @@ def _latest_model_row_summary(profile_name: str, payload: dict[str, Any]) -> dic
     }
 
 
+def _latest_model_row_at_or_before(rows: list[dict[str, Any]], date: str) -> dict[str, Any] | None:
+    eligible = [row for row in rows if str(row.get("date")) <= date]
+    if not eligible:
+        return None
+    return sorted(eligible, key=lambda row: str(row["date"]))[-1]
+
+
+def build_latest_signal_differences(
+    model_payloads: dict[str, dict[str, Any]],
+    *,
+    baseline_profile: str,
+    compared_profiles: list[str],
+) -> list[dict[str, Any]]:
+    baseline = model_payloads.get(baseline_profile)
+    if not baseline:
+        return []
+    baseline_rows = baseline.get("rows") or []
+    differences: list[dict[str, Any]] = []
+    for profile in compared_profiles:
+        if profile == baseline_profile:
+            continue
+        payload = model_payloads.get(profile)
+        signal = payload.get("latest_signal") if payload else None
+        if not isinstance(signal, dict):
+            continue
+        signal_date = str(signal.get("date") or "")
+        if not signal_date:
+            continue
+        baseline_row = _latest_model_row_at_or_before(baseline_rows, signal_date)
+        if baseline_row is None:
+            continue
+        model_position = float(signal["position"])
+        baseline_position = float(baseline_row["position"])
+        differences.append(
+            {
+                "date": signal_date,
+                "profile": profile,
+                "baseline_profile": baseline_profile,
+                "model_action": _normalize_action(signal.get("action")),
+                "baseline_action": _normalize_action(baseline_row.get("action")),
+                "model_position": model_position,
+                "baseline_position": baseline_position,
+                "position_delta_vs_baseline": model_position - baseline_position,
+                "replay_asof": signal.get("replay_asof"),
+                "source": signal.get("source"),
+            }
+        )
+    return differences
+
+
 def _action_from_position_delta(previous_position: float, target_position: float, threshold: float = 0.01) -> str:
     delta = target_position - previous_position
     if delta > threshold:
@@ -892,6 +942,11 @@ def build_comparison_payload(
         "actor_replay_end": max(actor_replay_ends) if actor_replay_ends else None,
         "market_start": min(market_dates) if market_dates else None,
         "market_end": max(market_dates) if market_dates else None,
+        "latest_signal_differences": build_latest_signal_differences(
+            model_payloads,
+            baseline_profile=baseline_profile,
+            compared_profiles=profiles,
+        ),
         "rows": rows,
         "rankings": rankings,
     }

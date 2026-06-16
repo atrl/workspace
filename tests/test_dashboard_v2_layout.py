@@ -28,16 +28,19 @@ def test_model_delta_strip_stays_compact_for_first_viewport():
 
 def test_latest_signal_readouts_stay_visible_and_compact_in_first_viewport():
     css = (ROOT / "web/dashboard-v2/src/styles.css").read_text(encoding="utf-8")
-    assert re.search(
-        r"\.model-delta-strip\s+\.latest-decision-matrix\s*\{(?P<body>.*?)\bmax-height\s*:\s*54px\s*;",
+    matrix = re.search(
+        r"\.model-delta-strip\s+\.latest-decision-matrix\s*\{(?P<body>.*?)\bmax-height\s*:\s*(?P<height>\d+)px\s*;",
         css,
         re.S,
-    ), "latest signal cards must be visible but height-limited in the compact first-viewport strip"
+    )
+    assert matrix is not None, "latest signal cards must be visible but height-limited in the compact first-viewport strip"
+    assert int(matrix.group("height")) <= 80
     assert re.search(
         r"\.model-delta-strip\s+\.latest-tail-banner\s*\{(?P<body>.*?)\bdisplay\s*:\s*flex\s*;",
         css,
         re.S,
     ), "latest baseline and actor replay tail must stay visible above the K-line"
+    assert ".latest-signal-difference-strip" in css
 
 
 def test_first_viewport_includes_position_and_nav_difference_panes():

@@ -684,6 +684,7 @@ def test_build_dashboard_v2_data_marks_latest_actor_signals_as_comparison_includ
 
     manifest = json.loads((output_dir / "manifest.json").read_text())
     actor = json.loads((output_dir / "models" / "smoke.json").read_text())
+    comparison = json.loads((output_dir / "comparison" / "default.json").read_text())
     assert actor["latest_signal"]["date"] == "2026-01-07"
     assert manifest["profile_summaries"]["smoke"]["latest_signal_date"] == "2026-01-07"
     assert manifest["latest_signal"] == {
@@ -692,6 +693,20 @@ def test_build_dashboard_v2_data_marks_latest_actor_signals_as_comparison_includ
         "date": "2026-01-07",
         "comparison_included": True,
     }
+    assert comparison["latest_signal_differences"] == [
+        {
+            "date": "2026-01-07",
+            "profile": "smoke",
+            "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+            "model_action": "BUY",
+            "baseline_action": "HOLD",
+            "model_position": 0.55,
+            "baseline_position": 0.1,
+            "position_delta_vs_baseline": pytest.approx(0.45),
+            "replay_asof": "2026-01-06",
+            "source": "latest_signal_stateless",
+        }
+    ]
 
 
 def test_build_dashboard_v2_data_exposes_latest_baseline_and_actor_safe_replay_dates(tmp_path: Path):

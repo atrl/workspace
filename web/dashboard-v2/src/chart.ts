@@ -110,10 +110,10 @@ function replayBoundaryMarkers(
 }
 
 function latestSignalMarkerText(
-  _action: 'BUY' | 'SELL',
-  _profiles: readonly { profile: string; position: number }[],
+  action: 'BUY' | 'SELL',
+  profiles: readonly { profile: string; position: number }[],
 ): string {
-  return '';
+  return `${action} x${profiles.length}`;
 }
 
 export interface ChartHandles {
@@ -322,12 +322,22 @@ function deltaLabel(metric: DeltaMetric): string {
 }
 
 function deltaData(comparison: ComparisonPayload, profile: string, metric: DeltaMetric): { time: Time; value: number }[] {
-  return comparison.rows
-    .filter((row) => row.profiles[profile]?.[metric] !== undefined)
-    .map((row) => ({
-      time: toTime(row.date),
-      value: Number(row.profiles[profile][metric] ?? 0),
-    }));
+  const byDate = new Map<string, number>();
+  for (const row of comparison.rows) {
+    if (row.profiles[profile]?.[metric] !== undefined) {
+      byDate.set(row.date, Number(row.profiles[profile][metric] ?? 0));
+    }
+  }
+  if (metric === 'position_delta_vs_baseline') {
+    for (const latest of comparison.latest_signal_differences ?? []) {
+      if (latest.profile === profile) {
+        byDate.set(latest.date, Number(latest.position_delta_vs_baseline));
+      }
+    }
+  }
+  return [...byDate.entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([date, value]) => ({ time: toTime(date), value }));
 }
 
 export function renderDeltaChart(

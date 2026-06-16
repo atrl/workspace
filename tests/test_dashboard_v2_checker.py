@@ -252,3 +252,57 @@ def test_check_dashboard_v2_data_fails_invalid_final_walkforward_contract(tmp_pa
 
     with pytest.raises(ValueError, match="final_walkforward_retention_contract strict_passing_profile_count"):
         check_dashboard_v2_data(root)
+
+
+def test_check_dashboard_v2_data_requires_latest_signal_difference_rows_when_included(tmp_path: Path):
+    root = tmp_path / "dashboard_data" / "v2"
+    _write_json(
+        root / "manifest.json",
+        {
+            "safe_backtest_end": "2026-01-06",
+            "default_baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+            "default_comparison_profiles": ["soxl_backtest_policy_reimplementation_v1", "smoke"],
+            "available_profiles": ["soxl_backtest_policy_reimplementation_v1", "smoke"],
+            "latest_signal": {
+                "source": "latest_signal_stateless",
+                "available_count": 1,
+                "date": "2026-01-07",
+                "comparison_included": True,
+            },
+        },
+    )
+    _write_json(
+        root / "market" / "SOXL.json",
+        {"rows": [{"date": "2026-01-07", "open": 10, "high": 11, "low": 9, "close": 10.5, "volume": 1000}]},
+    )
+    for profile in ("soxl_backtest_policy_reimplementation_v1", "smoke"):
+        _write_json(
+            root / "models" / f"{profile}.json",
+            {
+                "profile": profile,
+                "rows": [
+                    {
+                        "date": "2026-01-07" if profile == "soxl_backtest_policy_reimplementation_v1" else "2026-01-06",
+                        "strategy_nav": 100,
+                        "buyhold_nav": 100,
+                        "position": 0.2,
+                        "action": "HOLD",
+                        "price": 10.5,
+                    }
+                ],
+                "events": [],
+            },
+        )
+    _write_json(
+        root / "comparison" / "default.json",
+        {
+            "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+            "compared_profiles": ["soxl_backtest_policy_reimplementation_v1", "smoke"],
+            "common_start": "2026-01-06",
+            "common_end": "2026-01-06",
+            "rows": [],
+        },
+    )
+
+    with pytest.raises(ValueError, match="latest_signal_differences"):
+        check_dashboard_v2_data(root)

@@ -256,6 +256,42 @@ describe('dashboard v2 chart rendering', () => {
     ]);
   });
 
+  test('extends position delta pane with latest signal difference rows', () => {
+    const container = document.createElement('div');
+
+    renderDeltaChart(
+      container,
+      {
+        ...comparisonFixture,
+        latest_signal_differences: [
+          {
+            date: '2026-01-07',
+            profile: 'smoke',
+            baseline_profile: 'balanced_rule_residual_v22',
+            model_action: 'BUY',
+            baseline_action: 'HOLD',
+            model_position: 0.55,
+            baseline_position: 0.2,
+            position_delta_vs_baseline: 0.35,
+            replay_asof: '2026-01-06',
+            source: 'latest_signal_stateless',
+          },
+        ],
+      },
+      ['smoke', 'balanced_rule_residual_v22'],
+      'position_delta_vs_baseline',
+      '2026-01-02',
+      '2026-01-07',
+    );
+
+    expect(chartMocks.seriesRecords[0].data).toEqual([
+      { time: '2026-01-02', value: 0 },
+      { time: '2026-01-05', value: 0.7 },
+      { time: '2026-01-06', value: 0.2 },
+      { time: '2026-01-07', value: 0.35 },
+    ]);
+  });
+
   test('clips delta panes to the current selected date range', () => {
     const container = document.createElement('div');
 
@@ -290,7 +326,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
-  test('adds latest signal buy and sell markers without text labels over the main K-line', () => {
+  test('adds latest signal buy and sell markers with compact count labels over the main K-line', () => {
     const container = document.createElement('div');
     const market = {
       ...marketFixture,
@@ -336,14 +372,14 @@ describe('dashboard v2 chart rendering', () => {
       position: 'belowBar',
       color: '#1fb981',
       shape: 'arrowUp',
-      text: '',
+      text: 'BUY x1',
     });
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
       time: '2026-01-07',
       position: 'aboveBar',
       color: '#d96b5f',
       shape: 'arrowDown',
-      text: '',
+      text: 'SELL x1',
     });
   });
 

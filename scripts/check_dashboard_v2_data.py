@@ -131,6 +131,54 @@ def _check_final_walkforward_retention_contract(manifest: dict[str, Any]) -> Non
         _require_numeric(contract, ("required_best_return_pct",), "final_walkforward_retention_contract")
 
 
+def _check_latest_signal_differences(
+    manifest: dict[str, Any],
+    comparison: dict[str, Any],
+    profiles: list[str],
+) -> None:
+    latest_signal = manifest.get("latest_signal")
+    differences = comparison.get("latest_signal_differences")
+    if latest_signal is not None:
+        if not isinstance(latest_signal, dict):
+            raise ValueError("manifest latest_signal must be an object")
+        if latest_signal.get("comparison_included") and int(latest_signal.get("available_count") or 0) > 0:
+            if not isinstance(differences, list) or not differences:
+                raise ValueError("comparison latest_signal_differences must be a non-empty list")
+    if differences is None:
+        return
+    if not isinstance(differences, list):
+        raise ValueError("comparison latest_signal_differences must be a list")
+    baseline_profile = comparison.get("baseline_profile")
+    profile_set = set(profiles)
+    required = {
+        "date",
+        "profile",
+        "baseline_profile",
+        "model_action",
+        "baseline_action",
+        "model_position",
+        "baseline_position",
+        "position_delta_vs_baseline",
+    }
+    for row in differences:
+        if not isinstance(row, dict):
+            raise ValueError("comparison latest_signal_differences rows must contain JSON objects")
+        _require_fields(row, required, "latest_signal_differences row")
+        if row["profile"] not in profile_set:
+            raise ValueError(f"latest_signal_differences row references unknown profile: {row['profile']}")
+        if row["baseline_profile"] != baseline_profile:
+            raise ValueError("latest_signal_differences row baseline_profile must match comparison baseline_profile")
+        if row["model_action"] not in ACTION_VALUES:
+            raise ValueError("latest_signal_differences row model_action must be BUY, SELL, or HOLD")
+        if row["baseline_action"] not in ACTION_VALUES:
+            raise ValueError("latest_signal_differences row baseline_action must be BUY, SELL, or HOLD")
+        _require_numeric(
+            row,
+            ("model_position", "baseline_position", "position_delta_vs_baseline"),
+            "latest_signal_differences row",
+        )
+
+
 def _require_rows(payload: dict[str, Any], label: str) -> list[dict[str, Any]]:
     rows = payload.get("rows")
     if not isinstance(rows, list) or not rows:
@@ -155,6 +203,7 @@ def check_dashboard_v2_data(root: Path) -> dict[str, int]:
     _check_strict_retention_gate(manifest)
     _check_strict_candidate_retention_filter(manifest)
     _check_final_walkforward_retention_contract(manifest)
+    _check_latest_signal_differences(manifest, comparison, profiles)
 
     market_rows = _require_rows(market, "market SOXL")
     for row in market_rows:

@@ -13,6 +13,68 @@
     "balanced_rule_residual_v19"
   ],
   "latest_market_date": "2026-06-15",
+  "latest_signal_differences": [
+    {
+      "baseline_action": "HOLD",
+      "baseline_position": 0.1591,
+      "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+      "date": "2026-06-15",
+      "model_action": "BUY",
+      "model_position": 0.624999999254942,
+      "position_delta_vs_baseline": 0.46589999925494197,
+      "profile": "balanced_rule_residual_v22",
+      "replay_asof": "2026-06-12",
+      "source": "latest_signal_stateless"
+    },
+    {
+      "baseline_action": "HOLD",
+      "baseline_position": 0.1591,
+      "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+      "date": "2026-06-15",
+      "model_action": "BUY",
+      "model_position": 0.675,
+      "position_delta_vs_baseline": 0.5159,
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "replay_asof": "2026-06-12",
+      "source": "latest_signal_stateless"
+    },
+    {
+      "baseline_action": "HOLD",
+      "baseline_position": 0.1591,
+      "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+      "date": "2026-06-15",
+      "model_action": "BUY",
+      "model_position": 0.9,
+      "position_delta_vs_baseline": 0.7409,
+      "profile": "smoke",
+      "replay_asof": "2026-06-12",
+      "source": "latest_signal_stateless"
+    },
+    {
+      "baseline_action": "HOLD",
+      "baseline_position": 0.1591,
+      "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+      "date": "2026-06-15",
+      "model_action": "BUY",
+      "model_position": 0.5749999985098839,
+      "position_delta_vs_baseline": 0.4158999985098839,
+      "profile": "balanced_rule_residual_v19_reg",
+      "replay_asof": "2026-06-12",
+      "source": "latest_signal_stateless"
+    },
+    {
+      "baseline_action": "HOLD",
+      "baseline_position": 0.1591,
+      "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+      "date": "2026-06-15",
+      "model_action": "BUY",
+      "model_position": 0.5749999985098839,
+      "position_delta_vs_baseline": 0.4158999985098839,
+      "profile": "balanced_rule_residual_v19",
+      "replay_asof": "2026-06-12",
+      "source": "latest_signal_stateless"
+    }
+  ],
   "market_end": "2026-06-15",
   "market_start": "2010-03-11",
   "rankings": [
