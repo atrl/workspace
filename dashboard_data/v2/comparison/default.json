@@ -8,9 +8,9 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v22",
     "mode_conditioned_rebound_reward_train_v2",
-    "smoke",
     "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19"
+    "balanced_rule_residual_v19",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
   "latest_market_date": "2026-06-15",
   "latest_signal_differences": [
@@ -44,18 +44,6 @@
       "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
       "date": "2026-06-15",
       "model_action": "BUY",
-      "model_position": 0.9,
-      "position_delta_vs_baseline": 0.7409,
-      "profile": "smoke",
-      "replay_asof": "2026-06-12",
-      "source": "latest_signal_stateless"
-    },
-    {
-      "baseline_action": "HOLD",
-      "baseline_position": 0.1591,
-      "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
-      "date": "2026-06-15",
-      "model_action": "BUY",
       "model_position": 0.5749999985098839,
       "position_delta_vs_baseline": 0.4158999985098839,
       "profile": "balanced_rule_residual_v19_reg",
@@ -73,16 +61,28 @@
       "profile": "balanced_rule_residual_v19",
       "replay_asof": "2026-06-12",
       "source": "latest_signal_stateless"
+    },
+    {
+      "baseline_action": "HOLD",
+      "baseline_position": 0.1591,
+      "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+      "date": "2026-06-15",
+      "model_action": "BUY",
+      "model_position": 0.7875000000000001,
+      "position_delta_vs_baseline": 0.6284000000000001,
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+      "replay_asof": "2026-06-12",
+      "source": "latest_signal_stateless"
     }
   ],
   "market_end": "2026-06-15",
   "market_start": "2010-03-11",
   "rankings": [
     {
-      "avg_position": 0.34090389846109775,
-      "max_drawdown": -0.3034664952244138,
-      "profile": "smoke",
-      "return": 2.3975132592087918,
+      "avg_position": 0.32031811298875634,
+      "max_drawdown": -0.31390931059846816,
+      "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+      "return": 2.162866126460925,
       "row_count": 112.0
     },
     {
@@ -123,7 +123,7 @@
   ],
   "rows": [
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-01-02",
       "market": {
         "close": 47.2400016784668,
@@ -178,17 +178,6 @@
           "strategy_nav": 6293432.757567711,
           "strategy_nav_rebased": 100.0
         },
-        "smoke": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 0.0,
-          "position": 0.3100900797901331,
-          "position_delta_vs_baseline": 0.3100900797901331,
-          "position_divergence": true,
-          "strategy_nav": 10785737.377780464,
-          "strategy_nav_rebased": 100.0
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -198,6 +187,17 @@
           "position_delta_vs_baseline": 0.0,
           "position_divergence": false,
           "strategy_nav": 100000.0,
+          "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 0.0,
+          "position": 0.2735072497489654,
+          "position_delta_vs_baseline": 0.2735072497489654,
+          "position_divergence": true,
+          "strategy_nav": 5965016.026928425,
           "strategy_nav_rebased": 100.0
         }
       }
@@ -258,17 +258,6 @@
           "strategy_nav": 6478168.608521871,
           "strategy_nav_rebased": 102.93537498644154
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 4.191362133543009,
-          "position": 0.3289823755175433,
-          "position_delta_vs_baseline": 0.3289823755175433,
-          "position_divergence": true,
-          "strategy_nav": 11237806.690056149,
-          "strategy_nav_rebased": 104.19136213354301
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -279,6 +268,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 3.598178938824063,
+          "position": 0.2911111905029794,
+          "position_delta_vs_baseline": 0.2911111905029794,
+          "position_divergence": true,
+          "strategy_nav": 6179647.977306843,
+          "strategy_nav_rebased": 103.59817893882406
         }
       }
     },
@@ -338,17 +338,6 @@
           "strategy_nav": 6925079.919163067,
           "strategy_nav_rebased": 110.03660777714379
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 14.331067744547397,
-          "position": 0.4192318677902222,
-          "position_delta_vs_baseline": 0.4192318677902222,
-          "position_divergence": true,
-          "strategy_nav": 12331448.708139151,
-          "strategy_nav_rebased": 114.3310677445474
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -359,6 +348,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 12.30286109535048,
+          "position": 0.2930408531688875,
+          "position_delta_vs_baseline": 0.2930408531688875,
+          "position_divergence": true,
+          "strategy_nav": 6698883.663036823,
+          "strategy_nav_rebased": 112.30286109535048
         }
       }
     },
@@ -418,17 +418,6 @@
           "strategy_nav": 6764602.516184194,
           "strategy_nav_rebased": 107.4866893278539
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03184590741451854,
-          "nav_delta_vs_baseline": 10.690091146551481,
-          "position": 0.4298301971583491,
-          "position_delta_vs_baseline": 0.4298301971583491,
-          "position_divergence": true,
-          "strategy_nav": 11938742.534292867,
-          "strategy_nav_rebased": 110.69009114655148
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -439,6 +428,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.02783265513921651,
+          "nav_delta_vs_baseline": 9.177174291336271,
+          "position": 0.5558544617891312,
+          "position_delta_vs_baseline": 0.5558544617891312,
+          "position_divergence": true,
+          "strategy_nav": 6512435.944225788,
+          "strategy_nav_rebased": 109.17717429133627
         }
       }
     },
@@ -498,17 +498,6 @@
           "strategy_nav": 6518288.0482453145,
           "strategy_nav_rebased": 103.57285601259854
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.08072573470005096,
-          "nav_delta_vs_baseline": 5.101608301827511,
-          "position": 0.4375056496854639,
-          "position_delta_vs_baseline": 0.4375056496854639,
-          "position_divergence": true,
-          "strategy_nav": 11335983.451258624,
-          "strategy_nav_rebased": 105.10160830182751
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -519,6 +508,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.07055259897358335,
+          "nav_delta_vs_baseline": 4.379602372904202,
+          "position": 0.5676206909225249,
+          "position_delta_vs_baseline": 0.5676206909225249,
+          "position_divergence": true,
+          "strategy_nav": 6226260.0103878975,
+          "strategy_nav_rebased": 104.3796023729042
         }
       }
     },
@@ -578,17 +578,6 @@
           "strategy_nav": 6917369.067424346,
           "strategy_nav_rebased": 109.91408558558706
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.001110860219557197,
-          "nav_delta_vs_baseline": 14.20406190953048,
-          "position": 0.4814362712603011,
-          "position_delta_vs_baseline": 0.4814362712603011,
-          "position_divergence": true,
-          "strategy_nav": 12317750.19231977,
-          "strategy_nav_rebased": 114.20406190953048
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -599,6 +588,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.0009708685325360289,
+          "nav_delta_vs_baseline": 12.193829781399245,
+          "position": 0.6104377318274227,
+          "position_delta_vs_baseline": 0.6104377318274227,
+          "position_divergence": true,
+          "strategy_nav": 6692379.927685261,
+          "strategy_nav_rebased": 112.19382978139924
         }
       }
     },
@@ -658,17 +658,6 @@
           "strategy_nav": 6984639.810220711,
           "strategy_nav_rebased": 110.9829893998921
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 15.685858560817508,
-          "position": 0.4974929433494147,
-          "position_delta_vs_baseline": 0.4974929433494147,
-          "position_divergence": true,
-          "strategy_nav": 12477572.887600332,
-          "strategy_nav_rebased": 115.68585856081751
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -679,6 +668,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 13.465914925178964,
+          "position": 0.625606296004978,
+          "position_delta_vs_baseline": 0.625606296004978,
+          "position_divergence": true,
+          "strategy_nav": 6768260.0103878975,
+          "strategy_nav_rebased": 113.46591492517896
         }
       }
     },
@@ -738,17 +738,6 @@
           "strategy_nav": 7121102.99233683,
           "strategy_nav_rebased": 113.15133197814602
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 18.69178175830244,
-          "position": 0.5123562661236015,
-          "position_delta_vs_baseline": 0.5123562661236015,
-          "position_divergence": true,
-          "strategy_nav": 12801783.86945884,
-          "strategy_nav_rebased": 118.69178175830244
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -759,6 +748,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 16.046424362517968,
+          "position": 0.6394267083711177,
+          "position_delta_vs_baseline": 0.6394267083711177,
+          "position_divergence": true,
+          "strategy_nav": 6922187.811901569,
+          "strategy_nav_rebased": 116.04642436251797
         }
       }
     },
@@ -818,17 +818,6 @@
           "strategy_nav": 7054793.464398215,
           "strategy_nav_rebased": 112.09770146372
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.01230602158845151,
-          "nav_delta_vs_baseline": 17.23115812961298,
-          "position": 0.5256239217382184,
-          "position_delta_vs_baseline": 0.5256239217382184,
-          "position_divergence": true,
-          "strategy_nav": 12644244.840790588,
-          "strategy_nav_rebased": 117.23115812961298
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -839,6 +828,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.010805232849454671,
+          "nav_delta_vs_baseline": 14.792515725934337,
+          "position": 0.6515880955614464,
+          "position_delta_vs_baseline": 0.6515880955614464,
+          "position_divergence": true,
+          "strategy_nav": 6847391.960766315,
+          "strategy_nav_rebased": 114.79251572593434
         }
       }
     },
@@ -898,17 +898,6 @@
           "strategy_nav": 7314266.119986447,
           "strategy_nav_rebased": 116.22061284743539
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 22.946654884496013,
-          "position": 0.5398838316550776,
-          "position_delta_vs_baseline": 0.5398838316550776,
-          "position_divergence": true,
-          "strategy_nav": 13260703.310607836,
-          "strategy_nav_rebased": 122.94665488449601
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -919,6 +908,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 19.69912589062399,
+          "position": 0.6644785319421779,
+          "position_delta_vs_baseline": 0.6644785319421779,
+          "position_divergence": true,
+          "strategy_nav": 7140072.043468952,
+          "strategy_nav_rebased": 119.69912589062399
         }
       }
     },
@@ -978,17 +978,6 @@
           "strategy_nav": 7570855.497597484,
           "strategy_nav_rebased": 120.29771015657076
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 28.598640646728455,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 13870311.65155177,
-          "strategy_nav_rebased": 128.59864064672846
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -999,6 +988,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 24.551213466031683,
+          "position": 0.6661686712098897,
+          "position_delta_vs_baseline": 0.6661686712098897,
+          "position_divergence": true,
+          "strategy_nav": 7429499.844982624,
+          "strategy_nav_rebased": 124.55121346603168
         }
       }
     },
@@ -1058,17 +1058,6 @@
           "strategy_nav": 7309574.111615906,
           "strategy_nav_rebased": 116.14605880751338
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.04625516663853513,
-          "nav_delta_vs_baseline": 22.650289094124915,
-          "position": 1.0000000000000002,
-          "position_delta_vs_baseline": 1.0000000000000002,
-          "position_divergence": true,
-          "strategy_nav": 13228738.074780827,
-          "strategy_nav_rebased": 122.65028909412491
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1079,11 +1068,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.04099928060035629,
+          "nav_delta_vs_baseline": 19.444703316022967,
+          "position": 0.875,
+          "position_delta_vs_baseline": 0.875,
+          "position_divergence": true,
+          "strategy_nav": 7124895.696117878,
+          "strategy_nav_rebased": 119.44470331602297
         }
       }
     },
     {
-      "action_mismatch_count": 2,
+      "action_mismatch_count": 3,
       "date": "2026-01-21",
       "market": {
         "close": 63.47999954223633,
@@ -1138,17 +1138,6 @@
           "strategy_nav": 7833462.05992208,
           "strategy_nav_rebased": 124.4704180004548
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 34.377640319119934,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14493619.37927871,
-          "strategy_nav_rebased": 134.37764031911993
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1159,6 +1148,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 29.51824980583976,
+          "position": 0.8942746375805551,
+          "position_delta_vs_baseline": 0.8942746375805551,
+          "position_divergence": true,
+          "strategy_nav": 7725784.358715534,
+          "strategy_nav_rebased": 129.51824980583976
         }
       }
     },
@@ -1218,17 +1218,6 @@
           "strategy_nav": 7855662.444716888,
           "strategy_nav_rebased": 124.82317277912647
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 34.88568788461396,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14548416.055447103,
-          "strategy_nav_rebased": 134.88568788461396
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1239,6 +1228,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 29.946348883421194,
+          "position": 0.8955180783319124,
+          "position_delta_vs_baseline": 0.8955180783319124,
+          "position_divergence": true,
+          "strategy_nav": 7751320.537304401,
+          "strategy_nav_rebased": 129.9463488834212
         }
       }
     },
@@ -1298,17 +1298,6 @@
           "strategy_nav": 7659560.163096044,
           "strategy_nav_rebased": 121.70718998920893
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.033270601160836466,
-          "nav_delta_vs_baseline": 30.39795996069992,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14064381.507344414,
-          "strategy_nav_rebased": 130.39795996069992
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1319,6 +1308,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.02910062758348675,
+          "nav_delta_vs_baseline": 26.16482857873092,
+          "position": 0.8975736079296075,
+          "position_delta_vs_baseline": 0.8975736079296075,
+          "position_divergence": true,
+          "strategy_nav": 7525752.245068073,
+          "strategy_nav_rebased": 126.16482857873092
         }
       }
     },
@@ -1378,17 +1378,6 @@
           "strategy_nav": 7576309.514057591,
           "strategy_nav_rebased": 120.3843721845959
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.04739485875562788,
-          "nav_delta_vs_baseline": 28.492799759166985,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 13858895.931381078,
-          "strategy_nav_rebased": 128.49279975916699
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1399,6 +1388,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.04145462017208745,
+          "nav_delta_vs_baseline": 24.55947234770943,
+          "position": 0.9041925953922924,
+          "position_delta_vs_baseline": 0.9041925953922924,
+          "position_divergence": true,
+          "strategy_nav": 7429992.488598347,
+          "strategy_nav_rebased": 124.55947234770943
         }
       }
     },
@@ -1458,17 +1458,6 @@
           "strategy_nav": 7970363.433044485,
           "strategy_nav_rebased": 126.64572324953028
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 37.510577426763916,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14831529.74792022,
-          "strategy_nav_rebased": 137.51057742676392
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1479,6 +1468,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 32.15817483844748,
+          "position": 0.9097031405347504,
+          "position_delta_vs_baseline": 0.9097031405347504,
+          "position_divergence": true,
+          "strategy_nav": 7883256.31000948,
+          "strategy_nav_rebased": 132.15817483844748
         }
       }
     },
@@ -1538,17 +1538,6 @@
           "strategy_nav": 8445574.06203366,
           "strategy_nav_rebased": 134.19662030833726
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 48.370012378385354,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 16002799.882513007,
-          "strategy_nav_rebased": 148.37001237838535
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1559,6 +1548,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 41.30872372716078,
+          "position": 0.875,
+          "position_delta_vs_baseline": 0.875,
+          "position_divergence": true,
+          "strategy_nav": 8429088.017773151,
+          "strategy_nav_rebased": 141.30872372716078
         }
       }
     },
@@ -1618,17 +1618,6 @@
           "strategy_nav": 8479888.866386754,
           "strategy_nav_rebased": 134.7418681194278
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 49.17442573425049,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 16089561.794508412,
-          "strategy_nav_rebased": 149.1744257342505
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1639,6 +1628,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 41.986551235900436,
+          "position": 0.8717946401554241,
+          "position_delta_vs_baseline": 0.8717946401554241,
+          "position_divergence": true,
+          "strategy_nav": 8469520.537304401,
+          "strategy_nav_rebased": 141.98655123590044
         }
       }
     },
@@ -1698,17 +1698,6 @@
           "strategy_nav": 7758624.223181222,
           "strategy_nav_rebased": 123.28127624549019
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.10655935122864046,
-          "nav_delta_vs_baseline": 33.27849570810375,
-          "position": 0.7,
-          "position_delta_vs_baseline": 0.7,
-          "position_divergence": true,
-          "strategy_nav": 14375068.528132476,
-          "strategy_nav_rebased": 133.27849570810375
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1719,6 +1708,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.09656467259724932,
+          "nav_delta_vs_baseline": 28.275666402593146,
+          "position": 0.8579105188815519,
+          "position_delta_vs_baseline": 0.8579105188815519,
+          "position_divergence": true,
+          "strategy_nav": 7651664.059563923,
+          "strategy_nav_rebased": 128.27566640259315
         }
       }
     },
@@ -1778,17 +1778,6 @@
           "strategy_nav": 8002783.200429943,
           "strategy_nav_rebased": 127.16085972010707
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.07510750416782563,
-          "nav_delta_vs_baseline": 37.97030693168227,
-          "position": 0.699728892959727,
-          "position_delta_vs_baseline": 0.699728892959727,
-          "position_divergence": true,
-          "strategy_nav": 14881114.964968884,
-          "strategy_nav_rebased": 137.97030693168227
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1799,6 +1788,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.06644871713984035,
+          "nav_delta_vs_baseline": 32.55172705516466,
+          "position": 0.8666896214954779,
+          "position_delta_vs_baseline": 0.8666896214954779,
+          "position_divergence": true,
+          "strategy_nav": 7906731.762810993,
+          "strategy_nav_rebased": 132.55172705516466
         }
       }
     },
@@ -1858,17 +1858,6 @@
           "strategy_nav": 7716379.647982182,
           "strategy_nav_rebased": 122.6100277102891
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.11200117414779442,
-          "nav_delta_vs_baseline": 32.46671489919146,
-          "position": 0.7149619129419459,
-          "position_delta_vs_baseline": 0.7149619129419459,
-          "position_divergence": true,
-          "strategy_nav": 14287511.981999977,
-          "strategy_nav_rebased": 132.46671489919146
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1879,6 +1868,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.101775358517331,
+          "nav_delta_vs_baseline": 27.53581907922731,
+          "position": 0.8749660837749612,
+          "position_delta_vs_baseline": 0.8749660837749612,
+          "position_divergence": true,
+          "strategy_nav": 7607532.0481503485,
+          "strategy_nav_rebased": 127.53581907922731
         }
       }
     },
@@ -1938,17 +1938,6 @@
           "strategy_nav": 7142855.834294608,
           "strategy_nav_rebased": 113.49697548933821
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.18588083844316594,
-          "nav_delta_vs_baseline": 21.445758404490206,
-          "position": 0.7203469906485696,
-          "position_delta_vs_baseline": 0.7203469906485696,
-          "position_divergence": true,
-          "strategy_nav": 13098820.55796206,
-          "strategy_nav_rebased": 121.4457584044902
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -1959,11 +1948,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.17251704420674663,
+          "nav_delta_vs_baseline": 17.491451099573112,
+          "position": 0.8778447604510163,
+          "position_delta_vs_baseline": 0.8778447604510163,
+          "position_divergence": true,
+          "strategy_nav": 7008383.888360309,
+          "strategy_nav_rebased": 117.49145109957311
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-02-05",
       "market": {
         "close": 53.25,
@@ -2018,17 +2018,6 @@
           "strategy_nav": 7147151.990007315,
           "strategy_nav_rebased": 113.5652395969914
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.17892907005679004,
-          "nav_delta_vs_baseline": 22.482784461365355,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 13210671.464995764,
-          "strategy_nav_rebased": 122.48278446136536
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2039,6 +2028,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.17198713195228077,
+          "nav_delta_vs_baseline": 17.56669151304237,
+          "position": 0.8754552494052279,
+          "position_delta_vs_baseline": 0.8754552494052279,
+          "position_divergence": true,
+          "strategy_nav": 7012871.991082477,
+          "strategy_nav_rebased": 117.56669151304237
         }
       }
     },
@@ -2098,17 +2098,6 @@
           "strategy_nav": 7755760.119372751,
           "strategy_nav_rebased": 123.23576684038808
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.10697511900660983,
-          "nav_delta_vs_baseline": 33.21647378858634,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14368379.006776672,
-          "strategy_nav_rebased": 133.21647378858634
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2119,6 +2108,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.09691794743355986,
+          "nav_delta_vs_baseline": 28.225506126946982,
+          "position": 0.875,
+          "position_delta_vs_baseline": 0.875,
+          "position_divergence": true,
+          "strategy_nav": 7648671.991082477,
+          "strategy_nav_rebased": 128.22550612694698
         }
       }
     },
@@ -2178,17 +2178,6 @@
           "strategy_nav": 7919010.212551968,
           "strategy_nav_rebased": 125.82974217098828
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.08767454011719833,
-          "nav_delta_vs_baseline": 36.09562656075292,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14678916.863487642,
-          "strategy_nav_rebased": 136.09562656075292
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2199,6 +2188,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.07678175342585458,
+          "nav_delta_vs_baseline": 31.084574869118086,
+          "position": 0.875,
+          "position_delta_vs_baseline": 0.875,
+          "position_divergence": true,
+          "strategy_nav": 7819215.899773884,
+          "strategy_nav_rebased": 131.0845748691181
         }
       }
     },
@@ -2258,17 +2258,6 @@
           "strategy_nav": 7869605.650967724,
           "strategy_nav_rebased": 125.04472446304761
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.09351549628318756,
-          "nav_delta_vs_baseline": 35.224305278952556,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14584938.438315945,
-          "strategy_nav_rebased": 135.22430527895256
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2279,6 +2268,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.08287559274656997,
+          "nav_delta_vs_baseline": 30.21933164018398,
+          "position": 0.8661241813577323,
+          "position_delta_vs_baseline": 0.8661241813577323,
+          "position_divergence": true,
+          "strategy_nav": 7767604.002496052,
+          "strategy_nav_rebased": 130.21933164018398
         }
       }
     },
@@ -2338,17 +2338,6 @@
           "strategy_nav": 8298720.169264168,
           "strategy_nav_rebased": 131.8631737073085
         },
-        "smoke": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.027068023180157996,
-          "nav_delta_vs_baseline": 45.13656892058904,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 15654049.162896074,
-          "strategy_nav_rebased": 145.13656892058904
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2359,6 +2348,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.024199237903077098,
+          "nav_delta_vs_baseline": 38.55058490350544,
+          "position": 0.8827142341456867,
+          "position_delta_vs_baseline": 0.8827142341456867,
+          "position_divergence": true,
+          "strategy_nav": 8264564.594897175,
+          "strategy_nav_rebased": 138.55058490350544
         }
       }
     },
@@ -2418,17 +2418,6 @@
           "strategy_nav": 7851235.021281558,
           "strategy_nav_rebased": 124.75282288256157
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.09589030871795501,
-          "nav_delta_vs_baseline": 34.87004399776953,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14546728.746896386,
-          "strategy_nav_rebased": 134.87004399776953
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2439,6 +2428,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.08521573531034932,
+          "nav_delta_vs_baseline": 29.88706286815261,
+          "position": 0.875,
+          "position_delta_vs_baseline": 0.875,
+          "position_divergence": true,
+          "strategy_nav": 7747784.116991902,
+          "strategy_nav_rebased": 129.8870628681526
         }
       }
     },
@@ -2498,17 +2498,6 @@
           "strategy_nav": 7985932.253194222,
           "strategy_nav_rebased": 126.89310525470093
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.0751741544553236,
-          "nav_delta_vs_baseline": 37.960364413319724,
-          "position": 0.7,
-          "position_delta_vs_baseline": 0.7,
-          "position_divergence": true,
-          "strategy_nav": 14880042.591049563,
-          "strategy_nav_rebased": 137.96036441331972
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2519,6 +2508,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.06684919657980537,
+          "nav_delta_vs_baseline": 32.494864360643135,
+          "position": 0.6499999999999999,
+          "position_delta_vs_baseline": 0.6499999999999999,
+          "position_divergence": true,
+          "strategy_nav": 7903339.893969441,
+          "strategy_nav_rebased": 132.49486436064313
         }
       }
     },
@@ -2578,17 +2578,6 @@
           "strategy_nav": 7964236.216776475,
           "strategy_nav_rebased": 126.54836435965191
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.07851095975514677,
-          "nav_delta_vs_baseline": 37.46259839893159,
-          "position": 0.7000611428932352,
-          "position_delta_vs_baseline": 0.7000611428932352,
-          "position_divergence": true,
-          "strategy_nav": 14826354.855981816,
-          "strategy_nav_rebased": 137.4625983989316
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2599,11 +2588,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.06980754314348381,
+          "nav_delta_vs_baseline": 32.07481893470586,
+          "position": 0.655750117563207,
+          "position_delta_vs_baseline": 0.655750117563207,
+          "position_divergence": true,
+          "strategy_nav": 7878284.116991902,
+          "strategy_nav_rebased": 132.07481893470586
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-02-18",
       "market": {
         "close": 66.29000091552734,
@@ -2658,17 +2658,6 @@
           "strategy_nav": 8139614.292890047,
           "strategy_nav_rebased": 129.33504823901302
         },
-        "smoke": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.05113630144066761,
-          "nav_delta_vs_baseline": 41.54619733266537,
-          "position": 0.7022671793148346,
-          "position_delta_vs_baseline": 0.7022671793148346,
-          "position_divergence": true,
-          "strategy_nav": 15266801.11253618,
-          "strategy_nav_rebased": 141.54619733266537
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2679,6 +2668,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.04589399880638334,
+          "nav_delta_vs_baseline": 35.470220622957555,
+          "position": 0.658122902513269,
+          "position_delta_vs_baseline": 0.658122902513269,
+          "position_divergence": true,
+          "strategy_nav": 8080820.371874714,
+          "strategy_nav_rebased": 135.47022062295756
         }
       }
     },
@@ -2738,17 +2738,6 @@
           "strategy_nav": 8043789.499815817,
           "strategy_nav_rebased": 127.8124325733574
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.06630218237683094,
-          "nav_delta_vs_baseline": 39.28383575325918,
-          "position": 0.6753126590887408,
-          "position_delta_vs_baseline": 0.6753126590887408,
-          "position_divergence": true,
-          "strategy_nav": 15022788.734045625,
-          "strategy_nav_rebased": 139.28383575325918
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2759,11 +2748,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.058960115669759894,
+          "nav_delta_vs_baseline": 33.61500775148147,
+          "position": 0.6292815888923067,
+          "position_delta_vs_baseline": 0.6292815888923067,
+          "position_divergence": true,
+          "strategy_nav": 7970156.626757527,
+          "strategy_nav_rebased": 133.61500775148147
         }
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-02-20",
       "market": {
         "close": 67.11000061035156,
@@ -2818,17 +2818,6 @@
           "strategy_nav": 8213743.04954653,
           "strategy_nav_rebased": 130.51292300961964
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03940418221211717,
-          "nav_delta_vs_baseline": 43.29632948123012,
-          "position": 0.6392290800809861,
-          "position_delta_vs_baseline": 0.6392290800809861,
-          "position_divergence": true,
-          "strategy_nav": 15455565.769844484,
-          "strategy_nav_rebased": 143.29632948123012
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2839,6 +2828,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.03550660464977995,
+          "nav_delta_vs_baseline": 36.945090895581586,
+          "position": 0.6107360323244057,
+          "position_delta_vs_baseline": 0.6107360323244057,
+          "position_divergence": true,
+          "strategy_nav": 8168796.620013142,
+          "strategy_nav_rebased": 136.9450908955816
         }
       }
     },
@@ -2898,17 +2898,6 @@
           "strategy_nav": 8100741.854051612,
           "strategy_nav_rebased": 128.71738153252932
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.05728851696035375,
-          "nav_delta_vs_baseline": 40.62844411552285,
-          "position": 0.6392995693779953,
-          "position_delta_vs_baseline": 0.6392995693779953,
-          "position_divergence": true,
-          "strategy_nav": 15167814.660759058,
-          "strategy_nav_rebased": 140.62844411552285
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2919,6 +2908,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.051209972911796076,
+          "nav_delta_vs_baseline": 34.715423793270645,
+          "position": 0.6109552373763939,
+          "position_delta_vs_baseline": 0.6109552373763939,
+          "position_divergence": true,
+          "strategy_nav": 8035796.620013142,
+          "strategy_nav_rebased": 134.71542379327065
         }
       }
     },
@@ -2978,17 +2978,6 @@
           "strategy_nav": 8342112.24209966,
           "strategy_nav_rebased": 132.55265549740653
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.01908760413587618,
-          "nav_delta_vs_baseline": 46.327043348638455,
-          "position": 0.65,
-          "position_delta_vs_baseline": 0.65,
-          "position_divergence": true,
-          "strategy_nav": 15782450.608255118,
-          "strategy_nav_rebased": 146.32704334863845
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -2999,6 +2988,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.017667601307110425,
+          "nav_delta_vs_baseline": 39.47798945769293,
+          "position": 0.6125,
+          "position_delta_vs_baseline": 0.6125,
+          "position_divergence": true,
+          "strategy_nav": 8319884.425188923,
+          "strategy_nav_rebased": 139.47798945769293
         }
       }
     },
@@ -3058,17 +3058,6 @@
           "strategy_nav": 8643147.592427215,
           "strategy_nav_rebased": 137.33598062256286
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 53.434293870917884,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 16549019.98436911,
-          "strategy_nav_rebased": 153.43429387091788
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3079,6 +3068,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 45.41782588436328,
+          "position": 0.6186843404255374,
+          "position_delta_vs_baseline": 0.6186843404255374,
+          "position_divergence": true,
+          "strategy_nav": 8674196.620013142,
+          "strategy_nav_rebased": 145.41782588436328
         }
       }
     },
@@ -3138,17 +3138,6 @@
           "strategy_nav": 8058747.42225051,
           "strategy_nav_rebased": 128.05010767073102
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.09069484295333075,
-          "nav_delta_vs_baseline": 39.518594684639794,
-          "position": 1.0000000000000002,
-          "position_delta_vs_baseline": 1.0000000000000002,
-          "position_divergence": true,
-          "strategy_nav": 15048109.215855222,
-          "strategy_nav_rebased": 139.5185946846398
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3159,6 +3148,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.07997610441401226,
+          "nav_delta_vs_baseline": 33.7878746577768,
+          "position": 0.6341269111654785,
+          "position_delta_vs_baseline": 0.6341269111654785,
+          "position_divergence": true,
+          "strategy_nav": 7980468.165423298,
+          "strategy_nav_rebased": 133.7878746577768
         }
       }
     },
@@ -3218,17 +3218,6 @@
           "strategy_nav": 7819989.4552116,
           "strategy_nav_rebased": 124.25634397711232
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.12674748653759327,
-          "nav_delta_vs_baseline": 33.98688277410861,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14451473.296689924,
-          "strategy_nav_rebased": 133.9868827741086
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3239,6 +3228,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.11172348650461739,
+          "nav_delta_vs_baseline": 29.17123937664084,
+          "position": 0.6725191109508751,
+          "position_delta_vs_baseline": 0.6725191109508751,
+          "position_divergence": true,
+          "strategy_nav": 7705085.130998706,
+          "strategy_nav_rebased": 129.17123937664084
         }
       }
     },
@@ -3298,17 +3298,6 @@
           "strategy_nav": 7819242.286069183,
           "strategy_nav_rebased": 124.24447177363926
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.12684491546307963,
-          "nav_delta_vs_baseline": 33.971933835724,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 14449860.943454996,
-          "strategy_nav_rebased": 133.971933835724
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3319,6 +3308,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.11181550314963429,
+          "nav_delta_vs_baseline": 29.1578585161773,
+          "position": 0.6647197538696645,
+          "position_delta_vs_baseline": 0.6647197538696645,
+          "position_divergence": true,
+          "strategy_nav": 7704286.960527515,
+          "strategy_nav_rebased": 129.1578585161773
         }
       }
     },
@@ -3378,17 +3378,6 @@
           "strategy_nav": 7121535.341932701,
           "strategy_nav_rebased": 113.15820183141253
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2178240981038464,
-          "nav_delta_vs_baseline": 20.012607190284683,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 12944244.631771378,
-          "strategy_nav_rebased": 120.01260719028468
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3399,6 +3388,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.19774069539820294,
+          "nav_delta_vs_baseline": 16.662803870694503,
+          "position": 0.671383727257571,
+          "position_delta_vs_baseline": 0.671383727257571,
+          "position_divergence": true,
+          "strategy_nav": 6958954.948351001,
+          "strategy_nav_rebased": 116.6628038706945
         }
       }
     },
@@ -3458,17 +3458,6 @@
           "strategy_nav": 7360578.459391994,
           "strategy_nav_rebased": 116.9564964452995
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.18665349327453118,
-          "nav_delta_vs_baseline": 24.79524693180008,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 13460087.59401659,
-          "strategy_nav_rebased": 124.79524693180008
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3479,11 +3468,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.1683016508308478,
+          "nav_delta_vs_baseline": 20.943765727792155,
+          "position": 0.875,
+          "position_delta_vs_baseline": 0.875,
+          "position_divergence": true,
+          "strategy_nav": 7214315.00923357,
+          "strategy_nav_rebased": 120.94376572779215
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-03-05",
       "market": {
         "close": 54.79999923706055,
@@ -3538,17 +3538,6 @@
           "strategy_nav": 7224622.741548318,
           "strategy_nav_rebased": 114.79621726093556
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.2145564446494479,
-          "nav_delta_vs_baseline": 20.51397729067517,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 12998321.094090212,
-          "strategy_nav_rebased": 120.51397729067517
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3559,6 +3548,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.18504510062905555,
+          "nav_delta_vs_baseline": 18.508969660332824,
+          "position": 0.8776408724802436,
+          "position_delta_vs_baseline": 0.8776408724802436,
+          "position_divergence": true,
+          "strategy_nav": 7069079.033586597,
+          "strategy_nav_rebased": 118.50896966033282
         }
       }
     },
@@ -3618,17 +3618,6 @@
           "strategy_nav": 6708439.144250878,
           "strategy_nav_rebased": 106.59427696568508
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2717608054523064,
-          "nav_delta_vs_baseline": 11.736866584551379,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 12051644.983970646,
-          "strategy_nav_rebased": 111.73686658455138
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3639,11 +3628,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.24861502093167498,
+          "nav_delta_vs_baseline": 9.26477005828366,
+          "position": 0.8937749023277413,
+          "position_delta_vs_baseline": 0.8937749023277413,
+          "position_divergence": true,
+          "strategy_nav": 6517661.045763111,
+          "strategy_nav_rebased": 109.26477005828366
         }
       }
     },
     {
-      "action_mismatch_count": 2,
+      "action_mismatch_count": 3,
       "date": "2026-03-09",
       "market": {
         "close": 53.31999969482422,
@@ -3698,17 +3698,6 @@
           "strategy_nav": 7138859.733612986,
           "strategy_nav_rebased": 113.43347912994967
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.22680860523869306,
-          "nav_delta_vs_baseline": 18.634075682271273,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 12795559.843647094,
-          "strategy_nav_rebased": 118.63407568227127
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3719,6 +3708,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.19465327854267256,
+          "nav_delta_vs_baseline": 17.11176931742446,
+          "position": 0.8986133363864636,
+          "position_delta_vs_baseline": 0.8986133363864636,
+          "position_divergence": true,
+          "strategy_nav": 6985735.809203815,
+          "strategy_nav_rebased": 117.11176931742446
         }
       }
     },
@@ -3778,17 +3778,6 @@
           "strategy_nav": 7207821.973092828,
           "strategy_nav_rebased": 114.52926011524607
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.21629491985374805,
-          "nav_delta_vs_baseline": 20.247235575291285,
-          "position": 1.0,
-          "position_delta_vs_baseline": 1.0,
-          "position_divergence": true,
-          "strategy_nav": 12969551.03319192,
-          "strategy_nav_rebased": 120.24723557529128
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3799,11 +3788,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.1871570196629192,
+          "nav_delta_vs_baseline": 18.201858985984543,
+          "position": 0.8924685270877997,
+          "position_delta_vs_baseline": 0.8924685270877997,
+          "position_divergence": true,
+          "strategy_nav": 7050759.832641315,
+          "strategy_nav_rebased": 118.20185898598454
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-03-11",
       "market": {
         "close": 56.09000015258789,
@@ -3858,17 +3858,6 @@
           "strategy_nav": 7289273.407686728,
           "strategy_nav_rebased": 115.82348915894175
         },
-        "smoke": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.19910903730590224,
-          "nav_delta_vs_baseline": 22.884139328568537,
-          "position": 0.3,
-          "position_delta_vs_baseline": 0.3,
-          "position_divergence": true,
-          "strategy_nav": 13253960.54692524,
-          "strategy_nav_rebased": 122.88413932856854
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3879,6 +3868,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.17830317378365856,
+          "nav_delta_vs_baseline": 19.489366004461857,
+          "position": 0.8522255655415254,
+          "position_delta_vs_baseline": 0.8522255655415254,
+          "position_divergence": true,
+          "strategy_nav": 7127559.832641315,
+          "strategy_nav_rebased": 119.48936600446186
         }
       }
     },
@@ -3938,17 +3938,6 @@
           "strategy_nav": 6973784.776455338,
           "strategy_nav_rebased": 110.81050747812502
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2520168447055088,
-          "nav_delta_vs_baseline": 14.766267259951377,
-          "position": 0.2997951064974885,
-          "position_delta_vs_baseline": 0.2997951064974885,
-          "position_divergence": true,
-          "strategy_nav": 12378388.18494,
-          "strategy_nav_rebased": 114.76626725995138
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -3959,6 +3948,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.21259707826193286,
+          "nav_delta_vs_baseline": 14.502420974145181,
+          "position": 0.4135011674836278,
+          "position_delta_vs_baseline": 0.4135011674836278,
+          "position_divergence": true,
+          "strategy_nav": 6830087.762328815,
+          "strategy_nav_rebased": 114.50242097414518
         }
       }
     },
@@ -4018,17 +4018,6 @@
           "strategy_nav": 6997677.329840243,
           "strategy_nav_rebased": 111.19015010410168
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.24801003594083326,
-          "nav_delta_vs_baseline": 15.38104913343517,
-          "position": 0.289969379001305,
-          "position_delta_vs_baseline": 0.289969379001305,
-          "position_divergence": true,
-          "strategy_nav": 12444696.94326016,
-          "strategy_nav_rebased": 115.38104913343517
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4039,6 +4028,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.20999993572679332,
+          "nav_delta_vs_baseline": 14.880091795116982,
+          "position": 0.4106943676272189,
+          "position_delta_vs_baseline": 0.4106943676272189,
+          "position_divergence": true,
+          "strategy_nav": 6852615.887328815,
+          "strategy_nav_rebased": 114.88009179511698
         }
       }
     },
@@ -4098,17 +4098,6 @@
           "strategy_nav": 7158951.0294798035,
           "strategy_nav_rebased": 113.75272137247079
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.22096425046879287,
-          "nav_delta_vs_baseline": 19.53080012952202,
-          "position": 0.2678313107697948,
-          "position_delta_vs_baseline": 0.2678313107697948,
-          "position_divergence": true,
-          "strategy_nav": 12892278.187529916,
-          "strategy_nav_rebased": 119.53080012952202
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4119,6 +4108,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.1924693361970734,
+          "nav_delta_vs_baseline": 17.42935346517828,
+          "position": 0.3843283629816537,
+          "position_delta_vs_baseline": 0.3843283629816537,
+          "position_divergence": true,
+          "strategy_nav": 7004679.754516315,
+          "strategy_nav_rebased": 117.42935346517828
         }
       }
     },
@@ -4178,17 +4178,6 @@
           "strategy_nav": 7241999.2216268275,
           "strategy_nav_rebased": 115.07232222221626
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.21004323815396975,
-          "nav_delta_vs_baseline": 21.206457942402494,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 13073010.238577465,
-          "strategy_nav_rebased": 121.2064579424025
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4199,6 +4188,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.18293156534204646,
+          "nav_delta_vs_baseline": 18.81631536669957,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 7087412.25422945,
+          "strategy_nav_rebased": 118.81631536669957
         }
       }
     },
@@ -4258,17 +4258,6 @@
           "strategy_nav": 7175968.3105108375,
           "strategy_nav_rebased": 114.02311881193769
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2179895013427201,
-          "nav_delta_vs_baseline": 19.98722866112412,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 12941507.370265778,
-          "strategy_nav_rebased": 119.98722866112412
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4279,6 +4268,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.19065101475113244,
+          "nav_delta_vs_baseline": 17.693769816605936,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 7020452.232256793,
+          "strategy_nav_rebased": 117.69376981660594
         }
       }
     },
@@ -4338,17 +4338,6 @@
           "strategy_nav": 7234898.963478941,
           "strategy_nav_rebased": 114.95950210605075
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.21089769433210848,
-          "nav_delta_vs_baseline": 21.07535506206615,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 13058869.82620968,
-          "strategy_nav_rebased": 121.07535506206615
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4359,6 +4348,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.18376163239151933,
+          "nav_delta_vs_baseline": 18.695608821026966,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 7080212.089434528,
+          "strategy_nav_rebased": 118.69560882102697
         }
       }
     },
@@ -4418,17 +4418,6 @@
           "strategy_nav": 6971485.480253345,
           "strategy_nav_rebased": 110.77397262837663
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.24259728517221024,
-          "nav_delta_vs_baseline": 16.211550725518123,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 12534272.663900511,
-          "strategy_nav_rebased": 116.21155072551812
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4439,11 +4428,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.2145564074910059,
+          "nav_delta_vs_baseline": 14.217499577461695,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 6813092.155352497,
+          "strategy_nav_rebased": 114.2174995774617
         }
       }
     },
     {
-      "action_mismatch_count": 2,
+      "action_mismatch_count": 1,
       "date": "2026-03-23",
       "market": {
         "close": 53.029998779296875,
@@ -4498,17 +4498,6 @@
           "strategy_nav": 7105677.244506115,
           "strategy_nav_rebased": 112.9062233319598
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.2226301542327167,
-          "nav_delta_vs_baseline": 19.27519336184747,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 12864709.112848705,
-          "strategy_nav_rebased": 119.27519336184747
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4519,6 +4508,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.1988685043899021,
+          "nav_delta_vs_baseline": 16.498800339108783,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 6949172.111407184,
+          "strategy_nav_rebased": 116.49880033910878
         }
       }
     },
@@ -4578,17 +4578,6 @@
           "strategy_nav": 7242709.112018039,
           "strategy_nav_rebased": 115.08360208200914
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.21006972796627132,
-          "nav_delta_vs_baseline": 21.20239349675724,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 13072571.858144304,
-          "strategy_nav_rebased": 121.20239349675724
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4599,6 +4588,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.18284857446900926,
+          "nav_delta_vs_baseline": 18.82838371902487,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 7088132.13337984,
+          "strategy_nav_rebased": 118.82838371902487
         }
       }
     },
@@ -4658,17 +4658,6 @@
           "strategy_nav": 7390391.231328215,
           "strategy_nav_rebased": 117.43020885448306
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.19653309299115163,
-          "nav_delta_vs_baseline": 23.279377525553087,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 13296589.90086867,
-          "strategy_nav_rebased": 123.27937752555309
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4679,11 +4668,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.1655835598058173,
+          "nav_delta_vs_baseline": 21.33902461520789,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 7237892.265215778,
+          "strategy_nav_rebased": 121.33902461520789
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 2,
       "date": "2026-03-26",
       "market": {
         "close": 48.970001220703125,
@@ -4738,17 +4738,6 @@
           "strategy_nav": 6730294.230763981,
           "strategy_nav_rebased": 106.94154509986546
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2490525852758153,
-          "nav_delta_vs_baseline": 15.221086312396608,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 12427443.773480851,
-          "strategy_nav_rebased": 115.22108631239661
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4759,11 +4748,22 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.24219576902118967,
+          "nav_delta_vs_baseline": 10.198243714910475,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 6573342.898988055,
+          "strategy_nav_rebased": 110.19824371491048
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-03-27",
       "market": {
         "close": 46.61000061035156,
@@ -4818,17 +4818,6 @@
           "strategy_nav": 6648163.95242876,
           "strategy_nav_rebased": 105.63652951458793
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.27512509213191594,
-          "nav_delta_vs_baseline": 11.220669633486139,
-          "position": 0.0,
-          "position_delta_vs_baseline": 0.0,
-          "position_divergence": false,
-          "strategy_nav": 11995969.33647664,
-          "strategy_nav_rebased": 111.22066963348614
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4839,6 +4828,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.25234403134706485,
+          "nav_delta_vs_baseline": 8.72250547097751,
+          "position": 0.0,
+          "position_delta_vs_baseline": 0.0,
+          "position_divergence": false,
+          "strategy_nav": 6485314.876221942,
+          "strategy_nav_rebased": 108.72250547097751
         }
       }
     },
@@ -4898,17 +4898,6 @@
           "strategy_nav": 6439706.165204868,
           "strategy_nav_rebased": 102.32422293638183
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.3034664952244138,
-          "nav_delta_vs_baseline": 6.87212646267767,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 11526946.890313832,
-          "strategy_nav_rebased": 106.87212646267767
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "BUY",
           "action_mismatch": false,
@@ -4919,6 +4908,17 @@
           "position_divergence": false,
           "strategy_nav": 100000.0,
           "strategy_nav_rebased": 100.0
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.2781016977217605,
+          "nav_delta_vs_baseline": 4.976881626914491,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 6261887.81361513,
+          "strategy_nav_rebased": 104.97688162691449
         }
       }
     },
@@ -4978,17 +4978,6 @@
           "strategy_nav": 6693405.169192451,
           "strategy_nav_rebased": 106.355393424102
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.268974208647205,
-          "nav_delta_vs_baseline": 6.7844054219858805,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 12097760.430186648,
-          "strategy_nav_rebased": 112.16442609764505
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -4999,6 +4988,17 @@
           "position_divergence": false,
           "strategy_nav": 105380.02067565918,
           "strategy_nav_rebased": 105.38002067565917
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.24675389157198968,
+          "nav_delta_vs_baseline": 4.155390767799474,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 6533804.8477643,
+          "strategy_nav_rebased": 109.53541144345864
         }
       }
     },
@@ -5058,17 +5058,6 @@
           "strategy_nav": 6844789.276412717,
           "strategy_nav_rebased": 108.7608232277053
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.24839240135823393,
-          "nav_delta_vs_baseline": 6.732061616055091,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 12438369.170326265,
-          "strategy_nav_rebased": 115.32238116561564
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5079,11 +5068,22 @@
           "position_divergence": false,
           "strategy_nav": 108590.31954956056,
           "strategy_nav_rebased": 108.59031954956055
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.22804841944672538,
+          "nav_delta_vs_baseline": 3.665200982494568,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 6696059.790849017,
+          "strategy_nav_rebased": 112.25552053205512
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-04-02",
       "market": {
         "close": 52.75,
@@ -5138,17 +5138,6 @@
           "strategy_nav": 6861841.803458975,
           "strategy_nav_rebased": 109.0317807115324
         },
-        "smoke": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.24873202934897898,
-          "nav_delta_vs_baseline": 6.3183297964078236,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 12432748.659920173,
-          "strategy_nav_rebased": 115.27027058467687
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5159,11 +5148,22 @@
           "position_divergence": false,
           "strategy_nav": 108951.94078826904,
           "strategy_nav_rebased": 108.95194078826904
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.2259413583081017,
+          "nav_delta_vs_baseline": 3.6099839935701965,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 6714336.8534558285,
+          "strategy_nav_rebased": 112.56192478183924
         }
       }
     },
     {
-      "action_mismatch_count": 2,
+      "action_mismatch_count": 3,
       "date": "2026-04-06",
       "market": {
         "close": 54.810001,
@@ -5218,17 +5218,6 @@
           "strategy_nav": 6874066.087160921,
           "strategy_nav_rebased": 109.22601943899394
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.23639607446706068,
-          "nav_delta_vs_baseline": 6.690807584938469,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 12636896.623787316,
-          "strategy_nav_rebased": 117.16302911120752
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5239,6 +5228,17 @@
           "position_divergence": false,
           "strategy_nav": 110472.22152626904,
           "strategy_nav_rebased": 110.47222152626905
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.2236072178192483,
+          "nav_delta_vs_baseline": 2.429128890767899,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 6734583.646994876,
+          "strategy_nav_rebased": 112.90135041703695
         }
       }
     },
@@ -5298,17 +5298,6 @@
           "strategy_nav": 6992213.606237752,
           "strategy_nav_rebased": 111.10333383366611
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.2259764041598492,
-          "nav_delta_vs_baseline": 7.0054238168932415,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 12809331.955931894,
-          "strategy_nav_rebased": 118.76176386716229
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5319,6 +5308,17 @@
           "position_divergence": false,
           "strategy_nav": 111756.34005026903,
           "strategy_nav_rebased": 111.75634005026905
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.20980630249861287,
+          "nav_delta_vs_baseline": 3.151909467908908,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 6854295.5000222195,
+          "strategy_nav_rebased": 114.90824951817795
         }
       }
     },
@@ -5378,17 +5378,6 @@
           "strategy_nav": 7735729.130577545,
           "strategy_nav_rebased": 122.91748285187451
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.16040425594676633,
-          "nav_delta_vs_baseline": 8.98533933756677,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 13894486.747128217,
-          "strategy_nav_rebased": 128.8227801258358
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5399,6 +5388,17 @@
           "position_divergence": false,
           "strategy_nav": 119837.44078826904,
           "strategy_nav_rebased": 119.83744078826903
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.12295560202543254,
+          "nav_delta_vs_baseline": 7.700448769252844,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 7607655.552512454,
+          "strategy_nav_rebased": 127.53788955752188
         }
       }
     },
@@ -5458,17 +5458,6 @@
           "strategy_nav": 8039925.643170329,
           "strategy_nav_rebased": 127.75103751609167
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.13357654602457103,
-          "nav_delta_vs_baseline": 9.795387851652634,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 14338459.054765483,
-          "strategy_nav_rebased": 132.93907085392166
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5479,6 +5468,17 @@
           "position_divergence": false,
           "strategy_nav": 123143.68300226904,
           "strategy_nav_rebased": 123.14368300226903
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.08742214060424514,
+          "nav_delta_vs_baseline": 9.561405261267822,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 7915879.783469485,
+          "strategy_nav_rebased": 132.70508826353685
         }
       }
     },
@@ -5538,17 +5538,6 @@
           "strategy_nav": 8339368.59149394,
           "strategy_nav_rebased": 132.5090600430431
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.10716806261560197,
-          "nav_delta_vs_baseline": 10.592777807709666,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 14775493.574457394,
-          "strategy_nav_rebased": 136.9910378579787
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5559,6 +5548,17 @@
           "position_divergence": false,
           "strategy_nav": 126398.26005026903,
           "strategy_nav_rebased": 126.39826005026904
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.05244394719429202,
+          "nav_delta_vs_baseline": 11.393281052305952,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 8219287.510520266,
+          "strategy_nav_rebased": 137.791541102575
         }
       }
     },
@@ -5618,17 +5618,6 @@
           "strategy_nav": 8622515.455334619,
           "strategy_nav_rebased": 137.00814464039897
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.08219676408311083,
-          "nav_delta_vs_baseline": 11.346772103082344,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 15188744.092907237,
-          "strategy_nav_rebased": 140.82249141535138
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5639,6 +5628,17 @@
           "position_divergence": false,
           "strategy_nav": 129475.71931226904,
           "strategy_nav_rebased": 129.47571931226904
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.01936931370471784,
+          "nav_delta_vs_baseline": 13.12546308428199,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 8506183.384543704,
+          "strategy_nav_rebased": 142.60118239655102
         }
       }
     },
@@ -5698,17 +5698,6 @@
           "strategy_nav": 8945044.998215303,
           "strategy_nav_rebased": 142.13300344647502
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.05375222688578818,
-          "nav_delta_vs_baseline": 12.205639582438607,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 15659473.30743186,
-          "strategy_nav_rebased": 145.18685889470763
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5719,11 +5708,22 @@
           "position_divergence": false,
           "strategy_nav": 132981.21931226904,
           "strategy_nav_rebased": 132.98121931226902
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 15.098573678531807,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 8832983.384543704,
+          "strategy_nav_rebased": 148.07979299080083
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-04-15",
       "market": {
         "close": 85.959999,
@@ -5778,17 +5778,6 @@
           "strategy_nav": 8989180.723481297,
           "strategy_nav_rebased": 142.8343015609726
         },
-        "smoke": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.062156570666036304,
-          "nav_delta_vs_baseline": 10.436424291067738,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 15520389.654257026,
-          "strategy_nav_rebased": 143.8973443413368
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5799,11 +5788,22 @@
           "position_divergence": false,
           "strategy_nav": 133460.92005026905,
           "strategy_nav_rebased": 133.46092005026907
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 15.368579308102028,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 8877703.489524173,
+          "strategy_nav_rebased": 148.8294993583711
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 2,
       "date": "2026-04-16",
       "market": {
         "close": 88.370003,
@@ -5858,17 +5858,6 @@
           "strategy_nav": 9090696.904734906,
           "strategy_nav_rebased": 144.4473509914529
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03586287449045855,
-          "nav_delta_vs_baseline": 12.69219604502399,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 15955524.55772959,
-          "strategy_nav_rebased": 147.93169904729305
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5879,6 +5868,17 @@
           "position_divergence": false,
           "strategy_nav": 135239.50300226905,
           "strategy_nav_rebased": 135.23950300226906
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 14.147101757561103,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 8910934.91600809,
+          "strategy_nav_rebased": 149.38660475983016
         }
       }
     },
@@ -5938,17 +5938,6 @@
           "strategy_nav": 9580358.750137787,
           "strategy_nav_rebased": 152.22787180204034
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 18.59837639993546,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 17094817.506424792,
-          "strategy_nav_rebased": 158.49465741342422
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -5959,6 +5948,17 @@
           "position_divergence": false,
           "strategy_nav": 139896.28101348877,
           "strategy_nav_rebased": 139.89628101348876
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 18.957939238817204,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 9475679.697502231,
+          "strategy_nav_rebased": 158.85422025230596
         }
       }
     },
@@ -6018,17 +6018,6 @@
           "strategy_nav": 9678136.120970191,
           "strategy_nav_rebased": 153.7815131071743
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 19.777742882948928,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 17322315.462773953,
-          "strategy_nav_rebased": 160.60390547297578
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6039,6 +6028,17 @@
           "position_divergence": false,
           "strategy_nav": 140826.16259002686,
           "strategy_nav_rebased": 140.82616259002685
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 19.91858386847099,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 9588449.888694858,
+          "strategy_nav_rebased": 160.74474645849784
         }
       }
     },
@@ -6098,17 +6098,6 @@
           "strategy_nav": 9844977.7035828,
           "strategy_nav_rebased": 156.43255569457602
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 21.790144820443174,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 17710504.65987853,
-          "strategy_nav_rebased": 164.2030029060755
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6119,6 +6108,17 @@
           "position_divergence": false,
           "strategy_nav": 142412.85808563232,
           "strategy_nav_rebased": 142.41285808563234
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 21.557771637330717,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 9780874.34243021,
+          "strategy_nav_rebased": 163.97062972296305
         }
       }
     },
@@ -6178,17 +6178,6 @@
           "strategy_nav": 10430865.161191422,
           "strategy_nav_rebased": 165.7420610182661
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 28.85697454228088,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 19073685.098479506,
-          "strategy_nav_rebased": 176.84173488011047
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6199,6 +6188,17 @@
           "position_divergence": false,
           "strategy_nav": 147984.7603378296,
           "strategy_nav_rebased": 147.98476033782958
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 27.314007818992422,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 10456599.615562534,
+          "strategy_nav_rebased": 175.298768156822
         }
       }
     },
@@ -6258,17 +6258,6 @@
           "strategy_nav": 10984159.767157037,
           "strategy_nav_rebased": 174.5336796353124
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 35.53067734235378,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 20361031.96662086,
-          "strategy_nav_rebased": 188.77737565320584
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6279,11 +6268,22 @@
           "position_divergence": false,
           "strategy_nav": 153246.69831085205,
           "strategy_nav_rebased": 153.24669831085205
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 32.750025246259185,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 11094734.369743442,
+          "strategy_nav_rebased": 185.99672355711124
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 2,
       "date": "2026-04-24",
       "market": {
         "close": 128.32000732421875,
@@ -6338,17 +6338,6 @@
           "strategy_nav": 12158513.721204098,
           "strategy_nav_rebased": 193.19367012515957
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 50.085542671961235,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 23168642.802704938,
-          "strategy_nav_rebased": 214.8081488655037
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6359,6 +6348,17 @@
           "position_divergence": false,
           "strategy_nav": 164722.60619354248,
           "strategy_nav_rebased": 164.72260619354248
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 44.232831956644276,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 12464225.374797152,
+          "strategy_nav_rebased": 208.95543815018675
         }
       }
     },
@@ -6418,17 +6418,6 @@
           "strategy_nav": 11807492.441223152,
           "strategy_nav_rebased": 187.61608959792107
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.016331921453649145,
-          "nav_delta_vs_baseline": 45.471037702614865,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.2998,
-          "position_divergence": true,
-          "strategy_nav": 22278511.986534055,
-          "strategy_nav_rebased": 206.55529804044446
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6439,11 +6428,22 @@
           "position_divergence": false,
           "strategy_nav": 161084.2603378296,
           "strategy_nav_rebased": 161.0842603378296
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.011572113187886979,
+          "nav_delta_vs_baseline": 40.83777382252805,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.2998,
+          "position_divergence": true,
+          "strategy_nav": 12044681.69956522,
+          "strategy_nav_rebased": 201.92203416035764
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 0,
       "date": "2026-04-28",
       "market": {
         "close": 109.55999755859376,
@@ -6498,17 +6498,6 @@
           "strategy_nav": 10822783.083894543,
           "strategy_nav_rebased": 171.96947200048163
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.042730272248374446,
-          "nav_delta_vs_baseline": 36.69705667549238,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 20231322.689864576,
-          "strategy_nav_rebased": 187.57477566200362
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6519,6 +6508,17 @@
           "position_divergence": false,
           "strategy_nav": 150877.71898651123,
           "strategy_nav_rebased": 150.87771898651124
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.04403501156486511,
+          "nav_delta_vs_baseline": 31.313720142590512,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 10867748.543742465,
+          "strategy_nav_rebased": 182.19143912910175
         }
       }
     },
@@ -6578,17 +6578,6 @@
           "strategy_nav": 11421583.387930036,
           "strategy_nav_rebased": 181.48415702377753
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03456330700487298,
-          "nav_delta_vs_baseline": 40.338560409268666,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 21293511.429632902,
-          "strategy_nav_rebased": 197.42286209841663
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6599,6 +6588,17 @@
           "position_divergence": false,
           "strategy_nav": 157084.30168914795,
           "strategy_nav_rebased": 157.08430168914796
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.02429437106689858,
+          "nav_delta_vs_baseline": 37.10528310150099,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 11583439.855387973,
+          "strategy_nav_rebased": 194.18958479064895
         }
       }
     },
@@ -6658,17 +6658,6 @@
           "strategy_nav": 12063104.157159047,
           "strategy_nav_rebased": 191.67765227416527
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.025813682480688827,
-          "nav_delta_vs_baseline": 44.239861495288324,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 22431480.35317939,
-          "strategy_nav_rebased": 207.97354476097433
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6679,6 +6668,17 @@
           "position_divergence": false,
           "strategy_nav": 163733.68326568604,
           "strategy_nav_rebased": 163.733683265686
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.0031453656439182076,
+          "nav_delta_vs_baseline": 43.310036003928246,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 12350191.037181186,
+          "strategy_nav_rebased": 207.04371926961426
         }
       }
     },
@@ -6738,17 +6738,6 @@
           "strategy_nav": 12306610.75444011,
           "strategy_nav_rebased": 195.5468697054352
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.013173645989922211,
-          "nav_delta_vs_baseline": 45.72070607272454,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 22863427.304355145,
-          "strategy_nav_rebased": 211.97834235659906
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6759,11 +6748,22 @@
           "position_divergence": false,
           "strategy_nav": 166257.6362838745,
           "strategy_nav_rebased": 166.25763628387452
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 45.6652181565741,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 12641232.232096955,
+          "strategy_nav_rebased": 211.92285444044862
         }
       }
     },
     {
-      "action_mismatch_count": 2,
+      "action_mismatch_count": 1,
       "date": "2026-05-04",
       "market": {
         "close": 127.5500030517578,
@@ -6818,17 +6818,6 @@
           "strategy_nav": 12103688.680575926,
           "strategy_nav_rebased": 192.32252328463372
         },
-        "smoke": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.04810001852789492,
-          "nav_delta_vs_baseline": 37.60403348427954,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 21761128.62963256,
-          "strategy_nav_rebased": 201.75837652474584
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6839,11 +6828,22 @@
           "position_divergence": false,
           "strategy_nav": 164154.3430404663,
           "strategy_nav_rebased": 164.1543430404663
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.006535156707630052,
+          "nav_delta_vs_baseline": 43.70256723836846,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 12398698.011210728,
+          "strategy_nav_rebased": 207.85691027883476
         }
       }
     },
     {
-      "action_mismatch_count": 3,
+      "action_mismatch_count": 4,
       "date": "2026-05-05",
       "market": {
         "close": 144.16,
@@ -6898,17 +6898,6 @@
           "strategy_nav": 13331537.329884132,
           "strategy_nav_rebased": 211.83252198656226
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 51.61952627382442,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 24594937.733294155,
-          "strategy_nav_rebased": 228.03204706209348
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6919,11 +6908,22 @@
           "position_divergence": false,
           "strategy_nav": 176412.52078826906,
           "strategy_nav_rebased": 176.41252078826906
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 55.6101661389325,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 13840190.461317535,
+          "strategy_nav_rebased": 232.02268692720156
         }
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-05-06",
       "market": {
         "close": 165.85,
@@ -6978,17 +6978,6 @@
           "strategy_nav": 14830337.24281544,
           "strategy_nav_rebased": 235.64782232688975
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 69.92151501308356,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 28295438.88430515,
-          "strategy_nav_rebased": 262.3412558013526
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -6999,6 +6988,17 @@
           "position_divergence": false,
           "strategy_nav": 192419.74078826903,
           "strategy_nav_rebased": 192.41974078826902
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 69.79464514615015,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 15641130.145900058,
+          "strategy_nav_rebased": 262.21438593441917
         }
       }
     },
@@ -7058,17 +7058,6 @@
           "strategy_nav": 13880199.092371354,
           "strategy_nav_rebased": 220.55052666894275
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.03016996442798414,
-          "nav_delta_vs_baseline": 58.319288546283445,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 25949570.50721047,
-          "strategy_nav_rebased": 240.59152933455246
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7079,6 +7068,17 @@
           "position_divergence": false,
           "strategy_nav": 182272.24078826903,
           "strategy_nav_rebased": 182.27224078826902
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.019876766329319784,
+          "nav_delta_vs_baseline": 60.90196160141568,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 14505380.145900058,
+          "strategy_nav_rebased": 243.1742023896847
         }
       }
     },
@@ -7138,17 +7138,6 @@
           "strategy_nav": 15596666.596191084,
           "strategy_nav_rebased": 247.82447349479412
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 79.27923223976987,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 30187487.736025393,
-          "strategy_nav_rebased": 279.88339302803894
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7159,11 +7148,22 @@
           "position_divergence": false,
           "strategy_nav": 200604.16078826904,
           "strategy_nav_rebased": 200.60416078826907
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 76.96699356679525,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 16557163.843409823,
+          "strategy_nav_rebased": 277.5711543550643
         }
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-05-11",
       "market": {
         "close": 190.4199981689453,
@@ -7218,17 +7218,6 @@
           "strategy_nav": 16528147.193177134,
           "strategy_nav_rebased": 262.6253084741775
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 90.6536277618234,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 32487291.059705768,
-          "strategy_nav_rebased": 301.2060271987741
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7239,6 +7228,17 @@
           "position_divergence": false,
           "strategy_nav": 210552.39943695068,
           "strategy_nav_rebased": 210.5523994369507
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 85.23058991301437,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 17643502.719653413,
+          "strategy_nav_rebased": 295.7829893499651
         }
       }
     },
@@ -7298,17 +7298,6 @@
           "strategy_nav": 15291240.495448688,
           "strategy_nav_rebased": 242.97138119194673
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.013078833693436986,
-          "nav_delta_vs_baseline": 81.02653622216593,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 30024121.255872395,
-          "strategy_nav_rebased": 278.3687401635111
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7319,6 +7308,17 @@
           "position_divergence": false,
           "strategy_nav": 197342.2039413452,
           "strategy_nav_rebased": 197.3422039413452
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.006396450049325653,
+          "nav_delta_vs_baseline": 77.99120574156763,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 16423682.015074251,
+          "strategy_nav_rebased": 275.3334096829128
         }
       }
     },
@@ -7378,17 +7378,6 @@
           "strategy_nav": 16130559.364755657,
           "strategy_nav_rebased": 256.3078050744091
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.011083663181610914,
-          "nav_delta_vs_baseline": 85.35148794423668,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 31423496.54195597,
-          "strategy_nav_rebased": 291.3430527864608
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7399,6 +7388,17 @@
           "position_divergence": false,
           "strategy_nav": 205991.56484222415,
           "strategy_nav_rebased": 205.99156484222414
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.006955521801264686,
+          "nav_delta_vs_baseline": 81.3270611625806,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 17138602.089537144,
+          "strategy_nav_rebased": 287.31862600480474
         }
       }
     },
@@ -7458,17 +7458,6 @@
           "strategy_nav": 16232741.0698127,
           "strategy_nav_rebased": 257.9314293982596
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.010751702771708338,
-          "nav_delta_vs_baseline": 86.07108195284775,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 31656327.365598563,
-          "strategy_nav_rebased": 293.50174454287463
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7479,6 +7468,17 @@
           "position_divergence": false,
           "strategy_nav": 207430.66259002688,
           "strategy_nav_rebased": 207.43066259002688
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.007048541263430241,
+          "nav_delta_vs_baseline": 81.88208737531352,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 17257551.903379917,
+          "strategy_nav_rebased": 289.3127499653404
         }
       }
     },
@@ -7538,17 +7538,6 @@
           "strategy_nav": 15079395.50781011,
           "strategy_nav_rebased": 239.6052534235386
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.014498607027299104,
-          "nav_delta_vs_baseline": 77.94887890473893,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 29028318.79013308,
-          "strategy_nav_rebased": 269.13615428773454
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7559,11 +7548,22 @@
           "position_divergence": false,
           "strategy_nav": 191187.2753829956,
           "strategy_nav_rebased": 191.1872753829956
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.005998611789180264,
+          "nav_delta_vs_baseline": 75.61739430825912,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 15914941.307676792,
+          "strategy_nav_rebased": 266.80466969125473
         }
       }
     },
     {
-      "action_mismatch_count": 3,
+      "action_mismatch_count": 2,
       "date": "2026-05-18",
       "market": {
         "close": 151.75,
@@ -7618,17 +7618,6 @@
           "strategy_nav": 14428052.00360472,
           "strategy_nav_rebased": 229.25567904503805
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.016615888337391027,
-          "nav_delta_vs_baseline": 73.36154907323834,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 27544129.66368256,
-          "strategy_nav_rebased": 255.3754898615074
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7639,6 +7628,17 @@
           "position_divergence": false,
           "strategy_nav": 182013.94078826904,
           "strategy_nav_rebased": 182.01394078826905
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.005405671767163667,
+          "nav_delta_vs_baseline": 72.0794545359143,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 15156711.754454136,
+          "strategy_nav_rebased": 254.09339532418335
         }
       }
     },
@@ -7698,17 +7698,6 @@
           "strategy_nav": 14435388.105517147,
           "strategy_nav_rebased": 229.372246619445
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.016606707168431045,
-          "nav_delta_vs_baseline": 73.40879887210599,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 27560369.67817546,
-          "strategy_nav_rebased": 255.5260592099356
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7719,6 +7708,17 @@
           "position_divergence": false,
           "strategy_nav": 182117.2603378296,
           "strategy_nav_rebased": 182.1172603378296
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.00541235006886065,
+          "nav_delta_vs_baseline": 72.11930246033873,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 15165251.71722269,
+          "strategy_nav_rebased": 254.23656279816834
         }
       }
     },
@@ -7778,17 +7778,6 @@
           "strategy_nav": 15552052.35838247,
           "strategy_nav_rebased": 247.1155720172187
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.014700125674288245,
-          "nav_delta_vs_baseline": 80.75425888684146,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 30048880.699003138,
-          "strategy_nav_rebased": 278.5982974229132
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7799,11 +7788,22 @@
           "position_divergence": false,
           "strategy_nav": 197844.03853607175,
           "strategy_nav_rebased": 197.84403853607176
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.005633551195735054,
+          "nav_delta_vs_baseline": 78.41999845462533,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 16479194.083134554,
+          "strategy_nav_rebased": 276.2640369906971
         }
       }
     },
     {
-      "action_mismatch_count": 2,
+      "action_mismatch_count": 1,
       "date": "2026-05-21",
       "market": {
         "close": 178.38999938964844,
@@ -7858,17 +7858,6 @@
           "strategy_nav": 15649729.579861684,
           "strategy_nav_rebased": 248.6676219912453
         },
-        "smoke": {
-          "action": "BUY",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.035888512488869706,
-          "nav_delta_vs_baseline": 76.02129638362851,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 29951513.457741857,
-          "strategy_nav_rebased": 277.6955567214581
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7879,6 +7868,17 @@
           "position_divergence": false,
           "strategy_nav": 201674.2603378296,
           "strategy_nav_rebased": 201.6742603378296
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.006704772938328607,
+          "nav_delta_vs_baseline": 79.6536044904833,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 16781252.225224398,
+          "strategy_nav_rebased": 281.3278648283129
         }
       }
     },
@@ -7938,17 +7938,6 @@
           "strategy_nav": 16459046.097433308,
           "strategy_nav_rebased": 261.52732112123823
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.015158122339376079,
-          "nav_delta_vs_baseline": 85.98459040262645,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 31994844.72734783,
-          "strategy_nav_rebased": 296.64030938913766
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -7959,6 +7948,17 @@
           "position_divergence": false,
           "strategy_nav": 210655.71898651123,
           "strategy_nav_rebased": 210.6557189865112
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.008725965781437584,
+          "nav_delta_vs_baseline": 82.54627811965474,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 17489546.118657015,
+          "strategy_nav_rebased": 293.20199710616595
         }
       }
     },
@@ -8018,17 +8018,6 @@
           "strategy_nav": 18801874.50713931,
           "strategy_nav_rebased": 298.7538793439952
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.0,
-          "nav_delta_vs_baseline": 114.82656727466829,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.5359,
-          "position_divergence": true,
-          "strategy_nav": 37909927.94254966,
-          "strategy_nav_rebased": 351.4820231081033
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8039,6 +8028,17 @@
           "position_divergence": false,
           "strategy_nav": 236655.45583343503,
           "strategy_nav_rebased": 236.655455833435
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.0,
+          "nav_delta_vs_baseline": 90.92005748939366,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.5359,
+          "position_divergence": true,
+          "strategy_nav": 19539931.86999979,
+          "strategy_nav_rebased": 327.57551332282867
         }
       }
     },
@@ -8098,17 +8098,6 @@
           "strategy_nav": 18282502.20004292,
           "strategy_nav_rebased": 290.50127179095733
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.010234507093614731,
-          "nav_delta_vs_baseline": 108.43270419566758,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "position_divergence": true,
-          "strategy_nav": 36598636.68305361,
-          "strategy_nav_rebased": 339.32438183086043
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "SELL",
           "action_mismatch": false,
@@ -8119,6 +8108,17 @@
           "position_divergence": false,
           "strategy_nav": 230891.67763519284,
           "strategy_nav_rebased": 230.89167763519285
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": 0.001092943280674552,
+          "nav_delta_vs_baseline": 89.06370766353373,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.0699,
+          "position_divergence": true,
+          "strategy_nav": 19085390.012089632,
+          "strategy_nav_rebased": 319.9553852987266
         }
       }
     },
@@ -8178,17 +8178,6 @@
           "strategy_nav": 18724734.168910317,
           "strategy_nav_rebased": 297.5281518086333
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.01713828299133846,
-          "nav_delta_vs_baseline": 118.29251786816764,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "position_divergence": true,
-          "strategy_nav": 37715166.97841633,
-          "strategy_nav_rebased": 349.6762961808507
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8199,11 +8188,22 @@
           "position_divergence": false,
           "strategy_nav": 231383.77831268308,
           "strategy_nav_rebased": 231.3837783126831
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.018820704909499275,
+          "nav_delta_vs_baseline": 95.05994718646718,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.0699,
+          "position_divergence": true,
+          "strategy_nav": 19472420.544926547,
+          "strategy_nav_rebased": 326.4437254991503
         }
       }
     },
     {
-      "action_mismatch_count": 1,
+      "action_mismatch_count": 2,
       "date": "2026-05-29",
       "market": {
         "close": 224.33999633789065,
@@ -8258,17 +8258,6 @@
           "strategy_nav": 18705448.32331002,
           "strategy_nav_rebased": 297.22170783213886
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.015944548841860473,
-          "nav_delta_vs_baseline": 117.86252895392738,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "position_divergence": true,
-          "strategy_nav": 37666474.81593072,
-          "strategy_nav_rebased": 349.2248466342863
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8279,6 +8268,17 @@
           "position_divergence": false,
           "strategy_nav": 231362.3176803589,
           "strategy_nav_rebased": 231.3623176803589
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "BUY",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": 0.015420164488081367,
+          "nav_delta_vs_baseline": 93.9377685066126,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.0699,
+          "position_divergence": true,
+          "strategy_nav": 19404202.27666483,
+          "strategy_nav_rebased": 325.3000861869715
         }
       }
     },
@@ -8338,17 +8338,6 @@
           "strategy_nav": 19048235.55022884,
           "strategy_nav_rebased": 302.6684527188086
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.021525292769913884,
-          "nav_delta_vs_baseline": 121.85093291421427,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "position_divergence": true,
-          "strategy_nav": 38118123.70096241,
-          "strategy_nav_rebased": 353.4123107752372
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8359,6 +8348,17 @@
           "position_divergence": false,
           "strategy_nav": 231561.37786102292,
           "strategy_nav_rebased": 231.56137786102292
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.021525292769913884,
+          "nav_delta_vs_baseline": 97.1570090335762,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.0699,
+          "position_divergence": true,
+          "strategy_nav": 19608104.461723424,
+          "strategy_nav_rebased": 328.7183868945991
         }
       }
     },
@@ -8418,17 +8418,6 @@
           "strategy_nav": 21496040.65938188,
           "strategy_nav_rebased": 341.5630465509205
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.009239668168136594,
-          "nav_delta_vs_baseline": 180.10531392373733,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "position_divergence": true,
-          "strategy_nav": 44714879.25740818,
-          "strategy_nav_rebased": 414.5741518750923
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8439,6 +8428,17 @@
           "position_divergence": false,
           "strategy_nav": 234468.83795135497,
           "strategy_nav_rebased": 234.46883795135497
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.009239668168136594,
+          "nav_delta_vs_baseline": 144.1770367196456,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.0699,
+          "position_divergence": true,
+          "strategy_nav": 22586287.109428503,
+          "strategy_nav_rebased": 378.64587467100057
         }
       }
     },
@@ -8498,17 +8498,6 @@
           "strategy_nav": 22381960.33538303,
           "strategy_nav_rebased": 355.6399376551569
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": 0.004793204019257535,
-          "nav_delta_vs_baseline": 201.18897859033126,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "position_divergence": true,
-          "strategy_nav": 47102404.115237795,
-          "strategy_nav_rebased": 436.7100965416862
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8519,6 +8508,17 @@
           "position_divergence": false,
           "strategy_nav": 235521.11795135497,
           "strategy_nav_rebased": 235.52111795135494
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": 0.004793204019257535,
+          "nav_delta_vs_baseline": 161.19471810220256,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.0699,
+          "position_divergence": true,
+          "strategy_nav": 23664163.2019578,
+          "strategy_nav_rebased": 396.7158360535575
         }
       }
     },
@@ -8578,17 +8578,6 @@
           "strategy_nav": 21270511.501432493,
           "strategy_nav_rebased": 337.97948307074836
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.05322002058273256,
-          "nav_delta_vs_baseline": 174.73803184718724,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.0699,
-          "position_divergence": true,
-          "strategy_nav": 44107085.4750192,
-          "strategy_nav_rebased": 408.9389897985422
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8599,6 +8588,17 @@
           "position_divergence": false,
           "strategy_nav": 234200.95795135497,
           "strategy_nav_rebased": 234.20095795135495
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.04677267741425606,
+          "nav_delta_vs_baseline": 139.84483469733283,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.0699,
+          "position_divergence": true,
+          "strategy_nav": 22311891.47954569,
+          "strategy_nav_rebased": 374.0457926486878
         }
       }
     },
@@ -8658,17 +8658,6 @@
           "strategy_nav": 16276465.65794438,
           "strategy_nav_rebased": 258.62619471658445
         },
-        "smoke": {
-          "action": "SELL",
-          "action_mismatch": true,
-          "drawdown_delta_vs_baseline": -0.24226364097362818,
-          "nav_delta_vs_baseline": 87.1663445474949,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "position_divergence": true,
-          "strategy_nav": 34022040.58151312,
-          "strategy_nav_rebased": 315.43546249884986
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "BUY",
           "action_mismatch": false,
@@ -8679,11 +8668,22 @@
           "position_divergence": false,
           "strategy_nav": 228269.11795135497,
           "strategy_nav_rebased": 228.26911795135496
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.2784724014744182,
+          "nav_delta_vs_baseline": 43.91392350313541,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "position_divergence": true,
+          "strategy_nav": 16235762.045341589,
+          "strategy_nav_rebased": 272.18304145449036
         }
       }
     },
     {
-      "action_mismatch_count": 0,
+      "action_mismatch_count": 1,
       "date": "2026-06-08",
       "market": {
         "close": 211.44,
@@ -8738,17 +8738,6 @@
           "strategy_nav": 18076963.868169155,
           "strategy_nav_rebased": 287.23535413057385
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.23570326055282587,
-          "nav_delta_vs_baseline": 94.89297150839207,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "position_divergence": true,
-          "strategy_nav": 35475712.816009805,
-          "strategy_nav_rebased": 328.913189459747
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8759,6 +8748,17 @@
           "position_divergence": false,
           "strategy_nav": 234020.21795135495,
           "strategy_nav_rebased": 234.02021795135494
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "SELL",
+          "action_mismatch": true,
+          "drawdown_delta_vs_baseline": -0.2269569929121742,
+          "nav_delta_vs_baseline": 68.24062100593972,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "position_divergence": true,
+          "strategy_nav": 18029907.486930944,
+          "strategy_nav_rebased": 302.26083895729465
         }
       }
     },
@@ -8818,17 +8818,6 @@
           "strategy_nav": 16715927.8938887,
           "strategy_nav_rebased": 265.6090648428423
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.23791881483904154,
-          "nav_delta_vs_baseline": 92.2835608134032,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "position_divergence": true,
-          "strategy_nav": 34984783.72569439,
-          "strategy_nav_rebased": 324.36153876475817
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8839,6 +8828,17 @@
           "position_divergence": false,
           "strategy_nav": 232077.97795135496,
           "strategy_nav_rebased": 232.07797795135497
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.2335977388990933,
+          "nav_delta_vs_baseline": 64.29251050266657,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "position_divergence": true,
+          "strategy_nav": 17678547.135368444,
+          "strategy_nav_rebased": 296.37048845402154
         }
       }
     },
@@ -8898,17 +8898,6 @@
           "strategy_nav": 16152303.813598229,
           "strategy_nav_rebased": 256.6533152225301
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.24269267494181246,
-          "nav_delta_vs_baseline": 86.66103974955882,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "position_divergence": true,
-          "strategy_nav": 33926973.49619885,
-          "strategy_nav_rebased": 314.55404770091377
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8919,6 +8908,17 @@
           "position_divergence": false,
           "strategy_nav": 227893.00795135496,
           "strategy_nav_rebased": 227.89300795135495
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.2479066075006996,
+          "nav_delta_vs_baseline": 55.785478458800696,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "position_divergence": true,
+          "strategy_nav": 16921467.179313757,
+          "strategy_nav_rebased": 283.67848641015564
         }
       }
     },
@@ -8978,17 +8978,6 @@
           "strategy_nav": 17313857.5746001,
           "strategy_nav_rebased": 275.10991602763335
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.23285437661630715,
-          "nav_delta_vs_baseline": 98.24830562279263,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "position_divergence": true,
-          "strategy_nav": 36106978.73987751,
-          "strategy_nav_rebased": 334.7659735741476
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -8999,6 +8988,17 @@
           "position_divergence": false,
           "strategy_nav": 236517.66795135496,
           "strategy_nav_rebased": 236.51766795135498
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.2184179333834091,
+          "nav_delta_vs_baseline": 73.31733522986931,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "position_divergence": true,
+          "strategy_nav": 18481707.596794225,
+          "strategy_nav_rebased": 309.8350031812243
         }
       }
     },
@@ -9058,17 +9058,6 @@
           "strategy_nav": 17600359.454954512,
           "strategy_nav_rebased": 279.6623104265391
         },
-        "smoke": {
-          "action": "HOLD",
-          "action_mismatch": false,
-          "drawdown_delta_vs_baseline": -0.22202090445956024,
-          "nav_delta_vs_baseline": 101.10634796952425,
-          "position": 0.0,
-          "position_delta_vs_baseline": -0.1591,
-          "position_divergence": true,
-          "strategy_nav": 36644685.75135299,
-          "strategy_nav_rebased": 339.7513259208792
-        },
         "soxl_backtest_policy_reimplementation_v1": {
           "action": "HOLD",
           "action_mismatch": false,
@@ -9079,6 +9068,17 @@
           "position_divergence": false,
           "strategy_nav": 238644.97795135496,
           "strategy_nav_rebased": 238.64497795135495
+        },
+        "state_conditioned_drawdown_rebound_reward_train_v1": {
+          "action": "HOLD",
+          "action_mismatch": false,
+          "drawdown_delta_vs_baseline": -0.20273761745323138,
+          "nav_delta_vs_baseline": 77.64163469473758,
+          "position": 0.0,
+          "position_delta_vs_baseline": -0.1591,
+          "position_divergence": true,
+          "strategy_nav": 18866547.135368444,
+          "strategy_nav_rebased": 316.2866126460925
         }
       }
     }

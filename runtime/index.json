@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T07:37:45.078101+00:00",
+  "generated_at": "2026-06-16T08:24:44.860187+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -13560,6 +13560,18 @@
       "category": "production",
       "suffix": ".json",
       "bytes": 2884
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_kline_model_readability_v1/summary.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 2863
+    },
+    {
+      "path": "runtime/production/card/dashboard_v2_kline_model_readability_v1/visual_check.json",
+      "category": "production",
+      "suffix": ".json",
+      "bytes": 10882
     },
     {
       "path": "runtime/production/card/dashboard_v2_kline_readability_v1/visual_check.json",

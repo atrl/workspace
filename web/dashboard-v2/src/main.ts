@@ -44,6 +44,7 @@ interface ViewState {
 
 interface UpdateOptions {
   skipChartRender?: boolean;
+  skipReadoutRender?: boolean;
 }
 
 type UpdateState = (next: Partial<ViewState>, options?: UpdateOptions) => void;
@@ -125,6 +126,14 @@ function visibleContext(data: DashboardData, state: ViewState) {
 }
 
 let disposeChartSync: (() => void) | null = null;
+let pendingRangeReadoutTimer: number | null = null;
+
+function clearPendingRangeReadout(): void {
+  if (pendingRangeReadoutTimer !== null) {
+    window.clearTimeout(pendingRangeReadoutTimer);
+    pendingRangeReadoutTimer = null;
+  }
+}
 
 function renderToolbar(
   container: HTMLElement,
@@ -323,7 +332,12 @@ function renderDashboard(data: DashboardData, state: ViewState, update: UpdateSt
     (logicalRange) => {
       const range = computeDateRangeFromLogicalRange(market.rows, logicalRange);
       if (!range || (range.start === state.start && range.end === state.end)) return;
-      update({ ...range, hoveredDate: range.end }, { skipChartRender: true });
+      update({ ...range, hoveredDate: range.end }, { skipChartRender: true, skipReadoutRender: true });
+      clearPendingRangeReadout();
+      pendingRangeReadoutTimer = window.setTimeout(() => {
+        pendingRangeReadoutTimer = null;
+        renderReadoutPanels(data, state, update);
+      }, 120);
     },
   );
   const crosshairCleanup = syncCrosshairPositions([
@@ -397,10 +411,11 @@ async function main(): Promise<void> {
         );
       }
       if (needsChartRender) {
+        clearPendingRangeReadout();
         renderDashboard(data, state, update);
       } else if (hoverOnly) {
         renderInspector(data, state);
-      } else {
+      } else if (!options.skipReadoutRender) {
         renderReadoutPanels(data, state, update);
       }
     };

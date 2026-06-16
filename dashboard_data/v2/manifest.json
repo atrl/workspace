@@ -3,9 +3,9 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v22",
     "mode_conditioned_rebound_reward_train_v2",
-    "smoke",
     "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19"
+    "balanced_rule_residual_v19",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
   "baseline_latest": {
     "action": "HOLD",
@@ -110,9 +110,9 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v22",
     "mode_conditioned_rebound_reward_train_v2",
-    "smoke",
     "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19"
+    "balanced_rule_residual_v19",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
   "comparison_window": {
     "actor_replay_end": "2026-06-12",
@@ -127,9 +127,9 @@
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v22",
     "mode_conditioned_rebound_reward_train_v2",
-    "smoke",
     "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19"
+    "balanced_rule_residual_v19",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
   "deployable_profiles": [
     "soxl_backtest_policy_reimplementation_v1"
@@ -137,9 +137,9 @@
   "diagnostic_profiles": [
     "balanced_rule_residual_v22",
     "mode_conditioned_rebound_reward_train_v2",
-    "smoke",
     "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19"
+    "balanced_rule_residual_v19",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
   "filtered_profile_count": 7,
   "final_walkforward_retention_contract": {
@@ -164,7 +164,7 @@
     "status": "blocked",
     "strict_passing_profile_count": 0
   },
-  "generated_at": "2026-06-16T06:27:04.489895+00:00",
+  "generated_at": "2026-06-16T08:11:51.019557+00:00",
   "latest_market_date": "2026-06-15",
   "latest_signal": {
     "available_count": 5,
@@ -197,42 +197,42 @@
       "replay_start": "2020-01-02",
       "source_kind": "diagnostic_actor"
     },
-    "smoke": {
-      "latest_signal_date": "2026-06-15",
-      "replay_end": "2026-06-12",
-      "replay_start": "2020-01-02",
-      "source_kind": "diagnostic_actor"
-    },
     "soxl_backtest_policy_reimplementation_v1": {
       "latest_signal_date": null,
       "replay_end": "2026-06-15",
       "replay_start": "2026-01-02",
       "source_kind": "reference_baseline"
+    },
+    "state_conditioned_drawdown_rebound_reward_train_v1": {
+      "latest_signal_date": "2026-06-15",
+      "replay_end": "2026-06-12",
+      "replay_start": "2020-01-02",
+      "source_kind": "diagnostic_actor"
     }
   },
   "models": [
     "soxl_backtest_policy_reimplementation_v1",
     "balanced_rule_residual_v22",
     "mode_conditioned_rebound_reward_train_v2",
-    "smoke",
     "balanced_rule_residual_v19_reg",
-    "balanced_rule_residual_v19"
+    "balanced_rule_residual_v19",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
   ],
   "profile_labels": {
     "balanced_rule_residual_v19": "BRR v19",
     "balanced_rule_residual_v19_reg": "BRR v19 reg",
     "balanced_rule_residual_v22": "BRR v22",
     "mode_conditioned_rebound_reward_train_v2": "Mode rebound v2",
-    "smoke": "smoke",
-    "soxl_backtest_policy_reimplementation_v1": "SOXLBacktest"
+    "soxl_backtest_policy_reimplementation_v1": "SOXLBacktest",
+    "state_conditioned_drawdown_rebound_reward_train_v1": "State drawdown v1"
   },
   "profile_source_kinds": {
     "balanced_rule_residual_v19": "diagnostic_actor",
     "balanced_rule_residual_v19_reg": "diagnostic_actor",
     "balanced_rule_residual_v22": "diagnostic_actor",
     "mode_conditioned_rebound_reward_train_v2": "diagnostic_actor",
-    "smoke": "diagnostic_actor",
-    "soxl_backtest_policy_reimplementation_v1": "reference_baseline"
+    "soxl_backtest_policy_reimplementation_v1": "reference_baseline",
+    "state_conditioned_drawdown_rebound_reward_train_v1": "diagnostic_actor"
   },
   "profile_summaries": {
     "balanced_rule_residual_v19": {
@@ -351,35 +351,6 @@
       "status": "ablation",
       "window": null
     },
-    "smoke": {
-      "label": "smoke",
-      "latest": {
-        "action": "HOLD",
-        "date": "2026-06-12",
-        "label": "smoke",
-        "position": 0.0,
-        "price": 234.67999267578125,
-        "profile": "smoke",
-        "return_pct": 3564.4685751352986,
-        "source_path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
-        "strategy_nav": 36644685.75135299
-      },
-      "latest_signal_date": "2026-06-15",
-      "replay_end": "2026-06-12",
-      "replay_start": "2020-01-02",
-      "retention": {
-        "code": "missing_final_retention_decision",
-        "final_model_retained": false,
-        "reason": "summary lacks final_model_retention_decision",
-        "status": "blocked",
-        "summary_path": "runtime/model/card/smoke/soxl_smoke_summary.json"
-      },
-      "row_count": 1620,
-      "source_kind": "diagnostic_actor",
-      "source_path": "runtime/model/card/smoke/smoke_soxl_daily.csv",
-      "status": "canonical",
-      "window": null
-    },
     "soxl_backtest_policy_reimplementation_v1": {
       "label": "SOXLBacktest",
       "latest": {
@@ -408,6 +379,35 @@
       "source_path": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
       "status": "reference",
       "window": "ytd_2026"
+    },
+    "state_conditioned_drawdown_rebound_reward_train_v1": {
+      "label": "State drawdown v1",
+      "latest": {
+        "action": "HOLD",
+        "date": "2026-06-12",
+        "label": "State drawdown v1",
+        "position": 0.0,
+        "price": 234.67999267578125,
+        "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+        "return_pct": 1786.6547135368442,
+        "source_path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
+        "strategy_nav": 18866547.135368444
+      },
+      "latest_signal_date": "2026-06-15",
+      "replay_end": "2026-06-12",
+      "replay_start": "2020-01-02",
+      "retention": {
+        "code": "missing_final_retention_decision",
+        "final_model_retained": false,
+        "reason": "summary lacks final_model_retention_decision",
+        "status": "blocked",
+        "summary_path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/soxl_state_conditioned_drawdown_rebound_reward_train_v1_summary.json"
+      },
+      "row_count": 1620,
+      "source_kind": "diagnostic_actor",
+      "source_path": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
+      "status": "ablation",
+      "window": null
     }
   },
   "retention_filter": {
@@ -423,8 +423,8 @@
     "model:balanced_rule_residual_v19_reg": "runtime/model/card/balanced_rule_residual_v19_reg/balanced_rule_residual_v19_reg_soxl_daily.csv",
     "model:balanced_rule_residual_v22": "runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv",
     "model:mode_conditioned_rebound_reward_train_v2": "runtime/model/card/mode_conditioned_rebound_reward_train_v2/mode_conditioned_rebound_reward_train_v2_soxl_daily.csv",
-    "model:smoke": "runtime/model/card/smoke/smoke_soxl_daily.csv",
     "model:soxl_backtest_policy_reimplementation_v1": "runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv",
+    "model:state_conditioned_drawdown_rebound_reward_train_v1": "runtime/model/card/state_conditioned_drawdown_rebound_reward_train_v1/state_conditioned_drawdown_rebound_reward_train_v1_soxl_daily.csv",
     "model_replay_freshness": "dashboard_data/model_replay_freshness.json"
   },
   "strict_candidate_retention_filter": {

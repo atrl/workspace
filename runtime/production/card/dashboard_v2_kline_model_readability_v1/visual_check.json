@@ -1,0 +1,295 @@
+{
+  "url": "http://127.0.0.1:49880/web/dashboard-v2/dist/index.html?check=readability_v1",
+  "screenshotPath": "/Users/rziiiii/dev/workspace/runtime/production/card/dashboard_v2_kline_model_readability_v1/dashboard_v2_kline_model_readability_1440.png",
+  "metrics": {
+    "hasSoxl": true,
+    "hasExpectedShell": true,
+    "hasBaselineLatest": true,
+    "hasNoSmokeDefault": true,
+    "hasStateDrawdown": true,
+    "hasLatestSignalDelta": true,
+    "hasPositionLegend": true,
+    "chartRect": {
+      "x": 0,
+      "y": 359,
+      "width": 1119,
+      "height": 546
+    },
+    "deltaStripRect": {
+      "x": 0,
+      "y": 175,
+      "width": 1119,
+      "height": 184
+    },
+    "lowerChartsRect": {
+      "x": 0,
+      "y": 905,
+      "width": 1119,
+      "height": 140
+    },
+    "inspectorRect": {
+      "x": 1120,
+      "y": 129,
+      "width": 320,
+      "height": 1251
+    },
+    "canvasCount": 38,
+    "canvasData": [
+      {
+        "width": 56,
+        "height": 518,
+        "nonBlank": 12320
+      },
+      {
+        "width": 56,
+        "height": 518,
+        "nonBlank": 0
+      },
+      {
+        "width": 1000,
+        "height": 518,
+        "nonBlank": 66000
+      },
+      {
+        "width": 1000,
+        "height": 518,
+        "nonBlank": 0
+      },
+      {
+        "width": 62,
+        "height": 518,
+        "nonBlank": 13640
+      },
+      {
+        "width": 62,
+        "height": 518,
+        "nonBlank": 0
+      },
+      {
+        "width": 56,
+        "height": 28,
+        "nonBlank": 1568
+      },
+      {
+        "width": 1000,
+        "height": 28,
+        "nonBlank": 8400
+      },
+      {
+        "width": 1000,
+        "height": 28,
+        "nonBlank": 0
+      },
+      {
+        "width": 62,
+        "height": 28,
+        "nonBlank": 1736
+      },
+      {
+        "width": 202,
+        "height": 80,
+        "nonBlank": 16160
+      },
+      {
+        "width": 202,
+        "height": 80,
+        "nonBlank": 5127
+      },
+      {
+        "width": 54,
+        "height": 80,
+        "nonBlank": 4320
+      },
+      {
+        "width": 54,
+        "height": 80,
+        "nonBlank": 0
+      },
+      {
+        "width": 202,
+        "height": 28,
+        "nonBlank": 5656
+      },
+      {
+        "width": 202,
+        "height": 28,
+        "nonBlank": 0
+      },
+      {
+        "width": 54,
+        "height": 28,
+        "nonBlank": 1512
+      },
+      {
+        "width": 216,
+        "height": 80,
+        "nonBlank": 17280
+      },
+      {
+        "width": 216,
+        "height": 80,
+        "nonBlank": 9609
+      },
+      {
+        "width": 54,
+        "height": 80,
+        "nonBlank": 4320
+      },
+      {
+        "width": 54,
+        "height": 80,
+        "nonBlank": 0
+      },
+      {
+        "width": 216,
+        "height": 28,
+        "nonBlank": 6048
+      },
+      {
+        "width": 216,
+        "height": 28,
+        "nonBlank": 0
+      },
+      {
+        "width": 54,
+        "height": 28,
+        "nonBlank": 1512
+      },
+      {
+        "width": 222,
+        "height": 80,
+        "nonBlank": 17760
+      },
+      {
+        "width": 222,
+        "height": 80,
+        "nonBlank": 7913
+      },
+      {
+        "width": 62,
+        "height": 80,
+        "nonBlank": 4960
+      },
+      {
+        "width": 62,
+        "height": 80,
+        "nonBlank": 0
+      },
+      {
+        "width": 222,
+        "height": 28,
+        "nonBlank": 6216
+      },
+      {
+        "width": 222,
+        "height": 28,
+        "nonBlank": 0
+      },
+      {
+        "width": 62,
+        "height": 28,
+        "nonBlank": 1736
+      },
+      {
+        "width": 238,
+        "height": 80,
+        "nonBlank": 19040
+      },
+      {
+        "width": 238,
+        "height": 80,
+        "nonBlank": 7620
+      },
+      {
+        "width": 62,
+        "height": 80,
+        "nonBlank": 4960
+      },
+      {
+        "width": 62,
+        "height": 80,
+        "nonBlank": 0
+      },
+      {
+        "width": 238,
+        "height": 28,
+        "nonBlank": 6664
+      },
+      {
+        "width": 238,
+        "height": 28,
+        "nonBlank": 0
+      },
+      {
+        "width": 62,
+        "height": 28,
+        "nonBlank": 1736
+      }
+    ],
+    "modelNames": [
+      "SOXLBacktest",
+      "BRR v22",
+      "Mode rebound v2",
+      "BRR v19 reg",
+      "BRR v19",
+      "State drawdown v1"
+    ],
+    "cards": [
+      {
+        "profile": "state_conditioned_drawdown_rebound_reward_train_v1",
+        "text": "State drawdown v1diagnostic actorreplay 2026-06-12 cut signal BUY 0.788 @06-15Ret 216.29%MaxDD -31.39%AvgPos 0.320ΔNAV +77.64ΔPos -0.159Signal Δpos +0.628 @06-15Diff 19/80Last diff 2026-06-15 BUY vs HOLD | Δpos +0.628 | rsi6 76.97 | vix 17.68 | panic_score 79.",
+        "rect": {
+          "width": 226,
+          "height": 113,
+          "y": 282
+        }
+      },
+      {
+        "profile": "mode_conditioned_rebound_reward_train_v2",
+        "text": "Mode rebound v2diagnostic actorreplay 2026-06-12 cut signal BUY 0.675 @06-15Ret 179.66%MaxDD -27.83%AvgPos 0.298ΔNAV +41.02ΔPos -0.159Signal Δpos +0.516 @06-15Diff 17/80Last diff 2026-06-15 BUY vs HOLD | Δpos +0.516 | rsi6 76.97 | vix 17.68 | panic_score 79.24",
+        "rect": {
+          "width": 226,
+          "height": 113,
+          "y": 282
+        }
+      },
+      {
+        "profile": "balanced_rule_residual_v19_reg",
+        "text": "BRR v19 regdiagnostic actorreplay 2026-06-12 cut signal BUY 0.575 @06-15Ret 166.85%MaxDD -25.51%AvgPos 0.275ΔNAV +28.20ΔPos -0.159Signal Δpos +0.416 @06-15Diff 13/80Last diff 2026-06-15 BUY vs HOLD | Δpos +0.416 | rsi6 76.97 | vix 17.68 | panic_score 79.24",
+        "rect": {
+          "width": 226,
+          "height": 113,
+          "y": 282
+        }
+      },
+      {
+        "profile": "balanced_rule_residual_v19",
+        "text": "BRR v19diagnostic actorreplay 2026-06-12 cut signal BUY 0.575 @06-15Ret 201.24%MaxDD -24.87%AvgPos 0.294ΔNAV +62.59ΔPos -0.159Signal Δpos +0.416 @06-15Diff 12/80Last diff 2026-06-15 BUY vs HOLD | Δpos +0.416 | rsi6 76.97 | vix 17.68 | panic_score 79.24",
+        "rect": {
+          "width": 226,
+          "height": 113,
+          "y": 282
+        }
+      },
+      {
+        "profile": "balanced_rule_residual_v22",
+        "text": "BRR v22diagnostic actorreplay 2026-06-12 cut signal BUY 0.625 @06-15Ret 141.22%MaxDD -26.78%AvgPos 0.275ΔNAV +2.58ΔPos -0.159Signal Δpos +0.466 @06-15Diff 10/80Last diff 2026-06-15 BUY vs HOLD | Δpos +0.466 | rsi6 76.97 | vix 17.68 | panic_score 79.24",
+        "rect": {
+          "width": 226,
+          "height": 113,
+          "y": 282
+        }
+      }
+    ],
+    "sourceText": "Data StatusDiagnostic actor comparisonsShown for model-difference review; actors are not final-retained.SOXL K-line2026-06-15Qlib safe replay2026-06-12BaselineSOXLBacktestBaseline latestytd_2026 2026-06-15 +146.04% pos 0.159Actor replay2026-06-12Actor latest signal2026-06-15Blocked12Strict Gate0/12Final Retain0WF Retain0/0Signals5@2026-06-15Model dates | baseline 2026-06-15 | actors 2026-06-12 | signals 2026-06-15SOXLBacktestreference baselinereplay 2026-06-15BRR v22diagnostic actorreplay 2026-06-12signal 2026-06-15Mode rebound v2diagnostic actorreplay 2026-06-12signal 2026-06-15BRR v19 regdiagnostic actorreplay 2026-06-12signal 2026-06-15BRR v19diagnostic actorreplay 2026-06-12signal 2026-06-15State drawdown v1diagnostic actorreplay 2026-06-12signal 2026-06-15Replay splitMarket 2026-06-15 | Actors 2026-06-12 | Actor signals 2026-06-15 | Baseline 2026-06-15 | Safe 2026-06-12Diagnostics (21)Replay safe end 2026-06-12 is before market latest 2026-06-15.Common model comparison ends 2026-0",
+    "deltaText": "6 models | 89 common rows | Common 2026-02-05 to 2026-06-12 | Price view to 2026-06-15Common comparison 2026-06-12 | SOXL K-line 2026-06-15 | Baseline SOXLBacktest ytd_2026 latest 2026-06-15 | Qlib actors safe replay 2026-06-12 | safe end 2026-06-12Latest tailSOXL 2026-06-15baseline SOXLBacktest HOLD pos 0.159 ret +146.04%actors replay 2026-06-12actor signals 5@2026-06-15Latest signal delta 2026-06-15 vs SOXLBacktest HOLD 0.159BRR v22 BUY 0.625 Δpos +0.466 replay 2026-06-12Mode rebound v2 BUY 0.675 Δpos +0.516 replay 2026-06-12BRR v19 reg BUY 0.575 Δpos +0.416 replay 2026-06-12BRR v19 BUY 0.575 Δpos +0.416 replay 2026-06-12State drawdown v1 BUY 0.788 Δpos +0.628 replay 2026-06-12State drawdown v1 signal ΔPos +0.628 @06-15 | Mode rebound v2 signal ΔPos +0.516 @06-15 | BRR v19 reg signal ΔPos +0.416 @06-15 | BRR v19 signal ΔPos +0.416 @06-15 | BRR v22 signal ΔPos +0.466 @06-15State drawdown v1diagnostic actorreplay 2026-06-12 cut signal BUY 0.788 @06-15Ret 216.29%MaxDD -31.39%AvgPos 0.320ΔNAV +77.64ΔPos -0.159Signal Δpos +0.628 @06-15Diff 19/80Last diff 2026-06-15 BUY vs HOLD | Δpos +0.628 | rsi6 76.97 | vix 17.68 | panic_score 79.24Mode rebound v2diagnostic actorreplay 2026-06-12 cut signal BUY 0.675 @06-15Ret 179.66%MaxDD -27.83%AvgPos 0.298ΔNAV +41.02ΔPos -0.159Signal Δpos +0.516 @06-15Diff 17/80Last diff 2026-06-15 BUY vs HOLD | Δpos +0.516 | rsi6 76.97 | vix 17.68 | panic_sc",
+    "bodyTextSample": "SOXL K-line\n2026-06-15\nQlib safe replay\n2026-06-12\nBaseline\nSOXLBacktest\nBaseline latest\nytd_2026 2026-06-15 +146.04% pos 0.159\nActor replay\n2026-06-12\nActor latest signal\n2026-06-15\nBlocked\n12\nStrict Gate\n0/12\nFinal Retain\n0\nWF Retain\n0/0\nSignals\n5@2026-06-15\nModel dates | baseline 2026-06-15 | actors 2026-06-12 | signals 2026-06-15\nDiagnostics (21)\nModels\nSOXLBacktest\nBRR v22\nMode rebound v2\nBRR v19 reg\nBRR v19\nState drawdown v1\nAction Model\nSOXLBacktest\nBRR v22\nMode rebound v2\nBRR v19 reg\nBRR v19\nState drawdown v1\n1M\n3M\nYTD\nALL\nStart\nEnd\nSOXL\nK-line with buy/sell differences; model position and NAV panes below\nBUY\nSELL\nDIFF\nPOS\n6 models | 89 common rows | Common 2026-02-05 to 2026-06-12 | Price view to 2026-06-15\nCommon comparison 2026-06-12 | SOXL K-line 2026-06-15 | Baseline SOXLBacktest ytd_2026 latest 2026-06-15 | Qlib actors safe replay 2026-06-12 | safe end 2026-06-12\nLatest tail\nSOXL 2026-06-15\nbaseline SOXLBacktest HOLD pos 0.159 ret +146.04%\nactors replay 2026-06-12\nactor s"
+  },
+  "afterDrag": {
+    "inspectorText": "Inspectordate2026-03-25safe end2026-06-12SOXL open56.64SOXL high58.25SOXL low55.59SOXL close57.04volume84440300vix25.329999923706055rsi672.98550841269349panic_score-64.00039321755719SOXLBacktest actionHOLDSOXLBacktest position0.000SOXLBacktest NAV100000.00BRR v22 actionHOLDBRR v22 position0.000BRR v22 NAV5863090.01Mode rebound v2 actionHOLDMode rebound v2 position0.000Mode rebound v2 NAV7390391.23BRR v19 reg actionHOLDBRR v19 reg position0.000BRR v19 reg NAV4798290.70BRR v19 actionBUYBRR v19 position0.000BRR v19 NAV5271183.00State drawdown v1 actionHOLDState drawdown v1 position0.000State draw",
+    "bodyHasLoadError": false
+  },
+  "consoleMessages": [],
+  "pageErrors": [],
+  "responseErrors": []
+}

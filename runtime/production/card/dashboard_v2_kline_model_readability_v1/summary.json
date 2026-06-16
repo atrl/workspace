@@ -1,0 +1,52 @@
+{
+  "experiment": "dashboard_v2_kline_model_readability_v1",
+  "decision": "dashboard_v2_kline_and_model_differences_readable",
+  "dashboard_url": "http://127.0.0.1:49880/web/dashboard-v2/dist/index.html",
+  "changes": [
+    "Main K-line chart now uses candlesticks plus MA180 and volume; the old close-line overlay was removed so candles stay readable.",
+    "Selected model position lines are overlaid on the main K-line through a separate position scale and are also kept in the dedicated position pane.",
+    "Default dashboard v2 comparison removes the smoke fixture and shows SOXLBacktest plus five real diagnostic actor profiles.",
+    "The top status and model-difference strip now surface baseline window/latest date, actor safe replay cutoff, and latest actor signal deltas.",
+    "Chart range synchronization no longer rebuilds the model-difference panels during every mouse drag event."
+  ],
+  "latest_market_date": "2026-06-15",
+  "safe_backtest_end": "2026-06-12",
+  "baseline_profile": "soxl_backtest_policy_reimplementation_v1",
+  "baseline_latest": {
+    "window": "ytd_2026",
+    "date": "2026-06-15",
+    "position": 0.1591,
+    "return_pct": 146.04379795135495
+  },
+  "default_comparison_profiles": [
+    "soxl_backtest_policy_reimplementation_v1",
+    "balanced_rule_residual_v22",
+    "mode_conditioned_rebound_reward_train_v2",
+    "balanced_rule_residual_v19_reg",
+    "balanced_rule_residual_v19",
+    "state_conditioned_drawdown_rebound_reward_train_v1"
+  ],
+  "latest_signal": {
+    "available_count": 5,
+    "date": "2026-06-15",
+    "comparison_included": true
+  },
+  "visual_check": {
+    "url": "http://127.0.0.1:49880/web/dashboard-v2/dist/index.html?check=readability_v1",
+    "screenshot": "runtime/production/card/dashboard_v2_kline_model_readability_v1/dashboard_v2_kline_model_readability_1440.png",
+    "evidence": "runtime/production/card/dashboard_v2_kline_model_readability_v1/visual_check.json"
+  },
+  "verification": [
+    "PYTHONPATH=. qlib_venv/bin/python scripts/build_dashboard_v2_data.py --output-dir dashboard_data/v2",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_update_market_data.py tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py -q",
+    "npm --prefix web/dashboard-v2 test -- --run",
+    "npm --prefix web/dashboard-v2 run build",
+    "Playwright/Chrome visual check against scripts/dashboard_server.py on port 49880"
+  ],
+  "notes": [
+    "SOXLBacktest remains the reference baseline and is current through 2026-06-15.",
+    "Qlib actor replay curves remain bounded by safe_backtest_end 2026-06-12; latest actor signals are displayed separately for 2026-06-15.",
+    "No actor shown here is final-retained; diagnostic actors are visible for model-difference review only."
+  ]
+}

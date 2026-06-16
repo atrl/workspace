@@ -221,7 +221,7 @@ export function renderMarketChart(
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.02, bottom: 0.12 },
+    scaleMargins: { top: 0.02, bottom: 0.22 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -239,19 +239,6 @@ export function renderMarketChart(
       high: Number(row.high),
       low: Number(row.low),
       close: Number(row.close),
-    })),
-  );
-  const closeLine = chart.addSeries(LineSeries, {
-    color: 'rgba(237, 240, 243, 0.54)',
-    lineWidth: 1,
-    lastValueVisible: false,
-    priceLineVisible: false,
-    title: 'SOXL close',
-  });
-  closeLine.setData(
-    market.rows.map((row) => ({
-      time: toTime(row.date),
-      value: Number(row.close),
     })),
   );
   const maLine = chart.addSeries(LineSeries, {
@@ -281,6 +268,25 @@ export function renderMarketChart(
       color: Number(row.close) >= Number(row.open) ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
     })),
   );
+  chart.priceScale('position').applyOptions({
+    scaleMargins: { top: 0.72, bottom: 0.12 },
+  });
+  for (const [index, [profile, payload]] of Object.entries(models).entries()) {
+    const rows = positionOverlayData(payload);
+    if (rows.length === 0) continue;
+    const isPrimary = payload.profile === model.profile;
+    const isReference = payload.status === 'reference';
+    const line = chart.addSeries(LineSeries, {
+      priceScaleId: 'position',
+      color: MODEL_COLORS[index % MODEL_COLORS.length],
+      lineStyle: isReference ? LineStyle.Dashed : LineStyle.Solid,
+      lineWidth: isPrimary ? 3 : isReference ? 1 : 2,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      title: `${formatProfileLabel(profile)} pos`,
+    });
+    line.setData(rows);
+  }
   const markerStart = market.rows[0]?.date;
   const markerEnd = market.rows.at(-1)?.date;
   const markers = [

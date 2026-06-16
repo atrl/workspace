@@ -47,7 +47,7 @@ const chartMocks = vi.hoisted(() => {
         clearCrosshairPosition: vi.fn(),
         setCrosshairPosition: vi.fn(),
         priceScale: vi.fn((id: string) => {
-          if (id !== 'right') {
+          if (id !== 'right' && id !== 'position') {
             throw new Error(`Trying to apply price scale options with incorrect ID: ${id}`);
           }
           const record = { id, applyOptions: vi.fn() };
@@ -88,7 +88,7 @@ describe('dashboard v2 chart rendering', () => {
     chartMocks.priceScaleRecords.length = 0;
   });
 
-  test('renders price candles with close line, MA and volume without model position overlays on the main chart', () => {
+  test('renders price candles with MA, volume, and model position overlays on the main chart', () => {
     const container = document.createElement('div');
     const challenger = { ...modelFixture, profile: 'balanced_rule_residual_v22' };
 
@@ -103,37 +103,45 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords.map((record) => record.kind)).toEqual([
       'candlestick',
       'line',
-      'line',
       'histogram',
+      'line',
+      'line',
     ]);
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
-      title: 'SOXL close',
-      priceLineVisible: false,
-    });
-    expect(chartMocks.seriesRecords[1].data).toEqual(
-      marketFixture.rows.map((row) => ({ time: row.date, value: row.close })),
-    );
-    expect(chartMocks.seriesRecords[2].options).toMatchObject({
       title: 'MA180',
       priceLineVisible: false,
     });
-    expect(chartMocks.seriesRecords[2].data).toEqual(
+    expect(chartMocks.seriesRecords[1].data).toEqual(
       marketFixture.rows.map((row) => ({ time: row.date, value: row.ma180 })),
     );
-    expect(chartMocks.seriesRecords[3].options).toMatchObject({
+    expect(chartMocks.seriesRecords[2].options).toMatchObject({
       priceScaleId: 'volume',
       priceFormat: { type: 'volume' },
       priceLineVisible: false,
       lastValueVisible: false,
     });
-    expect(chartMocks.seriesRecords[3].data).toEqual(
+    expect(chartMocks.seriesRecords[2].data).toEqual(
       marketFixture.rows.map((row) => ({
         time: row.date,
         value: row.volume,
         color: row.close >= row.open ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
       })),
     );
-    expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
+    expect(chartMocks.seriesRecords[3].options).toMatchObject({
+      priceScaleId: 'position',
+      title: 'smoke pos',
+      lastValueVisible: false,
+      priceLineVisible: false,
+    });
+    expect(chartMocks.seriesRecords[3].data).toEqual([
+      { time: '2026-01-02', value: 0 },
+      { time: '2026-01-05', value: 0.7 },
+      { time: '2026-01-06', value: 0.2 },
+    ]);
+    expect(chartMocks.seriesRecords[4].options).toMatchObject({
+      priceScaleId: 'position',
+      title: 'BRR v22 pos',
+    });
   });
 
   test('renders compact historical action-difference markers on the main K-line', () => {
@@ -229,17 +237,15 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartOptions).toMatchObject({
       timeScale: { barSpacing: 5, minBarSpacing: 2 },
     });
-    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume']);
+    expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume', 'position']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.02, bottom: 0.12 },
+      scaleMargins: { top: 0.02, bottom: 0.22 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
       scaleMargins: { top: 0.91, bottom: 0.01 },
     });
-    expect(chartMocks.seriesRecords[1].options).toMatchObject({
-      color: 'rgba(237, 240, 243, 0.54)',
-      lineWidth: 1,
-      lastValueVisible: false,
+    expect(chartMocks.priceScaleRecords[2].applyOptions).toHaveBeenCalledWith({
+      scaleMargins: { top: 0.72, bottom: 0.12 },
     });
   });
 
@@ -368,7 +374,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords[0].data).toEqual([{ time: '2026-01-05', value: 0.7 }]);
   });
 
-  test('keeps model position series out of the main price chart even when latest signals exist', () => {
+  test('extends main chart model position overlays with latest signal rows', () => {
     const container = document.createElement('div');
     const latestModel = {
       ...modelFixture,
@@ -384,7 +390,11 @@ describe('dashboard v2 chart rendering', () => {
 
     renderMarketChart(container, marketFixture, latestModel, { smoke: latestModel }, () => {});
 
-    expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
+    const positionSeries = chartMocks.seriesRecords.find((record) => record.options.priceScaleId === 'position');
+    expect(positionSeries?.data).toEqual([
+      ...modelFixture.rows.map((row) => ({ time: row.date, value: row.position })),
+      { time: '2026-01-07', value: 0.55 },
+    ]);
   });
 
   test('adds latest signal buy and sell markers with compact count labels over the main K-line', () => {

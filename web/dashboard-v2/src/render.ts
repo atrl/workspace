@@ -270,12 +270,13 @@ export function renderDataSourcePanel(container: HTMLElement, manifest: Manifest
     ['Blocked', String(blockedCount)],
   ];
   if (baselineEnd) {
+    const baselineWindow = profileSummaries[manifest.default_baseline_profile]?.window;
     const baselineValue =
       baselineLatest?.date === baselineEnd
-        ? `${baselineEnd} ${formatCompactPct(baselineLatest.return_pct)} pos ${
+        ? `${baselineWindow ? `${baselineWindow} ` : ''}${baselineEnd} ${formatCompactPct(baselineLatest.return_pct)} pos ${
             typeof baselineLatest.position === 'number' ? baselineLatest.position.toFixed(3) : 'n/a'
           }`
-        : baselineEnd;
+        : `${baselineWindow ? `${baselineWindow} ` : ''}${baselineEnd}`;
     rows.splice(3, 0, ['Baseline latest', baselineValue]);
   }
   if (actorEnd) {
@@ -494,6 +495,7 @@ export function renderModelDeltaStrip(
   }
   const baselineEnd =
     comparison.baseline_replay_end ?? manifest?.profile_summaries?.[comparison.baseline_profile]?.replay_end;
+  const baselineWindow = manifest?.profile_summaries?.[comparison.baseline_profile]?.window;
   const actorEnd = maxDate(
     [
       comparison.actor_replay_end,
@@ -503,7 +505,9 @@ export function renderModelDeltaStrip(
     ],
   );
   captionParts.push(
-    `Baseline ${profileLabel(comparison.baseline_profile, manifest)}${baselineEnd ? ` latest ${baselineEnd}` : ''}`,
+    `Baseline ${profileLabel(comparison.baseline_profile, manifest)}${
+      baselineWindow ? ` ${baselineWindow}` : ''
+    }${baselineEnd ? ` latest ${baselineEnd}` : ''}`,
   );
   if (actorEnd) captionParts.push(`Qlib actors safe replay ${actorEnd}`);
   if (safeBacktestEnd) captionParts.push(`safe end ${safeBacktestEnd}`);
@@ -682,6 +686,7 @@ export function renderModelDeltaStrip(
   for (const { profile, index, actionMismatchCount, positionDiffCount, values } of differenceStats) {
     if (!values) continue;
     const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
+    const replayWindow = manifest?.profile_summaries?.[profile]?.window;
     const ranking = rankingByProfile.get(profile);
     const freshness = freshnessLabel(replayEnd, last.date, manifest);
     const latestSignal = models[profile]?.latest_signal;
@@ -704,7 +709,11 @@ export function renderModelDeltaStrip(
     if (sourceKind) {
       card.appendChild(element('span', 'model-difference-card-kind', sourceKind.replaceAll('_', ' ')));
     }
-    const replayLine = element('span', 'model-difference-card-replay', `replay ${replayEnd ?? 'n/a'} ${replayState}`);
+    const replayLine = element(
+      'span',
+      'model-difference-card-replay',
+      `${replayWindow ? `${replayWindow} ` : ''}replay ${replayEnd ?? 'n/a'} ${replayState}`,
+    );
     if (latestSignal) {
       replayLine.appendChild(
         element(
@@ -827,7 +836,8 @@ export function renderActionLegend(container: HTMLElement): void {
   const buy = element('span', 'legend-item legend-buy', 'BUY');
   const sell = element('span', 'legend-item legend-sell', 'SELL');
   const diff = element('span', 'legend-item legend-diff', 'DIFF');
-  container.append(buy, sell, diff);
+  const position = element('span', 'legend-item legend-position', 'POS');
+  container.append(buy, sell, diff, position);
 }
 
 export function renderInspectorPanel(container: HTMLElement, rows: InspectorRow[]): void {
