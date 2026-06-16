@@ -110,16 +110,10 @@ function replayBoundaryMarkers(
 }
 
 function latestSignalMarkerText(
-  action: 'BUY' | 'SELL',
-  profiles: readonly { profile: string; position: number }[],
+  _action: 'BUY' | 'SELL',
+  _profiles: readonly { profile: string; position: number }[],
 ): string {
-  const labels = profiles.map(({ profile, position }) => `${formatProfileLabel(profile)} ${position.toFixed(3)}`);
-  if (labels.length === 1) {
-    return `${formatProfileLabel(profiles[0].profile)} ${action} ${profiles[0].position.toFixed(3)}`;
-  }
-  const visible = labels.slice(0, 3).join(', ');
-  const hidden = labels.length > 3 ? ` +${labels.length - 3}` : '';
-  return `${action} ${labels.length}: ${visible}${hidden}`;
+  return '';
 }
 
 export interface ChartHandles {
@@ -223,11 +217,11 @@ export function renderMarketChart(
     grid: { vertLines: { color: '#23272c' }, horzLines: { color: '#23272c' } },
     leftPriceScale: { visible: true, borderColor: '#30343a', textColor: '#a5adb8' },
     rightPriceScale: { borderColor: '#30343a' },
-    timeScale: { borderColor: '#30343a', timeVisible: false, barSpacing: 8, minBarSpacing: 3 },
+    timeScale: { borderColor: '#30343a', timeVisible: false, barSpacing: 5, minBarSpacing: 2 },
     crosshair: { mode: 1 },
   });
   chart.priceScale('right').applyOptions({
-    scaleMargins: { top: 0.03, bottom: 0.18 },
+    scaleMargins: { top: 0.02, bottom: 0.12 },
   });
   const candleSeries = chart.addSeries(CandlestickSeries, {
     upColor: '#1fb981',
@@ -278,7 +272,7 @@ export function renderMarketChart(
     lastValueVisible: false,
   });
   volumeBars.priceScale().applyOptions({
-    scaleMargins: { top: 0.88, bottom: 0.01 },
+    scaleMargins: { top: 0.91, bottom: 0.01 },
   });
   volumeBars.setData(
     market.rows.map((row) => ({
@@ -292,7 +286,7 @@ export function renderMarketChart(
   const markers = [
     ...buildActionMarkers(model.events, { showText: false }),
     ...(comparison && markerStart && markerEnd
-      ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd, 32)
+      ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd, 8)
       : []),
     ...(markerStart && markerEnd ? replayBoundaryMarkers(comparison, markerStart, markerEnd) : []),
     ...(markerStart && markerEnd ? latestSignalMarkers(models, markerStart, markerEnd) : []),

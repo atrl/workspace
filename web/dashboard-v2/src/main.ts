@@ -75,6 +75,10 @@ function createShell(app: HTMLElement): void {
             <div id="position-chart" class="chart chart-small"></div>
           </section>
           <section>
+            <h2>Position Delta vs Baseline</h2>
+            <div id="position-delta-chart" class="chart chart-small"></div>
+          </section>
+          <section>
             <h2>Delta NAV vs Baseline</h2>
             <div id="delta-nav-chart" class="chart chart-small"></div>
           </section>
@@ -265,6 +269,7 @@ function renderReadoutPanels(data: DashboardData, state: ViewState, update: Upda
 function renderDashboard(data: DashboardData, state: ViewState, update: UpdateState): void {
   const marketChart = requireElement('market-chart');
   const positionChart = requireElement('position-chart');
+  const positionDeltaChart = requireElement('position-delta-chart');
   const deltaNavChart = requireElement('delta-nav-chart');
   const navChart = requireElement('nav-chart');
   const actionLegend = requireElement('action-legend');
@@ -287,6 +292,14 @@ function renderDashboard(data: DashboardData, state: ViewState, update: UpdateSt
     models,
     primary.profile,
   );
+  const positionDeltaHandles = renderDeltaChart(
+    positionDeltaChart,
+    data.comparison,
+    state.selectedProfiles,
+    'position_delta_vs_baseline',
+    state.start,
+    state.end,
+  );
   const deltaNavHandles = renderDeltaChart(
     deltaNavChart,
     data.comparison,
@@ -300,14 +313,26 @@ function renderDashboard(data: DashboardData, state: ViewState, update: UpdateSt
     models,
   );
   const timeCleanup = syncVisibleTimeRanges(
-    [marketHandles.chart, positionHandles.chart, deltaNavHandles.chart, navHandles.chart],
+    [
+      marketHandles.chart,
+      positionHandles.chart,
+      positionDeltaHandles.chart,
+      deltaNavHandles.chart,
+      navHandles.chart,
+    ],
     (logicalRange) => {
       const range = computeDateRangeFromLogicalRange(market.rows, logicalRange);
       if (!range || (range.start === state.start && range.end === state.end)) return;
       update({ ...range, hoveredDate: range.end }, { skipChartRender: true });
     },
   );
-  const crosshairCleanup = syncCrosshairPositions([marketHandles, positionHandles, deltaNavHandles, navHandles]);
+  const crosshairCleanup = syncCrosshairPositions([
+    marketHandles,
+    positionHandles,
+    positionDeltaHandles,
+    deltaNavHandles,
+    navHandles,
+  ]);
   disposeChartSync = () => {
     timeCleanup();
     crosshairCleanup();

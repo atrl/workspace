@@ -243,7 +243,7 @@ describe('dashboard v2 domain helpers', () => {
     ]);
   });
 
-  test('builds model-difference markers for material position divergence even when actions match', () => {
+  test('keeps pure position divergence out of the main K-line markers', () => {
     const sameActionComparison = {
       ...comparisonFixture,
       rows: comparisonFixture.rows.map((row) => ({
@@ -262,25 +262,10 @@ describe('dashboard v2 domain helpers', () => {
 
     expect(
       buildModelDifferenceMarkers(sameActionComparison, ['smoke', 'balanced_rule_residual_v22'], '2026-01-02', '2026-01-06'),
-    ).toEqual([
-      {
-        time: '2026-01-05',
-        position: 'belowBar',
-        color: '#22c7a9',
-        shape: 'circle',
-        text: '',
-      },
-      {
-        time: '2026-01-06',
-        position: 'belowBar',
-        color: '#22c7a9',
-        shape: 'circle',
-        text: '',
-      },
-    ]);
+    ).toEqual([]);
   });
 
-  test('keeps K-line readable by marking only position divergence transitions', () => {
+  test('keeps K-line readable by leaving position divergence to the delta pane', () => {
     const steadyDivergence = {
       ...comparisonFixture,
       rows: [
@@ -318,10 +303,7 @@ describe('dashboard v2 domain helpers', () => {
 
     expect(
       buildModelDifferenceMarkers(steadyDivergence, ['smoke', 'balanced_rule_residual_v22'], '2026-01-02', '2026-01-07'),
-    ).toEqual([
-      { time: '2026-01-05', position: 'belowBar', color: '#22c7a9', shape: 'circle', text: '' },
-      { time: '2026-01-06', position: 'belowBar', color: '#22c7a9', shape: 'circle', text: '' },
-    ]);
+    ).toEqual([]);
   });
 
   test('groups same-day model-difference markers to keep the K-line readable', () => {
@@ -360,15 +342,15 @@ describe('dashboard v2 domain helpers', () => {
     ]);
   });
 
-  test('limits model-difference markers to a compact recent set by default', () => {
+  test('limits action-difference markers to a compact recent set by default', () => {
     const rows = Array.from({ length: 50 }, (_, index) => ({
       date: `2026-02-${String(index + 1).padStart(2, '0')}`,
-      action_mismatch_count: 0,
+      action_mismatch_count: 1,
       profiles: {
         smoke: {
           ...comparisonFixture.rows[0].profiles.smoke,
-          action: 'HOLD' as const,
-          action_mismatch: false,
+          action: index % 2 === 0 ? 'BUY' as const : 'SELL' as const,
+          action_mismatch: true,
           position_delta_vs_baseline: index % 2 === 0 ? 0.2 : 0.5,
         },
         balanced_rule_residual_v22: {
@@ -386,8 +368,8 @@ describe('dashboard v2 domain helpers', () => {
       '2026-02-50',
     );
 
-    expect(markers).toHaveLength(36);
-    expect(markers[0].time).toBe('2026-02-15');
+    expect(markers).toHaveLength(8);
+    expect(markers[0].time).toBe('2026-02-43');
   });
 
   test('computes visible comparison deltas against baseline', () => {

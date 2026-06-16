@@ -23,27 +23,29 @@ def test_model_delta_strip_stays_compact_for_first_viewport():
 
     match = re.search(r"\bmax-height\s*:\s*(?P<height>\d+)px\s*;", body)
     assert match is not None, "model difference strip must have a fixed compact max-height"
-    assert int(match.group("height")) <= 92, "model difference strip must not crowd out the K-line"
+    assert int(match.group("height")) <= 136, "model difference strip must not crowd out the K-line"
 
 
-def test_latest_signal_cards_do_not_crowd_out_model_difference_table():
+def test_latest_signal_readouts_stay_visible_and_compact_in_first_viewport():
     css = (ROOT / "web/dashboard-v2/src/styles.css").read_text(encoding="utf-8")
     assert re.search(
-        r"\.model-delta-strip\s+\.latest-decision-matrix\s*\{(?P<body>.*?)\bdisplay\s*:\s*none\s*;",
+        r"\.model-delta-strip\s+\.latest-decision-matrix\s*\{(?P<body>.*?)\bmax-height\s*:\s*54px\s*;",
         css,
         re.S,
-    ), "latest signal cards must stay out of the compact first-viewport difference strip"
+    ), "latest signal cards must be visible but height-limited in the compact first-viewport strip"
     assert re.search(
-        r"\.model-delta-strip\s+\.latest-tail-banner\s*\{(?P<body>.*?)\bdisplay\s*:\s*none\s*;",
+        r"\.model-delta-strip\s+\.latest-tail-banner\s*\{(?P<body>.*?)\bdisplay\s*:\s*flex\s*;",
         css,
         re.S,
-    ), "latest tail banner must not hide the compact model difference table"
+    ), "latest baseline and actor replay tail must stay visible above the K-line"
 
 
-def test_first_viewport_includes_nav_delta_pane():
+def test_first_viewport_includes_position_and_nav_difference_panes():
     main_ts = (ROOT / "web/dashboard-v2/src/main.ts").read_text(encoding="utf-8")
     lower_body = _css_rule(".lower-charts")
 
+    assert 'id="position-delta-chart"' in main_ts
+    assert "Position Delta vs Baseline" in main_ts
     assert 'id="delta-nav-chart"' in main_ts
     assert "Delta NAV vs Baseline" in main_ts
     assert "grid-template-columns" in lower_body

@@ -953,6 +953,70 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.latest-tail-banner')?.textContent).toContain('actors replay 2026-01-06');
   });
 
+  test('renders latest baseline position return and actor signal in the first-viewport tail', () => {
+    const panel = document.createElement('div');
+    const referenceProfile = 'soxl_backtest_policy_reimplementation_v1';
+    const referenceComparison = {
+      ...comparisonFixture,
+      baseline_profile: referenceProfile,
+      compared_profiles: [referenceProfile, 'smoke'],
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        profiles: {
+          [referenceProfile]: row.profiles.balanced_rule_residual_v22,
+          smoke: row.profiles.smoke,
+        },
+      })),
+    };
+
+    renderModelDeltaStrip(panel, referenceComparison, '2026-01-02', '2026-01-07', undefined, {
+      ...manifestFixture,
+      latest_market_date: '2026-01-07',
+      safe_backtest_end: '2026-01-06',
+      latest_signal: {
+        source: 'latest_signal_stateless',
+        available_count: 1,
+        date: '2026-01-07',
+        comparison_included: true,
+      },
+      baseline_latest: {
+        profile: referenceProfile,
+        label: 'SOXLBacktest',
+        date: '2026-01-07',
+        return_pct: 146.04379795135497,
+        position: 0.1591,
+        action: 'HOLD',
+        price: 50,
+        strategy_nav: 246043.79795135497,
+        source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+      },
+      default_baseline_profile: referenceProfile,
+      profile_summaries: {
+        [referenceProfile]: {
+          status: 'reference',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-07',
+          row_count: 4,
+          source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+        },
+        smoke: {
+          status: 'canonical',
+          replay_start: '2026-01-02',
+          replay_end: '2026-01-06',
+          row_count: 3,
+          source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+          latest_signal_date: '2026-01-07',
+        },
+      },
+    });
+
+    const tail = panel.querySelector('.latest-tail-banner');
+    expect(tail?.textContent).toContain('SOXL 2026-01-07');
+    expect(tail?.textContent).toContain('baseline SOXLBacktest HOLD pos 0.159 ret +146.04%');
+    expect(tail?.textContent).toContain('actors replay 2026-01-06');
+    expect(tail?.textContent).toContain('actor signals 1@2026-01-07');
+  });
+
   test('prioritizes actor model difference rows over the reference baseline', () => {
     const panel = document.createElement('div');
 

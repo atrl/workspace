@@ -193,7 +193,7 @@ h3 {
   order: 0;
   display: block;
   min-width: 0;
-  max-height: 92px;
+  max-height: 136px;
   padding: 4px 10px 5px;
   border: 0;
   border-bottom: 1px solid var(--line-soft);
@@ -569,11 +569,33 @@ h3 {
 }
 
 .model-delta-strip .latest-decision-matrix {
+  max-height: 54px;
+  margin: 0 0 3px;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.model-delta-strip .latest-decision-header {
   display: none;
 }
 
+.model-delta-strip .latest-decision-grid {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.model-delta-strip .latest-decision-card {
+  flex: 0 0 148px;
+  padding: 2px 5px;
+  font-size: 10px;
+}
+
 .model-delta-strip .latest-tail-banner {
-  display: none;
+  display: flex;
+  margin-bottom: 3px;
+  padding: 2px 6px;
 }
 
 .latest-signal-title,
@@ -655,20 +677,20 @@ h3 {
 .chart-main {
   order: 1;
   flex: 0 0 auto;
-  height: clamp(380px, 46vh, 620px);
-  min-height: 360px;
+  height: clamp(420px, 48vh, 660px);
+  min-height: 390px;
 }
 
 .chart-small {
-  height: 116px;
-  min-height: 112px;
+  height: 108px;
+  min-height: 104px;
 }
 
 .lower-charts {
   order: 2;
   flex: 0 0 auto;
   display: grid;
-  grid-template-columns: 0.85fr 1fr 1.05fr;
+  grid-template-columns: 0.9fr 0.95fr 1fr 1.05fr;
   border-top: 1px solid var(--line);
 }
 

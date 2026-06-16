@@ -239,7 +239,7 @@ export function buildModelDifferenceMarkers(
   profiles: readonly string[],
   start: string,
   end: string,
-  limit = 36,
+  limit = 8,
 ): ActionMarker[] {
   const selectedProfiles = profiles.filter(
     (profile, index) =>
@@ -264,23 +264,16 @@ export function buildModelDifferenceMarkers(
       const value = row.profiles[profile];
       if (!value) continue;
       const delta = Number(value.position_delta_vs_baseline);
-      const active = Boolean(value.action_mismatch || isMaterialPositionDifference(delta));
+      const active = Boolean(value.action_mismatch);
       if (!active) {
         previousByProfile.set(profile, { active: false, action: value.action, delta });
         continue;
       }
-      const markerAction = value.action_mismatch
-        ? value.action
-        : delta >= 0
-          ? 'BUY'
-          : 'SELL';
+      const markerAction = value.action;
       const previous = previousByProfile.get(profile);
-      const materialDeltaShift = !previous || Math.abs(delta - previous.delta) >= 0.15;
       const shouldMark =
-        value.action_mismatch ||
         !previous?.active ||
-        previous.action !== markerAction ||
-        materialDeltaShift;
+        previous.action !== markerAction;
       previousByProfile.set(profile, { active: true, action: markerAction, delta });
       if (!shouldMark) continue;
       const key = `${row.date}:${markerAction}`;

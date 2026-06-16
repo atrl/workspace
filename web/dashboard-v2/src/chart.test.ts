@@ -163,12 +163,17 @@ describe('dashboard v2 chart rendering', () => {
 
     renderMarketChart(container, marketFixture, modelFixture, { smoke: modelFixture }, () => {});
 
+    const chartOptions = (chartMocks.createChart.mock.calls as unknown as [HTMLElement, Record<string, unknown>][])
+      [0][1];
+    expect(chartOptions).toMatchObject({
+      timeScale: { barSpacing: 5, minBarSpacing: 2 },
+    });
     expect(chartMocks.priceScaleRecords.map((record) => record.id)).toEqual(['right', 'volume']);
     expect(chartMocks.priceScaleRecords[0].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.03, bottom: 0.18 },
+      scaleMargins: { top: 0.02, bottom: 0.12 },
     });
     expect(chartMocks.priceScaleRecords[1].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.88, bottom: 0.01 },
+      scaleMargins: { top: 0.91, bottom: 0.01 },
     });
     expect(chartMocks.seriesRecords[1].options).toMatchObject({
       color: 'rgba(237, 240, 243, 0.54)',
@@ -285,7 +290,7 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.seriesRecords.some((record) => record.options.priceScaleId === 'position')).toBe(false);
   });
 
-  test('adds named latest signal buy and sell markers on the main K-line for selected models', () => {
+  test('adds latest signal buy and sell markers without text labels over the main K-line', () => {
     const container = document.createElement('div');
     const market = {
       ...marketFixture,
@@ -331,14 +336,14 @@ describe('dashboard v2 chart rendering', () => {
       position: 'belowBar',
       color: '#1fb981',
       shape: 'arrowUp',
-      text: 'smoke BUY 0.550',
+      text: '',
     });
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
       time: '2026-01-07',
       position: 'aboveBar',
       color: '#d96b5f',
       shape: 'arrowDown',
-      text: 'BRR v22 SELL 0.050',
+      text: '',
     });
   });
 
