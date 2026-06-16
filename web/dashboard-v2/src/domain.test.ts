@@ -229,21 +229,21 @@ describe('dashboard v2 domain helpers', () => {
       {
         time: '2026-01-05',
         position: 'belowBar',
-        color: '#22c7a9',
+        color: '#1fb981',
         shape: 'circle',
-        text: '',
+        text: 'ΔBUY x1',
       },
       {
         time: '2026-01-06',
         position: 'aboveBar',
-        color: '#22c7a9',
+        color: '#d96b5f',
         shape: 'circle',
-        text: '',
+        text: 'ΔSELL x1',
       },
     ]);
   });
 
-  test('keeps pure position divergence out of the main K-line markers', () => {
+  test('adds compact markers for material position divergence without action-label changes', () => {
     const sameActionComparison = {
       ...comparisonFixture,
       rows: comparisonFixture.rows.map((row) => ({
@@ -262,10 +262,18 @@ describe('dashboard v2 domain helpers', () => {
 
     expect(
       buildModelDifferenceMarkers(sameActionComparison, ['smoke', 'balanced_rule_residual_v22'], '2026-01-02', '2026-01-06'),
-    ).toEqual([]);
+    ).toEqual([
+      {
+        time: '2026-01-05',
+        position: 'belowBar',
+        color: '#22c7a9',
+        shape: 'circle',
+        text: 'ΔPOS+ x1',
+      },
+    ]);
   });
 
-  test('keeps K-line readable by leaving position divergence to the delta pane', () => {
+  test('keeps K-line readable by marking only the start of steady position divergence', () => {
     const steadyDivergence = {
       ...comparisonFixture,
       rows: [
@@ -303,7 +311,15 @@ describe('dashboard v2 domain helpers', () => {
 
     expect(
       buildModelDifferenceMarkers(steadyDivergence, ['smoke', 'balanced_rule_residual_v22'], '2026-01-02', '2026-01-07'),
-    ).toEqual([]);
+    ).toEqual([
+      {
+        time: '2026-01-05',
+        position: 'belowBar',
+        color: '#22c7a9',
+        shape: 'circle',
+        text: 'ΔPOS+ x1',
+      },
+    ]);
   });
 
   test('groups same-day model-difference markers to keep the K-line readable', () => {
@@ -328,16 +344,16 @@ describe('dashboard v2 domain helpers', () => {
       {
         time: '2026-01-05',
         position: 'belowBar',
-        color: '#22c7a9',
+        color: '#1fb981',
         shape: 'circle',
-        text: '',
+        text: 'ΔBUY x2',
       },
       {
         time: '2026-01-06',
         position: 'aboveBar',
-        color: '#22c7a9',
+        color: '#d96b5f',
         shape: 'circle',
-        text: '',
+        text: 'ΔSELL x2',
       },
     ]);
   });

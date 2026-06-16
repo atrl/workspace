@@ -13,6 +13,8 @@ import type {
 } from './types';
 
 const DIFF_MARKER_COLOR = '#22c7a9';
+const DIFF_BUY_COLOR = '#1fb981';
+const DIFF_SELL_COLOR = '#d96b5f';
 const MATERIAL_POSITION_DELTA = 0.05;
 const DEFAULT_VISIBLE_TRADING_DAYS = 90;
 
@@ -226,12 +228,44 @@ export function buildActionMarkers(
     });
 }
 
-function markerPositionForAction(action: string): ActionMarker['position'] {
-  return action === 'BUY' ? 'belowBar' : 'aboveBar';
+function markerPositionForAction(action: string, positionDelta = 0): ActionMarker['position'] {
+  if (action === 'BUY') return 'belowBar';
+  if (action === 'SELL') return 'aboveBar';
+  return positionDelta >= 0 ? 'belowBar' : 'aboveBar';
 }
 
 function isMaterialPositionDifference(positionDelta: number | undefined): boolean {
   return typeof positionDelta === 'number' && Number.isFinite(positionDelta) && Math.abs(positionDelta) >= MATERIAL_POSITION_DELTA;
+}
+
+function modelDifferenceMarkerParts(
+  action: string,
+  positionDelta: number,
+  actionMismatch: boolean,
+): {
+  label: string;
+  position: ActionMarker['position'];
+  color: string;
+} | null {
+  if (actionMismatch) {
+    const normalizedAction = action === 'BUY' || action === 'SELL' || action === 'HOLD' ? action : 'DIFF';
+    return {
+      label: `Δ${normalizedAction}`,
+      position: markerPositionForAction(normalizedAction, positionDelta),
+      color:
+        normalizedAction === 'BUY'
+          ? DIFF_BUY_COLOR
+          : normalizedAction === 'SELL'
+            ? DIFF_SELL_COLOR
+            : DIFF_MARKER_COLOR,
+    };
+  }
+  if (!isMaterialPositionDifference(positionDelta)) return null;
+  return {
+    label: positionDelta >= 0 ? 'ΔPOS+' : 'ΔPOS-',
+    position: positionDelta >= 0 ? 'belowBar' : 'aboveBar',
+    color: DIFF_MARKER_COLOR,
+  };
 }
 
 export function buildModelDifferenceMarkers(
@@ -251,11 +285,13 @@ export function buildModelDifferenceMarkers(
     string,
     {
       time: string;
-      action: string;
+      label: string;
+      position: ActionMarker['position'];
+      color: string;
       count: number;
     }
   >();
-  const previousByProfile = new Map<string, { active: boolean; action: string; delta: number }>();
+  const previousByProfile = new Map<string, { active: boolean; label: string; delta: number }>();
   for (const row of comparison.rows) {
     if (row.date < start || row.date > end) continue;
     const baseline = row.profiles[comparison.baseline_profile];
@@ -264,24 +300,23 @@ export function buildModelDifferenceMarkers(
       const value = row.profiles[profile];
       if (!value) continue;
       const delta = Number(value.position_delta_vs_baseline);
-      const active = Boolean(value.action_mismatch);
-      if (!active) {
-        previousByProfile.set(profile, { active: false, action: value.action, delta });
+      const markerParts = modelDifferenceMarkerParts(value.action, delta, Boolean(value.action_mismatch));
+      if (!markerParts) {
+        previousByProfile.set(profile, { active: false, label: '', delta });
         continue;
       }
-      const markerAction = value.action;
       const previous = previousByProfile.get(profile);
       const shouldMark =
         !previous?.active ||
-        previous.action !== markerAction;
-      previousByProfile.set(profile, { active: true, action: markerAction, delta });
+        previous.label !== markerParts.label;
+      previousByProfile.set(profile, { active: true, label: markerParts.label, delta });
       if (!shouldMark) continue;
-      const key = `${row.date}:${markerAction}`;
+      const key = `${row.date}:${markerParts.label}`;
       const current = grouped.get(key);
       if (current) {
         current.count += 1;
       } else {
-        grouped.set(key, { time: row.date, action: markerAction, count: 1 });
+        grouped.set(key, { time: row.date, ...markerParts, count: 1 });
       }
     }
   }
@@ -289,14 +324,14 @@ export function buildModelDifferenceMarkers(
     .sort((left, right) => {
       const dateOrder = left.time.localeCompare(right.time);
       if (dateOrder !== 0) return dateOrder;
-      return left.action.localeCompare(right.action);
+      return left.label.localeCompare(right.label);
     })
     .map((marker) => ({
       time: marker.time,
-      position: markerPositionForAction(marker.action),
-      color: DIFF_MARKER_COLOR,
+      position: marker.position,
+      color: marker.color,
       shape: 'circle' as const,
-      text: '',
+      text: `${marker.label} x${marker.count}`,
     }))
     .slice(-limit);
 }

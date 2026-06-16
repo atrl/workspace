@@ -153,9 +153,70 @@ describe('dashboard v2 chart rendering', () => {
     expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toEqual([
       { time: '2026-01-05', position: 'belowBar', color: '#0f766e', shape: 'arrowUp', text: '' },
       { time: '2026-01-06', position: 'aboveBar', color: '#b91c1c', shape: 'arrowDown', text: '' },
-      { time: '2026-01-05', position: 'belowBar', color: '#22c7a9', shape: 'circle', text: '' },
-      { time: '2026-01-06', position: 'aboveBar', color: '#22c7a9', shape: 'circle', text: '' },
+      { time: '2026-01-05', position: 'belowBar', color: '#1fb981', shape: 'circle', text: 'ΔBUY x1' },
+      { time: '2026-01-06', position: 'aboveBar', color: '#d96b5f', shape: 'circle', text: 'ΔSELL x1' },
     ]);
+  });
+
+  test('labels model-difference markers by actor action and material position-only divergence', () => {
+    const container = document.createElement('div');
+    const challenger = {
+      ...modelFixture,
+      profile: 'candidate',
+      rows: modelFixture.rows.map((row) => ({ ...row, position: row.date === '2026-01-05' ? 0.8 : row.position })),
+    };
+    const comparison = {
+      ...comparisonFixture,
+      compared_profiles: ['balanced_rule_residual_v22', 'smoke', 'candidate'],
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        profiles: {
+          balanced_rule_residual_v22: row.profiles.balanced_rule_residual_v22,
+          smoke: row.profiles.smoke,
+          candidate:
+            row.date === '2026-01-05'
+              ? {
+                  ...row.profiles.smoke,
+                  position: 0.8,
+                  position_delta_vs_baseline: 0.8,
+                  action_mismatch: true,
+                }
+              : row.date === '2026-01-06'
+                ? {
+                    ...row.profiles.balanced_rule_residual_v22,
+                    position: 0.3,
+                    position_delta_vs_baseline: 0.3,
+                    action_mismatch: false,
+                  }
+                : row.profiles.balanced_rule_residual_v22,
+        },
+      })),
+    };
+
+    renderMarketChart(
+      container,
+      marketFixture,
+      modelFixture,
+      { smoke: modelFixture, candidate: challenger },
+      () => {},
+      comparison,
+      ['balanced_rule_residual_v22', 'smoke', 'candidate'],
+    );
+
+    expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
+      time: '2026-01-05',
+      position: 'belowBar',
+      color: '#1fb981',
+      shape: 'circle',
+      text: 'ΔBUY x2',
+    });
+    expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
+      time: '2026-01-06',
+      position: 'belowBar',
+      color: '#22c7a9',
+      shape: 'circle',
+      text: 'ΔPOS+ x1',
+    });
   });
 
   test('keeps price candles dominant with volume in a compact lower lane', () => {

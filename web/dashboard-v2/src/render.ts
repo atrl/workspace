@@ -572,7 +572,7 @@ export function renderModelDeltaStrip(
     container.appendChild(latestDiffStrip);
   }
   const decisionRows = latestDecisionRows(comparison, models, profiles, start, end, manifest);
-  if (decisionRows.length > 1) {
+  if (decisionRows.length > 1 && latestSignalDiffs.length === 0) {
     const decision = element('div', 'latest-decision-matrix');
     const baselineRow = decisionRows.find((row) => row.isBaseline);
     const header = element('div', 'latest-decision-header');
@@ -678,16 +678,7 @@ export function renderModelDeltaStrip(
       .join(' | ');
     container.appendChild(quick);
   }
-  const summaryWrap = element('div', 'model-difference-summary-table-wrap');
-  const summaryTable = element('table', 'model-difference-summary-table');
-  const summaryHead = element('thead');
-  const summaryHeader = element('tr');
-  for (const label of ['Model', 'Replay / signal', 'Return / risk', 'Delta', 'Diff', 'Feature context']) {
-    summaryHeader.appendChild(element('th', undefined, label));
-  }
-  summaryHead.appendChild(summaryHeader);
-  summaryTable.appendChild(summaryHead);
-  const summaryBody = element('tbody');
+  const cards = element('div', 'model-difference-cards');
   for (const { profile, index, actionMismatchCount, positionDiffCount, values } of differenceStats) {
     if (!values) continue;
     const replayEnd = manifest?.profile_summaries?.[profile]?.replay_end;
@@ -702,68 +693,58 @@ export function renderModelDeltaStrip(
         : freshness.status === 'stale'
           ? 'cut'
           : 'common';
-    const row = element('tr', 'model-difference-summary-row');
-    row.dataset.profile = profile;
-    row.dataset.freshness = freshness.status;
-    row.dataset.diff = String(actionMismatchCount > 0 || positionDiffCount > 0);
-    row.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
-    const nameCell = element('td', 'model-difference-summary-name');
-    nameCell.appendChild(element('strong', undefined, profileLabel(profile, manifest)));
+    const card = element('article', 'model-difference-card');
+    card.dataset.profile = profile;
+    card.dataset.freshness = freshness.status;
+    card.dataset.diff = String(actionMismatchCount > 0 || positionDiffCount > 0);
+    card.style.borderLeftColor = MODEL_COLORS[index % MODEL_COLORS.length];
+    const title = element('strong', 'model-difference-card-title', profileLabel(profile, manifest));
+    card.appendChild(title);
     const sourceKind = profileSourceKind(profile, manifest);
     if (sourceKind) {
-      nameCell.appendChild(element('span', 'model-difference-summary-kind', sourceKind.replaceAll('_', ' ')));
+      card.appendChild(element('span', 'model-difference-card-kind', sourceKind.replaceAll('_', ' ')));
     }
-    row.appendChild(nameCell);
-    const replayCell = element('td', 'model-difference-summary-replay', `${replayEnd ?? 'n/a'} ${replayState}`);
+    const replayLine = element('span', 'model-difference-card-replay', `replay ${replayEnd ?? 'n/a'} ${replayState}`);
     if (latestSignal) {
-      replayCell.appendChild(
-        element('span', 'model-difference-summary-signal', `${latestSignal.action} ${latestSignal.position.toFixed(3)} @${latestSignal.date.slice(5)}`),
+      replayLine.appendChild(
+        element(
+          'span',
+          'model-difference-card-signal',
+          ` signal ${latestSignal.action} ${latestSignal.position.toFixed(3)} @${latestSignal.date.slice(5)}`,
+        ),
       );
     } else if (freshness.gapLabel) {
-      replayCell.appendChild(element('span', 'model-difference-summary-gap', freshness.gapLabel));
+      replayLine.appendChild(element('span', 'model-difference-card-gap', ` ${freshness.gapLabel}`));
     }
-    row.appendChild(replayCell);
-    row.appendChild(
-      element(
-        'td',
-        'model-difference-summary-risk',
-        [
-          ranking
-            ? `Ret ${formatPct(ranking.return * 100)}`
-            : `Ret ${formatSigned((values.strategy_nav_rebased ?? values.strategy_nav) - 100, 2)}%`,
-          ranking ? `MaxDD ${formatPct(ranking.max_drawdown * 100)}` : 'MaxDD n/a',
-          ranking ? `AvgPos ${ranking.avg_position.toFixed(3)}` : 'AvgPos n/a',
-        ].join(' | '),
-      ),
-    );
-    row.appendChild(
-      element(
-        'td',
-        'model-difference-summary-delta',
-        [
-          `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`,
-          `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`,
-          latestDiff ? `signal Δpos ${formatSigned(latestDiff.position_delta_vs_baseline, 3)} @${latestDiff.date.slice(5)}` : null,
-        ]
-          .filter(Boolean)
-          .join(' | '),
-      ),
-    );
-    row.appendChild(element('td', 'model-difference-summary-diff', `Diff ${actionMismatchCount}/${positionDiffCount}`));
-    const feature = element('td', 'model-difference-summary-feature');
+    card.appendChild(replayLine);
+    const metrics = element('div', 'model-difference-card-metrics');
+    for (const label of [
+      ranking
+        ? `Ret ${formatPct(ranking.return * 100)}`
+        : `Ret ${formatSigned((values.strategy_nav_rebased ?? values.strategy_nav) - 100, 2)}%`,
+      ranking ? `MaxDD ${formatPct(ranking.max_drawdown * 100)}` : 'MaxDD n/a',
+      ranking ? `AvgPos ${ranking.avg_position.toFixed(3)}` : 'AvgPos n/a',
+      `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`,
+      `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`,
+      latestDiff ? `Signal Δpos ${formatSigned(latestDiff.position_delta_vs_baseline, 3)} @${latestDiff.date.slice(5)}` : null,
+      `Diff ${actionMismatchCount}/${positionDiffCount}`,
+    ].filter((label): label is string => Boolean(label))) {
+      metrics.appendChild(element('span', undefined, label));
+    }
+    card.appendChild(metrics);
+    const feature = element('span', 'model-difference-card-feature');
     if (latestMismatch) {
       feature.title = mismatchFeatureLabel(latestMismatch);
       feature.textContent = mismatchFeatureLabel(latestMismatch);
+      card.title = feature.title;
     } else {
       feature.textContent = '-';
     }
-    row.appendChild(feature);
-    summaryBody.appendChild(row);
+    card.appendChild(feature);
+    cards.appendChild(card);
   }
-  summaryTable.appendChild(summaryBody);
-  summaryWrap.appendChild(summaryTable);
-  if (summaryBody.childElementCount > 0) {
-    container.appendChild(summaryWrap);
+  if (cards.childElementCount > 0) {
+    container.appendChild(cards);
   }
   const tableWrap = element('div', 'model-diff-table-wrap');
   const table = element('table', 'model-diff-table');

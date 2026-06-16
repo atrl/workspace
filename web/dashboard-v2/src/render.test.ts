@@ -683,11 +683,11 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(strip?.textContent).toContain('2026-01-07 vs SOXLBacktest HOLD 0.200');
     expect(strip?.textContent).toContain('smoke BUY 0.550 Δpos +0.350');
     expect(panel.querySelector('.model-delta-quick')?.textContent).toContain('smoke signal ΔPos +0.350 @01-07');
-    const row = panel.querySelector('.model-difference-summary-table [data-profile="smoke"]');
-    expect(row?.textContent).toContain('signal Δpos +0.350 @01-07');
+    const card = panel.querySelector('.model-difference-card[data-profile="smoke"]');
+    expect(card?.textContent).toContain('Signal Δpos +0.350 @01-07');
   });
 
-  test('renders an always-visible compact model difference table with replay, signal and common-window deltas', () => {
+  test('renders always-visible compact model difference cards with replay, signal and common-window deltas', () => {
     const panel = document.createElement('div');
     const latestSmoke = {
       ...modelFixture,
@@ -749,21 +749,199 @@ describe('dashboard v2 DOM render helpers', () => {
       { smoke: latestSmoke },
     );
 
-    expect(panel.querySelector('.model-difference-cards')).toBeNull();
-    const table = panel.querySelector('.model-difference-summary-table');
-    expect(table).not.toBeNull();
+    const cards = panel.querySelector('.model-difference-cards');
+    expect(cards).not.toBeNull();
+    expect(panel.querySelector('.model-difference-summary-table')).toBeNull();
     expect(panel.querySelector('.model-delta-quick')?.textContent).toContain('smoke ΔNAV +2.00 ΔPos +0.200');
-    const row = table?.querySelector('[data-profile="smoke"]');
-    expect(row?.textContent).toContain('smoke');
-    expect(row?.textContent).toContain('2026-01-06 cut');
-    expect(row?.textContent).toContain('BUY 0.550 @01-07');
-    expect(row?.textContent).toContain('Ret 42.00%');
-    expect(row?.textContent).toContain('MaxDD -8.00%');
-    expect(row?.textContent).toContain('AvgPos 0.510');
-    expect(row?.textContent).toContain('ΔNAV +2.00');
-    expect(row?.textContent).toContain('ΔPos +0.200');
-    expect(row?.textContent).toContain('Diff 2/2');
-    expect(row?.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
+    const card = cards?.querySelector('[data-profile="smoke"]');
+    expect(card?.textContent).toContain('smoke');
+    expect(card?.textContent).toContain('replay 2026-01-06 cut');
+    expect(card?.textContent).toContain('signal BUY 0.550 @01-07');
+    expect(card?.textContent).toContain('Ret 42.00%');
+    expect(card?.textContent).toContain('MaxDD -8.00%');
+    expect(card?.textContent).toContain('AvgPos 0.510');
+    expect(card?.textContent).toContain('ΔNAV +2.00');
+    expect(card?.textContent).toContain('ΔPos +0.200');
+    expect(card?.textContent).toContain('Diff 2/2');
+    expect(card?.textContent).toContain('Last diff 2026-01-05 BUY vs HOLD');
+  });
+
+  test('renders readable first-viewport model difference cards instead of a dense summary table', () => {
+    const panel = document.createElement('div');
+    const latestSmoke = {
+      ...modelFixture,
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.55,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+
+    renderModelDeltaStrip(
+      panel,
+      {
+        ...comparisonFixture,
+        rankings: [{ profile: 'smoke', return: 0.42, max_drawdown: -0.08, avg_position: 0.51, row_count: 3 }],
+      },
+      '2026-01-02',
+      '2026-01-07',
+      undefined,
+      {
+        ...manifestFixture,
+        latest_market_date: '2026-01-07',
+        default_baseline_profile: 'balanced_rule_residual_v22',
+        profile_summaries: {
+          smoke: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+            latest_signal_date: '2026-01-07',
+          },
+          balanced_rule_residual_v22: {
+            status: 'reference',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-07',
+            row_count: 4,
+            source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+          },
+        },
+      },
+      [
+        {
+          date: '2026-01-05',
+          profile: 'smoke',
+          model_action: 'BUY',
+          baseline_action: 'HOLD',
+          model_position: 0.7,
+          baseline_position: 0,
+          position_delta_vs_baseline: 0.7,
+          nav_delta_vs_baseline: 5,
+          close: 11,
+          features: { rsi6: '60', vix: '18' },
+        },
+      ],
+      { smoke: latestSmoke },
+    );
+
+    expect(panel.querySelector('.model-difference-summary-table')).toBeNull();
+    const cards = panel.querySelector('.model-difference-cards');
+    expect(cards).not.toBeNull();
+    const card = cards?.querySelector('[data-profile="smoke"]');
+    expect(card?.textContent).toContain('smoke');
+    expect(card?.textContent).toContain('replay 2026-01-06 cut');
+    expect(card?.textContent).toContain('signal BUY 0.550 @01-07');
+    expect(card?.textContent).toContain('Ret 42.00%');
+    expect(card?.textContent).toContain('MaxDD -8.00%');
+    expect(card?.textContent).toContain('ΔNAV +2.00');
+    expect(card?.textContent).toContain('ΔPos +0.200');
+    expect(card?.textContent).toContain('Diff 2/2');
+    expect(card?.getAttribute('title')).toContain('Last diff 2026-01-05 BUY vs HOLD');
+  });
+
+  test('does not duplicate explicit latest signal differences with a latest decision matrix', () => {
+    const panel = document.createElement('div');
+    const referenceProfile = 'soxl_backtest_policy_reimplementation_v1';
+    const referenceModel = {
+      ...modelFixture,
+      profile: referenceProfile,
+      status: 'reference',
+      rows: [
+        ...modelFixture.rows,
+        {
+          date: '2026-01-07',
+          strategy_nav: 105,
+          buyhold_nav: 110,
+          position: 0.2,
+          action: 'HOLD' as const,
+          price: 10.4,
+          excess: -5,
+          excess_pct: 0.05,
+        },
+      ],
+    };
+    const smokeModel = {
+      ...modelFixture,
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.55,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+    const referenceComparison = {
+      ...comparisonFixture,
+      baseline_profile: referenceProfile,
+      compared_profiles: [referenceProfile, 'smoke'],
+      latest_signal_differences: [
+        {
+          date: '2026-01-07',
+          profile: 'smoke',
+          baseline_profile: referenceProfile,
+          model_action: 'BUY',
+          baseline_action: 'HOLD',
+          model_position: 0.55,
+          baseline_position: 0.2,
+          position_delta_vs_baseline: 0.35,
+          replay_asof: '2026-01-06',
+          source: 'latest_signal_stateless',
+        },
+      ],
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        profiles: {
+          [referenceProfile]: row.profiles.balanced_rule_residual_v22,
+          smoke: row.profiles.smoke,
+        },
+      })),
+    };
+
+    renderModelDeltaStrip(
+      panel,
+      referenceComparison,
+      '2026-01-02',
+      '2026-01-07',
+      undefined,
+      {
+        ...manifestFixture,
+        latest_market_date: '2026-01-07',
+        default_baseline_profile: referenceProfile,
+        profile_summaries: {
+          [referenceProfile]: {
+            status: 'reference',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-07',
+            row_count: 4,
+            source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+          },
+          smoke: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+            latest_signal_date: '2026-01-07',
+          },
+        },
+      },
+      [],
+      {
+        [referenceProfile]: referenceModel,
+        smoke: smokeModel,
+      },
+    );
+
+    expect(panel.querySelector('.latest-signal-difference-strip')).not.toBeNull();
+    expect(panel.querySelector('.latest-decision-matrix')).toBeNull();
+    expect(panel.querySelector('.model-difference-card[data-profile="smoke"]')?.textContent).toContain(
+      'Signal Δpos +0.350 @01-07',
+    );
   });
 
   test('renders material position-difference counts when action labels are identical', () => {
@@ -793,9 +971,9 @@ describe('dashboard v2 DOM render helpers', () => {
       manifestFixture,
     );
 
-    const row = panel.querySelector('.model-difference-summary-table [data-profile="smoke"]');
-    expect(row?.textContent).toContain('Diff 0/2');
-    expect(row?.textContent).not.toContain('Mismatch 0');
+    const card = panel.querySelector('.model-difference-card[data-profile="smoke"]');
+    expect(card?.textContent).toContain('Diff 0/2');
+    expect(card?.textContent).not.toContain('Mismatch 0');
   });
 
   test('renders a latest decision matrix for baseline versus actor signals', () => {

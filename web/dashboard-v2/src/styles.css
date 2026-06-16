@@ -239,7 +239,7 @@ h3 {
   order: 0;
   display: block;
   min-width: 0;
-  max-height: 136px;
+  max-height: 184px;
   padding: 4px 10px 5px;
   border: 0;
   border-bottom: 1px solid var(--line-soft);
@@ -774,8 +774,8 @@ h3 {
 .chart-main {
   order: 1;
   flex: 0 0 auto;
-  height: clamp(420px, 48vh, 660px);
-  min-height: 390px;
+  height: clamp(460px, 52vh, 720px);
+  min-height: 430px;
 }
 
 .chart-small {
@@ -1006,6 +1006,28 @@ h3 {
   margin: 0 0 6px;
   overflow: visible;
   scrollbar-width: thin;
+}
+
+.model-delta-strip .model-difference-cards {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  margin: 0 0 3px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.model-delta-strip .model-difference-card {
+  flex: 0 0 226px;
+  padding: 4px 7px;
+}
+
+.model-delta-strip .model-difference-card-metrics {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.model-delta-strip .model-difference-card-feature {
+  display: none;
 }
 
 .model-difference-card {
