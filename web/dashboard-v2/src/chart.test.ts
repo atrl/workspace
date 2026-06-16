@@ -47,7 +47,7 @@ const chartMocks = vi.hoisted(() => {
         clearCrosshairPosition: vi.fn(),
         setCrosshairPosition: vi.fn(),
         priceScale: vi.fn((id: string) => {
-          if (id !== 'right' && id !== 'position') {
+          if (id !== 'right') {
             throw new Error(`Trying to apply price scale options with incorrect ID: ${id}`);
           }
           const record = { id, applyOptions: vi.fn() };
@@ -247,7 +247,7 @@ describe('dashboard v2 chart rendering', () => {
       scaleMargins: { top: 0.91, bottom: 0.01 },
     });
     expect(chartMocks.priceScaleRecords[2].applyOptions).toHaveBeenCalledWith({
-      scaleMargins: { top: 0.72, bottom: 0.12 },
+      scaleMargins: { top: 0.76, bottom: 0.10 },
     });
   });
 

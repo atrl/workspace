@@ -24,7 +24,7 @@ def test_model_delta_strip_stays_compact_for_first_viewport():
     match = re.search(r"\bmax-height\s*:\s*(?P<height>\d+)px\s*;", body)
     assert match is not None, "model difference strip must have a fixed compact max-height"
     height = int(match.group("height"))
-    assert 176 <= height <= 190, "model difference strip must show model cards without crowding out the K-line"
+    assert 148 <= height <= 164, "model difference strip must show latest signals without crowding out the K-line"
 
 
 def test_latest_signal_readouts_stay_visible_and_compact_in_first_viewport():
@@ -55,18 +55,20 @@ def test_first_viewport_includes_position_and_nav_difference_panes():
     assert "grid-template-columns" in lower_body
 
 
-def test_main_kline_keeps_space_and_model_cards_scroll_horizontally():
+def test_main_kline_keeps_space_and_model_cards_use_first_viewport_grid():
     chart_body = _css_rule(".chart-main")
     css = (ROOT / "web/dashboard-v2/src/styles.css").read_text(encoding="utf-8")
 
     min_height = re.search(r"\bmin-height\s*:\s*(?P<height>\d+)px\s*;", chart_body)
     assert min_height is not None, "main K-line chart must have a stable minimum height"
-    assert int(min_height.group("height")) >= 430, "main K-line must remain readable after adding model-difference cards"
+    assert int(min_height.group("height")) >= 400, "main K-line must remain readable with first-viewport model differences"
+    assert "46vh" in chart_body, "main K-line should leave room for position and NAV panes in the first viewport"
     cards = re.search(
         r"\.model-delta-strip\s+\.model-difference-cards\s*\{(?P<body>.*?)\n\}",
         css,
         re.S,
     )
     assert cards is not None, "first-viewport model cards need a strip-specific layout rule"
-    assert re.search(r"\bflex-wrap\s*:\s*nowrap\s*;", cards.group("body"))
-    assert re.search(r"\boverflow-x\s*:\s*auto\s*;", cards.group("body"))
+    assert re.search(r"\bdisplay\s*:\s*grid\s*;", cards.group("body"))
+    assert "grid-template-columns" in cards.group("body")
+    assert "overflow-x" not in cards.group("body")

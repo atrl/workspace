@@ -1,0 +1,35 @@
+{
+  "experiment": "dashboard_v2_latest_model_diff_v1",
+  "status": "fixed",
+  "root_cause": "Dashboard V2 called chart.priceScale('position') before any series owned the custom position price scale, which throws in lightweight-charts and blanked the K-line page.",
+  "data_boundary": {
+    "latest_market_date": "2026-06-15",
+    "actor_safe_replay_end": "2026-06-12",
+    "baseline_replay_end": "2026-06-15",
+    "latest_actor_signal_date": "2026-06-15",
+    "interpretation": "Actor NAV/replay remains clipped to the qlib safe replay end. Latest actor decisions are shown through stateless latest_signal rows rather than synthetic NAV extension."
+  },
+  "changes": [
+    "Configure the custom position price scale from the first position series instead of chart.priceScale('position').",
+    "Tighten chart tests so they fail on premature custom price scale access.",
+    "Remove the duplicate latest-signal strip when the latest decision matrix is present.",
+    "Rank model difference cards by latest signal position delta before historical mismatch counts.",
+    "Use a compact first-viewport grid for model difference cards and prioritize Signal delta, position delta, and NAV delta.",
+    "Reduce the main K-line height to leave the position, position-delta, delta-NAV, and rebased-NAV panes visible in the first viewport."
+  ],
+  "evidence": {
+    "before_screenshot": "runtime/production/card/dashboard_v2_latest_model_diff_v1/before.png",
+    "runtime_fix_screenshot": "runtime/production/card/dashboard_v2_latest_model_diff_v1/after_runtime_fix.png",
+    "final_screenshot": "runtime/production/card/dashboard_v2_latest_model_diff_v1/final_compact_metrics.png",
+    "screenshot_non_dark_ratio": 0.1440
+  },
+  "verification": [
+    "cd web/dashboard-v2 && npm test -- --run",
+    "cd web/dashboard-v2 && npm run build",
+    "PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_dashboard_v2_data.py tests/test_dashboard_v2_checker.py tests/test_dashboard_v2_layout.py -q",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_v2_data.py dashboard_data/v2",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/check_dashboard_static_export.py",
+    "PYTHONPATH=. qlib_venv/bin/python scripts/build_runtime_index.py --check"
+  ],
+  "decision": "dashboard_v2_kline_and_model_difference_readability_fixed_no_actor_nav_tail_synthesis"
+}

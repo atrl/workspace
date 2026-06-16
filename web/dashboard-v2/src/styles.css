@@ -242,7 +242,7 @@ h3 {
   order: 0;
   display: block;
   min-width: 0;
-  max-height: 184px;
+  max-height: 156px;
   padding: 4px 10px 5px;
   border: 0;
   border-bottom: 1px solid var(--line-soft);
@@ -777,8 +777,8 @@ h3 {
 .chart-main {
   order: 1;
   flex: 0 0 auto;
-  height: clamp(460px, 52vh, 720px);
-  min-height: 430px;
+  height: clamp(420px, 46vh, 640px);
+  min-height: 400px;
 }
 
 .chart-small {
@@ -1080,21 +1080,43 @@ h3 {
 }
 
 .model-delta-strip .model-difference-cards {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(172px, 1fr));
   gap: 6px;
   margin: 0 0 3px;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: visible;
 }
 
 .model-delta-strip .model-difference-card {
-  flex: 0 0 226px;
-  padding: 4px 7px;
+  grid-template-columns: minmax(74px, 0.8fr) minmax(0, 1.5fr);
+  grid-template-areas:
+    "title metrics"
+    "replay metrics";
+  align-items: center;
+  padding: 3px 6px;
+  font-size: 10.5px;
 }
 
 .model-delta-strip .model-difference-card-metrics {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-area: metrics;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px 5px;
+}
+
+.model-delta-strip .model-difference-card-metrics span:nth-child(n+4) {
+  display: none;
+}
+
+.model-delta-strip .model-difference-card-title {
+  grid-area: title;
+}
+
+.model-delta-strip .model-difference-card-kind {
+  display: none;
+}
+
+.model-delta-strip .model-difference-card-replay {
+  grid-area: replay;
 }
 
 .model-delta-strip .model-difference-card-feature {

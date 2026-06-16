@@ -280,9 +280,7 @@ export function renderMarketChart(
       color: Number(row.close) >= Number(row.open) ? 'rgba(31, 185, 129, 0.24)' : 'rgba(217, 107, 95, 0.24)',
     })),
   );
-  chart.priceScale('position').applyOptions({
-    scaleMargins: { top: 0.72, bottom: 0.12 },
-  });
+  let positionScaleConfigured = false;
   for (const [index, [profile, payload]] of Object.entries(models).entries()) {
     const rows = positionOverlayData(payload);
     if (rows.length === 0) continue;
@@ -297,6 +295,12 @@ export function renderMarketChart(
       priceLineVisible: false,
       title: '',
     });
+    if (!positionScaleConfigured) {
+      line.priceScale().applyOptions({
+        scaleMargins: { top: 0.76, bottom: 0.10 },
+      });
+      positionScaleConfigured = true;
+    }
     line.setData(rows);
   }
   const markerStart = market.rows[0]?.date;

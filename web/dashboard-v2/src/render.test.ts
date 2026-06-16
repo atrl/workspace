@@ -946,7 +946,7 @@ describe('dashboard v2 DOM render helpers', () => {
       },
     );
 
-    expect(panel.querySelector('.latest-signal-difference-strip')).not.toBeNull();
+    expect(panel.querySelector('.latest-signal-difference-strip')).toBeNull();
     const matrix = panel.querySelector('.latest-decision-matrix');
     expect(matrix).not.toBeNull();
     expect(matrix?.textContent).toContain('Latest model signals');
@@ -958,6 +958,142 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.model-difference-card[data-profile="smoke"]')?.textContent).toContain(
       'Signal Δpos +0.350 @01-07',
     );
+  });
+
+  test('uses the latest decision matrix as the single latest-signal surface and ranks cards by signal delta', () => {
+    const panel = document.createElement('div');
+    const referenceProfile = 'soxl_backtest_policy_reimplementation_v1';
+    const referenceModel = {
+      ...modelFixture,
+      profile: referenceProfile,
+      status: 'reference',
+      rows: [
+        ...modelFixture.rows,
+        {
+          date: '2026-01-07',
+          strategy_nav: 105,
+          buyhold_nav: 110,
+          position: 0.2,
+          action: 'HOLD' as const,
+          price: 10.4,
+          excess: -5,
+          excess_pct: 0.05,
+        },
+      ],
+    };
+    const smokeModel = {
+      ...modelFixture,
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.3,
+        action: 'HOLD' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+    const v22Model = {
+      ...modelFixture,
+      profile: 'balanced_rule_residual_v22',
+      latest_signal: {
+        date: '2026-01-07',
+        price: 10.4,
+        position: 0.7,
+        action: 'BUY' as const,
+        replay_asof: '2026-01-06',
+        source: 'latest_signal_stateless',
+      },
+    };
+    const comparison = {
+      ...comparisonFixture,
+      baseline_profile: referenceProfile,
+      compared_profiles: [referenceProfile, 'smoke', 'balanced_rule_residual_v22'],
+      latest_signal_differences: [
+        {
+          date: '2026-01-07',
+          profile: 'smoke',
+          baseline_profile: referenceProfile,
+          model_action: 'HOLD',
+          baseline_action: 'HOLD',
+          model_position: 0.3,
+          baseline_position: 0.2,
+          position_delta_vs_baseline: 0.1,
+          replay_asof: '2026-01-06',
+          source: 'latest_signal_stateless',
+        },
+        {
+          date: '2026-01-07',
+          profile: 'balanced_rule_residual_v22',
+          baseline_profile: referenceProfile,
+          model_action: 'BUY',
+          baseline_action: 'HOLD',
+          model_position: 0.7,
+          baseline_position: 0.2,
+          position_delta_vs_baseline: 0.5,
+          replay_asof: '2026-01-06',
+          source: 'latest_signal_stateless',
+        },
+      ],
+      rows: comparisonFixture.rows.map((row) => ({
+        ...row,
+        profiles: {
+          [referenceProfile]: row.profiles.balanced_rule_residual_v22,
+          smoke: row.profiles.smoke,
+          balanced_rule_residual_v22: row.profiles.smoke,
+        },
+      })),
+    };
+
+    renderModelDeltaStrip(
+      panel,
+      comparison,
+      '2026-01-02',
+      '2026-01-07',
+      [referenceProfile, 'smoke', 'balanced_rule_residual_v22'],
+      {
+        ...manifestFixture,
+        latest_market_date: '2026-01-07',
+        default_baseline_profile: referenceProfile,
+        profile_summaries: {
+          [referenceProfile]: {
+            status: 'reference',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-07',
+            row_count: 4,
+            source_path: 'runtime/production/card/soxl_backtest_policy_reimplementation_v1/new_policy_daily.csv',
+          },
+          smoke: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/smoke/smoke_soxl_daily.csv',
+            latest_signal_date: '2026-01-07',
+          },
+          balanced_rule_residual_v22: {
+            status: 'canonical',
+            replay_start: '2026-01-02',
+            replay_end: '2026-01-06',
+            row_count: 3,
+            source_path: 'runtime/model/card/balanced_rule_residual_v22/balanced_rule_residual_v22_soxl_daily.csv',
+            latest_signal_date: '2026-01-07',
+          },
+        },
+      },
+      [],
+      {
+        [referenceProfile]: referenceModel,
+        smoke: smokeModel,
+        balanced_rule_residual_v22: v22Model,
+      },
+    );
+
+    expect(panel.querySelector('.latest-decision-matrix')).not.toBeNull();
+    expect(panel.querySelector('.latest-signal-difference-strip')).toBeNull();
+    expect(panel.querySelector('.model-delta-quick')).toBeNull();
+    const firstCard = panel.querySelector('.model-difference-card');
+    expect(firstCard?.getAttribute('data-profile')).toBe('balanced_rule_residual_v22');
+    expect(firstCard?.textContent).toContain('Signal Δpos +0.500 @01-07');
   });
 
   test('renders material position-difference counts when action labels are identical', () => {

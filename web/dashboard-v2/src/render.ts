@@ -610,7 +610,8 @@ export function renderModelDeltaStrip(
     container.appendChild(tail);
   }
   const decisionRows = latestDecisionRows(comparison, models, profiles, start, end, manifest);
-  if (decisionRows.length > 1) {
+  const hasLatestDecisionMatrix = decisionRows.length > 1;
+  if (hasLatestDecisionMatrix) {
     const decision = element('div', 'latest-decision-matrix');
     const baselineRow = decisionRows.find((row) => row.isBaseline);
     const header = element('div', 'latest-decision-header');
@@ -645,7 +646,7 @@ export function renderModelDeltaStrip(
   }
   const latestSignalDiffs = visibleLatestSignalDifferences(comparison, profiles, start, end);
   const latestSignalDiffByProfile = new Map(latestSignalDiffs.map((row) => [row.profile, row]));
-  if (latestSignalDiffs.length > 0) {
+  if (latestSignalDiffs.length > 0 && !hasLatestDecisionMatrix) {
     const latestDiffStrip = element('div', 'latest-signal-difference-strip');
     const firstDiff = latestSignalDiffs[0];
     latestDiffStrip.appendChild(
@@ -666,7 +667,7 @@ export function renderModelDeltaStrip(
     }
     container.appendChild(latestDiffStrip);
   }
-  const latestSignalRows = decisionRows.length > 1 ? [] : latestSignalDifferenceRows(comparison, models, start, end);
+  const latestSignalRows = hasLatestDecisionMatrix ? [] : latestSignalDifferenceRows(comparison, models, start, end);
   if (latestSignalRows.length > 0) {
     const latestStrip = element('div', 'latest-signal-strip');
     const firstSignal = latestSignalRows[0];
@@ -713,12 +714,15 @@ export function renderModelDeltaStrip(
     })
     .filter((item) => item.values)
     .sort((left, right) => {
+      const leftLatestDelta = Math.abs(latestSignalDiffByProfile.get(left.profile)?.position_delta_vs_baseline ?? 0);
+      const rightLatestDelta = Math.abs(latestSignalDiffByProfile.get(right.profile)?.position_delta_vs_baseline ?? 0);
+      if (rightLatestDelta !== leftLatestDelta) return rightLatestDelta - leftLatestDelta;
       const leftScore = left.actionMismatchCount * 3 + left.positionDiffCount;
       const rightScore = right.actionMismatchCount * 3 + right.positionDiffCount;
       if (rightScore !== leftScore) return rightScore - leftScore;
       return profileLabel(left.profile, manifest).localeCompare(profileLabel(right.profile, manifest));
     });
-  if (differenceStats.length > 0) {
+  if (differenceStats.length > 0 && !hasLatestDecisionMatrix) {
     const quick = element('div', 'model-delta-quick');
     quick.textContent = differenceStats
       .map(({ profile, values }) => {
@@ -785,14 +789,14 @@ export function renderModelDeltaStrip(
     card.appendChild(replayLine);
     const metrics = element('div', 'model-difference-card-metrics');
     for (const label of [
+      latestDiff ? `Signal Δpos ${formatSigned(latestDiff.position_delta_vs_baseline, 3)} @${latestDiff.date.slice(5)}` : null,
+      `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`,
+      `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`,
       ranking
         ? `Ret ${formatPct(ranking.return * 100)}`
         : `Ret ${formatSigned((values.strategy_nav_rebased ?? values.strategy_nav) - 100, 2)}%`,
       ranking ? `MaxDD ${formatPct(ranking.max_drawdown * 100)}` : 'MaxDD n/a',
       ranking ? `AvgPos ${ranking.avg_position.toFixed(3)}` : 'AvgPos n/a',
-      `ΔNAV ${formatSigned(values.nav_delta_vs_baseline, 2)}`,
-      `ΔPos ${formatSigned(values.position_delta_vs_baseline, 3)}`,
-      latestDiff ? `Signal Δpos ${formatSigned(latestDiff.position_delta_vs_baseline, 3)} @${latestDiff.date.slice(5)}` : null,
       `Diff ${actionMismatchCount}/${positionDiffCount}`,
     ].filter((label): label is string => Boolean(label))) {
       metrics.appendChild(element('span', undefined, label));
