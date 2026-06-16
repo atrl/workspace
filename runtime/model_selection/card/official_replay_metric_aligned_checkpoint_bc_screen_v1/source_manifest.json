@@ -1,0 +1,72 @@
+[
+  {
+    "exists": true,
+    "mechanism": "sequence_trend_joint_bc",
+    "metrics_path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/warm_start_official_metrics.csv",
+    "rows": 6,
+    "selection_path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/selection.json",
+    "source_decision": "warm_start_official_eval_no_full_gate_no_promotion",
+    "source_label": "sequence_trend_joint_warm_start_official_eval_v1",
+    "summary_path": "runtime/model_selection/card/sequence_trend_joint_warm_start_official_eval_v1/summary.json"
+  },
+  {
+    "exists": true,
+    "mechanism": "state_conditioned_multi_objective_bc",
+    "metrics_path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/warm_start_official_metrics.csv",
+    "rows": 6,
+    "selection_path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/selection.json",
+    "source_decision": "state_conditioned_multi_objective_drawdown_failed_no_promotion",
+    "source_label": "state_conditioned_multi_objective_bc_screen_v1",
+    "summary_path": "runtime/model_selection/card/state_conditioned_multi_objective_bc_screen_v1/summary.json"
+  },
+  {
+    "exists": true,
+    "mechanism": "short_volshock_checkpoint_bc",
+    "metrics_path": "runtime/model_selection/card/short_volshock_bc_checkpoint_alignment_v1/warm_start_official_metrics.csv",
+    "rows": 6,
+    "selection_path": "runtime/model_selection/card/short_volshock_bc_checkpoint_alignment_v1/selection.json",
+    "source_decision": "short_volshock_bc_replay_gate_failed_no_promotion",
+    "source_label": "short_volshock_bc_checkpoint_alignment_v1",
+    "summary_path": "runtime/model_selection/card/short_volshock_bc_checkpoint_alignment_v1/summary.json"
+  },
+  {
+    "exists": true,
+    "mechanism": "short_volshock_bc_initialization",
+    "metrics_path": "runtime/model_selection/card/short_volshock_bc_initialization_official_replay_v1/official_replay_metrics.csv",
+    "rows": 2,
+    "selection_path": "runtime/model_selection/card/short_volshock_bc_initialization_official_replay_v1/selection.json",
+    "source_decision": "short_volshock_bc_initialization_official_replay_gate_flip_no_promotion",
+    "source_label": "short_volshock_bc_initialization_official_replay_v1",
+    "summary_path": "runtime/model_selection/card/short_volshock_bc_initialization_official_replay_v1/summary.json"
+  },
+  {
+    "exists": true,
+    "mechanism": "short_volshock_action_cap_overlay",
+    "metrics_path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/official_replay_metrics.csv",
+    "rows": 8,
+    "selection_path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/selection.json",
+    "source_decision": "official_short_volshock_cap_replay_failed_no_promotion",
+    "source_label": "short_volshock_official_replay_screen_v1",
+    "summary_path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/summary.json"
+  },
+  {
+    "exists": true,
+    "mechanism": "short_volshock_sell_guard_overlay",
+    "metrics_path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/official_replay_metrics.csv",
+    "rows": 8,
+    "selection_path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/selection.json",
+    "source_decision": "official_short_volshock_sell_guard_no_improvement_no_promotion",
+    "source_label": "short_volshock_sell_guard_official_replay_v1",
+    "summary_path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/summary.json"
+  },
+  {
+    "exists": true,
+    "mechanism": "risk_state_target_replay",
+    "metrics_path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/official_replay_metrics.csv",
+    "rows": 10,
+    "selection_path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/selection.json",
+    "source_decision": "risk_state_target_cap_reduces_drawdown_but_misses_gate_no_promotion",
+    "source_label": "official_replay_risk_state_target_screen_v1",
+    "summary_path": "runtime/model_selection/card/official_replay_risk_state_target_screen_v1/summary.json"
+  }
+]

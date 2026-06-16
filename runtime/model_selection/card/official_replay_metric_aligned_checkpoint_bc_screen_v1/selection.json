@@ -1,0 +1,62 @@
+{
+  "actor_retention_allowed": false,
+  "checkpoint_bc_reference_allowed_next": true,
+  "created_at": "2026-06-16T03:08:20+00:00",
+  "decision": "official_replay_metric_aligned_checkpoint_bc_near_miss_no_promotion",
+  "experiment": "official_replay_metric_aligned_checkpoint_bc_screen_v1",
+  "hard_blockers": [
+    "no candidate has final retained actor status",
+    "BC official replay screens do not include all final required windows",
+    "strict retention gate still has passing_profile_count=0",
+    "current best-return alignment and MaxDD<20 final gate remain unproven for any new actor"
+  ],
+  "next_mechanism": "use_short_volshock_near_miss_as_metric_aligned_checkpoint_or_bc_teacher_then_add_wf2020_and_strict_retention_gate",
+  "official_eval_windows": [
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "required_final_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "selected_candidate": "short_volshock_cap05_hit2",
+  "selected_candidate_id": "short_volshock_official_replay_screen_v1::short_volshock_cap05_hit2",
+  "selected_failure_profile": "near_miss",
+  "selected_full_gate": false,
+  "selected_gate_pass_count": 1,
+  "selected_max_max_dd": 15.1073807852534,
+  "selected_mechanism": "short_volshock_action_cap_overlay",
+  "selected_min_relative_return": 29.81726330693851,
+  "selected_missing_final_required_windows": "wf_2020",
+  "selected_near_miss": true,
+  "selected_source_label": "short_volshock_official_replay_screen_v1",
+  "selected_total_gate_loss": 1.2565445455954816,
+  "selected_window_count": 2,
+  "sidecars": {
+    "candidate_window_coverage": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/candidate_window_coverage.csv",
+    "load_errors": "",
+    "normalised_official_candidate_pool": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/normalised_official_candidate_pool.csv",
+    "official_candidate_review": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/official_candidate_review.md",
+    "raw_source_shapes": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/raw_source_shapes.csv",
+    "scored_official_candidate_pool": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/scored_official_candidate_pool.csv",
+    "selected_candidate_fold_metrics": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/selected_candidate_fold_metrics.csv",
+    "selection": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/selection.json",
+    "source_manifest": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/source_manifest.csv",
+    "source_manifest_json": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/source_manifest.json",
+    "stress_scores": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/stress_scores.csv",
+    "summary": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/summary.json"
+  },
+  "source_handoff_decision": "no_retained_walkforward_model_route_to_metric_aligned_checkpoint_bc_screen",
+  "strict_retention_context": {
+    "current_best_return_pct": 224.361539,
+    "final_retained_count": 0,
+    "max_walkforward_drawdown_pct": 20.0,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "reference_return_pct": 146.043798,
+    "required_best_return_pct": 213.143462,
+    "strict_passing_profile_count": 0
+  }
+}
