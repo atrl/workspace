@@ -489,6 +489,42 @@ export function renderModelDeltaStrip(
   }
   caption.textContent = captionParts.join(' | ');
   container.appendChild(caption);
+  if (latestMarketDate && latestMarketDate > last.date && end > last.date) {
+    const tail = element('div', 'latest-tail-banner');
+    tail.dataset.tone = 'warning';
+    tail.appendChild(element('strong', undefined, 'Latest tail'));
+    tail.appendChild(element('span', undefined, `SOXL ${latestMarketDate}`));
+    const baselineLatest = manifest?.baseline_latest;
+    if (baselineLatest?.date) {
+      const position =
+        typeof baselineLatest.position === 'number' ? ` pos ${baselineLatest.position.toFixed(3)}` : '';
+      const action = baselineLatest.action ? ` ${baselineLatest.action}` : '';
+      const ret =
+        typeof baselineLatest.return_pct === 'number' ? ` ret ${formatCompactPct(baselineLatest.return_pct)}` : '';
+      tail.appendChild(
+        element(
+          'span',
+          undefined,
+          `baseline ${profileLabel(baselineLatest.profile, manifest)}${action}${position}${ret}`,
+        ),
+      );
+    } else {
+      tail.appendChild(
+        element('span', undefined, `baseline ${profileLabel(comparison.baseline_profile, manifest)}`),
+      );
+    }
+    if (actorEnd) tail.appendChild(element('span', undefined, `actors replay ${actorEnd}`));
+    if (manifest?.latest_signal?.available_count) {
+      tail.appendChild(
+        element(
+          'span',
+          undefined,
+          `actor signals ${manifest.latest_signal.available_count}@${manifest.latest_signal.date}`,
+        ),
+      );
+    }
+    container.appendChild(tail);
+  }
   const decisionRows = latestDecisionRows(comparison, models, profiles, start, end, manifest);
   if (decisionRows.length > 1) {
     const decision = element('div', 'latest-decision-matrix');

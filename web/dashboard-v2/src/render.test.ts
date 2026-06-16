@@ -946,6 +946,10 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Baseline SOXLBacktest latest 2026-01-07');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('Qlib actors safe replay 2026-01-06');
     expect(panel.querySelector('.model-delta-caption')?.textContent).toContain('safe end 2026-01-06');
+    expect(panel.querySelector('.latest-tail-banner')?.textContent).toContain('Latest tail');
+    expect(panel.querySelector('.latest-tail-banner')?.textContent).toContain('SOXL 2026-01-07');
+    expect(panel.querySelector('.latest-tail-banner')?.textContent).toContain('baseline SOXLBacktest');
+    expect(panel.querySelector('.latest-tail-banner')?.textContent).toContain('actors replay 2026-01-06');
   });
 
   test('prioritizes actor model difference rows over the reference baseline', () => {

@@ -77,6 +77,38 @@ function latestSignalMarkers(
     }));
 }
 
+function replayBoundaryMarkers(
+  comparison: ComparisonPayload | undefined,
+  start: string,
+  end: string,
+): ActionMarker[] {
+  if (!comparison) return [];
+  const actorEnd = comparison.actor_replay_end ?? comparison.safe_backtest_end ?? null;
+  const baselineEnd = comparison.baseline_replay_end ?? null;
+  const latestEnd = comparison.latest_market_date ?? comparison.market_end ?? baselineEnd;
+  if (!actorEnd || !latestEnd || actorEnd >= latestEnd) return [];
+  const markers: ActionMarker[] = [];
+  if (actorEnd >= start && actorEnd <= end) {
+    markers.push({
+      time: actorEnd,
+      position: 'aboveBar',
+      color: '#e1aa3e',
+      shape: 'circle',
+      text: 'Actor cut',
+    });
+  }
+  if (baselineEnd && baselineEnd > actorEnd && baselineEnd >= start && baselineEnd <= end) {
+    markers.push({
+      time: baselineEnd,
+      position: 'belowBar',
+      color: '#22c7a9',
+      shape: 'circle',
+      text: 'Base latest',
+    });
+  }
+  return markers;
+}
+
 function latestSignalMarkerText(
   action: 'BUY' | 'SELL',
   profiles: readonly { profile: string; position: number }[],
@@ -262,6 +294,7 @@ export function renderMarketChart(
     ...(comparison && markerStart && markerEnd
       ? buildModelDifferenceMarkers(comparison, comparisonProfiles, markerStart, markerEnd, 60)
       : []),
+    ...(markerStart && markerEnd ? replayBoundaryMarkers(comparison, markerStart, markerEnd) : []),
     ...(markerStart && markerEnd ? latestSignalMarkers(models, markerStart, markerEnd) : []),
   ];
   createSeriesMarkers(

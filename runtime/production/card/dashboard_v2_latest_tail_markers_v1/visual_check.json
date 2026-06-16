@@ -1,0 +1,24 @@
+{
+  "actor_replay_end": "2026-06-12",
+  "baseline_latest_date": "2026-06-15",
+  "baseline_latest_position": 0.1591,
+  "baseline_replay_end": "2026-06-15",
+  "checks": {
+    "actor_cut_marker_expected": true,
+    "base_latest_marker_expected": true,
+    "first_view_contains_position_delta_nav_rebased_nav": true,
+    "latest_tail_banner_expected": true
+  },
+  "height": 1000,
+  "latest_market_date": "2026-06-15",
+  "latest_signal": {
+    "available_count": 5,
+    "comparison_included": true,
+    "date": "2026-06-15",
+    "source": "latest_signal_stateless"
+  },
+  "non_dark_pixel_ratio": 0.1772,
+  "safe_backtest_end": "2026-06-12",
+  "screenshot": "runtime/production/card/dashboard_v2_latest_tail_markers_v1/dashboard_v2_latest_tail_markers_20260616_final.png",
+  "width": 1440
+}

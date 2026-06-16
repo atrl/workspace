@@ -342,6 +342,50 @@ describe('dashboard v2 chart rendering', () => {
     });
   });
 
+  test('marks the actor replay cutoff and baseline latest tail on the main K-line', () => {
+    const container = document.createElement('div');
+    const market = {
+      ...marketFixture,
+      rows: [
+        ...marketFixture.rows,
+        { date: '2026-01-07', open: 10.7, high: 10.9, low: 10.2, close: 10.4, volume: 1400, ma180: 10.2 },
+      ],
+    };
+    const tailComparison = {
+      ...comparisonFixture,
+      latest_market_date: '2026-01-07',
+      baseline_replay_end: '2026-01-07',
+      actor_replay_end: '2026-01-06',
+      safe_backtest_end: '2026-01-06',
+      market_end: '2026-01-07',
+    };
+
+    renderMarketChart(
+      container,
+      market,
+      modelFixture,
+      { smoke: modelFixture },
+      () => {},
+      tailComparison,
+      ['smoke', 'balanced_rule_residual_v22'],
+    );
+
+    expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
+      time: '2026-01-06',
+      position: 'aboveBar',
+      color: '#e1aa3e',
+      shape: 'circle',
+      text: 'Actor cut',
+    });
+    expect(chartMocks.createSeriesMarkers.mock.calls[0][1]).toContainEqual({
+      time: '2026-01-07',
+      position: 'belowBar',
+      color: '#22c7a9',
+      shape: 'circle',
+      text: 'Base latest',
+    });
+  });
+
   test('renders NAV deltas against the comparison baseline in the NAV pane', () => {
     const container = document.createElement('div');
 
