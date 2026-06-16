@@ -1,0 +1,80 @@
+[
+  {
+    "bytes": 3645,
+    "exists": true,
+    "name": "screen_selection",
+    "path": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/selection.json"
+  },
+  {
+    "bytes": 4784,
+    "exists": true,
+    "name": "screen_summary",
+    "path": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/summary.json"
+  },
+  {
+    "bytes": 9714,
+    "exists": true,
+    "name": "screen_scored_pool",
+    "path": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/scored_official_candidate_pool.csv"
+  },
+  {
+    "bytes": 681,
+    "exists": true,
+    "name": "screen_selected_fold_metrics",
+    "path": "runtime/model_selection/card/official_replay_metric_aligned_checkpoint_bc_screen_v1/selected_candidate_fold_metrics.csv"
+  },
+  {
+    "bytes": 7112,
+    "exists": true,
+    "name": "source_selection",
+    "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/selection.json"
+  },
+  {
+    "bytes": 9066,
+    "exists": true,
+    "name": "source_summary",
+    "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/summary.json"
+  },
+  {
+    "bytes": 1787,
+    "exists": true,
+    "name": "source_candidate_summary",
+    "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/official_replay_candidate_summary.csv"
+  },
+  {
+    "bytes": 2048,
+    "exists": true,
+    "name": "source_selected_fold_metrics",
+    "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/selected_official_replay_fold_metrics.csv"
+  },
+  {
+    "bytes": 747,
+    "exists": true,
+    "name": "source_selected_trace",
+    "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/selected_decision_trace_summary.csv"
+  },
+  {
+    "bytes": 6320,
+    "exists": true,
+    "name": "source_all_metrics",
+    "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/official_replay_metrics.csv"
+  },
+  {
+    "bytes": 2352,
+    "exists": true,
+    "name": "source_all_traces",
+    "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/decision_trace_summary.csv"
+  },
+  {
+    "bytes": 13242,
+    "exists": true,
+    "name": "strict_retention_gate",
+    "path": "runtime/model_selection/card/model_retention_walkforward_gate_v1/summary.json"
+  },
+  {
+    "bytes": 14971,
+    "exists": true,
+    "name": "final_retention_contract",
+    "path": "runtime/model_selection/card/final_walkforward_retention_contract_v1/summary.json"
+  }
+]

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T03:10:02.027111+00:00",
+  "generated_at": "2026-06-16T03:23:37.003759+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -9750,6 +9750,72 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 6510
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 998
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/failing_interval_selected_vs_source.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 10199
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/failing_interval_summary.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 759
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/selected_teacher_fold_metrics.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 2299
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/selected_vs_source_daily_path.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 63221
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 3830
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/source_manifest.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2560
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2668
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/teacher_checkpoint_bc_recipe.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 2906
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/teacher_trace_absorption.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 1128
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/teacher_window_coverage.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 211
     },
     {
       "path": "runtime/model_selection/card/short_volshock_official_replay_screen_v1/bc_fit_metrics.csv",

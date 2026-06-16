@@ -1,0 +1,76 @@
+{
+  "created_at": "2026-06-16T03:22:22+00:00",
+  "do_not_use_as": [
+    "promoted_actor",
+    "runtime_overlay_promotion",
+    "eval_window_training_label_copy",
+    "permission_for_longer_ppo"
+  ],
+  "experiment": "short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1",
+  "leakage_guard": {
+    "copy_selected_daily_positions_into_training_labels": false,
+    "eval_overlap_rows_required": 0,
+    "eval_window_positions_are_diagnostic_only": true,
+    "next_target_generation_must_be_fold_local": true
+  },
+  "next_mechanism": "short_volshock_teacher_reward_checkpoint_screen_v1",
+  "objective_terms_for_next_screen": [
+    "official_replay_relative_gap_pp",
+    "official_replay_max_dd_gap_pct",
+    "short_volshock_state_deleverage_consistency",
+    "trend_preservation_floor_for_failed_underparticipation_windows",
+    "checkpoint_objective_loss_prioritizing_official_daily_path_metrics",
+    "wf2020_coverage_gate_before_actor_retention"
+  ],
+  "selected_gap": {
+    "failing_fold": "wf_2023_2024",
+    "failing_fold_max_dd_pct": 15.1073807852534,
+    "failing_fold_relative_return_pp": 29.81726330693851,
+    "max_dd_gap_pct": 0.10738078525339922,
+    "max_relative_gap_pp": 0.18273669306148932,
+    "near_miss_total_gate_loss": 1.2565445455954816
+  },
+  "source_candidate": "multi_obj_floor45_cap20_riskfirst",
+  "source_screen": "short_volshock_official_replay_screen_v1",
+  "source_selection_screen": "official_replay_metric_aligned_checkpoint_bc_screen_v1",
+  "source_variant": "short_volshock_cap05_hit2",
+  "target_contract": {
+    "current_best_return_pct": 224.361539,
+    "final_required_windows": [
+      "wf_2020",
+      "wf_2022",
+      "wf_2023_2024"
+    ],
+    "final_retention_max_dd_pct": 20.0,
+    "missing_final_required_windows": [
+      "wf_2020"
+    ],
+    "official_eval_max_dd_pct": 15.0,
+    "official_eval_relative_return_pp": 30.0,
+    "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+    "required_best_return_pct": 213.143462
+  },
+  "teacher_usage": "checkpoint_scoring_or_fold_local_target_generation_reference_only",
+  "trace_absorption": [
+    {
+      "blocked_by_min_rebalance_share": 0.9058441558441559,
+      "blocked_by_trade_lock_share": 0.16233766233766234,
+      "cap_changed_days": 236,
+      "cap_order_days": 17,
+      "cap_order_share_of_changed": 0.07203389830508475,
+      "fold": "wf_2022",
+      "overlay_gate_ready_days": 236,
+      "trace_interpretation": "low_order_absorption_use_state_checkpoint_not_more_overlay"
+    },
+    {
+      "blocked_by_min_rebalance_share": 0.8414239482200647,
+      "blocked_by_trade_lock_share": 0.3656957928802589,
+      "cap_changed_days": 58,
+      "cap_order_days": 8,
+      "cap_order_share_of_changed": 0.13793103448275862,
+      "fold": "wf_2023_2024",
+      "overlay_gate_ready_days": 64,
+      "trace_interpretation": "low_order_absorption_use_state_checkpoint_not_more_overlay"
+    }
+  ]
+}
