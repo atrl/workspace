@@ -140,8 +140,11 @@ def _empty_scores() -> pd.DataFrame:
             "recipe_ready",
             "reward_recipe_loss",
             "drawdown_failure_capture",
+            "raw_drawdown_failure_capture",
             "trend_underparticipation_capture",
             "overreach_share",
+            "controllable_drawdown_breach_rows",
+            "inactive_drawdown_breach_rows",
             "reward_objective_patch_json",
         ]
     )
@@ -184,6 +187,8 @@ def screen_drawdown_drift_reward_recipes(
         min_buyhold_return_pct = _float(recipe_row, "min_buyhold_return_pct", 5.0)
 
         drawdown_breach_rows = 0
+        controllable_drawdown_breach_rows = 0
+        inactive_drawdown_breach_rows = 0
         drawdown_captured_rows = 0
         trend_opportunity_rows = 0
         trend_captured_rows = 0
@@ -203,10 +208,10 @@ def screen_drawdown_drift_reward_recipes(
             relative_return = strategy_return - buyhold_return
 
             drawdown_breach = drawdown > float(config.target_max_dd_pct)
+            controllable_drawdown_breach = drawdown_breach & (position > position_threshold)
             drawdown_active = (
-                drawdown_breach
+                controllable_drawdown_breach
                 & (drawdown > drawdown_threshold_pct)
-                & (position > position_threshold)
                 & (drawdown_penalty > 0.0)
             )
             trend_opportunity = (
@@ -231,6 +236,8 @@ def screen_drawdown_drift_reward_recipes(
 
             if failure_type in {"drawdown_control", "joint_tradeoff", "near_miss_drawdown"}:
                 drawdown_breach_rows += int(drawdown_breach.sum())
+                controllable_drawdown_breach_rows += int(controllable_drawdown_breach.sum())
+                inactive_drawdown_breach_rows += int((drawdown_breach & ~controllable_drawdown_breach).sum())
                 drawdown_captured_rows += int(drawdown_active.sum())
             if failure_type in {"joint_tradeoff", "underparticipation", "selection_bias", "trend_capture"}:
                 trend_opportunity_rows += int(trend_opportunity.sum())
@@ -240,7 +247,12 @@ def screen_drawdown_drift_reward_recipes(
             overreach_rows += int((trend_active & drawdown_breach).sum())
             pressure_total += float((drawdown_pressure + trend_pressure).sum())
 
-        drawdown_capture = drawdown_captured_rows / drawdown_breach_rows if drawdown_breach_rows else 0.0
+        raw_drawdown_capture = drawdown_captured_rows / drawdown_breach_rows if drawdown_breach_rows else 0.0
+        drawdown_capture = (
+            drawdown_captured_rows / controllable_drawdown_breach_rows
+            if controllable_drawdown_breach_rows
+            else raw_drawdown_capture
+        )
         trend_capture = trend_captured_rows / trend_opportunity_rows if trend_opportunity_rows else 0.0
         overreach_share = overreach_rows / active_rows if active_rows else 0.0
         pressure_burden = pressure_total / max(active_rows, 1)
@@ -270,7 +282,10 @@ def screen_drawdown_drift_reward_recipes(
                 "overreach_share": float(overreach_share),
                 "active_rows": int(active_rows),
                 "drawdown_breach_rows": int(drawdown_breach_rows),
+                "controllable_drawdown_breach_rows": int(controllable_drawdown_breach_rows),
+                "inactive_drawdown_breach_rows": int(inactive_drawdown_breach_rows),
                 "drawdown_captured_rows": int(drawdown_captured_rows),
+                "raw_drawdown_failure_capture": float(raw_drawdown_capture),
                 "trend_opportunity_rows": int(trend_opportunity_rows),
                 "trend_captured_rows": int(trend_captured_rows),
                 "pressure_burden": float(pressure_burden),

@@ -159,6 +159,60 @@ def test_drawdown_drift_screen_blocks_one_sided_recipe():
     assert summary["training_allowed_next"] is False
 
 
+def test_drawdown_drift_screen_does_not_penalize_flat_no_position_drawdown_tail():
+    daily_paths = {
+        "candidate__wf_2020": pd.DataFrame(
+            {
+                "datetime": pd.date_range("2020-01-02", periods=7, freq="B"),
+                "strategy_nav": [100.0, 98.0, 84.0, 80.0, 80.5, 81.0, 82.0],
+                "buyhold_nav": [100.0, 104.0, 110.0, 114.0, 120.0, 126.0, 130.0],
+                "position": [0.20, 0.25, 0.30, 0.35, 0.0, 0.0, 0.0],
+            }
+        )
+    }
+    gate_gaps = pd.DataFrame(
+        [
+            {
+                "profile": "candidate",
+                "window": "wf_2020",
+                "failure_type": "joint_tradeoff",
+                "relative_gap": 30.0,
+                "max_dd_gap": 5.0,
+                "gate_pass": False,
+            }
+        ]
+    )
+    recipe_grid = pd.DataFrame(
+        [
+            {
+                "recipe": "joint_active_exposure",
+                "drawdown_penalty": 2.0,
+                "drawdown_threshold_pct": 15.0,
+                "position_threshold": 0.10,
+                "trend_floor_penalty": 2.0,
+                "trend_floor_position": 0.35,
+                "trend_lookback": 1,
+                "min_buyhold_return_pct": 2.0,
+            }
+        ]
+    )
+
+    scored = screen_drawdown_drift_reward_recipes(
+        daily_paths,
+        gate_gaps=gate_gaps,
+        recipe_grid=recipe_grid,
+        selected_candidate="candidate",
+    )
+    summary = summarize_drawdown_drift_reward_screen(scored)
+    top = scored.iloc[0]
+
+    assert bool(top["recipe_ready"]) is True
+    assert top["drawdown_failure_capture"] == 1.0
+    assert top["raw_drawdown_failure_capture"] < 0.50
+    assert top["inactive_drawdown_breach_rows"] == 3
+    assert summary["decision"] == "drawdown_drift_reward_recipe_ready_for_short_training_screen"
+
+
 def test_default_grid_includes_short_volshock_low_position_threshold():
     thresholds = {float(row["position_threshold"]) for row in DEFAULT_RECIPE_GRID}
 

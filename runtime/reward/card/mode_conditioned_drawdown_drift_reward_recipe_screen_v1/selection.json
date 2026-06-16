@@ -1,0 +1,26 @@
+{
+  "actor_retention_allowed": false,
+  "candidate_profile": "mode_conditioned_rebound_reward_train_v2",
+  "decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "experiment": "mode_conditioned_drawdown_drift_reward_recipe_screen_v1",
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+  "promotion_allowed": false,
+  "risk_notes": [
+    "This is a reward-objective readiness screen, not a trained actor or promotion artifact.",
+    "Raw drawdown capture remains visible because no-position drawdown tails can keep max drawdown elevated after exposure is removed.",
+    "Next step must run a short fold-local BC/PPO training screen and then the official WF gate."
+  ],
+  "selected_recipe": "dd1.5_thr18_pos0.15_tf1_floor0.35_lb21",
+  "sidecars": {
+    "gate_gaps": "/Users/rziiiii/dev/workspace/runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/gate_gaps.csv",
+    "reward_objective_patch": "/Users/rziiiii/dev/workspace/runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/reward_objective_patch.json",
+    "reward_recipe_review": "/Users/rziiiii/dev/workspace/runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/reward_recipe_review.md",
+    "reward_recipe_scores": "/Users/rziiiii/dev/workspace/runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/reward_recipe_scores.csv",
+    "selection": "/Users/rziiiii/dev/workspace/runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/selection.json",
+    "summary": "/Users/rziiiii/dev/workspace/runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/summary.json"
+  },
+  "strict_final_retained_count": 0,
+  "strict_passing_profile_count": 0,
+  "strict_queue_top_candidate": "mode_conditioned_rebound_reward_train_v2",
+  "training_allowed_next": true
+}

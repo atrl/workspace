@@ -1,0 +1,75 @@
+{
+  "candidate_profile": "mode_conditioned_rebound_reward_train_v2",
+  "decision": "drawdown_drift_reward_recipe_ready_for_short_training_screen",
+  "drawdown_failure_capture": 0.8732394366197183,
+  "experiment": "mode_conditioned_drawdown_drift_reward_recipe_screen_v1",
+  "gate_gaps": [
+    {
+      "avg_position": 0.2602524490812267,
+      "buyhold_return_pct": 58.093570616483994,
+      "failure_type": "joint_tradeoff",
+      "gate_pass": false,
+      "max_dd_gap": 3.086304019655522,
+      "max_drawdown_pct": 23.086304019655522,
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "relative_gap": 38.01024397057564,
+      "relative_return_pct": -8.010243970575637,
+      "return_pct": 50.08332664590836,
+      "rows": 252,
+      "window": "wf_2020"
+    },
+    {
+      "avg_position": 0.0910703341999008,
+      "buyhold_return_pct": -86.58807173239427,
+      "failure_type": "pass",
+      "gate_pass": true,
+      "max_dd_gap": 0.0,
+      "max_drawdown_pct": 15.9006974847681,
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "relative_gap": 0.0,
+      "relative_return_pct": 73.88278940860465,
+      "return_pct": -12.705282323789625,
+      "rows": 250,
+      "window": "wf_2022"
+    },
+    {
+      "avg_position": 0.27345212285095066,
+      "buyhold_return_pct": -0.3566347296884431,
+      "failure_type": "joint_tradeoff",
+      "gate_pass": false,
+      "max_dd_gap": 10.489187696120624,
+      "max_drawdown_pct": 30.489187696120624,
+      "profile": "mode_conditioned_rebound_reward_train_v2",
+      "relative_gap": 45.729267935144605,
+      "relative_return_pct": -15.729267935144607,
+      "return_pct": -16.08590266483305,
+      "rows": 251,
+      "window": "wf_2023_2024"
+    }
+  ],
+  "next_mechanism": "short_foldlocal_bc_or_ppo_training_screen",
+  "overreach_share": 0.0,
+  "promotion_allowed": false,
+  "reward_objective_patch": {
+    "drawdown_drift_penalty": 1.5,
+    "drawdown_drift_position_threshold": 0.15,
+    "drawdown_drift_reward_enabled": true,
+    "drawdown_drift_threshold_pct": 18.0,
+    "trend_preservation_floor_enabled": true,
+    "trend_preservation_floor_penalty": 1.0,
+    "trend_preservation_floor_position": 0.35,
+    "trend_preservation_lookback": 21,
+    "trend_preservation_min_buyhold_return_pct": 5.0
+  },
+  "selected_recipe": "dd1.5_thr18_pos0.15_tf1_floor0.35_lb21",
+  "selected_reward_recipe_loss": 2.3552164135435256,
+  "strict_context": {
+    "final_retained_count": 0,
+    "max_walkforward_drawdown_pct": 20.0,
+    "reference_baseline": "soxl_backtest_policy_reimplementation_v1",
+    "reference_return_pct": 146.043798,
+    "required_best_return_pct": 213.143462
+  },
+  "training_allowed_next": true,
+  "trend_underparticipation_capture": 1.0
+}

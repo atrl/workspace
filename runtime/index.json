@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T01:00:20.476221+00:00",
+  "generated_at": "2026-06-16T01:18:37.827527+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -13698,6 +13698,42 @@
       "category": "reward",
       "suffix": ".md",
       "bytes": 2083
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/gate_gaps.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 730
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/reward_objective_patch.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 383
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/reward_recipe_review.md",
+      "category": "reward",
+      "suffix": ".md",
+      "bytes": 1610
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/reward_recipe_scores.csv",
+      "category": "reward",
+      "suffix": ".csv",
+      "bytes": 268545
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/selection.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 1874
+    },
+    {
+      "path": "runtime/reward/card/mode_conditioned_drawdown_drift_reward_recipe_screen_v1/summary.json",
+      "category": "reward",
+      "suffix": ".json",
+      "bytes": 2730
     },
     {
       "path": "runtime/reward/card/mode_conditioned_rebound_reward_train_v2/baseline_comparison.csv",
