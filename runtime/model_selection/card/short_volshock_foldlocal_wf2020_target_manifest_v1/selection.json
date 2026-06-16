@@ -1,0 +1,14 @@
+{
+  "decision": "foldlocal_target_coverage_training_ready_official_replay_still_blocks_promotion",
+  "experiment": "short_volshock_foldlocal_wf2020_target_manifest_v1",
+  "next_action": "run_three_fold_short_volshock_bc_slice_screen_before_any_ppo",
+  "official_missing_final_required_windows": [
+    "wf_2020"
+  ],
+  "selected_candidate": "teacher_short_volshock_cap05_hit2",
+  "target_ready_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ]
+}

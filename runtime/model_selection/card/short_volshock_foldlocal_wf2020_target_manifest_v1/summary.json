@@ -1,0 +1,44 @@
+{
+  "actor_retention_allowed": false,
+  "bc_screen_allowed_next": true,
+  "coverage_gate": true,
+  "created_at": "2026-06-16T06:54:45+00:00",
+  "decision": "foldlocal_target_coverage_training_ready_official_replay_still_blocks_promotion",
+  "experiment": "short_volshock_foldlocal_wf2020_target_manifest_v1",
+  "final_required_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "missing_final_required_windows": [],
+  "next_mechanism": "run_three_fold_short_volshock_bc_slice_screen_before_any_ppo",
+  "official_missing_final_required_windows": [
+    "wf_2020"
+  ],
+  "official_replay_coverage_gate": false,
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "promotion_blocker": "wf_2020 official replay coverage and strict final walk-forward retention gate are still required before promotion.",
+  "reference_profile": "soxl_backtest_policy_reimplementation_v1",
+  "required_window_count": 3,
+  "scope_gate": true,
+  "selected_candidate": "teacher_short_volshock_cap05_hit2",
+  "sidecars": [
+    "source_manifest.csv",
+    "fold_local_target_manifest.csv",
+    "coverage_audit_before_targets.csv",
+    "scope_audit_before_targets.csv",
+    "required_gate_rows_before_targets.csv",
+    "coverage_audit_after_targets.csv",
+    "scope_audit_after_targets.csv",
+    "required_gate_rows_after_targets.csv",
+    "selection.json",
+    "summary.json",
+    "conclusion.md"
+  ],
+  "source_contract": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/reward_checkpoint_recipe_contract.json",
+  "target_coverage_gate": true,
+  "target_manifest_path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/fold_local_target_manifest.csv",
+  "target_ready_window_count": 3,
+  "training_allowed": true
+}
