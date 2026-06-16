@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T00:23:12.307948+00:00",
+  "generated_at": "2026-06-16T00:36:39.875319+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -6630,6 +6630,12 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 1086
+    },
+    {
+      "path": "runtime/model_selection/card/dashboard_v2_mainchart_position_overlay_v1/dashboard_v2_mainchart_position_overlay.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 1212
     },
     {
       "path": "runtime/model_selection/card/deep_cap_failure_attribution_v1/aggregate/aggregate_oos_review.md",

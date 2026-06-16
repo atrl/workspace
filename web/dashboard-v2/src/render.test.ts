@@ -1052,5 +1052,6 @@ describe('dashboard v2 DOM render helpers', () => {
     expect(panel.textContent).toContain('BUY');
     expect(panel.textContent).toContain('SELL');
     expect(panel.textContent).toContain('DIFF');
+    expect(panel.textContent).toContain('POSITION');
   });
 });

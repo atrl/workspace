@@ -710,7 +710,8 @@ export function renderActionLegend(container: HTMLElement): void {
   const buy = element('span', 'legend-item legend-buy', 'BUY');
   const sell = element('span', 'legend-item legend-sell', 'SELL');
   const diff = element('span', 'legend-item legend-diff', 'DIFF');
-  container.append(buy, sell, diff);
+  const position = element('span', 'legend-item legend-position', 'POSITION');
+  container.append(buy, sell, diff, position);
 }
 
 export function renderInspectorPanel(container: HTMLElement, rows: InspectorRow[]): void {
