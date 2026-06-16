@@ -1,0 +1,5 @@
+gate,status,reason
+consume_reward_checkpoint_recipe_in_code,passed,contract consumed by audit helper
+fold_local_target_scope_audit,blocked,selected daily paths are reference-only or fold-local target manifest is incomplete
+add_wf_2020_official_replay_coverage,blocked,missing final required windows: wf_2020
+rerun_strict_final_walkforward_retention_gate,blocked,strict final gate must wait for recipe scope and coverage gates

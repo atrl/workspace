@@ -313,6 +313,169 @@ def build_reward_checkpoint_recipe_contract(
     }
 
 
+def _split_window_list(value: object) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        pieces = value.replace(",", ";").split(";")
+        return [piece.strip() for piece in pieces if piece.strip()]
+    return _string_list(value)
+
+
+def _bool_value(value: object) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "passed"}
+    return bool(value)
+
+
+def _fold_manifest_lookup(fold_local_target_manifest: pd.DataFrame | None) -> dict[str, dict[str, object]]:
+    if fold_local_target_manifest is None or fold_local_target_manifest.empty or "fold" not in fold_local_target_manifest.columns:
+        return {}
+    out: dict[str, dict[str, object]] = {}
+    for row in fold_local_target_manifest.to_dict("records"):
+        out[str(row.get("fold", ""))] = row
+    return out
+
+
+def audit_reward_checkpoint_recipe_scope(
+    contract: Mapping[str, object],
+    *,
+    teacher_window_coverage: pd.DataFrame | None,
+    selected_fold_metrics: pd.DataFrame,
+    fold_local_target_manifest: pd.DataFrame | None = None,
+) -> dict[str, object]:
+    """Audit whether a reward/checkpoint recipe may be consumed for training."""
+
+    target_contract_raw = contract.get("target_contract")
+    target_contract = dict(target_contract_raw) if isinstance(target_contract_raw, Mapping) else {}
+    final_windows = _split_window_list(
+        contract.get("final_required_windows") or target_contract.get("final_required_windows")
+    )
+    if not final_windows:
+        final_windows = sorted({str(value) for value in selected_fold_metrics.get("fold", pd.Series(dtype=str)).dropna()})
+    explicit_missing = set(
+        _split_window_list(
+            contract.get("missing_final_required_windows")
+            or target_contract.get("missing_final_required_windows")
+        )
+    )
+    present_windows: set[str] = set()
+    if "fold" in selected_fold_metrics.columns:
+        present_windows.update(str(value) for value in selected_fold_metrics["fold"].dropna().tolist())
+    if teacher_window_coverage is not None and not teacher_window_coverage.empty:
+        if "present_windows" in teacher_window_coverage.columns:
+            for value in teacher_window_coverage["present_windows"].dropna().tolist():
+                present_windows.update(_split_window_list(value))
+        if "missing_final_required_windows" in teacher_window_coverage.columns:
+            for value in teacher_window_coverage["missing_final_required_windows"].dropna().tolist():
+                explicit_missing.update(_split_window_list(value))
+
+    metric_by_fold = {
+        str(row.get("fold", "")): row
+        for row in selected_fold_metrics.to_dict("records")
+        if str(row.get("fold", ""))
+    }
+    coverage_rows = []
+    for window in final_windows:
+        row = metric_by_fold.get(window, {})
+        present = window in present_windows and window not in explicit_missing
+        coverage_rows.append(
+            {
+                "window": window,
+                "status": "present" if present else "missing",
+                "present": bool(present),
+                "teacher_status": str(row.get("teacher_status", "missing" if not present else "")),
+                "full_gate": bool(_bool_value(row.get("full_gate", False))) if row else False,
+                "daily_path": str(row.get("daily_path", "")) if row else "",
+            }
+        )
+    coverage_frame = pd.DataFrame(coverage_rows)
+    missing_windows = coverage_frame.loc[~coverage_frame["present"], "window"].astype(str).tolist()
+    coverage_gate = len(missing_windows) == 0
+
+    manifest_by_fold = _fold_manifest_lookup(fold_local_target_manifest)
+    required_eval_overlap = int(
+        dict(contract.get("leakage_guard", {})).get("eval_overlap_rows_required", 0)
+        if isinstance(contract.get("leakage_guard"), Mapping)
+        else 0
+    )
+    scope_rows = []
+    for row in selected_fold_metrics.to_dict("records"):
+        fold = str(row.get("fold", ""))
+        teacher_usage = str(row.get("teacher_usage", ""))
+        reference_only = "reference_only" in teacher_usage or "not_training_label" in teacher_usage
+        manifest_row = manifest_by_fold.get(fold, {})
+        eval_overlap_rows = int(float(manifest_row.get("eval_overlap_rows", -1))) if manifest_row else -1
+        target_path = str(manifest_row.get("target_path", "")) if manifest_row else ""
+        target_ready = (not reference_only) and bool(target_path) and eval_overlap_rows == required_eval_overlap
+        scope_rows.append(
+            {
+                "fold": fold,
+                "daily_path": str(row.get("daily_path", "")),
+                "teacher_status": str(row.get("teacher_status", "")),
+                "usage": "reference_only" if reference_only else "fold_local_target_candidate",
+                "eval_overlap_rows": eval_overlap_rows if manifest_row else None,
+                "target_path": target_path,
+                "target_ready": bool(target_ready),
+            }
+        )
+    scope_frame = pd.DataFrame(scope_rows)
+    ready_folds = set(scope_frame.loc[scope_frame["target_ready"], "fold"].astype(str).tolist()) if not scope_frame.empty else set()
+    scope_gate = coverage_gate and set(final_windows).issubset(ready_folds)
+
+    consume_gate = str(contract.get("decision") or "") == "reward_checkpoint_recipe_contract_ready"
+    gate_rows = [
+        {
+            "gate": "consume_reward_checkpoint_recipe_in_code",
+            "status": "passed" if consume_gate else "blocked",
+            "reason": "contract consumed by audit helper" if consume_gate else "missing ready recipe contract",
+        },
+        {
+            "gate": "fold_local_target_scope_audit",
+            "status": "passed" if scope_gate else "blocked",
+            "reason": "all required folds have zero-overlap fold-local targets"
+            if scope_gate
+            else "selected daily paths are reference-only or fold-local target manifest is incomplete",
+        },
+    ]
+    if missing_windows:
+        gate_rows.append(
+            {
+                "gate": "add_wf_2020_official_replay_coverage",
+                "status": "blocked",
+                "reason": "missing final required windows: " + ",".join(missing_windows),
+            }
+        )
+    gate_rows.append(
+        {
+            "gate": "rerun_strict_final_walkforward_retention_gate",
+            "status": "passed" if consume_gate and coverage_gate and scope_gate else "blocked",
+            "reason": "ready to rerun strict retention gate"
+            if consume_gate and coverage_gate and scope_gate
+            else "strict final gate must wait for recipe scope and coverage gates",
+        }
+    )
+    gate_frame = pd.DataFrame(gate_rows)
+    training_allowed = consume_gate and coverage_gate and scope_gate
+    return {
+        "summary": {
+            "decision": "recipe_scope_audit_training_ready" if training_allowed else "recipe_scope_audit_blocks_training",
+            "selected_candidate": str(contract.get("selected_candidate") or ""),
+            "training_allowed": bool(training_allowed),
+            "coverage_gate": bool(coverage_gate),
+            "scope_gate": bool(scope_gate),
+            "missing_final_required_windows": missing_windows,
+            "required_window_count": len(final_windows),
+            "target_ready_window_count": len(ready_folds),
+        },
+        "coverage_rows": coverage_frame,
+        "scope_rows": scope_frame,
+        "required_gate_rows": gate_frame,
+    }
+
+
 def render_reward_checkpoint_screen_review(
     scored: pd.DataFrame,
     summary: Mapping[str, object],
@@ -365,6 +528,7 @@ def render_reward_checkpoint_screen_review(
 
 __all__ = [
     "RewardCheckpointScreenConfig",
+    "audit_reward_checkpoint_recipe_scope",
     "build_reward_checkpoint_recipe_contract",
     "render_reward_checkpoint_screen_review",
     "score_reward_checkpoint_candidates",

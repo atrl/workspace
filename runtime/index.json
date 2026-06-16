@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T04:36:10.488982+00:00",
+  "generated_at": "2026-06-16T04:44:31.676086+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -9972,6 +9972,48 @@
       "category": "model_selection",
       "suffix": ".csv",
       "bytes": 224
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_recipe_scope_audit_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 546
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_recipe_scope_audit_v1/coverage_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 521
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_recipe_scope_audit_v1/required_gate_rows.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 426
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_recipe_scope_audit_v1/scope_audit.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 515
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_recipe_scope_audit_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1972
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_recipe_scope_audit_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 826
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_recipe_scope_audit_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1241
     },
     {
       "path": "runtime/model_selection/card/short_volshock_sell_guard_official_replay_v1/bc_fit_metrics.csv",

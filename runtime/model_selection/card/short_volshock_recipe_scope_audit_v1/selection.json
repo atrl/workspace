@@ -1,0 +1,43 @@
+{
+  "acceptance_criteria": {
+    "coverage_gate": true,
+    "eval_overlap_rows_required": 0,
+    "scope_gate": true,
+    "strict_final_retention_rerun_required": true,
+    "training_allowed": true
+  },
+  "accepted_tradeoff": "none before all final windows have official replay coverage and zero-overlap fold-local targets",
+  "actor_retention_allowed": false,
+  "canonical_baseline": "soxl_backtest_policy_reimplementation_v1",
+  "changed_layer": [
+    "reward",
+    "checkpoint_selection",
+    "model_selection",
+    "target_scope"
+  ],
+  "closest_historical_failure_case": "official replay metric-aligned screen found no candidate with full final-window coverage or final retained actor status",
+  "closest_historical_success_case": "short_volshock_cap05_hit2 passed wf_2022 official replay and was near-miss on wf_2023_2024",
+  "created_at": "2026-06-16T04:43:59+00:00",
+  "decision": "recipe_scope_audit_blocks_training",
+  "direct_comparison_baseline": "short_volshock_teacher_reward_checkpoint_screen_v1",
+  "experiment": "short_volshock_recipe_scope_audit_v1",
+  "hard_blockers": [
+    "fold_local_target_scope_audit",
+    "add_wf_2020_official_replay_coverage",
+    "rerun_strict_final_walkforward_retention_gate"
+  ],
+  "hypothesis": "short-volshock teacher can only feed the next training loop after scope and missing-window gates pass",
+  "next_mechanism": "generate_fold_local_short_volshock_targets_with_wf2020_coverage",
+  "ppo_allowed_next": false,
+  "promotion_allowed": false,
+  "role": "diagnose",
+  "selected_candidate": "teacher_short_volshock_cap05_hit2",
+  "source_contract": "runtime/reward/card/short_volshock_teacher_reward_checkpoint_screen_v1/reward_checkpoint_recipe_contract.json",
+  "target_windows": [
+    "wf_2020",
+    "wf_2022",
+    "wf_2023_2024"
+  ],
+  "training_allowed": false,
+  "why_not_duplicate": "this consumes the reward checkpoint contract and audits target scope/readiness, rather than rescoring official replay candidates"
+}
