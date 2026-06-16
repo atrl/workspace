@@ -330,12 +330,25 @@ def _bool_value(value: object) -> bool:
     return bool(value)
 
 
+def _final_window_key(value: object) -> str:
+    text = str(value or "").strip()
+    for suffix in ("_train", "_target", "_eval", "_test"):
+        if text.endswith(suffix):
+            return text[: -len(suffix)]
+    return text
+
+
 def _fold_manifest_lookup(fold_local_target_manifest: pd.DataFrame | None) -> dict[str, dict[str, object]]:
     if fold_local_target_manifest is None or fold_local_target_manifest.empty or "fold" not in fold_local_target_manifest.columns:
         return {}
     out: dict[str, dict[str, object]] = {}
     for row in fold_local_target_manifest.to_dict("records"):
-        out[str(row.get("fold", ""))] = row
+        for field in ("fold", "window", "target_fold"):
+            raw = str(row.get(field, "") or "")
+            if not raw:
+                continue
+            out.setdefault(raw, row)
+            out.setdefault(_final_window_key(raw), row)
     return out
 
 
@@ -355,37 +368,64 @@ def audit_reward_checkpoint_recipe_scope(
     )
     if not final_windows:
         final_windows = sorted({str(value) for value in selected_fold_metrics.get("fold", pd.Series(dtype=str)).dropna()})
+    final_windows = [_final_window_key(value) for value in final_windows]
     explicit_missing = set(
-        _split_window_list(
+        _final_window_key(value)
+        for value in _split_window_list(
             contract.get("missing_final_required_windows")
             or target_contract.get("missing_final_required_windows")
         )
     )
     present_windows: set[str] = set()
     if "fold" in selected_fold_metrics.columns:
-        present_windows.update(str(value) for value in selected_fold_metrics["fold"].dropna().tolist())
+        present_windows.update(_final_window_key(value) for value in selected_fold_metrics["fold"].dropna().tolist())
     if teacher_window_coverage is not None and not teacher_window_coverage.empty:
         if "present_windows" in teacher_window_coverage.columns:
             for value in teacher_window_coverage["present_windows"].dropna().tolist():
-                present_windows.update(_split_window_list(value))
+                present_windows.update(_final_window_key(item) for item in _split_window_list(value))
         if "missing_final_required_windows" in teacher_window_coverage.columns:
             for value in teacher_window_coverage["missing_final_required_windows"].dropna().tolist():
-                explicit_missing.update(_split_window_list(value))
+                explicit_missing.update(_final_window_key(item) for item in _split_window_list(value))
 
-    metric_by_fold = {
-        str(row.get("fold", "")): row
-        for row in selected_fold_metrics.to_dict("records")
-        if str(row.get("fold", ""))
-    }
+    metric_by_fold: dict[str, dict[str, object]] = {}
+    for row in selected_fold_metrics.to_dict("records"):
+        fold = str(row.get("fold", "") or "")
+        if not fold:
+            continue
+        metric_by_fold.setdefault(fold, row)
+        metric_by_fold.setdefault(_final_window_key(fold), row)
+    manifest_by_fold = _fold_manifest_lookup(fold_local_target_manifest)
+    required_eval_overlap = int(
+        dict(contract.get("leakage_guard", {})).get("eval_overlap_rows_required", 0)
+        if isinstance(contract.get("leakage_guard"), Mapping)
+        else 0
+    )
+
+    target_ready_by_window: dict[str, bool] = {}
+    for window in final_windows:
+        manifest_row = manifest_by_fold.get(window, {})
+        if not manifest_row:
+            target_ready_by_window[window] = False
+            continue
+        eval_overlap_rows = int(float(manifest_row.get("eval_overlap_rows", -1)))
+        target_ready_by_window[window] = bool(manifest_row.get("target_path", "")) and eval_overlap_rows == required_eval_overlap
+
     coverage_rows = []
+    official_missing_windows: list[str] = []
     for window in final_windows:
         row = metric_by_fold.get(window, {})
-        present = window in present_windows and window not in explicit_missing
+        official_present = window in present_windows and window not in explicit_missing
+        target_present = bool(target_ready_by_window.get(window, False))
+        present = official_present or target_present
+        if not official_present:
+            official_missing_windows.append(window)
         coverage_rows.append(
             {
                 "window": window,
-                "status": "present" if present else "missing",
+                "status": "present" if official_present else "target_ready" if target_present else "missing",
                 "present": bool(present),
+                "official_present": bool(official_present),
+                "target_present": bool(target_present),
                 "teacher_status": str(row.get("teacher_status", "missing" if not present else "")),
                 "full_gate": bool(_bool_value(row.get("full_gate", False))) if row else False,
                 "daily_path": str(row.get("daily_path", "")) if row else "",
@@ -394,22 +434,22 @@ def audit_reward_checkpoint_recipe_scope(
     coverage_frame = pd.DataFrame(coverage_rows)
     missing_windows = coverage_frame.loc[~coverage_frame["present"], "window"].astype(str).tolist()
     coverage_gate = len(missing_windows) == 0
+    official_replay_coverage_gate = len(official_missing_windows) == 0
 
-    manifest_by_fold = _fold_manifest_lookup(fold_local_target_manifest)
-    required_eval_overlap = int(
-        dict(contract.get("leakage_guard", {})).get("eval_overlap_rows_required", 0)
-        if isinstance(contract.get("leakage_guard"), Mapping)
-        else 0
-    )
     scope_rows = []
-    for row in selected_fold_metrics.to_dict("records"):
-        fold = str(row.get("fold", ""))
+    for fold in final_windows:
+        row = metric_by_fold.get(fold, {})
         teacher_usage = str(row.get("teacher_usage", ""))
-        reference_only = "reference_only" in teacher_usage or "not_training_label" in teacher_usage
+        manifest_row = manifest_by_fold.get(fold, {})
+        reference_only = (
+            "reference_only" in teacher_usage
+            or "not_training_label" in teacher_usage
+            or (not manifest_row and not teacher_usage)
+        )
         manifest_row = manifest_by_fold.get(fold, {})
         eval_overlap_rows = int(float(manifest_row.get("eval_overlap_rows", -1))) if manifest_row else -1
         target_path = str(manifest_row.get("target_path", "")) if manifest_row else ""
-        target_ready = (not reference_only) and bool(target_path) and eval_overlap_rows == required_eval_overlap
+        target_ready = bool(target_path) and eval_overlap_rows == required_eval_overlap
         scope_rows.append(
             {
                 "fold": fold,
@@ -423,7 +463,8 @@ def audit_reward_checkpoint_recipe_scope(
         )
     scope_frame = pd.DataFrame(scope_rows)
     ready_folds = set(scope_frame.loc[scope_frame["target_ready"], "fold"].astype(str).tolist()) if not scope_frame.empty else set()
-    scope_gate = coverage_gate and set(final_windows).issubset(ready_folds)
+    target_coverage_gate = set(final_windows).issubset(ready_folds)
+    scope_gate = coverage_gate and target_coverage_gate
 
     consume_gate = str(contract.get("decision") or "") == "reward_checkpoint_recipe_contract_ready"
     gate_rows = [
@@ -440,33 +481,38 @@ def audit_reward_checkpoint_recipe_scope(
             else "selected daily paths are reference-only or fold-local target manifest is incomplete",
         },
     ]
-    if missing_windows:
+    if official_missing_windows:
         gate_rows.append(
             {
                 "gate": "add_wf_2020_official_replay_coverage",
                 "status": "blocked",
-                "reason": "missing final required windows: " + ",".join(missing_windows),
+                "reason": "missing official replay coverage for final windows: " + ",".join(official_missing_windows),
             }
         )
     gate_rows.append(
         {
             "gate": "rerun_strict_final_walkforward_retention_gate",
-            "status": "passed" if consume_gate and coverage_gate and scope_gate else "blocked",
+            "status": "passed" if consume_gate and official_replay_coverage_gate and scope_gate else "blocked",
             "reason": "ready to rerun strict retention gate"
-            if consume_gate and coverage_gate and scope_gate
-            else "strict final gate must wait for recipe scope and coverage gates",
+            if consume_gate and official_replay_coverage_gate and scope_gate
+            else "strict final gate must wait for recipe scope and official replay coverage gates",
         }
     )
     gate_frame = pd.DataFrame(gate_rows)
     training_allowed = consume_gate and coverage_gate and scope_gate
+    promotion_allowed = False
     return {
         "summary": {
             "decision": "recipe_scope_audit_training_ready" if training_allowed else "recipe_scope_audit_blocks_training",
             "selected_candidate": str(contract.get("selected_candidate") or ""),
             "training_allowed": bool(training_allowed),
+            "promotion_allowed": bool(promotion_allowed),
             "coverage_gate": bool(coverage_gate),
+            "official_replay_coverage_gate": bool(official_replay_coverage_gate),
+            "target_coverage_gate": bool(target_coverage_gate),
             "scope_gate": bool(scope_gate),
             "missing_final_required_windows": missing_windows,
+            "official_missing_final_required_windows": official_missing_windows,
             "required_window_count": len(final_windows),
             "target_ready_window_count": len(ready_folds),
         },

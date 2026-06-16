@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T04:44:31.676086+00:00",
+  "generated_at": "2026-06-16T06:56:38.480421+00:00",
   "entries": [
     {
       "path": "runtime/README.md",
@@ -9750,6 +9750,72 @@
       "category": "model_selection",
       "suffix": ".json",
       "bytes": 6510
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/conclusion.md",
+      "category": "model_selection",
+      "suffix": ".md",
+      "bytes": 524
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/coverage_audit_after_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 586
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/coverage_audit_before_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 592
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/fold_local_target_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 954
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/required_gate_rows_after_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 433
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/required_gate_rows_before_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 462
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/scope_audit_after_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 893
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/scope_audit_before_targets.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 553
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/selection.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 460
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/source_manifest.csv",
+      "category": "model_selection",
+      "suffix": ".csv",
+      "bytes": 831
+    },
+    {
+      "path": "runtime/model_selection/card/short_volshock_foldlocal_wf2020_target_manifest_v1/summary.json",
+      "category": "model_selection",
+      "suffix": ".json",
+      "bytes": 1767
     },
     {
       "path": "runtime/model_selection/card/short_volshock_metric_aligned_checkpoint_or_bc_teacher_v1/conclusion.md",

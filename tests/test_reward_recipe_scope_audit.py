@@ -136,3 +136,91 @@ def test_reward_checkpoint_recipe_scope_audit_allows_training_only_after_coverag
     assert result["summary"]["coverage_gate"] is True
     assert result["summary"]["scope_gate"] is True
     assert result["required_gate_rows"]["status"].tolist() == ["passed", "passed", "passed"]
+
+
+def test_reward_checkpoint_recipe_scope_audit_uses_foldlocal_train_manifest_for_missing_wf2020_targets():
+    contract = {
+        "decision": "reward_checkpoint_recipe_contract_ready",
+        "selected_candidate": "teacher_short_volshock_cap05_hit2",
+        "final_required_windows": ["wf_2020", "wf_2022", "wf_2023_2024"],
+        "missing_final_required_windows": ["wf_2020"],
+        "leakage_guard": {
+            "copy_selected_daily_positions_into_training_labels": False,
+            "eval_window_positions_are_diagnostic_only": True,
+            "next_target_generation_must_be_fold_local": True,
+            "eval_overlap_rows_required": 0,
+        },
+    }
+    selected_fold_metrics = pd.DataFrame(
+        [
+            {
+                "fold": "wf_2022",
+                "daily_path": "official/wf_2022.csv",
+                "teacher_usage": "official_replay_reference_only_not_training_label",
+                "teacher_status": "pass",
+                "full_gate": True,
+            },
+            {
+                "fold": "wf_2023_2024",
+                "daily_path": "official/wf_2023_2024.csv",
+                "teacher_usage": "official_replay_reference_only_not_training_label",
+                "teacher_status": "near_miss",
+                "full_gate": False,
+            },
+        ]
+    )
+    fold_local_manifest = pd.DataFrame(
+        [
+            {
+                "fold": "wf_2020_train",
+                "window": "wf_2020_train",
+                "target_path": "targets/wf_2020.csv",
+                "eval_overlap_rows": 0,
+            },
+            {
+                "fold": "wf_2022_train",
+                "window": "wf_2022_train",
+                "target_path": "targets/wf_2022.csv",
+                "eval_overlap_rows": 0,
+            },
+            {
+                "fold": "wf_2023_2024_train",
+                "window": "wf_2023_2024_train",
+                "target_path": "targets/wf_2023_2024.csv",
+                "eval_overlap_rows": 0,
+            },
+        ]
+    )
+
+    result = reward_checkpoint_screen.audit_reward_checkpoint_recipe_scope(
+        contract,
+        teacher_window_coverage=pd.DataFrame(),
+        selected_fold_metrics=selected_fold_metrics,
+        fold_local_target_manifest=fold_local_manifest,
+    )
+
+    assert result["summary"]["decision"] == "recipe_scope_audit_training_ready"
+    assert result["summary"]["training_allowed"] is True
+    assert result["summary"]["coverage_gate"] is True
+    assert result["summary"]["target_coverage_gate"] is True
+    assert result["summary"]["official_replay_coverage_gate"] is False
+    assert result["summary"]["promotion_allowed"] is False
+    assert result["summary"]["missing_final_required_windows"] == []
+    assert set(result["coverage_rows"].loc[result["coverage_rows"]["present"], "window"]) == {
+        "wf_2020",
+        "wf_2022",
+        "wf_2023_2024",
+    }
+    assert set(result["scope_rows"].loc[result["scope_rows"]["target_ready"], "fold"]) == {
+        "wf_2020",
+        "wf_2022",
+        "wf_2023_2024",
+    }
+    assert result["required_gate_rows"].loc[
+        result["required_gate_rows"]["gate"].eq("add_wf_2020_official_replay_coverage"),
+        "status",
+    ].item() == "blocked"
+    assert result["required_gate_rows"].loc[
+        result["required_gate_rows"]["gate"].eq("rerun_strict_final_walkforward_retention_gate"),
+        "status",
+    ].item() == "blocked"
