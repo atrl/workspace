@@ -62,6 +62,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/data.py",
     "src/soxl_quant/runtime.py",
     "src/soxl_quant/app/barrier_labels.py",
+    "src/soxl_quant/app/checkpoint_retention.py",
     "src/soxl_quant/app/drawdown_budget_overlay.py",
     "src/soxl_quant/app/budget_counterfactual.py",
     "src/soxl_quant/app/oos_diagnostics.py",

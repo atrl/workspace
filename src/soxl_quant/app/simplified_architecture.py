@@ -21,6 +21,7 @@ PRIMARY_CADENCE_METRICS = PRIMARY_SIMPLIFIED_ARTIFACT.with_name("cadence_pair_me
 
 SIMPLIFIED_NON_RL_SOURCE_PATHS: tuple[str, ...] = (
     "src/soxl_quant/data.py",
+    "src/soxl_quant/app/checkpoint_retention.py",
     "src/soxl_quant/app/quantbench_objectives.py",
     "src/soxl_quant/app/quantbench_screen.py",
     "src/soxl_quant/app/quantbench_supervised.py",
@@ -46,7 +47,6 @@ FORBIDDEN_DEFAULT_ENTRYPOINT_PATTERNS: tuple[str, ...] = (
     "reinforcement learning",
 )
 REMAINING_RL_COMPATIBILITY_SURFACES: tuple[str, ...] = (
-    "src/soxl_quant/app/selection.py",
     "src/soxl_quant/policy/",
     "production/",
 )

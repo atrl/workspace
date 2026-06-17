@@ -16,8 +16,24 @@ from src.soxl_quant.policy.observation import make_observation, feature_columns_
 from src.soxl_quant.data import build_dataset, init_qlib
 from src.soxl_quant.settings import QLIB_DATA_PATH
 from src.soxl_quant.config import load_profile
-from src.soxl_quant.policy.environment import SoxlSimulator, EpisodeConfig
+from src.soxl_quant.policy.environment import EpisodeConfig, PositionAction, SoxlSimulator
+from src.soxl_quant.policy.positioning import action_levels_for_profile
 from src.soxl_quant.policy.policy_builder import build_policy, actor_action
+
+
+def build_action_interpreter(profile):
+    action_levels = action_levels_for_profile(profile)
+    return PositionAction(
+        n_actions=len(action_levels) if not profile.model.use_hybrid_overlay else len(profile.model.delta_levels),
+        position_cap_config=profile.position_cap,
+        position_budget_config=profile.position_budget,
+        action_levels=action_levels,
+        hard_floor=profile.model.hard_floor,
+        use_hybrid_overlay=profile.model.use_hybrid_overlay,
+        delta_levels=np.asarray(profile.model.delta_levels, dtype=np.float32) if profile.model.use_hybrid_overlay else None,
+        mode_router_config=profile.mode_router,
+        position_mapping=profile.model.position_mapping,
+    )
 
 
 def run_diagnosis():
@@ -64,7 +80,6 @@ def run_diagnosis():
     policy.actor.load_state_dict(bundle['state_dict'])
     policy.actor.eval()
     
-    from src.soxl_quant.app.selection import build_action_interpreter
     action_interpreter = build_action_interpreter(profile)
 
     sim = SoxlSimulator(initial)

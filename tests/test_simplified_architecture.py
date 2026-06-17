@@ -41,6 +41,7 @@ def test_simplified_non_rl_boundary_excludes_policy_and_qlib_rl_imports():
     violations = check_simplified_non_rl_boundaries()
 
     assert violations == []
+    assert "src/soxl_quant/app/checkpoint_retention.py" in SIMPLIFIED_NON_RL_SOURCE_PATHS
     assert "src/soxl_quant/app/quantbench_supervised.py" in SIMPLIFIED_NON_RL_SOURCE_PATHS
     assert "src/soxl_quant/app/train.py" not in SIMPLIFIED_NON_RL_SOURCE_PATHS
     assert "qlib.rl" in FORBIDDEN_SIMPLIFIED_IMPORT_PATTERNS
@@ -52,7 +53,6 @@ def test_simplified_architecture_manifest_marks_remaining_rl_as_compatibility_on
     assert manifest["source_boundary"]["violations"] == []
     assert manifest["primary_non_rl_surface_available"] is True
     assert manifest["goal_complete"] is False
-    assert "src/soxl_quant/app/selection.py" in manifest["remaining_rl_compatibility_surfaces"]
     assert "src/soxl_quant/policy/" in manifest["remaining_rl_compatibility_surfaces"]
 
 
@@ -138,10 +138,12 @@ def test_legacy_app_rl_cli_entrypoint_is_retired():
 def test_legacy_app_rl_training_entrypoints_are_retired():
     assert not (ROOT / "src" / "soxl_quant" / "app" / "train.py").exists()
     assert not (ROOT / "src" / "soxl_quant" / "app" / "workers.py").exists()
+    assert not (ROOT / "src" / "soxl_quant" / "app" / "selection.py").exists()
 
     manifest = simplified_architecture_manifest()
     assert "src/soxl_quant/app/train.py" not in manifest["remaining_rl_compatibility_surfaces"]
     assert "src/soxl_quant/app/workers.py" not in manifest["remaining_rl_compatibility_surfaces"]
+    assert "src/soxl_quant/app/selection.py" not in manifest["remaining_rl_compatibility_surfaces"]
 
 
 def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():
@@ -157,7 +159,11 @@ def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():
 
 def test_scripts_do_not_import_retired_app_training_surfaces():
     scripts = sorted((ROOT / "scripts").glob("*.py"))
-    forbidden = ("src.soxl_quant.app.train", "src.soxl_quant.app.workers")
+    forbidden = (
+        "src.soxl_quant.app.selection",
+        "src.soxl_quant.app.train",
+        "src.soxl_quant.app.workers",
+    )
     offenders = [
         f"{path.relative_to(ROOT).as_posix()}:{pattern}"
         for path in scripts
@@ -174,6 +180,7 @@ def test_harness_compile_targets_do_not_keep_retired_rl_facades_alive():
     assert '"src/soxl_quant/cli.py"' not in check_harness_source
     assert '"src/soxl_quant/rl.py"' not in check_harness_source
     assert '"src/soxl_quant/app/cli.py"' not in check_harness_source
+    assert '"src/soxl_quant/app/selection.py"' not in check_harness_source
     assert '"src/soxl_quant/app/train.py"' not in check_harness_source
     assert '"src/soxl_quant/app/workers.py"' not in check_harness_source
     assert '"tests/test_train_summary_persistence.py"' not in check_harness_source

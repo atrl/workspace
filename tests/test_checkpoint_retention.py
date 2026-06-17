@@ -13,7 +13,7 @@ from src.soxl_quant.app.artifacts import (
     persist_final_model_retention_decision,
     persist_retained_checkpoint_bundles,
 )
-from src.soxl_quant.app.selection import select_retained_checkpoints
+from src.soxl_quant.app.checkpoint_retention import select_retained_checkpoints
 from src.soxl_quant.config import CheckpointRetentionConfig, load_profile
 
 

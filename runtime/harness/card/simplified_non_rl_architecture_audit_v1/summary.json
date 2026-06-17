@@ -80,7 +80,6 @@
       "promotion_allowed": false
     },
     "remaining_rl_compatibility_surfaces": [
-      "src/soxl_quant/app/selection.py",
       "src/soxl_quant/policy/",
       "production/"
     ],
@@ -88,6 +87,7 @@
     "source_boundary": {
       "checked_paths": [
         "src/soxl_quant/data.py",
+        "src/soxl_quant/app/checkpoint_retention.py",
         "src/soxl_quant/app/quantbench_objectives.py",
         "src/soxl_quant/app/quantbench_screen.py",
         "src/soxl_quant/app/quantbench_supervised.py"
