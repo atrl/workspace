@@ -32,7 +32,20 @@ FORBIDDEN_SIMPLIFIED_IMPORT_PATTERNS: tuple[str, ...] = (
     "src.soxl_quant.rl",
     "soxl_quant.rl",
 )
+DEFAULT_ENTRYPOINT_SOURCE_PATHS: tuple[str, ...] = (
+    "src/soxl_quant/__init__.py",
+    "src/soxl_quant/app/__init__.py",
+    "src/soxl_quant/app/__main__.py",
+)
+FORBIDDEN_DEFAULT_ENTRYPOINT_PATTERNS: tuple[str, ...] = (
+    "app.cli",
+    "from .cli",
+    "run_profile",
+    "PPO",
+    "reinforcement learning",
+)
 REMAINING_RL_COMPATIBILITY_SURFACES: tuple[str, ...] = (
+    "src/soxl_quant/app/cli.py",
     "src/soxl_quant/app/train.py",
     "src/soxl_quant/app/selection.py",
     "src/soxl_quant/app/workers.py",
@@ -83,6 +96,22 @@ def check_simplified_non_rl_boundaries(root: Path | None = None) -> list[dict[st
     return violations
 
 
+def check_default_entrypoint_boundaries(root: Path | None = None) -> list[dict[str, str]]:
+    """Return legacy RL references from package default entrypoints."""
+    repo_root = Path(root or ROOT)
+    violations: list[dict[str, str]] = []
+    for rel_path in DEFAULT_ENTRYPOINT_SOURCE_PATHS:
+        path = repo_root / rel_path
+        if not path.exists():
+            violations.append({"path": rel_path, "pattern": "missing", "line": "0"})
+            continue
+        for line_no, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), start=1):
+            for pattern in FORBIDDEN_DEFAULT_ENTRYPOINT_PATTERNS:
+                if pattern.lower() in line.lower():
+                    violations.append({"path": rel_path, "pattern": pattern, "line": str(line_no)})
+    return violations
+
+
 def simplified_architecture_manifest(root: Path | None = None) -> dict[str, Any]:
     """Build the current non-RL simplification manifest from runtime evidence."""
     repo_root = Path(root or ROOT)
@@ -113,11 +142,13 @@ def simplified_architecture_manifest(root: Path | None = None) -> dict[str, Any]
     )
     feature_packs = [str(item) for item in _as_list(supervised_data.get("feature_packs"))]
     boundary_violations = check_simplified_non_rl_boundaries(repo_root)
+    entrypoint_violations = check_default_entrypoint_boundaries(repo_root)
 
     primary_available = bool(
         primary_path.exists()
         and supervised_summary_path.exists()
         and not boundary_violations
+        and not entrypoint_violations
         and feature_packs
         and feature_packs[0] == "qlib_alpha158"
         and int(supervised_data.get("feature_count") or 0) >= 158
@@ -158,6 +189,15 @@ def simplified_architecture_manifest(root: Path | None = None) -> dict[str, Any]
             "test_2022_turnover_reduction_rows": turnover_reduction_rows,
             "trade_cadences": [str(item) for item in _as_list(supervised_data.get("trade_cadences"))],
         },
+        "default_entrypoints": {
+            "package_main": "src.soxl_quant.app.simplified_cli",
+            "app_package_main": "src.soxl_quant.app.simplified_cli",
+            "app_module_main": "src.soxl_quant.app.simplified_cli",
+            "legacy_rl_cli_primary": False,
+            "checked_paths": list(DEFAULT_ENTRYPOINT_SOURCE_PATHS),
+            "forbidden_patterns": list(FORBIDDEN_DEFAULT_ENTRYPOINT_PATTERNS),
+            "violations": entrypoint_violations,
+        },
         "promotion": {
             "decision": primary_summary.get("decision") or supervised_summary.get("decision"),
             "eligible_profiles": _as_list(primary_summary.get("eligible_profiles"))
@@ -187,6 +227,8 @@ def simplified_architecture_failures(manifest: dict[str, Any]) -> list[str]:
         failures.append(f"missing supervised summary: {manifest.get('supervised_summary')}")
     if manifest.get("source_boundary", {}).get("violations"):
         failures.append("simplified source boundary has RL import violations")
+    if manifest.get("default_entrypoints", {}).get("violations"):
+        failures.append("default package entrypoints still reference legacy RL CLI")
     if not manifest.get("data", {}).get("feature_packs") or manifest["data"]["feature_packs"][0] != "qlib_alpha158":
         failures.append("primary supervised feature pack is not qlib_alpha158")
     if int(manifest.get("data", {}).get("feature_count") or 0) < 158:
@@ -225,10 +267,12 @@ def main(argv: Iterable[str] | None = None) -> int:
 
 
 __all__ = [
+    "DEFAULT_ENTRYPOINT_SOURCE_PATHS",
     "FORBIDDEN_SIMPLIFIED_IMPORT_PATTERNS",
     "PRIMARY_SIMPLIFIED_ARTIFACT",
     "PRIMARY_SIMPLIFIED_SURFACE",
     "SIMPLIFIED_NON_RL_SOURCE_PATHS",
+    "check_default_entrypoint_boundaries",
     "check_simplified_non_rl_boundaries",
     "main",
     "simplified_architecture_failures",

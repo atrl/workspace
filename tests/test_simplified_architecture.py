@@ -1,5 +1,14 @@
 from __future__ import annotations
 
+import contextlib
+import io
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+import src.soxl_quant as package
+import src.soxl_quant.app as app_package
 from src.soxl_quant.app.simplified_architecture import (
     FORBIDDEN_SIMPLIFIED_IMPORT_PATTERNS,
     PRIMARY_SIMPLIFIED_ARTIFACT,
@@ -7,6 +16,8 @@ from src.soxl_quant.app.simplified_architecture import (
     check_simplified_non_rl_boundaries,
     simplified_architecture_manifest,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_simplified_architecture_manifest_points_to_alpha158_supervised_cadence_surface():
@@ -43,3 +54,63 @@ def test_simplified_architecture_manifest_marks_remaining_rl_as_compatibility_on
     assert manifest["goal_complete"] is False
     assert "src/soxl_quant/app/train.py" in manifest["remaining_rl_compatibility_surfaces"]
     assert "src/soxl_quant/policy/" in manifest["remaining_rl_compatibility_surfaces"]
+
+
+def test_default_app_module_cli_emits_simplified_architecture_manifest_json():
+    proc = subprocess.run(
+        [sys.executable, "-m", "src.soxl_quant.app", "--json"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert proc.returncode == 0, proc.stderr
+    payload = json.loads(proc.stdout)
+    assert payload["primary_surface"] == "qlib_alpha158_supervised_cadence_v1"
+    assert payload["rl_training_primary"] is False
+
+
+def test_package_main_dispatches_to_simplified_architecture_cli():
+    stdout = io.StringIO()
+
+    with contextlib.redirect_stdout(stdout):
+        status = package.main(["--json"])
+
+    assert status == 0
+    payload = json.loads(stdout.getvalue())
+    assert payload["primary_training_kind"] == "supervised"
+    assert payload["primary_non_rl_surface_available"] is True
+
+
+def test_app_package_main_dispatches_to_simplified_architecture_cli():
+    stdout = io.StringIO()
+
+    with contextlib.redirect_stdout(stdout):
+        status = app_package.main(["--json"])
+
+    assert status == 0
+    payload = json.loads(stdout.getvalue())
+    assert payload["default_entrypoints"]["legacy_rl_cli_primary"] is False
+
+
+def test_default_entrypoints_do_not_reference_legacy_rl_cli():
+    package_source = (ROOT / "src" / "soxl_quant" / "__init__.py").read_text(encoding="utf-8")
+    app_package_source = (ROOT / "src" / "soxl_quant" / "app" / "__init__.py").read_text(encoding="utf-8")
+    app_main_source = (ROOT / "src" / "soxl_quant" / "app" / "__main__.py").read_text(encoding="utf-8")
+
+    assert "app.cli" not in package_source
+    assert ".cli" not in app_package_source
+    assert ".cli" not in app_main_source
+    assert "reinforcement learning" not in package_source.lower()
+
+
+def test_simplified_manifest_records_default_entrypoint_migration():
+    manifest = simplified_architecture_manifest()
+
+    assert manifest["default_entrypoints"]["package_main"] == "src.soxl_quant.app.simplified_cli"
+    assert manifest["default_entrypoints"]["app_package_main"] == "src.soxl_quant.app.simplified_cli"
+    assert manifest["default_entrypoints"]["app_module_main"] == "src.soxl_quant.app.simplified_cli"
+    assert manifest["default_entrypoints"]["legacy_rl_cli_primary"] is False
+    assert manifest["default_entrypoints"]["violations"] == []
+    assert "src/soxl_quant/app/cli.py" in manifest["remaining_rl_compatibility_surfaces"]

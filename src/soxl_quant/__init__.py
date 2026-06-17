@@ -1,8 +1,9 @@
-"""SOXL-only qlib reinforcement learning package."""
+"""SOXL-only qlib supervised research harness."""
 
-def main(*args, **kwargs):
-    from .app.cli import main as app_main
 
-    return app_main(*args, **kwargs)
+def main(argv=None):
+    from .app.simplified_cli import main as app_main
+
+    return app_main(argv)
 
 __all__ = ["main"]

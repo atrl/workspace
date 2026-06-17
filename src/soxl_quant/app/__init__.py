@@ -3,9 +3,9 @@
 from .sources import build_multi_asset_sources
 
 
-def main(*args, **kwargs):
-    from .cli import main as cli_main
+def main(argv=None):
+    from .simplified_cli import main as app_main
 
-    return cli_main(*args, **kwargs)
+    return app_main(argv)
 
 __all__ = ["build_multi_asset_sources", "main"]
