@@ -124,18 +124,11 @@ def _date_ge(left: str, right: str) -> bool:
 
 
 def export_candidate(candidate: ReplayCandidate, *, python: str = sys.executable) -> None:
-    cmd = [
-        python,
-        "scripts/export_profile_daily_backtest.py",
-        "--profile",
-        candidate.name,
-        "--output",
-        str(candidate.output_path),
-    ]
-    result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=False)
-    if result.returncode != 0:
-        detail = "\n".join(part for part in (result.stdout.strip(), result.stderr.strip()) if part)
-        raise RuntimeError(detail or f"export failed with exit code {result.returncode}")
+    del candidate, python
+    raise RuntimeError(
+        "Legacy actor replay export has been retired. Use supervised Alpha158/cadence "
+        "model-selection artifacts for dashboard model evidence."
+    )
 
 
 def refresh_model_replays(

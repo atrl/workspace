@@ -364,13 +364,11 @@ def load_actor_bundles(profile_names: list[str]) -> list:
 
 
 def build_actor_ensemble(profile_names: list[str], method: str = "mean_logits"):
-    """Load several per-seed actors and wrap them in an `EnsembleActor`."""
-    from ..policy.policy_builder import EnsembleActor
-
-    bundles = load_actor_bundles(profile_names)
-    actors = [actor for actor, _, _ in bundles]
-    ensemble = EnsembleActor(actors, method=method)
-    return ensemble, bundles
+    del profile_names, method
+    raise RuntimeError(
+        "Legacy actor ensembles have been retired. Use the simplified supervised "
+        "Alpha158/cadence model-selection artifacts instead."
+    )
 
 
 __all__ = [

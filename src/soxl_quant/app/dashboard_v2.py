@@ -814,87 +814,8 @@ def _infer_latest_signal(
     latest_date: str,
     context: dict[str, Any] | None,
 ) -> dict[str, Any] | None:
-    if not rows or rows[-1]["date"] >= latest_date or context is None:
-        return None
-    actor_ref = source.get("actor")
-    if not actor_ref:
-        return None
-    actor_path = root / str(actor_ref)
-    if not actor_path.exists():
-        return None
-    try:
-        import torch
-
-        from src.soxl_quant.policy.environment import TrancheLedger
-        from src.soxl_quant.policy.mode_conditioning import append_mode_one_hot
-        from src.soxl_quant.policy.observation import make_observation
-        from src.soxl_quant.policy.policy_builder import actor_action
-        from src.soxl_quant.policy.positioning import target_position_for_profile
-        from src.soxl_quant.policy.policy_builder import build_policy
-        from src.soxl_quant.settings import ACCOUNT, LOOKBACK, load_profile
-    except Exception:
-        return None
-
-    feature_df: pd.DataFrame = context["feature_df"]
-    price: pd.Series = context["price"]
-    latest_ts: pd.Timestamp = context["latest_ts"]
-    try:
-        idx = int(feature_df.index.get_loc(latest_ts))
-        if idx < LOOKBACK:
-            return None
-        profile = load_profile(profile_name)
-        ckpt = torch.load(actor_path, map_location="cpu", weights_only=False)
-        _, actor = build_policy(
-            int(ckpt["obs_dim"]),
-            profile,
-            use_moe=ckpt.get("use_moe", False),
-            hard_regime_routing=ckpt.get("use_moe", False),
-        )
-        actor.load_state_dict(ckpt["state_dict"])
-        actor.eval()
-        previous_position = float(rows[-1]["position"])
-        last_nav = float(rows[-1]["strategy_nav"])
-        peak_nav = max(float(row["strategy_nav"]) for row in rows)
-        current_drawdown = max(1.0 - last_nav / max(peak_nav, 1e-8), 0.0)
-        price_path = price.to_numpy(dtype=np.float32)
-        obs = make_observation(
-            feature_df,
-            idx,
-            previous_position,
-            last_nav if last_nav > 0 else ACCOUNT,
-            peak_nav if peak_nav > 0 else ACCOUNT,
-            TrancheLedger(),
-            price_path,
-        )
-        model_cfg = profile.model
-        if getattr(model_cfg, "use_mode_conditioned_input", False):
-            obs = append_mode_one_hot(obs, "flat_wait")
-        raw_action = actor_action(actor, obs)
-        target_position = target_position_for_profile(
-            raw_action,
-            obs,
-            config=profile.position_cap,
-            action_levels=np.asarray(getattr(model_cfg, "action_levels", ()), dtype=np.float32),
-            hard_floor=getattr(model_cfg, "hard_floor", None),
-            use_hybrid_overlay=bool(getattr(model_cfg, "use_hybrid_overlay", False)),
-            delta_levels=np.asarray(getattr(model_cfg, "delta_levels", ()), dtype=np.float32)
-            if getattr(model_cfg, "use_hybrid_overlay", False)
-            else None,
-            position_budget_config=profile.position_budget,
-            current_drawdown=current_drawdown,
-            position_mapping=str(getattr(model_cfg, "position_mapping", "default")),
-        )
-    except Exception:
-        return None
-    return {
-        "date": latest_date,
-        "price": float(price.loc[latest_ts]),
-        "position": float(target_position),
-        "action": _action_from_position_delta(previous_position, float(target_position)),
-        "replay_asof": rows[-1]["date"],
-        "source": LATEST_SIGNAL_SOURCE,
-        "raw_action": int(raw_action),
-    }
+    del root, profile_name, source, rows, latest_date, context
+    return None
 
 
 def _rebase_nav(value: float, start_value: float) -> float:

@@ -54,7 +54,8 @@ def test_simplified_architecture_manifest_marks_remaining_rl_as_compatibility_on
     assert manifest["source_boundary"]["violations"] == []
     assert manifest["primary_non_rl_surface_available"] is True
     assert manifest["goal_complete"] is False
-    assert "src/soxl_quant/policy/" in manifest["remaining_rl_compatibility_surfaces"]
+    assert "src/soxl_quant/policy/" not in manifest["remaining_rl_compatibility_surfaces"]
+    assert "production/soxl_paper_trading.py" in manifest["remaining_rl_compatibility_surfaces"]
 
 
 def test_default_app_module_cli_emits_simplified_architecture_manifest_json():
@@ -184,6 +185,70 @@ def test_legacy_rl_environment_harness_coverage_is_retired():
     position_cap_source = (ROOT / "tests" / "test_position_cap.py").read_text(encoding="utf-8")
     assert "policy.environment" not in position_cap_source
     assert "PositionAction" not in position_cap_source
+
+
+def test_runtime_no_longer_imports_actor_builder_at_module_import_time():
+    runtime_source = (ROOT / "src" / "soxl_quant" / "runtime.py").read_text(encoding="utf-8")
+
+    forbidden = (
+        "policy.policy_builder",
+        "actor_action",
+        "build_policy",
+        "policy.observation",
+        "target_position_for_profile",
+    )
+    offenders = [pattern for pattern in forbidden if pattern in runtime_source]
+    assert offenders == []
+
+
+def test_backtest_module_no_longer_imports_actor_builder_at_module_import_time():
+    backtest_source = (ROOT / "src" / "soxl_quant" / "backtest.py").read_text(encoding="utf-8")
+
+    forbidden = (
+        "policy.policy_builder",
+        "actor_action",
+        "tianshou.utils.net.discrete",
+    )
+    offenders = [pattern for pattern in forbidden if pattern in backtest_source]
+    assert offenders == []
+
+
+def test_harness_no_longer_keeps_actor_builder_consumers_alive():
+    assert not (ROOT / "tests" / "test_budget_usage_bc.py").exists()
+    assert not (ROOT / "tests" / "test_state_objective_bc.py").exists()
+    assert not (ROOT / "src" / "soxl_quant" / "app" / "state_objective_bc.py").exists()
+
+    check_harness_source = (ROOT / "scripts" / "check_harness.py").read_text(encoding="utf-8")
+    forbidden = (
+        "tests/test_budget_usage_bc.py",
+        "tests/test_state_objective_bc.py",
+        "src/soxl_quant/app/state_objective_bc.py",
+        "scripts/export_profile_daily_backtest.py",
+        "scripts/evaluate_selective_release_overlay.py",
+        "scripts/evaluate_selective_release_walkforward.py",
+        "scripts/evaluate_soxx_relative_overlay.py",
+    )
+    offenders = [pattern for pattern in forbidden if pattern in check_harness_source]
+    assert offenders == []
+
+
+def test_legacy_rl_actor_builder_modules_are_retired():
+    retired_paths = [
+        "src/soxl_quant/compat.py",
+        "src/soxl_quant/app/bootstrap.py",
+        "src/soxl_quant/policy/environment.py",
+        "src/soxl_quant/policy/evaluation.py",
+        "src/soxl_quant/policy/policy_builder.py",
+        "src/soxl_quant/policy/models/attention.py",
+        "src/soxl_quant/policy/models/gru.py",
+        "src/soxl_quant/policy/models/mlp.py",
+        "src/soxl_quant/policy/models/moe.py",
+        "src/soxl_quant/policy/models/temporal_conv.py",
+        "src/soxl_quant/policy/models/tide.py",
+        "tests/test_policy_networks.py",
+    ]
+    offenders = [rel_path for rel_path in retired_paths if (ROOT / rel_path).exists()]
+    assert offenders == []
 
 
 def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():

@@ -244,14 +244,31 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
   - `src/soxl_quant/app/selection.py`
 - Retired RL policy modules:
   - `src/soxl_quant/policy/reward.py`
+  - `src/soxl_quant/policy/environment.py`
+  - `src/soxl_quant/policy/evaluation.py`
+  - `src/soxl_quant/policy/policy_builder.py`
+  - `src/soxl_quant/policy/models/attention.py`
+  - `src/soxl_quant/policy/models/gru.py`
+  - `src/soxl_quant/policy/models/mlp.py`
+  - `src/soxl_quant/policy/models/moe.py`
+  - `src/soxl_quant/policy/models/temporal_conv.py`
+  - `src/soxl_quant/policy/models/tide.py`
+- Retired RL compatibility/bootstrap modules:
+  - `src/soxl_quant/compat.py`
+  - `src/soxl_quant/app/bootstrap.py`
 - Retired RL environment tests:
   - `tests/test_structural_model.py`
+- Retired BC/actor-builder harness tests:
+  - `tests/test_budget_usage_bc.py`
+  - `tests/test_state_objective_bc.py`
+  - `tests/test_policy_networks.py`
+  - `src/soxl_quant/app/state_objective_bc.py`
 - Do not recreate retired facades or trainer entrypoints. Default package entrypoints should
   continue through the simplified supervised architecture CLI unless the user
   explicitly asks for legacy compatibility maintenance.
-- Legacy RL training/runtime code that still exists under app, policy, and
-  production paths must remain isolated from the default supervised entrypoint
-  until it is migrated or deleted.
+- Legacy actor runtime code that still exists under production paths must
+  remain isolated from the default supervised entrypoint until it is migrated or
+  deleted.
 
 
 ## Retention And Cleanup

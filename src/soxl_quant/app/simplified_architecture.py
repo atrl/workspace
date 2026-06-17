@@ -48,8 +48,13 @@ FORBIDDEN_DEFAULT_ENTRYPOINT_PATTERNS: tuple[str, ...] = (
     "reinforcement learning",
 )
 REMAINING_RL_COMPATIBILITY_SURFACES: tuple[str, ...] = (
-    "src/soxl_quant/policy/",
-    "production/",
+    "production/composed_session.py",
+    "production/futu_manual_session.py",
+    "production/ib_manual_session.py",
+    "production/run_soxl_weekly_wf.sh",
+    "production/soxl_futu_runner.py",
+    "production/soxl_paper_runner.py",
+    "production/soxl_paper_trading.py",
 )
 
 

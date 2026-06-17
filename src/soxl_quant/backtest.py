@@ -16,7 +16,7 @@ from __future__ import annotations
   - 若未来做模型集成（Ensemble），可在此新增 EnsembleRLStrategy。
 """
 
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -27,7 +27,6 @@ from qlib.backtest.decision import Order, TradeDecisionWO
 from qlib.backtest.executor import SimulatorExecutor
 from qlib.data import D
 from qlib.strategy.base import BaseStrategy
-from tianshou.utils.net.discrete import Actor
 
 from .data import FEATURE_COLUMNS
 from .core.runtime_state import TrancheLedger
@@ -50,9 +49,18 @@ from .policy.execution_overlays import (
     sequence_risk_action_cap_ready,
     soxx_relative_weakness_ready,
 )
-from .policy.policy_builder import actor_action
 from .policy.positioning import target_position_for_profile
 from .settings import ACCOUNT, LOOKBACK, ExecutionConfig, PositionBudgetConfig, PositionCapConfig, RESULT_PNG, RESULT_TXT, TEST_SEG
+
+
+def _legacy_model_decision(model: Any, obs: np.ndarray) -> int:
+    import torch
+
+    with torch.no_grad():
+        obs_tensor = torch.as_tensor(obs, dtype=torch.float32).unsqueeze(0)
+        out = model(obs_tensor)
+        logits = out[0] if isinstance(out, tuple) else out
+        return int(torch.argmax(logits, dim=-1).item())
 
 
 def selective_release_gate_ready(row: pd.Series, regime_risk: float, overlay_config: dict) -> bool:
@@ -290,7 +298,7 @@ class RLStrategy(BaseStrategy):
     """qlib 策略包装器：把训练好的 actor 接入官方回测引擎。"""
     def __init__(
         self,
-        actor: Actor,
+        actor: Any,
         feature_df: pd.DataFrame,
         price_series: pd.Series,
         position_cap_config: PositionCapConfig,
@@ -415,7 +423,7 @@ class RLStrategy(BaseStrategy):
         if model_cfg and getattr(model_cfg, "use_mode_conditioned_input", False):
             from .policy.mode_conditioning import append_mode_one_hot
             obs = append_mode_one_hot(obs, str(self.mode_state.name if self.mode_state else "flat_wait"))
-        raw_action = actor_action(self.actor, obs)
+        raw_action = _legacy_model_decision(self.actor, obs)
         target_pos = target_position_for_profile(
             raw_action,
             obs,
@@ -826,7 +834,7 @@ class RLStrategy(BaseStrategy):
 
 
 def backtest_profile(
-    actor: Actor,
+    actor: Any,
     feature_df: pd.DataFrame,
     price_series: pd.Series,
     position_cap_config: PositionCapConfig,

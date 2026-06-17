@@ -20,9 +20,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-import numpy as np
 import pandas as pd
-import torch
 
 from .backtest import (
     apply_selective_release_overlay,
@@ -32,14 +30,8 @@ from .backtest import (
     selective_release_post_release_target_cap,
 )
 from .config import StrategyConfig
-from .data import build_dataset, feature_columns_for_packs, init_qlib
 from .policy.execution_overlays import overlay_config as named_execution_overlay_config
-from .core.runtime_state import TrancheLedger
-from .policy.modes import ModeState, mode_band, route_mode
-from .policy.observation import make_observation
-from .policy.policy_builder import actor_action, build_policy
-from .policy.positioning import target_position_for_profile
-from .settings import ACCOUNT, MODEL_DIR, PositionCapConfig, QLIB_DATA_PATH, ROOT, load_profile
+from .settings import ACCOUNT, MODEL_DIR, PositionCapConfig, ROOT, load_profile
 from .policy.two_speed_budget import (
     BullParticipationGuardConfig,
     TwoSpeedBudgetConfig,
@@ -47,6 +39,12 @@ from .policy.two_speed_budget import (
     compose_budget_usage_position,
     infer_mode_from_slow_position,
     maybe_rebalance_position,
+)
+
+LEGACY_ACTOR_RUNTIME_RETIRED = (
+    "Legacy actor runtime replay has been retired. Use the simplified supervised "
+    "Alpha158/cadence artifacts under runtime/model_selection/card/"
+    "qlib_alpha158_supervised_cadence_v1."
 )
 
 
@@ -224,14 +222,8 @@ def latest_model_path(profile_name: str) -> Path:
 
 
 def load_actor_bundle(profile_name: str, model_path: Optional[Path] = None):
-    profile = load_profile(profile_name)
-    bundle_path = model_path or latest_model_path(profile_name)
-    bundle = torch.load(bundle_path, map_location="cpu")
-    obs_dim = int(bundle["obs_dim"])
-    _, actor = build_policy(obs_dim, profile)
-    actor.load_state_dict(bundle["state_dict"])
-    actor.eval()
-    return actor, bundle_path, bundle
+    del profile_name, model_path
+    raise RuntimeError(LEGACY_ACTOR_RUNTIME_RETIRED)
 
 
 def bundle_position_cap_config(bundle: Dict[str, object], profile_name: str) -> PositionCapConfig:
@@ -901,103 +893,6 @@ def compose_budget_usage_runtime_signal(
     return signal, composition
 
 
-def _runtime_frame(profile_name: str = "balanced") -> Tuple[pd.DataFrame, pd.Series]:
-    init_qlib(QLIB_DATA_PATH)
-    profile = load_profile(profile_name)
-    dataset = build_dataset(
-        feature_packs=runtime_feature_packs(profile),
-        profile_name=profile.name,
-    )
-    full_df = dataset.handler.feature_frame.droplevel("instrument").sort_index()
-    price_series = dataset.handler.price_frame.droplevel("instrument")["price"].sort_index()
-    return full_df, price_series
-
-
-def _build_signal_intent(
-    actor,
-    profile_name: str,
-    model_path: Path,
-    bundle: Dict[str, object],
-    feature_df: pd.DataFrame,
-    price_path: np.ndarray,
-    idx: int,
-    broker: BrokerAdapter,
-    ledger: TrancheLedger,
-    peak_value: float,
-    symbol: str = "SOXL",
-    mode_state: Optional[ModeState] = None,
-) -> SignalIntent:
-    date = feature_df.index[idx]
-    price = float(price_path[idx])
-    account = broker.get_account_snapshot(str(pd.Timestamp(date).date()), price)
-    current_position = broker.get_position(symbol, price)
-    profile = load_profile(profile_name)
-    feature_columns = feature_columns_for_packs(profile.feature.packs, profile.name)
-    obs = make_observation(
-        feature_df,
-        idx,
-        current_position,
-        account.account_value,
-        peak_value,
-        ledger,
-        price_path,
-        feature_columns=feature_columns,
-    )
-    current_mode_state = route_mode(obs, mode_state, profile.mode_router)
-    action = actor_action(actor, obs)
-    model_cfg = profile.model
-    target_position = target_position_for_profile(
-        action,
-        obs,
-        config=bundle_position_cap_config(bundle, profile_name),
-        action_levels=np.asarray(model_cfg.action_levels, dtype=np.float32),
-        hard_floor=model_cfg.hard_floor,
-        use_hybrid_overlay=bool(model_cfg.use_hybrid_overlay),
-        delta_levels=np.asarray(model_cfg.delta_levels, dtype=np.float32) if model_cfg.use_hybrid_overlay else None,
-        mode_band=mode_band(current_mode_state.name, profile.mode_router) if profile.mode_router.enabled else None,
-        position_budget_config=profile.position_budget,
-        current_drawdown=max(1.0 - account.account_value / max(peak_value, 1e-8), 0.0),
-        position_mapping=model_cfg.position_mapping,
-    )
-    regime_risk = float(feature_df.iloc[idx]["regime_risk"])
-    target_before_overlay = float(target_position)
-    overlay_state = load_runtime_execution_overlay_state(profile, account_value=account.account_value)
-    target_position, overlay_decision = apply_runtime_execution_overlay(
-        profile,
-        target_position=target_position,
-        row=feature_df.iloc[idx],
-        regime_risk=regime_risk,
-        current_position=current_position,
-        current_drawdown=max(1.0 - account.account_value / max(peak_value, 1e-8), 0.0),
-        account_value=account.account_value,
-        state=overlay_state,
-    )
-    overlay_note = (
-        f" overlay={overlay_decision.name}"
-        if overlay_decision.enabled
-        else ""
-    )
-    return SignalIntent(
-        date=str(pd.Timestamp(date).date()),
-        symbol=symbol,
-        profile=profile_name,
-        model_path=str(model_path),
-        seed=int(bundle.get("seed")) if bundle.get("seed") is not None else None,
-        action=int(action),
-        target_position=float(target_position),
-        current_position=float(current_position),
-        price=price,
-        regime_risk=regime_risk,
-        note=f"regime={regime_risk:.2f} mode={current_mode_state.name}{overlay_note}",
-        target_before_overlay=float(target_before_overlay),
-        execution_overlay=overlay_decision.name,
-        overlay_gate_ready=overlay_decision.gate_ready,
-        overlay_execution_ready=overlay_decision.execution_ready,
-        post_release_state_days=overlay_decision.post_release_state_days_before,
-        post_release_drawdown=overlay_decision.post_release_drawdown,
-    )
-
-
 def replay_profile(
     profile_name: str,
     start: str,
@@ -1006,131 +901,8 @@ def replay_profile(
     output_dir: Optional[Path] = None,
     broker: Optional[BrokerAdapter] = None,
 ) -> Dict[str, object]:
-    """Replay the policy on daily bars using the same broker interface as live."""
-
-    full_df, price_series = _runtime_frame(profile_name)
-    feature_df = full_df.loc[start:end].copy()
-    price_slice = price_series.loc[start:end].copy()
-    if len(feature_df) <= 80:
-        raise ValueError(f"insufficient replay bars between {start} and {end}")
-
-    actor, bundle_path, bundle = load_actor_bundle(profile_name, model_path=model_path)
-    broker = broker or PaperBroker()
-    ledger = TrancheLedger()
-    commands: List[ExecutionCommand] = []
-    statuses: List[BrokerOrderStatus] = []
-    executions: List[BrokerExecutionResult] = []
-    accounts: List[AccountSnapshot] = []
-    signals: List[SignalIntent] = []
-    decisions: List[RiskGateDecision] = []
-    reconciliations: List[ReconciliationRecord] = []
-    price_path = price_slice.reindex(feature_df.index).ffill().bfill().to_numpy(dtype=np.float32)
-    approved_signals = 0
-    blocked_signals = 0
-    peak_value = ACCOUNT
-    mode_state = ModeState()
-
-    for i in range(60, len(feature_df)):
-        signal = _build_signal_intent(
-            actor,
-            profile_name,
-            bundle_path,
-            bundle,
-            feature_df,
-            price_path,
-            i,
-            broker,
-            ledger,
-            peak_value,
-            mode_state=mode_state,
-        )
-        profile = load_profile(profile_name)
-        obs = make_observation(
-            feature_df,
-            i,
-            signal.current_position,
-            broker.get_account_snapshot(signal.date, signal.price).account_value,
-            peak_value,
-            ledger,
-            price_path,
-            feature_columns=feature_columns_for_packs(profile.feature.packs, profile.name),
-        )
-        mode_state = route_mode(obs, mode_state, profile.mode_router)
-        decision = risk_gate(broker, signal)
-        signals.append(signal)
-        decisions.append(decision)
-        if decision.approved:
-            approved_signals += 1
-            new_commands, new_statuses, execution = broker.place_target_position(
-                signal.date,
-                signal.symbol,
-                decision.capped_target_position,
-                signal.price,
-                reason=signal.note,
-            )
-            commands.extend(new_commands)
-            statuses.extend(new_statuses)
-            executions.append(execution)
-            if execution.submitted:
-                ledger.update(signal.current_position, execution.resulting_position, signal.price)
-        else:
-            blocked_signals += 1
-            executions.append(
-                BrokerExecutionResult(
-                    submitted=False,
-                    broker_name=broker.broker_name,
-                    status="blocked",
-                    target_position=decision.capped_target_position,
-                    resulting_position=signal.current_position,
-                    error="; ".join(decision.blocking_reasons),
-                )
-            )
-            if signal.current_position > 1e-6:
-                ledger.update(signal.current_position, signal.current_position, signal.price)
-
-        account = broker.get_account_snapshot(signal.date, signal.price)
-        peak_value = max(peak_value, account.account_value)
-        accounts.append(account)
-        reconciliations.append(
-            reconcile_positions(
-                signal.date,
-                expected_position=decision.capped_target_position if decision.approved else signal.current_position,
-                actual_position=account.position,
-            )
-        )
-
-    record = ExperimentRecord(
-        profile=profile_name,
-        model_path=str(bundle_path),
-        start=start,
-        end=end,
-        commands=len(commands),
-        ending_account_value=accounts[-1].account_value if accounts else ACCOUNT,
-        approved_signals=approved_signals,
-        blocked_signals=blocked_signals,
-    )
-
-    if output_dir is not None:
-        output_dir.mkdir(parents=True, exist_ok=True)
-        _write_jsonl(output_dir / "signals.jsonl", signals)
-        _write_jsonl(output_dir / "risk_gates.jsonl", decisions)
-        _write_jsonl(output_dir / "commands.jsonl", commands)
-        _write_jsonl(output_dir / "orders.jsonl", statuses)
-        _write_jsonl(output_dir / "executions.jsonl", executions)
-        _write_jsonl(output_dir / "accounts.jsonl", accounts)
-        _write_jsonl(output_dir / "reconcile.jsonl", reconciliations)
-        (output_dir / "summary.json").write_text(json.dumps(asdict(record), ensure_ascii=False, indent=2), encoding="utf-8")
-
-    return {
-        "record": record,
-        "signals": signals,
-        "risk_gates": decisions,
-        "commands": commands,
-        "orders": statuses,
-        "executions": executions,
-        "accounts": accounts,
-        "reconcile": reconciliations,
-    }
+    del profile_name, start, end, model_path, output_dir, broker
+    raise RuntimeError(LEGACY_ACTOR_RUNTIME_RETIRED)
 
 
 def plan_manual_session(
@@ -1141,68 +913,8 @@ def plan_manual_session(
     output_dir: Optional[Path] = None,
     clip_position_change: bool = False,
 ) -> Dict[str, object]:
-    """Generate a single-day semi-automatic execution plan.
-
-    This does not auto-submit anything by itself. The caller can inspect the
-    signal, risk gate, and reconciliation payloads before deciding to place a
-    live order through a concrete broker adapter.
-    """
-
-    full_df, price_series = _runtime_frame(profile_name)
-    # The production runner passes the latest closed bar as `as_of`.
-    # Include that bar so post-close refreshes produce the newest signal date;
-    # execution still happens after the close through the broker layer.
-    as_of_ts = pd.Timestamp(as_of)
-    valid_dates = full_df.index[full_df.index <= as_of_ts]
-    if len(valid_dates) == 0:
-        raise ValueError(f"no data available up to {as_of}")
-    signal_as_of = str(valid_dates[-1])[:10]
-    feature_df = full_df.loc[:signal_as_of].copy()
-    price_slice = price_series.loc[:signal_as_of].copy()
-    if len(feature_df) <= 80:
-        raise ValueError(f"insufficient bars available up to {signal_as_of}")
-
-    actor, bundle_path, bundle = load_actor_bundle(profile_name, model_path=model_path)
-    ledger = TrancheLedger()
-    price_path = price_slice.reindex(feature_df.index).ffill().bfill().to_numpy(dtype=np.float32)
-    idx = len(feature_df) - 1
-    current_price = float(price_path[idx])
-    account = broker.get_account_snapshot(str(pd.Timestamp(feature_df.index[idx]).date()), current_price)
-    signal = _build_signal_intent(
-        actor,
-        profile_name,
-        bundle_path,
-        bundle,
-        feature_df,
-        price_path,
-        idx,
-        broker,
-        ledger,
-        peak_value=max(account.account_value, ACCOUNT),
-    )
-    decision = risk_gate(
-        broker,
-        signal,
-        model_ready=promotion_gate_status(bundle_path),
-        clip_position_change=clip_position_change,
-    )
-    reconcile = reconcile_positions(signal.date, decision.capped_target_position if decision.approved else signal.current_position, account.position)
-
-    payload = {
-        "signal": signal,
-        "risk_gate": decision,
-        "account": account,
-        "reconcile": reconcile,
-        "execution_overlay_state": load_runtime_execution_overlay_state(
-            load_profile(profile_name),
-            account_value=account.account_value,
-        ),
-    }
-    if output_dir is not None:
-        output_dir.mkdir(parents=True, exist_ok=True)
-        for name, value in payload.items():
-            (output_dir / f"{name}.json").write_text(json.dumps(asdict(value), ensure_ascii=False, indent=2), encoding="utf-8")
-    return payload
+    del profile_name, as_of, broker, model_path, output_dir, clip_position_change
+    raise RuntimeError(LEGACY_ACTOR_RUNTIME_RETIRED)
 
 
 def plan_budget_usage_composed_session(
@@ -1219,64 +931,20 @@ def plan_budget_usage_composed_session(
     bull_guard: BullParticipationGuardConfig | None = None,
     clip_position_change: bool = False,
 ) -> Dict[str, object]:
-    """Generate a single-day execution plan from two governed actor profiles."""
-
-    slow_payload = plan_manual_session(
-        profile_name=slow_profile,
-        as_of=as_of,
-        broker=broker,
-        model_path=slow_model_path,
-        clip_position_change=clip_position_change,
-    )
-    fast_payload = plan_manual_session(
-        profile_name=fast_profile,
-        as_of=as_of,
-        broker=broker,
-        model_path=fast_model_path,
-        clip_position_change=clip_position_change,
-    )
-    _feature_df, price_series = _runtime_frame(slow_profile)
-    slow_signal = slow_payload["signal"]
-    fast_signal = fast_payload["signal"]
-    signal, composition = compose_budget_usage_runtime_signal(
-        slow_signal,
-        fast_signal,
-        price_series,
-        composer_profile=composer_profile,
-        config=config,
-        bull_guard=bull_guard,
-    )
-    account = broker.get_account_snapshot(signal.date, signal.price)
-    slow_path = Path(slow_signal.model_path)
-    fast_path = Path(fast_signal.model_path)
-    decision = risk_gate(
+    del (
+        slow_profile,
+        fast_profile,
+        as_of,
         broker,
-        signal,
-        model_ready=composer_promotion_gate_status(composer_profile, (slow_path, fast_path)),
-        clip_position_change=clip_position_change,
+        composer_profile,
+        slow_model_path,
+        fast_model_path,
+        output_dir,
+        config,
+        bull_guard,
+        clip_position_change,
     )
-    reconcile = reconcile_positions(
-        signal.date,
-        decision.capped_target_position if decision.approved else signal.current_position,
-        account.position,
-    )
-    payload = {
-        "signal": signal,
-        "risk_gate": decision,
-        "account": account,
-        "reconcile": reconcile,
-        "execution_overlay_state": RuntimeExecutionOverlayState(peak_account_value=account.account_value),
-        "composition": composition,
-    }
-    if output_dir is not None:
-        output_dir.mkdir(parents=True, exist_ok=True)
-        for name, value in payload.items():
-            serializable = asdict(value) if hasattr(value, "__dataclass_fields__") else value
-            (output_dir / f"{name}.json").write_text(
-                json.dumps(serializable, ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
-    return payload
+    raise RuntimeError(LEGACY_ACTOR_RUNTIME_RETIRED)
 
 
 def _write_jsonl(path: Path, items: Sequence[object]) -> None:

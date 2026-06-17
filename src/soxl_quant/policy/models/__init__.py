@@ -1,1 +1,1 @@
-"""Policy model variants."""
+"""Non-RL policy-side model helpers."""
