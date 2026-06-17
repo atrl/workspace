@@ -46,9 +46,7 @@ FORBIDDEN_DEFAULT_ENTRYPOINT_PATTERNS: tuple[str, ...] = (
     "reinforcement learning",
 )
 REMAINING_RL_COMPATIBILITY_SURFACES: tuple[str, ...] = (
-    "src/soxl_quant/app/train.py",
     "src/soxl_quant/app/selection.py",
-    "src/soxl_quant/app/workers.py",
     "src/soxl_quant/policy/",
     "production/",
 )

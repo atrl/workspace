@@ -53,7 +53,6 @@ DEFAULT_TEST_FILES = [
     "tests/test_purged_walkforward.py",
     "tests/test_scheduler_health.py",
     "tests/test_simplified_architecture.py",
-    "tests/test_train_summary_persistence.py",
     "tests/test_vercel_dashboard.py",
 ]
 
@@ -64,7 +63,6 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/runtime.py",
     "src/soxl_quant/app/barrier_labels.py",
     "src/soxl_quant/app/drawdown_budget_overlay.py",
-    "src/soxl_quant/app/train.py",
     "src/soxl_quant/app/budget_counterfactual.py",
     "src/soxl_quant/app/oos_diagnostics.py",
     "src/soxl_quant/app/participation_counterfactual.py",

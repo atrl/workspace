@@ -239,6 +239,8 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
   - `src/soxl_quant/rl.py`
 - Retired legacy trainer entrypoints:
   - `src/soxl_quant/app/cli.py`
+  - `src/soxl_quant/app/train.py`
+  - `src/soxl_quant/app/workers.py`
 - Do not recreate retired facades or trainer entrypoints. Default package entrypoints should
   continue through the simplified supervised architecture CLI unless the user
   explicitly asks for legacy compatibility maintenance.

@@ -21,7 +21,27 @@ from src.soxl_quant.backtest import backtest_profile
 from src.soxl_quant.data import build_dataset, feature_columns_for_packs, init_qlib, segment_frame
 from src.soxl_quant.policy.policy_builder import build_policy
 from src.soxl_quant.settings import QLIB_DATA_PATH, load_profile, model_artifact_path
-from src.soxl_quant.app.workers import WALK_FORWARD_WINDOWS
+
+WALK_FORWARD_WINDOWS = (
+    (
+        "wf_2020",
+        ("2010-03-11", "2018-12-31"),
+        ("2019-01-01", "2019-12-31"),
+        ("2020-01-01", "2020-12-31"),
+    ),
+    (
+        "wf_2022",
+        ("2010-03-11", "2020-12-31"),
+        ("2021-01-01", "2021-12-31"),
+        ("2022-01-01", "2022-12-31"),
+    ),
+    (
+        "wf_2023_2024",
+        ("2010-03-11", "2022-12-31"),
+        ("2023-01-01", "2023-12-31"),
+        ("2024-01-01", "2024-12-31"),
+    ),
+)
 
 
 def parse_args():

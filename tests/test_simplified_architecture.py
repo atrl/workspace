@@ -52,7 +52,7 @@ def test_simplified_architecture_manifest_marks_remaining_rl_as_compatibility_on
     assert manifest["source_boundary"]["violations"] == []
     assert manifest["primary_non_rl_surface_available"] is True
     assert manifest["goal_complete"] is False
-    assert "src/soxl_quant/app/train.py" in manifest["remaining_rl_compatibility_surfaces"]
+    assert "src/soxl_quant/app/selection.py" in manifest["remaining_rl_compatibility_surfaces"]
     assert "src/soxl_quant/policy/" in manifest["remaining_rl_compatibility_surfaces"]
 
 
@@ -135,6 +135,15 @@ def test_legacy_app_rl_cli_entrypoint_is_retired():
     assert "src/soxl_quant/app/cli.py" not in manifest["remaining_rl_compatibility_surfaces"]
 
 
+def test_legacy_app_rl_training_entrypoints_are_retired():
+    assert not (ROOT / "src" / "soxl_quant" / "app" / "train.py").exists()
+    assert not (ROOT / "src" / "soxl_quant" / "app" / "workers.py").exists()
+
+    manifest = simplified_architecture_manifest()
+    assert "src/soxl_quant/app/train.py" not in manifest["remaining_rl_compatibility_surfaces"]
+    assert "src/soxl_quant/app/workers.py" not in manifest["remaining_rl_compatibility_surfaces"]
+
+
 def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():
     runtime_card_scripts = sorted((ROOT / "runtime").glob("**/*.py"))
     offenders = [
@@ -146,12 +155,28 @@ def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():
     assert offenders == []
 
 
+def test_scripts_do_not_import_retired_app_training_surfaces():
+    scripts = sorted((ROOT / "scripts").glob("*.py"))
+    forbidden = ("src.soxl_quant.app.train", "src.soxl_quant.app.workers")
+    offenders = [
+        f"{path.relative_to(ROOT).as_posix()}:{pattern}"
+        for path in scripts
+        for pattern in forbidden
+        if pattern in path.read_text(encoding="utf-8", errors="ignore")
+    ]
+
+    assert offenders == []
+
+
 def test_harness_compile_targets_do_not_keep_retired_rl_facades_alive():
     check_harness_source = (ROOT / "scripts" / "check_harness.py").read_text(encoding="utf-8")
 
     assert '"src/soxl_quant/cli.py"' not in check_harness_source
     assert '"src/soxl_quant/rl.py"' not in check_harness_source
     assert '"src/soxl_quant/app/cli.py"' not in check_harness_source
+    assert '"src/soxl_quant/app/train.py"' not in check_harness_source
+    assert '"src/soxl_quant/app/workers.py"' not in check_harness_source
+    assert '"tests/test_train_summary_persistence.py"' not in check_harness_source
 
 
 def test_harness_runs_simplified_architecture_guard_by_default():
