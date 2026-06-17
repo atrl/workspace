@@ -48,14 +48,13 @@ def test_simplified_non_rl_boundary_excludes_policy_and_qlib_rl_imports():
     assert "qlib.rl" in FORBIDDEN_SIMPLIFIED_IMPORT_PATTERNS
 
 
-def test_simplified_architecture_manifest_marks_remaining_rl_as_compatibility_only():
+def test_simplified_architecture_manifest_has_no_remaining_rl_compatibility_surfaces():
     manifest = simplified_architecture_manifest()
 
     assert manifest["source_boundary"]["violations"] == []
     assert manifest["primary_non_rl_surface_available"] is True
-    assert manifest["goal_complete"] is False
-    assert "src/soxl_quant/policy/" not in manifest["remaining_rl_compatibility_surfaces"]
-    assert "production/soxl_paper_trading.py" in manifest["remaining_rl_compatibility_surfaces"]
+    assert manifest["goal_complete"] is True
+    assert manifest["remaining_rl_compatibility_surfaces"] == []
 
 
 def test_default_app_module_cli_emits_simplified_architecture_manifest_json():
@@ -234,6 +233,12 @@ def test_harness_no_longer_keeps_actor_builder_consumers_alive():
 
 def test_legacy_rl_actor_builder_modules_are_retired():
     retired_paths = [
+        "production/composed_session.py",
+        "production/futu_manual_session.py",
+        "production/ib_manual_session.py",
+        "production/run_soxl_weekly_wf.sh",
+        "production/soxl_futu_runner.py",
+        "production/soxl_paper_runner.py",
         "src/soxl_quant/compat.py",
         "src/soxl_quant/app/bootstrap.py",
         "src/soxl_quant/policy/environment.py",

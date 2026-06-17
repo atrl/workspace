@@ -47,15 +47,7 @@ FORBIDDEN_DEFAULT_ENTRYPOINT_PATTERNS: tuple[str, ...] = (
     "PPO",
     "reinforcement learning",
 )
-REMAINING_RL_COMPATIBILITY_SURFACES: tuple[str, ...] = (
-    "production/composed_session.py",
-    "production/futu_manual_session.py",
-    "production/ib_manual_session.py",
-    "production/run_soxl_weekly_wf.sh",
-    "production/soxl_futu_runner.py",
-    "production/soxl_paper_runner.py",
-    "production/soxl_paper_trading.py",
-)
+REMAINING_RL_COMPATIBILITY_SURFACES: tuple[str, ...] = ()
 
 
 def _load_json(path: Path) -> dict[str, Any] | list[Any]:
@@ -215,8 +207,8 @@ def simplified_architecture_manifest(root: Path | None = None) -> dict[str, Any]
         "remaining_rl_compatibility_surfaces": remaining_rl_surfaces,
         "goal_complete": primary_available and not remaining_rl_surfaces,
         "next_action": (
-            "Keep the Alpha158 supervised/cadence path as primary evidence, then migrate entrypoints "
-            "and production runtime dependencies before deleting legacy RL compatibility surfaces."
+            "Keep the Alpha158 supervised/cadence path as primary evidence; any future live "
+            "execution promotion must provide a replayable supervised daily signal path."
         ),
     }
 

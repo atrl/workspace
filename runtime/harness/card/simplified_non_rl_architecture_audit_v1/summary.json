@@ -5,7 +5,7 @@
     "primary_supervised_summary": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/supervised_summary.json",
     "summary_json": "runtime/harness/card/simplified_non_rl_architecture_audit_v1/summary.json"
   },
-  "decision": "primary_non_rl_surface_available_legacy_rl_compatibility_remaining",
+  "decision": "supervised_non_rl_architecture_complete",
   "direction": "harness",
   "experiment": "simplified_non_rl_architecture_audit_v1",
   "failures": [],
@@ -67,8 +67,8 @@
         "regime_cadence_fast_bull_slow_stress_v1"
       ]
     },
-    "goal_complete": false,
-    "next_action": "Keep the Alpha158 supervised/cadence path as primary evidence, then migrate entrypoints and production runtime dependencies before deleting legacy RL compatibility surfaces.",
+    "goal_complete": true,
+    "next_action": "Keep the Alpha158 supervised/cadence path as primary evidence; any future live execution promotion must provide a replayable supervised daily signal path.",
     "primary_artifact": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/summary.json",
     "primary_artifact_exists": true,
     "primary_non_rl_surface_available": true,
@@ -79,15 +79,7 @@
       "eligible_profiles": [],
       "promotion_allowed": false
     },
-    "remaining_rl_compatibility_surfaces": [
-      "production/composed_session.py",
-      "production/futu_manual_session.py",
-      "production/ib_manual_session.py",
-      "production/run_soxl_weekly_wf.sh",
-      "production/soxl_futu_runner.py",
-      "production/soxl_paper_runner.py",
-      "production/soxl_paper_trading.py"
-    ],
+    "remaining_rl_compatibility_surfaces": [],
     "rl_training_primary": false,
     "source_boundary": {
       "checked_paths": [
@@ -110,5 +102,5 @@
     "supervised_summary": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/supervised_summary.json",
     "supervised_summary_exists": true
   },
-  "next_action": "Keep the Alpha158 supervised/cadence path as primary evidence, then migrate entrypoints and production runtime dependencies before deleting legacy RL compatibility surfaces."
+  "next_action": "Keep the Alpha158 supervised/cadence path as primary evidence; any future live execution promotion must provide a replayable supervised daily signal path."
 }

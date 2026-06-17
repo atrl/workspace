@@ -27,9 +27,8 @@ from src.soxl_quant.runtime import (
     PaperBroker,
     ReconciliationRecord,
     RiskGateDecision,
-    RuntimeExecutionOverlayState,
     SignalIntent,
-    plan_manual_session,
+    plan_supervised_summary_session,
     risk_gate,
 )
 
@@ -223,51 +222,45 @@ def test_last_trading_day_uses_previous_friday_before_monday_us_close():
     assert _last_trading_day(now=monday_preopen) == "2026-05-15"
 
 
-def test_plan_manual_session_uses_latest_available_bar_as_signal_date(monkeypatch: pytest.MonkeyPatch):
-    import src.soxl_quant.runtime as runtime
+def test_plan_supervised_summary_session_uses_latest_available_bar_as_signal_date(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    csv_path = tmp_path / "soxl_features.csv"
+    csv_path.write_text(
+        "date,soxl_close\n"
+        "2026-05-18,150.00\n"
+        "2026-05-19,151.75\n"
+        "2026-05-20,173.20\n",
+        encoding="utf-8",
+    )
+    artifact = tmp_path / "summary.json"
+    artifact.write_text(
+        json.dumps(
+            {
+                "experiment": "qlib_alpha158_supervised_cadence_v1",
+                "promotion_allowed": False,
+                "decision": "no_supervised_model_satisfies_quantbench_soxl_20dd_gate",
+                "best_cadence_pair": {
+                    "cadence_profile": "qlib_alpha158_supervised_cadence_v1_sequence_lag_ridge_mse_regime_cadence_fast_bull_slow_stress_v1",
+                    "trade_cadence": "regime_cadence_fast_bull_slow_stress_v1",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
 
-    dates = pd.bdate_range("2026-01-01", "2026-05-19")
-    full_df = pd.DataFrame({"feature": range(len(dates))}, index=dates)
-    price_series = pd.Series([50.0 + i for i in range(len(dates))], index=dates)
-    captured: dict[str, str] = {}
+    from src.soxl_quant import settings
 
-    def fake_build_signal(
-        actor,
-        profile_name,
-        bundle_path,
-        bundle,
-        feature_df,
-        price_path,
-        idx,
-        broker,
-        ledger,
-        peak_value,
-    ):
-        signal_date = str(pd.Timestamp(feature_df.index[idx]).date())
-        captured["feature_end"] = signal_date
-        return SignalIntent(
-            date=signal_date,
-            symbol="SOXL",
-            profile=profile_name,
-            model_path=str(bundle_path),
-            seed=42,
-            action=0,
-            target_position=0.5,
-            current_position=0.0,
-            price=float(price_path[idx]),
-            regime_risk=0.5,
-            note="test latest bar",
-        )
+    monkeypatch.setattr(settings, "CSV_PATH", csv_path)
 
-    monkeypatch.setattr(runtime, "_runtime_frame", lambda _profile_name: (full_df, price_series))
-    monkeypatch.setattr(runtime, "load_actor_bundle", lambda _profile_name, model_path=None: (object(), Path("actor.pt"), {}))
-    monkeypatch.setattr(runtime, "promotion_gate_status", lambda _bundle_path: (True, "model passed promotion gate"))
-    monkeypatch.setattr(runtime, "_build_signal_intent", fake_build_signal)
-
-    payload = plan_manual_session("balanced_rule_residual_v19", "2026-05-19", broker=PaperBroker())
+    payload = plan_supervised_summary_session(as_of="2026-05-19", broker=PaperBroker(), artifact_path=artifact)
 
     assert payload["signal"].date == "2026-05-19"
-    assert captured["feature_end"] == "2026-05-19"
+    assert payload["signal"].price == 151.75
+    assert payload["signal"].target_position == 0.0
+    assert payload["risk_gate"].approved is False
+    assert "promotion_allowed=false" in payload["supervised_runtime"]["model_detail"]
 
 
 def test_data_update_auto_provider_falls_back_to_yahoo_api(monkeypatch: pytest.MonkeyPatch):
@@ -484,16 +477,14 @@ def test_main_skips_duplicate_non_dry_run_for_existing_executed_summary(
     monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
     monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
     monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: broker)
-    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v19", Path("model.pt")))
     monkeypatch.setattr(
         soxl_paper_trading,
-        "plan_manual_session",
+        "plan_supervised_summary_session",
         lambda **_kwargs: {
             "signal": signal,
             "risk_gate": decision,
             "account": account,
             "reconcile": reconcile,
-            "execution_overlay_state": RuntimeExecutionOverlayState(),
         },
     )
     monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-19")
@@ -561,16 +552,14 @@ def test_main_persists_duplicate_non_dry_inference_without_order(
     monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
     monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
     monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: broker)
-    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v22", Path("model.pt")))
     monkeypatch.setattr(
         soxl_paper_trading,
-        "plan_manual_session",
+        "plan_supervised_summary_session",
         lambda **_kwargs: {
             "signal": signal,
             "risk_gate": decision,
             "account": account,
             "reconcile": reconcile,
-            "execution_overlay_state": RuntimeExecutionOverlayState(),
         },
     )
     monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-20")
@@ -641,16 +630,14 @@ def test_dry_run_after_executed_day_does_not_overwrite_executed_summary(
     monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
     monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
     monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: PaperBroker(initial_cash=100_000.0))
-    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v22", Path("model.pt")))
     monkeypatch.setattr(
         soxl_paper_trading,
-        "plan_manual_session",
+        "plan_supervised_summary_session",
         lambda **_kwargs: {
             "signal": signal,
             "risk_gate": decision,
             "account": account,
             "reconcile": reconcile,
-            "execution_overlay_state": RuntimeExecutionOverlayState(),
         },
     )
     monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-19")
@@ -785,16 +772,14 @@ def test_main_persists_skipped_execution_result_for_non_dry_hold(
     monkeypatch.setattr(soxl_paper_trading, "_save_paper_broker_state", lambda *args, **kwargs: None)
     monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
     monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: broker)
-    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v22", Path("model.pt")))
     monkeypatch.setattr(
         soxl_paper_trading,
-        "plan_manual_session",
+        "plan_supervised_summary_session",
         lambda **_kwargs: {
             "signal": signal,
             "risk_gate": decision,
             "account": account,
             "reconcile": reconcile,
-            "execution_overlay_state": RuntimeExecutionOverlayState(),
         },
     )
     monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-21")
@@ -815,7 +800,7 @@ def test_main_persists_skipped_execution_result_for_non_dry_hold(
     assert execution_result["submitted"] is False
 
 
-def test_main_uses_budget_runtime_composer_when_requested(
+def test_main_uses_deprecated_runtime_composer_as_supervised_profile_label(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ):
@@ -832,36 +817,28 @@ def test_main_uses_budget_runtime_composer_when_requested(
         date="2026-05-20",
         symbol="SOXL",
         profile="v19reg_v22_budget_usage_bull_guard_v1",
-        model_path="slow=slow.pt;fast=fast.pt",
+        model_path="runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/summary.json",
         seed=None,
         action=1,
         target_position=0.70,
         current_position=0.10,
         price=173.20,
         regime_risk=0.35,
-        note="composer=budget_usage",
+        note="supervised compatibility label",
     )
     decision = RiskGateDecision(True, 0.45, (), ())
     account = AccountSnapshot("2026-05-20", 90_000.0, 100, 17_320.0, 107_320.0, 0.1614)
     reconcile = ReconciliationRecord("2026-05-20", 0.45, 0.1614, -0.2886, "manual_review", "test")
-    composition = {
-        "name": "budget_usage",
-        "composer_profile": "v19reg_v22_budget_usage_bull_guard_v1",
-        "slow_profile": "balanced_rule_residual_v19_reg",
-        "fast_profile": "balanced_rule_residual_v22",
-        "bull_participation_guard": True,
-    }
     captured: dict[str, object] = {}
 
-    def fake_plan_budget_usage_composed_session(**kwargs):
+    def fake_plan_supervised_summary_session(**kwargs):
         captured.update(kwargs)
         return {
             "signal": signal,
             "risk_gate": decision,
             "account": account,
             "reconcile": reconcile,
-            "execution_overlay_state": RuntimeExecutionOverlayState(),
-            "composition": composition,
+            "supervised_runtime": {"profile": "v19reg_v22_budget_usage_bull_guard_v1"},
         }
 
     monkeypatch.setattr(soxl_paper_trading, "RUNTIME_DIR", runtime_dir)
@@ -869,14 +846,11 @@ def test_main_uses_budget_runtime_composer_when_requested(
     monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
     monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
     monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: PaperBroker(initial_cash=100_000.0))
-    monkeypatch.setattr(soxl_paper_trading, "plan_manual_session", lambda **_kwargs: (_ for _ in ()).throw(AssertionError("single actor planner should not run")))
-    monkeypatch.setattr(soxl_paper_trading, "plan_budget_usage_composed_session", fake_plan_budget_usage_composed_session)
+    monkeypatch.setattr(soxl_paper_trading, "plan_supervised_summary_session", fake_plan_supervised_summary_session)
     monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-20")
 
-    import src.soxl_quant.runtime as runtime
     from src.soxl_quant import settings
 
-    monkeypatch.setattr(runtime, "latest_model_path", lambda profile: Path(f"{profile}.pt"))
     monkeypatch.setattr(settings, "CSV_PATH", csv_path)
     monkeypatch.setattr(
         sys,
@@ -901,11 +875,10 @@ def test_main_uses_budget_runtime_composer_when_requested(
     soxl_paper_trading.main()
 
     summary = json.loads((runtime_dir / "paper_trading" / "2026-05-20" / "summary.json").read_text(encoding="utf-8"))
-    assert captured["slow_profile"] == "balanced_rule_residual_v19_reg"
-    assert captured["fast_profile"] == "balanced_rule_residual_v22"
+    assert captured["profile_name"] == "v19reg_v22_budget_usage_bull_guard_v1"
     assert summary["profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
-    assert summary["model"] == "slow=slow.pt;fast=fast.pt"
-    assert summary["composition"] == composition
+    assert summary["model"] == "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/summary.json"
+    assert summary["supervised_runtime"]["profile"] == "v19reg_v22_budget_usage_bull_guard_v1"
 
 
 def test_main_enables_step_clip_for_futu_notional_simulation(
@@ -939,14 +912,13 @@ def test_main_enables_step_clip_for_futu_notional_simulation(
     account = AccountSnapshot("2026-05-22", 10_000.0, 0, 0.0, 10_000.0, 0.0)
     reconcile = ReconciliationRecord("2026-05-22", 0.35, 0.0, -0.35, "manual_review", "test")
 
-    def fake_plan_manual_session(**kwargs):
+    def fake_plan_supervised_summary_session(**kwargs):
         captured.update(kwargs)
         return {
             "signal": signal,
             "risk_gate": decision,
             "account": account,
             "reconcile": reconcile,
-            "execution_overlay_state": RuntimeExecutionOverlayState(),
         }
 
     monkeypatch.setattr(soxl_paper_trading, "RUNTIME_DIR", runtime_dir)
@@ -954,8 +926,7 @@ def test_main_enables_step_clip_for_futu_notional_simulation(
     monkeypatch.setattr(soxl_paper_trading, "PAPER_BROKER_STATE", runtime_dir / "paper_trading" / "state.json")
     monkeypatch.setattr(soxl_paper_trading, "init_qlib", lambda _qlib_path: None)
     monkeypatch.setattr(soxl_paper_trading, "_init_broker", lambda args: PaperBroker(initial_cash=10_000.0))
-    monkeypatch.setattr(soxl_paper_trading, "auto_select_profile", lambda _family: ("balanced_rule_residual_v22", Path("model.pt")))
-    monkeypatch.setattr(soxl_paper_trading, "plan_manual_session", fake_plan_manual_session)
+    monkeypatch.setattr(soxl_paper_trading, "plan_supervised_summary_session", fake_plan_supervised_summary_session)
     monkeypatch.setattr(soxl_paper_trading, "_last_trading_day", lambda: "2026-05-22")
 
     from src.soxl_quant import settings

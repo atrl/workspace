@@ -6,8 +6,9 @@ This is the first production shape for `SOXL`: model-driven, broker-backed, and 
 
 1. Create or update the supervised/model-selection evidence in a runtime
    notebook, such as `runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/`.
-2. Persist any promoted execution artifact under `runtime/model/card/`.
-   Legacy actor execution paths remain compatibility surfaces until migrated.
+2. Persist any promoted supervised execution artifact with a replayable daily
+   signal path. Until then the unified runner records a blocked HOLD intent and
+   refuses external orders.
 3. Check local TWS / IB Gateway readiness:
 
 ```bash
@@ -17,7 +18,7 @@ PYTHONPATH=. qlib_venv/bin/python production/check_ibkr_gateway.py --port 7497
 4. Generate a daily signal with:
 
 ```bash
-PYTHONPATH=. qlib_venv/bin/python production/ib_manual_session.py --profile balanced --as-of 2026-04-11
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker ibkr --ibkr-port 7497 --dry-run
 ```
 
 5. Review the payload written under `runtime/soxl/live-YYYY-MM-DD/`:
@@ -28,7 +29,7 @@ PYTHONPATH=. qlib_venv/bin/python production/ib_manual_session.py --profile bala
 6. Only after manual review, submit the order:
 
 ```bash
-PYTHONPATH=. qlib_venv/bin/python production/ib_manual_session.py --profile balanced --as-of 2026-04-11 --submit
+PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker ibkr --ibkr-port 7497
 ```
 
 The unified daily runner can also target IBKR explicitly:
@@ -52,4 +53,5 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --broker ibkr
 - `ib-insync` is installed in `qlib_venv`
 - IB Gateway/TWS must already be running, logged in, and configured to allow socket clients
 - Default ports are TWS live `7496`, TWS paper `7497`, IB Gateway live `4001`, IB Gateway paper `4002`
-- The saved model summary must include a passing `promotion` block; otherwise the semi-auto session will refuse the order
+- The supervised runtime artifact must be promoted and provide a replayable
+  daily signal path; otherwise the semi-auto session will refuse the order

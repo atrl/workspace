@@ -9,7 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEDULER_WRAPPER = ROOT / "production" / "run_soxl_scheduler.sh"
-WEEKLY_WRAPPER = ROOT / "production" / "run_soxl_weekly_wf.sh"
+INSTALLED_ROOT = Path(os.environ.get("SOXL_INSTALLED_ROOT", "/Users/rziiiii/dev/workspace"))
+INSTALLED_SCHEDULER_WRAPPER = INSTALLED_ROOT / "production" / "run_soxl_scheduler.sh"
 CURRENT_COMPOSER_ARGS = [
     "--runtime-composer",
     "budget_usage",
@@ -30,6 +31,14 @@ def _assert_current_runtime_composer_args(args: list[str]) -> None:
     assert args[args.index("--composer-profile") + 1] == "v19reg_v22_budget_usage_bull_guard_v1"
     assert args[args.index("--slow-profile") + 1] == "balanced_rule_residual_v19_reg"
     assert args[args.index("--fast-profile") + 1] == "balanced_rule_residual_v22"
+
+
+def _assert_scheduler_wrapper(value: str) -> None:
+    assert value in {str(SCHEDULER_WRAPPER), str(INSTALLED_SCHEDULER_WRAPPER)}
+
+
+def _assert_installed_or_worktree_path(value: str, rel_path: str) -> None:
+    assert value in {str(ROOT / rel_path), str(INSTALLED_ROOT / rel_path)}
 
 
 def _soxl_cron_lines() -> list[str]:
@@ -55,7 +64,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     # Asia/Shanghai local time: Tue-Sat 06:15 covers Mon-Fri US post-close
     # and leaves a provider-availability buffer before the daily data refresh.
     assert post_close.split(maxsplit=5)[:5] == ["15", "6", "*", "*", "2-6"]
-    assert str(SCHEDULER_WRAPPER) in post_close
+    assert str(SCHEDULER_WRAPPER) in post_close or str(INSTALLED_SCHEDULER_WRAPPER) in post_close
     assert "/Users/rziiiii/.openclaw/workspace" not in post_close
     assert "--skip-data-update" not in post_close
     assert "--skip-dashboard" not in post_close
@@ -71,7 +80,7 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
 
     # Mon-Fri 21:00 China time is a cached-data pre-open inference/dashboard pass.
     assert pre_open.split(maxsplit=5)[:5] == ["0", "21", "*", "*", "1-5"]
-    assert str(SCHEDULER_WRAPPER) in pre_open
+    assert str(SCHEDULER_WRAPPER) in pre_open or str(INSTALLED_SCHEDULER_WRAPPER) in pre_open
     assert "/Users/rziiiii/.openclaw/workspace" not in pre_open
     assert "--dry-run" in pre_open
     assert "--skip-data-update" in pre_open
@@ -90,20 +99,11 @@ def test_crontab_uses_shanghai_safe_us_market_windows():
     assert ("35", "16") not in stale_local_times
 
 
-def test_crontab_weekly_walkforward_uses_repo_wrapper():
-    lines = (ROOT / "production" / "crontab.txt").read_text(encoding="utf-8").splitlines()
-    weekly = next(
-        line
-        for line in lines
-        if line.strip()
-        and not line.lstrip().startswith("#")
-        and "wf_weekly.log" in line
-    )
+def test_crontab_does_not_keep_retired_weekly_actor_walkforward_wrapper():
+    text = (ROOT / "production" / "crontab.txt").read_text(encoding="utf-8")
 
-    assert weekly.split(maxsplit=5)[:5] == ["0", "7", "*", "*", "6"]
-    assert str(WEEKLY_WRAPPER) in weekly
-    assert "balanced_trade_lock" not in weekly
-    assert "/Users/rziiiii/.openclaw/workspace" not in weekly
+    assert "run_soxl_weekly_wf.sh" not in text
+    assert "walkforward_backtest_validate.py" not in text
 
 
 def test_operator_doc_scheduler_examples_include_current_production_flags():
@@ -148,8 +148,8 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
         (5, 6, 15),
         (6, 6, 15),
     }
-    assert plist["ProgramArguments"][0] == str(SCHEDULER_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
+    _assert_scheduler_wrapper(plist["ProgramArguments"][0])
+    assert plist["WorkingDirectory"] in {str(ROOT), str(INSTALLED_ROOT)}
     assert "--vercel-deploy" in plist["ProgramArguments"]
     assert "--health-summary" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--broker") + 1] == "futu"
@@ -159,8 +159,14 @@ def test_launchagent_runs_post_close_in_shanghai_local_time():
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "postclose"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_postclose"
     assert "--skip-data-update" not in plist["ProgramArguments"]
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_postclose.err")
+    _assert_installed_or_worktree_path(
+        plist["StandardOutPath"],
+        "runtime/soxl/paper_trading/scheduler_postclose.log",
+    )
+    _assert_installed_or_worktree_path(
+        plist["StandardErrorPath"],
+        "runtime/soxl/paper_trading/scheduler_postclose.err",
+    )
 
 
 def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
@@ -181,8 +187,8 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
         (4, 21, 0),
         (5, 21, 0),
     }
-    assert plist["ProgramArguments"][0] == str(SCHEDULER_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
+    _assert_scheduler_wrapper(plist["ProgramArguments"][0])
+    assert plist["WorkingDirectory"] in {str(ROOT), str(INSTALLED_ROOT)}
     assert "--dry-run" in plist["ProgramArguments"]
     assert "--skip-data-update" in plist["ProgramArguments"]
     assert "--skip-dashboard" not in plist["ProgramArguments"]
@@ -194,26 +200,18 @@ def test_launchagent_runs_preopen_cached_dry_run_in_shanghai_local_time():
     assert "--schedule-slot" in plist["ProgramArguments"]
     assert plist["ProgramArguments"][plist["ProgramArguments"].index("--schedule-slot") + 1] == "preopen"
     assert plist["EnvironmentVariables"]["SOXL_SCHEDULE_TRIGGER"] == "launchagent_preopen"
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "paper_trading" / "scheduler_preopen.err")
+    _assert_installed_or_worktree_path(
+        plist["StandardOutPath"],
+        "runtime/soxl/paper_trading/scheduler_preopen.log",
+    )
+    _assert_installed_or_worktree_path(
+        plist["StandardErrorPath"],
+        "runtime/soxl/paper_trading/scheduler_preopen.err",
+    )
 
 
-def test_launchagent_runs_weekly_walkforward_after_postclose_refresh():
-    with (ROOT / "production" / "com.soxl.weekly.wf.plist").open("rb") as f:
-        plist = plistlib.load(f)
-
-    intervals = plist["StartCalendarInterval"]
-    schedule = {
-        (entry["Weekday"], entry["Hour"], entry["Minute"])
-        for entry in intervals
-    }
-
-    assert plist["Label"] == "com.soxl.weekly.wf"
-    assert schedule == {(6, 7, 0)}
-    assert plist["ProgramArguments"][0] == str(WEEKLY_WRAPPER)
-    assert plist["WorkingDirectory"] == str(ROOT)
-    assert plist["StandardOutPath"] == str(ROOT / "runtime" / "soxl" / "wf_weekly.log")
-    assert plist["StandardErrorPath"] == str(ROOT / "runtime" / "soxl" / "wf_weekly.err")
+def test_retired_weekly_walkforward_launchagent_is_removed():
+    assert not (ROOT / "production" / "com.soxl.weekly.wf.plist").exists()
 
 
 def test_launchagent_wrapper_exists_and_loads_private_env_file():
@@ -326,75 +324,5 @@ def test_launchagent_wrapper_defaults_to_its_own_repo_root():
     assert captured_args[0] == str(ROOT / "production" / "soxl_daily_scheduler.py")
 
 
-def test_weekly_walkforward_wrapper_reviews_current_runtime_profile():
-    wrapper = ROOT / "production" / "run_soxl_weekly_wf.sh"
-
-    assert wrapper.exists()
-    assert wrapper.stat().st_mode & 0o111
-
-    text = wrapper.read_text(encoding="utf-8")
-    assert "SOXL_LAUNCH_ENV_FILE" in text
-    assert "balanced_rule_residual_v22" in text
-    assert "scripts/walkforward_backtest_validate.py" in text
-    assert "scripts/review_runtime_selection.py" in text
-    assert "--persist-model-promotion" in text
-    assert "balanced_trade_lock" not in text
-    assert "/home/rziiiii/dev/workspace" not in text
-
-
-def test_weekly_walkforward_wrapper_reviews_enabled_runtime_composer():
-    wrapper = ROOT / "production" / "run_soxl_weekly_wf.sh"
-
-    with TemporaryDirectory() as tmpdir:
-        root = Path(tmpdir)
-        env_file = root / "soxl.env"
-        capture_file = root / "captured_args.txt"
-        fake_python = root / "python"
-        fake_python.write_text(
-            "#!/bin/sh\n"
-            "printf '%s\\n' '---cmd---' \"$@\" >> \"$SOXL_CAPTURE_ARGS\"\n",
-            encoding="utf-8",
-        )
-        fake_python.chmod(0o755)
-        env_file.write_text(
-            "\n".join(
-                [
-                    "export SOXL_RUNTIME_COMPOSER='budget_usage'",
-                    "export SOXL_RUNTIME_COMPOSER_PROFILE='v19reg_v22_budget_usage_bull_guard_v1'",
-                    "export SOXL_RUNTIME_SLOW_PROFILE='balanced_rule_residual_v19_reg'",
-                    "export SOXL_RUNTIME_FAST_PROFILE='balanced_rule_residual_v22'",
-                    "export SOXL_RUNTIME_BULL_PARTICIPATION_GUARD='true'",
-                    "",
-                ]
-            ),
-            encoding="utf-8",
-        )
-
-        env = {
-            **os.environ,
-            "SOXL_WEEKLY_WF_ROOT": str(root),
-            "SOXL_WEEKLY_WF_PYTHON": str(fake_python),
-            "SOXL_LAUNCH_ENV_FILE": str(env_file),
-            "SOXL_CAPTURE_ARGS": str(capture_file),
-        }
-        result = subprocess.run(
-            ["bash", str(wrapper)],
-            capture_output=True,
-            text=True,
-            env=env,
-            check=True,
-        )
-
-        captured = capture_file.read_text(encoding="utf-8").splitlines()
-
-    assert result.returncode == 0
-    assert "mode=runtime_composer" in result.stdout
-    assert f"{root}/scripts/review_budget_usage_runtime_promotion.py" in captured
-    assert "--profile" in captured
-    assert "v19reg_v22_budget_usage_bull_guard_v1" in captured
-    assert "--slow-profile" in captured
-    assert "balanced_rule_residual_v19_reg" in captured
-    assert "--fast-profile" in captured
-    assert "balanced_rule_residual_v22" in captured
-    assert f"{root}/scripts/walkforward_backtest_validate.py" not in captured
-    assert f"{root}/scripts/review_runtime_selection.py" not in captured
+def test_weekly_walkforward_wrapper_is_retired():
+    assert not (ROOT / "production" / "run_soxl_weekly_wf.sh").exists()

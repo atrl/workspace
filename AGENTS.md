@@ -266,9 +266,9 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
 - Do not recreate retired facades or trainer entrypoints. Default package entrypoints should
   continue through the simplified supervised architecture CLI unless the user
   explicitly asks for legacy compatibility maintenance.
-- Legacy actor runtime code that still exists under production paths must
-  remain isolated from the default supervised entrypoint until it is migrated or
-  deleted.
+- Legacy actor runtime wrappers under `production/` are retired. The daily
+  paper runner uses the supervised Alpha158/cadence runtime artifact and must
+  fail closed until a promoted supervised daily signal path exists.
 
 
 ## Retention And Cleanup

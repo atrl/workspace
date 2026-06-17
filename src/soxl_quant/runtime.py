@@ -46,6 +46,14 @@ LEGACY_ACTOR_RUNTIME_RETIRED = (
     "Alpha158/cadence artifacts under runtime/model_selection/card/"
     "qlib_alpha158_supervised_cadence_v1."
 )
+PRIMARY_SUPERVISED_RUNTIME_SUMMARY = (
+    ROOT
+    / "runtime"
+    / "model_selection"
+    / "card"
+    / "qlib_alpha158_supervised_cadence_v1"
+    / "summary.json"
+)
 
 
 @dataclass(frozen=True)
@@ -550,6 +558,183 @@ def auto_select_profile(family: str = "balanced") -> Tuple[str, Path]:
     """
     model_path = best_model_for_family(family)
     return profile_name_for_model_path(model_path, family), model_path
+
+
+def _resolve_runtime_path(path_value: str | Path, *, base: Path = ROOT) -> Path:
+    path = Path(path_value)
+    return path if path.is_absolute() else base / path
+
+
+def _json_dict(path: Path) -> dict[str, Any]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"expected JSON object in {path}")
+    return payload
+
+
+def _latest_price_from_csv(as_of: str) -> tuple[str, float]:
+    from . import settings
+
+    frame = pd.read_csv(settings.CSV_PATH, parse_dates=["date"])
+    if "date" not in frame.columns:
+        raise ValueError(f"{settings.CSV_PATH} must include a date column")
+    frame = frame.sort_values("date")
+    eligible = frame.loc[frame["date"] <= pd.Timestamp(as_of)]
+    if eligible.empty:
+        raise ValueError(f"no SOXL price row on or before {as_of}")
+    row = eligible.iloc[-1]
+    for column in ("soxl_close", "close", "adj_close", "Close", "$close"):
+        if column in eligible.columns:
+            price = float(row[column])
+            if price > 0:
+                return str(pd.Timestamp(row["date"]).date()), price
+    raise ValueError(f"{settings.CSV_PATH} must include a SOXL close/price column")
+
+
+def _supervised_profile_label(summary: dict[str, Any], profile_name: str = "") -> str:
+    if profile_name:
+        return profile_name
+    best_pair = summary.get("best_cadence_pair")
+    if isinstance(best_pair, dict) and best_pair.get("cadence_profile"):
+        return str(best_pair["cadence_profile"])
+    if summary.get("experiment"):
+        return str(summary["experiment"])
+    return "qlib_alpha158_supervised_cadence_v1"
+
+
+def _supervised_daily_path(summary: dict[str, Any]) -> Path | None:
+    sidecars = summary.get("sidecars") if isinstance(summary.get("sidecars"), dict) else {}
+    candidates = [
+        summary.get("selected_daily_csv"),
+        summary.get("daily_csv"),
+        sidecars.get("selected_daily_csv"),
+        sidecars.get("daily_csv"),
+    ]
+    for candidate in candidates:
+        if not candidate:
+            continue
+        path = _resolve_runtime_path(str(candidate))
+        if path.exists():
+            return path
+    return None
+
+
+def _target_from_supervised_daily(path: Path, as_of: str) -> tuple[float, dict[str, Any]]:
+    frame = pd.read_csv(path)
+    date_column = "datetime" if "datetime" in frame.columns else "date"
+    position_column = "position" if "position" in frame.columns else "target_position"
+    if date_column not in frame.columns or position_column not in frame.columns:
+        raise ValueError(f"{path} must include {date_column} and {position_column} columns")
+    frame[date_column] = pd.to_datetime(frame[date_column])
+    eligible = frame.sort_values(date_column).loc[frame[date_column] <= pd.Timestamp(as_of)]
+    if eligible.empty:
+        raise ValueError(f"{path} has no target row on or before {as_of}")
+    row = eligible.iloc[-1]
+    target = max(0.0, min(float(row[position_column]), 1.0))
+    return target, {
+        "daily_signal_path": str(path),
+        "daily_signal_date": str(pd.Timestamp(row[date_column]).date()),
+        "daily_position_column": position_column,
+    }
+
+
+def plan_supervised_summary_session(
+    *,
+    as_of: str,
+    broker: BrokerAdapter,
+    artifact_path: Path | str = PRIMARY_SUPERVISED_RUNTIME_SUMMARY,
+    profile_name: str = "",
+    output_dir: Optional[Path] = None,
+    clip_position_change: bool = False,
+) -> Dict[str, object]:
+    """Plan a fail-closed paper/live session from the supervised Alpha158 surface.
+
+    The current simplified screen is diagnostic, so the planner only trades when
+    the artifact explicitly allows promotion and provides a replayable daily
+    signal path. Until then it records an auditable HOLD intent and lets the
+    risk gate block external execution.
+    """
+
+    artifact = _resolve_runtime_path(artifact_path)
+    summary = _json_dict(artifact)
+    profile = _supervised_profile_label(summary, profile_name)
+    signal_date, price = _latest_price_from_csv(as_of)
+    account = broker.get_account_snapshot(signal_date, price)
+    current_position = float(account.position)
+
+    daily_meta: dict[str, Any] = {}
+    daily_path = _supervised_daily_path(summary)
+    target_position = current_position
+    model_ready = False
+    model_detail = (
+        "supervised artifact is diagnostic only; promotion_allowed=false"
+        if not bool(summary.get("promotion_allowed", False))
+        else "supervised promotion lacks a replayable daily signal path"
+    )
+    if daily_path is not None and bool(summary.get("promotion_allowed", False)):
+        target_position, daily_meta = _target_from_supervised_daily(daily_path, signal_date)
+        model_ready = True
+        model_detail = f"supervised daily signal path ready: {daily_path.name}"
+
+    action = 0
+    if target_position > current_position + 0.01:
+        action = 1
+    elif target_position < current_position - 0.01:
+        action = 2
+    best_pair = summary.get("best_cadence_pair") if isinstance(summary.get("best_cadence_pair"), dict) else {}
+    cadence = best_pair.get("trade_cadence") or ",".join(summary.get("trade_cadences", []) or [])
+    note = (
+        f"supervised_alpha158 profile={profile} cadence={cadence or 'none'} "
+        f"promotion_allowed={bool(summary.get('promotion_allowed', False))}"
+    )
+    signal = SignalIntent(
+        date=signal_date,
+        symbol="SOXL",
+        profile=profile,
+        model_path=str(artifact),
+        seed=None,
+        action=action,
+        target_position=float(target_position),
+        current_position=current_position,
+        price=float(price),
+        regime_risk=0.0,
+        note=note,
+    )
+    decision = risk_gate(
+        broker,
+        signal,
+        model_ready=(model_ready, model_detail),
+        clip_position_change=clip_position_change,
+    )
+    reconcile = reconcile_positions(
+        signal.date,
+        decision.capped_target_position if decision.approved else signal.current_position,
+        account.position,
+    )
+    result: Dict[str, object] = {
+        "signal": signal,
+        "risk_gate": decision,
+        "account": account,
+        "reconcile": reconcile,
+        "supervised_runtime": {
+            "artifact": str(artifact),
+            "promotion_allowed": bool(summary.get("promotion_allowed", False)),
+            "decision": summary.get("decision"),
+            "model_ready": model_ready,
+            "model_detail": model_detail,
+            "profile": profile,
+            "trade_cadence": cadence,
+            **daily_meta,
+        },
+    }
+    if output_dir is not None:
+        output_dir.mkdir(parents=True, exist_ok=True)
+        for name, value in result.items():
+            (output_dir / f"{name}.json").write_text(
+                json.dumps(asdict(value) if hasattr(value, "__dataclass_fields__") else value, indent=2, default=str),
+                encoding="utf-8",
+            )
+    return result
 
 
 class PaperBroker(BrokerAdapter):

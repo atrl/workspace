@@ -45,13 +45,13 @@ This is the Futu OpenAPI integration for `SOXL`: model-driven, broker-backed, an
 
 1. Create or update the supervised/model-selection evidence in a runtime
    notebook, such as `runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/`.
-2. Persist any promoted execution artifact under `runtime/model/card/` (must
-   pass promotion gate). Legacy actor execution paths remain compatibility
-   surfaces until migrated.
+2. Persist any promoted supervised execution artifact with a replayable daily
+   signal path. Until then the unified runner records a blocked HOLD intent and
+   refuses external orders.
 3. Generate a daily signal with dry-run first:
 
 ```bash
-qlib_venv/bin/python production/futu_manual_session.py --profile balanced --as-of 2026-04-15
+qlib_venv/bin/python production/soxl_paper_trading.py --broker futu --dry-run --no-notify
 ```
 
 4. Review the payload written under `runtime/soxl/futu-live-YYYY-MM-DD/`:
@@ -62,18 +62,15 @@ qlib_venv/bin/python production/futu_manual_session.py --profile balanced --as-o
 5. Only after manual review, submit the order:
 
 ```bash
-qlib_venv/bin/python production/futu_manual_session.py --profile balanced --as-of 2026-04-15 --submit
+qlib_venv/bin/python production/soxl_paper_trading.py --broker futu --no-notify
 ```
 
-## Replay mode (historical backtest through Futu paper account)
+## Replay mode
 
-Run a full date range against the Futu simulated account:
-
-```bash
-qlib_venv/bin/python production/soxl_futu_runner.py --profile balanced --start 2024-01-01 --end 2024-12-31
-```
-
-This will replay each day's signal and send orders to the Futu simulated account. Use with care on a clean paper account because it generates real broker state (fills, commissions, positions).
+The legacy actor replay runners were retired with the RL runtime. Use the
+runtime notebook/backtest surfaces for historical validation, and use
+`production/soxl_paper_trading.py --dry-run` only for the current daily
+supervised signal contract.
 
 ## Optional flags
 
@@ -113,8 +110,8 @@ PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py --data-provid
 
 The runner executes the closed loop every invocation:
 1. **Data update** — incrementally fetches latest SOXL/SOXX/VIX, merges into `data/processed/panels/soxl_soxx_vix_full.csv`, refreshes `data/qlib/soxl/`. The default `--data-provider auto` tries yfinance first, then Yahoo's chart API (`yahoo_api`), then Polygon + CBOE VIX (`polygon`) on retryable provider failures. `polygon` requires `POLYGON_API_KEY`.
-2. **Auto model selection** — scans `runtime/model/card/` for the best promoted model of the given family (default `balanced`). Override with `--profile <name>`.
-3. **Signal generation** — runs `plan_manual_session()` for the latest available bar.
+2. **Supervised runtime artifact selection** — reads the Alpha158/cadence summary and any promoted daily signal path.
+3. **Signal generation** — runs the supervised fail-closed planner for the latest available bar.
 4. **Risk gate** — applies the same runtime checks as live execution.
 5. **Order placement** — submits the target position through the selected broker (skipped in `--dry-run`).
 6. **Notification** — pushes a summary via Bark (iOS), macOS native, or console fallback.
@@ -166,17 +163,8 @@ Pipeline order:
    `${SOXL_LAUNCH_ENV_FILE:-$HOME/.openclaw/soxl.env}` before running
    `production/soxl_daily_scheduler.py`.
 
-   To intentionally run the approved budget-usage runtime composer through the
-   same LaunchAgent wrapper, add the composer fields to that private env file:
-   ```bash
-   export SOXL_RUNTIME_COMPOSER='budget_usage'
-   export SOXL_RUNTIME_COMPOSER_PROFILE='v19reg_v22_budget_usage_bull_guard_v1'
-   export SOXL_RUNTIME_SLOW_PROFILE='balanced_rule_residual_v19_reg'
-   export SOXL_RUNTIME_FAST_PROFILE='balanced_rule_residual_v22'
-   export SOXL_RUNTIME_BULL_PARTICIPATION_GUARD='true'
-   ```
-   Leave `SOXL_RUNTIME_COMPOSER` unset or set it to `none` to keep the default
-   single-profile `balanced_rule_residual_v22` scheduler path.
+   Deprecated `SOXL_RUNTIME_COMPOSER*` fields may still be accepted as labels by
+   the scheduler wrapper, but they no longer invoke actor composition.
 2. The repo LaunchAgent plists are configured for Futu simulated trading
    (`--broker futu`) with a `$10,000` notional simulation account
    (`--account-notional 10000`). Edit `production/com.soxl.daily.scheduler.plist`
