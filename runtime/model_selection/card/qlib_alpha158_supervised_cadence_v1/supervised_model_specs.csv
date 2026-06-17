@@ -1,0 +1,5 @@
+name,paper_family,objective,target_kind,estimator
+ridge_mse,linear_regression,mse,return,Ridge
+hist_gradient_mse,boosted_tree,mse,return,HistGradientBoostingRegressor
+sequence_lag_ridge_mse,sequence_temporal,mse,return,LaggedRidge
+tcn_mse,sequence_convolutional,mse,return,TorchTemporalConv

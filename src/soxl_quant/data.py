@@ -21,6 +21,7 @@ from typing import Any, Callable, List, Tuple
 import numpy as np
 import pandas as pd
 import qlib
+from qlib.contrib.data.loader import Alpha158DL
 from qlib.data import D
 from qlib.data.dataset import DatasetH
 from qlib.data.dataset.handler import DataHandlerLP
@@ -35,6 +36,11 @@ ROOT = Path(__file__).resolve().parents[2]
 EXTERNAL_DATA_DIR = ROOT / "data" / "raw" / "external"
 
 FeatureBuilder = Callable[[dict[str, Any]], dict[str, pd.Series]]
+
+_, _QLIB_ALPHA158_BASE_NAMES = Alpha158DL.get_feature_config()
+QLIB_ALPHA158_COLUMNS: Tuple[str, ...] = tuple(
+    f"QLIB_ALPHA158_{name}" for name in _QLIB_ALPHA158_BASE_NAMES
+)
 
 
 CORE_FEATURE_COLUMNS: List[str] = [
@@ -780,7 +786,174 @@ def _builtin_soxx_spread_oscillation_pack(context: dict[str, Any]) -> dict[str, 
     }
 
 
+def _rolling_rank_current(series: pd.Series, window: int) -> pd.Series:
+    return series.rolling(window).apply(
+        lambda values: pd.Series(values).rank(pct=True).iloc[-1],
+        raw=False,
+    )
+
+
+def _rolling_idxmax_since_current(series: pd.Series, window: int) -> pd.Series:
+    return series.rolling(window).apply(
+        lambda values: len(values) - 1 - int(np.argmax(values)),
+        raw=True,
+    )
+
+
+def _rolling_idxmin_since_current(series: pd.Series, window: int) -> pd.Series:
+    return series.rolling(window).apply(
+        lambda values: len(values) - 1 - int(np.argmin(values)),
+        raw=True,
+    )
+
+
+def _rolling_regression_parts(series: pd.Series, window: int) -> tuple[pd.Series, pd.Series, pd.Series]:
+    x = np.arange(float(window), dtype=float)
+    x_mean = float(x.mean())
+    x_centered = x - x_mean
+    x_var = float(np.dot(x_centered, x_centered))
+
+    def slope(values: np.ndarray) -> float:
+        y = values.astype(float)
+        y_mean = float(np.nanmean(y))
+        return float(np.dot(x_centered, y - y_mean) / (x_var + 1e-12))
+
+    def rsquare(values: np.ndarray) -> float:
+        y = values.astype(float)
+        y_mean = float(np.nanmean(y))
+        y_centered = y - y_mean
+        y_var = float(np.dot(y_centered, y_centered))
+        if y_var <= 1e-12:
+            return 0.0
+        cov = float(np.dot(x_centered, y_centered))
+        return float((cov * cov) / ((x_var + 1e-12) * (y_var + 1e-12)))
+
+    def residual(values: np.ndarray) -> float:
+        y = values.astype(float)
+        y_mean = float(np.nanmean(y))
+        beta = float(np.dot(x_centered, y - y_mean) / (x_var + 1e-12))
+        alpha = y_mean - beta * x_mean
+        return float(y[-1] - (alpha + beta * x[-1]))
+
+    return (
+        series.rolling(window).apply(slope, raw=True),
+        series.rolling(window).apply(rsquare, raw=True),
+        series.rolling(window).apply(residual, raw=True),
+    )
+
+
+def _clean_alpha158_features(features: dict[str, pd.Series], index: pd.Index) -> dict[str, pd.Series]:
+    cleaned: dict[str, pd.Series] = {}
+    for name in QLIB_ALPHA158_COLUMNS:
+        series = features.get(name)
+        if series is None:
+            series = pd.Series(0.0, index=index)
+        cleaned[name] = series.replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    return cleaned
+
+
+def _builtin_qlib_alpha158_pack(context: dict[str, Any]) -> dict[str, pd.Series]:
+    """Qlib Alpha158-style OHLCV factor pack for supervised model screens.
+
+    The repo's qlib store does not persist a native ``$vwap`` field, so VWAP0 is
+    represented by the OHLC average divided by close. All formulas use current
+    or historical bars only and are prefixed to avoid collisions with core
+    SOXL-specific factors.
+    """
+    index = context["index"]
+    close = context["close"].astype(float)
+    high = context["high"].astype(float)
+    low = context["low"].astype(float)
+    volume = context["volume"].astype(float)
+    lev_df = context.get("lev")
+    if not isinstance(lev_df, pd.DataFrame) or "$open" not in lev_df.columns:
+        open_price = close
+    else:
+        open_price = lev_df["$open"].astype(float)
+    vwap = ((open_price + high + low + close) / 4.0).astype(float)
+    price_delta = close - close.shift(1)
+    volume_delta = volume - volume.shift(1)
+
+    features: dict[str, pd.Series] = {
+        "QLIB_ALPHA158_KMID": (close - open_price) / (open_price + 1e-12),
+        "QLIB_ALPHA158_KLEN": (high - low) / (open_price + 1e-12),
+        "QLIB_ALPHA158_KMID2": (close - open_price) / (high - low + 1e-12),
+        "QLIB_ALPHA158_KUP": (high - pd.concat([open_price, close], axis=1).max(axis=1)) / (open_price + 1e-12),
+        "QLIB_ALPHA158_KUP2": (high - pd.concat([open_price, close], axis=1).max(axis=1)) / (high - low + 1e-12),
+        "QLIB_ALPHA158_KLOW": (pd.concat([open_price, close], axis=1).min(axis=1) - low) / (open_price + 1e-12),
+        "QLIB_ALPHA158_KLOW2": (pd.concat([open_price, close], axis=1).min(axis=1) - low) / (high - low + 1e-12),
+        "QLIB_ALPHA158_KSFT": (2.0 * close - high - low) / (open_price + 1e-12),
+        "QLIB_ALPHA158_KSFT2": (2.0 * close - high - low) / (high - low + 1e-12),
+        "QLIB_ALPHA158_OPEN0": open_price / (close + 1e-12),
+        "QLIB_ALPHA158_HIGH0": high / (close + 1e-12),
+        "QLIB_ALPHA158_LOW0": low / (close + 1e-12),
+        "QLIB_ALPHA158_VWAP0": vwap / (close + 1e-12),
+    }
+
+    for window in (5, 10, 20, 30, 60):
+        rolling_high = high.rolling(window).max()
+        rolling_low = low.rolling(window).min()
+        q_high = close.rolling(window).quantile(0.8)
+        q_low = close.rolling(window).quantile(0.2)
+        idxmax = _rolling_idxmax_since_current(high, window)
+        idxmin = _rolling_idxmin_since_current(low, window)
+        slope, rsqr, residual = _rolling_regression_parts(close, window)
+
+        gain_sum = price_delta.clip(lower=0.0).rolling(window).sum()
+        loss_sum = (-price_delta.clip(upper=0.0)).rolling(window).sum()
+        abs_sum = price_delta.abs().rolling(window).sum()
+        volume_gain_sum = volume_delta.clip(lower=0.0).rolling(window).sum()
+        volume_loss_sum = (-volume_delta.clip(upper=0.0)).rolling(window).sum()
+        volume_abs_sum = volume_delta.abs().rolling(window).sum()
+        abs_return_volume = (close / close.shift(1) - 1.0).abs() * volume
+
+        features.update(
+            {
+                f"QLIB_ALPHA158_ROC{window}": close.shift(window) / (close + 1e-12),
+                f"QLIB_ALPHA158_MA{window}": close.rolling(window).mean() / (close + 1e-12),
+                f"QLIB_ALPHA158_STD{window}": close.rolling(window).std() / (close + 1e-12),
+                f"QLIB_ALPHA158_BETA{window}": slope / (close + 1e-12),
+                f"QLIB_ALPHA158_RSQR{window}": rsqr,
+                f"QLIB_ALPHA158_RESI{window}": residual / (close + 1e-12),
+                f"QLIB_ALPHA158_MAX{window}": rolling_high / (close + 1e-12),
+                f"QLIB_ALPHA158_MIN{window}": rolling_low / (close + 1e-12),
+                f"QLIB_ALPHA158_QTLU{window}": q_high / (close + 1e-12),
+                f"QLIB_ALPHA158_QTLD{window}": q_low / (close + 1e-12),
+                f"QLIB_ALPHA158_RANK{window}": _rolling_rank_current(close, window),
+                f"QLIB_ALPHA158_RSV{window}": (close - rolling_low) / (rolling_high - rolling_low + 1e-12),
+                f"QLIB_ALPHA158_IMAX{window}": idxmax / float(window),
+                f"QLIB_ALPHA158_IMIN{window}": idxmin / float(window),
+                f"QLIB_ALPHA158_IMXD{window}": (idxmax - idxmin) / float(window),
+                f"QLIB_ALPHA158_CORR{window}": close.rolling(window).corr(np.log(volume + 1.0)),
+                f"QLIB_ALPHA158_CORD{window}": (close / close.shift(1)).rolling(window).corr(
+                    np.log(volume / (volume.shift(1) + 1e-12) + 1.0)
+                ),
+                f"QLIB_ALPHA158_CNTP{window}": (close > close.shift(1)).astype(float).rolling(window).mean(),
+                f"QLIB_ALPHA158_CNTN{window}": (close < close.shift(1)).astype(float).rolling(window).mean(),
+                f"QLIB_ALPHA158_CNTD{window}": (
+                    (close > close.shift(1)).astype(float).rolling(window).mean()
+                    - (close < close.shift(1)).astype(float).rolling(window).mean()
+                ),
+                f"QLIB_ALPHA158_SUMP{window}": gain_sum / (abs_sum + 1e-12),
+                f"QLIB_ALPHA158_SUMN{window}": loss_sum / (abs_sum + 1e-12),
+                f"QLIB_ALPHA158_SUMD{window}": (gain_sum - loss_sum) / (abs_sum + 1e-12),
+                f"QLIB_ALPHA158_VMA{window}": volume.rolling(window).mean() / (volume + 1e-12),
+                f"QLIB_ALPHA158_VSTD{window}": volume.rolling(window).std() / (volume + 1e-12),
+                f"QLIB_ALPHA158_WVMA{window}": abs_return_volume.rolling(window).std()
+                / (abs_return_volume.rolling(window).mean() + 1e-12),
+                f"QLIB_ALPHA158_VSUMP{window}": volume_gain_sum / (volume_abs_sum + 1e-12),
+                f"QLIB_ALPHA158_VSUMN{window}": volume_loss_sum / (volume_abs_sum + 1e-12),
+                f"QLIB_ALPHA158_VSUMD{window}": (volume_gain_sum - volume_loss_sum) / (volume_abs_sum + 1e-12),
+            }
+        )
+    return _clean_alpha158_features(features, index)
+
+
 BUILTIN_FEATURE_PACKS: dict[str, dict[str, Any]] = {
+    "qlib_alpha158": {
+        "columns": QLIB_ALPHA158_COLUMNS,
+        "builder": _builtin_qlib_alpha158_pack,
+    },
     "kelly": {
         "columns": (
             "kelly_position_21",
@@ -1510,8 +1683,8 @@ def engineer_feature_frame(
         payload = registry.get(pack)
         if payload is None:
             raise KeyError(f"unknown feature pack '{pack}' for profile={profile_name or '<default>'}")
-        for column, series in payload["builder"](context).items():
-            feature_df[column] = series
+        pack_frame = pd.DataFrame(payload["builder"](context), index=feature_df.index)
+        feature_df = pd.concat([feature_df, pack_frame], axis=1)
     feature_df = feature_df.dropna()
 
     if ablate_vix:

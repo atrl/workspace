@@ -1,0 +1,152 @@
+{
+  "accepted_tradeoff": "cleaner non-RL qlib Alpha158 surface before deleting RL training code",
+  "actor_retention_allowed": false,
+  "best_cadence_pair": {
+    "base_latest_2025_2026_cadence_blocked_days": null,
+    "base_latest_2025_2026_max_dd": 62.0527444628,
+    "base_latest_2025_2026_return": 222.4247883545,
+    "base_latest_2025_2026_trades": 343.0,
+    "base_latest_2025_2026_turnover": 15.603206997084548,
+    "base_profile": "qlib_alpha158_supervised_cadence_v1_sequence_lag_ridge_mse",
+    "base_proxy_cadence_blocked_days": null,
+    "base_proxy_max_dd": 68.9281429588,
+    "base_proxy_return": 326.8071278554,
+    "base_proxy_trades": 1601.0,
+    "base_proxy_turnover": 67.27151780137415,
+    "base_test_2022_cadence_blocked_days": null,
+    "base_test_2022_max_dd": 50.5548402656,
+    "base_test_2022_return": -36.6102148182,
+    "base_test_2022_trades": 251.0,
+    "base_test_2022_turnover": 17.247410358565737,
+    "cadence_latest_2025_2026_cadence_blocked_days": 255.0,
+    "cadence_latest_2025_2026_max_dd": 62.0139420275,
+    "cadence_latest_2025_2026_return": 182.8361683338,
+    "cadence_latest_2025_2026_trades": 108.0,
+    "cadence_latest_2025_2026_turnover": 9.809620991253645,
+    "cadence_profile": "qlib_alpha158_supervised_cadence_v1_sequence_lag_ridge_mse_regime_cadence_fast_bull_slow_stress_v1",
+    "cadence_proxy_cadence_blocked_days": 1141.0,
+    "cadence_proxy_max_dd": 67.3068517904,
+    "cadence_proxy_return": 378.1226882184,
+    "cadence_proxy_trades": 460.0,
+    "cadence_proxy_turnover": 42.58094940662086,
+    "cadence_test_2022_cadence_blocked_days": 181.0,
+    "cadence_test_2022_max_dd": 46.2751951662,
+    "cadence_test_2022_return": -24.7464676195,
+    "cadence_test_2022_trades": 70.0,
+    "cadence_test_2022_turnover": 10.302390438247013,
+    "delta_latest_2025_2026_cadence_blocked_days": null,
+    "delta_latest_2025_2026_max_dd": -0.03880243529999916,
+    "delta_latest_2025_2026_return": -39.588620020700006,
+    "delta_latest_2025_2026_trades": -235.0,
+    "delta_latest_2025_2026_turnover": -5.793586005830903,
+    "delta_proxy_cadence_blocked_days": null,
+    "delta_proxy_max_dd": -1.621291168399992,
+    "delta_proxy_return": 51.31556036300003,
+    "delta_proxy_trades": -1141.0,
+    "delta_proxy_turnover": -24.690568394753285,
+    "delta_test_2022_cadence_blocked_days": null,
+    "delta_test_2022_max_dd": -4.2796450994,
+    "delta_test_2022_return": 11.8637471987,
+    "delta_test_2022_trades": -181.0,
+    "delta_test_2022_turnover": -6.945019920318725,
+    "model_name": "sequence_lag_ridge_mse",
+    "paper_family": "sequence_temporal",
+    "reduced_test_2022_trades": true,
+    "reduced_test_2022_turnover": true,
+    "risk_overlay": "none",
+    "trade_cadence": "regime_cadence_fast_bull_slow_stress_v1"
+  },
+  "cadence_pair_rows": 20,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "feature",
+    "model_selection",
+    "execution"
+  ],
+  "data": {
+    "alpha158_columns_expected": 158,
+    "alpha158_columns_present": 158,
+    "feature_columns": 238,
+    "feature_end": "2026-06-15",
+    "feature_packs": [
+      "qlib_alpha158",
+      "release_signals_v1",
+      "vix_term",
+      "macro_signals",
+      "soxx_signals"
+    ],
+    "feature_rows": 3838,
+    "feature_start": "2011-03-11",
+    "qlib_data_path": "data/qlib/soxl"
+  },
+  "decision": "alpha158_supervised_screen_recorded_no_promotion",
+  "direct_comparison_baseline": "quantbench_regime_cadence_screen_v1",
+  "eligible_profiles": [],
+  "experiment": "qlib_alpha158_supervised_cadence_v1",
+  "external_reference": {
+    "kaggle_jane_street_lessons": [
+      "time-ordered validation before promotion",
+      "leakage avoidance across train/test boundaries",
+      "local slice diagnostics over single leaderboard-like proxy metrics"
+    ],
+    "kaggle_urls": [
+      "https://www.kaggle.com/competitions/jane-street-market-prediction",
+      "https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting"
+    ],
+    "qlib_alpha158_source": "qlib.contrib.data.loader.Alpha158DL.get_feature_config"
+  },
+  "model_names": [
+    "ridge_mse",
+    "hist_gradient_mse",
+    "sequence_lag_ridge_mse",
+    "tcn_mse"
+  ],
+  "next_action": "If this path remains runnable under focused regressions, next prune/deprecate active RL training entrypoints in favor of supervised model-selection and cadence-controlled execution.",
+  "notes": [
+    "This is a non-RL qlib DatasetH-backed supervised retraining screen.",
+    "The feature surface combines qlib Alpha158-style OHLCV factors with curated mined SOXL packs.",
+    "This run keeps RL deletion incomplete; it establishes a replacement supervised surface first."
+  ],
+  "promotion_allowed": false,
+  "risk_overlays": [
+    "macro_budget_defensive_v1",
+    "macro_budget_lowdd_v1",
+    "macro_budget_bull_guard_v1",
+    "macro_budget_reentry_v1"
+  ],
+  "role": "diagnose",
+  "screen_records": 40,
+  "sidecars": {
+    "cadence_pair_metrics_csv": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/cadence_pair_metrics.csv",
+    "supervised_candidate_screen_csv": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/supervised_candidate_screen.csv",
+    "supervised_payloads_json": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/supervised_payloads.json",
+    "supervised_summary_json": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/supervised_summary.json"
+  },
+  "target_windows": {
+    "latest_2025_2026": [
+      "2025-01-01",
+      "2026-06-15"
+    ],
+    "test_2020": [
+      "2020-01-01",
+      "2020-12-31"
+    ],
+    "test_2022": [
+      "2022-01-01",
+      "2022-12-31"
+    ],
+    "test_2023_2024": [
+      "2023-01-01",
+      "2024-12-31"
+    ],
+    "ytd_2026": [
+      "2026-01-01",
+      "2026-06-15"
+    ]
+  },
+  "test_2022_trade_reduction_rows": 20,
+  "test_2022_turnover_reduction_rows": 20,
+  "trade_cadences": [
+    "regime_cadence_fast_bull_slow_stress_v1"
+  ]
+}
