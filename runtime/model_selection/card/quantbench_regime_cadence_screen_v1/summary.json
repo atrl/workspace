@@ -1,0 +1,156 @@
+{
+  "accepted_tradeoff": "lower stress/range trading frequency or turnover without promotion from a single screen",
+  "actor_retention_allowed": false,
+  "best_cadence_pair": {
+    "base_latest_2025_2026_cadence_blocked_days": null,
+    "base_latest_2025_2026_max_dd": 67.2085371337,
+    "base_latest_2025_2026_return": 117.0698478016,
+    "base_latest_2025_2026_trades": 343.0,
+    "base_latest_2025_2026_turnover": 16.706413994169097,
+    "base_profile": "quantbench_regime_cadence_screen_v1_ridge_mse",
+    "base_proxy_cadence_blocked_days": null,
+    "base_proxy_max_dd": 68.2723774664,
+    "base_proxy_return": 860.0382371161,
+    "base_proxy_trades": 1601.0,
+    "base_proxy_turnover": 68.34434728294816,
+    "base_test_2022_cadence_blocked_days": null,
+    "base_test_2022_max_dd": 50.3514747454,
+    "base_test_2022_return": -16.1618427301,
+    "base_test_2022_trades": 251.0,
+    "base_test_2022_turnover": 17.872111553784862,
+    "cadence_latest_2025_2026_cadence_blocked_days": 251.0,
+    "cadence_latest_2025_2026_max_dd": 67.6518662668,
+    "cadence_latest_2025_2026_return": 106.5604250332,
+    "cadence_latest_2025_2026_trades": 112.0,
+    "cadence_latest_2025_2026_turnover": 11.409620991253645,
+    "cadence_profile": "quantbench_regime_cadence_screen_v1_ridge_mse_regime_cadence_fast_bull_slow_stress_v1",
+    "cadence_proxy_cadence_blocked_days": 1162.0,
+    "cadence_proxy_max_dd": 68.8034857748,
+    "cadence_proxy_return": 553.3952765841,
+    "cadence_proxy_trades": 439.0,
+    "cadence_proxy_turnover": 39.96658338538413,
+    "cadence_test_2022_cadence_blocked_days": 178.0,
+    "cadence_test_2022_max_dd": 48.3071902836,
+    "cadence_test_2022_return": -21.00992978,
+    "cadence_test_2022_trades": 73.0,
+    "cadence_test_2022_turnover": 8.928685258964144,
+    "delta_latest_2025_2026_cadence_blocked_days": null,
+    "delta_latest_2025_2026_max_dd": 0.44332913309999356,
+    "delta_latest_2025_2026_return": -10.5094227684,
+    "delta_latest_2025_2026_trades": -231.0,
+    "delta_latest_2025_2026_turnover": -5.296793002915452,
+    "delta_proxy_cadence_blocked_days": null,
+    "delta_proxy_max_dd": 0.5311083083999932,
+    "delta_proxy_return": -306.6429605320001,
+    "delta_proxy_trades": -1162.0,
+    "delta_proxy_turnover": -28.37776389756403,
+    "delta_test_2022_cadence_blocked_days": null,
+    "delta_test_2022_max_dd": -2.0442844617999967,
+    "delta_test_2022_return": -4.848087049900002,
+    "delta_test_2022_trades": -178.0,
+    "delta_test_2022_turnover": -8.943426294820718,
+    "model_name": "ridge_mse",
+    "paper_family": "linear_regression",
+    "reduced_test_2022_trades": true,
+    "reduced_test_2022_turnover": true,
+    "risk_overlay": "none",
+    "trade_cadence": "regime_cadence_fast_bull_slow_stress_v1"
+  },
+  "cadence_pair_rows": 30,
+  "canonical_baseline": "v19reg_v22_budget_usage_bull_guard_v1",
+  "changed_layer": [
+    "execution",
+    "model_selection"
+  ],
+  "data": {
+    "feature_columns": 113,
+    "feature_end": "2026-06-15",
+    "feature_packs": [
+      "vix_term",
+      "academic_signals",
+      "macro_signals",
+      "rulebase_signals",
+      "transition_signals",
+      "soxx_signals",
+      "soxx_spread_oscillation"
+    ],
+    "feature_rows": 3838,
+    "feature_start": "2011-03-11",
+    "qlib_data_path": "data/qlib/soxl"
+  },
+  "decision": "cadence_screen_recorded_no_promotion",
+  "direct_comparison_baseline": "quantbench_paper_soxl_v2 supervised no-cadence rows",
+  "eligible_profiles": [],
+  "experiment": "quantbench_regime_cadence_screen_v1",
+  "external_reference": {
+    "kaggle_jane_street_lessons": [
+      "time-ordered validation before promotion",
+      "leakage avoidance across train/test boundaries",
+      "local slice diagnostics over single leaderboard-like proxy metrics"
+    ],
+    "kaggle_urls": [
+      "https://www.kaggle.com/competitions/jane-street-market-prediction",
+      "https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting"
+    ],
+    "quantbench": {
+      "arxiv_pdf": "https://arxiv.org/pdf/2504.18600",
+      "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment"
+    }
+  },
+  "model_names": [
+    "logistic_clf",
+    "ridge_mse",
+    "random_forest_clf",
+    "sequence_lag_ridge_mse",
+    "tcn_mse",
+    "market_graph_mse"
+  ],
+  "next_action": "Use this cadence evidence to decide whether the broader RL-removal branch should preserve only supervised model-selection plus execution-cadence interfaces before adding an Alpha158-compatible feature pack.",
+  "notes": [
+    "This is a non-RL qlib DatasetH-backed supervised screen.",
+    "This run uses existing repo SOXL factor packs; it does not yet implement a pure qlib Alpha158 feature replacement.",
+    "This run proves the dynamic trade-frequency layer is screenable in supervised backtests, not that it is promotion-ready."
+  ],
+  "promotion_allowed": false,
+  "risk_overlays": [
+    "macro_budget_defensive_v1",
+    "macro_budget_lowdd_v1",
+    "macro_budget_bull_guard_v1",
+    "macro_budget_reentry_v1"
+  ],
+  "role": "diagnose",
+  "screen_records": 60,
+  "sidecars": {
+    "cadence_pair_metrics_csv": "runtime/model_selection/card/quantbench_regime_cadence_screen_v1/cadence_pair_metrics.csv",
+    "supervised_candidate_screen_csv": "runtime/model_selection/card/quantbench_regime_cadence_screen_v1/supervised_candidate_screen.csv",
+    "supervised_payloads_json": "runtime/model_selection/card/quantbench_regime_cadence_screen_v1/supervised_payloads.json",
+    "supervised_summary_json": "runtime/model_selection/card/quantbench_regime_cadence_screen_v1/supervised_summary.json"
+  },
+  "target_windows": {
+    "latest_2025_2026": [
+      "2025-01-01",
+      "2026-06-15"
+    ],
+    "test_2020": [
+      "2020-01-01",
+      "2020-12-31"
+    ],
+    "test_2022": [
+      "2022-01-01",
+      "2022-12-31"
+    ],
+    "test_2023_2024": [
+      "2023-01-01",
+      "2024-12-31"
+    ],
+    "ytd_2026": [
+      "2026-01-01",
+      "2026-06-15"
+    ]
+  },
+  "test_2022_trade_reduction_rows": 30,
+  "test_2022_turnover_reduction_rows": 30,
+  "trade_cadences": [
+    "regime_cadence_fast_bull_slow_stress_v1"
+  ]
+}

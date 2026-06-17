@@ -1,0 +1,7 @@
+name,paper_family,objective,target_kind,estimator
+logistic_clf,linear_classifier,clf,binary,LogisticRegression
+ridge_mse,linear_regression,mse,return,Ridge
+random_forest_clf,tree,clf,binary,RandomForestClassifier
+sequence_lag_ridge_mse,sequence_temporal,mse,return,LaggedRidge
+tcn_mse,sequence_convolutional,mse,return,TorchTemporalConv
+market_graph_mse,relational_graph,mse,return,MarketGraphRidge
