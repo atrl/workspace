@@ -1,0 +1,92 @@
+{
+  "artifacts": {
+    "notebook": "runtime/harness/card/simplified_non_rl_architecture_audit_v1/simplified_non_rl_architecture_audit_v1.ipynb",
+    "primary_model_selection_summary": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/summary.json",
+    "primary_supervised_summary": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/supervised_summary.json",
+    "summary_json": "runtime/harness/card/simplified_non_rl_architecture_audit_v1/summary.json"
+  },
+  "decision": "primary_non_rl_surface_available_legacy_rl_compatibility_remaining",
+  "direction": "harness",
+  "experiment": "simplified_non_rl_architecture_audit_v1",
+  "failures": [],
+  "manifest": {
+    "data": {
+      "end": "2026-06-15",
+      "feature_count": 238,
+      "feature_packs": [
+        "qlib_alpha158",
+        "release_signals_v1",
+        "vix_term",
+        "macro_signals",
+        "soxx_signals"
+      ],
+      "model_names": [
+        "ridge_mse",
+        "hist_gradient_mse",
+        "sequence_lag_ridge_mse",
+        "tcn_mse"
+      ],
+      "rows": 3838,
+      "start": "2011-03-11",
+      "test_window": [
+        "2020-01-01",
+        "2026-06-15"
+      ],
+      "train_window": [
+        "2010-03-11",
+        "2018-12-31"
+      ]
+    },
+    "dynamic_trade_cadence": {
+      "cadence_metrics": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/cadence_pair_metrics.csv",
+      "cadence_pair_rows": 20,
+      "enabled": true,
+      "test_2022_trade_reduction_rows": 20,
+      "test_2022_turnover_reduction_rows": 20,
+      "trade_cadences": [
+        "regime_cadence_fast_bull_slow_stress_v1"
+      ]
+    },
+    "goal_complete": false,
+    "next_action": "Keep the Alpha158 supervised/cadence path as primary evidence, then migrate entrypoints and production runtime dependencies before deleting legacy RL compatibility surfaces.",
+    "primary_artifact": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/summary.json",
+    "primary_artifact_exists": true,
+    "primary_non_rl_surface_available": true,
+    "primary_surface": "qlib_alpha158_supervised_cadence_v1",
+    "primary_training_kind": "supervised",
+    "promotion": {
+      "decision": "alpha158_supervised_screen_recorded_no_promotion",
+      "eligible_profiles": [],
+      "promotion_allowed": false
+    },
+    "remaining_rl_compatibility_surfaces": [
+      "src/soxl_quant/app/train.py",
+      "src/soxl_quant/app/selection.py",
+      "src/soxl_quant/app/workers.py",
+      "src/soxl_quant/cli.py",
+      "src/soxl_quant/rl.py",
+      "src/soxl_quant/policy/",
+      "production/"
+    ],
+    "rl_training_primary": false,
+    "source_boundary": {
+      "checked_paths": [
+        "src/soxl_quant/data.py",
+        "src/soxl_quant/app/quantbench_objectives.py",
+        "src/soxl_quant/app/quantbench_screen.py",
+        "src/soxl_quant/app/quantbench_supervised.py"
+      ],
+      "forbidden_patterns": [
+        "qlib.rl",
+        "src.soxl_quant.policy",
+        "soxl_quant.policy",
+        "src.soxl_quant.rl",
+        "soxl_quant.rl"
+      ],
+      "violations": []
+    },
+    "supervised_summary": "runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/supervised_summary.json",
+    "supervised_summary_exists": true
+  },
+  "next_action": "Keep the Alpha158 supervised/cadence path as primary evidence, then migrate entrypoints and production runtime dependencies before deleting legacy RL compatibility surfaces."
+}
