@@ -41,6 +41,7 @@ def test_simplified_non_rl_boundary_excludes_policy_and_qlib_rl_imports():
     violations = check_simplified_non_rl_boundaries()
 
     assert violations == []
+    assert "src/soxl_quant/core/runtime_state.py" in SIMPLIFIED_NON_RL_SOURCE_PATHS
     assert "src/soxl_quant/app/checkpoint_retention.py" in SIMPLIFIED_NON_RL_SOURCE_PATHS
     assert "src/soxl_quant/app/quantbench_supervised.py" in SIMPLIFIED_NON_RL_SOURCE_PATHS
     assert "src/soxl_quant/app/train.py" not in SIMPLIFIED_NON_RL_SOURCE_PATHS
@@ -151,6 +152,29 @@ def test_legacy_rl_reward_module_is_retired():
     assert not (ROOT / "tests" / "test_reward.py").exists()
 
 
+def test_non_rl_runtime_state_helpers_are_outside_rl_environment():
+    helper_path = ROOT / "src" / "soxl_quant" / "core" / "runtime_state.py"
+    assert helper_path.exists()
+
+    helper_source = helper_path.read_text(encoding="utf-8")
+    for forbidden in ("qlib.rl", "gymnasium", "tianshou", "policy.environment"):
+        assert forbidden not in helper_source
+
+    migrated_paths = [
+        "src/soxl_quant/runtime.py",
+        "src/soxl_quant/backtest.py",
+        "src/soxl_quant/policy/observation.py",
+        "src/soxl_quant/policy/usage_regression.py",
+        "tests/test_runtime.py",
+    ]
+    offenders = [
+        rel_path
+        for rel_path in migrated_paths
+        if "policy.environment" in (ROOT / rel_path).read_text(encoding="utf-8", errors="ignore")
+    ]
+    assert offenders == []
+
+
 def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():
     runtime_card_scripts = sorted((ROOT / "runtime").glob("**/*.py"))
     offenders = [
@@ -190,6 +214,7 @@ def test_harness_compile_targets_do_not_keep_retired_rl_facades_alive():
     assert '"src/soxl_quant/app/workers.py"' not in check_harness_source
     assert '"tests/test_train_summary_persistence.py"' not in check_harness_source
     assert '"tests/test_reward.py"' not in check_harness_source
+    assert '"src/soxl_quant/core/runtime_state.py"' in check_harness_source
 
 
 def test_harness_runs_simplified_architecture_guard_by_default():

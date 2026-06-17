@@ -73,6 +73,7 @@ DEFAULT_COMPILE_TARGETS = [
     "src/soxl_quant/app/state_objective_bc.py",
     "src/soxl_quant/app/state_objective_training_targets.py",
     "src/soxl_quant/core/metric_reconciliation.py",
+    "src/soxl_quant/core/runtime_state.py",
     "src/soxl_quant/policy/execution_overlays.py",
     "src/soxl_quant/policy/hierarchical_composer.py",
     "src/soxl_quant/policy/mode_conditioning.py",

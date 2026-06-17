@@ -20,6 +20,7 @@ PRIMARY_SUPERVISED_SUMMARY = PRIMARY_SIMPLIFIED_ARTIFACT.with_name("supervised_s
 PRIMARY_CADENCE_METRICS = PRIMARY_SIMPLIFIED_ARTIFACT.with_name("cadence_pair_metrics.csv")
 
 SIMPLIFIED_NON_RL_SOURCE_PATHS: tuple[str, ...] = (
+    "src/soxl_quant/core/runtime_state.py",
     "src/soxl_quant/data.py",
     "src/soxl_quant/app/checkpoint_retention.py",
     "src/soxl_quant/app/quantbench_objectives.py",

@@ -11,7 +11,7 @@ from ..data import FEATURE_COLUMNS, feature_columns_for_packs
 from ..settings import EXTRA_OBS_DIM, LOOKBACK, N_ASSETS
 
 if TYPE_CHECKING:
-    from .environment import TrancheLedger
+    from ..core.runtime_state import TrancheLedger
 
 
 def extra_index(feature_columns: list[str] | tuple[str, ...] | None = None) -> dict[str, int]:

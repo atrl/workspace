@@ -86,6 +86,7 @@
     "rl_training_primary": false,
     "source_boundary": {
       "checked_paths": [
+        "src/soxl_quant/core/runtime_state.py",
         "src/soxl_quant/data.py",
         "src/soxl_quant/app/checkpoint_retention.py",
         "src/soxl_quant/app/quantbench_objectives.py",

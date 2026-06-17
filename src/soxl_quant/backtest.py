@@ -30,7 +30,7 @@ from qlib.strategy.base import BaseStrategy
 from tianshou.utils.net.discrete import Actor
 
 from .data import FEATURE_COLUMNS
-from .policy.environment import TrancheLedger
+from .core.runtime_state import TrancheLedger
 from .policy.execution import (
     execution_buy_cooldown_days,
     execution_regime,
