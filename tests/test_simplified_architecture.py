@@ -95,13 +95,16 @@ def test_app_package_main_dispatches_to_simplified_architecture_cli():
 
 
 def test_default_entrypoints_do_not_reference_legacy_rl_cli():
+    root_cli_source = (ROOT / "soxl_qlib_strategy_v2.py").read_text(encoding="utf-8")
     package_source = (ROOT / "src" / "soxl_quant" / "__init__.py").read_text(encoding="utf-8")
     app_package_source = (ROOT / "src" / "soxl_quant" / "app" / "__init__.py").read_text(encoding="utf-8")
     app_main_source = (ROOT / "src" / "soxl_quant" / "app" / "__main__.py").read_text(encoding="utf-8")
 
+    assert "app.cli" not in root_cli_source
     assert "app.cli" not in package_source
     assert ".cli" not in app_package_source
     assert ".cli" not in app_main_source
+    assert "reinforcement learning" not in root_cli_source.lower()
     assert "reinforcement learning" not in package_source.lower()
 
 
@@ -113,7 +116,7 @@ def test_simplified_manifest_records_default_entrypoint_migration():
     assert manifest["default_entrypoints"]["app_module_main"] == "src.soxl_quant.app.simplified_cli"
     assert manifest["default_entrypoints"]["legacy_rl_cli_primary"] is False
     assert manifest["default_entrypoints"]["violations"] == []
-    assert "src/soxl_quant/app/cli.py" in manifest["remaining_rl_compatibility_surfaces"]
+    assert "soxl_qlib_strategy_v2.py" in manifest["default_entrypoints"]["checked_paths"]
 
 
 def test_legacy_rl_compatibility_facades_are_retired():
@@ -125,11 +128,30 @@ def test_legacy_rl_compatibility_facades_are_retired():
     assert "src/soxl_quant/rl.py" not in manifest["remaining_rl_compatibility_surfaces"]
 
 
+def test_legacy_app_rl_cli_entrypoint_is_retired():
+    assert not (ROOT / "src" / "soxl_quant" / "app" / "cli.py").exists()
+
+    manifest = simplified_architecture_manifest()
+    assert "src/soxl_quant/app/cli.py" not in manifest["remaining_rl_compatibility_surfaces"]
+
+
+def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():
+    runtime_card_scripts = sorted((ROOT / "runtime").glob("**/*.py"))
+    offenders = [
+        path.relative_to(ROOT).as_posix()
+        for path in runtime_card_scripts
+        if "src.soxl_quant.app.cli" in path.read_text(encoding="utf-8", errors="ignore")
+    ]
+
+    assert offenders == []
+
+
 def test_harness_compile_targets_do_not_keep_retired_rl_facades_alive():
     check_harness_source = (ROOT / "scripts" / "check_harness.py").read_text(encoding="utf-8")
 
     assert '"src/soxl_quant/cli.py"' not in check_harness_source
     assert '"src/soxl_quant/rl.py"' not in check_harness_source
+    assert '"src/soxl_quant/app/cli.py"' not in check_harness_source
 
 
 def test_harness_runs_simplified_architecture_guard_by_default():

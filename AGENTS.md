@@ -207,8 +207,9 @@ Default to **not running** if the difference is only a renamed profile, a tweake
   runtime notebooks for single-run experiment evidence.
 - `src/soxl_quant/settings.py` owns repo paths, constants, and artifact naming only.
 - `src/soxl_quant/config.py` owns typed config dataclasses and profile loading.
-- Do not recreate retired top-level facades `src/soxl_quant/cli.py` or
-  `src/soxl_quant/rl.py`.
+- Do not recreate retired facades `src/soxl_quant/cli.py`,
+  `src/soxl_quant/rl.py`, or the legacy trainer entrypoint
+  `src/soxl_quant/app/cli.py`.
 - Legacy RL helper logic that still exists under `src/soxl_quant/policy/` must
   remain isolated from the default supervised entrypoint until it is migrated or
   deleted.
@@ -217,9 +218,9 @@ Default to **not running** if the difference is only a renamed profile, a tweake
 ## Script Boundaries
 
 - New or modified files under `scripts/` should import from `src/soxl_quant/app/`, `src/soxl_quant/policy/`, `src/soxl_quant/core/`, or `src/soxl_quant/runtime.py` directly.
-- Do not point new script work at retired top-level facades
-  `src/soxl_quant/rl.py` or `src/soxl_quant/cli.py`; those paths should stay
-  deleted.
+- Do not point new script work at retired facades `src/soxl_quant/rl.py`,
+  `src/soxl_quant/cli.py`, or `src/soxl_quant/app/cli.py`; those paths should
+  stay deleted.
 
 
 ## Directory Read Order
@@ -236,7 +237,9 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
 - Retired compatibility facades:
   - `src/soxl_quant/cli.py`
   - `src/soxl_quant/rl.py`
-- Do not recreate retired top-level facades. Default package entrypoints should
+- Retired legacy trainer entrypoints:
+  - `src/soxl_quant/app/cli.py`
+- Do not recreate retired facades or trainer entrypoints. Default package entrypoints should
   continue through the simplified supervised architecture CLI unless the user
   explicitly asks for legacy compatibility maintenance.
 - Legacy RL training/runtime code that still exists under app, policy, and

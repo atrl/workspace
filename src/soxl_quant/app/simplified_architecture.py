@@ -33,6 +33,7 @@ FORBIDDEN_SIMPLIFIED_IMPORT_PATTERNS: tuple[str, ...] = (
     "soxl_quant.rl",
 )
 DEFAULT_ENTRYPOINT_SOURCE_PATHS: tuple[str, ...] = (
+    "soxl_qlib_strategy_v2.py",
     "src/soxl_quant/__init__.py",
     "src/soxl_quant/app/__init__.py",
     "src/soxl_quant/app/__main__.py",
@@ -45,7 +46,6 @@ FORBIDDEN_DEFAULT_ENTRYPOINT_PATTERNS: tuple[str, ...] = (
     "reinforcement learning",
 )
 REMAINING_RL_COMPATIBILITY_SURFACES: tuple[str, ...] = (
-    "src/soxl_quant/app/cli.py",
     "src/soxl_quant/app/train.py",
     "src/soxl_quant/app/selection.py",
     "src/soxl_quant/app/workers.py",

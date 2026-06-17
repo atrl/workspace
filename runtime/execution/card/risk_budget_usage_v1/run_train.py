@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-import sys
-import os
-import multiprocessing
-multiprocessing.set_start_method('fork', force=True)
-sys.path.insert(0, '/Users/rziiiii/.openclaw/workspace')
-os.chdir('/Users/rziiiii/.openclaw/workspace')
+"""Legacy PPO training wrapper retained only as historical runtime context."""
+
+from __future__ import annotations
+
+MESSAGE = (
+    "risk_budget_usage_v1 was produced by the retired PPO training CLI. "
+    "The active architecture now uses the simplified Alpha158 supervised "
+    "cadence surface; see runtime/harness/card/"
+    "simplified_non_rl_architecture_audit_v1/summary.json."
+)
 
 if __name__ == '__main__':
-    sys.argv = ['cli', '--profiles', 'risk_budget_usage_v1', '--seed', '20260411', '--skip-data-refresh']
-    from src.soxl_quant.app.cli import main
-    main()
+    raise SystemExit(MESSAGE)

@@ -41,6 +41,7 @@
       "app_module_main": "src.soxl_quant.app.simplified_cli",
       "app_package_main": "src.soxl_quant.app.simplified_cli",
       "checked_paths": [
+        "soxl_qlib_strategy_v2.py",
         "src/soxl_quant/__init__.py",
         "src/soxl_quant/app/__init__.py",
         "src/soxl_quant/app/__main__.py"
@@ -79,7 +80,6 @@
       "promotion_allowed": false
     },
     "remaining_rl_compatibility_surfaces": [
-      "src/soxl_quant/app/cli.py",
       "src/soxl_quant/app/train.py",
       "src/soxl_quant/app/selection.py",
       "src/soxl_quant/app/workers.py",
