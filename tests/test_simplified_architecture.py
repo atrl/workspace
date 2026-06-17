@@ -114,3 +114,28 @@ def test_simplified_manifest_records_default_entrypoint_migration():
     assert manifest["default_entrypoints"]["legacy_rl_cli_primary"] is False
     assert manifest["default_entrypoints"]["violations"] == []
     assert "src/soxl_quant/app/cli.py" in manifest["remaining_rl_compatibility_surfaces"]
+
+
+def test_legacy_rl_compatibility_facades_are_retired():
+    assert not (ROOT / "src" / "soxl_quant" / "cli.py").exists()
+    assert not (ROOT / "src" / "soxl_quant" / "rl.py").exists()
+
+    manifest = simplified_architecture_manifest()
+    assert "src/soxl_quant/cli.py" not in manifest["remaining_rl_compatibility_surfaces"]
+    assert "src/soxl_quant/rl.py" not in manifest["remaining_rl_compatibility_surfaces"]
+
+
+def test_harness_compile_targets_do_not_keep_retired_rl_facades_alive():
+    check_harness_source = (ROOT / "scripts" / "check_harness.py").read_text(encoding="utf-8")
+
+    assert '"src/soxl_quant/cli.py"' not in check_harness_source
+    assert '"src/soxl_quant/rl.py"' not in check_harness_source
+
+
+def test_harness_runs_simplified_architecture_guard_by_default():
+    check_harness_source = (ROOT / "scripts" / "check_harness.py").read_text(encoding="utf-8")
+
+    assert '"tests/test_simplified_architecture.py"' in check_harness_source
+    assert '"src/soxl_quant/app/simplified_architecture.py"' in check_harness_source
+    assert '"src/soxl_quant/app/simplified_cli.py"' in check_harness_source
+    assert '["scripts/check_simplified_architecture.py"]' in check_harness_source

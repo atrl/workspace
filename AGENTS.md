@@ -203,18 +203,23 @@ Default to **not running** if the difference is only a renamed profile, a tweake
 
 ## Code Boundaries
 
-- `src/soxl_quant/app/` for orchestration, `core/` for config/helpers, `policy/` for RL logic.
+- `src/soxl_quant/app/` for orchestration, `core/` for config/helpers, and
+  runtime notebooks for single-run experiment evidence.
 - `src/soxl_quant/settings.py` owns repo paths, constants, and artifact naming only.
 - `src/soxl_quant/config.py` owns typed config dataclasses and profile loading.
-- `src/soxl_quant/cli.py` is a compatibility facade; do not add new orchestration code there.
-- RL helper logic must be split by concern (execution, positioning, observation, reward, policy, evaluation).
-- `src/soxl_quant/rl.py` is a legacy compatibility facade only. New code, tests, and repo-owned scripts should import from `src/soxl_quant/policy/` directly.
+- Do not recreate retired top-level facades `src/soxl_quant/cli.py` or
+  `src/soxl_quant/rl.py`.
+- Legacy RL helper logic that still exists under `src/soxl_quant/policy/` must
+  remain isolated from the default supervised entrypoint until it is migrated or
+  deleted.
 
 
 ## Script Boundaries
 
 - New or modified files under `scripts/` should import from `src/soxl_quant/app/`, `src/soxl_quant/policy/`, `src/soxl_quant/core/`, or `src/soxl_quant/runtime.py` directly.
-- Do not point new script work at `src/soxl_quant/rl.py` or `src/soxl_quant/cli.py` unless the task is explicitly about compatibility.
+- Do not point new script work at retired top-level facades
+  `src/soxl_quant/rl.py` or `src/soxl_quant/cli.py`; those paths should stay
+  deleted.
 
 
 ## Directory Read Order
@@ -228,10 +233,15 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
 
 ## Compatibility Policy
 
-- Current compatibility surfaces:
+- Retired compatibility facades:
   - `src/soxl_quant/cli.py`
   - `src/soxl_quant/rl.py`
-- New behavior must not be added to those files unless the task is specifically compatibility maintenance.
+- Do not recreate retired top-level facades. Default package entrypoints should
+  continue through the simplified supervised architecture CLI unless the user
+  explicitly asks for legacy compatibility maintenance.
+- Legacy RL training/runtime code that still exists under app, policy, and
+  production paths must remain isolated from the default supervised entrypoint
+  until it is migrated or deleted.
 
 
 ## Retention And Cleanup

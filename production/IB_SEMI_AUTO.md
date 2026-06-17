@@ -4,8 +4,10 @@ This is the first production shape for `SOXL`: model-driven, broker-backed, and 
 
 ## Intended flow
 
-1. Train and validate the actor with `src/soxl_quant/cli.py`.
-2. Persist the selected actor under `runtime/model/card/`.
+1. Create or update the supervised/model-selection evidence in a runtime
+   notebook, such as `runtime/model_selection/card/qlib_alpha158_supervised_cadence_v1/`.
+2. Persist any promoted execution artifact under `runtime/model/card/`.
+   Legacy actor execution paths remain compatibility surfaces until migrated.
 3. Check local TWS / IB Gateway readiness:
 
 ```bash
