@@ -31,7 +31,6 @@ DEFAULT_TEST_FILES = [
     "tests/test_position_cap.py",
     "tests/test_regime_features.py",
     "tests/test_runtime.py",
-    "tests/test_structural_model.py",
     "tests/test_two_speed_budget.py",
     "tests/test_update_market_data.py",
     "tests/test_profile_registry.py",

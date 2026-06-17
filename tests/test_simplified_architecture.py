@@ -175,6 +175,17 @@ def test_non_rl_runtime_state_helpers_are_outside_rl_environment():
     assert offenders == []
 
 
+def test_legacy_rl_environment_harness_coverage_is_retired():
+    assert not (ROOT / "tests" / "test_structural_model.py").exists()
+
+    check_harness_source = (ROOT / "scripts" / "check_harness.py").read_text(encoding="utf-8")
+    assert '"tests/test_structural_model.py"' not in check_harness_source
+
+    position_cap_source = (ROOT / "tests" / "test_position_cap.py").read_text(encoding="utf-8")
+    assert "policy.environment" not in position_cap_source
+    assert "PositionAction" not in position_cap_source
+
+
 def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():
     runtime_card_scripts = sorted((ROOT / "runtime").glob("**/*.py"))
     offenders = [
