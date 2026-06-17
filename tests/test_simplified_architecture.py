@@ -146,6 +146,11 @@ def test_legacy_app_rl_training_entrypoints_are_retired():
     assert "src/soxl_quant/app/selection.py" not in manifest["remaining_rl_compatibility_surfaces"]
 
 
+def test_legacy_rl_reward_module_is_retired():
+    assert not (ROOT / "src" / "soxl_quant" / "policy" / "reward.py").exists()
+    assert not (ROOT / "tests" / "test_reward.py").exists()
+
+
 def test_legacy_runtime_cards_do_not_import_retired_app_rl_cli():
     runtime_card_scripts = sorted((ROOT / "runtime").glob("**/*.py"))
     offenders = [
@@ -184,6 +189,7 @@ def test_harness_compile_targets_do_not_keep_retired_rl_facades_alive():
     assert '"src/soxl_quant/app/train.py"' not in check_harness_source
     assert '"src/soxl_quant/app/workers.py"' not in check_harness_source
     assert '"tests/test_train_summary_persistence.py"' not in check_harness_source
+    assert '"tests/test_reward.py"' not in check_harness_source
 
 
 def test_harness_runs_simplified_architecture_guard_by_default():

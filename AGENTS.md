@@ -242,6 +242,8 @@ When orienting to the repo, prefer indexes and summaries before raw outputs.
   - `src/soxl_quant/app/train.py`
   - `src/soxl_quant/app/workers.py`
   - `src/soxl_quant/app/selection.py`
+- Retired RL policy modules:
+  - `src/soxl_quant/policy/reward.py`
 - Do not recreate retired facades or trainer entrypoints. Default package entrypoints should
   continue through the simplified supervised architecture CLI unless the user
   explicitly asks for legacy compatibility maintenance.
