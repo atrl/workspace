@@ -6,13 +6,16 @@ import pytest
 
 from src.soxl_quant.app.quantbench_objectives import build_soxl_supervised_targets
 from src.soxl_quant.app.quantbench_supervised import (
+    RegimeTradeCadenceConfig,
     RiskAwarePositionConfig,
     backtest_prediction_strategy,
     build_quantbench_supervised_report,
     build_supervised_summary_payloads,
     fit_quantbench_rolling_supervised_models,
     fit_quantbench_supervised_models,
+    quantbench_trade_cadence_configs,
     quantbench_supervised_model_specs,
+    regime_trade_cadence_position_series,
     risk_aware_position_series,
 )
 
@@ -115,6 +118,71 @@ def test_risk_aware_position_series_caps_stress_and_restores_bull_participation(
     assert positions.loc[index[:2]].max() <= 0.18
     assert positions.loc[index[-3:]].min() >= 0.55
     assert positions.max() <= 0.90
+
+
+def test_regime_trade_cadence_rebalances_fast_in_bull_and_throttles_stress_reentry():
+    index = pd.date_range("2024-01-01", periods=8, freq="D")
+    raw_targets = pd.Series([0.20, 0.80, 0.20, 0.80, 0.20, 0.80, 0.20, 0.80], index=index)
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": [0.20, 0.18, 0.16, 0.15, 0.82, 0.85, 0.83, 0.80],
+            "cum_drop_30": [-0.01, -0.01, -0.01, -0.01, -0.22, -0.20, -0.18, -0.16],
+            "drawdown_63": [-0.01, -0.01, -0.01, -0.01, -0.26, -0.22, -0.20, -0.18],
+            "mom_21": [0.07, 0.08, 0.06, 0.05, -0.08, -0.06, -0.05, -0.04],
+            "trend_gap_63": [0.04, 0.05, 0.04, 0.03, -0.08, -0.06, -0.05, -0.04],
+        },
+        index=index,
+    )
+    cadence = RegimeTradeCadenceConfig(
+        name="stress_slow_test",
+        bull_rebalance_days=1,
+        base_rebalance_days=2,
+        stress_rebalance_days=3,
+        min_trade_delta=0.0,
+        stress_de_risk_delta=0.20,
+    )
+
+    positions = regime_trade_cadence_position_series(raw_targets, risk_frame=risk_frame, config=cadence)
+
+    assert np.allclose(positions.loc[index[:4]], [0.20, 0.80, 0.20, 0.80])
+    assert np.allclose(positions.loc[index[4:]], [0.20, 0.20, 0.20, 0.80])
+
+
+def test_backtest_prediction_strategy_reports_regime_cadence_trade_reduction():
+    index = pd.date_range("2024-01-01", periods=10, freq="D")
+    close = pd.Series(np.linspace(100.0, 120.0, len(index)), index=index)
+    predictions = pd.Series([0.10, 0.90, 0.20, 0.80, 0.30, 0.70, 0.40, 0.60, 0.50, 0.95], index=index)
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": [0.82] * len(index),
+            "cum_drop_30": [-0.22] * len(index),
+            "drawdown_63": [-0.24] * len(index),
+            "mom_21": [-0.05] * len(index),
+            "trend_gap_63": [-0.04] * len(index),
+        },
+        index=index,
+    )
+
+    plain = backtest_prediction_strategy(close, predictions, min_position=0.10, max_position=0.90, cost=0.0)
+    cadenced = backtest_prediction_strategy(
+        close,
+        predictions,
+        min_position=0.10,
+        max_position=0.90,
+        cost=0.0,
+        risk_frame=risk_frame,
+        cadence_config=RegimeTradeCadenceConfig(
+            name="stress_slow_test",
+            bull_rebalance_days=1,
+            base_rebalance_days=2,
+            stress_rebalance_days=4,
+            min_trade_delta=0.0,
+        ),
+    )
+
+    assert cadenced["trades"] < plain["trades"]
+    assert cadenced["cadence_blocked_days"] > 0
+    assert cadenced["trade_cadence"] == "stress_slow_test"
 
 
 def test_backtest_prediction_strategy_portfolio_drawdown_guard_reduces_crash_damage():
@@ -568,6 +636,41 @@ def test_build_supervised_summary_payloads_can_emit_risk_overlay_profiles():
     assert "quantbench_supervised_ridge_mse_macro_budget_test" in profiles
     overlay_payload = [payload for payload in payloads if payload["profile"].endswith("macro_budget_test")][0]
     assert overlay_payload["risk_overlay"]["name"] == "macro_budget_test"
+
+
+def test_build_supervised_summary_payloads_can_emit_trade_cadence_profiles():
+    index = pd.date_range("2020-01-01", periods=900, freq="D")
+    close = pd.Series(100.0 * np.cumprod(1.0 + np.sin(np.arange(len(index)) / 30.0) * 0.002), index=index)
+    prediction = pd.Series(np.cos(np.arange(len(index)) / 25.0), index=index)
+    risk_frame = pd.DataFrame(
+        {
+            "regime_risk": np.where(index.year == 2021, 0.85, 0.25),
+            "cum_drop_30": np.where(index.year == 2021, -0.22, -0.02),
+            "drawdown_63": np.where(index.year == 2021, -0.25, -0.03),
+            "mom_21": np.where(index.year == 2022, 0.06, 0.01),
+            "trend_gap_63": np.where(index.year == 2022, 0.04, 0.0),
+        },
+        index=index,
+    )
+    cadence = quantbench_trade_cadence_configs()[0]
+
+    payloads = build_supervised_summary_payloads(
+        close,
+        {"ridge_mse": prediction},
+        objective_metrics={"ridge_mse": {"ic": 0.1, "rows": 100.0}},
+        profile_prefix="quantbench_supervised",
+        risk_frame=risk_frame,
+        cadence_configs=(cadence,),
+    )
+
+    profiles = {payload["profile"] for payload in payloads}
+    cadence_profile = f"quantbench_supervised_ridge_mse_{cadence.name}"
+    assert "quantbench_supervised_ridge_mse" in profiles
+    assert cadence_profile in profiles
+    payload = [row for row in payloads if row["profile"] == cadence_profile][0]
+    assert payload["trade_cadence"]["name"] == cadence.name
+    assert payload["test_proxy"]["trade_cadence"] == cadence.name
+    assert payload["test_proxy"]["cadence_blocked_days"] > 0
 
 
 def test_build_quantbench_supervised_report_writes_screen_artifacts(tmp_path):

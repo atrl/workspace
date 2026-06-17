@@ -49,6 +49,23 @@ class RiskAwarePositionConfig:
     reentry_drawdown_floor: float = -0.10
 
 
+@dataclass(frozen=True)
+class RegimeTradeCadenceConfig:
+    name: str
+    bull_rebalance_days: int = 1
+    base_rebalance_days: int = 3
+    stress_rebalance_days: int = 5
+    min_trade_delta: float = 0.02
+    stress_de_risk_delta: float = 0.05
+    stress_risk_threshold: float = 0.70
+    crash_drop_threshold: float = -0.20
+    crash_drawdown_threshold: float = -0.25
+    bull_risk_threshold: float = 0.40
+    bull_momentum_threshold: float = 0.03
+    bull_trend_threshold: float = 0.00
+    bull_drawdown_floor: float = -0.08
+
+
 QUANTBENCH_SUPERVISED_MODEL_SPECS: tuple[SupervisedModelSpec, ...] = (
     SupervisedModelSpec(
         name="logistic_clf",
@@ -1171,6 +1188,20 @@ def quantbench_risk_overlay_configs() -> list[RiskAwarePositionConfig]:
     ]
 
 
+def quantbench_trade_cadence_configs() -> list[RegimeTradeCadenceConfig]:
+    """Return reusable execution-cadence overlays for supervised signal screens."""
+    return [
+        RegimeTradeCadenceConfig(
+            name="regime_cadence_fast_bull_slow_stress_v1",
+            bull_rebalance_days=1,
+            base_rebalance_days=3,
+            stress_rebalance_days=5,
+            min_trade_delta=0.03,
+            stress_de_risk_delta=0.05,
+        )
+    ]
+
+
 def quantbench_supervised_model_specs(model_names: Iterable[str] | None = None) -> list[SupervisedModelSpec]:
     if model_names is None:
         return list(QUANTBENCH_SUPERVISED_MODEL_SPECS)
@@ -1742,6 +1773,69 @@ def _risk_column(frame: pd.DataFrame, column: str, default: float) -> pd.Series:
     return pd.Series(default, index=frame.index, dtype=float)
 
 
+def _regime_trade_cadence_labels(
+    index: pd.Index,
+    risk_frame: pd.DataFrame,
+    config: RegimeTradeCadenceConfig,
+) -> pd.Series:
+    frame = risk_frame.reindex(index).replace([np.inf, -np.inf], np.nan)
+    regime_risk = _risk_column(frame, "regime_risk", 0.0)
+    cum_drop_30 = _risk_column(frame, "cum_drop_30", 0.0)
+    drawdown_63 = _risk_column(frame, "drawdown_63", 0.0)
+    mom_21 = _risk_column(frame, "mom_21", 0.0)
+    trend_gap_63 = _risk_column(frame, "trend_gap_63", 0.0)
+
+    stress_mask = (
+        (regime_risk >= float(config.stress_risk_threshold))
+        | (cum_drop_30 <= float(config.crash_drop_threshold))
+        | (drawdown_63 <= float(config.crash_drawdown_threshold))
+    )
+    bull_mask = (
+        (regime_risk <= float(config.bull_risk_threshold))
+        & (mom_21 >= float(config.bull_momentum_threshold))
+        & (trend_gap_63 >= float(config.bull_trend_threshold))
+        & (drawdown_63 >= float(config.bull_drawdown_floor))
+        & ~stress_mask
+    )
+    labels = pd.Series("base", index=index, dtype=object)
+    labels.loc[bull_mask] = "bull"
+    labels.loc[stress_mask] = "stress"
+    return labels
+
+
+def regime_trade_cadence_position_series(
+    target_position: pd.Series,
+    *,
+    risk_frame: pd.DataFrame,
+    config: RegimeTradeCadenceConfig,
+) -> pd.Series:
+    """Throttle target-position changes with regime-specific rebalance cadence."""
+    target = target_position.astype(float).sort_index().replace([np.inf, -np.inf], np.nan).ffill().fillna(0.0)
+    labels = _regime_trade_cadence_labels(target.index, risk_frame, config)
+    required_rows = {
+        "bull": max(int(config.bull_rebalance_days), 1),
+        "base": max(int(config.base_rebalance_days), 1),
+        "stress": max(int(config.stress_rebalance_days), 1),
+    }
+
+    output: list[float] = []
+    last_trade_row = -1
+    last_target = 0.0
+    for row_number, (date, raw_target) in enumerate(target.items()):
+        raw = float(raw_target)
+        delta = raw - last_target
+        label = str(labels.loc[date])
+        enough_time = last_trade_row < 0 or (row_number - last_trade_row) >= required_rows[label]
+        meaningful_change = abs(delta) >= float(config.min_trade_delta)
+        stress_derisk = label == "stress" and delta <= -abs(float(config.stress_de_risk_delta))
+        should_trade = last_trade_row < 0 or (meaningful_change and (enough_time or stress_derisk))
+        if should_trade:
+            last_target = raw
+            last_trade_row = row_number
+        output.append(last_target)
+    return pd.Series(output, index=target.index, dtype=float)
+
+
 def risk_aware_position_series(
     predictions: pd.Series,
     *,
@@ -1796,7 +1890,8 @@ def backtest_prediction_strategy(
     cost: float = 0.0008,
     risk_frame: pd.DataFrame | None = None,
     risk_config: RiskAwarePositionConfig | None = None,
-) -> dict[str, float]:
+    cadence_config: RegimeTradeCadenceConfig | None = None,
+) -> dict[str, Any]:
     """Backtest a prediction-ranked long-flat SOXL allocation with T+1 execution."""
     close = close.astype(float).sort_index()
     pred = predictions.astype(float).reindex(close.index)
@@ -1823,6 +1918,17 @@ def backtest_prediction_strategy(
         )
     else:
         position = position.ffill().fillna(0.0)
+    cadence_blocked_days = 0
+    if cadence_config is not None:
+        if risk_frame is None:
+            raise ValueError("risk_frame is required when cadence_config is set")
+        raw_position = position.ffill().fillna(0.0)
+        position = regime_trade_cadence_position_series(
+            raw_position,
+            risk_frame=risk_frame,
+            config=cadence_config,
+        )
+        cadence_blocked_days = int(((raw_position - position).abs() > 1e-8).sum())
     exec_position = position.shift(1).fillna(0.0)
     turnover = position.diff().abs().fillna(position.abs())
     strategy_returns = exec_position * returns - turnover * float(cost)
@@ -1832,7 +1938,7 @@ def backtest_prediction_strategy(
     buy_hold = close / close.iloc[0]
     return_pct = (float(equity.iloc[-1]) - 1.0) * 100.0
     bnh_return_pct = (float(buy_hold.iloc[-1]) - 1.0) * 100.0
-    return {
+    metrics: dict[str, Any] = {
         "return": round(return_pct, 10),
         "max_dd": round(abs(float(drawdown.min())) * 100.0, 10),
         "avg_pos": float(exec_position.mean()),
@@ -1841,6 +1947,10 @@ def backtest_prediction_strategy(
         "turnover": float(turnover.sum()),
         "trades": int((turnover > 1e-8).sum()),
     }
+    if cadence_config is not None:
+        metrics["trade_cadence"] = cadence_config.name
+        metrics["cadence_blocked_days"] = cadence_blocked_days
+    return metrics
 
 
 def _apply_portfolio_drawdown_guard(
@@ -1915,6 +2025,7 @@ def build_supervised_summary_payloads(
     cost: float = 0.0008,
     risk_frame: pd.DataFrame | None = None,
     risk_configs: Iterable[RiskAwarePositionConfig] = (),
+    cadence_configs: Iterable[RegimeTradeCadenceConfig] = (),
 ) -> list[dict[str, object]]:
     """Build runtime-summary-compatible payloads for supervised model screens."""
     close = close.astype(float).sort_index()
@@ -1926,6 +2037,7 @@ def build_supervised_summary_payloads(
     spec_by_name = {spec.name: spec for spec in quantbench_supervised_model_specs()}
     payloads = []
     configs: tuple[RiskAwarePositionConfig | None, ...] = (None, *tuple(risk_configs))
+    cadence_options: tuple[RegimeTradeCadenceConfig | None, ...] = (None, *tuple(cadence_configs))
     for name, pred in predictions.items():
         aligned_pred = pred.reindex(close.index)
         valid_pred = aligned_pred.dropna()
@@ -1935,44 +2047,54 @@ def build_supervised_summary_payloads(
         end = valid_pred.index.max()
         spec = spec_by_name.get(name)
         for risk_config in configs:
-            suffix = f"_{risk_config.name}" if risk_config is not None else ""
-            test_proxy = backtest_prediction_strategy(
-                close.loc[start:end],
-                aligned_pred.loc[start:end],
-                min_position=min_position,
-                max_position=max_position,
-                cost=cost,
-                risk_frame=risk_frame,
-                risk_config=risk_config,
-            )
-            slices: dict[str, dict[str, float]] = {}
-            for window_name, (window_start, window_end) in windows.items():
-                window_close = close.loc[window_start:window_end]
-                window_pred = aligned_pred.loc[window_start:window_end]
-                if len(window_close) < 2 or window_pred.dropna().empty:
-                    continue
-                slices[window_name] = backtest_prediction_strategy(
-                    window_close,
-                    window_pred,
+            for cadence_config in cadence_options:
+                suffix_parts = []
+                if risk_config is not None:
+                    suffix_parts.append(risk_config.name)
+                if cadence_config is not None:
+                    suffix_parts.append(cadence_config.name)
+                suffix = f"_{'_'.join(suffix_parts)}" if suffix_parts else ""
+                test_proxy = backtest_prediction_strategy(
+                    close.loc[start:end],
+                    aligned_pred.loc[start:end],
                     min_position=min_position,
                     max_position=max_position,
                     cost=cost,
                     risk_frame=risk_frame,
                     risk_config=risk_config,
+                    cadence_config=cadence_config,
                 )
-            payload = {
-                "profile": f"{profile_prefix}_{name}{suffix}",
-                "model_family": "quantbench_supervised",
-                "model_name": name,
-                "paper_family": spec.paper_family if spec else "custom",
-                "objective": spec.objective if spec else "custom",
-                "test_proxy": test_proxy,
-                "slices": slices,
-                "objective_metrics": dict(objective_metrics.get(name, {})),
-            }
-            if risk_config is not None:
-                payload["risk_overlay"] = risk_config.__dict__
-            payloads.append(payload)
+                slices: dict[str, dict[str, Any]] = {}
+                for window_name, (window_start, window_end) in windows.items():
+                    window_close = close.loc[window_start:window_end]
+                    window_pred = aligned_pred.loc[window_start:window_end]
+                    if len(window_close) < 2 or window_pred.dropna().empty:
+                        continue
+                    slices[window_name] = backtest_prediction_strategy(
+                        window_close,
+                        window_pred,
+                        min_position=min_position,
+                        max_position=max_position,
+                        cost=cost,
+                        risk_frame=risk_frame,
+                        risk_config=risk_config,
+                        cadence_config=cadence_config,
+                    )
+                payload = {
+                    "profile": f"{profile_prefix}_{name}{suffix}",
+                    "model_family": "quantbench_supervised",
+                    "model_name": name,
+                    "paper_family": spec.paper_family if spec else "custom",
+                    "objective": spec.objective if spec else "custom",
+                    "test_proxy": test_proxy,
+                    "slices": slices,
+                    "objective_metrics": dict(objective_metrics.get(name, {})),
+                }
+                if risk_config is not None:
+                    payload["risk_overlay"] = risk_config.__dict__
+                if cadence_config is not None:
+                    payload["trade_cadence"] = cadence_config.__dict__
+                payloads.append(payload)
     return payloads
 
 
@@ -2061,6 +2183,7 @@ def build_quantbench_supervised_report(
     max_position: float = 0.90,
     cost: float = 0.0008,
     risk_configs: Iterable[RiskAwarePositionConfig] | None = None,
+    cadence_configs: Iterable[RegimeTradeCadenceConfig] = (),
     windows: Mapping[str, tuple[str, str]] | None = None,
     rolling_enabled: bool = True,
     rolling_model_names: Iterable[str] = ("logistic_clf", "sequence_lag_ridge_mse"),
@@ -2135,6 +2258,7 @@ def build_quantbench_supervised_report(
         cost=cost,
         risk_frame=feature_frame,
         risk_configs=risk_configs,
+        cadence_configs=cadence_configs,
         windows=windows,
     )
     records = [
@@ -2182,6 +2306,7 @@ def build_quantbench_supervised_report(
             "feature_count": int(feature_frame.shape[1]),
             "feature_packs": list(feature_packs),
             "risk_overlays": [config.name for config in risk_configs],
+            "trade_cadences": [config.name for config in cadence_configs],
             "horizon": int(horizon),
             "model_names": list(predictions.keys()),
             "rolling_enabled": bool(rolling_enabled),
@@ -2226,6 +2351,7 @@ __all__ = [
     "QUANTBENCH_SUPERVISED_MODEL_SPECS",
     "SupervisedModelSpec",
     "RiskAwarePositionConfig",
+    "RegimeTradeCadenceConfig",
     "backtest_prediction_strategy",
     "build_quantbench_supervised_report",
     "build_supervised_summary_payloads",
@@ -2233,6 +2359,8 @@ __all__ = [
     "fit_quantbench_supervised_models",
     "prediction_rank_position_series",
     "quantbench_risk_overlay_configs",
+    "quantbench_trade_cadence_configs",
     "quantbench_supervised_model_specs",
+    "regime_trade_cadence_position_series",
     "risk_aware_position_series",
 ]
