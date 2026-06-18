@@ -1,0 +1,2970 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOXL 模型回测 Dashboard</title>
+  <style>
+    :root { color-scheme: light; --bg:#f7f8fa; --panel:#ffffff; --ink:#1f2933; --muted:#667085; --line:#d8dee8; --accent:#1b6b93; --warn:#8a4b0f; --good:#126b45; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); }
+    main { max-width: 1440px; margin: 0 auto; padding: 24px; }
+    header.page { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 18px; }
+    h1 { margin: 0 0 6px; font-size: 28px; font-weight: 700; letter-spacing: 0; }
+    h2 { margin: 0; font-size: 18px; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 14px; letter-spacing: 0; }
+    p { margin: 0; color: var(--muted); }
+    .toolbar { display: grid; grid-template-columns: repeat(5, minmax(150px, 1fr)); gap: 10px; padding: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
+    label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+    select { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 8px; }
+    .summary { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
+    .summary div, .model-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+    .summary div { padding: 12px; }
+    .summary span, .metrics span { color: var(--muted); font-size: 12px; }
+    .summary strong, .metrics strong { display: block; margin-top: 3px; font-size: 18px; }
+    .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; }
+    .model-card { padding: 14px; }
+    .model-card > header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+    .pill { display: inline-flex; align-items: center; min-height: 24px; border-radius: 999px; padding: 3px 8px; font-size: 12px; background: #eef2f7; color: var(--ink); }
+    .pill.proxy { background: #fff4df; color: var(--warn); }
+    .pill.native { background: #e8f5ee; color: var(--good); }
+    .pill.fidelity { background: #e7f2f8; color: var(--accent); }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+    .metrics div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    ul { margin: 0; padding-left: 18px; }
+    .feature-list li { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 5px; }
+    .muted { color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
+    th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
+    th:first-child, td:first-child { text-align: left; }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+  <main>
+    <header class="page">
+      <div>
+        <h1>SOXL 模型回测 Dashboard</h1>
+        <p>模型回测、regime 差异、fidelity 和 attribution 对比</p>
+      </div>
+      <p>matrix_card</p>
+    </header>
+    <section class="toolbar" aria-label="dashboard filters">
+      <label>模型<select id="model-filter"><option value="">全部</option><option value="gcn_mse__ic_weighted_composite">gcn_mse__ic_weighted_composite</option>
+<option value="gcn_mse__top_ic_factors">gcn_mse__top_ic_factors</option>
+<option value="ridge_mse__all_features">ridge_mse__all_features</option>
+<option value="ridge_mse__ic_weighted_composite">ridge_mse__ic_weighted_composite</option>
+<option value="ridge_mse__top_ic_factors">ridge_mse__top_ic_factors</option></select></label>
+      <label>Regime<select id="regime-filter"><option value="">全部</option><option value="bull">bull</option>
+<option value="downtrend">downtrend</option>
+<option value="neutral">neutral</option>
+<option value="stress">stress</option></select></label>
+      <label>Window<select id="window-filter"><option value="">全部</option><option value="test">test</option></select></label>
+      <label>Fidelity<select id="fidelity-filter"><option value="">全部</option><option value="native_library">native_library</option>
+<option value="proxy_feature_adapter">proxy_feature_adapter</option></select></label>
+      <label>Attribution<select id="attribution-filter"><option value="">全部</option><option value="soxl_soxx_relative_5d">soxl_soxx_relative_5d</option>
+<option value="soxx_return_1d">soxx_return_1d</option>
+<option value="soxx_return_5d">soxx_return_5d</option></select></label>
+    </section>
+    <section class="summary">
+      <div><span>模型卡片</span><strong>5</strong></div>
+      <div><span>基准模型</span><strong>ridge_mse__top_ic_factors</strong></div>
+      <div><span>Proxy 模型</span><strong>1</strong></div>
+      <div><span>Promotion Blocker</span><strong>1</strong></div>
+    </section>
+    <section class="model-grid">
+
+      <article class="model-card" data-model="ridge_mse__top_ic_factors" data-base-model="ridge_mse" data-fidelity="native_library">
+        <header>
+          <div>
+            <h2>ridge_mse__top_ic_factors</h2>
+            <p>ridge_mse / top_ic_factors</p>
+          </div>
+          <div class="badges">
+            <span class="pill fidelity">native_library</span>
+            <span class="pill native">native</span>
+          </div>
+        </header>
+        <section class="metrics">
+          <div><span>收益</span><strong>51.69%</strong></div>
+          <div><span>相对收益</span><strong>-10.46%</strong></div>
+          <div><span>回撤</span><strong>26.18%</strong></div>
+          <div><span>稳定性</span><strong>52.88</strong></div>
+        </section>
+        <section class="split">
+          <div>
+            <h3>归因特征</h3>
+            <ul class="feature-list"><li><span>soxx_return_5d</span><strong>0.917</strong></li>
+<li><span>soxl_soxx_relative_5d</span><strong>0.901</strong></li></ul>
+          </div>
+          <div>
+            <h3>诊断</h3>
+            <ul class="diagnostics"><li>all / all: 基准模型。</li>
+<li>regime / bull: 基准模型。</li>
+<li>regime / downtrend: 基准模型。</li>
+<li>regime / neutral: 基准模型。</li></ul>
+          </div>
+        </section>
+        <section>
+          <h3>Regime</h3>
+          <table>
+            <thead><tr><th>状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window=""><td>bull</td><td>64.05</td><td>-30.56</td><td>2.89</td><td>177.92</td></tr>
+<tr data-regime="downtrend" data-window=""><td>downtrend</td><td>71.42</td><td>-34.54</td><td>5.08</td><td>185.45</td></tr>
+<tr data-regime="neutral" data-window=""><td>neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window=""><td>stress</td><td>29.38</td><td>0.60</td><td>5.68</td><td>131.35</td></tr></tbody>
+          </table>
+        </section>
+        <section>
+          <h3>Window-Regime</h3>
+          <table class="window-regime">
+            <thead><tr><th>窗口 / 状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window="test"><td>test / bull</td><td>64.05</td><td>-30.56</td><td>2.89</td><td>177.92</td></tr>
+<tr data-regime="downtrend" data-window="test"><td>test / downtrend</td><td>71.42</td><td>-34.54</td><td>5.08</td><td>185.45</td></tr>
+<tr data-regime="neutral" data-window="test"><td>test / neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window="test"><td>test / stress</td><td>29.38</td><td>0.60</td><td>5.68</td><td>131.35</td></tr></tbody>
+          </table>
+        </section>
+      </article>
+
+
+      <article class="model-card proxy" data-model="gcn_mse__top_ic_factors" data-base-model="gcn_mse" data-fidelity="proxy_feature_adapter">
+        <header>
+          <div>
+            <h2>gcn_mse__top_ic_factors</h2>
+            <p>gcn_mse / top_ic_factors</p>
+          </div>
+          <div class="badges">
+            <span class="pill fidelity">proxy_feature_adapter</span>
+            <span class="pill proxy">proxy</span>
+          </div>
+        </header>
+        <section class="metrics">
+          <div><span>收益</span><strong>51.72%</strong></div>
+          <div><span>相对收益</span><strong>-10.43%</strong></div>
+          <div><span>回撤</span><strong>26.17%</strong></div>
+          <div><span>稳定性</span><strong>52.86</strong></div>
+        </section>
+        <section class="split">
+          <div>
+            <h3>归因特征</h3>
+            <ul class="feature-list"><li><span>soxx_return_5d</span><strong>0.622</strong></li>
+<li><span>soxl_soxx_relative_5d</span><strong>0.570</strong></li>
+<li><span>soxx_return_1d</span><strong>0.317</strong></li></ul>
+          </div>
+          <div>
+            <h3>诊断</h3>
+            <ul class="diagnostics"><li>all / all: 略强于基准：收益有改善，但仍需看稳定性和回撤。</li>
+<li>regime / bull: 略弱于基准：收益不足，需确认是否有低相关性或组合价值。</li>
+<li>regime / downtrend: 略弱于基准：收益不足，需确认是否有低相关性或组合价值。</li>
+<li>regime / neutral: 接近基准：没有明显分段优势。</li></ul>
+          </div>
+        </section>
+        <section>
+          <h3>Regime</h3>
+          <table>
+            <thead><tr><th>状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window=""><td>bull</td><td>64.02</td><td>-30.59</td><td>2.90</td><td>177.67</td></tr>
+<tr data-regime="downtrend" data-window=""><td>downtrend</td><td>71.40</td><td>-34.56</td><td>5.09</td><td>185.24</td></tr>
+<tr data-regime="neutral" data-window=""><td>neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window=""><td>stress</td><td>29.43</td><td>0.65</td><td>5.68</td><td>131.45</td></tr></tbody>
+          </table>
+        </section>
+        <section>
+          <h3>Window-Regime</h3>
+          <table class="window-regime">
+            <thead><tr><th>窗口 / 状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window="test"><td>test / bull</td><td>64.02</td><td>-30.59</td><td>2.90</td><td>177.67</td></tr>
+<tr data-regime="downtrend" data-window="test"><td>test / downtrend</td><td>71.40</td><td>-34.56</td><td>5.09</td><td>185.24</td></tr>
+<tr data-regime="neutral" data-window="test"><td>test / neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window="test"><td>test / stress</td><td>29.43</td><td>0.65</td><td>5.68</td><td>131.45</td></tr></tbody>
+          </table>
+        </section>
+      </article>
+
+
+      <article class="model-card proxy" data-model="gcn_mse__ic_weighted_composite" data-base-model="gcn_mse" data-fidelity="proxy_feature_adapter">
+        <header>
+          <div>
+            <h2>gcn_mse__ic_weighted_composite</h2>
+            <p>gcn_mse / ic_weighted_composite</p>
+          </div>
+          <div class="badges">
+            <span class="pill fidelity">proxy_feature_adapter</span>
+            <span class="pill proxy">proxy</span>
+          </div>
+        </header>
+        <section class="metrics">
+          <div><span>收益</span><strong>51.76%</strong></div>
+          <div><span>相对收益</span><strong>-10.39%</strong></div>
+          <div><span>回撤</span><strong>26.74%</strong></div>
+          <div><span>稳定性</span><strong>52.82</strong></div>
+        </section>
+        <section class="split">
+          <div>
+            <h3>归因特征</h3>
+            <ul class="feature-list"><li><span>soxx_return_5d</span><strong>0.622</strong></li>
+<li><span>soxl_soxx_relative_5d</span><strong>0.570</strong></li>
+<li><span>soxx_return_1d</span><strong>0.317</strong></li></ul>
+          </div>
+          <div>
+            <h3>诊断</h3>
+            <ul class="diagnostics"><li>all / all: 略强于基准：收益有改善，但仍需看稳定性和回撤。</li>
+<li>regime / bull: 强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。</li>
+<li>regime / downtrend: 强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。</li>
+<li>regime / neutral: 接近基准：没有明显分段优势。</li></ul>
+          </div>
+        </section>
+        <section>
+          <h3>Regime</h3>
+          <table>
+            <thead><tr><th>状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window=""><td>bull</td><td>65.40</td><td>-29.20</td><td>2.88</td><td>183.49</td></tr>
+<tr data-regime="downtrend" data-window=""><td>downtrend</td><td>72.39</td><td>-33.57</td><td>4.75</td><td>188.89</td></tr>
+<tr data-regime="neutral" data-window=""><td>neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window=""><td>stress</td><td>29.31</td><td>0.53</td><td>5.79</td><td>130.89</td></tr></tbody>
+          </table>
+        </section>
+        <section>
+          <h3>Window-Regime</h3>
+          <table class="window-regime">
+            <thead><tr><th>窗口 / 状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window="test"><td>test / bull</td><td>65.40</td><td>-29.20</td><td>2.88</td><td>183.49</td></tr>
+<tr data-regime="downtrend" data-window="test"><td>test / downtrend</td><td>72.39</td><td>-33.57</td><td>4.75</td><td>188.89</td></tr>
+<tr data-regime="neutral" data-window="test"><td>test / neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window="test"><td>test / stress</td><td>29.31</td><td>0.53</td><td>5.79</td><td>130.89</td></tr></tbody>
+          </table>
+        </section>
+      </article>
+
+
+      <article class="model-card" data-model="ridge_mse__ic_weighted_composite" data-base-model="ridge_mse" data-fidelity="native_library">
+        <header>
+          <div>
+            <h2>ridge_mse__ic_weighted_composite</h2>
+            <p>ridge_mse / ic_weighted_composite</p>
+          </div>
+          <div class="badges">
+            <span class="pill fidelity">native_library</span>
+            <span class="pill native">native</span>
+          </div>
+        </header>
+        <section class="metrics">
+          <div><span>收益</span><strong>51.74%</strong></div>
+          <div><span>相对收益</span><strong>-10.41%</strong></div>
+          <div><span>回撤</span><strong>26.74%</strong></div>
+          <div><span>稳定性</span><strong>52.82</strong></div>
+        </section>
+        <section class="split">
+          <div>
+            <h3>归因特征</h3>
+            <ul class="feature-list"><li><span>soxx_return_5d</span><strong>0.917</strong></li>
+<li><span>soxl_soxx_relative_5d</span><strong>0.901</strong></li></ul>
+          </div>
+          <div>
+            <h3>诊断</h3>
+            <ul class="diagnostics"><li>all / all: 略强于基准：收益有改善，但仍需看稳定性和回撤。</li>
+<li>regime / bull: 强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。</li>
+<li>regime / downtrend: 强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。</li>
+<li>regime / neutral: 接近基准：没有明显分段优势。</li></ul>
+          </div>
+        </section>
+        <section>
+          <h3>Regime</h3>
+          <table>
+            <thead><tr><th>状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window=""><td>bull</td><td>65.41</td><td>-29.19</td><td>2.88</td><td>183.56</td></tr>
+<tr data-regime="downtrend" data-window=""><td>downtrend</td><td>72.40</td><td>-33.56</td><td>4.75</td><td>188.96</td></tr>
+<tr data-regime="neutral" data-window=""><td>neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window=""><td>stress</td><td>29.28</td><td>0.50</td><td>5.79</td><td>130.84</td></tr></tbody>
+          </table>
+        </section>
+        <section>
+          <h3>Window-Regime</h3>
+          <table class="window-regime">
+            <thead><tr><th>窗口 / 状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window="test"><td>test / bull</td><td>65.41</td><td>-29.19</td><td>2.88</td><td>183.56</td></tr>
+<tr data-regime="downtrend" data-window="test"><td>test / downtrend</td><td>72.40</td><td>-33.56</td><td>4.75</td><td>188.96</td></tr>
+<tr data-regime="neutral" data-window="test"><td>test / neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window="test"><td>test / stress</td><td>29.28</td><td>0.50</td><td>5.79</td><td>130.84</td></tr></tbody>
+          </table>
+        </section>
+      </article>
+
+
+      <article class="model-card" data-model="ridge_mse__all_features" data-base-model="ridge_mse" data-fidelity="native_library">
+        <header>
+          <div>
+            <h2>ridge_mse__all_features</h2>
+            <p>ridge_mse / all_features</p>
+          </div>
+          <div class="badges">
+            <span class="pill fidelity">native_library</span>
+            <span class="pill native">native</span>
+          </div>
+        </header>
+        <section class="metrics">
+          <div><span>收益</span><strong>44.65%</strong></div>
+          <div><span>相对收益</span><strong>-17.50%</strong></div>
+          <div><span>回撤</span><strong>18.74%</strong></div>
+          <div><span>稳定性</span><strong>50.33</strong></div>
+        </section>
+        <section class="split">
+          <div>
+            <h3>归因特征</h3>
+            <ul class="feature-list"><li><span>soxx_return_5d</span><strong>0.917</strong></li>
+<li><span>soxl_soxx_relative_5d</span><strong>0.901</strong></li></ul>
+          </div>
+          <div>
+            <h3>诊断</h3>
+            <ul class="diagnostics"><li>all / all: 弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。</li>
+<li>regime / bull: 弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。</li>
+<li>regime / downtrend: 略强于基准：收益有改善，但仍需看稳定性和回撤。</li>
+<li>regime / neutral: 接近基准：没有明显分段优势。</li></ul>
+          </div>
+        </section>
+        <section>
+          <h3>Regime</h3>
+          <table>
+            <thead><tr><th>状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window=""><td>bull</td><td>23.08</td><td>-59.15</td><td>2.68</td><td>111.60</td></tr>
+<tr data-regime="downtrend" data-window=""><td>downtrend</td><td>45.56</td><td>-20.21</td><td>6.82</td><td>151.15</td></tr>
+<tr data-regime="neutral" data-window=""><td>neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window=""><td>stress</td><td>2.40</td><td>-30.37</td><td>5.76</td><td>12.07</td></tr></tbody>
+          </table>
+        </section>
+        <section>
+          <h3>Window-Regime</h3>
+          <table class="window-regime">
+            <thead><tr><th>窗口 / 状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr data-regime="bull" data-window="test"><td>test / bull</td><td>23.08</td><td>-59.15</td><td>2.68</td><td>111.60</td></tr>
+<tr data-regime="downtrend" data-window="test"><td>test / downtrend</td><td>45.56</td><td>-20.21</td><td>6.82</td><td>151.15</td></tr>
+<tr data-regime="neutral" data-window="test"><td>test / neutral</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td></tr>
+<tr data-regime="stress" data-window="test"><td>test / stress</td><td>2.40</td><td>-30.37</td><td>5.76</td><td>12.07</td></tr></tbody>
+          </table>
+        </section>
+      </article>
+
+    </section>
+  </main>
+  <script type="application/json" id="dashboard-view-model">{
+  "schema_version": "dashboard.view_model.v1",
+  "source_schema_version": "dashboard.model_matrix.v1",
+  "source_artifact_id": "matrix_card",
+  "filters_applied": {
+    "models": [],
+    "base_models": [],
+    "feature_sets": [],
+    "regimes": [],
+    "windows": [],
+    "paper_fidelities": [],
+    "attribution_features": []
+  },
+  "controls": {
+    "models": [
+      "gcn_mse__ic_weighted_composite",
+      "gcn_mse__top_ic_factors",
+      "ridge_mse__all_features",
+      "ridge_mse__ic_weighted_composite",
+      "ridge_mse__top_ic_factors"
+    ],
+    "base_models": [
+      "gcn_mse",
+      "ridge_mse"
+    ],
+    "feature_sets": [
+      "all_features",
+      "ic_weighted_composite",
+      "top_ic_factors"
+    ],
+    "regimes": [
+      "bull",
+      "downtrend",
+      "neutral",
+      "stress"
+    ],
+    "windows": [
+      "test"
+    ],
+    "paper_fidelities": [
+      "native_library",
+      "proxy_feature_adapter"
+    ],
+    "attribution_features": [
+      "soxl_soxx_relative_5d",
+      "soxx_return_1d",
+      "soxx_return_5d"
+    ]
+  },
+  "summary": {
+    "status": "feature_set_matrix_completed",
+    "base_model_count": 2,
+    "feature_set_count": 3,
+    "variant_count": 6,
+    "start": "2026-01-01",
+    "end": "2026-06-09",
+    "train_end": "2026-04-30",
+    "test_start": "2026-05-01",
+    "test_end": "2026-06-08",
+    "top_variant": "ridge_mse__top_ic_factors",
+    "adapter_status": "paper_strict_adapter",
+    "adapter_statuses": [
+      "paper_strict_adapter"
+    ],
+    "model_adapters": [
+      "gcn_feature_propagation_mse_v1",
+      "ridge_mse_v1"
+    ],
+    "model_fidelity": {
+      "schema_version": "model.fidelity.v1",
+      "model_count": 2,
+      "fidelity_counts": {
+        "native_library": 1,
+        "proxy_feature_adapter": 1
+      },
+      "proxy_models": [
+        "gcn_mse"
+      ],
+      "native_models": [
+        "ridge_mse"
+      ],
+      "promotion_blocker_count": 1
+    },
+    "analysis_layers": [
+      "regime_metrics",
+      "window_metrics",
+      "window_regime_metrics",
+      "qlib_risk_metrics",
+      "model_effect_deltas"
+    ],
+    "schema_version": "factor_feature_set_plan.v1",
+    "selection_source": "train_only_factor_ic",
+    "top_n": 3,
+    "min_abs_ic": 0.0,
+    "factor_count": 14,
+    "selected_factors": [
+      "realized_vol_21",
+      "vix_change_1d",
+      "drawdown_21"
+    ],
+    "composite_column": "ic_weighted_composite",
+    "feature_sets": [
+      {
+        "name": "all_features",
+        "feature_columns": [
+          "soxl_return_1d",
+          "soxx_return_1d",
+          "soxl_return_5d",
+          "soxx_return_5d",
+          "soxl_soxx_relative_5d",
+          "vix_level",
+          "vix_change_1d",
+          "intraday_range",
+          "volume_z_20",
+          "trend_5",
+          "trend_21",
+          "realized_vol_5",
+          "realized_vol_21",
+          "drawdown_21"
+        ],
+        "description": "原始 supervised 特征全集。"
+      },
+      {
+        "name": "top_ic_factors",
+        "feature_columns": [
+          "realized_vol_21",
+          "vix_change_1d",
+          "drawdown_21"
+        ],
+        "description": "仅使用训练集 IC 绝对值筛选出的候选因子。"
+      },
+      {
+        "name": "ic_weighted_composite",
+        "feature_columns": [
+          "ic_weighted_composite"
+        ],
+        "description": "使用训练集 IC 作为权重、训练集均值方差标准化后的组合因子。"
+      }
+    ],
+    "analysis_summary": {
+      "schema_version": "analysis.regime_window_effect.v1",
+      "baseline_model": "ridge_mse__top_ic_factors",
+      "model_count": 6,
+      "regime_count": 4,
+      "window_count": 1,
+      "window_regime_count": 4,
+      "segment_types": [
+        "all",
+        "regime",
+        "window",
+        "window_regime"
+      ],
+      "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+      "weakest_segments": [
+        {
+          "model": "gcn_mse__all_features",
+          "segment_type": "regime",
+          "segment": "stress",
+          "relative_return_pct_delta": -33.22352766045808,
+          "stability_score_delta": -113.74817546271493,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "model": "gcn_mse__all_features",
+          "segment_type": "window_regime",
+          "segment": "test::stress",
+          "relative_return_pct_delta": -33.22352766045808,
+          "stability_score_delta": -113.74817546271493,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "model": "gcn_mse__all_features",
+          "segment_type": "regime",
+          "segment": "bull",
+          "relative_return_pct_delta": -31.19652289165893,
+          "stability_score_delta": -73.29848647106868,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "model": "gcn_mse__all_features",
+          "segment_type": "window_regime",
+          "segment": "test::bull",
+          "relative_return_pct_delta": -31.19652289165893,
+          "stability_score_delta": -73.29848647106868,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "model": "ridge_mse__all_features",
+          "segment_type": "regime",
+          "segment": "stress",
+          "relative_return_pct_delta": -30.969022119893385,
+          "stability_score_delta": -119.27553857677016,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        }
+      ]
+    },
+    "note": "Compares the same model adapters across raw, IC-selected, and composite factor sets."
+  },
+  "model_fidelity": {
+    "schema_version": "model.fidelity.v1",
+    "model_count": 2,
+    "fidelity_counts": {
+      "native_library": 1,
+      "proxy_feature_adapter": 1
+    },
+    "proxy_models": [
+      "gcn_mse"
+    ],
+    "native_models": [
+      "ridge_mse"
+    ],
+    "promotion_blocker_count": 1
+  },
+  "comparison_table": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__top_ic_factors",
+      "base_model": "ridge_mse",
+      "feature_set": "top_ic_factors",
+      "return_pct": 51.68889425463847,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.458352598645632,
+      "max_drawdown_pct": 26.17632325678787,
+      "sharpe": 3.8153069361698657,
+      "avg_position": 0.7496923542352576,
+      "turnover": 2.1228598727860692,
+      "stability_score": 52.875839799780145
+    },
+    {
+      "rank": 2,
+      "model": "gcn_mse__top_ic_factors",
+      "base_model": "gcn_mse",
+      "feature_set": "top_ic_factors",
+      "return_pct": 51.71525641184807,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.431990441436035,
+      "max_drawdown_pct": 26.174098020891567,
+      "sharpe": 3.8156756348398457,
+      "avg_position": 0.7497642874598264,
+      "turnover": 2.1464782292222577,
+      "stability_score": 52.861433775687544
+    },
+    {
+      "rank": 3,
+      "model": "gcn_mse__ic_weighted_composite",
+      "base_model": "gcn_mse",
+      "feature_set": "ic_weighted_composite",
+      "return_pct": 51.75650077469487,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.390746078589231,
+      "max_drawdown_pct": 26.738647283401505,
+      "sharpe": 3.8002490336560584,
+      "avg_position": 0.7574349737756023,
+      "turnover": 1.756498001809383,
+      "stability_score": 52.8226860033848
+    },
+    {
+      "rank": 4,
+      "model": "ridge_mse__ic_weighted_composite",
+      "base_model": "ridge_mse",
+      "feature_set": "ic_weighted_composite",
+      "return_pct": 51.74170083427596,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.405546019008142,
+      "max_drawdown_pct": 26.737819055683897,
+      "sharpe": 3.7999302802996215,
+      "avg_position": 0.7574000589681009,
+      "turnover": 1.7482494468768703,
+      "stability_score": 52.822230923913565
+    },
+    {
+      "rank": 5,
+      "model": "ridge_mse__all_features",
+      "base_model": "ridge_mse",
+      "feature_set": "all_features",
+      "return_pct": 44.64845265647697,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -17.498794196807133,
+      "max_drawdown_pct": 18.743499158202116,
+      "sharpe": 4.202315904364815,
+      "avg_position": 0.5980215255799916,
+      "turnover": 6.4584152761043425,
+      "stability_score": 50.32540720016378
+    }
+  ],
+  "model_cards": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__top_ic_factors",
+      "base_model": "ridge_mse",
+      "feature_set": "top_ic_factors",
+      "return_pct": 51.68889425463847,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.458352598645632,
+      "max_drawdown_pct": 26.17632325678787,
+      "sharpe": 3.8153069361698657,
+      "avg_position": 0.7496923542352576,
+      "turnover": 2.1228598727860692,
+      "stability_score": 52.875839799780145,
+      "paper_fidelity": "native_library",
+      "proxy_model": false,
+      "promotion_blocker": "nan",
+      "top_attribution_features": [
+        {
+          "model": "ridge_mse",
+          "feature": "soxx_return_5d",
+          "normalized_importance": 0.9173314193384712
+        },
+        {
+          "model": "ridge_mse",
+          "feature": "soxl_soxx_relative_5d",
+          "normalized_importance": 0.9011480800640056
+        }
+      ],
+      "regime_metrics": [
+        {
+          "model": "ridge_mse__top_ic_factors",
+          "regime": "bull",
+          "return_pct": 64.04671694108973,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -30.556501704859173,
+          "max_drawdown_pct": 2.892347580991994,
+          "sharpe": 11.892929883693732,
+          "avg_position": 0.782702755947092,
+          "turnover": 0.7196929092579127,
+          "stability_score": 177.92119548327122
+        },
+        {
+          "model": "ridge_mse__top_ic_factors",
+          "regime": "downtrend",
+          "return_pct": 71.42343057558884,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -34.53501216423636,
+          "max_drawdown_pct": 5.0793249249422745,
+          "sharpe": 12.142959273316656,
+          "avg_position": 0.7190465619206627,
+          "turnover": 0.5279660010651422,
+          "stability_score": 185.44793515044725
+        },
+        {
+          "model": "ridge_mse__top_ic_factors",
+          "regime": "neutral",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7385317044162778,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "model": "ridge_mse__top_ic_factors",
+          "regime": "stress",
+          "return_pct": 29.382705236356287,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.5972201391881455,
+          "max_drawdown_pct": 5.683836268363162,
+          "sharpe": 11.081913970132268,
+          "avg_position": 0.7090015489887165,
+          "turnover": 0.8752009624630142,
+          "stability_score": 131.346647677299
+        }
+      ],
+      "window_regime_metrics": [
+        {
+          "window": "test",
+          "regime": "bull",
+          "segment": "test::bull",
+          "model": "ridge_mse__top_ic_factors",
+          "return_pct": 64.04671694108973,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -30.556501704859173,
+          "max_drawdown_pct": 2.892347580991994,
+          "sharpe": 11.892929883693732,
+          "avg_position": 0.782702755947092,
+          "turnover": 0.7196929092579127,
+          "stability_score": 177.92119548327122
+        },
+        {
+          "window": "test",
+          "regime": "downtrend",
+          "segment": "test::downtrend",
+          "model": "ridge_mse__top_ic_factors",
+          "return_pct": 71.42343057558884,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -34.53501216423636,
+          "max_drawdown_pct": 5.0793249249422745,
+          "sharpe": 12.142959273316656,
+          "avg_position": 0.7190465619206627,
+          "turnover": 0.5279660010651422,
+          "stability_score": 185.44793515044725
+        },
+        {
+          "window": "test",
+          "regime": "neutral",
+          "segment": "test::neutral",
+          "model": "ridge_mse__top_ic_factors",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7385317044162778,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "window": "test",
+          "regime": "stress",
+          "segment": "test::stress",
+          "model": "ridge_mse__top_ic_factors",
+          "return_pct": 29.382705236356287,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.5972201391881455,
+          "max_drawdown_pct": 5.683836268363162,
+          "sharpe": 11.081913970132268,
+          "avg_position": 0.7090015489887165,
+          "turnover": 0.8752009624630142,
+          "stability_score": 131.346647677299
+        }
+      ],
+      "diagnostics": [
+        {
+          "segment_type": "all",
+          "segment": "all",
+          "window": NaN,
+          "regime": NaN,
+          "model": "ridge_mse__top_ic_factors",
+          "rank": 1.0,
+          "return_pct": 51.68889425463847,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -10.458352598645632,
+          "max_drawdown_pct": 26.17632325678787,
+          "sharpe": 3.8153069361698657,
+          "avg_position": 0.7496923542352576,
+          "turnover": 2.1228598727860692,
+          "stability_score": 52.875839799780145,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "bull",
+          "window": NaN,
+          "regime": "bull",
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 64.04671694108973,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -30.556501704859173,
+          "max_drawdown_pct": 2.892347580991994,
+          "sharpe": 11.892929883693732,
+          "avg_position": 0.782702755947092,
+          "turnover": 0.7196929092579127,
+          "stability_score": 177.92119548327122,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "downtrend",
+          "window": NaN,
+          "regime": "downtrend",
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 71.42343057558884,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -34.53501216423636,
+          "max_drawdown_pct": 5.0793249249422745,
+          "sharpe": 12.142959273316656,
+          "avg_position": 0.7190465619206627,
+          "turnover": 0.5279660010651422,
+          "stability_score": 185.44793515044725,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "neutral",
+          "window": NaN,
+          "regime": "neutral",
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7385317044162778,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "stress",
+          "window": NaN,
+          "regime": "stress",
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 29.382705236356287,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.5972201391881455,
+          "max_drawdown_pct": 5.683836268363162,
+          "sharpe": 11.081913970132268,
+          "avg_position": 0.7090015489887165,
+          "turnover": 0.8752009624630142,
+          "stability_score": 131.346647677299,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "window",
+          "segment": "test",
+          "window": "test",
+          "regime": NaN,
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 51.68889425463847,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -10.458352598645632,
+          "max_drawdown_pct": 26.17632325678787,
+          "sharpe": 3.8153069361698657,
+          "avg_position": 0.7496923542352576,
+          "turnover": 2.1228598727860692,
+          "stability_score": 52.875839799780145,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::bull",
+          "window": "test",
+          "regime": "bull",
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 64.04671694108973,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -30.556501704859173,
+          "max_drawdown_pct": 2.892347580991994,
+          "sharpe": 11.892929883693732,
+          "avg_position": 0.782702755947092,
+          "turnover": 0.7196929092579127,
+          "stability_score": 177.92119548327122,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::downtrend",
+          "window": "test",
+          "regime": "downtrend",
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 71.42343057558884,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -34.53501216423636,
+          "max_drawdown_pct": 5.0793249249422745,
+          "sharpe": 12.142959273316656,
+          "avg_position": 0.7190465619206627,
+          "turnover": 0.5279660010651422,
+          "stability_score": 185.44793515044725,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::neutral",
+          "window": "test",
+          "regime": "neutral",
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7385317044162778,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::stress",
+          "window": "test",
+          "regime": "stress",
+          "model": "ridge_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 29.382705236356287,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.5972201391881455,
+          "max_drawdown_pct": 5.683836268363162,
+          "sharpe": 11.081913970132268,
+          "avg_position": 0.7090015489887165,
+          "turnover": 0.8752009624630142,
+          "stability_score": 131.346647677299,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": 0.0,
+          "diagnosis": "基准模型。"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "model": "gcn_mse__top_ic_factors",
+      "base_model": "gcn_mse",
+      "feature_set": "top_ic_factors",
+      "return_pct": 51.71525641184807,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.431990441436035,
+      "max_drawdown_pct": 26.174098020891567,
+      "sharpe": 3.8156756348398457,
+      "avg_position": 0.7497642874598264,
+      "turnover": 2.1464782292222577,
+      "stability_score": 52.861433775687544,
+      "paper_fidelity": "proxy_feature_adapter",
+      "proxy_model": true,
+      "promotion_blocker": "Requires full paper-fidelity architecture replacement before production promotion.",
+      "top_attribution_features": [
+        {
+          "model": "gcn_mse",
+          "feature": "soxx_return_5d",
+          "normalized_importance": 0.6224231933249113
+        },
+        {
+          "model": "gcn_mse",
+          "feature": "soxl_soxx_relative_5d",
+          "normalized_importance": 0.5700639291128791
+        },
+        {
+          "model": "gcn_mse",
+          "feature": "soxx_return_1d",
+          "normalized_importance": 0.3169272725614991
+        }
+      ],
+      "regime_metrics": [
+        {
+          "model": "gcn_mse__top_ic_factors",
+          "regime": "bull",
+          "return_pct": 64.01734735166697,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -30.58587129428193,
+          "max_drawdown_pct": 2.896217510012234,
+          "sharpe": 11.873218148903495,
+          "avg_position": 0.7832734105919216,
+          "turnover": 0.7280313553353801,
+          "stability_score": 177.6731942425159
+        },
+        {
+          "model": "gcn_mse__top_ic_factors",
+          "regime": "downtrend",
+          "return_pct": 71.39553420736262,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -34.562908532462586,
+          "max_drawdown_pct": 5.093932971186865,
+          "sharpe": 12.127743133647046,
+          "avg_position": 0.7188017262861666,
+          "turnover": 0.5347126915971715,
+          "stability_score": 185.2361239466551
+        },
+        {
+          "model": "gcn_mse__top_ic_factors",
+          "regime": "neutral",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7387355204613644,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "model": "gcn_mse__top_ic_factors",
+          "regime": "stress",
+          "return_pct": 29.43452605190955,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.6490409547414089,
+          "max_drawdown_pct": 5.6831838362351945,
+          "sharpe": 11.088433714447532,
+          "avg_position": 0.7081939063591952,
+          "turnover": 0.8837341822897061,
+          "stability_score": 131.4474150365115
+        }
+      ],
+      "window_regime_metrics": [
+        {
+          "window": "test",
+          "regime": "bull",
+          "segment": "test::bull",
+          "model": "gcn_mse__top_ic_factors",
+          "return_pct": 64.01734735166697,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -30.58587129428193,
+          "max_drawdown_pct": 2.896217510012234,
+          "sharpe": 11.873218148903495,
+          "avg_position": 0.7832734105919216,
+          "turnover": 0.7280313553353801,
+          "stability_score": 177.6731942425159
+        },
+        {
+          "window": "test",
+          "regime": "downtrend",
+          "segment": "test::downtrend",
+          "model": "gcn_mse__top_ic_factors",
+          "return_pct": 71.39553420736262,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -34.562908532462586,
+          "max_drawdown_pct": 5.093932971186865,
+          "sharpe": 12.127743133647046,
+          "avg_position": 0.7188017262861666,
+          "turnover": 0.5347126915971715,
+          "stability_score": 185.2361239466551
+        },
+        {
+          "window": "test",
+          "regime": "neutral",
+          "segment": "test::neutral",
+          "model": "gcn_mse__top_ic_factors",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7387355204613644,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "window": "test",
+          "regime": "stress",
+          "segment": "test::stress",
+          "model": "gcn_mse__top_ic_factors",
+          "return_pct": 29.43452605190955,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.6490409547414089,
+          "max_drawdown_pct": 5.6831838362351945,
+          "sharpe": 11.088433714447532,
+          "avg_position": 0.7081939063591952,
+          "turnover": 0.8837341822897061,
+          "stability_score": 131.4474150365115
+        }
+      ],
+      "diagnostics": [
+        {
+          "segment_type": "all",
+          "segment": "all",
+          "window": NaN,
+          "regime": NaN,
+          "model": "gcn_mse__top_ic_factors",
+          "rank": 2.0,
+          "return_pct": 51.71525641184807,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -10.431990441436035,
+          "max_drawdown_pct": 26.174098020891567,
+          "sharpe": 3.8156756348398457,
+          "avg_position": 0.7497642874598264,
+          "turnover": 2.1464782292222577,
+          "stability_score": 52.861433775687544,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": 0.0263621572095971,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": 0.0263621572095971,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": -0.0022252358963044,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": 0.00036869866998,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": 0.0236183564361884,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": -0.0144060240926009,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "bull",
+          "window": NaN,
+          "regime": "bull",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 64.01734735166697,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -30.58587129428193,
+          "max_drawdown_pct": 2.896217510012234,
+          "sharpe": 11.873218148903495,
+          "avg_position": 0.7832734105919216,
+          "turnover": 0.7280313553353801,
+          "stability_score": 177.6731942425159,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": -0.0293695894227568,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": -0.0293695894227568,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": 0.0038699290202393,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": -0.0197117347902366,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": 0.0083384460774673,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": -0.2480012407553147,
+          "diagnosis": "略弱于基准：收益不足，需确认是否有低相关性或组合价值。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "downtrend",
+          "window": NaN,
+          "regime": "downtrend",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 71.39553420736262,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -34.562908532462586,
+          "max_drawdown_pct": 5.093932971186865,
+          "sharpe": 12.127743133647046,
+          "avg_position": 0.7188017262861666,
+          "turnover": 0.5347126915971715,
+          "stability_score": 185.2361239466551,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": -0.0278963682262229,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": -0.0278963682262229,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": 0.0146080462445903,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": -0.0152161396696097,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": 0.0067466905320292,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": -0.2118112037921093,
+          "diagnosis": "略弱于基准：收益不足，需确认是否有低相关性或组合价值。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "neutral",
+          "window": NaN,
+          "regime": "neutral",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7387355204613644,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "接近基准：没有明显分段优势。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "stress",
+          "window": NaN,
+          "regime": "stress",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 29.43452605190955,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.6490409547414089,
+          "max_drawdown_pct": 5.6831838362351945,
+          "sharpe": 11.088433714447532,
+          "avg_position": 0.7081939063591952,
+          "turnover": 0.8837341822897061,
+          "stability_score": 131.4474150365115,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": 0.0518208155532633,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": 0.0518208155532633,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": -0.0006524321279677,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": 0.0065197443152644,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": 0.0085332198266919,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": 0.1007673592125115,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "window",
+          "segment": "test",
+          "window": "test",
+          "regime": NaN,
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 51.71525641184807,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -10.431990441436035,
+          "max_drawdown_pct": 26.174098020891567,
+          "sharpe": 3.8156756348398457,
+          "avg_position": 0.7497642874598264,
+          "turnover": 2.1464782292222577,
+          "stability_score": 52.861433775687544,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": 0.0263621572095971,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": 0.0263621572095971,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": -0.0022252358963044,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": 0.00036869866998,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": 0.0236183564361884,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": -0.0144060240926009,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::bull",
+          "window": "test",
+          "regime": "bull",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 64.01734735166697,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -30.58587129428193,
+          "max_drawdown_pct": 2.896217510012234,
+          "sharpe": 11.873218148903495,
+          "avg_position": 0.7832734105919216,
+          "turnover": 0.7280313553353801,
+          "stability_score": 177.6731942425159,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": -0.0293695894227568,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": -0.0293695894227568,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": 0.0038699290202393,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": -0.0197117347902366,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": 0.0083384460774673,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": -0.2480012407553147,
+          "diagnosis": "略弱于基准：收益不足，需确认是否有低相关性或组合价值。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::downtrend",
+          "window": "test",
+          "regime": "downtrend",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 71.39553420736262,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -34.562908532462586,
+          "max_drawdown_pct": 5.093932971186865,
+          "sharpe": 12.127743133647046,
+          "avg_position": 0.7188017262861666,
+          "turnover": 0.5347126915971715,
+          "stability_score": 185.2361239466551,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": -0.0278963682262229,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": -0.0278963682262229,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": 0.0146080462445903,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": -0.0152161396696097,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": 0.0067466905320292,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": -0.2118112037921093,
+          "diagnosis": "略弱于基准：收益不足，需确认是否有低相关性或组合价值。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::neutral",
+          "window": "test",
+          "regime": "neutral",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7387355204613644,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "接近基准：没有明显分段优势。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::stress",
+          "window": "test",
+          "regime": "stress",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 29.43452605190955,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.6490409547414089,
+          "max_drawdown_pct": 5.6831838362351945,
+          "sharpe": 11.088433714447532,
+          "avg_position": 0.7081939063591952,
+          "turnover": 0.8837341822897061,
+          "stability_score": 131.4474150365115,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": 0.0518208155532633,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": 0.0518208155532633,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": -0.0006524321279677,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": 0.0065197443152644,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": 0.0085332198266919,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": 0.1007673592125115,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "model": "gcn_mse__ic_weighted_composite",
+      "base_model": "gcn_mse",
+      "feature_set": "ic_weighted_composite",
+      "return_pct": 51.75650077469487,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.390746078589231,
+      "max_drawdown_pct": 26.738647283401505,
+      "sharpe": 3.8002490336560584,
+      "avg_position": 0.7574349737756023,
+      "turnover": 1.756498001809383,
+      "stability_score": 52.8226860033848,
+      "paper_fidelity": "proxy_feature_adapter",
+      "proxy_model": true,
+      "promotion_blocker": "Requires full paper-fidelity architecture replacement before production promotion.",
+      "top_attribution_features": [
+        {
+          "model": "gcn_mse",
+          "feature": "soxx_return_5d",
+          "normalized_importance": 0.6224231933249113
+        },
+        {
+          "model": "gcn_mse",
+          "feature": "soxl_soxx_relative_5d",
+          "normalized_importance": 0.5700639291128791
+        },
+        {
+          "model": "gcn_mse",
+          "feature": "soxx_return_1d",
+          "normalized_importance": 0.3169272725614991
+        }
+      ],
+      "regime_metrics": [
+        {
+          "model": "gcn_mse__ic_weighted_composite",
+          "regime": "bull",
+          "return_pct": 65.40222823642945,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -29.20099040951945,
+          "max_drawdown_pct": 2.883172905211162,
+          "sharpe": 12.284242553576156,
+          "avg_position": 0.7794056327574512,
+          "turnover": 0.5769838720983698,
+          "stability_score": 183.4867198964803
+        },
+        {
+          "model": "gcn_mse__ic_weighted_composite",
+          "regime": "downtrend",
+          "return_pct": 72.38922282165208,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -33.56921991817312,
+          "max_drawdown_pct": 4.750617720271311,
+          "sharpe": 12.32435700744077,
+          "avg_position": 0.7279579085993131,
+          "turnover": 0.4042752476393397,
+          "stability_score": 188.88597025044197
+        },
+        {
+          "model": "gcn_mse__ic_weighted_composite",
+          "regime": "neutral",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7210398038011495,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "model": "gcn_mse__ic_weighted_composite",
+          "regime": "stress",
+          "return_pct": 29.311078006721218,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.5255929095530725,
+          "max_drawdown_pct": 5.787468525456596,
+          "sharpe": 11.035951484799028,
+          "avg_position": 0.7488581856644914,
+          "turnover": 0.7752388820716737,
+          "stability_score": 130.8857794337474
+        }
+      ],
+      "window_regime_metrics": [
+        {
+          "window": "test",
+          "regime": "bull",
+          "segment": "test::bull",
+          "model": "gcn_mse__ic_weighted_composite",
+          "return_pct": 65.40222823642945,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -29.20099040951945,
+          "max_drawdown_pct": 2.883172905211162,
+          "sharpe": 12.284242553576156,
+          "avg_position": 0.7794056327574512,
+          "turnover": 0.5769838720983698,
+          "stability_score": 183.4867198964803
+        },
+        {
+          "window": "test",
+          "regime": "downtrend",
+          "segment": "test::downtrend",
+          "model": "gcn_mse__ic_weighted_composite",
+          "return_pct": 72.38922282165208,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -33.56921991817312,
+          "max_drawdown_pct": 4.750617720271311,
+          "sharpe": 12.32435700744077,
+          "avg_position": 0.7279579085993131,
+          "turnover": 0.4042752476393397,
+          "stability_score": 188.88597025044197
+        },
+        {
+          "window": "test",
+          "regime": "neutral",
+          "segment": "test::neutral",
+          "model": "gcn_mse__ic_weighted_composite",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7210398038011495,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "window": "test",
+          "regime": "stress",
+          "segment": "test::stress",
+          "model": "gcn_mse__ic_weighted_composite",
+          "return_pct": 29.311078006721218,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.5255929095530725,
+          "max_drawdown_pct": 5.787468525456596,
+          "sharpe": 11.035951484799028,
+          "avg_position": 0.7488581856644914,
+          "turnover": 0.7752388820716737,
+          "stability_score": 130.8857794337474
+        }
+      ],
+      "diagnostics": [
+        {
+          "segment_type": "all",
+          "segment": "all",
+          "window": NaN,
+          "regime": NaN,
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": 3.0,
+          "return_pct": 51.75650077469487,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -10.390746078589231,
+          "max_drawdown_pct": 26.738647283401505,
+          "sharpe": 3.8002490336560584,
+          "avg_position": 0.7574349737756023,
+          "turnover": 1.756498001809383,
+          "stability_score": 52.8226860033848,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": 0.0676065200564011,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": 0.0676065200564011,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": 0.5623240266136342,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": -0.0150579025138068,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": -0.3663618709766862,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": -0.0531537963953425,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "bull",
+          "window": NaN,
+          "regime": "bull",
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 65.40222823642945,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -29.20099040951945,
+          "max_drawdown_pct": 2.883172905211162,
+          "sharpe": 12.284242553576156,
+          "avg_position": 0.7794056327574512,
+          "turnover": 0.5769838720983698,
+          "stability_score": 183.4867198964803,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": 1.355511295339724,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": 1.355511295339724,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": -0.0091746757808319,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": 0.3913126698824225,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": -0.1427090371595429,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": 5.56552441320909,
+          "diagnosis": "强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "downtrend",
+          "window": NaN,
+          "regime": "downtrend",
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 72.38922282165208,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -33.56921991817312,
+          "max_drawdown_pct": 4.750617720271311,
+          "sharpe": 12.32435700744077,
+          "avg_position": 0.7279579085993131,
+          "turnover": 0.4042752476393397,
+          "stability_score": 188.88597025044197,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": 0.9657922460632448,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": 0.9657922460632448,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": -0.3287072046709633,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": 0.1813977341241148,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": -0.1236907534258024,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": 3.438035099994721,
+          "diagnosis": "强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "neutral",
+          "window": NaN,
+          "regime": "neutral",
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7210398038011495,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "接近基准：没有明显分段优势。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "stress",
+          "window": NaN,
+          "regime": "stress",
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 29.311078006721218,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.5255929095530725,
+          "max_drawdown_pct": 5.787468525456596,
+          "sharpe": 11.035951484799028,
+          "avg_position": 0.7488581856644914,
+          "turnover": 0.7752388820716737,
+          "stability_score": 130.8857794337474,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": -0.071627229635073,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": -0.071627229635073,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": 0.1036322570934338,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": -0.0459624853332414,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": -0.0999620803913404,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": -0.4608682435516016,
+          "diagnosis": "略弱于基准：收益不足，需确认是否有低相关性或组合价值。"
+        },
+        {
+          "segment_type": "window",
+          "segment": "test",
+          "window": "test",
+          "regime": NaN,
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 51.75650077469487,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -10.390746078589231,
+          "max_drawdown_pct": 26.738647283401505,
+          "sharpe": 3.8002490336560584,
+          "avg_position": 0.7574349737756023,
+          "turnover": 1.756498001809383,
+          "stability_score": 52.8226860033848,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": 0.0676065200564011,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": 0.0676065200564011,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": 0.5623240266136342,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": -0.0150579025138068,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": -0.3663618709766862,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": -0.0531537963953425,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::bull",
+          "window": "test",
+          "regime": "bull",
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 65.40222823642945,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -29.20099040951945,
+          "max_drawdown_pct": 2.883172905211162,
+          "sharpe": 12.284242553576156,
+          "avg_position": 0.7794056327574512,
+          "turnover": 0.5769838720983698,
+          "stability_score": 183.4867198964803,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": 1.355511295339724,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": 1.355511295339724,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": -0.0091746757808319,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": 0.3913126698824225,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": -0.1427090371595429,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": 5.56552441320909,
+          "diagnosis": "强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::downtrend",
+          "window": "test",
+          "regime": "downtrend",
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 72.38922282165208,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -33.56921991817312,
+          "max_drawdown_pct": 4.750617720271311,
+          "sharpe": 12.32435700744077,
+          "avg_position": 0.7279579085993131,
+          "turnover": 0.4042752476393397,
+          "stability_score": 188.88597025044197,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": 0.9657922460632448,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": 0.9657922460632448,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": -0.3287072046709633,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": 0.1813977341241148,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": -0.1236907534258024,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": 3.438035099994721,
+          "diagnosis": "强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::neutral",
+          "window": "test",
+          "regime": "neutral",
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7210398038011495,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "接近基准：没有明显分段优势。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::stress",
+          "window": "test",
+          "regime": "stress",
+          "model": "gcn_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 29.311078006721218,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.5255929095530725,
+          "max_drawdown_pct": 5.787468525456596,
+          "sharpe": 11.035951484799028,
+          "avg_position": 0.7488581856644914,
+          "turnover": 0.7752388820716737,
+          "stability_score": 130.8857794337474,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": -0.071627229635073,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": -0.071627229635073,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": 0.1036322570934338,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": -0.0459624853332414,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": -0.0999620803913404,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": -0.4608682435516016,
+          "diagnosis": "略弱于基准：收益不足，需确认是否有低相关性或组合价值。"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "model": "ridge_mse__ic_weighted_composite",
+      "base_model": "ridge_mse",
+      "feature_set": "ic_weighted_composite",
+      "return_pct": 51.74170083427596,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.405546019008142,
+      "max_drawdown_pct": 26.737819055683897,
+      "sharpe": 3.7999302802996215,
+      "avg_position": 0.7574000589681009,
+      "turnover": 1.7482494468768703,
+      "stability_score": 52.822230923913565,
+      "paper_fidelity": "native_library",
+      "proxy_model": false,
+      "promotion_blocker": "nan",
+      "top_attribution_features": [
+        {
+          "model": "ridge_mse",
+          "feature": "soxx_return_5d",
+          "normalized_importance": 0.9173314193384712
+        },
+        {
+          "model": "ridge_mse",
+          "feature": "soxl_soxx_relative_5d",
+          "normalized_importance": 0.9011480800640056
+        }
+      ],
+      "regime_metrics": [
+        {
+          "model": "ridge_mse__ic_weighted_composite",
+          "regime": "bull",
+          "return_pct": 65.41189448502949,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -29.191324160919407,
+          "max_drawdown_pct": 2.881815994465109,
+          "sharpe": 12.289885614500852,
+          "avg_position": 0.7792675432310896,
+          "turnover": 0.5742743425917749,
+          "stability_score": 183.55993195177305
+        },
+        {
+          "model": "ridge_mse__ic_weighted_composite",
+          "regime": "downtrend",
+          "return_pct": 72.40169365292131,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -33.55674908690389,
+          "max_drawdown_pct": 4.747910086127338,
+          "sharpe": 12.32947236617645,
+          "avg_position": 0.7280614187664518,
+          "turnover": 0.4023767617972991,
+          "stability_score": 188.95677618343203
+        },
+        {
+          "model": "ridge_mse__ic_weighted_composite",
+          "regime": "neutral",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7211758015472082,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "model": "ridge_mse__ic_weighted_composite",
+          "regime": "stress",
+          "return_pct": 29.284978283977185,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.4994931868090404,
+          "max_drawdown_pct": 5.786955472785992,
+          "sharpe": 11.032887976728473,
+          "avg_position": 0.7488635476508184,
+          "turnover": 0.7715983424877965,
+          "stability_score": 130.83696702530384
+        }
+      ],
+      "window_regime_metrics": [
+        {
+          "window": "test",
+          "regime": "bull",
+          "segment": "test::bull",
+          "model": "ridge_mse__ic_weighted_composite",
+          "return_pct": 65.41189448502949,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -29.191324160919407,
+          "max_drawdown_pct": 2.881815994465109,
+          "sharpe": 12.289885614500852,
+          "avg_position": 0.7792675432310896,
+          "turnover": 0.5742743425917749,
+          "stability_score": 183.55993195177305
+        },
+        {
+          "window": "test",
+          "regime": "downtrend",
+          "segment": "test::downtrend",
+          "model": "ridge_mse__ic_weighted_composite",
+          "return_pct": 72.40169365292131,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -33.55674908690389,
+          "max_drawdown_pct": 4.747910086127338,
+          "sharpe": 12.32947236617645,
+          "avg_position": 0.7280614187664518,
+          "turnover": 0.4023767617972991,
+          "stability_score": 188.95677618343203
+        },
+        {
+          "window": "test",
+          "regime": "neutral",
+          "segment": "test::neutral",
+          "model": "ridge_mse__ic_weighted_composite",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7211758015472082,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "window": "test",
+          "regime": "stress",
+          "segment": "test::stress",
+          "model": "ridge_mse__ic_weighted_composite",
+          "return_pct": 29.284978283977185,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.4994931868090404,
+          "max_drawdown_pct": 5.786955472785992,
+          "sharpe": 11.032887976728473,
+          "avg_position": 0.7488635476508184,
+          "turnover": 0.7715983424877965,
+          "stability_score": 130.83696702530384
+        }
+      ],
+      "diagnostics": [
+        {
+          "segment_type": "all",
+          "segment": "all",
+          "window": NaN,
+          "regime": NaN,
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": 4.0,
+          "return_pct": 51.74170083427596,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -10.405546019008142,
+          "max_drawdown_pct": 26.737819055683897,
+          "sharpe": 3.7999302802996215,
+          "avg_position": 0.7574000589681009,
+          "turnover": 1.7482494468768703,
+          "stability_score": 52.822230923913565,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": 0.0528065796374903,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": 0.0528065796374903,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": 0.5614957988960256,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": -0.0153766558702437,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": -0.3746104259091989,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": -0.0536088758665798,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "bull",
+          "window": NaN,
+          "regime": "bull",
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 65.41189448502949,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -29.191324160919407,
+          "max_drawdown_pct": 2.881815994465109,
+          "sharpe": 12.289885614500852,
+          "avg_position": 0.7792675432310896,
+          "turnover": 0.5742743425917749,
+          "stability_score": 183.55993195177305,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": 1.365177543939765,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": 1.365177543939765,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": -0.0105315865268851,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": 0.3969557308071199,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": -0.1454185666661378,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": 5.638736468501833,
+          "diagnosis": "强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "downtrend",
+          "window": NaN,
+          "regime": "downtrend",
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 72.40169365292131,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -33.55674908690389,
+          "max_drawdown_pct": 4.747910086127338,
+          "sharpe": 12.32947236617645,
+          "avg_position": 0.7280614187664518,
+          "turnover": 0.4023767617972991,
+          "stability_score": 188.95677618343203,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": 0.9782630773324712,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": 0.9782630773324712,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": -0.3314148388149363,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": 0.1865130928597942,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": -0.1255892392678431,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": 3.508841032984776,
+          "diagnosis": "强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "neutral",
+          "window": NaN,
+          "regime": "neutral",
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7211758015472082,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "接近基准：没有明显分段优势。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "stress",
+          "window": NaN,
+          "regime": "stress",
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 29.284978283977185,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.4994931868090404,
+          "max_drawdown_pct": 5.786955472785992,
+          "sharpe": 11.032887976728473,
+          "avg_position": 0.7488635476508184,
+          "turnover": 0.7715983424877965,
+          "stability_score": 130.83696702530384,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": -0.0977269523791051,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": -0.0977269523791051,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": 0.1031192044228301,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": -0.0490259934037951,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": -0.1036026199752176,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": -0.5096806519951542,
+          "diagnosis": "略弱于基准：收益不足，需确认是否有低相关性或组合价值。"
+        },
+        {
+          "segment_type": "window",
+          "segment": "test",
+          "window": "test",
+          "regime": NaN,
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 51.74170083427596,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -10.405546019008142,
+          "max_drawdown_pct": 26.737819055683897,
+          "sharpe": 3.7999302802996215,
+          "avg_position": 0.7574000589681009,
+          "turnover": 1.7482494468768703,
+          "stability_score": 52.822230923913565,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": 0.0528065796374903,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": 0.0528065796374903,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": 0.5614957988960256,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": -0.0153766558702437,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": -0.3746104259091989,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": -0.0536088758665798,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::bull",
+          "window": "test",
+          "regime": "bull",
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 65.41189448502949,
+          "benchmark_return_pct": 94.6032186459489,
+          "relative_return_pct": -29.191324160919407,
+          "max_drawdown_pct": 2.881815994465109,
+          "sharpe": 12.289885614500852,
+          "avg_position": 0.7792675432310896,
+          "turnover": 0.5742743425917749,
+          "stability_score": 183.55993195177305,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": 1.365177543939765,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": 1.365177543939765,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": -0.0105315865268851,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": 0.3969557308071199,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": -0.1454185666661378,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": 5.638736468501833,
+          "diagnosis": "强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::downtrend",
+          "window": "test",
+          "regime": "downtrend",
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 72.40169365292131,
+          "benchmark_return_pct": 105.9584427398252,
+          "relative_return_pct": -33.55674908690389,
+          "max_drawdown_pct": 4.747910086127338,
+          "sharpe": 12.32947236617645,
+          "avg_position": 0.7280614187664518,
+          "turnover": 0.4023767617972991,
+          "stability_score": 188.95677618343203,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": 0.9782630773324712,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": 0.9782630773324712,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": -0.3314148388149363,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": 0.1865130928597942,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": -0.1255892392678431,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": 3.508841032984776,
+          "diagnosis": "强于基准：分段相对收益和稳定性同时改善，可作为晋升候选。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::neutral",
+          "window": "test",
+          "regime": "neutral",
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.7211758015472082,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "接近基准：没有明显分段优势。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::stress",
+          "window": "test",
+          "regime": "stress",
+          "model": "ridge_mse__ic_weighted_composite",
+          "rank": NaN,
+          "return_pct": 29.284978283977185,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.4994931868090404,
+          "max_drawdown_pct": 5.786955472785992,
+          "sharpe": 11.032887976728473,
+          "avg_position": 0.7488635476508184,
+          "turnover": 0.7715983424877965,
+          "stability_score": 130.83696702530384,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": -0.0977269523791051,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": -0.0977269523791051,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": 0.1031192044228301,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": -0.0490259934037951,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": -0.1036026199752176,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": -0.5096806519951542,
+          "diagnosis": "略弱于基准：收益不足，需确认是否有低相关性或组合价值。"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "model": "ridge_mse__all_features",
+      "base_model": "ridge_mse",
+      "feature_set": "all_features",
+      "return_pct": 44.64845265647697,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -17.498794196807133,
+      "max_drawdown_pct": 18.743499158202116,
+      "sharpe": 4.202315904364815,
+      "avg_position": 0.5980215255799916,
+      "turnover": 6.4584152761043425,
+      "stability_score": 50.32540720016378,
+      "paper_fidelity": "native_library",
+      "proxy_model": false,
+      "promotion_blocker": "nan",
+      "top_attribution_features": [
+        {
+          "model": "ridge_mse",
+          "feature": "soxx_return_5d",
+          "normalized_importance": 0.9173314193384712
+        },
+        {
+          "model": "ridge_mse",
+          "feature": "soxl_soxx_relative_5d",
+          "normalized_importance": 0.9011480800640056
+        }
+      ],
+      "regime_metrics": [
+        {
+          "model": "ridge_mse__all_features",
+          "regime": "bull",
+          "return_pct": 23.0790050483316,
+          "benchmark_return_pct": 82.22807991120966,
+          "relative_return_pct": -59.14907486287806,
+          "max_drawdown_pct": 2.676198522804263,
+          "sharpe": 9.559104571330575,
+          "avg_position": 0.6867858631587391,
+          "turnover": 1.863232759934674,
+          "stability_score": 111.59833708826272
+        },
+        {
+          "model": "ridge_mse__all_features",
+          "regime": "downtrend",
+          "return_pct": 45.561573240167185,
+          "benchmark_return_pct": 65.77028219607402,
+          "relative_return_pct": -20.208708955906836,
+          "max_drawdown_pct": 6.817155030700728,
+          "sharpe": 11.914084939093208,
+          "avg_position": 0.7255615625532712,
+          "turnover": 2.5153581639871394,
+          "stability_score": 151.15026251474907
+        },
+        {
+          "model": "ridge_mse__all_features",
+          "regime": "neutral",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.2870222060968761,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "model": "ridge_mse__all_features",
+          "regime": "stress",
+          "return_pct": 2.397113509503579,
+          "benchmark_return_pct": 32.76891549020882,
+          "relative_return_pct": -30.37180198070524,
+          "max_drawdown_pct": 5.756709515357938,
+          "sharpe": 2.102953118958773,
+          "avg_position": 0.3588049897400399,
+          "turnover": 2.079824352182529,
+          "stability_score": 12.071109100528826
+        }
+      ],
+      "window_regime_metrics": [
+        {
+          "window": "test",
+          "regime": "bull",
+          "segment": "test::bull",
+          "model": "ridge_mse__all_features",
+          "return_pct": 23.0790050483316,
+          "benchmark_return_pct": 82.22807991120966,
+          "relative_return_pct": -59.14907486287806,
+          "max_drawdown_pct": 2.676198522804263,
+          "sharpe": 9.559104571330575,
+          "avg_position": 0.6867858631587391,
+          "turnover": 1.863232759934674,
+          "stability_score": 111.59833708826272
+        },
+        {
+          "window": "test",
+          "regime": "downtrend",
+          "segment": "test::downtrend",
+          "model": "ridge_mse__all_features",
+          "return_pct": 45.561573240167185,
+          "benchmark_return_pct": 65.77028219607402,
+          "relative_return_pct": -20.208708955906836,
+          "max_drawdown_pct": 6.817155030700728,
+          "sharpe": 11.914084939093208,
+          "avg_position": 0.7255615625532712,
+          "turnover": 2.5153581639871394,
+          "stability_score": 151.15026251474907
+        },
+        {
+          "window": "test",
+          "regime": "neutral",
+          "segment": "test::neutral",
+          "model": "ridge_mse__all_features",
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.2870222060968761,
+          "turnover": 0.0,
+          "stability_score": 0.0
+        },
+        {
+          "window": "test",
+          "regime": "stress",
+          "segment": "test::stress",
+          "model": "ridge_mse__all_features",
+          "return_pct": 2.397113509503579,
+          "benchmark_return_pct": 32.76891549020882,
+          "relative_return_pct": -30.37180198070524,
+          "max_drawdown_pct": 5.756709515357938,
+          "sharpe": 2.102953118958773,
+          "avg_position": 0.3588049897400399,
+          "turnover": 2.079824352182529,
+          "stability_score": 12.071109100528826
+        }
+      ],
+      "diagnostics": [
+        {
+          "segment_type": "all",
+          "segment": "all",
+          "window": NaN,
+          "regime": NaN,
+          "model": "ridge_mse__all_features",
+          "rank": 5.0,
+          "return_pct": 44.64845265647697,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -17.498794196807133,
+          "max_drawdown_pct": 18.743499158202116,
+          "sharpe": 4.202315904364815,
+          "avg_position": 0.5980215255799916,
+          "turnover": 6.4584152761043425,
+          "stability_score": 50.32540720016378,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": -7.0404415981615,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": -7.0404415981615,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": -7.432824098585755,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": 0.3870089681949493,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": 4.335555403318273,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": -2.5504325996163644,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "bull",
+          "window": NaN,
+          "regime": "bull",
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 23.0790050483316,
+          "benchmark_return_pct": 82.22807991120966,
+          "relative_return_pct": -59.14907486287806,
+          "max_drawdown_pct": 2.676198522804263,
+          "sharpe": 9.559104571330575,
+          "avg_position": 0.6867858631587391,
+          "turnover": 1.863232759934674,
+          "stability_score": 111.59833708826272,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": -40.967711892758125,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": -12.375138734739238,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": -28.592573158018887,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": -0.2161490581877312,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": -2.333825312363155,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": 1.1435398506767611,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": -66.32285839500851,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "downtrend",
+          "window": NaN,
+          "regime": "downtrend",
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 45.561573240167185,
+          "benchmark_return_pct": 65.77028219607402,
+          "relative_return_pct": -20.208708955906836,
+          "max_drawdown_pct": 6.817155030700728,
+          "sharpe": 11.914084939093208,
+          "avg_position": 0.7255615625532712,
+          "turnover": 2.5153581639871394,
+          "stability_score": 151.15026251474907,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": -25.861857335421657,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": -40.18816054375118,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": 14.326303208329527,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": 1.737830105758453,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": -0.2288743342234482,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": 1.987392162921997,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": -34.29767263569818,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "neutral",
+          "window": NaN,
+          "regime": "neutral",
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.2870222060968761,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "接近基准：没有明显分段优势。"
+        },
+        {
+          "segment_type": "regime",
+          "segment": "stress",
+          "window": NaN,
+          "regime": "stress",
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 2.397113509503579,
+          "benchmark_return_pct": 32.76891549020882,
+          "relative_return_pct": -30.37180198070524,
+          "max_drawdown_pct": 5.756709515357938,
+          "sharpe": 2.102953118958773,
+          "avg_position": 0.3588049897400399,
+          "turnover": 2.079824352182529,
+          "stability_score": 12.071109100528826,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": -26.985591726852707,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 3.9834303930406776,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": -30.969022119893385,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": 0.0728732469947761,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": -8.978960851173495,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": 1.2046233897195149,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": -119.27553857677016,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "segment_type": "window",
+          "segment": "test",
+          "window": "test",
+          "regime": NaN,
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 44.64845265647697,
+          "benchmark_return_pct": 62.1472468532841,
+          "relative_return_pct": -17.498794196807133,
+          "max_drawdown_pct": 18.743499158202116,
+          "sharpe": 4.202315904364815,
+          "avg_position": 0.5980215255799916,
+          "turnover": 6.4584152761043425,
+          "stability_score": 50.32540720016378,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 51.68889425463847,
+          "return_pct_delta": -7.0404415981615,
+          "benchmark_return_pct_baseline": 62.1472468532841,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": -10.458352598645632,
+          "relative_return_pct_delta": -7.0404415981615,
+          "max_drawdown_pct_baseline": 26.17632325678787,
+          "max_drawdown_pct_delta": -7.432824098585755,
+          "sharpe_baseline": 3.8153069361698657,
+          "sharpe_delta": 0.3870089681949493,
+          "turnover_baseline": 2.1228598727860692,
+          "turnover_delta": 4.335555403318273,
+          "stability_score_baseline": 52.875839799780145,
+          "stability_score_delta": -2.5504325996163644,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::bull",
+          "window": "test",
+          "regime": "bull",
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 23.0790050483316,
+          "benchmark_return_pct": 82.22807991120966,
+          "relative_return_pct": -59.14907486287806,
+          "max_drawdown_pct": 2.676198522804263,
+          "sharpe": 9.559104571330575,
+          "avg_position": 0.6867858631587391,
+          "turnover": 1.863232759934674,
+          "stability_score": 111.59833708826272,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 64.04671694108973,
+          "return_pct_delta": -40.967711892758125,
+          "benchmark_return_pct_baseline": 94.6032186459489,
+          "benchmark_return_pct_delta": -12.375138734739238,
+          "relative_return_pct_baseline": -30.556501704859173,
+          "relative_return_pct_delta": -28.592573158018887,
+          "max_drawdown_pct_baseline": 2.892347580991994,
+          "max_drawdown_pct_delta": -0.2161490581877312,
+          "sharpe_baseline": 11.892929883693732,
+          "sharpe_delta": -2.333825312363155,
+          "turnover_baseline": 0.7196929092579127,
+          "turnover_delta": 1.1435398506767611,
+          "stability_score_baseline": 177.92119548327122,
+          "stability_score_delta": -66.32285839500851,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::downtrend",
+          "window": "test",
+          "regime": "downtrend",
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 45.561573240167185,
+          "benchmark_return_pct": 65.77028219607402,
+          "relative_return_pct": -20.208708955906836,
+          "max_drawdown_pct": 6.817155030700728,
+          "sharpe": 11.914084939093208,
+          "avg_position": 0.7255615625532712,
+          "turnover": 2.5153581639871394,
+          "stability_score": 151.15026251474907,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 71.42343057558884,
+          "return_pct_delta": -25.861857335421657,
+          "benchmark_return_pct_baseline": 105.9584427398252,
+          "benchmark_return_pct_delta": -40.18816054375118,
+          "relative_return_pct_baseline": -34.53501216423636,
+          "relative_return_pct_delta": 14.326303208329527,
+          "max_drawdown_pct_baseline": 5.0793249249422745,
+          "max_drawdown_pct_delta": 1.737830105758453,
+          "sharpe_baseline": 12.142959273316656,
+          "sharpe_delta": -0.2288743342234482,
+          "turnover_baseline": 0.5279660010651422,
+          "turnover_delta": 1.987392162921997,
+          "stability_score_baseline": 185.44793515044725,
+          "stability_score_delta": -34.29767263569818,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::neutral",
+          "window": "test",
+          "regime": "neutral",
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 0.0,
+          "benchmark_return_pct": 0.0,
+          "relative_return_pct": 0.0,
+          "max_drawdown_pct": 0.0,
+          "sharpe": 0.0,
+          "avg_position": 0.2870222060968761,
+          "turnover": 0.0,
+          "stability_score": 0.0,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 0.0,
+          "return_pct_delta": 0.0,
+          "benchmark_return_pct_baseline": 0.0,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.0,
+          "relative_return_pct_delta": 0.0,
+          "max_drawdown_pct_baseline": 0.0,
+          "max_drawdown_pct_delta": 0.0,
+          "sharpe_baseline": 0.0,
+          "sharpe_delta": 0.0,
+          "turnover_baseline": 0.0,
+          "turnover_delta": 0.0,
+          "stability_score_baseline": 0.0,
+          "stability_score_delta": 0.0,
+          "diagnosis": "接近基准：没有明显分段优势。"
+        },
+        {
+          "segment_type": "window_regime",
+          "segment": "test::stress",
+          "window": "test",
+          "regime": "stress",
+          "model": "ridge_mse__all_features",
+          "rank": NaN,
+          "return_pct": 2.397113509503579,
+          "benchmark_return_pct": 32.76891549020882,
+          "relative_return_pct": -30.37180198070524,
+          "max_drawdown_pct": 5.756709515357938,
+          "sharpe": 2.102953118958773,
+          "avg_position": 0.3588049897400399,
+          "turnover": 2.079824352182529,
+          "stability_score": 12.071109100528826,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": -26.985591726852707,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 3.9834303930406776,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": -30.969022119893385,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": 0.0728732469947761,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": -8.978960851173495,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": 1.2046233897195149,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": -119.27553857677016,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        }
+      ]
+    }
+  ],
+  "source_path": "research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json"
+}</script>
+  <script>
+    const filters = ["model", "regime", "fidelity"];
+    function selected(id) {
+      const node = document.getElementById(id + "-filter");
+      return node ? node.value : "";
+    }
+    function applyFilters() {
+      const model = selected("model");
+      const fidelity = selected("fidelity");
+      const regime = selected("regime");
+      document.querySelectorAll(".model-card").forEach(card => {
+        const modelOk = !model || card.dataset.model === model;
+        const fidelityOk = !fidelity || card.dataset.fidelity === fidelity;
+        const regimeOk = !regime || card.querySelector(`[data-regime="${regime}"]`);
+        card.hidden = !(modelOk && fidelityOk && regimeOk);
+      });
+    }
+    filters.forEach(id => {
+      const node = document.getElementById(id + "-filter");
+      if (node) node.addEventListener("change", applyFilters);
+    });
+    applyFilters();
+    </script>
+</body>
+</html>
