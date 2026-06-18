@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 
 from src.api import PaperBrokerAdapter
-from src.dashboard import load_model_matrix_dashboard
+from src.dashboard import load_model_matrix_dashboard, write_model_matrix_dashboard_export
 from src.schedule import ScheduleJob, run_job_once
 
 
@@ -13,7 +13,47 @@ def test_dashboard_loads_quantbench_matrix_sidecars_without_raw_model_internals(
     assert payload["summary"]["model_count"] == 32
     assert payload["top_models"][0]["rank"] == 1
     assert "model_comparison" in payload["artifacts"]
+    assert "qlib_risk_metrics" in payload["artifacts"]
+    assert "model_effect_deltas" in payload["artifacts"]
     assert "predictions" not in payload["artifacts"]
+    assert "daily_backtest" not in payload["artifacts"]
+
+
+def test_dashboard_loads_feature_set_matrix_with_aggregates_and_diagnostics():
+    payload = load_model_matrix_dashboard("research/factor_feature_set_matrix_v1", top_n=5)
+
+    assert payload["schema_version"] == "dashboard.model_matrix.v1"
+    assert payload["summary"]["status"] == "feature_set_matrix_completed"
+    assert payload["top_models"][0]["feature_set"]
+    assert payload["top_models"][0]["base_model"]
+    assert payload["feature_set_summary"]
+    assert {"feature_set", "variant_count", "best_model", "avg_stability_score"}.issubset(
+        payload["feature_set_summary"][0]
+    )
+    assert payload["qlib_risk_metrics"]
+    assert payload["model_effect_deltas"]
+    assert "diagnosis" in payload["model_effect_deltas"][0]
+    assert "feature_set_specs" in payload["artifacts"]
+    assert "factor_ic" in payload["artifacts"]
+    assert "predictions" not in payload["artifacts"]
+    assert "daily_backtest" not in payload["artifacts"]
+
+
+def test_dashboard_export_writes_manifest_style_payload(tmp_path):
+    output_path = tmp_path / "dashboard_export.json"
+
+    payload = write_model_matrix_dashboard_export(
+        "research/factor_feature_set_matrix_v1",
+        output_path=output_path,
+        top_n=3,
+    )
+
+    saved = json.loads(output_path.read_text(encoding="utf-8"))
+    assert saved["schema_version"] == "dashboard.model_matrix.v1"
+    assert saved["artifact_type"] == "dashboard_export"
+    assert saved["artifact_id"] == "factor_feature_set_matrix_v1"
+    assert saved["top_models"] == payload["top_models"]
+    assert len(saved["top_models"]) == 3
 
 
 def test_schedule_run_job_once_uses_lock_and_reports_notification(tmp_path):

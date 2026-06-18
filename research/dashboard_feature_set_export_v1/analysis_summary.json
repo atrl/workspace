@@ -1,0 +1,11 @@
+{
+  "schema_version": "dashboard_export_review.v1",
+  "source_card": "research/factor_feature_set_matrix_v1",
+  "dashboard_export": "dashboard_export.json",
+  "top_model": "random_forest_clf__all_features",
+  "feature_set_summary_count": 3,
+  "qlib_risk_rows": 108,
+  "model_effect_delta_rows": 54,
+  "raw_predictions_exposed": false,
+  "daily_backtest_exposed": false
+}
