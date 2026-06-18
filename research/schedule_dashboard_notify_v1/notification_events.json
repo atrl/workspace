@@ -1,0 +1,8 @@
+{
+  "default": [
+    "dashboard_notify_default:success"
+  ],
+  "detail": [
+    "dashboard_notify_detail:success | top_model=ridge_mse | dashboard_manifest=analysis_manifest | analysis_preflight=backfilled | attempts=1 | export=/Users/rziiiii/dev/workspace/research/schedule_dashboard_notify_v1/detail_dashboard_export.json"
+  ]
+}

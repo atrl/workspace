@@ -242,6 +242,67 @@ def test_model_dashboard_refresh_can_auto_backfill_legacy_manifest_before_dashbo
     assert dashboard["top_models"][0]["model"] == "ridge_mse"
 
 
+def test_model_dashboard_refresh_can_send_payload_aware_success_notification(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        card_dir = Path(kwargs["card_dir"])
+        card_dir.mkdir(parents=True, exist_ok=True)
+        (card_dir / "analysis_summary.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": "analysis.report.v1",
+                    "status": "legacy_completed",
+                    "start": "2026-01-01",
+                    "end": "2026-06-09",
+                    "model_count": 1,
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        pd.DataFrame([{"rank": 1, "model": "ridge_mse", "return_pct": 2.5, "stability_score": 2.0}]).to_csv(
+            card_dir / "model_comparison.csv", index=False
+        )
+        pd.DataFrame([{"model": "ridge_mse", "regime": "bull", "return_pct": 2.5}]).to_csv(
+            card_dir / "regime_metrics.csv", index=False
+        )
+        pd.DataFrame([{"model": "ridge_mse", "window": "test", "return_pct": 2.5}]).to_csv(
+            card_dir / "window_metrics.csv", index=False
+        )
+        return {"variant_count": 1, "status": "feature_set_matrix_completed"}
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+        analysis_manifest_preflight=True,
+        analysis_manifest_auto_backfill=True,
+        analysis_manifest_dataset_name="unit_schedule_notify",
+        analysis_manifest_universe=("SOXL",),
+        analysis_manifest_calendar_path="data/qlib/soxl/calendars/day.txt",
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+    )
+
+    assert result.status == "success"
+    assert events == [
+        "model_dashboard_refresh:success | top_model=ridge_mse | dashboard_manifest=analysis_manifest "
+        "| analysis_preflight=backfilled | attempts=1 | export="
+        + str(config.dashboard_output_path)
+    ]
+
+
 def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_export(tmp_path):
     calls: list[tuple[str, Path | None]] = []
     attribution_card = tmp_path / "attribution_card"

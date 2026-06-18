@@ -31,6 +31,7 @@ class ModelDashboardPipelineConfig:
     analysis_manifest_dataset_name: str = "schedule_dashboard_refresh"
     analysis_manifest_universe: tuple[str, ...] = ("SOXL",)
     analysis_manifest_calendar_path: str = ""
+    notify_details: bool = False
     retries: int = 0
 
 
@@ -242,6 +243,19 @@ def _task_with_retries(
     raise RuntimeError(str(last_error) if last_error else "pipeline failed")
 
 
+def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
+    if status != "success":
+        return f"{job_name}:{status}"
+    return (
+        f"{job_name}:success"
+        f" | top_model={payload.get('top_model', '')}"
+        f" | dashboard_manifest={payload.get('dashboard_manifest_kind', '')}"
+        f" | analysis_preflight={payload.get('analysis_manifest_preflight_status', '')}"
+        f" | attempts={payload.get('attempts', '')}"
+        f" | export={payload.get('dashboard_export', '')}"
+    )
+
+
 def run_model_dashboard_refresh_once(
     config: ModelDashboardPipelineConfig,
     *,
@@ -252,14 +266,30 @@ def run_model_dashboard_refresh_once(
     dashboard_page_exporter: DashboardPageExporter = _default_dashboard_page_exporter,
 ) -> JobResult:
     job = ScheduleJob(name=config.name, task="model_dashboard_refresh", cron="manual")
-    return run_job_once(
-        job,
-        task=lambda: _task_with_retries(
+    latest_payload: dict[str, Any] = {}
+
+    def task() -> dict[str, Any]:
+        nonlocal latest_payload
+        latest_payload = _task_with_retries(
             config,
             matrix_runner=matrix_runner,
             dashboard_exporter=dashboard_exporter,
             dashboard_page_exporter=dashboard_page_exporter,
-        ),
+        )
+        return latest_payload
+
+    def notify_with_details(message: str) -> None:
+        if notify is None:
+            return
+        if not config.notify_details:
+            notify(message)
+            return
+        _, _, status = message.partition(":")
+        notify(_dashboard_refresh_notification(config.name, status, latest_payload))
+
+    return run_job_once(
+        job,
+        task=task,
         lock_dir=lock_dir,
-        notify=notify,
+        notify=notify_with_details if notify is not None else None,
     )

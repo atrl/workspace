@@ -1,0 +1,11 @@
+{
+  "schema_version": "research.schedule_dashboard_notify_v1",
+  "status": "completed",
+  "default_notification": "dashboard_notify_default:success",
+  "detailed_notification": "dashboard_notify_detail:success | top_model=ridge_mse | dashboard_manifest=analysis_manifest | analysis_preflight=backfilled | attempts=1 | export=/Users/rziiiii/dev/workspace/research/schedule_dashboard_notify_v1/detail_dashboard_export.json",
+  "detail_top_model": "ridge_mse",
+  "detail_dashboard_manifest_kind": "analysis_manifest",
+  "detail_analysis_preflight_status": "backfilled",
+  "detail_attempts": 1,
+  "conclusion": "schedule dashboard refresh 可选择发送包含模型、manifest、preflight 和 export 的详细通知。"
+}
