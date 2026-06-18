@@ -1,0 +1,20 @@
+{
+  "schema_version": "research.analysis_manifest_backfill_v1",
+  "status": "completed",
+  "legacy_card": "research/analysis_manifest_backfill_v1/legacy_card",
+  "manifest_path": "research/analysis_manifest_backfill_v1/legacy_card/analysis_manifest.json",
+  "manifest_hash": "5a966111a4061dc1ce76c3a5148927c79ef6c070b61069c51770a132e2d898c8",
+  "manifest_paths": {
+    "model_capabilities": "model_capabilities.csv",
+    "model_comparison": "model_comparison.csv",
+    "model_effect_deltas": "model_effect_deltas.csv",
+    "qlib_risk_metrics": "qlib_risk_metrics.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "summary": "analysis_summary.json",
+    "window_metrics": "window_metrics.csv"
+  },
+  "dashboard_manifest_kind": "analysis_manifest",
+  "dashboard_artifact_id": "legacy_card",
+  "private_sidecars_hidden": true,
+  "conclusion": "旧 fixed-sidecar card 可以补出 analysis_manifest.json，并由 dashboard manifest-first 路径读取。"
+}
