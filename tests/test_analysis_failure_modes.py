@@ -16,6 +16,7 @@ from src.analysis import (
     write_failure_modes_markdown,
 )
 from src.core import DatasetSnapshot
+from src.dashboard import load_model_matrix_dashboard
 
 
 def _daily_frame() -> pd.DataFrame:
@@ -122,3 +123,9 @@ def test_analysis_report_exports_failure_modes_table_and_manifest_path(tmp_path)
     manifest = json.loads((tmp_path / "analysis_manifest.json").read_text(encoding="utf-8"))
     assert manifest["paths"]["failure_modes"] == "failure_modes.csv"
     assert manifest["metadata"]["table_counts"]["failure_modes"] == len(failure_modes)
+
+    dashboard = load_model_matrix_dashboard(tmp_path)
+    assert dashboard["manifest_source"]["kind"] == "analysis_manifest"
+    assert "failure_modes" in dashboard["artifacts"]
+    assert dashboard["failure_modes"][0]["failure_mode"] == "return_stability_lag"
+    assert "stress" in dashboard["failure_modes"][0]["segment"]
