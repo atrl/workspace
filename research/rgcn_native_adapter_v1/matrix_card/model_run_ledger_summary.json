@@ -1,0 +1,25 @@
+{
+  "schema_version": "model.run_ledger_summary.v1",
+  "expected_model_count": 5,
+  "ledger_model_count": 5,
+  "registered_model_count": 5,
+  "trained_model_count": 5,
+  "predicted_model_count": 5,
+  "backtested_model_count": 5,
+  "objective_evaluated_model_count": 5,
+  "promotion_evaluated_model_count": 5,
+  "analysis_recorded_model_count": 5,
+  "manifested_model_count": 5,
+  "proxy_model_count": 1,
+  "native_model_count": 4,
+  "paper_fidelity_counts": {
+    "native_graph": 3,
+    "native_library": 1,
+    "proxy_feature_adapter": 1
+  },
+  "adapter_statuses": [
+    "paper_strict_adapter"
+  ],
+  "missing_models": [],
+  "all_models_completed": true
+}

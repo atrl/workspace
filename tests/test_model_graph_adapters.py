@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact, load_model_artifact, save_model_artifact
-from src.model.graph import GATGraphRegressor, GCNGraphRegressor
+from src.model.graph import GATGraphRegressor, GCNGraphRegressor, RGCNGraphRegressor
 from src.model.training import fit_estimator_for_model
 from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
 
@@ -22,7 +22,7 @@ def test_graph_models_use_named_paper_strict_adapters():
         "market_graph_mse": "market_graph_feature_mse_v1",
         "gcn_mse": "gcn_graph_convolution_mse_v1",
         "gat_mse": "gat_graph_attention_mse_v1",
-        "rgcn_mse": "rgcn_relation_feature_mse_v1",
+        "rgcn_mse": "rgcn_relation_graph_convolution_mse_v1",
         "rsr_mse": "rsr_relation_strength_mse_v1",
         "hypergraph_mse": "hypergraph_feature_mse_v1",
         "thgnn_mse": "thgnn_temporal_hypergraph_mse_v1",
@@ -90,6 +90,25 @@ def test_gat_mse_uses_native_graph_attention_estimator():
     assert estimator.feature_count_ == 8
     assert estimator.node_count_ == 8
     assert estimator.attention_weights_.shape == (8, 8)
+    assert estimator.hidden_size == 8
+
+
+def test_rgcn_mse_uses_native_relation_graph_convolution_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "rgcn_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:8],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, RGCNGraphRegressor)
+    assert hasattr(estimator, "model_")
+    assert estimator.feature_count_ == 8
+    assert estimator.node_count_ == 8
+    assert estimator.relation_count_ == 3
+    assert estimator.relation_adjacencies_.shape == (3, 8, 8)
     assert estimator.hidden_size == 8
 
 

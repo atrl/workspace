@@ -68,7 +68,7 @@
       "mlp_sklearn_mse_v1",
       "patch_tst_transformer_mse_v1",
       "random_forest_direction_v1",
-      "rgcn_relation_feature_mse_v1",
+      "rgcn_relation_graph_convolution_mse_v1",
       "ridge_mse_v1",
       "ridge_rank_ic_proxy_v1",
       "rsr_relation_strength_mse_v1",
@@ -83,11 +83,11 @@
     "model_count": 32,
     "model_fidelity": {
       "fidelity_counts": {
-        "native_graph": 2,
+        "native_graph": 3,
         "native_library": 8,
         "native_sequence": 6,
         "native_torch": 6,
-        "proxy_feature_adapter": 10
+        "proxy_feature_adapter": 9
       },
       "model_count": 32,
       "native_models": [
@@ -109,6 +109,7 @@
         "mlp_mse",
         "patch_tst_mse",
         "random_forest_clf",
+        "rgcn_mse",
         "ridge_mse",
         "sfm_mse",
         "tcn_mse",
@@ -119,7 +120,6 @@
         "extra_trees_rank",
         "hypergraph_mse",
         "market_graph_mse",
-        "rgcn_mse",
         "ridge_ic",
         "rsr_mse",
         "sequence_lag_ridge_mse",
@@ -130,8 +130,8 @@
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": -0.0081220637553571,
-      "avg_mse": 0.03586061153076016,
+      "avg_ic": -0.005864802254796626,
+      "avg_mse": 0.0358596146297916,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -150,7 +150,7 @@
       "model_comparison": 32,
       "model_effect_deltas": 1074,
       "model_regime_window_diagnostics": 32,
-      "model_review_briefing": 606,
+      "model_review_briefing": 599,
       "qlib_return_frame": 832,
       "qlib_risk_metrics": 2148,
       "regime_metrics": 126,
@@ -190,5 +190,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "e4d609701e50fc681840d7a1f9eafb4e0959a4d161f2f8f809e0fd4f487c49bf"
+  "manifest_hash": "500ea8b8ad33a343af9cb6779eb830365d26601d50672a362f0941ad5561cb74"
 }

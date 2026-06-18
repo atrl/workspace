@@ -12,7 +12,7 @@ from sklearn.preprocessing import StandardScaler
 # Import before sequence/torch modules; torch-first initialization can segfault xgboost 3.2.0 on this arm64 stack.
 from xgboost import XGBRegressor
 
-from .graph import GATGraphRegressor, GCNGraphRegressor, GraphFeatureRidgeRegressor
+from .graph import GATGraphRegressor, GCNGraphRegressor, GraphFeatureRidgeRegressor, RGCNGraphRegressor
 from .registry import get_model_spec
 from .sequence import (
     AutoformerDecompositionRegressor,
@@ -55,7 +55,7 @@ STRICT_ADAPTER_NAMES = {
     "market_graph_mse": "market_graph_feature_mse_v1",
     "gcn_mse": "gcn_graph_convolution_mse_v1",
     "gat_mse": "gat_graph_attention_mse_v1",
-    "rgcn_mse": "rgcn_relation_feature_mse_v1",
+    "rgcn_mse": "rgcn_relation_graph_convolution_mse_v1",
     "rsr_mse": "rsr_relation_strength_mse_v1",
     "hypergraph_mse": "hypergraph_feature_mse_v1",
     "thgnn_mse": "thgnn_temporal_hypergraph_mse_v1",
@@ -293,9 +293,10 @@ def _estimator_for_model(model_name: str):
         return GCNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=41)
     if model_name == "gat_mse":
         return GATGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=43)
+    if model_name == "rgcn_mse":
+        return RGCNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=47)
     graph_kinds = {
         "market_graph_mse": "market",
-        "rgcn_mse": "rgcn",
         "rsr_mse": "rsr",
         "hypergraph_mse": "hypergraph",
         "thgnn_mse": "thgnn",

@@ -51,6 +51,26 @@ def _relation_groups(n_features: int) -> tuple[np.ndarray, ...]:
     return tuple(group for group in cuts if len(group) > 0)
 
 
+def _relation_adjacencies(n_features: int) -> np.ndarray:
+    if n_features < 1:
+        raise ValueError("n_features must be positive")
+    groups = _relation_groups(n_features)
+    identity = np.eye(n_features, dtype=float)
+    intra_group = np.zeros((n_features, n_features), dtype=float)
+    for group in groups:
+        intra_group[np.ix_(group, group)] = 1.0
+    inter_group = np.ones((n_features, n_features), dtype=float) - intra_group
+    np.fill_diagonal(inter_group, 0.0)
+    return np.stack(
+        [
+            _symmetric_normalized_adjacency(identity),
+            _symmetric_normalized_adjacency(intra_group),
+            _symmetric_normalized_adjacency(inter_group),
+        ],
+        axis=0,
+    ).astype("float32")
+
+
 def _lag_features(x: np.ndarray) -> np.ndarray:
     previous = np.vstack([x[:1], x[:-1]])
     two_day = np.vstack([x[:2], x[:-2]]) if len(x) > 1 else previous
@@ -141,6 +161,35 @@ class _GATNet(nn.Module):
         if return_attention:
             return prediction, attention
         return prediction
+
+
+class _RGCNNet(nn.Module):
+    def __init__(self, *, feature_count: int, hidden_size: int, relation_adjacencies: np.ndarray):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.hidden_size = hidden_size
+        self.relation_count = int(relation_adjacencies.shape[0])
+        self.input_projection = nn.Linear(1, hidden_size)
+        self.root_projection = nn.Linear(hidden_size, hidden_size)
+        self.relation_projections = nn.ModuleList(nn.Linear(hidden_size, hidden_size) for _ in range(self.relation_count))
+        self.output_projection = nn.Linear(hidden_size, hidden_size)
+        self.head = nn.Linear(hidden_size * 2, 1)
+        self.register_buffer("relation_adjacencies", torch.as_tensor(relation_adjacencies, dtype=torch.float32))
+
+    def forward(self, x):
+        import torch
+
+        hidden = torch.relu(self.input_projection(x.unsqueeze(-1)))
+        messages = []
+        for relation_index, projection in enumerate(self.relation_projections):
+            propagated = torch.einsum("ij,bjh->bih", self.relation_adjacencies[relation_index], hidden)
+            messages.append(projection(propagated))
+        combined = self.root_projection(hidden) + torch.stack(messages, dim=0).mean(dim=0)
+        output = torch.relu(self.output_projection(torch.relu(combined)))
+        pooled = torch.cat([output.mean(dim=1), output.max(dim=1).values], dim=1)
+        return self.head(pooled).squeeze(-1)
 
 
 @dataclass
@@ -252,6 +301,64 @@ class GATGraphRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 2:
             raise ValueError("GATGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        with torch.no_grad():
+            output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class RGCNGraphRegressor:
+    hidden_size: int = 8
+    epochs: int = 32
+    learning_rate: float = 0.01
+    seed: int = 47
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "RGCNGraphRegressor":
+        if x.ndim != 2:
+            raise ValueError("RGCNGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.feature_count_ = int(x.shape[1])
+        self.node_count_ = self.feature_count_
+        self.relation_adjacencies_ = _relation_adjacencies(self.feature_count_)
+        self.relation_count_ = int(self.relation_adjacencies_.shape[0])
+        self.feature_mean_ = x.mean(axis=0)
+        self.feature_std_ = x.std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _RGCNNet(
+            feature_count=self.feature_count_,
+            hidden_size=int(self.hidden_size),
+            relation_adjacencies=self.relation_adjacencies_,
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 2:
+            raise ValueError("RGCNGraphRegressor expects a 2D feature matrix")
         import torch
 
         torch.set_num_threads(1)
