@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Mapping, Sequence
+from typing import Any, Mapping, Sequence
 
 import pandas as pd
 
@@ -18,6 +18,7 @@ from .reports import (
 QLIB_RISK_SOURCE = "qlib.contrib.evaluate.risk_analysis"
 SEGMENT_EFFECT_MATRIX_SCHEMA_VERSION = "analysis.segment_effect_matrix.v1"
 MODEL_REVIEW_BRIEFING_SCHEMA_VERSION = "analysis.model_review_briefing.v1"
+ANALYSIS_OVERVIEW_SCHEMA_VERSION = "analysis.overview.v1"
 
 MODEL_REVIEW_BRIEFING_COLUMNS = [
     "schema_version",
@@ -529,6 +530,135 @@ def build_model_review_briefing(
     result = result.reset_index(drop=True)
     result["priority_rank"] = range(1, len(result) + 1)
     return result
+
+
+def _clean_string(value: object) -> str:
+    if value is None:
+        return ""
+    try:
+        if pd.isna(value):
+            return ""
+    except (TypeError, ValueError):
+        pass
+    return str(value)
+
+
+def _briefing_payload(row: pd.Series | None) -> dict[str, object]:
+    if row is None:
+        return {}
+    return {
+        "model": _clean_string(row.get("model", "")),
+        "baseline_model": _clean_string(row.get("baseline_model", "")),
+        "segment_type": _clean_string(row.get("segment_type", "")),
+        "segment": _clean_string(row.get("segment", "")),
+        "window": _clean_string(row.get("window", "")),
+        "regime": _clean_string(row.get("regime", "")),
+        "review_signal": _clean_string(row.get("review_signal", "")),
+        "decision_hint": _clean_string(row.get("decision_hint", "")),
+        "priority_rank": int(_clean_metric(row.get("priority_rank", 0))),
+        "priority_score": _clean_metric(row.get("priority_score", 0.0)),
+        "relative_return_pct_delta": _clean_metric(row.get("relative_return_pct_delta", 0.0)),
+        "stability_score_delta": _clean_metric(row.get("stability_score_delta", 0.0)),
+        "max_drawdown_pct_delta": _clean_metric(row.get("max_drawdown_pct_delta", 0.0)),
+        "review_note": _clean_string(row.get("review_note", "")),
+    }
+
+
+def _top_briefing(briefing: pd.DataFrame, *, signal: str | None = None) -> dict[str, object]:
+    if briefing.empty:
+        return {}
+    rows = briefing
+    if signal is not None and "review_signal" in rows.columns:
+        rows = rows.loc[rows["review_signal"].astype(str) == signal]
+    if rows.empty:
+        return {}
+    ordered = rows.assign(
+        _priority_rank=rows.get("priority_rank", pd.Series([999999] * len(rows))).map(_clean_metric),
+        _priority_score=rows.get("priority_score", pd.Series([0.0] * len(rows))).map(_clean_metric),
+    ).sort_values(["_priority_rank", "_priority_score"], ascending=[True, False])
+    return _briefing_payload(ordered.iloc[0])
+
+
+def _value_counts(frame: pd.DataFrame, column: str) -> dict[str, int]:
+    if frame.empty or column not in frame.columns:
+        return {}
+    counts = frame[column].dropna().astype(str).value_counts().sort_index()
+    return {str(key): int(value) for key, value in counts.items() if str(key)}
+
+
+def _segment_gap_payloads(segment_effect_matrix: pd.DataFrame, *, max_items: int) -> list[dict[str, object]]:
+    if segment_effect_matrix.empty or "relative_return_pct_spread" not in segment_effect_matrix.columns:
+        return []
+    ordered = segment_effect_matrix.assign(
+        _spread=segment_effect_matrix["relative_return_pct_spread"].map(_clean_metric)
+    ).sort_values(["_spread", "segment_type", "segment"], ascending=[False, True, True])
+    rows: list[dict[str, object]] = []
+    for _, row in ordered.head(max_items).iterrows():
+        rows.append(
+            {
+                "segment_type": _clean_string(row.get("segment_type", "")),
+                "segment": _clean_string(row.get("segment", "")),
+                "window": _clean_string(row.get("window", "")),
+                "regime": _clean_string(row.get("regime", "")),
+                "baseline_model": _clean_string(row.get("baseline_model", "")),
+                "best_relative_return_model": _clean_string(row.get("best_relative_return_model", "")),
+                "worst_relative_return_model": _clean_string(row.get("worst_relative_return_model", "")),
+                "relative_return_pct_spread": _clean_metric(row.get("relative_return_pct_spread", 0.0)),
+                "best_relative_return_vs_baseline_delta": _clean_metric(
+                    row.get("best_relative_return_vs_baseline_delta", 0.0)
+                ),
+                "best_stability_model": _clean_string(row.get("best_stability_model", "")),
+                "worst_stability_model": _clean_string(row.get("worst_stability_model", "")),
+                "stability_score_spread": _clean_metric(row.get("stability_score_spread", 0.0)),
+                "highest_drawdown_model": _clean_string(row.get("highest_drawdown_model", "")),
+                "highest_drawdown_pct": _clean_metric(row.get("highest_drawdown_pct", 0.0)),
+                "review_note": _clean_string(row.get("review_note", "")),
+            }
+        )
+    return rows
+
+
+def build_analysis_overview(
+    analysis_or_summary: RegimeWindowEffectAnalysis | Mapping[str, Any],
+    *,
+    segment_effect_matrix: pd.DataFrame | None = None,
+    model_review_briefing: pd.DataFrame | None = None,
+    max_items: int = 5,
+) -> dict[str, object]:
+    """Build a compact regime/window model-difference summary for dashboard and schedule."""
+
+    if isinstance(analysis_or_summary, RegimeWindowEffectAnalysis):
+        summary = dict(analysis_or_summary.summary)
+        matrix = segment_effect_matrix if segment_effect_matrix is not None else analysis_or_summary.segment_effect_matrix
+        briefing = model_review_briefing if model_review_briefing is not None else build_model_review_briefing(analysis_or_summary)
+    else:
+        summary = dict(analysis_or_summary)
+        matrix = segment_effect_matrix if segment_effect_matrix is not None else pd.DataFrame()
+        briefing = model_review_briefing if model_review_briefing is not None else pd.DataFrame()
+
+    gap_rows = _segment_gap_payloads(matrix, max_items=max_items)
+    if not gap_rows:
+        gap_rows = list(summary.get("largest_relative_return_spread_segments", []))[:max_items]
+
+    return {
+        "schema_version": ANALYSIS_OVERVIEW_SCHEMA_VERSION,
+        "baseline_model": _clean_string(summary.get("baseline_model", "")),
+        "model_count": int(_clean_metric(summary.get("model_count", 0))),
+        "regime_count": int(_clean_metric(summary.get("regime_count", 0))),
+        "window_count": int(_clean_metric(summary.get("window_count", 0))),
+        "window_regime_count": int(_clean_metric(summary.get("window_regime_count", 0))),
+        "segment_effect_matrix_count": int(_clean_metric(summary.get("segment_effect_matrix_count", len(matrix)))),
+        "segment_types": [str(value) for value in summary.get("segment_types", [])],
+        "qlib_metric_source": _clean_string(summary.get("qlib_metric_source", "")),
+        "review_signal_counts": _value_counts(briefing, "review_signal"),
+        "decision_hint_counts": _value_counts(briefing, "decision_hint"),
+        "top_review": _top_briefing(briefing),
+        "top_weakness": _top_briefing(briefing, signal="weakness"),
+        "top_strength": _top_briefing(briefing, signal="strength"),
+        "weakest_segments": list(summary.get("weakest_segments", []))[:max_items],
+        "largest_relative_return_spread_segments": gap_rows,
+        "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
+    }
 
 
 def render_model_review_briefing_markdown(

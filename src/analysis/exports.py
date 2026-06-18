@@ -10,7 +10,7 @@ import pandas as pd
 from src.core import ArtifactManifest, DatasetSnapshot
 
 from .failure_modes import build_failure_modes
-from .qlib_ext import RegimeWindowEffectAnalysis, build_model_review_briefing
+from .qlib_ext import RegimeWindowEffectAnalysis, build_analysis_overview, build_model_review_briefing
 
 
 ANALYSIS_REPORT_SCHEMA_VERSION = "analysis.report.v1"
@@ -87,6 +87,7 @@ def build_regime_window_analysis_report(
     summary: Mapping[str, Any] | None = None,
     metadata: Mapping[str, Any] | None = None,
 ) -> AnalysisReport:
+    model_review_briefing = build_model_review_briefing(effect_analysis)
     tables: dict[str, pd.DataFrame] = {
         "qlib_return_frame": effect_analysis.qlib_return_frame,
         "qlib_risk_metrics": effect_analysis.qlib_risk_metrics,
@@ -94,7 +95,7 @@ def build_regime_window_analysis_report(
         "segment_effect_matrix": effect_analysis.segment_effect_matrix,
         "window_regime_metrics": effect_analysis.window_regime_metrics,
         "model_effect_deltas": effect_analysis.model_effect_deltas,
-        "model_review_briefing": build_model_review_briefing(effect_analysis),
+        "model_review_briefing": model_review_briefing,
         "failure_modes": build_failure_modes(effect_analysis.model_effect_deltas),
     }
     if model_comparison is not None:
@@ -113,6 +114,10 @@ def build_regime_window_analysis_report(
     summary_payload["analysis_layers"] = _analysis_layers(summary_payload, table_names)
     summary_payload["analysis_table_counts"] = {name: int(len(tables[name])) for name in table_names}
     summary_payload.setdefault("analysis_summary", effect_analysis.summary)
+    summary_payload.setdefault(
+        "analysis_overview",
+        build_analysis_overview(effect_analysis, model_review_briefing=model_review_briefing),
+    )
 
     return AnalysisReport(
         artifact_id=artifact_id,

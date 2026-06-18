@@ -76,6 +76,8 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         "window_regime_metrics.csv",
         "model_comparison.csv",
         "model_capabilities.csv",
+        "objective_scores.csv",
+        "promotion_scores.csv",
         "qlib_risk_metrics.csv",
         "model_effect_deltas.csv",
     }
@@ -100,13 +102,25 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert summary["backtest_contract"]["cost_model"]["slippage_bps"] > 0.0
     assert summary["walk_forward"]["schema_version"] == "backtest.walk_forward.v1"
     assert summary["walk_forward"]["fold_count"] >= 1
+    assert summary["objective_evaluation"]["schema_version"] == "objective.matrix_evaluation.v1"
+    assert summary["objective_evaluation"]["model_count"] == len(QUANTBENCH_MODEL_NAMES)
+    assert summary["promotion_summary"]["schema_version"] == "objective.promotion_summary.v1"
+    assert summary["promotion_summary"]["model_count"] == len(QUANTBENCH_MODEL_NAMES)
     assert analysis_manifest["artifact_type"] == "analysis_report"
     assert analysis_manifest["paths"]["qlib_risk_metrics"] == "qlib_risk_metrics.csv"
     assert analysis_manifest["paths"]["backtest_config"] == "backtest_config.json"
     assert analysis_manifest["paths"]["walk_forward_splits"] == "walk_forward_splits.csv"
+    assert analysis_manifest["paths"]["objective_scores"] == "objective_scores.csv"
+    assert analysis_manifest["paths"]["promotion_scores"] == "promotion_scores.csv"
     assert len(analysis_manifest["manifest_hash"]) == 64
     daily = pd.read_csv(tmp_path / "daily_backtest.csv")
     folds = pd.read_csv(tmp_path / "walk_forward_splits.csv")
+    objective_scores = pd.read_csv(tmp_path / "objective_scores.csv")
+    promotion_scores = pd.read_csv(tmp_path / "promotion_scores.csv")
     assert {"gross_strategy_return", "cost_return", "net_strategy_return"}.issubset(daily.columns)
     assert daily["cost_return"].abs().sum() > 0.0
     assert {"fold", "train_start", "train_end", "test_start", "test_end", "schema_version"}.issubset(folds.columns)
+    assert {"schema_version", "model", "mse", "classification_accuracy", "ic", "rank_ic"}.issubset(
+        objective_scores.columns
+    )
+    assert {"schema_version", "model", "promotion_score", "promotion_decision"}.issubset(promotion_scores.columns)

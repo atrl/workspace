@@ -61,6 +61,8 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
         "predictions.csv",
         "daily_backtest.csv",
         "model_comparison.csv",
+        "objective_scores.csv",
+        "promotion_scores.csv",
         "regime_metrics.csv",
         "window_metrics.csv",
         "window_regime_metrics.csv",
@@ -83,7 +85,11 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
     assert summary["backtest_contract"]["schema_version"] == "backtest.config.v1"
     assert summary["backtest_contract"]["cost_model"]["open_cost_bps"] > 0.0
     assert summary["walk_forward"]["fold_count"] >= 1
+    assert summary["objective_evaluation"]["model_count"] == summary["variant_count"]
+    assert summary["promotion_summary"]["model_count"] == summary["variant_count"]
     assert analysis_manifest["metadata"]["analysis_report_schema_version"] == "analysis.report.v1"
     assert analysis_manifest["paths"]["model_effect_deltas"] == "model_effect_deltas.csv"
     assert analysis_manifest["paths"]["backtest_config"] == "backtest_config.json"
     assert analysis_manifest["paths"]["walk_forward_splits"] == "walk_forward_splits.csv"
+    assert analysis_manifest["paths"]["objective_scores"] == "objective_scores.csv"
+    assert analysis_manifest["paths"]["promotion_scores"] == "promotion_scores.csv"

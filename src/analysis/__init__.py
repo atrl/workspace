@@ -12,6 +12,7 @@ from .reports import compare_models, compute_regime_metrics, compute_window_metr
 from .qlib_ext import (
     RegimeWindowEffectAnalysis,
     analyze_model_effects_by_regime_and_window,
+    build_analysis_overview,
     build_model_review_briefing,
     build_qlib_return_frame,
     build_segment_effect_matrix,
@@ -29,6 +30,7 @@ __all__ = [
     "backfill_analysis_manifest",
     "backfill_legacy_analysis_cards",
     "build_failure_modes",
+    "build_analysis_overview",
     "build_model_review_briefing",
     "build_qlib_return_frame",
     "build_qlib_recorder_analysis_report",

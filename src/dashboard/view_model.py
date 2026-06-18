@@ -360,6 +360,9 @@ def build_dashboard_view_model(
         "filters_applied": active_filters.to_dict(),
         "controls": _controls(payload, capabilities),
         "summary": dict(payload.get("summary", {})) if isinstance(payload.get("summary"), dict) else {},
+        "analysis_overview": dict(payload.get("analysis_overview", {}))
+        if isinstance(payload.get("analysis_overview"), dict)
+        else {},
         "model_fidelity": dict(payload.get("model_fidelity", {})) if isinstance(payload.get("model_fidelity"), dict) else {},
         "comparison_table": [dict(row) for row in top_models],
         "failure_mode_summary": {

@@ -1,0 +1,25 @@
+{
+  "schema_version": "research.model_matrix_objective_promotion_v1",
+  "status": "completed",
+  "matrix_status": "feature_set_matrix_completed",
+  "variant_count": 6,
+  "analysis_overview_schema": "analysis.overview.v1",
+  "analysis_top_gap_segment": "downtrend",
+  "analysis_top_gap_best_model": "random_forest_clf__ic_weighted_composite",
+  "analysis_top_gap_worst_model": "ridge_mse__all_features",
+  "analysis_top_weakness_model": "ridge_mse__all_features",
+  "analysis_top_weakness_segment": "stress",
+  "objective_model_count": 6,
+  "promotion_model_count": 6,
+  "objective_score_rows": 6,
+  "promotion_score_rows": 6,
+  "manifest_paths": {
+    "objective_scores": "objective_scores.csv",
+    "promotion_scores": "promotion_scores.csv"
+  },
+  "dashboard_objective_rows": 6,
+  "dashboard_promotion_rows": 6,
+  "notification": "model_dashboard_refresh:success | top_model=ridge_mse__ic_weighted_composite | dashboard_manifest=analysis_manifest | attempts=1 | export=/Users/rziiiii/dev/workspace/research/model_matrix_objective_promotion_v1/scheduled_dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_mse__all_features->random_forest_clf__ic_weighted_composite/spread=47.9701 | promotion=promote_candidate:ridge_mse__ic_weighted_composite blocked=0",
+  "notification_contains_regime_gap": true,
+  "notification_contains_promotion": true
+}

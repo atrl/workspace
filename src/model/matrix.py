@@ -24,6 +24,7 @@ from src.factor import prepare_factor_feature_sets
 from src.model.capabilities import model_capability_table, model_fidelity_summary
 from src.model.registry import QUANTBENCH_MODEL_NAMES
 from src.model.training import fit_predict_model
+from src.objective import build_promotion_scores, evaluate_prediction_objectives
 
 
 @dataclass(frozen=True)
@@ -58,6 +59,81 @@ def _adapter_summary(predictions: pd.DataFrame) -> dict[str, object]:
         "adapter_status": statuses[0] if len(statuses) == 1 else "mixed_adapters",
         "adapter_statuses": statuses,
         "model_adapters": adapters,
+    }
+
+
+def _objective_score_table(predictions: pd.DataFrame) -> pd.DataFrame:
+    rows: list[dict[str, object]] = []
+    for model, group in predictions.groupby("model", sort=True):
+        scores = evaluate_prediction_objectives(group, group_col="date")
+        row: dict[str, object] = {
+            "model": str(model),
+            "objective": str(group["objective"].dropna().iloc[0]) if "objective" in group else "",
+            "family": str(group["family"].dropna().iloc[0]) if "family" in group else "",
+            **scores,
+        }
+        if "base_model" in group.columns:
+            row["base_model"] = str(group["base_model"].dropna().iloc[0])
+        if "feature_set" in group.columns:
+            row["feature_set"] = str(group["feature_set"].dropna().iloc[0])
+        rows.append(row)
+    if not rows:
+        return pd.DataFrame()
+    result = pd.DataFrame(rows)
+    front = ["schema_version", "model", "base_model", "feature_set", "objective", "family"]
+    remaining = [column for column in result.columns if column not in front]
+    return result.loc[:, [column for column in front if column in result.columns] + remaining].reset_index(drop=True)
+
+
+def _objective_evaluation_summary(objective_scores: pd.DataFrame) -> dict[str, object]:
+    if objective_scores.empty:
+        return {
+            "schema_version": "objective.matrix_evaluation.v1",
+            "model_count": 0,
+            "avg_mse": 0.0,
+            "avg_ic": 0.0,
+            "avg_rank_ic": 0.0,
+        }
+    return {
+        "schema_version": "objective.matrix_evaluation.v1",
+        "model_count": int(objective_scores["model"].nunique()),
+        "avg_mse": float(objective_scores["mse"].astype(float).mean()),
+        "avg_ic": float(objective_scores["ic"].astype(float).mean()),
+        "avg_rank_ic": float(objective_scores["rank_ic"].astype(float).mean()),
+    }
+
+
+def _promotion_score_table(model_comparison: pd.DataFrame) -> pd.DataFrame:
+    scores = build_promotion_scores(model_comparison)
+    metadata_columns = [column for column in ["model", "base_model", "feature_set"] if column in model_comparison.columns]
+    if scores.empty or not metadata_columns:
+        return scores
+    metadata = model_comparison.loc[:, metadata_columns].drop_duplicates(subset=["model"])
+    result = scores.merge(metadata, on="model", how="left")
+    front = ["schema_version", "rank", "model", "base_model", "feature_set"]
+    remaining = [column for column in result.columns if column not in front]
+    return result.loc[:, [column for column in front if column in result.columns] + remaining].reset_index(drop=True)
+
+
+def _promotion_summary(promotion_scores: pd.DataFrame) -> dict[str, object]:
+    if promotion_scores.empty:
+        return {
+            "schema_version": "objective.promotion_summary.v1",
+            "model_count": 0,
+            "candidate_count": 0,
+            "blocked_count": 0,
+            "top_model": "",
+            "top_decision": "",
+        }
+    decisions = promotion_scores["promotion_decision"].astype(str)
+    top = promotion_scores.sort_values(["rank", "promotion_score"], ascending=[True, False]).iloc[0]
+    return {
+        "schema_version": "objective.promotion_summary.v1",
+        "model_count": int(promotion_scores["model"].nunique()),
+        "candidate_count": int((decisions == "promote_candidate").sum()),
+        "blocked_count": int((decisions == "blocked").sum()),
+        "top_model": str(top["model"]),
+        "top_decision": str(top["promotion_decision"]),
     }
 
 
@@ -212,6 +288,8 @@ def run_quantbench_matrix_smoke(
     windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
     window_metrics = compute_window_metrics(daily, windows=windows)
     model_comparison = compare_models(daily)
+    objective_scores = _objective_score_table(predictions)
+    promotion_scores = _promotion_score_table(model_comparison)
     model_capabilities = model_capability_table(selected_model_names)
     model_fidelity = model_fidelity_summary(selected_model_names)
     effect_analysis = analyze_model_effects_by_regime_and_window(
@@ -231,6 +309,8 @@ def run_quantbench_matrix_smoke(
         "top_model": str(model_comparison.iloc[0]["model"]),
         "backtest_contract": backtest_result.config.to_dict(),
         "walk_forward": walk_forward_summary,
+        "objective_evaluation": _objective_evaluation_summary(objective_scores),
+        "promotion_summary": _promotion_summary(promotion_scores),
         **adapter_summary,
         "model_fidelity": model_fidelity,
         "analysis_layers": [
@@ -239,6 +319,8 @@ def run_quantbench_matrix_smoke(
             "window_regime_metrics",
             "qlib_risk_metrics",
             "model_effect_deltas",
+            "objective_scores",
+            "promotion_scores",
         ],
         "analysis_summary": effect_analysis.summary,
         "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
@@ -254,12 +336,16 @@ def run_quantbench_matrix_smoke(
         "model_count": summary["model_count"],
         "backtest_contract": summary["backtest_contract"],
         "walk_forward": summary["walk_forward"],
+        "objective_evaluation": summary["objective_evaluation"],
+        "promotion_summary": summary["promotion_summary"],
     }
     (card / "backtest_config.json").write_text(
         json.dumps(backtest_result.config.to_dict(), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     walk_forward_splits.to_csv(card / "walk_forward_splits.csv", index=False)
+    objective_scores.to_csv(card / "objective_scores.csv", index=False)
+    promotion_scores.to_csv(card / "promotion_scores.csv", index=False)
     summary = _write_analysis_sidecars(
         card,
         artifact_id=card.name,
@@ -271,7 +357,12 @@ def run_quantbench_matrix_smoke(
         regime_metrics=regime_metrics,
         window_metrics=window_metrics,
         manifest_metadata=analysis_metadata,
-        extra_paths={"backtest_config": "backtest_config.json", "walk_forward_splits": "walk_forward_splits.csv"},
+        extra_paths={
+            "backtest_config": "backtest_config.json",
+            "walk_forward_splits": "walk_forward_splits.csv",
+            "objective_scores": "objective_scores.csv",
+            "promotion_scores": "promotion_scores.csv",
+        },
     )
     predictions.to_csv(card / "predictions.csv", index=False)
     daily.to_csv(card / "daily_backtest.csv", index=False)
@@ -296,6 +387,8 @@ def run_quantbench_matrix_smoke(
             "model_effect_deltas": "model_effect_deltas.csv",
             "backtest_config": "backtest_config.json",
             "walk_forward_splits": "walk_forward_splits.csv",
+            "objective_scores": "objective_scores.csv",
+            "promotion_scores": "promotion_scores.csv",
             "analysis_manifest": "analysis_manifest.json",
         },
         metadata=analysis_metadata,
@@ -368,6 +461,8 @@ def run_factor_feature_set_matrix(
     windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
     window_metrics = compute_window_metrics(daily, windows=windows)
     model_comparison = _enrich_comparison_with_variant_columns(compare_models(daily))
+    objective_scores = _objective_score_table(predictions)
+    promotion_scores = _promotion_score_table(model_comparison)
     model_capabilities = model_capability_table(selected_model_names)
     model_fidelity = model_fidelity_summary(selected_model_names)
     effect_analysis = analyze_model_effects_by_regime_and_window(
@@ -389,6 +484,8 @@ def run_factor_feature_set_matrix(
         "top_variant": str(model_comparison.iloc[0]["model"]),
         "backtest_contract": backtest_result.config.to_dict(),
         "walk_forward": walk_forward_summary,
+        "objective_evaluation": _objective_evaluation_summary(objective_scores),
+        "promotion_summary": _promotion_summary(promotion_scores),
         **adapter_summary,
         "model_fidelity": model_fidelity,
         "analysis_layers": [
@@ -397,6 +494,8 @@ def run_factor_feature_set_matrix(
             "window_regime_metrics",
             "qlib_risk_metrics",
             "model_effect_deltas",
+            "objective_scores",
+            "promotion_scores",
         ],
         **plan.summary,
         "feature_sets": [feature_set.to_dict() for feature_set in plan.feature_sets],
@@ -417,12 +516,16 @@ def run_factor_feature_set_matrix(
         "selection_source": summary["selection_source"],
         "backtest_contract": summary["backtest_contract"],
         "walk_forward": summary["walk_forward"],
+        "objective_evaluation": summary["objective_evaluation"],
+        "promotion_summary": summary["promotion_summary"],
     }
     (card / "backtest_config.json").write_text(
         json.dumps(backtest_result.config.to_dict(), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     walk_forward_splits.to_csv(card / "walk_forward_splits.csv", index=False)
+    objective_scores.to_csv(card / "objective_scores.csv", index=False)
+    promotion_scores.to_csv(card / "promotion_scores.csv", index=False)
     summary = _write_analysis_sidecars(
         card,
         artifact_id=card.name,
@@ -434,7 +537,12 @@ def run_factor_feature_set_matrix(
         regime_metrics=regime_metrics,
         window_metrics=window_metrics,
         manifest_metadata=analysis_metadata,
-        extra_paths={"backtest_config": "backtest_config.json", "walk_forward_splits": "walk_forward_splits.csv"},
+        extra_paths={
+            "backtest_config": "backtest_config.json",
+            "walk_forward_splits": "walk_forward_splits.csv",
+            "objective_scores": "objective_scores.csv",
+            "promotion_scores": "promotion_scores.csv",
+        },
     )
     predictions.to_csv(card / "predictions.csv", index=False)
     daily.to_csv(card / "daily_backtest.csv", index=False)
@@ -464,6 +572,8 @@ def run_factor_feature_set_matrix(
             "model_effect_deltas": "model_effect_deltas.csv",
             "backtest_config": "backtest_config.json",
             "walk_forward_splits": "walk_forward_splits.csv",
+            "objective_scores": "objective_scores.csv",
+            "promotion_scores": "promotion_scores.csv",
             "analysis_manifest": "analysis_manifest.json",
             "factor_ic": "factor_ic.csv",
             "feature_set_specs": "feature_set_specs.json",

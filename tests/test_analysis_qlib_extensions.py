@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.analysis import (
     analyze_model_effects_by_regime_and_window,
+    build_analysis_overview,
     build_model_review_briefing,
     build_qlib_return_frame,
     build_segment_effect_matrix,
@@ -225,3 +226,30 @@ def test_build_model_review_briefing_prioritizes_regime_window_model_differences
     assert "是否晋升" in markdown
     assert "stress" in markdown
     assert "gcn_mse" in markdown
+
+
+def test_build_analysis_overview_summarizes_regime_window_model_gaps_for_dashboard_and_schedule():
+    analysis = analyze_model_effects_by_regime_and_window(
+        _daily_frame(),
+        windows={"early": ("2026-01-01", "2026-01-04"), "stress_window": ("2026-01-05", "2026-01-07")},
+        baseline_model="ridge_mse",
+    )
+
+    overview = build_analysis_overview(analysis)
+
+    assert overview["schema_version"] == "analysis.overview.v1"
+    assert overview["baseline_model"] == "ridge_mse"
+    assert overview["model_count"] == 2
+    assert overview["regime_count"] == 4
+    assert overview["window_count"] == 2
+    assert overview["review_signal_counts"]["weakness"] >= 1
+    assert overview["review_signal_counts"]["strength"] >= 1
+    assert overview["top_weakness"]["model"] == "gcn_mse"
+    assert "stress" in overview["top_weakness"]["segment"]
+    assert overview["top_weakness"]["decision_hint"] == "block_or_rework"
+    assert overview["top_strength"]["model"] == "gcn_mse"
+    assert overview["largest_relative_return_spread_segments"][0]["segment"]
+    assert overview["largest_relative_return_spread_segments"][0]["best_relative_return_model"]
+    assert overview["largest_relative_return_spread_segments"][0]["worst_relative_return_model"]
+    assert overview["largest_relative_return_spread_segments"][0]["relative_return_pct_spread"] > 0.0
+    assert "regime/window" in overview["dashboard_note"]

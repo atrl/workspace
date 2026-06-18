@@ -89,6 +89,33 @@ def _view_model_with_review_briefing() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_analysis_overview() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"analysis_overview": "/path/that/must/not/be/rendered.json"}
+    payload["analysis_overview"] = {
+        "schema_version": "analysis.overview.v1",
+        "baseline_model": "ridge_mse__all_features",
+        "model_count": 2,
+        "regime_count": 4,
+        "window_count": 1,
+        "largest_relative_return_spread_segments": [
+            {
+                "segment": "test::stress",
+                "best_relative_return_model": "ridge_mse__all_features",
+                "worst_relative_return_model": "gcn_mse__top_ic_factors",
+                "relative_return_pct_spread": 4.25,
+            }
+        ],
+        "top_weakness": {
+            "model": "gcn_mse__top_ic_factors",
+            "segment": "test::stress",
+            "review_signal": "weakness",
+            "decision_hint": "block_or_rework",
+        },
+    }
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -104,6 +131,17 @@ def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_w
     assert "/path/that/must/not/be/rendered.csv" not in html
     assert any(attrs.get("data-model") == "gcn_mse__top_ic_factors" for attrs in parser.data_attrs)
     assert 'data-regime="stress"' in html
+
+
+def test_render_dashboard_html_outputs_analysis_overview_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_analysis_overview(), title="SOXL Analysis Overview")
+
+    assert "Analysis Overview" in html
+    assert "test::stress" in html
+    assert "gcn_mse__top_ic_factors -> ridge_mse__all_features" in html
+    assert "4.25" in html
+    assert "weakness / block_or_rework" in html
+    assert "/path/that/must/not/be/rendered.json" not in html
 
 
 def test_render_dashboard_html_outputs_failure_mode_sections_without_sidecar_paths():

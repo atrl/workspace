@@ -25,6 +25,13 @@ def test_dashboard_loads_model_review_briefing_and_segment_matrix_from_manifest(
     payload = load_model_matrix_dashboard("research/analysis_segment_effect_matrix_v1")
 
     assert payload["manifest_source"]["kind"] == "analysis_manifest"
+    assert payload["analysis_overview"]["schema_version"] == "analysis.overview.v1"
+    assert payload["analysis_overview"]["top_weakness"]["decision_hint"] in {
+        "block_or_rework",
+        "reduce_or_guardrail",
+        "",
+    }
+    assert payload["analysis_overview"]["largest_relative_return_spread_segments"]
     assert payload["segment_effect_matrix"][0]["schema_version"] == "analysis.segment_effect_matrix.v1"
     assert payload["model_review_briefing"][0]["schema_version"] == "analysis.model_review_briefing.v1"
     assert payload["model_review_briefing"][0]["review_signal"] in {"weakness", "strength", "risk"}
@@ -80,6 +87,30 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     pd.DataFrame([{"model": "ridge_mse", "return_kind": "strategy_return", "annualized_return": 0.25}]).to_csv(
         matrix_card / "risk_custom.csv", index=False
     )
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "objective.evaluation.v1",
+                "model": "ridge_mse",
+                "mse": 0.0001,
+                "classification_accuracy": 1.0,
+                "ic": 0.8,
+                "rank_ic": 0.7,
+            }
+        ]
+    ).to_csv(matrix_card / "objective_scores_custom.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "objective.promotion_score.v1",
+                "rank": 1,
+                "model": "ridge_mse",
+                "promotion_score": 12.5,
+                "promotion_decision": "promote_candidate",
+                "promotion_blockers": "",
+            }
+        ]
+    ).to_csv(matrix_card / "promotion_scores_custom.csv", index=False)
     pd.DataFrame(
         [{"model": "ridge_mse", "segment_type": "all", "segment": "all", "diagnosis": "基准模型。"}]
     ).to_csv(matrix_card / "deltas_custom.csv", index=False)
@@ -151,6 +182,8 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
                     "regime_metrics": "regime_custom.csv",
                     "window_metrics": "window_custom.csv",
                     "qlib_risk_metrics": "risk_custom.csv",
+                    "objective_scores": "objective_scores_custom.csv",
+                    "promotion_scores": "promotion_scores_custom.csv",
                     "model_effect_deltas": "deltas_custom.csv",
                     "segment_effect_matrix": "segment_matrix_custom.csv",
                     "model_review_briefing": "review_custom.csv",
@@ -174,6 +207,8 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["top_models"][0]["model"] == "ridge_mse"
     assert payload["regime_metrics"][0]["regime"] == "bull"
     assert payload["qlib_risk_metrics"][0]["annualized_return"] == 0.25
+    assert payload["objective"]["scores"][0]["schema_version"] == "objective.evaluation.v1"
+    assert payload["objective"]["promotion_scores"][0]["promotion_decision"] == "promote_candidate"
     assert payload["model_effect_deltas"][0]["diagnosis"] == "基准模型。"
     assert payload["segment_effect_matrix"][0]["best_relative_return_model"] == "ridge_mse"
     assert payload["model_review_briefing"][0]["review_signal"] == "strength"
@@ -182,6 +217,8 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["model_capabilities"][0]["paper_fidelity"] == "native_library"
     assert payload["artifacts"]["analysis_manifest"].endswith("analysis_manifest.json")
     assert payload["artifacts"]["model_comparison"].endswith("comparison_custom.csv")
+    assert payload["artifacts"]["objective_scores"].endswith("objective_scores_custom.csv")
+    assert payload["artifacts"]["promotion_scores"].endswith("promotion_scores_custom.csv")
     assert payload["artifacts"]["model_review_briefing"].endswith("review_custom.csv")
     assert payload["artifacts"]["backtest_config"].endswith("backtest_config_custom.json")
     assert payload["artifacts"]["walk_forward_splits"].endswith("walk_forward_custom.csv")

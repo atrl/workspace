@@ -98,6 +98,37 @@ def _review_briefing(rows: list[dict[str, Any]]) -> str:
     )
 
 
+def _analysis_overview_panel(view_model: dict[str, Any]) -> str:
+    overview = view_model.get("analysis_overview", {}) if isinstance(view_model.get("analysis_overview"), dict) else {}
+    if not overview:
+        return ""
+    gaps = overview.get("largest_relative_return_spread_segments")
+    top_gap = gaps[0] if isinstance(gaps, list) and gaps and isinstance(gaps[0], dict) else {}
+    weakness = overview.get("top_weakness")
+    top_weakness = weakness if isinstance(weakness, dict) else {}
+    gap_flow = ""
+    if top_gap:
+        gap_flow = (
+            f"{escape(str(top_gap.get('worst_relative_return_model', '')))} -> "
+            f"{escape(str(top_gap.get('best_relative_return_model', '')))}"
+        )
+    return f"""
+    <section class="analysis-overview" aria-label="analysis overview">
+      <header>
+        <h2>Analysis Overview</h2>
+        <p>{escape(str(overview.get('dashboard_note', '')))}</p>
+      </header>
+      <div class="overview-grid">
+        <div><span>基准模型</span><strong>{escape(str(overview.get('baseline_model', '')))}</strong></div>
+        <div><span>Regime / Window</span><strong>{escape(str(overview.get('regime_count', 0)))} / {escape(str(overview.get('window_count', 0)))}</strong></div>
+        <div><span>最大差异</span><strong>{escape(str(top_gap.get('segment', '')))}</strong><p>{gap_flow}</p></div>
+        <div><span>Spread</span><strong>{_metric(top_gap.get('relative_return_pct_spread', 0.0))}</strong></div>
+        <div><span>Top Weakness</span><strong>{escape(str(top_weakness.get('review_signal', '')))} / {escape(str(top_weakness.get('decision_hint', '')))}</strong><p>{escape(str(top_weakness.get('model', '')))} @ {escape(str(top_weakness.get('segment', '')))}</p></div>
+      </div>
+    </section>
+    """
+
+
 def _model_card(card: dict[str, Any]) -> str:
     model = str(card.get("model", ""))
     fidelity = str(card.get("paper_fidelity", ""))
@@ -198,6 +229,13 @@ def _style() -> str:
     .toolbar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; padding: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
     label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
     select { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 8px; }
+    .analysis-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .analysis-overview header { margin-bottom: 10px; }
+    .overview-grid { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 10px; }
+    .overview-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .overview-grid span { color: var(--muted); font-size: 12px; }
+    .overview-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .overview-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
     .summary { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
     .summary div, .model-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
     .summary div { padding: 12px; }
@@ -227,7 +265,7 @@ def _style() -> str:
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     """
 
 
@@ -277,6 +315,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     summary = view_model.get("summary", {}) if isinstance(view_model.get("summary"), dict) else {}
     fidelity = view_model.get("model_fidelity", {}) if isinstance(view_model.get("model_fidelity"), dict) else {}
     embedded = json.dumps(view_model, ensure_ascii=False, indent=2).replace("</", "<\\/")
+    overview_panel = _analysis_overview_panel(view_model)
     cards = "\n".join(_model_card(card) for card in model_cards)
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -305,6 +344,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
       <label>Review Signal<select id="review-signal-filter"><option value="">全部</option>{_options(controls.get('review_signals', []))}</select></label>
       <label>Decision<select id="decision-hint-filter"><option value="">全部</option>{_options(controls.get('decision_hints', []))}</select></label>
     </section>
+    {overview_panel}
     <section class="summary">
       <div><span>模型卡片</span><strong>{len(model_cards)}</strong></div>
       <div><span>基准模型</span><strong>{escape(str(summary.get('analysis_summary', {}).get('baseline_model', '')) if isinstance(summary.get('analysis_summary'), dict) else '')}</strong></div>

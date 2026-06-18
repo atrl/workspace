@@ -219,6 +219,56 @@ def _backtest_contract_payload(dashboard_payload: dict[str, Any]) -> dict[str, A
     }
 
 
+def _analysis_overview_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    overview = dashboard_payload.get("analysis_overview")
+    if not isinstance(overview, dict):
+        return {}
+    gaps = overview.get("largest_relative_return_spread_segments")
+    top_gap = gaps[0] if isinstance(gaps, list) and gaps and isinstance(gaps[0], dict) else {}
+    top_weakness = overview.get("top_weakness")
+    if not isinstance(top_weakness, dict):
+        top_weakness = {}
+    return {
+        "analysis_overview_schema_version": str(overview.get("schema_version", "")),
+        "analysis_overview_baseline_model": str(overview.get("baseline_model", "")),
+        "analysis_overview_top_weakness_model": str(top_weakness.get("model", "")),
+        "analysis_overview_top_weakness_segment": str(top_weakness.get("segment", "")),
+        "analysis_overview_top_weakness_decision_hint": str(top_weakness.get("decision_hint", "")),
+        "analysis_overview_top_gap_segment": str(top_gap.get("segment", "")),
+        "analysis_overview_top_gap_best_model": str(top_gap.get("best_relative_return_model", "")),
+        "analysis_overview_top_gap_worst_model": str(top_gap.get("worst_relative_return_model", "")),
+        "analysis_overview_top_gap_spread": float(top_gap.get("relative_return_pct_spread", 0.0) or 0.0),
+    }
+
+
+def _promotion_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    objective = dashboard_payload.get("objective")
+    if not isinstance(objective, dict):
+        return {}
+    rows = objective.get("promotion_scores")
+    if not isinstance(rows, list) or not rows:
+        return {}
+    promotion_rows = [row for row in rows if isinstance(row, dict)]
+    if not promotion_rows:
+        return {}
+    ordered = sorted(
+        promotion_rows,
+        key=lambda row: (
+            int(float(row.get("rank", 999999) or 999999)),
+            -float(row.get("promotion_score", 0.0) or 0.0),
+        ),
+    )
+    top = ordered[0]
+    return {
+        "top_promotion_model": str(top.get("model", "")),
+        "top_promotion_decision": str(top.get("promotion_decision", "")),
+        "top_promotion_score": float(top.get("promotion_score", 0.0) or 0.0),
+        "blocked_promotion_count": int(
+            sum(1 for row in promotion_rows if str(row.get("promotion_decision", "")) == "blocked")
+        ),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -273,6 +323,8 @@ def _run_pipeline_attempt(
         **_top_failure_payload(dashboard_payload),
         **_top_review_payload(dashboard_payload),
         **_backtest_contract_payload(dashboard_payload),
+        **_analysis_overview_payload(dashboard_payload),
+        **_promotion_payload(dashboard_payload),
         **_prefixed_preflight_payload(preflight),
     }
 
@@ -326,6 +378,18 @@ def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[st
         message += (
             f" | backtest={payload.get('backtest_schema_version')} folds={payload.get('walk_forward_fold_count', 0)}"
             f" slippage_bps={payload.get('backtest_slippage_bps', 0.0)}"
+        )
+    if payload.get("analysis_overview_top_gap_segment"):
+        message += (
+            f" | regime_gap={payload.get('analysis_overview_top_gap_segment')}:"
+            f"{payload.get('analysis_overview_top_gap_worst_model', '')}->"
+            f"{payload.get('analysis_overview_top_gap_best_model', '')}"
+            f"/spread={payload.get('analysis_overview_top_gap_spread', 0.0):g}"
+        )
+    if payload.get("top_promotion_model"):
+        message += (
+            f" | promotion={payload.get('top_promotion_decision', '')}:{payload.get('top_promotion_model', '')}"
+            f" blocked={payload.get('blocked_promotion_count', 0)}"
         )
     return message
 

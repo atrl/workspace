@@ -6,6 +6,8 @@ from typing import Any
 
 import pandas as pd
 
+from src.analysis import build_analysis_overview
+
 
 PUBLIC_ARTIFACT_KEYS = {
     "summary",
@@ -14,6 +16,8 @@ PUBLIC_ARTIFACT_KEYS = {
     "window_metrics",
     "window_regime_metrics",
     "qlib_risk_metrics",
+    "objective_scores",
+    "promotion_scores",
     "segment_effect_matrix",
     "model_effect_deltas",
     "model_review_briefing",
@@ -60,6 +64,8 @@ def _default_public_paths(card: Path) -> dict[str, str]:
         "window_metrics": "window_metrics.csv",
         "window_regime_metrics": "window_regime_metrics.csv",
         "qlib_risk_metrics": "qlib_risk_metrics.csv",
+        "objective_scores": "objective_scores.csv",
+        "promotion_scores": "promotion_scores.csv",
         "segment_effect_matrix": "segment_effect_matrix.csv",
         "model_effect_deltas": "model_effect_deltas.csv",
         "model_review_briefing": "model_review_briefing.csv",
@@ -231,6 +237,29 @@ def _load_attribution_card(attribution_card: Path | None, *, top_n: int) -> dict
     }
 
 
+def _analysis_overview(
+    summary: dict[str, Any],
+    *,
+    segment_effect_matrix: pd.DataFrame,
+    model_review_briefing: pd.DataFrame,
+) -> dict[str, Any]:
+    overview = summary.get("analysis_overview")
+    if isinstance(overview, dict):
+        return dict(overview)
+    analysis_summary = summary.get("analysis_summary")
+    if isinstance(analysis_summary, dict):
+        return build_analysis_overview(
+            analysis_summary,
+            segment_effect_matrix=segment_effect_matrix,
+            model_review_briefing=model_review_briefing,
+        )
+    return build_analysis_overview(
+        {},
+        segment_effect_matrix=segment_effect_matrix,
+        model_review_briefing=model_review_briefing,
+    )
+
+
 def load_model_matrix_dashboard(
     card_dir: str | Path,
     *,
@@ -248,6 +277,8 @@ def load_model_matrix_dashboard(
         card, public_paths, "window_regime_metrics", "window_regime_metrics.csv"
     )
     qlib_risk_metrics = _read_optional_csv_from_paths(card, public_paths, "qlib_risk_metrics", "qlib_risk_metrics.csv")
+    objective_scores = _read_optional_csv_from_paths(card, public_paths, "objective_scores", "objective_scores.csv")
+    promotion_scores = _read_optional_csv_from_paths(card, public_paths, "promotion_scores", "promotion_scores.csv")
     segment_effect_matrix = _read_optional_csv_from_paths(
         card, public_paths, "segment_effect_matrix", "segment_effect_matrix.csv"
     )
@@ -277,6 +308,11 @@ def load_model_matrix_dashboard(
             artifact_manifest=artifact_manifest,
         ),
         "summary": summary,
+        "analysis_overview": _analysis_overview(
+            summary,
+            segment_effect_matrix=segment_effect_matrix,
+            model_review_briefing=model_review_briefing,
+        ),
         "model_fidelity": _load_model_fidelity(summary, card),
         "model_capabilities": _records(model_capabilities, limit=200),
         "top_models": comparison.head(top_n).to_dict(orient="records"),
@@ -285,6 +321,10 @@ def load_model_matrix_dashboard(
         "window_metrics": window_metrics.to_dict(orient="records"),
         "window_regime_metrics": _records(window_regime_metrics, limit=200),
         "qlib_risk_metrics": _records(qlib_risk_metrics, limit=200),
+        "objective": {
+            "scores": _records(objective_scores, limit=200),
+            "promotion_scores": _records(promotion_scores, limit=200),
+        },
         "segment_effect_matrix": _records(segment_effect_matrix, limit=200),
         "model_effect_deltas": _records(model_effect_deltas, limit=200),
         "model_review_briefing": _records(model_review_briefing, limit=200),

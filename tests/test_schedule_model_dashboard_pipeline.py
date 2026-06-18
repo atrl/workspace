@@ -417,6 +417,74 @@ def test_model_dashboard_refresh_detailed_notification_includes_top_review_brief
     assert "top_review=weakness:block_or_rework@stress_window::stress" in events[0]
 
 
+def test_model_dashboard_refresh_detailed_notification_includes_analysis_overview_regime_gap(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 2, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "analysis_overview_card",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": str(card_dir / "analysis_manifest.json"),
+                "schema_version": "artifact.v1",
+                "manifest_hash": "e" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "analysis_overview": {
+                "schema_version": "analysis.overview.v1",
+                "baseline_model": "ridge_mse",
+                "largest_relative_return_spread_segments": [
+                    {
+                        "segment": "stress_window::stress",
+                        "best_relative_return_model": "ridge_mse",
+                        "worst_relative_return_model": "gcn_mse",
+                        "relative_return_pct_spread": 4.25,
+                    }
+                ],
+                "top_weakness": {
+                    "model": "gcn_mse",
+                    "segment": "stress_window::stress",
+                    "review_signal": "weakness",
+                    "decision_hint": "block_or_rework",
+                },
+            },
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse", "gcn_mse"),
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["analysis_overview_schema_version"] == "analysis.overview.v1"
+    assert result.payload["analysis_overview_top_weakness_model"] == "gcn_mse"
+    assert result.payload["analysis_overview_top_gap_segment"] == "stress_window::stress"
+    assert result.payload["analysis_overview_top_gap_spread"] == 4.25
+    assert "regime_gap=stress_window::stress:gcn_mse->ridge_mse/spread=4.25" in events[0]
+
+
 def test_model_dashboard_refresh_detailed_notification_includes_backtest_contract(tmp_path):
     events: list[str] = []
 
@@ -492,6 +560,73 @@ def test_model_dashboard_refresh_detailed_notification_includes_backtest_contrac
     assert result.payload["backtest_slippage_bps"] == 1.5
     assert result.payload["walk_forward_fold_count"] == 2
     assert "backtest=backtest.config.v1 folds=2 slippage_bps=1.5" in events[0]
+
+
+def test_model_dashboard_refresh_detailed_notification_includes_promotion_summary(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 2, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "promotion_card",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": str(card_dir / "analysis_manifest.json"),
+                "schema_version": "artifact.v1",
+                "manifest_hash": "e" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "objective": {
+                "promotion_scores": [
+                    {
+                        "rank": 1,
+                        "model": "ridge_mse",
+                        "promotion_score": 12.5,
+                        "promotion_decision": "promote_candidate",
+                        "promotion_blockers": "",
+                    },
+                    {
+                        "rank": 2,
+                        "model": "gcn_mse",
+                        "promotion_score": -5.0,
+                        "promotion_decision": "blocked",
+                        "promotion_blockers": "max_drawdown_pct",
+                    },
+                ]
+            },
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse", "gcn_mse"),
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["top_promotion_model"] == "ridge_mse"
+    assert result.payload["top_promotion_decision"] == "promote_candidate"
+    assert result.payload["blocked_promotion_count"] == 1
+    assert "promotion=promote_candidate:ridge_mse blocked=1" in events[0]
 
 
 def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_export(tmp_path):
