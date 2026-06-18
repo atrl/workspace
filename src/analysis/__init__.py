@@ -28,6 +28,7 @@ from .qlib_ext import (
     compute_qlib_risk_metrics,
     render_model_review_briefing_markdown,
 )
+from .regimes import MarketRegimeConfig, attach_market_regimes, build_market_regime_frame
 
 __all__ = [
     "AnalysisReport",
@@ -35,7 +36,9 @@ __all__ = [
     "RegimeWindowEffectAnalysis",
     "ModelAttributionReport",
     "ModelAttributionCard",
+    "MarketRegimeConfig",
     "analyze_model_effects_by_regime_and_window",
+    "attach_market_regimes",
     "backfill_analysis_manifest",
     "backfill_legacy_analysis_cards",
     "build_failure_modes",
@@ -45,6 +48,7 @@ __all__ = [
     "build_model_review_briefing",
     "build_model_regime_window_diagnostics",
     "build_model_attribution_card",
+    "build_market_regime_frame",
     "build_qlib_return_frame",
     "build_qlib_recorder_analysis_report",
     "build_qlib_recorder_regime_window_analysis_report",

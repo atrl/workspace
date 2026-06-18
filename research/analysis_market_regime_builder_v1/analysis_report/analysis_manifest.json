@@ -1,0 +1,60 @@
+{
+  "artifact_id": "analysis_market_regime_builder_v1",
+  "artifact_type": "analysis_report",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "data/processed/panels/soxl_soxx_vix_full.csv"
+    ],
+    "end": "2026-06-10",
+    "metadata": {
+      "purpose": "验证 market regime builder 接入 qlib/backtest analysis report。",
+      "regime_schema_version": "analysis.market_regime.v1",
+      "row_count": 612
+    },
+    "name": "soxl_support_market_regime_builder_v1",
+    "schema_version": "dataset.v1",
+    "start": "2024-01-02",
+    "universe": [
+      "SOXL",
+      "SOXX",
+      "VIX"
+    ]
+  },
+  "metadata": {
+    "analysis_report_schema_version": "analysis.report.v1",
+    "source": "research/analysis_market_regime_builder_v1",
+    "table_counts": {
+      "failure_modes": 28,
+      "model_comparison": 3,
+      "model_effect_deltas": 153,
+      "model_regime_window_diagnostics": 3,
+      "model_review_briefing": 80,
+      "qlib_return_frame": 1836,
+      "qlib_risk_metrics": 306,
+      "regime_metrics": 24,
+      "segment_effect_matrix": 51,
+      "segment_metrics": 153,
+      "window_metrics": 24,
+      "window_regime_metrics": 102
+    }
+  },
+  "paths": {
+    "failure_modes": "failure_modes.csv",
+    "model_comparison": "model_comparison.csv",
+    "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
+    "model_review_briefing": "model_review_briefing.csv",
+    "qlib_return_frame": "qlib_return_frame.csv",
+    "qlib_risk_metrics": "qlib_risk_metrics.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "segment_effect_matrix": "segment_effect_matrix.csv",
+    "segment_metrics": "segment_metrics.csv",
+    "summary": "analysis_summary.json",
+    "window_metrics": "window_metrics.csv",
+    "window_regime_metrics": "window_regime_metrics.csv"
+  },
+  "producer": "src.analysis.exports",
+  "schema_version": "artifact.v1",
+  "manifest_hash": "3bd18d2af8abc1536c04fbc2da04bed0fb81d1c17a20d22617527f634c8fd63d"
+}

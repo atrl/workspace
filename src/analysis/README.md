@@ -10,6 +10,10 @@ schedule 或 production 的功能入口。
 - `daily_backtest` 风格表：至少包含 `date`、`model`、`nav`，可选
   `benchmark_nav`、`position`、`turnover`、`regime`、`vix`、`trend`、
   `drawdown`。
+- market panel / qlib canonical frame：至少包含 `date`、`close` 或 `price`，
+  可选 `volume`、`soxx_close`、`vix`、`trend`、`drawdown`、`realized_vol`、
+  `volume_z`。通过 `build_market_regime_frame` 生成统一 `regime_frame`，
+  再用 `attach_market_regimes` 合并到 qlib recorder 或 daily backtest 结果。
 - qlib recorder 或本地 qlib artifact 目录：通过
   `load_qlib_recorder_analysis` 读取 `report_normal_1day`、`risk_analysis_1day`、
   positions、orders、indicator analysis 等常见 artifact。
@@ -40,9 +44,14 @@ schedule 或 production 的功能入口。
 常用路径：
 
 1. `load_qlib_recorder_analysis(...)` 标准化单个模型的 qlib artifact。
-2. `build_qlib_recorder_regime_window_analysis_report(...)` 合并多个模型并生成
+2. `build_market_regime_frame(...)` 从 qlib/canonical market panel 生成
+   date-level regime，覆盖 VIX、趋势、回撤、波动、成交量冲击和 bull/bear/sideways。
+3. `attach_market_regimes(...)` 把 regime context 合并到 qlib portfolio report
+   或 daily backtest 表，默认保留已有人工 `regime`，并把框架生成结果放到
+   `market_regime`。
+4. `build_qlib_recorder_regime_window_analysis_report(...)` 合并多个模型并生成
    regime/window 对比报告。
-3. `write_analysis_report(...)` 写出 summary、CSV sidecar 和 manifest。
+5. `write_analysis_report(...)` 写出 summary、CSV sidecar 和 manifest。
 
 ## 扩展原则
 
