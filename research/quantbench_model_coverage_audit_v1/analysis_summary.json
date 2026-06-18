@@ -1,13 +1,10 @@
 {
   "status": "completed",
   "model_count": 32,
-  "paper_strict_count": 30,
-  "dependency_fallback_count": 2,
+  "paper_strict_count": 32,
+  "dependency_fallback_count": 0,
   "smoke_count": 0,
-  "fallback_models": [
-    "catboost_rank",
-    "xgboost_mse"
-  ],
+  "fallback_models": [],
   "matrix_status": "smoke_completed",
   "matrix_top_model": "gat_mse",
   "train_end": "2026-04-30",
@@ -27,12 +24,29 @@
     "matrix_window_metrics": "matrix_card/window_metrics.csv",
     "matrix_qlib_risk_metrics": "matrix_card/qlib_risk_metrics.csv",
     "matrix_model_effect_deltas": "matrix_card/model_effect_deltas.csv",
-    "mlp_artifact": "mlp_mse_artifact.joblib",
-    "mlp_artifact_predictions": "mlp_artifact_predictions.csv",
-    "mlp_artifact_metadata": "mlp_artifact_metadata.json"
+    "model_artifacts": {
+      "mlp_mse": {
+        "artifact": "mlp_mse_artifact.joblib",
+        "predictions": "mlp_mse_artifact_predictions.csv",
+        "metadata": "mlp_mse_artifact_metadata.json",
+        "model_adapter": "mlp_sklearn_mse_v1"
+      },
+      "xgboost_mse": {
+        "artifact": "xgboost_mse_artifact.joblib",
+        "predictions": "xgboost_mse_artifact_predictions.csv",
+        "metadata": "xgboost_mse_artifact_metadata.json",
+        "model_adapter": "xgboost_mse_v1"
+      },
+      "catboost_rank": {
+        "artifact": "catboost_rank_artifact.joblib",
+        "predictions": "catboost_rank_artifact_predictions.csv",
+        "metadata": "catboost_rank_artifact_metadata.json",
+        "model_adapter": "catboost_rank_v1"
+      }
+    }
   },
   "risk_notes": [
-    "xgboost_mse 与 catboost_rank 仍因本地依赖缺失使用 dependency fallback。",
+    "xgboost_mse 与 catboost_rank 已接入原生依赖，但需要在 clean venv/CI 中持续验证 wheel 与 torch 的导入顺序稳定性。",
     "graph/transformer/advanced sequence 当前是可训练 proxy adapter，不等价于完整论文复现。",
     "本次窗口仅覆盖 2026-01-01 至 2026-06-09，不能直接外推到 production。"
   ]

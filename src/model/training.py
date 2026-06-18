@@ -9,6 +9,8 @@ from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+# Import before sequence/torch modules; torch-first initialization can segfault xgboost 3.2.0 on this arm64 stack.
+from xgboost import XGBRegressor
 
 from .graph import GraphFeatureRidgeRegressor
 from .registry import get_model_spec
@@ -27,8 +29,10 @@ STRICT_ADAPTER_NAMES = {
     "ridge_ic": "ridge_rank_ic_proxy_v1",
     "random_forest_clf": "random_forest_direction_v1",
     "hist_gradient_mse": "hist_gradient_mse_v1",
+    "xgboost_mse": "xgboost_mse_v1",
     "extra_trees_rank": "extra_trees_rank_proxy_v1",
     "lightgbm_mse": "lightgbm_mse_v1",
+    "catboost_rank": "catboost_rank_v1",
     "mlp_mse": "mlp_sklearn_mse_v1",
     "sequence_lag_ridge_mse": "sequence_lag_ridge_mse_v1",
     "lstm_mse": "lstm_pytorch_sequence_mse_v1",
@@ -54,10 +58,7 @@ STRICT_ADAPTER_NAMES = {
     "sthgcn_mse": "sthgcn_spatio_temporal_hypergraph_mse_v1",
 }
 
-DEPENDENCY_FALLBACK_ADAPTER_NAMES = {
-    "xgboost_mse": "xgboost_hist_gradient_dependency_fallback_v1",
-    "catboost_rank": "catboost_extra_trees_rank_dependency_fallback_v1",
-}
+DEPENDENCY_FALLBACK_ADAPTER_NAMES: dict[str, str] = {}
 
 
 def model_adapter_name(model_name: str) -> str:
@@ -77,7 +78,7 @@ def model_adapter_status(model_name: str) -> str:
 
 
 def _feature_matrix(frame: pd.DataFrame, feature_columns: tuple[str, ...]) -> np.ndarray:
-    return frame.loc[:, list(feature_columns)].astype(float).to_numpy()
+    return np.ascontiguousarray(frame.loc[:, list(feature_columns)].astype(float).to_numpy(), dtype=float)
 
 
 def _feature_frame(frame: pd.DataFrame, feature_columns: tuple[str, ...]) -> pd.DataFrame:
@@ -146,6 +147,57 @@ def _lightgbm_regressor():
     )
 
 
+def _xgboost_regressor():
+    return XGBRegressor(
+        n_estimators=60,
+        max_depth=3,
+        learning_rate=0.05,
+        subsample=0.9,
+        colsample_bytree=0.9,
+        objective="reg:squarederror",
+        random_state=7,
+        n_jobs=1,
+        verbosity=0,
+    )
+
+
+class CatBoostRankerAdapter:
+    def __init__(
+        self,
+        *,
+        iterations: int = 60,
+        depth: int = 3,
+        learning_rate: float = 0.05,
+        random_seed: int = 7,
+    ) -> None:
+        self.iterations = iterations
+        self.depth = depth
+        self.learning_rate = learning_rate
+        self.random_seed = random_seed
+        self.model = None
+
+    def fit(self, x_train: np.ndarray, y_train: np.ndarray):
+        from catboost import CatBoostRanker, Pool
+
+        group_id = np.zeros(len(y_train), dtype=np.int64)
+        self.model = CatBoostRanker(
+            iterations=self.iterations,
+            depth=self.depth,
+            learning_rate=self.learning_rate,
+            loss_function="YetiRank",
+            random_seed=self.random_seed,
+            verbose=False,
+            allow_writing_files=False,
+        )
+        self.model.fit(Pool(x_train, y_train, group_id=group_id))
+        return self
+
+    def predict(self, x_test: np.ndarray) -> np.ndarray:
+        if self.model is None:
+            raise RuntimeError("CatBoostRankerAdapter must be fitted before predict")
+        return np.asarray(self.model.predict(x_test), dtype=float)
+
+
 def _estimator_for_model(model_name: str):
     spec = get_model_spec(model_name)
     if model_name == "logistic_clf":
@@ -157,10 +209,14 @@ def _estimator_for_model(model_name: str):
         return make_pipeline(StandardScaler(), Ridge(alpha=1.0))
     if model_name == "random_forest_clf":
         return RandomForestClassifier(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
-    if model_name in {"hist_gradient_mse", "xgboost_mse"}:
+    if model_name == "hist_gradient_mse":
         return HistGradientBoostingRegressor(max_iter=80, max_leaf_nodes=15, learning_rate=0.05, random_state=7)
+    if model_name == "xgboost_mse":
+        return _xgboost_regressor()
     if model_name == "lightgbm_mse":
         return _lightgbm_regressor()
+    if model_name == "catboost_rank":
+        return CatBoostRankerAdapter()
     if model_name == "mlp_mse":
         return make_pipeline(
             StandardScaler(),
@@ -234,7 +290,7 @@ def _estimator_for_model(model_name: str):
     }
     if model_name in graph_kinds:
         return GraphFeatureRidgeRegressor(graph_kind=graph_kinds[model_name], alpha=1.0)
-    if model_name in {"extra_trees_rank", "catboost_rank"}:
+    if model_name == "extra_trees_rank":
         return ExtraTreesRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if spec.family == "tree" and spec.objective == "classification":
         return RandomForestClassifier(n_estimators=24, max_depth=4, random_state=7)

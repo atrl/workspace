@@ -27,17 +27,37 @@ def test_mlp_mse_uses_named_sklearn_mlp_adapter():
 
 
 def test_all_quantbench_models_have_explicit_non_smoke_adapter_status():
-    fallback_allowed = {"xgboost_mse", "catboost_rank"}
-
     statuses = {name: model_adapter_status(name) for name in QUANTBENCH_MODEL_NAMES}
     adapters = {name: model_adapter_name(name) for name in QUANTBENCH_MODEL_NAMES}
 
     assert {name for name, status in statuses.items() if status == "smoke_adapter"} == set()
     assert {name for name, adapter in adapters.items() if adapter == "smoke_fallback_v1"} == set()
-    assert {name for name, status in statuses.items() if status == "dependency_fallback_adapter"} == fallback_allowed
-    assert {name for name, status in statuses.items() if status == "paper_strict_adapter"} == (
-        set(QUANTBENCH_MODEL_NAMES) - fallback_allowed
+    assert {name for name, status in statuses.items() if status == "dependency_fallback_adapter"} == set()
+    assert {name for name, status in statuses.items() if status == "paper_strict_adapter"} == set(
+        QUANTBENCH_MODEL_NAMES
     )
+
+
+def test_boosting_models_use_native_quantbench_adapters():
+    dataset, train, test = _split_frame()
+
+    expected_adapters = {
+        "xgboost_mse": "xgboost_mse_v1",
+        "catboost_rank": "catboost_rank_v1",
+    }
+    for model_name, adapter_name in expected_adapters.items():
+        predictions = fit_predict_model(
+            model_name,
+            train=train,
+            test=test,
+            feature_columns=dataset.feature_columns[:8],
+        )
+
+        assert predictions["adapter_status"].unique().tolist() == ["paper_strict_adapter"]
+        assert predictions["model_adapter"].unique().tolist() == [adapter_name]
+        assert predictions["prediction"].notna().all()
+        assert model_adapter_status(model_name) == "paper_strict_adapter"
+        assert model_adapter_name(model_name) == adapter_name
 
 
 def test_mlp_artifact_metadata_records_named_adapter():

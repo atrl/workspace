@@ -37,12 +37,12 @@ def test_tree_and_installed_boosting_models_use_named_adapters():
         assert model_adapter_name(model_name) == adapter_name
 
 
-def test_missing_xgboost_and_catboost_are_explicit_dependency_fallbacks():
+def test_xgboost_and_catboost_use_native_named_adapters():
     dataset, train, test = _split_frame()
 
     expected = {
-        "xgboost_mse": "xgboost_hist_gradient_dependency_fallback_v1",
-        "catboost_rank": "catboost_extra_trees_rank_dependency_fallback_v1",
+        "xgboost_mse": "xgboost_mse_v1",
+        "catboost_rank": "catboost_rank_v1",
     }
     for model_name, adapter_name in expected.items():
         predictions = fit_predict_model(
@@ -52,10 +52,10 @@ def test_missing_xgboost_and_catboost_are_explicit_dependency_fallbacks():
             feature_columns=dataset.feature_columns[:6],
         )
 
-        assert predictions["adapter_status"].unique().tolist() == ["dependency_fallback_adapter"]
+        assert predictions["adapter_status"].unique().tolist() == ["paper_strict_adapter"]
         assert predictions["model_adapter"].unique().tolist() == [adapter_name]
         assert predictions["prediction"].notna().all()
-        assert model_adapter_status(model_name) == "dependency_fallback_adapter"
+        assert model_adapter_status(model_name) == "paper_strict_adapter"
         assert model_adapter_name(model_name) == adapter_name
 
 

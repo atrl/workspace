@@ -20,15 +20,14 @@
     ]
   },
   "metadata": {
-    "adapter_status": "mixed_adapters",
+    "adapter_status": "paper_strict_adapter",
     "adapter_statuses": [
-      "dependency_fallback_adapter",
       "paper_strict_adapter"
     ],
     "model_adapters": [
       "alstm_attention_lstm_mse_v1",
       "autoformer_decomposition_attention_mse_v1",
-      "catboost_extra_trees_rank_dependency_fallback_v1",
+      "catboost_rank_v1",
       "darnn_dual_attention_gru_mse_v1",
       "dlinear_decomposition_mse_v1",
       "extra_trees_rank_proxy_v1",
@@ -57,7 +56,7 @@
       "sthgcn_spatio_temporal_hypergraph_mse_v1",
       "tcn_temporal_conv_mse_v1",
       "thgnn_temporal_hypergraph_mse_v1",
-      "xgboost_hist_gradient_dependency_fallback_v1"
+      "xgboost_mse_v1"
     ],
     "model_count": 32,
     "status": "smoke_completed",
@@ -75,5 +74,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "e2f64f82dd4c62b938c4fee9714a03e4ab7feb6d190831c1d973f9ffb2a6f0e0"
+  "manifest_hash": "7383ee17c9072ff413e9bb0562151c611bfbbcf3ee8b5b5096852698f846b7c3"
 }
