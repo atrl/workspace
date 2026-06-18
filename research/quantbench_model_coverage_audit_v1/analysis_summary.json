@@ -1,0 +1,39 @@
+{
+  "status": "completed",
+  "model_count": 32,
+  "paper_strict_count": 30,
+  "dependency_fallback_count": 2,
+  "smoke_count": 0,
+  "fallback_models": [
+    "catboost_rank",
+    "xgboost_mse"
+  ],
+  "matrix_status": "smoke_completed",
+  "matrix_top_model": "gat_mse",
+  "train_end": "2026-04-30",
+  "test_start": "2026-05-01",
+  "test_end": "2026-06-08",
+  "analysis_layers": [
+    "regime_metrics",
+    "window_metrics",
+    "qlib_risk_metrics",
+    "model_effect_deltas"
+  ],
+  "artifacts": {
+    "adapter_coverage": "adapter_coverage.csv",
+    "matrix_model_comparison": "matrix_model_comparison.csv",
+    "matrix_summary": "matrix_card/analysis_summary.json",
+    "matrix_regime_metrics": "matrix_card/regime_metrics.csv",
+    "matrix_window_metrics": "matrix_card/window_metrics.csv",
+    "matrix_qlib_risk_metrics": "matrix_card/qlib_risk_metrics.csv",
+    "matrix_model_effect_deltas": "matrix_card/model_effect_deltas.csv",
+    "mlp_artifact": "mlp_mse_artifact.joblib",
+    "mlp_artifact_predictions": "mlp_artifact_predictions.csv",
+    "mlp_artifact_metadata": "mlp_artifact_metadata.json"
+  },
+  "risk_notes": [
+    "xgboost_mse 与 catboost_rank 仍因本地依赖缺失使用 dependency fallback。",
+    "graph/transformer/advanced sequence 当前是可训练 proxy adapter，不等价于完整论文复现。",
+    "本次窗口仅覆盖 2026-01-01 至 2026-06-09，不能直接外推到 production。"
+  ]
+}

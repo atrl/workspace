@@ -29,6 +29,7 @@ STRICT_ADAPTER_NAMES = {
     "hist_gradient_mse": "hist_gradient_mse_v1",
     "extra_trees_rank": "extra_trees_rank_proxy_v1",
     "lightgbm_mse": "lightgbm_mse_v1",
+    "mlp_mse": "mlp_sklearn_mse_v1",
     "sequence_lag_ridge_mse": "sequence_lag_ridge_mse_v1",
     "lstm_mse": "lstm_pytorch_sequence_mse_v1",
     "gru_mse": "gru_pytorch_sequence_mse_v1",
@@ -160,6 +161,18 @@ def _estimator_for_model(model_name: str):
         return HistGradientBoostingRegressor(max_iter=80, max_leaf_nodes=15, learning_rate=0.05, random_state=7)
     if model_name == "lightgbm_mse":
         return _lightgbm_regressor()
+    if model_name == "mlp_mse":
+        return make_pipeline(
+            StandardScaler(),
+            MLPRegressor(
+                hidden_layer_sizes=(24, 12),
+                activation="relu",
+                alpha=1e-4,
+                max_iter=300,
+                random_state=7,
+                early_stopping=True,
+            ),
+        )
     if model_name == "sequence_lag_ridge_mse":
         return LaggedRidgeRegressor(alpha=1.0)
     if model_name == "lstm_mse":
