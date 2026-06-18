@@ -24,6 +24,7 @@ class QuantBenchMatrixOutputs:
     daily: pd.DataFrame
     regime_metrics: pd.DataFrame
     window_metrics: pd.DataFrame
+    window_regime_metrics: pd.DataFrame
     model_comparison: pd.DataFrame
     qlib_risk_metrics: pd.DataFrame
     model_effect_deltas: pd.DataFrame
@@ -125,6 +126,7 @@ def run_quantbench_matrix_smoke(
         windows=windows,
         baseline_model=str(model_comparison.iloc[0]["model"]),
     )
+    window_regime_metrics = effect_analysis.window_regime_metrics
     summary = {
         "status": "smoke_completed",
         "model_count": int(predictions["model"].nunique()),
@@ -136,7 +138,13 @@ def run_quantbench_matrix_smoke(
         "top_model": str(model_comparison.iloc[0]["model"]),
         **adapter_summary,
         "model_fidelity": model_fidelity,
-        "analysis_layers": ["regime_metrics", "window_metrics", "qlib_risk_metrics", "model_effect_deltas"],
+        "analysis_layers": [
+            "regime_metrics",
+            "window_metrics",
+            "window_regime_metrics",
+            "qlib_risk_metrics",
+            "model_effect_deltas",
+        ],
         "analysis_summary": effect_analysis.summary,
         "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
     }
@@ -145,6 +153,7 @@ def run_quantbench_matrix_smoke(
     daily.to_csv(card / "daily_backtest.csv", index=False)
     regime_metrics.to_csv(card / "regime_metrics.csv", index=False)
     window_metrics.to_csv(card / "window_metrics.csv", index=False)
+    window_regime_metrics.to_csv(card / "window_regime_metrics.csv", index=False)
     model_comparison.to_csv(card / "model_comparison.csv", index=False)
     model_capabilities.to_csv(card / "model_capabilities.csv", index=False)
     effect_analysis.qlib_risk_metrics.to_csv(card / "qlib_risk_metrics.csv", index=False)
@@ -161,6 +170,7 @@ def run_quantbench_matrix_smoke(
             "daily_backtest": "daily_backtest.csv",
             "regime_metrics": "regime_metrics.csv",
             "window_metrics": "window_metrics.csv",
+            "window_regime_metrics": "window_regime_metrics.csv",
             "model_comparison": "model_comparison.csv",
             "model_capabilities": "model_capabilities.csv",
             "qlib_risk_metrics": "qlib_risk_metrics.csv",
@@ -181,6 +191,7 @@ def run_quantbench_matrix_smoke(
         daily=daily,
         regime_metrics=regime_metrics,
         window_metrics=window_metrics,
+        window_regime_metrics=window_regime_metrics,
         model_comparison=model_comparison,
         qlib_risk_metrics=effect_analysis.qlib_risk_metrics,
         model_effect_deltas=effect_analysis.model_effect_deltas,
@@ -243,6 +254,7 @@ def run_factor_feature_set_matrix(
         windows=windows,
         baseline_model=str(model_comparison.iloc[0]["model"]),
     )
+    window_regime_metrics = effect_analysis.window_regime_metrics
     summary = {
         "status": "feature_set_matrix_completed",
         "base_model_count": int(len(tuple(model_names))),
@@ -256,7 +268,13 @@ def run_factor_feature_set_matrix(
         "top_variant": str(model_comparison.iloc[0]["model"]),
         **adapter_summary,
         "model_fidelity": model_fidelity,
-        "analysis_layers": ["regime_metrics", "window_metrics", "qlib_risk_metrics", "model_effect_deltas"],
+        "analysis_layers": [
+            "regime_metrics",
+            "window_metrics",
+            "window_regime_metrics",
+            "qlib_risk_metrics",
+            "model_effect_deltas",
+        ],
         **plan.summary,
         "feature_sets": [feature_set.to_dict() for feature_set in plan.feature_sets],
         "analysis_summary": effect_analysis.summary,
@@ -267,6 +285,7 @@ def run_factor_feature_set_matrix(
     daily.to_csv(card / "daily_backtest.csv", index=False)
     regime_metrics.to_csv(card / "regime_metrics.csv", index=False)
     window_metrics.to_csv(card / "window_metrics.csv", index=False)
+    window_regime_metrics.to_csv(card / "window_regime_metrics.csv", index=False)
     model_comparison.to_csv(card / "model_comparison.csv", index=False)
     model_capabilities.to_csv(card / "model_capabilities.csv", index=False)
     effect_analysis.qlib_risk_metrics.to_csv(card / "qlib_risk_metrics.csv", index=False)
@@ -288,6 +307,7 @@ def run_factor_feature_set_matrix(
             "daily_backtest": "daily_backtest.csv",
             "regime_metrics": "regime_metrics.csv",
             "window_metrics": "window_metrics.csv",
+            "window_regime_metrics": "window_regime_metrics.csv",
             "model_comparison": "model_comparison.csv",
             "model_capabilities": "model_capabilities.csv",
             "qlib_risk_metrics": "qlib_risk_metrics.csv",
@@ -313,6 +333,7 @@ def run_factor_feature_set_matrix(
         daily=daily,
         regime_metrics=regime_metrics,
         window_metrics=window_metrics,
+        window_regime_metrics=window_regime_metrics,
         model_comparison=model_comparison,
         qlib_risk_metrics=effect_analysis.qlib_risk_metrics,
         model_effect_deltas=effect_analysis.model_effect_deltas,

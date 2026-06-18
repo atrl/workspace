@@ -6,7 +6,13 @@ from typing import Mapping, Sequence
 
 import pandas as pd
 
-from .reports import _prepare, compare_models, compute_regime_metrics, compute_window_metrics
+from .reports import (
+    _prepare,
+    compare_models,
+    compute_regime_metrics,
+    compute_window_metrics,
+    compute_window_regime_metrics,
+)
 
 
 QLIB_RISK_SOURCE = "qlib.contrib.evaluate.risk_analysis"
@@ -17,6 +23,7 @@ class RegimeWindowEffectAnalysis:
     qlib_return_frame: pd.DataFrame
     qlib_risk_metrics: pd.DataFrame
     segment_metrics: pd.DataFrame
+    window_regime_metrics: pd.DataFrame
     model_effect_deltas: pd.DataFrame
     summary: dict[str, object]
 
@@ -126,6 +133,7 @@ def _risk_rows(
     segment: str,
     return_columns: Sequence[str],
     freq: str,
+    extra_columns: Mapping[str, object] | None = None,
 ) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for model, group in frame.groupby("model", sort=True):
@@ -139,6 +147,7 @@ def _risk_rows(
                     "return_kind": return_kind,
                     "row_count": int(len(group)),
                     "metric_source": source,
+                    **dict(extra_columns or {}),
                     **metrics,
                 }
             )
@@ -186,6 +195,17 @@ def compute_qlib_risk_metrics(
                 freq=freq,
             )
         )
+        for regime, group in window_frame.groupby("regime", sort=True):
+            rows.extend(
+                _risk_rows(
+                    group,
+                    segment_type="window_regime",
+                    segment=f"{window}::{regime}",
+                    return_columns=return_columns,
+                    freq=freq,
+                    extra_columns={"window": str(window), "regime": str(regime)},
+                )
+            )
     if not rows:
         return pd.DataFrame()
     return pd.DataFrame(rows).sort_values(["model", "segment_type", "segment", "return_kind"]).reset_index(drop=True)
@@ -196,19 +216,26 @@ def _segment_metrics(frame: pd.DataFrame, *, windows: Mapping[str, tuple[str, st
     all_metrics["segment_type"] = "all"
     all_metrics["segment"] = "all"
 
-    regime_metrics = compute_regime_metrics(frame).rename(columns={"regime": "segment"})
+    regime_metrics = compute_regime_metrics(frame).copy()
+    regime_metrics["segment"] = regime_metrics["regime"]
     regime_metrics["segment_type"] = "regime"
 
     metric_frames = [all_metrics, regime_metrics]
     if windows:
-        window_metrics = compute_window_metrics(frame, windows=windows).rename(columns={"window": "segment"})
+        window_metrics = compute_window_metrics(frame, windows=windows).copy()
+        window_metrics["segment"] = window_metrics["window"]
         window_metrics["segment_type"] = "window"
         metric_frames.append(window_metrics)
+        window_regime_metrics = compute_window_regime_metrics(frame, windows=windows)
+        window_regime_metrics["segment_type"] = "window_regime"
+        metric_frames.append(window_regime_metrics)
 
     result = pd.concat(metric_frames, ignore_index=True, sort=False)
     desired = [
         "segment_type",
         "segment",
+        "window",
+        "regime",
         "model",
         "rank",
         "return_pct",
@@ -295,6 +322,7 @@ def analyze_model_effects_by_regime_and_window(
     returns = build_qlib_return_frame(frame)
     risk = compute_qlib_risk_metrics(frame, windows=windows, freq=freq)
     segment_metrics = _segment_metrics(frame, windows=windows)
+    window_regime_metrics = compute_window_regime_metrics(frame, windows=windows or {})
     baseline = baseline_model or str(compare_models(frame).iloc[0]["model"])
     deltas = compare_segment_model_effects(frame, windows=windows, baseline_model=baseline)
     weakness_frame = deltas.loc[deltas["model"] != baseline].sort_values(
@@ -318,6 +346,8 @@ def analyze_model_effects_by_regime_and_window(
         "model_count": int(returns["model"].nunique()) if not returns.empty else 0,
         "regime_count": int(returns["regime"].nunique()) if not returns.empty else 0,
         "window_count": int(len(windows or {})),
+        "window_regime_count": int(window_regime_metrics["segment"].nunique()) if not window_regime_metrics.empty else 0,
+        "segment_types": sorted(str(value) for value in segment_metrics["segment_type"].dropna().unique().tolist()),
         "qlib_metric_source": QLIB_RISK_SOURCE,
         "weakest_segments": weakest_segments,
     }
@@ -325,6 +355,7 @@ def analyze_model_effects_by_regime_and_window(
         qlib_return_frame=returns,
         qlib_risk_metrics=risk,
         segment_metrics=segment_metrics,
+        window_regime_metrics=window_regime_metrics,
         model_effect_deltas=deltas,
         summary=summary,
     )

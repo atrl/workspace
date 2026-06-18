@@ -62,6 +62,7 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
         "model_comparison.csv",
         "regime_metrics.csv",
         "window_metrics.csv",
+        "window_regime_metrics.csv",
         "qlib_risk_metrics.csv",
         "model_effect_deltas.csv",
     }
@@ -75,3 +76,4 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
     assert summary["adapter_statuses"] == ["paper_strict_adapter"]
     assert {"ridge_mse_v1", "random_forest_direction_v1"}.issubset(set(summary["model_adapters"]))
     assert summary["selection_source"] == "train_only_factor_ic"
+    assert "window_regime_metrics" in summary["analysis_layers"]

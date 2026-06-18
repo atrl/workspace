@@ -103,6 +103,43 @@ def compute_window_metrics(frame: pd.DataFrame, *, windows: Mapping[str, tuple[s
     return pd.DataFrame(rows).sort_values(["window", "model"]).reset_index(drop=True)
 
 
+def compute_window_regime_metrics(frame: pd.DataFrame, *, windows: Mapping[str, tuple[str, str]]) -> pd.DataFrame:
+    prepared = _prepare(frame)
+    rows: list[dict[str, object]] = []
+    for window, (start, end) in windows.items():
+        start_ts = pd.Timestamp(start)
+        end_ts = pd.Timestamp(end)
+        window_frame = prepared.loc[(prepared["date"] >= start_ts) & (prepared["date"] <= end_ts)]
+        for (model, regime), group in window_frame.groupby(["model", "regime"], sort=True):
+            rows.append(
+                {
+                    "window": window,
+                    "regime": regime,
+                    "segment": f"{window}::{regime}",
+                    "model": model,
+                    **_metrics(group),
+                }
+            )
+    if not rows:
+        return pd.DataFrame(
+            columns=[
+                "window",
+                "regime",
+                "segment",
+                "model",
+                "return_pct",
+                "benchmark_return_pct",
+                "relative_return_pct",
+                "max_drawdown_pct",
+                "sharpe",
+                "avg_position",
+                "turnover",
+                "stability_score",
+            ]
+        )
+    return pd.DataFrame(rows).sort_values(["window", "regime", "model"]).reset_index(drop=True)
+
+
 def compare_models(frame: pd.DataFrame) -> pd.DataFrame:
     prepared = _prepare(frame)
     rows = [{"model": model, **_metrics(group)} for model, group in prepared.groupby("model", sort=True)]

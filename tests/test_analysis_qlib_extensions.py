@@ -6,6 +6,7 @@ from src.analysis import (
     analyze_model_effects_by_regime_and_window,
     build_qlib_return_frame,
     compute_qlib_risk_metrics,
+    compute_window_regime_metrics,
 )
 
 
@@ -68,7 +69,7 @@ def test_compute_qlib_risk_metrics_segments_all_regime_and_window_returns():
     assert {"model", "segment_type", "segment", "return_kind", "annualized_return", "information_ratio"}.issubset(
         risk.columns
     )
-    assert {"all", "regime", "window"}.issubset(set(risk["segment_type"]))
+    assert {"all", "regime", "window", "window_regime"}.issubset(set(risk["segment_type"]))
     assert {"strategy_return", "excess_return"}.issubset(set(risk["return_kind"]))
 
     gcn_stress = risk.loc[
@@ -79,6 +80,35 @@ def test_compute_qlib_risk_metrics_segments_all_regime_and_window_returns():
     ].iloc[0]
     assert float(gcn_stress["annualized_return"]) < 0.0
 
+    gcn_stress_window = risk.loc[
+        (risk["model"] == "gcn_mse")
+        & (risk["segment_type"] == "window_regime")
+        & (risk["segment"] == "stress_window::stress")
+        & (risk["return_kind"] == "strategy_return")
+    ].iloc[0]
+    assert gcn_stress_window["window"] == "stress_window"
+    assert gcn_stress_window["regime"] == "stress"
+    assert float(gcn_stress_window["annualized_return"]) < 0.0
+
+
+def test_compute_window_regime_metrics_compares_model_effects_inside_time_and_regime_segments():
+    metrics = compute_window_regime_metrics(
+        _daily_frame(),
+        windows={"early": ("2026-01-01", "2026-01-04"), "stress_window": ("2026-01-05", "2026-01-07")},
+    )
+
+    assert {"window", "regime", "segment", "model", "return_pct", "stability_score"}.issubset(metrics.columns)
+    assert "early::bull" in set(metrics["segment"])
+    assert "stress_window::stress" in set(metrics["segment"])
+
+    gcn_stress = metrics.loc[
+        (metrics["model"] == "gcn_mse") & (metrics["segment"] == "stress_window::stress")
+    ].iloc[0]
+    ridge_stress = metrics.loc[
+        (metrics["model"] == "ridge_mse") & (metrics["segment"] == "stress_window::stress")
+    ].iloc[0]
+    assert float(gcn_stress["return_pct"]) < float(ridge_stress["return_pct"])
+
 
 def test_analyze_model_effects_by_regime_and_window_explains_segment_deltas():
     analysis = analyze_model_effects_by_regime_and_window(
@@ -88,17 +118,28 @@ def test_analyze_model_effects_by_regime_and_window_explains_segment_deltas():
     )
 
     assert analysis.summary["baseline_model"] == "ridge_mse"
+    assert analysis.summary["window_regime_count"] >= 2
     assert not analysis.qlib_risk_metrics.empty
+    assert not analysis.window_regime_metrics.empty
 
     deltas = analysis.model_effect_deltas
+    assert "window_regime" in set(deltas["segment_type"])
     gcn_bull = deltas.loc[
         (deltas["model"] == "gcn_mse") & (deltas["segment_type"] == "regime") & (deltas["segment"] == "bull")
     ].iloc[0]
+    assert gcn_bull["regime"] == "bull"
     gcn_stress = deltas.loc[
         (deltas["model"] == "gcn_mse") & (deltas["segment_type"] == "regime") & (deltas["segment"] == "stress")
+    ].iloc[0]
+    gcn_stress_window = deltas.loc[
+        (deltas["model"] == "gcn_mse")
+        & (deltas["segment_type"] == "window_regime")
+        & (deltas["segment"] == "stress_window::stress")
     ].iloc[0]
 
     assert float(gcn_bull["relative_return_pct_delta"]) > 0.0
     assert float(gcn_stress["relative_return_pct_delta"]) < 0.0
+    assert gcn_stress_window["window"] == "stress_window"
+    assert gcn_stress_window["regime"] == "stress"
     assert "弱于基准" in gcn_stress["diagnosis"]
     assert "stress" in analysis.summary["weakest_segments"][0]["segment"]

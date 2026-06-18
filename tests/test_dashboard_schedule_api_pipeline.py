@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 
+import pandas as pd
+
 from src.api import PaperBrokerAdapter
 from src.dashboard import load_model_matrix_dashboard, write_model_matrix_dashboard_export
 from src.schedule import ScheduleJob, run_job_once
@@ -54,6 +56,101 @@ def test_dashboard_export_writes_manifest_style_payload(tmp_path):
     assert saved["artifact_id"] == "factor_feature_set_matrix_v1"
     assert saved["top_models"] == payload["top_models"]
     assert len(saved["top_models"]) == 3
+
+
+def test_dashboard_export_surfaces_window_regime_fidelity_and_attribution(tmp_path):
+    matrix_card = tmp_path / "matrix_card"
+    attribution_card = tmp_path / "attribution_card"
+    matrix_card.mkdir()
+    attribution_card.mkdir()
+
+    (matrix_card / "analysis_summary.json").write_text(
+        json.dumps(
+            {
+                "status": "completed",
+                "model_count": 2,
+                "model_fidelity": {
+                    "schema_version": "model.fidelity.v1",
+                    "model_count": 2,
+                    "fidelity_counts": {"native_library": 1, "proxy_feature_adapter": 1},
+                    "proxy_models": ["gcn_mse"],
+                    "native_models": ["ridge_mse"],
+                    "promotion_blocker_count": 1,
+                },
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [
+            {"rank": 1, "model": "ridge_mse", "return_pct": 3.0, "stability_score": 2.0},
+            {"rank": 2, "model": "gcn_mse", "return_pct": -2.0, "stability_score": -1.0},
+        ]
+    ).to_csv(matrix_card / "model_comparison.csv", index=False)
+    pd.DataFrame([{"model": "ridge_mse", "regime": "bull", "return_pct": 3.0}]).to_csv(
+        matrix_card / "regime_metrics.csv", index=False
+    )
+    pd.DataFrame([{"model": "ridge_mse", "window": "test", "return_pct": 3.0}]).to_csv(
+        matrix_card / "window_metrics.csv", index=False
+    )
+    pd.DataFrame(
+        [
+            {
+                "window": "test",
+                "regime": "stress",
+                "segment": "test::stress",
+                "model": "gcn_mse",
+                "return_pct": -4.0,
+                "stability_score": -2.5,
+            }
+        ]
+    ).to_csv(matrix_card / "window_regime_metrics.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "model": "gcn_mse",
+                "segment_type": "window_regime",
+                "segment": "test::stress",
+                "diagnosis": "弱于基准",
+            }
+        ]
+    ).to_csv(matrix_card / "model_effect_deltas.csv", index=False)
+    pd.DataFrame(
+        [{"model": "gcn_mse", "paper_fidelity": "proxy_feature_adapter", "promotion_blocker": "graph data"}]
+    ).to_csv(matrix_card / "model_capabilities.csv", index=False)
+
+    (attribution_card / "analysis_summary.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "analysis.model_attribution.batch.v1",
+                "status": "completed",
+                "models": ["ridge_mse", "gcn_mse"],
+                "proxy_models": ["gcn_mse"],
+                "attribution_kinds": ["sensitivity"],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [
+            {"model": "gcn_mse", "feature": "soxx_return_5d", "normalized_importance": 0.6},
+            {"model": "ridge_mse", "feature": "vix_return_1d", "normalized_importance": 0.4},
+        ]
+    ).to_csv(attribution_card / "top_features_by_model.csv", index=False)
+
+    payload = load_model_matrix_dashboard(matrix_card, attribution_card_dir=attribution_card)
+
+    assert payload["model_fidelity"]["fidelity_counts"]["proxy_feature_adapter"] == 1
+    assert payload["model_capabilities"][0]["model"] == "gcn_mse"
+    assert payload["window_regime_metrics"][0]["segment"] == "test::stress"
+    assert payload["attribution"]["models"] == ["ridge_mse", "gcn_mse"]
+    assert payload["attribution"]["attribution_kinds"] == {"sensitivity": None}
+    assert payload["attribution"]["top_features_by_model"][0]["feature"] == "soxx_return_5d"
+    assert "window_regime_metrics" in payload["artifacts"]
+    assert "attribution_top_features" in payload["artifacts"]
+    assert "predictions" not in payload["artifacts"]
 
 
 def test_schedule_run_job_once_uses_lock_and_reports_notification(tmp_path):

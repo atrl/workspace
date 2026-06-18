@@ -72,6 +72,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         "daily_backtest.csv",
         "regime_metrics.csv",
         "window_metrics.csv",
+        "window_regime_metrics.csv",
         "model_comparison.csv",
         "model_capabilities.csv",
         "qlib_risk_metrics.csv",
@@ -91,3 +92,4 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         set(summary["model_adapters"])
     )
     assert "qlib_risk_metrics" in summary["analysis_layers"]
+    assert "window_regime_metrics" in summary["analysis_layers"]
