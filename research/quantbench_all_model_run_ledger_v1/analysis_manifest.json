@@ -1,0 +1,191 @@
+{
+  "artifact_id": "quantbench_all_model_run_ledger_v1",
+  "artifact_type": "analysis_report",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "data/processed/panels/soxl_soxx_vix_full.csv"
+    ],
+    "end": "2026-06-09",
+    "metadata": {
+      "source": "load_soxl_support_frame"
+    },
+    "name": "soxl_support_daily",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-01",
+    "universe": [
+      "SOXL",
+      "SOXX",
+      "VIX"
+    ]
+  },
+  "metadata": {
+    "adapter_status": "paper_strict_adapter",
+    "adapter_statuses": [
+      "paper_strict_adapter"
+    ],
+    "analysis_report_schema_version": "analysis.report.v1",
+    "backtest_contract": {
+      "benchmark": "SOXL",
+      "cost_model": {
+        "close_cost_bps": 1.0,
+        "open_cost_bps": 1.0,
+        "schema_version": "backtest.cost_model.v1",
+        "slippage_bps": 1.0
+      },
+      "end": "2026-06-08",
+      "position_policy": {
+        "lag": 1,
+        "max_position": 1.0,
+        "min_position": 0.0,
+        "neutral_position": 0.5,
+        "schema_version": "backtest.position_policy.v1",
+        "signal_scale": null
+      },
+      "schema_version": "backtest.config.v1",
+      "start": "2026-05-01",
+      "stress_windows": {}
+    },
+    "model_adapters": [
+      "alstm_attention_lstm_mse_v1",
+      "autoformer_decomposition_attention_mse_v1",
+      "catboost_rank_v1",
+      "darnn_dual_attention_gru_mse_v1",
+      "dlinear_decomposition_mse_v1",
+      "extra_trees_rank_proxy_v1",
+      "fedformer_frequency_attention_mse_v1",
+      "gat_feature_attention_mse_v1",
+      "gcn_feature_propagation_mse_v1",
+      "gru_pytorch_sequence_mse_v1",
+      "hawkes_gru_event_decay_mse_v1",
+      "hist_gradient_mse_v1",
+      "hypergraph_feature_mse_v1",
+      "lightgbm_mse_v1",
+      "logistic_direction_v1",
+      "lstm_pytorch_sequence_mse_v1",
+      "market_graph_feature_mse_v1",
+      "mlp_mixer_sequence_mse_v1",
+      "mlp_sklearn_mse_v1",
+      "patch_tst_transformer_mse_v1",
+      "random_forest_direction_v1",
+      "rgcn_relation_feature_mse_v1",
+      "ridge_mse_v1",
+      "ridge_rank_ic_proxy_v1",
+      "rsr_relation_strength_mse_v1",
+      "sequence_lag_ridge_mse_v1",
+      "sfm_frequency_ridge_mse_v1",
+      "sthan_spatio_temporal_attention_mse_v1",
+      "sthgcn_spatio_temporal_hypergraph_mse_v1",
+      "tcn_temporal_conv_mse_v1",
+      "thgnn_temporal_hypergraph_mse_v1",
+      "xgboost_mse_v1"
+    ],
+    "model_count": 32,
+    "model_fidelity": {
+      "fidelity_counts": {
+        "native_library": 8,
+        "native_sequence": 1,
+        "native_torch": 5,
+        "proxy_feature_adapter": 18
+      },
+      "model_count": 32,
+      "native_models": [
+        "alstm_mse",
+        "catboost_rank",
+        "darnn_mse",
+        "dlinear_mse",
+        "gru_mse",
+        "hist_gradient_mse",
+        "lightgbm_mse",
+        "logistic_clf",
+        "lstm_mse",
+        "mlp_mse",
+        "random_forest_clf",
+        "ridge_mse",
+        "tcn_mse",
+        "xgboost_mse"
+      ],
+      "promotion_blocker_count": 24,
+      "proxy_models": [
+        "autoformer_mse",
+        "extra_trees_rank",
+        "fedformer_mse",
+        "gat_mse",
+        "gcn_mse",
+        "hawkes_gru_mse",
+        "hypergraph_mse",
+        "market_graph_mse",
+        "mlp_mixer_mse",
+        "patch_tst_mse",
+        "rgcn_mse",
+        "ridge_ic",
+        "rsr_mse",
+        "sequence_lag_ridge_mse",
+        "sfm_mse",
+        "sthan_mse",
+        "sthgcn_mse",
+        "thgnn_mse"
+      ],
+      "schema_version": "model.fidelity.v1"
+    },
+    "objective_evaluation": {
+      "avg_ic": 0.02947741493513973,
+      "avg_mse": 0.03514868236052979,
+      "avg_rank_ic": 0.0,
+      "model_count": 32,
+      "schema_version": "objective.matrix_evaluation.v1"
+    },
+    "promotion_summary": {
+      "blocked_count": 0,
+      "candidate_count": 32,
+      "model_count": 32,
+      "schema_version": "objective.promotion_summary.v1",
+      "top_decision": "promote_candidate",
+      "top_model": "sthan_mse"
+    },
+    "status": "smoke_completed",
+    "table_counts": {
+      "failure_modes": 847,
+      "model_comparison": 32,
+      "model_effect_deltas": 1088,
+      "model_review_briefing": 629,
+      "qlib_return_frame": 832,
+      "qlib_risk_metrics": 2176,
+      "regime_metrics": 128,
+      "segment_effect_matrix": 34,
+      "segment_metrics": 1088,
+      "window_metrics": 192,
+      "window_regime_metrics": 736
+    },
+    "train_end": "2026-04-30",
+    "walk_forward": {
+      "fold_count": 5,
+      "schema_version": "backtest.walk_forward.v1",
+      "test_size": 13,
+      "train_size": 41
+    }
+  },
+  "paths": {
+    "backtest_config": "backtest_config.json",
+    "failure_modes": "failure_modes.csv",
+    "model_comparison": "model_comparison.csv",
+    "model_effect_deltas": "model_effect_deltas.csv",
+    "model_review_briefing": "model_review_briefing.csv",
+    "model_run_ledger": "model_run_ledger.csv",
+    "model_run_ledger_summary": "model_run_ledger_summary.json",
+    "objective_scores": "objective_scores.csv",
+    "promotion_scores": "promotion_scores.csv",
+    "qlib_return_frame": "qlib_return_frame.csv",
+    "qlib_risk_metrics": "qlib_risk_metrics.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "segment_effect_matrix": "segment_effect_matrix.csv",
+    "segment_metrics": "segment_metrics.csv",
+    "summary": "analysis_summary.json",
+    "walk_forward_splits": "walk_forward_splits.csv",
+    "window_metrics": "window_metrics.csv",
+    "window_regime_metrics": "window_regime_metrics.csv"
+  },
+  "producer": "src.analysis.exports",
+  "schema_version": "artifact.v1",
+  "manifest_hash": "170dd160383627b8b960a50bbfbefbf929890a2d8e8c55f78fb620dfe763aabc"
+}

@@ -76,6 +76,8 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         "window_regime_metrics.csv",
         "model_comparison.csv",
         "model_capabilities.csv",
+        "model_run_ledger.csv",
+        "model_run_ledger_summary.json",
         "objective_scores.csv",
         "promotion_scores.csv",
         "qlib_risk_metrics.csv",
@@ -118,11 +120,29 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert len(analysis_manifest["manifest_hash"]) == 64
     daily = pd.read_csv(tmp_path / "daily_backtest.csv")
     folds = pd.read_csv(tmp_path / "walk_forward_splits.csv")
+    ledger = pd.read_csv(tmp_path / "model_run_ledger.csv")
+    ledger_summary = json.loads((tmp_path / "model_run_ledger_summary.json").read_text(encoding="utf-8"))
     objective_scores = pd.read_csv(tmp_path / "objective_scores.csv")
     promotion_scores = pd.read_csv(tmp_path / "promotion_scores.csv")
     assert {"gross_strategy_return", "cost_return", "net_strategy_return"}.issubset(daily.columns)
     assert daily["cost_return"].abs().sum() > 0.0
     assert {"fold", "train_start", "train_end", "test_start", "test_end", "schema_version"}.issubset(folds.columns)
+    assert set(ledger["model"]) == set(QUANTBENCH_MODEL_NAMES)
+    assert ledger["trained"].all()
+    assert ledger["predicted"].all()
+    assert ledger["backtested"].all()
+    assert ledger["objective_evaluated"].all()
+    assert ledger["promotion_evaluated"].all()
+    assert ledger["analysis_recorded"].all()
+    assert ledger["manifested"].all()
+    assert ledger_summary["schema_version"] == "model.run_ledger_summary.v1"
+    assert ledger_summary["expected_model_count"] == len(QUANTBENCH_MODEL_NAMES)
+    assert ledger_summary["trained_model_count"] == len(QUANTBENCH_MODEL_NAMES)
+    assert ledger_summary["backtested_model_count"] == len(QUANTBENCH_MODEL_NAMES)
+    assert ledger_summary["missing_models"] == []
+    assert ledger_summary["all_models_completed"] is True
+    assert analysis_manifest["paths"]["model_run_ledger"] == "model_run_ledger.csv"
+    assert analysis_manifest["paths"]["model_run_ledger_summary"] == "model_run_ledger_summary.json"
     assert {"schema_version", "model", "mse", "classification_accuracy", "ic", "rank_ic"}.issubset(
         objective_scores.columns
     )

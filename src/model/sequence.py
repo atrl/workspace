@@ -134,6 +134,49 @@ class FeatureRidgeRegressor:
         return self.model_.predict(self._features(x))
 
 
+def _moving_average_trend(x: np.ndarray, *, kernel_size: int = 3) -> np.ndarray:
+    if x.ndim != 3:
+        raise ValueError("DLinear moving average expects a 3D sequence tensor")
+    if kernel_size < 1:
+        raise ValueError("kernel_size must be positive")
+    if kernel_size == 1:
+        return x.copy()
+    left = kernel_size // 2
+    right = kernel_size - 1 - left
+    padded = np.pad(x, ((0, 0), (left, right), (0, 0)), mode="edge")
+    windows = [padded[:, start : start + x.shape[1], :] for start in range(kernel_size)]
+    return np.mean(windows, axis=0)
+
+
+@dataclass
+class DLinearDecompositionRegressor:
+    alpha: float = 1.0
+    kernel_size: int = 3
+
+    def _decompose(self, x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        if x.ndim != 3:
+            raise ValueError("DLinearDecompositionRegressor expects a 3D sequence tensor")
+        trend = _moving_average_trend(x, kernel_size=self.kernel_size)
+        residual = x - trend
+        return trend.reshape(len(x), -1), residual.reshape(len(x), -1)
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "DLinearDecompositionRegressor":
+        trend, residual = self._decompose(x)
+        self.lookback_ = int(x.shape[1])
+        self.feature_count_ = int(x.shape[2])
+        self.trend_model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.residual_model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        target = y.astype(float)
+        self.trend_model_.fit(trend, target)
+        residual_target = target - self.trend_model_.predict(trend)
+        self.residual_model_.fit(residual, residual_target)
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        trend, residual = self._decompose(x)
+        return self.trend_model_.predict(trend) + self.residual_model_.predict(residual)
+
+
 class _TorchRecurrentNet(nn.Module):
     def __init__(self, input_size: int, hidden_size: int, cell_type: str):
         super().__init__()

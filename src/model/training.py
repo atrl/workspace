@@ -15,6 +15,7 @@ from xgboost import XGBRegressor
 from .graph import GraphFeatureRidgeRegressor
 from .registry import get_model_spec
 from .sequence import (
+    DLinearDecompositionRegressor,
     FeatureRidgeRegressor,
     FrequencyRidgeRegressor,
     LaggedRidgeRegressor,
@@ -270,7 +271,7 @@ def _estimator_for_model(model_name: str):
     if model_name == "mlp_mixer_mse":
         return FeatureRidgeRegressor(feature_kind="mixer", alpha=1.0)
     if model_name == "dlinear_mse":
-        return FeatureRidgeRegressor(feature_kind="dlinear", alpha=1.0)
+        return DLinearDecompositionRegressor(alpha=1.0, kernel_size=3)
     if model_name == "patch_tst_mse":
         return FeatureRidgeRegressor(feature_kind="patch", alpha=1.0)
     if model_name == "autoformer_mse":

@@ -1,0 +1,531 @@
+{
+  "adapter_status": "paper_strict_adapter",
+  "adapter_statuses": [
+    "paper_strict_adapter"
+  ],
+  "analysis_layers": [
+    "regime_metrics",
+    "window_metrics",
+    "window_regime_metrics",
+    "qlib_risk_metrics",
+    "model_effect_deltas",
+    "objective_scores",
+    "promotion_scores",
+    "model_comparison",
+    "qlib_return_frame",
+    "segment_metrics",
+    "segment_effect_matrix",
+    "model_review_briefing",
+    "failure_modes"
+  ],
+  "analysis_overview": {
+    "baseline_model": "sthan_mse",
+    "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
+    "decision_hint_counts": {
+      "block_or_rework": 496,
+      "reduce_or_guardrail": 133
+    },
+    "largest_relative_return_spread_segments": [
+      {
+        "baseline_model": "sthan_mse",
+        "best_relative_return_model": "sthan_mse",
+        "best_relative_return_vs_baseline_delta": 0.0,
+        "best_stability_model": "xgboost_mse",
+        "highest_drawdown_model": "hist_gradient_mse",
+        "highest_drawdown_pct": 5.588643182857744,
+        "regime": "downtrend",
+        "relative_return_pct_spread": 111.29741645213258,
+        "review_note": "sthan_mse 在 downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "segment": "downtrend",
+        "segment_type": "regime",
+        "stability_score_spread": 251.51648758625228,
+        "window": "",
+        "worst_relative_return_model": "ridge_ic",
+        "worst_stability_model": "hypergraph_mse"
+      },
+      {
+        "baseline_model": "sthan_mse",
+        "best_relative_return_model": "sthan_mse",
+        "best_relative_return_vs_baseline_delta": 0.0,
+        "best_stability_model": "xgboost_mse",
+        "highest_drawdown_model": "hist_gradient_mse",
+        "highest_drawdown_pct": 5.588643182857744,
+        "regime": "downtrend",
+        "relative_return_pct_spread": 111.29741645213258,
+        "review_note": "sthan_mse 在 test::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "segment": "test::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_spread": 251.51648758625228,
+        "window": "test",
+        "worst_relative_return_model": "ridge_ic",
+        "worst_stability_model": "hypergraph_mse"
+      },
+      {
+        "baseline_model": "sthan_mse",
+        "best_relative_return_model": "sthan_mse",
+        "best_relative_return_vs_baseline_delta": 0.0,
+        "best_stability_model": "xgboost_mse",
+        "highest_drawdown_model": "hist_gradient_mse",
+        "highest_drawdown_pct": 5.588643182857744,
+        "regime": "downtrend",
+        "relative_return_pct_spread": 111.29741645213258,
+        "review_note": "sthan_mse 在 trailing_12m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "segment": "trailing_12m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_spread": 251.51648758625228,
+        "window": "trailing_12m",
+        "worst_relative_return_model": "ridge_ic",
+        "worst_stability_model": "hypergraph_mse"
+      },
+      {
+        "baseline_model": "sthan_mse",
+        "best_relative_return_model": "sthan_mse",
+        "best_relative_return_vs_baseline_delta": 0.0,
+        "best_stability_model": "xgboost_mse",
+        "highest_drawdown_model": "hist_gradient_mse",
+        "highest_drawdown_pct": 5.588643182857744,
+        "regime": "downtrend",
+        "relative_return_pct_spread": 111.29741645213258,
+        "review_note": "sthan_mse 在 trailing_3m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "segment": "trailing_3m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_spread": 251.51648758625228,
+        "window": "trailing_3m",
+        "worst_relative_return_model": "ridge_ic",
+        "worst_stability_model": "hypergraph_mse"
+      },
+      {
+        "baseline_model": "sthan_mse",
+        "best_relative_return_model": "sthan_mse",
+        "best_relative_return_vs_baseline_delta": 0.0,
+        "best_stability_model": "xgboost_mse",
+        "highest_drawdown_model": "hist_gradient_mse",
+        "highest_drawdown_pct": 5.588643182857744,
+        "regime": "downtrend",
+        "relative_return_pct_spread": 111.29741645213258,
+        "review_note": "sthan_mse 在 trailing_6m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "segment": "trailing_6m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_spread": 251.51648758625228,
+        "window": "trailing_6m",
+        "worst_relative_return_model": "ridge_ic",
+        "worst_stability_model": "hypergraph_mse"
+      }
+    ],
+    "model_count": 32,
+    "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+    "regime_count": 4,
+    "review_signal_counts": {
+      "risk": 133,
+      "weakness": 496
+    },
+    "schema_version": "analysis.overview.v1",
+    "segment_effect_matrix_count": 34,
+    "segment_types": [
+      "all",
+      "regime",
+      "window",
+      "window_regime"
+    ],
+    "top_review": {
+      "baseline_model": "sthan_mse",
+      "decision_hint": "block_or_rework",
+      "max_drawdown_pct_delta": -0.4285436142326682,
+      "model": "ridge_ic",
+      "priority_rank": 1,
+      "priority_score": 396.241626,
+      "regime": "downtrend",
+      "relative_return_pct_delta": -93.8290943181038,
+      "review_note": "ridge_ic 在 trailing_1m::downtrend 弱于基准 sthan_mse：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
+      "review_signal": "weakness",
+      "segment": "trailing_1m::downtrend",
+      "segment_type": "window_regime",
+      "stability_score_delta": -208.5755178340297,
+      "window": "trailing_1m"
+    },
+    "top_strength": {},
+    "top_weakness": {
+      "baseline_model": "sthan_mse",
+      "decision_hint": "block_or_rework",
+      "max_drawdown_pct_delta": -0.4285436142326682,
+      "model": "ridge_ic",
+      "priority_rank": 1,
+      "priority_score": 396.241626,
+      "regime": "downtrend",
+      "relative_return_pct_delta": -93.8290943181038,
+      "review_note": "ridge_ic 在 trailing_1m::downtrend 弱于基准 sthan_mse：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
+      "review_signal": "weakness",
+      "segment": "trailing_1m::downtrend",
+      "segment_type": "window_regime",
+      "stability_score_delta": -208.5755178340297,
+      "window": "trailing_1m"
+    },
+    "weakest_segments": [
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "downtrend",
+        "segment_type": "regime",
+        "stability_score_delta": -91.18005320618845
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "test::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_delta": -91.18005320618845
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "trailing_12m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_delta": -91.18005320618845
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "trailing_3m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_delta": -91.18005320618845
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "trailing_6m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_delta": -91.18005320618845
+      }
+    ],
+    "window_count": 6,
+    "window_regime_count": 23
+  },
+  "analysis_summary": {
+    "baseline_model": "sthan_mse",
+    "largest_relative_return_spread_segments": [
+      {
+        "best_relative_return_model": "sthan_mse",
+        "relative_return_pct_spread": 111.29741645213258,
+        "segment": "trailing_12m::downtrend",
+        "segment_type": "window_regime",
+        "worst_relative_return_model": "ridge_ic"
+      },
+      {
+        "best_relative_return_model": "sthan_mse",
+        "relative_return_pct_spread": 111.29741645213258,
+        "segment": "downtrend",
+        "segment_type": "regime",
+        "worst_relative_return_model": "ridge_ic"
+      },
+      {
+        "best_relative_return_model": "sthan_mse",
+        "relative_return_pct_spread": 111.29741645213258,
+        "segment": "ytd::downtrend",
+        "segment_type": "window_regime",
+        "worst_relative_return_model": "ridge_ic"
+      },
+      {
+        "best_relative_return_model": "sthan_mse",
+        "relative_return_pct_spread": 111.29741645213258,
+        "segment": "trailing_3m::downtrend",
+        "segment_type": "window_regime",
+        "worst_relative_return_model": "ridge_ic"
+      },
+      {
+        "best_relative_return_model": "sthan_mse",
+        "relative_return_pct_spread": 111.29741645213258,
+        "segment": "test::downtrend",
+        "segment_type": "window_regime",
+        "worst_relative_return_model": "ridge_ic"
+      }
+    ],
+    "model_count": 32,
+    "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+    "regime_count": 4,
+    "schema_version": "analysis.regime_window_effect.v1",
+    "segment_effect_matrix_count": 34,
+    "segment_types": [
+      "all",
+      "regime",
+      "window",
+      "window_regime"
+    ],
+    "weakest_segments": [
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "downtrend",
+        "segment_type": "regime",
+        "stability_score_delta": -91.18005320618845
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "test::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_delta": -91.18005320618845
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "trailing_12m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_delta": -91.18005320618845
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "trailing_3m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_delta": -91.18005320618845
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_ic",
+        "relative_return_pct_delta": -111.29741645213258,
+        "segment": "trailing_6m::downtrend",
+        "segment_type": "window_regime",
+        "stability_score_delta": -91.18005320618845
+      }
+    ],
+    "window_count": 6,
+    "window_definitions": [
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "ytd"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-08",
+        "window": "trailing_1m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_3m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_6m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_12m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "test"
+      }
+    ],
+    "window_names": [
+      "ytd",
+      "trailing_1m",
+      "trailing_3m",
+      "trailing_6m",
+      "trailing_12m",
+      "test"
+    ],
+    "window_regime_count": 23
+  },
+  "analysis_table_counts": {
+    "failure_modes": 847,
+    "model_comparison": 32,
+    "model_effect_deltas": 1088,
+    "model_review_briefing": 629,
+    "qlib_return_frame": 832,
+    "qlib_risk_metrics": 2176,
+    "regime_metrics": 128,
+    "segment_effect_matrix": 34,
+    "segment_metrics": 1088,
+    "window_metrics": 192,
+    "window_regime_metrics": 736
+  },
+  "artifact_id": "quantbench_all_model_run_ledger_v1",
+  "artifact_type": "analysis_report",
+  "backtest_contract": {
+    "benchmark": "SOXL",
+    "cost_model": {
+      "close_cost_bps": 1.0,
+      "open_cost_bps": 1.0,
+      "schema_version": "backtest.cost_model.v1",
+      "slippage_bps": 1.0
+    },
+    "end": "2026-06-08",
+    "position_policy": {
+      "lag": 1,
+      "max_position": 1.0,
+      "min_position": 0.0,
+      "neutral_position": 0.5,
+      "schema_version": "backtest.position_policy.v1",
+      "signal_scale": null
+    },
+    "schema_version": "backtest.config.v1",
+    "start": "2026-05-01",
+    "stress_windows": {}
+  },
+  "end": "2026-06-09",
+  "model_adapters": [
+    "alstm_attention_lstm_mse_v1",
+    "autoformer_decomposition_attention_mse_v1",
+    "catboost_rank_v1",
+    "darnn_dual_attention_gru_mse_v1",
+    "dlinear_decomposition_mse_v1",
+    "extra_trees_rank_proxy_v1",
+    "fedformer_frequency_attention_mse_v1",
+    "gat_feature_attention_mse_v1",
+    "gcn_feature_propagation_mse_v1",
+    "gru_pytorch_sequence_mse_v1",
+    "hawkes_gru_event_decay_mse_v1",
+    "hist_gradient_mse_v1",
+    "hypergraph_feature_mse_v1",
+    "lightgbm_mse_v1",
+    "logistic_direction_v1",
+    "lstm_pytorch_sequence_mse_v1",
+    "market_graph_feature_mse_v1",
+    "mlp_mixer_sequence_mse_v1",
+    "mlp_sklearn_mse_v1",
+    "patch_tst_transformer_mse_v1",
+    "random_forest_direction_v1",
+    "rgcn_relation_feature_mse_v1",
+    "ridge_mse_v1",
+    "ridge_rank_ic_proxy_v1",
+    "rsr_relation_strength_mse_v1",
+    "sequence_lag_ridge_mse_v1",
+    "sfm_frequency_ridge_mse_v1",
+    "sthan_spatio_temporal_attention_mse_v1",
+    "sthgcn_spatio_temporal_hypergraph_mse_v1",
+    "tcn_temporal_conv_mse_v1",
+    "thgnn_temporal_hypergraph_mse_v1",
+    "xgboost_mse_v1"
+  ],
+  "model_count": 32,
+  "model_fidelity": {
+    "fidelity_counts": {
+      "native_library": 8,
+      "native_sequence": 1,
+      "native_torch": 5,
+      "proxy_feature_adapter": 18
+    },
+    "model_count": 32,
+    "native_models": [
+      "alstm_mse",
+      "catboost_rank",
+      "darnn_mse",
+      "dlinear_mse",
+      "gru_mse",
+      "hist_gradient_mse",
+      "lightgbm_mse",
+      "logistic_clf",
+      "lstm_mse",
+      "mlp_mse",
+      "random_forest_clf",
+      "ridge_mse",
+      "tcn_mse",
+      "xgboost_mse"
+    ],
+    "promotion_blocker_count": 24,
+    "proxy_models": [
+      "autoformer_mse",
+      "extra_trees_rank",
+      "fedformer_mse",
+      "gat_mse",
+      "gcn_mse",
+      "hawkes_gru_mse",
+      "hypergraph_mse",
+      "market_graph_mse",
+      "mlp_mixer_mse",
+      "patch_tst_mse",
+      "rgcn_mse",
+      "ridge_ic",
+      "rsr_mse",
+      "sequence_lag_ridge_mse",
+      "sfm_mse",
+      "sthan_mse",
+      "sthgcn_mse",
+      "thgnn_mse"
+    ],
+    "schema_version": "model.fidelity.v1"
+  },
+  "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
+  "objective_evaluation": {
+    "avg_ic": 0.02947741493513973,
+    "avg_mse": 0.03514868236052979,
+    "avg_rank_ic": 0.0,
+    "model_count": 32,
+    "schema_version": "objective.matrix_evaluation.v1"
+  },
+  "promotion_summary": {
+    "blocked_count": 0,
+    "candidate_count": 32,
+    "model_count": 32,
+    "schema_version": "objective.promotion_summary.v1",
+    "top_decision": "promote_candidate",
+    "top_model": "sthan_mse"
+  },
+  "schema_version": "analysis.report.v1",
+  "start": "2026-01-01",
+  "status": "smoke_completed",
+  "test_end": "2026-06-08",
+  "test_start": "2026-05-01",
+  "top_model": "sthan_mse",
+  "train_end": "2026-04-30",
+  "walk_forward": {
+    "fold_count": 5,
+    "schema_version": "backtest.walk_forward.v1",
+    "test_size": 13,
+    "train_size": 41
+  },
+  "window_definitions": [
+    {
+      "end": "2026-06-08",
+      "start": "2026-05-01",
+      "window": "ytd"
+    },
+    {
+      "end": "2026-06-08",
+      "start": "2026-05-08",
+      "window": "trailing_1m"
+    },
+    {
+      "end": "2026-06-08",
+      "start": "2026-05-01",
+      "window": "trailing_3m"
+    },
+    {
+      "end": "2026-06-08",
+      "start": "2026-05-01",
+      "window": "trailing_6m"
+    },
+    {
+      "end": "2026-06-08",
+      "start": "2026-05-01",
+      "window": "trailing_12m"
+    },
+    {
+      "end": "2026-06-08",
+      "start": "2026-05-01",
+      "window": "test"
+    }
+  ],
+  "window_names": [
+    "ytd",
+    "trailing_1m",
+    "trailing_3m",
+    "trailing_6m",
+    "trailing_12m",
+    "test"
+  ]
+}

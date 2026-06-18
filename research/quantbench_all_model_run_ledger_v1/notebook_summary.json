@@ -1,0 +1,30 @@
+{
+  "schema_version": "research.quantbench_all_model_run_ledger_v1",
+  "card_dir": "/Users/rziiiii/dev/workspace/research/quantbench_all_model_run_ledger_v1",
+  "start": "2026-01-01",
+  "end": "2026-06-09",
+  "train_end": "2026-04-30",
+  "expected_model_count": 32,
+  "trained_model_count": 32,
+  "backtested_model_count": 32,
+  "all_models_completed": true,
+  "missing_models": [],
+  "native_model_count": 14,
+  "proxy_model_count": 18,
+  "top_model": "sthan_mse",
+  "top_return_pct": 91.14243291017377,
+  "top_max_drawdown_pct": 14.370455284606676,
+  "top_sharpe": 7.406597907776609,
+  "top_stability_score": 136.6716124739938,
+  "artifact_links": {
+    "model_run_ledger": "model_run_ledger.csv",
+    "model_run_ledger_summary": "model_run_ledger_summary.json",
+    "model_comparison": "model_comparison.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "window_metrics": "window_metrics.csv",
+    "objective_scores": "objective_scores.csv",
+    "promotion_scores": "promotion_scores.csv",
+    "analysis_manifest": "analysis_manifest.json",
+    "artifact_manifest": "artifact_manifest.json"
+  }
+}

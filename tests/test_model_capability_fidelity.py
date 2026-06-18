@@ -25,6 +25,8 @@ def test_model_capability_table_separates_native_and_proxy_implementations():
     )
     assert table.loc[table["model"].eq("xgboost_mse"), "paper_fidelity"].item() == "native_library"
     assert table.loc[table["model"].eq("catboost_rank"), "paper_fidelity"].item() == "native_library"
+    assert table.loc[table["model"].eq("dlinear_mse"), "paper_fidelity"].item() == "native_sequence"
+    assert table.loc[table["model"].eq("dlinear_mse"), "is_proxy"].item() is False
     assert table.loc[table["model"].eq("patch_tst_mse"), "is_proxy"].item() is True
     assert table.loc[table["model"].eq("gcn_mse"), "is_proxy"].item() is True
 
@@ -33,6 +35,7 @@ def test_model_capability_table_separates_native_and_proxy_implementations():
     assert summary["fidelity_counts"]["proxy_feature_adapter"] > 0
     assert "patch_tst_mse" in summary["proxy_models"]
     assert "gcn_mse" in summary["proxy_models"]
+    assert "dlinear_mse" in summary["native_models"]
     assert "xgboost_mse" in summary["native_models"]
 
 

@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact, load_model_artifact, save_model_artifact
-from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
+from src.model.sequence import DLinearDecompositionRegressor
+from src.model.training import fit_estimator_for_model, fit_predict_model, model_adapter_name, model_adapter_status
 
 
 def _split_frame():
@@ -51,6 +52,23 @@ def test_mixer_decomposition_patch_and_frequency_paths_are_distinct():
     assert not mixer["prediction"].round(10).equals(dlinear["prediction"].round(10))
     assert not patch["prediction"].round(10).equals(autoformer["prediction"].round(10))
     assert not fedformer["prediction"].round(10).equals(dlinear["prediction"].round(10))
+
+
+def test_dlinear_mse_uses_explicit_decomposition_linear_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "dlinear_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:5],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, DLinearDecompositionRegressor)
+    assert hasattr(estimator, "trend_model_")
+    assert hasattr(estimator, "residual_model_")
+    assert estimator.feature_count_ == 5
+    assert estimator.lookback_ == 5
 
 
 def test_hawkes_gru_event_decay_path_differs_from_plain_gru():

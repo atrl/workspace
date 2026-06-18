@@ -23,8 +23,8 @@ from src.core import ArtifactManifest, DatasetSnapshot
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.factor import prepare_factor_feature_sets
 from src.model.capabilities import model_capability_table, model_fidelity_summary
-from src.model.registry import QUANTBENCH_MODEL_NAMES
-from src.model.training import fit_predict_model
+from src.model.registry import QUANTBENCH_MODEL_NAMES, get_model_spec
+from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
 from src.objective import build_promotion_scores, evaluate_prediction_objectives
 
 
@@ -32,6 +32,7 @@ from src.objective import build_promotion_scores, evaluate_prediction_objectives
 class QuantBenchMatrixOutputs:
     predictions: pd.DataFrame
     daily: pd.DataFrame
+    model_run_ledger: pd.DataFrame
     regime_metrics: pd.DataFrame
     window_metrics: pd.DataFrame
     window_regime_metrics: pd.DataFrame
@@ -39,6 +40,10 @@ class QuantBenchMatrixOutputs:
     qlib_risk_metrics: pd.DataFrame
     model_effect_deltas: pd.DataFrame
     summary: dict
+
+
+MODEL_RUN_LEDGER_SCHEMA_VERSION = "model.run_ledger.v1"
+MODEL_RUN_LEDGER_SUMMARY_SCHEMA_VERSION = "model.run_ledger_summary.v1"
 
 
 def _enrich_comparison_with_variant_columns(comparison: pd.DataFrame) -> pd.DataFrame:
@@ -51,6 +56,250 @@ def _enrich_comparison_with_variant_columns(comparison: pd.DataFrame) -> pd.Data
     front = ["rank", "model", "base_model", "feature_set"]
     remaining = [column for column in result.columns if column not in front]
     return result.loc[:, [column for column in front if column in result.columns] + remaining]
+
+
+def _read_csv_if_exists(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+    return pd.read_csv(path)
+
+
+def _read_json_if_exists(path: Path) -> dict[str, object]:
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _group_for_model(frame: pd.DataFrame, model: str) -> pd.DataFrame:
+    if frame.empty or "model" not in frame.columns:
+        return pd.DataFrame()
+    return frame.loc[frame["model"].astype(str) == model].copy()
+
+
+def _row_for_model(frame: pd.DataFrame, model: str) -> pd.Series:
+    group = _group_for_model(frame, model)
+    if group.empty:
+        return pd.Series(dtype=object)
+    return group.iloc[0]
+
+
+def _row_value(row: pd.Series, column: str, default: object = "") -> object:
+    if row.empty or column not in row:
+        return default
+    value = row[column]
+    if pd.isna(value):
+        return default
+    return value
+
+
+def _float_value(row: pd.Series, column: str) -> float:
+    value = _row_value(row, column, 0.0)
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def _int_value(row: pd.Series, column: str) -> int:
+    value = _row_value(row, column, 0)
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _manifest_has_paths(card: Path, manifest: dict[str, object], required_paths: Iterable[str]) -> bool:
+    paths = manifest.get("paths", {})
+    if not isinstance(paths, dict):
+        return False
+    for key in required_paths:
+        value = paths.get(key)
+        if not value or not (card / str(value)).exists():
+            return False
+    return True
+
+
+def build_model_run_ledger(
+    card_dir: Path,
+    *,
+    expected_model_names: Iterable[str] = QUANTBENCH_MODEL_NAMES,
+) -> tuple[pd.DataFrame, dict[str, object]]:
+    """Build the durable per-model proof that a matrix run trained and backtested each model."""
+
+    card = Path(card_dir)
+    expected = tuple(dict.fromkeys(str(name) for name in expected_model_names))
+    predictions = _read_csv_if_exists(card / "predictions.csv")
+    daily = _read_csv_if_exists(card / "daily_backtest.csv")
+    regime_metrics = _read_csv_if_exists(card / "regime_metrics.csv")
+    window_metrics = _read_csv_if_exists(card / "window_metrics.csv")
+    model_comparison = _read_csv_if_exists(card / "model_comparison.csv")
+    model_capabilities = _read_csv_if_exists(card / "model_capabilities.csv")
+    objective_scores = _read_csv_if_exists(card / "objective_scores.csv")
+    promotion_scores = _read_csv_if_exists(card / "promotion_scores.csv")
+    artifact_manifest = _read_json_if_exists(card / "artifact_manifest.json")
+    manifest_covers_core = _manifest_has_paths(
+        card,
+        artifact_manifest,
+        (
+            "analysis_summary",
+            "analysis_manifest",
+            "predictions",
+            "daily_backtest",
+            "model_comparison",
+            "model_capabilities",
+            "objective_scores",
+            "promotion_scores",
+        ),
+    )
+
+    rows: list[dict[str, object]] = []
+    for model in expected:
+        base_model = model.split("__", 1)[0]
+        registered = True
+        try:
+            spec = get_model_spec(base_model)
+        except KeyError:
+            registered = False
+            spec = None
+        capability_row = _row_for_model(model_capabilities, model)
+        if capability_row.empty and base_model != model:
+            capability_row = _row_for_model(model_capabilities, base_model)
+        if capability_row.empty and registered:
+            capability_row = model_capability_table((base_model,)).iloc[0]
+        prediction_group = _group_for_model(predictions, model)
+        daily_group = _group_for_model(daily, model)
+        regime_group = _group_for_model(regime_metrics, model)
+        window_group = _group_for_model(window_metrics, model)
+        comparison_row = _row_for_model(model_comparison, model)
+        objective_row = _row_for_model(objective_scores, model)
+        promotion_row = _row_for_model(promotion_scores, model)
+        prediction_rows = int(len(prediction_group))
+        backtest_rows = int(len(daily_group))
+        regime_rows = int(len(regime_group))
+        window_rows = int(len(window_group))
+        predicted = prediction_rows > 0 and bool(prediction_group["prediction"].notna().all())
+        backtested = backtest_rows > 0 and bool(daily_group["nav"].notna().all()) if "nav" in daily_group else False
+        analysis_recorded = not comparison_row.empty and regime_rows > 0 and window_rows > 0
+        adapter_status = (
+            str(prediction_group["adapter_status"].dropna().iloc[0])
+            if not prediction_group.empty and "adapter_status" in prediction_group
+            else model_adapter_status(base_model)
+            if registered
+            else ""
+        )
+        adapter_name = (
+            str(prediction_group["model_adapter"].dropna().iloc[0])
+            if not prediction_group.empty and "model_adapter" in prediction_group
+            else model_adapter_name(base_model)
+            if registered
+            else ""
+        )
+        rows.append(
+            {
+                "schema_version": MODEL_RUN_LEDGER_SCHEMA_VERSION,
+                "model": model,
+                "base_model": base_model,
+                "family": str(_row_value(capability_row, "family", spec.family if spec else "")),
+                "objective": str(_row_value(capability_row, "objective", spec.objective if spec else "")),
+                "input_kind": str(_row_value(capability_row, "input_kind", spec.input_kind if spec else "")),
+                "estimator": str(_row_value(capability_row, "estimator", spec.estimator if spec else "")),
+                "paper_fidelity": str(
+                    _row_value(capability_row, "paper_fidelity", spec.paper_fidelity if spec else "")
+                ),
+                "is_proxy": bool(_row_value(capability_row, "is_proxy", False)),
+                "adapter_status": adapter_status,
+                "model_adapter": adapter_name,
+                "registered": registered,
+                "capability_recorded": not _row_for_model(model_capabilities, model).empty,
+                "trained": predicted,
+                "predicted": predicted,
+                "backtested": backtested,
+                "objective_evaluated": not objective_row.empty,
+                "promotion_evaluated": not promotion_row.empty,
+                "analysis_recorded": analysis_recorded,
+                "manifested": manifest_covers_core and predicted and backtested,
+                "prediction_rows": prediction_rows,
+                "backtest_rows": backtest_rows,
+                "regime_rows": regime_rows,
+                "window_rows": window_rows,
+                "objective_row_count": _int_value(objective_row, "row_count"),
+                "comparison_rank": _int_value(comparison_row, "rank"),
+                "return_pct": _float_value(comparison_row, "return_pct"),
+                "benchmark_return_pct": _float_value(comparison_row, "benchmark_return_pct"),
+                "relative_return_pct": _float_value(comparison_row, "relative_return_pct"),
+                "max_drawdown_pct": _float_value(comparison_row, "max_drawdown_pct"),
+                "sharpe": _float_value(comparison_row, "sharpe"),
+                "turnover": _float_value(comparison_row, "turnover"),
+                "stability_score": _float_value(comparison_row, "stability_score"),
+                "promotion_rank": _int_value(promotion_row, "rank"),
+                "promotion_score": _float_value(promotion_row, "promotion_score"),
+                "promotion_decision": str(_row_value(promotion_row, "promotion_decision", "")),
+                "promotion_blockers": str(_row_value(promotion_row, "promotion_blockers", "")),
+                "promotion_blocker": str(
+                    _row_value(capability_row, "promotion_blocker", spec.promotion_blocker if spec else "")
+                ),
+                "implementation_notes": str(
+                    _row_value(capability_row, "implementation_notes", spec.implementation_notes if spec else "")
+                ),
+            }
+        )
+
+    ledger = pd.DataFrame(rows)
+    required_flags = [
+        "registered",
+        "trained",
+        "predicted",
+        "backtested",
+        "objective_evaluated",
+        "promotion_evaluated",
+        "analysis_recorded",
+        "manifested",
+    ]
+    incomplete_mask = ~ledger.loc[:, required_flags].astype(bool).all(axis=1) if not ledger.empty else pd.Series()
+    missing_models = ledger.loc[incomplete_mask, "model"].astype(str).tolist() if not ledger.empty else []
+    paper_fidelity_counts = (
+        ledger["paper_fidelity"].astype(str).value_counts().sort_index().astype(int).to_dict() if not ledger.empty else {}
+    )
+    adapter_statuses = sorted(ledger["adapter_status"].astype(str).dropna().unique().tolist()) if not ledger.empty else []
+    summary = {
+        "schema_version": MODEL_RUN_LEDGER_SUMMARY_SCHEMA_VERSION,
+        "expected_model_count": int(len(expected)),
+        "ledger_model_count": int(len(ledger)),
+        "registered_model_count": int(ledger["registered"].astype(bool).sum()) if not ledger.empty else 0,
+        "trained_model_count": int(ledger["trained"].astype(bool).sum()) if not ledger.empty else 0,
+        "predicted_model_count": int(ledger["predicted"].astype(bool).sum()) if not ledger.empty else 0,
+        "backtested_model_count": int(ledger["backtested"].astype(bool).sum()) if not ledger.empty else 0,
+        "objective_evaluated_model_count": int(ledger["objective_evaluated"].astype(bool).sum())
+        if not ledger.empty
+        else 0,
+        "promotion_evaluated_model_count": int(ledger["promotion_evaluated"].astype(bool).sum())
+        if not ledger.empty
+        else 0,
+        "analysis_recorded_model_count": int(ledger["analysis_recorded"].astype(bool).sum()) if not ledger.empty else 0,
+        "manifested_model_count": int(ledger["manifested"].astype(bool).sum()) if not ledger.empty else 0,
+        "proxy_model_count": int(ledger["is_proxy"].astype(bool).sum()) if not ledger.empty else 0,
+        "native_model_count": int((~ledger["is_proxy"].astype(bool)).sum()) if not ledger.empty else 0,
+        "paper_fidelity_counts": paper_fidelity_counts,
+        "adapter_statuses": adapter_statuses,
+        "missing_models": missing_models,
+        "all_models_completed": not missing_models and int(len(ledger)) == int(len(expected)),
+    }
+    return ledger, summary
+
+
+def write_model_run_ledger(
+    card_dir: Path,
+    *,
+    expected_model_names: Iterable[str] = QUANTBENCH_MODEL_NAMES,
+) -> tuple[pd.DataFrame, dict[str, object]]:
+    card = Path(card_dir)
+    ledger, summary = build_model_run_ledger(card, expected_model_names=expected_model_names)
+    ledger.to_csv(card / "model_run_ledger.csv", index=False)
+    (card / "model_run_ledger_summary.json").write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return ledger, summary
 
 
 def _adapter_summary(predictions: pd.DataFrame) -> dict[str, object]:
@@ -373,6 +622,8 @@ def run_quantbench_matrix_smoke(
             "walk_forward_splits": "walk_forward_splits.csv",
             "objective_scores": "objective_scores.csv",
             "promotion_scores": "promotion_scores.csv",
+            "model_run_ledger": "model_run_ledger.csv",
+            "model_run_ledger_summary": "model_run_ledger_summary.json",
         },
     )
     predictions.to_csv(card / "predictions.csv", index=False)
@@ -400,13 +651,17 @@ def run_quantbench_matrix_smoke(
             "walk_forward_splits": "walk_forward_splits.csv",
             "objective_scores": "objective_scores.csv",
             "promotion_scores": "promotion_scores.csv",
+            "model_run_ledger": "model_run_ledger.csv",
+            "model_run_ledger_summary": "model_run_ledger_summary.json",
             "analysis_manifest": "analysis_manifest.json",
         },
         metadata=analysis_metadata,
     )
+    model_run_ledger, _ = write_model_run_ledger(card, expected_model_names=selected_model_names)
     return QuantBenchMatrixOutputs(
         predictions=predictions,
         daily=daily,
+        model_run_ledger=model_run_ledger,
         regime_metrics=regime_metrics,
         window_metrics=window_metrics,
         window_regime_metrics=window_regime_metrics,
@@ -553,6 +808,8 @@ def run_factor_feature_set_matrix(
             "walk_forward_splits": "walk_forward_splits.csv",
             "objective_scores": "objective_scores.csv",
             "promotion_scores": "promotion_scores.csv",
+            "model_run_ledger": "model_run_ledger.csv",
+            "model_run_ledger_summary": "model_run_ledger_summary.json",
         },
     )
     predictions.to_csv(card / "predictions.csv", index=False)
@@ -585,15 +842,22 @@ def run_factor_feature_set_matrix(
             "walk_forward_splits": "walk_forward_splits.csv",
             "objective_scores": "objective_scores.csv",
             "promotion_scores": "promotion_scores.csv",
+            "model_run_ledger": "model_run_ledger.csv",
+            "model_run_ledger_summary": "model_run_ledger_summary.json",
             "analysis_manifest": "analysis_manifest.json",
             "factor_ic": "factor_ic.csv",
             "feature_set_specs": "feature_set_specs.json",
         },
         metadata=analysis_metadata,
     )
+    model_run_ledger, _ = write_model_run_ledger(
+        card,
+        expected_model_names=tuple(str(value) for value in sorted(predictions["model"].unique())),
+    )
     return QuantBenchMatrixOutputs(
         predictions=predictions,
         daily=daily,
+        model_run_ledger=model_run_ledger,
         regime_metrics=regime_metrics,
         window_metrics=window_metrics,
         window_regime_metrics=window_regime_metrics,

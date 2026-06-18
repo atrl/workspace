@@ -85,6 +85,19 @@ def _torch_native(name: str, family: str, objective: str, input_kind: str, estim
     )
 
 
+def _native_sequence(name: str, family: str, objective: str, input_kind: str, estimator: str, notes: str) -> ModelSpec:
+    return _spec(
+        name,
+        family,
+        objective,
+        input_kind,
+        estimator,
+        "native_sequence",
+        notes,
+        "Needs longer-window robustness review before production promotion.",
+    )
+
+
 MODEL_SPECS: tuple[ModelSpec, ...] = (
     _native("logistic_clf", "linear", "classification", "tabular", "LogisticRegression"),
     _proxy("ridge_ic", "linear", "ic", "tabular", "Ridge", "Ridge is trained on an IC-style rank target proxy."),
@@ -133,7 +146,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
     _proxy("hawkes_gru_mse", "sequence", "mse", "event_sequence", "HawkesGRU", "Uses event-decay ridge features."),
     _torch_native("tcn_mse", "sequence", "mse", "sequence", "TCN", "Uses a compact PyTorch temporal convolution net."),
     _proxy("mlp_mixer_mse", "sequence", "mse", "sequence_patch", "MLPMixer", "Uses mixer-style engineered features."),
-    _proxy("dlinear_mse", "sequence", "mse", "sequence_decomposition", "DLinear", "Uses trend/residual ridge features."),
+    _native_sequence(
+        "dlinear_mse",
+        "sequence",
+        "mse",
+        "sequence_decomposition",
+        "DLinear",
+        "Uses an explicit moving-average decomposition with separate linear trend and residual heads.",
+    ),
     _proxy("patch_tst_mse", "sequence", "mse", "sequence_patch", "PatchTST", "Uses patch statistics instead of a full Transformer encoder."),
     _proxy(
         "autoformer_mse",
