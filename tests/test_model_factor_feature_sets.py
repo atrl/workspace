@@ -54,6 +54,7 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
 
     expected_files = {
         "analysis_summary.json",
+        "artifact_manifest.json",
         "feature_set_specs.json",
         "factor_ic.csv",
         "predictions.csv",

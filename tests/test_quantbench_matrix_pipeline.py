@@ -67,6 +67,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
 
     expected_files = {
         "analysis_summary.json",
+        "artifact_manifest.json",
         "predictions.csv",
         "daily_backtest.csv",
         "regime_metrics.csv",

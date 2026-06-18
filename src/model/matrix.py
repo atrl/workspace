@@ -9,6 +9,7 @@ import pandas as pd
 
 from src.analysis import analyze_model_effects_by_regime_and_window, compare_models, compute_regime_metrics, compute_window_metrics
 from src.backtest import backtest_prediction_frame
+from src.core import ArtifactManifest, DatasetSnapshot
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.factor import prepare_factor_feature_sets
 from src.model.registry import QUANTBENCH_MODEL_NAMES
@@ -37,6 +38,42 @@ def _enrich_comparison_with_variant_columns(comparison: pd.DataFrame) -> pd.Data
     front = ["rank", "model", "base_model", "feature_set"]
     remaining = [column for column in result.columns if column not in front]
     return result.loc[:, [column for column in front if column in result.columns] + remaining]
+
+
+def _dataset_snapshot(*, start: str, end: str) -> DatasetSnapshot:
+    return DatasetSnapshot(
+        name="soxl_support_daily",
+        universe=("SOXL", "SOXX", "VIX"),
+        start=start,
+        end=end,
+        calendar_path="data/qlib/soxl/calendars/day.txt",
+        data_paths=("data/processed/panels/soxl_soxx_vix_full.csv",),
+        metadata={"source": "load_soxl_support_frame"},
+    )
+
+
+def _write_matrix_manifest(
+    card: Path,
+    *,
+    artifact_id: str,
+    start: str,
+    end: str,
+    paths: dict[str, str],
+    metadata: dict,
+) -> dict:
+    manifest = ArtifactManifest(
+        artifact_id=artifact_id,
+        artifact_type="model_matrix",
+        producer="src.model.matrix",
+        schema_version="artifact.v1",
+        dataset=_dataset_snapshot(start=start, end=end),
+        paths=paths,
+        metadata=metadata,
+    )
+    payload = manifest.to_dict()
+    payload["manifest_hash"] = manifest.manifest_hash()
+    (card / "artifact_manifest.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return payload
 
 
 def run_quantbench_matrix_smoke(
@@ -95,6 +132,28 @@ def run_quantbench_matrix_smoke(
     effect_analysis.qlib_risk_metrics.to_csv(card / "qlib_risk_metrics.csv", index=False)
     effect_analysis.model_effect_deltas.to_csv(card / "model_effect_deltas.csv", index=False)
     (card / "analysis_summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    _write_matrix_manifest(
+        card,
+        artifact_id=card.name,
+        start=start,
+        end=end,
+        paths={
+            "analysis_summary": "analysis_summary.json",
+            "predictions": "predictions.csv",
+            "daily_backtest": "daily_backtest.csv",
+            "regime_metrics": "regime_metrics.csv",
+            "window_metrics": "window_metrics.csv",
+            "model_comparison": "model_comparison.csv",
+            "qlib_risk_metrics": "qlib_risk_metrics.csv",
+            "model_effect_deltas": "model_effect_deltas.csv",
+        },
+        metadata={
+            "status": summary["status"],
+            "train_end": train_end,
+            "adapter_status": summary["adapter_status"],
+            "model_count": summary["model_count"],
+        },
+    )
     return QuantBenchMatrixOutputs(
         predictions=predictions,
         daily=daily,
@@ -190,6 +249,33 @@ def run_factor_feature_set_matrix(
         encoding="utf-8",
     )
     (card / "analysis_summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    _write_matrix_manifest(
+        card,
+        artifact_id=card.name,
+        start=start,
+        end=end,
+        paths={
+            "analysis_summary": "analysis_summary.json",
+            "predictions": "predictions.csv",
+            "daily_backtest": "daily_backtest.csv",
+            "regime_metrics": "regime_metrics.csv",
+            "window_metrics": "window_metrics.csv",
+            "model_comparison": "model_comparison.csv",
+            "qlib_risk_metrics": "qlib_risk_metrics.csv",
+            "model_effect_deltas": "model_effect_deltas.csv",
+            "factor_ic": "factor_ic.csv",
+            "feature_set_specs": "feature_set_specs.json",
+        },
+        metadata={
+            "status": summary["status"],
+            "train_end": train_end,
+            "adapter_status": summary["adapter_status"],
+            "base_model_count": summary["base_model_count"],
+            "feature_set_count": summary["feature_set_count"],
+            "variant_count": summary["variant_count"],
+            "selection_source": summary["selection_source"],
+        },
+    )
     return QuantBenchMatrixOutputs(
         predictions=predictions,
         daily=daily,
