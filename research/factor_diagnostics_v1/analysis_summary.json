@@ -1,0 +1,21 @@
+{
+  "schema_version": "factor_suite_report.v1",
+  "factor_count": 14,
+  "target_column": "target_return",
+  "top_factor": "vix_change_1d",
+  "top_ic_mean": 0.12426792293785408,
+  "high_correlation_pair_count": 8,
+  "review_text": "## 中文结论\n\n- 本次评估 14 个因子，目标列为 `target_return`。\n- IC 最强因子为 `vix_change_1d`，IC 均值为 0.1243。\n- 高相关因子对数量为 8，用于提示多因子冗余风险。\n- 分层收益已输出 quantile 表，用于判断因子方向和单调性。",
+  "start": "2026-01-02",
+  "end": "2026-06-08",
+  "row_count": 108,
+  "composite_factor": "ic_weighted_composite",
+  "composite_ic_mean": 0.03079062943591795,
+  "artifact_files": [
+    "factor_ic.csv",
+    "factor_correlation.csv",
+    "factor_quantile_returns.csv",
+    "composite_factor.csv",
+    "composite_factor_ic.csv"
+  ]
+}
