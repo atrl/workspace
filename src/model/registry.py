@@ -145,7 +145,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
     ),
     _proxy("hawkes_gru_mse", "sequence", "mse", "event_sequence", "HawkesGRU", "Uses event-decay ridge features."),
     _torch_native("tcn_mse", "sequence", "mse", "sequence", "TCN", "Uses a compact PyTorch temporal convolution net."),
-    _proxy("mlp_mixer_mse", "sequence", "mse", "sequence_patch", "MLPMixer", "Uses mixer-style engineered features."),
+    _native_sequence(
+        "mlp_mixer_mse",
+        "sequence",
+        "mse",
+        "sequence_patch",
+        "MLPMixer",
+        "Uses compact token-mixing and channel-mixing MLP blocks over sequence features.",
+    ),
     _native_sequence(
         "dlinear_mse",
         "sequence",

@@ -22,8 +22,8 @@
     "baseline_model": "sthan_mse",
     "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
     "decision_hint_counts": {
-      "block_or_rework": 485,
-      "reduce_or_guardrail": 133
+      "block_or_rework": 490,
+      "reduce_or_guardrail": 140
     },
     "largest_relative_return_spread_segments": [
       {
@@ -116,8 +116,8 @@
     "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
     "regime_count": 4,
     "review_signal_counts": {
-      "risk": 133,
-      "weakness": 485
+      "risk": 140,
+      "weakness": 490
     },
     "schema_version": "analysis.overview.v1",
     "segment_effect_matrix_count": 34,
@@ -344,7 +344,7 @@
     "failure_modes": 840,
     "model_comparison": 32,
     "model_effect_deltas": 1074,
-    "model_review_briefing": 618,
+    "model_review_briefing": 630,
     "qlib_return_frame": 832,
     "qlib_risk_metrics": 2148,
     "regime_metrics": 126,
@@ -415,9 +415,9 @@
   "model_fidelity": {
     "fidelity_counts": {
       "native_library": 8,
-      "native_sequence": 4,
+      "native_sequence": 5,
       "native_torch": 5,
-      "proxy_feature_adapter": 15
+      "proxy_feature_adapter": 14
     },
     "model_count": 32,
     "native_models": [
@@ -432,6 +432,7 @@
       "lightgbm_mse",
       "logistic_clf",
       "lstm_mse",
+      "mlp_mixer_mse",
       "mlp_mse",
       "patch_tst_mse",
       "random_forest_clf",
@@ -447,7 +448,6 @@
       "hawkes_gru_mse",
       "hypergraph_mse",
       "market_graph_mse",
-      "mlp_mixer_mse",
       "rgcn_mse",
       "ridge_ic",
       "rsr_mse",
@@ -461,8 +461,8 @@
   },
   "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
   "objective_evaluation": {
-    "avg_ic": 0.009222546799087426,
-    "avg_mse": 0.03651393976319943,
+    "avg_ic": 0.007355427405954783,
+    "avg_mse": 0.036488575015922314,
     "avg_rank_ic": 0.0,
     "model_count": 32,
     "schema_version": "objective.matrix_evaluation.v1"

@@ -6,6 +6,7 @@ from src.model.sequence import (
     AutoformerDecompositionRegressor,
     DLinearDecompositionRegressor,
     FEDformerFrequencyRegressor,
+    MLPMixerSequenceRegressor,
     PatchTSTTransformerRegressor,
 )
 from src.model.training import fit_estimator_for_model, fit_predict_model, model_adapter_name, model_adapter_status
@@ -110,6 +111,24 @@ def test_autoformer_mse_uses_decomposition_autocorrelation_estimator():
     assert estimator.lookback_ == 5
     assert estimator.autocorrelation_lags_ == (1, 2, 3, 4)
     assert estimator.top_k == 2
+
+
+def test_mlp_mixer_mse_uses_token_channel_mixer_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "mlp_mixer_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:5],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, MLPMixerSequenceRegressor)
+    assert hasattr(estimator, "model_")
+    assert estimator.feature_count_ == 5
+    assert estimator.lookback_ == 5
+    assert estimator.token_hidden_size == 8
+    assert estimator.channel_hidden_size == 16
 
 
 def test_fedformer_mse_uses_decomposition_frequency_estimator():

@@ -21,6 +21,7 @@ from .sequence import (
     FeatureRidgeRegressor,
     FrequencyRidgeRegressor,
     LaggedRidgeRegressor,
+    MLPMixerSequenceRegressor,
     PatchTSTTransformerRegressor,
     TorchSequenceRegressor,
     build_sequence_tensor,
@@ -272,7 +273,14 @@ def _estimator_for_model(model_name: str):
     if model_name == "hawkes_gru_mse":
         return FeatureRidgeRegressor(feature_kind="event_decay", alpha=1.0)
     if model_name == "mlp_mixer_mse":
-        return FeatureRidgeRegressor(feature_kind="mixer", alpha=1.0)
+        return MLPMixerSequenceRegressor(
+            token_hidden_size=8,
+            channel_hidden_size=16,
+            num_blocks=1,
+            epochs=24,
+            learning_rate=0.01,
+            seed=29,
+        )
     if model_name == "dlinear_mse":
         return DLinearDecompositionRegressor(alpha=1.0, kernel_size=3)
     if model_name == "patch_tst_mse":

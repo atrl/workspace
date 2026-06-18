@@ -450,6 +450,51 @@ class _PatchTSTNet(nn.Module):
         return channel_scores.mean(dim=1) + self.output_bias
 
 
+class _MLPMixerNet(nn.Module):
+    def __init__(
+        self,
+        *,
+        lookback: int,
+        feature_count: int,
+        token_hidden_size: int,
+        channel_hidden_size: int,
+        num_blocks: int,
+    ):
+        super().__init__()
+        self.lookback = lookback
+        self.feature_count = feature_count
+        self.blocks = nn.ModuleList()
+        for _ in range(num_blocks):
+            self.blocks.append(
+                nn.ModuleDict(
+                    {
+                        "token_norm": nn.LayerNorm(feature_count),
+                        "token_mixer": nn.Sequential(
+                            nn.Linear(lookback, token_hidden_size),
+                            nn.GELU(),
+                            nn.Linear(token_hidden_size, lookback),
+                        ),
+                        "channel_norm": nn.LayerNorm(feature_count),
+                        "channel_mixer": nn.Sequential(
+                            nn.Linear(feature_count, channel_hidden_size),
+                            nn.GELU(),
+                            nn.Linear(channel_hidden_size, feature_count),
+                        ),
+                    }
+                )
+            )
+        self.final_norm = nn.LayerNorm(feature_count)
+        self.head = nn.Linear(feature_count, 1)
+
+    def forward(self, x):
+        for block in self.blocks:
+            token_input = block["token_norm"](x).transpose(1, 2)
+            x = x + block["token_mixer"](token_input).transpose(1, 2)
+            x = x + block["channel_mixer"](block["channel_norm"](x))
+        pooled = self.final_norm(x).mean(dim=1)
+        return self.head(pooled).squeeze(-1)
+
+
 @dataclass
 class TorchSequenceRegressor:
     cell_type: str
@@ -569,6 +614,66 @@ class PatchTSTTransformerRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 3:
             raise ValueError("PatchTSTTransformerRegressor expects a 3D sequence tensor")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        with torch.no_grad():
+            output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class MLPMixerSequenceRegressor:
+    token_hidden_size: int = 8
+    channel_hidden_size: int = 16
+    num_blocks: int = 1
+    epochs: int = 24
+    learning_rate: float = 0.01
+    seed: int = 29
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "MLPMixerSequenceRegressor":
+        if x.ndim != 3:
+            raise ValueError("MLPMixerSequenceRegressor expects a 3D sequence tensor")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.lookback_ = int(x.shape[1])
+        self.feature_count_ = int(x.shape[2])
+        self.feature_mean_ = x.reshape(-1, x.shape[-1]).mean(axis=0)
+        self.feature_std_ = x.reshape(-1, x.shape[-1]).std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _MLPMixerNet(
+            lookback=self.lookback_,
+            feature_count=self.feature_count_,
+            token_hidden_size=int(self.token_hidden_size),
+            channel_hidden_size=int(self.channel_hidden_size),
+            num_blocks=int(self.num_blocks),
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 3:
+            raise ValueError("MLPMixerSequenceRegressor expects a 3D sequence tensor")
         import torch
 
         torch.set_num_threads(1)

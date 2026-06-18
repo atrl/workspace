@@ -1,0 +1,6 @@
+model,family,objective,input_kind,estimator,paper_fidelity,is_proxy,implementation_notes,promotion_blocker,trade_instrument,support_universe
+ridge_mse,linear,mse,tabular,Ridge,native_library,False,Uses the native Ridge training path behind the QuantBench-style registry contract.,,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+patch_tst_mse,sequence,mse,sequence_patch,PatchTST,native_sequence,False,Uses a compact patch Transformer encoder over channel-wise sequence patches.,Needs longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+autoformer_mse,sequence,mse,sequence_decomposition,Autoformer,native_sequence,False,Uses moving-average decomposition with autocorrelation lag aggregation and separate trend/seasonal heads.,Needs longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+fedformer_mse,sequence,mse,sequence_frequency,FEDformer,native_sequence,False,Uses moving-average decomposition with sparse Fourier mode features and separate trend/frequency heads.,Needs longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+mlp_mixer_mse,sequence,mse,sequence_patch,MLPMixer,native_sequence,False,Uses compact token-mixing and channel-mixing MLP blocks over sequence features.,Needs longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"

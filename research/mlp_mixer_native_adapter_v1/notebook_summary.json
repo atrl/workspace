@@ -1,0 +1,190 @@
+{
+  "schema_version": "research.mlp_mixer_native_adapter_v1",
+  "status": "completed",
+  "paper_reference": {
+    "source_id": "arxiv:2105.01601",
+    "url": "https://arxiv.org/abs/2105.01601",
+    "usage": "自有摘要和结构假设；不复制论文全文或第三方代码。"
+  },
+  "model_names": [
+    "ridge_mse",
+    "patch_tst_mse",
+    "autoformer_mse",
+    "fedformer_mse",
+    "mlp_mixer_mse"
+  ],
+  "mlp_mixer_estimator": "MLPMixerSequenceRegressor",
+  "mlp_mixer_has_torch_model": true,
+  "mlp_mixer_lookback": 5,
+  "mlp_mixer_feature_count": 5,
+  "mlp_mixer_token_hidden_size": 8,
+  "mlp_mixer_channel_hidden_size": 16,
+  "constant_prediction": null,
+  "mlp_mixer_paper_fidelity": "native_sequence",
+  "mlp_mixer_is_proxy": false,
+  "model_fidelity": {
+    "schema_version": "model.fidelity.v1",
+    "model_count": 5,
+    "fidelity_counts": {
+      "native_library": 1,
+      "native_sequence": 4
+    },
+    "proxy_models": [],
+    "native_models": [
+      "autoformer_mse",
+      "fedformer_mse",
+      "mlp_mixer_mse",
+      "patch_tst_mse",
+      "ridge_mse"
+    ],
+    "promotion_blocker_count": 4
+  },
+  "top_model": "mlp_mixer_mse",
+  "mlp_mixer_return_pct": 55.2857907793225,
+  "mlp_mixer_relative_return_pct": -2.8325903846209783,
+  "mlp_mixer_max_drawdown_pct": 20.47570313055833,
+  "mlp_mixer_sharpe": 4.121762824528974,
+  "analysis_summary": {
+    "baseline_model": "mlp_mixer_mse",
+    "largest_relative_return_spread_segments": [
+      {
+        "best_relative_return_model": "mlp_mixer_mse",
+        "relative_return_pct_spread": 55.021044335452295,
+        "segment": "all",
+        "segment_type": "all",
+        "worst_relative_return_model": "ridge_mse"
+      },
+      {
+        "best_relative_return_model": "mlp_mixer_mse",
+        "relative_return_pct_spread": 55.021044335452295,
+        "segment": "test",
+        "segment_type": "window",
+        "worst_relative_return_model": "ridge_mse"
+      },
+      {
+        "best_relative_return_model": "mlp_mixer_mse",
+        "relative_return_pct_spread": 55.021044335452295,
+        "segment": "trailing_6m",
+        "segment_type": "window",
+        "worst_relative_return_model": "ridge_mse"
+      },
+      {
+        "best_relative_return_model": "mlp_mixer_mse",
+        "relative_return_pct_spread": 55.021044335452295,
+        "segment": "trailing_3m",
+        "segment_type": "window",
+        "worst_relative_return_model": "ridge_mse"
+      },
+      {
+        "best_relative_return_model": "mlp_mixer_mse",
+        "relative_return_pct_spread": 55.021044335452295,
+        "segment": "trailing_12m",
+        "segment_type": "window",
+        "worst_relative_return_model": "ridge_mse"
+      }
+    ],
+    "model_count": 5,
+    "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+    "regime_count": 4,
+    "schema_version": "analysis.regime_window_effect.v1",
+    "segment_effect_matrix_count": 34,
+    "segment_types": [
+      "all",
+      "regime",
+      "window",
+      "window_regime"
+    ],
+    "weakest_segments": [
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "all",
+        "segment_type": "all",
+        "stability_score_delta": -93.22070355756647
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "test",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_12m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_3m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_6m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
+      }
+    ],
+    "window_count": 6,
+    "window_definitions": [
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "ytd"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-08",
+        "window": "trailing_1m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_3m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_6m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_12m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "test"
+      }
+    ],
+    "window_names": [
+      "ytd",
+      "trailing_1m",
+      "trailing_3m",
+      "trailing_6m",
+      "trailing_12m",
+      "test"
+    ],
+    "window_regime_count": 23
+  },
+  "artifact_links": {
+    "matrix_card": "matrix_card/",
+    "model_comparison": "matrix_card/model_comparison.csv",
+    "model_run_ledger": "matrix_card/model_run_ledger.csv",
+    "model_capabilities": "matrix_card/model_capabilities.csv",
+    "analysis_manifest": "matrix_card/analysis_manifest.json",
+    "artifact_manifest": "matrix_card/artifact_manifest.json"
+  }
+}
