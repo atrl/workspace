@@ -629,6 +629,63 @@ def test_model_dashboard_refresh_detailed_notification_includes_promotion_summar
     assert "promotion=promote_candidate:ridge_mse blocked=1" in events[0]
 
 
+def test_model_dashboard_refresh_detailed_notification_includes_model_run_coverage(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 2, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "coverage_card",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "model_run_coverage": {
+                "schema_version": "model.run_ledger_summary.v1",
+                "expected_model_count": 2,
+                "trained_model_count": 1,
+                "backtested_model_count": 1,
+                "all_models_completed": False,
+                "missing_models": ["gcn_mse"],
+            },
+            "model_run_ledger": [
+                {"model": "ridge_mse", "trained": True, "backtested": True, "analysis_recorded": True},
+                {"model": "gcn_mse", "trained": False, "backtested": False, "analysis_recorded": False},
+            ],
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse", "gcn_mse"),
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["model_run_all_completed"] is False
+    assert result.payload["model_run_expected_model_count"] == 2
+    assert result.payload["model_run_trained_model_count"] == 1
+    assert result.payload["model_run_backtested_model_count"] == 1
+    assert result.payload["model_run_missing_model_count"] == 1
+    assert result.payload["model_run_missing_models"] == "gcn_mse"
+    assert "run_coverage=1/2 backtested=1/2 missing=1" in events[0]
+
+
 def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_export(tmp_path):
     calls: list[tuple[str, Path | None]] = []
     attribution_card = tmp_path / "attribution_card"

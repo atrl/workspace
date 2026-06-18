@@ -118,6 +118,57 @@ def _backtest_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _run_record_for_model(dashboard_payload: dict[str, Any], model: str) -> dict[str, Any]:
+    rows = dashboard_payload.get("model_run_ledger")
+    if not isinstance(rows, list):
+        return {}
+    for row in rows:
+        if isinstance(row, dict) and str(row.get("model", "")) == model:
+            return dict(row)
+    base_model = model.split("__", 1)[0]
+    for row in rows:
+        if isinstance(row, dict) and str(row.get("model", "")) == base_model:
+            return dict(row)
+    return {}
+
+
+def _run_status(record: dict[str, Any]) -> str:
+    if not record:
+        return "unknown"
+    required = (
+        "trained",
+        "predicted",
+        "backtested",
+        "objective_evaluated",
+        "promotion_evaluated",
+        "analysis_recorded",
+        "manifested",
+    )
+    return "complete" if all(bool(record.get(column, False)) for column in required) else "incomplete"
+
+
+def _model_run_context(dashboard_payload: dict[str, Any], model: str) -> dict[str, Any]:
+    coverage = dashboard_payload.get("model_run_coverage")
+    coverage_payload = coverage if isinstance(coverage, dict) else {}
+    missing = coverage_payload.get("missing_models")
+    missing_models = [str(value) for value in missing] if isinstance(missing, list) else []
+    record = _run_record_for_model(dashboard_payload, model)
+    status = _run_status(record)
+    return {
+        "run_status": status,
+        "run_trained": bool(record.get("trained", False)) if record else False,
+        "run_predicted": bool(record.get("predicted", False)) if record else False,
+        "run_backtested": bool(record.get("backtested", False)) if record else False,
+        "run_objective_evaluated": bool(record.get("objective_evaluated", False)) if record else False,
+        "run_promotion_evaluated": bool(record.get("promotion_evaluated", False)) if record else False,
+        "run_analysis_recorded": bool(record.get("analysis_recorded", False)) if record else False,
+        "run_manifested": bool(record.get("manifested", False)) if record else False,
+        "model_run_schema_version": str(coverage_payload.get("schema_version", "")),
+        "model_run_all_completed": bool(coverage_payload.get("all_models_completed", False)),
+        "model_run_missing_models": ",".join(missing_models),
+    }
+
+
 def build_target_position_intent_from_dashboard(
     dashboard_payload: dict[str, Any],
     *,
@@ -136,12 +187,18 @@ def build_target_position_intent_from_dashboard(
     source_model = str(top.get("model", ""))
     promotion = _top_promotion_for_model(dashboard_payload, source_model)
     analysis = _analysis_context(dashboard_payload)
+    run_context = _model_run_context(dashboard_payload, source_model)
     blocked_by_promotion = str(promotion.get("promotion_decision", "")) == "blocked"
     blocked_by_review = (
         analysis.get("analysis_top_weakness_model") == source_model
         and analysis.get("analysis_top_weakness_decision_hint") == "block_or_rework"
     )
-    execution_gate = "blocked_to_min_position" if blocked_by_promotion or blocked_by_review else "paper_review"
+    blocked_by_incomplete_run = run_context.get("run_status") == "incomplete"
+    execution_gate = (
+        "blocked_to_min_position"
+        if blocked_by_promotion or blocked_by_review or blocked_by_incomplete_run
+        else "paper_review"
+    )
     target_position = float(min_position) if execution_gate == "blocked_to_min_position" else _clamp(
         raw_avg_position,
         min_position,
@@ -166,6 +223,7 @@ def build_target_position_intent_from_dashboard(
             "promotion_score": float(promotion.get("promotion_score", 0.0) or 0.0),
             "promotion_blockers": _clean_metadata_string(promotion.get("promotion_blockers", "")),
             "dashboard_schema_version": str(dashboard_payload.get("schema_version", "")),
+            **run_context,
             **analysis,
             **_backtest_context(dashboard_payload),
         },

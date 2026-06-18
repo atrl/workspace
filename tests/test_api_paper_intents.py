@@ -110,6 +110,48 @@ def test_build_target_position_intent_records_dashboard_review_context_and_block
     assert intent.metadata["backtest_slippage_bps"] == 1.5
 
 
+def test_build_target_position_intent_blocks_top_model_without_complete_run_record():
+    payload = _dashboard_payload()
+    payload["model_run_coverage"] = {
+        "schema_version": "model.run_ledger_summary.v1",
+        "expected_model_count": 2,
+        "trained_model_count": 1,
+        "backtested_model_count": 1,
+        "all_models_completed": False,
+        "missing_models": ["random_forest_clf__all_features"],
+    }
+    payload["model_run_ledger"] = [
+        {
+            "schema_version": "model.run_ledger.v1",
+            "model": "random_forest_clf__all_features",
+            "base_model": "random_forest_clf",
+            "trained": True,
+            "predicted": True,
+            "backtested": False,
+            "objective_evaluated": True,
+            "promotion_evaluated": True,
+            "analysis_recorded": False,
+            "manifested": False,
+        }
+    ]
+
+    intent = build_target_position_intent_from_dashboard(
+        payload,
+        instrument="SOXL",
+        min_position=0.1,
+        max_position=0.75,
+    )
+
+    assert intent.target_position == 0.1
+    assert intent.metadata["execution_gate"] == "blocked_to_min_position"
+    assert intent.metadata["run_status"] == "incomplete"
+    assert intent.metadata["run_trained"] is True
+    assert intent.metadata["run_backtested"] is False
+    assert intent.metadata["run_analysis_recorded"] is False
+    assert intent.metadata["model_run_all_completed"] is False
+    assert intent.metadata["model_run_missing_models"] == "random_forest_clf__all_features"
+
+
 def test_build_target_position_intent_normalizes_empty_promotion_blockers_from_dashboard_csv():
     payload = _dashboard_payload()
     payload["objective"] = {

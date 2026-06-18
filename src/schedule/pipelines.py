@@ -269,6 +269,28 @@ def _promotion_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _model_run_coverage_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    coverage = dashboard_payload.get("model_run_coverage")
+    if not isinstance(coverage, dict):
+        return {}
+    expected = int(coverage.get("expected_model_count", coverage.get("ledger_model_count", 0)) or 0)
+    trained = int(coverage.get("trained_model_count", 0) or 0)
+    backtested = int(coverage.get("backtested_model_count", 0) or 0)
+    missing = coverage.get("missing_models")
+    missing_models = [str(value) for value in missing] if isinstance(missing, list) else []
+    if expected <= 0 and trained <= 0 and backtested <= 0 and not missing_models:
+        return {}
+    return {
+        "model_run_schema_version": str(coverage.get("schema_version", "")),
+        "model_run_expected_model_count": expected,
+        "model_run_trained_model_count": trained,
+        "model_run_backtested_model_count": backtested,
+        "model_run_all_completed": bool(coverage.get("all_models_completed", False)),
+        "model_run_missing_model_count": int(len(missing_models)),
+        "model_run_missing_models": ",".join(missing_models),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -325,6 +347,7 @@ def _run_pipeline_attempt(
         **_backtest_contract_payload(dashboard_payload),
         **_analysis_overview_payload(dashboard_payload),
         **_promotion_payload(dashboard_payload),
+        **_model_run_coverage_payload(dashboard_payload),
         **_prefixed_preflight_payload(preflight),
     }
 
@@ -390,6 +413,13 @@ def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[st
         message += (
             f" | promotion={payload.get('top_promotion_decision', '')}:{payload.get('top_promotion_model', '')}"
             f" blocked={payload.get('blocked_promotion_count', 0)}"
+        )
+    if payload.get("model_run_schema_version"):
+        expected = payload.get("model_run_expected_model_count", 0)
+        message += (
+            f" | run_coverage={payload.get('model_run_trained_model_count', 0)}/{expected}"
+            f" backtested={payload.get('model_run_backtested_model_count', 0)}/{expected}"
+            f" missing={payload.get('model_run_missing_model_count', 0)}"
         )
     return message
 
