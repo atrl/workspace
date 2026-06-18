@@ -115,3 +115,24 @@ def test_attach_market_regimes_merges_daily_backtest_without_overwriting_existin
     overwritten = attach_market_regimes(daily, regime_frame, overwrite=True)
     assert set(overwritten["regime"]) == {"bull"}
     assert "regime_reason" in overwritten.columns
+
+
+def test_attach_market_regimes_can_refresh_existing_market_context_columns():
+    daily = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-01-01", "2026-01-02"]),
+            "model": ["ridge_mse", "ridge_mse"],
+            "nav": [1.0, 1.01],
+            "regime": ["legacy", "legacy"],
+        }
+    )
+    first_regime_frame = build_market_regime_frame(_panel_with_precomputed_signals().head(2))
+    first = attach_market_regimes(daily, first_regime_frame, overwrite=True)
+
+    second_regime_frame = first_regime_frame.assign(regime="stress", regime_reason="刷新后的压力 regime")
+    refreshed = attach_market_regimes(first, second_regime_frame, overwrite=True)
+
+    assert refreshed["regime"].unique().tolist() == ["stress"]
+    assert refreshed["market_regime"].unique().tolist() == ["stress"]
+    assert refreshed["regime_reason"].unique().tolist() == ["刷新后的压力 regime"]
+    assert not any(column.endswith("_x") or column.endswith("_y") for column in refreshed.columns)

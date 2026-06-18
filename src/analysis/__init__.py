@@ -8,6 +8,7 @@ from .attribution import (
 from .exports import AnalysisReport, build_regime_window_analysis_report, write_analysis_report
 from .failure_modes import build_failure_modes, render_failure_modes_markdown, write_failure_modes_markdown
 from .manifest_backfill import backfill_analysis_manifest, backfill_legacy_analysis_cards, scan_analysis_cards
+from .market_report import build_market_regime_analysis_report
 from .qlib_recorder import (
     QlibRecorderAnalysis,
     build_qlib_recorder_analysis_report,
@@ -48,6 +49,7 @@ __all__ = [
     "build_model_review_briefing",
     "build_model_regime_window_diagnostics",
     "build_model_attribution_card",
+    "build_market_regime_analysis_report",
     "build_market_regime_frame",
     "build_qlib_return_frame",
     "build_qlib_recorder_analysis_report",

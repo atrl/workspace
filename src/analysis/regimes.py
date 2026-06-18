@@ -228,7 +228,7 @@ def attach_market_regimes(
     context = regime_frame.copy()
     context["date"] = pd.to_datetime(context["date"])
     context = context.drop_duplicates(subset=["date"], keep="last")
-    keep_columns = [
+    context_columns = [
         column
         for column in [
             "date",
@@ -244,9 +244,14 @@ def attach_market_regimes(
         ]
         if column in context.columns
     ]
-    context = context.loc[:, keep_columns].rename(columns={"regime": "market_regime"})
+    context = context.loc[:, context_columns].rename(columns={"regime": "market_regime"})
+    generated_columns = [column for column in context.columns if column != "date"]
+    if overwrite:
+        left = left.drop(columns=[column for column in generated_columns if column in left.columns], errors="ignore")
+    else:
+        context = context.loc[:, ["date", *[column for column in generated_columns if column not in left.columns]]]
 
     merged = left.merge(context, on="date", how="left")
-    if overwrite or "regime" not in merged.columns:
+    if (overwrite or "regime" not in merged.columns) and "market_regime" in merged.columns:
         merged["regime"] = merged["market_regime"]
     return merged

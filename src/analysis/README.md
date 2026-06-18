@@ -49,9 +49,13 @@ schedule 或 production 的功能入口。
 3. `attach_market_regimes(...)` 把 regime context 合并到 qlib portfolio report
    或 daily backtest 表，默认保留已有人工 `regime`，并把框架生成结果放到
    `market_regime`。
-4. `build_qlib_recorder_regime_window_analysis_report(...)` 合并多个模型并生成
+4. `build_market_regime_analysis_report(...)` 直接把已有 daily backtest 和
+   qlib/canonical market panel 组合成完整 `AnalysisReport`，同时输出
+   `market_regimes.csv`、`market_regime_counts.csv` 和重分类后的
+   `market_regime_daily_backtest.csv`。
+5. `build_qlib_recorder_regime_window_analysis_report(...)` 合并多个模型并生成
    regime/window 对比报告。
-5. `write_analysis_report(...)` 写出 summary、CSV sidecar 和 manifest。
+6. `write_analysis_report(...)` 写出 summary、CSV sidecar 和 manifest。
 
 ## 扩展原则
 

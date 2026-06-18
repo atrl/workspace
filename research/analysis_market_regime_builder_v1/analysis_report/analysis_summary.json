@@ -12,7 +12,10 @@
     "model_effect_deltas",
     "model_regime_window_diagnostics",
     "model_review_briefing",
-    "failure_modes"
+    "failure_modes",
+    "market_regimes",
+    "market_regime_counts",
+    "market_regime_daily_backtest"
   ],
   "analysis_overview": {
     "baseline_model": "ridge_mse_sample",
@@ -393,6 +396,9 @@
   },
   "analysis_table_counts": {
     "failure_modes": 28,
+    "market_regime_counts": 8,
+    "market_regime_daily_backtest": 1836,
+    "market_regimes": 612,
     "model_comparison": 3,
     "model_effect_deltas": 153,
     "model_regime_window_diagnostics": 3,
@@ -407,7 +413,52 @@
   },
   "artifact_id": "analysis_market_regime_builder_v1",
   "artifact_type": "analysis_report",
-  "note": "中文 review：regime 生成留在 src/analysis，skill 只提供候选切法。",
+  "market_regime_count": 8,
+  "market_regime_counts": [
+    {
+      "regime": "stress",
+      "row_count": 374,
+      "row_share": 0.6111111111111112
+    },
+    {
+      "regime": "high_vol_uptrend",
+      "row_count": 161,
+      "row_share": 0.2630718954248366
+    },
+    {
+      "regime": "bull",
+      "row_count": 49,
+      "row_share": 0.08006535947712418
+    },
+    {
+      "regime": "bear",
+      "row_count": 17,
+      "row_share": 0.027777777777777776
+    },
+    {
+      "regime": "volume_shock",
+      "row_count": 5,
+      "row_share": 0.008169934640522876
+    },
+    {
+      "regime": "neutral",
+      "row_count": 4,
+      "row_share": 0.006535947712418301
+    },
+    {
+      "regime": "high_vol_downtrend",
+      "row_count": 1,
+      "row_share": 0.0016339869281045752
+    },
+    {
+      "regime": "sideways",
+      "row_count": 1,
+      "row_share": 0.0016339869281045752
+    }
+  ],
+  "market_regime_rows": 612,
+  "market_regime_schema_version": "analysis.market_regime.v1",
+  "note": "中文 review：market regime 生成、重分类和模型差异 report 留在 src/analysis，skill 只提供候选切法。",
   "regime_counts": [
     {
       "regime": "stress",
@@ -443,6 +494,8 @@
     }
   ],
   "schema_version": "analysis.report.v1",
+  "source_daily_model_count": 3,
+  "source_daily_row_count": 1836,
   "status": "market_regime_builder_completed",
   "window_definitions": [
     {

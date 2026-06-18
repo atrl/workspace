@@ -23,9 +23,14 @@
   },
   "metadata": {
     "analysis_report_schema_version": "analysis.report.v1",
+    "market_regime_schema_version": "analysis.market_regime.v1",
     "source": "research/analysis_market_regime_builder_v1",
+    "source_type": "market_regime_analysis",
     "table_counts": {
       "failure_modes": 28,
+      "market_regime_counts": 8,
+      "market_regime_daily_backtest": 1836,
+      "market_regimes": 612,
       "model_comparison": 3,
       "model_effect_deltas": 153,
       "model_regime_window_diagnostics": 3,
@@ -41,6 +46,9 @@
   },
   "paths": {
     "failure_modes": "failure_modes.csv",
+    "market_regime_counts": "market_regime_counts.csv",
+    "market_regime_daily_backtest": "market_regime_daily_backtest.csv",
+    "market_regimes": "market_regimes.csv",
     "model_comparison": "model_comparison.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
     "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
@@ -56,5 +64,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "3bd18d2af8abc1536c04fbc2da04bed0fb81d1c17a20d22617527f634c8fd63d"
+  "manifest_hash": "95fe4d26b38636bdb1a046b37ac4e2ab776c8c3d299abcf0f2dd0f09b9f36bfe"
 }

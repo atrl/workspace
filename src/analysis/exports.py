@@ -17,6 +17,9 @@ ANALYSIS_REPORT_SCHEMA_VERSION = "analysis.report.v1"
 ANALYSIS_REPORT_EXPORT_SCHEMA_VERSION = "analysis.report.export.v1"
 
 DEFAULT_ANALYSIS_TABLE_FILENAMES = {
+    "market_regimes": "market_regimes.csv",
+    "market_regime_counts": "market_regime_counts.csv",
+    "market_regime_daily_backtest": "market_regime_daily_backtest.csv",
     "model_comparison": "model_comparison.csv",
     "regime_metrics": "regime_metrics.csv",
     "window_metrics": "window_metrics.csv",
