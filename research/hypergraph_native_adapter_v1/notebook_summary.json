@@ -1,0 +1,47 @@
+{
+  "schema_version": "research.hypergraph_native_adapter_v1",
+  "status": "completed",
+  "model": "hypergraph_mse",
+  "adapter": "hgnn_hypergraph_convolution_mse_v1",
+  "estimator": "HypergraphGraphRegressor",
+  "node_count": 8,
+  "feature_count": 8,
+  "hyperedge_count": 11,
+  "hidden_size": 8,
+  "paper_fidelity": "native_graph",
+  "is_proxy": false,
+  "full_matrix_native_model_count": 25,
+  "full_matrix_proxy_model_count": 7,
+  "matrix_card": "research/hypergraph_native_adapter_v1/matrix_card",
+  "matrix_models": [
+    "gcn_mse",
+    "hypergraph_mse",
+    "ridge_mse",
+    "thgnn_mse"
+  ],
+  "target_model_return_pct": 27.91584530515927,
+  "target_model_sharpe": 2.505647454102708,
+  "target_model_max_drawdown_pct": 30.878641940588956,
+  "ledger_trained": true,
+  "ledger_backtested": true,
+  "external_references": [
+    {
+      "source_id": "arxiv:1809.09401",
+      "url": "https://arxiv.org/abs/1809.09401",
+      "usage": "自有摘要和结构假设；实现复用 incidence matrix、hyperedge propagation 与高阶相关建模思想，不复制论文全文或第三方代码。"
+    },
+    {
+      "source_id": "github:iMoonLab/HGNN",
+      "url": "https://github.com/iMoonLab/HGNN",
+      "usage": "核对 HGNN 官方实现的项目边界和 hypergraph convolution 方向；本仓库未复制其代码。"
+    }
+  ],
+  "artifact_links": {
+    "analysis_summary": "research/hypergraph_native_adapter_v1/matrix_card/analysis_summary.json",
+    "model_comparison": "research/hypergraph_native_adapter_v1/matrix_card/model_comparison.csv",
+    "model_run_ledger": "research/hypergraph_native_adapter_v1/matrix_card/model_run_ledger.csv",
+    "manifest": "research/hypergraph_native_adapter_v1/matrix_card/analysis_manifest.json",
+    "qlib_risk_metrics": "research/hypergraph_native_adapter_v1/matrix_card/qlib_risk_metrics.csv",
+    "model_effect_deltas": "research/hypergraph_native_adapter_v1/matrix_card/model_effect_deltas.csv"
+  }
+}

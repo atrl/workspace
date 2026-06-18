@@ -10,9 +10,9 @@
     "end": "2026-06-08",
     "metadata": {
       "source_model_count": 32,
-      "source_native_model_count": 24,
-      "source_proxy_model_count": 8,
-      "source_quantbench_manifest_hash": "31dcc9a9857a9d94a3868d2e857b922f89f616c1ef93f2fbb64bd575d70c0baf"
+      "source_native_model_count": 25,
+      "source_proxy_model_count": 7,
+      "source_quantbench_manifest_hash": "9cf3ee82ff07f73ac2e05b55d544a8b3863f65ffa60275b3760ee9717375b167"
     },
     "name": "quantbench_market_regime_analysis_v1",
     "schema_version": "dataset.v1",
@@ -29,14 +29,14 @@
     "source_ledger": "research/quantbench_all_model_run_ledger_v1",
     "source_type": "quantbench_daily_backtest_plus_market_regime",
     "table_counts": {
-      "failure_modes": 841,
+      "failure_modes": 839,
       "market_regime_counts": 4,
       "market_regime_daily_backtest": 832,
       "market_regimes": 26,
       "model_comparison": 32,
       "model_effect_deltas": 1312,
       "model_regime_window_diagnostics": 32,
-      "model_review_briefing": 816,
+      "model_review_briefing": 815,
       "qlib_return_frame": 832,
       "qlib_risk_metrics": 2624,
       "regime_metrics": 128,
@@ -66,5 +66,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "059034dfcee7e73a4342c5705e06dac4b5375ad1480c3a1e3952dc4ce8031d44"
+  "manifest_hash": "357f389acc04260af5f6f4999408f1673ec89f60f6b568547c85b99c9bfd1bac"
 }

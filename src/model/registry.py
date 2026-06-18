@@ -245,7 +245,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "RSR",
         "Uses a compact PyTorch temporal relation-strength graph network over feature nodes.",
     ),
-    _proxy("hypergraph_mse", "graph", "mse", "support_hypergraph", "HypergraphNN", "Uses hypergraph-style grouped feature statistics."),
+    _native_graph(
+        "hypergraph_mse",
+        "graph",
+        "mse",
+        "support_hypergraph",
+        "HGNN",
+        "Uses a compact PyTorch hypergraph convolution network with incidence-matrix message propagation over feature-node hyperedges.",
+    ),
     _proxy("thgnn_mse", "graph", "mse", "temporal_hypergraph", "THGNN", "Uses hypergraph features with temporal lags."),
     _proxy("sthan_mse", "graph", "mse", "spatio_temporal_graph", "STHAN", "Uses spatio-temporal attention proxy features."),
     _proxy(

@@ -99,6 +99,33 @@ def _hypergraph_features(x: np.ndarray) -> np.ndarray:
     return np.concatenate([x, *means, *stds, x - expanded_means], axis=1)
 
 
+def _hypergraph_incidence(n_features: int) -> np.ndarray:
+    if n_features < 1:
+        raise ValueError("n_features must be positive")
+    hyperedges: list[np.ndarray] = [np.arange(n_features)]
+    hyperedges.extend(_relation_groups(n_features))
+    if n_features > 1:
+        hyperedges.extend(np.asarray([index, index + 1]) for index in range(n_features - 1))
+
+    incidence = np.zeros((n_features, len(hyperedges)), dtype="float32")
+    for edge_index, edge_nodes in enumerate(hyperedges):
+        incidence[edge_nodes.astype(int), edge_index] = 1.0
+    return incidence
+
+
+def _hypergraph_propagation(incidence: np.ndarray) -> np.ndarray:
+    if incidence.ndim != 2:
+        raise ValueError("incidence must be a 2D matrix")
+    hypergraph = np.asarray(incidence, dtype=float)
+    edge_degree = hypergraph.sum(axis=0)
+    node_degree = hypergraph.sum(axis=1)
+    edge_inv = 1.0 / np.where(edge_degree <= 1e-12, 1.0, edge_degree)
+    node_inv_sqrt = 1.0 / np.sqrt(np.where(node_degree <= 1e-12, 1.0, node_degree))
+    propagation = node_inv_sqrt.reshape(-1, 1) * (hypergraph * edge_inv.reshape(1, -1)) @ hypergraph.T
+    propagation = propagation * node_inv_sqrt.reshape(1, -1)
+    return np.nan_to_num(propagation, nan=0.0, posinf=0.0, neginf=0.0).astype("float32")
+
+
 def _attention_features(x: np.ndarray) -> np.ndarray:
     weights = np.exp(np.abs(x) - np.abs(x).max(axis=1, keepdims=True))
     weights = weights / np.where(weights.sum(axis=1, keepdims=True) <= 1e-12, 1.0, weights.sum(axis=1, keepdims=True))
@@ -239,6 +266,41 @@ class _RSRNet(nn.Module):
         propagated = torch.einsum("ij,bjh->bih", self.relation_adjacency, gated)
         hidden = torch.relu(self.relation_projection(propagated) + gated)
         hidden = torch.relu(self.output_projection(hidden))
+        pooled = torch.cat([hidden.mean(dim=1), hidden.max(dim=1).values], dim=1)
+        return self.head(pooled).squeeze(-1)
+
+
+class _HypergraphNet(nn.Module):
+    def __init__(
+        self,
+        *,
+        feature_count: int,
+        hidden_size: int,
+        incidence_matrix: np.ndarray,
+        hypergraph_propagation: np.ndarray,
+    ):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.hidden_size = hidden_size
+        self.input_projection = nn.Linear(1, hidden_size)
+        self.hyperedge_projection = nn.Linear(hidden_size, hidden_size)
+        self.output_projection = nn.Linear(hidden_size, hidden_size)
+        self.head = nn.Linear(hidden_size * 2, 1)
+        self.register_buffer("incidence_matrix", torch.as_tensor(incidence_matrix, dtype=torch.float32))
+        self.register_buffer(
+            "hypergraph_propagation",
+            torch.as_tensor(hypergraph_propagation, dtype=torch.float32),
+        )
+
+    def forward(self, x):
+        import torch
+
+        hidden = torch.relu(self.input_projection(x.unsqueeze(-1)))
+        hypergraph_context = torch.einsum("ij,bjh->bih", self.hypergraph_propagation, hidden)
+        hidden = torch.relu(self.hyperedge_projection(hypergraph_context) + hidden)
+        hidden = torch.relu(self.output_projection(torch.einsum("ij,bjh->bih", self.hypergraph_propagation, hidden)))
         pooled = torch.cat([hidden.mean(dim=1), hidden.max(dim=1).values], dim=1)
         return self.head(pooled).squeeze(-1)
 
@@ -477,6 +539,66 @@ class RSRGraphRegressor:
         x_tensor = torch.as_tensor(_temporal_node_channels(x_scaled), dtype=torch.float32)
         with torch.no_grad():
             output = self.model_(x_tensor).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class HypergraphGraphRegressor:
+    hidden_size: int = 8
+    epochs: int = 32
+    learning_rate: float = 0.01
+    seed: int = 59
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "HypergraphGraphRegressor":
+        if x.ndim != 2:
+            raise ValueError("HypergraphGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.feature_count_ = int(x.shape[1])
+        self.node_count_ = self.feature_count_
+        self.incidence_matrix_ = _hypergraph_incidence(self.feature_count_)
+        self.hyperedge_count_ = int(self.incidence_matrix_.shape[1])
+        self.hypergraph_propagation_ = _hypergraph_propagation(self.incidence_matrix_)
+        self.feature_mean_ = x.mean(axis=0)
+        self.feature_std_ = x.std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _HypergraphNet(
+            feature_count=self.feature_count_,
+            hidden_size=int(self.hidden_size),
+            incidence_matrix=self.incidence_matrix_,
+            hypergraph_propagation=self.hypergraph_propagation_,
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 2:
+            raise ValueError("HypergraphGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        with torch.no_grad():
+            output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
         return output.astype(float) * self.target_std_ + self.target_mean_
 
 

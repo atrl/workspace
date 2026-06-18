@@ -21,7 +21,7 @@
     "baseline_model": "sthan_mse",
     "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
     "decision_hint_counts": {
-      "block_or_rework": 787,
+      "block_or_rework": 786,
       "promote_candidate": 25,
       "reduce_or_guardrail": 4
     },
@@ -119,7 +119,7 @@
     "review_signal_counts": {
       "risk": 4,
       "strength": 25,
-      "weakness": 787
+      "weakness": 786
     },
     "schema_version": "analysis.overview.v1",
     "segment_effect_matrix_count": 41,
@@ -202,7 +202,7 @@
       "decision_hint": "promote_candidate",
       "max_drawdown_pct_delta": -1.5671852587653365,
       "model": "hawkes_gru_mse",
-      "priority_rank": 737,
+      "priority_rank": 735,
       "priority_score": 52.794919,
       "regime": "high_vol_uptrend",
       "relative_return_pct_delta": 10.173044837547863,
@@ -475,14 +475,14 @@
     "window_regime_count": 28
   },
   "analysis_table_counts": {
-    "failure_modes": 841,
+    "failure_modes": 839,
     "market_regime_counts": 4,
     "market_regime_daily_backtest": 832,
     "market_regimes": 26,
     "model_comparison": 32,
     "model_effect_deltas": 1312,
     "model_regime_window_diagnostics": 32,
-    "model_review_briefing": 816,
+    "model_review_briefing": 815,
     "qlib_return_frame": 832,
     "qlib_risk_metrics": 2624,
     "regime_metrics": 128,
@@ -528,7 +528,7 @@
   "source_daily_model_count": 32,
   "source_daily_row_count": 832,
   "source_ledger": "research/quantbench_all_model_run_ledger_v1",
-  "source_manifest_hash": "31dcc9a9857a9d94a3868d2e857b922f89f616c1ef93f2fbb64bd575d70c0baf",
+  "source_manifest_hash": "9cf3ee82ff07f73ac2e05b55d544a8b3863f65ffa60275b3760ee9717375b167",
   "source_model_run_ledger_summary": {
     "adapter_statuses": [
       "paper_strict_adapter"
@@ -540,18 +540,18 @@
     "ledger_model_count": 32,
     "manifested_model_count": 32,
     "missing_models": [],
-    "native_model_count": 24,
+    "native_model_count": 25,
     "objective_evaluated_model_count": 32,
     "paper_fidelity_counts": {
-      "native_graph": 4,
+      "native_graph": 5,
       "native_library": 8,
       "native_sequence": 6,
       "native_torch": 6,
-      "proxy_feature_adapter": 8
+      "proxy_feature_adapter": 7
     },
     "predicted_model_count": 32,
     "promotion_evaluated_model_count": 32,
-    "proxy_model_count": 8,
+    "proxy_model_count": 7,
     "registered_model_count": 32,
     "schema_version": "model.run_ledger_summary.v1",
     "trained_model_count": 32
