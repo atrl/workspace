@@ -1,3 +1,0 @@
-candidate,fold,path,peak_date,trough_date,max_dd,interval_days,interval_avg_pos,interval_min_pos,interval_max_pos,interval_trades
-bc_initialization,wf_2022,runtime/model_selection/card/short_volshock_bc_initialization_official_replay_v1/bc_initialization_wf_2022_official_daily_path.csv,2022-01-03,2022-11-03,22.26198899445525,212,0.08622587764726004,0.0,0.4597246972928777,27
-bc_initialization,wf_2023_2024,runtime/model_selection/card/short_volshock_bc_initialization_official_replay_v1/bc_initialization_wf_2023_2024_official_daily_path.csv,2024-03-07,2024-11-15,16.693087451217092,177,0.1404716321725698,0.0437142592078487,0.5335559125667603,28

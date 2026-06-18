@@ -2,71 +2,36 @@
 
 ## Project
 
-Build and maintain a repeatable, non-leaking `SOXL` research and execution
-harness.
+Maintain a compact, repeatable `SOXL` qlib research workspace.
 
-This repository is not a general OpenClaw workspace and not a generic quant
-sandbox. It is a `SOXL`-focused harness for developing, validating, persisting,
-and operationalizing strategy behavior inside explicit boundaries.
+The project is successful when future signal experiments can iterate by editing
+notebook cards and card-local artifacts while leaving framework code stable.
 
-## What The Harness Must Provide
+## In Scope
 
-The project is successful when the repository supports:
+- SOXL-only research and backtesting.
+- Canonical data and qlib calendar/store files under `data/`.
+- Reusable abstractions under `soxl_backtest/`.
+- Executable experiment evidence under `runtime/<direction>/card/<experiment>/`.
+- Focused tests for framework behavior, reference parity, and architecture
+  boundaries.
 
-- reproducible training and validation
-- explicit separation between signal generation, position sizing, broker
-  execution, and reconciliation
-- persisted artifacts that can be replayed and audited
-- promotion or acceptance decisions backed by documented evidence
-- a clean handoff from research outputs to runtime boundaries without one-off
-  glue
+## Out of Scope
 
-Raw performance matters, but only inside a trustworthy harness.
+- Production broker execution.
+- Scheduler or dashboard applications.
+- Legacy RL training/model-management surfaces.
+- Scattered one-off scripts as the primary experiment workflow.
+- Multi-ticker optimization outside SOXL support data.
 
-## Scope
+## Layering
 
-This repository is for `SOXL` only.
+Keep these separate:
 
-Out of scope:
+1. data loading and qlib calendar alignment
+2. signal or reference-policy generation
+3. position/backtest accounting
+4. artifact persistence and notebook conclusion
 
-- multi-ticker optimization
-- undocumented ad-hoc experiments
-- direct tuning on held-out `2022` labels outside the documented evaluation
-  framework
-- collapsing research, sizing, execution, and reconciliation into one opaque
-  script
-
-## System Boundaries
-
-Keep these layers separate:
-
-1. signal generation
-2. position sizing
-3. broker execution
-4. reconciliation and monitoring
-
-Code should remain structured accordingly:
-
-- research and training: `src/soxl_quant/`
-- execution adapters: `production/`
-- execution workpads: `codex_exec_plans/`
-
-## Harness Invariants
-
-- The harness must be non-leaking by default.
-- `2022` remains an evaluation window unless the split is explicitly redefined
-  and documented.
-- Any claim of improvement should include fixed-split evidence plus `2020`,
-  `2022`, `2023-2024`, and walk-forward evidence when available.
-- Artifact persistence, replayability, and traceability are first-class
-  acceptance criteria.
-- Chat history is not a source of truth.
-
-## Sources Of Truth
-
-See `AGENTS.md` "Sources Of Truth" for the complete layered index.
-
-## Guiding Principle
-
-When a task reveals a weakness, improve the harness itself. The repository should
-accumulate leverage, not just outputs.
+`soxl_backtest` owns reusable code. Runtime notebooks own experiment-specific
+logic and conclusions.

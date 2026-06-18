@@ -1,4 +1,0 @@
-source,card,decision,status,strict_return,strict_relative_return,strict_max_dd,strict_avg_pos,strict_relative_pass,strict_max_dd_pass,wf_2022_ok
-regime_guard,recovery_reentry_regime_drawdown_guard_v1,,,2272.853019414519,1456.3405196374547,32.12017980873844,0.4595798148626328,,,
-cppi_floor,recovery_reentry_cppi_floor_v1,,,2410.9859762176493,1594.4734764405848,32.12017980873844,0.4402787696715925,,,
-trendbreak_cap,recovery_reentry_2021_trendbreak_cap_v1,Diagnostic drop / no runtime promotion: strict-OOS or walk-forward evidence is insufficient.,no_runtime_promotion,1023.7104639633354,207.19796418627107,30.43665681805665,0.40891903850544614,True,False,False

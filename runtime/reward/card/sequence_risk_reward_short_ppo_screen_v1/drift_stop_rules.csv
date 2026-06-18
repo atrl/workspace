@@ -1,6 +1,0 @@
-rule,threshold,direction
-target_relative_return_pp,30.0,>=
-target_max_dd_pct,15.0,<=
-reward_ppo_vs_bc_relative_delta_pp,-5.0,>=
-reward_ppo_vs_bc_max_dd_delta_pp,2.0,<=
-bc_required_slice_accuracy,0.6,>=

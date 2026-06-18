@@ -1,2 +1,0 @@
-row_index,feature_set,eval_fold,state_score,coverage_gate,train_positive,eval_positive,eval_negative,is_rebound_cluster,fold,true_target_position,default_target_position,rebound_target_position,threshold,predicted_state,proposed_target,target_lift,target_error,effective_false_positive
-610,momentum_drawdown,wf_2023_2024_train,1.213970051712285,True,4,3,753,False,wf_2023_2024_train,0.25,0.25,0.4298546265805944,0.5,True,0.4298546265805944,0.17985462658059442,0.17985462658059442,True

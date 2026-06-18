@@ -1,2 +1,0 @@
-candidate,window_count,gate_pass_count,full_gate,weighted_objective_loss,mean_relative_return,min_relative_return,max_max_dd,mean_avg_pos,dominant_failure_type,worst_window,next_mechanism
-risk_budget_residual_drawdown_guard_walkforward_v1,12,3,False,855.0339847636832,27.07347456262829,-54.19458832150043,28.569218065989087,0.15846692462121773,joint_tradeoff,wf_2020,walk_forward_weighted_multi_objective_training

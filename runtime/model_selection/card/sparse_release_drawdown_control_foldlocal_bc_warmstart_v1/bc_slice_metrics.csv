@@ -1,4 +1,0 @@
-slice,samples,accuracy,loss,label_unique_actions,predicted_unique_actions,label_dominant_action,label_dominant_share,predicted_dominant_action,predicted_dominant_share
-all,370,0.9,1.0070911645889282,4,3,4,0.5945945945945946,4,0.581081081081081
-is_downtrend_state,370,0.9,1.0070911645889282,4,3,4,0.5945945945945946,4,0.581081081081081
-is_rebound_cluster,0,,,0,0,-1,1.0,-1,1.0

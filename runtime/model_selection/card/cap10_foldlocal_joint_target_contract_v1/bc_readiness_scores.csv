@@ -1,4 +1,0 @@
-profile,samples,unique_actions,dominant_action,dominant_action_share,action_entropy,rebound_rows,downtrend_rows,sample_gate,label_distribution_gate,fold_local_scope_gate,bc_readiness_gate,bc_readiness_loss,target_scope
-wf_2022_train,505,17,4,0.21188118811881188,2.488052489704425,66,234,True,True,True,True,0.0,fold_local
-all_folds_joint_contract,1261,18,4,0.2212529738302934,2.4587805098775317,132,712,True,True,True,True,0.0,fold_local
-wf_2023_2024_train,756,18,4,0.2275132275132275,2.3834375961959626,66,478,True,True,True,True,0.0,fold_local

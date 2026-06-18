@@ -1,4 +1,0 @@
-mechanism,candidate_count,robust_full_gate_count,full_gate_count,near_miss_count,best_candidate_id,best_total_gate_loss,best_min_relative_return,best_max_dd,best_failure_profile
-action_cap_overlay,4,0,0,1,short_volshock_sell_guard::short_volshock_cap05_hit2_no_guard,1.2565445455954816,29.81726330693851,15.1073807852534,near_miss
-hard_target_cap,5,0,0,0,risk_state_target_screen::volstress_all_targets_cap010,29.110326382362885,2.002060126528693,15.111238650889158,trend_capture
-bc_warm_start_baseline,1,0,0,0,bc_initialization_official::bc_initialization,114.53186580251739,5.018898654205939,22.26198899445525,joint_tradeoff

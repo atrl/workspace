@@ -1,4 +1,0 @@
-mechanism,status,reason
-path_level_threshold_router_search,stop,cap10 low-floor and SOXX/SOXL threshold overlays did not clear joint +30pp/<=15% gate
-direct_oos_label_training,blocked,latest paths are OOS/walk-forward diagnostics; regenerate fold-local targets before BC/PPO
-direct_soxx_actor_feature_retrain,blocked,SOXX/SOXL threshold gates did not pass; use only as candidate state features after IC/single-signal validation

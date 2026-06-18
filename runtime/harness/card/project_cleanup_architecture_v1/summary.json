@@ -1,0 +1,27 @@
+{
+  "experiment": "project_cleanup_architecture_v1",
+  "direction": "harness",
+  "decision": "aggressive_cleanup_to_data_and_soxlbacktest",
+  "active_surfaces": [
+    "data",
+    "soxl_backtest",
+    "runtime/harness/card/project_cleanup_architecture_v1",
+    "runtime/model_selection/card/soxlbacktest_qlib_reference_v1"
+  ],
+  "retired_surfaces": [
+    "production",
+    "dashboard.html",
+    "dashboard_data",
+    "web",
+    "src",
+    "scripts",
+    "codex_exec_plans",
+    "old runtime cards"
+  ],
+  "framework_policy": "Future signal experiments should edit notebooks and card-local sidecars first; framework changes require a reusable interface gap and tests.",
+  "artifacts": {
+    "notebook": "project_cleanup_architecture_v1.ipynb",
+    "cleanup_manifest": "cleanup_manifest.csv",
+    "summary": "summary.json"
+  }
+}

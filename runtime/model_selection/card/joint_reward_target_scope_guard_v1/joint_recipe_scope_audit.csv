@@ -1,9 +1,0 @@
-window,target_scope,target_fold,fold,rows,train_overlap_rows,eval_overlap_rows,outside_train_eval_rows,leakage_gate,scope_issue,train_start,train_end,eval_start,eval_end
-strict_oos,,,wf_2022_train,1605,505,251,849,False,global_or_unspecified_target_scope,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-wf_2020,,,wf_2022_train,252,252,0,0,False,global_or_unspecified_target_scope,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-wf_2022,,,wf_2022_train,250,0,250,0,False,global_or_unspecified_target_scope,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-wf_2023_2024,,,wf_2022_train,251,0,0,251,False,global_or_unspecified_target_scope,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-strict_oos,,,wf_2023_2024_train,1605,756,502,347,False,global_or_unspecified_target_scope,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-wf_2020,,,wf_2023_2024_train,252,252,0,0,False,global_or_unspecified_target_scope,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-wf_2022,,,wf_2023_2024_train,250,250,0,0,False,global_or_unspecified_target_scope,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-wf_2023_2024,,,wf_2023_2024_train,251,0,251,0,False,global_or_unspecified_target_scope,2020-01-02,2022-12-30,2023-01-03,2024-12-31

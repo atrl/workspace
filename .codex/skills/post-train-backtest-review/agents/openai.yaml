@@ -1,4 +1,0 @@
-interface:
-  display_name: "Post-Train Review"
-  short_description: "Compare new backtests, explain drift, plan next moves"
-  default_prompt: "Use $post-train-backtest-review to compare the latest training run against a prior backtest and produce an actionable post-train review."

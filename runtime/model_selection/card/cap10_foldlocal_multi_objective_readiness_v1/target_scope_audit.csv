@@ -1,6 +1,0 @@
-asset,window,target_scope,target_fold,fold,rows,train_overlap_rows,eval_overlap_rows,outside_train_eval_rows,leakage_gate,scope_issue,train_start,train_end,eval_start,eval_end
-fold_local_joint_reward_targets_v1,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,505,0,0,True,,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-fold_local_joint_reward_targets_v1,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-sparse_rebound_release_target_revision_v1,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,505,0,0,True,,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-sparse_rebound_release_target_revision_v1,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-sparse_release_drawdown_control_foldlocal_bc_warmstart_v1,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,370,370,0,0,True,,2011-03-11,2020-12-31,2022-01-01,2022-12-31

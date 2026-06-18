@@ -1,0 +1,62 @@
+{
+  "experiment": "soxlbacktest_qlib_reference_v1",
+  "direction": "model_selection",
+  "decision": "reference_parity_recorded",
+  "qlib_audit": {
+    "rows": 109,
+    "start": "2026-01-02",
+    "end": "2026-06-09",
+    "data_source": "qlib_calendar_plus_canonical_panel",
+    "qlib_calendar_path": "data/qlib/soxl/calendars/day.txt"
+  },
+  "windows": {
+    "ytd_2026": {
+      "requested_start": "2026-01-01",
+      "start": "2026-01-02",
+      "end": "2026-06-09",
+      "rows": 109,
+      "initial_capital": 100000.0,
+      "final_capital": 232077.97795135496,
+      "soxl_buyhold_return_pct": 326.9263184466205,
+      "rulebase_return_pct": 132.07797795135497,
+      "rulebase_max_drawdown_pct": 13.554088542803521,
+      "average_position_pct": 16.220733944954127,
+      "end_position_pct": 15.909999999999998,
+      "trade_count": 3
+    },
+    "june_2026": {
+      "requested_start": "2026-06-01",
+      "start": "2026-06-01",
+      "end": "2026-06-09",
+      "rows": 7,
+      "initial_capital": 100000.0,
+      "final_capital": 103138.96,
+      "soxl_buyhold_return_pct": -11.165925208122275,
+      "rulebase_return_pct": 3.1389600000000017,
+      "rulebase_max_drawdown_pct": 1.5282090059538125,
+      "average_position_pct": 12.831428571428571,
+      "end_position_pct": 29.94,
+      "trade_count": 1
+    }
+  },
+  "acceptance": {
+    "ytd_return_pct": 132.07797795135497,
+    "june_return_pct": 3.1389599999999973,
+    "trade_dates": [
+      "2026-03-30",
+      "2026-05-27",
+      "2026-06-05"
+    ]
+  },
+  "artifacts": {
+    "notebook": "soxlbacktest_qlib_reference_v1.ipynb",
+    "daily": "daily.csv",
+    "trades": "trades.csv",
+    "metrics": "metrics.json",
+    "experiment_spec": "experiment_spec.json",
+    "window_metrics": "window_metrics.csv",
+    "combined_daily": "combined_daily.csv",
+    "combined_trades": "combined_trades.csv",
+    "summary": "summary.json"
+  }
+}

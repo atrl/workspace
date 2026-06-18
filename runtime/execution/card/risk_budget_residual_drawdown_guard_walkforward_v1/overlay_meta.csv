@@ -1,7 +1,0 @@
-window,overlay,label,score_name,entry,exit,cap,min_account_dd,trade_band,release_mom,risk_active_days,cap_changed_days,start_drawdown,full_drawdown,min_cap,release_drawdown,active_days,changed_days
-wf_2020,crash_risk,panic_rebound_guarded_e0.70_x0.65_cap0.05_dd0.07_band0.04_rel0,panic_rebound_guarded,0.7,0.65,0.05,0.07,0.04,False,22.0,50.0,,,,,,
-wf_2020,residual_guard,resid_start0.090_full0.220_cap0.095_band0.01_rel0.00,,,,,,0.01,,,,0.09,0.22,0.095,0.0,137.0,69.0
-wf_2022,crash_risk,panic_rebound_guarded_e0.70_x0.65_cap0.05_dd0.07_band0.04_rel0,panic_rebound_guarded,0.7,0.65,0.05,0.07,0.04,False,65.0,43.0,,,,,,
-wf_2022,residual_guard,resid_start0.090_full0.220_cap0.095_band0.01_rel0.00,,,,,,0.01,,,,0.09,0.22,0.095,0.0,86.0,0.0
-wf_2023_2024,crash_risk,panic_rebound_guarded_e0.70_x0.65_cap0.05_dd0.07_band0.04_rel0,panic_rebound_guarded,0.7,0.65,0.05,0.07,0.04,False,60.0,45.0,,,,,,
-wf_2023_2024,residual_guard,resid_start0.090_full0.220_cap0.095_band0.01_rel0.00,,,,,,0.01,,,,0.09,0.22,0.095,0.0,211.0,75.0

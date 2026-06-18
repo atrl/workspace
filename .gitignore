@@ -1,9 +1,6 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
 *.egg-info/
 dist/
 build/
@@ -11,76 +8,28 @@ build/
 # Jupyter
 .ipynb_checkpoints/
 
-# Data files (too large)
-*.pkl
-*.csv.gz
-data/rl/
-skills/*/data/
-skills/*/models/
+# Local environments and caches
+.venv*/
+qlib_venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# OS
+# OS / editor
 .DS_Store
 Thumbs.db
-
-# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# Logs
+# Logs and local orchestration
 *.log
 logs/
 log/
-
-# Temporary
-*.tmp
-*.bak
-finrl_trading/
-
-# Virtual environments
-.venv*/
-qlib_venv/
-
-# Runtime / orchestration state
-.ralph/
-.openclaw/
+.kimi/
 .worktrees/
 
-# Runtime generated artifacts (ignore temp/large outputs, keep knowledge and configs)
-runtime/**/*.png
-runtime/**/*.log
-runtime/**/*.err
-runtime/**/*.csv
-runtime/**/*.csv.gz
-runtime/**/*.pkl
-runtime/**/*.pt
-runtime/soxl/wf_workers/
-runtime/soxl/paper_trading/
-runtime/execution/dashboard/
-runtime/model/reviews/*.csv
-runtime/**/hierarchical_online_budget_generalization.json
-runtime/**/walk_forward_rebacktest_results.json
-
-# Artifacts / generated outputs
-artifacts/
-!artifacts/
-artifacts/*
-runtime/**/*.json
-!runtime/index.json
-*.png
-
-soxl_qlib_strategy_v2_results.txt
-
-# Qlib generated data
-qlib_soxl_binary/features/
-.openclaw/
-data/generalization/*.csv
-
-# Ignore skill data/models
-.codex/skills/*/data/
-.codex/skills/*/models/
-!runtime/soxl/
-# Qlib binary features (regenerated from CSV)
-data/qlib/**/features/
-.env.discord
+# Secrets
+.env
+.env.*

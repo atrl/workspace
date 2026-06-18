@@ -1,3 +1,0 @@
-profile,path,window,rows,start,end,strategy_return_pct,buyhold_return_pct,relative_return_pct,max_drawdown_pct,gate_pass,failures
-rolling_heuristic_selector,,test_2022,251,2022-01-03,2022-12-30,-19.134734,-86.588072,67.453338,19.134734,True,[]
-rolling_heuristic_selector,,test_2023_2024,502,2023-01-03,2024-12-31,171.459874,191.773509,-20.313636,26.405222,False,"['max_drawdown_ge_20', 'relative_return_not_positive']"

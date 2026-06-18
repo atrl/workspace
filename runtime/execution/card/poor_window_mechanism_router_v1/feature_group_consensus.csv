@@ -1,7 +1,0 @@
-feature_group,top_mentions,source_count,mean_abs_delta_z,features
-volatility_path,30,7,1.2662153067838011,"jump_variation_5,realized_kurtosis_21,realized_vol_10,realized_vol_21,realized_vol_63,tracking_error_vol_21,vol_coef_21,vol_of_vol_21"
-trend_rebound,12,7,0.9682140146654996,"decay_63,mom_21,relative_strength_21"
-downside_shape,6,6,0.7849496948930127,downside_ratio_21
-other,6,6,0.7842655802472924,expectancy_proxy_21
-tracking_error,1,1,1.445182041354955,tracking_error_21
-vix_regime,1,1,0.7433053824945184,vix_percentile_252

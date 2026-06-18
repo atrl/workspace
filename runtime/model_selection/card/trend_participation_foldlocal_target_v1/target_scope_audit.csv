@@ -1,9 +1,0 @@
-candidate,window,target_scope,target_fold,fold,rows,train_overlap_rows,eval_overlap_rows,outside_train_eval_rows,leakage_gate,scope_issue,train_start,train_end,eval_start,eval_end
-base_foldlocal_contract,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,505,0,0,True,,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-base_foldlocal_contract,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-trend_q70_target45_guard,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,505,0,0,True,,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-trend_q70_target45_guard,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-trend_q75_target50_guard,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,505,0,0,True,,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-trend_q75_target50_guard,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-trend_q80_target55_guard,wf_2022_train,fold_local,wf_2022_train,wf_2022_train,505,505,0,0,True,,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-trend_q80_target55_guard,wf_2023_2024_train,fold_local,wf_2023_2024_train,wf_2023_2024_train,756,756,0,0,True,,2020-01-02,2022-12-30,2023-01-03,2024-12-31

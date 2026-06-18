@@ -1,8 +1,0 @@
-profile,path,window_count,windows
-state_conditioned_drawdown_rebound_reward_train_v1,runtime/reward/card/state_conditioned_drawdown_rebound_reward_train_v1/selection.json,4,"test_proxy,wf_2020,wf_2022,wf_2023_2024"
-mode_conditioned_rebound_reward_train_v2,runtime/reward/card/mode_conditioned_rebound_reward_train_v2/selection.json,8,"test_2020,test_2022,test_2023_2024,test_proxy,valid,wf_2020,wf_2022,wf_2023_2024"
-drawdown_rebound_reward_train_v1,runtime/reward/card/drawdown_rebound_reward_train_v1/selection.json,1,main
-drawdown_aware_reward_proxy_v1,runtime/reward/card/drawdown_aware_reward_proxy_v1/selection.json,0,
-drawdown_rebound_checkpoint_pbo_v1,runtime/model_selection/card/drawdown_rebound_checkpoint_pbo_v1/selection.json,4,"strict_oos,wf_2020,wf_2022,wf_2023_2024"
-state_conditioned_actor_selector_v1,runtime/model_selection/card/state_conditioned_actor_selector_v1/selection.json,4,"strict_oos,wf_2020,wf_2022,wf_2023_2024"
-barrier_drawdown_budget_overlay_v1,runtime/execution/card/barrier_drawdown_budget_overlay_v1/selection.json,0,

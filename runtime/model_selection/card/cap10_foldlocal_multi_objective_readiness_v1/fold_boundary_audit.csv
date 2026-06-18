@@ -1,6 +1,0 @@
-asset,fold,boundary_variant_count,train_start_values,train_end_values,eval_start_values,eval_end_values
-fold_local_joint_reward_targets_v1,wf_2022_train,1,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-fold_local_joint_reward_targets_v1,wf_2023_2024_train,1,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-sparse_rebound_release_target_revision_v1,wf_2022_train,1,2020-01-02,2021-12-31,2022-01-03,2022-12-30
-sparse_rebound_release_target_revision_v1,wf_2023_2024_train,1,2020-01-02,2022-12-30,2023-01-03,2024-12-31
-sparse_release_drawdown_control_foldlocal_bc_warmstart_v1,wf_2022_train,1,2011-03-11,2020-12-31,2022-01-01,2022-12-31

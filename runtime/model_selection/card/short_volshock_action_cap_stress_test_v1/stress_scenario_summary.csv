@@ -1,5 +1,0 @@
-scenario,candidate_count,full_gate_count,best_candidate_id,best_loss,best_min_relative_return,best_max_dd
-base_replay,4,0,short_volshock_sell_guard::short_volshock_cap05_hit2_no_guard,1.2565445455954816,29.81726330693851,15.1073807852534
-mild_execution_buffer,4,0,short_volshock_sell_guard::short_volshock_cap05_hit2_no_guard,4.256544545595482,29.31726330693851,15.3573807852534
-strict_execution_buffer,4,0,short_volshock_sell_guard::short_volshock_cap05_hit2_no_guard,7.256544545595482,28.81726330693851,15.6073807852534
-tiny_cost_buffer,4,0,short_volshock_sell_guard::short_volshock_cap05_hit2_no_guard,2.506544545595478,29.56726330693851,15.207380785253399

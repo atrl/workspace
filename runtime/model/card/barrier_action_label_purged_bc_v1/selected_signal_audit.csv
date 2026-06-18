@@ -1,5 +1,0 @@
-window,train_rows,test_rows,barrier_positive,barrier_negative,derisk_pred,derisk_true,derisk_tp,derisk_fp,reentry_pred,reentry_true,reentry_tp,reentry_fp
-wf_2022,484,251,57,188,0,10,0,0,55,53,20,35
-wf_2023_2024,735,502,162,252,52,90,34,18,1,89,1,0
-bad_C002_2025_rebound,1300,74,43,17,0,11,0,0,3,34,3,0
-bad_C003_2026_reentry,1509,75,19,35,0,9,0,0,0,17,0,0

@@ -1,0 +1,13 @@
+{
+  "experiment": "soxlbacktest_qlib_reference_v1",
+  "direction": "model_selection",
+  "start": "2026-01-01",
+  "end": "2026-06-09",
+  "changed_layer": "selection",
+  "role": "replace",
+  "baseline": "legacy_soxl_backtest",
+  "comparison_key": "soxlbacktest_qlib_reference_v1:ytd_2026",
+  "instrument": "SOXL",
+  "qlib_region": "us",
+  "qlib_freq": "day"
+}

@@ -1,8 +1,0 @@
-datetime,rows,positive_labels,negative_labels,label_unstable,effective_lift_rows,positive_effective_lift_rows,false_positive_effective_lift_rows,unstable_effective_lift_rows,unstable_false_positive_effective_lift_rows,max_abs_target_lift
-2020-06-03,2,1,1,True,2,1,1,2,1,0.2
-2021-04-05,2,1,1,True,1,1,0,1,0,0.14999999999999997
-2021-04-06,2,1,1,True,1,1,0,1,0,0.14999999999999997
-2021-04-07,2,1,1,True,1,1,0,1,0,0.14157147572579157
-2020-06-04,2,1,1,True,0,0,0,0,0,0.0
-2020-06-05,2,1,1,True,0,0,0,0,0,0.0
-2020-06-08,2,1,1,True,0,0,0,0,0,0.0

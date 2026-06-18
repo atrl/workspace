@@ -1,0 +1,4 @@
+date,type,price,position,score,total_value,shares,avg_price,buy_type,market_condition,buy_step,trigger_conditions,gain
+2026-03-30,buy,40.619998931884766,0.2998,-150.0,100000.0,738,40.619998931884766,cumulative,undervalued,0.3,"[{'type': 'cumulative_drop', 'value': np.float64(-0.4347342250643763), 'threshold': np.float64(-0.38128197117000723), 'cooldown_days': 23}]",
+2026-05-27,take_profit,217.97999572753903,0.0699,99.61550879492006,230891.67763519284,74,40.619998931884766,,,,"[{'type': 'panic_score', 'value': np.float64(99.61550879492006), 'threshold': 85}, {'type': 'take_profit', 'value': np.float64(3.0420165686055287), 'threshold': 0.6}]",436.6322044790482
+2026-06-05,buy,182.54,0.1591,-75.30357468844872,228269.11795135494,199,129.7657282460275,daily,undervalued,0.1,"[{'type': 'panic_score', 'value': np.float64(-75.30357468844872), 'threshold': -50}, {'type': 'daily_drop', 'value': np.float64(-0.3051389417586601), 'threshold': np.float64(-0.2897686974573742)}]",

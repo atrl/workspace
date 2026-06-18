@@ -1,4 +1,0 @@
-profile,samples,unique_actions,dominant_action,dominant_action_share,action_entropy,obs_dim,rebound_samples,downtrend_samples,release_gate_samples,sample_gate,label_distribution_gate,fold_local_scope_gate,bc_readiness_gate,bc_readiness_loss,target_scope
-risk_budget_usage_v1,755,5,1,0.295364238410596,1.4909657103049379,315,66,477,40,True,True,True,True,0.0,fold_local
-balanced,755,10,0,0.8052980132450331,0.8705989511656,79,66,477,40,True,True,True,True,0.0,fold_local
-balanced_rule_residual_v22,755,5,0,0.8940397350993378,0.4704787982432254,340,66,477,40,True,True,True,True,0.0,fold_local

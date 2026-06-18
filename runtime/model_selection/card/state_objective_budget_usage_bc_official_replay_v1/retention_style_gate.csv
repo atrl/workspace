@@ -1,6 +1,0 @@
-window,gate_type,return_pct,relative_return_pct,max_dd_pct,threshold,gate_pass,failure
-wf_2020,walkforward,16.238860172042834,-339.49772684050026,21.349091653065926,20.0,False,wf_max_drawdown_ge_20
-wf_2022,walkforward,-12.139385595874764,64.47488179679294,14.800121389344174,20.0,True,
-wf_2023_2024,walkforward,24.278118249502167,-31.37647421014864,15.514461141389022,20.0,True,
-ytd_2026,soxlbacktest_return_alignment,27.18605207710265,,,132.077978,False,ytd_return_below_soxlbacktest_baseline
-ytd_2026,current_best_return_alignment,27.18605207710265,,,213.143462,False,ytd_return_below_best_alignment

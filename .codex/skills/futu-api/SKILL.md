@@ -1,173 +1,29 @@
 ---
 name: futu-api
-description: 富途 OpenAPI 使用指南。涵盖 OpenD 安装、行情/资金流向/逐笔成交数据获取，以及生产脚本运行方式。
+description: Use only for SOXL/SOXX data intake through Futu OpenAPI, not for production trading, scheduling, dashboarding, or broker execution.
 ---
 
-# Futu API Skill - 富途 OpenAPI
+# Futu API Data Intake
 
-这个 skill 用于通过富途 API 获取真实的大单数据、资金流向等信息。
+Use this skill only when a SOXL experiment needs Futu-sourced market data or a
+read-only probe to refresh `data/raw/` inputs.
 
-## 安装步骤
+## Boundaries
 
-### 1. 安装 futu-api
+- Keep Futu outputs under `data/raw/external/` or a card-local runtime artifact.
+- Do not add production execution, scheduler, broker-order, or dashboard code.
+- Treat Futu small-order flow as short-history/live overlay data unless a
+  full-history source is explicitly proven.
+- Keep tokens and login state outside the repository.
 
-```bash
-pip install futu-api
-```
-
-### 2. 下载并安装 OpenD
-
-#### macOS（自动安装）
-
-```bash
-bash scripts/install_futu_opend_macos.sh
-```
-
-安装完成后，编辑配置文件填入富途账号密码：
+## Default Checks
 
 ```bash
-~/futu_opend/Futu_OpenD_10.2.6208_Mac/Futu_OpenD_10.2.6208_Mac/FutuOpenD.xml
+PYTHONPATH=. qlib_venv/bin/python - <<'PY'
+import futu
+print(futu.__version__)
+PY
 ```
 
-然后启动 OpenD：
-
-```bash
-~/futu_opend/Futu_OpenD_10.2.6208_Mac/Futu_OpenD_10.2.6208_Mac/FutuOpenD.app/Contents/MacOS/FutuOpenD
-```
-
-#### macOS（手动）/ Windows / Linux
-
-- 官方 macOS 直接下载链接格式（`.tar.gz` 可用，`.zip` / `.dmg` 目前 404）：
-  ```
-  https://softwaredownload.futunn.com/Futu_OpenD_${VERSION}_Mac.tar.gz
-  ```
-- Windows：运行 `FutuOpenD.exe`
-- Linux：运行 `./FutuOpenD`
-
-OpenD 默认运行在 `127.0.0.1:11111`。
-
-首次启动需要扫码登录富途账户，并完成 API 问卷评估。
-
-### 3. 连接检测
-
-在运行策略前，建议先检测 OpenD 是否可达：
-
-```bash
-qlib_venv/bin/python production/check_futu_opend.py
-```
-
-## 功能
-
-### 可用接口
-
-1. **行情数据**
-   - 实时行情
-   - 历史K线
-   - 市场快照
-
-2. **资金流向**
-   - 资金流向数据
-   - 经纪商席位
-
-3. **逐笔成交**
-   - 逐笔交易数据
-   - 大单识别
-
-4. **订单簿**
-   - 买卖盘
-   - 经纪商队列
-
-## 示例代码
-
-### 获取 SOXL 行情
-
-```python
-from futu import *
-
-# 连接 OpenD
-quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
-
-# 获取 SOXL 市场快照（美股代码：US.SOXL）
-ret, data = quote_ctx.get_market_snapshot(['US.SOXL'])
-if ret == RET_OK:
-    print(data)
-
-# 获取历史K线
-ret, data = quote_ctx.get_history_kline('US.SOXL')
-if ret == RET_OK:
-    print(data)
-
-quote_ctx.close()
-```
-
-### 获取资金流向
-
-```python
-from futu import *
-
-quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
-
-# 获取资金流向
-ret, data = quote_ctx.get_capital_flow('US.SOXL')
-if ret == RET_OK:
-    print(data)
-
-quote_ctx.close()
-```
-
-### 获取逐笔成交（大单识别）
-
-```python
-from futu import *
-
-quote_ctx = OpenQuoteContext(host='127.0.0.1', port=11111)
-
-# 获取逐笔成交
-ret, data = quote_ctx.get_rt_data('US.SOXL')
-if ret == RET_OK:
-    # 识别大单（例如：成交量 > 阈值）
-    large_orders = data[data['volume'] > 10000]
-    print(large_orders)
-
-quote_ctx.close()
-```
-
-## 支持的市场
-
-- 港股：HK.00700（腾讯）、HK.09988（阿里）等
-- 美股：US.AAPL、US.TSLA、US.SOXL 等
-- A股：SH.600000、SZ.000001 等
-
-## 注意事项
-
-1. 需要富途账户
-2. OpenD 必须保持运行
-3. 部分数据需要订阅权限
-4. 注意 API 调用频率限制
-5. macOS 可通过 `scripts/install_futu_opend_macos.sh` 自动安装
-6. SOXL 生产模拟盘使用 repo 侧 notional 账户控制 sizing：scheduled Futu
-   路径应带 `--account-notional 10000`，不要直接用 Futu 后台模拟账户现金
-   作为策略账户规模。
-7. Futu 美股模拟交易使用
-   `OpenSecTradeContext(filter_trdmarket=TrdMarket.US)`；`place_order()`
-   不接受额外的 `trd_market` keyword，市场由 context / code / trd_env
-   决定。
-
-## SOXL 生产脚本
-
-```bash
-# Futu broker health / readiness
-PYTHONPATH=. qlib_venv/bin/python production/check_futu_opend.py
-PYTHONPATH=. qlib_venv/bin/python production/soxl_paper_trading.py \
-  --broker futu --account-notional 10000 --healthcheck --no-notify
-
-# Scheduled dry-run using the same notional sizing as the LaunchAgent path
-PYTHONPATH=. qlib_venv/bin/python production/soxl_daily_scheduler.py \
-  --broker futu --account-notional 10000 --dry-run --skip-data-update \
-  --no-notify --skip-dashboard
-```
-
-## 官方文档
-
-- Futu API 文档：https://openapi.futunn.com/futu-api-doc/
-- GitHub：https://github.com/FutunnOpen/py-futu-api
+If OpenD is unavailable, record `needs data` in the notebook conclusion instead
+of changing framework code.

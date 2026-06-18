@@ -1,0 +1,13 @@
+path,decision,role,rationale
+data/,keep,canonical data and qlib store,Active SOXL experiments need one canonical local data surface.
+soxl_backtest/,keep,stable qlib experiment framework,Reusable framework and reference policy live here so notebooks can iterate without framework edits.
+runtime/harness/card/project_cleanup_architecture_v1/,keep,cleanup proof,Directory-level history and deletion rationale for review.
+runtime/model_selection/card/soxlbacktest_qlib_reference_v1/,keep,reference experiment proof,Executable SOXLBacktest parity workflow and sidecars.
+.codex/skills/futu-api/,keep,data intake only,Futu can still support data refresh/probes; not part of production execution.
+.codex/skills/soxl-qlib-experiment/,keep,single active workflow skill,Keeps future work on qlib framework plus notebook cards.
+production/,delete,retired production execution,User chose complete removal of production surface.
+"dashboard.html, dashboard_data/, web/",delete,retired dashboard UI,Generated dashboard surface made review noisy and is out of the clean research architecture.
+src/,delete,retired legacy harness/RL app code,Active reusable code moves under soxl_backtest; old RL/model surfaces are no longer the core architecture.
+scripts/,delete,retired scattered entrypoints,Single-run orchestration should live in notebooks; reusable logic belongs in soxl_backtest.
+codex_exec_plans/,delete,retired execution planning surface,Not part of the simplified qlib research loop.
+runtime/* old cards,delete,retired historical run sprawl,Historical lessons are summarized here; old executable sprawl is removed from active review surface.

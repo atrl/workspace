@@ -1,6 +1,0 @@
-feature_group,feature_count,mean_abs_delta_z,max_abs_delta_z,mean_delta_z,mean_position_delta,mean_return_delta,top_features,fold_count,candidate_count
-volatility_or_stress,20,1.053022,5.217874,0.365706,0.282472,-12.432775,"vol_of_vol_21,vix_zscore,regime_risk,vix_percentile_252",2,1
-other,14,0.844268,7.915318,0.106864,0.282471,-12.432775,"anchor_slope_180,decay_63,realized_skew_21,realized_kurtosis_21",2,1
-price_level,2,0.842485,1.909413,-0.115151,0.282471,-12.432775,"below_ma63_days,days_since_high_63,days_since_high_63,days_since_high_63",2,1
-trend_or_momentum,13,0.659885,1.99524,0.132757,0.282472,-12.432775,"mom_63,trend_slope_63,trend_slope_21,rsi_14",2,1
-relative_strength_spread,10,0.613465,2.32725,-0.135031,0.282471,-12.432775,"tracking_error_vol_21,tracking_error_vol_21,tracking_error_21,relative_strength_21",2,1

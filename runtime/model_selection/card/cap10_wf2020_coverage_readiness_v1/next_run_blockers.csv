@@ -1,8 +1,0 @@
-fold,target_fold,blocker,detail
-wf_2020,wf_2020_train,missing_target_contract,
-wf_2020,wf_2020_train,missing_bc_metrics,
-wf_2020,wf_2020_train,missing_checkpoint_coverage,
-wf_2020,wf_2020_train,missing_checkpoint_selection,
-wf_2020,wf_2020_train,missing_checkpoint_candidate_metrics,
-wf_2020,wf_2020_train,current_source_not_non_leaking,"sparse-release targets begin in 2020, so a wf_2020 warm-start would train on the test year"
-wf_2022,wf_2022_train,selected_candidate_gate_failed,
