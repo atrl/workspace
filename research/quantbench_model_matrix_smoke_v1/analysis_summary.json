@@ -8,5 +8,61 @@
   "test_end": "2026-06-08",
   "top_model": "logistic_clf",
   "adapter_status": "smoke_adapter",
+  "analysis_layers": [
+    "regime_metrics",
+    "window_metrics",
+    "qlib_risk_metrics",
+    "model_effect_deltas"
+  ],
+  "analysis_summary": {
+    "schema_version": "analysis.regime_window_effect.v1",
+    "baseline_model": "logistic_clf",
+    "model_count": 32,
+    "regime_count": 4,
+    "window_count": 1,
+    "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+    "weakest_segments": [
+      {
+        "model": "mlp_mse",
+        "segment_type": "all",
+        "segment": "all",
+        "relative_return_pct_delta": -42.55538514712434,
+        "stability_score_delta": -77.95387640388923,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      },
+      {
+        "model": "mlp_mse",
+        "segment_type": "window",
+        "segment": "test",
+        "relative_return_pct_delta": -42.55538514712434,
+        "stability_score_delta": -77.95387640388923,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      },
+      {
+        "model": "mlp_mse",
+        "segment_type": "regime",
+        "segment": "downtrend",
+        "relative_return_pct_delta": -28.260752077259937,
+        "stability_score_delta": -69.46231422860171,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      },
+      {
+        "model": "alstm_mse",
+        "segment_type": "regime",
+        "segment": "stress",
+        "relative_return_pct_delta": -27.940034545161787,
+        "stability_score_delta": -121.12379050137086,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      },
+      {
+        "model": "autoformer_mse",
+        "segment_type": "regime",
+        "segment": "stress",
+        "relative_return_pct_delta": -27.940034545161787,
+        "stability_score_delta": -121.12379050137086,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      }
+    ]
+  },
   "note": "Smoke adapters validate the full matrix contract; paper-strict replacements can be swapped per ModelSpec."
 }

@@ -1,0 +1,56 @@
+{
+  "schema_version": "knowledge_queue.v1",
+  "cards": [
+    {
+      "schema_version": "knowledge_card.v1",
+      "source": {
+        "source_id": "arxiv:2504.18600",
+        "source_type": "arxiv",
+        "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment",
+        "url": "https://arxiv.org/abs/2504.18600",
+        "summary": "Full-pipeline benchmark emphasizing standardization, flexibility, continual learning, relational financial data, and low signal-to-noise overfitting control.",
+        "license_note": "使用公开元数据和摘要；不在仓库内复制未授权全文。"
+      },
+      "target_subsystem": "src/model",
+      "hypothesis": "评估 QuantBench: Benchmarking AI Methods for Quantitative Investment 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
+      "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "promotion_status": "candidate",
+      "skill_boundary": "method_only",
+      "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
+    },
+    {
+      "schema_version": "knowledge_card.v1",
+      "source": {
+        "source_id": "github:quantbench-search-placeholder",
+        "source_type": "github",
+        "title": "QuantBench implementation search placeholder",
+        "url": "https://github.com/search?q=QuantBench+quantitative+investment",
+        "summary": "GitHub 来源需要经过可用性、license、维护状态和实现差异检查后才能进入模型实现 backlog。",
+        "license_note": "只记录检索入口；代码 vendoring 必须先检查 license。"
+      },
+      "target_subsystem": "src/model",
+      "hypothesis": "评估 QuantBench implementation search placeholder 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
+      "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "promotion_status": "candidate",
+      "skill_boundary": "method_only",
+      "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
+    },
+    {
+      "schema_version": "knowledge_card.v1",
+      "source": {
+        "source_id": "twitter:regime-analysis-method-placeholder",
+        "source_type": "twitter",
+        "title": "Regime-aware evaluation idea",
+        "url": "https://twitter.com/search?q=regime%20aware%20quant%20evaluation",
+        "summary": "社交媒体只作为假设启发，必须转化为可测试 regime/window/model comparison。",
+        "license_note": "不复制正文；只保留来源入口和自有摘要。"
+      },
+      "target_subsystem": "src/analysis",
+      "hypothesis": "评估 Regime-aware evaluation idea 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
+      "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "promotion_status": "candidate",
+      "skill_boundary": "method_only",
+      "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
+    }
+  ]
+}

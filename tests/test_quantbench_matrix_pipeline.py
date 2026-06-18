@@ -72,6 +72,8 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         "regime_metrics.csv",
         "window_metrics.csv",
         "model_comparison.csv",
+        "qlib_risk_metrics.csv",
+        "model_effect_deltas.csv",
     }
     assert expected_files.issubset({path.name for path in tmp_path.iterdir()})
 
@@ -79,3 +81,4 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert summary["model_count"] == len(QUANTBENCH_MODEL_NAMES)
     assert summary["train_end"] == "2026-04-30"
     assert summary["status"] == "smoke_completed"
+    assert "qlib_risk_metrics" in summary["analysis_layers"]
