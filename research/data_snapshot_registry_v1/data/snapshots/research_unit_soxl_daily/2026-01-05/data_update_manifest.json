@@ -1,0 +1,40 @@
+{
+  "canonical_export_schema_version": "data.canonical_snapshot.export.v1",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "data/raw/research_unit_v1.csv"
+    ],
+    "end": "2026-01-05",
+    "metadata": {
+      "as_of": "2026-01-05",
+      "calendar_row_count": 2,
+      "canonical_frame_schema_version": "data.canonical_frame.v1",
+      "column_count": 4,
+      "date_column": "date",
+      "dropped_non_calendar_rows": 1,
+      "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+      "row_count": 2,
+      "source_paths": [
+        "data/raw/research_unit_v1.csv"
+      ]
+    },
+    "name": "research_unit_soxl_daily",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-02",
+    "universe": [
+      "SOXL"
+    ]
+  },
+  "dataset_key": "daily.research_unit_soxl",
+  "dataset_schema_hash": "69e515ce2fad3062639eee45f22d9f5f29d7fb6a62c626840f642a95c765a1ed",
+  "manifest_hash": "22275f17b5e58954b6fae688c9ff642909e08536ba092e1bf8abaf0ac8811cec",
+  "paths": {
+    "dataset_snapshot": "dataset_snapshot.json",
+    "frame": "canonical_frame.csv",
+    "manifest": "data_update_manifest.json"
+  },
+  "published_at": "2026-01-05T21:00:00Z",
+  "schema_version": "data.update_manifest.v1",
+  "status": "published"
+}

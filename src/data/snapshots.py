@@ -13,6 +13,8 @@ from src.core.contracts import stable_hash
 
 CANONICAL_FRAME_SCHEMA_VERSION = "data.canonical_frame.v1"
 CANONICAL_SNAPSHOT_EXPORT_SCHEMA_VERSION = "data.canonical_snapshot.export.v1"
+DATA_UPDATE_MANIFEST_SCHEMA_VERSION = "data.update_manifest.v1"
+DATA_REGISTRY_SCHEMA_VERSION = "data.registry.v1"
 
 
 @dataclass(frozen=True)
@@ -158,3 +160,110 @@ def write_canonical_snapshot(
     }
     snapshot_path.write_text(json.dumps(_json_ready(payload), ensure_ascii=False, indent=2), encoding="utf-8")
     return payload
+
+
+def _load_registry(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {"schema_version": DATA_REGISTRY_SCHEMA_VERSION, "datasets": {}}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload.setdefault("schema_version", DATA_REGISTRY_SCHEMA_VERSION)
+    payload.setdefault("datasets", {})
+    return payload
+
+
+def _registry_record(*, dataset_key: str, manifest: dict[str, Any], output_dir: Path) -> dict[str, Any]:
+    dataset = manifest["dataset"]
+    metadata = dataset.get("metadata", {})
+    return {
+        "dataset_key": dataset_key,
+        "dataset_name": dataset.get("name", ""),
+        "snapshot_path": str(output_dir),
+        "manifest_path": str(output_dir / manifest["paths"]["manifest"]),
+        "manifest_hash": manifest["manifest_hash"],
+        "dataset_schema_hash": manifest["dataset_schema_hash"],
+        "start": dataset.get("start", ""),
+        "end": dataset.get("end", ""),
+        "as_of": metadata.get("as_of", ""),
+        "row_count": int(metadata.get("row_count", 0) or 0),
+        "frame_schema_hash": metadata.get("frame_schema_hash", ""),
+        "published_at": manifest.get("published_at", ""),
+    }
+
+
+def _write_registry(
+    *,
+    registry_path: Path,
+    dataset_key: str,
+    manifest: dict[str, Any],
+    output_dir: Path,
+) -> dict[str, Any]:
+    registry = _load_registry(registry_path)
+    datasets = registry.setdefault("datasets", {})
+    record = _registry_record(dataset_key=dataset_key, manifest=manifest, output_dir=output_dir)
+    entry = datasets.setdefault(dataset_key, {"history": []})
+    history = list(entry.get("history", []))
+    if all(item.get("manifest_hash") != record["manifest_hash"] for item in history):
+        history.append(record)
+    entry["current"] = record
+    entry["history"] = history
+    datasets[dataset_key] = entry
+    registry["registry_hash"] = stable_hash(
+        {
+            "schema_version": registry["schema_version"],
+            "datasets": datasets,
+        }
+    )
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+    registry_path.write_text(json.dumps(_json_ready(registry), ensure_ascii=False, indent=2), encoding="utf-8")
+    return registry
+
+
+def publish_canonical_snapshot(
+    snapshot: CanonicalSnapshot,
+    output_dir: str | Path,
+    *,
+    dataset_key: str,
+    registry_path: str | Path | None = None,
+    published_at: str | None = None,
+    frame_filename: str = "canonical_frame.csv",
+    snapshot_filename: str = "dataset_snapshot.json",
+    manifest_filename: str = "data_update_manifest.json",
+) -> dict[str, Any]:
+    """Publish a canonical snapshot and optionally update the data registry current pointer."""
+
+    output = Path(output_dir)
+    export = write_canonical_snapshot(
+        snapshot,
+        output,
+        frame_filename=frame_filename,
+        snapshot_filename=snapshot_filename,
+    )
+    dataset_payload = snapshot.dataset.to_dict()
+    publish_time = published_at or f"{dataset_payload.get('end', '')}T00:00:00Z"
+    manifest_without_hash = {
+        "schema_version": DATA_UPDATE_MANIFEST_SCHEMA_VERSION,
+        "status": "published",
+        "dataset_key": dataset_key,
+        "published_at": publish_time,
+        "dataset": dataset_payload,
+        "dataset_schema_hash": snapshot.dataset.schema_hash(),
+        "canonical_export_schema_version": export["schema_version"],
+        "paths": {
+            "frame": frame_filename,
+            "dataset_snapshot": snapshot_filename,
+            "manifest": manifest_filename,
+        },
+    }
+    manifest = {
+        **manifest_without_hash,
+        "manifest_hash": stable_hash(manifest_without_hash),
+    }
+    (output / manifest_filename).write_text(json.dumps(_json_ready(manifest), ensure_ascii=False, indent=2), encoding="utf-8")
+    if registry_path is not None:
+        _write_registry(
+            registry_path=Path(registry_path),
+            dataset_key=dataset_key,
+            manifest=manifest,
+            output_dir=output,
+        )
+    return _json_ready(manifest)

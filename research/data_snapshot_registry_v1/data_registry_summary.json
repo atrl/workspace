@@ -1,0 +1,16 @@
+{
+  "schema_version": "research.data_snapshot_registry_v1",
+  "status": "completed",
+  "dataset_key": "daily.research_unit_soxl",
+  "registry_schema_version": "data.registry.v1",
+  "current_manifest_hash": "65852074829ba9d78ca3928c99f6dc0dd149243ba58cf17b96e70b396e3f7e3f",
+  "current_end": "2026-01-06",
+  "history_count": 2,
+  "history_manifest_hashes": [
+    "22275f17b5e58954b6fae688c9ff642909e08536ba092e1bf8abaf0ac8811cec",
+    "65852074829ba9d78ca3928c99f6dc0dd149243ba58cf17b96e70b396e3f7e3f"
+  ],
+  "v1_manifest_hash": "22275f17b5e58954b6fae688c9ff642909e08536ba092e1bf8abaf0ac8811cec",
+  "v2_manifest_hash": "65852074829ba9d78ca3928c99f6dc0dd149243ba58cf17b96e70b396e3f7e3f",
+  "registry_path": "data/data_registry.json"
+}
