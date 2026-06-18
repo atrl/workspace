@@ -45,6 +45,50 @@ def _view_model_with_failure_modes() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_model_review_briefing() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"model_review_briefing": "/path/that/must/not/be/rendered.csv"}
+    payload["model_review_briefing"] = [
+        {
+            "schema_version": "analysis.model_review_briefing.v1",
+            "priority_rank": 1,
+            "model": "gcn_mse__top_ic_factors",
+            "baseline_model": "ridge_mse__all_features",
+            "segment_type": "window_regime",
+            "segment": "test::stress",
+            "window": "test",
+            "regime": "stress",
+            "review_signal": "weakness",
+            "decision_hint": "block_or_rework",
+            "priority_score": 12.5,
+            "review_note": "gcn_mse 在 stress 弱于基准，需要重做信号适配。",
+        }
+    ]
+    return build_dashboard_view_model(payload)
+
+
+def _view_model_with_review_briefing() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"model_review_briefing": "/path/that/must/not/be/rendered.csv"}
+    payload["model_review_briefing"] = [
+        {
+            "schema_version": "analysis.model_review_briefing.v1",
+            "priority_rank": 1,
+            "model": "gcn_mse__top_ic_factors",
+            "baseline_model": "ridge_mse__all_features",
+            "segment_type": "window_regime",
+            "segment": "test::stress",
+            "window": "test",
+            "regime": "stress",
+            "review_signal": "weakness",
+            "decision_hint": "block_or_rework",
+            "priority_score": 18.5,
+            "review_note": "gcn_mse 在 stress window 弱于基准。",
+        }
+    ]
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -75,6 +119,40 @@ def test_render_dashboard_html_outputs_failure_mode_sections_without_sidecar_pat
     assert '<option value="return_stability_lag">return_stability_lag</option>' in html
     assert 'data-failure-mode="return_stability_lag"' in html
     assert 'data-failure-modes="return_stability_lag"' in html
+    assert "/path/that/must/not/be/rendered.csv" not in html
+
+
+def test_render_dashboard_html_outputs_model_review_briefing_controls_and_cards_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_model_review_briefing(), title="SOXL Review Briefing")
+    parser = _ElementCollector()
+    parser.feed(html)
+
+    assert "Review Briefing" in html
+    assert "weakness" in html
+    assert "block_or_rework" in html
+    assert "gcn_mse 在 stress 弱于基准，需要重做信号适配。" in html
+    assert {"review-signal-filter", "decision-hint-filter"}.issubset(parser.ids)
+    assert '<option value="weakness">weakness</option>' in html
+    assert '<option value="block_or_rework">block_or_rework</option>' in html
+    assert 'data-review-signals="weakness"' in html
+    assert 'data-decision-hints="block_or_rework"' in html
+    assert "/path/that/must/not/be/rendered.csv" not in html
+
+
+def test_render_dashboard_html_outputs_model_review_briefing_sections_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_review_briefing(), title="SOXL Review Briefing")
+    parser = _ElementCollector()
+    parser.feed(html)
+
+    assert "Model Review" in html
+    assert "weakness" in html
+    assert "block_or_rework" in html
+    assert "gcn_mse 在 stress window 弱于基准。" in html
+    assert "review-signal-filter" in parser.ids
+    assert "decision-hint-filter" in parser.ids
+    assert 'data-review-signal="weakness"' in html
+    assert 'data-review-signals="weakness"' in html
+    assert 'data-decision-hints="block_or_rework"' in html
     assert "/path/that/must/not/be/rendered.csv" not in html
 
 

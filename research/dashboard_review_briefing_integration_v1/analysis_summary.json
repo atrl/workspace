@@ -1,0 +1,23 @@
+{
+  "schema_version": "research.dashboard_review_briefing_integration_v1",
+  "status": "completed",
+  "source_card": "research/analysis_segment_effect_matrix_v1",
+  "dashboard_export": "research/dashboard_review_briefing_integration_v1/dashboard_export.json",
+  "view_model": "research/dashboard_review_briefing_integration_v1/view_model_weakness.json",
+  "html_page": "research/dashboard_review_briefing_integration_v1/dashboard_review_briefing.html",
+  "notification_events": "research/dashboard_review_briefing_integration_v1/notification_events.json",
+  "dashboard_review_rows": 5,
+  "segment_effect_rows": 10,
+  "filtered_model_card_count": 1,
+  "review_signals": [
+    "strength",
+    "weakness"
+  ],
+  "decision_hints": [
+    "block_or_rework",
+    "promote_candidate"
+  ],
+  "top_review_signal": "weakness",
+  "top_review_decision_hint": "block_or_rework",
+  "top_review_segment": "stress"
+}

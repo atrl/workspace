@@ -21,6 +21,18 @@ def test_dashboard_loads_quantbench_matrix_sidecars_without_raw_model_internals(
     assert "daily_backtest" not in payload["artifacts"]
 
 
+def test_dashboard_loads_model_review_briefing_and_segment_matrix_from_manifest():
+    payload = load_model_matrix_dashboard("research/analysis_segment_effect_matrix_v1")
+
+    assert payload["manifest_source"]["kind"] == "analysis_manifest"
+    assert payload["segment_effect_matrix"][0]["schema_version"] == "analysis.segment_effect_matrix.v1"
+    assert payload["model_review_briefing"][0]["schema_version"] == "analysis.model_review_briefing.v1"
+    assert payload["model_review_briefing"][0]["review_signal"] in {"weakness", "strength", "risk"}
+    assert "segment_effect_matrix" in payload["artifacts"]
+    assert "model_review_briefing" in payload["artifacts"]
+    assert "predictions" not in payload["artifacts"]
+
+
 def test_dashboard_loads_feature_set_matrix_with_aggregates_and_diagnostics():
     payload = load_model_matrix_dashboard("research/factor_feature_set_matrix_v1", top_n=5)
 
@@ -71,6 +83,32 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     pd.DataFrame(
         [{"model": "ridge_mse", "segment_type": "all", "segment": "all", "diagnosis": "基准模型。"}]
     ).to_csv(matrix_card / "deltas_custom.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "model": "ridge_mse",
+                "segment_type": "all",
+                "segment": "all",
+                "best_relative_return_model": "ridge_mse",
+                "worst_relative_return_model": "ridge_mse",
+                "review_note": "基准模型。",
+            }
+        ]
+    ).to_csv(matrix_card / "segment_matrix_custom.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "model": "ridge_mse",
+                "baseline_model": "ridge_mse",
+                "segment_type": "regime",
+                "segment": "bull",
+                "review_signal": "strength",
+                "decision_hint": "promote_candidate",
+                "priority_rank": 1,
+                "review_note": "ridge_mse 在 bull 强于基准。",
+            }
+        ]
+    ).to_csv(matrix_card / "review_custom.csv", index=False)
     pd.DataFrame([{"model": "ridge_mse", "paper_fidelity": "native_library"}]).to_csv(
         matrix_card / "capabilities_custom.csv", index=False
     )
@@ -90,6 +128,8 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
                     "window_metrics": "window_custom.csv",
                     "qlib_risk_metrics": "risk_custom.csv",
                     "model_effect_deltas": "deltas_custom.csv",
+                    "segment_effect_matrix": "segment_matrix_custom.csv",
+                    "model_review_briefing": "review_custom.csv",
                     "model_capabilities": "capabilities_custom.csv",
                     "predictions": "predictions_private.csv",
                 },
@@ -109,9 +149,12 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["regime_metrics"][0]["regime"] == "bull"
     assert payload["qlib_risk_metrics"][0]["annualized_return"] == 0.25
     assert payload["model_effect_deltas"][0]["diagnosis"] == "基准模型。"
+    assert payload["segment_effect_matrix"][0]["best_relative_return_model"] == "ridge_mse"
+    assert payload["model_review_briefing"][0]["review_signal"] == "strength"
     assert payload["model_capabilities"][0]["paper_fidelity"] == "native_library"
     assert payload["artifacts"]["analysis_manifest"].endswith("analysis_manifest.json")
     assert payload["artifacts"]["model_comparison"].endswith("comparison_custom.csv")
+    assert payload["artifacts"]["model_review_briefing"].endswith("review_custom.csv")
     assert "predictions" not in payload["artifacts"]
     assert payload["manifest_source"]["kind"] == "analysis_manifest"
     assert payload["manifest_source"]["path"].endswith("analysis_manifest.json")

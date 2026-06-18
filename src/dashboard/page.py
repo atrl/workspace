@@ -82,6 +82,22 @@ def _failure_modes(rows: list[dict[str, Any]]) -> str:
     )
 
 
+def _review_briefing(rows: list[dict[str, Any]]) -> str:
+    if not rows:
+        return '<li class="muted">暂无 Review Briefing</li>'
+    return "\n".join(
+        "<li "
+        f'data-review-signal="{escape(str(row.get("review_signal", "")))}" '
+        f'data-decision-hint="{escape(str(row.get("decision_hint", "")))}" '
+        f'data-segment="{escape(str(row.get("segment", "")))}">'
+        f"<strong>{escape(str(row.get('review_signal', '')))} / {escape(str(row.get('decision_hint', '')))}</strong>"
+        f"<span>{escape(str(row.get('segment', '')))} / priority {escape(str(row.get('priority_rank', '')))}</span>"
+        f"<p>{escape(str(row.get('review_note', '')))}</p>"
+        "</li>"
+        for row in rows[:4]
+    )
+
+
 def _model_card(card: dict[str, Any]) -> str:
     model = str(card.get("model", ""))
     fidelity = str(card.get("paper_fidelity", ""))
@@ -100,8 +116,22 @@ def _model_card(card: dict[str, Any]) -> str:
             if isinstance(row, dict) and row.get("failure_mode")
         }
     )
+    review_signals = sorted(
+        {
+            str(row.get("review_signal", ""))
+            for row in card.get("model_review_briefing", [])
+            if isinstance(row, dict) and row.get("review_signal")
+        }
+    )
+    decision_hints = sorted(
+        {
+            str(row.get("decision_hint", ""))
+            for row in card.get("model_review_briefing", [])
+            if isinstance(row, dict) and row.get("decision_hint")
+        }
+    )
     return f"""
-      <article class="model-card{proxy_class}" data-model="{escape(model)}" data-base-model="{escape(str(card.get('base_model', '')))}" data-fidelity="{escape(fidelity)}" data-attribution-features="{escape(','.join(attribution_features))}" data-failure-modes="{escape(','.join(failure_modes))}">
+      <article class="model-card{proxy_class}" data-model="{escape(model)}" data-base-model="{escape(str(card.get('base_model', '')))}" data-fidelity="{escape(fidelity)}" data-attribution-features="{escape(','.join(attribution_features))}" data-failure-modes="{escape(','.join(failure_modes))}" data-review-signals="{escape(','.join(review_signals))}" data-decision-hints="{escape(','.join(decision_hints))}">
         <header>
           <div>
             <h2>{escape(model)}</h2>
@@ -133,6 +163,10 @@ def _model_card(card: dict[str, Any]) -> str:
           <ul class="failure-modes">{_failure_modes(card.get('failure_modes', []))}</ul>
         </section>
         <section>
+          <h3>Model Review Briefing</h3>
+          <ul class="review-briefing">{_review_briefing(card.get('model_review_briefing', []))}</ul>
+        </section>
+        <section>
           <h3>Regime</h3>
           <table>
             <thead><tr><th>状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
@@ -161,7 +195,7 @@ def _style() -> str:
     h2 { margin: 0; font-size: 18px; letter-spacing: 0; }
     h3 { margin: 0 0 8px; font-size: 14px; letter-spacing: 0; }
     p { margin: 0; color: var(--muted); }
-    .toolbar { display: grid; grid-template-columns: repeat(6, minmax(140px, 1fr)); gap: 10px; padding: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
+    .toolbar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; padding: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
     label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
     select { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 8px; }
     .summary { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
@@ -183,10 +217,12 @@ def _style() -> str:
     ul { margin: 0; padding-left: 18px; }
     .feature-list li { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 5px; }
     .failure-modes { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
-    .failure-modes li { border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 6px; padding: 8px; }
-    .failure-modes strong { display: block; font-size: 13px; }
-    .failure-modes span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
-    .failure-modes p { margin-top: 5px; font-size: 12px; }
+    .review-briefing { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
+    .failure-modes li, .review-briefing li { border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 6px; padding: 8px; }
+    .review-briefing li { border-left-color: var(--accent); }
+    .failure-modes strong, .review-briefing strong { display: block; font-size: 13px; }
+    .failure-modes span, .review-briefing span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .failure-modes p, .review-briefing p { margin-top: 5px; font-size: 12px; }
     .muted { color: var(--muted); }
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
@@ -197,7 +233,7 @@ def _style() -> str:
 
 def _script() -> str:
     return """
-    const filters = ["model", "regime", "window", "fidelity", "attribution", "failure-mode"];
+    const filters = ["model", "regime", "window", "fidelity", "attribution", "failure-mode", "review-signal", "decision-hint"];
     function selected(id) {
       const node = document.getElementById(id + "-filter");
       return node ? node.value : "";
@@ -213,6 +249,8 @@ def _script() -> str:
       const windowName = selected("window");
       const attribution = selected("attribution");
       const failureMode = selected("failure-mode");
+      const reviewSignal = selected("review-signal");
+      const decisionHint = selected("decision-hint");
       document.querySelectorAll(".model-card").forEach(card => {
         const modelOk = !model || card.dataset.model === model;
         const fidelityOk = !fidelity || card.dataset.fidelity === fidelity;
@@ -220,7 +258,9 @@ def _script() -> str:
         const windowOk = !windowName || card.querySelector(`[data-window="${windowName}"]`);
         const attributionOk = containsValue(card.dataset.attributionFeatures, attribution);
         const failureModeOk = containsValue(card.dataset.failureModes, failureMode);
-        card.hidden = !(modelOk && fidelityOk && regimeOk && windowOk && attributionOk && failureModeOk);
+        const reviewSignalOk = containsValue(card.dataset.reviewSignals, reviewSignal);
+        const decisionHintOk = containsValue(card.dataset.decisionHints, decisionHint);
+        card.hidden = !(modelOk && fidelityOk && regimeOk && windowOk && attributionOk && failureModeOk && reviewSignalOk && decisionHintOk);
       });
     }
     filters.forEach(id => {
@@ -262,6 +302,8 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
       <label>Fidelity<select id="fidelity-filter"><option value="">全部</option>{_options(controls.get('paper_fidelities', []))}</select></label>
       <label>Attribution<select id="attribution-filter"><option value="">全部</option>{_options(controls.get('attribution_features', []))}</select></label>
       <label>Failure Mode<select id="failure-mode-filter"><option value="">全部</option>{_options(controls.get('failure_modes', []))}</select></label>
+      <label>Review Signal<select id="review-signal-filter"><option value="">全部</option>{_options(controls.get('review_signals', []))}</select></label>
+      <label>Decision<select id="decision-hint-filter"><option value="">全部</option>{_options(controls.get('decision_hints', []))}</select></label>
     </section>
     <section class="summary">
       <div><span>模型卡片</span><strong>{len(model_cards)}</strong></div>

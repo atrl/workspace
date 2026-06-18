@@ -176,6 +176,26 @@ def _top_failure_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _top_review_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    review_rows = dashboard_payload.get("model_review_briefing")
+    if not isinstance(review_rows, list) or not review_rows:
+        return {}
+    sorted_rows = sorted(
+        [row for row in review_rows if isinstance(row, dict)],
+        key=lambda row: float(row.get("priority_rank", 999999) or 999999),
+    )
+    if not sorted_rows:
+        return {}
+    top = sorted_rows[0]
+    return {
+        "top_review_signal": str(top.get("review_signal", "")),
+        "top_review_decision_hint": str(top.get("decision_hint", "")),
+        "top_review_segment": str(top.get("segment", "")),
+        "top_review_model": str(top.get("model", "")),
+        "top_review_priority_rank": int(float(top.get("priority_rank", 0) or 0)),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -228,6 +248,7 @@ def _run_pipeline_attempt(
         "matrix_status": str(matrix_payload.get("status", "")),
         "variant_count": int(matrix_payload.get("variant_count", 0) or 0),
         **_top_failure_payload(dashboard_payload),
+        **_top_review_payload(dashboard_payload),
         **_prefixed_preflight_payload(preflight),
     }
 
@@ -272,6 +293,11 @@ def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[st
     message += f" | attempts={payload.get('attempts', '')} | export={payload.get('dashboard_export', '')}"
     if payload.get("top_failure_mode"):
         message += f" | top_failure={payload.get('top_failure_mode')}@{payload.get('top_failure_segment', '')}"
+    if payload.get("top_review_signal"):
+        message += (
+            f" | top_review={payload.get('top_review_signal')}:{payload.get('top_review_decision_hint', '')}"
+            f"@{payload.get('top_review_segment', '')}"
+        )
     return message
 
 

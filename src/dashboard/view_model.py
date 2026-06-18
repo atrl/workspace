@@ -16,6 +16,8 @@ class DashboardViewFilters:
     paper_fidelities: tuple[str, ...] = ()
     attribution_features: tuple[str, ...] = ()
     failure_modes: tuple[str, ...] = ()
+    review_signals: tuple[str, ...] = ()
+    decision_hints: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, list[str]]:
         return {
@@ -27,6 +29,8 @@ class DashboardViewFilters:
             "paper_fidelities": list(self.paper_fidelities),
             "attribution_features": list(self.attribution_features),
             "failure_modes": list(self.failure_modes),
+            "review_signals": list(self.review_signals),
+            "decision_hints": list(self.decision_hints),
         }
 
 
@@ -158,6 +162,33 @@ def _failure_modes_for_model(
     return sorted(result, key=lambda item: float(item.get("severity_score", 0.0) or 0.0), reverse=True)
 
 
+def _model_review_for_model(
+    rows: Sequence[dict[str, Any]],
+    model: str,
+    *,
+    base_model: str,
+    regimes: set[str],
+    windows: set[str],
+    review_signals: set[str],
+    decision_hints: set[str],
+) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    for row in rows:
+        row_model = str(row.get("model", ""))
+        if row_model not in {model, base_model}:
+            continue
+        row_signal = str(row.get("review_signal", "")) if row.get("review_signal") is not None else ""
+        row_hint = str(row.get("decision_hint", "")) if row.get("decision_hint") is not None else ""
+        if review_signals and row_signal not in review_signals:
+            continue
+        if decision_hints and row_hint not in decision_hints:
+            continue
+        if not _segment_filter_match(row, regimes=regimes, windows=windows):
+            continue
+        result.append(dict(row))
+    return sorted(result, key=lambda item: float(item.get("priority_rank", 999999) or 999999))
+
+
 def _attribution_by_model(payload: dict[str, Any], features: set[str]) -> dict[str, list[dict[str, Any]]]:
     attribution = payload.get("attribution") if isinstance(payload.get("attribution"), dict) else {}
     rows = _as_list(attribution.get("top_features_by_model") if isinstance(attribution, dict) else [])
@@ -183,6 +214,8 @@ def _controls(payload: dict[str, Any], capabilities: dict[str, dict[str, Any]]) 
         "paper_fidelities": _sorted_strings(row.get("paper_fidelity") for row in capabilities.values()),
         "attribution_features": _sorted_strings(row.get("feature") for row in attribution_rows),
         "failure_modes": _sorted_strings(row.get("failure_mode") for row in _as_list(payload.get("failure_modes"))),
+        "review_signals": _sorted_strings(row.get("review_signal") for row in _as_list(payload.get("model_review_briefing"))),
+        "decision_hints": _sorted_strings(row.get("decision_hint") for row in _as_list(payload.get("model_review_briefing"))),
     }
 
 
@@ -194,6 +227,7 @@ def _matches_card(
     paper_fidelity: str,
     top_attribution_features: list[dict[str, Any]],
     failure_modes: list[dict[str, Any]],
+    model_review_briefing: list[dict[str, Any]],
     filters: DashboardViewFilters,
 ) -> bool:
     if filters.models and model not in filters.models:
@@ -212,6 +246,14 @@ def _matches_card(
         card_failure_modes = _string_set(row.get("failure_mode") for row in failure_modes)
         if not card_failure_modes.intersection(filters.failure_modes):
             return False
+    if filters.review_signals:
+        card_review_signals = _string_set(row.get("review_signal") for row in model_review_briefing)
+        if not card_review_signals.intersection(filters.review_signals):
+            return False
+    if filters.decision_hints:
+        card_decision_hints = _string_set(row.get("decision_hint") for row in model_review_briefing)
+        if not card_decision_hints.intersection(filters.decision_hints):
+            return False
     return True
 
 
@@ -225,6 +267,8 @@ def build_dashboard_view_model(
     windows = set(active_filters.windows)
     attribution_features = set(active_filters.attribution_features)
     selected_failure_modes = set(active_filters.failure_modes)
+    selected_review_signals = set(active_filters.review_signals)
+    selected_decision_hints = set(active_filters.decision_hints)
     capabilities = _capability_by_model(payload)
     proxy_models = _proxy_models(payload)
     attribution = _attribution_by_model(payload, attribution_features)
@@ -233,6 +277,7 @@ def build_dashboard_view_model(
     window_regime_metrics = _as_list(payload.get("window_regime_metrics"))
     diagnostics = _as_list(payload.get("model_effect_deltas"))
     failure_modes = _as_list(payload.get("failure_modes"))
+    model_review_briefing = _as_list(payload.get("model_review_briefing"))
 
     cards: list[dict[str, Any]] = []
     for row in top_models:
@@ -249,6 +294,15 @@ def build_dashboard_view_model(
             windows=windows,
             failure_modes=selected_failure_modes,
         )
+        card_model_review_briefing = _model_review_for_model(
+            model_review_briefing,
+            model,
+            base_model=base_model,
+            regimes=regimes,
+            windows=windows,
+            review_signals=selected_review_signals,
+            decision_hints=selected_decision_hints,
+        )
         if not _matches_card(
             model=model,
             base_model=base_model,
@@ -256,6 +310,7 @@ def build_dashboard_view_model(
             paper_fidelity=paper_fidelity,
             top_attribution_features=top_attribution_features,
             failure_modes=card_failure_modes,
+            model_review_briefing=card_model_review_briefing,
             filters=active_filters,
         ):
             continue
@@ -285,6 +340,7 @@ def build_dashboard_view_model(
                 ),
                 "diagnostics": _diagnostics_for_model(diagnostics, model, regimes=regimes, windows=windows),
                 "failure_modes": card_failure_modes,
+                "model_review_briefing": card_model_review_briefing,
             }
         )
 
@@ -292,6 +348,10 @@ def build_dashboard_view_model(
         [dict(row) for row in failure_modes],
         key=lambda item: float(item.get("severity_score", 0.0) or 0.0),
         reverse=True,
+    )
+    ordered_review_briefing = sorted(
+        [dict(row) for row in model_review_briefing],
+        key=lambda item: float(item.get("priority_rank", 999999) or 999999),
     )
     return {
         "schema_version": "dashboard.view_model.v1",
@@ -310,6 +370,20 @@ def build_dashboard_view_model(
             "top_severity_score": float(ordered_failure_modes[0].get("severity_score", 0.0) or 0.0)
             if ordered_failure_modes
             else 0.0,
+        },
+        "review_briefing_summary": {
+            "count": int(len(model_review_briefing)),
+            "top_review_signal": str(ordered_review_briefing[0].get("review_signal", ""))
+            if ordered_review_briefing
+            else "",
+            "top_decision_hint": str(ordered_review_briefing[0].get("decision_hint", ""))
+            if ordered_review_briefing
+            else "",
+            "top_model": str(ordered_review_briefing[0].get("model", "")) if ordered_review_briefing else "",
+            "top_segment": str(ordered_review_briefing[0].get("segment", "")) if ordered_review_briefing else "",
+            "top_priority_rank": int(float(ordered_review_briefing[0].get("priority_rank", 0) or 0))
+            if ordered_review_briefing
+            else 0,
         },
         "model_cards": cards,
     }

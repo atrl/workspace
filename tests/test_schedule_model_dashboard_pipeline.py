@@ -359,6 +359,64 @@ def test_model_dashboard_refresh_detailed_notification_includes_top_failure_mode
     assert "top_failure=return_stability_lag@stress_window::stress" in events[0]
 
 
+def test_model_dashboard_refresh_detailed_notification_includes_top_review_briefing(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 2, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "review_briefing_card",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": str(card_dir / "analysis_manifest.json"),
+                "schema_version": "artifact.v1",
+                "manifest_hash": "c" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "model_review_briefing": [
+                {
+                    "model": "gcn_mse",
+                    "segment": "stress_window::stress",
+                    "review_signal": "weakness",
+                    "decision_hint": "block_or_rework",
+                    "priority_score": 18.5,
+                }
+            ],
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse", "gcn_mse"),
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["top_review_signal"] == "weakness"
+    assert result.payload["top_review_decision_hint"] == "block_or_rework"
+    assert result.payload["top_review_segment"] == "stress_window::stress"
+    assert "top_review=weakness:block_or_rework@stress_window::stress" in events[0]
+
+
 def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_export(tmp_path):
     calls: list[tuple[str, Path | None]] = []
     attribution_card = tmp_path / "attribution_card"

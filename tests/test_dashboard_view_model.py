@@ -49,6 +49,41 @@ def _dashboard_payload_with_failure_modes() -> dict:
     return payload
 
 
+def _dashboard_payload_with_model_review_briefing() -> dict:
+    payload = _dashboard_payload()
+    payload["model_review_briefing"] = [
+        {
+            "schema_version": "analysis.model_review_briefing.v1",
+            "priority_rank": 1,
+            "model": "gcn_mse__top_ic_factors",
+            "baseline_model": "ridge_mse__all_features",
+            "segment_type": "window_regime",
+            "segment": "test::stress",
+            "window": "test",
+            "regime": "stress",
+            "review_signal": "weakness",
+            "decision_hint": "block_or_rework",
+            "priority_score": 12.5,
+            "review_note": "gcn_mse 在 stress 弱于基准，需要重做信号适配。",
+        },
+        {
+            "schema_version": "analysis.model_review_briefing.v1",
+            "priority_rank": 2,
+            "model": "ridge_mse__top_ic_factors",
+            "baseline_model": "ridge_mse__all_features",
+            "segment_type": "regime",
+            "segment": "bull",
+            "window": "",
+            "regime": "bull",
+            "review_signal": "strength",
+            "decision_hint": "promote_candidate",
+            "priority_score": 4.0,
+            "review_note": "ridge_mse 在 bull 强于基准。",
+        },
+    ]
+    return payload
+
+
 def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_payload_only():
     payload = _dashboard_payload()
 
@@ -111,6 +146,24 @@ def test_dashboard_view_model_exposes_and_filters_failure_modes():
     assert {row["failure_mode"] for row in view["model_cards"][0]["failure_modes"]} == {"return_stability_lag"}
 
 
+def test_dashboard_view_model_exposes_and_filters_model_review_briefing():
+    view = build_dashboard_view_model(
+        _dashboard_payload_with_model_review_briefing(),
+        filters=DashboardViewFilters(review_signals=("weakness",), decision_hints=("block_or_rework",)),
+    )
+
+    assert view["controls"]["review_signals"] == ["strength", "weakness"]
+    assert view["controls"]["decision_hints"] == ["block_or_rework", "promote_candidate"]
+    assert view["filters_applied"]["review_signals"] == ["weakness"]
+    assert view["filters_applied"]["decision_hints"] == ["block_or_rework"]
+    assert [card["model"] for card in view["model_cards"]] == ["gcn_mse__top_ic_factors"]
+    assert view["model_cards"][0]["model_review_briefing"][0]["review_signal"] == "weakness"
+    assert view["model_cards"][0]["model_review_briefing"][0]["decision_hint"] == "block_or_rework"
+    assert view["review_briefing_summary"]["count"] == 2
+    assert view["review_briefing_summary"]["top_review_signal"] == "weakness"
+    assert view["review_briefing_summary"]["top_decision_hint"] == "block_or_rework"
+
+
 def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attribution_feature():
     payload = _dashboard_payload()
 
@@ -134,6 +187,8 @@ def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attrib
         "paper_fidelities": ["proxy_feature_adapter"],
         "attribution_features": ["soxx_return_5d"],
         "failure_modes": [],
+        "review_signals": [],
+        "decision_hints": [],
     }
     assert [card["model"] for card in view["model_cards"]] == ["gcn_mse__top_ic_factors"]
     card = view["model_cards"][0]

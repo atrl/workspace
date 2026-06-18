@@ -14,7 +14,9 @@ PUBLIC_ARTIFACT_KEYS = {
     "window_metrics",
     "window_regime_metrics",
     "qlib_risk_metrics",
+    "segment_effect_matrix",
     "model_effect_deltas",
+    "model_review_briefing",
     "failure_modes",
     "model_capabilities",
     "feature_set_specs",
@@ -56,7 +58,9 @@ def _default_public_paths(card: Path) -> dict[str, str]:
         "window_metrics": "window_metrics.csv",
         "window_regime_metrics": "window_regime_metrics.csv",
         "qlib_risk_metrics": "qlib_risk_metrics.csv",
+        "segment_effect_matrix": "segment_effect_matrix.csv",
         "model_effect_deltas": "model_effect_deltas.csv",
+        "model_review_briefing": "model_review_briefing.csv",
         "failure_modes": "failure_modes.csv",
         "model_capabilities": "model_capabilities.csv",
         "feature_set_specs": "feature_set_specs.json",
@@ -240,8 +244,14 @@ def load_model_matrix_dashboard(
         card, public_paths, "window_regime_metrics", "window_regime_metrics.csv"
     )
     qlib_risk_metrics = _read_optional_csv_from_paths(card, public_paths, "qlib_risk_metrics", "qlib_risk_metrics.csv")
+    segment_effect_matrix = _read_optional_csv_from_paths(
+        card, public_paths, "segment_effect_matrix", "segment_effect_matrix.csv"
+    )
     model_effect_deltas = _read_optional_csv_from_paths(
         card, public_paths, "model_effect_deltas", "model_effect_deltas.csv"
+    )
+    model_review_briefing = _read_optional_csv_from_paths(
+        card, public_paths, "model_review_briefing", "model_review_briefing.csv"
     )
     failure_modes = _read_optional_csv_from_paths(card, public_paths, "failure_modes", "failure_modes.csv")
     model_capabilities = _read_optional_csv_from_paths(
@@ -266,7 +276,9 @@ def load_model_matrix_dashboard(
         "window_metrics": window_metrics.to_dict(orient="records"),
         "window_regime_metrics": _records(window_regime_metrics, limit=200),
         "qlib_risk_metrics": _records(qlib_risk_metrics, limit=200),
+        "segment_effect_matrix": _records(segment_effect_matrix, limit=200),
         "model_effect_deltas": _records(model_effect_deltas, limit=200),
+        "model_review_briefing": _records(model_review_briefing, limit=200),
         "failure_modes": _records(failure_modes, limit=100),
         "attribution": _load_attribution_card(attribution_card, top_n=top_n),
         "artifacts": _artifact_paths(card, public_paths=public_paths, attribution_card=attribution_card),
