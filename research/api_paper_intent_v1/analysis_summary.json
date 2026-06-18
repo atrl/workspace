@@ -1,0 +1,12 @@
+{
+  "schema_version": "api_paper_intent_review.v1",
+  "source_dashboard": "research/schedule_model_dashboard_refresh_v1/dashboard_export.json",
+  "instrument": "SOXL",
+  "mode": "paper",
+  "source_model": "random_forest_clf__all_features",
+  "target_position": 0.7407635422717518,
+  "paper_shares": 74,
+  "paper_position": 0.74,
+  "live_broker_enabled": false,
+  "guardrail": "v1 只允许 paper/sim，不连接真实 broker，不触发真实下单。"
+}
