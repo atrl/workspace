@@ -10,7 +10,7 @@ import pandas as pd
 from src.core import ArtifactManifest, DatasetSnapshot
 
 from .failure_modes import build_failure_modes
-from .qlib_ext import RegimeWindowEffectAnalysis
+from .qlib_ext import RegimeWindowEffectAnalysis, build_model_review_briefing
 
 
 ANALYSIS_REPORT_SCHEMA_VERSION = "analysis.report.v1"
@@ -24,7 +24,9 @@ DEFAULT_ANALYSIS_TABLE_FILENAMES = {
     "qlib_return_frame": "qlib_return_frame.csv",
     "qlib_risk_metrics": "qlib_risk_metrics.csv",
     "segment_metrics": "segment_metrics.csv",
+    "segment_effect_matrix": "segment_effect_matrix.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "model_review_briefing": "model_review_briefing.csv",
     "failure_modes": "failure_modes.csv",
     "qlib_portfolio_report": "qlib_portfolio_report.csv",
     "qlib_risk_analysis": "qlib_risk_analysis.csv",
@@ -89,8 +91,10 @@ def build_regime_window_analysis_report(
         "qlib_return_frame": effect_analysis.qlib_return_frame,
         "qlib_risk_metrics": effect_analysis.qlib_risk_metrics,
         "segment_metrics": effect_analysis.segment_metrics,
+        "segment_effect_matrix": effect_analysis.segment_effect_matrix,
         "window_regime_metrics": effect_analysis.window_regime_metrics,
         "model_effect_deltas": effect_analysis.model_effect_deltas,
+        "model_review_briefing": build_model_review_briefing(effect_analysis),
         "failure_modes": build_failure_modes(effect_analysis.model_effect_deltas),
     }
     if model_comparison is not None:

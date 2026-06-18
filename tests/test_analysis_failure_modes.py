@@ -111,18 +111,34 @@ def test_analysis_report_exports_failure_modes_table_and_manifest_path(tmp_path)
     result = write_analysis_report(report, tmp_path, dataset=dataset)
 
     assert result["paths"]["failure_modes"] == "failure_modes.csv"
+    assert result["paths"]["segment_effect_matrix"] == "segment_effect_matrix.csv"
+    assert result["paths"]["model_review_briefing"] == "model_review_briefing.csv"
     assert result["table_counts"]["failure_modes"] >= 1
+    assert result["table_counts"]["segment_effect_matrix"] >= 1
+    assert result["table_counts"]["model_review_briefing"] >= 1
     failure_modes = pd.read_csv(tmp_path / "failure_modes.csv")
+    segment_effect_matrix = pd.read_csv(tmp_path / "segment_effect_matrix.csv")
+    model_review_briefing = pd.read_csv(tmp_path / "model_review_briefing.csv")
     assert "review_note" in failure_modes.columns
     assert "stress" in set(failure_modes["segment"])
+    assert "best_relative_return_model" in segment_effect_matrix.columns
+    assert "review_signal" in model_review_briefing.columns
 
     summary = json.loads((tmp_path / "analysis_summary.json").read_text(encoding="utf-8"))
     assert "failure_modes" in summary["analysis_layers"]
+    assert "segment_effect_matrix" in summary["analysis_layers"]
+    assert "model_review_briefing" in summary["analysis_layers"]
     assert summary["analysis_table_counts"]["failure_modes"] == len(failure_modes)
+    assert summary["analysis_table_counts"]["segment_effect_matrix"] == len(segment_effect_matrix)
+    assert summary["analysis_table_counts"]["model_review_briefing"] == len(model_review_briefing)
 
     manifest = json.loads((tmp_path / "analysis_manifest.json").read_text(encoding="utf-8"))
     assert manifest["paths"]["failure_modes"] == "failure_modes.csv"
+    assert manifest["paths"]["segment_effect_matrix"] == "segment_effect_matrix.csv"
+    assert manifest["paths"]["model_review_briefing"] == "model_review_briefing.csv"
     assert manifest["metadata"]["table_counts"]["failure_modes"] == len(failure_modes)
+    assert manifest["metadata"]["table_counts"]["segment_effect_matrix"] == len(segment_effect_matrix)
+    assert manifest["metadata"]["table_counts"]["model_review_briefing"] == len(model_review_briefing)
 
     dashboard = load_model_matrix_dashboard(tmp_path)
     assert dashboard["manifest_source"]["kind"] == "analysis_manifest"

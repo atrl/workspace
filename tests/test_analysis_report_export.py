@@ -78,7 +78,10 @@ def test_analysis_report_writes_standard_sidecars_summary_and_manifest(tmp_path)
     assert result["paths"]["summary"] == "analysis_summary.json"
     assert result["paths"]["qlib_risk_metrics"] == "qlib_risk_metrics.csv"
     assert result["paths"]["model_effect_deltas"] == "model_effect_deltas.csv"
+    assert result["paths"]["segment_effect_matrix"] == "segment_effect_matrix.csv"
+    assert result["paths"]["model_review_briefing"] == "model_review_briefing.csv"
     assert result["table_counts"]["window_regime_metrics"] >= 2
+    assert result["table_counts"]["model_review_briefing"] >= 1
 
     expected_files = {
         "analysis_summary.json",
@@ -90,7 +93,9 @@ def test_analysis_report_writes_standard_sidecars_summary_and_manifest(tmp_path)
         "qlib_return_frame.csv",
         "qlib_risk_metrics.csv",
         "segment_metrics.csv",
+        "segment_effect_matrix.csv",
         "model_effect_deltas.csv",
+        "model_review_briefing.csv",
     }
     assert expected_files.issubset({path.name for path in tmp_path.iterdir()})
 
@@ -101,10 +106,17 @@ def test_analysis_report_writes_standard_sidecars_summary_and_manifest(tmp_path)
     assert "qlib_risk_metrics" in summary["analysis_layers"]
     assert summary["analysis_summary"]["baseline_model"] == "ridge_mse"
     assert summary["analysis_table_counts"]["model_effect_deltas"] == len(effect.model_effect_deltas)
+    assert "model_review_briefing" in summary["analysis_layers"]
+
+    briefing = pd.read_csv(tmp_path / "model_review_briefing.csv")
+    assert {"review_signal", "decision_hint", "review_note"}.issubset(briefing.columns)
+    assert "weakness" in set(briefing["review_signal"])
+    assert "强于基准" in "\n".join(briefing["review_note"].astype(str).tolist())
 
     manifest = json.loads((tmp_path / "analysis_manifest.json").read_text(encoding="utf-8"))
     assert manifest["artifact_type"] == "analysis_report"
     assert manifest["producer"] == "src.analysis.exports"
     assert manifest["paths"]["summary"] == "analysis_summary.json"
+    assert manifest["paths"]["model_review_briefing"] == "model_review_briefing.csv"
     assert manifest["metadata"]["analysis_report_schema_version"] == "analysis.report.v1"
     assert len(manifest["manifest_hash"]) == 64

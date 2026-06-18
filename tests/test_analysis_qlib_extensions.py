@@ -4,9 +4,12 @@ import pandas as pd
 
 from src.analysis import (
     analyze_model_effects_by_regime_and_window,
+    build_model_review_briefing,
     build_qlib_return_frame,
+    build_segment_effect_matrix,
     compute_qlib_risk_metrics,
     compute_window_regime_metrics,
+    render_model_review_briefing_markdown,
 )
 
 
@@ -143,3 +146,82 @@ def test_analyze_model_effects_by_regime_and_window_explains_segment_deltas():
     assert gcn_stress_window["regime"] == "stress"
     assert "弱于基准" in gcn_stress["diagnosis"]
     assert "stress" in analysis.summary["weakest_segments"][0]["segment"]
+
+
+def test_build_segment_effect_matrix_summarizes_winners_losers_and_baseline_gaps():
+    matrix = build_segment_effect_matrix(
+        _daily_frame(),
+        windows={"early": ("2026-01-01", "2026-01-04"), "stress_window": ("2026-01-05", "2026-01-07")},
+        baseline_model="ridge_mse",
+    )
+
+    assert {
+        "schema_version",
+        "segment_type",
+        "segment",
+        "baseline_model",
+        "best_relative_return_model",
+        "worst_relative_return_model",
+        "relative_return_pct_spread",
+        "baseline_relative_return_pct",
+        "best_relative_return_vs_baseline_delta",
+        "best_stability_model",
+        "worst_stability_model",
+        "stability_score_spread",
+        "highest_drawdown_model",
+        "review_note",
+    }.issubset(matrix.columns)
+    assert matrix["schema_version"].nunique() == 1
+    assert "window_regime" in set(matrix["segment_type"])
+
+    stress_window = matrix.loc[
+        (matrix["segment_type"] == "window_regime") & (matrix["segment"] == "stress_window::stress")
+    ].iloc[0]
+    assert stress_window["best_relative_return_model"] == "ridge_mse"
+    assert stress_window["worst_relative_return_model"] == "gcn_mse"
+    assert float(stress_window["relative_return_pct_spread"]) > 0.0
+    assert float(stress_window["best_relative_return_vs_baseline_delta"]) == 0.0
+    assert "stress_window::stress" in stress_window["review_note"]
+
+    bull = matrix.loc[(matrix["segment_type"] == "regime") & (matrix["segment"] == "bull")].iloc[0]
+    assert bull["best_relative_return_model"] == "gcn_mse"
+    assert float(bull["best_relative_return_vs_baseline_delta"]) > 0.0
+    assert "强于基准" in bull["review_note"]
+
+
+def test_build_model_review_briefing_prioritizes_regime_window_model_differences_with_chinese_notes():
+    analysis = analyze_model_effects_by_regime_and_window(
+        _daily_frame(),
+        windows={"early": ("2026-01-01", "2026-01-04"), "stress_window": ("2026-01-05", "2026-01-07")},
+        baseline_model="ridge_mse",
+    )
+
+    briefing = build_model_review_briefing(analysis, max_rows=6)
+
+    assert {
+        "schema_version",
+        "priority_rank",
+        "model",
+        "baseline_model",
+        "segment_type",
+        "segment",
+        "review_signal",
+        "decision_hint",
+        "review_note",
+    }.issubset(briefing.columns)
+    assert not briefing.empty
+    assert briefing["schema_version"].nunique() == 1
+    assert list(briefing["priority_rank"]) == list(range(1, len(briefing) + 1))
+    assert "weakness" in set(briefing["review_signal"])
+    assert "strength" in set(briefing["review_signal"])
+
+    stress = briefing.loc[(briefing["model"] == "gcn_mse") & briefing["segment"].str.contains("stress")].iloc[0]
+    assert stress["review_signal"] == "weakness"
+    assert stress["decision_hint"] == "block_or_rework"
+    assert "弱于基准" in stress["review_note"]
+
+    markdown = render_model_review_briefing_markdown(briefing, title="SOXL 模型差异 Review")
+    assert "## 中文结论" in markdown
+    assert "是否晋升" in markdown
+    assert "stress" in markdown
+    assert "gcn_mse" in markdown

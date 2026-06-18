@@ -16,6 +16,28 @@ from .reports import (
 
 
 QLIB_RISK_SOURCE = "qlib.contrib.evaluate.risk_analysis"
+SEGMENT_EFFECT_MATRIX_SCHEMA_VERSION = "analysis.segment_effect_matrix.v1"
+MODEL_REVIEW_BRIEFING_SCHEMA_VERSION = "analysis.model_review_briefing.v1"
+
+MODEL_REVIEW_BRIEFING_COLUMNS = [
+    "schema_version",
+    "priority_rank",
+    "model",
+    "baseline_model",
+    "segment_type",
+    "segment",
+    "window",
+    "regime",
+    "review_signal",
+    "decision_hint",
+    "priority_score",
+    "relative_return_pct_delta",
+    "stability_score_delta",
+    "max_drawdown_pct_delta",
+    "turnover_delta",
+    "diagnosis",
+    "review_note",
+]
 
 
 @dataclass(frozen=True)
@@ -23,6 +45,7 @@ class RegimeWindowEffectAnalysis:
     qlib_return_frame: pd.DataFrame
     qlib_risk_metrics: pd.DataFrame
     segment_metrics: pd.DataFrame
+    segment_effect_matrix: pd.DataFrame
     window_regime_metrics: pd.DataFrame
     model_effect_deltas: pd.DataFrame
     summary: dict[str, object]
@@ -312,6 +335,244 @@ def compare_segment_model_effects(
     ).reset_index(drop=True)
 
 
+def _metric_extreme(group: pd.DataFrame, *, column: str, highest: bool) -> pd.Series:
+    ordered = group.assign(_metric_value=group[column].map(_clean_metric)).sort_values(
+        ["_metric_value", "model"],
+        ascending=[not highest, True],
+    )
+    return ordered.iloc[0]
+
+
+def _matrix_review_note(row: dict[str, object]) -> str:
+    segment = str(row["segment"])
+    baseline = str(row["baseline_model"])
+    best_return_model = str(row["best_relative_return_model"])
+    worst_return_model = str(row["worst_relative_return_model"])
+    best_delta = _clean_metric(row["best_relative_return_vs_baseline_delta"])
+    best_stability_delta = _clean_metric(row["best_stability_vs_baseline_delta"])
+    spread = _clean_metric(row["relative_return_pct_spread"])
+    drawdown_spread = _clean_metric(row["drawdown_pct_spread"])
+
+    if not baseline:
+        return f"{segment} 缺少基准模型，当前只做模型间横向排序。"
+    if best_return_model != baseline and best_delta > 0.5 and best_stability_delta >= 0.0:
+        return f"{best_return_model} 在 {segment} 强于基准 {baseline}，可作为该 regime/window 的候选优势模型。"
+    if best_return_model == baseline and spread > 0.5:
+        return f"{baseline} 在 {segment} 领先；{worst_return_model} 明显弱于基准，需检查该分段适配。"
+    if drawdown_spread > 2.0:
+        return f"{segment} 模型回撤差异较大，应优先核查高回撤模型的仓位和风险暴露。"
+    return f"{segment} 模型差异较小，需结合回撤、换手和组合互补性判断。"
+
+
+def build_segment_effect_matrix(
+    frame: pd.DataFrame,
+    *,
+    windows: Mapping[str, tuple[str, str]] | None = None,
+    baseline_model: str | None = None,
+) -> pd.DataFrame:
+    metrics = _segment_metrics(frame, windows=windows)
+    if metrics.empty:
+        return pd.DataFrame()
+
+    baseline = baseline_model or str(compare_models(frame).iloc[0]["model"])
+    rows: list[dict[str, object]] = []
+    for (segment_type, segment), group in metrics.groupby(["segment_type", "segment"], sort=True):
+        if group.empty:
+            continue
+        best_return = _metric_extreme(group, column="relative_return_pct", highest=True)
+        worst_return = _metric_extreme(group, column="relative_return_pct", highest=False)
+        best_stability = _metric_extreme(group, column="stability_score", highest=True)
+        worst_stability = _metric_extreme(group, column="stability_score", highest=False)
+        highest_drawdown = _metric_extreme(group, column="max_drawdown_pct", highest=True)
+        lowest_drawdown = _metric_extreme(group, column="max_drawdown_pct", highest=False)
+        highest_turnover = _metric_extreme(group, column="turnover", highest=True)
+        baseline_rows = group.loc[group["model"] == baseline]
+        baseline_row = baseline_rows.iloc[0] if not baseline_rows.empty else None
+        baseline_return = _clean_metric(baseline_row["relative_return_pct"]) if baseline_row is not None else 0.0
+        baseline_stability = _clean_metric(baseline_row["stability_score"]) if baseline_row is not None else 0.0
+
+        payload = {
+            "schema_version": SEGMENT_EFFECT_MATRIX_SCHEMA_VERSION,
+            "segment_type": str(segment_type),
+            "segment": str(segment),
+            "window": str(group["window"].dropna().iloc[0]) if "window" in group.columns and group["window"].notna().any() else "",
+            "regime": str(group["regime"].dropna().iloc[0]) if "regime" in group.columns and group["regime"].notna().any() else "",
+            "baseline_model": baseline if baseline_row is not None else "",
+            "model_count": int(group["model"].nunique()),
+            "best_relative_return_model": str(best_return["model"]),
+            "best_relative_return_pct": _clean_metric(best_return["relative_return_pct"]),
+            "worst_relative_return_model": str(worst_return["model"]),
+            "worst_relative_return_pct": _clean_metric(worst_return["relative_return_pct"]),
+            "relative_return_pct_spread": _clean_metric(best_return["relative_return_pct"])
+            - _clean_metric(worst_return["relative_return_pct"]),
+            "baseline_relative_return_pct": baseline_return,
+            "best_relative_return_vs_baseline_delta": _clean_metric(best_return["relative_return_pct"]) - baseline_return,
+            "best_stability_model": str(best_stability["model"]),
+            "best_stability_score": _clean_metric(best_stability["stability_score"]),
+            "worst_stability_model": str(worst_stability["model"]),
+            "worst_stability_score": _clean_metric(worst_stability["stability_score"]),
+            "stability_score_spread": _clean_metric(best_stability["stability_score"])
+            - _clean_metric(worst_stability["stability_score"]),
+            "baseline_stability_score": baseline_stability,
+            "best_stability_vs_baseline_delta": _clean_metric(best_stability["stability_score"]) - baseline_stability,
+            "highest_drawdown_model": str(highest_drawdown["model"]),
+            "highest_drawdown_pct": _clean_metric(highest_drawdown["max_drawdown_pct"]),
+            "lowest_drawdown_model": str(lowest_drawdown["model"]),
+            "lowest_drawdown_pct": _clean_metric(lowest_drawdown["max_drawdown_pct"]),
+            "drawdown_pct_spread": _clean_metric(highest_drawdown["max_drawdown_pct"])
+            - _clean_metric(lowest_drawdown["max_drawdown_pct"]),
+            "highest_turnover_model": str(highest_turnover["model"]),
+            "highest_turnover": _clean_metric(highest_turnover["turnover"]),
+            "average_turnover": float(group["turnover"].map(_clean_metric).mean()),
+        }
+        payload["review_note"] = _matrix_review_note(payload)
+        rows.append(payload)
+
+    if not rows:
+        return pd.DataFrame()
+    return pd.DataFrame(rows).sort_values(["segment_type", "segment"]).reset_index(drop=True)
+
+
+def _briefing_signal(row: pd.Series) -> tuple[str, str, float, str]:
+    model = str(row.get("model", ""))
+    baseline = str(row.get("baseline_model", ""))
+    segment = str(row.get("segment", ""))
+    relative_return = _clean_metric(row.get("relative_return_pct_delta"))
+    stability = _clean_metric(row.get("stability_score_delta"))
+    drawdown = _clean_metric(row.get("max_drawdown_pct_delta"))
+    turnover = _clean_metric(row.get("turnover_delta"))
+
+    weakness_score = max(0.0, -relative_return) * 2.0 + max(0.0, -stability) + max(0.0, drawdown) * 0.5
+    strength_score = max(0.0, relative_return) * 2.0 + max(0.0, stability)
+
+    if relative_return <= -0.5 and stability < 0.0:
+        return (
+            "weakness",
+            "block_or_rework",
+            weakness_score + max(0.0, turnover) * 0.1,
+            f"{model} 在 {segment} 弱于基准 {baseline}：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
+        )
+    if drawdown > 2.0:
+        return (
+            "risk",
+            "reduce_or_guardrail",
+            weakness_score,
+            f"{model} 在 {segment} 相比基准 {baseline} 回撤扩大，晋升前需要增加风险约束或降低权重。",
+        )
+    if relative_return >= 0.5 and stability >= 0.0:
+        return (
+            "strength",
+            "promote_candidate",
+            strength_score,
+            f"{model} 在 {segment} 强于基准 {baseline}：相对收益和稳定性改善，可作为该分段的晋升候选。",
+        )
+    if turnover > 1.0 and relative_return <= 0.25:
+        return (
+            "efficiency_check",
+            "cost_review",
+            max(0.0, turnover) + max(0.0, -relative_return),
+            f"{model} 在 {segment} 换手高但收益改善不足，需要检查交易成本、滑点和信号噪声。",
+        )
+    return "", "", 0.0, ""
+
+
+def build_model_review_briefing(
+    analysis: RegimeWindowEffectAnalysis | pd.DataFrame,
+    *,
+    max_rows: int | None = None,
+) -> pd.DataFrame:
+    """Build a Chinese review briefing from regime/window model effect deltas."""
+
+    deltas = analysis.model_effect_deltas if isinstance(analysis, RegimeWindowEffectAnalysis) else analysis
+    if deltas.empty:
+        return pd.DataFrame(columns=MODEL_REVIEW_BRIEFING_COLUMNS)
+
+    rows: list[dict[str, object]] = []
+    for _, row in deltas.iterrows():
+        model = str(row.get("model", ""))
+        baseline = str(row.get("baseline_model", ""))
+        if baseline and model == baseline:
+            continue
+        signal, decision_hint, priority_score, review_note = _briefing_signal(row)
+        if not signal:
+            continue
+        rows.append(
+            {
+                "schema_version": MODEL_REVIEW_BRIEFING_SCHEMA_VERSION,
+                "priority_rank": 0,
+                "model": model,
+                "baseline_model": baseline,
+                "segment_type": str(row.get("segment_type", "")),
+                "segment": str(row.get("segment", "")),
+                "window": str(row.get("window", "")) if pd.notna(row.get("window", "")) else "",
+                "regime": str(row.get("regime", "")) if pd.notna(row.get("regime", "")) else "",
+                "review_signal": signal,
+                "decision_hint": decision_hint,
+                "priority_score": round(priority_score, 6),
+                "relative_return_pct_delta": _clean_metric(row.get("relative_return_pct_delta")),
+                "stability_score_delta": _clean_metric(row.get("stability_score_delta")),
+                "max_drawdown_pct_delta": _clean_metric(row.get("max_drawdown_pct_delta")),
+                "turnover_delta": _clean_metric(row.get("turnover_delta")),
+                "diagnosis": str(row.get("diagnosis", "")),
+                "review_note": review_note,
+            }
+        )
+    if not rows:
+        return pd.DataFrame(columns=MODEL_REVIEW_BRIEFING_COLUMNS)
+
+    result = pd.DataFrame(rows, columns=MODEL_REVIEW_BRIEFING_COLUMNS).sort_values(
+        ["priority_score", "segment_type", "segment", "model"],
+        ascending=[False, True, True, True],
+    )
+    if max_rows is not None:
+        result = result.head(max_rows)
+    result = result.reset_index(drop=True)
+    result["priority_rank"] = range(1, len(result) + 1)
+    return result
+
+
+def render_model_review_briefing_markdown(
+    briefing: pd.DataFrame,
+    *,
+    title: str = "模型差异 Review Briefing",
+    max_rows: int = 12,
+) -> str:
+    lines = [f"# {title}", "", "## 中文结论", ""]
+    if briefing.empty:
+        lines.extend(
+            [
+                "- 当前没有触发显著的模型差异 review 项。",
+                "- 是否晋升：不能仅凭空 briefing 晋升，仍需检查全区间收益、压力期回撤和交易成本。",
+            ]
+        )
+        return "\n".join(lines) + "\n"
+
+    top = briefing.head(max_rows)
+    signal_counts = {str(key): int(value) for key, value in briefing["review_signal"].value_counts().sort_index().items()}
+    lines.extend(
+        [
+            f"- 共生成 {len(briefing)} 条 review 项，信号分布：{signal_counts}。",
+            "- 是否晋升：`promote_candidate` 只能作为分段候选；若同一模型存在 `block_or_rework`，应先处理压力区间弱点。",
+            "- Review 顺序按相对收益差、稳定性差、回撤差和换手效率综合排序。",
+            "",
+            "| rank | model | segment | signal | decision | note |",
+            "| ---: | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for _, row in top.iterrows():
+        lines.append(
+            "| {rank} | {model} | {segment} | {signal} | {decision} | {note} |".format(
+                rank=int(row["priority_rank"]),
+                model=str(row["model"]),
+                segment=str(row["segment"]),
+                signal=str(row["review_signal"]),
+                decision=str(row["decision_hint"]),
+                note=str(row["review_note"]),
+            )
+        )
+    return "\n".join(lines) + "\n"
+
+
 def analyze_model_effects_by_regime_and_window(
     frame: pd.DataFrame,
     *,
@@ -324,6 +585,7 @@ def analyze_model_effects_by_regime_and_window(
     segment_metrics = _segment_metrics(frame, windows=windows)
     window_regime_metrics = compute_window_regime_metrics(frame, windows=windows or {})
     baseline = baseline_model or str(compare_models(frame).iloc[0]["model"])
+    segment_effect_matrix = build_segment_effect_matrix(frame, windows=windows, baseline_model=baseline)
     deltas = compare_segment_model_effects(frame, windows=windows, baseline_model=baseline)
     weakness_frame = deltas.loc[deltas["model"] != baseline].sort_values(
         ["relative_return_pct_delta", "stability_score_delta"],
@@ -347,14 +609,28 @@ def analyze_model_effects_by_regime_and_window(
         "regime_count": int(returns["regime"].nunique()) if not returns.empty else 0,
         "window_count": int(len(windows or {})),
         "window_regime_count": int(window_regime_metrics["segment"].nunique()) if not window_regime_metrics.empty else 0,
+        "segment_effect_matrix_count": int(len(segment_effect_matrix)),
         "segment_types": sorted(str(value) for value in segment_metrics["segment_type"].dropna().unique().tolist()),
         "qlib_metric_source": QLIB_RISK_SOURCE,
         "weakest_segments": weakest_segments,
+        "largest_relative_return_spread_segments": [
+            {
+                "segment_type": str(row["segment_type"]),
+                "segment": str(row["segment"]),
+                "relative_return_pct_spread": _clean_metric(row["relative_return_pct_spread"]),
+                "best_relative_return_model": str(row["best_relative_return_model"]),
+                "worst_relative_return_model": str(row["worst_relative_return_model"]),
+            }
+            for _, row in segment_effect_matrix.sort_values("relative_return_pct_spread", ascending=False).head(5).iterrows()
+        ]
+        if not segment_effect_matrix.empty
+        else [],
     }
     return RegimeWindowEffectAnalysis(
         qlib_return_frame=returns,
         qlib_risk_metrics=risk,
         segment_metrics=segment_metrics,
+        segment_effect_matrix=segment_effect_matrix,
         window_regime_metrics=window_regime_metrics,
         model_effect_deltas=deltas,
         summary=summary,
