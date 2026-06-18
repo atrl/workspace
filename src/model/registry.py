@@ -150,7 +150,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "DA-RNN",
         "Uses a compact attention GRU with an input gate.",
     ),
-    _proxy("hawkes_gru_mse", "sequence", "mse", "event_sequence", "HawkesGRU", "Uses event-decay ridge features."),
+    _torch_native(
+        "hawkes_gru_mse",
+        "sequence",
+        "mse",
+        "event_sequence",
+        "HawkesGRU",
+        "Uses a compact Hawkes-inspired GRU with exponential event-intensity decay and an event gate.",
+    ),
     _torch_native("tcn_mse", "sequence", "mse", "sequence", "TCN", "Uses a compact PyTorch temporal convolution net."),
     _native_sequence(
         "mlp_mixer_mse",

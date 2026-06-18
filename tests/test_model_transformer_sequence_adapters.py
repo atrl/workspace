@@ -6,6 +6,7 @@ from src.model.sequence import (
     AutoformerDecompositionRegressor,
     DLinearDecompositionRegressor,
     FEDformerFrequencyRegressor,
+    HawkesGRUSequenceRegressor,
     MLPMixerSequenceRegressor,
     PatchTSTTransformerRegressor,
     SFMFrequencyMemoryRegressor,
@@ -25,7 +26,7 @@ def test_transformer_sequence_models_use_named_paper_strict_adapters():
     dataset, train, test = _split_frame()
 
     expected = {
-        "hawkes_gru_mse": "hawkes_gru_event_decay_mse_v1",
+        "hawkes_gru_mse": "hawkes_gru_intensity_mse_v1",
         "sfm_mse": "sfm_state_frequency_memory_mse_v1",
         "mlp_mixer_mse": "mlp_mixer_sequence_mse_v1",
         "dlinear_mse": "dlinear_decomposition_mse_v1",
@@ -179,6 +180,25 @@ def test_hawkes_gru_event_decay_path_differs_from_plain_gru():
     gru = fit_predict_model("gru_mse", train=train, test=test, feature_columns=dataset.feature_columns[:5])
 
     assert not hawkes["prediction"].round(10).equals(gru["prediction"].round(10))
+
+
+def test_hawkes_gru_mse_uses_intensity_gated_gru_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "hawkes_gru_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:5],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, HawkesGRUSequenceRegressor)
+    assert hasattr(estimator, "model_")
+    assert hasattr(estimator.model_, "intensity_decay")
+    assert hasattr(estimator.model_, "event_gate")
+    assert estimator.feature_count_ == 5
+    assert estimator.lookback_ == 5
+    assert estimator.hidden_size == 8
 
 
 def test_patch_tst_artifact_metadata_records_transformer_adapter_after_load(tmp_path):

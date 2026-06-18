@@ -1,0 +1,26 @@
+{
+  "schema_version": "research.hawkes_gru_native_adapter_v1",
+  "status": "completed",
+  "model": "hawkes_gru_mse",
+  "adapter": "hawkes_gru_intensity_mse_v1",
+  "estimator": "HawkesGRUSequenceRegressor",
+  "lookback": 5,
+  "feature_count": 5,
+  "hidden_size": 8,
+  "paper_fidelity": "native_torch",
+  "is_proxy": false,
+  "full_matrix_native_model_count": 20,
+  "full_matrix_proxy_model_count": 12,
+  "matrix_card": "research/hawkes_gru_native_adapter_v1/matrix_card",
+  "paper_reference": {
+    "source_id": "arxiv:1612.09328",
+    "url": "https://arxiv.org/abs/1612.09328",
+    "usage": "自有摘要和结构假设；实现只复用 Hawkes-style event intensity 与 recurrent sequence 思路，不复制论文全文或第三方代码。"
+  },
+  "artifact_links": {
+    "analysis_summary": "research/hawkes_gru_native_adapter_v1/matrix_card/analysis_summary.json",
+    "model_comparison": "research/hawkes_gru_native_adapter_v1/matrix_card/model_comparison.csv",
+    "model_run_ledger": "research/hawkes_gru_native_adapter_v1/matrix_card/model_run_ledger.csv",
+    "manifest": "research/hawkes_gru_native_adapter_v1/matrix_card/analysis_manifest.json"
+  }
+}

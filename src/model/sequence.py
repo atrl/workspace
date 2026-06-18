@@ -436,6 +436,43 @@ class _SFMNet(nn.Module):
         return self.head(context).squeeze(-1)
 
 
+class _HawkesGRUNet(nn.Module):
+    def __init__(self, *, feature_count: int, hidden_size: int):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.hidden_size = hidden_size
+        self.base_intensity = nn.Parameter(torch.full((feature_count,), -1.0, dtype=torch.float32))
+        self.intensity_decay = nn.Parameter(torch.full((feature_count,), 0.5, dtype=torch.float32))
+        self.event_gate = nn.Sequential(nn.Linear(feature_count * 2, feature_count), nn.Sigmoid())
+        self.recurrent = nn.GRU(input_size=feature_count, hidden_size=hidden_size, batch_first=True)
+        self.head = nn.Linear(hidden_size + feature_count, 1)
+
+    def _event_intensity(self, x):
+        import torch
+
+        event_shock = torch.cat([torch.zeros_like(x[:, :1, :]), torch.abs(x[:, 1:, :] - x[:, :-1, :])], dim=1)
+        decay = torch.nn.functional.softplus(self.intensity_decay).reshape(1, 1, -1)
+        base = torch.nn.functional.softplus(self.base_intensity).reshape(1, 1, -1)
+        intensity_steps = []
+        carry = torch.zeros_like(x[:, 0, :])
+        for step in range(x.shape[1]):
+            carry = carry * torch.exp(-decay.squeeze(1)) + event_shock[:, step, :]
+            intensity_steps.append(carry + base.squeeze(1))
+        return torch.stack(intensity_steps, dim=1)
+
+    def forward(self, x):
+        import torch
+
+        intensity = self._event_intensity(x)
+        gate = self.event_gate(torch.cat([x, intensity], dim=2))
+        gated_input = x * gate
+        output, _ = self.recurrent(gated_input)
+        context = torch.cat([output[:, -1, :], intensity[:, -1, :]], dim=1)
+        return self.head(context).squeeze(-1)
+
+
 class _PatchTSTNet(nn.Module):
     def __init__(
         self,
@@ -644,6 +681,58 @@ class SFMFrequencyMemoryRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 3:
             raise ValueError("SFMFrequencyMemoryRegressor expects a 3D sequence tensor")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        with torch.no_grad():
+            output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class HawkesGRUSequenceRegressor:
+    hidden_size: int = 8
+    epochs: int = 24
+    learning_rate: float = 0.01
+    seed: int = 37
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "HawkesGRUSequenceRegressor":
+        if x.ndim != 3:
+            raise ValueError("HawkesGRUSequenceRegressor expects a 3D sequence tensor")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.lookback_ = int(x.shape[1])
+        self.feature_count_ = int(x.shape[2])
+        self.feature_mean_ = x.reshape(-1, x.shape[-1]).mean(axis=0)
+        self.feature_std_ = x.reshape(-1, x.shape[-1]).std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _HawkesGRUNet(feature_count=self.feature_count_, hidden_size=int(self.hidden_size))
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 3:
+            raise ValueError("HawkesGRUSequenceRegressor expects a 3D sequence tensor")
         import torch
 
         torch.set_num_threads(1)

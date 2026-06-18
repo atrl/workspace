@@ -18,7 +18,7 @@ from .sequence import (
     AutoformerDecompositionRegressor,
     DLinearDecompositionRegressor,
     FEDformerFrequencyRegressor,
-    FeatureRidgeRegressor,
+    HawkesGRUSequenceRegressor,
     LaggedRidgeRegressor,
     MLPMixerSequenceRegressor,
     PatchTSTTransformerRegressor,
@@ -46,7 +46,7 @@ STRICT_ADAPTER_NAMES = {
     "sfm_mse": "sfm_state_frequency_memory_mse_v1",
     "darnn_mse": "darnn_dual_attention_gru_mse_v1",
     "tcn_mse": "tcn_temporal_conv_mse_v1",
-    "hawkes_gru_mse": "hawkes_gru_event_decay_mse_v1",
+    "hawkes_gru_mse": "hawkes_gru_intensity_mse_v1",
     "mlp_mixer_mse": "mlp_mixer_sequence_mse_v1",
     "dlinear_mse": "dlinear_decomposition_mse_v1",
     "patch_tst_mse": "patch_tst_transformer_mse_v1",
@@ -271,7 +271,7 @@ def _estimator_for_model(model_name: str):
             architecture="tcn",
         )
     if model_name == "hawkes_gru_mse":
-        return FeatureRidgeRegressor(feature_kind="event_decay", alpha=1.0)
+        return HawkesGRUSequenceRegressor(hidden_size=8, epochs=24, learning_rate=0.01, seed=37)
     if model_name == "mlp_mixer_mse":
         return MLPMixerSequenceRegressor(
             token_hidden_size=8,
