@@ -98,6 +98,19 @@ def _native_sequence(name: str, family: str, objective: str, input_kind: str, es
     )
 
 
+def _native_graph(name: str, family: str, objective: str, input_kind: str, estimator: str, notes: str) -> ModelSpec:
+    return _spec(
+        name,
+        family,
+        objective,
+        input_kind,
+        estimator,
+        "native_graph",
+        notes,
+        "Needs real support-universe relation graph and longer-window robustness review before production promotion.",
+    )
+
+
 MODEL_SPECS: tuple[ModelSpec, ...] = (
     _native("logistic_clf", "linear", "classification", "tabular", "LogisticRegression"),
     _proxy("ridge_ic", "linear", "ic", "tabular", "Ridge", "Ridge is trained on an IC-style rank target proxy."),
@@ -200,7 +213,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "Uses moving-average decomposition with sparse Fourier mode features and separate trend/frequency heads.",
     ),
     _proxy("market_graph_mse", "graph", "mse", "support_graph", "MarketGraph", "Uses market-context graph features."),
-    _proxy("gcn_mse", "graph", "mse", "support_graph", "GCN", "Uses feature propagation over a fixed feature graph."),
+    _native_graph(
+        "gcn_mse",
+        "graph",
+        "mse",
+        "support_graph",
+        "GCN",
+        "Uses a compact PyTorch graph convolution network over feature nodes with a correlation-derived adjacency.",
+    ),
     _proxy("gat_mse", "graph", "mse", "support_graph", "GAT", "Uses attention-weighted feature graph statistics."),
     _proxy("rgcn_mse", "graph", "mse", "support_graph", "RGCN", "Uses relation-group feature aggregation."),
     _proxy("rsr_mse", "graph", "mse", "support_graph", "RSR", "Uses relation-strength ridge features."),

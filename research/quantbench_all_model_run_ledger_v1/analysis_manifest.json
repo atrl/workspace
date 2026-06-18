@@ -55,7 +55,7 @@
       "extra_trees_rank_proxy_v1",
       "fedformer_frequency_attention_mse_v1",
       "gat_feature_attention_mse_v1",
-      "gcn_feature_propagation_mse_v1",
+      "gcn_graph_convolution_mse_v1",
       "gru_pytorch_sequence_mse_v1",
       "hawkes_gru_intensity_mse_v1",
       "hist_gradient_mse_v1",
@@ -83,10 +83,11 @@
     "model_count": 32,
     "model_fidelity": {
       "fidelity_counts": {
+        "native_graph": 1,
         "native_library": 8,
         "native_sequence": 6,
         "native_torch": 6,
-        "proxy_feature_adapter": 12
+        "proxy_feature_adapter": 11
       },
       "model_count": 32,
       "native_models": [
@@ -96,6 +97,7 @@
         "darnn_mse",
         "dlinear_mse",
         "fedformer_mse",
+        "gcn_mse",
         "gru_mse",
         "hawkes_gru_mse",
         "hist_gradient_mse",
@@ -115,7 +117,6 @@
       "proxy_models": [
         "extra_trees_rank",
         "gat_mse",
-        "gcn_mse",
         "hypergraph_mse",
         "market_graph_mse",
         "rgcn_mse",
@@ -129,8 +130,8 @@
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.007845514369370274,
-      "avg_mse": 0.03601141186127915,
+      "avg_ic": 0.008570211572191054,
+      "avg_mse": 0.036017026803040614,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -189,5 +190,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "16ae978221aa38906bbb94cc08aae73bcb66ea167fc1858c45cec5a3dc4e0985"
+  "manifest_hash": "562ad2d94a746cedbdf30a3dc53323e3d8476305d02a803bee1f66f0333dd286"
 }

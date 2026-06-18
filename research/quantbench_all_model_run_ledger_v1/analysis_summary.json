@@ -137,10 +137,10 @@
         "consistency_score": -1.279412,
         "diagnostic_signal": "stress_fragile",
         "model": "gcn_mse",
-        "review_note": "gcn_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "review_note": "gcn_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
-        "worst_segment": "downtrend"
+        "worst_segment": "all"
       },
       {
         "baseline_model": "sthan_mse",
@@ -318,10 +318,10 @@
         "consistency_score": -1.279412,
         "diagnostic_signal": "stress_fragile",
         "model": "gcn_mse",
-        "review_note": "gcn_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "review_note": "gcn_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
-        "worst_segment": "downtrend"
+        "worst_segment": "all"
       },
       {
         "baseline_model": "sthan_mse",
@@ -496,7 +496,7 @@
     "extra_trees_rank_proxy_v1",
     "fedformer_frequency_attention_mse_v1",
     "gat_feature_attention_mse_v1",
-    "gcn_feature_propagation_mse_v1",
+    "gcn_graph_convolution_mse_v1",
     "gru_pytorch_sequence_mse_v1",
     "hawkes_gru_intensity_mse_v1",
     "hist_gradient_mse_v1",
@@ -524,10 +524,11 @@
   "model_count": 32,
   "model_fidelity": {
     "fidelity_counts": {
+      "native_graph": 1,
       "native_library": 8,
       "native_sequence": 6,
       "native_torch": 6,
-      "proxy_feature_adapter": 12
+      "proxy_feature_adapter": 11
     },
     "model_count": 32,
     "native_models": [
@@ -537,6 +538,7 @@
       "darnn_mse",
       "dlinear_mse",
       "fedformer_mse",
+      "gcn_mse",
       "gru_mse",
       "hawkes_gru_mse",
       "hist_gradient_mse",
@@ -556,7 +558,6 @@
     "proxy_models": [
       "extra_trees_rank",
       "gat_mse",
-      "gcn_mse",
       "hypergraph_mse",
       "market_graph_mse",
       "rgcn_mse",
@@ -571,8 +572,8 @@
   },
   "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
   "objective_evaluation": {
-    "avg_ic": 0.007845514369370274,
-    "avg_mse": 0.03601141186127915,
+    "avg_ic": 0.008570211572191054,
+    "avg_mse": 0.036017026803040614,
     "avg_rank_ic": 0.0,
     "model_count": 32,
     "schema_version": "objective.matrix_evaluation.v1"

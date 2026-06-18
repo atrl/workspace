@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact, load_model_artifact, save_model_artifact
+from src.model.graph import GCNGraphRegressor
+from src.model.training import fit_estimator_for_model
 from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
 
 
@@ -18,7 +20,7 @@ def test_graph_models_use_named_paper_strict_adapters():
 
     expected = {
         "market_graph_mse": "market_graph_feature_mse_v1",
-        "gcn_mse": "gcn_feature_propagation_mse_v1",
+        "gcn_mse": "gcn_graph_convolution_mse_v1",
         "gat_mse": "gat_feature_attention_mse_v1",
         "rgcn_mse": "rgcn_relation_feature_mse_v1",
         "rsr_mse": "rsr_relation_strength_mse_v1",
@@ -53,6 +55,24 @@ def test_graph_attention_relation_and_hypergraph_paths_are_distinct():
     assert not gat["prediction"].round(10).equals(gcn["prediction"].round(10))
     assert not rgcn["prediction"].round(10).equals(gcn["prediction"].round(10))
     assert not hyper["prediction"].round(10).equals(gcn["prediction"].round(10))
+
+
+def test_gcn_mse_uses_native_graph_convolution_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "gcn_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:8],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, GCNGraphRegressor)
+    assert hasattr(estimator, "model_")
+    assert estimator.feature_count_ == 8
+    assert estimator.node_count_ == 8
+    assert estimator.normalized_adjacency_.shape == (8, 8)
+    assert estimator.hidden_size == 8
 
 
 def test_temporal_graph_paths_are_distinct_from_static_graph_paths():

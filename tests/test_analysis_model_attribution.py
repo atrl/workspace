@@ -39,14 +39,15 @@ def test_explain_model_artifact_outputs_coefficients_permutation_and_sensitivity
     assert report.feature_attribution["rank"].min() == 1
 
 
-def test_proxy_graph_artifact_has_generic_sensitivity_attribution():
+def test_native_graph_artifact_has_generic_sensitivity_attribution():
     dataset, train, test = _split_frame()
     artifact = fit_model_artifact("gcn_mse", train=train, feature_columns=dataset.feature_columns[:6])
 
     report = explain_model_artifact(artifact, frame=test, background_frame=train, top_n=3)
 
     assert report.summary["model"] == "gcn_mse"
-    assert report.summary["proxy_model"] is True
+    assert report.summary["paper_fidelity"] == "native_graph"
+    assert report.summary["proxy_model"] is False
     assert "sensitivity" in set(report.feature_attribution["attribution_kind"])
     assert report.summary["attribution_kinds"]["sensitivity"] == 3
 
@@ -73,7 +74,7 @@ def test_write_model_attribution_card_trains_batch_and_writes_dashboard_sidecars
     assert summary["model_count"] == 2
     assert summary["feature_count"] == 6
     assert summary["top_n"] == 3
-    assert summary["proxy_models"] == ["gcn_mse"]
+    assert summary["proxy_models"] == []
     assert summary["attribution_kinds"]["sensitivity"] >= 2
     assert summary["test_start"] == str(test["date"].min().date())
     assert summary["test_end"] == str(test["date"].max().date())
@@ -94,7 +95,7 @@ def test_write_model_attribution_card_trains_batch_and_writes_dashboard_sidecars
     assert set(top_features["model"]) == {"ridge_mse", "gcn_mse"}
     assert top_features.groupby("model").size().max() == 3
     assert {"model", "feature", "normalized_importance"}.issubset(top_features.columns)
-    assert capabilities.loc[capabilities["model"].eq("gcn_mse"), "is_proxy"].iloc[0] is True
+    assert capabilities.loc[capabilities["model"].eq("gcn_mse"), "is_proxy"].iloc[0] is False
 
     assert (tmp_path / "feature_attribution.csv").exists()
     assert (tmp_path / "top_features_by_model.csv").exists()

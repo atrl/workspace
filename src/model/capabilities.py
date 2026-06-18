@@ -9,7 +9,7 @@ from .registry import QUANTBENCH_MODEL_NAMES, get_model_spec, iter_model_specs
 
 
 PROXY_FIDELITIES = {"proxy_feature_adapter"}
-NATIVE_FIDELITIES = {"native_library", "native_sequence", "native_torch"}
+NATIVE_FIDELITIES = {"native_graph", "native_library", "native_sequence", "native_torch"}
 
 
 def _base_model_name(model_name: str) -> str:

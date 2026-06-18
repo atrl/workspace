@@ -12,7 +12,7 @@ from sklearn.preprocessing import StandardScaler
 # Import before sequence/torch modules; torch-first initialization can segfault xgboost 3.2.0 on this arm64 stack.
 from xgboost import XGBRegressor
 
-from .graph import GraphFeatureRidgeRegressor
+from .graph import GCNGraphRegressor, GraphFeatureRidgeRegressor
 from .registry import get_model_spec
 from .sequence import (
     AutoformerDecompositionRegressor,
@@ -53,7 +53,7 @@ STRICT_ADAPTER_NAMES = {
     "autoformer_mse": "autoformer_decomposition_attention_mse_v1",
     "fedformer_mse": "fedformer_frequency_attention_mse_v1",
     "market_graph_mse": "market_graph_feature_mse_v1",
-    "gcn_mse": "gcn_feature_propagation_mse_v1",
+    "gcn_mse": "gcn_graph_convolution_mse_v1",
     "gat_mse": "gat_feature_attention_mse_v1",
     "rgcn_mse": "rgcn_relation_feature_mse_v1",
     "rsr_mse": "rsr_relation_strength_mse_v1",
@@ -289,9 +289,10 @@ def _estimator_for_model(model_name: str):
         return AutoformerDecompositionRegressor(alpha=1.0, kernel_size=3, max_lag=4, top_k=2)
     if model_name == "fedformer_mse":
         return FEDformerFrequencyRegressor(alpha=1.0, kernel_size=3, top_k_modes=2)
+    if model_name == "gcn_mse":
+        return GCNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=41)
     graph_kinds = {
         "market_graph_mse": "market",
-        "gcn_mse": "gcn",
         "gat_mse": "gat",
         "rgcn_mse": "rgcn",
         "rsr_mse": "rsr",
