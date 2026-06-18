@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
+from src.analysis import backfill_analysis_manifest, scan_analysis_cards
 from src.dashboard import build_dashboard_view_model, write_dashboard_html, write_model_matrix_dashboard_export
 from src.model import run_factor_feature_set_matrix
 
@@ -24,6 +26,11 @@ class ModelDashboardPipelineConfig:
     attribution_card_dir: Path | None = None
     dashboard_page_output_path: Path | None = None
     dashboard_page_title: str = "SOXL Dashboard"
+    analysis_manifest_preflight: bool = False
+    analysis_manifest_auto_backfill: bool = False
+    analysis_manifest_dataset_name: str = "schedule_dashboard_refresh"
+    analysis_manifest_universe: tuple[str, ...] = ("SOXL",)
+    analysis_manifest_calendar_path: str = ""
     retries: int = 0
 
 
@@ -83,6 +90,76 @@ def _default_dashboard_page_exporter(
     }
 
 
+def _read_manifest_summary(path: Path) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return {
+        "manifest_path": str(path),
+        "manifest_hash": str(payload.get("manifest_hash", "")),
+        "manifest_producer": str(payload.get("producer", "")),
+    }
+
+
+def _analysis_manifest_preflight(config: ModelDashboardPipelineConfig) -> dict[str, Any]:
+    if not config.analysis_manifest_preflight:
+        return {}
+
+    card = Path(config.card_dir)
+    scan = scan_analysis_cards(card)
+    row = scan.iloc[0].to_dict() if not scan.empty else {}
+    public_count = int(row.get("public_sidecar_count", 0) or 0)
+    private_count = int(row.get("private_sidecar_count", 0) or 0)
+    status = str(row.get("status", "missing_analysis_sidecars"))
+    payload: dict[str, Any] = {
+        "status": status,
+        "action": "skip",
+        "card_path": str(card),
+        "public_sidecar_count": public_count,
+        "private_sidecar_count": private_count,
+    }
+
+    manifest_path = card / "analysis_manifest.json"
+    if status == "already_manifested":
+        payload.update({"status": "ready", "action": "keep_manifest"})
+        payload.update(_read_manifest_summary(manifest_path))
+        return payload
+
+    if status != "backfillable":
+        payload["action"] = "skip"
+        return payload
+
+    if not config.analysis_manifest_auto_backfill:
+        payload["status"] = "needs_manifest"
+        payload["action"] = "review_backfill"
+        return payload
+
+    if not config.analysis_manifest_calendar_path:
+        raise ValueError("analysis_manifest_calendar_path is required when analysis_manifest_auto_backfill=True")
+
+    manifest = backfill_analysis_manifest(
+        card,
+        dataset_name=config.analysis_manifest_dataset_name,
+        universe=config.analysis_manifest_universe,
+        calendar_path=config.analysis_manifest_calendar_path,
+        data_paths=(str(card),),
+    )
+    payload.update(
+        {
+            "status": "backfilled",
+            "action": "backfilled",
+            "manifest_path": str(manifest_path),
+            "manifest_hash": str(manifest.get("manifest_hash", "")),
+            "manifest_producer": str(manifest.get("producer", "")),
+        }
+    )
+    return payload
+
+
+def _prefixed_preflight_payload(preflight: dict[str, Any]) -> dict[str, Any]:
+    return {f"analysis_manifest_preflight_{key}": value for key, value in preflight.items()}
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -98,6 +175,7 @@ def _run_pipeline_attempt(
         model_names=config.model_names,
         top_n_factors=config.top_n_factors,
     )
+    preflight = _analysis_manifest_preflight(config)
     dashboard_kwargs: dict[str, Any] = {
         "output_path": config.dashboard_output_path,
         "top_n": config.dashboard_top_n,
@@ -133,6 +211,7 @@ def _run_pipeline_attempt(
         "attribution_status": str(dashboard_payload.get("attribution", {}).get("status", "")),
         "matrix_status": str(matrix_payload.get("status", "")),
         "variant_count": int(matrix_payload.get("variant_count", 0) or 0),
+        **_prefixed_preflight_payload(preflight),
     }
 
 
