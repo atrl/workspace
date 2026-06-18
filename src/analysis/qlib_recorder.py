@@ -6,7 +6,9 @@ from typing import Any, Mapping, Sequence
 
 import pandas as pd
 
-from .exports import AnalysisReport
+from .exports import AnalysisReport, DEFAULT_ANALYSIS_TABLE_FILENAMES, build_regime_window_analysis_report
+from .qlib_ext import analyze_model_effects_by_regime_and_window
+from .reports import compare_models, compute_regime_metrics, compute_window_metrics
 
 
 QLIB_RECORDER_SCHEMA_VERSION = "analysis.qlib_recorder.v1"
@@ -256,4 +258,143 @@ def build_qlib_recorder_analysis_report(
         summary=summary_payload,
         tables=recorder_analysis.tables,
         metadata=metadata_payload,
+    )
+
+
+def _analysis_model_name(name: str, analysis: QlibRecorderAnalysis) -> str:
+    return str(analysis.summary.get("model") or name)
+
+
+def _combine_recorder_portfolio_reports(
+    recorder_analyses: Mapping[str, QlibRecorderAnalysis],
+    *,
+    regime_frame: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    if not recorder_analyses:
+        raise ValueError("recorder_analyses must contain at least one model")
+
+    frames: list[pd.DataFrame] = []
+    for name, analysis in recorder_analyses.items():
+        if "qlib_portfolio_report" not in analysis.tables:
+            raise ValueError(f"missing qlib_portfolio_report for model: {name}")
+        frame = analysis.tables["qlib_portfolio_report"].copy()
+        frame["model"] = _analysis_model_name(name, analysis)
+        frame["date"] = pd.to_datetime(frame["date"])
+        frames.append(frame)
+
+    combined = pd.concat(frames, ignore_index=True, sort=False).sort_values(["model", "date"]).reset_index(drop=True)
+    if regime_frame is None:
+        return combined
+
+    regimes = regime_frame.copy()
+    if "date" not in regimes.columns:
+        raise ValueError("regime_frame must include a date column")
+    regimes["date"] = pd.to_datetime(regimes["date"])
+    join_columns = ["date"] + [
+        column
+        for column in regimes.columns
+        if column not in {"date", "model"} and column not in combined.columns
+    ]
+    if len(join_columns) == 1:
+        return combined
+    regime_context = regimes.loc[:, join_columns].drop_duplicates(subset=["date"], keep="last")
+    return combined.merge(regime_context, on="date", how="left")
+
+
+def _combine_optional_recorder_table(
+    recorder_analyses: Mapping[str, QlibRecorderAnalysis],
+    table_name: str,
+) -> pd.DataFrame | None:
+    frames: list[pd.DataFrame] = []
+    for name, analysis in recorder_analyses.items():
+        if table_name not in analysis.tables:
+            continue
+        frame = analysis.tables[table_name].copy()
+        if "model" not in frame.columns:
+            frame["model"] = _analysis_model_name(name, analysis)
+        frames.append(frame)
+    if not frames:
+        return None
+    return pd.concat(frames, ignore_index=True, sort=False).reset_index(drop=True)
+
+
+def _ordered_analysis_tables(tables: Mapping[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
+    ordered: dict[str, pd.DataFrame] = {}
+    for name in DEFAULT_ANALYSIS_TABLE_FILENAMES:
+        if name in tables:
+            ordered[name] = tables[name]
+    for name, table in tables.items():
+        if name not in ordered:
+            ordered[name] = table
+    return ordered
+
+
+def build_qlib_recorder_regime_window_analysis_report(
+    *,
+    artifact_id: str,
+    recorder_analyses: Mapping[str, QlibRecorderAnalysis],
+    regime_frame: pd.DataFrame | None = None,
+    windows: Mapping[str, tuple[str, str]] | None = None,
+    baseline_model: str | None = None,
+    summary: Mapping[str, Any] | None = None,
+    metadata: Mapping[str, Any] | None = None,
+    freq: str = "day",
+) -> AnalysisReport:
+    """Build the stable regime/window analysis report directly from qlib recorder artifacts."""
+
+    daily_frame = _combine_recorder_portfolio_reports(recorder_analyses, regime_frame=regime_frame)
+    effect = analyze_model_effects_by_regime_and_window(
+        daily_frame,
+        windows=windows,
+        baseline_model=baseline_model,
+        freq=freq,
+    )
+
+    source_summaries = {
+        _analysis_model_name(name, analysis): dict(analysis.summary)
+        for name, analysis in sorted(recorder_analyses.items(), key=lambda item: str(item[0]))
+    }
+    summary_payload = {
+        "status": "qlib_recorder_regime_window_analysis_completed",
+        "source_model_count": int(len(recorder_analyses)),
+        "qlib_recorder_summary": source_summaries,
+        **dict(summary or {}),
+    }
+    report = build_regime_window_analysis_report(
+        artifact_id=artifact_id,
+        effect_analysis=effect,
+        model_comparison=compare_models(daily_frame),
+        regime_metrics=compute_regime_metrics(daily_frame),
+        window_metrics=compute_window_metrics(daily_frame, windows=windows or {}),
+        summary=summary_payload,
+        metadata={
+            "source_type": "qlib_recorder_regime_window",
+            "source_models": sorted(source_summaries),
+            **dict(metadata or {}),
+        },
+    )
+
+    tables = dict(report.tables)
+    tables["qlib_portfolio_report"] = daily_frame
+    for table_name in ["qlib_risk_analysis", "qlib_positions", "qlib_orders", "qlib_indicator_analysis"]:
+        combined = _combine_optional_recorder_table(recorder_analyses, table_name)
+        if combined is not None:
+            tables[table_name] = combined
+
+    ordered_tables = _ordered_analysis_tables(tables)
+    report_summary = dict(report.summary)
+    layers = list(report_summary.get("analysis_layers", []))
+    for table_name in ordered_tables:
+        if table_name not in layers:
+            layers.append(table_name)
+    report_summary["analysis_layers"] = layers
+    report_summary["analysis_table_counts"] = {name: int(len(table)) for name, table in ordered_tables.items()}
+
+    return AnalysisReport(
+        artifact_id=report.artifact_id,
+        summary=report_summary,
+        tables=ordered_tables,
+        artifact_type=report.artifact_type,
+        schema_version=report.schema_version,
+        metadata=report.metadata,
     )
