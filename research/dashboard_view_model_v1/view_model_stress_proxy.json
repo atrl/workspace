@@ -1,0 +1,387 @@
+{
+  "schema_version": "dashboard.view_model.v1",
+  "source_schema_version": "dashboard.model_matrix.v1",
+  "source_artifact_id": "matrix_card",
+  "filters_applied": {
+    "models": [
+      "gcn_mse__top_ic_factors"
+    ],
+    "base_models": [],
+    "feature_sets": [],
+    "regimes": [
+      "stress"
+    ],
+    "windows": [
+      "test"
+    ],
+    "paper_fidelities": [
+      "proxy_feature_adapter"
+    ],
+    "attribution_features": [
+      "soxx_return_5d"
+    ]
+  },
+  "controls": {
+    "models": [
+      "gcn_mse__ic_weighted_composite",
+      "gcn_mse__top_ic_factors",
+      "ridge_mse__all_features",
+      "ridge_mse__ic_weighted_composite",
+      "ridge_mse__top_ic_factors"
+    ],
+    "base_models": [
+      "gcn_mse",
+      "ridge_mse"
+    ],
+    "feature_sets": [
+      "all_features",
+      "ic_weighted_composite",
+      "top_ic_factors"
+    ],
+    "regimes": [
+      "bull",
+      "downtrend",
+      "neutral",
+      "stress"
+    ],
+    "windows": [
+      "test"
+    ],
+    "paper_fidelities": [
+      "native_library",
+      "proxy_feature_adapter"
+    ],
+    "attribution_features": [
+      "soxl_soxx_relative_5d",
+      "soxx_return_1d",
+      "soxx_return_5d"
+    ]
+  },
+  "summary": {
+    "status": "feature_set_matrix_completed",
+    "base_model_count": 2,
+    "feature_set_count": 3,
+    "variant_count": 6,
+    "start": "2026-01-01",
+    "end": "2026-06-09",
+    "train_end": "2026-04-30",
+    "test_start": "2026-05-01",
+    "test_end": "2026-06-08",
+    "top_variant": "ridge_mse__top_ic_factors",
+    "adapter_status": "paper_strict_adapter",
+    "adapter_statuses": [
+      "paper_strict_adapter"
+    ],
+    "model_adapters": [
+      "gcn_feature_propagation_mse_v1",
+      "ridge_mse_v1"
+    ],
+    "model_fidelity": {
+      "schema_version": "model.fidelity.v1",
+      "model_count": 2,
+      "fidelity_counts": {
+        "native_library": 1,
+        "proxy_feature_adapter": 1
+      },
+      "proxy_models": [
+        "gcn_mse"
+      ],
+      "native_models": [
+        "ridge_mse"
+      ],
+      "promotion_blocker_count": 1
+    },
+    "analysis_layers": [
+      "regime_metrics",
+      "window_metrics",
+      "window_regime_metrics",
+      "qlib_risk_metrics",
+      "model_effect_deltas"
+    ],
+    "schema_version": "factor_feature_set_plan.v1",
+    "selection_source": "train_only_factor_ic",
+    "top_n": 3,
+    "min_abs_ic": 0.0,
+    "factor_count": 14,
+    "selected_factors": [
+      "realized_vol_21",
+      "vix_change_1d",
+      "drawdown_21"
+    ],
+    "composite_column": "ic_weighted_composite",
+    "feature_sets": [
+      {
+        "name": "all_features",
+        "feature_columns": [
+          "soxl_return_1d",
+          "soxx_return_1d",
+          "soxl_return_5d",
+          "soxx_return_5d",
+          "soxl_soxx_relative_5d",
+          "vix_level",
+          "vix_change_1d",
+          "intraday_range",
+          "volume_z_20",
+          "trend_5",
+          "trend_21",
+          "realized_vol_5",
+          "realized_vol_21",
+          "drawdown_21"
+        ],
+        "description": "原始 supervised 特征全集。"
+      },
+      {
+        "name": "top_ic_factors",
+        "feature_columns": [
+          "realized_vol_21",
+          "vix_change_1d",
+          "drawdown_21"
+        ],
+        "description": "仅使用训练集 IC 绝对值筛选出的候选因子。"
+      },
+      {
+        "name": "ic_weighted_composite",
+        "feature_columns": [
+          "ic_weighted_composite"
+        ],
+        "description": "使用训练集 IC 作为权重、训练集均值方差标准化后的组合因子。"
+      }
+    ],
+    "analysis_summary": {
+      "schema_version": "analysis.regime_window_effect.v1",
+      "baseline_model": "ridge_mse__top_ic_factors",
+      "model_count": 6,
+      "regime_count": 4,
+      "window_count": 1,
+      "window_regime_count": 4,
+      "segment_types": [
+        "all",
+        "regime",
+        "window",
+        "window_regime"
+      ],
+      "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+      "weakest_segments": [
+        {
+          "model": "gcn_mse__all_features",
+          "segment_type": "regime",
+          "segment": "stress",
+          "relative_return_pct_delta": -33.22352766045808,
+          "stability_score_delta": -113.74817546271493,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "model": "gcn_mse__all_features",
+          "segment_type": "window_regime",
+          "segment": "test::stress",
+          "relative_return_pct_delta": -33.22352766045808,
+          "stability_score_delta": -113.74817546271493,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "model": "gcn_mse__all_features",
+          "segment_type": "regime",
+          "segment": "bull",
+          "relative_return_pct_delta": -31.19652289165893,
+          "stability_score_delta": -73.29848647106868,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "model": "gcn_mse__all_features",
+          "segment_type": "window_regime",
+          "segment": "test::bull",
+          "relative_return_pct_delta": -31.19652289165893,
+          "stability_score_delta": -73.29848647106868,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        },
+        {
+          "model": "ridge_mse__all_features",
+          "segment_type": "regime",
+          "segment": "stress",
+          "relative_return_pct_delta": -30.969022119893385,
+          "stability_score_delta": -119.27553857677016,
+          "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+        }
+      ]
+    },
+    "note": "Compares the same model adapters across raw, IC-selected, and composite factor sets."
+  },
+  "model_fidelity": {
+    "schema_version": "model.fidelity.v1",
+    "model_count": 2,
+    "fidelity_counts": {
+      "native_library": 1,
+      "proxy_feature_adapter": 1
+    },
+    "proxy_models": [
+      "gcn_mse"
+    ],
+    "native_models": [
+      "ridge_mse"
+    ],
+    "promotion_blocker_count": 1
+  },
+  "comparison_table": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__top_ic_factors",
+      "base_model": "ridge_mse",
+      "feature_set": "top_ic_factors",
+      "return_pct": 51.68889425463847,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.458352598645632,
+      "max_drawdown_pct": 26.17632325678787,
+      "sharpe": 3.8153069361698657,
+      "avg_position": 0.7496923542352576,
+      "turnover": 2.1228598727860692,
+      "stability_score": 52.875839799780145
+    },
+    {
+      "rank": 2,
+      "model": "gcn_mse__top_ic_factors",
+      "base_model": "gcn_mse",
+      "feature_set": "top_ic_factors",
+      "return_pct": 51.71525641184807,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.431990441436035,
+      "max_drawdown_pct": 26.174098020891567,
+      "sharpe": 3.8156756348398457,
+      "avg_position": 0.7497642874598264,
+      "turnover": 2.1464782292222577,
+      "stability_score": 52.861433775687544
+    },
+    {
+      "rank": 3,
+      "model": "gcn_mse__ic_weighted_composite",
+      "base_model": "gcn_mse",
+      "feature_set": "ic_weighted_composite",
+      "return_pct": 51.75650077469487,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.390746078589231,
+      "max_drawdown_pct": 26.738647283401505,
+      "sharpe": 3.8002490336560584,
+      "avg_position": 0.7574349737756023,
+      "turnover": 1.756498001809383,
+      "stability_score": 52.8226860033848
+    },
+    {
+      "rank": 4,
+      "model": "ridge_mse__ic_weighted_composite",
+      "base_model": "ridge_mse",
+      "feature_set": "ic_weighted_composite",
+      "return_pct": 51.74170083427596,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.405546019008142,
+      "max_drawdown_pct": 26.737819055683897,
+      "sharpe": 3.7999302802996215,
+      "avg_position": 0.7574000589681009,
+      "turnover": 1.7482494468768703,
+      "stability_score": 52.822230923913565
+    },
+    {
+      "rank": 5,
+      "model": "ridge_mse__all_features",
+      "base_model": "ridge_mse",
+      "feature_set": "all_features",
+      "return_pct": 44.64845265647697,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -17.498794196807133,
+      "max_drawdown_pct": 18.743499158202116,
+      "sharpe": 4.202315904364815,
+      "avg_position": 0.5980215255799916,
+      "turnover": 6.4584152761043425,
+      "stability_score": 50.32540720016378
+    }
+  ],
+  "model_cards": [
+    {
+      "rank": 2,
+      "model": "gcn_mse__top_ic_factors",
+      "base_model": "gcn_mse",
+      "feature_set": "top_ic_factors",
+      "return_pct": 51.71525641184807,
+      "benchmark_return_pct": 62.1472468532841,
+      "relative_return_pct": -10.431990441436035,
+      "max_drawdown_pct": 26.174098020891567,
+      "sharpe": 3.8156756348398457,
+      "avg_position": 0.7497642874598264,
+      "turnover": 2.1464782292222577,
+      "stability_score": 52.861433775687544,
+      "paper_fidelity": "proxy_feature_adapter",
+      "proxy_model": true,
+      "promotion_blocker": "Requires full paper-fidelity architecture replacement before production promotion.",
+      "top_attribution_features": [
+        {
+          "model": "gcn_mse",
+          "feature": "soxx_return_5d",
+          "normalized_importance": 0.6224231933249113
+        }
+      ],
+      "regime_metrics": [
+        {
+          "model": "gcn_mse__top_ic_factors",
+          "regime": "stress",
+          "return_pct": 29.43452605190955,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.6490409547414089,
+          "max_drawdown_pct": 5.6831838362351945,
+          "sharpe": 11.088433714447532,
+          "avg_position": 0.7081939063591952,
+          "turnover": 0.8837341822897061,
+          "stability_score": 131.4474150365115
+        }
+      ],
+      "window_regime_metrics": [
+        {
+          "window": "test",
+          "regime": "stress",
+          "segment": "test::stress",
+          "model": "gcn_mse__top_ic_factors",
+          "return_pct": 29.43452605190955,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.6490409547414089,
+          "max_drawdown_pct": 5.6831838362351945,
+          "sharpe": 11.088433714447532,
+          "avg_position": 0.7081939063591952,
+          "turnover": 0.8837341822897061,
+          "stability_score": 131.4474150365115
+        }
+      ],
+      "diagnostics": [
+        {
+          "segment_type": "window_regime",
+          "segment": "test::stress",
+          "window": "test",
+          "regime": "stress",
+          "model": "gcn_mse__top_ic_factors",
+          "rank": NaN,
+          "return_pct": 29.43452605190955,
+          "benchmark_return_pct": 28.78548509716814,
+          "relative_return_pct": 0.6490409547414089,
+          "max_drawdown_pct": 5.6831838362351945,
+          "sharpe": 11.088433714447532,
+          "avg_position": 0.7081939063591952,
+          "turnover": 0.8837341822897061,
+          "stability_score": 131.4474150365115,
+          "baseline_model": "ridge_mse__top_ic_factors",
+          "return_pct_baseline": 29.382705236356287,
+          "return_pct_delta": 0.0518208155532633,
+          "benchmark_return_pct_baseline": 28.78548509716814,
+          "benchmark_return_pct_delta": 0.0,
+          "relative_return_pct_baseline": 0.5972201391881455,
+          "relative_return_pct_delta": 0.0518208155532633,
+          "max_drawdown_pct_baseline": 5.683836268363162,
+          "max_drawdown_pct_delta": -0.0006524321279677,
+          "sharpe_baseline": 11.081913970132268,
+          "sharpe_delta": 0.0065197443152644,
+          "turnover_baseline": 0.8752009624630142,
+          "turnover_delta": 0.0085332198266919,
+          "stability_score_baseline": 131.346647677299,
+          "stability_score_delta": 0.1007673592125115,
+          "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+        }
+      ]
+    }
+  ],
+  "source_path": "research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json"
+}

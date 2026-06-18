@@ -1,0 +1,94 @@
+{
+  "schema_version": "dashboard.view_model_evidence.v1",
+  "status": "completed",
+  "source_export": "research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json",
+  "default_view_model": "research/dashboard_view_model_v1/view_model_all.json",
+  "stress_proxy_view_model": "research/dashboard_view_model_v1/view_model_stress_proxy.json",
+  "default_model_card_count": 5,
+  "available_controls": {
+    "models": [
+      "gcn_mse__ic_weighted_composite",
+      "gcn_mse__top_ic_factors",
+      "ridge_mse__all_features",
+      "ridge_mse__ic_weighted_composite",
+      "ridge_mse__top_ic_factors"
+    ],
+    "base_models": [
+      "gcn_mse",
+      "ridge_mse"
+    ],
+    "feature_sets": [
+      "all_features",
+      "ic_weighted_composite",
+      "top_ic_factors"
+    ],
+    "regimes": [
+      "bull",
+      "downtrend",
+      "neutral",
+      "stress"
+    ],
+    "windows": [
+      "test"
+    ],
+    "paper_fidelities": [
+      "native_library",
+      "proxy_feature_adapter"
+    ],
+    "attribution_features": [
+      "soxl_soxx_relative_5d",
+      "soxx_return_1d",
+      "soxx_return_5d"
+    ]
+  },
+  "filtered_model": "gcn_mse__top_ic_factors",
+  "filtered_paper_fidelity": "proxy_feature_adapter",
+  "filtered_proxy_model": true,
+  "filtered_regime_rows": 1,
+  "filtered_window_regime_rows": 1,
+  "filtered_diagnostics": [
+    {
+      "segment_type": "window_regime",
+      "segment": "test::stress",
+      "window": "test",
+      "regime": "stress",
+      "model": "gcn_mse__top_ic_factors",
+      "rank": NaN,
+      "return_pct": 29.43452605190955,
+      "benchmark_return_pct": 28.78548509716814,
+      "relative_return_pct": 0.6490409547414089,
+      "max_drawdown_pct": 5.6831838362351945,
+      "sharpe": 11.088433714447532,
+      "avg_position": 0.7081939063591952,
+      "turnover": 0.8837341822897061,
+      "stability_score": 131.4474150365115,
+      "baseline_model": "ridge_mse__top_ic_factors",
+      "return_pct_baseline": 29.382705236356287,
+      "return_pct_delta": 0.0518208155532633,
+      "benchmark_return_pct_baseline": 28.78548509716814,
+      "benchmark_return_pct_delta": 0.0,
+      "relative_return_pct_baseline": 0.5972201391881455,
+      "relative_return_pct_delta": 0.0518208155532633,
+      "max_drawdown_pct_baseline": 5.683836268363162,
+      "max_drawdown_pct_delta": -0.0006524321279677,
+      "sharpe_baseline": 11.081913970132268,
+      "sharpe_delta": 0.0065197443152644,
+      "turnover_baseline": 0.8752009624630142,
+      "turnover_delta": 0.0085332198266919,
+      "stability_score_baseline": 131.346647677299,
+      "stability_score_delta": 0.1007673592125115,
+      "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+    }
+  ],
+  "filtered_attribution_features": [
+    {
+      "model": "gcn_mse",
+      "feature": "soxx_return_5d",
+      "normalized_importance": 0.6224231933249113
+    }
+  ],
+  "risk_notes": [
+    "view model 只读取 dashboard_export.json，不回读 artifacts 指向的 sidecar。",
+    "gcn_mse 当前是 proxy_feature_adapter，页面要明确显示 fidelity 和 promotion blocker。"
+  ]
+}
