@@ -39,6 +39,7 @@ def test_research_and_production_use_notebooks_as_primary_artifacts():
         root / "research" / "platform_architecture_reference" / "platform_architecture_reference.ipynb",
         root / "research" / "quantbench_model_matrix_smoke_v1" / "quantbench_model_matrix_smoke_v1.ipynb",
         root / "production" / "paper_reference_strategy" / "paper_reference_strategy.ipynb",
+        root / "production" / "paper_sim_replay_v1" / "paper_sim_replay_v1.ipynb",
     ]
     for notebook in notebooks:
         assert notebook.exists(), f"missing notebook artifact: {notebook}"
@@ -50,6 +51,21 @@ def test_research_and_production_use_notebooks_as_primary_artifacts():
         )
         assert "中文结论" in markdown
         assert "是否晋升" in markdown
+
+
+def test_production_paper_sim_replay_records_no_live_broker_guardrail():
+    root = Path(__file__).resolve().parents[1]
+    card = root / "production" / "paper_sim_replay_v1"
+
+    summary = json.loads((card / "production_summary.json").read_text(encoding="utf-8"))
+    ledger = json.loads((card / "intent_ledger.json").read_text(encoding="utf-8"))
+
+    assert summary["schema_version"] == "production.paper_sim_replay.v1"
+    assert summary["status"] == "paper_replay_completed"
+    assert summary["live_broker_enabled"] is False
+    assert summary["mode"] == "paper"
+    assert ledger["intent"]["mode"] == "paper"
+    assert ledger["execution_result"]["status"] == "paper_executed"
 
 
 def test_project_docs_describe_full_platform_not_cleaned_workspace():

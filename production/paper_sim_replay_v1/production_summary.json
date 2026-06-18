@@ -1,0 +1,20 @@
+{
+  "schema_version": "production.paper_sim_replay.v1",
+  "status": "paper_replay_completed",
+  "mode": "paper",
+  "live_broker_enabled": false,
+  "instrument": "SOXL",
+  "source_model": "random_forest_clf__all_features",
+  "target_position": 0.7407635422717518,
+  "paper_shares": 74,
+  "paper_position": 0.74,
+  "schedule_status": "success",
+  "schedule_attempts": 1,
+  "notifications": [
+    "production_paper_sim_replay_v1:success"
+  ],
+  "dashboard_export": "production/paper_sim_replay_v1/dashboard_export.json",
+  "intent_ledger": "production/paper_sim_replay_v1/intent_ledger.json",
+  "matrix_card": "production/paper_sim_replay_v1/matrix_card",
+  "guardrail": "v1 只允许 paper/sim，不连接真实 broker，不触发真实下单。"
+}
