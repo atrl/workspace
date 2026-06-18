@@ -1,0 +1,21 @@
+{
+  "artifact_id": "dashboard_manifest_loader_v1",
+  "artifact_type": "analysis_report",
+  "producer": "src.analysis.exports",
+  "schema_version": "artifact.v1",
+  "paths": {
+    "summary": "manifest_summary.json",
+    "model_comparison": "manifest_comparison.csv",
+    "regime_metrics": "manifest_regime.csv",
+    "window_metrics": "manifest_window.csv",
+    "window_regime_metrics": "manifest_window_regime.csv",
+    "qlib_risk_metrics": "manifest_risk.csv",
+    "model_effect_deltas": "manifest_deltas.csv",
+    "model_capabilities": "manifest_capabilities.csv",
+    "predictions": "private_predictions.csv"
+  },
+  "metadata": {
+    "analysis_report_schema_version": "analysis.report.v1"
+  },
+  "manifest_hash": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+}

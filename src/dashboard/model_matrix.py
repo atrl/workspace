@@ -7,6 +7,20 @@ from typing import Any
 import pandas as pd
 
 
+PUBLIC_ARTIFACT_KEYS = {
+    "summary",
+    "model_comparison",
+    "regime_metrics",
+    "window_metrics",
+    "window_regime_metrics",
+    "qlib_risk_metrics",
+    "model_effect_deltas",
+    "model_capabilities",
+    "feature_set_specs",
+    "factor_ic",
+}
+
+
 def _read_csv_if_exists(path: Path) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
@@ -20,7 +34,20 @@ def _records(frame: pd.DataFrame, *, limit: int | None = None) -> list[dict[str,
     return data.to_dict(orient="records")
 
 
-def _artifact_paths(card: Path, *, attribution_card: Path | None = None) -> dict[str, str]:
+def _read_manifest_if_exists(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _resolve_card_path(card: Path, value: str | Path | None) -> Path | None:
+    if value is None:
+        return None
+    path = Path(value)
+    return path if path.is_absolute() else card / path
+
+
+def _default_public_paths(card: Path) -> dict[str, str]:
     public_files = {
         "summary": "analysis_summary.json",
         "model_comparison": "model_comparison.csv",
@@ -33,7 +60,53 @@ def _artifact_paths(card: Path, *, attribution_card: Path | None = None) -> dict
         "feature_set_specs": "feature_set_specs.json",
         "factor_ic": "factor_ic.csv",
     }
-    paths = {name: str(card / filename) for name, filename in public_files.items() if (card / filename).exists()}
+    return {name: filename for name, filename in public_files.items() if (card / filename).exists()}
+
+
+def _manifest_public_paths(manifest: dict[str, Any]) -> dict[str, str]:
+    paths = manifest.get("paths")
+    if not isinstance(paths, dict):
+        return {}
+    return {str(name): str(path) for name, path in paths.items() if name in PUBLIC_ARTIFACT_KEYS}
+
+
+def _card_sources(card: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str, str]]:
+    analysis_manifest = _read_manifest_if_exists(card / "analysis_manifest.json")
+    artifact_manifest = _read_manifest_if_exists(card / "artifact_manifest.json")
+    paths = _default_public_paths(card)
+    paths.update(_manifest_public_paths(artifact_manifest))
+    paths.update(_manifest_public_paths(analysis_manifest))
+    if (card / "analysis_manifest.json").exists():
+        paths["analysis_manifest"] = "analysis_manifest.json"
+    if (card / "artifact_manifest.json").exists():
+        paths["artifact_manifest"] = "artifact_manifest.json"
+    return analysis_manifest, artifact_manifest, paths
+
+
+def _path_for(card: Path, paths: dict[str, str], key: str, fallback: str) -> Path:
+    return _resolve_card_path(card, paths.get(key, fallback)) or (card / fallback)
+
+
+def _read_csv_from_paths(card: Path, paths: dict[str, str], key: str, fallback: str) -> pd.DataFrame:
+    return pd.read_csv(_path_for(card, paths, key, fallback))
+
+
+def _read_optional_csv_from_paths(card: Path, paths: dict[str, str], key: str, fallback: str) -> pd.DataFrame:
+    path = _path_for(card, paths, key, fallback)
+    return _read_csv_if_exists(path)
+
+
+def _artifact_paths(
+    card: Path,
+    *,
+    public_paths: dict[str, str] | None = None,
+    attribution_card: Path | None = None,
+) -> dict[str, str]:
+    paths = {
+        name: str(resolved)
+        for name, value in (public_paths or _default_public_paths(card)).items()
+        if (resolved := _resolve_card_path(card, value)) is not None and resolved.exists()
+    }
     if attribution_card is not None:
         attribution_files = {
             "attribution_summary": "analysis_summary.json",
@@ -130,17 +203,25 @@ def load_model_matrix_dashboard(
 ) -> dict[str, Any]:
     card = Path(card_dir)
     attribution_card = Path(attribution_card_dir) if attribution_card_dir is not None else None
-    summary = json.loads((card / "analysis_summary.json").read_text(encoding="utf-8"))
-    comparison = pd.read_csv(card / "model_comparison.csv")
-    regime_metrics = pd.read_csv(card / "regime_metrics.csv")
-    window_metrics = pd.read_csv(card / "window_metrics.csv")
-    window_regime_metrics = _read_csv_if_exists(card / "window_regime_metrics.csv")
-    qlib_risk_metrics = _read_csv_if_exists(card / "qlib_risk_metrics.csv")
-    model_effect_deltas = _read_csv_if_exists(card / "model_effect_deltas.csv")
-    model_capabilities = _read_csv_if_exists(card / "model_capabilities.csv")
+    analysis_manifest, artifact_manifest, public_paths = _card_sources(card)
+    summary = json.loads(_path_for(card, public_paths, "summary", "analysis_summary.json").read_text(encoding="utf-8"))
+    comparison = _read_csv_from_paths(card, public_paths, "model_comparison", "model_comparison.csv")
+    regime_metrics = _read_csv_from_paths(card, public_paths, "regime_metrics", "regime_metrics.csv")
+    window_metrics = _read_csv_from_paths(card, public_paths, "window_metrics", "window_metrics.csv")
+    window_regime_metrics = _read_optional_csv_from_paths(
+        card, public_paths, "window_regime_metrics", "window_regime_metrics.csv"
+    )
+    qlib_risk_metrics = _read_optional_csv_from_paths(card, public_paths, "qlib_risk_metrics", "qlib_risk_metrics.csv")
+    model_effect_deltas = _read_optional_csv_from_paths(
+        card, public_paths, "model_effect_deltas", "model_effect_deltas.csv"
+    )
+    model_capabilities = _read_optional_csv_from_paths(
+        card, public_paths, "model_capabilities", "model_capabilities.csv"
+    )
+    manifest_source = analysis_manifest or artifact_manifest
     return {
         "schema_version": "dashboard.model_matrix.v1",
-        "artifact_id": card.name,
+        "artifact_id": str(manifest_source.get("artifact_id", card.name)),
         "artifact_type": "dashboard_export",
         "summary": summary,
         "model_fidelity": _load_model_fidelity(summary, card),
@@ -153,7 +234,7 @@ def load_model_matrix_dashboard(
         "qlib_risk_metrics": _records(qlib_risk_metrics, limit=200),
         "model_effect_deltas": _records(model_effect_deltas, limit=200),
         "attribution": _load_attribution_card(attribution_card, top_n=top_n),
-        "artifacts": _artifact_paths(card, attribution_card=attribution_card),
+        "artifacts": _artifact_paths(card, public_paths=public_paths, attribution_card=attribution_card),
     }
 
 

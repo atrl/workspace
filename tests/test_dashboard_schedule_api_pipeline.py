@@ -41,6 +41,80 @@ def test_dashboard_loads_feature_set_matrix_with_aggregates_and_diagnostics():
     assert "daily_backtest" not in payload["artifacts"]
 
 
+def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_filenames(tmp_path):
+    matrix_card = tmp_path / "matrix_card"
+    matrix_card.mkdir()
+
+    (matrix_card / "summary_custom.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "analysis.report.v1",
+                "status": "manifest_first_completed",
+                "model_count": 1,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [{"rank": 1, "model": "ridge_mse", "return_pct": 2.5, "relative_return_pct": 1.0, "stability_score": 3.0}]
+    ).to_csv(matrix_card / "comparison_custom.csv", index=False)
+    pd.DataFrame([{"model": "ridge_mse", "regime": "bull", "return_pct": 2.5}]).to_csv(
+        matrix_card / "regime_custom.csv", index=False
+    )
+    pd.DataFrame([{"model": "ridge_mse", "window": "test", "return_pct": 2.5}]).to_csv(
+        matrix_card / "window_custom.csv", index=False
+    )
+    pd.DataFrame([{"model": "ridge_mse", "return_kind": "strategy_return", "annualized_return": 0.25}]).to_csv(
+        matrix_card / "risk_custom.csv", index=False
+    )
+    pd.DataFrame(
+        [{"model": "ridge_mse", "segment_type": "all", "segment": "all", "diagnosis": "基准模型。"}]
+    ).to_csv(matrix_card / "deltas_custom.csv", index=False)
+    pd.DataFrame([{"model": "ridge_mse", "paper_fidelity": "native_library"}]).to_csv(
+        matrix_card / "capabilities_custom.csv", index=False
+    )
+    pd.DataFrame([{"model": "ridge_mse", "prediction": 0.1}]).to_csv(matrix_card / "predictions_private.csv", index=False)
+
+    (matrix_card / "analysis_manifest.json").write_text(
+        json.dumps(
+            {
+                "artifact_id": "manifest_first_card",
+                "artifact_type": "analysis_report",
+                "producer": "src.analysis.exports",
+                "schema_version": "artifact.v1",
+                "paths": {
+                    "summary": "summary_custom.json",
+                    "model_comparison": "comparison_custom.csv",
+                    "regime_metrics": "regime_custom.csv",
+                    "window_metrics": "window_custom.csv",
+                    "qlib_risk_metrics": "risk_custom.csv",
+                    "model_effect_deltas": "deltas_custom.csv",
+                    "model_capabilities": "capabilities_custom.csv",
+                    "predictions": "predictions_private.csv",
+                },
+                "metadata": {"analysis_report_schema_version": "analysis.report.v1"},
+                "manifest_hash": "x" * 64,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    payload = load_model_matrix_dashboard(matrix_card)
+
+    assert payload["artifact_id"] == "manifest_first_card"
+    assert payload["summary"]["status"] == "manifest_first_completed"
+    assert payload["top_models"][0]["model"] == "ridge_mse"
+    assert payload["regime_metrics"][0]["regime"] == "bull"
+    assert payload["qlib_risk_metrics"][0]["annualized_return"] == 0.25
+    assert payload["model_effect_deltas"][0]["diagnosis"] == "基准模型。"
+    assert payload["model_capabilities"][0]["paper_fidelity"] == "native_library"
+    assert payload["artifacts"]["analysis_manifest"].endswith("analysis_manifest.json")
+    assert payload["artifacts"]["model_comparison"].endswith("comparison_custom.csv")
+    assert "predictions" not in payload["artifacts"]
+
+
 def test_dashboard_export_writes_manifest_style_payload(tmp_path):
     output_path = tmp_path / "dashboard_export.json"
 

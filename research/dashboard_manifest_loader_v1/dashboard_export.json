@@ -1,0 +1,145 @@
+{
+  "schema_version": "dashboard.model_matrix.v1",
+  "artifact_id": "dashboard_manifest_loader_v1",
+  "artifact_type": "dashboard_export",
+  "summary": {
+    "schema_version": "analysis.report.v1",
+    "status": "dashboard_manifest_loader_completed",
+    "model_count": 2,
+    "note": "中文 review：dashboard 通过 manifest 读取 sidecar。"
+  },
+  "model_fidelity": {
+    "schema_version": "model.fidelity.v1",
+    "model_count": 2,
+    "fidelity_counts": {},
+    "proxy_models": [],
+    "native_models": [],
+    "promotion_blocker_count": 0
+  },
+  "model_capabilities": [
+    {
+      "model": "ridge_mse",
+      "paper_fidelity": "native_library",
+      "promotion_blocker": NaN
+    },
+    {
+      "model": "gcn_mse",
+      "paper_fidelity": "proxy_feature_adapter",
+      "promotion_blocker": "graph proxy"
+    }
+  ],
+  "top_models": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__top_ic_factors",
+      "base_model": "ridge_mse",
+      "feature_set": "top_ic_factors",
+      "return_pct": 4.2,
+      "relative_return_pct": 1.3,
+      "stability_score": 3.1
+    },
+    {
+      "rank": 2,
+      "model": "gcn_mse__all_features",
+      "base_model": "gcn_mse",
+      "feature_set": "all_features",
+      "return_pct": -1.1,
+      "relative_return_pct": -2.0,
+      "stability_score": -1.5
+    }
+  ],
+  "feature_set_summary": [
+    {
+      "feature_set": "top_ic_factors",
+      "variant_count": 1,
+      "best_model": "ridge_mse__top_ic_factors",
+      "best_base_model": "ridge_mse",
+      "avg_return_pct": 4.2,
+      "avg_relative_return_pct": 1.3,
+      "avg_stability_score": 3.1
+    },
+    {
+      "feature_set": "all_features",
+      "variant_count": 1,
+      "best_model": "gcn_mse__all_features",
+      "best_base_model": "gcn_mse",
+      "avg_return_pct": -1.1,
+      "avg_relative_return_pct": -2.0,
+      "avg_stability_score": -1.5
+    }
+  ],
+  "regime_metrics": [
+    {
+      "model": "ridge_mse__top_ic_factors",
+      "regime": "bull",
+      "return_pct": 3.0
+    },
+    {
+      "model": "gcn_mse__all_features",
+      "regime": "stress",
+      "return_pct": -4.0
+    }
+  ],
+  "window_metrics": [
+    {
+      "model": "ridge_mse__top_ic_factors",
+      "window": "test",
+      "return_pct": 4.2
+    },
+    {
+      "model": "gcn_mse__all_features",
+      "window": "test",
+      "return_pct": -1.1
+    }
+  ],
+  "window_regime_metrics": [
+    {
+      "model": "gcn_mse__all_features",
+      "window": "test",
+      "regime": "stress",
+      "segment": "test::stress",
+      "return_pct": -4.0
+    }
+  ],
+  "qlib_risk_metrics": [
+    {
+      "model": "ridge_mse__top_ic_factors",
+      "return_kind": "strategy_return",
+      "annualized_return": 0.44
+    },
+    {
+      "model": "gcn_mse__all_features",
+      "return_kind": "strategy_return",
+      "annualized_return": -0.18
+    }
+  ],
+  "model_effect_deltas": [
+    {
+      "model": "gcn_mse__all_features",
+      "segment_type": "window_regime",
+      "segment": "test::stress",
+      "window": "test",
+      "regime": "stress",
+      "diagnosis": "弱于基准：压力窗口回撤扩大。"
+    }
+  ],
+  "attribution": {
+    "status": "not_provided",
+    "schema_version": "analysis.model_attribution.batch.v1",
+    "models": [],
+    "proxy_models": [],
+    "attribution_kinds": {},
+    "top_features_by_model": []
+  },
+  "artifacts": {
+    "summary": "research/dashboard_manifest_loader_v1/matrix_card/manifest_summary.json",
+    "model_comparison": "research/dashboard_manifest_loader_v1/matrix_card/manifest_comparison.csv",
+    "regime_metrics": "research/dashboard_manifest_loader_v1/matrix_card/manifest_regime.csv",
+    "window_metrics": "research/dashboard_manifest_loader_v1/matrix_card/manifest_window.csv",
+    "window_regime_metrics": "research/dashboard_manifest_loader_v1/matrix_card/manifest_window_regime.csv",
+    "qlib_risk_metrics": "research/dashboard_manifest_loader_v1/matrix_card/manifest_risk.csv",
+    "model_effect_deltas": "research/dashboard_manifest_loader_v1/matrix_card/manifest_deltas.csv",
+    "model_capabilities": "research/dashboard_manifest_loader_v1/matrix_card/manifest_capabilities.csv",
+    "analysis_manifest": "research/dashboard_manifest_loader_v1/matrix_card/analysis_manifest.json"
+  }
+}

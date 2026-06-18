@@ -1,0 +1,2 @@
+model,segment_type,segment,window,regime,diagnosis
+gcn_mse__all_features,window_regime,test::stress,test,stress,弱于基准：压力窗口回撤扩大。
