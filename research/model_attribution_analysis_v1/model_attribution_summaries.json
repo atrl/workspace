@@ -1,0 +1,73 @@
+[
+  {
+    "schema_version": "analysis.model_attribution.v1",
+    "model": "ridge_mse",
+    "family": "linear",
+    "objective": "mse",
+    "paper_fidelity": "native_library",
+    "proxy_model": false,
+    "feature_count": 8,
+    "row_count": 26,
+    "attribution_kinds": {
+      "coefficient": 6,
+      "permutation": 6,
+      "sensitivity": 6
+    },
+    "top_features": [
+      "soxx_return_5d",
+      "soxl_soxx_relative_5d",
+      "soxx_return_1d",
+      "soxl_return_5d",
+      "vix_change_1d",
+      "soxl_return_1d"
+    ],
+    "notes": "Native coefficients/importances are included when available; permutation and sensitivity run for every artifact."
+  },
+  {
+    "schema_version": "analysis.model_attribution.v1",
+    "model": "xgboost_mse",
+    "family": "boosting",
+    "objective": "mse",
+    "paper_fidelity": "native_library",
+    "proxy_model": false,
+    "feature_count": 8,
+    "row_count": 26,
+    "attribution_kinds": {
+      "feature_importance": 6,
+      "permutation": 6,
+      "sensitivity": 6
+    },
+    "top_features": [
+      "intraday_range",
+      "vix_change_1d",
+      "soxl_return_5d",
+      "soxl_soxx_relative_5d",
+      "vix_level",
+      "soxx_return_5d"
+    ],
+    "notes": "Native coefficients/importances are included when available; permutation and sensitivity run for every artifact."
+  },
+  {
+    "schema_version": "analysis.model_attribution.v1",
+    "model": "gcn_mse",
+    "family": "graph",
+    "objective": "mse",
+    "paper_fidelity": "proxy_feature_adapter",
+    "proxy_model": true,
+    "feature_count": 8,
+    "row_count": 26,
+    "attribution_kinds": {
+      "permutation": 6,
+      "sensitivity": 6
+    },
+    "top_features": [
+      "soxx_return_5d",
+      "soxl_soxx_relative_5d",
+      "soxx_return_1d",
+      "soxl_return_5d",
+      "vix_change_1d",
+      "soxl_return_1d"
+    ],
+    "notes": "Native coefficients/importances are included when available; permutation and sensitivity run for every artifact."
+  }
+]

@@ -7,7 +7,8 @@ from typing import Iterable
 
 import pandas as pd
 
-from src.analysis import analyze_model_effects_by_regime_and_window, compare_models, compute_regime_metrics, compute_window_metrics
+from src.analysis.qlib_ext import analyze_model_effects_by_regime_and_window
+from src.analysis.reports import compare_models, compute_regime_metrics, compute_window_metrics
 from src.backtest import backtest_prediction_frame
 from src.core import ArtifactManifest, DatasetSnapshot
 from src.data import build_supervised_dataset, load_soxl_support_frame

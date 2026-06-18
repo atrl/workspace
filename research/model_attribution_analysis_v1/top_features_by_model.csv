@@ -1,0 +1,10 @@
+model,feature,normalized_importance
+gcn_mse,soxx_return_5d,0.6224231933249113
+gcn_mse,soxl_soxx_relative_5d,0.5700639291128791
+gcn_mse,soxx_return_1d,0.3169272725614991
+ridge_mse,soxx_return_5d,0.9173314193384711
+ridge_mse,soxl_soxx_relative_5d,0.9011480800640057
+ridge_mse,soxx_return_1d,0.46415568123843265
+xgboost_mse,intraday_range,0.6215845719011373
+xgboost_mse,vix_change_1d,0.5700717530657057
+xgboost_mse,soxl_return_5d,0.5088625569093371

@@ -1,0 +1,33 @@
+{
+  "status": "completed",
+  "schema_version": "analysis.model_attribution_notebook.v1",
+  "models": [
+    "ridge_mse",
+    "xgboost_mse",
+    "gcn_mse"
+  ],
+  "train_end": "2026-04-30",
+  "test_start": "2026-05-01",
+  "test_end": "2026-06-08",
+  "feature_count": 8,
+  "attribution_kinds": [
+    "coefficient",
+    "feature_importance",
+    "permutation",
+    "sensitivity"
+  ],
+  "proxy_models": [
+    "gcn_mse"
+  ],
+  "artifacts": {
+    "feature_attribution": "feature_attribution.csv",
+    "model_attribution_summaries": "model_attribution_summaries.json",
+    "model_capabilities": "model_capabilities.csv",
+    "top_features_by_model": "top_features_by_model.csv"
+  },
+  "risk_notes": [
+    "Permutation 和 sensitivity 是局部解释工具，不等价于因果解释。",
+    "gcn_mse 当前仍为 proxy_feature_adapter，归因解释的是 proxy feature path。",
+    "本次只覆盖 2026-05-01 至 2026-06-08 测试窗，需要在更长 walk-forward 中复验。"
+  ]
+}
