@@ -1,0 +1,3 @@
+[
+  "model_dashboard_refresh:success | top_model=ridge_mse | dashboard_manifest=analysis_manifest | attempts=1 | export=/Users/rziiiii/dev/workspace/research/schedule_backtest_contract_notify_v1/dashboard_export.json | backtest=backtest.config.v1 folds=2 slippage_bps=1.5"
+]

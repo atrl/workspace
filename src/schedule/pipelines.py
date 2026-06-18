@@ -196,6 +196,29 @@ def _top_review_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _backtest_contract_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    backtest = dashboard_payload.get("backtest")
+    if not isinstance(backtest, dict):
+        return {}
+    config = backtest.get("config")
+    splits = backtest.get("walk_forward_splits")
+    if not isinstance(config, dict):
+        return {}
+    cost_model = config.get("cost_model")
+    if not isinstance(cost_model, dict):
+        cost_model = {}
+    walk_forward_count = len(splits) if isinstance(splits, list) else 0
+    return {
+        "backtest_schema_version": str(config.get("schema_version", "")),
+        "backtest_start": str(config.get("start", "")),
+        "backtest_end": str(config.get("end", "")),
+        "backtest_open_cost_bps": float(cost_model.get("open_cost_bps", 0.0) or 0.0),
+        "backtest_close_cost_bps": float(cost_model.get("close_cost_bps", 0.0) or 0.0),
+        "backtest_slippage_bps": float(cost_model.get("slippage_bps", 0.0) or 0.0),
+        "walk_forward_fold_count": int(walk_forward_count),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -249,6 +272,7 @@ def _run_pipeline_attempt(
         "variant_count": int(matrix_payload.get("variant_count", 0) or 0),
         **_top_failure_payload(dashboard_payload),
         **_top_review_payload(dashboard_payload),
+        **_backtest_contract_payload(dashboard_payload),
         **_prefixed_preflight_payload(preflight),
     }
 
@@ -297,6 +321,11 @@ def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[st
         message += (
             f" | top_review={payload.get('top_review_signal')}:{payload.get('top_review_decision_hint', '')}"
             f"@{payload.get('top_review_segment', '')}"
+        )
+    if payload.get("backtest_schema_version"):
+        message += (
+            f" | backtest={payload.get('backtest_schema_version')} folds={payload.get('walk_forward_fold_count', 0)}"
+            f" slippage_bps={payload.get('backtest_slippage_bps', 0.0)}"
         )
     return message
 
