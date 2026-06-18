@@ -1,0 +1,7 @@
+model,objective,family,adapter_status,model_adapter,rows,prediction_mean,prediction_std,target_corr
+autoformer_mse,mse,sequence,paper_strict_adapter,autoformer_decomposition_attention_mse_v1,26,0.02608509648304719,0.03645921736057092,0.061560398418892215
+dlinear_mse,mse,sequence,paper_strict_adapter,dlinear_decomposition_mse_v1,26,0.01624866485452423,0.016089996768310112,-0.029561319175783245
+fedformer_mse,mse,sequence,paper_strict_adapter,fedformer_frequency_attention_mse_v1,26,0.029863949865102768,0.028938710623544882,0.05742073859605274
+hawkes_gru_mse,mse,sequence,paper_strict_adapter,hawkes_gru_event_decay_mse_v1,26,0.04030677163973451,0.03214952632689891,-0.0768960203708895
+mlp_mixer_mse,mse,sequence,paper_strict_adapter,mlp_mixer_sequence_mse_v1,26,0.04030850372062279,0.04776984596592268,0.06055162070526378
+patch_tst_mse,mse,sequence,paper_strict_adapter,patch_tst_transformer_mse_v1,26,0.028194640691463765,0.03657645215495043,0.04827202348941954

@@ -1,0 +1,79 @@
+{
+  "status": "smoke_completed",
+  "model_count": 6,
+  "start": "2026-01-01",
+  "end": "2026-06-09",
+  "train_end": "2026-04-30",
+  "test_start": "2026-05-01",
+  "test_end": "2026-06-08",
+  "top_model": "mlp_mixer_mse",
+  "adapter_status": "paper_strict_adapter",
+  "adapter_statuses": [
+    "paper_strict_adapter"
+  ],
+  "model_adapters": [
+    "autoformer_decomposition_attention_mse_v1",
+    "dlinear_decomposition_mse_v1",
+    "fedformer_frequency_attention_mse_v1",
+    "hawkes_gru_event_decay_mse_v1",
+    "mlp_mixer_sequence_mse_v1",
+    "patch_tst_transformer_mse_v1"
+  ],
+  "analysis_layers": [
+    "regime_metrics",
+    "window_metrics",
+    "qlib_risk_metrics",
+    "model_effect_deltas"
+  ],
+  "analysis_summary": {
+    "schema_version": "analysis.regime_window_effect.v1",
+    "baseline_model": "mlp_mixer_mse",
+    "model_count": 6,
+    "regime_count": 4,
+    "window_count": 1,
+    "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+    "weakest_segments": [
+      {
+        "model": "fedformer_mse",
+        "segment_type": "regime",
+        "segment": "downtrend",
+        "relative_return_pct_delta": -42.831080776829396,
+        "stability_score_delta": -113.876175636603,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      },
+      {
+        "model": "fedformer_mse",
+        "segment_type": "all",
+        "segment": "all",
+        "relative_return_pct_delta": -41.10858269509126,
+        "stability_score_delta": -45.392523939226635,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      },
+      {
+        "model": "fedformer_mse",
+        "segment_type": "window",
+        "segment": "test",
+        "relative_return_pct_delta": -41.10858269509126,
+        "stability_score_delta": -45.392523939226635,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      },
+      {
+        "model": "hawkes_gru_mse",
+        "segment_type": "all",
+        "segment": "all",
+        "relative_return_pct_delta": -30.69181948365845,
+        "stability_score_delta": -37.3391048328089,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      },
+      {
+        "model": "hawkes_gru_mse",
+        "segment_type": "window",
+        "segment": "test",
+        "relative_return_pct_delta": -30.69181948365845,
+        "stability_score_delta": -37.3391048328089,
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
+      }
+    ]
+  },
+  "note": "Matrix keeps one contract while paper-strict adapters replace smoke fallbacks model by model."
+}

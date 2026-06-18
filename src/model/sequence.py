@@ -37,6 +37,44 @@ def _frequency_features(x: np.ndarray) -> np.ndarray:
     return np.concatenate([last, mean, std, spectrum.reshape(len(x), -1)], axis=1)
 
 
+def _trend_residual_features(x: np.ndarray) -> np.ndarray:
+    if x.ndim != 3:
+        raise ValueError("decomposition features expect a 3D sequence tensor")
+    trend = x.mean(axis=1)
+    seasonal = x[:, -1, :] - trend
+    slope = x[:, -1, :] - x[:, 0, :]
+    return np.concatenate([trend, seasonal, slope], axis=1)
+
+
+def _patch_features(x: np.ndarray, *, patch_size: int = 2) -> np.ndarray:
+    if x.ndim != 3:
+        raise ValueError("patch features expect a 3D sequence tensor")
+    patches: list[np.ndarray] = []
+    for start in range(0, x.shape[1], patch_size):
+        patch = x[:, start : start + patch_size, :]
+        patches.append(np.concatenate([patch.mean(axis=1), patch.std(axis=1)], axis=1))
+    return np.concatenate(patches, axis=1)
+
+
+def _event_decay_features(x: np.ndarray, *, decay: float = 0.7) -> np.ndarray:
+    if x.ndim != 3:
+        raise ValueError("event decay features expect a 3D sequence tensor")
+    steps = np.arange(x.shape[1] - 1, -1, -1, dtype="float32")
+    weights = np.exp(-decay * steps)
+    weighted = (x * weights.reshape(1, -1, 1)).sum(axis=1) / weights.sum()
+    event_intensity = np.abs(np.diff(x, axis=1)).sum(axis=1)
+    return np.concatenate([x[:, -1, :], weighted, event_intensity], axis=1)
+
+
+def _mixer_features(x: np.ndarray) -> np.ndarray:
+    if x.ndim != 3:
+        raise ValueError("mixer features expect a 3D sequence tensor")
+    token_mixed = x.mean(axis=2)
+    channel_mixed = x.mean(axis=1)
+    interactions = np.einsum("bt,bf->btf", token_mixed, channel_mixed).reshape(len(x), -1)
+    return np.concatenate([x.reshape(len(x), -1), token_mixed, channel_mixed, interactions], axis=1)
+
+
 @dataclass
 class LaggedRidgeRegressor:
     alpha: float = 1.0
@@ -65,6 +103,35 @@ class FrequencyRidgeRegressor:
 
     def predict(self, x: np.ndarray) -> np.ndarray:
         return self.model_.predict(_frequency_features(x))
+
+
+@dataclass
+class FeatureRidgeRegressor:
+    feature_kind: str
+    alpha: float = 1.0
+
+    def _features(self, x: np.ndarray) -> np.ndarray:
+        if self.feature_kind == "event_decay":
+            return _event_decay_features(x)
+        if self.feature_kind == "mixer":
+            return _mixer_features(x)
+        if self.feature_kind == "dlinear":
+            return _trend_residual_features(x)
+        if self.feature_kind == "patch":
+            return _patch_features(x)
+        if self.feature_kind == "autoformer":
+            return np.concatenate([_trend_residual_features(x), _patch_features(x)], axis=1)
+        if self.feature_kind == "fedformer":
+            return np.concatenate([_trend_residual_features(x), _frequency_features(x)], axis=1)
+        raise ValueError(f"unsupported sequence feature kind: {self.feature_kind}")
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "FeatureRidgeRegressor":
+        self.model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.model_.fit(self._features(x), y.astype(float))
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        return self.model_.predict(self._features(x))
 
 
 class _TorchRecurrentNet(nn.Module):

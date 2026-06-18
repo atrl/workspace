@@ -11,7 +11,13 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from .registry import get_model_spec
-from .sequence import FrequencyRidgeRegressor, LaggedRidgeRegressor, TorchSequenceRegressor, build_sequence_tensor
+from .sequence import (
+    FeatureRidgeRegressor,
+    FrequencyRidgeRegressor,
+    LaggedRidgeRegressor,
+    TorchSequenceRegressor,
+    build_sequence_tensor,
+)
 
 
 STRICT_ADAPTER_NAMES = {
@@ -29,6 +35,12 @@ STRICT_ADAPTER_NAMES = {
     "sfm_mse": "sfm_frequency_ridge_mse_v1",
     "darnn_mse": "darnn_dual_attention_gru_mse_v1",
     "tcn_mse": "tcn_temporal_conv_mse_v1",
+    "hawkes_gru_mse": "hawkes_gru_event_decay_mse_v1",
+    "mlp_mixer_mse": "mlp_mixer_sequence_mse_v1",
+    "dlinear_mse": "dlinear_decomposition_mse_v1",
+    "patch_tst_mse": "patch_tst_transformer_mse_v1",
+    "autoformer_mse": "autoformer_decomposition_attention_mse_v1",
+    "fedformer_mse": "fedformer_frequency_attention_mse_v1",
 }
 
 DEPENDENCY_FALLBACK_ADAPTER_NAMES = {
@@ -74,6 +86,12 @@ def _uses_sequence_tensor(model_name: str) -> bool:
         "sfm_mse",
         "darnn_mse",
         "tcn_mse",
+        "hawkes_gru_mse",
+        "mlp_mixer_mse",
+        "dlinear_mse",
+        "patch_tst_mse",
+        "autoformer_mse",
+        "fedformer_mse",
     }
 
 
@@ -168,6 +186,18 @@ def _estimator_for_model(model_name: str):
             seed=19,
             architecture="tcn",
         )
+    if model_name == "hawkes_gru_mse":
+        return FeatureRidgeRegressor(feature_kind="event_decay", alpha=1.0)
+    if model_name == "mlp_mixer_mse":
+        return FeatureRidgeRegressor(feature_kind="mixer", alpha=1.0)
+    if model_name == "dlinear_mse":
+        return FeatureRidgeRegressor(feature_kind="dlinear", alpha=1.0)
+    if model_name == "patch_tst_mse":
+        return FeatureRidgeRegressor(feature_kind="patch", alpha=1.0)
+    if model_name == "autoformer_mse":
+        return FeatureRidgeRegressor(feature_kind="autoformer", alpha=1.0)
+    if model_name == "fedformer_mse":
+        return FeatureRidgeRegressor(feature_kind="fedformer", alpha=1.0)
     if model_name in {"extra_trees_rank", "catboost_rank"}:
         return ExtraTreesRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if spec.family == "tree" and spec.objective == "classification":
