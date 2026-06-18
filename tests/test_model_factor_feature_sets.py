@@ -80,5 +80,10 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
     assert {"ridge_mse_v1", "random_forest_direction_v1"}.issubset(set(summary["model_adapters"]))
     assert summary["selection_source"] == "train_only_factor_ic"
     assert "window_regime_metrics" in summary["analysis_layers"]
+    assert summary["backtest_contract"]["schema_version"] == "backtest.config.v1"
+    assert summary["backtest_contract"]["cost_model"]["open_cost_bps"] > 0.0
+    assert summary["walk_forward"]["fold_count"] >= 1
     assert analysis_manifest["metadata"]["analysis_report_schema_version"] == "analysis.report.v1"
     assert analysis_manifest["paths"]["model_effect_deltas"] == "model_effect_deltas.csv"
+    assert analysis_manifest["paths"]["backtest_config"] == "backtest_config.json"
+    assert analysis_manifest["paths"]["walk_forward_splits"] == "walk_forward_splits.csv"

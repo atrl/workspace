@@ -18,6 +18,8 @@ PUBLIC_ARTIFACT_KEYS = {
     "model_effect_deltas",
     "model_review_briefing",
     "failure_modes",
+    "backtest_config",
+    "walk_forward_splits",
     "model_capabilities",
     "feature_set_specs",
     "factor_ic",
@@ -62,6 +64,8 @@ def _default_public_paths(card: Path) -> dict[str, str]:
         "model_effect_deltas": "model_effect_deltas.csv",
         "model_review_briefing": "model_review_briefing.csv",
         "failure_modes": "failure_modes.csv",
+        "backtest_config": "backtest_config.json",
+        "walk_forward_splits": "walk_forward_splits.csv",
         "model_capabilities": "model_capabilities.csv",
         "feature_set_specs": "feature_set_specs.json",
         "factor_ic": "factor_ic.csv",
@@ -254,6 +258,11 @@ def load_model_matrix_dashboard(
         card, public_paths, "model_review_briefing", "model_review_briefing.csv"
     )
     failure_modes = _read_optional_csv_from_paths(card, public_paths, "failure_modes", "failure_modes.csv")
+    backtest_config_path = _path_for(card, public_paths, "backtest_config", "backtest_config.json")
+    backtest_config = _read_manifest_if_exists(backtest_config_path)
+    walk_forward_splits = _read_optional_csv_from_paths(
+        card, public_paths, "walk_forward_splits", "walk_forward_splits.csv"
+    )
     model_capabilities = _read_optional_csv_from_paths(
         card, public_paths, "model_capabilities", "model_capabilities.csv"
     )
@@ -280,6 +289,10 @@ def load_model_matrix_dashboard(
         "model_effect_deltas": _records(model_effect_deltas, limit=200),
         "model_review_briefing": _records(model_review_briefing, limit=200),
         "failure_modes": _records(failure_modes, limit=100),
+        "backtest": {
+            "config": backtest_config,
+            "walk_forward_splits": _records(walk_forward_splits, limit=200),
+        },
         "attribution": _load_attribution_card(attribution_card, top_n=top_n),
         "artifacts": _artifact_paths(card, public_paths=public_paths, attribution_card=attribution_card),
     }

@@ -139,6 +139,7 @@ def write_analysis_report(
     manifest_filename: str = "analysis_manifest.json",
     table_filenames: Mapping[str, str] | None = None,
     manifest_metadata: Mapping[str, Any] | None = None,
+    extra_paths: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
@@ -161,6 +162,7 @@ def write_analysis_report(
         filename = _default_filename(table_name, table_filenames)
         table.to_csv(output / filename, index=False)
         paths[table_name] = filename
+    paths.update({str(name): str(path) for name, path in dict(extra_paths or {}).items()})
 
     manifest_path: str | None = None
     if dataset is not None:

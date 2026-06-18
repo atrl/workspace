@@ -1,0 +1,34 @@
+{
+  "schema_version": "research.objective_contract_v1",
+  "status": "completed",
+  "objective_names": [
+    "classification",
+    "mse",
+    "ic",
+    "ranking",
+    "utility"
+  ],
+  "label_rows": 10,
+  "evaluation": {
+    "schema_version": "objective.evaluation.v1",
+    "row_count": 8,
+    "mse": 5.188051298619e-05,
+    "classification_accuracy": 1.0,
+    "ic": 0.9100124716106859,
+    "rank_ic": 0.9999999999999999,
+    "rank_group_count": 2
+  },
+  "promotion_rows": 3,
+  "promotion_candidates": [
+    "gcn_mse",
+    "ridge_mse"
+  ],
+  "blocked_models": [
+    "fragile_rank"
+  ],
+  "artifacts": {
+    "objective_labels": "objective_labels.csv",
+    "objective_scores": "objective_scores.csv",
+    "promotion_scores": "promotion_scores.csv"
+  }
+}

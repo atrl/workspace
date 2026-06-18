@@ -10,7 +10,14 @@ import pandas as pd
 from src.analysis.exports import build_regime_window_analysis_report, write_analysis_report
 from src.analysis.qlib_ext import analyze_model_effects_by_regime_and_window
 from src.analysis.reports import compare_models, compute_regime_metrics, compute_window_metrics
-from src.backtest import backtest_prediction_frame
+from src.backtest import (
+    BacktestConfig,
+    BacktestResult,
+    CostModel,
+    PositionPolicy,
+    build_walk_forward_splits,
+    run_prediction_backtest,
+)
 from src.core import ArtifactManifest, DatasetSnapshot
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.factor import prepare_factor_feature_sets
@@ -102,6 +109,7 @@ def _write_analysis_sidecars(
     regime_metrics: pd.DataFrame,
     window_metrics: pd.DataFrame,
     manifest_metadata: dict,
+    extra_paths: dict[str, str] | None = None,
 ) -> dict:
     report = build_regime_window_analysis_report(
         artifact_id=artifact_id,
@@ -117,8 +125,54 @@ def _write_analysis_sidecars(
         card,
         dataset=_dataset_snapshot(start=start, end=end),
         manifest_metadata=manifest_metadata,
+        extra_paths=extra_paths,
     )
     return report.summary
+
+
+def _default_backtest_config(*, test_start: str, test_end: str) -> BacktestConfig:
+    return BacktestConfig(
+        start=test_start,
+        end=test_end,
+        benchmark="SOXL",
+        position_policy=PositionPolicy(min_position=0.0, max_position=1.0, neutral_position=0.5, lag=1),
+        cost_model=CostModel(open_cost_bps=1.0, close_cost_bps=1.0, slippage_bps=1.0),
+    )
+
+
+def _walk_forward_splits(frame: pd.DataFrame, *, train: pd.DataFrame, test: pd.DataFrame) -> pd.DataFrame:
+    train_size = min(max(1, int(len(train) // 2)), int(len(train)))
+    test_size = min(max(1, int(len(test) // 2)), int(len(test)))
+    splits = build_walk_forward_splits(
+        frame["date"],
+        train_size=train_size,
+        test_size=test_size,
+        step_size=test_size,
+    )
+    return pd.DataFrame([split.to_dict() for split in splits])
+
+
+def _run_contract_backtest(
+    *,
+    predictions: pd.DataFrame,
+    price_frame: pd.DataFrame,
+    train: pd.DataFrame,
+    test: pd.DataFrame,
+    full_frame: pd.DataFrame,
+) -> tuple[BacktestResult, pd.DataFrame, dict[str, object]]:
+    config = _default_backtest_config(
+        test_start=str(test["date"].min().date()),
+        test_end=str(test["date"].max().date()),
+    )
+    result = run_prediction_backtest(predictions, price_frame=price_frame, config=config)
+    splits = _walk_forward_splits(full_frame, train=train, test=test)
+    walk_forward_summary = {
+        "schema_version": "backtest.walk_forward.v1",
+        "fold_count": int(len(splits)),
+        "train_size": int(min(max(1, int(len(train) // 2)), int(len(train)))),
+        "test_size": int(min(max(1, int(len(test) // 2)), int(len(test)))),
+    }
+    return result, splits, walk_forward_summary
 
 
 def run_quantbench_matrix_smoke(
@@ -146,7 +200,14 @@ def run_quantbench_matrix_smoke(
     ]
     predictions = pd.concat(prediction_frames, ignore_index=True)
     adapter_summary = _adapter_summary(predictions)
-    daily = backtest_prediction_frame(predictions, price_frame=price_frame)
+    backtest_result, walk_forward_splits, walk_forward_summary = _run_contract_backtest(
+        predictions=predictions,
+        price_frame=price_frame,
+        train=train,
+        test=test,
+        full_frame=dataset.frame,
+    )
+    daily = backtest_result.daily
     regime_metrics = compute_regime_metrics(daily)
     windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
     window_metrics = compute_window_metrics(daily, windows=windows)
@@ -168,6 +229,8 @@ def run_quantbench_matrix_smoke(
         "test_start": str(test["date"].min().date()),
         "test_end": str(test["date"].max().date()),
         "top_model": str(model_comparison.iloc[0]["model"]),
+        "backtest_contract": backtest_result.config.to_dict(),
+        "walk_forward": walk_forward_summary,
         **adapter_summary,
         "model_fidelity": model_fidelity,
         "analysis_layers": [
@@ -189,7 +252,14 @@ def run_quantbench_matrix_smoke(
         "model_adapters": summary["model_adapters"],
         "model_fidelity": summary["model_fidelity"],
         "model_count": summary["model_count"],
+        "backtest_contract": summary["backtest_contract"],
+        "walk_forward": summary["walk_forward"],
     }
+    (card / "backtest_config.json").write_text(
+        json.dumps(backtest_result.config.to_dict(), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    walk_forward_splits.to_csv(card / "walk_forward_splits.csv", index=False)
     summary = _write_analysis_sidecars(
         card,
         artifact_id=card.name,
@@ -201,6 +271,7 @@ def run_quantbench_matrix_smoke(
         regime_metrics=regime_metrics,
         window_metrics=window_metrics,
         manifest_metadata=analysis_metadata,
+        extra_paths={"backtest_config": "backtest_config.json", "walk_forward_splits": "walk_forward_splits.csv"},
     )
     predictions.to_csv(card / "predictions.csv", index=False)
     daily.to_csv(card / "daily_backtest.csv", index=False)
@@ -223,6 +294,8 @@ def run_quantbench_matrix_smoke(
             "qlib_return_frame": "qlib_return_frame.csv",
             "segment_metrics": "segment_metrics.csv",
             "model_effect_deltas": "model_effect_deltas.csv",
+            "backtest_config": "backtest_config.json",
+            "walk_forward_splits": "walk_forward_splits.csv",
             "analysis_manifest": "analysis_manifest.json",
         },
         metadata=analysis_metadata,
@@ -283,7 +356,14 @@ def run_factor_feature_set_matrix(
             prediction_frames.append(predictions)
     predictions = pd.concat(prediction_frames, ignore_index=True)
     adapter_summary = _adapter_summary(predictions)
-    daily = backtest_prediction_frame(predictions, price_frame=price_frame)
+    backtest_result, walk_forward_splits, walk_forward_summary = _run_contract_backtest(
+        predictions=predictions,
+        price_frame=price_frame,
+        train=train,
+        test=test,
+        full_frame=dataset.frame,
+    )
+    daily = backtest_result.daily
     regime_metrics = compute_regime_metrics(daily)
     windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
     window_metrics = compute_window_metrics(daily, windows=windows)
@@ -307,6 +387,8 @@ def run_factor_feature_set_matrix(
         "test_start": str(test["date"].min().date()),
         "test_end": str(test["date"].max().date()),
         "top_variant": str(model_comparison.iloc[0]["model"]),
+        "backtest_contract": backtest_result.config.to_dict(),
+        "walk_forward": walk_forward_summary,
         **adapter_summary,
         "model_fidelity": model_fidelity,
         "analysis_layers": [
@@ -333,7 +415,14 @@ def run_factor_feature_set_matrix(
         "feature_set_count": summary["feature_set_count"],
         "variant_count": summary["variant_count"],
         "selection_source": summary["selection_source"],
+        "backtest_contract": summary["backtest_contract"],
+        "walk_forward": summary["walk_forward"],
     }
+    (card / "backtest_config.json").write_text(
+        json.dumps(backtest_result.config.to_dict(), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    walk_forward_splits.to_csv(card / "walk_forward_splits.csv", index=False)
     summary = _write_analysis_sidecars(
         card,
         artifact_id=card.name,
@@ -345,6 +434,7 @@ def run_factor_feature_set_matrix(
         regime_metrics=regime_metrics,
         window_metrics=window_metrics,
         manifest_metadata=analysis_metadata,
+        extra_paths={"backtest_config": "backtest_config.json", "walk_forward_splits": "walk_forward_splits.csv"},
     )
     predictions.to_csv(card / "predictions.csv", index=False)
     daily.to_csv(card / "daily_backtest.csv", index=False)
@@ -372,6 +462,8 @@ def run_factor_feature_set_matrix(
             "qlib_return_frame": "qlib_return_frame.csv",
             "segment_metrics": "segment_metrics.csv",
             "model_effect_deltas": "model_effect_deltas.csv",
+            "backtest_config": "backtest_config.json",
+            "walk_forward_splits": "walk_forward_splits.csv",
             "analysis_manifest": "analysis_manifest.json",
             "factor_ic": "factor_ic.csv",
             "feature_set_specs": "feature_set_specs.json",

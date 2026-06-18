@@ -109,6 +109,30 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
             }
         ]
     ).to_csv(matrix_card / "review_custom.csv", index=False)
+    (matrix_card / "backtest_config_custom.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "backtest.config.v1",
+                "start": "2026-01-01",
+                "end": "2026-01-08",
+                "cost_model": {"open_cost_bps": 1.0, "close_cost_bps": 1.0, "slippage_bps": 1.0},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [
+            {
+                "fold": 1,
+                "train_start": "2026-01-01",
+                "train_end": "2026-01-04",
+                "test_start": "2026-01-05",
+                "test_end": "2026-01-06",
+                "schema_version": "backtest.walk_forward_split.v1",
+            }
+        ]
+    ).to_csv(matrix_card / "walk_forward_custom.csv", index=False)
     pd.DataFrame([{"model": "ridge_mse", "paper_fidelity": "native_library"}]).to_csv(
         matrix_card / "capabilities_custom.csv", index=False
     )
@@ -130,6 +154,8 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
                     "model_effect_deltas": "deltas_custom.csv",
                     "segment_effect_matrix": "segment_matrix_custom.csv",
                     "model_review_briefing": "review_custom.csv",
+                    "backtest_config": "backtest_config_custom.json",
+                    "walk_forward_splits": "walk_forward_custom.csv",
                     "model_capabilities": "capabilities_custom.csv",
                     "predictions": "predictions_private.csv",
                 },
@@ -151,11 +177,16 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["model_effect_deltas"][0]["diagnosis"] == "基准模型。"
     assert payload["segment_effect_matrix"][0]["best_relative_return_model"] == "ridge_mse"
     assert payload["model_review_briefing"][0]["review_signal"] == "strength"
+    assert payload["backtest"]["config"]["schema_version"] == "backtest.config.v1"
+    assert payload["backtest"]["walk_forward_splits"][0]["fold"] == 1
     assert payload["model_capabilities"][0]["paper_fidelity"] == "native_library"
     assert payload["artifacts"]["analysis_manifest"].endswith("analysis_manifest.json")
     assert payload["artifacts"]["model_comparison"].endswith("comparison_custom.csv")
     assert payload["artifacts"]["model_review_briefing"].endswith("review_custom.csv")
+    assert payload["artifacts"]["backtest_config"].endswith("backtest_config_custom.json")
+    assert payload["artifacts"]["walk_forward_splits"].endswith("walk_forward_custom.csv")
     assert "predictions" not in payload["artifacts"]
+    assert "daily_backtest" not in payload["artifacts"]
     assert payload["manifest_source"]["kind"] == "analysis_manifest"
     assert payload["manifest_source"]["path"].endswith("analysis_manifest.json")
     assert payload["manifest_source"]["manifest_hash"] == "x" * 64

@@ -96,6 +96,17 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     )
     assert "qlib_risk_metrics" in summary["analysis_layers"]
     assert "window_regime_metrics" in summary["analysis_layers"]
+    assert summary["backtest_contract"]["schema_version"] == "backtest.config.v1"
+    assert summary["backtest_contract"]["cost_model"]["slippage_bps"] > 0.0
+    assert summary["walk_forward"]["schema_version"] == "backtest.walk_forward.v1"
+    assert summary["walk_forward"]["fold_count"] >= 1
     assert analysis_manifest["artifact_type"] == "analysis_report"
     assert analysis_manifest["paths"]["qlib_risk_metrics"] == "qlib_risk_metrics.csv"
+    assert analysis_manifest["paths"]["backtest_config"] == "backtest_config.json"
+    assert analysis_manifest["paths"]["walk_forward_splits"] == "walk_forward_splits.csv"
     assert len(analysis_manifest["manifest_hash"]) == 64
+    daily = pd.read_csv(tmp_path / "daily_backtest.csv")
+    folds = pd.read_csv(tmp_path / "walk_forward_splits.csv")
+    assert {"gross_strategy_return", "cost_return", "net_strategy_return"}.issubset(daily.columns)
+    assert daily["cost_return"].abs().sum() > 0.0
+    assert {"fold", "train_start", "train_end", "test_start", "test_end", "schema_version"}.issubset(folds.columns)
