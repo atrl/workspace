@@ -391,5 +391,69 @@
   "artifact_id": "analysis_window_presets_v1",
   "artifact_type": "analysis_report",
   "schema_version": "analysis.report.v1",
-  "status": "analysis_window_presets_completed"
+  "status": "analysis_window_presets_completed",
+  "window_definitions": [
+    {
+      "end": "2026-06-09",
+      "start": "2026-01-01",
+      "window": "ytd"
+    },
+    {
+      "end": "2026-06-09",
+      "start": "2026-05-09",
+      "window": "trailing_1m"
+    },
+    {
+      "end": "2026-06-09",
+      "start": "2026-03-09",
+      "window": "trailing_3m"
+    },
+    {
+      "end": "2026-06-09",
+      "start": "2025-12-09",
+      "window": "trailing_6m"
+    },
+    {
+      "end": "2026-06-09",
+      "start": "2025-06-09",
+      "window": "trailing_12m"
+    },
+    {
+      "end": "2020-12-31",
+      "start": "2020-01-01",
+      "window": "year_2020"
+    },
+    {
+      "end": "2022-12-31",
+      "start": "2022-01-01",
+      "window": "year_2022"
+    },
+    {
+      "end": "2024-12-31",
+      "start": "2023-01-01",
+      "window": "period_2023_2024"
+    },
+    {
+      "end": "2020-03-23",
+      "start": "2020-02-19",
+      "window": "covid_crash"
+    },
+    {
+      "end": "2026-06-09",
+      "start": "2026-05-01",
+      "window": "test"
+    }
+  ],
+  "window_names": [
+    "ytd",
+    "trailing_1m",
+    "trailing_3m",
+    "trailing_6m",
+    "trailing_12m",
+    "year_2020",
+    "year_2022",
+    "period_2023_2024",
+    "covid_crash",
+    "test"
+  ]
 }

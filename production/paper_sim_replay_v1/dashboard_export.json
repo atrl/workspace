@@ -503,7 +503,47 @@
       "schema_version": "backtest.walk_forward.v1",
       "test_size": 13,
       "train_size": 41
-    }
+    },
+    "window_definitions": [
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "ytd"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-08",
+        "window": "trailing_1m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_3m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_6m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "trailing_12m"
+      },
+      {
+        "end": "2026-06-08",
+        "start": "2026-05-01",
+        "window": "test"
+      }
+    ],
+    "window_names": [
+      "ytd",
+      "trailing_1m",
+      "trailing_3m",
+      "trailing_6m",
+      "trailing_12m",
+      "test"
+    ]
   },
   "analysis_overview": {
     "baseline_model": "ridge_mse__ic_weighted_composite",
