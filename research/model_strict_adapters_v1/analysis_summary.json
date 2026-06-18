@@ -1,0 +1,32 @@
+{
+  "schema_version": "model_strict_adapters_review.v1",
+  "status": "completed",
+  "train_rows": 61,
+  "test_rows": 20,
+  "feature_columns": [
+    "soxl_return_1d",
+    "soxx_return_1d",
+    "soxl_return_5d",
+    "soxx_return_5d",
+    "soxl_soxx_relative_5d",
+    "vix_level"
+  ],
+  "models": [
+    "logistic_clf",
+    "ridge_mse",
+    "ridge_ic"
+  ],
+  "adapter_status": "paper_strict_adapter",
+  "model_adapters": [
+    "logistic_direction_v1",
+    "ridge_mse_v1",
+    "ridge_rank_ic_proxy_v1"
+  ],
+  "ridge_ic_differs_from_ridge_mse": true,
+  "ridge_ic_vs_mse_abs_mean_diff": 0.4367261873168422,
+  "adapter_summary_path": "adapter_summary.csv",
+  "prediction_path": "adapter_predictions.csv",
+  "artifact_path": "ridge_ic_artifact.joblib",
+  "artifact_metadata_path": "artifact_metadata.json",
+  "artifact_prediction_path": "artifact_predictions.csv"
+}

@@ -52,7 +52,9 @@ def test_factor_feature_set_matrix_writes_manifest_with_dataset_and_sidecar_path
     assert manifest["dataset"]["name"] == "soxl_support_daily"
     assert manifest["dataset"]["calendar_path"].endswith("data/qlib/soxl/calendars/day.txt")
     assert manifest["metadata"]["train_end"] == "2026-04-30"
-    assert manifest["metadata"]["adapter_status"] == "smoke_adapter"
+    assert manifest["metadata"]["adapter_status"] == "paper_strict_adapter"
+    assert manifest["metadata"]["adapter_statuses"] == ["paper_strict_adapter"]
+    assert manifest["metadata"]["model_adapters"] == ["ridge_mse_v1"]
     assert len(manifest["manifest_hash"]) == 64
     assert {
         "analysis_summary",

@@ -71,4 +71,7 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
     assert summary["status"] == "feature_set_matrix_completed"
     assert summary["base_model_count"] == 2
     assert summary["feature_set_count"] == 3
+    assert summary["adapter_status"] == "mixed_adapters"
+    assert summary["adapter_statuses"] == ["paper_strict_adapter", "smoke_adapter"]
+    assert {"ridge_mse_v1", "smoke_fallback_v1"}.issubset(set(summary["model_adapters"]))
     assert summary["selection_source"] == "train_only_factor_ic"

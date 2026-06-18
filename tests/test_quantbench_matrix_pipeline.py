@@ -82,4 +82,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert summary["model_count"] == len(QUANTBENCH_MODEL_NAMES)
     assert summary["train_end"] == "2026-04-30"
     assert summary["status"] == "smoke_completed"
+    assert summary["adapter_status"] == "mixed_adapters"
+    assert {"paper_strict_adapter", "smoke_adapter"}.issubset(set(summary["adapter_statuses"]))
+    assert {"ridge_mse_v1", "smoke_fallback_v1"}.issubset(set(summary["model_adapters"]))
     assert "qlib_risk_metrics" in summary["analysis_layers"]

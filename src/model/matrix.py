@@ -40,6 +40,16 @@ def _enrich_comparison_with_variant_columns(comparison: pd.DataFrame) -> pd.Data
     return result.loc[:, [column for column in front if column in result.columns] + remaining]
 
 
+def _adapter_summary(predictions: pd.DataFrame) -> dict[str, object]:
+    statuses = sorted(str(value) for value in predictions["adapter_status"].dropna().unique().tolist())
+    adapters = sorted(str(value) for value in predictions["model_adapter"].dropna().unique().tolist())
+    return {
+        "adapter_status": statuses[0] if len(statuses) == 1 else "mixed_adapters",
+        "adapter_statuses": statuses,
+        "model_adapters": adapters,
+    }
+
+
 def _dataset_snapshot(*, start: str, end: str) -> DatasetSnapshot:
     return DatasetSnapshot(
         name="soxl_support_daily",
@@ -99,6 +109,7 @@ def run_quantbench_matrix_smoke(
         for name in tuple(model_names)
     ]
     predictions = pd.concat(prediction_frames, ignore_index=True)
+    adapter_summary = _adapter_summary(predictions)
     daily = backtest_prediction_frame(predictions, price_frame=price_frame)
     regime_metrics = compute_regime_metrics(daily)
     windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
@@ -118,10 +129,10 @@ def run_quantbench_matrix_smoke(
         "test_start": str(test["date"].min().date()),
         "test_end": str(test["date"].max().date()),
         "top_model": str(model_comparison.iloc[0]["model"]),
-        "adapter_status": "smoke_adapter",
+        **adapter_summary,
         "analysis_layers": ["regime_metrics", "window_metrics", "qlib_risk_metrics", "model_effect_deltas"],
         "analysis_summary": effect_analysis.summary,
-        "note": "Smoke adapters validate the full matrix contract; paper-strict replacements can be swapped per ModelSpec.",
+        "note": "Matrix keeps one contract while paper-strict adapters replace smoke fallbacks model by model.",
     }
 
     predictions.to_csv(card / "predictions.csv", index=False)
@@ -151,6 +162,8 @@ def run_quantbench_matrix_smoke(
             "status": summary["status"],
             "train_end": train_end,
             "adapter_status": summary["adapter_status"],
+            "adapter_statuses": summary["adapter_statuses"],
+            "model_adapters": summary["model_adapters"],
             "model_count": summary["model_count"],
         },
     )
@@ -207,6 +220,7 @@ def run_factor_feature_set_matrix(
             predictions["feature_columns"] = ",".join(feature_set.feature_columns)
             prediction_frames.append(predictions)
     predictions = pd.concat(prediction_frames, ignore_index=True)
+    adapter_summary = _adapter_summary(predictions)
     daily = backtest_prediction_frame(predictions, price_frame=price_frame)
     regime_metrics = compute_regime_metrics(daily)
     windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
@@ -228,12 +242,12 @@ def run_factor_feature_set_matrix(
         "test_start": str(test["date"].min().date()),
         "test_end": str(test["date"].max().date()),
         "top_variant": str(model_comparison.iloc[0]["model"]),
-        "adapter_status": "smoke_adapter",
+        **adapter_summary,
         "analysis_layers": ["regime_metrics", "window_metrics", "qlib_risk_metrics", "model_effect_deltas"],
         **plan.summary,
         "feature_sets": [feature_set.to_dict() for feature_set in plan.feature_sets],
         "analysis_summary": effect_analysis.summary,
-        "note": "Compares the same smoke model adapters across raw, IC-selected, and composite factor sets.",
+        "note": "Compares the same model adapters across raw, IC-selected, and composite factor sets.",
     }
 
     predictions.to_csv(card / "predictions.csv", index=False)
@@ -270,6 +284,8 @@ def run_factor_feature_set_matrix(
             "status": summary["status"],
             "train_end": train_end,
             "adapter_status": summary["adapter_status"],
+            "adapter_statuses": summary["adapter_statuses"],
+            "model_adapters": summary["model_adapters"],
             "base_model_count": summary["base_model_count"],
             "feature_set_count": summary["feature_set_count"],
             "variant_count": summary["variant_count"],

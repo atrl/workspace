@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -10,7 +9,12 @@ import numpy as np
 import pandas as pd
 
 from .registry import get_model_spec
-from .training import _classification_target, _estimator_for_model, _feature_matrix, _regression_target
+from .training import (
+    fit_estimator_for_model,
+    model_adapter_name,
+    model_adapter_status,
+    predict_with_estimator,
+)
 
 
 @dataclass(frozen=True)
@@ -21,6 +25,7 @@ class ModelArtifact:
     objective: str
     family: str
     adapter_status: str = "smoke_adapter"
+    model_adapter: str = "smoke_fallback_v1"
     target_column: str = "target_return"
     metadata: dict[str, Any] = field(default_factory=dict)
     constant_prediction: float | None = None
@@ -28,16 +33,13 @@ class ModelArtifact:
     def predict(self, frame: pd.DataFrame) -> pd.DataFrame:
         if frame.empty:
             raise ValueError("prediction frame must be non-empty")
-        x_test = _feature_matrix(frame, self.feature_columns)
-        if self.constant_prediction is not None:
-            raw_prediction = np.full(len(frame), float(self.constant_prediction))
-        elif self.objective == "classification":
-            if hasattr(self.estimator, "predict_proba"):
-                raw_prediction = self.estimator.predict_proba(x_test)[:, 1] - 0.5
-            else:
-                raw_prediction = self.estimator.predict(x_test).astype(float) - 0.5
-        else:
-            raw_prediction = self.estimator.predict(x_test)
+        raw_prediction = predict_with_estimator(
+            self.model_name,
+            estimator=self.estimator,
+            frame=frame,
+            feature_columns=self.feature_columns,
+            constant_prediction=self.constant_prediction,
+        )
         return pd.DataFrame(
             {
                 "date": frame["date"].tolist(),
@@ -47,6 +49,7 @@ class ModelArtifact:
                 "objective": self.objective,
                 "family": self.family,
                 "adapter_status": self.adapter_status,
+                "model_adapter": self.model_adapter,
             }
         )
 
@@ -58,6 +61,7 @@ class ModelArtifact:
             "objective": self.objective,
             "family": self.family,
             "adapter_status": self.adapter_status,
+            "model_adapter": self.model_adapter,
             "target_column": self.target_column,
             **dict(self.metadata),
         }
@@ -73,21 +77,11 @@ def fit_model_artifact(
     if train.empty:
         raise ValueError("train frame must be non-empty")
     spec = get_model_spec(model_name)
-    estimator = _estimator_for_model(model_name)
-    x_train = _feature_matrix(train, feature_columns)
-    constant_prediction: float | None = None
-
-    if spec.objective == "classification":
-        y_train = _classification_target(train)
-        if len(set(y_train.tolist())) < 2:
-            constant_prediction = float(y_train[0]) - 0.5
-        else:
-            estimator.fit(x_train, y_train)
-    else:
-        y_train = _regression_target(train)
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            estimator.fit(x_train, y_train)
+    estimator, constant_prediction = fit_estimator_for_model(
+        model_name,
+        train=train,
+        feature_columns=tuple(feature_columns),
+    )
 
     return ModelArtifact(
         model_name=model_name,
@@ -95,6 +89,8 @@ def fit_model_artifact(
         estimator=estimator,
         objective=spec.objective,
         family=spec.family,
+        adapter_status=model_adapter_status(model_name),
+        model_adapter=model_adapter_name(model_name),
         target_column=target_column,
         metadata={
             "schema_version": "model_artifact.v1",
