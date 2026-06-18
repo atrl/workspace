@@ -1,0 +1,17 @@
+{
+  "schema_version": "notebook.summary.v1",
+  "artifact_id": "schedule_model_run_coverage_gate_v1",
+  "source_card": "research/quantbench_all_model_run_ledger_v1",
+  "dashboard_export": "research/schedule_model_run_coverage_gate_v1/dashboard_export.json",
+  "scheduled_dashboard_export": "research/schedule_model_run_coverage_gate_v1/scheduled_dashboard_export.json",
+  "schedule_result": "research/schedule_model_run_coverage_gate_v1/schedule_result.json",
+  "notification_events": "research/schedule_model_run_coverage_gate_v1/notification_events.json",
+  "complete_intent": "research/schedule_model_run_coverage_gate_v1/paper_intent_complete.json",
+  "incomplete_intent": "research/schedule_model_run_coverage_gate_v1/paper_intent_incomplete_gate.json",
+  "top_model": "sthan_mse",
+  "coverage_all_completed": true,
+  "schedule_notification": "model_dashboard_refresh:success | top_model=sthan_mse | dashboard_manifest=analysis_manifest | attempts=1 | export=research/schedule_model_run_coverage_gate_v1/scheduled_dashboard_export.json | top_failure=return_stability_lag@trailing_1m::downtrend | top_review=weakness:block_or_rework@trailing_1m::downtrend | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_ic->sthan_mse/spread=111.297 | promotion=promote_candidate:sthan_mse blocked=0 | run_coverage=32/32 backtested=32/32 missing=0",
+  "complete_execution_gate": "paper_review",
+  "incomplete_execution_gate": "blocked_to_min_position",
+  "decision": "keep: schedule/api now consume model run ledger coverage as an execution guardrail"
+}

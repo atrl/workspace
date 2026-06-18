@@ -1,0 +1,3 @@
+[
+  "model_dashboard_refresh:success | top_model=sthan_mse | dashboard_manifest=analysis_manifest | attempts=1 | export=research/schedule_model_run_coverage_gate_v1/scheduled_dashboard_export.json | top_failure=return_stability_lag@trailing_1m::downtrend | top_review=weakness:block_or_rework@trailing_1m::downtrend | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_ic->sthan_mse/spread=111.297 | promotion=promote_candidate:sthan_mse blocked=0 | run_coverage=32/32 backtested=32/32 missing=0"
+]
