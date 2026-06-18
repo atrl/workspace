@@ -113,10 +113,17 @@ def _run_pipeline_attempt(
             title=config.dashboard_page_title,
         )
     matrix_payload = matrix_result.summary if hasattr(matrix_result, "summary") else dict(matrix_result or {})
+    manifest_source = dashboard_payload.get("manifest_source")
+    manifest_payload = manifest_source if isinstance(manifest_source, dict) else {}
     return {
         "matrix_card": str(config.card_dir),
         "dashboard_export": str(config.dashboard_output_path),
         "dashboard_schema_version": str(dashboard_payload.get("schema_version", "")),
+        "dashboard_artifact_id": str(dashboard_payload.get("artifact_id", "")),
+        "dashboard_manifest_kind": str(manifest_payload.get("kind", "")),
+        "dashboard_manifest_path": str(manifest_payload.get("path", "")),
+        "dashboard_manifest_hash": str(manifest_payload.get("manifest_hash", "")),
+        "dashboard_manifest_producer": str(manifest_payload.get("producer", "")),
         "dashboard_page": str(config.dashboard_page_output_path) if config.dashboard_page_output_path is not None else "",
         "dashboard_page_schema_version": str(page_payload.get("schema_version", "")),
         "dashboard_view_model_schema_version": str(page_payload.get("view_model_schema_version", "")),

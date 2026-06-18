@@ -60,6 +60,53 @@ def test_model_dashboard_refresh_runs_matrix_then_dashboard_export_with_lock_and
     assert not (tmp_path / "locks" / "model_dashboard_refresh.lock").exists()
 
 
+def test_model_dashboard_refresh_reports_dashboard_manifest_source(tmp_path):
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 1, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "manifest_first_card",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": str(card_dir / "analysis_manifest.json"),
+                "schema_version": "artifact.v1",
+                "manifest_hash": "a" * 64,
+                "producer": "src.analysis.exports",
+            },
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["dashboard_artifact_id"] == "manifest_first_card"
+    assert result.payload["dashboard_manifest_kind"] == "analysis_manifest"
+    assert result.payload["dashboard_manifest_path"].endswith("analysis_manifest.json")
+    assert result.payload["dashboard_manifest_hash"] == "a" * 64
+    assert result.payload["dashboard_manifest_producer"] == "src.analysis.exports"
+
+
 def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_export(tmp_path):
     calls: list[tuple[str, Path | None]] = []
     attribution_card = tmp_path / "attribution_card"

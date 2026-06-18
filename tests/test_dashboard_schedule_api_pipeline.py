@@ -113,6 +113,9 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["artifacts"]["analysis_manifest"].endswith("analysis_manifest.json")
     assert payload["artifacts"]["model_comparison"].endswith("comparison_custom.csv")
     assert "predictions" not in payload["artifacts"]
+    assert payload["manifest_source"]["kind"] == "analysis_manifest"
+    assert payload["manifest_source"]["path"].endswith("analysis_manifest.json")
+    assert payload["manifest_source"]["manifest_hash"] == "x" * 64
 
 
 def test_dashboard_export_writes_manifest_style_payload(tmp_path):

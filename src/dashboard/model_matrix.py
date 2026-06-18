@@ -83,6 +83,32 @@ def _card_sources(card: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str,
     return analysis_manifest, artifact_manifest, paths
 
 
+def _manifest_source(card: Path, *, analysis_manifest: dict[str, Any], artifact_manifest: dict[str, Any]) -> dict[str, str]:
+    if analysis_manifest:
+        return {
+            "kind": "analysis_manifest",
+            "path": str(card / "analysis_manifest.json"),
+            "schema_version": str(analysis_manifest.get("schema_version", "")),
+            "manifest_hash": str(analysis_manifest.get("manifest_hash", "")),
+            "producer": str(analysis_manifest.get("producer", "")),
+        }
+    if artifact_manifest:
+        return {
+            "kind": "artifact_manifest",
+            "path": str(card / "artifact_manifest.json"),
+            "schema_version": str(artifact_manifest.get("schema_version", "")),
+            "manifest_hash": str(artifact_manifest.get("manifest_hash", "")),
+            "producer": str(artifact_manifest.get("producer", "")),
+        }
+    return {
+        "kind": "fixed_sidecars",
+        "path": str(card),
+        "schema_version": "",
+        "manifest_hash": "",
+        "producer": "",
+    }
+
+
 def _path_for(card: Path, paths: dict[str, str], key: str, fallback: str) -> Path:
     return _resolve_card_path(card, paths.get(key, fallback)) or (card / fallback)
 
@@ -223,6 +249,11 @@ def load_model_matrix_dashboard(
         "schema_version": "dashboard.model_matrix.v1",
         "artifact_id": str(manifest_source.get("artifact_id", card.name)),
         "artifact_type": "dashboard_export",
+        "manifest_source": _manifest_source(
+            card,
+            analysis_manifest=analysis_manifest,
+            artifact_manifest=artifact_manifest,
+        ),
         "summary": summary,
         "model_fidelity": _load_model_fidelity(summary, card),
         "model_capabilities": _records(model_capabilities, limit=200),
