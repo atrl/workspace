@@ -105,6 +105,44 @@ class _GCNNet(nn.Module):
         return self.head(pooled).squeeze(-1)
 
 
+class _GATNet(nn.Module):
+    def __init__(self, *, feature_count: int, hidden_size: int, attention_prior: np.ndarray):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.hidden_size = hidden_size
+        self.input_projection = nn.Linear(1, hidden_size)
+        self.output_projection = nn.Linear(hidden_size, hidden_size)
+        self.attention_source = nn.Linear(hidden_size, 1, bias=False)
+        self.attention_target = nn.Linear(hidden_size, 1, bias=False)
+        self.head = nn.Linear(hidden_size * 2, 1)
+        self.register_buffer("attention_prior", torch.as_tensor(attention_prior, dtype=torch.float32))
+        self.leaky_relu = nn.LeakyReLU(negative_slope=0.2)
+
+    def _attention(self, hidden):
+        import torch
+
+        source_score = self.attention_source(hidden)
+        target_score = self.attention_target(hidden).transpose(1, 2)
+        prior = torch.log(self.attention_prior.clamp_min(1e-6)).reshape(1, self.feature_count, self.feature_count)
+        scores = self.leaky_relu(source_score + target_score + prior)
+        return torch.softmax(scores, dim=-1)
+
+    def forward(self, x, *, return_attention: bool = False):
+        import torch
+
+        hidden = torch.relu(self.input_projection(x.unsqueeze(-1)))
+        attention = self._attention(hidden)
+        context = torch.einsum("bij,bjh->bih", attention, hidden)
+        output = torch.relu(self.output_projection(context))
+        pooled = torch.cat([output.mean(dim=1), output.max(dim=1).values], dim=1)
+        prediction = self.head(pooled).squeeze(-1)
+        if return_attention:
+            return prediction, attention
+        return prediction
+
+
 @dataclass
 class GCNGraphRegressor:
     hidden_size: int = 8
@@ -154,6 +192,66 @@ class GCNGraphRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 2:
             raise ValueError("GCNGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        with torch.no_grad():
+            output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class GATGraphRegressor:
+    hidden_size: int = 8
+    epochs: int = 32
+    learning_rate: float = 0.01
+    seed: int = 43
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "GATGraphRegressor":
+        if x.ndim != 2:
+            raise ValueError("GATGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.feature_count_ = int(x.shape[1])
+        self.node_count_ = self.feature_count_
+        self.feature_mean_ = x.mean(axis=0)
+        self.feature_std_ = x.std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        self.attention_prior_ = _feature_correlation_adjacency(x_scaled)
+        x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _GATNet(
+            feature_count=self.feature_count_,
+            hidden_size=int(self.hidden_size),
+            attention_prior=self.attention_prior_,
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        with torch.no_grad():
+            _, attention = self.model_(x_tensor, return_attention=True)
+        self.attention_weights_ = attention.mean(dim=0).detach().cpu().numpy().astype("float32")
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 2:
+            raise ValueError("GATGraphRegressor expects a 2D feature matrix")
         import torch
 
         torch.set_num_threads(1)

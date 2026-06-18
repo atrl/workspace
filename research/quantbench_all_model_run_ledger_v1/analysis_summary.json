@@ -23,9 +23,9 @@
     "baseline_model": "sthan_mse",
     "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
     "decision_hint_counts": {
-      "block_or_rework": 465,
+      "block_or_rework": 459,
       "cost_review": 7,
-      "reduce_or_guardrail": 133
+      "reduce_or_guardrail": 140
     },
     "largest_relative_return_spread_segments": [
       {
@@ -33,8 +33,8 @@
         "best_relative_return_model": "sthan_mse",
         "best_relative_return_vs_baseline_delta": 0.0,
         "best_stability_model": "xgboost_mse",
-        "highest_drawdown_model": "hist_gradient_mse",
-        "highest_drawdown_pct": 5.588643182857744,
+        "highest_drawdown_model": "gat_mse",
+        "highest_drawdown_pct": 6.0197019847620385,
         "regime": "downtrend",
         "relative_return_pct_spread": 111.29741645213258,
         "review_note": "sthan_mse 在 downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
@@ -50,8 +50,8 @@
         "best_relative_return_model": "sthan_mse",
         "best_relative_return_vs_baseline_delta": 0.0,
         "best_stability_model": "xgboost_mse",
-        "highest_drawdown_model": "hist_gradient_mse",
-        "highest_drawdown_pct": 5.588643182857744,
+        "highest_drawdown_model": "gat_mse",
+        "highest_drawdown_pct": 6.0197019847620385,
         "regime": "downtrend",
         "relative_return_pct_spread": 111.29741645213258,
         "review_note": "sthan_mse 在 test::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
@@ -67,8 +67,8 @@
         "best_relative_return_model": "sthan_mse",
         "best_relative_return_vs_baseline_delta": 0.0,
         "best_stability_model": "xgboost_mse",
-        "highest_drawdown_model": "hist_gradient_mse",
-        "highest_drawdown_pct": 5.588643182857744,
+        "highest_drawdown_model": "gat_mse",
+        "highest_drawdown_pct": 6.0197019847620385,
         "regime": "downtrend",
         "relative_return_pct_spread": 111.29741645213258,
         "review_note": "sthan_mse 在 trailing_12m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
@@ -84,8 +84,8 @@
         "best_relative_return_model": "sthan_mse",
         "best_relative_return_vs_baseline_delta": 0.0,
         "best_stability_model": "xgboost_mse",
-        "highest_drawdown_model": "hist_gradient_mse",
-        "highest_drawdown_pct": 5.588643182857744,
+        "highest_drawdown_model": "gat_mse",
+        "highest_drawdown_pct": 6.0197019847620385,
         "regime": "downtrend",
         "relative_return_pct_spread": 111.29741645213258,
         "review_note": "sthan_mse 在 trailing_3m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
@@ -101,8 +101,8 @@
         "best_relative_return_model": "sthan_mse",
         "best_relative_return_vs_baseline_delta": 0.0,
         "best_stability_model": "xgboost_mse",
-        "highest_drawdown_model": "hist_gradient_mse",
-        "highest_drawdown_pct": 5.588643182857744,
+        "highest_drawdown_model": "gat_mse",
+        "highest_drawdown_pct": 6.0197019847620385,
         "regime": "downtrend",
         "relative_return_pct_spread": 111.29741645213258,
         "review_note": "sthan_mse 在 trailing_6m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
@@ -120,8 +120,8 @@
     "regime_count": 4,
     "review_signal_counts": {
       "efficiency_check": 7,
-      "risk": 133,
-      "weakness": 465
+      "risk": 140,
+      "weakness": 459
     },
     "schema_version": "analysis.overview.v1",
     "segment_effect_matrix_count": 34,
@@ -450,11 +450,11 @@
     "window_regime_count": 23
   },
   "analysis_table_counts": {
-    "failure_modes": 840,
+    "failure_modes": 847,
     "model_comparison": 32,
     "model_effect_deltas": 1074,
     "model_regime_window_diagnostics": 32,
-    "model_review_briefing": 605,
+    "model_review_briefing": 606,
     "qlib_return_frame": 832,
     "qlib_risk_metrics": 2148,
     "regime_metrics": 126,
@@ -495,7 +495,7 @@
     "dlinear_decomposition_mse_v1",
     "extra_trees_rank_proxy_v1",
     "fedformer_frequency_attention_mse_v1",
-    "gat_feature_attention_mse_v1",
+    "gat_graph_attention_mse_v1",
     "gcn_graph_convolution_mse_v1",
     "gru_pytorch_sequence_mse_v1",
     "hawkes_gru_intensity_mse_v1",
@@ -524,11 +524,11 @@
   "model_count": 32,
   "model_fidelity": {
     "fidelity_counts": {
-      "native_graph": 1,
+      "native_graph": 2,
       "native_library": 8,
       "native_sequence": 6,
       "native_torch": 6,
-      "proxy_feature_adapter": 11
+      "proxy_feature_adapter": 10
     },
     "model_count": 32,
     "native_models": [
@@ -538,6 +538,7 @@
       "darnn_mse",
       "dlinear_mse",
       "fedformer_mse",
+      "gat_mse",
       "gcn_mse",
       "gru_mse",
       "hawkes_gru_mse",
@@ -557,7 +558,6 @@
     "promotion_blocker_count": 24,
     "proxy_models": [
       "extra_trees_rank",
-      "gat_mse",
       "hypergraph_mse",
       "market_graph_mse",
       "rgcn_mse",
@@ -572,8 +572,8 @@
   },
   "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
   "objective_evaluation": {
-    "avg_ic": 0.008570211572191054,
-    "avg_mse": 0.036017026803040614,
+    "avg_ic": -0.0081220637553571,
+    "avg_mse": 0.03586061153076016,
     "avg_rank_ic": 0.0,
     "model_count": 32,
     "schema_version": "objective.matrix_evaluation.v1"
