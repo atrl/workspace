@@ -25,6 +25,18 @@ def build_sequence_tensor(values: np.ndarray, *, lookback: int = 5) -> np.ndarra
     return np.stack(rows).astype("float32")
 
 
+def _frequency_features(x: np.ndarray) -> np.ndarray:
+    if x.ndim != 3:
+        raise ValueError("frequency features expect a 3D sequence tensor")
+    last = x[:, -1, :]
+    mean = x.mean(axis=1)
+    std = x.std(axis=1)
+    spectrum = np.abs(np.fft.rfft(x, axis=1))[:, 1:, :]
+    if spectrum.size == 0:
+        spectrum = np.zeros((len(x), 1, x.shape[-1]))
+    return np.concatenate([last, mean, std, spectrum.reshape(len(x), -1)], axis=1)
+
+
 @dataclass
 class LaggedRidgeRegressor:
     alpha: float = 1.0
@@ -40,6 +52,19 @@ class LaggedRidgeRegressor:
         if x.ndim != 3:
             raise ValueError("LaggedRidgeRegressor expects a 3D sequence tensor")
         return self.model_.predict(x.reshape(len(x), -1))
+
+
+@dataclass
+class FrequencyRidgeRegressor:
+    alpha: float = 1.0
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "FrequencyRidgeRegressor":
+        self.model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.model_.fit(_frequency_features(x), y.astype(float))
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        return self.model_.predict(_frequency_features(x))
 
 
 class _TorchRecurrentNet(nn.Module):
@@ -58,6 +83,47 @@ class _TorchRecurrentNet(nn.Module):
         return self.head(output[:, -1, :]).squeeze(-1)
 
 
+class _TorchAttentionNet(nn.Module):
+    def __init__(self, input_size: int, hidden_size: int, cell_type: str, use_input_gate: bool = False):
+        super().__init__()
+        self.use_input_gate = use_input_gate
+        if use_input_gate:
+            self.input_gate = nn.Sequential(nn.Linear(input_size, input_size), nn.Sigmoid())
+        if cell_type == "lstm":
+            self.recurrent = nn.LSTM(input_size=input_size, hidden_size=hidden_size, batch_first=True)
+        elif cell_type == "gru":
+            self.recurrent = nn.GRU(input_size=input_size, hidden_size=hidden_size, batch_first=True)
+        else:
+            raise ValueError(f"unsupported recurrent cell: {cell_type}")
+        self.attention = nn.Linear(hidden_size, 1)
+        self.head = nn.Linear(hidden_size, 1)
+
+    def forward(self, x):
+        if self.use_input_gate:
+            x = x * self.input_gate(x)
+        output, _ = self.recurrent(x)
+        weights = self.attention(output).squeeze(-1).softmax(dim=1)
+        context = (output * weights.unsqueeze(-1)).sum(dim=1)
+        return self.head(context).squeeze(-1)
+
+
+class _TorchTemporalConvNet(nn.Module):
+    def __init__(self, input_size: int, hidden_size: int):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Conv1d(input_size, hidden_size, kernel_size=2, padding=1),
+            nn.ReLU(),
+            nn.Conv1d(hidden_size, hidden_size, kernel_size=2, padding=1),
+            nn.ReLU(),
+        )
+        self.head = nn.Linear(hidden_size, 1)
+
+    def forward(self, x):
+        output = self.net(x.transpose(1, 2))
+        pooled = output[:, :, -1]
+        return self.head(pooled).squeeze(-1)
+
+
 @dataclass
 class TorchSequenceRegressor:
     cell_type: str
@@ -65,6 +131,8 @@ class TorchSequenceRegressor:
     epochs: int = 24
     learning_rate: float = 0.01
     seed: int = 7
+    architecture: str = "recurrent"
+    use_input_gate: bool = False
 
     def fit(self, x: np.ndarray, y: np.ndarray) -> "TorchSequenceRegressor":
         if x.ndim != 3:
@@ -85,7 +153,17 @@ class TorchSequenceRegressor:
         y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
         x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
         y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
-        self.model_ = _TorchRecurrentNet(x.shape[-1], self.hidden_size, self.cell_type)
+        if self.architecture == "attention":
+            self.model_ = _TorchAttentionNet(
+                x.shape[-1],
+                self.hidden_size,
+                self.cell_type,
+                use_input_gate=self.use_input_gate,
+            )
+        elif self.architecture == "tcn":
+            self.model_ = _TorchTemporalConvNet(x.shape[-1], self.hidden_size)
+        else:
+            self.model_ = _TorchRecurrentNet(x.shape[-1], self.hidden_size, self.cell_type)
         optimizer = torch.optim.Adam(self.model_.parameters(), lr=self.learning_rate)
         loss_fn = nn.MSELoss()
         self.model_.train()

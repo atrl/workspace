@@ -11,7 +11,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from .registry import get_model_spec
-from .sequence import LaggedRidgeRegressor, TorchSequenceRegressor, build_sequence_tensor
+from .sequence import FrequencyRidgeRegressor, LaggedRidgeRegressor, TorchSequenceRegressor, build_sequence_tensor
 
 
 STRICT_ADAPTER_NAMES = {
@@ -25,6 +25,10 @@ STRICT_ADAPTER_NAMES = {
     "sequence_lag_ridge_mse": "sequence_lag_ridge_mse_v1",
     "lstm_mse": "lstm_pytorch_sequence_mse_v1",
     "gru_mse": "gru_pytorch_sequence_mse_v1",
+    "alstm_mse": "alstm_attention_lstm_mse_v1",
+    "sfm_mse": "sfm_frequency_ridge_mse_v1",
+    "darnn_mse": "darnn_dual_attention_gru_mse_v1",
+    "tcn_mse": "tcn_temporal_conv_mse_v1",
 }
 
 DEPENDENCY_FALLBACK_ADAPTER_NAMES = {
@@ -62,7 +66,15 @@ def _sequence_feature_tensor(frame: pd.DataFrame, feature_columns: tuple[str, ..
 
 
 def _uses_sequence_tensor(model_name: str) -> bool:
-    return model_name in {"sequence_lag_ridge_mse", "lstm_mse", "gru_mse"}
+    return model_name in {
+        "sequence_lag_ridge_mse",
+        "lstm_mse",
+        "gru_mse",
+        "alstm_mse",
+        "sfm_mse",
+        "darnn_mse",
+        "tcn_mse",
+    }
 
 
 def _regression_target(frame: pd.DataFrame) -> np.ndarray:
@@ -126,6 +138,36 @@ def _estimator_for_model(model_name: str):
         return TorchSequenceRegressor(cell_type="lstm", hidden_size=8, epochs=24, learning_rate=0.01, seed=7)
     if model_name == "gru_mse":
         return TorchSequenceRegressor(cell_type="gru", hidden_size=8, epochs=24, learning_rate=0.01, seed=11)
+    if model_name == "alstm_mse":
+        return TorchSequenceRegressor(
+            cell_type="lstm",
+            hidden_size=8,
+            epochs=24,
+            learning_rate=0.01,
+            seed=13,
+            architecture="attention",
+        )
+    if model_name == "sfm_mse":
+        return FrequencyRidgeRegressor(alpha=1.0)
+    if model_name == "darnn_mse":
+        return TorchSequenceRegressor(
+            cell_type="gru",
+            hidden_size=8,
+            epochs=24,
+            learning_rate=0.01,
+            seed=17,
+            architecture="attention",
+            use_input_gate=True,
+        )
+    if model_name == "tcn_mse":
+        return TorchSequenceRegressor(
+            cell_type="gru",
+            hidden_size=8,
+            epochs=24,
+            learning_rate=0.01,
+            seed=19,
+            architecture="tcn",
+        )
     if model_name in {"extra_trees_rank", "catboost_rank"}:
         return ExtraTreesRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if spec.family == "tree" and spec.objective == "classification":

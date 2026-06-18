@@ -1,0 +1,17 @@
+{
+  "schema_version": "model_artifact.v1",
+  "model_name": "darnn_mse",
+  "feature_columns": [
+    "soxl_return_1d",
+    "soxx_return_1d",
+    "soxl_return_5d",
+    "soxx_return_5d",
+    "soxl_soxx_relative_5d"
+  ],
+  "objective": "mse",
+  "family": "sequence",
+  "adapter_status": "paper_strict_adapter",
+  "model_adapter": "darnn_dual_attention_gru_mse_v1",
+  "target_column": "target_return",
+  "train_rows": 82
+}
