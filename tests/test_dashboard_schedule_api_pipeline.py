@@ -379,3 +379,20 @@ def test_paper_broker_places_target_position_and_reports_exposure():
     assert snapshot.shares == 35
     assert snapshot.cash == 6500.0
     assert abs(snapshot.position - 0.35) < 1e-12
+
+
+def test_production_paper_sim_summary_records_review_gate_context():
+    summary = json.loads(open("production/paper_sim_replay_v1/production_summary.json", encoding="utf-8").read())
+    intent = json.loads(open("production/paper_sim_replay_v1/execution_intent.json", encoding="utf-8").read())
+
+    assert summary["schema_version"] == "production.paper_sim_replay.v1"
+    assert summary["live_broker_enabled"] is False
+    assert summary["execution_gate"] in {"paper_review", "blocked_to_min_position"}
+    assert summary["analysis_overview_schema"] == "analysis.overview.v1"
+    assert summary["promotion_decision"]
+    assert summary["backtest_schema_version"] == "backtest.config.v1"
+    assert summary["backtest_walk_forward_fold_count"] >= 1
+    assert "regime_gap=" in " ".join(summary["notifications"])
+    assert intent["metadata"]["execution_gate"] == summary["execution_gate"]
+    assert intent["metadata"]["analysis_overview_schema_version"] == summary["analysis_overview_schema"]
+    assert intent["metadata"]["backtest_schema_version"] == summary["backtest_schema_version"]

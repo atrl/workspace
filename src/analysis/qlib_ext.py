@@ -13,6 +13,7 @@ from .reports import (
     compute_window_metrics,
     compute_window_regime_metrics,
 )
+from .windows import build_analysis_window_table
 
 
 QLIB_RISK_SOURCE = "qlib.contrib.evaluate.risk_analysis"
@@ -732,12 +733,19 @@ def analyze_model_effects_by_regime_and_window(
         }
         for _, row in weakness_frame.head(5).iterrows()
     ]
+    window_table = build_analysis_window_table(windows or {}, source="analysis_input")
+    window_definitions = [
+        {"window": str(row["window"]), "start": str(row["start"]), "end": str(row["end"])}
+        for _, row in window_table.iterrows()
+    ]
     summary = {
         "schema_version": "analysis.regime_window_effect.v1",
         "baseline_model": baseline,
         "model_count": int(returns["model"].nunique()) if not returns.empty else 0,
         "regime_count": int(returns["regime"].nunique()) if not returns.empty else 0,
         "window_count": int(len(windows or {})),
+        "window_names": [item["window"] for item in window_definitions],
+        "window_definitions": window_definitions,
         "window_regime_count": int(window_regime_metrics["segment"].nunique()) if not window_regime_metrics.empty else 0,
         "segment_effect_matrix_count": int(len(segment_effect_matrix)),
         "segment_types": sorted(str(value) for value in segment_metrics["segment_type"].dropna().unique().tolist()),

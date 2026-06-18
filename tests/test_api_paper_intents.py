@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 
 import pytest
 
@@ -49,6 +50,83 @@ def test_build_target_position_intent_from_dashboard_clamps_and_records_model_so
     assert intent.source_artifact == "factor_feature_set_matrix_v1"
     assert intent.metadata["raw_avg_position"] == 0.74
     assert "真实 broker" in intent.guardrail
+
+
+def test_build_target_position_intent_records_dashboard_review_context_and_blocks_unsafe_top_model():
+    payload = _dashboard_payload()
+    payload["analysis_overview"] = {
+        "schema_version": "analysis.overview.v1",
+        "top_weakness": {
+            "model": "random_forest_clf__all_features",
+            "segment": "stress_window::stress",
+            "decision_hint": "block_or_rework",
+        },
+        "largest_relative_return_spread_segments": [
+            {
+                "segment": "stress_window::stress",
+                "best_relative_return_model": "ridge_mse__all_features",
+                "worst_relative_return_model": "random_forest_clf__all_features",
+                "relative_return_pct_spread": 8.5,
+            }
+        ],
+    }
+    payload["objective"] = {
+        "promotion_scores": [
+            {
+                "rank": 1,
+                "model": "random_forest_clf__all_features",
+                "promotion_score": -4.0,
+                "promotion_decision": "blocked",
+                "promotion_blockers": "max_drawdown_pct",
+            }
+        ]
+    }
+    payload["backtest"] = {
+        "config": {
+            "schema_version": "backtest.config.v1",
+            "cost_model": {"open_cost_bps": 1.0, "close_cost_bps": 1.0, "slippage_bps": 1.5},
+        },
+        "walk_forward_splits": [{"fold": 1}, {"fold": 2}],
+    }
+
+    intent = build_target_position_intent_from_dashboard(
+        payload,
+        instrument="SOXL",
+        min_position=0.1,
+        max_position=0.75,
+    )
+
+    assert intent.target_position == 0.1
+    assert intent.metadata["execution_gate"] == "blocked_to_min_position"
+    assert intent.metadata["promotion_decision"] == "blocked"
+    assert intent.metadata["promotion_blockers"] == "max_drawdown_pct"
+    assert intent.metadata["analysis_overview_schema_version"] == "analysis.overview.v1"
+    assert intent.metadata["analysis_top_weakness_model"] == "random_forest_clf__all_features"
+    assert intent.metadata["analysis_top_weakness_decision_hint"] == "block_or_rework"
+    assert intent.metadata["analysis_top_gap_segment"] == "stress_window::stress"
+    assert intent.metadata["analysis_top_gap_spread"] == 8.5
+    assert intent.metadata["backtest_schema_version"] == "backtest.config.v1"
+    assert intent.metadata["backtest_walk_forward_fold_count"] == 2
+    assert intent.metadata["backtest_slippage_bps"] == 1.5
+
+
+def test_build_target_position_intent_normalizes_empty_promotion_blockers_from_dashboard_csv():
+    payload = _dashboard_payload()
+    payload["objective"] = {
+        "promotion_scores": [
+            {
+                "rank": 1,
+                "model": "random_forest_clf__all_features",
+                "promotion_score": 12.0,
+                "promotion_decision": "promote_candidate",
+                "promotion_blockers": math.nan,
+            }
+        ]
+    }
+
+    intent = build_target_position_intent_from_dashboard(payload, instrument="SOXL")
+
+    assert intent.metadata["promotion_blockers"] == ""
 
 
 def test_execute_paper_intent_places_target_position_on_paper_adapter_only():

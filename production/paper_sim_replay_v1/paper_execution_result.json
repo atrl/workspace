@@ -4,26 +4,43 @@
   "broker_name": "paper",
   "intent": {
     "instrument": "SOXL",
-    "target_position": 0.7407635422717518,
-    "source_model": "random_forest_clf__all_features",
+    "target_position": 0.75,
+    "source_model": "ridge_mse__ic_weighted_composite",
     "source_artifact": "matrix_card",
     "mode": "paper",
     "schema_version": "api.execution_intent.v1",
     "guardrail": "v1 只允许 paper/sim，不连接真实 broker，不触发真实下单。",
     "metadata": {
-      "raw_avg_position": 0.7407635422717518,
+      "execution_gate": "paper_review",
+      "raw_avg_position": 0.7518156857658157,
       "min_position": 0.0,
       "max_position": 0.75,
-      "base_model": "random_forest_clf",
-      "feature_set": "all_features",
-      "stability_score": 54.214257763652995,
-      "max_drawdown_pct": 21.677243377022705,
-      "dashboard_schema_version": "dashboard.model_matrix.v1"
+      "base_model": "ridge_mse",
+      "feature_set": "ic_weighted_composite",
+      "stability_score": 29.940062203007624,
+      "max_drawdown_pct": 29.020142371836933,
+      "promotion_decision": "promote_candidate",
+      "promotion_score": 29.940062203007624,
+      "promotion_blockers": "",
+      "dashboard_schema_version": "dashboard.model_matrix.v1",
+      "analysis_overview_schema_version": "analysis.overview.v1",
+      "analysis_top_weakness_model": "ridge_mse__all_features",
+      "analysis_top_weakness_segment": "stress",
+      "analysis_top_weakness_decision_hint": "block_or_rework",
+      "analysis_top_gap_segment": "downtrend",
+      "analysis_top_gap_best_model": "random_forest_clf__ic_weighted_composite",
+      "analysis_top_gap_worst_model": "ridge_mse__all_features",
+      "analysis_top_gap_spread": 47.970097543991834,
+      "backtest_schema_version": "backtest.config.v1",
+      "backtest_walk_forward_fold_count": 5,
+      "backtest_open_cost_bps": 1.0,
+      "backtest_close_cost_bps": 1.0,
+      "backtest_slippage_bps": 1.0
     }
   },
   "snapshot": {
-    "cash": 2600.0,
-    "shares": 74,
+    "cash": 2500.0,
+    "shares": 75,
     "price": 100.0
   }
 }

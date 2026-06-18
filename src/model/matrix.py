@@ -10,6 +10,7 @@ import pandas as pd
 from src.analysis.exports import build_regime_window_analysis_report, write_analysis_report
 from src.analysis.qlib_ext import analyze_model_effects_by_regime_and_window
 from src.analysis.reports import compare_models, compute_regime_metrics, compute_window_metrics
+from src.analysis.windows import build_analysis_windows
 from src.backtest import (
     BacktestConfig,
     BacktestResult,
@@ -60,6 +61,16 @@ def _adapter_summary(predictions: pd.DataFrame) -> dict[str, object]:
         "adapter_statuses": statuses,
         "model_adapters": adapters,
     }
+
+
+def _analysis_windows_for_test(test: pd.DataFrame) -> dict[str, tuple[str, str]]:
+    test_start = str(test["date"].min().date())
+    test_end = str(test["date"].max().date())
+    return build_analysis_windows(
+        start=test_start,
+        end=test_end,
+        custom_windows={"test": (test_start, test_end)},
+    )
 
 
 def _objective_score_table(predictions: pd.DataFrame) -> pd.DataFrame:
@@ -285,7 +296,7 @@ def run_quantbench_matrix_smoke(
     )
     daily = backtest_result.daily
     regime_metrics = compute_regime_metrics(daily)
-    windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
+    windows = _analysis_windows_for_test(test)
     window_metrics = compute_window_metrics(daily, windows=windows)
     model_comparison = compare_models(daily)
     objective_scores = _objective_score_table(predictions)
@@ -458,7 +469,7 @@ def run_factor_feature_set_matrix(
     )
     daily = backtest_result.daily
     regime_metrics = compute_regime_metrics(daily)
-    windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
+    windows = _analysis_windows_for_test(test)
     window_metrics = compute_window_metrics(daily, windows=windows)
     model_comparison = _enrich_comparison_with_variant_columns(compare_models(daily))
     objective_scores = _objective_score_table(predictions)

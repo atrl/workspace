@@ -9,6 +9,7 @@ from .qlib_recorder import (
     load_qlib_recorder_analysis,
 )
 from .reports import compare_models, compute_regime_metrics, compute_window_metrics, compute_window_regime_metrics
+from .windows import build_analysis_window_table, build_analysis_windows
 from .qlib_ext import (
     RegimeWindowEffectAnalysis,
     analyze_model_effects_by_regime_and_window,
@@ -31,6 +32,8 @@ __all__ = [
     "backfill_legacy_analysis_cards",
     "build_failure_modes",
     "build_analysis_overview",
+    "build_analysis_window_table",
+    "build_analysis_windows",
     "build_model_review_briefing",
     "build_qlib_return_frame",
     "build_qlib_recorder_analysis_report",

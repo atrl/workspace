@@ -102,6 +102,9 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert summary["backtest_contract"]["cost_model"]["slippage_bps"] > 0.0
     assert summary["walk_forward"]["schema_version"] == "backtest.walk_forward.v1"
     assert summary["walk_forward"]["fold_count"] >= 1
+    assert {"test", "ytd", "trailing_1m", "trailing_3m", "trailing_6m", "trailing_12m"}.issubset(
+        set(summary["analysis_summary"]["window_names"])
+    )
     assert summary["objective_evaluation"]["schema_version"] == "objective.matrix_evaluation.v1"
     assert summary["objective_evaluation"]["model_count"] == len(QUANTBENCH_MODEL_NAMES)
     assert summary["promotion_summary"]["schema_version"] == "objective.promotion_summary.v1"

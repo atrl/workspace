@@ -82,6 +82,9 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
     assert {"ridge_mse_v1", "random_forest_direction_v1"}.issubset(set(summary["model_adapters"]))
     assert summary["selection_source"] == "train_only_factor_ic"
     assert "window_regime_metrics" in summary["analysis_layers"]
+    assert {"test", "ytd", "trailing_1m", "trailing_3m", "trailing_6m", "trailing_12m"}.issubset(
+        set(summary["analysis_summary"]["window_names"])
+    )
     assert summary["backtest_contract"]["schema_version"] == "backtest.config.v1"
     assert summary["backtest_contract"]["cost_model"]["open_cost_bps"] > 0.0
     assert summary["walk_forward"]["fold_count"] >= 1

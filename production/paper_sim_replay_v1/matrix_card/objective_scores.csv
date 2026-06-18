@@ -1,0 +1,7 @@
+schema_version,model,base_model,feature_set,objective,family,row_count,mse,classification_accuracy,ic,rank_ic,rank_group_count
+objective.evaluation.v1,random_forest_clf__all_features,random_forest_clf,all_features,classification,tree,26,0.055577131593135154,0.6153846153846154,0.10427824242848478,0.0,0
+objective.evaluation.v1,random_forest_clf__ic_weighted_composite,random_forest_clf,ic_weighted_composite,classification,tree,26,0.16608320778713453,0.5,-0.15905593802295495,0.0,0
+objective.evaluation.v1,random_forest_clf__top_ic_factors,random_forest_clf,top_ic_factors,classification,tree,26,0.08239039362068946,0.6153846153846154,0.007384751398270998,0.0,0
+objective.evaluation.v1,ridge_mse__all_features,ridge_mse,all_features,mse,linear,26,0.01320939401970131,0.5,-0.05672021455965021,0.0,0
+objective.evaluation.v1,ridge_mse__ic_weighted_composite,ridge_mse,ic_weighted_composite,mse,linear,26,0.012056041364168966,0.6153846153846154,0.13400962007756229,0.0,0
+objective.evaluation.v1,ridge_mse__top_ic_factors,ridge_mse,top_ic_factors,mse,linear,26,0.01202194063812042,0.6153846153846154,0.14064894259119193,0.0,0
