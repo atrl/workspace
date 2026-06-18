@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact, load_model_artifact, save_model_artifact
-from src.model.sequence import AutoformerDecompositionRegressor, DLinearDecompositionRegressor, PatchTSTTransformerRegressor
+from src.model.sequence import (
+    AutoformerDecompositionRegressor,
+    DLinearDecompositionRegressor,
+    FEDformerFrequencyRegressor,
+    PatchTSTTransformerRegressor,
+)
 from src.model.training import fit_estimator_for_model, fit_predict_model, model_adapter_name, model_adapter_status
 
 
@@ -105,6 +110,25 @@ def test_autoformer_mse_uses_decomposition_autocorrelation_estimator():
     assert estimator.lookback_ == 5
     assert estimator.autocorrelation_lags_ == (1, 2, 3, 4)
     assert estimator.top_k == 2
+
+
+def test_fedformer_mse_uses_decomposition_frequency_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "fedformer_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:5],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, FEDformerFrequencyRegressor)
+    assert hasattr(estimator, "trend_model_")
+    assert hasattr(estimator, "frequency_model_")
+    assert estimator.feature_count_ == 5
+    assert estimator.lookback_ == 5
+    assert estimator.frequency_modes_ == (1, 2)
+    assert estimator.top_k_modes == 2
 
 
 def test_hawkes_gru_event_decay_path_differs_from_plain_gru():

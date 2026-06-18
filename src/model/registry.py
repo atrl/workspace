@@ -170,13 +170,13 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "Autoformer",
         "Uses moving-average decomposition with autocorrelation lag aggregation and separate trend/seasonal heads.",
     ),
-    _proxy(
+    _native_sequence(
         "fedformer_mse",
         "sequence",
         "mse",
         "sequence_frequency",
         "FEDformer",
-        "Uses decomposition plus frequency features instead of full FEDformer blocks.",
+        "Uses moving-average decomposition with sparse Fourier mode features and separate trend/frequency heads.",
     ),
     _proxy("market_graph_mse", "graph", "mse", "support_graph", "MarketGraph", "Uses market-context graph features."),
     _proxy("gcn_mse", "graph", "mse", "support_graph", "GCN", "Uses feature propagation over a fixed feature graph."),

@@ -83,9 +83,9 @@
     "model_fidelity": {
       "fidelity_counts": {
         "native_library": 8,
-        "native_sequence": 3,
+        "native_sequence": 4,
         "native_torch": 5,
-        "proxy_feature_adapter": 16
+        "proxy_feature_adapter": 15
       },
       "model_count": 32,
       "native_models": [
@@ -94,6 +94,7 @@
         "catboost_rank",
         "darnn_mse",
         "dlinear_mse",
+        "fedformer_mse",
         "gru_mse",
         "hist_gradient_mse",
         "lightgbm_mse",
@@ -109,7 +110,6 @@
       "promotion_blocker_count": 24,
       "proxy_models": [
         "extra_trees_rank",
-        "fedformer_mse",
         "gat_mse",
         "gcn_mse",
         "hawkes_gru_mse",
@@ -128,8 +128,8 @@
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.015078770929066022,
-      "avg_mse": 0.034717478291405215,
+      "avg_ic": 0.009222546799087426,
+      "avg_mse": 0.03651393976319943,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -174,5 +174,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "9948c408d9288bf905aa68d57761188d3afd4128ed165f4a84a6a7723d440712"
+  "manifest_hash": "12f96af2f5883d02f75daf4af6b2dcbe2367ba2f7364c111a87afb33bc4cca5a"
 }

@@ -53,6 +53,32 @@ def test_research_and_production_use_notebooks_as_primary_artifacts():
         assert "是否晋升" in markdown
 
 
+def test_all_research_and_production_notebooks_end_with_chinese_conclusion():
+    root = Path(__file__).resolve().parents[1]
+    notebooks = sorted([*root.glob("research/**/*.ipynb"), *root.glob("production/**/*.ipynb")])
+
+    assert notebooks, "expected tracked research/production notebooks"
+
+    offenders: list[str] = []
+    for notebook in notebooks:
+        payload = json.loads(notebook.read_text(encoding="utf-8"))
+        non_empty_cells = [
+            cell
+            for cell in payload.get("cells", [])
+            if "".join(cell.get("source", [])).strip()
+        ]
+        last = non_empty_cells[-1] if non_empty_cells else {}
+        conclusion = "".join(last.get("source", []))
+        if (
+            last.get("cell_type") != "markdown"
+            or "中文结论" not in conclusion
+            or "是否晋升" not in conclusion
+        ):
+            offenders.append(str(notebook.relative_to(root)))
+
+    assert offenders == []
+
+
 def test_production_paper_sim_replay_records_no_live_broker_guardrail():
     root = Path(__file__).resolve().parents[1]
     card = root / "production" / "paper_sim_replay_v1"

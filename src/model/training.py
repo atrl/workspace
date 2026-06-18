@@ -17,6 +17,7 @@ from .registry import get_model_spec
 from .sequence import (
     AutoformerDecompositionRegressor,
     DLinearDecompositionRegressor,
+    FEDformerFrequencyRegressor,
     FeatureRidgeRegressor,
     FrequencyRidgeRegressor,
     LaggedRidgeRegressor,
@@ -279,7 +280,7 @@ def _estimator_for_model(model_name: str):
     if model_name == "autoformer_mse":
         return AutoformerDecompositionRegressor(alpha=1.0, kernel_size=3, max_lag=4, top_k=2)
     if model_name == "fedformer_mse":
-        return FeatureRidgeRegressor(feature_kind="fedformer", alpha=1.0)
+        return FEDformerFrequencyRegressor(alpha=1.0, kernel_size=3, top_k_modes=2)
     graph_kinds = {
         "market_graph_mse": "market",
         "gcn_mse": "gcn",

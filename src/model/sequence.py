@@ -269,6 +269,80 @@ class AutoformerDecompositionRegressor:
         return self.trend_model_.predict(trend_features) + self.seasonal_model_.predict(seasonal_features)
 
 
+def _frequency_mode_features(residual: np.ndarray, modes: tuple[int, ...]) -> np.ndarray:
+    if residual.ndim != 3:
+        raise ValueError("frequency mode features expect a 3D sequence tensor")
+    spectrum = np.fft.rfft(residual, axis=1)
+    if not modes:
+        return np.zeros((len(residual), 0), dtype=float)
+    pieces: list[np.ndarray] = []
+    for mode in modes:
+        coeff = spectrum[:, mode, :]
+        pieces.extend([coeff.real, coeff.imag, np.abs(coeff)])
+    return np.concatenate(pieces, axis=1)
+
+
+def _frequency_reconstruction_features(residual: np.ndarray, modes: tuple[int, ...]) -> np.ndarray:
+    if not modes:
+        return residual[:, -1, :]
+    spectrum = np.fft.rfft(residual, axis=1)
+    filtered = np.zeros_like(spectrum)
+    for mode in modes:
+        filtered[:, mode, :] = spectrum[:, mode, :]
+    reconstruction = np.fft.irfft(filtered, n=residual.shape[1], axis=1)
+    return np.concatenate([reconstruction[:, -1, :], reconstruction.mean(axis=1), reconstruction.std(axis=1)], axis=1)
+
+
+@dataclass
+class FEDformerFrequencyRegressor:
+    alpha: float = 1.0
+    kernel_size: int = 3
+    top_k_modes: int = 2
+
+    def _decompose(self, x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        if x.ndim != 3:
+            raise ValueError("FEDformerFrequencyRegressor expects a 3D sequence tensor")
+        trend = _moving_average_trend(x, kernel_size=self.kernel_size)
+        residual = x - trend
+        return trend, residual
+
+    def _frequency_features(self, residual: np.ndarray) -> np.ndarray:
+        mode_features = _frequency_mode_features(residual, self.frequency_modes_)
+        reconstruction_features = _frequency_reconstruction_features(residual, self.frequency_modes_)
+        return np.concatenate(
+            [
+                residual[:, -1, :],
+                residual.mean(axis=1),
+                residual.std(axis=1),
+                reconstruction_features,
+                mode_features,
+            ],
+            axis=1,
+        )
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "FEDformerFrequencyRegressor":
+        trend, residual = self._decompose(x)
+        self.lookback_ = int(x.shape[1])
+        self.feature_count_ = int(x.shape[2])
+        max_mode = max(0, min(int(self.top_k_modes), self.lookback_ // 2))
+        self.frequency_modes_ = tuple(range(1, max_mode + 1))
+        trend_features = trend.reshape(len(x), -1)
+        frequency_features = self._frequency_features(residual)
+        target = y.astype(float)
+        self.trend_model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.frequency_model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.trend_model_.fit(trend_features, target)
+        frequency_target = target - self.trend_model_.predict(trend_features)
+        self.frequency_model_.fit(frequency_features, frequency_target)
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        trend, residual = self._decompose(x)
+        trend_features = trend.reshape(len(x), -1)
+        frequency_features = self._frequency_features(residual)
+        return self.trend_model_.predict(trend_features) + self.frequency_model_.predict(frequency_features)
+
+
 class _TorchRecurrentNet(nn.Module):
     def __init__(self, input_size: int, hidden_size: int, cell_type: str):
         super().__init__()
