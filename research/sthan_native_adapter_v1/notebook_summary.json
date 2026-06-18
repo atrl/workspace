@@ -1,0 +1,49 @@
+{
+  "schema_version": "research.sthan_native_adapter_v1",
+  "status": "completed",
+  "model": "sthan_mse",
+  "adapter": "sthan_spatio_temporal_attention_mse_v1",
+  "estimator": "STHANGraphRegressor",
+  "node_count": 8,
+  "feature_count": 8,
+  "temporal_channel_count": 4,
+  "hyperedge_count": 11,
+  "hidden_size": 8,
+  "paper_fidelity": "native_graph",
+  "is_proxy": false,
+  "full_matrix_native_model_count": 26,
+  "full_matrix_proxy_model_count": 6,
+  "matrix_card": "research/sthan_native_adapter_v1/matrix_card",
+  "matrix_models": [
+    "hypergraph_mse",
+    "ridge_mse",
+    "sthan_mse",
+    "sthgcn_mse",
+    "thgnn_mse"
+  ],
+  "target_model_return_pct": 20.01990094044881,
+  "target_model_sharpe": 2.05156668118373,
+  "target_model_max_drawdown_pct": 34.93762308925087,
+  "ledger_trained": true,
+  "ledger_backtested": true,
+  "external_references": [
+    {
+      "source_id": "doi:10.1016/j.asoc.2024.111329",
+      "url": "https://doi.org/10.1016/j.asoc.2024.111329",
+      "usage": "参考动态 hypergraph spatio-temporal stock trend prediction 的公开题录与结构方向；本仓库未复制论文全文或第三方代码。"
+    },
+    {
+      "source_id": "github:tanjingme/CI-STHPAN",
+      "url": "https://github.com/tanjingme/CI-STHPAN",
+      "usage": "参考 channel-independent spatio-temporal hypergraph attention stock selection 的开源项目边界；本实现仅保留 compact adapter 结构。"
+    }
+  ],
+  "artifact_links": {
+    "analysis_summary": "research/sthan_native_adapter_v1/matrix_card/analysis_summary.json",
+    "model_comparison": "research/sthan_native_adapter_v1/matrix_card/model_comparison.csv",
+    "model_run_ledger": "research/sthan_native_adapter_v1/matrix_card/model_run_ledger.csv",
+    "manifest": "research/sthan_native_adapter_v1/matrix_card/analysis_manifest.json",
+    "qlib_risk_metrics": "research/sthan_native_adapter_v1/matrix_card/qlib_risk_metrics.csv",
+    "model_effect_deltas": "research/sthan_native_adapter_v1/matrix_card/model_effect_deltas.csv"
+  }
+}

@@ -1,0 +1,6 @@
+schema_version,model,objective,family,row_count,mse,classification_accuracy,ic,rank_ic,rank_group_count
+objective.evaluation.v1,hypergraph_mse,mse,graph,26,0.012958285657651713,0.5769230769230769,0.011258285730900597,0.0,0
+objective.evaluation.v1,ridge_mse,mse,linear,26,0.01320939401970131,0.5,-0.05672021455965021,0.0,0
+objective.evaluation.v1,sthan_mse,mse,graph,26,0.014355787108203528,0.6153846153846154,-0.060933268268270724,0.0,0
+objective.evaluation.v1,sthgcn_mse,mse,graph,26,0.01401775346978794,0.5,-0.023814338396253135,0.0,0
+objective.evaluation.v1,thgnn_mse,mse,graph,26,0.013960572704304307,0.5,-0.023767749153683963,0.0,0

@@ -254,7 +254,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "Uses a compact PyTorch hypergraph convolution network with incidence-matrix message propagation over feature-node hyperedges.",
     ),
     _proxy("thgnn_mse", "graph", "mse", "temporal_hypergraph", "THGNN", "Uses hypergraph features with temporal lags."),
-    _proxy("sthan_mse", "graph", "mse", "spatio_temporal_graph", "STHAN", "Uses spatio-temporal attention proxy features."),
+    _native_graph(
+        "sthan_mse",
+        "graph",
+        "mse",
+        "spatio_temporal_graph",
+        "STHAN",
+        "Uses a compact PyTorch spatio-temporal hypergraph attention network with temporal decay attention and node-level spatial attention.",
+    ),
     _proxy(
         "sthgcn_mse",
         "graph",

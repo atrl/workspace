@@ -82,11 +82,11 @@
     "model_count": 32,
     "model_fidelity": {
       "fidelity_counts": {
-        "native_graph": 5,
+        "native_graph": 6,
         "native_library": 8,
         "native_sequence": 6,
         "native_torch": 6,
-        "proxy_feature_adapter": 7
+        "proxy_feature_adapter": 6
       },
       "model_count": 32,
       "native_models": [
@@ -113,6 +113,7 @@
         "ridge_mse",
         "rsr_mse",
         "sfm_mse",
+        "sthan_mse",
         "tcn_mse",
         "xgboost_mse"
       ],
@@ -122,15 +123,14 @@
         "market_graph_mse",
         "ridge_ic",
         "sequence_lag_ridge_mse",
-        "sthan_mse",
         "sthgcn_mse",
         "thgnn_mse"
       ],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.00034128238450111675,
-      "avg_mse": 0.03582585397342247,
+      "avg_ic": -0.004421578622572617,
+      "avg_mse": 0.034767540481952325,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -141,7 +141,7 @@
       "model_count": 32,
       "schema_version": "objective.promotion_summary.v1",
       "top_decision": "promote_candidate",
-      "top_model": "sthan_mse"
+      "top_model": "mlp_mixer_mse"
     },
     "status": "smoke_completed",
     "train_end": "2026-04-30",
@@ -176,5 +176,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "03bf756f809431739ca60cb06e57aac53d8f8eef37d883b8ca1e7f4520a4f824"
+  "manifest_hash": "32f6173ae61bb24565632374f907b88b19b2c2740ed3b1c677069bc3d31c2703"
 }

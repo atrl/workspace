@@ -20,24 +20,25 @@
     "failure_modes"
   ],
   "analysis_overview": {
-    "baseline_model": "sthan_mse",
+    "baseline_model": "mlp_mixer_mse",
     "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
     "decision_hint_counts": {
-      "block_or_rework": 423,
-      "cost_review": 7,
-      "reduce_or_guardrail": 154
+      "block_or_rework": 463,
+      "cost_review": 2,
+      "promote_candidate": 106,
+      "reduce_or_guardrail": 7
     },
     "largest_relative_return_spread_segments": [
       {
-        "baseline_model": "sthan_mse",
-        "best_relative_return_model": "sthan_mse",
-        "best_relative_return_vs_baseline_delta": 0.0,
+        "baseline_model": "mlp_mixer_mse",
+        "best_relative_return_model": "sfm_mse",
+        "best_relative_return_vs_baseline_delta": 29.20125554590642,
         "best_stability_model": "xgboost_mse",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
-        "relative_return_pct_spread": 111.29741645213258,
-        "review_note": "sthan_mse 在 downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "relative_return_pct_spread": 72.62443874117366,
+        "review_note": "sfm_mse 在 downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "downtrend",
         "segment_type": "regime",
         "stability_score_spread": 234.29361674375656,
@@ -46,15 +47,15 @@
         "worst_stability_model": "fedformer_mse"
       },
       {
-        "baseline_model": "sthan_mse",
-        "best_relative_return_model": "sthan_mse",
-        "best_relative_return_vs_baseline_delta": 0.0,
+        "baseline_model": "mlp_mixer_mse",
+        "best_relative_return_model": "sfm_mse",
+        "best_relative_return_vs_baseline_delta": 29.20125554590642,
         "best_stability_model": "xgboost_mse",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
-        "relative_return_pct_spread": 111.29741645213258,
-        "review_note": "sthan_mse 在 test::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "relative_return_pct_spread": 72.62443874117366,
+        "review_note": "sfm_mse 在 test::downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "test::downtrend",
         "segment_type": "window_regime",
         "stability_score_spread": 234.29361674375656,
@@ -63,15 +64,15 @@
         "worst_stability_model": "fedformer_mse"
       },
       {
-        "baseline_model": "sthan_mse",
-        "best_relative_return_model": "sthan_mse",
-        "best_relative_return_vs_baseline_delta": 0.0,
+        "baseline_model": "mlp_mixer_mse",
+        "best_relative_return_model": "sfm_mse",
+        "best_relative_return_vs_baseline_delta": 29.20125554590642,
         "best_stability_model": "xgboost_mse",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
-        "relative_return_pct_spread": 111.29741645213258,
-        "review_note": "sthan_mse 在 trailing_12m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "relative_return_pct_spread": 72.62443874117366,
+        "review_note": "sfm_mse 在 trailing_12m::downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "trailing_12m::downtrend",
         "segment_type": "window_regime",
         "stability_score_spread": 234.29361674375656,
@@ -80,15 +81,15 @@
         "worst_stability_model": "fedformer_mse"
       },
       {
-        "baseline_model": "sthan_mse",
-        "best_relative_return_model": "sthan_mse",
-        "best_relative_return_vs_baseline_delta": 0.0,
+        "baseline_model": "mlp_mixer_mse",
+        "best_relative_return_model": "sfm_mse",
+        "best_relative_return_vs_baseline_delta": 29.20125554590642,
         "best_stability_model": "xgboost_mse",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
-        "relative_return_pct_spread": 111.29741645213258,
-        "review_note": "sthan_mse 在 trailing_3m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "relative_return_pct_spread": 72.62443874117366,
+        "review_note": "sfm_mse 在 trailing_3m::downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "trailing_3m::downtrend",
         "segment_type": "window_regime",
         "stability_score_spread": 234.29361674375656,
@@ -97,15 +98,15 @@
         "worst_stability_model": "fedformer_mse"
       },
       {
-        "baseline_model": "sthan_mse",
-        "best_relative_return_model": "sthan_mse",
-        "best_relative_return_vs_baseline_delta": 0.0,
+        "baseline_model": "mlp_mixer_mse",
+        "best_relative_return_model": "sfm_mse",
+        "best_relative_return_vs_baseline_delta": 29.20125554590642,
         "best_stability_model": "xgboost_mse",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
-        "relative_return_pct_spread": 111.29741645213258,
-        "review_note": "sthan_mse 在 trailing_6m::downtrend 领先；ridge_ic 明显弱于基准，需检查该分段适配。",
+        "relative_return_pct_spread": 72.62443874117366,
+        "review_note": "sfm_mse 在 trailing_6m::downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "trailing_6m::downtrend",
         "segment_type": "window_regime",
         "stability_score_spread": 234.29361674375656,
@@ -119,9 +120,10 @@
     "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
     "regime_count": 4,
     "review_signal_counts": {
-      "efficiency_check": 7,
-      "risk": 154,
-      "weakness": 423
+      "efficiency_check": 2,
+      "risk": 7,
+      "strength": 106,
+      "weakness": 463
     },
     "schema_version": "analysis.overview.v1",
     "segment_effect_matrix_count": 34,
@@ -133,169 +135,184 @@
     ],
     "top_regime_fragile_models": [
       {
-        "baseline_model": "sthan_mse",
+        "baseline_model": "mlp_mixer_mse",
         "consistency_score": -1.279412,
         "diagnostic_signal": "stress_fragile",
-        "model": "gcn_mse",
-        "review_note": "gcn_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "extra_trees_rank",
+        "review_note": "extra_trees_rank 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 stress；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 28,
+        "worst_segment": "stress"
+      },
+      {
+        "baseline_model": "mlp_mixer_mse",
+        "consistency_score": -1.279412,
+        "diagnostic_signal": "stress_fragile",
+        "model": "lstm_mse",
+        "review_note": "lstm_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
         "worst_segment": "all"
       },
       {
-        "baseline_model": "sthan_mse",
+        "baseline_model": "mlp_mixer_mse",
         "consistency_score": -1.279412,
         "diagnostic_signal": "stress_fragile",
-        "model": "market_graph_mse",
-        "review_note": "market_graph_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "random_forest_clf",
+        "review_note": "random_forest_clf 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 stress；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
-        "worst_segment": "downtrend"
+        "worst_segment": "stress"
       },
       {
-        "baseline_model": "sthan_mse",
-        "consistency_score": -1.279412,
+        "baseline_model": "mlp_mixer_mse",
+        "consistency_score": -1.176471,
         "diagnostic_signal": "stress_fragile",
-        "model": "ridge_ic",
-        "review_note": "ridge_ic 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "gcn_mse",
+        "review_note": "gcn_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
-        "worst_segment": "downtrend"
+        "worst_segment": "all"
       },
       {
-        "baseline_model": "sthan_mse",
-        "consistency_score": -1.279412,
+        "baseline_model": "mlp_mixer_mse",
+        "consistency_score": -1.176471,
         "diagnostic_signal": "stress_fragile",
-        "model": "ridge_mse",
-        "review_note": "ridge_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
-        "stress_negative_count": 14,
-        "weakness_segment_count": 28,
-        "worst_segment": "downtrend"
-      },
-      {
-        "baseline_model": "sthan_mse",
-        "consistency_score": -1.073529,
-        "diagnostic_signal": "stress_fragile",
-        "model": "dlinear_mse",
-        "review_note": "dlinear_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "logistic_clf",
+        "review_note": "logistic_clf 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
         "worst_segment": "all"
       }
     ],
     "top_review": {
-      "baseline_model": "sthan_mse",
+      "baseline_model": "mlp_mixer_mse",
       "decision_hint": "block_or_rework",
-      "max_drawdown_pct_delta": -0.4285436142326682,
+      "max_drawdown_pct_delta": 2.718956779656179,
       "model": "ridge_ic",
       "priority_rank": 1,
-      "priority_score": 396.241626,
-      "regime": "downtrend",
-      "relative_return_pct_delta": -93.8290943181038,
-      "review_note": "ridge_ic 在 trailing_1m::downtrend 弱于基准 sthan_mse：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
+      "priority_score": 257.973249,
+      "regime": "stress",
+      "relative_return_pct_delta": -41.31893428400954,
+      "review_note": "ridge_ic 在 stress 弱于基准 mlp_mixer_mse：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
       "review_signal": "weakness",
-      "segment": "trailing_1m::downtrend",
-      "segment_type": "window_regime",
-      "stability_score_delta": -208.5755178340297,
-      "window": "trailing_1m"
+      "segment": "stress",
+      "segment_type": "regime",
+      "stability_score_delta": -173.8411222817733,
+      "window": ""
     },
-    "top_strength": {},
+    "top_strength": {
+      "baseline_model": "mlp_mixer_mse",
+      "decision_hint": "promote_candidate",
+      "max_drawdown_pct_delta": -4.119265501768865,
+      "model": "xgboost_mse",
+      "priority_rank": 61,
+      "priority_score": 161.972348,
+      "regime": "downtrend",
+      "relative_return_pct_delta": 0.6122688728073413,
+      "review_note": "xgboost_mse 在 downtrend 强于基准 mlp_mixer_mse：相对收益和稳定性改善，可作为该分段的晋升候选。",
+      "review_signal": "strength",
+      "segment": "downtrend",
+      "segment_type": "regime",
+      "stability_score_delta": 160.74781064087045,
+      "window": ""
+    },
     "top_weakness": {
-      "baseline_model": "sthan_mse",
+      "baseline_model": "mlp_mixer_mse",
       "decision_hint": "block_or_rework",
-      "max_drawdown_pct_delta": -0.4285436142326682,
+      "max_drawdown_pct_delta": 2.718956779656179,
       "model": "ridge_ic",
       "priority_rank": 1,
-      "priority_score": 396.241626,
-      "regime": "downtrend",
-      "relative_return_pct_delta": -93.8290943181038,
-      "review_note": "ridge_ic 在 trailing_1m::downtrend 弱于基准 sthan_mse：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
+      "priority_score": 257.973249,
+      "regime": "stress",
+      "relative_return_pct_delta": -41.31893428400954,
+      "review_note": "ridge_ic 在 stress 弱于基准 mlp_mixer_mse：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
       "review_signal": "weakness",
-      "segment": "trailing_1m::downtrend",
-      "segment_type": "window_regime",
-      "stability_score_delta": -208.5755178340297,
-      "window": "trailing_1m"
+      "segment": "stress",
+      "segment_type": "regime",
+      "stability_score_delta": -173.8411222817733,
+      "window": ""
     },
     "weakest_segments": [
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "downtrend",
-        "segment_type": "regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "all",
+        "segment_type": "all",
+        "stability_score_delta": -93.22070355756647
       },
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "test::downtrend",
-        "segment_type": "window_regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "test",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
       },
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "trailing_12m::downtrend",
-        "segment_type": "window_regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_12m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
       },
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "trailing_3m::downtrend",
-        "segment_type": "window_regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_3m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
       },
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "trailing_6m::downtrend",
-        "segment_type": "window_regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_6m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
       }
     ],
     "window_count": 6,
     "window_regime_count": 23
   },
   "analysis_summary": {
-    "baseline_model": "sthan_mse",
+    "baseline_model": "mlp_mixer_mse",
     "largest_relative_return_spread_segments": [
       {
-        "best_relative_return_model": "sthan_mse",
-        "relative_return_pct_spread": 111.29741645213258,
-        "segment": "trailing_12m::downtrend",
-        "segment_type": "window_regime",
-        "worst_relative_return_model": "ridge_ic"
-      },
-      {
-        "best_relative_return_model": "sthan_mse",
-        "relative_return_pct_spread": 111.29741645213258,
+        "best_relative_return_model": "sfm_mse",
+        "relative_return_pct_spread": 72.62443874117366,
         "segment": "downtrend",
         "segment_type": "regime",
         "worst_relative_return_model": "ridge_ic"
       },
       {
-        "best_relative_return_model": "sthan_mse",
-        "relative_return_pct_spread": 111.29741645213258,
+        "best_relative_return_model": "sfm_mse",
+        "relative_return_pct_spread": 72.62443874117366,
         "segment": "ytd::downtrend",
         "segment_type": "window_regime",
         "worst_relative_return_model": "ridge_ic"
       },
       {
-        "best_relative_return_model": "sthan_mse",
-        "relative_return_pct_spread": 111.29741645213258,
+        "best_relative_return_model": "sfm_mse",
+        "relative_return_pct_spread": 72.62443874117366,
         "segment": "trailing_3m::downtrend",
         "segment_type": "window_regime",
         "worst_relative_return_model": "ridge_ic"
       },
       {
-        "best_relative_return_model": "sthan_mse",
-        "relative_return_pct_spread": 111.29741645213258,
-        "segment": "test::downtrend",
+        "best_relative_return_model": "sfm_mse",
+        "relative_return_pct_spread": 72.62443874117366,
+        "segment": "trailing_12m::downtrend",
+        "segment_type": "window_regime",
+        "worst_relative_return_model": "ridge_ic"
+      },
+      {
+        "best_relative_return_model": "sfm_mse",
+        "relative_return_pct_spread": 72.62443874117366,
+        "segment": "trailing_6m::downtrend",
         "segment_type": "window_regime",
         "worst_relative_return_model": "ridge_ic"
       }
@@ -314,51 +331,51 @@
     ],
     "top_regime_fragile_models": [
       {
-        "baseline_model": "sthan_mse",
+        "baseline_model": "mlp_mixer_mse",
         "consistency_score": -1.279412,
         "diagnostic_signal": "stress_fragile",
-        "model": "gcn_mse",
-        "review_note": "gcn_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "extra_trees_rank",
+        "review_note": "extra_trees_rank 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 stress；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 28,
+        "worst_segment": "stress"
+      },
+      {
+        "baseline_model": "mlp_mixer_mse",
+        "consistency_score": -1.279412,
+        "diagnostic_signal": "stress_fragile",
+        "model": "lstm_mse",
+        "review_note": "lstm_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
         "worst_segment": "all"
       },
       {
-        "baseline_model": "sthan_mse",
+        "baseline_model": "mlp_mixer_mse",
         "consistency_score": -1.279412,
         "diagnostic_signal": "stress_fragile",
-        "model": "market_graph_mse",
-        "review_note": "market_graph_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "random_forest_clf",
+        "review_note": "random_forest_clf 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 stress；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
-        "worst_segment": "downtrend"
+        "worst_segment": "stress"
       },
       {
-        "baseline_model": "sthan_mse",
-        "consistency_score": -1.279412,
+        "baseline_model": "mlp_mixer_mse",
+        "consistency_score": -1.176471,
         "diagnostic_signal": "stress_fragile",
-        "model": "ridge_ic",
-        "review_note": "ridge_ic 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "gcn_mse",
+        "review_note": "gcn_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
-        "worst_segment": "downtrend"
+        "worst_segment": "all"
       },
       {
-        "baseline_model": "sthan_mse",
-        "consistency_score": -1.279412,
+        "baseline_model": "mlp_mixer_mse",
+        "consistency_score": -1.176471,
         "diagnostic_signal": "stress_fragile",
-        "model": "ridge_mse",
-        "review_note": "ridge_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
-        "stress_negative_count": 14,
-        "weakness_segment_count": 28,
-        "worst_segment": "downtrend"
-      },
-      {
-        "baseline_model": "sthan_mse",
-        "consistency_score": -1.073529,
-        "diagnostic_signal": "stress_fragile",
-        "model": "dlinear_mse",
-        "review_note": "dlinear_mse 在压力或下跌分段弱于基准 sthan_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "logistic_clf",
+        "review_note": "logistic_clf 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 14,
         "weakness_segment_count": 28,
         "worst_segment": "all"
@@ -367,43 +384,43 @@
     "weakest_segments": [
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "downtrend",
-        "segment_type": "regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "all",
+        "segment_type": "all",
+        "stability_score_delta": -93.22070355756647
       },
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "test::downtrend",
-        "segment_type": "window_regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "test",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
       },
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "trailing_12m::downtrend",
-        "segment_type": "window_regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_12m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
       },
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "trailing_3m::downtrend",
-        "segment_type": "window_regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_3m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
       },
       {
         "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
-        "model": "ridge_ic",
-        "relative_return_pct_delta": -111.29741645213258,
-        "segment": "trailing_6m::downtrend",
-        "segment_type": "window_regime",
-        "stability_score_delta": -91.18005320618845
+        "model": "ridge_mse",
+        "relative_return_pct_delta": -55.021044335452295,
+        "segment": "trailing_6m",
+        "segment_type": "window",
+        "stability_score_delta": -93.22070355756647
       }
     ],
     "window_count": 6,
@@ -450,11 +467,11 @@
     "window_regime_count": 23
   },
   "analysis_table_counts": {
-    "failure_modes": 847,
+    "failure_modes": 613,
     "model_comparison": 32,
     "model_effect_deltas": 1074,
     "model_regime_window_diagnostics": 32,
-    "model_review_briefing": 584,
+    "model_review_briefing": 578,
     "qlib_return_frame": 832,
     "qlib_risk_metrics": 2148,
     "regime_metrics": 126,
@@ -524,11 +541,11 @@
   "model_count": 32,
   "model_fidelity": {
     "fidelity_counts": {
-      "native_graph": 5,
+      "native_graph": 6,
       "native_library": 8,
       "native_sequence": 6,
       "native_torch": 6,
-      "proxy_feature_adapter": 7
+      "proxy_feature_adapter": 6
     },
     "model_count": 32,
     "native_models": [
@@ -555,6 +572,7 @@
       "ridge_mse",
       "rsr_mse",
       "sfm_mse",
+      "sthan_mse",
       "tcn_mse",
       "xgboost_mse"
     ],
@@ -564,7 +582,6 @@
       "market_graph_mse",
       "ridge_ic",
       "sequence_lag_ridge_mse",
-      "sthan_mse",
       "sthgcn_mse",
       "thgnn_mse"
     ],
@@ -572,8 +589,8 @@
   },
   "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
   "objective_evaluation": {
-    "avg_ic": 0.00034128238450111675,
-    "avg_mse": 0.03582585397342247,
+    "avg_ic": -0.004421578622572617,
+    "avg_mse": 0.034767540481952325,
     "avg_rank_ic": 0.0,
     "model_count": 32,
     "schema_version": "objective.matrix_evaluation.v1"
@@ -584,14 +601,14 @@
     "model_count": 32,
     "schema_version": "objective.promotion_summary.v1",
     "top_decision": "promote_candidate",
-    "top_model": "sthan_mse"
+    "top_model": "mlp_mixer_mse"
   },
   "schema_version": "analysis.report.v1",
   "start": "2026-01-01",
   "status": "smoke_completed",
   "test_end": "2026-06-08",
   "test_start": "2026-05-01",
-  "top_model": "sthan_mse",
+  "top_model": "mlp_mixer_mse",
   "train_end": "2026-04-30",
   "walk_forward": {
     "fold_count": 5,

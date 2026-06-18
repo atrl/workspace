@@ -83,11 +83,11 @@
     "model_count": 32,
     "model_fidelity": {
       "fidelity_counts": {
-        "native_graph": 5,
+        "native_graph": 6,
         "native_library": 8,
         "native_sequence": 6,
         "native_torch": 6,
-        "proxy_feature_adapter": 7
+        "proxy_feature_adapter": 6
       },
       "model_count": 32,
       "native_models": [
@@ -114,6 +114,7 @@
         "ridge_mse",
         "rsr_mse",
         "sfm_mse",
+        "sthan_mse",
         "tcn_mse",
         "xgboost_mse"
       ],
@@ -123,15 +124,14 @@
         "market_graph_mse",
         "ridge_ic",
         "sequence_lag_ridge_mse",
-        "sthan_mse",
         "sthgcn_mse",
         "thgnn_mse"
       ],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.00034128238450111675,
-      "avg_mse": 0.03582585397342247,
+      "avg_ic": -0.004421578622572617,
+      "avg_mse": 0.034767540481952325,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -142,15 +142,15 @@
       "model_count": 32,
       "schema_version": "objective.promotion_summary.v1",
       "top_decision": "promote_candidate",
-      "top_model": "sthan_mse"
+      "top_model": "mlp_mixer_mse"
     },
     "status": "smoke_completed",
     "table_counts": {
-      "failure_modes": 847,
+      "failure_modes": 613,
       "model_comparison": 32,
       "model_effect_deltas": 1074,
       "model_regime_window_diagnostics": 32,
-      "model_review_briefing": 584,
+      "model_review_briefing": 578,
       "qlib_return_frame": 832,
       "qlib_risk_metrics": 2148,
       "regime_metrics": 126,
@@ -190,5 +190,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "9cf3ee82ff07f73ac2e05b55d544a8b3863f65ffa60275b3760ee9717375b167"
+  "manifest_hash": "5f86c976b3280153a7b04a79d26cc20eb4313db3217bad271abd3bf126cde7af"
 }

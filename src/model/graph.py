@@ -83,6 +83,14 @@ def _temporal_node_channels(x: np.ndarray) -> np.ndarray:
     return np.stack([x, previous, delta], axis=-1).astype("float32")
 
 
+def _spatio_temporal_node_channels(x: np.ndarray) -> np.ndarray:
+    previous = np.vstack([x[:1], x[:-1]])
+    two_day = np.vstack([x[:2], x[:-2]]) if len(x) > 1 else previous
+    delta = x - previous
+    two_day_delta = x - two_day
+    return np.stack([x, previous, delta, two_day_delta], axis=-1).astype("float32")
+
+
 def _target_relation_strength(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     centered_y = y.astype(float) - float(np.mean(y))
     numerator = (x - x.mean(axis=0)) * centered_y.reshape(-1, 1)
@@ -303,6 +311,72 @@ class _HypergraphNet(nn.Module):
         hidden = torch.relu(self.output_projection(torch.einsum("ij,bjh->bih", self.hypergraph_propagation, hidden)))
         pooled = torch.cat([hidden.mean(dim=1), hidden.max(dim=1).values], dim=1)
         return self.head(pooled).squeeze(-1)
+
+
+class _STHANNet(nn.Module):
+    def __init__(
+        self,
+        *,
+        feature_count: int,
+        temporal_channel_count: int,
+        hidden_size: int,
+        hypergraph_propagation: np.ndarray,
+    ):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.temporal_channel_count = temporal_channel_count
+        self.hidden_size = hidden_size
+        self.temporal_attention_logits = nn.Parameter(torch.zeros(temporal_channel_count, dtype=torch.float32))
+        decay = np.exp(-np.arange(temporal_channel_count, dtype=float) / max(1.0, temporal_channel_count - 1.0))
+        self.register_buffer("temporal_decay", torch.as_tensor(decay, dtype=torch.float32))
+        self.input_projection = nn.Linear(1, hidden_size)
+        self.hypergraph_projection = nn.Linear(hidden_size, hidden_size)
+        self.spatial_source = nn.Linear(hidden_size, 1, bias=False)
+        self.spatial_target = nn.Linear(hidden_size, 1, bias=False)
+        self.output_projection = nn.Linear(hidden_size, hidden_size)
+        self.head = nn.Linear(hidden_size * 2, 1)
+        self.register_buffer(
+            "hypergraph_propagation",
+            torch.as_tensor(hypergraph_propagation, dtype=torch.float32),
+        )
+        self.leaky_relu = nn.LeakyReLU(negative_slope=0.2)
+
+    def _temporal_attention(self):
+        import torch
+
+        prior = torch.log(self.temporal_decay.clamp_min(1e-6))
+        return torch.softmax(self.temporal_attention_logits + prior, dim=0)
+
+    def _spatial_attention(self, hidden):
+        import torch
+
+        source_score = self.spatial_source(hidden)
+        target_score = self.spatial_target(hidden).transpose(1, 2)
+        prior = torch.log(self.hypergraph_propagation.clamp_min(1e-6)).reshape(
+            1,
+            self.feature_count,
+            self.feature_count,
+        )
+        return torch.softmax(self.leaky_relu(source_score + target_score + prior), dim=-1)
+
+    def forward(self, x, *, return_attention: bool = False):
+        import torch
+
+        temporal_attention = self._temporal_attention()
+        node_signal = torch.einsum("bnt,t->bn", x, temporal_attention)
+        hidden = torch.relu(self.input_projection(node_signal.unsqueeze(-1)))
+        hypergraph_context = torch.einsum("ij,bjh->bih", self.hypergraph_propagation, hidden)
+        hidden = torch.relu(self.hypergraph_projection(hypergraph_context) + hidden)
+        spatial_attention = self._spatial_attention(hidden)
+        spatial_context = torch.einsum("bij,bjh->bih", spatial_attention, hidden)
+        output = torch.relu(self.output_projection(spatial_context))
+        pooled = torch.cat([output.mean(dim=1), output.max(dim=1).values], dim=1)
+        prediction = self.head(pooled).squeeze(-1)
+        if return_attention:
+            return prediction, temporal_attention, spatial_attention
+        return prediction
 
 
 @dataclass
@@ -599,6 +673,72 @@ class HypergraphGraphRegressor:
         x_scaled = (x - self.feature_mean_) / self.feature_std_
         with torch.no_grad():
             output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class STHANGraphRegressor:
+    hidden_size: int = 8
+    epochs: int = 32
+    learning_rate: float = 0.01
+    seed: int = 61
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "STHANGraphRegressor":
+        if x.ndim != 2:
+            raise ValueError("STHANGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.feature_count_ = int(x.shape[1])
+        self.node_count_ = self.feature_count_
+        self.temporal_channel_count_ = 4
+        self.incidence_matrix_ = _hypergraph_incidence(self.feature_count_)
+        self.hyperedge_count_ = int(self.incidence_matrix_.shape[1])
+        self.hypergraph_propagation_ = _hypergraph_propagation(self.incidence_matrix_)
+        self.feature_mean_ = x.mean(axis=0)
+        self.feature_std_ = x.std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        x_tensor = torch.as_tensor(_spatio_temporal_node_channels(x_scaled), dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _STHANNet(
+            feature_count=self.feature_count_,
+            temporal_channel_count=self.temporal_channel_count_,
+            hidden_size=int(self.hidden_size),
+            hypergraph_propagation=self.hypergraph_propagation_,
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        with torch.no_grad():
+            _, temporal_attention, spatial_attention = self.model_(x_tensor, return_attention=True)
+        self.temporal_attention_weights_ = temporal_attention.detach().cpu().numpy().astype("float32")
+        self.spatial_attention_weights_ = spatial_attention.mean(dim=0).detach().cpu().numpy().astype("float32")
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 2:
+            raise ValueError("STHANGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        x_tensor = torch.as_tensor(_spatio_temporal_node_channels(x_scaled), dtype=torch.float32)
+        with torch.no_grad():
+            output = self.model_(x_tensor).detach().cpu().numpy()
         return output.astype(float) * self.target_std_ + self.target_mean_
 
 

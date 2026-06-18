@@ -19,6 +19,7 @@ from .graph import (
     HypergraphGraphRegressor,
     RGCNGraphRegressor,
     RSRGraphRegressor,
+    STHANGraphRegressor,
 )
 from .registry import get_model_spec
 from .sequence import (
@@ -306,10 +307,11 @@ def _estimator_for_model(model_name: str):
         return RSRGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=53)
     if model_name == "hypergraph_mse":
         return HypergraphGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=59)
+    if model_name == "sthan_mse":
+        return STHANGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=61)
     graph_kinds = {
         "market_graph_mse": "market",
         "thgnn_mse": "thgnn",
-        "sthan_mse": "sthan",
         "sthgcn_mse": "sthgcn",
     }
     if model_name in graph_kinds:

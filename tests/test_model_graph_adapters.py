@@ -8,6 +8,7 @@ from src.model.graph import (
     HypergraphGraphRegressor,
     RGCNGraphRegressor,
     RSRGraphRegressor,
+    STHANGraphRegressor,
 )
 from src.model.training import fit_estimator_for_model
 from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
@@ -155,6 +156,29 @@ def test_hypergraph_mse_uses_native_hypergraph_convolution_estimator():
     assert estimator.hyperedge_count_ >= 4
     assert estimator.incidence_matrix_.shape == (8, estimator.hyperedge_count_)
     assert estimator.hypergraph_propagation_.shape == (8, 8)
+    assert estimator.hidden_size == 8
+
+
+def test_sthan_mse_uses_native_spatio_temporal_attention_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "sthan_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:8],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, STHANGraphRegressor)
+    assert hasattr(estimator, "model_")
+    assert estimator.feature_count_ == 8
+    assert estimator.node_count_ == 8
+    assert estimator.temporal_channel_count_ == 4
+    assert estimator.hyperedge_count_ >= 4
+    assert estimator.incidence_matrix_.shape == (8, estimator.hyperedge_count_)
+    assert estimator.hypergraph_propagation_.shape == (8, 8)
+    assert estimator.temporal_attention_weights_.shape == (4,)
+    assert estimator.spatial_attention_weights_.shape == (8, 8)
     assert estimator.hidden_size == 8
 
 
