@@ -1,0 +1,5 @@
+model,objective,family,adapter_status,model_adapter,rows,prediction_mean,prediction_std,target_corr
+gru_mse,mse,sequence,paper_strict_adapter,gru_pytorch_sequence_mse_v1,26,0.028776636065439058,0.02320417635207279,-0.14127480035335954
+lstm_mse,mse,sequence,paper_strict_adapter,lstm_pytorch_sequence_mse_v1,26,0.03173614515093471,0.020347292456363904,-0.20679179017703456
+ridge_mse,mse,linear,paper_strict_adapter,ridge_mse_v1,26,0.016191356277329292,0.009501557263200714,-0.17955316519494316
+sequence_lag_ridge_mse,mse,sequence,paper_strict_adapter,sequence_lag_ridge_mse_v1,26,0.01688959517587836,0.020099844850750698,0.02722605726146242

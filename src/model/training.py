@@ -11,6 +11,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from .registry import get_model_spec
+from .sequence import LaggedRidgeRegressor, TorchSequenceRegressor, build_sequence_tensor
 
 
 STRICT_ADAPTER_NAMES = {
@@ -21,6 +22,9 @@ STRICT_ADAPTER_NAMES = {
     "hist_gradient_mse": "hist_gradient_mse_v1",
     "extra_trees_rank": "extra_trees_rank_proxy_v1",
     "lightgbm_mse": "lightgbm_mse_v1",
+    "sequence_lag_ridge_mse": "sequence_lag_ridge_mse_v1",
+    "lstm_mse": "lstm_pytorch_sequence_mse_v1",
+    "gru_mse": "gru_pytorch_sequence_mse_v1",
 }
 
 DEPENDENCY_FALLBACK_ADAPTER_NAMES = {
@@ -51,6 +55,14 @@ def _feature_matrix(frame: pd.DataFrame, feature_columns: tuple[str, ...]) -> np
 
 def _feature_frame(frame: pd.DataFrame, feature_columns: tuple[str, ...]) -> pd.DataFrame:
     return frame.loc[:, list(feature_columns)].astype(float)
+
+
+def _sequence_feature_tensor(frame: pd.DataFrame, feature_columns: tuple[str, ...]) -> np.ndarray:
+    return build_sequence_tensor(_feature_matrix(frame, feature_columns), lookback=5)
+
+
+def _uses_sequence_tensor(model_name: str) -> bool:
+    return model_name in {"sequence_lag_ridge_mse", "lstm_mse", "gru_mse"}
 
 
 def _regression_target(frame: pd.DataFrame) -> np.ndarray:
@@ -108,6 +120,12 @@ def _estimator_for_model(model_name: str):
         return HistGradientBoostingRegressor(max_iter=80, max_leaf_nodes=15, learning_rate=0.05, random_state=7)
     if model_name == "lightgbm_mse":
         return _lightgbm_regressor()
+    if model_name == "sequence_lag_ridge_mse":
+        return LaggedRidgeRegressor(alpha=1.0)
+    if model_name == "lstm_mse":
+        return TorchSequenceRegressor(cell_type="lstm", hidden_size=8, epochs=24, learning_rate=0.01, seed=7)
+    if model_name == "gru_mse":
+        return TorchSequenceRegressor(cell_type="gru", hidden_size=8, epochs=24, learning_rate=0.01, seed=11)
     if model_name in {"extra_trees_rank", "catboost_rank"}:
         return ExtraTreesRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if spec.family == "tree" and spec.objective == "classification":
@@ -135,7 +153,12 @@ def fit_estimator_for_model(
     feature_columns: tuple[str, ...],
 ) -> tuple[object, float | None]:
     estimator = _estimator_for_model(model_name)
-    x_train = _feature_frame(train, feature_columns) if model_name == "lightgbm_mse" else _feature_matrix(train, feature_columns)
+    if _uses_sequence_tensor(model_name):
+        x_train = _sequence_feature_tensor(train, feature_columns)
+    elif model_name == "lightgbm_mse":
+        x_train = _feature_frame(train, feature_columns)
+    else:
+        x_train = _feature_matrix(train, feature_columns)
     y_train = _target_for_model(model_name, train)
     constant_prediction: float | None = None
     spec = get_model_spec(model_name)
@@ -160,7 +183,12 @@ def predict_with_estimator(
     feature_columns: tuple[str, ...],
     constant_prediction: float | None = None,
 ) -> np.ndarray:
-    x_test = _feature_frame(frame, feature_columns) if model_name == "lightgbm_mse" else _feature_matrix(frame, feature_columns)
+    if _uses_sequence_tensor(model_name):
+        x_test = _sequence_feature_tensor(frame, feature_columns)
+    elif model_name == "lightgbm_mse":
+        x_test = _feature_frame(frame, feature_columns)
+    else:
+        x_test = _feature_matrix(frame, feature_columns)
     spec = get_model_spec(model_name)
     if constant_prediction is not None:
         return np.full(len(frame), float(constant_prediction))
