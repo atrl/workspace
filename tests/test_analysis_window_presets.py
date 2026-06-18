@@ -4,6 +4,7 @@ import pandas as pd
 import pytest
 
 import src.analysis as analysis_api
+from src.core import DatasetSnapshot
 
 
 def test_build_analysis_windows_returns_fixed_recent_historical_and_custom_windows():
@@ -103,3 +104,53 @@ def test_regime_window_analysis_summary_records_window_definitions():
         {"window": "stress_window", "start": "2026-01-05", "end": "2026-01-07"},
     ]
     assert analysis.summary["window_names"] == ["ytd", "stress_window"]
+
+
+def test_analysis_report_export_promotes_window_definitions_to_summary(tmp_path):
+    dates = list(pd.date_range("2026-01-01", periods=8, freq="D")) * 2
+    daily = pd.DataFrame(
+        {
+            "date": dates,
+            "model": ["ridge_mse"] * 8 + ["gcn_mse"] * 8,
+            "regime": ["bull", "bull", "bull", "neutral", "stress", "stress", "stress", "downtrend"] * 2,
+            "nav": [1.0, 1.02, 1.04, 1.03, 1.01, 0.99, 1.0, 1.01, 1.0, 1.04, 1.08, 1.07, 1.02, 0.96, 0.97, 0.98],
+            "benchmark_nav": [1.0, 1.01, 1.02, 1.02, 1.0, 0.99, 1.0, 1.0] * 2,
+            "position": [0.2, 0.3, 0.5, 0.1, 0.4, 0.2, 0.1, 0.2] * 2,
+            "turnover": [0.0, 0.1, 0.2, 0.4, 0.3, 0.1, 0.1, 0.2] * 2,
+        }
+    )
+    windows = analysis_api.build_analysis_windows(
+        start="2026-01-01",
+        end="2026-01-08",
+        presets=("ytd",),
+        custom_windows={"stress_window": ("2026-01-05", "2026-01-07")},
+    )
+    effect_analysis = analysis_api.analyze_model_effects_by_regime_and_window(
+        daily,
+        windows=windows,
+        baseline_model="ridge_mse",
+    )
+    report = analysis_api.build_regime_window_analysis_report(
+        artifact_id="unit_window_report",
+        effect_analysis=effect_analysis,
+    )
+
+    analysis_api.write_analysis_report(
+        report,
+        tmp_path,
+        dataset=DatasetSnapshot(
+            name="unit",
+            universe=["SOXL"],
+            start="2026-01-01",
+            end="2026-01-08",
+            calendar_path="data/qlib/soxl/calendars/day.txt",
+            data_paths=[],
+        ),
+    )
+
+    payload = pd.read_json(tmp_path / "analysis_summary.json", typ="series").to_dict()
+    assert payload["window_names"] == ["ytd", "stress_window"]
+    assert payload["window_definitions"] == [
+        {"window": "ytd", "start": "2026-01-01", "end": "2026-01-08"},
+        {"window": "stress_window", "start": "2026-01-05", "end": "2026-01-07"},
+    ]

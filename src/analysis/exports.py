@@ -114,6 +114,8 @@ def build_regime_window_analysis_report(
     summary_payload["analysis_layers"] = _analysis_layers(summary_payload, table_names)
     summary_payload["analysis_table_counts"] = {name: int(len(tables[name])) for name in table_names}
     summary_payload.setdefault("analysis_summary", effect_analysis.summary)
+    summary_payload.setdefault("window_names", effect_analysis.summary.get("window_names", []))
+    summary_payload.setdefault("window_definitions", effect_analysis.summary.get("window_definitions", []))
     summary_payload.setdefault(
         "analysis_overview",
         build_analysis_overview(effect_analysis, model_review_briefing=model_review_briefing),
