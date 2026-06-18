@@ -21,6 +21,7 @@ PUBLIC_LEGACY_SIDECARS = {
     "qlib_risk_metrics": "qlib_risk_metrics.csv",
     "segment_metrics": "segment_metrics.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "failure_modes": "failure_modes.csv",
     "model_capabilities": "model_capabilities.csv",
     "feature_set_specs": "feature_set_specs.json",
     "factor_ic": "factor_ic.csv",
