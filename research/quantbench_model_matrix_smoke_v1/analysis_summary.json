@@ -1,0 +1,12 @@
+{
+  "status": "smoke_completed",
+  "model_count": 32,
+  "start": "2026-01-01",
+  "end": "2026-06-09",
+  "train_end": "2026-04-30",
+  "test_start": "2026-05-01",
+  "test_end": "2026-06-08",
+  "top_model": "logistic_clf",
+  "adapter_status": "smoke_adapter",
+  "note": "Smoke adapters validate the full matrix contract; paper-strict replacements can be swapped per ModelSpec."
+}

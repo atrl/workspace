@@ -37,6 +37,7 @@ def test_research_and_production_use_notebooks_as_primary_artifacts():
 
     notebooks = [
         root / "research" / "platform_architecture_reference" / "platform_architecture_reference.ipynb",
+        root / "research" / "quantbench_model_matrix_smoke_v1" / "quantbench_model_matrix_smoke_v1.ipynb",
         root / "production" / "paper_reference_strategy" / "paper_reference_strategy.ipynb",
     ]
     for notebook in notebooks:
