@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
-from src.dashboard import write_model_matrix_dashboard_export
+from src.dashboard import build_dashboard_view_model, write_dashboard_html, write_model_matrix_dashboard_export
 from src.model import run_factor_feature_set_matrix
 
 from .jobs import JobResult, ScheduleJob, run_job_once
@@ -22,11 +22,14 @@ class ModelDashboardPipelineConfig:
     top_n_factors: int = 5
     dashboard_top_n: int = 10
     attribution_card_dir: Path | None = None
+    dashboard_page_output_path: Path | None = None
+    dashboard_page_title: str = "SOXL Dashboard"
     retries: int = 0
 
 
 MatrixRunner = Callable[..., Any]
 DashboardExporter = Callable[..., dict[str, Any]]
+DashboardPageExporter = Callable[..., dict[str, Any]]
 
 
 def _default_matrix_runner(
@@ -63,11 +66,29 @@ def _default_dashboard_exporter(
     )
 
 
+def _default_dashboard_page_exporter(
+    dashboard_payload: dict[str, Any],
+    *,
+    output_path: Path,
+    title: str,
+) -> dict[str, Any]:
+    view_model = build_dashboard_view_model(dashboard_payload)
+    html = write_dashboard_html(view_model, output_path=output_path, title=title)
+    return {
+        "schema_version": "dashboard.static_page.v1",
+        "output_path": str(output_path),
+        "view_model_schema_version": str(view_model.get("schema_version", "")),
+        "model_card_count": int(len(view_model.get("model_cards", []))),
+        "html_size_bytes": len(html.encode("utf-8")),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
     matrix_runner: MatrixRunner,
     dashboard_exporter: DashboardExporter,
+    dashboard_page_exporter: DashboardPageExporter,
 ) -> dict[str, Any]:
     matrix_result = matrix_runner(
         card_dir=config.card_dir,
@@ -84,11 +105,22 @@ def _run_pipeline_attempt(
     if config.attribution_card_dir is not None:
         dashboard_kwargs["attribution_card_dir"] = config.attribution_card_dir
     dashboard_payload = dashboard_exporter(config.card_dir, **dashboard_kwargs)
+    page_payload: dict[str, Any] = {}
+    if config.dashboard_page_output_path is not None:
+        page_payload = dashboard_page_exporter(
+            dashboard_payload,
+            output_path=config.dashboard_page_output_path,
+            title=config.dashboard_page_title,
+        )
     matrix_payload = matrix_result.summary if hasattr(matrix_result, "summary") else dict(matrix_result or {})
     return {
         "matrix_card": str(config.card_dir),
         "dashboard_export": str(config.dashboard_output_path),
         "dashboard_schema_version": str(dashboard_payload.get("schema_version", "")),
+        "dashboard_page": str(config.dashboard_page_output_path) if config.dashboard_page_output_path is not None else "",
+        "dashboard_page_schema_version": str(page_payload.get("schema_version", "")),
+        "dashboard_view_model_schema_version": str(page_payload.get("view_model_schema_version", "")),
+        "dashboard_page_model_card_count": int(page_payload.get("model_card_count", 0) or 0),
         "top_model": str((dashboard_payload.get("top_models") or [{}])[0].get("model", "")),
         "attribution_card": str(config.attribution_card_dir) if config.attribution_card_dir is not None else "",
         "attribution_status": str(dashboard_payload.get("attribution", {}).get("status", "")),
@@ -102,6 +134,7 @@ def _task_with_retries(
     *,
     matrix_runner: MatrixRunner,
     dashboard_exporter: DashboardExporter,
+    dashboard_page_exporter: DashboardPageExporter,
 ) -> dict[str, Any]:
     attempts = 0
     last_error: Exception | None = None
@@ -112,6 +145,7 @@ def _task_with_retries(
                 config,
                 matrix_runner=matrix_runner,
                 dashboard_exporter=dashboard_exporter,
+                dashboard_page_exporter=dashboard_page_exporter,
             )
             payload["attempts"] = attempts
             return payload
@@ -129,6 +163,7 @@ def run_model_dashboard_refresh_once(
     notify: Callable[[str], None] | None = None,
     matrix_runner: MatrixRunner = _default_matrix_runner,
     dashboard_exporter: DashboardExporter = _default_dashboard_exporter,
+    dashboard_page_exporter: DashboardPageExporter = _default_dashboard_page_exporter,
 ) -> JobResult:
     job = ScheduleJob(name=config.name, task="model_dashboard_refresh", cron="manual")
     return run_job_once(
@@ -137,6 +172,7 @@ def run_model_dashboard_refresh_once(
             config,
             matrix_runner=matrix_runner,
             dashboard_exporter=dashboard_exporter,
+            dashboard_page_exporter=dashboard_page_exporter,
         ),
         lock_dir=lock_dir,
         notify=notify,

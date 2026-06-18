@@ -108,6 +108,67 @@ def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_e
     assert result.payload["attribution_status"] == "completed"
 
 
+def test_model_dashboard_refresh_optionally_writes_dashboard_html_page(tmp_path):
+    calls: list[tuple[str, Path]] = []
+
+    def matrix_runner(**kwargs):
+        calls.append(("matrix", kwargs["card_dir"]))
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 1, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        calls.append(("dashboard", output_path))
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "matrix_card",
+            "summary": {"status": "feature_set_matrix_completed"},
+            "model_fidelity": {
+                "schema_version": "model.fidelity.v1",
+                "proxy_models": [],
+                "promotion_blocker_count": 0,
+            },
+            "model_capabilities": [{"model": "ridge_mse", "paper_fidelity": "native_library"}],
+            "top_models": [{"model": "ridge_mse", "rank": 1, "return_pct": 1.0, "stability_score": 2.0}],
+            "regime_metrics": [{"model": "ridge_mse", "regime": "bull", "return_pct": 1.0}],
+            "window_metrics": [{"model": "ridge_mse", "window": "test", "return_pct": 1.0}],
+            "window_regime_metrics": [
+                {"model": "ridge_mse", "window": "test", "regime": "bull", "return_pct": 1.0}
+            ],
+            "model_effect_deltas": [],
+            "attribution": {"status": "not_provided", "top_features_by_model": []},
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        dashboard_page_output_path=tmp_path / "dashboard.html",
+        dashboard_page_title="SOXL Refresh Page",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert calls == [("matrix", config.card_dir), ("dashboard", config.dashboard_output_path)]
+    assert result.payload["dashboard_page"] == str(config.dashboard_page_output_path)
+    assert result.payload["dashboard_page_schema_version"] == "dashboard.static_page.v1"
+    assert result.payload["dashboard_view_model_schema_version"] == "dashboard.view_model.v1"
+    assert result.payload["dashboard_page_model_card_count"] == 1
+    assert config.dashboard_page_output_path.exists()
+    assert "SOXL Refresh Page" in config.dashboard_page_output_path.read_text(encoding="utf-8")
+
+
 def test_model_dashboard_refresh_retries_transient_failure_before_success(tmp_path):
     calls = {"count": 0}
 
