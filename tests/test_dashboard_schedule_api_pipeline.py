@@ -21,6 +21,26 @@ def test_dashboard_loads_quantbench_matrix_sidecars_without_raw_model_internals(
     assert "daily_backtest" not in payload["artifacts"]
 
 
+def test_dashboard_loads_model_run_ledger_as_public_coverage_artifact():
+    payload = load_model_matrix_dashboard("research/quantbench_all_model_run_ledger_v1")
+
+    assert payload["model_run_coverage"]["schema_version"] == "model.run_ledger_summary.v1"
+    assert payload["model_run_coverage"]["expected_model_count"] == 32
+    assert payload["model_run_coverage"]["trained_model_count"] == 32
+    assert payload["model_run_coverage"]["backtested_model_count"] == 32
+    assert payload["model_run_coverage"]["all_models_completed"] is True
+    assert payload["model_run_coverage"]["missing_models"] == []
+    assert len(payload["model_run_ledger"]) == 32
+    assert payload["model_run_ledger"][0]["schema_version"] == "model.run_ledger.v1"
+    assert {"model", "trained", "backtested", "analysis_recorded", "manifested"}.issubset(
+        payload["model_run_ledger"][0]
+    )
+    assert "model_run_ledger" in payload["artifacts"]
+    assert "model_run_ledger_summary" in payload["artifacts"]
+    assert "predictions" not in payload["artifacts"]
+    assert "daily_backtest" not in payload["artifacts"]
+
+
 def test_dashboard_loads_model_review_briefing_and_segment_matrix_from_manifest():
     payload = load_model_matrix_dashboard("research/analysis_segment_effect_matrix_v1")
 

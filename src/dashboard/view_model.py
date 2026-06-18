@@ -63,6 +63,33 @@ def _capability_by_model(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {str(row.get("model", "")): row for row in _as_list(payload.get("model_capabilities")) if row.get("model")}
 
 
+def _ledger_by_model(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {str(row.get("model", "")): row for row in _as_list(payload.get("model_run_ledger")) if row.get("model")}
+
+
+def _run_record_for_model(ledger: dict[str, dict[str, Any]], *, model: str, base_model: str) -> dict[str, Any]:
+    if model in ledger:
+        return dict(ledger[model])
+    if base_model in ledger:
+        return dict(ledger[base_model])
+    return {}
+
+
+def _run_status(record: dict[str, Any]) -> str:
+    if not record:
+        return "unknown"
+    required = [
+        "trained",
+        "predicted",
+        "backtested",
+        "objective_evaluated",
+        "promotion_evaluated",
+        "analysis_recorded",
+        "manifested",
+    ]
+    return "complete" if all(bool(record.get(column, False)) for column in required) else "incomplete"
+
+
 def _fidelity_for(base_model: str, capabilities: dict[str, dict[str, Any]]) -> str:
     row = capabilities.get(base_model, {})
     value = row.get("paper_fidelity")
@@ -205,6 +232,7 @@ def _controls(payload: dict[str, Any], capabilities: dict[str, dict[str, Any]]) 
     top_models = _as_list(payload.get("top_models"))
     attribution = payload.get("attribution") if isinstance(payload.get("attribution"), dict) else {}
     attribution_rows = _as_list(attribution.get("top_features_by_model") if isinstance(attribution, dict) else [])
+    ledger_rows = _as_list(payload.get("model_run_ledger"))
     return {
         "models": _sorted_strings(row.get("model") for row in top_models),
         "base_models": _sorted_strings(_base_model(row) for row in top_models),
@@ -212,6 +240,8 @@ def _controls(payload: dict[str, Any], capabilities: dict[str, dict[str, Any]]) 
         "regimes": _sorted_strings(row.get("regime") for row in _as_list(payload.get("regime_metrics"))),
         "windows": _sorted_strings(row.get("window") for row in _as_list(payload.get("window_metrics"))),
         "paper_fidelities": _sorted_strings(row.get("paper_fidelity") for row in capabilities.values()),
+        "adapter_statuses": _sorted_strings(row.get("adapter_status") for row in ledger_rows),
+        "run_statuses": _sorted_strings(_run_status(dict(row)) for row in ledger_rows),
         "attribution_features": _sorted_strings(row.get("feature") for row in attribution_rows),
         "failure_modes": _sorted_strings(row.get("failure_mode") for row in _as_list(payload.get("failure_modes"))),
         "review_signals": _sorted_strings(row.get("review_signal") for row in _as_list(payload.get("model_review_briefing"))),
@@ -270,6 +300,7 @@ def build_dashboard_view_model(
     selected_review_signals = set(active_filters.review_signals)
     selected_decision_hints = set(active_filters.decision_hints)
     capabilities = _capability_by_model(payload)
+    model_run_ledger = _ledger_by_model(payload)
     proxy_models = _proxy_models(payload)
     attribution = _attribution_by_model(payload, attribution_features)
     top_models = _as_list(payload.get("top_models"))
@@ -285,6 +316,8 @@ def build_dashboard_view_model(
         base_model = _base_model(row)
         feature_set = _feature_set(row)
         paper_fidelity = _fidelity_for(base_model, capabilities)
+        run_record = _run_record_for_model(model_run_ledger, model=model, base_model=base_model)
+        run_status = _run_status(run_record)
         top_attribution_features = attribution.get(base_model, [])
         card_failure_modes = _failure_modes_for_model(
             failure_modes,
@@ -323,6 +356,8 @@ def build_dashboard_view_model(
                 "paper_fidelity": paper_fidelity,
                 "proxy_model": base_model in proxy_models,
                 "promotion_blocker": str(capabilities.get(base_model, {}).get("promotion_blocker", "")),
+                "run_status": run_status,
+                "run_record": run_record,
                 "top_attribution_features": top_attribution_features,
                 "regime_metrics": _rows_for_model(
                     regime_metrics,
@@ -364,6 +399,9 @@ def build_dashboard_view_model(
         if isinstance(payload.get("analysis_overview"), dict)
         else {},
         "model_fidelity": dict(payload.get("model_fidelity", {})) if isinstance(payload.get("model_fidelity"), dict) else {},
+        "model_run_coverage": dict(payload.get("model_run_coverage", {}))
+        if isinstance(payload.get("model_run_coverage"), dict)
+        else {},
         "comparison_table": [dict(row) for row in top_models],
         "failure_mode_summary": {
             "count": int(len(failure_modes)),

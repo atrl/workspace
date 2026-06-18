@@ -18,6 +18,8 @@ PUBLIC_ARTIFACT_KEYS = {
     "qlib_risk_metrics",
     "objective_scores",
     "promotion_scores",
+    "model_run_ledger",
+    "model_run_ledger_summary",
     "segment_effect_matrix",
     "model_effect_deltas",
     "model_review_briefing",
@@ -66,6 +68,8 @@ def _default_public_paths(card: Path) -> dict[str, str]:
         "qlib_risk_metrics": "qlib_risk_metrics.csv",
         "objective_scores": "objective_scores.csv",
         "promotion_scores": "promotion_scores.csv",
+        "model_run_ledger": "model_run_ledger.csv",
+        "model_run_ledger_summary": "model_run_ledger_summary.json",
         "segment_effect_matrix": "segment_effect_matrix.csv",
         "model_effect_deltas": "model_effect_deltas.csv",
         "model_review_briefing": "model_review_briefing.csv",
@@ -136,6 +140,62 @@ def _read_csv_from_paths(card: Path, paths: dict[str, str], key: str, fallback: 
 def _read_optional_csv_from_paths(card: Path, paths: dict[str, str], key: str, fallback: str) -> pd.DataFrame:
     path = _path_for(card, paths, key, fallback)
     return _read_csv_if_exists(path)
+
+
+def _read_optional_json_from_paths(card: Path, paths: dict[str, str], key: str, fallback: str) -> dict[str, Any]:
+    path = _path_for(card, paths, key, fallback)
+    return _read_manifest_if_exists(path)
+
+
+def _bool_count(frame: pd.DataFrame, column: str) -> int:
+    if frame.empty or column not in frame.columns:
+        return 0
+    return int(frame[column].astype(bool).sum())
+
+
+def _model_run_coverage(model_run_ledger: pd.DataFrame, summary: dict[str, Any]) -> dict[str, Any]:
+    if summary:
+        return dict(summary)
+    if model_run_ledger.empty:
+        return {
+            "schema_version": "model.run_ledger_summary.v1",
+            "expected_model_count": 0,
+            "ledger_model_count": 0,
+            "trained_model_count": 0,
+            "backtested_model_count": 0,
+            "missing_models": [],
+            "all_models_completed": False,
+        }
+    required = [
+        "registered",
+        "trained",
+        "predicted",
+        "backtested",
+        "objective_evaluated",
+        "promotion_evaluated",
+        "analysis_recorded",
+        "manifested",
+    ]
+    present = [column for column in required if column in model_run_ledger.columns]
+    if present:
+        incomplete = model_run_ledger.loc[~model_run_ledger.loc[:, present].astype(bool).all(axis=1), "model"]
+        missing_models = incomplete.astype(str).tolist()
+    else:
+        missing_models = []
+    return {
+        "schema_version": "model.run_ledger_summary.v1",
+        "expected_model_count": int(len(model_run_ledger)),
+        "ledger_model_count": int(len(model_run_ledger)),
+        "trained_model_count": _bool_count(model_run_ledger, "trained"),
+        "predicted_model_count": _bool_count(model_run_ledger, "predicted"),
+        "backtested_model_count": _bool_count(model_run_ledger, "backtested"),
+        "objective_evaluated_model_count": _bool_count(model_run_ledger, "objective_evaluated"),
+        "promotion_evaluated_model_count": _bool_count(model_run_ledger, "promotion_evaluated"),
+        "analysis_recorded_model_count": _bool_count(model_run_ledger, "analysis_recorded"),
+        "manifested_model_count": _bool_count(model_run_ledger, "manifested"),
+        "missing_models": missing_models,
+        "all_models_completed": not missing_models,
+    }
 
 
 def _artifact_paths(
@@ -283,6 +343,12 @@ def load_model_matrix_dashboard(
     qlib_risk_metrics = _read_optional_csv_from_paths(card, public_paths, "qlib_risk_metrics", "qlib_risk_metrics.csv")
     objective_scores = _read_optional_csv_from_paths(card, public_paths, "objective_scores", "objective_scores.csv")
     promotion_scores = _read_optional_csv_from_paths(card, public_paths, "promotion_scores", "promotion_scores.csv")
+    model_run_ledger = _read_optional_csv_from_paths(
+        card, public_paths, "model_run_ledger", "model_run_ledger.csv"
+    )
+    model_run_ledger_summary = _read_optional_json_from_paths(
+        card, public_paths, "model_run_ledger_summary", "model_run_ledger_summary.json"
+    )
     segment_effect_matrix = _read_optional_csv_from_paths(
         card, public_paths, "segment_effect_matrix", "segment_effect_matrix.csv"
     )
@@ -329,6 +395,8 @@ def load_model_matrix_dashboard(
             "scores": _records(objective_scores, limit=200),
             "promotion_scores": _records(promotion_scores, limit=200),
         },
+        "model_run_coverage": _model_run_coverage(model_run_ledger, model_run_ledger_summary),
+        "model_run_ledger": _records(model_run_ledger, limit=300),
         "segment_effect_matrix": _records(segment_effect_matrix, limit=200),
         "model_effect_deltas": _records(model_effect_deltas, limit=200),
         "model_review_briefing": _records(model_review_briefing, limit=200),

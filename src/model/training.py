@@ -19,6 +19,7 @@ from .sequence import (
     FeatureRidgeRegressor,
     FrequencyRidgeRegressor,
     LaggedRidgeRegressor,
+    PatchTSTTransformerRegressor,
     TorchSequenceRegressor,
     build_sequence_tensor,
 )
@@ -273,7 +274,7 @@ def _estimator_for_model(model_name: str):
     if model_name == "dlinear_mse":
         return DLinearDecompositionRegressor(alpha=1.0, kernel_size=3)
     if model_name == "patch_tst_mse":
-        return FeatureRidgeRegressor(feature_kind="patch", alpha=1.0)
+        return PatchTSTTransformerRegressor(patch_size=2, stride=1, d_model=8, nhead=2, num_layers=1, epochs=24)
     if model_name == "autoformer_mse":
         return FeatureRidgeRegressor(feature_kind="autoformer", alpha=1.0)
     if model_name == "fedformer_mse":

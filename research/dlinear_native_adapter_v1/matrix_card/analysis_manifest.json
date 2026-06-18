@@ -55,23 +55,21 @@
     "model_fidelity": {
       "fidelity_counts": {
         "native_library": 1,
-        "native_sequence": 1,
-        "proxy_feature_adapter": 1
+        "native_sequence": 2
       },
       "model_count": 3,
       "native_models": [
         "dlinear_mse",
+        "patch_tst_mse",
         "ridge_mse"
       ],
       "promotion_blocker_count": 2,
-      "proxy_models": [
-        "patch_tst_mse"
-      ],
+      "proxy_models": [],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.06840796175180223,
-      "avg_mse": 0.019253724236148642,
+      "avg_ic": -0.06290592131501402,
+      "avg_mse": 0.014398293155179482,
       "avg_rank_ic": 0.0,
       "model_count": 3,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -82,14 +80,14 @@
       "model_count": 3,
       "schema_version": "objective.promotion_summary.v1",
       "top_decision": "promote_candidate",
-      "top_model": "patch_tst_mse"
+      "top_model": "dlinear_mse"
     },
     "status": "smoke_completed",
     "table_counts": {
-      "failure_modes": 42,
+      "failure_modes": 49,
       "model_comparison": 3,
       "model_effect_deltas": 102,
-      "model_review_briefing": 48,
+      "model_review_briefing": 35,
       "qlib_return_frame": 78,
       "qlib_risk_metrics": 204,
       "regime_metrics": 12,
@@ -128,5 +126,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "862326f9005d45b3a43e678e45bda1dee95596fa7733d744f97095ce2e2a822b"
+  "manifest_hash": "e6acb0db11f7d355e583b659ca3e0e4966d702c088b2598fc2a4eb8a3ab32560"
 }

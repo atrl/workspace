@@ -154,7 +154,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "DLinear",
         "Uses an explicit moving-average decomposition with separate linear trend and residual heads.",
     ),
-    _proxy("patch_tst_mse", "sequence", "mse", "sequence_patch", "PatchTST", "Uses patch statistics instead of a full Transformer encoder."),
+    _native_sequence(
+        "patch_tst_mse",
+        "sequence",
+        "mse",
+        "sequence_patch",
+        "PatchTST",
+        "Uses a compact patch Transformer encoder over channel-wise sequence patches.",
+    ),
     _proxy(
         "autoformer_mse",
         "sequence",

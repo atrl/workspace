@@ -54,23 +54,21 @@
     "model_fidelity": {
       "fidelity_counts": {
         "native_library": 1,
-        "native_sequence": 1,
-        "proxy_feature_adapter": 1
+        "native_sequence": 2
       },
       "model_count": 3,
       "native_models": [
         "dlinear_mse",
+        "patch_tst_mse",
         "ridge_mse"
       ],
       "promotion_blocker_count": 2,
-      "proxy_models": [
-        "patch_tst_mse"
-      ],
+      "proxy_models": [],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.06840796175180223,
-      "avg_mse": 0.019253724236148642,
+      "avg_ic": -0.06290592131501402,
+      "avg_mse": 0.014398293155179482,
       "avg_rank_ic": 0.0,
       "model_count": 3,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -81,7 +79,7 @@
       "model_count": 3,
       "schema_version": "objective.promotion_summary.v1",
       "top_decision": "promote_candidate",
-      "top_model": "patch_tst_mse"
+      "top_model": "dlinear_mse"
     },
     "status": "smoke_completed",
     "train_end": "2026-04-30",
@@ -115,5 +113,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "50b82fff183f10d63f810890de2ac4a8f71a543699042bbcf15e1ffa44e7a6c8"
+  "manifest_hash": "14c68d3ca79cc5ee1c2ede6f2605c17f1b14ecee328c6d09728b787b1f6fd8d1"
 }

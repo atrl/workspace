@@ -234,6 +234,56 @@ class _TorchTemporalConvNet(nn.Module):
         return self.head(pooled).squeeze(-1)
 
 
+class _PatchTSTNet(nn.Module):
+    def __init__(
+        self,
+        *,
+        lookback: int,
+        feature_count: int,
+        patch_size: int,
+        stride: int,
+        d_model: int,
+        nhead: int,
+        num_layers: int,
+    ):
+        super().__init__()
+        import torch
+
+        self.lookback = lookback
+        self.feature_count = feature_count
+        self.patch_size = patch_size
+        self.stride = stride
+        self.patch_count = max(1, (lookback - patch_size) // stride + 1)
+        self.patch_projection = nn.Linear(patch_size, d_model)
+        self.position = nn.Parameter(torch.zeros((1, self.patch_count, d_model), dtype=torch.float32))
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=d_model,
+            nhead=nhead,
+            dim_feedforward=d_model * 2,
+            dropout=0.0,
+            batch_first=True,
+            activation="gelu",
+        )
+        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+        self.channel_head = nn.Linear(d_model, 1)
+        self.output_bias = nn.Parameter(torch.zeros((), dtype=torch.float32))
+
+    def forward(self, x):
+        import torch
+
+        if x.shape[1] < self.patch_size:
+            pad = self.patch_size - x.shape[1]
+            x = torch.cat([x[:, :1, :].repeat(1, pad, 1), x], dim=1)
+        channel_first = x.transpose(1, 2)
+        patches = channel_first.unfold(dimension=2, size=self.patch_size, step=self.stride)
+        patches = patches[:, :, : self.patch_count, :]
+        tokens = patches.reshape(x.shape[0] * self.feature_count, self.patch_count, self.patch_size)
+        encoded = self.patch_projection(tokens) + self.position
+        encoded = self.encoder(encoded)
+        channel_scores = self.channel_head(encoded.mean(dim=1)).reshape(x.shape[0], self.feature_count)
+        return channel_scores.mean(dim=1) + self.output_bias
+
+
 @dataclass
 class TorchSequenceRegressor:
     cell_type: str
@@ -288,6 +338,71 @@ class TorchSequenceRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 3:
             raise ValueError("TorchSequenceRegressor expects a 3D sequence tensor")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        with torch.no_grad():
+            output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class PatchTSTTransformerRegressor:
+    patch_size: int = 2
+    stride: int = 1
+    d_model: int = 8
+    nhead: int = 2
+    num_layers: int = 1
+    epochs: int = 24
+    learning_rate: float = 0.01
+    seed: int = 23
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "PatchTSTTransformerRegressor":
+        if x.ndim != 3:
+            raise ValueError("PatchTSTTransformerRegressor expects a 3D sequence tensor")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.lookback_ = int(x.shape[1])
+        self.feature_count_ = int(x.shape[2])
+        self.patch_count_ = max(1, (self.lookback_ - int(self.patch_size)) // int(self.stride) + 1)
+        self.feature_mean_ = x.reshape(-1, x.shape[-1]).mean(axis=0)
+        self.feature_std_ = x.reshape(-1, x.shape[-1]).std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _PatchTSTNet(
+            lookback=self.lookback_,
+            feature_count=self.feature_count_,
+            patch_size=int(self.patch_size),
+            stride=int(self.stride),
+            d_model=int(self.d_model),
+            nhead=int(self.nhead),
+            num_layers=int(self.num_layers),
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 3:
+            raise ValueError("PatchTSTTransformerRegressor expects a 3D sequence tensor")
         import torch
 
         torch.set_num_threads(1)

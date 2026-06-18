@@ -84,6 +84,51 @@ def _dashboard_payload_with_model_review_briefing() -> dict:
     return payload
 
 
+def _dashboard_payload_with_model_run_ledger() -> dict:
+    payload = _dashboard_payload()
+    first_model = str(payload["top_models"][0]["model"])
+    first_base = first_model.split("__", 1)[0]
+    payload["model_run_coverage"] = {
+        "schema_version": "model.run_ledger_summary.v1",
+        "expected_model_count": 2,
+        "trained_model_count": 2,
+        "backtested_model_count": 2,
+        "all_models_completed": True,
+        "missing_models": [],
+    }
+    payload["model_run_ledger"] = [
+        {
+            "schema_version": "model.run_ledger.v1",
+            "model": first_model,
+            "base_model": first_base,
+            "adapter_status": "paper_strict_adapter",
+            "paper_fidelity": "native_library",
+            "trained": True,
+            "predicted": True,
+            "backtested": True,
+            "objective_evaluated": True,
+            "promotion_evaluated": True,
+            "analysis_recorded": True,
+            "manifested": True,
+        },
+        {
+            "schema_version": "model.run_ledger.v1",
+            "model": "missing_model",
+            "base_model": "missing_model",
+            "adapter_status": "paper_strict_adapter",
+            "paper_fidelity": "proxy_feature_adapter",
+            "trained": False,
+            "predicted": False,
+            "backtested": False,
+            "objective_evaluated": False,
+            "promotion_evaluated": False,
+            "analysis_recorded": False,
+            "manifested": False,
+        },
+    ]
+    return payload
+
+
 def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_payload_only():
     payload = _dashboard_payload()
 
@@ -119,6 +164,23 @@ def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_p
         row["model"] for row in attribution_cards[0]["top_attribution_features"]
     } == {attribution_cards[0]["base_model"]}
     assert view["comparison_table"]
+
+
+def test_dashboard_view_model_attaches_model_run_ledger_to_cards_and_summary():
+    payload = _dashboard_payload_with_model_run_ledger()
+
+    view = build_dashboard_view_model(payload)
+
+    assert view["model_run_coverage"]["schema_version"] == "model.run_ledger_summary.v1"
+    assert view["model_run_coverage"]["all_models_completed"] is True
+    assert "paper_strict_adapter" in view["controls"]["adapter_statuses"]
+    assert {"complete", "incomplete"}.issubset(set(view["controls"]["run_statuses"]))
+    first_card = view["model_cards"][0]
+    assert first_card["run_record"]["schema_version"] == "model.run_ledger.v1"
+    assert first_card["run_record"]["trained"] is True
+    assert first_card["run_record"]["backtested"] is True
+    assert first_card["run_record"]["analysis_recorded"] is True
+    assert first_card["run_status"] == "complete"
 
 
 def test_dashboard_view_model_attaches_failure_modes_to_matching_model_cards():

@@ -1,0 +1,21 @@
+{
+  "schema_version": "research.dashboard_model_run_ledger_integration_v1",
+  "source_card": "research/quantbench_all_model_run_ledger_v1",
+  "dashboard_export": "dashboard_export.json",
+  "view_model_export": "view_model.json",
+  "view_model_run_cards": "view_model_run_cards.csv",
+  "payload_schema": "dashboard.model_matrix.v1",
+  "view_schema": "dashboard.view_model.v1",
+  "ledger_rows": 32,
+  "card_rows": 12,
+  "all_models_completed": true,
+  "trained_model_count": 32,
+  "backtested_model_count": 32,
+  "missing_models": [],
+  "adapter_statuses": [
+    "paper_strict_adapter"
+  ],
+  "run_statuses": [
+    "complete"
+  ]
+}

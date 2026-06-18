@@ -84,9 +84,9 @@
     "model_fidelity": {
       "fidelity_counts": {
         "native_library": 8,
-        "native_sequence": 1,
+        "native_sequence": 2,
         "native_torch": 5,
-        "proxy_feature_adapter": 18
+        "proxy_feature_adapter": 17
       },
       "model_count": 32,
       "native_models": [
@@ -100,6 +100,7 @@
         "logistic_clf",
         "lstm_mse",
         "mlp_mse",
+        "patch_tst_mse",
         "random_forest_clf",
         "ridge_mse",
         "tcn_mse",
@@ -116,7 +117,6 @@
         "hypergraph_mse",
         "market_graph_mse",
         "mlp_mixer_mse",
-        "patch_tst_mse",
         "rgcn_mse",
         "ridge_ic",
         "rsr_mse",
@@ -129,8 +129,8 @@
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.02947741493513973,
-      "avg_mse": 0.03514868236052979,
+      "avg_ic": 0.017166738397625704,
+      "avg_mse": 0.034693485696688925,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -148,7 +148,7 @@
       "failure_modes": 847,
       "model_comparison": 32,
       "model_effect_deltas": 1088,
-      "model_review_briefing": 629,
+      "model_review_briefing": 617,
       "qlib_return_frame": 832,
       "qlib_risk_metrics": 2176,
       "regime_metrics": 128,
@@ -187,5 +187,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "170dd160383627b8b960a50bbfbefbf929890a2d8e8c55f78fb620dfe763aabc"
+  "manifest_hash": "027595d38376fdbd66f183fb55a9358518d35d5ef69517e3a59b0450d8570aca"
 }
