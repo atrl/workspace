@@ -1,0 +1,11 @@
+{
+  "schema_version": "research.analysis_manifest_batch_backfill_v1",
+  "status": "completed",
+  "scan_path": "/Users/rziiiii/dev/workspace/research/analysis_manifest_batch_backfill_v1/card_scan.csv",
+  "batch_summary_path": "/Users/rziiiii/dev/workspace/research/analysis_manifest_batch_backfill_v1/batch_backfill_summary.json",
+  "backfilled": 1,
+  "skipped": 2,
+  "manifest_hash": "d240f234b0472748b6a3fc0f22641a7ef595deaf34291881f1738db417e43d93",
+  "private_sidecars_hidden": true,
+  "conclusion": "批量扫描可先审计旧 analysis card，再只对 backfillable card 生成 analysis_manifest.json。"
+}

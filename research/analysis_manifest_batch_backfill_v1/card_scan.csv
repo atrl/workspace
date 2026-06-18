@@ -1,0 +1,4 @@
+card_path,relative_card_path,card_name,status,migration_action,has_manifest,has_summary,public_sidecar_count,private_sidecar_count,public_artifact_keys,private_artifact_keys
+/Users/rziiiii/dev/workspace/research/analysis_manifest_batch_backfill_v1/sandbox_cards/legacy_card,legacy_card,legacy_card,backfillable,backfill_analysis_manifest,False,True,5,2,"model_comparison,model_effect_deltas,regime_metrics,summary,window_metrics","daily_backtest,predictions"
+/Users/rziiiii/dev/workspace/research/analysis_manifest_batch_backfill_v1/sandbox_cards/manifested_card,manifested_card,manifested_card,already_manifested,keep_manifest,True,True,5,2,"model_comparison,model_effect_deltas,regime_metrics,summary,window_metrics","daily_backtest,predictions"
+/Users/rziiiii/dev/workspace/research/analysis_manifest_batch_backfill_v1/sandbox_cards/private_only,private_only,private_only,not_analysis_card,ignore,False,False,0,1,,predictions

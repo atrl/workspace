@@ -1,0 +1,40 @@
+{
+  "artifact_id": "manifested_card",
+  "artifact_type": "analysis_report",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "/Users/rziiiii/dev/workspace/research/analysis_manifest_batch_backfill_v1/sandbox_cards/manifested_card"
+    ],
+    "end": "2026-06-09",
+    "metadata": {
+      "source": "analysis_manifest_backfill"
+    },
+    "name": "already_manifested",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-01",
+    "universe": [
+      "SOXL"
+    ]
+  },
+  "metadata": {
+    "analysis_report_schema_version": "analysis.report.v1",
+    "generated_from": "legacy_sidecars",
+    "table_counts": {
+      "model_comparison": 2,
+      "model_effect_deltas": 1,
+      "regime_metrics": 2,
+      "window_metrics": 1
+    }
+  },
+  "paths": {
+    "model_comparison": "model_comparison.csv",
+    "model_effect_deltas": "model_effect_deltas.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "summary": "analysis_summary.json",
+    "window_metrics": "window_metrics.csv"
+  },
+  "producer": "src.analysis.manifest_backfill",
+  "schema_version": "artifact.v1",
+  "manifest_hash": "469e63a269774c93bb44760521053d4eac7f59741ac6510c555359ba8bf3b9a0"
+}
