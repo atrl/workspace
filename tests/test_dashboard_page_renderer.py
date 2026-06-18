@@ -27,6 +27,24 @@ def _view_model() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_failure_modes() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"failure_modes": "/path/that/must/not/be/rendered.csv"}
+    payload["failure_modes"] = [
+        {
+            "schema_version": "analysis.failure_modes.v1",
+            "model": "gcn_mse__top_ic_factors",
+            "baseline_model": "ridge_mse__all_features",
+            "segment_type": "window_regime",
+            "segment": "test::stress",
+            "failure_mode": "return_stability_lag",
+            "severity_score": 12.5,
+            "review_note": "gcn_mse 在 stress window 弱于基准。",
+        }
+    ]
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -42,6 +60,17 @@ def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_w
     assert "/path/that/must/not/be/rendered.csv" not in html
     assert any(attrs.get("data-model") == "gcn_mse__top_ic_factors" for attrs in parser.data_attrs)
     assert 'data-regime="stress"' in html
+
+
+def test_render_dashboard_html_outputs_failure_mode_sections_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_failure_modes(), title="SOXL Failure Modes")
+
+    assert "Failure Modes" in html
+    assert "return_stability_lag" in html
+    assert "12.50" in html
+    assert "gcn_mse 在 stress window 弱于基准。" in html
+    assert 'data-failure-mode="return_stability_lag"' in html
+    assert "/path/that/must/not/be/rendered.csv" not in html
 
 
 def test_write_dashboard_html_writes_page_and_keeps_embedded_view_model_json(tmp_path):

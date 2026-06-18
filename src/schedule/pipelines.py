@@ -161,6 +161,21 @@ def _prefixed_preflight_payload(preflight: dict[str, Any]) -> dict[str, Any]:
     return {f"analysis_manifest_preflight_{key}": value for key, value in preflight.items()}
 
 
+def _top_failure_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    failure_modes = dashboard_payload.get("failure_modes")
+    if not isinstance(failure_modes, list) or not failure_modes:
+        return {}
+    top = failure_modes[0] if isinstance(failure_modes[0], dict) else {}
+    if not top:
+        return {}
+    return {
+        "top_failure_mode": str(top.get("failure_mode", "")),
+        "top_failure_segment": str(top.get("segment", "")),
+        "top_failure_model": str(top.get("model", "")),
+        "top_failure_severity": float(top.get("severity_score", 0.0) or 0.0),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -212,6 +227,7 @@ def _run_pipeline_attempt(
         "attribution_status": str(dashboard_payload.get("attribution", {}).get("status", "")),
         "matrix_status": str(matrix_payload.get("status", "")),
         "variant_count": int(matrix_payload.get("variant_count", 0) or 0),
+        **_top_failure_payload(dashboard_payload),
         **_prefixed_preflight_payload(preflight),
     }
 
@@ -246,14 +262,17 @@ def _task_with_retries(
 def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
     if status != "success":
         return f"{job_name}:{status}"
-    return (
+    message = (
         f"{job_name}:success"
         f" | top_model={payload.get('top_model', '')}"
         f" | dashboard_manifest={payload.get('dashboard_manifest_kind', '')}"
-        f" | analysis_preflight={payload.get('analysis_manifest_preflight_status', '')}"
-        f" | attempts={payload.get('attempts', '')}"
-        f" | export={payload.get('dashboard_export', '')}"
     )
+    if "analysis_manifest_preflight_status" in payload:
+        message += f" | analysis_preflight={payload.get('analysis_manifest_preflight_status', '')}"
+    message += f" | attempts={payload.get('attempts', '')} | export={payload.get('dashboard_export', '')}"
+    if payload.get("top_failure_mode"):
+        message += f" | top_failure={payload.get('top_failure_mode')}@{payload.get('top_failure_segment', '')}"
+    return message
 
 
 def run_model_dashboard_refresh_once(

@@ -1,0 +1,25 @@
+{
+  "schema_version": "dashboard.model_matrix.v1",
+  "artifact_id": "failure_mode_notify_card",
+  "top_models": [
+    {
+      "model": "ridge_mse",
+      "rank": 1
+    }
+  ],
+  "manifest_source": {
+    "kind": "analysis_manifest",
+    "path": "/Users/rziiiii/dev/workspace/research/schedule_failure_mode_notify_v1/matrix_card/analysis_manifest.json",
+    "schema_version": "artifact.v1",
+    "manifest_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "producer": "src.analysis.exports"
+  },
+  "failure_modes": [
+    {
+      "model": "gcn_mse",
+      "segment": "stress_window::stress",
+      "failure_mode": "return_stability_lag",
+      "severity_score": 78.04619
+    }
+  ]
+}

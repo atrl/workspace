@@ -1,0 +1,10 @@
+{
+  "schema_version": "research.schedule_failure_mode_notify_v1",
+  "status": "completed",
+  "notification": "dashboard_failure_notify:success | top_model=ridge_mse | dashboard_manifest=analysis_manifest | attempts=1 | export=/Users/rziiiii/dev/workspace/research/schedule_failure_mode_notify_v1/dashboard_export.json | top_failure=return_stability_lag@stress_window::stress",
+  "top_failure_mode": "return_stability_lag",
+  "top_failure_segment": "stress_window::stress",
+  "top_failure_model": "gcn_mse",
+  "top_failure_severity": 78.04619,
+  "conclusion": "schedule 详细通知已能携带 dashboard failure_modes 的最高优先级失败模式。"
+}

@@ -12,6 +12,33 @@ def _dashboard_payload() -> dict:
     return payload
 
 
+def _dashboard_payload_with_failure_modes() -> dict:
+    payload = _dashboard_payload()
+    payload["failure_modes"] = [
+        {
+            "schema_version": "analysis.failure_modes.v1",
+            "model": "gcn_mse__top_ic_factors",
+            "baseline_model": "ridge_mse__all_features",
+            "segment_type": "window_regime",
+            "segment": "test::stress",
+            "failure_mode": "return_stability_lag",
+            "severity_score": 12.5,
+            "review_note": "gcn_mse 在 stress window 弱于基准。",
+        },
+        {
+            "schema_version": "analysis.failure_modes.v1",
+            "model": "ridge_mse__all_features",
+            "baseline_model": "ridge_mse__all_features",
+            "segment_type": "all",
+            "segment": "all",
+            "failure_mode": "baseline_note",
+            "severity_score": 0.0,
+            "review_note": "基准说明不应出现在 gcn 卡片。",
+        },
+    ]
+    return payload
+
+
 def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_payload_only():
     payload = _dashboard_payload()
 
@@ -40,6 +67,22 @@ def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_p
     }.issubset(first_card)
     assert first_card["top_attribution_features"]
     assert view["comparison_table"]
+
+
+def test_dashboard_view_model_attaches_failure_modes_to_matching_model_cards():
+    view = build_dashboard_view_model(
+        _dashboard_payload_with_failure_modes(),
+        filters=DashboardViewFilters(models=("gcn_mse__top_ic_factors",), regimes=("stress",), windows=("test",)),
+    )
+
+    assert [card["model"] for card in view["model_cards"]] == ["gcn_mse__top_ic_factors"]
+    card = view["model_cards"][0]
+    assert card["failure_modes"][0]["failure_mode"] == "return_stability_lag"
+    assert card["failure_modes"][0]["segment"] == "test::stress"
+    assert card["failure_modes"][0]["severity_score"] == 12.5
+    assert "基准说明" not in json.dumps(card["failure_modes"], ensure_ascii=False)
+    assert view["failure_mode_summary"]["count"] == 2
+    assert view["failure_mode_summary"]["top_failure_mode"] == "return_stability_lag"
 
 
 def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attribution_feature():

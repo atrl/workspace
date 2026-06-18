@@ -67,6 +67,21 @@ def _diagnostics(rows: list[dict[str, Any]]) -> str:
     )
 
 
+def _failure_modes(rows: list[dict[str, Any]]) -> str:
+    if not rows:
+        return '<li class="muted">暂无失败模式</li>'
+    return "\n".join(
+        "<li "
+        f'data-failure-mode="{escape(str(row.get("failure_mode", "")))}" '
+        f'data-segment="{escape(str(row.get("segment", "")))}">'
+        f"<strong>{escape(str(row.get('failure_mode', '')))}</strong>"
+        f"<span>{escape(str(row.get('segment', '')))} / severity {_metric(row.get('severity_score', 0.0))}</span>"
+        f"<p>{escape(str(row.get('review_note', '')))}</p>"
+        "</li>"
+        for row in rows[:4]
+    )
+
+
 def _model_card(card: dict[str, Any]) -> str:
     model = str(card.get("model", ""))
     fidelity = str(card.get("paper_fidelity", ""))
@@ -98,6 +113,10 @@ def _model_card(card: dict[str, Any]) -> str:
             <h3>诊断</h3>
             <ul class="diagnostics">{_diagnostics(card.get('diagnostics', []))}</ul>
           </div>
+        </section>
+        <section>
+          <h3>Failure Modes</h3>
+          <ul class="failure-modes">{_failure_modes(card.get('failure_modes', []))}</ul>
         </section>
         <section>
           <h3>Regime</h3>
@@ -149,6 +168,11 @@ def _style() -> str:
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
     ul { margin: 0; padding-left: 18px; }
     .feature-list li { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 5px; }
+    .failure-modes { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
+    .failure-modes li { border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 6px; padding: 8px; }
+    .failure-modes strong { display: block; font-size: 13px; }
+    .failure-modes span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .failure-modes p { margin-top: 5px; font-size: 12px; }
     .muted { color: var(--muted); }
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }

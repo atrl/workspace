@@ -114,6 +114,44 @@ def _diagnostics_for_model(
     return result
 
 
+def _segment_filter_match(row: dict[str, Any], *, regimes: set[str], windows: set[str]) -> bool:
+    segment = str(row.get("segment", ""))
+    row_regime = str(row.get("regime", "")) if row.get("regime") is not None else ""
+    row_window = str(row.get("window", "")) if row.get("window") is not None else ""
+    if regimes:
+        if row_regime:
+            if row_regime not in regimes:
+                return False
+        elif not any(regime in segment for regime in regimes):
+            return False
+    if windows:
+        if row_window:
+            if row_window not in windows:
+                return False
+        elif not any(segment == window or segment.startswith(f"{window}::") for window in windows):
+            return False
+    return True
+
+
+def _failure_modes_for_model(
+    rows: Sequence[dict[str, Any]],
+    model: str,
+    *,
+    base_model: str,
+    regimes: set[str],
+    windows: set[str],
+) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    for row in rows:
+        row_model = str(row.get("model", ""))
+        if row_model not in {model, base_model}:
+            continue
+        if not _segment_filter_match(row, regimes=regimes, windows=windows):
+            continue
+        result.append(dict(row))
+    return sorted(result, key=lambda item: float(item.get("severity_score", 0.0) or 0.0), reverse=True)
+
+
 def _attribution_by_model(payload: dict[str, Any], features: set[str]) -> dict[str, list[dict[str, Any]]]:
     attribution = payload.get("attribution") if isinstance(payload.get("attribution"), dict) else {}
     rows = _as_list(attribution.get("top_features_by_model") if isinstance(attribution, dict) else [])
@@ -181,6 +219,7 @@ def build_dashboard_view_model(
     regime_metrics = _as_list(payload.get("regime_metrics"))
     window_regime_metrics = _as_list(payload.get("window_regime_metrics"))
     diagnostics = _as_list(payload.get("model_effect_deltas"))
+    failure_modes = _as_list(payload.get("failure_modes"))
 
     cards: list[dict[str, Any]] = []
     for row in top_models:
@@ -223,9 +262,21 @@ def build_dashboard_view_model(
                     windows=windows,
                 ),
                 "diagnostics": _diagnostics_for_model(diagnostics, model, regimes=regimes, windows=windows),
+                "failure_modes": _failure_modes_for_model(
+                    failure_modes,
+                    model,
+                    base_model=base_model,
+                    regimes=regimes,
+                    windows=windows,
+                ),
             }
         )
 
+    ordered_failure_modes = sorted(
+        [dict(row) for row in failure_modes],
+        key=lambda item: float(item.get("severity_score", 0.0) or 0.0),
+        reverse=True,
+    )
     return {
         "schema_version": "dashboard.view_model.v1",
         "source_schema_version": str(payload.get("schema_version", "")),
@@ -235,6 +286,15 @@ def build_dashboard_view_model(
         "summary": dict(payload.get("summary", {})) if isinstance(payload.get("summary"), dict) else {},
         "model_fidelity": dict(payload.get("model_fidelity", {})) if isinstance(payload.get("model_fidelity"), dict) else {},
         "comparison_table": [dict(row) for row in top_models],
+        "failure_mode_summary": {
+            "count": int(len(failure_modes)),
+            "top_failure_mode": str(ordered_failure_modes[0].get("failure_mode", "")) if ordered_failure_modes else "",
+            "top_model": str(ordered_failure_modes[0].get("model", "")) if ordered_failure_modes else "",
+            "top_segment": str(ordered_failure_modes[0].get("segment", "")) if ordered_failure_modes else "",
+            "top_severity_score": float(ordered_failure_modes[0].get("severity_score", 0.0) or 0.0)
+            if ordered_failure_modes
+            else 0.0,
+        },
         "model_cards": cards,
     }
 
