@@ -8,6 +8,7 @@ from src.model.sequence import (
     FEDformerFrequencyRegressor,
     MLPMixerSequenceRegressor,
     PatchTSTTransformerRegressor,
+    SFMFrequencyMemoryRegressor,
 )
 from src.model.training import fit_estimator_for_model, fit_predict_model, model_adapter_name, model_adapter_status
 
@@ -25,6 +26,7 @@ def test_transformer_sequence_models_use_named_paper_strict_adapters():
 
     expected = {
         "hawkes_gru_mse": "hawkes_gru_event_decay_mse_v1",
+        "sfm_mse": "sfm_state_frequency_memory_mse_v1",
         "mlp_mixer_mse": "mlp_mixer_sequence_mse_v1",
         "dlinear_mse": "dlinear_decomposition_mse_v1",
         "patch_tst_mse": "patch_tst_transformer_mse_v1",
@@ -148,6 +150,26 @@ def test_fedformer_mse_uses_decomposition_frequency_estimator():
     assert estimator.lookback_ == 5
     assert estimator.frequency_modes_ == (1, 2)
     assert estimator.top_k_modes == 2
+
+
+def test_sfm_mse_uses_state_frequency_memory_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "sfm_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:5],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, SFMFrequencyMemoryRegressor)
+    assert hasattr(estimator, "model_")
+    assert hasattr(estimator.model_, "frequency_selector")
+    assert estimator.feature_count_ == 5
+    assert estimator.lookback_ == 5
+    assert estimator.frequency_modes_ == (1, 2, 3)
+    assert estimator.frequency_count == 3
+    assert estimator.hidden_size == 8
 
 
 def test_hawkes_gru_event_decay_path_differs_from_plain_gru():

@@ -134,7 +134,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "ALSTM",
         "Uses a compact PyTorch LSTM with temporal attention.",
     ),
-    _proxy("sfm_mse", "sequence", "mse", "sequence_frequency", "SFM", "Uses frequency-domain ridge features."),
+    _native_sequence(
+        "sfm_mse",
+        "sequence",
+        "mse",
+        "sequence_frequency",
+        "SFM",
+        "Uses a compact state-frequency memory network with Fourier state decomposition and gated frequency selection.",
+    ),
     _torch_native(
         "darnn_mse",
         "sequence",

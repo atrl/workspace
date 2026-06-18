@@ -19,10 +19,10 @@ from .sequence import (
     DLinearDecompositionRegressor,
     FEDformerFrequencyRegressor,
     FeatureRidgeRegressor,
-    FrequencyRidgeRegressor,
     LaggedRidgeRegressor,
     MLPMixerSequenceRegressor,
     PatchTSTTransformerRegressor,
+    SFMFrequencyMemoryRegressor,
     TorchSequenceRegressor,
     build_sequence_tensor,
 )
@@ -43,7 +43,7 @@ STRICT_ADAPTER_NAMES = {
     "lstm_mse": "lstm_pytorch_sequence_mse_v1",
     "gru_mse": "gru_pytorch_sequence_mse_v1",
     "alstm_mse": "alstm_attention_lstm_mse_v1",
-    "sfm_mse": "sfm_frequency_ridge_mse_v1",
+    "sfm_mse": "sfm_state_frequency_memory_mse_v1",
     "darnn_mse": "darnn_dual_attention_gru_mse_v1",
     "tcn_mse": "tcn_temporal_conv_mse_v1",
     "hawkes_gru_mse": "hawkes_gru_event_decay_mse_v1",
@@ -250,7 +250,7 @@ def _estimator_for_model(model_name: str):
             architecture="attention",
         )
     if model_name == "sfm_mse":
-        return FrequencyRidgeRegressor(alpha=1.0)
+        return SFMFrequencyMemoryRegressor(hidden_size=8, frequency_count=3, epochs=24, learning_rate=0.01, seed=31)
     if model_name == "darnn_mse":
         return TorchSequenceRegressor(
             cell_type="gru",

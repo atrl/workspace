@@ -73,7 +73,7 @@
       "ridge_rank_ic_proxy_v1",
       "rsr_relation_strength_mse_v1",
       "sequence_lag_ridge_mse_v1",
-      "sfm_frequency_ridge_mse_v1",
+      "sfm_state_frequency_memory_mse_v1",
       "sthan_spatio_temporal_attention_mse_v1",
       "sthgcn_spatio_temporal_hypergraph_mse_v1",
       "tcn_temporal_conv_mse_v1",
@@ -84,9 +84,9 @@
     "model_fidelity": {
       "fidelity_counts": {
         "native_library": 8,
-        "native_sequence": 5,
+        "native_sequence": 6,
         "native_torch": 5,
-        "proxy_feature_adapter": 14
+        "proxy_feature_adapter": 13
       },
       "model_count": 32,
       "native_models": [
@@ -106,6 +106,7 @@
         "patch_tst_mse",
         "random_forest_clf",
         "ridge_mse",
+        "sfm_mse",
         "tcn_mse",
         "xgboost_mse"
       ],
@@ -121,7 +122,6 @@
         "ridge_ic",
         "rsr_mse",
         "sequence_lag_ridge_mse",
-        "sfm_mse",
         "sthan_mse",
         "sthgcn_mse",
         "thgnn_mse"
@@ -129,8 +129,8 @@
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.007355427405954783,
-      "avg_mse": 0.036488575015922314,
+      "avg_ic": 0.007877939105790894,
+      "avg_mse": 0.03617418415149268,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -148,7 +148,8 @@
       "failure_modes": 840,
       "model_comparison": 32,
       "model_effect_deltas": 1074,
-      "model_review_briefing": 630,
+      "model_regime_window_diagnostics": 32,
+      "model_review_briefing": 618,
       "qlib_return_frame": 832,
       "qlib_risk_metrics": 2148,
       "regime_metrics": 126,
@@ -170,6 +171,7 @@
     "failure_modes": "failure_modes.csv",
     "model_comparison": "model_comparison.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
     "model_review_briefing": "model_review_briefing.csv",
     "model_run_ledger": "model_run_ledger.csv",
     "model_run_ledger_summary": "model_run_ledger_summary.json",
@@ -187,5 +189,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "11f593bebd3ad7289f963546dcdaee951d61c90728ff1d445fc6854531056965"
+  "manifest_hash": "8cf42c3a06e662b990f568b157f4492b00e4cc6045d836e1fdb568dd20bb0389"
 }

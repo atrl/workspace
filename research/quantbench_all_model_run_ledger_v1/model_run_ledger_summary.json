@@ -10,13 +10,13 @@
   "promotion_evaluated_model_count": 32,
   "analysis_recorded_model_count": 32,
   "manifested_model_count": 32,
-  "proxy_model_count": 14,
-  "native_model_count": 18,
+  "proxy_model_count": 13,
+  "native_model_count": 19,
   "paper_fidelity_counts": {
     "native_library": 8,
-    "native_sequence": 5,
+    "native_sequence": 6,
     "native_torch": 5,
-    "proxy_feature_adapter": 14
+    "proxy_feature_adapter": 13
   },
   "adapter_statuses": [
     "paper_strict_adapter"

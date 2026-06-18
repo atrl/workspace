@@ -1,0 +1,5 @@
+model,family,objective,input_kind,estimator,paper_fidelity,is_proxy,implementation_notes,promotion_blocker,trade_instrument,support_universe
+ridge_mse,linear,mse,tabular,Ridge,native_library,False,Uses the native Ridge training path behind the QuantBench-style registry contract.,,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+gru_mse,sequence,mse,sequence,GRU,native_torch,False,Uses a compact PyTorch GRU regressor.,Needs longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+sfm_mse,sequence,mse,sequence_frequency,SFM,native_sequence,False,Uses a compact state-frequency memory network with Fourier state decomposition and gated frequency selection.,Needs longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+fedformer_mse,sequence,mse,sequence_frequency,FEDformer,native_sequence,False,Uses moving-average decomposition with sparse Fourier mode features and separate trend/frequency heads.,Needs longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"

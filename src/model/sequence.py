@@ -400,6 +400,42 @@ class _TorchTemporalConvNet(nn.Module):
         return self.head(pooled).squeeze(-1)
 
 
+class _SFMNet(nn.Module):
+    def __init__(self, *, lookback: int, feature_count: int, hidden_size: int, frequency_count: int):
+        super().__init__()
+        import torch
+
+        self.lookback = lookback
+        self.feature_count = feature_count
+        self.hidden_size = hidden_size
+        self.frequency_count = frequency_count
+        self.input_projection = nn.Linear(feature_count, hidden_size)
+        self.input_gate = nn.Sequential(nn.Linear(feature_count, hidden_size), nn.Sigmoid())
+        self.frequency_selector = nn.Sequential(
+            nn.Linear(hidden_size * frequency_count * 2, hidden_size),
+            nn.Sigmoid(),
+        )
+        self.head = nn.Linear(hidden_size * 3, 1)
+
+        steps = torch.arange(lookback, dtype=torch.float32) / float(max(lookback - 1, 1))
+        frequencies = torch.arange(1, frequency_count + 1, dtype=torch.float32)
+        angles = 2.0 * torch.pi * steps.reshape(-1, 1) * frequencies.reshape(1, -1)
+        self.register_buffer("cos_basis", torch.cos(angles))
+        self.register_buffer("sin_basis", torch.sin(angles))
+
+    def forward(self, x):
+        import torch
+
+        hidden = self.input_projection(x).tanh() * self.input_gate(x)
+        cos_state = torch.einsum("bth,tk->bkh", hidden, self.cos_basis) / float(self.lookback)
+        sin_state = torch.einsum("bth,tk->bkh", hidden, self.sin_basis) / float(self.lookback)
+        frequency_memory = torch.cat([cos_state, sin_state], dim=1)
+        frequency_flat = frequency_memory.reshape(x.shape[0], -1)
+        selected_frequency = frequency_memory.mean(dim=1) * self.frequency_selector(frequency_flat)
+        context = torch.cat([hidden[:, -1, :], hidden.mean(dim=1), selected_frequency], dim=1)
+        return self.head(context).squeeze(-1)
+
+
 class _PatchTSTNet(nn.Module):
     def __init__(
         self,
@@ -549,6 +585,65 @@ class TorchSequenceRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 3:
             raise ValueError("TorchSequenceRegressor expects a 3D sequence tensor")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        with torch.no_grad():
+            output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class SFMFrequencyMemoryRegressor:
+    hidden_size: int = 8
+    frequency_count: int = 3
+    epochs: int = 24
+    learning_rate: float = 0.01
+    seed: int = 31
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "SFMFrequencyMemoryRegressor":
+        if x.ndim != 3:
+            raise ValueError("SFMFrequencyMemoryRegressor expects a 3D sequence tensor")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.lookback_ = int(x.shape[1])
+        self.feature_count_ = int(x.shape[2])
+        self.frequency_modes_ = tuple(range(1, int(self.frequency_count) + 1))
+        self.feature_mean_ = x.reshape(-1, x.shape[-1]).mean(axis=0)
+        self.feature_std_ = x.reshape(-1, x.shape[-1]).std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _SFMNet(
+            lookback=self.lookback_,
+            feature_count=self.feature_count_,
+            hidden_size=int(self.hidden_size),
+            frequency_count=int(self.frequency_count),
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 3:
+            raise ValueError("SFMFrequencyMemoryRegressor expects a 3D sequence tensor")
         import torch
 
         torch.set_num_threads(1)

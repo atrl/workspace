@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact, load_model_artifact, save_model_artifact
+from src.model.sequence import SFMFrequencyMemoryRegressor
 from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
 
 
@@ -18,7 +19,7 @@ def test_advanced_sequence_models_use_named_paper_strict_adapters():
 
     expected = {
         "alstm_mse": "alstm_attention_lstm_mse_v1",
-        "sfm_mse": "sfm_frequency_ridge_mse_v1",
+        "sfm_mse": "sfm_state_frequency_memory_mse_v1",
         "darnn_mse": "darnn_dual_attention_gru_mse_v1",
         "tcn_mse": "tcn_temporal_conv_mse_v1",
     }
@@ -62,4 +63,25 @@ def test_darnn_artifact_metadata_records_attention_adapter_after_load(tmp_path):
     assert metadata["model_adapter"] == "darnn_dual_attention_gru_mse_v1"
     assert loaded.adapter_status == "paper_strict_adapter"
     assert predictions["model_adapter"].unique().tolist() == ["darnn_dual_attention_gru_mse_v1"]
+    assert predictions["prediction"].notna().all()
+
+
+def test_sfm_artifact_uses_state_frequency_memory_estimator_after_load(tmp_path):
+    dataset, train, test = _split_frame()
+
+    artifact = fit_model_artifact("sfm_mse", train=train, feature_columns=dataset.feature_columns[:5])
+    assert isinstance(artifact.estimator, SFMFrequencyMemoryRegressor)
+    assert artifact.estimator.frequency_count == 3
+    assert artifact.estimator.hidden_size == 8
+    assert hasattr(artifact.estimator, "model_")
+
+    path = save_model_artifact(tmp_path / "sfm_mse.joblib", artifact)
+    loaded = load_model_artifact(path)
+    predictions = loaded.predict(test)
+    metadata = loaded.metadata_payload()
+
+    assert isinstance(loaded.estimator, SFMFrequencyMemoryRegressor)
+    assert metadata["model_adapter"] == "sfm_state_frequency_memory_mse_v1"
+    assert loaded.adapter_status == "paper_strict_adapter"
+    assert predictions["model_adapter"].unique().tolist() == ["sfm_state_frequency_memory_mse_v1"]
     assert predictions["prediction"].notna().all()
