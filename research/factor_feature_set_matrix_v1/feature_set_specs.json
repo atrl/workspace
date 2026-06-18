@@ -1,0 +1,40 @@
+[
+  {
+    "name": "all_features",
+    "feature_columns": [
+      "soxl_return_1d",
+      "soxx_return_1d",
+      "soxl_return_5d",
+      "soxx_return_5d",
+      "soxl_soxx_relative_5d",
+      "vix_level",
+      "vix_change_1d",
+      "intraday_range",
+      "volume_z_20",
+      "trend_5",
+      "trend_21",
+      "realized_vol_5",
+      "realized_vol_21",
+      "drawdown_21"
+    ],
+    "description": "原始 supervised 特征全集。"
+  },
+  {
+    "name": "top_ic_factors",
+    "feature_columns": [
+      "realized_vol_21",
+      "vix_change_1d",
+      "drawdown_21",
+      "soxx_return_5d",
+      "soxl_soxx_relative_5d"
+    ],
+    "description": "仅使用训练集 IC 绝对值筛选出的候选因子。"
+  },
+  {
+    "name": "ic_weighted_composite",
+    "feature_columns": [
+      "ic_weighted_composite"
+    ],
+    "description": "使用训练集 IC 作为权重、训练集均值方差标准化后的组合因子。"
+  }
+]
