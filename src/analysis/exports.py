@@ -24,6 +24,11 @@ DEFAULT_ANALYSIS_TABLE_FILENAMES = {
     "qlib_risk_metrics": "qlib_risk_metrics.csv",
     "segment_metrics": "segment_metrics.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "qlib_portfolio_report": "qlib_portfolio_report.csv",
+    "qlib_risk_analysis": "qlib_risk_analysis.csv",
+    "qlib_positions": "qlib_positions.csv",
+    "qlib_orders": "qlib_orders.csv",
+    "qlib_indicator_analysis": "qlib_indicator_analysis.csv",
 }
 
 
@@ -131,9 +136,17 @@ def write_analysis_report(
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
 
+    table_counts = report.table_counts()
+    summary_payload = dict(report.summary)
+    summary_payload.setdefault("schema_version", report.schema_version)
+    summary_payload.setdefault("artifact_id", report.artifact_id)
+    summary_payload.setdefault("artifact_type", report.artifact_type)
+    summary_payload.setdefault("analysis_layers", list(report.tables.keys()))
+    summary_payload["analysis_table_counts"] = table_counts
+
     paths: dict[str, str] = {"summary": summary_filename}
     (output / summary_filename).write_text(
-        json.dumps(_json_safe(report.summary), ensure_ascii=False, indent=2),
+        json.dumps(_json_safe(summary_payload), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
 
@@ -142,7 +155,6 @@ def write_analysis_report(
         table.to_csv(output / filename, index=False)
         paths[table_name] = filename
 
-    table_counts = report.table_counts()
     manifest_path: str | None = None
     if dataset is not None:
         metadata = {

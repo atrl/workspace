@@ -1,0 +1,7 @@
+date,model,strategy_return,benchmark_return,excess_return,nav,benchmark_nav,cost,source_artifact
+2026-01-01,qlib_recorder_demo,0.0,0.0,0.0,1.0,1.0,0.0,report_normal_1day.pkl
+2026-01-02,qlib_recorder_demo,0.018,0.011,0.006999999999999999,1.018,1.011,0.001,report_normal_1day.pkl
+2026-01-03,qlib_recorder_demo,-0.012,-0.015,0.002999999999999999,1.005784,0.9958349999999999,0.001,report_normal_1day.pkl
+2026-01-04,qlib_recorder_demo,0.024,0.015,0.009000000000000001,1.029922816,1.010772525,0.002,report_normal_1day.pkl
+2026-01-05,qlib_recorder_demo,-0.008,-0.006,-0.002,1.021683433472,1.00470788985,0.001,report_normal_1day.pkl
+2026-01-06,qlib_recorder_demo,0.031,0.02,0.011,1.053355619909632,1.024802047647,0.002,report_normal_1day.pkl
