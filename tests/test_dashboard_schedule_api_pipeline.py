@@ -341,6 +341,64 @@ def test_dashboard_export_surfaces_window_regime_fidelity_and_attribution(tmp_pa
     assert "predictions" not in payload["artifacts"]
 
 
+def test_dashboard_export_limits_attribution_top_features_per_model(tmp_path):
+    matrix_card = tmp_path / "matrix_card"
+    attribution_card = tmp_path / "attribution_card"
+    matrix_card.mkdir()
+    attribution_card.mkdir()
+
+    (matrix_card / "analysis_summary.json").write_text(
+        json.dumps({"status": "completed", "model_count": 2}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [
+            {"rank": 1, "model": "ridge_mse", "return_pct": 3.0, "stability_score": 2.0},
+            {"rank": 2, "model": "gcn_mse", "return_pct": 1.0, "stability_score": 1.0},
+        ]
+    ).to_csv(matrix_card / "model_comparison.csv", index=False)
+    pd.DataFrame([{"model": "ridge_mse", "regime": "bull", "return_pct": 3.0}]).to_csv(
+        matrix_card / "regime_metrics.csv", index=False
+    )
+    pd.DataFrame([{"model": "ridge_mse", "window": "test", "return_pct": 3.0}]).to_csv(
+        matrix_card / "window_metrics.csv", index=False
+    )
+
+    (attribution_card / "analysis_summary.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "analysis.model_attribution.batch.v1",
+                "status": "completed",
+                "models": ["gcn_mse", "ridge_mse"],
+                "proxy_models": ["gcn_mse"],
+                "attribution_kinds": {"sensitivity": 5},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [
+            {"model": "gcn_mse", "feature": "gcn_f1", "normalized_importance": 0.6},
+            {"model": "gcn_mse", "feature": "gcn_f2", "normalized_importance": 0.5},
+            {"model": "gcn_mse", "feature": "gcn_f3", "normalized_importance": 0.4},
+            {"model": "ridge_mse", "feature": "ridge_f1", "normalized_importance": 0.7},
+            {"model": "ridge_mse", "feature": "ridge_f2", "normalized_importance": 0.3},
+        ]
+    ).to_csv(attribution_card / "top_features_by_model.csv", index=False)
+
+    payload = load_model_matrix_dashboard(matrix_card, top_n=2, attribution_card_dir=attribution_card)
+
+    features_by_model = {
+        model: group["feature"].tolist()
+        for model, group in pd.DataFrame(payload["attribution"]["top_features_by_model"]).groupby("model")
+    }
+    assert features_by_model == {
+        "gcn_mse": ["gcn_f1", "gcn_f2"],
+        "ridge_mse": ["ridge_f1", "ridge_f2"],
+    }
+
+
 def test_schedule_run_job_once_uses_lock_and_reports_notification(tmp_path):
     events: list[str] = []
     calls = {"count": 0}

@@ -1,0 +1,43 @@
+[
+  {
+    "schema_version": "analysis.model_attribution.v1",
+    "model": "ridge_mse",
+    "family": "linear",
+    "objective": "mse",
+    "paper_fidelity": "native_library",
+    "proxy_model": false,
+    "feature_count": 6,
+    "row_count": 20,
+    "attribution_kinds": {
+      "coefficient": 3,
+      "permutation": 3,
+      "sensitivity": 3
+    },
+    "top_features": [
+      "soxx_return_5d",
+      "soxx_return_1d",
+      "soxl_soxx_relative_5d"
+    ],
+    "notes": "Native coefficients/importances are included when available; permutation and sensitivity run for every artifact."
+  },
+  {
+    "schema_version": "analysis.model_attribution.v1",
+    "model": "gcn_mse",
+    "family": "graph",
+    "objective": "mse",
+    "paper_fidelity": "proxy_feature_adapter",
+    "proxy_model": true,
+    "feature_count": 6,
+    "row_count": 20,
+    "attribution_kinds": {
+      "permutation": 3,
+      "sensitivity": 3
+    },
+    "top_features": [
+      "soxx_return_5d",
+      "soxl_soxx_relative_5d",
+      "soxx_return_1d"
+    ],
+    "notes": "Native coefficients/importances are included when available; permutation and sensitivity run for every artifact."
+  }
+]

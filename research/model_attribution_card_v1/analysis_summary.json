@@ -1,0 +1,34 @@
+{
+  "status": "completed",
+  "schema_version": "analysis.model_attribution.batch.v1",
+  "models": [
+    "ridge_mse",
+    "gcn_mse"
+  ],
+  "model_count": 2,
+  "train_start": "2026-01-02",
+  "train_end": "2026-03-31",
+  "test_start": "2026-04-01",
+  "test_end": "2026-04-29",
+  "feature_count": 6,
+  "top_n": 3,
+  "attribution_kinds": {
+    "coefficient": 3,
+    "permutation": 6,
+    "sensitivity": 6
+  },
+  "proxy_models": [
+    "gcn_mse"
+  ],
+  "artifacts": {
+    "feature_attribution": "feature_attribution.csv",
+    "model_attribution_summaries": "model_attribution_summaries.json",
+    "model_capabilities": "model_capabilities.csv",
+    "top_features_by_model": "top_features_by_model.csv"
+  },
+  "risk_notes": [
+    "Permutation 和 sensitivity 是局部解释工具，不等价于因果解释。",
+    "proxy_feature_adapter 模型的归因解释的是当前 proxy feature path，不等价于完整论文结构。",
+    "短测试窗归因只适合 review，应继续在 walk-forward 和 regime 分段中复验。"
+  ]
+}

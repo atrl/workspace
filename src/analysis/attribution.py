@@ -1,19 +1,31 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
+from typing import Iterable
 
 import numpy as np
 import pandas as pd
 
-from src.model.artifacts import ModelArtifact
-from src.model.capabilities import PROXY_FIDELITIES
+from src.model.artifacts import ModelArtifact, fit_model_artifact
+from src.model.capabilities import PROXY_FIDELITIES, model_capability_table
 from src.model.registry import get_model_spec
 
 
 @dataclass(frozen=True)
 class ModelAttributionReport:
     feature_attribution: pd.DataFrame
+    summary: dict[str, object]
+
+
+@dataclass(frozen=True)
+class ModelAttributionCard:
+    feature_attribution: pd.DataFrame
+    top_features_by_model: pd.DataFrame
+    model_capabilities: pd.DataFrame
+    model_summaries: list[dict[str, object]]
     summary: dict[str, object]
 
 
@@ -207,3 +219,125 @@ def explain_model_artifact(
         "notes": "Native coefficients/importances are included when available; permutation and sensitivity run for every artifact.",
     }
     return ModelAttributionReport(feature_attribution=attribution, summary=summary)
+
+
+def _top_features_by_model(feature_attribution: pd.DataFrame, *, top_n: int) -> pd.DataFrame:
+    if feature_attribution.empty:
+        return pd.DataFrame(columns=["model", "feature", "normalized_importance", "rank"])
+    grouped = (
+        feature_attribution.groupby(["model", "feature"], as_index=False)["normalized_importance"]
+        .sum()
+        .sort_values(["model", "normalized_importance", "feature"], ascending=[True, False, True])
+    )
+    ranked: list[pd.DataFrame] = []
+    for _, group in grouped.groupby("model", sort=True):
+        ordered = group.head(top_n).copy()
+        ordered["rank"] = range(1, len(ordered) + 1)
+        ranked.append(ordered)
+    return pd.concat(ranked, ignore_index=True).loc[:, ["model", "feature", "normalized_importance", "rank"]]
+
+
+def build_model_attribution_card(
+    *,
+    model_names: Iterable[str],
+    train: pd.DataFrame,
+    test: pd.DataFrame,
+    feature_columns: Iterable[str],
+    top_n: int = 6,
+) -> ModelAttributionCard:
+    if train.empty:
+        raise ValueError("train frame must be non-empty")
+    if test.empty:
+        raise ValueError("test frame must be non-empty")
+    selected_models = tuple(model_names)
+    selected_features = tuple(feature_columns)
+    if not selected_models:
+        raise ValueError("model_names must be non-empty")
+    if not selected_features:
+        raise ValueError("feature_columns must be non-empty")
+
+    reports: list[ModelAttributionReport] = []
+    for model_name in selected_models:
+        artifact = fit_model_artifact(model_name, train=train, feature_columns=selected_features)
+        reports.append(
+            explain_model_artifact(
+                artifact,
+                frame=test,
+                background_frame=train,
+                top_n=top_n,
+            )
+        )
+
+    feature_attribution = pd.concat([report.feature_attribution for report in reports], ignore_index=True)
+    top_features = _top_features_by_model(feature_attribution, top_n=top_n)
+    capabilities = model_capability_table(selected_models)
+    attribution_kinds = {
+        str(kind): int(count)
+        for kind, count in feature_attribution["attribution_kind"].value_counts().sort_index().items()
+    }
+    model_summaries = [report.summary for report in reports]
+    proxy_models = capabilities.loc[capabilities["is_proxy"].astype(bool), "model"].astype(str).tolist()
+    summary = {
+        "status": "completed",
+        "schema_version": "analysis.model_attribution.batch.v1",
+        "models": list(selected_models),
+        "model_count": int(len(selected_models)),
+        "train_start": str(pd.to_datetime(train["date"]).min().date()),
+        "train_end": str(pd.to_datetime(train["date"]).max().date()),
+        "test_start": str(pd.to_datetime(test["date"]).min().date()),
+        "test_end": str(pd.to_datetime(test["date"]).max().date()),
+        "feature_count": int(len(selected_features)),
+        "top_n": int(top_n),
+        "attribution_kinds": attribution_kinds,
+        "proxy_models": proxy_models,
+        "artifacts": {
+            "feature_attribution": "feature_attribution.csv",
+            "model_attribution_summaries": "model_attribution_summaries.json",
+            "model_capabilities": "model_capabilities.csv",
+            "top_features_by_model": "top_features_by_model.csv",
+        },
+        "risk_notes": [
+            "Permutation 和 sensitivity 是局部解释工具，不等价于因果解释。",
+            "proxy_feature_adapter 模型的归因解释的是当前 proxy feature path，不等价于完整论文结构。",
+            "短测试窗归因只适合 review，应继续在 walk-forward 和 regime 分段中复验。",
+        ],
+    }
+    return ModelAttributionCard(
+        feature_attribution=feature_attribution,
+        top_features_by_model=top_features,
+        model_capabilities=capabilities,
+        model_summaries=model_summaries,
+        summary=summary,
+    )
+
+
+def write_model_attribution_card(
+    output_dir: str | Path,
+    *,
+    model_names: Iterable[str],
+    train: pd.DataFrame,
+    test: pd.DataFrame,
+    feature_columns: Iterable[str],
+    top_n: int = 6,
+) -> ModelAttributionCard:
+    card = Path(output_dir)
+    card.mkdir(parents=True, exist_ok=True)
+    result = build_model_attribution_card(
+        model_names=model_names,
+        train=train,
+        test=test,
+        feature_columns=feature_columns,
+        top_n=top_n,
+    )
+    result.feature_attribution.to_csv(card / "feature_attribution.csv", index=False)
+    result.top_features_by_model.to_csv(card / "top_features_by_model.csv", index=False)
+    result.model_capabilities.to_csv(card / "model_capabilities.csv", index=False)
+    (card / "model_attribution_summaries.json").write_text(
+        json.dumps(result.model_summaries, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    (card / "analysis_summary.json").write_text(
+        json.dumps(result.summary, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return result

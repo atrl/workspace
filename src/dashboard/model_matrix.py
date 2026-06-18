@@ -227,13 +227,17 @@ def _load_attribution_card(attribution_card: Path | None, *, top_n: int) -> dict
     summary_path = attribution_card / "analysis_summary.json"
     summary = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.exists() else {}
     top_features = _read_csv_if_exists(attribution_card / "top_features_by_model.csv")
+    if not top_features.empty and "model" in top_features.columns:
+        top_features = top_features.groupby("model", sort=False, group_keys=False).head(top_n).reset_index(drop=True)
+    elif not top_features.empty:
+        top_features = top_features.head(top_n)
     return {
         "status": str(summary.get("status", "missing_summary")),
         "schema_version": str(summary.get("schema_version", "analysis.model_attribution.batch.v1")),
         "models": list(summary.get("models", [])),
         "proxy_models": list(summary.get("proxy_models", [])),
         "attribution_kinds": _normalize_attribution_kinds(summary.get("attribution_kinds", {})),
-        "top_features_by_model": _records(top_features, limit=top_n),
+        "top_features_by_model": _records(top_features),
     }
 
 

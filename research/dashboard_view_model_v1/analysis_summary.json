@@ -7,9 +7,9 @@
   "default_model_card_count": 5,
   "available_controls": {
     "models": [
+      "gcn_mse__all_features",
       "gcn_mse__ic_weighted_composite",
       "gcn_mse__top_ic_factors",
-      "ridge_mse__all_features",
       "ridge_mse__ic_weighted_composite",
       "ridge_mse__top_ic_factors"
     ],
@@ -29,16 +29,34 @@
       "stress"
     ],
     "windows": [
-      "test"
+      "test",
+      "trailing_12m",
+      "trailing_1m",
+      "trailing_3m",
+      "trailing_6m",
+      "ytd"
     ],
     "paper_fidelities": [
       "native_library",
       "proxy_feature_adapter"
     ],
     "attribution_features": [
+      "intraday_range",
+      "soxl_return_5d",
       "soxl_soxx_relative_5d",
       "soxx_return_1d",
-      "soxx_return_5d"
+      "soxx_return_5d",
+      "vix_change_1d",
+      "vix_level"
+    ],
+    "failure_modes": [
+      "return_stability_lag"
+    ],
+    "review_signals": [
+      "weakness"
+    ],
+    "decision_hints": [
+      "block_or_rework"
     ]
   },
   "filtered_model": "gcn_mse__top_ic_factors",
@@ -54,37 +72,38 @@
       "regime": "stress",
       "model": "gcn_mse__top_ic_factors",
       "rank": NaN,
-      "return_pct": 29.43452605190955,
-      "benchmark_return_pct": 28.78548509716814,
-      "relative_return_pct": 0.6490409547414089,
-      "max_drawdown_pct": 5.6831838362351945,
-      "sharpe": 11.088433714447532,
-      "avg_position": 0.7081939063591952,
-      "turnover": 0.8837341822897061,
-      "stability_score": 131.4474150365115,
-      "baseline_model": "ridge_mse__top_ic_factors",
-      "return_pct_baseline": 29.382705236356287,
-      "return_pct_delta": 0.0518208155532633,
-      "benchmark_return_pct_baseline": 28.78548509716814,
+      "return_pct": 18.065548677233956,
+      "benchmark_return_pct": 32.90280065897859,
+      "relative_return_pct": -14.837251981744636,
+      "max_drawdown_pct": 4.5023163517499025,
+      "sharpe": 10.308316668270042,
+      "avg_position": 0.8010594357490701,
+      "turnover": 0.4358340793141536,
+      "stability_score": 114.64915176161868,
+      "baseline_model": "ridge_mse__ic_weighted_composite",
+      "return_pct_baseline": 19.98542220562307,
+      "return_pct_delta": -1.9198735283891144,
+      "benchmark_return_pct_baseline": 32.90280065897859,
       "benchmark_return_pct_delta": 0.0,
-      "relative_return_pct_baseline": 0.5972201391881455,
-      "relative_return_pct_delta": 0.0518208155532633,
-      "max_drawdown_pct_baseline": 5.683836268363162,
-      "max_drawdown_pct_delta": -0.0006524321279677,
-      "sharpe_baseline": 11.081913970132268,
-      "sharpe_delta": 0.0065197443152644,
-      "turnover_baseline": 0.8752009624630142,
-      "turnover_delta": 0.0085332198266919,
-      "stability_score_baseline": 131.346647677299,
-      "stability_score_delta": 0.1007673592125115,
-      "diagnosis": "略强于基准：收益有改善，但仍需看稳定性和回撤。"
+      "relative_return_pct_baseline": -12.91737845335552,
+      "relative_return_pct_delta": -1.9198735283891144,
+      "max_drawdown_pct_baseline": 4.567677509287737,
+      "max_drawdown_pct_delta": -0.0653611575378345,
+      "sharpe_baseline": 10.615528777580971,
+      "sharpe_delta": -0.3072121093109299,
+      "turnover_baseline": 0.4049369123003489,
+      "turnover_delta": 0.0308971670138047,
+      "stability_score_baseline": 119.6212392702224,
+      "stability_score_delta": -4.972087508603735,
+      "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。"
     }
   ],
   "filtered_attribution_features": [
     {
       "model": "gcn_mse",
       "feature": "soxx_return_5d",
-      "normalized_importance": 0.6224231933249113
+      "normalized_importance": 0.6224231933249113,
+      "rank": 1
     }
   ],
   "risk_notes": [

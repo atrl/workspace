@@ -93,7 +93,10 @@ def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_p
     assert view["source_schema_version"] == "dashboard.model_matrix.v1"
     assert view["controls"]["models"]
     assert {"bull", "downtrend", "neutral", "stress"}.issubset(set(view["controls"]["regimes"]))
-    assert view["controls"]["windows"] == ["test"]
+    assert "test" in view["controls"]["windows"]
+    assert {"trailing_1m", "trailing_3m", "trailing_6m", "trailing_12m", "ytd"}.issubset(
+        set(view["controls"]["windows"])
+    )
     assert {"native_library", "proxy_feature_adapter"}.issubset(set(view["controls"]["paper_fidelities"]))
     assert "soxx_return_5d" in view["controls"]["attribution_features"]
     assert "artifacts" not in view
@@ -110,7 +113,11 @@ def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_p
         "window_regime_metrics",
         "diagnostics",
     }.issubset(first_card)
-    assert first_card["top_attribution_features"]
+    attribution_cards = [card for card in view["model_cards"] if card["top_attribution_features"]]
+    assert attribution_cards
+    assert {
+        row["model"] for row in attribution_cards[0]["top_attribution_features"]
+    } == {attribution_cards[0]["base_model"]}
     assert view["comparison_table"]
 
 

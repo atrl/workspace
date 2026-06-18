@@ -1,4 +1,10 @@
-from .attribution import ModelAttributionReport, explain_model_artifact
+from .attribution import (
+    ModelAttributionCard,
+    ModelAttributionReport,
+    build_model_attribution_card,
+    explain_model_artifact,
+    write_model_attribution_card,
+)
 from .exports import AnalysisReport, build_regime_window_analysis_report, write_analysis_report
 from .failure_modes import build_failure_modes, render_failure_modes_markdown, write_failure_modes_markdown
 from .manifest_backfill import backfill_analysis_manifest, backfill_legacy_analysis_cards, scan_analysis_cards
@@ -27,6 +33,7 @@ __all__ = [
     "QlibRecorderAnalysis",
     "RegimeWindowEffectAnalysis",
     "ModelAttributionReport",
+    "ModelAttributionCard",
     "analyze_model_effects_by_regime_and_window",
     "backfill_analysis_manifest",
     "backfill_legacy_analysis_cards",
@@ -35,6 +42,7 @@ __all__ = [
     "build_analysis_window_table",
     "build_analysis_windows",
     "build_model_review_briefing",
+    "build_model_attribution_card",
     "build_qlib_return_frame",
     "build_qlib_recorder_analysis_report",
     "build_qlib_recorder_regime_window_analysis_report",
@@ -51,6 +59,7 @@ __all__ = [
     "render_failure_modes_markdown",
     "render_model_review_briefing_markdown",
     "write_analysis_report",
+    "write_model_attribution_card",
     "write_failure_modes_markdown",
     "scan_analysis_cards",
 ]
