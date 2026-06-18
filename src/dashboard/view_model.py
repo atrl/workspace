@@ -15,6 +15,7 @@ class DashboardViewFilters:
     windows: tuple[str, ...] = ()
     paper_fidelities: tuple[str, ...] = ()
     attribution_features: tuple[str, ...] = ()
+    failure_modes: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, list[str]]:
         return {
@@ -25,6 +26,7 @@ class DashboardViewFilters:
             "windows": list(self.windows),
             "paper_fidelities": list(self.paper_fidelities),
             "attribution_features": list(self.attribution_features),
+            "failure_modes": list(self.failure_modes),
         }
 
 
@@ -140,11 +142,15 @@ def _failure_modes_for_model(
     base_model: str,
     regimes: set[str],
     windows: set[str],
+    failure_modes: set[str],
 ) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
     for row in rows:
         row_model = str(row.get("model", ""))
         if row_model not in {model, base_model}:
+            continue
+        row_failure_mode = str(row.get("failure_mode", "")) if row.get("failure_mode") is not None else ""
+        if failure_modes and row_failure_mode not in failure_modes:
             continue
         if not _segment_filter_match(row, regimes=regimes, windows=windows):
             continue
@@ -176,6 +182,7 @@ def _controls(payload: dict[str, Any], capabilities: dict[str, dict[str, Any]]) 
         "windows": _sorted_strings(row.get("window") for row in _as_list(payload.get("window_metrics"))),
         "paper_fidelities": _sorted_strings(row.get("paper_fidelity") for row in capabilities.values()),
         "attribution_features": _sorted_strings(row.get("feature") for row in attribution_rows),
+        "failure_modes": _sorted_strings(row.get("failure_mode") for row in _as_list(payload.get("failure_modes"))),
     }
 
 
@@ -186,6 +193,7 @@ def _matches_card(
     feature_set: str,
     paper_fidelity: str,
     top_attribution_features: list[dict[str, Any]],
+    failure_modes: list[dict[str, Any]],
     filters: DashboardViewFilters,
 ) -> bool:
     if filters.models and model not in filters.models:
@@ -200,6 +208,10 @@ def _matches_card(
         card_features = _string_set(row.get("feature") for row in top_attribution_features)
         if not card_features.intersection(filters.attribution_features):
             return False
+    if filters.failure_modes:
+        card_failure_modes = _string_set(row.get("failure_mode") for row in failure_modes)
+        if not card_failure_modes.intersection(filters.failure_modes):
+            return False
     return True
 
 
@@ -212,6 +224,7 @@ def build_dashboard_view_model(
     regimes = set(active_filters.regimes)
     windows = set(active_filters.windows)
     attribution_features = set(active_filters.attribution_features)
+    selected_failure_modes = set(active_filters.failure_modes)
     capabilities = _capability_by_model(payload)
     proxy_models = _proxy_models(payload)
     attribution = _attribution_by_model(payload, attribution_features)
@@ -228,12 +241,21 @@ def build_dashboard_view_model(
         feature_set = _feature_set(row)
         paper_fidelity = _fidelity_for(base_model, capabilities)
         top_attribution_features = attribution.get(base_model, [])
+        card_failure_modes = _failure_modes_for_model(
+            failure_modes,
+            model,
+            base_model=base_model,
+            regimes=regimes,
+            windows=windows,
+            failure_modes=selected_failure_modes,
+        )
         if not _matches_card(
             model=model,
             base_model=base_model,
             feature_set=feature_set,
             paper_fidelity=paper_fidelity,
             top_attribution_features=top_attribution_features,
+            failure_modes=card_failure_modes,
             filters=active_filters,
         ):
             continue
@@ -262,13 +284,7 @@ def build_dashboard_view_model(
                     windows=windows,
                 ),
                 "diagnostics": _diagnostics_for_model(diagnostics, model, regimes=regimes, windows=windows),
-                "failure_modes": _failure_modes_for_model(
-                    failure_modes,
-                    model,
-                    base_model=base_model,
-                    regimes=regimes,
-                    windows=windows,
-                ),
+                "failure_modes": card_failure_modes,
             }
         )
 

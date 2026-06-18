@@ -27,6 +27,16 @@ def _dashboard_payload_with_failure_modes() -> dict:
         },
         {
             "schema_version": "analysis.failure_modes.v1",
+            "model": "ridge_mse__top_ic_factors",
+            "baseline_model": "ridge_mse__all_features",
+            "segment_type": "window_regime",
+            "segment": "test::downtrend",
+            "failure_mode": "drawdown_expansion",
+            "severity_score": 4.0,
+            "review_note": "ridge_mse 在 downtrend window 回撤扩大。",
+        },
+        {
+            "schema_version": "analysis.failure_modes.v1",
             "model": "ridge_mse__all_features",
             "baseline_model": "ridge_mse__all_features",
             "segment_type": "all",
@@ -81,8 +91,24 @@ def test_dashboard_view_model_attaches_failure_modes_to_matching_model_cards():
     assert card["failure_modes"][0]["segment"] == "test::stress"
     assert card["failure_modes"][0]["severity_score"] == 12.5
     assert "基准说明" not in json.dumps(card["failure_modes"], ensure_ascii=False)
-    assert view["failure_mode_summary"]["count"] == 2
+    assert view["failure_mode_summary"]["count"] == 3
     assert view["failure_mode_summary"]["top_failure_mode"] == "return_stability_lag"
+
+
+def test_dashboard_view_model_exposes_and_filters_failure_modes():
+    view = build_dashboard_view_model(
+        _dashboard_payload_with_failure_modes(),
+        filters=DashboardViewFilters(failure_modes=("return_stability_lag",)),
+    )
+
+    assert view["controls"]["failure_modes"] == [
+        "baseline_note",
+        "drawdown_expansion",
+        "return_stability_lag",
+    ]
+    assert view["filters_applied"]["failure_modes"] == ["return_stability_lag"]
+    assert [card["model"] for card in view["model_cards"]] == ["gcn_mse__top_ic_factors"]
+    assert {row["failure_mode"] for row in view["model_cards"][0]["failure_modes"]} == {"return_stability_lag"}
 
 
 def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attribution_feature():
@@ -107,6 +133,7 @@ def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attrib
         "windows": ["test"],
         "paper_fidelities": ["proxy_feature_adapter"],
         "attribution_features": ["soxx_return_5d"],
+        "failure_modes": [],
     }
     assert [card["model"] for card in view["model_cards"]] == ["gcn_mse__top_ic_factors"]
     card = view["model_cards"][0]

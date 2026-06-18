@@ -64,12 +64,17 @@ def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_w
 
 def test_render_dashboard_html_outputs_failure_mode_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model_with_failure_modes(), title="SOXL Failure Modes")
+    parser = _ElementCollector()
+    parser.feed(html)
 
     assert "Failure Modes" in html
     assert "return_stability_lag" in html
     assert "12.50" in html
     assert "gcn_mse 在 stress window 弱于基准。" in html
+    assert "failure-mode-filter" in parser.ids
+    assert '<option value="return_stability_lag">return_stability_lag</option>' in html
     assert 'data-failure-mode="return_stability_lag"' in html
+    assert 'data-failure-modes="return_stability_lag"' in html
     assert "/path/that/must/not/be/rendered.csv" not in html
 
 
