@@ -67,6 +67,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
 
     expected_files = {
         "analysis_summary.json",
+        "analysis_manifest.json",
         "artifact_manifest.json",
         "predictions.csv",
         "daily_backtest.csv",
@@ -81,6 +82,8 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert expected_files.issubset({path.name for path in tmp_path.iterdir()})
 
     summary = json.loads((tmp_path / "analysis_summary.json").read_text(encoding="utf-8"))
+    analysis_manifest = json.loads((tmp_path / "analysis_manifest.json").read_text(encoding="utf-8"))
+    assert summary["schema_version"] == "analysis.report.v1"
     assert summary["model_count"] == len(QUANTBENCH_MODEL_NAMES)
     assert summary["train_end"] == "2026-04-30"
     assert summary["status"] == "smoke_completed"
@@ -93,3 +96,6 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     )
     assert "qlib_risk_metrics" in summary["analysis_layers"]
     assert "window_regime_metrics" in summary["analysis_layers"]
+    assert analysis_manifest["artifact_type"] == "analysis_report"
+    assert analysis_manifest["paths"]["qlib_risk_metrics"] == "qlib_risk_metrics.csv"
+    assert len(analysis_manifest["manifest_hash"]) == 64

@@ -1,0 +1,44 @@
+{
+  "schema_version": "research.analysis_report_export_v1",
+  "status": "completed",
+  "matrix_card": "research/analysis_report_export_v1/matrix_card",
+  "matrix_summary_schema": "analysis.report.v1",
+  "matrix_status": "feature_set_matrix_completed",
+  "variant_count": 6,
+  "analysis_manifest_hash": "84844e7318ee5f2dc5e0b2aa77dad2f0276e59081abdacf500a9e8e43edbc404",
+  "analysis_report_table_counts": {
+    "model_comparison": 6,
+    "model_effect_deltas": 60,
+    "qlib_return_frame": 156,
+    "qlib_risk_metrics": 120,
+    "regime_metrics": 24,
+    "segment_metrics": 60,
+    "window_metrics": 6,
+    "window_regime_metrics": 24
+  },
+  "analysis_layers": [
+    "regime_metrics",
+    "window_metrics",
+    "window_regime_metrics",
+    "qlib_risk_metrics",
+    "model_effect_deltas",
+    "model_comparison",
+    "qlib_return_frame",
+    "segment_metrics"
+  ],
+  "required_files_present": [
+    "analysis_manifest.json",
+    "analysis_summary.json",
+    "artifact_manifest.json",
+    "model_comparison.csv",
+    "model_effect_deltas.csv",
+    "qlib_return_frame.csv",
+    "qlib_risk_metrics.csv",
+    "regime_metrics.csv",
+    "segment_metrics.csv",
+    "window_metrics.csv",
+    "window_regime_metrics.csv"
+  ],
+  "dashboard_compatibility": "kept standard csv/json sidecar names under matrix_card",
+  "conclusion": "src/analysis 现在有统一 AnalysisReport/export 层，矩阵输出通过该层写出 qlib、regime、window 和模型差异产物。"
+}

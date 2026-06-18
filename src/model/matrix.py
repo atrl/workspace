@@ -7,6 +7,7 @@ from typing import Iterable
 
 import pandas as pd
 
+from src.analysis.exports import build_regime_window_analysis_report, write_analysis_report
 from src.analysis.qlib_ext import analyze_model_effects_by_regime_and_window
 from src.analysis.reports import compare_models, compute_regime_metrics, compute_window_metrics
 from src.backtest import backtest_prediction_frame
@@ -89,6 +90,37 @@ def _write_matrix_manifest(
     return payload
 
 
+def _write_analysis_sidecars(
+    card: Path,
+    *,
+    artifact_id: str,
+    start: str,
+    end: str,
+    summary: dict,
+    effect_analysis,
+    model_comparison: pd.DataFrame,
+    regime_metrics: pd.DataFrame,
+    window_metrics: pd.DataFrame,
+    manifest_metadata: dict,
+) -> dict:
+    report = build_regime_window_analysis_report(
+        artifact_id=artifact_id,
+        effect_analysis=effect_analysis,
+        model_comparison=model_comparison,
+        regime_metrics=regime_metrics,
+        window_metrics=window_metrics,
+        summary=summary,
+        metadata=manifest_metadata,
+    )
+    write_analysis_report(
+        report,
+        card,
+        dataset=_dataset_snapshot(start=start, end=end),
+        manifest_metadata=manifest_metadata,
+    )
+    return report.summary
+
+
 def run_quantbench_matrix_smoke(
     *,
     card_dir: Path,
@@ -149,16 +181,30 @@ def run_quantbench_matrix_smoke(
         "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
     }
 
+    analysis_metadata = {
+        "status": summary["status"],
+        "train_end": train_end,
+        "adapter_status": summary["adapter_status"],
+        "adapter_statuses": summary["adapter_statuses"],
+        "model_adapters": summary["model_adapters"],
+        "model_fidelity": summary["model_fidelity"],
+        "model_count": summary["model_count"],
+    }
+    summary = _write_analysis_sidecars(
+        card,
+        artifact_id=card.name,
+        start=start,
+        end=end,
+        summary=summary,
+        effect_analysis=effect_analysis,
+        model_comparison=model_comparison,
+        regime_metrics=regime_metrics,
+        window_metrics=window_metrics,
+        manifest_metadata=analysis_metadata,
+    )
     predictions.to_csv(card / "predictions.csv", index=False)
     daily.to_csv(card / "daily_backtest.csv", index=False)
-    regime_metrics.to_csv(card / "regime_metrics.csv", index=False)
-    window_metrics.to_csv(card / "window_metrics.csv", index=False)
-    window_regime_metrics.to_csv(card / "window_regime_metrics.csv", index=False)
-    model_comparison.to_csv(card / "model_comparison.csv", index=False)
     model_capabilities.to_csv(card / "model_capabilities.csv", index=False)
-    effect_analysis.qlib_risk_metrics.to_csv(card / "qlib_risk_metrics.csv", index=False)
-    effect_analysis.model_effect_deltas.to_csv(card / "model_effect_deltas.csv", index=False)
-    (card / "analysis_summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     _write_matrix_manifest(
         card,
         artifact_id=card.name,
@@ -174,17 +220,12 @@ def run_quantbench_matrix_smoke(
             "model_comparison": "model_comparison.csv",
             "model_capabilities": "model_capabilities.csv",
             "qlib_risk_metrics": "qlib_risk_metrics.csv",
+            "qlib_return_frame": "qlib_return_frame.csv",
+            "segment_metrics": "segment_metrics.csv",
             "model_effect_deltas": "model_effect_deltas.csv",
+            "analysis_manifest": "analysis_manifest.json",
         },
-        metadata={
-            "status": summary["status"],
-            "train_end": train_end,
-            "adapter_status": summary["adapter_status"],
-            "adapter_statuses": summary["adapter_statuses"],
-            "model_adapters": summary["model_adapters"],
-            "model_fidelity": summary["model_fidelity"],
-            "model_count": summary["model_count"],
-        },
+        metadata=analysis_metadata,
     )
     return QuantBenchMatrixOutputs(
         predictions=predictions,
@@ -281,21 +322,38 @@ def run_factor_feature_set_matrix(
         "note": "Compares the same model adapters across raw, IC-selected, and composite factor sets.",
     }
 
+    analysis_metadata = {
+        "status": summary["status"],
+        "train_end": train_end,
+        "adapter_status": summary["adapter_status"],
+        "adapter_statuses": summary["adapter_statuses"],
+        "model_adapters": summary["model_adapters"],
+        "model_fidelity": summary["model_fidelity"],
+        "base_model_count": summary["base_model_count"],
+        "feature_set_count": summary["feature_set_count"],
+        "variant_count": summary["variant_count"],
+        "selection_source": summary["selection_source"],
+    }
+    summary = _write_analysis_sidecars(
+        card,
+        artifact_id=card.name,
+        start=start,
+        end=end,
+        summary=summary,
+        effect_analysis=effect_analysis,
+        model_comparison=model_comparison,
+        regime_metrics=regime_metrics,
+        window_metrics=window_metrics,
+        manifest_metadata=analysis_metadata,
+    )
     predictions.to_csv(card / "predictions.csv", index=False)
     daily.to_csv(card / "daily_backtest.csv", index=False)
-    regime_metrics.to_csv(card / "regime_metrics.csv", index=False)
-    window_metrics.to_csv(card / "window_metrics.csv", index=False)
-    window_regime_metrics.to_csv(card / "window_regime_metrics.csv", index=False)
-    model_comparison.to_csv(card / "model_comparison.csv", index=False)
     model_capabilities.to_csv(card / "model_capabilities.csv", index=False)
-    effect_analysis.qlib_risk_metrics.to_csv(card / "qlib_risk_metrics.csv", index=False)
-    effect_analysis.model_effect_deltas.to_csv(card / "model_effect_deltas.csv", index=False)
     plan.diagnostics.ic.to_csv(card / "factor_ic.csv", index=False)
     (card / "feature_set_specs.json").write_text(
         json.dumps([feature_set.to_dict() for feature_set in plan.feature_sets], ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
-    (card / "analysis_summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     _write_matrix_manifest(
         card,
         artifact_id=card.name,
@@ -311,22 +369,14 @@ def run_factor_feature_set_matrix(
             "model_comparison": "model_comparison.csv",
             "model_capabilities": "model_capabilities.csv",
             "qlib_risk_metrics": "qlib_risk_metrics.csv",
+            "qlib_return_frame": "qlib_return_frame.csv",
+            "segment_metrics": "segment_metrics.csv",
             "model_effect_deltas": "model_effect_deltas.csv",
+            "analysis_manifest": "analysis_manifest.json",
             "factor_ic": "factor_ic.csv",
             "feature_set_specs": "feature_set_specs.json",
         },
-        metadata={
-            "status": summary["status"],
-            "train_end": train_end,
-            "adapter_status": summary["adapter_status"],
-            "adapter_statuses": summary["adapter_statuses"],
-            "model_adapters": summary["model_adapters"],
-            "model_fidelity": summary["model_fidelity"],
-            "base_model_count": summary["base_model_count"],
-            "feature_set_count": summary["feature_set_count"],
-            "variant_count": summary["variant_count"],
-            "selection_source": summary["selection_source"],
-        },
+        metadata=analysis_metadata,
     )
     return QuantBenchMatrixOutputs(
         predictions=predictions,

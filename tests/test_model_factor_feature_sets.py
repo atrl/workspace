@@ -54,6 +54,7 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
 
     expected_files = {
         "analysis_summary.json",
+        "analysis_manifest.json",
         "artifact_manifest.json",
         "feature_set_specs.json",
         "factor_ic.csv",
@@ -69,6 +70,8 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
     assert expected_files.issubset({path.name for path in tmp_path.iterdir()})
 
     summary = json.loads((tmp_path / "analysis_summary.json").read_text(encoding="utf-8"))
+    analysis_manifest = json.loads((tmp_path / "analysis_manifest.json").read_text(encoding="utf-8"))
+    assert summary["schema_version"] == "analysis.report.v1"
     assert summary["status"] == "feature_set_matrix_completed"
     assert summary["base_model_count"] == 2
     assert summary["feature_set_count"] == 3
@@ -77,3 +80,5 @@ def test_run_factor_feature_set_matrix_compares_same_models_across_factor_sets(t
     assert {"ridge_mse_v1", "random_forest_direction_v1"}.issubset(set(summary["model_adapters"]))
     assert summary["selection_source"] == "train_only_factor_ic"
     assert "window_regime_metrics" in summary["analysis_layers"]
+    assert analysis_manifest["metadata"]["analysis_report_schema_version"] == "analysis.report.v1"
+    assert analysis_manifest["paths"]["model_effect_deltas"] == "model_effect_deltas.csv"
