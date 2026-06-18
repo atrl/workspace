@@ -17,9 +17,11 @@ from .graph import (
     GCNGraphRegressor,
     GraphFeatureRidgeRegressor,
     HypergraphGraphRegressor,
+    MarketGraphRegressor,
     RGCNGraphRegressor,
     RSRGraphRegressor,
     STHANGraphRegressor,
+    THGNNGraphRegressor,
 )
 from .registry import get_model_spec
 from .sequence import (
@@ -60,7 +62,7 @@ STRICT_ADAPTER_NAMES = {
     "patch_tst_mse": "patch_tst_transformer_mse_v1",
     "autoformer_mse": "autoformer_decomposition_attention_mse_v1",
     "fedformer_mse": "fedformer_frequency_attention_mse_v1",
-    "market_graph_mse": "market_graph_feature_mse_v1",
+    "market_graph_mse": "market_structure_graph_mse_v1",
     "gcn_mse": "gcn_graph_convolution_mse_v1",
     "gat_mse": "gat_graph_attention_mse_v1",
     "rgcn_mse": "rgcn_relation_graph_convolution_mse_v1",
@@ -297,6 +299,8 @@ def _estimator_for_model(model_name: str):
         return AutoformerDecompositionRegressor(alpha=1.0, kernel_size=3, max_lag=4, top_k=2)
     if model_name == "fedformer_mse":
         return FEDformerFrequencyRegressor(alpha=1.0, kernel_size=3, top_k_modes=2)
+    if model_name == "market_graph_mse":
+        return MarketGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=39)
     if model_name == "gcn_mse":
         return GCNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=41)
     if model_name == "gat_mse":
@@ -309,9 +313,9 @@ def _estimator_for_model(model_name: str):
         return HypergraphGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=59)
     if model_name == "sthan_mse":
         return STHANGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=61)
+    if model_name == "thgnn_mse":
+        return THGNNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=67)
     graph_kinds = {
-        "market_graph_mse": "market",
-        "thgnn_mse": "thgnn",
         "sthgcn_mse": "sthgcn",
     }
     if model_name in graph_kinds:

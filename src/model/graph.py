@@ -44,6 +44,17 @@ def _feature_correlation_adjacency(x: np.ndarray) -> np.ndarray:
     return _symmetric_normalized_adjacency(adjacency)
 
 
+def _feature_market_strength(x: np.ndarray) -> np.ndarray:
+    if x.ndim != 2:
+        raise ValueError("market strength expects a 2D feature matrix")
+    market = x.mean(axis=1)
+    centered_market = market - float(np.mean(market))
+    numerator = (x - x.mean(axis=0)) * centered_market.reshape(-1, 1)
+    denominator = x.std(axis=0) * (np.std(centered_market) + 1e-12)
+    strength = numerator.mean(axis=0) / np.where(denominator <= 1e-12, 1.0, denominator)
+    return np.nan_to_num(strength, nan=0.0, posinf=0.0, neginf=0.0).astype("float32")
+
+
 def _relation_groups(n_features: int) -> tuple[np.ndarray, ...]:
     if n_features < 3:
         return (np.arange(n_features),)
@@ -134,6 +145,32 @@ def _hypergraph_propagation(incidence: np.ndarray) -> np.ndarray:
     return np.nan_to_num(propagation, nan=0.0, posinf=0.0, neginf=0.0).astype("float32")
 
 
+def _market_structure_adjacency(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    if x.ndim != 2:
+        raise ValueError("market structure adjacency expects a 2D matrix")
+    correlation = _feature_correlation_adjacency(x)
+    chain = _chain_adjacency(x.shape[1])
+    market = np.ones((x.shape[1], x.shape[1]), dtype=float) / max(1, x.shape[1])
+    strength = np.abs(_feature_market_strength(x))
+    adjacency = _symmetric_normalized_adjacency(correlation + chain + market + np.outer(strength, strength))
+    return adjacency, strength.astype("float32")
+
+
+def _temporal_heterogeneous_adjacencies(x: np.ndarray) -> np.ndarray:
+    if x.ndim != 2:
+        raise ValueError("temporal heterogeneous adjacencies expect a 2D matrix")
+    previous = np.vstack([x[:1], x[:-1]])
+    incidence = _hypergraph_incidence(x.shape[1])
+    relations = [
+        np.eye(x.shape[1], dtype=float),
+        _chain_adjacency(x.shape[1]),
+        _hypergraph_propagation(incidence),
+        _feature_correlation_adjacency(x),
+        _feature_correlation_adjacency(previous),
+    ]
+    return np.stack([_symmetric_normalized_adjacency(relation) for relation in relations], axis=0).astype("float32")
+
+
 def _attention_features(x: np.ndarray) -> np.ndarray:
     weights = np.exp(np.abs(x) - np.abs(x).max(axis=1, keepdims=True))
     weights = weights / np.where(weights.sum(axis=1, keepdims=True) <= 1e-12, 1.0, weights.sum(axis=1, keepdims=True))
@@ -210,6 +247,42 @@ class _GATNet(nn.Module):
         if return_attention:
             return prediction, attention
         return prediction
+
+
+class _MarketGraphNet(nn.Module):
+    def __init__(
+        self,
+        *,
+        feature_count: int,
+        hidden_size: int,
+        market_adjacency: np.ndarray,
+        market_strength: np.ndarray,
+    ):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.hidden_size = hidden_size
+        self.input_projection = nn.Linear(1, hidden_size)
+        self.market_projection = nn.Linear(1, hidden_size)
+        self.graph_projection = nn.Linear(hidden_size, hidden_size)
+        self.output_projection = nn.Linear(hidden_size, hidden_size)
+        self.head = nn.Linear(hidden_size * 2, 1)
+        self.market_gate = nn.Parameter(torch.as_tensor(market_strength, dtype=torch.float32))
+        self.register_buffer("market_adjacency", torch.as_tensor(market_adjacency, dtype=torch.float32))
+
+    def forward(self, x):
+        import torch
+
+        hidden = torch.relu(self.input_projection(x.unsqueeze(-1)))
+        market_context = x.mean(dim=1, keepdim=True).repeat(1, self.feature_count)
+        gate = torch.sigmoid(self.market_gate).reshape(1, self.feature_count, 1)
+        market_hidden = torch.relu(self.market_projection(market_context.unsqueeze(-1))) * gate
+        propagated = torch.einsum("ij,bjh->bih", self.market_adjacency, hidden)
+        hidden = torch.relu(self.graph_projection(propagated + market_hidden))
+        hidden = torch.relu(self.output_projection(hidden))
+        pooled = torch.cat([hidden.mean(dim=1), hidden.max(dim=1).values], dim=1)
+        return self.head(pooled).squeeze(-1)
 
 
 class _RGCNNet(nn.Module):
@@ -379,6 +452,64 @@ class _STHANNet(nn.Module):
         return prediction
 
 
+class _THGNNNet(nn.Module):
+    def __init__(
+        self,
+        *,
+        feature_count: int,
+        temporal_channel_count: int,
+        hidden_size: int,
+        relation_adjacencies: np.ndarray,
+    ):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.temporal_channel_count = temporal_channel_count
+        self.hidden_size = hidden_size
+        self.relation_count = int(relation_adjacencies.shape[0])
+        self.temporal_attention_logits = nn.Parameter(torch.zeros(temporal_channel_count, dtype=torch.float32))
+        self.relation_attention_logits = nn.Parameter(torch.zeros(self.relation_count, dtype=torch.float32))
+        decay = np.exp(-np.arange(temporal_channel_count, dtype=float) / max(1.0, temporal_channel_count - 1.0))
+        self.register_buffer("temporal_decay", torch.as_tensor(decay, dtype=torch.float32))
+        self.input_projection = nn.Linear(1, hidden_size)
+        self.root_projection = nn.Linear(hidden_size, hidden_size)
+        self.relation_projections = nn.ModuleList(nn.Linear(hidden_size, hidden_size) for _ in range(self.relation_count))
+        self.output_projection = nn.Linear(hidden_size, hidden_size)
+        self.head = nn.Linear(hidden_size * 2, 1)
+        self.register_buffer("relation_adjacencies", torch.as_tensor(relation_adjacencies, dtype=torch.float32))
+
+    def _temporal_attention(self):
+        import torch
+
+        prior = torch.log(self.temporal_decay.clamp_min(1e-6))
+        return torch.softmax(self.temporal_attention_logits + prior, dim=0)
+
+    def _relation_attention(self):
+        import torch
+
+        return torch.softmax(self.relation_attention_logits, dim=0)
+
+    def forward(self, x, *, return_attention: bool = False):
+        import torch
+
+        temporal_attention = self._temporal_attention()
+        relation_attention = self._relation_attention()
+        node_signal = torch.einsum("bnt,t->bn", x, temporal_attention)
+        hidden = torch.relu(self.input_projection(node_signal.unsqueeze(-1)))
+        messages = []
+        for relation_index, projection in enumerate(self.relation_projections):
+            propagated = torch.einsum("ij,bjh->bih", self.relation_adjacencies[relation_index], hidden)
+            messages.append(projection(propagated) * relation_attention[relation_index])
+        combined = self.root_projection(hidden) + torch.stack(messages, dim=0).sum(dim=0)
+        output = torch.relu(self.output_projection(torch.relu(combined)))
+        pooled = torch.cat([output.mean(dim=1), output.max(dim=1).values], dim=1)
+        prediction = self.head(pooled).squeeze(-1)
+        if return_attention:
+            return prediction, temporal_attention, relation_attention
+        return prediction
+
+
 @dataclass
 class GCNGraphRegressor:
     hidden_size: int = 8
@@ -488,6 +619,65 @@ class GATGraphRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 2:
             raise ValueError("GATGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        with torch.no_grad():
+            output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class MarketGraphRegressor:
+    hidden_size: int = 8
+    epochs: int = 32
+    learning_rate: float = 0.01
+    seed: int = 39
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "MarketGraphRegressor":
+        if x.ndim != 2:
+            raise ValueError("MarketGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.feature_count_ = int(x.shape[1])
+        self.node_count_ = self.feature_count_
+        self.feature_mean_ = x.mean(axis=0)
+        self.feature_std_ = x.std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        self.market_adjacency_, self.market_strength_ = _market_structure_adjacency(x_scaled)
+        x_tensor = torch.as_tensor(x_scaled, dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _MarketGraphNet(
+            feature_count=self.feature_count_,
+            hidden_size=int(self.hidden_size),
+            market_adjacency=self.market_adjacency_,
+            market_strength=self.market_strength_,
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        self.market_context_gate_ = torch.sigmoid(self.model_.market_gate).detach().cpu().numpy().astype("float32")
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 2:
+            raise ValueError("MarketGraphRegressor expects a 2D feature matrix")
         import torch
 
         torch.set_num_threads(1)
@@ -732,6 +922,71 @@ class STHANGraphRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 2:
             raise ValueError("STHANGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        x_tensor = torch.as_tensor(_spatio_temporal_node_channels(x_scaled), dtype=torch.float32)
+        with torch.no_grad():
+            output = self.model_(x_tensor).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class THGNNGraphRegressor:
+    hidden_size: int = 8
+    epochs: int = 32
+    learning_rate: float = 0.01
+    seed: int = 67
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "THGNNGraphRegressor":
+        if x.ndim != 2:
+            raise ValueError("THGNNGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.feature_count_ = int(x.shape[1])
+        self.node_count_ = self.feature_count_
+        self.temporal_channel_count_ = 4
+        self.feature_mean_ = x.mean(axis=0)
+        self.feature_std_ = x.std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        self.relation_adjacencies_ = _temporal_heterogeneous_adjacencies(x_scaled)
+        self.relation_count_ = int(self.relation_adjacencies_.shape[0])
+        x_tensor = torch.as_tensor(_spatio_temporal_node_channels(x_scaled), dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _THGNNNet(
+            feature_count=self.feature_count_,
+            temporal_channel_count=self.temporal_channel_count_,
+            hidden_size=int(self.hidden_size),
+            relation_adjacencies=self.relation_adjacencies_,
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        with torch.no_grad():
+            _, temporal_attention, relation_attention = self.model_(x_tensor, return_attention=True)
+        self.temporal_attention_weights_ = temporal_attention.detach().cpu().numpy().astype("float32")
+        self.relation_attention_weights_ = relation_attention.detach().cpu().numpy().astype("float32")
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 2:
+            raise ValueError("THGNNGraphRegressor expects a 2D feature matrix")
         import torch
 
         torch.set_num_threads(1)

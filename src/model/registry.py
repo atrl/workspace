@@ -212,7 +212,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "FEDformer",
         "Uses moving-average decomposition with sparse Fourier mode features and separate trend/frequency heads.",
     ),
-    _proxy("market_graph_mse", "graph", "mse", "support_graph", "MarketGraph", "Uses market-context graph features."),
+    _native_graph(
+        "market_graph_mse",
+        "graph",
+        "mse",
+        "support_graph",
+        "MarketGraph",
+        "Uses a compact PyTorch market-structure graph network with market-context gating over feature nodes.",
+    ),
     _native_graph(
         "gcn_mse",
         "graph",
@@ -253,7 +260,14 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "HGNN",
         "Uses a compact PyTorch hypergraph convolution network with incidence-matrix message propagation over feature-node hyperedges.",
     ),
-    _proxy("thgnn_mse", "graph", "mse", "temporal_hypergraph", "THGNN", "Uses hypergraph features with temporal lags."),
+    _native_graph(
+        "thgnn_mse",
+        "graph",
+        "mse",
+        "temporal_hypergraph",
+        "THGNN",
+        "Uses a compact PyTorch temporal heterogeneous graph network with temporal attention and relation attention.",
+    ),
     _native_graph(
         "sthan_mse",
         "graph",

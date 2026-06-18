@@ -62,7 +62,7 @@
       "lightgbm_mse_v1",
       "logistic_direction_v1",
       "lstm_pytorch_sequence_mse_v1",
-      "market_graph_feature_mse_v1",
+      "market_structure_graph_mse_v1",
       "mlp_mixer_sequence_mse_v1",
       "mlp_sklearn_mse_v1",
       "patch_tst_transformer_mse_v1",
@@ -82,11 +82,11 @@
     "model_count": 32,
     "model_fidelity": {
       "fidelity_counts": {
-        "native_graph": 6,
+        "native_graph": 8,
         "native_library": 8,
         "native_sequence": 6,
         "native_torch": 6,
-        "proxy_feature_adapter": 6
+        "proxy_feature_adapter": 4
       },
       "model_count": 32,
       "native_models": [
@@ -105,6 +105,7 @@
         "lightgbm_mse",
         "logistic_clf",
         "lstm_mse",
+        "market_graph_mse",
         "mlp_mixer_mse",
         "mlp_mse",
         "patch_tst_mse",
@@ -115,22 +116,21 @@
         "sfm_mse",
         "sthan_mse",
         "tcn_mse",
+        "thgnn_mse",
         "xgboost_mse"
       ],
       "promotion_blocker_count": 24,
       "proxy_models": [
         "extra_trees_rank",
-        "market_graph_mse",
         "ridge_ic",
         "sequence_lag_ridge_mse",
-        "sthgcn_mse",
-        "thgnn_mse"
+        "sthgcn_mse"
       ],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": -0.004421578622572617,
-      "avg_mse": 0.034767540481952325,
+      "avg_ic": -0.004257724067434838,
+      "avg_mse": 0.03479271204925449,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -176,5 +176,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "32f6173ae61bb24565632374f907b88b19b2c2740ed3b1c677069bc3d31c2703"
+  "manifest_hash": "374bfb199af9ce0765cbcde102e25d56ce1065e3a62cfd61c0aa3aa9293f8f43"
 }

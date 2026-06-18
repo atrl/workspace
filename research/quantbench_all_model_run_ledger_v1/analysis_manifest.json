@@ -63,7 +63,7 @@
       "lightgbm_mse_v1",
       "logistic_direction_v1",
       "lstm_pytorch_sequence_mse_v1",
-      "market_graph_feature_mse_v1",
+      "market_structure_graph_mse_v1",
       "mlp_mixer_sequence_mse_v1",
       "mlp_sklearn_mse_v1",
       "patch_tst_transformer_mse_v1",
@@ -83,11 +83,11 @@
     "model_count": 32,
     "model_fidelity": {
       "fidelity_counts": {
-        "native_graph": 6,
+        "native_graph": 8,
         "native_library": 8,
         "native_sequence": 6,
         "native_torch": 6,
-        "proxy_feature_adapter": 6
+        "proxy_feature_adapter": 4
       },
       "model_count": 32,
       "native_models": [
@@ -106,6 +106,7 @@
         "lightgbm_mse",
         "logistic_clf",
         "lstm_mse",
+        "market_graph_mse",
         "mlp_mixer_mse",
         "mlp_mse",
         "patch_tst_mse",
@@ -116,22 +117,21 @@
         "sfm_mse",
         "sthan_mse",
         "tcn_mse",
+        "thgnn_mse",
         "xgboost_mse"
       ],
       "promotion_blocker_count": 24,
       "proxy_models": [
         "extra_trees_rank",
-        "market_graph_mse",
         "ridge_ic",
         "sequence_lag_ridge_mse",
-        "sthgcn_mse",
-        "thgnn_mse"
+        "sthgcn_mse"
       ],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": -0.004421578622572617,
-      "avg_mse": 0.034767540481952325,
+      "avg_ic": -0.004257724067434838,
+      "avg_mse": 0.03479271204925449,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -146,11 +146,11 @@
     },
     "status": "smoke_completed",
     "table_counts": {
-      "failure_modes": 613,
+      "failure_modes": 607,
       "model_comparison": 32,
       "model_effect_deltas": 1074,
       "model_regime_window_diagnostics": 32,
-      "model_review_briefing": 578,
+      "model_review_briefing": 572,
       "qlib_return_frame": 832,
       "qlib_risk_metrics": 2148,
       "regime_metrics": 126,
@@ -190,5 +190,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "5f86c976b3280153a7b04a79d26cc20eb4313db3217bad271abd3bf126cde7af"
+  "manifest_hash": "77e70bdef56f9e6bb2bc2212df3a00ae50b82c736f894556be15ee415e8d3aea"
 }

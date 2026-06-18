@@ -26,7 +26,7 @@ def test_graph_models_use_named_paper_strict_adapters():
     dataset, train, test = _split_frame()
 
     expected = {
-        "market_graph_mse": "market_graph_feature_mse_v1",
+        "market_graph_mse": "market_structure_graph_mse_v1",
         "gcn_mse": "gcn_graph_convolution_mse_v1",
         "gat_mse": "gat_graph_attention_mse_v1",
         "rgcn_mse": "rgcn_relation_graph_convolution_mse_v1",
@@ -62,6 +62,28 @@ def test_graph_attention_relation_and_hypergraph_paths_are_distinct():
     assert not gat["prediction"].round(10).equals(gcn["prediction"].round(10))
     assert not rgcn["prediction"].round(10).equals(gcn["prediction"].round(10))
     assert not hyper["prediction"].round(10).equals(gcn["prediction"].round(10))
+
+
+def test_market_graph_mse_uses_native_market_structure_estimator():
+    from src.model import graph as graph_module
+
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "market_graph_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:8],
+    )
+
+    assert constant_prediction is None
+    assert hasattr(graph_module, "MarketGraphRegressor")
+    assert isinstance(estimator, graph_module.MarketGraphRegressor)
+    assert hasattr(estimator, "model_")
+    assert estimator.feature_count_ == 8
+    assert estimator.node_count_ == 8
+    assert estimator.market_adjacency_.shape == (8, 8)
+    assert estimator.market_context_gate_.shape == (8,)
+    assert estimator.hidden_size == 8
 
 
 def test_gcn_mse_uses_native_graph_convolution_estimator():
@@ -179,6 +201,31 @@ def test_sthan_mse_uses_native_spatio_temporal_attention_estimator():
     assert estimator.hypergraph_propagation_.shape == (8, 8)
     assert estimator.temporal_attention_weights_.shape == (4,)
     assert estimator.spatial_attention_weights_.shape == (8, 8)
+    assert estimator.hidden_size == 8
+
+
+def test_thgnn_mse_uses_native_temporal_heterogeneous_graph_estimator():
+    from src.model import graph as graph_module
+
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "thgnn_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:8],
+    )
+
+    assert constant_prediction is None
+    assert hasattr(graph_module, "THGNNGraphRegressor")
+    assert isinstance(estimator, graph_module.THGNNGraphRegressor)
+    assert hasattr(estimator, "model_")
+    assert estimator.feature_count_ == 8
+    assert estimator.node_count_ == 8
+    assert estimator.temporal_channel_count_ == 4
+    assert estimator.relation_count_ >= 4
+    assert estimator.relation_adjacencies_.shape == (estimator.relation_count_, 8, 8)
+    assert estimator.temporal_attention_weights_.shape == (4,)
+    assert estimator.relation_attention_weights_.shape == (estimator.relation_count_,)
     assert estimator.hidden_size == 8
 
 
