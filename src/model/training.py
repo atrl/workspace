@@ -15,11 +15,11 @@ from xgboost import XGBRegressor
 from .graph import (
     GATGraphRegressor,
     GCNGraphRegressor,
-    GraphFeatureRidgeRegressor,
     HypergraphGraphRegressor,
     MarketGraphRegressor,
     RGCNGraphRegressor,
     RSRGraphRegressor,
+    STHGCNGraphRegressor,
     STHANGraphRegressor,
     THGNNGraphRegressor,
 )
@@ -315,11 +315,8 @@ def _estimator_for_model(model_name: str):
         return STHANGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=61)
     if model_name == "thgnn_mse":
         return THGNNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=67)
-    graph_kinds = {
-        "sthgcn_mse": "sthgcn",
-    }
-    if model_name in graph_kinds:
-        return GraphFeatureRidgeRegressor(graph_kind=graph_kinds[model_name], alpha=1.0)
+    if model_name == "sthgcn_mse":
+        return STHGCNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=71)
     if model_name == "extra_trees_rank":
         return ExtraTreesRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if spec.family == "tree" and spec.objective == "classification":

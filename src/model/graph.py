@@ -452,6 +452,46 @@ class _STHANNet(nn.Module):
         return prediction
 
 
+class _STHGCNNet(nn.Module):
+    def __init__(
+        self,
+        *,
+        feature_count: int,
+        temporal_channel_count: int,
+        hidden_size: int,
+        hypergraph_propagation: np.ndarray,
+    ):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.temporal_channel_count = temporal_channel_count
+        self.hidden_size = hidden_size
+        self.graph_convolution_count = 2
+        self.temporal_convolution = nn.Conv1d(1, hidden_size, kernel_size=2)
+        self.spatial_projection = nn.Linear(hidden_size, hidden_size)
+        self.output_projection = nn.Linear(hidden_size, hidden_size)
+        self.head = nn.Linear(hidden_size * 2, 1)
+        self.register_buffer(
+            "hypergraph_propagation",
+            torch.as_tensor(hypergraph_propagation, dtype=torch.float32),
+        )
+
+    def forward(self, x):
+        import torch
+
+        batch_size = int(x.shape[0])
+        temporal_signal = x.reshape(batch_size * self.feature_count, 1, self.temporal_channel_count)
+        temporal_hidden = torch.relu(self.temporal_convolution(temporal_signal)).mean(dim=-1)
+        hidden = temporal_hidden.reshape(batch_size, self.feature_count, self.hidden_size)
+        propagated = torch.einsum("ij,bjh->bih", self.hypergraph_propagation, hidden)
+        hidden = torch.relu(self.spatial_projection(propagated))
+        propagated = torch.einsum("ij,bjh->bih", self.hypergraph_propagation, hidden)
+        hidden = torch.relu(self.output_projection(propagated) + hidden)
+        pooled = torch.cat([hidden.mean(dim=1), hidden.max(dim=1).values], dim=1)
+        return self.head(pooled).squeeze(-1)
+
+
 class _THGNNNet(nn.Module):
     def __init__(
         self,
@@ -987,6 +1027,72 @@ class THGNNGraphRegressor:
     def predict(self, x: np.ndarray) -> np.ndarray:
         if x.ndim != 2:
             raise ValueError("THGNNGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        x_tensor = torch.as_tensor(_spatio_temporal_node_channels(x_scaled), dtype=torch.float32)
+        with torch.no_grad():
+            output = self.model_(x_tensor).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class STHGCNGraphRegressor:
+    hidden_size: int = 8
+    epochs: int = 32
+    learning_rate: float = 0.01
+    seed: int = 71
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "STHGCNGraphRegressor":
+        if x.ndim != 2:
+            raise ValueError("STHGCNGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.feature_count_ = int(x.shape[1])
+        self.node_count_ = self.feature_count_
+        self.temporal_channel_count_ = 4
+        self.incidence_matrix_ = _hypergraph_incidence(self.feature_count_)
+        self.hyperedge_count_ = int(self.incidence_matrix_.shape[1])
+        self.hypergraph_propagation_ = _hypergraph_propagation(self.incidence_matrix_)
+        self.feature_mean_ = x.mean(axis=0)
+        self.feature_std_ = x.std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        x_tensor = torch.as_tensor(_spatio_temporal_node_channels(x_scaled), dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _STHGCNNet(
+            feature_count=self.feature_count_,
+            temporal_channel_count=self.temporal_channel_count_,
+            hidden_size=int(self.hidden_size),
+            hypergraph_propagation=self.hypergraph_propagation_,
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        self.graph_convolution_count_ = int(self.model_.graph_convolution_count)
+        self.temporal_convolution_weights_ = (
+            self.model_.temporal_convolution.weight.detach().cpu().numpy().astype("float32")
+        )
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 2:
+            raise ValueError("STHGCNGraphRegressor expects a 2D feature matrix")
         import torch
 
         torch.set_num_threads(1)

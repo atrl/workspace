@@ -276,13 +276,13 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "STHAN",
         "Uses a compact PyTorch spatio-temporal hypergraph attention network with temporal decay attention and node-level spatial attention.",
     ),
-    _proxy(
+    _native_graph(
         "sthgcn_mse",
         "graph",
         "mse",
         "spatio_temporal_hypergraph",
         "STHGCN",
-        "Uses spatio-temporal hypergraph proxy features.",
+        "Uses a compact PyTorch spatio-temporal hypergraph convolution network with temporal convolution and two hypergraph propagation layers.",
     ),
 )
 

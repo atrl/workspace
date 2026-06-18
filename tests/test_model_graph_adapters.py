@@ -229,6 +229,32 @@ def test_thgnn_mse_uses_native_temporal_heterogeneous_graph_estimator():
     assert estimator.hidden_size == 8
 
 
+def test_sthgcn_mse_uses_native_spatio_temporal_hypergraph_convolution_estimator():
+    from src.model import graph as graph_module
+
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "sthgcn_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:8],
+    )
+
+    assert constant_prediction is None
+    assert hasattr(graph_module, "STHGCNGraphRegressor")
+    assert isinstance(estimator, graph_module.STHGCNGraphRegressor)
+    assert hasattr(estimator, "model_")
+    assert estimator.feature_count_ == 8
+    assert estimator.node_count_ == 8
+    assert estimator.temporal_channel_count_ == 4
+    assert estimator.hyperedge_count_ >= 4
+    assert estimator.graph_convolution_count_ == 2
+    assert estimator.incidence_matrix_.shape == (8, estimator.hyperedge_count_)
+    assert estimator.hypergraph_propagation_.shape == (8, 8)
+    assert estimator.temporal_convolution_weights_.shape == (8, 1, 2)
+    assert estimator.hidden_size == 8
+
+
 def test_temporal_graph_paths_are_distinct_from_static_graph_paths():
     dataset, train, test = _split_frame()
 

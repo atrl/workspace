@@ -55,14 +55,16 @@ def test_model_capability_table_separates_native_and_proxy_implementations():
     assert table.loc[table["model"].eq("sthan_mse"), "is_proxy"].item() is False
     assert table.loc[table["model"].eq("thgnn_mse"), "paper_fidelity"].item() == "native_graph"
     assert table.loc[table["model"].eq("thgnn_mse"), "is_proxy"].item() is False
+    assert table.loc[table["model"].eq("sthgcn_mse"), "paper_fidelity"].item() == "native_graph"
+    assert table.loc[table["model"].eq("sthgcn_mse"), "is_proxy"].item() is False
 
     assert summary["schema_version"] == "model.fidelity.v1"
     assert summary["model_count"] == len(QUANTBENCH_MODEL_NAMES)
     assert summary["fidelity_counts"]["proxy_feature_adapter"] > 0
     assert summary["fidelity_counts"]["native_sequence"] == 6
     assert summary["fidelity_counts"]["native_torch"] == 6
-    assert summary["fidelity_counts"]["native_graph"] == 8
-    assert summary["fidelity_counts"]["proxy_feature_adapter"] == 4
+    assert summary["fidelity_counts"]["native_graph"] == 9
+    assert summary["fidelity_counts"]["proxy_feature_adapter"] == 3
     assert "patch_tst_mse" in summary["native_models"]
     assert "autoformer_mse" in summary["native_models"]
     assert "fedformer_mse" in summary["native_models"]
@@ -77,6 +79,7 @@ def test_model_capability_table_separates_native_and_proxy_implementations():
     assert "hypergraph_mse" in summary["native_models"]
     assert "sthan_mse" in summary["native_models"]
     assert "thgnn_mse" in summary["native_models"]
+    assert "sthgcn_mse" in summary["native_models"]
     assert "gcn_mse" not in summary["proxy_models"]
     assert "gat_mse" not in summary["proxy_models"]
     assert "rgcn_mse" not in summary["proxy_models"]
@@ -84,6 +87,7 @@ def test_model_capability_table_separates_native_and_proxy_implementations():
     assert "hypergraph_mse" not in summary["proxy_models"]
     assert "sthan_mse" not in summary["proxy_models"]
     assert "thgnn_mse" not in summary["proxy_models"]
+    assert "sthgcn_mse" not in summary["proxy_models"]
     assert "market_graph_mse" not in summary["proxy_models"]
     assert "sfm_mse" not in summary["proxy_models"]
     assert "hawkes_gru_mse" not in summary["proxy_models"]
@@ -113,6 +117,7 @@ def test_quantbench_matrix_summary_and_manifest_include_model_fidelity(tmp_path)
             "hypergraph_mse",
             "sthan_mse",
             "thgnn_mse",
+            "sthgcn_mse",
             "xgboost_mse",
         ),
     )
@@ -121,10 +126,10 @@ def test_quantbench_matrix_summary_and_manifest_include_model_fidelity(tmp_path)
     manifest = json.loads((tmp_path / "artifact_manifest.json").read_text(encoding="utf-8"))
 
     assert summary["model_fidelity"]["schema_version"] == "model.fidelity.v1"
-    assert summary["model_fidelity"]["model_count"] == 16
+    assert summary["model_fidelity"]["model_count"] == 17
     assert summary["model_fidelity"]["fidelity_counts"]["native_sequence"] == 5
     assert summary["model_fidelity"]["fidelity_counts"]["native_torch"] == 1
-    assert summary["model_fidelity"]["fidelity_counts"]["native_graph"] == 8
+    assert summary["model_fidelity"]["fidelity_counts"]["native_graph"] == 9
     assert summary["model_fidelity"]["fidelity_counts"]["native_library"] == 2
     assert summary["model_fidelity"]["proxy_models"] == []
     assert "patch_tst_mse" in summary["model_fidelity"]["native_models"]
@@ -141,6 +146,7 @@ def test_quantbench_matrix_summary_and_manifest_include_model_fidelity(tmp_path)
     assert "hypergraph_mse" in summary["model_fidelity"]["native_models"]
     assert "sthan_mse" in summary["model_fidelity"]["native_models"]
     assert "thgnn_mse" in summary["model_fidelity"]["native_models"]
+    assert "sthgcn_mse" in summary["model_fidelity"]["native_models"]
     assert manifest["metadata"]["model_fidelity"]["fidelity_counts"] == summary["model_fidelity"][
         "fidelity_counts"
     ]

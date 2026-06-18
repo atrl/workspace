@@ -82,11 +82,11 @@
     "model_count": 32,
     "model_fidelity": {
       "fidelity_counts": {
-        "native_graph": 8,
+        "native_graph": 9,
         "native_library": 8,
         "native_sequence": 6,
         "native_torch": 6,
-        "proxy_feature_adapter": 4
+        "proxy_feature_adapter": 3
       },
       "model_count": 32,
       "native_models": [
@@ -115,6 +115,7 @@
         "rsr_mse",
         "sfm_mse",
         "sthan_mse",
+        "sthgcn_mse",
         "tcn_mse",
         "thgnn_mse",
         "xgboost_mse"
@@ -123,14 +124,13 @@
       "proxy_models": [
         "extra_trees_rank",
         "ridge_ic",
-        "sequence_lag_ridge_mse",
-        "sthgcn_mse"
+        "sequence_lag_ridge_mse"
       ],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": -0.004257724067434838,
-      "avg_mse": 0.03479271204925449,
+      "avg_ic": -0.0037323725990915865,
+      "avg_mse": 0.03477930937492602,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -176,5 +176,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "374bfb199af9ce0765cbcde102e25d56ce1065e3a62cfd61c0aa3aa9293f8f43"
+  "manifest_hash": "a782eead37cdf86c423cb6d567a7231217162adbf8559ceffeaf731a378656ee"
 }

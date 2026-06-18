@@ -1,0 +1,100 @@
+{
+  "schema_version": "research.sthgcn_native_adapter_v1",
+  "status": "completed",
+  "model": "sthgcn_mse",
+  "adapter": "sthgcn_spatio_temporal_hypergraph_mse_v1",
+  "estimator": "STHGCNGraphRegressor",
+  "node_count": 8,
+  "feature_count": 8,
+  "temporal_channel_count": 4,
+  "hyperedge_count": 11,
+  "graph_convolution_count": 2,
+  "hidden_size": 8,
+  "temporal_convolution_weights_shape": [
+    8,
+    1,
+    2
+  ],
+  "paper_fidelity": "native_graph",
+  "is_proxy": false,
+  "full_matrix_native_model_count": 29,
+  "full_matrix_proxy_model_count": 3,
+  "model_fidelity_counts": {
+    "native_graph": 9,
+    "native_library": 8,
+    "native_sequence": 6,
+    "native_torch": 6,
+    "proxy_feature_adapter": 3
+  },
+  "matrix_card": "research/sthgcn_native_adapter_v1/matrix_card",
+  "matrix_models": [
+    "hypergraph_mse",
+    "ridge_mse",
+    "sthan_mse",
+    "sthgcn_mse",
+    "thgnn_mse"
+  ],
+  "target_model_return_pct": 24.90435593735487,
+  "target_model_relative_return_pct": -33.2140252265886,
+  "target_model_sharpe": 2.344077588554966,
+  "target_model_max_drawdown_pct": 32.28358198342357,
+  "target_model_stability_score": -0.9645792050678761,
+  "ledger_trained": true,
+  "ledger_backtested": true,
+  "analysis_layers": [
+    "regime_metrics",
+    "window_metrics",
+    "window_regime_metrics",
+    "qlib_risk_metrics",
+    "model_effect_deltas",
+    "model_regime_window_diagnostics",
+    "objective_scores",
+    "promotion_scores",
+    "model_comparison",
+    "qlib_return_frame",
+    "segment_metrics",
+    "segment_effect_matrix",
+    "model_review_briefing",
+    "failure_modes"
+  ],
+  "analysis_table_counts": {
+    "failure_modes": 105,
+    "model_comparison": 5,
+    "model_effect_deltas": 170,
+    "model_regime_window_diagnostics": 5,
+    "model_review_briefing": 105,
+    "qlib_return_frame": 130,
+    "qlib_risk_metrics": 340,
+    "regime_metrics": 20,
+    "segment_effect_matrix": 34,
+    "segment_metrics": 170,
+    "window_metrics": 30,
+    "window_regime_metrics": 115
+  },
+  "external_references": [
+    {
+      "source_id": "github:midas-research/sthgcn-icdm",
+      "url": "https://github.com/midas-research/sthgcn-icdm",
+      "usage": "参考 ICDM 2020 STHGCN stock movement forecasting 的公开代码仓库和结构边界；本实现未复制第三方代码。"
+    },
+    {
+      "source_id": "doi:10.1109/ICDM50108.2020.00057",
+      "url": "https://doi.org/10.1109/ICDM50108.2020.00057",
+      "usage": "参考 Spatiotemporal Hypergraph Convolution Network for Stock Movement Forecasting 的论文题录；本实现是 SOXL compact adapter。"
+    },
+    {
+      "source_id": "doi:10.1016/j.eswa.2023.121899",
+      "url": "https://doi.org/10.1016/j.eswa.2023.121899",
+      "usage": "参考 attention based adaptive spatial-temporal hypergraph convolution for stock trend prediction 的题录方向。"
+    }
+  ],
+  "artifact_links": {
+    "analysis_summary": "research/sthgcn_native_adapter_v1/matrix_card/analysis_summary.json",
+    "model_comparison": "research/sthgcn_native_adapter_v1/matrix_card/model_comparison.csv",
+    "model_run_ledger": "research/sthgcn_native_adapter_v1/matrix_card/model_run_ledger.csv",
+    "manifest": "research/sthgcn_native_adapter_v1/matrix_card/analysis_manifest.json",
+    "qlib_risk_metrics": "research/sthgcn_native_adapter_v1/matrix_card/qlib_risk_metrics.csv",
+    "model_effect_deltas": "research/sthgcn_native_adapter_v1/matrix_card/model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "research/sthgcn_native_adapter_v1/matrix_card/model_regime_window_diagnostics.csv"
+  }
+}

@@ -21,9 +21,9 @@
     "baseline_model": "mlp_mixer_mse",
     "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
     "decision_hint_counts": {
-      "block_or_rework": 698,
-      "cost_review": 3,
-      "promote_candidate": 63,
+      "block_or_rework": 697,
+      "cost_review": 2,
+      "promote_candidate": 64,
       "reduce_or_guardrail": 18
     },
     "largest_relative_return_spread_segments": [
@@ -118,10 +118,10 @@
     "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
     "regime_count": 4,
     "review_signal_counts": {
-      "efficiency_check": 3,
+      "efficiency_check": 2,
       "risk": 18,
-      "strength": 63,
-      "weakness": 698
+      "strength": 64,
+      "weakness": 697
     },
     "schema_version": "analysis.overview.v1",
     "segment_effect_matrix_count": 41,
@@ -164,20 +164,20 @@
       },
       {
         "baseline_model": "mlp_mixer_mse",
-        "consistency_score": -0.908537,
+        "consistency_score": -1.140244,
         "diagnostic_signal": "stress_fragile",
-        "model": "sthgcn_mse",
-        "review_note": "sthgcn_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "gcn_mse",
+        "review_note": "gcn_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 9,
-        "weakness_segment_count": 27,
+        "weakness_segment_count": 26,
         "worst_segment": "all"
       },
       {
         "baseline_model": "mlp_mixer_mse",
         "consistency_score": -1.140244,
         "diagnostic_signal": "stress_fragile",
-        "model": "gcn_mse",
-        "review_note": "gcn_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "market_graph_mse",
+        "review_note": "market_graph_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 9,
         "weakness_segment_count": 26,
         "worst_segment": "all"
@@ -204,7 +204,7 @@
       "decision_hint": "promote_candidate",
       "max_drawdown_pct_delta": -7.022425795632859,
       "model": "thgnn_mse",
-      "priority_rank": 146,
+      "priority_rank": 153,
       "priority_score": 109.108084,
       "regime": "high_vol_uptrend",
       "relative_return_pct_delta": 19.30625585854774,
@@ -360,20 +360,20 @@
       },
       {
         "baseline_model": "mlp_mixer_mse",
-        "consistency_score": -0.908537,
+        "consistency_score": -1.140244,
         "diagnostic_signal": "stress_fragile",
-        "model": "sthgcn_mse",
-        "review_note": "sthgcn_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "gcn_mse",
+        "review_note": "gcn_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 9,
-        "weakness_segment_count": 27,
+        "weakness_segment_count": 26,
         "worst_segment": "all"
       },
       {
         "baseline_model": "mlp_mixer_mse",
         "consistency_score": -1.140244,
         "diagnostic_signal": "stress_fragile",
-        "model": "gcn_mse",
-        "review_note": "gcn_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "model": "market_graph_mse",
+        "review_note": "market_graph_mse 在压力或下跌分段弱于基准 mlp_mixer_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
         "stress_negative_count": 9,
         "weakness_segment_count": 26,
         "worst_segment": "all"
@@ -477,14 +477,14 @@
     "window_regime_count": 28
   },
   "analysis_table_counts": {
-    "failure_modes": 760,
+    "failure_modes": 759,
     "market_regime_counts": 4,
     "market_regime_daily_backtest": 832,
     "market_regimes": 26,
     "model_comparison": 32,
     "model_effect_deltas": 1312,
     "model_regime_window_diagnostics": 32,
-    "model_review_briefing": 782,
+    "model_review_briefing": 781,
     "qlib_return_frame": 832,
     "qlib_risk_metrics": 2624,
     "regime_metrics": 128,
@@ -530,7 +530,7 @@
   "source_daily_model_count": 32,
   "source_daily_row_count": 832,
   "source_ledger": "research/quantbench_all_model_run_ledger_v1",
-  "source_manifest_hash": "77e70bdef56f9e6bb2bc2212df3a00ae50b82c736f894556be15ee415e8d3aea",
+  "source_manifest_hash": "4a7816d49fab7f3f92de74f76e52ed23147105fabc536aa847050d5423cee645",
   "source_model_run_ledger_summary": {
     "adapter_statuses": [
       "paper_strict_adapter"
@@ -542,18 +542,18 @@
     "ledger_model_count": 32,
     "manifested_model_count": 32,
     "missing_models": [],
-    "native_model_count": 28,
+    "native_model_count": 29,
     "objective_evaluated_model_count": 32,
     "paper_fidelity_counts": {
-      "native_graph": 8,
+      "native_graph": 9,
       "native_library": 8,
       "native_sequence": 6,
       "native_torch": 6,
-      "proxy_feature_adapter": 4
+      "proxy_feature_adapter": 3
     },
     "predicted_model_count": 32,
     "promotion_evaluated_model_count": 32,
-    "proxy_model_count": 4,
+    "proxy_model_count": 3,
     "registered_model_count": 32,
     "schema_version": "model.run_ledger_summary.v1",
     "trained_model_count": 32
