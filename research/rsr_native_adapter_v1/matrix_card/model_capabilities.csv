@@ -1,0 +1,5 @@
+model,family,objective,input_kind,estimator,paper_fidelity,is_proxy,implementation_notes,promotion_blocker,trade_instrument,support_universe
+ridge_mse,linear,mse,tabular,Ridge,native_library,False,Uses the native Ridge training path behind the QuantBench-style registry contract.,,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+rgcn_mse,graph,mse,support_graph,RGCN,native_graph,False,Uses a compact PyTorch relational graph convolution network with relation-specific message projections.,Needs real support-universe relation graph and longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+rsr_mse,graph,mse,support_graph,RSR,native_graph,False,Uses a compact PyTorch temporal relation-strength graph network over feature nodes.,Needs real support-universe relation graph and longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
+hypergraph_mse,graph,mse,support_hypergraph,HypergraphNN,proxy_feature_adapter,True,Uses hypergraph-style grouped feature statistics.,Requires full paper-fidelity architecture replacement before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"

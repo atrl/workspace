@@ -1,0 +1,27 @@
+{
+  "schema_version": "research.rsr_native_adapter_v1",
+  "status": "completed",
+  "model": "rsr_mse",
+  "adapter": "rsr_temporal_relation_strength_mse_v1",
+  "estimator": "RSRGraphRegressor",
+  "node_count": 8,
+  "feature_count": 8,
+  "temporal_channel_count": 3,
+  "hidden_size": 8,
+  "paper_fidelity": "native_graph",
+  "is_proxy": false,
+  "full_matrix_native_model_count": 24,
+  "full_matrix_proxy_model_count": 8,
+  "matrix_card": "research/rsr_native_adapter_v1/matrix_card",
+  "paper_reference": {
+    "source_id": "arxiv:1809.09441",
+    "url": "https://arxiv.org/abs/1809.09441",
+    "usage": "自有摘要和结构假设；实现只复用 temporal graph convolution 与 relation strength gate 的思想，不复制论文全文或第三方代码。"
+  },
+  "artifact_links": {
+    "analysis_summary": "research/rsr_native_adapter_v1/matrix_card/analysis_summary.json",
+    "model_comparison": "research/rsr_native_adapter_v1/matrix_card/model_comparison.csv",
+    "model_run_ledger": "research/rsr_native_adapter_v1/matrix_card/model_run_ledger.csv",
+    "manifest": "research/rsr_native_adapter_v1/matrix_card/analysis_manifest.json"
+  }
+}

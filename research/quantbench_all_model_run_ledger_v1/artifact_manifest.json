@@ -70,7 +70,7 @@
       "rgcn_relation_graph_convolution_mse_v1",
       "ridge_mse_v1",
       "ridge_rank_ic_proxy_v1",
-      "rsr_relation_strength_mse_v1",
+      "rsr_temporal_relation_strength_mse_v1",
       "sequence_lag_ridge_mse_v1",
       "sfm_state_frequency_memory_mse_v1",
       "sthan_spatio_temporal_attention_mse_v1",
@@ -82,11 +82,11 @@
     "model_count": 32,
     "model_fidelity": {
       "fidelity_counts": {
-        "native_graph": 3,
+        "native_graph": 4,
         "native_library": 8,
         "native_sequence": 6,
         "native_torch": 6,
-        "proxy_feature_adapter": 9
+        "proxy_feature_adapter": 8
       },
       "model_count": 32,
       "native_models": [
@@ -110,6 +110,7 @@
         "random_forest_clf",
         "rgcn_mse",
         "ridge_mse",
+        "rsr_mse",
         "sfm_mse",
         "tcn_mse",
         "xgboost_mse"
@@ -120,7 +121,6 @@
         "hypergraph_mse",
         "market_graph_mse",
         "ridge_ic",
-        "rsr_mse",
         "sequence_lag_ridge_mse",
         "sthan_mse",
         "sthgcn_mse",
@@ -129,8 +129,8 @@
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": -0.005864802254796626,
-      "avg_mse": 0.0358596146297916,
+      "avg_ic": -0.0031873192960304884,
+      "avg_mse": 0.03584899643827749,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -176,5 +176,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "10a7ddef6fda2749e61bad39cb0a751dad7911338b055c64aeae445b1a340854"
+  "manifest_hash": "e1a8d1855a543b960d45cb5516cff75f1cfb52ee3c501d9bdcde666bdda877c5"
 }

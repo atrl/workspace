@@ -77,6 +77,20 @@ def _lag_features(x: np.ndarray) -> np.ndarray:
     return np.concatenate([previous, x - previous, x - two_day], axis=1)
 
 
+def _temporal_node_channels(x: np.ndarray) -> np.ndarray:
+    previous = np.vstack([x[:1], x[:-1]])
+    delta = x - previous
+    return np.stack([x, previous, delta], axis=-1).astype("float32")
+
+
+def _target_relation_strength(x: np.ndarray, y: np.ndarray) -> np.ndarray:
+    centered_y = y.astype(float) - float(np.mean(y))
+    numerator = (x - x.mean(axis=0)) * centered_y.reshape(-1, 1)
+    denominator = x.std(axis=0) * (np.std(centered_y) + 1e-12)
+    strength = numerator.mean(axis=0) / np.where(denominator <= 1e-12, 1.0, denominator)
+    return np.nan_to_num(strength, nan=0.0, posinf=0.0, neginf=0.0).astype("float32")
+
+
 def _hypergraph_features(x: np.ndarray) -> np.ndarray:
     groups = _relation_groups(x.shape[1])
     means = [x[:, group].mean(axis=1, keepdims=True) for group in groups]
@@ -189,6 +203,43 @@ class _RGCNNet(nn.Module):
         combined = self.root_projection(hidden) + torch.stack(messages, dim=0).mean(dim=0)
         output = torch.relu(self.output_projection(torch.relu(combined)))
         pooled = torch.cat([output.mean(dim=1), output.max(dim=1).values], dim=1)
+        return self.head(pooled).squeeze(-1)
+
+
+class _RSRNet(nn.Module):
+    def __init__(
+        self,
+        *,
+        feature_count: int,
+        temporal_channel_count: int,
+        hidden_size: int,
+        relation_strength: np.ndarray,
+    ):
+        super().__init__()
+        import torch
+
+        self.feature_count = feature_count
+        self.temporal_channel_count = temporal_channel_count
+        self.hidden_size = hidden_size
+        strength = np.asarray(relation_strength, dtype="float32")
+        adjacency = _symmetric_normalized_adjacency(np.outer(np.abs(strength), np.abs(strength)))
+        self.input_projection = nn.Linear(temporal_channel_count, hidden_size)
+        self.relation_projection = nn.Linear(hidden_size, hidden_size)
+        self.output_projection = nn.Linear(hidden_size, hidden_size)
+        self.head = nn.Linear(hidden_size * 2, 1)
+        self.node_gate = nn.Parameter(torch.as_tensor(strength, dtype=torch.float32))
+        self.register_buffer("relation_adjacency", torch.as_tensor(adjacency, dtype=torch.float32))
+
+    def forward(self, x):
+        import torch
+
+        hidden = torch.relu(self.input_projection(x))
+        gate = torch.sigmoid(self.node_gate).reshape(1, self.feature_count, 1)
+        gated = hidden * gate
+        propagated = torch.einsum("ij,bjh->bih", self.relation_adjacency, gated)
+        hidden = torch.relu(self.relation_projection(propagated) + gated)
+        hidden = torch.relu(self.output_projection(hidden))
+        pooled = torch.cat([hidden.mean(dim=1), hidden.max(dim=1).values], dim=1)
         return self.head(pooled).squeeze(-1)
 
 
@@ -365,6 +416,67 @@ class RGCNGraphRegressor:
         x_scaled = (x - self.feature_mean_) / self.feature_std_
         with torch.no_grad():
             output = self.model_(torch.as_tensor(x_scaled, dtype=torch.float32)).detach().cpu().numpy()
+        return output.astype(float) * self.target_std_ + self.target_mean_
+
+
+@dataclass
+class RSRGraphRegressor:
+    hidden_size: int = 8
+    epochs: int = 32
+    learning_rate: float = 0.01
+    seed: int = 53
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "RSRGraphRegressor":
+        if x.ndim != 2:
+            raise ValueError("RSRGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.manual_seed(self.seed)
+        torch.set_num_threads(1)
+        self.feature_count_ = int(x.shape[1])
+        self.node_count_ = self.feature_count_
+        self.temporal_channel_count_ = 3
+        self.feature_mean_ = x.mean(axis=0)
+        self.feature_std_ = x.std(axis=0)
+        self.feature_std_ = np.where(self.feature_std_ <= 1e-8, 1.0, self.feature_std_)
+        self.target_mean_ = float(np.mean(y))
+        self.target_std_ = float(np.std(y))
+        if self.target_std_ <= 1e-8:
+            self.target_std_ = 1.0
+
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        y_scaled = (y.astype("float32") - self.target_mean_) / self.target_std_
+        self.relation_strength_ = _target_relation_strength(x_scaled, y_scaled)
+        x_tensor = torch.as_tensor(_temporal_node_channels(x_scaled), dtype=torch.float32)
+        y_tensor = torch.as_tensor(y_scaled, dtype=torch.float32)
+        self.model_ = _RSRNet(
+            feature_count=self.feature_count_,
+            temporal_channel_count=self.temporal_channel_count_,
+            hidden_size=int(self.hidden_size),
+            relation_strength=self.relation_strength_,
+        )
+        optimizer = torch.optim.Adam(self.model_.parameters(), lr=float(self.learning_rate))
+        loss_fn = nn.MSELoss()
+        self.model_.train()
+        for _ in range(int(self.epochs)):
+            optimizer.zero_grad()
+            loss = loss_fn(self.model_(x_tensor), y_tensor)
+            loss.backward()
+            optimizer.step()
+        self.model_.eval()
+        self.relation_gate_ = torch.sigmoid(self.model_.node_gate).detach().cpu().numpy().astype("float32")
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        if x.ndim != 2:
+            raise ValueError("RSRGraphRegressor expects a 2D feature matrix")
+        import torch
+
+        torch.set_num_threads(1)
+        x_scaled = (x - self.feature_mean_) / self.feature_std_
+        x_tensor = torch.as_tensor(_temporal_node_channels(x_scaled), dtype=torch.float32)
+        with torch.no_grad():
+            output = self.model_(x_tensor).detach().cpu().numpy()
         return output.astype(float) * self.target_std_ + self.target_mean_
 
 
