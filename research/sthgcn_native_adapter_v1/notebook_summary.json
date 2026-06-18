@@ -1,91 +1,90 @@
 {
   "schema_version": "research.sthgcn_native_adapter_v1",
   "status": "completed",
-  "model": "sthgcn_mse",
+  "models": [
+    "sthgcn_mse"
+  ],
   "adapter": "sthgcn_spatio_temporal_hypergraph_mse_v1",
   "estimator": "STHGCNGraphRegressor",
-  "node_count": 8,
-  "feature_count": 8,
-  "temporal_channel_count": 4,
-  "hyperedge_count": 11,
-  "graph_convolution_count": 2,
-  "hidden_size": 8,
-  "temporal_convolution_weights_shape": [
-    8,
-    1,
-    2
-  ],
+  "sthgcn": {
+    "node_count": 8,
+    "feature_count": 8,
+    "temporal_channel_count": 4,
+    "hyperedge_count": 11,
+    "graph_convolution_count": 2,
+    "hidden_size": 8,
+    "incidence_shape": [
+      8,
+      11
+    ],
+    "hypergraph_propagation_shape": [
+      8,
+      8
+    ],
+    "temporal_convolution_weight_shape": [
+      8,
+      1,
+      2
+    ],
+    "return_pct": 24.90435593735487,
+    "sharpe": 2.344077588554966,
+    "max_drawdown_pct": 32.28358198342357
+  },
   "paper_fidelity": "native_graph",
   "is_proxy": false,
   "full_matrix_native_model_count": 29,
   "full_matrix_proxy_model_count": 3,
-  "model_fidelity_counts": {
-    "native_graph": 9,
-    "native_library": 8,
-    "native_sequence": 6,
-    "native_torch": 6,
-    "proxy_feature_adapter": 3
-  },
+  "remaining_proxy_models": [
+    "extra_trees_rank",
+    "ridge_ic",
+    "sequence_lag_ridge_mse"
+  ],
   "matrix_card": "research/sthgcn_native_adapter_v1/matrix_card",
   "matrix_models": [
     "hypergraph_mse",
+    "market_graph_mse",
     "ridge_mse",
     "sthan_mse",
     "sthgcn_mse",
     "thgnn_mse"
   ],
-  "target_model_return_pct": 24.90435593735487,
-  "target_model_relative_return_pct": -33.2140252265886,
-  "target_model_sharpe": 2.344077588554966,
-  "target_model_max_drawdown_pct": 32.28358198342357,
-  "target_model_stability_score": -0.9645792050678761,
   "ledger_trained": true,
   "ledger_backtested": true,
   "analysis_layers": [
+    "model_comparison",
+    "model_effect_deltas",
+    "model_run_ledger",
+    "qlib_risk_metrics",
     "regime_metrics",
     "window_metrics",
-    "window_regime_metrics",
-    "qlib_risk_metrics",
-    "model_effect_deltas",
-    "model_regime_window_diagnostics",
-    "objective_scores",
-    "promotion_scores",
-    "model_comparison",
-    "qlib_return_frame",
-    "segment_metrics",
-    "segment_effect_matrix",
-    "model_review_briefing",
-    "failure_modes"
+    "window_regime_metrics"
   ],
   "analysis_table_counts": {
-    "failure_modes": 105,
-    "model_comparison": 5,
-    "model_effect_deltas": 170,
-    "model_regime_window_diagnostics": 5,
-    "model_review_briefing": 105,
-    "qlib_return_frame": 130,
-    "qlib_risk_metrics": 340,
-    "regime_metrics": 20,
-    "segment_effect_matrix": 34,
-    "segment_metrics": 170,
-    "window_metrics": 30,
-    "window_regime_metrics": 115
+    "predictions": 156,
+    "daily_backtest": 156,
+    "model_run_ledger": 6,
+    "regime_metrics": 24,
+    "window_metrics": 36,
+    "window_regime_metrics": 138,
+    "model_comparison": 6,
+    "qlib_risk_metrics": 408,
+    "model_effect_deltas": 204
   },
   "external_references": [
     {
       "source_id": "github:midas-research/sthgcn-icdm",
       "url": "https://github.com/midas-research/sthgcn-icdm",
-      "usage": "参考 ICDM 2020 STHGCN stock movement forecasting 的公开代码仓库和结构边界；本实现未复制第三方代码。"
+      "usage": "核对 STHGCN 公开代码边界、论文题名、ICDM 2020 引用和依赖；本仓库未复制其源码。"
     },
     {
       "source_id": "doi:10.1109/ICDM50108.2020.00057",
-      "url": "https://doi.org/10.1109/ICDM50108.2020.00057",
-      "usage": "参考 Spatiotemporal Hypergraph Convolution Network for Stock Movement Forecasting 的论文题录；本实现是 SOXL compact adapter。"
+      "url": "https://www.computer.org/csdl/proceedings-article/icdm/2020/831600a482/1r54HpDraaQ",
+      "usage": "核对 STHGCN 论文元数据；本实现只保留 compact temporal-conv plus hypergraph propagation adapter。"
     },
     {
-      "source_id": "doi:10.1016/j.eswa.2023.121899",
-      "url": "https://doi.org/10.1016/j.eswa.2023.121899",
-      "usage": "参考 attention based adaptive spatial-temporal hypergraph convolution for stock trend prediction 的题录方向。"
+      "source_id": "arxiv:1709.04875",
+      "url": "https://arxiv.org/abs/1709.04875",
+      "usage": "参考 STGCN 中 temporal convolution 和 graph convolution 组合的公开结构方向。"
     }
   ],
   "artifact_links": {
