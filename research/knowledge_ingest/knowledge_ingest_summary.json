@@ -1,0 +1,36 @@
+{
+  "schema_version": "research.knowledge_ingest_reference.v1",
+  "status": "completed",
+  "queue_result": {
+    "written": 8,
+    "deduped": 0
+  },
+  "backlog_result": {
+    "written": 8,
+    "deduped": 0
+  },
+  "source_count": 8,
+  "target_subsystems": [
+    "src/analysis",
+    "src/model"
+  ],
+  "candidate_types": [
+    "analysis_extension",
+    "method_signal",
+    "model_matrix_reference",
+    "model_replacement"
+  ],
+  "top_candidates": [
+    "autoformer_mse",
+    "fedformer_mse",
+    "dlinear_mse",
+    "patch_tst_mse",
+    "quantbench_model_matrix"
+  ],
+  "artifacts": {
+    "knowledge_queue": "knowledge_queue.json",
+    "knowledge_backlog": "knowledge_backlog.json",
+    "knowledge_backlog_csv": "knowledge_backlog.csv",
+    "knowledge_backlog_review": "knowledge_backlog_review.md"
+  }
+}

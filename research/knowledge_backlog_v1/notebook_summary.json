@@ -1,0 +1,35 @@
+{
+  "schema_version": "research.knowledge_backlog_v1",
+  "status": "completed",
+  "written": 7,
+  "deduped": 0,
+  "source_count": 7,
+  "target_subsystems": [
+    "src/analysis",
+    "src/model"
+  ],
+  "candidate_types": [
+    "analysis_extension",
+    "method_signal",
+    "model_matrix_reference",
+    "model_replacement"
+  ],
+  "top_candidates": [
+    "dlinear_mse",
+    "patch_tst_mse",
+    "rsr_mse",
+    "thgnn_mse",
+    "quantbench_model_matrix"
+  ],
+  "proxy_replacement_candidates": [
+    "dlinear_mse",
+    "patch_tst_mse",
+    "rsr_mse",
+    "thgnn_mse"
+  ],
+  "artifacts": {
+    "knowledge_backlog": "knowledge_backlog.json",
+    "knowledge_backlog_csv": "knowledge_backlog.csv",
+    "knowledge_backlog_review": "knowledge_backlog_review.md"
+  }
+}
