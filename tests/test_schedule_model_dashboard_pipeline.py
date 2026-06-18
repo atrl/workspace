@@ -1,0 +1,128 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from src.schedule import ModelDashboardPipelineConfig, run_model_dashboard_refresh_once
+
+
+def test_model_dashboard_refresh_runs_matrix_then_dashboard_export_with_lock_and_notify(tmp_path):
+    events: list[str] = []
+    calls: list[tuple[str, Path]] = []
+
+    def matrix_runner(*, card_dir: Path, start: str, end: str, train_end: str, model_names, top_n_factors: int):
+        calls.append(("matrix", card_dir))
+        card_dir.mkdir(parents=True, exist_ok=True)
+        (card_dir / "analysis_summary.json").write_text(
+            json.dumps({"status": "feature_set_matrix_completed", "model_count": len(tuple(model_names))}),
+            encoding="utf-8",
+        )
+        return {"variant_count": 2}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        calls.append(("dashboard", output_path))
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_type": "dashboard_export",
+            "artifact_id": card_dir.name,
+            "top_models": [{"model": "ridge_mse__all_features", "rank": 1}],
+        }
+        output_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard" / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse", "random_forest_clf"),
+        top_n_factors=3,
+        retries=1,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["dashboard_export"].endswith("dashboard_export.json")
+    assert result.payload["dashboard_schema_version"] == "dashboard.model_matrix.v1"
+    assert result.payload["attempts"] == 1
+    assert calls == [("matrix", config.card_dir), ("dashboard", config.dashboard_output_path)]
+    assert events == ["model_dashboard_refresh:success"]
+    assert not (tmp_path / "locks" / "model_dashboard_refresh.lock").exists()
+
+
+def test_model_dashboard_refresh_retries_transient_failure_before_success(tmp_path):
+    calls = {"count": 0}
+
+    def flaky_matrix_runner(**kwargs):
+        calls["count"] += 1
+        if calls["count"] == 1:
+            raise RuntimeError("transient data source failure")
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 1}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        payload = {"schema_version": "dashboard.model_matrix.v1", "top_models": []}
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+        retries=2,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        matrix_runner=flaky_matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["attempts"] == 2
+    assert calls["count"] == 2
+
+
+def test_model_dashboard_refresh_reports_failure_after_retry_budget(tmp_path):
+    events: list[str] = []
+
+    def failing_matrix_runner(**kwargs):
+        raise RuntimeError("permanent failure")
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        retries=1,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=failing_matrix_runner,
+    )
+
+    assert result.status == "failed"
+    assert result.payload == {}
+    assert "permanent failure" in result.detail
+    assert events == ["model_dashboard_refresh:failed"]

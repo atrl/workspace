@@ -1,0 +1,20 @@
+{
+  "schema_version": "schedule_model_dashboard_refresh.v1",
+  "job_name": "model_dashboard_refresh_v1",
+  "status": "success",
+  "payload": {
+    "matrix_card": "research/schedule_model_dashboard_refresh_v1/matrix_card",
+    "dashboard_export": "research/schedule_model_dashboard_refresh_v1/dashboard_export.json",
+    "dashboard_schema_version": "dashboard.model_matrix.v1",
+    "top_model": "random_forest_clf__all_features",
+    "matrix_status": "feature_set_matrix_completed",
+    "variant_count": 6,
+    "attempts": 1
+  },
+  "notifications": [
+    "model_dashboard_refresh_v1:success"
+  ],
+  "matrix_card": "research/schedule_model_dashboard_refresh_v1/matrix_card",
+  "dashboard_export": "research/schedule_model_dashboard_refresh_v1/dashboard_export.json",
+  "lock_exists_after_run": false
+}
