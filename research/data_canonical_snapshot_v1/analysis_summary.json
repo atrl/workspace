@@ -1,0 +1,11 @@
+{
+  "schema_version": "research.data_canonical_snapshot_v1",
+  "status": "completed",
+  "snapshot_dir": "research/data_canonical_snapshot_v1/canonical_snapshot",
+  "row_count": 2,
+  "dropped_non_calendar_rows": 1,
+  "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+  "dataset_schema_hash": "b4b81ddd4b6bf9bfe93432e51202b2eb77abb08809e3906c46d02a9693d73b02",
+  "future_guardrail_error": "future rows after as_of=2026-01-05: first=2026-01-06",
+  "conclusion": "canonical snapshot 已完成 qlib calendar 对齐、future row guardrail、schema hash 和 sidecar 写出。"
+}
