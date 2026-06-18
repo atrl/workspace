@@ -85,9 +85,9 @@
       "fidelity_counts": {
         "native_graph": 9,
         "native_library": 8,
-        "native_sequence": 6,
+        "native_sequence": 7,
         "native_torch": 6,
-        "proxy_feature_adapter": 3
+        "proxy_feature_adapter": 2
       },
       "model_count": 32,
       "native_models": [
@@ -114,6 +114,7 @@
         "rgcn_mse",
         "ridge_mse",
         "rsr_mse",
+        "sequence_lag_ridge_mse",
         "sfm_mse",
         "sthan_mse",
         "sthgcn_mse",
@@ -124,8 +125,7 @@
       "promotion_blocker_count": 24,
       "proxy_models": [
         "extra_trees_rank",
-        "ridge_ic",
-        "sequence_lag_ridge_mse"
+        "ridge_ic"
       ],
       "schema_version": "model.fidelity.v1"
     },
@@ -190,5 +190,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "4a7816d49fab7f3f92de74f76e52ed23147105fabc536aa847050d5423cee645"
+  "manifest_hash": "a84f36e7a40d2d2bf4f0d4ba9efa95217f551ab0e587bd9dfab06284e6951f80"
 }

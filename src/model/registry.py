@@ -129,13 +129,13 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "ExtraTrees is trained on an IC-style rank target proxy.",
     ),
     _native("mlp_mse", "neural_tabular", "mse", "tabular", "MLPRegressor"),
-    _proxy(
+    _native_sequence(
         "sequence_lag_ridge_mse",
         "sequence",
         "mse",
         "lagged_sequence",
         "LaggedRidge",
-        "Lagged sequence ridge keeps the sequence contract while acting as a linear baseline.",
+        "Uses a native lagged sequence tensor flattened into a ridge regression baseline.",
     ),
     _torch_native("lstm_mse", "sequence", "mse", "sequence", "LSTM", "Uses a compact PyTorch LSTM regressor."),
     _torch_native("gru_mse", "sequence", "mse", "sequence", "GRU", "Uses a compact PyTorch GRU regressor."),

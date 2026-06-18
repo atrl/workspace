@@ -530,7 +530,7 @@
   "source_daily_model_count": 32,
   "source_daily_row_count": 832,
   "source_ledger": "research/quantbench_all_model_run_ledger_v1",
-  "source_manifest_hash": "4a7816d49fab7f3f92de74f76e52ed23147105fabc536aa847050d5423cee645",
+  "source_manifest_hash": "a84f36e7a40d2d2bf4f0d4ba9efa95217f551ab0e587bd9dfab06284e6951f80",
   "source_model_run_ledger_summary": {
     "adapter_statuses": [
       "paper_strict_adapter"
@@ -542,18 +542,18 @@
     "ledger_model_count": 32,
     "manifested_model_count": 32,
     "missing_models": [],
-    "native_model_count": 29,
+    "native_model_count": 30,
     "objective_evaluated_model_count": 32,
     "paper_fidelity_counts": {
       "native_graph": 9,
       "native_library": 8,
-      "native_sequence": 6,
+      "native_sequence": 7,
       "native_torch": 6,
-      "proxy_feature_adapter": 3
+      "proxy_feature_adapter": 2
     },
     "predicted_model_count": 32,
     "promotion_evaluated_model_count": 32,
-    "proxy_model_count": 3,
+    "proxy_model_count": 2,
     "registered_model_count": 32,
     "schema_version": "model.run_ledger_summary.v1",
     "trained_model_count": 32

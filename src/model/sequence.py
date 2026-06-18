@@ -82,8 +82,11 @@ class LaggedRidgeRegressor:
     def fit(self, x: np.ndarray, y: np.ndarray) -> "LaggedRidgeRegressor":
         if x.ndim != 3:
             raise ValueError("LaggedRidgeRegressor expects a 3D sequence tensor")
+        self.lookback_ = int(x.shape[1])
+        self.feature_count_ = int(x.shape[2])
+        self.flattened_feature_count_ = int(self.lookback_ * self.feature_count_)
         self.model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
-        self.model_.fit(x.reshape(len(x), -1), y.astype(float))
+        self.model_.fit(x.reshape(len(x), self.flattened_feature_count_), y.astype(float))
         return self
 
     def predict(self, x: np.ndarray) -> np.ndarray:

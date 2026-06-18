@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact, load_model_artifact, save_model_artifact
-from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
+from src.model.sequence import LaggedRidgeRegressor
+from src.model.training import fit_estimator_for_model, fit_predict_model, model_adapter_name, model_adapter_status
 
 
 def _split_frame():
@@ -34,6 +35,23 @@ def test_sequence_models_use_named_paper_strict_adapters():
         assert predictions["prediction"].notna().all()
         assert model_adapter_status(model_name) == "paper_strict_adapter"
         assert model_adapter_name(model_name) == adapter_name
+
+
+def test_sequence_lag_ridge_mse_uses_native_lagged_sequence_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "sequence_lag_ridge_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:5],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, LaggedRidgeRegressor)
+    assert hasattr(estimator, "model_")
+    assert estimator.lookback_ == 5
+    assert estimator.feature_count_ == 5
+    assert estimator.flattened_feature_count_ == 25
 
 
 def test_sequence_lag_ridge_predictions_are_not_plain_current_row_ridge():

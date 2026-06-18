@@ -10,9 +10,9 @@
     "end": "2026-06-08",
     "metadata": {
       "source_model_count": 32,
-      "source_native_model_count": 29,
-      "source_proxy_model_count": 3,
-      "source_quantbench_manifest_hash": "4a7816d49fab7f3f92de74f76e52ed23147105fabc536aa847050d5423cee645"
+      "source_native_model_count": 30,
+      "source_proxy_model_count": 2,
+      "source_quantbench_manifest_hash": "a84f36e7a40d2d2bf4f0d4ba9efa95217f551ab0e587bd9dfab06284e6951f80"
     },
     "name": "quantbench_market_regime_analysis_v1",
     "schema_version": "dataset.v1",
@@ -66,5 +66,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "41d885fe2076c99149c5afbb611721086a41931fbe9293f471f27e29db788a6a"
+  "manifest_hash": "64ec029da5c9afd30fa277173cbb29246e61b5af231d64b65d0af6de2ff74677"
 }
