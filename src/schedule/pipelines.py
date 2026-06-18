@@ -21,6 +21,7 @@ class ModelDashboardPipelineConfig:
     model_names: tuple[str, ...] = ("ridge_mse", "random_forest_clf", "hist_gradient_mse")
     top_n_factors: int = 5
     dashboard_top_n: int = 10
+    attribution_card_dir: Path | None = None
     retries: int = 0
 
 
@@ -47,8 +48,19 @@ def _default_matrix_runner(
     )
 
 
-def _default_dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int) -> dict[str, Any]:
-    return write_model_matrix_dashboard_export(card_dir, output_path=output_path, top_n=top_n)
+def _default_dashboard_exporter(
+    card_dir: Path,
+    *,
+    output_path: Path,
+    top_n: int,
+    attribution_card_dir: Path | None = None,
+) -> dict[str, Any]:
+    return write_model_matrix_dashboard_export(
+        card_dir,
+        output_path=output_path,
+        top_n=top_n,
+        attribution_card_dir=attribution_card_dir,
+    )
 
 
 def _run_pipeline_attempt(
@@ -65,17 +77,21 @@ def _run_pipeline_attempt(
         model_names=config.model_names,
         top_n_factors=config.top_n_factors,
     )
-    dashboard_payload = dashboard_exporter(
-        config.card_dir,
-        output_path=config.dashboard_output_path,
-        top_n=config.dashboard_top_n,
-    )
+    dashboard_kwargs: dict[str, Any] = {
+        "output_path": config.dashboard_output_path,
+        "top_n": config.dashboard_top_n,
+    }
+    if config.attribution_card_dir is not None:
+        dashboard_kwargs["attribution_card_dir"] = config.attribution_card_dir
+    dashboard_payload = dashboard_exporter(config.card_dir, **dashboard_kwargs)
     matrix_payload = matrix_result.summary if hasattr(matrix_result, "summary") else dict(matrix_result or {})
     return {
         "matrix_card": str(config.card_dir),
         "dashboard_export": str(config.dashboard_output_path),
         "dashboard_schema_version": str(dashboard_payload.get("schema_version", "")),
         "top_model": str((dashboard_payload.get("top_models") or [{}])[0].get("model", "")),
+        "attribution_card": str(config.attribution_card_dir) if config.attribution_card_dir is not None else "",
+        "attribution_status": str(dashboard_payload.get("attribution", {}).get("status", "")),
         "matrix_status": str(matrix_payload.get("status", "")),
         "variant_count": int(matrix_payload.get("variant_count", 0) or 0),
     }

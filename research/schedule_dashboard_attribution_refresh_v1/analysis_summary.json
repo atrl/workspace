@@ -1,0 +1,58 @@
+{
+  "schema_version": "schedule.dashboard_attribution_refresh.v1",
+  "status": "success",
+  "job_name": "schedule_dashboard_attribution_refresh_v1",
+  "attempts": 1,
+  "notifications": [
+    "schedule_dashboard_attribution_refresh_v1:success"
+  ],
+  "matrix_card": "research/schedule_dashboard_attribution_refresh_v1/matrix_card",
+  "dashboard_export": "research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json",
+  "attribution_card": "research/model_attribution_analysis_v1",
+  "dashboard_schema_version": "dashboard.model_matrix.v1",
+  "top_models": [
+    "ridge_mse__top_ic_factors",
+    "gcn_mse__top_ic_factors",
+    "gcn_mse__ic_weighted_composite",
+    "ridge_mse__ic_weighted_composite",
+    "ridge_mse__all_features"
+  ],
+  "model_fidelity": {
+    "schema_version": "model.fidelity.v1",
+    "model_count": 2,
+    "fidelity_counts": {
+      "native_library": 1,
+      "proxy_feature_adapter": 1
+    },
+    "proxy_models": [
+      "gcn_mse"
+    ],
+    "native_models": [
+      "ridge_mse"
+    ],
+    "promotion_blocker_count": 1
+  },
+  "window_regime_rows": 24,
+  "attribution_status": "completed",
+  "attribution_models": [
+    "ridge_mse",
+    "xgboost_mse",
+    "gcn_mse"
+  ],
+  "artifact_keys": [
+    "attribution_feature",
+    "attribution_model_summaries",
+    "attribution_summary",
+    "attribution_top_features",
+    "factor_ic",
+    "feature_set_specs",
+    "model_capabilities",
+    "model_comparison",
+    "model_effect_deltas",
+    "qlib_risk_metrics",
+    "regime_metrics",
+    "summary",
+    "window_metrics",
+    "window_regime_metrics"
+  ]
+}
