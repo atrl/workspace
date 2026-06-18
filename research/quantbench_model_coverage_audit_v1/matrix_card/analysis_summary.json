@@ -45,6 +45,52 @@
     "thgnn_temporal_hypergraph_mse_v1",
     "xgboost_mse_v1"
   ],
+  "model_fidelity": {
+    "schema_version": "model.fidelity.v1",
+    "model_count": 32,
+    "fidelity_counts": {
+      "native_library": 8,
+      "native_torch": 5,
+      "proxy_feature_adapter": 19
+    },
+    "proxy_models": [
+      "autoformer_mse",
+      "dlinear_mse",
+      "extra_trees_rank",
+      "fedformer_mse",
+      "gat_mse",
+      "gcn_mse",
+      "hawkes_gru_mse",
+      "hypergraph_mse",
+      "market_graph_mse",
+      "mlp_mixer_mse",
+      "patch_tst_mse",
+      "rgcn_mse",
+      "ridge_ic",
+      "rsr_mse",
+      "sequence_lag_ridge_mse",
+      "sfm_mse",
+      "sthan_mse",
+      "sthgcn_mse",
+      "thgnn_mse"
+    ],
+    "native_models": [
+      "alstm_mse",
+      "catboost_rank",
+      "darnn_mse",
+      "gru_mse",
+      "hist_gradient_mse",
+      "lightgbm_mse",
+      "logistic_clf",
+      "lstm_mse",
+      "mlp_mse",
+      "random_forest_clf",
+      "ridge_mse",
+      "tcn_mse",
+      "xgboost_mse"
+    ],
+    "promotion_blocker_count": 24
+  },
   "analysis_layers": [
     "regime_metrics",
     "window_metrics",
@@ -101,5 +147,5 @@
       }
     ]
   },
-  "note": "Matrix keeps one contract while paper-strict adapters replace smoke fallbacks model by model."
+  "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters."
 }

@@ -12,6 +12,7 @@ from src.backtest import backtest_prediction_frame
 from src.core import ArtifactManifest, DatasetSnapshot
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.factor import prepare_factor_feature_sets
+from src.model.capabilities import model_capability_table, model_fidelity_summary
 from src.model.registry import QUANTBENCH_MODEL_NAMES
 from src.model.training import fit_predict_model
 
@@ -96,6 +97,7 @@ def run_quantbench_matrix_smoke(
 ) -> QuantBenchMatrixOutputs:
     card = Path(card_dir)
     card.mkdir(parents=True, exist_ok=True)
+    selected_model_names = tuple(model_names)
     price_frame = load_soxl_support_frame(start=start, end=end)
     dataset = build_supervised_dataset(price_frame, horizon=1)
     train_end_ts = pd.Timestamp(train_end)
@@ -106,7 +108,7 @@ def run_quantbench_matrix_smoke(
 
     prediction_frames = [
         fit_predict_model(name, train=train, test=test, feature_columns=dataset.feature_columns)
-        for name in tuple(model_names)
+        for name in selected_model_names
     ]
     predictions = pd.concat(prediction_frames, ignore_index=True)
     adapter_summary = _adapter_summary(predictions)
@@ -115,6 +117,8 @@ def run_quantbench_matrix_smoke(
     windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
     window_metrics = compute_window_metrics(daily, windows=windows)
     model_comparison = compare_models(daily)
+    model_capabilities = model_capability_table(selected_model_names)
+    model_fidelity = model_fidelity_summary(selected_model_names)
     effect_analysis = analyze_model_effects_by_regime_and_window(
         daily,
         windows=windows,
@@ -130,9 +134,10 @@ def run_quantbench_matrix_smoke(
         "test_end": str(test["date"].max().date()),
         "top_model": str(model_comparison.iloc[0]["model"]),
         **adapter_summary,
+        "model_fidelity": model_fidelity,
         "analysis_layers": ["regime_metrics", "window_metrics", "qlib_risk_metrics", "model_effect_deltas"],
         "analysis_summary": effect_analysis.summary,
-        "note": "Matrix keeps one contract while paper-strict adapters replace smoke fallbacks model by model.",
+        "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
     }
 
     predictions.to_csv(card / "predictions.csv", index=False)
@@ -140,6 +145,7 @@ def run_quantbench_matrix_smoke(
     regime_metrics.to_csv(card / "regime_metrics.csv", index=False)
     window_metrics.to_csv(card / "window_metrics.csv", index=False)
     model_comparison.to_csv(card / "model_comparison.csv", index=False)
+    model_capabilities.to_csv(card / "model_capabilities.csv", index=False)
     effect_analysis.qlib_risk_metrics.to_csv(card / "qlib_risk_metrics.csv", index=False)
     effect_analysis.model_effect_deltas.to_csv(card / "model_effect_deltas.csv", index=False)
     (card / "analysis_summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -155,6 +161,7 @@ def run_quantbench_matrix_smoke(
             "regime_metrics": "regime_metrics.csv",
             "window_metrics": "window_metrics.csv",
             "model_comparison": "model_comparison.csv",
+            "model_capabilities": "model_capabilities.csv",
             "qlib_risk_metrics": "qlib_risk_metrics.csv",
             "model_effect_deltas": "model_effect_deltas.csv",
         },
@@ -164,6 +171,7 @@ def run_quantbench_matrix_smoke(
             "adapter_status": summary["adapter_status"],
             "adapter_statuses": summary["adapter_statuses"],
             "model_adapters": summary["model_adapters"],
+            "model_fidelity": summary["model_fidelity"],
             "model_count": summary["model_count"],
         },
     )
@@ -190,6 +198,7 @@ def run_factor_feature_set_matrix(
 ) -> QuantBenchMatrixOutputs:
     card = Path(card_dir)
     card.mkdir(parents=True, exist_ok=True)
+    selected_model_names = tuple(model_names)
     price_frame = load_soxl_support_frame(start=start, end=end)
     dataset = build_supervised_dataset(price_frame, horizon=1)
     train_end_ts = pd.Timestamp(train_end)
@@ -207,7 +216,7 @@ def run_factor_feature_set_matrix(
     )
     prediction_frames: list[pd.DataFrame] = []
     for feature_set in plan.feature_sets:
-        for model_name in tuple(model_names):
+        for model_name in selected_model_names:
             predictions = fit_predict_model(
                 model_name,
                 train=plan.train,
@@ -226,6 +235,8 @@ def run_factor_feature_set_matrix(
     windows = {"test": (str(test["date"].min().date()), str(test["date"].max().date()))}
     window_metrics = compute_window_metrics(daily, windows=windows)
     model_comparison = _enrich_comparison_with_variant_columns(compare_models(daily))
+    model_capabilities = model_capability_table(selected_model_names)
+    model_fidelity = model_fidelity_summary(selected_model_names)
     effect_analysis = analyze_model_effects_by_regime_and_window(
         daily,
         windows=windows,
@@ -243,6 +254,7 @@ def run_factor_feature_set_matrix(
         "test_end": str(test["date"].max().date()),
         "top_variant": str(model_comparison.iloc[0]["model"]),
         **adapter_summary,
+        "model_fidelity": model_fidelity,
         "analysis_layers": ["regime_metrics", "window_metrics", "qlib_risk_metrics", "model_effect_deltas"],
         **plan.summary,
         "feature_sets": [feature_set.to_dict() for feature_set in plan.feature_sets],
@@ -255,6 +267,7 @@ def run_factor_feature_set_matrix(
     regime_metrics.to_csv(card / "regime_metrics.csv", index=False)
     window_metrics.to_csv(card / "window_metrics.csv", index=False)
     model_comparison.to_csv(card / "model_comparison.csv", index=False)
+    model_capabilities.to_csv(card / "model_capabilities.csv", index=False)
     effect_analysis.qlib_risk_metrics.to_csv(card / "qlib_risk_metrics.csv", index=False)
     effect_analysis.model_effect_deltas.to_csv(card / "model_effect_deltas.csv", index=False)
     plan.diagnostics.ic.to_csv(card / "factor_ic.csv", index=False)
@@ -275,6 +288,7 @@ def run_factor_feature_set_matrix(
             "regime_metrics": "regime_metrics.csv",
             "window_metrics": "window_metrics.csv",
             "model_comparison": "model_comparison.csv",
+            "model_capabilities": "model_capabilities.csv",
             "qlib_risk_metrics": "qlib_risk_metrics.csv",
             "model_effect_deltas": "model_effect_deltas.csv",
             "factor_ic": "factor_ic.csv",
@@ -286,6 +300,7 @@ def run_factor_feature_set_matrix(
             "adapter_status": summary["adapter_status"],
             "adapter_statuses": summary["adapter_statuses"],
             "model_adapters": summary["model_adapters"],
+            "model_fidelity": summary["model_fidelity"],
             "base_model_count": summary["base_model_count"],
             "feature_set_count": summary["feature_set_count"],
             "variant_count": summary["variant_count"],

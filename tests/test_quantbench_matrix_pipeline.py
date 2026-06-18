@@ -73,6 +73,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         "regime_metrics.csv",
         "window_metrics.csv",
         "model_comparison.csv",
+        "model_capabilities.csv",
         "qlib_risk_metrics.csv",
         "model_effect_deltas.csv",
     }

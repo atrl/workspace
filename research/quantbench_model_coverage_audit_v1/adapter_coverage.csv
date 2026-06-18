@@ -1,33 +1,33 @@
-model,family,objective,input_kind,estimator,adapter_status,model_adapter
-logistic_clf,linear,classification,tabular,LogisticRegression,paper_strict_adapter,logistic_direction_v1
-ridge_ic,linear,ic,tabular,Ridge,paper_strict_adapter,ridge_rank_ic_proxy_v1
-ridge_mse,linear,mse,tabular,Ridge,paper_strict_adapter,ridge_mse_v1
-random_forest_clf,tree,classification,tabular,RandomForestClassifier,paper_strict_adapter,random_forest_direction_v1
-hist_gradient_mse,tree,mse,tabular,HistGradientBoostingRegressor,paper_strict_adapter,hist_gradient_mse_v1
-xgboost_mse,boosting,mse,tabular,XGBoostRegressor,paper_strict_adapter,xgboost_mse_v1
-lightgbm_mse,boosting,mse,tabular,LightGBMRegressor,paper_strict_adapter,lightgbm_mse_v1
-catboost_rank,boosting,ranking,tabular,CatBoostRanker,paper_strict_adapter,catboost_rank_v1
-extra_trees_rank,tree,ranking,tabular,ExtraTreesRegressor,paper_strict_adapter,extra_trees_rank_proxy_v1
-mlp_mse,neural_tabular,mse,tabular,MLPRegressor,paper_strict_adapter,mlp_sklearn_mse_v1
-sequence_lag_ridge_mse,sequence,mse,lagged_sequence,LaggedRidge,paper_strict_adapter,sequence_lag_ridge_mse_v1
-lstm_mse,sequence,mse,sequence,LSTM,paper_strict_adapter,lstm_pytorch_sequence_mse_v1
-gru_mse,sequence,mse,sequence,GRU,paper_strict_adapter,gru_pytorch_sequence_mse_v1
-alstm_mse,sequence,mse,sequence,ALSTM,paper_strict_adapter,alstm_attention_lstm_mse_v1
-sfm_mse,sequence,mse,sequence_frequency,SFM,paper_strict_adapter,sfm_frequency_ridge_mse_v1
-darnn_mse,sequence,mse,sequence_attention,DA-RNN,paper_strict_adapter,darnn_dual_attention_gru_mse_v1
-hawkes_gru_mse,sequence,mse,event_sequence,HawkesGRU,paper_strict_adapter,hawkes_gru_event_decay_mse_v1
-tcn_mse,sequence,mse,sequence,TCN,paper_strict_adapter,tcn_temporal_conv_mse_v1
-mlp_mixer_mse,sequence,mse,sequence_patch,MLPMixer,paper_strict_adapter,mlp_mixer_sequence_mse_v1
-dlinear_mse,sequence,mse,sequence_decomposition,DLinear,paper_strict_adapter,dlinear_decomposition_mse_v1
-patch_tst_mse,sequence,mse,sequence_patch,PatchTST,paper_strict_adapter,patch_tst_transformer_mse_v1
-autoformer_mse,sequence,mse,sequence_decomposition,Autoformer,paper_strict_adapter,autoformer_decomposition_attention_mse_v1
-fedformer_mse,sequence,mse,sequence_frequency,FEDformer,paper_strict_adapter,fedformer_frequency_attention_mse_v1
-market_graph_mse,graph,mse,support_graph,MarketGraph,paper_strict_adapter,market_graph_feature_mse_v1
-gcn_mse,graph,mse,support_graph,GCN,paper_strict_adapter,gcn_feature_propagation_mse_v1
-gat_mse,graph,mse,support_graph,GAT,paper_strict_adapter,gat_feature_attention_mse_v1
-rgcn_mse,graph,mse,support_graph,RGCN,paper_strict_adapter,rgcn_relation_feature_mse_v1
-rsr_mse,graph,mse,support_graph,RSR,paper_strict_adapter,rsr_relation_strength_mse_v1
-hypergraph_mse,graph,mse,support_hypergraph,HypergraphNN,paper_strict_adapter,hypergraph_feature_mse_v1
-thgnn_mse,graph,mse,temporal_hypergraph,THGNN,paper_strict_adapter,thgnn_temporal_hypergraph_mse_v1
-sthan_mse,graph,mse,spatio_temporal_graph,STHAN,paper_strict_adapter,sthan_spatio_temporal_attention_mse_v1
-sthgcn_mse,graph,mse,spatio_temporal_hypergraph,STHGCN,paper_strict_adapter,sthgcn_spatio_temporal_hypergraph_mse_v1
+model,family,objective,input_kind,estimator,paper_fidelity,is_proxy,implementation_notes,promotion_blocker,adapter_status,model_adapter
+logistic_clf,linear,classification,tabular,LogisticRegression,native_library,False,Uses the native LogisticRegression training path behind the QuantBench-style registry contract.,,paper_strict_adapter,logistic_direction_v1
+ridge_ic,linear,ic,tabular,Ridge,proxy_feature_adapter,True,Ridge is trained on an IC-style rank target proxy.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,ridge_rank_ic_proxy_v1
+ridge_mse,linear,mse,tabular,Ridge,native_library,False,Uses the native Ridge training path behind the QuantBench-style registry contract.,,paper_strict_adapter,ridge_mse_v1
+random_forest_clf,tree,classification,tabular,RandomForestClassifier,native_library,False,Uses the native RandomForestClassifier training path behind the QuantBench-style registry contract.,,paper_strict_adapter,random_forest_direction_v1
+hist_gradient_mse,tree,mse,tabular,HistGradientBoostingRegressor,native_library,False,Uses the native HistGradientBoostingRegressor training path behind the QuantBench-style registry contract.,,paper_strict_adapter,hist_gradient_mse_v1
+xgboost_mse,boosting,mse,tabular,XGBoostRegressor,native_library,False,Uses the native XGBoostRegressor training path behind the QuantBench-style registry contract.,,paper_strict_adapter,xgboost_mse_v1
+lightgbm_mse,boosting,mse,tabular,LightGBMRegressor,native_library,False,Uses the native LightGBMRegressor training path behind the QuantBench-style registry contract.,,paper_strict_adapter,lightgbm_mse_v1
+catboost_rank,boosting,ranking,tabular,CatBoostRanker,native_library,False,Uses the native CatBoostRanker training path behind the QuantBench-style registry contract.,,paper_strict_adapter,catboost_rank_v1
+extra_trees_rank,tree,ranking,tabular,ExtraTreesRegressor,proxy_feature_adapter,True,ExtraTrees is trained on an IC-style rank target proxy.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,extra_trees_rank_proxy_v1
+mlp_mse,neural_tabular,mse,tabular,MLPRegressor,native_library,False,Uses the native MLPRegressor training path behind the QuantBench-style registry contract.,,paper_strict_adapter,mlp_sklearn_mse_v1
+sequence_lag_ridge_mse,sequence,mse,lagged_sequence,LaggedRidge,proxy_feature_adapter,True,Lagged sequence ridge keeps the sequence contract while acting as a linear baseline.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,sequence_lag_ridge_mse_v1
+lstm_mse,sequence,mse,sequence,LSTM,native_torch,False,Uses a compact PyTorch LSTM regressor.,Needs longer-window robustness review before production promotion.,paper_strict_adapter,lstm_pytorch_sequence_mse_v1
+gru_mse,sequence,mse,sequence,GRU,native_torch,False,Uses a compact PyTorch GRU regressor.,Needs longer-window robustness review before production promotion.,paper_strict_adapter,gru_pytorch_sequence_mse_v1
+alstm_mse,sequence,mse,sequence,ALSTM,native_torch,False,Uses a compact PyTorch LSTM with temporal attention.,Needs longer-window robustness review before production promotion.,paper_strict_adapter,alstm_attention_lstm_mse_v1
+sfm_mse,sequence,mse,sequence_frequency,SFM,proxy_feature_adapter,True,Uses frequency-domain ridge features.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,sfm_frequency_ridge_mse_v1
+darnn_mse,sequence,mse,sequence_attention,DA-RNN,native_torch,False,Uses a compact attention GRU with an input gate.,Needs longer-window robustness review before production promotion.,paper_strict_adapter,darnn_dual_attention_gru_mse_v1
+hawkes_gru_mse,sequence,mse,event_sequence,HawkesGRU,proxy_feature_adapter,True,Uses event-decay ridge features.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,hawkes_gru_event_decay_mse_v1
+tcn_mse,sequence,mse,sequence,TCN,native_torch,False,Uses a compact PyTorch temporal convolution net.,Needs longer-window robustness review before production promotion.,paper_strict_adapter,tcn_temporal_conv_mse_v1
+mlp_mixer_mse,sequence,mse,sequence_patch,MLPMixer,proxy_feature_adapter,True,Uses mixer-style engineered features.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,mlp_mixer_sequence_mse_v1
+dlinear_mse,sequence,mse,sequence_decomposition,DLinear,proxy_feature_adapter,True,Uses trend/residual ridge features.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,dlinear_decomposition_mse_v1
+patch_tst_mse,sequence,mse,sequence_patch,PatchTST,proxy_feature_adapter,True,Uses patch statistics instead of a full Transformer encoder.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,patch_tst_transformer_mse_v1
+autoformer_mse,sequence,mse,sequence_decomposition,Autoformer,proxy_feature_adapter,True,Uses decomposition plus patch features instead of full Autoformer attention.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,autoformer_decomposition_attention_mse_v1
+fedformer_mse,sequence,mse,sequence_frequency,FEDformer,proxy_feature_adapter,True,Uses decomposition plus frequency features instead of full FEDformer blocks.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,fedformer_frequency_attention_mse_v1
+market_graph_mse,graph,mse,support_graph,MarketGraph,proxy_feature_adapter,True,Uses market-context graph features.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,market_graph_feature_mse_v1
+gcn_mse,graph,mse,support_graph,GCN,proxy_feature_adapter,True,Uses feature propagation over a fixed feature graph.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,gcn_feature_propagation_mse_v1
+gat_mse,graph,mse,support_graph,GAT,proxy_feature_adapter,True,Uses attention-weighted feature graph statistics.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,gat_feature_attention_mse_v1
+rgcn_mse,graph,mse,support_graph,RGCN,proxy_feature_adapter,True,Uses relation-group feature aggregation.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,rgcn_relation_feature_mse_v1
+rsr_mse,graph,mse,support_graph,RSR,proxy_feature_adapter,True,Uses relation-strength ridge features.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,rsr_relation_strength_mse_v1
+hypergraph_mse,graph,mse,support_hypergraph,HypergraphNN,proxy_feature_adapter,True,Uses hypergraph-style grouped feature statistics.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,hypergraph_feature_mse_v1
+thgnn_mse,graph,mse,temporal_hypergraph,THGNN,proxy_feature_adapter,True,Uses hypergraph features with temporal lags.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,thgnn_temporal_hypergraph_mse_v1
+sthan_mse,graph,mse,spatio_temporal_graph,STHAN,proxy_feature_adapter,True,Uses spatio-temporal attention proxy features.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,sthan_spatio_temporal_attention_mse_v1
+sthgcn_mse,graph,mse,spatio_temporal_hypergraph,STHGCN,proxy_feature_adapter,True,Uses spatio-temporal hypergraph proxy features.,Requires full paper-fidelity architecture replacement before production promotion.,paper_strict_adapter,sthgcn_spatio_temporal_hypergraph_mse_v1
