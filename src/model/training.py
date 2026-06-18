@@ -17,19 +17,40 @@ STRICT_ADAPTER_NAMES = {
     "logistic_clf": "logistic_direction_v1",
     "ridge_mse": "ridge_mse_v1",
     "ridge_ic": "ridge_rank_ic_proxy_v1",
+    "random_forest_clf": "random_forest_direction_v1",
+    "hist_gradient_mse": "hist_gradient_mse_v1",
+    "extra_trees_rank": "extra_trees_rank_proxy_v1",
+    "lightgbm_mse": "lightgbm_mse_v1",
+}
+
+DEPENDENCY_FALLBACK_ADAPTER_NAMES = {
+    "xgboost_mse": "xgboost_hist_gradient_dependency_fallback_v1",
+    "catboost_rank": "catboost_extra_trees_rank_dependency_fallback_v1",
 }
 
 
 def model_adapter_name(model_name: str) -> str:
-    return STRICT_ADAPTER_NAMES.get(model_name, "smoke_fallback_v1")
+    if model_name in STRICT_ADAPTER_NAMES:
+        return STRICT_ADAPTER_NAMES[model_name]
+    if model_name in DEPENDENCY_FALLBACK_ADAPTER_NAMES:
+        return DEPENDENCY_FALLBACK_ADAPTER_NAMES[model_name]
+    return "smoke_fallback_v1"
 
 
 def model_adapter_status(model_name: str) -> str:
-    return "paper_strict_adapter" if model_name in STRICT_ADAPTER_NAMES else "smoke_adapter"
+    if model_name in STRICT_ADAPTER_NAMES:
+        return "paper_strict_adapter"
+    if model_name in DEPENDENCY_FALLBACK_ADAPTER_NAMES:
+        return "dependency_fallback_adapter"
+    return "smoke_adapter"
 
 
 def _feature_matrix(frame: pd.DataFrame, feature_columns: tuple[str, ...]) -> np.ndarray:
     return frame.loc[:, list(feature_columns)].astype(float).to_numpy()
+
+
+def _feature_frame(frame: pd.DataFrame, feature_columns: tuple[str, ...]) -> pd.DataFrame:
+    return frame.loc[:, list(feature_columns)].astype(float)
 
 
 def _regression_target(frame: pd.DataFrame) -> np.ndarray:
@@ -52,9 +73,24 @@ def _target_for_model(model_name: str, frame: pd.DataFrame) -> np.ndarray:
     spec = get_model_spec(model_name)
     if model_name == "logistic_clf" or spec.objective == "classification":
         return _classification_target(frame)
-    if model_name == "ridge_ic":
+    if model_name == "ridge_ic" or spec.objective == "ranking":
         return _ic_rank_target(frame)
     return _regression_target(frame)
+
+
+def _lightgbm_regressor():
+    from lightgbm import LGBMRegressor
+
+    return LGBMRegressor(
+        n_estimators=60,
+        max_depth=3,
+        learning_rate=0.05,
+        subsample=0.9,
+        colsample_bytree=0.9,
+        random_state=7,
+        n_jobs=1,
+        verbosity=-1,
+    )
 
 
 def _estimator_for_model(model_name: str):
@@ -66,6 +102,14 @@ def _estimator_for_model(model_name: str):
         )
     if model_name in {"ridge_mse", "ridge_ic"}:
         return make_pipeline(StandardScaler(), Ridge(alpha=1.0))
+    if model_name == "random_forest_clf":
+        return RandomForestClassifier(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
+    if model_name in {"hist_gradient_mse", "xgboost_mse"}:
+        return HistGradientBoostingRegressor(max_iter=80, max_leaf_nodes=15, learning_rate=0.05, random_state=7)
+    if model_name == "lightgbm_mse":
+        return _lightgbm_regressor()
+    if model_name in {"extra_trees_rank", "catboost_rank"}:
+        return ExtraTreesRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if spec.family == "tree" and spec.objective == "classification":
         return RandomForestClassifier(n_estimators=24, max_depth=4, random_state=7)
     if spec.objective == "classification":
@@ -91,7 +135,7 @@ def fit_estimator_for_model(
     feature_columns: tuple[str, ...],
 ) -> tuple[object, float | None]:
     estimator = _estimator_for_model(model_name)
-    x_train = _feature_matrix(train, feature_columns)
+    x_train = _feature_frame(train, feature_columns) if model_name == "lightgbm_mse" else _feature_matrix(train, feature_columns)
     y_train = _target_for_model(model_name, train)
     constant_prediction: float | None = None
     spec = get_model_spec(model_name)
@@ -116,7 +160,7 @@ def predict_with_estimator(
     feature_columns: tuple[str, ...],
     constant_prediction: float | None = None,
 ) -> np.ndarray:
-    x_test = _feature_matrix(frame, feature_columns)
+    x_test = _feature_frame(frame, feature_columns) if model_name == "lightgbm_mse" else _feature_matrix(frame, feature_columns)
     spec = get_model_spec(model_name)
     if constant_prediction is not None:
         return np.full(len(frame), float(constant_prediction))
