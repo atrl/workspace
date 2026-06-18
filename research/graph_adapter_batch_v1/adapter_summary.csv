@@ -1,0 +1,10 @@
+model,objective,family,adapter_status,model_adapter,rows,prediction_mean,prediction_std,target_corr
+gat_mse,mse,graph,paper_strict_adapter,gat_feature_attention_mse_v1,26,0.0010108361139200368,0.024515422031101068,0.3134574498229455
+gcn_mse,mse,graph,paper_strict_adapter,gcn_feature_propagation_mse_v1,26,0.01883779554165928,0.017486035734615525,0.011635686336726583
+hypergraph_mse,mse,graph,paper_strict_adapter,hypergraph_feature_mse_v1,26,0.02339243048871256,0.01906936213989291,-0.11161156018231295
+market_graph_mse,mse,graph,paper_strict_adapter,market_graph_feature_mse_v1,26,0.018805348703786882,0.017496492024640504,0.011296773712899532
+rgcn_mse,mse,graph,paper_strict_adapter,rgcn_relation_feature_mse_v1,26,0.018900647085613995,0.017550081736834817,0.012687923785276127
+rsr_mse,mse,graph,paper_strict_adapter,rsr_relation_strength_mse_v1,26,0.017825837881416253,0.01847245995008778,-0.00311137036480755
+sthan_mse,mse,graph,paper_strict_adapter,sthan_spatio_temporal_attention_mse_v1,26,0.006385120310193185,0.04641923606231251,0.2868477291249113
+sthgcn_mse,mse,graph,paper_strict_adapter,sthgcn_spatio_temporal_hypergraph_mse_v1,26,0.027782685910396177,0.033283707358720924,-0.012576457211531776
+thgnn_mse,mse,graph,paper_strict_adapter,thgnn_temporal_hypergraph_mse_v1,26,0.027712945719413386,0.0330935022663876,-0.014624316175605848

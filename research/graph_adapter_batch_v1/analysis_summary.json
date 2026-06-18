@@ -1,0 +1,58 @@
+{
+  "schema_version": "graph_adapter_batch_review.v1",
+  "status": "completed",
+  "train_rows": 82,
+  "test_rows": 26,
+  "feature_columns": [
+    "soxl_return_1d",
+    "soxx_return_1d",
+    "soxl_return_5d",
+    "soxx_return_5d",
+    "soxl_soxx_relative_5d",
+    "vix_level",
+    "vix_change_1d",
+    "intraday_range"
+  ],
+  "models": [
+    "market_graph_mse",
+    "gcn_mse",
+    "gat_mse",
+    "rgcn_mse",
+    "rsr_mse",
+    "hypergraph_mse",
+    "thgnn_mse",
+    "sthan_mse",
+    "sthgcn_mse"
+  ],
+  "adapter_statuses": [
+    "paper_strict_adapter"
+  ],
+  "model_adapters": [
+    "gat_feature_attention_mse_v1",
+    "gcn_feature_propagation_mse_v1",
+    "hypergraph_feature_mse_v1",
+    "market_graph_feature_mse_v1",
+    "rgcn_relation_feature_mse_v1",
+    "rsr_relation_strength_mse_v1",
+    "sthan_spatio_temporal_attention_mse_v1",
+    "sthgcn_spatio_temporal_hypergraph_mse_v1",
+    "thgnn_temporal_hypergraph_mse_v1"
+  ],
+  "gat_vs_gcn_abs_mean_diff": 0.01857881705538094,
+  "rgcn_vs_gcn_abs_mean_diff": 0.00010161405019317535,
+  "hypergraph_vs_gcn_abs_mean_diff": 0.013419573208149712,
+  "thgnn_vs_hypergraph_abs_mean_diff": 0.01876585270282895,
+  "adapter_summary_path": "adapter_summary.csv",
+  "prediction_path": "adapter_predictions.csv",
+  "delta_path": "graph_prediction_deltas.csv",
+  "artifact_path": "gat_mse_artifact.joblib",
+  "matrix_manifest": "matrix_card/artifact_manifest.json",
+  "matrix_top_model": "gat_mse",
+  "matrix_manifest_hash": "403cbf18d3997d20e91eca465b1e03a9934f12200cc0e30c5b820c89a291d845",
+  "external_references": [
+    "https://arxiv.org/abs/1609.02907",
+    "https://arxiv.org/abs/1710.10903",
+    "https://arxiv.org/abs/1703.06103",
+    "https://arxiv.org/abs/1809.09401"
+  ]
+}

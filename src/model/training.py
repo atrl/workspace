@@ -10,6 +10,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
+from .graph import GraphFeatureRidgeRegressor
 from .registry import get_model_spec
 from .sequence import (
     FeatureRidgeRegressor,
@@ -41,6 +42,15 @@ STRICT_ADAPTER_NAMES = {
     "patch_tst_mse": "patch_tst_transformer_mse_v1",
     "autoformer_mse": "autoformer_decomposition_attention_mse_v1",
     "fedformer_mse": "fedformer_frequency_attention_mse_v1",
+    "market_graph_mse": "market_graph_feature_mse_v1",
+    "gcn_mse": "gcn_feature_propagation_mse_v1",
+    "gat_mse": "gat_feature_attention_mse_v1",
+    "rgcn_mse": "rgcn_relation_feature_mse_v1",
+    "rsr_mse": "rsr_relation_strength_mse_v1",
+    "hypergraph_mse": "hypergraph_feature_mse_v1",
+    "thgnn_mse": "thgnn_temporal_hypergraph_mse_v1",
+    "sthan_mse": "sthan_spatio_temporal_attention_mse_v1",
+    "sthgcn_mse": "sthgcn_spatio_temporal_hypergraph_mse_v1",
 }
 
 DEPENDENCY_FALLBACK_ADAPTER_NAMES = {
@@ -198,6 +208,19 @@ def _estimator_for_model(model_name: str):
         return FeatureRidgeRegressor(feature_kind="autoformer", alpha=1.0)
     if model_name == "fedformer_mse":
         return FeatureRidgeRegressor(feature_kind="fedformer", alpha=1.0)
+    graph_kinds = {
+        "market_graph_mse": "market",
+        "gcn_mse": "gcn",
+        "gat_mse": "gat",
+        "rgcn_mse": "rgcn",
+        "rsr_mse": "rsr",
+        "hypergraph_mse": "hypergraph",
+        "thgnn_mse": "thgnn",
+        "sthan_mse": "sthan",
+        "sthgcn_mse": "sthgcn",
+    }
+    if model_name in graph_kinds:
+        return GraphFeatureRidgeRegressor(graph_kind=graph_kinds[model_name], alpha=1.0)
     if model_name in {"extra_trees_rank", "catboost_rank"}:
         return ExtraTreesRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if spec.family == "tree" and spec.objective == "classification":
