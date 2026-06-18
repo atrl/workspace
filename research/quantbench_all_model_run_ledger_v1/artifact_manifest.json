@@ -83,13 +83,14 @@
     "model_fidelity": {
       "fidelity_counts": {
         "native_library": 8,
-        "native_sequence": 2,
+        "native_sequence": 3,
         "native_torch": 5,
-        "proxy_feature_adapter": 17
+        "proxy_feature_adapter": 16
       },
       "model_count": 32,
       "native_models": [
         "alstm_mse",
+        "autoformer_mse",
         "catboost_rank",
         "darnn_mse",
         "dlinear_mse",
@@ -107,7 +108,6 @@
       ],
       "promotion_blocker_count": 24,
       "proxy_models": [
-        "autoformer_mse",
         "extra_trees_rank",
         "fedformer_mse",
         "gat_mse",
@@ -128,8 +128,8 @@
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.017166738397625704,
-      "avg_mse": 0.034693485696688925,
+      "avg_ic": 0.015078770929066022,
+      "avg_mse": 0.034717478291405215,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -174,5 +174,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "01d29b4df11333a9c570300b3ff239b360416bb9d2991f8c88844eba9dd23267"
+  "manifest_hash": "9948c408d9288bf905aa68d57761188d3afd4128ed165f4a84a6a7723d440712"
 }

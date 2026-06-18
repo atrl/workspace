@@ -162,13 +162,13 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
         "PatchTST",
         "Uses a compact patch Transformer encoder over channel-wise sequence patches.",
     ),
-    _proxy(
+    _native_sequence(
         "autoformer_mse",
         "sequence",
         "mse",
         "sequence_decomposition",
         "Autoformer",
-        "Uses decomposition plus patch features instead of full Autoformer attention.",
+        "Uses moving-average decomposition with autocorrelation lag aggregation and separate trend/seasonal heads.",
     ),
     _proxy(
         "fedformer_mse",

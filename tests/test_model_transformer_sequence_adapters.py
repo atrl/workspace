@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact, load_model_artifact, save_model_artifact
-from src.model.sequence import DLinearDecompositionRegressor, PatchTSTTransformerRegressor
+from src.model.sequence import AutoformerDecompositionRegressor, DLinearDecompositionRegressor, PatchTSTTransformerRegressor
 from src.model.training import fit_estimator_for_model, fit_predict_model, model_adapter_name, model_adapter_status
 
 
@@ -86,6 +86,25 @@ def test_patch_tst_mse_uses_patch_transformer_estimator():
     assert estimator.feature_count_ == 5
     assert estimator.lookback_ == 5
     assert estimator.patch_size == 2
+
+
+def test_autoformer_mse_uses_decomposition_autocorrelation_estimator():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "autoformer_mse",
+        train=train,
+        feature_columns=dataset.feature_columns[:5],
+    )
+
+    assert constant_prediction is None
+    assert isinstance(estimator, AutoformerDecompositionRegressor)
+    assert hasattr(estimator, "trend_model_")
+    assert hasattr(estimator, "seasonal_model_")
+    assert estimator.feature_count_ == 5
+    assert estimator.lookback_ == 5
+    assert estimator.autocorrelation_lags_ == (1, 2, 3, 4)
+    assert estimator.top_k == 2
 
 
 def test_hawkes_gru_event_decay_path_differs_from_plain_gru():

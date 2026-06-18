@@ -15,6 +15,7 @@ from xgboost import XGBRegressor
 from .graph import GraphFeatureRidgeRegressor
 from .registry import get_model_spec
 from .sequence import (
+    AutoformerDecompositionRegressor,
     DLinearDecompositionRegressor,
     FeatureRidgeRegressor,
     FrequencyRidgeRegressor,
@@ -276,7 +277,7 @@ def _estimator_for_model(model_name: str):
     if model_name == "patch_tst_mse":
         return PatchTSTTransformerRegressor(patch_size=2, stride=1, d_model=8, nhead=2, num_layers=1, epochs=24)
     if model_name == "autoformer_mse":
-        return FeatureRidgeRegressor(feature_kind="autoformer", alpha=1.0)
+        return AutoformerDecompositionRegressor(alpha=1.0, kernel_size=3, max_lag=4, top_k=2)
     if model_name == "fedformer_mse":
         return FeatureRidgeRegressor(feature_kind="fedformer", alpha=1.0)
     graph_kinds = {

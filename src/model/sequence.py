@@ -177,6 +177,98 @@ class DLinearDecompositionRegressor:
         return self.trend_model_.predict(trend) + self.residual_model_.predict(residual)
 
 
+def _autocorrelation_scores(residual: np.ndarray, lags: tuple[int, ...]) -> np.ndarray:
+    if not lags:
+        return np.zeros((len(residual), 0, residual.shape[-1]), dtype=float)
+    centered = residual - residual.mean(axis=1, keepdims=True)
+    scores: list[np.ndarray] = []
+    for lag in lags:
+        left = centered[:, :-lag, :]
+        right = centered[:, lag:, :]
+        numerator = (left * right).mean(axis=1)
+        denominator = np.sqrt((left**2).mean(axis=1) * (right**2).mean(axis=1)) + 1e-8
+        scores.append(numerator / denominator)
+    return np.stack(scores, axis=1)
+
+
+def _softmax(values: np.ndarray) -> np.ndarray:
+    shifted = values - np.max(values)
+    weights = np.exp(shifted)
+    total = float(weights.sum())
+    if total <= 1e-12:
+        return np.full_like(values, 1.0 / max(len(values), 1), dtype=float)
+    return weights / total
+
+
+def _time_delay_aggregate(residual: np.ndarray, scores: np.ndarray, lags: tuple[int, ...], *, top_k: int) -> np.ndarray:
+    if not lags:
+        return residual[:, -1, :]
+    k = max(1, min(int(top_k), len(lags)))
+    aggregate = np.zeros((len(residual), residual.shape[-1]), dtype=float)
+    for row in range(len(residual)):
+        for feature in range(residual.shape[-1]):
+            feature_scores = np.abs(scores[row, :, feature])
+            selected = np.argsort(feature_scores)[-k:]
+            weights = _softmax(feature_scores[selected])
+            delayed_values = np.array([residual[row, -1 - lags[index], feature] for index in selected])
+            aggregate[row, feature] = float(np.dot(weights, delayed_values))
+    return aggregate
+
+
+@dataclass
+class AutoformerDecompositionRegressor:
+    alpha: float = 1.0
+    kernel_size: int = 3
+    max_lag: int = 4
+    top_k: int = 2
+
+    def _decompose(self, x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        if x.ndim != 3:
+            raise ValueError("AutoformerDecompositionRegressor expects a 3D sequence tensor")
+        trend = _moving_average_trend(x, kernel_size=self.kernel_size)
+        residual = x - trend
+        return trend, residual
+
+    def _seasonal_features(self, residual: np.ndarray) -> np.ndarray:
+        scores = _autocorrelation_scores(residual, self.autocorrelation_lags_)
+        aggregated = _time_delay_aggregate(residual, scores, self.autocorrelation_lags_, top_k=self.top_k)
+        seasonal_last = residual[:, -1, :]
+        seasonal_mean = residual.mean(axis=1)
+        seasonal_std = residual.std(axis=1)
+        return np.concatenate(
+            [
+                seasonal_last,
+                seasonal_mean,
+                seasonal_std,
+                aggregated,
+                scores.reshape(len(residual), -1),
+            ],
+            axis=1,
+        )
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> "AutoformerDecompositionRegressor":
+        trend, residual = self._decompose(x)
+        self.lookback_ = int(x.shape[1])
+        self.feature_count_ = int(x.shape[2])
+        max_lag = max(0, min(int(self.max_lag), self.lookback_ - 1))
+        self.autocorrelation_lags_ = tuple(range(1, max_lag + 1))
+        trend_features = trend.reshape(len(x), -1)
+        seasonal_features = self._seasonal_features(residual)
+        target = y.astype(float)
+        self.trend_model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.seasonal_model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.trend_model_.fit(trend_features, target)
+        seasonal_target = target - self.trend_model_.predict(trend_features)
+        self.seasonal_model_.fit(seasonal_features, seasonal_target)
+        return self
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        trend, residual = self._decompose(x)
+        trend_features = trend.reshape(len(x), -1)
+        seasonal_features = self._seasonal_features(residual)
+        return self.trend_model_.predict(trend_features) + self.seasonal_model_.predict(seasonal_features)
+
+
 class _TorchRecurrentNet(nn.Module):
     def __init__(self, input_size: int, hidden_size: int, cell_type: str):
         super().__init__()
