@@ -1,0 +1,30 @@
+{
+  "schema_version": "research.notebook_summary.v1",
+  "status": "completed",
+  "framework_surface": "src/analysis",
+  "artifact_id": "analysis_regime_window_diagnostics_v1",
+  "diagnostic_count": 2,
+  "diagnostic_signals": [
+    "baseline",
+    "stress_fragile"
+  ],
+  "analysis_report_dir": "/Users/rziiiii/dev/workspace/research/analysis_regime_window_diagnostics_v1",
+  "manifest_path": "/Users/rziiiii/dev/workspace/research/analysis_regime_window_diagnostics_v1/analysis_manifest.json",
+  "artifact_paths": {
+    "summary": "analysis_summary.json",
+    "model_comparison": "model_comparison.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "window_metrics": "window_metrics.csv",
+    "window_regime_metrics": "window_regime_metrics.csv",
+    "qlib_return_frame": "qlib_return_frame.csv",
+    "qlib_risk_metrics": "qlib_risk_metrics.csv",
+    "segment_metrics": "segment_metrics.csv",
+    "segment_effect_matrix": "segment_effect_matrix.csv",
+    "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
+    "model_review_briefing": "model_review_briefing.csv",
+    "failure_modes": "failure_modes.csv",
+    "manifest": "analysis_manifest.json"
+  },
+  "skill_boundary": "skill 只用于抽象分析思路和候选 regime，不保存项目状态、不作为运行入口。"
+}

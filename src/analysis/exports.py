@@ -26,6 +26,7 @@ DEFAULT_ANALYSIS_TABLE_FILENAMES = {
     "segment_metrics": "segment_metrics.csv",
     "segment_effect_matrix": "segment_effect_matrix.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
     "model_review_briefing": "model_review_briefing.csv",
     "failure_modes": "failure_modes.csv",
     "qlib_portfolio_report": "qlib_portfolio_report.csv",
@@ -95,6 +96,7 @@ def build_regime_window_analysis_report(
         "segment_effect_matrix": effect_analysis.segment_effect_matrix,
         "window_regime_metrics": effect_analysis.window_regime_metrics,
         "model_effect_deltas": effect_analysis.model_effect_deltas,
+        "model_regime_window_diagnostics": effect_analysis.model_regime_window_diagnostics,
         "model_review_briefing": model_review_briefing,
         "failure_modes": build_failure_modes(effect_analysis.model_effect_deltas),
     }

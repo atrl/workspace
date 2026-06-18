@@ -307,6 +307,7 @@ def build_dashboard_view_model(
     regime_metrics = _as_list(payload.get("regime_metrics"))
     window_regime_metrics = _as_list(payload.get("window_regime_metrics"))
     diagnostics = _as_list(payload.get("model_effect_deltas"))
+    regime_window_diagnostics = _as_list(payload.get("model_regime_window_diagnostics"))
     failure_modes = _as_list(payload.get("failure_modes"))
     model_review_briefing = _as_list(payload.get("model_review_briefing"))
 
@@ -374,6 +375,12 @@ def build_dashboard_view_model(
                     windows=windows,
                 ),
                 "diagnostics": _diagnostics_for_model(diagnostics, model, regimes=regimes, windows=windows),
+                "regime_window_diagnostics": _diagnostics_for_model(
+                    regime_window_diagnostics,
+                    model,
+                    regimes=regimes,
+                    windows=windows,
+                ),
                 "failure_modes": card_failure_modes,
                 "model_review_briefing": card_model_review_briefing,
             }

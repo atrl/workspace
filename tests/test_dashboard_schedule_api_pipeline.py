@@ -137,6 +137,18 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     pd.DataFrame(
         [
             {
+                "schema_version": "analysis.model_regime_window_diagnostic.v1",
+                "model": "ridge_mse",
+                "baseline_model": "ridge_mse",
+                "evaluated_segment_count": 1,
+                "diagnostic_signal": "baseline",
+                "review_note": "ridge_mse 是当前分析基准。",
+            }
+        ]
+    ).to_csv(matrix_card / "diagnostics_custom.csv", index=False)
+    pd.DataFrame(
+        [
+            {
                 "model": "ridge_mse",
                 "segment_type": "all",
                 "segment": "all",
@@ -205,6 +217,7 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
                     "objective_scores": "objective_scores_custom.csv",
                     "promotion_scores": "promotion_scores_custom.csv",
                     "model_effect_deltas": "deltas_custom.csv",
+                    "model_regime_window_diagnostics": "diagnostics_custom.csv",
                     "segment_effect_matrix": "segment_matrix_custom.csv",
                     "model_review_briefing": "review_custom.csv",
                     "backtest_config": "backtest_config_custom.json",
@@ -230,6 +243,7 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["objective"]["scores"][0]["schema_version"] == "objective.evaluation.v1"
     assert payload["objective"]["promotion_scores"][0]["promotion_decision"] == "promote_candidate"
     assert payload["model_effect_deltas"][0]["diagnosis"] == "基准模型。"
+    assert payload["model_regime_window_diagnostics"][0]["diagnostic_signal"] == "baseline"
     assert payload["segment_effect_matrix"][0]["best_relative_return_model"] == "ridge_mse"
     assert payload["model_review_briefing"][0]["review_signal"] == "strength"
     assert payload["backtest"]["config"]["schema_version"] == "backtest.config.v1"
@@ -239,6 +253,7 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["artifacts"]["model_comparison"].endswith("comparison_custom.csv")
     assert payload["artifacts"]["objective_scores"].endswith("objective_scores_custom.csv")
     assert payload["artifacts"]["promotion_scores"].endswith("promotion_scores_custom.csv")
+    assert payload["artifacts"]["model_regime_window_diagnostics"].endswith("diagnostics_custom.csv")
     assert payload["artifacts"]["model_review_briefing"].endswith("review_custom.csv")
     assert payload["artifacts"]["backtest_config"].endswith("backtest_config_custom.json")
     assert payload["artifacts"]["walk_forward_splits"].endswith("walk_forward_custom.csv")

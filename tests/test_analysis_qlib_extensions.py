@@ -5,6 +5,7 @@ import pandas as pd
 from src.analysis import (
     analyze_model_effects_by_regime_and_window,
     build_analysis_overview,
+    build_model_regime_window_diagnostics,
     build_model_review_briefing,
     build_qlib_return_frame,
     build_segment_effect_matrix,
@@ -253,3 +254,49 @@ def test_build_analysis_overview_summarizes_regime_window_model_gaps_for_dashboa
     assert overview["largest_relative_return_spread_segments"][0]["worst_relative_return_model"]
     assert overview["largest_relative_return_spread_segments"][0]["relative_return_pct_spread"] > 0.0
     assert "regime/window" in overview["dashboard_note"]
+
+
+def test_build_model_regime_window_diagnostics_profiles_stability_across_segments():
+    analysis = analyze_model_effects_by_regime_and_window(
+        _daily_frame(),
+        windows={"early": ("2026-01-01", "2026-01-04"), "stress_window": ("2026-01-05", "2026-01-07")},
+        baseline_model="ridge_mse",
+    )
+
+    diagnostics = build_model_regime_window_diagnostics(analysis)
+
+    assert {
+        "schema_version",
+        "model",
+        "baseline_model",
+        "evaluated_segment_count",
+        "positive_segment_count",
+        "negative_segment_count",
+        "weakness_segment_count",
+        "strength_segment_count",
+        "window_regime_negative_count",
+        "stress_negative_count",
+        "best_segment",
+        "worst_segment",
+        "diagnostic_signal",
+        "review_note",
+    }.issubset(diagnostics.columns)
+    assert diagnostics["schema_version"].nunique() == 1
+    assert set(diagnostics["model"]) == {"ridge_mse", "gcn_mse"}
+
+    baseline = diagnostics.loc[diagnostics["model"] == "ridge_mse"].iloc[0]
+    assert baseline["diagnostic_signal"] == "baseline"
+    assert baseline["baseline_model"] == "ridge_mse"
+
+    gcn = diagnostics.loc[diagnostics["model"] == "gcn_mse"].iloc[0]
+    assert int(gcn["evaluated_segment_count"]) >= 4
+    assert int(gcn["strength_segment_count"]) >= 1
+    assert int(gcn["weakness_segment_count"]) >= 1
+    assert int(gcn["window_regime_negative_count"]) >= 1
+    assert int(gcn["stress_negative_count"]) >= 1
+    assert gcn["diagnostic_signal"] == "stress_fragile"
+    assert "stress" in gcn["worst_segment"]
+    assert "压力" in gcn["review_note"]
+    assert analysis.model_regime_window_diagnostics.equals(diagnostics)
+    assert analysis.summary["model_regime_window_diagnostic_count"] == len(diagnostics)
+    assert analysis.summary["top_regime_fragile_models"][0]["model"] == "gcn_mse"

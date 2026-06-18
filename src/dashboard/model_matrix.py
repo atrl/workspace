@@ -22,6 +22,7 @@ PUBLIC_ARTIFACT_KEYS = {
     "model_run_ledger_summary",
     "segment_effect_matrix",
     "model_effect_deltas",
+    "model_regime_window_diagnostics",
     "model_review_briefing",
     "failure_modes",
     "backtest_config",
@@ -72,6 +73,7 @@ def _default_public_paths(card: Path) -> dict[str, str]:
         "model_run_ledger_summary": "model_run_ledger_summary.json",
         "segment_effect_matrix": "segment_effect_matrix.csv",
         "model_effect_deltas": "model_effect_deltas.csv",
+        "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
         "model_review_briefing": "model_review_briefing.csv",
         "failure_modes": "failure_modes.csv",
         "backtest_config": "backtest_config.json",
@@ -355,6 +357,12 @@ def load_model_matrix_dashboard(
     model_effect_deltas = _read_optional_csv_from_paths(
         card, public_paths, "model_effect_deltas", "model_effect_deltas.csv"
     )
+    model_regime_window_diagnostics = _read_optional_csv_from_paths(
+        card,
+        public_paths,
+        "model_regime_window_diagnostics",
+        "model_regime_window_diagnostics.csv",
+    )
     model_review_briefing = _read_optional_csv_from_paths(
         card, public_paths, "model_review_briefing", "model_review_briefing.csv"
     )
@@ -399,6 +407,7 @@ def load_model_matrix_dashboard(
         "model_run_ledger": _records(model_run_ledger, limit=300),
         "segment_effect_matrix": _records(segment_effect_matrix, limit=200),
         "model_effect_deltas": _records(model_effect_deltas, limit=200),
+        "model_regime_window_diagnostics": _records(model_regime_window_diagnostics, limit=200),
         "model_review_briefing": _records(model_review_briefing, limit=200),
         "failure_modes": _records(failure_modes, limit=100),
         "backtest": {

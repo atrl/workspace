@@ -25,6 +25,8 @@ schedule 或 production 的功能入口。
 - `qlib_return_frame.csv` / `qlib_risk_metrics.csv`：qlib 风格收益序列和风险指标。
 - `segment_effect_matrix.csv`：每个 segment 的最强、最弱、回撤最高、换手最高模型。
 - `model_effect_deltas.csv`：相对基准模型的分段差异。
+- `model_regime_window_diagnostics.csv`：每个模型跨 all/regime/window/window_regime 的稳定性画像，
+  标出最佳分段、最弱分段、压力期弱点、优势是否集中和中文 review 建议。
 - `model_review_briefing.csv`：中文 review 行动项，用于 dashboard 和 schedule。
 - `failure_modes.csv`：从分段差异派生的失败模式。
 - `analysis_summary.json` / `analysis_manifest.json`：公开 artifact 和 schema 入口。
@@ -51,3 +53,6 @@ schedule 或 production 的功能入口。
   等摘要，不重新计算分析。
 - skill 可以提出新的 regime 切分、异常诊断或模型差异解释，但可复用代码必须迁入
   `src/analysis`，单次参数和结论必须留在 notebook。
+- 区间和 regime 的模型效果对比属于框架功能；skill 只提供发散思路，例如建议新增
+  「高波动上行」「低波动震荡」「半导体相对强弱」等候选 regime，不能直接作为
+  dashboard、schedule 或 production 的运行入口。

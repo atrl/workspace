@@ -18,6 +18,7 @@ from .windows import build_analysis_window_table
 
 QLIB_RISK_SOURCE = "qlib.contrib.evaluate.risk_analysis"
 SEGMENT_EFFECT_MATRIX_SCHEMA_VERSION = "analysis.segment_effect_matrix.v1"
+MODEL_REGIME_WINDOW_DIAGNOSTIC_SCHEMA_VERSION = "analysis.model_regime_window_diagnostic.v1"
 MODEL_REVIEW_BRIEFING_SCHEMA_VERSION = "analysis.model_review_briefing.v1"
 ANALYSIS_OVERVIEW_SCHEMA_VERSION = "analysis.overview.v1"
 
@@ -41,6 +42,40 @@ MODEL_REVIEW_BRIEFING_COLUMNS = [
     "review_note",
 ]
 
+MODEL_REGIME_WINDOW_DIAGNOSTIC_COLUMNS = [
+    "schema_version",
+    "model",
+    "baseline_model",
+    "evaluated_segment_count",
+    "positive_segment_count",
+    "negative_segment_count",
+    "weakness_segment_count",
+    "strength_segment_count",
+    "risk_segment_count",
+    "window_regime_negative_count",
+    "stress_negative_count",
+    "positive_segment_share",
+    "mean_relative_return_pct_delta",
+    "mean_stability_score_delta",
+    "mean_max_drawdown_pct_delta",
+    "consistency_score",
+    "best_segment_type",
+    "best_segment",
+    "best_window",
+    "best_regime",
+    "best_relative_return_pct_delta",
+    "best_stability_score_delta",
+    "worst_segment_type",
+    "worst_segment",
+    "worst_window",
+    "worst_regime",
+    "worst_relative_return_pct_delta",
+    "worst_stability_score_delta",
+    "worst_max_drawdown_pct_delta",
+    "diagnostic_signal",
+    "review_note",
+]
+
 
 @dataclass(frozen=True)
 class RegimeWindowEffectAnalysis:
@@ -50,6 +85,7 @@ class RegimeWindowEffectAnalysis:
     segment_effect_matrix: pd.DataFrame
     window_regime_metrics: pd.DataFrame
     model_effect_deltas: pd.DataFrame
+    model_regime_window_diagnostics: pd.DataFrame
     summary: dict[str, object]
 
 
@@ -619,6 +655,247 @@ def _segment_gap_payloads(segment_effect_matrix: pd.DataFrame, *, max_items: int
     return rows
 
 
+def _series_or_default(frame: pd.DataFrame, column: str, default: object) -> pd.Series:
+    if column in frame.columns:
+        return frame[column]
+    return pd.Series([default] * len(frame), index=frame.index)
+
+
+def _ordered_delta_row(group: pd.DataFrame, *, highest: bool) -> pd.Series:
+    ordered = group.assign(_return_delta=group["relative_return_pct_delta"].map(_clean_metric)).sort_values(
+        ["_return_delta", "segment_type", "segment", "model"],
+        ascending=[not highest, True, True, True],
+    )
+    return ordered.iloc[0]
+
+
+def _segment_payload_value(row: pd.Series, column: str) -> str:
+    return _clean_string(row.get(column, ""))
+
+
+def _stress_context_mask(frame: pd.DataFrame) -> pd.Series:
+    context = (
+        _series_or_default(frame, "segment", "").astype(str)
+        + " "
+        + _series_or_default(frame, "regime", "").astype(str)
+        + " "
+        + _series_or_default(frame, "window", "").astype(str)
+    ).str.lower()
+    return context.str.contains("stress|downtrend|bear|crash|drawdown", regex=True)
+
+
+def _diagnostic_signal(
+    *,
+    model: str,
+    baseline_model: str,
+    strength_count: int,
+    weakness_count: int,
+    risk_count: int,
+    negative_count: int,
+    window_regime_negative_count: int,
+    stress_negative_count: int,
+) -> str:
+    if model == baseline_model:
+        return "baseline"
+    if stress_negative_count > 0 and weakness_count > 0:
+        return "stress_fragile"
+    if weakness_count >= 2 or window_regime_negative_count >= 2:
+        return "regime_fragile"
+    if strength_count > 0 and negative_count == 0 and risk_count == 0:
+        return "broad_strength"
+    if strength_count > 0 and strength_count >= weakness_count:
+        return "selective_strength"
+    return "mixed"
+
+
+def _diagnostic_review_note(
+    *,
+    model: str,
+    baseline_model: str,
+    signal: str,
+    best_segment: str,
+    worst_segment: str,
+    strength_count: int,
+    weakness_count: int,
+    stress_negative_count: int,
+) -> str:
+    if signal == "baseline":
+        return f"{model} 是当前分析基准；其他模型的 regime/window 差异均相对它计算。"
+    if signal == "stress_fragile":
+        return (
+            f"{model} 在压力或下跌分段弱于基准 {baseline_model}，最弱分段为 {worst_segment}；"
+            "晋升前应先检查压力期信号、仓位和风险约束。"
+        )
+    if signal == "regime_fragile":
+        return (
+            f"{model} 的弱点集中在多个 regime/window 分段，最弱分段为 {worst_segment}；"
+            "需要拆分区间和 regime 重新验证适配性。"
+        )
+    if signal == "broad_strength":
+        return f"{model} 在已评估分段中表现较稳定，最佳分段为 {best_segment}；可继续进入组合和成本复核。"
+    if signal == "selective_strength":
+        return (
+            f"{model} 有 {strength_count} 个优势分段，也有 {weakness_count} 个弱势分段；"
+            f"最佳分段为 {best_segment}，最弱分段为 {worst_segment}，适合作为分段候选而非全局替代。"
+        )
+    return (
+        f"{model} 相对 {baseline_model} 的分段表现混合，压力弱势分段数为 {stress_negative_count}；"
+        "需要结合因子暴露、换手和回撤来源继续 review。"
+    )
+
+
+def build_model_regime_window_diagnostics(
+    analysis: RegimeWindowEffectAnalysis | pd.DataFrame,
+) -> pd.DataFrame:
+    """Summarize each model's stability across all/regime/window/window_regime segments."""
+
+    deltas = analysis.model_effect_deltas if isinstance(analysis, RegimeWindowEffectAnalysis) else analysis
+    if deltas.empty:
+        return pd.DataFrame(columns=MODEL_REGIME_WINDOW_DIAGNOSTIC_COLUMNS)
+
+    frame = deltas.copy()
+    text_columns = {"segment_type", "segment", "window", "regime", "diagnosis", "baseline_model"}
+    for column in [
+        "relative_return_pct_delta",
+        "stability_score_delta",
+        "max_drawdown_pct_delta",
+        "segment_type",
+        "segment",
+        "window",
+        "regime",
+        "diagnosis",
+        "baseline_model",
+    ]:
+        if column not in frame.columns:
+            frame[column] = "" if column in text_columns else 0.0
+
+    baseline_values = frame["baseline_model"].dropna().astype(str)
+    baseline_model = str(baseline_values.iloc[0]) if not baseline_values.empty else ""
+    rows: list[dict[str, object]] = []
+    for model, group in frame.groupby("model", sort=True):
+        model_name = str(model)
+        returns = group["relative_return_pct_delta"].map(_clean_metric)
+        stability = group["stability_score_delta"].map(_clean_metric)
+        drawdown = group["max_drawdown_pct_delta"].map(_clean_metric)
+        diagnosis = group["diagnosis"].astype(str)
+        positive = returns > 0.0
+        negative = returns < 0.0
+        weakness = diagnosis.str.contains("弱于基准", regex=False) | ((returns <= -0.5) & (stability < 0.0))
+        strength = diagnosis.str.contains("强于基准", regex=False) | ((returns >= 0.5) & (stability > 0.0))
+        risk = diagnosis.str.contains("风险更高", regex=False) | (drawdown > 2.0)
+        window_regime_negative = (group["segment_type"].astype(str) == "window_regime") & negative
+        stress_negative = _stress_context_mask(group) & (negative | weakness)
+        evaluated_count = int(len(group))
+        positive_count = int(positive.sum())
+        negative_count = int(negative.sum())
+        weakness_count = int(weakness.sum())
+        strength_count = int(strength.sum())
+        risk_count = int(risk.sum())
+        window_regime_negative_count = int(window_regime_negative.sum())
+        stress_negative_count = int(stress_negative.sum())
+        positive_share = positive_count / evaluated_count if evaluated_count else 0.0
+        consistency_score = (
+            positive_share
+            - (weakness_count / evaluated_count if evaluated_count else 0.0)
+            - 0.5 * (risk_count / evaluated_count if evaluated_count else 0.0)
+            - (0.25 if stress_negative_count else 0.0)
+        )
+        best = _ordered_delta_row(group, highest=True)
+        worst = _ordered_delta_row(group, highest=False)
+        signal = _diagnostic_signal(
+            model=model_name,
+            baseline_model=baseline_model,
+            strength_count=strength_count,
+            weakness_count=weakness_count,
+            risk_count=risk_count,
+            negative_count=negative_count,
+            window_regime_negative_count=window_regime_negative_count,
+            stress_negative_count=stress_negative_count,
+        )
+        best_segment = _segment_payload_value(best, "segment")
+        worst_segment = _segment_payload_value(worst, "segment")
+        rows.append(
+            {
+                "schema_version": MODEL_REGIME_WINDOW_DIAGNOSTIC_SCHEMA_VERSION,
+                "model": model_name,
+                "baseline_model": baseline_model,
+                "evaluated_segment_count": evaluated_count,
+                "positive_segment_count": positive_count,
+                "negative_segment_count": negative_count,
+                "weakness_segment_count": weakness_count,
+                "strength_segment_count": strength_count,
+                "risk_segment_count": risk_count,
+                "window_regime_negative_count": window_regime_negative_count,
+                "stress_negative_count": stress_negative_count,
+                "positive_segment_share": round(float(positive_share), 6),
+                "mean_relative_return_pct_delta": round(float(returns.mean()), 6) if evaluated_count else 0.0,
+                "mean_stability_score_delta": round(float(stability.mean()), 6) if evaluated_count else 0.0,
+                "mean_max_drawdown_pct_delta": round(float(drawdown.mean()), 6) if evaluated_count else 0.0,
+                "consistency_score": round(float(consistency_score), 6),
+                "best_segment_type": _segment_payload_value(best, "segment_type"),
+                "best_segment": best_segment,
+                "best_window": _segment_payload_value(best, "window"),
+                "best_regime": _segment_payload_value(best, "regime"),
+                "best_relative_return_pct_delta": _clean_metric(best.get("relative_return_pct_delta", 0.0)),
+                "best_stability_score_delta": _clean_metric(best.get("stability_score_delta", 0.0)),
+                "worst_segment_type": _segment_payload_value(worst, "segment_type"),
+                "worst_segment": worst_segment,
+                "worst_window": _segment_payload_value(worst, "window"),
+                "worst_regime": _segment_payload_value(worst, "regime"),
+                "worst_relative_return_pct_delta": _clean_metric(worst.get("relative_return_pct_delta", 0.0)),
+                "worst_stability_score_delta": _clean_metric(worst.get("stability_score_delta", 0.0)),
+                "worst_max_drawdown_pct_delta": _clean_metric(worst.get("max_drawdown_pct_delta", 0.0)),
+                "diagnostic_signal": signal,
+                "review_note": _diagnostic_review_note(
+                    model=model_name,
+                    baseline_model=baseline_model,
+                    signal=signal,
+                    best_segment=best_segment,
+                    worst_segment=worst_segment,
+                    strength_count=strength_count,
+                    weakness_count=weakness_count,
+                    stress_negative_count=stress_negative_count,
+                ),
+            }
+        )
+
+    result = pd.DataFrame(rows, columns=MODEL_REGIME_WINDOW_DIAGNOSTIC_COLUMNS)
+    return result.sort_values(
+        ["diagnostic_signal", "consistency_score", "model"],
+        ascending=[True, True, True],
+    ).reset_index(drop=True)
+
+
+def _top_fragile_model_payloads(diagnostics: pd.DataFrame, *, max_items: int) -> list[dict[str, object]]:
+    if diagnostics.empty:
+        return []
+    fragile = diagnostics.loc[
+        diagnostics["diagnostic_signal"].astype(str).isin({"stress_fragile", "regime_fragile"})
+    ].copy()
+    if fragile.empty:
+        return []
+    ordered = fragile.assign(
+        _weakness=fragile["weakness_segment_count"].map(_clean_metric),
+        _stress=fragile["stress_negative_count"].map(_clean_metric),
+        _consistency=fragile["consistency_score"].map(_clean_metric),
+    ).sort_values(["_stress", "_weakness", "_consistency", "model"], ascending=[False, False, True, True])
+    rows: list[dict[str, object]] = []
+    for _, row in ordered.head(max_items).iterrows():
+        rows.append(
+            {
+                "model": _clean_string(row.get("model", "")),
+                "baseline_model": _clean_string(row.get("baseline_model", "")),
+                "diagnostic_signal": _clean_string(row.get("diagnostic_signal", "")),
+                "worst_segment": _clean_string(row.get("worst_segment", "")),
+                "weakness_segment_count": int(_clean_metric(row.get("weakness_segment_count", 0))),
+                "stress_negative_count": int(_clean_metric(row.get("stress_negative_count", 0))),
+                "consistency_score": _clean_metric(row.get("consistency_score", 0.0)),
+                "review_note": _clean_string(row.get("review_note", "")),
+            }
+        )
+    return rows
+
+
 def build_analysis_overview(
     analysis_or_summary: RegimeWindowEffectAnalysis | Mapping[str, Any],
     *,
@@ -649,6 +926,9 @@ def build_analysis_overview(
         "window_count": int(_clean_metric(summary.get("window_count", 0))),
         "window_regime_count": int(_clean_metric(summary.get("window_regime_count", 0))),
         "segment_effect_matrix_count": int(_clean_metric(summary.get("segment_effect_matrix_count", len(matrix)))),
+        "model_regime_window_diagnostic_count": int(
+            _clean_metric(summary.get("model_regime_window_diagnostic_count", 0))
+        ),
         "segment_types": [str(value) for value in summary.get("segment_types", [])],
         "qlib_metric_source": _clean_string(summary.get("qlib_metric_source", "")),
         "review_signal_counts": _value_counts(briefing, "review_signal"),
@@ -656,6 +936,7 @@ def build_analysis_overview(
         "top_review": _top_briefing(briefing),
         "top_weakness": _top_briefing(briefing, signal="weakness"),
         "top_strength": _top_briefing(briefing, signal="strength"),
+        "top_regime_fragile_models": list(summary.get("top_regime_fragile_models", []))[:max_items],
         "weakest_segments": list(summary.get("weakest_segments", []))[:max_items],
         "largest_relative_return_spread_segments": gap_rows,
         "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
@@ -718,6 +999,7 @@ def analyze_model_effects_by_regime_and_window(
     baseline = baseline_model or str(compare_models(frame).iloc[0]["model"])
     segment_effect_matrix = build_segment_effect_matrix(frame, windows=windows, baseline_model=baseline)
     deltas = compare_segment_model_effects(frame, windows=windows, baseline_model=baseline)
+    model_regime_window_diagnostics = build_model_regime_window_diagnostics(deltas)
     weakness_frame = deltas.loc[deltas["model"] != baseline].sort_values(
         ["relative_return_pct_delta", "stability_score_delta"],
         ascending=[True, True],
@@ -748,9 +1030,11 @@ def analyze_model_effects_by_regime_and_window(
         "window_definitions": window_definitions,
         "window_regime_count": int(window_regime_metrics["segment"].nunique()) if not window_regime_metrics.empty else 0,
         "segment_effect_matrix_count": int(len(segment_effect_matrix)),
+        "model_regime_window_diagnostic_count": int(len(model_regime_window_diagnostics)),
         "segment_types": sorted(str(value) for value in segment_metrics["segment_type"].dropna().unique().tolist()),
         "qlib_metric_source": QLIB_RISK_SOURCE,
         "weakest_segments": weakest_segments,
+        "top_regime_fragile_models": _top_fragile_model_payloads(model_regime_window_diagnostics, max_items=5),
         "largest_relative_return_spread_segments": [
             {
                 "segment_type": str(row["segment_type"]),
@@ -771,5 +1055,6 @@ def analyze_model_effects_by_regime_and_window(
         segment_effect_matrix=segment_effect_matrix,
         window_regime_metrics=window_regime_metrics,
         model_effect_deltas=deltas,
+        model_regime_window_diagnostics=model_regime_window_diagnostics,
         summary=summary,
     )
