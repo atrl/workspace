@@ -1,0 +1,46 @@
+{
+  "schema_version": "research.backtest_contract_v1",
+  "status": "completed",
+  "config": {
+    "start": "2026-01-01",
+    "end": "2026-01-10",
+    "benchmark": "SOXL",
+    "position_policy": {
+      "min_position": 0.0,
+      "max_position": 1.0,
+      "neutral_position": 0.5,
+      "signal_scale": null,
+      "lag": 1,
+      "schema_version": "backtest.position_policy.v1"
+    },
+    "cost_model": {
+      "open_cost_bps": 5.0,
+      "close_cost_bps": 5.0,
+      "slippage_bps": 2.0,
+      "schema_version": "backtest.cost_model.v1"
+    },
+    "stress_windows": {
+      "stress_window": [
+        "2026-01-06",
+        "2026-01-07"
+      ]
+    },
+    "schema_version": "backtest.config.v1"
+  },
+  "model_count": 2,
+  "row_count": 20,
+  "top_model": "gcn_mse",
+  "daily_rows": 20,
+  "top_utility_model": "gcn_mse",
+  "stress_window_rows": 4,
+  "cost_return_abs_sum": 0.0033687499999999998,
+  "walk_forward_fold_count": 3,
+  "artifacts": {
+    "daily_backtest": "daily_backtest.csv",
+    "model_summary": "model_summary.csv",
+    "model_comparison": "model_comparison.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "window_metrics": "window_metrics.csv",
+    "walk_forward_splits": "walk_forward_splits.csv"
+  }
+}
