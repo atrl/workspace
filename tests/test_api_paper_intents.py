@@ -152,6 +152,78 @@ def test_build_target_position_intent_blocks_top_model_without_complete_run_reco
     assert intent.metadata["model_run_missing_models"] == "random_forest_clf__all_features"
 
 
+def test_build_target_position_intent_records_requested_model_and_readiness_review_context():
+    payload = _dashboard_payload()
+    payload["requested_model_contract"] = {
+        "schema_version": "model.requested_contract_health.v1",
+        "requested_model_count": 32,
+        "registered_model_count": 32,
+        "ledger_model_count": 2,
+        "completed_requested_model_count": 2,
+        "missing_from_registry": [],
+        "missing_from_ledger": ["lstm_mse", "gcn_mse"],
+        "incomplete_requested_models": [],
+        "all_requested_models_completed": False,
+    }
+    payload["model_run_coverage"] = {
+        "schema_version": "model.run_ledger_summary.v1",
+        "expected_model_count": 2,
+        "trained_model_count": 2,
+        "backtested_model_count": 2,
+        "all_models_completed": True,
+        "missing_models": [],
+    }
+
+    intent = build_target_position_intent_from_dashboard(
+        payload,
+        instrument="SOXL",
+        min_position=0.1,
+        max_position=0.75,
+    )
+
+    assert intent.target_position == 0.74
+    assert intent.metadata["execution_gate"] == "paper_review"
+    assert intent.metadata["requested_model_schema_version"] == "model.requested_contract_health.v1"
+    assert intent.metadata["requested_model_completed_count"] == 2
+    assert intent.metadata["requested_model_count"] == 32
+    assert intent.metadata["requested_model_missing_count"] == 2
+    assert intent.metadata["requested_model_incomplete_count"] == 0
+    assert intent.metadata["requested_model_all_completed"] is False
+    assert intent.metadata["requested_model_missing_models"] == "lstm_mse,gcn_mse"
+    assert intent.metadata["readiness_overview_schema_version"] == "dashboard.readiness_overview.v1"
+    assert intent.metadata["readiness_overview_status"] == "review"
+    assert intent.metadata["readiness_overview_gate_count"] == 2
+    assert intent.metadata["readiness_overview_pass_count"] == 1
+    assert intent.metadata["readiness_overview_review_count"] == 1
+    assert intent.metadata["readiness_overview_block_count"] == 0
+    assert intent.metadata["readiness_overview_gates"] == "requested_models,model_runs"
+    assert intent.metadata["readiness_overview_review_gates"] == "requested_models"
+    assert intent.metadata["readiness_overview_block_gates"] == ""
+
+
+def test_build_target_position_intent_blocks_when_readiness_overview_has_block_gate():
+    payload = _dashboard_payload()
+    payload["production_health"] = {
+        "schema_version": "schedule.production_health.v1",
+        "health_status": "missing_required_paths",
+        "is_healthy": False,
+        "missing_required_paths": ["intent_ledger"],
+    }
+
+    intent = build_target_position_intent_from_dashboard(
+        payload,
+        instrument="SOXL",
+        min_position=0.1,
+        max_position=0.75,
+    )
+
+    assert intent.target_position == 0.1
+    assert intent.metadata["execution_gate"] == "blocked_to_min_position"
+    assert intent.metadata["readiness_overview_status"] == "blocked"
+    assert intent.metadata["readiness_overview_block_count"] == 1
+    assert intent.metadata["readiness_overview_block_gates"] == "production_health"
+
+
 def test_build_target_position_intent_normalizes_empty_promotion_blockers_from_dashboard_csv():
     payload = _dashboard_payload()
     payload["objective"] = {

@@ -611,6 +611,7 @@ def test_paper_broker_places_target_position_and_reports_exposure():
 def test_production_paper_sim_summary_records_review_gate_context():
     summary = json.loads(open("production/paper_sim_replay_v1/production_summary.json", encoding="utf-8").read())
     intent = json.loads(open("production/paper_sim_replay_v1/execution_intent.json", encoding="utf-8").read())
+    dashboard = json.loads(open("production/paper_sim_replay_v1/dashboard_export.json", encoding="utf-8").read())
 
     assert summary["schema_version"] == "production.paper_sim_replay.v1"
     assert summary["live_broker_enabled"] is False
@@ -627,6 +628,19 @@ def test_production_paper_sim_summary_records_review_gate_context():
     assert intent["metadata"]["execution_gate"] == summary["execution_gate"]
     assert intent["metadata"]["analysis_overview_schema_version"] == summary["analysis_overview_schema"]
     assert intent["metadata"]["backtest_schema_version"] == summary["backtest_schema_version"]
+    assert intent["metadata"]["readiness_overview_schema_version"] == summary["schedule_readiness_overview_schema"]
+    assert intent["metadata"]["readiness_overview_status"] == summary["schedule_readiness_overview_status"]
+    assert intent["metadata"]["readiness_overview_gates"] == summary["schedule_readiness_overview_gates"]
+    assert intent["metadata"]["readiness_overview_review_gates"] == summary["schedule_readiness_overview_review_gates"]
+    assert intent["metadata"]["readiness_overview_block_gates"] == summary["schedule_readiness_overview_block_gates"]
+    assert intent["metadata"]["requested_model_schema_version"] == "model.requested_contract_health.v1"
+    assert intent["metadata"]["requested_model_count"] == dashboard["requested_model_contract"]["requested_model_count"]
+    assert (
+        intent["metadata"]["requested_model_completed_count"]
+        == dashboard["requested_model_contract"]["completed_requested_model_count"]
+    )
+    assert intent["metadata"]["requested_model_all_completed"] is False
+    assert intent["metadata"]["requested_model_missing_count"] >= 1
 
 
 def test_production_paper_sim_summary_records_schedule_readiness_overview():

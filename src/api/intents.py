@@ -60,6 +60,30 @@ def _clean_metadata_string(value: Any) -> str:
     return str(value)
 
 
+def _int_field(row: dict[str, Any], key: str) -> int:
+    try:
+        return int(row.get(key, 0) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _string_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item) for item in value if item is not None and str(item) != ""]
+
+
+def _dedupe(values: list[str]) -> list[str]:
+    result: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        if value in seen:
+            continue
+        seen.add(value)
+        result.append(value)
+    return result
+
+
 def _top_promotion_for_model(dashboard_payload: dict[str, Any], model: str) -> dict[str, Any]:
     objective = dashboard_payload.get("objective")
     if not isinstance(objective, dict):
@@ -170,6 +194,88 @@ def _model_run_context(dashboard_payload: dict[str, Any], model: str) -> dict[st
     }
 
 
+def _requested_model_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    contract = dashboard_payload.get("requested_model_contract")
+    if not isinstance(contract, dict) or not contract:
+        return {}
+    missing_models = _dedupe(
+        _string_list(contract.get("missing_from_registry")) + _string_list(contract.get("missing_from_ledger"))
+    )
+    incomplete_models = _string_list(contract.get("incomplete_requested_models"))
+    return {
+        "requested_model_schema_version": str(contract.get("schema_version", "")),
+        "requested_model_count": _int_field(contract, "requested_model_count"),
+        "requested_model_registered_count": _int_field(contract, "registered_model_count"),
+        "requested_model_ledger_count": _int_field(contract, "ledger_model_count"),
+        "requested_model_completed_count": _int_field(contract, "completed_requested_model_count"),
+        "requested_model_all_completed": bool(contract.get("all_requested_models_completed", False)),
+        "requested_model_missing_count": int(len(missing_models)),
+        "requested_model_incomplete_count": int(len(incomplete_models)),
+        "requested_model_missing_models": ",".join(missing_models),
+        "requested_model_incomplete_models": ",".join(incomplete_models),
+    }
+
+
+def _readiness_gates(dashboard_payload: dict[str, Any]) -> list[dict[str, str]]:
+    gates: list[dict[str, str]] = []
+    production_health = dashboard_payload.get("production_health")
+    if isinstance(production_health, dict) and production_health:
+        missing_count = len(_string_list(production_health.get("missing_required_paths")))
+        healthy = bool(production_health.get("is_healthy", False)) and missing_count == 0
+        gates.append({"gate": "production_health", "status": "pass" if healthy else "block"})
+
+    notebook_readiness = dashboard_payload.get("notebook_card_readiness")
+    if isinstance(notebook_readiness, dict) and notebook_readiness:
+        summary = notebook_readiness.get("summary")
+        notebook_summary = summary if isinstance(summary, dict) else {}
+        published_count = _int_field(notebook_summary, "production_published_count")
+        template_count = _int_field(notebook_summary, "production_template_count")
+        missing_count = _int_field(notebook_summary, "production_manifest_missing_count")
+        mismatch_count = _int_field(notebook_summary, "production_registry_mismatch_count")
+        if missing_count > 0 or mismatch_count > 0 or published_count == 0:
+            status = "block"
+        elif template_count > 0:
+            status = "review"
+        else:
+            status = "pass"
+        gates.append({"gate": "notebook_cards", "status": status})
+
+    requested_contract = dashboard_payload.get("requested_model_contract")
+    if isinstance(requested_contract, dict) and requested_contract:
+        completed_count = _int_field(requested_contract, "completed_requested_model_count")
+        all_completed = bool(requested_contract.get("all_requested_models_completed", False))
+        status = "pass" if all_completed else "review" if completed_count > 0 else "block"
+        gates.append({"gate": "requested_models", "status": status})
+
+    model_run_coverage = dashboard_payload.get("model_run_coverage")
+    if isinstance(model_run_coverage, dict) and model_run_coverage:
+        all_completed = bool(model_run_coverage.get("all_models_completed", False))
+        gates.append({"gate": "model_runs", "status": "pass" if all_completed else "review"})
+
+    return gates
+
+
+def _readiness_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    gates = _readiness_gates(dashboard_payload)
+    if not gates:
+        return {}
+    pass_gates = [gate["gate"] for gate in gates if gate["status"] == "pass"]
+    review_gates = [gate["gate"] for gate in gates if gate["status"] == "review"]
+    block_gates = [gate["gate"] for gate in gates if gate["status"] == "block"]
+    status = "blocked" if block_gates else "review" if review_gates else "ready"
+    return {
+        "readiness_overview_schema_version": "dashboard.readiness_overview.v1",
+        "readiness_overview_status": status,
+        "readiness_overview_gate_count": int(len(gates)),
+        "readiness_overview_pass_count": int(len(pass_gates)),
+        "readiness_overview_review_count": int(len(review_gates)),
+        "readiness_overview_block_count": int(len(block_gates)),
+        "readiness_overview_gates": ",".join(gate["gate"] for gate in gates),
+        "readiness_overview_review_gates": ",".join(review_gates),
+        "readiness_overview_block_gates": ",".join(block_gates),
+    }
+
+
 def build_target_position_intent_from_dashboard(
     dashboard_payload: dict[str, Any],
     *,
@@ -188,15 +294,18 @@ def build_target_position_intent_from_dashboard(
     promotion = _top_promotion_for_model(dashboard_payload, source_model)
     analysis = _analysis_context(dashboard_payload)
     run_context = _model_run_context(dashboard_payload, source_model)
+    requested_context = _requested_model_context(dashboard_payload)
+    readiness_context = _readiness_context(dashboard_payload)
     blocked_by_promotion = str(promotion.get("promotion_decision", "")) == "blocked"
     blocked_by_review = (
         analysis.get("analysis_top_weakness_model") == source_model
         and analysis.get("analysis_top_weakness_decision_hint") == "block_or_rework"
     )
     blocked_by_incomplete_run = run_context.get("run_status") == "incomplete"
+    blocked_by_readiness = int(readiness_context.get("readiness_overview_block_count", 0) or 0) > 0
     execution_gate = (
         "blocked_to_min_position"
-        if blocked_by_promotion or blocked_by_review or blocked_by_incomplete_run
+        if blocked_by_promotion or blocked_by_review or blocked_by_incomplete_run or blocked_by_readiness
         else "paper_review"
     )
     target_position = float(min_position) if execution_gate == "blocked_to_min_position" else _clamp(
@@ -224,6 +333,8 @@ def build_target_position_intent_from_dashboard(
             "promotion_blockers": _clean_metadata_string(promotion.get("promotion_blockers", "")),
             "dashboard_schema_version": str(dashboard_payload.get("schema_version", "")),
             **run_context,
+            **requested_context,
+            **readiness_context,
             **analysis,
             **_backtest_context(dashboard_payload),
         },
