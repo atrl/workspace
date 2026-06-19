@@ -1,0 +1,29 @@
+{
+  "schema_version": "research.factor_diagnostics_validation.v1",
+  "source_id": "github:quantopian/alphalens",
+  "candidate_name": "factor_diagnostics",
+  "target_subsystem": "src/factor",
+  "factor_report_schema_version": "factor_suite_report.v1",
+  "diagnostic_interface": "src.factor.analyze_factor_suite",
+  "top_factor": "vix_change_1d",
+  "top_ic_mean": 0.12426792293785408,
+  "composite_ic_mean": 0.03079062943591795,
+  "high_correlation_pair_count": 8,
+  "artifact_files": [
+    "factor_ic.csv",
+    "factor_correlation.csv",
+    "factor_quantile_returns.csv",
+    "composite_factor.csv",
+    "composite_factor_ic.csv"
+  ],
+  "source_used_as": "hypothesis_only",
+  "implementation_allowed": false,
+  "promotion_target": "research_only",
+  "evidence_requirements": [
+    "license_review",
+    "research_notebook",
+    "focused_pytest",
+    "manifest_or_export",
+    "chinese_conclusion"
+  ]
+}

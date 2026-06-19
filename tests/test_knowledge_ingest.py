@@ -871,6 +871,56 @@ def test_qlib_recorder_analysis_validation_card_supplies_backlog_evidence():
     assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
 
 
+def test_factor_diagnostics_validation_card_supplies_backlog_evidence():
+    card = "research/factor_diagnostics_validation_v1"
+    notebook_path = f"{card}/factor_diagnostics_validation_v1.ipynb"
+    source = KnowledgeSource(
+        source_id="github:quantopian/alphalens",
+        source_type="github",
+        title="Alphalens factor performance analysis",
+        url="https://github.com/quantopian/alphalens",
+        summary=(
+            "GitHub factor-analysis reference for returns analysis, information coefficient analysis, "
+            "turnover analysis, and grouped analysis; useful only as a src.factor diagnostics hypothesis."
+        ),
+        license_note="GitHub metadata and Apache-2.0 license review only; no vendored code.",
+    )
+    backlog = build_knowledge_backlog([source])
+    evidence_index = knowledge_api.build_knowledge_research_evidence_index(".", backlog)
+
+    summary = json.loads(open(f"{card}/factor_diagnostics_summary.json", encoding="utf-8").read())
+    source_provenance = json.loads(open(f"{card}/source_provenance.json", encoding="utf-8").read())
+    analysis_summary = json.loads(open(f"{card}/analysis_summary.json", encoding="utf-8").read())
+    license_review = open(f"{card}/license_review.md", encoding="utf-8").read()
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert summary["schema_version"] == "research.factor_diagnostics_validation.v1"
+    assert summary["source_id"] == "github:quantopian/alphalens"
+    assert summary["candidate_name"] == "factor_diagnostics"
+    assert summary["target_subsystem"] == "src/factor"
+    assert summary["factor_report_schema_version"] == "factor_suite_report.v1"
+    assert summary["diagnostic_interface"] == "src.factor.analyze_factor_suite"
+    assert summary["implementation_allowed"] is False
+    assert summary["promotion_target"] == "research_only"
+    assert summary["evidence_requirements"] == evidence_index["factor_diagnostics"]
+    assert {"factor_ic.csv", "factor_correlation.csv", "factor_quantile_returns.csv"}.issubset(
+        set(summary["artifact_files"])
+    )
+    assert source_provenance["source_used_as"] == "hypothesis_only"
+    assert "github.com/quantopian/alphalens" in source_provenance["url"]
+    assert source_provenance["external_source_checks"]["repository_license"] == "Apache-2.0"
+    assert analysis_summary["schema_version"] == "factor_suite_report.v1"
+    assert analysis_summary["factor_count"] >= 3
+    assert "Apache-2.0" in license_review
+    assert "未 vendoring" in license_review
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
+
+
 def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_complete():
     audit = json.loads(open("research/knowledge_ingest/knowledge_promotion_audit.json", encoding="utf-8").read())
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
@@ -879,16 +929,18 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
     dlinear_item = next(item for item in audit["items"] if item["candidate_name"] == "dlinear_mse")
     patch_items = [item for item in audit["items"] if item["candidate_name"] == "patch_tst_mse"]
     qlib_item = next(item for item in audit["items"] if item["candidate_name"] == "qlib_recorder_analysis")
+    factor_item = next(item for item in audit["items"] if item["candidate_name"] == "factor_diagnostics")
 
-    assert audit["summary"]["ready_count"] == 7
-    assert audit["summary"]["blocked_count"] == 3
-    assert audit["summary"]["implementation_allowed_count"] == 7
+    assert audit["summary"]["ready_count"] == 8
+    assert audit["summary"]["blocked_count"] == 2
+    assert audit["summary"]["implementation_allowed_count"] == 8
     assert "rank_ic_objective" in audit["summary"]["ready_candidates"]
     assert "autoformer_mse" in audit["summary"]["ready_candidates"]
     assert "fedformer_mse" in audit["summary"]["ready_candidates"]
     assert "dlinear_mse" in audit["summary"]["ready_candidates"]
     assert audit["summary"]["ready_candidates"].count("patch_tst_mse") == 2
     assert "qlib_recorder_analysis" in audit["summary"]["ready_candidates"]
+    assert "factor_diagnostics" in audit["summary"]["ready_candidates"]
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
     assert rank_item["missing_evidence"] == []
@@ -946,6 +998,13 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
         "src/analysis",
         "research/qlib_recorder_analysis_validation_v1/qlib_recorder_analysis_validation_v1.ipynb",
     ]
+    assert factor_item["promotion_gate_status"] == "research_evidence_complete"
+    assert factor_item["implementation_allowed"] is True
+    assert factor_item["missing_evidence"] == []
+    assert factor_item["allowed_surfaces_after_gate"] == [
+        "src/factor",
+        "research/factor_diagnostics_validation_v1/factor_diagnostics_validation_v1.ipynb",
+    ]
 
 
 def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards():
@@ -964,6 +1023,7 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "rank_ic_objective",
         "patch_tst_mse",
         "qlib_recorder_analysis",
+        "factor_diagnostics",
     ]
     assert summary["promotion_evidence_index_keys"] == [
         "arxiv:2106.13008",
@@ -973,14 +1033,17 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "arxiv:2605.00501",
         "autoformer_mse",
         "dlinear_mse",
+        "factor_diagnostics",
         "fedformer_mse",
         "github:microsoft/qlib",
+        "github:quantopian/alphalens",
         "github:thuml/Time-Series-Library",
         "patch_tst_mse",
         "qlib_recorder_analysis",
         "rank_ic_objective",
         "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
         "research/dlinear_mse_validation_v1/dlinear_mse_validation_v1.ipynb",
+        "research/factor_diagnostics_validation_v1/factor_diagnostics_validation_v1.ipynb",
         "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
         "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
         "research/qlib_recorder_analysis_validation_v1/qlib_recorder_analysis_validation_v1.ipynb",
