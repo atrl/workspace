@@ -49,12 +49,12 @@
         "production"
       ],
       "metrics": {
-        "card_count": 119,
+        "card_count": 120,
         "missing_chinese_conclusion_count": 0,
         "multiple_notebook_count": 0,
         "production_published_count": 1,
         "production_template_count": 1,
-        "ready_count": 119
+        "ready_count": 120
       },
       "notes": "notebook 是中文 review 和复现实验的主证据；CSV/JSON 只作为 sidecar。",
       "requirement": "research/production 每个卡片必须有单一主 notebook，且最后有中文结论。",
@@ -278,8 +278,8 @@
         "research/knowledge_ingest/knowledge_promotion_audit.json"
       ],
       "metrics": {
-        "promotion_audit_blocked_count": 7,
-        "promotion_audit_ready_count": 3,
+        "promotion_audit_blocked_count": 6,
+        "promotion_audit_ready_count": 4,
         "promotion_evidence_source": "research_card_scan",
         "source_count": 10
       },

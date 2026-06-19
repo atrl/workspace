@@ -1,0 +1,12 @@
+{
+  "schema_version": "knowledge.source_provenance.v1",
+  "source_id": "arxiv:2205.13504",
+  "source_type": "paper",
+  "title": "Are Transformers Effective for Time Series Forecasting?",
+  "url": "https://arxiv.org/abs/2205.13504",
+  "summary": "DLinear decomposition-linear reference for the dlinear_mse adapter fidelity backlog.",
+  "retrieved_at": "2026-06-19",
+  "access_status": "metadata_accessible",
+  "source_used_as": "hypothesis_only",
+  "license_note": "只保存 arXiv URL、自有摘要和验证假设；未复制论文全文；未 vendoring 第三方代码。"
+}
