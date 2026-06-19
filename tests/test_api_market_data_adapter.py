@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 import pytest
 
@@ -9,6 +11,7 @@ from src.api import (
     build_target_position_intent_from_dashboard,
     execute_paper_intent,
 )
+import src.data as data_api
 
 
 def _price_frame() -> pd.DataFrame:
@@ -62,3 +65,44 @@ def test_paper_market_data_adapter_can_price_paper_intent_execution():
     assert result.snapshot.price == 11.5
     assert result.snapshot.shares == 43
     assert abs(result.snapshot.position - 0.4945) < 1e-4
+
+
+def test_paper_market_data_adapter_loads_current_snapshot_from_data_registry(tmp_path):
+    raw = pd.DataFrame(
+        [
+            {"date": "2026-01-02", "instrument": "SOXL", "close": 10.0, "volume": 100},
+            {"date": "2026-01-05", "instrument": "SOXL", "close": 12.0, "volume": 120},
+        ]
+    )
+    calendar = pd.DatetimeIndex(pd.to_datetime(["2026-01-02", "2026-01-05"]), name="date")
+    snapshot = data_api.build_canonical_snapshot(
+        raw,
+        name="unit_soxl_daily",
+        universe=("SOXL",),
+        calendar=calendar,
+        calendar_path="data/qlib/soxl/calendars/day.txt",
+        source_paths=("provider:unit",),
+        start="2026-01-01",
+        end="2026-01-05",
+        as_of="2026-01-05",
+    )
+    data_api.publish_canonical_snapshot(
+        snapshot,
+        output_dir=tmp_path / "data" / "snapshots" / "unit_soxl_daily" / "2026-01-05",
+        dataset_key="daily.unit_soxl",
+        registry_path=tmp_path / "data" / "data_registry.json",
+        published_at="2026-01-05T21:00:00Z",
+    )
+
+    adapter = PaperMarketDataAdapter.from_registry(
+        tmp_path / "data" / "data_registry.json",
+        dataset_key="daily.unit_soxl",
+    )
+    quote = adapter.latest_quote("SOXL")
+    registry = json.loads((tmp_path / "data" / "data_registry.json").read_text(encoding="utf-8"))
+    current = registry["datasets"]["daily.unit_soxl"]["current"]
+
+    assert quote.date == "2026-01-05"
+    assert quote.price == 12.0
+    assert quote.source_path == str(tmp_path / "data" / "snapshots" / "unit_soxl_daily" / "2026-01-05" / "canonical_frame.csv")
+    assert adapter.as_of.date().isoformat() == current["as_of"]

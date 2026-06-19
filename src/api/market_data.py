@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -62,6 +63,33 @@ class PaperMarketDataAdapter:
         frame = pd.read_csv(csv_path)
         return cls(frame, as_of=as_of, source_path=str(csv_path), price_field=price_field)
 
+    @classmethod
+    def from_registry(
+        cls,
+        registry_path: str | Path,
+        *,
+        dataset_key: str,
+        as_of: str | None = None,
+        price_field: str = "close",
+    ) -> "PaperMarketDataAdapter":
+        path = Path(registry_path)
+        registry = json.loads(path.read_text(encoding="utf-8"))
+        datasets = registry.get("datasets", {})
+        if dataset_key not in datasets:
+            raise ValueError(f"data registry missing dataset_key: {dataset_key}")
+        current = datasets[dataset_key].get("current") or {}
+        snapshot_path = _existing_path(current.get("snapshot_path", ""), base_dir=path.parent)
+        manifest_path = _existing_path(current.get("manifest_path", ""), base_dir=path.parent)
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        frame_name = manifest.get("paths", {}).get("frame", "canonical_frame.csv")
+        frame_path = snapshot_path / frame_name
+        if not frame_path.exists():
+            raise FileNotFoundError(str(frame_path))
+        snapshot_as_of = as_of or str(current.get("as_of") or manifest.get("dataset", {}).get("metadata", {}).get("as_of", ""))
+        if not snapshot_as_of:
+            raise ValueError(f"data registry current snapshot missing as_of: {dataset_key}")
+        return cls.from_csv(frame_path, as_of=snapshot_as_of, price_field=price_field)
+
     def _prepare_frame(self, frame: pd.DataFrame) -> pd.DataFrame:
         required = {"date", "instrument", self.price_field}
         missing = sorted(required.difference(frame.columns))
@@ -90,3 +118,10 @@ class PaperMarketDataAdapter:
             data_mode=self.data_mode,
             source_path=self.source_path,
         )
+
+
+def _existing_path(value: str, *, base_dir: Path) -> Path:
+    path = Path(value)
+    if path.is_absolute() or path.exists():
+        return path
+    return base_dir / path

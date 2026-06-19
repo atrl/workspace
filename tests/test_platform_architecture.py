@@ -108,6 +108,11 @@ def test_production_paper_sim_replay_records_market_data_quote_source():
     assert summary["market_quote"]["instrument"] == summary["instrument"]
     assert summary["market_quote"]["data_mode"] == "paper"
     assert summary["market_quote"]["source_path"]
+    assert summary["market_data_dataset_key"] == "daily.soxl_paper_replay"
+    assert summary["data_update_status"] == "success"
+    assert "data/snapshots/" in summary["market_quote"]["source_path"]
+    assert summary["market_quote"]["source_path"].endswith("canonical_frame.csv")
+    assert not (card / "paper_market_data_frame.csv").exists()
     assert execution["snapshot"]["price"] == summary["market_quote"]["price"]
 
 
