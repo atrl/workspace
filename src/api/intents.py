@@ -6,7 +6,7 @@ from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 
-from src.core import build_dashboard_manifest_source_contract
+from src.core import build_dashboard_manifest_source_contract, build_dashboard_readiness_overview
 
 from .contracts import BrokerAdapter, assert_paper_sim_mode
 from .paper import AccountSnapshot
@@ -276,69 +276,31 @@ def _dashboard_manifest_context(dashboard_payload: dict[str, Any]) -> dict[str, 
     }
 
 
-def _readiness_gates(dashboard_payload: dict[str, Any]) -> list[dict[str, str]]:
-    gates: list[dict[str, str]] = []
-    dashboard_manifest = _dashboard_manifest_context(dashboard_payload)
-    gates.append(
-        {
-            "gate": "dashboard_manifest",
-            "status": "pass" if dashboard_manifest["dashboard_manifest_status"] == "complete" else "block",
-        }
-    )
-
-    production_health = dashboard_payload.get("production_health")
-    if isinstance(production_health, dict) and production_health:
-        missing_count = len(_string_list(production_health.get("missing_required_paths")))
-        healthy = bool(production_health.get("is_healthy", False)) and missing_count == 0
-        gates.append({"gate": "production_health", "status": "pass" if healthy else "block"})
-
-    notebook_readiness = dashboard_payload.get("notebook_card_readiness")
-    if isinstance(notebook_readiness, dict) and notebook_readiness:
-        summary = notebook_readiness.get("summary")
-        notebook_summary = summary if isinstance(summary, dict) else {}
-        published_count = _int_field(notebook_summary, "production_published_count")
-        template_count = _int_field(notebook_summary, "production_template_count")
-        missing_count = _int_field(notebook_summary, "production_manifest_missing_count")
-        mismatch_count = _int_field(notebook_summary, "production_registry_mismatch_count")
-        if missing_count > 0 or mismatch_count > 0 or published_count == 0:
-            status = "block"
-        elif template_count > 0:
-            status = "review"
-        else:
-            status = "pass"
-        gates.append({"gate": "notebook_cards", "status": status})
-
-    requested_contract = dashboard_payload.get("requested_model_contract")
-    if isinstance(requested_contract, dict) and requested_contract:
-        completed_count = _int_field(requested_contract, "completed_requested_model_count")
-        all_completed = bool(requested_contract.get("all_requested_models_completed", False))
-        status = "pass" if all_completed else "review" if completed_count > 0 else "block"
-        gates.append({"gate": "requested_models", "status": status})
-
-    model_run_coverage = dashboard_payload.get("model_run_coverage")
-    if isinstance(model_run_coverage, dict) and model_run_coverage:
-        all_completed = bool(model_run_coverage.get("all_models_completed", False))
-        gates.append({"gate": "model_runs", "status": "pass" if all_completed else "review"})
-
-    return gates
-
-
 def _readiness_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
-    gates = _readiness_gates(dashboard_payload)
-    if not gates:
+    overview = build_dashboard_readiness_overview(dashboard_payload)
+    gates = overview.get("gates")
+    gate_rows = gates if isinstance(gates, list) else []
+    if not gate_rows:
         return {}
-    pass_gates = [gate["gate"] for gate in gates if gate["status"] == "pass"]
-    review_gates = [gate["gate"] for gate in gates if gate["status"] == "review"]
-    block_gates = [gate["gate"] for gate in gates if gate["status"] == "block"]
-    status = "blocked" if block_gates else "review" if review_gates else "ready"
+    gate_names = [str(gate.get("gate", "")) for gate in gate_rows if isinstance(gate, dict)]
+    review_gates = [
+        str(gate.get("gate", ""))
+        for gate in gate_rows
+        if isinstance(gate, dict) and str(gate.get("status", "")) == "review"
+    ]
+    block_gates = [
+        str(gate.get("gate", ""))
+        for gate in gate_rows
+        if isinstance(gate, dict) and str(gate.get("status", "")) == "block"
+    ]
     return {
-        "readiness_overview_schema_version": "dashboard.readiness_overview.v1",
-        "readiness_overview_status": status,
-        "readiness_overview_gate_count": int(len(gates)),
-        "readiness_overview_pass_count": int(len(pass_gates)),
-        "readiness_overview_review_count": int(len(review_gates)),
-        "readiness_overview_block_count": int(len(block_gates)),
-        "readiness_overview_gates": ",".join(gate["gate"] for gate in gates),
+        "readiness_overview_schema_version": str(overview.get("schema_version", "")),
+        "readiness_overview_status": str(overview.get("status", "")),
+        "readiness_overview_gate_count": _int_field(overview, "gate_count"),
+        "readiness_overview_pass_count": _int_field(overview, "pass_count"),
+        "readiness_overview_review_count": _int_field(overview, "review_count"),
+        "readiness_overview_block_count": _int_field(overview, "block_count"),
+        "readiness_overview_gates": ",".join(gate_names),
         "readiness_overview_review_gates": ",".join(review_gates),
         "readiness_overview_block_gates": ",".join(block_gates),
     }

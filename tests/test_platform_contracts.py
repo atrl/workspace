@@ -3,7 +3,12 @@ from __future__ import annotations
 import pandas as pd
 
 from src.analysis import compare_models, compute_regime_metrics, compute_window_metrics
-from src.core import ArtifactManifest, DatasetSnapshot, build_dashboard_manifest_source_contract
+from src.core import (
+    ArtifactManifest,
+    DatasetSnapshot,
+    build_dashboard_manifest_source_contract,
+    build_dashboard_readiness_overview,
+)
 from src.model import QUANTBENCH_MODEL_NAMES, get_model_spec
 from src.objective import OBJECTIVE_NAMES, utility_score
 
@@ -119,6 +124,81 @@ def test_dashboard_manifest_source_contract_classifies_strong_missing_legacy_and
     assert incomplete["status"] == "incomplete"
     assert incomplete["missing_fields"] == ["manifest_hash"]
     assert incomplete["error"] == "missing manifest_hash"
+
+
+def test_dashboard_readiness_overview_contract_unifies_manifest_production_notebook_model_gates():
+    payload = {
+        "manifest_source": {
+            "kind": "analysis_manifest",
+            "path": "matrix_card/analysis_manifest.json",
+            "schema_version": "artifact.v1",
+            "manifest_hash": "a" * 64,
+            "producer": "src.analysis.exports",
+        },
+        "production_health": {
+            "schema_version": "schedule.production_health.v1",
+            "health_status": "healthy",
+            "is_healthy": True,
+            "missing_required_paths": [],
+        },
+        "notebook_card_readiness": {
+            "schema_version": "dashboard.notebook_card_readiness.v1",
+            "summary": {
+                "production_published_count": 1,
+                "production_template_count": 1,
+                "production_manifest_missing_count": 0,
+                "production_registry_mismatch_count": 0,
+            },
+        },
+        "requested_model_contract": {
+            "schema_version": "model.requested_contract_health.v1",
+            "requested_model_count": 32,
+            "completed_requested_model_count": 31,
+            "missing_from_ledger": ["sthgcn_mse"],
+            "incomplete_requested_models": ["sthgcn_mse"],
+            "all_requested_models_completed": False,
+        },
+        "model_run_coverage": {
+            "schema_version": "model.run_ledger_summary.v1",
+            "expected_model_count": 2,
+            "trained_model_count": 2,
+            "backtested_model_count": 2,
+            "all_models_completed": True,
+        },
+    }
+
+    overview = build_dashboard_readiness_overview(payload)
+
+    assert overview["schema_version"] == "dashboard.readiness_overview.v1"
+    assert overview["status"] == "review"
+    assert overview["gate_count"] == 5
+    assert overview["pass_count"] == 3
+    assert overview["review_count"] == 2
+    assert overview["block_count"] == 0
+    assert [gate["gate"] for gate in overview["gates"]] == [
+        "dashboard_manifest",
+        "production_health",
+        "notebook_cards",
+        "requested_models",
+        "model_runs",
+    ]
+    gates = {gate["gate"]: gate for gate in overview["gates"]}
+    assert gates["dashboard_manifest"]["status"] == "pass"
+    assert gates["dashboard_manifest"]["detail"] == "analysis_manifest / complete hash aaaaaaaaaa"
+    assert gates["production_health"]["detail"] == "healthy / missing 0"
+    assert gates["notebook_cards"]["status"] == "review"
+    assert gates["notebook_cards"]["detail"] == "published 1 / template 1 / missing 0 / mismatch 0"
+    assert gates["requested_models"]["status"] == "review"
+    assert gates["requested_models"]["detail"] == "31 / 32 complete / missing 1 / incomplete 1"
+    assert gates["model_runs"]["status"] == "pass"
+    assert gates["model_runs"]["detail"] == "trained 2 / backtested 2 / expected 2"
+
+    blocked = build_dashboard_readiness_overview({"top_models": [{"model": "ridge_mse"}]})
+    assert blocked["status"] == "blocked"
+    assert blocked["gate_count"] == 1
+    assert blocked["block_count"] == 1
+    assert blocked["gates"][0]["gate"] == "dashboard_manifest"
+    assert blocked["gates"][0]["detail"] == "missing / missing hash "
 
 
 def test_quantbench_registry_covers_requested_models_without_rl_reward():

@@ -3,7 +3,12 @@ from .architecture import (
     build_architecture_extension_decision,
     write_architecture_extension_decision,
 )
-from .contracts import ArtifactManifest, DatasetSnapshot, build_dashboard_manifest_source_contract
+from .contracts import (
+    ArtifactManifest,
+    DatasetSnapshot,
+    build_dashboard_manifest_source_contract,
+    build_dashboard_readiness_overview,
+)
 from .knowledge import (
     KnowledgeSource,
     build_hypothesis_card,
@@ -24,6 +29,7 @@ __all__ = [
     "build_architecture_extension_decision",
     "build_hypothesis_card",
     "build_dashboard_manifest_source_contract",
+    "build_dashboard_readiness_overview",
     "build_knowledge_backlog",
     "build_knowledge_promotion_audit",
     "build_production_manifest",

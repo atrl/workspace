@@ -124,3 +124,120 @@ def build_dashboard_manifest_source_contract(
     contract["is_complete"] = True
     contract["readiness_detail"] = f"{kind} / complete hash {manifest_hash[:10]}"
     return contract
+
+
+def _int_field(row: dict[str, Any], key: str) -> int:
+    try:
+        return int(row.get(key, 0) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _list_count(value: Any) -> int:
+    return len(value) if isinstance(value, list) else 0
+
+
+def build_dashboard_readiness_overview(payload: dict[str, Any]) -> dict[str, Any]:
+    gates: list[dict[str, Any]] = []
+
+    manifest_contract = build_dashboard_manifest_source_contract(payload.get("manifest_source"))
+    gates.append(
+        {
+            "gate": "dashboard_manifest",
+            "label": "Dashboard Manifest",
+            "status": "pass" if manifest_contract["status"] == "complete" else "block",
+            "detail": str(manifest_contract.get("readiness_detail", "")),
+            "source_schema_version": str(manifest_contract.get("source_schema_version", "")),
+        }
+    )
+
+    production_health = payload.get("production_health")
+    if isinstance(production_health, dict) and production_health:
+        missing_count = _list_count(production_health.get("missing_required_paths"))
+        healthy = bool(production_health.get("is_healthy", False)) and missing_count == 0
+        gates.append(
+            {
+                "gate": "production_health",
+                "label": "Production Health",
+                "status": "pass" if healthy else "block",
+                "detail": f"{production_health.get('health_status', 'unknown')} / missing {missing_count}",
+                "source_schema_version": str(production_health.get("schema_version", "")),
+            }
+        )
+
+    notebook_readiness = payload.get("notebook_card_readiness")
+    if isinstance(notebook_readiness, dict) and notebook_readiness:
+        summary = notebook_readiness.get("summary")
+        notebook_summary = summary if isinstance(summary, dict) else {}
+        published_count = _int_field(notebook_summary, "production_published_count")
+        template_count = _int_field(notebook_summary, "production_template_count")
+        missing_count = _int_field(notebook_summary, "production_manifest_missing_count")
+        mismatch_count = _int_field(notebook_summary, "production_registry_mismatch_count")
+        if missing_count > 0 or mismatch_count > 0 or published_count == 0:
+            status = "block"
+        elif template_count > 0:
+            status = "review"
+        else:
+            status = "pass"
+        gates.append(
+            {
+                "gate": "notebook_cards",
+                "label": "Notebook Cards",
+                "status": status,
+                "detail": (
+                    f"published {published_count} / template {template_count} / "
+                    f"missing {missing_count} / mismatch {mismatch_count}"
+                ),
+                "source_schema_version": str(notebook_readiness.get("schema_version", "")),
+            }
+        )
+
+    requested_contract = payload.get("requested_model_contract")
+    if isinstance(requested_contract, dict) and requested_contract:
+        requested_count = _int_field(requested_contract, "requested_model_count")
+        completed_count = _int_field(requested_contract, "completed_requested_model_count")
+        missing_count = _list_count(requested_contract.get("missing_from_ledger"))
+        incomplete_count = _list_count(requested_contract.get("incomplete_requested_models"))
+        all_completed = bool(requested_contract.get("all_requested_models_completed", False))
+        status = "pass" if all_completed else "review" if completed_count > 0 else "block"
+        gates.append(
+            {
+                "gate": "requested_models",
+                "label": "Requested Models",
+                "status": status,
+                "detail": (
+                    f"{completed_count} / {requested_count} complete / "
+                    f"missing {missing_count} / incomplete {incomplete_count}"
+                ),
+                "source_schema_version": str(requested_contract.get("schema_version", "")),
+            }
+        )
+
+    model_run_coverage = payload.get("model_run_coverage")
+    if isinstance(model_run_coverage, dict) and model_run_coverage:
+        expected_count = _int_field(model_run_coverage, "expected_model_count")
+        trained_count = _int_field(model_run_coverage, "trained_model_count")
+        backtested_count = _int_field(model_run_coverage, "backtested_model_count")
+        all_completed = bool(model_run_coverage.get("all_models_completed", False))
+        gates.append(
+            {
+                "gate": "model_runs",
+                "label": "Model Runs",
+                "status": "pass" if all_completed else "review",
+                "detail": f"trained {trained_count} / backtested {backtested_count} / expected {expected_count}",
+                "source_schema_version": str(model_run_coverage.get("schema_version", "")),
+            }
+        )
+
+    pass_count = sum(1 for gate in gates if gate["status"] == "pass")
+    review_count = sum(1 for gate in gates if gate["status"] == "review")
+    block_count = sum(1 for gate in gates if gate["status"] == "block")
+    return {
+        "schema_version": "dashboard.readiness_overview.v1",
+        "status": "blocked" if block_count else "review" if review_count else "ready",
+        "gate_count": int(len(gates)),
+        "pass_count": int(pass_count),
+        "review_count": int(review_count),
+        "block_count": int(block_count),
+        "gates": gates,
+    }
