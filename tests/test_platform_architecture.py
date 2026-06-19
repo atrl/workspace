@@ -116,6 +116,33 @@ def test_production_paper_sim_replay_records_market_data_quote_source():
     assert execution["snapshot"]["price"] == summary["market_quote"]["price"]
 
 
+def test_production_paper_sim_replay_publishes_strategy_manifest_and_registry():
+    root = Path(__file__).resolve().parents[1]
+    card = root / "production" / "paper_sim_replay_v1"
+
+    manifest = json.loads((card / "production_manifest.json").read_text(encoding="utf-8"))
+    registry = json.loads((root / "production" / "production_registry.json").read_text(encoding="utf-8"))
+    current = registry["strategies"]["paper_sim_replay_v1"]["current"]
+
+    assert manifest["schema_version"] == "production.manifest.v1"
+    assert manifest["artifact_type"] == "production_strategy"
+    assert manifest["producer"] == "src.core.production"
+    assert manifest["artifact_id"] == "paper_sim_replay_v1"
+    assert manifest["paths"]["notebook"] == "paper_sim_replay_v1.ipynb"
+    assert manifest["paths"]["summary"] == "production_summary.json"
+    assert manifest["paths"]["dashboard_export"] == "dashboard_export.json"
+    assert manifest["paths"]["intent_ledger"] == "intent_ledger.json"
+    assert manifest["paths"]["paper_execution_result"] == "paper_execution_result.json"
+    assert manifest["paths"]["data_registry"] == "data/data_registry.json"
+    assert manifest["paths"]["analysis_manifest"] == "matrix_card/analysis_manifest.json"
+    assert manifest["metadata"]["mode"] == "paper"
+    assert manifest["metadata"]["live_broker_enabled"] is False
+    assert len(manifest["manifest_hash"]) == 64
+    assert registry["schema_version"] == "production.registry.v1"
+    assert current["manifest_hash"] == manifest["manifest_hash"]
+    assert current["manifest_path"].endswith("production/paper_sim_replay_v1/production_manifest.json")
+
+
 def test_project_docs_describe_full_platform_not_cleaned_workspace():
     root = Path(__file__).resolve().parents[1]
 

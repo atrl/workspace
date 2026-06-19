@@ -326,5 +326,8 @@
     "window": "",
     "worst_relative_return_model": "ridge_mse__all_features",
     "worst_stability_model": "ridge_mse__all_features"
-  }
+  },
+  "production_manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+  "production_manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+  "production_registry_path": "production/production_registry.json"
 }
