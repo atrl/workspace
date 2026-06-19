@@ -12,7 +12,8 @@
       "dashboard_manifest_hash": "4d16a54a928730947e024297c634659ca6ecb1f8d575073d6878666e55bf2b46",
       "dashboard_manifest_kind": "analysis_manifest",
       "market_data_dataset_key": "daily.soxl_paper_replay",
-      "market_data_manifest_hash": "c2d66c782be2de4adb47554cd4c5211481a9be3c110bc90fdc7da6f855a317a7"
+      "market_data_manifest_hash": "c2d66c782be2de4adb47554cd4c5211481a9be3c110bc90fdc7da6f855a317a7",
+      "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1"
     },
     "name": "paper_replay_soxl_daily",
     "schema_version": "dataset.v1",
@@ -21,7 +22,7 @@
       "SOXL"
     ]
   },
-  "manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+  "manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
   "metadata": {
     "analysis_overview_schema": "analysis.overview.v1",
     "backtest_schema_version": "backtest.config.v1",
@@ -33,6 +34,8 @@
     "market_quote_date": "2026-06-09",
     "market_quote_price": 201.68,
     "mode": "paper",
+    "paper_execution_job_status": "success",
+    "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
     "paper_position": 0.746216,
     "paper_shares": 37,
     "promotion_decision": "promote_candidate",

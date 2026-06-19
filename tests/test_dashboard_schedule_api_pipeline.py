@@ -521,7 +521,11 @@ def test_production_paper_sim_summary_records_review_gate_context():
     assert summary["promotion_decision"]
     assert summary["backtest_schema_version"] == "backtest.config.v1"
     assert summary["backtest_walk_forward_fold_count"] >= 1
+    assert summary["paper_execution_pipeline_schema_version"] == "schedule.paper_execution.v1"
+    assert summary["paper_execution_job_status"] == "success"
+    assert summary["paper_execution_result"] == "production/paper_sim_replay_v1/paper_execution_result.json"
     assert "regime_gap=" in " ".join(summary["notifications"])
+    assert "paper_sim_replay_execution_v1:success" in " ".join(summary["paper_execution_notifications"])
     assert intent["metadata"]["execution_gate"] == summary["execution_gate"]
     assert intent["metadata"]["analysis_overview_schema_version"] == summary["analysis_overview_schema"]
     assert intent["metadata"]["backtest_schema_version"] == summary["backtest_schema_version"]
