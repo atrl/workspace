@@ -1,0 +1,75 @@
+{
+  "schema_version": "research.extra_trees_rank_native_adapter.v1",
+  "model": "extra_trees_rank",
+  "adapter_status": "paper_strict_adapter",
+  "model_adapter": "extra_trees_rank_forest_rank_v1",
+  "estimator_class": "ExtraTreesRankRegressor",
+  "target_kind": "forward_return_rank",
+  "rank_target_mean": -2.3693784062122245e-18,
+  "rank_target_std": 1.0,
+  "feature_count": 6,
+  "prediction_count": 26,
+  "prediction_has_na": false,
+  "full_model_fidelity": {
+    "schema_version": "model.fidelity.v1",
+    "model_count": 32,
+    "fidelity_counts": {
+      "native_graph": 9,
+      "native_library": 10,
+      "native_sequence": 7,
+      "native_torch": 6
+    },
+    "proxy_models": [],
+    "native_models": [
+      "alstm_mse",
+      "autoformer_mse",
+      "catboost_rank",
+      "darnn_mse",
+      "dlinear_mse",
+      "extra_trees_rank",
+      "fedformer_mse",
+      "gat_mse",
+      "gcn_mse",
+      "gru_mse",
+      "hawkes_gru_mse",
+      "hist_gradient_mse",
+      "hypergraph_mse",
+      "lightgbm_mse",
+      "logistic_clf",
+      "lstm_mse",
+      "market_graph_mse",
+      "mlp_mixer_mse",
+      "mlp_mse",
+      "patch_tst_mse",
+      "random_forest_clf",
+      "rgcn_mse",
+      "ridge_ic",
+      "ridge_mse",
+      "rsr_mse",
+      "sequence_lag_ridge_mse",
+      "sfm_mse",
+      "sthan_mse",
+      "sthgcn_mse",
+      "tcn_mse",
+      "thgnn_mse",
+      "xgboost_mse"
+    ],
+    "promotion_blocker_count": 22
+  },
+  "matrix_model_fidelity": {
+    "fidelity_counts": {
+      "native_library": 5
+    },
+    "model_count": 5,
+    "native_models": [
+      "extra_trees_rank",
+      "hist_gradient_mse",
+      "ridge_ic",
+      "ridge_mse",
+      "xgboost_mse"
+    ],
+    "promotion_blocker_count": 0,
+    "proxy_models": [],
+    "schema_version": "model.fidelity.v1"
+  }
+}

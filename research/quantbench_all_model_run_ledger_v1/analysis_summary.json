@@ -33,7 +33,7 @@
         "baseline_model": "mlp_mixer_mse",
         "best_relative_return_model": "sfm_mse",
         "best_relative_return_vs_baseline_delta": 29.20125554590642,
-        "best_stability_model": "xgboost_mse",
+        "best_stability_model": "extra_trees_rank",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
@@ -41,7 +41,7 @@
         "review_note": "sfm_mse 在 downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "downtrend",
         "segment_type": "regime",
-        "stability_score_spread": 234.29361674375656,
+        "stability_score_spread": 287.8129393020879,
         "window": "",
         "worst_relative_return_model": "ridge_ic",
         "worst_stability_model": "fedformer_mse"
@@ -50,7 +50,7 @@
         "baseline_model": "mlp_mixer_mse",
         "best_relative_return_model": "sfm_mse",
         "best_relative_return_vs_baseline_delta": 29.20125554590642,
-        "best_stability_model": "xgboost_mse",
+        "best_stability_model": "extra_trees_rank",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
@@ -58,7 +58,7 @@
         "review_note": "sfm_mse 在 test::downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "test::downtrend",
         "segment_type": "window_regime",
-        "stability_score_spread": 234.29361674375656,
+        "stability_score_spread": 287.8129393020879,
         "window": "test",
         "worst_relative_return_model": "ridge_ic",
         "worst_stability_model": "fedformer_mse"
@@ -67,7 +67,7 @@
         "baseline_model": "mlp_mixer_mse",
         "best_relative_return_model": "sfm_mse",
         "best_relative_return_vs_baseline_delta": 29.20125554590642,
-        "best_stability_model": "xgboost_mse",
+        "best_stability_model": "extra_trees_rank",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
@@ -75,7 +75,7 @@
         "review_note": "sfm_mse 在 trailing_12m::downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "trailing_12m::downtrend",
         "segment_type": "window_regime",
-        "stability_score_spread": 234.29361674375656,
+        "stability_score_spread": 287.8129393020879,
         "window": "trailing_12m",
         "worst_relative_return_model": "ridge_ic",
         "worst_stability_model": "fedformer_mse"
@@ -84,7 +84,7 @@
         "baseline_model": "mlp_mixer_mse",
         "best_relative_return_model": "sfm_mse",
         "best_relative_return_vs_baseline_delta": 29.20125554590642,
-        "best_stability_model": "xgboost_mse",
+        "best_stability_model": "extra_trees_rank",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
@@ -92,7 +92,7 @@
         "review_note": "sfm_mse 在 trailing_3m::downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "trailing_3m::downtrend",
         "segment_type": "window_regime",
-        "stability_score_spread": 234.29361674375656,
+        "stability_score_spread": 287.8129393020879,
         "window": "trailing_3m",
         "worst_relative_return_model": "ridge_ic",
         "worst_stability_model": "fedformer_mse"
@@ -101,7 +101,7 @@
         "baseline_model": "mlp_mixer_mse",
         "best_relative_return_model": "sfm_mse",
         "best_relative_return_vs_baseline_delta": 29.20125554590642,
-        "best_stability_model": "xgboost_mse",
+        "best_stability_model": "extra_trees_rank",
         "highest_drawdown_model": "rgcn_mse",
         "highest_drawdown_pct": 6.399941509835704,
         "regime": "downtrend",
@@ -109,7 +109,7 @@
         "review_note": "sfm_mse 在 trailing_6m::downtrend 强于基准 mlp_mixer_mse，可作为该 regime/window 的候选优势模型。",
         "segment": "trailing_6m::downtrend",
         "segment_type": "window_regime",
-        "stability_score_spread": 234.29361674375656,
+        "stability_score_spread": 287.8129393020879,
         "window": "trailing_6m",
         "worst_relative_return_model": "ridge_ic",
         "worst_stability_model": "fedformer_mse"
@@ -510,7 +510,7 @@
     "catboost_rank_v1",
     "darnn_dual_attention_gru_mse_v1",
     "dlinear_decomposition_mse_v1",
-    "extra_trees_rank_proxy_v1",
+    "extra_trees_rank_forest_rank_v1",
     "fedformer_frequency_attention_mse_v1",
     "gat_graph_attention_mse_v1",
     "gcn_graph_convolution_mse_v1",
@@ -542,10 +542,9 @@
   "model_fidelity": {
     "fidelity_counts": {
       "native_graph": 9,
-      "native_library": 9,
+      "native_library": 10,
       "native_sequence": 7,
-      "native_torch": 6,
-      "proxy_feature_adapter": 1
+      "native_torch": 6
     },
     "model_count": 32,
     "native_models": [
@@ -554,6 +553,7 @@
       "catboost_rank",
       "darnn_mse",
       "dlinear_mse",
+      "extra_trees_rank",
       "fedformer_mse",
       "gat_mse",
       "gcn_mse",
@@ -581,16 +581,14 @@
       "thgnn_mse",
       "xgboost_mse"
     ],
-    "promotion_blocker_count": 23,
-    "proxy_models": [
-      "extra_trees_rank"
-    ],
+    "promotion_blocker_count": 22,
+    "proxy_models": [],
     "schema_version": "model.fidelity.v1"
   },
   "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
   "objective_evaluation": {
-    "avg_ic": -0.003864954761117201,
-    "avg_mse": 0.03465014304852754,
+    "avg_ic": -0.0036453045057055836,
+    "avg_mse": 0.0344406486047312,
     "avg_rank_ic": 0.0,
     "model_count": 32,
     "schema_version": "objective.matrix_evaluation.v1"

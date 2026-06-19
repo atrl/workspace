@@ -51,7 +51,7 @@
       "catboost_rank_v1",
       "darnn_dual_attention_gru_mse_v1",
       "dlinear_decomposition_mse_v1",
-      "extra_trees_rank_proxy_v1",
+      "extra_trees_rank_forest_rank_v1",
       "fedformer_frequency_attention_mse_v1",
       "gat_graph_attention_mse_v1",
       "gcn_graph_convolution_mse_v1",
@@ -83,10 +83,9 @@
     "model_fidelity": {
       "fidelity_counts": {
         "native_graph": 9,
-        "native_library": 9,
+        "native_library": 10,
         "native_sequence": 7,
-        "native_torch": 6,
-        "proxy_feature_adapter": 1
+        "native_torch": 6
       },
       "model_count": 32,
       "native_models": [
@@ -95,6 +94,7 @@
         "catboost_rank",
         "darnn_mse",
         "dlinear_mse",
+        "extra_trees_rank",
         "fedformer_mse",
         "gat_mse",
         "gcn_mse",
@@ -122,15 +122,13 @@
         "thgnn_mse",
         "xgboost_mse"
       ],
-      "promotion_blocker_count": 23,
-      "proxy_models": [
-        "extra_trees_rank"
-      ],
+      "promotion_blocker_count": 22,
+      "proxy_models": [],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": -0.003864954761117201,
-      "avg_mse": 0.03465014304852754,
+      "avg_ic": -0.0036453045057055836,
+      "avg_mse": 0.0344406486047312,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -176,5 +174,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "593104c253b60953a9743c3658f0d196af0a4bfafe7616bd8b7226c45d65bf76"
+  "manifest_hash": "6503cc10d6c33c4ebad7b7eb75ae0a603aae7074e6451547a659de7f4dc9c697"
 }

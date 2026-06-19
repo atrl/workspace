@@ -45,7 +45,7 @@ STRICT_ADAPTER_NAMES = {
     "random_forest_clf": "random_forest_direction_v1",
     "hist_gradient_mse": "hist_gradient_mse_v1",
     "xgboost_mse": "xgboost_mse_v1",
-    "extra_trees_rank": "extra_trees_rank_proxy_v1",
+    "extra_trees_rank": "extra_trees_rank_forest_rank_v1",
     "lightgbm_mse": "lightgbm_mse_v1",
     "catboost_rank": "catboost_rank_v1",
     "mlp_mse": "mlp_sklearn_mse_v1",
@@ -242,6 +242,48 @@ class RidgeICRegressor:
         return np.asarray(self.model_.predict(x_test), dtype=float)
 
 
+class ExtraTreesRankRegressor:
+    def __init__(
+        self,
+        *,
+        n_estimators: int = 48,
+        max_depth: int = 5,
+        min_samples_leaf: int = 3,
+        random_state: int = 7,
+    ) -> None:
+        self.n_estimators = int(n_estimators)
+        self.max_depth = int(max_depth)
+        self.min_samples_leaf = int(min_samples_leaf)
+        self.random_state = int(random_state)
+        self.model_: ExtraTreesRegressor | None = None
+
+    def fit(self, x_train: np.ndarray, y_train: np.ndarray):
+        target = np.asarray(y_train, dtype=float)
+        target = target - float(np.mean(target))
+        std = float(np.std(target))
+        if np.isfinite(std) and std > 1e-12:
+            target = target / std
+
+        self.objective_name_ = "ranking"
+        self.target_kind_ = "forward_return_rank"
+        self.rank_target_mean_ = float(np.mean(target))
+        self.rank_target_std_ = float(np.std(target))
+        self.feature_count_ = int(x_train.shape[1]) if getattr(x_train, "ndim", 0) == 2 else 0
+        self.model_ = ExtraTreesRegressor(
+            n_estimators=self.n_estimators,
+            max_depth=self.max_depth,
+            min_samples_leaf=self.min_samples_leaf,
+            random_state=self.random_state,
+        )
+        self.model_.fit(x_train, target)
+        return self
+
+    def predict(self, x_test: np.ndarray) -> np.ndarray:
+        if self.model_ is None:
+            raise RuntimeError("ExtraTreesRankRegressor must be fitted before predict")
+        return np.asarray(self.model_.predict(x_test), dtype=float)
+
+
 def _estimator_for_model(model_name: str):
     spec = get_model_spec(model_name)
     if model_name == "logistic_clf":
@@ -257,6 +299,8 @@ def _estimator_for_model(model_name: str):
         return RandomForestClassifier(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if model_name == "hist_gradient_mse":
         return HistGradientBoostingRegressor(max_iter=80, max_leaf_nodes=15, learning_rate=0.05, random_state=7)
+    if model_name == "extra_trees_rank":
+        return ExtraTreesRankRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if model_name == "xgboost_mse":
         return _xgboost_regressor()
     if model_name == "lightgbm_mse":
@@ -348,8 +392,6 @@ def _estimator_for_model(model_name: str):
         return THGNNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=67)
     if model_name == "sthgcn_mse":
         return STHGCNGraphRegressor(hidden_size=8, epochs=32, learning_rate=0.01, seed=71)
-    if model_name == "extra_trees_rank":
-        return ExtraTreesRegressor(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if spec.family == "tree" and spec.objective == "classification":
         return RandomForestClassifier(n_estimators=24, max_depth=4, random_state=7)
     if spec.objective == "classification":

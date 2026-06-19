@@ -120,13 +120,12 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
     _native("xgboost_mse", "boosting", "mse", "tabular", "XGBoostRegressor"),
     _native("lightgbm_mse", "boosting", "mse", "tabular", "LightGBMRegressor"),
     _native("catboost_rank", "boosting", "ranking", "tabular", "CatBoostRanker"),
-    _proxy(
+    _native(
         "extra_trees_rank",
         "tree",
         "ranking",
         "tabular",
-        "ExtraTreesRegressor",
-        "ExtraTrees is trained on an IC-style rank target proxy.",
+        "ExtraTreesRankRegressor",
     ),
     _native("mlp_mse", "neural_tabular", "mse", "tabular", "MLPRegressor"),
     _native_sequence(

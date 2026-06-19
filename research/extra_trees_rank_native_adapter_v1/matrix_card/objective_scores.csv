@@ -1,0 +1,6 @@
+schema_version,model,objective,family,row_count,mse,classification_accuracy,ic,rank_ic,rank_group_count
+objective.evaluation.v1,extra_trees_rank,ranking,tree,26,0.08623924666954107,0.5384615384615384,-0.012846295282342894,0.0,0
+objective.evaluation.v1,hist_gradient_mse,mse,tree,26,0.013168990822292363,0.5769230769230769,-0.04291235421268415,0.0,0
+objective.evaluation.v1,ridge_ic,ic,linear,26,0.14169144912451853,0.34615384615384615,-0.03677593279818956,0.0,0
+objective.evaluation.v1,ridge_mse,mse,linear,26,0.01320939401970131,0.5,-0.05672021455965021,0.0,0
+objective.evaluation.v1,xgboost_mse,mse,boosting,26,0.01221080054772162,0.6153846153846154,0.09178403277267187,0.0,0

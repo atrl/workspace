@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact
-from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
+from src.model.training import fit_estimator_for_model, fit_predict_model, model_adapter_name, model_adapter_status
 
 
 def _split_frame():
@@ -19,7 +19,7 @@ def test_tree_and_installed_boosting_models_use_named_adapters():
     expected = {
         "random_forest_clf": ("paper_strict_adapter", "random_forest_direction_v1"),
         "hist_gradient_mse": ("paper_strict_adapter", "hist_gradient_mse_v1"),
-        "extra_trees_rank": ("paper_strict_adapter", "extra_trees_rank_proxy_v1"),
+        "extra_trees_rank": ("paper_strict_adapter", "extra_trees_rank_forest_rank_v1"),
         "lightgbm_mse": ("paper_strict_adapter", "lightgbm_mse_v1"),
     }
     for model_name, (status, adapter_name) in expected.items():
@@ -77,6 +77,24 @@ def test_ranking_adapter_predictions_are_distinct_from_mse_boosting_path():
 
     assert rank_predictions["objective"].unique().tolist() == ["ranking"]
     assert not rank_predictions["prediction"].round(10).equals(mse_predictions["prediction"].round(10))
+
+
+def test_extra_trees_rank_uses_native_rank_estimator_with_rank_target_metadata():
+    dataset, train, _ = _split_frame()
+
+    estimator, constant_prediction = fit_estimator_for_model(
+        "extra_trees_rank",
+        train=train,
+        feature_columns=dataset.feature_columns[:6],
+    )
+
+    assert constant_prediction is None
+    assert estimator.__class__.__name__ == "ExtraTreesRankRegressor"
+    assert estimator.objective_name_ == "ranking"
+    assert estimator.target_kind_ == "forward_return_rank"
+    assert estimator.rank_target_std_ > 0.0
+    assert abs(estimator.rank_target_mean_) < 1e-12
+    assert estimator.feature_count_ == 6
 
 
 def test_artifact_metadata_records_lightgbm_adapter_name_and_status():
