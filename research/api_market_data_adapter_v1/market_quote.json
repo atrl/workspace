@@ -1,0 +1,9 @@
+{
+  "schema_version": "api.market_quote.v1",
+  "instrument": "SOXL",
+  "date": "2026-01-05",
+  "price": 11.5,
+  "field": "close",
+  "data_mode": "paper",
+  "source_path": "/Users/rziiiii/dev/workspace/research/api_market_data_adapter_v1/paper_market_data_frame.csv"
+}
