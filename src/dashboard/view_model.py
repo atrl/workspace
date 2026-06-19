@@ -249,6 +249,113 @@ def _controls(payload: dict[str, Any], capabilities: dict[str, dict[str, Any]]) 
     }
 
 
+def _int_field(row: dict[str, Any], key: str) -> int:
+    try:
+        return int(row.get(key, 0) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _readiness_overview(payload: dict[str, Any]) -> dict[str, Any]:
+    gates: list[dict[str, Any]] = []
+    production_health = payload.get("production_health")
+    if isinstance(production_health, dict) and production_health:
+        missing = production_health.get("missing_required_paths")
+        missing_count = len(missing) if isinstance(missing, list) else 0
+        healthy = bool(production_health.get("is_healthy", False)) and missing_count == 0
+        gates.append(
+            {
+                "gate": "production_health",
+                "label": "Production Health",
+                "status": "pass" if healthy else "block",
+                "detail": f"{production_health.get('health_status', 'unknown')} / missing {missing_count}",
+                "source_schema_version": str(production_health.get("schema_version", "")),
+            }
+        )
+
+    notebook_readiness = payload.get("notebook_card_readiness")
+    if isinstance(notebook_readiness, dict) and notebook_readiness:
+        summary = notebook_readiness.get("summary")
+        notebook_summary = summary if isinstance(summary, dict) else {}
+        published_count = _int_field(notebook_summary, "production_published_count")
+        template_count = _int_field(notebook_summary, "production_template_count")
+        missing_count = _int_field(notebook_summary, "production_manifest_missing_count")
+        mismatch_count = _int_field(notebook_summary, "production_registry_mismatch_count")
+        if missing_count > 0 or mismatch_count > 0 or published_count == 0:
+            status = "block"
+        elif template_count > 0:
+            status = "review"
+        else:
+            status = "pass"
+        gates.append(
+            {
+                "gate": "notebook_cards",
+                "label": "Notebook Cards",
+                "status": status,
+                "detail": (
+                    f"published {published_count} / template {template_count} / "
+                    f"missing {missing_count} / mismatch {mismatch_count}"
+                ),
+                "source_schema_version": str(notebook_readiness.get("schema_version", "")),
+            }
+        )
+
+    requested_contract = payload.get("requested_model_contract")
+    if isinstance(requested_contract, dict) and requested_contract:
+        requested_count = _int_field(requested_contract, "requested_model_count")
+        completed_count = _int_field(requested_contract, "completed_requested_model_count")
+        missing = requested_contract.get("missing_from_ledger")
+        incomplete = requested_contract.get("incomplete_requested_models")
+        missing_count = len(missing) if isinstance(missing, list) else 0
+        incomplete_count = len(incomplete) if isinstance(incomplete, list) else 0
+        all_completed = bool(requested_contract.get("all_requested_models_completed", False))
+        status = "pass" if all_completed else "review" if completed_count > 0 else "block"
+        gates.append(
+            {
+                "gate": "requested_models",
+                "label": "Requested Models",
+                "status": status,
+                "detail": (
+                    f"{completed_count} / {requested_count} complete / "
+                    f"missing {missing_count} / incomplete {incomplete_count}"
+                ),
+                "source_schema_version": str(requested_contract.get("schema_version", "")),
+            }
+        )
+
+    model_run_coverage = payload.get("model_run_coverage")
+    if isinstance(model_run_coverage, dict) and model_run_coverage:
+        expected_count = _int_field(model_run_coverage, "expected_model_count")
+        trained_count = _int_field(model_run_coverage, "trained_model_count")
+        backtested_count = _int_field(model_run_coverage, "backtested_model_count")
+        all_completed = bool(model_run_coverage.get("all_models_completed", False))
+        gates.append(
+            {
+                "gate": "model_runs",
+                "label": "Model Runs",
+                "status": "pass" if all_completed else "review",
+                "detail": f"trained {trained_count} / backtested {backtested_count} / expected {expected_count}",
+                "source_schema_version": str(model_run_coverage.get("schema_version", "")),
+            }
+        )
+
+    if not gates:
+        return {}
+    pass_count = sum(1 for gate in gates if gate["status"] == "pass")
+    review_count = sum(1 for gate in gates if gate["status"] == "review")
+    block_count = sum(1 for gate in gates if gate["status"] == "block")
+    status = "blocked" if block_count else "review" if review_count else "ready"
+    return {
+        "schema_version": "dashboard.readiness_overview.v1",
+        "status": status,
+        "gate_count": int(len(gates)),
+        "pass_count": int(pass_count),
+        "review_count": int(review_count),
+        "block_count": int(block_count),
+        "gates": gates,
+    }
+
+
 def _matches_card(
     *,
     model: str,
@@ -418,6 +525,7 @@ def build_dashboard_view_model(
         "notebook_card_readiness": dict(payload.get("notebook_card_readiness", {}))
         if isinstance(payload.get("notebook_card_readiness"), dict)
         else {},
+        "readiness_overview": _readiness_overview(payload),
         "comparison_table": [dict(row) for row in top_models],
         "failure_mode_summary": {
             "count": int(len(failure_modes)),

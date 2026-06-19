@@ -19,6 +19,8 @@
     select { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 8px; }
     .analysis-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .analysis-overview header { margin-bottom: 10px; }
+    .readiness-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .readiness-overview header { margin-bottom: 10px; }
     .production-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .production-health header { margin-bottom: 10px; }
     .notebook-readiness { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
@@ -40,6 +42,13 @@
     .overview-grid span { color: var(--muted); font-size: 12px; }
     .overview-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
     .overview-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .readiness-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .readiness-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .readiness-grid span { color: var(--muted); font-size: 12px; }
+    .readiness-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .readiness-gates { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
+    .readiness-gates li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .readiness-gates span { grid-column: 1 / -1; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
     .summary { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
     .summary div, .model-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
     .summary div { padding: 12px; }
@@ -55,6 +64,9 @@
     .pill.fidelity { background: #e7f2f8; color: var(--accent); }
     .pill.healthy { background: #e8f5ee; color: var(--good); }
     .pill.warn { background: #fff4df; color: var(--warn); }
+    .pill.pass, .pill.ready { background: #e8f5ee; color: var(--good); }
+    .pill.review { background: #fff4df; color: var(--warn); }
+    .pill.block, .pill.blocked { background: #fdecec; color: #9f1f1f; }
     .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
     .metrics div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
@@ -71,7 +83,7 @@
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .production-health .health-grid, .notebook-readiness .notebook-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -117,6 +129,24 @@
 <option value="promote_candidate">promote_candidate</option></select></label>
     </section>
 
+    <section class="readiness-overview" aria-label="readiness overview">
+      <header>
+        <h2>Readiness Overview</h2>
+        <p>dashboard.readiness_overview.v1</p>
+      </header>
+      <div class="readiness-grid">
+        <div><span>Overall</span><strong><span class="pill review">review</span></strong></div>
+        <div><span>Pass</span><strong>2</strong></div>
+        <div><span>Review</span><strong>2</strong></div>
+        <div><span>Block</span><strong>0</strong></div>
+      </div>
+      <ul class="readiness-gates"><li><strong>Production Health</strong><span class="pill pass">pass</span><span>healthy / missing 0</span></li>
+<li><strong>Notebook Cards</strong><span class="pill review">review</span><span>published 1 / template 1 / missing 0 / mismatch 0</span></li>
+<li><strong>Requested Models</strong><span class="pill review">review</span><span>2 / 32 complete / missing 30 / incomplete 0</span></li>
+<li><strong>Model Runs</strong><span class="pill pass">pass</span><span>trained 6 / backtested 6 / expected 6</span></li></ul>
+    </section>
+
+
     <section class="analysis-overview" aria-label="analysis overview">
       <header>
         <h2>Analysis Overview</h2>
@@ -131,6 +161,20 @@
       </div>
     </section>
 
+
+    <section class="production-health" aria-label="production health">
+      <header>
+        <h2>Production Health</h2>
+        <p>paper_sim_replay_v1</p>
+      </header>
+      <div class="health-grid">
+        <div><span>Health</span><strong><span class="pill healthy">healthy</span></strong></div>
+        <div><span>Mode</span><strong>paper</strong><p>live broker off</p></div>
+        <div><span>Required Paths</span><strong>7</strong><p>missing 0</p></div>
+        <div><span>Paper Execution</span><strong>unknown</strong><p></p></div>
+        <div><span>Manifest</span><strong>225b34eb7f</strong><p>2026-06-09T21:30:00Z</p></div>
+      </div>
+    </section>
 
 
     <section class="notebook-readiness" aria-label="notebook card readiness">
@@ -1591,7 +1635,42 @@
       "paper_strict_adapter"
     ]
   },
-  "production_health": {},
+  "production_health": {
+    "schema_version": "schedule.production_health.v1",
+    "strategy_id": "paper_sim_replay_v1",
+    "health_status": "healthy",
+    "is_healthy": true,
+    "registry_path": "production/production_registry.json",
+    "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+    "manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+    "registry_manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+    "manifest_hash_matches_registry": true,
+    "artifact_id": "paper_sim_replay_v1",
+    "artifact_type": "production_strategy",
+    "mode": "paper",
+    "status": "paper_replay_completed",
+    "live_broker_enabled": false,
+    "published_at": "2026-06-09T21:30:00Z",
+    "start": "2026-01-02",
+    "end": "2026-06-09",
+    "required_path_count": 7,
+    "checked_path_count": 7,
+    "missing_required_paths": [],
+    "resolved_paths": {
+      "notebook": "production/paper_sim_replay_v1/paper_sim_replay_v1.ipynb",
+      "summary": "production/paper_sim_replay_v1/production_summary.json",
+      "dashboard_export": "production/paper_sim_replay_v1/dashboard_export.json",
+      "intent_ledger": "production/paper_sim_replay_v1/intent_ledger.json",
+      "paper_execution_result": "production/paper_sim_replay_v1/paper_execution_result.json",
+      "data_registry": "production/paper_sim_replay_v1/data/data_registry.json",
+      "analysis_manifest": "production/paper_sim_replay_v1/matrix_card/analysis_manifest.json"
+    },
+    "dashboard_export_path": "production/paper_sim_replay_v1/dashboard_export.json",
+    "intent_ledger_path": "production/paper_sim_replay_v1/intent_ledger.json",
+    "paper_execution_result_path": "production/paper_sim_replay_v1/paper_execution_result.json",
+    "output_path": "research/production_registry_health_v1/production_health_export.json",
+    "attempts": 1
+  },
   "notebook_card_readiness": {
     "schema_version": "dashboard.notebook_card_readiness.v1",
     "source_schema_version": "core.notebook_card_manifest.v1",
@@ -1669,6 +1748,44 @@
         "sidecar_count": 7,
         "status": "ready",
         "surface": "production"
+      }
+    ]
+  },
+  "readiness_overview": {
+    "schema_version": "dashboard.readiness_overview.v1",
+    "status": "review",
+    "gate_count": 4,
+    "pass_count": 2,
+    "review_count": 2,
+    "block_count": 0,
+    "gates": [
+      {
+        "gate": "production_health",
+        "label": "Production Health",
+        "status": "pass",
+        "detail": "healthy / missing 0",
+        "source_schema_version": "schedule.production_health.v1"
+      },
+      {
+        "gate": "notebook_cards",
+        "label": "Notebook Cards",
+        "status": "review",
+        "detail": "published 1 / template 1 / missing 0 / mismatch 0",
+        "source_schema_version": "dashboard.notebook_card_readiness.v1"
+      },
+      {
+        "gate": "requested_models",
+        "label": "Requested Models",
+        "status": "review",
+        "detail": "2 / 32 complete / missing 30 / incomplete 0",
+        "source_schema_version": "model.requested_contract_health.v1"
+      },
+      {
+        "gate": "model_runs",
+        "label": "Model Runs",
+        "status": "pass",
+        "detail": "trained 6 / backtested 6 / expected 6",
+        "source_schema_version": "model.run_ledger_summary.v1"
       }
     ]
   },

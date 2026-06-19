@@ -145,6 +145,46 @@ def _dashboard_payload_with_requested_model_contract() -> dict:
     return payload
 
 
+def _dashboard_payload_with_readiness_sources() -> dict:
+    payload = _dashboard_payload_with_requested_model_contract()
+    payload["artifacts"]["production_health"] = "/path/that/must/not/be_read.json"
+    payload["artifacts"]["notebook_card_manifest"] = "/path/that/must/not/be_read.json"
+    payload["production_health"] = {
+        "schema_version": "schedule.production_health.v1",
+        "strategy_id": "paper_sim_replay_v1",
+        "health_status": "healthy",
+        "is_healthy": True,
+        "mode": "paper",
+        "missing_required_paths": [],
+        "checked_path_count": 7,
+    }
+    payload["notebook_card_readiness"] = {
+        "schema_version": "dashboard.notebook_card_readiness.v1",
+        "manifest_hash": "n" * 64,
+        "summary": {
+            "card_count": 91,
+            "production_card_count": 2,
+            "production_published_count": 1,
+            "production_template_count": 1,
+            "production_manifest_missing_count": 0,
+            "production_registry_mismatch_count": 0,
+        },
+        "production_cards": [
+            {"card_id": "paper_reference_strategy", "production_status": "template_only"},
+            {"card_id": "paper_sim_replay_v1", "production_status": "published"},
+        ],
+    }
+    payload["model_run_coverage"] = {
+        "schema_version": "model.run_ledger_summary.v1",
+        "expected_model_count": 2,
+        "trained_model_count": 2,
+        "backtested_model_count": 2,
+        "all_models_completed": True,
+        "missing_models": [],
+    }
+    return payload
+
+
 def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_payload_only():
     payload = _dashboard_payload()
 
@@ -208,6 +248,30 @@ def test_dashboard_view_model_exposes_requested_model_contract_summary():
     assert view["requested_model_contract"]["requested_model_count"] == 32
     assert view["requested_model_contract"]["completed_requested_model_count"] == 31
     assert view["requested_model_contract"]["missing_from_ledger"] == ["sthgcn_mse"]
+
+
+def test_dashboard_view_model_builds_readiness_overview_from_export_payload_only():
+    payload = _dashboard_payload_with_readiness_sources()
+
+    view = build_dashboard_view_model(payload)
+
+    overview = view["readiness_overview"]
+    assert overview["schema_version"] == "dashboard.readiness_overview.v1"
+    assert overview["status"] == "review"
+    assert overview["gate_count"] == 4
+    assert overview["pass_count"] == 2
+    assert overview["review_count"] == 2
+    assert overview["block_count"] == 0
+    gates = {gate["gate"]: gate for gate in overview["gates"]}
+    assert gates["production_health"]["status"] == "pass"
+    assert gates["production_health"]["detail"] == "healthy / missing 0"
+    assert gates["notebook_cards"]["status"] == "review"
+    assert gates["notebook_cards"]["detail"] == "published 1 / template 1 / missing 0 / mismatch 0"
+    assert gates["requested_models"]["status"] == "review"
+    assert gates["requested_models"]["detail"] == "31 / 32 complete / missing 1 / incomplete 1"
+    assert gates["model_runs"]["status"] == "pass"
+    assert gates["model_runs"]["detail"] == "trained 2 / backtested 2 / expected 2"
+    assert "artifacts" not in view
 
 
 def test_dashboard_view_model_preserves_production_health_from_export_payload_only():

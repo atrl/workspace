@@ -157,6 +157,44 @@ def _production_health_panel(view_model: dict[str, Any]) -> str:
     """
 
 
+def _readiness_overview_panel(view_model: dict[str, Any]) -> str:
+    overview = (
+        view_model.get("readiness_overview", {})
+        if isinstance(view_model.get("readiness_overview"), dict)
+        else {}
+    )
+    if not overview:
+        return ""
+    gates = overview.get("gates")
+    gate_rows = gates if isinstance(gates, list) else []
+    rows = "\n".join(
+        "<li>"
+        f"<strong>{escape(str(gate.get('label', '')))}</strong>"
+        f"{_pill(str(gate.get('status', 'unknown')), kind=str(gate.get('status', '')))}"
+        f"<span>{escape(str(gate.get('detail', '')))}</span>"
+        "</li>"
+        for gate in gate_rows
+        if isinstance(gate, dict)
+    )
+    if not rows:
+        rows = '<li class="muted">暂无 readiness gate</li>'
+    return f"""
+    <section class="readiness-overview" aria-label="readiness overview">
+      <header>
+        <h2>Readiness Overview</h2>
+        <p>{escape(str(overview.get('schema_version', '')))}</p>
+      </header>
+      <div class="readiness-grid">
+        <div><span>Overall</span><strong>{_pill(str(overview.get('status', 'unknown')), kind=str(overview.get('status', '')))}</strong></div>
+        <div><span>Pass</span><strong>{escape(str(overview.get('pass_count', 0)))}</strong></div>
+        <div><span>Review</span><strong>{escape(str(overview.get('review_count', 0)))}</strong></div>
+        <div><span>Block</span><strong>{escape(str(overview.get('block_count', 0)))}</strong></div>
+      </div>
+      <ul class="readiness-gates">{rows}</ul>
+    </section>
+    """
+
+
 def _notebook_card_readiness_panel(view_model: dict[str, Any]) -> str:
     readiness = (
         view_model.get("notebook_card_readiness", {})
@@ -300,6 +338,8 @@ def _style() -> str:
     select { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 8px; }
     .analysis-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .analysis-overview header { margin-bottom: 10px; }
+    .readiness-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .readiness-overview header { margin-bottom: 10px; }
     .production-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .production-health header { margin-bottom: 10px; }
     .notebook-readiness { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
@@ -321,6 +361,13 @@ def _style() -> str:
     .overview-grid span { color: var(--muted); font-size: 12px; }
     .overview-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
     .overview-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .readiness-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .readiness-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .readiness-grid span { color: var(--muted); font-size: 12px; }
+    .readiness-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .readiness-gates { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
+    .readiness-gates li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .readiness-gates span { grid-column: 1 / -1; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
     .summary { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
     .summary div, .model-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
     .summary div { padding: 12px; }
@@ -336,6 +383,9 @@ def _style() -> str:
     .pill.fidelity { background: #e7f2f8; color: var(--accent); }
     .pill.healthy { background: #e8f5ee; color: var(--good); }
     .pill.warn { background: #fff4df; color: var(--warn); }
+    .pill.pass, .pill.ready { background: #e8f5ee; color: var(--good); }
+    .pill.review { background: #fff4df; color: var(--warn); }
+    .pill.block, .pill.blocked { background: #fdecec; color: #9f1f1f; }
     .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
     .metrics div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
@@ -352,7 +402,7 @@ def _style() -> str:
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .production-health .health-grid, .notebook-readiness .notebook-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     """
 
 
@@ -418,6 +468,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     )
     embedded = json.dumps(view_model, ensure_ascii=False, indent=2).replace("</", "<\\/")
     overview_panel = _analysis_overview_panel(view_model)
+    readiness_overview_panel = _readiness_overview_panel(view_model)
     production_health_panel = _production_health_panel(view_model)
     notebook_readiness_panel = _notebook_card_readiness_panel(view_model)
     cards = "\n".join(_model_card(card) for card in model_cards)
@@ -448,6 +499,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
       <label>Review Signal<select id="review-signal-filter"><option value="">全部</option>{_options(controls.get('review_signals', []))}</select></label>
       <label>Decision<select id="decision-hint-filter"><option value="">全部</option>{_options(controls.get('decision_hints', []))}</select></label>
     </section>
+    {readiness_overview_panel}
     {overview_panel}
     {production_health_panel}
     {notebook_readiness_panel}

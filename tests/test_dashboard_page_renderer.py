@@ -173,6 +173,59 @@ def _view_model_with_notebook_card_readiness() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_readiness_overview() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {
+        "production_health": "/path/that/must/not/be/rendered.json",
+        "notebook_card_manifest": "/path/that/must/not/be/rendered.json",
+    }
+    payload["production_health"] = {
+        "schema_version": "schedule.production_health.v1",
+        "strategy_id": "paper_sim_replay_v1",
+        "health_status": "healthy",
+        "is_healthy": True,
+        "mode": "paper",
+        "missing_required_paths": [],
+        "checked_path_count": 7,
+    }
+    payload["requested_model_contract"] = {
+        "schema_version": "model.requested_contract_health.v1",
+        "requested_model_count": 32,
+        "registered_model_count": 32,
+        "ledger_model_count": 31,
+        "completed_requested_model_count": 31,
+        "missing_from_registry": [],
+        "missing_from_ledger": ["sthgcn_mse"],
+        "incomplete_requested_models": ["sthgcn_mse"],
+        "all_requested_models_completed": False,
+    }
+    payload["notebook_card_readiness"] = {
+        "schema_version": "dashboard.notebook_card_readiness.v1",
+        "manifest_hash": "n" * 64,
+        "summary": {
+            "card_count": 91,
+            "production_card_count": 2,
+            "production_published_count": 1,
+            "production_template_count": 1,
+            "production_manifest_missing_count": 0,
+            "production_registry_mismatch_count": 0,
+        },
+        "production_cards": [
+            {"card_id": "paper_reference_strategy", "production_status": "template_only"},
+            {"card_id": "paper_sim_replay_v1", "production_status": "published"},
+        ],
+    }
+    payload["model_run_coverage"] = {
+        "schema_version": "model.run_ledger_summary.v1",
+        "expected_model_count": 2,
+        "trained_model_count": 2,
+        "backtested_model_count": 2,
+        "all_models_completed": True,
+        "missing_models": [],
+    }
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -236,6 +289,24 @@ def test_render_dashboard_html_outputs_notebook_card_readiness_panel_without_sid
     assert "missing 0" in html
     assert "paper_reference_strategy" in html
     assert "paper_sim_replay_v1" in html
+    assert "/path/that/must/not/be/rendered.json" not in html
+
+
+def test_render_dashboard_html_outputs_readiness_overview_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_readiness_overview(), title="SOXL Readiness Overview")
+
+    assert "Readiness Overview" in html
+    assert "dashboard.readiness_overview.v1" in html
+    assert "Overall" in html
+    assert "review" in html
+    assert "Production Health" in html
+    assert "Notebook Cards" in html
+    assert "Requested Models" in html
+    assert "Model Runs" in html
+    assert "healthy / missing 0" in html
+    assert "published 1 / template 1" in html
+    assert "31 / 32 complete" in html
+    assert "trained 2 / backtested 2 / expected 2" in html
     assert "/path/that/must/not/be/rendered.json" not in html
 
 
