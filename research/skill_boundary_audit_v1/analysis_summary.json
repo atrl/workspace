@@ -1,0 +1,18 @@
+{
+  "schema_version": "research.skill_boundary_audit_v1.summary.v1",
+  "experiment": "skill_boundary_audit_v1",
+  "core_contract": "core.skill_boundary_audit.v1",
+  "method_only_status": "pass",
+  "method_only_issue_count": 0,
+  "project_state_status": "block",
+  "project_state_issue_count": 7,
+  "project_state_blocked_issue_count": 7,
+  "project_state_issue_types": [
+    "business_logic_entrypoint",
+    "concrete_project_path",
+    "executable_command",
+    "project_state_result"
+  ],
+  "promotion_decision": "promote_to_src_core_contract",
+  "risk_note": "静态审计只识别常见边界问题，不能替代人工 review skill 语义。"
+}

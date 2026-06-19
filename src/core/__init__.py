@@ -20,6 +20,7 @@ from .knowledge import (
 )
 from .notebooks import scan_notebook_cards, write_notebook_card_manifest
 from .production import build_production_manifest, production_manifest_content_hash, publish_production_manifest
+from .skill_boundary import audit_skill_file, build_skill_boundary_audit
 
 __all__ = [
     "ArtifactManifest",
@@ -33,8 +34,10 @@ __all__ = [
     "build_knowledge_backlog",
     "build_knowledge_promotion_audit",
     "build_production_manifest",
+    "build_skill_boundary_audit",
     "production_manifest_content_hash",
     "publish_production_manifest",
+    "audit_skill_file",
     "scan_notebook_cards",
     "write_architecture_extension_decision",
     "write_knowledge_backlog",
