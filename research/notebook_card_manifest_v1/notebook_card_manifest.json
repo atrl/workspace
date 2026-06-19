@@ -1351,6 +1351,24 @@
       "surface": "research"
     },
     {
+      "canonical_notebook_name": "schedule_job_control_v1.ipynb",
+      "card_id": "schedule_job_control_v1",
+      "card_path": "research/schedule_job_control_v1",
+      "chinese_conclusion_ok": true,
+      "conclusion_missing_terms": [],
+      "is_canonical_notebook_name": true,
+      "notebook_count": 1,
+      "notebooks": [
+        "schedule_job_control_v1.ipynb"
+      ],
+      "primary_notebook": "schedule_job_control_v1.ipynb",
+      "primary_notebook_path": "research/schedule_job_control_v1/schedule_job_control_v1.ipynb",
+      "schema_version": "core.notebook_card.v1",
+      "sidecar_count": 2,
+      "status": "ready",
+      "surface": "research"
+    },
+    {
       "canonical_notebook_name": "schedule_manifest_source_v1.ipynb",
       "card_id": "schedule_manifest_source_v1",
       "card_path": "research/schedule_manifest_source_v1",
@@ -1603,21 +1621,21 @@
       "surface": "production"
     }
   ],
-  "manifest_hash": "1d6fd45b72585b0d1c081a6c94523892dbce8645cff68f6a0030b1cce49b1430",
+  "manifest_hash": "4eca4caf1a3654f4b424d6a05d1b03b8dee330969c8cd3a06b459e5a2a82207b",
   "schema_version": "core.notebook_card_manifest.v1",
   "summary": {
-    "canonical_notebook_count": 89,
-    "card_count": 89,
-    "chinese_conclusion_ok_count": 89,
+    "canonical_notebook_count": 90,
+    "card_count": 90,
+    "chinese_conclusion_ok_count": 90,
     "missing_chinese_conclusion_count": 0,
     "missing_notebook_count": 0,
     "multiple_notebook_count": 0,
     "noncanonical_notebook_count": 0,
-    "notebook_count": 89,
-    "ready_count": 89,
+    "notebook_count": 90,
+    "ready_count": 90,
     "schema_version": "core.notebook_card_scan.summary.v1",
     "status_counts": {
-      "ready": 89
+      "ready": 90
     },
     "surface_count": 2
   }

@@ -86,6 +86,20 @@ def test_write_notebook_card_manifest_writes_json_csv_and_chinese_review(tmp_pat
     assert "主 notebook" in review
 
 
+def test_write_notebook_card_manifest_uses_lf_csv_line_endings(tmp_path):
+    _write_notebook(
+        tmp_path / "research" / "alpha" / "alpha.ipynb",
+        "## 中文结论\n- 做了什么：x\n- 核心指标：x\n- regime 差异：x\n- 是否晋升：否\n- 风险：x\n- 下一步：x\n",
+    )
+    scan = scan_notebook_cards(tmp_path)
+
+    result = write_notebook_card_manifest(tmp_path / "card_manifest", scan)
+    csv_bytes = (tmp_path / result["csv_path"]).read_bytes()
+
+    assert b"\r\n" not in csv_bytes
+    assert csv_bytes.endswith(b"\n")
+
+
 def test_scan_notebook_cards_accepts_regime_window_difference_wording(tmp_path):
     _write_notebook(
         tmp_path / "research" / "regime_alias" / "regime_alias.ipynb",

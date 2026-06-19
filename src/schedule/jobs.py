@@ -29,6 +29,9 @@ def run_job_once(
     lock_dir: str | Path,
     notify: Callable[[str], None] | None = None,
 ) -> JobResult:
+    if not job.enabled:
+        return JobResult(name=job.name, status="skipped", payload={}, detail="disabled")
+
     lock_root = Path(lock_dir)
     lock_root.mkdir(parents=True, exist_ok=True)
     lock_path = lock_root / f"{job.name}.lock"

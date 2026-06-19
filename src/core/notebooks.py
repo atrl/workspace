@@ -184,7 +184,7 @@ def write_notebook_card_manifest(output_dir: str | Path, scan: dict[str, Any]) -
         "sidecar_count",
     ]
     with csv_path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for card in payload["cards"]:
             writer.writerow({field: card.get(field, "") for field in fields})
