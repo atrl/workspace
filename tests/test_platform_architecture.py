@@ -96,6 +96,33 @@ def test_research_and_production_cards_have_single_primary_notebook_contract():
     assert summary["missing_chinese_conclusion_count"] == 0
 
 
+def test_production_notebook_cards_expose_manifest_registry_readiness():
+    root = Path(__file__).resolve().parents[1]
+
+    scan = scan_notebook_cards(root)
+    production_cards = {card["card_id"]: card for card in scan["cards"] if card["surface"] == "production"}
+
+    published = production_cards["paper_sim_replay_v1"]
+    reference = production_cards["paper_reference_strategy"]
+
+    assert scan["summary"]["production_card_count"] == 2
+    assert scan["summary"]["production_published_count"] == 1
+    assert scan["summary"]["production_template_count"] == 1
+    assert scan["summary"]["production_manifest_missing_count"] == 0
+    assert scan["summary"]["production_registry_mismatch_count"] == 0
+
+    assert published["production_status"] == "published"
+    assert published["production_manifest_present"] is True
+    assert published["production_registry_registered"] is True
+    assert published["production_manifest_hash_matches_registry"] is True
+    assert published["production_manifest_path"] == "production/paper_sim_replay_v1/production_manifest.json"
+
+    assert reference["production_status"] == "template_only"
+    assert reference["production_manifest_present"] is False
+    assert reference["production_registry_registered"] is False
+    assert reference["production_manifest_hash_matches_registry"] is False
+
+
 def test_production_paper_sim_replay_records_no_live_broker_guardrail():
     root = Path(__file__).resolve().parents[1]
     card = root / "production" / "paper_sim_replay_v1"

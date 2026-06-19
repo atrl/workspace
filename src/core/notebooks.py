@@ -117,6 +117,89 @@ def _scan_surface(root: Path, surface: str) -> list[dict[str, Any]]:
     return cards
 
 
+def _load_json_if_exists(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _notebook_text(path: Path | None) -> str:
+    if path is None:
+        return ""
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, FileNotFoundError):
+        return ""
+    return "\n".join(
+        "".join(cell.get("source", []))
+        for cell in payload.get("cells", [])
+        if isinstance(cell, dict)
+    )
+
+
+def _is_production_template(root: Path, card: dict[str, Any]) -> bool:
+    notebook_path = str(card.get("primary_notebook_path", ""))
+    text = _notebook_text(root / notebook_path if notebook_path else None).lower()
+    return "template" in text or "模板" in text
+
+
+def _annotate_production_cards(root: Path, cards: list[dict[str, Any]]) -> None:
+    registry = _load_json_if_exists(root / "production" / "production_registry.json")
+    strategies = registry.get("strategies", {})
+    strategies = strategies if isinstance(strategies, dict) else {}
+    for card in cards:
+        if card.get("surface") != "production":
+            continue
+        card_path = str(card.get("card_path", ""))
+        manifest_rel = f"{card_path}/production_manifest.json" if card_path else "production_manifest.json"
+        manifest_path = root / manifest_rel
+        manifest = _load_json_if_exists(manifest_path)
+        manifest_present = bool(manifest)
+        strategy_id = str(card.get("card_id", ""))
+        strategy_entry = strategies.get(strategy_id, {})
+        strategy_entry = strategy_entry if isinstance(strategy_entry, dict) else {}
+        current = strategy_entry.get("current", {})
+        current = current if isinstance(current, dict) else {}
+        registry_registered = bool(current)
+        current_manifest_hash = str(current.get("manifest_hash", ""))
+        manifest_hash = str(manifest.get("manifest_hash", ""))
+        hash_matches = bool(
+            manifest_present
+            and registry_registered
+            and manifest_hash
+            and manifest_hash == current_manifest_hash
+        )
+        if hash_matches:
+            production_status = "published"
+        elif manifest_present and registry_registered:
+            production_status = "registry_mismatch"
+        elif manifest_present:
+            production_status = "manifest_unregistered"
+        elif registry_registered:
+            production_status = "registry_missing_manifest"
+        elif _is_production_template(root, card):
+            production_status = "template_only"
+        else:
+            production_status = "manifest_missing"
+
+        card.update(
+            {
+                "production_status": production_status,
+                "production_manifest_present": manifest_present,
+                "production_manifest_path": manifest_rel if manifest_present else "",
+                "production_registry_registered": registry_registered,
+                "production_registry_manifest_path": str(current.get("manifest_path", "")),
+                "production_manifest_hash": manifest_hash,
+                "production_registry_manifest_hash": current_manifest_hash,
+                "production_manifest_hash_matches_registry": hash_matches,
+            }
+        )
+
+
 def scan_notebook_cards(
     root: str | Path,
     *,
@@ -126,6 +209,9 @@ def scan_notebook_cards(
     cards: list[dict[str, Any]] = []
     for surface in surfaces:
         cards.extend(_scan_surface(repo_root, str(surface)))
+    _annotate_production_cards(repo_root, cards)
+
+    production_cards = [card for card in cards if card.get("surface") == "production"]
 
     summary = {
         "schema_version": "core.notebook_card_scan.summary.v1",
@@ -142,6 +228,19 @@ def scan_notebook_cards(
         "chinese_conclusion_ok_count": int(sum(card["chinese_conclusion_ok"] for card in cards)),
         "missing_chinese_conclusion_count": int(
             sum(card["status"] == "missing_chinese_conclusion" for card in cards)
+        ),
+        "production_card_count": int(len(production_cards)),
+        "production_published_count": int(
+            sum(card.get("production_status") == "published" for card in production_cards)
+        ),
+        "production_template_count": int(
+            sum(card.get("production_status") == "template_only" for card in production_cards)
+        ),
+        "production_manifest_missing_count": int(
+            sum(card.get("production_status") == "manifest_missing" for card in production_cards)
+        ),
+        "production_registry_mismatch_count": int(
+            sum(card.get("production_status") == "registry_mismatch" for card in production_cards)
         ),
         "status_counts": {
             status: int(sum(card["status"] == status for card in cards))
@@ -182,6 +281,10 @@ def write_notebook_card_manifest(output_dir: str | Path, scan: dict[str, Any]) -
         "is_canonical_notebook_name",
         "chinese_conclusion_ok",
         "sidecar_count",
+        "production_status",
+        "production_manifest_present",
+        "production_registry_registered",
+        "production_manifest_hash_matches_registry",
     ]
     with csv_path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
