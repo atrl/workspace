@@ -1400,7 +1400,7 @@
       "primary_notebook": "schedule_market_calendar_gate_v1.ipynb",
       "primary_notebook_path": "research/schedule_market_calendar_gate_v1/schedule_market_calendar_gate_v1.ipynb",
       "schema_version": "core.notebook_card.v1",
-      "sidecar_count": 3,
+      "sidecar_count": 4,
       "status": "ready",
       "surface": "research"
     },
@@ -1639,7 +1639,7 @@
       "surface": "production"
     }
   ],
-  "manifest_hash": "4e6d7a4875d2c6465829f59d27d1be88c83c2ebc313a1123cdc6d8051541b810",
+  "manifest_hash": "0afb1595e7e73c67bcee0bad630d52640386963fb13fc7f2b22858113b937955",
   "schema_version": "core.notebook_card_manifest.v1",
   "summary": {
     "canonical_notebook_count": 91,

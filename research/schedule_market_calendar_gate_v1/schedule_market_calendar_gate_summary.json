@@ -50,6 +50,7 @@
   ],
   "artifacts": {
     "market_calendar_decisions": "market_calendar_decisions.csv",
+    "market_calendar_source": "market_calendar_source.json",
     "review": "schedule_market_calendar_gate_review.md"
   }
 }

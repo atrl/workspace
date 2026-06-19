@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from src.schedule import ScheduleJob, classify_market_calendar_day, run_job_once
+import json
+
+from src.schedule import ScheduleJob, classify_market_calendar_day, load_market_calendar_decision, run_job_once
 
 
 def test_classify_market_calendar_day_identifies_normal_half_day_and_closed_sessions():
@@ -33,6 +35,51 @@ def test_classify_market_calendar_day_identifies_normal_half_day_and_closed_sess
     assert normal["should_run"] is True
     assert normal["run_mode"] == "regular"
     assert normal["previous_trading_date"] == "2026-01-02"
+
+
+def test_load_market_calendar_decision_reads_qlib_calendar_and_metadata_sidecar(tmp_path):
+    calendar_path = tmp_path / "data" / "qlib" / "soxl" / "calendars" / "day.txt"
+    calendar_path.parent.mkdir(parents=True)
+    calendar_path.write_text("2026-01-02\n2026-01-05\n2026-01-06\n", encoding="utf-8")
+    metadata_path = tmp_path / "data" / "market_calendar" / "xnys_2026.json"
+    metadata_path.parent.mkdir(parents=True)
+    metadata_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "schedule.market_calendar_source.v1",
+                "exchange": "XNYS",
+                "timezone": "America/New_York",
+                "holidays": [{"date": "2026-01-01", "reason": "New Year's Day"}],
+                "half_days": [{"date": "2026-01-02", "reason": "post-holiday half day"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    closed = load_market_calendar_decision(
+        "2026-01-01",
+        calendar_path=calendar_path,
+        metadata_path=metadata_path,
+    )
+    half_day_disabled = load_market_calendar_decision(
+        "2026-01-02",
+        calendar_path=calendar_path,
+        metadata_path=metadata_path,
+        allow_half_day=False,
+    )
+
+    assert closed["market_status"] == "closed"
+    assert closed["skip_reason"] == "New Year's Day"
+    assert closed["next_trading_date"] == "2026-01-02"
+    assert closed["calendar_source"].endswith("data/qlib/soxl/calendars/day.txt")
+    assert closed["metadata_source"].endswith("data/market_calendar/xnys_2026.json")
+    assert closed["exchange"] == "XNYS"
+    assert closed["timezone"] == "America/New_York"
+
+    assert half_day_disabled["market_status"] == "half_day"
+    assert half_day_disabled["should_run"] is False
+    assert half_day_disabled["run_mode"] == "skipped_half_day"
+    assert half_day_disabled["skip_reason"] == "half_day_disabled"
 
 
 def test_run_job_once_skips_closed_market_calendar_decision_without_lock_task_or_notify(tmp_path):

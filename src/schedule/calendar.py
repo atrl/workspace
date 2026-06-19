@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 from datetime import date, datetime
+from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 
@@ -24,6 +26,55 @@ def _day_set(values: Iterable[object]) -> set[date]:
 
 def _day_string(value: date | None) -> str:
     return value.isoformat() if value is not None else ""
+
+
+def _read_qlib_calendar(path: str | Path) -> list[str]:
+    calendar_path = Path(path)
+    return [line.strip()[:10] for line in calendar_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def _metadata_date_values(payload: Mapping[str, Any], key: str) -> list[str]:
+    values = payload.get(key, ())
+    if isinstance(values, Mapping):
+        return [str(value)[:10] for value in values.keys()]
+    if not isinstance(values, Iterable) or isinstance(values, (str, bytes)):
+        return []
+    dates: list[str] = []
+    for item in values:
+        if isinstance(item, Mapping):
+            value = item.get("date")
+        else:
+            value = item
+        if value:
+            dates.append(str(value)[:10])
+    return dates
+
+
+def _metadata_holiday_reasons(payload: Mapping[str, Any]) -> dict[str, str]:
+    reasons: dict[str, str] = {}
+    values = payload.get("holiday_reasons", {})
+    if isinstance(values, Mapping):
+        reasons.update({str(key)[:10]: str(value) for key, value in values.items()})
+    holidays = payload.get("holidays", ())
+    if isinstance(holidays, Mapping):
+        reasons.update({str(key)[:10]: str(value) for key, value in holidays.items()})
+        return reasons
+    if isinstance(holidays, Iterable) and not isinstance(holidays, (str, bytes)):
+        for item in holidays:
+            if not isinstance(item, Mapping) or not item.get("date"):
+                continue
+            reason = item.get("reason") or item.get("name") or item.get("label") or "market_holiday"
+            reasons[str(item["date"])[:10]] = str(reason)
+    return reasons
+
+
+def _read_market_calendar_metadata(path: str | Path | None) -> dict[str, Any]:
+    if path is None:
+        return {}
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("market calendar metadata must be a JSON object")
+    return payload
 
 
 def classify_market_calendar_day(
@@ -71,3 +122,32 @@ def classify_market_calendar_day(
         "previous_trading_date": _day_string(previous_trading_date),
         "allow_half_day": bool(allow_half_day),
     }
+
+
+def load_market_calendar_decision(
+    as_of: object,
+    *,
+    calendar_path: str | Path,
+    metadata_path: str | Path | None = None,
+    allow_half_day: bool = True,
+) -> dict[str, Any]:
+    """Load qlib calendar files plus reviewable sidecar metadata into a schedule decision."""
+
+    metadata = _read_market_calendar_metadata(metadata_path)
+    decision = classify_market_calendar_day(
+        as_of,
+        trading_calendar=_read_qlib_calendar(calendar_path),
+        half_days=_metadata_date_values(metadata, "half_days"),
+        holiday_reasons=_metadata_holiday_reasons(metadata),
+        allow_half_day=allow_half_day,
+    )
+    decision.update(
+        {
+            "calendar_source": str(calendar_path),
+            "metadata_source": str(metadata_path) if metadata_path is not None else "",
+            "exchange": str(metadata.get("exchange", "")),
+            "timezone": str(metadata.get("timezone", "")),
+            "metadata_schema_version": str(metadata.get("schema_version", "")),
+        }
+    )
+    return decision
