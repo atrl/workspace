@@ -9,6 +9,11 @@
     "written": 9,
     "deduped": 0
   },
+  "promotion_audit_result": {
+    "written": 9,
+    "ready": 0,
+    "blocked": 9
+  },
   "source_count": 9,
   "target_subsystems": [
     "src/analysis",
@@ -47,10 +52,17 @@
     "primary_repository_metadata",
     "social_unverified"
   ],
+  "promotion_audit_schema": "knowledge_promotion_audit.v1",
+  "promotion_audit_ready_count": 0,
+  "promotion_audit_blocked_count": 9,
+  "promotion_audit_missing_license_review_count": 9,
   "artifacts": {
     "knowledge_queue": "knowledge_queue.json",
     "knowledge_backlog": "knowledge_backlog.json",
     "knowledge_backlog_csv": "knowledge_backlog.csv",
-    "knowledge_backlog_review": "knowledge_backlog_review.md"
+    "knowledge_backlog_review": "knowledge_backlog_review.md",
+    "knowledge_promotion_audit": "knowledge_promotion_audit.json",
+    "knowledge_promotion_audit_csv": "knowledge_promotion_audit.csv",
+    "knowledge_promotion_audit_review": "knowledge_promotion_audit_review.md"
   }
 }

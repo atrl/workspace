@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 
+import src.core.knowledge as knowledge_api
 from src.core.knowledge import (
     KnowledgeSource,
     build_hypothesis_card,
@@ -283,3 +284,98 @@ def test_write_knowledge_backlog_writes_json_csv_and_chinese_review(tmp_path):
     assert "中文结论" in review
     assert "晋升门禁" in review
     assert "不进入 skill" in review
+
+
+def test_build_knowledge_promotion_audit_blocks_items_without_required_evidence():
+    source = KnowledgeSource(
+        source_id="github:microsoft/qlib",
+        source_type="github",
+        title="Microsoft Qlib",
+        url="https://github.com/microsoft/qlib",
+        summary="Qlib recorder and analyzer workflow reference.",
+        license_note="Check upstream license before implementation.",
+    )
+    backlog = build_knowledge_backlog([source])
+
+    assert hasattr(knowledge_api, "build_knowledge_promotion_audit")
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog)
+
+    assert audit["schema_version"] == "knowledge_promotion_audit.v1"
+    assert audit["summary"]["item_count"] == 1
+    assert audit["summary"]["blocked_count"] == 1
+    assert audit["summary"]["implementation_allowed_count"] == 0
+    item = audit["items"][0]
+    assert item["candidate_name"] == "qlib_recorder_analysis"
+    assert item["promotion_gate_status"] == "blocked_missing_evidence"
+    assert item["implementation_allowed"] is False
+    assert item["missing_evidence"] == [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion",
+    ]
+    assert item["blocked_surfaces"] == ["src", "production", "skill"]
+    assert item["allowed_surfaces_after_gate"] == []
+
+
+def test_build_knowledge_promotion_audit_allows_item_after_required_evidence():
+    source = KnowledgeSource(
+        source_id="arxiv:2211.14730",
+        source_type="arxiv",
+        title="A Time Series is Worth 64 Words: Long-term Forecasting with Transformers",
+        url="https://arxiv.org/abs/2211.14730",
+        summary="PatchTST patching and channel-independence reference.",
+        license_note="arXiv metadata only; implementation license reviewed separately.",
+    )
+    backlog = build_knowledge_backlog([source])
+    evidence_index = {
+        "patch_tst_mse": [
+            "license_review",
+            "research_notebook",
+            "focused_pytest",
+            "manifest_or_export",
+            "chinese_conclusion",
+        ]
+    }
+
+    assert hasattr(knowledge_api, "build_knowledge_promotion_audit")
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["summary"]["blocked_count"] == 0
+    item = audit["items"][0]
+    assert item["candidate_name"] == "patch_tst_mse"
+    assert item["promotion_gate_status"] == "research_evidence_complete"
+    assert item["implementation_allowed"] is True
+    assert item["missing_evidence"] == []
+    assert item["license_gate_status"] == "passed"
+    assert item["allowed_surfaces_after_gate"] == [
+        "src/model",
+        "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
+    ]
+
+
+def test_write_knowledge_promotion_audit_writes_json_csv_and_chinese_review(tmp_path):
+    source = KnowledgeSource(
+        source_id="x:regime-aware-quant-search",
+        source_type="x",
+        title="Regime-aware quant evaluation search",
+        url="https://x.com/search?q=regime%20aware%20quant%20evaluation",
+        summary="Social-source idea placeholder for volatility/drawdown regime review.",
+        license_note="Use as idea only; do not copy post text.",
+    )
+    backlog = build_knowledge_backlog([source])
+
+    assert hasattr(knowledge_api, "write_knowledge_promotion_audit")
+    result = knowledge_api.write_knowledge_promotion_audit(tmp_path, backlog)
+
+    payload = json.loads((tmp_path / "knowledge_promotion_audit.json").read_text(encoding="utf-8"))
+    csv_text = (tmp_path / "knowledge_promotion_audit.csv").read_text(encoding="utf-8")
+    review = (tmp_path / "knowledge_promotion_audit_review.md").read_text(encoding="utf-8")
+
+    assert result == {"written": 1, "ready": 0, "blocked": 1}
+    assert payload["summary"]["blocked_count"] == 1
+    assert "candidate_name,promotion_gate_status" in csv_text
+    assert "中文结论" in review
+    assert "不得进入 `src/production/skill`" in review

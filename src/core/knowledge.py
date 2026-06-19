@@ -4,7 +4,7 @@ import csv
 import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Mapping
 
 
 @dataclass(frozen=True)
@@ -20,6 +20,16 @@ class KnowledgeSource:
 
     def to_dict(self) -> dict[str, str]:
         return asdict(self)
+
+
+def _json_ready(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {str(key): _json_ready(item) for key, item in sorted(value.items())}
+    if isinstance(value, tuple):
+        return [_json_ready(item) for item in value]
+    if isinstance(value, list):
+        return [_json_ready(item) for item in value]
+    return value
 
 
 def build_hypothesis_card(
@@ -312,6 +322,163 @@ def write_knowledge_backlog(output_dir: str | Path, sources: Iterable[KnowledgeS
     ]
     (output / "knowledge_backlog_review.md").write_text("\n".join(review_lines) + "\n", encoding="utf-8")
     return {"written": len(items), "deduped": deduped}
+
+
+def _evidence_for_item(
+    item: Mapping[str, Any],
+    evidence_index: Mapping[str, Iterable[str]] | None,
+) -> list[str]:
+    if evidence_index is None:
+        return []
+    keys = [
+        str(item.get("candidate_name", "")),
+        str(item.get("source_id", "")),
+        str(item.get("allowed_next_surface", "")),
+    ]
+    evidence: list[str] = []
+    seen: set[str] = set()
+    for key in keys:
+        values = evidence_index.get(key)
+        if values is None:
+            continue
+        for value in values:
+            text = str(value)
+            if text and text not in seen:
+                seen.add(text)
+                evidence.append(text)
+    return evidence
+
+
+def build_knowledge_promotion_audit(
+    backlog_items: Iterable[Mapping[str, Any]],
+    *,
+    evidence_index: Mapping[str, Iterable[str]] | None = None,
+) -> dict[str, Any]:
+    """Audit whether external-knowledge backlog items have enough evidence to leave research."""
+
+    items: list[dict[str, Any]] = []
+    for raw_item in backlog_items:
+        item = dict(raw_item)
+        required = [str(value) for value in item.get("evidence_requirements", _EVIDENCE_REQUIREMENTS)]
+        provided = _evidence_for_item(item, evidence_index)
+        provided_set = set(provided)
+        missing = [value for value in required if value not in provided_set]
+        implementation_allowed = not missing
+        target_subsystem = str(item.get("target_subsystem", "research"))
+        allowed_next_surface = str(item.get("allowed_next_surface", ""))
+        audit_status = "research_evidence_complete" if implementation_allowed else "blocked_missing_evidence"
+        blocked_surfaces = (
+            []
+            if implementation_allowed
+            else list(item.get("blocked_surfaces_before_gate", ["src", "production", "skill"]))
+        )
+        allowed_surfaces = [target_subsystem, allowed_next_surface] if implementation_allowed else []
+        items.append(
+            {
+                "schema_version": "knowledge_promotion_audit_item.v1",
+                "source_id": str(item.get("source_id", "")),
+                "source_type": str(item.get("source_type", "")),
+                "candidate_name": str(item.get("candidate_name", "")),
+                "candidate_type": str(item.get("candidate_type", "")),
+                "target_subsystem": target_subsystem,
+                "target_interface": str(item.get("target_interface", "")),
+                "priority_rank": int(item.get("priority_rank", 0) or 0),
+                "required_evidence": required,
+                "provided_evidence": provided,
+                "missing_evidence": missing,
+                "required_evidence_count": int(len(required)),
+                "provided_evidence_count": int(len(provided)),
+                "missing_evidence_count": int(len(missing)),
+                "license_gate_status": "passed" if "license_review" in provided_set else "blocked",
+                "promotion_gate_status": audit_status,
+                "implementation_allowed": bool(implementation_allowed),
+                "source_used_as": str(item.get("source_used_as", "hypothesis_only")),
+                "source_reliability": str(item.get("source_reliability", "unverified")),
+                "usage_scope": str(item.get("usage_scope", "hypothesis_only")),
+                "blocked_surfaces": blocked_surfaces,
+                "allowed_surfaces_after_gate": allowed_surfaces,
+                "allowed_next_surface": allowed_next_surface,
+                "gate_notes": (
+                    "证据完整后才允许进入目标 src 接口或 production notebook；"
+                    "未完整前不得进入 src、production 或 skill。"
+                ),
+            }
+        )
+
+    ready_count = sum(1 for item in items if item["implementation_allowed"])
+    blocked_count = len(items) - ready_count
+    summary = {
+        "schema_version": "knowledge_promotion_audit.summary.v1",
+        "item_count": int(len(items)),
+        "ready_count": int(ready_count),
+        "blocked_count": int(blocked_count),
+        "implementation_allowed_count": int(ready_count),
+        "missing_license_review_count": int(sum(item["license_gate_status"] != "passed" for item in items)),
+        "target_subsystems": sorted({str(item["target_subsystem"]) for item in items}),
+        "blocked_candidates": [str(item["candidate_name"]) for item in items if not item["implementation_allowed"]],
+        "ready_candidates": [str(item["candidate_name"]) for item in items if item["implementation_allowed"]],
+    }
+    return _json_ready(
+        {
+            "schema_version": "knowledge_promotion_audit.v1",
+            "summary": summary,
+            "items": items,
+        }
+    )
+
+
+def write_knowledge_promotion_audit(
+    output_dir: str | Path,
+    backlog_items: Iterable[Mapping[str, Any]],
+    *,
+    evidence_index: Mapping[str, Iterable[str]] | None = None,
+) -> dict[str, int]:
+    output = Path(output_dir)
+    output.mkdir(parents=True, exist_ok=True)
+    audit = build_knowledge_promotion_audit(backlog_items, evidence_index=evidence_index)
+    items = list(audit["items"])
+    summary = dict(audit["summary"])
+    (output / "knowledge_promotion_audit.json").write_text(
+        json.dumps(audit, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    fieldnames = [
+        "candidate_name",
+        "promotion_gate_status",
+        "implementation_allowed",
+        "target_subsystem",
+        "missing_evidence_count",
+        "provided_evidence_count",
+        "license_gate_status",
+        "source_id",
+        "source_reliability",
+        "usage_scope",
+    ]
+    with (output / "knowledge_promotion_audit.csv").open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
+        writer.writeheader()
+        for item in items:
+            writer.writerow({field: item.get(field, "") for field in fieldnames})
+    review_lines = [
+        "# 外部知识 Promotion Audit",
+        "",
+        "## 中文结论",
+        "",
+        f"- 审计 backlog 条目：{summary.get('item_count', 0)}；ready：{summary.get('ready_count', 0)}；blocked：{summary.get('blocked_count', 0)}。",
+        f"- 缺 license review：{summary.get('missing_license_review_count', 0)}。",
+        "- 缺证据条目不得进入 `src/production/skill`；只能保留在 research backlog 或验证 notebook。",
+        "- ready 条目仍需通过对应 src 接口测试、manifest/export 和中文结论后再讨论 production 晋升。",
+        "- skill 继续只保留方法论和发散思路，不保存项目业务状态。",
+    ]
+    (output / "knowledge_promotion_audit_review.md").write_text(
+        "\n".join(review_lines) + "\n",
+        encoding="utf-8",
+    )
+    return {
+        "written": int(summary.get("item_count", 0)),
+        "ready": int(summary.get("ready_count", 0)),
+        "blocked": int(summary.get("blocked_count", 0)),
+    }
 
 
 def write_knowledge_queue(output_dir: str | Path, sources: Iterable[KnowledgeSource]) -> dict[str, int]:

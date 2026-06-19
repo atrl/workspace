@@ -788,7 +788,7 @@
       "primary_notebook": "knowledge_ingest.ipynb",
       "primary_notebook_path": "research/knowledge_ingest/knowledge_ingest.ipynb",
       "schema_version": "core.notebook_card.v1",
-      "sidecar_count": 6,
+      "sidecar_count": 9,
       "status": "ready",
       "surface": "research"
     },
@@ -1655,7 +1655,7 @@
       "surface": "production"
     }
   ],
-  "manifest_hash": "3bc47d41de1d6e0ed2d01a4d304ab07c093890380092e37616332597379ebc2c",
+  "manifest_hash": "8b0fdec38963c7cc3e8fb4412d57a995dbdd2cca5e0f2e4f151eb4bd4f5f0d6c",
   "schema_version": "core.notebook_card_manifest.v1",
   "summary": {
     "canonical_notebook_count": 91,

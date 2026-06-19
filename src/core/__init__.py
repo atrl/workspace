@@ -8,7 +8,9 @@ from .knowledge import (
     KnowledgeSource,
     build_hypothesis_card,
     build_knowledge_backlog,
+    build_knowledge_promotion_audit,
     write_knowledge_backlog,
+    write_knowledge_promotion_audit,
     write_knowledge_queue,
 )
 from .notebooks import scan_notebook_cards, write_notebook_card_manifest
@@ -22,12 +24,14 @@ __all__ = [
     "build_architecture_extension_decision",
     "build_hypothesis_card",
     "build_knowledge_backlog",
+    "build_knowledge_promotion_audit",
     "build_production_manifest",
     "production_manifest_content_hash",
     "publish_production_manifest",
     "scan_notebook_cards",
     "write_architecture_extension_decision",
     "write_knowledge_backlog",
+    "write_knowledge_promotion_audit",
     "write_knowledge_queue",
     "write_notebook_card_manifest",
 ]

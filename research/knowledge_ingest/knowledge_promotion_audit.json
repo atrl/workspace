@@ -1,0 +1,408 @@
+{
+  "items": [
+    {
+      "allowed_next_surface": "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "autoformer_mse",
+      "candidate_type": "model_replacement",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 1,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "arxiv:2106.13008",
+      "source_reliability": "primary_metadata",
+      "source_type": "paper",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+      "target_subsystem": "src/model",
+      "usage_scope": "hypothesis_and_adapter_reference"
+    },
+    {
+      "allowed_next_surface": "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "fedformer_mse",
+      "candidate_type": "model_replacement",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 2,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "arxiv:2201.12740",
+      "source_reliability": "primary_metadata",
+      "source_type": "paper",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+      "target_subsystem": "src/model",
+      "usage_scope": "hypothesis_and_adapter_reference"
+    },
+    {
+      "allowed_next_surface": "research/dlinear_mse_validation_v1/dlinear_mse_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "dlinear_mse",
+      "candidate_type": "model_replacement",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 3,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "arxiv:2205.13504",
+      "source_reliability": "primary_metadata",
+      "source_type": "paper",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+      "target_subsystem": "src/model",
+      "usage_scope": "hypothesis_and_adapter_reference"
+    },
+    {
+      "allowed_next_surface": "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "patch_tst_mse",
+      "candidate_type": "model_replacement",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 4,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "arxiv:2211.14730",
+      "source_reliability": "primary_metadata",
+      "source_type": "arxiv",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+      "target_subsystem": "src/model",
+      "usage_scope": "hypothesis_and_adapter_reference"
+    },
+    {
+      "allowed_next_surface": "research/quantbench_model_matrix_validation_v1/quantbench_model_matrix_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "quantbench_model_matrix",
+      "candidate_type": "model_matrix_reference",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 5,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "arxiv:2504.18600",
+      "source_reliability": "primary_metadata",
+      "source_type": "arxiv",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+      "target_subsystem": "src/model",
+      "usage_scope": "hypothesis_and_adapter_reference"
+    },
+    {
+      "allowed_next_surface": "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "patch_tst_mse",
+      "candidate_type": "model_replacement",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 6,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "github:thuml/Time-Series-Library",
+      "source_reliability": "primary_repository_metadata",
+      "source_type": "github",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+      "target_subsystem": "src/model",
+      "usage_scope": "hypothesis_and_adapter_reference"
+    },
+    {
+      "allowed_next_surface": "research/qlib_recorder_analysis_validation_v1/qlib_recorder_analysis_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "qlib_recorder_analysis",
+      "candidate_type": "analysis_extension",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 7,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "github:microsoft/qlib",
+      "source_reliability": "primary_repository_metadata",
+      "source_type": "github",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src.analysis.qlib_recorder + src.analysis.build_regime_window_analysis_report",
+      "target_subsystem": "src/analysis",
+      "usage_scope": "hypothesis_and_adapter_reference"
+    },
+    {
+      "allowed_next_surface": "research/factor_diagnostics_validation_v1/factor_diagnostics_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "factor_diagnostics",
+      "candidate_type": "factor_pipeline_reference",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 8,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "github:quantopian/alphalens",
+      "source_reliability": "primary_repository_metadata",
+      "source_type": "github",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src.factor.prepare_factor_feature_sets",
+      "target_subsystem": "src/factor",
+      "usage_scope": "hypothesis_and_adapter_reference"
+    },
+    {
+      "allowed_next_surface": "research/regime_window_review_validation_v1/regime_window_review_validation_v1.ipynb",
+      "allowed_surfaces_after_gate": [],
+      "blocked_surfaces": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "candidate_name": "regime_window_review",
+      "candidate_type": "method_signal",
+      "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
+      "implementation_allowed": false,
+      "license_gate_status": "blocked",
+      "missing_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "missing_evidence_count": 5,
+      "priority_rank": 9,
+      "promotion_gate_status": "blocked_missing_evidence",
+      "provided_evidence": [],
+      "provided_evidence_count": 0,
+      "required_evidence": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "schema_version": "knowledge_promotion_audit_item.v1",
+      "source_id": "x:regime-aware-quant-search",
+      "source_reliability": "social_unverified",
+      "source_type": "x",
+      "source_used_as": "hypothesis_only",
+      "target_interface": "src.analysis.qlib_recorder + src.analysis.build_regime_window_analysis_report",
+      "target_subsystem": "src/analysis",
+      "usage_scope": "idea_only"
+    }
+  ],
+  "schema_version": "knowledge_promotion_audit.v1",
+  "summary": {
+    "blocked_candidates": [
+      "autoformer_mse",
+      "fedformer_mse",
+      "dlinear_mse",
+      "patch_tst_mse",
+      "quantbench_model_matrix",
+      "patch_tst_mse",
+      "qlib_recorder_analysis",
+      "factor_diagnostics",
+      "regime_window_review"
+    ],
+    "blocked_count": 9,
+    "implementation_allowed_count": 0,
+    "item_count": 9,
+    "missing_license_review_count": 9,
+    "ready_candidates": [],
+    "ready_count": 0,
+    "schema_version": "knowledge_promotion_audit.summary.v1",
+    "target_subsystems": [
+      "src/analysis",
+      "src/factor",
+      "src/model"
+    ]
+  }
+}
