@@ -1,0 +1,35 @@
+{
+  "schema_version": "dashboard.model_matrix.v1",
+  "artifact_id": "schedule_model_difference_notify_v1",
+  "top_models": [
+    {
+      "model": "ridge_mse",
+      "rank": 1
+    }
+  ],
+  "manifest_source": {
+    "kind": "analysis_manifest",
+    "path": "/Users/rziiiii/dev/workspace/research/schedule_model_difference_notify_v1/matrix_card/analysis_manifest.json",
+    "schema_version": "artifact.v1",
+    "manifest_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "producer": "src.analysis.exports"
+  },
+  "model_difference_explanations": [
+    {
+      "schema_version": "analysis.model_difference_explanation.v1",
+      "priority_rank": 1,
+      "segment_type": "window_regime",
+      "segment": "stress_window::stress",
+      "window": "stress_window",
+      "regime": "stress",
+      "baseline_model": "ridge_mse",
+      "winner_model": "ridge_mse",
+      "loser_model": "gcn_mse",
+      "relative_return_pct_spread": 6.5,
+      "winner_vs_baseline_delta": 0.0,
+      "explanation_signal": "baseline_defends",
+      "decision_hint": "block_or_rework_loser",
+      "review_note": "中文 review：ridge_mse 在 stress 区间相对 gcn_mse 更稳，通知需要直接暴露该差异。"
+    }
+  ]
+}

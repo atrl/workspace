@@ -836,6 +836,35 @@ def _analysis_overview_payload(dashboard_payload: dict[str, Any]) -> dict[str, A
     }
 
 
+def _model_difference_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    rows = dashboard_payload.get("model_difference_explanations")
+    if not isinstance(rows, list) or not rows:
+        return {}
+    difference_rows = [row for row in rows if isinstance(row, dict)]
+    if not difference_rows:
+        return {}
+    ordered = sorted(
+        difference_rows,
+        key=lambda row: (
+            int(float(row.get("priority_rank", 999999) or 999999)),
+            -float(row.get("relative_return_pct_spread", 0.0) or 0.0),
+        ),
+    )
+    top = ordered[0]
+    return {
+        "model_difference_schema_version": str(top.get("schema_version", "")),
+        "model_difference_count": int(len(difference_rows)),
+        "model_difference_top_signal": str(top.get("explanation_signal", "")),
+        "model_difference_top_decision_hint": str(top.get("decision_hint", "")),
+        "model_difference_top_segment": str(top.get("segment", "")),
+        "model_difference_top_winner_model": str(top.get("winner_model", "")),
+        "model_difference_top_loser_model": str(top.get("loser_model", "")),
+        "model_difference_top_baseline_model": str(top.get("baseline_model", "")),
+        "model_difference_top_spread": float(top.get("relative_return_pct_spread", 0.0) or 0.0),
+        "model_difference_top_priority_rank": int(float(top.get("priority_rank", 0) or 0)),
+    }
+
+
 def _promotion_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     objective = dashboard_payload.get("objective")
     if not isinstance(objective, dict):
@@ -1042,6 +1071,7 @@ def _run_pipeline_attempt(
         **_top_review_payload(dashboard_payload),
         **_backtest_contract_payload(dashboard_payload),
         **_analysis_overview_payload(dashboard_payload),
+        **_model_difference_payload(dashboard_payload),
         **_promotion_payload(dashboard_payload),
         **_model_run_coverage_payload(dashboard_payload),
         **_requested_model_contract_payload(dashboard_payload),
@@ -1107,6 +1137,15 @@ def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[st
             f"{payload.get('analysis_overview_top_gap_worst_model', '')}->"
             f"{payload.get('analysis_overview_top_gap_best_model', '')}"
             f"/spread={payload.get('analysis_overview_top_gap_spread', 0.0):g}"
+        )
+    if payload.get("model_difference_top_signal"):
+        message += (
+            f" | model_difference={payload.get('model_difference_top_signal', '')}/"
+            f"{payload.get('model_difference_top_decision_hint', '')}"
+            f" {payload.get('model_difference_top_segment', '')}"
+            f" {payload.get('model_difference_top_loser_model', '')}->"
+            f"{payload.get('model_difference_top_winner_model', '')}"
+            f" spread={payload.get('model_difference_top_spread', 0.0):g}"
         )
     if payload.get("top_promotion_model"):
         message += (

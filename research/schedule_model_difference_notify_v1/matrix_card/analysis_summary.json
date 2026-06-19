@@ -1,0 +1,8 @@
+{
+  "status": "feature_set_matrix_completed",
+  "variant_count": 2,
+  "models": [
+    "ridge_mse",
+    "gcn_mse"
+  ]
+}

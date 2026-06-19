@@ -534,6 +534,79 @@ def test_model_dashboard_refresh_detailed_notification_includes_analysis_overvie
     assert "regime_gap=stress_window::stress:gcn_mse->ridge_mse/spread=4.25" in events[0]
 
 
+def test_model_dashboard_refresh_detailed_notification_includes_model_difference_explanations(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 2, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "difference_explanation_card",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": str(card_dir / "analysis_manifest.json"),
+                "schema_version": "artifact.v1",
+                "manifest_hash": "f" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "model_difference_explanations": [
+                {
+                    "schema_version": "analysis.model_difference_explanation.v1",
+                    "priority_rank": 1,
+                    "segment_type": "window_regime",
+                    "segment": "stress_window::stress",
+                    "window": "stress_window",
+                    "regime": "stress",
+                    "baseline_model": "ridge_mse",
+                    "winner_model": "ridge_mse",
+                    "loser_model": "gcn_mse",
+                    "relative_return_pct_spread": 6.5,
+                    "winner_vs_baseline_delta": 0.0,
+                    "explanation_signal": "baseline_defends",
+                    "decision_hint": "block_or_rework_loser",
+                    "review_note": "中文 review：ridge_mse 在 stress 领先。",
+                }
+            ],
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse", "gcn_mse"),
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["model_difference_schema_version"] == "analysis.model_difference_explanation.v1"
+    assert result.payload["model_difference_count"] == 1
+    assert result.payload["model_difference_top_signal"] == "baseline_defends"
+    assert result.payload["model_difference_top_decision_hint"] == "block_or_rework_loser"
+    assert result.payload["model_difference_top_segment"] == "stress_window::stress"
+    assert result.payload["model_difference_top_winner_model"] == "ridge_mse"
+    assert result.payload["model_difference_top_loser_model"] == "gcn_mse"
+    assert result.payload["model_difference_top_spread"] == 6.5
+    assert "model_difference=baseline_defends/block_or_rework_loser" in events[0]
+    assert "stress_window::stress gcn_mse->ridge_mse spread=6.5" in events[0]
+
+
 def test_model_dashboard_refresh_detailed_notification_includes_backtest_contract(tmp_path):
     events: list[str] = []
 

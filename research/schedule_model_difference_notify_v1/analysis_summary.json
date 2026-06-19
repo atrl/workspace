@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "notification": "model_dashboard_refresh:success | top_model=ridge_mse | dashboard_manifest=analysis_manifest | attempts=1 | export=/Users/rziiiii/dev/workspace/research/schedule_model_difference_notify_v1/dashboard_export.json | model_difference=baseline_defends/block_or_rework_loser stress_window::stress gcn_mse->ridge_mse spread=6.5",
+  "payload_extract": {
+    "model_difference_schema_version": "analysis.model_difference_explanation.v1",
+    "model_difference_count": 1,
+    "model_difference_top_signal": "baseline_defends",
+    "model_difference_top_decision_hint": "block_or_rework_loser",
+    "model_difference_top_segment": "stress_window::stress",
+    "model_difference_top_winner_model": "ridge_mse",
+    "model_difference_top_loser_model": "gcn_mse",
+    "model_difference_top_spread": 6.5
+  },
+  "sidecars": {
+    "dashboard_export": "/Users/rziiiii/dev/workspace/research/schedule_model_difference_notify_v1/dashboard_export.json",
+    "notification_events": "/Users/rziiiii/dev/workspace/research/schedule_model_difference_notify_v1/notification_events.json",
+    "analysis_summary": "/Users/rziiiii/dev/workspace/research/schedule_model_difference_notify_v1/analysis_summary.json"
+  }
+}
