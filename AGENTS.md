@@ -7,23 +7,33 @@ workflow evidence, analysis artifacts, and notebook-backed conclusions.
 The current rebuild direction is defined in `SPEC.md`. Do not use chat history
 as durable state.
 
+## Qlib Docs And Skill Requirements
+
+These requirements are mandatory for all substantial work in this repository:
+
+- Read `.codex/skills/soxl-qlib-experiment/SKILL.md` before planning or editing
+  qlib-backed research, factor, model-selection, backtest, analysis, or notebook
+  work.
+- Use the official qlib documentation as the authority for qlib APIs and
+  workflow behavior: `https://qlib.readthedocs.io/en/latest/`.
+- Check the official qlib docs before changing or designing code that touches
+  qlib data layout, calendars, instruments, Dataset, Recorder, Workflow,
+  Analysis, Backtest, reports, or risk analysis.
+- If the local skill and official qlib docs conflict, follow the official qlib
+  docs for API behavior and update the local implementation plan accordingly.
+- If the official qlib docs are unreachable, say so explicitly and do not invent
+  qlib API behavior.
+
 ## Startup
 
 Before substantial work:
 
 1. Read `AGENTS.md`.
 2. Read `SPEC.md`.
-3. Read `.codex/skills/soxl-qlib-experiment/SKILL.md`.
-4. If the task touches qlib APIs, qlib data layout, Recorder/Workflow,
-   Dataset, Analysis, Backtest, calendar/store handling, or qlib artifact
-   interpretation, check the official qlib docs:
-   `https://qlib.readthedocs.io/en/latest/`.
-5. Pick the relevant notebook surface:
+3. Satisfy the qlib docs and skill requirements above.
+4. Pick the relevant notebook surface:
    - `research/<experiment>/<experiment>.ipynb` for research work.
    - `production/<strategy>/<strategy>.ipynb` for promoted runnable strategies.
-
-If official qlib docs are unreachable, say so explicitly and avoid inventing
-qlib API behavior.
 
 ## Active Surfaces
 
