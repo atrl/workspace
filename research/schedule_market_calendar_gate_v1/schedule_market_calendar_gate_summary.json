@@ -1,0 +1,21 @@
+{
+  "schema_version": "research.schedule_market_calendar_gate.v1",
+  "status": "completed",
+  "decision_schema_version": "schedule.market_calendar_decision.v1",
+  "decision_count": 3,
+  "market_statuses": [
+    "closed",
+    "half_day",
+    "normal"
+  ],
+  "closed_status": "skipped",
+  "closed_skip_reason": "New Year's Day",
+  "closed_task_calls": 0,
+  "closed_lock_created": false,
+  "notification_events": [],
+  "next_trading_date_from_closed": "2026-01-02",
+  "artifacts": {
+    "market_calendar_decisions": "market_calendar_decisions.csv",
+    "review": "schedule_market_calendar_gate_review.md"
+  }
+}

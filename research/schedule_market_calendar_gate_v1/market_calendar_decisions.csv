@@ -1,0 +1,4 @@
+schema_version,date,market_status,should_run,run_mode,skip_reason,next_trading_date,previous_trading_date,allow_half_day
+schedule.market_calendar_decision.v1,2026-01-01,closed,False,closed,New Year's Day,2026-01-02,,True
+schedule.market_calendar_decision.v1,2026-01-02,half_day,True,half_day,,2026-01-02,,True
+schedule.market_calendar_decision.v1,2026-01-05,normal,True,regular,,2026-01-05,2026-01-02,True

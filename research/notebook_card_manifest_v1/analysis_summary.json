@@ -1,19 +1,19 @@
 {
   "schema_version": "research.notebook_card_manifest.v1",
   "status": "completed",
-  "card_count": 90,
-  "notebook_count": 90,
+  "card_count": 91,
+  "notebook_count": 91,
   "missing_notebook_count": 0,
   "multiple_notebook_count": 0,
   "missing_chinese_conclusion_count": 0,
-  "canonical_notebook_count": 90,
+  "canonical_notebook_count": 91,
   "noncanonical_notebook_count": 0,
-  "chinese_conclusion_ok_count": 90,
+  "chinese_conclusion_ok_count": 91,
   "status_counts": {
-    "ready": 90
+    "ready": 91
   },
   "noncanonical_cards": [],
-  "manifest_hash": "c2de0495005c8efb5e7f5097da091f7fb24043f04828b0bcc369a586643da8c7",
+  "manifest_hash": "4e6d7a4875d2c6465829f59d27d1be88c83c2ebc313a1123cdc6d8051541b810",
   "artifacts": {
     "manifest": "notebook_card_manifest.json",
     "csv": "notebook_cards.csv",

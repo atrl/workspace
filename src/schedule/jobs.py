@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Mapping
 
 
 @dataclass(frozen=True)
@@ -28,9 +28,20 @@ def run_job_once(
     task: Callable[[], dict[str, Any]],
     lock_dir: str | Path,
     notify: Callable[[str], None] | None = None,
+    market_calendar_decision: Mapping[str, Any] | None = None,
 ) -> JobResult:
     if not job.enabled:
         return JobResult(name=job.name, status="skipped", payload={}, detail="disabled")
+
+    if market_calendar_decision is not None and not bool(market_calendar_decision.get("should_run", True)):
+        decision = dict(market_calendar_decision)
+        detail = str(decision.get("skip_reason") or decision.get("market_status") or "market_calendar")
+        return JobResult(
+            name=job.name,
+            status="skipped",
+            payload={"market_calendar_decision": decision},
+            detail=detail,
+        )
 
     lock_root = Path(lock_dir)
     lock_root.mkdir(parents=True, exist_ok=True)
