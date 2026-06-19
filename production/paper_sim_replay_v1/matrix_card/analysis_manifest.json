@@ -135,6 +135,18 @@
       "model_count": 96,
       "schema_version": "objective.matrix_evaluation.v1"
     },
+    "objective_loss": {
+      "classification_loss": 0.4254807692307693,
+      "ic_loss": 1.006248375520011,
+      "metric_source_schema_version": "objective.evaluation.v1",
+      "mse_loss": 0.04301737893154785,
+      "optimization_direction": "minimize",
+      "rank_group_count": 0,
+      "ranking_loss": 1.0,
+      "reward_surface": "retired",
+      "row_count": 2496,
+      "schema_version": "objective.loss.v1"
+    },
     "promotion_summary": {
       "blocked_count": 0,
       "candidate_count": 96,
@@ -179,6 +191,7 @@
     "model_review_briefing": "model_review_briefing.csv",
     "model_run_ledger": "model_run_ledger.csv",
     "model_run_ledger_summary": "model_run_ledger_summary.json",
+    "objective_losses": "objective_losses.json",
     "objective_scores": "objective_scores.csv",
     "promotion_scores": "promotion_scores.csv",
     "qlib_return_frame": "qlib_return_frame.csv",
@@ -193,5 +206,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "33df91314ce989c110bbb14c268491a84b2a5e998808e06153601d730a326544"
+  "manifest_hash": "e3557b1a3a04bc9137c6e81140b8d863056bd4eb0f1dfbc6facc75f617ad76e5"
 }

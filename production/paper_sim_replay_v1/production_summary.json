@@ -24,6 +24,18 @@
   "model_difference_top_winner_model": "sfm_mse__all_features",
   "model_difference_top_loser_model": "ridge_ic__all_features",
   "model_difference_top_spread": 72.55670639330125,
+  "objective_loss_schema_version": "objective.loss.v1",
+  "objective_loss_metric_source_schema_version": "objective.evaluation.v1",
+  "objective_loss_status": "review",
+  "objective_loss_detail": "top ic_loss=1.00625 / reward retired / direction minimize / groups 0",
+  "objective_loss_optimization_direction": "minimize",
+  "objective_loss_reward_surface": "retired",
+  "objective_loss_row_count": 2496,
+  "objective_loss_rank_group_count": 0,
+  "objective_loss_component_count": 4,
+  "objective_loss_top_component": "ic_loss",
+  "objective_loss_top_value": 1.006248375520011,
+  "objective_loss_artifact": "production/paper_sim_replay_v1/matrix_card/objective_losses.json",
   "backtest_schema_version": "backtest.config.v1",
   "requested_model_schema_version": "model.requested_contract_health.v1",
   "requested_model_count": 32,
@@ -64,26 +76,26 @@
   "schedule_status": "success",
   "schedule_attempts": 1,
   "schedule_readiness_overview_schema": "dashboard.readiness_overview.v1",
-  "schedule_readiness_overview_status": "ready",
-  "schedule_readiness_overview_gate_count": 3,
+  "schedule_readiness_overview_status": "review",
+  "schedule_readiness_overview_gate_count": 4,
   "schedule_readiness_overview_pass_count": 3,
-  "schedule_readiness_overview_review_count": 0,
+  "schedule_readiness_overview_review_count": 1,
   "schedule_readiness_overview_block_count": 0,
-  "schedule_readiness_overview_gates": "dashboard_manifest,requested_models,model_runs",
-  "schedule_readiness_overview_review_gates": "",
+  "schedule_readiness_overview_gates": "dashboard_manifest,objective_loss,requested_models,model_runs",
+  "schedule_readiness_overview_review_gates": "objective_loss",
   "schedule_readiness_overview_block_gates": "",
   "data_update_status": "success",
   "data_update_attempts": 1,
   "data_update_row_count": 109,
   "data_update_as_of": "2026-06-09",
   "notifications": [
-    "production_paper_sim_replay_v1:success | top_model=mlp_mixer_mse__all_features | dashboard_manifest=analysis_manifest | analysis_preflight=ready | attempts=1 | export=production/paper_sim_replay_v1/dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_ic__all_features->sfm_mse__all_features/spread=72.5567 | model_difference=segment_winner/promote_segment_candidate downtrend ridge_ic__all_features->sfm_mse__all_features spread=72.5567 | promotion=promote_candidate:mlp_mixer_mse__all_features blocked=0 | run_coverage=96/96 backtested=96/96 missing=0 | requested_models=32/32 missing=0 incomplete=0 | readiness=ready pass=3 review=0 block=0"
+    "production_paper_sim_replay_v1:success | top_model=mlp_mixer_mse__all_features | dashboard_manifest=analysis_manifest | analysis_preflight=ready | attempts=1 | export=production/paper_sim_replay_v1/dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_ic__all_features->sfm_mse__all_features/spread=72.5567 | model_difference=segment_winner/promote_segment_candidate downtrend ridge_ic__all_features->sfm_mse__all_features spread=72.5567 | promotion=promote_candidate:mlp_mixer_mse__all_features blocked=0 | objective_loss=objective.loss.v1 top=ic_loss:1.00625 reward=retired | run_coverage=96/96 backtested=96/96 missing=0 | requested_models=32/32 missing=0 incomplete=0 | readiness=review pass=3 review=1 block=0"
   ],
   "data_notifications": [
     "production_paper_replay_data_update_v1:success | dataset=daily.soxl_paper_replay | rows=109 | as_of=2026-06-09 | attempts=1 | manifest=production/paper_sim_replay_v1/data/snapshots/paper_replay_soxl_daily/2026-06-09/data_update_manifest.json"
   ],
   "paper_execution_notifications": [
-    "paper_sim_replay_execution_v1:success | mode=paper | gate=paper_review | model=mlp_mixer_mse__all_features | target=0.75 | dashboard_manifest=analysis_manifest/complete | quote=SOXL@2026-06-09/201.68 | shares=37 | ledger=production/paper_sim_replay_v1/intent_ledger.json | model_difference=segment_winner/promote_segment_candidate downtrend ridge_ic__all_features->sfm_mse__all_features spread=72.5567"
+    "paper_sim_replay_execution_v1:success | mode=paper | gate=paper_review | model=mlp_mixer_mse__all_features | target=0.75 | dashboard_manifest=analysis_manifest/complete | quote=SOXL@2026-06-09/201.68 | shares=37 | ledger=production/paper_sim_replay_v1/intent_ledger.json | model_difference=segment_winner/promote_segment_candidate downtrend ridge_ic__all_features->sfm_mse__all_features spread=72.5567 | objective_loss=objective.loss.v1/review top=ic_loss:1.00625 reward=retired"
   ],
   "dashboard_export": "production/paper_sim_replay_v1/dashboard_export.json",
   "intent_ledger": "production/paper_sim_replay_v1/intent_ledger.json",
@@ -366,6 +378,6 @@
     "worst_stability_model": "autoformer_mse__top_ic_factors"
   },
   "production_manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
-  "production_manifest_hash": "36181cc5157c68b60b31558baf6bc1703cb31ee35c487f0c6953ba4057256850",
+  "production_manifest_hash": "50d8da3edbae283505da8eb030f9e1c0be2f2ca898d1259aeb06aaec72b9d044",
   "production_registry_path": "production/production_registry.json"
 }

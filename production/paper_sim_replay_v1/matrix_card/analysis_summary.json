@@ -12,6 +12,7 @@
     "model_regime_window_diagnostics",
     "objective_scores",
     "promotion_scores",
+    "objective_losses",
     "model_comparison",
     "qlib_return_frame",
     "segment_metrics",
@@ -636,6 +637,18 @@
     "avg_rank_ic": 0.0,
     "model_count": 96,
     "schema_version": "objective.matrix_evaluation.v1"
+  },
+  "objective_loss": {
+    "classification_loss": 0.4254807692307693,
+    "ic_loss": 1.006248375520011,
+    "metric_source_schema_version": "objective.evaluation.v1",
+    "mse_loss": 0.04301737893154785,
+    "optimization_direction": "minimize",
+    "rank_group_count": 0,
+    "ranking_loss": 1.0,
+    "reward_surface": "retired",
+    "row_count": 2496,
+    "schema_version": "objective.loss.v1"
   },
   "promotion_summary": {
     "blocked_count": 0,

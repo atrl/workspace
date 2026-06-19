@@ -6,7 +6,7 @@
     "kind": "analysis_manifest",
     "path": "production/paper_sim_replay_v1/matrix_card/analysis_manifest.json",
     "schema_version": "artifact.v1",
-    "manifest_hash": "33df91314ce989c110bbb14c268491a84b2a5e998808e06153601d730a326544",
+    "manifest_hash": "e3557b1a3a04bc9137c6e81140b8d863056bd4eb0f1dfbc6facc75f617ad76e5",
     "producer": "src.analysis.exports"
   },
   "summary": {
@@ -23,6 +23,7 @@
       "model_regime_window_diagnostics",
       "objective_scores",
       "promotion_scores",
+      "objective_losses",
       "model_comparison",
       "qlib_return_frame",
       "segment_metrics",
@@ -647,6 +648,18 @@
       "avg_rank_ic": 0.0,
       "model_count": 96,
       "schema_version": "objective.matrix_evaluation.v1"
+    },
+    "objective_loss": {
+      "classification_loss": 0.4254807692307693,
+      "ic_loss": 1.006248375520011,
+      "metric_source_schema_version": "objective.evaluation.v1",
+      "mse_loss": 0.04301737893154785,
+      "optimization_direction": "minimize",
+      "rank_group_count": 0,
+      "ranking_loss": 1.0,
+      "reward_surface": "retired",
+      "row_count": 2496,
+      "schema_version": "objective.loss.v1"
     },
     "promotion_summary": {
       "blocked_count": 0,
@@ -21745,7 +21758,34 @@
         "turnover": 5.018632179053052,
         "thresholds": "{'min_return_pct': None, 'min_relative_return_pct': None, 'min_sharpe': None, 'max_drawdown_pct': None, 'max_turnover': None, 'schema_version': 'objective.promotion_thresholds.v1'}"
       }
-    ]
+    ],
+    "losses": {
+      "schema_version": "objective.loss.v1",
+      "metric_source_schema_version": "objective.evaluation.v1",
+      "optimization_direction": "minimize",
+      "reward_surface": "retired",
+      "objective_names": [
+        "mse",
+        "classification",
+        "ic",
+        "ranking"
+      ],
+      "row_count": 2496,
+      "mse_loss": 0.04301737893154785,
+      "classification_loss": 0.4254807692307693,
+      "ic_loss": 1.006248375520011,
+      "ranking_loss": 1.0,
+      "rank_group_count": 0,
+      "evaluation": {
+        "schema_version": "objective.evaluation.v1",
+        "row_count": 2496,
+        "mse": 0.04301737893154785,
+        "classification_accuracy": 0.5745192307692307,
+        "ic": -0.006248375520010858,
+        "rank_ic": 0.0,
+        "rank_group_count": 0
+      }
+    }
   },
   "model_run_coverage": {
     "schema_version": "model.run_ledger_summary.v1",
@@ -42625,6 +42665,7 @@
     "model_regime_window_diagnostics": "production/paper_sim_replay_v1/matrix_card/model_regime_window_diagnostics.csv",
     "model_run_ledger": "production/paper_sim_replay_v1/matrix_card/model_run_ledger.csv",
     "model_run_ledger_summary": "production/paper_sim_replay_v1/matrix_card/model_run_ledger_summary.json",
+    "objective_losses": "production/paper_sim_replay_v1/matrix_card/objective_losses.json",
     "objective_scores": "production/paper_sim_replay_v1/matrix_card/objective_scores.csv",
     "promotion_scores": "production/paper_sim_replay_v1/matrix_card/promotion_scores.csv",
     "qlib_risk_metrics": "production/paper_sim_replay_v1/matrix_card/qlib_risk_metrics.csv",

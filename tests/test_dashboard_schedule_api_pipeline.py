@@ -888,6 +888,36 @@ def test_production_paper_sim_summary_records_schedule_readiness_overview():
     assert manifest["metadata"]["schedule_readiness_overview_gates"] == summary["schedule_readiness_overview_gates"]
 
 
+def test_production_paper_sim_summary_records_objective_loss_gate_context():
+    summary = json.loads(open("production/paper_sim_replay_v1/production_summary.json", encoding="utf-8").read())
+    intent = json.loads(open("production/paper_sim_replay_v1/execution_intent.json", encoding="utf-8").read())
+    dashboard = json.loads(open("production/paper_sim_replay_v1/dashboard_export.json", encoding="utf-8").read())
+    manifest = json.loads(open("production/paper_sim_replay_v1/production_manifest.json", encoding="utf-8").read())
+    analysis_manifest = json.loads(open("production/paper_sim_replay_v1/matrix_card/analysis_manifest.json", encoding="utf-8").read())
+
+    losses = dashboard["objective"]["losses"]
+    assert analysis_manifest["paths"]["objective_losses"] == "objective_losses.json"
+    assert dashboard["artifacts"]["objective_losses"] == "production/paper_sim_replay_v1/matrix_card/objective_losses.json"
+    assert losses["schema_version"] == "objective.loss.v1"
+    assert losses["reward_surface"] == "retired"
+    assert summary["objective_loss_schema_version"] == losses["schema_version"]
+    assert summary["objective_loss_status"] in {"pass", "review"}
+    assert summary["objective_loss_reward_surface"] == "retired"
+    assert summary["objective_loss_top_component"]
+    assert summary["objective_loss_component_count"] == 4
+    assert summary["objective_loss_top_value"] >= 0.0
+    assert intent["metadata"]["objective_loss_schema_version"] == summary["objective_loss_schema_version"]
+    assert intent["metadata"]["objective_loss_status"] == summary["objective_loss_status"]
+    assert intent["metadata"]["objective_loss_top_component"] == summary["objective_loss_top_component"]
+    assert intent["metadata"]["objective_loss_top_value"] == summary["objective_loss_top_value"]
+    assert "objective_loss=" in " ".join(summary["paper_execution_notifications"])
+    assert "objective_loss=" in " ".join(summary["notifications"])
+    assert "objective_loss" in summary["schedule_readiness_overview_gates"]
+    assert manifest["metadata"]["objective_loss_schema_version"] == summary["objective_loss_schema_version"]
+    assert manifest["metadata"]["objective_loss_status"] == summary["objective_loss_status"]
+    assert manifest["metadata"]["objective_loss_top_component"] == summary["objective_loss_top_component"]
+
+
 def test_production_paper_sim_summary_manifest_and_dashboard_record_schedule_health_artifact():
     summary = json.loads(open("production/paper_sim_replay_v1/production_summary.json", encoding="utf-8").read())
     manifest = json.loads(open("production/paper_sim_replay_v1/production_manifest.json", encoding="utf-8").read())
