@@ -1,0 +1,14 @@
+requirement_id,status,category,evidence_paths,notes
+stable_src_surfaces,pass,architecture,src/core;src/data;src/factor;src/model;src/objective;src/backtest;src/analysis;src/dashboard;src/schedule;src/api;research;production,目录存在性只证明 surface 可用；具体行为由后续需求项和测试证明。
+reward_retired_objective_surface,pass,objective,src/objective,只检查稳定 surface；旧未跟踪缓存不作为平台契约证据。
+research_production_notebook_contract,pass,notebook,research;production,notebook 是中文 review 和复现实验的主证据；CSV/JSON 只作为 sidecar。
+quantbench_requested_model_registry,pass,model,src/model/registry.py;tests/test_model_adapter_coverage.py,注册表覆盖 32 个用户点名模型；production ledger 另行证明训练/回测记录。
+quantbench_training_backtest_ledger,pass,model,production/paper_sim_replay_v1/matrix_card/model_run_ledger_summary.json;production/paper_sim_replay_v1/matrix_card/model_run_ledger.csv,production 证据面记录 32 个 base model x feature set variants 共 96 条模型运行。
+analysis_regime_window_model_difference,pass,analysis,production/paper_sim_replay_v1/matrix_card/analysis_manifest.json,dashboard、schedule 和 production 都应消费 manifest/export，而不是散落实验文件。
+dashboard_manifest_export_contract,pass,dashboard,production/paper_sim_replay_v1/production_manifest.json;production/paper_sim_replay_v1/dashboard_export.json,检查 dashboard export 与 production manifest 的公开读取面。
+data_canonical_snapshot_and_calendar,pass,data,production/paper_sim_replay_v1/data/data_registry.json;production/paper_sim_replay_v1/data/snapshots/paper_replay_soxl_daily/2026-06-09/data_update_manifest.json;data/qlib/soxl/calendars/day.txt,只引用 production paper replay 发布的数据 registry/snapshot 证据。
+production_paper_api_guardrail,pass,api,production/paper_sim_replay_v1/production_summary.json;production/paper_sim_replay_v1/paper_execution_result.json,该项只证明 v1 paper/sim guardrail；真实 broker 下单仍在 out of scope。
+schedule_data_dashboard_api_chain,pass,schedule,production/paper_sim_replay_v1/production_summary.json;production/paper_sim_replay_v1/schedule_health.json,readiness gate 的 review 状态单独在 production_readiness_review_gate 中跟踪。
+production_readiness_review_gate,review,production,production/paper_sim_replay_v1/production_summary.json;production/paper_sim_replay_v1/production_manifest.json,当前 objective_loss gate 为 review，说明生产证据链可审计但不应声称完全 ready。
+external_knowledge_promotion_backlog,review,knowledge,research/knowledge_ingest/knowledge_ingest_summary.json;research/knowledge_ingest/knowledge_promotion_audit.json,blocked 候选保留在 research backlog，不能直接进入 src/production/skill。
+skill_boundary_method_only,pass,skill,research/skill_boundary_audit_v1/analysis_summary.json;src/core/skill_boundary.py,该项证明已有 skill 边界审计能力和 research 证据，不表示每个本地 skill 都已迁移。

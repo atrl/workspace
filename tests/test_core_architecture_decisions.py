@@ -7,7 +7,9 @@ import pytest
 from src.core import (
     architecture_extension_content_hash,
     build_architecture_extension_decision,
+    build_platform_requirement_audit,
     write_architecture_extension_decision,
+    write_platform_requirement_audit,
 )
 
 
@@ -118,3 +120,78 @@ def test_write_architecture_extension_decision_rejects_unvalidated_payload(tmp_p
 
     with pytest.raises(ValueError, match="reason"):
         write_architecture_extension_decision(output_dir=tmp_path, decision=decision)
+
+
+def test_build_platform_requirement_audit_maps_goal_to_current_repo_evidence():
+    audit = build_platform_requirement_audit(".")
+    requirements = {item["requirement_id"]: item for item in audit["requirements"]}
+
+    assert audit["schema_version"] == "core.platform_requirement_audit.v1"
+    assert audit["summary"]["status"] == "review"
+    assert audit["summary"]["requirement_count"] >= 10
+    assert audit["summary"]["failed_count"] == 0
+    assert audit["summary"]["review_count"] >= 1
+
+    assert requirements["stable_src_surfaces"]["status"] == "pass"
+    assert requirements["reward_retired_objective_surface"]["status"] == "pass"
+    assert requirements["research_production_notebook_contract"]["status"] == "pass"
+    assert requirements["quantbench_requested_model_registry"]["status"] == "pass"
+    assert requirements["quantbench_training_backtest_ledger"]["status"] == "pass"
+    assert requirements["production_paper_api_guardrail"]["status"] == "pass"
+    assert requirements["external_knowledge_promotion_backlog"]["status"] == "review"
+    assert requirements["production_readiness_review_gate"]["status"] == "review"
+
+    model_registry = requirements["quantbench_requested_model_registry"]
+    model_ledger = requirements["quantbench_training_backtest_ledger"]
+    analysis = requirements["analysis_regime_window_model_difference"]
+
+    assert model_registry["metrics"]["requested_model_count"] == 32
+    assert model_registry["metrics"]["registered_model_count"] == 32
+    assert model_ledger["metrics"]["expected_model_count"] == 96
+    assert model_ledger["metrics"]["trained_model_count"] == 96
+    assert model_ledger["metrics"]["backtested_model_count"] == 96
+    assert model_ledger["metrics"]["all_models_completed"] is True
+    assert {"regime_metrics", "window_metrics", "model_comparison", "objective_losses"}.issubset(
+        set(analysis["metrics"]["analysis_paths"])
+    )
+    assert "production/paper_sim_replay_v1/matrix_card/model_run_ledger_summary.json" in model_ledger["evidence_paths"]
+
+
+def test_write_platform_requirement_audit_writes_json_csv_and_chinese_review(tmp_path):
+    audit = build_platform_requirement_audit(".")
+
+    result = write_platform_requirement_audit(tmp_path, audit)
+
+    payload = json.loads((tmp_path / "platform_requirement_audit.json").read_text(encoding="utf-8"))
+    csv_text = (tmp_path / "platform_requirement_audit.csv").read_text(encoding="utf-8")
+    review = (tmp_path / "platform_requirement_audit_review.md").read_text(encoding="utf-8")
+
+    assert result["schema_version"] == "core.platform_requirement_audit_write_result.v1"
+    assert result["audit_path"].endswith("platform_requirement_audit.json")
+    assert payload["summary"]["status"] == audit["summary"]["status"]
+    assert "requirement_id,status,category" in csv_text
+    assert "中文结论" in review
+    assert "是否晋升：否" in review
+
+
+def test_platform_requirement_audit_notebook_records_current_review_status():
+    card = "research/platform_requirement_audit_v1"
+    notebook_path = f"{card}/platform_requirement_audit_v1.ipynb"
+    summary = json.loads(open(f"{card}/platform_requirement_audit_summary.json", encoding="utf-8").read())
+    audit = json.loads(open(f"{card}/platform_requirement_audit.json", encoding="utf-8").read())
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+
+    assert summary["schema_version"] == "research.platform_requirement_audit_v1"
+    assert summary["core_schema_version"] == "core.platform_requirement_audit.v1"
+    assert summary["status"] == "review"
+    assert summary["failed_count"] == 0
+    assert summary["review_count"] == 2
+    assert summary["completion_claim"] == "not_claimed"
+    assert summary["review_requirement_ids"] == [
+        "production_readiness_review_gate",
+        "external_knowledge_promotion_backlog",
+    ]
+    assert audit["summary"]["status"] == summary["status"]
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion

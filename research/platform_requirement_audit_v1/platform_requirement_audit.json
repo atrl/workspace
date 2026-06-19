@@ -1,0 +1,332 @@
+{
+  "requirements": [
+    {
+      "category": "architecture",
+      "evidence_paths": [
+        "src/core",
+        "src/data",
+        "src/factor",
+        "src/model",
+        "src/objective",
+        "src/backtest",
+        "src/analysis",
+        "src/dashboard",
+        "src/schedule",
+        "src/api",
+        "research",
+        "production"
+      ],
+      "metrics": {
+        "missing_surface_count": 0,
+        "missing_surfaces": [],
+        "required_surface_count": 12
+      },
+      "notes": "目录存在性只证明 surface 可用；具体行为由后续需求项和测试证明。",
+      "requirement": "全平台稳定 surface 必须沉到 src/，research/production 作为 notebook 证据面。",
+      "requirement_id": "stable_src_surfaces",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "objective",
+      "evidence_paths": [
+        "src/objective"
+      ],
+      "metrics": {
+        "objective_surface_exists": true,
+        "reward_surface_exists": false
+      },
+      "notes": "只检查稳定 surface；旧未跟踪缓存不作为平台契约证据。",
+      "requirement": "不再新增 RL/reward 训练面，reward 概念由 src/objective 替代。",
+      "requirement_id": "reward_retired_objective_surface",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "notebook",
+      "evidence_paths": [
+        "research",
+        "production"
+      ],
+      "metrics": {
+        "card_count": 117,
+        "missing_chinese_conclusion_count": 0,
+        "multiple_notebook_count": 0,
+        "production_published_count": 1,
+        "production_template_count": 1,
+        "ready_count": 117
+      },
+      "notes": "notebook 是中文 review 和复现实验的主证据；CSV/JSON 只作为 sidecar。",
+      "requirement": "research/production 每个卡片必须有单一主 notebook，且最后有中文结论。",
+      "requirement_id": "research_production_notebook_contract",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "model",
+      "evidence_paths": [
+        "src/model/registry.py",
+        "tests/test_model_adapter_coverage.py"
+      ],
+      "metrics": {
+        "extra_registered_models": [],
+        "missing_registered_models": [],
+        "registered_model_count": 32,
+        "requested_model_count": 32
+      },
+      "notes": "注册表覆盖 32 个用户点名模型；production ledger 另行证明训练/回测记录。",
+      "requirement": "src/model 必须覆盖用户指定的 QuantBench 风格模型注册表。",
+      "requirement_id": "quantbench_requested_model_registry",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "model",
+      "evidence_paths": [
+        "production/paper_sim_replay_v1/matrix_card/model_run_ledger_summary.json",
+        "production/paper_sim_replay_v1/matrix_card/model_run_ledger.csv"
+      ],
+      "metrics": {
+        "all_models_completed": true,
+        "analysis_recorded_model_count": 96,
+        "backtested_model_count": 96,
+        "expected_model_count": 96,
+        "missing_models": [],
+        "objective_evaluated_model_count": 96,
+        "predicted_model_count": 96,
+        "promotion_evaluated_model_count": 96,
+        "trained_model_count": 96
+      },
+      "notes": "production 证据面记录 32 个 base model x feature set variants 共 96 条模型运行。",
+      "requirement": "所有模型必须完成训练、预测、回测、objective、promotion 和 analysis 记录。",
+      "requirement_id": "quantbench_training_backtest_ledger",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "analysis",
+      "evidence_paths": [
+        "production/paper_sim_replay_v1/matrix_card/analysis_manifest.json"
+      ],
+      "metrics": {
+        "analysis_paths": [
+          "backtest_config",
+          "failure_modes",
+          "model_comparison",
+          "model_difference_explanations",
+          "model_effect_deltas",
+          "model_regime_window_diagnostics",
+          "model_review_briefing",
+          "model_run_ledger",
+          "model_run_ledger_summary",
+          "objective_losses",
+          "objective_scores",
+          "promotion_scores",
+          "qlib_return_frame",
+          "qlib_risk_metrics",
+          "regime_metrics",
+          "segment_effect_matrix",
+          "segment_metrics",
+          "summary",
+          "walk_forward_splits",
+          "window_metrics",
+          "window_regime_metrics"
+        ],
+        "missing_analysis_paths": []
+      },
+      "notes": "dashboard、schedule 和 production 都应消费 manifest/export，而不是散落实验文件。",
+      "requirement": "src/analysis 必须输出 qlib/regime/window/model difference/failure/objective loss 统一分析产物。",
+      "requirement_id": "analysis_regime_window_model_difference",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "dashboard",
+      "evidence_paths": [
+        "production/paper_sim_replay_v1/production_manifest.json",
+        "production/paper_sim_replay_v1/dashboard_export.json"
+      ],
+      "metrics": {
+        "dashboard_artifacts": [
+          "analysis_manifest",
+          "artifact_manifest",
+          "backtest_config",
+          "factor_ic",
+          "failure_modes",
+          "feature_set_specs",
+          "model_capabilities",
+          "model_comparison",
+          "model_difference_explanations",
+          "model_effect_deltas",
+          "model_regime_window_diagnostics",
+          "model_review_briefing",
+          "model_run_ledger",
+          "model_run_ledger_summary",
+          "objective_losses",
+          "objective_scores",
+          "promotion_scores",
+          "qlib_risk_metrics",
+          "regime_metrics",
+          "schedule_health",
+          "segment_effect_matrix",
+          "summary",
+          "walk_forward_splits",
+          "window_metrics",
+          "window_regime_metrics"
+        ],
+        "dashboard_schema_version": "dashboard.model_matrix.v1",
+        "production_manifest_paths": [
+          "analysis_manifest",
+          "dashboard_export",
+          "data_registry",
+          "data_update_manifest",
+          "execution_intent",
+          "intent_ledger",
+          "market_quote",
+          "model_artifact_manifest",
+          "notebook",
+          "paper_execution_result",
+          "schedule_health",
+          "summary"
+        ]
+      },
+      "notes": "检查 dashboard export 与 production manifest 的公开读取面。",
+      "requirement": "src/dashboard 只读取统一 manifest/export，并能展示模型、regime、window 和回测产物。",
+      "requirement_id": "dashboard_manifest_export_contract",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "data",
+      "evidence_paths": [
+        "production/paper_sim_replay_v1/data/data_registry.json",
+        "production/paper_sim_replay_v1/data/snapshots/paper_replay_soxl_daily/2026-06-09/data_update_manifest.json",
+        "data/qlib/soxl/calendars/day.txt"
+      ],
+      "metrics": {
+        "calendar_path": "data/qlib/soxl/calendars/day.txt",
+        "data_registry_schema": "data.registry.v1",
+        "data_update_schema": "data.update_manifest.v1",
+        "data_update_status": "published",
+        "row_count": 109
+      },
+      "notes": "只引用 production paper replay 发布的数据 registry/snapshot 证据。",
+      "requirement": "src/data 必须写出 canonical snapshot、data registry，并对齐 qlib calendar。",
+      "requirement_id": "data_canonical_snapshot_and_calendar",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "api",
+      "evidence_paths": [
+        "production/paper_sim_replay_v1/production_summary.json",
+        "production/paper_sim_replay_v1/paper_execution_result.json"
+      ],
+      "metrics": {
+        "live_broker_enabled": false,
+        "mode": "paper",
+        "paper_execution_schema_version": "api.paper_execution_result.v1",
+        "paper_execution_status": "paper_executed"
+      },
+      "notes": "该项只证明 v1 paper/sim guardrail；真实 broker 下单仍在 out of scope。",
+      "requirement": "src/api v1 只允许 paper/sim，不做真实 broker 下单。",
+      "requirement_id": "production_paper_api_guardrail",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "schedule",
+      "evidence_paths": [
+        "production/paper_sim_replay_v1/production_summary.json",
+        "production/paper_sim_replay_v1/schedule_health.json"
+      ],
+      "metrics": {
+        "failed_job_count": 0,
+        "job_count": 3,
+        "schedule_health_schema_version": "dashboard.schedule_health.v1",
+        "schedule_status": "success",
+        "total_retry_error_count": 0
+      },
+      "notes": "readiness gate 的 review 状态单独在 production_readiness_review_gate 中跟踪。",
+      "requirement": "src/schedule 必须编排数据更新、dashboard export、paper execution、通知、锁和重试健康面。",
+      "requirement_id": "schedule_data_dashboard_api_chain",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    },
+    {
+      "category": "production",
+      "evidence_paths": [
+        "production/paper_sim_replay_v1/production_summary.json",
+        "production/paper_sim_replay_v1/production_manifest.json"
+      ],
+      "metrics": {
+        "objective_loss_status": "review",
+        "objective_loss_top_component": "ic_loss",
+        "schedule_readiness_overview_gates": "dashboard_manifest,objective_loss,requested_models,model_runs",
+        "schedule_readiness_overview_status": "review"
+      },
+      "notes": "当前 objective_loss gate 为 review，说明生产证据链可审计但不应声称完全 ready。",
+      "requirement": "production health 必须显式记录 readiness gate，review/block 不能被误报为 ready。",
+      "requirement_id": "production_readiness_review_gate",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "review"
+    },
+    {
+      "category": "knowledge",
+      "evidence_paths": [
+        "research/knowledge_ingest/knowledge_ingest_summary.json",
+        "research/knowledge_ingest/knowledge_promotion_audit.json"
+      ],
+      "metrics": {
+        "promotion_audit_blocked_count": 9,
+        "promotion_audit_ready_count": 1,
+        "promotion_evidence_source": "research_card_scan",
+        "source_count": 10
+      },
+      "notes": "blocked 候选保留在 research backlog，不能直接进入 src/production/skill。",
+      "requirement": "外部知识必须先进入 research/knowledge_ingest，并经过结构化假设、证据扫描和 promotion audit。",
+      "requirement_id": "external_knowledge_promotion_backlog",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "review"
+    },
+    {
+      "category": "skill",
+      "evidence_paths": [
+        "research/skill_boundary_audit_v1/analysis_summary.json",
+        "src/core/skill_boundary.py"
+      ],
+      "metrics": {
+        "core_contract": "core.skill_boundary_audit.v1",
+        "method_only_issue_count": 0,
+        "method_only_status": "pass",
+        "project_state_blocked_issue_count": 7,
+        "project_state_status": "block"
+      },
+      "notes": "该项证明已有 skill 边界审计能力和 research 证据，不表示每个本地 skill 都已迁移。",
+      "requirement": "skill 只保留方法论/发散思考，不承载项目状态、路径、结果或功能入口。",
+      "requirement_id": "skill_boundary_method_only",
+      "schema_version": "core.platform_requirement_audit_item.v1",
+      "status": "pass"
+    }
+  ],
+  "schema_version": "core.platform_requirement_audit.v1",
+  "summary": {
+    "audit_note": "该 audit 用当前 repo 证据映射长期目标；status=review 时不能声明目标完成。",
+    "completion_claim": "not_claimed",
+    "failed_count": 0,
+    "failed_requirement_ids": [],
+    "passed_count": 11,
+    "requirement_count": 13,
+    "review_count": 2,
+    "review_requirement_ids": [
+      "production_readiness_review_gate",
+      "external_knowledge_promotion_backlog"
+    ],
+    "schema_version": "core.platform_requirement_audit.summary.v1",
+    "status": "review",
+    "status_counts": {
+      "pass": 11,
+      "review": 2
+    }
+  }
+}

@@ -1,7 +1,9 @@
 from .architecture import (
     architecture_extension_content_hash,
     build_architecture_extension_decision,
+    build_platform_requirement_audit,
     write_architecture_extension_decision,
+    write_platform_requirement_audit,
 )
 from .contracts import (
     ArtifactManifest,
@@ -37,6 +39,7 @@ __all__ = [
     "build_knowledge_backlog",
     "build_knowledge_promotion_audit",
     "build_knowledge_research_evidence_index",
+    "build_platform_requirement_audit",
     "build_production_manifest",
     "build_skill_boundary_audit",
     "production_manifest_content_hash",
@@ -48,4 +51,5 @@ __all__ = [
     "write_knowledge_promotion_audit",
     "write_knowledge_queue",
     "write_notebook_card_manifest",
+    "write_platform_requirement_audit",
 ]

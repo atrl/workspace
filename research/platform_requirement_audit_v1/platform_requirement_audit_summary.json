@@ -1,0 +1,27 @@
+{
+  "schema_version": "research.platform_requirement_audit_v1",
+  "status": "review",
+  "core_schema_version": "core.platform_requirement_audit.v1",
+  "summary_schema_version": "core.platform_requirement_audit.summary.v1",
+  "requirement_count": 13,
+  "passed_count": 11,
+  "review_count": 2,
+  "failed_count": 0,
+  "review_requirement_ids": [
+    "production_readiness_review_gate",
+    "external_knowledge_promotion_backlog"
+  ],
+  "failed_requirement_ids": [],
+  "completion_claim": "not_claimed",
+  "artifacts": {
+    "audit": "platform_requirement_audit.json",
+    "audit_csv": "platform_requirement_audit.csv",
+    "audit_review": "platform_requirement_audit_review.md"
+  },
+  "write_result": {
+    "schema_version": "core.platform_requirement_audit_write_result.v1",
+    "audit_path": "/Users/rziiiii/dev/workspace/research/platform_requirement_audit_v1/platform_requirement_audit.json",
+    "csv_path": "/Users/rziiiii/dev/workspace/research/platform_requirement_audit_v1/platform_requirement_audit.csv",
+    "review_path": "/Users/rziiiii/dev/workspace/research/platform_requirement_audit_v1/platform_requirement_audit_review.md"
+  }
+}
