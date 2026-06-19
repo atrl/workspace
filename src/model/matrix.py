@@ -25,7 +25,7 @@ from src.factor import prepare_factor_feature_sets
 from src.model.capabilities import model_capability_table, model_fidelity_summary
 from src.model.registry import QUANTBENCH_MODEL_NAMES, get_model_spec
 from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
-from src.objective import build_promotion_scores, evaluate_prediction_objectives
+from src.objective import build_promotion_scores, compute_objective_losses, evaluate_prediction_objectives
 
 
 @dataclass(frozen=True)
@@ -39,6 +39,7 @@ class QuantBenchMatrixOutputs:
     model_comparison: pd.DataFrame
     qlib_risk_metrics: pd.DataFrame
     model_effect_deltas: pd.DataFrame
+    objective_losses: dict[str, object]
     summary: dict
 
 
@@ -397,6 +398,30 @@ def _promotion_summary(promotion_scores: pd.DataFrame) -> dict[str, object]:
     }
 
 
+def _objective_loss_summary(objective_losses: dict[str, object]) -> dict[str, object]:
+    return {
+        "schema_version": str(objective_losses.get("schema_version", "")),
+        "metric_source_schema_version": str(objective_losses.get("metric_source_schema_version", "")),
+        "optimization_direction": str(objective_losses.get("optimization_direction", "")),
+        "reward_surface": str(objective_losses.get("reward_surface", "")),
+        "row_count": int(objective_losses.get("row_count", 0) or 0),
+        "mse_loss": float(objective_losses.get("mse_loss", 0.0) or 0.0),
+        "classification_loss": float(objective_losses.get("classification_loss", 0.0) or 0.0),
+        "ic_loss": float(objective_losses.get("ic_loss", 0.0) or 0.0),
+        "ranking_loss": float(objective_losses.get("ranking_loss", 0.0) or 0.0),
+        "rank_group_count": int(objective_losses.get("rank_group_count", 0) or 0),
+    }
+
+
+def _write_objective_losses(card: Path, predictions: pd.DataFrame) -> dict[str, object]:
+    objective_losses = compute_objective_losses(predictions, group_col="date")
+    (card / "objective_losses.json").write_text(
+        json.dumps(objective_losses, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return objective_losses
+
+
 def _dataset_snapshot(*, start: str, end: str) -> DatasetSnapshot:
     return DatasetSnapshot(
         name="soxl_support_daily",
@@ -550,6 +575,7 @@ def run_quantbench_matrix_smoke(
     model_comparison = compare_models(daily)
     objective_scores = _objective_score_table(predictions)
     promotion_scores = _promotion_score_table(model_comparison)
+    objective_losses = _write_objective_losses(card, predictions)
     model_capabilities = model_capability_table(selected_model_names)
     model_fidelity = model_fidelity_summary(selected_model_names)
     effect_analysis = analyze_model_effects_by_regime_and_window(
@@ -571,6 +597,7 @@ def run_quantbench_matrix_smoke(
         "walk_forward": walk_forward_summary,
         "objective_evaluation": _objective_evaluation_summary(objective_scores),
         "promotion_summary": _promotion_summary(promotion_scores),
+        "objective_loss": _objective_loss_summary(objective_losses),
         **adapter_summary,
         "model_fidelity": model_fidelity,
         "analysis_layers": [
@@ -582,6 +609,7 @@ def run_quantbench_matrix_smoke(
             "model_regime_window_diagnostics",
             "objective_scores",
             "promotion_scores",
+            "objective_losses",
         ],
         "analysis_summary": effect_analysis.summary,
         "note": "Matrix keeps one contract while model_fidelity distinguishes native implementations from proxy adapters.",
@@ -599,6 +627,7 @@ def run_quantbench_matrix_smoke(
         "walk_forward": summary["walk_forward"],
         "objective_evaluation": summary["objective_evaluation"],
         "promotion_summary": summary["promotion_summary"],
+        "objective_loss": summary["objective_loss"],
     }
     (card / "backtest_config.json").write_text(
         json.dumps(backtest_result.config.to_dict(), ensure_ascii=False, indent=2),
@@ -623,6 +652,7 @@ def run_quantbench_matrix_smoke(
             "walk_forward_splits": "walk_forward_splits.csv",
             "objective_scores": "objective_scores.csv",
             "promotion_scores": "promotion_scores.csv",
+            "objective_losses": "objective_losses.json",
             "model_run_ledger": "model_run_ledger.csv",
             "model_run_ledger_summary": "model_run_ledger_summary.json",
         },
@@ -653,6 +683,7 @@ def run_quantbench_matrix_smoke(
             "walk_forward_splits": "walk_forward_splits.csv",
             "objective_scores": "objective_scores.csv",
             "promotion_scores": "promotion_scores.csv",
+            "objective_losses": "objective_losses.json",
             "model_run_ledger": "model_run_ledger.csv",
             "model_run_ledger_summary": "model_run_ledger_summary.json",
             "analysis_manifest": "analysis_manifest.json",
@@ -670,6 +701,7 @@ def run_quantbench_matrix_smoke(
         model_comparison=model_comparison,
         qlib_risk_metrics=effect_analysis.qlib_risk_metrics,
         model_effect_deltas=effect_analysis.model_effect_deltas,
+        objective_losses=objective_losses,
         summary=summary,
     )
 
@@ -731,6 +763,7 @@ def run_factor_feature_set_matrix(
     model_comparison = _enrich_comparison_with_variant_columns(compare_models(daily))
     objective_scores = _objective_score_table(predictions)
     promotion_scores = _promotion_score_table(model_comparison)
+    objective_losses = _write_objective_losses(card, predictions)
     model_capabilities = model_capability_table(selected_model_names)
     model_fidelity = model_fidelity_summary(selected_model_names)
     effect_analysis = analyze_model_effects_by_regime_and_window(
@@ -754,6 +787,7 @@ def run_factor_feature_set_matrix(
         "walk_forward": walk_forward_summary,
         "objective_evaluation": _objective_evaluation_summary(objective_scores),
         "promotion_summary": _promotion_summary(promotion_scores),
+        "objective_loss": _objective_loss_summary(objective_losses),
         **adapter_summary,
         "model_fidelity": model_fidelity,
         "analysis_layers": [
@@ -765,6 +799,7 @@ def run_factor_feature_set_matrix(
             "model_regime_window_diagnostics",
             "objective_scores",
             "promotion_scores",
+            "objective_losses",
         ],
         **plan.summary,
         "feature_sets": [feature_set.to_dict() for feature_set in plan.feature_sets],
@@ -787,6 +822,7 @@ def run_factor_feature_set_matrix(
         "walk_forward": summary["walk_forward"],
         "objective_evaluation": summary["objective_evaluation"],
         "promotion_summary": summary["promotion_summary"],
+        "objective_loss": summary["objective_loss"],
     }
     (card / "backtest_config.json").write_text(
         json.dumps(backtest_result.config.to_dict(), ensure_ascii=False, indent=2),
@@ -811,6 +847,7 @@ def run_factor_feature_set_matrix(
             "walk_forward_splits": "walk_forward_splits.csv",
             "objective_scores": "objective_scores.csv",
             "promotion_scores": "promotion_scores.csv",
+            "objective_losses": "objective_losses.json",
             "model_run_ledger": "model_run_ledger.csv",
             "model_run_ledger_summary": "model_run_ledger_summary.json",
         },
@@ -846,6 +883,7 @@ def run_factor_feature_set_matrix(
             "walk_forward_splits": "walk_forward_splits.csv",
             "objective_scores": "objective_scores.csv",
             "promotion_scores": "promotion_scores.csv",
+            "objective_losses": "objective_losses.json",
             "model_run_ledger": "model_run_ledger.csv",
             "model_run_ledger_summary": "model_run_ledger_summary.json",
             "analysis_manifest": "analysis_manifest.json",
@@ -868,5 +906,6 @@ def run_factor_feature_set_matrix(
         model_comparison=model_comparison,
         qlib_risk_metrics=effect_analysis.qlib_risk_metrics,
         model_effect_deltas=effect_analysis.model_effect_deltas,
+        objective_losses=objective_losses,
         summary=summary,
     )

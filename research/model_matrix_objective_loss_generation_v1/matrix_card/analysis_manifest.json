@@ -1,0 +1,147 @@
+{
+  "artifact_id": "matrix_card",
+  "artifact_type": "analysis_report",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "data/processed/panels/soxl_soxx_vix_full.csv"
+    ],
+    "end": "2026-06-09",
+    "metadata": {
+      "source": "load_soxl_support_frame"
+    },
+    "name": "soxl_support_daily",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-01",
+    "universe": [
+      "SOXL",
+      "SOXX",
+      "VIX"
+    ]
+  },
+  "metadata": {
+    "adapter_status": "paper_strict_adapter",
+    "adapter_statuses": [
+      "paper_strict_adapter"
+    ],
+    "analysis_report_schema_version": "analysis.report.v1",
+    "backtest_contract": {
+      "benchmark": "SOXL",
+      "cost_model": {
+        "close_cost_bps": 1.0,
+        "open_cost_bps": 1.0,
+        "schema_version": "backtest.cost_model.v1",
+        "slippage_bps": 1.0
+      },
+      "end": "2026-06-08",
+      "position_policy": {
+        "lag": 1,
+        "max_position": 1.0,
+        "min_position": 0.0,
+        "neutral_position": 0.5,
+        "schema_version": "backtest.position_policy.v1",
+        "signal_scale": null
+      },
+      "schema_version": "backtest.config.v1",
+      "start": "2026-05-01",
+      "stress_windows": {}
+    },
+    "model_adapters": [
+      "gcn_graph_convolution_mse_v1",
+      "random_forest_direction_v1",
+      "ridge_mse_v1"
+    ],
+    "model_count": 3,
+    "model_fidelity": {
+      "fidelity_counts": {
+        "native_graph": 1,
+        "native_library": 2
+      },
+      "model_count": 3,
+      "native_models": [
+        "gcn_mse",
+        "random_forest_clf",
+        "ridge_mse"
+      ],
+      "promotion_blocker_count": 1,
+      "proxy_models": [],
+      "schema_version": "model.fidelity.v1"
+    },
+    "objective_evaluation": {
+      "avg_ic": 0.004240854784980132,
+      "avg_mse": 0.02742021944181128,
+      "avg_rank_ic": 0.0,
+      "model_count": 3,
+      "schema_version": "objective.matrix_evaluation.v1"
+    },
+    "objective_loss": {
+      "classification_loss": 0.4358974358974359,
+      "ic_loss": 0.9773647976417846,
+      "metric_source_schema_version": "objective.evaluation.v1",
+      "mse_loss": 0.027420219441811285,
+      "optimization_direction": "minimize",
+      "rank_group_count": 0,
+      "ranking_loss": 1.0,
+      "reward_surface": "retired",
+      "row_count": 78,
+      "schema_version": "objective.loss.v1"
+    },
+    "promotion_summary": {
+      "blocked_count": 0,
+      "candidate_count": 3,
+      "model_count": 3,
+      "schema_version": "objective.promotion_summary.v1",
+      "top_decision": "promote_candidate",
+      "top_model": "random_forest_clf"
+    },
+    "status": "smoke_completed",
+    "table_counts": {
+      "failure_modes": 42,
+      "model_comparison": 3,
+      "model_difference_explanations": 34,
+      "model_effect_deltas": 102,
+      "model_regime_window_diagnostics": 3,
+      "model_review_briefing": 48,
+      "qlib_return_frame": 78,
+      "qlib_risk_metrics": 204,
+      "regime_metrics": 12,
+      "segment_effect_matrix": 34,
+      "segment_metrics": 102,
+      "window_metrics": 18,
+      "window_regime_metrics": 69
+    },
+    "train_end": "2026-04-30",
+    "walk_forward": {
+      "fold_count": 5,
+      "schema_version": "backtest.walk_forward.v1",
+      "test_size": 13,
+      "train_size": 41
+    }
+  },
+  "paths": {
+    "backtest_config": "backtest_config.json",
+    "failure_modes": "failure_modes.csv",
+    "model_comparison": "model_comparison.csv",
+    "model_difference_explanations": "model_difference_explanations.csv",
+    "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
+    "model_review_briefing": "model_review_briefing.csv",
+    "model_run_ledger": "model_run_ledger.csv",
+    "model_run_ledger_summary": "model_run_ledger_summary.json",
+    "objective_losses": "objective_losses.json",
+    "objective_scores": "objective_scores.csv",
+    "promotion_scores": "promotion_scores.csv",
+    "qlib_return_frame": "qlib_return_frame.csv",
+    "qlib_risk_metrics": "qlib_risk_metrics.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "segment_effect_matrix": "segment_effect_matrix.csv",
+    "segment_metrics": "segment_metrics.csv",
+    "summary": "analysis_summary.json",
+    "walk_forward_splits": "walk_forward_splits.csv",
+    "window_metrics": "window_metrics.csv",
+    "window_regime_metrics": "window_regime_metrics.csv"
+  },
+  "producer": "src.analysis.exports",
+  "schema_version": "artifact.v1",
+  "manifest_hash": "dba165c0205e3558328c741fdc2f406b37c196578a74c61b3f281fd06a20f344"
+}

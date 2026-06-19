@@ -80,6 +80,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         "model_run_ledger_summary.json",
         "objective_scores.csv",
         "promotion_scores.csv",
+        "objective_losses.json",
         "qlib_risk_metrics.csv",
         "model_effect_deltas.csv",
         "model_difference_explanations.csv",
@@ -88,6 +89,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
 
     summary = json.loads((tmp_path / "analysis_summary.json").read_text(encoding="utf-8"))
     analysis_manifest = json.loads((tmp_path / "analysis_manifest.json").read_text(encoding="utf-8"))
+    artifact_manifest = json.loads((tmp_path / "artifact_manifest.json").read_text(encoding="utf-8"))
     assert summary["schema_version"] == "analysis.report.v1"
     assert summary["model_count"] == len(QUANTBENCH_MODEL_NAMES)
     assert summary["train_end"] == "2026-04-30"
@@ -102,6 +104,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert "qlib_risk_metrics" in summary["analysis_layers"]
     assert "window_regime_metrics" in summary["analysis_layers"]
     assert "model_difference_explanations" in summary["analysis_layers"]
+    assert "objective_losses" in summary["analysis_layers"]
     assert summary["backtest_contract"]["schema_version"] == "backtest.config.v1"
     assert summary["backtest_contract"]["cost_model"]["slippage_bps"] > 0.0
     assert summary["walk_forward"]["schema_version"] == "backtest.walk_forward.v1"
@@ -119,7 +122,9 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert analysis_manifest["paths"]["walk_forward_splits"] == "walk_forward_splits.csv"
     assert analysis_manifest["paths"]["objective_scores"] == "objective_scores.csv"
     assert analysis_manifest["paths"]["promotion_scores"] == "promotion_scores.csv"
+    assert analysis_manifest["paths"]["objective_losses"] == "objective_losses.json"
     assert analysis_manifest["paths"]["model_difference_explanations"] == "model_difference_explanations.csv"
+    assert artifact_manifest["paths"]["objective_losses"] == "objective_losses.json"
     assert len(analysis_manifest["manifest_hash"]) == 64
     daily = pd.read_csv(tmp_path / "daily_backtest.csv")
     folds = pd.read_csv(tmp_path / "walk_forward_splits.csv")
@@ -127,6 +132,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     ledger_summary = json.loads((tmp_path / "model_run_ledger_summary.json").read_text(encoding="utf-8"))
     objective_scores = pd.read_csv(tmp_path / "objective_scores.csv")
     promotion_scores = pd.read_csv(tmp_path / "promotion_scores.csv")
+    objective_losses = json.loads((tmp_path / "objective_losses.json").read_text(encoding="utf-8"))
     model_difference_explanations = pd.read_csv(tmp_path / "model_difference_explanations.csv")
     assert {"gross_strategy_return", "cost_return", "net_strategy_return"}.issubset(daily.columns)
     assert daily["cost_return"].abs().sum() > 0.0
@@ -151,6 +157,18 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         objective_scores.columns
     )
     assert {"schema_version", "model", "promotion_score", "promotion_decision"}.issubset(promotion_scores.columns)
+    assert objective_losses["schema_version"] == "objective.loss.v1"
+    assert objective_losses["metric_source_schema_version"] == "objective.evaluation.v1"
+    assert objective_losses["optimization_direction"] == "minimize"
+    assert objective_losses["reward_surface"] == "retired"
+    assert objective_losses["row_count"] > 0
+    assert {
+        "mse_loss",
+        "classification_loss",
+        "ic_loss",
+        "ranking_loss",
+        "rank_group_count",
+    }.issubset(objective_losses)
     assert {
         "schema_version",
         "segment",

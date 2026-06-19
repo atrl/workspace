@@ -1,0 +1,27 @@
+{
+  "schema_version": "objective.loss.v1",
+  "metric_source_schema_version": "objective.evaluation.v1",
+  "optimization_direction": "minimize",
+  "reward_surface": "retired",
+  "objective_names": [
+    "mse",
+    "classification",
+    "ic",
+    "ranking"
+  ],
+  "row_count": 78,
+  "mse_loss": 0.027420219441811285,
+  "classification_loss": 0.4358974358974359,
+  "ic_loss": 0.9773647976417846,
+  "ranking_loss": 1.0,
+  "rank_group_count": 0,
+  "evaluation": {
+    "schema_version": "objective.evaluation.v1",
+    "row_count": 78,
+    "mse": 0.027420219441811285,
+    "classification_accuracy": 0.5641025641025641,
+    "ic": 0.022635202358215343,
+    "rank_ic": 0.0,
+    "rank_group_count": 0
+  }
+}
