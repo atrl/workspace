@@ -455,6 +455,22 @@ def test_build_knowledge_research_evidence_index_reads_real_research_card_files(
             summary="DLinear decomposition-linear reference.",
             license_note="arXiv metadata only.",
         ),
+        KnowledgeSource(
+            source_id="arxiv:2211.14730",
+            source_type="arxiv",
+            title="A Time Series is Worth 64 Words: Long-term Forecasting with Transformers",
+            url="https://arxiv.org/abs/2211.14730",
+            summary="PatchTST patching and channel-independence reference.",
+            license_note="arXiv metadata only.",
+        ),
+        KnowledgeSource(
+            source_id="github:thuml/Time-Series-Library",
+            source_type="github",
+            title="Time-Series-Library",
+            url="https://github.com/thuml/Time-Series-Library",
+            summary="Reference implementation hub for PatchTST and related long-series models.",
+            license_note="GitHub metadata and repository license reviewed separately.",
+        ),
     ]
     backlog = build_knowledge_backlog(sources)
 
@@ -490,10 +506,20 @@ def test_build_knowledge_research_evidence_index_reads_real_research_card_files(
         "manifest_or_export",
         "chinese_conclusion",
     ]
+    assert evidence_index["patch_tst_mse"] == [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion",
+    ]
+    assert evidence_index["arxiv:2211.14730"] == evidence_index["patch_tst_mse"]
+    assert evidence_index["github:thuml/Time-Series-Library"] == evidence_index["patch_tst_mse"]
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
     autoformer_item = next(item for item in audit["items"] if item["candidate_name"] == "autoformer_mse")
     fedformer_item = next(item for item in audit["items"] if item["candidate_name"] == "fedformer_mse")
     dlinear_item = next(item for item in audit["items"] if item["candidate_name"] == "dlinear_mse")
+    patch_items = [item for item in audit["items"] if item["candidate_name"] == "patch_tst_mse"]
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
     assert autoformer_item["promotion_gate_status"] == "research_evidence_complete"
@@ -505,6 +531,14 @@ def test_build_knowledge_research_evidence_index_reads_real_research_card_files(
     assert dlinear_item["promotion_gate_status"] == "research_evidence_complete"
     assert dlinear_item["implementation_allowed"] is True
     assert dlinear_item["missing_evidence"] == []
+    assert len(patch_items) == 2
+    assert {item["source_id"] for item in patch_items} == {
+        "arxiv:2211.14730",
+        "github:thuml/Time-Series-Library",
+    }
+    assert all(item["promotion_gate_status"] == "research_evidence_complete" for item in patch_items)
+    assert all(item["implementation_allowed"] is True for item in patch_items)
+    assert all(item["missing_evidence"] == [] for item in patch_items)
 
 
 def test_write_knowledge_promotion_audit_writes_json_csv_and_chinese_review(tmp_path):
@@ -721,20 +755,87 @@ def test_dlinear_mse_validation_card_supplies_backlog_evidence():
     assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
 
 
+def test_patch_tst_mse_validation_card_supplies_dual_source_backlog_evidence():
+    card = "research/patch_tst_mse_validation_v1"
+    notebook_path = f"{card}/patch_tst_mse_validation_v1.ipynb"
+    sources = [
+        KnowledgeSource(
+            source_id="arxiv:2211.14730",
+            source_type="arxiv",
+            title="A Time Series is Worth 64 Words: Long-term Forecasting with Transformers",
+            url="https://arxiv.org/abs/2211.14730",
+            summary="PatchTST patching and channel-independence reference for the patch_tst_mse adapter backlog.",
+            license_note="arXiv metadata and self-written summary only.",
+        ),
+        KnowledgeSource(
+            source_id="github:thuml/Time-Series-Library",
+            source_type="github",
+            title="Time-Series-Library",
+            url="https://github.com/thuml/Time-Series-Library",
+            summary="Reference implementation hub for PatchTST and related long-series models.",
+            license_note="Repository metadata and license review only; no vendored code.",
+        ),
+    ]
+    backlog = build_knowledge_backlog(sources)
+    evidence_index = knowledge_api.build_knowledge_research_evidence_index(".", backlog)
+
+    summary = json.loads(open(f"{card}/patch_tst_mse_summary.json", encoding="utf-8").read())
+    source_provenance = json.loads(open(f"{card}/source_provenance.json", encoding="utf-8").read())
+    adapter_evidence = json.loads(open(f"{card}/adapter_evidence.json", encoding="utf-8").read())
+    artifact_metadata = json.loads(open(f"{card}/artifact_metadata.json", encoding="utf-8").read())
+    license_review = open(f"{card}/license_review.md", encoding="utf-8").read()
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+    patch_items = [item for item in audit["items"] if item["candidate_name"] == "patch_tst_mse"]
+
+    assert summary["schema_version"] == "research.patch_tst_mse_validation.v1"
+    assert summary["source_ids"] == ["arxiv:2211.14730", "github:thuml/Time-Series-Library"]
+    assert summary["candidate_name"] == "patch_tst_mse"
+    assert summary["target_subsystem"] == "src/model"
+    assert summary["model_adapter"] == "patch_tst_transformer_mse_v1"
+    assert summary["adapter_status"] == "paper_strict_adapter"
+    assert summary["paper_fidelity"] == "native_sequence"
+    assert summary["is_proxy"] is False
+    assert summary["implementation_allowed"] is False
+    assert summary["promotion_target"] == "research_only"
+    assert summary["evidence_requirements"] == evidence_index["patch_tst_mse"]
+    assert source_provenance["source_used_as"] == "hypothesis_only"
+    assert [source["source_id"] for source in source_provenance["sources"]] == summary["source_ids"]
+    assert "arxiv.org/abs/2211.14730" in source_provenance["sources"][0]["url"]
+    assert "github.com/thuml/Time-Series-Library" in source_provenance["sources"][1]["url"]
+    assert adapter_evidence["prediction_row_count"] > 0
+    assert adapter_evidence["prediction_non_null"] is True
+    assert adapter_evidence["has_transformer_encoder"] is True
+    assert adapter_evidence["patch_size"] == 2
+    assert adapter_evidence["patch_count"] > 0
+    assert artifact_metadata["model_adapter"] == "patch_tst_transformer_mse_v1"
+    assert "MIT" in license_review
+    assert "未复制论文全文" in license_review
+    assert "未 vendoring" in license_review
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
+    assert audit["summary"]["ready_count"] == 2
+    assert len(patch_items) == 2
+    assert all(item["promotion_gate_status"] == "research_evidence_complete" for item in patch_items)
+
+
 def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_complete():
     audit = json.loads(open("research/knowledge_ingest/knowledge_promotion_audit.json", encoding="utf-8").read())
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
     autoformer_item = next(item for item in audit["items"] if item["candidate_name"] == "autoformer_mse")
     fedformer_item = next(item for item in audit["items"] if item["candidate_name"] == "fedformer_mse")
     dlinear_item = next(item for item in audit["items"] if item["candidate_name"] == "dlinear_mse")
+    patch_items = [item for item in audit["items"] if item["candidate_name"] == "patch_tst_mse"]
 
-    assert audit["summary"]["ready_count"] == 4
-    assert audit["summary"]["blocked_count"] == 6
-    assert audit["summary"]["implementation_allowed_count"] == 4
+    assert audit["summary"]["ready_count"] == 6
+    assert audit["summary"]["blocked_count"] == 4
+    assert audit["summary"]["implementation_allowed_count"] == 6
     assert "rank_ic_objective" in audit["summary"]["ready_candidates"]
     assert "autoformer_mse" in audit["summary"]["ready_candidates"]
     assert "fedformer_mse" in audit["summary"]["ready_candidates"]
     assert "dlinear_mse" in audit["summary"]["ready_candidates"]
+    assert audit["summary"]["ready_candidates"].count("patch_tst_mse") == 2
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
     assert rank_item["missing_evidence"] == []
@@ -770,6 +871,21 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
         "src/model",
         "research/dlinear_mse_validation_v1/dlinear_mse_validation_v1.ipynb",
     ]
+    assert {item["source_id"] for item in patch_items} == {
+        "arxiv:2211.14730",
+        "github:thuml/Time-Series-Library",
+    }
+    assert all(item["promotion_gate_status"] == "research_evidence_complete" for item in patch_items)
+    assert all(item["implementation_allowed"] is True for item in patch_items)
+    assert all(item["missing_evidence"] == [] for item in patch_items)
+    assert all(
+        item["allowed_surfaces_after_gate"]
+        == [
+            "src/model",
+            "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
+        ]
+        for item in patch_items
+    )
 
 
 def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards():
@@ -784,19 +900,25 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "autoformer_mse",
         "fedformer_mse",
         "dlinear_mse",
+        "patch_tst_mse",
         "rank_ic_objective",
+        "patch_tst_mse",
     ]
     assert summary["promotion_evidence_index_keys"] == [
         "arxiv:2106.13008",
         "arxiv:2201.12740",
         "arxiv:2205.13504",
+        "arxiv:2211.14730",
         "arxiv:2605.00501",
         "autoformer_mse",
         "dlinear_mse",
         "fedformer_mse",
+        "github:thuml/Time-Series-Library",
+        "patch_tst_mse",
         "rank_ic_objective",
         "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
         "research/dlinear_mse_validation_v1/dlinear_mse_validation_v1.ipynb",
         "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
+        "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
         "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
     ]

@@ -1,0 +1,34 @@
+{
+  "schema_version": "research.patch_tst_mse_validation.v1",
+  "status": "completed",
+  "source_ids": [
+    "arxiv:2211.14730",
+    "github:thuml/Time-Series-Library"
+  ],
+  "candidate_name": "patch_tst_mse",
+  "target_subsystem": "src/model",
+  "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+  "model_adapter": "patch_tst_transformer_mse_v1",
+  "adapter_status": "paper_strict_adapter",
+  "paper_fidelity": "native_sequence",
+  "is_proxy": false,
+  "estimator": "PatchTSTTransformerRegressor",
+  "prediction_row_count": 26,
+  "prediction_non_null": true,
+  "implementation_allowed": false,
+  "promotion_target": "research_only",
+  "evidence_requirements": [
+    "license_review",
+    "research_notebook",
+    "focused_pytest",
+    "manifest_or_export",
+    "chinese_conclusion"
+  ],
+  "artifacts": {
+    "adapter_evidence": "adapter_evidence.json",
+    "artifact_metadata": "artifact_metadata.json",
+    "predictions": "predictions.csv",
+    "source_provenance": "source_provenance.json",
+    "license_review": "license_review.md"
+  }
+}
