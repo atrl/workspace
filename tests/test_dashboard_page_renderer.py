@@ -116,6 +116,23 @@ def _view_model_with_analysis_overview() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_production_health() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"production_health": "/path/that/must/not/be/rendered.json"}
+    payload["production_health"] = {
+        "schema_version": "schedule.production_health.v1",
+        "strategy_id": "paper_sim_replay_v1",
+        "health_status": "healthy",
+        "is_healthy": True,
+        "mode": "paper",
+        "live_broker_enabled": False,
+        "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+        "missing_required_paths": [],
+        "checked_path_count": 7,
+    }
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -141,6 +158,18 @@ def test_render_dashboard_html_outputs_analysis_overview_without_sidecar_paths()
     assert "gcn_mse__top_ic_factors -> ridge_mse__all_features" in html
     assert "4.25" in html
     assert "weakness / block_or_rework" in html
+    assert "/path/that/must/not/be/rendered.json" not in html
+
+
+def test_render_dashboard_html_outputs_production_health_panel_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_production_health(), title="SOXL Production Health")
+
+    assert "Production Health" in html
+    assert "paper_sim_replay_v1" in html
+    assert "healthy" in html
+    assert "paper" in html
+    assert "missing 0" in html
+    assert "live broker off" in html
     assert "/path/that/must/not/be/rendered.json" not in html
 
 

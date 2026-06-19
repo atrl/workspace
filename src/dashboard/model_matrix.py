@@ -331,9 +331,11 @@ def load_model_matrix_dashboard(
     *,
     top_n: int = 10,
     attribution_card_dir: str | Path | None = None,
+    production_health_path: str | Path | None = None,
 ) -> dict[str, Any]:
     card = Path(card_dir)
     attribution_card = Path(attribution_card_dir) if attribution_card_dir is not None else None
+    health_path = Path(production_health_path) if production_health_path is not None else None
     analysis_manifest, artifact_manifest, public_paths = _card_sources(card)
     summary = json.loads(_path_for(card, public_paths, "summary", "analysis_summary.json").read_text(encoding="utf-8"))
     comparison = _read_csv_from_paths(card, public_paths, "model_comparison", "model_comparison.csv")
@@ -376,6 +378,10 @@ def load_model_matrix_dashboard(
         card, public_paths, "model_capabilities", "model_capabilities.csv"
     )
     manifest_source = analysis_manifest or artifact_manifest
+    artifacts = _artifact_paths(card, public_paths=public_paths, attribution_card=attribution_card)
+    production_health = _read_manifest_if_exists(health_path) if health_path is not None else {}
+    if health_path is not None and production_health:
+        artifacts["production_health"] = str(health_path)
     return {
         "schema_version": "dashboard.model_matrix.v1",
         "artifact_id": str(manifest_source.get("artifact_id", card.name)),
@@ -415,7 +421,8 @@ def load_model_matrix_dashboard(
             "walk_forward_splits": _records(walk_forward_splits, limit=200),
         },
         "attribution": _load_attribution_card(attribution_card, top_n=top_n),
-        "artifacts": _artifact_paths(card, public_paths=public_paths, attribution_card=attribution_card),
+        "production_health": production_health,
+        "artifacts": artifacts,
     }
 
 
@@ -425,8 +432,14 @@ def write_model_matrix_dashboard_export(
     output_path: str | Path,
     top_n: int = 10,
     attribution_card_dir: str | Path | None = None,
+    production_health_path: str | Path | None = None,
 ) -> dict[str, Any]:
-    payload = load_model_matrix_dashboard(card_dir, top_n=top_n, attribution_card_dir=attribution_card_dir)
+    payload = load_model_matrix_dashboard(
+        card_dir,
+        top_n=top_n,
+        attribution_card_dir=attribution_card_dir,
+        production_health_path=production_health_path,
+    )
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")

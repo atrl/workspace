@@ -46,6 +46,7 @@ class ModelDashboardPipelineConfig:
     top_n_factors: int = 5
     dashboard_top_n: int = 10
     attribution_card_dir: Path | None = None
+    production_health_path: Path | None = None
     dashboard_page_output_path: Path | None = None
     dashboard_page_title: str = "SOXL Dashboard"
     analysis_manifest_preflight: bool = False
@@ -383,12 +384,14 @@ def _default_dashboard_exporter(
     output_path: Path,
     top_n: int,
     attribution_card_dir: Path | None = None,
+    production_health_path: Path | None = None,
 ) -> dict[str, Any]:
     return write_model_matrix_dashboard_export(
         card_dir,
         output_path=output_path,
         top_n=top_n,
         attribution_card_dir=attribution_card_dir,
+        production_health_path=production_health_path,
     )
 
 
@@ -631,6 +634,8 @@ def _run_pipeline_attempt(
     }
     if config.attribution_card_dir is not None:
         dashboard_kwargs["attribution_card_dir"] = config.attribution_card_dir
+    if config.production_health_path is not None:
+        dashboard_kwargs["production_health_path"] = config.production_health_path
     dashboard_payload = dashboard_exporter(config.card_dir, **dashboard_kwargs)
     page_payload: dict[str, Any] = {}
     if config.dashboard_page_output_path is not None:

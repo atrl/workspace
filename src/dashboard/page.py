@@ -129,6 +129,31 @@ def _analysis_overview_panel(view_model: dict[str, Any]) -> str:
     """
 
 
+def _production_health_panel(view_model: dict[str, Any]) -> str:
+    health = view_model.get("production_health", {}) if isinstance(view_model.get("production_health"), dict) else {}
+    if not health:
+        return ""
+    missing = health.get("missing_required_paths")
+    missing_count = len(missing) if isinstance(missing, list) else 0
+    live_enabled = bool(health.get("live_broker_enabled", False))
+    live_text = "live broker on" if live_enabled else "live broker off"
+    health_kind = "healthy" if bool(health.get("is_healthy", False)) else "warn"
+    return f"""
+    <section class="production-health" aria-label="production health">
+      <header>
+        <h2>Production Health</h2>
+        <p>{escape(str(health.get('strategy_id', '')))}</p>
+      </header>
+      <div class="health-grid">
+        <div><span>Health</span><strong>{_pill(str(health.get('health_status', 'unknown')), kind=health_kind)}</strong></div>
+        <div><span>Mode</span><strong>{escape(str(health.get('mode', '')))}</strong><p>{escape(live_text)}</p></div>
+        <div><span>Required Paths</span><strong>{escape(str(health.get('checked_path_count', 0)))}</strong><p>missing {missing_count}</p></div>
+        <div><span>Manifest</span><strong>{escape(str(health.get('manifest_hash', ''))[:10])}</strong><p>{escape(str(health.get('published_at', '')))}</p></div>
+      </div>
+    </section>
+    """
+
+
 def _model_card(card: dict[str, Any]) -> str:
     model = str(card.get("model", ""))
     fidelity = str(card.get("paper_fidelity", ""))
@@ -231,6 +256,13 @@ def _style() -> str:
     select { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 8px; }
     .analysis-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .analysis-overview header { margin-bottom: 10px; }
+    .production-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .production-health header { margin-bottom: 10px; }
+    .health-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
+    .health-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .health-grid span { color: var(--muted); font-size: 12px; }
+    .health-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .health-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
     .overview-grid { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 10px; }
     .overview-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .overview-grid span { color: var(--muted); font-size: 12px; }
@@ -249,6 +281,8 @@ def _style() -> str:
     .pill.proxy { background: #fff4df; color: var(--warn); }
     .pill.native { background: #e8f5ee; color: var(--good); }
     .pill.fidelity { background: #e7f2f8; color: var(--accent); }
+    .pill.healthy { background: #e8f5ee; color: var(--good); }
+    .pill.warn { background: #fff4df; color: var(--warn); }
     .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
     .metrics div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
@@ -265,7 +299,7 @@ def _style() -> str:
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .production-health .health-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     """
 
 
@@ -316,6 +350,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     fidelity = view_model.get("model_fidelity", {}) if isinstance(view_model.get("model_fidelity"), dict) else {}
     embedded = json.dumps(view_model, ensure_ascii=False, indent=2).replace("</", "<\\/")
     overview_panel = _analysis_overview_panel(view_model)
+    production_health_panel = _production_health_panel(view_model)
     cards = "\n".join(_model_card(card) for card in model_cards)
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -345,6 +380,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
       <label>Decision<select id="decision-hint-filter"><option value="">全部</option>{_options(controls.get('decision_hints', []))}</select></label>
     </section>
     {overview_panel}
+    {production_health_panel}
     <section class="summary">
       <div><span>模型卡片</span><strong>{len(model_cards)}</strong></div>
       <div><span>基准模型</span><strong>{escape(str(summary.get('analysis_summary', {}).get('baseline_model', '')) if isinstance(summary.get('analysis_summary'), dict) else '')}</strong></div>

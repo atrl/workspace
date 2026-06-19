@@ -183,6 +183,30 @@ def test_dashboard_view_model_attaches_model_run_ledger_to_cards_and_summary():
     assert first_card["run_status"] == "complete"
 
 
+def test_dashboard_view_model_preserves_production_health_from_export_payload_only():
+    payload = _dashboard_payload()
+    payload["artifacts"]["production_health"] = "/path/that/must/not/be_read.json"
+    payload["production_health"] = {
+        "schema_version": "schedule.production_health.v1",
+        "strategy_id": "paper_sim_replay_v1",
+        "health_status": "healthy",
+        "is_healthy": True,
+        "mode": "paper",
+        "live_broker_enabled": False,
+        "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+        "missing_required_paths": [],
+        "checked_path_count": 7,
+    }
+
+    view = build_dashboard_view_model(payload)
+
+    assert view["production_health"]["schema_version"] == "schedule.production_health.v1"
+    assert view["production_health"]["strategy_id"] == "paper_sim_replay_v1"
+    assert view["production_health"]["health_status"] == "healthy"
+    assert view["production_health"]["is_healthy"] is True
+    assert "artifacts" not in view
+
+
 def test_dashboard_view_model_attaches_failure_modes_to_matching_model_cards():
     view = build_dashboard_view_model(
         _dashboard_payload_with_failure_modes(),

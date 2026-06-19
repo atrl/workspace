@@ -734,6 +734,66 @@ def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_e
     assert result.payload["attribution_status"] == "completed"
 
 
+def test_model_dashboard_refresh_passes_optional_production_health_to_dashboard_export(tmp_path):
+    calls: list[Path | None] = []
+    production_health_path = tmp_path / "production_health_export.json"
+    production_health_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "schedule.production_health.v1",
+                "strategy_id": "paper_sim_replay_v1",
+                "health_status": "healthy",
+                "is_healthy": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 1, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(
+        card_dir: Path,
+        *,
+        output_path: Path,
+        top_n: int,
+        production_health_path: Path | None = None,
+    ):
+        calls.append(production_health_path)
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "production_health": json.loads(Path(production_health_path).read_text(encoding="utf-8"))
+            if production_health_path is not None
+            else {},
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+        production_health_path=production_health_path,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert calls == [production_health_path]
+    assert result.payload["dashboard_schema_version"] == "dashboard.model_matrix.v1"
+
+
 def test_model_dashboard_refresh_optionally_writes_dashboard_html_page(tmp_path):
     calls: list[tuple[str, Path]] = []
 

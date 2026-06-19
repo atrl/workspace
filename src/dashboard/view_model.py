@@ -409,6 +409,9 @@ def build_dashboard_view_model(
         "model_run_coverage": dict(payload.get("model_run_coverage", {}))
         if isinstance(payload.get("model_run_coverage"), dict)
         else {},
+        "production_health": dict(payload.get("production_health", {}))
+        if isinstance(payload.get("production_health"), dict)
+        else {},
         "comparison_table": [dict(row) for row in top_models],
         "failure_mode_summary": {
             "count": int(len(failure_modes)),

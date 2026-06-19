@@ -281,6 +281,42 @@ def test_dashboard_export_writes_manifest_style_payload(tmp_path):
     assert len(saved["top_models"]) == 3
 
 
+def test_dashboard_export_can_attach_production_health_payload_without_sidecar_guessing(tmp_path):
+    health_path = tmp_path / "production_health_export.json"
+    health_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "schedule.production_health.v1",
+                "strategy_id": "paper_sim_replay_v1",
+                "health_status": "healthy",
+                "is_healthy": True,
+                "mode": "paper",
+                "live_broker_enabled": False,
+                "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+                "missing_required_paths": [],
+                "checked_path_count": 7,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    output_path = tmp_path / "dashboard_export.json"
+
+    payload = write_model_matrix_dashboard_export(
+        "research/factor_feature_set_matrix_v1",
+        output_path=output_path,
+        top_n=3,
+        production_health_path=health_path,
+    )
+    saved = json.loads(output_path.read_text(encoding="utf-8"))
+
+    assert saved["production_health"]["schema_version"] == "schedule.production_health.v1"
+    assert saved["production_health"]["strategy_id"] == "paper_sim_replay_v1"
+    assert saved["production_health"]["health_status"] == "healthy"
+    assert saved["production_health"] == payload["production_health"]
+    assert saved["artifacts"]["production_health"].endswith("production_health_export.json")
+
+
 def test_dashboard_export_surfaces_window_regime_fidelity_and_attribution(tmp_path):
     matrix_card = tmp_path / "matrix_card"
     attribution_card = tmp_path / "attribution_card"
