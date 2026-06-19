@@ -5,8 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
-
-DASHBOARD_MANIFEST_ALLOWED_KINDS = ("analysis_manifest", "artifact_manifest")
+from src.core import build_dashboard_manifest_source_contract
 
 
 @dataclass(frozen=True)
@@ -302,55 +301,19 @@ def _int_field(row: dict[str, Any], key: str) -> int:
 
 
 def _dashboard_manifest_context(payload: dict[str, Any]) -> dict[str, Any]:
-    allowed = DASHBOARD_MANIFEST_ALLOWED_KINDS
-    base = {
+    contract = build_dashboard_manifest_source_contract(payload.get("manifest_source"))
+    return {
         "required": True,
-        "status": "missing",
-        "kind": "missing",
-        "path": "",
-        "manifest_hash": "",
-        "producer": "",
-        "schema_version": "",
-        "allowed_kinds": ",".join(allowed),
-        "error": "",
+        "status": str(contract.get("status", "")),
+        "kind": str(contract.get("kind", "")) or "missing",
+        "path": str(contract.get("path", "")),
+        "manifest_hash": str(contract.get("manifest_hash", "")),
+        "producer": str(contract.get("producer", "")),
+        "schema_version": str(contract.get("source_schema_version", "")),
+        "allowed_kinds": ",".join(str(kind) for kind in contract.get("allowed_kinds", [])),
+        "error": str(contract.get("error", "")),
+        "readiness_detail": str(contract.get("readiness_detail", "")),
     }
-    manifest_source = payload.get("manifest_source")
-    if not isinstance(manifest_source, dict):
-        return base
-
-    kind = str(manifest_source.get("kind", ""))
-    manifest_path = str(manifest_source.get("path", ""))
-    manifest_hash = str(manifest_source.get("manifest_hash", ""))
-    producer = str(manifest_source.get("producer", ""))
-    context = {
-        **base,
-        "kind": kind,
-        "path": manifest_path,
-        "manifest_hash": manifest_hash,
-        "producer": producer,
-        "schema_version": str(manifest_source.get("schema_version", "")),
-    }
-    if kind not in allowed:
-        context["status"] = "weak_kind"
-        context["error"] = f"kind {kind} not allowed"
-        return context
-
-    missing_fields = [
-        field
-        for field, value in (
-            ("path", manifest_path),
-            ("manifest_hash", manifest_hash),
-            ("producer", producer),
-        )
-        if not value
-    ]
-    if missing_fields:
-        context["status"] = "incomplete"
-        context["error"] = "missing " + ",".join(missing_fields)
-        return context
-
-    context["status"] = "complete"
-    return context
 
 
 def _readiness_overview(payload: dict[str, Any]) -> dict[str, Any]:
@@ -361,10 +324,7 @@ def _readiness_overview(payload: dict[str, Any]) -> dict[str, Any]:
             "gate": "dashboard_manifest",
             "label": "Dashboard Manifest",
             "status": "pass" if manifest_context["status"] == "complete" else "block",
-            "detail": (
-                f"{manifest_context['kind']} / {manifest_context['status']} "
-                f"hash {str(manifest_context.get('manifest_hash', ''))[:10]}"
-            ),
+            "detail": manifest_context["readiness_detail"],
             "source_schema_version": str(manifest_context.get("schema_version", "")),
         }
     )

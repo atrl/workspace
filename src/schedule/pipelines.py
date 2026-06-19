@@ -16,7 +16,7 @@ from src.api import (
     execute_paper_intent,
     write_intent_ledger,
 )
-from src.core import production_manifest_content_hash
+from src.core import build_dashboard_manifest_source_contract, production_manifest_content_hash
 from src.data import build_canonical_snapshot, publish_canonical_snapshot
 from src.dashboard import build_dashboard_view_model, write_dashboard_html, write_model_matrix_dashboard_export
 from src.model import run_factor_feature_set_matrix
@@ -373,43 +373,20 @@ def _production_dashboard_manifest_source_payload(
         return base_payload
 
     base_payload["dashboard_schema_version"] = str(dashboard.get("schema_version", ""))
-    manifest_source = dashboard.get("manifest_source")
-    if not isinstance(manifest_source, dict):
-        base_payload["dashboard_manifest_status"] = "missing"
-        return base_payload
-
-    kind = str(manifest_source.get("kind", ""))
-    manifest_path = str(manifest_source.get("path", ""))
-    manifest_hash = str(manifest_source.get("manifest_hash", ""))
-    producer = str(manifest_source.get("producer", ""))
-    payload = {
+    contract = build_dashboard_manifest_source_contract(
+        dashboard.get("manifest_source"),
+        required=required,
+        allowed_kinds=allowed,
+    )
+    return {
         **base_payload,
-        "dashboard_manifest_kind": kind,
-        "dashboard_manifest_path": manifest_path,
-        "dashboard_manifest_hash": manifest_hash,
-        "dashboard_manifest_producer": producer,
+        "dashboard_manifest_status": str(contract.get("status", "")),
+        "dashboard_manifest_kind": str(contract.get("kind", "")),
+        "dashboard_manifest_path": str(contract.get("path", "")),
+        "dashboard_manifest_hash": str(contract.get("manifest_hash", "")),
+        "dashboard_manifest_producer": str(contract.get("producer", "")),
+        "dashboard_manifest_error": str(contract.get("error", "")),
     }
-    if kind not in allowed:
-        payload["dashboard_manifest_status"] = "weak_kind"
-        payload["dashboard_manifest_error"] = f"kind {kind} not allowed"
-        return payload
-
-    missing_fields = [
-        field
-        for field, value in (
-            ("path", manifest_path),
-            ("manifest_hash", manifest_hash),
-            ("producer", producer),
-        )
-        if not value
-    ]
-    if missing_fields:
-        payload["dashboard_manifest_status"] = "incomplete"
-        payload["dashboard_manifest_error"] = "missing " + ",".join(missing_fields)
-        return payload
-
-    payload["dashboard_manifest_status"] = "complete"
-    return payload
 
 
 def _production_dashboard_manifest_health_status(status: str) -> str:

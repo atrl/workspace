@@ -6,11 +6,10 @@ from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 
+from src.core import build_dashboard_manifest_source_contract
+
 from .contracts import BrokerAdapter, assert_paper_sim_mode
 from .paper import AccountSnapshot
-
-
-DASHBOARD_MANIFEST_ALLOWED_KINDS = ("analysis_manifest", "artifact_manifest")
 
 
 @dataclass(frozen=True)
@@ -264,53 +263,17 @@ def _requested_model_context(dashboard_payload: dict[str, Any]) -> dict[str, Any
 
 
 def _dashboard_manifest_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
-    allowed = DASHBOARD_MANIFEST_ALLOWED_KINDS
-    base_payload = {
+    contract = build_dashboard_manifest_source_contract(dashboard_payload.get("manifest_source"))
+    return {
         "dashboard_manifest_required": True,
-        "dashboard_manifest_status": "missing",
-        "dashboard_manifest_kind": "",
-        "dashboard_manifest_path": "",
-        "dashboard_manifest_hash": "",
-        "dashboard_manifest_producer": "",
-        "dashboard_manifest_allowed_kinds": ",".join(allowed),
-        "dashboard_manifest_error": "",
+        "dashboard_manifest_status": str(contract.get("status", "")),
+        "dashboard_manifest_kind": str(contract.get("kind", "")),
+        "dashboard_manifest_path": str(contract.get("path", "")),
+        "dashboard_manifest_hash": str(contract.get("manifest_hash", "")),
+        "dashboard_manifest_producer": str(contract.get("producer", "")),
+        "dashboard_manifest_allowed_kinds": ",".join(str(kind) for kind in contract.get("allowed_kinds", [])),
+        "dashboard_manifest_error": str(contract.get("error", "")),
     }
-    manifest_source = dashboard_payload.get("manifest_source")
-    if not isinstance(manifest_source, dict):
-        return base_payload
-
-    kind = str(manifest_source.get("kind", ""))
-    manifest_path = str(manifest_source.get("path", ""))
-    manifest_hash = str(manifest_source.get("manifest_hash", ""))
-    producer = str(manifest_source.get("producer", ""))
-    payload = {
-        **base_payload,
-        "dashboard_manifest_kind": kind,
-        "dashboard_manifest_path": manifest_path,
-        "dashboard_manifest_hash": manifest_hash,
-        "dashboard_manifest_producer": producer,
-    }
-    if kind not in allowed:
-        payload["dashboard_manifest_status"] = "weak_kind"
-        payload["dashboard_manifest_error"] = f"kind {kind} not allowed"
-        return payload
-
-    missing_fields = [
-        field
-        for field, value in (
-            ("path", manifest_path),
-            ("manifest_hash", manifest_hash),
-            ("producer", producer),
-        )
-        if not value
-    ]
-    if missing_fields:
-        payload["dashboard_manifest_status"] = "incomplete"
-        payload["dashboard_manifest_error"] = "missing " + ",".join(missing_fields)
-        return payload
-
-    payload["dashboard_manifest_status"] = "complete"
-    return payload
 
 
 def _readiness_gates(dashboard_payload: dict[str, Any]) -> list[dict[str, str]]:
