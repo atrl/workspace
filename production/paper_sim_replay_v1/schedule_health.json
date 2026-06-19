@@ -1,0 +1,44 @@
+{
+  "schema_version": "dashboard.schedule_health.v1",
+  "job_count": 3,
+  "failed_job_count": 0,
+  "total_attempts": 3,
+  "total_retry_error_count": 0,
+  "top_failure_job": "",
+  "top_failure_last_error": "",
+  "jobs": [
+    {
+      "name": "production_paper_sim_replay_v1",
+      "status": "success",
+      "attempts": 1,
+      "retry_schema_version": "schedule.retry_attempts.v1",
+      "retry_error_count": 0,
+      "last_error_attempt": 0,
+      "last_error_type": "",
+      "last_error_message": "",
+      "detail": ""
+    },
+    {
+      "name": "production_paper_replay_data_update_v1",
+      "status": "success",
+      "attempts": 1,
+      "retry_schema_version": "schedule.retry_attempts.v1",
+      "retry_error_count": 0,
+      "last_error_attempt": 0,
+      "last_error_type": "",
+      "last_error_message": "",
+      "detail": ""
+    },
+    {
+      "name": "paper_sim_replay_execution_v1",
+      "status": "success",
+      "attempts": 1,
+      "retry_schema_version": "schedule.retry_attempts.v1",
+      "retry_error_count": 0,
+      "last_error_attempt": 0,
+      "last_error_type": "",
+      "last_error_message": "",
+      "detail": ""
+    }
+  ]
+}

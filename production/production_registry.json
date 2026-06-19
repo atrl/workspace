@@ -1,14 +1,14 @@
 {
-  "registry_hash": "f0c0700a9bc4396d5ed915acfc85e10d13af01978474003e55f6dbec495adefd",
+  "registry_hash": "8b5ac6af8b20ee87dc5271c84a3b3aabb7f19be0ea7ce3c04bf0b159022c3217",
   "schema_version": "production.registry.v1",
   "strategies": {
     "paper_sim_replay_v1": {
       "current": {
         "artifact_id": "paper_sim_replay_v1",
         "artifact_type": "production_strategy",
-        "dataset_schema_hash": "020e214929ec0da4f8c4554cbd541acfb8ba8b5580a2bb62877b3c9187e0fda0",
+        "dataset_schema_hash": "4c7d849be0aa82be4fa75edd22a91ae4086ec9c89cbb6c7641af90248ffabc82",
         "end": "2026-06-09",
-        "manifest_hash": "76a0ddb49bbea8f7543e368335dbd0ae7240e206bb10c708092a5e16934a0d26",
+        "manifest_hash": "36181cc5157c68b60b31558baf6bc1703cb31ee35c487f0c6953ba4057256850",
         "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
         "mode": "paper",
         "published_at": "2026-06-09T21:30:00Z",
@@ -75,6 +75,19 @@
           "dataset_schema_hash": "020e214929ec0da4f8c4554cbd541acfb8ba8b5580a2bb62877b3c9187e0fda0",
           "end": "2026-06-09",
           "manifest_hash": "76a0ddb49bbea8f7543e368335dbd0ae7240e206bb10c708092a5e16934a0d26",
+          "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+          "mode": "paper",
+          "published_at": "2026-06-09T21:30:00Z",
+          "start": "2026-01-02",
+          "status": "paper_replay_completed",
+          "strategy_id": "paper_sim_replay_v1"
+        },
+        {
+          "artifact_id": "paper_sim_replay_v1",
+          "artifact_type": "production_strategy",
+          "dataset_schema_hash": "4c7d849be0aa82be4fa75edd22a91ae4086ec9c89cbb6c7641af90248ffabc82",
+          "end": "2026-06-09",
+          "manifest_hash": "36181cc5157c68b60b31558baf6bc1703cb31ee35c487f0c6953ba4057256850",
           "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
           "mode": "paper",
           "published_at": "2026-06-09T21:30:00Z",

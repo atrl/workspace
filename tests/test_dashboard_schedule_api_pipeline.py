@@ -864,3 +864,32 @@ def test_production_paper_sim_summary_records_schedule_readiness_overview():
     assert manifest["metadata"]["schedule_readiness_overview_schema"] == summary["schedule_readiness_overview_schema"]
     assert manifest["metadata"]["schedule_readiness_overview_status"] == summary["schedule_readiness_overview_status"]
     assert manifest["metadata"]["schedule_readiness_overview_gates"] == summary["schedule_readiness_overview_gates"]
+
+
+def test_production_paper_sim_summary_manifest_and_dashboard_record_schedule_health_artifact():
+    summary = json.loads(open("production/paper_sim_replay_v1/production_summary.json", encoding="utf-8").read())
+    manifest = json.loads(open("production/paper_sim_replay_v1/production_manifest.json", encoding="utf-8").read())
+    dashboard = json.loads(open("production/paper_sim_replay_v1/dashboard_export.json", encoding="utf-8").read())
+    schedule_health = json.loads(open("production/paper_sim_replay_v1/schedule_health.json", encoding="utf-8").read())
+
+    assert schedule_health["schema_version"] == "dashboard.schedule_health.v1"
+    assert schedule_health["job_count"] == 3
+    assert schedule_health["failed_job_count"] == 0
+    assert schedule_health["total_attempts"] == 3
+    assert {job["name"] for job in schedule_health["jobs"]} == {
+        "production_paper_replay_data_update_v1",
+        "production_paper_sim_replay_v1",
+        "paper_sim_replay_execution_v1",
+    }
+    assert dashboard["schedule_health"] == schedule_health
+    assert dashboard["artifacts"]["schedule_health"] == "production/paper_sim_replay_v1/schedule_health.json"
+    assert summary["schedule_health"] == "production/paper_sim_replay_v1/schedule_health.json"
+    assert summary["schedule_health_schema_version"] == "dashboard.schedule_health.v1"
+    assert summary["schedule_health_job_count"] == 3
+    assert summary["schedule_health_failed_job_count"] == 0
+    assert summary["schedule_health_total_retry_error_count"] == 0
+    assert summary["schedule_health_top_failure_job"] == ""
+    assert manifest["paths"]["schedule_health"] == "schedule_health.json"
+    assert manifest["metadata"]["schedule_health_schema_version"] == summary["schedule_health_schema_version"]
+    assert manifest["metadata"]["schedule_health_job_count"] == summary["schedule_health_job_count"]
+    assert manifest["metadata"]["schedule_health_failed_job_count"] == summary["schedule_health_failed_job_count"]
