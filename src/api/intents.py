@@ -6,7 +6,8 @@ from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 
-from .paper import AccountSnapshot, PaperBrokerAdapter
+from .contracts import BrokerAdapter, assert_paper_sim_mode
+from .paper import AccountSnapshot
 
 
 @dataclass(frozen=True)
@@ -177,8 +178,7 @@ def build_target_position_intent_from_dashboard(
     max_position: float = 1.0,
     mode: str = "paper",
 ) -> ExecutionIntent:
-    if mode not in {"paper", "sim"}:
-        raise ValueError("v1 only supports paper/sim execution intent mode")
+    mode = assert_paper_sim_mode(mode, surface="v1 execution intent")
     top_models = dashboard_payload.get("top_models") or []
     if not top_models:
         raise ValueError("dashboard payload has no top_models")
@@ -233,11 +233,10 @@ def build_target_position_intent_from_dashboard(
 def execute_paper_intent(
     intent: ExecutionIntent,
     *,
-    broker: PaperBrokerAdapter,
+    broker: BrokerAdapter,
     price: float,
 ) -> PaperExecutionResult:
-    if intent.mode not in {"paper", "sim"}:
-        raise ValueError("v1 API adapter only supports paper/sim execution")
+    assert_paper_sim_mode(intent.mode, surface="v1 API adapter")
     ok, detail = broker.healthcheck()
     if not ok:
         raise RuntimeError(detail)

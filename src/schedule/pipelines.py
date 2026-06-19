@@ -11,6 +11,7 @@ from src.analysis import backfill_analysis_manifest, scan_analysis_cards
 from src.api import (
     PaperBrokerAdapter,
     PaperMarketDataAdapter,
+    assert_paper_sim_mode,
     build_target_position_intent_from_dashboard,
     execute_paper_intent,
     write_intent_ledger,
@@ -419,8 +420,7 @@ def _read_dashboard_export(path: Path) -> dict[str, Any]:
 
 
 def _paper_execution_attempt(config: PaperExecutionPipelineConfig) -> dict[str, Any]:
-    if config.mode not in {"paper", "sim"}:
-        raise ValueError("paper execution pipeline only supports paper/sim mode")
+    assert_paper_sim_mode(config.mode, surface="paper execution pipeline")
 
     dashboard_payload = _read_dashboard_export(Path(config.dashboard_export_path))
     market_data = PaperMarketDataAdapter.from_registry(
