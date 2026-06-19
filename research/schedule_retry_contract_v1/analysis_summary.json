@@ -1,0 +1,11 @@
+{
+  "schema_version": "research.schedule_retry_contract_v1.summary.v1",
+  "experiment": "schedule_retry_contract_v1",
+  "core_contract": "schedule.retry_attempts.v1",
+  "success_attempts": 2,
+  "success_retry_error_count": 1,
+  "failure_attempts": 2,
+  "failure_message": "permanent failure 2",
+  "promotion_decision": "promote_to_src_schedule_jobs",
+  "risk_note": "该契约统一 retry 元数据，不替代具体 provider/API 的错误分类。"
+}

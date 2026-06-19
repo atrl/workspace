@@ -21,7 +21,7 @@ from src.data import build_canonical_snapshot, publish_canonical_snapshot
 from src.dashboard import build_dashboard_view_model, write_dashboard_html, write_model_matrix_dashboard_export
 from src.model import run_factor_feature_set_matrix
 
-from .jobs import JobResult, ScheduleJob, run_job_once
+from .jobs import JobResult, ScheduleJob, run_job_once, run_task_with_retries
 
 
 DEFAULT_ANALYSIS_MANIFEST_CALENDAR_PATH = "data/qlib/soxl/calendars/day.txt"
@@ -197,23 +197,15 @@ def _data_update_task_with_retries(
     frame_provider: FrameProvider,
     calendar_provider: CalendarProvider,
 ) -> dict[str, Any]:
-    attempts = 0
-    last_error: Exception | None = None
-    for attempt in range(config.retries + 1):
-        attempts = attempt + 1
-        try:
-            payload = _data_update_attempt(
-                config,
-                frame_provider=frame_provider,
-                calendar_provider=calendar_provider,
-            )
-            payload["attempts"] = attempts
-            return payload
-        except Exception as exc:
-            last_error = exc
-            if attempt >= config.retries:
-                break
-    raise RuntimeError(str(last_error) if last_error else "data update failed")
+    return run_task_with_retries(
+        lambda: _data_update_attempt(
+            config,
+            frame_provider=frame_provider,
+            calendar_provider=calendar_provider,
+        ),
+        retries=config.retries,
+        failure_message="data update failed",
+    )
 
 
 def _data_update_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
@@ -492,23 +484,19 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
 
 
 def _production_health_task_with_retries(config: ProductionHealthCheckConfig) -> dict[str, Any]:
-    attempts = 0
-    last_error: Exception | None = None
-    for attempt in range(config.retries + 1):
-        attempts = attempt + 1
-        try:
-            payload = _production_health_attempt(config)
-            payload["attempts"] = attempts
-            if config.output_path is not None:
-                output = Path(config.output_path)
-                output.parent.mkdir(parents=True, exist_ok=True)
-                output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-            return payload
-        except Exception as exc:
-            last_error = exc
-            if attempt >= config.retries:
-                break
-    raise RuntimeError(str(last_error) if last_error else "production health check failed")
+    def task() -> dict[str, Any]:
+        return _production_health_attempt(config)
+
+    payload = run_task_with_retries(
+        task,
+        retries=config.retries,
+        failure_message="production health check failed",
+    )
+    if config.output_path is not None:
+        output = Path(config.output_path)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return payload
 
 
 def _production_health_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
@@ -662,19 +650,11 @@ def _paper_execution_attempt(config: PaperExecutionPipelineConfig) -> dict[str, 
 
 
 def _paper_execution_task_with_retries(config: PaperExecutionPipelineConfig) -> dict[str, Any]:
-    attempts = 0
-    last_error: Exception | None = None
-    for attempt in range(config.retries + 1):
-        attempts = attempt + 1
-        try:
-            payload = _paper_execution_attempt(config)
-            payload["attempts"] = attempts
-            return payload
-        except Exception as exc:
-            last_error = exc
-            if attempt >= config.retries:
-                break
-    raise RuntimeError(str(last_error) if last_error else "paper execution failed")
+    return run_task_with_retries(
+        lambda: _paper_execution_attempt(config),
+        retries=config.retries,
+        failure_message="paper execution failed",
+    )
 
 
 def _paper_execution_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
@@ -1197,24 +1177,16 @@ def _task_with_retries(
     dashboard_exporter: DashboardExporter,
     dashboard_page_exporter: DashboardPageExporter,
 ) -> dict[str, Any]:
-    attempts = 0
-    last_error: Exception | None = None
-    for attempt in range(config.retries + 1):
-        attempts = attempt + 1
-        try:
-            payload = _run_pipeline_attempt(
-                config,
-                matrix_runner=matrix_runner,
-                dashboard_exporter=dashboard_exporter,
-                dashboard_page_exporter=dashboard_page_exporter,
-            )
-            payload["attempts"] = attempts
-            return payload
-        except Exception as exc:
-            last_error = exc
-            if attempt >= config.retries:
-                break
-    raise RuntimeError(str(last_error) if last_error else "pipeline failed")
+    return run_task_with_retries(
+        lambda: _run_pipeline_attempt(
+            config,
+            matrix_runner=matrix_runner,
+            dashboard_exporter=dashboard_exporter,
+            dashboard_page_exporter=dashboard_page_exporter,
+        ),
+        retries=config.retries,
+        failure_message="pipeline failed",
+    )
 
 
 def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:

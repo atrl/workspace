@@ -22,6 +22,37 @@ class JobResult:
     detail: str = ""
 
 
+def run_task_with_retries(
+    task: Callable[[], dict[str, Any]],
+    *,
+    retries: int = 0,
+    failure_message: str = "task failed",
+) -> dict[str, Any]:
+    retry_errors: list[dict[str, Any]] = []
+    last_error: Exception | None = None
+    for attempt in range(max(int(retries), 0) + 1):
+        attempt_number = attempt + 1
+        try:
+            payload = dict(task())
+            payload["attempts"] = attempt_number
+            payload["retry_schema_version"] = "schedule.retry_attempts.v1"
+            payload["retry_error_count"] = int(len(retry_errors))
+            payload["retry_errors"] = retry_errors
+            return payload
+        except Exception as exc:
+            last_error = exc
+            retry_errors.append(
+                {
+                    "attempt": attempt_number,
+                    "error_type": type(exc).__name__,
+                    "message": str(exc),
+                }
+            )
+            if attempt >= max(int(retries), 0):
+                break
+    raise RuntimeError(str(last_error) if last_error else failure_message)
+
+
 def format_job_result_notification(result: JobResult) -> str:
     if result.status == "skipped":
         decision = result.payload.get("market_calendar_decision")

@@ -2,7 +2,15 @@ from __future__ import annotations
 
 import json
 
-from src.schedule import ScheduleJob, classify_market_calendar_day, load_market_calendar_decision, run_job_once
+import pytest
+
+from src.schedule import (
+    ScheduleJob,
+    classify_market_calendar_day,
+    load_market_calendar_decision,
+    run_job_once,
+    run_task_with_retries,
+)
 
 
 def test_classify_market_calendar_day_identifies_normal_half_day_and_closed_sessions():
@@ -143,3 +151,40 @@ def test_run_job_once_can_notify_closed_market_calendar_skip_with_calendar_conte
         "skip_reason=New Year's Day | next_trading_date=2026-01-02"
     ]
     assert not (tmp_path / "paper_execution.lock").exists()
+
+
+def test_run_task_with_retries_records_attempts_and_retry_error_history():
+    calls = {"count": 0}
+
+    def task():
+        calls["count"] += 1
+        if calls["count"] == 1:
+            raise RuntimeError("temporary provider failure")
+        return {"schema_version": "unit.retry_payload.v1", "status": "ok"}
+
+    payload = run_task_with_retries(task, retries=2, failure_message="unit retry failed")
+
+    assert payload["status"] == "ok"
+    assert payload["attempts"] == 2
+    assert payload["retry_schema_version"] == "schedule.retry_attempts.v1"
+    assert payload["retry_error_count"] == 1
+    assert payload["retry_errors"] == [
+        {
+            "attempt": 1,
+            "error_type": "RuntimeError",
+            "message": "temporary provider failure",
+        }
+    ]
+
+
+def test_run_task_with_retries_raises_last_error_after_retry_budget():
+    calls = {"count": 0}
+
+    def task():
+        calls["count"] += 1
+        raise RuntimeError(f"permanent failure {calls['count']}")
+
+    with pytest.raises(RuntimeError, match="permanent failure 2"):
+        run_task_with_retries(task, retries=1, failure_message="unit retry failed")
+
+    assert calls["count"] == 2
