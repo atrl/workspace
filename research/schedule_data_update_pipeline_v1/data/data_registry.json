@@ -1,0 +1,38 @@
+{
+  "datasets": {
+    "daily.soxl_research_unit": {
+      "current": {
+        "as_of": "2026-01-05",
+        "dataset_key": "daily.soxl_research_unit",
+        "dataset_name": "research_unit_soxl_daily",
+        "dataset_schema_hash": "30f142ac8a3f55973b96dfc894fa1955532dd4cbb94279ac821c808608cf2ca3",
+        "end": "2026-01-05",
+        "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+        "manifest_hash": "a758a69b4d4c93238ae5e30cbd875168cf166e475425cb36b9a65ee2d7ae2974",
+        "manifest_path": "/Users/rziiiii/dev/workspace/research/schedule_data_update_pipeline_v1/data/snapshots/research_unit_soxl_daily/2026-01-05/data_update_manifest.json",
+        "published_at": "2026-01-05T21:00:00Z",
+        "row_count": 2,
+        "snapshot_path": "/Users/rziiiii/dev/workspace/research/schedule_data_update_pipeline_v1/data/snapshots/research_unit_soxl_daily/2026-01-05",
+        "start": "2026-01-02"
+      },
+      "history": [
+        {
+          "as_of": "2026-01-05",
+          "dataset_key": "daily.soxl_research_unit",
+          "dataset_name": "research_unit_soxl_daily",
+          "dataset_schema_hash": "30f142ac8a3f55973b96dfc894fa1955532dd4cbb94279ac821c808608cf2ca3",
+          "end": "2026-01-05",
+          "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+          "manifest_hash": "a758a69b4d4c93238ae5e30cbd875168cf166e475425cb36b9a65ee2d7ae2974",
+          "manifest_path": "/Users/rziiiii/dev/workspace/research/schedule_data_update_pipeline_v1/data/snapshots/research_unit_soxl_daily/2026-01-05/data_update_manifest.json",
+          "published_at": "2026-01-05T21:00:00Z",
+          "row_count": 2,
+          "snapshot_path": "/Users/rziiiii/dev/workspace/research/schedule_data_update_pipeline_v1/data/snapshots/research_unit_soxl_daily/2026-01-05",
+          "start": "2026-01-02"
+        }
+      ]
+    }
+  },
+  "registry_hash": "ed1f46e91a558fc5d59fffc3fbeeae042bfee5148653dd4f6500a77ce5f9c071",
+  "schema_version": "data.registry.v1"
+}

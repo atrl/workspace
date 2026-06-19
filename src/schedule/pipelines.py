@@ -5,11 +5,33 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
+import pandas as pd
+
 from src.analysis import backfill_analysis_manifest, scan_analysis_cards
+from src.data import build_canonical_snapshot, publish_canonical_snapshot
 from src.dashboard import build_dashboard_view_model, write_dashboard_html, write_model_matrix_dashboard_export
 from src.model import run_factor_feature_set_matrix
 
 from .jobs import JobResult, ScheduleJob, run_job_once
+
+
+@dataclass(frozen=True)
+class DataUpdatePipelineConfig:
+    name: str
+    dataset_key: str
+    dataset_name: str
+    universe: tuple[str, ...]
+    output_dir: Path
+    registry_path: Path
+    calendar_path: str
+    source_paths: tuple[str, ...]
+    start: str
+    end: str
+    as_of: str
+    date_column: str = "date"
+    published_at: str | None = None
+    notify_details: bool = False
+    retries: int = 0
 
 
 @dataclass(frozen=True)
@@ -38,6 +60,146 @@ class ModelDashboardPipelineConfig:
 MatrixRunner = Callable[..., Any]
 DashboardExporter = Callable[..., dict[str, Any]]
 DashboardPageExporter = Callable[..., dict[str, Any]]
+FrameProvider = Callable[[DataUpdatePipelineConfig], pd.DataFrame]
+CalendarProvider = Callable[[DataUpdatePipelineConfig], pd.DatetimeIndex | list[str] | tuple[str, ...]]
+
+
+def _default_frame_provider(config: DataUpdatePipelineConfig) -> pd.DataFrame:
+    if not config.source_paths:
+        raise ValueError("source_paths must contain at least one CSV path for default data update")
+    path = Path(config.source_paths[0])
+    if not path.exists():
+        raise FileNotFoundError(str(path))
+    return pd.read_csv(path)
+
+
+def _default_calendar_provider(config: DataUpdatePipelineConfig) -> pd.DatetimeIndex:
+    path = Path(config.calendar_path)
+    values = [line.strip() for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    return pd.DatetimeIndex(pd.to_datetime(values), name="date")
+
+
+def _data_update_attempt(
+    config: DataUpdatePipelineConfig,
+    *,
+    frame_provider: FrameProvider,
+    calendar_provider: CalendarProvider,
+) -> dict[str, Any]:
+    frame = frame_provider(config)
+    calendar = calendar_provider(config)
+    snapshot = build_canonical_snapshot(
+        frame,
+        name=config.dataset_name,
+        universe=config.universe,
+        calendar=calendar,
+        calendar_path=config.calendar_path,
+        source_paths=config.source_paths,
+        start=config.start,
+        end=config.end,
+        as_of=config.as_of,
+        date_column=config.date_column,
+    )
+    manifest = publish_canonical_snapshot(
+        snapshot,
+        output_dir=config.output_dir,
+        dataset_key=config.dataset_key,
+        registry_path=config.registry_path,
+        published_at=config.published_at,
+    )
+    metadata = manifest["dataset"].get("metadata", {})
+    return {
+        "schema_version": "schedule.data_update_result.v1",
+        "dataset_key": config.dataset_key,
+        "dataset_name": config.dataset_name,
+        "status": manifest.get("status", ""),
+        "manifest_path": str(Path(config.output_dir) / manifest["paths"]["manifest"]),
+        "manifest_hash": manifest["manifest_hash"],
+        "dataset_schema_hash": manifest["dataset_schema_hash"],
+        "registry_path": str(config.registry_path),
+        "start": manifest["dataset"].get("start", ""),
+        "end": manifest["dataset"].get("end", ""),
+        "as_of": metadata.get("as_of", ""),
+        "row_count": int(metadata.get("row_count", 0) or 0),
+        "column_count": int(metadata.get("column_count", 0) or 0),
+        "frame_schema_hash": str(metadata.get("frame_schema_hash", "")),
+        "dropped_non_calendar_rows": int(metadata.get("dropped_non_calendar_rows", 0) or 0),
+        "published_at": manifest.get("published_at", ""),
+    }
+
+
+def _data_update_task_with_retries(
+    config: DataUpdatePipelineConfig,
+    *,
+    frame_provider: FrameProvider,
+    calendar_provider: CalendarProvider,
+) -> dict[str, Any]:
+    attempts = 0
+    last_error: Exception | None = None
+    for attempt in range(config.retries + 1):
+        attempts = attempt + 1
+        try:
+            payload = _data_update_attempt(
+                config,
+                frame_provider=frame_provider,
+                calendar_provider=calendar_provider,
+            )
+            payload["attempts"] = attempts
+            return payload
+        except Exception as exc:
+            last_error = exc
+            if attempt >= config.retries:
+                break
+    raise RuntimeError(str(last_error) if last_error else "data update failed")
+
+
+def _data_update_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
+    if status != "success":
+        return f"{job_name}:{status}"
+    return (
+        f"{job_name}:success"
+        f" | dataset={payload.get('dataset_key', '')}"
+        f" | rows={payload.get('row_count', 0)}"
+        f" | as_of={payload.get('as_of', '')}"
+        f" | attempts={payload.get('attempts', '')}"
+        f" | manifest={payload.get('manifest_path', '')}"
+    )
+
+
+def run_data_update_once(
+    config: DataUpdatePipelineConfig,
+    *,
+    lock_dir: str | Path,
+    notify: Callable[[str], None] | None = None,
+    frame_provider: FrameProvider = _default_frame_provider,
+    calendar_provider: CalendarProvider = _default_calendar_provider,
+) -> JobResult:
+    job = ScheduleJob(name=config.name, task="data_update", cron="manual")
+    latest_payload: dict[str, Any] = {}
+
+    def task() -> dict[str, Any]:
+        nonlocal latest_payload
+        latest_payload = _data_update_task_with_retries(
+            config,
+            frame_provider=frame_provider,
+            calendar_provider=calendar_provider,
+        )
+        return latest_payload
+
+    def notify_with_details(message: str) -> None:
+        if notify is None:
+            return
+        if not config.notify_details:
+            notify(message)
+            return
+        _, _, status = message.partition(":")
+        notify(_data_update_notification(config.name, status, latest_payload))
+
+    return run_job_once(
+        job,
+        task=task,
+        lock_dir=lock_dir,
+        notify=notify_with_details if notify is not None else None,
+    )
 
 
 def _default_matrix_runner(
