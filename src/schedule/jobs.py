@@ -22,6 +22,12 @@ class JobResult:
     detail: str = ""
 
 
+class ScheduleRetryError(RuntimeError):
+    def __init__(self, message: str, *, payload: Mapping[str, Any]) -> None:
+        super().__init__(message)
+        self.payload = dict(payload)
+
+
 def run_task_with_retries(
     task: Callable[[], dict[str, Any]],
     *,
@@ -50,7 +56,13 @@ def run_task_with_retries(
             )
             if attempt >= max(int(retries), 0):
                 break
-    raise RuntimeError(str(last_error) if last_error else failure_message)
+    failure_payload = {
+        "attempts": int(len(retry_errors)),
+        "retry_schema_version": "schedule.retry_attempts.v1",
+        "retry_error_count": int(len(retry_errors)),
+        "retry_errors": retry_errors,
+    }
+    raise ScheduleRetryError(str(last_error) if last_error else failure_message, payload=failure_payload)
 
 
 def format_job_result_notification(result: JobResult) -> str:
@@ -116,6 +128,7 @@ def run_job_once(
     except Exception as exc:
         if notify is not None:
             notify(f"{job.name}:failed")
-        return JobResult(name=job.name, status="failed", payload={}, detail=str(exc))
+        payload = dict(exc.payload) if isinstance(exc, ScheduleRetryError) else {}
+        return JobResult(name=job.name, status="failed", payload=payload, detail=str(exc))
     finally:
         lock_path.unlink(missing_ok=True)

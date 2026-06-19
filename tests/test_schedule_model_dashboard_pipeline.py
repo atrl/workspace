@@ -1321,6 +1321,12 @@ def test_model_dashboard_refresh_reports_failure_after_retry_budget(tmp_path):
     )
 
     assert result.status == "failed"
-    assert result.payload == {}
+    assert result.payload["attempts"] == 2
+    assert result.payload["retry_schema_version"] == "schedule.retry_attempts.v1"
+    assert result.payload["retry_error_count"] == 2
+    assert result.payload["retry_errors"] == [
+        {"attempt": 1, "error_type": "RuntimeError", "message": "permanent failure"},
+        {"attempt": 2, "error_type": "RuntimeError", "message": "permanent failure"},
+    ]
     assert "permanent failure" in result.detail
     assert events == ["model_dashboard_refresh:failed"]
