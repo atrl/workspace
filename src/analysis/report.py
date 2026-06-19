@@ -25,6 +25,18 @@ def assign_regimes(frame: pd.DataFrame, *, price_col: str) -> pd.DataFrame:
     result["trend_regime"] = trend.map(lambda value: "uptrend" if value >= 0 else "downtrend")
     volume_ratio = result["volume"] / result["volume"].rolling(2, min_periods=1).mean()
     result["volume_regime"] = volume_ratio.map(lambda value: "volume_shock" if value >= 1.5 else "normal_volume")
+    drawdown = result[price_col] / result[price_col].cummax() - 1.0
+    result["drawdown_regime"] = drawdown.map(
+        lambda value: "deep_drawdown" if value <= -0.15 else "pullback" if value <= -0.05 else "no_drawdown"
+    )
+    realized_vol = trend.rolling(3, min_periods=2).std(ddof=0).fillna(0.0)
+    result["volatility_regime"] = realized_vol.map(
+        lambda value: "high_volatility" if value >= 0.05 else "mid_volatility" if value >= 0.02 else "low_volatility"
+    )
+    result["market_regime"] = [
+        "bear" if dd <= -0.10 else "bull" if change >= 0 and dd > -0.05 else "chop"
+        for change, dd in zip(trend, drawdown, strict=True)
+    ]
     return result
 
 
