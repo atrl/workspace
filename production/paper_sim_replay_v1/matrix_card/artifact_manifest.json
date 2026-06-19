@@ -100,6 +100,9 @@
     "model_capabilities": "model_capabilities.csv",
     "model_comparison": "model_comparison.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
+    "model_run_ledger": "model_run_ledger.csv",
+    "model_run_ledger_summary": "model_run_ledger_summary.json",
     "objective_scores": "objective_scores.csv",
     "predictions": "predictions.csv",
     "promotion_scores": "promotion_scores.csv",
@@ -113,5 +116,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "069f42129cc1b89e3bf6419227cb325c59b43156a1fffeb7a392fe3f8b52000d"
+  "manifest_hash": "5133e31316a3bc44a18958b193f89af9ac05df838658160beb449aeb3c184aef"
 }

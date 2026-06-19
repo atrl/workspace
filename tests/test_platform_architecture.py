@@ -94,6 +94,23 @@ def test_production_paper_sim_replay_records_no_live_broker_guardrail():
     assert ledger["execution_result"]["status"] == "paper_executed"
 
 
+def test_production_paper_sim_replay_records_market_data_quote_source():
+    root = Path(__file__).resolve().parents[1]
+    card = root / "production" / "paper_sim_replay_v1"
+
+    summary = json.loads((card / "production_summary.json").read_text(encoding="utf-8"))
+    quote = json.loads((card / "market_quote.json").read_text(encoding="utf-8"))
+    execution = json.loads((card / "paper_execution_result.json").read_text(encoding="utf-8"))
+
+    assert summary["market_data_adapter"] == "paper_market_data"
+    assert summary["market_quote"]["schema_version"] == "api.market_quote.v1"
+    assert summary["market_quote"] == quote
+    assert summary["market_quote"]["instrument"] == summary["instrument"]
+    assert summary["market_quote"]["data_mode"] == "paper"
+    assert summary["market_quote"]["source_path"]
+    assert execution["snapshot"]["price"] == summary["market_quote"]["price"]
+
+
 def test_project_docs_describe_full_platform_not_cleaned_workspace():
     root = Path(__file__).resolve().parents[1]
 

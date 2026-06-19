@@ -1,0 +1,9 @@
+{
+  "schema_version": "api.market_quote.v1",
+  "instrument": "SOXL",
+  "date": "2026-06-09",
+  "price": 201.68,
+  "field": "close",
+  "data_mode": "paper",
+  "source_path": "production/paper_sim_replay_v1/paper_market_data_frame.csv"
+}

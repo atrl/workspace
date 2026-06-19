@@ -9,6 +9,7 @@
     "window_regime_metrics",
     "qlib_risk_metrics",
     "model_effect_deltas",
+    "model_regime_window_diagnostics",
     "objective_scores",
     "promotion_scores",
     "model_comparison",
@@ -115,6 +116,7 @@
       }
     ],
     "model_count": 6,
+    "model_regime_window_diagnostic_count": 6,
     "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
     "regime_count": 4,
     "review_signal_counts": {
@@ -130,6 +132,58 @@
       "regime",
       "window",
       "window_regime"
+    ],
+    "top_regime_fragile_models": [
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -1.073529,
+        "diagnostic_signal": "stress_fragile",
+        "model": "ridge_mse__top_ic_factors",
+        "review_note": "ridge_mse__top_ic_factors 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 stress；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 28,
+        "worst_segment": "stress"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.970588,
+        "diagnostic_signal": "stress_fragile",
+        "model": "random_forest_clf__all_features",
+        "review_note": "random_forest_clf__all_features 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 bull；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 21,
+        "worst_segment": "bull"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.764706,
+        "diagnostic_signal": "stress_fragile",
+        "model": "ridge_mse__all_features",
+        "review_note": "ridge_mse__all_features 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 21,
+        "worst_segment": "downtrend"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.661765,
+        "diagnostic_signal": "stress_fragile",
+        "model": "random_forest_clf__top_ic_factors",
+        "review_note": "random_forest_clf__top_ic_factors 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 7,
+        "weakness_segment_count": 21,
+        "worst_segment": "all"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": 0.470588,
+        "diagnostic_signal": "regime_fragile",
+        "model": "random_forest_clf__ic_weighted_composite",
+        "review_note": "random_forest_clf__ic_weighted_composite 的弱点集中在多个 regime/window 分段，最弱分段为 all；需要拆分区间和 regime 重新验证适配性。",
+        "stress_negative_count": 0,
+        "weakness_segment_count": 6,
+        "worst_segment": "all"
+      }
     ],
     "top_review": {
       "baseline_model": "ridge_mse__ic_weighted_composite",
@@ -264,6 +318,7 @@
       }
     ],
     "model_count": 6,
+    "model_regime_window_diagnostic_count": 6,
     "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
     "regime_count": 4,
     "schema_version": "analysis.regime_window_effect.v1",
@@ -273,6 +328,58 @@
       "regime",
       "window",
       "window_regime"
+    ],
+    "top_regime_fragile_models": [
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -1.073529,
+        "diagnostic_signal": "stress_fragile",
+        "model": "ridge_mse__top_ic_factors",
+        "review_note": "ridge_mse__top_ic_factors 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 stress；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 28,
+        "worst_segment": "stress"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.970588,
+        "diagnostic_signal": "stress_fragile",
+        "model": "random_forest_clf__all_features",
+        "review_note": "random_forest_clf__all_features 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 bull；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 21,
+        "worst_segment": "bull"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.764706,
+        "diagnostic_signal": "stress_fragile",
+        "model": "ridge_mse__all_features",
+        "review_note": "ridge_mse__all_features 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 21,
+        "worst_segment": "downtrend"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.661765,
+        "diagnostic_signal": "stress_fragile",
+        "model": "random_forest_clf__top_ic_factors",
+        "review_note": "random_forest_clf__top_ic_factors 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 7,
+        "weakness_segment_count": 21,
+        "worst_segment": "all"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": 0.470588,
+        "diagnostic_signal": "regime_fragile",
+        "model": "random_forest_clf__ic_weighted_composite",
+        "review_note": "random_forest_clf__ic_weighted_composite 的弱点集中在多个 regime/window 分段，最弱分段为 all；需要拆分区间和 regime 重新验证适配性。",
+        "stress_negative_count": 0,
+        "weakness_segment_count": 6,
+        "worst_segment": "all"
+      }
     ],
     "weakest_segments": [
       {
@@ -363,6 +470,7 @@
     "failure_modes": 104,
     "model_comparison": 6,
     "model_effect_deltas": 204,
+    "model_regime_window_diagnostics": 6,
     "model_review_briefing": 118,
     "qlib_return_frame": 156,
     "qlib_risk_metrics": 408,

@@ -86,6 +86,7 @@
       "failure_modes": 104,
       "model_comparison": 6,
       "model_effect_deltas": 204,
+      "model_regime_window_diagnostics": 6,
       "model_review_briefing": 118,
       "qlib_return_frame": 156,
       "qlib_risk_metrics": 408,
@@ -109,7 +110,10 @@
     "failure_modes": "failure_modes.csv",
     "model_comparison": "model_comparison.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
     "model_review_briefing": "model_review_briefing.csv",
+    "model_run_ledger": "model_run_ledger.csv",
+    "model_run_ledger_summary": "model_run_ledger_summary.json",
     "objective_scores": "objective_scores.csv",
     "promotion_scores": "promotion_scores.csv",
     "qlib_return_frame": "qlib_return_frame.csv",
@@ -124,5 +128,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "7fb66f5ca4f3262ed4d4947615390dcd5a3daa9b874e00fe69f55792c3014174"
+  "manifest_hash": "4d16a54a928730947e024297c634659ca6ecb1f8d575073d6878666e55bf2b46"
 }

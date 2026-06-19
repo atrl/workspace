@@ -19,12 +19,22 @@
   "backtest_schema_version": "backtest.config.v1",
   "backtest_walk_forward_fold_count": 5,
   "backtest_slippage_bps": 1.0,
-  "paper_shares": 75,
-  "paper_position": 0.75,
+  "market_data_adapter": "paper_market_data",
+  "market_quote": {
+    "schema_version": "api.market_quote.v1",
+    "instrument": "SOXL",
+    "date": "2026-06-09",
+    "price": 201.68,
+    "field": "close",
+    "data_mode": "paper",
+    "source_path": "production/paper_sim_replay_v1/paper_market_data_frame.csv"
+  },
+  "paper_shares": 37,
+  "paper_position": 0.746216,
   "schedule_status": "success",
   "schedule_attempts": 1,
   "notifications": [
-    "production_paper_sim_replay_v1:success | top_model=ridge_mse__ic_weighted_composite | dashboard_manifest=analysis_manifest | attempts=1 | export=production/paper_sim_replay_v1/dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_mse__all_features->random_forest_clf__ic_weighted_composite/spread=47.9701 | promotion=promote_candidate:ridge_mse__ic_weighted_composite blocked=0"
+    "production_paper_sim_replay_v1:success | top_model=ridge_mse__ic_weighted_composite | dashboard_manifest=analysis_manifest | attempts=1 | export=production/paper_sim_replay_v1/dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_mse__all_features->random_forest_clf__ic_weighted_composite/spread=47.9701 | promotion=promote_candidate:ridge_mse__ic_weighted_composite blocked=0 | run_coverage=6/6 backtested=6/6 missing=0"
   ],
   "dashboard_export": "production/paper_sim_replay_v1/dashboard_export.json",
   "intent_ledger": "production/paper_sim_replay_v1/intent_ledger.json",
@@ -127,6 +137,7 @@
       }
     ],
     "model_count": 6,
+    "model_regime_window_diagnostic_count": 6,
     "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
     "regime_count": 4,
     "review_signal_counts": {
@@ -142,6 +153,58 @@
       "regime",
       "window",
       "window_regime"
+    ],
+    "top_regime_fragile_models": [
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -1.073529,
+        "diagnostic_signal": "stress_fragile",
+        "model": "ridge_mse__top_ic_factors",
+        "review_note": "ridge_mse__top_ic_factors 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 stress；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 28,
+        "worst_segment": "stress"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.970588,
+        "diagnostic_signal": "stress_fragile",
+        "model": "random_forest_clf__all_features",
+        "review_note": "random_forest_clf__all_features 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 bull；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 21,
+        "worst_segment": "bull"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.764706,
+        "diagnostic_signal": "stress_fragile",
+        "model": "ridge_mse__all_features",
+        "review_note": "ridge_mse__all_features 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 downtrend；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 14,
+        "weakness_segment_count": 21,
+        "worst_segment": "downtrend"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": -0.661765,
+        "diagnostic_signal": "stress_fragile",
+        "model": "random_forest_clf__top_ic_factors",
+        "review_note": "random_forest_clf__top_ic_factors 在压力或下跌分段弱于基准 ridge_mse__ic_weighted_composite，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 7,
+        "weakness_segment_count": 21,
+        "worst_segment": "all"
+      },
+      {
+        "baseline_model": "ridge_mse__ic_weighted_composite",
+        "consistency_score": 0.470588,
+        "diagnostic_signal": "regime_fragile",
+        "model": "random_forest_clf__ic_weighted_composite",
+        "review_note": "random_forest_clf__ic_weighted_composite 的弱点集中在多个 regime/window 分段，最弱分段为 all；需要拆分区间和 regime 重新验证适配性。",
+        "stress_negative_count": 0,
+        "weakness_segment_count": 6,
+        "worst_segment": "all"
+      }
     ],
     "top_review": {
       "baseline_model": "ridge_mse__ic_weighted_composite",
