@@ -1330,3 +1330,35 @@ def test_model_dashboard_refresh_reports_failure_after_retry_budget(tmp_path):
     ]
     assert "permanent failure" in result.detail
     assert events == ["model_dashboard_refresh:failed"]
+
+
+def test_model_dashboard_refresh_detailed_failure_notification_includes_retry_metadata(tmp_path):
+    events: list[str] = []
+
+    def failing_matrix_runner(**kwargs):
+        raise RuntimeError("permanent failure")
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        retries=1,
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=failing_matrix_runner,
+    )
+
+    assert result.status == "failed"
+    assert result.payload["retry_error_count"] == 2
+    assert events == [
+        "model_dashboard_refresh:failed | attempts=2 | retry_errors=2 | "
+        "last_error=RuntimeError:permanent failure"
+    ]

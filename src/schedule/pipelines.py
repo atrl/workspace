@@ -21,7 +21,7 @@ from src.data import build_canonical_snapshot, publish_canonical_snapshot
 from src.dashboard import build_dashboard_view_model, write_dashboard_html, write_model_matrix_dashboard_export
 from src.model import run_factor_feature_set_matrix
 
-from .jobs import JobResult, ScheduleJob, run_job_once, run_task_with_retries
+from .jobs import JobResult, ScheduleJob, ScheduleRetryError, run_job_once, run_task_with_retries
 
 
 DEFAULT_ANALYSIS_MANIFEST_CALENDAR_PATH = "data/qlib/soxl/calendars/day.txt"
@@ -210,7 +210,7 @@ def _data_update_task_with_retries(
 
 def _data_update_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
     if status != "success":
-        return f"{job_name}:{status}"
+        return _retry_failure_notification(job_name, status, payload)
     return (
         f"{job_name}:success"
         f" | dataset={payload.get('dataset_key', '')}"
@@ -219,6 +219,22 @@ def _data_update_notification(job_name: str, status: str, payload: dict[str, Any
         f" | attempts={payload.get('attempts', '')}"
         f" | manifest={payload.get('manifest_path', '')}"
     )
+
+
+def _retry_failure_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
+    message = f"{job_name}:{status}"
+    if str(payload.get("retry_schema_version", "")) != "schedule.retry_attempts.v1":
+        return message
+    retry_errors = payload.get("retry_errors")
+    retry_rows = retry_errors if isinstance(retry_errors, list) else []
+    last_error = retry_rows[-1] if retry_rows and isinstance(retry_rows[-1], dict) else {}
+    message += (
+        f" | attempts={int(payload.get('attempts', 0) or 0)}"
+        f" | retry_errors={int(payload.get('retry_error_count', 0) or 0)}"
+    )
+    if last_error:
+        message += f" | last_error={last_error.get('error_type', '')}:{last_error.get('message', '')}"
+    return message
 
 
 def run_data_update_once(
@@ -234,12 +250,16 @@ def run_data_update_once(
 
     def task() -> dict[str, Any]:
         nonlocal latest_payload
-        latest_payload = _data_update_task_with_retries(
-            config,
-            frame_provider=frame_provider,
-            calendar_provider=calendar_provider,
-        )
-        return latest_payload
+        try:
+            latest_payload = _data_update_task_with_retries(
+                config,
+                frame_provider=frame_provider,
+                calendar_provider=calendar_provider,
+            )
+            return latest_payload
+        except ScheduleRetryError as exc:
+            latest_payload = dict(exc.payload)
+            raise
 
     def notify_with_details(message: str) -> None:
         if notify is None:
@@ -501,7 +521,7 @@ def _production_health_task_with_retries(config: ProductionHealthCheckConfig) ->
 
 def _production_health_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
     if status != "success":
-        return f"{job_name}:{status}"
+        return _retry_failure_notification(job_name, status, payload)
     paper_execution_schema = str(payload.get("paper_execution_pipeline_schema_version", ""))
     paper_execution_status = str(payload.get("paper_execution_job_status", ""))
     paper_execution = ""
@@ -544,8 +564,12 @@ def run_production_health_check_once(
 
     def task() -> dict[str, Any]:
         nonlocal latest_payload
-        latest_payload = _production_health_task_with_retries(config)
-        return latest_payload
+        try:
+            latest_payload = _production_health_task_with_retries(config)
+            return latest_payload
+        except ScheduleRetryError as exc:
+            latest_payload = dict(exc.payload)
+            raise
 
     def notify_with_details(message: str) -> None:
         if notify is None:
@@ -659,7 +683,7 @@ def _paper_execution_task_with_retries(config: PaperExecutionPipelineConfig) -> 
 
 def _paper_execution_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
     if status != "success":
-        return f"{job_name}:{status}"
+        return _retry_failure_notification(job_name, status, payload)
     quote = payload.get("quote") if isinstance(payload.get("quote"), dict) else {}
     snapshot = payload.get("snapshot") if isinstance(payload.get("snapshot"), dict) else {}
     message = (
@@ -698,8 +722,12 @@ def run_paper_execution_once(
 
     def task() -> dict[str, Any]:
         nonlocal latest_payload
-        latest_payload = _paper_execution_task_with_retries(config)
-        return latest_payload
+        try:
+            latest_payload = _paper_execution_task_with_retries(config)
+            return latest_payload
+        except ScheduleRetryError as exc:
+            latest_payload = dict(exc.payload)
+            raise
 
     def notify_with_details(message: str) -> None:
         if notify is None:
@@ -1191,7 +1219,7 @@ def _task_with_retries(
 
 def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
     if status != "success":
-        return f"{job_name}:{status}"
+        return _retry_failure_notification(job_name, status, payload)
     message = (
         f"{job_name}:success"
         f" | top_model={payload.get('top_model', '')}"
@@ -1271,13 +1299,17 @@ def run_model_dashboard_refresh_once(
 
     def task() -> dict[str, Any]:
         nonlocal latest_payload
-        latest_payload = _task_with_retries(
-            config,
-            matrix_runner=matrix_runner,
-            dashboard_exporter=dashboard_exporter,
-            dashboard_page_exporter=dashboard_page_exporter,
-        )
-        return latest_payload
+        try:
+            latest_payload = _task_with_retries(
+                config,
+                matrix_runner=matrix_runner,
+                dashboard_exporter=dashboard_exporter,
+                dashboard_page_exporter=dashboard_page_exporter,
+            )
+            return latest_payload
+        except ScheduleRetryError as exc:
+            latest_payload = dict(exc.payload)
+            raise
 
     def notify_with_details(message: str) -> None:
         if notify is None:

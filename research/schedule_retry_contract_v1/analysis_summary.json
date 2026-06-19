@@ -9,6 +9,7 @@
   "failed_job_status": "failed",
   "failed_job_attempts": 2,
   "failed_job_retry_error_count": 2,
+  "detailed_failure_notification": "model_dashboard_refresh:failed | attempts=2 | retry_errors=2 | last_error=RuntimeError:dashboard permanent failure",
   "promotion_decision": "promote_to_src_schedule_jobs",
   "risk_note": "该契约统一 retry 元数据，不替代具体 provider/API 的错误分类。"
 }
