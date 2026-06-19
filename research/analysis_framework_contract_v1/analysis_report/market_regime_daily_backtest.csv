@@ -1,0 +1,17 @@
+date,model,regime,nav,benchmark_nav,position,turnover,market_regime,regime_tags,regime_reason,vix,trend,drawdown,realized_vol,volume_z,relative_strength
+2026-01-01,ridge_mse,bull,1.0,1.0,0.3,0.0,bull,low_vix|low_volatility|uptrend,低 VIX 上行 regime：风险偏好较高，检查模型是否能捕捉趋势。,17.0,0.04,0.0,0.01,0.0,0.0
+2026-01-02,ridge_mse,bull,1.02,1.03,0.4,0.1,bull,low_vix|low_volatility|uptrend,低 VIX 上行 regime：风险偏好较高，检查模型是否能捕捉趋势。,18.0,0.05,0.0,0.015,0.2,0.0
+2026-01-03,ridge_mse,bull,1.04,1.04,0.4,0.0,bull,low_vix|low_volatility|uptrend,低 VIX 上行 regime：风险偏好较高，检查模型是否能捕捉趋势。,19.0,0.04,0.0,0.018,0.3,0.0
+2026-01-04,ridge_mse,volume_shock,1.01,1.0,0.2,0.2,volume_shock,low_volatility|volume_shock|sideways,成交量冲击 regime：成交量显著偏离滚动均值，检查换手和滑点。,22.0,0.0,-0.02,0.02,2.4,0.0
+2026-01-05,ridge_mse,stress,0.99,0.91,0.2,0.0,stress,high_vix|deep_drawdown|high_volatility|downtrend,压力 regime：VIX 高企或深度回撤，优先检查防守表现。,36.0,-0.12,-0.16,0.06,0.7,0.0
+2026-01-06,ridge_mse,high_vol_uptrend,1.0,0.94,0.3,0.1,high_vol_uptrend,drawdown|high_volatility|uptrend,高波动上行 regime：趋势强但波动高，检查追涨和仓位弹性。,25.0,0.04,-0.08,0.05,0.4,0.0
+2026-01-07,ridge_mse,stress,1.01,0.92,0.2,0.1,stress,deep_drawdown|high_volatility|downtrend,压力 regime：VIX 高企或深度回撤，优先检查防守表现。,24.0,-0.04,-0.1,0.052,0.2,0.0
+2026-01-08,ridge_mse,bull,1.03,0.97,0.3,0.1,bull,low_vix|drawdown|low_volatility|uptrend,低 VIX 上行 regime：风险偏好较高，检查模型是否能捕捉趋势。,18.0,0.03,-0.04,0.018,0.1,0.0
+2026-01-01,gcn_mse,bull,1.0,1.0,0.3,0.0,bull,low_vix|low_volatility|uptrend,低 VIX 上行 regime：风险偏好较高，检查模型是否能捕捉趋势。,17.0,0.04,0.0,0.01,0.0,0.0
+2026-01-02,gcn_mse,bull,1.05,1.03,0.4,0.1,bull,low_vix|low_volatility|uptrend,低 VIX 上行 regime：风险偏好较高，检查模型是否能捕捉趋势。,18.0,0.05,0.0,0.015,0.2,0.0
+2026-01-03,gcn_mse,bull,1.08,1.04,0.4,0.0,bull,low_vix|low_volatility|uptrend,低 VIX 上行 regime：风险偏好较高，检查模型是否能捕捉趋势。,19.0,0.04,0.0,0.018,0.3,0.0
+2026-01-04,gcn_mse,volume_shock,1.04,1.0,0.2,0.2,volume_shock,low_volatility|volume_shock|sideways,成交量冲击 regime：成交量显著偏离滚动均值，检查换手和滑点。,22.0,0.0,-0.02,0.02,2.4,0.0
+2026-01-05,gcn_mse,stress,0.94,0.91,0.2,0.0,stress,high_vix|deep_drawdown|high_volatility|downtrend,压力 regime：VIX 高企或深度回撤，优先检查防守表现。,36.0,-0.12,-0.16,0.06,0.7,0.0
+2026-01-06,gcn_mse,high_vol_uptrend,0.97,0.94,0.3,0.1,high_vol_uptrend,drawdown|high_volatility|uptrend,高波动上行 regime：趋势强但波动高，检查追涨和仓位弹性。,25.0,0.04,-0.08,0.05,0.4,0.0
+2026-01-07,gcn_mse,stress,0.96,0.92,0.2,0.1,stress,deep_drawdown|high_volatility|downtrend,压力 regime：VIX 高企或深度回撤，优先检查防守表现。,24.0,-0.04,-0.1,0.052,0.2,0.0
+2026-01-08,gcn_mse,bull,1.02,0.97,0.3,0.1,bull,low_vix|drawdown|low_volatility|uptrend,低 VIX 上行 regime：风险偏好较高，检查模型是否能捕捉趋势。,18.0,0.03,-0.04,0.018,0.1,0.0

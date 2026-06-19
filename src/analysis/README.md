@@ -5,6 +5,29 @@ regime/window 分段结果转成统一的可审阅 artifact。skill 只用于提
 拆 regime、解释模型差异或生成假设，不保存项目状态，也不作为 dashboard、
 schedule 或 production 的功能入口。
 
+## 稳定 Pipeline 入口
+
+`src/analysis/pipeline.py` 是 notebook、dashboard export、schedule 和 future
+production 的推荐入口。普通实验优先创建 `AnalysisSpec`，再调用
+`build_model_regime_comparison_report(...)` 生成 `AnalysisReport`。底层
+`qlib_ext.py`、`regimes.py`、`reports.py`、`market_report.py` 和
+`qlib_recorder.py` 继续保留为可测计算单元。
+
+`AnalysisSpec` 保存可复用分析契约：`artifact_id`、`baseline_model`、
+`windows`、`market_regime_config`、`freq`、`source_type` 和中文
+`summary_note`。它不保存单次研究结论；结论仍属于
+`research/<experiment>/<experiment>.ipynb` 或
+`production/<strategy>/<strategy>.ipynb`。
+
+`build_model_regime_comparison_report(...)` 当前支持三类稳定输入：
+
+1. `source_type="daily_backtest"`：直接比较已有 daily backtest 的全区间、
+   regime、window 和 window_regime 表现。
+2. `source_type="market_panel"`：先用 market panel 生成/覆盖 market regime，
+   再生成统一模型差异报告。
+3. `source_type="qlib_recorder"`：先归一化 qlib recorder artifact，再生成同一套
+   regime/window/model-diff 输出。
+
 ## 稳定输入
 
 - `daily_backtest` 风格表：至少包含 `date`、`model`、`nav`，可选

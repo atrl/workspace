@@ -1,0 +1,65 @@
+{
+  "artifact_id": "analysis_framework_contract_v1",
+  "artifact_type": "analysis_report",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "sample_daily_backtest.csv",
+      "sample_market_panel.csv"
+    ],
+    "end": "2026-01-08",
+    "metadata": {},
+    "name": "analysis_framework_contract_v1",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-01",
+    "universe": [
+      "SOXL",
+      "SOXX",
+      "VIX"
+    ]
+  },
+  "metadata": {
+    "analysis_pipeline_schema_version": "analysis.spec.v1",
+    "analysis_report_schema_version": "analysis.report.v1",
+    "market_regime_schema_version": "analysis.market_regime.v1",
+    "source_type": "market_panel",
+    "table_counts": {
+      "failure_modes": 3,
+      "market_regime_counts": 4,
+      "market_regime_daily_backtest": 16,
+      "market_regimes": 8,
+      "model_comparison": 2,
+      "model_effect_deltas": 22,
+      "model_regime_window_diagnostics": 2,
+      "model_review_briefing": 3,
+      "qlib_return_frame": 16,
+      "qlib_risk_metrics": 44,
+      "regime_metrics": 8,
+      "segment_effect_matrix": 11,
+      "segment_metrics": 22,
+      "window_metrics": 4,
+      "window_regime_metrics": 8
+    }
+  },
+  "paths": {
+    "failure_modes": "failure_modes.csv",
+    "market_regime_counts": "market_regime_counts.csv",
+    "market_regime_daily_backtest": "market_regime_daily_backtest.csv",
+    "market_regimes": "market_regimes.csv",
+    "model_comparison": "model_comparison.csv",
+    "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
+    "model_review_briefing": "model_review_briefing.csv",
+    "qlib_return_frame": "qlib_return_frame.csv",
+    "qlib_risk_metrics": "qlib_risk_metrics.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "segment_effect_matrix": "segment_effect_matrix.csv",
+    "segment_metrics": "segment_metrics.csv",
+    "summary": "analysis_summary.json",
+    "window_metrics": "window_metrics.csv",
+    "window_regime_metrics": "window_regime_metrics.csv"
+  },
+  "producer": "src.analysis.exports",
+  "schema_version": "artifact.v1",
+  "manifest_hash": "e248952483b109a8d4e521351016775575f562ef0f916e9c55cc350ced898ed9"
+}
