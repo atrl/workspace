@@ -325,6 +325,44 @@ def _schedule_health_panel(view_model: dict[str, Any]) -> str:
     """
 
 
+def _objective_loss_panel(view_model: dict[str, Any]) -> str:
+    summary = (
+        view_model.get("objective_loss_summary", {})
+        if isinstance(view_model.get("objective_loss_summary"), dict)
+        else {}
+    )
+    if not summary:
+        return ""
+    components = summary.get("loss_components")
+    component_rows = components if isinstance(components, list) else []
+    rows = "\n".join(
+        "<li>"
+        f"<span>{escape(str(component.get('name', '')))}</span>"
+        f"<strong>{_metric(component.get('value', 0.0), digits=4)}</strong>"
+        "</li>"
+        for component in component_rows
+        if isinstance(component, dict)
+    )
+    if not rows:
+        rows = '<li class="muted">暂无 objective loss component</li>'
+    top = summary.get("top_loss_component") if isinstance(summary.get("top_loss_component"), dict) else {}
+    return f"""
+    <section class="objective-loss" aria-label="objective loss summary">
+      <header>
+        <h2>Objective Loss</h2>
+        <p>{escape(str(summary.get('objective_loss_schema_version', '')))}</p>
+      </header>
+      <div class="objective-loss-grid">
+        <div><span>Direction</span><strong>{escape(str(summary.get('optimization_direction', '')))}</strong></div>
+        <div><span>Reward Surface</span><strong>{escape(str(summary.get('reward_surface', '')))}</strong></div>
+        <div><span>Rows</span><strong>{escape(str(summary.get('row_count', 0)))}</strong><p>rank groups {escape(str(summary.get('rank_group_count', 0)))}</p></div>
+        <div><span>Top Loss</span><strong>{escape(str(top.get('name', '')))}</strong><p>{_metric(top.get('value', 0.0), digits=4)}</p></div>
+      </div>
+      <ul class="objective-loss-components">{rows}</ul>
+    </section>
+    """
+
+
 def _model_card(card: dict[str, Any]) -> str:
     model = str(card.get("model", ""))
     fidelity = str(card.get("paper_fidelity", ""))
@@ -453,6 +491,8 @@ def _style() -> str:
     .notebook-readiness header { margin-bottom: 10px; }
     .schedule-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .schedule-health header { margin-bottom: 10px; }
+    .objective-loss { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .objective-loss header { margin-bottom: 10px; }
     .model-difference-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .model-difference-overview header { margin-bottom: 10px; }
     .health-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
@@ -475,6 +515,15 @@ def _style() -> str:
     .schedule-jobs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
     .schedule-jobs li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .schedule-jobs span, .schedule-jobs p { grid-column: 1 / -1; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; margin: 0; }
+    .objective-loss-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .objective-loss-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .objective-loss-grid span { color: var(--muted); font-size: 12px; }
+    .objective-loss-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .objective-loss-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .objective-loss-components { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
+    .objective-loss-components li { display: flex; justify-content: space-between; gap: 10px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .objective-loss-components span { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .objective-loss-components strong { font-size: 13px; }
     .overview-grid { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 10px; }
     .overview-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .overview-grid span { color: var(--muted); font-size: 12px; }
@@ -528,7 +577,7 @@ def _style() -> str:
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .schedule-health .schedule-grid, .schedule-health .schedule-jobs, .model-difference-overview .difference-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .schedule-health .schedule-grid, .schedule-health .schedule-jobs, .objective-loss .objective-loss-grid, .objective-loss .objective-loss-components, .model-difference-overview .difference-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     """
 
 
@@ -603,6 +652,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     production_health_panel = _production_health_panel(view_model)
     notebook_readiness_panel = _notebook_card_readiness_panel(view_model)
     schedule_health_panel = _schedule_health_panel(view_model)
+    objective_loss_panel = _objective_loss_panel(view_model)
     cards = "\n".join(_model_card(card) for card in model_cards)
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -637,6 +687,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     {overview_panel}
     {model_difference_panel}
     {schedule_health_panel}
+    {objective_loss_panel}
     {production_health_panel}
     {notebook_readiness_panel}
     <section class="summary">

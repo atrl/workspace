@@ -263,6 +263,27 @@ def _dashboard_payload_with_schedule_health() -> dict:
     return payload
 
 
+def _dashboard_payload_with_objective_losses() -> dict:
+    payload = _dashboard_payload()
+    payload["artifacts"]["objective_losses"] = "/path/that/must/not/be_read.json"
+    payload["objective"] = {
+        **payload.get("objective", {}),
+        "losses": {
+            "schema_version": "objective.loss.v1",
+            "metric_source_schema_version": "objective.evaluation.v1",
+            "optimization_direction": "minimize",
+            "reward_surface": "retired",
+            "row_count": 78,
+            "mse_loss": 0.0274,
+            "classification_loss": 0.4359,
+            "ic_loss": 0.9774,
+            "ranking_loss": 1.0,
+            "rank_group_count": 0,
+        },
+    }
+    return payload
+
+
 def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_payload_only():
     payload = _dashboard_payload()
 
@@ -444,6 +465,29 @@ def test_dashboard_view_model_preserves_schedule_health_from_export_payload_only
     assert view["schedule_health"]["top_failure_job"] == "model_dashboard_refresh"
     assert view["schedule_health"]["top_failure_last_error"] == "RuntimeError:permanent failure"
     assert view["schedule_health"]["jobs"][0]["last_error_message"] == "permanent failure"
+    assert "artifacts" not in view
+
+
+def test_dashboard_view_model_exposes_objective_loss_summary_from_export_payload_only():
+    view = build_dashboard_view_model(_dashboard_payload_with_objective_losses())
+
+    summary = view["objective_loss_summary"]
+    assert summary["schema_version"] == "dashboard.objective_loss_summary.v1"
+    assert summary["objective_loss_schema_version"] == "objective.loss.v1"
+    assert summary["metric_source_schema_version"] == "objective.evaluation.v1"
+    assert summary["optimization_direction"] == "minimize"
+    assert summary["reward_surface"] == "retired"
+    assert summary["row_count"] == 78
+    assert summary["rank_group_count"] == 0
+    assert summary["loss_component_count"] == 4
+    assert [component["name"] for component in summary["loss_components"]] == [
+        "mse_loss",
+        "classification_loss",
+        "ic_loss",
+        "ranking_loss",
+    ]
+    assert summary["top_loss_component"]["name"] == "ranking_loss"
+    assert summary["top_loss_component"]["value"] == 1.0
     assert "artifacts" not in view
 
 

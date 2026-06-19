@@ -289,6 +289,27 @@ def _view_model_with_schedule_health() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_objective_losses() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"objective_losses": "/path/that/must/not/be/rendered.json"}
+    payload["objective"] = {
+        **payload.get("objective", {}),
+        "losses": {
+            "schema_version": "objective.loss.v1",
+            "metric_source_schema_version": "objective.evaluation.v1",
+            "optimization_direction": "minimize",
+            "reward_surface": "retired",
+            "row_count": 78,
+            "mse_loss": 0.0274,
+            "classification_loss": 0.4359,
+            "ic_loss": 0.9774,
+            "ranking_loss": 1.0,
+            "rank_group_count": 0,
+        },
+    }
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -385,6 +406,22 @@ def test_render_dashboard_html_outputs_schedule_health_retry_panel_without_sidec
     assert "attempts 2" in html
     assert "retry_errors 2" in html
     assert "RuntimeError:permanent failure" in html
+    assert "/path/that/must/not/be/rendered.json" not in html
+
+
+def test_render_dashboard_html_outputs_objective_loss_panel_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_objective_losses(), title="SOXL Objective Loss")
+
+    assert "Objective Loss" in html
+    assert "objective.loss.v1" in html
+    assert "retired" in html
+    assert "minimize" in html
+    assert "mse_loss" in html
+    assert "classification_loss" in html
+    assert "ic_loss" in html
+    assert "ranking_loss" in html
+    assert "0.0274" in html
+    assert "1.0000" in html
     assert "/path/that/must/not/be/rendered.json" not in html
 
 

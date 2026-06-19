@@ -297,6 +297,36 @@ def _readiness_overview(payload: dict[str, Any]) -> dict[str, Any]:
     return build_dashboard_readiness_overview(payload)
 
 
+def _objective_loss_summary(payload: dict[str, Any]) -> dict[str, Any]:
+    objective = payload.get("objective") if isinstance(payload.get("objective"), dict) else {}
+    losses = objective.get("losses") if isinstance(objective, dict) and isinstance(objective.get("losses"), dict) else {}
+    if not losses:
+        return {}
+    component_names = ("mse_loss", "classification_loss", "ic_loss", "ranking_loss")
+    components: list[dict[str, Any]] = []
+    for name in component_names:
+        if name not in losses:
+            continue
+        try:
+            value = float(losses.get(name, 0.0) or 0.0)
+        except (TypeError, ValueError):
+            value = 0.0
+        components.append({"name": name, "value": value})
+    top_component = max(components, key=lambda item: float(item["value"])) if components else {}
+    return {
+        "schema_version": "dashboard.objective_loss_summary.v1",
+        "objective_loss_schema_version": str(losses.get("schema_version", "")),
+        "metric_source_schema_version": str(losses.get("metric_source_schema_version", "")),
+        "optimization_direction": str(losses.get("optimization_direction", "")),
+        "reward_surface": str(losses.get("reward_surface", "")),
+        "row_count": int(losses.get("row_count", 0) or 0),
+        "rank_group_count": int(losses.get("rank_group_count", 0) or 0),
+        "loss_component_count": int(len(components)),
+        "loss_components": components,
+        "top_loss_component": top_component,
+    }
+
+
 def _matches_card(
     *,
     model: str,
@@ -500,6 +530,7 @@ def build_dashboard_view_model(
         if isinstance(payload.get("schedule_health"), dict)
         else {},
         "readiness_overview": _readiness_overview(payload),
+        "objective_loss_summary": _objective_loss_summary(payload),
         "comparison_table": [dict(row) for row in top_models],
         "failure_mode_summary": {
             "count": int(len(failure_modes)),
