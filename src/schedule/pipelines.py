@@ -8,6 +8,13 @@ from typing import Any, Callable, Iterable
 import pandas as pd
 
 from src.analysis import backfill_analysis_manifest, scan_analysis_cards
+from src.api import (
+    PaperBrokerAdapter,
+    PaperMarketDataAdapter,
+    build_target_position_intent_from_dashboard,
+    execute_paper_intent,
+    write_intent_ledger,
+)
 from src.core import production_manifest_content_hash
 from src.data import build_canonical_snapshot, publish_canonical_snapshot
 from src.dashboard import build_dashboard_view_model, write_dashboard_html, write_model_matrix_dashboard_export
@@ -74,6 +81,26 @@ class ProductionHealthCheckConfig:
         "data_registry",
         "analysis_manifest",
     )
+    notify_details: bool = False
+    retries: int = 0
+
+
+@dataclass(frozen=True)
+class PaperExecutionPipelineConfig:
+    name: str
+    dashboard_export_path: Path
+    data_registry_path: Path
+    dataset_key: str
+    instrument: str
+    intent_ledger_path: Path
+    paper_execution_result_path: Path
+    mode: str = "paper"
+    min_position: float = 0.0
+    max_position: float = 1.0
+    price_field: str = "close"
+    as_of: str | None = None
+    initial_cash: float = 10000.0
+    initial_shares: int = 0
     notify_details: bool = False
     retries: int = 0
 
@@ -355,6 +382,140 @@ def run_production_health_check_once(
             return
         _, _, status = message.partition(":")
         notify(_production_health_notification(config.name, status, latest_payload))
+
+    return run_job_once(
+        job,
+        task=task,
+        lock_dir=lock_dir,
+        notify=notify_with_details if notify is not None else None,
+    )
+
+
+def _snapshot_payload(snapshot: Any) -> dict[str, Any]:
+    return {
+        "cash": float(snapshot.cash),
+        "shares": int(snapshot.shares),
+        "price": float(snapshot.price),
+        "account_value": float(snapshot.account_value),
+        "position": float(snapshot.position),
+    }
+
+
+def _read_dashboard_export(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        raise FileNotFoundError(str(path))
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("dashboard export must be a JSON object")
+    return payload
+
+
+def _paper_execution_attempt(config: PaperExecutionPipelineConfig) -> dict[str, Any]:
+    if config.mode not in {"paper", "sim"}:
+        raise ValueError("paper execution pipeline only supports paper/sim mode")
+
+    dashboard_payload = _read_dashboard_export(Path(config.dashboard_export_path))
+    market_data = PaperMarketDataAdapter.from_registry(
+        config.data_registry_path,
+        dataset_key=config.dataset_key,
+        as_of=config.as_of,
+        price_field=config.price_field,
+    )
+    quote = market_data.latest_quote(config.instrument)
+    intent = build_target_position_intent_from_dashboard(
+        dashboard_payload,
+        instrument=config.instrument,
+        min_position=config.min_position,
+        max_position=config.max_position,
+        mode=config.mode,
+    )
+    broker = PaperBrokerAdapter(cash=config.initial_cash, shares=config.initial_shares)
+    result = execute_paper_intent(intent, broker=broker, price=quote.price)
+
+    write_intent_ledger(config.intent_ledger_path, intent=intent, result=result)
+    output = Path(config.paper_execution_result_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(result.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+
+    metadata = intent.metadata or {}
+    return {
+        "schema_version": "schedule.paper_execution.v1",
+        "status": result.status,
+        "live_broker_enabled": False,
+        "mode": config.mode,
+        "guardrail": intent.guardrail,
+        "instrument": intent.instrument,
+        "dataset_key": config.dataset_key,
+        "dashboard_export_path": str(config.dashboard_export_path),
+        "data_registry_path": str(config.data_registry_path),
+        "intent_ledger_path": str(config.intent_ledger_path),
+        "paper_execution_result_path": str(config.paper_execution_result_path),
+        "source_model": intent.source_model,
+        "source_artifact": intent.source_artifact,
+        "target_position": float(intent.target_position),
+        "execution_gate": str(metadata.get("execution_gate", "")),
+        "quote": quote.to_dict(),
+        "broker_name": result.broker_name,
+        "snapshot": _snapshot_payload(result.snapshot),
+    }
+
+
+def _paper_execution_task_with_retries(config: PaperExecutionPipelineConfig) -> dict[str, Any]:
+    attempts = 0
+    last_error: Exception | None = None
+    for attempt in range(config.retries + 1):
+        attempts = attempt + 1
+        try:
+            payload = _paper_execution_attempt(config)
+            payload["attempts"] = attempts
+            return payload
+        except Exception as exc:
+            last_error = exc
+            if attempt >= config.retries:
+                break
+    raise RuntimeError(str(last_error) if last_error else "paper execution failed")
+
+
+def _paper_execution_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
+    if status != "success":
+        return f"{job_name}:{status}"
+    quote = payload.get("quote") if isinstance(payload.get("quote"), dict) else {}
+    snapshot = payload.get("snapshot") if isinstance(payload.get("snapshot"), dict) else {}
+    return (
+        f"{job_name}:success"
+        f" | mode={payload.get('mode', '')}"
+        f" | gate={payload.get('execution_gate', '')}"
+        f" | model={payload.get('source_model', '')}"
+        f" | target={float(payload.get('target_position', 0.0) or 0.0):g}"
+        f" | quote={quote.get('instrument', '')}@{quote.get('date', '')}/"
+        f"{float(quote.get('price', 0.0) or 0.0):g}"
+        f" | shares={int(snapshot.get('shares', 0) or 0)}"
+        f" | ledger={payload.get('intent_ledger_path', '')}"
+    )
+
+
+def run_paper_execution_once(
+    config: PaperExecutionPipelineConfig,
+    *,
+    lock_dir: str | Path,
+    notify: Callable[[str], None] | None = None,
+) -> JobResult:
+    job = ScheduleJob(name=config.name, task="paper_execution", cron="manual")
+    latest_payload: dict[str, Any] = {}
+
+    def task() -> dict[str, Any]:
+        nonlocal latest_payload
+        latest_payload = _paper_execution_task_with_retries(config)
+        return latest_payload
+
+    def notify_with_details(message: str) -> None:
+        if notify is None:
+            return
+        if not config.notify_details:
+            notify(message)
+            return
+        _, _, status = message.partition(":")
+        notify(_paper_execution_notification(config.name, status, latest_payload))
 
     return run_job_once(
         job,

@@ -1,0 +1,34 @@
+{
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "provider:unit"
+    ],
+    "end": "2026-01-05",
+    "metadata": {
+      "as_of": "2026-01-05",
+      "calendar_row_count": 2,
+      "canonical_frame_schema_version": "data.canonical_frame.v1",
+      "column_count": 4,
+      "date_column": "date",
+      "dropped_non_calendar_rows": 0,
+      "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+      "row_count": 2,
+      "source_paths": [
+        "provider:unit"
+      ]
+    },
+    "name": "schedule_paper_execution_unit_daily",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-02",
+    "universe": [
+      "SOXL"
+    ]
+  },
+  "dataset_schema_hash": "6b41beef386785f2d75839d56e7cb29ae1f3a498c551138c1a2a44f5c2906b67",
+  "paths": {
+    "dataset_snapshot": "dataset_snapshot.json",
+    "frame": "canonical_frame.csv"
+  },
+  "schema_version": "data.canonical_snapshot.export.v1"
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "dashboard.model_matrix.v1",
+  "artifact_id": "schedule_paper_execution_unit_dashboard",
+  "artifact_type": "dashboard_export",
+  "top_models": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__all_features",
+      "base_model": "ridge_mse",
+      "feature_set": "all_features",
+      "avg_position": 0.5,
+      "stability_score": 4.0,
+      "max_drawdown_pct": 8.0
+    }
+  ],
+  "objective": {
+    "promotion_scores": [
+      {
+        "rank": 1,
+        "model": "ridge_mse__all_features",
+        "promotion_score": 12.0,
+        "promotion_decision": "promote_candidate",
+        "promotion_blockers": ""
+      }
+    ]
+  }
+}

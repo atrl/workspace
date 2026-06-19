@@ -1,0 +1,38 @@
+{
+  "datasets": {
+    "daily.schedule_paper_execution_unit": {
+      "current": {
+        "as_of": "2026-01-05",
+        "dataset_key": "daily.schedule_paper_execution_unit",
+        "dataset_name": "schedule_paper_execution_unit_daily",
+        "dataset_schema_hash": "6b41beef386785f2d75839d56e7cb29ae1f3a498c551138c1a2a44f5c2906b67",
+        "end": "2026-01-05",
+        "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+        "manifest_hash": "16512c3a5fe567e1ca93fcb97ef422b2a9ad7162d1ad52dcf9bf6e50642fb056",
+        "manifest_path": "research/schedule_paper_execution_v1/data/snapshots/schedule_paper_execution_unit_daily/2026-01-05/data_update_manifest.json",
+        "published_at": "2026-01-05T21:00:00Z",
+        "row_count": 2,
+        "snapshot_path": "research/schedule_paper_execution_v1/data/snapshots/schedule_paper_execution_unit_daily/2026-01-05",
+        "start": "2026-01-02"
+      },
+      "history": [
+        {
+          "as_of": "2026-01-05",
+          "dataset_key": "daily.schedule_paper_execution_unit",
+          "dataset_name": "schedule_paper_execution_unit_daily",
+          "dataset_schema_hash": "6b41beef386785f2d75839d56e7cb29ae1f3a498c551138c1a2a44f5c2906b67",
+          "end": "2026-01-05",
+          "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+          "manifest_hash": "16512c3a5fe567e1ca93fcb97ef422b2a9ad7162d1ad52dcf9bf6e50642fb056",
+          "manifest_path": "research/schedule_paper_execution_v1/data/snapshots/schedule_paper_execution_unit_daily/2026-01-05/data_update_manifest.json",
+          "published_at": "2026-01-05T21:00:00Z",
+          "row_count": 2,
+          "snapshot_path": "research/schedule_paper_execution_v1/data/snapshots/schedule_paper_execution_unit_daily/2026-01-05",
+          "start": "2026-01-02"
+        }
+      ]
+    }
+  },
+  "registry_hash": "ad5c7ec61ca64698f38c755f764a24dafb347d497243342161f8923e1e703e8c",
+  "schema_version": "data.registry.v1"
+}

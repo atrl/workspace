@@ -1,0 +1,21 @@
+{
+  "schema_version": "research.schedule_paper_execution_v1.summary",
+  "status": "success",
+  "pipeline_schema_version": "schedule.paper_execution.v1",
+  "live_broker_enabled": false,
+  "mode": "paper",
+  "instrument": "SOXL",
+  "dataset_key": "daily.schedule_paper_execution_unit",
+  "source_model": "ridge_mse__all_features",
+  "execution_gate": "paper_review",
+  "target_position": 0.5,
+  "quote_date": "2026-01-05",
+  "quote_price": 12.0,
+  "shares": 41,
+  "realized_position": 0.492,
+  "intent_ledger": "research/schedule_paper_execution_v1/intent_ledger.json",
+  "paper_execution_result": "research/schedule_paper_execution_v1/paper_execution_result.json",
+  "notifications": [
+    "schedule_paper_execution_v1:success | mode=paper | gate=paper_review | model=ridge_mse__all_features | target=0.5 | quote=SOXL@2026-01-05/12 | shares=41 | ledger=research/schedule_paper_execution_v1/intent_ledger.json"
+  ]
+}
