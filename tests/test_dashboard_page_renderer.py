@@ -152,6 +152,11 @@ def _view_model_with_production_health() -> dict:
         "live_broker_enabled": False,
         "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
         "paper_execution_job_status": "success",
+        "paper_execution_objective_loss_schema_version": "objective.loss.v1",
+        "paper_execution_objective_loss_status": "review",
+        "paper_execution_objective_loss_reward_surface": "retired",
+        "paper_execution_objective_loss_top_component": "ranking_loss",
+        "paper_execution_objective_loss_top_value": 1.0,
         "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
         "missing_required_paths": [],
         "checked_path_count": 7,
@@ -350,6 +355,10 @@ def test_render_dashboard_html_outputs_production_health_panel_without_sidecar_p
     assert "Paper Execution" in html
     assert "schedule.paper_execution.v1" in html
     assert "success" in html
+    assert "Objective Loss" in html
+    assert "objective.loss.v1 / review" in html
+    assert "ranking_loss: 1" in html
+    assert "retired" in html
     assert "/path/that/must/not/be/rendered.json" not in html
 
 

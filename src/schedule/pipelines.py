@@ -408,6 +408,65 @@ def _production_dashboard_manifest_health_status(status: str) -> str:
     return f"dashboard_manifest_source_{status or 'missing'}"
 
 
+def _json_object_from_path(path_value: str) -> dict[str, Any]:
+    if not path_value:
+        return {}
+    try:
+        payload = json.loads(Path(path_value).read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _intent_metadata_from_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    intent = payload.get("intent")
+    if isinstance(intent, dict) and isinstance(intent.get("metadata"), dict):
+        return dict(intent["metadata"])
+    execution_result = payload.get("execution_result")
+    if isinstance(execution_result, dict):
+        result_intent = execution_result.get("intent")
+        if isinstance(result_intent, dict) and isinstance(result_intent.get("metadata"), dict):
+            return dict(result_intent["metadata"])
+    return {}
+
+
+def _production_paper_execution_objective_loss_payload(
+    *,
+    paper_execution_result_path: str,
+    intent_ledger_path: str,
+) -> dict[str, Any]:
+    metadata: dict[str, Any] = {}
+    for path_value in (paper_execution_result_path, intent_ledger_path):
+        candidate = _intent_metadata_from_payload(_json_object_from_path(path_value))
+        if candidate.get("objective_loss_schema_version"):
+            metadata = candidate
+            break
+    if not metadata:
+        return {}
+
+    return {
+        "paper_execution_objective_loss_schema_version": str(metadata.get("objective_loss_schema_version", "")),
+        "paper_execution_objective_loss_metric_source_schema_version": str(
+            metadata.get("objective_loss_metric_source_schema_version", "")
+        ),
+        "paper_execution_objective_loss_status": str(metadata.get("objective_loss_status", "")),
+        "paper_execution_objective_loss_detail": str(metadata.get("objective_loss_detail", "")),
+        "paper_execution_objective_loss_optimization_direction": str(
+            metadata.get("objective_loss_optimization_direction", "")
+        ),
+        "paper_execution_objective_loss_reward_surface": str(metadata.get("objective_loss_reward_surface", "")),
+        "paper_execution_objective_loss_row_count": int(metadata.get("objective_loss_row_count", 0) or 0),
+        "paper_execution_objective_loss_rank_group_count": int(
+            metadata.get("objective_loss_rank_group_count", 0) or 0
+        ),
+        "paper_execution_objective_loss_component_count": int(
+            metadata.get("objective_loss_component_count", 0) or 0
+        ),
+        "paper_execution_objective_loss_top_component": str(metadata.get("objective_loss_top_component", "")),
+        "paper_execution_objective_loss_top_value": float(metadata.get("objective_loss_top_value", 0.0) or 0.0),
+    }
+
+
 def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str, Any]:
     registry_path = Path(config.registry_path)
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
@@ -450,12 +509,19 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         required=config.require_dashboard_manifest_source,
         allowed_kinds=config.dashboard_manifest_allowed_kinds,
     )
+    paper_objective_loss_payload = _production_paper_execution_objective_loss_payload(
+        paper_execution_result_path=resolved_paths.get("paper_execution_result", ""),
+        intent_ledger_path=resolved_paths.get("intent_ledger", ""),
+    )
     requested_contract_blocks = bool(config.require_requested_model_contract) and str(
         requested_contract_payload.get("requested_model_contract_status", "")
     ) != "complete"
     dashboard_manifest_blocks = bool(config.require_dashboard_manifest_source) and str(
         dashboard_manifest_payload.get("dashboard_manifest_status", "")
     ) != "complete"
+    paper_objective_loss_blocks = str(
+        paper_objective_loss_payload.get("paper_execution_objective_loss_status", "")
+    ) == "block"
     health_status = "healthy"
     if not registry_hash_matches or not content_hash_matches:
         health_status = "manifest_hash_mismatch"
@@ -467,6 +533,8 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         )
     elif requested_contract_blocks:
         health_status = f"requested_model_contract_{requested_contract_payload['requested_model_contract_status']}"
+    elif paper_objective_loss_blocks:
+        health_status = "paper_execution_objective_loss_blocked"
 
     payload = {
         "schema_version": "schedule.production_health.v1",
@@ -500,6 +568,7 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         "output_path": str(config.output_path) if config.output_path is not None else "",
         **dashboard_manifest_payload,
         **requested_contract_payload,
+        **paper_objective_loss_payload,
     }
     return payload
 
@@ -542,6 +611,15 @@ def _production_health_notification(job_name: str, status: str, payload: dict[st
             f" | dashboard_manifest={payload.get('dashboard_manifest_kind', '')}/"
             f"{payload.get('dashboard_manifest_status', '')}"
         )
+    objective_loss = ""
+    if payload.get("paper_execution_objective_loss_schema_version"):
+        objective_loss = (
+            f" | objective_loss={payload.get('paper_execution_objective_loss_schema_version', '')}/"
+            f"{payload.get('paper_execution_objective_loss_status', '')}"
+            f" top={payload.get('paper_execution_objective_loss_top_component', '')}:"
+            f"{payload.get('paper_execution_objective_loss_top_value', 0.0):g}"
+            f" reward={payload.get('paper_execution_objective_loss_reward_surface', '')}"
+        )
     return (
         f"{job_name}:success"
         f" | strategy={payload.get('strategy_id', '')}"
@@ -550,6 +628,7 @@ def _production_health_notification(job_name: str, status: str, payload: dict[st
         f"{dashboard_manifest}"
         f"{paper_execution}"
         f"{requested_models}"
+        f"{objective_loss}"
         f" | manifest={payload.get('manifest_path', '')}"
     )
 

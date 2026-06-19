@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOXL Production Health Objective Loss</title>
+  <style>
+    :root { color-scheme: light; --bg:#f7f8fa; --panel:#ffffff; --ink:#1f2933; --muted:#667085; --line:#d8dee8; --accent:#1b6b93; --warn:#8a4b0f; --good:#126b45; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); }
+    main { max-width: 1440px; margin: 0 auto; padding: 24px; }
+    header.page { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 18px; }
+    h1 { margin: 0 0 6px; font-size: 28px; font-weight: 700; letter-spacing: 0; }
+    h2 { margin: 0; font-size: 18px; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 14px; letter-spacing: 0; }
+    p { margin: 0; color: var(--muted); }
+    .toolbar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; padding: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; }
+    label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+    select { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 8px; }
+    .analysis-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .analysis-overview header { margin-bottom: 10px; }
+    .readiness-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .readiness-overview header { margin-bottom: 10px; }
+    .production-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .production-health header { margin-bottom: 10px; }
+    .notebook-readiness { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .notebook-readiness header { margin-bottom: 10px; }
+    .schedule-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .schedule-health header { margin-bottom: 10px; }
+    .objective-loss { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .objective-loss header { margin-bottom: 10px; }
+    .model-difference-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .model-difference-overview header { margin-bottom: 10px; }
+    .health-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
+    .health-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .health-grid span { color: var(--muted); font-size: 12px; }
+    .health-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .health-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .notebook-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
+    .notebook-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .notebook-grid span { color: var(--muted); font-size: 12px; }
+    .notebook-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .notebook-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .notebook-card-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding-left: 0; margin-top: 10px; }
+    .notebook-card-list li { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font-size: 12px; }
+    .schedule-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .schedule-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .schedule-grid span { color: var(--muted); font-size: 12px; }
+    .schedule-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .schedule-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .schedule-jobs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
+    .schedule-jobs li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .schedule-jobs span, .schedule-jobs p { grid-column: 1 / -1; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; margin: 0; }
+    .objective-loss-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .objective-loss-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .objective-loss-grid span { color: var(--muted); font-size: 12px; }
+    .objective-loss-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .objective-loss-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .objective-loss-components { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
+    .objective-loss-components li { display: flex; justify-content: space-between; gap: 10px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .objective-loss-components span { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .objective-loss-components strong { font-size: 13px; }
+    .overview-grid { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 10px; }
+    .overview-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .overview-grid span { color: var(--muted); font-size: 12px; }
+    .overview-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .overview-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .difference-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .difference-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .difference-grid span { color: var(--muted); font-size: 12px; }
+    .difference-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .difference-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .readiness-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .readiness-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .readiness-grid span { color: var(--muted); font-size: 12px; }
+    .readiness-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .readiness-gates { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
+    .readiness-gates li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .readiness-gates span { grid-column: 1 / -1; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .summary { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
+    .summary div, .model-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+    .summary div { padding: 12px; }
+    .summary span, .metrics span { color: var(--muted); font-size: 12px; }
+    .summary strong, .metrics strong { display: block; margin-top: 3px; font-size: 18px; }
+    .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 14px; }
+    .model-card { padding: 14px; }
+    .model-card > header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+    .pill { display: inline-flex; align-items: center; min-height: 24px; border-radius: 999px; padding: 3px 8px; font-size: 12px; background: #eef2f7; color: var(--ink); }
+    .pill.proxy { background: #fff4df; color: var(--warn); }
+    .pill.native { background: #e8f5ee; color: var(--good); }
+    .pill.fidelity { background: #e7f2f8; color: var(--accent); }
+    .pill.healthy { background: #e8f5ee; color: var(--good); }
+    .pill.warn { background: #fff4df; color: var(--warn); }
+    .pill.pass, .pill.ready { background: #e8f5ee; color: var(--good); }
+    .pill.review { background: #fff4df; color: var(--warn); }
+    .pill.block, .pill.blocked { background: #fdecec; color: #9f1f1f; }
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+    .metrics div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    ul { margin: 0; padding-left: 18px; }
+    .feature-list li { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 5px; }
+    .failure-modes { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
+    .review-briefing { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
+    .model-difference-list { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
+    .failure-modes li, .review-briefing li, .model-difference-list li { border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 6px; padding: 8px; }
+    .review-briefing li { border-left-color: var(--accent); }
+    .model-difference-list li { border-left-color: var(--accent); }
+    .failure-modes strong, .review-briefing strong, .model-difference-list strong { display: block; font-size: 13px; }
+    .failure-modes span, .review-briefing span, .model-difference-list span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .failure-modes p, .review-briefing p, .model-difference-list p { margin-top: 5px; font-size: 12px; }
+    .muted { color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
+    th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
+    th:first-child, td:first-child { text-align: left; }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .schedule-health .schedule-grid, .schedule-health .schedule-jobs, .objective-loss .objective-loss-grid, .objective-loss .objective-loss-components, .model-difference-overview .difference-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+  <main>
+    <header class="page">
+      <div>
+        <h1>SOXL Production Health Objective Loss</h1>
+        <p>模型回测、regime 差异、fidelity 和 attribution 对比</p>
+      </div>
+      <p>production_health_objective_loss_dashboard</p>
+    </header>
+    <section class="toolbar" aria-label="dashboard filters">
+      <label>模型<select id="model-filter"><option value="">全部</option><option value="ridge_mse__all_features">ridge_mse__all_features</option></select></label>
+      <label>Regime<select id="regime-filter"><option value="">全部</option></select></label>
+      <label>Window<select id="window-filter"><option value="">全部</option></select></label>
+      <label>Fidelity<select id="fidelity-filter"><option value="">全部</option></select></label>
+      <label>Attribution<select id="attribution-filter"><option value="">全部</option></select></label>
+      <label>Failure Mode<select id="failure-mode-filter"><option value="">全部</option></select></label>
+      <label>Review Signal<select id="review-signal-filter"><option value="">全部</option></select></label>
+      <label>Decision<select id="decision-hint-filter"><option value="">全部</option></select></label>
+      <label>Difference Signal<select id="explanation-signal-filter"><option value="">全部</option></select></label>
+      <label>Difference Decision<select id="difference-decision-filter"><option value="">全部</option></select></label>
+    </section>
+
+    <section class="readiness-overview" aria-label="readiness overview">
+      <header>
+        <h2>Readiness Overview</h2>
+        <p>dashboard.readiness_overview.v1</p>
+      </header>
+      <div class="readiness-grid">
+        <div><span>Overall</span><strong><span class="pill blocked">blocked</span></strong></div>
+        <div><span>Pass</span><strong>1</strong></div>
+        <div><span>Review</span><strong>0</strong></div>
+        <div><span>Block</span><strong>1</strong></div>
+      </div>
+      <ul class="readiness-gates"><li><strong>Dashboard Manifest</strong><span class="pill pass">pass</span><span>analysis_manifest / complete hash dddddddddd</span></li>
+<li><strong>Production Health</strong><span class="pill block">block</span><span>paper_execution_objective_loss_blocked / missing 0</span></li></ul>
+    </section>
+
+
+
+    <section class="model-difference-overview" aria-label="model difference explanations">
+      <header>
+        <h2>Model Difference Explanations</h2>
+        <p>winner / loser、regime-window 差异和 review action</p>
+      </header>
+      <div class="difference-grid">
+        <div><span>解释数</span><strong>0</strong></div>
+        <div><span>Top Signal</span><strong></strong></div>
+        <div><span>Top Decision</span><strong></strong></div>
+        <div><span>Top Segment</span><strong></strong><p> -> </p></div>
+      </div>
+      <ul class="model-difference-list"><li class="muted">暂无模型差异解释</li></ul>
+    </section>
+
+
+
+
+    <section class="production-health" aria-label="production health">
+      <header>
+        <h2>Production Health</h2>
+        <p>paper_blocked_objective_loss_strategy</p>
+      </header>
+      <div class="health-grid">
+        <div><span>Health</span><strong><span class="pill warn">paper_execution_objective_loss_blocked</span></strong></div>
+        <div><span>Mode</span><strong>paper</strong><p>live broker off</p></div>
+        <div><span>Required Paths</span><strong>7</strong><p>missing 0</p></div>
+        <div><span>Paper Execution</span><strong>success</strong><p>schedule.paper_execution.v1</p></div>
+        <div><span>Objective Loss</span><strong>objective.loss.v1 / block</strong><p>ic_loss: 0.98 / active_rl_reward</p></div>
+        <div><span>Manifest</span><strong>965d1e2ce5</strong><p>2026-06-19T00:00:00Z</p></div>
+      </div>
+    </section>
+
+
+    <section class="summary">
+      <div><span>模型卡片</span><strong>1</strong></div>
+      <div><span>基准模型</span><strong></strong></div>
+      <div><span>Proxy 模型</span><strong>0</strong></div>
+      <div><span>Promotion Blocker</span><strong>0</strong></div>
+
+    </section>
+    <section class="model-grid">
+
+      <article class="model-card" data-model="ridge_mse__all_features" data-base-model="ridge_mse" data-fidelity="" data-attribution-features="" data-failure-modes="" data-review-signals="" data-decision-hints="" data-explanation-signals="" data-difference-decisions="">
+        <header>
+          <div>
+            <h2>ridge_mse__all_features</h2>
+            <p>ridge_mse / all_features</p>
+          </div>
+          <div class="badges">
+            <span class="pill fidelity">unknown_fidelity</span>
+            <span class="pill native">native</span>
+          </div>
+        </header>
+        <section class="metrics">
+          <div><span>收益</span><strong>0.00%</strong></div>
+          <div><span>相对收益</span><strong>0.00%</strong></div>
+          <div><span>回撤</span><strong>0.00%</strong></div>
+          <div><span>稳定性</span><strong>0.00</strong></div>
+        </section>
+        <section class="split">
+          <div>
+            <h3>归因特征</h3>
+            <ul class="feature-list"><li class="muted">暂无归因特征</li></ul>
+          </div>
+          <div>
+            <h3>诊断</h3>
+            <ul class="diagnostics"><li class="muted">暂无诊断</li></ul>
+          </div>
+        </section>
+        <section>
+          <h3>Failure Modes</h3>
+          <ul class="failure-modes"><li class="muted">暂无失败模式</li></ul>
+        </section>
+        <section>
+          <h3>Model Review Briefing</h3>
+          <ul class="review-briefing"><li class="muted">暂无 Review Briefing</li></ul>
+        </section>
+        <section>
+          <h3>Model Difference Explanations</h3>
+          <ul class="model-difference-list"><li class="muted">暂无模型差异解释</li></ul>
+        </section>
+        <section>
+          <h3>Regime</h3>
+          <table>
+            <thead><tr><th>状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr><td colspan="5" class="muted">暂无分段数据</td></tr></tbody>
+          </table>
+        </section>
+        <section>
+          <h3>Window-Regime</h3>
+          <table class="window-regime">
+            <thead><tr><th>窗口 / 状态</th><th>收益%</th><th>相对%</th><th>回撤%</th><th>稳定性</th></tr></thead>
+            <tbody><tr><td colspan="5" class="muted">暂无分段数据</td></tr></tbody>
+          </table>
+        </section>
+      </article>
+
+    </section>
+  </main>
+  <script type="application/json" id="dashboard-view-model">{
+  "schema_version": "dashboard.view_model.v1",
+  "source_schema_version": "dashboard.model_matrix.v1",
+  "source_artifact_id": "production_health_objective_loss_dashboard",
+  "manifest_source": {
+    "kind": "analysis_manifest",
+    "path": "matrix_card/analysis_manifest.json",
+    "manifest_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "producer": "src.analysis.exports"
+  },
+  "filters_applied": {
+    "models": [],
+    "base_models": [],
+    "feature_sets": [],
+    "regimes": [],
+    "windows": [],
+    "paper_fidelities": [],
+    "attribution_features": [],
+    "failure_modes": [],
+    "review_signals": [],
+    "decision_hints": [],
+    "explanation_signals": [],
+    "difference_decisions": []
+  },
+  "controls": {
+    "models": [
+      "ridge_mse__all_features"
+    ],
+    "base_models": [
+      "ridge_mse"
+    ],
+    "feature_sets": [
+      "all_features"
+    ],
+    "regimes": [],
+    "windows": [],
+    "paper_fidelities": [],
+    "adapter_statuses": [],
+    "run_statuses": [],
+    "attribution_features": [],
+    "failure_modes": [],
+    "review_signals": [],
+    "decision_hints": [],
+    "explanation_signals": [],
+    "difference_decisions": []
+  },
+  "summary": {},
+  "analysis_overview": {},
+  "model_fidelity": {},
+  "model_run_coverage": {},
+  "requested_model_contract": {},
+  "production_health": {
+    "schema_version": "schedule.production_health.v1",
+    "strategy_id": "paper_blocked_objective_loss_strategy",
+    "health_status": "paper_execution_objective_loss_blocked",
+    "is_healthy": false,
+    "registry_path": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_registry.json",
+    "manifest_path": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/production_manifest.json",
+    "manifest_hash": "965d1e2ce5f8acf01f7fdf9f06922bb20f07c9bc7c7a401b3ba794007684de91",
+    "registry_manifest_hash": "965d1e2ce5f8acf01f7fdf9f06922bb20f07c9bc7c7a401b3ba794007684de91",
+    "computed_manifest_hash": "965d1e2ce5f8acf01f7fdf9f06922bb20f07c9bc7c7a401b3ba794007684de91",
+    "manifest_hash_matches_registry": true,
+    "manifest_hash_matches_content": true,
+    "artifact_id": "paper_blocked_objective_loss_strategy",
+    "artifact_type": "production_strategy",
+    "mode": "paper",
+    "status": "paper_replay_completed",
+    "live_broker_enabled": false,
+    "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
+    "paper_execution_job_status": "success",
+    "published_at": "2026-06-19T00:00:00Z",
+    "start": "2026-01-02",
+    "end": "2026-06-09",
+    "required_path_count": 7,
+    "checked_path_count": 7,
+    "missing_required_paths": [],
+    "resolved_paths": {
+      "notebook": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/paper_blocked_objective_loss_strategy.ipynb",
+      "summary": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/production_summary.json",
+      "dashboard_export": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/dashboard_export.json",
+      "intent_ledger": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/intent_ledger.json",
+      "paper_execution_result": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/paper_execution_result.json",
+      "data_registry": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/data/data_registry.json",
+      "analysis_manifest": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/matrix_card/analysis_manifest.json"
+    },
+    "dashboard_export_path": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/dashboard_export.json",
+    "intent_ledger_path": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/intent_ledger.json",
+    "paper_execution_result_path": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/paper_execution_result.json",
+    "output_path": "/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_health_blocked.json",
+    "dashboard_manifest_required": true,
+    "dashboard_manifest_status": "complete",
+    "dashboard_schema_version": "dashboard.model_matrix.v1",
+    "dashboard_manifest_kind": "analysis_manifest",
+    "dashboard_manifest_path": "matrix_card/analysis_manifest.json",
+    "dashboard_manifest_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "dashboard_manifest_producer": "src.analysis.exports",
+    "dashboard_manifest_allowed_kinds": "analysis_manifest,artifact_manifest",
+    "dashboard_manifest_error": "",
+    "requested_model_contract_required": false,
+    "requested_model_contract_status": "missing",
+    "requested_model_schema_version": "",
+    "requested_model_count": 0,
+    "requested_model_registered_count": 0,
+    "requested_model_ledger_count": 0,
+    "requested_model_completed_count": 0,
+    "requested_model_all_completed": false,
+    "requested_model_missing_count": 0,
+    "requested_model_incomplete_count": 0,
+    "requested_model_missing_models": "",
+    "requested_model_incomplete_models": "",
+    "paper_execution_objective_loss_schema_version": "objective.loss.v1",
+    "paper_execution_objective_loss_metric_source_schema_version": "",
+    "paper_execution_objective_loss_status": "block",
+    "paper_execution_objective_loss_detail": "",
+    "paper_execution_objective_loss_optimization_direction": "minimize",
+    "paper_execution_objective_loss_reward_surface": "active_rl_reward",
+    "paper_execution_objective_loss_row_count": 0,
+    "paper_execution_objective_loss_rank_group_count": 0,
+    "paper_execution_objective_loss_component_count": 0,
+    "paper_execution_objective_loss_top_component": "ic_loss",
+    "paper_execution_objective_loss_top_value": 0.9774,
+    "attempts": 1,
+    "retry_schema_version": "schedule.retry_attempts.v1",
+    "retry_error_count": 0,
+    "retry_errors": []
+  },
+  "notebook_card_readiness": {},
+  "schedule_health": {},
+  "readiness_overview": {
+    "schema_version": "dashboard.readiness_overview.v1",
+    "status": "blocked",
+    "gate_count": 2,
+    "pass_count": 1,
+    "review_count": 0,
+    "block_count": 1,
+    "gates": [
+      {
+        "gate": "dashboard_manifest",
+        "label": "Dashboard Manifest",
+        "status": "pass",
+        "detail": "analysis_manifest / complete hash dddddddddd",
+        "source_schema_version": ""
+      },
+      {
+        "gate": "production_health",
+        "label": "Production Health",
+        "status": "block",
+        "detail": "paper_execution_objective_loss_blocked / missing 0",
+        "source_schema_version": "schedule.production_health.v1"
+      }
+    ]
+  },
+  "objective_loss_summary": {},
+  "comparison_table": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__all_features",
+      "avg_position": 0.5
+    }
+  ],
+  "failure_mode_summary": {
+    "count": 0,
+    "top_failure_mode": "",
+    "top_model": "",
+    "top_segment": "",
+    "top_severity_score": 0.0
+  },
+  "review_briefing_summary": {
+    "count": 0,
+    "top_review_signal": "",
+    "top_decision_hint": "",
+    "top_model": "",
+    "top_segment": "",
+    "top_priority_rank": 0
+  },
+  "model_difference_summary": {
+    "count": 0,
+    "top_explanation_signal": "",
+    "top_decision_hint": "",
+    "top_segment": "",
+    "top_winner_model": "",
+    "top_loser_model": "",
+    "top_priority_rank": 0
+  },
+  "model_difference_explanations": [],
+  "model_cards": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__all_features",
+      "avg_position": 0.5,
+      "base_model": "ridge_mse",
+      "feature_set": "all_features",
+      "paper_fidelity": "",
+      "proxy_model": false,
+      "promotion_blocker": "",
+      "run_status": "unknown",
+      "run_record": {},
+      "top_attribution_features": [],
+      "regime_metrics": [],
+      "window_regime_metrics": [],
+      "diagnostics": [],
+      "regime_window_diagnostics": [],
+      "failure_modes": [],
+      "model_review_briefing": [],
+      "model_difference_explanations": []
+    }
+  ]
+}</script>
+  <script>
+    const filters = ["model", "regime", "window", "fidelity", "attribution", "failure-mode", "review-signal", "decision-hint", "explanation-signal", "difference-decision"];
+    function selected(id) {
+      const node = document.getElementById(id + "-filter");
+      return node ? node.value : "";
+    }
+    function containsValue(csv, value) {
+      if (!value) return true;
+      return (csv || "").split(",").filter(Boolean).includes(value);
+    }
+    function applyFilters() {
+      const model = selected("model");
+      const fidelity = selected("fidelity");
+      const regime = selected("regime");
+      const windowName = selected("window");
+      const attribution = selected("attribution");
+      const failureMode = selected("failure-mode");
+      const reviewSignal = selected("review-signal");
+      const decisionHint = selected("decision-hint");
+      const explanationSignal = selected("explanation-signal");
+      const differenceDecision = selected("difference-decision");
+      document.querySelectorAll(".model-card").forEach(card => {
+        const modelOk = !model || card.dataset.model === model;
+        const fidelityOk = !fidelity || card.dataset.fidelity === fidelity;
+        const regimeOk = !regime || card.querySelector(`[data-regime="${regime}"]`);
+        const windowOk = !windowName || card.querySelector(`[data-window="${windowName}"]`);
+        const attributionOk = containsValue(card.dataset.attributionFeatures, attribution);
+        const failureModeOk = containsValue(card.dataset.failureModes, failureMode);
+        const reviewSignalOk = containsValue(card.dataset.reviewSignals, reviewSignal);
+        const decisionHintOk = containsValue(card.dataset.decisionHints, decisionHint);
+        const explanationSignalOk = containsValue(card.dataset.explanationSignals, explanationSignal);
+        const differenceDecisionOk = containsValue(card.dataset.differenceDecisions, differenceDecision);
+        card.hidden = !(modelOk && fidelityOk && regimeOk && windowOk && attributionOk && failureModeOk && reviewSignalOk && decisionHintOk && explanationSignalOk && differenceDecisionOk);
+      });
+    }
+    filters.forEach(id => {
+      const node = document.getElementById(id + "-filter");
+      if (node) node.addEventListener("change", applyFilters);
+    });
+    applyFilters();
+    </script>
+</body>
+</html>

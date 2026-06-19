@@ -188,6 +188,17 @@ def _production_health_panel(view_model: dict[str, Any]) -> str:
     health_kind = "healthy" if bool(health.get("is_healthy", False)) else "warn"
     paper_execution_schema = str(health.get("paper_execution_pipeline_schema_version", ""))
     paper_execution_status = str(health.get("paper_execution_job_status", ""))
+    objective_loss_schema = str(health.get("paper_execution_objective_loss_schema_version", ""))
+    objective_loss_status = str(health.get("paper_execution_objective_loss_status", ""))
+    objective_loss_cell = ""
+    if objective_loss_schema:
+        objective_loss_cell = (
+            "<div><span>Objective Loss</span>"
+            f"<strong>{escape(objective_loss_schema)} / {escape(objective_loss_status)}</strong>"
+            f"<p>{escape(str(health.get('paper_execution_objective_loss_top_component', '')))}: "
+            f"{_metric(health.get('paper_execution_objective_loss_top_value', 0.0))} / "
+            f"{escape(str(health.get('paper_execution_objective_loss_reward_surface', '')))}</p></div>"
+        )
     return f"""
     <section class="production-health" aria-label="production health">
       <header>
@@ -199,6 +210,7 @@ def _production_health_panel(view_model: dict[str, Any]) -> str:
         <div><span>Mode</span><strong>{escape(str(health.get('mode', '')))}</strong><p>{escape(live_text)}</p></div>
         <div><span>Required Paths</span><strong>{escape(str(health.get('checked_path_count', 0)))}</strong><p>missing {missing_count}</p></div>
         <div><span>Paper Execution</span><strong>{escape(paper_execution_status or 'unknown')}</strong><p>{escape(paper_execution_schema)}</p></div>
+        {objective_loss_cell}
         <div><span>Manifest</span><strong>{escape(str(health.get('manifest_hash', ''))[:10])}</strong><p>{escape(str(health.get('published_at', '')))}</p></div>
       </div>
     </section>

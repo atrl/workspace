@@ -1,0 +1,16 @@
+{
+  "schema_version": "dashboard.model_matrix.v1",
+  "manifest_source": {
+    "kind": "analysis_manifest",
+    "path": "matrix_card/analysis_manifest.json",
+    "manifest_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "producer": "src.analysis.exports"
+  },
+  "top_models": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__all_features",
+      "avg_position": 0.5
+    }
+  ]
+}

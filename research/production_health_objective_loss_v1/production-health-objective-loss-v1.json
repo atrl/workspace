@@ -1,0 +1,32 @@
+{
+  "alternatives_considered": [
+    "只在 paper execution 通知显示 objective loss，不进入 production health",
+    "让 dashboard 直接读取 intent_ledger sidecar，违反统一 manifest/export 边界"
+  ],
+  "blocked_without_evidence": true,
+  "change_type": "production_health_evidence",
+  "constraints": [
+    "production health 只能读取 production manifest 声明的 artifact",
+    "v1 仍只允许 paper/sim，不触发真实 broker 下单"
+  ],
+  "created_at": "2026-06-19T00:00:00Z",
+  "decision_hash": "31a714c0db8e60cafb51c1ed9b984753e423aedd0b7cb0672cbf89e833e0eef6",
+  "decision_id": "production-health-objective-loss-v1",
+  "evidence_notebook": "research/production_health_objective_loss_v1/production_health_objective_loss_v1.ipynb",
+  "extension_requires_reason": true,
+  "impact_scope": [
+    "src/schedule/pipelines.py",
+    "src/dashboard/page.py",
+    "research/production_health_objective_loss_v1"
+  ],
+  "reason": "需要让 production health 从 paper execution evidence 读取 objective.loss.v1 gate，统一展示执行前 review/block 原因。",
+  "review_gate": "src extension requires reason, evidence notebook, focused verification, and Chinese review.",
+  "schema_version": "core.architecture_extension_decision.v1",
+  "skill_boundary": "method_only",
+  "status": "accepted",
+  "target_surface": "src/schedule,src/dashboard",
+  "verification_commands": [
+    "PYTHONPATH=. /Users/rziiiii/dev/workspace/qlib_venv/bin/python -m pytest tests/test_schedule_production_health.py tests/test_dashboard_page_renderer.py -q",
+    "PYTHONPATH=. /Users/rziiiii/dev/workspace/qlib_venv/bin/python -m pytest tests -q"
+  ]
+}

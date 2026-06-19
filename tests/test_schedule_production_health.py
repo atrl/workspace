@@ -17,6 +17,7 @@ def _publish_strategy(
     *,
     include_ledger: bool = True,
     dashboard_payload: dict | None = None,
+    paper_execution_metadata: dict | None = None,
 ) -> tuple[Path, Path]:
     card = tmp_path / "production" / "paper_sim_replay_v1"
     _write_json(card / "production_summary.json", {"status": "paper_replay_completed"})
@@ -33,11 +34,38 @@ def _publish_strategy(
             },
         },
     )
-    _write_json(card / "paper_execution_result.json", {"status": "paper_executed"})
+    execution_metadata = dict(paper_execution_metadata or {})
+    execution_intent = {
+        "schema_version": "api.execution_intent.v1",
+        "instrument": "SOXL",
+        "target_position": 0.5,
+        "source_model": "ridge_mse__all_features",
+        "source_artifact": "unit_dashboard",
+        "mode": "paper",
+        "guardrail": "v1 只允许 paper/sim，不连接真实 broker，不触发真实下单。",
+        "metadata": execution_metadata,
+    }
+    _write_json(
+        card / "paper_execution_result.json",
+        {
+            "schema_version": "api.paper_execution_result.v1",
+            "status": "paper_executed",
+            "broker_name": "paper",
+            "intent": execution_intent,
+            "snapshot": {"cash": 500.0, "shares": 41, "price": 12.0},
+        },
+    )
     _write_json(card / "data" / "data_registry.json", {"schema_version": "data.registry.v1"})
     _write_json(card / "matrix_card" / "analysis_manifest.json", {"schema_version": "artifact.v1"})
     if include_ledger:
-        _write_json(card / "intent_ledger.json", {"schema_version": "api.intent_ledger.v1"})
+        _write_json(
+            card / "intent_ledger.json",
+            {
+                "schema_version": "api.intent_ledger.v1",
+                "intent": execution_intent,
+                "execution_result": {"status": "paper_executed"},
+            },
+        )
     (card / "paper_sim_replay_v1.ipynb").write_text("{}", encoding="utf-8")
     dataset = DatasetSnapshot(
         name="paper_replay_soxl_daily",
@@ -185,6 +213,73 @@ def test_production_health_check_can_require_complete_requested_model_contract(t
     assert result.payload["requested_model_incomplete_count"] == 0
     assert result.payload["requested_model_all_completed"] is True
     assert "requested_models=32/32 missing=0 incomplete=0" in events[0]
+
+
+def test_production_health_check_reports_paper_execution_objective_loss_review_context(tmp_path):
+    _, registry_path = _publish_strategy(
+        tmp_path,
+        paper_execution_metadata={
+            "objective_loss_schema_version": "objective.loss.v1",
+            "objective_loss_status": "review",
+            "objective_loss_reward_surface": "retired",
+            "objective_loss_optimization_direction": "minimize",
+            "objective_loss_top_component": "ranking_loss",
+            "objective_loss_top_value": 1.0,
+        },
+    )
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=registry_path,
+        strategy_id="paper_sim_replay_v1",
+        notify_details=True,
+    )
+    events: list[str] = []
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "success"
+    assert result.payload["health_status"] == "healthy"
+    assert result.payload["paper_execution_objective_loss_schema_version"] == "objective.loss.v1"
+    assert result.payload["paper_execution_objective_loss_status"] == "review"
+    assert result.payload["paper_execution_objective_loss_reward_surface"] == "retired"
+    assert result.payload["paper_execution_objective_loss_optimization_direction"] == "minimize"
+    assert result.payload["paper_execution_objective_loss_top_component"] == "ranking_loss"
+    assert result.payload["paper_execution_objective_loss_top_value"] == 1.0
+    assert "objective_loss=objective.loss.v1/review top=ranking_loss:1 reward=retired" in events[0]
+
+
+def test_production_health_check_blocks_paper_execution_objective_loss_block_context(tmp_path):
+    _, registry_path = _publish_strategy(
+        tmp_path,
+        paper_execution_metadata={
+            "objective_loss_schema_version": "objective.loss.v1",
+            "objective_loss_status": "block",
+            "objective_loss_reward_surface": "active_rl_reward",
+            "objective_loss_optimization_direction": "minimize",
+            "objective_loss_top_component": "ic_loss",
+            "objective_loss_top_value": 0.9774,
+        },
+    )
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=registry_path,
+        strategy_id="paper_sim_replay_v1",
+        notify_details=True,
+    )
+    events: list[str] = []
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "success"
+    assert result.payload["health_status"] == "paper_execution_objective_loss_blocked"
+    assert result.payload["is_healthy"] is False
+    assert result.payload["paper_execution_objective_loss_schema_version"] == "objective.loss.v1"
+    assert result.payload["paper_execution_objective_loss_status"] == "block"
+    assert result.payload["paper_execution_objective_loss_reward_surface"] == "active_rl_reward"
+    assert result.payload["paper_execution_objective_loss_top_component"] == "ic_loss"
+    assert result.payload["paper_execution_objective_loss_top_value"] == 0.9774
+    assert "health=paper_execution_objective_loss_blocked" in events[0]
+    assert "objective_loss=objective.loss.v1/block top=ic_loss:0.9774 reward=active_rl_reward" in events[0]
 
 
 def test_production_health_check_marks_required_missing_requested_model_contract_unhealthy(tmp_path):

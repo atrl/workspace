@@ -1,0 +1,38 @@
+{
+  "artifact_id": "paper_review_objective_loss_strategy",
+  "artifact_type": "production_strategy",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "data/data_registry.json"
+    ],
+    "end": "2026-06-09",
+    "metadata": {},
+    "name": "paper_review_objective_loss_strategy_soxl_daily",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-02",
+    "universe": [
+      "SOXL"
+    ]
+  },
+  "manifest_hash": "8d1607ed9effdd883bae67713cc0bc82aa56f25e5dd8bd1c9e449c118209920c",
+  "metadata": {
+    "live_broker_enabled": false,
+    "mode": "paper",
+    "paper_execution_job_status": "success",
+    "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
+    "status": "paper_replay_completed"
+  },
+  "paths": {
+    "analysis_manifest": "matrix_card/analysis_manifest.json",
+    "dashboard_export": "dashboard_export.json",
+    "data_registry": "data/data_registry.json",
+    "intent_ledger": "intent_ledger.json",
+    "notebook": "paper_review_objective_loss_strategy.ipynb",
+    "paper_execution_result": "paper_execution_result.json",
+    "summary": "production_summary.json"
+  },
+  "producer": "src.core.production",
+  "published_at": "2026-06-19T00:00:00Z",
+  "schema_version": "production.manifest.v1"
+}

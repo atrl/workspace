@@ -1,0 +1,23 @@
+{
+  "schema_version": "api.intent_ledger.v1",
+  "intent": {
+    "schema_version": "api.execution_intent.v1",
+    "instrument": "SOXL",
+    "target_position": 0.1,
+    "source_model": "ridge_mse__all_features",
+    "source_artifact": "paper_blocked_objective_loss_strategy",
+    "mode": "paper",
+    "guardrail": "v1 只允许 paper/sim，不连接真实 broker，不触发真实下单。",
+    "metadata": {
+      "objective_loss_schema_version": "objective.loss.v1",
+      "objective_loss_status": "block",
+      "objective_loss_reward_surface": "active_rl_reward",
+      "objective_loss_optimization_direction": "minimize",
+      "objective_loss_top_component": "ic_loss",
+      "objective_loss_top_value": 0.9774
+    }
+  },
+  "execution_result": {
+    "status": "paper_executed"
+  }
+}
