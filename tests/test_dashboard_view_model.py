@@ -129,6 +129,22 @@ def _dashboard_payload_with_model_run_ledger() -> dict:
     return payload
 
 
+def _dashboard_payload_with_requested_model_contract() -> dict:
+    payload = _dashboard_payload()
+    payload["requested_model_contract"] = {
+        "schema_version": "model.requested_contract_health.v1",
+        "requested_model_count": 32,
+        "registered_model_count": 32,
+        "ledger_model_count": 31,
+        "completed_requested_model_count": 31,
+        "missing_from_registry": [],
+        "missing_from_ledger": ["sthgcn_mse"],
+        "incomplete_requested_models": ["sthgcn_mse"],
+        "all_requested_models_completed": False,
+    }
+    return payload
+
+
 def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_payload_only():
     payload = _dashboard_payload()
 
@@ -181,6 +197,17 @@ def test_dashboard_view_model_attaches_model_run_ledger_to_cards_and_summary():
     assert first_card["run_record"]["backtested"] is True
     assert first_card["run_record"]["analysis_recorded"] is True
     assert first_card["run_status"] == "complete"
+
+
+def test_dashboard_view_model_exposes_requested_model_contract_summary():
+    payload = _dashboard_payload_with_requested_model_contract()
+
+    view = build_dashboard_view_model(payload)
+
+    assert view["requested_model_contract"]["schema_version"] == "model.requested_contract_health.v1"
+    assert view["requested_model_contract"]["requested_model_count"] == 32
+    assert view["requested_model_contract"]["completed_requested_model_count"] == 31
+    assert view["requested_model_contract"]["missing_from_ledger"] == ["sthgcn_mse"]
 
 
 def test_dashboard_view_model_preserves_production_health_from_export_payload_only():

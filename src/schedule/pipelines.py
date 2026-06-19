@@ -786,6 +786,36 @@ def _model_run_coverage_payload(dashboard_payload: dict[str, Any]) -> dict[str, 
     }
 
 
+def _requested_model_contract_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    contract = dashboard_payload.get("requested_model_contract")
+    if not isinstance(contract, dict):
+        return {}
+    requested = int(contract.get("requested_model_count", 0) or 0)
+    completed = int(contract.get("completed_requested_model_count", 0) or 0)
+    missing_values: list[str] = []
+    for key in ("missing_from_registry", "missing_from_ledger"):
+        values = contract.get(key)
+        if isinstance(values, list):
+            missing_values.extend(str(value) for value in values)
+    incomplete = contract.get("incomplete_requested_models")
+    incomplete_models = [str(value) for value in incomplete] if isinstance(incomplete, list) else []
+    missing_models = list(dict.fromkeys(missing_values))
+    if requested <= 0 and completed <= 0 and not missing_models and not incomplete_models:
+        return {}
+    return {
+        "requested_model_schema_version": str(contract.get("schema_version", "")),
+        "requested_model_count": requested,
+        "requested_model_registered_count": int(contract.get("registered_model_count", 0) or 0),
+        "requested_model_ledger_count": int(contract.get("ledger_model_count", 0) or 0),
+        "requested_model_completed_count": completed,
+        "requested_model_all_completed": bool(contract.get("all_requested_models_completed", False)),
+        "requested_model_missing_count": int(len(missing_models)),
+        "requested_model_incomplete_count": int(len(incomplete_models)),
+        "requested_model_missing_models": ",".join(missing_models),
+        "requested_model_incomplete_models": ",".join(incomplete_models),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -845,6 +875,7 @@ def _run_pipeline_attempt(
         **_analysis_overview_payload(dashboard_payload),
         **_promotion_payload(dashboard_payload),
         **_model_run_coverage_payload(dashboard_payload),
+        **_requested_model_contract_payload(dashboard_payload),
         **_prefixed_preflight_payload(preflight),
     }
 
@@ -917,6 +948,13 @@ def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[st
             f" | run_coverage={payload.get('model_run_trained_model_count', 0)}/{expected}"
             f" backtested={payload.get('model_run_backtested_model_count', 0)}/{expected}"
             f" missing={payload.get('model_run_missing_model_count', 0)}"
+        )
+    if payload.get("requested_model_schema_version"):
+        message += (
+            f" | requested_models={payload.get('requested_model_completed_count', 0)}/"
+            f"{payload.get('requested_model_count', 0)}"
+            f" missing={payload.get('requested_model_missing_count', 0)}"
+            f" incomplete={payload.get('requested_model_incomplete_count', 0)}"
         )
     return message
 

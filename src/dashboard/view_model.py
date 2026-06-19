@@ -409,6 +409,9 @@ def build_dashboard_view_model(
         "model_run_coverage": dict(payload.get("model_run_coverage", {}))
         if isinstance(payload.get("model_run_coverage"), dict)
         else {},
+        "requested_model_contract": dict(payload.get("requested_model_contract", {}))
+        if isinstance(payload.get("requested_model_contract"), dict)
+        else {},
         "production_health": dict(payload.get("production_health", {}))
         if isinstance(payload.get("production_health"), dict)
         else {},

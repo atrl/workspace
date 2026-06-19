@@ -135,6 +135,22 @@ def _view_model_with_production_health() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_requested_model_contract() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["requested_model_contract"] = {
+        "schema_version": "model.requested_contract_health.v1",
+        "requested_model_count": 32,
+        "registered_model_count": 32,
+        "ledger_model_count": 31,
+        "completed_requested_model_count": 31,
+        "missing_from_registry": [],
+        "missing_from_ledger": ["sthgcn_mse"],
+        "incomplete_requested_models": ["sthgcn_mse"],
+        "all_requested_models_completed": False,
+    }
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -176,6 +192,15 @@ def test_render_dashboard_html_outputs_production_health_panel_without_sidecar_p
     assert "schedule.paper_execution.v1" in html
     assert "success" in html
     assert "/path/that/must/not/be/rendered.json" not in html
+
+
+def test_render_dashboard_html_outputs_requested_model_contract_summary():
+    html = render_dashboard_html(_view_model_with_requested_model_contract(), title="SOXL Requested Contract")
+
+    assert "Requested 模型" in html
+    assert "31 / 32" in html
+    assert "missing 1" in html
+    assert "SOXL Requested Contract" in html
 
 
 def test_render_dashboard_html_outputs_failure_mode_sections_without_sidecar_paths():

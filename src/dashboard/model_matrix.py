@@ -7,6 +7,7 @@ from typing import Any
 import pandas as pd
 
 from src.analysis import build_analysis_overview
+from src.model.registry import QUANTBENCH_MODEL_NAMES, REQUESTED_QUANTBENCH_MODEL_NAMES
 
 
 PUBLIC_ARTIFACT_KEYS = {
@@ -155,6 +156,12 @@ def _bool_count(frame: pd.DataFrame, column: str) -> int:
     return int(frame[column].astype(bool).sum())
 
 
+def _truthy(value: Any) -> bool:
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "y"}
+    return bool(value)
+
+
 def _model_run_coverage(model_run_ledger: pd.DataFrame, summary: dict[str, Any]) -> dict[str, Any]:
     if summary:
         return dict(summary)
@@ -197,6 +204,74 @@ def _model_run_coverage(model_run_ledger: pd.DataFrame, summary: dict[str, Any])
         "manifested_model_count": _bool_count(model_run_ledger, "manifested"),
         "missing_models": missing_models,
         "all_models_completed": not missing_models,
+    }
+
+
+def _ledger_base_model(row: pd.Series) -> str:
+    value = row.get("base_model", "")
+    if value is not None and str(value):
+        return str(value)
+    return str(row.get("model", "")).split("__", 1)[0]
+
+
+def _requested_model_contract(model_run_ledger: pd.DataFrame) -> dict[str, Any]:
+    if model_run_ledger.empty:
+        return {}
+
+    requested = tuple(REQUESTED_QUANTBENCH_MODEL_NAMES)
+    registered = tuple(QUANTBENCH_MODEL_NAMES)
+    registered_set = set(registered)
+    missing_from_registry = [name for name in requested if name not in registered_set]
+    extra_in_registry = [name for name in registered if name not in set(requested)]
+
+    required_flags = (
+        "registered",
+        "trained",
+        "predicted",
+        "backtested",
+        "objective_evaluated",
+        "promotion_evaluated",
+        "analysis_recorded",
+        "manifested",
+    )
+    ledger_models: set[str] = set()
+    completed_models: set[str] = set()
+    adapter_statuses: set[str] = set()
+    if not model_run_ledger.empty:
+        for _, row in model_run_ledger.iterrows():
+            base_model = _ledger_base_model(row)
+            if not base_model:
+                continue
+            ledger_models.add(base_model)
+            adapter_status = row.get("adapter_status", "")
+            if adapter_status is not None and str(adapter_status):
+                adapter_statuses.add(str(adapter_status))
+            if all(flag in model_run_ledger.columns and _truthy(row.get(flag, False)) for flag in required_flags):
+                completed_models.add(base_model)
+
+    missing_from_ledger = [name for name in requested if name not in ledger_models]
+    incomplete_requested_models = [
+        name for name in requested if name in ledger_models and name not in completed_models
+    ]
+    all_completed = (
+        not missing_from_registry
+        and not extra_in_registry
+        and not missing_from_ledger
+        and not incomplete_requested_models
+        and len(completed_models.intersection(requested)) == len(requested)
+    )
+    return {
+        "schema_version": "model.requested_contract_health.v1",
+        "requested_model_count": int(len(requested)),
+        "registered_model_count": int(len(registered)),
+        "ledger_model_count": int(len(ledger_models)),
+        "completed_requested_model_count": int(len(completed_models.intersection(requested))),
+        "missing_from_registry": missing_from_registry,
+        "extra_in_registry": extra_in_registry,
+        "missing_from_ledger": missing_from_ledger,
+        "incomplete_requested_models": incomplete_requested_models,
+        "all_requested_models_completed": all_completed,
+        "adapter_statuses": sorted(adapter_statuses),
     }
 
 
@@ -398,6 +473,7 @@ def load_model_matrix_dashboard(
             model_review_briefing=model_review_briefing,
         ),
         "model_fidelity": _load_model_fidelity(summary, card),
+        "requested_model_contract": _requested_model_contract(model_run_ledger),
         "model_capabilities": _records(model_capabilities, limit=200),
         "top_models": comparison.head(top_n).to_dict(orient="records"),
         "feature_set_summary": _feature_set_summary(comparison),

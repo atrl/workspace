@@ -41,6 +41,22 @@ def test_dashboard_loads_model_run_ledger_as_public_coverage_artifact():
     assert "daily_backtest" not in payload["artifacts"]
 
 
+def test_dashboard_loads_requested_quantbench_model_contract_health():
+    payload = load_model_matrix_dashboard("research/quantbench_requested_model_contract_v1/matrix_card")
+
+    contract = payload["requested_model_contract"]
+    assert contract["schema_version"] == "model.requested_contract_health.v1"
+    assert contract["requested_model_count"] == 32
+    assert contract["registered_model_count"] == 32
+    assert contract["ledger_model_count"] == 32
+    assert contract["completed_requested_model_count"] == 32
+    assert contract["missing_from_registry"] == []
+    assert contract["missing_from_ledger"] == []
+    assert contract["incomplete_requested_models"] == []
+    assert contract["all_requested_models_completed"] is True
+    assert contract["adapter_statuses"] == ["paper_strict_adapter"]
+
+
 def test_dashboard_loads_model_review_briefing_and_segment_matrix_from_manifest():
     payload = load_model_matrix_dashboard("research/analysis_segment_effect_matrix_v1")
 

@@ -351,6 +351,21 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     model_cards = view_model.get("model_cards", []) if isinstance(view_model.get("model_cards"), list) else []
     summary = view_model.get("summary", {}) if isinstance(view_model.get("summary"), dict) else {}
     fidelity = view_model.get("model_fidelity", {}) if isinstance(view_model.get("model_fidelity"), dict) else {}
+    requested_contract = (
+        view_model.get("requested_model_contract", {})
+        if isinstance(view_model.get("requested_model_contract"), dict)
+        else {}
+    )
+    missing_requested = requested_contract.get("missing_from_ledger", [])
+    missing_requested_count = len(missing_requested) if isinstance(missing_requested, list) else 0
+    requested_contract_card = (
+        "<div><span>Requested 模型</span>"
+        f"<strong>{escape(str(requested_contract.get('completed_requested_model_count', 0)))} / "
+        f"{escape(str(requested_contract.get('requested_model_count', 0)))}</strong>"
+        f"<p>missing {escape(str(missing_requested_count))}</p></div>"
+        if requested_contract
+        else ""
+    )
     embedded = json.dumps(view_model, ensure_ascii=False, indent=2).replace("</", "<\\/")
     overview_panel = _analysis_overview_panel(view_model)
     production_health_panel = _production_health_panel(view_model)
@@ -389,6 +404,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
       <div><span>基准模型</span><strong>{escape(str(summary.get('analysis_summary', {}).get('baseline_model', '')) if isinstance(summary.get('analysis_summary'), dict) else '')}</strong></div>
       <div><span>Proxy 模型</span><strong>{len(fidelity.get('proxy_models', [])) if isinstance(fidelity.get('proxy_models'), list) else 0}</strong></div>
       <div><span>Promotion Blocker</span><strong>{escape(str(fidelity.get('promotion_blocker_count', 0)))}</strong></div>
+      {requested_contract_card}
     </section>
     <section class="model-grid">
       {cards}
