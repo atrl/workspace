@@ -41,7 +41,7 @@ from .sequence import (
 STRICT_ADAPTER_NAMES = {
     "logistic_clf": "logistic_direction_v1",
     "ridge_mse": "ridge_mse_v1",
-    "ridge_ic": "ridge_rank_ic_proxy_v1",
+    "ridge_ic": "ridge_ic_rank_correlation_v1",
     "random_forest_clf": "random_forest_direction_v1",
     "hist_gradient_mse": "hist_gradient_mse_v1",
     "xgboost_mse": "xgboost_mse_v1",
@@ -132,6 +132,7 @@ def _classification_target(frame: pd.DataFrame) -> np.ndarray:
 
 def _ic_rank_target(frame: pd.DataFrame) -> np.ndarray:
     ranked = frame["target_return"].astype(float).rank(method="average", pct=True).to_numpy() - 0.5
+    ranked = ranked - float(np.mean(ranked))
     std = float(np.std(ranked))
     if not np.isfinite(std) or std <= 1e-12:
         return ranked
@@ -213,6 +214,34 @@ class CatBoostRankerAdapter:
         return np.asarray(self.model.predict(x_test), dtype=float)
 
 
+class RidgeICRegressor:
+    def __init__(self, *, alpha: float = 1.0) -> None:
+        self.alpha = float(alpha)
+        self.model_: object | None = None
+
+    def fit(self, x_train: np.ndarray, y_train: np.ndarray):
+        target = np.asarray(y_train, dtype=float)
+        target = target - float(np.mean(target))
+        std = float(np.std(target))
+        if np.isfinite(std) and std > 1e-12:
+            target = target / std
+
+        self.objective_name_ = "ic"
+        self.target_kind_ = "forward_return_rank"
+        self.rank_target_mean_ = float(np.mean(target))
+        self.rank_target_std_ = float(np.std(target))
+        self.alpha_ = self.alpha
+        self.feature_count_ = int(x_train.shape[1]) if getattr(x_train, "ndim", 0) == 2 else 0
+        self.model_ = make_pipeline(StandardScaler(), Ridge(alpha=self.alpha))
+        self.model_.fit(x_train, target)
+        return self
+
+    def predict(self, x_test: np.ndarray) -> np.ndarray:
+        if self.model_ is None:
+            raise RuntimeError("RidgeICRegressor must be fitted before predict")
+        return np.asarray(self.model_.predict(x_test), dtype=float)
+
+
 def _estimator_for_model(model_name: str):
     spec = get_model_spec(model_name)
     if model_name == "logistic_clf":
@@ -220,8 +249,10 @@ def _estimator_for_model(model_name: str):
             StandardScaler(),
             LogisticRegression(max_iter=300, random_state=7),
         )
-    if model_name in {"ridge_mse", "ridge_ic"}:
+    if model_name == "ridge_mse":
         return make_pipeline(StandardScaler(), Ridge(alpha=1.0))
+    if model_name == "ridge_ic":
+        return RidgeICRegressor(alpha=1.0)
     if model_name == "random_forest_clf":
         return RandomForestClassifier(n_estimators=48, max_depth=5, min_samples_leaf=3, random_state=7)
     if model_name == "hist_gradient_mse":

@@ -69,8 +69,8 @@
       "patch_tst_transformer_mse_v1",
       "random_forest_direction_v1",
       "rgcn_relation_graph_convolution_mse_v1",
+      "ridge_ic_rank_correlation_v1",
       "ridge_mse_v1",
-      "ridge_rank_ic_proxy_v1",
       "rsr_temporal_relation_strength_mse_v1",
       "sequence_lag_ridge_mse_v1",
       "sfm_state_frequency_memory_mse_v1",
@@ -84,10 +84,10 @@
     "model_fidelity": {
       "fidelity_counts": {
         "native_graph": 9,
-        "native_library": 8,
+        "native_library": 9,
         "native_sequence": 7,
         "native_torch": 6,
-        "proxy_feature_adapter": 2
+        "proxy_feature_adapter": 1
       },
       "model_count": 32,
       "native_models": [
@@ -112,6 +112,7 @@
         "patch_tst_mse",
         "random_forest_clf",
         "rgcn_mse",
+        "ridge_ic",
         "ridge_mse",
         "rsr_mse",
         "sequence_lag_ridge_mse",
@@ -122,16 +123,15 @@
         "thgnn_mse",
         "xgboost_mse"
       ],
-      "promotion_blocker_count": 24,
+      "promotion_blocker_count": 23,
       "proxy_models": [
-        "extra_trees_rank",
-        "ridge_ic"
+        "extra_trees_rank"
       ],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": -0.0037323725990915865,
-      "avg_mse": 0.03477930937492602,
+      "avg_ic": -0.003864954761117201,
+      "avg_mse": 0.03465014304852754,
       "avg_rank_ic": 0.0,
       "model_count": 32,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -190,5 +190,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "a84f36e7a40d2d2bf4f0d4ba9efa95217f551ab0e587bd9dfab06284e6951f80"
+  "manifest_hash": "36e85b19eca8cb945005258a64ca0958927623fac08987e07d6653f9bcee9210"
 }

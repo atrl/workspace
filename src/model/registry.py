@@ -113,7 +113,7 @@ def _native_graph(name: str, family: str, objective: str, input_kind: str, estim
 
 MODEL_SPECS: tuple[ModelSpec, ...] = (
     _native("logistic_clf", "linear", "classification", "tabular", "LogisticRegression"),
-    _proxy("ridge_ic", "linear", "ic", "tabular", "Ridge", "Ridge is trained on an IC-style rank target proxy."),
+    _native("ridge_ic", "linear", "ic", "tabular", "RidgeICRegressor"),
     _native("ridge_mse", "linear", "mse", "tabular", "Ridge"),
     _native("random_forest_clf", "tree", "classification", "tabular", "RandomForestClassifier"),
     _native("hist_gradient_mse", "tree", "mse", "tabular", "HistGradientBoostingRegressor"),
