@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass, field
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,8 @@ def _json_safe(value: Any) -> Any:
         return [_json_safe(item) for item in value]
     if isinstance(value, Path):
         return value.as_posix()
+    if isinstance(value, (date, datetime)):
+        return value.isoformat()
     if hasattr(value, "item"):
         return value.item()
     return value
