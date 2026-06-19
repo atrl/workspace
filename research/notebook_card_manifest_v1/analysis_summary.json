@@ -1,28 +1,19 @@
 {
   "schema_version": "research.notebook_card_manifest.v1",
   "status": "completed",
-  "card_count": 83,
-  "notebook_count": 83,
+  "card_count": 89,
+  "notebook_count": 89,
   "missing_notebook_count": 0,
   "multiple_notebook_count": 0,
   "missing_chinese_conclusion_count": 0,
-  "canonical_notebook_count": 82,
-  "noncanonical_notebook_count": 1,
-  "chinese_conclusion_ok_count": 83,
+  "canonical_notebook_count": 89,
+  "noncanonical_notebook_count": 0,
+  "chinese_conclusion_ok_count": 89,
   "status_counts": {
-    "noncanonical_notebook_name": 1,
-    "ready": 82
+    "ready": 89
   },
-  "noncanonical_cards": [
-    {
-      "surface": "research",
-      "card_id": "knowledge_ingest",
-      "primary_notebook": "knowledge_ingest_reference.ipynb",
-      "canonical_notebook_name": "knowledge_ingest.ipynb",
-      "status": "noncanonical_notebook_name"
-    }
-  ],
-  "manifest_hash": "10da24cdb78d394dddfbaec6cc48727b7e92b27220954a64d0391b2e41a03e54",
+  "noncanonical_cards": [],
+  "manifest_hash": "1d6fd45b72585b0d1c081a6c94523892dbce8645cff68f6a0030b1cce49b1430",
   "artifacts": {
     "manifest": "notebook_card_manifest.json",
     "csv": "notebook_cards.csv",

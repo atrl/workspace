@@ -91,6 +91,8 @@ def test_research_and_production_cards_have_single_primary_notebook_contract():
     assert summary["card_count"] == summary["notebook_count"]
     assert summary["missing_notebook_count"] == 0
     assert summary["multiple_notebook_count"] == 0
+    assert summary["noncanonical_notebook_count"] == 0
+    assert summary["ready_count"] == summary["card_count"]
     assert summary["missing_chinese_conclusion_count"] == 0
 
 

@@ -235,6 +235,24 @@
       "surface": "research"
     },
     {
+      "canonical_notebook_name": "api_adapter_contract_v1.ipynb",
+      "card_id": "api_adapter_contract_v1",
+      "card_path": "research/api_adapter_contract_v1",
+      "chinese_conclusion_ok": true,
+      "conclusion_missing_terms": [],
+      "is_canonical_notebook_name": true,
+      "notebook_count": 1,
+      "notebooks": [
+        "api_adapter_contract_v1.ipynb"
+      ],
+      "primary_notebook": "api_adapter_contract_v1.ipynb",
+      "primary_notebook_path": "research/api_adapter_contract_v1/api_adapter_contract_v1.ipynb",
+      "schema_version": "core.notebook_card.v1",
+      "sidecar_count": 2,
+      "status": "ready",
+      "surface": "research"
+    },
+    {
       "canonical_notebook_name": "api_market_data_adapter_v1.ipynb",
       "card_id": "api_market_data_adapter_v1",
       "card_path": "research/api_market_data_adapter_v1",
@@ -447,6 +465,24 @@
       "primary_notebook_path": "research/dashboard_production_health_integration_v1/dashboard_production_health_integration_v1.ipynb",
       "schema_version": "core.notebook_card.v1",
       "sidecar_count": 3,
+      "status": "ready",
+      "surface": "research"
+    },
+    {
+      "canonical_notebook_name": "dashboard_requested_model_contract_v1.ipynb",
+      "card_id": "dashboard_requested_model_contract_v1",
+      "card_path": "research/dashboard_requested_model_contract_v1",
+      "chinese_conclusion_ok": true,
+      "conclusion_missing_terms": [],
+      "is_canonical_notebook_name": true,
+      "notebook_count": 1,
+      "notebooks": [
+        "dashboard_requested_model_contract_v1.ipynb"
+      ],
+      "primary_notebook": "dashboard_requested_model_contract_v1.ipynb",
+      "primary_notebook_path": "research/dashboard_requested_model_contract_v1/dashboard_requested_model_contract_v1.ipynb",
+      "schema_version": "core.notebook_card.v1",
+      "sidecar_count": 5,
       "status": "ready",
       "surface": "research"
     },
@@ -744,16 +780,16 @@
       "card_path": "research/knowledge_ingest",
       "chinese_conclusion_ok": true,
       "conclusion_missing_terms": [],
-      "is_canonical_notebook_name": false,
+      "is_canonical_notebook_name": true,
       "notebook_count": 1,
       "notebooks": [
-        "knowledge_ingest_reference.ipynb"
+        "knowledge_ingest.ipynb"
       ],
-      "primary_notebook": "knowledge_ingest_reference.ipynb",
-      "primary_notebook_path": "research/knowledge_ingest/knowledge_ingest_reference.ipynb",
+      "primary_notebook": "knowledge_ingest.ipynb",
+      "primary_notebook_path": "research/knowledge_ingest/knowledge_ingest.ipynb",
       "schema_version": "core.notebook_card.v1",
       "sidecar_count": 6,
-      "status": "noncanonical_notebook_name",
+      "status": "ready",
       "surface": "research"
     },
     {
@@ -937,6 +973,42 @@
       "surface": "research"
     },
     {
+      "canonical_notebook_name": "production_health_paper_execution_v1.ipynb",
+      "card_id": "production_health_paper_execution_v1",
+      "card_path": "research/production_health_paper_execution_v1",
+      "chinese_conclusion_ok": true,
+      "conclusion_missing_terms": [],
+      "is_canonical_notebook_name": true,
+      "notebook_count": 1,
+      "notebooks": [
+        "production_health_paper_execution_v1.ipynb"
+      ],
+      "primary_notebook": "production_health_paper_execution_v1.ipynb",
+      "primary_notebook_path": "research/production_health_paper_execution_v1/production_health_paper_execution_v1.ipynb",
+      "schema_version": "core.notebook_card.v1",
+      "sidecar_count": 4,
+      "status": "ready",
+      "surface": "research"
+    },
+    {
+      "canonical_notebook_name": "production_health_requested_model_contract_v1.ipynb",
+      "card_id": "production_health_requested_model_contract_v1",
+      "card_path": "research/production_health_requested_model_contract_v1",
+      "chinese_conclusion_ok": true,
+      "conclusion_missing_terms": [],
+      "is_canonical_notebook_name": true,
+      "notebook_count": 1,
+      "notebooks": [
+        "production_health_requested_model_contract_v1.ipynb"
+      ],
+      "primary_notebook": "production_health_requested_model_contract_v1.ipynb",
+      "primary_notebook_path": "research/production_health_requested_model_contract_v1/production_health_requested_model_contract_v1.ipynb",
+      "schema_version": "core.notebook_card.v1",
+      "sidecar_count": 3,
+      "status": "ready",
+      "surface": "research"
+    },
+    {
       "canonical_notebook_name": "production_manifest_hash_validation_v1.ipynb",
       "card_id": "production_manifest_hash_validation_v1",
       "card_path": "research/production_manifest_hash_validation_v1",
@@ -1077,6 +1149,24 @@
       "primary_notebook_path": "research/quantbench_model_matrix_smoke_v1/quantbench_model_matrix_smoke_v1.ipynb",
       "schema_version": "core.notebook_card.v1",
       "sidecar_count": 8,
+      "status": "ready",
+      "surface": "research"
+    },
+    {
+      "canonical_notebook_name": "quantbench_requested_model_contract_v1.ipynb",
+      "card_id": "quantbench_requested_model_contract_v1",
+      "card_path": "research/quantbench_requested_model_contract_v1",
+      "chinese_conclusion_ok": true,
+      "conclusion_missing_terms": [],
+      "is_canonical_notebook_name": true,
+      "notebook_count": 1,
+      "notebooks": [
+        "quantbench_requested_model_contract_v1.ipynb"
+      ],
+      "primary_notebook": "quantbench_requested_model_contract_v1.ipynb",
+      "primary_notebook_path": "research/quantbench_requested_model_contract_v1/quantbench_requested_model_contract_v1.ipynb",
+      "schema_version": "core.notebook_card.v1",
+      "sidecar_count": 4,
       "status": "ready",
       "surface": "research"
     },
@@ -1315,6 +1405,24 @@
       "surface": "research"
     },
     {
+      "canonical_notebook_name": "schedule_paper_execution_v1.ipynb",
+      "card_id": "schedule_paper_execution_v1",
+      "card_path": "research/schedule_paper_execution_v1",
+      "chinese_conclusion_ok": true,
+      "conclusion_missing_terms": [],
+      "is_canonical_notebook_name": true,
+      "notebook_count": 1,
+      "notebooks": [
+        "schedule_paper_execution_v1.ipynb"
+      ],
+      "primary_notebook": "schedule_paper_execution_v1.ipynb",
+      "primary_notebook_path": "research/schedule_paper_execution_v1/schedule_paper_execution_v1.ipynb",
+      "schema_version": "core.notebook_card.v1",
+      "sidecar_count": 4,
+      "status": "ready",
+      "surface": "research"
+    },
+    {
       "canonical_notebook_name": "sequence_adapter_batch_v1.ipynb",
       "card_id": "sequence_adapter_batch_v1",
       "card_path": "research/sequence_adapter_batch_v1",
@@ -1495,22 +1603,21 @@
       "surface": "production"
     }
   ],
-  "manifest_hash": "10da24cdb78d394dddfbaec6cc48727b7e92b27220954a64d0391b2e41a03e54",
+  "manifest_hash": "1d6fd45b72585b0d1c081a6c94523892dbce8645cff68f6a0030b1cce49b1430",
   "schema_version": "core.notebook_card_manifest.v1",
   "summary": {
-    "canonical_notebook_count": 82,
-    "card_count": 83,
-    "chinese_conclusion_ok_count": 83,
+    "canonical_notebook_count": 89,
+    "card_count": 89,
+    "chinese_conclusion_ok_count": 89,
     "missing_chinese_conclusion_count": 0,
     "missing_notebook_count": 0,
     "multiple_notebook_count": 0,
-    "noncanonical_notebook_count": 1,
-    "notebook_count": 83,
-    "ready_count": 82,
+    "noncanonical_notebook_count": 0,
+    "notebook_count": 89,
+    "ready_count": 89,
     "schema_version": "core.notebook_card_scan.summary.v1",
     "status_counts": {
-      "noncanonical_notebook_name": 1,
-      "ready": 82
+      "ready": 89
     },
     "surface_count": 2
   }
