@@ -126,6 +126,8 @@ def _view_model_with_production_health() -> dict:
         "is_healthy": True,
         "mode": "paper",
         "live_broker_enabled": False,
+        "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
+        "paper_execution_job_status": "success",
         "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
         "missing_required_paths": [],
         "checked_path_count": 7,
@@ -170,6 +172,9 @@ def test_render_dashboard_html_outputs_production_health_panel_without_sidecar_p
     assert "paper" in html
     assert "missing 0" in html
     assert "live broker off" in html
+    assert "Paper Execution" in html
+    assert "schedule.paper_execution.v1" in html
+    assert "success" in html
     assert "/path/that/must/not/be/rendered.json" not in html
 
 

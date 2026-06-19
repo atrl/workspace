@@ -138,6 +138,8 @@ def _production_health_panel(view_model: dict[str, Any]) -> str:
     live_enabled = bool(health.get("live_broker_enabled", False))
     live_text = "live broker on" if live_enabled else "live broker off"
     health_kind = "healthy" if bool(health.get("is_healthy", False)) else "warn"
+    paper_execution_schema = str(health.get("paper_execution_pipeline_schema_version", ""))
+    paper_execution_status = str(health.get("paper_execution_job_status", ""))
     return f"""
     <section class="production-health" aria-label="production health">
       <header>
@@ -148,6 +150,7 @@ def _production_health_panel(view_model: dict[str, Any]) -> str:
         <div><span>Health</span><strong>{_pill(str(health.get('health_status', 'unknown')), kind=health_kind)}</strong></div>
         <div><span>Mode</span><strong>{escape(str(health.get('mode', '')))}</strong><p>{escape(live_text)}</p></div>
         <div><span>Required Paths</span><strong>{escape(str(health.get('checked_path_count', 0)))}</strong><p>missing {missing_count}</p></div>
+        <div><span>Paper Execution</span><strong>{escape(paper_execution_status or 'unknown')}</strong><p>{escape(paper_execution_schema)}</p></div>
         <div><span>Manifest</span><strong>{escape(str(health.get('manifest_hash', ''))[:10])}</strong><p>{escape(str(health.get('published_at', '')))}</p></div>
       </div>
     </section>

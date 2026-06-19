@@ -44,7 +44,13 @@ def _publish_strategy(tmp_path: Path, *, include_ledger: bool = True) -> tuple[P
             "data_registry": "data/data_registry.json",
             "analysis_manifest": "matrix_card/analysis_manifest.json",
         },
-        metadata={"status": "paper_replay_completed", "mode": "paper", "live_broker_enabled": False},
+        metadata={
+            "status": "paper_replay_completed",
+            "mode": "paper",
+            "live_broker_enabled": False,
+            "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
+            "paper_execution_job_status": "success",
+        },
         published_at="2026-06-09T21:30:00Z",
     )
     return card, tmp_path / "production" / "production_registry.json"
@@ -73,6 +79,8 @@ def test_production_health_check_reads_registry_manifest_and_writes_dashboard_re
     assert result.payload["is_healthy"] is True
     assert result.payload["mode"] == "paper"
     assert result.payload["live_broker_enabled"] is False
+    assert result.payload["paper_execution_pipeline_schema_version"] == "schedule.paper_execution.v1"
+    assert result.payload["paper_execution_job_status"] == "success"
     assert result.payload["manifest_path"] == str(card / "production_manifest.json")
     assert result.payload["manifest_hash"] == json.loads((card / "production_manifest.json").read_text())["manifest_hash"]
     assert result.payload["checked_path_count"] == 7
@@ -80,7 +88,7 @@ def test_production_health_check_reads_registry_manifest_and_writes_dashboard_re
     assert result.payload["dashboard_export_path"].endswith("dashboard_export.json")
     assert events == [
         "production_health_check:success | strategy=paper_sim_replay_v1 | health=healthy "
-        f"| missing=0 | manifest={card / 'production_manifest.json'}"
+        f"| missing=0 | paper_execution=schedule.paper_execution.v1/success | manifest={card / 'production_manifest.json'}"
     ]
 
 

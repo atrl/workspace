@@ -313,6 +313,8 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         "mode": str(metadata.get("mode", "")),
         "status": str(metadata.get("status", "")),
         "live_broker_enabled": bool(metadata.get("live_broker_enabled", False)),
+        "paper_execution_pipeline_schema_version": str(metadata.get("paper_execution_pipeline_schema_version", "")),
+        "paper_execution_job_status": str(metadata.get("paper_execution_job_status", "")),
         "published_at": str(manifest.get("published_at") or current.get("published_at", "")),
         "start": str(current.get("start", "")),
         "end": str(current.get("end", "")),
@@ -351,11 +353,17 @@ def _production_health_task_with_retries(config: ProductionHealthCheckConfig) ->
 def _production_health_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
     if status != "success":
         return f"{job_name}:{status}"
+    paper_execution_schema = str(payload.get("paper_execution_pipeline_schema_version", ""))
+    paper_execution_status = str(payload.get("paper_execution_job_status", ""))
+    paper_execution = ""
+    if paper_execution_schema or paper_execution_status:
+        paper_execution = f" | paper_execution={paper_execution_schema}/{paper_execution_status}"
     return (
         f"{job_name}:success"
         f" | strategy={payload.get('strategy_id', '')}"
         f" | health={payload.get('health_status', '')}"
         f" | missing={len(payload.get('missing_required_paths', []))}"
+        f"{paper_execution}"
         f" | manifest={payload.get('manifest_path', '')}"
     )
 
