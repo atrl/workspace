@@ -25,6 +25,12 @@
   "readiness_overview_pass_count": 2,
   "readiness_overview_review_count": 2,
   "readiness_overview_block_count": 0,
+  "schedule_readiness_overview_schema": "dashboard.readiness_overview.v1",
+  "schedule_readiness_overview_status": "review",
+  "schedule_readiness_overview_pass_count": 2,
+  "schedule_readiness_overview_review_count": 2,
+  "schedule_readiness_overview_block_count": 0,
+  "schedule_readiness_overview_gates": "production_health,notebook_cards,requested_models,model_runs",
   "html_size_bytes": 626867,
   "top_models": [
     "ridge_mse__ic_weighted_composite",

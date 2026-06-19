@@ -949,6 +949,40 @@ def _notebook_card_readiness_payload(dashboard_payload: dict[str, Any]) -> dict[
     }
 
 
+def _readiness_overview_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    overview = build_dashboard_view_model(dashboard_payload).get("readiness_overview", {})
+    if not isinstance(overview, dict) or not overview:
+        return {}
+    gates = overview.get("gates")
+    gate_rows = gates if isinstance(gates, list) else []
+    gate_names = [
+        str(row.get("gate", ""))
+        for row in gate_rows
+        if isinstance(row, dict) and str(row.get("gate", ""))
+    ]
+    block_gates = [
+        str(row.get("gate", ""))
+        for row in gate_rows
+        if isinstance(row, dict) and str(row.get("status", "")) == "block" and str(row.get("gate", ""))
+    ]
+    review_gates = [
+        str(row.get("gate", ""))
+        for row in gate_rows
+        if isinstance(row, dict) and str(row.get("status", "")) == "review" and str(row.get("gate", ""))
+    ]
+    return {
+        "readiness_overview_schema_version": str(overview.get("schema_version", "")),
+        "readiness_overview_status": str(overview.get("status", "")),
+        "readiness_overview_gate_count": int(overview.get("gate_count", 0) or 0),
+        "readiness_overview_pass_count": int(overview.get("pass_count", 0) or 0),
+        "readiness_overview_review_count": int(overview.get("review_count", 0) or 0),
+        "readiness_overview_block_count": int(overview.get("block_count", 0) or 0),
+        "readiness_overview_gates": ",".join(gate_names),
+        "readiness_overview_review_gates": ",".join(review_gates),
+        "readiness_overview_block_gates": ",".join(block_gates),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -1012,6 +1046,7 @@ def _run_pipeline_attempt(
         **_model_run_coverage_payload(dashboard_payload),
         **_requested_model_contract_payload(dashboard_payload),
         **_notebook_card_readiness_payload(dashboard_payload),
+        **_readiness_overview_payload(dashboard_payload),
         **_prefixed_preflight_payload(preflight),
     }
 
@@ -1091,6 +1126,13 @@ def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[st
             f"{payload.get('requested_model_count', 0)}"
             f" missing={payload.get('requested_model_missing_count', 0)}"
             f" incomplete={payload.get('requested_model_incomplete_count', 0)}"
+        )
+    if payload.get("readiness_overview_schema_version"):
+        message += (
+            f" | readiness={payload.get('readiness_overview_status', '')}"
+            f" pass={payload.get('readiness_overview_pass_count', 0)}"
+            f" review={payload.get('readiness_overview_review_count', 0)}"
+            f" block={payload.get('readiness_overview_block_count', 0)}"
         )
     return message
 

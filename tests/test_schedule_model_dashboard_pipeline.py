@@ -344,11 +344,12 @@ def test_model_dashboard_refresh_can_send_payload_aware_success_notification(tmp
     )
 
     assert result.status == "success"
-    assert events == [
+    assert events[0].startswith(
         "model_dashboard_refresh:success | top_model=ridge_mse | dashboard_manifest=analysis_manifest "
         "| analysis_preflight=backfilled | attempts=1 | export="
         + str(config.dashboard_output_path)
-    ]
+    )
+    assert "readiness=review pass=0 review=1 block=0" in events[0]
 
 
 def test_model_dashboard_refresh_detailed_notification_includes_top_failure_mode(tmp_path):
@@ -789,6 +790,88 @@ def test_model_dashboard_refresh_detailed_notification_includes_requested_model_
     assert result.payload["requested_model_all_completed"] is False
     assert result.payload["requested_model_missing_models"] == "sthgcn_mse"
     assert "requested_models=31/32 missing=1 incomplete=1" in events[0]
+
+
+def test_model_dashboard_refresh_detailed_notification_includes_readiness_overview(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 2, "status": "matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "readiness_card",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "production_health": {
+                "schema_version": "schedule.production_health.v1",
+                "health_status": "healthy",
+                "is_healthy": True,
+                "missing_required_paths": [],
+            },
+            "notebook_card_readiness": {
+                "schema_version": "dashboard.notebook_card_readiness.v1",
+                "summary": {
+                    "production_published_count": 1,
+                    "production_template_count": 1,
+                    "production_manifest_missing_count": 0,
+                    "production_registry_mismatch_count": 0,
+                },
+                "production_cards": [],
+            },
+            "requested_model_contract": {
+                "schema_version": "model.requested_contract_health.v1",
+                "requested_model_count": 32,
+                "registered_model_count": 32,
+                "ledger_model_count": 31,
+                "completed_requested_model_count": 31,
+                "missing_from_registry": [],
+                "missing_from_ledger": ["sthgcn_mse"],
+                "incomplete_requested_models": ["sthgcn_mse"],
+                "all_requested_models_completed": False,
+            },
+            "model_run_coverage": {
+                "schema_version": "model.run_ledger_summary.v1",
+                "expected_model_count": 2,
+                "trained_model_count": 2,
+                "backtested_model_count": 2,
+                "all_models_completed": True,
+                "missing_models": [],
+            },
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["readiness_overview_schema_version"] == "dashboard.readiness_overview.v1"
+    assert result.payload["readiness_overview_status"] == "review"
+    assert result.payload["readiness_overview_gate_count"] == 4
+    assert result.payload["readiness_overview_pass_count"] == 2
+    assert result.payload["readiness_overview_review_count"] == 2
+    assert result.payload["readiness_overview_block_count"] == 0
+    assert result.payload["readiness_overview_gates"] == "production_health,notebook_cards,requested_models,model_runs"
+    assert result.payload["readiness_overview_block_gates"] == ""
+    assert "readiness=review pass=2 review=2 block=0" in events[0]
 
 
 def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_export(tmp_path):
