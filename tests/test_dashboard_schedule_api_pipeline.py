@@ -10,15 +10,45 @@ from src.schedule import ScheduleJob, run_job_once
 
 
 def test_dashboard_loads_quantbench_matrix_sidecars_without_raw_model_internals():
-    payload = load_model_matrix_dashboard("research/quantbench_model_matrix_smoke_v1")
+    payload = load_model_matrix_dashboard("research/quantbench_model_matrix_smoke_v1", allow_legacy_sidecars=True)
 
     assert payload["summary"]["model_count"] == 32
+    assert payload["manifest_source"]["kind"] == "fixed_sidecars"
     assert payload["top_models"][0]["rank"] == 1
     assert "model_comparison" in payload["artifacts"]
     assert "qlib_risk_metrics" in payload["artifacts"]
     assert "model_effect_deltas" in payload["artifacts"]
     assert "predictions" not in payload["artifacts"]
     assert "daily_backtest" not in payload["artifacts"]
+
+
+def test_dashboard_requires_manifest_by_default_for_fixed_sidecar_cards(tmp_path):
+    matrix_card = tmp_path / "matrix_card"
+    matrix_card.mkdir()
+    (matrix_card / "analysis_summary.json").write_text(
+        json.dumps({"schema_version": "analysis.report.v1", "status": "legacy_completed", "model_count": 1}),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [{"rank": 1, "model": "ridge_mse", "return_pct": 2.5, "relative_return_pct": 1.0, "stability_score": 3.0}]
+    ).to_csv(matrix_card / "model_comparison.csv", index=False)
+    pd.DataFrame([{"model": "ridge_mse", "regime": "bull", "return_pct": 2.5}]).to_csv(
+        matrix_card / "regime_metrics.csv", index=False
+    )
+    pd.DataFrame([{"model": "ridge_mse", "window": "test", "return_pct": 2.5}]).to_csv(
+        matrix_card / "window_metrics.csv", index=False
+    )
+
+    try:
+        load_model_matrix_dashboard(matrix_card)
+    except FileNotFoundError as exc:
+        assert "analysis_manifest.json or artifact_manifest.json is required" in str(exc)
+    else:
+        raise AssertionError("expected manifest requirement for default dashboard load")
+
+    legacy_payload = load_model_matrix_dashboard(matrix_card, allow_legacy_sidecars=True)
+    assert legacy_payload["manifest_source"]["kind"] == "fixed_sidecars"
+    assert legacy_payload["top_models"][0]["model"] == "ridge_mse"
 
 
 def test_dashboard_loads_model_run_ledger_as_public_coverage_artifact():
@@ -77,7 +107,11 @@ def test_dashboard_loads_model_review_briefing_and_segment_matrix_from_manifest(
 
 
 def test_dashboard_loads_feature_set_matrix_with_aggregates_and_diagnostics():
-    payload = load_model_matrix_dashboard("research/factor_feature_set_matrix_v1", top_n=5)
+    payload = load_model_matrix_dashboard(
+        "research/factor_feature_set_matrix_v1",
+        top_n=5,
+        allow_legacy_sidecars=True,
+    )
 
     assert payload["schema_version"] == "dashboard.model_matrix.v1"
     assert payload["summary"]["status"] == "feature_set_matrix_completed"
@@ -380,6 +414,7 @@ def test_dashboard_export_writes_manifest_style_payload(tmp_path):
         "research/factor_feature_set_matrix_v1",
         output_path=output_path,
         top_n=3,
+        allow_legacy_sidecars=True,
     )
 
     saved = json.loads(output_path.read_text(encoding="utf-8"))
@@ -416,6 +451,7 @@ def test_dashboard_export_can_attach_production_health_payload_without_sidecar_g
         output_path=output_path,
         top_n=3,
         production_health_path=health_path,
+        allow_legacy_sidecars=True,
     )
     saved = json.loads(output_path.read_text(encoding="utf-8"))
 
@@ -473,6 +509,7 @@ def test_dashboard_export_can_attach_notebook_card_manifest_production_readiness
         output_path=output_path,
         top_n=3,
         notebook_card_manifest_path=manifest_path,
+        allow_legacy_sidecars=True,
     )
     saved = json.loads(output_path.read_text(encoding="utf-8"))
 
@@ -571,7 +608,11 @@ def test_dashboard_export_surfaces_window_regime_fidelity_and_attribution(tmp_pa
         ]
     ).to_csv(attribution_card / "top_features_by_model.csv", index=False)
 
-    payload = load_model_matrix_dashboard(matrix_card, attribution_card_dir=attribution_card)
+    payload = load_model_matrix_dashboard(
+        matrix_card,
+        attribution_card_dir=attribution_card,
+        allow_legacy_sidecars=True,
+    )
 
     assert payload["model_fidelity"]["fidelity_counts"]["proxy_feature_adapter"] == 1
     assert payload["model_capabilities"][0]["model"] == "gcn_mse"
@@ -630,7 +671,12 @@ def test_dashboard_export_limits_attribution_top_features_per_model(tmp_path):
         ]
     ).to_csv(attribution_card / "top_features_by_model.csv", index=False)
 
-    payload = load_model_matrix_dashboard(matrix_card, top_n=2, attribution_card_dir=attribution_card)
+    payload = load_model_matrix_dashboard(
+        matrix_card,
+        top_n=2,
+        attribution_card_dir=attribution_card,
+        allow_legacy_sidecars=True,
+    )
 
     features_by_model = {
         model: group["feature"].tolist()

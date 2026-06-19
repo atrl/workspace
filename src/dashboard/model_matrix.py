@@ -104,7 +104,11 @@ def _manifest_public_paths(manifest: dict[str, Any]) -> dict[str, str]:
     return result
 
 
-def _card_sources(card: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str, str]]:
+def _card_sources(
+    card: Path,
+    *,
+    allow_legacy_sidecars: bool,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, str]]:
     analysis_manifest = _read_manifest_if_exists(card / "analysis_manifest.json")
     artifact_manifest = _read_manifest_if_exists(card / "artifact_manifest.json")
     if analysis_manifest or artifact_manifest:
@@ -112,6 +116,11 @@ def _card_sources(card: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str,
         paths.update(_manifest_public_paths(artifact_manifest))
         paths.update(_manifest_public_paths(analysis_manifest))
     else:
+        if not allow_legacy_sidecars:
+            raise FileNotFoundError(
+                f"analysis_manifest.json or artifact_manifest.json is required for dashboard load: {card}. "
+                "Run analysis manifest backfill or pass allow_legacy_sidecars=True for an explicit migration check."
+            )
         paths = _default_public_paths(card)
     if (card / "analysis_manifest.json").exists():
         paths["analysis_manifest"] = "analysis_manifest.json"
@@ -459,12 +468,16 @@ def load_model_matrix_dashboard(
     attribution_card_dir: str | Path | None = None,
     production_health_path: str | Path | None = None,
     notebook_card_manifest_path: str | Path | None = None,
+    allow_legacy_sidecars: bool = False,
 ) -> dict[str, Any]:
     card = Path(card_dir)
     attribution_card = Path(attribution_card_dir) if attribution_card_dir is not None else None
     health_path = Path(production_health_path) if production_health_path is not None else None
     notebook_manifest_path = Path(notebook_card_manifest_path) if notebook_card_manifest_path is not None else None
-    analysis_manifest, artifact_manifest, public_paths = _card_sources(card)
+    analysis_manifest, artifact_manifest, public_paths = _card_sources(
+        card,
+        allow_legacy_sidecars=allow_legacy_sidecars,
+    )
     summary = json.loads(_path_for(card, public_paths, "summary", "analysis_summary.json").read_text(encoding="utf-8"))
     comparison = _read_csv_from_paths(card, public_paths, "model_comparison", "model_comparison.csv")
     regime_metrics = _read_csv_from_paths(card, public_paths, "regime_metrics", "regime_metrics.csv")
@@ -573,6 +586,7 @@ def write_model_matrix_dashboard_export(
     attribution_card_dir: str | Path | None = None,
     production_health_path: str | Path | None = None,
     notebook_card_manifest_path: str | Path | None = None,
+    allow_legacy_sidecars: bool = False,
 ) -> dict[str, Any]:
     payload = load_model_matrix_dashboard(
         card_dir,
@@ -580,6 +594,7 @@ def write_model_matrix_dashboard_export(
         attribution_card_dir=attribution_card_dir,
         production_health_path=production_health_path,
         notebook_card_manifest_path=notebook_card_manifest_path,
+        allow_legacy_sidecars=allow_legacy_sidecars,
     )
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,13 @@
+{
+  "schema_version": "research.dashboard_manifest_required_v1.summary.v1",
+  "status": "completed",
+  "artifact_id": "dashboard_manifest_required_v1",
+  "default_requires_manifest": true,
+  "default_error_contains_manifest_requirement": true,
+  "legacy_explicit_manifest_kind": "fixed_sidecars",
+  "backfilled_manifest_kind": "analysis_manifest",
+  "backfilled_manifest_hash": "338551326b83c5682e0bbd2f68d9783ce6aa64b011a30fe940a8d66774d18471",
+  "private_paths_exposed_in_manifest": [],
+  "dashboard_export_manifest_kind": "analysis_manifest",
+  "conclusion": "中文结论：dashboard 默认拒绝无 manifest 的 fixed sidecar；legacy 读取只能显式用于迁移检查，正式 export 走 backfilled manifest。"
+}
