@@ -20,6 +20,7 @@ PUBLIC_ARTIFACT_KEYS = {
     "qlib_risk_metrics",
     "objective_scores",
     "promotion_scores",
+    "objective_losses",
     "model_run_ledger",
     "model_run_ledger_summary",
     "segment_effect_matrix",
@@ -72,6 +73,7 @@ def _default_public_paths(card: Path) -> dict[str, str]:
         "qlib_risk_metrics": "qlib_risk_metrics.csv",
         "objective_scores": "objective_scores.csv",
         "promotion_scores": "promotion_scores.csv",
+        "objective_losses": "objective_losses.json",
         "model_run_ledger": "model_run_ledger.csv",
         "model_run_ledger_summary": "model_run_ledger_summary.json",
         "segment_effect_matrix": "segment_effect_matrix.csv",
@@ -490,6 +492,7 @@ def load_model_matrix_dashboard(
     qlib_risk_metrics = _read_optional_csv_from_paths(card, public_paths, "qlib_risk_metrics", "qlib_risk_metrics.csv")
     objective_scores = _read_optional_csv_from_paths(card, public_paths, "objective_scores", "objective_scores.csv")
     promotion_scores = _read_optional_csv_from_paths(card, public_paths, "promotion_scores", "promotion_scores.csv")
+    objective_losses = _read_optional_json_from_paths(card, public_paths, "objective_losses", "objective_losses.json")
     model_run_ledger = _read_optional_csv_from_paths(
         card, public_paths, "model_run_ledger", "model_run_ledger.csv"
     )
@@ -563,6 +566,7 @@ def load_model_matrix_dashboard(
         "objective": {
             "scores": _records(objective_scores, limit=200),
             "promotion_scores": _records(promotion_scores, limit=200),
+            "losses": objective_losses,
         },
         "model_run_coverage": _model_run_coverage(model_run_ledger, model_run_ledger_summary),
         "model_run_ledger": _records(model_run_ledger, limit=300),

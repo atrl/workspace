@@ -1,0 +1,197 @@
+{
+  "schema_version": "dashboard.model_matrix.v1",
+  "artifact_id": "dashboard_objective_loss_integration_v1",
+  "artifact_type": "dashboard_export",
+  "manifest_source": {
+    "kind": "analysis_manifest",
+    "path": "research/dashboard_objective_loss_integration_v1/matrix_card/analysis_manifest.json",
+    "schema_version": "artifact.v1",
+    "manifest_hash": "llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
+    "producer": "src.dashboard.model_matrix"
+  },
+  "summary": {
+    "schema_version": "analysis.report.v1",
+    "status": "dashboard_objective_loss_integration_completed",
+    "model_count": 2,
+    "objective_loss_schema_version": "objective.loss.v1",
+    "note": "中文 review：dashboard export 通过 manifest 读取 objective loss。"
+  },
+  "analysis_overview": {
+    "schema_version": "analysis.overview.v1",
+    "baseline_model": "",
+    "model_count": 0,
+    "regime_count": 0,
+    "window_count": 0,
+    "window_regime_count": 0,
+    "segment_effect_matrix_count": 0,
+    "model_regime_window_diagnostic_count": 0,
+    "segment_types": [],
+    "qlib_metric_source": "",
+    "review_signal_counts": {},
+    "decision_hint_counts": {},
+    "top_review": {},
+    "top_weakness": {},
+    "top_strength": {},
+    "top_regime_fragile_models": [],
+    "weakest_segments": [],
+    "largest_relative_return_spread_segments": [],
+    "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。"
+  },
+  "model_fidelity": {
+    "schema_version": "model.fidelity.v1",
+    "model_count": 2,
+    "fidelity_counts": {},
+    "proxy_models": [],
+    "native_models": [],
+    "promotion_blocker_count": 0
+  },
+  "requested_model_contract": {},
+  "model_capabilities": [],
+  "top_models": [
+    {
+      "rank": 1,
+      "model": "ridge_mse__loss_contract_smoke",
+      "base_model": "ridge_mse",
+      "feature_set": "loss_contract_smoke",
+      "return_pct": 2.4,
+      "relative_return_pct": 0.9,
+      "stability_score": 2.1
+    },
+    {
+      "rank": 2,
+      "model": "gcn_mse__loss_contract_smoke",
+      "base_model": "gcn_mse",
+      "feature_set": "loss_contract_smoke",
+      "return_pct": -0.8,
+      "relative_return_pct": -1.2,
+      "stability_score": -0.4
+    }
+  ],
+  "feature_set_summary": [
+    {
+      "feature_set": "loss_contract_smoke",
+      "variant_count": 2,
+      "best_model": "ridge_mse__loss_contract_smoke",
+      "best_base_model": "ridge_mse",
+      "avg_return_pct": 0.7999999999999999,
+      "avg_relative_return_pct": -0.14999999999999997,
+      "avg_stability_score": 0.8500000000000001
+    }
+  ],
+  "regime_metrics": [
+    {
+      "model": "ridge_mse__loss_contract_smoke",
+      "regime": "bull",
+      "return_pct": 2.4
+    },
+    {
+      "model": "gcn_mse__loss_contract_smoke",
+      "regime": "stress",
+      "return_pct": -0.8
+    }
+  ],
+  "window_metrics": [
+    {
+      "model": "ridge_mse__loss_contract_smoke",
+      "window": "smoke",
+      "return_pct": 2.4
+    },
+    {
+      "model": "gcn_mse__loss_contract_smoke",
+      "window": "smoke",
+      "return_pct": -0.8
+    }
+  ],
+  "window_regime_metrics": [],
+  "qlib_risk_metrics": [],
+  "objective": {
+    "scores": [
+      {
+        "schema_version": "objective.evaluation.v1",
+        "model": "ridge_mse__loss_contract_smoke",
+        "mse": 5.8333333333333326e-05,
+        "classification_accuracy": 1.0,
+        "ic": 0.9339329390085348,
+        "rank_ic": 1.0
+      }
+    ],
+    "promotion_scores": [
+      {
+        "schema_version": "objective.promotion_score.v1",
+        "rank": 1,
+        "model": "ridge_mse__loss_contract_smoke",
+        "promotion_score": 2.1,
+        "promotion_decision": "research_only",
+        "promotion_blockers": "dashboard loss integration is framework evidence, not strategy promotion"
+      }
+    ],
+    "losses": {
+      "schema_version": "objective.loss.v1",
+      "metric_source_schema_version": "objective.evaluation.v1",
+      "optimization_direction": "minimize",
+      "reward_surface": "retired",
+      "objective_names": [
+        "mse",
+        "classification",
+        "ic",
+        "ranking"
+      ],
+      "row_count": 6,
+      "mse_loss": 5.8333333333333326e-05,
+      "classification_loss": 0.0,
+      "ic_loss": 0.06606706099146509,
+      "ranking_loss": 1.1102230246251565e-16,
+      "rank_group_count": 3,
+      "evaluation": {
+        "schema_version": "objective.evaluation.v1",
+        "row_count": 6,
+        "mse": 5.8333333333333326e-05,
+        "classification_accuracy": 1.0,
+        "ic": 0.9339329390085349,
+        "rank_ic": 0.9999999999999999,
+        "rank_group_count": 3
+      }
+    }
+  },
+  "model_run_coverage": {
+    "schema_version": "model.run_ledger_summary.v1",
+    "expected_model_count": 0,
+    "ledger_model_count": 0,
+    "trained_model_count": 0,
+    "backtested_model_count": 0,
+    "missing_models": [],
+    "all_models_completed": false
+  },
+  "model_run_ledger": [],
+  "segment_effect_matrix": [],
+  "model_effect_deltas": [],
+  "model_regime_window_diagnostics": [],
+  "model_difference_explanations": [],
+  "model_review_briefing": [],
+  "failure_modes": [],
+  "backtest": {
+    "config": {},
+    "walk_forward_splits": []
+  },
+  "attribution": {
+    "status": "not_provided",
+    "schema_version": "analysis.model_attribution.batch.v1",
+    "models": [],
+    "proxy_models": [],
+    "attribution_kinds": {},
+    "top_features_by_model": []
+  },
+  "production_health": {},
+  "notebook_card_readiness": {},
+  "schedule_health": {},
+  "artifacts": {
+    "summary": "research/dashboard_objective_loss_integration_v1/matrix_card/summary.json",
+    "model_comparison": "research/dashboard_objective_loss_integration_v1/matrix_card/model_comparison.csv",
+    "regime_metrics": "research/dashboard_objective_loss_integration_v1/matrix_card/regime_metrics.csv",
+    "window_metrics": "research/dashboard_objective_loss_integration_v1/matrix_card/window_metrics.csv",
+    "objective_scores": "research/dashboard_objective_loss_integration_v1/matrix_card/objective_scores.csv",
+    "promotion_scores": "research/dashboard_objective_loss_integration_v1/matrix_card/promotion_scores.csv",
+    "objective_losses": "research/dashboard_objective_loss_integration_v1/matrix_card/objective_losses.json",
+    "analysis_manifest": "research/dashboard_objective_loss_integration_v1/matrix_card/analysis_manifest.json"
+  }
+}

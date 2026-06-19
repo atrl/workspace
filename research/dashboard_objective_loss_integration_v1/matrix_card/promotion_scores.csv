@@ -1,0 +1,2 @@
+schema_version,rank,model,promotion_score,promotion_decision,promotion_blockers
+objective.promotion_score.v1,1,ridge_mse__loss_contract_smoke,2.1,research_only,"dashboard loss integration is framework evidence, not strategy promotion"

@@ -181,6 +181,24 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
             }
         ]
     ).to_csv(matrix_card / "promotion_scores_custom.csv", index=False)
+    (matrix_card / "objective_losses_custom.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "objective.loss.v1",
+                "metric_source_schema_version": "objective.evaluation.v1",
+                "optimization_direction": "minimize",
+                "reward_surface": "retired",
+                "objective_names": ["mse", "classification", "ic", "ranking"],
+                "mse_loss": 0.0001,
+                "classification_loss": 0.0,
+                "ic_loss": 0.2,
+                "ranking_loss": 0.3,
+                "composite_loss": 0.150025,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
     pd.DataFrame(
         [{"model": "ridge_mse", "segment_type": "all", "segment": "all", "diagnosis": "基准模型。"}]
     ).to_csv(matrix_card / "deltas_custom.csv", index=False)
@@ -286,6 +304,7 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
                     "qlib_risk_metrics": "risk_custom.csv",
                     "objective_scores": "objective_scores_custom.csv",
                     "promotion_scores": "promotion_scores_custom.csv",
+                    "objective_losses": "objective_losses_custom.json",
                     "model_effect_deltas": "deltas_custom.csv",
                     "model_regime_window_diagnostics": "diagnostics_custom.csv",
                     "segment_effect_matrix": "segment_matrix_custom.csv",
@@ -313,6 +332,8 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["qlib_risk_metrics"][0]["annualized_return"] == 0.25
     assert payload["objective"]["scores"][0]["schema_version"] == "objective.evaluation.v1"
     assert payload["objective"]["promotion_scores"][0]["promotion_decision"] == "promote_candidate"
+    assert payload["objective"]["losses"]["schema_version"] == "objective.loss.v1"
+    assert payload["objective"]["losses"]["reward_surface"] == "retired"
     assert payload["model_effect_deltas"][0]["diagnosis"] == "基准模型。"
     assert payload["model_regime_window_diagnostics"][0]["diagnostic_signal"] == "baseline"
     assert payload["segment_effect_matrix"][0]["best_relative_return_model"] == "ridge_mse"
@@ -328,6 +349,7 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["artifacts"]["model_comparison"].endswith("comparison_custom.csv")
     assert payload["artifacts"]["objective_scores"].endswith("objective_scores_custom.csv")
     assert payload["artifacts"]["promotion_scores"].endswith("promotion_scores_custom.csv")
+    assert payload["artifacts"]["objective_losses"].endswith("objective_losses_custom.json")
     assert payload["artifacts"]["model_regime_window_diagnostics"].endswith("diagnostics_custom.csv")
     assert payload["artifacts"]["model_difference_explanations"].endswith("difference_custom.csv")
     assert payload["artifacts"]["model_review_briefing"].endswith("review_custom.csv")
