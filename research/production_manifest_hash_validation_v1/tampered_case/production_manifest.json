@@ -1,0 +1,60 @@
+{
+  "artifact_id": "paper_sim_replay_v1",
+  "artifact_type": "production_strategy",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "production/paper_sim_replay_v1/data/data_registry.json",
+      "production/paper_sim_replay_v1/data/snapshots/paper_replay_soxl_daily/2026-06-09/data_update_manifest.json"
+    ],
+    "end": "2026-06-09",
+    "metadata": {
+      "dashboard_manifest_hash": "4d16a54a928730947e024297c634659ca6ecb1f8d575073d6878666e55bf2b46",
+      "dashboard_manifest_kind": "analysis_manifest",
+      "market_data_dataset_key": "daily.soxl_paper_replay",
+      "market_data_manifest_hash": "c2d66c782be2de4adb47554cd4c5211481a9be3c110bc90fdc7da6f855a317a7"
+    },
+    "name": "paper_replay_soxl_daily",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-02",
+    "universe": [
+      "SOXL"
+    ]
+  },
+  "manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+  "metadata": {
+    "analysis_overview_schema": "analysis.overview.v1",
+    "backtest_schema_version": "backtest.config.v1",
+    "data_update_status": "success",
+    "execution_gate": "paper_review",
+    "instrument": "SOXL",
+    "live_broker_enabled": false,
+    "market_data_dataset_key": "daily.soxl_paper_replay",
+    "market_quote_date": "2026-06-09",
+    "market_quote_price": 201.68,
+    "mode": "paper",
+    "paper_position": 0.746216,
+    "paper_shares": 37,
+    "promotion_decision": "promote_candidate",
+    "schedule_status": "success",
+    "source_model": "ridge_mse__ic_weighted_composite",
+    "status": "paper_replay_changed_after_publish",
+    "target_position": 0.75
+  },
+  "paths": {
+    "analysis_manifest": "matrix_card/analysis_manifest.json",
+    "dashboard_export": "dashboard_export.json",
+    "data_registry": "data/data_registry.json",
+    "data_update_manifest": "data/snapshots/paper_replay_soxl_daily/2026-06-09/data_update_manifest.json",
+    "execution_intent": "execution_intent.json",
+    "intent_ledger": "intent_ledger.json",
+    "market_quote": "market_quote.json",
+    "model_artifact_manifest": "matrix_card/artifact_manifest.json",
+    "notebook": "paper_sim_replay_v1.ipynb",
+    "paper_execution_result": "paper_execution_result.json",
+    "summary": "production_summary.json"
+  },
+  "producer": "src.core.production",
+  "published_at": "2026-06-09T21:30:00Z",
+  "schema_version": "production.manifest.v1"
+}

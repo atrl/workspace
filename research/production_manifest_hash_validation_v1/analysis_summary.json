@@ -1,0 +1,21 @@
+{
+  "schema_version": "research.production_manifest_hash_validation.v1",
+  "strategy_id": "paper_sim_replay_v1",
+  "healthy_status": "success",
+  "healthy_health_status": "healthy",
+  "healthy_is_healthy": true,
+  "healthy_manifest_hash_matches_registry": true,
+  "healthy_manifest_hash_matches_content": true,
+  "healthy_missing_required_paths": [],
+  "healthy_manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+  "healthy_computed_manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+  "tampered_status": "success",
+  "tampered_health_status": "manifest_hash_mismatch",
+  "tampered_is_healthy": false,
+  "tampered_manifest_hash_matches_registry": true,
+  "tampered_manifest_hash_matches_content": false,
+  "tampered_manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+  "tampered_computed_manifest_hash": "46e1b4b612e7f68d583edb593eb9f00c273b159b76263ac5ced87f15ad65fc64",
+  "healthy_notification": "research_production_manifest_hash_healthy_v1:success | strategy=paper_sim_replay_v1 | health=healthy | missing=0 | manifest=production/paper_sim_replay_v1/production_manifest.json",
+  "tampered_notification": "research_production_manifest_hash_tampered_v1:success | strategy=paper_sim_replay_v1 | health=manifest_hash_mismatch | missing=0 | manifest=research/production_manifest_hash_validation_v1/tampered_case/production_manifest.json"
+}

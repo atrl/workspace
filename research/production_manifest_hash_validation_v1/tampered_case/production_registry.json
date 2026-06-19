@@ -1,0 +1,36 @@
+{
+  "registry_hash": "d947da10a6f1772d1b0a816e81779dda80974ba8b2f879c5c88fa47d97be3ab0",
+  "schema_version": "production.registry.v1",
+  "strategies": {
+    "paper_sim_replay_v1": {
+      "current": {
+        "artifact_id": "paper_sim_replay_v1",
+        "artifact_type": "production_strategy",
+        "dataset_schema_hash": "113813246f67e96c61b167d3ce949ce6bf08319250d0fd594b2aff75f35c3bef",
+        "end": "2026-06-09",
+        "manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+        "manifest_path": "research/production_manifest_hash_validation_v1/tampered_case/production_manifest.json",
+        "mode": "paper",
+        "published_at": "2026-06-09T21:30:00Z",
+        "start": "2026-01-02",
+        "status": "paper_replay_completed",
+        "strategy_id": "paper_sim_replay_v1"
+      },
+      "history": [
+        {
+          "artifact_id": "paper_sim_replay_v1",
+          "artifact_type": "production_strategy",
+          "dataset_schema_hash": "113813246f67e96c61b167d3ce949ce6bf08319250d0fd594b2aff75f35c3bef",
+          "end": "2026-06-09",
+          "manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+          "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+          "mode": "paper",
+          "published_at": "2026-06-09T21:30:00Z",
+          "start": "2026-01-02",
+          "status": "paper_replay_completed",
+          "strategy_id": "paper_sim_replay_v1"
+        }
+      ]
+    }
+  }
+}

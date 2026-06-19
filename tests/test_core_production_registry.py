@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import json
 
-from src.core import DatasetSnapshot, build_production_manifest, publish_production_manifest
+from src.core import (
+    DatasetSnapshot,
+    build_production_manifest,
+    production_manifest_content_hash,
+    publish_production_manifest,
+)
 
 
 def _dataset() -> DatasetSnapshot:
@@ -93,3 +98,22 @@ def test_publish_production_manifest_writes_manifest_and_registry_history(tmp_pa
     assert current["published_at"] == "2026-06-10T21:30:00Z"
     assert [item["manifest_hash"] for item in history] == [first["manifest_hash"], second["manifest_hash"]]
     assert len(registry["registry_hash"]) == 64
+
+
+def test_production_manifest_content_hash_recomputes_saved_payload_hash(tmp_path):
+    payload = publish_production_manifest(
+        strategy_id="paper_sim_replay_v1",
+        output_dir=tmp_path / "production" / "paper_sim_replay_v1",
+        registry_path=None,
+        notebook_path="paper_sim_replay_v1.ipynb",
+        dataset=_dataset(),
+        paths={"summary": "production_summary.json"},
+        metadata={"mode": "paper", "status": "paper_replay_completed"},
+        published_at="2026-06-09T21:30:00Z",
+    )
+
+    tampered = dict(payload)
+    tampered["metadata"] = {**tampered["metadata"], "status": "paper_replay_changed"}
+
+    assert production_manifest_content_hash(payload) == payload["manifest_hash"]
+    assert production_manifest_content_hash(tampered) != payload["manifest_hash"]

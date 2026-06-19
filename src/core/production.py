@@ -42,6 +42,16 @@ def build_production_manifest(
     )
 
 
+def production_manifest_content_hash(payload: Mapping[str, Any]) -> str:
+    """Recompute the content hash stored in a saved production manifest."""
+    content = {
+        str(key): value
+        for key, value in dict(payload).items()
+        if key not in {"manifest_hash", "published_at"}
+    }
+    return stable_hash(_json_ready(content))
+
+
 def _load_registry(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {"schema_version": PRODUCTION_REGISTRY_SCHEMA_VERSION, "strategies": {}}

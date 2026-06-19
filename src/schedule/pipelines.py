@@ -8,6 +8,7 @@ from typing import Any, Callable, Iterable
 import pandas as pd
 
 from src.analysis import backfill_analysis_manifest, scan_analysis_cards
+from src.core import production_manifest_content_hash
 from src.data import build_canonical_snapshot, publish_canonical_snapshot
 from src.dashboard import build_dashboard_view_model, write_dashboard_html, write_model_matrix_dashboard_export
 from src.model import run_factor_feature_set_matrix
@@ -259,9 +260,11 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         if not resolved.exists():
             missing_required_paths.append(str(key))
 
-    hash_matches = not current_hash or current_hash == manifest_hash
+    computed_manifest_hash = production_manifest_content_hash(manifest)
+    registry_hash_matches = not current_hash or current_hash == manifest_hash
+    content_hash_matches = not manifest_hash or computed_manifest_hash == manifest_hash
     health_status = "healthy"
-    if not hash_matches:
+    if not registry_hash_matches or not content_hash_matches:
         health_status = "manifest_hash_mismatch"
     elif missing_required_paths:
         health_status = "missing_required_paths"
@@ -275,7 +278,9 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         "manifest_path": str(manifest_path),
         "manifest_hash": manifest_hash,
         "registry_manifest_hash": current_hash,
-        "manifest_hash_matches_registry": hash_matches,
+        "computed_manifest_hash": computed_manifest_hash,
+        "manifest_hash_matches_registry": registry_hash_matches,
+        "manifest_hash_matches_content": content_hash_matches,
         "artifact_id": str(manifest.get("artifact_id", "")),
         "artifact_type": str(manifest.get("artifact_type", "")),
         "mode": str(metadata.get("mode", "")),

@@ -103,3 +103,29 @@ def test_production_health_check_reports_missing_required_manifest_paths_without
     assert result.payload["missing_required_paths"] == ["intent_ledger"]
     assert "health=missing_required_paths" in events[0]
     assert "missing=1" in events[0]
+
+
+def test_production_health_check_detects_manifest_content_hash_mismatch(tmp_path):
+    card, registry_path = _publish_strategy(tmp_path)
+    manifest_path = card / "production_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["metadata"]["status"] = "paper_replay_changed_after_publish"
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=registry_path,
+        strategy_id="paper_sim_replay_v1",
+        required_paths=("summary", "intent_ledger", "paper_execution_result"),
+        notify_details=True,
+    )
+    events: list[str] = []
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "success"
+    assert result.payload["health_status"] == "manifest_hash_mismatch"
+    assert result.payload["is_healthy"] is False
+    assert result.payload["manifest_hash_matches_registry"] is True
+    assert result.payload["manifest_hash_matches_content"] is False
+    assert result.payload["computed_manifest_hash"] != result.payload["manifest_hash"]
+    assert "health=manifest_hash_mismatch" in events[0]
