@@ -2,20 +2,22 @@
   "schema_version": "research.knowledge_ingest_reference.v1",
   "status": "completed",
   "queue_result": {
-    "written": 8,
+    "written": 9,
     "deduped": 0
   },
   "backlog_result": {
-    "written": 8,
+    "written": 9,
     "deduped": 0
   },
-  "source_count": 8,
+  "source_count": 9,
   "target_subsystems": [
     "src/analysis",
+    "src/factor",
     "src/model"
   ],
   "candidate_types": [
     "analysis_extension",
+    "factor_pipeline_reference",
     "method_signal",
     "model_matrix_reference",
     "model_replacement"
@@ -26,6 +28,12 @@
     "dlinear_mse",
     "patch_tst_mse",
     "quantbench_model_matrix"
+  ],
+  "promotion_gate_statuses": [
+    "blocked_pending_research"
+  ],
+  "required_evidence_counts": [
+    5
   ],
   "artifacts": {
     "knowledge_queue": "knowledge_queue.json",

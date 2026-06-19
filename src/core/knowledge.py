@@ -48,6 +48,9 @@ def _default_target(source: KnowledgeSource) -> str:
 
 
 _CANDIDATE_PATTERNS: tuple[tuple[str, str, str, str], ...] = (
+    ("multi-factor", "factor_diagnostics", "factor_pipeline_reference", "src/factor"),
+    ("factor correlation", "factor_diagnostics", "factor_pipeline_reference", "src/factor"),
+    ("factor", "factor_diagnostics", "factor_pipeline_reference", "src/factor"),
     ("patchtst", "patch_tst_mse", "model_replacement", "src/model"),
     ("patch tst", "patch_tst_mse", "model_replacement", "src/model"),
     ("dlinear", "dlinear_mse", "model_replacement", "src/model"),
@@ -61,6 +64,14 @@ _CANDIDATE_PATTERNS: tuple[tuple[str, str, str, str], ...] = (
     ("qlib", "qlib_recorder_analysis", "analysis_extension", "src/analysis"),
     ("regime", "regime_window_review", "method_signal", "src/analysis"),
     ("quantbench", "quantbench_model_matrix", "model_matrix_reference", "src/model"),
+)
+
+_EVIDENCE_REQUIREMENTS: tuple[str, ...] = (
+    "license_review",
+    "research_notebook",
+    "focused_pytest",
+    "manifest_or_export",
+    "chinese_conclusion",
 )
 
 _TARGET_INTERFACES = {
@@ -104,6 +115,7 @@ def _priority_score(source: KnowledgeSource, *, target_subsystem: str, candidate
     type_score = {
         "model_replacement": 3.0,
         "analysis_extension": 2.0,
+        "factor_pipeline_reference": 2.0,
         "model_matrix_reference": 2.0,
         "method_signal": 1.0,
     }.get(candidate_type, 1.0)
@@ -128,6 +140,10 @@ def _license_gate(source: KnowledgeSource) -> str:
         "license gate: 只能保存 URL、自有摘要和结构化假设；"
         f"进入实现前必须复核来源许可。来源备注：{source.license_note}"
     )
+
+
+def _allowed_next_surface(candidate_name: str) -> str:
+    return f"research/{candidate_name}_validation_v1/{candidate_name}_validation_v1.ipynb"
 
 
 def build_knowledge_backlog(sources: Iterable[KnowledgeSource]) -> list[dict[str, Any]]:
@@ -173,6 +189,12 @@ def build_knowledge_backlog(sources: Iterable[KnowledgeSource]) -> list[dict[str
                     "只能作为 hypothesis，不直接变成生产逻辑。"
                 ),
                 "license_gate": _license_gate(source),
+                "promotion_gate_status": "blocked_pending_research",
+                "allowed_next_surface": _allowed_next_surface(candidate_name),
+                "blocked_surfaces_before_gate": ["src", "production", "skill"],
+                "evidence_requirements": list(_EVIDENCE_REQUIREMENTS),
+                "required_evidence_count": len(_EVIDENCE_REQUIREMENTS),
+                "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
                 "promotion_status": "backlog",
                 "source_used_as": "hypothesis_only",
                 "skill_boundary": "method_only",
@@ -220,6 +242,8 @@ def write_knowledge_backlog(output_dir: str | Path, sources: Iterable[KnowledgeS
         "priority_rank",
         "priority_score",
         "promotion_status",
+        "promotion_gate_status",
+        "required_evidence_count",
         "source_used_as",
         "skill_boundary",
         "url",
@@ -236,6 +260,7 @@ def write_knowledge_backlog(output_dir: str | Path, sources: Iterable[KnowledgeS
         "",
         f"- 本次写入 {len(items)} 条 backlog，去重 {deduped} 条。",
         f"- 目标接口覆盖：{', '.join(summary['target_subsystems']) if items else '无'}。",
+        "- 晋升门禁：每条候选必须先补 license review、research notebook、聚焦 pytest、manifest/export 和中文结论。",
         "- 所有来源只作为 hypothesis_only；未通过 license gate 前不进入实现。",
         "- 可运行功能必须进入 `src/`、`research/*.ipynb` 或 `production/*.ipynb`，不进入 skill。",
         "- 下一步按 priority_rank 逐项建立 research notebook、聚焦测试和 manifest 证据。",
@@ -255,10 +280,11 @@ def write_knowledge_queue(output_dir: str | Path, sources: Iterable[KnowledgeSou
             deduped += 1
             continue
         seen.add(source.source_id)
+        _, _, target_subsystem = _candidate_for_source(source)
         cards.append(
             build_hypothesis_card(
                 source,
-                target_subsystem=_default_target(source),
+                target_subsystem=target_subsystem,
                 hypothesis=f"评估 {source.title} 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
                 test_plan="在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
             )

@@ -28,7 +28,7 @@
         "summary": "Qlib is an AI-oriented quantitative investment platform reference for research workflow, recorder/analyzer style artifacts, and production handoff boundaries.",
         "license_note": "进入实现前复核 upstream license；不 vendoring 代码。"
       },
-      "target_subsystem": "src/model",
+      "target_subsystem": "src/analysis",
       "hypothesis": "评估 Microsoft Qlib 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
       "promotion_status": "candidate",
@@ -115,6 +115,23 @@
       },
       "target_subsystem": "src/model",
       "hypothesis": "评估 FEDformer: Frequency Enhanced Decomposed Transformer for Long-term Series Forecasting 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
+      "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "promotion_status": "candidate",
+      "skill_boundary": "method_only",
+      "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
+    },
+    {
+      "schema_version": "knowledge_card.v1",
+      "source": {
+        "source_id": "github:quantopian/alphalens",
+        "source_type": "github",
+        "title": "Alphalens factor performance analysis",
+        "url": "https://github.com/quantopian/alphalens",
+        "summary": "GitHub factor-analysis reference for returns analysis, information coefficient analysis, turnover analysis, and grouped analysis; useful only as a src.factor diagnostics hypothesis.",
+        "license_note": "GitHub README shows Apache-2.0 license；进入实现前仍需复核 upstream license；不 vendoring 代码。"
+      },
+      "target_subsystem": "src/factor",
+      "hypothesis": "评估 Alphalens factor performance analysis 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",

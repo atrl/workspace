@@ -127,6 +127,52 @@ def test_build_knowledge_backlog_maps_external_sources_to_testable_src_interface
     assert social["skill_boundary"] == "method_only"
 
 
+def test_build_knowledge_backlog_adds_structured_promotion_gate_for_external_sources():
+    source = KnowledgeSource(
+        source_id="github:example/factor-lab",
+        source_type="github",
+        title="Factor lab with correlation diagnostics",
+        url="https://github.com/example/factor-lab",
+        summary="Discusses factor correlation, IC decay, and multi-factor review workflows.",
+        license_note="Check repository license before using implementation details.",
+    )
+
+    item = build_knowledge_backlog([source])[0]
+
+    assert item["candidate_name"] == "factor_diagnostics"
+    assert item["candidate_type"] == "factor_pipeline_reference"
+    assert item["target_subsystem"] == "src/factor"
+    assert item["promotion_gate_status"] == "blocked_pending_research"
+    assert item["allowed_next_surface"].startswith("research/")
+    assert item["blocked_surfaces_before_gate"] == ["src", "production", "skill"]
+    assert item["required_evidence_count"] == 5
+    assert item["evidence_requirements"] == [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion",
+    ]
+    assert item["gate_notes"].startswith("未满足晋升门禁")
+
+
+def test_write_knowledge_queue_uses_same_candidate_target_routing_as_backlog(tmp_path):
+    source = KnowledgeSource(
+        source_id="github:example/factor-lab",
+        source_type="github",
+        title="Factor lab with correlation diagnostics",
+        url="https://github.com/example/factor-lab",
+        summary="Discusses factor correlation, IC decay, and multi-factor review workflows.",
+        license_note="Check repository license before using implementation details.",
+    )
+
+    write_knowledge_queue(tmp_path, [source])
+
+    queue = json.loads((tmp_path / "knowledge_queue.json").read_text(encoding="utf-8"))
+    assert queue["cards"][0]["target_subsystem"] == "src/factor"
+    assert "research notebook" in queue["cards"][0]["test_plan"]
+
+
 def test_write_knowledge_backlog_writes_json_csv_and_chinese_review(tmp_path):
     sources = [
         KnowledgeSource(
@@ -158,6 +204,11 @@ def test_write_knowledge_backlog_writes_json_csv_and_chinese_review(tmp_path):
     assert payload["summary"]["source_count"] == 1
     assert payload["summary"]["target_subsystems"] == ["src/model"]
     assert payload["items"][0]["candidate_name"] == "dlinear_mse"
+    assert payload["items"][0]["promotion_gate_status"] == "blocked_pending_research"
+    assert payload["items"][0]["required_evidence_count"] == 5
     assert "source_id,candidate_name" in csv_text
+    assert "promotion_gate_status" in csv_text
+    assert "required_evidence_count" in csv_text
     assert "中文结论" in review
+    assert "晋升门禁" in review
     assert "不进入 skill" in review
