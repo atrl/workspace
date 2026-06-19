@@ -1,6 +1,6 @@
 candidate_name,promotion_gate_status,implementation_allowed,target_subsystem,missing_evidence_count,provided_evidence_count,license_gate_status,source_id,source_reliability,usage_scope
 autoformer_mse,research_evidence_complete,True,src/model,0,5,passed,arxiv:2106.13008,primary_metadata,hypothesis_and_adapter_reference
-fedformer_mse,blocked_missing_evidence,False,src/model,5,0,blocked,arxiv:2201.12740,primary_metadata,hypothesis_and_adapter_reference
+fedformer_mse,research_evidence_complete,True,src/model,0,5,passed,arxiv:2201.12740,primary_metadata,hypothesis_and_adapter_reference
 dlinear_mse,blocked_missing_evidence,False,src/model,5,0,blocked,arxiv:2205.13504,primary_metadata,hypothesis_and_adapter_reference
 patch_tst_mse,blocked_missing_evidence,False,src/model,5,0,blocked,arxiv:2211.14730,primary_metadata,hypothesis_and_adapter_reference
 quantbench_model_matrix,blocked_missing_evidence,False,src/model,5,0,blocked,arxiv:2504.18600,primary_metadata,hypothesis_and_adapter_reference

@@ -1,0 +1,23 @@
+{
+  "schema_version": "research.fedformer_mse.adapter_evidence.v1",
+  "model": "fedformer_mse",
+  "model_adapter": "fedformer_frequency_attention_mse_v1",
+  "adapter_status": "paper_strict_adapter",
+  "paper_fidelity": "native_sequence",
+  "is_proxy": false,
+  "estimator": "FEDformerFrequencyRegressor",
+  "has_trend_head": true,
+  "has_frequency_head": true,
+  "frequency_modes": [
+    1,
+    2
+  ],
+  "top_k_modes": 2,
+  "feature_count": 5,
+  "lookback": 5,
+  "prediction_row_count": 26,
+  "prediction_non_null": true,
+  "train_row_count": 82,
+  "test_row_count": 26,
+  "feature_count_used": 5
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "research.fedformer_mse_validation.v1",
+  "status": "completed",
+  "source_id": "arxiv:2201.12740",
+  "candidate_name": "fedformer_mse",
+  "target_subsystem": "src/model",
+  "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+  "model_adapter": "fedformer_frequency_attention_mse_v1",
+  "adapter_status": "paper_strict_adapter",
+  "paper_fidelity": "native_sequence",
+  "is_proxy": false,
+  "estimator": "FEDformerFrequencyRegressor",
+  "prediction_row_count": 26,
+  "prediction_non_null": true,
+  "implementation_allowed": false,
+  "promotion_target": "research_only",
+  "evidence_requirements": [
+    "license_review",
+    "research_notebook",
+    "focused_pytest",
+    "manifest_or_export",
+    "chinese_conclusion"
+  ],
+  "artifacts": {
+    "adapter_evidence": "adapter_evidence.json",
+    "predictions": "predictions.csv",
+    "source_provenance": "source_provenance.json",
+    "license_review": "license_review.md"
+  }
+}

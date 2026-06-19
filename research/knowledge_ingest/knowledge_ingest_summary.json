@@ -11,8 +11,8 @@
   },
   "promotion_audit_result": {
     "written": 10,
-    "ready": 2,
-    "blocked": 8
+    "ready": 3,
+    "blocked": 7
   },
   "source_count": 10,
   "target_subsystems": [
@@ -55,20 +55,24 @@
     "social_unverified"
   ],
   "promotion_audit_schema": "knowledge_promotion_audit.v1",
-  "promotion_audit_ready_count": 2,
-  "promotion_audit_blocked_count": 8,
-  "promotion_audit_missing_license_review_count": 8,
+  "promotion_audit_ready_count": 3,
+  "promotion_audit_blocked_count": 7,
+  "promotion_audit_missing_license_review_count": 7,
   "promotion_evidence_source": "research_card_scan",
   "promotion_evidence_ready_candidates": [
     "autoformer_mse",
+    "fedformer_mse",
     "rank_ic_objective"
   ],
   "promotion_evidence_index_keys": [
     "arxiv:2106.13008",
+    "arxiv:2201.12740",
     "arxiv:2605.00501",
     "autoformer_mse",
+    "fedformer_mse",
     "rank_ic_objective",
     "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
+    "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
     "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb"
   ],
   "artifacts": {

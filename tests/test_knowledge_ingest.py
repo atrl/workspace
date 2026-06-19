@@ -439,6 +439,14 @@ def test_build_knowledge_research_evidence_index_reads_real_research_card_files(
             summary="Autoformer decomposition and auto-correlation reference.",
             license_note="arXiv metadata only.",
         ),
+        KnowledgeSource(
+            source_id="arxiv:2201.12740",
+            source_type="paper",
+            title="FEDformer: Frequency Enhanced Decomposed Transformer for Long-term Series Forecasting",
+            url="https://arxiv.org/abs/2201.12740",
+            summary="FEDformer frequency/decomposition reference.",
+            license_note="arXiv metadata only.",
+        ),
     ]
     backlog = build_knowledge_backlog(sources)
 
@@ -460,13 +468,24 @@ def test_build_knowledge_research_evidence_index_reads_real_research_card_files(
         "manifest_or_export",
         "chinese_conclusion",
     ]
+    assert evidence_index["fedformer_mse"] == [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion",
+    ]
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
     autoformer_item = next(item for item in audit["items"] if item["candidate_name"] == "autoformer_mse")
+    fedformer_item = next(item for item in audit["items"] if item["candidate_name"] == "fedformer_mse")
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
     assert autoformer_item["promotion_gate_status"] == "research_evidence_complete"
     assert autoformer_item["implementation_allowed"] is True
     assert autoformer_item["missing_evidence"] == []
+    assert fedformer_item["promotion_gate_status"] == "research_evidence_complete"
+    assert fedformer_item["implementation_allowed"] is True
+    assert fedformer_item["missing_evidence"] == []
 
 
 def test_write_knowledge_promotion_audit_writes_json_csv_and_chinese_review(tmp_path):
@@ -592,16 +611,63 @@ def test_autoformer_mse_validation_card_supplies_backlog_evidence():
     assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
 
 
+def test_fedformer_mse_validation_card_supplies_backlog_evidence():
+    card = "research/fedformer_mse_validation_v1"
+    notebook_path = f"{card}/fedformer_mse_validation_v1.ipynb"
+    source = KnowledgeSource(
+        source_id="arxiv:2201.12740",
+        source_type="paper",
+        title="FEDformer: Frequency Enhanced Decomposed Transformer for Long-term Series Forecasting",
+        url="https://arxiv.org/abs/2201.12740",
+        summary="FEDformer frequency/decomposition reference for the fedformer_mse adapter fidelity backlog.",
+        license_note="arXiv metadata and self-written summary only.",
+    )
+    backlog = build_knowledge_backlog([source])
+    evidence_index = knowledge_api.build_knowledge_research_evidence_index(".", backlog)
+
+    summary = json.loads(open(f"{card}/fedformer_mse_summary.json", encoding="utf-8").read())
+    source_provenance = json.loads(open(f"{card}/source_provenance.json", encoding="utf-8").read())
+    adapter_evidence = json.loads(open(f"{card}/adapter_evidence.json", encoding="utf-8").read())
+    license_review = open(f"{card}/license_review.md", encoding="utf-8").read()
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert summary["schema_version"] == "research.fedformer_mse_validation.v1"
+    assert summary["source_id"] == "arxiv:2201.12740"
+    assert summary["candidate_name"] == "fedformer_mse"
+    assert summary["target_subsystem"] == "src/model"
+    assert summary["model_adapter"] == "fedformer_frequency_attention_mse_v1"
+    assert summary["adapter_status"] == "paper_strict_adapter"
+    assert summary["paper_fidelity"] == "native_sequence"
+    assert summary["is_proxy"] is False
+    assert summary["implementation_allowed"] is False
+    assert summary["promotion_target"] == "research_only"
+    assert summary["evidence_requirements"] == evidence_index["fedformer_mse"]
+    assert source_provenance["source_used_as"] == "hypothesis_only"
+    assert "arxiv.org/abs/2201.12740" in source_provenance["url"]
+    assert adapter_evidence["prediction_row_count"] > 0
+    assert adapter_evidence["prediction_non_null"] is True
+    assert adapter_evidence["has_frequency_head"] is True
+    assert "未复制论文全文" in license_review
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
+
+
 def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_complete():
     audit = json.loads(open("research/knowledge_ingest/knowledge_promotion_audit.json", encoding="utf-8").read())
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
     autoformer_item = next(item for item in audit["items"] if item["candidate_name"] == "autoformer_mse")
+    fedformer_item = next(item for item in audit["items"] if item["candidate_name"] == "fedformer_mse")
 
-    assert audit["summary"]["ready_count"] == 2
-    assert audit["summary"]["blocked_count"] == 8
-    assert audit["summary"]["implementation_allowed_count"] == 2
+    assert audit["summary"]["ready_count"] == 3
+    assert audit["summary"]["blocked_count"] == 7
+    assert audit["summary"]["implementation_allowed_count"] == 3
     assert "rank_ic_objective" in audit["summary"]["ready_candidates"]
     assert "autoformer_mse" in audit["summary"]["ready_candidates"]
+    assert "fedformer_mse" in audit["summary"]["ready_candidates"]
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
     assert rank_item["missing_evidence"] == []
@@ -623,6 +689,13 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
         "src/model",
         "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
     ]
+    assert fedformer_item["promotion_gate_status"] == "research_evidence_complete"
+    assert fedformer_item["implementation_allowed"] is True
+    assert fedformer_item["missing_evidence"] == []
+    assert fedformer_item["allowed_surfaces_after_gate"] == [
+        "src/model",
+        "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
+    ]
 
 
 def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards():
@@ -635,13 +708,17 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
     assert summary["promotion_evidence_source"] == "research_card_scan"
     assert summary["promotion_evidence_ready_candidates"] == [
         "autoformer_mse",
+        "fedformer_mse",
         "rank_ic_objective",
     ]
     assert summary["promotion_evidence_index_keys"] == [
         "arxiv:2106.13008",
+        "arxiv:2201.12740",
         "arxiv:2605.00501",
         "autoformer_mse",
+        "fedformer_mse",
         "rank_ic_objective",
         "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
+        "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
         "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
     ]
