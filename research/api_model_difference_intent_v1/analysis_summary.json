@@ -1,0 +1,22 @@
+{
+  "status": "completed",
+  "schema_version": "research.api_model_difference_intent_v1",
+  "source_artifact": "api_model_difference_intent_v1",
+  "source_model": "random_forest_clf__all_features",
+  "raw_avg_position": 0.74,
+  "target_position": 0.1,
+  "execution_gate": "blocked_to_min_position",
+  "model_difference_top_signal": "baseline_defends",
+  "model_difference_top_decision_hint": "block_or_rework_loser",
+  "model_difference_top_segment": "stress_window::stress",
+  "model_difference_top_loser_model": "random_forest_clf__all_features",
+  "model_difference_top_winner_model": "ridge_mse__all_features",
+  "model_difference_top_spread": 6.5,
+  "paper_result_status": "paper_executed",
+  "paper_snapshot_shares": 10,
+  "sidecars": {
+    "dashboard_export": "/Users/rziiiii/dev/workspace/research/api_model_difference_intent_v1/dashboard_export.json",
+    "intent_ledger": "/Users/rziiiii/dev/workspace/research/api_model_difference_intent_v1/intent_ledger.json",
+    "analysis_summary": "/Users/rziiiii/dev/workspace/research/api_model_difference_intent_v1/analysis_summary.json"
+  }
+}

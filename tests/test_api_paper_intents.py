@@ -110,6 +110,42 @@ def test_build_target_position_intent_records_dashboard_review_context_and_block
     assert intent.metadata["backtest_slippage_bps"] == 1.5
 
 
+def test_build_target_position_intent_blocks_top_model_when_difference_explanation_marks_it_loser():
+    payload = _dashboard_payload()
+    payload["model_difference_explanations"] = [
+        {
+            "schema_version": "analysis.model_difference_explanation.v1",
+            "priority_rank": 1,
+            "segment_type": "window_regime",
+            "segment": "stress_window::stress",
+            "baseline_model": "ridge_mse__all_features",
+            "winner_model": "ridge_mse__all_features",
+            "loser_model": "random_forest_clf__all_features",
+            "relative_return_pct_spread": 6.5,
+            "explanation_signal": "baseline_defends",
+            "decision_hint": "block_or_rework_loser",
+        }
+    ]
+
+    intent = build_target_position_intent_from_dashboard(
+        payload,
+        instrument="SOXL",
+        min_position=0.1,
+        max_position=0.75,
+    )
+
+    assert intent.target_position == 0.1
+    assert intent.metadata["execution_gate"] == "blocked_to_min_position"
+    assert intent.metadata["model_difference_schema_version"] == "analysis.model_difference_explanation.v1"
+    assert intent.metadata["model_difference_top_signal"] == "baseline_defends"
+    assert intent.metadata["model_difference_top_decision_hint"] == "block_or_rework_loser"
+    assert intent.metadata["model_difference_top_segment"] == "stress_window::stress"
+    assert intent.metadata["model_difference_top_baseline_model"] == "ridge_mse__all_features"
+    assert intent.metadata["model_difference_top_winner_model"] == "ridge_mse__all_features"
+    assert intent.metadata["model_difference_top_loser_model"] == "random_forest_clf__all_features"
+    assert intent.metadata["model_difference_top_spread"] == 6.5
+
+
 def test_build_target_position_intent_blocks_top_model_without_complete_run_record():
     payload = _dashboard_payload()
     payload["model_run_coverage"] = {

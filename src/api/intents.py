@@ -123,6 +123,50 @@ def _analysis_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _model_difference_context(dashboard_payload: dict[str, Any], model: str) -> dict[str, Any]:
+    rows = dashboard_payload.get("model_difference_explanations")
+    if not isinstance(rows, list) or not rows:
+        return {}
+    base_model = model.split("__", 1)[0]
+    candidates: list[dict[str, Any]] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        compared_models = {
+            str(row.get("baseline_model", "")),
+            str(row.get("winner_model", "")),
+            str(row.get("loser_model", "")),
+        }
+        if model in compared_models or base_model in compared_models:
+            candidates.append(row)
+    if not candidates:
+        return {}
+    ordered = sorted(
+        candidates,
+        key=lambda row: (
+            int(float(row.get("priority_rank", 999999) or 999999)),
+            -float(row.get("relative_return_pct_spread", 0.0) or 0.0),
+        ),
+    )
+    top = ordered[0]
+    loser_model = str(top.get("loser_model", ""))
+    decision_hint = str(top.get("decision_hint", ""))
+    return {
+        "model_difference_schema_version": str(top.get("schema_version", "")),
+        "model_difference_top_signal": str(top.get("explanation_signal", "")),
+        "model_difference_top_decision_hint": decision_hint,
+        "model_difference_top_segment": str(top.get("segment", "")),
+        "model_difference_top_baseline_model": str(top.get("baseline_model", "")),
+        "model_difference_top_winner_model": str(top.get("winner_model", "")),
+        "model_difference_top_loser_model": loser_model,
+        "model_difference_top_spread": float(top.get("relative_return_pct_spread", 0.0) or 0.0),
+        "model_difference_top_priority_rank": int(float(top.get("priority_rank", 0) or 0)),
+        "model_difference_marks_source_loser": bool(
+            decision_hint == "block_or_rework_loser" and loser_model in {model, base_model}
+        ),
+    }
+
+
 def _backtest_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     backtest = dashboard_payload.get("backtest")
     if not isinstance(backtest, dict):
@@ -293,6 +337,7 @@ def build_target_position_intent_from_dashboard(
     source_model = str(top.get("model", ""))
     promotion = _top_promotion_for_model(dashboard_payload, source_model)
     analysis = _analysis_context(dashboard_payload)
+    model_difference = _model_difference_context(dashboard_payload, source_model)
     run_context = _model_run_context(dashboard_payload, source_model)
     requested_context = _requested_model_context(dashboard_payload)
     readiness_context = _readiness_context(dashboard_payload)
@@ -303,9 +348,16 @@ def build_target_position_intent_from_dashboard(
     )
     blocked_by_incomplete_run = run_context.get("run_status") == "incomplete"
     blocked_by_readiness = int(readiness_context.get("readiness_overview_block_count", 0) or 0) > 0
+    blocked_by_model_difference = bool(model_difference.get("model_difference_marks_source_loser", False))
     execution_gate = (
         "blocked_to_min_position"
-        if blocked_by_promotion or blocked_by_review or blocked_by_incomplete_run or blocked_by_readiness
+        if (
+            blocked_by_promotion
+            or blocked_by_review
+            or blocked_by_incomplete_run
+            or blocked_by_readiness
+            or blocked_by_model_difference
+        )
         else "paper_review"
     )
     target_position = float(min_position) if execution_gate == "blocked_to_min_position" else _clamp(
@@ -336,6 +388,7 @@ def build_target_position_intent_from_dashboard(
             **requested_context,
             **readiness_context,
             **analysis,
+            **model_difference,
             **_backtest_context(dashboard_payload),
         },
     )
