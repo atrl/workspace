@@ -665,8 +665,14 @@ def test_production_paper_sim_summary_records_review_gate_context():
         intent["metadata"]["requested_model_completed_count"]
         == dashboard["requested_model_contract"]["completed_requested_model_count"]
     )
-    assert intent["metadata"]["requested_model_all_completed"] is False
-    assert intent["metadata"]["requested_model_missing_count"] >= 1
+    assert summary["requested_model_count"] == 32
+    assert summary["requested_model_completed_count"] == summary["requested_model_count"]
+    assert summary["requested_model_all_completed"] is True
+    assert summary["requested_model_missing_count"] == 0
+    assert intent["metadata"]["requested_model_completed_count"] == intent["metadata"]["requested_model_count"]
+    assert intent["metadata"]["requested_model_all_completed"] is True
+    assert intent["metadata"]["requested_model_missing_count"] == 0
+    assert "requested_models=32/32 missing=0 incomplete=0" in " ".join(summary["notifications"])
 
 
 def test_production_paper_sim_summary_records_model_difference_explanations():

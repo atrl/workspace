@@ -1,19 +1,22 @@
 {
   "schema_version": "model.run_ledger_summary.v1",
-  "expected_model_count": 6,
-  "ledger_model_count": 6,
-  "registered_model_count": 6,
-  "trained_model_count": 6,
-  "predicted_model_count": 6,
-  "backtested_model_count": 6,
-  "objective_evaluated_model_count": 6,
-  "promotion_evaluated_model_count": 6,
-  "analysis_recorded_model_count": 6,
-  "manifested_model_count": 6,
+  "expected_model_count": 96,
+  "ledger_model_count": 96,
+  "registered_model_count": 96,
+  "trained_model_count": 96,
+  "predicted_model_count": 96,
+  "backtested_model_count": 96,
+  "objective_evaluated_model_count": 96,
+  "promotion_evaluated_model_count": 96,
+  "analysis_recorded_model_count": 96,
+  "manifested_model_count": 96,
   "proxy_model_count": 0,
-  "native_model_count": 6,
+  "native_model_count": 96,
   "paper_fidelity_counts": {
-    "native_library": 6
+    "native_graph": 27,
+    "native_library": 30,
+    "native_sequence": 21,
+    "native_torch": 18
   },
   "adapter_statuses": [
     "paper_strict_adapter"

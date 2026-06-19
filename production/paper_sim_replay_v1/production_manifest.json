@@ -9,7 +9,7 @@
     ],
     "end": "2026-06-09",
     "metadata": {
-      "dashboard_manifest_hash": "55e31e27aa492190027dc4416f911dfd0f88048342daf2fbcf856341928263db",
+      "dashboard_manifest_hash": "33df91314ce989c110bbb14c268491a84b2a5e998808e06153601d730a326544",
       "dashboard_manifest_kind": "analysis_manifest",
       "market_data_dataset_key": "daily.soxl_paper_replay",
       "market_data_manifest_hash": "c2d66c782be2de4adb47554cd4c5211481a9be3c110bc90fdc7da6f855a317a7",
@@ -22,7 +22,7 @@
       "SOXL"
     ]
   },
-  "manifest_hash": "846eca1053281881c8defb01ee0e212802f7db0730414751887de7e0752e86ad",
+  "manifest_hash": "76a0ddb49bbea8f7543e368335dbd0ae7240e206bb10c708092a5e16934a0d26",
   "metadata": {
     "analysis_overview_schema": "analysis.overview.v1",
     "backtest_schema_version": "backtest.config.v1",
@@ -41,9 +41,9 @@
     "promotion_decision": "promote_candidate",
     "schedule_readiness_overview_gates": "requested_models,model_runs",
     "schedule_readiness_overview_schema": "dashboard.readiness_overview.v1",
-    "schedule_readiness_overview_status": "review",
+    "schedule_readiness_overview_status": "ready",
     "schedule_status": "success",
-    "source_model": "ridge_mse__ic_weighted_composite",
+    "source_model": "mlp_mixer_mse__all_features",
     "status": "paper_replay_completed",
     "target_position": 0.75
   },
