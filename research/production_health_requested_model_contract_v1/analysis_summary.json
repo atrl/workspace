@@ -1,0 +1,15 @@
+{
+  "schema_version": "research.production_health_requested_model_contract.v1",
+  "strategy_id": "paper_requested_contract_strategy",
+  "production_manifest_path": "research/production_health_requested_model_contract_v1/paper_requested_contract_strategy/production_manifest.json",
+  "production_registry_path": "research/production_health_requested_model_contract_v1/production_registry.json",
+  "production_health_path": "research/production_health_requested_model_contract_v1/production_health.json",
+  "dashboard_export_path": "research/production_health_requested_model_contract_v1/paper_requested_contract_strategy/dashboard_export.json",
+  "health_status": "healthy",
+  "requested_model_contract_status": "complete",
+  "requested_model_count": 32,
+  "requested_model_completed_count": 32,
+  "requested_model_missing_count": 0,
+  "requested_model_incomplete_count": 0,
+  "notification": "production_requested_contract_health:success | strategy=paper_requested_contract_strategy | health=healthy | missing=0 | paper_execution=schedule.paper_execution.v1/success | requested_models=32/32 missing=0 incomplete=0 | manifest=/Users/rziiiii/dev/workspace/research/production_health_requested_model_contract_v1/paper_requested_contract_strategy/production_manifest.json"
+}

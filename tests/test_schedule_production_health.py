@@ -12,10 +12,15 @@ def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def _publish_strategy(tmp_path: Path, *, include_ledger: bool = True) -> tuple[Path, Path]:
+def _publish_strategy(
+    tmp_path: Path,
+    *,
+    include_ledger: bool = True,
+    dashboard_payload: dict | None = None,
+) -> tuple[Path, Path]:
     card = tmp_path / "production" / "paper_sim_replay_v1"
     _write_json(card / "production_summary.json", {"status": "paper_replay_completed"})
-    _write_json(card / "dashboard_export.json", {"schema_version": "dashboard.model_matrix.v1"})
+    _write_json(card / "dashboard_export.json", dashboard_payload or {"schema_version": "dashboard.model_matrix.v1"})
     _write_json(card / "paper_execution_result.json", {"status": "paper_executed"})
     _write_json(card / "data" / "data_registry.json", {"schema_version": "data.registry.v1"})
     _write_json(card / "matrix_card" / "analysis_manifest.json", {"schema_version": "artifact.v1"})
@@ -90,6 +95,69 @@ def test_production_health_check_reads_registry_manifest_and_writes_dashboard_re
         "production_health_check:success | strategy=paper_sim_replay_v1 | health=healthy "
         f"| missing=0 | paper_execution=schedule.paper_execution.v1/success | manifest={card / 'production_manifest.json'}"
     ]
+
+
+def test_production_health_check_can_require_complete_requested_model_contract(tmp_path):
+    dashboard_payload = {
+        "schema_version": "dashboard.model_matrix.v1",
+        "requested_model_contract": {
+            "schema_version": "model.requested_contract_health.v1",
+            "requested_model_count": 32,
+            "registered_model_count": 32,
+            "ledger_model_count": 32,
+            "completed_requested_model_count": 32,
+            "missing_from_registry": [],
+            "missing_from_ledger": [],
+            "incomplete_requested_models": [],
+            "all_requested_models_completed": True,
+        },
+    }
+    _, registry_path = _publish_strategy(tmp_path, dashboard_payload=dashboard_payload)
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=registry_path,
+        strategy_id="paper_sim_replay_v1",
+        require_requested_model_contract=True,
+        notify_details=True,
+    )
+    events: list[str] = []
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "success"
+    assert result.payload["health_status"] == "healthy"
+    assert result.payload["requested_model_contract_required"] is True
+    assert result.payload["requested_model_contract_status"] == "complete"
+    assert result.payload["requested_model_schema_version"] == "model.requested_contract_health.v1"
+    assert result.payload["requested_model_count"] == 32
+    assert result.payload["requested_model_completed_count"] == 32
+    assert result.payload["requested_model_missing_count"] == 0
+    assert result.payload["requested_model_incomplete_count"] == 0
+    assert result.payload["requested_model_all_completed"] is True
+    assert "requested_models=32/32 missing=0 incomplete=0" in events[0]
+
+
+def test_production_health_check_marks_required_missing_requested_model_contract_unhealthy(tmp_path):
+    _, registry_path = _publish_strategy(tmp_path)
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=registry_path,
+        strategy_id="paper_sim_replay_v1",
+        require_requested_model_contract=True,
+        notify_details=True,
+    )
+    events: list[str] = []
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "success"
+    assert result.payload["health_status"] == "requested_model_contract_missing"
+    assert result.payload["is_healthy"] is False
+    assert result.payload["requested_model_contract_required"] is True
+    assert result.payload["requested_model_contract_status"] == "missing"
+    assert result.payload["requested_model_all_completed"] is False
+    assert "health=requested_model_contract_missing" in events[0]
+    assert "requested_models=0/0 missing=0 incomplete=0" in events[0]
 
 
 def test_production_health_check_reports_missing_required_manifest_paths_without_failing_job(tmp_path):

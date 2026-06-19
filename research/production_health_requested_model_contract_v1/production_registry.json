@@ -1,0 +1,36 @@
+{
+  "registry_hash": "2e23f145d66c65a2e749903c7acb760c304ba2ce31bff59c7250110c348c9639",
+  "schema_version": "production.registry.v1",
+  "strategies": {
+    "paper_requested_contract_strategy": {
+      "current": {
+        "artifact_id": "paper_requested_contract_strategy",
+        "artifact_type": "production_strategy",
+        "dataset_schema_hash": "bd615dece2e9cce41d0f4b7785c65469448ec758f50597806cd7259bf65c8b00",
+        "end": "2026-06-09",
+        "manifest_hash": "1507fc0e58b0cac8e7e291b1a21e39905d8bae00968d849d0efe7b2f38c24036",
+        "manifest_path": "/Users/rziiiii/dev/workspace/research/production_health_requested_model_contract_v1/paper_requested_contract_strategy/production_manifest.json",
+        "mode": "paper",
+        "published_at": "2026-06-19T12:40:00Z",
+        "start": "2026-01-01",
+        "status": "paper_requested_contract_health_completed",
+        "strategy_id": "paper_requested_contract_strategy"
+      },
+      "history": [
+        {
+          "artifact_id": "paper_requested_contract_strategy",
+          "artifact_type": "production_strategy",
+          "dataset_schema_hash": "bd615dece2e9cce41d0f4b7785c65469448ec758f50597806cd7259bf65c8b00",
+          "end": "2026-06-09",
+          "manifest_hash": "1507fc0e58b0cac8e7e291b1a21e39905d8bae00968d849d0efe7b2f38c24036",
+          "manifest_path": "/Users/rziiiii/dev/workspace/research/production_health_requested_model_contract_v1/paper_requested_contract_strategy/production_manifest.json",
+          "mode": "paper",
+          "published_at": "2026-06-19T12:40:00Z",
+          "start": "2026-01-01",
+          "status": "paper_requested_contract_health_completed",
+          "strategy_id": "paper_requested_contract_strategy"
+        }
+      ]
+    }
+  }
+}

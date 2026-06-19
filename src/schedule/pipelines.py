@@ -82,6 +82,7 @@ class ProductionHealthCheckConfig:
         "data_registry",
         "analysis_manifest",
     )
+    require_requested_model_contract: bool = False
     notify_details: bool = False
     retries: int = 0
 
@@ -258,6 +259,69 @@ def _resolve_declared_path(value: str, *, base_dir: Path) -> Path:
     return base_dir / path
 
 
+def _production_requested_model_contract_payload(
+    dashboard_export_path: str,
+    *,
+    required: bool,
+) -> dict[str, Any]:
+    base_payload = {
+        "requested_model_contract_required": bool(required),
+        "requested_model_contract_status": "not_checked",
+        "requested_model_schema_version": "",
+        "requested_model_count": 0,
+        "requested_model_registered_count": 0,
+        "requested_model_ledger_count": 0,
+        "requested_model_completed_count": 0,
+        "requested_model_all_completed": False,
+        "requested_model_missing_count": 0,
+        "requested_model_incomplete_count": 0,
+        "requested_model_missing_models": "",
+        "requested_model_incomplete_models": "",
+    }
+    if not dashboard_export_path:
+        if required:
+            base_payload["requested_model_contract_status"] = "missing"
+        return base_payload
+
+    try:
+        dashboard = json.loads(Path(dashboard_export_path).read_text(encoding="utf-8"))
+    except Exception:
+        base_payload["requested_model_contract_status"] = "unreadable"
+        return base_payload
+    if not isinstance(dashboard, dict):
+        base_payload["requested_model_contract_status"] = "unreadable"
+        return base_payload
+    contract = dashboard.get("requested_model_contract")
+    if not isinstance(contract, dict):
+        base_payload["requested_model_contract_status"] = "missing"
+        return base_payload
+
+    missing_values: list[str] = []
+    for key in ("missing_from_registry", "missing_from_ledger"):
+        values = contract.get(key)
+        if isinstance(values, list):
+            missing_values.extend(str(value) for value in values)
+    incomplete = contract.get("incomplete_requested_models")
+    incomplete_models = [str(value) for value in incomplete] if isinstance(incomplete, list) else []
+    missing_models = list(dict.fromkeys(missing_values))
+    all_completed = bool(contract.get("all_requested_models_completed", False))
+    status = "complete" if all_completed and not missing_models and not incomplete_models else "incomplete"
+    return {
+        **base_payload,
+        "requested_model_contract_status": status,
+        "requested_model_schema_version": str(contract.get("schema_version", "")),
+        "requested_model_count": int(contract.get("requested_model_count", 0) or 0),
+        "requested_model_registered_count": int(contract.get("registered_model_count", 0) or 0),
+        "requested_model_ledger_count": int(contract.get("ledger_model_count", 0) or 0),
+        "requested_model_completed_count": int(contract.get("completed_requested_model_count", 0) or 0),
+        "requested_model_all_completed": all_completed,
+        "requested_model_missing_count": int(len(missing_models)),
+        "requested_model_incomplete_count": int(len(incomplete_models)),
+        "requested_model_missing_models": ",".join(missing_models),
+        "requested_model_incomplete_models": ",".join(incomplete_models),
+    }
+
+
 def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str, Any]:
     registry_path = Path(config.registry_path)
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
@@ -291,11 +355,20 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
     computed_manifest_hash = production_manifest_content_hash(manifest)
     registry_hash_matches = not current_hash or current_hash == manifest_hash
     content_hash_matches = not manifest_hash or computed_manifest_hash == manifest_hash
+    requested_contract_payload = _production_requested_model_contract_payload(
+        resolved_paths.get("dashboard_export", ""),
+        required=config.require_requested_model_contract,
+    )
+    requested_contract_blocks = bool(config.require_requested_model_contract) and str(
+        requested_contract_payload.get("requested_model_contract_status", "")
+    ) != "complete"
     health_status = "healthy"
     if not registry_hash_matches or not content_hash_matches:
         health_status = "manifest_hash_mismatch"
     elif missing_required_paths:
         health_status = "missing_required_paths"
+    elif requested_contract_blocks:
+        health_status = f"requested_model_contract_{requested_contract_payload['requested_model_contract_status']}"
 
     payload = {
         "schema_version": "schedule.production_health.v1",
@@ -327,6 +400,7 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         "intent_ledger_path": resolved_paths.get("intent_ledger", ""),
         "paper_execution_result_path": resolved_paths.get("paper_execution_result", ""),
         "output_path": str(config.output_path) if config.output_path is not None else "",
+        **requested_contract_payload,
     }
     return payload
 
@@ -359,12 +433,21 @@ def _production_health_notification(job_name: str, status: str, payload: dict[st
     paper_execution = ""
     if paper_execution_schema or paper_execution_status:
         paper_execution = f" | paper_execution={paper_execution_schema}/{paper_execution_status}"
+    requested_models = ""
+    if payload.get("requested_model_contract_required") or payload.get("requested_model_schema_version"):
+        requested_models = (
+            f" | requested_models={payload.get('requested_model_completed_count', 0)}/"
+            f"{payload.get('requested_model_count', 0)}"
+            f" missing={payload.get('requested_model_missing_count', 0)}"
+            f" incomplete={payload.get('requested_model_incomplete_count', 0)}"
+        )
     return (
         f"{job_name}:success"
         f" | strategy={payload.get('strategy_id', '')}"
         f" | health={payload.get('health_status', '')}"
         f" | missing={len(payload.get('missing_required_paths', []))}"
         f"{paper_execution}"
+        f"{requested_models}"
         f" | manifest={payload.get('manifest_path', '')}"
     )
 
