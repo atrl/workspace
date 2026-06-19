@@ -81,6 +81,34 @@ Chinese conclusion cell covering:
 
 CSV and JSON sidecars support the notebook. They do not replace the conclusion.
 
+## Artifact Control
+
+Generated artifacts must be controlled, reviewable, and tied to a notebook,
+manifest, or data snapshot.
+
+- Before generating artifacts, decide where they belong:
+  - `research/<experiment>/` for research notebook sidecars.
+  - `production/<strategy>/` for promoted strategy sidecars.
+  - `data/` for canonical snapshots and qlib stores.
+  - outside the repo for temporary SDK logs, caches, scratch downloads, and
+    one-off debug output.
+- Commit only durable artifacts needed to reproduce or audit a result: executed
+  notebooks, `summary.json`, `conclusion.md`, small CSV/JSON sidecars,
+  manifests, and schema/version metadata.
+- Do not commit transient caches, SDK logs, `__pycache__`, `.DS_Store`, local
+  lock files, temporary downloads, ad hoc screenshots, or large model/checkpoint
+  binaries unless the task explicitly requires them and the artifact has a
+  manifest entry explaining source, date range, and purpose.
+- If `.gitignore` hides an intentional sidecar, use `git add -f` only for the
+  exact verified files. Do not force-add broad globs.
+- Keep notebook outputs and sidecars synchronized: rerun or update the notebook
+  conclusion after changing generated CSV/JSON metrics.
+- Rebuild runtime or artifact indexes only in a workspace that has the complete
+  expected artifact set. Do not treat an index rebuilt from a partial worktree as
+  repo-wide truth.
+- Before every commit, run `git status --short` and inspect the staged diff so
+  unrelated generated files are not included.
+
 ## Skill Boundary
 
 Skills must not implement business logic, store project state, hold fixed
