@@ -201,6 +201,59 @@ def test_dashboard_readiness_overview_contract_unifies_manifest_production_noteb
     assert blocked["gates"][0]["detail"] == "missing / missing hash "
 
 
+def test_dashboard_readiness_overview_adds_schedule_health_gate():
+    base_payload = {
+        "manifest_source": {
+            "kind": "analysis_manifest",
+            "path": "matrix_card/analysis_manifest.json",
+            "schema_version": "artifact.v1",
+            "manifest_hash": "a" * 64,
+            "producer": "src.analysis.exports",
+        }
+    }
+
+    failed = build_dashboard_readiness_overview(
+        {
+            **base_payload,
+            "schedule_health": {
+                "schema_version": "dashboard.schedule_health.v1",
+                "job_count": 2,
+                "failed_job_count": 1,
+                "total_retry_error_count": 2,
+                "top_failure_job": "model_dashboard_refresh",
+                "top_failure_last_error": "RuntimeError:permanent failure",
+            },
+        }
+    )
+
+    failed_gates = {gate["gate"]: gate for gate in failed["gates"]}
+    assert failed["status"] == "blocked"
+    assert failed_gates["schedule_health"]["status"] == "block"
+    assert failed_gates["schedule_health"]["detail"] == (
+        "failed 1 / jobs 2 / retry_errors 2 / top model_dashboard_refresh RuntimeError:permanent failure"
+    )
+    assert failed_gates["schedule_health"]["source_schema_version"] == "dashboard.schedule_health.v1"
+
+    clean = build_dashboard_readiness_overview(
+        {
+            **base_payload,
+            "schedule_health": {
+                "schema_version": "dashboard.schedule_health.v1",
+                "job_count": 2,
+                "failed_job_count": 0,
+                "total_retry_error_count": 1,
+                "top_failure_job": "",
+                "top_failure_last_error": "",
+            },
+        }
+    )
+    clean_gates = {gate["gate"]: gate for gate in clean["gates"]}
+
+    assert clean["status"] == "ready"
+    assert clean_gates["schedule_health"]["status"] == "pass"
+    assert clean_gates["schedule_health"]["detail"] == "failed 0 / jobs 2 / retry_errors 1"
+
+
 def test_quantbench_registry_covers_requested_models_without_rl_reward():
     assert REQUESTED_QUANTBENCH_MODELS.issubset(set(QUANTBENCH_MODEL_NAMES))
 

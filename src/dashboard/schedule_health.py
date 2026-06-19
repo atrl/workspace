@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
+import json
+from pathlib import Path
 from typing import Any
 
 
@@ -65,3 +67,11 @@ def build_schedule_health(results: Iterable[Any]) -> dict[str, Any]:
         "top_failure_last_error": top_error,
         "jobs": rows,
     }
+
+
+def write_schedule_health(results: Iterable[Any], *, output_path: str | Path) -> dict[str, Any]:
+    payload = build_schedule_health(results)
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return payload

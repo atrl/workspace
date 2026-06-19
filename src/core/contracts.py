@@ -165,6 +165,32 @@ def build_dashboard_readiness_overview(payload: dict[str, Any]) -> dict[str, Any
             }
         )
 
+    schedule_health = payload.get("schedule_health")
+    if isinstance(schedule_health, dict) and schedule_health:
+        job_count = _int_field(schedule_health, "job_count")
+        failed_count = _int_field(schedule_health, "failed_job_count")
+        retry_error_count = _int_field(schedule_health, "total_retry_error_count")
+        top_failure_job = str(schedule_health.get("top_failure_job", ""))
+        top_failure_error = str(schedule_health.get("top_failure_last_error", ""))
+        if failed_count > 0:
+            status = "block"
+        elif job_count > 0:
+            status = "pass"
+        else:
+            status = "review"
+        detail = f"failed {failed_count} / jobs {job_count} / retry_errors {retry_error_count}"
+        if top_failure_job or top_failure_error:
+            detail += f" / top {top_failure_job} {top_failure_error}".rstrip()
+        gates.append(
+            {
+                "gate": "schedule_health",
+                "label": "Schedule Health",
+                "status": status,
+                "detail": detail,
+                "source_schema_version": str(schedule_health.get("schema_version", "")),
+            }
+        )
+
     notebook_readiness = payload.get("notebook_card_readiness")
     if isinstance(notebook_readiness, dict) and notebook_readiness:
         summary = notebook_readiness.get("summary")

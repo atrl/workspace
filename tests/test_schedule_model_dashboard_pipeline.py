@@ -1020,6 +1020,69 @@ def test_model_dashboard_refresh_detailed_notification_includes_readiness_overvi
     assert "readiness=review pass=3 review=2 block=0" in events[0]
 
 
+def test_model_dashboard_refresh_readiness_overview_blocks_on_failed_schedule_health(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 2, "status": "matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "schedule_health_card",
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": "matrix_card/analysis_manifest.json",
+                "schema_version": "artifact.v1",
+                "manifest_hash": "a" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "schedule_health": {
+                "schema_version": "dashboard.schedule_health.v1",
+                "job_count": 2,
+                "failed_job_count": 1,
+                "total_attempts": 3,
+                "total_retry_error_count": 2,
+                "top_failure_job": "model_dashboard_refresh",
+                "top_failure_last_error": "RuntimeError:permanent failure",
+                "jobs": [],
+            },
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["readiness_overview_status"] == "blocked"
+    assert result.payload["readiness_overview_gate_count"] == 2
+    assert result.payload["readiness_overview_pass_count"] == 1
+    assert result.payload["readiness_overview_review_count"] == 0
+    assert result.payload["readiness_overview_block_count"] == 1
+    assert result.payload["readiness_overview_gates"] == "dashboard_manifest,schedule_health"
+    assert result.payload["readiness_overview_block_gates"] == "schedule_health"
+    assert "readiness=blocked pass=1 review=0 block=1" in events[0]
+
+
 def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_export(tmp_path):
     calls: list[tuple[str, Path | None]] = []
     attribution_card = tmp_path / "attribution_card"
