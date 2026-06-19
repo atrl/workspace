@@ -1,0 +1,14 @@
+{
+  "artifacts": [
+    "analysis_summary.json",
+    "conclusion.md",
+    "failure_modes.md",
+    "model_comparison.csv",
+    "regime_metrics.csv",
+    "window_metrics.csv"
+  ],
+  "as_of": "2026-06-09",
+  "experiment": "spec_rebuild_foundation_v1",
+  "qlib_calendar_size": 4088,
+  "source": "qlib_calendar_plus_canonical_snapshot"
+}

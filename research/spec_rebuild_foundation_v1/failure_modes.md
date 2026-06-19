@@ -1,0 +1,2 @@
+- foundation-only-no-promotion
+- smoke-model-not-production-signal
