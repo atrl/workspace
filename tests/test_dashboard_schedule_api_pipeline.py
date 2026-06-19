@@ -306,6 +306,73 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["manifest_source"]["manifest_hash"] == "x" * 64
 
 
+def test_dashboard_manifest_source_does_not_read_unmanifested_fixed_sidecars(tmp_path):
+    matrix_card = tmp_path / "matrix_card"
+    matrix_card.mkdir()
+
+    (matrix_card / "analysis_summary.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "analysis.report.v1",
+                "status": "manifest_only_completed",
+                "model_count": 1,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [{"rank": 1, "model": "ridge_mse", "return_pct": 2.5, "relative_return_pct": 1.0, "stability_score": 3.0}]
+    ).to_csv(matrix_card / "model_comparison.csv", index=False)
+    pd.DataFrame([{"model": "ridge_mse", "regime": "bull", "return_pct": 2.5}]).to_csv(
+        matrix_card / "regime_metrics.csv", index=False
+    )
+    pd.DataFrame([{"model": "ridge_mse", "window": "test", "return_pct": 2.5}]).to_csv(
+        matrix_card / "window_metrics.csv", index=False
+    )
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "analysis.model_difference_explanation.v1",
+                "priority_rank": 1,
+                "segment_type": "regime",
+                "segment": "bull",
+                "baseline_model": "ridge_mse",
+                "winner_model": "ridge_mse",
+                "loser_model": "gcn_mse",
+                "explanation_signal": "baseline_defends",
+                "decision_hint": "block_or_rework_loser",
+            }
+        ]
+    ).to_csv(matrix_card / "model_difference_explanations.csv", index=False)
+    (matrix_card / "analysis_manifest.json").write_text(
+        json.dumps(
+            {
+                "artifact_id": "manifest_only_card",
+                "artifact_type": "analysis_report",
+                "producer": "src.analysis.exports",
+                "schema_version": "artifact.v1",
+                "paths": {
+                    "summary": "analysis_summary.json",
+                    "model_comparison": "model_comparison.csv",
+                    "regime_metrics": "regime_metrics.csv",
+                    "window_metrics": "window_metrics.csv",
+                },
+                "metadata": {"analysis_report_schema_version": "analysis.report.v1"},
+                "manifest_hash": "m" * 64,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    payload = load_model_matrix_dashboard(matrix_card)
+
+    assert payload["manifest_source"]["kind"] == "analysis_manifest"
+    assert payload["model_difference_explanations"] == []
+    assert "model_difference_explanations" not in payload["artifacts"]
+
+
 def test_dashboard_export_writes_manifest_style_payload(tmp_path):
     output_path = tmp_path / "dashboard_export.json"
 

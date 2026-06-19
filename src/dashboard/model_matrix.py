@@ -11,6 +11,7 @@ from src.model.registry import QUANTBENCH_MODEL_NAMES, REQUESTED_QUANTBENCH_MODE
 
 
 PUBLIC_ARTIFACT_KEYS = {
+    "analysis_summary",
     "summary",
     "model_comparison",
     "regime_metrics",
@@ -92,15 +93,26 @@ def _manifest_public_paths(manifest: dict[str, Any]) -> dict[str, str]:
     paths = manifest.get("paths")
     if not isinstance(paths, dict):
         return {}
-    return {str(name): str(path) for name, path in paths.items() if name in PUBLIC_ARTIFACT_KEYS}
+    result: dict[str, str] = {}
+    for name, path in paths.items():
+        key = str(name)
+        if key == "analysis_summary":
+            result.setdefault("summary", str(path))
+            continue
+        if key in PUBLIC_ARTIFACT_KEYS:
+            result[key] = str(path)
+    return result
 
 
 def _card_sources(card: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str, str]]:
     analysis_manifest = _read_manifest_if_exists(card / "analysis_manifest.json")
     artifact_manifest = _read_manifest_if_exists(card / "artifact_manifest.json")
-    paths = _default_public_paths(card)
-    paths.update(_manifest_public_paths(artifact_manifest))
-    paths.update(_manifest_public_paths(analysis_manifest))
+    if analysis_manifest or artifact_manifest:
+        paths = {}
+        paths.update(_manifest_public_paths(artifact_manifest))
+        paths.update(_manifest_public_paths(analysis_manifest))
+    else:
+        paths = _default_public_paths(card)
     if (card / "analysis_manifest.json").exists():
         paths["analysis_manifest"] = "analysis_manifest.json"
     if (card / "artifact_manifest.json").exists():
@@ -135,7 +147,19 @@ def _manifest_source(card: Path, *, analysis_manifest: dict[str, Any], artifact_
 
 
 def _path_for(card: Path, paths: dict[str, str], key: str, fallback: str) -> Path:
-    return _resolve_card_path(card, paths.get(key, fallback)) or (card / fallback)
+    if key in paths:
+        return _resolve_card_path(card, paths[key]) or (card / paths[key])
+    if "analysis_manifest" in paths or "artifact_manifest" in paths:
+        raise FileNotFoundError(f"manifest paths missing public artifact key: {key}")
+    return card / fallback
+
+
+def _optional_path_for(card: Path, paths: dict[str, str], key: str, fallback: str) -> Path | None:
+    if key in paths:
+        return _resolve_card_path(card, paths[key]) or (card / paths[key])
+    if "analysis_manifest" in paths or "artifact_manifest" in paths:
+        return None
+    return card / fallback
 
 
 def _read_csv_from_paths(card: Path, paths: dict[str, str], key: str, fallback: str) -> pd.DataFrame:
@@ -143,12 +167,16 @@ def _read_csv_from_paths(card: Path, paths: dict[str, str], key: str, fallback: 
 
 
 def _read_optional_csv_from_paths(card: Path, paths: dict[str, str], key: str, fallback: str) -> pd.DataFrame:
-    path = _path_for(card, paths, key, fallback)
+    path = _optional_path_for(card, paths, key, fallback)
+    if path is None:
+        return pd.DataFrame()
     return _read_csv_if_exists(path)
 
 
 def _read_optional_json_from_paths(card: Path, paths: dict[str, str], key: str, fallback: str) -> dict[str, Any]:
-    path = _path_for(card, paths, key, fallback)
+    path = _optional_path_for(card, paths, key, fallback)
+    if path is None:
+        return {}
     return _read_manifest_if_exists(path)
 
 
@@ -475,8 +503,7 @@ def load_model_matrix_dashboard(
         card, public_paths, "model_review_briefing", "model_review_briefing.csv"
     )
     failure_modes = _read_optional_csv_from_paths(card, public_paths, "failure_modes", "failure_modes.csv")
-    backtest_config_path = _path_for(card, public_paths, "backtest_config", "backtest_config.json")
-    backtest_config = _read_manifest_if_exists(backtest_config_path)
+    backtest_config = _read_optional_json_from_paths(card, public_paths, "backtest_config", "backtest_config.json")
     walk_forward_splits = _read_optional_csv_from_paths(
         card, public_paths, "walk_forward_splits", "walk_forward_splits.csv"
     )

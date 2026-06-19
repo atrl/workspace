@@ -82,6 +82,71 @@ def test_backfill_analysis_manifest_from_legacy_sidecars_writes_public_paths_and
     assert "predictions" not in dashboard_payload["artifacts"]
 
 
+def test_backfill_analysis_manifest_includes_current_public_analysis_sidecars(tmp_path):
+    card = tmp_path / "legacy_card"
+    _write_legacy_card(card)
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "analysis.segment_effect_matrix.v1",
+                "segment_type": "regime",
+                "segment": "bull",
+                "baseline_model": "ridge_mse",
+                "best_relative_return_model": "ridge_mse",
+                "worst_relative_return_model": "gcn_mse",
+            }
+        ]
+    ).to_csv(card / "segment_effect_matrix.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "analysis.model_difference_explanation.v1",
+                "priority_rank": 1,
+                "segment_type": "regime",
+                "segment": "bull",
+                "baseline_model": "ridge_mse",
+                "winner_model": "ridge_mse",
+                "loser_model": "gcn_mse",
+                "explanation_signal": "baseline_defends",
+                "decision_hint": "block_or_rework_loser",
+                "review_note": "中文 review：旧卡片 backfill 后仍能暴露模型差异解释。",
+            }
+        ]
+    ).to_csv(card / "model_difference_explanations.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "analysis.model_review_briefing.v1",
+                "priority_rank": 1,
+                "model": "gcn_mse",
+                "baseline_model": "ridge_mse",
+                "segment_type": "regime",
+                "segment": "bull",
+                "review_signal": "weakness",
+                "decision_hint": "block_or_rework",
+                "review_note": "中文 review：旧卡片 backfill 后仍能暴露 review briefing。",
+            }
+        ]
+    ).to_csv(card / "model_review_briefing.csv", index=False)
+
+    payload = backfill_analysis_manifest(
+        card,
+        dataset_name="unit_legacy",
+        universe=("SOXL", "SOXX"),
+        calendar_path="data/qlib/soxl/calendars/day.txt",
+        data_paths=("legacy_card",),
+    )
+    dashboard_payload = load_model_matrix_dashboard(card)
+
+    assert payload["paths"]["segment_effect_matrix"] == "segment_effect_matrix.csv"
+    assert payload["paths"]["model_difference_explanations"] == "model_difference_explanations.csv"
+    assert payload["paths"]["model_review_briefing"] == "model_review_briefing.csv"
+    assert dashboard_payload["model_difference_explanations"][0]["explanation_signal"] == "baseline_defends"
+    assert dashboard_payload["model_review_briefing"][0]["review_signal"] == "weakness"
+    assert "predictions" not in payload["paths"]
+    assert "daily_backtest" not in payload["paths"]
+
+
 def test_backfill_analysis_manifest_refuses_to_overwrite_without_flag(tmp_path):
     card = tmp_path / "legacy_card"
     _write_legacy_card(card)

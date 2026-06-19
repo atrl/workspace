@@ -1,0 +1,2 @@
+schema_version,segment_type,segment,baseline_model,best_relative_return_model,worst_relative_return_model
+analysis.segment_effect_matrix.v1,regime,bull,ridge_mse,ridge_mse,gcn_mse

@@ -1,0 +1,2 @@
+schema_version,priority_rank,segment_type,segment,baseline_model,winner_model,loser_model,explanation_signal,decision_hint
+analysis.model_difference_explanation.v1,1,regime,bull,ridge_mse,ridge_mse,gcn_mse,baseline_defends,block_or_rework_loser
