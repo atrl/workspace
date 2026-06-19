@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from src.core import scan_notebook_cards
+
 
 def test_full_platform_surfaces_are_first_class():
     root = Path(__file__).resolve().parents[1]
@@ -77,6 +79,19 @@ def test_all_research_and_production_notebooks_end_with_chinese_conclusion():
             offenders.append(str(notebook.relative_to(root)))
 
     assert offenders == []
+
+
+def test_research_and_production_cards_have_single_primary_notebook_contract():
+    root = Path(__file__).resolve().parents[1]
+
+    scan = scan_notebook_cards(root)
+    summary = scan["summary"]
+
+    assert summary["card_count"] > 0
+    assert summary["card_count"] == summary["notebook_count"]
+    assert summary["missing_notebook_count"] == 0
+    assert summary["multiple_notebook_count"] == 0
+    assert summary["missing_chinese_conclusion_count"] == 0
 
 
 def test_production_paper_sim_replay_records_no_live_broker_guardrail():

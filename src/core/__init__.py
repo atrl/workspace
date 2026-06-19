@@ -11,6 +11,7 @@ from .knowledge import (
     write_knowledge_backlog,
     write_knowledge_queue,
 )
+from .notebooks import scan_notebook_cards, write_notebook_card_manifest
 from .production import build_production_manifest, production_manifest_content_hash, publish_production_manifest
 
 __all__ = [
@@ -24,7 +25,9 @@ __all__ = [
     "build_production_manifest",
     "production_manifest_content_hash",
     "publish_production_manifest",
+    "scan_notebook_cards",
     "write_architecture_extension_decision",
     "write_knowledge_backlog",
     "write_knowledge_queue",
+    "write_notebook_card_manifest",
 ]
