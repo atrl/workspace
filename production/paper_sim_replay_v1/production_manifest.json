@@ -22,7 +22,7 @@
       "SOXL"
     ]
   },
-  "manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
+  "manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
   "metadata": {
     "analysis_overview_schema": "analysis.overview.v1",
     "backtest_schema_version": "backtest.config.v1",
@@ -39,6 +39,9 @@
     "paper_position": 0.746216,
     "paper_shares": 37,
     "promotion_decision": "promote_candidate",
+    "schedule_readiness_overview_gates": "requested_models,model_runs",
+    "schedule_readiness_overview_schema": "dashboard.readiness_overview.v1",
+    "schedule_readiness_overview_status": "review",
     "schedule_status": "success",
     "source_model": "ridge_mse__ic_weighted_composite",
     "status": "paper_replay_completed",

@@ -19,18 +19,36 @@
     select { width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 6px 8px; }
     .analysis-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .analysis-overview header { margin-bottom: 10px; }
+    .readiness-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .readiness-overview header { margin-bottom: 10px; }
     .production-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .production-health header { margin-bottom: 10px; }
+    .notebook-readiness { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .notebook-readiness header { margin-bottom: 10px; }
     .health-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
     .health-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .health-grid span { color: var(--muted); font-size: 12px; }
     .health-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
     .health-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .notebook-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
+    .notebook-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .notebook-grid span { color: var(--muted); font-size: 12px; }
+    .notebook-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .notebook-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .notebook-card-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding-left: 0; margin-top: 10px; }
+    .notebook-card-list li { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font-size: 12px; }
     .overview-grid { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 10px; }
     .overview-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .overview-grid span { color: var(--muted); font-size: 12px; }
     .overview-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
     .overview-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .readiness-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .readiness-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .readiness-grid span { color: var(--muted); font-size: 12px; }
+    .readiness-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .readiness-gates { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
+    .readiness-gates li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .readiness-gates span { grid-column: 1 / -1; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
     .summary { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
     .summary div, .model-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
     .summary div { padding: 12px; }
@@ -46,6 +64,9 @@
     .pill.fidelity { background: #e7f2f8; color: var(--accent); }
     .pill.healthy { background: #e8f5ee; color: var(--good); }
     .pill.warn { background: #fff4df; color: var(--warn); }
+    .pill.pass, .pill.ready { background: #e8f5ee; color: var(--good); }
+    .pill.review { background: #fff4df; color: var(--warn); }
+    .pill.block, .pill.blocked { background: #fdecec; color: #9f1f1f; }
     .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
     .metrics div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
@@ -62,7 +83,7 @@
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .production-health .health-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -104,6 +125,23 @@
 <option value="reduce_or_guardrail">reduce_or_guardrail</option></select></label>
     </section>
 
+    <section class="readiness-overview" aria-label="readiness overview">
+      <header>
+        <h2>Readiness Overview</h2>
+        <p>dashboard.readiness_overview.v1</p>
+      </header>
+      <div class="readiness-grid">
+        <div><span>Overall</span><strong><span class="pill review">review</span></strong></div>
+        <div><span>Pass</span><strong>2</strong></div>
+        <div><span>Review</span><strong>1</strong></div>
+        <div><span>Block</span><strong>0</strong></div>
+      </div>
+      <ul class="readiness-gates"><li><strong>Production Health</strong><span class="pill pass">pass</span><span>healthy / missing 0</span></li>
+<li><strong>Requested Models</strong><span class="pill review">review</span><span>2 / 32 complete / missing 30 / incomplete 0</span></li>
+<li><strong>Model Runs</strong><span class="pill pass">pass</span><span>trained 6 / backtested 6 / expected 6</span></li></ul>
+    </section>
+
+
     <section class="analysis-overview" aria-label="analysis overview">
       <header>
         <h2>Analysis Overview</h2>
@@ -129,15 +167,17 @@
         <div><span>Mode</span><strong>paper</strong><p>live broker off</p></div>
         <div><span>Required Paths</span><strong>7</strong><p>missing 0</p></div>
         <div><span>Paper Execution</span><strong>success</strong><p>schedule.paper_execution.v1</p></div>
-        <div><span>Manifest</span><strong>442f9f8978</strong><p>2026-06-09T21:30:00Z</p></div>
+        <div><span>Manifest</span><strong>a5c23f8aed</strong><p>2026-06-09T21:30:00Z</p></div>
       </div>
     </section>
+
 
     <section class="summary">
       <div><span>模型卡片</span><strong>3</strong></div>
       <div><span>基准模型</span><strong>ridge_mse__ic_weighted_composite</strong></div>
       <div><span>Proxy 模型</span><strong>0</strong></div>
       <div><span>Promotion Blocker</span><strong>0</strong></div>
+      <div><span>Requested 模型</span><strong>2 / 32</strong><p>missing 30</p></div>
     </section>
     <section class="model-grid">
 
@@ -1361,6 +1401,52 @@
     "missing_models": [],
     "all_models_completed": true
   },
+  "requested_model_contract": {
+    "schema_version": "model.requested_contract_health.v1",
+    "requested_model_count": 32,
+    "registered_model_count": 32,
+    "ledger_model_count": 2,
+    "completed_requested_model_count": 2,
+    "missing_from_registry": [],
+    "extra_in_registry": [],
+    "missing_from_ledger": [
+      "logistic_clf",
+      "ridge_ic",
+      "hist_gradient_mse",
+      "xgboost_mse",
+      "lightgbm_mse",
+      "catboost_rank",
+      "extra_trees_rank",
+      "mlp_mse",
+      "sequence_lag_ridge_mse",
+      "lstm_mse",
+      "gru_mse",
+      "alstm_mse",
+      "sfm_mse",
+      "darnn_mse",
+      "hawkes_gru_mse",
+      "tcn_mse",
+      "mlp_mixer_mse",
+      "dlinear_mse",
+      "patch_tst_mse",
+      "autoformer_mse",
+      "fedformer_mse",
+      "market_graph_mse",
+      "gcn_mse",
+      "gat_mse",
+      "rgcn_mse",
+      "rsr_mse",
+      "hypergraph_mse",
+      "thgnn_mse",
+      "sthan_mse",
+      "sthgcn_mse"
+    ],
+    "incomplete_requested_models": [],
+    "all_requested_models_completed": false,
+    "adapter_statuses": [
+      "paper_strict_adapter"
+    ]
+  },
   "production_health": {
     "schema_version": "schedule.production_health.v1",
     "strategy_id": "paper_sim_replay_v1",
@@ -1368,9 +1454,9 @@
     "is_healthy": true,
     "registry_path": "production/production_registry.json",
     "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
-    "manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
-    "registry_manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
-    "computed_manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
+    "manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
+    "registry_manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
+    "computed_manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
     "manifest_hash_matches_registry": true,
     "manifest_hash_matches_content": true,
     "artifact_id": "paper_sim_replay_v1",
@@ -1399,7 +1485,51 @@
     "intent_ledger_path": "production/paper_sim_replay_v1/intent_ledger.json",
     "paper_execution_result_path": "production/paper_sim_replay_v1/paper_execution_result.json",
     "output_path": "research/production_health_paper_execution_v1/production_health_export.json",
+    "requested_model_contract_required": false,
+    "requested_model_contract_status": "incomplete",
+    "requested_model_schema_version": "model.requested_contract_health.v1",
+    "requested_model_count": 32,
+    "requested_model_registered_count": 32,
+    "requested_model_ledger_count": 2,
+    "requested_model_completed_count": 2,
+    "requested_model_all_completed": false,
+    "requested_model_missing_count": 30,
+    "requested_model_incomplete_count": 0,
+    "requested_model_missing_models": "logistic_clf,ridge_ic,hist_gradient_mse,xgboost_mse,lightgbm_mse,catboost_rank,extra_trees_rank,mlp_mse,sequence_lag_ridge_mse,lstm_mse,gru_mse,alstm_mse,sfm_mse,darnn_mse,hawkes_gru_mse,tcn_mse,mlp_mixer_mse,dlinear_mse,patch_tst_mse,autoformer_mse,fedformer_mse,market_graph_mse,gcn_mse,gat_mse,rgcn_mse,rsr_mse,hypergraph_mse,thgnn_mse,sthan_mse,sthgcn_mse",
+    "requested_model_incomplete_models": "",
     "attempts": 1
+  },
+  "notebook_card_readiness": {},
+  "readiness_overview": {
+    "schema_version": "dashboard.readiness_overview.v1",
+    "status": "review",
+    "gate_count": 3,
+    "pass_count": 2,
+    "review_count": 1,
+    "block_count": 0,
+    "gates": [
+      {
+        "gate": "production_health",
+        "label": "Production Health",
+        "status": "pass",
+        "detail": "healthy / missing 0",
+        "source_schema_version": "schedule.production_health.v1"
+      },
+      {
+        "gate": "requested_models",
+        "label": "Requested Models",
+        "status": "review",
+        "detail": "2 / 32 complete / missing 30 / incomplete 0",
+        "source_schema_version": "model.requested_contract_health.v1"
+      },
+      {
+        "gate": "model_runs",
+        "label": "Model Runs",
+        "status": "pass",
+        "detail": "trained 6 / backtested 6 / expected 6",
+        "source_schema_version": "model.run_ledger_summary.v1"
+      }
+    ]
   },
   "comparison_table": [
     {

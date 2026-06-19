@@ -1641,11 +1641,11 @@
       ],
       "primary_notebook": "paper_sim_replay_v1.ipynb",
       "primary_notebook_path": "production/paper_sim_replay_v1/paper_sim_replay_v1.ipynb",
-      "production_manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
+      "production_manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
       "production_manifest_hash_matches_registry": true,
       "production_manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
       "production_manifest_present": true,
-      "production_registry_manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
+      "production_registry_manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
       "production_registry_manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
       "production_registry_registered": true,
       "production_status": "published",
@@ -1655,7 +1655,7 @@
       "surface": "production"
     }
   ],
-  "manifest_hash": "330519e1e32f170e8f0ff4add1dd257dfc5053d294d4ecd1d27a7e6b4e64a30a",
+  "manifest_hash": "3bc47d41de1d6e0ed2d01a4d304ab07c093890380092e37616332597379ebc2c",
   "schema_version": "core.notebook_card_manifest.v1",
   "summary": {
     "canonical_notebook_count": 91,

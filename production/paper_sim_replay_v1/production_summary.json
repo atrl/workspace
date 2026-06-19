@@ -41,12 +41,21 @@
   "paper_execution_result": "production/paper_sim_replay_v1/paper_execution_result.json",
   "schedule_status": "success",
   "schedule_attempts": 1,
+  "schedule_readiness_overview_schema": "dashboard.readiness_overview.v1",
+  "schedule_readiness_overview_status": "review",
+  "schedule_readiness_overview_gate_count": 2,
+  "schedule_readiness_overview_pass_count": 1,
+  "schedule_readiness_overview_review_count": 1,
+  "schedule_readiness_overview_block_count": 0,
+  "schedule_readiness_overview_gates": "requested_models,model_runs",
+  "schedule_readiness_overview_review_gates": "requested_models",
+  "schedule_readiness_overview_block_gates": "",
   "data_update_status": "success",
   "data_update_attempts": 1,
   "data_update_row_count": 109,
   "data_update_as_of": "2026-06-09",
   "notifications": [
-    "production_paper_sim_replay_v1:success | top_model=ridge_mse__ic_weighted_composite | dashboard_manifest=analysis_manifest | attempts=1 | export=production/paper_sim_replay_v1/dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_mse__all_features->random_forest_clf__ic_weighted_composite/spread=47.9701 | promotion=promote_candidate:ridge_mse__ic_weighted_composite blocked=0 | run_coverage=6/6 backtested=6/6 missing=0"
+    "production_paper_sim_replay_v1:success | top_model=ridge_mse__ic_weighted_composite | dashboard_manifest=analysis_manifest | attempts=1 | export=production/paper_sim_replay_v1/dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_mse__all_features->random_forest_clf__ic_weighted_composite/spread=47.9701 | promotion=promote_candidate:ridge_mse__ic_weighted_composite blocked=0 | run_coverage=6/6 backtested=6/6 missing=0 | requested_models=2/32 missing=30 incomplete=0 | readiness=review pass=1 review=1 block=0"
   ],
   "data_notifications": [
     "production_paper_replay_data_update_v1:success | dataset=daily.soxl_paper_replay | rows=109 | as_of=2026-06-09 | attempts=1 | manifest=production/paper_sim_replay_v1/data/snapshots/paper_replay_soxl_daily/2026-06-09/data_update_manifest.json"
@@ -335,6 +344,6 @@
     "worst_stability_model": "ridge_mse__all_features"
   },
   "production_manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
-  "production_manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
+  "production_manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
   "production_registry_path": "production/production_registry.json"
 }

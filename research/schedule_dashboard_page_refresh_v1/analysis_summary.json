@@ -31,7 +31,7 @@
   "schedule_readiness_overview_review_count": 2,
   "schedule_readiness_overview_block_count": 0,
   "schedule_readiness_overview_gates": "production_health,notebook_cards,requested_models,model_runs",
-  "html_size_bytes": 626867,
+  "html_size_bytes": 628067,
   "top_models": [
     "ridge_mse__ic_weighted_composite",
     "ridge_mse__top_ic_factors",

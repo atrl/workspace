@@ -627,3 +627,19 @@ def test_production_paper_sim_summary_records_review_gate_context():
     assert intent["metadata"]["execution_gate"] == summary["execution_gate"]
     assert intent["metadata"]["analysis_overview_schema_version"] == summary["analysis_overview_schema"]
     assert intent["metadata"]["backtest_schema_version"] == summary["backtest_schema_version"]
+
+
+def test_production_paper_sim_summary_records_schedule_readiness_overview():
+    summary = json.loads(open("production/paper_sim_replay_v1/production_summary.json", encoding="utf-8").read())
+    manifest = json.loads(open("production/paper_sim_replay_v1/production_manifest.json", encoding="utf-8").read())
+
+    assert summary["schedule_readiness_overview_schema"] == "dashboard.readiness_overview.v1"
+    assert summary["schedule_readiness_overview_status"] in {"ready", "review", "blocked"}
+    assert summary["schedule_readiness_overview_gate_count"] >= 1
+    assert summary["schedule_readiness_overview_pass_count"] >= 1
+    assert summary["schedule_readiness_overview_block_count"] == 0
+    assert summary["schedule_readiness_overview_gates"]
+    assert "readiness=" in " ".join(summary["notifications"])
+    assert manifest["metadata"]["schedule_readiness_overview_schema"] == summary["schedule_readiness_overview_schema"]
+    assert manifest["metadata"]["schedule_readiness_overview_status"] == summary["schedule_readiness_overview_status"]
+    assert manifest["metadata"]["schedule_readiness_overview_gates"] == summary["schedule_readiness_overview_gates"]

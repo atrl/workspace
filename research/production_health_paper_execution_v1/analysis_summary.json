@@ -7,11 +7,11 @@
   "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
   "paper_execution_job_status": "success",
   "live_broker_enabled": false,
-  "manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
+  "manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
   "dashboard_export": "research/production_health_paper_execution_v1/dashboard_export.json",
   "dashboard_html": "research/production_health_paper_execution_v1/dashboard.html",
   "production_health_export": "research/production_health_paper_execution_v1/production_health_export.json",
   "notifications": [
-    "production_health_paper_execution_v1:success | strategy=paper_sim_replay_v1 | health=healthy | missing=0 | paper_execution=schedule.paper_execution.v1/success | manifest=production/paper_sim_replay_v1/production_manifest.json"
+    "production_health_paper_execution_v1:success | strategy=paper_sim_replay_v1 | health=healthy | missing=0 | paper_execution=schedule.paper_execution.v1/success | requested_models=2/32 missing=30 incomplete=0 | manifest=production/paper_sim_replay_v1/production_manifest.json"
   ]
 }
