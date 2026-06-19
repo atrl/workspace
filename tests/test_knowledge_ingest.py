@@ -35,6 +35,37 @@ def test_build_hypothesis_card_structures_external_source_for_backlog():
     assert "业务功能" not in card["skill_usage"]
 
 
+def test_build_hypothesis_card_blocks_external_sources_before_research_evidence():
+    source = KnowledgeSource(
+        source_id="x:regime-thread",
+        source_type="x",
+        title="Regime-aware model review thread",
+        url="https://x.com/search?q=regime%20aware%20quant%20evaluation",
+        summary="Social-source idea about volatility regime review.",
+        license_note="Use as idea only; do not copy post text.",
+        retrieved_at="2026-06-19",
+        access_status="search_placeholder",
+    )
+
+    card = build_hypothesis_card(source, target_subsystem="src/analysis")
+
+    assert card["implementation_allowed"] is False
+    assert card["promotion_gate_status"] == "blocked_pending_research"
+    assert card["blocked_surfaces_before_gate"] == ["src", "production", "skill"]
+    assert card["evidence_requirements"] == [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion",
+    ]
+    assert card["required_evidence_count"] == 5
+    assert card["usage_scope"] == "idea_only"
+    assert card["source_reliability"] == "social_unverified"
+    assert card["source_used_as"] == "hypothesis_only"
+    assert card["allowed_next_surface"] == "research/regime_window_review_validation_v1/regime_window_review_validation_v1.ipynb"
+
+
 def test_write_knowledge_queue_deduplicates_sources_and_writes_chinese_review_cards(tmp_path):
     sources = [
         KnowledgeSource(

@@ -14,8 +14,32 @@
         "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
       "hypothesis": "评估 QuantBench: Benchmarking AI Methods for Quantitative Investment 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/quantbench_model_matrix_validation_v1/quantbench_model_matrix_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：只保存公开 URL 和自有摘要；不复制未授权全文。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "metadata_accessible",
+      "usage_scope": "hypothesis_and_adapter_reference",
+      "source_reliability": "primary_metadata",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
@@ -33,8 +57,32 @@
         "access_status": "repository_accessible"
       },
       "target_subsystem": "src/analysis",
+      "target_interface": "src.analysis.qlib_recorder + src.analysis.build_regime_window_analysis_report",
       "hypothesis": "评估 Microsoft Qlib 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/qlib_recorder_analysis_validation_v1/qlib_recorder_analysis_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：进入实现前复核 upstream license；不 vendoring 代码。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "repository_accessible",
+      "usage_scope": "hypothesis_and_adapter_reference",
+      "source_reliability": "primary_repository_metadata",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
@@ -52,8 +100,32 @@
         "access_status": "repository_accessible"
       },
       "target_subsystem": "src/model",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
       "hypothesis": "评估 Time-Series-Library 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：进入实现前复核 upstream license；只记录 URL 和摘要。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "repository_accessible",
+      "usage_scope": "hypothesis_and_adapter_reference",
+      "source_reliability": "primary_repository_metadata",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
@@ -71,8 +143,32 @@
         "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
       "hypothesis": "评估 A Time Series is Worth 64 Words: Long-term Forecasting with Transformers 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：arXiv 元数据和自有摘要；实现代码 license 单独复核。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "metadata_accessible",
+      "usage_scope": "hypothesis_and_adapter_reference",
+      "source_reliability": "primary_metadata",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
@@ -90,8 +186,32 @@
         "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
       "hypothesis": "评估 Are Transformers Effective for Time Series Forecasting? 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/dlinear_mse_validation_v1/dlinear_mse_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：arXiv 元数据和自有摘要；不复制全文。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "metadata_accessible",
+      "usage_scope": "hypothesis_and_adapter_reference",
+      "source_reliability": "primary_metadata",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
@@ -109,8 +229,32 @@
         "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
       "hypothesis": "评估 Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：arXiv 元数据和自有摘要；实现代码 license 单独复核。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "metadata_accessible",
+      "usage_scope": "hypothesis_and_adapter_reference",
+      "source_reliability": "primary_metadata",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
@@ -128,8 +272,32 @@
         "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
+      "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
       "hypothesis": "评估 FEDformer: Frequency Enhanced Decomposed Transformer for Long-term Series Forecasting 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：arXiv 元数据和自有摘要；实现代码 license 单独复核。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "metadata_accessible",
+      "usage_scope": "hypothesis_and_adapter_reference",
+      "source_reliability": "primary_metadata",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
@@ -147,8 +315,32 @@
         "access_status": "repository_accessible"
       },
       "target_subsystem": "src/factor",
+      "target_interface": "src.factor.prepare_factor_feature_sets",
       "hypothesis": "评估 Alphalens factor performance analysis 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/factor_diagnostics_validation_v1/factor_diagnostics_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：GitHub README shows Apache-2.0 license；进入实现前仍需复核 upstream license；不 vendoring 代码。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "repository_accessible",
+      "usage_scope": "hypothesis_and_adapter_reference",
+      "source_reliability": "primary_repository_metadata",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
@@ -166,8 +358,32 @@
         "access_status": "search_placeholder"
       },
       "target_subsystem": "src/analysis",
+      "target_interface": "src.analysis.qlib_recorder + src.analysis.build_regime_window_analysis_report",
       "hypothesis": "评估 Regime-aware quant evaluation search 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
       "test_plan": "在 research notebook 中做可复现实验；通过后再进入 src 稳定接口或 production notebook。",
+      "implementation_allowed": false,
+      "promotion_gate_status": "blocked_pending_research",
+      "allowed_next_surface": "research/regime_window_review_validation_v1/regime_window_review_validation_v1.ipynb",
+      "blocked_surfaces_before_gate": [
+        "src",
+        "production",
+        "skill"
+      ],
+      "evidence_requirements": [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion"
+      ],
+      "required_evidence_count": 5,
+      "license_gate": "license gate: 只能保存 URL、自有摘要和结构化假设；进入实现前必须复核来源许可。来源备注：idea-only；不复制帖子正文；不作为事实来源。",
+      "retrieved_at": "2026-06-19",
+      "access_status": "search_placeholder",
+      "usage_scope": "idea_only",
+      "source_reliability": "social_unverified",
+      "source_used_as": "hypothesis_only",
+      "gate_notes": "未满足晋升门禁前，只能保留为 research backlog；不得写入 src、production 或 skill。",
       "promotion_status": "candidate",
       "skill_boundary": "method_only",
       "skill_usage": "skill 只用于启发研究方法和发散思路，不承载项目业务状态。"
