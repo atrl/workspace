@@ -82,6 +82,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         "promotion_scores.csv",
         "qlib_risk_metrics.csv",
         "model_effect_deltas.csv",
+        "model_difference_explanations.csv",
     }
     assert expected_files.issubset({path.name for path in tmp_path.iterdir()})
 
@@ -100,6 +101,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     )
     assert "qlib_risk_metrics" in summary["analysis_layers"]
     assert "window_regime_metrics" in summary["analysis_layers"]
+    assert "model_difference_explanations" in summary["analysis_layers"]
     assert summary["backtest_contract"]["schema_version"] == "backtest.config.v1"
     assert summary["backtest_contract"]["cost_model"]["slippage_bps"] > 0.0
     assert summary["walk_forward"]["schema_version"] == "backtest.walk_forward.v1"
@@ -117,6 +119,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     assert analysis_manifest["paths"]["walk_forward_splits"] == "walk_forward_splits.csv"
     assert analysis_manifest["paths"]["objective_scores"] == "objective_scores.csv"
     assert analysis_manifest["paths"]["promotion_scores"] == "promotion_scores.csv"
+    assert analysis_manifest["paths"]["model_difference_explanations"] == "model_difference_explanations.csv"
     assert len(analysis_manifest["manifest_hash"]) == 64
     daily = pd.read_csv(tmp_path / "daily_backtest.csv")
     folds = pd.read_csv(tmp_path / "walk_forward_splits.csv")
@@ -124,6 +127,7 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
     ledger_summary = json.loads((tmp_path / "model_run_ledger_summary.json").read_text(encoding="utf-8"))
     objective_scores = pd.read_csv(tmp_path / "objective_scores.csv")
     promotion_scores = pd.read_csv(tmp_path / "promotion_scores.csv")
+    model_difference_explanations = pd.read_csv(tmp_path / "model_difference_explanations.csv")
     assert {"gross_strategy_return", "cost_return", "net_strategy_return"}.issubset(daily.columns)
     assert daily["cost_return"].abs().sum() > 0.0
     assert {"fold", "train_start", "train_end", "test_start", "test_end", "schema_version"}.issubset(folds.columns)
@@ -147,3 +151,13 @@ def test_quantbench_matrix_smoke_runs_every_registered_model_and_writes_sidecars
         objective_scores.columns
     )
     assert {"schema_version", "model", "promotion_score", "promotion_decision"}.issubset(promotion_scores.columns)
+    assert {
+        "schema_version",
+        "segment",
+        "winner_model",
+        "loser_model",
+        "explanation_signal",
+        "decision_hint",
+        "review_note",
+    }.issubset(model_difference_explanations.columns)
+    assert model_difference_explanations["schema_version"].eq("analysis.model_difference_explanation.v1").all()

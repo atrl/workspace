@@ -16,6 +16,7 @@
     "qlib_return_frame",
     "segment_metrics",
     "segment_effect_matrix",
+    "model_difference_explanations",
     "model_review_briefing",
     "failure_modes"
   ],
@@ -469,6 +470,7 @@
   "analysis_table_counts": {
     "failure_modes": 104,
     "model_comparison": 6,
+    "model_difference_explanations": 34,
     "model_effect_deltas": 204,
     "model_regime_window_diagnostics": 6,
     "model_review_briefing": 118,

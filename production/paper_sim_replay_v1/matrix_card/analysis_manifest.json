@@ -85,6 +85,7 @@
     "table_counts": {
       "failure_modes": 104,
       "model_comparison": 6,
+      "model_difference_explanations": 34,
       "model_effect_deltas": 204,
       "model_regime_window_diagnostics": 6,
       "model_review_briefing": 118,
@@ -109,6 +110,7 @@
     "backtest_config": "backtest_config.json",
     "failure_modes": "failure_modes.csv",
     "model_comparison": "model_comparison.csv",
+    "model_difference_explanations": "model_difference_explanations.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
     "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
     "model_review_briefing": "model_review_briefing.csv",
@@ -128,5 +130,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "4d16a54a928730947e024297c634659ca6ecb1f8d575073d6878666e55bf2b46"
+  "manifest_hash": "55e31e27aa492190027dc4416f911dfd0f88048342daf2fbcf856341928263db"
 }

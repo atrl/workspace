@@ -9,7 +9,7 @@
     ],
     "end": "2026-06-09",
     "metadata": {
-      "dashboard_manifest_hash": "4d16a54a928730947e024297c634659ca6ecb1f8d575073d6878666e55bf2b46",
+      "dashboard_manifest_hash": "55e31e27aa492190027dc4416f911dfd0f88048342daf2fbcf856341928263db",
       "dashboard_manifest_kind": "analysis_manifest",
       "market_data_dataset_key": "daily.soxl_paper_replay",
       "market_data_manifest_hash": "c2d66c782be2de4adb47554cd4c5211481a9be3c110bc90fdc7da6f855a317a7",
@@ -22,7 +22,7 @@
       "SOXL"
     ]
   },
-  "manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
+  "manifest_hash": "846eca1053281881c8defb01ee0e212802f7db0730414751887de7e0752e86ad",
   "metadata": {
     "analysis_overview_schema": "analysis.overview.v1",
     "backtest_schema_version": "backtest.config.v1",

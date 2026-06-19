@@ -669,6 +669,21 @@ def test_production_paper_sim_summary_records_review_gate_context():
     assert intent["metadata"]["requested_model_missing_count"] >= 1
 
 
+def test_production_paper_sim_summary_records_model_difference_explanations():
+    summary = json.loads(open("production/paper_sim_replay_v1/production_summary.json", encoding="utf-8").read())
+    dashboard = json.loads(open("production/paper_sim_replay_v1/dashboard_export.json", encoding="utf-8").read())
+    analysis_manifest = json.loads(open("production/paper_sim_replay_v1/matrix_card/analysis_manifest.json", encoding="utf-8").read())
+
+    assert analysis_manifest["paths"]["model_difference_explanations"] == "model_difference_explanations.csv"
+    assert dashboard["artifacts"]["model_difference_explanations"].endswith("model_difference_explanations.csv")
+    assert dashboard["model_difference_explanations"]
+    assert dashboard["model_difference_explanations"][0]["schema_version"] == "analysis.model_difference_explanation.v1"
+    assert summary["model_difference_schema_version"] == "analysis.model_difference_explanation.v1"
+    assert summary["model_difference_count"] == len(dashboard["model_difference_explanations"])
+    assert summary["model_difference_top_signal"] == dashboard["model_difference_explanations"][0]["explanation_signal"]
+    assert summary["model_difference_top_decision_hint"] == dashboard["model_difference_explanations"][0]["decision_hint"]
+
+
 def test_production_paper_sim_summary_records_schedule_readiness_overview():
     summary = json.loads(open("production/paper_sim_replay_v1/production_summary.json", encoding="utf-8").read())
     manifest = json.loads(open("production/paper_sim_replay_v1/production_manifest.json", encoding="utf-8").read())

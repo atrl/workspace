@@ -16,6 +16,14 @@
   "analysis_top_gap_worst_model": "ridge_mse__all_features",
   "analysis_top_weakness_model": "ridge_mse__all_features",
   "analysis_top_weakness_decision_hint": "block_or_rework",
+  "model_difference_schema_version": "analysis.model_difference_explanation.v1",
+  "model_difference_count": 34,
+  "model_difference_top_signal": "segment_winner",
+  "model_difference_top_decision_hint": "promote_segment_candidate",
+  "model_difference_top_segment": "downtrend",
+  "model_difference_top_winner_model": "random_forest_clf__ic_weighted_composite",
+  "model_difference_top_loser_model": "ridge_mse__all_features",
+  "model_difference_top_spread": 47.970097543991834,
   "backtest_schema_version": "backtest.config.v1",
   "backtest_walk_forward_fold_count": 5,
   "backtest_slippage_bps": 1.0,
@@ -55,13 +63,13 @@
   "data_update_row_count": 109,
   "data_update_as_of": "2026-06-09",
   "notifications": [
-    "production_paper_sim_replay_v1:success | top_model=ridge_mse__ic_weighted_composite | dashboard_manifest=analysis_manifest | attempts=1 | export=production/paper_sim_replay_v1/dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_mse__all_features->random_forest_clf__ic_weighted_composite/spread=47.9701 | promotion=promote_candidate:ridge_mse__ic_weighted_composite blocked=0 | run_coverage=6/6 backtested=6/6 missing=0 | requested_models=2/32 missing=30 incomplete=0 | readiness=review pass=1 review=1 block=0"
+    "production_paper_sim_replay_v1:success | top_model=ridge_mse__ic_weighted_composite | dashboard_manifest=analysis_manifest | attempts=1 | export=production/paper_sim_replay_v1/dashboard_export.json | top_failure=return_stability_lag@stress | top_review=weakness:block_or_rework@stress | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_mse__all_features->random_forest_clf__ic_weighted_composite/spread=47.9701 | model_difference=segment_winner/promote_segment_candidate downtrend ridge_mse__all_features->random_forest_clf__ic_weighted_composite spread=47.9701 | promotion=promote_candidate:ridge_mse__ic_weighted_composite blocked=0 | run_coverage=6/6 backtested=6/6 missing=0 | requested_models=2/32 missing=30 incomplete=0 | readiness=review pass=1 review=1 block=0"
   ],
   "data_notifications": [
     "production_paper_replay_data_update_v1:success | dataset=daily.soxl_paper_replay | rows=109 | as_of=2026-06-09 | attempts=1 | manifest=production/paper_sim_replay_v1/data/snapshots/paper_replay_soxl_daily/2026-06-09/data_update_manifest.json"
   ],
   "paper_execution_notifications": [
-    "paper_sim_replay_execution_v1:success | mode=paper | gate=paper_review | model=ridge_mse__ic_weighted_composite | target=0.75 | quote=SOXL@2026-06-09/201.68 | shares=37 | ledger=production/paper_sim_replay_v1/intent_ledger.json"
+    "paper_sim_replay_execution_v1:success | mode=paper | gate=paper_review | model=ridge_mse__ic_weighted_composite | target=0.75 | quote=SOXL@2026-06-09/201.68 | shares=37 | ledger=production/paper_sim_replay_v1/intent_ledger.json | model_difference=segment_winner/promote_segment_candidate downtrend ridge_mse__all_features->random_forest_clf__ic_weighted_composite spread=47.9701"
   ],
   "dashboard_export": "production/paper_sim_replay_v1/dashboard_export.json",
   "intent_ledger": "production/paper_sim_replay_v1/intent_ledger.json",
@@ -344,6 +352,6 @@
     "worst_stability_model": "ridge_mse__all_features"
   },
   "production_manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
-  "production_manifest_hash": "a5c23f8aedf86b04eac9576231f3bd659f8ef7017abb0b3a83340693e03b989c",
+  "production_manifest_hash": "846eca1053281881c8defb01ee0e212802f7db0730414751887de7e0752e86ad",
   "production_registry_path": "production/production_registry.json"
 }
