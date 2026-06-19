@@ -1,0 +1,16 @@
+{
+  "decisions": {
+    "src-core-architecture-extension-contract-v1": {
+      "change_type": "governance_contract",
+      "created_at": "2026-06-19T03:30:00Z",
+      "decision_hash": "ec3bb692d7cd7775daa63cde9951535bc703a22bddf52e60cb5c8dd718a596e9",
+      "decision_id": "src-core-architecture-extension-contract-v1",
+      "decision_path": "research/architecture_extension_contract_v1/src-core-architecture-extension-contract-v1.json",
+      "evidence_notebook": "research/architecture_extension_contract_v1/architecture_extension_contract_v1.ipynb",
+      "status": "accepted",
+      "target_surface": "src/core"
+    }
+  },
+  "registry_hash": "fb552a57250bc26d10a28ca2de5792efa16856e37c65a267cb231234a348b26c",
+  "schema_version": "core.architecture_extension_registry.v1"
+}
