@@ -61,15 +61,26 @@ def run_refresh_plan(
             data_attempts["count"] += 1
             return data_update()
 
-        manifests = retry(counted_data_update, attempts=plan.attempts, delay_seconds=plan.delay_seconds)
-        model_comparison = model_refresh()
-        dashboard_payload = dashboard_export(manifests, model_comparison)
-        summary = {
-            "name": plan.name,
-            "status": "ok",
-            "attempts": data_attempts["count"],
-            "artifacts": len(manifests),
-            "dashboard_artifacts": len(dashboard_payload.get("artifacts", [])),
-        }
-        notify(summary)
-        return summary
+        try:
+            manifests = retry(counted_data_update, attempts=plan.attempts, delay_seconds=plan.delay_seconds)
+            model_comparison = model_refresh()
+            dashboard_payload = dashboard_export(manifests, model_comparison)
+            summary = {
+                "name": plan.name,
+                "status": "ok",
+                "attempts": data_attempts["count"],
+                "artifacts": len(manifests),
+                "dashboard_artifacts": len(dashboard_payload.get("artifacts", [])),
+            }
+            notify(summary)
+            return summary
+        except Exception as error:
+            notify(
+                {
+                    "name": plan.name,
+                    "status": "failed",
+                    "attempts": data_attempts["count"],
+                    "error": str(error),
+                }
+            )
+            raise
