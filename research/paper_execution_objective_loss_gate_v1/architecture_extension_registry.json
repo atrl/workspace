@@ -1,0 +1,16 @@
+{
+  "decisions": {
+    "paper-execution-objective-loss-gate-v1": {
+      "change_type": "execution_readiness_gate",
+      "created_at": "2026-06-19T00:00:00Z",
+      "decision_hash": "84a0791af69fc2686ba2441eaabaed23e5bbc67f06ce7a2fa491321775d6dbd7",
+      "decision_id": "paper-execution-objective-loss-gate-v1",
+      "decision_path": "/Users/rziiiii/dev/workspace/research/paper_execution_objective_loss_gate_v1/paper-execution-objective-loss-gate-v1.json",
+      "evidence_notebook": "research/paper_execution_objective_loss_gate_v1/paper_execution_objective_loss_gate_v1.ipynb",
+      "status": "accepted",
+      "target_surface": "src/core,src/api,src/schedule"
+    }
+  },
+  "registry_hash": "1126bae7099faf07ba8a8da3ade7a2b54b68912a3a6ccd82323d23d82d6a82af",
+  "schema_version": "core.architecture_extension_registry.v1"
+}

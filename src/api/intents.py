@@ -6,7 +6,11 @@ from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 
-from src.core import build_dashboard_manifest_source_contract, build_dashboard_readiness_overview
+from src.core import (
+    build_dashboard_manifest_source_contract,
+    build_dashboard_readiness_overview,
+    build_objective_loss_readiness_gate,
+)
 
 from .contracts import BrokerAdapter, assert_paper_sim_mode
 from .paper import AccountSnapshot
@@ -306,6 +310,28 @@ def _readiness_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _objective_loss_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    objective = dashboard_payload.get("objective")
+    objective_payload = objective if isinstance(objective, dict) else {}
+    losses = objective_payload.get("losses")
+    gate = build_objective_loss_readiness_gate(losses)
+    if not gate:
+        return {}
+    return {
+        "objective_loss_schema_version": str(gate.get("source_schema_version", "")),
+        "objective_loss_metric_source_schema_version": str(gate.get("metric_source_schema_version", "")),
+        "objective_loss_status": str(gate.get("status", "")),
+        "objective_loss_detail": str(gate.get("detail", "")),
+        "objective_loss_optimization_direction": str(gate.get("optimization_direction", "")),
+        "objective_loss_reward_surface": str(gate.get("reward_surface", "")),
+        "objective_loss_row_count": _int_field(gate, "row_count"),
+        "objective_loss_rank_group_count": _int_field(gate, "rank_group_count"),
+        "objective_loss_component_count": _int_field(gate, "loss_component_count"),
+        "objective_loss_top_component": str(gate.get("top_component", "")),
+        "objective_loss_top_value": float(gate.get("top_value", 0.0) or 0.0),
+    }
+
+
 def build_target_position_intent_from_dashboard(
     dashboard_payload: dict[str, Any],
     *,
@@ -328,6 +354,7 @@ def build_target_position_intent_from_dashboard(
     requested_context = _requested_model_context(dashboard_payload)
     dashboard_manifest_context = _dashboard_manifest_context(dashboard_payload)
     readiness_context = _readiness_context(dashboard_payload)
+    objective_loss_context = _objective_loss_context(dashboard_payload)
     blocked_by_promotion = str(promotion.get("promotion_decision", "")) == "blocked"
     blocked_by_review = (
         analysis.get("analysis_top_weakness_model") == source_model
@@ -372,6 +399,7 @@ def build_target_position_intent_from_dashboard(
             "promotion_blockers": _clean_metadata_string(promotion.get("promotion_blockers", "")),
             "dashboard_schema_version": str(dashboard_payload.get("schema_version", "")),
             **dashboard_manifest_context,
+            **objective_loss_context,
             **run_context,
             **requested_context,
             **readiness_context,

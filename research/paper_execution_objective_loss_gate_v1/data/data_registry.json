@@ -1,0 +1,38 @@
+{
+  "datasets": {
+    "daily.unit_soxl_objective_loss_gate": {
+      "current": {
+        "as_of": "2026-01-05",
+        "dataset_key": "daily.unit_soxl_objective_loss_gate",
+        "dataset_name": "paper_execution_objective_loss_gate_soxl_daily",
+        "dataset_schema_hash": "acd8431c01ac504b2229d99ac2c8ddd7645c4bdaaaf3f0effc783808760fb5f9",
+        "end": "2026-01-05",
+        "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+        "manifest_hash": "003157b0fb601c90e381a5b1226b02d3b937cbd696679ed6da758010b8858e51",
+        "manifest_path": "/Users/rziiiii/dev/workspace/research/paper_execution_objective_loss_gate_v1/data/snapshots/unit_soxl_daily/2026-01-05/data_update_manifest.json",
+        "published_at": "2026-06-19T00:00:00Z",
+        "row_count": 2,
+        "snapshot_path": "/Users/rziiiii/dev/workspace/research/paper_execution_objective_loss_gate_v1/data/snapshots/unit_soxl_daily/2026-01-05",
+        "start": "2026-01-02"
+      },
+      "history": [
+        {
+          "as_of": "2026-01-05",
+          "dataset_key": "daily.unit_soxl_objective_loss_gate",
+          "dataset_name": "paper_execution_objective_loss_gate_soxl_daily",
+          "dataset_schema_hash": "acd8431c01ac504b2229d99ac2c8ddd7645c4bdaaaf3f0effc783808760fb5f9",
+          "end": "2026-01-05",
+          "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+          "manifest_hash": "003157b0fb601c90e381a5b1226b02d3b937cbd696679ed6da758010b8858e51",
+          "manifest_path": "/Users/rziiiii/dev/workspace/research/paper_execution_objective_loss_gate_v1/data/snapshots/unit_soxl_daily/2026-01-05/data_update_manifest.json",
+          "published_at": "2026-06-19T00:00:00Z",
+          "row_count": 2,
+          "snapshot_path": "/Users/rziiiii/dev/workspace/research/paper_execution_objective_loss_gate_v1/data/snapshots/unit_soxl_daily/2026-01-05",
+          "start": "2026-01-02"
+        }
+      ]
+    }
+  },
+  "registry_hash": "4ffd87bf76a61da887189aee79d268cf1fe750b22cc6c24eee53f2612ec4b03e",
+  "schema_version": "data.registry.v1"
+}

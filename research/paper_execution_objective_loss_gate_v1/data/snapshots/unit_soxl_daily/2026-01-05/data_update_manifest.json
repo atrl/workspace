@@ -1,0 +1,40 @@
+{
+  "canonical_export_schema_version": "data.canonical_snapshot.export.v1",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "provider:notebook_unit"
+    ],
+    "end": "2026-01-05",
+    "metadata": {
+      "as_of": "2026-01-05",
+      "calendar_row_count": 2,
+      "canonical_frame_schema_version": "data.canonical_frame.v1",
+      "column_count": 4,
+      "date_column": "date",
+      "dropped_non_calendar_rows": 0,
+      "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+      "row_count": 2,
+      "source_paths": [
+        "provider:notebook_unit"
+      ]
+    },
+    "name": "paper_execution_objective_loss_gate_soxl_daily",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-02",
+    "universe": [
+      "SOXL"
+    ]
+  },
+  "dataset_key": "daily.unit_soxl_objective_loss_gate",
+  "dataset_schema_hash": "acd8431c01ac504b2229d99ac2c8ddd7645c4bdaaaf3f0effc783808760fb5f9",
+  "manifest_hash": "003157b0fb601c90e381a5b1226b02d3b937cbd696679ed6da758010b8858e51",
+  "paths": {
+    "dataset_snapshot": "dataset_snapshot.json",
+    "frame": "canonical_frame.csv",
+    "manifest": "data_update_manifest.json"
+  },
+  "published_at": "2026-06-19T00:00:00Z",
+  "schema_version": "data.update_manifest.v1",
+  "status": "published"
+}

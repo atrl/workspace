@@ -8,6 +8,7 @@ from .contracts import (
     DatasetSnapshot,
     build_dashboard_manifest_source_contract,
     build_dashboard_readiness_overview,
+    build_objective_loss_readiness_gate,
 )
 from .knowledge import (
     KnowledgeSource,
@@ -31,6 +32,7 @@ __all__ = [
     "build_hypothesis_card",
     "build_dashboard_manifest_source_contract",
     "build_dashboard_readiness_overview",
+    "build_objective_loss_readiness_gate",
     "build_knowledge_backlog",
     "build_knowledge_promotion_audit",
     "build_production_manifest",

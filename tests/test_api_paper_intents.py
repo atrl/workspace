@@ -323,6 +323,42 @@ def test_build_target_position_intent_blocks_when_readiness_overview_has_block_g
     assert intent.metadata["readiness_overview_block_gates"] == "production_health"
 
 
+def test_build_target_position_intent_blocks_invalid_objective_loss_reward_surface():
+    payload = _dashboard_payload()
+    payload["objective"] = {
+        "losses": {
+            "schema_version": "objective.loss.v1",
+            "metric_source_schema_version": "objective.evaluation.v1",
+            "optimization_direction": "minimize",
+            "reward_surface": "active_rl_reward",
+            "row_count": 78,
+            "mse_loss": 0.0274,
+            "classification_loss": 0.4359,
+            "ic_loss": 0.9774,
+            "ranking_loss": 0.2,
+            "rank_group_count": 12,
+        }
+    }
+
+    intent = build_target_position_intent_from_dashboard(
+        payload,
+        instrument="SOXL",
+        min_position=0.1,
+        max_position=0.75,
+    )
+
+    assert intent.target_position == 0.1
+    assert intent.metadata["execution_gate"] == "blocked_to_min_position"
+    assert intent.metadata["readiness_overview_status"] == "blocked"
+    assert intent.metadata["readiness_overview_block_gates"] == "objective_loss"
+    assert intent.metadata["objective_loss_schema_version"] == "objective.loss.v1"
+    assert intent.metadata["objective_loss_status"] == "block"
+    assert intent.metadata["objective_loss_reward_surface"] == "active_rl_reward"
+    assert intent.metadata["objective_loss_optimization_direction"] == "minimize"
+    assert intent.metadata["objective_loss_top_component"] == "ic_loss"
+    assert intent.metadata["objective_loss_top_value"] == 0.9774
+
+
 def test_build_target_position_intent_normalizes_empty_promotion_blockers_from_dashboard_csv():
     payload = _dashboard_payload()
     payload["objective"] = {

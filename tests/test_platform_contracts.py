@@ -254,6 +254,71 @@ def test_dashboard_readiness_overview_adds_schedule_health_gate():
     assert clean_gates["schedule_health"]["detail"] == "failed 0 / jobs 2 / retry_errors 1"
 
 
+def test_dashboard_readiness_overview_adds_objective_loss_review_gate():
+    overview = build_dashboard_readiness_overview(
+        {
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": "matrix_card/analysis_manifest.json",
+                "manifest_hash": "a" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "objective": {
+                "losses": {
+                    "schema_version": "objective.loss.v1",
+                    "metric_source_schema_version": "objective.evaluation.v1",
+                    "optimization_direction": "minimize",
+                    "reward_surface": "retired",
+                    "row_count": 78,
+                    "mse_loss": 0.0274,
+                    "classification_loss": 0.4359,
+                    "ic_loss": 0.9774,
+                    "ranking_loss": 1.0,
+                    "rank_group_count": 0,
+                }
+            },
+        }
+    )
+
+    gates = {gate["gate"]: gate for gate in overview["gates"]}
+    assert overview["status"] == "review"
+    assert gates["objective_loss"]["status"] == "review"
+    assert gates["objective_loss"]["source_schema_version"] == "objective.loss.v1"
+    assert gates["objective_loss"]["detail"] == "top ranking_loss=1 / reward retired / direction minimize / groups 0"
+
+
+def test_dashboard_readiness_overview_blocks_non_retired_reward_surface():
+    overview = build_dashboard_readiness_overview(
+        {
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": "matrix_card/analysis_manifest.json",
+                "manifest_hash": "a" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "objective": {
+                "losses": {
+                    "schema_version": "objective.loss.v1",
+                    "metric_source_schema_version": "objective.evaluation.v1",
+                    "optimization_direction": "minimize",
+                    "reward_surface": "active_rl_reward",
+                    "row_count": 78,
+                    "mse_loss": 0.0274,
+                    "classification_loss": 0.4359,
+                    "ic_loss": 0.9774,
+                    "ranking_loss": 0.2,
+                    "rank_group_count": 12,
+                }
+            },
+        }
+    )
+
+    gates = {gate["gate"]: gate for gate in overview["gates"]}
+    assert overview["status"] == "blocked"
+    assert gates["objective_loss"]["status"] == "block"
+    assert gates["objective_loss"]["detail"] == "top ic_loss=0.9774 / reward active_rl_reward / direction minimize / groups 12"
+
+
 def test_quantbench_registry_covers_requested_models_without_rl_reward():
     assert REQUESTED_QUANTBENCH_MODELS.issubset(set(QUANTBENCH_MODEL_NAMES))
 

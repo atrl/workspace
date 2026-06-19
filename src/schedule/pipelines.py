@@ -659,6 +659,26 @@ def _paper_execution_attempt(config: PaperExecutionPipelineConfig) -> dict[str, 
         "dashboard_manifest_hash": str(metadata.get("dashboard_manifest_hash", "")),
         "dashboard_manifest_producer": str(metadata.get("dashboard_manifest_producer", "")),
         "dashboard_manifest_error": str(metadata.get("dashboard_manifest_error", "")),
+        "readiness_overview_schema_version": str(metadata.get("readiness_overview_schema_version", "")),
+        "readiness_overview_status": str(metadata.get("readiness_overview_status", "")),
+        "readiness_overview_gate_count": int(metadata.get("readiness_overview_gate_count", 0) or 0),
+        "readiness_overview_pass_count": int(metadata.get("readiness_overview_pass_count", 0) or 0),
+        "readiness_overview_review_count": int(metadata.get("readiness_overview_review_count", 0) or 0),
+        "readiness_overview_block_count": int(metadata.get("readiness_overview_block_count", 0) or 0),
+        "readiness_overview_gates": str(metadata.get("readiness_overview_gates", "")),
+        "readiness_overview_review_gates": str(metadata.get("readiness_overview_review_gates", "")),
+        "readiness_overview_block_gates": str(metadata.get("readiness_overview_block_gates", "")),
+        "objective_loss_schema_version": str(metadata.get("objective_loss_schema_version", "")),
+        "objective_loss_metric_source_schema_version": str(metadata.get("objective_loss_metric_source_schema_version", "")),
+        "objective_loss_status": str(metadata.get("objective_loss_status", "")),
+        "objective_loss_detail": str(metadata.get("objective_loss_detail", "")),
+        "objective_loss_optimization_direction": str(metadata.get("objective_loss_optimization_direction", "")),
+        "objective_loss_reward_surface": str(metadata.get("objective_loss_reward_surface", "")),
+        "objective_loss_row_count": int(metadata.get("objective_loss_row_count", 0) or 0),
+        "objective_loss_rank_group_count": int(metadata.get("objective_loss_rank_group_count", 0) or 0),
+        "objective_loss_component_count": int(metadata.get("objective_loss_component_count", 0) or 0),
+        "objective_loss_top_component": str(metadata.get("objective_loss_top_component", "")),
+        "objective_loss_top_value": float(metadata.get("objective_loss_top_value", 0.0) or 0.0),
         "model_difference_schema_version": str(metadata.get("model_difference_schema_version", "")),
         "model_difference_top_signal": str(metadata.get("model_difference_top_signal", "")),
         "model_difference_top_decision_hint": str(metadata.get("model_difference_top_decision_hint", "")),
@@ -708,6 +728,14 @@ def _paper_execution_notification(job_name: str, status: str, payload: dict[str,
             f" {payload.get('model_difference_top_loser_model', '')}->"
             f"{payload.get('model_difference_top_winner_model', '')}"
             f" spread={payload.get('model_difference_top_spread', 0.0):g}"
+        )
+    if payload.get("objective_loss_schema_version"):
+        message += (
+            f" | objective_loss={payload.get('objective_loss_schema_version', '')}/"
+            f"{payload.get('objective_loss_status', '')}"
+            f" top={payload.get('objective_loss_top_component', '')}:"
+            f"{payload.get('objective_loss_top_value', 0.0):g}"
+            f" reward={payload.get('objective_loss_reward_surface', '')}"
         )
     return message
 

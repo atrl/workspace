@@ -212,6 +212,80 @@ def test_paper_execution_pipeline_notification_includes_model_difference_gate_co
     assert "stress_window::stress random_forest_clf__all_features->ridge_mse__all_features spread=6.5" in events[0]
 
 
+def test_paper_execution_pipeline_notification_includes_objective_loss_gate_context(tmp_path):
+    registry_path = _publish_unit_registry(tmp_path)
+    dashboard_path = tmp_path / "dashboard" / "dashboard_export.json"
+    dashboard_path.parent.mkdir(parents=True, exist_ok=True)
+    dashboard_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "dashboard.model_matrix.v1",
+                "artifact_id": "objective_loss_dashboard",
+                "artifact_type": "dashboard_export",
+                "manifest_source": {
+                    "kind": "analysis_manifest",
+                    "path": "matrix_card/analysis_manifest.json",
+                    "manifest_hash": "c" * 64,
+                    "producer": "src.analysis.exports",
+                },
+                "top_models": [
+                    {
+                        "rank": 1,
+                        "model": "ridge_mse__all_features",
+                        "base_model": "ridge_mse",
+                        "feature_set": "all_features",
+                        "avg_position": 0.5,
+                    }
+                ],
+                "objective": {
+                    "losses": {
+                        "schema_version": "objective.loss.v1",
+                        "metric_source_schema_version": "objective.evaluation.v1",
+                        "optimization_direction": "minimize",
+                        "reward_surface": "retired",
+                        "row_count": 78,
+                        "mse_loss": 0.0274,
+                        "classification_loss": 0.4359,
+                        "ic_loss": 0.9774,
+                        "ranking_loss": 1.0,
+                        "rank_group_count": 0,
+                    }
+                },
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    events: list[str] = []
+    config = PaperExecutionPipelineConfig(
+        name="paper_execution",
+        dashboard_export_path=dashboard_path,
+        data_registry_path=registry_path,
+        dataset_key="daily.unit_soxl",
+        instrument="SOXL",
+        intent_ledger_path=tmp_path / "runtime" / "intent_ledger.json",
+        paper_execution_result_path=tmp_path / "runtime" / "paper_execution_result.json",
+        initial_cash=1000.0,
+        notify_details=True,
+    )
+
+    result = run_paper_execution_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    ledger = json.loads(config.intent_ledger_path.read_text(encoding="utf-8"))
+    assert result.status == "success"
+    assert result.payload["execution_gate"] == "paper_review"
+    assert result.payload["readiness_overview_status"] == "review"
+    assert result.payload["readiness_overview_review_gates"] == "objective_loss"
+    assert result.payload["objective_loss_schema_version"] == "objective.loss.v1"
+    assert result.payload["objective_loss_status"] == "review"
+    assert result.payload["objective_loss_reward_surface"] == "retired"
+    assert result.payload["objective_loss_top_component"] == "ranking_loss"
+    assert result.payload["objective_loss_top_value"] == 1.0
+    assert ledger["intent"]["metadata"]["objective_loss_status"] == "review"
+    assert "objective_loss=objective.loss.v1/review top=ranking_loss:1 reward=retired" in events[0]
+
+
 def test_paper_execution_pipeline_skips_closed_market_day_before_reading_inputs(tmp_path):
     events: list[str] = []
     decision = classify_market_calendar_day(

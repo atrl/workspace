@@ -133,8 +133,60 @@ def _int_field(row: dict[str, Any], key: str) -> int:
         return 0
 
 
+def _float_field(row: dict[str, Any], key: str) -> float:
+    try:
+        return float(row.get(key, 0.0) or 0.0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def _list_count(value: Any) -> int:
     return len(value) if isinstance(value, list) else 0
+
+
+def build_objective_loss_readiness_gate(losses: Any) -> dict[str, Any]:
+    if not isinstance(losses, dict) or not losses:
+        return {}
+
+    component_names = ("mse_loss", "classification_loss", "ic_loss", "ranking_loss")
+    components = [
+        {"name": name, "value": _float_field(losses, name)}
+        for name in component_names
+        if name in losses
+    ]
+    top = max(components, key=lambda item: float(item["value"])) if components else {"name": "", "value": 0.0}
+    schema_version = str(losses.get("schema_version", ""))
+    direction = str(losses.get("optimization_direction", ""))
+    reward_surface = str(losses.get("reward_surface", ""))
+    rank_group_count = _int_field(losses, "rank_group_count")
+
+    contract_ok = bool(components) and schema_version == "objective.loss.v1" and direction == "minimize"
+    reward_ok = reward_surface == "retired"
+    if not contract_ok or not reward_ok:
+        status = "block"
+    elif rank_group_count == 0 or float(top["value"]) >= 1.0:
+        status = "review"
+    else:
+        status = "pass"
+
+    return {
+        "gate": "objective_loss",
+        "label": "Objective Loss",
+        "status": status,
+        "detail": (
+            f"top {top['name']}={float(top['value']):g} / "
+            f"reward {reward_surface} / direction {direction} / groups {rank_group_count}"
+        ),
+        "source_schema_version": schema_version,
+        "metric_source_schema_version": str(losses.get("metric_source_schema_version", "")),
+        "optimization_direction": direction,
+        "reward_surface": reward_surface,
+        "row_count": _int_field(losses, "row_count"),
+        "rank_group_count": rank_group_count,
+        "loss_component_count": int(len(components)),
+        "top_component": str(top["name"]),
+        "top_value": float(top["value"]),
+    }
 
 
 def build_dashboard_readiness_overview(payload: dict[str, Any]) -> dict[str, Any]:
@@ -190,6 +242,12 @@ def build_dashboard_readiness_overview(payload: dict[str, Any]) -> dict[str, Any
                 "source_schema_version": str(schedule_health.get("schema_version", "")),
             }
         )
+
+    objective = payload.get("objective")
+    objective_payload = objective if isinstance(objective, dict) else {}
+    objective_loss_gate = build_objective_loss_readiness_gate(objective_payload.get("losses"))
+    if objective_loss_gate:
+        gates.append(objective_loss_gate)
 
     notebook_readiness = payload.get("notebook_card_readiness")
     if isinstance(notebook_readiness, dict) and notebook_readiness:
