@@ -299,13 +299,23 @@ def _readiness_overview(payload: dict[str, Any]) -> dict[str, Any]:
 
 def _objective_loss_summary(payload: dict[str, Any]) -> dict[str, Any]:
     objective = payload.get("objective") if isinstance(payload.get("objective"), dict) else {}
-    losses = objective.get("losses") if isinstance(objective, dict) and isinstance(objective.get("losses"), dict) else {}
+    production_loss = (
+        objective.get("production_loss")
+        if isinstance(objective, dict) and isinstance(objective.get("production_loss"), dict)
+        else {}
+    )
+    matrix_loss = objective.get("losses") if isinstance(objective, dict) and isinstance(objective.get("losses"), dict) else {}
+    losses = production_loss or matrix_loss
     if not losses:
         return {}
     component_names = ("mse_loss", "classification_loss", "ic_loss", "ranking_loss")
     components: list[dict[str, Any]] = []
+    raw_component_count = sum(1 for name in component_names if name in losses)
+    ignored_components = set(losses.get("ignored_components", [])) if isinstance(losses.get("ignored_components"), list) else set()
     for name in component_names:
         if name not in losses:
+            continue
+        if name in ignored_components:
             continue
         try:
             value = float(losses.get(name, 0.0) or 0.0)
@@ -321,9 +331,13 @@ def _objective_loss_summary(payload: dict[str, Any]) -> dict[str, Any]:
         "reward_surface": str(losses.get("reward_surface", "")),
         "row_count": int(losses.get("row_count", 0) or 0),
         "rank_group_count": int(losses.get("rank_group_count", 0) or 0),
-        "loss_component_count": int(len(components)),
+        "loss_component_count": int(raw_component_count),
+        "active_loss_component_count": int(len(components)),
         "loss_components": components,
         "top_loss_component": top_component,
+        "readiness_scope": str(losses.get("readiness_scope", losses.get("loss_scope", "matrix"))),
+        "model": str(losses.get("model", "")),
+        "ignored_components": sorted(str(value) for value in ignored_components),
     }
 
 

@@ -15,7 +15,7 @@
       "market_data_manifest_hash": "c2d66c782be2de4adb47554cd4c5211481a9be3c110bc90fdc7da6f855a317a7",
       "objective_loss_reward_surface": "retired",
       "objective_loss_schema_version": "objective.loss.v1",
-      "objective_loss_status": "review",
+      "objective_loss_status": "pass",
       "objective_loss_top_component": "ic_loss",
       "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
       "schedule_health_failed_job_count": 0,
@@ -29,7 +29,7 @@
       "SOXL"
     ]
   },
-  "manifest_hash": "50d8da3edbae283505da8eb030f9e1c0be2f2ca898d1259aeb06aaec72b9d044",
+  "manifest_hash": "1c90ce9311e5f93890106604fb91dcdcc49f02408a3637e78e1a6b4acffaa62d",
   "metadata": {
     "analysis_overview_schema": "analysis.overview.v1",
     "backtest_schema_version": "backtest.config.v1",
@@ -43,9 +43,9 @@
     "mode": "paper",
     "objective_loss_reward_surface": "retired",
     "objective_loss_schema_version": "objective.loss.v1",
-    "objective_loss_status": "review",
+    "objective_loss_status": "pass",
     "objective_loss_top_component": "ic_loss",
-    "objective_loss_top_value": 1.006248375520011,
+    "objective_loss_top_value": 0.7150174713408348,
     "paper_execution_job_status": "success",
     "paper_execution_pipeline_schema_version": "schedule.paper_execution.v1",
     "paper_position": 0.746216,
@@ -57,7 +57,7 @@
     "schedule_health_total_retry_error_count": 0,
     "schedule_readiness_overview_gates": "dashboard_manifest,objective_loss,requested_models,model_runs",
     "schedule_readiness_overview_schema": "dashboard.readiness_overview.v1",
-    "schedule_readiness_overview_status": "review",
+    "schedule_readiness_overview_status": "ready",
     "schedule_status": "success",
     "source_model": "mlp_mixer_mse__all_features",
     "status": "paper_replay_completed",

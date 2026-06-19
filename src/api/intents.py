@@ -313,7 +313,8 @@ def _readiness_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
 def _objective_loss_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     objective = dashboard_payload.get("objective")
     objective_payload = objective if isinstance(objective, dict) else {}
-    losses = objective_payload.get("losses")
+    production_loss = objective_payload.get("production_loss")
+    losses = production_loss if isinstance(production_loss, dict) and production_loss else objective_payload.get("losses")
     gate = build_objective_loss_readiness_gate(losses)
     if not gate:
         return {}
@@ -329,6 +330,8 @@ def _objective_loss_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]
         "objective_loss_component_count": _int_field(gate, "loss_component_count"),
         "objective_loss_top_component": str(gate.get("top_component", "")),
         "objective_loss_top_value": float(gate.get("top_value", 0.0) or 0.0),
+        "objective_loss_readiness_scope": str(gate.get("readiness_scope", "")),
+        "objective_loss_model": str(gate.get("model", "")),
     }
 
 

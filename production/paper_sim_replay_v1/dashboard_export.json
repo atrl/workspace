@@ -21785,6 +21785,44 @@
         "rank_ic": 0.0,
         "rank_group_count": 0
       }
+    },
+    "production_loss": {
+      "schema_version": "objective.loss.v1",
+      "metric_source_schema_version": "objective.evaluation.v1",
+      "optimization_direction": "minimize",
+      "reward_surface": "retired",
+      "readiness_scope": "production_source_model",
+      "loss_scope": "production_source_model",
+      "model": "mlp_mixer_mse__all_features",
+      "base_model": "mlp_mixer_mse",
+      "feature_set": "all_features",
+      "objective": "mse",
+      "family": "sequence",
+      "objective_names": [
+        "mse",
+        "classification",
+        "ic",
+        "ranking"
+      ],
+      "row_count": 26,
+      "mse_loss": 0.0112832014674016,
+      "classification_loss": 0.3076923076923077,
+      "ic_loss": 0.7150174713408348,
+      "ranking_loss": 1.0,
+      "rank_group_count": 0,
+      "ranking_loss_applicable": false,
+      "ignored_components": [
+        "ranking_loss"
+      ],
+      "evaluation": {
+        "schema_version": "objective.evaluation.v1",
+        "row_count": 26,
+        "mse": 0.0112832014674016,
+        "classification_accuracy": 0.6923076923076923,
+        "ic": 0.2849825286591652,
+        "rank_ic": 0.0,
+        "rank_group_count": 0
+      }
     }
   },
   "model_run_coverage": {

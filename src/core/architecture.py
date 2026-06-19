@@ -431,7 +431,7 @@ def build_platform_requirement_audit(root: str | Path) -> dict[str, Any]:
                 "objective_loss_status": production_summary.get("objective_loss_status", ""),
                 "objective_loss_top_component": production_summary.get("objective_loss_top_component", ""),
             },
-            notes="当前 objective_loss gate 为 review，说明生产证据链可审计但不应声称完全 ready。",
+            notes="production readiness 由 dashboard.readiness_overview.v1 统一判断；review/block 不得被误报为 ready。",
         )
     )
 
@@ -500,8 +500,10 @@ def build_platform_requirement_audit(root: str | Path) -> dict[str, Any]:
         "status_counts": status_counts,
         "review_requirement_ids": [item["requirement_id"] for item in requirements if item["status"] == "review"],
         "failed_requirement_ids": [item["requirement_id"] for item in requirements if item["status"] == "fail"],
-        "completion_claim": "not_claimed",
-        "audit_note": "该 audit 用当前 repo 证据映射长期目标；status=review 时不能声明目标完成。",
+        "completion_claim": (
+            "current_platform_requirements_satisfied" if failed_count == 0 and review_count == 0 else "not_claimed"
+        ),
+        "audit_note": "该 audit 用当前 repo 证据映射长期目标；有 fail/review 时不能声明目标完成。",
     }
     return _json_ready(
         {

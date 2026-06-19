@@ -287,6 +287,57 @@ def test_dashboard_readiness_overview_adds_objective_loss_review_gate():
     assert gates["objective_loss"]["detail"] == "top ranking_loss=1 / reward retired / direction minimize / groups 0"
 
 
+def test_dashboard_readiness_overview_prefers_production_source_objective_loss():
+    overview = build_dashboard_readiness_overview(
+        {
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": "matrix_card/analysis_manifest.json",
+                "manifest_hash": "a" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "objective": {
+                "losses": {
+                    "schema_version": "objective.loss.v1",
+                    "metric_source_schema_version": "objective.evaluation.v1",
+                    "optimization_direction": "minimize",
+                    "reward_surface": "retired",
+                    "row_count": 2496,
+                    "mse_loss": 0.043,
+                    "classification_loss": 0.425,
+                    "ic_loss": 1.006,
+                    "ranking_loss": 1.0,
+                    "rank_group_count": 0,
+                },
+                "production_loss": {
+                    "schema_version": "objective.loss.v1",
+                    "metric_source_schema_version": "objective.evaluation.v1",
+                    "optimization_direction": "minimize",
+                    "reward_surface": "retired",
+                    "readiness_scope": "production_source_model",
+                    "model": "mlp_mixer_mse__all_features",
+                    "row_count": 26,
+                    "mse_loss": 0.0113,
+                    "classification_loss": 0.3077,
+                    "ic_loss": 0.715,
+                    "ranking_loss": 1.0,
+                    "rank_group_count": 0,
+                    "ranking_loss_applicable": False,
+                },
+            },
+        }
+    )
+
+    gates = {gate["gate"]: gate for gate in overview["gates"]}
+
+    assert overview["status"] == "ready"
+    assert gates["objective_loss"]["status"] == "pass"
+    assert gates["objective_loss"]["readiness_scope"] == "production_source_model"
+    assert gates["objective_loss"]["model"] == "mlp_mixer_mse__all_features"
+    assert gates["objective_loss"]["top_component"] == "ic_loss"
+    assert gates["objective_loss"]["ignored_components"] == ["ranking_loss"]
+
+
 def test_dashboard_readiness_overview_blocks_non_retired_reward_surface():
     overview = build_dashboard_readiness_overview(
         {

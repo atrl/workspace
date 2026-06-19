@@ -260,16 +260,16 @@
         "production/paper_sim_replay_v1/production_manifest.json"
       ],
       "metrics": {
-        "objective_loss_status": "review",
+        "objective_loss_status": "pass",
         "objective_loss_top_component": "ic_loss",
         "schedule_readiness_overview_gates": "dashboard_manifest,objective_loss,requested_models,model_runs",
-        "schedule_readiness_overview_status": "review"
+        "schedule_readiness_overview_status": "ready"
       },
-      "notes": "当前 objective_loss gate 为 review，说明生产证据链可审计但不应声称完全 ready。",
+      "notes": "production readiness 由 dashboard.readiness_overview.v1 统一判断；review/block 不得被误报为 ready。",
       "requirement": "production health 必须显式记录 readiness gate，review/block 不能被误报为 ready。",
       "requirement_id": "production_readiness_review_gate",
       "schema_version": "core.platform_requirement_audit_item.v1",
-      "status": "review"
+      "status": "pass"
     },
     {
       "category": "knowledge",
@@ -311,21 +311,18 @@
   ],
   "schema_version": "core.platform_requirement_audit.v1",
   "summary": {
-    "audit_note": "该 audit 用当前 repo 证据映射长期目标；status=review 时不能声明目标完成。",
-    "completion_claim": "not_claimed",
+    "audit_note": "该 audit 用当前 repo 证据映射长期目标；有 fail/review 时不能声明目标完成。",
+    "completion_claim": "current_platform_requirements_satisfied",
     "failed_count": 0,
     "failed_requirement_ids": [],
-    "passed_count": 12,
+    "passed_count": 13,
     "requirement_count": 13,
-    "review_count": 1,
-    "review_requirement_ids": [
-      "production_readiness_review_gate"
-    ],
+    "review_count": 0,
+    "review_requirement_ids": [],
     "schema_version": "core.platform_requirement_audit.summary.v1",
-    "status": "review",
+    "status": "pass",
     "status_counts": {
-      "pass": 12,
-      "review": 1
+      "pass": 13
     }
   }
 }

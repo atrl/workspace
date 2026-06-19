@@ -56,6 +56,69 @@ def _read_manifest_if_exists(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _to_float(value: Any, default: float = 0.0) -> float:
+    try:
+        result = float(value)
+    except (TypeError, ValueError):
+        return default
+    return default if result != result else result
+
+
+def _to_int(value: Any, default: int = 0) -> int:
+    try:
+        return int(float(value))
+    except (TypeError, ValueError):
+        return default
+
+
+def _production_objective_loss(objective_scores: pd.DataFrame, comparison: pd.DataFrame) -> dict[str, Any]:
+    if objective_scores.empty or comparison.empty or "model" not in objective_scores.columns:
+        return {}
+    source_model = str(comparison.iloc[0].get("model", ""))
+    if not source_model:
+        return {}
+    matches = objective_scores.loc[objective_scores["model"].astype(str) == source_model]
+    if matches.empty:
+        return {}
+
+    row = matches.iloc[0]
+    rank_group_count = _to_int(row.get("rank_group_count", 0))
+    ranking_applicable = rank_group_count > 0
+    rank_ic = _to_float(row.get("rank_ic", 0.0))
+    evaluation = {
+        "schema_version": str(row.get("schema_version", "objective.evaluation.v1")),
+        "row_count": _to_int(row.get("row_count", 0)),
+        "mse": _to_float(row.get("mse", 0.0)),
+        "classification_accuracy": _to_float(row.get("classification_accuracy", 0.0)),
+        "ic": _to_float(row.get("ic", 0.0)),
+        "rank_ic": rank_ic,
+        "rank_group_count": rank_group_count,
+    }
+    return {
+        "schema_version": "objective.loss.v1",
+        "metric_source_schema_version": evaluation["schema_version"],
+        "optimization_direction": "minimize",
+        "reward_surface": "retired",
+        "readiness_scope": "production_source_model",
+        "loss_scope": "production_source_model",
+        "model": source_model,
+        "base_model": str(row.get("base_model", "")),
+        "feature_set": str(row.get("feature_set", "")),
+        "objective": str(row.get("objective", "")),
+        "family": str(row.get("family", "")),
+        "objective_names": ["mse", "classification", "ic", "ranking"],
+        "row_count": evaluation["row_count"],
+        "mse_loss": evaluation["mse"],
+        "classification_loss": float(1.0 - evaluation["classification_accuracy"]),
+        "ic_loss": float(1.0 - evaluation["ic"]),
+        "ranking_loss": float(1.0 - rank_ic) if ranking_applicable else 1.0,
+        "rank_group_count": rank_group_count,
+        "ranking_loss_applicable": bool(ranking_applicable),
+        "ignored_components": [] if ranking_applicable else ["ranking_loss"],
+        "evaluation": evaluation,
+    }
+
+
 def _resolve_card_path(card: Path, value: str | Path | None) -> Path | None:
     if value is None:
         return None
@@ -567,6 +630,7 @@ def load_model_matrix_dashboard(
             "scores": _records(objective_scores, limit=200),
             "promotion_scores": _records(promotion_scores, limit=200),
             "losses": objective_losses,
+            "production_loss": _production_objective_loss(objective_scores, comparison),
         },
         "model_run_coverage": _model_run_coverage(model_run_ledger, model_run_ledger_summary),
         "model_run_ledger": _records(model_run_ledger, limit=300),

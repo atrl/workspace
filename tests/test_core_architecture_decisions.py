@@ -127,10 +127,10 @@ def test_build_platform_requirement_audit_maps_goal_to_current_repo_evidence():
     requirements = {item["requirement_id"]: item for item in audit["requirements"]}
 
     assert audit["schema_version"] == "core.platform_requirement_audit.v1"
-    assert audit["summary"]["status"] == "review"
+    assert audit["summary"]["status"] == "pass"
     assert audit["summary"]["requirement_count"] >= 10
     assert audit["summary"]["failed_count"] == 0
-    assert audit["summary"]["review_count"] >= 1
+    assert audit["summary"]["review_count"] == 0
 
     assert requirements["stable_src_surfaces"]["status"] == "pass"
     assert requirements["reward_retired_objective_surface"]["status"] == "pass"
@@ -139,7 +139,7 @@ def test_build_platform_requirement_audit_maps_goal_to_current_repo_evidence():
     assert requirements["quantbench_training_backtest_ledger"]["status"] == "pass"
     assert requirements["production_paper_api_guardrail"]["status"] == "pass"
     assert requirements["external_knowledge_promotion_backlog"]["status"] == "pass"
-    assert requirements["production_readiness_review_gate"]["status"] == "review"
+    assert requirements["production_readiness_review_gate"]["status"] == "pass"
 
     model_registry = requirements["quantbench_requested_model_registry"]
     model_ledger = requirements["quantbench_training_backtest_ledger"]
@@ -154,6 +154,8 @@ def test_build_platform_requirement_audit_maps_goal_to_current_repo_evidence():
     assert model_ledger["metrics"]["all_models_completed"] is True
     assert knowledge["metrics"]["promotion_audit_ready_count"] == 10
     assert knowledge["metrics"]["promotion_audit_blocked_count"] == 0
+    assert requirements["production_readiness_review_gate"]["metrics"]["schedule_readiness_overview_status"] == "ready"
+    assert requirements["production_readiness_review_gate"]["metrics"]["objective_loss_status"] == "pass"
     assert {"regime_metrics", "window_metrics", "model_comparison", "objective_losses"}.issubset(
         set(analysis["metrics"]["analysis_paths"])
     )
@@ -187,13 +189,11 @@ def test_platform_requirement_audit_notebook_records_current_review_status():
 
     assert summary["schema_version"] == "research.platform_requirement_audit_v1"
     assert summary["core_schema_version"] == "core.platform_requirement_audit.v1"
-    assert summary["status"] == "review"
+    assert summary["status"] == "pass"
     assert summary["failed_count"] == 0
-    assert summary["review_count"] == 1
-    assert summary["completion_claim"] == "not_claimed"
-    assert summary["review_requirement_ids"] == [
-        "production_readiness_review_gate",
-    ]
+    assert summary["review_count"] == 0
+    assert summary["completion_claim"] == "current_platform_requirements_satisfied"
+    assert summary["review_requirement_ids"] == []
     assert audit["summary"]["status"] == summary["status"]
     assert "中文结论" in conclusion
     assert "是否晋升" in conclusion

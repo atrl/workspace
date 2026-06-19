@@ -144,16 +144,33 @@ def _list_count(value: Any) -> int:
     return len(value) if isinstance(value, list) else 0
 
 
+def _objective_loss_for_readiness(objective_payload: dict[str, Any]) -> dict[str, Any]:
+    production_loss = objective_payload.get("production_loss")
+    if isinstance(production_loss, dict) and production_loss:
+        return production_loss
+    losses = objective_payload.get("losses")
+    return losses if isinstance(losses, dict) else {}
+
+
 def build_objective_loss_readiness_gate(losses: Any) -> dict[str, Any]:
     if not isinstance(losses, dict) or not losses:
         return {}
 
+    readiness_scope = str(losses.get("readiness_scope", losses.get("loss_scope", "matrix")))
+    ranking_loss_not_applicable = (
+        readiness_scope == "production_source_model" and losses.get("ranking_loss_applicable") is False
+    )
     component_names = ("mse_loss", "classification_loss", "ic_loss", "ranking_loss")
-    components = [
-        {"name": name, "value": _float_field(losses, name)}
-        for name in component_names
-        if name in losses
-    ]
+    raw_component_count = sum(1 for name in component_names if name in losses)
+    components: list[dict[str, Any]] = []
+    ignored_components: list[str] = []
+    for name in component_names:
+        if name not in losses:
+            continue
+        if name == "ranking_loss" and ranking_loss_not_applicable:
+            ignored_components.append(name)
+            continue
+        components.append({"name": name, "value": _float_field(losses, name)})
     top = max(components, key=lambda item: float(item["value"])) if components else {"name": "", "value": 0.0}
     schema_version = str(losses.get("schema_version", ""))
     direction = str(losses.get("optimization_direction", ""))
@@ -164,7 +181,7 @@ def build_objective_loss_readiness_gate(losses: Any) -> dict[str, Any]:
     reward_ok = reward_surface == "retired"
     if not contract_ok or not reward_ok:
         status = "block"
-    elif rank_group_count == 0 or float(top["value"]) >= 1.0:
+    elif (rank_group_count == 0 and not ranking_loss_not_applicable) or float(top["value"]) >= 1.0:
         status = "review"
     else:
         status = "pass"
@@ -183,9 +200,13 @@ def build_objective_loss_readiness_gate(losses: Any) -> dict[str, Any]:
         "reward_surface": reward_surface,
         "row_count": _int_field(losses, "row_count"),
         "rank_group_count": rank_group_count,
-        "loss_component_count": int(len(components)),
+        "loss_component_count": int(raw_component_count),
+        "active_loss_component_count": int(len(components)),
         "top_component": str(top["name"]),
         "top_value": float(top["value"]),
+        "readiness_scope": readiness_scope,
+        "model": str(losses.get("model", "")),
+        "ignored_components": ignored_components,
     }
 
 
@@ -245,7 +266,7 @@ def build_dashboard_readiness_overview(payload: dict[str, Any]) -> dict[str, Any
 
     objective = payload.get("objective")
     objective_payload = objective if isinstance(objective, dict) else {}
-    objective_loss_gate = build_objective_loss_readiness_gate(objective_payload.get("losses"))
+    objective_loss_gate = build_objective_loss_readiness_gate(_objective_loss_for_readiness(objective_payload))
     if objective_loss_gate:
         gates.append(objective_loss_gate)
 

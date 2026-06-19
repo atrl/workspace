@@ -877,10 +877,12 @@ def test_production_paper_sim_summary_records_schedule_readiness_overview():
     manifest = json.loads(open("production/paper_sim_replay_v1/production_manifest.json", encoding="utf-8").read())
 
     assert summary["schedule_readiness_overview_schema"] == "dashboard.readiness_overview.v1"
-    assert summary["schedule_readiness_overview_status"] in {"ready", "review", "blocked"}
+    assert summary["schedule_readiness_overview_status"] == "ready"
     assert summary["schedule_readiness_overview_gate_count"] >= 1
     assert summary["schedule_readiness_overview_pass_count"] >= 1
     assert summary["schedule_readiness_overview_block_count"] == 0
+    assert summary["schedule_readiness_overview_review_count"] == 0
+    assert summary["schedule_readiness_overview_review_gates"] == ""
     assert summary["schedule_readiness_overview_gates"]
     assert "readiness=" in " ".join(summary["notifications"])
     assert manifest["metadata"]["schedule_readiness_overview_schema"] == summary["schedule_readiness_overview_schema"]
@@ -896,14 +898,19 @@ def test_production_paper_sim_summary_records_objective_loss_gate_context():
     analysis_manifest = json.loads(open("production/paper_sim_replay_v1/matrix_card/analysis_manifest.json", encoding="utf-8").read())
 
     losses = dashboard["objective"]["losses"]
+    production_loss = dashboard["objective"]["production_loss"]
     assert analysis_manifest["paths"]["objective_losses"] == "objective_losses.json"
     assert dashboard["artifacts"]["objective_losses"] == "production/paper_sim_replay_v1/matrix_card/objective_losses.json"
     assert losses["schema_version"] == "objective.loss.v1"
     assert losses["reward_surface"] == "retired"
-    assert summary["objective_loss_schema_version"] == losses["schema_version"]
-    assert summary["objective_loss_status"] in {"pass", "review"}
+    assert production_loss["schema_version"] == "objective.loss.v1"
+    assert production_loss["readiness_scope"] == "production_source_model"
+    assert production_loss["model"] == summary["source_model"]
+    assert production_loss["ranking_loss_applicable"] is False
+    assert summary["objective_loss_schema_version"] == production_loss["schema_version"]
+    assert summary["objective_loss_status"] == "pass"
     assert summary["objective_loss_reward_surface"] == "retired"
-    assert summary["objective_loss_top_component"]
+    assert summary["objective_loss_top_component"] == "ic_loss"
     assert summary["objective_loss_component_count"] == 4
     assert summary["objective_loss_top_value"] >= 0.0
     assert intent["metadata"]["objective_loss_schema_version"] == summary["objective_loss_schema_version"]
