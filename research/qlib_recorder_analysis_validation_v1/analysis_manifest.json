@@ -1,0 +1,65 @@
+{
+  "artifact_id": "qlib_recorder_analysis_validation_v1",
+  "artifact_type": "analysis_report",
+  "dataset": {
+    "calendar_path": "data/qlib/soxl/calendars/day.txt",
+    "data_paths": [
+      "research/qlib_recorder_analysis_validation_v1"
+    ],
+    "end": "2026-01-08",
+    "metadata": {},
+    "name": "qlib_recorder_validation",
+    "schema_version": "dataset.v1",
+    "start": "2026-01-01",
+    "universe": [
+      "SOXL",
+      "SOXX"
+    ]
+  },
+  "metadata": {
+    "analysis_report_schema_version": "analysis.report.v1",
+    "source_models": [
+      "gcn_mse",
+      "ridge_mse"
+    ],
+    "source_type": "qlib_recorder_regime_window",
+    "table_counts": {
+      "failure_modes": 4,
+      "model_comparison": 2,
+      "model_difference_explanations": 10,
+      "model_effect_deltas": 20,
+      "model_regime_window_diagnostics": 2,
+      "model_review_briefing": 7,
+      "qlib_portfolio_report": 16,
+      "qlib_return_frame": 16,
+      "qlib_risk_analysis": 6,
+      "qlib_risk_metrics": 40,
+      "regime_metrics": 8,
+      "segment_effect_matrix": 10,
+      "segment_metrics": 20,
+      "window_metrics": 4,
+      "window_regime_metrics": 6
+    }
+  },
+  "paths": {
+    "failure_modes": "failure_modes.csv",
+    "model_comparison": "model_comparison.csv",
+    "model_difference_explanations": "model_difference_explanations.csv",
+    "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
+    "model_review_briefing": "model_review_briefing.csv",
+    "qlib_portfolio_report": "qlib_portfolio_report.csv",
+    "qlib_return_frame": "qlib_return_frame.csv",
+    "qlib_risk_analysis": "qlib_risk_analysis.csv",
+    "qlib_risk_metrics": "qlib_risk_metrics.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "segment_effect_matrix": "segment_effect_matrix.csv",
+    "segment_metrics": "segment_metrics.csv",
+    "summary": "analysis_summary.json",
+    "window_metrics": "window_metrics.csv",
+    "window_regime_metrics": "window_regime_metrics.csv"
+  },
+  "producer": "src.analysis.exports",
+  "schema_version": "artifact.v1",
+  "manifest_hash": "a9671b7abd7afb3dcd589b52462d90bf8d2463bd930fc3464d9809398b4dd26c"
+}

@@ -820,6 +820,57 @@ def test_patch_tst_mse_validation_card_supplies_dual_source_backlog_evidence():
     assert all(item["promotion_gate_status"] == "research_evidence_complete" for item in patch_items)
 
 
+def test_qlib_recorder_analysis_validation_card_supplies_backlog_evidence():
+    card = "research/qlib_recorder_analysis_validation_v1"
+    notebook_path = f"{card}/qlib_recorder_analysis_validation_v1.ipynb"
+    source = KnowledgeSource(
+        source_id="github:microsoft/qlib",
+        source_type="github",
+        title="Microsoft Qlib",
+        url="https://github.com/microsoft/qlib",
+        summary="Qlib recorder and analyzer workflow reference for src.analysis recorder artifact ingestion.",
+        license_note="GitHub metadata and MIT license review only; no vendored code.",
+    )
+    backlog = build_knowledge_backlog([source])
+    evidence_index = knowledge_api.build_knowledge_research_evidence_index(".", backlog)
+
+    summary = json.loads(open(f"{card}/qlib_recorder_analysis_summary.json", encoding="utf-8").read())
+    source_provenance = json.loads(open(f"{card}/source_provenance.json", encoding="utf-8").read())
+    recorder_summary = json.loads(open(f"{card}/recorder_analysis_summary.json", encoding="utf-8").read())
+    report_summary = json.loads(open(f"{card}/analysis_summary.json", encoding="utf-8").read())
+    manifest = json.loads(open(f"{card}/analysis_manifest.json", encoding="utf-8").read())
+    license_review = open(f"{card}/license_review.md", encoding="utf-8").read()
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert summary["schema_version"] == "research.qlib_recorder_analysis_validation.v1"
+    assert summary["source_id"] == "github:microsoft/qlib"
+    assert summary["candidate_name"] == "qlib_recorder_analysis"
+    assert summary["target_subsystem"] == "src/analysis"
+    assert summary["analysis_report_status"] == "qlib_recorder_regime_window_analysis_completed"
+    assert summary["source_model_count"] == 2
+    assert summary["implementation_allowed"] is False
+    assert summary["promotion_target"] == "research_only"
+    assert summary["evidence_requirements"] == evidence_index["qlib_recorder_analysis"]
+    assert source_provenance["source_used_as"] == "hypothesis_only"
+    assert "github.com/microsoft/qlib" in source_provenance["url"]
+    assert source_provenance["external_source_checks"]["repository_license"] == "MIT"
+    assert recorder_summary["schema_version"] == "analysis.qlib_recorder.validation_summary.v1"
+    assert set(recorder_summary["models"]) == {"ridge_mse", "gcn_mse"}
+    assert recorder_summary["table_counts"]["qlib_portfolio_report"] == 16
+    assert recorder_summary["table_counts"]["qlib_risk_analysis"] == 6
+    assert report_summary["status"] == "qlib_recorder_regime_window_analysis_completed"
+    assert "model_review_briefing" in report_summary["analysis_layers"]
+    assert manifest["metadata"]["source_type"] == "qlib_recorder_regime_window"
+    assert "MIT" in license_review
+    assert "未 vendoring" in license_review
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
+
+
 def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_complete():
     audit = json.loads(open("research/knowledge_ingest/knowledge_promotion_audit.json", encoding="utf-8").read())
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
@@ -827,15 +878,17 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
     fedformer_item = next(item for item in audit["items"] if item["candidate_name"] == "fedformer_mse")
     dlinear_item = next(item for item in audit["items"] if item["candidate_name"] == "dlinear_mse")
     patch_items = [item for item in audit["items"] if item["candidate_name"] == "patch_tst_mse"]
+    qlib_item = next(item for item in audit["items"] if item["candidate_name"] == "qlib_recorder_analysis")
 
-    assert audit["summary"]["ready_count"] == 6
-    assert audit["summary"]["blocked_count"] == 4
-    assert audit["summary"]["implementation_allowed_count"] == 6
+    assert audit["summary"]["ready_count"] == 7
+    assert audit["summary"]["blocked_count"] == 3
+    assert audit["summary"]["implementation_allowed_count"] == 7
     assert "rank_ic_objective" in audit["summary"]["ready_candidates"]
     assert "autoformer_mse" in audit["summary"]["ready_candidates"]
     assert "fedformer_mse" in audit["summary"]["ready_candidates"]
     assert "dlinear_mse" in audit["summary"]["ready_candidates"]
     assert audit["summary"]["ready_candidates"].count("patch_tst_mse") == 2
+    assert "qlib_recorder_analysis" in audit["summary"]["ready_candidates"]
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
     assert rank_item["missing_evidence"] == []
@@ -886,6 +939,13 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
         ]
         for item in patch_items
     )
+    assert qlib_item["promotion_gate_status"] == "research_evidence_complete"
+    assert qlib_item["implementation_allowed"] is True
+    assert qlib_item["missing_evidence"] == []
+    assert qlib_item["allowed_surfaces_after_gate"] == [
+        "src/analysis",
+        "research/qlib_recorder_analysis_validation_v1/qlib_recorder_analysis_validation_v1.ipynb",
+    ]
 
 
 def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards():
@@ -903,6 +963,7 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "patch_tst_mse",
         "rank_ic_objective",
         "patch_tst_mse",
+        "qlib_recorder_analysis",
     ]
     assert summary["promotion_evidence_index_keys"] == [
         "arxiv:2106.13008",
@@ -913,12 +974,15 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "autoformer_mse",
         "dlinear_mse",
         "fedformer_mse",
+        "github:microsoft/qlib",
         "github:thuml/Time-Series-Library",
         "patch_tst_mse",
+        "qlib_recorder_analysis",
         "rank_ic_objective",
         "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
         "research/dlinear_mse_validation_v1/dlinear_mse_validation_v1.ipynb",
         "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
         "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
+        "research/qlib_recorder_analysis_validation_v1/qlib_recorder_analysis_validation_v1.ipynb",
         "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
     ]

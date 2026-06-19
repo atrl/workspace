@@ -6,6 +6,6 @@ patch_tst_mse,research_evidence_complete,True,src/model,0,5,passed,arxiv:2211.14
 quantbench_model_matrix,blocked_missing_evidence,False,src/model,5,0,blocked,arxiv:2504.18600,primary_metadata,hypothesis_and_adapter_reference
 rank_ic_objective,research_evidence_complete,True,src/objective,0,5,passed,arxiv:2605.00501,primary_metadata,hypothesis_and_adapter_reference
 patch_tst_mse,research_evidence_complete,True,src/model,0,5,passed,github:thuml/Time-Series-Library,primary_repository_metadata,hypothesis_and_adapter_reference
-qlib_recorder_analysis,blocked_missing_evidence,False,src/analysis,5,0,blocked,github:microsoft/qlib,primary_repository_metadata,hypothesis_and_adapter_reference
+qlib_recorder_analysis,research_evidence_complete,True,src/analysis,0,5,passed,github:microsoft/qlib,primary_repository_metadata,hypothesis_and_adapter_reference
 factor_diagnostics,blocked_missing_evidence,False,src/factor,5,0,blocked,github:quantopian/alphalens,primary_repository_metadata,hypothesis_and_adapter_reference
 regime_window_review,blocked_missing_evidence,False,src/analysis,5,0,blocked,x:regime-aware-quant-search,social_unverified,idea_only

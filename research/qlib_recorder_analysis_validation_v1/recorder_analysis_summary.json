@@ -1,0 +1,55 @@
+{
+  "schema_version": "analysis.qlib_recorder.validation_summary.v1",
+  "models": [
+    "ridge_mse",
+    "gcn_mse"
+  ],
+  "loaded_artifacts": {
+    "ridge_mse": {
+      "qlib_portfolio_report": "portfolio_analysis/report_normal_1day.pkl",
+      "qlib_risk_analysis": "portfolio_analysis/risk_analysis_1day.pkl"
+    },
+    "gcn_mse": {
+      "qlib_portfolio_report": "portfolio_analysis/report_normal_1day.pkl",
+      "qlib_risk_analysis": "portfolio_analysis/risk_analysis_1day.pkl"
+    }
+  },
+  "table_counts": {
+    "failure_modes": 4,
+    "model_comparison": 2,
+    "model_difference_explanations": 10,
+    "model_effect_deltas": 20,
+    "model_regime_window_diagnostics": 2,
+    "model_review_briefing": 7,
+    "qlib_portfolio_report": 16,
+    "qlib_return_frame": 16,
+    "qlib_risk_analysis": 6,
+    "qlib_risk_metrics": 40,
+    "regime_metrics": 8,
+    "segment_effect_matrix": 10,
+    "segment_metrics": 20,
+    "window_metrics": 4,
+    "window_regime_metrics": 6
+  },
+  "window_names": [
+    "early",
+    "stress_window"
+  ],
+  "analysis_layers": [
+    "model_comparison",
+    "regime_metrics",
+    "window_metrics",
+    "window_regime_metrics",
+    "qlib_return_frame",
+    "qlib_risk_metrics",
+    "segment_metrics",
+    "segment_effect_matrix",
+    "model_effect_deltas",
+    "model_regime_window_diagnostics",
+    "model_difference_explanations",
+    "model_review_briefing",
+    "failure_modes",
+    "qlib_portfolio_report",
+    "qlib_risk_analysis"
+  ]
+}

@@ -1,0 +1,439 @@
+{
+  "analysis_layers": [
+    "model_comparison",
+    "regime_metrics",
+    "window_metrics",
+    "window_regime_metrics",
+    "qlib_return_frame",
+    "qlib_risk_metrics",
+    "segment_metrics",
+    "segment_effect_matrix",
+    "model_effect_deltas",
+    "model_regime_window_diagnostics",
+    "model_difference_explanations",
+    "model_review_briefing",
+    "failure_modes",
+    "qlib_portfolio_report",
+    "qlib_risk_analysis"
+  ],
+  "analysis_overview": {
+    "baseline_model": "ridge_mse",
+    "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。",
+    "decision_hint_counts": {
+      "block_or_rework": 4,
+      "promote_candidate": 3
+    },
+    "largest_relative_return_spread_segments": [
+      {
+        "baseline_model": "ridge_mse",
+        "best_relative_return_model": "gcn_mse",
+        "best_relative_return_vs_baseline_delta": 4.120000000000012,
+        "best_stability_model": "gcn_mse",
+        "highest_drawdown_model": "gcn_mse",
+        "highest_drawdown_pct": 0.0,
+        "regime": "bull",
+        "relative_return_pct_spread": 4.120000000000012,
+        "review_note": "gcn_mse 在 bull 强于基准 ridge_mse，可作为该 regime/window 的候选优势模型。",
+        "segment": "bull",
+        "segment_type": "regime",
+        "stability_score_spread": 4.120000000000012,
+        "window": "",
+        "worst_relative_return_model": "ridge_mse",
+        "worst_stability_model": "ridge_mse"
+      },
+      {
+        "baseline_model": "ridge_mse",
+        "best_relative_return_model": "gcn_mse",
+        "best_relative_return_vs_baseline_delta": 4.120000000000012,
+        "best_stability_model": "gcn_mse",
+        "highest_drawdown_model": "gcn_mse",
+        "highest_drawdown_pct": 0.0,
+        "regime": "bull",
+        "relative_return_pct_spread": 4.120000000000012,
+        "review_note": "gcn_mse 在 early::bull 强于基准 ridge_mse，可作为该 regime/window 的候选优势模型。",
+        "segment": "early::bull",
+        "segment_type": "window_regime",
+        "stability_score_spread": 4.120000000000012,
+        "window": "early",
+        "worst_relative_return_model": "ridge_mse",
+        "worst_stability_model": "ridge_mse"
+      },
+      {
+        "baseline_model": "ridge_mse",
+        "best_relative_return_model": "gcn_mse",
+        "best_relative_return_vs_baseline_delta": 4.078800000000027,
+        "best_stability_model": "gcn_mse",
+        "highest_drawdown_model": "ridge_mse",
+        "highest_drawdown_pct": 1.000000000000012,
+        "regime": "",
+        "relative_return_pct_spread": 4.078800000000027,
+        "review_note": "gcn_mse 在 early 强于基准 ridge_mse，可作为该 regime/window 的候选优势模型。",
+        "segment": "early",
+        "segment_type": "window",
+        "stability_score_spread": 48.97868864128877,
+        "window": "early",
+        "worst_relative_return_model": "ridge_mse",
+        "worst_stability_model": "ridge_mse"
+      },
+      {
+        "baseline_model": "ridge_mse",
+        "best_relative_return_model": "ridge_mse",
+        "best_relative_return_vs_baseline_delta": 0.0,
+        "best_stability_model": "ridge_mse",
+        "highest_drawdown_model": "gcn_mse",
+        "highest_drawdown_pct": 10.662400000000016,
+        "regime": "",
+        "relative_return_pct_spread": 3.3819209640809755,
+        "review_note": "ridge_mse 在 all 领先；gcn_mse 明显弱于基准，需检查该分段适配。",
+        "segment": "all",
+        "segment_type": "all",
+        "stability_score_spread": 52.196520922890954,
+        "window": "",
+        "worst_relative_return_model": "gcn_mse",
+        "worst_stability_model": "gcn_mse"
+      },
+      {
+        "baseline_model": "ridge_mse",
+        "best_relative_return_model": "ridge_mse",
+        "best_relative_return_vs_baseline_delta": 0.0,
+        "best_stability_model": "ridge_mse",
+        "highest_drawdown_model": "gcn_mse",
+        "highest_drawdown_pct": 4.0000000000000036,
+        "regime": "stress",
+        "relative_return_pct_spread": 2.5349999999999984,
+        "review_note": "ridge_mse 在 stress 领先；gcn_mse 明显弱于基准，需检查该分段适配。",
+        "segment": "stress",
+        "segment_type": "regime",
+        "stability_score_spread": 48.617020977031885,
+        "window": "",
+        "worst_relative_return_model": "gcn_mse",
+        "worst_stability_model": "gcn_mse"
+      }
+    ],
+    "model_count": 2,
+    "model_regime_window_diagnostic_count": 2,
+    "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+    "regime_count": 4,
+    "review_signal_counts": {
+      "strength": 3,
+      "weakness": 4
+    },
+    "schema_version": "analysis.overview.v1",
+    "segment_effect_matrix_count": 10,
+    "segment_types": [
+      "all",
+      "regime",
+      "window",
+      "window_regime"
+    ],
+    "top_regime_fragile_models": [
+      {
+        "baseline_model": "ridge_mse",
+        "consistency_score": -0.55,
+        "diagnostic_signal": "stress_fragile",
+        "model": "gcn_mse",
+        "review_note": "gcn_mse 在压力或下跌分段弱于基准 ridge_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 3,
+        "weakness_segment_count": 4,
+        "worst_segment": "all"
+      }
+    ],
+    "top_review": {
+      "baseline_model": "ridge_mse",
+      "decision_hint": "block_or_rework",
+      "max_drawdown_pct_delta": 7.2022499999999985,
+      "model": "gcn_mse",
+      "priority_rank": 1,
+      "priority_score": 62.561488,
+      "regime": "",
+      "relative_return_pct_delta": -3.3819209640809755,
+      "review_note": "gcn_mse 在 all 弱于基准 ridge_mse：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
+      "review_signal": "weakness",
+      "segment": "all",
+      "segment_type": "all",
+      "stability_score_delta": -52.196520922890954,
+      "window": ""
+    },
+    "top_strength": {
+      "baseline_model": "ridge_mse",
+      "decision_hint": "promote_candidate",
+      "max_drawdown_pct_delta": -2.220446049250313e-14,
+      "model": "gcn_mse",
+      "priority_rank": 2,
+      "priority_score": 57.136289,
+      "regime": "",
+      "relative_return_pct_delta": 4.078800000000027,
+      "review_note": "gcn_mse 在 early 强于基准 ridge_mse：相对收益和稳定性改善，可作为该分段的晋升候选。",
+      "review_signal": "strength",
+      "segment": "early",
+      "segment_type": "window",
+      "stability_score_delta": 48.97868864128877,
+      "window": "early"
+    },
+    "top_weakness": {
+      "baseline_model": "ridge_mse",
+      "decision_hint": "block_or_rework",
+      "max_drawdown_pct_delta": 7.2022499999999985,
+      "model": "gcn_mse",
+      "priority_rank": 1,
+      "priority_score": 62.561488,
+      "regime": "",
+      "relative_return_pct_delta": -3.3819209640809755,
+      "review_note": "gcn_mse 在 all 弱于基准 ridge_mse：相对收益和稳定性同时落后，应先重做该 regime/window 的信号或仓位适配。",
+      "review_signal": "weakness",
+      "segment": "all",
+      "segment_type": "all",
+      "stability_score_delta": -52.196520922890954,
+      "window": ""
+    },
+    "weakest_segments": [
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": -3.3819209640809755,
+        "segment": "all",
+        "segment_type": "all",
+        "stability_score_delta": -52.196520922890954
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": -2.5349999999999984,
+        "segment": "stress",
+        "segment_type": "regime",
+        "stability_score_delta": -48.617020977031885
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": -2.5349999999999984,
+        "segment": "stress_window",
+        "segment_type": "window",
+        "stability_score_delta": -48.617020977031885
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": -2.5349999999999984,
+        "segment": "stress_window::stress",
+        "segment_type": "window_regime",
+        "stability_score_delta": -48.617020977031885
+      },
+      {
+        "diagnosis": "接近基准：没有明显分段优势。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": 0.0,
+        "segment": "downtrend",
+        "segment_type": "regime",
+        "stability_score_delta": 0.0
+      }
+    ],
+    "window_count": 2,
+    "window_regime_count": 3
+  },
+  "analysis_summary": {
+    "baseline_model": "ridge_mse",
+    "largest_relative_return_spread_segments": [
+      {
+        "best_relative_return_model": "gcn_mse",
+        "relative_return_pct_spread": 4.120000000000012,
+        "segment": "bull",
+        "segment_type": "regime",
+        "worst_relative_return_model": "ridge_mse"
+      },
+      {
+        "best_relative_return_model": "gcn_mse",
+        "relative_return_pct_spread": 4.120000000000012,
+        "segment": "early::bull",
+        "segment_type": "window_regime",
+        "worst_relative_return_model": "ridge_mse"
+      },
+      {
+        "best_relative_return_model": "gcn_mse",
+        "relative_return_pct_spread": 4.078800000000027,
+        "segment": "early",
+        "segment_type": "window",
+        "worst_relative_return_model": "ridge_mse"
+      },
+      {
+        "best_relative_return_model": "ridge_mse",
+        "relative_return_pct_spread": 3.3819209640809755,
+        "segment": "all",
+        "segment_type": "all",
+        "worst_relative_return_model": "gcn_mse"
+      },
+      {
+        "best_relative_return_model": "ridge_mse",
+        "relative_return_pct_spread": 2.5349999999999984,
+        "segment": "stress",
+        "segment_type": "regime",
+        "worst_relative_return_model": "gcn_mse"
+      }
+    ],
+    "model_count": 2,
+    "model_regime_window_diagnostic_count": 2,
+    "qlib_metric_source": "qlib.contrib.evaluate.risk_analysis",
+    "regime_count": 4,
+    "schema_version": "analysis.regime_window_effect.v1",
+    "segment_effect_matrix_count": 10,
+    "segment_types": [
+      "all",
+      "regime",
+      "window",
+      "window_regime"
+    ],
+    "top_regime_fragile_models": [
+      {
+        "baseline_model": "ridge_mse",
+        "consistency_score": -0.55,
+        "diagnostic_signal": "stress_fragile",
+        "model": "gcn_mse",
+        "review_note": "gcn_mse 在压力或下跌分段弱于基准 ridge_mse，最弱分段为 all；晋升前应先检查压力期信号、仓位和风险约束。",
+        "stress_negative_count": 3,
+        "weakness_segment_count": 4,
+        "worst_segment": "all"
+      }
+    ],
+    "weakest_segments": [
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": -3.3819209640809755,
+        "segment": "all",
+        "segment_type": "all",
+        "stability_score_delta": -52.196520922890954
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": -2.5349999999999984,
+        "segment": "stress",
+        "segment_type": "regime",
+        "stability_score_delta": -48.617020977031885
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": -2.5349999999999984,
+        "segment": "stress_window",
+        "segment_type": "window",
+        "stability_score_delta": -48.617020977031885
+      },
+      {
+        "diagnosis": "弱于基准：分段相对收益和稳定性同时落后，需要检查信号、仓位或 regime 适配。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": -2.5349999999999984,
+        "segment": "stress_window::stress",
+        "segment_type": "window_regime",
+        "stability_score_delta": -48.617020977031885
+      },
+      {
+        "diagnosis": "接近基准：没有明显分段优势。",
+        "model": "gcn_mse",
+        "relative_return_pct_delta": 0.0,
+        "segment": "downtrend",
+        "segment_type": "regime",
+        "stability_score_delta": 0.0
+      }
+    ],
+    "window_count": 2,
+    "window_definitions": [
+      {
+        "end": "2026-01-04",
+        "start": "2026-01-01",
+        "window": "early"
+      },
+      {
+        "end": "2026-01-07",
+        "start": "2026-01-05",
+        "window": "stress_window"
+      }
+    ],
+    "window_names": [
+      "early",
+      "stress_window"
+    ],
+    "window_regime_count": 3
+  },
+  "analysis_table_counts": {
+    "failure_modes": 4,
+    "model_comparison": 2,
+    "model_difference_explanations": 10,
+    "model_effect_deltas": 20,
+    "model_regime_window_diagnostics": 2,
+    "model_review_briefing": 7,
+    "qlib_portfolio_report": 16,
+    "qlib_return_frame": 16,
+    "qlib_risk_analysis": 6,
+    "qlib_risk_metrics": 40,
+    "regime_metrics": 8,
+    "segment_effect_matrix": 10,
+    "segment_metrics": 20,
+    "window_metrics": 4,
+    "window_regime_metrics": 6
+  },
+  "artifact_id": "qlib_recorder_analysis_validation_v1",
+  "artifact_type": "analysis_report",
+  "note": "中文 review 入口：从 qlib recorder artifact 直接生成 regime/window 模型差异。",
+  "qlib_recorder_summary": {
+    "gcn_mse": {
+      "loaded_artifacts": {
+        "qlib_portfolio_report": "portfolio_analysis/report_normal_1day.pkl",
+        "qlib_risk_analysis": "portfolio_analysis/risk_analysis_1day.pkl"
+      },
+      "missing_artifact_keys": [],
+      "missing_optional_artifact_keys": [
+        "qlib_indicator_analysis",
+        "qlib_orders",
+        "qlib_positions"
+      ],
+      "model": "gcn_mse",
+      "notes": "Qlib recorder artifacts are normalized into stable src/analysis tables before dashboard/notebook consumption.",
+      "schema_version": "analysis.qlib_recorder.v1",
+      "source_type": "recorder",
+      "table_counts": {
+        "qlib_portfolio_report": 8,
+        "qlib_risk_analysis": 3
+      }
+    },
+    "ridge_mse": {
+      "loaded_artifacts": {
+        "qlib_portfolio_report": "portfolio_analysis/report_normal_1day.pkl",
+        "qlib_risk_analysis": "portfolio_analysis/risk_analysis_1day.pkl"
+      },
+      "missing_artifact_keys": [],
+      "missing_optional_artifact_keys": [
+        "qlib_indicator_analysis",
+        "qlib_orders",
+        "qlib_positions"
+      ],
+      "model": "ridge_mse",
+      "notes": "Qlib recorder artifacts are normalized into stable src/analysis tables before dashboard/notebook consumption.",
+      "schema_version": "analysis.qlib_recorder.v1",
+      "source_type": "recorder",
+      "table_counts": {
+        "qlib_portfolio_report": 8,
+        "qlib_risk_analysis": 3
+      }
+    }
+  },
+  "schema_version": "analysis.report.v1",
+  "source_model_count": 2,
+  "status": "qlib_recorder_regime_window_analysis_completed",
+  "window_definitions": [
+    {
+      "end": "2026-01-04",
+      "start": "2026-01-01",
+      "window": "early"
+    },
+    {
+      "end": "2026-01-07",
+      "start": "2026-01-05",
+      "window": "stress_window"
+    }
+  ],
+  "window_names": [
+    "early",
+    "stress_window"
+  ]
+}
