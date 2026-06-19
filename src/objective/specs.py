@@ -276,6 +276,37 @@ def evaluate_prediction_objectives(
     }
 
 
+def compute_objective_losses(
+    frame: pd.DataFrame,
+    *,
+    prediction_col: str = "prediction",
+    target_col: str = "target_return",
+    group_col: str | None = "date",
+) -> dict[str, object]:
+    """Project objective evaluation metrics into minimizable loss values."""
+
+    evaluation = evaluate_prediction_objectives(
+        frame,
+        prediction_col=prediction_col,
+        target_col=target_col,
+        group_col=group_col,
+    )
+    return {
+        "schema_version": "objective.loss.v1",
+        "metric_source_schema_version": evaluation["schema_version"],
+        "optimization_direction": "minimize",
+        "reward_surface": "retired",
+        "objective_names": ["mse", "classification", "ic", "ranking"],
+        "row_count": int(evaluation["row_count"]),
+        "mse_loss": float(evaluation["mse"]),
+        "classification_loss": float(1.0 - float(evaluation["classification_accuracy"])),
+        "ic_loss": float(1.0 - float(evaluation["ic"])),
+        "ranking_loss": float(1.0 - float(evaluation["rank_ic"])),
+        "rank_group_count": int(evaluation["rank_group_count"]),
+        "evaluation": evaluation,
+    }
+
+
 def _promotion_blockers(row: pd.Series, thresholds: PromotionThresholds) -> list[str]:
     blockers: list[str] = []
     checks = [

@@ -1,0 +1,16 @@
+{
+  "decisions": {
+    "src-objective-loss-contract-v1": {
+      "change_type": "stable_loss_contract",
+      "created_at": "2026-06-19T22:00:00Z",
+      "decision_hash": "f0d8963f64a4028f390b353db4e71d4bfb3c13afd8a22c3f414dada870d223a3",
+      "decision_id": "src-objective-loss-contract-v1",
+      "decision_path": "research/objective_loss_contract_v1/src-objective-loss-contract-v1.json",
+      "evidence_notebook": "research/objective_loss_contract_v1/objective_loss_contract_v1.ipynb",
+      "status": "accepted",
+      "target_surface": "src/objective"
+    }
+  },
+  "registry_hash": "32ad6bf04474feac03d4b2e700cee7d0f777c8d41205a7f691b79960306c7b71",
+  "schema_version": "core.architecture_extension_registry.v1"
+}

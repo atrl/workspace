@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 
 from src.objective import (
     PromotionThresholds,
     build_forward_return_labels,
     build_promotion_scores,
+    compute_objective_losses,
     evaluate_prediction_objectives,
     write_objective_label_manifest,
 )
@@ -102,6 +105,59 @@ def test_evaluate_prediction_objectives_reports_mse_accuracy_ic_and_rank_ic():
     assert scores["ic"] > 0.0
     assert scores["rank_ic"] > 0.0
     assert scores["rank_group_count"] == 3
+
+
+def test_compute_objective_losses_exposes_minimizable_mse_direction_ic_and_rank_losses():
+    frame = pd.DataFrame(
+        {
+            "date": list(pd.date_range("2026-01-01", periods=3, freq="D")) * 2,
+            "instrument": ["SOXL"] * 3 + ["SOXX"] * 3,
+            "prediction": [0.03, -0.005, 0.01, 0.02, -0.02, -0.02],
+            "target_return": [0.02, -0.01, 0.015, 0.01, -0.02, -0.01],
+        }
+    )
+
+    losses = compute_objective_losses(frame, group_col="date")
+
+    assert losses["schema_version"] == "objective.loss.v1"
+    assert losses["metric_source_schema_version"] == "objective.evaluation.v1"
+    assert losses["optimization_direction"] == "minimize"
+    assert losses["reward_surface"] == "retired"
+    assert losses["objective_names"] == ["mse", "classification", "ic", "ranking"]
+    assert losses["row_count"] == 6
+    assert 0.0 <= losses["mse_loss"] < 0.001
+    assert losses["classification_loss"] == 0.0
+    assert losses["ic_loss"] < 1.0
+    assert abs(losses["ranking_loss"]) < 1e-12
+    assert losses["rank_group_count"] == 3
+
+
+def test_objective_loss_contract_notebook_records_architecture_extension_evidence():
+    card = "research/objective_loss_contract_v1"
+    summary = json.loads(open(f"{card}/analysis_summary.json", encoding="utf-8").read())
+    losses = json.loads(open(f"{card}/objective_losses.json", encoding="utf-8").read())
+    decision = json.loads(open(f"{card}/src-objective-loss-contract-v1.json", encoding="utf-8").read())
+    notebook = json.loads(open(f"{card}/objective_loss_contract_v1.ipynb", encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+
+    assert summary["schema_version"] == "research.objective_loss_contract.v1"
+    assert summary["status"] == "completed"
+    assert summary["loss_schema_version"] == "objective.loss.v1"
+    assert summary["metric_source_schema_version"] == "objective.evaluation.v1"
+    assert summary["reward_surface"] == "retired"
+    assert summary["objective_names"] == ["mse", "classification", "ic", "ranking"]
+    assert summary["architecture_decision_id"] == "src-objective-loss-contract-v1"
+    assert summary["extension_requires_reason"] is True
+    assert summary["blocked_without_evidence"] is True
+    assert abs(summary["ranking_loss"]) < 1e-12
+    assert losses["schema_version"] == summary["loss_schema_version"]
+    assert losses["reward_surface"] == "retired"
+    assert decision["target_surface"] == "src/objective"
+    assert decision["change_type"] == "stable_loss_contract"
+    assert decision["evidence_notebook"] == f"{card}/objective_loss_contract_v1.ipynb"
+    assert "compute_objective_losses" in decision["reason"]
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
 
 
 def test_build_promotion_scores_applies_return_risk_utility_and_hard_gates():

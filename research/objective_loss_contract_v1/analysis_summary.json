@@ -1,0 +1,33 @@
+{
+  "schema_version": "research.objective_loss_contract.v1",
+  "status": "completed",
+  "loss_schema_version": "objective.loss.v1",
+  "metric_source_schema_version": "objective.evaluation.v1",
+  "optimization_direction": "minimize",
+  "reward_surface": "retired",
+  "objective_names": [
+    "mse",
+    "classification",
+    "ic",
+    "ranking"
+  ],
+  "row_count": 6,
+  "mse_loss": 5.8333333333333326e-05,
+  "classification_loss": 0.0,
+  "ic_loss": 0.06606706099146509,
+  "ranking_loss": 1.1102230246251565e-16,
+  "rank_group_count": 3,
+  "architecture_decision_id": "src-objective-loss-contract-v1",
+  "extension_requires_reason": true,
+  "blocked_without_evidence": true,
+  "decision_hash": "f0d8963f64a4028f390b353db4e71d4bfb3c13afd8a22c3f414dada870d223a3",
+  "registry_hash": "32ad6bf04474feac03d4b2e700cee7d0f777c8d41205a7f691b79960306c7b71",
+  "artifacts": {
+    "objective_losses": "objective_losses.json",
+    "objective_losses_csv": "objective_losses.csv",
+    "objective_loss_frame": "objective_loss_frame.csv",
+    "architecture_decision": "src-objective-loss-contract-v1.json",
+    "architecture_registry": "architecture_extension_registry.json",
+    "architecture_review": "architecture_extension_review.md"
+  }
+}
