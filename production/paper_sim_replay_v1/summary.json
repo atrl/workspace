@@ -1,0 +1,10 @@
+{
+  "artifacts": [
+    "order_intents.csv",
+    "positions.csv",
+    "conclusion.md"
+  ],
+  "execution_mode": "paper_sim",
+  "real_broker_orders": false,
+  "strategy": "paper_sim_replay_v1"
+}
