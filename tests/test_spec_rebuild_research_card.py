@@ -38,11 +38,19 @@ def test_research_card_has_executable_notebook_sidecars_and_chinese_conclusion()
     assert summary["experiment"] == "spec_rebuild_foundation_v1"
     assert summary["source"] == "qlib_calendar_plus_canonical_snapshot"
     assert "analysis_summary.json" in summary["artifacts"]
+    assert "summary.json" not in summary["artifacts"]
 
     regime_metrics = pd.read_csv(CARD / "regime_metrics.csv")
     window_metrics = pd.read_csv(CARD / "window_metrics.csv")
     model_comparison = pd.read_csv(CARD / "model_comparison.csv")
 
-    assert {"vix_regime", "trend_regime", "volume_regime"}.issubset(regime_metrics.columns)
+    assert {
+        "vix_regime",
+        "trend_regime",
+        "volume_regime",
+        "drawdown_regime",
+        "volatility_regime",
+        "market_regime",
+    }.issubset(regime_metrics.columns)
     assert {"window", "return_pct", "max_drawdown_pct", "turnover"}.issubset(window_metrics.columns)
     assert model_comparison.iloc[0]["model"] == "mean_return_smoke"
