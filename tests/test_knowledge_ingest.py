@@ -453,13 +453,20 @@ def test_build_knowledge_research_evidence_index_reads_real_research_card_files(
         "manifest_or_export",
         "chinese_conclusion",
     ]
-    assert "autoformer_mse" not in evidence_index
+    assert evidence_index["autoformer_mse"] == [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion",
+    ]
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
     autoformer_item = next(item for item in audit["items"] if item["candidate_name"] == "autoformer_mse")
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
-    assert autoformer_item["promotion_gate_status"] == "blocked_missing_evidence"
-    assert autoformer_item["missing_evidence_count"] == 5
+    assert autoformer_item["promotion_gate_status"] == "research_evidence_complete"
+    assert autoformer_item["implementation_allowed"] is True
+    assert autoformer_item["missing_evidence"] == []
 
 
 def test_write_knowledge_promotion_audit_writes_json_csv_and_chinese_review(tmp_path):
@@ -541,13 +548,60 @@ def test_rank_ic_objective_validation_card_supplies_backlog_evidence():
     assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
 
 
+def test_autoformer_mse_validation_card_supplies_backlog_evidence():
+    card = "research/autoformer_mse_validation_v1"
+    notebook_path = f"{card}/autoformer_mse_validation_v1.ipynb"
+    source = KnowledgeSource(
+        source_id="arxiv:2106.13008",
+        source_type="paper",
+        title="Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting",
+        url="https://arxiv.org/abs/2106.13008",
+        summary="Autoformer decomposition and auto-correlation reference for the autoformer_mse adapter fidelity backlog.",
+        license_note="arXiv metadata and self-written summary only.",
+    )
+    backlog = build_knowledge_backlog([source])
+    evidence_index = knowledge_api.build_knowledge_research_evidence_index(".", backlog)
+
+    summary = json.loads(open(f"{card}/autoformer_mse_summary.json", encoding="utf-8").read())
+    source_provenance = json.loads(open(f"{card}/source_provenance.json", encoding="utf-8").read())
+    adapter_evidence = json.loads(open(f"{card}/adapter_evidence.json", encoding="utf-8").read())
+    license_review = open(f"{card}/license_review.md", encoding="utf-8").read()
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert summary["schema_version"] == "research.autoformer_mse_validation.v1"
+    assert summary["source_id"] == "arxiv:2106.13008"
+    assert summary["candidate_name"] == "autoformer_mse"
+    assert summary["target_subsystem"] == "src/model"
+    assert summary["model_adapter"] == "autoformer_decomposition_attention_mse_v1"
+    assert summary["adapter_status"] == "paper_strict_adapter"
+    assert summary["paper_fidelity"] == "native_sequence"
+    assert summary["is_proxy"] is False
+    assert summary["implementation_allowed"] is False
+    assert summary["promotion_target"] == "research_only"
+    assert summary["evidence_requirements"] == evidence_index["autoformer_mse"]
+    assert source_provenance["source_used_as"] == "hypothesis_only"
+    assert "arxiv.org/abs/2106.13008" in source_provenance["url"]
+    assert adapter_evidence["prediction_row_count"] > 0
+    assert adapter_evidence["prediction_non_null"] is True
+    assert "未复制论文全文" in license_review
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
+
+
 def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_complete():
     audit = json.loads(open("research/knowledge_ingest/knowledge_promotion_audit.json", encoding="utf-8").read())
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
+    autoformer_item = next(item for item in audit["items"] if item["candidate_name"] == "autoformer_mse")
 
-    assert audit["summary"]["ready_count"] == 1
-    assert audit["summary"]["implementation_allowed_count"] == 1
+    assert audit["summary"]["ready_count"] == 2
+    assert audit["summary"]["blocked_count"] == 8
+    assert audit["summary"]["implementation_allowed_count"] == 2
     assert "rank_ic_objective" in audit["summary"]["ready_candidates"]
+    assert "autoformer_mse" in audit["summary"]["ready_candidates"]
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
     assert rank_item["missing_evidence"] == []
@@ -562,6 +616,13 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
         "src/objective",
         "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
     ]
+    assert autoformer_item["promotion_gate_status"] == "research_evidence_complete"
+    assert autoformer_item["implementation_allowed"] is True
+    assert autoformer_item["missing_evidence"] == []
+    assert autoformer_item["allowed_surfaces_after_gate"] == [
+        "src/model",
+        "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
+    ]
 
 
 def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards():
@@ -572,9 +633,15 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
     assert "build_knowledge_research_evidence_index" in notebook_source
     assert "evidence_index = {" not in notebook_source
     assert summary["promotion_evidence_source"] == "research_card_scan"
-    assert summary["promotion_evidence_ready_candidates"] == ["rank_ic_objective"]
-    assert summary["promotion_evidence_index_keys"] == [
-        "arxiv:2605.00501",
+    assert summary["promotion_evidence_ready_candidates"] == [
+        "autoformer_mse",
         "rank_ic_objective",
+    ]
+    assert summary["promotion_evidence_index_keys"] == [
+        "arxiv:2106.13008",
+        "arxiv:2605.00501",
+        "autoformer_mse",
+        "rank_ic_objective",
+        "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
         "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
     ]
