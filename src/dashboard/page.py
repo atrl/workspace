@@ -98,6 +98,54 @@ def _review_briefing(rows: list[dict[str, Any]]) -> str:
     )
 
 
+def _model_difference_explanations(rows: list[dict[str, Any]]) -> str:
+    if not rows:
+        return '<li class="muted">暂无模型差异解释</li>'
+    return "\n".join(
+        "<li "
+        f'data-explanation-signal="{escape(str(row.get("explanation_signal", "")))}" '
+        f'data-difference-decision="{escape(str(row.get("decision_hint", "")))}" '
+        f'data-segment="{escape(str(row.get("segment", "")))}">'
+        f"<strong>{escape(str(row.get('explanation_signal', '')))} / {escape(str(row.get('decision_hint', '')))}</strong>"
+        f"<span>{escape(str(row.get('segment', '')))} / "
+        f"{escape(str(row.get('loser_model', '')))} -> {escape(str(row.get('winner_model', '')))} / "
+        f"spread {_metric(row.get('relative_return_pct_spread', 0.0))}</span>"
+        f"<p>{escape(str(row.get('review_note', '')))}</p>"
+        "</li>"
+        for row in rows[:6]
+    )
+
+
+def _model_difference_panel(view_model: dict[str, Any]) -> str:
+    rows = (
+        view_model.get("model_difference_explanations", [])
+        if isinstance(view_model.get("model_difference_explanations"), list)
+        else []
+    )
+    summary = (
+        view_model.get("model_difference_summary", {})
+        if isinstance(view_model.get("model_difference_summary"), dict)
+        else {}
+    )
+    if not rows and not summary:
+        return ""
+    return f"""
+    <section class="model-difference-overview" aria-label="model difference explanations">
+      <header>
+        <h2>Model Difference Explanations</h2>
+        <p>winner / loser、regime-window 差异和 review action</p>
+      </header>
+      <div class="difference-grid">
+        <div><span>解释数</span><strong>{escape(str(summary.get('count', len(rows))))}</strong></div>
+        <div><span>Top Signal</span><strong>{escape(str(summary.get('top_explanation_signal', '')))}</strong></div>
+        <div><span>Top Decision</span><strong>{escape(str(summary.get('top_decision_hint', '')))}</strong></div>
+        <div><span>Top Segment</span><strong>{escape(str(summary.get('top_segment', '')))}</strong><p>{escape(str(summary.get('top_loser_model', '')))} -> {escape(str(summary.get('top_winner_model', '')))}</p></div>
+      </div>
+      <ul class="model-difference-list">{_model_difference_explanations(rows)}</ul>
+    </section>
+    """
+
+
 def _analysis_overview_panel(view_model: dict[str, Any]) -> str:
     overview = view_model.get("analysis_overview", {}) if isinstance(view_model.get("analysis_overview"), dict) else {}
     if not overview:
@@ -268,8 +316,22 @@ def _model_card(card: dict[str, Any]) -> str:
             if isinstance(row, dict) and row.get("decision_hint")
         }
     )
+    explanation_signals = sorted(
+        {
+            str(row.get("explanation_signal", ""))
+            for row in card.get("model_difference_explanations", [])
+            if isinstance(row, dict) and row.get("explanation_signal")
+        }
+    )
+    difference_decisions = sorted(
+        {
+            str(row.get("decision_hint", ""))
+            for row in card.get("model_difference_explanations", [])
+            if isinstance(row, dict) and row.get("decision_hint")
+        }
+    )
     return f"""
-      <article class="model-card{proxy_class}" data-model="{escape(model)}" data-base-model="{escape(str(card.get('base_model', '')))}" data-fidelity="{escape(fidelity)}" data-attribution-features="{escape(','.join(attribution_features))}" data-failure-modes="{escape(','.join(failure_modes))}" data-review-signals="{escape(','.join(review_signals))}" data-decision-hints="{escape(','.join(decision_hints))}">
+      <article class="model-card{proxy_class}" data-model="{escape(model)}" data-base-model="{escape(str(card.get('base_model', '')))}" data-fidelity="{escape(fidelity)}" data-attribution-features="{escape(','.join(attribution_features))}" data-failure-modes="{escape(','.join(failure_modes))}" data-review-signals="{escape(','.join(review_signals))}" data-decision-hints="{escape(','.join(decision_hints))}" data-explanation-signals="{escape(','.join(explanation_signals))}" data-difference-decisions="{escape(','.join(difference_decisions))}">
         <header>
           <div>
             <h2>{escape(model)}</h2>
@@ -303,6 +365,10 @@ def _model_card(card: dict[str, Any]) -> str:
         <section>
           <h3>Model Review Briefing</h3>
           <ul class="review-briefing">{_review_briefing(card.get('model_review_briefing', []))}</ul>
+        </section>
+        <section>
+          <h3>Model Difference Explanations</h3>
+          <ul class="model-difference-list">{_model_difference_explanations(card.get('model_difference_explanations', []))}</ul>
         </section>
         <section>
           <h3>Regime</h3>
@@ -344,6 +410,8 @@ def _style() -> str:
     .production-health header { margin-bottom: 10px; }
     .notebook-readiness { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .notebook-readiness header { margin-bottom: 10px; }
+    .model-difference-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .model-difference-overview header { margin-bottom: 10px; }
     .health-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
     .health-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .health-grid span { color: var(--muted); font-size: 12px; }
@@ -361,6 +429,11 @@ def _style() -> str:
     .overview-grid span { color: var(--muted); font-size: 12px; }
     .overview-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
     .overview-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .difference-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .difference-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .difference-grid span { color: var(--muted); font-size: 12px; }
+    .difference-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .difference-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
     .readiness-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
     .readiness-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .readiness-grid span { color: var(--muted); font-size: 12px; }
@@ -393,22 +466,24 @@ def _style() -> str:
     .feature-list li { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 5px; }
     .failure-modes { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
     .review-briefing { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
-    .failure-modes li, .review-briefing li { border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 6px; padding: 8px; }
+    .model-difference-list { display: grid; gap: 8px; padding-left: 0; list-style: none; margin-bottom: 12px; }
+    .failure-modes li, .review-briefing li, .model-difference-list li { border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 6px; padding: 8px; }
     .review-briefing li { border-left-color: var(--accent); }
-    .failure-modes strong, .review-briefing strong { display: block; font-size: 13px; }
-    .failure-modes span, .review-briefing span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
-    .failure-modes p, .review-briefing p { margin-top: 5px; font-size: 12px; }
+    .model-difference-list li { border-left-color: var(--accent); }
+    .failure-modes strong, .review-briefing strong, .model-difference-list strong { display: block; font-size: 13px; }
+    .failure-modes span, .review-briefing span, .model-difference-list span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .failure-modes p, .review-briefing p, .model-difference-list p { margin-top: 5px; font-size: 12px; }
     .muted { color: var(--muted); }
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .model-difference-overview .difference-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     """
 
 
 def _script() -> str:
     return """
-    const filters = ["model", "regime", "window", "fidelity", "attribution", "failure-mode", "review-signal", "decision-hint"];
+    const filters = ["model", "regime", "window", "fidelity", "attribution", "failure-mode", "review-signal", "decision-hint", "explanation-signal", "difference-decision"];
     function selected(id) {
       const node = document.getElementById(id + "-filter");
       return node ? node.value : "";
@@ -426,6 +501,8 @@ def _script() -> str:
       const failureMode = selected("failure-mode");
       const reviewSignal = selected("review-signal");
       const decisionHint = selected("decision-hint");
+      const explanationSignal = selected("explanation-signal");
+      const differenceDecision = selected("difference-decision");
       document.querySelectorAll(".model-card").forEach(card => {
         const modelOk = !model || card.dataset.model === model;
         const fidelityOk = !fidelity || card.dataset.fidelity === fidelity;
@@ -435,7 +512,9 @@ def _script() -> str:
         const failureModeOk = containsValue(card.dataset.failureModes, failureMode);
         const reviewSignalOk = containsValue(card.dataset.reviewSignals, reviewSignal);
         const decisionHintOk = containsValue(card.dataset.decisionHints, decisionHint);
-        card.hidden = !(modelOk && fidelityOk && regimeOk && windowOk && attributionOk && failureModeOk && reviewSignalOk && decisionHintOk);
+        const explanationSignalOk = containsValue(card.dataset.explanationSignals, explanationSignal);
+        const differenceDecisionOk = containsValue(card.dataset.differenceDecisions, differenceDecision);
+        card.hidden = !(modelOk && fidelityOk && regimeOk && windowOk && attributionOk && failureModeOk && reviewSignalOk && decisionHintOk && explanationSignalOk && differenceDecisionOk);
       });
     }
     filters.forEach(id => {
@@ -468,6 +547,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     )
     embedded = json.dumps(view_model, ensure_ascii=False, indent=2).replace("</", "<\\/")
     overview_panel = _analysis_overview_panel(view_model)
+    model_difference_panel = _model_difference_panel(view_model)
     readiness_overview_panel = _readiness_overview_panel(view_model)
     production_health_panel = _production_health_panel(view_model)
     notebook_readiness_panel = _notebook_card_readiness_panel(view_model)
@@ -498,9 +578,12 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
       <label>Failure Mode<select id="failure-mode-filter"><option value="">全部</option>{_options(controls.get('failure_modes', []))}</select></label>
       <label>Review Signal<select id="review-signal-filter"><option value="">全部</option>{_options(controls.get('review_signals', []))}</select></label>
       <label>Decision<select id="decision-hint-filter"><option value="">全部</option>{_options(controls.get('decision_hints', []))}</select></label>
+      <label>Difference Signal<select id="explanation-signal-filter"><option value="">全部</option>{_options(controls.get('explanation_signals', []))}</select></label>
+      <label>Difference Decision<select id="difference-decision-filter"><option value="">全部</option>{_options(controls.get('difference_decisions', []))}</select></label>
     </section>
     {readiness_overview_panel}
     {overview_panel}
+    {model_difference_panel}
     {production_health_panel}
     {notebook_readiness_panel}
     <section class="summary">

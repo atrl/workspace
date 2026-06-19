@@ -188,6 +188,26 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
             }
         ]
     ).to_csv(matrix_card / "review_custom.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "analysis.model_difference_explanation.v1",
+                "priority_rank": 1,
+                "segment_type": "regime",
+                "segment": "bull",
+                "window": "",
+                "regime": "bull",
+                "baseline_model": "ridge_mse",
+                "winner_model": "ridge_mse",
+                "loser_model": "gcn_mse",
+                "relative_return_pct_spread": 3.25,
+                "winner_vs_baseline_delta": 0.0,
+                "explanation_signal": "baseline_defends",
+                "decision_hint": "block_or_rework_loser",
+                "review_note": "中文 review：ridge_mse 在 bull 领先。",
+            }
+        ]
+    ).to_csv(matrix_card / "difference_custom.csv", index=False)
     (matrix_card / "backtest_config_custom.json").write_text(
         json.dumps(
             {
@@ -235,6 +255,7 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
                     "model_effect_deltas": "deltas_custom.csv",
                     "model_regime_window_diagnostics": "diagnostics_custom.csv",
                     "segment_effect_matrix": "segment_matrix_custom.csv",
+                    "model_difference_explanations": "difference_custom.csv",
                     "model_review_briefing": "review_custom.csv",
                     "backtest_config": "backtest_config_custom.json",
                     "walk_forward_splits": "walk_forward_custom.csv",
@@ -261,6 +282,10 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["model_effect_deltas"][0]["diagnosis"] == "基准模型。"
     assert payload["model_regime_window_diagnostics"][0]["diagnostic_signal"] == "baseline"
     assert payload["segment_effect_matrix"][0]["best_relative_return_model"] == "ridge_mse"
+    assert payload["model_difference_explanations"][0]["schema_version"] == (
+        "analysis.model_difference_explanation.v1"
+    )
+    assert payload["model_difference_explanations"][0]["explanation_signal"] == "baseline_defends"
     assert payload["model_review_briefing"][0]["review_signal"] == "strength"
     assert payload["backtest"]["config"]["schema_version"] == "backtest.config.v1"
     assert payload["backtest"]["walk_forward_splits"][0]["fold"] == 1
@@ -270,6 +295,7 @@ def test_dashboard_loads_matrix_sidecars_from_analysis_manifest_without_fixed_fi
     assert payload["artifacts"]["objective_scores"].endswith("objective_scores_custom.csv")
     assert payload["artifacts"]["promotion_scores"].endswith("promotion_scores_custom.csv")
     assert payload["artifacts"]["model_regime_window_diagnostics"].endswith("diagnostics_custom.csv")
+    assert payload["artifacts"]["model_difference_explanations"].endswith("difference_custom.csv")
     assert payload["artifacts"]["model_review_briefing"].endswith("review_custom.csv")
     assert payload["artifacts"]["backtest_config"].endswith("backtest_config_custom.json")
     assert payload["artifacts"]["walk_forward_splits"].endswith("walk_forward_custom.csv")

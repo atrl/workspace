@@ -18,6 +18,8 @@ class DashboardViewFilters:
     failure_modes: tuple[str, ...] = ()
     review_signals: tuple[str, ...] = ()
     decision_hints: tuple[str, ...] = ()
+    explanation_signals: tuple[str, ...] = ()
+    difference_decisions: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, list[str]]:
         return {
@@ -31,6 +33,8 @@ class DashboardViewFilters:
             "failure_modes": list(self.failure_modes),
             "review_signals": list(self.review_signals),
             "decision_hints": list(self.decision_hints),
+            "explanation_signals": list(self.explanation_signals),
+            "difference_decisions": list(self.difference_decisions),
         }
 
 
@@ -216,6 +220,38 @@ def _model_review_for_model(
     return sorted(result, key=lambda item: float(item.get("priority_rank", 999999) or 999999))
 
 
+def _difference_explanations_for_model(
+    rows: Sequence[dict[str, Any]],
+    model: str,
+    *,
+    base_model: str,
+    regimes: set[str],
+    windows: set[str],
+    explanation_signals: set[str],
+    difference_decisions: set[str],
+) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    model_names = {model, base_model}
+    for row in rows:
+        row_models = {
+            str(row.get("baseline_model", "")),
+            str(row.get("winner_model", "")),
+            str(row.get("loser_model", "")),
+        }
+        if not model_names.intersection(row_models):
+            continue
+        row_signal = str(row.get("explanation_signal", "")) if row.get("explanation_signal") is not None else ""
+        row_hint = str(row.get("decision_hint", "")) if row.get("decision_hint") is not None else ""
+        if explanation_signals and row_signal not in explanation_signals:
+            continue
+        if difference_decisions and row_hint not in difference_decisions:
+            continue
+        if not _segment_filter_match(row, regimes=regimes, windows=windows):
+            continue
+        result.append(dict(row))
+    return sorted(result, key=lambda item: float(item.get("priority_rank", 999999) or 999999))
+
+
 def _attribution_by_model(payload: dict[str, Any], features: set[str]) -> dict[str, list[dict[str, Any]]]:
     attribution = payload.get("attribution") if isinstance(payload.get("attribution"), dict) else {}
     rows = _as_list(attribution.get("top_features_by_model") if isinstance(attribution, dict) else [])
@@ -246,6 +282,12 @@ def _controls(payload: dict[str, Any], capabilities: dict[str, dict[str, Any]]) 
         "failure_modes": _sorted_strings(row.get("failure_mode") for row in _as_list(payload.get("failure_modes"))),
         "review_signals": _sorted_strings(row.get("review_signal") for row in _as_list(payload.get("model_review_briefing"))),
         "decision_hints": _sorted_strings(row.get("decision_hint") for row in _as_list(payload.get("model_review_briefing"))),
+        "explanation_signals": _sorted_strings(
+            row.get("explanation_signal") for row in _as_list(payload.get("model_difference_explanations"))
+        ),
+        "difference_decisions": _sorted_strings(
+            row.get("decision_hint") for row in _as_list(payload.get("model_difference_explanations"))
+        ),
     }
 
 
@@ -365,6 +407,7 @@ def _matches_card(
     top_attribution_features: list[dict[str, Any]],
     failure_modes: list[dict[str, Any]],
     model_review_briefing: list[dict[str, Any]],
+    model_difference_explanations: list[dict[str, Any]],
     filters: DashboardViewFilters,
 ) -> bool:
     if filters.models and model not in filters.models:
@@ -391,6 +434,16 @@ def _matches_card(
         card_decision_hints = _string_set(row.get("decision_hint") for row in model_review_briefing)
         if not card_decision_hints.intersection(filters.decision_hints):
             return False
+    if filters.explanation_signals:
+        card_explanation_signals = _string_set(
+            row.get("explanation_signal") for row in model_difference_explanations
+        )
+        if not card_explanation_signals.intersection(filters.explanation_signals):
+            return False
+    if filters.difference_decisions:
+        card_difference_decisions = _string_set(row.get("decision_hint") for row in model_difference_explanations)
+        if not card_difference_decisions.intersection(filters.difference_decisions):
+            return False
     return True
 
 
@@ -406,6 +459,8 @@ def build_dashboard_view_model(
     selected_failure_modes = set(active_filters.failure_modes)
     selected_review_signals = set(active_filters.review_signals)
     selected_decision_hints = set(active_filters.decision_hints)
+    selected_explanation_signals = set(active_filters.explanation_signals)
+    selected_difference_decisions = set(active_filters.difference_decisions)
     capabilities = _capability_by_model(payload)
     model_run_ledger = _ledger_by_model(payload)
     proxy_models = _proxy_models(payload)
@@ -417,6 +472,7 @@ def build_dashboard_view_model(
     regime_window_diagnostics = _as_list(payload.get("model_regime_window_diagnostics"))
     failure_modes = _as_list(payload.get("failure_modes"))
     model_review_briefing = _as_list(payload.get("model_review_briefing"))
+    model_difference_explanations = _as_list(payload.get("model_difference_explanations"))
 
     cards: list[dict[str, Any]] = []
     for row in top_models:
@@ -444,6 +500,15 @@ def build_dashboard_view_model(
             review_signals=selected_review_signals,
             decision_hints=selected_decision_hints,
         )
+        card_model_difference_explanations = _difference_explanations_for_model(
+            model_difference_explanations,
+            model,
+            base_model=base_model,
+            regimes=regimes,
+            windows=windows,
+            explanation_signals=selected_explanation_signals,
+            difference_decisions=selected_difference_decisions,
+        )
         if not _matches_card(
             model=model,
             base_model=base_model,
@@ -452,6 +517,7 @@ def build_dashboard_view_model(
             top_attribution_features=top_attribution_features,
             failure_modes=card_failure_modes,
             model_review_briefing=card_model_review_briefing,
+            model_difference_explanations=card_model_difference_explanations,
             filters=active_filters,
         ):
             continue
@@ -490,6 +556,7 @@ def build_dashboard_view_model(
                 ),
                 "failure_modes": card_failure_modes,
                 "model_review_briefing": card_model_review_briefing,
+                "model_difference_explanations": card_model_difference_explanations,
             }
         )
 
@@ -500,6 +567,10 @@ def build_dashboard_view_model(
     )
     ordered_review_briefing = sorted(
         [dict(row) for row in model_review_briefing],
+        key=lambda item: float(item.get("priority_rank", 999999) or 999999),
+    )
+    ordered_difference_explanations = sorted(
+        [dict(row) for row in model_difference_explanations],
         key=lambda item: float(item.get("priority_rank", 999999) or 999999),
     )
     return {
@@ -550,6 +621,28 @@ def build_dashboard_view_model(
             if ordered_review_briefing
             else 0,
         },
+        "model_difference_summary": {
+            "count": int(len(model_difference_explanations)),
+            "top_explanation_signal": str(ordered_difference_explanations[0].get("explanation_signal", ""))
+            if ordered_difference_explanations
+            else "",
+            "top_decision_hint": str(ordered_difference_explanations[0].get("decision_hint", ""))
+            if ordered_difference_explanations
+            else "",
+            "top_segment": str(ordered_difference_explanations[0].get("segment", ""))
+            if ordered_difference_explanations
+            else "",
+            "top_winner_model": str(ordered_difference_explanations[0].get("winner_model", ""))
+            if ordered_difference_explanations
+            else "",
+            "top_loser_model": str(ordered_difference_explanations[0].get("loser_model", ""))
+            if ordered_difference_explanations
+            else "",
+            "top_priority_rank": int(float(ordered_difference_explanations[0].get("priority_rank", 0) or 0))
+            if ordered_difference_explanations
+            else 0,
+        },
+        "model_difference_explanations": ordered_difference_explanations[:100],
         "model_cards": cards,
     }
 

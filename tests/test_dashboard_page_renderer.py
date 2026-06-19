@@ -67,6 +67,30 @@ def _view_model_with_model_review_briefing() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_model_difference_explanations() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"model_difference_explanations": "/path/that/must/not/be/rendered.csv"}
+    payload["model_difference_explanations"] = [
+        {
+            "schema_version": "analysis.model_difference_explanation.v1",
+            "priority_rank": 1,
+            "segment_type": "window_regime",
+            "segment": "test::stress",
+            "window": "test",
+            "regime": "stress",
+            "baseline_model": "ridge_mse__all_features",
+            "winner_model": "ridge_mse__all_features",
+            "loser_model": "gcn_mse__top_ic_factors",
+            "relative_return_pct_spread": 6.5,
+            "winner_vs_baseline_delta": 0.0,
+            "explanation_signal": "baseline_defends",
+            "decision_hint": "block_or_rework_loser",
+            "review_note": "中文 review：基准 ridge_mse 在 stress 领先，gcn_mse 需要重做信号适配。",
+        }
+    ]
+    return build_dashboard_view_model(payload)
+
+
 def _view_model_with_review_briefing() -> dict:
     payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
     payload["artifacts"] = {"model_review_briefing": "/path/that/must/not/be/rendered.csv"}
@@ -340,6 +364,24 @@ def test_render_dashboard_html_outputs_model_review_briefing_controls_and_cards_
     assert '<option value="block_or_rework">block_or_rework</option>' in html
     assert 'data-review-signals="weakness"' in html
     assert 'data-decision-hints="block_or_rework"' in html
+    assert "/path/that/must/not/be/rendered.csv" not in html
+
+
+def test_render_dashboard_html_outputs_model_difference_explanations_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_model_difference_explanations(), title="SOXL Difference Explanations")
+    parser = _ElementCollector()
+    parser.feed(html)
+
+    assert "Model Difference Explanations" in html
+    assert "baseline_defends" in html
+    assert "block_or_rework_loser" in html
+    assert "中文 review：基准 ridge_mse 在 stress 领先" in html
+    assert {"explanation-signal-filter", "difference-decision-filter"}.issubset(parser.ids)
+    assert '<option value="baseline_defends">baseline_defends</option>' in html
+    assert '<option value="block_or_rework_loser">block_or_rework_loser</option>' in html
+    assert 'data-explanation-signal="baseline_defends"' in html
+    assert 'data-explanation-signals="baseline_defends"' in html
+    assert 'data-difference-decisions="block_or_rework_loser"' in html
     assert "/path/that/must/not/be/rendered.csv" not in html
 
 

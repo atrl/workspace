@@ -84,6 +84,45 @@ def _dashboard_payload_with_model_review_briefing() -> dict:
     return payload
 
 
+def _dashboard_payload_with_model_difference_explanations() -> dict:
+    payload = _dashboard_payload()
+    payload["model_difference_explanations"] = [
+        {
+            "schema_version": "analysis.model_difference_explanation.v1",
+            "priority_rank": 1,
+            "segment_type": "window_regime",
+            "segment": "test::stress",
+            "window": "test",
+            "regime": "stress",
+            "baseline_model": "ridge_mse__all_features",
+            "winner_model": "ridge_mse__all_features",
+            "loser_model": "gcn_mse__top_ic_factors",
+            "relative_return_pct_spread": 6.5,
+            "winner_vs_baseline_delta": 0.0,
+            "explanation_signal": "baseline_defends",
+            "decision_hint": "block_or_rework_loser",
+            "review_note": "中文 review：基准 ridge_mse 在 stress 领先，gcn_mse 需要重做信号适配。",
+        },
+        {
+            "schema_version": "analysis.model_difference_explanation.v1",
+            "priority_rank": 2,
+            "segment_type": "regime",
+            "segment": "bull",
+            "window": "",
+            "regime": "bull",
+            "baseline_model": "ridge_mse__all_features",
+            "winner_model": "gcn_mse__top_ic_factors",
+            "loser_model": "ridge_mse__all_features",
+            "relative_return_pct_spread": 2.2,
+            "winner_vs_baseline_delta": 2.2,
+            "explanation_signal": "segment_winner",
+            "decision_hint": "promote_segment_candidate",
+            "review_note": "中文 review：gcn_mse 在 bull 强于基准，可作为分段候选。",
+        },
+    ]
+    return payload
+
+
 def _dashboard_payload_with_model_run_ledger() -> dict:
     payload = _dashboard_payload()
     first_model = str(payload["top_models"][0]["model"])
@@ -377,6 +416,28 @@ def test_dashboard_view_model_exposes_and_filters_model_review_briefing():
     assert view["review_briefing_summary"]["top_decision_hint"] == "block_or_rework"
 
 
+def test_dashboard_view_model_exposes_and_filters_model_difference_explanations():
+    view = build_dashboard_view_model(
+        _dashboard_payload_with_model_difference_explanations(),
+        filters=DashboardViewFilters(
+            explanation_signals=("baseline_defends",),
+            difference_decisions=("block_or_rework_loser",),
+        ),
+    )
+
+    assert view["controls"]["explanation_signals"] == ["baseline_defends", "segment_winner"]
+    assert view["controls"]["difference_decisions"] == ["block_or_rework_loser", "promote_segment_candidate"]
+    assert view["filters_applied"]["explanation_signals"] == ["baseline_defends"]
+    assert view["filters_applied"]["difference_decisions"] == ["block_or_rework_loser"]
+    assert [card["model"] for card in view["model_cards"]] == ["gcn_mse__top_ic_factors"]
+    gcn = [card for card in view["model_cards"] if card["model"] == "gcn_mse__top_ic_factors"][0]
+    assert gcn["model_difference_explanations"][0]["loser_model"] == "gcn_mse__top_ic_factors"
+    assert gcn["model_difference_explanations"][0]["explanation_signal"] == "baseline_defends"
+    assert view["model_difference_summary"]["count"] == 2
+    assert view["model_difference_summary"]["top_explanation_signal"] == "baseline_defends"
+    assert view["model_difference_summary"]["top_decision_hint"] == "block_or_rework_loser"
+
+
 def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attribution_feature():
     payload = _dashboard_payload()
 
@@ -402,6 +463,8 @@ def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attrib
         "failure_modes": [],
         "review_signals": [],
         "decision_hints": [],
+        "explanation_signals": [],
+        "difference_decisions": [],
     }
     assert [card["model"] for card in view["model_cards"]] == ["gcn_mse__top_ic_factors"]
     card = view["model_cards"][0]
