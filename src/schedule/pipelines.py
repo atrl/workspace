@@ -90,6 +90,8 @@ class ProductionHealthCheckConfig:
         "data_registry",
         "analysis_manifest",
     )
+    require_dashboard_manifest_source: bool = True
+    dashboard_manifest_allowed_kinds: tuple[str, ...] = ("analysis_manifest", "artifact_manifest")
     require_requested_model_contract: bool = False
     notify_details: bool = False
     retries: int = 0
@@ -336,6 +338,86 @@ def _production_requested_model_contract_payload(
     }
 
 
+def _production_dashboard_manifest_source_payload(
+    dashboard_export_path: str,
+    *,
+    required: bool,
+    allowed_kinds: Iterable[str],
+) -> dict[str, Any]:
+    allowed = tuple(str(kind) for kind in allowed_kinds)
+    base_payload = {
+        "dashboard_manifest_required": bool(required),
+        "dashboard_manifest_status": "not_checked",
+        "dashboard_schema_version": "",
+        "dashboard_manifest_kind": "",
+        "dashboard_manifest_path": "",
+        "dashboard_manifest_hash": "",
+        "dashboard_manifest_producer": "",
+        "dashboard_manifest_allowed_kinds": ",".join(allowed),
+        "dashboard_manifest_error": "",
+    }
+    if not dashboard_export_path:
+        if required:
+            base_payload["dashboard_manifest_status"] = "missing"
+        return base_payload
+
+    try:
+        dashboard = json.loads(Path(dashboard_export_path).read_text(encoding="utf-8"))
+    except Exception as exc:
+        base_payload["dashboard_manifest_status"] = "unreadable"
+        base_payload["dashboard_manifest_error"] = str(exc)
+        return base_payload
+    if not isinstance(dashboard, dict):
+        base_payload["dashboard_manifest_status"] = "unreadable"
+        base_payload["dashboard_manifest_error"] = "dashboard export must be a JSON object"
+        return base_payload
+
+    base_payload["dashboard_schema_version"] = str(dashboard.get("schema_version", ""))
+    manifest_source = dashboard.get("manifest_source")
+    if not isinstance(manifest_source, dict):
+        base_payload["dashboard_manifest_status"] = "missing"
+        return base_payload
+
+    kind = str(manifest_source.get("kind", ""))
+    manifest_path = str(manifest_source.get("path", ""))
+    manifest_hash = str(manifest_source.get("manifest_hash", ""))
+    producer = str(manifest_source.get("producer", ""))
+    payload = {
+        **base_payload,
+        "dashboard_manifest_kind": kind,
+        "dashboard_manifest_path": manifest_path,
+        "dashboard_manifest_hash": manifest_hash,
+        "dashboard_manifest_producer": producer,
+    }
+    if kind not in allowed:
+        payload["dashboard_manifest_status"] = "weak_kind"
+        payload["dashboard_manifest_error"] = f"kind {kind} not allowed"
+        return payload
+
+    missing_fields = [
+        field
+        for field, value in (
+            ("path", manifest_path),
+            ("manifest_hash", manifest_hash),
+            ("producer", producer),
+        )
+        if not value
+    ]
+    if missing_fields:
+        payload["dashboard_manifest_status"] = "incomplete"
+        payload["dashboard_manifest_error"] = "missing " + ",".join(missing_fields)
+        return payload
+
+    payload["dashboard_manifest_status"] = "complete"
+    return payload
+
+
+def _production_dashboard_manifest_health_status(status: str) -> str:
+    if status == "weak_kind":
+        return "dashboard_manifest_source_weak"
+    return f"dashboard_manifest_source_{status or 'missing'}"
+
+
 def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str, Any]:
     registry_path = Path(config.registry_path)
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
@@ -373,14 +455,26 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         resolved_paths.get("dashboard_export", ""),
         required=config.require_requested_model_contract,
     )
+    dashboard_manifest_payload = _production_dashboard_manifest_source_payload(
+        resolved_paths.get("dashboard_export", ""),
+        required=config.require_dashboard_manifest_source,
+        allowed_kinds=config.dashboard_manifest_allowed_kinds,
+    )
     requested_contract_blocks = bool(config.require_requested_model_contract) and str(
         requested_contract_payload.get("requested_model_contract_status", "")
+    ) != "complete"
+    dashboard_manifest_blocks = bool(config.require_dashboard_manifest_source) and str(
+        dashboard_manifest_payload.get("dashboard_manifest_status", "")
     ) != "complete"
     health_status = "healthy"
     if not registry_hash_matches or not content_hash_matches:
         health_status = "manifest_hash_mismatch"
     elif missing_required_paths:
         health_status = "missing_required_paths"
+    elif dashboard_manifest_blocks:
+        health_status = _production_dashboard_manifest_health_status(
+            str(dashboard_manifest_payload.get("dashboard_manifest_status", ""))
+        )
     elif requested_contract_blocks:
         health_status = f"requested_model_contract_{requested_contract_payload['requested_model_contract_status']}"
 
@@ -414,6 +508,7 @@ def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str,
         "intent_ledger_path": resolved_paths.get("intent_ledger", ""),
         "paper_execution_result_path": resolved_paths.get("paper_execution_result", ""),
         "output_path": str(config.output_path) if config.output_path is not None else "",
+        **dashboard_manifest_payload,
         **requested_contract_payload,
     }
     return payload
@@ -455,11 +550,18 @@ def _production_health_notification(job_name: str, status: str, payload: dict[st
             f" missing={payload.get('requested_model_missing_count', 0)}"
             f" incomplete={payload.get('requested_model_incomplete_count', 0)}"
         )
+    dashboard_manifest = ""
+    if payload.get("dashboard_manifest_required") or payload.get("dashboard_manifest_status"):
+        dashboard_manifest = (
+            f" | dashboard_manifest={payload.get('dashboard_manifest_kind', '')}/"
+            f"{payload.get('dashboard_manifest_status', '')}"
+        )
     return (
         f"{job_name}:success"
         f" | strategy={payload.get('strategy_id', '')}"
         f" | health={payload.get('health_status', '')}"
         f" | missing={len(payload.get('missing_required_paths', []))}"
+        f"{dashboard_manifest}"
         f"{paper_execution}"
         f"{requested_models}"
         f" | manifest={payload.get('manifest_path', '')}"

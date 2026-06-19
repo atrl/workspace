@@ -20,7 +20,19 @@ def _publish_strategy(
 ) -> tuple[Path, Path]:
     card = tmp_path / "production" / "paper_sim_replay_v1"
     _write_json(card / "production_summary.json", {"status": "paper_replay_completed"})
-    _write_json(card / "dashboard_export.json", dashboard_payload or {"schema_version": "dashboard.model_matrix.v1"})
+    _write_json(
+        card / "dashboard_export.json",
+        dashboard_payload
+        or {
+            "schema_version": "dashboard.model_matrix.v1",
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": "matrix_card/analysis_manifest.json",
+                "manifest_hash": "a" * 64,
+                "producer": "src.analysis.exports",
+            },
+        },
+    )
     _write_json(card / "paper_execution_result.json", {"status": "paper_executed"})
     _write_json(card / "data" / "data_registry.json", {"schema_version": "data.registry.v1"})
     _write_json(card / "matrix_card" / "analysis_manifest.json", {"schema_version": "artifact.v1"})
@@ -91,9 +103,15 @@ def test_production_health_check_reads_registry_manifest_and_writes_dashboard_re
     assert result.payload["checked_path_count"] == 7
     assert result.payload["missing_required_paths"] == []
     assert result.payload["dashboard_export_path"].endswith("dashboard_export.json")
+    assert result.payload["dashboard_manifest_required"] is True
+    assert result.payload["dashboard_manifest_status"] == "complete"
+    assert result.payload["dashboard_manifest_kind"] == "analysis_manifest"
+    assert result.payload["dashboard_manifest_hash"] == "a" * 64
+    assert result.payload["dashboard_manifest_producer"] == "src.analysis.exports"
     assert events == [
         "production_health_check:success | strategy=paper_sim_replay_v1 | health=healthy "
-        f"| missing=0 | paper_execution=schedule.paper_execution.v1/success | manifest={card / 'production_manifest.json'}"
+        "| missing=0 | dashboard_manifest=analysis_manifest/complete "
+        f"| paper_execution=schedule.paper_execution.v1/success | manifest={card / 'production_manifest.json'}"
     ]
 
 
@@ -126,6 +144,12 @@ def test_production_health_check_skips_closed_market_day_before_registry_read(tm
 def test_production_health_check_can_require_complete_requested_model_contract(tmp_path):
     dashboard_payload = {
         "schema_version": "dashboard.model_matrix.v1",
+        "manifest_source": {
+            "kind": "analysis_manifest",
+            "path": "matrix_card/analysis_manifest.json",
+            "manifest_hash": "b" * 64,
+            "producer": "src.analysis.exports",
+        },
         "requested_model_contract": {
             "schema_version": "model.requested_contract_health.v1",
             "requested_model_count": 32,
@@ -231,3 +255,91 @@ def test_production_health_check_detects_manifest_content_hash_mismatch(tmp_path
     assert result.payload["manifest_hash_matches_content"] is False
     assert result.payload["computed_manifest_hash"] != result.payload["manifest_hash"]
     assert "health=manifest_hash_mismatch" in events[0]
+
+
+def test_production_health_check_blocks_missing_dashboard_manifest_source(tmp_path):
+    _, registry_path = _publish_strategy(
+        tmp_path,
+        dashboard_payload={"schema_version": "dashboard.model_matrix.v1"},
+    )
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=registry_path,
+        strategy_id="paper_sim_replay_v1",
+        notify_details=True,
+    )
+    events: list[str] = []
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "success"
+    assert result.payload["health_status"] == "dashboard_manifest_source_missing"
+    assert result.payload["is_healthy"] is False
+    assert result.payload["dashboard_manifest_required"] is True
+    assert result.payload["dashboard_manifest_status"] == "missing"
+    assert result.payload["dashboard_manifest_kind"] == ""
+    assert "health=dashboard_manifest_source_missing" in events[0]
+    assert "dashboard_manifest=/missing" in events[0]
+
+
+def test_production_health_check_blocks_fixed_sidecar_dashboard_manifest_source(tmp_path):
+    _, registry_path = _publish_strategy(
+        tmp_path,
+        dashboard_payload={
+            "schema_version": "dashboard.model_matrix.v1",
+            "manifest_source": {
+                "kind": "fixed_sidecars",
+                "path": "",
+                "manifest_hash": "",
+                "producer": "src.dashboard.model_matrix",
+            },
+        },
+    )
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=registry_path,
+        strategy_id="paper_sim_replay_v1",
+        notify_details=True,
+    )
+    events: list[str] = []
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "success"
+    assert result.payload["health_status"] == "dashboard_manifest_source_weak"
+    assert result.payload["is_healthy"] is False
+    assert result.payload["dashboard_manifest_status"] == "weak_kind"
+    assert result.payload["dashboard_manifest_kind"] == "fixed_sidecars"
+    assert result.payload["dashboard_manifest_allowed_kinds"] == "analysis_manifest,artifact_manifest"
+    assert "dashboard_manifest=fixed_sidecars/weak_kind" in events[0]
+
+
+def test_production_health_check_blocks_incomplete_dashboard_manifest_source(tmp_path):
+    _, registry_path = _publish_strategy(
+        tmp_path,
+        dashboard_payload={
+            "schema_version": "dashboard.model_matrix.v1",
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": "matrix_card/analysis_manifest.json",
+                "manifest_hash": "",
+                "producer": "src.analysis.exports",
+            },
+        },
+    )
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=registry_path,
+        strategy_id="paper_sim_replay_v1",
+        notify_details=True,
+    )
+    events: list[str] = []
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "success"
+    assert result.payload["health_status"] == "dashboard_manifest_source_incomplete"
+    assert result.payload["is_healthy"] is False
+    assert result.payload["dashboard_manifest_status"] == "incomplete"
+    assert result.payload["dashboard_manifest_error"] == "missing manifest_hash"
+    assert "dashboard_manifest=analysis_manifest/incomplete" in events[0]
