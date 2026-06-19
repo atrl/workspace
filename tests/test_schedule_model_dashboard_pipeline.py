@@ -1197,6 +1197,71 @@ def test_model_dashboard_refresh_passes_optional_notebook_card_manifest_to_dashb
     assert result.payload["notebook_card_production_template_count"] == 1
 
 
+def test_model_dashboard_refresh_passes_optional_schedule_health_to_dashboard_export(tmp_path):
+    calls: list[Path | None] = []
+    schedule_health_path = tmp_path / "schedule_health.json"
+    schedule_health_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "dashboard.schedule_health.v1",
+                "job_count": 1,
+                "failed_job_count": 1,
+                "total_attempts": 2,
+                "total_retry_error_count": 2,
+                "top_failure_job": "model_dashboard_refresh",
+                "top_failure_last_error": "RuntimeError:permanent failure",
+                "jobs": [],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 1, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(
+        card_dir: Path,
+        *,
+        output_path: Path,
+        top_n: int,
+        schedule_health_path: Path | None = None,
+    ):
+        calls.append(schedule_health_path)
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "schedule_health": json.loads(Path(schedule_health_path).read_text(encoding="utf-8"))
+            if schedule_health_path is not None
+            else {},
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+        schedule_health_path=schedule_health_path,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert calls == [schedule_health_path]
+    assert result.payload["dashboard_schema_version"] == "dashboard.model_matrix.v1"
+
+
 def test_model_dashboard_refresh_optionally_writes_dashboard_html_page(tmp_path):
     calls: list[tuple[str, Path]] = []
 

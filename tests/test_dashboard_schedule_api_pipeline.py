@@ -462,6 +462,53 @@ def test_dashboard_export_can_attach_production_health_payload_without_sidecar_g
     assert saved["artifacts"]["production_health"].endswith("production_health_export.json")
 
 
+def test_dashboard_export_can_attach_schedule_health_payload_without_sidecar_guessing(tmp_path):
+    schedule_health_path = tmp_path / "schedule_health.json"
+    schedule_health_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "dashboard.schedule_health.v1",
+                "job_count": 1,
+                "failed_job_count": 1,
+                "total_attempts": 2,
+                "total_retry_error_count": 2,
+                "top_failure_job": "model_dashboard_refresh",
+                "top_failure_last_error": "RuntimeError:permanent failure",
+                "jobs": [
+                    {
+                        "name": "model_dashboard_refresh",
+                        "status": "failed",
+                        "attempts": 2,
+                        "retry_schema_version": "schedule.retry_attempts.v1",
+                        "retry_error_count": 2,
+                        "last_error_attempt": 2,
+                        "last_error_type": "RuntimeError",
+                        "last_error_message": "permanent failure",
+                        "detail": "permanent failure",
+                    }
+                ],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    output_path = tmp_path / "dashboard_export.json"
+
+    payload = write_model_matrix_dashboard_export(
+        "research/factor_feature_set_matrix_v1",
+        output_path=output_path,
+        top_n=3,
+        schedule_health_path=schedule_health_path,
+        allow_legacy_sidecars=True,
+    )
+    saved = json.loads(output_path.read_text(encoding="utf-8"))
+
+    assert saved["schedule_health"]["schema_version"] == "dashboard.schedule_health.v1"
+    assert saved["schedule_health"]["top_failure_job"] == "model_dashboard_refresh"
+    assert saved["schedule_health"] == payload["schedule_health"]
+    assert saved["artifacts"]["schedule_health"].endswith("schedule_health.json")
+
+
 def test_dashboard_export_can_attach_notebook_card_manifest_production_readiness(tmp_path):
     manifest_path = tmp_path / "notebook_card_manifest.json"
     manifest_path.write_text(

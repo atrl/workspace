@@ -496,6 +496,9 @@ def build_dashboard_view_model(
         "notebook_card_readiness": dict(payload.get("notebook_card_readiness", {}))
         if isinstance(payload.get("notebook_card_readiness"), dict)
         else {},
+        "schedule_health": dict(payload.get("schedule_health", {}))
+        if isinstance(payload.get("schedule_health"), dict)
+        else {},
         "readiness_overview": _readiness_overview(payload),
         "comparison_table": [dict(row) for row in top_models],
         "failure_mode_summary": {

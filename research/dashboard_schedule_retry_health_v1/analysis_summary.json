@@ -1,0 +1,15 @@
+{
+  "schema_version": "research.dashboard_schedule_retry_health_v1.summary.v1",
+  "experiment": "dashboard_schedule_retry_health_v1",
+  "schedule_health_schema_version": "dashboard.schedule_health.v1",
+  "job_count": 2,
+  "failed_job_count": 1,
+  "total_attempts": 3,
+  "total_retry_error_count": 2,
+  "top_failure_job": "model_dashboard_refresh",
+  "top_failure_last_error": "RuntimeError:permanent failure",
+  "dashboard_export": "/Users/rziiiii/dev/workspace/research/dashboard_schedule_retry_health_v1/dashboard_export.json",
+  "dashboard_html": "/Users/rziiiii/dev/workspace/research/dashboard_schedule_retry_health_v1/dashboard.html",
+  "promotion_decision": "promote_to_src_dashboard_schedule_health",
+  "risk_note": "该面板展示 schedule retry 元数据，不负责判断 provider/API 错误是否应该重试。"
+}

@@ -468,12 +468,14 @@ def load_model_matrix_dashboard(
     attribution_card_dir: str | Path | None = None,
     production_health_path: str | Path | None = None,
     notebook_card_manifest_path: str | Path | None = None,
+    schedule_health_path: str | Path | None = None,
     allow_legacy_sidecars: bool = False,
 ) -> dict[str, Any]:
     card = Path(card_dir)
     attribution_card = Path(attribution_card_dir) if attribution_card_dir is not None else None
     health_path = Path(production_health_path) if production_health_path is not None else None
     notebook_manifest_path = Path(notebook_card_manifest_path) if notebook_card_manifest_path is not None else None
+    schedule_path = Path(schedule_health_path) if schedule_health_path is not None else None
     analysis_manifest, artifact_manifest, public_paths = _card_sources(
         card,
         allow_legacy_sidecars=allow_legacy_sidecars,
@@ -531,6 +533,9 @@ def load_model_matrix_dashboard(
     notebook_card_readiness = _load_notebook_card_readiness(notebook_manifest_path)
     if notebook_manifest_path is not None and notebook_card_readiness:
         artifacts["notebook_card_manifest"] = str(notebook_manifest_path)
+    schedule_health = _read_manifest_if_exists(schedule_path) if schedule_path is not None else {}
+    if schedule_path is not None and schedule_health:
+        artifacts["schedule_health"] = str(schedule_path)
     return {
         "schema_version": "dashboard.model_matrix.v1",
         "artifact_id": str(manifest_source.get("artifact_id", card.name)),
@@ -574,6 +579,7 @@ def load_model_matrix_dashboard(
         "attribution": _load_attribution_card(attribution_card, top_n=top_n),
         "production_health": production_health,
         "notebook_card_readiness": notebook_card_readiness,
+        "schedule_health": schedule_health,
         "artifacts": artifacts,
     }
 
@@ -586,6 +592,7 @@ def write_model_matrix_dashboard_export(
     attribution_card_dir: str | Path | None = None,
     production_health_path: str | Path | None = None,
     notebook_card_manifest_path: str | Path | None = None,
+    schedule_health_path: str | Path | None = None,
     allow_legacy_sidecars: bool = False,
 ) -> dict[str, Any]:
     payload = load_model_matrix_dashboard(
@@ -594,6 +601,7 @@ def write_model_matrix_dashboard_export(
         attribution_card_dir=attribution_card_dir,
         production_health_path=production_health_path,
         notebook_card_manifest_path=notebook_card_manifest_path,
+        schedule_health_path=schedule_health_path,
         allow_legacy_sidecars=allow_legacy_sidecars,
     )
     output = Path(output_path)

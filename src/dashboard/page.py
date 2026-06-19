@@ -284,6 +284,47 @@ def _notebook_card_readiness_panel(view_model: dict[str, Any]) -> str:
     """
 
 
+def _schedule_health_panel(view_model: dict[str, Any]) -> str:
+    health = view_model.get("schedule_health", {}) if isinstance(view_model.get("schedule_health"), dict) else {}
+    if not health:
+        return ""
+    jobs = health.get("jobs")
+    job_rows = jobs if isinstance(jobs, list) else []
+    rendered_rows = []
+    for job in job_rows[:8]:
+        if not isinstance(job, dict):
+            continue
+        last_error_type = str(job.get("last_error_type", ""))
+        last_error_message = str(job.get("last_error_message", ""))
+        error_text = f"{last_error_type}:{last_error_message}" if last_error_type or last_error_message else "no retry error"
+        rendered_rows.append(
+            "<li>"
+            f"<strong>{escape(str(job.get('name', '')))}</strong>"
+            f"{_pill(str(job.get('status', 'unknown')), kind=str(job.get('status', '')))}"
+            f"<span>{escape(str(job.get('status', '')))} / attempts {escape(str(job.get('attempts', 0)))} / retry_errors {escape(str(job.get('retry_error_count', 0)))}</span>"
+            f"<p>{escape(error_text)}</p>"
+            "</li>"
+        )
+    rows = "\n".join(rendered_rows)
+    if not rows:
+        rows = '<li class="muted">暂无 schedule job</li>'
+    return f"""
+    <section class="schedule-health" aria-label="schedule health">
+      <header>
+        <h2>Schedule Health</h2>
+        <p>{escape(str(health.get('schema_version', '')))}</p>
+      </header>
+      <div class="schedule-grid">
+        <div><span>Jobs</span><strong>{escape(str(health.get('job_count', 0)))}</strong></div>
+        <div><span>Failed</span><strong>{escape(str(health.get('failed_job_count', 0)))}</strong></div>
+        <div><span>Attempts</span><strong>{escape(str(health.get('total_attempts', 0)))}</strong></div>
+        <div><span>Retry Errors</span><strong>{escape(str(health.get('total_retry_error_count', 0)))}</strong><p>{escape(str(health.get('top_failure_last_error', '')))}</p></div>
+      </div>
+      <ul class="schedule-jobs">{rows}</ul>
+    </section>
+    """
+
+
 def _model_card(card: dict[str, Any]) -> str:
     model = str(card.get("model", ""))
     fidelity = str(card.get("paper_fidelity", ""))
@@ -410,6 +451,8 @@ def _style() -> str:
     .production-health header { margin-bottom: 10px; }
     .notebook-readiness { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .notebook-readiness header { margin-bottom: 10px; }
+    .schedule-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .schedule-health header { margin-bottom: 10px; }
     .model-difference-overview { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .model-difference-overview header { margin-bottom: 10px; }
     .health-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
@@ -424,6 +467,14 @@ def _style() -> str:
     .notebook-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
     .notebook-card-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding-left: 0; margin-top: 10px; }
     .notebook-card-list li { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font-size: 12px; }
+    .schedule-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .schedule-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .schedule-grid span { color: var(--muted); font-size: 12px; }
+    .schedule-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .schedule-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .schedule-jobs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; list-style: none; padding-left: 0; margin: 0; }
+    .schedule-jobs li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .schedule-jobs span, .schedule-jobs p { grid-column: 1 / -1; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; margin: 0; }
     .overview-grid { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 10px; }
     .overview-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .overview-grid span { color: var(--muted); font-size: 12px; }
@@ -477,7 +528,7 @@ def _style() -> str:
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .model-difference-overview .difference-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .readiness-overview .readiness-grid, .readiness-overview .readiness-gates, .production-health .health-grid, .notebook-readiness .notebook-grid, .schedule-health .schedule-grid, .schedule-health .schedule-jobs, .model-difference-overview .difference-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     """
 
 
@@ -551,6 +602,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     readiness_overview_panel = _readiness_overview_panel(view_model)
     production_health_panel = _production_health_panel(view_model)
     notebook_readiness_panel = _notebook_card_readiness_panel(view_model)
+    schedule_health_panel = _schedule_health_panel(view_model)
     cards = "\n".join(_model_card(card) for card in model_cards)
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -584,6 +636,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     {readiness_overview_panel}
     {overview_panel}
     {model_difference_panel}
+    {schedule_health_panel}
     {production_health_panel}
     {notebook_readiness_panel}
     <section class="summary">

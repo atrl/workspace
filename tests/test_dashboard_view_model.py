@@ -224,6 +224,45 @@ def _dashboard_payload_with_readiness_sources() -> dict:
     return payload
 
 
+def _dashboard_payload_with_schedule_health() -> dict:
+    payload = _dashboard_payload()
+    payload["artifacts"]["schedule_health"] = "/path/that/must/not_be_read.json"
+    payload["schedule_health"] = {
+        "schema_version": "dashboard.schedule_health.v1",
+        "job_count": 2,
+        "failed_job_count": 1,
+        "total_attempts": 3,
+        "total_retry_error_count": 2,
+        "top_failure_job": "model_dashboard_refresh",
+        "top_failure_last_error": "RuntimeError:permanent failure",
+        "jobs": [
+            {
+                "name": "model_dashboard_refresh",
+                "status": "failed",
+                "attempts": 2,
+                "retry_schema_version": "schedule.retry_attempts.v1",
+                "retry_error_count": 2,
+                "last_error_attempt": 2,
+                "last_error_type": "RuntimeError",
+                "last_error_message": "permanent failure",
+                "detail": "permanent failure",
+            },
+            {
+                "name": "data_update",
+                "status": "success",
+                "attempts": 1,
+                "retry_schema_version": "schedule.retry_attempts.v1",
+                "retry_error_count": 0,
+                "last_error_attempt": 0,
+                "last_error_type": "",
+                "last_error_message": "",
+                "detail": "",
+            },
+        ],
+    }
+    return payload
+
+
 def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_payload_only():
     payload = _dashboard_payload()
 
@@ -393,6 +432,18 @@ def test_dashboard_view_model_preserves_notebook_card_readiness_from_export_payl
         "template_only",
         "published",
     ]
+    assert "artifacts" not in view
+
+
+def test_dashboard_view_model_preserves_schedule_health_from_export_payload_only():
+    view = build_dashboard_view_model(_dashboard_payload_with_schedule_health())
+
+    assert view["schedule_health"]["schema_version"] == "dashboard.schedule_health.v1"
+    assert view["schedule_health"]["failed_job_count"] == 1
+    assert view["schedule_health"]["total_retry_error_count"] == 2
+    assert view["schedule_health"]["top_failure_job"] == "model_dashboard_refresh"
+    assert view["schedule_health"]["top_failure_last_error"] == "RuntimeError:permanent failure"
+    assert view["schedule_health"]["jobs"][0]["last_error_message"] == "permanent failure"
     assert "artifacts" not in view
 
 

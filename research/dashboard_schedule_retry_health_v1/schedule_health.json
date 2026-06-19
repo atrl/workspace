@@ -1,0 +1,33 @@
+{
+  "schema_version": "dashboard.schedule_health.v1",
+  "job_count": 2,
+  "failed_job_count": 1,
+  "total_attempts": 3,
+  "total_retry_error_count": 2,
+  "top_failure_job": "model_dashboard_refresh",
+  "top_failure_last_error": "RuntimeError:permanent failure",
+  "jobs": [
+    {
+      "name": "model_dashboard_refresh",
+      "status": "failed",
+      "attempts": 2,
+      "retry_schema_version": "schedule.retry_attempts.v1",
+      "retry_error_count": 2,
+      "last_error_attempt": 2,
+      "last_error_type": "RuntimeError",
+      "last_error_message": "permanent failure",
+      "detail": "permanent failure"
+    },
+    {
+      "name": "data_update",
+      "status": "success",
+      "attempts": 1,
+      "retry_schema_version": "schedule.retry_attempts.v1",
+      "retry_error_count": 0,
+      "last_error_attempt": 0,
+      "last_error_type": "",
+      "last_error_message": "",
+      "detail": ""
+    }
+  ]
+}

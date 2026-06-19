@@ -250,6 +250,45 @@ def _view_model_with_readiness_overview() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_schedule_health() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"schedule_health": "/path/that/must/not/be/rendered.json"}
+    payload["schedule_health"] = {
+        "schema_version": "dashboard.schedule_health.v1",
+        "job_count": 2,
+        "failed_job_count": 1,
+        "total_attempts": 3,
+        "total_retry_error_count": 2,
+        "top_failure_job": "model_dashboard_refresh",
+        "top_failure_last_error": "RuntimeError:permanent failure",
+        "jobs": [
+            {
+                "name": "model_dashboard_refresh",
+                "status": "failed",
+                "attempts": 2,
+                "retry_schema_version": "schedule.retry_attempts.v1",
+                "retry_error_count": 2,
+                "last_error_attempt": 2,
+                "last_error_type": "RuntimeError",
+                "last_error_message": "permanent failure",
+                "detail": "permanent failure",
+            },
+            {
+                "name": "data_update",
+                "status": "success",
+                "attempts": 1,
+                "retry_schema_version": "schedule.retry_attempts.v1",
+                "retry_error_count": 0,
+                "last_error_attempt": 0,
+                "last_error_type": "",
+                "last_error_message": "",
+                "detail": "",
+            },
+        ],
+    }
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -333,6 +372,19 @@ def test_render_dashboard_html_outputs_readiness_overview_without_sidecar_paths(
     assert "published 1 / template 1" in html
     assert "31 / 32 complete" in html
     assert "trained 2 / backtested 2 / expected 2" in html
+    assert "/path/that/must/not/be/rendered.json" not in html
+
+
+def test_render_dashboard_html_outputs_schedule_health_retry_panel_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_schedule_health(), title="SOXL Schedule Health")
+
+    assert "Schedule Health" in html
+    assert "dashboard.schedule_health.v1" in html
+    assert "model_dashboard_refresh" in html
+    assert "failed" in html
+    assert "attempts 2" in html
+    assert "retry_errors 2" in html
+    assert "RuntimeError:permanent failure" in html
     assert "/path/that/must/not/be/rendered.json" not in html
 
 

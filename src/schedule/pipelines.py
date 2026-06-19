@@ -62,6 +62,7 @@ class ModelDashboardPipelineConfig:
     attribution_card_dir: Path | None = None
     production_health_path: Path | None = None
     notebook_card_manifest_path: Path | None = None
+    schedule_health_path: Path | None = None
     dashboard_page_output_path: Path | None = None
     dashboard_page_title: str = "SOXL Dashboard"
     analysis_manifest_preflight: bool = True
@@ -775,6 +776,7 @@ def _default_dashboard_exporter(
     attribution_card_dir: Path | None = None,
     production_health_path: Path | None = None,
     notebook_card_manifest_path: Path | None = None,
+    schedule_health_path: Path | None = None,
 ) -> dict[str, Any]:
     return write_model_matrix_dashboard_export(
         card_dir,
@@ -783,6 +785,7 @@ def _default_dashboard_exporter(
         attribution_card_dir=attribution_card_dir,
         production_health_path=production_health_path,
         notebook_card_manifest_path=notebook_card_manifest_path,
+        schedule_health_path=schedule_health_path,
     )
 
 
@@ -1155,6 +1158,8 @@ def _run_pipeline_attempt(
         dashboard_kwargs["production_health_path"] = config.production_health_path
     if config.notebook_card_manifest_path is not None:
         dashboard_kwargs["notebook_card_manifest_path"] = config.notebook_card_manifest_path
+    if config.schedule_health_path is not None:
+        dashboard_kwargs["schedule_health_path"] = config.schedule_health_path
     dashboard_payload = dashboard_exporter(config.card_dir, **dashboard_kwargs)
     page_payload: dict[str, Any] = {}
     if config.dashboard_page_output_path is not None:
