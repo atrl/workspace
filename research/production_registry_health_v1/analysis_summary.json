@@ -1,0 +1,15 @@
+{
+  "schema_version": "research.production_registry_health.v1",
+  "status": "success",
+  "strategy_id": "paper_sim_replay_v1",
+  "health_status": "healthy",
+  "is_healthy": true,
+  "manifest_hash": "225b34eb7f25fcc12a97d0cd184b0f745f5978a25c24600f671620e7853c2bbf",
+  "manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+  "mode": "paper",
+  "live_broker_enabled": false,
+  "checked_path_count": 7,
+  "missing_required_paths": [],
+  "dashboard_export_path": "production/paper_sim_replay_v1/dashboard_export.json",
+  "notification": "research_production_health_check_v1:success | strategy=paper_sim_replay_v1 | health=healthy | missing=0 | manifest=production/paper_sim_replay_v1/production_manifest.json"
+}

@@ -57,6 +57,25 @@ class ModelDashboardPipelineConfig:
     retries: int = 0
 
 
+@dataclass(frozen=True)
+class ProductionHealthCheckConfig:
+    name: str
+    registry_path: Path
+    strategy_id: str
+    output_path: Path | None = None
+    required_paths: tuple[str, ...] = (
+        "notebook",
+        "summary",
+        "dashboard_export",
+        "intent_ledger",
+        "paper_execution_result",
+        "data_registry",
+        "analysis_manifest",
+    )
+    notify_details: bool = False
+    retries: int = 0
+
+
 MatrixRunner = Callable[..., Any]
 DashboardExporter = Callable[..., dict[str, Any]]
 DashboardPageExporter = Callable[..., dict[str, Any]]
@@ -193,6 +212,143 @@ def run_data_update_once(
             return
         _, _, status = message.partition(":")
         notify(_data_update_notification(config.name, status, latest_payload))
+
+    return run_job_once(
+        job,
+        task=task,
+        lock_dir=lock_dir,
+        notify=notify_with_details if notify is not None else None,
+    )
+
+
+def _resolve_declared_path(value: str, *, base_dir: Path) -> Path:
+    path = Path(value)
+    if path.is_absolute() or path.exists():
+        return path
+    return base_dir / path
+
+
+def _production_health_attempt(config: ProductionHealthCheckConfig) -> dict[str, Any]:
+    registry_path = Path(config.registry_path)
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    strategy_entry = registry.get("strategies", {}).get(config.strategy_id)
+    if not isinstance(strategy_entry, dict):
+        raise ValueError(f"production registry missing strategy_id: {config.strategy_id}")
+    current = strategy_entry.get("current")
+    if not isinstance(current, dict):
+        raise ValueError(f"production registry current pointer missing: {config.strategy_id}")
+
+    manifest_path = _resolve_declared_path(str(current.get("manifest_path", "")), base_dir=registry_path.parent)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_dir = manifest_path.parent
+    manifest_hash = str(manifest.get("manifest_hash", ""))
+    current_hash = str(current.get("manifest_hash", ""))
+    metadata = manifest.get("metadata") if isinstance(manifest.get("metadata"), dict) else {}
+    paths = manifest.get("paths") if isinstance(manifest.get("paths"), dict) else {}
+
+    missing_required_paths: list[str] = []
+    resolved_paths: dict[str, str] = {}
+    for key in config.required_paths:
+        declared = paths.get(key)
+        if not declared:
+            missing_required_paths.append(str(key))
+            continue
+        resolved = _resolve_declared_path(str(declared), base_dir=manifest_dir)
+        resolved_paths[str(key)] = str(resolved)
+        if not resolved.exists():
+            missing_required_paths.append(str(key))
+
+    hash_matches = not current_hash or current_hash == manifest_hash
+    health_status = "healthy"
+    if not hash_matches:
+        health_status = "manifest_hash_mismatch"
+    elif missing_required_paths:
+        health_status = "missing_required_paths"
+
+    payload = {
+        "schema_version": "schedule.production_health.v1",
+        "strategy_id": config.strategy_id,
+        "health_status": health_status,
+        "is_healthy": health_status == "healthy",
+        "registry_path": str(registry_path),
+        "manifest_path": str(manifest_path),
+        "manifest_hash": manifest_hash,
+        "registry_manifest_hash": current_hash,
+        "manifest_hash_matches_registry": hash_matches,
+        "artifact_id": str(manifest.get("artifact_id", "")),
+        "artifact_type": str(manifest.get("artifact_type", "")),
+        "mode": str(metadata.get("mode", "")),
+        "status": str(metadata.get("status", "")),
+        "live_broker_enabled": bool(metadata.get("live_broker_enabled", False)),
+        "published_at": str(manifest.get("published_at") or current.get("published_at", "")),
+        "start": str(current.get("start", "")),
+        "end": str(current.get("end", "")),
+        "required_path_count": int(len(config.required_paths)),
+        "checked_path_count": int(len(config.required_paths)),
+        "missing_required_paths": missing_required_paths,
+        "resolved_paths": resolved_paths,
+        "dashboard_export_path": resolved_paths.get("dashboard_export", ""),
+        "intent_ledger_path": resolved_paths.get("intent_ledger", ""),
+        "paper_execution_result_path": resolved_paths.get("paper_execution_result", ""),
+        "output_path": str(config.output_path) if config.output_path is not None else "",
+    }
+    return payload
+
+
+def _production_health_task_with_retries(config: ProductionHealthCheckConfig) -> dict[str, Any]:
+    attempts = 0
+    last_error: Exception | None = None
+    for attempt in range(config.retries + 1):
+        attempts = attempt + 1
+        try:
+            payload = _production_health_attempt(config)
+            payload["attempts"] = attempts
+            if config.output_path is not None:
+                output = Path(config.output_path)
+                output.parent.mkdir(parents=True, exist_ok=True)
+                output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+            return payload
+        except Exception as exc:
+            last_error = exc
+            if attempt >= config.retries:
+                break
+    raise RuntimeError(str(last_error) if last_error else "production health check failed")
+
+
+def _production_health_notification(job_name: str, status: str, payload: dict[str, Any]) -> str:
+    if status != "success":
+        return f"{job_name}:{status}"
+    return (
+        f"{job_name}:success"
+        f" | strategy={payload.get('strategy_id', '')}"
+        f" | health={payload.get('health_status', '')}"
+        f" | missing={len(payload.get('missing_required_paths', []))}"
+        f" | manifest={payload.get('manifest_path', '')}"
+    )
+
+
+def run_production_health_check_once(
+    config: ProductionHealthCheckConfig,
+    *,
+    lock_dir: str | Path,
+    notify: Callable[[str], None] | None = None,
+) -> JobResult:
+    job = ScheduleJob(name=config.name, task="production_health_check", cron="manual")
+    latest_payload: dict[str, Any] = {}
+
+    def task() -> dict[str, Any]:
+        nonlocal latest_payload
+        latest_payload = _production_health_task_with_retries(config)
+        return latest_payload
+
+    def notify_with_details(message: str) -> None:
+        if notify is None:
+            return
+        if not config.notify_details:
+            notify(message)
+            return
+        _, _, status = message.partition(":")
+        notify(_production_health_notification(config.name, status, latest_payload))
 
     return run_job_once(
         job,
