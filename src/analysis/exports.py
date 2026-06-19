@@ -10,7 +10,12 @@ import pandas as pd
 from src.core import ArtifactManifest, DatasetSnapshot
 
 from .failure_modes import build_failure_modes
-from .qlib_ext import RegimeWindowEffectAnalysis, build_analysis_overview, build_model_review_briefing
+from .qlib_ext import (
+    RegimeWindowEffectAnalysis,
+    build_analysis_overview,
+    build_model_difference_explanations,
+    build_model_review_briefing,
+)
 
 
 ANALYSIS_REPORT_SCHEMA_VERSION = "analysis.report.v1"
@@ -30,6 +35,7 @@ DEFAULT_ANALYSIS_TABLE_FILENAMES = {
     "segment_effect_matrix": "segment_effect_matrix.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
     "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
+    "model_difference_explanations": "model_difference_explanations.csv",
     "model_review_briefing": "model_review_briefing.csv",
     "failure_modes": "failure_modes.csv",
     "qlib_portfolio_report": "qlib_portfolio_report.csv",
@@ -92,6 +98,7 @@ def build_regime_window_analysis_report(
     metadata: Mapping[str, Any] | None = None,
 ) -> AnalysisReport:
     model_review_briefing = build_model_review_briefing(effect_analysis)
+    model_difference_explanations = build_model_difference_explanations(effect_analysis)
     tables: dict[str, pd.DataFrame] = {
         "qlib_return_frame": effect_analysis.qlib_return_frame,
         "qlib_risk_metrics": effect_analysis.qlib_risk_metrics,
@@ -100,6 +107,7 @@ def build_regime_window_analysis_report(
         "window_regime_metrics": effect_analysis.window_regime_metrics,
         "model_effect_deltas": effect_analysis.model_effect_deltas,
         "model_regime_window_diagnostics": effect_analysis.model_regime_window_diagnostics,
+        "model_difference_explanations": model_difference_explanations,
         "model_review_briefing": model_review_briefing,
         "failure_modes": build_failure_modes(effect_analysis.model_effect_deltas),
     }

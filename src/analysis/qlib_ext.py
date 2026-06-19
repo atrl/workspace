@@ -18,9 +18,35 @@ from .windows import build_analysis_window_table
 
 QLIB_RISK_SOURCE = "qlib.contrib.evaluate.risk_analysis"
 SEGMENT_EFFECT_MATRIX_SCHEMA_VERSION = "analysis.segment_effect_matrix.v1"
+MODEL_DIFFERENCE_EXPLANATION_SCHEMA_VERSION = "analysis.model_difference_explanation.v1"
 MODEL_REGIME_WINDOW_DIAGNOSTIC_SCHEMA_VERSION = "analysis.model_regime_window_diagnostic.v1"
 MODEL_REVIEW_BRIEFING_SCHEMA_VERSION = "analysis.model_review_briefing.v1"
 ANALYSIS_OVERVIEW_SCHEMA_VERSION = "analysis.overview.v1"
+
+MODEL_DIFFERENCE_EXPLANATION_COLUMNS = [
+    "schema_version",
+    "priority_rank",
+    "segment_type",
+    "segment",
+    "window",
+    "regime",
+    "baseline_model",
+    "winner_model",
+    "loser_model",
+    "winner_relative_return_pct",
+    "loser_relative_return_pct",
+    "relative_return_pct_spread",
+    "winner_vs_baseline_delta",
+    "winner_stability_model",
+    "winner_stability_vs_baseline_delta",
+    "highest_drawdown_model",
+    "highest_drawdown_pct",
+    "drawdown_pct_spread",
+    "explanation_signal",
+    "decision_hint",
+    "priority_score",
+    "review_note",
+]
 
 MODEL_REVIEW_BRIEFING_COLUMNS = [
     "schema_version",
@@ -469,6 +495,98 @@ def build_segment_effect_matrix(
     if not rows:
         return pd.DataFrame()
     return pd.DataFrame(rows).sort_values(["segment_type", "segment"]).reset_index(drop=True)
+
+
+def _difference_signal(row: pd.Series) -> tuple[str, str, float, str]:
+    segment = _clean_string(row.get("segment", ""))
+    baseline = _clean_string(row.get("baseline_model", ""))
+    winner = _clean_string(row.get("best_relative_return_model", ""))
+    loser = _clean_string(row.get("worst_relative_return_model", ""))
+    spread = _clean_metric(row.get("relative_return_pct_spread"))
+    winner_delta = _clean_metric(row.get("best_relative_return_vs_baseline_delta"))
+    winner_stability_delta = _clean_metric(row.get("best_stability_vs_baseline_delta"))
+    drawdown_spread = _clean_metric(row.get("drawdown_pct_spread"))
+
+    priority_score = max(0.0, spread) * 2.0 + max(0.0, drawdown_spread) * 0.5 + max(0.0, abs(winner_delta))
+    if baseline and winner != baseline and winner_delta >= 0.5 and winner_stability_delta >= 0.0:
+        return (
+            "segment_winner",
+            "promote_segment_candidate",
+            priority_score,
+            f"中文 review：{winner} 在 {segment} 强于基准 {baseline}，可作为该 regime/window 的分段候选；仍需复核回撤、换手和组合互补性。",
+        )
+    if baseline and winner == baseline and spread > 0.5:
+        return (
+            "baseline_defends",
+            "block_or_rework_loser",
+            priority_score,
+            f"中文 review：基准 {baseline} 在 {segment} 领先，{loser} 是当前 loser；晋升前应重做该分段信号、仓位或风险约束。",
+        )
+    if drawdown_spread > 2.0:
+        return (
+            "risk_dispersion",
+            "risk_review",
+            priority_score,
+            f"中文 review：{segment} 的模型回撤差异较大，需优先检查 {row.get('highest_drawdown_model', '')} 的压力期暴露。",
+        )
+    return (
+        "small_gap",
+        "monitor",
+        priority_score,
+        f"中文 review：{segment} 的模型差异较小，暂不单独晋升；继续结合成本、换手和稳定性观察。",
+    )
+
+
+def build_model_difference_explanations(
+    analysis: RegimeWindowEffectAnalysis | pd.DataFrame,
+    *,
+    max_rows: int | None = None,
+) -> pd.DataFrame:
+    """Build a segment-level Chinese explanation table for model differences."""
+
+    matrix = analysis.segment_effect_matrix if isinstance(analysis, RegimeWindowEffectAnalysis) else analysis
+    if matrix.empty:
+        return pd.DataFrame(columns=MODEL_DIFFERENCE_EXPLANATION_COLUMNS)
+
+    rows: list[dict[str, object]] = []
+    for _, row in matrix.iterrows():
+        signal, decision_hint, priority_score, review_note = _difference_signal(row)
+        rows.append(
+            {
+                "schema_version": MODEL_DIFFERENCE_EXPLANATION_SCHEMA_VERSION,
+                "priority_rank": 0,
+                "segment_type": _clean_string(row.get("segment_type", "")),
+                "segment": _clean_string(row.get("segment", "")),
+                "window": _clean_string(row.get("window", "")),
+                "regime": _clean_string(row.get("regime", "")),
+                "baseline_model": _clean_string(row.get("baseline_model", "")),
+                "winner_model": _clean_string(row.get("best_relative_return_model", "")),
+                "loser_model": _clean_string(row.get("worst_relative_return_model", "")),
+                "winner_relative_return_pct": _clean_metric(row.get("best_relative_return_pct")),
+                "loser_relative_return_pct": _clean_metric(row.get("worst_relative_return_pct")),
+                "relative_return_pct_spread": _clean_metric(row.get("relative_return_pct_spread")),
+                "winner_vs_baseline_delta": _clean_metric(row.get("best_relative_return_vs_baseline_delta")),
+                "winner_stability_model": _clean_string(row.get("best_stability_model", "")),
+                "winner_stability_vs_baseline_delta": _clean_metric(row.get("best_stability_vs_baseline_delta")),
+                "highest_drawdown_model": _clean_string(row.get("highest_drawdown_model", "")),
+                "highest_drawdown_pct": _clean_metric(row.get("highest_drawdown_pct")),
+                "drawdown_pct_spread": _clean_metric(row.get("drawdown_pct_spread")),
+                "explanation_signal": signal,
+                "decision_hint": decision_hint,
+                "priority_score": round(priority_score, 6),
+                "review_note": review_note,
+            }
+        )
+
+    result = pd.DataFrame(rows, columns=MODEL_DIFFERENCE_EXPLANATION_COLUMNS).sort_values(
+        ["priority_score", "segment_type", "segment"],
+        ascending=[False, True, True],
+    )
+    if max_rows is not None:
+        result = result.head(max_rows)
+    result = result.reset_index(drop=True)
+    result["priority_rank"] = range(1, len(result) + 1)
+    return result
 
 
 def _briefing_signal(row: pd.Series) -> tuple[str, str, float, str]:

@@ -5,9 +5,11 @@ import pandas as pd
 from src.analysis import (
     analyze_model_effects_by_regime_and_window,
     build_analysis_overview,
+    build_model_difference_explanations,
     build_model_regime_window_diagnostics,
     build_model_review_briefing,
     build_qlib_return_frame,
+    build_regime_window_analysis_report,
     build_segment_effect_matrix,
     compute_qlib_risk_metrics,
     compute_window_regime_metrics,
@@ -189,6 +191,69 @@ def test_build_segment_effect_matrix_summarizes_winners_losers_and_baseline_gaps
     assert bull["best_relative_return_model"] == "gcn_mse"
     assert float(bull["best_relative_return_vs_baseline_delta"]) > 0.0
     assert "强于基准" in bull["review_note"]
+
+
+def test_build_model_difference_explanations_summarizes_segment_winners_losers_in_chinese():
+    analysis = analyze_model_effects_by_regime_and_window(
+        _daily_frame(),
+        windows={"early": ("2026-01-01", "2026-01-04"), "stress_window": ("2026-01-05", "2026-01-07")},
+        baseline_model="ridge_mse",
+    )
+
+    explanations = build_model_difference_explanations(analysis, max_rows=20)
+
+    assert {
+        "schema_version",
+        "priority_rank",
+        "segment_type",
+        "segment",
+        "baseline_model",
+        "winner_model",
+        "loser_model",
+        "relative_return_pct_spread",
+        "winner_vs_baseline_delta",
+        "explanation_signal",
+        "decision_hint",
+        "review_note",
+    }.issubset(explanations.columns)
+    assert explanations["schema_version"].nunique() == 1
+    assert explanations["schema_version"].iloc[0] == "analysis.model_difference_explanation.v1"
+    assert list(explanations["priority_rank"]) == list(range(1, len(explanations) + 1))
+
+    stress = explanations.loc[explanations["segment"] == "stress_window::stress"].iloc[0]
+    assert stress["winner_model"] == "ridge_mse"
+    assert stress["loser_model"] == "gcn_mse"
+    assert stress["explanation_signal"] == "baseline_defends"
+    assert stress["decision_hint"] == "block_or_rework_loser"
+    assert "中文 review" in stress["review_note"]
+    assert "gcn_mse" in stress["review_note"]
+    assert float(stress["relative_return_pct_spread"]) > 0.0
+
+    bull = explanations.loc[(explanations["segment_type"] == "regime") & (explanations["segment"] == "bull")].iloc[0]
+    assert bull["winner_model"] == "gcn_mse"
+    assert bull["explanation_signal"] == "segment_winner"
+    assert bull["decision_hint"] == "promote_segment_candidate"
+    assert "强于基准" in bull["review_note"]
+
+
+def test_regime_window_analysis_report_exports_model_difference_explanations_table():
+    analysis = analyze_model_effects_by_regime_and_window(
+        _daily_frame(),
+        windows={"early": ("2026-01-01", "2026-01-04"), "stress_window": ("2026-01-05", "2026-01-07")},
+        baseline_model="ridge_mse",
+    )
+
+    report = build_regime_window_analysis_report(
+        artifact_id="unit_difference_explanations",
+        effect_analysis=analysis,
+    )
+
+    assert "model_difference_explanations" in report.tables
+    assert "model_difference_explanations" in report.summary["analysis_layers"]
+    assert report.summary["analysis_table_counts"]["model_difference_explanations"] >= 1
+    assert report.tables["model_difference_explanations"]["schema_version"].iloc[0] == (
+        "analysis.model_difference_explanation.v1"
+    )
 
 
 def test_build_model_review_briefing_prioritizes_regime_window_model_differences_with_chinese_notes():
