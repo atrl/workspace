@@ -412,7 +412,7 @@ def test_model_dashboard_refresh_can_send_payload_aware_success_notification(tmp
         "| analysis_preflight=backfilled | attempts=1 | export="
         + str(config.dashboard_output_path)
     )
-    assert "readiness=review pass=0 review=1 block=0" in events[0]
+    assert "readiness=review pass=1 review=1 block=0" in events[0]
 
 
 def test_model_dashboard_refresh_detailed_notification_includes_top_failure_mode(tmp_path):
@@ -939,6 +939,13 @@ def test_model_dashboard_refresh_detailed_notification_includes_readiness_overvi
         payload = {
             "schema_version": "dashboard.model_matrix.v1",
             "artifact_id": "readiness_card",
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": "matrix_card/analysis_manifest.json",
+                "schema_version": "artifact.v1",
+                "manifest_hash": "a" * 64,
+                "producer": "src.analysis.exports",
+            },
             "top_models": [{"model": "ridge_mse", "rank": 1}],
             "production_health": {
                 "schema_version": "schedule.production_health.v1",
@@ -1001,13 +1008,16 @@ def test_model_dashboard_refresh_detailed_notification_includes_readiness_overvi
     assert result.status == "success"
     assert result.payload["readiness_overview_schema_version"] == "dashboard.readiness_overview.v1"
     assert result.payload["readiness_overview_status"] == "review"
-    assert result.payload["readiness_overview_gate_count"] == 4
-    assert result.payload["readiness_overview_pass_count"] == 2
+    assert result.payload["readiness_overview_gate_count"] == 5
+    assert result.payload["readiness_overview_pass_count"] == 3
     assert result.payload["readiness_overview_review_count"] == 2
     assert result.payload["readiness_overview_block_count"] == 0
-    assert result.payload["readiness_overview_gates"] == "production_health,notebook_cards,requested_models,model_runs"
+    assert (
+        result.payload["readiness_overview_gates"]
+        == "dashboard_manifest,production_health,notebook_cards,requested_models,model_runs"
+    )
     assert result.payload["readiness_overview_block_gates"] == ""
-    assert "readiness=review pass=2 review=2 block=0" in events[0]
+    assert "readiness=review pass=3 review=2 block=0" in events[0]
 
 
 def test_model_dashboard_refresh_passes_optional_attribution_card_to_dashboard_export(tmp_path):

@@ -323,6 +323,8 @@ def test_render_dashboard_html_outputs_readiness_overview_without_sidecar_paths(
     assert "dashboard.readiness_overview.v1" in html
     assert "Overall" in html
     assert "review" in html
+    assert "Dashboard Manifest" in html
+    assert "analysis_manifest / complete" in html
     assert "Production Health" in html
     assert "Notebook Cards" in html
     assert "Requested Models" in html
@@ -332,6 +334,24 @@ def test_render_dashboard_html_outputs_readiness_overview_without_sidecar_paths(
     assert "31 / 32 complete" in html
     assert "trained 2 / backtested 2 / expected 2" in html
     assert "/path/that/must/not/be/rendered.json" not in html
+
+
+def test_render_dashboard_html_outputs_blocked_dashboard_manifest_readiness_gate():
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["manifest_source"] = {
+        "kind": "fixed_sidecars",
+        "path": "",
+        "manifest_hash": "",
+        "producer": "src.dashboard.model_matrix",
+    }
+    view = build_dashboard_view_model(payload)
+
+    html = render_dashboard_html(view, title="SOXL Manifest Gate")
+
+    assert "Readiness Overview" in html
+    assert "blocked" in html
+    assert "Dashboard Manifest" in html
+    assert "fixed_sidecars / weak_kind" in html
 
 
 def test_render_dashboard_html_outputs_failure_mode_sections_without_sidecar_paths():

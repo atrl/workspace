@@ -297,11 +297,14 @@ def test_dashboard_view_model_builds_readiness_overview_from_export_payload_only
     overview = view["readiness_overview"]
     assert overview["schema_version"] == "dashboard.readiness_overview.v1"
     assert overview["status"] == "review"
-    assert overview["gate_count"] == 4
-    assert overview["pass_count"] == 2
+    assert overview["gate_count"] == 5
+    assert overview["pass_count"] == 3
     assert overview["review_count"] == 2
     assert overview["block_count"] == 0
     gates = {gate["gate"]: gate for gate in overview["gates"]}
+    assert gates["dashboard_manifest"]["status"] == "pass"
+    assert gates["dashboard_manifest"]["detail"].startswith("analysis_manifest / complete")
+    assert gates["dashboard_manifest"]["source_schema_version"] == "artifact.v1"
     assert gates["production_health"]["status"] == "pass"
     assert gates["production_health"]["detail"] == "healthy / missing 0"
     assert gates["notebook_cards"]["status"] == "review"
@@ -311,6 +314,33 @@ def test_dashboard_view_model_builds_readiness_overview_from_export_payload_only
     assert gates["model_runs"]["status"] == "pass"
     assert gates["model_runs"]["detail"] == "trained 2 / backtested 2 / expected 2"
     assert "artifacts" not in view
+
+
+def test_dashboard_view_model_blocks_readiness_when_dashboard_manifest_source_missing_or_legacy():
+    missing_payload = _dashboard_payload_with_readiness_sources()
+    missing_payload.pop("manifest_source", None)
+
+    missing_view = build_dashboard_view_model(missing_payload)
+    missing_gates = {gate["gate"]: gate for gate in missing_view["readiness_overview"]["gates"]}
+
+    assert missing_view["readiness_overview"]["status"] == "blocked"
+    assert missing_gates["dashboard_manifest"]["status"] == "block"
+    assert missing_gates["dashboard_manifest"]["detail"] == "missing / missing hash "
+
+    legacy_payload = _dashboard_payload_with_readiness_sources()
+    legacy_payload["manifest_source"] = {
+        "kind": "fixed_sidecars",
+        "path": "",
+        "manifest_hash": "",
+        "producer": "src.dashboard.model_matrix",
+    }
+
+    legacy_view = build_dashboard_view_model(legacy_payload)
+    legacy_gates = {gate["gate"]: gate for gate in legacy_view["readiness_overview"]["gates"]}
+
+    assert legacy_view["readiness_overview"]["status"] == "blocked"
+    assert legacy_gates["dashboard_manifest"]["status"] == "block"
+    assert legacy_gates["dashboard_manifest"]["detail"] == "fixed_sidecars / weak_kind hash "
 
 
 def test_dashboard_view_model_preserves_production_health_from_export_payload_only():

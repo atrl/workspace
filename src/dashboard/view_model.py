@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 
+DASHBOARD_MANIFEST_ALLOWED_KINDS = ("analysis_manifest", "artifact_manifest")
+
+
 @dataclass(frozen=True)
 class DashboardViewFilters:
     models: tuple[str, ...] = ()
@@ -298,8 +301,74 @@ def _int_field(row: dict[str, Any], key: str) -> int:
         return 0
 
 
+def _dashboard_manifest_context(payload: dict[str, Any]) -> dict[str, Any]:
+    allowed = DASHBOARD_MANIFEST_ALLOWED_KINDS
+    base = {
+        "required": True,
+        "status": "missing",
+        "kind": "missing",
+        "path": "",
+        "manifest_hash": "",
+        "producer": "",
+        "schema_version": "",
+        "allowed_kinds": ",".join(allowed),
+        "error": "",
+    }
+    manifest_source = payload.get("manifest_source")
+    if not isinstance(manifest_source, dict):
+        return base
+
+    kind = str(manifest_source.get("kind", ""))
+    manifest_path = str(manifest_source.get("path", ""))
+    manifest_hash = str(manifest_source.get("manifest_hash", ""))
+    producer = str(manifest_source.get("producer", ""))
+    context = {
+        **base,
+        "kind": kind,
+        "path": manifest_path,
+        "manifest_hash": manifest_hash,
+        "producer": producer,
+        "schema_version": str(manifest_source.get("schema_version", "")),
+    }
+    if kind not in allowed:
+        context["status"] = "weak_kind"
+        context["error"] = f"kind {kind} not allowed"
+        return context
+
+    missing_fields = [
+        field
+        for field, value in (
+            ("path", manifest_path),
+            ("manifest_hash", manifest_hash),
+            ("producer", producer),
+        )
+        if not value
+    ]
+    if missing_fields:
+        context["status"] = "incomplete"
+        context["error"] = "missing " + ",".join(missing_fields)
+        return context
+
+    context["status"] = "complete"
+    return context
+
+
 def _readiness_overview(payload: dict[str, Any]) -> dict[str, Any]:
     gates: list[dict[str, Any]] = []
+    manifest_context = _dashboard_manifest_context(payload)
+    gates.append(
+        {
+            "gate": "dashboard_manifest",
+            "label": "Dashboard Manifest",
+            "status": "pass" if manifest_context["status"] == "complete" else "block",
+            "detail": (
+                f"{manifest_context['kind']} / {manifest_context['status']} "
+                f"hash {str(manifest_context.get('manifest_hash', ''))[:10]}"
+            ),
+            "source_schema_version": str(manifest_context.get("schema_version", "")),
+        }
+    )
+
     production_health = payload.get("production_health")
     if isinstance(production_health, dict) and production_health:
         missing = production_health.get("missing_required_paths")
@@ -577,6 +646,7 @@ def build_dashboard_view_model(
         "schema_version": "dashboard.view_model.v1",
         "source_schema_version": str(payload.get("schema_version", "")),
         "source_artifact_id": str(payload.get("artifact_id", "")),
+        "manifest_source": dict(payload.get("manifest_source", {})) if isinstance(payload.get("manifest_source"), dict) else {},
         "filters_applied": active_filters.to_dict(),
         "controls": _controls(payload, capabilities),
         "summary": dict(payload.get("summary", {})) if isinstance(payload.get("summary"), dict) else {},
