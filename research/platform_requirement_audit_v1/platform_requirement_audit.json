@@ -49,12 +49,12 @@
         "production"
       ],
       "metrics": {
-        "card_count": 124,
+        "card_count": 125,
         "missing_chinese_conclusion_count": 0,
         "multiple_notebook_count": 0,
         "production_published_count": 1,
         "production_template_count": 1,
-        "ready_count": 124
+        "ready_count": 125
       },
       "notes": "notebook 是中文 review 和复现实验的主证据；CSV/JSON 只作为 sidecar。",
       "requirement": "research/production 每个卡片必须有单一主 notebook，且最后有中文结论。",
@@ -278,8 +278,8 @@
         "research/knowledge_ingest/knowledge_promotion_audit.json"
       ],
       "metrics": {
-        "promotion_audit_blocked_count": 1,
-        "promotion_audit_ready_count": 9,
+        "promotion_audit_blocked_count": 0,
+        "promotion_audit_ready_count": 10,
         "promotion_evidence_source": "research_card_scan",
         "source_count": 10
       },
@@ -287,7 +287,7 @@
       "requirement": "外部知识必须先进入 research/knowledge_ingest，并经过结构化假设、证据扫描和 promotion audit。",
       "requirement_id": "external_knowledge_promotion_backlog",
       "schema_version": "core.platform_requirement_audit_item.v1",
-      "status": "review"
+      "status": "pass"
     },
     {
       "category": "skill",
@@ -315,18 +315,17 @@
     "completion_claim": "not_claimed",
     "failed_count": 0,
     "failed_requirement_ids": [],
-    "passed_count": 11,
+    "passed_count": 12,
     "requirement_count": 13,
-    "review_count": 2,
+    "review_count": 1,
     "review_requirement_ids": [
-      "production_readiness_review_gate",
-      "external_knowledge_promotion_backlog"
+      "production_readiness_review_gate"
     ],
     "schema_version": "core.platform_requirement_audit.summary.v1",
     "status": "review",
     "status_counts": {
-      "pass": 11,
-      "review": 2
+      "pass": 12,
+      "review": 1
     }
   }
 }

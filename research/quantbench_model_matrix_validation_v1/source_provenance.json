@@ -1,0 +1,21 @@
+{
+  "schema_version": "knowledge.source_provenance.v1",
+  "source_id": "arxiv:2504.18600",
+  "source_type": "arxiv",
+  "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment",
+  "url": "https://arxiv.org/abs/2504.18600",
+  "retrieved_at": "2026-06-19",
+  "access_status": "metadata_accessible",
+  "source_used_as": "hypothesis_only",
+  "usage_scope": "hypothesis_and_adapter_reference",
+  "source_reliability": "primary_metadata",
+  "license_note": "只保存 arXiv URL、自有摘要和结构化假设；未复制论文全文。",
+  "external_source_checks": {
+    "arxiv_url": "https://arxiv.org/abs/2504.18600",
+    "copied_paper_text": false,
+    "copied_paper_full_text": false,
+    "copied_paper_figures": false,
+    "vendored_external_code": false,
+    "implementation_source": "repo_owned_quantbench_all_model_run_ledger_v1"
+  }
+}

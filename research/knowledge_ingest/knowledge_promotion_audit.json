@@ -166,29 +166,28 @@
     },
     {
       "allowed_next_surface": "research/quantbench_model_matrix_validation_v1/quantbench_model_matrix_validation_v1.ipynb",
-      "allowed_surfaces_after_gate": [],
-      "blocked_surfaces": [
-        "src",
-        "production",
-        "skill"
+      "allowed_surfaces_after_gate": [
+        "src/model",
+        "research/quantbench_model_matrix_validation_v1/quantbench_model_matrix_validation_v1.ipynb"
       ],
+      "blocked_surfaces": [],
       "candidate_name": "quantbench_model_matrix",
       "candidate_type": "model_matrix_reference",
       "gate_notes": "证据完整后才允许进入目标 src 接口或 production notebook；未完整前不得进入 src、production 或 skill。",
-      "implementation_allowed": false,
-      "license_gate_status": "blocked",
-      "missing_evidence": [
+      "implementation_allowed": true,
+      "license_gate_status": "passed",
+      "missing_evidence": [],
+      "missing_evidence_count": 0,
+      "priority_rank": 5,
+      "promotion_gate_status": "research_evidence_complete",
+      "provided_evidence": [
         "license_review",
         "research_notebook",
         "focused_pytest",
         "manifest_or_export",
         "chinese_conclusion"
       ],
-      "missing_evidence_count": 5,
-      "priority_rank": 5,
-      "promotion_gate_status": "blocked_missing_evidence",
-      "provided_evidence": [],
-      "provided_evidence_count": 0,
+      "provided_evidence_count": 5,
       "required_evidence": [
         "license_review",
         "research_notebook",
@@ -414,25 +413,24 @@
   ],
   "schema_version": "knowledge_promotion_audit.v1",
   "summary": {
-    "blocked_candidates": [
-      "quantbench_model_matrix"
-    ],
-    "blocked_count": 1,
-    "implementation_allowed_count": 9,
+    "blocked_candidates": [],
+    "blocked_count": 0,
+    "implementation_allowed_count": 10,
     "item_count": 10,
-    "missing_license_review_count": 1,
+    "missing_license_review_count": 0,
     "ready_candidates": [
       "autoformer_mse",
       "fedformer_mse",
       "dlinear_mse",
       "patch_tst_mse",
+      "quantbench_model_matrix",
       "rank_ic_objective",
       "patch_tst_mse",
       "qlib_recorder_analysis",
       "factor_diagnostics",
       "regime_window_review"
     ],
-    "ready_count": 9,
+    "ready_count": 10,
     "schema_version": "knowledge_promotion_audit.summary.v1",
     "target_subsystems": [
       "src/analysis",

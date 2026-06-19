@@ -138,12 +138,13 @@ def test_build_platform_requirement_audit_maps_goal_to_current_repo_evidence():
     assert requirements["quantbench_requested_model_registry"]["status"] == "pass"
     assert requirements["quantbench_training_backtest_ledger"]["status"] == "pass"
     assert requirements["production_paper_api_guardrail"]["status"] == "pass"
-    assert requirements["external_knowledge_promotion_backlog"]["status"] == "review"
+    assert requirements["external_knowledge_promotion_backlog"]["status"] == "pass"
     assert requirements["production_readiness_review_gate"]["status"] == "review"
 
     model_registry = requirements["quantbench_requested_model_registry"]
     model_ledger = requirements["quantbench_training_backtest_ledger"]
     analysis = requirements["analysis_regime_window_model_difference"]
+    knowledge = requirements["external_knowledge_promotion_backlog"]
 
     assert model_registry["metrics"]["requested_model_count"] == 32
     assert model_registry["metrics"]["registered_model_count"] == 32
@@ -151,6 +152,8 @@ def test_build_platform_requirement_audit_maps_goal_to_current_repo_evidence():
     assert model_ledger["metrics"]["trained_model_count"] == 96
     assert model_ledger["metrics"]["backtested_model_count"] == 96
     assert model_ledger["metrics"]["all_models_completed"] is True
+    assert knowledge["metrics"]["promotion_audit_ready_count"] == 10
+    assert knowledge["metrics"]["promotion_audit_blocked_count"] == 0
     assert {"regime_metrics", "window_metrics", "model_comparison", "objective_losses"}.issubset(
         set(analysis["metrics"]["analysis_paths"])
     )
@@ -186,11 +189,10 @@ def test_platform_requirement_audit_notebook_records_current_review_status():
     assert summary["core_schema_version"] == "core.platform_requirement_audit.v1"
     assert summary["status"] == "review"
     assert summary["failed_count"] == 0
-    assert summary["review_count"] == 2
+    assert summary["review_count"] == 1
     assert summary["completion_claim"] == "not_claimed"
     assert summary["review_requirement_ids"] == [
         "production_readiness_review_gate",
-        "external_knowledge_promotion_backlog",
     ]
     assert audit["summary"]["status"] == summary["status"]
     assert "中文结论" in conclusion

@@ -977,6 +977,63 @@ def test_regime_window_review_validation_card_supplies_backlog_evidence():
     assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
 
 
+def test_quantbench_model_matrix_validation_card_supplies_backlog_evidence():
+    card = "research/quantbench_model_matrix_validation_v1"
+    notebook_path = f"{card}/quantbench_model_matrix_validation_v1.ipynb"
+    source = KnowledgeSource(
+        source_id="arxiv:2504.18600",
+        source_type="arxiv",
+        title="QuantBench: Benchmarking AI Methods for Quantitative Investment",
+        url="https://arxiv.org/abs/2504.18600",
+        summary=(
+            "Benchmark reference for a standardized full-pipeline quant workflow, model matrix coverage, "
+            "continual-learning stress, relation modeling, and overfitting control."
+        ),
+        license_note="arXiv metadata and self-written summary only.",
+    )
+    backlog = build_knowledge_backlog([source])
+    evidence_index = knowledge_api.build_knowledge_research_evidence_index(".", backlog)
+
+    summary = json.loads(open(f"{card}/quantbench_model_matrix_summary.json", encoding="utf-8").read())
+    source_provenance = json.loads(open(f"{card}/source_provenance.json", encoding="utf-8").read())
+    ledger_summary = json.loads(open(f"{card}/model_run_ledger_summary.json", encoding="utf-8").read())
+    model_matrix_evidence = json.loads(open(f"{card}/model_matrix_evidence.json", encoding="utf-8").read())
+    license_review = open(f"{card}/license_review.md", encoding="utf-8").read()
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert summary["schema_version"] == "research.quantbench_model_matrix_validation.v1"
+    assert summary["source_id"] == "arxiv:2504.18600"
+    assert summary["candidate_name"] == "quantbench_model_matrix"
+    assert summary["target_subsystem"] == "src/model"
+    assert summary["requested_model_count"] == 32
+    assert summary["registered_model_count"] == 32
+    assert summary["trained_model_count"] == 32
+    assert summary["backtested_model_count"] == 32
+    assert summary["all_models_completed"] is True
+    assert summary["adapter_statuses"] == ["paper_strict_adapter"]
+    assert summary["proxy_model_count"] == 0
+    assert summary["implementation_allowed"] is False
+    assert summary["promotion_target"] == "research_only"
+    assert summary["evidence_requirements"] == evidence_index["quantbench_model_matrix"]
+    assert {"native_library", "native_sequence", "native_torch", "native_graph"}.issubset(
+        set(summary["paper_fidelity_counts"])
+    )
+    assert source_provenance["source_used_as"] == "hypothesis_only"
+    assert "arxiv.org/abs/2504.18600" in source_provenance["url"]
+    assert source_provenance["external_source_checks"]["copied_paper_text"] is False
+    assert ledger_summary["expected_model_count"] == 32
+    assert ledger_summary["all_models_completed"] is True
+    assert model_matrix_evidence["source_run_card"] == "research/quantbench_all_model_run_ledger_v1"
+    assert model_matrix_evidence["analysis_report_schema_version"] == "analysis.report.v1"
+    assert "未复制论文全文" in license_review
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
+
+
 def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_complete():
     audit = json.loads(open("research/knowledge_ingest/knowledge_promotion_audit.json", encoding="utf-8").read())
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
@@ -984,18 +1041,20 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
     fedformer_item = next(item for item in audit["items"] if item["candidate_name"] == "fedformer_mse")
     dlinear_item = next(item for item in audit["items"] if item["candidate_name"] == "dlinear_mse")
     patch_items = [item for item in audit["items"] if item["candidate_name"] == "patch_tst_mse"]
+    quantbench_item = next(item for item in audit["items"] if item["candidate_name"] == "quantbench_model_matrix")
     qlib_item = next(item for item in audit["items"] if item["candidate_name"] == "qlib_recorder_analysis")
     factor_item = next(item for item in audit["items"] if item["candidate_name"] == "factor_diagnostics")
     regime_item = next(item for item in audit["items"] if item["candidate_name"] == "regime_window_review")
 
-    assert audit["summary"]["ready_count"] == 9
-    assert audit["summary"]["blocked_count"] == 1
-    assert audit["summary"]["implementation_allowed_count"] == 9
+    assert audit["summary"]["ready_count"] == 10
+    assert audit["summary"]["blocked_count"] == 0
+    assert audit["summary"]["implementation_allowed_count"] == 10
     assert "rank_ic_objective" in audit["summary"]["ready_candidates"]
     assert "autoformer_mse" in audit["summary"]["ready_candidates"]
     assert "fedformer_mse" in audit["summary"]["ready_candidates"]
     assert "dlinear_mse" in audit["summary"]["ready_candidates"]
     assert audit["summary"]["ready_candidates"].count("patch_tst_mse") == 2
+    assert "quantbench_model_matrix" in audit["summary"]["ready_candidates"]
     assert "qlib_recorder_analysis" in audit["summary"]["ready_candidates"]
     assert "factor_diagnostics" in audit["summary"]["ready_candidates"]
     assert "regime_window_review" in audit["summary"]["ready_candidates"]
@@ -1049,6 +1108,13 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
         ]
         for item in patch_items
     )
+    assert quantbench_item["promotion_gate_status"] == "research_evidence_complete"
+    assert quantbench_item["implementation_allowed"] is True
+    assert quantbench_item["missing_evidence"] == []
+    assert quantbench_item["allowed_surfaces_after_gate"] == [
+        "src/model",
+        "research/quantbench_model_matrix_validation_v1/quantbench_model_matrix_validation_v1.ipynb",
+    ]
     assert qlib_item["promotion_gate_status"] == "research_evidence_complete"
     assert qlib_item["implementation_allowed"] is True
     assert qlib_item["missing_evidence"] == []
@@ -1085,6 +1151,7 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "fedformer_mse",
         "dlinear_mse",
         "patch_tst_mse",
+        "quantbench_model_matrix",
         "rank_ic_objective",
         "patch_tst_mse",
         "qlib_recorder_analysis",
@@ -1096,6 +1163,7 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "arxiv:2201.12740",
         "arxiv:2205.13504",
         "arxiv:2211.14730",
+        "arxiv:2504.18600",
         "arxiv:2605.00501",
         "autoformer_mse",
         "dlinear_mse",
@@ -1106,6 +1174,7 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "github:thuml/Time-Series-Library",
         "patch_tst_mse",
         "qlib_recorder_analysis",
+        "quantbench_model_matrix",
         "rank_ic_objective",
         "regime_window_review",
         "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
@@ -1114,6 +1183,7 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "research/fedformer_mse_validation_v1/fedformer_mse_validation_v1.ipynb",
         "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
         "research/qlib_recorder_analysis_validation_v1/qlib_recorder_analysis_validation_v1.ipynb",
+        "research/quantbench_model_matrix_validation_v1/quantbench_model_matrix_validation_v1.ipynb",
         "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
         "research/regime_window_review_validation_v1/regime_window_review_validation_v1.ipynb",
         "x:regime-aware-quant-search",

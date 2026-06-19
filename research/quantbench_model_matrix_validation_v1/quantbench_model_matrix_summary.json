@@ -1,0 +1,65 @@
+{
+  "schema_version": "research.quantbench_model_matrix_validation.v1",
+  "source_id": "arxiv:2504.18600",
+  "candidate_name": "quantbench_model_matrix",
+  "target_subsystem": "src/model",
+  "target_interface": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
+  "requested_model_count": 32,
+  "registered_model_count": 32,
+  "ledger_model_count": 32,
+  "trained_model_count": 32,
+  "predicted_model_count": 32,
+  "backtested_model_count": 32,
+  "objective_evaluated_model_count": 32,
+  "promotion_evaluated_model_count": 32,
+  "analysis_recorded_model_count": 32,
+  "manifested_model_count": 32,
+  "all_models_completed": true,
+  "adapter_statuses": [
+    "paper_strict_adapter"
+  ],
+  "proxy_model_count": 0,
+  "native_model_count": 32,
+  "paper_fidelity_counts": {
+    "native_graph": 9,
+    "native_library": 10,
+    "native_sequence": 7,
+    "native_torch": 6
+  },
+  "model_families": [
+    "boosting",
+    "graph",
+    "linear",
+    "neural_tabular",
+    "sequence",
+    "tree"
+  ],
+  "objective_types": [
+    "classification",
+    "ic",
+    "mse",
+    "ranking"
+  ],
+  "completion_counts": {
+    "registered": 32,
+    "capability_recorded": 32,
+    "trained": 32,
+    "predicted": 32,
+    "backtested": 32,
+    "objective_evaluated": 32,
+    "promotion_evaluated": 32,
+    "analysis_recorded": 32,
+    "manifested": 32
+  },
+  "implementation_allowed": false,
+  "promotion_target": "research_only",
+  "evidence_requirements": [
+    "license_review",
+    "research_notebook",
+    "focused_pytest",
+    "manifest_or_export",
+    "chinese_conclusion"
+  ],
+  "source_run_card": "research/quantbench_all_model_run_ledger_v1",
+  "source_used_as": "hypothesis_only"
+}

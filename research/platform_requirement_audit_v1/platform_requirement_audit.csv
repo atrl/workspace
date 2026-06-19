@@ -10,5 +10,5 @@ data_canonical_snapshot_and_calendar,pass,data,production/paper_sim_replay_v1/da
 production_paper_api_guardrail,pass,api,production/paper_sim_replay_v1/production_summary.json;production/paper_sim_replay_v1/paper_execution_result.json,该项只证明 v1 paper/sim guardrail；真实 broker 下单仍在 out of scope。
 schedule_data_dashboard_api_chain,pass,schedule,production/paper_sim_replay_v1/production_summary.json;production/paper_sim_replay_v1/schedule_health.json,readiness gate 的 review 状态单独在 production_readiness_review_gate 中跟踪。
 production_readiness_review_gate,review,production,production/paper_sim_replay_v1/production_summary.json;production/paper_sim_replay_v1/production_manifest.json,当前 objective_loss gate 为 review，说明生产证据链可审计但不应声称完全 ready。
-external_knowledge_promotion_backlog,review,knowledge,research/knowledge_ingest/knowledge_ingest_summary.json;research/knowledge_ingest/knowledge_promotion_audit.json,blocked 候选保留在 research backlog，不能直接进入 src/production/skill。
+external_knowledge_promotion_backlog,pass,knowledge,research/knowledge_ingest/knowledge_ingest_summary.json;research/knowledge_ingest/knowledge_promotion_audit.json,blocked 候选保留在 research backlog，不能直接进入 src/production/skill。
 skill_boundary_method_only,pass,skill,research/skill_boundary_audit_v1/analysis_summary.json;src/core/skill_boundary.py,该项证明已有 skill 边界审计能力和 research 证据，不表示每个本地 skill 都已迁移。

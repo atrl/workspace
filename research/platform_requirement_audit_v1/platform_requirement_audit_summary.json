@@ -4,12 +4,11 @@
   "core_schema_version": "core.platform_requirement_audit.v1",
   "summary_schema_version": "core.platform_requirement_audit.summary.v1",
   "requirement_count": 13,
-  "passed_count": 11,
-  "review_count": 2,
+  "passed_count": 12,
+  "review_count": 1,
   "failed_count": 0,
   "review_requirement_ids": [
-    "production_readiness_review_gate",
-    "external_knowledge_promotion_backlog"
+    "production_readiness_review_gate"
   ],
   "failed_requirement_ids": [],
   "completion_claim": "not_claimed",
