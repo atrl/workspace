@@ -30,3 +30,24 @@ def rank_ic(signal, forward_return) -> float:
 
 def utility_score(*, return_pct: float, max_drawdown_pct: float, turnover: float) -> float:
     return round(float(return_pct - abs(max_drawdown_pct) * 0.5 - turnover * 2.0), 10)
+
+
+def promotion_scores(
+    metrics: pd.DataFrame,
+    *,
+    min_score: float,
+    max_drawdown_floor: float,
+) -> pd.DataFrame:
+    result = metrics.copy()
+    result["promotion_score"] = (
+        result["return_pct"].astype(float)
+        - result["max_drawdown_pct"].abs().astype(float) * 0.5
+        - result["turnover"].astype(float) * 2.0
+        + result["ic"].astype(float) * 100.0
+        + result["rank_ic"].astype(float) * 50.0
+    )
+    promote_mask = (result["promotion_score"] >= min_score) & (
+        result["max_drawdown_pct"].astype(float) >= max_drawdown_floor
+    )
+    result["promote"] = pd.Series([bool(value) for value in promote_mask], dtype=object)
+    return result.sort_values(["promote", "promotion_score"], ascending=[False, False]).reset_index(drop=True)
