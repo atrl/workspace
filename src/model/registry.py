@@ -111,6 +111,42 @@ def _native_graph(name: str, family: str, objective: str, input_kind: str, estim
     )
 
 
+REQUESTED_QUANTBENCH_MODEL_NAMES: tuple[str, ...] = (
+    "logistic_clf",
+    "ridge_ic",
+    "ridge_mse",
+    "random_forest_clf",
+    "hist_gradient_mse",
+    "xgboost_mse",
+    "lightgbm_mse",
+    "catboost_rank",
+    "extra_trees_rank",
+    "mlp_mse",
+    "sequence_lag_ridge_mse",
+    "lstm_mse",
+    "gru_mse",
+    "alstm_mse",
+    "sfm_mse",
+    "darnn_mse",
+    "hawkes_gru_mse",
+    "tcn_mse",
+    "mlp_mixer_mse",
+    "dlinear_mse",
+    "patch_tst_mse",
+    "autoformer_mse",
+    "fedformer_mse",
+    "market_graph_mse",
+    "gcn_mse",
+    "gat_mse",
+    "rgcn_mse",
+    "rsr_mse",
+    "hypergraph_mse",
+    "thgnn_mse",
+    "sthan_mse",
+    "sthgcn_mse",
+)
+
+
 MODEL_SPECS: tuple[ModelSpec, ...] = (
     _native("logistic_clf", "linear", "classification", "tabular", "LogisticRegression"),
     _native("ridge_ic", "linear", "ic", "tabular", "RidgeICRegressor"),
@@ -286,6 +322,9 @@ MODEL_SPECS: tuple[ModelSpec, ...] = (
 )
 
 QUANTBENCH_MODEL_NAMES: tuple[str, ...] = tuple(spec.name for spec in MODEL_SPECS)
+
+if QUANTBENCH_MODEL_NAMES != REQUESTED_QUANTBENCH_MODEL_NAMES:
+    raise RuntimeError("QuantBench model registry drifted from requested model contract")
 
 
 def iter_model_specs() -> Iterable[ModelSpec]:

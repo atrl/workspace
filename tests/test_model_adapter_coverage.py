@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from src.data import build_supervised_dataset, load_soxl_support_frame
 from src.model import fit_model_artifact
-from src.model.registry import QUANTBENCH_MODEL_NAMES
+from src.model.registry import QUANTBENCH_MODEL_NAMES, REQUESTED_QUANTBENCH_MODEL_NAMES
 from src.model.training import fit_predict_model, model_adapter_name, model_adapter_status
 
 
@@ -36,6 +36,46 @@ def test_all_quantbench_models_have_explicit_non_smoke_adapter_status():
     assert {name for name, status in statuses.items() if status == "paper_strict_adapter"} == set(
         QUANTBENCH_MODEL_NAMES
     )
+
+
+def test_quantbench_registry_matches_requested_model_contract():
+    requested = {
+        "logistic_clf",
+        "ridge_ic",
+        "ridge_mse",
+        "random_forest_clf",
+        "hist_gradient_mse",
+        "xgboost_mse",
+        "lightgbm_mse",
+        "catboost_rank",
+        "extra_trees_rank",
+        "mlp_mse",
+        "sequence_lag_ridge_mse",
+        "lstm_mse",
+        "gru_mse",
+        "alstm_mse",
+        "sfm_mse",
+        "darnn_mse",
+        "hawkes_gru_mse",
+        "tcn_mse",
+        "mlp_mixer_mse",
+        "dlinear_mse",
+        "patch_tst_mse",
+        "autoformer_mse",
+        "fedformer_mse",
+        "market_graph_mse",
+        "gcn_mse",
+        "gat_mse",
+        "rgcn_mse",
+        "rsr_mse",
+        "hypergraph_mse",
+        "thgnn_mse",
+        "sthan_mse",
+        "sthgcn_mse",
+    }
+
+    assert set(REQUESTED_QUANTBENCH_MODEL_NAMES) == requested
+    assert set(QUANTBENCH_MODEL_NAMES) == requested
 
 
 def test_boosting_models_use_native_quantbench_adapters():

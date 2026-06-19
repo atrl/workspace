@@ -7,7 +7,14 @@ from .matrix import (
     run_quantbench_matrix_smoke,
     write_model_run_ledger,
 )
-from .registry import MODEL_SPECS, QUANTBENCH_MODEL_NAMES, ModelSpec, get_model_spec, iter_model_specs
+from .registry import (
+    MODEL_SPECS,
+    QUANTBENCH_MODEL_NAMES,
+    REQUESTED_QUANTBENCH_MODEL_NAMES,
+    ModelSpec,
+    get_model_spec,
+    iter_model_specs,
+)
 from .training import fit_predict_model
 
 __all__ = [
@@ -16,6 +23,7 @@ __all__ = [
     "ModelSpec",
     "QUANTBENCH_MODEL_NAMES",
     "QuantBenchMatrixOutputs",
+    "REQUESTED_QUANTBENCH_MODEL_NAMES",
     "all_model_capabilities",
     "build_model_run_ledger",
     "fit_predict_model",
