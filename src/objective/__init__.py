@@ -7,6 +7,7 @@ from .specs import (
     evaluate_prediction_objectives,
     get_objective_spec,
     utility_score,
+    write_objective_label_manifest,
 )
 
 __all__ = [
@@ -18,4 +19,5 @@ __all__ = [
     "evaluate_prediction_objectives",
     "get_objective_spec",
     "utility_score",
+    "write_objective_label_manifest",
 ]

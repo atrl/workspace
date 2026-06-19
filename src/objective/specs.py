@@ -1,10 +1,18 @@
 from __future__ import annotations
 
+import json
 import math
 from dataclasses import asdict, dataclass
+from pathlib import Path
 from typing import Sequence
 
 import pandas as pd
+
+from src.core.contracts import stable_hash
+
+
+OBJECTIVE_LABEL_MANIFEST_SCHEMA_VERSION = "objective.label_manifest.v1"
+OBJECTIVE_LABEL_FRAME_SCHEMA_VERSION = "objective.label_frame.v1"
 
 
 @dataclass(frozen=True)
@@ -55,6 +63,15 @@ def _require_columns(frame: pd.DataFrame, required: set[str], *, context: str) -
         raise ValueError(f"{context} missing columns: {missing}")
 
 
+def _frame_schema_hash(frame: pd.DataFrame) -> str:
+    return stable_hash(
+        {
+            "schema_version": OBJECTIVE_LABEL_FRAME_SCHEMA_VERSION,
+            "columns": [(str(column), str(dtype)) for column, dtype in zip(frame.columns, frame.dtypes, strict=True)],
+        }
+    )
+
+
 def build_forward_return_labels(
     price_frame: pd.DataFrame,
     *,
@@ -99,6 +116,81 @@ def build_forward_return_labels(
         result.loc[~result[available_col], rank_col] = pd.NA
 
     return result
+
+
+def _label_columns_for_horizon(horizon: int) -> dict[str, str]:
+    suffix = f"{int(horizon)}d"
+    return {
+        "forward_return": f"forward_return_{suffix}",
+        "classification": f"classification_label_{suffix}",
+        "ranking": f"ranking_label_{suffix}",
+        "available": f"label_available_{suffix}",
+    }
+
+
+def _label_manifest_metadata(labels: pd.DataFrame, *, horizons: Sequence[int]) -> dict[str, object]:
+    if not horizons:
+        raise ValueError("horizons must contain at least one positive horizon")
+    horizon_values = [int(value) for value in horizons]
+    if any(value <= 0 for value in horizon_values):
+        raise ValueError("horizons must be positive")
+
+    required = {"date"}
+    label_columns = {f"{horizon}d": _label_columns_for_horizon(horizon) for horizon in horizon_values}
+    for columns in label_columns.values():
+        required.update(columns.values())
+    _require_columns(labels, required, context="objective labels")
+
+    dates = pd.to_datetime(labels["date"])
+    available_counts = {
+        suffix: int(pd.Series(labels[columns["available"]]).fillna(False).astype(bool).sum())
+        for suffix, columns in label_columns.items()
+    }
+    return {
+        "row_count": int(len(labels)),
+        "column_count": int(len(labels.columns)),
+        "date_start": dates.min().date().isoformat() if not dates.empty else "",
+        "date_end": dates.max().date().isoformat() if not dates.empty else "",
+        "instrument_count": int(labels["instrument"].nunique()) if "instrument" in labels.columns else 0,
+        "horizons": horizon_values,
+        "label_columns": label_columns,
+        "label_available_counts": available_counts,
+        "frame_schema_version": OBJECTIVE_LABEL_FRAME_SCHEMA_VERSION,
+        "frame_schema_hash": _frame_schema_hash(labels),
+    }
+
+
+def write_objective_label_manifest(
+    output_dir: str | Path,
+    labels: pd.DataFrame,
+    *,
+    artifact_id: str,
+    horizons: Sequence[int],
+    labels_filename: str = "objective_labels.csv",
+    manifest_filename: str = "objective_label_manifest.json",
+) -> dict[str, object]:
+    """Write objective labels and a stable manifest for notebook/dashboard review."""
+
+    output = Path(output_dir)
+    output.mkdir(parents=True, exist_ok=True)
+    labels_path = output / labels_filename
+    manifest_path = output / manifest_filename
+
+    labels.to_csv(labels_path, index=False, lineterminator="\n")
+    payload: dict[str, object] = {
+        "schema_version": OBJECTIVE_LABEL_MANIFEST_SCHEMA_VERSION,
+        "artifact_id": str(artifact_id),
+        "artifact_type": "objective_labels",
+        "producer": "src.objective.specs",
+        "paths": {
+            "labels": labels_filename,
+            "manifest": manifest_filename,
+        },
+        "metadata": _label_manifest_metadata(labels, horizons=horizons),
+    }
+    payload["manifest_hash"] = stable_hash(payload)
+    manifest_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return payload
 
 
 def _clean_numeric_pair(frame: pd.DataFrame, prediction_col: str, target_col: str) -> pd.DataFrame:

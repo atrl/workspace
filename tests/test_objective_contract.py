@@ -7,6 +7,7 @@ from src.objective import (
     build_forward_return_labels,
     build_promotion_scores,
     evaluate_prediction_objectives,
+    write_objective_label_manifest,
 )
 
 
@@ -50,6 +51,36 @@ def test_build_forward_return_labels_supports_classification_mse_and_ranking_tar
     rank_day1 = labels.loc[labels["date"] == pd.Timestamp("2026-01-01")].sort_values("ranking_label_1d")
     assert rank_day1["instrument"].tolist() == ["SOXL", "SOXX"]
     assert set(rank_day1["ranking_label_1d"].dropna()) == {1.0, 2.0}
+
+
+def test_write_objective_label_manifest_records_horizons_columns_and_hash(tmp_path):
+    labels = build_forward_return_labels(_price_frame(), horizons=(1, 2))
+
+    result = write_objective_label_manifest(
+        tmp_path,
+        labels,
+        artifact_id="unit_objective_labels",
+        horizons=(1, 2),
+        labels_filename="objective_labels.csv",
+    )
+
+    assert result["schema_version"] == "objective.label_manifest.v1"
+    assert result["artifact_id"] == "unit_objective_labels"
+    assert result["paths"]["labels"] == "objective_labels.csv"
+    assert result["metadata"]["row_count"] == len(labels)
+    assert result["metadata"]["instrument_count"] == 2
+    assert result["metadata"]["horizons"] == [1, 2]
+    assert result["metadata"]["label_available_counts"] == {"1d": 6, "2d": 4}
+    assert result["metadata"]["label_columns"]["1d"] == {
+        "forward_return": "forward_return_1d",
+        "classification": "classification_label_1d",
+        "ranking": "ranking_label_1d",
+        "available": "label_available_1d",
+    }
+    assert len(result["metadata"]["frame_schema_hash"]) == 64
+    assert len(result["manifest_hash"]) == 64
+    assert (tmp_path / "objective_labels.csv").exists()
+    assert (tmp_path / "objective_label_manifest.json").exists()
 
 
 def test_evaluate_prediction_objectives_reports_mse_accuracy_ic_and_rank_ic():
