@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from math import sqrt
+
 import pandas as pd
 
 
@@ -37,6 +39,68 @@ def compare_to_benchmark(result: pd.DataFrame, *, benchmark_nav) -> dict[str, fl
     }
 
 
+def _max_drawdown_pct(nav: pd.Series) -> float:
+    drawdown = nav / nav.cummax() - 1.0
+    return round(float(drawdown.min() * 100.0), 10)
+
+
+def _window_metric_row(
+    frame: pd.DataFrame,
+    *,
+    window: str,
+    start: str,
+    end: str,
+    benchmark_nav_col: str | None,
+) -> dict[str, float | str]:
+    nav = frame["nav"].astype(float)
+    returns = nav.pct_change().dropna()
+    return_pct = (float(nav.iloc[-1]) / float(nav.iloc[0]) - 1.0) * 100.0
+    sharpe = 0.0
+    if not returns.empty and float(returns.std(ddof=0)) > 0:
+        sharpe = float((returns.mean() / returns.std(ddof=0)) * sqrt(252.0))
+    row: dict[str, float | str] = {
+        "window": window,
+        "start": start,
+        "end": end,
+        "return_pct": round(return_pct, 10),
+        "max_drawdown_pct": _max_drawdown_pct(nav),
+        "sharpe": round(sharpe, 10),
+        "turnover": round(float(frame.get("turnover", pd.Series(dtype="float64")).sum()), 10),
+        "exposure": round(float(frame.get("position", pd.Series(dtype="float64")).abs().mean()), 10),
+    }
+    if benchmark_nav_col:
+        benchmark = frame[benchmark_nav_col].astype(float)
+        benchmark_return_pct = (float(benchmark.iloc[-1]) / float(benchmark.iloc[0]) - 1.0) * 100.0
+        row["benchmark_return_pct"] = round(benchmark_return_pct, 10)
+        row["excess_return_pct"] = round(return_pct - benchmark_return_pct, 10)
+    return row
+
+
+def stress_window_metrics(
+    result: pd.DataFrame,
+    *,
+    windows: dict[str, tuple[str, str]],
+    benchmark_nav_col: str | None = None,
+) -> pd.DataFrame:
+    frame = result.copy()
+    frame["date"] = pd.to_datetime(frame["date"])
+    rows: list[dict[str, float | str]] = []
+    for name, (start, end) in windows.items():
+        window = frame.loc[(frame["date"] >= pd.Timestamp(start)) & (frame["date"] <= pd.Timestamp(end))]
+        if window.empty:
+            continue
+        rows.append(
+            _window_metric_row(
+                window,
+                window=name,
+                start=pd.Timestamp(start).date().isoformat(),
+                end=pd.Timestamp(end).date().isoformat(),
+                benchmark_nav_col=benchmark_nav_col,
+            )
+        )
+    return pd.DataFrame(rows)
+
+
 def walk_forward_slices(dates, *, train_size: int, test_size: int) -> list[dict[str, str]]:
     index = pd.DatetimeIndex(pd.to_datetime(dates))
     folds: list[dict[str, str]] = []
@@ -54,3 +118,16 @@ def walk_forward_slices(dates, *, train_size: int, test_size: int) -> list[dict[
         )
         start += test_size
     return folds
+
+
+def walk_forward_metrics(
+    result: pd.DataFrame,
+    *,
+    folds: list[dict[str, str]],
+    benchmark_nav_col: str | None = None,
+) -> pd.DataFrame:
+    windows = {
+        f"fold_{index}": (fold["test_start"], fold["test_end"])
+        for index, fold in enumerate(folds, start=1)
+    }
+    return stress_window_metrics(result, windows=windows, benchmark_nav_col=benchmark_nav_col)
