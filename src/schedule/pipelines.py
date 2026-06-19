@@ -558,6 +558,15 @@ def _paper_execution_attempt(config: PaperExecutionPipelineConfig) -> dict[str, 
         "source_artifact": intent.source_artifact,
         "target_position": float(intent.target_position),
         "execution_gate": str(metadata.get("execution_gate", "")),
+        "model_difference_schema_version": str(metadata.get("model_difference_schema_version", "")),
+        "model_difference_top_signal": str(metadata.get("model_difference_top_signal", "")),
+        "model_difference_top_decision_hint": str(metadata.get("model_difference_top_decision_hint", "")),
+        "model_difference_top_segment": str(metadata.get("model_difference_top_segment", "")),
+        "model_difference_top_baseline_model": str(metadata.get("model_difference_top_baseline_model", "")),
+        "model_difference_top_winner_model": str(metadata.get("model_difference_top_winner_model", "")),
+        "model_difference_top_loser_model": str(metadata.get("model_difference_top_loser_model", "")),
+        "model_difference_top_spread": float(metadata.get("model_difference_top_spread", 0.0) or 0.0),
+        "model_difference_marks_source_loser": bool(metadata.get("model_difference_marks_source_loser", False)),
         "quote": quote.to_dict(),
         "broker_name": result.broker_name,
         "snapshot": _snapshot_payload(result.snapshot),
@@ -585,7 +594,7 @@ def _paper_execution_notification(job_name: str, status: str, payload: dict[str,
         return f"{job_name}:{status}"
     quote = payload.get("quote") if isinstance(payload.get("quote"), dict) else {}
     snapshot = payload.get("snapshot") if isinstance(payload.get("snapshot"), dict) else {}
-    return (
+    message = (
         f"{job_name}:success"
         f" | mode={payload.get('mode', '')}"
         f" | gate={payload.get('execution_gate', '')}"
@@ -596,6 +605,16 @@ def _paper_execution_notification(job_name: str, status: str, payload: dict[str,
         f" | shares={int(snapshot.get('shares', 0) or 0)}"
         f" | ledger={payload.get('intent_ledger_path', '')}"
     )
+    if payload.get("model_difference_top_signal"):
+        message += (
+            f" | model_difference={payload.get('model_difference_top_signal', '')}/"
+            f"{payload.get('model_difference_top_decision_hint', '')}"
+            f" {payload.get('model_difference_top_segment', '')}"
+            f" {payload.get('model_difference_top_loser_model', '')}->"
+            f"{payload.get('model_difference_top_winner_model', '')}"
+            f" spread={payload.get('model_difference_top_spread', 0.0):g}"
+        )
+    return message
 
 
 def run_paper_execution_once(

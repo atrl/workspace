@@ -1,0 +1,3 @@
+[
+  "paper_execution_model_difference_v1:success | mode=paper | gate=blocked_to_min_position | model=random_forest_clf__all_features | target=0.1 | quote=SOXL@2026-01-05/12 | shares=8 | ledger=/Users/rziiiii/dev/workspace/research/schedule_paper_execution_model_difference_v1/intent_ledger.json | model_difference=baseline_defends/block_or_rework_loser stress_window::stress random_forest_clf__all_features->ridge_mse__all_features spread=6.5"
+]

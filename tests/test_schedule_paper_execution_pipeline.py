@@ -122,6 +122,80 @@ def test_paper_execution_pipeline_reads_dashboard_and_registry_then_writes_execu
     ]
 
 
+def test_paper_execution_pipeline_notification_includes_model_difference_gate_context(tmp_path):
+    registry_path = _publish_unit_registry(tmp_path)
+    dashboard_path = tmp_path / "dashboard" / "dashboard_export.json"
+    dashboard_path.parent.mkdir(parents=True, exist_ok=True)
+    dashboard_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "dashboard.model_matrix.v1",
+                "artifact_id": "difference_dashboard",
+                "artifact_type": "dashboard_export",
+                "top_models": [
+                    {
+                        "rank": 1,
+                        "model": "random_forest_clf__all_features",
+                        "base_model": "random_forest_clf",
+                        "feature_set": "all_features",
+                        "avg_position": 0.74,
+                        "stability_score": 54.2,
+                        "max_drawdown_pct": 21.6,
+                    }
+                ],
+                "model_difference_explanations": [
+                    {
+                        "schema_version": "analysis.model_difference_explanation.v1",
+                        "priority_rank": 1,
+                        "segment": "stress_window::stress",
+                        "baseline_model": "ridge_mse__all_features",
+                        "winner_model": "ridge_mse__all_features",
+                        "loser_model": "random_forest_clf__all_features",
+                        "relative_return_pct_spread": 6.5,
+                        "explanation_signal": "baseline_defends",
+                        "decision_hint": "block_or_rework_loser",
+                    }
+                ],
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    events: list[str] = []
+    config = PaperExecutionPipelineConfig(
+        name="paper_execution",
+        dashboard_export_path=dashboard_path,
+        data_registry_path=registry_path,
+        dataset_key="daily.unit_soxl",
+        instrument="SOXL",
+        intent_ledger_path=tmp_path / "runtime" / "intent_ledger.json",
+        paper_execution_result_path=tmp_path / "runtime" / "paper_execution_result.json",
+        initial_cash=1000.0,
+        min_position=0.1,
+        max_position=0.75,
+        notify_details=True,
+    )
+
+    result = run_paper_execution_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    ledger = json.loads(config.intent_ledger_path.read_text(encoding="utf-8"))
+    assert result.status == "success"
+    assert result.payload["execution_gate"] == "blocked_to_min_position"
+    assert result.payload["target_position"] == 0.1
+    assert result.payload["model_difference_schema_version"] == "analysis.model_difference_explanation.v1"
+    assert result.payload["model_difference_top_signal"] == "baseline_defends"
+    assert result.payload["model_difference_top_decision_hint"] == "block_or_rework_loser"
+    assert result.payload["model_difference_top_segment"] == "stress_window::stress"
+    assert result.payload["model_difference_top_loser_model"] == "random_forest_clf__all_features"
+    assert result.payload["model_difference_top_winner_model"] == "ridge_mse__all_features"
+    assert result.payload["model_difference_top_spread"] == 6.5
+    assert result.payload["model_difference_marks_source_loser"] is True
+    assert ledger["intent"]["metadata"]["model_difference_marks_source_loser"] is True
+    assert "model_difference=baseline_defends/block_or_rework_loser" in events[0]
+    assert "stress_window::stress random_forest_clf__all_features->ridge_mse__all_features spread=6.5" in events[0]
+
+
 def test_paper_execution_pipeline_skips_closed_market_day_before_reading_inputs(tmp_path):
     events: list[str] = []
     decision = classify_market_calendar_day(

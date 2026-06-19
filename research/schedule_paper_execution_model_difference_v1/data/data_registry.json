@@ -1,0 +1,38 @@
+{
+  "datasets": {
+    "daily.schedule_paper_difference": {
+      "current": {
+        "as_of": "2026-01-05",
+        "dataset_key": "daily.schedule_paper_difference",
+        "dataset_name": "schedule_paper_difference_daily",
+        "dataset_schema_hash": "e151f234b6b2fb9fa015ebe7f44bd4af3cdfbf3a7a3593b2ab1fcc20196ef25e",
+        "end": "2026-01-05",
+        "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+        "manifest_hash": "9663f559af05b49d95c9897e0fcc1ba088a0399b69861f40404ddd764d5e53bf",
+        "manifest_path": "/Users/rziiiii/dev/workspace/research/schedule_paper_execution_model_difference_v1/data/snapshots/schedule_paper_difference_daily/2026-01-05/data_update_manifest.json",
+        "published_at": "2026-01-05T21:00:00Z",
+        "row_count": 2,
+        "snapshot_path": "/Users/rziiiii/dev/workspace/research/schedule_paper_execution_model_difference_v1/data/snapshots/schedule_paper_difference_daily/2026-01-05",
+        "start": "2026-01-02"
+      },
+      "history": [
+        {
+          "as_of": "2026-01-05",
+          "dataset_key": "daily.schedule_paper_difference",
+          "dataset_name": "schedule_paper_difference_daily",
+          "dataset_schema_hash": "e151f234b6b2fb9fa015ebe7f44bd4af3cdfbf3a7a3593b2ab1fcc20196ef25e",
+          "end": "2026-01-05",
+          "frame_schema_hash": "d50304bef3df60b6ae09aa909f0226caf58f6f1b8a4d5b99e89f3074383613cb",
+          "manifest_hash": "9663f559af05b49d95c9897e0fcc1ba088a0399b69861f40404ddd764d5e53bf",
+          "manifest_path": "/Users/rziiiii/dev/workspace/research/schedule_paper_execution_model_difference_v1/data/snapshots/schedule_paper_difference_daily/2026-01-05/data_update_manifest.json",
+          "published_at": "2026-01-05T21:00:00Z",
+          "row_count": 2,
+          "snapshot_path": "/Users/rziiiii/dev/workspace/research/schedule_paper_execution_model_difference_v1/data/snapshots/schedule_paper_difference_daily/2026-01-05",
+          "start": "2026-01-02"
+        }
+      ]
+    }
+  },
+  "registry_hash": "248d28c8eb6aa467bdee88a602a22e2c2beec7988c5c372c8a9dbd852c62635a",
+  "schema_version": "data.registry.v1"
+}
