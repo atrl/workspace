@@ -814,6 +814,72 @@ def test_model_dashboard_refresh_detailed_notification_includes_promotion_summar
     assert "promotion=promote_candidate:ridge_mse blocked=1" in events[0]
 
 
+def test_model_dashboard_refresh_detailed_notification_includes_objective_loss_summary(tmp_path):
+    events: list[str] = []
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 2, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "artifact_id": "objective_loss_card",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": str(card_dir / "analysis_manifest.json"),
+                "schema_version": "artifact.v1",
+                "manifest_hash": "o" * 64,
+                "producer": "src.analysis.exports",
+            },
+            "objective": {
+                "losses": {
+                    "schema_version": "objective.loss.v1",
+                    "metric_source_schema_version": "objective.evaluation.v1",
+                    "optimization_direction": "minimize",
+                    "reward_surface": "retired",
+                    "row_count": 78,
+                    "mse_loss": 0.0274,
+                    "classification_loss": 0.4359,
+                    "ic_loss": 0.9774,
+                    "ranking_loss": 1.0,
+                    "rank_group_count": 0,
+                }
+            },
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse", "gcn_mse"),
+        notify_details=True,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert result.payload["objective_loss_schema_version"] == "objective.loss.v1"
+    assert result.payload["objective_loss_reward_surface"] == "retired"
+    assert result.payload["objective_loss_optimization_direction"] == "minimize"
+    assert result.payload["objective_loss_top_component"] == "ranking_loss"
+    assert result.payload["objective_loss_top_value"] == 1.0
+    assert result.payload["objective_loss_component_count"] == 4
+    assert "objective_loss=objective.loss.v1 top=ranking_loss:1 reward=retired" in events[0]
+
+
 def test_model_dashboard_refresh_detailed_notification_includes_model_run_coverage(tmp_path):
     events: list[str] = []
 

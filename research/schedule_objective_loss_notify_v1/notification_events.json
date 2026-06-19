@@ -1,0 +1,5 @@
+{
+  "events": [
+    "model_dashboard_refresh:success | top_model=random_forest_clf | dashboard_manifest=analysis_manifest | analysis_preflight=missing_analysis_sidecars | attempts=1 | export=research/schedule_objective_loss_notify_v1/dashboard_export.json | top_failure=return_stability_lag@downtrend | top_review=weakness:block_or_rework@downtrend | backtest=backtest.config.v1 folds=5 slippage_bps=1.0 | regime_gap=downtrend:ridge_mse->random_forest_clf/spread=31.5881 | model_difference=segment_winner/promote_segment_candidate bull random_forest_clf->ridge_mse spread=30.1835 | promotion=promote_candidate:random_forest_clf blocked=0 | objective_loss=objective.loss.v1 top=ranking_loss:1 reward=retired | run_coverage=3/3 backtested=3/3 missing=0 | requested_models=3/32 missing=29 incomplete=0 | readiness=review pass=2 review=1 block=0"
+  ]
+}

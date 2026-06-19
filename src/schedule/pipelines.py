@@ -1013,6 +1013,25 @@ def _promotion_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _objective_loss_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    summary = build_dashboard_view_model(dashboard_payload).get("objective_loss_summary", {})
+    if not isinstance(summary, dict) or not summary:
+        return {}
+    top = summary.get("top_loss_component") if isinstance(summary.get("top_loss_component"), dict) else {}
+    return {
+        "objective_loss_summary_schema_version": str(summary.get("schema_version", "")),
+        "objective_loss_schema_version": str(summary.get("objective_loss_schema_version", "")),
+        "objective_loss_metric_source_schema_version": str(summary.get("metric_source_schema_version", "")),
+        "objective_loss_optimization_direction": str(summary.get("optimization_direction", "")),
+        "objective_loss_reward_surface": str(summary.get("reward_surface", "")),
+        "objective_loss_row_count": int(summary.get("row_count", 0) or 0),
+        "objective_loss_rank_group_count": int(summary.get("rank_group_count", 0) or 0),
+        "objective_loss_component_count": int(summary.get("loss_component_count", 0) or 0),
+        "objective_loss_top_component": str(top.get("name", "")),
+        "objective_loss_top_value": float(top.get("value", 0.0) or 0.0),
+    }
+
+
 def _model_run_coverage_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
     coverage = dashboard_payload.get("model_run_coverage")
     if not isinstance(coverage, dict):
@@ -1195,6 +1214,7 @@ def _run_pipeline_attempt(
         **_analysis_overview_payload(dashboard_payload),
         **_model_difference_payload(dashboard_payload),
         **_promotion_payload(dashboard_payload),
+        **_objective_loss_payload(dashboard_payload),
         **_model_run_coverage_payload(dashboard_payload),
         **_requested_model_contract_payload(dashboard_payload),
         **_notebook_card_readiness_payload(dashboard_payload),
@@ -1265,6 +1285,13 @@ def _dashboard_refresh_notification(job_name: str, status: str, payload: dict[st
         message += (
             f" | promotion={payload.get('top_promotion_decision', '')}:{payload.get('top_promotion_model', '')}"
             f" blocked={payload.get('blocked_promotion_count', 0)}"
+        )
+    if payload.get("objective_loss_schema_version"):
+        message += (
+            f" | objective_loss={payload.get('objective_loss_schema_version', '')}"
+            f" top={payload.get('objective_loss_top_component', '')}:"
+            f"{payload.get('objective_loss_top_value', 0.0):g}"
+            f" reward={payload.get('objective_loss_reward_surface', '')}"
         )
     if payload.get("model_run_schema_version"):
         expected = payload.get("model_run_expected_model_count", 0)
