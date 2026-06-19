@@ -52,3 +52,25 @@ def test_every_quantbench_model_spec_has_a_minimal_fit_predict_smoke_contract():
 
         assert len(predictions) == len(frame)
         assert predictions.notna().all()
+
+
+def test_quantbench_baseline_model_can_be_saved_and_loaded_with_spec_metadata(tmp_path):
+    frame = pd.DataFrame(
+        {
+            "return_5d": [0.01, 0.02, -0.01],
+            "vix": [18.0, 22.0, 28.0],
+            "volume_zscore": [0.1, -0.2, 1.2],
+            "target": [0.01, 0.03, -0.02],
+        }
+    )
+    spec = ModelRegistry.from_specs(quantbench_supervised_model_specs()).get("linear_mse")
+    fitted = model_module.create_model(spec).fit(frame, target_col="target")
+    model_path = tmp_path / "linear_mse_model.json"
+
+    assert hasattr(fitted, "save")
+    assert hasattr(model_module, "load_model")
+    fitted.save(model_path)
+    loaded = model_module.load_model(model_path)
+
+    assert loaded.spec.name == "linear_mse"
+    assert loaded.predict(frame).tolist() == fitted.predict(frame).tolist()

@@ -7,6 +7,8 @@ from typing import Protocol
 
 import pandas as pd
 
+from src.core import SCHEMA_VERSION
+
 
 @dataclass(frozen=True)
 class ModelSpec:
@@ -111,9 +113,30 @@ class QuantBenchBaselineModel:
             raise ValueError(f"missing model features for {self.spec.name}: {missing_features}")
         return pd.Series([self._mean] * len(frame), index=frame.index, dtype="float64", name=self.spec.name)
 
+    def save(self, path: Path) -> None:
+        if self._mean is None:
+            raise RuntimeError("model is not fitted")
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "model_class": "QuantBenchBaselineModel",
+            "spec": asdict(self.spec),
+            "mean": self._mean,
+        }
+        Path(path).write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+
 
 def create_model(spec: ModelSpec) -> FitPredictModel:
     return QuantBenchBaselineModel(spec)
+
+
+def load_model(path: Path) -> QuantBenchBaselineModel:
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    if payload.get("model_class") != "QuantBenchBaselineModel":
+        raise ValueError(f"unsupported model payload: {payload.get('model_class')}")
+    spec = ModelSpec(**payload["spec"])
+    model = QuantBenchBaselineModel(spec)
+    model._mean = float(payload["mean"])
+    return model
 
 
 def _spec(
