@@ -10,6 +10,9 @@ from .contracts import BrokerAdapter, assert_paper_sim_mode
 from .paper import AccountSnapshot
 
 
+DASHBOARD_MANIFEST_ALLOWED_KINDS = ("analysis_manifest", "artifact_manifest")
+
+
 @dataclass(frozen=True)
 class ExecutionIntent:
     instrument: str
@@ -260,8 +263,66 @@ def _requested_model_context(dashboard_payload: dict[str, Any]) -> dict[str, Any
     }
 
 
+def _dashboard_manifest_context(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    allowed = DASHBOARD_MANIFEST_ALLOWED_KINDS
+    base_payload = {
+        "dashboard_manifest_required": True,
+        "dashboard_manifest_status": "missing",
+        "dashboard_manifest_kind": "",
+        "dashboard_manifest_path": "",
+        "dashboard_manifest_hash": "",
+        "dashboard_manifest_producer": "",
+        "dashboard_manifest_allowed_kinds": ",".join(allowed),
+        "dashboard_manifest_error": "",
+    }
+    manifest_source = dashboard_payload.get("manifest_source")
+    if not isinstance(manifest_source, dict):
+        return base_payload
+
+    kind = str(manifest_source.get("kind", ""))
+    manifest_path = str(manifest_source.get("path", ""))
+    manifest_hash = str(manifest_source.get("manifest_hash", ""))
+    producer = str(manifest_source.get("producer", ""))
+    payload = {
+        **base_payload,
+        "dashboard_manifest_kind": kind,
+        "dashboard_manifest_path": manifest_path,
+        "dashboard_manifest_hash": manifest_hash,
+        "dashboard_manifest_producer": producer,
+    }
+    if kind not in allowed:
+        payload["dashboard_manifest_status"] = "weak_kind"
+        payload["dashboard_manifest_error"] = f"kind {kind} not allowed"
+        return payload
+
+    missing_fields = [
+        field
+        for field, value in (
+            ("path", manifest_path),
+            ("manifest_hash", manifest_hash),
+            ("producer", producer),
+        )
+        if not value
+    ]
+    if missing_fields:
+        payload["dashboard_manifest_status"] = "incomplete"
+        payload["dashboard_manifest_error"] = "missing " + ",".join(missing_fields)
+        return payload
+
+    payload["dashboard_manifest_status"] = "complete"
+    return payload
+
+
 def _readiness_gates(dashboard_payload: dict[str, Any]) -> list[dict[str, str]]:
     gates: list[dict[str, str]] = []
+    dashboard_manifest = _dashboard_manifest_context(dashboard_payload)
+    gates.append(
+        {
+            "gate": "dashboard_manifest",
+            "status": "pass" if dashboard_manifest["dashboard_manifest_status"] == "complete" else "block",
+        }
+    )
+
     production_health = dashboard_payload.get("production_health")
     if isinstance(production_health, dict) and production_health:
         missing_count = len(_string_list(production_health.get("missing_required_paths")))
@@ -340,6 +401,7 @@ def build_target_position_intent_from_dashboard(
     model_difference = _model_difference_context(dashboard_payload, source_model)
     run_context = _model_run_context(dashboard_payload, source_model)
     requested_context = _requested_model_context(dashboard_payload)
+    dashboard_manifest_context = _dashboard_manifest_context(dashboard_payload)
     readiness_context = _readiness_context(dashboard_payload)
     blocked_by_promotion = str(promotion.get("promotion_decision", "")) == "blocked"
     blocked_by_review = (
@@ -384,6 +446,7 @@ def build_target_position_intent_from_dashboard(
             "promotion_score": float(promotion.get("promotion_score", 0.0) or 0.0),
             "promotion_blockers": _clean_metadata_string(promotion.get("promotion_blockers", "")),
             "dashboard_schema_version": str(dashboard_payload.get("schema_version", "")),
+            **dashboard_manifest_context,
             **run_context,
             **requested_context,
             **readiness_context,

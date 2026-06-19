@@ -1,0 +1,38 @@
+{
+  "schema_version": "research.api_dashboard_manifest_gate_v1",
+  "experiment": "api_dashboard_manifest_gate_v1",
+  "ready_case_count": 1,
+  "blocked_case_count": 2,
+  "cases": [
+    {
+      "case": "strong_analysis_manifest",
+      "target_position": 0.5,
+      "execution_gate": "paper_review",
+      "dashboard_manifest_status": "complete",
+      "dashboard_manifest_kind": "analysis_manifest",
+      "dashboard_manifest_hash_present": true,
+      "readiness_overview_status": "ready",
+      "readiness_overview_block_gates": ""
+    },
+    {
+      "case": "missing_manifest_source",
+      "target_position": 0.1,
+      "execution_gate": "blocked_to_min_position",
+      "dashboard_manifest_status": "missing",
+      "dashboard_manifest_kind": "",
+      "dashboard_manifest_hash_present": false,
+      "readiness_overview_status": "blocked",
+      "readiness_overview_block_gates": "dashboard_manifest"
+    },
+    {
+      "case": "fixed_sidecars_manifest_source",
+      "target_position": 0.1,
+      "execution_gate": "blocked_to_min_position",
+      "dashboard_manifest_status": "weak_kind",
+      "dashboard_manifest_kind": "fixed_sidecars",
+      "dashboard_manifest_hash_present": false,
+      "readiness_overview_status": "blocked",
+      "readiness_overview_block_gates": "dashboard_manifest"
+    }
+  ]
+}

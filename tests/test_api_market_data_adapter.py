@@ -54,6 +54,12 @@ def test_paper_market_data_adapter_can_price_paper_intent_execution():
         {
             "schema_version": "dashboard.model_matrix.v1",
             "artifact_id": "unit_dashboard",
+            "manifest_source": {
+                "kind": "analysis_manifest",
+                "path": "matrix_card/analysis_manifest.json",
+                "manifest_hash": "a" * 64,
+                "producer": "src.analysis.exports",
+            },
             "top_models": [{"model": "ridge_mse", "avg_position": 0.5}],
         },
         instrument="SOXL",

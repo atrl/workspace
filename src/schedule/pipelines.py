@@ -663,6 +663,12 @@ def _paper_execution_attempt(config: PaperExecutionPipelineConfig) -> dict[str, 
         "source_artifact": intent.source_artifact,
         "target_position": float(intent.target_position),
         "execution_gate": str(metadata.get("execution_gate", "")),
+        "dashboard_manifest_status": str(metadata.get("dashboard_manifest_status", "")),
+        "dashboard_manifest_kind": str(metadata.get("dashboard_manifest_kind", "")),
+        "dashboard_manifest_path": str(metadata.get("dashboard_manifest_path", "")),
+        "dashboard_manifest_hash": str(metadata.get("dashboard_manifest_hash", "")),
+        "dashboard_manifest_producer": str(metadata.get("dashboard_manifest_producer", "")),
+        "dashboard_manifest_error": str(metadata.get("dashboard_manifest_error", "")),
         "model_difference_schema_version": str(metadata.get("model_difference_schema_version", "")),
         "model_difference_top_signal": str(metadata.get("model_difference_top_signal", "")),
         "model_difference_top_decision_hint": str(metadata.get("model_difference_top_decision_hint", "")),
@@ -705,6 +711,8 @@ def _paper_execution_notification(job_name: str, status: str, payload: dict[str,
         f" | gate={payload.get('execution_gate', '')}"
         f" | model={payload.get('source_model', '')}"
         f" | target={float(payload.get('target_position', 0.0) or 0.0):g}"
+        f" | dashboard_manifest={payload.get('dashboard_manifest_kind', '')}/"
+        f"{payload.get('dashboard_manifest_status', '')}"
         f" | quote={quote.get('instrument', '')}@{quote.get('date', '')}/"
         f"{float(quote.get('price', 0.0) or 0.0):g}"
         f" | shares={int(snapshot.get('shares', 0) or 0)}"

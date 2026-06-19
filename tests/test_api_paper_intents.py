@@ -17,6 +17,12 @@ def _dashboard_payload() -> dict:
     return {
         "schema_version": "dashboard.model_matrix.v1",
         "artifact_id": "factor_feature_set_matrix_v1",
+        "manifest_source": {
+            "kind": "analysis_manifest",
+            "path": "matrix_card/analysis_manifest.json",
+            "manifest_hash": "a" * 64,
+            "producer": "src.analysis.exports",
+        },
         "top_models": [
             {
                 "rank": 1,
@@ -50,6 +56,63 @@ def test_build_target_position_intent_from_dashboard_clamps_and_records_model_so
     assert intent.source_artifact == "factor_feature_set_matrix_v1"
     assert intent.metadata["raw_avg_position"] == 0.74
     assert "真实 broker" in intent.guardrail
+
+
+def test_build_target_position_intent_records_dashboard_manifest_source_context():
+    payload = _dashboard_payload()
+
+    intent = build_target_position_intent_from_dashboard(payload, instrument="SOXL")
+
+    assert intent.metadata["dashboard_manifest_status"] == "complete"
+    assert intent.metadata["dashboard_manifest_kind"] == "analysis_manifest"
+    assert intent.metadata["dashboard_manifest_path"] == "matrix_card/analysis_manifest.json"
+    assert intent.metadata["dashboard_manifest_hash"] == "a" * 64
+    assert intent.metadata["dashboard_manifest_producer"] == "src.analysis.exports"
+    assert intent.metadata["readiness_overview_status"] == "ready"
+    assert intent.metadata["readiness_overview_gates"] == "dashboard_manifest"
+
+
+def test_build_target_position_intent_blocks_missing_dashboard_manifest_source():
+    payload = _dashboard_payload()
+    payload.pop("manifest_source")
+
+    intent = build_target_position_intent_from_dashboard(
+        payload,
+        instrument="SOXL",
+        min_position=0.1,
+        max_position=0.75,
+    )
+
+    assert intent.target_position == 0.1
+    assert intent.metadata["execution_gate"] == "blocked_to_min_position"
+    assert intent.metadata["dashboard_manifest_status"] == "missing"
+    assert intent.metadata["dashboard_manifest_kind"] == ""
+    assert intent.metadata["readiness_overview_status"] == "blocked"
+    assert intent.metadata["readiness_overview_block_gates"] == "dashboard_manifest"
+
+
+def test_build_target_position_intent_blocks_fixed_sidecar_dashboard_manifest_source():
+    payload = _dashboard_payload()
+    payload["manifest_source"] = {
+        "kind": "fixed_sidecars",
+        "path": "",
+        "manifest_hash": "",
+        "producer": "src.dashboard.model_matrix",
+    }
+
+    intent = build_target_position_intent_from_dashboard(
+        payload,
+        instrument="SOXL",
+        min_position=0.1,
+        max_position=0.75,
+    )
+
+    assert intent.target_position == 0.1
+    assert intent.metadata["execution_gate"] == "blocked_to_min_position"
+    assert intent.metadata["dashboard_manifest_status"] == "weak_kind"
+    assert intent.metadata["dashboard_manifest_kind"] == "fixed_sidecars"
+    assert intent.metadata["dashboard_manifest_allowed_kinds"] == "analysis_manifest,artifact_manifest"
+    assert intent.metadata["readiness_overview_block_gates"] == "dashboard_manifest"
 
 
 def test_build_target_position_intent_records_dashboard_review_context_and_blocks_unsafe_top_model():
@@ -228,11 +291,11 @@ def test_build_target_position_intent_records_requested_model_and_readiness_revi
     assert intent.metadata["requested_model_missing_models"] == "lstm_mse,gcn_mse"
     assert intent.metadata["readiness_overview_schema_version"] == "dashboard.readiness_overview.v1"
     assert intent.metadata["readiness_overview_status"] == "review"
-    assert intent.metadata["readiness_overview_gate_count"] == 2
-    assert intent.metadata["readiness_overview_pass_count"] == 1
+    assert intent.metadata["readiness_overview_gate_count"] == 3
+    assert intent.metadata["readiness_overview_pass_count"] == 2
     assert intent.metadata["readiness_overview_review_count"] == 1
     assert intent.metadata["readiness_overview_block_count"] == 0
-    assert intent.metadata["readiness_overview_gates"] == "requested_models,model_runs"
+    assert intent.metadata["readiness_overview_gates"] == "dashboard_manifest,requested_models,model_runs"
     assert intent.metadata["readiness_overview_review_gates"] == "requested_models"
     assert intent.metadata["readiness_overview_block_gates"] == ""
 

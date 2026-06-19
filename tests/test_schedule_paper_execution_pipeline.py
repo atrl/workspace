@@ -46,6 +46,12 @@ def _write_dashboard_export(tmp_path):
                 "schema_version": "dashboard.model_matrix.v1",
                 "artifact_id": "unit_dashboard",
                 "artifact_type": "dashboard_export",
+                "manifest_source": {
+                    "kind": "analysis_manifest",
+                    "path": "matrix_card/analysis_manifest.json",
+                    "manifest_hash": "a" * 64,
+                    "producer": "src.analysis.exports",
+                },
                 "top_models": [
                     {
                         "rank": 1,
@@ -108,6 +114,9 @@ def test_paper_execution_pipeline_reads_dashboard_and_registry_then_writes_execu
     assert result.payload["quote"]["price"] == 12.0
     assert result.payload["source_model"] == "ridge_mse__all_features"
     assert result.payload["execution_gate"] == "paper_review"
+    assert result.payload["dashboard_manifest_status"] == "complete"
+    assert result.payload["dashboard_manifest_kind"] == "analysis_manifest"
+    assert result.payload["dashboard_manifest_hash"] == "a" * 64
     assert result.payload["target_position"] == 0.5
     assert result.payload["snapshot"]["shares"] == 41
     assert abs(result.payload["snapshot"]["position"] - 0.492) < 1e-3
@@ -118,7 +127,8 @@ def test_paper_execution_pipeline_reads_dashboard_and_registry_then_writes_execu
     assert execution["status"] == "paper_executed"
     assert events == [
         "paper_execution:success | mode=paper | gate=paper_review | model=ridge_mse__all_features "
-        f"| target=0.5 | quote=SOXL@2026-01-05/12 | shares=41 | ledger={config.intent_ledger_path}"
+        "| target=0.5 | dashboard_manifest=analysis_manifest/complete | quote=SOXL@2026-01-05/12 "
+        f"| shares=41 | ledger={config.intent_ledger_path}"
     ]
 
 
@@ -132,6 +142,12 @@ def test_paper_execution_pipeline_notification_includes_model_difference_gate_co
                 "schema_version": "dashboard.model_matrix.v1",
                 "artifact_id": "difference_dashboard",
                 "artifact_type": "dashboard_export",
+                "manifest_source": {
+                    "kind": "analysis_manifest",
+                    "path": "matrix_card/analysis_manifest.json",
+                    "manifest_hash": "b" * 64,
+                    "producer": "src.analysis.exports",
+                },
                 "top_models": [
                     {
                         "rank": 1,
