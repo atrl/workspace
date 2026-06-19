@@ -899,6 +899,75 @@ def test_model_dashboard_refresh_passes_optional_production_health_to_dashboard_
     assert result.payload["dashboard_schema_version"] == "dashboard.model_matrix.v1"
 
 
+def test_model_dashboard_refresh_passes_optional_notebook_card_manifest_to_dashboard_export(tmp_path):
+    calls: list[Path | None] = []
+    notebook_card_manifest_path = tmp_path / "notebook_card_manifest.json"
+    notebook_card_manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "core.notebook_card_manifest.v1",
+                "summary": {"production_published_count": 1, "production_template_count": 1},
+                "cards": [],
+                "manifest_hash": "n" * 64,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    def matrix_runner(**kwargs):
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 1, "status": "feature_set_matrix_completed"}
+
+    def dashboard_exporter(
+        card_dir: Path,
+        *,
+        output_path: Path,
+        top_n: int,
+        notebook_card_manifest_path: Path | None = None,
+    ):
+        calls.append(notebook_card_manifest_path)
+        payload = {
+            "schema_version": "dashboard.model_matrix.v1",
+            "top_models": [{"model": "ridge_mse", "rank": 1}],
+            "notebook_card_readiness": {
+                "schema_version": "dashboard.notebook_card_readiness.v1",
+                "manifest_hash": json.loads(Path(notebook_card_manifest_path).read_text(encoding="utf-8"))[
+                    "manifest_hash"
+                ],
+                "summary": {"production_published_count": 1, "production_template_count": 1},
+                "production_cards": [],
+            }
+            if notebook_card_manifest_path is not None
+            else {},
+        }
+        output_path.write_text(json.dumps(payload), encoding="utf-8")
+        return payload
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+        notebook_card_manifest_path=notebook_card_manifest_path,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "success"
+    assert calls == [notebook_card_manifest_path]
+    assert result.payload["dashboard_schema_version"] == "dashboard.model_matrix.v1"
+    assert result.payload["notebook_card_production_published_count"] == 1
+    assert result.payload["notebook_card_production_template_count"] == 1
+
+
 def test_model_dashboard_refresh_optionally_writes_dashboard_html_page(tmp_path):
     calls: list[tuple[str, Path]] = []
 

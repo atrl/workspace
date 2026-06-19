@@ -10,6 +10,7 @@
     "model_capabilities",
     "model_comparison",
     "model_effect_deltas",
+    "notebook_card_manifest",
     "qlib_risk_metrics",
     "regime_metrics",
     "summary",
@@ -18,6 +19,9 @@
   ],
   "top_model": "ridge_mse__top_ic_factors",
   "model_card_count": 2,
+  "notebook_card_manifest": "research/notebook_card_manifest_v1/notebook_card_manifest.json",
+  "production_published_count": 1,
+  "production_template_count": 1,
   "private_predictions_hidden": true,
-  "conclusion": "src/dashboard 已支持优先读取 analysis_manifest.json 指向的公开 sidecar，且不会暴露 predictions。"
+  "conclusion": "src/dashboard 已支持优先读取 analysis_manifest.json 指向的公开 sidecar，并可显式附加 notebook-card production readiness。"
 }

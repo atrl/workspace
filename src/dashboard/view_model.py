@@ -415,6 +415,9 @@ def build_dashboard_view_model(
         "production_health": dict(payload.get("production_health", {}))
         if isinstance(payload.get("production_health"), dict)
         else {},
+        "notebook_card_readiness": dict(payload.get("notebook_card_readiness", {}))
+        if isinstance(payload.get("notebook_card_readiness"), dict)
+        else {},
         "comparison_table": [dict(row) for row in top_models],
         "failure_mode_summary": {
             "count": int(len(failure_modes)),

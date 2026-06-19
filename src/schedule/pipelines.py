@@ -58,6 +58,7 @@ class ModelDashboardPipelineConfig:
     dashboard_top_n: int = 10
     attribution_card_dir: Path | None = None
     production_health_path: Path | None = None
+    notebook_card_manifest_path: Path | None = None
     dashboard_page_output_path: Path | None = None
     dashboard_page_title: str = "SOXL Dashboard"
     analysis_manifest_preflight: bool = False
@@ -656,6 +657,7 @@ def _default_dashboard_exporter(
     top_n: int,
     attribution_card_dir: Path | None = None,
     production_health_path: Path | None = None,
+    notebook_card_manifest_path: Path | None = None,
 ) -> dict[str, Any]:
     return write_model_matrix_dashboard_export(
         card_dir,
@@ -663,6 +665,7 @@ def _default_dashboard_exporter(
         top_n=top_n,
         attribution_card_dir=attribution_card_dir,
         production_health_path=production_health_path,
+        notebook_card_manifest_path=notebook_card_manifest_path,
     )
 
 
@@ -913,6 +916,39 @@ def _requested_model_contract_payload(dashboard_payload: dict[str, Any]) -> dict
     }
 
 
+def _notebook_card_readiness_payload(dashboard_payload: dict[str, Any]) -> dict[str, Any]:
+    readiness = dashboard_payload.get("notebook_card_readiness")
+    if not isinstance(readiness, dict):
+        return {}
+    summary = readiness.get("summary")
+    summary_payload = summary if isinstance(summary, dict) else {}
+    production_cards = readiness.get("production_cards")
+    production_card_rows = production_cards if isinstance(production_cards, list) else []
+    if not summary_payload and not production_card_rows:
+        return {}
+    return {
+        "notebook_card_schema_version": str(readiness.get("schema_version", "")),
+        "notebook_card_manifest_hash": str(readiness.get("manifest_hash", "")),
+        "notebook_card_count": int(summary_payload.get("card_count", 0) or 0),
+        "notebook_card_production_count": int(summary_payload.get("production_card_count", 0) or 0),
+        "notebook_card_production_published_count": int(
+            summary_payload.get("production_published_count", 0) or 0
+        ),
+        "notebook_card_production_template_count": int(summary_payload.get("production_template_count", 0) or 0),
+        "notebook_card_production_manifest_missing_count": int(
+            summary_payload.get("production_manifest_missing_count", 0) or 0
+        ),
+        "notebook_card_production_registry_mismatch_count": int(
+            summary_payload.get("production_registry_mismatch_count", 0) or 0
+        ),
+        "notebook_card_production_cards": ",".join(
+            str(row.get("card_id", ""))
+            for row in production_card_rows
+            if isinstance(row, dict) and str(row.get("card_id", ""))
+        ),
+    }
+
+
 def _run_pipeline_attempt(
     config: ModelDashboardPipelineConfig,
     *,
@@ -937,6 +973,8 @@ def _run_pipeline_attempt(
         dashboard_kwargs["attribution_card_dir"] = config.attribution_card_dir
     if config.production_health_path is not None:
         dashboard_kwargs["production_health_path"] = config.production_health_path
+    if config.notebook_card_manifest_path is not None:
+        dashboard_kwargs["notebook_card_manifest_path"] = config.notebook_card_manifest_path
     dashboard_payload = dashboard_exporter(config.card_dir, **dashboard_kwargs)
     page_payload: dict[str, Any] = {}
     if config.dashboard_page_output_path is not None:
@@ -973,6 +1011,7 @@ def _run_pipeline_attempt(
         **_promotion_payload(dashboard_payload),
         **_model_run_coverage_payload(dashboard_payload),
         **_requested_model_contract_payload(dashboard_payload),
+        **_notebook_card_readiness_payload(dashboard_payload),
         **_prefixed_preflight_payload(preflight),
     }
 

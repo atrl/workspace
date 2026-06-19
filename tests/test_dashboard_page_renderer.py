@@ -160,7 +160,7 @@ def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_w
     assert "SOXL 模型 Dashboard" in html
     assert {"model-filter", "regime-filter", "fidelity-filter", "dashboard-view-model"}.issubset(parser.ids)
     assert "gcn_mse__top_ic_factors" in html
-    assert "proxy_feature_adapter" in html
+    assert "native_graph" in html
     assert "soxx_return_5d" in html
     assert "window-regime" in html
     assert "/path/that/must/not/be/rendered.csv" not in html

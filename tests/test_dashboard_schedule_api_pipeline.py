@@ -333,6 +333,69 @@ def test_dashboard_export_can_attach_production_health_payload_without_sidecar_g
     assert saved["artifacts"]["production_health"].endswith("production_health_export.json")
 
 
+def test_dashboard_export_can_attach_notebook_card_manifest_production_readiness(tmp_path):
+    manifest_path = tmp_path / "notebook_card_manifest.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "core.notebook_card_manifest.v1",
+                "summary": {
+                    "card_count": 2,
+                    "production_card_count": 2,
+                    "production_published_count": 1,
+                    "production_template_count": 1,
+                    "production_manifest_missing_count": 0,
+                    "production_registry_mismatch_count": 0,
+                },
+                "cards": [
+                    {
+                        "surface": "production",
+                        "card_id": "paper_reference_strategy",
+                        "production_status": "template_only",
+                        "production_manifest_present": False,
+                    },
+                    {
+                        "surface": "production",
+                        "card_id": "paper_sim_replay_v1",
+                        "production_status": "published",
+                        "production_manifest_present": True,
+                        "production_registry_registered": True,
+                        "production_manifest_hash_matches_registry": True,
+                    },
+                    {
+                        "surface": "research",
+                        "card_id": "quantbench_model_matrix_smoke_v1",
+                    },
+                ],
+                "manifest_hash": "n" * 64,
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    output_path = tmp_path / "dashboard_export.json"
+
+    payload = write_model_matrix_dashboard_export(
+        "research/factor_feature_set_matrix_v1",
+        output_path=output_path,
+        top_n=3,
+        notebook_card_manifest_path=manifest_path,
+    )
+    saved = json.loads(output_path.read_text(encoding="utf-8"))
+
+    readiness = saved["notebook_card_readiness"]
+    assert readiness == payload["notebook_card_readiness"]
+    assert readiness["schema_version"] == "dashboard.notebook_card_readiness.v1"
+    assert readiness["manifest_hash"] == "n" * 64
+    assert readiness["summary"]["production_published_count"] == 1
+    assert readiness["summary"]["production_template_count"] == 1
+    assert [card["card_id"] for card in readiness["production_cards"]] == [
+        "paper_reference_strategy",
+        "paper_sim_replay_v1",
+    ]
+    assert saved["artifacts"]["notebook_card_manifest"].endswith("notebook_card_manifest.json")
+
+
 def test_dashboard_export_surfaces_window_regime_fidelity_and_attribution(tmp_path):
     matrix_card = tmp_path / "matrix_card"
     attribution_card = tmp_path / "attribution_card"

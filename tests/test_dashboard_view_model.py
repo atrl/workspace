@@ -158,7 +158,7 @@ def test_dashboard_view_model_builds_page_controls_and_model_cards_from_export_p
     assert {"trailing_1m", "trailing_3m", "trailing_6m", "trailing_12m", "ytd"}.issubset(
         set(view["controls"]["windows"])
     )
-    assert {"native_library", "proxy_feature_adapter"}.issubset(set(view["controls"]["paper_fidelities"]))
+    assert {"native_library", "native_graph"}.issubset(set(view["controls"]["paper_fidelities"]))
     assert "soxx_return_5d" in view["controls"]["attribution_features"]
     assert "artifacts" not in view
 
@@ -234,6 +234,35 @@ def test_dashboard_view_model_preserves_production_health_from_export_payload_on
     assert "artifacts" not in view
 
 
+def test_dashboard_view_model_preserves_notebook_card_readiness_from_export_payload_only():
+    payload = _dashboard_payload()
+    payload["artifacts"]["notebook_card_manifest"] = "/path/that/must/not/be_read.json"
+    payload["notebook_card_readiness"] = {
+        "schema_version": "dashboard.notebook_card_readiness.v1",
+        "manifest_hash": "n" * 64,
+        "summary": {
+            "production_card_count": 2,
+            "production_published_count": 1,
+            "production_template_count": 1,
+        },
+        "production_cards": [
+            {"card_id": "paper_reference_strategy", "production_status": "template_only"},
+            {"card_id": "paper_sim_replay_v1", "production_status": "published"},
+        ],
+    }
+
+    view = build_dashboard_view_model(payload)
+
+    assert view["notebook_card_readiness"]["schema_version"] == "dashboard.notebook_card_readiness.v1"
+    assert view["notebook_card_readiness"]["manifest_hash"] == "n" * 64
+    assert view["notebook_card_readiness"]["summary"]["production_published_count"] == 1
+    assert [card["production_status"] for card in view["notebook_card_readiness"]["production_cards"]] == [
+        "template_only",
+        "published",
+    ]
+    assert "artifacts" not in view
+
+
 def test_dashboard_view_model_attaches_failure_modes_to_matching_model_cards():
     view = build_dashboard_view_model(
         _dashboard_payload_with_failure_modes(),
@@ -293,7 +322,7 @@ def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attrib
             models=("gcn_mse__top_ic_factors",),
             regimes=("stress",),
             windows=("test",),
-            paper_fidelities=("proxy_feature_adapter",),
+            paper_fidelities=("native_graph",),
             attribution_features=("soxx_return_5d",),
         ),
     )
@@ -304,7 +333,7 @@ def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attrib
         "feature_sets": [],
         "regimes": ["stress"],
         "windows": ["test"],
-        "paper_fidelities": ["proxy_feature_adapter"],
+        "paper_fidelities": ["native_graph"],
         "attribution_features": ["soxx_return_5d"],
         "failure_modes": [],
         "review_signals": [],
@@ -312,8 +341,8 @@ def test_dashboard_view_model_filters_by_model_regime_window_fidelity_and_attrib
     }
     assert [card["model"] for card in view["model_cards"]] == ["gcn_mse__top_ic_factors"]
     card = view["model_cards"][0]
-    assert card["paper_fidelity"] == "proxy_feature_adapter"
-    assert card["proxy_model"] is True
+    assert card["paper_fidelity"] == "native_graph"
+    assert card["proxy_model"] is False
     assert {row["regime"] for row in card["window_regime_metrics"]} == {"stress"}
     assert {row["window"] for row in card["window_regime_metrics"]} == {"test"}
     assert {row["feature"] for row in card["top_attribution_features"]} == {"soxx_return_5d"}

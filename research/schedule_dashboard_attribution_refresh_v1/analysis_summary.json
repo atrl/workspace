@@ -9,27 +9,27 @@
   "matrix_card": "research/schedule_dashboard_attribution_refresh_v1/matrix_card",
   "dashboard_export": "research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json",
   "attribution_card": "research/model_attribution_analysis_v1",
+  "notebook_card_manifest": "research/notebook_card_manifest_v1/notebook_card_manifest.json",
   "dashboard_schema_version": "dashboard.model_matrix.v1",
   "top_models": [
     "ridge_mse__ic_weighted_composite",
-    "gcn_mse__ic_weighted_composite",
     "ridge_mse__top_ic_factors",
     "gcn_mse__top_ic_factors",
+    "gcn_mse__ic_weighted_composite",
     "gcn_mse__all_features"
   ],
   "model_fidelity": {
     "fidelity_counts": {
-      "native_library": 1,
-      "proxy_feature_adapter": 1
+      "native_graph": 1,
+      "native_library": 1
     },
     "model_count": 2,
     "native_models": [
+      "gcn_mse",
       "ridge_mse"
     ],
     "promotion_blocker_count": 1,
-    "proxy_models": [
-      "gcn_mse"
-    ],
+    "proxy_models": [],
     "schema_version": "model.fidelity.v1"
   },
   "window_regime_rows": 138,
@@ -39,6 +39,9 @@
     "xgboost_mse",
     "gcn_mse"
   ],
+  "notebook_card_readiness_schema": "dashboard.notebook_card_readiness.v1",
+  "production_published_count": 1,
+  "production_template_count": 1,
   "artifact_keys": [
     "analysis_manifest",
     "artifact_manifest",
@@ -53,7 +56,11 @@
     "model_capabilities",
     "model_comparison",
     "model_effect_deltas",
+    "model_regime_window_diagnostics",
     "model_review_briefing",
+    "model_run_ledger",
+    "model_run_ledger_summary",
+    "notebook_card_manifest",
     "objective_scores",
     "promotion_scores",
     "qlib_risk_metrics",

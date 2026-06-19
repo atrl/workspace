@@ -49,27 +49,26 @@
     "base_model_count": 2,
     "feature_set_count": 3,
     "model_adapters": [
-      "gcn_feature_propagation_mse_v1",
+      "gcn_graph_convolution_mse_v1",
       "ridge_mse_v1"
     ],
     "model_fidelity": {
       "fidelity_counts": {
-        "native_library": 1,
-        "proxy_feature_adapter": 1
+        "native_graph": 1,
+        "native_library": 1
       },
       "model_count": 2,
       "native_models": [
+        "gcn_mse",
         "ridge_mse"
       ],
       "promotion_blocker_count": 1,
-      "proxy_models": [
-        "gcn_mse"
-      ],
+      "proxy_models": [],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.07237711718236088,
-      "avg_mse": 0.012443118042468606,
+      "avg_ic": 0.0792352989696271,
+      "avg_mse": 0.012616685764569905,
       "avg_rank_ic": 0.0,
       "model_count": 6,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -85,10 +84,11 @@
     "selection_source": "train_only_factor_ic",
     "status": "feature_set_matrix_completed",
     "table_counts": {
-      "failure_modes": 98,
+      "failure_modes": 112,
       "model_comparison": 6,
       "model_effect_deltas": 204,
-      "model_review_briefing": 98,
+      "model_regime_window_diagnostics": 6,
+      "model_review_briefing": 132,
       "qlib_return_frame": 156,
       "qlib_risk_metrics": 408,
       "regime_metrics": 24,
@@ -111,7 +111,10 @@
     "failure_modes": "failure_modes.csv",
     "model_comparison": "model_comparison.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
     "model_review_briefing": "model_review_briefing.csv",
+    "model_run_ledger": "model_run_ledger.csv",
+    "model_run_ledger_summary": "model_run_ledger_summary.json",
     "objective_scores": "objective_scores.csv",
     "promotion_scores": "promotion_scores.csv",
     "qlib_return_frame": "qlib_return_frame.csv",
@@ -126,5 +129,5 @@
   },
   "producer": "src.analysis.exports",
   "schema_version": "artifact.v1",
-  "manifest_hash": "6879b9648a9cf2370492156395f67b6fcffc649205b85336a04f1327e705102d"
+  "manifest_hash": "6422a0b45fd294e4ccd84ab9f7f59161ea26174ebbed1c58e51dda48703e1941"
 }

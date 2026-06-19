@@ -378,6 +378,27 @@ def _load_attribution_card(attribution_card: Path | None, *, top_n: int) -> dict
     }
 
 
+def _load_notebook_card_readiness(path: Path | None) -> dict[str, Any]:
+    if path is None:
+        return {}
+    manifest = _read_manifest_if_exists(path)
+    if not manifest:
+        return {}
+    cards = manifest.get("cards", [])
+    production_cards = [
+        dict(card)
+        for card in cards
+        if isinstance(card, dict) and str(card.get("surface", "")) == "production"
+    ]
+    return {
+        "schema_version": "dashboard.notebook_card_readiness.v1",
+        "source_schema_version": str(manifest.get("schema_version", "")),
+        "manifest_hash": str(manifest.get("manifest_hash", "")),
+        "summary": dict(manifest.get("summary", {})) if isinstance(manifest.get("summary"), dict) else {},
+        "production_cards": production_cards,
+    }
+
+
 def _analysis_overview(
     summary: dict[str, Any],
     *,
@@ -407,10 +428,12 @@ def load_model_matrix_dashboard(
     top_n: int = 10,
     attribution_card_dir: str | Path | None = None,
     production_health_path: str | Path | None = None,
+    notebook_card_manifest_path: str | Path | None = None,
 ) -> dict[str, Any]:
     card = Path(card_dir)
     attribution_card = Path(attribution_card_dir) if attribution_card_dir is not None else None
     health_path = Path(production_health_path) if production_health_path is not None else None
+    notebook_manifest_path = Path(notebook_card_manifest_path) if notebook_card_manifest_path is not None else None
     analysis_manifest, artifact_manifest, public_paths = _card_sources(card)
     summary = json.loads(_path_for(card, public_paths, "summary", "analysis_summary.json").read_text(encoding="utf-8"))
     comparison = _read_csv_from_paths(card, public_paths, "model_comparison", "model_comparison.csv")
@@ -457,6 +480,9 @@ def load_model_matrix_dashboard(
     production_health = _read_manifest_if_exists(health_path) if health_path is not None else {}
     if health_path is not None and production_health:
         artifacts["production_health"] = str(health_path)
+    notebook_card_readiness = _load_notebook_card_readiness(notebook_manifest_path)
+    if notebook_manifest_path is not None and notebook_card_readiness:
+        artifacts["notebook_card_manifest"] = str(notebook_manifest_path)
     return {
         "schema_version": "dashboard.model_matrix.v1",
         "artifact_id": str(manifest_source.get("artifact_id", card.name)),
@@ -498,6 +524,7 @@ def load_model_matrix_dashboard(
         },
         "attribution": _load_attribution_card(attribution_card, top_n=top_n),
         "production_health": production_health,
+        "notebook_card_readiness": notebook_card_readiness,
         "artifacts": artifacts,
     }
 
@@ -509,12 +536,14 @@ def write_model_matrix_dashboard_export(
     top_n: int = 10,
     attribution_card_dir: str | Path | None = None,
     production_health_path: str | Path | None = None,
+    notebook_card_manifest_path: str | Path | None = None,
 ) -> dict[str, Any]:
     payload = load_model_matrix_dashboard(
         card_dir,
         top_n=top_n,
         attribution_card_dir=attribution_card_dir,
         production_health_path=production_health_path,
+        notebook_card_manifest_path=notebook_card_manifest_path,
     )
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)

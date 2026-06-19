@@ -2,11 +2,39 @@
   "schema_version": "dashboard.model_matrix.v1",
   "artifact_id": "dashboard_manifest_loader_v1",
   "artifact_type": "dashboard_export",
+  "manifest_source": {
+    "kind": "analysis_manifest",
+    "path": "research/dashboard_manifest_loader_v1/matrix_card/analysis_manifest.json",
+    "schema_version": "artifact.v1",
+    "manifest_hash": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+    "producer": "src.analysis.exports"
+  },
   "summary": {
     "schema_version": "analysis.report.v1",
     "status": "dashboard_manifest_loader_completed",
     "model_count": 2,
     "note": "中文 review：dashboard 通过 manifest 读取 sidecar。"
+  },
+  "analysis_overview": {
+    "schema_version": "analysis.overview.v1",
+    "baseline_model": "",
+    "model_count": 0,
+    "regime_count": 0,
+    "window_count": 0,
+    "window_regime_count": 0,
+    "segment_effect_matrix_count": 0,
+    "model_regime_window_diagnostic_count": 0,
+    "segment_types": [],
+    "qlib_metric_source": "",
+    "review_signal_counts": {},
+    "decision_hint_counts": {},
+    "top_review": {},
+    "top_weakness": {},
+    "top_strength": {},
+    "top_regime_fragile_models": [],
+    "weakest_segments": [],
+    "largest_relative_return_spread_segments": [],
+    "dashboard_note": "统一 regime/window 模型差异摘要，供 dashboard 总览和 schedule 通知读取。"
   },
   "model_fidelity": {
     "schema_version": "model.fidelity.v1",
@@ -16,6 +44,7 @@
     "native_models": [],
     "promotion_blocker_count": 0
   },
+  "requested_model_contract": {},
   "model_capabilities": [
     {
       "model": "ridge_mse",
@@ -24,8 +53,8 @@
     },
     {
       "model": "gcn_mse",
-      "paper_fidelity": "proxy_feature_adapter",
-      "promotion_blocker": "graph proxy"
+      "paper_fidelity": "native_graph",
+      "promotion_blocker": "graph relation review pending"
     }
   ],
   "top_models": [
@@ -113,6 +142,21 @@
       "annualized_return": -0.18
     }
   ],
+  "objective": {
+    "scores": [],
+    "promotion_scores": []
+  },
+  "model_run_coverage": {
+    "schema_version": "model.run_ledger_summary.v1",
+    "expected_model_count": 0,
+    "ledger_model_count": 0,
+    "trained_model_count": 0,
+    "backtested_model_count": 0,
+    "missing_models": [],
+    "all_models_completed": false
+  },
+  "model_run_ledger": [],
+  "segment_effect_matrix": [],
   "model_effect_deltas": [
     {
       "model": "gcn_mse__all_features",
@@ -123,6 +167,13 @@
       "diagnosis": "弱于基准：压力窗口回撤扩大。"
     }
   ],
+  "model_regime_window_diagnostics": [],
+  "model_review_briefing": [],
+  "failure_modes": [],
+  "backtest": {
+    "config": {},
+    "walk_forward_splits": []
+  },
   "attribution": {
     "status": "not_provided",
     "schema_version": "analysis.model_attribution.batch.v1",
@@ -130,6 +181,87 @@
     "proxy_models": [],
     "attribution_kinds": {},
     "top_features_by_model": []
+  },
+  "production_health": {},
+  "notebook_card_readiness": {
+    "schema_version": "dashboard.notebook_card_readiness.v1",
+    "source_schema_version": "core.notebook_card_manifest.v1",
+    "manifest_hash": "330519e1e32f170e8f0ff4add1dd257dfc5053d294d4ecd1d27a7e6b4e64a30a",
+    "summary": {
+      "canonical_notebook_count": 91,
+      "card_count": 91,
+      "chinese_conclusion_ok_count": 91,
+      "missing_chinese_conclusion_count": 0,
+      "missing_notebook_count": 0,
+      "multiple_notebook_count": 0,
+      "noncanonical_notebook_count": 0,
+      "notebook_count": 91,
+      "production_card_count": 2,
+      "production_manifest_missing_count": 0,
+      "production_published_count": 1,
+      "production_registry_mismatch_count": 0,
+      "production_template_count": 1,
+      "ready_count": 91,
+      "schema_version": "core.notebook_card_scan.summary.v1",
+      "status_counts": {
+        "ready": 91
+      },
+      "surface_count": 2
+    },
+    "production_cards": [
+      {
+        "canonical_notebook_name": "paper_reference_strategy.ipynb",
+        "card_id": "paper_reference_strategy",
+        "card_path": "production/paper_reference_strategy",
+        "chinese_conclusion_ok": true,
+        "conclusion_missing_terms": [],
+        "is_canonical_notebook_name": true,
+        "notebook_count": 1,
+        "notebooks": [
+          "paper_reference_strategy.ipynb"
+        ],
+        "primary_notebook": "paper_reference_strategy.ipynb",
+        "primary_notebook_path": "production/paper_reference_strategy/paper_reference_strategy.ipynb",
+        "production_manifest_hash": "",
+        "production_manifest_hash_matches_registry": false,
+        "production_manifest_path": "",
+        "production_manifest_present": false,
+        "production_registry_manifest_hash": "",
+        "production_registry_manifest_path": "",
+        "production_registry_registered": false,
+        "production_status": "template_only",
+        "schema_version": "core.notebook_card.v1",
+        "sidecar_count": 0,
+        "status": "ready",
+        "surface": "production"
+      },
+      {
+        "canonical_notebook_name": "paper_sim_replay_v1.ipynb",
+        "card_id": "paper_sim_replay_v1",
+        "card_path": "production/paper_sim_replay_v1",
+        "chinese_conclusion_ok": true,
+        "conclusion_missing_terms": [],
+        "is_canonical_notebook_name": true,
+        "notebook_count": 1,
+        "notebooks": [
+          "paper_sim_replay_v1.ipynb"
+        ],
+        "primary_notebook": "paper_sim_replay_v1.ipynb",
+        "primary_notebook_path": "production/paper_sim_replay_v1/paper_sim_replay_v1.ipynb",
+        "production_manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
+        "production_manifest_hash_matches_registry": true,
+        "production_manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+        "production_manifest_present": true,
+        "production_registry_manifest_hash": "442f9f89782ff2c8ae0711220ca3486cbb32e07a4233d2c31a8b4b9558992c25",
+        "production_registry_manifest_path": "production/paper_sim_replay_v1/production_manifest.json",
+        "production_registry_registered": true,
+        "production_status": "published",
+        "schema_version": "core.notebook_card.v1",
+        "sidecar_count": 7,
+        "status": "ready",
+        "surface": "production"
+      }
+    ]
   },
   "artifacts": {
     "summary": "research/dashboard_manifest_loader_v1/matrix_card/manifest_summary.json",
@@ -140,6 +272,7 @@
     "qlib_risk_metrics": "research/dashboard_manifest_loader_v1/matrix_card/manifest_risk.csv",
     "model_effect_deltas": "research/dashboard_manifest_loader_v1/matrix_card/manifest_deltas.csv",
     "model_capabilities": "research/dashboard_manifest_loader_v1/matrix_card/manifest_capabilities.csv",
-    "analysis_manifest": "research/dashboard_manifest_loader_v1/matrix_card/analysis_manifest.json"
+    "analysis_manifest": "research/dashboard_manifest_loader_v1/matrix_card/analysis_manifest.json",
+    "notebook_card_manifest": "research/notebook_card_manifest_v1/notebook_card_manifest.json"
   }
 }

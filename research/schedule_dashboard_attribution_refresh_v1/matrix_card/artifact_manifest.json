@@ -48,27 +48,26 @@
     "base_model_count": 2,
     "feature_set_count": 3,
     "model_adapters": [
-      "gcn_feature_propagation_mse_v1",
+      "gcn_graph_convolution_mse_v1",
       "ridge_mse_v1"
     ],
     "model_fidelity": {
       "fidelity_counts": {
-        "native_library": 1,
-        "proxy_feature_adapter": 1
+        "native_graph": 1,
+        "native_library": 1
       },
       "model_count": 2,
       "native_models": [
+        "gcn_mse",
         "ridge_mse"
       ],
       "promotion_blocker_count": 1,
-      "proxy_models": [
-        "gcn_mse"
-      ],
+      "proxy_models": [],
       "schema_version": "model.fidelity.v1"
     },
     "objective_evaluation": {
-      "avg_ic": 0.07237711718236088,
-      "avg_mse": 0.012443118042468606,
+      "avg_ic": 0.0792352989696271,
+      "avg_mse": 0.012616685764569905,
       "avg_rank_ic": 0.0,
       "model_count": 6,
       "schema_version": "objective.matrix_evaluation.v1"
@@ -102,6 +101,9 @@
     "model_capabilities": "model_capabilities.csv",
     "model_comparison": "model_comparison.csv",
     "model_effect_deltas": "model_effect_deltas.csv",
+    "model_regime_window_diagnostics": "model_regime_window_diagnostics.csv",
+    "model_run_ledger": "model_run_ledger.csv",
+    "model_run_ledger_summary": "model_run_ledger_summary.json",
     "objective_scores": "objective_scores.csv",
     "predictions": "predictions.csv",
     "promotion_scores": "promotion_scores.csv",
@@ -115,5 +117,5 @@
   },
   "producer": "src.model.matrix",
   "schema_version": "artifact.v1",
-  "manifest_hash": "288a6b462b5c6680442437cbcd1dfefc987ca994e38b73af8f6319ed54eb15ac"
+  "manifest_hash": "cbf8ddded3383b2e2d55f2d71d04041fa976442c0424ab9b39623cce82dad324"
 }
