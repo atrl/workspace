@@ -86,3 +86,85 @@ class AnalysisReport:
         self.model_comparison.to_csv(paths["model_comparison"], index=False)
         paths["failure_modes"].write_text("\n".join(f"- {item}" for item in self.failure_modes) + "\n", encoding="utf-8")
         return paths
+
+
+@dataclass(frozen=True)
+class QlibRecorderArtifacts:
+    recorder_dir: Path
+    summary: dict[str, Any]
+    portfolio_report: pd.DataFrame
+    risk_metrics: dict[str, float]
+    model_comparison: pd.DataFrame
+
+    def to_analysis_report(
+        self,
+        *,
+        windows: dict[str, tuple[str, str]],
+        failure_modes: list[str],
+    ) -> AnalysisReport:
+        window_metrics = compute_window_metrics(self.portfolio_report, windows=windows)
+        return AnalysisReport(
+            name=self.summary["experiment"],
+            summary={
+                "source": "qlib_recorder_artifacts",
+                "recorder_id": self.summary["recorder_id"],
+                "risk_metrics": self.risk_metrics,
+                "qlib_docs": self.summary["qlib_docs"],
+            },
+            regime_metrics=pd.DataFrame(),
+            window_metrics=window_metrics,
+            model_comparison=compare_model_metrics(self.model_comparison),
+            failure_modes=failure_modes,
+        )
+
+
+def _read_risk_metrics(path: Path) -> dict[str, float]:
+    frame = pd.read_csv(path)
+    if {"metric", "value"}.issubset(frame.columns):
+        return {str(row["metric"]): float(row["value"]) for _, row in frame.iterrows()}
+    if len(frame) == 1:
+        return {str(column): float(frame.iloc[0][column]) for column in frame.columns}
+    raise ValueError(f"unsupported risk analysis shape: {path}")
+
+
+def load_qlib_recorder_artifacts(
+    recorder_dir: Path,
+    *,
+    experiment: str,
+    recorder_id: str,
+) -> QlibRecorderArtifacts:
+    recorder_path = Path(recorder_dir)
+    metrics_path = recorder_path / "metrics.json"
+    portfolio_path = recorder_path / "portfolio_report.csv"
+    risk_path = recorder_path / "risk_analysis.csv"
+    model_path = recorder_path / "model_comparison.csv"
+    for path in [metrics_path, portfolio_path, risk_path, model_path]:
+        if not path.exists():
+            raise FileNotFoundError(f"missing qlib recorder artifact: {path}")
+
+    recorder_metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+    portfolio_report = pd.read_csv(portfolio_path, parse_dates=["date"])
+    if "cum return w cost" in portfolio_report.columns and "nav" not in portfolio_report.columns:
+        portfolio_report["nav"] = portfolio_report["cum return w cost"].astype(float)
+    if "turnover" not in portfolio_report.columns:
+        portfolio_report["turnover"] = 0.0
+
+    risk_metrics = _read_risk_metrics(risk_path)
+    model_comparison = pd.read_csv(model_path)
+    summary = {
+        "experiment": experiment,
+        "recorder_id": recorder_id,
+        "recorder_dir": recorder_path.as_posix(),
+        "recorder_metrics": recorder_metrics,
+        "qlib_docs": {
+            "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+            "report": "https://qlib.readthedocs.io/en/latest/component/report.html",
+        },
+    }
+    return QlibRecorderArtifacts(
+        recorder_dir=recorder_path,
+        summary=summary,
+        portfolio_report=portfolio_report,
+        risk_metrics=risk_metrics,
+        model_comparison=model_comparison,
+    )
