@@ -418,6 +418,50 @@ def test_build_knowledge_promotion_audit_allows_item_after_required_evidence():
     ]
 
 
+def test_build_knowledge_research_evidence_index_reads_real_research_card_files():
+    sources = [
+        KnowledgeSource(
+            source_id="arxiv:2605.00501",
+            source_type="arxiv",
+            title="LambdaRankIC: Directly Optimizing Rank IC for Financial Prediction",
+            url="https://arxiv.org/abs/2605.00501",
+            summary=(
+                "Rank IC objective reference for reducing mismatch between regression losses, "
+                "generic ranking objectives, and finance evaluation metrics."
+            ),
+            license_note="arXiv metadata and self-written summary only.",
+        ),
+        KnowledgeSource(
+            source_id="arxiv:2106.13008",
+            source_type="paper",
+            title="Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting",
+            url="https://arxiv.org/abs/2106.13008",
+            summary="Autoformer decomposition and auto-correlation reference.",
+            license_note="arXiv metadata only.",
+        ),
+    ]
+    backlog = build_knowledge_backlog(sources)
+
+    assert hasattr(knowledge_api, "build_knowledge_research_evidence_index")
+    evidence_index = knowledge_api.build_knowledge_research_evidence_index(".", backlog)
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert evidence_index["rank_ic_objective"] == [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion",
+    ]
+    assert "autoformer_mse" not in evidence_index
+    rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
+    autoformer_item = next(item for item in audit["items"] if item["candidate_name"] == "autoformer_mse")
+    assert rank_item["promotion_gate_status"] == "research_evidence_complete"
+    assert rank_item["implementation_allowed"] is True
+    assert autoformer_item["promotion_gate_status"] == "blocked_missing_evidence"
+    assert autoformer_item["missing_evidence_count"] == 5
+
+
 def test_write_knowledge_promotion_audit_writes_json_csv_and_chinese_review(tmp_path):
     source = KnowledgeSource(
         source_id="x:regime-aware-quant-search",
@@ -516,5 +560,21 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
     ]
     assert rank_item["allowed_surfaces_after_gate"] == [
         "src/objective",
+        "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
+    ]
+
+
+def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards():
+    notebook = json.loads(open("research/knowledge_ingest/knowledge_ingest.ipynb", encoding="utf-8").read())
+    notebook_source = "\n".join("".join(cell.get("source", [])) for cell in notebook["cells"])
+    summary = json.loads(open("research/knowledge_ingest/knowledge_ingest_summary.json", encoding="utf-8").read())
+
+    assert "build_knowledge_research_evidence_index" in notebook_source
+    assert "evidence_index = {" not in notebook_source
+    assert summary["promotion_evidence_source"] == "research_card_scan"
+    assert summary["promotion_evidence_ready_candidates"] == ["rank_ic_objective"]
+    assert summary["promotion_evidence_index_keys"] == [
+        "arxiv:2605.00501",
+        "rank_ic_objective",
         "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
     ]

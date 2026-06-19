@@ -199,6 +199,104 @@ def _allowed_next_surface(candidate_name: str) -> str:
     return f"research/{candidate_name}_validation_v1/{candidate_name}_validation_v1.ipynb"
 
 
+def _notebook_has_chinese_conclusion(notebook_path: Path) -> bool:
+    if not notebook_path.exists():
+        return False
+    try:
+        payload = json.loads(notebook_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    non_empty_cells = [
+        cell
+        for cell in payload.get("cells", [])
+        if isinstance(cell, dict) and "".join(cell.get("source", [])).strip()
+    ]
+    if not non_empty_cells:
+        return False
+    conclusion = "".join(non_empty_cells[-1].get("source", []))
+    return non_empty_cells[-1].get("cell_type") == "markdown" and "中文结论" in conclusion and "是否晋升" in conclusion
+
+
+def _card_has_export(card_dir: Path) -> bool:
+    export_candidates = [
+        *card_dir.glob("*summary.json"),
+        *card_dir.glob("*manifest.json"),
+        card_dir / "artifact_manifest.json",
+        card_dir / "analysis_manifest.json",
+    ]
+    for path in export_candidates:
+        if not path.exists():
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict) and payload:
+            return True
+    return False
+
+
+def _card_has_focused_pytest(root: Path, item: Mapping[str, Any]) -> bool:
+    tests_dir = root / "tests"
+    if not tests_dir.exists():
+        return False
+    candidate_name = str(item.get("candidate_name", ""))
+    source_id = str(item.get("source_id", ""))
+    allowed_next_surface = str(item.get("allowed_next_surface", ""))
+    needles = [value for value in (candidate_name, source_id, allowed_next_surface) if value]
+    if not needles:
+        return False
+    for path in tests_dir.rglob("test_*.py"):
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        if all(needle not in text for needle in needles):
+            continue
+        return True
+    return False
+
+
+def build_knowledge_research_evidence_index(
+    root: str | Path,
+    backlog_items: Iterable[Mapping[str, Any]],
+) -> dict[str, list[str]]:
+    """Infer promotion evidence from durable research-card files instead of hand-written claims."""
+
+    repo_root = Path(root).resolve()
+    index: dict[str, list[str]] = {}
+    for item in backlog_items:
+        candidate_name = str(item.get("candidate_name", ""))
+        allowed_next_surface = str(item.get("allowed_next_surface", ""))
+        if not candidate_name or not allowed_next_surface:
+            continue
+        notebook_path = repo_root / allowed_next_surface
+        card_dir = notebook_path.parent
+        if not card_dir.exists():
+            continue
+
+        evidence: list[str] = []
+        if (card_dir / "license_review.md").exists():
+            evidence.append("license_review")
+        if notebook_path.exists():
+            evidence.append("research_notebook")
+        if _card_has_focused_pytest(repo_root, item):
+            evidence.append("focused_pytest")
+        if _card_has_export(card_dir):
+            evidence.append("manifest_or_export")
+        if _notebook_has_chinese_conclusion(notebook_path):
+            evidence.append("chinese_conclusion")
+
+        ordered = [name for name in _EVIDENCE_REQUIREMENTS if name in set(evidence)]
+        if ordered:
+            index[candidate_name] = ordered
+            source_id = str(item.get("source_id", ""))
+            if source_id:
+                index[source_id] = ordered
+            index[allowed_next_surface] = ordered
+    return index
+
+
 def build_knowledge_backlog(sources: Iterable[KnowledgeSource]) -> list[dict[str, Any]]:
     """Convert external source cards into a prioritized, testable research backlog."""
 
