@@ -75,9 +75,16 @@ def _default_target(source: KnowledgeSource) -> str:
 
 
 _CANDIDATE_PATTERNS: tuple[tuple[str, str, str, str], ...] = (
+    ("lambdarankic", "rank_ic_objective", "objective_reference", "src/objective"),
+    ("rank ic", "rank_ic_objective", "objective_reference", "src/objective"),
     ("multi-factor", "factor_diagnostics", "factor_pipeline_reference", "src/factor"),
+    ("factor-analysis", "factor_diagnostics", "factor_pipeline_reference", "src/factor"),
     ("factor correlation", "factor_diagnostics", "factor_pipeline_reference", "src/factor"),
+    ("factor diagnostics", "factor_diagnostics", "factor_pipeline_reference", "src/factor"),
     ("factor", "factor_diagnostics", "factor_pipeline_reference", "src/factor"),
+    ("information coefficient", "ic_objective", "objective_reference", "src/objective"),
+    ("utility score", "utility_objective", "objective_reference", "src/objective"),
+    ("risk-adjusted", "utility_objective", "objective_reference", "src/objective"),
     ("patchtst", "patch_tst_mse", "model_replacement", "src/model"),
     ("patch tst", "patch_tst_mse", "model_replacement", "src/model"),
     ("dlinear", "dlinear_mse", "model_replacement", "src/model"),
@@ -105,7 +112,7 @@ _TARGET_INTERFACES = {
     "src/model": "src/model.registry.ModelSpec + src.model.training.fit_predict_model",
     "src/analysis": "src.analysis.qlib_recorder + src.analysis.build_regime_window_analysis_report",
     "src/factor": "src.factor.prepare_factor_feature_sets",
-    "src/objective": "src.objective.evaluate_prediction_objectives",
+    "src/objective": "src.objective.evaluate_prediction_objectives + src.objective.build_promotion_scores",
     "research": "research/<experiment>/<experiment>.ipynb",
 }
 
@@ -141,6 +148,7 @@ def _priority_score(source: KnowledgeSource, *, target_subsystem: str, candidate
     }.get(target_subsystem, 1.0)
     type_score = {
         "model_replacement": 3.0,
+        "objective_reference": 3.0,
         "analysis_extension": 2.0,
         "factor_pipeline_reference": 2.0,
         "model_matrix_reference": 2.0,

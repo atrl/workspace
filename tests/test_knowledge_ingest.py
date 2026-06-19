@@ -188,6 +188,68 @@ def test_build_knowledge_backlog_adds_structured_promotion_gate_for_external_sou
     assert item["gate_notes"].startswith("未满足晋升门禁")
 
 
+def test_build_knowledge_backlog_routes_rank_ic_sources_to_objective_interface():
+    source = KnowledgeSource(
+        source_id="arxiv:2605.00501",
+        source_type="arxiv",
+        title="LambdaRankIC: Directly Optimizing Rank IC for Financial Prediction",
+        url="https://arxiv.org/abs/2605.00501",
+        summary=(
+            "Rank IC objective reference for reducing mismatch between regression losses, "
+            "generic ranking objectives, and finance evaluation metrics."
+        ),
+        license_note="arXiv metadata and self-written summary only.",
+    )
+
+    item = build_knowledge_backlog([source])[0]
+    audit = knowledge_api.build_knowledge_promotion_audit(
+        [item],
+        evidence_index={
+            "rank_ic_objective": [
+                "license_review",
+                "research_notebook",
+                "focused_pytest",
+                "manifest_or_export",
+                "chinese_conclusion",
+            ]
+        },
+    )
+
+    assert item["candidate_name"] == "rank_ic_objective"
+    assert item["candidate_type"] == "objective_reference"
+    assert item["target_subsystem"] == "src/objective"
+    assert "evaluate_prediction_objectives" in item["target_interface"]
+    assert "build_promotion_scores" in item["target_interface"]
+    assert item["allowed_next_surface"] == (
+        "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb"
+    )
+    assert audit["items"][0]["allowed_surfaces_after_gate"] == [
+        "src/objective",
+        "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
+    ]
+
+
+def test_build_knowledge_backlog_keeps_factor_ic_sources_on_factor_interface():
+    source = KnowledgeSource(
+        source_id="github:quantopian/alphalens",
+        source_type="github",
+        title="Alphalens factor performance analysis",
+        url="https://github.com/quantopian/alphalens",
+        summary=(
+            "Factor-analysis reference for returns analysis, information coefficient analysis, "
+            "turnover analysis, and grouped factor diagnostics."
+        ),
+        license_note="Check upstream license before implementation.",
+    )
+
+    item = build_knowledge_backlog([source])[0]
+
+    assert item["candidate_name"] == "factor_diagnostics"
+    assert item["candidate_type"] == "factor_pipeline_reference"
+    assert item["target_subsystem"] == "src/factor"
+    assert item["target_interface"] == "src.factor.prepare_factor_feature_sets"
+
+
 def test_build_knowledge_backlog_records_source_provenance_and_usage_scope():
     paper = KnowledgeSource(
         source_id="arxiv:2504.18600",

@@ -2,30 +2,32 @@
   "schema_version": "research.knowledge_ingest.v1",
   "status": "completed",
   "queue_result": {
-    "written": 9,
+    "written": 10,
     "deduped": 0
   },
   "backlog_result": {
-    "written": 9,
+    "written": 10,
     "deduped": 0
   },
   "promotion_audit_result": {
-    "written": 9,
+    "written": 10,
     "ready": 0,
-    "blocked": 9
+    "blocked": 10
   },
-  "source_count": 9,
+  "source_count": 10,
   "target_subsystems": [
     "src/analysis",
     "src/factor",
-    "src/model"
+    "src/model",
+    "src/objective"
   ],
   "candidate_types": [
     "analysis_extension",
     "factor_pipeline_reference",
     "method_signal",
     "model_matrix_reference",
-    "model_replacement"
+    "model_replacement",
+    "objective_reference"
   ],
   "top_candidates": [
     "autoformer_mse",
@@ -54,8 +56,8 @@
   ],
   "promotion_audit_schema": "knowledge_promotion_audit.v1",
   "promotion_audit_ready_count": 0,
-  "promotion_audit_blocked_count": 9,
-  "promotion_audit_missing_license_review_count": 9,
+  "promotion_audit_blocked_count": 10,
+  "promotion_audit_missing_license_review_count": 10,
   "artifacts": {
     "knowledge_queue": "knowledge_queue.json",
     "knowledge_backlog": "knowledge_backlog.json",

@@ -2,8 +2,8 @@
 
 ## 中文结论
 
-- 本次写入 9 条 backlog，去重 0 条。
-- 目标接口覆盖：src/analysis, src/factor, src/model。
+- 本次写入 10 条 backlog，去重 0 条。
+- 目标接口覆盖：src/analysis, src/factor, src/model, src/objective。
 - 晋升门禁：每条候选必须先补 license review、research notebook、聚焦 pytest、manifest/export 和中文结论。
 - 所有来源只作为 hypothesis_only；未通过 license gate 前不进入实现。
 - 可运行功能必须进入 `src/`、`research/*.ipynb` 或 `production/*.ipynb`，不进入 skill。
