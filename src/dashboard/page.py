@@ -157,6 +157,47 @@ def _production_health_panel(view_model: dict[str, Any]) -> str:
     """
 
 
+def _notebook_card_readiness_panel(view_model: dict[str, Any]) -> str:
+    readiness = (
+        view_model.get("notebook_card_readiness", {})
+        if isinstance(view_model.get("notebook_card_readiness"), dict)
+        else {}
+    )
+    if not readiness:
+        return ""
+    summary = readiness.get("summary")
+    summary_payload = summary if isinstance(summary, dict) else {}
+    production_cards = readiness.get("production_cards")
+    production_card_rows = production_cards if isinstance(production_cards, list) else []
+    if not summary_payload and not production_card_rows:
+        return ""
+    card_rows = "\n".join(
+        "<li>"
+        f"<span>{escape(str(card.get('card_id', '')))}</span>"
+        f"{_pill(str(card.get('production_status', 'unknown')), kind='native' if str(card.get('production_status', '')) == 'published' else 'warn')}"
+        "</li>"
+        for card in production_card_rows[:6]
+        if isinstance(card, dict)
+    )
+    if not card_rows:
+        card_rows = '<li class="muted">暂无 production notebook card</li>'
+    return f"""
+    <section class="notebook-readiness" aria-label="notebook card readiness">
+      <header>
+        <h2>Notebook Readiness</h2>
+        <p>{escape(str(readiness.get('schema_version', '')))}</p>
+      </header>
+      <div class="notebook-grid">
+        <div><span>Notebook Cards</span><strong>{escape(str(summary_payload.get('card_count', 0)))}</strong><p>production {escape(str(summary_payload.get('production_card_count', 0)))}</p></div>
+        <div><span>Production Status</span><strong>published {escape(str(summary_payload.get('production_published_count', 0)))}</strong><p>template {escape(str(summary_payload.get('production_template_count', 0)))}</p></div>
+        <div><span>Production Gaps</span><strong>missing {escape(str(summary_payload.get('production_manifest_missing_count', 0)))}</strong><p>registry mismatch {escape(str(summary_payload.get('production_registry_mismatch_count', 0)))}</p></div>
+        <div><span>Manifest</span><strong>{escape(str(readiness.get('manifest_hash', ''))[:10])}</strong><p>{escape(str(readiness.get('source_schema_version', '')))}</p></div>
+      </div>
+      <ul class="notebook-card-list">{card_rows}</ul>
+    </section>
+    """
+
+
 def _model_card(card: dict[str, Any]) -> str:
     model = str(card.get("model", ""))
     fidelity = str(card.get("paper_fidelity", ""))
@@ -261,11 +302,20 @@ def _style() -> str:
     .analysis-overview header { margin-bottom: 10px; }
     .production-health { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
     .production-health header { margin-bottom: 10px; }
+    .notebook-readiness { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+    .notebook-readiness header { margin-bottom: 10px; }
     .health-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
     .health-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .health-grid span { color: var(--muted); font-size: 12px; }
     .health-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
     .health-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .notebook-grid { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 10px; }
+    .notebook-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
+    .notebook-grid span { color: var(--muted); font-size: 12px; }
+    .notebook-grid strong { display: block; margin-top: 3px; font-size: 15px; overflow-wrap: anywhere; }
+    .notebook-grid p { margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+    .notebook-card-list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding-left: 0; margin-top: 10px; }
+    .notebook-card-list li { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font-size: 12px; }
     .overview-grid { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 10px; }
     .overview-grid div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; }
     .overview-grid span { color: var(--muted); font-size: 12px; }
@@ -302,7 +352,7 @@ def _style() -> str:
     table { width: 100%; border-collapse: collapse; margin-bottom: 12px; table-layout: fixed; }
     th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: right; font-size: 12px; }
     th:first-child, td:first-child { text-align: left; }
-    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .production-health .health-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 840px) { main { padding: 14px; } .toolbar, .analysis-overview .overview-grid, .production-health .health-grid, .notebook-readiness .notebook-grid, .summary, .model-grid, .split { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
     """
 
 
@@ -369,6 +419,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     embedded = json.dumps(view_model, ensure_ascii=False, indent=2).replace("</", "<\\/")
     overview_panel = _analysis_overview_panel(view_model)
     production_health_panel = _production_health_panel(view_model)
+    notebook_readiness_panel = _notebook_card_readiness_panel(view_model)
     cards = "\n".join(_model_card(card) for card in model_cards)
     html = f"""<!doctype html>
 <html lang="zh-CN">
@@ -399,6 +450,7 @@ def render_dashboard_html(view_model: dict[str, Any], *, title: str = "SOXL Dash
     </section>
     {overview_panel}
     {production_health_panel}
+    {notebook_readiness_panel}
     <section class="summary">
       <div><span>模型卡片</span><strong>{len(model_cards)}</strong></div>
       <div><span>基准模型</span><strong>{escape(str(summary.get('analysis_summary', {}).get('baseline_model', '')) if isinstance(summary.get('analysis_summary'), dict) else '')}</strong></div>

@@ -151,6 +151,28 @@ def _view_model_with_requested_model_contract() -> dict:
     return build_dashboard_view_model(payload)
 
 
+def _view_model_with_notebook_card_readiness() -> dict:
+    payload = json.loads(Path("research/schedule_dashboard_attribution_refresh_v1/dashboard_export.json").read_text())
+    payload["artifacts"] = {"notebook_card_manifest": "/path/that/must/not/be/rendered.json"}
+    payload["notebook_card_readiness"] = {
+        "schema_version": "dashboard.notebook_card_readiness.v1",
+        "manifest_hash": "n" * 64,
+        "summary": {
+            "card_count": 91,
+            "production_card_count": 2,
+            "production_published_count": 1,
+            "production_template_count": 1,
+            "production_manifest_missing_count": 0,
+            "production_registry_mismatch_count": 0,
+        },
+        "production_cards": [
+            {"card_id": "paper_reference_strategy", "production_status": "template_only"},
+            {"card_id": "paper_sim_replay_v1", "production_status": "published"},
+        ],
+    }
+    return build_dashboard_view_model(payload)
+
+
 def test_render_dashboard_html_outputs_interactive_controls_and_model_sections_without_sidecar_paths():
     html = render_dashboard_html(_view_model(), title="SOXL 模型 Dashboard")
     parser = _ElementCollector()
@@ -201,6 +223,20 @@ def test_render_dashboard_html_outputs_requested_model_contract_summary():
     assert "31 / 32" in html
     assert "missing 1" in html
     assert "SOXL Requested Contract" in html
+
+
+def test_render_dashboard_html_outputs_notebook_card_readiness_panel_without_sidecar_paths():
+    html = render_dashboard_html(_view_model_with_notebook_card_readiness(), title="SOXL Notebook Readiness")
+
+    assert "Notebook Readiness" in html
+    assert "dashboard.notebook_card_readiness.v1" in html
+    assert "91" in html
+    assert "published 1" in html
+    assert "template 1" in html
+    assert "missing 0" in html
+    assert "paper_reference_strategy" in html
+    assert "paper_sim_replay_v1" in html
+    assert "/path/that/must/not/be/rendered.json" not in html
 
 
 def test_render_dashboard_html_outputs_failure_mode_sections_without_sidecar_paths():

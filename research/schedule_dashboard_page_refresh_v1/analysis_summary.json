@@ -13,13 +13,17 @@
   "dashboard_page_schema_version": "dashboard.static_page.v1",
   "dashboard_view_model_schema_version": "dashboard.view_model.v1",
   "dashboard_page_model_card_count": 5,
-  "html_size_bytes": 126723,
+  "notebook_card_manifest": "research/notebook_card_manifest_v1/notebook_card_manifest.json",
+  "notebook_card_readiness_schema": "dashboard.notebook_card_readiness.v1",
+  "production_published_count": 1,
+  "production_template_count": 1,
+  "html_size_bytes": 620779,
   "top_models": [
+    "ridge_mse__ic_weighted_composite",
     "ridge_mse__top_ic_factors",
     "gcn_mse__top_ic_factors",
     "gcn_mse__ic_weighted_composite",
-    "ridge_mse__ic_weighted_composite",
-    "ridge_mse__all_features"
+    "gcn_mse__all_features"
   ],
   "attribution_status": "completed",
   "has_model_filter": true,
@@ -27,8 +31,10 @@
   "has_fidelity_filter": true,
   "has_view_model_json": true,
   "has_window_regime_table": true,
+  "has_notebook_readiness_panel": true,
   "risk_notes": [
     "页面由 schedule 自动刷新生成，仍只消费 dashboard export/view model。",
+    "Notebook-card readiness 只说明 notebook/manifest 发布状态，不能替代 production health。",
     "当前是 paper/sim dashboard 页面，不包含真实 broker 下单能力。"
   ]
 }
