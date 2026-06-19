@@ -15,6 +15,8 @@ class KnowledgeSource:
     url: str
     summary: str
     license_note: str
+    retrieved_at: str = ""
+    access_status: str = "unverified"
 
     def to_dict(self) -> dict[str, str]:
         return asdict(self)
@@ -142,6 +144,24 @@ def _license_gate(source: KnowledgeSource) -> str:
     )
 
 
+def _usage_scope(source: KnowledgeSource) -> str:
+    if source.source_type in {"twitter", "x"}:
+        return "idea_only"
+    if source.source_type in {"arxiv", "paper", "github"}:
+        return "hypothesis_and_adapter_reference"
+    return "hypothesis_only"
+
+
+def _source_reliability(source: KnowledgeSource) -> str:
+    if source.source_type in {"arxiv", "paper"}:
+        return "primary_metadata"
+    if source.source_type == "github":
+        return "primary_repository_metadata"
+    if source.source_type in {"twitter", "x"}:
+        return "social_unverified"
+    return "unverified"
+
+
 def _allowed_next_surface(candidate_name: str) -> str:
     return f"research/{candidate_name}_validation_v1/{candidate_name}_validation_v1.ipynb"
 
@@ -189,6 +209,11 @@ def build_knowledge_backlog(sources: Iterable[KnowledgeSource]) -> list[dict[str
                     "只能作为 hypothesis，不直接变成生产逻辑。"
                 ),
                 "license_gate": _license_gate(source),
+                "retrieved_at": source.retrieved_at,
+                "access_status": source.access_status,
+                "usage_scope": _usage_scope(source),
+                "source_reliability": _source_reliability(source),
+                "implementation_allowed": False,
                 "promotion_gate_status": "blocked_pending_research",
                 "allowed_next_surface": _allowed_next_surface(candidate_name),
                 "blocked_surfaces_before_gate": ["src", "production", "skill"],
@@ -246,10 +271,15 @@ def write_knowledge_backlog(output_dir: str | Path, sources: Iterable[KnowledgeS
         "required_evidence_count",
         "source_used_as",
         "skill_boundary",
+        "retrieved_at",
+        "access_status",
+        "usage_scope",
+        "source_reliability",
+        "implementation_allowed",
         "url",
     ]
     with (output / "knowledge_backlog.csv").open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for item in items:
             writer.writerow({field: item.get(field, "") for field in fieldnames})

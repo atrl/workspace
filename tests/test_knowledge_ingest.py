@@ -156,6 +156,44 @@ def test_build_knowledge_backlog_adds_structured_promotion_gate_for_external_sou
     assert item["gate_notes"].startswith("未满足晋升门禁")
 
 
+def test_build_knowledge_backlog_records_source_provenance_and_usage_scope():
+    paper = KnowledgeSource(
+        source_id="arxiv:2504.18600",
+        source_type="arxiv",
+        title="QuantBench: Benchmarking AI Methods for Quantitative Investment",
+        url="https://arxiv.org/abs/2504.18600",
+        summary="Benchmark reference for a standardized full-pipeline quant workflow.",
+        license_note="arXiv metadata and self-written summary only.",
+        retrieved_at="2026-06-19",
+        access_status="metadata_accessible",
+    )
+    social = KnowledgeSource(
+        source_id="x:regime-aware-quant-search",
+        source_type="x",
+        title="Regime-aware quant evaluation search",
+        url="https://x.com/search?q=regime%20aware%20quant%20evaluation",
+        summary="Social-source idea placeholder for regime review.",
+        license_note="Do not copy post text.",
+        retrieved_at="2026-06-19",
+        access_status="search_placeholder",
+    )
+
+    backlog = build_knowledge_backlog([paper, social])
+    paper_item = next(item for item in backlog if item["source_id"] == "arxiv:2504.18600")
+    social_item = next(item for item in backlog if item["source_id"] == "x:regime-aware-quant-search")
+
+    assert paper_item["retrieved_at"] == "2026-06-19"
+    assert paper_item["access_status"] == "metadata_accessible"
+    assert paper_item["usage_scope"] == "hypothesis_and_adapter_reference"
+    assert paper_item["source_reliability"] == "primary_metadata"
+    assert paper_item["implementation_allowed"] is False
+
+    assert social_item["usage_scope"] == "idea_only"
+    assert social_item["source_reliability"] == "social_unverified"
+    assert social_item["implementation_allowed"] is False
+    assert social_item["promotion_gate_status"] == "blocked_pending_research"
+
+
 def test_write_knowledge_queue_uses_same_candidate_target_routing_as_backlog(tmp_path):
     source = KnowledgeSource(
         source_id="github:example/factor-lab",
@@ -197,6 +235,7 @@ def test_write_knowledge_backlog_writes_json_csv_and_chinese_review(tmp_path):
 
     assert result == {"written": 1, "deduped": 1}
     payload = json.loads((tmp_path / "knowledge_backlog.json").read_text(encoding="utf-8"))
+    csv_bytes = (tmp_path / "knowledge_backlog.csv").read_bytes()
     csv_text = (tmp_path / "knowledge_backlog.csv").read_text(encoding="utf-8")
     review = (tmp_path / "knowledge_backlog_review.md").read_text(encoding="utf-8")
 
@@ -206,6 +245,7 @@ def test_write_knowledge_backlog_writes_json_csv_and_chinese_review(tmp_path):
     assert payload["items"][0]["candidate_name"] == "dlinear_mse"
     assert payload["items"][0]["promotion_gate_status"] == "blocked_pending_research"
     assert payload["items"][0]["required_evidence_count"] == 5
+    assert b"\r" not in csv_bytes
     assert "source_id,candidate_name" in csv_text
     assert "promotion_gate_status" in csv_text
     assert "required_evidence_count" in csv_text

@@ -9,7 +9,9 @@
         "title": "QuantBench: Benchmarking AI Methods for Quantitative Investment",
         "url": "https://arxiv.org/abs/2504.18600",
         "summary": "Benchmark reference for a standardized full-pipeline quant workflow, model matrix coverage, continual-learning stress, relation modeling, and overfitting control.",
-        "license_note": "只保存公开 URL 和自有摘要；不复制未授权全文。"
+        "license_note": "只保存公开 URL 和自有摘要；不复制未授权全文。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
       "hypothesis": "评估 QuantBench: Benchmarking AI Methods for Quantitative Investment 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
@@ -26,7 +28,9 @@
         "title": "Microsoft Qlib",
         "url": "https://github.com/microsoft/qlib",
         "summary": "Qlib is an AI-oriented quantitative investment platform reference for research workflow, recorder/analyzer style artifacts, and production handoff boundaries.",
-        "license_note": "进入实现前复核 upstream license；不 vendoring 代码。"
+        "license_note": "进入实现前复核 upstream license；不 vendoring 代码。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "repository_accessible"
       },
       "target_subsystem": "src/analysis",
       "hypothesis": "评估 Microsoft Qlib 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
@@ -43,7 +47,9 @@
         "title": "Time-Series-Library",
         "url": "https://github.com/thuml/Time-Series-Library",
         "summary": "Reference implementation hub for long-series forecasting families such as DLinear, Autoformer, FEDformer, and PatchTST; useful for adapter-fidelity backlog only after license review.",
-        "license_note": "进入实现前复核 upstream license；只记录 URL 和摘要。"
+        "license_note": "进入实现前复核 upstream license；只记录 URL 和摘要。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "repository_accessible"
       },
       "target_subsystem": "src/model",
       "hypothesis": "评估 Time-Series-Library 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
@@ -60,7 +66,9 @@
         "title": "A Time Series is Worth 64 Words: Long-term Forecasting with Transformers",
         "url": "https://arxiv.org/abs/2211.14730",
         "summary": "PatchTST paper reference for patching and channel-independence ideas that should be validated through the existing patch_tst_mse adapter contract.",
-        "license_note": "arXiv 元数据和自有摘要；实现代码 license 单独复核。"
+        "license_note": "arXiv 元数据和自有摘要；实现代码 license 单独复核。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
       "hypothesis": "评估 A Time Series is Worth 64 Words: Long-term Forecasting with Transformers 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
@@ -77,7 +85,9 @@
         "title": "Are Transformers Effective for Time Series Forecasting?",
         "url": "https://arxiv.org/abs/2205.13504",
         "summary": "DLinear-style decomposition-linear baseline reference; useful for checking whether simple sequence baselines beat complex adapters in SOXL regimes.",
-        "license_note": "arXiv 元数据和自有摘要；不复制全文。"
+        "license_note": "arXiv 元数据和自有摘要；不复制全文。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
       "hypothesis": "评估 Are Transformers Effective for Time Series Forecasting? 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
@@ -94,7 +104,9 @@
         "title": "Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting",
         "url": "https://arxiv.org/abs/2106.13008",
         "summary": "Autoformer decomposition and auto-correlation reference for the autoformer_mse adapter fidelity backlog.",
-        "license_note": "arXiv 元数据和自有摘要；实现代码 license 单独复核。"
+        "license_note": "arXiv 元数据和自有摘要；实现代码 license 单独复核。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
       "hypothesis": "评估 Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
@@ -111,7 +123,9 @@
         "title": "FEDformer: Frequency Enhanced Decomposed Transformer for Long-term Series Forecasting",
         "url": "https://arxiv.org/abs/2201.12740",
         "summary": "FEDformer frequency/decomposition reference for the fedformer_mse adapter fidelity backlog.",
-        "license_note": "arXiv 元数据和自有摘要；实现代码 license 单独复核。"
+        "license_note": "arXiv 元数据和自有摘要；实现代码 license 单独复核。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "metadata_accessible"
       },
       "target_subsystem": "src/model",
       "hypothesis": "评估 FEDformer: Frequency Enhanced Decomposed Transformer for Long-term Series Forecasting 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
@@ -128,7 +142,9 @@
         "title": "Alphalens factor performance analysis",
         "url": "https://github.com/quantopian/alphalens",
         "summary": "GitHub factor-analysis reference for returns analysis, information coefficient analysis, turnover analysis, and grouped analysis; useful only as a src.factor diagnostics hypothesis.",
-        "license_note": "GitHub README shows Apache-2.0 license；进入实现前仍需复核 upstream license；不 vendoring 代码。"
+        "license_note": "GitHub README shows Apache-2.0 license；进入实现前仍需复核 upstream license；不 vendoring 代码。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "repository_accessible"
       },
       "target_subsystem": "src/factor",
       "hypothesis": "评估 Alphalens factor performance analysis 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",
@@ -145,7 +161,9 @@
         "title": "Regime-aware quant evaluation search",
         "url": "https://x.com/search?q=regime%20aware%20quant%20evaluation",
         "summary": "Social-source idea placeholder for volatility/drawdown regime review; only usable after it becomes a reproducible src.analysis window/regime test.",
-        "license_note": "idea-only；不复制帖子正文；不作为事实来源。"
+        "license_note": "idea-only；不复制帖子正文；不作为事实来源。",
+        "retrieved_at": "2026-06-19",
+        "access_status": "search_placeholder"
       },
       "target_subsystem": "src/analysis",
       "hypothesis": "评估 Regime-aware quant evaluation search 是否能转化为 SOXL 的因子、模型、objective 或 regime analysis 假设。",

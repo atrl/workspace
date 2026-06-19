@@ -35,6 +35,18 @@
   "required_evidence_counts": [
     5
   ],
+  "retrieved_at_values": [
+    "2026-06-19"
+  ],
+  "usage_scopes": [
+    "hypothesis_and_adapter_reference",
+    "idea_only"
+  ],
+  "source_reliabilities": [
+    "primary_metadata",
+    "primary_repository_metadata",
+    "social_unverified"
+  ],
   "artifacts": {
     "knowledge_queue": "knowledge_queue.json",
     "knowledge_backlog": "knowledge_backlog.json",
