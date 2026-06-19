@@ -201,6 +201,7 @@ def test_model_dashboard_refresh_preflights_legacy_card_without_default_backfill
         train_end="2026-04-30",
         model_names=("ridge_mse",),
         analysis_manifest_preflight=True,
+        analysis_manifest_auto_backfill=False,
     )
 
     result = run_model_dashboard_refresh_once(
@@ -288,6 +289,68 @@ def test_model_dashboard_refresh_can_auto_backfill_legacy_manifest_before_dashbo
     assert "predictions" not in manifest["paths"]
     assert dashboard["manifest_source"]["kind"] == "analysis_manifest"
     assert dashboard["top_models"][0]["model"] == "ridge_mse"
+
+
+def test_model_dashboard_refresh_defaults_to_manifest_preflight_and_backfill(tmp_path):
+    def matrix_runner(**kwargs):
+        card_dir = Path(kwargs["card_dir"])
+        card_dir.mkdir(parents=True, exist_ok=True)
+        (card_dir / "analysis_summary.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": "analysis.report.v1",
+                    "status": "legacy_default_backfill_completed",
+                    "start": "2026-01-01",
+                    "end": "2026-06-09",
+                    "model_count": 1,
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        pd.DataFrame([{"rank": 1, "model": "ridge_mse", "return_pct": 2.5, "stability_score": 2.0}]).to_csv(
+            card_dir / "model_comparison.csv", index=False
+        )
+        pd.DataFrame([{"model": "ridge_mse", "regime": "bull", "return_pct": 2.5}]).to_csv(
+            card_dir / "regime_metrics.csv", index=False
+        )
+        pd.DataFrame([{"model": "ridge_mse", "window": "test", "return_pct": 2.5}]).to_csv(
+            card_dir / "window_metrics.csv", index=False
+        )
+        pd.DataFrame([{"model": "ridge_mse", "prediction": 0.1}]).to_csv(
+            card_dir / "predictions.csv", index=False
+        )
+        return {"variant_count": 1, "status": "feature_set_matrix_completed"}
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        model_names=("ridge_mse",),
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        matrix_runner=matrix_runner,
+    )
+    manifest = json.loads((config.card_dir / "analysis_manifest.json").read_text(encoding="utf-8"))
+    dashboard = json.loads(config.dashboard_output_path.read_text(encoding="utf-8"))
+
+    assert result.status == "success"
+    assert result.payload["analysis_manifest_preflight_status"] == "backfilled"
+    assert result.payload["analysis_manifest_preflight_action"] == "backfilled"
+    assert result.payload["analysis_manifest_preflight_manifest_hash"] == manifest["manifest_hash"]
+    assert result.payload["dashboard_manifest_kind"] == "analysis_manifest"
+    assert dashboard["manifest_source"]["kind"] == "analysis_manifest"
+    assert dashboard["top_models"][0]["model"] == "ridge_mse"
+    assert manifest["dataset"]["name"] == "schedule_dashboard_refresh"
+    assert manifest["dataset"]["universe"] == ["SOXL"]
+    assert manifest["dataset"]["calendar_path"] == "data/qlib/soxl/calendars/day.txt"
+    assert "predictions" not in manifest["paths"]
 
 
 def test_model_dashboard_refresh_can_send_payload_aware_success_notification(tmp_path):

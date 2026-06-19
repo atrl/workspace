@@ -24,6 +24,9 @@ from src.model import run_factor_feature_set_matrix
 from .jobs import JobResult, ScheduleJob, run_job_once
 
 
+DEFAULT_ANALYSIS_MANIFEST_CALENDAR_PATH = "data/qlib/soxl/calendars/day.txt"
+
+
 @dataclass(frozen=True)
 class DataUpdatePipelineConfig:
     name: str
@@ -61,11 +64,11 @@ class ModelDashboardPipelineConfig:
     notebook_card_manifest_path: Path | None = None
     dashboard_page_output_path: Path | None = None
     dashboard_page_title: str = "SOXL Dashboard"
-    analysis_manifest_preflight: bool = False
-    analysis_manifest_auto_backfill: bool = False
+    analysis_manifest_preflight: bool = True
+    analysis_manifest_auto_backfill: bool = True
     analysis_manifest_dataset_name: str = "schedule_dashboard_refresh"
     analysis_manifest_universe: tuple[str, ...] = ("SOXL",)
-    analysis_manifest_calendar_path: str = ""
+    analysis_manifest_calendar_path: str = DEFAULT_ANALYSIS_MANIFEST_CALENDAR_PATH
     notify_details: bool = False
     retries: int = 0
     market_calendar_decision: Mapping[str, Any] | None = None
