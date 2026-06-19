@@ -134,3 +134,46 @@ def test_data_update_pipeline_skips_closed_market_day_before_provider_lock_or_no
     assert events == []
     assert not (tmp_path / "locks" / "daily_soxl_data_update.lock").exists()
     assert not config.output_dir.exists()
+
+
+def test_data_update_pipeline_can_notify_closed_market_day_skip_with_calendar_context(tmp_path):
+    events: list[str] = []
+    calls = {"frame": 0, "calendar": 0}
+    decision = classify_market_calendar_day(
+        "2026-01-01",
+        trading_calendar=("2026-01-02",),
+        holiday_reasons={"2026-01-01": "New Year's Day"},
+    )
+    config = DataUpdatePipelineConfig(
+        **{
+            **_config(tmp_path).__dict__,
+            "market_calendar_decision": decision,
+            "notify_skipped": True,
+        }
+    )
+
+    def frame_provider(_: DataUpdatePipelineConfig) -> pd.DataFrame:
+        calls["frame"] += 1
+        return _raw_frame()
+
+    def calendar_provider(_: DataUpdatePipelineConfig) -> pd.DatetimeIndex:
+        calls["calendar"] += 1
+        return _calendar()
+
+    result = run_data_update_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        frame_provider=frame_provider,
+        calendar_provider=calendar_provider,
+    )
+
+    assert result.status == "skipped"
+    assert result.payload["market_calendar_decision"]["market_status"] == "closed"
+    assert calls == {"frame": 0, "calendar": 0}
+    assert events == [
+        "daily_soxl_data_update:skipped | market_status=closed | "
+        "skip_reason=New Year's Day | next_trading_date=2026-01-02"
+    ]
+    assert not (tmp_path / "locks" / "daily_soxl_data_update.lock").exists()
+    assert not config.output_dir.exists()

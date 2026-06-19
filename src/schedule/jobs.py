@@ -22,6 +22,26 @@ class JobResult:
     detail: str = ""
 
 
+def format_job_result_notification(result: JobResult) -> str:
+    if result.status == "skipped":
+        decision = result.payload.get("market_calendar_decision")
+        if isinstance(decision, Mapping):
+            parts = [f"{result.name}:skipped"]
+            market_status = str(decision.get("market_status", ""))
+            skip_reason = str(decision.get("skip_reason") or result.detail)
+            next_trading_date = str(decision.get("next_trading_date", ""))
+            if market_status:
+                parts.append(f"market_status={market_status}")
+            if skip_reason:
+                parts.append(f"skip_reason={skip_reason}")
+            if next_trading_date:
+                parts.append(f"next_trading_date={next_trading_date}")
+            return " | ".join(parts)
+        if result.detail:
+            return f"{result.name}:skipped | skip_reason={result.detail}"
+    return f"{result.name}:{result.status}"
+
+
 def run_job_once(
     job: ScheduleJob,
     *,
@@ -29,19 +49,26 @@ def run_job_once(
     lock_dir: str | Path,
     notify: Callable[[str], None] | None = None,
     market_calendar_decision: Mapping[str, Any] | None = None,
+    notify_skipped: bool = False,
 ) -> JobResult:
     if not job.enabled:
-        return JobResult(name=job.name, status="skipped", payload={}, detail="disabled")
+        result = JobResult(name=job.name, status="skipped", payload={}, detail="disabled")
+        if notify is not None and notify_skipped:
+            notify(format_job_result_notification(result))
+        return result
 
     if market_calendar_decision is not None and not bool(market_calendar_decision.get("should_run", True)):
         decision = dict(market_calendar_decision)
         detail = str(decision.get("skip_reason") or decision.get("market_status") or "market_calendar")
-        return JobResult(
+        result = JobResult(
             name=job.name,
             status="skipped",
             payload={"market_calendar_decision": decision},
             detail=detail,
         )
+        if notify is not None and notify_skipped:
+            notify(format_job_result_notification(result))
+        return result
 
     lock_root = Path(lock_dir)
     lock_root.mkdir(parents=True, exist_ok=True)

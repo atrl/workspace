@@ -14,6 +14,12 @@
   "closed_lock_created": false,
   "notification_events": [],
   "next_trading_date_from_closed": "2026-01-02",
+  "notified_skip_status": "skipped",
+  "notified_skip_task_calls": 0,
+  "notified_skip_lock_created": false,
+  "skip_notification_events": [
+    "paper_execution:skipped | market_status=closed | skip_reason=New Year's Day | next_trading_date=2026-01-02"
+  ],
   "pipeline_gate_statuses": {
     "data_update": "skipped",
     "model_dashboard_refresh": "skipped",
@@ -28,6 +34,15 @@
   "pipeline_gate_lock_created": false,
   "pipeline_gate_artifact_created": false,
   "pipeline_gate_notification_events": [],
+  "pipeline_skip_notification_status": "skipped",
+  "pipeline_skip_notification_task_calls": {
+    "data_frame": 0,
+    "data_calendar": 0
+  },
+  "pipeline_skip_notification_lock_created": false,
+  "pipeline_skip_notification_events": [
+    "daily_soxl_data_update:skipped | market_status=closed | skip_reason=New Year's Day | next_trading_date=2026-01-02"
+  ],
   "pipeline_surfaces_with_gate": [
     "data_update",
     "model_dashboard_refresh",

@@ -42,6 +42,7 @@ class DataUpdatePipelineConfig:
     notify_details: bool = False
     retries: int = 0
     market_calendar_decision: Mapping[str, Any] | None = None
+    notify_skipped: bool = False
 
 
 @dataclass(frozen=True)
@@ -67,6 +68,7 @@ class ModelDashboardPipelineConfig:
     notify_details: bool = False
     retries: int = 0
     market_calendar_decision: Mapping[str, Any] | None = None
+    notify_skipped: bool = False
 
 
 @dataclass(frozen=True)
@@ -88,6 +90,7 @@ class ProductionHealthCheckConfig:
     notify_details: bool = False
     retries: int = 0
     market_calendar_decision: Mapping[str, Any] | None = None
+    notify_skipped: bool = False
 
 
 @dataclass(frozen=True)
@@ -109,6 +112,7 @@ class PaperExecutionPipelineConfig:
     notify_details: bool = False
     retries: int = 0
     market_calendar_decision: Mapping[str, Any] | None = None
+    notify_skipped: bool = False
 
 
 MatrixRunner = Callable[..., Any]
@@ -254,6 +258,7 @@ def run_data_update_once(
         lock_dir=lock_dir,
         notify=notify_with_details if notify is not None else None,
         market_calendar_decision=config.market_calendar_decision,
+        notify_skipped=config.notify_skipped,
     )
 
 
@@ -486,6 +491,7 @@ def run_production_health_check_once(
         lock_dir=lock_dir,
         notify=notify_with_details if notify is not None else None,
         market_calendar_decision=config.market_calendar_decision,
+        notify_skipped=config.notify_skipped,
     )
 
 
@@ -620,6 +626,7 @@ def run_paper_execution_once(
         lock_dir=lock_dir,
         notify=notify_with_details if notify is not None else None,
         market_calendar_decision=config.market_calendar_decision,
+        notify_skipped=config.notify_skipped,
     )
 
 
@@ -1086,4 +1093,5 @@ def run_model_dashboard_refresh_once(
         lock_dir=lock_dir,
         notify=notify_with_details if notify is not None else None,
         market_calendar_decision=config.market_calendar_decision,
+        notify_skipped=config.notify_skipped,
     )

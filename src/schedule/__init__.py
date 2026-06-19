@@ -1,5 +1,5 @@
 from .calendar import classify_market_calendar_day
-from .jobs import JobResult, ScheduleJob, run_job_once
+from .jobs import JobResult, ScheduleJob, format_job_result_notification, run_job_once
 from .pipelines import (
     DataUpdatePipelineConfig,
     ModelDashboardPipelineConfig,
@@ -19,6 +19,7 @@ __all__ = [
     "ProductionHealthCheckConfig",
     "ScheduleJob",
     "classify_market_calendar_day",
+    "format_job_result_notification",
     "run_data_update_once",
     "run_job_once",
     "run_model_dashboard_refresh_once",
