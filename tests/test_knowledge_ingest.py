@@ -441,3 +441,80 @@ def test_write_knowledge_promotion_audit_writes_json_csv_and_chinese_review(tmp_
     assert "candidate_name,promotion_gate_status" in csv_text
     assert "中文结论" in review
     assert "不得进入 `src/production/skill`" in review
+
+
+def test_rank_ic_objective_validation_card_supplies_backlog_evidence():
+    card = "research/rank_ic_objective_validation_v1"
+    notebook_path = f"{card}/rank_ic_objective_validation_v1.ipynb"
+    source = KnowledgeSource(
+        source_id="arxiv:2605.00501",
+        source_type="arxiv",
+        title="LambdaRankIC: Directly Optimizing Rank IC for Financial Prediction",
+        url="https://arxiv.org/abs/2605.00501",
+        summary=(
+            "Rank IC objective reference for reducing mismatch between regression losses, "
+            "generic ranking objectives, and finance evaluation metrics."
+        ),
+        license_note="arXiv metadata and self-written summary only.",
+    )
+    backlog = build_knowledge_backlog([source])
+    evidence_index = {
+        "rank_ic_objective": [
+            "license_review",
+            "research_notebook",
+            "focused_pytest",
+            "manifest_or_export",
+            "chinese_conclusion",
+        ]
+    }
+
+    summary = json.loads(open(f"{card}/rank_ic_objective_summary.json", encoding="utf-8").read())
+    source_provenance = json.loads(open(f"{card}/source_provenance.json", encoding="utf-8").read())
+    objective_scores = json.loads(open(f"{card}/objective_scores.json", encoding="utf-8").read())
+    license_review = open(f"{card}/license_review.md", encoding="utf-8").read()
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert summary["schema_version"] == "research.rank_ic_objective_validation.v1"
+    assert summary["source_id"] == "arxiv:2605.00501"
+    assert summary["candidate_name"] == "rank_ic_objective"
+    assert summary["target_subsystem"] == "src/objective"
+    assert summary["objective_schema_version"] == "objective.evaluation.v1"
+    assert summary["rank_ic_aligned_model"] == "rank_ic_aligned_signal"
+    assert summary["rank_ic_aligned_score"] > summary["mse_aligned_score"]
+    assert summary["implementation_allowed"] is False
+    assert summary["promotion_target"] == "research_only"
+    assert summary["evidence_requirements"] == evidence_index["rank_ic_objective"]
+    assert source_provenance["source_id"] == summary["source_id"]
+    assert source_provenance["source_used_as"] == "hypothesis_only"
+    assert "arxiv.org/abs/2605.00501" in source_provenance["url"]
+    assert objective_scores["rank_ic_aligned_signal"]["rank_ic"] == summary["rank_ic_aligned_score"]
+    assert "未复制论文全文" in license_review
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
+
+
+def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_complete():
+    audit = json.loads(open("research/knowledge_ingest/knowledge_promotion_audit.json", encoding="utf-8").read())
+    rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
+
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["summary"]["implementation_allowed_count"] == 1
+    assert "rank_ic_objective" in audit["summary"]["ready_candidates"]
+    assert rank_item["promotion_gate_status"] == "research_evidence_complete"
+    assert rank_item["implementation_allowed"] is True
+    assert rank_item["missing_evidence"] == []
+    assert rank_item["provided_evidence"] == [
+        "license_review",
+        "research_notebook",
+        "focused_pytest",
+        "manifest_or_export",
+        "chinese_conclusion",
+    ]
+    assert rank_item["allowed_surfaces_after_gate"] == [
+        "src/objective",
+        "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
+    ]

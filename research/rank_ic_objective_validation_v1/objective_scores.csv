@@ -1,0 +1,3 @@
+model,schema_version,row_count,mse,classification_accuracy,ic,rank_ic,rank_group_count
+rank_ic_aligned_signal,objective.evaluation.v1,12,0.03753262500000001,1.0,0.9978658093634377,1.0,4
+mse_aligned_signal,objective.evaluation.v1,12,5.0416666666666675e-05,1.0,0.9302709481805915,0.5,4

@@ -1,0 +1,20 @@
+{
+  "rank_ic_aligned_signal": {
+    "schema_version": "objective.evaluation.v1",
+    "row_count": 12,
+    "mse": 0.03753262500000001,
+    "classification_accuracy": 1.0,
+    "ic": 0.9978658093634377,
+    "rank_ic": 1.0,
+    "rank_group_count": 4
+  },
+  "mse_aligned_signal": {
+    "schema_version": "objective.evaluation.v1",
+    "row_count": 12,
+    "mse": 5.0416666666666675e-05,
+    "classification_accuracy": 1.0,
+    "ic": 0.9302709481805915,
+    "rank_ic": 0.5,
+    "rank_group_count": 4
+  }
+}

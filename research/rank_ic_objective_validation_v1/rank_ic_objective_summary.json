@@ -1,0 +1,32 @@
+{
+  "schema_version": "research.rank_ic_objective_validation.v1",
+  "status": "completed",
+  "source_id": "arxiv:2605.00501",
+  "candidate_name": "rank_ic_objective",
+  "target_subsystem": "src/objective",
+  "target_interface": "src.objective.evaluate_prediction_objectives + src.objective.build_promotion_scores",
+  "objective_schema_version": "objective.evaluation.v1",
+  "rank_ic_aligned_model": "rank_ic_aligned_signal",
+  "rank_ic_aligned_score": 1.0,
+  "rank_ic_aligned_mse": 0.03753262500000001,
+  "mse_aligned_model": "mse_aligned_signal",
+  "mse_aligned_score": 0.5,
+  "mse_aligned_mse": 5.0416666666666675e-05,
+  "rank_group_count": 4,
+  "implementation_allowed": false,
+  "promotion_target": "research_only",
+  "evidence_requirements": [
+    "license_review",
+    "research_notebook",
+    "focused_pytest",
+    "manifest_or_export",
+    "chinese_conclusion"
+  ],
+  "artifacts": {
+    "objective_scores": "objective_scores.json",
+    "objective_scores_csv": "objective_scores.csv",
+    "validation_frame": "rank_ic_validation_frame.csv",
+    "source_provenance": "source_provenance.json",
+    "license_review": "license_review.md"
+  }
+}

@@ -11,8 +11,8 @@
   },
   "promotion_audit_result": {
     "written": 10,
-    "ready": 0,
-    "blocked": 10
+    "ready": 1,
+    "blocked": 9
   },
   "source_count": 10,
   "target_subsystems": [
@@ -55,9 +55,9 @@
     "social_unverified"
   ],
   "promotion_audit_schema": "knowledge_promotion_audit.v1",
-  "promotion_audit_ready_count": 0,
-  "promotion_audit_blocked_count": 10,
-  "promotion_audit_missing_license_review_count": 10,
+  "promotion_audit_ready_count": 1,
+  "promotion_audit_blocked_count": 9,
+  "promotion_audit_missing_license_review_count": 9,
   "artifacts": {
     "knowledge_queue": "knowledge_queue.json",
     "knowledge_backlog": "knowledge_backlog.json",
