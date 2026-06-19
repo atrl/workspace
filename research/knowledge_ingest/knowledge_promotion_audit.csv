@@ -8,4 +8,4 @@ rank_ic_objective,research_evidence_complete,True,src/objective,0,5,passed,arxiv
 patch_tst_mse,research_evidence_complete,True,src/model,0,5,passed,github:thuml/Time-Series-Library,primary_repository_metadata,hypothesis_and_adapter_reference
 qlib_recorder_analysis,research_evidence_complete,True,src/analysis,0,5,passed,github:microsoft/qlib,primary_repository_metadata,hypothesis_and_adapter_reference
 factor_diagnostics,research_evidence_complete,True,src/factor,0,5,passed,github:quantopian/alphalens,primary_repository_metadata,hypothesis_and_adapter_reference
-regime_window_review,blocked_missing_evidence,False,src/analysis,5,0,blocked,x:regime-aware-quant-search,social_unverified,idea_only
+regime_window_review,research_evidence_complete,True,src/analysis,0,5,passed,x:regime-aware-quant-search,social_unverified,idea_only

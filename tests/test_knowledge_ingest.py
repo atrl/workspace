@@ -921,6 +921,62 @@ def test_factor_diagnostics_validation_card_supplies_backlog_evidence():
     assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
 
 
+def test_regime_window_review_validation_card_supplies_backlog_evidence():
+    card = "research/regime_window_review_validation_v1"
+    notebook_path = f"{card}/regime_window_review_validation_v1.ipynb"
+    source = KnowledgeSource(
+        source_id="x:regime-aware-quant-search",
+        source_type="x",
+        title="Regime-aware quant evaluation search",
+        url="https://x.com/search?q=regime%20aware%20quant%20evaluation",
+        summary=(
+            "Social-source idea placeholder for volatility/drawdown regime review; "
+            "only usable after it becomes a reproducible src.analysis window/regime test."
+        ),
+        license_note="idea-only；不复制帖子正文；不作为事实来源。",
+    )
+    backlog = build_knowledge_backlog([source])
+    evidence_index = knowledge_api.build_knowledge_research_evidence_index(".", backlog)
+
+    summary = json.loads(open(f"{card}/regime_window_review_summary.json", encoding="utf-8").read())
+    source_provenance = json.loads(open(f"{card}/source_provenance.json", encoding="utf-8").read())
+    analysis_summary = json.loads(open(f"{card}/analysis_summary.json", encoding="utf-8").read())
+    manifest = json.loads(open(f"{card}/analysis_manifest.json", encoding="utf-8").read())
+    license_review = open(f"{card}/license_review.md", encoding="utf-8").read()
+    notebook = json.loads(open(notebook_path, encoding="utf-8").read())
+    conclusion = "".join(notebook["cells"][-1]["source"])
+    audit = knowledge_api.build_knowledge_promotion_audit(backlog, evidence_index=evidence_index)
+
+    assert summary["schema_version"] == "research.regime_window_review_validation.v1"
+    assert summary["source_id"] == "x:regime-aware-quant-search"
+    assert summary["candidate_name"] == "regime_window_review"
+    assert summary["target_subsystem"] == "src/analysis"
+    assert summary["analysis_report_schema_version"] == "analysis.report.v1"
+    assert summary["analysis_interface"] == "src.analysis.analyze_model_effects_by_regime_and_window"
+    assert summary["implementation_allowed"] is False
+    assert summary["promotion_target"] == "research_only"
+    assert summary["evidence_requirements"] == evidence_index["regime_window_review"]
+    assert {"regime_metrics.csv", "window_metrics.csv", "window_regime_metrics.csv"}.issubset(
+        set(summary["artifact_files"])
+    )
+    assert source_provenance["source_used_as"] == "hypothesis_only"
+    assert source_provenance["usage_scope"] == "idea_only"
+    assert source_provenance["source_reliability"] == "social_unverified"
+    assert "x.com/search" in source_provenance["url"]
+    assert source_provenance["external_source_checks"]["copied_social_post_text"] is False
+    assert analysis_summary["schema_version"] == "analysis.report.v1"
+    assert analysis_summary["status"] == "regime_window_review_validation_completed"
+    assert "window_regime_metrics" in analysis_summary["analysis_layers"]
+    assert "stress" in analysis_summary["analysis_overview"]["top_weakness"]["segment"]
+    assert manifest["metadata"]["source_type"] == "social_idea_regime_window_review"
+    assert "idea-only" in license_review
+    assert "未复制帖子正文" in license_review
+    assert "中文结论" in conclusion
+    assert "是否晋升" in conclusion
+    assert audit["summary"]["ready_count"] == 1
+    assert audit["items"][0]["promotion_gate_status"] == "research_evidence_complete"
+
+
 def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_complete():
     audit = json.loads(open("research/knowledge_ingest/knowledge_promotion_audit.json", encoding="utf-8").read())
     rank_item = next(item for item in audit["items"] if item["candidate_name"] == "rank_ic_objective")
@@ -930,10 +986,11 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
     patch_items = [item for item in audit["items"] if item["candidate_name"] == "patch_tst_mse"]
     qlib_item = next(item for item in audit["items"] if item["candidate_name"] == "qlib_recorder_analysis")
     factor_item = next(item for item in audit["items"] if item["candidate_name"] == "factor_diagnostics")
+    regime_item = next(item for item in audit["items"] if item["candidate_name"] == "regime_window_review")
 
-    assert audit["summary"]["ready_count"] == 8
-    assert audit["summary"]["blocked_count"] == 2
-    assert audit["summary"]["implementation_allowed_count"] == 8
+    assert audit["summary"]["ready_count"] == 9
+    assert audit["summary"]["blocked_count"] == 1
+    assert audit["summary"]["implementation_allowed_count"] == 9
     assert "rank_ic_objective" in audit["summary"]["ready_candidates"]
     assert "autoformer_mse" in audit["summary"]["ready_candidates"]
     assert "fedformer_mse" in audit["summary"]["ready_candidates"]
@@ -941,6 +998,7 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
     assert audit["summary"]["ready_candidates"].count("patch_tst_mse") == 2
     assert "qlib_recorder_analysis" in audit["summary"]["ready_candidates"]
     assert "factor_diagnostics" in audit["summary"]["ready_candidates"]
+    assert "regime_window_review" in audit["summary"]["ready_candidates"]
     assert rank_item["promotion_gate_status"] == "research_evidence_complete"
     assert rank_item["implementation_allowed"] is True
     assert rank_item["missing_evidence"] == []
@@ -1005,6 +1063,13 @@ def test_knowledge_ingest_audit_marks_rank_ic_objective_research_evidence_comple
         "src/factor",
         "research/factor_diagnostics_validation_v1/factor_diagnostics_validation_v1.ipynb",
     ]
+    assert regime_item["promotion_gate_status"] == "research_evidence_complete"
+    assert regime_item["implementation_allowed"] is True
+    assert regime_item["missing_evidence"] == []
+    assert regime_item["allowed_surfaces_after_gate"] == [
+        "src/analysis",
+        "research/regime_window_review_validation_v1/regime_window_review_validation_v1.ipynb",
+    ]
 
 
 def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards():
@@ -1024,6 +1089,7 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "patch_tst_mse",
         "qlib_recorder_analysis",
         "factor_diagnostics",
+        "regime_window_review",
     ]
     assert summary["promotion_evidence_index_keys"] == [
         "arxiv:2106.13008",
@@ -1041,6 +1107,7 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "patch_tst_mse",
         "qlib_recorder_analysis",
         "rank_ic_objective",
+        "regime_window_review",
         "research/autoformer_mse_validation_v1/autoformer_mse_validation_v1.ipynb",
         "research/dlinear_mse_validation_v1/dlinear_mse_validation_v1.ipynb",
         "research/factor_diagnostics_validation_v1/factor_diagnostics_validation_v1.ipynb",
@@ -1048,4 +1115,6 @@ def test_knowledge_ingest_notebook_derives_promotion_audit_from_research_cards()
         "research/patch_tst_mse_validation_v1/patch_tst_mse_validation_v1.ipynb",
         "research/qlib_recorder_analysis_validation_v1/qlib_recorder_analysis_validation_v1.ipynb",
         "research/rank_ic_objective_validation_v1/rank_ic_objective_validation_v1.ipynb",
+        "research/regime_window_review_validation_v1/regime_window_review_validation_v1.ipynb",
+        "x:regime-aware-quant-search",
     ]

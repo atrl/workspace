@@ -1,0 +1,20 @@
+{
+  "schema_version": "knowledge.source_provenance.v1",
+  "source_id": "x:regime-aware-quant-search",
+  "source_type": "x",
+  "title": "Regime-aware quant evaluation search",
+  "url": "https://x.com/search?q=regime%20aware%20quant%20evaluation",
+  "summary": "Social-source idea placeholder for volatility/drawdown regime review; only usable after it becomes a reproducible src.analysis window/regime test.",
+  "retrieved_at": "2026-06-19",
+  "access_status": "search_placeholder",
+  "source_used_as": "hypothesis_only",
+  "usage_scope": "idea_only",
+  "source_reliability": "social_unverified",
+  "external_source_checks": {
+    "search_url": "https://x.com/search?q=regime%20aware%20quant%20evaluation",
+    "copied_social_post_text": false,
+    "used_individual_post_as_fact": false,
+    "vendored_external_code": false
+  },
+  "license_note": "idea-only；只保存搜索 URL、自有摘要和验证假设；未复制帖子正文；不作为事实来源。"
+}
