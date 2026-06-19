@@ -1,6 +1,0 @@
-schema_version,model,objective,family,row_count,mse,classification_accuracy,ic,rank_ic,rank_group_count
-objective.evaluation.v1,autoformer_mse,mse,sequence,26,0.02656206792654591,0.6153846153846154,0.013517419112201725,0.0,0
-objective.evaluation.v1,dlinear_mse,mse,sequence,26,0.016842056067116782,0.6153846153846154,0.20451478520268132,0.0,0
-objective.evaluation.v1,fedformer_mse,mse,sequence,26,0.08468442014336218,0.34615384615384615,-0.02447861012397672,0.0,0
-objective.evaluation.v1,patch_tst_mse,mse,sequence,26,0.013143429378720355,0.6153846153846154,-0.33651233458807317,0.0,0
-objective.evaluation.v1,ridge_mse,mse,linear,26,0.01320939401970131,0.5,-0.05672021455965021,0.0,0

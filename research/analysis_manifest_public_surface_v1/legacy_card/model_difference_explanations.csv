@@ -1,2 +1,0 @@
-schema_version,priority_rank,segment_type,segment,baseline_model,winner_model,loser_model,explanation_signal,decision_hint,review_note
-analysis.model_difference_explanation.v1,1,regime,bull,ridge_mse,ridge_mse,gcn_mse,baseline_defends,block_or_rework_loser,中文 review：legacy backfill 后仍能暴露模型差异解释。

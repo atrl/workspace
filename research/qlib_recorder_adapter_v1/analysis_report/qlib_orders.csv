@@ -1,4 +1,0 @@
-datetime,instrument,amount,deal_price,model,source_artifact
-2026-01-02,SOXL,120,35.2,qlib_recorder_demo,orders_normal_1day.csv
-2026-01-03,SOXL,-30,34.8,qlib_recorder_demo,orders_normal_1day.csv
-2026-01-04,SOXX,40,248.5,qlib_recorder_demo,orders_normal_1day.csv

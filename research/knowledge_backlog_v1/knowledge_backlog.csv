@@ -1,8 +1,0 @@
-source_id,candidate_name,candidate_type,target_subsystem,target_interface,priority_rank,priority_score,promotion_status,source_used_as,skill_boundary,url
-arxiv:2205.13504,dlinear_mse,model_replacement,src/model,src/model.registry.ModelSpec + src.model.training.fit_predict_model,1,10.0,backlog,hypothesis_only,method_only,https://arxiv.org/abs/2205.13504
-arxiv:2211.14730,patch_tst_mse,model_replacement,src/model,src/model.registry.ModelSpec + src.model.training.fit_predict_model,2,10.0,backlog,hypothesis_only,method_only,https://arxiv.org/abs/2211.14730
-paper:rsr-stock-ranking,rsr_mse,model_replacement,src/model,src/model.registry.ModelSpec + src.model.training.fit_predict_model,3,10.0,backlog,hypothesis_only,method_only,https://arxiv.org/search/?query=relational+stock+ranking+RSR&searchtype=all
-paper:temporal-hypergraph-stock,thgnn_mse,model_replacement,src/model,src/model.registry.ModelSpec + src.model.training.fit_predict_model,4,10.0,backlog,hypothesis_only,method_only,https://arxiv.org/search/?query=temporal+hypergraph+stock+prediction&searchtype=all
-arxiv:2504.18600,quantbench_model_matrix,model_matrix_reference,src/model,src/model.registry.ModelSpec + src.model.training.fit_predict_model,5,9.0,backlog,hypothesis_only,method_only,https://arxiv.org/abs/2504.18600
-github:microsoft/qlib,qlib_recorder_analysis,analysis_extension,src/analysis,src.analysis.qlib_recorder + src.analysis.build_regime_window_analysis_report,6,7.0,backlog,hypothesis_only,method_only,https://github.com/microsoft/qlib
-x:regime-aware-quant-review,regime_window_review,method_signal,src/analysis,src.analysis.qlib_recorder + src.analysis.build_regime_window_analysis_report,7,4.0,backlog,hypothesis_only,method_only,https://x.com/search?q=regime%20aware%20quant%20evaluation

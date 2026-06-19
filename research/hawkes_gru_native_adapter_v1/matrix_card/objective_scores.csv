@@ -1,6 +1,0 @@
-schema_version,model,objective,family,row_count,mse,classification_accuracy,ic,rank_ic,rank_group_count
-objective.evaluation.v1,gru_mse,mse,sequence,26,0.012662625037265916,0.5769230769230769,-0.054732870840367126,0.0,0
-objective.evaluation.v1,hawkes_gru_mse,mse,sequence,26,0.01334058842326417,0.5384615384615384,0.025181595949390918,0.0,0
-objective.evaluation.v1,ridge_mse,mse,linear,26,0.01320939401970131,0.5,-0.05672021455965021,0.0,0
-objective.evaluation.v1,sfm_mse,mse,sequence,26,0.012110215243696133,0.5769230769230769,0.09704062351236872,0.0,0
-objective.evaluation.v1,tcn_mse,mse,sequence,26,0.012630166172577147,0.5384615384615384,-0.007805967180470352,0.0,0

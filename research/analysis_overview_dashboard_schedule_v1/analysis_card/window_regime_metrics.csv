@@ -1,7 +1,0 @@
-window,regime,segment,model,return_pct,benchmark_return_pct,relative_return_pct,max_drawdown_pct,sharpe,avg_position,turnover,stability_score
-early,bull,early::bull,gcn_mse__top_ic_factors,8.000000000000007,2.0000000000000018,6.000000000000005,0.0,809.5999011857923,0.3333333333333333,0.30000000000000004,8103.399011857922
-early,bull,early::bull,ridge_mse__all_features,4.0000000000000036,2.0000000000000018,2.0000000000000018,0.0,1603.3252945047823,0.3333333333333333,0.30000000000000004,16036.652945047823
-early,neutral,early::neutral,gcn_mse__top_ic_factors,0.0,0.0,0.0,0.0,0.0,0.1,0.4,-0.8
-early,neutral,early::neutral,ridge_mse__all_features,0.0,0.0,0.0,0.0,0.0,0.1,0.4,-0.8
-stress_window,stress,stress_window::stress,gcn_mse__top_ic_factors,-4.90196078431373,0.0,-4.90196078431373,5.882352941176472,-11.098107269421352,0.23333333333333336,0.5,-124.23597465499783
-stress_window,stress,stress_window::stress,ridge_mse__all_features,-0.990099009900991,0.0,-0.990099009900991,1.980198019801982,-5.1499239566541135,0.23333333333333336,0.5,-55.9645861011946

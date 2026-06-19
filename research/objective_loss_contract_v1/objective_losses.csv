@@ -1,2 +1,0 @@
-schema_version,metric_source_schema_version,optimization_direction,reward_surface,objective_names,row_count,mse_loss,classification_loss,ic_loss,ranking_loss,rank_group_count
-objective.loss.v1,objective.evaluation.v1,minimize,retired,"['mse', 'classification', 'ic', 'ranking']",6,5.8333333333333326e-05,0.0,0.06606706099146509,1.1102230246251565e-16,3

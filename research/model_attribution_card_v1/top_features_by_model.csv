@@ -1,7 +1,0 @@
-model,feature,normalized_importance,rank
-gcn_mse,soxx_return_5d,1.0717671327226306,1
-gcn_mse,soxl_soxx_relative_5d,0.5544540634290123,2
-gcn_mse,soxx_return_1d,0.1993979319824721,3
-ridge_mse,soxx_return_5d,1.7940831585801418,1
-ridge_mse,soxx_return_1d,0.5076144795067349,2
-ridge_mse,soxl_soxx_relative_5d,0.4754689539892851,3

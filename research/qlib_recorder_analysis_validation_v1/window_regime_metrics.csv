@@ -1,7 +1,0 @@
-window,regime,segment,model,return_pct,benchmark_return_pct,relative_return_pct,max_drawdown_pct,sharpe,avg_position,turnover,stability_score
-early,bull,early::bull,gcn_mse,8.16000000000001,2.0100000000000007,6.15000000000001,0.0,0.0,0.0,0.0,8.16000000000001
-early,bull,early::bull,ridge_mse,4.039999999999999,2.0100000000000007,2.0299999999999985,0.0,0.0,0.0,0.0,4.039999999999999
-early,neutral,early::neutral,gcn_mse,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-early,neutral,early::neutral,ridge_mse,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-stress_window,stress,stress_window::stress,gcn_mse,-3.0400000000000094,-1.0000000000000009,-2.0400000000000085,4.0000000000000036,-9.524704719832526,0.0,0.0,-103.28704719832527
-stress_window,stress,stress_window::stress,ridge_mse,-0.505000000000011,-1.0000000000000009,0.4949999999999899,1.0000000000000009,-5.291502622129338,0.0,0.0,-54.670026221293384

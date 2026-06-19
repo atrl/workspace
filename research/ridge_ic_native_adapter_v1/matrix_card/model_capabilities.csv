@@ -1,6 +1,0 @@
-model,family,objective,input_kind,estimator,paper_fidelity,is_proxy,implementation_notes,promotion_blocker,trade_instrument,support_universe
-ridge_ic,linear,ic,tabular,RidgeICRegressor,native_library,False,Uses the native RidgeICRegressor training path behind the QuantBench-style registry contract.,,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
-ridge_mse,linear,mse,tabular,Ridge,native_library,False,Uses the native Ridge training path behind the QuantBench-style registry contract.,,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
-hist_gradient_mse,tree,mse,tabular,HistGradientBoostingRegressor,native_library,False,Uses the native HistGradientBoostingRegressor training path behind the QuantBench-style registry contract.,,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
-xgboost_mse,boosting,mse,tabular,XGBoostRegressor,native_library,False,Uses the native XGBoostRegressor training path behind the QuantBench-style registry contract.,,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"
-sequence_lag_ridge_mse,sequence,mse,lagged_sequence,LaggedRidge,native_sequence,False,Uses a native lagged sequence tensor flattened into a ridge regression baseline.,Needs longer-window robustness review before production promotion.,SOXL,"SOXL,SOXX,VIX,QQQ,SPY"

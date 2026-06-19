@@ -1,5 +1,0 @@
-model,objective,family,adapter_status,model_adapter,rows,prediction_mean,prediction_std,target_corr
-alstm_mse,mse,sequence,paper_strict_adapter,alstm_attention_lstm_mse_v1,26,0.02743266811762724,0.014544829496517725,-0.3219714738310549
-darnn_mse,mse,sequence,paper_strict_adapter,darnn_dual_attention_gru_mse_v1,26,0.025580110671195092,0.013986301042728017,-0.2516060008244302
-sfm_mse,mse,sequence,paper_strict_adapter,sfm_frequency_ridge_mse_v1,26,0.034485601676771276,0.02618727303090533,0.03069904439979495
-tcn_mse,mse,sequence,paper_strict_adapter,tcn_temporal_conv_mse_v1,26,0.025111343729806588,0.011649243275362509,-0.19504510624627971

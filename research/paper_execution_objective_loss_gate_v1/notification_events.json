@@ -1,6 +1,0 @@
-{
-  "events": [
-    "paper_execution:success | mode=paper | gate=paper_review | model=ridge_mse__all_features | target=0.5 | dashboard_manifest=analysis_manifest/complete | quote=SOXL@2026-01-05/12 | shares=41 | ledger=/Users/rziiiii/dev/workspace/research/paper_execution_objective_loss_gate_v1/intent_ledger.json | objective_loss=objective.loss.v1/review top=ranking_loss:1 reward=retired",
-    "paper_execution_invalid_reward:success | mode=paper | gate=blocked_to_min_position | model=ridge_mse__all_features | target=0.1 | dashboard_manifest=analysis_manifest/complete | quote=SOXL@2026-01-05/12 | shares=8 | ledger=/Users/rziiiii/dev/workspace/research/paper_execution_objective_loss_gate_v1/intent_ledger_invalid_reward.json | objective_loss=objective.loss.v1/block top=ic_loss:0.9774 reward=active_rl_reward"
-  ]
-}

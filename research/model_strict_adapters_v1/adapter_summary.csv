@@ -1,4 +1,0 @@
-model,objective,family,adapter_status,model_adapter,rows,prediction_mean,prediction_std,target_corr
-logistic_clf,classification,linear,paper_strict_adapter,logistic_direction_v1,20,-0.023997151228797965,0.06010570270348736,0.05662184441217629
-ridge_ic,ic,linear,paper_strict_adapter,ridge_rank_ic_proxy_v1,20,-0.4613662595957079,0.2539887492979599,-0.10841913682270954
-ridge_mse,mse,linear,paper_strict_adapter,ridge_mse_v1,20,-0.034585056064340994,0.01927587726399962,-0.12379095200065665

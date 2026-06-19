@@ -1,5 +1,0 @@
-schema_version,model,objective,family,row_count,mse,classification_accuracy,ic,rank_ic,rank_group_count
-objective.evaluation.v1,gat_mse,mse,graph,26,0.018082866669199005,0.5,0.41215147669265945,0.0,0
-objective.evaluation.v1,gcn_mse,mse,graph,26,0.013474132712597389,0.5769230769230769,-0.034835463513894174,0.0,0
-objective.evaluation.v1,market_graph_mse,mse,graph,26,0.013308353724159718,0.5,-0.05911153585250358,0.0,0
-objective.evaluation.v1,ridge_mse,mse,linear,26,0.01320939401970131,0.5,-0.05672021455965021,0.0,0

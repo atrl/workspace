@@ -1,7 +1,0 @@
-schema_version,model,base_model,feature_set,objective,family,row_count,mse,classification_accuracy,ic,rank_ic,rank_group_count
-objective.evaluation.v1,gcn_mse__all_features,gcn_mse,all_features,mse,graph,26,0.013474132712597389,0.5769230769230769,-0.034835463513894174,0.0,0
-objective.evaluation.v1,gcn_mse__ic_weighted_composite,gcn_mse,ic_weighted_composite,mse,graph,26,0.01276262297307078,0.6153846153846154,0.17349661982855213,0.0,0
-objective.evaluation.v1,gcn_mse__top_ic_factors,gcn_mse,top_ic_factors,mse,graph,26,0.012175982879760556,0.5,0.1188122893940006,0.0,0
-objective.evaluation.v1,ridge_mse__all_features,ridge_mse,all_features,mse,linear,26,0.01320939401970131,0.5,-0.05672021455965021,0.0,0
-objective.evaluation.v1,ridge_mse__ic_weighted_composite,ridge_mse,ic_weighted_composite,mse,linear,26,0.012056041364168966,0.6153846153846154,0.13400962007756229,0.0,0
-objective.evaluation.v1,ridge_mse__top_ic_factors,ridge_mse,top_ic_factors,mse,linear,26,0.01202194063812042,0.6153846153846154,0.14064894259119193,0.0,0

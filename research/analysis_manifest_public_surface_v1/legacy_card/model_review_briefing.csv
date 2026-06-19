@@ -1,2 +1,0 @@
-schema_version,priority_rank,model,baseline_model,segment_type,segment,review_signal,decision_hint,review_note
-analysis.model_review_briefing.v1,1,gcn_mse,ridge_mse,regime,bull,weakness,block_or_rework,中文 review：legacy backfill 后仍能暴露 review briefing。

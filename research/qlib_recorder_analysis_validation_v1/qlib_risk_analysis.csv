@@ -1,7 +1,0 @@
-model,metric,value,return_kind,source_artifact
-ridge_mse,annualized_return,0.18,qlib_risk,portfolio_analysis/risk_analysis_1day.pkl
-ridge_mse,information_ratio,0.9,qlib_risk,portfolio_analysis/risk_analysis_1day.pkl
-ridge_mse,max_drawdown,-0.04,qlib_risk,portfolio_analysis/risk_analysis_1day.pkl
-gcn_mse,annualized_return,0.22,qlib_risk,portfolio_analysis/risk_analysis_1day.pkl
-gcn_mse,information_ratio,0.7,qlib_risk,portfolio_analysis/risk_analysis_1day.pkl
-gcn_mse,max_drawdown,-0.11,qlib_risk,portfolio_analysis/risk_analysis_1day.pkl

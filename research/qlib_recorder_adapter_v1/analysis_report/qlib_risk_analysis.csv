@@ -1,4 +1,0 @@
-model,metric,value,return_kind,source_artifact
-qlib_recorder_demo,annualized_return,0.58,qlib_risk,risk_analysis_1day.csv
-qlib_recorder_demo,information_ratio,1.41,qlib_risk,risk_analysis_1day.csv
-qlib_recorder_demo,max_drawdown,-0.067,qlib_risk,risk_analysis_1day.csv

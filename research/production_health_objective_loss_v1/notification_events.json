@@ -1,6 +1,0 @@
-{
-  "events": [
-    "production_health_review_objective_loss:success | strategy=paper_review_objective_loss_strategy | health=healthy | missing=0 | dashboard_manifest=analysis_manifest/complete | paper_execution=schedule.paper_execution.v1/success | objective_loss=objective.loss.v1/review top=ranking_loss:1 reward=retired | manifest=/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_review_objective_loss_strategy/production_manifest.json",
-    "production_health_blocked_objective_loss:success | strategy=paper_blocked_objective_loss_strategy | health=paper_execution_objective_loss_blocked | missing=0 | dashboard_manifest=analysis_manifest/complete | paper_execution=schedule.paper_execution.v1/success | objective_loss=objective.loss.v1/block top=ic_loss:0.9774 reward=active_rl_reward | manifest=/Users/rziiiii/dev/workspace/research/production_health_objective_loss_v1/production_cases/paper_blocked_objective_loss_strategy/production_manifest.json"
-  ]
-}

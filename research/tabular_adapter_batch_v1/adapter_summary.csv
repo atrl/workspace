@@ -1,7 +1,0 @@
-model,objective,family,adapter_status,model_adapter,rows,prediction_mean,prediction_std,target_corr
-catboost_rank,ranking,boosting,dependency_fallback_adapter,catboost_extra_trees_rank_dependency_fallback_v1,26,0.01891882825880074,0.25363965474869965,-0.21682900999789492
-extra_trees_rank,ranking,tree,paper_strict_adapter,extra_trees_rank_proxy_v1,26,0.01891882825880074,0.25363965474869965,-0.21682900999789492
-hist_gradient_mse,mse,tree,paper_strict_adapter,hist_gradient_mse_v1,26,0.007236816462528407,0.009800335181147602,-0.08657017669499573
-lightgbm_mse,mse,boosting,paper_strict_adapter,lightgbm_mse_v1,26,0.009954535192833765,0.011443175692990557,-0.10488690000453052
-random_forest_clf,classification,tree,paper_strict_adapter,random_forest_direction_v1,26,0.15868407070333035,0.14700722870349792,-0.024481969087761752
-xgboost_mse,mse,boosting,dependency_fallback_adapter,xgboost_hist_gradient_dependency_fallback_v1,26,0.007236816462528407,0.009800335181147602,-0.08657017669499573
