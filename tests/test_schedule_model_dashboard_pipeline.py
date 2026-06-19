@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.schedule import ModelDashboardPipelineConfig, run_model_dashboard_refresh_once
+from src.schedule import ModelDashboardPipelineConfig, classify_market_calendar_day, run_model_dashboard_refresh_once
 
 
 def test_model_dashboard_refresh_runs_matrix_then_dashboard_export_with_lock_and_notify(tmp_path):
@@ -59,6 +59,54 @@ def test_model_dashboard_refresh_runs_matrix_then_dashboard_export_with_lock_and
     assert result.payload["attempts"] == 1
     assert calls == [("matrix", config.card_dir), ("dashboard", config.dashboard_output_path)]
     assert events == ["model_dashboard_refresh:success"]
+    assert not (tmp_path / "locks" / "model_dashboard_refresh.lock").exists()
+
+
+def test_model_dashboard_refresh_skips_closed_market_day_before_matrix_or_export(tmp_path):
+    events: list[str] = []
+    calls = {"matrix": 0, "dashboard": 0}
+    decision = classify_market_calendar_day(
+        "2026-01-01",
+        trading_calendar=("2026-01-02",),
+        holiday_reasons={"2026-01-01": "New Year's Day"},
+    )
+
+    def matrix_runner(**kwargs):
+        calls["matrix"] += 1
+        Path(kwargs["card_dir"]).mkdir(parents=True, exist_ok=True)
+        return {"variant_count": 1}
+
+    def dashboard_exporter(card_dir: Path, *, output_path: Path, top_n: int):
+        calls["dashboard"] += 1
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps({"schema_version": "dashboard.model_matrix.v1"}), encoding="utf-8")
+        return {"schema_version": "dashboard.model_matrix.v1"}
+
+    config = ModelDashboardPipelineConfig(
+        name="model_dashboard_refresh",
+        card_dir=tmp_path / "matrix_card",
+        dashboard_output_path=tmp_path / "dashboard" / "dashboard_export.json",
+        start="2026-01-01",
+        end="2026-06-09",
+        train_end="2026-04-30",
+        market_calendar_decision=decision,
+    )
+
+    result = run_model_dashboard_refresh_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        matrix_runner=matrix_runner,
+        dashboard_exporter=dashboard_exporter,
+    )
+
+    assert result.status == "skipped"
+    assert result.detail == "New Year's Day"
+    assert result.payload["market_calendar_decision"]["market_status"] == "closed"
+    assert calls == {"matrix": 0, "dashboard": 0}
+    assert events == []
+    assert not config.card_dir.exists()
+    assert not config.dashboard_output_path.exists()
     assert not (tmp_path / "locks" / "model_dashboard_refresh.lock").exists()
 
 

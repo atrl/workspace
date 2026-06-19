@@ -14,6 +14,25 @@
   "closed_lock_created": false,
   "notification_events": [],
   "next_trading_date_from_closed": "2026-01-02",
+  "pipeline_gate_statuses": {
+    "data_update": "skipped",
+    "model_dashboard_refresh": "skipped",
+    "paper_execution": "skipped"
+  },
+  "pipeline_gate_task_calls": {
+    "data_frame": 0,
+    "data_calendar": 0,
+    "matrix": 0,
+    "dashboard": 0
+  },
+  "pipeline_gate_lock_created": false,
+  "pipeline_gate_artifact_created": false,
+  "pipeline_gate_notification_events": [],
+  "pipeline_surfaces_with_gate": [
+    "data_update",
+    "model_dashboard_refresh",
+    "paper_execution"
+  ],
   "artifacts": {
     "market_calendar_decisions": "market_calendar_decisions.csv",
     "review": "schedule_market_calendar_gate_review.md"

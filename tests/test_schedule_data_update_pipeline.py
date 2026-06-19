@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.schedule import DataUpdatePipelineConfig, run_data_update_once
+from src.schedule import DataUpdatePipelineConfig, classify_market_calendar_day, run_data_update_once
 
 
 def _raw_frame() -> pd.DataFrame:
@@ -97,3 +97,40 @@ def test_data_update_pipeline_retries_transient_provider_failure_before_success(
     assert result.status == "success"
     assert result.payload["attempts"] == 2
     assert calls["count"] == 2
+
+
+def test_data_update_pipeline_skips_closed_market_day_before_provider_lock_or_notify(tmp_path):
+    events: list[str] = []
+    calls = {"frame": 0, "calendar": 0}
+    decision = classify_market_calendar_day(
+        "2026-01-01",
+        trading_calendar=("2026-01-02",),
+        holiday_reasons={"2026-01-01": "New Year's Day"},
+    )
+    config = DataUpdatePipelineConfig(
+        **{**_config(tmp_path).__dict__, "market_calendar_decision": decision}
+    )
+
+    def frame_provider(_: DataUpdatePipelineConfig) -> pd.DataFrame:
+        calls["frame"] += 1
+        return _raw_frame()
+
+    def calendar_provider(_: DataUpdatePipelineConfig) -> pd.DatetimeIndex:
+        calls["calendar"] += 1
+        return _calendar()
+
+    result = run_data_update_once(
+        config,
+        lock_dir=tmp_path / "locks",
+        notify=events.append,
+        frame_provider=frame_provider,
+        calendar_provider=calendar_provider,
+    )
+
+    assert result.status == "skipped"
+    assert result.detail == "New Year's Day"
+    assert result.payload["market_calendar_decision"]["market_status"] == "closed"
+    assert calls == {"frame": 0, "calendar": 0}
+    assert events == []
+    assert not (tmp_path / "locks" / "daily_soxl_data_update.lock").exists()
+    assert not config.output_dir.exists()

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from src.core import DatasetSnapshot, publish_production_manifest
-from src.schedule import ProductionHealthCheckConfig, run_production_health_check_once
+from src.schedule import ProductionHealthCheckConfig, classify_market_calendar_day, run_production_health_check_once
 
 
 def _write_json(path: Path, payload: dict) -> None:
@@ -95,6 +95,32 @@ def test_production_health_check_reads_registry_manifest_and_writes_dashboard_re
         "production_health_check:success | strategy=paper_sim_replay_v1 | health=healthy "
         f"| missing=0 | paper_execution=schedule.paper_execution.v1/success | manifest={card / 'production_manifest.json'}"
     ]
+
+
+def test_production_health_check_skips_closed_market_day_before_registry_read(tmp_path):
+    events: list[str] = []
+    decision = classify_market_calendar_day(
+        "2026-01-01",
+        trading_calendar=("2026-01-02",),
+        holiday_reasons={"2026-01-01": "New Year's Day"},
+    )
+    config = ProductionHealthCheckConfig(
+        name="production_health_check",
+        registry_path=tmp_path / "missing_production_registry.json",
+        strategy_id="paper_sim_replay_v1",
+        output_path=tmp_path / "dashboard" / "production_health.json",
+        notify_details=True,
+        market_calendar_decision=decision,
+    )
+
+    result = run_production_health_check_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "skipped"
+    assert result.detail == "New Year's Day"
+    assert result.payload["market_calendar_decision"]["market_status"] == "closed"
+    assert events == []
+    assert not config.output_path.exists()
+    assert not (tmp_path / "locks" / "production_health_check.lock").exists()
 
 
 def test_production_health_check_can_require_complete_requested_model_contract(tmp_path):

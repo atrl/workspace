@@ -5,7 +5,7 @@ import json
 import pandas as pd
 
 import src.data as data_api
-from src.schedule import PaperExecutionPipelineConfig, run_paper_execution_once
+from src.schedule import PaperExecutionPipelineConfig, classify_market_calendar_day, run_paper_execution_once
 
 
 def _publish_unit_registry(tmp_path):
@@ -120,6 +120,36 @@ def test_paper_execution_pipeline_reads_dashboard_and_registry_then_writes_execu
         "paper_execution:success | mode=paper | gate=paper_review | model=ridge_mse__all_features "
         f"| target=0.5 | quote=SOXL@2026-01-05/12 | shares=41 | ledger={config.intent_ledger_path}"
     ]
+
+
+def test_paper_execution_pipeline_skips_closed_market_day_before_reading_inputs(tmp_path):
+    events: list[str] = []
+    decision = classify_market_calendar_day(
+        "2026-01-01",
+        trading_calendar=("2026-01-02",),
+        holiday_reasons={"2026-01-01": "New Year's Day"},
+    )
+    config = PaperExecutionPipelineConfig(
+        name="paper_execution",
+        dashboard_export_path=tmp_path / "missing_dashboard_export.json",
+        data_registry_path=tmp_path / "missing_data_registry.json",
+        dataset_key="daily.unit_soxl",
+        instrument="SOXL",
+        intent_ledger_path=tmp_path / "runtime" / "intent_ledger.json",
+        paper_execution_result_path=tmp_path / "runtime" / "paper_execution_result.json",
+        notify_details=True,
+        market_calendar_decision=decision,
+    )
+
+    result = run_paper_execution_once(config, lock_dir=tmp_path / "locks", notify=events.append)
+
+    assert result.status == "skipped"
+    assert result.detail == "New Year's Day"
+    assert result.payload["market_calendar_decision"]["market_status"] == "closed"
+    assert events == []
+    assert not config.intent_ledger_path.exists()
+    assert not config.paper_execution_result_path.exists()
+    assert not (tmp_path / "locks" / "paper_execution.lock").exists()
 
 
 def test_paper_execution_pipeline_rejects_live_mode_before_writing_evidence(tmp_path):

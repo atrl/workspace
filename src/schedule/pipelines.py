@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Mapping
 
 import pandas as pd
 
@@ -41,6 +41,7 @@ class DataUpdatePipelineConfig:
     published_at: str | None = None
     notify_details: bool = False
     retries: int = 0
+    market_calendar_decision: Mapping[str, Any] | None = None
 
 
 @dataclass(frozen=True)
@@ -65,6 +66,7 @@ class ModelDashboardPipelineConfig:
     analysis_manifest_calendar_path: str = ""
     notify_details: bool = False
     retries: int = 0
+    market_calendar_decision: Mapping[str, Any] | None = None
 
 
 @dataclass(frozen=True)
@@ -85,6 +87,7 @@ class ProductionHealthCheckConfig:
     require_requested_model_contract: bool = False
     notify_details: bool = False
     retries: int = 0
+    market_calendar_decision: Mapping[str, Any] | None = None
 
 
 @dataclass(frozen=True)
@@ -105,6 +108,7 @@ class PaperExecutionPipelineConfig:
     initial_shares: int = 0
     notify_details: bool = False
     retries: int = 0
+    market_calendar_decision: Mapping[str, Any] | None = None
 
 
 MatrixRunner = Callable[..., Any]
@@ -249,6 +253,7 @@ def run_data_update_once(
         task=task,
         lock_dir=lock_dir,
         notify=notify_with_details if notify is not None else None,
+        market_calendar_decision=config.market_calendar_decision,
     )
 
 
@@ -480,6 +485,7 @@ def run_production_health_check_once(
         task=task,
         lock_dir=lock_dir,
         notify=notify_with_details if notify is not None else None,
+        market_calendar_decision=config.market_calendar_decision,
     )
 
 
@@ -613,6 +619,7 @@ def run_paper_execution_once(
         task=task,
         lock_dir=lock_dir,
         notify=notify_with_details if notify is not None else None,
+        market_calendar_decision=config.market_calendar_decision,
     )
 
 
@@ -1078,4 +1085,5 @@ def run_model_dashboard_refresh_once(
         task=task,
         lock_dir=lock_dir,
         notify=notify_with_details if notify is not None else None,
+        market_calendar_decision=config.market_calendar_decision,
     )
