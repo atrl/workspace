@@ -1,0 +1,22 @@
+{
+  "feature_cols": [
+    "$close",
+    "$vix",
+    "$volume"
+  ],
+  "implementation": "qlib_attention_rank",
+  "model": "transformer_rank",
+  "parameters": {
+    "target_scale": 0.06028708629946288,
+    "weights": {
+      "$close": 0.5000000000000001,
+      "$vix": 0.08333333333333331,
+      "$volume": 0.4166666666666667
+    }
+  },
+  "qlib_dataset_api": [
+    "DatasetH",
+    "DataHandlerLP"
+  ],
+  "target_col": "Ref($close, -1) / $close - 1"
+}

@@ -9,8 +9,9 @@ from typing import Any
 import pandas as pd
 
 from src.analysis import build_analysis_report_from_qlib_recorder
-from src.backtest import build_portfolio_report_from_qlib_recorder
+from src.backtest import build_backtest_extension_report_from_qlib_recorder, build_portfolio_report_from_qlib_recorder
 from src.data import QlibProviderConfig, build_qlib_dataset, init_qlib_provider, load_qlib_feature_frame
+from src.model import quantbench_supervised_model_specs, run_qlib_model_selection
 
 
 QLIB_DOCS = {
@@ -139,7 +140,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
     dataset = build_qlib_dataset(
         config,
         instruments=[spec.instrument],
-        features=["$close", "$vix"],
+        features=["$close", "$vix", "$volume"],
         label="Ref($close, -1) / $close - 1",
         train=spec.train,
         test=spec.test,
@@ -147,13 +148,19 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
     feature_frame = load_qlib_feature_frame(
         config,
         instruments=[spec.instrument],
-        fields=["$close", "$vix"],
+        fields=["$close", "$vix", "$volume"],
         start=spec.train[0],
         end=spec.test[1],
     )
-    model = LastReturnSignalModel().fit(dataset)
     spec.output_dir.mkdir(parents=True, exist_ok=True)
     spec.recorder_uri.mkdir(parents=True, exist_ok=True)
+    model_selection = run_qlib_model_selection(
+        dataset,
+        specs=quantbench_supervised_model_specs(),
+        output_dir=spec.output_dir,
+        selection_metric="utility_score",
+    )
+    model = model_selection.selected_model
     R.set_uri(spec.recorder_uri.as_posix())
 
     with R.start(experiment_name=spec.experiment):
@@ -167,7 +174,16 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             train_end=spec.train[1],
             test_start=spec.test[0],
             test_end=spec.test[1],
+            selected_model=model_selection.selected_spec.name,
+            selected_model_implementation=model.implementation,
+            model_selection_metric="utility_score",
         )
+        for artifact in [
+            spec.output_dir / model_selection.sidecars["model_selection"],
+            spec.output_dir / model_selection.sidecars["all_model_predictions"],
+            model_selection.selected_model_path,
+        ]:
+            recorder.log_artifact(artifact.as_posix(), artifact_path="model_selection")
         SignalRecord(model, dataset, recorder).generate()
         SigAnaRecord(recorder).generate()
         PortAnaRecord(recorder, _port_analysis_config(spec), risk_analysis_freq="day").generate()
@@ -201,11 +217,28 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         ],
         "qlib_record_classes_available": ["SignalRecord", "SigAnaRecord", "PortAnaRecord"],
         "qlib_docs": QLIB_DOCS,
+        "model_selection": {
+            "selected_model": model_selection.selected_spec.name,
+            "selected_implementation": model.implementation,
+            "selection_metric": "utility_score",
+            "candidate_count": int(len(model_selection.model_metrics)),
+            "source": "qlib_dataset",
+        },
         "sidecars": sidecars,
     }
     portfolio = build_portfolio_report_from_qlib_recorder(summary, cost_bps=2.0, slippage_bps=1.0)
     portfolio_path = spec.output_dir / "portfolio_report.csv"
     portfolio.report.to_csv(portfolio_path, index=False)
+    backtest_extension = build_backtest_extension_report_from_qlib_recorder(
+        summary,
+        portfolio.report,
+        windows={"test": spec.test, "train_to_test": (spec.train[0], spec.test[1])},
+        stress_windows={"test_tail": (spec.test[0], spec.test[1])},
+        walk_forward={"train_size": 1, "test_size": 2},
+        cost_bps=2.0,
+        slippage_bps=1.0,
+    )
+    backtest_paths = backtest_extension.write_sidecars(spec.output_dir)
     report = build_analysis_report_from_qlib_recorder(
         summary,
         portfolio.report,
@@ -222,7 +255,11 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         encoding="utf-8",
     )
     summary["sidecars"] = sidecars | qlib_portfolio_sidecars | {
+        **model_selection.sidecars,
         "portfolio_report": portfolio_path.name,
+        "backtest_window_metrics": backtest_paths["backtest_window_metrics"].name,
+        "backtest_walk_forward_metrics": backtest_paths["backtest_walk_forward_metrics"].name,
+        "backtest_benchmark_comparison": backtest_paths["backtest_benchmark_comparison"].name,
         "analysis_summary": analysis_paths["summary"].name,
         "regime_metrics": analysis_paths["regime_metrics"].name,
         "window_metrics": analysis_paths["window_metrics"].name,
@@ -233,8 +270,9 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     (spec.output_dir / "conclusion.md").write_text(
         "# 中文结论\n\n"
-        "- 做了什么：通过 qlib.init、D.features、DatasetH/DataHandlerLP、R.start、SignalRecord、SigAnaRecord 和 PortAnaRecord 跑通 SOXL qlib-native reference。\n"
-        "- 核心指标：已生成 qlib recorder、pred.pkl、label.pkl、sig_analysis、portfolio_analysis、risk_analysis.csv、window_metrics.csv 和 model_comparison.csv。\n"
+        "- 做了什么：通过 qlib.init、D.features、DatasetH/DataHandlerLP、R.start、SignalRecord、SigAnaRecord 和 PortAnaRecord 跑通 SOXL qlib-native reference，并在 qlib Dataset 上完成多模型选择。\n"
+        f"- 模型逻辑：候选模型 {len(model_selection.model_metrics)} 个，选中 {model_selection.selected_spec.name} / {model.implementation}，结果见 model_selection.csv、all_model_predictions.csv 和 selected_model.json。\n"
+        "- 核心指标：已生成 qlib recorder、pred.pkl、label.pkl、sig_analysis、portfolio_analysis、risk_analysis.csv、backtest_window_metrics.csv、backtest_walk_forward_metrics.csv、backtest_benchmark_comparison.csv 和 model_comparison.csv。\n"
         "- regime 差异：regime_metrics.csv 基于 qlib recorder 和 qlib Data API 的 VIX、趋势、回撤、波动、成交量和市场状态分层，短窗口仅用于验收。\n"
         "- 是否晋升：不晋升；这是 qlib 原生工作流验收卡。\n"
         "- 风险：样本窗口短，IC 可能为 NaN；不能作为交易信号。\n"

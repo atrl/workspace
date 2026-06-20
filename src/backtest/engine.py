@@ -16,6 +16,27 @@ class PortfolioReport:
     input_artifacts: list[str]
 
 
+@dataclass(frozen=True)
+class BacktestExtensionReport:
+    source: str
+    window_metrics: pd.DataFrame
+    walk_forward_metrics: pd.DataFrame
+    benchmark_comparison: pd.DataFrame
+    manifest: ArtifactManifest
+
+    def write_sidecars(self, directory: Path) -> dict[str, Path]:
+        directory.mkdir(parents=True, exist_ok=True)
+        paths = {
+            "backtest_window_metrics": directory / "backtest_window_metrics.csv",
+            "backtest_walk_forward_metrics": directory / "backtest_walk_forward_metrics.csv",
+            "backtest_benchmark_comparison": directory / "backtest_benchmark_comparison.csv",
+        }
+        self.window_metrics.to_csv(paths["backtest_window_metrics"], index=False)
+        self.walk_forward_metrics.to_csv(paths["backtest_walk_forward_metrics"], index=False)
+        self.benchmark_comparison.to_csv(paths["backtest_benchmark_comparison"], index=False)
+        return paths
+
+
 def _as_score_frame(pred: pd.Series | pd.DataFrame) -> pd.DataFrame:
     if isinstance(pred, pd.Series):
         frame = pred.rename("score").to_frame()
@@ -135,4 +156,178 @@ def build_portfolio_report_from_qlib_recorder(
         report=report,
         manifest=manifest,
         input_artifacts=["pred.pkl", "label.pkl"],
+    )
+
+
+def _max_drawdown_pct(nav: pd.Series) -> float:
+    drawdown = nav.astype(float) / nav.astype(float).cummax() - 1.0
+    return round(float(drawdown.min() * 100.0), 10)
+
+
+def _portfolio_window_metrics(
+    report: pd.DataFrame,
+    windows: dict[str, tuple[str, str]],
+    *,
+    window_type: str,
+    slippage_bps: float,
+) -> pd.DataFrame:
+    frame = report.copy()
+    frame["date"] = pd.to_datetime(frame["date"])
+    rows: list[dict[str, object]] = []
+    for name, (start, end) in windows.items():
+        window = frame.loc[(frame["date"] >= pd.Timestamp(start)) & (frame["date"] <= pd.Timestamp(end))]
+        if window.empty:
+            continue
+        strategy_return = (1.0 + window["strategy_return"].astype(float)).prod() - 1.0
+        if "benchmark_return" in window.columns:
+            benchmark_return = (1.0 + window["benchmark_return"].astype(float)).prod() - 1.0
+        else:
+            benchmark_return = 0.0
+        rows.append(
+            {
+                "window": name,
+                "window_type": window_type,
+                "start": pd.Timestamp(start).date().isoformat(),
+                "end": pd.Timestamp(end).date().isoformat(),
+                "rows": int(len(window)),
+                "strategy_return_pct": round(float(strategy_return * 100.0), 10),
+                "benchmark_return_pct": round(float(benchmark_return * 100.0), 10),
+                "excess_return_pct": round(float((strategy_return - benchmark_return) * 100.0), 10),
+                "max_drawdown_pct": _max_drawdown_pct(window["nav"]),
+                "turnover": round(float(window["turnover"].astype(float).sum()), 10),
+                "cost": round(float(window["cost"].astype(float).sum()), 10),
+                "slippage_cost": round(
+                    float(window["turnover"].astype(float).sum() * (slippage_bps / 10000.0)),
+                    10,
+                ),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _walk_forward_windows(report: pd.DataFrame, *, train_size: int, test_size: int) -> dict[str, tuple[str, str]]:
+    dates = pd.Series(pd.to_datetime(report["date"]).sort_values().unique())
+    windows: dict[str, tuple[str, str]] = {}
+    fold = 1
+    start = 0
+    while start + train_size + test_size <= len(dates):
+        test = dates.iloc[start + train_size : start + train_size + test_size]
+        windows[f"walk_forward_{fold}"] = (
+            pd.Timestamp(test.iloc[0]).date().isoformat(),
+            pd.Timestamp(test.iloc[-1]).date().isoformat(),
+        )
+        fold += 1
+        start += test_size
+    return windows
+
+
+def _benchmark_comparison(
+    summary: dict,
+    report: pd.DataFrame,
+    *,
+    cost_bps: float,
+    slippage_bps: float,
+) -> pd.DataFrame:
+    strategy_return = float((1.0 + report["strategy_return"].astype(float)).prod() - 1.0)
+    benchmark_return = (
+        float((1.0 + report["benchmark_return"].astype(float)).prod() - 1.0)
+        if "benchmark_return" in report.columns
+        else 0.0
+    )
+    excess = report["strategy_return"].astype(float) - report.get(
+        "benchmark_return",
+        pd.Series(0.0, index=report.index),
+    ).astype(float)
+    return pd.DataFrame(
+        [
+            {
+                "benchmark_source": "qlib_portfolio_analysis",
+                "recorder_id": summary["recorder_id"],
+                "strategy_return_pct": round(strategy_return * 100.0, 10),
+                "benchmark_return_pct": round(benchmark_return * 100.0, 10),
+                "excess_return_pct": round((strategy_return - benchmark_return) * 100.0, 10),
+                "tracking_error": round(float(excess.std(ddof=0)), 10),
+                "cost_bps": cost_bps,
+                "slippage_bps": slippage_bps,
+            }
+        ]
+    )
+
+
+def build_backtest_extension_report_from_qlib_recorder(
+    summary: dict,
+    portfolio_report: pd.DataFrame,
+    *,
+    windows: dict[str, tuple[str, str]],
+    stress_windows: dict[str, tuple[str, str]] | None = None,
+    walk_forward: dict[str, int] | None = None,
+    cost_bps: float = 0.0,
+    slippage_bps: float = 0.0,
+) -> BacktestExtensionReport:
+    recorder_dir = Path(summary["recorder_local_dir"])
+    required = [
+        recorder_dir / "artifacts" / "portfolio_analysis" / "report_normal_1day.pkl",
+        recorder_dir / "artifacts" / "portfolio_analysis" / "port_analysis_1day.pkl",
+    ]
+    missing = [path.as_posix() for path in required if not path.exists()]
+    if missing:
+        raise FileNotFoundError(f"missing qlib portfolio_analysis artifacts: {missing}")
+
+    fixed_metrics = _portfolio_window_metrics(
+        portfolio_report,
+        windows,
+        window_type="fixed",
+        slippage_bps=slippage_bps,
+    )
+    stress_metrics = _portfolio_window_metrics(
+        portfolio_report,
+        stress_windows or {},
+        window_type="stress",
+        slippage_bps=slippage_bps,
+    )
+    window_metrics = pd.concat([fixed_metrics, stress_metrics], ignore_index=True)
+    walk_windows = (
+        _walk_forward_windows(
+            portfolio_report,
+            train_size=int(walk_forward["train_size"]),
+            test_size=int(walk_forward["test_size"]),
+        )
+        if walk_forward
+        else {}
+    )
+    walk_forward_metrics = _portfolio_window_metrics(
+        portfolio_report,
+        walk_windows,
+        window_type="walk_forward",
+        slippage_bps=slippage_bps,
+    )
+    manifest = ArtifactManifest(
+        kind="backtest_extension_report",
+        path="qlib_recorder/artifacts/portfolio_analysis/report_normal_1day.pkl",
+        source="qlib_recorder",
+        provider_uri=summary["provider_uri"],
+        recorder_id=summary["recorder_id"],
+        date_range=tuple(summary["data_range"]),
+        purpose="backtest",
+        metadata={
+            "experiment": summary["experiment"],
+            "cost_bps": cost_bps,
+            "slippage_bps": slippage_bps,
+            "input_artifacts": [
+                "portfolio_analysis/report_normal_1day.pkl",
+                "portfolio_analysis/port_analysis_1day.pkl",
+            ],
+        },
+    )
+    return BacktestExtensionReport(
+        source="qlib_portfolio_analysis",
+        window_metrics=window_metrics,
+        walk_forward_metrics=walk_forward_metrics,
+        benchmark_comparison=_benchmark_comparison(
+            summary,
+            portfolio_report,
+            cost_bps=cost_bps,
+            slippage_bps=slippage_bps,
+        ),
+        manifest=manifest,
     )

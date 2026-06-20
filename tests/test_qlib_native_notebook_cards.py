@@ -31,8 +31,14 @@ def test_research_card_has_executed_qlib_recorder_and_analysis_sidecars():
         "regime_metrics",
         "window_metrics",
         "model_comparison",
+        "model_selection",
+        "all_model_predictions",
+        "selected_model",
         "qlib_portfolio_report",
         "risk_analysis",
+        "backtest_window_metrics",
+        "backtest_walk_forward_metrics",
+        "backtest_benchmark_comparison",
         "explainability",
         "failure_modes",
     }
@@ -47,7 +53,11 @@ def test_research_card_has_executed_qlib_recorder_and_analysis_sidecars():
     assert (recorder_dir / "artifacts" / "portfolio_analysis" / "port_analysis_1day.pkl").exists()
     assert not (recorder_dir / "artifacts" / "code_status.txt").exists()
     assert summary["recorder_id"] in notebook_text
+    assert summary["model_selection"]["source"] == "qlib_dataset"
+    assert summary["model_selection"]["candidate_count"] >= 6
     assert "PortAnaRecord" in notebook_text
+    assert "model_selection.csv" in notebook_text
+    assert "backtest_benchmark_comparison.csv" in notebook_text
     assert "risk_analysis.csv" in notebook_text
 
 
@@ -66,5 +76,10 @@ def test_production_card_is_paper_sim_and_references_qlib_recorder():
     assert "qlib.data.D.features" in production_summary["qlib_native_api"]
     assert "SignalRecord" in production_summary["qlib_native_api"]
     assert "PortAnaRecord" in production_summary["qlib_native_api"]
+    assert summary["model_selection"]["source"] == "qlib_dataset"
+    assert summary["model_selection"]["candidate_count"] >= 6
+    assert {"model_selection", "backtest_benchmark_comparison"}.issubset(summary["sidecars"])
     assert summary["recorder_id"] in notebook_text
+    assert "model_selection.csv" in notebook_text
+    assert "backtest_benchmark_comparison.csv" in notebook_text
     assert "risk_analysis.csv" in notebook_text

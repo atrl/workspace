@@ -175,6 +175,40 @@ def test_model_registry_each_family_has_qlib_dataset_fit_predict_smoke():
     assert all(row["prediction_rows"] > 0 for row in rows)
 
 
+def test_model_selection_trains_distinct_qlib_models_and_persists_selected_model(tmp_path):
+    from src.model import load_qlib_model, quantbench_supervised_model_specs, run_qlib_model_selection
+
+    dataset = _dataset()
+    result = run_qlib_model_selection(
+        dataset,
+        specs=quantbench_supervised_model_specs(),
+        output_dir=tmp_path,
+        selection_metric="utility_score",
+    )
+
+    rows = result.model_metrics
+    selected = rows.loc[rows["selected"]]
+    score_signatures = {
+        tuple(round(float(value), 8) for value in scores["score"].head(4))
+        for scores in result.predictions_by_model.values()
+    }
+
+    assert len(rows) == len(quantbench_supervised_model_specs())
+    assert rows["source"].eq("qlib_dataset").all()
+    assert rows["implementation"].nunique() >= 4
+    assert {"mse", "ic", "ranking", "utility"}.issubset(set(rows["objective"]))
+    assert len(score_signatures) >= 3
+    assert len(selected) == 1
+    assert selected.iloc[0]["model"] == result.selected_spec.name
+    assert result.selected_model_path.exists()
+    assert json.loads(result.selected_model_path.read_text(encoding="utf-8"))["model"] == result.selected_spec.name
+    loaded = load_qlib_model(result.selected_model_path)
+    pd.testing.assert_series_equal(
+        result.selected_model.predict(dataset).round(10),
+        loaded.predict(dataset).round(10),
+    )
+
+
 def test_workflow_generates_native_portana_record_outputs(tmp_path):
     result = _workflow(tmp_path)
     artifacts = set(result.summary["recorder_artifacts"])
@@ -187,6 +221,39 @@ def test_workflow_generates_native_portana_record_outputs(tmp_path):
     assert result.summary["sidecars"]["risk_analysis"] == "risk_analysis.csv"
     assert (tmp_path / "card" / "qlib_portfolio_report.csv").exists()
     assert (tmp_path / "card" / "risk_analysis.csv").exists()
+
+
+def test_backtest_layer_derives_windows_walk_forward_benchmark_and_costs_from_qlib_report(tmp_path):
+    from src.backtest import build_backtest_extension_report_from_qlib_recorder, build_portfolio_report_from_qlib_recorder
+
+    result = _workflow(tmp_path)
+    portfolio = build_portfolio_report_from_qlib_recorder(result.summary, cost_bps=2.0, slippage_bps=1.0)
+    extension = build_backtest_extension_report_from_qlib_recorder(
+        result.summary,
+        portfolio.report,
+        windows={"acceptance": ("2026-01-09", "2026-01-15")},
+        stress_windows={"mini_stress": ("2026-01-12", "2026-01-15")},
+        walk_forward={"train_size": 1, "test_size": 2},
+        cost_bps=2.0,
+        slippage_bps=1.0,
+    )
+
+    assert extension.source == "qlib_portfolio_analysis"
+    assert {"acceptance", "mini_stress"}.issubset(set(extension.window_metrics["window"]))
+    assert any(str(window).startswith("walk_forward_") for window in extension.walk_forward_metrics["window"])
+    assert {
+        "strategy_return_pct",
+        "benchmark_return_pct",
+        "excess_return_pct",
+        "max_drawdown_pct",
+        "turnover",
+        "cost",
+        "slippage_cost",
+    }.issubset(extension.window_metrics.columns)
+    assert extension.benchmark_comparison.iloc[0]["benchmark_source"] == "qlib_portfolio_analysis"
+    assert extension.benchmark_comparison.iloc[0]["recorder_id"] == result.summary["recorder_id"]
+    assert "portfolio_analysis/report_normal_1day.pkl" in extension.manifest.metadata["input_artifacts"]
+    assert "portfolio_analysis/port_analysis_1day.pkl" in extension.manifest.metadata["input_artifacts"]
 
 
 def test_analysis_covers_required_regimes_windows_walk_forward_and_explainability(tmp_path):
