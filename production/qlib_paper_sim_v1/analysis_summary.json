@@ -1,6 +1,19 @@
 {
   "experiment": "qlib_paper_sim_v1",
   "metrics": {
+    "1day.excess_return_with_cost.annualized_return": -4.368387368128564,
+    "1day.excess_return_with_cost.information_ratio": -7.2241432707420925,
+    "1day.excess_return_with_cost.max_drawdown": -0.01465439082001127,
+    "1day.excess_return_with_cost.mean": -0.01835456877364943,
+    "1day.excess_return_with_cost.std": 0.03919641197326782,
+    "1day.excess_return_without_cost.annualized_return": -4.331531875694712,
+    "1day.excess_return_without_cost.information_ratio": -7.147842412480801,
+    "1day.excess_return_without_cost.max_drawdown": -0.014269416910475022,
+    "1day.excess_return_without_cost.mean": -0.01819971376342316,
+    "1day.excess_return_without_cost.std": 0.03928059585655764,
+    "1day.ffr": 1.0,
+    "1day.pa": 0.0,
+    "1day.pos": 0.0,
     "IC": 0.0,
     "ICIR": 0.0,
     "Rank IC": 0.0,
@@ -14,14 +27,15 @@
   },
   "qlib_record_classes": [
     "SignalRecord",
-    "SigAnaRecord"
+    "SigAnaRecord",
+    "PortAnaRecord"
   ],
   "qlib_record_classes_available": [
     "SignalRecord",
     "SigAnaRecord",
     "PortAnaRecord"
   ],
-  "recorder_id": "cbd07b04270341ad8fc8443d1cca9f98",
+  "recorder_id": "51507db5728a40cd8b381536c0e5f772",
   "rows": 10,
   "source": "qlib_recorder"
 }

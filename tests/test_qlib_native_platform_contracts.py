@@ -155,7 +155,8 @@ def test_backtest_analysis_and_dashboard_read_qlib_recorder_artifacts(tmp_path):
     )
 
     assert portfolio.source == "qlib_recorder"
-    assert "pred.pkl" in portfolio.input_artifacts
+    assert "portfolio_analysis/report_normal_1day.pkl" in portfolio.input_artifacts
+    assert "portfolio_analysis/port_analysis_1day.pkl" in portfolio.input_artifacts
     assert portfolio.report["nav"].iloc[-1] > 0
     assert report.summary["source"] == "qlib_recorder"
     assert report.summary["recorder_id"] == result.recorder_id

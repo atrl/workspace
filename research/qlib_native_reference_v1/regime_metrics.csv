@@ -1,3 +1,10 @@
-return_regime,rows,mean_strategy_return,mean_position,turnover
-negative_forward_return,1,-0.012306034564971924,1.0,0.0
-positive_forward_return,4,0.017763622188568112,0.5,3.0
+regime_type,regime,rows,return_pct,mean_strategy_return,turnover
+vix,low_vix,5,7.1342494741,0.0140479824,3.8713752557
+trend,downtrend,1,-0.019,-0.00019,0.95
+trend,uptrend,4,7.1546088498,0.017607478,2.9213752557
+drawdown,no_drawdown,5,7.1342494741,0.0140479824,3.8713752557
+volatility,low_volatility,4,2.4104768719,0.0060285099,2.8748695477
+volatility,mid_volatility,1,4.6125872532,0.0461258725,0.996505708
+volume,normal_volume,5,7.1342494741,0.0140479824,3.8713752557
+market,bull,4,7.1546088498,0.017607478,2.9213752557
+market,chop,1,-0.019,-0.00019,0.95

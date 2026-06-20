@@ -10,9 +10,10 @@
     "DataHandlerLP",
     "qlib.workflow.R.start",
     "SignalRecord",
-    "SigAnaRecord"
+    "SigAnaRecord",
+    "PortAnaRecord"
   ],
   "real_broker_orders": false,
-  "recorder_id": "cbd07b04270341ad8fc8443d1cca9f98",
+  "recorder_id": "51507db5728a40cd8b381536c0e5f772",
   "strategy": "qlib_paper_sim_v1"
 }

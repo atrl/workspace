@@ -73,6 +73,63 @@ def _write_dataframe_sidecars(output_dir: Path, recorder_dir: Path) -> dict[str,
     return {"predictions": pred_path.name, "signals": signal_path.name}
 
 
+def _port_analysis_config(spec: QlibNativeExperimentSpec) -> dict[str, Any]:
+    return {
+        "strategy": {
+            "class": "TopkDropoutStrategy",
+            "module_path": "qlib.contrib.strategy",
+            "kwargs": {"signal": "<PRED>", "topk": 1, "n_drop": 0},
+        },
+        "backtest": {
+            "start_time": spec.test[0],
+            "end_time": spec.test[1],
+            "account": 100000.0,
+            "benchmark": spec.instrument,
+            "exchange_kwargs": {
+                "freq": "day",
+                "limit_threshold": None,
+                "deal_price": "close",
+                "open_cost": 0.0002,
+                "close_cost": 0.0002,
+                "min_cost": 0.0,
+            },
+        },
+    }
+
+
+def _write_qlib_portfolio_sidecars(output_dir: Path, recorder_dir: Path) -> dict[str, str]:
+    portfolio_dir = recorder_dir / "artifacts" / "portfolio_analysis"
+    report_path = portfolio_dir / "report_normal_1day.pkl"
+    positions_path = portfolio_dir / "positions_normal_1day.pkl"
+    risk_path = portfolio_dir / "port_analysis_1day.pkl"
+    missing = [path.as_posix() for path in [report_path, positions_path, risk_path] if not path.exists()]
+    if missing:
+        raise FileNotFoundError(f"missing qlib PortAnaRecord artifacts: {missing}")
+
+    report = pd.read_pickle(report_path)
+    positions = pd.read_pickle(positions_path)
+    risk = pd.read_pickle(risk_path)
+    report_csv = output_dir / "qlib_portfolio_report.csv"
+    positions_csv = output_dir / "qlib_positions.csv"
+    risk_csv = output_dir / "risk_analysis.csv"
+    report.reset_index().to_csv(report_csv, index=False)
+    if isinstance(positions, dict):
+        pd.DataFrame(
+            [
+                {"datetime": str(date), "positions": json.dumps(value, sort_keys=True, default=str)}
+                for date, value in positions.items()
+            ]
+        ).to_csv(positions_csv, index=False)
+    else:
+        positions.reset_index().to_csv(positions_csv, index=False)
+    risk.reset_index().to_csv(risk_csv, index=False)
+    return {
+        "qlib_portfolio_report": report_csv.name,
+        "qlib_positions": positions_csv.name,
+        "risk_analysis": risk_csv.name,
+    }
+
+
 def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExperimentResult:
     from qlib.workflow import R
     from qlib.workflow.record_temp import PortAnaRecord, SigAnaRecord, SignalRecord
@@ -113,11 +170,13 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         )
         SignalRecord(model, dataset, recorder).generate()
         SigAnaRecord(recorder).generate()
+        PortAnaRecord(recorder, _port_analysis_config(spec), risk_analysis_freq="day").generate()
         recorder_id = recorder.id
         recorder_local_dir = Path(recorder.get_local_dir())
 
     _remove_transient_code_snapshots(recorder_local_dir)
     sidecars = _write_dataframe_sidecars(spec.output_dir, recorder_local_dir)
+    qlib_portfolio_sidecars = _write_qlib_portfolio_sidecars(spec.output_dir, recorder_local_dir)
     summary = {
         "experiment": spec.experiment,
         "provider_uri": provider_meta["provider_uri"],
@@ -138,6 +197,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             "qlib.workflow.R.start",
             "SignalRecord",
             "SigAnaRecord",
+            "PortAnaRecord",
         ],
         "qlib_record_classes_available": ["SignalRecord", "SigAnaRecord", "PortAnaRecord"],
         "qlib_docs": QLIB_DOCS,
@@ -154,27 +214,28 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
     analysis_paths = report.write_sidecars(spec.output_dir)
     analysis_summary = report.summary | {
         "rows": int(len(feature_frame)),
-        "qlib_record_classes": ["SignalRecord", "SigAnaRecord"],
+        "qlib_record_classes": ["SignalRecord", "SigAnaRecord", "PortAnaRecord"],
         "qlib_record_classes_available": ["SignalRecord", "SigAnaRecord", "PortAnaRecord"],
     }
     (spec.output_dir / "analysis_summary.json").write_text(
         json.dumps(analysis_summary, indent=2, sort_keys=True),
         encoding="utf-8",
     )
-    summary["sidecars"] = sidecars | {
+    summary["sidecars"] = sidecars | qlib_portfolio_sidecars | {
         "portfolio_report": portfolio_path.name,
         "analysis_summary": analysis_paths["summary"].name,
         "regime_metrics": analysis_paths["regime_metrics"].name,
         "window_metrics": analysis_paths["window_metrics"].name,
         "model_comparison": analysis_paths["model_comparison"].name,
+        "explainability": analysis_paths["explainability"].name,
         "failure_modes": analysis_paths["failure_modes"].name,
     }
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     (spec.output_dir / "conclusion.md").write_text(
         "# 中文结论\n\n"
-        "- 做了什么：通过 qlib.init、D.features、DatasetH/DataHandlerLP、R.start、SignalRecord 和 SigAnaRecord 跑通 SOXL qlib-native reference。\n"
-        "- 核心指标：已生成 qlib recorder、pred.pkl、label.pkl、sig_analysis、portfolio_report.csv、window_metrics.csv 和 model_comparison.csv。\n"
-        "- regime 差异：regime_metrics.csv 基于 qlib recorder 的 forward_return 分层，短窗口仅用于验收。\n"
+        "- 做了什么：通过 qlib.init、D.features、DatasetH/DataHandlerLP、R.start、SignalRecord、SigAnaRecord 和 PortAnaRecord 跑通 SOXL qlib-native reference。\n"
+        "- 核心指标：已生成 qlib recorder、pred.pkl、label.pkl、sig_analysis、portfolio_analysis、risk_analysis.csv、window_metrics.csv 和 model_comparison.csv。\n"
+        "- regime 差异：regime_metrics.csv 基于 qlib recorder 和 qlib Data API 的 VIX、趋势、回撤、波动、成交量和市场状态分层，短窗口仅用于验收。\n"
         "- 是否晋升：不晋升；这是 qlib 原生工作流验收卡。\n"
         "- 风险：样本窗口短，IC 可能为 NaN；不能作为交易信号。\n"
         f"- 下一步：在 production paper/sim notebook 复用 recorder id {recorder_id}。\n",

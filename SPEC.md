@@ -13,6 +13,12 @@
   - 日历、标的、特征读取优先使用 `qlib.data.D.calendar`、`D.instruments`、`D.features`。
   - 模型训练/验证必须使用 qlib `DatasetH`、`DataHandlerLP` 或项目内对这些 qlib Dataset/Handler 的薄封装。
   - 本地 CSV、raw parquet、broker export 只能作为构建 qlib store 的输入，不能作为研究/训练/回测的最终数据源。
+- qlib store 构建必须有明确门禁：
+  - raw CSV/DataFrame/parquet 只能进入 `src/data` 的 qlib store builder。
+  - builder 必须写出 qlib provider 结构、calendar、instrument、feature bin 和 manifest。
+  - builder 完成后必须通过 `qlib.init(...)` + `qlib.data.D.calendar`/`D.instruments`/`D.features` 读回审计。
+  - manifest 必须记录 source、provider_uri、market/region/freq、as_of、字段、标的、数据区间、feature 文件数、hash 和使用的 qlib API。
+  - raw 数据日期超过 `as_of` 时必须 fail closed，不得截断后继续。
 - 实验证据必须使用 qlib Workflow/Recorder：
   - 使用 `from qlib.workflow import R` 和 `with R.start(...)` 创建实验记录。
   - 参数、指标、模型、预测、portfolio report、risk analysis、sidecar manifest 必须通过 qlib recorder 写入或登记。

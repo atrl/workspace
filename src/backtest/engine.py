@@ -43,6 +43,60 @@ def build_portfolio_report_from_qlib_recorder(
     slippage_bps: float = 0.0,
 ) -> PortfolioReport:
     recorder_dir = Path(summary["recorder_local_dir"])
+    qlib_report_path = recorder_dir / "artifacts" / "portfolio_analysis" / "report_normal_1day.pkl"
+    qlib_risk_path = recorder_dir / "artifacts" / "portfolio_analysis" / "port_analysis_1day.pkl"
+    if qlib_report_path.exists() and qlib_risk_path.exists():
+        qlib_report = pd.read_pickle(qlib_report_path).reset_index()
+        if "datetime" in qlib_report.columns:
+            qlib_report["date"] = pd.to_datetime(qlib_report["datetime"]).dt.date.astype(str)
+        else:
+            qlib_report["date"] = pd.to_datetime(qlib_report.iloc[:, 0]).dt.date.astype(str)
+        qlib_report["strategy_return"] = qlib_report.get("return", 0.0).astype(float) - qlib_report.get(
+            "cost", 0.0
+        ).astype(float)
+        qlib_report["benchmark_return"] = qlib_report.get("bench", 0.0).astype(float)
+        qlib_report["turnover"] = qlib_report.get("turnover", pd.Series(0.0, index=qlib_report.index)).astype(float)
+        qlib_report["cost"] = qlib_report.get("cost", pd.Series(0.0, index=qlib_report.index)).astype(float)
+        qlib_report["nav"] = (1.0 + qlib_report["strategy_return"]).cumprod()
+        qlib_report["score"] = 0.0
+        qlib_report["forward_return"] = qlib_report["strategy_return"]
+        qlib_report["position"] = 1.0
+        report = qlib_report[
+            [
+                "date",
+                "score",
+                "forward_return",
+                "position",
+                "turnover",
+                "cost",
+                "strategy_return",
+                "benchmark_return",
+                "nav",
+            ]
+        ]
+        manifest = ArtifactManifest(
+            kind="portfolio_report",
+            path="qlib_recorder/artifacts/portfolio_analysis/report_normal_1day.pkl",
+            source="qlib_recorder",
+            provider_uri=summary["provider_uri"],
+            recorder_id=summary["recorder_id"],
+            date_range=tuple(summary["data_range"]),
+            purpose="backtest",
+            metadata={
+                "experiment": summary["experiment"],
+                "record_classes": summary.get("qlib_record_classes_available", []),
+                "cost_bps": cost_bps,
+                "slippage_bps": slippage_bps,
+                "risk_analysis": "qlib_recorder/artifacts/portfolio_analysis/port_analysis_1day.pkl",
+            },
+        )
+        return PortfolioReport(
+            source="qlib_recorder",
+            report=report,
+            manifest=manifest,
+            input_artifacts=["portfolio_analysis/report_normal_1day.pkl", "portfolio_analysis/port_analysis_1day.pkl"],
+        )
+
     pred_path = recorder_dir / "artifacts" / "pred.pkl"
     label_path = recorder_dir / "artifacts" / "label.pkl"
     if not pred_path.exists() or not label_path.exists():

@@ -34,24 +34,84 @@ class FactorDiagnosticsReport:
         return paths
 
 
+class QlibScoredDataset:
+    def __init__(
+        self,
+        dataset,
+        *,
+        segment: str,
+        weights: dict[str, float],
+        output_col: str,
+        standardize: bool,
+    ) -> None:
+        self.dataset = dataset
+        self.segment = segment
+        self.weights = weights
+        self.output_col = output_col
+        self.standardize = standardize
+        self.attrs = {"source": "qlib_dataset", "qlib_dataset_api": getattr(dataset, "qlib_dataset_api", [])}
+
+    def prepare(self, segment: str):
+        frame = self.dataset.prepare(segment).copy()
+        if segment != self.segment:
+            return frame
+        missing = [factor for factor in self.weights if factor not in frame.columns]
+        if missing:
+            raise ValueError(f"missing qlib dataset factor columns: {missing}")
+        score = pd.Series(0.0, index=frame.index, dtype="float64")
+        for factor, weight in self.weights.items():
+            values = frame[factor].astype(float)
+            if self.standardize:
+                values = values - float(values.mean())
+                std = float(values.std(ddof=0))
+                if std > 0:
+                    values = values / std
+            score = score + values * float(weight)
+        frame[self.output_col] = score
+        return frame
+
+
+def combine_qlib_factor_scores(
+    dataset,
+    *,
+    segment: str,
+    weights: dict[str, float],
+    output_col: str = "factor_score",
+    standardize: bool = True,
+) -> QlibScoredDataset:
+    if not weights:
+        raise ValueError("weights must include at least one qlib factor")
+    scored = QlibScoredDataset(
+        dataset,
+        segment=segment,
+        weights=weights,
+        output_col=output_col,
+        standardize=standardize,
+    )
+    scored.prepare(segment)
+    return scored
+
+
 def qlib_factor_diagnostics(
     dataset,
     *,
     segment: str,
     factor_cols: list[str],
     label_col: str,
+    score_col: str | None = None,
     quantiles: int,
 ) -> FactorDiagnosticsReport:
     frame = dataset.prepare(segment).copy()
-    missing = [column for column in [*factor_cols, label_col] if column not in frame.columns]
+    diagnostics_cols = factor_cols + ([score_col] if score_col else [])
+    missing = [column for column in [*diagnostics_cols, label_col] if column not in frame.columns]
     if missing:
         raise ValueError(f"missing qlib dataset columns: {missing}")
 
     ic_table = pd.DataFrame(
-        [{"factor": factor, "ic": _factor_ic(frame, factor, label_col)} for factor in factor_cols]
+        [{"factor": factor, "ic": _factor_ic(frame, factor, label_col)} for factor in diagnostics_cols]
     )
     correlation_matrix = frame[factor_cols].corr().fillna(0.0).round(10)
-    score = frame[factor_cols].mean(axis=1)
+    score = frame[score_col] if score_col else frame[factor_cols].mean(axis=1)
     ranked = pd.DataFrame({"score": score, "forward_return": frame[label_col]}).dropna()
     ranked["quantile"] = pd.qcut(ranked["score"].rank(method="first"), q=quantiles, labels=range(1, quantiles + 1))
     quantile_returns = (

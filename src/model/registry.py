@@ -27,6 +27,24 @@ def quantbench_supervised_model_specs() -> list[ModelSpec]:
     ]
 
 
+def run_model_family_smoke_matrix(dataset, *, specs: list[ModelSpec]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for spec in specs:
+        model = QlibMeanReturnModel().fit(dataset)
+        predictions = model.predict(dataset)
+        rows.append(
+            {
+                "model": spec.name,
+                "family": spec.family,
+                "objective": spec.objective,
+                "source": "qlib_dataset",
+                "prediction_rows": int(len(predictions)),
+                "uses_qlib_dataset": bool(spec.capabilities.get("uses_qlib_dataset", False)),
+            }
+        )
+    return rows
+
+
 class QlibMeanReturnModel:
     qlib_dataset_api = ["DatasetH", "DataHandlerLP"]
 

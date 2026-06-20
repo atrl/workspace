@@ -88,6 +88,7 @@ def test_qlib_workflow_recorder_and_record_outputs_are_durable(tmp_path):
         "qlib.workflow.R.start",
         "SignalRecord",
         "SigAnaRecord",
+        "PortAnaRecord",
     ]
     assert "PortAnaRecord" in summary["qlib_record_classes_available"]
     assert "artifacts/code_status.txt" not in summary["recorder_artifacts"]
@@ -97,6 +98,10 @@ def test_qlib_workflow_recorder_and_record_outputs_are_durable(tmp_path):
     assert (Path(summary["recorder_local_dir"]) / "artifacts" / "pred.pkl").exists()
     assert (Path(summary["recorder_local_dir"]) / "artifacts" / "label.pkl").exists()
     assert (Path(summary["recorder_local_dir"]) / "artifacts" / "sig_analysis" / "ic.pkl").exists()
+    assert (Path(summary["recorder_local_dir"]) / "artifacts" / "portfolio_analysis" / "report_normal_1day.pkl").exists()
+    assert (Path(summary["recorder_local_dir"]) / "artifacts" / "portfolio_analysis" / "port_analysis_1day.pkl").exists()
     assert analysis["source"] == "qlib_recorder"
     assert (spec.output_dir / "predictions.csv").exists()
     assert (spec.output_dir / "signals.csv").exists()
+    assert (spec.output_dir / "qlib_portfolio_report.csv").exists()
+    assert (spec.output_dir / "risk_analysis.csv").exists()
