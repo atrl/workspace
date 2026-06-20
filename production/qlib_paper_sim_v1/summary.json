@@ -1,0 +1,68 @@
+{
+  "as_of": "2026-01-15",
+  "data_range": [
+    "2026-01-02",
+    "2026-01-15"
+  ],
+  "experiment": "qlib_paper_sim_v1",
+  "instrument": "SOXL",
+  "market": "all",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "report": "https://qlib.readthedocs.io/en/latest/component/report.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R.start",
+    "SignalRecord",
+    "SigAnaRecord"
+  ],
+  "qlib_record_classes_available": [
+    "SignalRecord",
+    "SigAnaRecord",
+    "PortAnaRecord"
+  ],
+  "recorder_artifacts": [
+    "artifacts/label.pkl",
+    "artifacts/pred.pkl",
+    "artifacts/sig_analysis/ic.pkl",
+    "artifacts/sig_analysis/ric.pkl",
+    "meta.yaml",
+    "metrics/IC",
+    "metrics/ICIR",
+    "metrics/Rank IC",
+    "metrics/Rank ICIR",
+    "params/cmd-sys.argv",
+    "params/instrument",
+    "params/market",
+    "params/provider_uri",
+    "params/region",
+    "params/test_end",
+    "params/test_start",
+    "params/train_end",
+    "params/train_start",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "cbd07b04270341ad8fc8443d1cca9f98",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder/873451327100712832/cbd07b04270341ad8fc8443d1cca9f98",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder",
+  "region": "us",
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md",
+    "model_comparison": "model_comparison.csv",
+    "portfolio_report": "portfolio_report.csv",
+    "predictions": "predictions.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "signals": "signals.csv",
+    "window_metrics": "window_metrics.csv"
+  }
+}

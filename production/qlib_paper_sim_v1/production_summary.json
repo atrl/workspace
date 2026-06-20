@@ -1,0 +1,18 @@
+{
+  "execution_mode": "paper_sim",
+  "order_intents": "order_intents.csv",
+  "positions": "positions.csv",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/data/qlib/soxl",
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R.start",
+    "SignalRecord",
+    "SigAnaRecord"
+  ],
+  "real_broker_orders": false,
+  "recorder_id": "cbd07b04270341ad8fc8443d1cca9f98",
+  "strategy": "qlib_paper_sim_v1"
+}
