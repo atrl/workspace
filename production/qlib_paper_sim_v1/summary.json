@@ -1,10 +1,47 @@
 {
+  "artifact_policy": {
+    "kept_sidecars": [
+      "analysis_summary.json",
+      "backtest_benchmark_comparison.csv",
+      "backtest_walk_forward_metrics.csv",
+      "backtest_window_metrics.csv",
+      "explainability.csv",
+      "failure_modes.md",
+      "model_comparison.csv",
+      "model_selection.csv",
+      "regime_metrics.csv",
+      "risk_analysis.csv",
+      "selected_model.json",
+      "window_metrics.csv"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "qlib_paper_sim_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+      "labels": "artifacts/label.pkl",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+    },
+    "reproducible_from_recorder": [
+      "predictions",
+      "labels",
+      "all_model_predictions",
+      "portfolio_report",
+      "positions",
+      "risk_analysis"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
   "as_of": "2026-06-09",
   "data_range": [
     "2012-01-03",
     "2026-06-09"
   ],
   "experiment": "qlib_paper_sim_v1",
+  "experiment_id": "719879184767973248",
   "feature_set": {
     "alpha158_count": 158,
     "feature_count": 166,
@@ -142,8 +179,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "43fa6114dcb9420ea1e42b8d48014e01",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/43fa6114dcb9420ea1e42b8d48014e01",
+  "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/e0b5ed66c6514873b2fc79f2aec5874c",
   "recorder_uri": "/Users/rziiiii/dev/workspace/production/qlib_paper_sim_v1/qlib_recorder",
   "region": "us",
   "segments": {
@@ -161,7 +198,6 @@
     ]
   },
   "sidecars": {
-    "all_model_predictions": "all_model_predictions.csv",
     "analysis_summary": "analysis_summary.json",
     "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
     "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
@@ -170,14 +206,9 @@
     "failure_modes": "failure_modes.md",
     "model_comparison": "model_comparison.csv",
     "model_selection": "model_selection.csv",
-    "portfolio_report": "portfolio_report.csv",
-    "predictions": "predictions.csv",
-    "qlib_portfolio_report": "qlib_portfolio_report.csv",
-    "qlib_positions": "qlib_positions.csv",
     "regime_metrics": "regime_metrics.csv",
     "risk_analysis": "risk_analysis.csv",
     "selected_model": "selected_model.json",
-    "signals": "signals.csv",
     "window_metrics": "window_metrics.csv"
   },
   "target_position_strategy": {
@@ -190,5 +221,5 @@
     "signal_source": "<PRED>",
     "threshold_source": "train_prediction_median"
   },
-  "experiment_id": "719879184767973248"
+  "workflow_config": "workflow.yaml"
 }

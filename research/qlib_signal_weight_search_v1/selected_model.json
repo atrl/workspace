@@ -167,13 +167,13 @@
     "SOXL_RET_5",
     "VOLUME_RATIO_5"
   ],
-  "implementation": "qlib_window_sequence",
-  "model": "lstm_mse",
+  "implementation": "qlib_tree_stump",
+  "model": "fast_tree_rank",
   "parameters": {
-    "signal_mean": -1.3133996091432882,
-    "signal_std": 12.637609730074486,
-    "slope": -0.01560931630432568,
-    "target_std": 0.04197229420455918
+    "feature": "VIX",
+    "high_prediction": 0.0045001984946059425,
+    "low_prediction": 0.001029573721629725,
+    "threshold": 14.34000015258789
   },
   "qlib_dataset_api": [
     "DatasetH",

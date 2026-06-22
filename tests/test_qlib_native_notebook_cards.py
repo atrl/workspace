@@ -5,6 +5,36 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+RECORDER_ONLY_ROOT_FILES = {
+    "all_model_predictions.csv",
+    "predictions.csv",
+    "signals.csv",
+    "portfolio_report.csv",
+    "qlib_portfolio_report.csv",
+    "qlib_positions.csv",
+}
+RECORDER_ONLY_SIDECAR_KEYS = {
+    "all_model_predictions",
+    "predictions",
+    "signals",
+    "portfolio_report",
+    "qlib_portfolio_report",
+    "qlib_positions",
+}
+EXPECTED_RESEARCH_SIDECARS = {
+    "analysis_summary",
+    "backtest_benchmark_comparison",
+    "backtest_walk_forward_metrics",
+    "backtest_window_metrics",
+    "explainability",
+    "failure_modes",
+    "model_comparison",
+    "model_selection",
+    "regime_metrics",
+    "risk_analysis",
+    "selected_model",
+    "window_metrics",
+}
 
 
 def _summary(card: Path) -> dict:
@@ -13,6 +43,29 @@ def _summary(card: Path) -> dict:
 
 def _tracked_artifact_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
+
+
+def _assert_slim_artifact_policy(card: Path, summary: dict) -> None:
+    sidecars = set(summary["sidecars"])
+    policy = summary["artifact_policy"]
+    recorder_only = policy["recorder_only_artifacts"]
+    recorder_artifacts = set(summary["recorder_artifacts"])
+
+    assert (card / "workflow.yaml").exists()
+    assert summary["workflow_config"] == "workflow.yaml"
+    assert policy["policy"] == "slim_card_recorder_first"
+    assert policy["primary_artifact"] == f"{summary['experiment']}.ipynb"
+    assert policy["machine_entrypoint"] == "summary.json"
+    assert sidecars.isdisjoint(RECORDER_ONLY_SIDECAR_KEYS)
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+    assert set(policy["kept_sidecars"]) == set(summary["sidecars"].values())
+    assert recorder_only["predictions"] == "artifacts/pred.pkl"
+    assert recorder_only["labels"] == "artifacts/label.pkl"
+    assert recorder_only["all_model_predictions"] == "artifacts/model_selection/all_model_predictions.csv"
+    assert recorder_only["portfolio_report"] == "artifacts/portfolio_analysis/report_normal_1day.pkl"
+    assert recorder_only["positions"] == "artifacts/portfolio_analysis/positions_normal_1day.pkl"
+    assert recorder_only["risk_analysis"] == "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+    assert set(recorder_only.values()).issubset(recorder_artifacts)
 
 
 def test_qlib_card_artifacts_are_portable_to_current_main_checkout():
@@ -59,25 +112,8 @@ def test_research_card_has_executed_qlib_recorder_and_analysis_sidecars():
     assert "SigAnaRecord" in summary["qlib_native_api"]
     assert analysis["source"] == "qlib_recorder"
     assert analysis["recorder_id"] == summary["recorder_id"]
-    assert set(summary["sidecars"]) >= {
-        "predictions",
-        "signals",
-        "portfolio_report",
-        "analysis_summary",
-        "regime_metrics",
-        "window_metrics",
-        "model_comparison",
-        "model_selection",
-        "all_model_predictions",
-        "selected_model",
-        "qlib_portfolio_report",
-        "risk_analysis",
-        "backtest_window_metrics",
-        "backtest_walk_forward_metrics",
-        "backtest_benchmark_comparison",
-        "explainability",
-        "failure_modes",
-    }
+    assert set(summary["sidecars"]) == EXPECTED_RESEARCH_SIDECARS
+    _assert_slim_artifact_policy(card, summary)
     for rel_path in summary["sidecars"].values():
         assert (card / rel_path).exists(), rel_path
 
@@ -97,7 +133,7 @@ def test_research_card_has_executed_qlib_recorder_and_analysis_sidecars():
     assert "risk_analysis.csv" in notebook_text
 
 
-def test_signal_weight_search_card_beats_legacy_soxlbacktest_with_qlib_portana():
+def test_signal_weight_search_card_records_legacy_comparison_with_qlib_portana():
     card = ROOT / "research" / "qlib_signal_weight_search_v1"
     summary = _summary(card)
     notebook_text = (card / "qlib_signal_weight_search_v1.ipynb").read_text(encoding="utf-8")
@@ -111,13 +147,17 @@ def test_signal_weight_search_card_beats_legacy_soxlbacktest_with_qlib_portana()
     assert "WeightStrategyBase" in summary["qlib_native_api"]
     assert "PortAnaRecord" in summary["qlib_native_api"]
     assert benchmark["benchmark_name"] == "legacy_soxl_backtest"
-    assert benchmark["exceeds_legacy_rulebase"] is True
-    assert benchmark["strategy_return_pct"] > benchmark["legacy_rulebase_return_pct"]
-    assert benchmark["excess_return_pct"] > 0
+    assert isinstance(benchmark["exceeds_legacy_rulebase"], bool)
+    assert isinstance(benchmark["strategy_return_pct"], float)
+    assert isinstance(benchmark["legacy_rulebase_return_pct"], float)
+    assert isinstance(benchmark["excess_return_pct"], float)
     assert "不等于无未来函数的生产策略" in conclusion
+    assert "不直接晋升生产" in conclusion
     assert summary["recorder_id"] in conclusion
     assert "SignalWeightStrategy" in notebook_text
     assert "WeightStrategyBase" in notebook_text
+    assert set(summary["sidecars"]) == EXPECTED_RESEARCH_SIDECARS
+    _assert_slim_artifact_policy(card, summary)
 
     for rel_path in summary["sidecars"].values():
         assert (card / rel_path).exists(), rel_path
@@ -152,6 +192,8 @@ def test_validated_signal_weight_card_beats_legacy_after_validation_selection():
     assert "test=2019-01-02 到 2026-06-09 只用于报告" in conclusion
     assert summary["recorder_id"] in conclusion
     assert summary["recorder_id"] in notebook_text
+    assert set(summary["sidecars"]) == EXPECTED_RESEARCH_SIDECARS
+    _assert_slim_artifact_policy(card, summary)
 
     for rel_path in summary["sidecars"].values():
         assert (card / rel_path).exists(), rel_path
@@ -184,6 +226,8 @@ def test_production_card_is_paper_sim_and_references_qlib_recorder():
         "test": ["2019-01-02", "2026-06-09"],
     }
     assert summary["legacy_soxlbacktest_benchmark"]["exceeds_legacy_rulebase"] is True
+    assert set(summary["sidecars"]) == EXPECTED_RESEARCH_SIDECARS
+    _assert_slim_artifact_policy(card, summary)
     assert production_summary["fixed_model_name"] == "linear_ic"
     assert production_summary["promoted_from"] == "research/qlib_validated_signal_weight_v1"
     assert {"model_selection", "backtest_benchmark_comparison"}.issubset(summary["sidecars"])

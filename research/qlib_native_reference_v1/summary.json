@@ -1,10 +1,47 @@
 {
+  "artifact_policy": {
+    "kept_sidecars": [
+      "analysis_summary.json",
+      "backtest_benchmark_comparison.csv",
+      "backtest_walk_forward_metrics.csv",
+      "backtest_window_metrics.csv",
+      "explainability.csv",
+      "failure_modes.md",
+      "model_comparison.csv",
+      "model_selection.csv",
+      "regime_metrics.csv",
+      "risk_analysis.csv",
+      "selected_model.json",
+      "window_metrics.csv"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "qlib_native_reference_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+      "labels": "artifacts/label.pkl",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+    },
+    "reproducible_from_recorder": [
+      "predictions",
+      "labels",
+      "all_model_predictions",
+      "portfolio_report",
+      "positions",
+      "risk_analysis"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
   "as_of": "2026-01-15",
   "data_range": [
     "2026-01-02",
     "2026-01-15"
   ],
   "experiment": "qlib_native_reference_v1",
+  "experiment_id": "721106990412670793",
   "feature_set": {
     "alpha158_count": 158,
     "feature_count": 166,
@@ -37,9 +74,14 @@
   "market": "all",
   "model_selection": {
     "candidate_count": 6,
+    "mode": "model_search",
+    "report_column": "test_utility_score",
+    "report_segment": "test",
     "selected_implementation": "qlib_ic_weighted_linear",
     "selected_model": "linear_ic",
+    "selection_column": "selection_utility_score",
     "selection_metric": "utility_score",
+    "selection_segment": "test",
     "source": "qlib_dataset"
   },
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
@@ -100,10 +142,15 @@
     "params/cmd-sys.argv",
     "params/feature_count",
     "params/feature_set_source",
+    "params/fixed_model_name",
     "params/instrument",
     "params/market",
     "params/max_weight",
+    "params/model_report_segment",
     "params/model_selection_metric",
+    "params/model_selection_mode",
+    "params/model_selection_segment",
+    "params/promoted_from",
     "params/provider_uri",
     "params/region",
     "params/risk_degree",
@@ -116,17 +163,28 @@
     "params/test_start",
     "params/train_end",
     "params/train_start",
+    "params/valid_end",
+    "params/valid_start",
     "tags/mlflow.runName",
     "tags/mlflow.source.name",
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "8895481ff7894e30b9b07a1f3e130d6b",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/qlib_native_reference_v1/qlib_recorder/721106990412670793/8895481ff7894e30b9b07a1f3e130d6b",
+  "recorder_id": "3a163e761541403ea564c15225a1952d",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/qlib_native_reference_v1/qlib_recorder/721106990412670793/3a163e761541403ea564c15225a1952d",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/qlib_native_reference_v1/qlib_recorder",
   "region": "us",
+  "segments": {
+    "test": [
+      "2026-01-09",
+      "2026-01-15"
+    ],
+    "train": [
+      "2026-01-02",
+      "2026-01-08"
+    ]
+  },
   "sidecars": {
-    "all_model_predictions": "all_model_predictions.csv",
     "analysis_summary": "analysis_summary.json",
     "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
     "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
@@ -135,14 +193,9 @@
     "failure_modes": "failure_modes.md",
     "model_comparison": "model_comparison.csv",
     "model_selection": "model_selection.csv",
-    "portfolio_report": "portfolio_report.csv",
-    "predictions": "predictions.csv",
-    "qlib_portfolio_report": "qlib_portfolio_report.csv",
-    "qlib_positions": "qlib_positions.csv",
     "regime_metrics": "regime_metrics.csv",
     "risk_analysis": "risk_analysis.csv",
     "selected_model": "selected_model.json",
-    "signals": "signals.csv",
     "window_metrics": "window_metrics.csv"
   },
   "target_position_strategy": {
@@ -155,5 +208,5 @@
     "signal_source": "<PRED>",
     "threshold_source": "train_prediction_median"
   },
-  "experiment_id": "721106990412670793"
+  "workflow_config": "workflow.yaml"
 }

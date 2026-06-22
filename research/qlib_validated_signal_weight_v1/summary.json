@@ -1,10 +1,47 @@
 {
+  "artifact_policy": {
+    "kept_sidecars": [
+      "analysis_summary.json",
+      "backtest_benchmark_comparison.csv",
+      "backtest_walk_forward_metrics.csv",
+      "backtest_window_metrics.csv",
+      "explainability.csv",
+      "failure_modes.md",
+      "model_comparison.csv",
+      "model_selection.csv",
+      "regime_metrics.csv",
+      "risk_analysis.csv",
+      "selected_model.json",
+      "window_metrics.csv"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "qlib_validated_signal_weight_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+      "labels": "artifacts/label.pkl",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+    },
+    "reproducible_from_recorder": [
+      "predictions",
+      "labels",
+      "all_model_predictions",
+      "portfolio_report",
+      "positions",
+      "risk_analysis"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
   "as_of": "2026-06-09",
   "data_range": [
     "2012-01-03",
     "2026-06-09"
   ],
   "experiment": "qlib_validated_signal_weight_v1",
+  "experiment_id": "294991931783943693",
   "feature_set": {
     "alpha158_count": 158,
     "feature_count": 166,
@@ -37,6 +74,7 @@
   "market": "all",
   "model_selection": {
     "candidate_count": 6,
+    "mode": "model_search",
     "report_column": "test_objective_score",
     "report_segment": "test",
     "selected_implementation": "qlib_ic_weighted_linear",
@@ -104,12 +142,15 @@
     "params/cmd-sys.argv",
     "params/feature_count",
     "params/feature_set_source",
+    "params/fixed_model_name",
     "params/instrument",
     "params/market",
     "params/max_weight",
     "params/model_report_segment",
     "params/model_selection_metric",
+    "params/model_selection_mode",
     "params/model_selection_segment",
+    "params/promoted_from",
     "params/provider_uri",
     "params/region",
     "params/risk_degree",
@@ -129,8 +170,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "6e2b0b8339634e06b5b0e5e938735bef",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/qlib_validated_signal_weight_v1/qlib_recorder/294991931783943693/6e2b0b8339634e06b5b0e5e938735bef",
+  "recorder_id": "fa5df7f7aff44697924f641bc4589361",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/qlib_validated_signal_weight_v1/qlib_recorder/294991931783943693/fa5df7f7aff44697924f641bc4589361",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/qlib_validated_signal_weight_v1/qlib_recorder",
   "region": "us",
   "segments": {
@@ -148,7 +189,6 @@
     ]
   },
   "sidecars": {
-    "all_model_predictions": "all_model_predictions.csv",
     "analysis_summary": "analysis_summary.json",
     "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
     "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
@@ -157,14 +197,9 @@
     "failure_modes": "failure_modes.md",
     "model_comparison": "model_comparison.csv",
     "model_selection": "model_selection.csv",
-    "portfolio_report": "portfolio_report.csv",
-    "predictions": "predictions.csv",
-    "qlib_portfolio_report": "qlib_portfolio_report.csv",
-    "qlib_positions": "qlib_positions.csv",
     "regime_metrics": "regime_metrics.csv",
     "risk_analysis": "risk_analysis.csv",
     "selected_model": "selected_model.json",
-    "signals": "signals.csv",
     "window_metrics": "window_metrics.csv"
   },
   "target_position_strategy": {
@@ -177,5 +212,5 @@
     "signal_source": "<PRED>",
     "threshold_source": "train_prediction_median"
   },
-  "experiment_id": "294991931783943693"
+  "workflow_config": "workflow.yaml"
 }

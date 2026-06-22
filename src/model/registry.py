@@ -35,6 +35,8 @@ class ModelSelectionResult:
     selected_spec: ModelSpec
     selected_model: "QlibDatasetModel"
     selected_model_path: Path
+    model_metrics_path: Path
+    all_model_predictions_path: Path
     model_metrics: pd.DataFrame
     predictions_by_model: dict[str, pd.DataFrame]
     sidecars: dict[str, str]
@@ -359,11 +361,14 @@ def run_qlib_model_selection(
     *,
     specs: list[ModelSpec],
     output_dir: Path,
+    prediction_artifact_dir: Path | None = None,
     selection_metric: str = "utility_score",
     selection_segment: str = "test",
     report_segment: str = "test",
 ) -> ModelSelectionResult:
     output_dir.mkdir(parents=True, exist_ok=True)
+    predictions_dir = prediction_artifact_dir or output_dir
+    predictions_dir.mkdir(parents=True, exist_ok=True)
     selection_actual = _target_series(dataset, segment=selection_segment)
     report_actual = _target_series(dataset, segment=report_segment)
     rows: list[dict[str, Any]] = []
@@ -433,20 +438,24 @@ def run_qlib_model_selection(
     selected_model.save(selected_model_path, model_name=selected_spec.name)
 
     model_metrics_path = output_dir / "model_selection.csv"
-    predictions_path = output_dir / "all_model_predictions.csv"
+    predictions_path = predictions_dir / "all_model_predictions.csv"
     metrics_frame.to_csv(model_metrics_path, index=False)
     pd.concat(prediction_exports, ignore_index=True).to_csv(predictions_path, index=False)
+    sidecars = {
+        "model_selection": model_metrics_path.name,
+        "selected_model": selected_model_path.name,
+    }
+    if prediction_artifact_dir is None:
+        sidecars["all_model_predictions"] = predictions_path.name
     return ModelSelectionResult(
         selected_spec=selected_spec,
         selected_model=selected_model,
         selected_model_path=selected_model_path,
+        model_metrics_path=model_metrics_path,
+        all_model_predictions_path=predictions_path,
         model_metrics=metrics_frame.sort_values(selection_column, ascending=False).reset_index(drop=True),
         predictions_by_model=predictions_by_model,
-        sidecars={
-            "model_selection": model_metrics_path.name,
-            "all_model_predictions": predictions_path.name,
-            "selected_model": selected_model_path.name,
-        },
+        sidecars=sidecars,
     )
 
 

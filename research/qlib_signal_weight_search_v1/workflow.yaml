@@ -1,0 +1,23 @@
+experiment: qlib_signal_weight_search_v1
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/qlib_signal_weight_search_v1/qlib_recorder
+  market: all
+  region: us
+  instrument: SOXL
+segments:
+  train:
+    start: 2012-01-03
+    end: 2019-12-31
+  valid: null
+  test:
+    start: 2020-01-02
+    end: 2026-06-09
+model_selection:
+  metric: utility_score
+  mode: model_search
+  fixed_model_name: null
+  promoted_from: null
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

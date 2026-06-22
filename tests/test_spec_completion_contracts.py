@@ -277,6 +277,7 @@ def test_model_selection_trains_distinct_qlib_models_and_persists_selected_model
 def test_workflow_generates_native_portana_record_outputs(tmp_path):
     result = _workflow(tmp_path)
     artifacts = set(result.summary["recorder_artifacts"])
+    sidecars = set(result.summary["sidecars"])
 
     assert "PortAnaRecord" in result.summary["qlib_native_api"]
     assert "WeightStrategyBase" in result.summary["qlib_native_api"]
@@ -301,9 +302,23 @@ def test_workflow_generates_native_portana_record_outputs(tmp_path):
     assert "artifacts/portfolio_analysis/report_normal_1day.pkl" in artifacts
     assert "artifacts/portfolio_analysis/positions_normal_1day.pkl" in artifacts
     assert "artifacts/portfolio_analysis/port_analysis_1day.pkl" in artifacts
-    assert result.summary["sidecars"]["qlib_portfolio_report"] == "qlib_portfolio_report.csv"
+    assert result.summary["workflow_config"] == "workflow.yaml"
+    assert (tmp_path / "card" / "workflow.yaml").exists()
+    assert result.summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert result.summary["artifact_policy"]["recorder_only_artifacts"]["portfolio_report"] == "artifacts/portfolio_analysis/report_normal_1day.pkl"
+    assert result.summary["artifact_policy"]["recorder_only_artifacts"]["positions"] == "artifacts/portfolio_analysis/positions_normal_1day.pkl"
+    assert result.summary["artifact_policy"]["recorder_only_artifacts"]["all_model_predictions"] == "artifacts/model_selection/all_model_predictions.csv"
+    assert "qlib_portfolio_report" not in sidecars
+    assert "qlib_positions" not in sidecars
+    assert "predictions" not in sidecars
+    assert "signals" not in sidecars
+    assert "all_model_predictions" not in sidecars
     assert result.summary["sidecars"]["risk_analysis"] == "risk_analysis.csv"
-    assert (tmp_path / "card" / "qlib_portfolio_report.csv").exists()
+    assert not (tmp_path / "card" / "qlib_portfolio_report.csv").exists()
+    assert not (tmp_path / "card" / "qlib_positions.csv").exists()
+    assert not (tmp_path / "card" / "predictions.csv").exists()
+    assert not (tmp_path / "card" / "signals.csv").exists()
+    assert not (tmp_path / "card" / "all_model_predictions.csv").exists()
     assert (tmp_path / "card" / "risk_analysis.csv").exists()
 
 

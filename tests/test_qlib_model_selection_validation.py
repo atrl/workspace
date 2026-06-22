@@ -82,6 +82,7 @@ def test_model_selection_chooses_validation_winner_not_test_winner(monkeypatch, 
             ModelSpec("test_winner", "fake", "mse", {"uses_qlib_dataset": True}),
         ],
         output_dir=tmp_path,
+        prediction_artifact_dir=tmp_path / "recorder_uploads",
         selection_metric="objective_score",
         selection_segment="valid",
         report_segment="test",
@@ -102,4 +103,7 @@ def test_model_selection_chooses_validation_winner_not_test_winner(monkeypatch, 
     assert models["valid_winner"].predict_segments == ["train", "valid", "test"]
     assert models["test_winner"].predict_segments == ["train", "valid", "test"]
     assert (tmp_path / "model_selection.csv").exists()
-    assert (tmp_path / "all_model_predictions.csv").exists()
+    assert not (tmp_path / "all_model_predictions.csv").exists()
+    assert result.all_model_predictions_path == tmp_path / "recorder_uploads" / "all_model_predictions.csv"
+    assert result.all_model_predictions_path.exists()
+    assert "all_model_predictions" not in result.sidecars

@@ -115,7 +115,15 @@ def test_qlib_workflow_recorder_and_record_outputs_are_durable(tmp_path):
     assert (Path(summary["recorder_local_dir"]) / "artifacts" / "portfolio_analysis" / "report_normal_1day.pkl").exists()
     assert (Path(summary["recorder_local_dir"]) / "artifacts" / "portfolio_analysis" / "port_analysis_1day.pkl").exists()
     assert analysis["source"] == "qlib_recorder"
-    assert (spec.output_dir / "predictions.csv").exists()
-    assert (spec.output_dir / "signals.csv").exists()
-    assert (spec.output_dir / "qlib_portfolio_report.csv").exists()
+    assert summary["workflow_config"] == "workflow.yaml"
+    assert (spec.output_dir / "workflow.yaml").exists()
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"]["predictions"] == "artifacts/pred.pkl"
+    assert summary["artifact_policy"]["recorder_only_artifacts"]["portfolio_report"] == "artifacts/portfolio_analysis/report_normal_1day.pkl"
+    assert "predictions" not in summary["sidecars"]
+    assert "signals" not in summary["sidecars"]
+    assert "qlib_portfolio_report" not in summary["sidecars"]
+    assert not (spec.output_dir / "predictions.csv").exists()
+    assert not (spec.output_dir / "signals.csv").exists()
+    assert not (spec.output_dir / "qlib_portfolio_report.csv").exists()
     assert (spec.output_dir / "risk_analysis.csv").exists()

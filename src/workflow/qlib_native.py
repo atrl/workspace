@@ -71,15 +71,45 @@ def _remove_transient_code_snapshots(recorder_dir: Path) -> None:
             path.unlink()
 
 
-def _write_dataframe_sidecars(output_dir: Path, recorder_dir: Path) -> dict[str, str]:
-    pred = pd.read_pickle(recorder_dir / "artifacts" / "pred.pkl")
-    label = pd.read_pickle(recorder_dir / "artifacts" / "label.pkl")
-    pred_path = output_dir / "predictions.csv"
-    signal_path = output_dir / "signals.csv"
-    pred.reset_index().to_csv(pred_path, index=False)
-    signals = pred.join(label, how="left")
-    signals.reset_index().to_csv(signal_path, index=False)
-    return {"predictions": pred_path.name, "signals": signal_path.name}
+def _write_workflow_config(spec: QlibNativeExperimentSpec) -> Path:
+    path = spec.output_dir / "workflow.yaml"
+    valid_block = (
+        f"valid:\n  start: {spec.valid[0]}\n  end: {spec.valid[1]}\n"
+        if spec.valid is not None
+        else "valid: null\n"
+    )
+    path.write_text(
+        "\n".join(
+            [
+                f"experiment: {spec.experiment}",
+                "qlib:",
+                f"  provider_uri: {spec.provider_uri.resolve().as_posix()}",
+                f"  recorder_uri: {spec.recorder_uri.resolve().as_posix()}",
+                f"  market: {spec.market}",
+                f"  region: {spec.region}",
+                f"  instrument: {spec.instrument}",
+                "segments:",
+                "  train:",
+                f"    start: {spec.train[0]}",
+                f"    end: {spec.train[1]}",
+                *[f"  {line}" for line in valid_block.rstrip().splitlines()],
+                "  test:",
+                f"    start: {spec.test[0]}",
+                f"    end: {spec.test[1]}",
+                "model_selection:",
+                f"  metric: {spec.model_selection_metric}",
+                f"  mode: {'fixed_model' if spec.fixed_model_name else 'model_search'}",
+                f"  fixed_model_name: {spec.fixed_model_name if spec.fixed_model_name is not None else 'null'}",
+                f"  promoted_from: {spec.promoted_from if spec.promoted_from is not None else 'null'}",
+                "artifact_policy:",
+                "  policy: slim_card_recorder_first",
+                "  machine_entrypoint: summary.json",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return path
 
 
 def _target_position_strategy_summary(*, score_threshold: float) -> dict[str, Any]:
@@ -140,7 +170,7 @@ def _model_specs_for_experiment(spec: QlibNativeExperimentSpec):
     return fixed
 
 
-def _write_qlib_portfolio_sidecars(output_dir: Path, recorder_dir: Path) -> dict[str, str]:
+def _write_qlib_risk_sidecar(output_dir: Path, recorder_dir: Path) -> dict[str, str]:
     portfolio_dir = recorder_dir / "artifacts" / "portfolio_analysis"
     report_path = portfolio_dir / "report_normal_1day.pkl"
     positions_path = portfolio_dir / "positions_normal_1day.pkl"
@@ -149,27 +179,39 @@ def _write_qlib_portfolio_sidecars(output_dir: Path, recorder_dir: Path) -> dict
     if missing:
         raise FileNotFoundError(f"missing qlib PortAnaRecord artifacts: {missing}")
 
-    report = pd.read_pickle(report_path)
-    positions = pd.read_pickle(positions_path)
     risk = pd.read_pickle(risk_path)
-    report_csv = output_dir / "qlib_portfolio_report.csv"
-    positions_csv = output_dir / "qlib_positions.csv"
     risk_csv = output_dir / "risk_analysis.csv"
-    report.reset_index().to_csv(report_csv, index=False)
-    if isinstance(positions, dict):
-        pd.DataFrame(
-            [
-                {"datetime": str(date), "positions": json.dumps(value, sort_keys=True, default=str)}
-                for date, value in positions.items()
-            ]
-        ).to_csv(positions_csv, index=False)
-    else:
-        positions.reset_index().to_csv(positions_csv, index=False)
     risk.reset_index().to_csv(risk_csv, index=False)
+    return {"risk_analysis": risk_csv.name}
+
+
+def _recorder_only_artifacts() -> dict[str, str]:
     return {
-        "qlib_portfolio_report": report_csv.name,
-        "qlib_positions": positions_csv.name,
-        "risk_analysis": risk_csv.name,
+        "predictions": "artifacts/pred.pkl",
+        "labels": "artifacts/label.pkl",
+        "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+        "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+        "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+        "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+    }
+
+
+def _artifact_policy(*, experiment: str, sidecars: dict[str, str]) -> dict[str, Any]:
+    return {
+        "policy": "slim_card_recorder_first",
+        "primary_artifact": f"{experiment}.ipynb",
+        "machine_entrypoint": "summary.json",
+        "workflow_config": "workflow.yaml",
+        "kept_sidecars": sorted(sidecars.values()),
+        "recorder_only_artifacts": _recorder_only_artifacts(),
+        "reproducible_from_recorder": [
+            "predictions",
+            "labels",
+            "all_model_predictions",
+            "portfolio_report",
+            "positions",
+            "risk_analysis",
+        ],
     }
 
 
@@ -216,10 +258,13 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
     )
     spec.output_dir.mkdir(parents=True, exist_ok=True)
     spec.recorder_uri.mkdir(parents=True, exist_ok=True)
+    workflow_config_path = _write_workflow_config(spec)
+    recorder_upload_dir = spec.output_dir / ".recorder_uploads"
     model_selection = run_qlib_model_selection(
         dataset,
         specs=_model_specs_for_experiment(spec),
         output_dir=spec.output_dir,
+        prediction_artifact_dir=recorder_upload_dir,
         selection_metric=spec.model_selection_metric,
         selection_segment=_selection_segment(spec),
         report_segment="test",
@@ -259,8 +304,8 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             risk_degree=target_position_strategy["risk_degree"],
         )
         for artifact in [
-            spec.output_dir / model_selection.sidecars["model_selection"],
-            spec.output_dir / model_selection.sidecars["all_model_predictions"],
+            model_selection.model_metrics_path,
+            model_selection.all_model_predictions_path,
             model_selection.selected_model_path,
         ]:
             recorder.log_artifact(artifact.as_posix(), artifact_path="model_selection")
@@ -271,10 +316,12 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         recorder_local_dir = Path(recorder.get_local_dir())
 
     _remove_transient_code_snapshots(recorder_local_dir)
-    sidecars = _write_dataframe_sidecars(spec.output_dir, recorder_local_dir)
-    qlib_portfolio_sidecars = _write_qlib_portfolio_sidecars(spec.output_dir, recorder_local_dir)
+    if recorder_upload_dir.exists():
+        shutil.rmtree(recorder_upload_dir)
+    qlib_risk_sidecar = _write_qlib_risk_sidecar(spec.output_dir, recorder_local_dir)
     summary = {
         "experiment": spec.experiment,
+        "workflow_config": workflow_config_path.name,
         "provider_uri": provider_meta["provider_uri"],
         "market": spec.market,
         "region": spec.region,
@@ -321,7 +368,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         },
         "feature_set": dataset.qlib_feature_set,
         "target_position_strategy": target_position_strategy,
-        "sidecars": sidecars,
+        "sidecars": {},
     }
     if spec.fixed_model_name:
         summary["production_fixed_parameters"] = {
@@ -332,8 +379,6 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             "promoted_from": spec.promoted_from,
         }
     portfolio = build_portfolio_report_from_qlib_recorder(summary, cost_bps=2.0, slippage_bps=1.0)
-    portfolio_path = spec.output_dir / "portfolio_report.csv"
-    portfolio.report.to_csv(portfolio_path, index=False)
     backtest_extension = build_backtest_extension_report_from_qlib_recorder(
         summary,
         portfolio.report,
@@ -364,9 +409,8 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         json.dumps(analysis_summary, indent=2, sort_keys=True),
         encoding="utf-8",
     )
-    summary["sidecars"] = sidecars | qlib_portfolio_sidecars | {
+    summary["sidecars"] = qlib_risk_sidecar | {
         **model_selection.sidecars,
-        "portfolio_report": portfolio_path.name,
         "backtest_window_metrics": backtest_paths["backtest_window_metrics"].name,
         "backtest_walk_forward_metrics": backtest_paths["backtest_walk_forward_metrics"].name,
         "backtest_benchmark_comparison": backtest_paths["backtest_benchmark_comparison"].name,
@@ -377,11 +421,12 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         "explainability": analysis_paths["explainability"].name,
         "failure_modes": analysis_paths["failure_modes"].name,
     }
+    summary["artifact_policy"] = _artifact_policy(experiment=spec.experiment, sidecars=summary["sidecars"])
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     (spec.output_dir / "conclusion.md").write_text(
         "# 中文结论\n\n"
         "- 做了什么：通过 qlib.init、D.features、DatasetH/DataHandlerLP、R.start、SignalRecord、SigAnaRecord 和 PortAnaRecord 跑通 SOXL qlib-native reference，并在 qlib Dataset 上完成多模型选择。\n"
-        f"- 模型逻辑：候选模型 {len(model_selection.model_metrics)} 个，按 {_selection_segment(spec)} 段的 {spec.model_selection_metric} 选择、test 段报告，选中 {model_selection.selected_spec.name} / {model.implementation}，结果见 model_selection.csv、all_model_predictions.csv 和 selected_model.json。\n"
+        f"- 模型逻辑：候选模型 {len(model_selection.model_metrics)} 个，按 {_selection_segment(spec)} 段的 {spec.model_selection_metric} 选择、test 段报告，选中 {model_selection.selected_spec.name} / {model.implementation}，根目录结果见 model_selection.csv 和 selected_model.json；全量预测明细保留在 qlib recorder。\n"
         "- 核心指标：已生成 qlib recorder、pred.pkl、label.pkl、sig_analysis、portfolio_analysis、risk_analysis.csv、backtest_window_metrics.csv、backtest_walk_forward_metrics.csv、backtest_benchmark_comparison.csv 和 model_comparison.csv。\n"
         "- regime 差异：regime_metrics.csv 基于 qlib recorder 和 qlib Data API 的 VIX、趋势、回撤、波动、成交量和市场状态分层，短窗口仅用于验收。\n"
         "- 是否晋升：不晋升；这是 qlib 原生工作流验收卡。\n"
