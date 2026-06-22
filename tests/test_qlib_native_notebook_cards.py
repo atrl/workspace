@@ -11,6 +11,42 @@ def _summary(card: Path) -> dict:
     return json.loads((card / "summary.json").read_text(encoding="utf-8"))
 
 
+def _tracked_artifact_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8", errors="ignore")
+
+
+def test_qlib_card_artifacts_are_portable_to_current_main_checkout():
+    stale_tokens = [
+        ".worktrees/qlib-native-spec-v1",
+        "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1",
+    ]
+    tracked_cards = [
+        ROOT / "research" / "qlib_native_reference_v1",
+        ROOT / "research" / "qlib_signal_weight_search_v1",
+        ROOT / "research" / "qlib_validated_signal_weight_v1",
+        ROOT / "production" / "qlib_paper_sim_v1",
+    ]
+
+    for card in tracked_cards:
+        summary = _summary(card)
+        provider_uri = Path(summary["provider_uri"])
+        recorder_uri = Path(summary["recorder_uri"])
+        recorder_local_dir = Path(summary["recorder_local_dir"])
+
+        assert provider_uri == (ROOT / "data" / "qlib" / "soxl").resolve()
+        assert provider_uri.exists()
+        assert recorder_uri == (card / "qlib_recorder").resolve()
+        assert recorder_uri.exists()
+        assert recorder_local_dir == (recorder_uri / summary["experiment_id"] / summary["recorder_id"]).resolve()
+        assert recorder_local_dir.exists()
+
+        for artifact in card.rglob("*"):
+            if artifact.is_file() and artifact.suffix in {".json", ".md", ".yaml", ".ipynb", ".csv"}:
+                text = _tracked_artifact_text(artifact)
+                for token in stale_tokens:
+                    assert token not in text, f"{artifact} contains stale worktree path {token}"
+
+
 def test_research_card_has_executed_qlib_recorder_and_analysis_sidecars():
     card = ROOT / "research" / "qlib_native_reference_v1"
     summary = _summary(card)

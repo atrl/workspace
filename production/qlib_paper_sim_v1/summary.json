@@ -56,7 +56,7 @@
     "report_segment": "test",
     "selection_segment": "valid"
   },
-  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/data/qlib/soxl",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
   "qlib_docs": {
     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
     "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
@@ -143,8 +143,8 @@
     "tags/mlflow.user"
   ],
   "recorder_id": "43fa6114dcb9420ea1e42b8d48014e01",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/43fa6114dcb9420ea1e42b8d48014e01",
-  "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/43fa6114dcb9420ea1e42b8d48014e01",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/production/qlib_paper_sim_v1/qlib_recorder",
   "region": "us",
   "segments": {
     "test": [
@@ -189,5 +189,6 @@
     "score_threshold": -0.004851105918338165,
     "signal_source": "<PRED>",
     "threshold_source": "train_prediction_median"
-  }
+  },
+  "experiment_id": "719879184767973248"
 }

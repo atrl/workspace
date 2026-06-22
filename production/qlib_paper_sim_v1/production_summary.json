@@ -6,7 +6,7 @@
   "order_intents": "order_intents.csv",
   "positions": "positions.csv",
   "promoted_from": "research/qlib_validated_signal_weight_v1",
-  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/data/qlib/soxl",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
   "qlib_native_api": [
     "qlib.init",
     "qlib.data.D.features",

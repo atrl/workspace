@@ -42,7 +42,7 @@
     "selection_metric": "utility_score",
     "source": "qlib_dataset"
   },
-  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/data/qlib/soxl",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
   "qlib_docs": {
     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
     "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
@@ -122,8 +122,8 @@
     "tags/mlflow.user"
   ],
   "recorder_id": "70519d460cb3428491669619d4a1f599",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/research/qlib_signal_weight_search_v1/qlib_recorder/177551399288779984/70519d460cb3428491669619d4a1f599",
-  "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/research/qlib_signal_weight_search_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/qlib_signal_weight_search_v1/qlib_recorder/177551399288779984/70519d460cb3428491669619d4a1f599",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/qlib_signal_weight_search_v1/qlib_recorder",
   "region": "us",
   "sidecars": {
     "all_model_predictions": "all_model_predictions.csv",
@@ -151,8 +151,9 @@
     "min_weight": 0.0,
     "module_path": "src.backtest.strategy",
     "risk_degree": 0.95,
-    "score_threshold": -1.0208546239487066e-05,
+    "score_threshold": -0.000010208546239487066,
     "signal_source": "<PRED>",
     "threshold_source": "train_prediction_median"
-  }
+  },
+  "experiment_id": "177551399288779984"
 }

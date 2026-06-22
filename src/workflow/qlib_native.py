@@ -286,6 +286,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             "test": list(spec.test),
         },
         "instrument": spec.instrument,
+        "experiment_id": recorder_local_dir.parent.name,
         "recorder_id": recorder_id,
         "recorder_uri": spec.recorder_uri.resolve().as_posix(),
         "recorder_local_dir": recorder_local_dir.as_posix(),
