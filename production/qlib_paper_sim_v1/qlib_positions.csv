@@ -1,6 +1,6 @@
 datetime,positions
 2026-01-09 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': 100000.0, 'now_account_value': 100000.0}, 'init_cash': 100000.0}"""
-2026-01-12 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': np.float64(4981.0), 'now_account_value': np.float64(99981.0), 'SOXL': {'amount': np.float64(1738.334809652545), 'price': np.float64(54.650001525878906), 'weight': np.float64(0.9501805343015173), 'count_day': 1}}, 'init_cash': 100000.0}"""
-2026-01-13 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': np.float64(102429.93856027116), 'now_account_value': np.float64(102429.93856027116)}, 'init_cash': 100000.0}"""
-2026-01-14 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': np.float64(5102.035239687102), 'now_account_value': np.float64(102410.4768719447), 'SOXL': {'amount': np.float64(1757.1043653930599), 'price': np.float64(55.380001068115234), 'weight': np.float64(0.9501805343015173), 'count_day': 1}}, 'init_cash': 100000.0}"""
-2026-01-15 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': np.float64(107134.24947411833), 'now_account_value': np.float64(107134.24947411833)}, 'init_cash': 100000.0}"""
+2026-01-12 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': 100000.0, 'now_account_value': 100000.0}, 'init_cash': 100000.0}"""
+2026-01-13 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': 100000.0, 'now_account_value': 100000.0}, 'init_cash': 100000.0}"""
+2026-01-14 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': 100000.0, 'now_account_value': 100000.0}, 'init_cash': 100000.0}"""
+2026-01-15 00:00:00,"""{'_settle_type': 'None', 'position': {'cash': 100000.0, 'now_account_value': 100000.0}, 'init_cash': 100000.0}"""

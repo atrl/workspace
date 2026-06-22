@@ -61,6 +61,32 @@ def test_research_card_has_executed_qlib_recorder_and_analysis_sidecars():
     assert "risk_analysis.csv" in notebook_text
 
 
+def test_signal_weight_search_card_beats_legacy_soxlbacktest_with_qlib_portana():
+    card = ROOT / "research" / "qlib_signal_weight_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "qlib_signal_weight_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    benchmark = summary["legacy_soxlbacktest_benchmark"]
+    assert summary["experiment"] == "qlib_signal_weight_search_v1"
+    assert summary["feature_set"]["source"] == "Alpha158.get_feature_config+legacy_soxl_features"
+    assert summary["feature_set"]["feature_count"] >= 166
+    assert summary["target_position_strategy"]["class"] == "SignalWeightStrategy"
+    assert "WeightStrategyBase" in summary["qlib_native_api"]
+    assert "PortAnaRecord" in summary["qlib_native_api"]
+    assert benchmark["benchmark_name"] == "legacy_soxl_backtest"
+    assert benchmark["exceeds_legacy_rulebase"] is True
+    assert benchmark["strategy_return_pct"] > benchmark["legacy_rulebase_return_pct"]
+    assert benchmark["excess_return_pct"] > 0
+    assert "不等于无未来函数的生产策略" in conclusion
+    assert summary["recorder_id"] in conclusion
+    assert "SignalWeightStrategy" in notebook_text
+    assert "WeightStrategyBase" in notebook_text
+
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+
 def test_production_card_is_paper_sim_and_references_qlib_recorder():
     card = ROOT / "production" / "qlib_paper_sim_v1"
     summary = _summary(card)

@@ -21,6 +21,7 @@ class QlibProviderConfig:
     region: str = "us"
     market: str = "all"
     freq: str = "day"
+    kernels: int = 1
 
     @property
     def resolved_provider_uri(self) -> Path:
@@ -47,7 +48,7 @@ def init_qlib_provider(config: QlibProviderConfig) -> dict[str, Any]:
     import qlib
     from qlib.data import D
 
-    qlib.init(provider_uri=provider_uri.as_posix(), region=config.region)
+    qlib.init(provider_uri=provider_uri.as_posix(), region=config.region, kernels=config.kernels)
     calendar = D.calendar(freq=config.freq)
     instruments = D.instruments(config.market)
     if len(calendar) == 0:
@@ -57,6 +58,7 @@ def init_qlib_provider(config: QlibProviderConfig) -> dict[str, Any]:
         "region": config.region,
         "market": config.market,
         "freq": config.freq,
+        "kernels": int(config.kernels),
         "calendar_start": pd.Timestamp(calendar[0]).date().isoformat(),
         "calendar_end": pd.Timestamp(calendar[-1]).date().isoformat(),
         "instruments": instruments,

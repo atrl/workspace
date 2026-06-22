@@ -10,11 +10,12 @@
     "DataHandlerLP",
     "Alpha158.get_feature_config",
     "qlib.workflow.R.start",
+    "WeightStrategyBase",
     "SignalRecord",
     "SigAnaRecord",
     "PortAnaRecord"
   ],
   "real_broker_orders": false,
-  "recorder_id": "f658122eb76a43db926ce666da586eec",
+  "recorder_id": "c1e6dd6ef1d448288f61d46748fa321c",
   "strategy": "qlib_paper_sim_v1"
 }

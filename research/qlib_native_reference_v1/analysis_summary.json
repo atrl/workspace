@@ -1,17 +1,17 @@
 {
   "experiment": "qlib_native_reference_v1",
   "metrics": {
-    "1day.excess_return_with_cost.annualized_return": -4.368387368128564,
-    "1day.excess_return_with_cost.information_ratio": -7.2241432707420925,
-    "1day.excess_return_with_cost.max_drawdown": -0.01465439082001127,
-    "1day.excess_return_with_cost.mean": -0.01835456877364943,
-    "1day.excess_return_with_cost.std": 0.03919641197326782,
-    "1day.excess_return_without_cost.annualized_return": -4.331531875694712,
-    "1day.excess_return_without_cost.information_ratio": -7.147842412480801,
-    "1day.excess_return_without_cost.max_drawdown": -0.014269416910475022,
-    "1day.excess_return_without_cost.mean": -0.01819971376342316,
-    "1day.excess_return_without_cost.std": 0.03928059585655764,
-    "1day.ffr": 1.0,
+    "1day.excess_return_with_cost.annualized_return": -7.711807179450989,
+    "1day.excess_return_with_cost.information_ratio": -13.332671150550905,
+    "1day.excess_return_with_cost.max_drawdown": -0.07540649175643921,
+    "1day.excess_return_with_cost.mean": -0.03240255117416382,
+    "1day.excess_return_with_cost.std": 0.037493028010594065,
+    "1day.excess_return_without_cost.annualized_return": -7.711807179450989,
+    "1day.excess_return_without_cost.information_ratio": -13.332671150550905,
+    "1day.excess_return_without_cost.max_drawdown": -0.07540649175643921,
+    "1day.excess_return_without_cost.mean": -0.03240255117416382,
+    "1day.excess_return_without_cost.std": 0.037493028010594065,
+    "1day.ffr": 0.0,
     "1day.pa": 0.0,
     "1day.pos": 0.0,
     "IC": 0.0,
@@ -35,7 +35,7 @@
     "SigAnaRecord",
     "PortAnaRecord"
   ],
-  "recorder_id": "c134e7b4476f411283ea8ab7b0820e90",
+  "recorder_id": "8895481ff7894e30b9b07a1f3e130d6b",
   "rows": 10,
   "source": "qlib_recorder"
 }

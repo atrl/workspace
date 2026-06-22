@@ -6,4 +6,4 @@
 - regime 差异：regime_metrics.csv 基于 qlib recorder 和 qlib Data API 的 VIX、趋势、回撤、波动、成交量和市场状态分层，短窗口仅用于验收。
 - 是否晋升：不晋升；这是 qlib 原生工作流验收卡。
 - 风险：样本窗口短，IC 可能为 NaN；不能作为交易信号。
-- 下一步：在 production paper/sim notebook 复用 recorder id c134e7b4476f411283ea8ab7b0820e90。
+- 下一步：在 production paper/sim notebook 复用 recorder id 8895481ff7894e30b9b07a1f3e130d6b。

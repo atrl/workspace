@@ -1,0 +1,41 @@
+{
+  "experiment": "qlib_signal_weight_search_v1",
+  "metrics": {
+    "1day.excess_return_with_cost.annualized_return": -0.19176289548366326,
+    "1day.excess_return_with_cost.information_ratio": -0.24982648252318804,
+    "1day.excess_return_with_cost.max_drawdown": -2.872331434008768,
+    "1day.excess_return_with_cost.mean": -0.0008057264516120305,
+    "1day.excess_return_with_cost.std": 0.049755102676161574,
+    "1day.excess_return_without_cost.annualized_return": -0.17699949292531292,
+    "1day.excess_return_without_cost.information_ratio": -0.2306155049566636,
+    "1day.excess_return_without_cost.max_drawdown": -2.852963582084484,
+    "1day.excess_return_without_cost.mean": -0.0007436953484256845,
+    "1day.excess_return_without_cost.std": 0.04975022403744829,
+    "1day.ffr": 0.9981278742955992,
+    "1day.pa": 0.0,
+    "1day.pos": 0.0,
+    "IC": 0.0,
+    "ICIR": 0.0,
+    "Rank IC": 0.0,
+    "Rank ICIR": 0.0
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "report": "https://qlib.readthedocs.io/en/latest/component/report.html"
+  },
+  "qlib_record_classes": [
+    "SignalRecord",
+    "SigAnaRecord",
+    "PortAnaRecord"
+  ],
+  "qlib_record_classes_available": [
+    "SignalRecord",
+    "SigAnaRecord",
+    "PortAnaRecord"
+  ],
+  "recorder_id": "70519d460cb3428491669619d4a1f599",
+  "rows": 3629,
+  "source": "qlib_recorder"
+}

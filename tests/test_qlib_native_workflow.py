@@ -51,6 +51,18 @@ def test_qlib_data_api_and_dataset_are_native():
     assert {"$close", "$vix", "Ref($close, -1) / $close - 1"}.issubset(train.columns)
 
 
+def test_qlib_provider_uses_single_worker_for_reproducible_local_runs():
+    from qlib.config import C
+
+    data_module, _ = _native_modules()
+    config = data_module.QlibProviderConfig(provider_uri=PROVIDER_URI, region="us", market="all")
+
+    init_result = data_module.init_qlib_provider(config)
+
+    assert init_result["kernels"] == 1
+    assert C.kernels == 1
+
+
 def test_missing_provider_fails_closed_without_pandas_fallback(tmp_path):
     data_module, _ = _native_modules()
     config = data_module.QlibProviderConfig(provider_uri=tmp_path / "missing-provider", region="us", market="all")
@@ -87,6 +99,7 @@ def test_qlib_workflow_recorder_and_record_outputs_are_durable(tmp_path):
         "DataHandlerLP",
         "Alpha158.get_feature_config",
         "qlib.workflow.R.start",
+        "WeightStrategyBase",
         "SignalRecord",
         "SigAnaRecord",
         "PortAnaRecord",

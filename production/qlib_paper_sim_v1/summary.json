@@ -25,14 +25,14 @@
     "benchmark_name": "legacy_soxl_backtest",
     "benchmark_source": "soxl_backtest.reference.replay_soxlbacktest_reference",
     "end": "2026-01-15",
-    "exceeds_legacy_rulebase": true,
-    "excess_return_pct": 7.1342494741,
+    "exceeds_legacy_rulebase": false,
+    "excess_return_pct": 0.0,
     "legacy_rulebase_max_drawdown_pct": 0.0,
     "legacy_rulebase_return_pct": 0.0,
     "legacy_trade_count": 0,
     "rows": 5,
     "start": "2026-01-09",
-    "strategy_return_pct": 7.1342494741
+    "strategy_return_pct": 0.0
   },
   "market": "all",
   "model_selection": {
@@ -55,6 +55,7 @@
     "DataHandlerLP",
     "Alpha158.get_feature_config",
     "qlib.workflow.R.start",
+    "WeightStrategyBase",
     "SignalRecord",
     "SigAnaRecord",
     "PortAnaRecord"
@@ -101,11 +102,16 @@
     "params/feature_set_source",
     "params/instrument",
     "params/market",
+    "params/max_weight",
     "params/model_selection_metric",
     "params/provider_uri",
     "params/region",
+    "params/risk_degree",
     "params/selected_model",
     "params/selected_model_implementation",
+    "params/signal_threshold",
+    "params/signal_threshold_source",
+    "params/target_position_strategy",
     "params/test_end",
     "params/test_start",
     "params/train_end",
@@ -115,8 +121,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "f658122eb76a43db926ce666da586eec",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/f658122eb76a43db926ce666da586eec",
+  "recorder_id": "c1e6dd6ef1d448288f61d46748fa321c",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/c1e6dd6ef1d448288f61d46748fa321c",
   "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder",
   "region": "us",
   "sidecars": {
@@ -138,5 +144,15 @@
     "selected_model": "selected_model.json",
     "signals": "signals.csv",
     "window_metrics": "window_metrics.csv"
+  },
+  "target_position_strategy": {
+    "class": "SignalWeightStrategy",
+    "max_weight": 1.0,
+    "min_weight": 0.0,
+    "module_path": "src.backtest.strategy",
+    "risk_degree": 0.95,
+    "score_threshold": 0.057673621093060824,
+    "signal_source": "<PRED>",
+    "threshold_source": "train_prediction_median"
   }
 }

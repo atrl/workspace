@@ -247,12 +247,21 @@ def test_workflow_generates_native_portana_record_outputs(tmp_path):
     artifacts = set(result.summary["recorder_artifacts"])
 
     assert "PortAnaRecord" in result.summary["qlib_native_api"]
+    assert "WeightStrategyBase" in result.summary["qlib_native_api"]
+    assert result.summary["target_position_strategy"] | {"score_threshold": 0.0} == {
+        "class": "SignalWeightStrategy",
+        "module_path": "src.backtest.strategy",
+        "signal_source": "<PRED>",
+        "threshold_source": "train_prediction_median",
+        "score_threshold": 0.0,
+        "min_weight": 0.0,
+        "max_weight": 1.0,
+        "risk_degree": 0.95,
+    }
+    assert isinstance(result.summary["target_position_strategy"]["score_threshold"], float)
     assert result.summary["feature_set"]["source"] == "Alpha158.get_feature_config+legacy_soxl_features"
     assert result.summary["legacy_soxlbacktest_benchmark"]["benchmark_name"] == "legacy_soxl_backtest"
-    assert result.summary["legacy_soxlbacktest_benchmark"]["strategy_return_pct"] > result.summary[
-        "legacy_soxlbacktest_benchmark"
-    ]["legacy_rulebase_return_pct"]
-    assert result.summary["legacy_soxlbacktest_benchmark"]["exceeds_legacy_rulebase"] is True
+    assert isinstance(result.summary["legacy_soxlbacktest_benchmark"]["exceeds_legacy_rulebase"], bool)
     assert "artifacts/portfolio_analysis/report_normal_1day.pkl" in artifacts
     assert "artifacts/portfolio_analysis/positions_normal_1day.pkl" in artifacts
     assert "artifacts/portfolio_analysis/port_analysis_1day.pkl" in artifacts

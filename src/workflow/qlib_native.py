@@ -9,7 +9,11 @@ from typing import Any
 import pandas as pd
 
 from src.analysis import build_analysis_report_from_qlib_recorder
-from src.backtest import build_backtest_extension_report_from_qlib_recorder, build_portfolio_report_from_qlib_recorder
+from src.backtest import (
+    build_backtest_extension_report_from_qlib_recorder,
+    build_portfolio_report_from_qlib_recorder,
+    calibrated_signal_threshold,
+)
 from src.data import QlibProviderConfig, build_alpha158_legacy_dataset, init_qlib_provider, load_qlib_feature_frame
 from src.model import quantbench_supervised_model_specs, run_qlib_model_selection
 
@@ -74,12 +78,32 @@ def _write_dataframe_sidecars(output_dir: Path, recorder_dir: Path) -> dict[str,
     return {"predictions": pred_path.name, "signals": signal_path.name}
 
 
-def _port_analysis_config(spec: QlibNativeExperimentSpec) -> dict[str, Any]:
+def _target_position_strategy_summary(*, score_threshold: float) -> dict[str, Any]:
+    return {
+        "class": "SignalWeightStrategy",
+        "module_path": "src.backtest.strategy",
+        "signal_source": "<PRED>",
+        "threshold_source": "train_prediction_median",
+        "score_threshold": float(score_threshold),
+        "min_weight": 0.0,
+        "max_weight": 1.0,
+        "risk_degree": 0.95,
+    }
+
+
+def _port_analysis_config(spec: QlibNativeExperimentSpec, *, score_threshold: float) -> dict[str, Any]:
     return {
         "strategy": {
-            "class": "TopkDropoutStrategy",
-            "module_path": "qlib.contrib.strategy",
-            "kwargs": {"signal": "<PRED>", "topk": 1, "n_drop": 0},
+            "class": "SignalWeightStrategy",
+            "module_path": "src.backtest.strategy",
+            "kwargs": {
+                "signal": "<PRED>",
+                "instrument": spec.instrument,
+                "score_threshold": float(score_threshold),
+                "min_weight": 0.0,
+                "max_weight": 1.0,
+                "risk_degree": 0.95,
+            },
         },
         "backtest": {
             "start_time": spec.test[0],
@@ -180,6 +204,8 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         selection_metric="utility_score",
     )
     model = model_selection.selected_model
+    score_threshold = calibrated_signal_threshold(model, dataset=dataset, segment="train")
+    target_position_strategy = _target_position_strategy_summary(score_threshold=score_threshold)
     R.set_uri(spec.recorder_uri.as_posix())
 
     with R.start(experiment_name=spec.experiment):
@@ -198,6 +224,11 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             model_selection_metric="utility_score",
             feature_set_source=dataset.qlib_feature_set["source"],
             feature_count=dataset.qlib_feature_set["feature_count"],
+            target_position_strategy=target_position_strategy["class"],
+            signal_threshold=score_threshold,
+            signal_threshold_source=target_position_strategy["threshold_source"],
+            max_weight=target_position_strategy["max_weight"],
+            risk_degree=target_position_strategy["risk_degree"],
         )
         for artifact in [
             spec.output_dir / model_selection.sidecars["model_selection"],
@@ -207,7 +238,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             recorder.log_artifact(artifact.as_posix(), artifact_path="model_selection")
         SignalRecord(model, dataset, recorder).generate()
         SigAnaRecord(recorder).generate()
-        PortAnaRecord(recorder, _port_analysis_config(spec), risk_analysis_freq="day").generate()
+        PortAnaRecord(recorder, _port_analysis_config(spec, score_threshold=score_threshold), risk_analysis_freq="day").generate()
         recorder_id = recorder.id
         recorder_local_dir = Path(recorder.get_local_dir())
 
@@ -233,6 +264,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             "DataHandlerLP",
             "Alpha158.get_feature_config",
             "qlib.workflow.R.start",
+            "WeightStrategyBase",
             "SignalRecord",
             "SigAnaRecord",
             "PortAnaRecord",
@@ -247,6 +279,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             "source": "qlib_dataset",
         },
         "feature_set": dataset.qlib_feature_set,
+        "target_position_strategy": target_position_strategy,
         "sidecars": sidecars,
     }
     portfolio = build_portfolio_report_from_qlib_recorder(summary, cost_bps=2.0, slippage_bps=1.0)
