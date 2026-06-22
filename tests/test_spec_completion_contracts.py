@@ -25,7 +25,8 @@ def _dataset():
         features=["$close", "$vix", "$volume"],
         label="Ref($close, -1) / $close - 1",
         train=("2026-01-02", "2026-01-08"),
-        test=("2026-01-09", "2026-01-15"),
+        valid=("2026-01-09", "2026-01-09"),
+        test=("2026-01-12", "2026-01-15"),
     )
 
 
@@ -40,9 +41,11 @@ def test_alpha158_legacy_dataset_stacks_qlib_alpha158_with_previous_soxl_feature
         instruments=["SOXL"],
         label="Ref($close, -1) / $close - 1",
         train=("2026-01-02", "2026-01-08"),
-        test=("2026-01-09", "2026-01-15"),
+        valid=("2026-01-09", "2026-01-09"),
+        test=("2026-01-12", "2026-01-15"),
     )
     train = dataset.prepare("train")
+    valid = dataset.prepare("valid")
 
     assert isinstance(dataset, DatasetH)
     assert isinstance(dataset.handler, DataHandlerLP)
@@ -59,6 +62,8 @@ def test_alpha158_legacy_dataset_stacks_qlib_alpha158_with_previous_soxl_feature
         "VOLUME_RATIO_5",
     ]
     assert {"KMID", "ROC5", "MA20", "VIX", "RSI6", "PANIC_SCORE"}.issubset(train.columns)
+    assert not valid.empty
+    assert dataset.qlib_segments["valid"] == ("2026-01-09", "2026-01-09")
     assert "Alpha158.get_feature_config" in dataset.qlib_dataset_api
 
 
@@ -73,7 +78,9 @@ def _workflow(tmp_path):
             region="us",
             instrument="SOXL",
             train=("2026-01-02", "2026-01-08"),
-            test=("2026-01-09", "2026-01-15"),
+            valid=("2026-01-09", "2026-01-09"),
+            test=("2026-01-12", "2026-01-15"),
+            model_selection_metric="objective_score",
         )
     )
 
@@ -217,6 +224,8 @@ def test_model_selection_trains_distinct_qlib_models_and_persists_selected_model
         specs=quantbench_supervised_model_specs(),
         output_dir=tmp_path,
         selection_metric="utility_score",
+        selection_segment="valid",
+        report_segment="test",
     )
 
     rows = result.model_metrics
@@ -228,6 +237,9 @@ def test_model_selection_trains_distinct_qlib_models_and_persists_selected_model
 
     assert len(rows) == len(quantbench_supervised_model_specs())
     assert rows["source"].eq("qlib_dataset").all()
+    assert rows["selection_segment"].eq("valid").all()
+    assert rows["report_segment"].eq("test").all()
+    assert {"selection_utility_score", "test_utility_score", "selection_objective_score", "test_objective_score"}.issubset(rows.columns)
     assert rows["implementation"].nunique() >= 4
     assert {"mse", "ic", "ranking", "utility"}.issubset(set(rows["objective"]))
     assert len(score_signatures) >= 3
@@ -260,6 +272,10 @@ def test_workflow_generates_native_portana_record_outputs(tmp_path):
     }
     assert isinstance(result.summary["target_position_strategy"]["score_threshold"], float)
     assert result.summary["feature_set"]["source"] == "Alpha158.get_feature_config+legacy_soxl_features"
+    assert result.summary["model_selection"]["selection_segment"] == "valid"
+    assert result.summary["model_selection"]["report_segment"] == "test"
+    assert result.summary["model_selection"]["selection_metric"] == "objective_score"
+    assert result.summary["model_selection"]["selection_column"] == "selection_objective_score"
     assert result.summary["legacy_soxlbacktest_benchmark"]["benchmark_name"] == "legacy_soxl_backtest"
     assert isinstance(result.summary["legacy_soxlbacktest_benchmark"]["exceeds_legacy_rulebase"], bool)
     assert "artifacts/portfolio_analysis/report_normal_1day.pkl" in artifacts

@@ -36,6 +36,8 @@ class QlibNativeExperimentSpec:
     instrument: str
     train: tuple[str, str]
     test: tuple[str, str]
+    valid: tuple[str, str] | None = None
+    model_selection_metric: str = "utility_score"
 
 
 @dataclass(frozen=True)
@@ -122,6 +124,10 @@ def _port_analysis_config(spec: QlibNativeExperimentSpec, *, score_threshold: fl
     }
 
 
+def _selection_segment(spec: QlibNativeExperimentSpec) -> str:
+    return "valid" if spec.valid is not None else "test"
+
+
 def _write_qlib_portfolio_sidecars(output_dir: Path, recorder_dir: Path) -> dict[str, str]:
     portfolio_dir = recorder_dir / "artifacts" / "portfolio_analysis"
     report_path = portfolio_dir / "report_normal_1day.pkl"
@@ -186,6 +192,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         instruments=[spec.instrument],
         label="Ref($close, -1) / $close - 1",
         train=spec.train,
+        valid=spec.valid,
         test=spec.test,
     )
     feature_frame = load_qlib_feature_frame(
@@ -201,7 +208,9 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         dataset,
         specs=quantbench_supervised_model_specs(),
         output_dir=spec.output_dir,
-        selection_metric="utility_score",
+        selection_metric=spec.model_selection_metric,
+        selection_segment=_selection_segment(spec),
+        report_segment="test",
     )
     model = model_selection.selected_model
     score_threshold = calibrated_signal_threshold(model, dataset=dataset, segment="train")
@@ -217,11 +226,15 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             instrument=spec.instrument,
             train_start=spec.train[0],
             train_end=spec.train[1],
+            valid_start=spec.valid[0] if spec.valid else "",
+            valid_end=spec.valid[1] if spec.valid else "",
             test_start=spec.test[0],
             test_end=spec.test[1],
             selected_model=model_selection.selected_spec.name,
             selected_model_implementation=model.implementation,
-            model_selection_metric="utility_score",
+            model_selection_metric=spec.model_selection_metric,
+            model_selection_segment=_selection_segment(spec),
+            model_report_segment="test",
             feature_set_source=dataset.qlib_feature_set["source"],
             feature_count=dataset.qlib_feature_set["feature_count"],
             target_position_strategy=target_position_strategy["class"],
@@ -252,6 +265,11 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         "region": spec.region,
         "as_of": spec.test[1],
         "data_range": [spec.train[0], spec.test[1]],
+        "segments": {
+            "train": list(spec.train),
+            **({"valid": list(spec.valid)} if spec.valid else {}),
+            "test": list(spec.test),
+        },
         "instrument": spec.instrument,
         "recorder_id": recorder_id,
         "recorder_uri": spec.recorder_uri.resolve().as_posix(),
@@ -274,7 +292,11 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         "model_selection": {
             "selected_model": model_selection.selected_spec.name,
             "selected_implementation": model.implementation,
-            "selection_metric": "utility_score",
+            "selection_metric": spec.model_selection_metric,
+            "selection_segment": _selection_segment(spec),
+            "report_segment": "test",
+            "selection_column": f"selection_{spec.model_selection_metric}",
+            "report_column": f"test_{spec.model_selection_metric}",
             "candidate_count": int(len(model_selection.model_metrics)),
             "source": "qlib_dataset",
         },
@@ -332,7 +354,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
     (spec.output_dir / "conclusion.md").write_text(
         "# 中文结论\n\n"
         "- 做了什么：通过 qlib.init、D.features、DatasetH/DataHandlerLP、R.start、SignalRecord、SigAnaRecord 和 PortAnaRecord 跑通 SOXL qlib-native reference，并在 qlib Dataset 上完成多模型选择。\n"
-        f"- 模型逻辑：候选模型 {len(model_selection.model_metrics)} 个，选中 {model_selection.selected_spec.name} / {model.implementation}，结果见 model_selection.csv、all_model_predictions.csv 和 selected_model.json。\n"
+        f"- 模型逻辑：候选模型 {len(model_selection.model_metrics)} 个，按 {_selection_segment(spec)} 段的 {spec.model_selection_metric} 选择、test 段报告，选中 {model_selection.selected_spec.name} / {model.implementation}，结果见 model_selection.csv、all_model_predictions.csv 和 selected_model.json。\n"
         "- 核心指标：已生成 qlib recorder、pred.pkl、label.pkl、sig_analysis、portfolio_analysis、risk_analysis.csv、backtest_window_metrics.csv、backtest_walk_forward_metrics.csv、backtest_benchmark_comparison.csv 和 model_comparison.csv。\n"
         "- regime 差异：regime_metrics.csv 基于 qlib recorder 和 qlib Data API 的 VIX、趋势、回撤、波动、成交量和市场状态分层，短窗口仅用于验收。\n"
         "- 是否晋升：不晋升；这是 qlib 原生工作流验收卡。\n"

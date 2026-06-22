@@ -295,9 +295,15 @@ def _target_series(dataset, *, segment: str, target_col: str | None = None) -> p
     return pd.to_numeric(frame[label_col], errors="coerce").fillna(0.0).astype("float64")
 
 
-def _strategy_metrics(actual: pd.Series, predicted: pd.Series) -> dict[str, float]:
+def _strategy_metrics(
+    actual: pd.Series,
+    predicted: pd.Series,
+    *,
+    score_threshold: float | None = None,
+) -> dict[str, float]:
     aligned = pd.concat([actual.rename("actual"), predicted.rename("predicted")], axis=1).dropna()
-    position = (aligned["predicted"] > aligned["predicted"].median()).astype(float)
+    threshold = float(aligned["predicted"].median()) if score_threshold is None else float(score_threshold)
+    position = (aligned["predicted"] > threshold).astype(float)
     returns = position * aligned["actual"]
     nav = (1.0 + returns).cumprod()
     drawdown = nav / nav.cummax() - 1.0
@@ -322,13 +328,19 @@ def _strategy_metrics(actual: pd.Series, predicted: pd.Series) -> dict[str, floa
     }
 
 
-def _objective_metrics(actual: pd.Series, predicted: pd.Series, objective: str) -> dict[str, float]:
+def _objective_metrics(
+    actual: pd.Series,
+    predicted: pd.Series,
+    objective: str,
+    *,
+    score_threshold: float | None = None,
+) -> dict[str, float]:
     metrics: dict[str, float] = {}
     metrics.update(mse_metrics(actual, predicted))
     metrics.update(classification_metrics(actual, predicted))
     metrics.update(ic_metrics(actual, predicted))
     metrics.update(ranking_metrics(actual, predicted))
-    metrics.update(_strategy_metrics(actual, predicted))
+    metrics.update(_strategy_metrics(actual, predicted, score_threshold=score_threshold))
     metrics["objective_score"] = {
         "mse": -metrics["mse"],
         "ic": metrics["ic"],
@@ -338,41 +350,80 @@ def _objective_metrics(actual: pd.Series, predicted: pd.Series, objective: str) 
     return metrics
 
 
+def _prefix_metrics(prefix: str, metrics: dict[str, float]) -> dict[str, float]:
+    return {f"{prefix}_{key}": value for key, value in metrics.items()}
+
+
 def run_qlib_model_selection(
     dataset,
     *,
     specs: list[ModelSpec],
     output_dir: Path,
     selection_metric: str = "utility_score",
+    selection_segment: str = "test",
+    report_segment: str = "test",
 ) -> ModelSelectionResult:
     output_dir.mkdir(parents=True, exist_ok=True)
-    actual = _target_series(dataset, segment="test")
+    selection_actual = _target_series(dataset, segment=selection_segment)
+    report_actual = _target_series(dataset, segment=report_segment)
     rows: list[dict[str, Any]] = []
     predictions_by_model: dict[str, pd.DataFrame] = {}
+    prediction_exports: list[pd.DataFrame] = []
     fitted: dict[str, QlibDatasetModel] = {}
     for spec in specs:
         model = build_model_from_spec(spec).fit(dataset)
-        prediction = model.predict(dataset).reindex(actual.index).fillna(0.0).rename("score")
-        metrics = _objective_metrics(actual, prediction, spec.objective)
+        train_prediction = model.predict(dataset, segment="train").fillna(0.0).rename("score")
+        score_threshold = float(train_prediction.median())
+        selection_prediction = (
+            model.predict(dataset, segment=selection_segment).reindex(selection_actual.index).fillna(0.0).rename("score")
+        )
+        report_prediction = (
+            selection_prediction
+            if report_segment == selection_segment
+            else model.predict(dataset, segment=report_segment).reindex(report_actual.index).fillna(0.0).rename("score")
+        )
+        selection_metrics = _objective_metrics(
+            selection_actual,
+            selection_prediction,
+            spec.objective,
+            score_threshold=score_threshold,
+        )
+        report_metrics = _objective_metrics(
+            report_actual,
+            report_prediction,
+            spec.objective,
+            score_threshold=score_threshold,
+        )
         rows.append(
             {
                 "model": spec.name,
                 "family": spec.family,
                 "objective": spec.objective,
                 "implementation": model.implementation,
-                "prediction_rows": int(len(prediction)),
+                "selection_segment": selection_segment,
+                "report_segment": report_segment,
+                "selection_prediction_rows": int(len(selection_prediction)),
+                "prediction_rows": int(len(report_prediction)),
+                "signal_threshold_source": "train_prediction_median",
+                "train_signal_threshold": score_threshold,
                 "uses_qlib_dataset": bool(spec.capabilities.get("uses_qlib_dataset", False)),
-                **metrics,
+                **report_metrics,
+                **_prefix_metrics("selection", selection_metrics),
+                **_prefix_metrics(report_segment, report_metrics),
                 "source": "qlib_dataset",
             }
         )
-        predictions_by_model[spec.name] = prediction.reset_index()
+        predictions_by_model[spec.name] = report_prediction.reset_index()
+        prediction_exports.append(selection_prediction.reset_index().assign(model=spec.name, segment=selection_segment))
+        if report_segment != selection_segment:
+            prediction_exports.append(report_prediction.reset_index().assign(model=spec.name, segment=report_segment))
         fitted[spec.name] = model
 
     metrics_frame = pd.DataFrame(rows)
-    if selection_metric not in metrics_frame.columns:
+    selection_column = f"selection_{selection_metric}"
+    if selection_column not in metrics_frame.columns:
         raise ValueError(f"unknown selection metric: {selection_metric}")
-    selected_idx = metrics_frame[selection_metric].astype(float).idxmax()
+    selected_idx = metrics_frame[selection_column].astype(float).idxmax()
     metrics_frame["selected"] = False
     metrics_frame.loc[selected_idx, "selected"] = True
     selected_name = str(metrics_frame.loc[selected_idx, "model"])
@@ -384,15 +435,12 @@ def run_qlib_model_selection(
     model_metrics_path = output_dir / "model_selection.csv"
     predictions_path = output_dir / "all_model_predictions.csv"
     metrics_frame.to_csv(model_metrics_path, index=False)
-    pd.concat(
-        [frame.assign(model=name) for name, frame in predictions_by_model.items()],
-        ignore_index=True,
-    ).to_csv(predictions_path, index=False)
+    pd.concat(prediction_exports, ignore_index=True).to_csv(predictions_path, index=False)
     return ModelSelectionResult(
         selected_spec=selected_spec,
         selected_model=selected_model,
         selected_model_path=selected_model_path,
-        model_metrics=metrics_frame.sort_values(selection_metric, ascending=False).reset_index(drop=True),
+        model_metrics=metrics_frame.sort_values(selection_column, ascending=False).reset_index(drop=True),
         predictions_by_model=predictions_by_model,
         sidecars={
             "model_selection": model_metrics_path.name,

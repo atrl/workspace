@@ -419,6 +419,7 @@ def build_qlib_dataset(
     features: list[str],
     label: str,
     train: tuple[str, str],
+    valid: tuple[str, str] | None = None,
     test: tuple[str, str],
 ):
     init_qlib_provider(config)
@@ -428,21 +429,23 @@ def build_qlib_dataset(
     from qlib.data.dataset.loader import QlibDataLoader
 
     loader = QlibDataLoader(config={"feature": features, "label": [label]}, freq=config.freq)
+    segments = {"train": train, "test": test}
+    if valid is not None:
+        segments["valid"] = valid
+    segment_ranges = list(segments.values())
     handler = DataHandlerLP(
         instruments=instruments,
-        start_time=min(train[0], test[0]),
-        end_time=max(train[1], test[1]),
+        start_time=min(date_range[0] for date_range in segment_ranges),
+        end_time=max(date_range[1] for date_range in segment_ranges),
         data_loader=loader,
     )
     dataset = DatasetH(
         handler=handler,
-        segments={
-            "train": train,
-            "test": test,
-        },
+        segments=segments,
     )
     dataset.qlib_provider_uri = config.resolved_provider_uri.as_posix()
     dataset.qlib_dataset_api = ["DatasetH", "DataHandlerLP", "QlibDataLoader"]
+    dataset.qlib_segments = segments
     return dataset
 
 
@@ -491,6 +494,7 @@ def build_alpha158_legacy_dataset(
     instruments: list[str],
     label: str,
     train: tuple[str, str],
+    valid: tuple[str, str] | None = None,
     test: tuple[str, str],
 ):
     init_qlib_provider(config)
@@ -507,18 +511,19 @@ def build_alpha158_legacy_dataset(
         },
         freq=config.freq,
     )
+    segments = {"train": train, "test": test}
+    if valid is not None:
+        segments["valid"] = valid
+    segment_ranges = list(segments.values())
     handler = DataHandlerLP(
         instruments=instruments,
-        start_time=min(train[0], test[0]),
-        end_time=max(train[1], test[1]),
+        start_time=min(date_range[0] for date_range in segment_ranges),
+        end_time=max(date_range[1] for date_range in segment_ranges),
         data_loader=loader,
     )
     dataset = DatasetH(
         handler=handler,
-        segments={
-            "train": train,
-            "test": test,
-        },
+        segments=segments,
     )
     dataset.qlib_provider_uri = config.resolved_provider_uri.as_posix()
     dataset.qlib_dataset_api = [
@@ -528,4 +533,5 @@ def build_alpha158_legacy_dataset(
         "Alpha158.get_feature_config",
     ]
     dataset.qlib_feature_set = feature_set
+    dataset.qlib_segments = segments
     return dataset

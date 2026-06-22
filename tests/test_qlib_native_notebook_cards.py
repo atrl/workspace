@@ -87,6 +87,40 @@ def test_signal_weight_search_card_beats_legacy_soxlbacktest_with_qlib_portana()
         assert (card / rel_path).exists(), rel_path
 
 
+def test_validated_signal_weight_card_beats_legacy_after_validation_selection():
+    card = ROOT / "research" / "qlib_validated_signal_weight_v1"
+    summary = _summary(card)
+    notebook_text = (card / "qlib_validated_signal_weight_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    benchmark = summary["legacy_soxlbacktest_benchmark"]
+    model_selection = summary["model_selection"]
+
+    assert summary["experiment"] == "qlib_validated_signal_weight_v1"
+    assert summary["segments"] == {
+        "train": ["2012-01-03", "2017-12-29"],
+        "valid": ["2018-01-02", "2018-12-31"],
+        "test": ["2019-01-02", "2026-06-09"],
+    }
+    assert model_selection["selection_segment"] == "valid"
+    assert model_selection["report_segment"] == "test"
+    assert model_selection["selection_metric"] == "objective_score"
+    assert model_selection["selection_column"] == "selection_objective_score"
+    assert model_selection["selected_model"] == "linear_ic"
+    assert summary["target_position_strategy"]["threshold_source"] == "train_prediction_median"
+    assert "WeightStrategyBase" in summary["qlib_native_api"]
+    assert "PortAnaRecord" in summary["qlib_native_api"]
+    assert benchmark["benchmark_name"] == "legacy_soxl_backtest"
+    assert benchmark["exceeds_legacy_rulebase"] is True
+    assert benchmark["strategy_return_pct"] > benchmark["legacy_rulebase_return_pct"]
+    assert benchmark["excess_return_pct"] > 0
+    assert "test=2019-01-02 到 2026-06-09 只用于报告" in conclusion
+    assert summary["recorder_id"] in conclusion
+    assert summary["recorder_id"] in notebook_text
+
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+
 def test_production_card_is_paper_sim_and_references_qlib_recorder():
     card = ROOT / "production" / "qlib_paper_sim_v1"
     summary = _summary(card)
