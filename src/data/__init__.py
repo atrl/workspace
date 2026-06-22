@@ -1,7 +1,9 @@
 from .qlib_native import (
     QlibProviderConfig,
     QlibUnavailableError,
+    alpha158_legacy_feature_config,
     audit_qlib_provider,
+    build_alpha158_legacy_dataset,
     build_data_update_manifest,
     build_qlib_dataset,
     build_qlib_store_from_csv,
@@ -14,7 +16,9 @@ from .qlib_native import (
 __all__ = [
     "QlibProviderConfig",
     "QlibUnavailableError",
+    "alpha158_legacy_feature_config",
     "audit_qlib_provider",
+    "build_alpha158_legacy_dataset",
     "build_data_update_manifest",
     "build_qlib_dataset",
     "build_qlib_store_from_csv",

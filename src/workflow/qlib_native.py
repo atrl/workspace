@@ -10,7 +10,7 @@ import pandas as pd
 
 from src.analysis import build_analysis_report_from_qlib_recorder
 from src.backtest import build_backtest_extension_report_from_qlib_recorder, build_portfolio_report_from_qlib_recorder
-from src.data import QlibProviderConfig, build_qlib_dataset, init_qlib_provider, load_qlib_feature_frame
+from src.data import QlibProviderConfig, build_alpha158_legacy_dataset, init_qlib_provider, load_qlib_feature_frame
 from src.model import quantbench_supervised_model_specs, run_qlib_model_selection
 
 
@@ -131,16 +131,35 @@ def _write_qlib_portfolio_sidecars(output_dir: Path, recorder_dir: Path) -> dict
     }
 
 
+def _legacy_soxlbacktest_benchmark(spec: QlibNativeExperimentSpec, *, strategy_return_pct: float) -> dict[str, Any]:
+    from soxl_backtest.reference import replay_soxlbacktest_reference
+
+    legacy = replay_soxlbacktest_reference(start=spec.test[0], end=spec.test[1])
+    legacy_return = float(legacy.metrics["rulebase_return_pct"])
+    return {
+        "benchmark_name": "legacy_soxl_backtest",
+        "benchmark_source": "soxl_backtest.reference.replay_soxlbacktest_reference",
+        "start": legacy.metrics["start"],
+        "end": legacy.metrics["end"],
+        "rows": int(legacy.metrics["rows"]),
+        "strategy_return_pct": float(strategy_return_pct),
+        "legacy_rulebase_return_pct": legacy_return,
+        "legacy_rulebase_max_drawdown_pct": float(legacy.metrics["rulebase_max_drawdown_pct"]),
+        "legacy_trade_count": int(legacy.metrics["trade_count"]),
+        "excess_return_pct": round(float(strategy_return_pct - legacy_return), 10),
+        "exceeds_legacy_rulebase": bool(strategy_return_pct > legacy_return),
+    }
+
+
 def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExperimentResult:
     from qlib.workflow import R
     from qlib.workflow.record_temp import PortAnaRecord, SigAnaRecord, SignalRecord
 
     config = QlibProviderConfig(provider_uri=spec.provider_uri, region=spec.region, market=spec.market)
     provider_meta = init_qlib_provider(config)
-    dataset = build_qlib_dataset(
+    dataset = build_alpha158_legacy_dataset(
         config,
         instruments=[spec.instrument],
-        features=["$close", "$vix", "$volume"],
         label="Ref($close, -1) / $close - 1",
         train=spec.train,
         test=spec.test,
@@ -177,6 +196,8 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             selected_model=model_selection.selected_spec.name,
             selected_model_implementation=model.implementation,
             model_selection_metric="utility_score",
+            feature_set_source=dataset.qlib_feature_set["source"],
+            feature_count=dataset.qlib_feature_set["feature_count"],
         )
         for artifact in [
             spec.output_dir / model_selection.sidecars["model_selection"],
@@ -210,6 +231,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             "qlib.data.D.features",
             "DatasetH",
             "DataHandlerLP",
+            "Alpha158.get_feature_config",
             "qlib.workflow.R.start",
             "SignalRecord",
             "SigAnaRecord",
@@ -224,6 +246,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             "candidate_count": int(len(model_selection.model_metrics)),
             "source": "qlib_dataset",
         },
+        "feature_set": dataset.qlib_feature_set,
         "sidecars": sidecars,
     }
     portfolio = build_portfolio_report_from_qlib_recorder(summary, cost_bps=2.0, slippage_bps=1.0)
@@ -239,6 +262,11 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         slippage_bps=1.0,
     )
     backtest_paths = backtest_extension.write_sidecars(spec.output_dir)
+    strategy_return_pct = float(backtest_extension.benchmark_comparison.iloc[0]["strategy_return_pct"])
+    summary["legacy_soxlbacktest_benchmark"] = _legacy_soxlbacktest_benchmark(
+        spec,
+        strategy_return_pct=strategy_return_pct,
+    )
     report = build_analysis_report_from_qlib_recorder(
         summary,
         portfolio.report,

@@ -8,12 +8,13 @@
     "qlib.data.D.features",
     "DatasetH",
     "DataHandlerLP",
+    "Alpha158.get_feature_config",
     "qlib.workflow.R.start",
     "SignalRecord",
     "SigAnaRecord",
     "PortAnaRecord"
   ],
   "real_broker_orders": false,
-  "recorder_id": "61e9d5a49fc94833907e1a3f511d0776",
+  "recorder_id": "f658122eb76a43db926ce666da586eec",
   "strategy": "qlib_paper_sim_v1"
 }

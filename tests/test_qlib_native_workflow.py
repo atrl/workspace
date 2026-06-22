@@ -85,6 +85,7 @@ def test_qlib_workflow_recorder_and_record_outputs_are_durable(tmp_path):
         "qlib.data.D.features",
         "DatasetH",
         "DataHandlerLP",
+        "Alpha158.get_feature_config",
         "qlib.workflow.R.start",
         "SignalRecord",
         "SigAnaRecord",

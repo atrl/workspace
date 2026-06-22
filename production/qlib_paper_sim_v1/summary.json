@@ -5,12 +5,40 @@
     "2026-01-15"
   ],
   "experiment": "qlib_paper_sim_v1",
+  "feature_set": {
+    "alpha158_count": 158,
+    "feature_count": 166,
+    "legacy_feature_names": [
+      "VIX",
+      "RSI6",
+      "HV_20",
+      "HV_30",
+      "VOL_COEF",
+      "PANIC_SCORE",
+      "SOXL_RET_5",
+      "VOLUME_RATIO_5"
+    ],
+    "source": "Alpha158.get_feature_config+legacy_soxl_features"
+  },
   "instrument": "SOXL",
+  "legacy_soxlbacktest_benchmark": {
+    "benchmark_name": "legacy_soxl_backtest",
+    "benchmark_source": "soxl_backtest.reference.replay_soxlbacktest_reference",
+    "end": "2026-01-15",
+    "exceeds_legacy_rulebase": true,
+    "excess_return_pct": 7.1342494741,
+    "legacy_rulebase_max_drawdown_pct": 0.0,
+    "legacy_rulebase_return_pct": 0.0,
+    "legacy_trade_count": 0,
+    "rows": 5,
+    "start": "2026-01-09",
+    "strategy_return_pct": 7.1342494741
+  },
   "market": "all",
   "model_selection": {
     "candidate_count": 6,
-    "selected_implementation": "qlib_attention_rank",
-    "selected_model": "transformer_rank",
+    "selected_implementation": "qlib_ic_weighted_linear",
+    "selected_model": "linear_ic",
     "selection_metric": "utility_score",
     "source": "qlib_dataset"
   },
@@ -25,6 +53,7 @@
     "qlib.data.D.features",
     "DatasetH",
     "DataHandlerLP",
+    "Alpha158.get_feature_config",
     "qlib.workflow.R.start",
     "SignalRecord",
     "SigAnaRecord",
@@ -68,6 +97,8 @@
     "metrics/Rank IC",
     "metrics/Rank ICIR",
     "params/cmd-sys.argv",
+    "params/feature_count",
+    "params/feature_set_source",
     "params/instrument",
     "params/market",
     "params/model_selection_metric",
@@ -84,8 +115,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "61e9d5a49fc94833907e1a3f511d0776",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/61e9d5a49fc94833907e1a3f511d0776",
+  "recorder_id": "f658122eb76a43db926ce666da586eec",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/f658122eb76a43db926ce666da586eec",
   "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder",
   "region": "us",
   "sidecars": {

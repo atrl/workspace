@@ -442,3 +442,88 @@ def build_qlib_dataset(
     dataset.qlib_provider_uri = config.resolved_provider_uri.as_posix()
     dataset.qlib_dataset_api = ["DatasetH", "DataHandlerLP", "QlibDataLoader"]
     return dataset
+
+
+def alpha158_legacy_feature_config() -> tuple[list[str], list[str], dict[str, Any]]:
+    """Return qlib Alpha158 expressions plus legacy SOXL rulebase features."""
+
+    from qlib.contrib.data.handler import Alpha158
+
+    alpha_fields, alpha_names = object.__new__(Alpha158).get_feature_config()
+    gain_expr = "Greater($close-Ref($close, 1), 0)"
+    loss_expr = "Greater(Ref($close, 1)-$close, 0)"
+    rsi_expr = f"100-100/(1+Mean({gain_expr}, 6)/(Mean({loss_expr}, 6)+1e-5))"
+    return_1d = "$close/Ref($close, 1)-1"
+    legacy_fields = [
+        "$vix",
+        rsi_expr,
+        f"Std({return_1d}, 20)*15.874507866387544",
+        f"Std({return_1d}, 30)*15.874507866387544",
+        f"Std({return_1d}, 20)",
+        f"($vix-20)*10+({rsi_expr}-50)*0.4",
+        "$close/Ref($close, 5)-1",
+        "$volume/(Mean($volume, 5)+1e-12)",
+    ]
+    legacy_names = [
+        "VIX",
+        "RSI6",
+        "HV_20",
+        "HV_30",
+        "VOL_COEF",
+        "PANIC_SCORE",
+        "SOXL_RET_5",
+        "VOLUME_RATIO_5",
+    ]
+    metadata = {
+        "source": "Alpha158.get_feature_config+legacy_soxl_features",
+        "alpha158_count": len(alpha_names),
+        "legacy_feature_names": legacy_names,
+        "feature_count": len(alpha_names) + len(legacy_names),
+    }
+    return alpha_fields + legacy_fields, alpha_names + legacy_names, metadata
+
+
+def build_alpha158_legacy_dataset(
+    config: QlibProviderConfig,
+    *,
+    instruments: list[str],
+    label: str,
+    train: tuple[str, str],
+    test: tuple[str, str],
+):
+    init_qlib_provider(config)
+
+    from qlib.data.dataset import DatasetH
+    from qlib.data.dataset.handler import DataHandlerLP
+    from qlib.data.dataset.loader import QlibDataLoader
+
+    feature_fields, feature_names, feature_set = alpha158_legacy_feature_config()
+    loader = QlibDataLoader(
+        config={
+            "feature": (feature_fields, feature_names),
+            "label": [label],
+        },
+        freq=config.freq,
+    )
+    handler = DataHandlerLP(
+        instruments=instruments,
+        start_time=min(train[0], test[0]),
+        end_time=max(train[1], test[1]),
+        data_loader=loader,
+    )
+    dataset = DatasetH(
+        handler=handler,
+        segments={
+            "train": train,
+            "test": test,
+        },
+    )
+    dataset.qlib_provider_uri = config.resolved_provider_uri.as_posix()
+    dataset.qlib_dataset_api = [
+        "DatasetH",
+        "DataHandlerLP",
+        "QlibDataLoader",
+        "Alpha158.get_feature_config",
+    ]
+    dataset.qlib_feature_set = feature_set
+    return dataset

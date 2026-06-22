@@ -29,6 +29,39 @@ def _dataset():
     )
 
 
+def test_alpha158_legacy_dataset_stacks_qlib_alpha158_with_previous_soxl_features():
+    from qlib.data.dataset import DatasetH
+    from qlib.data.dataset.handler import DataHandlerLP
+
+    from src.data import build_alpha158_legacy_dataset
+
+    dataset = build_alpha158_legacy_dataset(
+        _config(),
+        instruments=["SOXL"],
+        label="Ref($close, -1) / $close - 1",
+        train=("2026-01-02", "2026-01-08"),
+        test=("2026-01-09", "2026-01-15"),
+    )
+    train = dataset.prepare("train")
+
+    assert isinstance(dataset, DatasetH)
+    assert isinstance(dataset.handler, DataHandlerLP)
+    assert dataset.qlib_feature_set["source"] == "Alpha158.get_feature_config+legacy_soxl_features"
+    assert dataset.qlib_feature_set["alpha158_count"] == 158
+    assert dataset.qlib_feature_set["legacy_feature_names"] == [
+        "VIX",
+        "RSI6",
+        "HV_20",
+        "HV_30",
+        "VOL_COEF",
+        "PANIC_SCORE",
+        "SOXL_RET_5",
+        "VOLUME_RATIO_5",
+    ]
+    assert {"KMID", "ROC5", "MA20", "VIX", "RSI6", "PANIC_SCORE"}.issubset(train.columns)
+    assert "Alpha158.get_feature_config" in dataset.qlib_dataset_api
+
+
 def _workflow(tmp_path):
     return run_qlib_native_experiment(
         QlibNativeExperimentSpec(
@@ -214,6 +247,12 @@ def test_workflow_generates_native_portana_record_outputs(tmp_path):
     artifacts = set(result.summary["recorder_artifacts"])
 
     assert "PortAnaRecord" in result.summary["qlib_native_api"]
+    assert result.summary["feature_set"]["source"] == "Alpha158.get_feature_config+legacy_soxl_features"
+    assert result.summary["legacy_soxlbacktest_benchmark"]["benchmark_name"] == "legacy_soxl_backtest"
+    assert result.summary["legacy_soxlbacktest_benchmark"]["strategy_return_pct"] > result.summary[
+        "legacy_soxlbacktest_benchmark"
+    ]["legacy_rulebase_return_pct"]
+    assert result.summary["legacy_soxlbacktest_benchmark"]["exceeds_legacy_rulebase"] is True
     assert "artifacts/portfolio_analysis/report_normal_1day.pkl" in artifacts
     assert "artifacts/portfolio_analysis/positions_normal_1day.pkl" in artifacts
     assert "artifacts/portfolio_analysis/port_analysis_1day.pkl" in artifacts
