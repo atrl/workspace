@@ -1,0 +1,57 @@
+{
+  "experiment": "spec_completion_audit_v1",
+  "feature_set": {
+    "alpha158_count": 158,
+    "feature_count": 166,
+    "legacy_feature_names": [
+      "VIX",
+      "RSI6",
+      "HV_20",
+      "HV_30",
+      "VOL_COEF",
+      "PANIC_SCORE",
+      "SOXL_RET_5",
+      "VOLUME_RATIO_5"
+    ],
+    "source": "Alpha158.get_feature_config+legacy_soxl_features"
+  },
+  "legacy_soxlbacktest_benchmark": {
+    "benchmark_name": "legacy_soxl_backtest",
+    "benchmark_source": "soxl_backtest.reference.replay_soxlbacktest_reference",
+    "end": "2026-06-09",
+    "exceeds_legacy_rulebase": true,
+    "excess_return_pct": 4421.2561212931,
+    "legacy_rulebase_max_drawdown_pct": 70.22775141071672,
+    "legacy_rulebase_return_pct": 2148.7671608111505,
+    "legacy_trade_count": 54,
+    "rows": 1869,
+    "start": "2019-01-02",
+    "strategy_return_pct": 6570.0232821043
+  },
+  "open_gap_count": 0,
+  "production_card": "production/qlib_paper_sim_v1",
+  "production_recorder_id": "43fa6114dcb9420ea1e42b8d48014e01",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "requirement_ids": [
+    "objective.spec_all_content",
+    "objective.qlib_framework_verified",
+    "objective.soxlbacktest_migrated_reference",
+    "objective.model_logic_complete",
+    "objective.alpha158_plus_legacy_features",
+    "objective.spec_models_beat_soxlbacktest",
+    "spec.qlib_native_api",
+    "spec.qlib_provider_dataset_recorder_report_traceability",
+    "spec.fail_closed_no_pandas_fallback",
+    "spec.analysis_outputs",
+    "spec.dashboard_schedule_api_contracts",
+    "spec.notebooks_executed_chinese_conclusions",
+    "spec.no_skill_or_scattered_csv_primary_workflow"
+  ],
+  "selected_model": "linear_ic",
+  "sidecars": {
+    "conclusion": "conclusion.md",
+    "matrix": "spec_completion_matrix.csv"
+  },
+  "status": "complete",
+  "validated_research_card": "research/qlib_validated_signal_weight_v1"
+}
