@@ -1,18 +1,35 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
+
+
+def _tracked_paths(root: Path) -> list[str]:
+    result = subprocess.run(
+        ["git", "ls-files"],
+        cwd=root,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    return [line for line in result.stdout.splitlines() if line]
+
+
+def _tracked_top_levels(root: Path) -> set[str]:
+    return {path.split("/", 1)[0] for path in _tracked_paths(root)}
 
 
 def test_rebuild_uses_qlib_native_active_surfaces():
     root = Path(__file__).resolve().parents[1]
+    top_levels = _tracked_top_levels(root)
 
     active_paths = ["data", "src", "research", "production", "tests"]
     for rel_path in active_paths:
-        assert (root / rel_path).exists(), f"{rel_path} should be active for the qlib-native rebuild"
+        assert rel_path in top_levels, f"{rel_path} should be active for the qlib-native rebuild"
 
     retired_paths = ["dashboard.html", "dashboard_data", "web", "scripts", "codex_exec_plans"]
     for rel_path in retired_paths:
-        assert not (root / rel_path).exists(), f"{rel_path} should not be a top-level active surface"
+        assert rel_path not in top_levels, f"{rel_path} should not be a top-level active surface"
 
 
 def test_remaining_skills_are_minimal_and_qlib_or_data_focused():
@@ -24,7 +41,13 @@ def test_remaining_skills_are_minimal_and_qlib_or_data_focused():
 
 def test_runtime_keeps_only_cleanup_and_current_experiment_cards():
     root = Path(__file__).resolve().parents[1]
-    runtime_cards = sorted(path.relative_to(root).as_posix() for path in (root / "runtime").glob("*/*/*"))
+    runtime_cards = sorted(
+        {
+            "/".join(path.split("/")[:4])
+            for path in _tracked_paths(root)
+            if path.startswith("runtime/") and len(path.split("/")) >= 4
+        }
+    )
 
     assert runtime_cards == [
         "runtime/harness/card/project_cleanup_architecture_v1",
