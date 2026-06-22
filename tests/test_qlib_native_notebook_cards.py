@@ -137,7 +137,19 @@ def test_production_card_is_paper_sim_and_references_qlib_recorder():
     assert "SignalRecord" in production_summary["qlib_native_api"]
     assert "PortAnaRecord" in production_summary["qlib_native_api"]
     assert summary["model_selection"]["source"] == "qlib_dataset"
-    assert summary["model_selection"]["candidate_count"] >= 6
+    assert summary["model_selection"]["mode"] == "fixed_model"
+    assert summary["model_selection"]["candidate_count"] == 1
+    assert summary["model_selection"]["fixed_model_name"] == "linear_ic"
+    assert summary["model_selection"]["promoted_from"] == "research/qlib_validated_signal_weight_v1"
+    assert summary["model_selection"]["selection_metric"] == "objective_score"
+    assert summary["segments"] == {
+        "train": ["2012-01-03", "2017-12-29"],
+        "valid": ["2018-01-02", "2018-12-31"],
+        "test": ["2019-01-02", "2026-06-09"],
+    }
+    assert summary["legacy_soxlbacktest_benchmark"]["exceeds_legacy_rulebase"] is True
+    assert production_summary["fixed_model_name"] == "linear_ic"
+    assert production_summary["promoted_from"] == "research/qlib_validated_signal_weight_v1"
     assert {"model_selection", "backtest_benchmark_comparison"}.issubset(summary["sidecars"])
     assert summary["recorder_id"] in notebook_text
     assert "model_selection.csv" in notebook_text

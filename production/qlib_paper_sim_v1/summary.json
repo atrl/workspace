@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-01-15",
+  "as_of": "2026-06-09",
   "data_range": [
-    "2026-01-02",
-    "2026-01-15"
+    "2012-01-03",
+    "2026-06-09"
   ],
   "experiment": "qlib_paper_sim_v1",
   "feature_set": {
@@ -24,23 +24,37 @@
   "legacy_soxlbacktest_benchmark": {
     "benchmark_name": "legacy_soxl_backtest",
     "benchmark_source": "soxl_backtest.reference.replay_soxlbacktest_reference",
-    "end": "2026-01-15",
-    "exceeds_legacy_rulebase": false,
-    "excess_return_pct": 0.0,
-    "legacy_rulebase_max_drawdown_pct": 0.0,
-    "legacy_rulebase_return_pct": 0.0,
-    "legacy_trade_count": 0,
-    "rows": 5,
-    "start": "2026-01-09",
-    "strategy_return_pct": 0.0
+    "end": "2026-06-09",
+    "exceeds_legacy_rulebase": true,
+    "excess_return_pct": 4421.2561212931,
+    "legacy_rulebase_max_drawdown_pct": 70.22775141071672,
+    "legacy_rulebase_return_pct": 2148.7671608111505,
+    "legacy_trade_count": 54,
+    "rows": 1869,
+    "start": "2019-01-02",
+    "strategy_return_pct": 6570.0232821043
   },
   "market": "all",
   "model_selection": {
-    "candidate_count": 6,
+    "candidate_count": 1,
+    "fixed_model_name": "linear_ic",
+    "mode": "fixed_model",
+    "promoted_from": "research/qlib_validated_signal_weight_v1",
+    "report_column": "test_objective_score",
+    "report_segment": "test",
     "selected_implementation": "qlib_ic_weighted_linear",
     "selected_model": "linear_ic",
-    "selection_metric": "utility_score",
+    "selection_column": "selection_objective_score",
+    "selection_metric": "objective_score",
+    "selection_segment": "valid",
     "source": "qlib_dataset"
+  },
+  "production_fixed_parameters": {
+    "fixed_model_name": "linear_ic",
+    "model_selection_metric": "objective_score",
+    "promoted_from": "research/qlib_validated_signal_weight_v1",
+    "report_segment": "test",
+    "selection_segment": "valid"
   },
   "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/data/qlib/soxl",
   "qlib_docs": {
@@ -100,10 +114,15 @@
     "params/cmd-sys.argv",
     "params/feature_count",
     "params/feature_set_source",
+    "params/fixed_model_name",
     "params/instrument",
     "params/market",
     "params/max_weight",
+    "params/model_report_segment",
     "params/model_selection_metric",
+    "params/model_selection_mode",
+    "params/model_selection_segment",
+    "params/promoted_from",
     "params/provider_uri",
     "params/region",
     "params/risk_degree",
@@ -116,15 +135,31 @@
     "params/test_start",
     "params/train_end",
     "params/train_start",
+    "params/valid_end",
+    "params/valid_start",
     "tags/mlflow.runName",
     "tags/mlflow.source.name",
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "c1e6dd6ef1d448288f61d46748fa321c",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/c1e6dd6ef1d448288f61d46748fa321c",
+  "recorder_id": "43fa6114dcb9420ea1e42b8d48014e01",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder/719879184767973248/43fa6114dcb9420ea1e42b8d48014e01",
   "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1/production/qlib_paper_sim_v1/qlib_recorder",
   "region": "us",
+  "segments": {
+    "test": [
+      "2019-01-02",
+      "2026-06-09"
+    ],
+    "train": [
+      "2012-01-03",
+      "2017-12-29"
+    ],
+    "valid": [
+      "2018-01-02",
+      "2018-12-31"
+    ]
+  },
   "sidecars": {
     "all_model_predictions": "all_model_predictions.csv",
     "analysis_summary": "analysis_summary.json",
@@ -151,7 +186,7 @@
     "min_weight": 0.0,
     "module_path": "src.backtest.strategy",
     "risk_degree": 0.95,
-    "score_threshold": 0.057673621093060824,
+    "score_threshold": -0.004851105918338165,
     "signal_source": "<PRED>",
     "threshold_source": "train_prediction_median"
   }

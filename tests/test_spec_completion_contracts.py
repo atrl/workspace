@@ -85,6 +85,26 @@ def _workflow(tmp_path):
     )
 
 
+def _fixed_workflow(tmp_path):
+    return run_qlib_native_experiment(
+        QlibNativeExperimentSpec(
+            experiment="spec_fixed_model_contracts",
+            provider_uri=PROVIDER_URI,
+            recorder_uri=tmp_path / "qlib_recorder",
+            output_dir=tmp_path / "fixed_card",
+            market="all",
+            region="us",
+            instrument="SOXL",
+            train=("2026-01-02", "2026-01-08"),
+            valid=("2026-01-09", "2026-01-09"),
+            test=("2026-01-12", "2026-01-15"),
+            model_selection_metric="objective_score",
+            fixed_model_name="linear_ic",
+            promoted_from="research/qlib_validated_signal_weight_v1",
+        )
+    )
+
+
 def test_data_layer_audits_qlib_store_and_writes_snapshot_manifest(tmp_path):
     from src.data import audit_qlib_provider, build_data_update_manifest, write_snapshot_manifest
 
@@ -285,6 +305,24 @@ def test_workflow_generates_native_portana_record_outputs(tmp_path):
     assert result.summary["sidecars"]["risk_analysis"] == "risk_analysis.csv"
     assert (tmp_path / "card" / "qlib_portfolio_report.csv").exists()
     assert (tmp_path / "card" / "risk_analysis.csv").exists()
+
+
+def test_workflow_can_run_fixed_validated_model_without_model_search(tmp_path):
+    result = _fixed_workflow(tmp_path)
+    model_selection = result.summary["model_selection"]
+
+    assert model_selection["mode"] == "fixed_model"
+    assert model_selection["fixed_model_name"] == "linear_ic"
+    assert model_selection["candidate_count"] == 1
+    assert model_selection["selected_model"] == "linear_ic"
+    assert model_selection["promoted_from"] == "research/qlib_validated_signal_weight_v1"
+    assert result.summary["production_fixed_parameters"] == {
+        "fixed_model_name": "linear_ic",
+        "model_selection_metric": "objective_score",
+        "selection_segment": "valid",
+        "report_segment": "test",
+        "promoted_from": "research/qlib_validated_signal_weight_v1",
+    }
 
 
 def test_backtest_layer_derives_windows_walk_forward_benchmark_and_costs_from_qlib_report(tmp_path):

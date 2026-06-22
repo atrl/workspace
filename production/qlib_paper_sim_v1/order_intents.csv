@@ -1,2 +1,2 @@
-symbol,as_of,target_percent,quantity,price,execution_mode,real_broker_order,recorder_id
-SOXL,2026-01-15,0.0,0,58.08000183105469,paper_sim,False,c1e6dd6ef1d448288f61d46748fa321c
+symbol,as_of,target_percent,score,score_threshold,quantity,price,execution_mode,real_broker_order,recorder_id
+SOXL,2026-06-09,0.95,0.0457660852432386,-0.004851105918338165,47,201.67999267578125,paper_sim,False,43fa6114dcb9420ea1e42b8d48014e01

@@ -38,6 +38,8 @@ class QlibNativeExperimentSpec:
     test: tuple[str, str]
     valid: tuple[str, str] | None = None
     model_selection_metric: str = "utility_score"
+    fixed_model_name: str | None = None
+    promoted_from: str | None = None
 
 
 @dataclass(frozen=True)
@@ -128,6 +130,16 @@ def _selection_segment(spec: QlibNativeExperimentSpec) -> str:
     return "valid" if spec.valid is not None else "test"
 
 
+def _model_specs_for_experiment(spec: QlibNativeExperimentSpec):
+    specs = quantbench_supervised_model_specs()
+    if spec.fixed_model_name is None:
+        return specs
+    fixed = [model_spec for model_spec in specs if model_spec.name == spec.fixed_model_name]
+    if not fixed:
+        raise ValueError(f"unknown fixed qlib model spec: {spec.fixed_model_name}")
+    return fixed
+
+
 def _write_qlib_portfolio_sidecars(output_dir: Path, recorder_dir: Path) -> dict[str, str]:
     portfolio_dir = recorder_dir / "artifacts" / "portfolio_analysis"
     report_path = portfolio_dir / "report_normal_1day.pkl"
@@ -206,7 +218,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
     spec.recorder_uri.mkdir(parents=True, exist_ok=True)
     model_selection = run_qlib_model_selection(
         dataset,
-        specs=quantbench_supervised_model_specs(),
+        specs=_model_specs_for_experiment(spec),
         output_dir=spec.output_dir,
         selection_metric=spec.model_selection_metric,
         selection_segment=_selection_segment(spec),
@@ -233,6 +245,9 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             selected_model=model_selection.selected_spec.name,
             selected_model_implementation=model.implementation,
             model_selection_metric=spec.model_selection_metric,
+            model_selection_mode="fixed_model" if spec.fixed_model_name else "model_search",
+            fixed_model_name=spec.fixed_model_name or "",
+            promoted_from=spec.promoted_from or "",
             model_selection_segment=_selection_segment(spec),
             model_report_segment="test",
             feature_set_source=dataset.qlib_feature_set["source"],
@@ -290,6 +305,7 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
         "qlib_record_classes_available": ["SignalRecord", "SigAnaRecord", "PortAnaRecord"],
         "qlib_docs": QLIB_DOCS,
         "model_selection": {
+            "mode": "fixed_model" if spec.fixed_model_name else "model_search",
             "selected_model": model_selection.selected_spec.name,
             "selected_implementation": model.implementation,
             "selection_metric": spec.model_selection_metric,
@@ -299,11 +315,21 @@ def run_qlib_native_experiment(spec: QlibNativeExperimentSpec) -> QlibNativeExpe
             "report_column": f"test_{spec.model_selection_metric}",
             "candidate_count": int(len(model_selection.model_metrics)),
             "source": "qlib_dataset",
+            **({"fixed_model_name": spec.fixed_model_name} if spec.fixed_model_name else {}),
+            **({"promoted_from": spec.promoted_from} if spec.promoted_from else {}),
         },
         "feature_set": dataset.qlib_feature_set,
         "target_position_strategy": target_position_strategy,
         "sidecars": sidecars,
     }
+    if spec.fixed_model_name:
+        summary["production_fixed_parameters"] = {
+            "fixed_model_name": spec.fixed_model_name,
+            "model_selection_metric": spec.model_selection_metric,
+            "selection_segment": _selection_segment(spec),
+            "report_segment": "test",
+            "promoted_from": spec.promoted_from,
+        }
     portfolio = build_portfolio_report_from_qlib_recorder(summary, cost_bps=2.0, slippage_bps=1.0)
     portfolio_path = spec.output_dir / "portfolio_report.csv"
     portfolio.report.to_csv(portfolio_path, index=False)
