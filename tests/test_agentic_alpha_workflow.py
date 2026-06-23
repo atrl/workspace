@@ -943,3 +943,66 @@ def test_macro_credit_rate_features_and_candidate_gates_are_src_owned():
     assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
     assert summary["passes_both_count"] >= 0
     assert set(summary["branch_results"]) == set(metrics["branch"])
+
+
+def test_agentic_ensemble_candidates_combine_component_returns_with_costs():
+    from src.factor import compact_agentic_ensemble_summary, evaluate_agentic_ensemble_candidates
+
+    dates = pd.date_range("2026-01-02", periods=8, freq="B")
+    component_frame = pd.DataFrame(
+        [
+            {
+                "datetime": date,
+                "component": "trend_leg",
+                "branch": "tsmom_stop",
+                "component_return": 0.050 if index != 4 else -0.020,
+                "exposure": 1.0,
+            }
+            for index, date in enumerate(dates)
+        ]
+        + [
+            {
+                "datetime": date,
+                "component": "session_leg",
+                "branch": "signed_session",
+                "component_return": 0.020 if index % 2 == 0 else -0.010,
+                "exposure": 0.5 if index % 2 == 0 else -0.5,
+            }
+            for index, date in enumerate(dates)
+        ]
+    )
+    candidates = [
+        {
+            "candidate": "agentic_two_leg_blend",
+            "weights": {"trend_leg": 0.8, "session_leg": 0.4},
+            "params": {"source": "unit"},
+        },
+        {
+            "candidate": "cash_only",
+            "weights": {"trend_leg": 0.0},
+            "params": {"source": "unit"},
+        },
+    ]
+
+    metrics = evaluate_agentic_ensemble_candidates(
+        component_frame,
+        candidates=candidates,
+        baseline_return_pct=10.0,
+        max_drawdown_floor=-20.0,
+        cost_per_turnover=0.0003,
+    )
+    summary = compact_agentic_ensemble_summary(
+        metrics,
+        baseline_return_pct=10.0,
+        max_drawdown_floor=-20.0,
+    )
+    rows = metrics.set_index("candidate")
+
+    assert rows.loc["agentic_two_leg_blend", "decision"] == "Promote"
+    assert rows.loc["agentic_two_leg_blend", "beats_baseline_return"] is True
+    assert rows.loc["agentic_two_leg_blend", "passes_drawdown_gate"] is True
+    assert rows.loc["agentic_two_leg_blend", "component_count"] == 2
+    assert rows.loc["cash_only", "decision"] == "Iterate"
+    assert rows.loc["cash_only", "decision_basis"] == "return_gate"
+    assert summary["goal_achieved"] is True
+    assert summary["best_candidate"] == "agentic_two_leg_blend"

@@ -1,0 +1,189 @@
+diff --git a/src/factor/__init__.py b/src/factor/__init__.py
+index 0ef0bc08..a722abeb 100644
+--- a/src/factor/__init__.py
++++ b/src/factor/__init__.py
+@@ -1,4 +1,13 @@
+ from .agentic_validation import AgenticAlphaFactorValidationReport, validate_agentic_alpha_factors
++from .agentic_ensemble import (
++    build_canary_trend_component,
++    build_macro_rate_gate_component,
++    build_signed_overnight_component,
++    build_tsmom_stop_component,
++    compact_agentic_ensemble_summary,
++    evaluate_agentic_ensemble_candidates,
++    summarize_agentic_ensemble_components,
++)
+ from .canary_sprint import (
+     build_canary_sprint_frame,
+     compact_canary_sprint_summary,
+@@ -53,14 +62,19 @@ __all__ = [
+     "AgenticAlphaFactorValidationReport",
+     "FactorDiagnosticsReport",
+     "QlibScoredDataset",
++    "build_canary_trend_component",
+     "build_canary_sprint_frame",
+     "build_cross_asset_price_frame",
+     "build_factor_library_reversal_frame",
+     "build_long_short_crisis_alpha_frame",
++    "build_macro_rate_gate_component",
+     "build_macro_credit_frame",
+     "build_meta_label_probability_frame",
++    "build_signed_overnight_component",
+     "build_session_effect_frame",
+     "build_tail_risk_external_frame",
++    "build_tsmom_stop_component",
++    "compact_agentic_ensemble_summary",
+     "compact_canary_sprint_summary",
+     "compact_factor_library_search_summary",
+     "compact_long_short_crisis_alpha_summary",
+@@ -68,6 +82,7 @@ __all__ = [
+     "compact_meta_label_probability_summary",
+     "compact_session_effect_summary",
+     "combine_qlib_factor_scores",
++    "evaluate_agentic_ensemble_candidates",
+     "evaluate_canary_sprint_candidates",
+     "evaluate_cross_asset_rotation_candidates",
+     "evaluate_factor_library_reversal_candidates",
+@@ -79,6 +94,7 @@ __all__ = [
+     "evaluate_signed_session_effect_candidates",
+     "evaluate_tail_risk_candidate",
+     "qlib_factor_diagnostics",
++    "summarize_agentic_ensemble_components",
+     "summarize_canary_sprint_branch",
+     "summarize_cross_asset_branch",
+     "summarize_factor_library_reversal_branch",
+diff --git a/tests/test_agentic_alpha_workflow.py b/tests/test_agentic_alpha_workflow.py
+index 2828ddac..993ee7b7 100644
+--- a/tests/test_agentic_alpha_workflow.py
++++ b/tests/test_agentic_alpha_workflow.py
+@@ -943,3 +943,66 @@ def test_macro_credit_rate_features_and_candidate_gates_are_src_owned():
+     assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
+     assert summary["passes_both_count"] >= 0
+     assert set(summary["branch_results"]) == set(metrics["branch"])
++
++
++def test_agentic_ensemble_candidates_combine_component_returns_with_costs():
++    from src.factor import compact_agentic_ensemble_summary, evaluate_agentic_ensemble_candidates
++
++    dates = pd.date_range("2026-01-02", periods=8, freq="B")
++    component_frame = pd.DataFrame(
++        [
++            {
++                "datetime": date,
++                "component": "trend_leg",
++                "branch": "tsmom_stop",
++                "component_return": 0.050 if index != 4 else -0.020,
++                "exposure": 1.0,
++            }
++            for index, date in enumerate(dates)
++        ]
++        + [
++            {
++                "datetime": date,
++                "component": "session_leg",
++                "branch": "signed_session",
++                "component_return": 0.020 if index % 2 == 0 else -0.010,
++                "exposure": 0.5 if index % 2 == 0 else -0.5,
++            }
++            for index, date in enumerate(dates)
++        ]
++    )
++    candidates = [
++        {
++            "candidate": "agentic_two_leg_blend",
++            "weights": {"trend_leg": 0.8, "session_leg": 0.4},
++            "params": {"source": "unit"},
++        },
++        {
++            "candidate": "cash_only",
++            "weights": {"trend_leg": 0.0},
++            "params": {"source": "unit"},
++        },
++    ]
++
++    metrics = evaluate_agentic_ensemble_candidates(
++        component_frame,
++        candidates=candidates,
++        baseline_return_pct=10.0,
++        max_drawdown_floor=-20.0,
++        cost_per_turnover=0.0003,
++    )
++    summary = compact_agentic_ensemble_summary(
++        metrics,
++        baseline_return_pct=10.0,
++        max_drawdown_floor=-20.0,
++    )
++    rows = metrics.set_index("candidate")
++
++    assert rows.loc["agentic_two_leg_blend", "decision"] == "Promote"
++    assert rows.loc["agentic_two_leg_blend", "beats_baseline_return"] is True
++    assert rows.loc["agentic_two_leg_blend", "passes_drawdown_gate"] is True
++    assert rows.loc["agentic_two_leg_blend", "component_count"] == 2
++    assert rows.loc["cash_only", "decision"] == "Iterate"
++    assert rows.loc["cash_only", "decision_basis"] == "return_gate"
++    assert summary["goal_achieved"] is True
++    assert summary["best_candidate"] == "agentic_two_leg_blend"
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index 0dd4ceec..cc64d6ec 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -1011,3 +1011,59 @@ def test_agentic_alpha_macro_credit_search_card_closes_macro_credit_branches():
+     assert "R.start" in notebook_text
+     assert "credit spread" in notebook_text
+     assert "未找到同时满足" in conclusion
++
++
++def test_agentic_alpha_ensemble_search_card_records_passing_candidate():
++    card = ROOT / "research" / "agentic_alpha_ensemble_search_v1"
++    summary = _summary(card)
++    notebook_text = (card / "agentic_alpha_ensemble_search_v1.ipynb").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "agentic_alpha_ensemble_search_v1"
++    assert summary["card_type"] == "validated_search"
++    assert summary["promotion_decision"] == "promote_to_production_review"
++    assert summary["search_report"]["goal_achieved"] is True
++    assert summary["search_report"]["best_candidate"] == "agentic_multi_branch_ensemble_v1"
++    assert summary["search_report"]["passes_both_count"] >= 1
++    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
++    assert summary["goal_gate"] == {
++        "max_drawdown_floor": -20.0,
++        "require_return_above_baseline": True,
++    }
++    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
++    selected = summary["selected_candidate"]
++    assert selected["candidate"] == "agentic_multi_branch_ensemble_v1"
++    assert selected["return_pct"] > summary["baseline"]["return_pct"]
++    assert selected["max_drawdown_pct"] >= summary["goal_gate"]["max_drawdown_floor"]
++    assert selected["component_count"] == 6
++    assert set(summary["component_branches"]) == {
++        "canary_sprint_short_hold",
++        "macro_credit_rate_gate",
++        "signed_overnight_momentum",
++        "tsmom_stop",
++    }
++    assert summary["external_source_counts"] == {"arxiv": 1, "github": 2, "paper": 5, "twitter": 1}
++    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert set(summary["sidecars"]) == {
++        "candidate_metrics",
++        "component_summary",
++        "external_sources",
++        "failure_modes",
++        "search_summary",
++        "selected_model",
++    }
++    for rel_path in summary["sidecars"].values():
++        assert (card / rel_path).exists(), rel_path
++
++    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
++    selected_model = json.loads((card / summary["sidecars"]["selected_model"]).read_text(encoding="utf-8"))
++    assert "agentic_multi_branch_ensemble_v1" in candidates
++    assert "beats_baseline_and_drawdown_gate" in candidates
++    assert selected_model["candidate"] == "agentic_multi_branch_ensemble_v1"
++    assert len(selected_model["weights"]) == 6
++    assert summary["recorder_id"] in notebook_text
++    assert "D.features" in notebook_text
++    assert "R.start" in notebook_text
++    assert "evaluate_agentic_ensemble_candidates" in notebook_text
++    assert "同时满足收益与回撤门禁" in conclusion

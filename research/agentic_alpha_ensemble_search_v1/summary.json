@@ -1,0 +1,262 @@
+{
+  "agentic_ensemble": {
+    "candidate_coverage_end": "2026-06-09",
+    "candidate_coverage_start": "2019-01-02",
+    "component_count": 6,
+    "cost_per_turnover": 0.0003,
+    "daily_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "feature_rows": 11193,
+    "macro_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1",
+    "selected_features": [
+      "TSMOM_STOP_SOXX_RET10",
+      "TSMOM_STOP_SOXX_RET252",
+      "CANARY_TREND60_AUTOCORR",
+      "SIGNED_OVERNIGHT_MOM20",
+      "MACRO_CREDIT_RATE_GATE"
+    ]
+  },
+  "artifact_policy": {
+    "kept_sidecars": [
+      "agentic_alpha_ensemble_candidate_metrics.csv",
+      "agentic_alpha_ensemble_component_summary.csv",
+      "agentic_alpha_ensemble_search_summary.json",
+      "external_sources.csv",
+      "failure_modes.md",
+      "selected_model.json"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "agentic_alpha_ensemble_search_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+      "component_daily_returns": "artifacts/agentic_alpha_ensemble/.agentic_alpha_ensemble_component_daily_returns.csv.gz",
+      "labels": "artifacts/label.pkl",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+      "signals": "artifacts/signals.pkl"
+    },
+    "reproducible_from_recorder": true,
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-06-09",
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "branch_results": {
+    "multi_branch_ensemble": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "agentic_multi_branch_ensemble_v1",
+      "best_drawdown_gate_max_drawdown_pct": -19.700816471299355,
+      "best_drawdown_gate_return_pct": 8775.123636650942,
+      "best_return_candidate": "agentic_multi_branch_ensemble_v1",
+      "best_return_max_drawdown_pct": -19.700816471299355,
+      "best_return_pct": 8775.123636650942,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 2,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 1
+    }
+  },
+  "card_type": "validated_search",
+  "component_branches": [
+    "canary_sprint_short_hold",
+    "macro_credit_rate_gate",
+    "signed_overnight_momentum",
+    "tsmom_stop"
+  ],
+  "data_range": [
+    "2019-01-02",
+    "2026-06-09"
+  ],
+  "experiment": "agentic_alpha_ensemble_search_v1",
+  "external_source_counts": {
+    "arxiv": 1,
+    "github": 2,
+    "paper": 5,
+    "twitter": 1
+  },
+  "feature_warmup_range": [
+    "2010-03-11",
+    "2026-06-10"
+  ],
+  "goal_gate": {
+    "max_drawdown_floor": -20.0,
+    "require_return_above_baseline": true
+  },
+  "macro_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1",
+  "market": "all",
+  "promotion_decision": "promote_to_production_review",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start"
+  ],
+  "recorder_artifacts": [
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/.agentic_alpha_ensemble_component_daily_returns.csv.gz",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/agentic_alpha_ensemble_candidate_metrics.csv",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/agentic_alpha_ensemble_component_summary.csv",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/agentic_alpha_ensemble_search_summary.json",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/external_sources.csv",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/failure_modes.md",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/selected_model.json",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/code_cached.txt",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/code_diff.txt",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/code_status.txt",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/meta.yaml",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/metrics/baseline_return_pct",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/metrics/passes_both_count",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/metrics/selected_max_drawdown_pct",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/metrics/selected_return_pct",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/baseline",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/candidate_rows",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/cmd-sys.argv",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/component_rows",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/macro_provider_uri",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/max_drawdown_floor",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/provider_uri",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/test_end",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/test_start",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/tags/mlflow.runName",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/tags/mlflow.source.name",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/tags/mlflow.source.type",
+    "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/tags/mlflow.user",
+    "240626916174973974/meta.yaml"
+  ],
+  "recorder_id": "c00e240b920a4a54a9aaf4050c3570a7",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_ensemble_search_v1/qlib_recorder",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_ensemble_search_v1/qlib_recorder",
+  "region": "us",
+  "search_report": {
+    "agentic_ensemble": {
+      "candidate_coverage_end": "2026-06-09",
+      "candidate_coverage_start": "2019-01-02",
+      "component_count": 6,
+      "cost_per_turnover": 0.0003,
+      "daily_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "feature_rows": 11193,
+      "macro_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1",
+      "selected_features": [
+        "TSMOM_STOP_SOXX_RET10",
+        "TSMOM_STOP_SOXX_RET252",
+        "CANARY_TREND60_AUTOCORR",
+        "SIGNED_OVERNIGHT_MOM20",
+        "MACRO_CREDIT_RATE_GATE"
+      ]
+    },
+    "baseline": {
+      "benchmark_return_pct": 3530.8157772578,
+      "max_drawdown_pct": -85.23168365,
+      "name": "qlib_paper_sim_v1",
+      "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+      "return_pct": 6570.0232821043
+    },
+    "best_candidate": "agentic_multi_branch_ensemble_v1",
+    "branch_results": {
+      "multi_branch_ensemble": {
+        "best_drawdown_gate_available": true,
+        "best_drawdown_gate_candidate": "agentic_multi_branch_ensemble_v1",
+        "best_drawdown_gate_max_drawdown_pct": -19.700816471299355,
+        "best_drawdown_gate_return_pct": 8775.123636650942,
+        "best_return_candidate": "agentic_multi_branch_ensemble_v1",
+        "best_return_max_drawdown_pct": -19.700816471299355,
+        "best_return_pct": 8775.123636650942,
+        "coverage_end": "2026-06-09",
+        "coverage_start": "2019-01-02",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 2,
+        "max_drawdown_floor": -20.0,
+        "passes_both_count": 1
+      }
+    },
+    "external_source_counts": {
+      "arxiv": 1,
+      "github": 2,
+      "paper": 5,
+      "twitter": 1
+    },
+    "goal_achieved": true,
+    "passes_both_count": 1,
+    "recorder_artifacts": [
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/.agentic_alpha_ensemble_component_daily_returns.csv.gz",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/agentic_alpha_ensemble_candidate_metrics.csv",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/agentic_alpha_ensemble_component_summary.csv",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/agentic_alpha_ensemble_search_summary.json",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/external_sources.csv",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/failure_modes.md",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/agentic_alpha_ensemble/selected_model.json",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/code_cached.txt",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/code_diff.txt",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/artifacts/code_status.txt",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/meta.yaml",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/metrics/baseline_return_pct",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/metrics/passes_both_count",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/metrics/selected_max_drawdown_pct",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/metrics/selected_return_pct",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/baseline",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/candidate_rows",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/cmd-sys.argv",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/component_rows",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/macro_provider_uri",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/max_drawdown_floor",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/provider_uri",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/test_end",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/params/test_start",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/tags/mlflow.runName",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/tags/mlflow.source.name",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/tags/mlflow.source.type",
+      "240626916174973974/c00e240b920a4a54a9aaf4050c3570a7/tags/mlflow.user",
+      "240626916174973974/meta.yaml"
+    ],
+    "recorder_id": "c00e240b920a4a54a9aaf4050c3570a7",
+    "selected_features": [
+      "TSMOM_STOP_SOXX_RET10",
+      "TSMOM_STOP_SOXX_RET252",
+      "CANARY_TREND60_AUTOCORR",
+      "SIGNED_OVERNIGHT_MOM20",
+      "MACRO_CREDIT_RATE_GATE"
+    ],
+    "stage_order": [
+      "research",
+      "retrieve",
+      "generate",
+      "evaluate",
+      "validate",
+      "distill"
+    ],
+    "workflow": "agentic_alpha_ensemble_search"
+  },
+  "selected_candidate": {
+    "avg_abs_exposure": 0.36572260567148196,
+    "baseline_return_pct": 6570.0232821043,
+    "candidate": "agentic_multi_branch_ensemble_v1",
+    "component_count": 6,
+    "max_drawdown_pct": -19.700816471299355,
+    "max_exposure": 1.13045,
+    "min_exposure": -0.15805,
+    "return_improvement_pct": 2205.100354546642,
+    "return_pct": 8775.123636650942,
+    "turnover": 144.460175
+  },
+  "sidecars": {
+    "candidate_metrics": "agentic_alpha_ensemble_candidate_metrics.csv",
+    "component_summary": "agentic_alpha_ensemble_component_summary.csv",
+    "external_sources": "external_sources.csv",
+    "failure_modes": "failure_modes.md",
+    "search_summary": "agentic_alpha_ensemble_search_summary.json",
+    "selected_model": "selected_model.json"
+  },
+  "workflow_config": "workflow.yaml"
+}

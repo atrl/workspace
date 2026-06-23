@@ -1,0 +1,10 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,"Route external ideas through retrieve, generate, evaluate, validate, and distill before promotion.",workflow_reference
+github,TSMOM reference implementation,https://github.com/rkohli3/TSMOM,Use time-series momentum as a reusable branch for trend exposure.,web_retrieved
+paper,Time-series momentum evidence,https://papers.ssrn.com/sol3/Delivery.cfm/2730304.pdf?abstractid=2730304,Past returns can define exposure by asset and horizon.,web_retrieved
+paper,Tug of War: overnight versus intraday returns,https://personal.lse.ac.uk/polk/research/TugOfWar.pdf,Separate overnight and intraday return pressure can carry different information.,web_retrieved
+paper,Conditional volatility targeting,https://alphaarchitect.com/conditional-volatility-targeting/,Volatility-aware de-risking can reduce drawdown when combined with trend.,web_retrieved
+paper,Do stop-loss rules add value in tactical allocation,https://www.quantseeker.com/p/do-stop-loss-rules-add-value-in-tactical,Stop logic must be evaluated net of whipsaw and transaction costs.,web_retrieved
+paper,Leveraged ETFs in low-volatility environments,https://quantpedia.com/leveraged-etfs-in-low-volatility-environments/,Leveraged ETF compounding is more favorable in low-volatility regimes.,web_retrieved
+twitter,Leveraged ETF regime thread,https://x.com/ces921/highlights,Levered ETF rebalancing loops can amplify regime and liquidity risk.,external_reference
+arxiv,Compounding effects in leveraged ETFs,https://arxiv.org/html/2504.20116v1,Autocorrelation and volatility clustering drive LETF compounding outcomes.,web_retrieved

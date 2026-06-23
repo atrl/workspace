@@ -1,0 +1,31 @@
+experiment: agentic_alpha_ensemble_search_v1
+card_type: validated_search
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  macro_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_ensemble_search_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  test:
+    start: 2019-01-02
+    end: 2026-06-09
+rgevd:
+  branch: multi_branch_ensemble
+  stages:
+    - research
+    - retrieve
+    - generate
+    - evaluate
+    - validate
+    - distill
+goal_gate:
+  baseline_card: production/qlib_paper_sim_v1
+  max_drawdown_floor: -20.0
+  require_return_above_baseline: true
+ensemble:
+  cost_per_turnover: 0.0003
+  lowhv_quantile: 0.70
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

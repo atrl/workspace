@@ -1,0 +1,67 @@
+{
+  "agentic_ensemble": {
+    "candidate_coverage_end": "2026-06-09",
+    "candidate_coverage_start": "2019-01-02",
+    "component_count": 6,
+    "cost_per_turnover": 0.0003,
+    "daily_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "feature_rows": 11193,
+    "macro_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1",
+    "selected_features": [
+      "TSMOM_STOP_SOXX_RET10",
+      "TSMOM_STOP_SOXX_RET252",
+      "CANARY_TREND60_AUTOCORR",
+      "SIGNED_OVERNIGHT_MOM20",
+      "MACRO_CREDIT_RATE_GATE"
+    ]
+  },
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "best_candidate": "agentic_multi_branch_ensemble_v1",
+  "branch_results": {
+    "multi_branch_ensemble": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "agentic_multi_branch_ensemble_v1",
+      "best_drawdown_gate_max_drawdown_pct": -19.700816471299355,
+      "best_drawdown_gate_return_pct": 8775.123636650942,
+      "best_return_candidate": "agentic_multi_branch_ensemble_v1",
+      "best_return_max_drawdown_pct": -19.700816471299355,
+      "best_return_pct": 8775.123636650942,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 2,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 1
+    }
+  },
+  "external_source_counts": {
+    "arxiv": 1,
+    "github": 2,
+    "paper": 5,
+    "twitter": 1
+  },
+  "goal_achieved": true,
+  "passes_both_count": 1,
+  "selected_features": [
+    "TSMOM_STOP_SOXX_RET10",
+    "TSMOM_STOP_SOXX_RET252",
+    "CANARY_TREND60_AUTOCORR",
+    "SIGNED_OVERNIGHT_MOM20",
+    "MACRO_CREDIT_RATE_GATE"
+  ],
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_ensemble_search"
+}

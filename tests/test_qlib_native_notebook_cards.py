@@ -1011,3 +1011,59 @@ def test_agentic_alpha_macro_credit_search_card_closes_macro_credit_branches():
     assert "R.start" in notebook_text
     assert "credit spread" in notebook_text
     assert "未找到同时满足" in conclusion
+
+
+def test_agentic_alpha_ensemble_search_card_records_passing_candidate():
+    card = ROOT / "research" / "agentic_alpha_ensemble_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_ensemble_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_ensemble_search_v1"
+    assert summary["card_type"] == "validated_search"
+    assert summary["promotion_decision"] == "promote_to_production_review"
+    assert summary["search_report"]["goal_achieved"] is True
+    assert summary["search_report"]["best_candidate"] == "agentic_multi_branch_ensemble_v1"
+    assert summary["search_report"]["passes_both_count"] >= 1
+    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
+    assert summary["goal_gate"] == {
+        "max_drawdown_floor": -20.0,
+        "require_return_above_baseline": True,
+    }
+    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
+    selected = summary["selected_candidate"]
+    assert selected["candidate"] == "agentic_multi_branch_ensemble_v1"
+    assert selected["return_pct"] > summary["baseline"]["return_pct"]
+    assert selected["max_drawdown_pct"] >= summary["goal_gate"]["max_drawdown_floor"]
+    assert selected["component_count"] == 6
+    assert set(summary["component_branches"]) == {
+        "canary_sprint_short_hold",
+        "macro_credit_rate_gate",
+        "signed_overnight_momentum",
+        "tsmom_stop",
+    }
+    assert summary["external_source_counts"] == {"arxiv": 1, "github": 2, "paper": 5, "twitter": 1}
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "candidate_metrics",
+        "component_summary",
+        "external_sources",
+        "failure_modes",
+        "search_summary",
+        "selected_model",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    selected_model = json.loads((card / summary["sidecars"]["selected_model"]).read_text(encoding="utf-8"))
+    assert "agentic_multi_branch_ensemble_v1" in candidates
+    assert "beats_baseline_and_drawdown_gate" in candidates
+    assert selected_model["candidate"] == "agentic_multi_branch_ensemble_v1"
+    assert len(selected_model["weights"]) == 6
+    assert summary["recorder_id"] in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "evaluate_agentic_ensemble_candidates" in notebook_text
+    assert "同时满足收益与回撤门禁" in conclusion

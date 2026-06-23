@@ -1,0 +1,23 @@
+{
+  "baseline_return_pct": 6570.0232821043,
+  "candidate": "agentic_multi_branch_ensemble_v1",
+  "component_branches": [
+    "canary_sprint_short_hold",
+    "macro_credit_rate_gate",
+    "signed_overnight_momentum",
+    "tsmom_stop"
+  ],
+  "cost_per_turnover": 0.0003,
+  "max_drawdown_floor": -20.0,
+  "max_drawdown_pct": -19.700816471299355,
+  "return_pct": 8775.123636650942,
+  "selection_basis": "highest return among candidates passing baseline and drawdown gates",
+  "weights": {
+    "canary_trend60_vix26_autocorr_h3_s1.0": 0.5144,
+    "macro_rate_risk20_trend50_risk0_s0.5": 0.3241,
+    "signed_overnight_mom20_n0.002_soxl60_vix45_s0.5": 0.3161,
+    "tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02": 0.0405,
+    "tsmom_soxx_ret10_th0_lowhv_q70_s1.0_stop0.02": 0.1473,
+    "tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03": 0.1577
+  }
+}
