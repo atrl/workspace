@@ -1,0 +1,48 @@
+{
+  "as_of": "2026-04-17",
+  "audit_snapshot_hash": "aa559ab00501e9ee",
+  "calendar_end": "2026-04-16",
+  "calendar_start": "2019-03-29",
+  "feature_file_count": 20,
+  "fields": [
+    "$close",
+    "$volume",
+    "$soxx_close",
+    "$soxx_volume",
+    "$vix",
+    "$vix9d",
+    "$vix3m",
+    "$vvix",
+    "$skew",
+    "$trend_20",
+    "$trend_60",
+    "$hv20",
+    "$vix9d_vix3m",
+    "$vix_vix3m",
+    "$vvix_vix",
+    "$vix9d_vix3m_z",
+    "$vix_vix3m_z",
+    "$vvix_vix_z",
+    "$skew_z",
+    "$vix_z"
+  ],
+  "freq": "day",
+  "hash": "45a2aae5ca2df963",
+  "instruments": [
+    "SOXL"
+  ],
+  "market": "all",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_tail_risk_external_v1",
+  "region": "us",
+  "row_count": 1772,
+  "source": "data/processed/panels/soxl_soxx_vix_full.csv+data/raw/external/VIX9D,VIX3M,VVIX,SKEW",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

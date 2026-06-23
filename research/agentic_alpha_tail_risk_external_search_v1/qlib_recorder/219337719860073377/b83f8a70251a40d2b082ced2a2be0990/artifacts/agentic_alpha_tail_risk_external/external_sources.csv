@@ -1,0 +1,8 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use Research/Retrieve/Generate/Evaluate/Validate/Distill to close each generated branch with evidence.,workflow_reference
+paper,Risk Premia and the VIX Term Structure,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2548050,VIX term-structure slope can summarize volatility risk-premium states and return opportunities.,web_retrieved
+paper,The SKEW Index: Extracting What Has Been Left,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3121027,SKEW proxies downside tail-risk expectations and can warn about future market downturn states.,web_retrieved
+paper,Volatility of Volatility and Tail Risk Premiums,https://www.federalreserve.gov/pubs/feds/2013/201354/index.html,"VVIX represents volatility-of-volatility and tail-risk hedge demand, so it is tested as a crash-risk throttle.",web_retrieved
+paper,Cboe VIX Term Structure,https://www.cboe.com/tradable-products/vix/term-structure/,"VIX9D, VIX, and VIX3M jointly describe short-vs-medium volatility sentiment and backwardation.",web_retrieved
+arxiv,Compounding effects in leveraged ETFs,https://arxiv.org/html/2504.20116v1,"LETF path returns depend on trend persistence versus volatility clustering, motivating risk throttles.",prior_retrieval_seed
+twitter,SOXL drawdown and volatility discussion seed,https://x.com/ces921/highlights,Treat SOXL as regime-sensitive; volatility and drawdown state must gate raw leverage.,search_seed

@@ -524,3 +524,67 @@ def test_agentic_alpha_ml_pair_search_card_closes_crash_model_and_pair_hedge_bra
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
     assert "未找到同时满足" in conclusion
+
+
+def test_agentic_alpha_tail_risk_external_search_card_records_external_store_and_goal_gate():
+    card = ROOT / "research" / "agentic_alpha_tail_risk_external_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_tail_risk_external_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_tail_risk_external_search_v1"
+    assert summary["card_type"] == "diagnostic_search"
+    assert summary["promotion_decision"] == "not_promoted"
+    assert summary["search_report"]["goal_achieved"] is False
+    assert summary["search_report"]["best_candidate"] is None
+    assert summary["search_report"]["passes_both_count"] == 0
+    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
+    assert summary["goal_gate"] == {
+        "max_drawdown_floor": -20.0,
+        "require_return_above_baseline": True,
+    }
+    assert summary["external_data"]["source_fields"] == ["VIX9D", "VIX3M", "VVIX", "SKEW"]
+    assert summary["external_data"]["source_coverage_end"] == "2026-04-17"
+    assert summary["external_data"]["candidate_coverage_end"] == "2026-04-16"
+    assert summary["external_data"]["provider_manifest"] == "data/qlib/soxl_tail_risk_external_v1/qlib_store_manifest.json"
+    assert (ROOT / summary["external_data"]["provider_manifest"]).exists()
+    assert set(summary["branch_results"]) == {
+        "tail_risk_term_structure_ensemble",
+        "vol_target_tail_risk_throttle",
+    }
+    for result in summary["branch_results"].values():
+        assert result["best_return_pct"] < summary["baseline"]["return_pct"]
+        assert result["best_return_max_drawdown_pct"] < -20.0
+        assert result["best_drawdown_gate_return_pct"] < summary["baseline"]["return_pct"]
+        assert result["best_drawdown_gate_max_drawdown_pct"] >= -20.0
+    assert summary["external_source_counts"] == {"arxiv": 1, "github": 1, "paper": 4, "twitter": 1}
+    assert summary["qlib_docs"] == {
+        "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+        "model": "https://qlib.readthedocs.io/en/latest/component/model.html",
+        "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    }
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "candidate_metrics",
+        "external_sources",
+        "failure_modes",
+        "qlib_store_manifest",
+        "search_summary",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "tail_risk_term_structure_ensemble" in candidates
+    assert "vol_target_tail_risk_throttle" in candidates
+    assert "drawdown_gate" in candidates
+    assert "return_gate" in candidates
+    assert summary["recorder_id"] in notebook_text
+    assert "build_qlib_store_from_frame" in notebook_text
+    assert "VIX9D" in notebook_text
+    assert "VIX3M" in notebook_text
+    assert "VVIX" in notebook_text
+    assert "SKEW" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "未找到同时满足" in conclusion

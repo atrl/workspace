@@ -246,3 +246,81 @@ def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(t
     assert summary["stage_order"] == ["research", "retrieve", "generate", "evaluate", "validate", "distill"]
     assert summary["decision_counts"]["Promote"] == 1
     assert summary["recorder_first"] is True
+
+
+def test_tail_risk_external_features_and_candidate_gates_are_src_owned():
+    from src.factor import (
+        build_tail_risk_external_frame,
+        evaluate_tail_risk_candidate,
+        summarize_tail_risk_branch,
+    )
+
+    dates = pd.date_range("2026-01-02", periods=80, freq="B")
+    panel = pd.DataFrame(
+        {
+            "date": dates,
+            "soxl_close": [20.0 * (1.01**index) for index in range(len(dates))],
+            "soxl_volume": 1_000_000,
+            "soxx_close": [100.0 * (1.003**index) for index in range(len(dates))],
+            "soxx_volume": 500_000,
+            "vix": 16.0,
+        }
+    )
+    vix9d = pd.DataFrame({"DATE": dates, "CLOSE": 14.0})
+    vix3m = pd.DataFrame({"DATE": dates, "CLOSE": 18.0})
+    vvix = pd.DataFrame({"DATE": dates, "VVIX": 85.0})
+    skew = pd.DataFrame({"DATE": dates, "SKEW": 130.0})
+
+    features = build_tail_risk_external_frame(
+        panel=panel,
+        vix9d=vix9d,
+        vix3m=vix3m,
+        vvix=vvix,
+        skew=skew,
+        start="2026-01-02",
+        end="2026-04-30",
+    )
+
+    assert {
+        "datetime",
+        "next_return",
+        "trend_20",
+        "trend_60",
+        "hv20",
+        "vix9d_vix3m",
+        "vix9d_vix3m_z",
+        "vvix_vix_z",
+        "skew_z",
+    }.issubset(features.columns)
+    assert features["datetime"].is_monotonic_increasing
+
+    promoted = evaluate_tail_risk_candidate(
+        features,
+        branch="tail_risk_term_structure_ensemble",
+        candidate="synthetic_promoted",
+        exposure=[1.0] * len(features),
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+        params={"scale": 1.0},
+    )
+    failed_return_gate = evaluate_tail_risk_candidate(
+        features,
+        branch="tail_risk_term_structure_ensemble",
+        candidate="synthetic_return_gate",
+        exposure=[0.0] * len(features),
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+        params={"scale": 0.0},
+    )
+    summary = summarize_tail_risk_branch(
+        pd.DataFrame([promoted, failed_return_gate]),
+        branch="tail_risk_term_structure_ensemble",
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+    )
+
+    assert promoted["decision"] == "Promote"
+    assert failed_return_gate["decision"] == "Iterate"
+    assert failed_return_gate["decision_basis"] == "return_gate"
+    assert summary["passes_both_count"] == 1
+    assert summary["best_drawdown_gate_max_drawdown_pct"] >= -20.0
