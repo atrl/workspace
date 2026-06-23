@@ -66,6 +66,150 @@ def test_agentic_alpha_workflow_manifest_keeps_external_workflow_inside_src_boun
     assert json.loads(output.read_text(encoding="utf-8"))["route"] == "sfa"
 
 
+def test_agentic_alpha_rgevd_search_distills_external_knowledge_and_risk_gate():
+    from src.workflow import (
+        AgenticAlphaBacktestMetric,
+        AgenticAlphaKnowledgeSource,
+        AgenticAlphaSearchCandidate,
+        build_agentic_alpha_hypotheses,
+        distill_agentic_alpha_search,
+    )
+
+    sources = [
+        AgenticAlphaKnowledgeSource(
+            source_type="github",
+            title="agentic-alpha R-G-E-V-D workflow",
+            url="https://github.com/JacobDu/agentic-alpha",
+            extracted_signal="research retrieve generate evaluate validate distill factor mining",
+            tags=("workflow", "factor"),
+        ),
+        AgenticAlphaKnowledgeSource(
+            source_type="paper",
+            title="Conditional volatility targeting",
+            url="https://alphaarchitect.com/conditional-volatility-targeting/",
+            extracted_signal="conditional volatility targeting reduces drawdown and tail risk",
+            tags=("volatility", "risk"),
+        ),
+        AgenticAlphaKnowledgeSource(
+            source_type="twitter",
+            title="Leveraged ETF regime thread",
+            url="https://x.com/ces921/highlights",
+            extracted_signal="levered ETF rebalancing loop and SOXL flow can amplify regime risk",
+            tags=("trend", "regime"),
+        ),
+        AgenticAlphaKnowledgeSource(
+            source_type="arxiv",
+            title="Compounding effects in leveraged ETFs",
+            url="https://arxiv.org/html/2504.20116v1",
+            extracted_signal="return autocorrelation and volatility clustering drive LETF compounding",
+            tags=("autocorrelation", "volatility"),
+        ),
+    ]
+
+    hypotheses = build_agentic_alpha_hypotheses(sources)
+
+    assert [item.stage for item in hypotheses] == ["generate", "generate"]
+    assert hypotheses[0].theme == "volatility_targeted_trend"
+    assert hypotheses[0].source_types == ("arxiv", "github", "paper", "twitter")
+    assert "target volatility" in hypotheses[0].candidate_logic
+
+    baseline = AgenticAlphaBacktestMetric(
+        name="production_qlib_paper_sim_v1",
+        return_pct=6570.0232821043,
+        max_drawdown_pct=-85.23168365,
+        benchmark_return_pct=3530.8157772578,
+        recorder_id="e0b5ed66c6514873b2fc79f2aec5874c",
+    )
+    candidates = [
+        AgenticAlphaSearchCandidate(
+            name="vol_target_trend_candidate",
+            hypothesis_id=hypotheses[0].hypothesis_id,
+            source_urls=hypotheses[0].source_urls,
+            metric=AgenticAlphaBacktestMetric(
+                name="vol_target_trend_candidate",
+                return_pct=7000.0,
+                max_drawdown_pct=-18.5,
+                benchmark_return_pct=3530.8157772578,
+                recorder_id="candidate-recorder",
+            ),
+        ),
+        AgenticAlphaSearchCandidate(
+            name="return_only_candidate",
+            hypothesis_id=hypotheses[1].hypothesis_id,
+            source_urls=hypotheses[1].source_urls,
+            metric=AgenticAlphaBacktestMetric(
+                name="return_only_candidate",
+                return_pct=8000.0,
+                max_drawdown_pct=-42.0,
+                benchmark_return_pct=3530.8157772578,
+                recorder_id="bad-risk-recorder",
+            ),
+        ),
+    ]
+
+    report = distill_agentic_alpha_search(
+        sources=sources,
+        hypotheses=hypotheses,
+        candidates=candidates,
+        baseline=baseline,
+        max_drawdown_floor=-20.0,
+        require_return_above_baseline=True,
+    )
+    rows = report.candidate_metrics.set_index("candidate")
+
+    assert report.workflow == "agentic_alpha_rgevd_search"
+    assert report.summary["stage_order"] == ["research", "retrieve", "generate", "evaluate", "validate", "distill"]
+    assert report.summary["external_source_counts"] == {"arxiv": 1, "github": 1, "paper": 1, "twitter": 1}
+    assert report.summary["goal_achieved"] is True
+    assert report.summary["best_candidate"] == "vol_target_trend_candidate"
+    assert rows.loc["vol_target_trend_candidate", "decision"] == "Promote"
+    assert rows.loc["vol_target_trend_candidate", "beats_baseline_return"] is True
+    assert rows.loc["vol_target_trend_candidate", "passes_drawdown_gate"] is True
+    assert rows.loc["return_only_candidate", "decision"] == "Drop"
+    assert rows.loc["return_only_candidate", "decision_basis"] == "drawdown_gate"
+
+
+def test_agentic_alpha_loads_baseline_metric_from_qlib_card_sidecars(tmp_path):
+    from src.workflow import load_agentic_alpha_backtest_metric
+
+    card = tmp_path / "production_card"
+    card.mkdir()
+    (card / "summary.json").write_text(
+        json.dumps(
+            {
+                "experiment": "production_qlib_paper_sim_v1",
+                "recorder_id": "recorder-123",
+            },
+            sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [
+            {
+                "window": "test",
+                "strategy_return_pct": 6570.0232821043,
+                "benchmark_return_pct": 3530.8157772578,
+                "max_drawdown_pct": -85.23168365,
+            },
+            {
+                "window": "stress",
+                "strategy_return_pct": 10.0,
+                "benchmark_return_pct": 8.0,
+                "max_drawdown_pct": -5.0,
+            },
+        ]
+    ).to_csv(card / "backtest_window_metrics.csv", index=False)
+
+    metric = load_agentic_alpha_backtest_metric(card, window="test")
+
+    assert metric.name == "production_qlib_paper_sim_v1"
+    assert metric.recorder_id == "recorder-123"
+    assert metric.return_pct == 6570.0232821043
+    assert metric.benchmark_return_pct == 3530.8157772578
+    assert metric.max_drawdown_pct == -85.23168365
+
+
 def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
     from src.factor import validate_agentic_alpha_factors
 
