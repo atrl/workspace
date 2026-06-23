@@ -7,6 +7,11 @@ workflow evidence, analysis artifacts, and notebook-backed conclusions.
 The current rebuild direction is defined in `SPEC.md`. Do not use chat history
 as durable state.
 
+Default artifact posture: qlib research and production work is
+notebook-first, recorder-first, and slim-card by default. The card root is the
+human and machine entry surface; large predictions, signal outputs, portfolio
+reports, positions, and all-model prediction matrices live in the qlib recorder.
+
 ## Qlib Docs And Skill Requirements
 
 These requirements are mandatory for all substantial work in this repository:
@@ -41,8 +46,11 @@ Before substantial work:
   reproducible snapshots.
 - `src/`: reusable project modules for core contracts, data, factors, models,
   objectives, backtesting, analysis, dashboard exports, schedules, and adapters.
-- `research/<experiment>/`: research notebooks and card-local sidecars.
-- `production/<strategy>/`: promoted strategy notebooks and sidecars.
+- `research/<experiment>/`: research notebooks, slim card-local sidecars, and
+  qlib recorder evidence.
+- `production/<strategy>/`: promoted strategy notebooks, slim card-local
+  sidecars, fixed strategy inputs, paper/sim outputs, and qlib recorder
+  evidence.
 - `tests/`: contract, data, factor, objective, model, backtest, analysis,
   dashboard/export, schedule, and paper-adapter tests.
 - `.codex/skills/`: methodology and workflow guidance only.
@@ -81,6 +89,39 @@ Chinese conclusion cell covering:
 
 CSV and JSON sidecars support the notebook. They do not replace the conclusion.
 
+## Qlib Card Contract
+
+Every qlib research or production card must keep these root files small and
+reviewable:
+
+- `<experiment>.ipynb` or `<strategy>.ipynb`
+- `workflow.yaml`
+- `summary.json`
+- `conclusion.md`
+- selected-model metadata and small model-selection/analysis/backtest/risk
+  summaries such as `selected_model.json`, `model_selection.csv`,
+  `risk_analysis.csv`, `backtest_benchmark_comparison.csv`,
+  `analysis_summary.json`, `regime_metrics.csv`, and `window_metrics.csv`
+
+The following artifacts are recorder-only unless a task explicitly asks for a
+temporary local export and that export is removed before commit:
+
+- `predictions.csv`
+- `signals.csv`
+- `all_model_predictions.csv`
+- `portfolio_report.csv`
+- `qlib_portfolio_report.csv`
+- `qlib_positions.csv`
+
+`summary.json` must include `artifact_policy.policy:
+slim_card_recorder_first`, `artifact_policy.workflow_config`, and
+`artifact_policy.recorder_only_artifacts` for qlib cards.
+
+Search cards may be diagnostic and may record a candidate that fails the legacy
+or benchmark comparison. Validated research cards and production cards are the
+promotion gates; they must record the direct benchmark comparison and state the
+promotion decision in the notebook conclusion.
+
 ## Artifact Control
 
 Generated artifacts must be controlled, reviewable, and tied to a notebook,
@@ -106,6 +147,10 @@ manifest, or data snapshot.
 - Rebuild runtime or artifact indexes only in a workspace that has the complete
   expected artifact set. Do not treat an index rebuilt from a partial worktree as
   repo-wide truth.
+- Remove obsolete rollback backups, RL-era checkpoints, local training caches,
+  scheduler logs, root screenshots, and root one-off result text files when they
+  are not referenced by a qlib notebook, `summary.json`, `workflow.yaml`,
+  manifest, or registry row.
 - Before every commit, run `git status --short` and inspect the staged diff so
   unrelated generated files are not included.
 
@@ -136,12 +181,12 @@ Move concrete paths, results, parameters, manifests, and project state into
 
 ## Verification
 
-Use the shared Python environment from the parent checkout when this repo is in a
-worktree:
+Use the repo qlib environment for validation:
 
 ```bash
-PYTHONPATH=. /Users/rziiiii/dev/workspace/qlib_venv/bin/python -m pytest tests/test_soxlbacktest_framework.py tests/test_soxlbacktest_architecture.py -q
-PYTHONPATH=. /Users/rziiiii/dev/workspace/qlib_venv/bin/python -m nbconvert --execute runtime/model_selection/card/soxlbacktest_qlib_reference_v1/soxlbacktest_qlib_reference_v1.ipynb --to notebook --inplace
+PYTHONPATH=. qlib_venv/bin/python -m pytest tests/test_qlib_native_workflow.py tests/test_qlib_model_selection_validation.py tests/test_qlib_native_notebook_cards.py -q
+PYTHONPATH=. qlib_venv/bin/python -m pytest -q
+PYTHONPATH=. qlib_venv/bin/python -m nbconvert --execute research/<experiment>/<experiment>.ipynb --to notebook --inplace
 ```
 
 For new rebuild work, add focused verification that matches the changed layer.

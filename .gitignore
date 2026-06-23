@@ -25,10 +25,20 @@ Thumbs.db
 
 # Logs and local orchestration
 *.log
+*.err
 logs/
 log/
 .kimi/
 .worktrees/
+
+# Local cleanup residue from retired workflows
+.rollback_backup_*/
+data/cache/
+data/soxl_profile_*.pkl
+runtime/data/
+runtime/model/
+runtime/soxl/
+soxl_qlib_strategy_v2.*
 
 # Secrets
 .env

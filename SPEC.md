@@ -34,6 +34,40 @@
   - `src/dashboard`、`src/schedule`、`src/api` 只能读取 qlib recorder 或由 qlib recorder 登记的 manifest/export。
 - 如果 qlib 不可用、provider_uri 不存在、recorder 写入失败、Dataset 无法构建，任务必须 fail closed，并明确写出 `blocked: qlib unavailable` 或具体缺失项；不得降级为 pandas-only 或 fake qlib。
 
+## 产物合同
+
+qlib research/production card 必须使用瘦根目录、recorder-first 的产物结构。
+
+- 每个 card 根目录必须保留：
+  - 主 notebook：`<experiment>.ipynb` 或 `<strategy>.ipynb`。
+  - `workflow.yaml`：记录 provider_uri、recorder_uri、market/region、segments、model_selection 和 artifact_policy。
+  - `summary.json`：机器入口，必须包含 recorder id/path、qlib artifact 列表、sidecars、benchmark、model_selection 和 artifact_policy。
+  - `conclusion.md` 和 notebook 中文结论 cell。
+  - 小型 sidecar：`selected_model.json`、`model_selection.csv`、`risk_analysis.csv`、`backtest_benchmark_comparison.csv`、`backtest_window_metrics.csv`、`backtest_walk_forward_metrics.csv`、`analysis_summary.json`、`regime_metrics.csv`、`window_metrics.csv`、`model_comparison.csv`、`explainability.csv`、`failure_modes.md`。
+- `summary.json.artifact_policy.policy` 必须是 `slim_card_recorder_first`。
+- `summary.json.artifact_policy.recorder_only_artifacts` 必须明确指向 qlib recorder 中的：
+  - `artifacts/pred.pkl`
+  - `artifacts/label.pkl`
+  - `artifacts/model_selection/all_model_predictions.csv`
+  - `artifacts/portfolio_analysis/report_normal_1day.pkl`
+  - `artifacts/portfolio_analysis/positions_normal_1day.pkl`
+  - `artifacts/portfolio_analysis/port_analysis_1day.pkl`
+- 以下文件不得作为 card 根目录持久产物提交，除非任务明确要求临时导出且提交前删除：
+  - `predictions.csv`
+  - `signals.csv`
+  - `all_model_predictions.csv`
+  - `portfolio_report.csv`
+  - `qlib_portfolio_report.csv`
+  - `qlib_positions.csv`
+- `model_results.csv` 不是默认产物。模型比较应统一写入 `model_selection.csv`、`model_comparison.csv` 和 qlib recorder；只有外部系统明确要求单文件聚合时才生成，并必须在 `summary.json` 说明用途。
+
+## 晋升语义
+
+- `research/qlib_native_reference_v1` 类 card 是 qlib 原生链路验收，不承担生产晋升。
+- search card 可以是诊断卡：允许记录没有跑赢 benchmark 或 legacy SOXL rulebase 的候选，但结论必须写清“不晋升”和失败原因。
+- validated card 是晋升前研究门：必须固定评估窗口、直接 benchmark、成本/滑点、风险说明，并记录是否超过直接比较基准。
+- production paper/sim card 是生产门：必须复用 validated 参数或明确记录固定参数来源，直接从 qlib recorder 读取预测/组合证据，不读取根目录大 CSV。
+
 ## 禁止的伪 qlib 实现
 
 以下实现一律不算完成：
@@ -111,6 +145,7 @@
 - `production/<strategy>/<strategy>.ipynb`: 生产 paper/sim 入口，必须包含固定参数、qlib data/Dataset、qlib recorder、运行输入输出、风险说明。
 - 每个 notebook 最后必须有中文结论 cell：做了什么、核心指标、regime 差异、是否晋升、风险、下一步、qlib recorder id。
 - CSV/JSON 是 sidecar，不能替代 notebook 结论，也不能替代 qlib recorder。
+- 如果 notebook 需要读取预测或组合明细，优先从 `summary.json.recorder_local_dir` 下的 qlib recorder artifact 读取，不从 card 根目录大 CSV 读取。
 
 ## 测试计划
 
@@ -138,6 +173,7 @@
 3. focused tests 覆盖 qlib 强制路径和 fail-closed 路径。
 4. notebook 已执行，中文结论和 sidecars 与 qlib recorder 结果一致。
 5. 没有把 skill、pandas-only 脚本、散落 CSV、临时 cache 当作主工作流。
+6. card 根目录没有持久化 recorder-only 大 CSV，`summary.json.artifact_policy` 能说明所有保留与 recorder-only 产物。
 
 ## 假设
 
