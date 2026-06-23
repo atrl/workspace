@@ -405,3 +405,61 @@ def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate(
     assert "R.start" in notebook_text
     assert "LGBMClassifier" in notebook_text
     assert "未找到同时满足" in conclusion
+
+
+def test_agentic_alpha_budget_overlay_search_card_closes_cppi_tipp_branch():
+    card = ROOT / "research" / "agentic_alpha_budget_overlay_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_budget_overlay_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_budget_overlay_search_v1"
+    assert summary["card_type"] == "diagnostic_search"
+    assert summary["promotion_decision"] == "not_promoted"
+    assert summary["search_report"]["goal_achieved"] is False
+    assert summary["search_report"]["best_candidate"] is None
+    assert summary["search_report"]["passes_both_count"] == 0
+    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
+    assert summary["goal_gate"] == {
+        "max_drawdown_floor": -20.0,
+        "require_return_above_baseline": True,
+    }
+    assert set(summary["branch_results"]) == {
+        "production_signal_budget_overlay",
+        "tipp_budget_overlay",
+    }
+    hard_gate = summary["branch_results"]["production_signal_budget_overlay"]
+    tipp = summary["branch_results"]["tipp_budget_overlay"]
+    assert hard_gate["best_return_pct"] > summary["baseline"]["return_pct"]
+    assert hard_gate["best_return_max_drawdown_pct"] < -20.0
+    assert hard_gate["best_drawdown_gate_return_pct"] < summary["baseline"]["return_pct"]
+    assert hard_gate["best_drawdown_gate_max_drawdown_pct"] >= -20.0
+    assert tipp["best_drawdown_gate_return_pct"] < summary["baseline"]["return_pct"]
+    assert tipp["best_drawdown_gate_max_drawdown_pct"] >= -20.0
+    assert summary["external_source_counts"] == {"arxiv": 1, "github": 1, "paper": 2, "twitter": 1}
+    assert summary["qlib_docs"] == {
+        "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+        "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    }
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "candidate_metrics",
+        "external_sources",
+        "failure_modes",
+        "search_summary",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "production_signal_budget_overlay" in candidates
+    assert "tipp_budget_overlay" in candidates
+    assert "drawdown_gate" in candidates
+    assert "return_gate" in candidates
+    assert summary["recorder_id"] in notebook_text
+    assert "CPPI" in notebook_text
+    assert "TIPP" in notebook_text
+    assert "pred.pkl" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "未找到同时满足" in conclusion

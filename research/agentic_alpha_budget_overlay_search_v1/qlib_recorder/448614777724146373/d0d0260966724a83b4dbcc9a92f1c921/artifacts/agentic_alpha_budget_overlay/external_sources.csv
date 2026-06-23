@@ -1,0 +1,6 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Close each generated branch with evidence: high return alone is insufficient when validation rejects drawdown.,workflow_reference
+arxiv,Compounding Effects in Leveraged ETFs,https://arxiv.org/html/2504.20116v1,Leveraged ETF compounding benefits from persistent trends but is harmed by volatility clustering.,prior_retrieval_seed
+paper,Conditional volatility targeting,https://alphaarchitect.com/conditional-volatility-targeting/,Reduce exposure in extreme volatility states and retain exposure in lower-risk states.,web_retrieved
+paper,CPPI / TIPP portfolio insurance overlays,https://quantpedia.com/introduction-to-cppi-constant-proportion-portfolio-insurance/,"Use a floor, cushion, multiplier, and cap to preserve upside while constraining drawdown budget.",web_retrieved
+twitter,SOXL volatility and drawdown risk discussion,https://x.com/Alpha_Ex_LLC/status/2067644619462938886,"SOXL risk controls need to react to volatility and drawdown state, not only raw signal strength.",search_snippet_seed
