@@ -1,0 +1,217 @@
+diff --git a/src/factor/__init__.py b/src/factor/__init__.py
+index cf1fe275..ad311543 100644
+--- a/src/factor/__init__.py
++++ b/src/factor/__init__.py
+@@ -23,6 +23,12 @@ from .long_short_crisis_alpha import (
+     evaluate_long_short_crisis_alpha_candidates,
+     summarize_long_short_crisis_alpha_branch,
+ )
++from .macro_credit import (
++    build_macro_credit_frame,
++    compact_macro_credit_summary,
++    evaluate_macro_credit_candidates,
++    summarize_macro_credit_branch,
++)
+ from .meta_label_probability_gate import (
+     build_meta_label_probability_frame,
+     compact_meta_label_probability_summary,
+@@ -50,12 +56,14 @@ __all__ = [
+     "build_cross_asset_price_frame",
+     "build_factor_library_reversal_frame",
+     "build_long_short_crisis_alpha_frame",
++    "build_macro_credit_frame",
+     "build_meta_label_probability_frame",
+     "build_session_effect_frame",
+     "build_tail_risk_external_frame",
+     "compact_canary_sprint_summary",
+     "compact_factor_library_search_summary",
+     "compact_long_short_crisis_alpha_summary",
++    "compact_macro_credit_summary",
+     "compact_meta_label_probability_summary",
+     "compact_session_effect_summary",
+     "combine_qlib_factor_scores",
+@@ -63,6 +71,7 @@ __all__ = [
+     "evaluate_cross_asset_rotation_candidates",
+     "evaluate_factor_library_reversal_candidates",
+     "evaluate_long_short_crisis_alpha_candidates",
++    "evaluate_macro_credit_candidates",
+     "evaluate_meta_label_probability_candidates",
+     "evaluate_probability_gate_grid",
+     "evaluate_session_effect_candidates",
+@@ -72,6 +81,7 @@ __all__ = [
+     "summarize_cross_asset_branch",
+     "summarize_factor_library_reversal_branch",
+     "summarize_long_short_crisis_alpha_branch",
++    "summarize_macro_credit_branch",
+     "summarize_meta_label_probability_branch",
+     "summarize_session_effect_branch",
+     "summarize_tail_risk_branch",
+diff --git a/tests/test_agentic_alpha_workflow.py b/tests/test_agentic_alpha_workflow.py
+index 06ce3442..8c43081d 100644
+--- a/tests/test_agentic_alpha_workflow.py
++++ b/tests/test_agentic_alpha_workflow.py
+@@ -804,3 +804,89 @@ def test_session_effect_features_and_candidate_gates_are_src_owned():
+     assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
+     assert summary["passes_both_count"] >= 0
+     assert set(summary["branch_results"]) == set(metrics["branch"])
++
++
++def test_macro_credit_rate_features_and_candidate_gates_are_src_owned():
++    from src.factor import (
++        build_macro_credit_frame,
++        compact_macro_credit_summary,
++        evaluate_macro_credit_candidates,
++    )
++
++    dates = pd.date_range("2025-01-02", periods=140, freq="B")
++    soxl_close = []
++    soxx_close = []
++    price = 20.0
++    for index, _ in enumerate(dates):
++        if index % 31 in {0, 1, 2, 3}:
++            price *= 0.96
++        else:
++            price *= 1.008
++        soxl_close.append(price)
++        soxx_close.append(100.0 * (1.0015**index))
++
++    rows = []
++    for date, soxl_price, soxx_price, index in zip(dates, soxl_close, soxx_close, range(len(dates))):
++        rows.append(
++            {
++                "instrument": "SOXL",
++                "datetime": date,
++                "$soxl_close": soxl_price,
++                "$soxx_close": soxx_price,
++                "$yc10y2y": -0.20 if index % 50 < 12 else 0.80,
++                "$yc10y3m": -0.10 if index % 55 < 10 else 1.10,
++                "$credit_baa": 2.0 + (0.7 if index % 40 < 8 else 0.0),
++                "$baa_yield": 5.0 + (0.8 if index % 45 < 9 else 0.0),
++                "$hy_spread": 4.0 + (1.0 if index % 37 < 7 else 0.0),
++                "$dxy": 100.0 + (index % 23) * 0.2,
++                "$oil": 70.0 + (index % 29) * 0.3,
++            }
++        )
++    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
++
++    features = build_macro_credit_frame(
++        qlib_frame,
++        start="2025-03-01",
++        end="2025-07-15",
++        min_history=10,
++    )
++    metrics = evaluate_macro_credit_candidates(
++        features,
++        baseline_return_pct=5.0,
++        max_drawdown_floor=-20.0,
++        risk_windows=[20],
++        trend_windows=[20, 50],
++        risk_thresholds=[0.0, 2.0],
++        scales=[0.5, 1.0],
++        composite_bases=[0.5],
++        composite_trend_weights=[0.5],
++        composite_risk_weights=[0.5],
++        vol_targets=[0.4],
++        stop_windows=[42],
++        stop_levels=[-0.2],
++        reentry_thresholds=[0.0],
++    )
++    summary = compact_macro_credit_summary(
++        metrics,
++        branches=sorted(metrics["branch"].unique()),
++        baseline_return_pct=5.0,
++        max_drawdown_floor=-20.0,
++    )
++
++    assert {
++        "next_return",
++        "soxx_trend20",
++        "soxl_hv20",
++        "macro_risk_score20",
++        "credit_baa_z20",
++        "rolling_drawdown42",
++    }.issubset(features.columns)
++    assert features["datetime"].is_monotonic_increasing
++    assert set(metrics["branch"]) == {
++        "macro_composite_throttle",
++        "macro_credit_rate_gate",
++        "trend_drawdown_stop",
++    }
++    assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
++    assert summary["passes_both_count"] >= 0
++    assert set(summary["branch_results"]) == set(metrics["branch"])
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index 592c4c16..0dd4ceec 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -944,3 +944,70 @@ def test_agentic_alpha_session_effect_search_card_closes_overnight_intraday_bran
+     assert "R.start" in notebook_text
+     assert "overnight" in notebook_text
+     assert "未找到同时满足" in conclusion
++
++
++def test_agentic_alpha_macro_credit_search_card_closes_macro_credit_branches():
++    card = ROOT / "research" / "agentic_alpha_macro_credit_search_v1"
++    summary = _summary(card)
++    notebook_text = (card / "agentic_alpha_macro_credit_search_v1.ipynb").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "agentic_alpha_macro_credit_search_v1"
++    assert summary["card_type"] == "diagnostic_search"
++    assert summary["promotion_decision"] == "not_promoted"
++    assert summary["search_report"]["goal_achieved"] is False
++    assert summary["search_report"]["passes_both_count"] == 0
++    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
++    assert summary["goal_gate"] == {
++        "max_drawdown_floor": -20.0,
++        "require_return_above_baseline": True,
++    }
++    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
++    assert set(summary["branch_results"]) == {
++        "macro_composite_throttle",
++        "macro_credit_rate_gate",
++        "trend_drawdown_stop",
++    }
++    for result in summary["branch_results"].values():
++        assert result["coverage_end"] == "2026-06-08"
++        assert result["passes_both_count"] == 0
++    assert summary["macro_credit"]["selected_features"] == [
++        "SOXL_CLOSE",
++        "SOXX_TREND",
++        "YIELD_CURVE",
++        "CREDIT_SPREAD",
++        "BAA_YIELD",
++        "DXY",
++        "OIL",
++    ]
++    assert summary["macro_credit_data"]["provider_manifest"] == (
++        "data/qlib/soxl_macro_credit_v1/qlib_store_manifest.json"
++    )
++    assert (ROOT / summary["macro_credit_data"]["provider_manifest"]).exists()
++    assert summary["external_source_counts"] == {"arxiv": 1, "github": 2, "paper": 3, "twitter": 1}
++    assert summary["qlib_native_api"] == [
++        "qlib.init",
++        "qlib.data.D.features",
++        "qlib.workflow.R.start",
++        "build_qlib_store_from_frame",
++    ]
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert set(summary["sidecars"]) == {
++        "candidate_metrics",
++        "external_sources",
++        "failure_modes",
++        "qlib_store_manifest",
++        "search_summary",
++    }
++    for rel_path in summary["sidecars"].values():
++        assert (card / rel_path).exists(), rel_path
++
++    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
++    assert "macro_credit_rate_gate" in candidates
++    assert "macro_composite_throttle" in candidates
++    assert "trend_drawdown_stop" in candidates
++    assert summary["recorder_id"] in notebook_text
++    assert "D.features" in notebook_text
++    assert "R.start" in notebook_text
++    assert "credit spread" in notebook_text
++    assert "未找到同时满足" in conclusion

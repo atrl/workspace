@@ -1,0 +1,31 @@
+experiment: agentic_alpha_macro_credit_search_v1
+route: research
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_macro_credit_search_v1/qlib_recorder
+market: all
+region: us
+data_range:
+  start: 2019-01-02
+  end: 2026-06-09
+agentic_alpha:
+  source: https://github.com/JacobDu/agentic-alpha
+  stage_order:
+    - research
+    - retrieve
+    - generate
+    - evaluate
+    - validate
+    - distill
+goal_gate:
+  baseline_card: production/qlib_paper_sim_v1
+  require_return_above_baseline: true
+  max_drawdown_floor: -20.0
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - macro_credit_full_candidate_grid.csv
+    - predictions
+    - signals
+    - portfolio_report
+    - positions

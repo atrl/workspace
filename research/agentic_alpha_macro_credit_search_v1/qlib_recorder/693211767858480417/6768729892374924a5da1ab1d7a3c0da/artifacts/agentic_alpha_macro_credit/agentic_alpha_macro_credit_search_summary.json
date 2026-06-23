@@ -1,0 +1,76 @@
+{
+  "best_candidate": null,
+  "branch_results": {
+    "macro_composite_throttle": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "risklb63_trend100_b0.5_tw0.75_rw1.5_vol0.4",
+      "best_drawdown_gate_max_drawdown_pct": -19.034842966937447,
+      "best_drawdown_gate_return_pct": 762.1911178756474,
+      "best_drawdown_gate_trade_count": 618,
+      "best_return_candidate": "risklb20_trend50_b1_tw0.75_rw1.5_volNone",
+      "best_return_max_drawdown_pct": -80.05498132184341,
+      "best_return_pct": 48364.94942832572,
+      "best_return_trade_count": 892,
+      "coverage_end": "2026-06-08",
+      "coverage_start": "2019-01-31",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 19200,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "macro_credit_rate_gate": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "risklb20_trend50_risk0_scale0.5",
+      "best_drawdown_gate_max_drawdown_pct": -17.95142582300313,
+      "best_drawdown_gate_return_pct": 392.5877012909598,
+      "best_drawdown_gate_trade_count": 218,
+      "best_return_candidate": "risklb42_trend50_risk1_scale2.5",
+      "best_return_max_drawdown_pct": -80.3446511138568,
+      "best_return_pct": 83085.31694421206,
+      "best_return_trade_count": 540,
+      "coverage_end": "2026-06-08",
+      "coverage_start": "2019-01-31",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 2240,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "trend_drawdown_stop": {
+      "best_drawdown_gate_available": false,
+      "best_drawdown_gate_candidate": null,
+      "best_drawdown_gate_max_drawdown_pct": null,
+      "best_drawdown_gate_return_pct": null,
+      "best_drawdown_gate_trade_count": null,
+      "best_return_candidate": "lb126_stop-0.3_re0.02_scale1.25",
+      "best_return_max_drawdown_pct": -61.013319994445034,
+      "best_return_pct": 1597.8496056687557,
+      "best_return_trade_count": 1040,
+      "coverage_end": "2026-06-08",
+      "coverage_start": "2019-01-31",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 2016,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    }
+  },
+  "goal_achieved": false,
+  "passes_both_count": 0,
+  "selected_features": [
+    "SOXL_CLOSE",
+    "SOXX_TREND",
+    "YIELD_CURVE",
+    "CREDIT_SPREAD",
+    "BAA_YIELD",
+    "DXY",
+    "OIL"
+  ],
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_macro_credit_search"
+}

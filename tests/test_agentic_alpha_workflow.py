@@ -804,3 +804,89 @@ def test_session_effect_features_and_candidate_gates_are_src_owned():
     assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
     assert summary["passes_both_count"] >= 0
     assert set(summary["branch_results"]) == set(metrics["branch"])
+
+
+def test_macro_credit_rate_features_and_candidate_gates_are_src_owned():
+    from src.factor import (
+        build_macro_credit_frame,
+        compact_macro_credit_summary,
+        evaluate_macro_credit_candidates,
+    )
+
+    dates = pd.date_range("2025-01-02", periods=140, freq="B")
+    soxl_close = []
+    soxx_close = []
+    price = 20.0
+    for index, _ in enumerate(dates):
+        if index % 31 in {0, 1, 2, 3}:
+            price *= 0.96
+        else:
+            price *= 1.008
+        soxl_close.append(price)
+        soxx_close.append(100.0 * (1.0015**index))
+
+    rows = []
+    for date, soxl_price, soxx_price, index in zip(dates, soxl_close, soxx_close, range(len(dates))):
+        rows.append(
+            {
+                "instrument": "SOXL",
+                "datetime": date,
+                "$soxl_close": soxl_price,
+                "$soxx_close": soxx_price,
+                "$yc10y2y": -0.20 if index % 50 < 12 else 0.80,
+                "$yc10y3m": -0.10 if index % 55 < 10 else 1.10,
+                "$credit_baa": 2.0 + (0.7 if index % 40 < 8 else 0.0),
+                "$baa_yield": 5.0 + (0.8 if index % 45 < 9 else 0.0),
+                "$hy_spread": 4.0 + (1.0 if index % 37 < 7 else 0.0),
+                "$dxy": 100.0 + (index % 23) * 0.2,
+                "$oil": 70.0 + (index % 29) * 0.3,
+            }
+        )
+    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
+
+    features = build_macro_credit_frame(
+        qlib_frame,
+        start="2025-03-01",
+        end="2025-07-15",
+        min_history=10,
+    )
+    metrics = evaluate_macro_credit_candidates(
+        features,
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+        risk_windows=[20],
+        trend_windows=[20, 50],
+        risk_thresholds=[0.0, 2.0],
+        scales=[0.5, 1.0],
+        composite_bases=[0.5],
+        composite_trend_weights=[0.5],
+        composite_risk_weights=[0.5],
+        vol_targets=[0.4],
+        stop_windows=[42],
+        stop_levels=[-0.2],
+        reentry_thresholds=[0.0],
+    )
+    summary = compact_macro_credit_summary(
+        metrics,
+        branches=sorted(metrics["branch"].unique()),
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+    )
+
+    assert {
+        "next_return",
+        "soxx_trend20",
+        "soxl_hv20",
+        "macro_risk_score20",
+        "credit_baa_z20",
+        "rolling_drawdown42",
+    }.issubset(features.columns)
+    assert features["datetime"].is_monotonic_increasing
+    assert set(metrics["branch"]) == {
+        "macro_composite_throttle",
+        "macro_credit_rate_gate",
+        "trend_drawdown_stop",
+    }
+    assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
+    assert summary["passes_both_count"] >= 0
+    assert set(summary["branch_results"]) == set(metrics["branch"])

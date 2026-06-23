@@ -23,6 +23,12 @@ from .long_short_crisis_alpha import (
     evaluate_long_short_crisis_alpha_candidates,
     summarize_long_short_crisis_alpha_branch,
 )
+from .macro_credit import (
+    build_macro_credit_frame,
+    compact_macro_credit_summary,
+    evaluate_macro_credit_candidates,
+    summarize_macro_credit_branch,
+)
 from .meta_label_probability_gate import (
     build_meta_label_probability_frame,
     compact_meta_label_probability_summary,
@@ -50,12 +56,14 @@ __all__ = [
     "build_cross_asset_price_frame",
     "build_factor_library_reversal_frame",
     "build_long_short_crisis_alpha_frame",
+    "build_macro_credit_frame",
     "build_meta_label_probability_frame",
     "build_session_effect_frame",
     "build_tail_risk_external_frame",
     "compact_canary_sprint_summary",
     "compact_factor_library_search_summary",
     "compact_long_short_crisis_alpha_summary",
+    "compact_macro_credit_summary",
     "compact_meta_label_probability_summary",
     "compact_session_effect_summary",
     "combine_qlib_factor_scores",
@@ -63,6 +71,7 @@ __all__ = [
     "evaluate_cross_asset_rotation_candidates",
     "evaluate_factor_library_reversal_candidates",
     "evaluate_long_short_crisis_alpha_candidates",
+    "evaluate_macro_credit_candidates",
     "evaluate_meta_label_probability_candidates",
     "evaluate_probability_gate_grid",
     "evaluate_session_effect_candidates",
@@ -72,6 +81,7 @@ __all__ = [
     "summarize_cross_asset_branch",
     "summarize_factor_library_reversal_branch",
     "summarize_long_short_crisis_alpha_branch",
+    "summarize_macro_credit_branch",
     "summarize_meta_label_probability_branch",
     "summarize_session_effect_branch",
     "summarize_tail_risk_branch",

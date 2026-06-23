@@ -1,0 +1,232 @@
+{
+  "artifact_policy": {
+    "kept_sidecars": [
+      "agentic_alpha_macro_credit_candidate_metrics.csv",
+      "agentic_alpha_macro_credit_search_summary.json",
+      "external_sources.csv",
+      "failure_modes.md",
+      "qlib_store_manifest.json"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "agentic_alpha_macro_credit_search_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+      "labels": "artifacts/label.pkl",
+      "macro_credit_full_candidate_grid": "artifacts/agentic_alpha_macro_credit/macro_credit_full_candidate_grid.csv",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+      "signals": "artifacts/signals.pkl"
+    },
+    "reproducible_from_recorder": true,
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-06-09",
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "branch_results": {
+    "macro_composite_throttle": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "risklb63_trend100_b0.5_tw0.75_rw1.5_vol0.4",
+      "best_drawdown_gate_max_drawdown_pct": -19.034842966937447,
+      "best_drawdown_gate_return_pct": 762.1911178756474,
+      "best_drawdown_gate_trade_count": 618,
+      "best_return_candidate": "risklb20_trend50_b1_tw0.75_rw1.5_volNone",
+      "best_return_max_drawdown_pct": -80.05498132184341,
+      "best_return_pct": 48364.94942832572,
+      "best_return_trade_count": 892,
+      "coverage_end": "2026-06-08",
+      "coverage_start": "2019-01-31",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 19200,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "macro_credit_rate_gate": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "risklb20_trend50_risk0_scale0.5",
+      "best_drawdown_gate_max_drawdown_pct": -17.95142582300313,
+      "best_drawdown_gate_return_pct": 392.5877012909598,
+      "best_drawdown_gate_trade_count": 218,
+      "best_return_candidate": "risklb42_trend50_risk1_scale2.5",
+      "best_return_max_drawdown_pct": -80.3446511138568,
+      "best_return_pct": 83085.31694421206,
+      "best_return_trade_count": 540,
+      "coverage_end": "2026-06-08",
+      "coverage_start": "2019-01-31",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 2240,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "trend_drawdown_stop": {
+      "best_drawdown_gate_available": false,
+      "best_drawdown_gate_candidate": null,
+      "best_drawdown_gate_max_drawdown_pct": null,
+      "best_drawdown_gate_return_pct": null,
+      "best_drawdown_gate_trade_count": null,
+      "best_return_candidate": "lb126_stop-0.3_re0.02_scale1.25",
+      "best_return_max_drawdown_pct": -61.013319994445034,
+      "best_return_pct": 1597.8496056687557,
+      "best_return_trade_count": 1040,
+      "coverage_end": "2026-06-08",
+      "coverage_start": "2019-01-31",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 2016,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    }
+  },
+  "card_type": "diagnostic_search",
+  "data_range": [
+    "2019-01-02",
+    "2026-06-09"
+  ],
+  "experiment": "agentic_alpha_macro_credit_search_v1",
+  "external_source_counts": {
+    "arxiv": 1,
+    "github": 2,
+    "paper": 3,
+    "twitter": 1
+  },
+  "goal_gate": {
+    "max_drawdown_floor": -20.0,
+    "require_return_above_baseline": true
+  },
+  "macro_credit": {
+    "selected_features": [
+      "SOXL_CLOSE",
+      "SOXX_TREND",
+      "YIELD_CURVE",
+      "CREDIT_SPREAD",
+      "BAA_YIELD",
+      "DXY",
+      "OIL"
+    ]
+  },
+  "macro_credit_data": {
+    "candidate_coverage_end": "2026-06-08",
+    "candidate_coverage_start": "2019-01-31",
+    "card_provider_manifest": "qlib_store_manifest.json",
+    "provider_manifest": "data/qlib/soxl_macro_credit_v1/qlib_store_manifest.json",
+    "source_fields": [
+      "SOXL_CLOSE",
+      "SOXX_TREND",
+      "YIELD_CURVE",
+      "CREDIT_SPREAD",
+      "BAA_YIELD",
+      "DXY",
+      "OIL"
+    ]
+  },
+  "market": "all",
+  "promotion_decision": "not_promoted",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "model": "https://qlib.readthedocs.io/en/latest/component/model.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "build_qlib_store_from_frame"
+  ],
+  "recorder_id": "6768729892374924a5da1ab1d7a3c0da",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_macro_credit_search_v1/qlib_recorder/693211767858480417/6768729892374924a5da1ab1d7a3c0da",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_macro_credit_search_v1/qlib_recorder",
+  "region": "us",
+  "search_report": {
+    "best_candidate": null,
+    "branch_results": {
+      "macro_composite_throttle": {
+        "best_drawdown_gate_available": true,
+        "best_drawdown_gate_candidate": "risklb63_trend100_b0.5_tw0.75_rw1.5_vol0.4",
+        "best_drawdown_gate_max_drawdown_pct": -19.034842966937447,
+        "best_drawdown_gate_return_pct": 762.1911178756474,
+        "best_drawdown_gate_trade_count": 618,
+        "best_return_candidate": "risklb20_trend50_b1_tw0.75_rw1.5_volNone",
+        "best_return_max_drawdown_pct": -80.05498132184341,
+        "best_return_pct": 48364.94942832572,
+        "best_return_trade_count": 892,
+        "coverage_end": "2026-06-08",
+        "coverage_start": "2019-01-31",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 19200,
+        "max_drawdown_floor": -20.0,
+        "passes_both_count": 0
+      },
+      "macro_credit_rate_gate": {
+        "best_drawdown_gate_available": true,
+        "best_drawdown_gate_candidate": "risklb20_trend50_risk0_scale0.5",
+        "best_drawdown_gate_max_drawdown_pct": -17.95142582300313,
+        "best_drawdown_gate_return_pct": 392.5877012909598,
+        "best_drawdown_gate_trade_count": 218,
+        "best_return_candidate": "risklb42_trend50_risk1_scale2.5",
+        "best_return_max_drawdown_pct": -80.3446511138568,
+        "best_return_pct": 83085.31694421206,
+        "best_return_trade_count": 540,
+        "coverage_end": "2026-06-08",
+        "coverage_start": "2019-01-31",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 2240,
+        "max_drawdown_floor": -20.0,
+        "passes_both_count": 0
+      },
+      "trend_drawdown_stop": {
+        "best_drawdown_gate_available": false,
+        "best_drawdown_gate_candidate": null,
+        "best_drawdown_gate_max_drawdown_pct": null,
+        "best_drawdown_gate_return_pct": null,
+        "best_drawdown_gate_trade_count": null,
+        "best_return_candidate": "lb126_stop-0.3_re0.02_scale1.25",
+        "best_return_max_drawdown_pct": -61.013319994445034,
+        "best_return_pct": 1597.8496056687557,
+        "best_return_trade_count": 1040,
+        "coverage_end": "2026-06-08",
+        "coverage_start": "2019-01-31",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 2016,
+        "max_drawdown_floor": -20.0,
+        "passes_both_count": 0
+      }
+    },
+    "goal_achieved": false,
+    "passes_both_count": 0,
+    "selected_features": [
+      "SOXL_CLOSE",
+      "SOXX_TREND",
+      "YIELD_CURVE",
+      "CREDIT_SPREAD",
+      "BAA_YIELD",
+      "DXY",
+      "OIL"
+    ],
+    "stage_order": [
+      "research",
+      "retrieve",
+      "generate",
+      "evaluate",
+      "validate",
+      "distill"
+    ],
+    "workflow": "agentic_alpha_macro_credit_search"
+  },
+  "sidecars": {
+    "candidate_metrics": "agentic_alpha_macro_credit_candidate_metrics.csv",
+    "external_sources": "external_sources.csv",
+    "failure_modes": "failure_modes.md",
+    "qlib_store_manifest": "qlib_store_manifest.json",
+    "search_summary": "agentic_alpha_macro_credit_search_summary.json"
+  },
+  "workflow_config": "workflow.yaml"
+}

@@ -1,0 +1,37 @@
+{
+  "as_of": "2026-06-09",
+  "audit_snapshot_hash": "547b3f7225190317",
+  "calendar_end": "2026-06-09",
+  "calendar_start": "2019-01-02",
+  "feature_file_count": 9,
+  "fields": [
+    "$soxl_close",
+    "$soxx_close",
+    "$yc10y2y",
+    "$yc10y3m",
+    "$credit_baa",
+    "$baa_yield",
+    "$hy_spread",
+    "$dxy",
+    "$oil"
+  ],
+  "freq": "day",
+  "hash": "c70954c93801432c",
+  "instruments": [
+    "SOXL"
+  ],
+  "market": "all",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1",
+  "region": "us",
+  "row_count": 1869,
+  "source": "data/raw/symbols/SOXL,SOXX + data/raw/external/yield_curve,credit,dxy,oil",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

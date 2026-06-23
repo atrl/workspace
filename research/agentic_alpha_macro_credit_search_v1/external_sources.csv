@@ -1,0 +1,8 @@
+source_type,title,url,extracted_signal,tags
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use retrieve-generate-evaluate-validate-distill loops to close macro and credit risk branches with comparable evidence.,workflow_reference
+github,tactical-asset-allocation,https://github.com/oronimbus/tactical-asset-allocation,Tactical allocation programs motivate explicit macro state and trend filters instead of a single static SOXL exposure.,taa_macro
+paper,A Quantitative Approach to Tactical Asset Allocation,https://mebfaber.com/wp-content/uploads/2016/05/SSRN-id962461.pdf,Trend filters can manage large equity drawdowns; test whether macro credit filters improve SOXL risk control.,trend_following
+paper,Leverage for the Long Run,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2741701,Volatility is the enemy of leverage and risk should be reduced when leverage conditions deteriorate.,leverage_risk
+paper,Leveraged ETFs in Asset Allocation: Opportunity or Trap?,https://quantpedia.com/leveraged-etfs-in-asset-allocation-opportunity-or-trap/,Leveraged exposure needs active trend and risk management; test macro credit spread gates against SOXL drawdown.,leveraged_etf
+arxiv,Compounding Effects in Leveraged ETFs,https://arxiv.org/html/2504.20116v1,Leveraged ETF compounding benefits from trending regimes and suffers in volatile regimes.,letf_compounding
+twitter,TrendSpider SOXL volatility seed,https://x.com/TrendSpider/status/2063063329531109596,Treat SOXL as explicitly volatility-sensitive and require drawdown gates for any high-return candidate.,soxl_volatility_seed
