@@ -1,0 +1,251 @@
+{
+  "artifact_policy": {
+    "kept_sidecars": [
+      "agentic_alpha_intraday_t1_candidate_metrics.csv",
+      "agentic_alpha_intraday_t1_search_summary.json",
+      "external_sources.csv",
+      "failure_modes.md",
+      "intraday_t1_feature_audit.json"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "agentic_alpha_intraday_t1_search_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+      "labels": "artifacts/label.pkl",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+      "signals": "artifacts/signals.pkl"
+    },
+    "reproducible_from_recorder": true,
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-06-05",
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "branch_results": {
+    "intraday_t1_lgbm_replay": {
+      "best_drawdown_gate_max_drawdown_pct": -19.176115458570997,
+      "best_drawdown_gate_return_pct": 214.7393854336332,
+      "best_return_max_drawdown_pct": -58.29249503349128,
+      "best_return_pct": 565.3522126453181,
+      "comparison_baseline_return_pct": 408.0788688457893,
+      "coverage_end": "2026-06-05",
+      "coverage_start": "2025-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 5760,
+      "passes_both_count": 0
+    },
+    "intraday_t1_overlay": {
+      "best_drawdown_gate_max_drawdown_pct": -19.276084097104718,
+      "best_drawdown_gate_return_pct": 76.34765613449778,
+      "best_return_max_drawdown_pct": -61.62724795635535,
+      "best_return_pct": 399.9296897566272,
+      "comparison_baseline_return_pct": 480.7597196265312,
+      "coverage_end": "2026-06-05",
+      "coverage_start": "2024-02-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 5120,
+      "passes_both_count": 0
+    }
+  },
+  "card_type": "diagnostic_search",
+  "data_range": [
+    "2024-01-03",
+    "2026-06-05"
+  ],
+  "experiment": "agentic_alpha_intraday_t1_search_v1",
+  "goal_gate": {
+    "max_drawdown_floor": -20.0,
+    "require_return_above_baseline": true
+  },
+  "intraday_t1": {
+    "audit_snapshot_hash": "368514c6d8a60853",
+    "audit_status": "ok",
+    "coverage_end": "2026-06-05",
+    "coverage_start": "2024-01-03",
+    "feature_count": 5,
+    "features": [
+      "$intraday_soxl_bar_count_1m",
+      "$intraday_soxl_open_range_return_30m",
+      "$intraday_soxl_close_location",
+      "$intraday_soxl_realized_vol_1m",
+      "$intraday_soxl_volume_concentration_close_30m"
+    ],
+    "lag_policy": "T+1_daily_safe",
+    "provider_manifest": "data/qlib/soxl_intraday_t1/qlib_store_manifest.json",
+    "source": "data/raw/external/intraday_features_soxl_1m.csv"
+  },
+  "market": "all",
+  "promotion_decision": "not_promoted",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_t1",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "model": "https://qlib.readthedocs.io/en/latest/component/model.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "build_qlib_store_from_frame",
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "QlibDataLoader",
+    "qlib.workflow.R.start",
+    "LGBMClassifier"
+  ],
+  "qlib_store_manifest": {
+    "as_of": "2026-06-05",
+    "audit_snapshot_hash": "368514c6d8a60853",
+    "calendar_end": "2026-06-05",
+    "calendar_start": "2024-01-03",
+    "feature_file_count": 11,
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$vix",
+      "$intraday_soxl_bar_count_1m",
+      "$intraday_soxl_open_range_return_30m",
+      "$intraday_soxl_close_location",
+      "$intraday_soxl_realized_vol_1m",
+      "$intraday_soxl_volume_concentration_close_30m"
+    ],
+    "freq": "day",
+    "hash": "148f05b781eaa4f0",
+    "instruments": [
+      "SOXL"
+    ],
+    "market": "all",
+    "operation": "qlib_store_build",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_t1",
+    "region": "us",
+    "row_count": 608,
+    "source": "data/raw/external/intraday_features_soxl_1m.csv",
+    "source_api": [
+      "qlib.init",
+      "qlib.data.storage.file_storage.FileFeatureStorage",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments",
+      "qlib.data.D.features"
+    ],
+    "status": "ok"
+  },
+  "recorder_artifacts": [
+    "artifacts/agentic_alpha_intraday_t1/agentic_alpha_intraday_t1_candidate_metrics.csv",
+    "artifacts/agentic_alpha_intraday_t1/agentic_alpha_intraday_t1_search_summary.json",
+    "artifacts/agentic_alpha_intraday_t1/external_sources.csv",
+    "artifacts/agentic_alpha_intraday_t1/failure_modes.md",
+    "artifacts/agentic_alpha_intraday_t1/intraday_t1_feature_audit.json",
+    "artifacts/agentic_alpha_intraday_t1/qlib_store_manifest.json",
+    "meta.yaml",
+    "params/baseline",
+    "params/branch_count",
+    "params/candidate_count",
+    "params/cmd-sys.argv",
+    "params/intraday_feature_count",
+    "params/max_drawdown_floor",
+    "params/provider_uri",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "99f2dc48d9f543829ac9fd871a4f5f91",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder/781312017581425654/99f2dc48d9f543829ac9fd871a4f5f91",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder",
+  "region": "us",
+  "search_report": {
+    "baseline": {
+      "benchmark_return_pct": 3530.8157772578,
+      "max_drawdown_pct": -85.23168365,
+      "name": "qlib_paper_sim_v1",
+      "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+      "return_pct": 6570.0232821043
+    },
+    "best_candidate": null,
+    "branch_results": {
+      "intraday_t1_lgbm_replay": {
+        "best_drawdown_gate_max_drawdown_pct": -19.176115458570997,
+        "best_drawdown_gate_return_pct": 214.7393854336332,
+        "best_return_max_drawdown_pct": -58.29249503349128,
+        "best_return_pct": 565.3522126453181,
+        "comparison_baseline_return_pct": 408.0788688457893,
+        "coverage_end": "2026-06-05",
+        "coverage_start": "2025-01-02",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 5760,
+        "passes_both_count": 0
+      },
+      "intraday_t1_overlay": {
+        "best_drawdown_gate_max_drawdown_pct": -19.276084097104718,
+        "best_drawdown_gate_return_pct": 76.34765613449778,
+        "best_return_max_drawdown_pct": -61.62724795635535,
+        "best_return_pct": 399.9296897566272,
+        "comparison_baseline_return_pct": 480.7597196265312,
+        "coverage_end": "2026-06-05",
+        "coverage_start": "2024-02-02",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 5120,
+        "passes_both_count": 0
+      }
+    },
+    "coverage_limitation": "intraday T+1 sidecar covers 2024-01-03 through 2026-06-05, so this diagnostic card cannot by itself prove the full 2019-2026 production goal.",
+    "external_source_counts": {
+      "arxiv": 1,
+      "github": 1,
+      "paper": 1,
+      "twitter": 1
+    },
+    "goal_achieved": false,
+    "passes_both_count": 0,
+    "recorder_artifacts": [
+      "artifacts/agentic_alpha_intraday_t1/agentic_alpha_intraday_t1_candidate_metrics.csv",
+      "artifacts/agentic_alpha_intraday_t1/agentic_alpha_intraday_t1_search_summary.json",
+      "artifacts/agentic_alpha_intraday_t1/external_sources.csv",
+      "artifacts/agentic_alpha_intraday_t1/failure_modes.md",
+      "artifacts/agentic_alpha_intraday_t1/intraday_t1_feature_audit.json",
+      "artifacts/agentic_alpha_intraday_t1/qlib_store_manifest.json",
+      "meta.yaml",
+      "params/baseline",
+      "params/branch_count",
+      "params/candidate_count",
+      "params/cmd-sys.argv",
+      "params/intraday_feature_count",
+      "params/max_drawdown_floor",
+      "params/provider_uri",
+      "tags/mlflow.runName",
+      "tags/mlflow.source.name",
+      "tags/mlflow.source.type",
+      "tags/mlflow.user"
+    ],
+    "recorder_id": "99f2dc48d9f543829ac9fd871a4f5f91",
+    "stage_order": [
+      "research",
+      "retrieve",
+      "generate",
+      "evaluate",
+      "validate",
+      "distill"
+    ],
+    "workflow": "agentic_alpha_intraday_t1_search"
+  },
+  "sidecars": {
+    "candidate_metrics": "agentic_alpha_intraday_t1_candidate_metrics.csv",
+    "external_sources": "external_sources.csv",
+    "failure_modes": "failure_modes.md",
+    "intraday_t1_feature_audit": "intraday_t1_feature_audit.json",
+    "search_summary": "agentic_alpha_intraday_t1_search_summary.json"
+  },
+  "source_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "workflow_config": "workflow.yaml"
+}

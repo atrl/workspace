@@ -1,0 +1,38 @@
+experiment: agentic_alpha_intraday_t1_search_v1
+card_type: diagnostic_search
+qlib:
+  source_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_t1
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  intraday_t1_source:
+    start: 2024-01-03
+    end: 2026-06-05
+  train:
+    start: 2024-01-03
+    end: 2024-12-31
+  test:
+    start: 2025-01-02
+    end: 2026-06-05
+rgevd:
+  branch: intraday_t1_selector
+  stages:
+    - research
+    - retrieve
+    - generate
+    - evaluate
+    - validate
+    - distill
+goal_gate:
+  baseline_card: production/qlib_paper_sim_v1
+  max_drawdown_floor: -20.0
+  require_return_above_baseline: true
+intraday_t1:
+  source: data/raw/external/intraday_features_soxl_1m.csv
+  lag_policy: T+1_daily_safe
+  provider_manifest: data/qlib/soxl_intraday_t1/qlib_store_manifest.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

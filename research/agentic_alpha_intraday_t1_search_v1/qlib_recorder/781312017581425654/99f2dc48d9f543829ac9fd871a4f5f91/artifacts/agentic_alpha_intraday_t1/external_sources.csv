@@ -1,0 +1,5 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Run retrieve-generate-evaluate-validate-distill loops and close failed branches with recorder evidence.,workflow_reference
+arxiv,Compounding Effects in Leveraged ETFs,https://arxiv.org/html/2504.20116v1,LETF compounding is regime-sensitive to volatility clustering and autocorrelation.,prior_retrieval_seed
+paper,Volatility targeting and trend-following interaction,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4773781,"Volatility control and trend filters must be evaluated together, not as independent claims.",prior_retrieval_seed
+twitter,SOXL intraday volatility and flow discussion,https://x.com/Alpha_Ex_LLC/status/2067644619462938886,Intraday realized volatility and close-location features are plausible risk gates for next-day SOXL exposure.,search_snippet_seed
