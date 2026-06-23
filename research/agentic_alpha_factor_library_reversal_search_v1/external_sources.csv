@@ -1,0 +1,6 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use retrieve-generate-evaluate-validate-distill loops to close local factor-library ideas with comparable evidence.,workflow_reference
+paper,Volatility-Managed Portfolios,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2659431,Reduce exposure when realized volatility is high; test whether volatility-managed SOXL factor scores preserve return while cutting drawdown.,web_retrieved
+paper,Expected Stock Returns and Variance Risk Premia,https://academic.oup.com/rfs/article-abstract/22/11/4463/1565787,"Volatility and variance-premium state can contain return predictability, motivating RB_VOL_REGIME-style gates.",web_retrieved
+arxiv,Compounding Effects in Leveraged ETFs,https://arxiv.org/abs/2504.20116,Daily leveraged ETF compounding depends on trend persistence versus mean reversion and volatility clustering.,web_retrieved
+twitter,SOXL drawdown and volatility discussion seed,https://x.com/ces921/highlights,"Treat SOXL as regime-sensitive; reversal entries and sell gates must be judged by drawdown, not signal IC alone.",search_seed

@@ -1,0 +1,123 @@
+{
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "best_candidate": null,
+  "branch_results": {
+    "factor_library_reversal_reentry": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "panic_buy_score_thr0.75_hold1_scale4.0_volcap0.8_none",
+      "best_drawdown_gate_max_drawdown_pct": -15.481303436583394,
+      "best_drawdown_gate_return_pct": 99.48770741248762,
+      "best_return_candidate": "panic_buy_score_thr0.65_hold1_scale10.0_volcapNone_none",
+      "best_return_max_drawdown_pct": -9260.209989634768,
+      "best_return_pct": 17813869.903124534,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 540,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "factor_library_trend_sell_gate": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "trend_score_075_sell0.5_buy0.65_base0.25_boost1.0_volcap0.25",
+      "best_drawdown_gate_max_drawdown_pct": -19.06680592698985,
+      "best_drawdown_gate_return_pct": 281.22990377502254,
+      "best_return_candidate": "trend_score_050_sell0.5_buy0.65_base2.0_boost1.0_volcapNone",
+      "best_return_max_drawdown_pct": -95.46694791065708,
+      "best_return_pct": 35567.65546089214,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 540,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "factor_library_vol_managed_score": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "panic_buy_score_int0.4_slope1.0_tv0.15_cap3.0_sell0.7",
+      "best_drawdown_gate_max_drawdown_pct": -14.339478130854012,
+      "best_drawdown_gate_return_pct": 140.7174366668067,
+      "best_return_candidate": "trend_score_int0.4_slope1.0_tv0.8_cap8.0_sell0.7",
+      "best_return_max_drawdown_pct": -78.1560697958377,
+      "best_return_pct": 7098.678654477469,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 144,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    }
+  },
+  "external_source_counts": {
+    "arxiv": 1,
+    "github": 1,
+    "paper": 2,
+    "twitter": 1
+  },
+  "factor_library": {
+    "candidate_coverage_end": "2026-06-09",
+    "candidate_coverage_start": "2019-01-02",
+    "feature_rows": 1869,
+    "qlib_feature_rows": 8176,
+    "qlib_fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "qlib_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "selected_features": [
+      "RB_RSI6_OVERSOLD",
+      "RB_SELL_COMPOSITE",
+      "BIAS_10",
+      "BIAS_10_MOM",
+      "REL_VOLUME_RATIO",
+      "PRICE_RATIO_MOM",
+      "SOXX_BIAS_10",
+      "RB_VOL_REGIME"
+    ],
+    "source_coverage_end": "2026-06-10",
+    "source_coverage_start": "2010-03-11",
+    "source_db": "data/soxl_factor_library.db"
+  },
+  "goal_achieved": false,
+  "passes_both_count": 0,
+  "recorder_artifacts": [
+    "artifacts/agentic_alpha_factor_library_reversal/agentic_alpha_factor_library_reversal_candidate_metrics.csv",
+    "artifacts/agentic_alpha_factor_library_reversal/agentic_alpha_factor_library_reversal_search_summary.json",
+    "artifacts/agentic_alpha_factor_library_reversal/external_sources.csv",
+    "artifacts/agentic_alpha_factor_library_reversal/failure_modes.md",
+    "meta.yaml",
+    "params/baseline",
+    "params/candidate_rows",
+    "params/cmd-sys.argv",
+    "params/feature_end",
+    "params/feature_start",
+    "params/max_drawdown_floor",
+    "params/provider_uri",
+    "params/test_end",
+    "params/test_start",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "2f196ca10d4341a4833f34f2a2c1a1f6",
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_factor_library_reversal_search"
+}

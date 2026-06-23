@@ -382,3 +382,85 @@ def test_cross_asset_rotation_features_and_candidate_gates_are_src_owned():
     assert (metrics["decision"] == "Promote").any()
     assert rotation_summary["passes_both_count"] >= 1
     assert rotation_summary["best_drawdown_gate_max_drawdown_pct"] >= -20.0
+
+
+def test_factor_library_reversal_features_and_candidate_gates_are_src_owned():
+    from src.factor import (
+        build_factor_library_reversal_frame,
+        compact_factor_library_search_summary,
+        evaluate_factor_library_reversal_candidates,
+    )
+
+    dates = pd.date_range("2025-01-02", periods=280, freq="B")
+    soxl_close = []
+    price = 20.0
+    for index, _ in enumerate(dates):
+        if index in {80, 150, 220}:
+            price *= 0.88
+        elif index in {81, 82, 151, 152, 221, 222}:
+            price *= 1.08
+        else:
+            price *= 1.003
+        soxl_close.append(price)
+    soxx_close = [100.0 * (1.0015**index) for index in range(len(dates))]
+    rows = []
+    for symbol, close_values, volume in [
+        ("SOXL", soxl_close, 1_000_000),
+        ("SOXX", soxx_close, 800_000),
+    ]:
+        for date, close in zip(dates, close_values):
+            rows.append(
+                {
+                    "instrument": symbol,
+                    "datetime": date,
+                    "$close": close,
+                    "$volume": volume,
+                    "$vix": 18.0 if symbol == "SOXL" else None,
+                }
+            )
+    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
+
+    features = build_factor_library_reversal_frame(
+        qlib_frame,
+        start="2025-07-01",
+        end="2025-12-31",
+    )
+    metrics = evaluate_factor_library_reversal_candidates(
+        features,
+        baseline_return_pct=2.0,
+        max_drawdown_floor=-20.0,
+        reversal_thresholds=[0.25],
+        hold_days=[1],
+        scales=[1.0],
+        volcaps=[None],
+        trend_sell_thresholds=[0.90],
+        base_scales=[1.0],
+        reentry_boosts=[0.0],
+        target_vols=[0.20],
+        score_caps=[1.0],
+    )
+    summary = compact_factor_library_search_summary(
+        metrics,
+        branches=sorted(metrics["branch"].unique()),
+        baseline_return_pct=2.0,
+        max_drawdown_floor=-20.0,
+    )
+
+    assert {
+        "next_return",
+        "buy_score",
+        "panic_buy_score",
+        "sell_score",
+        "trend_score",
+        "rel_volume_ratio",
+        "soxx_bias10",
+    }.issubset(features.columns)
+    assert features["datetime"].is_monotonic_increasing
+    assert set(metrics["branch"]) == {
+        "factor_library_reversal_reentry",
+        "factor_library_trend_sell_gate",
+        "factor_library_vol_managed_score",
+    }
+    assert (metrics["passes_drawdown_gate"] == True).any()  # noqa: E712
+    assert summary["passes_both_count"] >= 1
+    assert summary["goal_achieved"] is True
