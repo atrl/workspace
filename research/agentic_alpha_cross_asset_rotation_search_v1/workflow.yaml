@@ -1,0 +1,28 @@
+experiment: agentic_alpha_cross_asset_rotation_search_v1
+card_type: diagnostic_search
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_cross_asset_rotation_v1
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_cross_asset_rotation_search_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  cross_asset_rotation:
+    start: 2019-11-01
+    source_end: 2026-04-15
+rgevd:
+  source: https://github.com/JacobDu/agentic-alpha
+  stages:
+    - research
+    - retrieve
+    - generate
+    - evaluate
+    - validate
+    - distill
+goal_gate:
+  baseline_card: production/qlib_paper_sim_v1
+  baseline_return_pct: 6570.0232821043
+  max_drawdown_floor: -20.0
+  require_return_above_baseline: true
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

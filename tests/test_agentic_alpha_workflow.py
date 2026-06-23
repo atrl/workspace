@@ -324,3 +324,61 @@ def test_tail_risk_external_features_and_candidate_gates_are_src_owned():
     assert failed_return_gate["decision_basis"] == "return_gate"
     assert summary["passes_both_count"] == 1
     assert summary["best_drawdown_gate_max_drawdown_pct"] >= -20.0
+
+
+def test_cross_asset_rotation_features_and_candidate_gates_are_src_owned():
+    from src.factor import (
+        build_cross_asset_price_frame,
+        evaluate_cross_asset_rotation_candidates,
+        summarize_cross_asset_branch,
+    )
+
+    dates = pd.date_range("2026-01-02", periods=90, freq="B")
+    raw_frames = {
+        "SOXL": pd.DataFrame(
+            {
+                "date": dates,
+                "close": [20.0 * (1.012**index) for index in range(len(dates))],
+                "volume": 1_000_000,
+            }
+        ),
+        "TQQQ": pd.DataFrame(
+            {
+                "date": dates,
+                "close": [30.0 * (1.004**index) for index in range(len(dates))],
+                "volume": 900_000,
+            }
+        ),
+        "SPXL": pd.DataFrame(
+            {
+                "date": dates,
+                "close": [40.0 * (1.002**index) for index in range(len(dates))],
+                "volume": 800_000,
+            }
+        ),
+    }
+
+    price_frame = build_cross_asset_price_frame(raw_frames, start="2026-01-02", end="2026-05-15")
+    metrics = evaluate_cross_asset_rotation_candidates(
+        price_frame,
+        baseline_return_pct=10.0,
+        max_drawdown_floor=-20.0,
+        symbols=["SOXL", "TQQQ", "SPXL"],
+        rotation_lookbacks=[20],
+        breadth_lookbacks=[20],
+        caps=[1.0],
+        breadth_scales=[1.0],
+    )
+    rotation_summary = summarize_cross_asset_branch(
+        metrics,
+        branch="relative_momentum_rotation",
+        baseline_return_pct=10.0,
+        max_drawdown_floor=-20.0,
+    )
+
+    assert price_frame["datetime"].is_monotonic_increasing
+    assert {"SOXL_close", "TQQQ_close", "SPXL_close"}.issubset(price_frame.columns)
+    assert set(metrics["branch"]) == {"cross_asset_breadth_soxl", "relative_momentum_rotation"}
+    assert (metrics["decision"] == "Promote").any()
+    assert rotation_summary["passes_both_count"] >= 1
+    assert rotation_summary["best_drawdown_gate_max_drawdown_pct"] >= -20.0

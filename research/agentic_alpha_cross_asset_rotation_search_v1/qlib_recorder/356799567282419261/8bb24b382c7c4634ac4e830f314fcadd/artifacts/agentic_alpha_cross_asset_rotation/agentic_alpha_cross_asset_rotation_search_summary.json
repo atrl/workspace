@@ -1,0 +1,81 @@
+{
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "best_candidate": null,
+  "branch_results": {
+    "cross_asset_breadth_soxl": {
+      "best_drawdown_gate_available": false,
+      "best_drawdown_gate_candidate": "lb63_agree2_scale2.0_volcap0.8",
+      "best_drawdown_gate_max_drawdown_pct": -68.36314067096434,
+      "best_drawdown_gate_return_pct": 731.6764013071153,
+      "best_return_candidate": "lb63_agree2_scale2.0_volcap0.8",
+      "best_return_max_drawdown_pct": -68.36314067096434,
+      "best_return_pct": 731.6764013071153,
+      "coverage_end": "2026-04-14",
+      "coverage_start": "2019-11-01",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 120,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "relative_momentum_rotation": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "lb126_top3_abs-0.05_equal_cap0.25",
+      "best_drawdown_gate_max_drawdown_pct": -19.85935030860453,
+      "best_drawdown_gate_return_pct": 111.56311642743492,
+      "best_return_candidate": "lb126_top3_abs-0.05_equal_cap2.0",
+      "best_return_max_drawdown_pct": -86.78343327760594,
+      "best_return_pct": 2446.2930289181854,
+      "coverage_end": "2026-04-14",
+      "coverage_start": "2019-11-01",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 216,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    }
+  },
+  "cross_asset_data": {
+    "candidate_coverage_end": "2026-04-14",
+    "candidate_coverage_start": "2019-11-01",
+    "feature_rows": 1620,
+    "provider_manifest": "data/qlib/soxl_cross_asset_rotation_v1/qlib_store_manifest.json",
+    "qlib_audit_rows": 8100,
+    "qlib_fields": [
+      "$close",
+      "$volume"
+    ],
+    "source_coverage_end": "2026-04-15",
+    "source_coverage_start": "2019-11-01",
+    "symbols": [
+      "SOXL",
+      "TQQQ",
+      "TECL",
+      "SPXL",
+      "UPRO"
+    ]
+  },
+  "external_source_counts": {
+    "arxiv": 1,
+    "github": 2,
+    "paper": 3,
+    "twitter": 1
+  },
+  "goal_achieved": false,
+  "passes_both_count": 0,
+  "provider_manifest_hash": "5c9477a37b53102a",
+  "recorder_id": "8bb24b382c7c4634ac4e830f314fcadd",
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_cross_asset_rotation_search"
+}

@@ -1,0 +1,8 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use retrieve-generate-evaluate-validate-distill loops to close failed strategy branches with evidence.,workflow_reference
+github,Quant Sector Rotation Strategy,https://github.com/garroshub/Quant_Sector_Rotation_Strategy,"Combines momentum signals, volatility normalization, VIX sizing, and drawdown controls for ETF sector rotation.",web_retrieved
+arxiv,Tactical Asset Allocation with Macroeconomic Regime Detection,https://arxiv.org/html/2503.11499v1,Use regime-aware forecasts and portfolio sizing rather than single-asset timing alone.,web_retrieved
+paper,Global Tactical Cross-Asset Allocation,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1276616,Cross-asset value and momentum can add tactical allocation value across asset classes.,web_retrieved
+paper,Momentum Strategies Across Asset Classes,https://www.cmegroup.com/education/files/jpm-momentum-strategies-2015-04-15-1681565.pdf,"Prototype absolute and relative momentum filters, lookback windows, rebalancing, and risk controls are core design dimensions.",web_retrieved
+paper,Momentum Based Volatility Targeting,https://quantpedia.com/how-to-faster-enhance-strategic-asset-allocation-with-tactical-models/,Combine momentum selection with volatility-targeted portfolios over multiple horizons.,web_retrieved
+twitter,VolatilityVIX tactical rotation seed,https://x.com/VolatilityVIX/status/1917586057316687929,Tactical rotation ideas should diversify signals instead of depending on a single trend rule.,search_seed

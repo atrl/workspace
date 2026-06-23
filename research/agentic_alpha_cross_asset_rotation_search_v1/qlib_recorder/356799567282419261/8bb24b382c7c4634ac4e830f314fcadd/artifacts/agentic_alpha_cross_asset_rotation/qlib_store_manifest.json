@@ -1,0 +1,34 @@
+{
+  "as_of": "2026-04-15",
+  "audit_snapshot_hash": "1bb2e55ef85da818",
+  "calendar_end": "2026-04-15",
+  "calendar_start": "2019-11-01",
+  "feature_file_count": 10,
+  "fields": [
+    "$close",
+    "$volume"
+  ],
+  "freq": "day",
+  "hash": "5c9477a37b53102a",
+  "instruments": [
+    "SOXL",
+    "SPXL",
+    "TECL",
+    "TQQQ",
+    "UPRO"
+  ],
+  "market": "all",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_cross_asset_rotation_v1",
+  "region": "us",
+  "row_count": 8100,
+  "source": "data/raw/symbols/SOXL,TQQQ,TECL,SPXL,UPRO.csv",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}
