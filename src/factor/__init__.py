@@ -40,6 +40,7 @@ from .session_effect import (
     build_session_effect_frame,
     compact_session_effect_summary,
     evaluate_session_effect_candidates,
+    evaluate_signed_session_effect_candidates,
     summarize_session_effect_branch,
 )
 from .tail_risk_external import (
@@ -75,6 +76,7 @@ __all__ = [
     "evaluate_meta_label_probability_candidates",
     "evaluate_probability_gate_grid",
     "evaluate_session_effect_candidates",
+    "evaluate_signed_session_effect_candidates",
     "evaluate_tail_risk_candidate",
     "qlib_factor_diagnostics",
     "summarize_canary_sprint_branch",

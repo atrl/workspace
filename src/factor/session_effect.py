@@ -22,6 +22,11 @@ SESSION_EFFECT_BRANCHES = [
     "intraday_gap_reversal",
     "tug_of_war_close_to_close",
 ]
+SIGNED_SESSION_EFFECT_BRANCHES = [
+    "signed_overnight_momentum",
+    "signed_intraday_momentum",
+    "signed_tug_of_war_close_to_close",
+]
 
 
 def _wide_qlib_panel(frame: pd.DataFrame, *, symbols: Iterable[str]) -> pd.DataFrame:
@@ -140,6 +145,7 @@ def _strategy_stats(
             "turnover": float(daily_turnover.sum()),
             "avg_abs_exposure": float(np.abs(exposure).mean()) if len(exposure) else 0.0,
             "max_exposure": float(exposure.max()) if len(exposure) else 0.0,
+            "min_exposure": float(exposure.min()) if len(exposure) else 0.0,
             "trade_count": int(np.count_nonzero(exposure)),
         }
     equity = np.cumprod(1.0 + strategy_returns)
@@ -150,6 +156,7 @@ def _strategy_stats(
             "turnover": 0.0,
             "avg_abs_exposure": 0.0,
             "max_exposure": 0.0,
+            "min_exposure": 0.0,
             "trade_count": 0,
         }
     drawdown = equity / np.maximum.accumulate(equity) - 1.0
@@ -159,6 +166,7 @@ def _strategy_stats(
         "turnover": float(daily_turnover.sum()),
         "avg_abs_exposure": float(np.abs(exposure).mean()),
         "max_exposure": float(exposure.max()),
+        "min_exposure": float(exposure.min()),
         "trade_count": int(np.count_nonzero(exposure)),
     }
 
@@ -246,6 +254,7 @@ def evaluate_session_effect_candidates(
                 "turnover": float(stats["turnover"]),
                 "avg_abs_exposure": float(stats["avg_abs_exposure"]),
                 "max_exposure": float(stats["max_exposure"]),
+                "min_exposure": float(stats["min_exposure"]),
                 "trade_count": int(stats["trade_count"]),
                 "beats_baseline_return": bool(stats["return_pct"] > float(baseline_return_pct)),
                 "passes_drawdown_gate": bool(stats["max_drawdown_pct"] >= float(max_drawdown_floor)),
@@ -336,6 +345,169 @@ def evaluate_session_effect_candidates(
                                 "scale": float(scale),
                             },
                         )
+
+    return pd.DataFrame(rows)
+
+
+def evaluate_signed_session_effect_candidates(
+    frame: pd.DataFrame,
+    *,
+    baseline_return_pct: float,
+    max_drawdown_floor: float,
+    momentum_windows: list[int] | None = None,
+    tug_windows: list[int] | None = None,
+    thresholds: list[float] | None = None,
+    neutral_bands: list[float] | None = None,
+    trend_filters: list[str] | None = None,
+    vix_maxes: list[float] | None = None,
+    scales: list[float] | None = None,
+    cost_per_turnover: float = 0.0002,
+) -> pd.DataFrame:
+    if frame.empty:
+        raise ValueError("signed session-effect frame is empty")
+    data = frame.sort_values("datetime").reset_index(drop=True).copy()
+    required = {
+        "datetime",
+        "next_overnight_return",
+        "next_intraday_return",
+        "next_close_return",
+        "vix",
+    }
+    missing = sorted(required - set(data.columns))
+    if missing:
+        raise ValueError(f"signed session-effect frame missing columns: {missing}")
+
+    momentum_windows = momentum_windows or [3, 5, 10, 20, 40, 60]
+    tug_windows = tug_windows or [5, 10, 20, 40, 60]
+    thresholds = thresholds or [0.0, 0.001, 0.002, 0.005, 0.01]
+    neutral_bands = neutral_bands or [0.0, 0.002, 0.005, 0.01, 0.02]
+    trend_filters = trend_filters or ["none", "soxx20", "soxx60", "soxl20", "soxl60"]
+    vix_maxes = vix_maxes or [22.0, 26.0, 30.0, 35.0, 45.0, 100.0]
+    scales = scales or [0.25, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0]
+
+    returns = {
+        "close_to_next_open": data["next_overnight_return"].astype("float64").to_numpy(),
+        "open_to_close": data["next_intraday_return"].astype("float64").to_numpy(),
+        "close_to_next_close": data["next_close_return"].astype("float64").to_numpy(),
+    }
+    rows: list[dict[str, Any]] = []
+
+    def apply_trend_filter(mask: pd.Series, trend_filter: str) -> pd.Series:
+        if trend_filter == "none":
+            return mask
+        if trend_filter == "soxx20":
+            return mask & (data["soxx_trend20"] > 0.0)
+        if trend_filter == "soxx60":
+            return mask & (data["soxx_trend60"] > 0.0)
+        if trend_filter == "soxl20":
+            return mask & (data["soxl_trend20"] > 0.0)
+        if trend_filter == "soxl60":
+            return mask & (data["soxl_trend60"] > 0.0)
+        raise ValueError(f"unknown trend_filter: {trend_filter}")
+
+    def signed_exposure(score: pd.Series, *, threshold: float, neutral_band: float) -> pd.Series:
+        cutoff = max(abs(float(threshold)), abs(float(neutral_band)))
+        return pd.Series(
+            np.select([score > cutoff, score < -cutoff], [1.0, -1.0], default=0.0),
+            index=score.index,
+        )
+
+    def add_row(branch: str, session: str, score_column: str, exposure: pd.Series, params: dict[str, Any]) -> None:
+        exposure_array = exposure.astype("float64").to_numpy()
+        stats = _strategy_stats(returns[session], exposure_array, cost_per_turnover=cost_per_turnover)
+        selected = exposure_array != 0.0
+        signed_returns = returns[session][selected] * exposure_array[selected]
+        decision, decision_basis = _decision(
+            stats["return_pct"],
+            stats["max_drawdown_pct"],
+            baseline_return_pct,
+            max_drawdown_floor,
+        )
+        rows.append(
+            {
+                "branch": branch,
+                "candidate": f"{branch}_{score_column}_{session}_scale{float(params['scale']):g}_{len(rows)}",
+                "session": session,
+                "score_column": score_column,
+                "return_pct": float(stats["return_pct"]),
+                "baseline_return_pct": float(baseline_return_pct),
+                "return_improvement_pct": float(stats["return_pct"] - baseline_return_pct),
+                "max_drawdown_pct": float(stats["max_drawdown_pct"]),
+                "max_drawdown_floor": float(max_drawdown_floor),
+                "turnover": float(stats["turnover"]),
+                "avg_abs_exposure": float(stats["avg_abs_exposure"]),
+                "max_exposure": float(stats["max_exposure"]),
+                "min_exposure": float(stats["min_exposure"]),
+                "trade_count": int(stats["trade_count"]),
+                "win_rate": float((signed_returns > 0.0).mean()) if len(signed_returns) else 0.0,
+                "beats_baseline_return": bool(stats["return_pct"] > float(baseline_return_pct)),
+                "passes_drawdown_gate": bool(stats["max_drawdown_pct"] >= float(max_drawdown_floor)),
+                "decision": decision,
+                "decision_basis": decision_basis,
+                "params": json.dumps(params, sort_keys=True),
+                "coverage_start": pd.Timestamp(data["datetime"].iloc[0]).date().isoformat(),
+                "coverage_end": pd.Timestamp(data["datetime"].iloc[-1]).date().isoformat(),
+            }
+        )
+
+    for window in momentum_windows:
+        for branch, score_column, session in [
+            ("signed_overnight_momentum", f"overnight_mom{window}", "close_to_next_open"),
+            ("signed_intraday_momentum", f"intraday_mom{window}", "open_to_close"),
+        ]:
+            if score_column not in data:
+                continue
+            for threshold in thresholds:
+                for neutral_band in neutral_bands:
+                    raw = signed_exposure(data[score_column].astype("float64"), threshold=threshold, neutral_band=neutral_band)
+                    for trend_filter in trend_filters:
+                        trend_mask = apply_trend_filter(raw.ne(0.0), trend_filter)
+                        for vix_max in vix_maxes:
+                            active = trend_mask & (data["vix"] < float(vix_max))
+                            for scale in scales:
+                                exposure = raw.where(active, 0.0) * float(scale)
+                                add_row(
+                                    branch,
+                                    session,
+                                    score_column,
+                                    exposure,
+                                    {
+                                        "window": window,
+                                        "threshold": float(threshold),
+                                        "neutral_band": float(neutral_band),
+                                        "trend_filter": trend_filter,
+                                        "vix_max": float(vix_max),
+                                        "scale": float(scale),
+                                    },
+                                )
+
+    for window in tug_windows:
+        score_column = f"tug{window}"
+        if score_column not in data:
+            continue
+        for threshold in thresholds:
+            for neutral_band in neutral_bands:
+                raw = signed_exposure(data[score_column].astype("float64"), threshold=threshold, neutral_band=neutral_band)
+                for trend_filter in trend_filters:
+                    trend_mask = apply_trend_filter(raw.ne(0.0), trend_filter)
+                    for vix_max in vix_maxes:
+                        active = trend_mask & (data["vix"] < float(vix_max))
+                        for scale in scales:
+                            exposure = raw.where(active, 0.0) * float(scale)
+                            add_row(
+                                "signed_tug_of_war_close_to_close",
+                                "close_to_next_close",
+                                score_column,
+                                exposure,
+                                {
+                                    "window": window,
+                                    "threshold": float(threshold),
+                                    "neutral_band": float(neutral_band),
+                                    "trend_filter": trend_filter,
+                                    "vix_max": float(vix_max),
+                                    "scale": float(scale),
+                                },
+                            )
 
     return pd.DataFrame(rows)
 

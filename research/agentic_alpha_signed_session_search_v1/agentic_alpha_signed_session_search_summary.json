@@ -1,0 +1,124 @@
+{
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "best_candidate": null,
+  "branch_results": {
+    "signed_intraday_momentum": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "signed_intraday_momentum_intraday_mom20_open_to_close_scale1_12902",
+      "best_drawdown_gate_max_drawdown_pct": -16.428333022172893,
+      "best_drawdown_gate_return_pct": 40.90916682730739,
+      "best_drawdown_gate_trade_count": 53,
+      "best_return_candidate": "signed_intraday_momentum_intraday_mom60_open_to_close_scale1.5_21183",
+      "best_return_max_drawdown_pct": -50.88433665847978,
+      "best_return_pct": 210.36073405930455,
+      "best_return_trade_count": 371,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 10800,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "signed_overnight_momentum": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "signed_overnight_momentum_overnight_mom20_close_to_next_open_scale0.5_9709",
+      "best_drawdown_gate_max_drawdown_pct": -15.68073577857355,
+      "best_drawdown_gate_return_pct": 451.151964420111,
+      "best_drawdown_gate_trade_count": 669,
+      "best_return_candidate": "signed_overnight_momentum_overnight_mom20_close_to_next_open_scale3_8963",
+      "best_return_max_drawdown_pct": -94.4087857892773,
+      "best_return_pct": 230037.25965320287,
+      "best_return_trade_count": 721,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 10800,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "signed_tug_of_war_close_to_close": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "signed_tug_of_war_close_to_close_tug20_close_to_next_close_scale0.5_25171",
+      "best_drawdown_gate_max_drawdown_pct": -17.144469263794303,
+      "best_drawdown_gate_return_pct": 129.27981269206214,
+      "best_drawdown_gate_trade_count": 90,
+      "best_return_candidate": "signed_tug_of_war_close_to_close_tug20_close_to_next_close_scale3_24455",
+      "best_return_max_drawdown_pct": -81.2982206400279,
+      "best_return_pct": 2424.30125240067,
+      "best_return_trade_count": 90,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 8640,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    }
+  },
+  "external_source_counts": {
+    "github": 2,
+    "paper": 3
+  },
+  "feature_evidence": {
+    "feature_rows": 1869,
+    "metric_rows": 30240,
+    "sessions": [
+      "close_to_next_open",
+      "open_to_close",
+      "close_to_next_close"
+    ],
+    "source_coverage_end": "2026-06-10",
+    "source_coverage_start": "2010-03-11",
+    "test_end": "2026-06-09",
+    "test_start": "2019-01-02"
+  },
+  "full_grid_rows": 30240,
+  "goal_achieved": false,
+  "passes_both_count": 0,
+  "recorder_artifacts": [
+    "artifacts/agentic_alpha_signed_session/agentic_alpha_signed_session_candidate_metrics.csv",
+    "artifacts/agentic_alpha_signed_session/agentic_alpha_signed_session_full_candidate_grid.csv.gz",
+    "artifacts/agentic_alpha_signed_session/agentic_alpha_signed_session_search_summary.json",
+    "artifacts/agentic_alpha_signed_session/external_sources.csv",
+    "artifacts/agentic_alpha_signed_session/failure_modes.md",
+    "meta.yaml",
+    "metrics/best_signed_overnight_dd_gate_return_pct",
+    "metrics/best_signed_overnight_return_pct",
+    "metrics/passes_both_count",
+    "params/baseline",
+    "params/cmd-sys.argv",
+    "params/max_drawdown_floor",
+    "params/metric_rows",
+    "params/provider_uri",
+    "params/source_url",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "ec61dbaee29d4737861261e112a98314",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_signed_session_search_v1/qlib_recorder/684423351917192036/ec61dbaee29d4737861261e112a98314",
+  "root_candidate_rows": 44,
+  "selected_features": [
+    "SOXL_OVERNIGHT_RETURN",
+    "SOXL_INTRADAY_RETURN",
+    "SOXL_TUG_OF_WAR",
+    "SOXX_TREND",
+    "SOXL_VIX",
+    "SOXL_RANGE"
+  ],
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_signed_session_search"
+}

@@ -1,0 +1,6 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,"Route external ideas through retrieve, generate, evaluate, validate, and distill before promotion.",workflow_reference
+github,TSMOM reference implementation,https://github.com/rkohli3/TSMOM,Use time-series momentum as signed exposure rather than long-only trend gates.,web_retrieved
+paper,Time-series momentum evidence,https://papers.ssrn.com/sol3/Delivery.cfm/2730304.pdf?abstractid=2730304,Past returns can define positive or negative exposure by asset and horizon.,web_retrieved
+paper,Tug of War: overnight versus intraday returns,https://personal.lse.ac.uk/polk/research/TugOfWar.pdf,Separate overnight and intraday return pressure can carry different information.,web_retrieved
+paper,Overnight/intraday return reversal trading summary,https://www.cxoadvisory.com/technical-trading/overnightintraday-return-reversal-trading/,Session returns may reverse across overnight and intraday intervals.,web_retrieved

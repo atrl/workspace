@@ -806,6 +806,59 @@ def test_session_effect_features_and_candidate_gates_are_src_owned():
     assert set(summary["branch_results"]) == set(metrics["branch"])
 
 
+def test_signed_session_effect_candidates_emit_long_short_exposure_and_gates():
+    from src.factor import (
+        compact_session_effect_summary,
+        evaluate_signed_session_effect_candidates,
+    )
+
+    dates = pd.date_range("2025-01-02", periods=24, freq="B")
+    direction = pd.Series([1.0 if index % 2 == 0 else -1.0 for index in range(len(dates))])
+    features = pd.DataFrame(
+        {
+            "datetime": dates,
+            "overnight_mom3": direction * 0.01,
+            "intraday_mom3": direction * 0.012,
+            "tug5": direction * 0.014,
+            "next_overnight_return": direction * 0.010,
+            "next_intraday_return": direction * 0.008,
+            "next_close_return": direction * 0.006,
+            "soxx_trend20": 0.10,
+            "soxl_trend20": 0.12,
+            "vix": 18.0,
+        }
+    )
+
+    metrics = evaluate_signed_session_effect_candidates(
+        features,
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+        momentum_windows=[3],
+        tug_windows=[5],
+        thresholds=[0.0],
+        neutral_bands=[0.0],
+        trend_filters=["none"],
+        vix_maxes=[100.0],
+        scales=[1.0],
+    )
+    summary = compact_session_effect_summary(
+        metrics,
+        branches=sorted(metrics["branch"].unique()),
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+    )
+
+    assert set(metrics["branch"]) == {
+        "signed_intraday_momentum",
+        "signed_overnight_momentum",
+        "signed_tug_of_war_close_to_close",
+    }
+    assert metrics["min_exposure"].min() < 0.0
+    assert metrics["max_exposure"].max() > 0.0
+    assert (metrics["beats_baseline_return"] & metrics["passes_drawdown_gate"]).any()
+    assert summary["passes_both_count"] >= 1
+
+
 def test_macro_credit_rate_features_and_candidate_gates_are_src_owned():
     from src.factor import (
         build_macro_credit_frame,
