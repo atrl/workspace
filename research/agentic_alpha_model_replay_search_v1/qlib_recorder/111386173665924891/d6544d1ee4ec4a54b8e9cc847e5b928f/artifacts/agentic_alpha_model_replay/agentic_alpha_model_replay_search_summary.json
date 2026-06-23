@@ -1,0 +1,65 @@
+{
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "best_candidate": null,
+  "branch_results": {
+    "cross_asset_lgbm_replay": {
+      "best_drawdown_gate_max_drawdown_pct": -19.68776051821107,
+      "best_drawdown_gate_return_pct": 175.86828416993777,
+      "best_return_max_drawdown_pct": -89.59562655136858,
+      "best_return_pct": 3312.7352781525906,
+      "comparison_baseline_return_pct": 5134.207948829448,
+      "coverage_end": "2026-04-10",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 1600,
+      "passes_both_count": 0
+    },
+    "production_signal_overlay": {
+      "best_drawdown_gate_max_drawdown_pct": -19.668668877630502,
+      "best_drawdown_gate_return_pct": 548.7571068933172,
+      "best_return_max_drawdown_pct": -62.26319892089549,
+      "best_return_pct": 8227.696629793714,
+      "comparison_baseline_return_pct": 6570.0232821043,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 420,
+      "passes_both_count": 0
+    },
+    "qlib_daily_lgbm_replay": {
+      "best_drawdown_gate_max_drawdown_pct": -19.536150471655557,
+      "best_drawdown_gate_return_pct": 403.3972486088265,
+      "best_return_max_drawdown_pct": -91.49041540431917,
+      "best_return_pct": 32042.38363713809,
+      "comparison_baseline_return_pct": 6570.0232821043,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 1600,
+      "passes_both_count": 0
+    }
+  },
+  "external_source_counts": {
+    "arxiv": 2,
+    "github": 2,
+    "paper": 1,
+    "twitter": 1
+  },
+  "goal_achieved": false,
+  "passes_both_count": 0,
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_model_replay_search"
+}

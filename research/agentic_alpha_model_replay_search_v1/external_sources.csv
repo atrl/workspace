@@ -1,0 +1,7 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use retrieve-generate-evaluate-validate-distill loops to close failed strategy branches with evidence.,reachable
+arxiv,Compounding Effects in Leveraged ETFs,https://arxiv.org/html/2504.20116v1,"LETF compounding depends on autocorrelation, volatility clustering, trend, and mean reversion regimes.",reachable
+arxiv,Single-Asset Adaptive Leveraged Volatility Control,https://arxiv.org/html/2603.01298v2,"Feedback volatility control motivates target volatility, exposure clipping, smoothing, and leverage bounds.",reachable
+paper,Volatility Targeting Is Trendy,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4773781,"Volatility-managed alpha can overlap with trend-following exposure, so trend gates must be tested directly.",reachable
+github,MLM trend-following implementation,https://github.com/amstrdm/mlm-trend-following,A 200-day trend filter and volatility filter are a concrete external implementation pattern to test.,reachable
+twitter,SOXL realized versus implied volatility ratio discussion,https://x.com/Alpha_Ex_LLC/status/2067644619462938886,SOXL realized/implied volatility ratio discussion motivates testing volatility-ratio and VIX regime guards.,search_snippet_only
