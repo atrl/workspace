@@ -1,0 +1,300 @@
+{
+  "artifact_policy": {
+    "kept_sidecars": [
+      "agentic_alpha_canary_sprint_candidate_metrics.csv",
+      "agentic_alpha_canary_sprint_search_summary.json",
+      "external_sources.csv",
+      "failure_modes.md"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "agentic_alpha_canary_sprint_search_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+      "labels": "artifacts/label.pkl",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+      "signals": "artifacts/signals.pkl"
+    },
+    "reproducible_from_recorder": true,
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-06-09",
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "branch_results": {
+    "canary_sprint_short_hold": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "trend60_thr0.06_vix26.0_positive_h3_s0.5",
+      "best_drawdown_gate_max_drawdown_pct": -17.423822168063097,
+      "best_drawdown_gate_return_pct": 542.6166088552307,
+      "best_return_candidate": "trend20_thr-0.03_vix26.0_positive_h3_s3.0",
+      "best_return_max_drawdown_pct": -97.88024490089981,
+      "best_return_pct": 182964.55772896123,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 5250,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "dip_sprint_short_hold": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "dip2_thr-0.08_trend60_vix22.0_h1_s1.0",
+      "best_drawdown_gate_max_drawdown_pct": -18.96937144995311,
+      "best_drawdown_gate_return_pct": 585.5915809628458,
+      "best_return_candidate": "dip2_thr-0.08_trend60_vix26.0_h1_s4.0",
+      "best_return_max_drawdown_pct": -72.84105578179134,
+      "best_return_pct": 33449.04530416357,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 4725,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "guarded_sprint_budget": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "dip_s4.0_stop-0.1_lossNone_vtNone",
+      "best_drawdown_gate_max_drawdown_pct": -13.608810580953268,
+      "best_drawdown_gate_return_pct": 261.4745102026252,
+      "best_return_candidate": "dip_s20.0_stop-0.18_lossNone_vtNone",
+      "best_return_max_drawdown_pct": -68.04405290476635,
+      "best_return_pct": 3882.480344335051,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 1296,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    }
+  },
+  "canary_sprint": {
+    "candidate_coverage_end": "2026-06-09",
+    "candidate_coverage_start": "2019-01-02",
+    "cost_per_turnover": 0.0002,
+    "feature_rows": 1869,
+    "qlib_feature_rows": 8176,
+    "qlib_fields": [
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "qlib_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "selected_features": [
+      "SOXX_TREND_20",
+      "SOXX_TREND_60",
+      "SOXL_DIP_2",
+      "SOXL_VIX",
+      "SOXL_AUTOCORR_10",
+      "SOXL_HV20"
+    ],
+    "source_coverage_end": "2026-06-10",
+    "source_coverage_start": "2010-03-11"
+  },
+  "card_type": "diagnostic_search",
+  "data_range": [
+    "2019-01-02",
+    "2026-06-09"
+  ],
+  "experiment": "agentic_alpha_canary_sprint_search_v1",
+  "external_source_counts": {
+    "arxiv": 1,
+    "github": 1,
+    "paper": 3,
+    "twitter": 1
+  },
+  "feature_warmup_range": [
+    "2010-03-11",
+    "2026-06-10"
+  ],
+  "goal_gate": {
+    "max_drawdown_floor": -20.0,
+    "require_return_above_baseline": true
+  },
+  "market": "all",
+  "promotion_decision": "not_promoted",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "model": "https://qlib.readthedocs.io/en/latest/component/model.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start"
+  ],
+  "recorder_artifacts": [
+    "0/meta.yaml",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/agentic_alpha_canary_sprint/agentic_alpha_canary_sprint_candidate_metrics.csv",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/agentic_alpha_canary_sprint/agentic_alpha_canary_sprint_search_summary.json",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/agentic_alpha_canary_sprint/external_sources.csv",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/agentic_alpha_canary_sprint/failure_modes.md",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/code_cached.txt",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/code_diff.txt",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/code_status.txt",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/meta.yaml",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/metrics/best_canary_return_pct",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/metrics/best_dip_drawdown_gate_return_pct",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/metrics/passes_both_count",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/baseline",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/candidate_rows",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/cmd-sys.argv",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/feature_end",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/feature_start",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/max_drawdown_floor",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/provider_uri",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/test_end",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/test_start",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/tags/mlflow.runName",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/tags/mlflow.source.name",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/tags/mlflow.source.type",
+    "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/tags/mlflow.user",
+    "792729988849016516/meta.yaml"
+  ],
+  "recorder_id": "f4bc3298eea142ba9b0b2fb3de6614cf",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_canary_sprint_search_v1/qlib_recorder",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_canary_sprint_search_v1/qlib_recorder",
+  "region": "us",
+  "search_report": {
+    "baseline": {
+      "benchmark_return_pct": 3530.8157772578,
+      "max_drawdown_pct": -85.23168365,
+      "name": "qlib_paper_sim_v1",
+      "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+      "return_pct": 6570.0232821043
+    },
+    "best_candidate": null,
+    "branch_results": {
+      "canary_sprint_short_hold": {
+        "best_drawdown_gate_available": true,
+        "best_drawdown_gate_candidate": "trend60_thr0.06_vix26.0_positive_h3_s0.5",
+        "best_drawdown_gate_max_drawdown_pct": -17.423822168063097,
+        "best_drawdown_gate_return_pct": 542.6166088552307,
+        "best_return_candidate": "trend20_thr-0.03_vix26.0_positive_h3_s3.0",
+        "best_return_max_drawdown_pct": -97.88024490089981,
+        "best_return_pct": 182964.55772896123,
+        "coverage_end": "2026-06-09",
+        "coverage_start": "2019-01-02",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 5250,
+        "max_drawdown_floor": -20.0,
+        "passes_both_count": 0
+      },
+      "dip_sprint_short_hold": {
+        "best_drawdown_gate_available": true,
+        "best_drawdown_gate_candidate": "dip2_thr-0.08_trend60_vix22.0_h1_s1.0",
+        "best_drawdown_gate_max_drawdown_pct": -18.96937144995311,
+        "best_drawdown_gate_return_pct": 585.5915809628458,
+        "best_return_candidate": "dip2_thr-0.08_trend60_vix26.0_h1_s4.0",
+        "best_return_max_drawdown_pct": -72.84105578179134,
+        "best_return_pct": 33449.04530416357,
+        "coverage_end": "2026-06-09",
+        "coverage_start": "2019-01-02",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 4725,
+        "max_drawdown_floor": -20.0,
+        "passes_both_count": 0
+      },
+      "guarded_sprint_budget": {
+        "best_drawdown_gate_available": true,
+        "best_drawdown_gate_candidate": "dip_s4.0_stop-0.1_lossNone_vtNone",
+        "best_drawdown_gate_max_drawdown_pct": -13.608810580953268,
+        "best_drawdown_gate_return_pct": 261.4745102026252,
+        "best_return_candidate": "dip_s20.0_stop-0.18_lossNone_vtNone",
+        "best_return_max_drawdown_pct": -68.04405290476635,
+        "best_return_pct": 3882.480344335051,
+        "coverage_end": "2026-06-09",
+        "coverage_start": "2019-01-02",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 1296,
+        "max_drawdown_floor": -20.0,
+        "passes_both_count": 0
+      }
+    },
+    "canary_sprint": {
+      "candidate_coverage_end": "2026-06-09",
+      "candidate_coverage_start": "2019-01-02",
+      "cost_per_turnover": 0.0002,
+      "feature_rows": 1869,
+      "qlib_feature_rows": 8176,
+      "qlib_fields": [
+        "$close",
+        "$volume",
+        "$vix"
+      ],
+      "qlib_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "selected_features": [
+        "SOXX_TREND_20",
+        "SOXX_TREND_60",
+        "SOXL_DIP_2",
+        "SOXL_VIX",
+        "SOXL_AUTOCORR_10",
+        "SOXL_HV20"
+      ],
+      "source_coverage_end": "2026-06-10",
+      "source_coverage_start": "2010-03-11"
+    },
+    "external_source_counts": {
+      "arxiv": 1,
+      "github": 1,
+      "paper": 3,
+      "twitter": 1
+    },
+    "goal_achieved": false,
+    "passes_both_count": 0,
+    "recorder_artifacts": [
+      "0/meta.yaml",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/agentic_alpha_canary_sprint/agentic_alpha_canary_sprint_candidate_metrics.csv",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/agentic_alpha_canary_sprint/agentic_alpha_canary_sprint_search_summary.json",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/agentic_alpha_canary_sprint/external_sources.csv",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/agentic_alpha_canary_sprint/failure_modes.md",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/code_cached.txt",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/code_diff.txt",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/artifacts/code_status.txt",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/meta.yaml",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/metrics/best_canary_return_pct",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/metrics/best_dip_drawdown_gate_return_pct",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/metrics/passes_both_count",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/baseline",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/candidate_rows",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/cmd-sys.argv",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/feature_end",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/feature_start",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/max_drawdown_floor",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/provider_uri",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/test_end",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/params/test_start",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/tags/mlflow.runName",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/tags/mlflow.source.name",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/tags/mlflow.source.type",
+      "792729988849016516/f4bc3298eea142ba9b0b2fb3de6614cf/tags/mlflow.user",
+      "792729988849016516/meta.yaml"
+    ],
+    "recorder_id": "f4bc3298eea142ba9b0b2fb3de6614cf",
+    "stage_order": [
+      "research",
+      "retrieve",
+      "generate",
+      "evaluate",
+      "validate",
+      "distill"
+    ],
+    "workflow": "agentic_alpha_canary_sprint_search"
+  },
+  "sidecars": {
+    "candidate_metrics": "agentic_alpha_canary_sprint_candidate_metrics.csv",
+    "external_sources": "external_sources.csv",
+    "failure_modes": "failure_modes.md",
+    "search_summary": "agentic_alpha_canary_sprint_search_summary.json"
+  },
+  "workflow_config": "workflow.yaml"
+}

@@ -779,3 +779,65 @@ def test_agentic_alpha_long_short_crisis_alpha_search_card_closes_trend_followin
     assert "R.start" in notebook_text
     assert "Time Series Momentum" in notebook_text
     assert "未找到同时满足" in conclusion
+
+
+def test_agentic_alpha_canary_sprint_search_card_closes_short_hold_branches():
+    card = ROOT / "research" / "agentic_alpha_canary_sprint_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_canary_sprint_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_canary_sprint_search_v1"
+    assert summary["card_type"] == "diagnostic_search"
+    assert summary["promotion_decision"] == "not_promoted"
+    assert summary["search_report"]["goal_achieved"] is False
+    assert summary["search_report"]["best_candidate"] is None
+    assert summary["search_report"]["passes_both_count"] == 0
+    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
+    assert summary["goal_gate"] == {
+        "max_drawdown_floor": -20.0,
+        "require_return_above_baseline": True,
+    }
+    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
+    assert set(summary["branch_results"]) == {
+        "canary_sprint_short_hold",
+        "dip_sprint_short_hold",
+        "guarded_sprint_budget",
+    }
+    for result in summary["branch_results"].values():
+        assert result["coverage_end"] == "2026-06-09"
+        assert result["passes_both_count"] == 0
+        assert result["best_drawdown_gate_available"] is True
+        assert result["best_drawdown_gate_return_pct"] < summary["baseline"]["return_pct"]
+        assert result["best_drawdown_gate_max_drawdown_pct"] >= -20.0
+    assert summary["canary_sprint"]["selected_features"] == [
+        "SOXX_TREND_20",
+        "SOXX_TREND_60",
+        "SOXL_DIP_2",
+        "SOXL_VIX",
+        "SOXL_AUTOCORR_10",
+        "SOXL_HV20",
+    ]
+    assert summary["external_source_counts"] == {"arxiv": 1, "github": 1, "paper": 3, "twitter": 1}
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "candidate_metrics",
+        "external_sources",
+        "failure_modes",
+        "search_summary",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "canary_sprint_short_hold" in candidates
+    assert "dip_sprint_short_hold" in candidates
+    assert "guarded_sprint_budget" in candidates
+    assert "drawdown_gate" in candidates
+    assert "return_gate" in candidates
+    assert summary["recorder_id"] in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "Compounding Effects in Leveraged ETFs" in notebook_text
+    assert "未找到同时满足" in conclusion

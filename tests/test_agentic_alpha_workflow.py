@@ -546,3 +546,87 @@ def test_long_short_crisis_alpha_features_and_candidate_gates_are_src_owned():
     assert {"drawdown_gate", "return_gate"} & set(metrics["decision_basis"])
     assert summary["passes_both_count"] >= 0
     assert set(summary["branch_results"]) == set(metrics["branch"])
+
+
+def test_canary_sprint_features_and_candidate_gates_are_src_owned():
+    from src.factor import (
+        build_canary_sprint_frame,
+        compact_canary_sprint_summary,
+        evaluate_canary_sprint_candidates,
+    )
+
+    dates = pd.date_range("2025-01-02", periods=90, freq="B")
+    soxl_close = []
+    price = 20.0
+    for index, _ in enumerate(dates):
+        if index in {20, 44, 68}:
+            price *= 0.91
+        elif index % 9 == 0:
+            price *= 0.97
+        else:
+            price *= 1.012
+        soxl_close.append(price)
+    soxx_close = [100.0 * (1.001 + (0.004 if index % 12 < 7 else -0.001)) ** index for index in range(len(dates))]
+    rows = []
+    for symbol, close_values, vix in [
+        ("SOXL", soxl_close, 19.0),
+        ("SOXX", soxx_close, None),
+    ]:
+        for date, close in zip(dates, close_values):
+            rows.append(
+                {
+                    "instrument": symbol,
+                    "datetime": date,
+                    "$close": close,
+                    "$volume": 1_000_000,
+                    "$vix": vix,
+                }
+            )
+    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
+
+    features = build_canary_sprint_frame(
+        qlib_frame,
+        start="2025-02-15",
+        end="2025-05-15",
+    )
+    metrics = evaluate_canary_sprint_candidates(
+        features,
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+        trend_lookbacks=[20],
+        trend_thresholds=[-0.05, 0.0],
+        vix_maxes=[26.0],
+        autocorr_filters=["none", "positive"],
+        hold_days=[1, 3],
+        scales=[0.5, 1.0],
+        dip_lookbacks=[2],
+        dip_thresholds=[-0.08],
+        guard_scales=[1.0],
+        guard_stop_drawdowns=[-0.18],
+        guard_max_daily_losses=[0.10],
+        guard_vol_targets=[None],
+    )
+    summary = compact_canary_sprint_summary(
+        metrics,
+        branches=sorted(metrics["branch"].unique()),
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+    )
+
+    assert {
+        "next_return",
+        "soxx_trend20",
+        "soxl_dip2",
+        "autocorr10",
+        "hv20",
+        "vix",
+    }.issubset(features.columns)
+    assert features["datetime"].is_monotonic_increasing
+    assert set(metrics["branch"]) == {
+        "canary_sprint_short_hold",
+        "dip_sprint_short_hold",
+        "guarded_sprint_budget",
+    }
+    assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
+    assert summary["passes_both_count"] >= 0
+    assert set(summary["branch_results"]) == set(metrics["branch"])

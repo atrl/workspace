@@ -1,4 +1,10 @@
 from .agentic_validation import AgenticAlphaFactorValidationReport, validate_agentic_alpha_factors
+from .canary_sprint import (
+    build_canary_sprint_frame,
+    compact_canary_sprint_summary,
+    evaluate_canary_sprint_candidates,
+    summarize_canary_sprint_branch,
+)
 from .cross_asset_rotation import (
     build_cross_asset_price_frame,
     evaluate_cross_asset_rotation_candidates,
@@ -27,18 +33,22 @@ __all__ = [
     "AgenticAlphaFactorValidationReport",
     "FactorDiagnosticsReport",
     "QlibScoredDataset",
+    "build_canary_sprint_frame",
     "build_cross_asset_price_frame",
     "build_factor_library_reversal_frame",
     "build_long_short_crisis_alpha_frame",
     "build_tail_risk_external_frame",
+    "compact_canary_sprint_summary",
     "compact_factor_library_search_summary",
     "compact_long_short_crisis_alpha_summary",
     "combine_qlib_factor_scores",
+    "evaluate_canary_sprint_candidates",
     "evaluate_cross_asset_rotation_candidates",
     "evaluate_factor_library_reversal_candidates",
     "evaluate_long_short_crisis_alpha_candidates",
     "evaluate_tail_risk_candidate",
     "qlib_factor_diagnostics",
+    "summarize_canary_sprint_branch",
     "summarize_cross_asset_branch",
     "summarize_factor_library_reversal_branch",
     "summarize_long_short_crisis_alpha_branch",

@@ -1,0 +1,200 @@
+diff --git a/src/factor/__init__.py b/src/factor/__init__.py
+index 98cea918..b293b76e 100644
+--- a/src/factor/__init__.py
++++ b/src/factor/__init__.py
+@@ -1,4 +1,10 @@
+ from .agentic_validation import AgenticAlphaFactorValidationReport, validate_agentic_alpha_factors
++from .canary_sprint import (
++    build_canary_sprint_frame,
++    compact_canary_sprint_summary,
++    evaluate_canary_sprint_candidates,
++    summarize_canary_sprint_branch,
++)
+ from .cross_asset_rotation import (
+     build_cross_asset_price_frame,
+     evaluate_cross_asset_rotation_candidates,
+@@ -27,18 +33,22 @@ __all__ = [
+     "AgenticAlphaFactorValidationReport",
+     "FactorDiagnosticsReport",
+     "QlibScoredDataset",
++    "build_canary_sprint_frame",
+     "build_cross_asset_price_frame",
+     "build_factor_library_reversal_frame",
+     "build_long_short_crisis_alpha_frame",
+     "build_tail_risk_external_frame",
++    "compact_canary_sprint_summary",
+     "compact_factor_library_search_summary",
+     "compact_long_short_crisis_alpha_summary",
+     "combine_qlib_factor_scores",
++    "evaluate_canary_sprint_candidates",
+     "evaluate_cross_asset_rotation_candidates",
+     "evaluate_factor_library_reversal_candidates",
+     "evaluate_long_short_crisis_alpha_candidates",
+     "evaluate_tail_risk_candidate",
+     "qlib_factor_diagnostics",
++    "summarize_canary_sprint_branch",
+     "summarize_cross_asset_branch",
+     "summarize_factor_library_reversal_branch",
+     "summarize_long_short_crisis_alpha_branch",
+diff --git a/tests/test_agentic_alpha_workflow.py b/tests/test_agentic_alpha_workflow.py
+index 97405bc4..b2eb5f04 100644
+--- a/tests/test_agentic_alpha_workflow.py
++++ b/tests/test_agentic_alpha_workflow.py
+@@ -546,3 +546,87 @@ def test_long_short_crisis_alpha_features_and_candidate_gates_are_src_owned():
+     assert {"drawdown_gate", "return_gate"} & set(metrics["decision_basis"])
+     assert summary["passes_both_count"] >= 0
+     assert set(summary["branch_results"]) == set(metrics["branch"])
++
++
++def test_canary_sprint_features_and_candidate_gates_are_src_owned():
++    from src.factor import (
++        build_canary_sprint_frame,
++        compact_canary_sprint_summary,
++        evaluate_canary_sprint_candidates,
++    )
++
++    dates = pd.date_range("2025-01-02", periods=90, freq="B")
++    soxl_close = []
++    price = 20.0
++    for index, _ in enumerate(dates):
++        if index in {20, 44, 68}:
++            price *= 0.91
++        elif index % 9 == 0:
++            price *= 0.97
++        else:
++            price *= 1.012
++        soxl_close.append(price)
++    soxx_close = [100.0 * (1.001 + (0.004 if index % 12 < 7 else -0.001)) ** index for index in range(len(dates))]
++    rows = []
++    for symbol, close_values, vix in [
++        ("SOXL", soxl_close, 19.0),
++        ("SOXX", soxx_close, None),
++    ]:
++        for date, close in zip(dates, close_values):
++            rows.append(
++                {
++                    "instrument": symbol,
++                    "datetime": date,
++                    "$close": close,
++                    "$volume": 1_000_000,
++                    "$vix": vix,
++                }
++            )
++    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
++
++    features = build_canary_sprint_frame(
++        qlib_frame,
++        start="2025-02-15",
++        end="2025-05-15",
++    )
++    metrics = evaluate_canary_sprint_candidates(
++        features,
++        baseline_return_pct=5.0,
++        max_drawdown_floor=-20.0,
++        trend_lookbacks=[20],
++        trend_thresholds=[-0.05, 0.0],
++        vix_maxes=[26.0],
++        autocorr_filters=["none", "positive"],
++        hold_days=[1, 3],
++        scales=[0.5, 1.0],
++        dip_lookbacks=[2],
++        dip_thresholds=[-0.08],
++        guard_scales=[1.0],
++        guard_stop_drawdowns=[-0.18],
++        guard_max_daily_losses=[0.10],
++        guard_vol_targets=[None],
++    )
++    summary = compact_canary_sprint_summary(
++        metrics,
++        branches=sorted(metrics["branch"].unique()),
++        baseline_return_pct=5.0,
++        max_drawdown_floor=-20.0,
++    )
++
++    assert {
++        "next_return",
++        "soxx_trend20",
++        "soxl_dip2",
++        "autocorr10",
++        "hv20",
++        "vix",
++    }.issubset(features.columns)
++    assert features["datetime"].is_monotonic_increasing
++    assert set(metrics["branch"]) == {
++        "canary_sprint_short_hold",
++        "dip_sprint_short_hold",
++        "guarded_sprint_budget",
++    }
++    assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
++    assert summary["passes_both_count"] >= 0
++    assert set(summary["branch_results"]) == set(metrics["branch"])
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index 2b90c386..bf320989 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -779,3 +779,65 @@ def test_agentic_alpha_long_short_crisis_alpha_search_card_closes_trend_followin
+     assert "R.start" in notebook_text
+     assert "Time Series Momentum" in notebook_text
+     assert "未找到同时满足" in conclusion
++
++
++def test_agentic_alpha_canary_sprint_search_card_closes_short_hold_branches():
++    card = ROOT / "research" / "agentic_alpha_canary_sprint_search_v1"
++    summary = _summary(card)
++    notebook_text = (card / "agentic_alpha_canary_sprint_search_v1.ipynb").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "agentic_alpha_canary_sprint_search_v1"
++    assert summary["card_type"] == "diagnostic_search"
++    assert summary["promotion_decision"] == "not_promoted"
++    assert summary["search_report"]["goal_achieved"] is False
++    assert summary["search_report"]["best_candidate"] is None
++    assert summary["search_report"]["passes_both_count"] == 0
++    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
++    assert summary["goal_gate"] == {
++        "max_drawdown_floor": -20.0,
++        "require_return_above_baseline": True,
++    }
++    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
++    assert set(summary["branch_results"]) == {
++        "canary_sprint_short_hold",
++        "dip_sprint_short_hold",
++        "guarded_sprint_budget",
++    }
++    for result in summary["branch_results"].values():
++        assert result["coverage_end"] == "2026-06-09"
++        assert result["passes_both_count"] == 0
++        assert result["best_drawdown_gate_available"] is True
++        assert result["best_drawdown_gate_return_pct"] < summary["baseline"]["return_pct"]
++        assert result["best_drawdown_gate_max_drawdown_pct"] >= -20.0
++    assert summary["canary_sprint"]["selected_features"] == [
++        "SOXX_TREND_20",
++        "SOXX_TREND_60",
++        "SOXL_DIP_2",
++        "SOXL_VIX",
++        "SOXL_AUTOCORR_10",
++        "SOXL_HV20",
++    ]
++    assert summary["external_source_counts"] == {"arxiv": 1, "github": 1, "paper": 3, "twitter": 1}
++    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert set(summary["sidecars"]) == {
++        "candidate_metrics",
++        "external_sources",
++        "failure_modes",
++        "search_summary",
++    }
++    for rel_path in summary["sidecars"].values():
++        assert (card / rel_path).exists(), rel_path
++
++    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
++    assert "canary_sprint_short_hold" in candidates
++    assert "dip_sprint_short_hold" in candidates
++    assert "guarded_sprint_budget" in candidates
++    assert "drawdown_gate" in candidates
++    assert "return_gate" in candidates
++    assert summary["recorder_id"] in notebook_text
++    assert "D.features" in notebook_text
++    assert "R.start" in notebook_text
++    assert "Compounding Effects in Leveraged ETFs" in notebook_text
++    assert "未找到同时满足" in conclusion
