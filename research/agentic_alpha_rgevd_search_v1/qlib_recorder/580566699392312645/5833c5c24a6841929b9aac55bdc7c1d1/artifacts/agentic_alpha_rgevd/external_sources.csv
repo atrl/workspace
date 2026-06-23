@@ -1,0 +1,6 @@
+source_type,title,url,extracted_signal,tags
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use Research/Retrieve/Generate/Evaluate/Validate/Distill to keep factor ideas evidence-backed.,workflow;factor
+paper,Conditional volatility targeting,https://alphaarchitect.com/conditional-volatility-targeting/,Conditional volatility targeting can reduce drawdowns and tail risk.,volatility;risk
+twitter,SOXL leveraged ETF rebalancing loop discussion,https://x.com/ces921/highlights,Levered ETF rebalancing loop can amplify regime risk in SOXL.,flow;regime
+arxiv,Compounding Effects in Leveraged ETFs,https://arxiv.org/html/2504.20116v1,"LETF compounding depends on return autocorrelation, volatility clustering, and regime persistence.",autocorrelation;volatility
+arxiv,Single-Asset Adaptive Leveraged Volatility Control,https://arxiv.org/html/2603.01298v2,Adaptive target-volatility control uses interpretable feedback and leverage limits.,target_volatility;control

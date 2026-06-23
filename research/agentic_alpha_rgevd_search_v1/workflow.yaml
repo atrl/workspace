@@ -1,0 +1,30 @@
+experiment: agentic_alpha_rgevd_search_v1
+card_type: diagnostic_search
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_rgevd_search_v1/qlib_recorder
+  market: all
+  region: us
+  instruments:
+    - SOXL
+    - SOXX
+segments:
+  search:
+    start: 2019-01-02
+    end: 2026-06-09
+rgevd:
+  stages:
+    - research
+    - retrieve
+    - generate
+    - evaluate
+    - validate
+    - distill
+goal_gate:
+  baseline_card: production/qlib_paper_sim_v1
+  baseline_window: test
+  max_drawdown_floor: -20.0
+  require_return_above_baseline: true
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

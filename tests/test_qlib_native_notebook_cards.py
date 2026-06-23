@@ -235,3 +235,57 @@ def test_production_card_is_paper_sim_and_references_qlib_recorder():
     assert "model_selection.csv" in notebook_text
     assert "backtest_benchmark_comparison.csv" in notebook_text
     assert "risk_analysis.csv" in notebook_text
+
+
+def test_agentic_alpha_rgevd_search_card_records_external_knowledge_and_goal_gate():
+    card = ROOT / "research" / "agentic_alpha_rgevd_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_rgevd_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_rgevd_search_v1"
+    assert summary["card_type"] == "diagnostic_search"
+    assert summary["promotion_decision"] == "not_promoted"
+    assert summary["goal_gate"]["max_drawdown_floor"] == -20.0
+    assert summary["search_report"]["goal_achieved"] is False
+    assert summary["search_report"]["best_candidate"] is None
+    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
+    assert summary["baseline"]["max_drawdown_pct"] < -20.0
+    assert summary["external_source_counts"] == {"arxiv": 2, "github": 1, "paper": 1, "twitter": 1}
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["qlib_docs"] == {
+        "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+        "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    }
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
+    assert summary["artifact_policy"]["reproducible_from_recorder"] is True
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "all_model_predictions",
+        "labels",
+        "portfolio_report",
+        "positions",
+        "predictions",
+        "risk_analysis",
+        "signals",
+    }
+    assert set(summary["sidecars"]) == {
+        "candidate_metrics",
+        "external_sources",
+        "hypotheses",
+        "search_summary",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidate_rows = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "vol_target_trend_grid" in candidate_rows
+    assert "drawdown_gate" in candidate_rows
+    assert "return_gate" in candidate_rows
+    assert "github" in (card / summary["sidecars"]["external_sources"]).read_text(encoding="utf-8")
+    assert "arxiv" in (card / summary["sidecars"]["external_sources"]).read_text(encoding="utf-8")
+    assert summary["recorder_id"] in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "未找到同时满足" in conclusion
