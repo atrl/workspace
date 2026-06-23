@@ -841,3 +841,50 @@ def test_agentic_alpha_canary_sprint_search_card_closes_short_hold_branches():
     assert "R.start" in notebook_text
     assert "Compounding Effects in Leveraged ETFs" in notebook_text
     assert "未找到同时满足" in conclusion
+
+
+def test_agentic_alpha_meta_label_probability_gate_card_records_sanity_gate():
+    card = ROOT / "research" / "agentic_alpha_meta_label_probability_gate_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_meta_label_probability_gate_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_meta_label_probability_gate_search_v1"
+    assert summary["card_type"] == "diagnostic_search"
+    assert summary["promotion_decision"] == "not_promoted"
+    assert summary["search_report"]["goal_achieved"] is False
+    assert summary["search_report"]["passes_both_count"] == 0
+    assert summary["search_report"]["raw_passes_both_count"] >= 1
+    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
+    assert summary["goal_gate"] == {
+        "max_drawdown_floor": -20.0,
+        "require_return_above_baseline": True,
+        "max_exposure_sanity": 10.0,
+        "min_trade_count_sanity": 20,
+    }
+    assert set(summary["branch_results"]) == {"meta_label_probability_gate"}
+    branch = summary["branch_results"]["meta_label_probability_gate"]
+    assert branch["raw_passes_both_count"] >= 1
+    assert branch["passes_both_count"] == 0
+    assert branch["best_drawdown_gate_max_exposure"] > summary["goal_gate"]["max_exposure_sanity"]
+    assert summary["meta_label_probability_gate"]["model_families"] == ["LogisticRegression", "HistGradientBoosting"]
+    assert summary["external_source_counts"] == {"arxiv": 1, "github": 2, "paper": 1}
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "candidate_metrics",
+        "external_sources",
+        "failure_modes",
+        "search_summary",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "meta_label_probability_gate" in candidates
+    assert "exposure_sanity_gate" in candidates
+    assert summary["recorder_id"] in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "meta-labeling" in notebook_text
+    assert "极端暴露" in conclusion

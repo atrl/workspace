@@ -1,0 +1,5 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use Research/Retrieve/Generate/Evaluate/Validate/Distill loops and close each branch with evidence.,workflow_reference
+github,Machine Learning for Trading meta-labeling examples,https://github.com/stefan-jansen/machine-learning-for-trading,Use a secondary classifier to gate primary side signals rather than sizing every raw signal equally.,web_retrieved
+paper,Meta Labeling: A Toy Example,https://hudsonthames.org/meta-labeling-a-toy-example/,Meta-labeling separates side generation from probability-of-success validation.,web_retrieved
+arxiv,Meta-learning for portfolio management,https://arxiv.org/html/2505.03659v2,"Meta-learning can adapt allocation decisions, but validation must guard against sparse high-confidence overfit.",web_retrieved

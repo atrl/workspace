@@ -630,3 +630,89 @@ def test_canary_sprint_features_and_candidate_gates_are_src_owned():
     assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
     assert summary["passes_both_count"] >= 0
     assert set(summary["branch_results"]) == set(metrics["branch"])
+
+
+def test_meta_label_probability_gate_flags_extreme_exposure_numeric_passes():
+    from src.factor import (
+        build_meta_label_probability_frame,
+        compact_meta_label_probability_summary,
+        evaluate_probability_gate_grid,
+    )
+
+    dates = pd.date_range("2025-01-02", periods=160, freq="B")
+    soxl_close = []
+    price = 20.0
+    for index, _ in enumerate(dates):
+        if index in {40, 75, 110}:
+            price *= 0.92
+        elif index in {41, 76, 111}:
+            price *= 1.12
+        else:
+            price *= 1.002
+        soxl_close.append(price)
+    soxx_close = [100.0 * (1.0015**index) for index in range(len(dates))]
+    rows = []
+    for symbol, close_values, vix in [
+        ("SOXL", soxl_close, 19.0),
+        ("SOXX", soxx_close, None),
+    ]:
+        for date, close in zip(dates, close_values):
+            rows.append(
+                {
+                    "instrument": symbol,
+                    "datetime": date,
+                    "$close": close,
+                    "$volume": 1_000_000,
+                    "$vix": vix,
+                }
+            )
+    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
+
+    features = build_meta_label_probability_frame(
+        qlib_frame,
+        start="2025-03-01",
+        end="2025-08-15",
+        min_history=20,
+    )
+    features["probability"] = 0.10
+    event_dates = features.loc[features["next_return"] > 0.08, "datetime"]
+    features.loc[features["datetime"].isin(event_dates), "probability"] = 0.95
+
+    metrics = evaluate_probability_gate_grid(
+        features,
+        branch="meta_label_probability_gate",
+        probability_col="probability",
+        event_col="base_dip",
+        baseline_return_pct=100.0,
+        max_drawdown_floor=-20.0,
+        thresholds=[0.9],
+        scales=[2.0, 30.0],
+        size_modes=["binary"],
+        max_exposure_sanity=10.0,
+        min_trade_count_sanity=5,
+    )
+    summary = compact_meta_label_probability_summary(
+        metrics,
+        branches=["meta_label_probability_gate"],
+        baseline_return_pct=100.0,
+        max_drawdown_floor=-20.0,
+        max_exposure_sanity=10.0,
+        min_trade_count_sanity=5,
+    )
+
+    assert {
+        "next_return",
+        "base_trend",
+        "base_dip",
+        "base_calendar",
+        "base_any",
+        "ret2",
+        "soxx_ma150",
+    }.issubset(features.columns)
+    assert features["datetime"].is_monotonic_increasing
+    assert (metrics["beats_baseline_return"] & metrics["passes_drawdown_gate"]).any()
+    assert not (metrics["decision"] == "Promote").any()
+    assert "exposure_sanity_gate" in set(metrics["decision_basis"])
+    assert summary["raw_passes_both_count"] >= 1
+    assert summary["passes_both_count"] == 0
+    assert summary["goal_achieved"] is False

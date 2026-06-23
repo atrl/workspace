@@ -1,0 +1,82 @@
+{
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "best_candidate": null,
+  "branch_results": {
+    "meta_label_probability_gate": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "base_dip_LogisticRegression_p0.9_binary_scale100",
+      "best_drawdown_gate_max_drawdown_pct": -5.521588885514972,
+      "best_drawdown_gate_max_exposure": 100.0,
+      "best_drawdown_gate_return_pct": 13104.849328472821,
+      "best_drawdown_gate_trade_count": 3,
+      "best_return_candidate": "base_dip_LogisticRegression_p0.9_binary_scale100",
+      "best_return_max_drawdown_pct": -5.521588885514972,
+      "best_return_max_exposure": 100.0,
+      "best_return_pct": 13104.849328472821,
+      "best_return_trade_count": 3,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2024-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 1408,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0,
+      "raw_passes_both_count": 4
+    }
+  },
+  "external_source_counts": {
+    "arxiv": 1,
+    "github": 2,
+    "paper": 1
+  },
+  "feature_evidence": {
+    "feature_rows": 1869,
+    "metric_rows": 1408,
+    "primary_signals": [
+      "base_trend",
+      "base_dip",
+      "base_calendar",
+      "base_any"
+    ],
+    "source_coverage_end": "2026-06-10",
+    "source_coverage_start": "2010-03-11",
+    "test_end": "2026-06-09",
+    "test_start": "2019-01-02"
+  },
+  "goal_achieved": false,
+  "model_families": [
+    "LogisticRegression",
+    "HistGradientBoosting"
+  ],
+  "passes_both_count": 0,
+  "raw_passes_both_count": 4,
+  "recorder_id": "31dd7965ce8546c6b0a353178127c003",
+  "risk_sanity": {
+    "max_exposure_sanity": 10.0,
+    "min_trade_count_sanity": 20,
+    "raw_numeric_passes_require_sanity": true
+  },
+  "selected_features": [
+    "SOXL_RETURNS",
+    "SOXX_RETURNS",
+    "SOXL_TREND",
+    "SOXX_TREND",
+    "SOXL_DRAWDOWN",
+    "SOXL_VIX",
+    "SOXL_VOLUME"
+  ],
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_meta_label_probability_gate_search"
+}
