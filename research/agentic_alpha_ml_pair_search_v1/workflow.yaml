@@ -1,0 +1,28 @@
+experiment: agentic_alpha_ml_pair_search_v1
+card_type: diagnostic_search
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_ml_pair_search_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  train_start: 2011-03-10
+  test:
+    start: 2019-01-02
+    end: 2026-06-09
+rgevd:
+  branch: ml_crash_return_and_pair_hedge
+  stages:
+    - research
+    - retrieve
+    - generate
+    - evaluate
+    - validate
+    - distill
+goal_gate:
+  baseline_card: production/qlib_paper_sim_v1
+  max_drawdown_floor: -20.0
+  require_return_above_baseline: true
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

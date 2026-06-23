@@ -1,0 +1,5 @@
+branch,candidate,return_pct,baseline_return_pct,return_improvement_pct,max_drawdown_pct,max_drawdown_floor,beats_baseline_return,passes_drawdown_gate,decision,decision_basis,grid_rows
+soxl_soxx_pair_hedge,best_return,15268.442999024322,6570.0232821043,8698.419716920023,-76.12638644024862,-20.0,True,False,Drop,drawdown_gate,6391
+soxl_soxx_pair_hedge,best_drawdown_gate,317.87162704180776,6570.0232821043,-6252.151655062492,-19.895618308143213,-20.0,False,True,Iterate,return_gate,6391
+walk_forward_crash_return_ensemble,best_return,9277.572046667008,6570.0232821043,2707.548764562708,-91.69888554997115,-20.0,True,False,Drop,drawdown_gate,27734
+walk_forward_crash_return_ensemble,best_drawdown_gate,267.9795331485608,6570.0232821043,-6302.043748955739,-16.68242233388345,-20.0,False,True,Iterate,return_gate,27734

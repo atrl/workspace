@@ -1,0 +1,7 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use research-generate-evaluate-validate-distill loops and close each branch with evidence.,workflow_reference
+paper,Leverage for the Long Run,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2741701,Levered exposure needs trend filters; high return without crash avoidance is not sufficient.,web_retrieved
+paper,Volatility Targeting Is Trendy,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4773781,"Volatility-managed returns overlap with trend-following, so the search combines return and crash scores.",web_retrieved
+paper,Leveraged ETFs in Low-Volatility Environments,https://quantpedia.com/leveraged-etfs-in-low-volatility-environments/,Realized-vs-implied volatility filters can identify favorable LETF exposure windows.,web_retrieved
+arxiv,Compounding Effects in Leveraged ETFs,https://arxiv.org/html/2504.20116v1,LETF compounding depends on persistent trend and volatility clustering.,web_retrieved
+twitter,SOXL volatility and drawdown risk discussion,https://x.com/Alpha_Ex_LLC/status/2067644619462938886,SOXL risk controls should react to volatility and drawdown state rather than raw signal only.,search_snippet_seed
