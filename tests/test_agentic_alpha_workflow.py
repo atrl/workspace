@@ -716,3 +716,91 @@ def test_meta_label_probability_gate_flags_extreme_exposure_numeric_passes():
     assert summary["raw_passes_both_count"] >= 1
     assert summary["passes_both_count"] == 0
     assert summary["goal_achieved"] is False
+
+
+def test_session_effect_features_and_candidate_gates_are_src_owned():
+    from src.factor import (
+        build_session_effect_frame,
+        compact_session_effect_summary,
+        evaluate_session_effect_candidates,
+    )
+
+    dates = pd.date_range("2025-01-02", periods=140, freq="B")
+    soxl_close = []
+    soxl_open = []
+    price = 20.0
+    for index, _ in enumerate(dates):
+        overnight = 1.025 if index % 6 in {1, 2, 3} else 0.985
+        intraday = 0.975 if index % 7 in {0, 1} else 1.006
+        open_price = price * overnight
+        close_price = open_price * intraday
+        soxl_open.append(open_price)
+        soxl_close.append(close_price)
+        price = close_price
+    soxx_close = [100.0 * (1.002**index) for index in range(len(dates))]
+    rows = []
+    for symbol, open_values, close_values, vix in [
+        ("SOXL", soxl_open, soxl_close, 19.0),
+        ("SOXX", [value * 0.99 for value in soxx_close], soxx_close, None),
+    ]:
+        for date, open_price, close_price in zip(dates, open_values, close_values):
+            rows.append(
+                {
+                    "instrument": symbol,
+                    "datetime": date,
+                    "$open": open_price,
+                    "$high": max(open_price, close_price) * 1.01,
+                    "$low": min(open_price, close_price) * 0.99,
+                    "$close": close_price,
+                    "$volume": 1_000_000,
+                    "$vix": vix,
+                }
+            )
+    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
+
+    features = build_session_effect_frame(
+        qlib_frame,
+        start="2025-03-01",
+        end="2025-07-15",
+        min_history=10,
+    )
+    metrics = evaluate_session_effect_candidates(
+        features,
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+        overnight_windows=[3],
+        overnight_thresholds=[0.0],
+        trend_filters=["none"],
+        vix_maxes=[100.0],
+        gap_thresholds=[-0.03],
+        gap_modes=["buy_gap_down"],
+        tug_windows=[5],
+        tug_thresholds=[0.0],
+        tug_directions=["positive"],
+        scales=[1.0],
+    )
+    summary = compact_session_effect_summary(
+        metrics,
+        branches=sorted(metrics["branch"].unique()),
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+    )
+
+    assert {
+        "next_overnight_return",
+        "next_intraday_return",
+        "next_close_return",
+        "overnight_mom3",
+        "tug5",
+        "soxx_trend20",
+        "vix",
+    }.issubset(features.columns)
+    assert features["datetime"].is_monotonic_increasing
+    assert set(metrics["branch"]) == {
+        "intraday_gap_reversal",
+        "overnight_momentum",
+        "tug_of_war_close_to_close",
+    }
+    assert {"drawdown_gate", "return_gate", "beats_baseline_and_drawdown_gate"} & set(metrics["decision_basis"])
+    assert summary["passes_both_count"] >= 0
+    assert set(summary["branch_results"]) == set(metrics["branch"])

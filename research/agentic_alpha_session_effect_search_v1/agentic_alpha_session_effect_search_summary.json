@@ -1,0 +1,120 @@
+{
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "best_candidate": null,
+  "branch_results": {
+    "intraday_gap_reversal": {
+      "best_drawdown_gate_available": false,
+      "best_drawdown_gate_candidate": null,
+      "best_drawdown_gate_max_drawdown_pct": null,
+      "best_drawdown_gate_return_pct": null,
+      "best_drawdown_gate_trade_count": null,
+      "best_return_candidate": "intraday_gap_reversal_open_to_close_scale1_14100",
+      "best_return_max_drawdown_pct": -73.87873554863836,
+      "best_return_pct": 291.75756530149624,
+      "best_return_trade_count": 1487,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 1728,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "overnight_momentum": {
+      "best_drawdown_gate_available": false,
+      "best_drawdown_gate_candidate": null,
+      "best_drawdown_gate_max_drawdown_pct": null,
+      "best_drawdown_gate_return_pct": null,
+      "best_drawdown_gate_trade_count": null,
+      "best_return_candidate": "overnight_momentum_close_to_next_open_scale4_4959",
+      "best_return_max_drawdown_pct": -97.26231370757448,
+      "best_return_pct": 539007.3516745418,
+      "best_return_trade_count": 1031,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 12960,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "tug_of_war_close_to_close": {
+      "best_drawdown_gate_available": true,
+      "best_drawdown_gate_candidate": "tug_of_war_close_to_close_close_to_next_close_scale1_18048",
+      "best_drawdown_gate_max_drawdown_pct": -13.415067195729113,
+      "best_drawdown_gate_return_pct": 60.61687749240199,
+      "best_drawdown_gate_trade_count": 19,
+      "best_return_candidate": "tug_of_war_close_to_close_close_to_next_close_scale2_15757",
+      "best_return_max_drawdown_pct": -98.0848537190346,
+      "best_return_pct": 21052.251876781604,
+      "best_return_trade_count": 1270,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 4320,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    }
+  },
+  "external_source_counts": {
+    "arxiv": 1,
+    "github": 2,
+    "paper": 2,
+    "twitter": 1
+  },
+  "feature_evidence": {
+    "feature_rows": 1869,
+    "metric_rows": 19008,
+    "sessions": [
+      "close_to_next_open",
+      "open_to_close",
+      "close_to_next_close"
+    ],
+    "source_coverage_end": "2026-06-10",
+    "source_coverage_start": "2010-03-11",
+    "test_end": "2026-06-09",
+    "test_start": "2019-01-02"
+  },
+  "goal_achieved": false,
+  "passes_both_count": 0,
+  "recorder_artifacts": [
+    "artifacts/agentic_alpha_session_effect/agentic_alpha_session_effect_candidate_metrics.csv",
+    "artifacts/agentic_alpha_session_effect/agentic_alpha_session_effect_search_summary.json",
+    "artifacts/agentic_alpha_session_effect/external_sources.csv",
+    "artifacts/agentic_alpha_session_effect/failure_modes.md",
+    "meta.yaml",
+    "params/baseline",
+    "params/cmd-sys.argv",
+    "params/max_drawdown_floor",
+    "params/metric_rows",
+    "params/provider_uri",
+    "params/source_url",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "2f9a0f1f45ce42fba25756854c00026c",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_session_effect_search_v1/qlib_recorder/120435610749988215/2f9a0f1f45ce42fba25756854c00026c",
+  "selected_features": [
+    "SOXL_OVERNIGHT_RETURN",
+    "SOXL_INTRADAY_RETURN",
+    "SOXL_TUG_OF_WAR",
+    "SOXX_TREND",
+    "SOXL_VIX",
+    "SOXL_RANGE"
+  ],
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_session_effect_search"
+}

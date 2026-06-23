@@ -1,0 +1,7 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use Research/Retrieve/Generate/Evaluate/Validate/Distill loops and close every generated branch with evidence.,workflow_reference
+github,llm-quant overnight momentum strategy family,https://github.com/45ck/llm-quant,Overnight Momentum treats rolling overnight gaps as a candidate predictor and requires crash filters for leveraged ETFs.,web_retrieved
+paper,A Tug of War: Overnight Versus Intraday Expected Returns,https://personal.lse.ac.uk/polk/research/TugOfWar.pdf,Separate overnight and intraday return components; smoothed overnight-minus-intraday spreads may forecast future returns.,web_retrieved
+paper,Overnight Return Momentum and the Timing of Trading Volume,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5004991,Overnight return momentum links prior overnight winners and intraday trading patterns to subsequent overnight returns.,web_retrieved
+arxiv,Does Overnight News Explain Overnight Returns?,https://arxiv.org/html/2507.04481v1,Overnight gains can dominate market returns; continuation and reversal patterns differ across overnight and intraday sessions.,web_retrieved
+twitter,Concretum Research overnight risk premium discussion,https://x.com/ConcretumR,"Market practitioners revisit overnight risk premium as a distinct, tradable session effect.",search_snippet_seed

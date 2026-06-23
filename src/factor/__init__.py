@@ -30,6 +30,12 @@ from .meta_label_probability_gate import (
     evaluate_probability_gate_grid,
     summarize_meta_label_probability_branch,
 )
+from .session_effect import (
+    build_session_effect_frame,
+    compact_session_effect_summary,
+    evaluate_session_effect_candidates,
+    summarize_session_effect_branch,
+)
 from .tail_risk_external import (
     build_tail_risk_external_frame,
     evaluate_tail_risk_candidate,
@@ -45,11 +51,13 @@ __all__ = [
     "build_factor_library_reversal_frame",
     "build_long_short_crisis_alpha_frame",
     "build_meta_label_probability_frame",
+    "build_session_effect_frame",
     "build_tail_risk_external_frame",
     "compact_canary_sprint_summary",
     "compact_factor_library_search_summary",
     "compact_long_short_crisis_alpha_summary",
     "compact_meta_label_probability_summary",
+    "compact_session_effect_summary",
     "combine_qlib_factor_scores",
     "evaluate_canary_sprint_candidates",
     "evaluate_cross_asset_rotation_candidates",
@@ -57,6 +65,7 @@ __all__ = [
     "evaluate_long_short_crisis_alpha_candidates",
     "evaluate_meta_label_probability_candidates",
     "evaluate_probability_gate_grid",
+    "evaluate_session_effect_candidates",
     "evaluate_tail_risk_candidate",
     "qlib_factor_diagnostics",
     "summarize_canary_sprint_branch",
@@ -64,6 +73,7 @@ __all__ = [
     "summarize_factor_library_reversal_branch",
     "summarize_long_short_crisis_alpha_branch",
     "summarize_meta_label_probability_branch",
+    "summarize_session_effect_branch",
     "summarize_tail_risk_branch",
     "validate_agentic_alpha_factors",
 ]
