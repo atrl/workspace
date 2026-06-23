@@ -1,0 +1,83 @@
+{
+  "baseline": {
+    "benchmark_return_pct": 3530.8157772578,
+    "max_drawdown_pct": -85.23168365,
+    "name": "qlib_paper_sim_v1",
+    "recorder_id": "e0b5ed66c6514873b2fc79f2aec5874c",
+    "return_pct": 6570.0232821043
+  },
+  "best_candidate": null,
+  "branch_results": {
+    "crisis_alpha_overlay": {
+      "best_drawdown_gate_available": false,
+      "best_drawdown_gate_candidate": "soxl_soxx_dual_base-0.05_b2.0_h0.5_tv0.4",
+      "best_drawdown_gate_max_drawdown_pct": -73.49488005876239,
+      "best_drawdown_gate_return_pct": 2469.4272209816054,
+      "best_return_candidate": "soxl_soxx_dual_base-0.05_b2.0_h0.5_tv0.4",
+      "best_return_max_drawdown_pct": -73.49488005876239,
+      "best_return_pct": 2469.4272209816054,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 144,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    },
+    "long_short_time_series_momentum": {
+      "best_drawdown_gate_available": false,
+      "best_drawdown_gate_candidate": "soxl_soxx_dual_p-0.05_n0.0_none_l1.0_s0.0_tvNone",
+      "best_drawdown_gate_max_drawdown_pct": -73.57013328956272,
+      "best_drawdown_gate_return_pct": 3963.6582277768916,
+      "best_return_candidate": "soxl_soxx_dual_p-0.05_n0.0_none_l1.0_s0.0_tvNone",
+      "best_return_max_drawdown_pct": -73.57013328956272,
+      "best_return_pct": 3963.6582277768916,
+      "coverage_end": "2026-06-09",
+      "coverage_start": "2019-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 1296,
+      "max_drawdown_floor": -20.0,
+      "passes_both_count": 0
+    }
+  },
+  "external_source_counts": {
+    "github": 1,
+    "paper": 3,
+    "twitter": 1
+  },
+  "goal_achieved": false,
+  "long_short_crisis_alpha": {
+    "candidate_coverage_end": "2026-06-09",
+    "candidate_coverage_start": "2019-01-02",
+    "cost_per_turnover": 0.0002,
+    "feature_rows": 1869,
+    "qlib_feature_rows": 8176,
+    "qlib_fields": [
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "qlib_provider": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "selected_features": [
+      "SOXL_TREND_60",
+      "SOXL_TREND_120",
+      "SOXL_TREND_200",
+      "SOXX_TREND_60",
+      "SOXL_SOXX_RATIO_MOM_20",
+      "SOXL_VIX",
+      "SOXL_HV20"
+    ],
+    "source_coverage_end": "2026-06-10",
+    "source_coverage_start": "2010-03-11"
+  },
+  "passes_both_count": 0,
+  "recorder_id": "1d4adcc6907b4271ad404e3b6232ff97",
+  "stage_order": [
+    "research",
+    "retrieve",
+    "generate",
+    "evaluate",
+    "validate",
+    "distill"
+  ],
+  "workflow": "agentic_alpha_long_short_crisis_alpha_search"
+}

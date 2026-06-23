@@ -1,0 +1,6 @@
+source_type,title,url,extracted_signal,retrieval_status
+github,agentic-alpha R-G-E-V-D workflow,https://github.com/JacobDu/agentic-alpha,Use retrieve-generate-evaluate-validate-distill loops to close trend-following and crisis-alpha branches with comparable evidence.,workflow_reference
+paper,Time Series Momentum,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2089463,Test long recent winners and short recent losers using own past returns as the signal.,web_retrieved
+paper,A Century of Evidence on Trend-Following Investing,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2993026,"Trend following can diversify traditional assets, but robustness must be tested in the target instrument and cost model.",web_retrieved
+paper,Trend Following: Equity and Bond Crisis Alpha,https://assets.super.so/e46b77e7-ee08-445e-b43f-4ffd88ae0a0e/files/96208c1d-28e0-412d-ad70-92499bbbd45a.pdf,Crisis-alpha framing motivates a negative or hedging sleeve when equity trend and volatility states deteriorate.,web_retrieved
+twitter,SOXL drawdown and crisis-alpha discussion seed,https://x.com/ces921/highlights,"SOXL path risk requires testing drawdown gates directly, not assuming trend-following crisis alpha transfers from diversified futures.",search_seed

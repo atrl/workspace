@@ -719,3 +719,63 @@ def test_agentic_alpha_factor_library_reversal_search_card_closes_factor_library
     assert "R.start" in notebook_text
     assert "data/soxl_factor_library.db" in notebook_text
     assert "未找到同时满足" in conclusion
+
+
+def test_agentic_alpha_long_short_crisis_alpha_search_card_closes_trend_following_branches():
+    card = ROOT / "research" / "agentic_alpha_long_short_crisis_alpha_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_long_short_crisis_alpha_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_long_short_crisis_alpha_search_v1"
+    assert summary["card_type"] == "diagnostic_search"
+    assert summary["promotion_decision"] == "not_promoted"
+    assert summary["search_report"]["goal_achieved"] is False
+    assert summary["search_report"]["best_candidate"] is None
+    assert summary["search_report"]["passes_both_count"] == 0
+    assert summary["baseline"]["name"] == "qlib_paper_sim_v1"
+    assert summary["goal_gate"] == {
+        "max_drawdown_floor": -20.0,
+        "require_return_above_baseline": True,
+    }
+    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
+    assert set(summary["branch_results"]) == {
+        "crisis_alpha_overlay",
+        "long_short_time_series_momentum",
+    }
+    for result in summary["branch_results"].values():
+        assert result["coverage_end"] == "2026-06-09"
+        assert result["passes_both_count"] == 0
+        assert result["best_drawdown_gate_available"] is False
+        assert result["best_return_pct"] < summary["baseline"]["return_pct"]
+        assert result["best_return_max_drawdown_pct"] < -20.0
+    assert summary["long_short_crisis_alpha"]["selected_features"] == [
+        "SOXL_TREND_60",
+        "SOXL_TREND_120",
+        "SOXL_TREND_200",
+        "SOXX_TREND_60",
+        "SOXL_SOXX_RATIO_MOM_20",
+        "SOXL_VIX",
+        "SOXL_HV20",
+    ]
+    assert summary["external_source_counts"] == {"github": 1, "paper": 3, "twitter": 1}
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "candidate_metrics",
+        "external_sources",
+        "failure_modes",
+        "search_summary",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "long_short_time_series_momentum" in candidates
+    assert "crisis_alpha_overlay" in candidates
+    assert "drawdown_gate" in candidates
+    assert summary["recorder_id"] in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "Time Series Momentum" in notebook_text
+    assert "未找到同时满足" in conclusion

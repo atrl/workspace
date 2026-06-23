@@ -464,3 +464,85 @@ def test_factor_library_reversal_features_and_candidate_gates_are_src_owned():
     assert (metrics["passes_drawdown_gate"] == True).any()  # noqa: E712
     assert summary["passes_both_count"] >= 1
     assert summary["goal_achieved"] is True
+
+
+def test_long_short_crisis_alpha_features_and_candidate_gates_are_src_owned():
+    from src.factor import (
+        build_long_short_crisis_alpha_frame,
+        compact_long_short_crisis_alpha_summary,
+        evaluate_long_short_crisis_alpha_candidates,
+    )
+
+    dates = pd.date_range("2025-01-02", periods=320, freq="B")
+    soxl_close = []
+    price = 20.0
+    for index, _ in enumerate(dates):
+        if 80 <= index < 110:
+            price *= 0.985
+        elif 180 <= index < 210:
+            price *= 0.975
+        else:
+            price *= 1.004
+        soxl_close.append(price)
+    soxx_close = [100.0 * (1.0015**index) for index in range(len(dates))]
+    rows = []
+    for symbol, close_values, volume in [
+        ("SOXL", soxl_close, 1_000_000),
+        ("SOXX", soxx_close, 800_000),
+    ]:
+        for date, close in zip(dates, close_values):
+            rows.append(
+                {
+                    "instrument": symbol,
+                    "datetime": date,
+                    "$close": close,
+                    "$volume": volume,
+                    "$vix": 18.0 if symbol == "SOXL" else None,
+                }
+            )
+    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
+
+    features = build_long_short_crisis_alpha_frame(
+        qlib_frame,
+        start="2025-07-01",
+        end="2026-03-31",
+    )
+    metrics = evaluate_long_short_crisis_alpha_candidates(
+        features,
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+        trend_names=["dual60_120"],
+        positive_thresholds=[0.0],
+        negative_thresholds=[0.0],
+        risk_modes=["none"],
+        long_scales=[1.0],
+        short_scales=[1.0],
+        target_vols=[None],
+        crisis_base_thresholds=[0.0],
+        crisis_base_scales=[1.0],
+        crisis_hedge_scales=[1.0],
+    )
+    summary = compact_long_short_crisis_alpha_summary(
+        metrics,
+        branches=sorted(metrics["branch"].unique()),
+        baseline_return_pct=5.0,
+        max_drawdown_floor=-20.0,
+    )
+
+    assert {
+        "next_return",
+        "trend60",
+        "trend120",
+        "dual60_120",
+        "soxl_soxx_dual",
+        "vix_z",
+        "vol_z",
+    }.issubset(features.columns)
+    assert features["datetime"].is_monotonic_increasing
+    assert set(metrics["branch"]) == {
+        "crisis_alpha_overlay",
+        "long_short_time_series_momentum",
+    }
+    assert {"drawdown_gate", "return_gate"} & set(metrics["decision_basis"])
+    assert summary["passes_both_count"] >= 0
+    assert set(summary["branch_results"]) == set(metrics["branch"])

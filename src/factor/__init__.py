@@ -11,6 +11,12 @@ from .factor_library_reversal import (
     evaluate_factor_library_reversal_candidates,
     summarize_factor_library_reversal_branch,
 )
+from .long_short_crisis_alpha import (
+    build_long_short_crisis_alpha_frame,
+    compact_long_short_crisis_alpha_summary,
+    evaluate_long_short_crisis_alpha_candidates,
+    summarize_long_short_crisis_alpha_branch,
+)
 from .tail_risk_external import (
     build_tail_risk_external_frame,
     evaluate_tail_risk_candidate,
@@ -23,15 +29,19 @@ __all__ = [
     "QlibScoredDataset",
     "build_cross_asset_price_frame",
     "build_factor_library_reversal_frame",
+    "build_long_short_crisis_alpha_frame",
     "build_tail_risk_external_frame",
     "compact_factor_library_search_summary",
+    "compact_long_short_crisis_alpha_summary",
     "combine_qlib_factor_scores",
     "evaluate_cross_asset_rotation_candidates",
     "evaluate_factor_library_reversal_candidates",
+    "evaluate_long_short_crisis_alpha_candidates",
     "evaluate_tail_risk_candidate",
     "qlib_factor_diagnostics",
     "summarize_cross_asset_branch",
     "summarize_factor_library_reversal_branch",
+    "summarize_long_short_crisis_alpha_branch",
     "summarize_tail_risk_branch",
     "validate_agentic_alpha_factors",
 ]
