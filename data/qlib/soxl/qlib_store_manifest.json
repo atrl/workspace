@@ -1,0 +1,35 @@
+{
+  "as_of": "2026-06-23",
+  "audit_snapshot_hash": "3428601d472bf5a9",
+  "calendar_end": "2026-06-23",
+  "calendar_start": "2010-03-11",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$vix"
+  ],
+  "freq": "day",
+  "hash": "1e864eb7b9a1f5c2",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "market": "all",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "region": "us",
+  "row_count": 8192,
+  "source": "/Users/rziiiii/dev/workspace/data/processed/panels/soxl_soxx_vix_full.csv",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}
