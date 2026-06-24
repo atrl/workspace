@@ -1,0 +1,36 @@
+experiment: agentic_alpha_ml_factor_enhanced_throttle_v1
+card_type: ml_factor_enhanced_throttle_search
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_ml_factor_enhanced_throttle_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  train:
+    start: 2019-01-02
+    end: 2024-12-31
+  validation:
+    start: 2025-01-02
+    end: 2025-12-31
+  test:
+    start: 2026-01-02
+    end: 2026-06-09
+ml_factor_enhanced_model:
+  factor_groups:
+    - base_daily
+    - tail_risk_external
+    - macro_credit
+    - intraday_t1
+    - cross_asset_rotation
+  model_target_col: label_return_5d
+  return_col: forward_return
+  selection_segment: validation
+  report_segment: test
+  max_position: 1.0
+  min_validation_trade_count: 4
+  min_validation_avg_abs_position: 0.1
+  max_validation_reversal_ratio: 0.4
+  validation_max_drawdown_floor: -25.0
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json
