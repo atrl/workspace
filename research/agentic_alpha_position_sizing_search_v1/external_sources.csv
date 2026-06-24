@@ -1,0 +1,5 @@
+source_type,title,url,extracted_signal
+qlib_docs,Qlib workflow recorder,https://qlib.readthedocs.io/en/latest/component/workflow.html,Use qlib workflow recorder for experiment evidence.
+qlib_docs,Qlib portfolio strategy,https://qlib.readthedocs.io/en/latest/component/strategy.html,Separate signal/model output from portfolio target position logic.
+industry_reference,AQR Understanding Risk Parity,https://www.aqr.com/-/media/AQR/Documents/Insights/White-Papers/Understanding-Risk-Parity.pdf,Risk budgeting changes position size as volatility changes.
+research_reference,Volatility Targeting Is Trendy,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4773781,Volatility-managed equity strategies can overlap mechanically with trend following.

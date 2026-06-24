@@ -1,0 +1,28 @@
+experiment: agentic_alpha_position_sizing_search_v1
+card_type: position_sizing_search
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  macro_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_position_sizing_search_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  research:
+    start: 2019-01-02
+    end: 2026-06-09
+  report_window:
+    start: 2026-01-02
+    end: 2026-06-09
+position_sizing:
+  cost_per_turnover: 0.0003
+  selected_reference: research/agentic_alpha_ensemble_search_v1/selected_model.json
+  policies:
+    - cap
+    - hysteresis
+    - turnover_limit
+    - min_hold
+    - volatility_target
+    - shallow_probability_gate
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

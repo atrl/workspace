@@ -210,6 +210,53 @@ def test_agentic_alpha_loads_baseline_metric_from_qlib_card_sidecars(tmp_path):
     assert metric.max_drawdown_pct == -85.23168365
 
 
+def test_position_sizing_policy_caps_noise_and_reports_reversals():
+    from src.backtest import evaluate_position_sizing_policies
+
+    dates = pd.date_range("2026-01-02", periods=7, freq="B")
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "raw_target": [0.0, 1.25, 1.18, 0.92, 0.10, 0.16, 0.80],
+            "forward_return": [0.0, 0.04, -0.01, 0.03, -0.02, 0.01, 0.02],
+        }
+    )
+    policies = [
+        {
+            "candidate": "cap100_hysteresis_turnover",
+            "min_position": 0.0,
+            "max_position": 1.0,
+            "rebalance_threshold": 0.20,
+            "max_daily_change": 1.0,
+        },
+        {
+            "candidate": "raw_noisy_reference",
+            "min_position": -2.0,
+            "max_position": 2.0,
+            "rebalance_threshold": 0.0,
+            "max_daily_change": None,
+        },
+    ]
+
+    metrics, positions = evaluate_position_sizing_policies(
+        frame,
+        policies=policies,
+        raw_target_col="raw_target",
+        return_col="forward_return",
+        cost_per_turnover=0.0003,
+    )
+
+    capped = metrics.set_index("candidate").loc["cap100_hysteresis_turnover"]
+    raw = metrics.set_index("candidate").loc["raw_noisy_reference"]
+    capped_positions = positions.loc[positions["candidate"] == "cap100_hysteresis_turnover", "target_position"]
+
+    assert capped_positions.max() <= 1.0
+    assert capped_positions.iloc[2] == capped_positions.iloc[1]
+    assert capped["days_above_100"] == 0
+    assert capped["total_turnover"] < raw["total_turnover"]
+    assert capped["next_day_reversal_count"] < raw["next_day_reversal_count"]
+
+
 def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
     from src.factor import validate_agentic_alpha_factors
 

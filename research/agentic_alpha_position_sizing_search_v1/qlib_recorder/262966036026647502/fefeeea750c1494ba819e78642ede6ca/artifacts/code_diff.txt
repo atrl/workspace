@@ -1,0 +1,137 @@
+diff --git a/src/backtest/__init__.py b/src/backtest/__init__.py
+index 9b1cc197..6b1ed5c9 100644
+--- a/src/backtest/__init__.py
++++ b/src/backtest/__init__.py
+@@ -4,13 +4,21 @@ from .engine import (
+     build_backtest_extension_report_from_qlib_recorder,
+     build_portfolio_report_from_qlib_recorder,
+ )
++from .position_sizing import (
++    apply_position_sizing_policy,
++    evaluate_position_sizing_policies,
++    volatility_scaled_target,
++)
+ from .strategy import SignalWeightStrategy, calibrated_signal_threshold
+ 
+ __all__ = [
+     "BacktestExtensionReport",
+     "PortfolioReport",
+     "SignalWeightStrategy",
++    "apply_position_sizing_policy",
+     "build_backtest_extension_report_from_qlib_recorder",
+     "build_portfolio_report_from_qlib_recorder",
+     "calibrated_signal_threshold",
++    "evaluate_position_sizing_policies",
++    "volatility_scaled_target",
+ ]
+diff --git a/tests/test_agentic_alpha_workflow.py b/tests/test_agentic_alpha_workflow.py
+index 993ee7b7..a8aab8db 100644
+--- a/tests/test_agentic_alpha_workflow.py
++++ b/tests/test_agentic_alpha_workflow.py
+@@ -210,6 +210,53 @@ def test_agentic_alpha_loads_baseline_metric_from_qlib_card_sidecars(tmp_path):
+     assert metric.max_drawdown_pct == -85.23168365
+ 
+ 
++def test_position_sizing_policy_caps_noise_and_reports_reversals():
++    from src.backtest import evaluate_position_sizing_policies
++
++    dates = pd.date_range("2026-01-02", periods=7, freq="B")
++    frame = pd.DataFrame(
++        {
++            "datetime": dates,
++            "raw_target": [0.0, 1.25, 1.18, 0.92, 0.10, 0.16, 0.80],
++            "forward_return": [0.0, 0.04, -0.01, 0.03, -0.02, 0.01, 0.02],
++        }
++    )
++    policies = [
++        {
++            "candidate": "cap100_hysteresis_turnover",
++            "min_position": 0.0,
++            "max_position": 1.0,
++            "rebalance_threshold": 0.20,
++            "max_daily_change": 1.0,
++        },
++        {
++            "candidate": "raw_noisy_reference",
++            "min_position": -2.0,
++            "max_position": 2.0,
++            "rebalance_threshold": 0.0,
++            "max_daily_change": None,
++        },
++    ]
++
++    metrics, positions = evaluate_position_sizing_policies(
++        frame,
++        policies=policies,
++        raw_target_col="raw_target",
++        return_col="forward_return",
++        cost_per_turnover=0.0003,
++    )
++
++    capped = metrics.set_index("candidate").loc["cap100_hysteresis_turnover"]
++    raw = metrics.set_index("candidate").loc["raw_noisy_reference"]
++    capped_positions = positions.loc[positions["candidate"] == "cap100_hysteresis_turnover", "target_position"]
++
++    assert capped_positions.max() <= 1.0
++    assert capped_positions.iloc[2] == capped_positions.iloc[1]
++    assert capped["days_above_100"] == 0
++    assert capped["total_turnover"] < raw["total_turnover"]
++    assert capped["next_day_reversal_count"] < raw["next_day_reversal_count"]
++
++
+ def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
+     from src.factor import validate_agentic_alpha_factors
+ 
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index cc64d6ec..7eb6fd9f 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -1067,3 +1067,48 @@ def test_agentic_alpha_ensemble_search_card_records_passing_candidate():
+     assert "R.start" in notebook_text
+     assert "evaluate_agentic_ensemble_candidates" in notebook_text
+     assert "同时满足收益与回撤门禁" in conclusion
++
++
++def test_agentic_alpha_position_sizing_search_card_compares_managed_position_budget():
++    card = ROOT / "research" / "agentic_alpha_position_sizing_search_v1"
++    summary = _summary(card)
++    notebook_text = (card / "agentic_alpha_position_sizing_search_v1.ipynb").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "agentic_alpha_position_sizing_search_v1"
++    assert summary["card_type"] == "position_sizing_search"
++    assert summary["promotion_decision"] == "iterate_not_promoted_until_raw_position_reference_exceeded"
++    assert summary["goal_gate"]["max_drawdown_floor"] == -20.0
++    assert summary["goal_gate"]["require_return_above_soxlbacktest"] is True
++    assert summary["goal_gate"]["require_return_above_raw_position_reference"] is True
++    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
++    assert summary["report_window"] == ["2026-01-02", "2026-06-09"]
++    selected = summary["selected_candidate"]
++    raw = summary["raw_position_reference"]
++    legacy = summary["legacy_soxlbacktest_benchmark"]
++    assert selected["candidate"] == "cap1_h0.2_chg1.0_hold1"
++    assert selected["max_position"] <= 1.0
++    assert selected["days_above_100"] == 0
++    assert selected["return_pct"] > legacy["rulebase_return_pct"]
++    assert selected["max_drawdown_pct"] >= summary["goal_gate"]["max_drawdown_floor"]
++    assert selected["return_pct"] < raw["return_pct"]
++    assert selected["next_day_reversal_count"] < raw["next_day_reversal_count"]
++    assert summary["model_position_gate"]["decision"] == "not_primary"
++    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert set(summary["sidecars"]) == {
++        "backtest_benchmark_comparison",
++        "candidate_metrics",
++        "external_sources",
++        "failure_modes",
++        "position_sizing_summary",
++        "selected_model",
++    }
++    for rel_path in summary["sidecars"].values():
++        assert (card / rel_path).exists(), rel_path
++
++    assert summary["recorder_id"] in notebook_text
++    assert "D.features" in notebook_text
++    assert "R.start" in notebook_text
++    assert "evaluate_position_sizing_policies" in notebook_text
++    assert "未超过 raw target-position reference" in conclusion

@@ -1,0 +1,5 @@
+benchmark,return_pct,max_drawdown_pct,trade_count,next_day_reversal_count,max_position
+selected_position_policy,386.7833284054073,-19.388723154315358,11,1.0,1.0
+raw_target_position_reference,479.156633664099,-18.639417902573985,35,11.0,1.13045
+soxl_backtest_reference,132.07797795135497,-13.554088542803521,3,,0.5359
+soxl_buyhold,326.9263184466205,,1,,1.0

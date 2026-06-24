@@ -1067,3 +1067,48 @@ def test_agentic_alpha_ensemble_search_card_records_passing_candidate():
     assert "R.start" in notebook_text
     assert "evaluate_agentic_ensemble_candidates" in notebook_text
     assert "同时满足收益与回撤门禁" in conclusion
+
+
+def test_agentic_alpha_position_sizing_search_card_compares_managed_position_budget():
+    card = ROOT / "research" / "agentic_alpha_position_sizing_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_position_sizing_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_position_sizing_search_v1"
+    assert summary["card_type"] == "position_sizing_search"
+    assert summary["promotion_decision"] == "iterate_not_promoted_until_raw_position_reference_exceeded"
+    assert summary["goal_gate"]["max_drawdown_floor"] == -20.0
+    assert summary["goal_gate"]["require_return_above_soxlbacktest"] is True
+    assert summary["goal_gate"]["require_return_above_raw_position_reference"] is True
+    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
+    assert summary["report_window"] == ["2026-01-02", "2026-06-09"]
+    selected = summary["selected_candidate"]
+    raw = summary["raw_position_reference"]
+    legacy = summary["legacy_soxlbacktest_benchmark"]
+    assert selected["candidate"] == "cap1_h0.2_chgnone_hold1"
+    assert selected["max_position"] <= 1.0
+    assert selected["days_above_100"] == 0
+    assert selected["return_pct"] > legacy["rulebase_return_pct"]
+    assert selected["max_drawdown_pct"] >= summary["goal_gate"]["max_drawdown_floor"]
+    assert selected["return_pct"] < raw["return_pct"]
+    assert selected["next_day_reversal_count"] < raw["next_day_reversal_count"]
+    assert summary["model_position_gate"]["decision"] == "not_primary"
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "backtest_benchmark_comparison",
+        "candidate_metrics",
+        "external_sources",
+        "failure_modes",
+        "position_sizing_summary",
+        "selected_model",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    assert summary["recorder_id"] in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "evaluate_position_sizing_policies" in notebook_text
+    assert "未超过 raw target-position reference" in conclusion
