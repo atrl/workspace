@@ -294,6 +294,66 @@ def test_weighted_position_candidates_keep_factor_weights_and_cap_target_positio
     assert '"canary": 1.2' in row["weights"]
 
 
+def test_ml_position_candidates_select_on_validation_and_report_stability():
+    from src.backtest import evaluate_ml_position_candidates
+
+    dates = pd.date_range("2025-01-02", periods=140, freq="B")
+    signal = pd.Series([((index % 8) - 3.5) / 3.5 for index in range(len(dates))], dtype="float64")
+    trend = signal.rolling(5, min_periods=1).mean()
+    forward_return = 0.018 * signal.shift(1).fillna(0.0) + 0.004 * trend.fillna(0.0)
+    forward_return = forward_return.where(forward_return.abs() > 0.002, -0.006)
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "signal": signal,
+            "trend": trend,
+            "base_position": (signal > 0.0).astype(float),
+            "forward_return": forward_return,
+        }
+    )
+
+    metrics, positions = evaluate_ml_position_candidates(
+        frame,
+        feature_cols=["signal", "trend", "base_position"],
+        model_specs=[{"model": "logistic_regression"}, {"model": "ridge"}],
+        train_window=("2025-01-02", "2025-03-31"),
+        validation_window=("2025-04-01", "2025-05-15"),
+        test_window=("2025-05-16", "2025-06-30"),
+        position_specs=[
+            {"position_mode": "probability", "threshold": 0.52, "scale": 1.0, "rebalance_threshold": 0.10},
+            {
+                "position_mode": "base_gate",
+                "threshold": 0.52,
+                "scale": 1.0,
+                "base_position_col": "base_position",
+                "rebalance_threshold": 0.10,
+            },
+        ],
+        min_validation_trade_count=2,
+        min_validation_avg_abs_position=0.05,
+        cost_per_turnover=0.0003,
+    )
+
+    assert set(metrics["segment"]) == {"validation", "test"}
+    assert metrics["selection_segment"].eq("validation").all()
+    assert metrics["report_segment"].eq("test").all()
+    assert metrics["max_position"].max() <= 1.0
+    assert metrics["days_above_100"].max() == 0
+    assert {"selection_objective_score", "trade_count", "next_day_reversal_count", "total_turnover"}.issubset(
+        metrics.columns
+    )
+
+    selected_names = set(metrics.loc[metrics["selected"], "candidate"])
+    assert len(selected_names) == 1
+    selected_name = next(iter(selected_names))
+    selected_validation = metrics.loc[(metrics["selected"]) & (metrics["segment"] == "validation")].iloc[0]
+    assert selected_validation["selection_eligible"] is True
+    assert selected_validation["trade_count"] >= 2
+    assert selected_validation["avg_abs_position"] >= 0.05
+    assert not positions.loc[positions["candidate"] == selected_name].empty
+    assert positions.loc[positions["candidate"] == selected_name, "target_position"].between(0.0, 1.0).all()
+
+
 def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
     from src.factor import validate_agentic_alpha_factors
 

@@ -10,6 +10,7 @@ from .position_sizing import (
     evaluate_weighted_position_candidates,
     volatility_scaled_target,
 )
+from .ml_position import evaluate_ml_position_candidates
 from .strategy import SignalWeightStrategy, calibrated_signal_threshold
 
 __all__ = [
@@ -20,6 +21,7 @@ __all__ = [
     "build_backtest_extension_report_from_qlib_recorder",
     "build_portfolio_report_from_qlib_recorder",
     "calibrated_signal_threshold",
+    "evaluate_ml_position_candidates",
     "evaluate_position_sizing_policies",
     "evaluate_weighted_position_candidates",
     "volatility_scaled_target",

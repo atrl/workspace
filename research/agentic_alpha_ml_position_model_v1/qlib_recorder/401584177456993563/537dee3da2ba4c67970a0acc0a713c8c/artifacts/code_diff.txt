@@ -1,0 +1,158 @@
+diff --git a/src/backtest/__init__.py b/src/backtest/__init__.py
+index ebfdf9d9..683dc407 100644
+--- a/src/backtest/__init__.py
++++ b/src/backtest/__init__.py
+@@ -10,6 +10,7 @@ from .position_sizing import (
+     evaluate_weighted_position_candidates,
+     volatility_scaled_target,
+ )
++from .ml_position import evaluate_ml_position_candidates
+ from .strategy import SignalWeightStrategy, calibrated_signal_threshold
+
+ __all__ = [
+@@ -20,6 +21,7 @@ __all__ = [
+     "build_backtest_extension_report_from_qlib_recorder",
+     "build_portfolio_report_from_qlib_recorder",
+     "calibrated_signal_threshold",
++    "evaluate_ml_position_candidates",
+     "evaluate_position_sizing_policies",
+     "evaluate_weighted_position_candidates",
+     "volatility_scaled_target",
+diff --git a/tests/test_agentic_alpha_workflow.py b/tests/test_agentic_alpha_workflow.py
+index d06aa7e6..514eadaf 100644
+--- a/tests/test_agentic_alpha_workflow.py
++++ b/tests/test_agentic_alpha_workflow.py
+@@ -294,6 +294,66 @@ def test_weighted_position_candidates_keep_factor_weights_and_cap_target_positio
+     assert '"canary": 1.2' in row["weights"]
+
+
++def test_ml_position_candidates_select_on_validation_and_report_stability():
++    from src.backtest import evaluate_ml_position_candidates
++
++    dates = pd.date_range("2025-01-02", periods=140, freq="B")
++    signal = pd.Series([((index % 8) - 3.5) / 3.5 for index in range(len(dates))], dtype="float64")
++    trend = signal.rolling(5, min_periods=1).mean()
++    forward_return = 0.018 * signal.shift(1).fillna(0.0) + 0.004 * trend.fillna(0.0)
++    forward_return = forward_return.where(forward_return.abs() > 0.002, -0.006)
++    frame = pd.DataFrame(
++        {
++            "datetime": dates,
++            "signal": signal,
++            "trend": trend,
++            "base_position": (signal > 0.0).astype(float),
++            "forward_return": forward_return,
++        }
++    )
++
++    metrics, positions = evaluate_ml_position_candidates(
++        frame,
++        feature_cols=["signal", "trend", "base_position"],
++        model_specs=[{"model": "logistic_regression"}, {"model": "ridge"}],
++        train_window=("2025-01-02", "2025-03-31"),
++        validation_window=("2025-04-01", "2025-05-15"),
++        test_window=("2025-05-16", "2025-06-30"),
++        position_specs=[
++            {"position_mode": "probability", "threshold": 0.52, "scale": 1.0, "rebalance_threshold": 0.10},
++            {
++                "position_mode": "base_gate",
++                "threshold": 0.52,
++                "scale": 1.0,
++                "base_position_col": "base_position",
++                "rebalance_threshold": 0.10,
++            },
++        ],
++        min_validation_trade_count=2,
++        min_validation_avg_abs_position=0.05,
++        cost_per_turnover=0.0003,
++    )
++
++    assert set(metrics["segment"]) == {"validation", "test"}
++    assert metrics["selection_segment"].eq("validation").all()
++    assert metrics["report_segment"].eq("test").all()
++    assert metrics["max_position"].max() <= 1.0
++    assert metrics["days_above_100"].max() == 0
++    assert {"selection_objective_score", "trade_count", "next_day_reversal_count", "total_turnover"}.issubset(
++        metrics.columns
++    )
++
++    selected_names = set(metrics.loc[metrics["selected"], "candidate"])
++    assert len(selected_names) == 1
++    selected_name = next(iter(selected_names))
++    selected_validation = metrics.loc[(metrics["selected"]) & (metrics["segment"] == "validation")].iloc[0]
++    assert selected_validation["selection_eligible"] is True
++    assert selected_validation["trade_count"] >= 2
++    assert selected_validation["avg_abs_position"] >= 0.05
++    assert not positions.loc[positions["candidate"] == selected_name].empty
++    assert positions.loc[positions["candidate"] == selected_name, "target_position"].between(0.0, 1.0).all()
++
++
+ def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
+     from src.factor import validate_agentic_alpha_factors
+
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index 4964b876..620c5a63 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -1153,3 +1153,62 @@ def test_agentic_alpha_constrained_weight_search_card_exceeds_raw_position_refer
+     assert "R.start" in notebook_text
+     assert "evaluate_weighted_position_candidates" in notebook_text
+     assert "超过 raw target-position reference" in conclusion
++
++
++def test_agentic_alpha_ml_position_model_card_reports_validation_selected_underperformance():
++    card = ROOT / "research" / "agentic_alpha_ml_position_model_v1"
++    summary = _summary(card)
++    notebook_text = (card / "agentic_alpha_ml_position_model_v1.ipynb").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "agentic_alpha_ml_position_model_v1"
++    assert summary["card_type"] == "ml_position_model_search"
++    assert summary["promotion_decision"] == "not_promoted_validation_selected_ml_underperformed"
++    assert summary["segments"] == {
++        "train": ["2019-01-02", "2024-12-31"],
++        "validation": ["2025-01-02", "2025-12-31"],
++        "test": ["2026-01-02", "2026-06-09"],
++    }
++    assert summary["goal_gate"]["selection_segment"] == "validation"
++    assert summary["goal_gate"]["report_segment"] == "test"
++    assert summary["goal_gate"]["max_position"] == 1.0
++    assert summary["goal_gate"]["min_validation_trade_count"] == 10
++    selected = summary["selected_candidate"]
++    constrained = summary["constrained_weight_reference"]
++    legacy = summary["legacy_soxlbacktest_benchmark"]
++    oracle = summary["oracle_test_best_candidate"]
++    assert selected["selected_by"] == "validation_selection_objective_score"
++    assert selected["test"]["max_position"] <= 1.0
++    assert selected["test"]["days_above_100"] == 0
++    assert selected["test"]["return_pct"] < legacy["rulebase_return_pct"]
++    assert selected["test"]["return_pct"] < constrained["return_pct"]
++    assert oracle["return_pct"] < legacy["rulebase_return_pct"]
++    assert summary["ml_position_report"]["candidate_count"] >= 100
++    assert set(summary["ml_position_report"]["model_families"]) == {
++        "HistGradientBoostingClassifier",
++        "HistGradientBoostingRegressor",
++        "LGBMClassifier",
++        "LGBMRegressor",
++        "LogisticRegression",
++        "Ridge",
++    }
++    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert set(summary["sidecars"]) == {
++        "backtest_benchmark_comparison",
++        "candidate_metrics",
++        "failure_modes",
++        "ml_position_summary",
++        "selected_model",
++    }
++    for rel_path in summary["sidecars"].values():
++        assert (card / rel_path).exists(), rel_path
++
++    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
++    assert "hist_gradient_boosting_regressor" in candidates
++    assert "lgbm_classifier" in candidates
++    assert summary["recorder_id"] in notebook_text
++    assert "D.features" in notebook_text
++    assert "R.start" in notebook_text
++    assert "evaluate_ml_position_candidates" in notebook_text
++    assert "不晋升" in conclusion

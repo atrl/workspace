@@ -1,0 +1,27 @@
+experiment: agentic_alpha_ml_position_model_v1
+card_type: ml_position_model_search
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_ml_position_model_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  train:
+    start: 2019-01-02
+    end: 2024-12-31
+  validation:
+    start: 2025-01-02
+    end: 2025-12-31
+  test:
+    start: 2026-01-02
+    end: 2026-06-09
+ml_position_model:
+  selection_segment: validation
+  report_segment: test
+  max_position: 1.0
+  min_validation_trade_count: 10
+  min_validation_avg_abs_position: 0.05
+  validation_max_drawdown_floor: -20.0
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

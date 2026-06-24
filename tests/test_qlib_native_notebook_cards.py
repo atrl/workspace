@@ -1153,3 +1153,62 @@ def test_agentic_alpha_constrained_weight_search_card_exceeds_raw_position_refer
     assert "R.start" in notebook_text
     assert "evaluate_weighted_position_candidates" in notebook_text
     assert "超过 raw target-position reference" in conclusion
+
+
+def test_agentic_alpha_ml_position_model_card_reports_validation_selected_underperformance():
+    card = ROOT / "research" / "agentic_alpha_ml_position_model_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_ml_position_model_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_ml_position_model_v1"
+    assert summary["card_type"] == "ml_position_model_search"
+    assert summary["promotion_decision"] == "not_promoted_validation_selected_ml_underperformed"
+    assert summary["segments"] == {
+        "train": ["2019-01-02", "2024-12-31"],
+        "validation": ["2025-01-02", "2025-12-31"],
+        "test": ["2026-01-02", "2026-06-09"],
+    }
+    assert summary["goal_gate"]["selection_segment"] == "validation"
+    assert summary["goal_gate"]["report_segment"] == "test"
+    assert summary["goal_gate"]["max_position"] == 1.0
+    assert summary["goal_gate"]["min_validation_trade_count"] == 10
+    selected = summary["selected_candidate"]
+    constrained = summary["constrained_weight_reference"]
+    legacy = summary["legacy_soxlbacktest_benchmark"]
+    oracle = summary["oracle_test_best_candidate"]
+    assert selected["selected_by"] == "validation_selection_objective_score"
+    assert selected["test"]["max_position"] <= 1.0
+    assert selected["test"]["days_above_100"] == 0
+    assert selected["test"]["return_pct"] < legacy["rulebase_return_pct"]
+    assert selected["test"]["return_pct"] < constrained["return_pct"]
+    assert oracle["return_pct"] < legacy["rulebase_return_pct"]
+    assert summary["ml_position_report"]["candidate_count"] >= 100
+    assert set(summary["ml_position_report"]["model_families"]) == {
+        "HistGradientBoostingClassifier",
+        "HistGradientBoostingRegressor",
+        "LGBMClassifier",
+        "LGBMRegressor",
+        "LogisticRegression",
+        "Ridge",
+    }
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "backtest_benchmark_comparison",
+        "candidate_metrics",
+        "failure_modes",
+        "ml_position_summary",
+        "selected_model",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "hist_gradient_boosting_regressor" in candidates
+    assert "lgbm_classifier" in candidates
+    assert summary["recorder_id"] in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "evaluate_ml_position_candidates" in notebook_text
+    assert "不晋升" in conclusion
