@@ -257,6 +257,43 @@ def test_position_sizing_policy_caps_noise_and_reports_reversals():
     assert capped["next_day_reversal_count"] < raw["next_day_reversal_count"]
 
 
+def test_weighted_position_candidates_keep_factor_weights_and_cap_target_position():
+    from src.backtest import evaluate_weighted_position_candidates
+
+    dates = pd.date_range("2026-01-02", periods=5, freq="B")
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "canary": [0.0, 1.0, 1.0, 0.0, 0.0],
+            "macro": [0.0, 0.5, 0.0, 1.0, 0.0],
+            "forward_return": [0.0, 0.05, -0.01, 0.03, 0.01],
+        }
+    )
+
+    metrics, positions = evaluate_weighted_position_candidates(
+        frame,
+        candidates=[
+            {
+                "candidate": "canary_macro_budget",
+                "weights": {"canary": 1.2, "macro": 0.4},
+                "policy": {"min_position": 0.0, "max_position": 1.0, "rebalance_threshold": 0.0},
+            }
+        ],
+        component_cols=["canary", "macro"],
+        return_col="forward_return",
+        cost_per_turnover=0.0,
+    )
+
+    row = metrics.set_index("candidate").loc["canary_macro_budget"]
+    target = positions.loc[positions["candidate"] == "canary_macro_budget", "target_position"]
+
+    assert row["effective_component_count"] == 2
+    assert row["raw_target_max"] > 1.0
+    assert row["max_position"] <= 1.0
+    assert target.max() <= 1.0
+    assert '"canary": 1.2' in row["weights"]
+
+
 def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
     from src.factor import validate_agentic_alpha_factors
 

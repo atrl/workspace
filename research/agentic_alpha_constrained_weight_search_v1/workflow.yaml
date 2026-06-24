@@ -1,0 +1,23 @@
+experiment: agentic_alpha_constrained_weight_search_v1
+card_type: validated_constrained_weight_search
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  macro_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_macro_credit_v1
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_constrained_weight_search_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  research:
+    start: 2019-01-02
+    end: 2026-06-09
+  report_window:
+    start: 2026-01-02
+    end: 2026-06-09
+constrained_weight_search:
+  max_drawdown_floor: -20.0
+  max_position: 1.0
+  min_effective_weight: 0.05
+  require_return_above_raw_position_reference: true
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

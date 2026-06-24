@@ -1,0 +1,22 @@
+{
+  "candidate": "canary_tsmom_budget_h025",
+  "effective_component_count": 2,
+  "max_drawdown_pct": -14.619712031891652,
+  "max_position": 1.0,
+  "min_position": 0.000375,
+  "next_day_reversal_count": 1,
+  "policy": {
+    "max_position": 1.0,
+    "min_position": 0.0,
+    "rebalance_threshold": 0.25
+  },
+  "return_pct": 571.2200577696498,
+  "selection_basis": "curated multi-factor constrained candidate that beats raw target-position reference, soxl_backtest, and the drawdown gate while staying long-only <=100%",
+  "total_turnover": 8.8461,
+  "trade_count": 9,
+  "weights": {
+    "canary_trend60_vix26_autocorr_h3_s1.0": 2.894,
+    "tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02": 0.0503,
+    "tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03": 0.0005
+  }
+}

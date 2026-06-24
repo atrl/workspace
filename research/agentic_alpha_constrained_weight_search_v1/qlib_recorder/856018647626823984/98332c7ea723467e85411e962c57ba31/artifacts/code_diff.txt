@@ -1,0 +1,206 @@
+diff --git a/src/backtest/__init__.py b/src/backtest/__init__.py
+index 6b1ed5c9..ebfdf9d9 100644
+--- a/src/backtest/__init__.py
++++ b/src/backtest/__init__.py
+@@ -7,6 +7,7 @@ from .engine import (
+ from .position_sizing import (
+     apply_position_sizing_policy,
+     evaluate_position_sizing_policies,
++    evaluate_weighted_position_candidates,
+     volatility_scaled_target,
+ )
+ from .strategy import SignalWeightStrategy, calibrated_signal_threshold
+@@ -20,5 +21,6 @@ __all__ = [
+     "build_portfolio_report_from_qlib_recorder",
+     "calibrated_signal_threshold",
+     "evaluate_position_sizing_policies",
++    "evaluate_weighted_position_candidates",
+     "volatility_scaled_target",
+ ]
+diff --git a/src/backtest/position_sizing.py b/src/backtest/position_sizing.py
+index dbddfc66..2451ed3f 100644
+--- a/src/backtest/position_sizing.py
++++ b/src/backtest/position_sizing.py
+@@ -1,5 +1,6 @@
+ from __future__ import annotations
+ 
++import json
+ from typing import Any
+ 
+ import numpy as np
+@@ -215,3 +216,78 @@ def evaluate_position_sizing_policies(
+         metrics["params"] = metrics["params"].map(lambda value: value if isinstance(value, str) else str(value))
+     positions = pd.concat(position_rows, ignore_index=True) if position_rows else pd.DataFrame()
+     return metrics.sort_values("return_pct", ascending=False).reset_index(drop=True), positions
++
++
++def evaluate_weighted_position_candidates(
++    frame: pd.DataFrame,
++    *,
++    candidates: list[dict[str, Any]],
++    component_cols: list[str],
++    return_col: str = "forward_return",
++    datetime_col: str = "datetime",
++    cost_per_turnover: float = 0.0003,
++    min_effective_weight: float = 1e-9,
++) -> tuple[pd.DataFrame, pd.DataFrame]:
++    """Evaluate weighted component blends as constrained target-position candidates."""
++
++    if frame.empty:
++        raise ValueError("weighted position frame is empty")
++    if not candidates:
++        raise ValueError("at least one weighted position candidate is required")
++    if not component_cols:
++        raise ValueError("at least one component column is required")
++    required = {return_col, *component_cols}
++    missing = sorted(required - set(frame.columns))
++    if missing:
++        raise ValueError(f"weighted position frame missing columns: {missing}")
++
++    data = frame.copy()
++    if datetime_col in data.columns:
++        data = data.sort_values(datetime_col).reset_index(drop=True)
++    else:
++        data = data.reset_index(drop=True)
++    component_matrix = data[component_cols].astype("float64").replace([np.inf, -np.inf], np.nan).fillna(0.0)
++
++    metric_frames: list[pd.DataFrame] = []
++    position_frames: list[pd.DataFrame] = []
++    for candidate in candidates:
++        name = str(candidate["candidate"])
++        weights = {str(key): float(value) for key, value in dict(candidate.get("weights", {})).items()}
++        unknown = sorted(set(weights) - set(component_cols))
++        if unknown:
++            raise ValueError(f"weighted position candidate {name!r} references unknown components: {unknown}")
++
++        ordered_weights = pd.Series({column: weights.get(column, 0.0) for column in component_cols}, dtype="float64")
++        raw_target = component_matrix.mul(ordered_weights, axis=1).sum(axis=1)
++        candidate_frame = pd.DataFrame(
++            {
++                "raw_target": raw_target,
++                return_col: data[return_col].astype("float64").replace([np.inf, -np.inf], np.nan).fillna(0.0),
++            }
++        )
++        if datetime_col in data.columns:
++            candidate_frame[datetime_col] = data[datetime_col]
++
++        metrics, positions = evaluate_position_sizing_policies(
++            candidate_frame,
++            policies=[{"candidate": name, **dict(candidate.get("policy", {}))}],
++            raw_target_col="raw_target",
++            return_col=return_col,
++            cost_per_turnover=cost_per_turnover,
++        )
++        metrics["weights"] = json.dumps({key: value for key, value in weights.items() if abs(value) > 0.0}, sort_keys=True)
++        metrics["effective_component_count"] = int((ordered_weights.abs() > float(min_effective_weight)).sum())
++        metrics["raw_target_max"] = float(raw_target.max())
++        metrics["raw_target_min"] = float(raw_target.min())
++        metrics["raw_target_avg_abs"] = float(raw_target.abs().mean())
++        metrics["component_cols"] = json.dumps(component_cols, sort_keys=True)
++        metric_frames.append(metrics)
++
++        positions["weights"] = metrics.iloc[0]["weights"]
++        position_frames.append(positions)
++
++    all_metrics = pd.concat(metric_frames, ignore_index=True) if metric_frames else pd.DataFrame()
++    all_positions = pd.concat(position_frames, ignore_index=True) if position_frames else pd.DataFrame()
++    if not all_metrics.empty:
++        all_metrics = all_metrics.sort_values("return_pct", ascending=False).reset_index(drop=True)
++    return all_metrics, all_positions
+diff --git a/tests/test_agentic_alpha_workflow.py b/tests/test_agentic_alpha_workflow.py
+index a8aab8db..d06aa7e6 100644
+--- a/tests/test_agentic_alpha_workflow.py
++++ b/tests/test_agentic_alpha_workflow.py
+@@ -257,6 +257,43 @@ def test_position_sizing_policy_caps_noise_and_reports_reversals():
+     assert capped["next_day_reversal_count"] < raw["next_day_reversal_count"]
+ 
+ 
++def test_weighted_position_candidates_keep_factor_weights_and_cap_target_position():
++    from src.backtest import evaluate_weighted_position_candidates
++
++    dates = pd.date_range("2026-01-02", periods=5, freq="B")
++    frame = pd.DataFrame(
++        {
++            "datetime": dates,
++            "canary": [0.0, 1.0, 1.0, 0.0, 0.0],
++            "macro": [0.0, 0.5, 0.0, 1.0, 0.0],
++            "forward_return": [0.0, 0.05, -0.01, 0.03, 0.01],
++        }
++    )
++
++    metrics, positions = evaluate_weighted_position_candidates(
++        frame,
++        candidates=[
++            {
++                "candidate": "canary_macro_budget",
++                "weights": {"canary": 1.2, "macro": 0.4},
++                "policy": {"min_position": 0.0, "max_position": 1.0, "rebalance_threshold": 0.0},
++            }
++        ],
++        component_cols=["canary", "macro"],
++        return_col="forward_return",
++        cost_per_turnover=0.0,
++    )
++
++    row = metrics.set_index("candidate").loc["canary_macro_budget"]
++    target = positions.loc[positions["candidate"] == "canary_macro_budget", "target_position"]
++
++    assert row["effective_component_count"] == 2
++    assert row["raw_target_max"] > 1.0
++    assert row["max_position"] <= 1.0
++    assert target.max() <= 1.0
++    assert '"canary": 1.2' in row["weights"]
++
++
+ def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
+     from src.factor import validate_agentic_alpha_factors
+ 
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index d93367f1..4964b876 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -1112,3 +1112,44 @@ def test_agentic_alpha_position_sizing_search_card_compares_managed_position_bud
+     assert "R.start" in notebook_text
+     assert "evaluate_position_sizing_policies" in notebook_text
+     assert "未超过 raw target-position reference" in conclusion
++
++
++def test_agentic_alpha_constrained_weight_search_card_exceeds_raw_position_reference():
++    card = ROOT / "research" / "agentic_alpha_constrained_weight_search_v1"
++    summary = _summary(card)
++    notebook_text = (card / "agentic_alpha_constrained_weight_search_v1.ipynb").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "agentic_alpha_constrained_weight_search_v1"
++    assert summary["card_type"] == "validated_constrained_weight_search"
++    assert summary["promotion_decision"] == "promote_to_production_review"
++    assert summary["goal_gate"]["max_drawdown_floor"] == -20.0
++    assert summary["goal_gate"]["require_return_above_raw_position_reference"] is True
++    assert summary["data_range"] == ["2019-01-02", "2026-06-09"]
++    assert summary["report_window"] == ["2026-01-02", "2026-06-09"]
++    selected = summary["selected_candidate"]
++    raw = summary["raw_position_reference"]
++    assert selected["candidate"] == "canary_tsmom_budget_h025"
++    assert selected["return_pct"] > raw["return_pct"]
++    assert selected["max_drawdown_pct"] >= summary["goal_gate"]["max_drawdown_floor"]
++    assert selected["max_position"] <= 1.0
++    assert selected["min_position"] >= 0.0
++    assert selected["effective_component_count"] >= 2
++    assert summary["legacy_soxlbacktest_benchmark"]["rulebase_return_pct"] < selected["return_pct"]
++    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert set(summary["sidecars"]) == {
++        "backtest_benchmark_comparison",
++        "candidate_metrics",
++        "constrained_weight_summary",
++        "failure_modes",
++        "selected_model",
++    }
++    for rel_path in summary["sidecars"].values():
++        assert (card / rel_path).exists(), rel_path
++
++    assert summary["recorder_id"] in notebook_text
++    assert "D.features" in notebook_text
++    assert "R.start" in notebook_text
++    assert "evaluate_weighted_position_candidates" in notebook_text
++    assert "超过 raw target-position reference" in conclusion

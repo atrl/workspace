@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Any
 
 import numpy as np
@@ -215,3 +216,78 @@ def evaluate_position_sizing_policies(
         metrics["params"] = metrics["params"].map(lambda value: value if isinstance(value, str) else str(value))
     positions = pd.concat(position_rows, ignore_index=True) if position_rows else pd.DataFrame()
     return metrics.sort_values("return_pct", ascending=False).reset_index(drop=True), positions
+
+
+def evaluate_weighted_position_candidates(
+    frame: pd.DataFrame,
+    *,
+    candidates: list[dict[str, Any]],
+    component_cols: list[str],
+    return_col: str = "forward_return",
+    datetime_col: str = "datetime",
+    cost_per_turnover: float = 0.0003,
+    min_effective_weight: float = 1e-9,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Evaluate weighted component blends as constrained target-position candidates."""
+
+    if frame.empty:
+        raise ValueError("weighted position frame is empty")
+    if not candidates:
+        raise ValueError("at least one weighted position candidate is required")
+    if not component_cols:
+        raise ValueError("at least one component column is required")
+    required = {return_col, *component_cols}
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"weighted position frame missing columns: {missing}")
+
+    data = frame.copy()
+    if datetime_col in data.columns:
+        data = data.sort_values(datetime_col).reset_index(drop=True)
+    else:
+        data = data.reset_index(drop=True)
+    component_matrix = data[component_cols].astype("float64").replace([np.inf, -np.inf], np.nan).fillna(0.0)
+
+    metric_frames: list[pd.DataFrame] = []
+    position_frames: list[pd.DataFrame] = []
+    for candidate in candidates:
+        name = str(candidate["candidate"])
+        weights = {str(key): float(value) for key, value in dict(candidate.get("weights", {})).items()}
+        unknown = sorted(set(weights) - set(component_cols))
+        if unknown:
+            raise ValueError(f"weighted position candidate {name!r} references unknown components: {unknown}")
+
+        ordered_weights = pd.Series({column: weights.get(column, 0.0) for column in component_cols}, dtype="float64")
+        raw_target = component_matrix.mul(ordered_weights, axis=1).sum(axis=1)
+        candidate_frame = pd.DataFrame(
+            {
+                "raw_target": raw_target,
+                return_col: data[return_col].astype("float64").replace([np.inf, -np.inf], np.nan).fillna(0.0),
+            }
+        )
+        if datetime_col in data.columns:
+            candidate_frame[datetime_col] = data[datetime_col]
+
+        metrics, positions = evaluate_position_sizing_policies(
+            candidate_frame,
+            policies=[{"candidate": name, **dict(candidate.get("policy", {}))}],
+            raw_target_col="raw_target",
+            return_col=return_col,
+            cost_per_turnover=cost_per_turnover,
+        )
+        metrics["weights"] = json.dumps({key: value for key, value in weights.items() if abs(value) > 0.0}, sort_keys=True)
+        metrics["effective_component_count"] = int((ordered_weights.abs() > float(min_effective_weight)).sum())
+        metrics["raw_target_max"] = float(raw_target.max())
+        metrics["raw_target_min"] = float(raw_target.min())
+        metrics["raw_target_avg_abs"] = float(raw_target.abs().mean())
+        metrics["component_cols"] = json.dumps(component_cols, sort_keys=True)
+        metric_frames.append(metrics)
+
+        positions["weights"] = metrics.iloc[0]["weights"]
+        position_frames.append(positions)
+
+    all_metrics = pd.concat(metric_frames, ignore_index=True) if metric_frames else pd.DataFrame()
+    all_positions = pd.concat(position_frames, ignore_index=True) if position_frames else pd.DataFrame()
+    if not all_metrics.empty:
+        all_metrics = all_metrics.sort_values("return_pct", ascending=False).reset_index(drop=True)
+    return all_metrics, all_positions
