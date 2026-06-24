@@ -1212,3 +1212,67 @@ def test_agentic_alpha_ml_position_model_card_reports_validation_selected_underp
     assert "R.start" in notebook_text
     assert "evaluate_ml_position_candidates" in notebook_text
     assert "不晋升" in conclusion
+
+
+def test_agentic_alpha_ml_throttle_card_beats_soxl_but_not_constrained_weight():
+    card = ROOT / "research" / "agentic_alpha_ml_throttle_search_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_ml_throttle_search_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_ml_throttle_search_v1"
+    assert summary["card_type"] == "ml_throttle_position_search"
+    assert summary["promotion_decision"] == "not_promoted_ml_throttle_under_constrained_weight"
+    assert summary["segments"] == {
+        "train": ["2019-01-02", "2024-12-31"],
+        "validation": ["2025-01-02", "2025-12-31"],
+        "test": ["2026-01-02", "2026-06-09"],
+    }
+    assert summary["goal_gate"]["model_target_col"] == "label_return_5d"
+    assert summary["goal_gate"]["return_col"] == "forward_return"
+    assert summary["goal_gate"]["max_position"] == 1.0
+    assert summary["goal_gate"]["max_validation_reversal_ratio"] == 0.4
+
+    selected = summary["selected_candidate"]
+    previous_ml = summary["previous_ml_position_reference"]
+    constrained = summary["constrained_weight_reference"]
+    legacy = summary["legacy_soxlbacktest_benchmark"]
+    assert selected["selected_by"] == "validation_selection_objective_score"
+    assert selected["test"]["position_mode"] == "base_throttle"
+    assert selected["test"]["model_target_col"] == "label_return_5d"
+    assert selected["test"]["max_position"] <= 1.0
+    assert selected["test"]["days_above_100"] == 0
+    assert selected["test"]["next_day_reversal_ratio"] <= 0.01
+    assert selected["test"]["return_pct"] > previous_ml["return_pct"]
+    assert selected["test"]["return_pct"] > legacy["rulebase_return_pct"]
+    assert selected["test"]["return_pct"] < constrained["return_pct"]
+
+    report = summary["ml_throttle_report"]
+    assert report["candidate_count"] >= 1000
+    assert report["comparison"]["beats_previous_ml"] is True
+    assert report["comparison"]["beats_soxlbacktest"] is True
+    assert report["comparison"]["beats_constrained_weight_reference"] is False
+    assert {"ExtraTreesClassifier", "RandomForestRegressor", "LGBMClassifier"}.issubset(
+        set(report["model_families"])
+    )
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "backtest_benchmark_comparison",
+        "candidate_metrics",
+        "failure_modes",
+        "ml_throttle_summary",
+        "selected_model",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "base_throttle" in candidates
+    assert "extra_trees_classifier" in candidates
+    assert summary["recorder_id"] in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "label_return_5d" in notebook_text
+    assert "evaluate_ml_position_candidates" in notebook_text
+    assert "不替代当前约束权重模型" in conclusion

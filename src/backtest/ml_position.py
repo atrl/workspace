@@ -6,7 +6,14 @@ from typing import Any
 import numpy as np
 import pandas as pd
 from sklearn.dummy import DummyClassifier
-from sklearn.ensemble import HistGradientBoostingClassifier, HistGradientBoostingRegressor
+from sklearn.ensemble import (
+    ExtraTreesClassifier,
+    ExtraTreesRegressor,
+    HistGradientBoostingClassifier,
+    HistGradientBoostingRegressor,
+    RandomForestClassifier,
+    RandomForestRegressor,
+)
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.pipeline import make_pipeline
@@ -15,8 +22,20 @@ from sklearn.preprocessing import StandardScaler
 from .position_sizing import apply_position_sizing_policy
 
 
-CLASSIFIER_MODELS = {"logistic_regression", "hist_gradient_boosting_classifier", "lgbm_classifier"}
-REGRESSOR_MODELS = {"ridge", "hist_gradient_boosting_regressor", "lgbm_regressor"}
+CLASSIFIER_MODELS = {
+    "extra_trees_classifier",
+    "hist_gradient_boosting_classifier",
+    "lgbm_classifier",
+    "logistic_regression",
+    "random_forest_classifier",
+}
+REGRESSOR_MODELS = {
+    "extra_trees_regressor",
+    "hist_gradient_boosting_regressor",
+    "lgbm_regressor",
+    "random_forest_regressor",
+    "ridge",
+}
 
 
 def _build_model(model_name: str, *, random_state: int):
@@ -48,6 +67,52 @@ def _build_model(model_name: str, *, random_state: int):
                 max_leaf_nodes=15,
                 l2_regularization=0.03,
                 random_state=random_state,
+            ),
+        )
+    if model_name == "extra_trees_classifier":
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            ExtraTreesClassifier(
+                n_estimators=240,
+                max_depth=6,
+                min_samples_leaf=12,
+                class_weight="balanced",
+                random_state=random_state,
+                n_jobs=1,
+            ),
+        )
+    if model_name == "extra_trees_regressor":
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            ExtraTreesRegressor(
+                n_estimators=240,
+                max_depth=6,
+                min_samples_leaf=12,
+                random_state=random_state,
+                n_jobs=1,
+            ),
+        )
+    if model_name == "random_forest_classifier":
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            RandomForestClassifier(
+                n_estimators=240,
+                max_depth=5,
+                min_samples_leaf=16,
+                class_weight="balanced_subsample",
+                random_state=random_state,
+                n_jobs=1,
+            ),
+        )
+    if model_name == "random_forest_regressor":
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            RandomForestRegressor(
+                n_estimators=240,
+                max_depth=5,
+                min_samples_leaf=16,
+                random_state=random_state,
+                n_jobs=1,
             ),
         )
     if model_name == "lgbm_classifier":
@@ -177,8 +242,56 @@ def _raw_target_from_probability(
             raise ValueError(f"position spec requires missing base_position_col: {base_col}")
         raw = data[base_col].astype("float64").replace([np.inf, -np.inf], np.nan).fillna(0.0)
         raw = raw * gated_probability * scale
+    elif mode == "base_throttle":
+        base_col = str(position_spec.get("base_position_col", "base_position"))
+        if base_col not in data.columns:
+            raise ValueError(f"position spec requires missing base_position_col: {base_col}")
+        low_probability = float(position_spec.get("low_probability", threshold))
+        high_probability = float(position_spec.get("high_probability", max(low_probability + 0.05, 0.70)))
+        if high_probability <= low_probability:
+            raise ValueError("base_throttle high_probability must exceed low_probability")
+        min_throttle = float(position_spec.get("min_throttle", 0.25))
+        max_throttle = float(position_spec.get("max_throttle", 1.0))
+        if min_throttle < 0.0 or max_throttle <= 0.0 or min_throttle > max_throttle:
+            raise ValueError("base_throttle requires 0 <= min_throttle <= max_throttle")
+
+        base_cap = float(position_spec.get("base_cap", position_spec.get("max_position", 1.0)))
+        base = (
+            data[base_col]
+            .astype("float64")
+            .replace([np.inf, -np.inf], np.nan)
+            .fillna(0.0)
+            .clip(lower=0.0, upper=base_cap)
+        )
+        unit = ((probability - low_probability) / max(high_probability - low_probability, 1e-12)).clip(
+            lower=0.0,
+            upper=1.0,
+        )
+        if str(position_spec.get("throttle_curve", "smoothstep")) == "smoothstep":
+            unit = unit * unit * (3.0 - 2.0 * unit)
+        throttle = min_throttle + (max_throttle - min_throttle) * unit
+        off_threshold = position_spec.get("off_threshold")
+        if off_threshold is not None:
+            throttle = throttle.where(probability >= float(off_threshold), 0.0)
+
+        raw = base * throttle * scale
+        trend_floor_col = position_spec.get("trend_floor_col")
+        if trend_floor_col is not None:
+            trend_floor_col = str(trend_floor_col)
+            if trend_floor_col not in data.columns:
+                raise ValueError(f"position spec requires missing trend_floor_col: {trend_floor_col}")
+            trend_floor_fraction = float(position_spec.get("trend_floor_fraction", min_throttle))
+            trend_threshold = float(position_spec.get("trend_floor_threshold", 0.0))
+            trend_active = (
+                data[trend_floor_col]
+                .astype("float64")
+                .replace([np.inf, -np.inf], np.nan)
+                .fillna(0.0)
+                > trend_threshold
+            )
+            raw = raw.where(~trend_active, np.maximum(raw, base * trend_floor_fraction))
     else:
-        raise ValueError("position_mode must be one of: probability, binary, base_gate, base_probability")
+        raise ValueError("position_mode must be one of: probability, binary, base_gate, base_probability, base_throttle")
     return pd.Series(raw.to_numpy(dtype="float64"), index=data.index, name="raw_target")
 
 
@@ -212,12 +325,31 @@ def _strategy_metrics(
     max_drawdown_pct = _max_drawdown_pct(strategy_returns)
     trade_count, next_day_reversal_count, avg_holding_days = _holding_period_stats(target_position)
     return_to_drawdown = return_pct / max(abs(max_drawdown_pct), 1.0)
+    reversal_ratio = float(next_day_reversal_count / max(trade_count, 1))
+    avg_abs_position = float(target_position.abs().mean())
     stability_penalty = (
-        1.5 * float(turnover.sum())
-        + 2.0 * float(next_day_reversal_count)
-        + 0.10 * float(trade_count)
+        float(position_spec.get("turnover_penalty", 1.5)) * float(turnover.sum())
+        + float(position_spec.get("reversal_penalty", 2.0)) * float(next_day_reversal_count)
+        + float(position_spec.get("trade_penalty", 0.10)) * float(trade_count)
     )
-    selection_objective_score = float(return_to_drawdown * 10.0 + return_pct * 0.02 - stability_penalty)
+    exposure_floor = float(position_spec.get("objective_min_avg_abs_position", 0.0))
+    exposure_penalty = max(exposure_floor - avg_abs_position, 0.0) * float(
+        position_spec.get("exposure_shortfall_penalty", 100.0)
+    )
+    drawdown_floor = position_spec.get("objective_max_drawdown_floor")
+    drawdown_penalty = 0.0
+    if drawdown_floor is not None and max_drawdown_pct < float(drawdown_floor):
+        drawdown_penalty = abs(max_drawdown_pct - float(drawdown_floor)) * float(
+            position_spec.get("drawdown_floor_penalty", 2.0)
+        )
+    selection_objective_score = float(
+        return_to_drawdown * float(position_spec.get("objective_return_to_drawdown_weight", 10.0))
+        + return_pct * float(position_spec.get("objective_return_weight", 0.02))
+        + avg_abs_position * float(position_spec.get("objective_exposure_weight", 0.0))
+        - stability_penalty
+        - exposure_penalty
+        - drawdown_penalty
+    )
 
     metrics = {
         "candidate": candidate,
@@ -226,7 +358,7 @@ def _strategy_metrics(
         "max_drawdown_pct": max_drawdown_pct,
         "return_to_drawdown": float(return_to_drawdown),
         "selection_objective_score": selection_objective_score,
-        "avg_abs_position": float(target_position.abs().mean()),
+        "avg_abs_position": avg_abs_position,
         "max_position": float(target_position.max()),
         "min_position": float(target_position.min()),
         "days_above_100": int((target_position > 1.0 + 1e-9).sum()),
@@ -234,6 +366,7 @@ def _strategy_metrics(
         "total_turnover": float(turnover.sum()),
         "trade_count": int(trade_count),
         "next_day_reversal_count": int(next_day_reversal_count),
+        "next_day_reversal_ratio": reversal_ratio,
         "avg_holding_days": float(avg_holding_days),
         "cost_per_turnover": float(cost_per_turnover),
     }
@@ -260,6 +393,15 @@ def _candidate_name(model_name: str, position_spec: dict[str, Any]) -> str:
     hold = int(position_spec.get("min_hold_days", 1))
     base = position_spec.get("base_position_col")
     base_suffix = "" if base is None else f"_{base}"
+    if mode == "base_throttle":
+        low = float(position_spec.get("low_probability", threshold))
+        high = float(position_spec.get("high_probability", max(low + 0.05, 0.70)))
+        min_throttle = float(position_spec.get("min_throttle", 0.25))
+        max_throttle = float(position_spec.get("max_throttle", 1.0))
+        return (
+            f"{model_name}_{mode}{base_suffix}_p{low:g}-{high:g}_"
+            f"t{min_throttle:g}-{max_throttle:g}_s{scale:g}_h{rebalance:g}_hold{hold}"
+        )
     return f"{model_name}_{mode}{base_suffix}_p{threshold:g}_s{scale:g}_h{rebalance:g}_hold{hold}"
 
 
@@ -273,11 +415,13 @@ def evaluate_ml_position_candidates(
     test_window: tuple[str, str],
     position_specs: list[dict[str, Any]] | None = None,
     return_col: str = "forward_return",
+    label_col: str | None = None,
     datetime_col: str = "datetime",
     cost_per_turnover: float = 0.0003,
     min_validation_trade_count: int = 0,
     min_validation_avg_abs_position: float = 0.0,
     validation_max_drawdown_floor: float | None = None,
+    max_validation_reversal_ratio: float | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Train ML scores on train data, select position candidates on validation, and report test stability."""
 
@@ -288,11 +432,14 @@ def evaluate_ml_position_candidates(
     if not model_specs:
         raise ValueError("at least one model spec is required")
     position_specs = position_specs or [{"position_mode": "probability", "threshold": 0.55, "scale": 1.0}]
+    model_target_col = label_col or return_col
 
-    required = {datetime_col, return_col, *feature_cols}
+    required = {datetime_col, return_col, model_target_col, *feature_cols}
     for spec in position_specs:
-        if str(spec.get("position_mode", "probability")) in {"base_gate", "base_probability"}:
+        if str(spec.get("position_mode", "probability")) in {"base_gate", "base_probability", "base_throttle"}:
             required.add(str(spec.get("base_position_col", "base_position")))
+        if spec.get("trend_floor_col") is not None:
+            required.add(str(spec["trend_floor_col"]))
     missing = sorted(required - set(frame.columns))
     if missing:
         raise ValueError(f"ML position frame missing columns: {missing}")
@@ -300,7 +447,7 @@ def evaluate_ml_position_candidates(
     data = frame.copy()
     data["datetime"] = pd.to_datetime(data[datetime_col]).dt.normalize()
     data = data.sort_values("datetime").reset_index(drop=True)
-    for column in [*feature_cols, return_col]:
+    for column in [*feature_cols, return_col, model_target_col]:
         data[column] = pd.to_numeric(data[column], errors="coerce").replace([np.inf, -np.inf], np.nan)
     data = data.dropna(subset=[return_col]).reset_index(drop=True)
 
@@ -311,6 +458,7 @@ def evaluate_ml_position_candidates(
     train = segment(train_window)
     validation = segment(validation_window)
     test = segment(test_window)
+    train = train.dropna(subset=[model_target_col]).reset_index(drop=True)
     if train.empty or validation.empty or test.empty:
         raise ValueError("train, validation, and test windows must all contain rows")
 
@@ -324,7 +472,7 @@ def evaluate_ml_position_candidates(
         positive_threshold = float(spec.get("positive_threshold", 0.0))
         random_state = int(spec.get("random_state", 42 + index))
         if task == "classification":
-            y_train = train[return_col].gt(positive_threshold).astype(int)
+            y_train = train[model_target_col].gt(positive_threshold).astype(int)
             if y_train.nunique() < 2:
                 model = DummyClassifier(strategy="constant", constant=int(y_train.iloc[0] if len(y_train) else 0))
             else:
@@ -333,7 +481,7 @@ def evaluate_ml_position_candidates(
             train_score = None
         else:
             model = _build_model(model_name, random_state=random_state)
-            y_train = train[return_col].astype("float64")
+            y_train = train[model_target_col].astype("float64")
             model.fit(x_train, y_train)
             train_score = pd.Series(model.predict(x_train), index=train.index, name="score")
 
@@ -355,6 +503,8 @@ def evaluate_ml_position_candidates(
                     {
                         "model": model_name,
                         "model_task": task,
+                        "model_target_col": model_target_col,
+                        "return_col": return_col,
                         "position_mode": str(position_spec.get("position_mode", "probability")),
                         "threshold": float(position_spec.get("threshold", 0.55)),
                         "scale": float(position_spec.get("scale", 1.0)),
@@ -385,6 +535,10 @@ def evaluate_ml_position_candidates(
         eligible_mask = eligible_mask & (
             validation_metrics["max_drawdown_pct"].astype(float) >= float(validation_max_drawdown_floor)
         )
+    if max_validation_reversal_ratio is not None:
+        eligible_mask = eligible_mask & (
+            validation_metrics["next_day_reversal_ratio"].astype(float) <= float(max_validation_reversal_ratio)
+        )
     eligible_validation = validation_metrics.loc[eligible_mask]
     selection_pool = eligible_validation if not eligible_validation.empty else validation_metrics
     selected_candidate = str(selection_pool.sort_values("selection_objective_score", ascending=False).iloc[0]["candidate"])
@@ -396,6 +550,7 @@ def evaluate_ml_position_candidates(
             "min_validation_trade_count": int(min_validation_trade_count),
             "min_validation_avg_abs_position": float(min_validation_avg_abs_position),
             "validation_max_drawdown_floor": validation_max_drawdown_floor,
+            "max_validation_reversal_ratio": max_validation_reversal_ratio,
             "fallback_to_all_candidates": bool(eligible_validation.empty),
         },
         sort_keys=True,

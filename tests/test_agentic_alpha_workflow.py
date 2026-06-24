@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 
@@ -352,6 +353,75 @@ def test_ml_position_candidates_select_on_validation_and_report_stability():
     assert selected_validation["avg_abs_position"] >= 0.05
     assert not positions.loc[positions["candidate"] == selected_name].empty
     assert positions.loc[positions["candidate"] == selected_name, "target_position"].between(0.0, 1.0).all()
+
+
+def test_ml_position_base_throttle_uses_model_as_position_overlay():
+    from src.backtest import evaluate_ml_position_candidates
+
+    dates = pd.date_range("2025-01-02", periods=180, freq="B")
+    phase = pd.Series(np.sin(np.arange(len(dates)) / 5.0), dtype="float64")
+    trend = phase.rolling(10, min_periods=1).mean()
+    base_position = (trend > -0.25).astype(float)
+    forward_return = 0.014 * phase.shift(1).fillna(0.0) + 0.006 * trend.fillna(0.0)
+    label_return = forward_return.rolling(5, min_periods=1).sum().shift(-4).fillna(forward_return)
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "signal": phase,
+            "trend": trend,
+            "base_position": base_position,
+            "forward_return": forward_return,
+            "label_return": label_return,
+        }
+    )
+
+    metrics, positions = evaluate_ml_position_candidates(
+        frame,
+        feature_cols=["signal", "trend", "base_position"],
+        model_specs=[{"model": "extra_trees_classifier"}, {"model": "random_forest_regressor"}],
+        train_window=("2025-01-02", "2025-04-30"),
+        validation_window=("2025-05-01", "2025-07-15"),
+        test_window=("2025-07-16", "2025-09-30"),
+        label_col="label_return",
+        position_specs=[
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": "base_position",
+                "low_probability": 0.35,
+                "high_probability": 0.65,
+                "min_throttle": 0.40,
+                "max_throttle": 0.90,
+                "trend_floor_col": "trend",
+                "trend_floor_threshold": 0.0,
+                "trend_floor_fraction": 0.50,
+                "rebalance_threshold": 0.10,
+                "max_daily_change": 0.50,
+                "min_hold_days": 2,
+                "min_position": 0.0,
+                "max_position": 1.0,
+                "objective_min_avg_abs_position": 0.10,
+                "objective_return_weight": 0.08,
+                "reversal_penalty": 3.0,
+            }
+        ],
+        min_validation_trade_count=1,
+        min_validation_avg_abs_position=0.10,
+        cost_per_turnover=0.0003,
+    )
+
+    assert set(metrics["position_mode"]) == {"base_throttle"}
+    assert set(metrics["model_target_col"]) == {"label_return"}
+    assert set(metrics["return_col"]) == {"forward_return"}
+    assert metrics["max_position"].max() <= 1.0
+    assert metrics["days_above_100"].max() == 0
+    assert metrics["avg_abs_position"].min() >= 0.10
+    assert "next_day_reversal_ratio" in metrics.columns
+
+    selected_name = metrics.loc[metrics["selected"], "candidate"].iloc[0]
+    selected_positions = positions.loc[positions["candidate"] == selected_name].copy()
+    assert selected_positions["target_position"].between(0.0, 1.0).all()
+    assert selected_positions["raw_target"].between(0.0, 1.0).all()
+    assert selected_positions["target_position"].diff().abs().fillna(0.0).max() <= 0.50 + 1e-12
 
 
 def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
