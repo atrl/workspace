@@ -19,6 +19,16 @@ from .cross_asset_rotation import (
     evaluate_cross_asset_rotation_candidates,
     summarize_cross_asset_branch,
 )
+from .cognitive_alpha import (
+    COGALPHA_AGENT_LEVELS,
+    CognitiveAlphaCandidate,
+    CognitiveAlphaReport,
+    build_cognitive_alpha_seed_candidates,
+    build_column_alpha_candidates,
+    cognitive_alpha_codex_prompt_seed,
+    evaluate_cognitive_alpha_candidates,
+    materialize_cognitive_alpha_features,
+)
 from .diagnostics import FactorDiagnosticsReport, QlibScoredDataset, combine_qlib_factor_scores, qlib_factor_diagnostics
 from .factor_library_reversal import (
     build_factor_library_reversal_frame,
@@ -60,11 +70,16 @@ from .tail_risk_external import (
 
 __all__ = [
     "AgenticAlphaFactorValidationReport",
+    "COGALPHA_AGENT_LEVELS",
+    "CognitiveAlphaCandidate",
+    "CognitiveAlphaReport",
     "FactorDiagnosticsReport",
     "QlibScoredDataset",
     "build_canary_trend_component",
     "build_canary_sprint_frame",
     "build_cross_asset_price_frame",
+    "build_cognitive_alpha_seed_candidates",
+    "build_column_alpha_candidates",
     "build_factor_library_reversal_frame",
     "build_long_short_crisis_alpha_frame",
     "build_macro_rate_gate_component",
@@ -82,9 +97,11 @@ __all__ = [
     "compact_meta_label_probability_summary",
     "compact_session_effect_summary",
     "combine_qlib_factor_scores",
+    "cognitive_alpha_codex_prompt_seed",
     "evaluate_agentic_ensemble_candidates",
     "evaluate_canary_sprint_candidates",
     "evaluate_cross_asset_rotation_candidates",
+    "evaluate_cognitive_alpha_candidates",
     "evaluate_factor_library_reversal_candidates",
     "evaluate_long_short_crisis_alpha_candidates",
     "evaluate_macro_credit_candidates",
@@ -93,6 +110,7 @@ __all__ = [
     "evaluate_session_effect_candidates",
     "evaluate_signed_session_effect_candidates",
     "evaluate_tail_risk_candidate",
+    "materialize_cognitive_alpha_features",
     "qlib_factor_diagnostics",
     "summarize_agentic_ensemble_components",
     "summarize_canary_sprint_branch",

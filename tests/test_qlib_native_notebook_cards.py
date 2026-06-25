@@ -1363,3 +1363,81 @@ def test_agentic_alpha_ml_factor_enhanced_throttle_card_records_external_factor_
     assert "R.start" in notebook_text
     assert "evaluate_ml_position_candidates" in notebook_text
     assert "不构成买卖建议" in conclusion
+
+
+def test_agentic_alpha_cognitive_alpha_soxl_card_records_codex_alpha158_framework():
+    card = ROOT / "research" / "agentic_alpha_cognitive_alpha_soxl_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_cognitive_alpha_soxl_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_cognitive_alpha_soxl_v1"
+    assert summary["card_type"] == "cognitive_alpha_soxl_throttle_search"
+    assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
+    assert summary["segments"] == {
+        "train": ["2019-01-02", "2024-12-31"],
+        "validation": ["2025-01-02", "2025-12-31"],
+        "test": ["2026-01-02", "2026-06-09"],
+    }
+
+    factor_mining = summary["cognitive_alpha_mining"]
+    assert factor_mining["workflow"] == "cognitive_alpha_mining"
+    assert factor_mining["paper_reference"] == "arxiv:2511.18850"
+    assert factor_mining["alpha158_candidate_count"] >= 50
+    assert factor_mining["seed_candidate_count"] >= 8
+    assert factor_mining["selected_count"] > 0
+    assert {"IC", "ICIR", "RankIC", "RankICIR", "MutualInformation"}.issubset(
+        set(factor_mining["metrics"])
+    )
+    assert "market_structure_cycle" in factor_mining["agent_levels"]
+    assert "geometric_fusion" in factor_mining["agent_levels"]
+
+    feature_groups = summary["feature_groups"]
+    assert feature_groups["alpha158_selected"] > 0
+    assert feature_groups["cognitive_seed_selected"] >= 0
+    assert feature_groups["enhanced_total"] > feature_groups["base_throttle_features"]
+
+    selected = summary["selected_candidate"]
+    assert selected["selected_by"] == "validation_selection_objective_score"
+    assert selected["test"]["position_mode"] == "base_throttle"
+    assert selected["test"]["max_position"] <= 1.0
+    assert selected["test"]["days_above_100"] == 0
+    assert selected["test"]["next_day_reversal_ratio"] <= summary["goal_gate"]["max_validation_reversal_ratio"]
+
+    report = summary["cognitive_alpha_throttle_report"]
+    assert report["candidate_count"] >= 1000
+    assert "beats_factor_enhanced_throttle" in report["comparison"]
+    assert "beats_soxlbacktest" in report["comparison"]
+    assert "beats_constrained_weight_reference" in report["comparison"]
+    assert summary["qlib_native_api"] == [
+        "qlib.init",
+        "qlib.data.D.features",
+        "DatasetH",
+        "DataHandlerLP",
+        "Alpha158.get_feature_config",
+        "qlib.workflow.R.start",
+    ]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "backtest_benchmark_comparison",
+        "candidate_metrics",
+        "cognitive_alpha_correlation",
+        "cognitive_alpha_metrics",
+        "cognitive_alpha_summary",
+        "failure_modes",
+        "selected_model",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    alpha_metrics = (card / summary["sidecars"]["cognitive_alpha_metrics"]).read_text(encoding="utf-8")
+    assert "mutual_information" in alpha_metrics
+    assert "quality_status" in alpha_metrics
+    assert "selection_tier" in alpha_metrics
+    assert summary["recorder_id"] in notebook_text
+    assert "build_alpha158_legacy_dataset" in notebook_text
+    assert "build_cognitive_alpha_seed_candidates" in notebook_text
+    assert "evaluate_cognitive_alpha_candidates" in notebook_text
+    assert "cognitive_alpha_codex_prompt_seed" in notebook_text
+    assert "evaluate_ml_position_candidates" in notebook_text
+    assert "不构成买卖建议" in conclusion

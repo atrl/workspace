@@ -1,0 +1,41 @@
+experiment: agentic_alpha_cognitive_alpha_soxl_v1
+card_type: cognitive_alpha_soxl_throttle_search
+paper_reference:
+  arxiv_id: '2511.18850'
+  method: cognitive_alpha_mining_code_based_evolution
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_cognitive_alpha_soxl_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  train:
+    start: 2019-01-02
+    end: 2024-12-31
+  validation:
+    start: 2025-01-02
+    end: 2025-12-31
+  test:
+    start: 2026-01-02
+    end: 2026-06-09
+cognitive_alpha:
+  codex_candidate_interface: src.factor.CognitiveAlphaCandidate
+  quality_checker: no_future_leakage_output_stability_missing_distinct
+  metrics:
+    - IC
+    - ICIR
+    - RankIC
+    - RankICIR
+    - MutualInformation
+  alpha158: true
+  max_selected_alpha_features: 32
+ml_throttle_model:
+  model_target_col: label_return_5d
+  return_col: forward_return
+  selection_segment: validation
+  report_segment: test
+  max_position: 1.0
+  max_validation_reversal_ratio: 0.4
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

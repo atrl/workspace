@@ -1,0 +1,86 @@
+{
+  "agent_levels": [
+    "market_structure_cycle",
+    "extreme_risk_fragility",
+    "price_volume_dynamics",
+    "price_volatility_behavior",
+    "multi_scale_complexity",
+    "stability_regime_gating",
+    "geometric_fusion"
+  ],
+  "alpha158_candidate_count": 166,
+  "alpha158_feature_set": {
+    "alpha158_count": 158,
+    "feature_count": 166,
+    "legacy_feature_names": [
+      "VIX",
+      "RSI6",
+      "HV_20",
+      "HV_30",
+      "VOL_COEF",
+      "PANIC_SCORE",
+      "SOXL_RET_5",
+      "VOLUME_RATIO_5"
+    ],
+    "source": "Alpha158.get_feature_config+legacy_soxl_features"
+  },
+  "alpha158_selected_count": 21,
+  "candidate_count": 174,
+  "codex_prompt_seed": "Generate concise, vectorized alpha factor functions for a pandas OHLCV DataFrame.\nEach factor must represent one economic idea, use no future data, avoid nested loops, and stay within five logical steps.\n\nCogAlpha hierarchy:\n- market_structure_cycle: AgentMarketCycle, AgentVolatilityRegime -> large-scale trend, market phase, and volatility state\n- extreme_risk_fragility: AgentTailRisk, AgentCrashPredictor -> tail-risk exposure, crash precursors, and fragility accumulation\n- price_volume_dynamics: AgentLiquidity, AgentOrderImbalance, AgentPriceVolumeCoherence, AgentVolumeStructure -> price-volume pressure, liquidity, and order-imbalance proxies\n- price_volatility_behavior: AgentDailyTrend, AgentReversal, AgentRangeVol, AgentLagResponse, AgentVolAsymmetry -> trend persistence, reversal, range volatility, and asymmetric price behavior\n- multi_scale_complexity: AgentDrawdown, AgentFractal -> drawdown-recovery geometry, long memory, and roughness\n- stability_regime_gating: AgentRegimeGating, AgentStability -> temporal stability and adaptive regime gating\n- geometric_fusion: AgentBarShape, AgentCreative, AgentComposite, AgentHerding -> bar geometry, factor fusion, and composite signal interaction\n\nReturn CognitiveAlphaCandidate-compatible functions with required_columns, lookback, economic_rationale, and code metadata.",
+  "decision_counts": {
+    "drop": 145,
+    "elite": 9,
+    "qualified": 20
+  },
+  "generation": 0,
+  "metrics": [
+    "IC",
+    "ICIR",
+    "RankIC",
+    "RankICIR",
+    "MutualInformation"
+  ],
+  "paper_reference": "arxiv:2511.18850",
+  "quality_counts": {
+    "pass": 169,
+    "reject": 5
+  },
+  "raw_selected_count": 21,
+  "seed_candidate_count": 8,
+  "seed_selected_count": 0,
+  "selected_count": 21,
+  "selected_feature_names": [
+    "alpha158_MA60",
+    "alpha158_MAX30",
+    "alpha158_MAX60",
+    "alpha158_SUMN60",
+    "alpha158_QTLU30",
+    "alpha158_MAX20",
+    "alpha158_CNTP60",
+    "alpha158_ROC30",
+    "alpha158_CNTN20",
+    "alpha158_QTLD60",
+    "alpha158_CNTN30",
+    "alpha158_MA30",
+    "alpha158_BETA30",
+    "alpha158_RSV30",
+    "alpha158_RSV60",
+    "alpha158_MA20",
+    "alpha158_RANK5",
+    "alpha158_QTLD20",
+    "alpha158_VIX",
+    "alpha158_QTLU10",
+    "alpha158_BETA20"
+  ],
+  "selection_scope": "train_plus_validation_only",
+  "source": "codex_code_based_candidate_pool",
+  "thresholds": {
+    "elite_percentile": 0.75,
+    "fallback_top_n": 32,
+    "max_abs_correlation": 0.97,
+    "max_missing_ratio": 0.55,
+    "min_observations": 180,
+    "qualified_percentile": 0.55
+  },
+  "workflow": "cognitive_alpha_mining"
+}
