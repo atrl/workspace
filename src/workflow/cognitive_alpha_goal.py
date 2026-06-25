@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Callable
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +25,24 @@ COGNITIVE_ALPHA_PAPER_REFERENCE = "arxiv:2511.18850"
 
 
 @dataclass(frozen=True)
+class CognitiveAlphaGoalGateSpec:
+    min_initial_candidate_count: int = 0
+    min_completed_generations: int = 0
+    min_selected_count: int = 0
+    min_repair_attempt_count: int | None = None
+    required_candidate_provider_ids: tuple[str, ...] = ()
+    required_candidate_provider_kinds: tuple[str, ...] = ()
+    require_candidate_provider_no_openai_api_key: bool = False
+    required_metric_names: tuple[str, ...] = ()
+    required_evolution_ops: tuple[str, ...] = ()
+    required_position_model_families: tuple[str, ...] = ()
+    required_benchmark_names: tuple[str, ...] = ()
+    require_latest_signal_matches_data: bool = True
+    min_target_position: float = 0.0
+    max_target_position: float = 1.0
+
+
+@dataclass(frozen=True)
 class CognitiveAlphaGoalRunnerSpec:
     run_id: str
     objective: str
@@ -33,6 +51,7 @@ class CognitiveAlphaGoalRunnerSpec:
     required_max_datetime: str | None = None
     resume: bool = False
     paper_reference: str = COGNITIVE_ALPHA_PAPER_REFERENCE
+    gates: CognitiveAlphaGoalGateSpec = field(default_factory=CognitiveAlphaGoalGateSpec)
 
 
 class CognitiveAlphaGoalRunner:
@@ -71,19 +90,23 @@ class CognitiveAlphaGoalRunner:
         evolution_stages = ["candidate_generation", "quality_checker", "fitness_evaluation", "evolution_loop"]
         if not set(evolution_stages).issubset(completed):
             evolution_result = _jsonable(self.evolution(manifests))
+            _validate_evolution_result(evolution_result, self.spec.gates)
             outputs["evolution"] = evolution_result
             completed = _append_stages(completed, evolution_stages)
             self._write_state(status="running", completed_stages=completed, stage_outputs=outputs)
         else:
             evolution_result = dict(outputs.get("evolution", {}))
+            _validate_evolution_result(evolution_result, self.spec.gates)
 
         if "model_and_position" not in completed:
             position_result = _jsonable(self.position(manifests, evolution_result))
+            _validate_position_result(position_result, manifests=manifests, gates=self.spec.gates)
             outputs["position"] = position_result
             completed = _append_stages(completed, ["model_and_position"])
             self._write_state(status="running", completed_stages=completed, stage_outputs=outputs)
         else:
             position_result = dict(outputs.get("position", {}))
+            _validate_position_result(position_result, manifests=manifests, gates=self.spec.gates)
 
         if "research_card" not in completed:
             research_card_result = _jsonable(self.research_card(manifests, evolution_result, position_result))
@@ -148,6 +171,7 @@ class CognitiveAlphaGoalRunner:
             "status": "complete",
             "stage_order": list(COGNITIVE_ALPHA_GOAL_STAGE_ORDER),
             "completed_stages": list(COGNITIVE_ALPHA_GOAL_STAGE_ORDER),
+            "validation_gates": _jsonable(asdict(self.spec.gates)),
             "data_gate": data_gate_summary,
             "candidate_generation": _candidate_generation_summary(evolution_result),
             "quality_checker": _quality_checker_summary(evolution_result),
@@ -393,6 +417,106 @@ def _data_gate_summary(manifests: list[dict[str, Any]], *, required_max_datetime
     }
 
 
+def _validate_evolution_result(evolution_result: dict[str, Any], gates: CognitiveAlphaGoalGateSpec) -> None:
+    candidate_provider = evolution_result.get("candidate_provider", {})
+    if not isinstance(candidate_provider, dict):
+        raise ValueError("cognitive alpha goal runner requires candidate_provider summary")
+    if gates.required_candidate_provider_ids:
+        provider_id = str(candidate_provider.get("provider_id", ""))
+        if provider_id not in gates.required_candidate_provider_ids:
+            raise ValueError(
+                "cognitive alpha candidate provider id "
+                f"{provider_id!r} not in required {list(gates.required_candidate_provider_ids)}"
+            )
+    if gates.required_candidate_provider_kinds:
+        provider_kind = str(candidate_provider.get("provider_kind", ""))
+        if provider_kind not in gates.required_candidate_provider_kinds:
+            raise ValueError(
+                "cognitive alpha candidate provider kind "
+                f"{provider_kind!r} not in required {list(gates.required_candidate_provider_kinds)}"
+            )
+    if gates.require_candidate_provider_no_openai_api_key and candidate_provider.get("openai_api_key_required") is not False:
+        raise ValueError("cognitive alpha candidate provider must explicitly not require OPENAI_API_KEY")
+
+    initial_count = int(evolution_result.get("initial_candidate_count", 0) or 0)
+    if initial_count < gates.min_initial_candidate_count:
+        raise ValueError(
+            "cognitive alpha goal runner initial candidate count "
+            f"{initial_count} below required {gates.min_initial_candidate_count}"
+        )
+    completed_generations = int(evolution_result.get("completed_generations", 0) or 0)
+    if completed_generations < gates.min_completed_generations:
+        raise ValueError(
+            "cognitive alpha goal runner completed generations "
+            f"{completed_generations} below required {gates.min_completed_generations}"
+        )
+    selected_count = int(evolution_result.get("selected_count", 0) or 0)
+    if selected_count < gates.min_selected_count:
+        raise ValueError(
+            f"cognitive alpha goal runner selected count {selected_count} below required {gates.min_selected_count}"
+        )
+    if gates.min_repair_attempt_count is not None:
+        repair_attempt_count = int(evolution_result.get("repair_attempt_count", 0) or 0)
+        if repair_attempt_count < gates.min_repair_attempt_count:
+            raise ValueError(
+                "cognitive alpha goal runner repair attempt count "
+                f"{repair_attempt_count} below required {gates.min_repair_attempt_count}"
+            )
+    missing_metrics = _missing_required_values(
+        available=evolution_result.get("metric_names", []),
+        required=gates.required_metric_names,
+    )
+    if missing_metrics:
+        raise ValueError(f"missing required fitness metrics: {missing_metrics}")
+    missing_ops = _missing_required_values(
+        available=evolution_result.get("evolution_ops", []),
+        required=gates.required_evolution_ops,
+    )
+    if missing_ops:
+        raise ValueError(f"missing required evolution ops: {missing_ops}")
+
+
+def _validate_position_result(
+    position_result: dict[str, Any],
+    *,
+    manifests: list[dict[str, Any]],
+    gates: CognitiveAlphaGoalGateSpec,
+) -> None:
+    missing_models = _missing_required_values(
+        available=position_result.get("model_families", []),
+        required=gates.required_position_model_families,
+    )
+    if missing_models:
+        raise ValueError(f"missing required position model families: {missing_models}")
+    comparison = position_result.get("comparison", {})
+    missing_benchmarks = [
+        name
+        for name in gates.required_benchmark_names
+        if f"beats_{name}" not in comparison and f"selected_vs_{name}_return_gap_pct" not in comparison
+    ]
+    if missing_benchmarks:
+        raise ValueError(f"missing required benchmark comparisons: {missing_benchmarks}")
+    signal = position_result.get("latest_signal")
+    if not isinstance(signal, dict):
+        raise ValueError("cognitive alpha goal runner requires latest_signal in position result")
+    target_position = float(signal.get("target_position", 0.0))
+    if target_position < gates.min_target_position or target_position > gates.max_target_position:
+        raise ValueError(
+            "cognitive alpha latest_signal target_position "
+            f"{target_position} outside [{gates.min_target_position}, {gates.max_target_position}]"
+        )
+    if gates.require_latest_signal_matches_data:
+        max_datetime = max(str(manifest.get("max_datetime", "")) for manifest in manifests)
+        signal_as_of = str(signal.get("as_of", ""))
+        if signal_as_of != max_datetime:
+            raise ValueError(f"latest_signal as_of {signal_as_of} does not match qlib data {max_datetime}")
+
+
+def _missing_required_values(*, available: Any, required: tuple[str, ...]) -> list[str]:
+    available_set = {str(value) for value in (available or [])}
+    return [value for value in required if value not in available_set]
+
+
 def _candidate_generation_summary(evolution_result: dict[str, Any]) -> dict[str, Any]:
     return {
         "status": "ok",
@@ -415,6 +539,7 @@ def _fitness_evaluation_summary(evolution_result: dict[str, Any]) -> dict[str, A
     return {
         "status": "ok",
         "candidate_metric_rows": int(evolution_result.get("candidate_metric_rows", 0) or 0),
+        "metric_names": list(evolution_result.get("metric_names", [])),
         "selected_count": int(evolution_result.get("selected_count", 0) or 0),
         "selected_feature_names": list(evolution_result.get("selected_feature_names", [])),
         "checkpoints": _checkpoint_subset(evolution_result, ["fitness"]),

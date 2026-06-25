@@ -39,6 +39,15 @@
   },
   "as_of": "2026-06-24",
   "card_type": "diagnostic_cognitive_alpha_position_model",
+  "codex_runtime": {
+    "auth_mode": "chatgpt",
+    "codex_bin": "/opt/homebrew/bin/codex",
+    "codex_version": "0.142.1",
+    "openai_api_key_required": false,
+    "status": "warning",
+    "stored_api_key": "false",
+    "stored_chatgpt_tokens": "true"
+  },
   "data_range": [
     "2019-01-02",
     "2026-06-24"
@@ -46,8 +55,11 @@
   "evolution": {
     "candidate_metric_rows": 2289,
     "candidate_provider": {
+      "codex_direct_compatible": true,
+      "codex_execution_mode": "repo_owned_codex_generated_code",
       "generated_candidate_count": 80,
       "guidance_style_count": 5,
+      "openai_api_key_required": false,
       "profile_agent_count": 21,
       "provider_id": "deterministic_code_agent_pool",
       "provider_kind": "repo_owned_code",
@@ -69,6 +81,13 @@
       "crossover_mutation"
     ],
     "initial_candidate_count": 80,
+    "metric_names": [
+      "ic",
+      "icir",
+      "rank_ic",
+      "rank_icir",
+      "mutual_information"
+    ],
     "paper_reference": "arxiv:2511.18850",
     "parent_pool_size": 32,
     "profile": "soxl_full",
@@ -513,8 +532,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "c2111a3efc4e422aafcd4cf4ffc9104b",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/355981547509781504/c2111a3efc4e422aafcd4cf4ffc9104b",
+  "recorder_id": "0bf14c6348ed4e5cb3f93a418afd239d",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/0bf14c6348ed4e5cb3f93a418afd239d",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder",
   "region": "us",
   "segments": {

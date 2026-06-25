@@ -1,8 +1,11 @@
 {
   "candidate_generation": {
     "candidate_provider": {
+      "codex_direct_compatible": true,
+      "codex_execution_mode": "repo_owned_codex_generated_code",
       "generated_candidate_count": 80,
       "guidance_style_count": 5,
+      "openai_api_key_required": false,
       "profile_agent_count": 21,
       "provider_id": "deterministic_code_agent_pool",
       "provider_kind": "repo_owned_code",
@@ -72,6 +75,13 @@
     "checkpoints": {
       "fitness": "fitness/generation_*.csv"
     },
+    "metric_names": [
+      "ic",
+      "icir",
+      "rank_ic",
+      "rank_icir",
+      "mutual_information"
+    ],
     "selected_count": 8,
     "selected_feature_names": [
       "g023_001_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60",
@@ -322,8 +332,8 @@
   "research_card": {
     "card_dir": "research/cognitive_alpha_position_model_v1",
     "promotion_decision": "not_promoted_under_constrained_weight_reference",
-    "recorder_id": "c2111a3efc4e422aafcd4cf4ffc9104b",
-    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/355981547509781504/c2111a3efc4e422aafcd4cf4ffc9104b"
+    "recorder_id": "0bf14c6348ed4e5cb3f93a418afd239d",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/0bf14c6348ed4e5cb3f93a418afd239d"
   },
   "run_id": "cognitive_alpha_goal_runner",
   "signal_push": {
@@ -376,8 +386,11 @@
     "evolution": {
       "candidate_metric_rows": 2289,
       "candidate_provider": {
+        "codex_direct_compatible": true,
+        "codex_execution_mode": "repo_owned_codex_generated_code",
         "generated_candidate_count": 80,
         "guidance_style_count": 5,
+        "openai_api_key_required": false,
         "profile_agent_count": 21,
         "provider_id": "deterministic_code_agent_pool",
         "provider_kind": "repo_owned_code",
@@ -399,6 +412,13 @@
         "crossover_mutation"
       ],
       "initial_candidate_count": 80,
+      "metric_names": [
+        "ic",
+        "icir",
+        "rank_ic",
+        "rank_icir",
+        "mutual_information"
+      ],
       "paper_reference": "arxiv:2511.18850",
       "parent_pool_size": 32,
       "profile": "soxl_full",
@@ -664,8 +684,8 @@
     "research_card": {
       "card_dir": "research/cognitive_alpha_position_model_v1",
       "promotion_decision": "not_promoted_under_constrained_weight_reference",
-      "recorder_id": "c2111a3efc4e422aafcd4cf4ffc9104b",
-      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/355981547509781504/c2111a3efc4e422aafcd4cf4ffc9104b"
+      "recorder_id": "0bf14c6348ed4e5cb3f93a418afd239d",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/0bf14c6348ed4e5cb3f93a418afd239d"
     },
     "signal_push": {
       "notifications": [
@@ -680,5 +700,42 @@
       ]
     }
   },
-  "status": "complete"
+  "status": "complete",
+  "validation_gates": {
+    "max_target_position": 1.0,
+    "min_completed_generations": 24,
+    "min_initial_candidate_count": 80,
+    "min_repair_attempt_count": 1,
+    "min_selected_count": 1,
+    "min_target_position": 0.0,
+    "require_candidate_provider_no_openai_api_key": true,
+    "require_latest_signal_matches_data": true,
+    "required_benchmark_names": [
+      "soxl_backtest",
+      "constrained_weight_reference",
+      "soxl_buyhold",
+      "previous_factor_enhanced"
+    ],
+    "required_candidate_provider_ids": [
+      "deterministic_code_agent_pool"
+    ],
+    "required_candidate_provider_kinds": [
+      "repo_owned_code"
+    ],
+    "required_evolution_ops": [
+      "mutation",
+      "crossover",
+      "crossover_mutation"
+    ],
+    "required_metric_names": [
+      "ic",
+      "icir",
+      "rank_ic",
+      "rank_icir",
+      "mutual_information"
+    ],
+    "required_position_model_families": [
+      "lgbm_classifier"
+    ]
+  }
 }

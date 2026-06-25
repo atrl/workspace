@@ -169,6 +169,176 @@ def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_pa
     assert state["completed_stages"] == manifest["stage_order"]
 
 
+def test_cognitive_alpha_goal_runner_strict_gates_fail_closed_for_incomplete_evolution(tmp_path):
+    from src.workflow import CognitiveAlphaGoalGateSpec, CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-strict-fail",
+            objective="strict CogAlpha full chain",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+            gates=CognitiveAlphaGoalGateSpec(
+                min_initial_candidate_count=80,
+                min_completed_generations=24,
+                min_selected_count=1,
+                min_repair_attempt_count=1,
+                required_candidate_provider_ids=("deterministic_code_agent_pool",),
+                required_candidate_provider_kinds=("repo_owned_code",),
+                require_candidate_provider_no_openai_api_key=True,
+                required_metric_names=("ic", "icir", "rank_ic", "rank_icir", "mutual_information"),
+                required_evolution_ops=("mutation", "crossover", "crossover_mutation"),
+                required_position_model_families=("lgbm_classifier",),
+                required_benchmark_names=(
+                    "soxl_backtest",
+                    "constrained_weight_reference",
+                    "soxl_buyhold",
+                    "previous_factor_enhanced",
+                ),
+            ),
+        ),
+        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
+        evolution=lambda manifests: {
+            "candidate_provider": {
+                "provider_id": "deterministic_code_agent_pool",
+                "provider_kind": "repo_owned_code",
+                "profile_agent_count": 21,
+                "codex_direct_compatible": True,
+                "codex_execution_mode": "repo_owned_codex_generated_code",
+                "openai_api_key_required": False,
+            },
+            "initial_candidate_count": 80,
+            "completed_generations": 24,
+            "selected_count": 2,
+            "repair_attempt_count": 1,
+            "evolution_ops": ["mutation", "crossover", "crossover_mutation"],
+        },
+        position=lambda manifests, evolution_result: {
+            "workflow": "cognitive_alpha_position_model",
+            "model_families": ["lgbm_classifier"],
+            "comparison": {
+                "beats_soxl_backtest": True,
+                "beats_constrained_weight_reference": False,
+                "beats_soxl_buyhold": False,
+                "beats_previous_factor_enhanced": True,
+            },
+            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.0},
+        },
+        research_card=lambda manifests, evolution_result, position_result: {"card_dir": "research/card"},
+        signal_push=lambda manifests, model_results: [],
+    )
+
+    with pytest.raises(ValueError, match="missing required fitness metrics"):
+        runner.run()
+
+
+def test_cognitive_alpha_goal_runner_strict_gates_record_full_chain_validation(tmp_path):
+    from src.workflow import CognitiveAlphaGoalGateSpec, CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-strict-pass",
+            objective="strict CogAlpha full chain",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+            gates=CognitiveAlphaGoalGateSpec(
+                min_initial_candidate_count=80,
+                min_completed_generations=24,
+                min_selected_count=1,
+                min_repair_attempt_count=1,
+                required_candidate_provider_ids=("deterministic_code_agent_pool",),
+                required_candidate_provider_kinds=("repo_owned_code",),
+                require_candidate_provider_no_openai_api_key=True,
+                required_metric_names=("ic", "icir", "rank_ic", "rank_icir", "mutual_information"),
+                required_evolution_ops=("mutation", "crossover", "crossover_mutation"),
+                required_position_model_families=("lgbm_classifier",),
+                required_benchmark_names=(
+                    "soxl_backtest",
+                    "constrained_weight_reference",
+                    "soxl_buyhold",
+                    "previous_factor_enhanced",
+                ),
+            ),
+        ),
+        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
+        evolution=lambda manifests: {
+            "candidate_provider": {
+                "provider_id": "deterministic_code_agent_pool",
+                "provider_kind": "repo_owned_code",
+                "profile_agent_count": 21,
+                "codex_direct_compatible": True,
+                "codex_execution_mode": "repo_owned_codex_generated_code",
+                "openai_api_key_required": False,
+            },
+            "initial_candidate_count": 80,
+            "completed_generations": 24,
+            "selected_count": 8,
+            "repair_attempt_count": 1,
+            "metric_names": ["ic", "icir", "rank_ic", "rank_icir", "mutual_information"],
+            "evolution_ops": ["mutation", "crossover", "crossover_mutation"],
+            "checkpoints": {
+                "candidate_pool": "candidate_pool/generation_*.jsonl",
+                "quality": "quality/generation_*.csv",
+                "fitness": "fitness/generation_*.csv",
+                "rejected": "rejected/generation_*.jsonl",
+                "lineage": "lineage/generation_*.jsonl",
+                "state": "state.json",
+            },
+        },
+        position=lambda manifests, evolution_result: {
+            "workflow": "cognitive_alpha_position_model",
+            "model_families": ["lgbm_classifier"],
+            "selected_candidate": {"candidate": "lgbm_classifier_binary_p0.55", "test": {"max_position": 1.0}},
+            "comparison": {
+                "beats_soxl_backtest": True,
+                "beats_constrained_weight_reference": False,
+                "beats_soxl_buyhold": False,
+                "beats_previous_factor_enhanced": True,
+            },
+            "latest_signal": {
+                "as_of": "2026-06-24",
+                "action": "HOLD",
+                "target_position": 0.25,
+                "previous_target_position": 0.50,
+            },
+        },
+        research_card=lambda manifests, evolution_result, position_result: {
+            "card_dir": "research/cognitive_alpha_position_model_v1",
+            "recorder_id": "recorder-position",
+            "promotion_decision": "not_promoted_under_constrained_weight_reference",
+        },
+        signal_push=lambda manifests, model_results: [
+            {"source": "qlib_recorder.latest_signal", "action": "HOLD", "as_of": "2026-06-24"}
+        ],
+    )
+
+    manifest = runner.run()
+
+    assert manifest["validation_gates"]["min_initial_candidate_count"] == 80
+    assert manifest["validation_gates"]["required_metric_names"] == [
+        "ic",
+        "icir",
+        "rank_ic",
+        "rank_icir",
+        "mutual_information",
+    ]
+    assert manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
+    assert manifest["candidate_generation"]["candidate_provider"]["openai_api_key_required"] is False
+    assert manifest["candidate_generation"]["candidate_provider"]["codex_direct_compatible"] is True
+    assert manifest["fitness_evaluation"]["metric_names"] == [
+        "ic",
+        "icir",
+        "rank_ic",
+        "rank_icir",
+        "mutual_information",
+    ]
+    assert manifest["model_and_position"]["latest_signal"]["target_position"] == pytest.approx(0.25)
+    written = json.loads((tmp_path / "goal_manifest.json").read_text(encoding="utf-8"))
+    assert written["validation_gates"] == manifest["validation_gates"]
+
+
 def test_cognitive_alpha_goal_runner_resume_skips_completed_data_gate(tmp_path):
     from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
 

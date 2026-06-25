@@ -368,6 +368,9 @@ def test_cognitive_alpha_code_candidate_provider_generates_full_profile_agent_po
         "guidance_style_count": 5,
         "requested_initial_pool_size": 80,
         "generated_candidate_count": 80,
+        "codex_direct_compatible": True,
+        "codex_execution_mode": "repo_owned_codex_generated_code",
+        "openai_api_key_required": False,
     }
     assert result.summary["initial_candidate_count"] == 80
 

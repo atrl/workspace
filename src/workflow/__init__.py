@@ -24,6 +24,7 @@ __all__ = [
     "CognitiveAlphaEvolutionResult",
     "CognitiveAlphaEvolutionSpec",
     "CognitiveAlphaExternalLLMCodeCandidateProvider",
+    "CognitiveAlphaGoalGateSpec",
     "CognitiveAlphaPositionResult",
     "CognitiveAlphaPositionSpec",
     "CognitiveAlphaGoalRunner",
@@ -35,9 +36,12 @@ __all__ = [
     "build_agentic_alpha_hypotheses",
     "build_agentic_alpha_workflow_manifest",
     "build_cognitive_alpha_code_candidate_provider",
+    "build_cognitive_alpha_codex_exec_candidate_provider",
     "build_cognitive_alpha_command_llm_candidate_provider",
     "build_cognitive_alpha_external_llm_candidate_provider",
     "build_cognitive_alpha_evolution_profile",
+    "codex_cli_readiness",
+    "codex_exec_completion",
     "distill_agentic_alpha_search",
     "load_agentic_alpha_backtest_metric",
     "run_cognitive_alpha_position_model",
@@ -66,10 +70,17 @@ _COGNITIVE_ALPHA_POSITION_EXPORTS = {
 }
 
 _COGNITIVE_ALPHA_GOAL_EXPORTS = {
+    "CognitiveAlphaGoalGateSpec",
     "CognitiveAlphaGoalRunner",
     "CognitiveAlphaGoalRunnerSpec",
     "CognitiveAlphaSignalRefreshJob",
     "CognitiveAlphaSignalRefreshSpec",
+}
+
+_COGNITIVE_ALPHA_CODEX_EXPORTS = {
+    "build_cognitive_alpha_codex_exec_candidate_provider",
+    "codex_cli_readiness",
+    "codex_exec_completion",
 }
 
 
@@ -86,4 +97,8 @@ def __getattr__(name: str):
         from . import cognitive_alpha_goal
 
         return getattr(cognitive_alpha_goal, name)
+    if name in _COGNITIVE_ALPHA_CODEX_EXPORTS:
+        from . import cognitive_alpha_codex_provider
+
+        return getattr(cognitive_alpha_codex_provider, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

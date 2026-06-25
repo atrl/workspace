@@ -127,6 +127,13 @@ class CognitiveAlphaCodeCandidateProvider:
             )
         return candidates
 
+    def provider_summary(self) -> dict[str, Any]:
+        return {
+            "codex_direct_compatible": True,
+            "codex_execution_mode": "repo_owned_codex_generated_code",
+            "openai_api_key_required": False,
+        }
+
 
 def build_cognitive_alpha_code_candidate_provider() -> CognitiveAlphaCodeCandidateProvider:
     return CognitiveAlphaCodeCandidateProvider()
@@ -138,6 +145,9 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
     provider_id: str = "external_llm_code_provider"
     provider_kind: str = "external_llm_code"
     model: str = "unspecified"
+    openai_api_key_required: bool | None = None
+    codex_direct_compatible: bool = False
+    codex_execution_mode: str | None = None
     guidance_styles: tuple[str, ...] = COGNITIVE_ALPHA_GUIDANCE_STYLES
     max_candidates_per_request: int = 1
     request_log: list[dict[str, Any]] = field(default_factory=list, init=False)
@@ -210,13 +220,20 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
         return candidates
 
     def provider_summary(self) -> dict[str, Any]:
-        return {
+        summary = {
             "llm_model": self.model,
             "prompt_count": int(len(self.request_log)),
             "response_count": int(len(self.response_log)),
             "provider_failure_count": int(self.failure_count),
             "external_llm_configured": True,
         }
+        if self.openai_api_key_required is not None:
+            summary["openai_api_key_required"] = bool(self.openai_api_key_required)
+        if self.codex_direct_compatible:
+            summary["codex_direct_compatible"] = True
+        if self.codex_execution_mode:
+            summary["codex_execution_mode"] = self.codex_execution_mode
+        return summary
 
 
 def build_cognitive_alpha_external_llm_candidate_provider(
@@ -1258,6 +1275,7 @@ def _summary(
         "selected_feature_names": selected_names,
         "selected_count": int(len(selected_names)),
         "candidate_metric_rows": int(len(generation_metrics)),
+        "metric_names": ["ic", "icir", "rank_ic", "rank_icir", "mutual_information"],
         "repair_attempt_count": repair_attempt_count,
         "evolution_ops": list(COGNITIVE_ALPHA_EVOLUTION_OPS),
         "resumed": bool(resumed),

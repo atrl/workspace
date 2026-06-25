@@ -1639,6 +1639,9 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["experiment"] == "cognitive_alpha_position_model_v1"
     assert summary["card_type"] == "diagnostic_cognitive_alpha_position_model"
     assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
+    assert summary["codex_runtime"]["status"] in {"ok", "warning"}
+    assert summary["codex_runtime"]["auth_mode"] == "chatgpt"
+    assert summary["codex_runtime"]["openai_api_key_required"] is False
     assert summary["segments"]["test"][1] == summary["as_of"]
     assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
     assert summary["evolution"]["profile"] == "soxl_full"
@@ -1647,6 +1650,8 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["evolution"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
     assert summary["evolution"]["candidate_provider"]["profile_agent_count"] == 21
     assert summary["evolution"]["candidate_provider"]["guidance_style_count"] == 5
+    assert summary["evolution"]["candidate_provider"]["codex_direct_compatible"] is True
+    assert summary["evolution"]["candidate_provider"]["openai_api_key_required"] is False
     assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
     assert summary["position_model"]["model_families"] == ["lgbm_classifier"]
     assert summary["position_model"]["selected_candidate"]["test"]["max_position"] <= 1.0
@@ -1701,6 +1706,27 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
     assert goal_manifest["candidate_generation"]["candidate_provider"]["profile_agent_count"] == 21
     assert goal_manifest["candidate_generation"]["initial_candidate_count"] == 80
+    assert goal_manifest["validation_gates"]["min_initial_candidate_count"] == 80
+    assert goal_manifest["validation_gates"]["min_completed_generations"] == 24
+    assert goal_manifest["validation_gates"]["required_candidate_provider_ids"] == ["deterministic_code_agent_pool"]
+    assert goal_manifest["validation_gates"]["required_candidate_provider_kinds"] == ["repo_owned_code"]
+    assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
+    assert goal_manifest["candidate_generation"]["candidate_provider"]["codex_direct_compatible"] is True
+    assert goal_manifest["candidate_generation"]["candidate_provider"]["openai_api_key_required"] is False
+    assert goal_manifest["validation_gates"]["required_metric_names"] == [
+        "ic",
+        "icir",
+        "rank_ic",
+        "rank_icir",
+        "mutual_information",
+    ]
+    assert goal_manifest["fitness_evaluation"]["metric_names"] == [
+        "ic",
+        "icir",
+        "rank_ic",
+        "rank_icir",
+        "mutual_information",
+    ]
     assert goal_manifest["evolution_loop"]["completed_generations"] == 24
     assert goal_manifest["model_and_position"]["latest_signal"]["as_of"] == summary["as_of"]
     assert not (card / "positions.csv").exists()

@@ -1,8 +1,11 @@
 {
   "candidate_metric_rows": 2289,
   "candidate_provider": {
+    "codex_direct_compatible": true,
+    "codex_execution_mode": "repo_owned_codex_generated_code",
     "generated_candidate_count": 80,
     "guidance_style_count": 5,
+    "openai_api_key_required": false,
     "profile_agent_count": 21,
     "provider_id": "deterministic_code_agent_pool",
     "provider_kind": "repo_owned_code",
@@ -17,7 +20,6 @@
     "state": "state.json"
   },
   "children_per_generation": 96,
-  "completed_generation": 23,
   "completed_generations": 24,
   "evolution_ops": [
     "mutation",
@@ -25,6 +27,13 @@
     "crossover_mutation"
   ],
   "initial_candidate_count": 80,
+  "metric_names": [
+    "ic",
+    "icir",
+    "rank_ic",
+    "rank_icir",
+    "mutual_information"
+  ],
   "paper_reference": "arxiv:2511.18850",
   "parent_pool_size": 32,
   "profile": "soxl_full",
@@ -61,7 +70,6 @@
     "run_id": "cognitive_alpha_evolution",
     "runtime_dir": "recorder:artifacts"
   },
-  "status": "complete",
   "thresholds": {
     "elite_percentile": 0.8,
     "fallback_top_n": 8,
