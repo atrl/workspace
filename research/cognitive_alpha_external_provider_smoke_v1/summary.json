@@ -1,0 +1,226 @@
+{
+  "alpha158_feature_set": {
+    "alpha158_count": 158,
+    "feature_count": 166,
+    "legacy_feature_names": [
+      "VIX",
+      "RSI6",
+      "HV_20",
+      "HV_30",
+      "VOL_COEF",
+      "PANIC_SCORE",
+      "SOXL_RET_5",
+      "VOLUME_RATIO_5"
+    ],
+    "source": "Alpha158.get_feature_config+legacy_soxl_features"
+  },
+  "alpha158_smoke_columns": [
+    "alpha158_MA5",
+    "alpha158_MA10",
+    "alpha158_MA20",
+    "alpha158_MA30",
+    "alpha158_MA60",
+    "alpha158_MAX20",
+    "alpha158_MAX30",
+    "alpha158_VIX",
+    "alpha158_SOXL_RET_5",
+    "alpha158_VOLUME_RATIO_5"
+  ],
+  "artifact_policy": {
+    "kept_sidecars": [
+      "evolution_summary.json",
+      "failure_modes.md",
+      "selected_features.csv"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "cognitive_alpha_external_provider_smoke_v1.ipynb",
+    "recorder_only_artifacts": {
+      "candidate_pool": "artifacts/cognitive_alpha_evolution/candidate_pool/generation_*.jsonl",
+      "fitness": "artifacts/cognitive_alpha_evolution/fitness/generation_*.csv",
+      "lineage": "artifacts/cognitive_alpha_evolution/lineage/generation_*.jsonl",
+      "quality": "artifacts/cognitive_alpha_evolution/quality/generation_*.csv",
+      "rejected": "artifacts/cognitive_alpha_evolution/rejected/generation_*.jsonl",
+      "state": "artifacts/cognitive_alpha_evolution/state.json"
+    },
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-06-24",
+  "card_type": "diagnostic_cognitive_alpha_external_provider_smoke",
+  "data_range": [
+    "2019-01-02",
+    "2026-06-24"
+  ],
+  "evolution": {
+    "candidate_metric_rows": 9,
+    "candidate_provider": {
+      "external_llm_configured": true,
+      "generated_candidate_count": 4,
+      "guidance_style_count": 5,
+      "llm_model": "fixture-command",
+      "profile_agent_count": 3,
+      "prompt_count": 4,
+      "provider_failure_count": 0,
+      "provider_id": "fixture_external_command_provider",
+      "provider_kind": "external_llm_code",
+      "requested_initial_pool_size": 4,
+      "response_count": 4
+    },
+    "checkpoints": {
+      "candidate_pool": "candidate_pool/generation_*.jsonl",
+      "fitness": "fitness/generation_*.csv",
+      "lineage": "lineage/generation_*.jsonl",
+      "quality": "quality/generation_*.csv",
+      "rejected": "rejected/generation_*.jsonl",
+      "state": "state.json"
+    },
+    "children_per_generation": 4,
+    "completed_generations": 2,
+    "evolution_ops": [
+      "mutation",
+      "crossover",
+      "crossover_mutation"
+    ],
+    "initial_candidate_count": 4,
+    "paper_reference": "arxiv:2511.18850",
+    "parent_pool_size": 3,
+    "profile": "soxl_smoke",
+    "repair_attempt_count": 1,
+    "resume_start_generation": 0,
+    "resumed": false,
+    "run_dir": "recorder:artifacts/cognitive_alpha_evolution",
+    "run_id": "cognitive_alpha_evolution",
+    "selected_count": 2,
+    "selected_feature_names": [
+      "g001_001_crossover_fixture_external_alpha_001__fixture_external_alpha_001",
+      "g001_000_mutation_fixture_external_alpha_001"
+    ],
+    "spec": {
+      "children_per_generation": 4,
+      "elite_percentile": 0.75,
+      "fallback_top_n": 3,
+      "generations": 2,
+      "initial_pool_size": 4,
+      "max_abs_correlation": 0.98,
+      "max_missing_ratio": 0.55,
+      "min_distinct_values": 5,
+      "min_observations": 180,
+      "parent_pool_size": 3,
+      "profile": "soxl_smoke",
+      "qualified_percentile": 0.5,
+      "resume": false,
+      "run_id": "cognitive_alpha_evolution",
+      "runtime_dir": "recorder:artifacts"
+    },
+    "thresholds": {
+      "elite_percentile": 0.75,
+      "fallback_top_n": 3,
+      "max_abs_correlation": 0.98,
+      "max_missing_ratio": 0.55,
+      "min_distinct_values": 5,
+      "min_observations": 180,
+      "qualified_percentile": 0.5
+    },
+    "workflow": "cognitive_alpha_evolution"
+  },
+  "experiment": "cognitive_alpha_external_provider_smoke_v1",
+  "external_provider_readiness": {
+    "blocking_reason": "OPENAI_API_KEY_NOT_CONFIGURED",
+    "openai_api_key_present_at_run": false,
+    "provider_command": [
+      "python",
+      "-m",
+      "src.workflow.cognitive_alpha_fixture_provider"
+    ],
+    "purpose": "fixture external command provider proves prompt/response/repair/evolution/recorder wiring",
+    "real_openai_run": false
+  },
+  "instrument": "SOXL",
+  "market": "all",
+  "paper_reference": {
+    "arxiv_id": "2511.18850",
+    "method": "external_command_provider_readiness_smoke",
+    "version_checked": "v3"
+  },
+  "promotion_decision": "not_promoted_fixture_provider_readiness_only",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "Alpha158.get_feature_config",
+    "qlib.workflow.R.start"
+  ],
+  "recorder_artifacts": [
+    "artifacts/cognitive_alpha_evolution/candidate_pool/generation_000.jsonl",
+    "artifacts/cognitive_alpha_evolution/candidate_pool/generation_001.jsonl",
+    "artifacts/cognitive_alpha_evolution/fitness/generation_000.csv",
+    "artifacts/cognitive_alpha_evolution/fitness/generation_001.csv",
+    "artifacts/cognitive_alpha_evolution/lineage/generation_000.jsonl",
+    "artifacts/cognitive_alpha_evolution/lineage/generation_001.jsonl",
+    "artifacts/cognitive_alpha_evolution/quality/generation_000.csv",
+    "artifacts/cognitive_alpha_evolution/quality/generation_001.csv",
+    "artifacts/cognitive_alpha_evolution/rejected/generation_000.jsonl",
+    "artifacts/cognitive_alpha_evolution/rejected/generation_001.jsonl",
+    "artifacts/cognitive_alpha_evolution/state.json",
+    "artifacts/cognitive_alpha_evolution/summary.json",
+    "meta.yaml",
+    "metrics/candidate_metric_rows",
+    "metrics/repair_attempt_count",
+    "metrics/selected_count",
+    "params/alpha158_feature_count",
+    "params/alpha158_smoke_columns",
+    "params/candidate_provider",
+    "params/children_per_generation",
+    "params/cmd-sys.argv",
+    "params/fixture_provider",
+    "params/generations",
+    "params/initial_pool_size",
+    "params/instrument",
+    "params/market",
+    "params/parent_pool_size",
+    "params/profile",
+    "params/provider_command",
+    "params/provider_uri",
+    "params/region",
+    "params/test_end",
+    "params/test_start",
+    "params/train_end",
+    "params/train_start",
+    "params/valid_end",
+    "params/valid_start",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "02d781b184134af78f3f4a108b11da72",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_external_provider_smoke_v1/qlib_recorder/164629801568356971/02d781b184134af78f3f4a108b11da72",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_external_provider_smoke_v1/qlib_recorder",
+  "region": "us",
+  "segments": {
+    "test": [
+      "2026-01-02",
+      "2026-06-24"
+    ],
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ]
+  },
+  "sidecars": {
+    "evolution_summary": "evolution_summary.json",
+    "failure_modes": "failure_modes.md",
+    "selected_features": "selected_features.csv"
+  },
+  "workflow_config": "workflow.yaml"
+}

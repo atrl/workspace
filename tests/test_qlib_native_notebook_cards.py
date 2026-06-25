@@ -1565,6 +1565,71 @@ def test_cognitive_alpha_evolution_full_card_records_full_goal_runner_profile():
     assert "不构成买卖建议" in conclusion
 
 
+def test_cognitive_alpha_external_provider_smoke_card_records_fixture_command_provider_readiness():
+    card = ROOT / "research" / "cognitive_alpha_external_provider_smoke_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_external_provider_smoke_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_external_provider_smoke_v1"
+    assert summary["card_type"] == "diagnostic_cognitive_alpha_external_provider_smoke"
+    assert summary["promotion_decision"] == "not_promoted_fixture_provider_readiness_only"
+    assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
+    assert summary["external_provider_readiness"]["real_openai_run"] is False
+    assert summary["external_provider_readiness"]["blocking_reason"] == "OPENAI_API_KEY_NOT_CONFIGURED"
+    assert summary["external_provider_readiness"]["provider_command"] == [
+        "python",
+        "-m",
+        "src.workflow.cognitive_alpha_fixture_provider",
+    ]
+    assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
+    assert summary["evolution"]["profile"] == "soxl_smoke"
+    assert summary["evolution"]["completed_generations"] == 2
+    assert summary["evolution"]["initial_candidate_count"] == 4
+    assert summary["evolution"]["repair_attempt_count"] >= 1
+    assert summary["evolution"]["candidate_provider"]["provider_id"] == "fixture_external_command_provider"
+    assert summary["evolution"]["candidate_provider"]["provider_kind"] == "external_llm_code"
+    assert summary["evolution"]["candidate_provider"]["llm_model"] == "fixture-command"
+    assert summary["evolution"]["candidate_provider"]["prompt_count"] == 4
+    assert summary["evolution"]["candidate_provider"]["response_count"] == 4
+    assert summary["evolution"]["candidate_provider"]["external_llm_configured"] is True
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "evolution_summary",
+        "failure_modes",
+        "selected_features",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "candidate_pool",
+        "fitness",
+        "lineage",
+        "quality",
+        "rejected",
+        "state",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    for forbidden in RECORDER_ONLY_ROOT_FILES:
+        assert not (card / forbidden).exists(), forbidden
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
+    assert (
+        recorder_dir
+        / "artifacts"
+        / "cognitive_alpha_evolution"
+        / "candidate_pool"
+        / "generation_001.jsonl"
+    ).exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "build_cognitive_alpha_command_llm_candidate_provider" in notebook_text
+    assert "src.workflow.cognitive_alpha_fixture_provider" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "fixture provider" in notebook_text
+    assert "真实 OpenAI" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():
     card = ROOT / "research" / "cognitive_alpha_position_model_v1"
     summary = _summary(card)

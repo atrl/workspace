@@ -516,6 +516,57 @@ def test_cognitive_alpha_command_llm_provider_generates_candidates_from_external
     assert result.summary["candidate_provider"]["response_count"] == 2
 
 
+def test_cognitive_alpha_fixture_provider_exercises_external_command_and_repair_loop(tmp_path):
+    from src.workflow import (
+        CognitiveAlphaEvolutionSpec,
+        build_cognitive_alpha_command_llm_candidate_provider,
+        run_cognitive_alpha_evolution,
+    )
+
+    provider = build_cognitive_alpha_command_llm_candidate_provider(
+        command=(sys.executable, "-m", "src.workflow.cognitive_alpha_fixture_provider"),
+        provider_id="fixture_external_command_provider",
+        model="fixture-command",
+    )
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="fixture_command_provider",
+        profile="soxl_smoke",
+        runtime_dir=tmp_path,
+        generations=1,
+        initial_pool_size=3,
+        parent_pool_size=2,
+        children_per_generation=3,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=2,
+    )
+
+    result = run_cognitive_alpha_evolution(
+        _evolution_frame(rows=140),
+        spec=spec,
+        label_col="label_return_5d",
+        candidate_provider=provider,
+    )
+
+    generation_zero = _read_jsonl(tmp_path / "fixture_command_provider" / "candidate_pool" / "generation_000.jsonl")
+    by_name = {row["name"]: row for row in generation_zero}
+
+    assert result.summary["candidate_provider"]["provider_id"] == "fixture_external_command_provider"
+    assert result.summary["candidate_provider"]["provider_kind"] == "external_llm_code"
+    assert result.summary["candidate_provider"]["llm_model"] == "fixture-command"
+    assert result.summary["candidate_provider"]["prompt_count"] == 3
+    assert result.summary["candidate_provider"]["response_count"] == 3
+    assert result.summary["repair_attempt_count"] >= 1
+    assert "fixture_external_alpha_000" in by_name
+    assert "fixture_external_alpha_000_repaired_lag1" in by_name
+    assert by_name["fixture_external_alpha_000"]["metadata"]["provider_id"] == "fixture_external_command_provider"
+    assert by_name["fixture_external_alpha_000"]["metadata"]["prompt_hash"]
+    assert by_name["fixture_external_alpha_000"]["metadata"]["response_hash"]
+    assert by_name["fixture_external_alpha_000_repaired_lag1"]["metadata"]["repair_source_provider_kind"] == (
+        "external_llm_code"
+    )
+
+
 def test_cognitive_alpha_external_llm_provider_can_use_alpha158_columns_and_numpy_functions(tmp_path):
     from src.workflow import (
         CognitiveAlphaEvolutionSpec,

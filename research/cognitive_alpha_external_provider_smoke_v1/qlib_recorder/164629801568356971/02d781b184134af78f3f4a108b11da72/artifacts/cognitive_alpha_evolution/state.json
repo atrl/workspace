@@ -1,0 +1,74 @@
+{
+  "candidate_metric_rows": 9,
+  "candidate_provider": {
+    "external_llm_configured": true,
+    "generated_candidate_count": 4,
+    "guidance_style_count": 5,
+    "llm_model": "fixture-command",
+    "profile_agent_count": 3,
+    "prompt_count": 4,
+    "provider_failure_count": 0,
+    "provider_id": "fixture_external_command_provider",
+    "provider_kind": "external_llm_code",
+    "requested_initial_pool_size": 4,
+    "response_count": 4
+  },
+  "checkpoints": {
+    "candidate_pool": "candidate_pool/generation_*.jsonl",
+    "fitness": "fitness/generation_*.csv",
+    "lineage": "lineage/generation_*.jsonl",
+    "quality": "quality/generation_*.csv",
+    "rejected": "rejected/generation_*.jsonl",
+    "state": "state.json"
+  },
+  "children_per_generation": 4,
+  "completed_generation": 1,
+  "completed_generations": 2,
+  "evolution_ops": [
+    "mutation",
+    "crossover",
+    "crossover_mutation"
+  ],
+  "initial_candidate_count": 4,
+  "paper_reference": "arxiv:2511.18850",
+  "parent_pool_size": 3,
+  "profile": "soxl_smoke",
+  "repair_attempt_count": 1,
+  "resume_start_generation": 0,
+  "resumed": false,
+  "run_dir": "recorder:artifacts/cognitive_alpha_evolution",
+  "run_id": "cognitive_alpha_evolution",
+  "selected_count": 2,
+  "selected_feature_names": [
+    "g001_001_crossover_fixture_external_alpha_001__fixture_external_alpha_001",
+    "g001_000_mutation_fixture_external_alpha_001"
+  ],
+  "spec": {
+    "children_per_generation": 4,
+    "elite_percentile": 0.75,
+    "fallback_top_n": 3,
+    "generations": 2,
+    "initial_pool_size": 4,
+    "max_abs_correlation": 0.98,
+    "max_missing_ratio": 0.55,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "parent_pool_size": 3,
+    "profile": "soxl_smoke",
+    "qualified_percentile": 0.5,
+    "resume": false,
+    "run_id": "cognitive_alpha_evolution",
+    "runtime_dir": "recorder:artifacts"
+  },
+  "status": "complete",
+  "thresholds": {
+    "elite_percentile": 0.75,
+    "fallback_top_n": 3,
+    "max_abs_correlation": 0.98,
+    "max_missing_ratio": 0.55,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "qualified_percentile": 0.5
+  },
+  "workflow": "cognitive_alpha_evolution"
+}

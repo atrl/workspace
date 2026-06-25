@@ -1,0 +1,29 @@
+experiment: cognitive_alpha_external_provider_smoke_v1
+card_type: diagnostic_cognitive_alpha_external_provider_smoke
+paper_reference:
+  arxiv_id: '2511.18850'
+  method: external_command_provider_readiness_smoke
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/cognitive_alpha_external_provider_smoke_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  train: [2019-01-02, 2024-12-31]
+  validation: [2025-01-02, 2025-12-31]
+  test: [2026-01-02, 2026-06-24]
+external_provider:
+  provider_id: fixture_external_command_provider
+  provider_kind: external_llm_code
+  model: fixture-command
+  command: python -m src.workflow.cognitive_alpha_fixture_provider
+evolution:
+  profile: soxl_smoke
+  generations: 2
+  initial_pool_size: 4
+  parent_pool_size: 3
+  children_per_generation: 4
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

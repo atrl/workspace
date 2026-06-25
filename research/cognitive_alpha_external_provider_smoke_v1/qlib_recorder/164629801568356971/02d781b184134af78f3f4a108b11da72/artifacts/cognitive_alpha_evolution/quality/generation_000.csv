@@ -1,0 +1,6 @@
+factor,generation,level,agent,quality_status,quality_reason,missing_ratio,distinct_values,selection_tier,redundancy_status
+fixture_external_alpha_000,0,market_structure_cycle,AgentMarketCycle,reject,future_lookahead_code_pattern,1.0,0,drop,not_selected
+fixture_external_alpha_000_repaired_lag1,0,market_structure_cycle,AgentMarketCycleRepair,pass,pass,0.0011363636363636363,1758,drop,not_selected
+fixture_external_alpha_001,0,market_structure_cycle,AgentVolatilityRegime,pass,pass,0.003409090909090909,1754,elite,selected
+fixture_external_alpha_002,0,extreme_risk_fragility,AgentTailRisk,pass,pass,0.0011363636363636363,1758,drop,not_selected
+fixture_external_alpha_003,0,market_structure_cycle,AgentMarketCycle,pass,pass,0.002840909090909091,1755,drop,not_selected
