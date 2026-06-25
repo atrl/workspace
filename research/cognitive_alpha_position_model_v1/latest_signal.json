@@ -1,13 +1,13 @@
 {
   "action": "HOLD",
   "as_of": "2026-06-24",
-  "candidate": "lgbm_classifier_probability_p0.45_s1_h0.2_hold3",
-  "last_change_date": "2026-06-16",
-  "last_change_target_position": 0.11326817065486905,
-  "previous_target_position": 0.11326817065486905,
-  "probability": 0.4961558749285465,
+  "candidate": "lgbm_classifier_binary_p0.55_s1_h0.25_hold3",
+  "last_change_date": "2026-06-22",
+  "last_change_target_position": 0.0,
+  "previous_target_position": 0.0,
+  "probability": 0.42226367334612197,
   "target_delta": 0.0,
   "target_delta_percent": 0.0,
-  "target_percent": 11.326817065486905,
-  "target_position": 0.11326817065486905
+  "target_percent": 0.0,
+  "target_position": 0.0
 }

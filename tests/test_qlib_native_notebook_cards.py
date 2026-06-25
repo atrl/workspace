@@ -1576,9 +1576,11 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
     assert summary["segments"]["test"][1] == summary["as_of"]
     assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
-    assert summary["evolution"]["initial_candidate_count"] == 9
+    assert summary["evolution"]["profile"] == "soxl_full"
+    assert summary["evolution"]["completed_generations"] == 24
+    assert summary["evolution"]["initial_candidate_count"] == 80
     assert summary["evolution"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
-    assert summary["evolution"]["candidate_provider"]["profile_agent_count"] == 3
+    assert summary["evolution"]["candidate_provider"]["profile_agent_count"] == 21
     assert summary["evolution"]["candidate_provider"]["guidance_style_count"] == 5
     assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
     assert summary["position_model"]["model_families"] == ["lgbm_classifier"]
@@ -1632,6 +1634,9 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert goal_manifest["completed_stages"] == goal_manifest["stage_order"]
     assert goal_manifest["data_gate"]["max_datetime"] == summary["as_of"]
     assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
+    assert goal_manifest["candidate_generation"]["candidate_provider"]["profile_agent_count"] == 21
+    assert goal_manifest["candidate_generation"]["initial_candidate_count"] == 80
+    assert goal_manifest["evolution_loop"]["completed_generations"] == 24
     assert goal_manifest["model_and_position"]["latest_signal"]["as_of"] == summary["as_of"]
     assert not (card / "positions.csv").exists()
     recorder_dir = Path(summary["recorder_local_dir"])
