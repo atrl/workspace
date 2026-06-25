@@ -12,6 +12,12 @@ segments:
   train: [2019-01-02, 2024-12-31]
   validation: [2025-01-02, 2025-12-31]
   test: [2026-01-02, 2026-06-24]
+factor_mining:
+  workflow: cognitive_alpha_factor_mining
+  source_layer: src.factor
+  output: alpha_factor_library
+  position_model_included: false
+  position_signal_included: false
 model_selection:
   model: lgbm_classifier
   selected_by: validation_selection_objective_score

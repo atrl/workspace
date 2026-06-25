@@ -29,6 +29,11 @@ from .cognitive_alpha import (
     evaluate_cognitive_alpha_candidates,
     materialize_cognitive_alpha_features,
 )
+from .cognitive_alpha_mining import (
+    CognitiveAlphaFactorMiningResult,
+    CognitiveAlphaFactorMiningSpec,
+    run_cognitive_alpha_factor_mining,
+)
 from .diagnostics import FactorDiagnosticsReport, QlibScoredDataset, combine_qlib_factor_scores, qlib_factor_diagnostics
 from .factor_library_reversal import (
     build_factor_library_reversal_frame,
@@ -72,6 +77,8 @@ __all__ = [
     "AgenticAlphaFactorValidationReport",
     "COGALPHA_AGENT_LEVELS",
     "CognitiveAlphaCandidate",
+    "CognitiveAlphaFactorMiningResult",
+    "CognitiveAlphaFactorMiningSpec",
     "CognitiveAlphaReport",
     "FactorDiagnosticsReport",
     "QlibScoredDataset",
@@ -112,6 +119,7 @@ __all__ = [
     "evaluate_tail_risk_candidate",
     "materialize_cognitive_alpha_features",
     "qlib_factor_diagnostics",
+    "run_cognitive_alpha_factor_mining",
     "summarize_agentic_ensemble_components",
     "summarize_canary_sprint_branch",
     "summarize_cross_asset_branch",

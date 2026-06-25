@@ -1648,6 +1648,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     summary = _summary(card)
     notebook_text = (card / "cognitive_alpha_position_model_v1.ipynb").read_text(encoding="utf-8")
     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
 
     assert summary["experiment"] == "cognitive_alpha_position_model_v1"
     assert summary["card_type"] == "diagnostic_cognitive_alpha_position_model"
@@ -1665,6 +1666,11 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["evolution"]["candidate_provider"]["guidance_style_count"] == 5
     assert summary["evolution"]["candidate_provider"]["codex_direct_compatible"] is True
     assert summary["evolution"]["candidate_provider"]["openai_api_key_required"] is False
+    assert summary["factor_mining"]["workflow"] == "cognitive_alpha_factor_mining"
+    assert summary["factor_mining"]["source_layer"] == "src.factor"
+    assert summary["factor_mining"]["position_model_included"] is False
+    assert summary["factor_mining"]["position_signal_included"] is False
+    assert summary["factor_mining"]["factor_library"]["selected_count"] == summary["evolution"]["selected_count"]
     assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
     assert summary["position_model"]["model_families"] == ["lgbm_classifier"]
     assert summary["position_model"]["selected_candidate"]["test"]["max_position"] <= 1.0
@@ -1746,10 +1752,14 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv").exists()
     assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
-    assert "run_cognitive_alpha_evolution" in notebook_text
+    assert "run_cognitive_alpha_factor_mining" in notebook_text
+    assert "run_cognitive_alpha_evolution(" not in notebook_text
     assert "build_cognitive_alpha_code_candidate_provider" in notebook_text
     assert "run_cognitive_alpha_position_model" in notebook_text
     assert "CognitiveAlphaGoalRunner" in notebook_text
+    assert "factor_mining:" in workflow
+    assert "workflow: cognitive_alpha_factor_mining" in workflow
+    assert "position_signal_included: false" in workflow
     assert "LGBMClassifier" in notebook_text
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
