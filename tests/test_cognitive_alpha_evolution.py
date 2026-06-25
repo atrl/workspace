@@ -235,3 +235,84 @@ def test_cognitive_alpha_evolution_resume_replays_evolved_parent_candidates(tmp_
     generation_two_payload = json.dumps(generation_two)
     assert result.summary["resume_start_generation"] == 2
     assert any(parent in generation_two_payload for parent in evolved_parents)
+
+
+def test_cognitive_alpha_evolution_uses_bounded_candidate_names_for_full_profile_scale(tmp_path):
+    from src.factor import build_cognitive_alpha_seed_candidates
+    from src.workflow import CognitiveAlphaEvolutionSpec, run_cognitive_alpha_evolution
+
+    frame = _evolution_frame(rows=180)
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="bounded_names",
+        profile="soxl_full",
+        runtime_dir=tmp_path,
+        generations=5,
+        parent_pool_size=6,
+        children_per_generation=12,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=4,
+    )
+
+    run_cognitive_alpha_evolution(
+        frame,
+        spec=spec,
+        label_col="label_return_5d",
+        initial_candidates=build_cognitive_alpha_seed_candidates(),
+        alpha158_columns=["alpha158_good", "alpha158_noise"],
+    )
+
+    names = []
+    themes = []
+    for path in sorted((tmp_path / "bounded_names" / "candidate_pool").glob("generation_*.jsonl")):
+        rows = _read_jsonl(path)
+        names.extend(row["name"] for row in rows)
+        themes.extend(row["theme"] for row in rows)
+
+    assert names
+    assert max(len(name) for name in names) <= 96
+    assert max(len(theme) for theme in themes) <= 160
+
+
+def test_cognitive_alpha_evolution_caches_parent_factor_values_within_generation(tmp_path):
+    from src.factor import CognitiveAlphaCandidate
+    from src.workflow import CognitiveAlphaEvolutionSpec, run_cognitive_alpha_evolution
+
+    frame = _evolution_frame(rows=160)
+    calls = {"parent": 0}
+
+    def parent_factor(data):
+        calls["parent"] += 1
+        return data["alpha158_good"].rename("counted_parent")
+
+    counted_parent = CognitiveAlphaCandidate(
+        name="counted_parent",
+        level="stability_regime_gating",
+        agent="AgentStability",
+        theme="call count parent",
+        required_columns=("alpha158_good",),
+        lookback=3,
+        function=parent_factor,
+        economic_rationale="Used to prove evolved children reuse materialized parent values.",
+        code="df['alpha158_good']",
+    )
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="cached_parent_values",
+        profile="soxl_full",
+        runtime_dir=tmp_path,
+        generations=2,
+        parent_pool_size=1,
+        children_per_generation=9,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=1,
+    )
+
+    run_cognitive_alpha_evolution(
+        frame,
+        spec=spec,
+        label_col="label_return_5d",
+        initial_candidates=[counted_parent],
+    )
+
+    assert calls["parent"] <= 2

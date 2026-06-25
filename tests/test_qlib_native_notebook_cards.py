@@ -1504,6 +1504,57 @@ def test_cognitive_alpha_evolution_smoke_card_records_resumable_goal_runner():
     assert "不构成买卖建议" in conclusion
 
 
+def test_cognitive_alpha_evolution_full_card_records_full_goal_runner_profile():
+    card = ROOT / "research" / "cognitive_alpha_evolution_full_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_evolution_full_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_evolution_full_v1"
+    assert summary["card_type"] == "diagnostic_cognitive_alpha_full_goal_runner"
+    assert summary["promotion_decision"] == "not_promoted_full_evolution_only"
+    assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
+    assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
+    assert summary["evolution"]["profile"] == "soxl_full"
+    assert summary["evolution"]["completed_generations"] == 24
+    assert summary["evolution"]["spec"]["initial_pool_size"] == 80
+    assert summary["evolution"]["spec"]["parent_pool_size"] == 32
+    assert summary["evolution"]["spec"]["children_per_generation"] == 96
+    assert summary["evolution"]["selected_count"] > 0
+    assert summary["evolution"]["max_candidate_name_length"] <= 96
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "evolution_summary",
+        "failure_modes",
+        "selected_features",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "candidate_pool",
+        "fitness",
+        "lineage",
+        "quality",
+        "rejected",
+        "state",
+    }
+    assert not (card / "candidate_pool").exists()
+    assert not (card / "generation_metrics.csv").exists()
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
+    assert (
+        recorder_dir
+        / "artifacts"
+        / "cognitive_alpha_evolution"
+        / "candidate_pool"
+        / "generation_023.jsonl"
+    ).exists()
+    assert "build_cognitive_alpha_evolution_profile" in notebook_text
+    assert "soxl_full" in notebook_text
+    assert "run_cognitive_alpha_evolution" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():
     card = ROOT / "research" / "cognitive_alpha_position_model_v1"
     summary = _summary(card)

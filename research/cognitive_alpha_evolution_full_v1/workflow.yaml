@@ -1,0 +1,22 @@
+experiment: cognitive_alpha_evolution_full_v1
+card_type: diagnostic_cognitive_alpha_full_goal_runner
+paper_reference:
+  arxiv_id: '2511.18850'
+  method: checkpointed_cognitive_alpha_evolution_full
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/cognitive_alpha_evolution_full_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  train: [2019-01-02, 2025-12-31]
+  test: [2026-01-02, 2026-06-24]
+evolution:
+  profile: soxl_full
+  generations: 24
+  parent_pool_size: 32
+  children_per_generation: 96
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

@@ -36,11 +36,11 @@
     },
     "workflow_config": "workflow.yaml"
   },
-  "as_of": "2026-06-23",
+  "as_of": "2026-06-24",
   "card_type": "diagnostic_cognitive_alpha_position_model",
   "data_range": [
     "2019-01-02",
-    "2026-06-23"
+    "2026-06-24"
   ],
   "evolution": {
     "candidate_metric_rows": 26,
@@ -102,17 +102,17 @@
   "experiment": "cognitive_alpha_position_model_v1",
   "instrument": "SOXL",
   "latest_signal": {
-    "action": "HOLD",
-    "as_of": "2026-06-23",
+    "action": "SELL",
+    "as_of": "2026-06-24",
     "candidate": "lgbm_classifier_probability_p0.45_s1_h0.2_hold3",
-    "last_change_date": "2026-06-12",
-    "last_change_target_position": 0.29437284033757305,
+    "last_change_date": "2026-06-24",
+    "last_change_target_position": 0.0,
     "previous_target_position": 0.29437284033757305,
-    "probability": 0.5077723799719535,
-    "target_delta": 0.0,
-    "target_delta_percent": 0.0,
-    "target_percent": 29.437284033757305,
-    "target_position": 0.29437284033757305
+    "probability": 0.41351579226782254,
+    "target_delta": -0.29437284033757305,
+    "target_delta_percent": -29.437284033757305,
+    "target_percent": 0.0,
+    "target_position": 0.0
   },
   "market": "all",
   "paper_reference": {
@@ -133,28 +133,28 @@
       "beats_soxl_backtest": false,
       "beats_soxl_buyhold": false,
       "selected_max_drawdown_pct": -10.194590167574235,
-      "selected_return_pct": 67.79751514338928,
-      "selected_vs_constrained_weight_reference_return_gap_pct": -503.4225426262605,
-      "selected_vs_previous_factor_enhanced_return_gap_pct": -120.92465138814525,
-      "selected_vs_soxl_backtest_return_gap_pct": -70.19872280796567,
-      "selected_vs_soxl_buyhold_return_gap_pct": -322.08392384370364
+      "selected_return_pct": 67.38786487289119,
+      "selected_vs_constrained_weight_reference_return_gap_pct": -503.83219289675856,
+      "selected_vs_previous_factor_enhanced_return_gap_pct": -121.33430165864334,
+      "selected_vs_soxl_backtest_return_gap_pct": -70.60837307846376,
+      "selected_vs_soxl_buyhold_return_gap_pct": -322.4935741142017
     },
     "feature_cols": [
       "g001_003_mutation_alpha158_MA30"
     ],
     "feature_count": 1,
     "latest_signal": {
-      "action": "HOLD",
-      "as_of": "2026-06-23",
+      "action": "SELL",
+      "as_of": "2026-06-24",
       "candidate": "lgbm_classifier_probability_p0.45_s1_h0.2_hold3",
-      "last_change_date": "2026-06-12",
-      "last_change_target_position": 0.29437284033757305,
+      "last_change_date": "2026-06-24",
+      "last_change_target_position": 0.0,
       "previous_target_position": 0.29437284033757305,
-      "probability": 0.5077723799719535,
-      "target_delta": 0.0,
-      "target_delta_percent": 0.0,
-      "target_percent": 29.437284033757305,
-      "target_position": 0.29437284033757305
+      "probability": 0.41351579226782254,
+      "target_delta": -0.29437284033757305,
+      "target_delta_percent": -29.437284033757305,
+      "target_percent": 0.0,
+      "target_position": 0.0
     },
     "model_families": [
       "lgbm_classifier"
@@ -163,7 +163,7 @@
     "segments": {
       "test": [
         "2026-01-02",
-        "2026-06-23"
+        "2026-06-24"
       ],
       "train": [
         "2019-01-02",
@@ -179,8 +179,8 @@
       "model": "lgbm_classifier",
       "selected_by": "validation_selection_objective_score",
       "test": {
-        "avg_abs_position": 0.19965276931529952,
-        "avg_holding_days": 4.625,
+        "avg_abs_position": 0.1979750149513054,
+        "avg_holding_days": 4.72,
         "candidate": "lgbm_classifier_probability_p0.45_s1_h0.2_hold3",
         "cost_per_turnover": 0.0003,
         "days_above_100": 0,
@@ -197,20 +197,20 @@
         "position_mode": "probability",
         "report_segment": "test",
         "return_col": "forward_return",
-        "return_pct": 67.79751514338928,
-        "return_to_drawdown": 6.650342390323027,
+        "return_pct": 67.38786487289119,
+        "return_to_drawdown": 6.610159286955022,
         "scale": 1.0,
         "segment": "test",
         "selected": true,
         "selection_eligible": true,
         "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"min_validation_avg_abs_position\": 0.0, \"min_validation_trade_count\": 1, \"validation_max_drawdown_floor\": null}",
-        "selection_objective_score": 18.874728595469428,
+        "selection_objective_score": 18.53494650430811,
         "selection_segment": "validation",
-        "test_end": "2026-06-23",
+        "test_end": "2026-06-24",
         "test_start": "2026-01-02",
         "threshold": 0.45,
-        "total_turnover": 6.949985161401838,
-        "trade_count": 25,
+        "total_turnover": 7.244358001739411,
+        "trade_count": 26,
         "train_end": "2024-12-31",
         "train_start": "2019-01-02",
         "validation_end": "2025-12-31",
@@ -244,7 +244,7 @@
         "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"min_validation_avg_abs_position\": 0.0, \"min_validation_trade_count\": 1, \"validation_max_drawdown_floor\": null}",
         "selection_objective_score": -14.850777992420573,
         "selection_segment": "validation",
-        "test_end": "2026-06-23",
+        "test_end": "2026-06-24",
         "test_start": "2026-01-02",
         "threshold": 0.45,
         "total_turnover": 17.22312554715773,
@@ -307,7 +307,7 @@
       "return_col": "forward_return",
       "test": [
         "2026-01-02",
-        "2026-06-23"
+        "2026-06-24"
       ],
       "train": [
         "2019-01-02",
@@ -371,14 +371,14 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "1750df2fda8d465383a804dcd2502cf9",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/355981547509781504/1750df2fda8d465383a804dcd2502cf9",
+  "recorder_id": "4f0527b99842425e9d380e4e31bc61c5",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/355981547509781504/4f0527b99842425e9d380e4e31bc61c5",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder",
   "region": "us",
   "segments": {
     "test": [
       "2026-01-02",
-      "2026-06-23"
+      "2026-06-24"
     ],
     "train": [
       "2019-01-02",

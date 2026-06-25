@@ -24,6 +24,8 @@ __all__ = [
     "CognitiveAlphaEvolutionSpec",
     "CognitiveAlphaPositionResult",
     "CognitiveAlphaPositionSpec",
+    "CognitiveAlphaSignalRefreshJob",
+    "CognitiveAlphaSignalRefreshSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
     "build_agentic_alpha_hypotheses",
@@ -51,6 +53,11 @@ _COGNITIVE_ALPHA_POSITION_EXPORTS = {
     "run_cognitive_alpha_position_model",
 }
 
+_COGNITIVE_ALPHA_GOAL_EXPORTS = {
+    "CognitiveAlphaSignalRefreshJob",
+    "CognitiveAlphaSignalRefreshSpec",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -61,4 +68,8 @@ def __getattr__(name: str):
         from . import cognitive_alpha_position
 
         return getattr(cognitive_alpha_position, name)
+    if name in _COGNITIVE_ALPHA_GOAL_EXPORTS:
+        from . import cognitive_alpha_goal
+
+        return getattr(cognitive_alpha_goal, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

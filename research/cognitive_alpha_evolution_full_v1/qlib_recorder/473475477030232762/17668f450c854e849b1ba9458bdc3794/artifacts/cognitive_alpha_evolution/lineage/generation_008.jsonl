@@ -1,0 +1,96 @@
+{"candidate": "g008_000_mutation_g007_000_mutation__7391ff74f2", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_001_crossover_g007_003_mutation__365c070d12__g007_006_mutation__c5904215bd", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_002_crossover_mutation_g007_006_mutation__c5904215bd__g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_003_mutation_g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_004_crossover_g007_012_mutation__bd1e5c1e11__g007_015_mutation__5bb55f0739", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_005_crossover_mutation_g007_015_mutation__5bb55f0739__g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_006_mutation_g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_007_crossover_g007_021_mutation__6afbdf835a__g007_000_mutation__7391ff74f2", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_008_crossover_mutation_g007_000_mutation__7391ff74f2__g007_003_mutation__365c070d12", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_009_mutation_g007_003_mutation__365c070d12", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_010_crossover_g007_006_mutation__c5904215bd__g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_011_crossover_mutation_g007_009_mutation__3f193a3f8d__g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_012_mutation_g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_013_crossover_g007_015_mutation__5bb55f0739__g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_014_crossover_mutation_g007_018_mutation__da58ef6fb0__g007_021_mutation__6afbdf835a", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_015_mutation_g007_021_mutation__6afbdf835a", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_016_crossover_g007_000_mutation__7391ff74f2__g007_003_mutation__365c070d12", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_017_crossover_mutation_g007_003_mutation__365c070d12__g007_006_mutation__c5904215bd", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_018_mutation_g007_006_mutation__c5904215bd", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_019_crossover_g007_009_mutation__3f193a3f8d__g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_020_crossover_mutation_g007_012_mutation__bd1e5c1e11__g007_015_mutation__5bb55f0739", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_021_mutation_g007_015_mutation__5bb55f0739", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_022_crossover_g007_018_mutation__da58ef6fb0__g007_021_mutation__6afbdf835a", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_023_crossover_mutation_g007_021_mutation__6afbdf835a__g007_000_mutation__7391ff74f2", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_024_mutation_g007_000_mutation__7391ff74f2", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_025_crossover_g007_003_mutation__365c070d12__g007_006_mutation__c5904215bd", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_026_crossover_mutation_g007_006_mutation__c5904215bd__g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_027_mutation_g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_028_crossover_g007_012_mutation__bd1e5c1e11__g007_015_mutation__5bb55f0739", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_029_crossover_mutation_g007_015_mutation__5bb55f0739__g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_030_mutation_g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_031_crossover_g007_021_mutation__6afbdf835a__g007_000_mutation__7391ff74f2", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_032_crossover_mutation_g007_000_mutation__7391ff74f2__g007_003_mutation__365c070d12", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_033_mutation_g007_003_mutation__365c070d12", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_034_crossover_g007_006_mutation__c5904215bd__g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_035_crossover_mutation_g007_009_mutation__3f193a3f8d__g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_036_mutation_g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_037_crossover_g007_015_mutation__5bb55f0739__g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_038_crossover_mutation_g007_018_mutation__da58ef6fb0__g007_021_mutation__6afbdf835a", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_039_mutation_g007_021_mutation__6afbdf835a", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_040_crossover_g007_000_mutation__7391ff74f2__g007_003_mutation__365c070d12", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_041_crossover_mutation_g007_003_mutation__365c070d12__g007_006_mutation__c5904215bd", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_042_mutation_g007_006_mutation__c5904215bd", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_043_crossover_g007_009_mutation__3f193a3f8d__g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_044_crossover_mutation_g007_012_mutation__bd1e5c1e11__g007_015_mutation__5bb55f0739", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_045_mutation_g007_015_mutation__5bb55f0739", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_046_crossover_g007_018_mutation__da58ef6fb0__g007_021_mutation__6afbdf835a", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_047_crossover_mutation_g007_021_mutation__6afbdf835a__g007_000_mutation__7391ff74f2", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_048_mutation_g007_000_mutation__7391ff74f2", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_049_crossover_g007_003_mutation__365c070d12__g007_006_mutation__c5904215bd", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_050_crossover_mutation_g007_006_mutation__c5904215bd__g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_051_mutation_g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_052_crossover_g007_012_mutation__bd1e5c1e11__g007_015_mutation__5bb55f0739", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_053_crossover_mutation_g007_015_mutation__5bb55f0739__g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_054_mutation_g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_055_crossover_g007_021_mutation__6afbdf835a__g007_000_mutation__7391ff74f2", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_056_crossover_mutation_g007_000_mutation__7391ff74f2__g007_003_mutation__365c070d12", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_057_mutation_g007_003_mutation__365c070d12", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_058_crossover_g007_006_mutation__c5904215bd__g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_059_crossover_mutation_g007_009_mutation__3f193a3f8d__g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_060_mutation_g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_061_crossover_g007_015_mutation__5bb55f0739__g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_062_crossover_mutation_g007_018_mutation__da58ef6fb0__g007_021_mutation__6afbdf835a", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_063_mutation_g007_021_mutation__6afbdf835a", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_064_crossover_g007_000_mutation__7391ff74f2__g007_003_mutation__365c070d12", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_065_crossover_mutation_g007_003_mutation__365c070d12__g007_006_mutation__c5904215bd", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_066_mutation_g007_006_mutation__c5904215bd", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_067_crossover_g007_009_mutation__3f193a3f8d__g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_068_crossover_mutation_g007_012_mutation__bd1e5c1e11__g007_015_mutation__5bb55f0739", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_069_mutation_g007_015_mutation__5bb55f0739", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_070_crossover_g007_018_mutation__da58ef6fb0__g007_021_mutation__6afbdf835a", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_071_crossover_mutation_g007_021_mutation__6afbdf835a__g007_000_mutation__7391ff74f2", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_072_mutation_g007_000_mutation__7391ff74f2", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_073_crossover_g007_003_mutation__365c070d12__g007_006_mutation__c5904215bd", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_074_crossover_mutation_g007_006_mutation__c5904215bd__g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_075_mutation_g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_076_crossover_g007_012_mutation__bd1e5c1e11__g007_015_mutation__5bb55f0739", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_077_crossover_mutation_g007_015_mutation__5bb55f0739__g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_078_mutation_g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_079_crossover_g007_021_mutation__6afbdf835a__g007_000_mutation__7391ff74f2", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_080_crossover_mutation_g007_000_mutation__7391ff74f2__g007_003_mutation__365c070d12", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_081_mutation_g007_003_mutation__365c070d12", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_082_crossover_g007_006_mutation__c5904215bd__g007_009_mutation__3f193a3f8d", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_083_crossover_mutation_g007_009_mutation__3f193a3f8d__g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_084_mutation_g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_085_crossover_g007_015_mutation__5bb55f0739__g007_018_mutation__da58ef6fb0", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_086_crossover_mutation_g007_018_mutation__da58ef6fb0__g007_021_mutation__6afbdf835a", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_087_mutation_g007_021_mutation__6afbdf835a", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_088_crossover_g007_000_mutation__7391ff74f2__g007_003_mutation__365c070d12", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_089_crossover_mutation_g007_003_mutation__365c070d12__g007_006_mutation__c5904215bd", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_090_mutation_g007_006_mutation__c5904215bd", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_091_crossover_g007_009_mutation__3f193a3f8d__g007_012_mutation__bd1e5c1e11", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_092_crossover_mutation_g007_012_mutation__bd1e5c1e11__g007_015_mutation__5bb55f0739", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g008_093_mutation_g007_015_mutation__5bb55f0739", "generation": 8, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g008_094_crossover_g007_018_mutation__da58ef6fb0__g007_021_mutation__6afbdf835a", "generation": 8, "operation": "crossover", "parents": []}
+{"candidate": "g008_095_crossover_mutation_g007_021_mutation__6afbdf835a__g007_000_mutation__7391ff74f2", "generation": 8, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}

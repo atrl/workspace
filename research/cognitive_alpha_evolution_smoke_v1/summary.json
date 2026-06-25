@@ -46,11 +46,11 @@
     },
     "workflow_config": "workflow.yaml"
   },
-  "as_of": "2026-06-23",
+  "as_of": "2026-06-24",
   "card_type": "diagnostic_cognitive_alpha_goal_runner",
   "data_range": [
     "2019-01-02",
-    "2026-06-23"
+    "2026-06-24"
   ],
   "evolution": {
     "candidate_metric_rows": 26,
@@ -170,14 +170,14 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "138f6f77f10c4af7baa7a3f35f6a2999",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_evolution_smoke_v1/qlib_recorder/463265207061381329/138f6f77f10c4af7baa7a3f35f6a2999",
+  "recorder_id": "ab4524cbc94a4fc5996aaf160535dde7",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_evolution_smoke_v1/qlib_recorder/463265207061381329/ab4524cbc94a4fc5996aaf160535dde7",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_evolution_smoke_v1/qlib_recorder",
   "region": "us",
   "segments": {
     "test": [
       "2026-01-02",
-      "2026-06-23"
+      "2026-06-24"
     ],
     "train": [
       "2019-01-02",

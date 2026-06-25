@@ -1,0 +1,64 @@
+{
+  "candidate_metric_rows": 2289,
+  "checkpoints": {
+    "candidate_pool": "candidate_pool/generation_*.jsonl",
+    "fitness": "fitness/generation_*.csv",
+    "lineage": "lineage/generation_*.jsonl",
+    "quality": "quality/generation_*.csv",
+    "rejected": "rejected/generation_*.jsonl",
+    "state": "state.json"
+  },
+  "children_per_generation": 96,
+  "completed_generations": 24,
+  "evolution_ops": [
+    "mutation",
+    "crossover",
+    "crossover_mutation"
+  ],
+  "paper_reference": "arxiv:2511.18850",
+  "parent_pool_size": 32,
+  "profile": "soxl_full",
+  "repair_attempt_count": 1,
+  "resume_start_generation": 0,
+  "resumed": false,
+  "run_dir": "recorder:artifacts/cognitive_alpha_evolution",
+  "run_id": "cognitive_alpha_evolution",
+  "selected_count": 8,
+  "selected_feature_names": [
+    "g023_000_mutation_g022_000_mutation__d7f2bad5b8",
+    "g023_003_mutation_g022_009_mutation__ceda9fb310",
+    "g023_006_mutation_g022_018_mutation__9b1bcdea4d",
+    "g023_009_mutation_g022_003_mutation__c16e6ed3fa",
+    "g023_012_mutation_g022_012_mutation__e34adf367f",
+    "g023_015_mutation_g022_021_mutation__8fbc95ef8f",
+    "g023_018_mutation_g022_006_mutation__59c65e69a0",
+    "g023_021_mutation_g022_015_mutation__8d4118c4e3"
+  ],
+  "spec": {
+    "children_per_generation": 96,
+    "elite_percentile": 0.8,
+    "fallback_top_n": 8,
+    "generations": 24,
+    "initial_pool_size": 80,
+    "max_abs_correlation": 0.95,
+    "max_missing_ratio": 0.55,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "parent_pool_size": 32,
+    "profile": "soxl_full",
+    "qualified_percentile": 0.65,
+    "resume": false,
+    "run_id": "cognitive_alpha_evolution",
+    "runtime_dir": "recorder:artifacts"
+  },
+  "thresholds": {
+    "elite_percentile": 0.8,
+    "fallback_top_n": 8,
+    "max_abs_correlation": 0.95,
+    "max_missing_ratio": 0.55,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "qualified_percentile": 0.65
+  },
+  "workflow": "cognitive_alpha_evolution"
+}

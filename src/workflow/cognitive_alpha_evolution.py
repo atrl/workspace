@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Iterable
 from dataclasses import asdict, dataclass
+from hashlib import sha1
 from pathlib import Path
 from typing import Any
 
@@ -321,7 +323,12 @@ def _rolling_zscore(series: pd.Series, window: int = 20) -> pd.Series:
 
 
 def _factor_values(candidate: CognitiveAlphaCandidate, frame: pd.DataFrame) -> pd.Series:
-    return pd.to_numeric(candidate.function(frame), errors="coerce").replace([np.inf, -np.inf], np.nan)
+    cache = frame.attrs.setdefault("_cognitive_alpha_factor_cache", {})
+    if candidate.name in cache:
+        return cache[candidate.name]
+    values = pd.to_numeric(candidate.function(frame), errors="coerce").replace([np.inf, -np.inf], np.nan)
+    cache[candidate.name] = values
+    return values
 
 
 def _build_next_generation(
@@ -359,7 +366,7 @@ def _mutation_candidate(
     generation: int,
     child_index: int,
 ) -> CognitiveAlphaCandidate:
-    name = f"g{generation:03d}_{child_index:03d}_mutation_{parent.name}"
+    name = f"g{generation:03d}_{child_index:03d}_mutation_{_candidate_slug(parent.name)}"
 
     def _func(frame: pd.DataFrame, candidate: CognitiveAlphaCandidate = parent) -> pd.Series:
         return _rolling_zscore(_factor_values(candidate, frame), 10).shift(1).rename(name)
@@ -368,11 +375,11 @@ def _mutation_candidate(
         name=name,
         level=parent.level,
         agent=parent.agent,
-        theme=f"mutation of {parent.theme}",
+        theme=f"mutation of {_candidate_slug(parent.name)}",
         required_columns=parent.required_columns,
         lookback=max(int(parent.lookback), 10),
         function=_func,
-        economic_rationale=f"Mutation smooths and lags {parent.name} to reduce overreaction.",
+        economic_rationale=f"Smooths and lags parent {_candidate_slug(parent.name)} to reduce overreaction.",
         code=f"mutation:zscore({parent.name},10).shift(1)",
     )
 
@@ -384,7 +391,10 @@ def _crossover_candidate(
     generation: int,
     child_index: int,
 ) -> CognitiveAlphaCandidate:
-    name = f"g{generation:03d}_{child_index:03d}_crossover_{left.name}__{right.name}"
+    name = (
+        f"g{generation:03d}_{child_index:03d}_crossover_"
+        f"{_candidate_slug(left.name)}__{_candidate_slug(right.name)}"
+    )
 
     def _func(
         frame: pd.DataFrame,
@@ -399,11 +409,13 @@ def _crossover_candidate(
         name=name,
         level="geometric_fusion",
         agent="AgentComposite",
-        theme=f"crossover of {left.theme} and {right.theme}",
+        theme=f"crossover of {_candidate_slug(left.name)} and {_candidate_slug(right.name)}",
         required_columns=tuple(dict.fromkeys((*left.required_columns, *right.required_columns))),
         lookback=max(int(left.lookback), int(right.lookback), 20),
         function=_func,
-        economic_rationale=f"Crossover combines {left.name} and {right.name} after scale normalization.",
+        economic_rationale=(
+            f"Combines parents {_candidate_slug(left.name)} and {_candidate_slug(right.name)} after scale normalization."
+        ),
         code=f"crossover:mean(zscore({left.name},20), zscore({right.name},20))",
     )
 
@@ -415,7 +427,10 @@ def _crossover_mutation_candidate(
     generation: int,
     child_index: int,
 ) -> CognitiveAlphaCandidate:
-    name = f"g{generation:03d}_{child_index:03d}_crossover_mutation_{left.name}__{right.name}"
+    name = (
+        f"g{generation:03d}_{child_index:03d}_crossover_mutation_"
+        f"{_candidate_slug(left.name)}__{_candidate_slug(right.name)}"
+    )
 
     def _func(
         frame: pd.DataFrame,
@@ -432,13 +447,23 @@ def _crossover_mutation_candidate(
         name=name,
         level="geometric_fusion",
         agent="AgentCreative",
-        theme=f"mutated crossover of {left.theme} and {right.theme}",
+        theme=f"mutated crossover of {_candidate_slug(left.name)} and {_candidate_slug(right.name)}",
         required_columns=tuple(dict.fromkeys((*left.required_columns, *right.required_columns))),
         lookback=max(int(left.lookback), int(right.lookback), 10),
         function=_func,
-        economic_rationale=f"Mutated crossover uses the lagged spread between {left.name} and {right.name}.",
+        economic_rationale=(
+            f"Uses lagged spread between parents {_candidate_slug(left.name)} and {_candidate_slug(right.name)}."
+        ),
         code=f"crossover_mutation:ewm(zscore({left.name},10)-zscore({right.name},10),5).shift(1)",
     )
+
+
+def _candidate_slug(name: str, *, prefix_chars: int = 18, digest_chars: int = 10) -> str:
+    slug = re.sub(r"[^A-Za-z0-9]+", "_", str(name)).strip("_") or "candidate"
+    if len(slug) <= prefix_chars + digest_chars + 1:
+        return slug
+    digest = sha1(str(name).encode("utf-8")).hexdigest()[:digest_chars]
+    return f"{slug[:prefix_chars]}_{digest}"
 
 
 def _parent_names(metrics: pd.DataFrame, *, limit: int) -> list[str]:

@@ -11,7 +11,7 @@ qlib:
 segments:
   train: [2019-01-02, 2024-12-31]
   validation: [2025-01-02, 2025-12-31]
-  test: [2026-01-02, 2026-06-23]
+  test: [2026-01-02, 2026-06-24]
 evolution:
   profile: soxl_smoke
   generations: 2

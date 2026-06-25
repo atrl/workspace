@@ -6,10 +6,10 @@ external:
     rows: 9124
     start: null
   VIX:
-    end: '2026-06-23'
+    end: '2026-06-24'
     exists: true
     path: data/raw/external/VIX.csv
-    rows: 4096
+    rows: 4097
     start: '2010-03-11'
   VIX3M:
     end: null
@@ -96,16 +96,16 @@ external:
     rows: 391
     start: '2026-05-22'
   futu_history_kline_US_SOXL:
-    end: '2026-06-23'
+    end: '2026-06-24'
     exists: true
     path: data/raw/external/futu_history_kline_US_SOXL.csv
-    rows: 4076
+    rows: 4077
     start: '2010-03-31'
   futu_history_kline_US_SOXX:
-    end: '2026-06-23'
+    end: '2026-06-24'
     exists: true
     path: data/raw/external/futu_history_kline_US_SOXX.csv
-    rows: 4092
+    rows: 4093
     start: '2010-03-11'
   futu_snapshot_US_SOXL:
     end: '2026-05-22'
@@ -161,7 +161,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-06-24T03:13:32.821776+00:00'
+generated_at: '2026-06-25T10:37:26.568908+00:00'
 intraday:
   soxl_soxx_1m:
     end: '2026-06-04T16:00:00-04:00'
@@ -186,10 +186,10 @@ layout:
   training_cache: data/cache/training/<profile>.pkl
 processed_panels:
   soxl_soxx_vix_full:
-    end: '2026-06-23'
+    end: '2026-06-24'
     exists: true
     path: data/processed/panels/soxl_soxx_vix_full.csv
-    rows: 4096
+    rows: 4097
     start: '2010-03-11'
   soxl_with_underlying_vix:
     end: '2026-04-13'
@@ -278,16 +278,16 @@ qlib:
     path: data/qlib/upro
 symbols:
   SOXL:
-    end: '2026-06-23'
+    end: '2026-06-24'
     exists: true
     path: data/raw/symbols/SOXL.csv
-    rows: 4096
+    rows: 4097
     start: '2010-03-11'
   SOXX:
-    end: '2026-06-23'
+    end: '2026-06-24'
     exists: true
     path: data/raw/symbols/SOXX.csv
-    rows: 4096
+    rows: 4097
     start: '2010-03-11'
   SPXL:
     end: '2026-04-15'

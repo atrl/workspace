@@ -1,13 +1,13 @@
 {
-  "action": "HOLD",
-  "as_of": "2026-06-23",
+  "action": "SELL",
+  "as_of": "2026-06-24",
   "candidate": "lgbm_classifier_probability_p0.45_s1_h0.2_hold3",
-  "last_change_date": "2026-06-12",
-  "last_change_target_position": 0.29437284033757305,
+  "last_change_date": "2026-06-24",
+  "last_change_target_position": 0.0,
   "previous_target_position": 0.29437284033757305,
-  "probability": 0.5077723799719535,
-  "target_delta": 0.0,
-  "target_delta_percent": 0.0,
-  "target_percent": 29.437284033757305,
-  "target_position": 0.29437284033757305
+  "probability": 0.41351579226782254,
+  "target_delta": -0.29437284033757305,
+  "target_delta_percent": -29.437284033757305,
+  "target_percent": 0.0,
+  "target_position": 0.0
 }
