@@ -6,4 +6,5 @@
 - benchmark: constrained_weight_reference=571.2201%，soxl_backtest=137.9962%，buyhold=389.8814%。
 - promotion_decision: not_promoted_under_constrained_weight_reference。未超过 constrained_weight_reference 时不进入 production。
 - risks: 这是 smoke evolution，不是论文级 full profile；SOXL 单标的 IC/仓位模型仍可能过拟合；本研究面向交易复盘和风险控制，不构成买卖建议。
-- next_action: 跑 soxl_full profile 后再比较是否进入 validated research。qlib recorder id=e4bbab0c2bf14552b6e4a6ec40c075a7。
+- goal_mode: goal_manifest.json 已记录 data/evolution/position/card/signal 的完整 stage manifest，可作为下一轮 resume/audit 入口。
+- next_action: 跑 soxl_full profile 后再比较是否进入 validated research。qlib recorder id=823b94dd9aba46c794b83c2e0305d4cd。

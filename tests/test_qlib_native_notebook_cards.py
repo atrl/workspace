@@ -1601,6 +1601,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert set(summary["sidecars"]) == {
         "benchmark_comparison",
         "failure_modes",
+        "goal_manifest",
         "latest_signal",
         "model_selection",
         "position_summary",
@@ -1616,6 +1617,22 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     }
     for rel_path in summary["sidecars"].values():
         assert (card / rel_path).exists(), rel_path
+    goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
+    assert goal_manifest["status"] == "complete"
+    assert goal_manifest["stage_order"] == [
+        "data_gate",
+        "candidate_generation",
+        "quality_checker",
+        "fitness_evaluation",
+        "evolution_loop",
+        "model_and_position",
+        "research_card",
+        "signal_push",
+    ]
+    assert goal_manifest["completed_stages"] == goal_manifest["stage_order"]
+    assert goal_manifest["data_gate"]["max_datetime"] == summary["as_of"]
+    assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
+    assert goal_manifest["model_and_position"]["latest_signal"]["as_of"] == summary["as_of"]
     assert not (card / "positions.csv").exists()
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv").exists()
@@ -1623,6 +1640,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert "run_cognitive_alpha_evolution" in notebook_text
     assert "build_cognitive_alpha_code_candidate_provider" in notebook_text
     assert "run_cognitive_alpha_position_model" in notebook_text
+    assert "CognitiveAlphaGoalRunner" in notebook_text
     assert "LGBMClassifier" in notebook_text
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text

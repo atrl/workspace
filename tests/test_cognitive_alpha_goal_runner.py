@@ -84,3 +84,169 @@ def test_cognitive_alpha_signal_refresh_builds_paper_bark_notification_from_late
     written = json.loads((tmp_path / "signals" / "latest_signal_push.json").read_text(encoding="utf-8"))
     assert written["notification"]["recorder_id"] == notification["recorder_id"]
     assert written["data_gate"]["max_datetime"] == manifest["calendar_end"]
+
+
+def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_path):
+    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    calls: list[str] = []
+
+    def data_gate():
+        calls.append("data_gate")
+        return [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24", "provider_uri": "qlib://soxl"}]
+
+    def evolution(manifests):
+        calls.append("evolution")
+        assert manifests[0]["source"] == "qlib.data.D.features"
+        return {
+            "candidate_provider": {"provider_id": "deterministic_code_agent_pool", "profile_agent_count": 21},
+            "initial_candidate_count": 80,
+            "completed_generations": 24,
+            "checkpoints": {"candidate_pool": "candidate_pool/generation_*.jsonl"},
+        }
+
+    def position(manifests, evolution_result):
+        calls.append("position")
+        assert evolution_result["completed_generations"] == 24
+        return {
+            "selected_candidate": {"candidate": "lgbm_classifier_probability_p0.45_s1_h0.2_hold3"},
+            "comparison": {"selected_return_pct": 90.18, "beats_constrained_weight_reference": False},
+            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.1133},
+        }
+
+    def research_card(manifests, evolution_result, position_result):
+        calls.append("research_card")
+        assert position_result["latest_signal"]["as_of"] == manifests[0]["max_datetime"]
+        return {
+            "card_dir": "research/cognitive_alpha_position_model_v1",
+            "recorder_id": "recorder-position",
+            "promotion_decision": "not_promoted_under_constrained_weight_reference",
+        }
+
+    def signal_push(manifests, model_results):
+        calls.append("signal_push")
+        assert model_results[0]["latest_signal"]["action"] == "HOLD"
+        return [{"source": "qlib_recorder.latest_signal", "action": "HOLD", "as_of": "2026-06-24"}]
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-smoke",
+            objective="CogAlpha goal runner smoke",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+        ),
+        data_gate=data_gate,
+        evolution=evolution,
+        position=position,
+        research_card=research_card,
+        signal_push=signal_push,
+    )
+
+    manifest = runner.run()
+
+    assert calls == ["data_gate", "evolution", "position", "research_card", "signal_push"]
+    assert manifest["status"] == "complete"
+    assert manifest["stage_order"] == [
+        "data_gate",
+        "candidate_generation",
+        "quality_checker",
+        "fitness_evaluation",
+        "evolution_loop",
+        "model_and_position",
+        "research_card",
+        "signal_push",
+    ]
+    assert manifest["data_gate"]["max_datetime"] == "2026-06-24"
+    assert manifest["candidate_generation"]["candidate_provider"]["profile_agent_count"] == 21
+    assert manifest["evolution_loop"]["completed_generations"] == 24
+    assert manifest["model_and_position"]["latest_signal"]["target_position"] == pytest.approx(0.1133)
+    assert manifest["signal_push"]["notifications"][0]["action"] == "HOLD"
+    written = json.loads((tmp_path / "goal_manifest.json").read_text(encoding="utf-8"))
+    state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
+    assert written == manifest
+    assert state["status"] == "complete"
+    assert state["completed_stages"] == manifest["stage_order"]
+
+
+def test_cognitive_alpha_goal_runner_resume_skips_completed_data_gate(tmp_path):
+    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    state_path = tmp_path / "state.json"
+    state_path.write_text(
+        json.dumps(
+            {
+                "status": "running",
+                "completed_stages": ["data_gate"],
+                "stage_outputs": {
+                    "data_gate": {
+                        "manifests": [
+                            {
+                                "source": "qlib.data.D.features",
+                                "max_datetime": "2026-06-24",
+                                "provider_uri": "qlib://soxl",
+                            }
+                        ]
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    calls: list[str] = []
+
+    def data_gate():
+        raise AssertionError("resume should not re-run completed data gate")
+
+    def evolution(manifests):
+        calls.append("evolution")
+        return {"candidate_provider": {"provider_id": "provider"}, "initial_candidate_count": 9, "completed_generations": 2}
+
+    def position(manifests, evolution_result):
+        calls.append("position")
+        return {"latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.0}}
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-resume",
+            objective="resume smoke",
+            state_path=state_path,
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+            resume=True,
+        ),
+        data_gate=data_gate,
+        evolution=evolution,
+        position=position,
+        research_card=lambda manifests, evolution_result, position_result: {"card_dir": "research/card"},
+        signal_push=lambda manifests, model_results: [],
+    )
+
+    manifest = runner.run()
+
+    assert calls == ["evolution", "position"]
+    assert manifest["status"] == "complete"
+    assert manifest["data_gate"]["max_datetime"] == "2026-06-24"
+    assert manifest["evolution_loop"]["completed_generations"] == 2
+
+
+def test_cognitive_alpha_goal_runner_fails_closed_for_non_qlib_or_stale_data(tmp_path):
+    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-fail",
+            objective="fail closed smoke",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+        ),
+        data_gate=lambda: [{"source": "csv", "max_datetime": "2026-06-23"}],
+        evolution=lambda manifests: {},
+        position=lambda manifests, evolution_result: {},
+        research_card=lambda manifests, evolution_result, position_result: {},
+        signal_push=lambda manifests, model_results: [],
+    )
+
+    with pytest.raises(ValueError, match="requires qlib-derived data manifests"):
+        runner.run()

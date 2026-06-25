@@ -25,6 +25,8 @@ __all__ = [
     "CognitiveAlphaEvolutionSpec",
     "CognitiveAlphaPositionResult",
     "CognitiveAlphaPositionSpec",
+    "CognitiveAlphaGoalRunner",
+    "CognitiveAlphaGoalRunnerSpec",
     "CognitiveAlphaSignalRefreshJob",
     "CognitiveAlphaSignalRefreshSpec",
     "QlibNativeExperimentResult",
@@ -58,6 +60,8 @@ _COGNITIVE_ALPHA_POSITION_EXPORTS = {
 }
 
 _COGNITIVE_ALPHA_GOAL_EXPORTS = {
+    "CognitiveAlphaGoalRunner",
+    "CognitiveAlphaGoalRunnerSpec",
     "CognitiveAlphaSignalRefreshJob",
     "CognitiveAlphaSignalRefreshSpec",
 }

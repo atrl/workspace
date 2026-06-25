@@ -18,6 +18,7 @@
     "kept_sidecars": [
       "backtest_benchmark_comparison.csv",
       "failure_modes.md",
+      "goal_manifest.json",
       "latest_signal.json",
       "model_selection.csv",
       "position_summary.json"
@@ -390,8 +391,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "e4bbab0c2bf14552b6e4a6ec40c075a7",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/355981547509781504/e4bbab0c2bf14552b6e4a6ec40c075a7",
+  "recorder_id": "823b94dd9aba46c794b83c2e0305d4cd",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/355981547509781504/823b94dd9aba46c794b83c2e0305d4cd",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder",
   "region": "us",
   "segments": {
@@ -411,6 +412,7 @@
   "sidecars": {
     "benchmark_comparison": "backtest_benchmark_comparison.csv",
     "failure_modes": "failure_modes.md",
+    "goal_manifest": "goal_manifest.json",
     "latest_signal": "latest_signal.json",
     "model_selection": "model_selection.csv",
     "position_summary": "position_summary.json"
