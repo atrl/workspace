@@ -1441,3 +1441,64 @@ def test_agentic_alpha_cognitive_alpha_soxl_card_records_codex_alpha158_framewor
     assert "cognitive_alpha_codex_prompt_seed" in notebook_text
     assert "evaluate_ml_position_candidates" in notebook_text
     assert "不构成买卖建议" in conclusion
+
+
+def test_cognitive_alpha_evolution_smoke_card_records_resumable_goal_runner():
+    card = ROOT / "research" / "cognitive_alpha_evolution_smoke_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_evolution_smoke_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_evolution_smoke_v1"
+    assert summary["card_type"] == "diagnostic_cognitive_alpha_goal_runner"
+    assert summary["promotion_decision"] == "not_promoted_smoke_runner_only"
+    assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
+    assert summary["segments"]["test"][1] == summary["as_of"]
+    assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
+    assert summary["evolution"]["profile"] == "soxl_smoke"
+    assert summary["evolution"]["completed_generations"] == 2
+    assert summary["evolution"]["resume_start_generation"] == 0
+    assert summary["evolution"]["selected_count"] > 0
+    assert summary["evolution"]["repair_attempt_count"] >= 1
+    assert summary["evolution"]["evolution_ops"] == ["mutation", "crossover", "crossover_mutation"]
+    assert summary["qlib_native_api"] == [
+        "qlib.init",
+        "qlib.data.D.features",
+        "DatasetH",
+        "DataHandlerLP",
+        "Alpha158.get_feature_config",
+        "qlib.workflow.R.start",
+    ]
+    assert summary["qlib_docs"] == {
+        "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+        "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    }
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
+    assert set(summary["sidecars"]) == {
+        "evolution_summary",
+        "generation_metrics",
+        "selected_features",
+        "failure_modes",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "candidate_pool",
+        "fitness",
+        "lineage",
+        "quality",
+        "rejected",
+        "state",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert recorder_dir.exists()
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "candidate_pool" / "generation_000.jsonl").exists()
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "candidate_pool" / "generation_001.jsonl").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_cognitive_alpha_evolution" in notebook_text
+    assert "build_alpha158_legacy_dataset" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "不构成买卖建议" in conclusion

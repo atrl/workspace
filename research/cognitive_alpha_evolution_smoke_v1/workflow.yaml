@@ -1,0 +1,23 @@
+experiment: cognitive_alpha_evolution_smoke_v1
+card_type: diagnostic_cognitive_alpha_goal_runner
+paper_reference:
+  arxiv_id: '2511.18850'
+  method: checkpointed_cognitive_alpha_evolution_smoke
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/cognitive_alpha_evolution_smoke_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  train: [2019-01-02, 2024-12-31]
+  validation: [2025-01-02, 2025-12-31]
+  test: [2026-01-02, 2026-06-23]
+evolution:
+  profile: soxl_smoke
+  generations: 2
+  parent_pool_size: 4
+  children_per_generation: 6
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
