@@ -255,6 +255,9 @@ def build_cognitive_alpha_command_llm_candidate_provider(
     provider_id: str = "external_command_llm_code_provider",
     model: str = "external-command",
     timeout_seconds: float = 60.0,
+    openai_api_key_required: bool | None = None,
+    codex_direct_compatible: bool = False,
+    codex_execution_mode: str | None = None,
 ) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
     command_tuple = tuple(str(part) for part in command)
     if not command_tuple:
@@ -281,6 +284,9 @@ def build_cognitive_alpha_command_llm_candidate_provider(
         completion=_completion,
         provider_id=provider_id,
         model=model,
+        openai_api_key_required=openai_api_key_required,
+        codex_direct_compatible=codex_direct_compatible,
+        codex_execution_mode=codex_execution_mode,
     )
 
 

@@ -7,4 +7,4 @@
 - promotion_decision: not_promoted_under_constrained_weight_reference。未超过 constrained_weight_reference 时不进入 production。
 - risks: 这是 full profile evolution 驱动的仓位诊断；SOXL 单标的 IC/仓位模型仍可能过拟合；本研究面向交易复盘和风险控制，不构成买卖建议。
 - goal_mode: goal_manifest.json 已记录 data/evolution/position/card/signal 的完整 stage manifest，可作为下一轮 resume/audit 入口。
-- next_action: 后续直接用 Codex provider 扩展候选池，不再把 OPENAI_API_KEY 作为运行前置条件；若要推广，仍需先超过 constrained_weight_reference。qlib recorder id=0bf14c6348ed4e5cb3f93a418afd239d。
+- next_action: 后续直接用 Codex provider 扩展候选池，不再把外部 API key 作为运行前置条件；若要推广，仍需先超过 constrained_weight_reference。qlib recorder id=0bf14c6348ed4e5cb3f93a418afd239d。

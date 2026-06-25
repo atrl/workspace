@@ -1565,22 +1565,28 @@ def test_cognitive_alpha_evolution_full_card_records_full_goal_runner_profile():
     assert "不构成买卖建议" in conclusion
 
 
-def test_cognitive_alpha_external_provider_smoke_card_records_fixture_command_provider_readiness():
+def test_cognitive_alpha_external_provider_smoke_card_records_codex_provider_readiness():
     card = ROOT / "research" / "cognitive_alpha_external_provider_smoke_v1"
     summary = _summary(card)
     notebook_text = (card / "cognitive_alpha_external_provider_smoke_v1.ipynb").read_text(encoding="utf-8")
     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    failure_modes = (card / "failure_modes.md").read_text(encoding="utf-8")
 
     assert summary["experiment"] == "cognitive_alpha_external_provider_smoke_v1"
-    assert summary["card_type"] == "diagnostic_cognitive_alpha_external_provider_smoke"
-    assert summary["promotion_decision"] == "not_promoted_fixture_provider_readiness_only"
+    assert summary["card_type"] == "diagnostic_cognitive_alpha_codex_provider_smoke"
+    assert summary["promotion_decision"] == "not_promoted_codex_provider_readiness_only"
     assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
-    assert summary["external_provider_readiness"]["real_openai_run"] is False
-    assert summary["external_provider_readiness"]["blocking_reason"] == "OPENAI_API_KEY_NOT_CONFIGURED"
-    assert summary["external_provider_readiness"]["provider_command"] == [
-        "python",
-        "-m",
-        "src.workflow.cognitive_alpha_fixture_provider",
+    assert "external_provider_readiness" not in summary
+    assert summary["codex_provider_readiness"]["status"] in {"ok", "warning"}
+    assert summary["codex_provider_readiness"]["auth_mode"] == "chatgpt"
+    assert summary["codex_provider_readiness"]["openai_api_key_required"] is False
+    assert summary["codex_provider_readiness"]["provider_builder"] == "build_cognitive_alpha_codex_exec_candidate_provider"
+    assert summary["codex_provider_readiness"]["execution_mode"] == "codex_exec_chatgpt_auth_no_openai_api_key"
+    assert summary["codex_provider_readiness"]["provider_command"] == [
+        "codex",
+        "exec",
+        "--output-schema",
+        "cognitive_alpha_candidate_schema.json",
     ]
     assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
     assert summary["evolution"]["profile"] == "soxl_smoke"
@@ -1590,6 +1596,8 @@ def test_cognitive_alpha_external_provider_smoke_card_records_fixture_command_pr
     assert summary["evolution"]["candidate_provider"]["provider_id"] == "fixture_external_command_provider"
     assert summary["evolution"]["candidate_provider"]["provider_kind"] == "external_llm_code"
     assert summary["evolution"]["candidate_provider"]["llm_model"] == "fixture-command"
+    assert summary["evolution"]["candidate_provider"]["openai_api_key_required"] is False
+    assert summary["evolution"]["candidate_provider"]["codex_exec_contract_compatible"] is True
     assert summary["evolution"]["candidate_provider"]["prompt_count"] == 4
     assert summary["evolution"]["candidate_provider"]["response_count"] == 4
     assert summary["evolution"]["candidate_provider"]["external_llm_configured"] is True
@@ -1621,13 +1629,18 @@ def test_cognitive_alpha_external_provider_smoke_card_records_fixture_command_pr
         / "generation_001.jsonl"
     ).exists()
     assert summary["recorder_id"] in notebook_text
+    assert "codex_cli_readiness" in notebook_text
+    assert "build_cognitive_alpha_codex_exec_candidate_provider" in notebook_text
     assert "build_cognitive_alpha_command_llm_candidate_provider" in notebook_text
     assert "src.workflow.cognitive_alpha_fixture_provider" in notebook_text
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
     assert "fixture provider" in notebook_text
-    assert "真实 OpenAI" in conclusion
+    assert "Codex CLI" in conclusion
     assert "不构成买卖建议" in conclusion
+    for text in (json.dumps(summary, ensure_ascii=False), conclusion, failure_modes):
+        assert "OPENAI_API_KEY_NOT_CONFIGURED" not in text
+        assert "OpenAI API key" not in text
 
 
 def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():

@@ -3,9 +3,13 @@ from __future__ import annotations
 import json
 import os
 import sys
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def _evolution_frame(rows: int = 120) -> pd.DataFrame:
@@ -139,3 +143,7 @@ def test_codex_exec_candidate_provider_backs_cognitive_alpha_evolution(tmp_path,
     assert provider_summary["openai_api_key_required"] is False
     assert provider_summary["codex_direct_compatible"] is True
     assert provider_summary["codex_execution_mode"] == "codex_exec_chatgpt_auth_no_openai_api_key"
+
+
+def test_cognitive_alpha_has_no_openai_api_provider_entrypoint():
+    assert not (ROOT / "src" / "workflow" / "cognitive_alpha_openai_provider.py").exists()

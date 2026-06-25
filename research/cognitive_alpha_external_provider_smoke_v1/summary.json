@@ -46,7 +46,31 @@
     "workflow_config": "workflow.yaml"
   },
   "as_of": "2026-06-24",
-  "card_type": "diagnostic_cognitive_alpha_external_provider_smoke",
+  "card_type": "diagnostic_cognitive_alpha_codex_provider_smoke",
+  "codex_provider_readiness": {
+    "auth_mode": "chatgpt",
+    "codex_bin": "/opt/homebrew/bin/codex",
+    "codex_version": "0.142.1",
+    "execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+    "fixture_provider_command": [
+      "python",
+      "-m",
+      "src.workflow.cognitive_alpha_fixture_provider"
+    ],
+    "openai_api_key_required": false,
+    "provider_builder": "build_cognitive_alpha_codex_exec_candidate_provider",
+    "provider_command": [
+      "codex",
+      "exec",
+      "--output-schema",
+      "cognitive_alpha_candidate_schema.json"
+    ],
+    "purpose": "Codex CLI readiness plus fixture schema smoke for prompt/response/repair/evolution/recorder wiring",
+    "real_codex_generation_run": false,
+    "status": "warning",
+    "stored_api_key": "false",
+    "stored_chatgpt_tokens": "true"
+  },
   "data_range": [
     "2019-01-02",
     "2026-06-24"
@@ -54,10 +78,14 @@
   "evolution": {
     "candidate_metric_rows": 9,
     "candidate_provider": {
+      "codex_direct_compatible": true,
+      "codex_exec_contract_compatible": true,
+      "codex_execution_mode": "fixture_schema_smoke_for_codex_exec_provider",
       "external_llm_configured": true,
       "generated_candidate_count": 4,
       "guidance_style_count": 5,
       "llm_model": "fixture-command",
+      "openai_api_key_required": false,
       "profile_agent_count": 3,
       "prompt_count": 4,
       "provider_failure_count": 0,
@@ -82,6 +110,13 @@
       "crossover_mutation"
     ],
     "initial_candidate_count": 4,
+    "metric_names": [
+      "ic",
+      "icir",
+      "rank_ic",
+      "rank_icir",
+      "mutual_information"
+    ],
     "paper_reference": "arxiv:2511.18850",
     "parent_pool_size": 3,
     "profile": "soxl_smoke",
@@ -124,25 +159,14 @@
     "workflow": "cognitive_alpha_evolution"
   },
   "experiment": "cognitive_alpha_external_provider_smoke_v1",
-  "external_provider_readiness": {
-    "blocking_reason": "OPENAI_API_KEY_NOT_CONFIGURED",
-    "openai_api_key_present_at_run": false,
-    "provider_command": [
-      "python",
-      "-m",
-      "src.workflow.cognitive_alpha_fixture_provider"
-    ],
-    "purpose": "fixture external command provider proves prompt/response/repair/evolution/recorder wiring",
-    "real_openai_run": false
-  },
   "instrument": "SOXL",
   "market": "all",
   "paper_reference": {
     "arxiv_id": "2511.18850",
-    "method": "external_command_provider_readiness_smoke",
+    "method": "codex_exec_provider_readiness_smoke",
     "version_checked": "v3"
   },
-  "promotion_decision": "not_promoted_fixture_provider_readiness_only",
+  "promotion_decision": "not_promoted_codex_provider_readiness_only",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
   "qlib_docs": {
     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
@@ -178,6 +202,8 @@
     "params/candidate_provider",
     "params/children_per_generation",
     "params/cmd-sys.argv",
+    "params/codex_auth_mode",
+    "params/codex_openai_api_key_required",
     "params/fixture_provider",
     "params/generations",
     "params/initial_pool_size",
@@ -199,8 +225,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "02d781b184134af78f3f4a108b11da72",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_external_provider_smoke_v1/qlib_recorder/164629801568356971/02d781b184134af78f3f4a108b11da72",
+  "recorder_id": "2791630ea7474fe99882dfb8fcbab947",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_external_provider_smoke_v1/qlib_recorder/164629801568356971/2791630ea7474fe99882dfb8fcbab947",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_external_provider_smoke_v1/qlib_recorder",
   "region": "us",
   "segments": {

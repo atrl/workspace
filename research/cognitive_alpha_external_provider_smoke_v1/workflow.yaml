@@ -1,8 +1,8 @@
 experiment: cognitive_alpha_external_provider_smoke_v1
-card_type: diagnostic_cognitive_alpha_external_provider_smoke
+card_type: diagnostic_cognitive_alpha_codex_provider_smoke
 paper_reference:
   arxiv_id: '2511.18850'
-  method: external_command_provider_readiness_smoke
+  method: codex_exec_provider_readiness_smoke
 qlib:
   provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
   recorder_uri: /Users/rziiiii/dev/workspace/research/cognitive_alpha_external_provider_smoke_v1/qlib_recorder
@@ -12,7 +12,11 @@ segments:
   train: [2019-01-02, 2024-12-31]
   validation: [2025-01-02, 2025-12-31]
   test: [2026-01-02, 2026-06-24]
-external_provider:
+codex_provider:
+  provider_builder: build_cognitive_alpha_codex_exec_candidate_provider
+  execution_mode: codex_exec_chatgpt_auth_no_openai_api_key
+  openai_api_key_required: false
+fixture_provider:
   provider_id: fixture_external_command_provider
   provider_kind: external_llm_code
   model: fixture-command
