@@ -58,6 +58,7 @@ class CognitiveAlphaEvolutionResult:
     summary: dict[str, Any]
     generation_metrics: pd.DataFrame
     selected_feature_names: list[str]
+    selected_candidates: list[CognitiveAlphaCandidate]
     final_report: CognitiveAlphaReport
 
 
@@ -192,6 +193,7 @@ def run_cognitive_alpha_evolution(
         summary=summary,
         generation_metrics=combined_metrics,
         selected_feature_names=selected_names,
+        selected_candidates=[candidate_map[name] for name in selected_names if name in candidate_map],
         final_report=final_report,
     )
 

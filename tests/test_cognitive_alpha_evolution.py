@@ -54,7 +54,7 @@ def test_cognitive_alpha_evolution_profiles_match_smoke_and_full_contracts():
 
 
 def test_cognitive_alpha_evolution_runner_checkpoints_repairs_and_evolves(tmp_path):
-    from src.factor import CognitiveAlphaCandidate, build_cognitive_alpha_seed_candidates
+    from src.factor import CognitiveAlphaCandidate, build_cognitive_alpha_seed_candidates, materialize_cognitive_alpha_features
     from src.workflow import CognitiveAlphaEvolutionSpec, run_cognitive_alpha_evolution
 
     frame = _evolution_frame()
@@ -121,6 +121,15 @@ def test_cognitive_alpha_evolution_runner_checkpoints_repairs_and_evolves(tmp_pa
     assert state["completed_generation"] == 1
     assert state["selected_feature_names"] == result.selected_feature_names
     assert result.selected_feature_names
+    assert [candidate.name for candidate in result.selected_candidates] == result.selected_feature_names
+
+    full_features = materialize_cognitive_alpha_features(
+        frame.tail(20).copy(),
+        result.selected_candidates,
+        selected_names=result.selected_feature_names,
+    )
+    assert full_features.columns.tolist() == result.selected_feature_names
+    assert len(full_features) == 20
 
 
 def test_cognitive_alpha_evolution_resume_preserves_completed_checkpoints(tmp_path):

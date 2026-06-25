@@ -1,0 +1,21 @@
+experiment: cognitive_alpha_position_model_v1
+card_type: diagnostic_cognitive_alpha_position_model
+paper_reference:
+  arxiv_id: '2511.18850'
+  method: checkpointed_evolution_lightgbm_position
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder
+  market: all
+  region: us
+segments:
+  train: [2019-01-02, 2024-12-31]
+  validation: [2025-01-02, 2025-12-31]
+  test: [2026-01-02, 2026-06-23]
+model_selection:
+  model: lgbm_classifier
+  selected_by: validation_selection_objective_score
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
