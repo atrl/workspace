@@ -1,0 +1,63 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agentic_alpha_cognitive_alpha_soxl_v1.ipynb
+	modified:   backtest_benchmark_comparison.csv
+	modified:   cognitive_alpha_candidate_metrics.csv
+	modified:   cognitive_alpha_selected_model.json
+	modified:   conclusion.md
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/.cognitive_alpha_candidate_metrics_full.csv.gz
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/.cognitive_alpha_daily_positions.csv.gz
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/backtest_benchmark_comparison.csv
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/cognitive_alpha_candidate_metrics.csv
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/cognitive_alpha_correlation.csv
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/cognitive_alpha_metrics.csv
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/cognitive_alpha_selected_model.json
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/cognitive_alpha_summary.json
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/agentic_alpha_cognitive_alpha_soxl/failure_modes.md
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/code_cached.txt
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/code_diff.txt
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/artifacts/code_status.txt
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/meta.yaml
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/metrics/constrained_weight_return_pct
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/metrics/factor_enhanced_return_pct
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/metrics/selected_test_avg_abs_position
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/metrics/selected_test_max_drawdown_pct
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/metrics/selected_test_return_pct
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/metrics/selected_test_reversal_ratio
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/metrics/soxlbacktest_return_pct
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/alpha158_candidate_count
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/candidate_count
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/cmd-sys.argv
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/feature_count
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/provider_uri
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/seed_candidate_count
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/selected_alpha_feature_count
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/test_end
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/test_start
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/train_end
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/train_start
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/validation_end
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/params/validation_start
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/tags/mlflow.runName
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/tags/mlflow.source.name
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/tags/mlflow.source.type
+	deleted:    qlib_recorder/695263687813020738/1664427a28fd4a80844cf8e003c07bf4/tags/mlflow.user
+	deleted:    qlib_recorder/695263687813020738/meta.yaml
+	modified:   summary.json
+	modified:   workflow.yaml
+	modified:   ../../src/factor/canary_sprint.py
+	modified:   ../../src/factor/session_effect.py
+	modified:   ../../tests/test_agentic_alpha_workflow.py
+	modified:   ../../tests/test_qlib_native_notebook_cards.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.cognitive_alpha_candidate_metrics_full.csv.gz
+	.cognitive_alpha_daily_positions.csv.gz
+	qlib_recorder/612978384397461840/
+
+no changes added to commit (use "git add" and/or "git commit -a")

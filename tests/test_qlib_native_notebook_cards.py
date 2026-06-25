@@ -1377,7 +1377,7 @@ def test_agentic_alpha_cognitive_alpha_soxl_card_records_codex_alpha158_framewor
     assert summary["segments"] == {
         "train": ["2019-01-02", "2024-12-31"],
         "validation": ["2025-01-02", "2025-12-31"],
-        "test": ["2026-01-02", "2026-06-09"],
+        "test": ["2026-01-02", "2026-06-23"],
     }
 
     factor_mining = summary["cognitive_alpha_mining"]

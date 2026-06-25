@@ -2,8 +2,8 @@
   "candidate": "extra_trees_classifier_base_throttle_constrained_base_p0.35-0.6_t0.9-1_s1_h0.25_hold3",
   "selected_by": "validation_selection_objective_score",
   "test": {
-    "avg_abs_position": 0.45462457934199424,
-    "avg_holding_days": 7.2,
+    "avg_abs_position": 0.44538546216239844,
+    "avg_holding_days": 6.705882352941177,
     "candidate": "extra_trees_classifier_base_throttle_constrained_base_p0.35-0.6_t0.9-1_s1_h0.25_hold3",
     "days_above_100": 0,
     "days_below_0": 0,
@@ -18,15 +18,15 @@
     "params": "{\"base_position_col\": \"constrained_base\", \"high_probability\": 0.6, \"low_probability\": 0.35, \"max_daily_change\": 0.5, \"max_position\": 1.0, \"max_throttle\": 1.0, \"min_hold_days\": 3, \"min_position\": 0.0, \"min_throttle\": 0.9, \"objective_exposure_weight\": 4.0, \"objective_max_drawdown_floor\": -25.0, \"objective_min_avg_abs_position\": 0.1, \"objective_return_to_drawdown_weight\": 1.0, \"objective_return_weight\": 0.25, \"position_mode\": \"base_throttle\", \"rebalance_threshold\": 0.25, \"reversal_penalty\": 4.0, \"scale\": 1.0, \"throttle_curve\": \"smoothstep\", \"trade_penalty\": 0.05, \"trend_floor_col\": \"soxl_ret60\", \"trend_floor_fraction\": 0.9, \"trend_floor_threshold\": 0.0, \"turnover_penalty\": 0.5}",
     "position_mode": "base_throttle",
     "return_col": "forward_return",
-    "return_pct": 271.140352616549,
-    "return_to_drawdown": 12.46794129966957,
+    "return_pct": 373.1604565866137,
+    "return_to_drawdown": 17.159167284330763,
     "scale": 1.0,
     "selection_eligible": true,
     "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.4, \"min_validation_avg_abs_position\": 0.1, \"min_validation_trade_count\": 4, \"validation_max_drawdown_floor\": -25.0}",
-    "selection_objective_score": 77.58814610774904,
+    "selection_objective_score": 107.19761728956871,
     "threshold": 0.55,
-    "total_turnover": 7.366763326851537,
-    "trade_count": 16
+    "total_turnover": 8.26641198013013,
+    "trade_count": 18
   },
   "validation": {
     "avg_abs_position": 0.255268111115083,

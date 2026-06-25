@@ -52,6 +52,7 @@ def build_canary_sprint_frame(
     *,
     start: str,
     end: str,
+    include_incomplete_latest: bool = False,
 ) -> pd.DataFrame:
     """Build short-hold leveraged ETF sprint features from qlib SOXL/SOXX/VIX data."""
 
@@ -77,7 +78,13 @@ def build_canary_sprint_frame(
 
     result = features.loc[
         (features["datetime"] >= pd.Timestamp(start)) & (features["datetime"] <= pd.Timestamp(end))
-    ].dropna(subset=["next_return", "hv20", "autocorr10", "soxl_dip2", "soxx_trend20"])
+    ].copy()
+    if include_incomplete_latest and not result.empty:
+        latest_index = result["datetime"].idxmax()
+        result.loc[latest_index, "next_return"] = result.loc[latest_index, "next_return"] if pd.notna(
+            result.loc[latest_index, "next_return"]
+        ) else 0.0
+    result = result.dropna(subset=["next_return", "hv20", "autocorr10", "soxl_dip2", "soxx_trend20"])
     result = result.reset_index(drop=True)
     result.attrs["source_fields"] = CANARY_SPRINT_SOURCE_FIELDS
     result.attrs["source_coverage_start"] = panel.index.min().date().isoformat()

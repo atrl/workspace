@@ -71,6 +71,7 @@ def build_session_effect_frame(
     start: str,
     end: str,
     min_history: int = 20,
+    include_incomplete_latest: bool = False,
 ) -> pd.DataFrame:
     """Build close-to-open, open-to-close, and tug-of-war session features."""
 
@@ -121,6 +122,11 @@ def build_session_effect_frame(
     ]
     result = features.replace([np.inf, -np.inf], np.nan)
     result = result.loc[(result["datetime"] >= pd.Timestamp(start)) & (result["datetime"] <= pd.Timestamp(end))]
+    if include_incomplete_latest and not result.empty:
+        latest_index = result["datetime"].idxmax()
+        for column in ["next_overnight_return", "next_intraday_return", "next_close_return"]:
+            if pd.isna(result.loc[latest_index, column]):
+                result.loc[latest_index, column] = 0.0
     result = result.dropna(subset=required).reset_index(drop=True)
     result.attrs["source_fields"] = SESSION_EFFECT_SOURCE_FIELDS
     result.attrs["source_coverage_start"] = panel.index.min().date().isoformat()

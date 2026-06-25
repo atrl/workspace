@@ -803,6 +803,19 @@ def test_canary_sprint_features_and_candidate_gates_are_src_owned():
         start="2025-02-15",
         end="2025-05-15",
     )
+    default_latest_features = build_canary_sprint_frame(
+        qlib_frame,
+        start="2025-02-15",
+        end=dates[-1].date().isoformat(),
+    )
+    latest_features = build_canary_sprint_frame(
+        qlib_frame,
+        start="2025-02-15",
+        end=dates[-1].date().isoformat(),
+        include_incomplete_latest=True,
+    )
+    assert latest_features["datetime"].max() > default_latest_features["datetime"].max()
+    assert latest_features.loc[latest_features["datetime"].idxmax(), "next_return"] == 0.0
     metrics = evaluate_canary_sprint_candidates(
         features,
         baseline_return_pct=5.0,
@@ -978,6 +991,24 @@ def test_session_effect_features_and_candidate_gates_are_src_owned():
         end="2025-07-15",
         min_history=10,
     )
+    default_latest_features = build_session_effect_frame(
+        qlib_frame,
+        start="2025-03-01",
+        end=dates[-1].date().isoformat(),
+        min_history=10,
+    )
+    latest_features = build_session_effect_frame(
+        qlib_frame,
+        start="2025-03-01",
+        end=dates[-1].date().isoformat(),
+        min_history=10,
+        include_incomplete_latest=True,
+    )
+    assert latest_features["datetime"].max() > default_latest_features["datetime"].max()
+    latest_row = latest_features.loc[latest_features["datetime"].idxmax()]
+    assert latest_row["next_overnight_return"] == 0.0
+    assert latest_row["next_intraday_return"] == 0.0
+    assert latest_row["next_close_return"] == 0.0
     metrics = evaluate_session_effect_candidates(
         features,
         baseline_return_pct=5.0,
