@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -369,6 +370,204 @@ def test_cognitive_alpha_code_candidate_provider_generates_full_profile_agent_po
         "generated_candidate_count": 80,
     }
     assert result.summary["initial_candidate_count"] == 80
+
+
+def test_cognitive_alpha_external_llm_provider_records_prompt_response_and_repair_provenance(tmp_path):
+    from src.workflow import (
+        CognitiveAlphaEvolutionSpec,
+        build_cognitive_alpha_external_llm_candidate_provider,
+        run_cognitive_alpha_evolution,
+    )
+
+    requests: list[dict] = []
+
+    def fake_completion(request: dict) -> dict:
+        requests.append(request)
+        index = int(request["request_index"])
+        code = "close.shift(-1) / close - 1.0" if index == 0 else "close.pct_change(5).shift(1)"
+        return {
+            "candidates": [
+                {
+                    "name": f"external_llm_candidate_{index:03d}",
+                    "level": request["level"],
+                    "agent": request["agent"],
+                    "theme": f"{request['guidance_style']} external code alpha",
+                    "required_columns": ["close"],
+                    "lookback": 5,
+                    "code": code,
+                    "economic_rationale": "External LLM generated lag-aware SOXL OHLCV code.",
+                }
+            ]
+        }
+
+    provider = build_cognitive_alpha_external_llm_candidate_provider(
+        completion=fake_completion,
+        provider_id="unit_external_llm",
+        model="unit-llm",
+    )
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="external_llm_provider",
+        profile="soxl_smoke",
+        runtime_dir=tmp_path,
+        generations=1,
+        initial_pool_size=4,
+        parent_pool_size=2,
+        children_per_generation=3,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=2,
+    )
+
+    result = run_cognitive_alpha_evolution(
+        _evolution_frame(rows=160),
+        spec=spec,
+        label_col="label_return_5d",
+        candidate_provider=provider,
+    )
+
+    generation_zero = _read_jsonl(tmp_path / "external_llm_provider" / "candidate_pool" / "generation_000.jsonl")
+    by_name = {row["name"]: row for row in generation_zero}
+
+    assert len(requests) == 4
+    assert requests[0]["paper_reference"] == "arxiv:2511.18850"
+    assert requests[0]["model"] == "unit-llm"
+    assert requests[0]["request_index"] == 0
+    assert requests[0]["target_candidate_count"] == 1
+    assert result.summary["candidate_provider"]["provider_id"] == "unit_external_llm"
+    assert result.summary["candidate_provider"]["provider_kind"] == "external_llm_code"
+    assert result.summary["candidate_provider"]["llm_model"] == "unit-llm"
+    assert result.summary["candidate_provider"]["prompt_count"] == 4
+    assert result.summary["candidate_provider"]["response_count"] == 4
+    assert result.summary["candidate_provider"]["provider_failure_count"] == 0
+    assert result.summary["initial_candidate_count"] == 4
+
+    original = by_name["external_llm_candidate_000"]
+    repaired = by_name["external_llm_candidate_000_repaired_lag1"]
+    assert original["metadata"]["candidate_source"] == "external_llm_code"
+    assert original["metadata"]["llm_model"] == "unit-llm"
+    assert original["metadata"]["prompt_hash"]
+    assert original["metadata"]["response_hash"]
+    assert repaired["operation"] == "repair"
+    assert repaired["metadata"]["repair_source_candidate"] == "external_llm_candidate_000"
+    assert repaired["metadata"]["repair_source_provider_kind"] == "external_llm_code"
+    assert repaired["metadata"]["repair_reason"] == "future_lookahead_code_pattern"
+
+
+def test_cognitive_alpha_command_llm_provider_generates_candidates_from_external_process(tmp_path):
+    from src.workflow import (
+        CognitiveAlphaEvolutionSpec,
+        build_cognitive_alpha_command_llm_candidate_provider,
+        run_cognitive_alpha_evolution,
+    )
+
+    provider_script = tmp_path / "provider.py"
+    provider_script.write_text(
+        "\n".join(
+            [
+                "import json, sys",
+                "request = json.load(sys.stdin)",
+                "idx = request['request_index']",
+                "json.dump({'candidates': [{",
+                "    'name': f'command_llm_candidate_{idx:03d}',",
+                "    'level': request['level'],",
+                "    'agent': request['agent'],",
+                "    'theme': request['guidance_style'] + ' command provider alpha',",
+                "    'required_columns': ['close'],",
+                "    'lookback': 5,",
+                "    'code': 'close.pct_change(5).shift(1)',",
+                "    'economic_rationale': 'External command generated lag-aware SOXL code.'",
+                "}]}, sys.stdout)",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    provider = build_cognitive_alpha_command_llm_candidate_provider(
+        command=(sys.executable, provider_script.as_posix()),
+        provider_id="unit_command_llm",
+        model="unit-command",
+    )
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="command_llm_provider",
+        profile="soxl_smoke",
+        runtime_dir=tmp_path,
+        generations=1,
+        initial_pool_size=2,
+        parent_pool_size=1,
+        children_per_generation=2,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=1,
+    )
+
+    result = run_cognitive_alpha_evolution(
+        _evolution_frame(rows=120),
+        spec=spec,
+        label_col="label_return_5d",
+        candidate_provider=provider,
+    )
+
+    generation_zero = _read_jsonl(tmp_path / "command_llm_provider" / "candidate_pool" / "generation_000.jsonl")
+
+    assert [row["name"] for row in generation_zero] == ["command_llm_candidate_000", "command_llm_candidate_001"]
+    assert result.summary["candidate_provider"]["provider_id"] == "unit_command_llm"
+    assert result.summary["candidate_provider"]["provider_kind"] == "external_llm_code"
+    assert result.summary["candidate_provider"]["llm_model"] == "unit-command"
+    assert result.summary["candidate_provider"]["prompt_count"] == 2
+    assert result.summary["candidate_provider"]["response_count"] == 2
+
+
+def test_cognitive_alpha_external_llm_provider_can_use_alpha158_columns_and_numpy_functions(tmp_path):
+    from src.workflow import (
+        CognitiveAlphaEvolutionSpec,
+        build_cognitive_alpha_external_llm_candidate_provider,
+        run_cognitive_alpha_evolution,
+    )
+
+    def fake_completion(request: dict) -> dict:
+        assert "alpha158_good" in request["alpha158_columns"]
+        return {
+            "candidates": [
+                {
+                    "name": f"external_alpha158_{request['request_index']:03d}",
+                    "level": request["level"],
+                    "agent": request["agent"],
+                    "theme": "alpha158 plus volume external code alpha",
+                    "required_columns": ["alpha158_good", "volume"],
+                    "lookback": 10,
+                    "code": "alpha158_good.shift(1) + np.log1p(volume).pct_change().shift(1)",
+                    "economic_rationale": "External LLM combines a qlib Alpha158 signal with lagged volume impulse.",
+                }
+            ]
+        }
+
+    provider = build_cognitive_alpha_external_llm_candidate_provider(
+        completion=fake_completion,
+        provider_id="unit_external_alpha158",
+        model="unit-llm",
+    )
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="external_alpha158_provider",
+        profile="soxl_smoke",
+        runtime_dir=tmp_path,
+        generations=1,
+        initial_pool_size=1,
+        parent_pool_size=1,
+        children_per_generation=1,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=1,
+    )
+
+    result = run_cognitive_alpha_evolution(
+        _evolution_frame(rows=120),
+        spec=spec,
+        label_col="label_return_5d",
+        alpha158_columns=["alpha158_good"],
+        candidate_provider=provider,
+    )
+
+    assert result.summary["candidate_provider"]["provider_id"] == "unit_external_alpha158"
+    assert result.generation_metrics.loc[0, "quality_status"] == "pass"
 
 
 def test_cognitive_alpha_candidate_provider_fails_closed_when_empty(tmp_path):

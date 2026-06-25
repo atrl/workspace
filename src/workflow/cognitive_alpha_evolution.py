@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import ast
 import json
 import re
-from collections.abc import Iterable
-from dataclasses import asdict, dataclass
+import subprocess
+from collections.abc import Callable, Iterable
+from dataclasses import asdict, dataclass, field
 from hashlib import sha1
 from pathlib import Path
 from typing import Any, Protocol
@@ -130,6 +132,141 @@ def build_cognitive_alpha_code_candidate_provider() -> CognitiveAlphaCodeCandida
     return CognitiveAlphaCodeCandidateProvider()
 
 
+@dataclass
+class CognitiveAlphaExternalLLMCodeCandidateProvider:
+    completion: Callable[[dict[str, Any]], str | dict[str, Any]]
+    provider_id: str = "external_llm_code_provider"
+    provider_kind: str = "external_llm_code"
+    model: str = "unspecified"
+    guidance_styles: tuple[str, ...] = COGNITIVE_ALPHA_GUIDANCE_STYLES
+    max_candidates_per_request: int = 1
+    request_log: list[dict[str, Any]] = field(default_factory=list, init=False)
+    response_log: list[dict[str, Any]] = field(default_factory=list, init=False)
+    failure_count: int = field(default=0, init=False)
+
+    def generate_candidates(
+        self,
+        *,
+        profile: CognitiveAlphaEvolutionProfile,
+        frame: pd.DataFrame,
+        alpha158_columns: list[str] | None,
+        target_initial_pool_size: int,
+    ) -> list[CognitiveAlphaCandidate]:
+        agent_specs = _cogalpha_agent_specs()
+        if profile.agent_count > len(agent_specs):
+            raise ValueError(
+                f"profile {profile.profile} requested {profile.agent_count} agents but only {len(agent_specs)} exist"
+            )
+        selected_agents = agent_specs[: profile.agent_count]
+        candidates: list[CognitiveAlphaCandidate] = []
+        request_index = 0
+        while len(candidates) < target_initial_pool_size:
+            level, agent, theme = selected_agents[request_index % len(selected_agents)]
+            guidance_style = self.guidance_styles[request_index % len(self.guidance_styles)]
+            request = _external_llm_request_payload(
+                profile=profile,
+                frame=frame,
+                alpha158_columns=alpha158_columns,
+                request_index=request_index,
+                level=level,
+                agent=agent,
+                theme=theme,
+                guidance_style=guidance_style,
+                model=self.model,
+                target_candidate_count=min(self.max_candidates_per_request, target_initial_pool_size - len(candidates)),
+            )
+            self.request_log.append(request)
+            prompt_hash = _stable_payload_hash(request)
+            try:
+                response = _parse_external_llm_response(self.completion(request))
+            except Exception as exc:
+                self.failure_count += 1
+                raise ValueError(f"external LLM candidate provider failed at request {request_index}: {exc}") from exc
+            response_hash = _stable_payload_hash(response)
+            self.response_log.append(
+                {
+                    "request_index": request_index,
+                    "prompt_hash": prompt_hash,
+                    "response_hash": response_hash,
+                    "candidate_count": len(response["candidates"]),
+                }
+            )
+            for response_index, payload in enumerate(response["candidates"]):
+                candidates.append(
+                    _external_llm_candidate(
+                        payload,
+                        request=request,
+                        prompt_hash=prompt_hash,
+                        response_hash=response_hash,
+                        response_index=response_index,
+                        provider_id=self.provider_id,
+                        provider_kind=self.provider_kind,
+                        model=self.model,
+                    )
+                )
+                if len(candidates) >= target_initial_pool_size:
+                    break
+            request_index += 1
+        return candidates
+
+    def provider_summary(self) -> dict[str, Any]:
+        return {
+            "llm_model": self.model,
+            "prompt_count": int(len(self.request_log)),
+            "response_count": int(len(self.response_log)),
+            "provider_failure_count": int(self.failure_count),
+            "external_llm_configured": True,
+        }
+
+
+def build_cognitive_alpha_external_llm_candidate_provider(
+    *,
+    completion: Callable[[dict[str, Any]], str | dict[str, Any]],
+    provider_id: str = "external_llm_code_provider",
+    model: str = "unspecified",
+) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
+    return CognitiveAlphaExternalLLMCodeCandidateProvider(
+        completion=completion,
+        provider_id=provider_id,
+        model=model,
+    )
+
+
+def build_cognitive_alpha_command_llm_candidate_provider(
+    *,
+    command: tuple[str, ...] | list[str],
+    provider_id: str = "external_command_llm_code_provider",
+    model: str = "external-command",
+    timeout_seconds: float = 60.0,
+) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
+    command_tuple = tuple(str(part) for part in command)
+    if not command_tuple:
+        raise ValueError("external command LLM provider requires a non-empty command")
+
+    def _completion(request: dict[str, Any]) -> str:
+        completed = subprocess.run(
+            command_tuple,
+            input=json.dumps(request, sort_keys=True),
+            text=True,
+            capture_output=True,
+            timeout=timeout_seconds,
+            check=False,
+        )
+        if completed.returncode != 0:
+            stderr = completed.stderr.strip()
+            raise ValueError(
+                f"external command LLM provider exited {completed.returncode}"
+                + (f": {stderr}" if stderr else "")
+            )
+        return completed.stdout
+
+    return CognitiveAlphaExternalLLMCodeCandidateProvider(
+        completion=_completion,
+        provider_id=provider_id,
+        model=model,
+    )
+
+
 def _cogalpha_agent_specs() -> list[tuple[str, str, str]]:
     return [
         (str(level["level"]), str(agent), str(level["theme"]))
@@ -205,6 +342,277 @@ def _code_provider_candidate(
     )
 
 
+def _external_llm_request_payload(
+    *,
+    profile: CognitiveAlphaEvolutionProfile,
+    frame: pd.DataFrame,
+    alpha158_columns: list[str] | None,
+    request_index: int,
+    level: str,
+    agent: str,
+    theme: str,
+    guidance_style: str,
+    model: str,
+    target_candidate_count: int,
+) -> dict[str, Any]:
+    return {
+        "paper_reference": COGNITIVE_ALPHA_PAPER_REFERENCE,
+        "profile": profile.profile,
+        "model": model,
+        "request_index": int(request_index),
+        "target_candidate_count": int(target_candidate_count),
+        "level": level,
+        "agent": agent,
+        "theme": theme,
+        "guidance_style": guidance_style,
+        "available_columns": [str(column) for column in frame.columns],
+        "alpha158_columns": list(alpha158_columns or []),
+        "contract": {
+            "response_format": "json_object",
+            "top_level_key": "candidates",
+            "required_candidate_fields": [
+                "name",
+                "level",
+                "agent",
+                "theme",
+                "required_columns",
+                "lookback",
+                "code",
+                "economic_rationale",
+            ],
+            "code_contract": (
+                "Return one pandas Series expression using variables open, high, low, close, volume, "
+                "and optional alpha158 column names. Use lagged operators only; future shifts are rejected."
+            ),
+        },
+    }
+
+
+def _parse_external_llm_response(raw_response: str | dict[str, Any]) -> dict[str, Any]:
+    response = json.loads(raw_response) if isinstance(raw_response, str) else raw_response
+    if not isinstance(response, dict):
+        raise ValueError("external LLM response must be a JSON object")
+    candidates = response.get("candidates")
+    if not isinstance(candidates, list) or not candidates:
+        raise ValueError("external LLM response requires non-empty candidates list")
+    for item in candidates:
+        if not isinstance(item, dict):
+            raise ValueError("external LLM candidate payload must be an object")
+    return {"candidates": candidates}
+
+
+def _external_llm_candidate(
+    payload: dict[str, Any],
+    *,
+    request: dict[str, Any],
+    prompt_hash: str,
+    response_hash: str,
+    response_index: int,
+    provider_id: str,
+    provider_kind: str,
+    model: str,
+) -> CognitiveAlphaCandidate:
+    validated_fields = _required_external_candidate_fields(payload)
+    name = str(payload["name"])
+    required_columns = tuple(str(column) for column in payload["required_columns"])
+    code = str(payload["code"])
+    return CognitiveAlphaCandidate(
+        name=name,
+        level=str(payload.get("level") or request["level"]),
+        agent=str(payload.get("agent") or request["agent"]),
+        theme=str(payload.get("theme") or request["theme"]),
+        required_columns=required_columns,
+        lookback=int(payload["lookback"]),
+        function=_compile_external_llm_expression(name=name, code=code, required_columns=required_columns),
+        economic_rationale=str(payload["economic_rationale"]),
+        code=code,
+        declared_lookahead=int(payload.get("declared_lookahead", 0) or 0),
+        metadata={
+            "provider_id": provider_id,
+            "provider_kind": provider_kind,
+            "candidate_source": provider_kind,
+            "llm_model": model,
+            "paper_reference": COGNITIVE_ALPHA_PAPER_REFERENCE,
+            "prompt_hash": prompt_hash,
+            "response_hash": response_hash,
+            "request_index": int(request["request_index"]),
+            "response_index": int(response_index),
+            "guidance_style": str(request["guidance_style"]),
+            "agent_layer": str(request["level"]),
+            "validated_payload_fields": validated_fields,
+        },
+    )
+
+
+def _required_external_candidate_fields(payload: dict[str, Any]) -> list[str]:
+    required = [
+        "name",
+        "level",
+        "agent",
+        "theme",
+        "required_columns",
+        "lookback",
+        "code",
+        "economic_rationale",
+    ]
+    missing = [key for key in required if key not in payload]
+    if missing:
+        raise ValueError(f"external LLM candidate missing required fields: {missing}")
+    if not isinstance(payload["required_columns"], list) or not payload["required_columns"]:
+        raise ValueError("external LLM candidate requires non-empty required_columns list")
+    return required
+
+
+_ALLOWED_LLM_NAMES = {
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "np",
+    "abs",
+    "log1p",
+    "sqrt",
+    "tanh",
+    "maximum",
+    "minimum",
+    "where",
+    "zscore",
+}
+_ALLOWED_LLM_METHODS = {
+    "abs",
+    "clip",
+    "corr",
+    "diff",
+    "ewm",
+    "fillna",
+    "max",
+    "mean",
+    "median",
+    "min",
+    "pct_change",
+    "rank",
+    "rolling",
+    "shift",
+    "std",
+}
+_ALLOWED_NUMPY_ATTRS = {
+    "log1p",
+    "sqrt",
+    "tanh",
+    "maximum",
+    "minimum",
+    "where",
+}
+_ALLOWED_LLM_NODES = (
+    ast.Expression,
+    ast.BinOp,
+    ast.UnaryOp,
+    ast.Call,
+    ast.Name,
+    ast.Load,
+    ast.Constant,
+    ast.Attribute,
+    ast.Add,
+    ast.Sub,
+    ast.Mult,
+    ast.Div,
+    ast.Pow,
+    ast.Mod,
+    ast.USub,
+    ast.UAdd,
+    ast.keyword,
+)
+
+
+def _compile_external_llm_expression(
+    *,
+    name: str,
+    code: str,
+    required_columns: tuple[str, ...],
+) -> Callable[[pd.DataFrame], pd.Series]:
+    expression = _normalize_external_llm_expression(code)
+    tree = ast.parse(expression, mode="eval")
+    allowed_names = _ALLOWED_LLM_NAMES | {column for column in required_columns if column.isidentifier()}
+    _validate_external_llm_ast(tree, allowed_names=allowed_names)
+    compiled = compile(tree, filename=f"<external-llm-alpha:{name}>", mode="eval")
+
+    def _func(frame: pd.DataFrame) -> pd.Series:
+        locals_map = {
+            "open": pd.to_numeric(frame["open"], errors="coerce").astype("float64") if "open" in frame else None,
+            "high": pd.to_numeric(frame["high"], errors="coerce").astype("float64") if "high" in frame else None,
+            "low": pd.to_numeric(frame["low"], errors="coerce").astype("float64") if "low" in frame else None,
+            "close": pd.to_numeric(frame["close"], errors="coerce").astype("float64") if "close" in frame else None,
+            "volume": pd.to_numeric(frame["volume"], errors="coerce").astype("float64") if "volume" in frame else None,
+        }
+        for column in required_columns:
+            if column not in locals_map and column in frame.columns and column.isidentifier():
+                locals_map[column] = pd.to_numeric(frame[column], errors="coerce").astype("float64")
+        value = eval(  # noqa: S307 - the AST and globals are restricted above.
+            compiled,
+            {
+                "__builtins__": {},
+                "np": np,
+                "abs": abs,
+                "log1p": np.log1p,
+                "sqrt": np.sqrt,
+                "tanh": np.tanh,
+                "maximum": np.maximum,
+                "minimum": np.minimum,
+                "where": np.where,
+                "zscore": _rolling_zscore,
+            },
+            locals_map,
+        )
+        if not isinstance(value, pd.Series):
+            raise ValueError("external LLM alpha expression did not return a pandas Series")
+        return pd.to_numeric(value.reindex(frame.index), errors="coerce").replace([np.inf, -np.inf], np.nan).rename(name)
+
+    return _func
+
+
+def _normalize_external_llm_expression(code: str) -> str:
+    expression = str(code).strip()
+    if expression.startswith("return "):
+        expression = expression[len("return ") :].strip()
+    if "\n" in expression:
+        lines = [line.strip() for line in expression.splitlines() if line.strip()]
+        returns = [line[len("return ") :].strip() for line in lines if line.startswith("return ")]
+        if len(lines) == 1:
+            expression = lines[0]
+        elif returns:
+            expression = returns[-1]
+        else:
+            raise ValueError("external LLM code must be a single Series expression or return expression")
+    return expression
+
+
+def _validate_external_llm_ast(tree: ast.AST, *, allowed_names: set[str]) -> None:
+    for node in ast.walk(tree):
+        if not isinstance(node, _ALLOWED_LLM_NODES):
+            raise ValueError(f"external LLM expression uses unsupported syntax: {type(node).__name__}")
+        if isinstance(node, ast.Name) and node.id not in allowed_names:
+            raise ValueError(f"external LLM expression uses unsupported name: {node.id}")
+        if isinstance(node, ast.Attribute):
+            is_numpy_attr = isinstance(node.value, ast.Name) and node.value.id == "np" and node.attr in _ALLOWED_NUMPY_ATTRS
+            if node.attr.startswith("_") or (node.attr not in _ALLOWED_LLM_METHODS and not is_numpy_attr):
+                raise ValueError(f"external LLM expression uses unsupported method: {node.attr}")
+
+
+def _stable_payload_hash(payload: Any) -> str:
+    return sha1(json.dumps(_jsonable_payload(payload), sort_keys=True, default=str).encode("utf-8")).hexdigest()
+
+
+def _jsonable_payload(payload: Any) -> Any:
+    if isinstance(payload, dict):
+        return {str(key): _jsonable_payload(value) for key, value in payload.items()}
+    if isinstance(payload, (list, tuple)):
+        return [_jsonable_payload(value) for value in payload]
+    if isinstance(payload, Path):
+        return payload.as_posix()
+    return payload
+
+
 def _candidate_provider_summary(
     candidate_provider: CognitiveAlphaCandidateProvider,
     *,
@@ -213,7 +621,7 @@ def _candidate_provider_summary(
     generated_candidate_count: int,
 ) -> dict[str, Any]:
     guidance_styles = getattr(candidate_provider, "guidance_styles", ())
-    return {
+    summary = {
         "provider_id": str(getattr(candidate_provider, "provider_id", "unknown_candidate_provider")),
         "provider_kind": str(getattr(candidate_provider, "provider_kind", "unknown")),
         "profile_agent_count": int(profile.agent_count),
@@ -221,6 +629,9 @@ def _candidate_provider_summary(
         "requested_initial_pool_size": int(requested_initial_pool_size),
         "generated_candidate_count": int(generated_candidate_count),
     }
+    if hasattr(candidate_provider, "provider_summary"):
+        summary.update(getattr(candidate_provider, "provider_summary")())
+    return summary
 
 
 def build_cognitive_alpha_evolution_profile(profile: str) -> CognitiveAlphaEvolutionProfile:
@@ -511,6 +922,7 @@ def _repair_candidate(candidate: CognitiveAlphaCandidate) -> CognitiveAlphaCandi
         return None
     source_col = candidate.required_columns[0]
     repaired_name = f"{candidate.name}_repaired_lag1"
+    repair_reason = "future_lookahead_declared" if candidate.declared_lookahead > 0 else "future_lookahead_code_pattern"
 
     def _safe_lagged_change(frame: pd.DataFrame, col: str = source_col) -> pd.Series:
         values = pd.to_numeric(frame[col], errors="coerce").astype("float64")
@@ -527,6 +939,14 @@ def _repair_candidate(candidate: CognitiveAlphaCandidate) -> CognitiveAlphaCandi
         economic_rationale=f"Repair of {candidate.name} using only lagged changes in {source_col}.",
         code=f"safe_lagged_pct_change({source_col}).rolling(3).mean()",
         declared_lookahead=0,
+        metadata={
+            **dict(candidate.metadata),
+            "candidate_source": "repair_loop",
+            "repair_source_candidate": candidate.name,
+            "repair_source_provider_id": candidate.metadata.get("provider_id", ""),
+            "repair_source_provider_kind": candidate.metadata.get("provider_kind", ""),
+            "repair_reason": repair_reason,
+        },
     )
 
 
