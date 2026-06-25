@@ -19,6 +19,7 @@ __all__ = [
     "AgenticAlphaSearchCandidate",
     "AgenticAlphaSearchReport",
     "AgenticAlphaWorkflowSpec",
+    "CognitiveAlphaCodeCandidateProvider",
     "CognitiveAlphaEvolutionProfile",
     "CognitiveAlphaEvolutionResult",
     "CognitiveAlphaEvolutionSpec",
@@ -30,6 +31,7 @@ __all__ = [
     "QlibNativeExperimentSpec",
     "build_agentic_alpha_hypotheses",
     "build_agentic_alpha_workflow_manifest",
+    "build_cognitive_alpha_code_candidate_provider",
     "build_cognitive_alpha_evolution_profile",
     "distill_agentic_alpha_search",
     "load_agentic_alpha_backtest_metric",
@@ -40,9 +42,11 @@ __all__ = [
 
 
 _COGNITIVE_ALPHA_EXPORTS = {
+    "CognitiveAlphaCodeCandidateProvider",
     "CognitiveAlphaEvolutionProfile",
     "CognitiveAlphaEvolutionResult",
     "CognitiveAlphaEvolutionSpec",
+    "build_cognitive_alpha_code_candidate_provider",
     "build_cognitive_alpha_evolution_profile",
     "run_cognitive_alpha_evolution",
 }

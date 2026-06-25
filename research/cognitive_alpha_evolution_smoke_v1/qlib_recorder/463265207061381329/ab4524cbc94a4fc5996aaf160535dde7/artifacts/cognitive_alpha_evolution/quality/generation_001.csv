@@ -1,7 +1,0 @@
-factor,generation,level,agent,quality_status,quality_reason,missing_ratio,distinct_values,selection_tier,redundancy_status
-g001_000_mutation_alpha158_MA60,1,alpha158_baseline,Alpha158,pass,pass,0.005681818181818182,1750,drop,not_selected
-g001_001_crossover_alpha158_MAX30__alpha158_MAX20,1,geometric_fusion,AgentComposite,pass,pass,0.005113636363636364,1751,drop,not_selected
-g001_002_crossover_mutation_alpha158_MAX20__alpha158_MA30,1,geometric_fusion,AgentCreative,pass,pass,0.005681818181818182,1750,drop,not_selected
-g001_003_mutation_alpha158_MA30,1,alpha158_baseline,Alpha158,pass,pass,0.005681818181818182,1750,qualified,selected
-g001_004_crossover_alpha158_MA60__alpha158_MAX30,1,geometric_fusion,AgentComposite,pass,pass,0.005113636363636364,1751,drop,not_selected
-g001_005_crossover_mutation_alpha158_MAX30__alpha158_MAX20,1,geometric_fusion,AgentCreative,pass,pass,0.005681818181818182,1750,drop,not_selected

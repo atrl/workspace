@@ -1,5 +1,13 @@
 {
   "candidate_metric_rows": 2289,
+  "candidate_provider": {
+    "generated_candidate_count": 80,
+    "guidance_style_count": 5,
+    "profile_agent_count": 21,
+    "provider_id": "deterministic_code_agent_pool",
+    "provider_kind": "repo_owned_code",
+    "requested_initial_pool_size": 80
+  },
   "checkpoints": {
     "candidate_pool": "candidate_pool/generation_*.jsonl",
     "fitness": "fitness/generation_*.csv",
@@ -15,6 +23,7 @@
     "crossover",
     "crossover_mutation"
   ],
+  "initial_candidate_count": 80,
   "max_candidate_name_length": 88,
   "paper_reference": "arxiv:2511.18850",
   "parent_pool_size": 32,
@@ -24,16 +33,9 @@
   "resumed": false,
   "run_dir": "recorder:artifacts/cognitive_alpha_evolution",
   "run_id": "cognitive_alpha_evolution",
-  "selected_count": 8,
+  "selected_count": 1,
   "selected_feature_names": [
-    "g023_000_mutation_g022_000_mutation__d7f2bad5b8",
-    "g023_003_mutation_g022_009_mutation__ceda9fb310",
-    "g023_006_mutation_g022_018_mutation__9b1bcdea4d",
-    "g023_009_mutation_g022_003_mutation__c16e6ed3fa",
-    "g023_012_mutation_g022_012_mutation__e34adf367f",
-    "g023_015_mutation_g022_021_mutation__8fbc95ef8f",
-    "g023_018_mutation_g022_006_mutation__59c65e69a0",
-    "g023_021_mutation_g022_015_mutation__8d4118c4e3"
+    "g023_000_mutation_g022_000_mutation__e75e3b88ba"
   ],
   "spec": {
     "children_per_generation": 96,

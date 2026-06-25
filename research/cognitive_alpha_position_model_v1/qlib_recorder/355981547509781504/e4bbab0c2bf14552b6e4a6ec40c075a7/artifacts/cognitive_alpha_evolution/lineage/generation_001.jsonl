@@ -1,0 +1,6 @@
+{"candidate": "g001_000_mutation_llm_code_AgentMark_73732c7a26", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_001_crossover_llm_code_AgentVola_50966df8ef__llm_code_AgentMark_73732c7a26", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_002_crossover_mutation_llm_code_AgentMark_73732c7a26__llm_code_AgentVola_50966df8ef", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_003_mutation_llm_code_AgentVola_50966df8ef", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_004_crossover_llm_code_AgentMark_73732c7a26__llm_code_AgentVola_50966df8ef", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_005_crossover_mutation_llm_code_AgentVola_50966df8ef__llm_code_AgentMark_73732c7a26", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}

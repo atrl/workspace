@@ -6,12 +6,13 @@ from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from hashlib import sha1
 from pathlib import Path
-from typing import Any
+from typing import Any, Protocol
 
 import numpy as np
 import pandas as pd
 
 from src.factor import (
+    COGALPHA_AGENT_LEVELS,
     CognitiveAlphaCandidate,
     CognitiveAlphaReport,
     build_cognitive_alpha_seed_candidates,
@@ -22,6 +23,13 @@ from src.factor import (
 
 COGNITIVE_ALPHA_PAPER_REFERENCE = "arxiv:2511.18850"
 COGNITIVE_ALPHA_EVOLUTION_OPS = ("mutation", "crossover", "crossover_mutation")
+COGNITIVE_ALPHA_GUIDANCE_STYLES = (
+    "trend_continuation",
+    "mean_reversion",
+    "volatility_regime",
+    "liquidity_pressure",
+    "fragility_tail",
+)
 
 
 @dataclass(frozen=True)
@@ -54,6 +62,21 @@ class CognitiveAlphaEvolutionSpec:
     resume: bool = False
 
 
+class CognitiveAlphaCandidateProvider(Protocol):
+    provider_id: str
+    provider_kind: str
+
+    def generate_candidates(
+        self,
+        *,
+        profile: CognitiveAlphaEvolutionProfile,
+        frame: pd.DataFrame,
+        alpha158_columns: list[str] | None,
+        target_initial_pool_size: int,
+    ) -> list[CognitiveAlphaCandidate]:
+        ...
+
+
 @dataclass(frozen=True)
 class CognitiveAlphaEvolutionResult:
     run_dir: Path
@@ -62,6 +85,142 @@ class CognitiveAlphaEvolutionResult:
     selected_feature_names: list[str]
     selected_candidates: list[CognitiveAlphaCandidate]
     final_report: CognitiveAlphaReport
+
+
+@dataclass(frozen=True)
+class CognitiveAlphaCodeCandidateProvider:
+    provider_id: str = "deterministic_code_agent_pool"
+    provider_kind: str = "repo_owned_code"
+    guidance_styles: tuple[str, ...] = COGNITIVE_ALPHA_GUIDANCE_STYLES
+
+    def generate_candidates(
+        self,
+        *,
+        profile: CognitiveAlphaEvolutionProfile,
+        frame: pd.DataFrame,
+        alpha158_columns: list[str] | None,
+        target_initial_pool_size: int,
+    ) -> list[CognitiveAlphaCandidate]:
+        _ = frame, alpha158_columns
+        agent_specs = _cogalpha_agent_specs()
+        if profile.agent_count > len(agent_specs):
+            raise ValueError(
+                f"profile {profile.profile} requested {profile.agent_count} agents but only {len(agent_specs)} exist"
+            )
+        selected_agents = agent_specs[: profile.agent_count]
+        candidates = []
+        for index in range(target_initial_pool_size):
+            level, agent, theme = selected_agents[index % len(selected_agents)]
+            guidance_style = self.guidance_styles[index % len(self.guidance_styles)]
+            candidates.append(
+                _code_provider_candidate(
+                    index=index,
+                    level=level,
+                    agent=agent,
+                    theme=theme,
+                    guidance_style=guidance_style,
+                    provider_id=self.provider_id,
+                    provider_kind=self.provider_kind,
+                )
+            )
+        return candidates
+
+
+def build_cognitive_alpha_code_candidate_provider() -> CognitiveAlphaCodeCandidateProvider:
+    return CognitiveAlphaCodeCandidateProvider()
+
+
+def _cogalpha_agent_specs() -> list[tuple[str, str, str]]:
+    return [
+        (str(level["level"]), str(agent), str(level["theme"]))
+        for level in COGALPHA_AGENT_LEVELS
+        for agent in level["agents"]
+    ]
+
+
+def _code_provider_candidate(
+    *,
+    index: int,
+    level: str,
+    agent: str,
+    theme: str,
+    guidance_style: str,
+    provider_id: str,
+    provider_kind: str,
+) -> CognitiveAlphaCandidate:
+    window = 5 + (index % 8) * 5
+    name = f"llm_code_{_candidate_slug(agent, prefix_chars=20, digest_chars=6)}_{guidance_style}_{index:03d}"
+
+    def _func(frame: pd.DataFrame, *, style: str = guidance_style, lookback: int = window) -> pd.Series:
+        close = pd.to_numeric(frame["close"], errors="coerce").astype("float64")
+        open_ = pd.to_numeric(frame["open"], errors="coerce").astype("float64")
+        high = pd.to_numeric(frame["high"], errors="coerce").astype("float64")
+        low = pd.to_numeric(frame["low"], errors="coerce").astype("float64")
+        volume = pd.to_numeric(frame["volume"], errors="coerce").astype("float64")
+        returns = close.pct_change()
+        if style == "trend_continuation":
+            values = returns.rolling(lookback, min_periods=max(3, lookback // 2)).mean().shift(1)
+        elif style == "mean_reversion":
+            anchor = close.rolling(lookback, min_periods=max(3, lookback // 2)).mean()
+            values = (-(close / (anchor + 1e-12) - 1.0)).shift(1)
+        elif style == "volatility_regime":
+            short = returns.rolling(max(3, lookback // 2), min_periods=3).std(ddof=0)
+            long = returns.rolling(max(10, lookback * 2), min_periods=max(5, lookback)).std(ddof=0)
+            values = (short / (long + 1e-12) - 1.0).shift(1)
+        elif style == "liquidity_pressure":
+            close_location = (close - open_) / (high - low + 1e-12)
+            volume_z = _rolling_zscore(np.log1p(volume), max(10, lookback)).shift(1)
+            values = close_location.shift(1) * volume_z
+        elif style == "fragility_tail":
+            rolling_max = close.rolling(max(10, lookback * 2), min_periods=max(5, lookback)).max()
+            drawdown = close / (rolling_max + 1e-12) - 1.0
+            downside = returns.where(returns < 0.0, 0.0).rolling(max(5, lookback), min_periods=3).std(ddof=0)
+            values = (drawdown.abs() * downside).shift(1)
+        else:
+            raise ValueError(f"unsupported cognitive alpha guidance style: {style}")
+        return values.rename(name)
+
+    return CognitiveAlphaCandidate(
+        name=name,
+        level=level,
+        agent=agent,
+        theme=f"{theme}; guidance={guidance_style}",
+        required_columns=("open", "high", "low", "close", "volume"),
+        lookback=max(window * 2, 10),
+        function=_func,
+        economic_rationale=(
+            f"{agent} explores {guidance_style.replace('_', ' ')} within {theme} using lagged OHLCV evidence."
+        ),
+        code=f"provider:{provider_id}:{guidance_style}:window={window}:lagged",
+        declared_lookahead=0,
+        metadata={
+            "provider_id": provider_id,
+            "provider_kind": provider_kind,
+            "candidate_source": "llm_code_candidate_provider_boundary",
+            "agent_layer": level,
+            "guidance_style": guidance_style,
+            "paper_agent_count": 21,
+            "paper_layer_count": 7,
+        },
+    )
+
+
+def _candidate_provider_summary(
+    candidate_provider: CognitiveAlphaCandidateProvider,
+    *,
+    profile: CognitiveAlphaEvolutionProfile,
+    requested_initial_pool_size: int,
+    generated_candidate_count: int,
+) -> dict[str, Any]:
+    guidance_styles = getattr(candidate_provider, "guidance_styles", ())
+    return {
+        "provider_id": str(getattr(candidate_provider, "provider_id", "unknown_candidate_provider")),
+        "provider_kind": str(getattr(candidate_provider, "provider_kind", "unknown")),
+        "profile_agent_count": int(profile.agent_count),
+        "guidance_style_count": int(len(guidance_styles)),
+        "requested_initial_pool_size": int(requested_initial_pool_size),
+        "generated_candidate_count": int(generated_candidate_count),
+    }
 
 
 def build_cognitive_alpha_evolution_profile(profile: str) -> CognitiveAlphaEvolutionProfile:
@@ -96,6 +255,7 @@ def run_cognitive_alpha_evolution(
     label_col: str,
     initial_candidates: list[CognitiveAlphaCandidate] | None = None,
     alpha158_columns: list[str] | None = None,
+    candidate_provider: CognitiveAlphaCandidateProvider | None = None,
 ) -> CognitiveAlphaEvolutionResult:
     if frame.empty:
         raise ValueError("cognitive alpha evolution frame is empty")
@@ -108,7 +268,17 @@ def run_cognitive_alpha_evolution(
 
     run_dir = Path(spec.runtime_dir) / spec.run_id
     _ensure_run_dirs(run_dir)
-    candidate_map = _candidate_map(_initial_candidate_pool(initial_candidates, alpha158_columns))
+    profile_contract = build_cognitive_alpha_evolution_profile(spec.profile)
+    initial_pool, candidate_provider_summary = _initial_candidate_pool(
+        initial_candidates,
+        alpha158_columns,
+        candidate_provider=candidate_provider,
+        frame=frame,
+        profile=profile_contract,
+        target_initial_pool_size=spec.initial_pool_size or profile_contract.initial_pool_size,
+    )
+    initial_candidate_count = len(initial_pool)
+    candidate_map = _candidate_map(initial_pool)
     generation_metrics: list[pd.DataFrame] = []
     start_generation, previous_selected, resumed = _resume_state(run_dir, spec)
     if resumed:
@@ -171,6 +341,8 @@ def run_cognitive_alpha_evolution(
             resumed=resumed,
             resume_start_generation=start_generation,
             reports=generation_metrics + [final_report.metrics],
+            initial_candidate_count=initial_candidate_count,
+            candidate_provider_summary=candidate_provider_summary,
         )
         generation_metrics.append(final_report.metrics.assign(evolution_generation=generation))
 
@@ -188,6 +360,8 @@ def run_cognitive_alpha_evolution(
         generation_metrics=combined_metrics,
         resumed=resumed,
         resume_start_generation=start_generation,
+        initial_candidate_count=initial_candidate_count,
+        candidate_provider_summary=candidate_provider_summary,
     )
     (run_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     return CognitiveAlphaEvolutionResult(
@@ -208,7 +382,38 @@ def _ensure_run_dirs(run_dir: Path) -> None:
 def _initial_candidate_pool(
     initial_candidates: list[CognitiveAlphaCandidate] | None,
     alpha158_columns: list[str] | None,
-) -> list[CognitiveAlphaCandidate]:
+    *,
+    candidate_provider: CognitiveAlphaCandidateProvider | None,
+    frame: pd.DataFrame,
+    profile: CognitiveAlphaEvolutionProfile,
+    target_initial_pool_size: int,
+) -> tuple[list[CognitiveAlphaCandidate], dict[str, Any]]:
+    if candidate_provider is not None:
+        explicit_candidates = list(initial_candidates) if initial_candidates is not None else []
+        remaining_pool_size = max(int(target_initial_pool_size) - len(explicit_candidates), 0)
+        provider_candidates = (
+            candidate_provider.generate_candidates(
+                profile=profile,
+                frame=frame,
+                alpha158_columns=alpha158_columns,
+                target_initial_pool_size=remaining_pool_size,
+            )
+            if remaining_pool_size > 0
+            else []
+        )
+        if remaining_pool_size > 0 and not provider_candidates:
+            raise ValueError("candidate provider returned no candidates")
+        candidates = [*explicit_candidates, *provider_candidates]
+        candidates = _dedupe_candidates(candidates)[:target_initial_pool_size]
+        if not candidates:
+            raise ValueError("candidate provider returned no candidates")
+        return candidates, _candidate_provider_summary(
+            candidate_provider,
+            profile=profile,
+            requested_initial_pool_size=target_initial_pool_size,
+            generated_candidate_count=len(candidates),
+        )
+
     candidates = list(initial_candidates) if initial_candidates is not None else build_cognitive_alpha_seed_candidates()
     if alpha158_columns:
         candidates.extend(
@@ -220,7 +425,17 @@ def _initial_candidate_pool(
         )
     if not candidates:
         raise ValueError("at least one initial cognitive alpha candidate is required")
-    return _dedupe_candidates(candidates)
+    candidates = _dedupe_candidates(candidates)
+    if target_initial_pool_size > 0:
+        candidates = candidates[:target_initial_pool_size]
+    return candidates, {
+        "provider_id": "static_seed_alpha158_pool",
+        "provider_kind": "repo_owned_static",
+        "profile_agent_count": 0,
+        "guidance_style_count": 0,
+        "requested_initial_pool_size": int(target_initial_pool_size),
+        "generated_candidate_count": int(len(candidates)),
+    }
 
 
 def _dedupe_candidates(candidates: Iterable[CognitiveAlphaCandidate]) -> list[CognitiveAlphaCandidate]:
@@ -488,6 +703,7 @@ def _candidate_manifest(candidate: CognitiveAlphaCandidate) -> dict[str, Any]:
         "economic_rationale": candidate.economic_rationale,
         "code": candidate.code,
         "declared_lookahead": int(candidate.declared_lookahead),
+        "metadata": dict(candidate.metadata),
         "operation": operation,
         "parents": _parents_from_code(candidate.code),
     }
@@ -574,6 +790,8 @@ def _write_state(
     resumed: bool,
     resume_start_generation: int,
     reports: list[pd.DataFrame],
+    initial_candidate_count: int,
+    candidate_provider_summary: dict[str, Any],
 ) -> None:
     combined = pd.concat(reports, ignore_index=True) if reports else pd.DataFrame()
     state = _summary(
@@ -583,6 +801,8 @@ def _write_state(
         generation_metrics=combined,
         resumed=resumed,
         resume_start_generation=resume_start_generation,
+        initial_candidate_count=initial_candidate_count,
+        candidate_provider_summary=candidate_provider_summary,
     ) | {
         "completed_generation": int(completed_generation),
         "status": "running" if completed_generation < spec.generations - 1 else "complete",
@@ -598,6 +818,8 @@ def _summary(
     generation_metrics: pd.DataFrame,
     resumed: bool,
     resume_start_generation: int,
+    initial_candidate_count: int,
+    candidate_provider_summary: dict[str, Any],
 ) -> dict[str, Any]:
     repair_attempt_count = 0
     if not generation_metrics.empty:
@@ -611,6 +833,8 @@ def _summary(
         "completed_generations": int(spec.generations),
         "parent_pool_size": int(spec.parent_pool_size),
         "children_per_generation": int(spec.children_per_generation),
+        "initial_candidate_count": int(initial_candidate_count),
+        "candidate_provider": candidate_provider_summary,
         "selected_feature_names": selected_names,
         "selected_count": int(len(selected_names)),
         "candidate_metric_rows": int(len(generation_metrics)),

@@ -1,1 +1,0 @@
-qlib_venv/bin/python -m nbconvert --execute research/cognitive_alpha_evolution_full_v1/cognitive_alpha_evolution_full_v1.ipynb --to notebook --inplace

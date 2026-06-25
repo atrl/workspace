@@ -5,6 +5,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pytest
 
 
 def _evolution_frame(rows: int = 120) -> pd.DataFrame:
@@ -316,3 +317,134 @@ def test_cognitive_alpha_evolution_caches_parent_factor_values_within_generation
     )
 
     assert calls["parent"] <= 2
+
+
+def test_cognitive_alpha_code_candidate_provider_generates_full_profile_agent_pool(tmp_path):
+    from src.workflow import (
+        CognitiveAlphaEvolutionSpec,
+        build_cognitive_alpha_code_candidate_provider,
+        run_cognitive_alpha_evolution,
+    )
+
+    frame = _evolution_frame(rows=180)
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="provider_full_pool",
+        profile="soxl_full",
+        runtime_dir=tmp_path,
+        generations=1,
+        initial_pool_size=80,
+        parent_pool_size=8,
+        children_per_generation=12,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=4,
+    )
+
+    result = run_cognitive_alpha_evolution(
+        frame,
+        spec=spec,
+        label_col="label_return_5d",
+        candidate_provider=build_cognitive_alpha_code_candidate_provider(),
+    )
+
+    generation_zero = _read_jsonl(tmp_path / "provider_full_pool" / "candidate_pool" / "generation_000.jsonl")
+    agents = {row["agent"] for row in generation_zero}
+    guidance_styles = {row["metadata"]["guidance_style"] for row in generation_zero}
+
+    assert len(generation_zero) == 80
+    assert len(agents) == 21
+    assert guidance_styles == {
+        "trend_continuation",
+        "mean_reversion",
+        "volatility_regime",
+        "liquidity_pressure",
+        "fragility_tail",
+    }
+    assert result.summary["candidate_provider"] == {
+        "provider_id": "deterministic_code_agent_pool",
+        "provider_kind": "repo_owned_code",
+        "profile_agent_count": 21,
+        "guidance_style_count": 5,
+        "requested_initial_pool_size": 80,
+        "generated_candidate_count": 80,
+    }
+    assert result.summary["initial_candidate_count"] == 80
+
+
+def test_cognitive_alpha_candidate_provider_fails_closed_when_empty(tmp_path):
+    from src.workflow import CognitiveAlphaEvolutionSpec, run_cognitive_alpha_evolution
+
+    class EmptyProvider:
+        provider_id = "empty_provider"
+        provider_kind = "test"
+
+        def generate_candidates(self, **_kwargs):
+            return []
+
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="empty_provider",
+        profile="soxl_smoke",
+        runtime_dir=tmp_path,
+        generations=1,
+        parent_pool_size=3,
+        children_per_generation=4,
+    )
+
+    with pytest.raises(ValueError, match="candidate provider returned no candidates"):
+        run_cognitive_alpha_evolution(
+            _evolution_frame(),
+            spec=spec,
+            label_col="label_return_5d",
+            candidate_provider=EmptyProvider(),
+        )
+
+
+def test_cognitive_alpha_candidate_provider_preserves_explicit_repair_candidates(tmp_path):
+    from src.factor import CognitiveAlphaCandidate
+    from src.workflow import (
+        CognitiveAlphaEvolutionSpec,
+        build_cognitive_alpha_code_candidate_provider,
+        run_cognitive_alpha_evolution,
+    )
+
+    frame = _evolution_frame(rows=160)
+    leaky = CognitiveAlphaCandidate(
+        name="provider_future_leak",
+        level="geometric_fusion",
+        agent="AgentCreative",
+        theme="provider repair proof",
+        required_columns=("close",),
+        lookback=1,
+        declared_lookahead=1,
+        code="df['close'].shift(-1)",
+        economic_rationale="Invalid explicit candidate included to prove provider runs still keep repair evidence.",
+        function=lambda data: data["close"].shift(-1),
+    )
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="provider_plus_repair",
+        profile="soxl_smoke",
+        runtime_dir=tmp_path,
+        generations=1,
+        initial_pool_size=9,
+        parent_pool_size=4,
+        children_per_generation=6,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=4,
+    )
+
+    result = run_cognitive_alpha_evolution(
+        frame,
+        spec=spec,
+        label_col="label_return_5d",
+        initial_candidates=[leaky],
+        candidate_provider=build_cognitive_alpha_code_candidate_provider(),
+    )
+
+    generation_zero = _read_jsonl(tmp_path / "provider_plus_repair" / "candidate_pool" / "generation_000.jsonl")
+    names = {row["name"] for row in generation_zero}
+
+    assert "provider_future_leak" in names
+    assert "provider_future_leak_repaired_lag1" in names
+    assert result.summary["initial_candidate_count"] == 9
+    assert result.summary["candidate_provider"]["generated_candidate_count"] == 9

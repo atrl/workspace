@@ -1460,6 +1460,10 @@ def test_cognitive_alpha_evolution_smoke_card_records_resumable_goal_runner():
     assert summary["evolution"]["resume_start_generation"] == 0
     assert summary["evolution"]["selected_count"] > 0
     assert summary["evolution"]["repair_attempt_count"] >= 1
+    assert summary["evolution"]["initial_candidate_count"] == 9
+    assert summary["evolution"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
+    assert summary["evolution"]["candidate_provider"]["profile_agent_count"] == 3
+    assert summary["evolution"]["candidate_provider"]["guidance_style_count"] == 5
     assert summary["evolution"]["evolution_ops"] == ["mutation", "crossover", "crossover_mutation"]
     assert summary["qlib_native_api"] == [
         "qlib.init",
@@ -1498,6 +1502,7 @@ def test_cognitive_alpha_evolution_smoke_card_records_resumable_goal_runner():
     assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "candidate_pool" / "generation_001.jsonl").exists()
     assert summary["recorder_id"] in notebook_text
     assert "run_cognitive_alpha_evolution" in notebook_text
+    assert "build_cognitive_alpha_code_candidate_provider" in notebook_text
     assert "build_alpha158_legacy_dataset" in notebook_text
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
@@ -1522,6 +1527,10 @@ def test_cognitive_alpha_evolution_full_card_records_full_goal_runner_profile():
     assert summary["evolution"]["spec"]["children_per_generation"] == 96
     assert summary["evolution"]["selected_count"] > 0
     assert summary["evolution"]["max_candidate_name_length"] <= 96
+    assert summary["evolution"]["initial_candidate_count"] == 80
+    assert summary["evolution"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
+    assert summary["evolution"]["candidate_provider"]["profile_agent_count"] == 21
+    assert summary["evolution"]["candidate_provider"]["guidance_style_count"] == 5
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert set(summary["sidecars"]) == {
         "evolution_summary",
@@ -1548,6 +1557,7 @@ def test_cognitive_alpha_evolution_full_card_records_full_goal_runner_profile():
         / "generation_023.jsonl"
     ).exists()
     assert "build_cognitive_alpha_evolution_profile" in notebook_text
+    assert "build_cognitive_alpha_code_candidate_provider" in notebook_text
     assert "soxl_full" in notebook_text
     assert "run_cognitive_alpha_evolution" in notebook_text
     assert "D.features" in notebook_text
@@ -1566,6 +1576,10 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
     assert summary["segments"]["test"][1] == summary["as_of"]
     assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
+    assert summary["evolution"]["initial_candidate_count"] == 9
+    assert summary["evolution"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
+    assert summary["evolution"]["candidate_provider"]["profile_agent_count"] == 3
+    assert summary["evolution"]["candidate_provider"]["guidance_style_count"] == 5
     assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
     assert summary["position_model"]["model_families"] == ["lgbm_classifier"]
     assert summary["position_model"]["selected_candidate"]["test"]["max_position"] <= 1.0
@@ -1607,6 +1621,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv").exists()
     assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
     assert "run_cognitive_alpha_evolution" in notebook_text
+    assert "build_cognitive_alpha_code_candidate_provider" in notebook_text
     assert "run_cognitive_alpha_position_model" in notebook_text
     assert "LGBMClassifier" in notebook_text
     assert "D.features" in notebook_text

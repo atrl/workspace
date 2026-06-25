@@ -4,7 +4,7 @@ import json
 import math
 import re
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -68,6 +68,7 @@ class CognitiveAlphaCandidate:
     economic_rationale: str
     code: str = ""
     declared_lookahead: int = 0
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

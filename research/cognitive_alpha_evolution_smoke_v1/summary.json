@@ -53,7 +53,15 @@
     "2026-06-24"
   ],
   "evolution": {
-    "candidate_metric_rows": 26,
+    "candidate_metric_rows": 16,
+    "candidate_provider": {
+      "generated_candidate_count": 9,
+      "guidance_style_count": 5,
+      "profile_agent_count": 3,
+      "provider_id": "deterministic_code_agent_pool",
+      "provider_kind": "repo_owned_code",
+      "requested_initial_pool_size": 9
+    },
     "checkpoints": {
       "candidate_pool": "candidate_pool/generation_*.jsonl",
       "fitness": "fitness/generation_*.csv",
@@ -69,6 +77,7 @@
       "crossover",
       "crossover_mutation"
     ],
+    "initial_candidate_count": 9,
     "paper_reference": "arxiv:2511.18850",
     "parent_pool_size": 4,
     "profile": "soxl_smoke",
@@ -77,16 +86,19 @@
     "resumed": false,
     "run_dir": "recorder:artifacts/cognitive_alpha_evolution",
     "run_id": "cognitive_alpha_evolution",
-    "selected_count": 1,
+    "selected_count": 4,
     "selected_feature_names": [
-      "g001_003_mutation_alpha158_MA30"
+      "g001_001_crossover_llm_code_AgentVola_50966df8ef__llm_code_AgentMark_73732c7a26",
+      "g001_004_crossover_llm_code_AgentMark_73732c7a26__llm_code_AgentVola_50966df8ef",
+      "g001_002_crossover_mutation_llm_code_AgentMark_73732c7a26__llm_code_AgentVola_50966df8ef",
+      "g001_005_crossover_mutation_llm_code_AgentVola_50966df8ef__llm_code_AgentMark_73732c7a26"
     ],
     "spec": {
       "children_per_generation": 6,
       "elite_percentile": 0.75,
       "fallback_top_n": 4,
       "generations": 2,
-      "initial_pool_size": 19,
+      "initial_pool_size": 9,
       "max_abs_correlation": 0.98,
       "max_missing_ratio": 0.55,
       "min_distinct_values": 5,
@@ -150,6 +162,7 @@
     "metrics/selected_count",
     "params/alpha158_feature_count",
     "params/alpha158_smoke_columns",
+    "params/candidate_provider",
     "params/children_per_generation",
     "params/cmd-sys.argv",
     "params/generations",
@@ -170,8 +183,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "ab4524cbc94a4fc5996aaf160535dde7",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_evolution_smoke_v1/qlib_recorder/463265207061381329/ab4524cbc94a4fc5996aaf160535dde7",
+  "recorder_id": "6247dd0b7f364d50a619c600d7fec952",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_evolution_smoke_v1/qlib_recorder/463265207061381329/6247dd0b7f364d50a619c600d7fec952",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_evolution_smoke_v1/qlib_recorder",
   "region": "us",
   "segments": {
