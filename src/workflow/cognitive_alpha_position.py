@@ -24,11 +24,14 @@ class CognitiveAlphaPositionSpec:
     cost_per_turnover: float = 0.0003
     min_validation_trade_count: int = 0
     min_validation_avg_abs_position: float = 0.0
+    max_validation_zero_position_day_ratio: float | None = None
     validation_max_drawdown_floor: float | None = None
     validation_max_daily_loss_floor: float | None = None
     max_validation_total_turnover: float | None = None
     max_validation_extreme_loss_day_count: int | None = None
     max_validation_reversal_ratio: float | None = None
+    min_test_avg_abs_position: float = 0.0
+    max_test_zero_position_day_ratio: float | None = None
     test_max_drawdown_floor: float | None = None
     test_max_daily_loss_floor: float | None = None
     max_test_total_turnover: float | None = None
@@ -245,7 +248,16 @@ def _segment_passes_risk_gates(
     max_daily_loss_floor: float | None,
     max_total_turnover: float | None,
     max_extreme_loss_day_count: int | None,
+    min_avg_abs_position: float,
+    max_zero_position_day_ratio: float | None,
 ) -> bool:
+    if float(row.get("avg_abs_position", 0.0)) < float(min_avg_abs_position):
+        return False
+    if (
+        max_zero_position_day_ratio is not None
+        and float(row.get("zero_position_day_ratio", 0.0)) > float(max_zero_position_day_ratio)
+    ):
+        return False
     if max_drawdown_floor is not None and float(row.get("max_drawdown_pct", 0.0)) < float(max_drawdown_floor):
         return False
     if max_daily_loss_floor is not None and float(row.get("max_daily_loss_pct", 0.0)) < float(max_daily_loss_floor):
@@ -267,6 +279,8 @@ def _risk_gate_summary(selected: dict[str, Any], spec: CognitiveAlphaPositionSpe
         max_daily_loss_floor=spec.validation_max_daily_loss_floor,
         max_total_turnover=spec.max_validation_total_turnover,
         max_extreme_loss_day_count=spec.max_validation_extreme_loss_day_count,
+        min_avg_abs_position=spec.min_validation_avg_abs_position,
+        max_zero_position_day_ratio=spec.max_validation_zero_position_day_ratio,
     )
     test_passes = _segment_passes_risk_gates(
         selected.get("test", {}),
@@ -274,12 +288,18 @@ def _risk_gate_summary(selected: dict[str, Any], spec: CognitiveAlphaPositionSpe
         max_daily_loss_floor=spec.test_max_daily_loss_floor,
         max_total_turnover=spec.max_test_total_turnover,
         max_extreme_loss_day_count=spec.max_test_extreme_loss_day_count,
+        min_avg_abs_position=spec.min_test_avg_abs_position,
+        max_zero_position_day_ratio=spec.max_test_zero_position_day_ratio,
     )
     return {
+        "min_validation_avg_abs_position": spec.min_validation_avg_abs_position,
+        "max_validation_zero_position_day_ratio": spec.max_validation_zero_position_day_ratio,
         "validation_max_drawdown_floor": spec.validation_max_drawdown_floor,
         "validation_max_daily_loss_floor": spec.validation_max_daily_loss_floor,
         "max_validation_total_turnover": spec.max_validation_total_turnover,
         "max_validation_extreme_loss_day_count": spec.max_validation_extreme_loss_day_count,
+        "min_test_avg_abs_position": spec.min_test_avg_abs_position,
+        "max_test_zero_position_day_ratio": spec.max_test_zero_position_day_ratio,
         "test_max_drawdown_floor": spec.test_max_drawdown_floor,
         "test_max_daily_loss_floor": spec.test_max_daily_loss_floor,
         "max_test_total_turnover": spec.max_test_total_turnover,
@@ -393,6 +413,8 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
             max_daily_loss_floor=spec.validation_max_daily_loss_floor,
             max_total_turnover=spec.max_validation_total_turnover,
             max_extreme_loss_day_count=spec.max_validation_extreme_loss_day_count,
+            min_avg_abs_position=spec.min_validation_avg_abs_position,
+            max_zero_position_day_ratio=spec.max_validation_zero_position_day_ratio,
         )
         test_passes = _segment_passes_risk_gates(
             test_row,
@@ -400,6 +422,8 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
             max_daily_loss_floor=spec.test_max_daily_loss_floor,
             max_total_turnover=spec.max_test_total_turnover,
             max_extreme_loss_day_count=spec.max_test_extreme_loss_day_count,
+            min_avg_abs_position=spec.min_test_avg_abs_position,
+            max_zero_position_day_ratio=spec.max_test_zero_position_day_ratio,
         )
         rows.append(
             {

@@ -98,10 +98,14 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
     ]
     assert result.summary["feature_count"] == 3
     assert result.summary["risk_gates"] == {
+        "min_validation_avg_abs_position": 0.0,
+        "max_validation_zero_position_day_ratio": None,
         "validation_max_drawdown_floor": -80.0,
         "validation_max_daily_loss_floor": -10.0,
         "max_validation_total_turnover": 100.0,
         "max_validation_extreme_loss_day_count": 100,
+        "min_test_avg_abs_position": 0.0,
+        "max_test_zero_position_day_ratio": None,
         "test_max_drawdown_floor": -80.0,
         "test_max_daily_loss_floor": -10.0,
         "max_test_total_turnover": 100.0,
@@ -215,6 +219,8 @@ def test_cognitive_alpha_position_model_records_walk_forward_metrics(tmp_path):
     assert 0.0 <= result.summary["walk_forward"]["mean_test_positive_month_ratio"] <= 1.0
     assert 0.0 <= result.summary["walk_forward"]["mean_test_zero_position_day_ratio"] <= 1.0
     assert result.summary["walk_forward"]["max_test_extreme_loss_day_count"] >= 0
+    assert result.summary["risk_gates"]["min_test_avg_abs_position"] == 0.0
+    assert result.summary["risk_gates"]["max_test_zero_position_day_ratio"] is None
     assert result.summary["risk_gates"]["max_test_extreme_loss_day_count"] == 100
     assert result.summary["risk_gates"]["extreme_loss_threshold"] == -0.05
     assert "all_folds_pass_risk_gates" in result.summary["walk_forward"]
@@ -224,6 +230,53 @@ def test_cognitive_alpha_position_model_records_walk_forward_metrics(tmp_path):
     assert paths["walk_forward_metrics"].exists()
     persisted = pd.read_csv(paths["walk_forward_metrics"])
     assert set(persisted["fold"]) == {"wf_q3", "wf_q4"}
+
+
+def test_cognitive_alpha_position_model_blocks_inactive_test_position():
+    from src.workflow import CognitiveAlphaPositionSpec, run_cognitive_alpha_position_model
+
+    frame = _position_frame()
+    frame["realized_vol_20"] = frame["forward_return"].rolling(20, min_periods=5).std().fillna(0.02) * np.sqrt(252)
+    spec = CognitiveAlphaPositionSpec(
+        feature_cols=["alpha_good", "alpha_gate", "alpha_noise", "realized_vol_20"],
+        train=("2024-01-02", "2024-05-31"),
+        validation=("2024-06-03", "2024-07-31"),
+        test=("2024-08-01", "2024-09-06"),
+        model_specs=[{"model": "ridge", "task": "regression"}],
+        position_specs=[
+            {
+                "position_mode": "probability",
+                "threshold": 1.01,
+                "scale": 1.0,
+                "max_position": 1.0,
+                "rebalance_threshold": 0.15,
+                "min_hold_days": 2,
+                "target_vol": 0.25,
+                "realized_vol_col": "realized_vol_20",
+            }
+        ],
+        validation_max_drawdown_floor=-80.0,
+        validation_max_daily_loss_floor=-10.0,
+        max_validation_total_turnover=100.0,
+        max_validation_extreme_loss_day_count=100,
+        test_max_drawdown_floor=-80.0,
+        test_max_daily_loss_floor=-10.0,
+        max_test_total_turnover=100.0,
+        max_test_extreme_loss_day_count=100,
+        min_test_avg_abs_position=0.05,
+        max_test_zero_position_day_ratio=0.90,
+        extreme_loss_threshold=-0.05,
+    )
+
+    result = run_cognitive_alpha_position_model(frame, spec=spec, benchmarks=[])
+
+    assert result.summary["selected_candidate"]["test"]["avg_abs_position"] == 0.0
+    assert result.summary["selected_candidate"]["test"]["zero_position_day_ratio"] == 1.0
+    assert result.summary["risk_gates"]["min_test_avg_abs_position"] == 0.05
+    assert result.summary["risk_gates"]["max_test_zero_position_day_ratio"] == 0.90
+    assert result.summary["risk_gates"]["selected_test_passes"] is False
+    assert result.summary["risk_gates"]["selected_passes_all"] is False
+    assert result.summary["promotion_decision"] == "not_promoted_failed_position_risk_gates"
 
 
 def test_cognitive_alpha_position_model_fails_closed_on_missing_features():

@@ -27,6 +27,8 @@ model_selection:
   test_max_drawdown_floor: -20.0
   extreme_loss_threshold: -0.05
   max_test_extreme_loss_day_count: 5
+  min_test_avg_abs_position: 0.05
+  max_test_zero_position_day_ratio: 0.90
 walk_forward:
   sidecar: backtest_walk_forward_metrics.csv
   folds: [wf_2025_h1, wf_2025_h2, wf_2026_ytd]
