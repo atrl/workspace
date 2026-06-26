@@ -69,9 +69,12 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
         validation_max_drawdown_floor=-80.0,
         validation_max_daily_loss_floor=-10.0,
         max_validation_total_turnover=100.0,
+        max_validation_extreme_loss_day_count=100,
         test_max_drawdown_floor=-80.0,
         test_max_daily_loss_floor=-10.0,
         max_test_total_turnover=100.0,
+        max_test_extreme_loss_day_count=100,
+        extreme_loss_threshold=-0.05,
     )
     frame["realized_vol_20"] = frame["forward_return"].rolling(20, min_periods=5).std().fillna(0.02) * np.sqrt(252)
 
@@ -98,9 +101,12 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
         "validation_max_drawdown_floor": -80.0,
         "validation_max_daily_loss_floor": -10.0,
         "max_validation_total_turnover": 100.0,
+        "max_validation_extreme_loss_day_count": 100,
         "test_max_drawdown_floor": -80.0,
         "test_max_daily_loss_floor": -10.0,
         "max_test_total_turnover": 100.0,
+        "max_test_extreme_loss_day_count": 100,
+        "extreme_loss_threshold": -0.05,
         "selected_validation_passes": True,
         "selected_test_passes": True,
         "selected_passes_all": True,
@@ -178,9 +184,12 @@ def test_cognitive_alpha_position_model_records_walk_forward_metrics(tmp_path):
         validation_max_drawdown_floor=-80.0,
         validation_max_daily_loss_floor=-10.0,
         max_validation_total_turnover=100.0,
+        max_validation_extreme_loss_day_count=100,
         test_max_drawdown_floor=-80.0,
         test_max_daily_loss_floor=-10.0,
         max_test_total_turnover=100.0,
+        max_test_extreme_loss_day_count=100,
+        extreme_loss_threshold=-0.05,
     )
 
     result = run_cognitive_alpha_position_model(frame, spec=spec, benchmarks=[])
@@ -196,10 +205,18 @@ def test_cognitive_alpha_position_model_records_walk_forward_metrics(tmp_path):
         "test_total_turnover",
         "test_trade_count",
         "test_avg_abs_position",
+        "test_positive_month_ratio",
+        "test_zero_position_day_ratio",
+        "test_extreme_loss_day_count",
         "risk_gate_pass",
     }.issubset(result.walk_forward_metrics.columns)
     assert result.summary["walk_forward"]["fold_count"] == 2
     assert 0.0 <= result.summary["walk_forward"]["positive_test_fold_ratio"] <= 1.0
+    assert 0.0 <= result.summary["walk_forward"]["mean_test_positive_month_ratio"] <= 1.0
+    assert 0.0 <= result.summary["walk_forward"]["mean_test_zero_position_day_ratio"] <= 1.0
+    assert result.summary["walk_forward"]["max_test_extreme_loss_day_count"] >= 0
+    assert result.summary["risk_gates"]["max_test_extreme_loss_day_count"] == 100
+    assert result.summary["risk_gates"]["extreme_loss_threshold"] == -0.05
     assert "all_folds_pass_risk_gates" in result.summary["walk_forward"]
 
     paths = result.write_sidecars(tmp_path)

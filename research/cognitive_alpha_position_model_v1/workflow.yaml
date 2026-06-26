@@ -25,6 +25,8 @@ model_selection:
   features: [mined_alpha_library, alpha158, canary_tsmom_components, vix, realized_volatility]
   validation_max_drawdown_floor: -20.0
   test_max_drawdown_floor: -20.0
+  extreme_loss_threshold: -0.05
+  max_test_extreme_loss_day_count: 5
 walk_forward:
   sidecar: backtest_walk_forward_metrics.csv
   folds: [wf_2025_h1, wf_2025_h2, wf_2026_ytd]

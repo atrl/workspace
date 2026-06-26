@@ -1711,11 +1711,18 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["position_model"]["risk_gates"]["test_max_drawdown_floor"] is not None
     assert summary["position_model"]["risk_gates"]["test_max_daily_loss_floor"] is not None
     assert summary["position_model"]["risk_gates"]["max_test_total_turnover"] is not None
+    assert summary["position_model"]["risk_gates"]["max_test_extreme_loss_day_count"] is not None
+    assert summary["position_model"]["risk_gates"]["extreme_loss_threshold"] < 0.0
     assert summary["position_model"]["selected_candidate"]["test"]["max_position"] <= 1.0
     assert summary["position_model"]["selected_candidate"]["test"]["days_above_100"] == 0
     assert "max_daily_loss_pct" in summary["position_model"]["selected_candidate"]["test"]
+    assert "extreme_loss_day_count" in summary["position_model"]["selected_candidate"]["test"]
+    assert "zero_position_day_ratio" in summary["position_model"]["selected_candidate"]["test"]
     assert summary["position_model"]["walk_forward"]["fold_count"] >= 2
     assert "positive_test_fold_ratio" in summary["position_model"]["walk_forward"]
+    assert "mean_test_positive_month_ratio" in summary["position_model"]["walk_forward"]
+    assert "mean_test_zero_position_day_ratio" in summary["position_model"]["walk_forward"]
+    assert "max_test_extreme_loss_day_count" in summary["position_model"]["walk_forward"]
     assert "all_folds_pass_risk_gates" in summary["position_model"]["walk_forward"]
     assert "beats_constrained_weight_reference" in summary["position_model"]["comparison"]
     assert "beats_soxl_backtest" in summary["position_model"]["comparison"]
@@ -1760,6 +1767,8 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     walk_forward_metrics = (card / summary["sidecars"]["backtest_walk_forward_metrics"]).read_text(encoding="utf-8")
     assert "test_return_pct" in walk_forward_metrics
     assert "risk_gate_pass" in walk_forward_metrics
+    assert "test_positive_month_ratio" in walk_forward_metrics
+    assert "test_extreme_loss_day_count" in walk_forward_metrics
     assert summary["production_paper_sim"]["status"] == "blocked_not_promoted"
     assert summary["production_paper_sim"]["required_gate"] == "validated_research_position_model_and_walk_forward"
     goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))

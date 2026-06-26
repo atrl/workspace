@@ -27,10 +27,13 @@ class CognitiveAlphaPositionSpec:
     validation_max_drawdown_floor: float | None = None
     validation_max_daily_loss_floor: float | None = None
     max_validation_total_turnover: float | None = None
+    max_validation_extreme_loss_day_count: int | None = None
     max_validation_reversal_ratio: float | None = None
     test_max_drawdown_floor: float | None = None
     test_max_daily_loss_floor: float | None = None
     max_test_total_turnover: float | None = None
+    max_test_extreme_loss_day_count: int | None = None
+    extreme_loss_threshold: float = -0.05
     constrained_reference_name: str = "constrained_weight_reference"
     walk_forward_folds: list[dict[str, Any]] | None = None
 
@@ -98,11 +101,12 @@ def run_cognitive_alpha_position_model(
         max_validation_reversal_ratio=spec.max_validation_reversal_ratio,
     )
     selected = _selected_payload(metrics)
+    _attach_selected_tail_metrics(selected, positions, extreme_loss_threshold=spec.extreme_loss_threshold)
     comparison = _benchmark_comparison(selected["test"], benchmarks=benchmarks)
     comparison_summary = _comparison_summary(selected["test"], comparison, constrained_name=spec.constrained_reference_name)
     risk_gates = _risk_gate_summary(selected, spec)
     walk_forward_metrics = _run_walk_forward_metrics(frame, spec)
-    walk_forward_summary = _walk_forward_summary(walk_forward_metrics)
+    walk_forward_summary = _walk_forward_summary(walk_forward_metrics, extreme_loss_threshold=spec.extreme_loss_threshold)
     latest_signal = _latest_signal(positions)
     summary = {
         "workflow": "cognitive_alpha_position_model",
@@ -240,12 +244,18 @@ def _segment_passes_risk_gates(
     max_drawdown_floor: float | None,
     max_daily_loss_floor: float | None,
     max_total_turnover: float | None,
+    max_extreme_loss_day_count: int | None,
 ) -> bool:
     if max_drawdown_floor is not None and float(row.get("max_drawdown_pct", 0.0)) < float(max_drawdown_floor):
         return False
     if max_daily_loss_floor is not None and float(row.get("max_daily_loss_pct", 0.0)) < float(max_daily_loss_floor):
         return False
     if max_total_turnover is not None and float(row.get("total_turnover", 0.0)) > float(max_total_turnover):
+        return False
+    if (
+        max_extreme_loss_day_count is not None
+        and int(row.get("extreme_loss_day_count", 0) or 0) > int(max_extreme_loss_day_count)
+    ):
         return False
     return True
 
@@ -256,24 +266,85 @@ def _risk_gate_summary(selected: dict[str, Any], spec: CognitiveAlphaPositionSpe
         max_drawdown_floor=spec.validation_max_drawdown_floor,
         max_daily_loss_floor=spec.validation_max_daily_loss_floor,
         max_total_turnover=spec.max_validation_total_turnover,
+        max_extreme_loss_day_count=spec.max_validation_extreme_loss_day_count,
     )
     test_passes = _segment_passes_risk_gates(
         selected.get("test", {}),
         max_drawdown_floor=spec.test_max_drawdown_floor,
         max_daily_loss_floor=spec.test_max_daily_loss_floor,
         max_total_turnover=spec.max_test_total_turnover,
+        max_extreme_loss_day_count=spec.max_test_extreme_loss_day_count,
     )
     return {
         "validation_max_drawdown_floor": spec.validation_max_drawdown_floor,
         "validation_max_daily_loss_floor": spec.validation_max_daily_loss_floor,
         "max_validation_total_turnover": spec.max_validation_total_turnover,
+        "max_validation_extreme_loss_day_count": spec.max_validation_extreme_loss_day_count,
         "test_max_drawdown_floor": spec.test_max_drawdown_floor,
         "test_max_daily_loss_floor": spec.test_max_daily_loss_floor,
         "max_test_total_turnover": spec.max_test_total_turnover,
+        "max_test_extreme_loss_day_count": spec.max_test_extreme_loss_day_count,
+        "extreme_loss_threshold": spec.extreme_loss_threshold,
         "selected_validation_passes": bool(validation_passes),
         "selected_test_passes": bool(test_passes),
         "selected_passes_all": bool(validation_passes and test_passes),
     }
+
+
+def _position_tail_metrics(positions: pd.DataFrame, *, extreme_loss_threshold: float) -> dict[str, Any]:
+    if positions.empty:
+        return {
+            "zero_position_day_count": 0,
+            "zero_position_day_ratio": 0.0,
+            "month_count": 0,
+            "positive_month_count": 0,
+            "positive_month_ratio": 0.0,
+            "extreme_loss_threshold": float(extreme_loss_threshold),
+            "extreme_loss_day_count": 0,
+            "worst_strategy_return_pct": 0.0,
+        }
+    data = positions.copy()
+    data["datetime"] = pd.to_datetime(data["datetime"]).dt.normalize()
+    strategy_returns = data["strategy_return"].astype("float64")
+    target_position = data["target_position"].astype("float64")
+    monthly = strategy_returns.groupby(data["datetime"].dt.to_period("M")).apply(lambda values: (1.0 + values).prod() - 1.0)
+    month_count = int(len(monthly))
+    positive_month_count = int(monthly.gt(0.0).sum())
+    return {
+        "zero_position_day_count": int(target_position.abs().le(1e-9).sum()),
+        "zero_position_day_ratio": float(target_position.abs().le(1e-9).mean()) if len(target_position) else 0.0,
+        "month_count": month_count,
+        "positive_month_count": positive_month_count,
+        "positive_month_ratio": float(positive_month_count / max(month_count, 1)),
+        "extreme_loss_threshold": float(extreme_loss_threshold),
+        "extreme_loss_day_count": int(strategy_returns.le(float(extreme_loss_threshold)).sum()),
+        "worst_strategy_return_pct": float(strategy_returns.min() * 100.0) if not strategy_returns.empty else 0.0,
+    }
+
+
+def _selected_segment_positions(positions: pd.DataFrame, segment: str) -> pd.DataFrame:
+    if positions.empty:
+        return positions.copy()
+    selected = positions.loc[
+        positions["selected"].astype(bool) & positions["segment"].astype(str).eq(segment)
+    ].copy()
+    return selected.sort_values("datetime").reset_index(drop=True)
+
+
+def _attach_selected_tail_metrics(
+    selected: dict[str, Any],
+    positions: pd.DataFrame,
+    *,
+    extreme_loss_threshold: float,
+) -> None:
+    for segment in ["validation", "test"]:
+        if segment in selected:
+            selected[segment].update(
+                _position_tail_metrics(
+                    _selected_segment_positions(positions, segment),
+                    extreme_loss_threshold=extreme_loss_threshold,
+                )
+            )
 
 
 def _fold_window(fold: dict[str, Any], key: str) -> tuple[str, str]:
@@ -293,7 +364,7 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
         train = _fold_window(fold, "train")
         validation = _fold_window(fold, "validation")
         test = _fold_window(fold, "test")
-        metrics, _positions = evaluate_ml_position_candidates(
+        metrics, positions = evaluate_ml_position_candidates(
             frame,
             feature_cols=spec.feature_cols,
             model_specs=spec.model_specs,
@@ -313,6 +384,7 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
             max_validation_reversal_ratio=spec.max_validation_reversal_ratio,
         )
         selected = _selected_payload(metrics)
+        _attach_selected_tail_metrics(selected, positions, extreme_loss_threshold=spec.extreme_loss_threshold)
         validation_row = selected.get("validation", {})
         test_row = selected.get("test", {})
         validation_passes = _segment_passes_risk_gates(
@@ -320,12 +392,14 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
             max_drawdown_floor=spec.validation_max_drawdown_floor,
             max_daily_loss_floor=spec.validation_max_daily_loss_floor,
             max_total_turnover=spec.max_validation_total_turnover,
+            max_extreme_loss_day_count=spec.max_validation_extreme_loss_day_count,
         )
         test_passes = _segment_passes_risk_gates(
             test_row,
             max_drawdown_floor=spec.test_max_drawdown_floor,
             max_daily_loss_floor=spec.test_max_daily_loss_floor,
             max_total_turnover=spec.max_test_total_turnover,
+            max_extreme_loss_day_count=spec.max_test_extreme_loss_day_count,
         )
         rows.append(
             {
@@ -344,6 +418,9 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
                 "validation_max_daily_loss_pct": float(validation_row.get("max_daily_loss_pct", 0.0)),
                 "validation_total_turnover": float(validation_row.get("total_turnover", 0.0)),
                 "validation_trade_count": int(validation_row.get("trade_count", 0) or 0),
+                "validation_positive_month_ratio": float(validation_row.get("positive_month_ratio", 0.0)),
+                "validation_zero_position_day_ratio": float(validation_row.get("zero_position_day_ratio", 0.0)),
+                "validation_extreme_loss_day_count": int(validation_row.get("extreme_loss_day_count", 0) or 0),
                 "test_return_pct": float(test_row.get("return_pct", 0.0)),
                 "test_max_drawdown_pct": float(test_row.get("max_drawdown_pct", 0.0)),
                 "test_max_daily_loss_pct": float(test_row.get("max_daily_loss_pct", 0.0)),
@@ -352,6 +429,14 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
                 "test_avg_abs_position": float(test_row.get("avg_abs_position", 0.0)),
                 "test_max_position": float(test_row.get("max_position", 0.0)),
                 "test_days_above_100": int(test_row.get("days_above_100", 0) or 0),
+                "test_month_count": int(test_row.get("month_count", 0) or 0),
+                "test_positive_month_count": int(test_row.get("positive_month_count", 0) or 0),
+                "test_positive_month_ratio": float(test_row.get("positive_month_ratio", 0.0)),
+                "test_zero_position_day_count": int(test_row.get("zero_position_day_count", 0) or 0),
+                "test_zero_position_day_ratio": float(test_row.get("zero_position_day_ratio", 0.0)),
+                "test_extreme_loss_threshold": float(test_row.get("extreme_loss_threshold", spec.extreme_loss_threshold)),
+                "test_extreme_loss_day_count": int(test_row.get("extreme_loss_day_count", 0) or 0),
+                "test_worst_strategy_return_pct": float(test_row.get("worst_strategy_return_pct", 0.0)),
                 "validation_risk_gate_pass": bool(validation_passes),
                 "test_risk_gate_pass": bool(test_passes),
                 "risk_gate_pass": bool(validation_passes and test_passes),
@@ -360,12 +445,16 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
     return pd.DataFrame(rows)
 
 
-def _walk_forward_summary(metrics: pd.DataFrame) -> dict[str, Any]:
+def _walk_forward_summary(metrics: pd.DataFrame, *, extreme_loss_threshold: float) -> dict[str, Any]:
     if metrics.empty:
         return {
             "fold_count": 0,
             "positive_test_fold_count": 0,
             "positive_test_fold_ratio": None,
+            "mean_test_positive_month_ratio": None,
+            "mean_test_zero_position_day_ratio": None,
+            "max_test_extreme_loss_day_count": None,
+            "extreme_loss_threshold": float(extreme_loss_threshold),
             "mean_test_return_pct": None,
             "median_test_return_pct": None,
             "worst_test_max_drawdown_pct": None,
@@ -382,6 +471,10 @@ def _walk_forward_summary(metrics: pd.DataFrame) -> dict[str, Any]:
         "fold_count": fold_count,
         "positive_test_fold_count": positive_count,
         "positive_test_fold_ratio": float(positive_count / fold_count),
+        "mean_test_positive_month_ratio": float(metrics["test_positive_month_ratio"].astype(float).mean()),
+        "mean_test_zero_position_day_ratio": float(metrics["test_zero_position_day_ratio"].astype(float).mean()),
+        "max_test_extreme_loss_day_count": int(metrics["test_extreme_loss_day_count"].astype(int).max()),
+        "extreme_loss_threshold": float(extreme_loss_threshold),
         "mean_test_return_pct": float(returns.mean()),
         "median_test_return_pct": float(returns.median()),
         "worst_test_max_drawdown_pct": float(metrics["test_max_drawdown_pct"].astype(float).min()),
