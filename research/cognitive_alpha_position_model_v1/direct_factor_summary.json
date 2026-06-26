@@ -23,7 +23,7 @@
     "mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02",
     "mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03"
   ],
-  "promotion_decision": "candidate_for_validated_research",
+  "promotion_decision": "diagnostic_direct_factor_candidate",
   "selected_candidate": {
     "avg_abs_position": 0.4697033898305087,
     "avg_holding_days": 12.11111111111111,
@@ -101,7 +101,7 @@
     "constrained_reference_name": "constrained_weight_reference",
     "cost_per_turnover": 0.0003,
     "datetime_col": "datetime",
-    "max_drawdown_floor": null,
+    "max_drawdown_floor": -20.0,
     "max_position": 1.0,
     "min_effective_component_count": 2,
     "min_effective_weight": 0.05,

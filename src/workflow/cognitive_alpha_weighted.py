@@ -181,7 +181,7 @@ def _comparison_summary(
 
 def _promotion_decision(summary: dict[str, Any], *, constrained_name: str) -> str:
     if bool(summary.get(f"beats_{constrained_name}", False)):
-        return "candidate_for_validated_research"
+        return "diagnostic_direct_factor_candidate"
     return f"not_promoted_under_{constrained_name}"
 
 

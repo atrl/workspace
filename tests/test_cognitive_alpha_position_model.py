@@ -33,7 +33,12 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
         train=("2024-01-02", "2024-05-31"),
         validation=("2024-06-03", "2024-07-31"),
         test=("2024-08-01", "2024-09-06"),
-        model_specs=[{"model": "lgbm_classifier", "positive_threshold": 0.0}],
+        model_specs=[
+            {"model": "lgbm_classifier", "positive_threshold": 0.0},
+            {"model": "logistic_regression", "positive_threshold": 0.0},
+            {"model": "ridge", "task": "regression"},
+            {"model": "hist_gradient_boosting_classifier", "positive_threshold": 0.0},
+        ],
         position_specs=[
             {
                 "position_mode": "probability",
@@ -42,6 +47,13 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
                 "max_position": 1.0,
                 "rebalance_threshold": 0.15,
                 "min_hold_days": 2,
+                "target_vol": 0.25,
+                "realized_vol_col": "realized_vol_20",
+                "min_vol_scale": 0.0,
+                "max_vol_scale": 1.0,
+                "risk_gate_col": "alpha_gate",
+                "risk_gate_threshold": -0.80,
+                "risk_gate_max_position": 0.50,
             },
             {
                 "position_mode": "binary",
@@ -54,7 +66,14 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
         ],
         min_validation_trade_count=1,
         max_validation_reversal_ratio=0.75,
+        validation_max_drawdown_floor=-80.0,
+        validation_max_daily_loss_floor=-10.0,
+        max_validation_total_turnover=100.0,
+        test_max_drawdown_floor=-80.0,
+        test_max_daily_loss_floor=-10.0,
+        max_test_total_turnover=100.0,
     )
+    frame["realized_vol_20"] = frame["forward_return"].rolling(20, min_periods=5).std().fillna(0.02) * np.sqrt(252)
 
     result = run_cognitive_alpha_position_model(
         frame,
@@ -68,11 +87,29 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
     )
 
     assert result.summary["workflow"] == "cognitive_alpha_position_model"
-    assert result.summary["model_families"] == ["lgbm_classifier"]
+    assert result.summary["model_families"] == [
+        "hist_gradient_boosting_classifier",
+        "lgbm_classifier",
+        "logistic_regression",
+        "ridge",
+    ]
     assert result.summary["feature_count"] == 3
+    assert result.summary["risk_gates"] == {
+        "validation_max_drawdown_floor": -80.0,
+        "validation_max_daily_loss_floor": -10.0,
+        "max_validation_total_turnover": 100.0,
+        "test_max_drawdown_floor": -80.0,
+        "test_max_daily_loss_floor": -10.0,
+        "max_test_total_turnover": 100.0,
+        "selected_validation_passes": True,
+        "selected_test_passes": True,
+        "selected_passes_all": True,
+    }
     assert result.summary["selected_candidate"]["selected_by"] == "validation_selection_objective_score"
     assert result.summary["selected_candidate"]["test"]["max_position"] <= 1.0
     assert result.summary["selected_candidate"]["test"]["days_above_100"] == 0
+    assert result.summary["selected_candidate"]["test"]["max_daily_loss_pct"] >= -10.0
+    assert result.metrics["max_daily_loss_pct"].notna().all()
     assert result.summary["comparison"]["beats_soxl_backtest"] in {True, False}
     assert result.summary["comparison"]["beats_constrained_weight_reference"] is False
     assert result.summary["promotion_decision"] == "not_promoted_under_constrained_weight_reference"
@@ -163,7 +200,7 @@ def test_cognitive_alpha_weighted_factor_search_selects_direct_backtest_above_re
     assert result.summary["selected_candidate"]["min_position"] >= 0.0
     assert result.summary["selected_candidate"]["effective_component_count"] == 2
     assert result.summary["comparison"]["beats_constrained_weight_reference"] is True
-    assert result.summary["promotion_decision"] == "candidate_for_validated_research"
+    assert result.summary["promotion_decision"] == "diagnostic_direct_factor_candidate"
 
     paths = result.write_sidecars(tmp_path)
     assert set(paths) == {"candidate_metrics", "benchmark_comparison", "summary"}

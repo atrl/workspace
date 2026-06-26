@@ -392,7 +392,7 @@ def test_cognitive_alpha_goal_runner_records_direct_factor_backtest_goal_gate(tm
         calls.append("research_card")
         return {
             "card_dir": "research/cognitive_alpha_position_model_v1",
-            "promotion_decision": "candidate_for_validated_research_direct_factor",
+            "promotion_decision": "not_promoted_under_constrained_weight_reference",
         }
 
     def signal_push(manifests, model_results):
@@ -438,9 +438,53 @@ def test_cognitive_alpha_goal_runner_records_direct_factor_backtest_goal_gate(tm
     assert manifest["validation_gates"]["require_direct_factor_beats_constrained_weight_reference"] is True
     assert manifest["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
     assert manifest["direct_factor_backtest"]["selected_candidate"]["max_position"] <= 1.0
-    assert manifest["research_card"]["promotion_decision"] == "candidate_for_validated_research_direct_factor"
+    assert manifest["research_card"]["promotion_decision"] == "not_promoted_under_constrained_weight_reference"
     state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
     assert state["completed_stages"] == manifest["stage_order"]
+
+
+def test_cognitive_alpha_goal_runner_rejects_direct_factor_promotion(tmp_path):
+    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-direct-factor-promotion-rejected",
+            objective="direct factor cannot become final promotion",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+        ),
+        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
+        evolution=lambda manifests: {
+            "candidate_provider": {"provider_id": "deterministic_code_agent_pool"},
+            "initial_candidate_count": 80,
+            "completed_generations": 24,
+        },
+        position=lambda manifests, evolution_result: {
+            "workflow": "cognitive_alpha_position_model",
+            "comparison": {"beats_constrained_weight_reference": False},
+            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.25},
+        },
+        direct_factor_backtest=lambda manifests, evolution_result, position_result: {
+            "workflow": "cognitive_alpha_weighted_factor_search",
+            "selected_candidate": {
+                "candidate": "canary_tsmom_direct",
+                "max_position": 1.0,
+                "min_position": 0.0,
+                "days_above_100": 0,
+            },
+            "comparison": {"beats_constrained_weight_reference": True},
+            "promotion_decision": "diagnostic_direct_factor_candidate",
+        },
+        research_card=lambda manifests, evolution_result, position_result: {
+            "card_dir": "research/cognitive_alpha_position_model_v1",
+            "promotion_decision": "candidate_for_validated_research_direct_factor",
+        },
+        signal_push=lambda manifests, model_results: [],
+    )
+
+    with pytest.raises(ValueError, match="direct factor backtest cannot be the final promotion gate"):
+        runner.run()
 
 
 def test_cognitive_alpha_goal_runner_resume_skips_completed_data_gate(tmp_path):

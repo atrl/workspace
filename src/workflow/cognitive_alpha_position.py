@@ -25,7 +25,12 @@ class CognitiveAlphaPositionSpec:
     min_validation_trade_count: int = 0
     min_validation_avg_abs_position: float = 0.0
     validation_max_drawdown_floor: float | None = None
+    validation_max_daily_loss_floor: float | None = None
+    max_validation_total_turnover: float | None = None
     max_validation_reversal_ratio: float | None = None
+    test_max_drawdown_floor: float | None = None
+    test_max_daily_loss_floor: float | None = None
+    max_test_total_turnover: float | None = None
     constrained_reference_name: str = "constrained_weight_reference"
 
 
@@ -83,11 +88,14 @@ def run_cognitive_alpha_position_model(
         min_validation_trade_count=spec.min_validation_trade_count,
         min_validation_avg_abs_position=spec.min_validation_avg_abs_position,
         validation_max_drawdown_floor=spec.validation_max_drawdown_floor,
+        validation_max_daily_loss_floor=spec.validation_max_daily_loss_floor,
+        max_validation_total_turnover=spec.max_validation_total_turnover,
         max_validation_reversal_ratio=spec.max_validation_reversal_ratio,
     )
     selected = _selected_payload(metrics)
     comparison = _benchmark_comparison(selected["test"], benchmarks=benchmarks)
     comparison_summary = _comparison_summary(selected["test"], comparison, constrained_name=spec.constrained_reference_name)
+    risk_gates = _risk_gate_summary(selected, spec)
     latest_signal = _latest_signal(positions)
     summary = {
         "workflow": "cognitive_alpha_position_model",
@@ -101,8 +109,13 @@ def run_cognitive_alpha_position_model(
         },
         "selected_candidate": selected,
         "comparison": comparison_summary,
+        "risk_gates": risk_gates,
         "latest_signal": latest_signal,
-        "promotion_decision": _promotion_decision(comparison_summary, constrained_name=spec.constrained_reference_name),
+        "promotion_decision": _promotion_decision(
+            comparison_summary,
+            constrained_name=spec.constrained_reference_name,
+            risk_gates=risk_gates,
+        ),
         "artifact_policy": {
             "policy": "slim_card_recorder_first",
             "recorder_only_artifacts": ["positions"],
@@ -211,7 +224,56 @@ def _comparison_summary(
     return summary
 
 
-def _promotion_decision(summary: dict[str, Any], *, constrained_name: str) -> str:
+def _segment_passes_risk_gates(
+    row: dict[str, Any],
+    *,
+    max_drawdown_floor: float | None,
+    max_daily_loss_floor: float | None,
+    max_total_turnover: float | None,
+) -> bool:
+    if max_drawdown_floor is not None and float(row.get("max_drawdown_pct", 0.0)) < float(max_drawdown_floor):
+        return False
+    if max_daily_loss_floor is not None and float(row.get("max_daily_loss_pct", 0.0)) < float(max_daily_loss_floor):
+        return False
+    if max_total_turnover is not None and float(row.get("total_turnover", 0.0)) > float(max_total_turnover):
+        return False
+    return True
+
+
+def _risk_gate_summary(selected: dict[str, Any], spec: CognitiveAlphaPositionSpec) -> dict[str, Any]:
+    validation_passes = _segment_passes_risk_gates(
+        selected.get("validation", {}),
+        max_drawdown_floor=spec.validation_max_drawdown_floor,
+        max_daily_loss_floor=spec.validation_max_daily_loss_floor,
+        max_total_turnover=spec.max_validation_total_turnover,
+    )
+    test_passes = _segment_passes_risk_gates(
+        selected.get("test", {}),
+        max_drawdown_floor=spec.test_max_drawdown_floor,
+        max_daily_loss_floor=spec.test_max_daily_loss_floor,
+        max_total_turnover=spec.max_test_total_turnover,
+    )
+    return {
+        "validation_max_drawdown_floor": spec.validation_max_drawdown_floor,
+        "validation_max_daily_loss_floor": spec.validation_max_daily_loss_floor,
+        "max_validation_total_turnover": spec.max_validation_total_turnover,
+        "test_max_drawdown_floor": spec.test_max_drawdown_floor,
+        "test_max_daily_loss_floor": spec.test_max_daily_loss_floor,
+        "max_test_total_turnover": spec.max_test_total_turnover,
+        "selected_validation_passes": bool(validation_passes),
+        "selected_test_passes": bool(test_passes),
+        "selected_passes_all": bool(validation_passes and test_passes),
+    }
+
+
+def _promotion_decision(
+    summary: dict[str, Any],
+    *,
+    constrained_name: str,
+    risk_gates: dict[str, Any],
+) -> str:
+    if risk_gates.get("selected_passes_all") is False:
+        return "not_promoted_failed_position_risk_gates"
     if bool(summary.get(f"beats_{constrained_name}", False)):
         return "candidate_for_validated_research"
     return f"not_promoted_under_{constrained_name}"

@@ -19,7 +19,7 @@ from sklearn.linear_model import LogisticRegression, Ridge
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-from .position_sizing import apply_position_sizing_policy
+from .position_sizing import apply_position_sizing_policy, volatility_scaled_target
 
 
 CLASSIFIER_MODELS = {
@@ -292,6 +292,40 @@ def _raw_target_from_probability(
             raw = raw.where(~trend_active, np.maximum(raw, base * trend_floor_fraction))
     else:
         raise ValueError("position_mode must be one of: probability, binary, base_gate, base_probability, base_throttle")
+
+    target_vol = position_spec.get("target_vol")
+    if target_vol is not None:
+        realized_vol_col = position_spec.get("realized_vol_col")
+        if realized_vol_col is None:
+            raise ValueError("position spec requires realized_vol_col when target_vol is set")
+        realized_vol_col = str(realized_vol_col)
+        if realized_vol_col not in data.columns:
+            raise ValueError(f"position spec requires missing realized_vol_col: {realized_vol_col}")
+        raw = volatility_scaled_target(
+            pd.Series(raw.to_numpy(dtype="float64"), index=data.index, name="raw_target"),
+            data[realized_vol_col],
+            target_vol=float(target_vol),
+            min_scale=float(position_spec.get("min_vol_scale", 0.0)),
+            max_scale=float(position_spec.get("max_vol_scale", 1.0)),
+        )
+
+    risk_gate_col = position_spec.get("risk_gate_col")
+    if risk_gate_col is not None:
+        risk_gate_col = str(risk_gate_col)
+        if risk_gate_col not in data.columns:
+            raise ValueError(f"position spec requires missing risk_gate_col: {risk_gate_col}")
+        threshold = float(position_spec.get("risk_gate_threshold", 0.0))
+        direction = str(position_spec.get("risk_gate_direction", "above"))
+        values = data[risk_gate_col].astype("float64").replace([np.inf, -np.inf], np.nan)
+        if direction == "above":
+            risk_active = values > threshold
+        elif direction == "below":
+            risk_active = values < threshold
+        else:
+            raise ValueError("risk_gate_direction must be above or below")
+        cap = float(position_spec.get("risk_gate_max_position", position_spec.get("max_position", 1.0)))
+        raw = pd.Series(raw.to_numpy(dtype="float64"), index=data.index, name="raw_target")
+        raw = raw.where(~risk_active.fillna(False), raw.clip(upper=cap))
     return pd.Series(raw.to_numpy(dtype="float64"), index=data.index, name="raw_target")
 
 
@@ -323,6 +357,7 @@ def _strategy_metrics(
     strategy_returns = target_position * forward_return - turnover * float(cost_per_turnover)
     return_pct = float(((1.0 + strategy_returns).prod() - 1.0) * 100.0)
     max_drawdown_pct = _max_drawdown_pct(strategy_returns)
+    max_daily_loss_pct = float(strategy_returns.min() * 100.0) if not strategy_returns.empty else 0.0
     trade_count, next_day_reversal_count, avg_holding_days = _holding_period_stats(target_position)
     return_to_drawdown = return_pct / max(abs(max_drawdown_pct), 1.0)
     reversal_ratio = float(next_day_reversal_count / max(trade_count, 1))
@@ -356,6 +391,7 @@ def _strategy_metrics(
         "segment": segment,
         "return_pct": return_pct,
         "max_drawdown_pct": max_drawdown_pct,
+        "max_daily_loss_pct": max_daily_loss_pct,
         "return_to_drawdown": float(return_to_drawdown),
         "selection_objective_score": selection_objective_score,
         "avg_abs_position": avg_abs_position,
@@ -421,6 +457,8 @@ def evaluate_ml_position_candidates(
     min_validation_trade_count: int = 0,
     min_validation_avg_abs_position: float = 0.0,
     validation_max_drawdown_floor: float | None = None,
+    validation_max_daily_loss_floor: float | None = None,
+    max_validation_total_turnover: float | None = None,
     max_validation_reversal_ratio: float | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Train ML scores on train data, select position candidates on validation, and report test stability."""
@@ -440,6 +478,10 @@ def evaluate_ml_position_candidates(
             required.add(str(spec.get("base_position_col", "base_position")))
         if spec.get("trend_floor_col") is not None:
             required.add(str(spec["trend_floor_col"]))
+        if spec.get("realized_vol_col") is not None:
+            required.add(str(spec["realized_vol_col"]))
+        if spec.get("risk_gate_col") is not None:
+            required.add(str(spec["risk_gate_col"]))
     missing = sorted(required - set(frame.columns))
     if missing:
         raise ValueError(f"ML position frame missing columns: {missing}")
@@ -535,6 +577,14 @@ def evaluate_ml_position_candidates(
         eligible_mask = eligible_mask & (
             validation_metrics["max_drawdown_pct"].astype(float) >= float(validation_max_drawdown_floor)
         )
+    if validation_max_daily_loss_floor is not None:
+        eligible_mask = eligible_mask & (
+            validation_metrics["max_daily_loss_pct"].astype(float) >= float(validation_max_daily_loss_floor)
+        )
+    if max_validation_total_turnover is not None:
+        eligible_mask = eligible_mask & (
+            validation_metrics["total_turnover"].astype(float) <= float(max_validation_total_turnover)
+        )
     if max_validation_reversal_ratio is not None:
         eligible_mask = eligible_mask & (
             validation_metrics["next_day_reversal_ratio"].astype(float) <= float(max_validation_reversal_ratio)
@@ -550,6 +600,8 @@ def evaluate_ml_position_candidates(
             "min_validation_trade_count": int(min_validation_trade_count),
             "min_validation_avg_abs_position": float(min_validation_avg_abs_position),
             "validation_max_drawdown_floor": validation_max_drawdown_floor,
+            "validation_max_daily_loss_floor": validation_max_daily_loss_floor,
+            "max_validation_total_turnover": max_validation_total_turnover,
             "max_validation_reversal_ratio": max_validation_reversal_ratio,
             "fallback_to_all_candidates": bool(eligible_validation.empty),
         },

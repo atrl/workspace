@@ -1652,7 +1652,8 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
 
     assert summary["experiment"] == "cognitive_alpha_position_model_v1"
     assert summary["card_type"] == "diagnostic_cognitive_alpha_position_model"
-    assert summary["promotion_decision"] == "candidate_for_validated_research_direct_factor"
+    assert summary["promotion_decision"] == summary["position_model"]["promotion_decision"]
+    assert summary["promotion_decision"] != "candidate_for_validated_research_direct_factor"
     assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
     assert summary["codex_runtime"]["status"] in {"ok", "warning"}
     assert summary["codex_runtime"]["auth_mode"] == "chatgpt"
@@ -1672,12 +1673,14 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["factor_mining"]["position_model_included"] is False
     assert summary["factor_mining"]["position_signal_included"] is False
     assert summary["factor_mining"]["factor_library"]["archive_policy"]["candidate_scope"] == "all_generations"
-    assert summary["factor_mining"]["factor_library"]["selected_count"] == summary["position_model"]["feature_count"]
-    assert (
-        summary["factor_mining"]["factor_library"]["selected_feature_names"]
-        == summary["position_model"]["feature_cols"]
+    assert summary["position_model"]["feature_count"] > summary["factor_mining"]["factor_library"]["selected_count"]
+    assert set(summary["factor_mining"]["factor_library"]["selected_feature_names"]).issubset(
+        set(summary["position_model"]["feature_cols"])
     )
+    assert any(column.startswith("alpha158_") for column in summary["position_model"]["feature_cols"])
+    assert {"vix", "realized_vol_20"}.issubset(summary["position_model"]["feature_cols"])
     assert summary["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
+    assert summary["direct_factor_backtest"]["promotion_decision"] == "diagnostic_direct_factor_candidate"
     assert summary["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
     assert (
         summary["direct_factor_backtest"]["comparison"][
@@ -1693,9 +1696,19 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
         "selected_vs_constrained_weight_reference_return_gap_pct"
     ] > 4.0
     assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
-    assert summary["position_model"]["model_families"] == ["lgbm_classifier"]
+    assert set(summary["position_model"]["model_families"]) >= {
+        "hist_gradient_boosting_classifier",
+        "lgbm_classifier",
+        "logistic_regression",
+        "ridge",
+    }
+    assert summary["position_model"]["risk_gates"]["validation_max_drawdown_floor"] is not None
+    assert summary["position_model"]["risk_gates"]["test_max_drawdown_floor"] is not None
+    assert summary["position_model"]["risk_gates"]["test_max_daily_loss_floor"] is not None
+    assert summary["position_model"]["risk_gates"]["max_test_total_turnover"] is not None
     assert summary["position_model"]["selected_candidate"]["test"]["max_position"] <= 1.0
     assert summary["position_model"]["selected_candidate"]["test"]["days_above_100"] == 0
+    assert "max_daily_loss_pct" in summary["position_model"]["selected_candidate"]["test"]
     assert "beats_constrained_weight_reference" in summary["position_model"]["comparison"]
     assert "beats_soxl_backtest" in summary["position_model"]["comparison"]
     assert summary["latest_signal"]["as_of"] == summary["as_of"]
@@ -1756,7 +1769,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert goal_manifest["validation_gates"]["required_candidate_provider_ids"] == ["deterministic_code_agent_pool"]
     assert goal_manifest["validation_gates"]["required_candidate_provider_kinds"] == ["repo_owned_code"]
     assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
-    assert goal_manifest["validation_gates"]["require_direct_factor_beats_constrained_weight_reference"] is True
+    assert goal_manifest["validation_gates"]["require_direct_factor_beats_constrained_weight_reference"] is False
     assert goal_manifest["validation_gates"]["required_direct_factor_benchmark_names"] == [
         "constrained_weight_reference",
         "soxl_backtest",
@@ -1784,7 +1797,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert goal_manifest["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
     assert goal_manifest["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
     assert goal_manifest["direct_factor_backtest"]["selected_candidate"]["effective_component_count"] >= 2
-    assert goal_manifest["research_card"]["promotion_decision"] == "candidate_for_validated_research_direct_factor"
+    assert goal_manifest["research_card"]["promotion_decision"] == summary["position_model"]["promotion_decision"]
     assert not (card / "positions.csv").exists()
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv").exists()
@@ -1801,6 +1814,9 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert "position_signal_included: false" in workflow
     assert "direct_factor_backtest:" in workflow
     assert "LGBMClassifier" in notebook_text
+    assert "logistic_regression" in notebook_text
+    assert "hist_gradient_boosting_classifier" in notebook_text
+    assert "ridge" in notebook_text
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
     assert "不构成买卖建议" in conclusion

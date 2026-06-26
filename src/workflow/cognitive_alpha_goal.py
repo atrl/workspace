@@ -125,11 +125,13 @@ class CognitiveAlphaGoalRunner:
 
         if "research_card" not in completed:
             research_card_result = _jsonable(self.research_card(manifests, evolution_result, position_result))
+            _validate_research_card_result(research_card_result, direct_factor_result=direct_factor_result)
             outputs["research_card"] = research_card_result
             completed = _append_stages(completed, ["research_card"])
             self._write_state(status="running", completed_stages=completed, stage_outputs=outputs)
         else:
             research_card_result = dict(outputs.get("research_card", {}))
+            _validate_research_card_result(research_card_result, direct_factor_result=direct_factor_result)
 
         if "signal_push" not in completed:
             notifications = _jsonable(self.signal_push(manifests, [position_result, direct_factor_result]))
@@ -569,6 +571,17 @@ def _validate_direct_factor_result(direct_factor_result: dict[str, Any], *, gate
         raise ValueError("direct factor selected candidate is below min_target_position")
     if int(selected.get("days_above_100", 0) or 0) > 0:
         raise ValueError("direct factor selected candidate has days_above_100")
+
+
+def _validate_research_card_result(
+    research_card_result: dict[str, Any],
+    *,
+    direct_factor_result: dict[str, Any],
+) -> None:
+    promotion_decision = str(research_card_result.get("promotion_decision", ""))
+    direct_workflow_ran = direct_factor_result.get("workflow") == "cognitive_alpha_weighted_factor_search"
+    if direct_workflow_ran and promotion_decision == "candidate_for_validated_research_direct_factor":
+        raise ValueError("direct factor backtest cannot be the final promotion gate")
 
 
 def _missing_required_values(*, available: Any, required: tuple[str, ...]) -> list[str]:
