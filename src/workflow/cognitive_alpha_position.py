@@ -32,12 +32,14 @@ class CognitiveAlphaPositionSpec:
     test_max_daily_loss_floor: float | None = None
     max_test_total_turnover: float | None = None
     constrained_reference_name: str = "constrained_weight_reference"
+    walk_forward_folds: list[dict[str, Any]] | None = None
 
 
 @dataclass(frozen=True)
 class CognitiveAlphaPositionResult:
     metrics: pd.DataFrame
     positions: pd.DataFrame
+    walk_forward_metrics: pd.DataFrame
     benchmark_comparison: pd.DataFrame
     summary: dict[str, Any]
     latest_signal: dict[str, Any]
@@ -58,6 +60,9 @@ class CognitiveAlphaPositionResult:
         }
         self.metrics.to_csv(paths["model_selection"], index=False)
         self.benchmark_comparison.to_csv(paths["benchmark_comparison"], index=False)
+        if not self.walk_forward_metrics.empty:
+            paths["walk_forward_metrics"] = directory / f"{prefix}_walk_forward_metrics.csv"
+            self.walk_forward_metrics.to_csv(paths["walk_forward_metrics"], index=False)
         paths["summary"].write_text(json.dumps(self.summary, indent=2, sort_keys=True), encoding="utf-8")
         paths["latest_signal"].write_text(json.dumps(self.latest_signal, indent=2, sort_keys=True), encoding="utf-8")
         if include_positions:
@@ -96,6 +101,8 @@ def run_cognitive_alpha_position_model(
     comparison = _benchmark_comparison(selected["test"], benchmarks=benchmarks)
     comparison_summary = _comparison_summary(selected["test"], comparison, constrained_name=spec.constrained_reference_name)
     risk_gates = _risk_gate_summary(selected, spec)
+    walk_forward_metrics = _run_walk_forward_metrics(frame, spec)
+    walk_forward_summary = _walk_forward_summary(walk_forward_metrics)
     latest_signal = _latest_signal(positions)
     summary = {
         "workflow": "cognitive_alpha_position_model",
@@ -110,11 +117,13 @@ def run_cognitive_alpha_position_model(
         "selected_candidate": selected,
         "comparison": comparison_summary,
         "risk_gates": risk_gates,
+        "walk_forward": walk_forward_summary,
         "latest_signal": latest_signal,
         "promotion_decision": _promotion_decision(
             comparison_summary,
             constrained_name=spec.constrained_reference_name,
             risk_gates=risk_gates,
+            walk_forward=walk_forward_summary,
         ),
         "artifact_policy": {
             "policy": "slim_card_recorder_first",
@@ -125,6 +134,7 @@ def run_cognitive_alpha_position_model(
     return CognitiveAlphaPositionResult(
         metrics=metrics,
         positions=positions,
+        walk_forward_metrics=walk_forward_metrics,
         benchmark_comparison=comparison,
         summary=summary,
         latest_signal=latest_signal,
@@ -266,14 +276,134 @@ def _risk_gate_summary(selected: dict[str, Any], spec: CognitiveAlphaPositionSpe
     }
 
 
+def _fold_window(fold: dict[str, Any], key: str) -> tuple[str, str]:
+    value = fold.get(key)
+    if not isinstance(value, (list, tuple)) or len(value) != 2:
+        raise ValueError(f"walk-forward fold {fold.get('fold', '<unknown>')} missing {key} window")
+    return str(value[0]), str(value[1])
+
+
+def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionSpec) -> pd.DataFrame:
+    folds = spec.walk_forward_folds or []
+    if not folds:
+        return pd.DataFrame()
+    rows: list[dict[str, Any]] = []
+    for index, fold in enumerate(folds, start=1):
+        fold_name = str(fold.get("fold") or f"walk_forward_{index}")
+        train = _fold_window(fold, "train")
+        validation = _fold_window(fold, "validation")
+        test = _fold_window(fold, "test")
+        metrics, _positions = evaluate_ml_position_candidates(
+            frame,
+            feature_cols=spec.feature_cols,
+            model_specs=spec.model_specs,
+            train_window=train,
+            validation_window=validation,
+            test_window=test,
+            position_specs=spec.position_specs,
+            return_col=spec.return_col,
+            label_col=spec.label_col,
+            datetime_col=spec.datetime_col,
+            cost_per_turnover=spec.cost_per_turnover,
+            min_validation_trade_count=spec.min_validation_trade_count,
+            min_validation_avg_abs_position=spec.min_validation_avg_abs_position,
+            validation_max_drawdown_floor=spec.validation_max_drawdown_floor,
+            validation_max_daily_loss_floor=spec.validation_max_daily_loss_floor,
+            max_validation_total_turnover=spec.max_validation_total_turnover,
+            max_validation_reversal_ratio=spec.max_validation_reversal_ratio,
+        )
+        selected = _selected_payload(metrics)
+        validation_row = selected.get("validation", {})
+        test_row = selected.get("test", {})
+        validation_passes = _segment_passes_risk_gates(
+            validation_row,
+            max_drawdown_floor=spec.validation_max_drawdown_floor,
+            max_daily_loss_floor=spec.validation_max_daily_loss_floor,
+            max_total_turnover=spec.max_validation_total_turnover,
+        )
+        test_passes = _segment_passes_risk_gates(
+            test_row,
+            max_drawdown_floor=spec.test_max_drawdown_floor,
+            max_daily_loss_floor=spec.test_max_daily_loss_floor,
+            max_total_turnover=spec.max_test_total_turnover,
+        )
+        rows.append(
+            {
+                "fold": fold_name,
+                "segment": "test",
+                "train_start": train[0],
+                "train_end": train[1],
+                "validation_start": validation[0],
+                "validation_end": validation[1],
+                "test_start": test[0],
+                "test_end": test[1],
+                "selected_candidate": str(selected.get("candidate", "")),
+                "selected_model": str(selected.get("model", "")),
+                "validation_return_pct": float(validation_row.get("return_pct", 0.0)),
+                "validation_max_drawdown_pct": float(validation_row.get("max_drawdown_pct", 0.0)),
+                "validation_max_daily_loss_pct": float(validation_row.get("max_daily_loss_pct", 0.0)),
+                "validation_total_turnover": float(validation_row.get("total_turnover", 0.0)),
+                "validation_trade_count": int(validation_row.get("trade_count", 0) or 0),
+                "test_return_pct": float(test_row.get("return_pct", 0.0)),
+                "test_max_drawdown_pct": float(test_row.get("max_drawdown_pct", 0.0)),
+                "test_max_daily_loss_pct": float(test_row.get("max_daily_loss_pct", 0.0)),
+                "test_total_turnover": float(test_row.get("total_turnover", 0.0)),
+                "test_trade_count": int(test_row.get("trade_count", 0) or 0),
+                "test_avg_abs_position": float(test_row.get("avg_abs_position", 0.0)),
+                "test_max_position": float(test_row.get("max_position", 0.0)),
+                "test_days_above_100": int(test_row.get("days_above_100", 0) or 0),
+                "validation_risk_gate_pass": bool(validation_passes),
+                "test_risk_gate_pass": bool(test_passes),
+                "risk_gate_pass": bool(validation_passes and test_passes),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _walk_forward_summary(metrics: pd.DataFrame) -> dict[str, Any]:
+    if metrics.empty:
+        return {
+            "fold_count": 0,
+            "positive_test_fold_count": 0,
+            "positive_test_fold_ratio": None,
+            "mean_test_return_pct": None,
+            "median_test_return_pct": None,
+            "worst_test_max_drawdown_pct": None,
+            "worst_test_max_daily_loss_pct": None,
+            "max_test_total_turnover": None,
+            "total_test_trade_count": 0,
+            "mean_test_avg_abs_position": None,
+            "all_folds_pass_risk_gates": None,
+        }
+    returns = metrics["test_return_pct"].astype(float)
+    fold_count = int(len(metrics))
+    positive_count = int(returns.gt(0.0).sum())
+    return {
+        "fold_count": fold_count,
+        "positive_test_fold_count": positive_count,
+        "positive_test_fold_ratio": float(positive_count / fold_count),
+        "mean_test_return_pct": float(returns.mean()),
+        "median_test_return_pct": float(returns.median()),
+        "worst_test_max_drawdown_pct": float(metrics["test_max_drawdown_pct"].astype(float).min()),
+        "worst_test_max_daily_loss_pct": float(metrics["test_max_daily_loss_pct"].astype(float).min()),
+        "max_test_total_turnover": float(metrics["test_total_turnover"].astype(float).max()),
+        "total_test_trade_count": int(metrics["test_trade_count"].astype(int).sum()),
+        "mean_test_avg_abs_position": float(metrics["test_avg_abs_position"].astype(float).mean()),
+        "all_folds_pass_risk_gates": bool(metrics["risk_gate_pass"].astype(bool).all()),
+    }
+
+
 def _promotion_decision(
     summary: dict[str, Any],
     *,
     constrained_name: str,
     risk_gates: dict[str, Any],
+    walk_forward: dict[str, Any],
 ) -> str:
     if risk_gates.get("selected_passes_all") is False:
         return "not_promoted_failed_position_risk_gates"
+    if walk_forward.get("all_folds_pass_risk_gates") is False:
+        return "not_promoted_failed_walk_forward_risk_gates"
     if bool(summary.get(f"beats_{constrained_name}", False)):
         return "candidate_for_validated_research"
     return f"not_promoted_under_{constrained_name}"

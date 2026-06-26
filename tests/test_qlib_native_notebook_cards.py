@@ -1679,6 +1679,11 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     )
     assert any(column.startswith("alpha158_") for column in summary["position_model"]["feature_cols"])
     assert {"vix", "realized_vol_20"}.issubset(summary["position_model"]["feature_cols"])
+    direct_component_payload = summary["direct_factor_backtest"]["selected_candidate"]["component_cols"]
+    if isinstance(direct_component_payload, str):
+        direct_component_payload = json.loads(direct_component_payload)
+    direct_component_cols = set(direct_component_payload)
+    assert direct_component_cols.issubset(set(summary["position_model"]["feature_cols"]))
     assert summary["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
     assert summary["direct_factor_backtest"]["promotion_decision"] == "diagnostic_direct_factor_candidate"
     assert summary["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
@@ -1709,6 +1714,9 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["position_model"]["selected_candidate"]["test"]["max_position"] <= 1.0
     assert summary["position_model"]["selected_candidate"]["test"]["days_above_100"] == 0
     assert "max_daily_loss_pct" in summary["position_model"]["selected_candidate"]["test"]
+    assert summary["position_model"]["walk_forward"]["fold_count"] >= 2
+    assert "positive_test_fold_ratio" in summary["position_model"]["walk_forward"]
+    assert "all_folds_pass_risk_gates" in summary["position_model"]["walk_forward"]
     assert "beats_constrained_weight_reference" in summary["position_model"]["comparison"]
     assert "beats_soxl_backtest" in summary["position_model"]["comparison"]
     assert summary["latest_signal"]["as_of"] == summary["as_of"]
@@ -1733,6 +1741,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
         "latest_signal",
         "model_selection",
         "position_summary",
+        "backtest_walk_forward_metrics",
     }
     assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
         "candidate_pool",
@@ -1746,6 +1755,13 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     }
     for rel_path in summary["sidecars"].values():
         assert (card / rel_path).exists(), rel_path
+    walk_forward = json.loads((card / "position_summary.json").read_text(encoding="utf-8"))["walk_forward"]
+    assert walk_forward["fold_count"] == summary["position_model"]["walk_forward"]["fold_count"]
+    walk_forward_metrics = (card / summary["sidecars"]["backtest_walk_forward_metrics"]).read_text(encoding="utf-8")
+    assert "test_return_pct" in walk_forward_metrics
+    assert "risk_gate_pass" in walk_forward_metrics
+    assert summary["production_paper_sim"]["status"] == "blocked_not_promoted"
+    assert summary["production_paper_sim"]["required_gate"] == "validated_research_position_model_and_walk_forward"
     goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
     assert goal_manifest["status"] == "complete"
     assert goal_manifest["stage_order"] == [
@@ -1763,6 +1779,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert goal_manifest["data_gate"]["max_datetime"] == summary["as_of"]
     assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "deterministic_code_agent_pool"
     assert goal_manifest["candidate_generation"]["candidate_provider"]["profile_agent_count"] == 21
+    assert goal_manifest["validation_gates"]["min_walk_forward_fold_count"] == 3
     assert goal_manifest["candidate_generation"]["initial_candidate_count"] == 80
     assert goal_manifest["validation_gates"]["min_initial_candidate_count"] == 80
     assert goal_manifest["validation_gates"]["min_completed_generations"] == 24

@@ -235,6 +235,37 @@ def test_cognitive_alpha_goal_runner_strict_gates_fail_closed_for_incomplete_evo
         runner.run()
 
 
+def test_cognitive_alpha_goal_runner_strict_gates_require_walk_forward(tmp_path):
+    from src.workflow import CognitiveAlphaGoalGateSpec, CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-strict-walk-forward-fail",
+            objective="strict CogAlpha full chain requires rolling validation",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+            gates=CognitiveAlphaGoalGateSpec(min_walk_forward_fold_count=2),
+        ),
+        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
+        evolution=lambda manifests: {
+            "candidate_provider": {"provider_id": "deterministic_code_agent_pool"},
+            "initial_candidate_count": 80,
+            "completed_generations": 24,
+        },
+        position=lambda manifests, evolution_result: {
+            "workflow": "cognitive_alpha_position_model",
+            "comparison": {"beats_constrained_weight_reference": False},
+            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.25},
+        },
+        research_card=lambda manifests, evolution_result, position_result: {"card_dir": "research/card"},
+        signal_push=lambda manifests, model_results: [],
+    )
+
+    with pytest.raises(ValueError, match="walk-forward fold count"):
+        runner.run()
+
+
 def test_cognitive_alpha_goal_runner_strict_gates_record_full_chain_validation(tmp_path):
     from src.workflow import CognitiveAlphaGoalGateSpec, CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
 

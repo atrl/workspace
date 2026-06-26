@@ -22,8 +22,13 @@ factor_mining:
 model_selection:
   models: [lgbm_classifier, logistic_regression, ridge, hist_gradient_boosting_classifier]
   selected_by: validation_selection_objective_score
+  features: [mined_alpha_library, alpha158, canary_tsmom_components, vix, realized_volatility]
   validation_max_drawdown_floor: -20.0
   test_max_drawdown_floor: -20.0
+walk_forward:
+  sidecar: backtest_walk_forward_metrics.csv
+  folds: [wf_2025_h1, wf_2025_h2, wf_2026_ytd]
+  gate: validated_research_position_model_and_walk_forward
 direct_factor_backtest:
   workflow: cognitive_alpha_weighted_factor_search
   selected_by: diagnostic_return_sorted_long_only_gate
@@ -32,3 +37,6 @@ artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml
   machine_entrypoint: summary.json
+production_paper_sim:
+  status: blocked_not_promoted
+  required_gate: validated_research_position_model_and_walk_forward

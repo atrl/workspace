@@ -134,6 +134,81 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
     assert all_paths["positions"].exists()
 
 
+def test_cognitive_alpha_position_model_records_walk_forward_metrics(tmp_path):
+    from src.workflow import CognitiveAlphaPositionSpec, run_cognitive_alpha_position_model
+
+    frame = _position_frame(rows=260)
+    frame["realized_vol_20"] = frame["forward_return"].rolling(20, min_periods=5).std().fillna(0.02) * np.sqrt(252)
+    spec = CognitiveAlphaPositionSpec(
+        feature_cols=["alpha_good", "alpha_gate", "alpha_noise", "realized_vol_20"],
+        train=("2024-01-02", "2024-05-31"),
+        validation=("2024-06-03", "2024-07-31"),
+        test=("2024-08-01", "2024-09-30"),
+        walk_forward_folds=[
+            {
+                "fold": "wf_q3",
+                "train": ("2024-01-02", "2024-04-30"),
+                "validation": ("2024-05-01", "2024-06-28"),
+                "test": ("2024-07-01", "2024-08-30"),
+            },
+            {
+                "fold": "wf_q4",
+                "train": ("2024-01-02", "2024-06-28"),
+                "validation": ("2024-07-01", "2024-08-30"),
+                "test": ("2024-09-02", "2024-10-31"),
+            },
+        ],
+        model_specs=[
+            {"model": "lgbm_classifier", "positive_threshold": 0.0},
+            {"model": "ridge", "task": "regression"},
+        ],
+        position_specs=[
+            {
+                "position_mode": "probability",
+                "threshold": 0.45,
+                "scale": 1.0,
+                "max_position": 1.0,
+                "rebalance_threshold": 0.15,
+                "min_hold_days": 2,
+                "target_vol": 0.25,
+                "realized_vol_col": "realized_vol_20",
+            }
+        ],
+        min_validation_trade_count=1,
+        validation_max_drawdown_floor=-80.0,
+        validation_max_daily_loss_floor=-10.0,
+        max_validation_total_turnover=100.0,
+        test_max_drawdown_floor=-80.0,
+        test_max_daily_loss_floor=-10.0,
+        max_test_total_turnover=100.0,
+    )
+
+    result = run_cognitive_alpha_position_model(frame, spec=spec, benchmarks=[])
+
+    assert len(result.walk_forward_metrics) == 2
+    assert set(result.walk_forward_metrics["fold"]) == {"wf_q3", "wf_q4"}
+    assert set(result.walk_forward_metrics["segment"]) == {"test"}
+    assert {
+        "selected_candidate",
+        "test_return_pct",
+        "test_max_drawdown_pct",
+        "test_max_daily_loss_pct",
+        "test_total_turnover",
+        "test_trade_count",
+        "test_avg_abs_position",
+        "risk_gate_pass",
+    }.issubset(result.walk_forward_metrics.columns)
+    assert result.summary["walk_forward"]["fold_count"] == 2
+    assert 0.0 <= result.summary["walk_forward"]["positive_test_fold_ratio"] <= 1.0
+    assert "all_folds_pass_risk_gates" in result.summary["walk_forward"]
+
+    paths = result.write_sidecars(tmp_path)
+    assert "walk_forward_metrics" in paths
+    assert paths["walk_forward_metrics"].exists()
+    persisted = pd.read_csv(paths["walk_forward_metrics"])
+    assert set(persisted["fold"]) == {"wf_q3", "wf_q4"}
+
+
 def test_cognitive_alpha_position_model_fails_closed_on_missing_features():
     from src.workflow import CognitiveAlphaPositionSpec, run_cognitive_alpha_position_model
 

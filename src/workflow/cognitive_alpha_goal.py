@@ -40,6 +40,7 @@ class CognitiveAlphaGoalGateSpec:
     required_benchmark_names: tuple[str, ...] = ()
     required_direct_factor_benchmark_names: tuple[str, ...] = ()
     require_direct_factor_beats_constrained_weight_reference: bool = False
+    min_walk_forward_fold_count: int = 0
     require_latest_signal_matches_data: bool = True
     min_target_position: float = 0.0
     max_target_position: float = 1.0
@@ -531,6 +532,13 @@ def _validate_position_result(
     ]
     if missing_benchmarks:
         raise ValueError(f"missing required benchmark comparisons: {missing_benchmarks}")
+    walk_forward = position_result.get("walk_forward", {})
+    fold_count = int(walk_forward.get("fold_count", 0) or 0) if isinstance(walk_forward, dict) else 0
+    if fold_count < gates.min_walk_forward_fold_count:
+        raise ValueError(
+            "cognitive alpha walk-forward fold count "
+            f"{fold_count} below required {gates.min_walk_forward_fold_count}"
+        )
     signal = position_result.get("latest_signal")
     if not isinstance(signal, dict):
         raise ValueError("cognitive alpha goal runner requires latest_signal in position result")
