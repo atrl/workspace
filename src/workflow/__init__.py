@@ -27,6 +27,8 @@ __all__ = [
     "CognitiveAlphaGoalGateSpec",
     "CognitiveAlphaPositionResult",
     "CognitiveAlphaPositionSpec",
+    "CognitiveAlphaWeightedFactorSearchResult",
+    "CognitiveAlphaWeightedFactorSearchSpec",
     "CognitiveAlphaGoalRunner",
     "CognitiveAlphaGoalRunnerSpec",
     "CognitiveAlphaSignalRefreshJob",
@@ -45,6 +47,7 @@ __all__ = [
     "distill_agentic_alpha_search",
     "load_agentic_alpha_backtest_metric",
     "run_cognitive_alpha_position_model",
+    "run_cognitive_alpha_weighted_factor_search",
     "run_cognitive_alpha_evolution",
     "run_qlib_native_experiment",
 ]
@@ -66,7 +69,10 @@ _COGNITIVE_ALPHA_EXPORTS = {
 _COGNITIVE_ALPHA_POSITION_EXPORTS = {
     "CognitiveAlphaPositionResult",
     "CognitiveAlphaPositionSpec",
+    "CognitiveAlphaWeightedFactorSearchResult",
+    "CognitiveAlphaWeightedFactorSearchSpec",
     "run_cognitive_alpha_position_model",
+    "run_cognitive_alpha_weighted_factor_search",
 }
 
 _COGNITIVE_ALPHA_GOAL_EXPORTS = {
@@ -90,6 +96,10 @@ def __getattr__(name: str):
 
         return getattr(cognitive_alpha_evolution, name)
     if name in _COGNITIVE_ALPHA_POSITION_EXPORTS:
+        if name in {"CognitiveAlphaWeightedFactorSearchResult", "CognitiveAlphaWeightedFactorSearchSpec", "run_cognitive_alpha_weighted_factor_search"}:
+            from . import cognitive_alpha_weighted
+
+            return getattr(cognitive_alpha_weighted, name)
         from . import cognitive_alpha_position
 
         return getattr(cognitive_alpha_position, name)

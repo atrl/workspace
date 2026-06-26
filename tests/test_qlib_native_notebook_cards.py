@@ -1652,6 +1652,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
 
     assert summary["experiment"] == "cognitive_alpha_position_model_v1"
     assert summary["card_type"] == "diagnostic_cognitive_alpha_position_model"
+    assert summary["promotion_decision"] == "candidate_for_validated_research_direct_factor"
     assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
     assert summary["codex_runtime"]["status"] in {"ok", "warning"}
     assert summary["codex_runtime"]["auth_mode"] == "chatgpt"
@@ -1670,7 +1671,27 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["factor_mining"]["source_layer"] == "src.factor"
     assert summary["factor_mining"]["position_model_included"] is False
     assert summary["factor_mining"]["position_signal_included"] is False
-    assert summary["factor_mining"]["factor_library"]["selected_count"] == summary["evolution"]["selected_count"]
+    assert summary["factor_mining"]["factor_library"]["archive_policy"]["candidate_scope"] == "all_generations"
+    assert summary["factor_mining"]["factor_library"]["selected_count"] == summary["position_model"]["feature_count"]
+    assert (
+        summary["factor_mining"]["factor_library"]["selected_feature_names"]
+        == summary["position_model"]["feature_cols"]
+    )
+    assert summary["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
+    assert summary["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
+    assert (
+        summary["direct_factor_backtest"]["comparison"][
+            "selected_vs_constrained_weight_reference_return_gap_pct"
+        ]
+        > 0.0
+    )
+    assert summary["direct_factor_backtest"]["selected_candidate"]["max_position"] <= 1.0
+    assert summary["direct_factor_backtest"]["selected_candidate"]["days_above_100"] == 0
+    assert summary["direct_factor_backtest"]["selected_candidate"]["candidate"] == "mined_canary_tsmom_signed_budget_h03_direct"
+    assert summary["direct_factor_backtest"]["selected_candidate"]["effective_component_count"] >= 2
+    assert summary["direct_factor_backtest"]["comparison"][
+        "selected_vs_constrained_weight_reference_return_gap_pct"
+    ] > 4.0
     assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
     assert summary["position_model"]["model_families"] == ["lgbm_classifier"]
     assert summary["position_model"]["selected_candidate"]["test"]["max_position"] <= 1.0
@@ -1691,6 +1712,9 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert set(summary["sidecars"]) == {
         "benchmark_comparison",
+        "direct_factor_benchmark_comparison",
+        "direct_factor_candidate_metrics",
+        "direct_factor_summary",
         "failure_modes",
         "goal_manifest",
         "latest_signal",
@@ -1702,6 +1726,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
         "fitness",
         "lineage",
         "positions",
+        "direct_weighted_positions",
         "quality",
         "rejected",
         "state",
@@ -1717,6 +1742,7 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
         "fitness_evaluation",
         "evolution_loop",
         "model_and_position",
+        "direct_factor_backtest",
         "research_card",
         "signal_push",
     ]
@@ -1730,6 +1756,13 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert goal_manifest["validation_gates"]["required_candidate_provider_ids"] == ["deterministic_code_agent_pool"]
     assert goal_manifest["validation_gates"]["required_candidate_provider_kinds"] == ["repo_owned_code"]
     assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
+    assert goal_manifest["validation_gates"]["require_direct_factor_beats_constrained_weight_reference"] is True
+    assert goal_manifest["validation_gates"]["required_direct_factor_benchmark_names"] == [
+        "constrained_weight_reference",
+        "soxl_backtest",
+        "soxl_buyhold",
+        "previous_factor_enhanced",
+    ]
     assert goal_manifest["candidate_generation"]["candidate_provider"]["codex_direct_compatible"] is True
     assert goal_manifest["candidate_generation"]["candidate_provider"]["openai_api_key_required"] is False
     assert goal_manifest["validation_gates"]["required_metric_names"] == [
@@ -1748,18 +1781,25 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     ]
     assert goal_manifest["evolution_loop"]["completed_generations"] == 24
     assert goal_manifest["model_and_position"]["latest_signal"]["as_of"] == summary["as_of"]
+    assert goal_manifest["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
+    assert goal_manifest["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
+    assert goal_manifest["direct_factor_backtest"]["selected_candidate"]["effective_component_count"] >= 2
+    assert goal_manifest["research_card"]["promotion_decision"] == "candidate_for_validated_research_direct_factor"
     assert not (card / "positions.csv").exists()
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv").exists()
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_direct_weighted" / "direct_weighted_positions.csv").exists()
     assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
     assert "run_cognitive_alpha_factor_mining" in notebook_text
     assert "run_cognitive_alpha_evolution(" not in notebook_text
     assert "build_cognitive_alpha_code_candidate_provider" in notebook_text
     assert "run_cognitive_alpha_position_model" in notebook_text
+    assert "run_cognitive_alpha_weighted_factor_search" in notebook_text
     assert "CognitiveAlphaGoalRunner" in notebook_text
     assert "factor_mining:" in workflow
     assert "workflow: cognitive_alpha_factor_mining" in workflow
     assert "position_signal_included: false" in workflow
+    assert "direct_factor_backtest:" in workflow
     assert "LGBMClassifier" in notebook_text
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text

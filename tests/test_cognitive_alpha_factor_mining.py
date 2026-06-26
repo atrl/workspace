@@ -101,3 +101,67 @@ def test_cognitive_alpha_factor_mining_lives_in_src_factor_and_has_no_position_s
     assert (run_dir / "fitness" / "generation_001.csv").exists()
     rejected = _read_jsonl(run_dir / "rejected" / "generation_000.jsonl")
     assert any(row["factor"] == "factor_future_leak" for row in rejected)
+
+
+def test_cognitive_alpha_factor_mining_selects_diverse_all_generation_elite_archive(tmp_path):
+    from src.factor import (
+        CognitiveAlphaCandidate,
+        CognitiveAlphaFactorMiningSpec,
+        run_cognitive_alpha_factor_mining,
+    )
+    from src.workflow import CognitiveAlphaEvolutionSpec
+
+    frame = _mining_frame(rows=180)
+
+    seed_alpha = CognitiveAlphaCandidate(
+        name="seed_alpha158_good_archive",
+        level="stability_regime_gating",
+        agent="AgentStability",
+        theme="known strong lagged alpha158 archive candidate",
+        required_columns=("alpha158_good",),
+        lookback=5,
+        code="alpha158_good",
+        economic_rationale="Known strong candidate should survive the all-generation factor archive.",
+        function=lambda data: data["alpha158_good"].rename("seed_alpha158_good_archive"),
+    )
+    weak_noise = CognitiveAlphaCandidate(
+        name="seed_weak_noise",
+        level="price_volume_dynamics",
+        agent="AgentLiquidity",
+        theme="weak deterministic noise candidate",
+        required_columns=("volume",),
+        lookback=5,
+        code="volume_rank_noise",
+        economic_rationale="Weak control candidate.",
+        function=lambda data: pd.Series(np.sin(np.arange(len(data))), index=data.index, name="seed_weak_noise"),
+    )
+    spec = CognitiveAlphaFactorMiningSpec(
+        evolution_spec=CognitiveAlphaEvolutionSpec(
+            run_id="all_generation_archive",
+            profile="soxl_smoke",
+            runtime_dir=tmp_path,
+            generations=2,
+            initial_pool_size=2,
+            parent_pool_size=2,
+            children_per_generation=4,
+            qualified_percentile=0.50,
+            elite_percentile=0.75,
+            fallback_top_n=2,
+            max_abs_correlation=0.80,
+        ),
+        label_col="label_return_5d",
+        alpha158_columns=("alpha158_good",),
+    )
+
+    result = run_cognitive_alpha_factor_mining(
+        frame,
+        spec=spec,
+        initial_candidates=[seed_alpha, weak_noise],
+    )
+
+    library_summary = result.summary["factor_library"]
+    assert library_summary["archive_policy"]["candidate_scope"] == "all_generations"
+    assert library_summary["fallback_selected_count"] == 0
+    assert "seed_alpha158_good_archive" in result.selected_feature_names
+    assert any(item["name"] == "seed_alpha158_good_archive" and item["metrics"]["evolution_generation"] == 0 for item in result.factor_library)
+    assert len({item["name"] for item in result.factor_library}) == len(result.factor_library)

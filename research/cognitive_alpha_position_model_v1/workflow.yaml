@@ -15,12 +15,17 @@ segments:
 factor_mining:
   workflow: cognitive_alpha_factor_mining
   source_layer: src.factor
+  candidate_scope: all_generations
   output: alpha_factor_library
   position_model_included: false
   position_signal_included: false
 model_selection:
   model: lgbm_classifier
   selected_by: validation_selection_objective_score
+direct_factor_backtest:
+  workflow: cognitive_alpha_weighted_factor_search
+  selected_by: return_sorted_long_only_gate
+  recorder_positions: artifacts/cognitive_alpha_direct_weighted/direct_weighted_positions.csv
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml

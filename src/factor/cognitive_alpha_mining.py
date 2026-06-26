@@ -32,6 +32,7 @@ class CognitiveAlphaFactorMiningSpec:
     evolution_spec: "CognitiveAlphaEvolutionSpec"
     label_col: str
     alpha158_columns: tuple[str, ...] = ()
+    max_factor_library_size: int | None = None
     paper_reference: str = "arxiv:2511.18850"
     source_layer: str = "src.factor"
 
@@ -70,14 +71,19 @@ def run_cognitive_alpha_factor_mining(
         alpha158_columns=list(spec.alpha158_columns),
         candidate_provider=candidate_provider,
     )
-    factor_library = _factor_library_from_evolution(evolution, source_layer=spec.source_layer)
+    selected_candidates, selected_metrics = _select_factor_library_archive(evolution, spec=spec)
+    factor_library = _factor_library_from_candidates(
+        selected_candidates,
+        metrics=selected_metrics,
+        source_layer=spec.source_layer,
+    )
     summary = _factor_mining_summary(spec=spec, evolution=evolution, factor_library=factor_library)
     return CognitiveAlphaFactorMiningResult(
         run_dir=evolution.run_dir,
         summary=summary,
         factor_library=factor_library,
-        selected_feature_names=list(evolution.selected_feature_names),
-        selected_candidates=list(evolution.selected_candidates),
+        selected_feature_names=[candidate.name for candidate in selected_candidates],
+        selected_candidates=list(selected_candidates),
         final_report=evolution.final_report,
         generation_metrics=evolution.generation_metrics,
         evolution_result=evolution,
@@ -104,18 +110,104 @@ def _factor_mining_summary(
             "selected_count": len(factor_library),
             "selected_feature_names": [item["name"] for item in factor_library],
             "artifact_role": "alpha_factor_library",
+            "archive_policy": {
+                "candidate_scope": "all_generations",
+                "prefer_non_fallback": True,
+                "dedupe_key": "candidate_code_or_name",
+                "max_factor_library_size": _max_factor_library_size(spec),
+            },
+            "fallback_selected_count": int(
+                sum(item.get("metrics", {}).get("redundancy_status") == "selected_fallback" for item in factor_library)
+            ),
+            "selected_generation_counts": _value_counts(factor_library, metrics_key="evolution_generation"),
+            "selected_tier_counts": _value_counts(factor_library, metrics_key="selection_tier"),
+            "selected_redundancy_counts": _value_counts(factor_library, metrics_key="redundancy_status"),
         },
     }
 
 
-def _factor_library_from_evolution(
+def _select_factor_library_archive(
     evolution: "CognitiveAlphaEvolutionResult",
     *,
+    spec: CognitiveAlphaFactorMiningSpec,
+) -> tuple[list[CognitiveAlphaCandidate], pd.DataFrame]:
+    metrics = evolution.generation_metrics.copy()
+    if metrics.empty:
+        return list(evolution.selected_candidates), evolution.final_report.metrics.copy()
+    if "factor" not in metrics.columns:
+        raise ValueError("cognitive alpha generation metrics missing factor column")
+
+    for column in ["ic", "rank_ic", "icir", "rank_icir"]:
+        if column in metrics.columns:
+            metrics[f"abs_{column}"] = pd.to_numeric(metrics[column], errors="coerce").abs().fillna(0.0)
+
+    pass_metrics = metrics.loc[metrics["quality_status"] == "pass"].copy()
+    if pass_metrics.empty:
+        return list(evolution.selected_candidates), evolution.final_report.metrics.copy()
+
+    non_fallback = pass_metrics.loc[pass_metrics["redundancy_status"] != "selected_fallback"].copy()
+    tiered = non_fallback.loc[non_fallback["selection_tier"].isin(["elite", "qualified"])].copy()
+    selected_rows = tiered if not tiered.empty else non_fallback
+    if selected_rows.empty:
+        selected_rows = pass_metrics
+
+    sort_cols = [
+        column
+        for column in [
+            "selection_score",
+            "min_metric_percentile",
+            "abs_ic",
+            "abs_rank_ic",
+            "abs_icir",
+            "abs_rank_icir",
+            "mutual_information",
+        ]
+        if column in selected_rows.columns
+    ]
+    selected_rows = selected_rows.sort_values(sort_cols, ascending=[False] * len(sort_cols))
+
+    selected: list[CognitiveAlphaCandidate] = []
+    metric_rows: list[dict[str, Any]] = []
+    seen_names: set[str] = set()
+    seen_signatures: set[str] = set()
+    max_size = _max_factor_library_size(spec)
+    for row in selected_rows.to_dict(orient="records"):
+        name = str(row["factor"])
+        if name in seen_names:
+            continue
+        candidate = evolution.candidate_map.get(name)
+        if candidate is None:
+            continue
+        signature = _candidate_dedupe_signature(candidate)
+        if signature in seen_signatures:
+            continue
+        selected.append(candidate)
+        metric_rows.append(row)
+        seen_names.add(name)
+        seen_signatures.add(signature)
+        if len(selected) >= max_size:
+            break
+
+    if not selected:
+        selected = list(evolution.selected_candidates)
+        metric_rows = [
+            row
+            for row in pass_metrics.to_dict(orient="records")
+            if str(row.get("factor", "")) in {candidate.name for candidate in selected}
+        ]
+
+    return selected, pd.DataFrame(metric_rows)
+
+
+def _factor_library_from_candidates(
+    candidates: list[CognitiveAlphaCandidate],
+    *,
+    metrics: pd.DataFrame,
     source_layer: str,
 ) -> list[dict[str, Any]]:
-    metrics_by_factor = _metrics_by_factor(evolution.final_report.metrics)
+    metrics_by_factor = _metrics_by_factor(metrics)
     library = []
-    for candidate in evolution.selected_candidates:
+    for candidate in candidates:
         library.append(
             {
                 "name": candidate.name,
@@ -134,6 +226,39 @@ def _factor_library_from_evolution(
             }
         )
     return library
+
+
+def _max_factor_library_size(spec: CognitiveAlphaFactorMiningSpec) -> int:
+    if spec.max_factor_library_size is not None:
+        return max(int(spec.max_factor_library_size), 1)
+    return max(int(spec.evolution_spec.fallback_top_n or spec.evolution_spec.parent_pool_size), 1)
+
+
+def _candidate_dedupe_signature(candidate: CognitiveAlphaCandidate) -> str:
+    code = str(candidate.code or "").strip()
+    if code:
+        return code
+    return "::".join(
+        [
+            candidate.level,
+            candidate.agent,
+            candidate.theme,
+            ",".join(candidate.required_columns),
+            str(candidate.lookback),
+            candidate.name,
+        ]
+    )
+
+
+def _value_counts(factor_library: list[dict[str, Any]], *, metrics_key: str) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for item in factor_library:
+        value = item.get("metrics", {}).get(metrics_key)
+        if value is None:
+            continue
+        key = str(value)
+        counts[key] = counts.get(key, 0) + 1
+    return counts
 
 
 def _metrics_by_factor(metrics: pd.DataFrame) -> dict[str, dict[str, Any]]:

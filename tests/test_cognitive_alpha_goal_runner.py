@@ -154,6 +154,7 @@ def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_pa
         "fitness_evaluation",
         "evolution_loop",
         "model_and_position",
+        "direct_factor_backtest",
         "research_card",
         "signal_push",
     ]
@@ -161,6 +162,7 @@ def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_pa
     assert manifest["candidate_generation"]["candidate_provider"]["profile_agent_count"] == 21
     assert manifest["evolution_loop"]["completed_generations"] == 24
     assert manifest["model_and_position"]["latest_signal"]["target_position"] == pytest.approx(0.1133)
+    assert manifest["direct_factor_backtest"]["status"] == "skipped"
     assert manifest["signal_push"]["notifications"][0]["action"] == "HOLD"
     written = json.loads((tmp_path / "goal_manifest.json").read_text(encoding="utf-8"))
     state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
@@ -337,6 +339,108 @@ def test_cognitive_alpha_goal_runner_strict_gates_record_full_chain_validation(t
     assert manifest["model_and_position"]["latest_signal"]["target_position"] == pytest.approx(0.25)
     written = json.loads((tmp_path / "goal_manifest.json").read_text(encoding="utf-8"))
     assert written["validation_gates"] == manifest["validation_gates"]
+
+
+def test_cognitive_alpha_goal_runner_records_direct_factor_backtest_goal_gate(tmp_path):
+    from src.workflow import CognitiveAlphaGoalGateSpec, CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    calls: list[str] = []
+
+    def data_gate():
+        calls.append("data_gate")
+        return [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}]
+
+    def evolution(manifests):
+        calls.append("evolution")
+        return {
+            "candidate_provider": {"provider_id": "deterministic_code_agent_pool"},
+            "initial_candidate_count": 80,
+            "completed_generations": 24,
+        }
+
+    def position(manifests, evolution_result):
+        calls.append("position")
+        return {
+            "workflow": "cognitive_alpha_position_model",
+            "comparison": {"beats_constrained_weight_reference": False},
+            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.25},
+        }
+
+    def direct_factor_backtest(manifests, evolution_result, position_result):
+        calls.append("direct_factor_backtest")
+        assert position_result["latest_signal"]["as_of"] == manifests[0]["max_datetime"]
+        return {
+            "workflow": "cognitive_alpha_weighted_factor_search",
+            "selected_candidate": {
+                "candidate": "canary_only_budget_h01_direct",
+                "return_pct": 573.2281789190391,
+                "max_drawdown_pct": -14.619712031891652,
+                "max_position": 1.0,
+                "min_position": 0.0,
+                "days_above_100": 0,
+            },
+            "comparison": {
+                "selected_return_pct": 573.2281789190391,
+                "beats_constrained_weight_reference": True,
+                "selected_vs_constrained_weight_reference_return_gap_pct": 2.0081211493893534,
+                "beats_soxl_backtest": True,
+            },
+            "promotion_decision": "candidate_for_validated_research",
+        }
+
+    def research_card(manifests, evolution_result, position_result):
+        calls.append("research_card")
+        return {
+            "card_dir": "research/cognitive_alpha_position_model_v1",
+            "promotion_decision": "candidate_for_validated_research_direct_factor",
+        }
+
+    def signal_push(manifests, model_results):
+        calls.append("signal_push")
+        assert model_results[0]["workflow"] == "cognitive_alpha_position_model"
+        assert model_results[1]["workflow"] == "cognitive_alpha_weighted_factor_search"
+        return [{"source": "qlib_recorder.latest_signal", "action": "HOLD", "as_of": "2026-06-24"}]
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-direct-factor-pass",
+            objective="mine factors and beat constrained reference in direct backtest",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+            gates=CognitiveAlphaGoalGateSpec(
+                required_direct_factor_benchmark_names=("constrained_weight_reference", "soxl_backtest"),
+                require_direct_factor_beats_constrained_weight_reference=True,
+            ),
+        ),
+        data_gate=data_gate,
+        evolution=evolution,
+        position=position,
+        direct_factor_backtest=direct_factor_backtest,
+        research_card=research_card,
+        signal_push=signal_push,
+    )
+
+    manifest = runner.run()
+
+    assert calls == ["data_gate", "evolution", "position", "direct_factor_backtest", "research_card", "signal_push"]
+    assert manifest["stage_order"] == [
+        "data_gate",
+        "candidate_generation",
+        "quality_checker",
+        "fitness_evaluation",
+        "evolution_loop",
+        "model_and_position",
+        "direct_factor_backtest",
+        "research_card",
+        "signal_push",
+    ]
+    assert manifest["validation_gates"]["require_direct_factor_beats_constrained_weight_reference"] is True
+    assert manifest["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
+    assert manifest["direct_factor_backtest"]["selected_candidate"]["max_position"] <= 1.0
+    assert manifest["research_card"]["promotion_decision"] == "candidate_for_validated_research_direct_factor"
+    state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
+    assert state["completed_stages"] == manifest["stage_order"]
 
 
 def test_cognitive_alpha_goal_runner_resume_skips_completed_data_gate(tmp_path):

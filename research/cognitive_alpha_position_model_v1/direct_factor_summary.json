@@ -1,0 +1,112 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "positions"
+    ]
+  },
+  "candidate_count": 3,
+  "comparison": {
+    "beats_constrained_weight_reference": true,
+    "beats_previous_factor_enhanced": true,
+    "beats_soxl_backtest": true,
+    "beats_soxl_buyhold": true,
+    "selected_max_drawdown_pct": -14.619712031891652,
+    "selected_return_pct": 576.1573201293345,
+    "selected_vs_constrained_weight_reference_return_gap_pct": 4.937262359684723,
+    "selected_vs_previous_factor_enhanced_return_gap_pct": 387.43515359779997,
+    "selected_vs_soxl_backtest_return_gap_pct": 438.16108217797955,
+    "selected_vs_soxl_buyhold_return_gap_pct": 186.2758811422416
+  },
+  "component_cols": [
+    "mined_canary_trend60_vix26_autocorr_h3_s1.0",
+    "mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02",
+    "mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03"
+  ],
+  "promotion_decision": "candidate_for_validated_research",
+  "selected_candidate": {
+    "avg_abs_position": 0.4697033898305087,
+    "avg_holding_days": 12.11111111111111,
+    "beats_constrained_weight_reference": true,
+    "benchmark_return_pct": null,
+    "candidate": "mined_canary_tsmom_signed_budget_h03_direct",
+    "component_cols": "[\"mined_canary_trend60_vix26_autocorr_h3_s1.0\", \"mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02\", \"mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03\"]",
+    "cost_per_turnover": 0.0003,
+    "days_above_100": 0,
+    "days_below_0": 0,
+    "effective_component_count": 3,
+    "max_drawdown_pct": -14.619712031891652,
+    "max_position": 1.0,
+    "min_position": 0.0,
+    "next_day_reversal_count": 1,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+    "passes_drawdown_gate": true,
+    "passes_effective_component_gate": true,
+    "passes_position_bounds": true,
+    "raw_target_avg_abs": 0.8694915254237289,
+    "raw_target_max": 1.875,
+    "raw_target_min": 0.0,
+    "return_pct": 576.1573201293345,
+    "selection_eligible": true,
+    "total_turnover": 9.625,
+    "trade_count": 10,
+    "weights": "{\"mined_canary_trend60_vix26_autocorr_h3_s1.0\": 1.8, \"mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02\": -0.1, \"mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03\": 0.1}"
+  },
+  "selection": "return_sorted_long_only_multifactor_gate",
+  "spec": {
+    "candidates": [
+      {
+        "candidate": "mined_canary_only_budget_h01_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.1
+        },
+        "weights": {
+          "mined_canary_trend60_vix26_autocorr_h3_s1.0": 1.7732
+        }
+      },
+      {
+        "candidate": "mined_canary_tsmom_signed_budget_h03_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.3
+        },
+        "weights": {
+          "mined_canary_trend60_vix26_autocorr_h3_s1.0": 1.8,
+          "mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02": -0.1,
+          "mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03": 0.1
+        }
+      },
+      {
+        "candidate": "stored_constrained_reference_recomputed",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.25
+        },
+        "weights": {
+          "mined_canary_trend60_vix26_autocorr_h3_s1.0": 2.894,
+          "mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02": 0.0503,
+          "mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03": 0.0005
+        }
+      }
+    ],
+    "component_cols": [
+      "mined_canary_trend60_vix26_autocorr_h3_s1.0",
+      "mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02",
+      "mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03"
+    ],
+    "constrained_reference_name": "constrained_weight_reference",
+    "cost_per_turnover": 0.0003,
+    "datetime_col": "datetime",
+    "max_drawdown_floor": null,
+    "max_position": 1.0,
+    "min_effective_component_count": 2,
+    "min_effective_weight": 0.05,
+    "min_position": 0.0,
+    "return_col": "forward_return"
+  },
+  "workflow": "cognitive_alpha_weighted_factor_search"
+}

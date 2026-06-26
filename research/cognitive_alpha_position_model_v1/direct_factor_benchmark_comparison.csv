@@ -1,0 +1,6 @@
+benchmark,return_pct,max_drawdown_pct,trade_count,source,selected_return_gap_pct,selected_beats_return
+cognitive_alpha_weighted_selected,576.1573201293345,-14.619712031891652,10,cognitive_alpha_weighted_factor_search,0.0,False
+soxl_backtest,137.99623795135494,-13.554088542803521,3,soxl_backtest.reference,438.16108217797955,True
+constrained_weight_reference,571.2200577696498,-14.619712031891652,9,research/agentic_alpha_cognitive_alpha_soxl_v1,4.937262359684723,True
+soxl_buyhold,389.8814389870929,0.0,0,soxl_close_buyhold,186.2758811422416,True
+previous_factor_enhanced,188.72216653153453,-12.029992887889861,15,agentic_alpha_ml_factor_enhanced_throttle_v1,387.43515359779997,True

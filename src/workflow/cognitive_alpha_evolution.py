@@ -87,6 +87,7 @@ class CognitiveAlphaEvolutionResult:
     selected_feature_names: list[str]
     selected_candidates: list[CognitiveAlphaCandidate]
     final_report: CognitiveAlphaReport
+    candidate_map: dict[str, CognitiveAlphaCandidate]
 
 
 @dataclass(frozen=True)
@@ -805,6 +806,7 @@ def run_cognitive_alpha_evolution(
         selected_feature_names=selected_names,
         selected_candidates=[candidate_map[name] for name in selected_names if name in candidate_map],
         final_report=final_report,
+        candidate_map=dict(candidate_map),
     )
 
 

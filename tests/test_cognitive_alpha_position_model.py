@@ -114,3 +114,57 @@ def test_cognitive_alpha_position_model_fails_closed_on_missing_features():
         assert "missing cognitive alpha position columns" in str(exc)
     else:  # pragma: no cover
         raise AssertionError("missing feature should fail closed")
+
+
+def test_cognitive_alpha_weighted_factor_search_selects_direct_backtest_above_reference(tmp_path):
+    from src.workflow import (
+        CognitiveAlphaWeightedFactorSearchSpec,
+        run_cognitive_alpha_weighted_factor_search,
+    )
+
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.date_range("2026-01-02", periods=8, freq="B"),
+            "canary_alpha": [1, 1, 0, 1, 1, 0, 1, 1],
+            "tsmom_alpha": [0, 1, 1, 0, 1, 0, 1, 0],
+            "forward_return": [0.20, 0.10, -0.20, 0.18, 0.12, -0.10, 0.16, 0.08],
+        }
+    )
+    spec = CognitiveAlphaWeightedFactorSearchSpec(
+        component_cols=["canary_alpha", "tsmom_alpha"],
+        candidates=[
+            {
+                "candidate": "canary_tsmom_direct",
+                "weights": {"canary_alpha": 1.0, "tsmom_alpha": 0.0501},
+                "policy": {"min_position": 0.0, "max_position": 1.0, "rebalance_threshold": 0.0},
+            },
+            {
+                "candidate": "weak_single_factor",
+                "weights": {"tsmom_alpha": 0.0501},
+                "policy": {"min_position": 0.0, "max_position": 1.0, "rebalance_threshold": 0.0},
+            },
+        ],
+        min_effective_component_count=2,
+        constrained_reference_name="constrained_weight_reference",
+    )
+
+    result = run_cognitive_alpha_weighted_factor_search(
+        frame,
+        spec=spec,
+        benchmarks=[
+            {"name": "constrained_weight_reference", "return_pct": 20.0, "max_drawdown_pct": -12.0},
+            {"name": "soxl_backtest", "return_pct": 10.0, "max_drawdown_pct": -8.0},
+        ],
+    )
+
+    assert result.summary["workflow"] == "cognitive_alpha_weighted_factor_search"
+    assert result.summary["selected_candidate"]["candidate"] == "canary_tsmom_direct"
+    assert result.summary["selected_candidate"]["max_position"] <= 1.0
+    assert result.summary["selected_candidate"]["min_position"] >= 0.0
+    assert result.summary["selected_candidate"]["effective_component_count"] == 2
+    assert result.summary["comparison"]["beats_constrained_weight_reference"] is True
+    assert result.summary["promotion_decision"] == "candidate_for_validated_research"
+
+    paths = result.write_sidecars(tmp_path)
+    assert set(paths) == {"candidate_metrics", "benchmark_comparison", "summary"}
+    assert json.loads(paths["summary"].read_text(encoding="utf-8"))["selected_candidate"]["candidate"] == "canary_tsmom_direct"

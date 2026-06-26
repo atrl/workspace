@@ -18,6 +18,7 @@ COGNITIVE_ALPHA_GOAL_STAGE_ORDER = [
     "fitness_evaluation",
     "evolution_loop",
     "model_and_position",
+    "direct_factor_backtest",
     "research_card",
     "signal_push",
 ]
@@ -37,6 +38,8 @@ class CognitiveAlphaGoalGateSpec:
     required_evolution_ops: tuple[str, ...] = ()
     required_position_model_families: tuple[str, ...] = ()
     required_benchmark_names: tuple[str, ...] = ()
+    required_direct_factor_benchmark_names: tuple[str, ...] = ()
+    require_direct_factor_beats_constrained_weight_reference: bool = False
     require_latest_signal_matches_data: bool = True
     min_target_position: float = 0.0
     max_target_position: float = 1.0
@@ -64,11 +67,13 @@ class CognitiveAlphaGoalRunner:
         position: Callable[..., dict[str, Any]],
         research_card: Callable[..., dict[str, Any]],
         signal_push: Callable[..., list[dict[str, Any]]],
+        direct_factor_backtest: Callable[..., dict[str, Any]] | None = None,
     ) -> None:
         self.spec = spec
         self.data_gate = data_gate
         self.evolution = evolution
         self.position = position
+        self.direct_factor_backtest = direct_factor_backtest
         self.research_card = research_card
         self.signal_push = signal_push
 
@@ -108,6 +113,16 @@ class CognitiveAlphaGoalRunner:
             position_result = dict(outputs.get("position", {}))
             _validate_position_result(position_result, manifests=manifests, gates=self.spec.gates)
 
+        if "direct_factor_backtest" not in completed:
+            direct_factor_result = _jsonable(self._run_direct_factor_backtest(manifests, evolution_result, position_result))
+            _validate_direct_factor_result(direct_factor_result, gates=self.spec.gates)
+            outputs["direct_factor_backtest"] = direct_factor_result
+            completed = _append_stages(completed, ["direct_factor_backtest"])
+            self._write_state(status="running", completed_stages=completed, stage_outputs=outputs)
+        else:
+            direct_factor_result = dict(outputs.get("direct_factor_backtest", {}))
+            _validate_direct_factor_result(direct_factor_result, gates=self.spec.gates)
+
         if "research_card" not in completed:
             research_card_result = _jsonable(self.research_card(manifests, evolution_result, position_result))
             outputs["research_card"] = research_card_result
@@ -117,7 +132,7 @@ class CognitiveAlphaGoalRunner:
             research_card_result = dict(outputs.get("research_card", {}))
 
         if "signal_push" not in completed:
-            notifications = _jsonable(self.signal_push(manifests, [position_result]))
+            notifications = _jsonable(self.signal_push(manifests, [position_result, direct_factor_result]))
             outputs["signal_push"] = {"notifications": notifications}
             completed = _append_stages(completed, ["signal_push"])
 
@@ -125,6 +140,7 @@ class CognitiveAlphaGoalRunner:
             manifests=manifests,
             evolution_result=evolution_result,
             position_result=position_result,
+            direct_factor_result=direct_factor_result,
             research_card_result=research_card_result,
             notifications=list(outputs.get("signal_push", {}).get("notifications", [])),
             completed_stages=completed,
@@ -138,6 +154,21 @@ class CognitiveAlphaGoalRunner:
         if not self.spec.resume or not self.spec.state_path.exists():
             return {"status": "new", "completed_stages": [], "stage_outputs": {}}
         return json.loads(self.spec.state_path.read_text(encoding="utf-8"))
+
+    def _run_direct_factor_backtest(
+        self,
+        manifests: list[dict[str, Any]],
+        evolution_result: dict[str, Any],
+        position_result: dict[str, Any],
+    ) -> dict[str, Any]:
+        if self.direct_factor_backtest is None:
+            return {
+                "workflow": "not_configured",
+                "status": "skipped",
+                "comparison": {},
+                "selected_candidate": {},
+            }
+        return self.direct_factor_backtest(manifests, evolution_result, position_result)
 
     def _validate_data_manifests(self, manifests: list[dict[str, Any]]) -> None:
         if not manifests:
@@ -158,6 +189,7 @@ class CognitiveAlphaGoalRunner:
         manifests: list[dict[str, Any]],
         evolution_result: dict[str, Any],
         position_result: dict[str, Any],
+        direct_factor_result: dict[str, Any],
         research_card_result: dict[str, Any],
         notifications: list[dict[str, Any]],
         completed_stages: list[str],
@@ -178,6 +210,7 @@ class CognitiveAlphaGoalRunner:
             "fitness_evaluation": _fitness_evaluation_summary(evolution_result),
             "evolution_loop": _evolution_loop_summary(evolution_result),
             "model_and_position": position_result,
+            "direct_factor_backtest": direct_factor_result,
             "research_card": research_card_result,
             "signal_push": {"notifications": notifications},
             "stage_outputs": stage_outputs,
@@ -510,6 +543,32 @@ def _validate_position_result(
         signal_as_of = str(signal.get("as_of", ""))
         if signal_as_of != max_datetime:
             raise ValueError(f"latest_signal as_of {signal_as_of} does not match qlib data {max_datetime}")
+
+
+def _validate_direct_factor_result(direct_factor_result: dict[str, Any], *, gates: CognitiveAlphaGoalGateSpec) -> None:
+    comparison = direct_factor_result.get("comparison", {})
+    missing_benchmarks = [
+        name
+        for name in gates.required_direct_factor_benchmark_names
+        if f"beats_{name}" not in comparison and f"selected_vs_{name}_return_gap_pct" not in comparison
+    ]
+    if missing_benchmarks:
+        raise ValueError(f"missing required direct factor benchmark comparisons: {missing_benchmarks}")
+    if (
+        gates.require_direct_factor_beats_constrained_weight_reference
+        and comparison.get("beats_constrained_weight_reference") is not True
+    ):
+        raise ValueError("direct factor backtest must beat constrained_weight_reference")
+
+    selected = direct_factor_result.get("selected_candidate", {})
+    if not isinstance(selected, dict):
+        raise ValueError("cognitive alpha direct factor result requires selected_candidate")
+    if "max_position" in selected and float(selected["max_position"]) > gates.max_target_position + 1e-9:
+        raise ValueError("direct factor selected candidate exceeds max_target_position")
+    if "min_position" in selected and float(selected["min_position"]) < gates.min_target_position - 1e-9:
+        raise ValueError("direct factor selected candidate is below min_target_position")
+    if int(selected.get("days_above_100", 0) or 0) > 0:
+        raise ValueError("direct factor selected candidate has days_above_100")
 
 
 def _missing_required_values(*, available: Any, required: tuple[str, ...]) -> list[str]:
