@@ -47,9 +47,9 @@
   "codex_runtime": {
     "auth_mode": "chatgpt",
     "codex_bin": "/opt/homebrew/bin/codex",
-    "codex_version": "0.142.1",
+    "codex_version": "0.142.3",
     "openai_api_key_required": false,
-    "status": "warning",
+    "status": "ok",
     "stored_api_key": "false",
     "stored_chatgpt_tokens": "true"
   },
@@ -974,8 +974,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "fcad36269ce34ba395593cfcd19a928a",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/fcad36269ce34ba395593cfcd19a928a",
+  "recorder_id": "0a8210c16351487ab25873b1504baaa6",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/0a8210c16351487ab25873b1504baaa6",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder",
   "region": "us",
   "segments": {

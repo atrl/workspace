@@ -1,0 +1,83 @@
+{
+  "candidate_metric_rows": 2289,
+  "candidate_provider": {
+    "codex_direct_compatible": true,
+    "codex_execution_mode": "repo_owned_codex_generated_code",
+    "generated_candidate_count": 80,
+    "guidance_style_count": 5,
+    "openai_api_key_required": false,
+    "profile_agent_count": 21,
+    "provider_id": "deterministic_code_agent_pool",
+    "provider_kind": "repo_owned_code",
+    "requested_initial_pool_size": 80
+  },
+  "checkpoints": {
+    "candidate_pool": "candidate_pool/generation_*.jsonl",
+    "fitness": "fitness/generation_*.csv",
+    "lineage": "lineage/generation_*.jsonl",
+    "quality": "quality/generation_*.csv",
+    "rejected": "rejected/generation_*.jsonl",
+    "state": "state.json"
+  },
+  "children_per_generation": 96,
+  "completed_generations": 24,
+  "evolution_ops": [
+    "mutation",
+    "crossover",
+    "crossover_mutation"
+  ],
+  "initial_candidate_count": 80,
+  "metric_names": [
+    "ic",
+    "icir",
+    "rank_ic",
+    "rank_icir",
+    "mutual_information"
+  ],
+  "paper_reference": "arxiv:2511.18850",
+  "parent_pool_size": 32,
+  "profile": "soxl_full",
+  "repair_attempt_count": 1,
+  "resume_start_generation": 0,
+  "resumed": false,
+  "run_dir": "recorder:artifacts/cognitive_alpha_evolution",
+  "run_id": "cognitive_alpha_evolution",
+  "selected_count": 8,
+  "selected_feature_names": [
+    "g023_001_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60",
+    "g023_004_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60",
+    "g023_007_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60",
+    "g023_010_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60",
+    "g023_013_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60",
+    "g023_016_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60",
+    "g023_019_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60",
+    "g023_022_crossover_g022_000_mutation__531896ee60__g022_000_mutation__531896ee60"
+  ],
+  "spec": {
+    "children_per_generation": 96,
+    "elite_percentile": 0.8,
+    "fallback_top_n": 8,
+    "generations": 24,
+    "initial_pool_size": 80,
+    "max_abs_correlation": 0.95,
+    "max_missing_ratio": 0.55,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "parent_pool_size": 32,
+    "profile": "soxl_full",
+    "qualified_percentile": 0.65,
+    "resume": false,
+    "run_id": "cognitive_alpha_evolution",
+    "runtime_dir": "recorder:artifacts"
+  },
+  "thresholds": {
+    "elite_percentile": 0.8,
+    "fallback_top_n": 8,
+    "max_abs_correlation": 0.95,
+    "max_missing_ratio": 0.55,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "qualified_percentile": 0.65
+  },
+  "workflow": "cognitive_alpha_evolution"
+}

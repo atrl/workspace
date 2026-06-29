@@ -9,4 +9,4 @@
 - promotion_decision: not_promoted_failed_position_risk_gates。direct_factor_backtest 只作为 benchmark/prior；最终晋升仅看 position_model 或 production paper/sim；production_paper_sim=blocked_not_promoted。
 - risks: CogAlpha 论文核心是 factor mining；本卡的仓位层只是下游诊断，SOXL 单标的 IC/仓位模型仍可能过拟合；本研究面向交易复盘和风险控制，不构成买卖建议。
 - goal_mode: goal_manifest.json 已记录 data/evolution/position/direct_factor_backtest/card/signal 的完整 stage manifest，可作为下一轮 resume/audit 入口。
-- next_action: 当前未通过 validated research gate，不创建 production paper/sim；下一步继续做月度窗口、最新数据刷新和模型特征稳定性筛选；qlib recorder id=fcad36269ce34ba395593cfcd19a928a。
+- next_action: 当前未通过 validated research gate，不创建 production paper/sim；下一步继续做月度窗口、最新数据刷新和模型特征稳定性筛选；qlib recorder id=0a8210c16351487ab25873b1504baaa6。
