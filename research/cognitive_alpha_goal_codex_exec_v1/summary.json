@@ -1,0 +1,833 @@
+{
+  "artifact_policy": {
+    "kept_sidecars": [
+      "evolution_summary.json",
+      "failure_modes.md",
+      "generation_metrics.csv",
+      "selected_features.csv",
+      "model_selection.csv",
+      "backtest_benchmark_comparison.csv",
+      "position_summary.json",
+      "latest_signal.json",
+      "backtest_walk_forward_metrics.csv",
+      "direct_factor_candidate_metrics.csv",
+      "direct_factor_benchmark_comparison.csv",
+      "direct_factor_summary.json",
+      "goal_manifest.json",
+      "state.json"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "cognitive_alpha_goal_codex_exec_v1.ipynb",
+    "recorder_only_artifacts": {
+      "candidate_pool": "artifacts/cognitive_alpha_evolution/candidate_pool/generation_*.jsonl",
+      "direct_weighted_positions": "artifacts/cognitive_alpha_direct_weighted/direct_weighted_positions.csv",
+      "fitness": "artifacts/cognitive_alpha_evolution/fitness/generation_*.csv",
+      "lineage": "artifacts/cognitive_alpha_evolution/lineage/generation_*.jsonl",
+      "positions": "artifacts/cognitive_alpha_position/positions.csv",
+      "quality": "artifacts/cognitive_alpha_evolution/quality/generation_*.csv",
+      "rejected": "artifacts/cognitive_alpha_evolution/rejected/generation_*.jsonl",
+      "state": "artifacts/cognitive_alpha_evolution/state.json"
+    },
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-06-24",
+  "card_type": "diagnostic_cognitive_alpha_codex_exec_goal_chain",
+  "codex_provider": {
+    "codex_direct_compatible": true,
+    "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+    "execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+    "external_llm_configured": true,
+    "generated_candidate_count": 4,
+    "guidance_style_count": 5,
+    "invalid_candidate_count": 4,
+    "llm_model": "codex-cli",
+    "openai_api_key_required": false,
+    "output_schema": "cognitive_alpha_candidate_schema.json",
+    "profile_agent_count": 21,
+    "prompt_count": 7,
+    "provider_builder": "build_cognitive_alpha_codex_exec_candidate_provider",
+    "provider_failure_count": 0,
+    "provider_id": "codex_exec_candidate_provider",
+    "provider_kind": "codex_exec_code",
+    "requested_initial_pool_size": 4,
+    "response_count": 7,
+    "sandbox": "read-only"
+  },
+  "codex_provider_readiness": {
+    "auth_mode": "chatgpt",
+    "codex_bin": "/opt/homebrew/bin/codex",
+    "codex_version": "0.142.3",
+    "openai_api_key_required": false,
+    "status": "ok",
+    "stored_api_key": "false",
+    "stored_chatgpt_tokens": "true"
+  },
+  "direct_factor_backtest": {
+    "artifact_policy": {
+      "policy": "slim_card_recorder_first",
+      "recorder_only_artifacts": [
+        "positions"
+      ]
+    },
+    "candidate_count": 2,
+    "comparison": {
+      "beats_constrained_weight_reference": true,
+      "beats_previous_factor_enhanced": true,
+      "beats_soxl_backtest": true,
+      "beats_soxl_buyhold": true,
+      "selected_max_drawdown_pct": -81.99489994023767,
+      "selected_return_pct": 849.9033768748054,
+      "selected_vs_constrained_weight_reference_return_gap_pct": 278.68331910515565,
+      "selected_vs_previous_factor_enhanced_return_gap_pct": 661.1812103432709,
+      "selected_vs_soxl_backtest_return_gap_pct": 711.9071389234505,
+      "selected_vs_soxl_buyhold_return_gap_pct": 460.0219378877125
+    },
+    "component_cols": [
+      "liquidity_tail_pressure_imbalance_20d",
+      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+    ],
+    "promotion_decision": "diagnostic_direct_factor_candidate",
+    "selected_candidate": {
+      "avg_abs_position": 0.4011866068485833,
+      "avg_holding_days": 1.9061224489795918,
+      "beats_constrained_weight_reference": true,
+      "benchmark_return_pct": null,
+      "candidate": "codex_exec_primary_factor_direct",
+      "component_cols": "[\"liquidity_tail_pressure_imbalance_20d\", \"g001_000_mutation_liquidity_tail_pre_31a9d24477\"]",
+      "cost_per_turnover": 0.0003,
+      "days_above_100": 0,
+      "days_below_0": 0,
+      "effective_component_count": 1,
+      "max_drawdown_pct": -81.99489994023767,
+      "max_position": 1.0,
+      "min_position": 0.0,
+      "next_day_reversal_count": 506,
+      "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+      "passes_drawdown_gate": false,
+      "passes_effective_component_gate": true,
+      "passes_position_bounds": true,
+      "raw_target_avg_abs": 0.9341749027701348,
+      "raw_target_max": 1.0,
+      "raw_target_min": -1.0,
+      "return_pct": 849.9033768748054,
+      "selection_eligible": false,
+      "total_turnover": 911.3918767791835,
+      "trade_count": 981,
+      "weights": "{\"liquidity_tail_pressure_imbalance_20d\": 1.0}"
+    },
+    "selection": "return_sorted_long_only_multifactor_gate",
+    "spec": {
+      "candidates": [
+        {
+          "candidate": "codex_exec_equal_weight_direct",
+          "policy": {
+            "max_position": 1.0,
+            "min_position": 0.0,
+            "rebalance_threshold": 0.2
+          },
+          "weights": {
+            "g001_000_mutation_liquidity_tail_pre_31a9d24477": 0.5,
+            "liquidity_tail_pressure_imbalance_20d": 0.5
+          }
+        },
+        {
+          "candidate": "codex_exec_primary_factor_direct",
+          "policy": {
+            "max_position": 1.0,
+            "min_position": 0.0,
+            "rebalance_threshold": 0.3
+          },
+          "weights": {
+            "liquidity_tail_pressure_imbalance_20d": 1.0
+          }
+        }
+      ],
+      "component_cols": [
+        "liquidity_tail_pressure_imbalance_20d",
+        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+      ],
+      "constrained_reference_name": "constrained_weight_reference",
+      "cost_per_turnover": 0.0003,
+      "datetime_col": "datetime",
+      "max_drawdown_floor": -25.0,
+      "max_position": 1.0,
+      "min_effective_component_count": 1,
+      "min_effective_weight": 0.05,
+      "min_position": 0.0,
+      "return_col": "forward_return"
+    },
+    "workflow": "cognitive_alpha_weighted_factor_search"
+  },
+  "evolution": {
+    "agent_levels_covered": [
+      "geometric_fusion",
+      "price_volume_dynamics"
+    ],
+    "candidate_metric_rows": 9,
+    "candidate_provider": {
+      "codex_direct_compatible": true,
+      "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+      "external_llm_configured": true,
+      "generated_candidate_count": 4,
+      "guidance_style_count": 5,
+      "invalid_candidate_count": 4,
+      "llm_model": "codex-cli",
+      "openai_api_key_required": false,
+      "profile_agent_count": 21,
+      "prompt_count": 7,
+      "provider_failure_count": 0,
+      "provider_id": "codex_exec_candidate_provider",
+      "provider_kind": "codex_exec_code",
+      "requested_initial_pool_size": 4,
+      "response_count": 7
+    },
+    "checkpoints": {
+      "candidate_pool": "candidate_pool/generation_*.jsonl",
+      "fitness": "fitness/generation_*.csv",
+      "lineage": "lineage/generation_*.jsonl",
+      "quality": "quality/generation_*.csv",
+      "rejected": "rejected/generation_*.jsonl",
+      "state": "state.json"
+    },
+    "children_per_generation": 4,
+    "completed_generations": 2,
+    "evolution_ops": [
+      "mutation",
+      "crossover",
+      "crossover_mutation"
+    ],
+    "initial_candidate_count": 4,
+    "metric_names": [
+      "ic",
+      "icir",
+      "rank_ic",
+      "rank_icir",
+      "mutual_information"
+    ],
+    "paper_reference": "arxiv:2511.18850",
+    "parent_pool_size": 3,
+    "profile": "soxl_full",
+    "repair_attempt_count": 1,
+    "resume_start_generation": 0,
+    "resumed": false,
+    "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y/cognitive_alpha_evolution",
+    "run_id": "cognitive_alpha_evolution",
+    "selected_count": 1,
+    "selected_feature_names": [
+      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+    ],
+    "spec": {
+      "children_per_generation": 4,
+      "elite_percentile": 0.75,
+      "fallback_top_n": 3,
+      "generations": 2,
+      "initial_pool_size": 4,
+      "max_abs_correlation": 0.98,
+      "max_missing_ratio": 0.6,
+      "min_distinct_values": 5,
+      "min_observations": 180,
+      "parent_pool_size": 3,
+      "profile": "soxl_full",
+      "qualified_percentile": 0.5,
+      "resume": false,
+      "run_id": "cognitive_alpha_evolution",
+      "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y"
+    },
+    "thresholds": {
+      "elite_percentile": 0.75,
+      "fallback_top_n": 3,
+      "max_abs_correlation": 0.98,
+      "max_missing_ratio": 0.6,
+      "min_distinct_values": 5,
+      "min_observations": 180,
+      "qualified_percentile": 0.5
+    },
+    "workflow": "cognitive_alpha_evolution"
+  },
+  "experiment": "cognitive_alpha_goal_codex_exec_v1",
+  "factor_mining": {
+    "alpha158_columns": [
+      "alpha158_MA5",
+      "alpha158_MA10",
+      "alpha158_MA20",
+      "alpha158_MA30",
+      "alpha158_MA60",
+      "alpha158_MAX20",
+      "alpha158_MAX30",
+      "alpha158_VIX"
+    ],
+    "evolution": {
+      "candidate_metric_rows": 9,
+      "candidate_provider": {
+        "codex_direct_compatible": true,
+        "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+        "external_llm_configured": true,
+        "generated_candidate_count": 4,
+        "guidance_style_count": 5,
+        "invalid_candidate_count": 4,
+        "llm_model": "codex-cli",
+        "openai_api_key_required": false,
+        "profile_agent_count": 21,
+        "prompt_count": 7,
+        "provider_failure_count": 0,
+        "provider_id": "codex_exec_candidate_provider",
+        "provider_kind": "codex_exec_code",
+        "requested_initial_pool_size": 4,
+        "response_count": 7
+      },
+      "checkpoints": {
+        "candidate_pool": "candidate_pool/generation_*.jsonl",
+        "fitness": "fitness/generation_*.csv",
+        "lineage": "lineage/generation_*.jsonl",
+        "quality": "quality/generation_*.csv",
+        "rejected": "rejected/generation_*.jsonl",
+        "state": "state.json"
+      },
+      "children_per_generation": 4,
+      "completed_generations": 2,
+      "evolution_ops": [
+        "mutation",
+        "crossover",
+        "crossover_mutation"
+      ],
+      "initial_candidate_count": 4,
+      "metric_names": [
+        "ic",
+        "icir",
+        "rank_ic",
+        "rank_icir",
+        "mutual_information"
+      ],
+      "paper_reference": "arxiv:2511.18850",
+      "parent_pool_size": 3,
+      "profile": "soxl_full",
+      "repair_attempt_count": 1,
+      "resume_start_generation": 0,
+      "resumed": false,
+      "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y/cognitive_alpha_evolution",
+      "run_id": "cognitive_alpha_evolution",
+      "selected_count": 1,
+      "selected_feature_names": [
+        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+      ],
+      "spec": {
+        "children_per_generation": 4,
+        "elite_percentile": 0.75,
+        "fallback_top_n": 3,
+        "generations": 2,
+        "initial_pool_size": 4,
+        "max_abs_correlation": 0.98,
+        "max_missing_ratio": 0.6,
+        "min_distinct_values": 5,
+        "min_observations": 180,
+        "parent_pool_size": 3,
+        "profile": "soxl_full",
+        "qualified_percentile": 0.5,
+        "resume": false,
+        "run_id": "cognitive_alpha_evolution",
+        "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y"
+      },
+      "thresholds": {
+        "elite_percentile": 0.75,
+        "fallback_top_n": 3,
+        "max_abs_correlation": 0.98,
+        "max_missing_ratio": 0.6,
+        "min_distinct_values": 5,
+        "min_observations": 180,
+        "qualified_percentile": 0.5
+      },
+      "workflow": "cognitive_alpha_evolution"
+    },
+    "factor_library": {
+      "archive_policy": {
+        "candidate_scope": "all_generations",
+        "dedupe_key": "candidate_code_or_name",
+        "max_factor_library_size": 4,
+        "prefer_non_fallback": true
+      },
+      "artifact_role": "alpha_factor_library",
+      "fallback_selected_count": 0,
+      "selected_count": 2,
+      "selected_feature_names": [
+        "liquidity_tail_pressure_imbalance_20d",
+        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+      ],
+      "selected_generation_counts": {
+        "0": 1,
+        "1": 1
+      },
+      "selected_redundancy_counts": {
+        "selected": 2
+      },
+      "selected_tier_counts": {
+        "qualified": 2
+      }
+    },
+    "label_col": "label_return_5d",
+    "paper_reference": "arxiv:2511.18850",
+    "position_model_included": false,
+    "position_signal_included": false,
+    "source_layer": "src.factor",
+    "stage_order": [
+      "candidate_generation",
+      "quality_checker",
+      "fitness_evaluation",
+      "evolution_loop",
+      "factor_library"
+    ],
+    "workflow": "cognitive_alpha_factor_mining"
+  },
+  "goal_manifest": {
+    "path": "goal_manifest.json",
+    "stage_order": [
+      "data_gate",
+      "candidate_generation",
+      "quality_checker",
+      "fitness_evaluation",
+      "evolution_loop",
+      "model_and_position",
+      "direct_factor_backtest",
+      "research_card",
+      "signal_push"
+    ],
+    "status": "complete"
+  },
+  "latest_signal": {
+    "action": "HOLD",
+    "as_of": "2026-06-24",
+    "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+    "last_change_date": "2026-05-01",
+    "last_change_target_position": 0.0,
+    "previous_target_position": 0.0,
+    "probability": 0.2918430596883729,
+    "target_delta": 0.0,
+    "target_delta_percent": 0.0,
+    "target_percent": 0.0,
+    "target_position": 0.0
+  },
+  "market": "all",
+  "paper_reference": {
+    "arxiv_id": "2511.18850",
+    "source": "arxiv:2511.18850"
+  },
+  "position_model": {
+    "artifact_policy": {
+      "policy": "slim_card_recorder_first",
+      "recorder_only_artifacts": [
+        "positions"
+      ]
+    },
+    "comparison": {
+      "beats_constrained_weight_reference": false,
+      "beats_previous_factor_enhanced": false,
+      "beats_soxl_backtest": false,
+      "beats_soxl_buyhold": false,
+      "selected_max_drawdown_pct": -4.311306032411366,
+      "selected_return_pct": 7.656183733861588,
+      "selected_vs_constrained_weight_reference_return_gap_pct": -563.5638740357882,
+      "selected_vs_previous_factor_enhanced_return_gap_pct": -181.06598279767294,
+      "selected_vs_soxl_backtest_return_gap_pct": -130.34005421749336,
+      "selected_vs_soxl_buyhold_return_gap_pct": -382.2252552532313
+    },
+    "feature_cols": [
+      "liquidity_tail_pressure_imbalance_20d",
+      "g001_000_mutation_liquidity_tail_pre_31a9d24477",
+      "alpha158_MA5",
+      "alpha158_MA10",
+      "alpha158_MA20",
+      "alpha158_MA30",
+      "alpha158_MA60",
+      "alpha158_MAX20",
+      "vix",
+      "realized_vol_20"
+    ],
+    "feature_count": 10,
+    "latest_signal": {
+      "action": "HOLD",
+      "as_of": "2026-06-24",
+      "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+      "last_change_date": "2026-05-01",
+      "last_change_target_position": 0.0,
+      "previous_target_position": 0.0,
+      "probability": 0.2918430596883729,
+      "target_delta": 0.0,
+      "target_delta_percent": 0.0,
+      "target_percent": 0.0,
+      "target_position": 0.0
+    },
+    "model_families": [
+      "logistic_regression",
+      "ridge"
+    ],
+    "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+    "risk_gates": {
+      "extreme_loss_threshold": -0.05,
+      "max_test_extreme_loss_day_count": 5,
+      "max_test_total_turnover": 20.0,
+      "max_test_zero_position_day_ratio": 0.98,
+      "max_validation_extreme_loss_day_count": 5,
+      "max_validation_total_turnover": 20.0,
+      "max_validation_zero_position_day_ratio": 0.98,
+      "min_test_avg_abs_position": 0.01,
+      "min_validation_avg_abs_position": 0.01,
+      "selected_passes_all": true,
+      "selected_test_passes": true,
+      "selected_validation_passes": true,
+      "test_max_daily_loss_floor": -8.0,
+      "test_max_drawdown_floor": -25.0,
+      "validation_max_daily_loss_floor": -8.0,
+      "validation_max_drawdown_floor": -25.0
+    },
+    "segments": {
+      "test": [
+        "2026-01-02",
+        "2026-06-24"
+      ],
+      "train": [
+        "2019-01-02",
+        "2024-12-31"
+      ],
+      "validation": [
+        "2025-01-02",
+        "2025-12-31"
+      ]
+    },
+    "selected_candidate": {
+      "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+      "model": "logistic_regression",
+      "selected_by": "validation_selection_objective_score",
+      "test": {
+        "avg_abs_position": 0.029946303181179988,
+        "avg_holding_days": 1.2058823529411764,
+        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+        "cost_per_turnover": 0.0003,
+        "days_above_100": 0,
+        "days_below_0": 0,
+        "extreme_loss_day_count": 0,
+        "extreme_loss_threshold": -0.05,
+        "max_daily_loss_pct": -2.1829052337852746,
+        "max_drawdown_pct": -4.311306032411366,
+        "max_position": 0.19417511642195345,
+        "min_position": 0.0,
+        "model": "logistic_regression",
+        "model_target_col": "label_return_5d",
+        "model_task": "classification",
+        "month_count": 6,
+        "next_day_reversal_count": 35,
+        "next_day_reversal_ratio": 0.5072463768115942,
+        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
+        "position_mode": "probability",
+        "positive_month_count": 3,
+        "positive_month_ratio": 0.5,
+        "report_segment": "test",
+        "return_col": "forward_return",
+        "return_pct": 7.656183733861588,
+        "return_to_drawdown": 1.775838615098124,
+        "scale": 1.0,
+        "segment": "test",
+        "selected": true,
+        "selection_eligible": true,
+        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+        "selection_objective_score": -61.43671131481166,
+        "selection_segment": "validation",
+        "test_end": "2026-06-24",
+        "test_start": "2026-01-02",
+        "threshold": 0.45,
+        "total_turnover": 1.6321474269800786,
+        "trade_count": 69,
+        "train_end": "2024-12-31",
+        "train_start": "2019-01-02",
+        "validation_end": "2025-12-31",
+        "validation_start": "2025-01-02",
+        "worst_strategy_return_pct": -2.1829052337852746,
+        "zero_position_day_count": 55,
+        "zero_position_day_ratio": 0.46218487394957986
+      },
+      "validation": {
+        "avg_abs_position": 0.07949451091845994,
+        "avg_holding_days": 1.1857142857142857,
+        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+        "cost_per_turnover": 0.0003,
+        "days_above_100": 0,
+        "days_below_0": 0,
+        "extreme_loss_day_count": 2,
+        "extreme_loss_threshold": -0.05,
+        "max_daily_loss_pct": -7.706078837643999,
+        "max_drawdown_pct": -22.07040467882123,
+        "max_position": 0.4178959974382218,
+        "min_position": 0.0,
+        "model": "logistic_regression",
+        "model_target_col": "label_return_5d",
+        "model_task": "classification",
+        "month_count": 12,
+        "next_day_reversal_count": 102,
+        "next_day_reversal_ratio": 0.4834123222748815,
+        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
+        "position_mode": "probability",
+        "positive_month_count": 7,
+        "positive_month_ratio": 0.5833333333333334,
+        "report_segment": "test",
+        "return_col": "forward_return",
+        "return_pct": 8.450728149181108,
+        "return_to_drawdown": 0.38289864966954734,
+        "scale": 1.0,
+        "segment": "validation",
+        "selected": true,
+        "selection_eligible": true,
+        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+        "selection_objective_score": -229.82752124016213,
+        "selection_segment": "validation",
+        "test_end": "2026-06-24",
+        "test_start": "2026-01-02",
+        "threshold": 0.45,
+        "total_turnover": 5.817014866560822,
+        "trade_count": 211,
+        "train_end": "2024-12-31",
+        "train_start": "2019-01-02",
+        "validation_end": "2025-12-31",
+        "validation_start": "2025-01-02",
+        "worst_strategy_return_pct": -7.706078837643999,
+        "zero_position_day_count": 50,
+        "zero_position_day_ratio": 0.2
+      }
+    },
+    "spec": {
+      "constrained_reference_name": "constrained_weight_reference",
+      "cost_per_turnover": 0.0003,
+      "datetime_col": "datetime",
+      "extreme_loss_threshold": -0.05,
+      "feature_cols": [
+        "liquidity_tail_pressure_imbalance_20d",
+        "g001_000_mutation_liquidity_tail_pre_31a9d24477",
+        "alpha158_MA5",
+        "alpha158_MA10",
+        "alpha158_MA20",
+        "alpha158_MA30",
+        "alpha158_MA60",
+        "alpha158_MAX20",
+        "vix",
+        "realized_vol_20"
+      ],
+      "label_col": "label_return_5d",
+      "max_test_extreme_loss_day_count": 5,
+      "max_test_total_turnover": 20.0,
+      "max_test_zero_position_day_ratio": 0.98,
+      "max_validation_extreme_loss_day_count": 5,
+      "max_validation_reversal_ratio": 0.5,
+      "max_validation_total_turnover": 20.0,
+      "max_validation_zero_position_day_ratio": 0.98,
+      "min_test_avg_abs_position": 0.01,
+      "min_validation_avg_abs_position": 0.01,
+      "min_validation_trade_count": 1,
+      "model_specs": [
+        {
+          "model": "ridge",
+          "task": "regression"
+        },
+        {
+          "model": "logistic_regression"
+        }
+      ],
+      "position_specs": [
+        {
+          "hold_days": 3,
+          "max_position": 1.0,
+          "scale": 1.0,
+          "threshold": 0.45
+        },
+        {
+          "hold_days": 3,
+          "max_position": 1.0,
+          "scale": 1.0,
+          "threshold": 0.55
+        }
+      ],
+      "return_col": "forward_return",
+      "test": [
+        "2026-01-02",
+        "2026-06-24"
+      ],
+      "test_max_daily_loss_floor": -8.0,
+      "test_max_drawdown_floor": -25.0,
+      "train": [
+        "2019-01-02",
+        "2024-12-31"
+      ],
+      "validation": [
+        "2025-01-02",
+        "2025-12-31"
+      ],
+      "validation_max_daily_loss_floor": -8.0,
+      "validation_max_drawdown_floor": -25.0,
+      "walk_forward_folds": [
+        {
+          "fold": "wf_2025_h2",
+          "test": [
+            "2025-07-01",
+            "2025-12-31"
+          ],
+          "train": [
+            "2019-01-02",
+            "2024-06-28"
+          ],
+          "validation": [
+            "2024-07-01",
+            "2025-06-30"
+          ]
+        },
+        {
+          "fold": "wf_2026_ytd",
+          "test": [
+            "2026-01-02",
+            "2026-06-24"
+          ],
+          "train": [
+            "2019-01-02",
+            "2024-12-31"
+          ],
+          "validation": [
+            "2025-01-02",
+            "2025-12-31"
+          ]
+        }
+      ]
+    },
+    "walk_forward": {
+      "all_folds_pass_risk_gates": false,
+      "extreme_loss_threshold": -0.05,
+      "fold_count": 2,
+      "max_test_extreme_loss_day_count": 0,
+      "max_test_total_turnover": 1.6321474269800786,
+      "mean_test_avg_abs_position": 0.015111367439400314,
+      "mean_test_positive_month_ratio": 0.25,
+      "mean_test_return_pct": 3.803058813943072,
+      "mean_test_zero_position_day_ratio": 0.72327993697479,
+      "median_test_return_pct": 3.803058813943072,
+      "positive_test_fold_count": 1,
+      "positive_test_fold_ratio": 0.5,
+      "total_test_trade_count": 72,
+      "worst_test_max_daily_loss_pct": -2.1829052337852746,
+      "worst_test_max_drawdown_pct": -4.311306032411366
+    },
+    "workflow": "cognitive_alpha_position_model"
+  },
+  "production_paper_sim": {
+    "direct_factor_backtest_allowed_to_promote": false,
+    "required_gate": "validated_research_position_model_or_production_paper_sim",
+    "status": "blocked_not_promoted"
+  },
+  "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_docs_reference": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "Alpha158.get_feature_config",
+    "qlib.workflow.R.start"
+  ],
+  "recorder_artifacts": [
+    "artifacts/code_cached.txt",
+    "artifacts/code_diff.txt",
+    "artifacts/code_status.txt",
+    "artifacts/cognitive_alpha_direct_weighted/direct_weighted_positions.csv",
+    "artifacts/cognitive_alpha_evolution/candidate_pool/generation_000.jsonl",
+    "artifacts/cognitive_alpha_evolution/candidate_pool/generation_001.jsonl",
+    "artifacts/cognitive_alpha_evolution/fitness/generation_000.csv",
+    "artifacts/cognitive_alpha_evolution/fitness/generation_001.csv",
+    "artifacts/cognitive_alpha_evolution/lineage/generation_000.jsonl",
+    "artifacts/cognitive_alpha_evolution/lineage/generation_001.jsonl",
+    "artifacts/cognitive_alpha_evolution/quality/generation_000.csv",
+    "artifacts/cognitive_alpha_evolution/quality/generation_001.csv",
+    "artifacts/cognitive_alpha_evolution/rejected/generation_000.jsonl",
+    "artifacts/cognitive_alpha_evolution/rejected/generation_001.jsonl",
+    "artifacts/cognitive_alpha_evolution/state.json",
+    "artifacts/cognitive_alpha_evolution/summary.json",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/backtest_benchmark_comparison.csv",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/backtest_walk_forward_metrics.csv",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/direct_factor_benchmark_comparison.csv",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/direct_factor_candidate_metrics.csv",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/direct_factor_summary.json",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/evolution_summary.json",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/generation_metrics.csv",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/goal_manifest.json",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/latest_signal.json",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/model_selection.csv",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/position_summary.json",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/selected_features.csv",
+    "artifacts/cognitive_alpha_goal_codex_exec_v1/state.json",
+    "artifacts/cognitive_alpha_position/positions.csv",
+    "meta.yaml",
+    "params/children_per_generation",
+    "params/cmd-sys.argv",
+    "params/codex_provider",
+    "params/codex_sandbox",
+    "params/generations",
+    "params/initial_pool_size",
+    "params/instrument",
+    "params/market",
+    "params/parent_pool_size",
+    "params/provider_uri",
+    "params/region",
+    "params/test_end",
+    "params/test_start",
+    "params/train_end",
+    "params/train_start",
+    "params/validation_end",
+    "params/validation_start",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "d8c0dfd3407c46c8b2d04641b407a79e",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/d8c0dfd3407c46c8b2d04641b407a79e",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder",
+  "region": "us",
+  "research_gate": {
+    "direct_factor_backtest_role": "prior_only_not_final_promotion",
+    "final_promotion_source": "position_model",
+    "promotion_decision": "not_promoted_failed_walk_forward_risk_gates"
+  },
+  "segments": {
+    "test": [
+      "2026-01-02",
+      "2026-06-24"
+    ],
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ]
+  },
+  "sidecars": {
+    "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
+    "benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "direct_factor_benchmark_comparison": "direct_factor_benchmark_comparison.csv",
+    "direct_factor_candidate_metrics": "direct_factor_candidate_metrics.csv",
+    "direct_factor_summary": "direct_factor_summary.json",
+    "evolution_summary": "evolution_summary.json",
+    "failure_modes": "failure_modes.md",
+    "generation_metrics": "generation_metrics.csv",
+    "goal_manifest": "goal_manifest.json",
+    "latest_signal": "latest_signal.json",
+    "model_selection": "model_selection.csv",
+    "position_summary": "position_summary.json",
+    "selected_features": "selected_features.csv",
+    "state": "state.json"
+  },
+  "status": "complete",
+  "workflow_config": "workflow.yaml"
+}

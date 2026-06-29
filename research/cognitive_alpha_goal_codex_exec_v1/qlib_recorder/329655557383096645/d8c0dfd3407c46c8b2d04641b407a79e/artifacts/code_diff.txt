@@ -1,0 +1,413 @@
+diff --git a/src/workflow/__init__.py b/src/workflow/__init__.py
+index 5861c5d1..e6b19e69 100644
+--- a/src/workflow/__init__.py
++++ b/src/workflow/__init__.py
+@@ -33,6 +33,7 @@ __all__ = [
+     "CognitiveAlphaGoalRunnerSpec",
+     "CognitiveAlphaSignalRefreshJob",
+     "CognitiveAlphaSignalRefreshSpec",
++    "CognitiveAlphaGoalCodexExecCardSpec",
+     "QlibNativeExperimentResult",
+     "QlibNativeExperimentSpec",
+     "build_agentic_alpha_hypotheses",
+@@ -46,6 +47,7 @@ __all__ = [
+     "codex_exec_completion",
+     "distill_agentic_alpha_search",
+     "load_agentic_alpha_backtest_metric",
++    "run_cognitive_alpha_goal_codex_exec_card",
+     "run_cognitive_alpha_position_model",
+     "run_cognitive_alpha_weighted_factor_search",
+     "run_cognitive_alpha_evolution",
+@@ -89,6 +91,11 @@ _COGNITIVE_ALPHA_CODEX_EXPORTS = {
+     "codex_exec_completion",
+ }
+
++_COGNITIVE_ALPHA_GOAL_CODEX_EXEC_EXPORTS = {
++    "CognitiveAlphaGoalCodexExecCardSpec",
++    "run_cognitive_alpha_goal_codex_exec_card",
++}
++
+
+ def __getattr__(name: str):
+     if name in _COGNITIVE_ALPHA_EXPORTS:
+@@ -111,4 +118,8 @@ def __getattr__(name: str):
+         from . import cognitive_alpha_codex_provider
+
+         return getattr(cognitive_alpha_codex_provider, name)
++    if name in _COGNITIVE_ALPHA_GOAL_CODEX_EXEC_EXPORTS:
++        from . import cognitive_alpha_goal_codex_exec
++
++        return getattr(cognitive_alpha_goal_codex_exec, name)
+     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+diff --git a/src/workflow/cognitive_alpha_codex_provider.py b/src/workflow/cognitive_alpha_codex_provider.py
+index 7ffa9de9..3739dd20 100644
+--- a/src/workflow/cognitive_alpha_codex_provider.py
++++ b/src/workflow/cognitive_alpha_codex_provider.py
+@@ -53,10 +53,10 @@ def codex_exec_completion(
+         command = [
+             resolved_codex,
+             "exec",
++            "-c",
++            'approval_policy="never"',
+             "--sandbox",
+             sandbox,
+-            "--ask-for-approval",
+-            "never",
+             "--output-schema",
+             schema_path.as_posix(),
+             "--output-last-message",
+diff --git a/src/workflow/cognitive_alpha_evolution.py b/src/workflow/cognitive_alpha_evolution.py
+index 119edcbd..b5babbe0 100644
+--- a/src/workflow/cognitive_alpha_evolution.py
++++ b/src/workflow/cognitive_alpha_evolution.py
+@@ -154,6 +154,8 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+     request_log: list[dict[str, Any]] = field(default_factory=list, init=False)
+     response_log: list[dict[str, Any]] = field(default_factory=list, init=False)
+     failure_count: int = field(default=0, init=False)
++    invalid_candidate_count: int = field(default=0, init=False)
++    invalid_candidate_log: list[dict[str, Any]] = field(default_factory=list, init=False)
+
+     def generate_candidates(
+         self,
+@@ -171,7 +173,8 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+         selected_agents = agent_specs[: profile.agent_count]
+         candidates: list[CognitiveAlphaCandidate] = []
+         request_index = 0
+-        while len(candidates) < target_initial_pool_size:
++        max_requests = max(target_initial_pool_size * 4, target_initial_pool_size + 8)
++        while len(candidates) < target_initial_pool_size and request_index < max_requests:
+             level, agent, theme = selected_agents[request_index % len(selected_agents)]
+             guidance_style = self.guidance_styles[request_index % len(self.guidance_styles)]
+             request = _external_llm_request_payload(
+@@ -194,30 +197,57 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+                 self.failure_count += 1
+                 raise ValueError(f"external LLM candidate provider failed at request {request_index}: {exc}") from exc
+             response_hash = _stable_payload_hash(response)
++            valid_candidate_count = 0
++            invalid_candidate_count = 0
++            response_candidates: list[CognitiveAlphaCandidate] = []
++            for response_index, payload in enumerate(response["candidates"]):
++                try:
++                    response_candidates.append(
++                        _external_llm_candidate(
++                            payload,
++                            request=request,
++                            prompt_hash=prompt_hash,
++                            response_hash=response_hash,
++                            response_index=response_index,
++                            provider_id=self.provider_id,
++                            provider_kind=self.provider_kind,
++                            model=self.model,
++                        )
++                    )
++                    valid_candidate_count += 1
++                except Exception as exc:
++                    invalid_candidate_count += 1
++                    self.invalid_candidate_count += 1
++                    self.invalid_candidate_log.append(
++                        {
++                            "request_index": int(request_index),
++                            "response_index": int(response_index),
++                            "prompt_hash": prompt_hash,
++                            "response_hash": response_hash,
++                            "error_type": type(exc).__name__,
++                            "error": str(exc),
++                        }
++                    )
+             self.response_log.append(
+                 {
+                     "request_index": request_index,
+                     "prompt_hash": prompt_hash,
+                     "response_hash": response_hash,
+                     "candidate_count": len(response["candidates"]),
++                    "valid_candidate_count": valid_candidate_count,
++                    "invalid_candidate_count": invalid_candidate_count,
+                 }
+             )
+-            for response_index, payload in enumerate(response["candidates"]):
+-                candidates.append(
+-                    _external_llm_candidate(
+-                        payload,
+-                        request=request,
+-                        prompt_hash=prompt_hash,
+-                        response_hash=response_hash,
+-                        response_index=response_index,
+-                        provider_id=self.provider_id,
+-                        provider_kind=self.provider_kind,
+-                        model=self.model,
+-                    )
+-                )
++            for candidate in response_candidates:
++                candidates.append(candidate)
+                 if len(candidates) >= target_initial_pool_size:
+                     break
+             request_index += 1
++        if len(candidates) < target_initial_pool_size:
++            raise ValueError(
++                "external LLM candidate provider returned too few valid candidates: "
++                f"{len(candidates)} valid for target {target_initial_pool_size} after {request_index} requests"
++            )
+         return candidates
+
+     def provider_summary(self) -> dict[str, Any]:
+@@ -226,6 +256,7 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+             "prompt_count": int(len(self.request_log)),
+             "response_count": int(len(self.response_log)),
+             "provider_failure_count": int(self.failure_count),
++            "invalid_candidate_count": int(self.invalid_candidate_count),
+             "external_llm_configured": True,
+         }
+         if self.openai_api_key_required is not None:
+diff --git a/tests/test_cognitive_alpha_codex_provider.py b/tests/test_cognitive_alpha_codex_provider.py
+index 54b59871..5f37a56c 100644
+--- a/tests/test_cognitive_alpha_codex_provider.py
++++ b/tests/test_cognitive_alpha_codex_provider.py
+@@ -92,8 +92,11 @@ def test_codex_exec_completion_invokes_codex_without_openai_api_key(tmp_path, mo
+     assert captured["args"][0] == "exec"
+     assert "--output-schema" in captured["args"]
+     assert "--output-last-message" in captured["args"]
+-    assert "--ask-for-approval" in captured["args"]
+-    assert "never" in captured["args"]
++    assert "--ask-for-approval" not in captured["args"]
++    assert "-c" in captured["args"]
++    assert 'approval_policy="never"' in captured["args"]
++    assert "--sandbox" in captured["args"]
++    assert "read-only" in captured["args"]
+     assert captured["openai_api_key"] is None
+     assert "arxiv:2511.18850" in captured["prompt"]
+     assert "Return only JSON" in captured["prompt"]
+diff --git a/tests/test_cognitive_alpha_evolution.py b/tests/test_cognitive_alpha_evolution.py
+index cd9eb5f4..1b20abc4 100644
+--- a/tests/test_cognitive_alpha_evolution.py
++++ b/tests/test_cognitive_alpha_evolution.py
+@@ -456,6 +456,73 @@ def test_cognitive_alpha_external_llm_provider_records_prompt_response_and_repai
+     assert repaired["metadata"]["repair_reason"] == "future_lookahead_code_pattern"
+
+
++def test_cognitive_alpha_external_llm_provider_skips_malformed_candidate_code(tmp_path):
++    from src.workflow import (
++        CognitiveAlphaEvolutionSpec,
++        build_cognitive_alpha_external_llm_candidate_provider,
++        run_cognitive_alpha_evolution,
++    )
++
++    requests: list[dict] = []
++
++    def fake_completion(request: dict) -> dict:
++        requests.append(request)
++        index = int(request["request_index"])
++        code = "close.pct_change(5).shift(1" if index == 0 else "close.pct_change(5).shift(1)"
++        return {
++            "candidates": [
++                {
++                    "name": f"external_llm_candidate_{index:03d}",
++                    "level": request["level"],
++                    "agent": request["agent"],
++                    "theme": f"{request['guidance_style']} external code alpha",
++                    "required_columns": ["close"],
++                    "lookback": 5,
++                    "code": code,
++                    "economic_rationale": "External LLM generated lag-aware SOXL OHLCV code.",
++                }
++            ]
++        }
++
++    provider = build_cognitive_alpha_external_llm_candidate_provider(
++        completion=fake_completion,
++        provider_id="unit_external_llm",
++        model="unit-llm",
++    )
++    spec = CognitiveAlphaEvolutionSpec(
++        run_id="external_llm_provider_skip_bad_code",
++        profile="soxl_smoke",
++        runtime_dir=tmp_path,
++        generations=1,
++        initial_pool_size=2,
++        parent_pool_size=2,
++        children_per_generation=3,
++        qualified_percentile=0.50,
++        elite_percentile=0.75,
++        fallback_top_n=2,
++    )
++
++    result = run_cognitive_alpha_evolution(
++        _evolution_frame(rows=160),
++        spec=spec,
++        label_col="label_return_5d",
++        candidate_provider=provider,
++    )
++
++    generation_zero = _read_jsonl(
++        tmp_path / "external_llm_provider_skip_bad_code" / "candidate_pool" / "generation_000.jsonl"
++    )
++    names = {row["name"] for row in generation_zero}
++
++    assert len(requests) == 3
++    assert "external_llm_candidate_000" not in names
++    assert {"external_llm_candidate_001", "external_llm_candidate_002"}.issubset(names)
++    assert result.summary["candidate_provider"]["prompt_count"] == 3
++    assert result.summary["candidate_provider"]["response_count"] == 3
++    assert result.summary["candidate_provider"]["invalid_candidate_count"] == 1
++    assert result.summary["initial_candidate_count"] == 2
++
++
+ def test_cognitive_alpha_command_llm_provider_generates_candidates_from_external_process(tmp_path):
+     from src.workflow import (
+         CognitiveAlphaEvolutionSpec,
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index 6f30f4ce..83f50544 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -1643,6 +1643,152 @@ def test_cognitive_alpha_external_provider_smoke_card_records_codex_provider_rea
+         assert "OpenAI API key" not in text
+
+
++def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain():
++    card = ROOT / "research" / "cognitive_alpha_goal_codex_exec_v1"
++    summary = _summary(card)
++    notebook_text = (card / "cognitive_alpha_goal_codex_exec_v1.ipynb").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++    workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
++    failure_modes = (card / "failure_modes.md").read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "cognitive_alpha_goal_codex_exec_v1"
++    assert summary["card_type"] == "diagnostic_cognitive_alpha_codex_exec_goal_chain"
++    assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
++    assert summary["promotion_decision"].startswith("not_promoted")
++    assert summary["codex_provider"]["provider_builder"] == "build_cognitive_alpha_codex_exec_candidate_provider"
++    assert summary["codex_provider"]["provider_id"] == "codex_exec_candidate_provider"
++    assert summary["codex_provider"]["provider_kind"] == "codex_exec_code"
++    assert summary["codex_provider"]["execution_mode"] == "codex_exec_chatgpt_auth_no_openai_api_key"
++    assert summary["codex_provider"]["sandbox"] == "read-only"
++    assert summary["codex_provider"]["output_schema"] == "cognitive_alpha_candidate_schema.json"
++    assert summary["codex_provider"]["openai_api_key_required"] is False
++    assert summary["codex_provider"]["prompt_count"] > 0
++    assert summary["codex_provider"]["response_count"] == summary["codex_provider"]["prompt_count"]
++    assert summary["codex_provider_readiness"]["status"] in {"ok", "warning"}
++    assert summary["codex_provider_readiness"]["auth_mode"] == "chatgpt"
++    assert summary["codex_provider_readiness"]["stored_api_key"] == "false"
++    assert summary["codex_provider_readiness"]["stored_chatgpt_tokens"] == "true"
++
++    assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
++    assert summary["evolution"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
++    assert summary["evolution"]["candidate_provider"]["provider_kind"] == "codex_exec_code"
++    assert summary["evolution"]["candidate_provider"]["codex_direct_compatible"] is True
++    assert summary["evolution"]["candidate_provider"]["openai_api_key_required"] is False
++    assert summary["evolution"]["candidate_provider"]["prompt_count"] > 0
++    assert summary["evolution"]["initial_candidate_count"] >= summary["evolution"]["candidate_provider"]["prompt_count"]
++    assert summary["evolution"]["completed_generations"] >= 2
++    assert summary["evolution"]["selected_count"] > 0
++    assert summary["evolution"]["repair_attempt_count"] >= 1
++    assert summary["evolution"]["evolution_ops"] == ["mutation", "crossover", "crossover_mutation"]
++    assert {"ic", "icir", "rank_ic", "rank_icir", "mutual_information"} == set(summary["evolution"]["metric_names"])
++    assert len(summary["evolution"]["agent_levels_covered"]) >= 2
++    assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
++    assert summary["position_model"]["walk_forward"]["fold_count"] >= 2
++    assert "beats_constrained_weight_reference" in summary["position_model"]["comparison"]
++    assert summary["position_model"]["latest_signal"]["as_of"] == summary["as_of"]
++    assert 0.0 <= summary["position_model"]["latest_signal"]["target_position"] <= 1.0
++    assert summary["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
++    assert summary["direct_factor_backtest"]["promotion_decision"] in {
++        "diagnostic_direct_factor_candidate",
++        "not_promoted_under_constrained_weight_reference",
++    }
++    assert summary["research_gate"]["final_promotion_source"] in {"position_model", "production_paper_sim"}
++    assert summary["research_gate"]["direct_factor_backtest_role"] == "prior_only_not_final_promotion"
++    assert summary["production_paper_sim"]["status"] == "blocked_not_promoted"
++    assert summary["production_paper_sim"]["required_gate"] == "validated_research_position_model_or_production_paper_sim"
++
++    assert summary["qlib_native_api"] == [
++        "qlib.init",
++        "qlib.data.D.features",
++        "DatasetH",
++        "DataHandlerLP",
++        "Alpha158.get_feature_config",
++        "qlib.workflow.R.start",
++    ]
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
++    assert set(summary["sidecars"]) == {
++        "backtest_walk_forward_metrics",
++        "benchmark_comparison",
++        "direct_factor_benchmark_comparison",
++        "direct_factor_candidate_metrics",
++        "direct_factor_summary",
++        "evolution_summary",
++        "failure_modes",
++        "generation_metrics",
++        "goal_manifest",
++        "latest_signal",
++        "model_selection",
++        "position_summary",
++        "selected_features",
++        "state",
++    }
++    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
++        "candidate_pool",
++        "direct_weighted_positions",
++        "fitness",
++        "lineage",
++        "positions",
++        "quality",
++        "rejected",
++        "state",
++    }
++    for rel_path in summary["sidecars"].values():
++        assert (card / rel_path).exists(), rel_path
++    for forbidden in RECORDER_ONLY_ROOT_FILES:
++        assert not (card / forbidden).exists(), forbidden
++
++    goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
++    goal_state = json.loads((card / summary["sidecars"]["state"]).read_text(encoding="utf-8"))
++    assert goal_manifest["status"] == "complete"
++    assert goal_manifest["completed_stages"] == goal_manifest["stage_order"]
++    assert goal_state["status"] == "complete"
++    assert goal_state["completed_stages"] == goal_manifest["stage_order"]
++    assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
++    assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
++    assert goal_manifest["validation_gates"]["required_candidate_provider_ids"] == ["codex_exec_candidate_provider"]
++    assert goal_manifest["validation_gates"]["required_candidate_provider_kinds"] == ["codex_exec_code"]
++    assert goal_manifest["validation_gates"]["required_metric_names"] == [
++        "ic",
++        "icir",
++        "rank_ic",
++        "rank_icir",
++        "mutual_information",
++    ]
++    assert goal_manifest["model_and_position"]["workflow"] == "cognitive_alpha_position_model"
++    assert goal_manifest["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
++    assert goal_manifest["research_card"]["promotion_decision"] == summary["position_model"]["promotion_decision"]
++
++    recorder_dir = Path(summary["recorder_local_dir"])
++    assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv").exists()
++    assert (recorder_dir / "artifacts" / "cognitive_alpha_direct_weighted" / "direct_weighted_positions.csv").exists()
++    assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
++    assert (
++        recorder_dir
++        / "artifacts"
++        / "cognitive_alpha_evolution"
++        / "candidate_pool"
++        / "generation_001.jsonl"
++    ).exists()
++    assert summary["recorder_id"] in notebook_text
++    assert "build_cognitive_alpha_codex_exec_candidate_provider" in notebook_text
++    assert "codex_exec_candidate_provider" in notebook_text
++    assert "--output-schema" in notebook_text
++    assert "--ask-for-approval" in notebook_text
++    assert "read-only" in notebook_text
++    assert "D.features" in notebook_text
++    assert "build_alpha158_legacy_dataset" in notebook_text
++    assert "run_cognitive_alpha_position_model" in notebook_text
++    assert "run_cognitive_alpha_weighted_factor_search" in notebook_text
++    assert "CognitiveAlphaGoalRunner" in notebook_text
++    assert "R.start" in notebook_text
++    assert "provider_builder: build_cognitive_alpha_codex_exec_candidate_provider" in workflow
++    assert "不构成买卖建议" in conclusion
++    for text in (json.dumps(summary, ensure_ascii=False), conclusion, failure_modes, notebook_text):
++        assert "fixture_external_command_provider" not in text
++        assert "fixture provider" not in text
++
++
+ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():
+     card = ROOT / "research" / "cognitive_alpha_position_model_v1"
+     summary = _summary(card)

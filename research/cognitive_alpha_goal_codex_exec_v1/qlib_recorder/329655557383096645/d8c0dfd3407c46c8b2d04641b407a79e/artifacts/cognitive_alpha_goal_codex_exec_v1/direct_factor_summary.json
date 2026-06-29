@@ -1,0 +1,96 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "positions"
+    ]
+  },
+  "candidate_count": 2,
+  "comparison": {
+    "beats_constrained_weight_reference": true,
+    "beats_previous_factor_enhanced": true,
+    "beats_soxl_backtest": true,
+    "beats_soxl_buyhold": true,
+    "selected_max_drawdown_pct": -81.99489994023767,
+    "selected_return_pct": 849.9033768748054,
+    "selected_vs_constrained_weight_reference_return_gap_pct": 278.68331910515565,
+    "selected_vs_previous_factor_enhanced_return_gap_pct": 661.1812103432709,
+    "selected_vs_soxl_backtest_return_gap_pct": 711.9071389234505,
+    "selected_vs_soxl_buyhold_return_gap_pct": 460.0219378877125
+  },
+  "component_cols": [
+    "liquidity_tail_pressure_imbalance_20d",
+    "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+  ],
+  "promotion_decision": "diagnostic_direct_factor_candidate",
+  "selected_candidate": {
+    "avg_abs_position": 0.4011866068485833,
+    "avg_holding_days": 1.9061224489795918,
+    "beats_constrained_weight_reference": true,
+    "benchmark_return_pct": null,
+    "candidate": "codex_exec_primary_factor_direct",
+    "component_cols": "[\"liquidity_tail_pressure_imbalance_20d\", \"g001_000_mutation_liquidity_tail_pre_31a9d24477\"]",
+    "cost_per_turnover": 0.0003,
+    "days_above_100": 0,
+    "days_below_0": 0,
+    "effective_component_count": 1,
+    "max_drawdown_pct": -81.99489994023767,
+    "max_position": 1.0,
+    "min_position": 0.0,
+    "next_day_reversal_count": 506,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+    "passes_drawdown_gate": false,
+    "passes_effective_component_gate": true,
+    "passes_position_bounds": true,
+    "raw_target_avg_abs": 0.9341749027701348,
+    "raw_target_max": 1.0,
+    "raw_target_min": -1.0,
+    "return_pct": 849.9033768748054,
+    "selection_eligible": false,
+    "total_turnover": 911.3918767791835,
+    "trade_count": 981,
+    "weights": "{\"liquidity_tail_pressure_imbalance_20d\": 1.0}"
+  },
+  "selection": "return_sorted_long_only_multifactor_gate",
+  "spec": {
+    "candidates": [
+      {
+        "candidate": "codex_exec_equal_weight_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.2
+        },
+        "weights": {
+          "g001_000_mutation_liquidity_tail_pre_31a9d24477": 0.5,
+          "liquidity_tail_pressure_imbalance_20d": 0.5
+        }
+      },
+      {
+        "candidate": "codex_exec_primary_factor_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.3
+        },
+        "weights": {
+          "liquidity_tail_pressure_imbalance_20d": 1.0
+        }
+      }
+    ],
+    "component_cols": [
+      "liquidity_tail_pressure_imbalance_20d",
+      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+    ],
+    "constrained_reference_name": "constrained_weight_reference",
+    "cost_per_turnover": 0.0003,
+    "datetime_col": "datetime",
+    "max_drawdown_floor": -25.0,
+    "max_position": 1.0,
+    "min_effective_component_count": 1,
+    "min_effective_weight": 0.05,
+    "min_position": 0.0,
+    "return_col": "forward_return"
+  },
+  "workflow": "cognitive_alpha_weighted_factor_search"
+}

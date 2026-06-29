@@ -456,6 +456,73 @@ def test_cognitive_alpha_external_llm_provider_records_prompt_response_and_repai
     assert repaired["metadata"]["repair_reason"] == "future_lookahead_code_pattern"
 
 
+def test_cognitive_alpha_external_llm_provider_skips_malformed_candidate_code(tmp_path):
+    from src.workflow import (
+        CognitiveAlphaEvolutionSpec,
+        build_cognitive_alpha_external_llm_candidate_provider,
+        run_cognitive_alpha_evolution,
+    )
+
+    requests: list[dict] = []
+
+    def fake_completion(request: dict) -> dict:
+        requests.append(request)
+        index = int(request["request_index"])
+        code = "close.pct_change(5).shift(1" if index == 0 else "close.pct_change(5).shift(1)"
+        return {
+            "candidates": [
+                {
+                    "name": f"external_llm_candidate_{index:03d}",
+                    "level": request["level"],
+                    "agent": request["agent"],
+                    "theme": f"{request['guidance_style']} external code alpha",
+                    "required_columns": ["close"],
+                    "lookback": 5,
+                    "code": code,
+                    "economic_rationale": "External LLM generated lag-aware SOXL OHLCV code.",
+                }
+            ]
+        }
+
+    provider = build_cognitive_alpha_external_llm_candidate_provider(
+        completion=fake_completion,
+        provider_id="unit_external_llm",
+        model="unit-llm",
+    )
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="external_llm_provider_skip_bad_code",
+        profile="soxl_smoke",
+        runtime_dir=tmp_path,
+        generations=1,
+        initial_pool_size=2,
+        parent_pool_size=2,
+        children_per_generation=3,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=2,
+    )
+
+    result = run_cognitive_alpha_evolution(
+        _evolution_frame(rows=160),
+        spec=spec,
+        label_col="label_return_5d",
+        candidate_provider=provider,
+    )
+
+    generation_zero = _read_jsonl(
+        tmp_path / "external_llm_provider_skip_bad_code" / "candidate_pool" / "generation_000.jsonl"
+    )
+    names = {row["name"] for row in generation_zero}
+
+    assert len(requests) == 3
+    assert "external_llm_candidate_000" not in names
+    assert {"external_llm_candidate_001", "external_llm_candidate_002"}.issubset(names)
+    assert result.summary["candidate_provider"]["prompt_count"] == 3
+    assert result.summary["candidate_provider"]["response_count"] == 3
+    assert result.summary["candidate_provider"]["invalid_candidate_count"] == 1
+    assert result.summary["initial_candidate_count"] == 2
+
+
 def test_cognitive_alpha_command_llm_provider_generates_candidates_from_external_process(tmp_path):
     from src.workflow import (
         CognitiveAlphaEvolutionSpec,

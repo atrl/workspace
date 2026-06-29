@@ -1643,6 +1643,157 @@ def test_cognitive_alpha_external_provider_smoke_card_records_codex_provider_rea
         assert "OpenAI API key" not in text
 
 
+def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain():
+    card = ROOT / "research" / "cognitive_alpha_goal_codex_exec_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_goal_codex_exec_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
+    failure_modes = (card / "failure_modes.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_goal_codex_exec_v1"
+    assert summary["card_type"] == "diagnostic_cognitive_alpha_codex_exec_goal_chain"
+    assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
+    assert summary["promotion_decision"].startswith("not_promoted")
+    assert summary["codex_provider"]["provider_builder"] == "build_cognitive_alpha_codex_exec_candidate_provider"
+    assert summary["codex_provider"]["provider_id"] == "codex_exec_candidate_provider"
+    assert summary["codex_provider"]["provider_kind"] == "codex_exec_code"
+    assert summary["codex_provider"]["execution_mode"] == "codex_exec_chatgpt_auth_no_openai_api_key"
+    assert summary["codex_provider"]["sandbox"] == "read-only"
+    assert summary["codex_provider"]["output_schema"] == "cognitive_alpha_candidate_schema.json"
+    assert summary["codex_provider"]["openai_api_key_required"] is False
+    assert summary["codex_provider"]["prompt_count"] > 0
+    assert summary["codex_provider"]["response_count"] == summary["codex_provider"]["prompt_count"]
+    assert summary["codex_provider_readiness"]["status"] in {"ok", "warning"}
+    assert summary["codex_provider_readiness"]["auth_mode"] == "chatgpt"
+    assert summary["codex_provider_readiness"]["stored_api_key"] == "false"
+    assert summary["codex_provider_readiness"]["stored_chatgpt_tokens"] == "true"
+
+    assert summary["evolution"]["workflow"] == "cognitive_alpha_evolution"
+    assert summary["evolution"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
+    assert summary["evolution"]["candidate_provider"]["provider_kind"] == "codex_exec_code"
+    assert summary["evolution"]["candidate_provider"]["codex_direct_compatible"] is True
+    assert summary["evolution"]["candidate_provider"]["openai_api_key_required"] is False
+    assert summary["evolution"]["candidate_provider"]["prompt_count"] > 0
+    assert summary["evolution"]["candidate_provider"]["generated_candidate_count"] == summary["evolution"]["initial_candidate_count"]
+    assert (
+        summary["evolution"]["candidate_provider"]["generated_candidate_count"]
+        >= summary["evolution"]["candidate_provider"]["requested_initial_pool_size"]
+    )
+    assert summary["evolution"]["candidate_provider"]["invalid_candidate_count"] >= 0
+    assert summary["evolution"]["completed_generations"] >= 2
+    assert summary["evolution"]["selected_count"] > 0
+    assert summary["evolution"]["repair_attempt_count"] >= 1
+    assert summary["evolution"]["evolution_ops"] == ["mutation", "crossover", "crossover_mutation"]
+    assert {"ic", "icir", "rank_ic", "rank_icir", "mutual_information"} == set(summary["evolution"]["metric_names"])
+    assert len(summary["evolution"]["agent_levels_covered"]) >= 2
+    assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
+    assert summary["position_model"]["walk_forward"]["fold_count"] >= 2
+    assert "beats_constrained_weight_reference" in summary["position_model"]["comparison"]
+    assert summary["position_model"]["latest_signal"]["as_of"] == summary["as_of"]
+    assert 0.0 <= summary["position_model"]["latest_signal"]["target_position"] <= 1.0
+    assert summary["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
+    assert summary["direct_factor_backtest"]["promotion_decision"] in {
+        "diagnostic_direct_factor_candidate",
+        "not_promoted_under_constrained_weight_reference",
+    }
+    assert summary["research_gate"]["final_promotion_source"] in {"position_model", "production_paper_sim"}
+    assert summary["research_gate"]["direct_factor_backtest_role"] == "prior_only_not_final_promotion"
+    assert summary["production_paper_sim"]["status"] == "blocked_not_promoted"
+    assert summary["production_paper_sim"]["required_gate"] == "validated_research_position_model_or_production_paper_sim"
+
+    assert summary["qlib_native_api"] == [
+        "qlib.init",
+        "qlib.data.D.features",
+        "DatasetH",
+        "DataHandlerLP",
+        "Alpha158.get_feature_config",
+        "qlib.workflow.R.start",
+    ]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
+    assert set(summary["sidecars"]) == {
+        "backtest_walk_forward_metrics",
+        "benchmark_comparison",
+        "direct_factor_benchmark_comparison",
+        "direct_factor_candidate_metrics",
+        "direct_factor_summary",
+        "evolution_summary",
+        "failure_modes",
+        "generation_metrics",
+        "goal_manifest",
+        "latest_signal",
+        "model_selection",
+        "position_summary",
+        "selected_features",
+        "state",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "candidate_pool",
+        "direct_weighted_positions",
+        "fitness",
+        "lineage",
+        "positions",
+        "quality",
+        "rejected",
+        "state",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    for forbidden in RECORDER_ONLY_ROOT_FILES:
+        assert not (card / forbidden).exists(), forbidden
+
+    goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
+    goal_state = json.loads((card / summary["sidecars"]["state"]).read_text(encoding="utf-8"))
+    assert goal_manifest["status"] == "complete"
+    assert goal_manifest["completed_stages"] == goal_manifest["stage_order"]
+    assert goal_state["status"] == "complete"
+    assert goal_state["completed_stages"] == goal_manifest["stage_order"]
+    assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
+    assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
+    assert goal_manifest["validation_gates"]["required_candidate_provider_ids"] == ["codex_exec_candidate_provider"]
+    assert goal_manifest["validation_gates"]["required_candidate_provider_kinds"] == ["codex_exec_code"]
+    assert goal_manifest["validation_gates"]["required_metric_names"] == [
+        "ic",
+        "icir",
+        "rank_ic",
+        "rank_icir",
+        "mutual_information",
+    ]
+    assert goal_manifest["model_and_position"]["workflow"] == "cognitive_alpha_position_model"
+    assert goal_manifest["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
+    assert goal_manifest["research_card"]["promotion_decision"] == summary["position_model"]["promotion_decision"]
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv").exists()
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_direct_weighted" / "direct_weighted_positions.csv").exists()
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
+    assert (
+        recorder_dir
+        / "artifacts"
+        / "cognitive_alpha_evolution"
+        / "candidate_pool"
+        / "generation_001.jsonl"
+    ).exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "build_cognitive_alpha_codex_exec_candidate_provider" in notebook_text
+    assert "codex_exec_candidate_provider" in notebook_text
+    assert "--output-schema" in notebook_text
+    assert "--ask-for-approval" in notebook_text
+    assert "read-only" in notebook_text
+    assert "D.features" in notebook_text
+    assert "build_alpha158_legacy_dataset" in notebook_text
+    assert "run_cognitive_alpha_position_model" in notebook_text
+    assert "run_cognitive_alpha_weighted_factor_search" in notebook_text
+    assert "CognitiveAlphaGoalRunner" in notebook_text
+    assert "R.start" in notebook_text
+    assert "provider_builder: build_cognitive_alpha_codex_exec_candidate_provider" in workflow
+    assert "不构成买卖建议" in conclusion
+    for text in (json.dumps(summary, ensure_ascii=False), conclusion, failure_modes, notebook_text):
+        assert "fixture_external_command_provider" not in text
+        assert "fixture provider" not in text
+
+
 def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():
     card = ROOT / "research" / "cognitive_alpha_position_model_v1"
     summary = _summary(card)

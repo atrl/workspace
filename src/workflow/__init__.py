@@ -33,6 +33,7 @@ __all__ = [
     "CognitiveAlphaGoalRunnerSpec",
     "CognitiveAlphaSignalRefreshJob",
     "CognitiveAlphaSignalRefreshSpec",
+    "CognitiveAlphaGoalCodexExecCardSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
     "build_agentic_alpha_hypotheses",
@@ -46,6 +47,7 @@ __all__ = [
     "codex_exec_completion",
     "distill_agentic_alpha_search",
     "load_agentic_alpha_backtest_metric",
+    "run_cognitive_alpha_goal_codex_exec_card",
     "run_cognitive_alpha_position_model",
     "run_cognitive_alpha_weighted_factor_search",
     "run_cognitive_alpha_evolution",
@@ -89,6 +91,11 @@ _COGNITIVE_ALPHA_CODEX_EXPORTS = {
     "codex_exec_completion",
 }
 
+_COGNITIVE_ALPHA_GOAL_CODEX_EXEC_EXPORTS = {
+    "CognitiveAlphaGoalCodexExecCardSpec",
+    "run_cognitive_alpha_goal_codex_exec_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -111,4 +118,8 @@ def __getattr__(name: str):
         from . import cognitive_alpha_codex_provider
 
         return getattr(cognitive_alpha_codex_provider, name)
+    if name in _COGNITIVE_ALPHA_GOAL_CODEX_EXEC_EXPORTS:
+        from . import cognitive_alpha_goal_codex_exec
+
+        return getattr(cognitive_alpha_goal_codex_exec, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -154,6 +154,8 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
     request_log: list[dict[str, Any]] = field(default_factory=list, init=False)
     response_log: list[dict[str, Any]] = field(default_factory=list, init=False)
     failure_count: int = field(default=0, init=False)
+    invalid_candidate_count: int = field(default=0, init=False)
+    invalid_candidate_log: list[dict[str, Any]] = field(default_factory=list, init=False)
 
     def generate_candidates(
         self,
@@ -171,7 +173,8 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
         selected_agents = agent_specs[: profile.agent_count]
         candidates: list[CognitiveAlphaCandidate] = []
         request_index = 0
-        while len(candidates) < target_initial_pool_size:
+        max_requests = max(target_initial_pool_size * 4, target_initial_pool_size + 8)
+        while len(candidates) < target_initial_pool_size and request_index < max_requests:
             level, agent, theme = selected_agents[request_index % len(selected_agents)]
             guidance_style = self.guidance_styles[request_index % len(self.guidance_styles)]
             request = _external_llm_request_payload(
@@ -194,30 +197,57 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
                 self.failure_count += 1
                 raise ValueError(f"external LLM candidate provider failed at request {request_index}: {exc}") from exc
             response_hash = _stable_payload_hash(response)
+            valid_candidate_count = 0
+            invalid_candidate_count = 0
+            response_candidates: list[CognitiveAlphaCandidate] = []
+            for response_index, payload in enumerate(response["candidates"]):
+                try:
+                    response_candidates.append(
+                        _external_llm_candidate(
+                            payload,
+                            request=request,
+                            prompt_hash=prompt_hash,
+                            response_hash=response_hash,
+                            response_index=response_index,
+                            provider_id=self.provider_id,
+                            provider_kind=self.provider_kind,
+                            model=self.model,
+                        )
+                    )
+                    valid_candidate_count += 1
+                except Exception as exc:
+                    invalid_candidate_count += 1
+                    self.invalid_candidate_count += 1
+                    self.invalid_candidate_log.append(
+                        {
+                            "request_index": int(request_index),
+                            "response_index": int(response_index),
+                            "prompt_hash": prompt_hash,
+                            "response_hash": response_hash,
+                            "error_type": type(exc).__name__,
+                            "error": str(exc),
+                        }
+                    )
             self.response_log.append(
                 {
                     "request_index": request_index,
                     "prompt_hash": prompt_hash,
                     "response_hash": response_hash,
                     "candidate_count": len(response["candidates"]),
+                    "valid_candidate_count": valid_candidate_count,
+                    "invalid_candidate_count": invalid_candidate_count,
                 }
             )
-            for response_index, payload in enumerate(response["candidates"]):
-                candidates.append(
-                    _external_llm_candidate(
-                        payload,
-                        request=request,
-                        prompt_hash=prompt_hash,
-                        response_hash=response_hash,
-                        response_index=response_index,
-                        provider_id=self.provider_id,
-                        provider_kind=self.provider_kind,
-                        model=self.model,
-                    )
-                )
+            for candidate in response_candidates:
+                candidates.append(candidate)
                 if len(candidates) >= target_initial_pool_size:
                     break
             request_index += 1
+        if len(candidates) < target_initial_pool_size:
+            raise ValueError(
+                "external LLM candidate provider returned too few valid candidates: "
+                f"{len(candidates)} valid for target {target_initial_pool_size} after {request_index} requests"
+            )
         return candidates
 
     def provider_summary(self) -> dict[str, Any]:
@@ -226,6 +256,7 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
             "prompt_count": int(len(self.request_log)),
             "response_count": int(len(self.response_log)),
             "provider_failure_count": int(self.failure_count),
+            "invalid_candidate_count": int(self.invalid_candidate_count),
             "external_llm_configured": True,
         }
         if self.openai_api_key_required is not None:

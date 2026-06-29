@@ -92,8 +92,11 @@ def test_codex_exec_completion_invokes_codex_without_openai_api_key(tmp_path, mo
     assert captured["args"][0] == "exec"
     assert "--output-schema" in captured["args"]
     assert "--output-last-message" in captured["args"]
-    assert "--ask-for-approval" in captured["args"]
-    assert "never" in captured["args"]
+    assert "--ask-for-approval" not in captured["args"]
+    assert "-c" in captured["args"]
+    assert 'approval_policy="never"' in captured["args"]
+    assert "--sandbox" in captured["args"]
+    assert "read-only" in captured["args"]
     assert captured["openai_api_key"] is None
     assert "arxiv:2511.18850" in captured["prompt"]
     assert "Return only JSON" in captured["prompt"]

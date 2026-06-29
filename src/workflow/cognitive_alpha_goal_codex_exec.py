@@ -1,0 +1,733 @@
+from __future__ import annotations
+
+import json
+import tempfile
+from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Any
+
+import pandas as pd
+
+from src.data import QlibProviderConfig, build_alpha158_legacy_dataset, init_qlib_provider
+from src.factor import CognitiveAlphaCandidate, materialize_cognitive_alpha_features, run_cognitive_alpha_factor_mining
+from src.workflow.cognitive_alpha_codex_provider import (
+    build_cognitive_alpha_codex_exec_candidate_provider,
+    codex_cli_readiness,
+)
+from src.workflow.cognitive_alpha_evolution import CognitiveAlphaEvolutionSpec
+from src.workflow.cognitive_alpha_goal import (
+    CognitiveAlphaGoalGateSpec,
+    CognitiveAlphaGoalRunner,
+    CognitiveAlphaGoalRunnerSpec,
+)
+from src.workflow.cognitive_alpha_position import CognitiveAlphaPositionSpec, run_cognitive_alpha_position_model
+from src.workflow.cognitive_alpha_weighted import (
+    CognitiveAlphaWeightedFactorSearchSpec,
+    run_cognitive_alpha_weighted_factor_search,
+)
+
+
+EXPERIMENT = "cognitive_alpha_goal_codex_exec_v1"
+CARD_TYPE = "diagnostic_cognitive_alpha_codex_exec_goal_chain"
+PAPER_REFERENCE = "arxiv:2511.18850"
+QLIB_DOCS = {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+}
+QLIB_NATIVE_API = [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "Alpha158.get_feature_config",
+    "qlib.workflow.R.start",
+]
+
+
+@dataclass(frozen=True)
+class CognitiveAlphaGoalCodexExecCardSpec:
+    root: Path
+    codex_bin: str = "codex"
+    codex_model: str | None = None
+    codex_timeout_seconds: float = 300.0
+    codex_sandbox: str = "read-only"
+    resume: bool = False
+    initial_pool_size: int = 4
+    codex_candidate_count: int = 3
+    generations: int = 2
+    parent_pool_size: int = 3
+    children_per_generation: int = 4
+    train: tuple[str, str] = ("2019-01-02", "2024-12-31")
+    validation: tuple[str, str] = ("2025-01-02", "2025-12-31")
+    test_start: str = "2026-01-02"
+
+    @property
+    def card_dir(self) -> Path:
+        return self.root / "research" / EXPERIMENT
+
+    @property
+    def provider_uri(self) -> Path:
+        return self.root / "data" / "qlib" / "soxl"
+
+
+def run_cognitive_alpha_goal_codex_exec_card(
+    *,
+    root: Path | str | None = None,
+    resume: bool = False,
+    codex_model: str | None = None,
+    codex_timeout_seconds: float = 300.0,
+) -> dict[str, Any]:
+    spec = CognitiveAlphaGoalCodexExecCardSpec(
+        root=_resolve_root(root),
+        resume=resume,
+        codex_model=codex_model,
+        codex_timeout_seconds=codex_timeout_seconds,
+    )
+    return _run_card(spec)
+
+
+def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
+    card = spec.card_dir
+    recorder_uri = card / "qlib_recorder"
+    card.mkdir(parents=True, exist_ok=True)
+    recorder_uri.mkdir(parents=True, exist_ok=True)
+
+    manifest = json.loads((spec.provider_uri / "qlib_store_manifest.json").read_text(encoding="utf-8"))
+    as_of = str(manifest["calendar_end"])
+    test = (spec.test_start, as_of)
+    qlib_config = QlibProviderConfig(
+        provider_uri=spec.provider_uri,
+        region=str(manifest["region"]),
+        market=str(manifest["market"]),
+        kernels=1,
+    )
+    provider_meta = init_qlib_provider(qlib_config)
+    codex_readiness = codex_cli_readiness(codex_bin=spec.codex_bin, timeout_seconds=60.0)
+
+    import qlib
+    from qlib.data import D
+    from qlib.workflow import R
+
+    _ = qlib
+    fields = ["$open", "$high", "$low", "$close", "$volume", "$vix"]
+    frame = D.features(["SOXL"], fields, start_time=spec.train[0], end_time=as_of, freq="day")
+    frame = frame.reset_index().sort_values(["datetime", "instrument"]).reset_index(drop=True)
+    frame = frame.rename(columns={field: field.removeprefix("$") for field in fields})
+    frame["datetime"] = pd.to_datetime(frame["datetime"]).dt.normalize()
+    _add_return_columns(frame)
+
+    alpha_dataset = build_alpha158_legacy_dataset(
+        qlib_config,
+        instruments=["SOXL"],
+        label="Ref($close, -5) / $close - 1",
+        train=spec.train,
+        valid=spec.validation,
+        test=test,
+    )
+    frame, alpha158_columns = _merge_alpha158_features(frame, alpha_dataset)
+    frame["realized_vol_20"] = pd.to_numeric(frame["close"], errors="coerce").pct_change().rolling(20, min_periods=10).std().shift(1)
+
+    R.set_uri(recorder_uri.as_posix())
+    with tempfile.TemporaryDirectory(prefix="cogalpha_goal_codex_exec_") as tmp_dir:
+        runtime_dir = Path(tmp_dir)
+        sidecars: dict[str, str] = {
+            "evolution_summary": "evolution_summary.json",
+            "failure_modes": "failure_modes.md",
+            "generation_metrics": "generation_metrics.csv",
+            "selected_features": "selected_features.csv",
+            "model_selection": "model_selection.csv",
+            "benchmark_comparison": "backtest_benchmark_comparison.csv",
+            "position_summary": "position_summary.json",
+            "latest_signal": "latest_signal.json",
+            "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
+            "direct_factor_candidate_metrics": "direct_factor_candidate_metrics.csv",
+            "direct_factor_benchmark_comparison": "direct_factor_benchmark_comparison.csv",
+            "direct_factor_summary": "direct_factor_summary.json",
+            "goal_manifest": "goal_manifest.json",
+            "state": "state.json",
+        }
+
+        with R.start(experiment_name=EXPERIMENT):
+            recorder = R.get_recorder()
+            R.log_params(
+                provider_uri=provider_meta["provider_uri"],
+                market=manifest["market"],
+                region=manifest["region"],
+                instrument="SOXL",
+                train_start=spec.train[0],
+                train_end=spec.train[1],
+                validation_start=spec.validation[0],
+                validation_end=spec.validation[1],
+                test_start=test[0],
+                test_end=test[1],
+                codex_provider="build_cognitive_alpha_codex_exec_candidate_provider",
+                codex_sandbox=spec.codex_sandbox,
+                initial_pool_size=spec.initial_pool_size,
+                generations=spec.generations,
+                parent_pool_size=spec.parent_pool_size,
+                children_per_generation=spec.children_per_generation,
+            )
+
+            candidate_provider = build_cognitive_alpha_codex_exec_candidate_provider(
+                codex_bin=spec.codex_bin,
+                provider_id="codex_exec_candidate_provider",
+                model=spec.codex_model,
+                cwd=spec.root,
+                timeout_seconds=spec.codex_timeout_seconds,
+                sandbox=spec.codex_sandbox,
+            )
+            evolution_spec = CognitiveAlphaEvolutionSpec(
+                run_id="cognitive_alpha_evolution",
+                profile="soxl_full",
+                runtime_dir=runtime_dir,
+                generations=spec.generations,
+                parent_pool_size=spec.parent_pool_size,
+                children_per_generation=spec.children_per_generation,
+                initial_pool_size=spec.initial_pool_size,
+                qualified_percentile=0.50,
+                elite_percentile=0.75,
+                max_abs_correlation=0.98,
+                min_observations=180,
+                max_missing_ratio=0.60,
+                min_distinct_values=5,
+                fallback_top_n=3,
+                resume=False,
+            )
+            mining_frame = frame.loc[frame["datetime"] <= pd.Timestamp(spec.validation[1])].copy()
+            factor_mining = run_cognitive_alpha_factor_mining(
+                mining_frame,
+                spec=_factor_mining_spec(evolution_spec, alpha158_columns),
+                initial_candidates=[_quality_checker_canary()],
+                candidate_provider=candidate_provider,
+            )
+            feature_frame = materialize_cognitive_alpha_features(
+                frame,
+                list(factor_mining.evolution_result.candidate_map.values()),
+                selected_names=factor_mining.selected_feature_names,
+            )
+            model_frame = pd.concat([frame.reset_index(drop=True), feature_frame.reset_index(drop=True)], axis=1)
+            selected_factor_names = list(factor_mining.selected_feature_names)
+            model_features = _model_feature_columns(selected_factor_names, alpha158_columns, model_frame)
+            benchmarks = _load_benchmarks(spec.root)
+            position_result = run_cognitive_alpha_position_model(
+                model_frame,
+                spec=_position_spec(model_features, spec=spec, test=test),
+                benchmarks=benchmarks,
+            )
+            direct_result = run_cognitive_alpha_weighted_factor_search(
+                model_frame,
+                spec=_direct_factor_spec(selected_factor_names, model_features),
+                benchmarks=benchmarks,
+            )
+
+            _write_evolution_sidecars(card, sidecars, factor_mining)
+            _write_position_sidecars(card, sidecars, position_result)
+            _write_direct_sidecars(card, sidecars, direct_result)
+
+            positions_path = runtime_dir / "positions.csv"
+            position_result.positions.to_csv(positions_path, index=False)
+            direct_positions_path = runtime_dir / "direct_weighted_positions.csv"
+            direct_result.positions.to_csv(direct_positions_path, index=False)
+
+            _log_evolution_artifacts(recorder, factor_mining.run_dir)
+            recorder.log_artifact(positions_path.as_posix(), artifact_path="cognitive_alpha_position")
+            recorder.log_artifact(direct_positions_path.as_posix(), artifact_path="cognitive_alpha_direct_weighted")
+            for rel_path in sidecars.values():
+                path = card / rel_path
+                if path.exists() and path.name not in {"state.json", "goal_manifest.json"}:
+                    recorder.log_artifact(path.as_posix(), artifact_path=EXPERIMENT)
+
+            recorder_local_dir = Path(recorder.get_local_dir()).resolve()
+            recorder_id = recorder.id
+            research_card_result = {
+                "card_dir": card.relative_to(spec.root).as_posix(),
+                "recorder_id": recorder_id,
+                "recorder_local_dir": recorder_local_dir.as_posix(),
+                "promotion_decision": position_result.summary["promotion_decision"],
+            }
+            goal_runner = CognitiveAlphaGoalRunner(
+                CognitiveAlphaGoalRunnerSpec(
+                    run_id="cognitive_alpha_goal_codex_exec",
+                    objective="SOXL CogAlpha Codex exec provider data/evolution/position/direct-factor/card chain",
+                    state_path=card / sidecars["state"],
+                    manifest_path=card / sidecars["goal_manifest"],
+                    required_max_datetime=as_of,
+                    resume=spec.resume,
+                    gates=CognitiveAlphaGoalGateSpec(
+                        min_initial_candidate_count=spec.initial_pool_size,
+                        min_completed_generations=spec.generations,
+                        min_selected_count=1,
+                        min_repair_attempt_count=1,
+                        required_candidate_provider_ids=("codex_exec_candidate_provider",),
+                        required_candidate_provider_kinds=("codex_exec_code",),
+                        require_candidate_provider_no_openai_api_key=True,
+                        required_metric_names=("ic", "icir", "rank_ic", "rank_icir", "mutual_information"),
+                        required_evolution_ops=("mutation", "crossover", "crossover_mutation"),
+                        required_position_model_families=("ridge",),
+                        required_benchmark_names=(
+                            "soxl_backtest",
+                            "constrained_weight_reference",
+                            "soxl_buyhold",
+                            "previous_factor_enhanced",
+                        ),
+                        required_direct_factor_benchmark_names=(
+                            "constrained_weight_reference",
+                            "soxl_backtest",
+                            "soxl_buyhold",
+                            "previous_factor_enhanced",
+                        ),
+                        min_walk_forward_fold_count=2,
+                    ),
+                ),
+                data_gate=lambda: [
+                    {
+                        "source": "qlib.data.D.features",
+                        "provider_uri": provider_meta["provider_uri"],
+                        "market": manifest["market"],
+                        "region": manifest["region"],
+                        "max_datetime": as_of,
+                    }
+                ],
+                evolution=lambda manifests: factor_mining.evolution_result.summary,
+                position=lambda manifests, evolution_result: position_result.summary,
+                direct_factor_backtest=lambda manifests, evolution_result, position_result_payload: direct_result.summary,
+                research_card=lambda manifests, evolution_result, position_result_payload: research_card_result,
+                signal_push=lambda manifests, model_results: [
+                    {
+                        "source": "qlib_recorder.latest_signal",
+                        "action": position_result.latest_signal["action"],
+                        "as_of": position_result.latest_signal["as_of"],
+                        "real_broker_order": False,
+                    }
+                ],
+            )
+            goal_manifest = goal_runner.run()
+            recorder.log_artifact((card / sidecars["goal_manifest"]).as_posix(), artifact_path=EXPERIMENT)
+            recorder.log_artifact((card / sidecars["state"]).as_posix(), artifact_path=EXPERIMENT)
+
+        recorder_artifacts = _recorder_files(recorder_local_dir)
+        summary = _summary_payload(
+            spec=spec,
+            manifest=manifest,
+            as_of=as_of,
+            test=test,
+            provider_meta=provider_meta,
+            codex_readiness=codex_readiness,
+            factor_mining=factor_mining.summary,
+            evolution=factor_mining.evolution_result.summary,
+            position=position_result.summary,
+            direct=direct_result.summary,
+            goal_manifest=goal_manifest,
+            research_card=research_card_result,
+            sidecars=sidecars,
+            recorder_id=recorder_id,
+            recorder_local_dir=recorder_local_dir,
+            recorder_uri=recorder_uri,
+            recorder_artifacts=recorder_artifacts,
+        )
+        _write_summary_files(card, summary)
+        return summary
+
+
+def _factor_mining_spec(evolution_spec: CognitiveAlphaEvolutionSpec, alpha158_columns: list[str]):
+    from src.factor import CognitiveAlphaFactorMiningSpec
+
+    return CognitiveAlphaFactorMiningSpec(
+        evolution_spec=evolution_spec,
+        label_col="label_return_5d",
+        alpha158_columns=tuple(alpha158_columns[:8]),
+        max_factor_library_size=4,
+    )
+
+
+def _quality_checker_canary() -> CognitiveAlphaCandidate:
+    def _future_leak(frame: pd.DataFrame) -> pd.Series:
+        return pd.to_numeric(frame["close"], errors="coerce").shift(-1) / pd.to_numeric(
+            frame["close"], errors="coerce"
+        ) - 1.0
+
+    return CognitiveAlphaCandidate(
+        name="codex_exec_quality_canary_future_leak",
+        level="quality_checker_canary",
+        agent="QualityCheckerCanary",
+        theme="intentional future-leak canary for CogAlpha repair loop",
+        required_columns=("close",),
+        lookback=1,
+        function=_future_leak,
+        economic_rationale="Intentional invalid candidate proving the quality checker and repair loop reject future leakage.",
+        code="close.shift(-1) / close - 1.0",
+        declared_lookahead=1,
+    )
+
+
+def _merge_alpha158_features(frame: pd.DataFrame, alpha_dataset: Any) -> tuple[pd.DataFrame, list[str]]:
+    alpha_frames = [alpha_dataset.prepare(segment, col_set="feature") for segment in ["train", "valid", "test"]]
+    alpha_frame = pd.concat(alpha_frames).reset_index()
+    alpha_frame["datetime"] = pd.to_datetime(alpha_frame["datetime"]).dt.normalize()
+    preferred = ["MA5", "MA10", "MA20", "MA30", "MA60", "MAX20", "MAX30", "VIX", "SOXL_RET_5", "VOLUME_RATIO_5"]
+    alpha_cols = [column for column in preferred if column in alpha_frame.columns]
+    alpha_subset = alpha_frame[["datetime", "instrument", *alpha_cols]].rename(
+        columns={column: f"alpha158_{column}" for column in alpha_cols}
+    )
+    out = frame.merge(alpha_subset, on=["datetime", "instrument"], how="left")
+    return out, [f"alpha158_{column}" for column in alpha_cols]
+
+
+def _add_return_columns(frame: pd.DataFrame) -> None:
+    close = pd.to_numeric(frame["close"], errors="coerce").astype("float64")
+    frame["forward_return"] = close.pct_change().shift(-1).fillna(0.0)
+    frame["label_return_5d"] = close.pct_change(5).shift(-5).ffill().fillna(0.0)
+
+
+def _model_feature_columns(selected_factor_names: list[str], alpha158_columns: list[str], frame: pd.DataFrame) -> list[str]:
+    base = [
+        *selected_factor_names,
+        *alpha158_columns[:6],
+        "vix",
+        "realized_vol_20",
+    ]
+    return [column for column in dict.fromkeys(base) if column in frame.columns]
+
+
+def _load_benchmarks(root: Path) -> list[dict[str, Any]]:
+    path = root / "research" / "cognitive_alpha_position_model_v1" / "backtest_benchmark_comparison.csv"
+    frame = pd.read_csv(path)
+    rows = []
+    for row in frame.loc[frame["benchmark"] != "cognitive_alpha_selected"].to_dict(orient="records"):
+        rows.append(
+            {
+                "name": str(row["benchmark"]),
+                "return_pct": float(row["return_pct"]),
+                "max_drawdown_pct": float(row["max_drawdown_pct"]),
+                "trade_count": int(row.get("trade_count", 0) or 0),
+                "source": str(row.get("source", row["benchmark"])),
+            }
+        )
+    return rows
+
+
+def _position_spec(feature_cols: list[str], *, spec: CognitiveAlphaGoalCodexExecCardSpec, test: tuple[str, str]) -> CognitiveAlphaPositionSpec:
+    return CognitiveAlphaPositionSpec(
+        feature_cols=feature_cols,
+        train=spec.train,
+        validation=spec.validation,
+        test=test,
+        model_specs=[
+            {"model": "ridge", "task": "regression"},
+            {"model": "logistic_regression"},
+        ],
+        position_specs=[
+            {"threshold": 0.45, "scale": 1.0, "hold_days": 3, "max_position": 1.0},
+            {"threshold": 0.55, "scale": 1.0, "hold_days": 3, "max_position": 1.0},
+        ],
+        min_validation_trade_count=1,
+        min_validation_avg_abs_position=0.01,
+        max_validation_zero_position_day_ratio=0.98,
+        validation_max_drawdown_floor=-25.0,
+        validation_max_daily_loss_floor=-8.0,
+        max_validation_total_turnover=20.0,
+        max_validation_extreme_loss_day_count=5,
+        max_validation_reversal_ratio=0.50,
+        min_test_avg_abs_position=0.01,
+        max_test_zero_position_day_ratio=0.98,
+        test_max_drawdown_floor=-25.0,
+        test_max_daily_loss_floor=-8.0,
+        max_test_total_turnover=20.0,
+        max_test_extreme_loss_day_count=5,
+        walk_forward_folds=[
+            {
+                "fold": "wf_2025_h2",
+                "train": ("2019-01-02", "2024-06-28"),
+                "validation": ("2024-07-01", "2025-06-30"),
+                "test": ("2025-07-01", "2025-12-31"),
+            },
+            {
+                "fold": "wf_2026_ytd",
+                "train": ("2019-01-02", "2024-12-31"),
+                "validation": ("2025-01-02", "2025-12-31"),
+                "test": test,
+            },
+        ],
+    )
+
+
+def _direct_factor_spec(selected_factor_names: list[str], model_features: list[str]) -> CognitiveAlphaWeightedFactorSearchSpec:
+    component_cols = selected_factor_names[:3] or model_features[:3]
+    if len(component_cols) == 1 and len(model_features) > 1:
+        component_cols = [component_cols[0], model_features[1]]
+    candidates = [
+        {
+            "candidate": "codex_exec_equal_weight_direct",
+            "weights": {column: 1.0 / max(len(component_cols), 1) for column in component_cols},
+            "policy": {"min_position": 0.0, "max_position": 1.0, "rebalance_threshold": 0.20},
+        },
+        {
+            "candidate": "codex_exec_primary_factor_direct",
+            "weights": {component_cols[0]: 1.0},
+            "policy": {"min_position": 0.0, "max_position": 1.0, "rebalance_threshold": 0.30},
+        },
+    ]
+    return CognitiveAlphaWeightedFactorSearchSpec(
+        component_cols=component_cols,
+        candidates=candidates,
+        min_effective_component_count=1,
+        max_drawdown_floor=-25.0,
+    )
+
+
+def _write_evolution_sidecars(card: Path, sidecars: dict[str, str], factor_mining: Any) -> None:
+    (card / sidecars["evolution_summary"]).write_text(
+        json.dumps(factor_mining.evolution_result.summary, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    factor_mining.generation_metrics.to_csv(card / sidecars["generation_metrics"], index=False)
+    selected_rows = [
+        {
+            "name": item["name"],
+            "level": item["level"],
+            "agent": item["agent"],
+            "lookback": item["lookback"],
+            "code": item["code"],
+        }
+        for item in factor_mining.factor_library
+    ]
+    pd.DataFrame(selected_rows).to_csv(card / sidecars["selected_features"], index=False)
+
+
+def _write_position_sidecars(card: Path, sidecars: dict[str, str], position_result: Any) -> None:
+    position_result.metrics.to_csv(card / sidecars["model_selection"], index=False)
+    position_result.benchmark_comparison.to_csv(card / sidecars["benchmark_comparison"], index=False)
+    position_result.walk_forward_metrics.to_csv(card / sidecars["backtest_walk_forward_metrics"], index=False)
+    (card / sidecars["position_summary"]).write_text(
+        json.dumps(position_result.summary, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    (card / sidecars["latest_signal"]).write_text(
+        json.dumps(position_result.latest_signal, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+
+def _write_direct_sidecars(card: Path, sidecars: dict[str, str], direct_result: Any) -> None:
+    direct_result.metrics.to_csv(card / sidecars["direct_factor_candidate_metrics"], index=False)
+    direct_result.benchmark_comparison.to_csv(card / sidecars["direct_factor_benchmark_comparison"], index=False)
+    (card / sidecars["direct_factor_summary"]).write_text(
+        json.dumps(direct_result.summary, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+
+def _log_evolution_artifacts(recorder: Any, run_dir: Path) -> None:
+    for path in sorted(run_dir.rglob("*")):
+        if not path.is_file():
+            continue
+        rel_parent = path.parent.relative_to(run_dir).as_posix()
+        artifact_path = "cognitive_alpha_evolution" if rel_parent == "." else f"cognitive_alpha_evolution/{rel_parent}"
+        recorder.log_artifact(path.as_posix(), artifact_path=artifact_path)
+
+
+def _summary_payload(
+    *,
+    spec: CognitiveAlphaGoalCodexExecCardSpec,
+    manifest: dict[str, Any],
+    as_of: str,
+    test: tuple[str, str],
+    provider_meta: dict[str, Any],
+    codex_readiness: dict[str, Any],
+    factor_mining: dict[str, Any],
+    evolution: dict[str, Any],
+    position: dict[str, Any],
+    direct: dict[str, Any],
+    goal_manifest: dict[str, Any],
+    research_card: dict[str, Any],
+    sidecars: dict[str, str],
+    recorder_id: str,
+    recorder_local_dir: Path,
+    recorder_uri: Path,
+    recorder_artifacts: list[str],
+) -> dict[str, Any]:
+    codex_provider = dict(evolution.get("candidate_provider", {}))
+    codex_provider.update(
+        {
+            "provider_builder": "build_cognitive_alpha_codex_exec_candidate_provider",
+            "sandbox": spec.codex_sandbox,
+            "output_schema": "cognitive_alpha_candidate_schema.json",
+            "execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+        }
+    )
+    promotion_decision = str(position["promotion_decision"])
+    production_status = "candidate_for_paper_sim" if promotion_decision == "candidate_for_validated_research" else "blocked_not_promoted"
+    return {
+        "experiment": EXPERIMENT,
+        "card_type": CARD_TYPE,
+        "workflow_config": "workflow.yaml",
+        "status": "complete",
+        "promotion_decision": promotion_decision,
+        "paper_reference": {"arxiv_id": "2511.18850", "source": PAPER_REFERENCE},
+        "provider_uri": provider_meta["provider_uri"],
+        "recorder_uri": recorder_uri.as_posix(),
+        "recorder_id": recorder_id,
+        "recorder_local_dir": recorder_local_dir.as_posix(),
+        "recorder_artifacts": recorder_artifacts,
+        "market": manifest["market"],
+        "region": manifest["region"],
+        "as_of": as_of,
+        "segments": {
+            "train": list(spec.train),
+            "validation": list(spec.validation),
+            "test": list(test),
+        },
+        "codex_provider_readiness": codex_readiness,
+        "codex_provider": codex_provider,
+        "factor_mining": factor_mining,
+        "evolution": _evolution_summary_for_card(evolution),
+        "position_model": position,
+        "direct_factor_backtest": direct,
+        "latest_signal": position["latest_signal"],
+        "research_gate": {
+            "final_promotion_source": "position_model",
+            "direct_factor_backtest_role": "prior_only_not_final_promotion",
+            "promotion_decision": promotion_decision,
+        },
+        "production_paper_sim": {
+            "status": production_status,
+            "required_gate": "validated_research_position_model_or_production_paper_sim",
+            "direct_factor_backtest_allowed_to_promote": False,
+        },
+        "goal_manifest": {
+            "path": sidecars["goal_manifest"],
+            "status": goal_manifest["status"],
+            "stage_order": goal_manifest["stage_order"],
+        },
+        "qlib_docs": QLIB_DOCS,
+        "qlib_docs_reference": QLIB_DOCS,
+        "qlib_native_api": QLIB_NATIVE_API,
+        "sidecars": sidecars,
+        "artifact_policy": {
+            "policy": "slim_card_recorder_first",
+            "workflow_config": "workflow.yaml",
+            "machine_entrypoint": "summary.json",
+            "primary_artifact": f"{EXPERIMENT}.ipynb",
+            "kept_sidecars": list(sidecars.values()),
+            "recorder_only_artifacts": {
+                "candidate_pool": "artifacts/cognitive_alpha_evolution/candidate_pool/generation_*.jsonl",
+                "fitness": "artifacts/cognitive_alpha_evolution/fitness/generation_*.csv",
+                "lineage": "artifacts/cognitive_alpha_evolution/lineage/generation_*.jsonl",
+                "quality": "artifacts/cognitive_alpha_evolution/quality/generation_*.csv",
+                "rejected": "artifacts/cognitive_alpha_evolution/rejected/generation_*.jsonl",
+                "state": "artifacts/cognitive_alpha_evolution/state.json",
+                "positions": "artifacts/cognitive_alpha_position/positions.csv",
+                "direct_weighted_positions": "artifacts/cognitive_alpha_direct_weighted/direct_weighted_positions.csv",
+            },
+        },
+    }
+
+
+def _evolution_summary_for_card(evolution: dict[str, Any]) -> dict[str, Any]:
+    out = dict(evolution)
+    rows = []
+    run_dir = evolution.get("run_dir")
+    if run_dir:
+        metrics_path = Path(str(run_dir)) / "fitness" / f"generation_{int(evolution.get('completed_generations', 1)) - 1:03d}.csv"
+        if metrics_path.exists():
+            rows = pd.read_csv(metrics_path).to_dict(orient="records")
+    levels = sorted({str(row.get("level")) for row in rows if row.get("level")})
+    if not levels:
+        levels = sorted(set(out.get("selected_level_counts", {}).keys()))
+    out["agent_levels_covered"] = levels
+    return out
+
+
+def _write_summary_files(card: Path, summary: dict[str, Any]) -> None:
+    (card / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
+    (card / "workflow.yaml").write_text(_workflow_yaml(summary), encoding="utf-8")
+    (card / "failure_modes.md").write_text(_failure_modes(summary), encoding="utf-8")
+    (card / "conclusion.md").write_text(_conclusion(summary), encoding="utf-8")
+
+
+def _workflow_yaml(summary: dict[str, Any]) -> str:
+    return "\n".join(
+        [
+            f"experiment: {EXPERIMENT}",
+            f"card_type: {CARD_TYPE}",
+            f"provider_uri: {summary['provider_uri']}",
+            f"recorder_uri: {summary['recorder_uri']}",
+            "codex_provider:",
+            "  provider_builder: build_cognitive_alpha_codex_exec_candidate_provider",
+            "  provider_id: codex_exec_candidate_provider",
+            "  command: codex exec --output-schema cognitive_alpha_candidate_schema.json --output-last-message last_message.json",
+            "  approval_policy: never",
+            "  sandbox: read-only",
+            "factor_mining:",
+            "  workflow: cognitive_alpha_factor_mining",
+            "  candidate_provider: codex_exec_candidate_provider",
+            "position_model:",
+            "  workflow: cognitive_alpha_position_model",
+            "direct_factor_backtest:",
+            "  workflow: cognitive_alpha_weighted_factor_search",
+            "  role: prior_only_not_final_promotion",
+            "artifact_policy:",
+            "  policy: slim_card_recorder_first",
+            "  workflow_config: workflow.yaml",
+            "  machine_entrypoint: summary.json",
+            "",
+        ]
+    )
+
+
+def _failure_modes(summary: dict[str, Any]) -> str:
+    position = summary["position_model"]
+    direct = summary["direct_factor_backtest"]
+    return (
+        "# Failure Modes\n\n"
+        f"- position_model_promotion: {position['promotion_decision']}\n"
+        f"- direct_factor_role: {summary['research_gate']['direct_factor_backtest_role']}\n"
+        f"- direct_factor_promotion: {direct['promotion_decision']}\n"
+        "- direct_factor_backtest 不能作为最终晋升门，只能作为 prior/diagnostic。\n"
+        "- 若未跑赢 constrained_weight_reference 或 walk-forward/exposure/risk gates，保持 not_promoted。\n"
+    )
+
+
+def _conclusion(summary: dict[str, Any]) -> str:
+    position = summary["position_model"]
+    direct = summary["direct_factor_backtest"]
+    latest = summary["latest_signal"]
+    return (
+        "# 结论\n\n"
+        f"- what_ran: 执行 {EXPERIMENT}，使用 Codex exec candidate provider 生成 CogAlpha 候选，"
+        "再通过 qlib provider、Alpha158 DatasetH/DataHandlerLP、R.start recorder、position model 和 direct-factor prior 完成研究闭环。\n"
+        f"- data: provider={summary['provider_uri']}，as_of={summary['as_of']}，"
+        f"train={summary['segments']['train'][0]} 到 {summary['segments']['train'][1]}，"
+        f"validation={summary['segments']['validation'][0]} 到 {summary['segments']['validation'][1]}，"
+        f"test={summary['segments']['test'][0]} 到 {summary['segments']['test'][1]}。\n"
+        f"- codex_provider: provider_id={summary['codex_provider']['provider_id']}，"
+        f"prompt_count={summary['codex_provider'].get('prompt_count', 0)}，sandbox=read-only，"
+        "openai_api_key_required=False。\n"
+        f"- evolution: generations={summary['evolution']['completed_generations']}，"
+        f"selected_count={summary['evolution']['selected_count']}，"
+        f"metrics={','.join(summary['evolution']['metric_names'])}。\n"
+        f"- position_model: promotion={position['promotion_decision']}，"
+        f"selected_return={position['comparison'].get('selected_return_pct', 0.0):.4f}%，"
+        f"walk_forward_folds={position['walk_forward']['fold_count']}，"
+        f"all_gates_pass={position['walk_forward'].get('all_folds_pass_risk_gates')}。\n"
+        f"- direct_factor_backtest: promotion={direct['promotion_decision']}，"
+        f"return={direct['comparison'].get('selected_return_pct', 0.0):.4f}%，"
+        "role=prior_only_not_final_promotion。\n"
+        f"- latest_signal: as_of={latest['as_of']}，action={latest['action']}，"
+        f"target_position={latest['target_position']:.4f}。\n"
+        f"- promotion_decision: {summary['promotion_decision']}；production_paper_sim={summary['production_paper_sim']['status']}。\n"
+        "- next_action: 若未通过 constrained_weight_reference 或 walk-forward/exposure/risk gates，继续扩展 Codex-exec 候选和稳定性筛选，不创建 production paper/sim。\n"
+        f"- recorder: {summary['recorder_id']}。\n"
+        "- risk: 本研究仅用于 SOXL qlib 研究和 paper/sim 风控，不构成买卖建议。\n"
+    )
+
+
+def _recorder_files(recorder_local_dir: Path) -> list[str]:
+    return sorted(path.relative_to(recorder_local_dir).as_posix() for path in recorder_local_dir.rglob("*") if path.is_file())
+
+
+def _resolve_root(root: Path | str | None) -> Path:
+    current = Path(root).resolve() if root is not None else Path.cwd().resolve()
+    while not (current / "AGENTS.md").exists() and current != current.parent:
+        current = current.parent
+    return current

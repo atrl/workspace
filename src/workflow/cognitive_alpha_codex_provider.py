@@ -53,10 +53,10 @@ def codex_exec_completion(
         command = [
             resolved_codex,
             "exec",
+            "-c",
+            'approval_policy="never"',
             "--sandbox",
             sandbox,
-            "--ask-for-approval",
-            "never",
             "--output-schema",
             schema_path.as_posix(),
             "--output-last-message",
