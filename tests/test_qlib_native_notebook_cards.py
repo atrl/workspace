@@ -1664,6 +1664,18 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     assert summary["codex_provider"]["openai_api_key_required"] is False
     assert summary["codex_provider"]["prompt_count"] > 0
     assert summary["codex_provider"]["response_count"] == summary["codex_provider"]["prompt_count"]
+    assert summary["max_attempts"] >= 2
+    assert summary["attempt_index"] >= 1
+    assert summary["goal_loop"]["status"] == summary["status"]
+    assert summary["goal_loop"]["attempt_index"] == summary["attempt_index"]
+    assert summary["goal_loop"]["max_attempts"] == summary["max_attempts"]
+    assert summary["goal_loop"]["terminal_reason"] == summary["terminal_reason"]
+    assert len(summary["attempts"]) == summary["attempt_index"]
+    if summary["promotion_decision"].startswith("not_promoted"):
+        assert summary["terminal_reason"] == "max_attempts_exhausted"
+        assert summary["attempt_index"] == summary["max_attempts"]
+        assert any(attempt["status"] == "needs_iteration" for attempt in summary["attempts"][:-1])
+        assert summary["evolution"]["candidate_provider"]["feedback_context_included"] is True
     assert summary["codex_provider_readiness"]["status"] in {"ok", "warning"}
     assert summary["codex_provider_readiness"]["auth_mode"] == "chatgpt"
     assert summary["codex_provider_readiness"]["stored_api_key"] == "false"
@@ -1746,8 +1758,13 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
     goal_state = json.loads((card / summary["sidecars"]["state"]).read_text(encoding="utf-8"))
     assert goal_manifest["status"] == "complete"
+    assert goal_manifest["terminal_reason"] == summary["terminal_reason"]
+    assert goal_manifest["attempt_index"] == summary["attempt_index"]
+    assert goal_manifest["max_attempts"] == summary["max_attempts"]
     assert goal_manifest["completed_stages"] == goal_manifest["stage_order"]
     assert goal_state["status"] == "complete"
+    assert goal_state["terminal_reason"] == summary["terminal_reason"]
+    assert goal_state["current_attempt"] == summary["attempt_index"]
     assert goal_state["completed_stages"] == goal_manifest["stage_order"]
     assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
     assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
@@ -1776,6 +1793,13 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
         / "generation_001.jsonl"
     ).exists()
     assert summary["recorder_id"] in notebook_text
+    assert (card / "attempts" / "attempt_001" / "summary.json").exists()
+    if summary["attempt_index"] > 1:
+        first_attempt = json.loads(
+            (card / "attempts" / "attempt_001" / "summary.json").read_text(encoding="utf-8")
+        )
+        assert first_attempt["status"] == "needs_iteration"
+        assert first_attempt["goal_manifest"]["next_action"]["action"] == "continue_codex_exec_factor_generation"
     assert "build_cognitive_alpha_codex_exec_candidate_provider" in notebook_text
     assert "codex_exec_candidate_provider" in notebook_text
     assert "--output-schema" in notebook_text

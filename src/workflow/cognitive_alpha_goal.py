@@ -54,6 +54,8 @@ class CognitiveAlphaGoalRunnerSpec:
     manifest_path: Path
     required_max_datetime: str | None = None
     resume: bool = False
+    attempt_index: int = 1
+    max_attempts: int = 1
     paper_reference: str = COGNITIVE_ALPHA_PAPER_REFERENCE
     gates: CognitiveAlphaGoalGateSpec = field(default_factory=CognitiveAlphaGoalGateSpec)
 
@@ -150,7 +152,13 @@ class CognitiveAlphaGoalRunner:
             stage_outputs=outputs,
         )
         self._write_manifest(manifest)
-        self._write_state(status="complete", completed_stages=COGNITIVE_ALPHA_GOAL_STAGE_ORDER, stage_outputs=outputs)
+        self._write_state(
+            status=str(manifest["status"]),
+            completed_stages=COGNITIVE_ALPHA_GOAL_STAGE_ORDER,
+            stage_outputs=outputs,
+            terminal_reason=str(manifest["terminal_reason"]),
+            next_action=dict(manifest["next_action"]),
+        )
         return manifest
 
     def _load_state(self) -> dict[str, Any]:
@@ -199,11 +207,23 @@ class CognitiveAlphaGoalRunner:
         stage_outputs: dict[str, Any],
     ) -> dict[str, Any]:
         data_gate_summary = _data_gate_summary(manifests, required_max_datetime=self.spec.required_max_datetime)
+        terminal = _goal_terminal_decision(
+            spec=self.spec,
+            evolution_result=evolution_result,
+            position_result=position_result,
+            direct_factor_result=direct_factor_result,
+            research_card_result=research_card_result,
+        )
         return {
             "run_id": self.spec.run_id,
             "objective": self.spec.objective,
             "paper_reference": self.spec.paper_reference,
-            "status": "complete",
+            "status": terminal["status"],
+            "terminal_reason": terminal["terminal_reason"],
+            "attempt_index": int(self.spec.attempt_index),
+            "max_attempts": int(self.spec.max_attempts),
+            "remaining_attempts": terminal["remaining_attempts"],
+            "next_action": terminal["next_action"],
             "stage_order": list(COGNITIVE_ALPHA_GOAL_STAGE_ORDER),
             "completed_stages": list(COGNITIVE_ALPHA_GOAL_STAGE_ORDER),
             "validation_gates": _jsonable(asdict(self.spec.gates)),
@@ -229,14 +249,23 @@ class CognitiveAlphaGoalRunner:
         status: str,
         completed_stages: list[str],
         stage_outputs: dict[str, Any],
+        terminal_reason: str | None = None,
+        next_action: dict[str, Any] | None = None,
     ) -> None:
         self.spec.state_path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
             "run_id": self.spec.run_id,
             "status": status,
+            "current_attempt": int(self.spec.attempt_index),
+            "max_attempts": int(self.spec.max_attempts),
+            "remaining_attempts": max(int(self.spec.max_attempts) - int(self.spec.attempt_index), 0),
             "completed_stages": completed_stages,
             "stage_outputs": stage_outputs,
         }
+        if terminal_reason is not None:
+            payload["terminal_reason"] = terminal_reason
+        if next_action is not None:
+            payload["next_action"] = next_action
         self.spec.state_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
@@ -440,6 +469,118 @@ def _append_stages(existing: list[str], new_stages: list[str]) -> list[str]:
         if stage not in out:
             out.append(stage)
     return out
+
+
+def _goal_terminal_decision(
+    *,
+    spec: CognitiveAlphaGoalRunnerSpec,
+    evolution_result: dict[str, Any],
+    position_result: dict[str, Any],
+    direct_factor_result: dict[str, Any],
+    research_card_result: dict[str, Any],
+) -> dict[str, Any]:
+    attempt_index = max(int(spec.attempt_index), 1)
+    max_attempts = max(int(spec.max_attempts), 1)
+    remaining_attempts = max(max_attempts - attempt_index, 0)
+    promotion_decision = str(
+        research_card_result.get("promotion_decision")
+        or position_result.get("promotion_decision")
+        or direct_factor_result.get("promotion_decision")
+        or ""
+    )
+    explicit_status = str(
+        research_card_result.get("status") or position_result.get("status") or direct_factor_result.get("status") or ""
+    )
+    if explicit_status in {"needs_auth", "needs_data"} or promotion_decision in {"needs_auth", "needs_data"}:
+        return {
+            "status": explicit_status or promotion_decision,
+            "terminal_reason": explicit_status or promotion_decision,
+            "remaining_attempts": remaining_attempts,
+            "next_action": {
+                "action": f"stop_{explicit_status or promotion_decision}",
+                "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
+            },
+        }
+
+    if promotion_decision.startswith("not_promoted") and remaining_attempts > 0:
+        return {
+            "status": "needs_iteration",
+            "terminal_reason": "not_promoted_attempt_has_remaining_budget",
+            "remaining_attempts": remaining_attempts,
+            "next_action": _next_codex_iteration_action(
+                evolution_result=evolution_result,
+                position_result=position_result,
+                direct_factor_result=direct_factor_result,
+                research_card_result=research_card_result,
+                next_attempt=attempt_index + 1,
+                max_attempts=max_attempts,
+            ),
+        }
+
+    if promotion_decision.startswith("not_promoted"):
+        return {
+            "status": "complete",
+            "terminal_reason": "max_attempts_exhausted",
+            "remaining_attempts": 0,
+            "next_action": {
+                "action": "stop_max_attempts_exhausted",
+                "promotion_decision": promotion_decision,
+                "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
+            },
+        }
+
+    return {
+        "status": "complete",
+        "terminal_reason": "promotion_or_terminal_decision",
+        "remaining_attempts": remaining_attempts,
+        "next_action": {
+            "action": "stop_terminal_decision",
+            "promotion_decision": promotion_decision,
+            "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
+        },
+    }
+
+
+def _next_codex_iteration_action(
+    *,
+    evolution_result: dict[str, Any],
+    position_result: dict[str, Any],
+    direct_factor_result: dict[str, Any],
+    research_card_result: dict[str, Any],
+    next_attempt: int,
+    max_attempts: int,
+) -> dict[str, Any]:
+    comparison = position_result.get("comparison", {}) if isinstance(position_result.get("comparison", {}), dict) else {}
+    walk_forward = (
+        position_result.get("walk_forward", {}) if isinstance(position_result.get("walk_forward", {}), dict) else {}
+    )
+    candidate_provider = evolution_result.get("candidate_provider", {})
+    feedback_focus = []
+    if comparison.get("beats_constrained_weight_reference") is False:
+        feedback_focus.append("constrained_weight_reference_gap")
+    if walk_forward.get("all_folds_pass_risk_gates") is False:
+        feedback_focus.append("walk_forward_risk_gates")
+    if float(walk_forward.get("mean_test_avg_abs_position", 1.0) or 0.0) <= 0.01:
+        feedback_focus.append("exposure_participation")
+    if not feedback_focus:
+        feedback_focus.append("promotion_gate_failure")
+    return {
+        "action": "continue_codex_exec_factor_generation",
+        "next_attempt": int(next_attempt),
+        "max_attempts": int(max_attempts),
+        "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
+        "candidate_provider": candidate_provider,
+        "feedback_focus": feedback_focus,
+        "previous_promotion_decision": str(
+            research_card_result.get("promotion_decision")
+            or position_result.get("promotion_decision")
+            or direct_factor_result.get("promotion_decision")
+            or ""
+        ),
+        "position_comparison": _jsonable(comparison),
+        "walk_forward": _jsonable(walk_forward),
+        "direct_factor_role": "prior_only_not_final_promotion",
+    }
 
 
 def _data_gate_summary(manifests: list[dict[str, Any]], *, required_max_datetime: str | None) -> dict[str, Any]:

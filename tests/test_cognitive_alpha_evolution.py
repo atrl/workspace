@@ -456,6 +456,70 @@ def test_cognitive_alpha_external_llm_provider_records_prompt_response_and_repai
     assert repaired["metadata"]["repair_reason"] == "future_lookahead_code_pattern"
 
 
+def test_cognitive_alpha_external_llm_provider_includes_goal_feedback_context(tmp_path):
+    from src.workflow import (
+        CognitiveAlphaEvolutionSpec,
+        build_cognitive_alpha_external_llm_candidate_provider,
+        run_cognitive_alpha_evolution,
+    )
+
+    requests: list[dict] = []
+
+    def fake_completion(request: dict) -> dict:
+        requests.append(request)
+        return {
+            "candidates": [
+                {
+                    "name": "feedback_context_candidate",
+                    "level": request["level"],
+                    "agent": request["agent"],
+                    "theme": "feedback-aware external code alpha",
+                    "required_columns": ["close", "volume"],
+                    "lookback": 10,
+                    "code": "close.pct_change(5).shift(1) * log1p(volume).pct_change(5).shift(1)",
+                    "economic_rationale": "Uses previous Goal failure feedback to improve exposure and risk gates.",
+                }
+            ]
+        }
+
+    provider = build_cognitive_alpha_external_llm_candidate_provider(
+        completion=fake_completion,
+        provider_id="unit_external_llm",
+        model="unit-llm",
+        request_context={
+            "goal_status": "needs_iteration",
+            "previous_attempt": 1,
+            "next_attempt": 2,
+            "failure_modes": ["walk_forward_risk_gates", "constrained_weight_reference_gap"],
+            "previous_promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+        },
+    )
+    spec = CognitiveAlphaEvolutionSpec(
+        run_id="external_llm_provider_feedback_context",
+        profile="soxl_smoke",
+        runtime_dir=tmp_path,
+        generations=1,
+        initial_pool_size=1,
+        parent_pool_size=1,
+        children_per_generation=1,
+        qualified_percentile=0.50,
+        elite_percentile=0.75,
+        fallback_top_n=1,
+    )
+
+    result = run_cognitive_alpha_evolution(
+        _evolution_frame(rows=160),
+        spec=spec,
+        label_col="label_return_5d",
+        candidate_provider=provider,
+    )
+
+    assert requests[0]["feedback_context"]["goal_status"] == "needs_iteration"
+    assert requests[0]["feedback_context"]["next_attempt"] == 2
+    assert "walk_forward_risk_gates" in requests[0]["feedback_context"]["failure_modes"]
+    assert result.summary["candidate_provider"]["feedback_context_included"] is True
+
+
 def test_cognitive_alpha_external_llm_provider_skips_malformed_candidate_code(tmp_path):
     from src.workflow import (
         CognitiveAlphaEvolutionSpec,

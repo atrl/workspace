@@ -149,6 +149,7 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
     openai_api_key_required: bool | None = None
     codex_direct_compatible: bool = False
     codex_execution_mode: str | None = None
+    request_context: dict[str, Any] | None = None
     guidance_styles: tuple[str, ...] = COGNITIVE_ALPHA_GUIDANCE_STYLES
     max_candidates_per_request: int = 1
     request_log: list[dict[str, Any]] = field(default_factory=list, init=False)
@@ -188,6 +189,7 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
                 guidance_style=guidance_style,
                 model=self.model,
                 target_candidate_count=min(self.max_candidates_per_request, target_initial_pool_size - len(candidates)),
+                request_context=self.request_context,
             )
             self.request_log.append(request)
             prompt_hash = _stable_payload_hash(request)
@@ -257,8 +259,11 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
             "response_count": int(len(self.response_log)),
             "provider_failure_count": int(self.failure_count),
             "invalid_candidate_count": int(self.invalid_candidate_count),
+            "feedback_context_included": self.request_context is not None,
             "external_llm_configured": True,
         }
+        if self.request_context is not None:
+            summary["feedback_context_hash"] = _stable_payload_hash(_jsonable_payload(self.request_context))
         if self.openai_api_key_required is not None:
             summary["openai_api_key_required"] = bool(self.openai_api_key_required)
         if self.codex_direct_compatible:
@@ -273,11 +278,13 @@ def build_cognitive_alpha_external_llm_candidate_provider(
     completion: Callable[[dict[str, Any]], str | dict[str, Any]],
     provider_id: str = "external_llm_code_provider",
     model: str = "unspecified",
+    request_context: dict[str, Any] | None = None,
 ) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
     return CognitiveAlphaExternalLLMCodeCandidateProvider(
         completion=completion,
         provider_id=provider_id,
         model=model,
+        request_context=request_context,
     )
 
 
@@ -290,6 +297,7 @@ def build_cognitive_alpha_command_llm_candidate_provider(
     openai_api_key_required: bool | None = None,
     codex_direct_compatible: bool = False,
     codex_execution_mode: str | None = None,
+    request_context: dict[str, Any] | None = None,
 ) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
     command_tuple = tuple(str(part) for part in command)
     if not command_tuple:
@@ -319,6 +327,7 @@ def build_cognitive_alpha_command_llm_candidate_provider(
         openai_api_key_required=openai_api_key_required,
         codex_direct_compatible=codex_direct_compatible,
         codex_execution_mode=codex_execution_mode,
+        request_context=request_context,
     )
 
 
@@ -409,8 +418,9 @@ def _external_llm_request_payload(
     guidance_style: str,
     model: str,
     target_candidate_count: int,
+    request_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return {
+    payload = {
         "paper_reference": COGNITIVE_ALPHA_PAPER_REFERENCE,
         "profile": profile.profile,
         "model": model,
@@ -441,6 +451,9 @@ def _external_llm_request_payload(
             ),
         },
     }
+    if request_context is not None:
+        payload["feedback_context"] = _jsonable_payload(request_context)
+    return payload
 
 
 def _parse_external_llm_response(raw_response: str | dict[str, Any]) -> dict[str, Any]:

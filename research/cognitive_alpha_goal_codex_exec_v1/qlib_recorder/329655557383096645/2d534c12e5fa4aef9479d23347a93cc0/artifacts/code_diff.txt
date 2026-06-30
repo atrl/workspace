@@ -1,0 +1,3517 @@
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/backtest_benchmark_comparison.csv b/research/cognitive_alpha_goal_codex_exec_v1/backtest_benchmark_comparison.csv
+index 21067a62..fb73a7c1 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/backtest_benchmark_comparison.csv
++++ b/research/cognitive_alpha_goal_codex_exec_v1/backtest_benchmark_comparison.csv
+@@ -1,6 +1,6 @@
+ benchmark,return_pct,max_drawdown_pct,trade_count,source,selected_return_gap_pct,selected_max_drawdown_gap_pct,selected_beats_return
+-cognitive_alpha_selected,7.656183733861588,-4.311306032411366,69,cognitive_alpha_position_model,0.0,0.0,False
+-soxl_backtest,137.99623795135494,-13.55408854280352,3,soxl_backtest.reference,-130.34005421749336,9.242782510392153,False
+-constrained_weight_reference,571.2200577696498,-14.619712031891652,9,research/agentic_alpha_cognitive_alpha_soxl_v1,-563.5638740357882,10.308405999480286,False
+-soxl_buyhold,389.8814389870929,0.0,0,soxl_close_buyhold,-382.2252552532313,-4.311306032411366,False
+-previous_factor_enhanced,188.72216653153453,-12.02999288788986,15,agentic_alpha_ml_factor_enhanced_throttle_v1,-181.06598279767294,7.718686855478493,False
++cognitive_alpha_selected,-1.1901106794702798,-1.5635870225187865,8,cognitive_alpha_position_model,0.0,0.0,False
++soxl_backtest,137.99623795135494,-13.55408854280352,3,soxl_backtest.reference,-139.18634863082522,11.990501520284733,False
++constrained_weight_reference,571.2200577696498,-14.619712031891652,9,research/agentic_alpha_cognitive_alpha_soxl_v1,-572.4101684491201,13.056125009372865,False
++soxl_buyhold,389.8814389870929,0.0,0,soxl_close_buyhold,-391.0715496665632,-1.5635870225187865,False
++previous_factor_enhanced,188.72216653153453,-12.02999288788986,15,agentic_alpha_ml_factor_enhanced_throttle_v1,-189.9122772110048,10.466405865371073,False
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/backtest_walk_forward_metrics.csv b/research/cognitive_alpha_goal_codex_exec_v1/backtest_walk_forward_metrics.csv
+index d43562e1..b0fc10bd 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/backtest_walk_forward_metrics.csv
++++ b/research/cognitive_alpha_goal_codex_exec_v1/backtest_walk_forward_metrics.csv
+@@ -1,3 +1,3 @@
+ fold,segment,train_start,train_end,validation_start,validation_end,test_start,test_end,selected_candidate,selected_model,validation_return_pct,validation_max_drawdown_pct,validation_max_daily_loss_pct,validation_total_turnover,validation_trade_count,validation_positive_month_ratio,validation_zero_position_day_ratio,validation_extreme_loss_day_count,test_return_pct,test_max_drawdown_pct,test_max_daily_loss_pct,test_total_turnover,test_trade_count,test_avg_abs_position,test_max_position,test_days_above_100,test_month_count,test_positive_month_count,test_positive_month_ratio,test_zero_position_day_count,test_zero_position_day_ratio,test_extreme_loss_threshold,test_extreme_loss_day_count,test_worst_strategy_return_pct,validation_risk_gate_pass,test_risk_gate_pass,risk_gate_pass
+-wf_2025_h2,test,2019-01-02,2024-06-28,2024-07-01,2025-06-30,2025-07-01,2025-12-31,logistic_regression_probability_p0.55_s1_h0_hold1,logistic_regression,-8.501544964829776,-10.983612949447608,-5.488035328902275,1.9071670033394927,51,0.5,0.844,1,-0.0500661059754437,-0.0500661059754437,-0.03475425642798811,0.05344031447227061,3,0.0002764316976206401,0.026720157236135304,0,6,0,0.0,126,0.984375,-0.05,0,-0.03475425642798811,True,False,False
+-wf_2026_ytd,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,logistic_regression_probability_p0.45_s1_h0_hold1,logistic_regression,8.450728149181108,-22.07040467882123,-7.706078837643999,5.817014866560822,211,0.5833333333333334,0.2,2,7.656183733861588,-4.311306032411366,-2.1829052337852746,1.6321474269800786,69,0.029946303181179988,0.19417511642195345,0,6,3,0.5,55,0.46218487394957986,-0.05,0,-2.1829052337852746,True,True,True
++wf_2025_h2,test,2019-01-02,2024-06-28,2024-07-01,2025-06-30,2025-07-01,2025-12-31,logistic_regression_probability_p0.55_s1_h0_hold1,logistic_regression,-13.344739841005904,-14.694133405442578,-5.011169817092138,2.794110685925467,61,0.3333333333333333,0.812,1,0.5424746166610594,-0.1782889739069704,-0.08748627146245067,0.5838824011591283,19,0.002869928030725481,0.08414981331459052,0,6,1,0.16666666666666666,117,0.9140625,-0.05,0,-0.08748627146245067,True,False,False
++wf_2026_ytd,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,logistic_regression_probability_p0.55_s1_h0_hold1,logistic_regression,-6.745036994765452,-9.192922545473259,-4.586107522669143,1.7691046384907674,40,0.25,0.884,0,-1.1901106794702798,-1.5635870225187865,-1.4930648269036562,0.30991527170073885,8,0.0017953187131437337,0.1159092772850359,0,6,0,0.0,113,0.9495798319327731,-0.05,0,-1.4930648269036562,False,False,False
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/conclusion.md b/research/cognitive_alpha_goal_codex_exec_v1/conclusion.md
+index cbf15dd6..1b414c1e 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/conclusion.md
++++ b/research/cognitive_alpha_goal_codex_exec_v1/conclusion.md
+@@ -2,12 +2,12 @@
+
+ - what_ran: 执行 cognitive_alpha_goal_codex_exec_v1，使用 Codex exec candidate provider 生成 CogAlpha 候选，再通过 qlib provider、Alpha158 DatasetH/DataHandlerLP、R.start recorder、position model 和 direct-factor prior 完成研究闭环。
+ - data: provider=/Users/rziiiii/dev/workspace/data/qlib/soxl，as_of=2026-06-24，train=2019-01-02 到 2024-12-31，validation=2025-01-02 到 2025-12-31，test=2026-01-02 到 2026-06-24。
+-- codex_provider: provider_id=codex_exec_candidate_provider，prompt_count=7，sandbox=read-only，openai_api_key_required=False。
++- codex_provider: provider_id=codex_exec_candidate_provider，prompt_count=3，sandbox=read-only，openai_api_key_required=False。
+ - evolution: generations=2，selected_count=1，metrics=ic,icir,rank_ic,rank_icir,mutual_information。
+-- position_model: promotion=not_promoted_failed_walk_forward_risk_gates，selected_return=7.6562%，walk_forward_folds=2，all_gates_pass=False。
+-- direct_factor_backtest: promotion=diagnostic_direct_factor_candidate，return=849.9034%，role=prior_only_not_final_promotion。
++- position_model: promotion=not_promoted_failed_position_risk_gates，selected_return=-1.1901%，walk_forward_folds=2，all_gates_pass=False。
++- direct_factor_backtest: promotion=not_promoted_under_constrained_weight_reference，return=353.0055%，role=prior_only_not_final_promotion。
+ - latest_signal: as_of=2026-06-24，action=HOLD，target_position=0.0000。
+-- promotion_decision: not_promoted_failed_walk_forward_risk_gates；production_paper_sim=blocked_not_promoted。
++- promotion_decision: not_promoted_failed_position_risk_gates；production_paper_sim=blocked_not_promoted。
+ - next_action: 若未通过 constrained_weight_reference 或 walk-forward/exposure/risk gates，继续扩展 Codex-exec 候选和稳定性筛选，不创建 production paper/sim。
+-- recorder: d8c0dfd3407c46c8b2d04641b407a79e。
++- recorder: 83f414c1b0134e7eb14e87a1f5803018。
+ - risk: 本研究仅用于 SOXL qlib 研究和 paper/sim 风控，不构成买卖建议。
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_benchmark_comparison.csv b/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_benchmark_comparison.csv
+index 3e22b29f..c8fa42d9 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_benchmark_comparison.csv
++++ b/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_benchmark_comparison.csv
+@@ -1,6 +1,6 @@
+ benchmark,return_pct,max_drawdown_pct,trade_count,source,selected_return_gap_pct,selected_beats_return
+-cognitive_alpha_weighted_selected,849.9033768748054,-81.99489994023767,981,cognitive_alpha_weighted_factor_search,0.0,False
+-soxl_backtest,137.99623795135494,-13.55408854280352,3,soxl_backtest.reference,711.9071389234505,True
+-constrained_weight_reference,571.2200577696498,-14.619712031891652,9,research/agentic_alpha_cognitive_alpha_soxl_v1,278.68331910515565,True
+-soxl_buyhold,389.8814389870929,0.0,0,soxl_close_buyhold,460.0219378877125,True
+-previous_factor_enhanced,188.72216653153453,-12.02999288788986,15,agentic_alpha_ml_factor_enhanced_throttle_v1,661.1812103432709,True
++cognitive_alpha_weighted_selected,353.00551672687186,-80.20124881043981,607,cognitive_alpha_weighted_factor_search,0.0,False
++soxl_backtest,137.99623795135494,-13.55408854280352,3,soxl_backtest.reference,215.00927877551692,True
++constrained_weight_reference,571.2200577696498,-14.619712031891652,9,research/agentic_alpha_cognitive_alpha_soxl_v1,-218.2145410427779,False
++soxl_buyhold,389.8814389870929,0.0,0,soxl_close_buyhold,-36.875922260221046,False
++previous_factor_enhanced,188.72216653153453,-12.02999288788986,15,agentic_alpha_ml_factor_enhanced_throttle_v1,164.28335019533733,True
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_candidate_metrics.csv b/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_candidate_metrics.csv
+index 87965840..34c7fd06 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_candidate_metrics.csv
++++ b/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_candidate_metrics.csv
+@@ -1,3 +1,3 @@
+ candidate,return_pct,benchmark_return_pct,max_drawdown_pct,avg_abs_position,max_position,min_position,days_above_100,days_below_0,total_turnover,trade_count,next_day_reversal_count,avg_holding_days,cost_per_turnover,params,weights,effective_component_count,raw_target_max,raw_target_min,raw_target_avg_abs,component_cols,passes_position_bounds,passes_effective_component_gate,beats_constrained_weight_reference,passes_drawdown_gate,selection_eligible
+-codex_exec_primary_factor_direct,849.9033768748054,,-81.99489994023767,0.4011866068485833,1.0,0.0,0,0,911.3918767791835,981,506,1.9061224489795918,0.0003,"{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}","{""liquidity_tail_pressure_imbalance_20d"": 1.0}",1,1.0,-1.0,0.9341749027701348,"[""liquidity_tail_pressure_imbalance_20d"", ""g001_000_mutation_liquidity_tail_pre_31a9d24477""]",True,True,True,False,False
+-codex_exec_equal_weight_direct,362.99450859380266,,-59.56891642300509,0.21405346277406118,1.0,0.0,0,0,416.91513466896083,602,180,3.1048252911813643,0.0003,"{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}","{""g001_000_mutation_liquidity_tail_pre_31a9d24477"": 0.5, ""liquidity_tail_pressure_imbalance_20d"": 0.5}",2,1.9969027056699673,-1.4840199256999294,0.5242717838148998,"[""liquidity_tail_pressure_imbalance_20d"", ""g001_000_mutation_liquidity_tail_pre_31a9d24477""]",True,True,False,False,False
++codex_exec_equal_weight_direct,353.00551672687186,,-80.20124881043981,0.35613995330009957,1.0,0.0,0,0,285.0876034054196,607,142,3.0792079207920793,0.0003,"{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}","{""g001_000_mutation_lagged_ma_cycle_br_198806ad12"": 0.5, ""lagged_ma_cycle_breakout_vix_scaled"": 0.5}",2,1.7029447624463745,-1.756351428932747,0.6743786439664321,"[""lagged_ma_cycle_breakout_vix_scaled"", ""g001_000_mutation_lagged_ma_cycle_br_198806ad12""]",True,True,False,False,False
++codex_exec_primary_factor_direct,199.22247058553714,,-66.39364636994975,0.31538093951131313,0.9748672418895479,0.0,0,0,151.02139551598722,315,65,5.949044585987261,0.0003,"{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}","{""lagged_ma_cycle_breakout_vix_scaled"": 1.0}",1,0.9751909655018195,-0.9757366237616947,0.48752485453043043,"[""lagged_ma_cycle_breakout_vix_scaled"", ""g001_000_mutation_lagged_ma_cycle_br_198806ad12""]",True,True,False,False,False
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_summary.json b/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_summary.json
+index 9d8e4d93..4a21cc4b 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_summary.json
++++ b/research/cognitive_alpha_goal_codex_exec_v1/direct_factor_summary.json
+@@ -7,49 +7,49 @@
+   },
+   "candidate_count": 2,
+   "comparison": {
+-    "beats_constrained_weight_reference": true,
++    "beats_constrained_weight_reference": false,
+     "beats_previous_factor_enhanced": true,
+     "beats_soxl_backtest": true,
+-    "beats_soxl_buyhold": true,
+-    "selected_max_drawdown_pct": -81.99489994023767,
+-    "selected_return_pct": 849.9033768748054,
+-    "selected_vs_constrained_weight_reference_return_gap_pct": 278.68331910515565,
+-    "selected_vs_previous_factor_enhanced_return_gap_pct": 661.1812103432709,
+-    "selected_vs_soxl_backtest_return_gap_pct": 711.9071389234505,
+-    "selected_vs_soxl_buyhold_return_gap_pct": 460.0219378877125
++    "beats_soxl_buyhold": false,
++    "selected_max_drawdown_pct": -80.20124881043981,
++    "selected_return_pct": 353.00551672687186,
++    "selected_vs_constrained_weight_reference_return_gap_pct": -218.2145410427779,
++    "selected_vs_previous_factor_enhanced_return_gap_pct": 164.28335019533733,
++    "selected_vs_soxl_backtest_return_gap_pct": 215.00927877551692,
++    "selected_vs_soxl_buyhold_return_gap_pct": -36.875922260221046
+   },
+   "component_cols": [
+-    "liquidity_tail_pressure_imbalance_20d",
+-    "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++    "lagged_ma_cycle_breakout_vix_scaled",
++    "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+   ],
+-  "promotion_decision": "diagnostic_direct_factor_candidate",
++  "promotion_decision": "not_promoted_under_constrained_weight_reference",
+   "selected_candidate": {
+-    "avg_abs_position": 0.4011866068485833,
+-    "avg_holding_days": 1.9061224489795918,
+-    "beats_constrained_weight_reference": true,
++    "avg_abs_position": 0.35613995330009957,
++    "avg_holding_days": 3.0792079207920793,
++    "beats_constrained_weight_reference": false,
+     "benchmark_return_pct": null,
+-    "candidate": "codex_exec_primary_factor_direct",
+-    "component_cols": "[\"liquidity_tail_pressure_imbalance_20d\", \"g001_000_mutation_liquidity_tail_pre_31a9d24477\"]",
++    "candidate": "codex_exec_equal_weight_direct",
++    "component_cols": "[\"lagged_ma_cycle_breakout_vix_scaled\", \"g001_000_mutation_lagged_ma_cycle_br_198806ad12\"]",
+     "cost_per_turnover": 0.0003,
+     "days_above_100": 0,
+     "days_below_0": 0,
+-    "effective_component_count": 1,
+-    "max_drawdown_pct": -81.99489994023767,
++    "effective_component_count": 2,
++    "max_drawdown_pct": -80.20124881043981,
+     "max_position": 1.0,
+     "min_position": 0.0,
+-    "next_day_reversal_count": 506,
+-    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
++    "next_day_reversal_count": 142,
++    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+     "passes_drawdown_gate": false,
+     "passes_effective_component_gate": true,
+     "passes_position_bounds": true,
+-    "raw_target_avg_abs": 0.9341749027701348,
+-    "raw_target_max": 1.0,
+-    "raw_target_min": -1.0,
+-    "return_pct": 849.9033768748054,
++    "raw_target_avg_abs": 0.6743786439664321,
++    "raw_target_max": 1.7029447624463745,
++    "raw_target_min": -1.756351428932747,
++    "return_pct": 353.00551672687186,
+     "selection_eligible": false,
+-    "total_turnover": 911.3918767791835,
+-    "trade_count": 981,
+-    "weights": "{\"liquidity_tail_pressure_imbalance_20d\": 1.0}"
++    "total_turnover": 285.0876034054196,
++    "trade_count": 607,
++    "weights": "{\"g001_000_mutation_lagged_ma_cycle_br_198806ad12\": 0.5, \"lagged_ma_cycle_breakout_vix_scaled\": 0.5}"
+   },
+   "selection": "return_sorted_long_only_multifactor_gate",
+   "spec": {
+@@ -62,8 +62,8 @@
+           "rebalance_threshold": 0.2
+         },
+         "weights": {
+-          "g001_000_mutation_liquidity_tail_pre_31a9d24477": 0.5,
+-          "liquidity_tail_pressure_imbalance_20d": 0.5
++          "g001_000_mutation_lagged_ma_cycle_br_198806ad12": 0.5,
++          "lagged_ma_cycle_breakout_vix_scaled": 0.5
+         }
+       },
+       {
+@@ -74,13 +74,13 @@
+           "rebalance_threshold": 0.3
+         },
+         "weights": {
+-          "liquidity_tail_pressure_imbalance_20d": 1.0
++          "lagged_ma_cycle_breakout_vix_scaled": 1.0
+         }
+       }
+     ],
+     "component_cols": [
+-      "liquidity_tail_pressure_imbalance_20d",
+-      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++      "lagged_ma_cycle_breakout_vix_scaled",
++      "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+     ],
+     "constrained_reference_name": "constrained_weight_reference",
+     "cost_per_turnover": 0.0003,
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/evolution_summary.json b/research/cognitive_alpha_goal_codex_exec_v1/evolution_summary.json
+index 76609236..fb5676ee 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/evolution_summary.json
++++ b/research/cognitive_alpha_goal_codex_exec_v1/evolution_summary.json
+@@ -4,18 +4,19 @@
+     "codex_direct_compatible": true,
+     "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+     "external_llm_configured": true,
++    "feedback_context_included": false,
+     "generated_candidate_count": 4,
+     "guidance_style_count": 5,
+-    "invalid_candidate_count": 4,
++    "invalid_candidate_count": 0,
+     "llm_model": "codex-cli",
+     "openai_api_key_required": false,
+     "profile_agent_count": 21,
+-    "prompt_count": 7,
++    "prompt_count": 3,
+     "provider_failure_count": 0,
+     "provider_id": "codex_exec_candidate_provider",
+     "provider_kind": "codex_exec_code",
+     "requested_initial_pool_size": 4,
+-    "response_count": 7
++    "response_count": 3
+   },
+   "checkpoints": {
+     "candidate_pool": "candidate_pool/generation_*.jsonl",
+@@ -46,11 +47,11 @@
+   "repair_attempt_count": 1,
+   "resume_start_generation": 0,
+   "resumed": false,
+-  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y/cognitive_alpha_evolution",
++  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk/cognitive_alpha_evolution",
+   "run_id": "cognitive_alpha_evolution",
+   "selected_count": 1,
+   "selected_feature_names": [
+-    "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++    "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+   ],
+   "spec": {
+     "children_per_generation": 4,
+@@ -67,7 +68,7 @@
+     "qualified_percentile": 0.5,
+     "resume": false,
+     "run_id": "cognitive_alpha_evolution",
+-    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y"
++    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk"
+   },
+   "thresholds": {
+     "elite_percentile": 0.75,
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/failure_modes.md b/research/cognitive_alpha_goal_codex_exec_v1/failure_modes.md
+index f853b5c8..ead9db9e 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/failure_modes.md
++++ b/research/cognitive_alpha_goal_codex_exec_v1/failure_modes.md
+@@ -1,7 +1,7 @@
+ # Failure Modes
+
+-- position_model_promotion: not_promoted_failed_walk_forward_risk_gates
++- position_model_promotion: not_promoted_failed_position_risk_gates
+ - direct_factor_role: prior_only_not_final_promotion
+-- direct_factor_promotion: diagnostic_direct_factor_candidate
++- direct_factor_promotion: not_promoted_under_constrained_weight_reference
+ - direct_factor_backtest 不能作为最终晋升门，只能作为 prior/diagnostic。
+ - 若未跑赢 constrained_weight_reference 或 walk-forward/exposure/risk gates，保持 not_promoted。
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/generation_metrics.csv b/research/cognitive_alpha_goal_codex_exec_v1/generation_metrics.csv
+index e32aa612..590ecfd4 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/generation_metrics.csv
++++ b/research/cognitive_alpha_goal_codex_exec_v1/generation_metrics.csv
+@@ -1,10 +1,10 @@
+ factor,generation,level,agent,theme,lookback,quality_status,quality_reason,missing_ratio,distinct_values,ic,rank_ic,icir,rank_icir,mutual_information,abs_ic_percentile,abs_rank_ic_percentile,abs_icir_percentile,abs_rank_icir_percentile,mutual_information_percentile,min_metric_percentile,selection_score,selection_tier,redundancy_status,evolution_generation
+ codex_exec_quality_canary_future_leak,0,quality_checker_canary,QualityCheckerCanary,intentional future-leak canary for CogAlpha repair loop,1,reject,future_lookahead_declared,1.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,drop,not_selected,0
+-codex_exec_quality_canary_future_leak_repaired_lag1,0,quality_checker_canary,QualityCheckerCanaryRepair,repaired intentional future-leak canary for CogAlpha repair loop,3,pass,pass,0.0011363636363636363,1758,-0.0597229062,-0.0691940056,-0.7144605177,-0.7114951159,0.0,0.75,1.0,1.0,1.0,0.375,0.375,0.825,drop,not_selected,0
+-tail_fragility_range_vix_volume_20d,0,extreme_risk_fragility,AgentTailRisk,"tail-risk exposure, crash precursors, and fragility accumulation",20,pass,pass,0.11306818181818182,1236,-0.0601727893,-0.0485915264,-0.2271791486,-0.1851100381,0.024577485,1.0,0.75,0.25,0.25,1.0,0.25,0.65,drop,not_selected,0
+-liquidity_tail_pressure_imbalance_20d,0,price_volume_dynamics,AgentLiquidity,"price-volume pressure, liquidity, and order-imbalance proxies",20,pass,pass,0.002840909090909091,1397,0.0310627873,0.035257224,0.4870257137,0.515281451,0.0014020256,0.5,0.5,0.75,0.75,0.75,0.5,0.65,qualified,selected,0
+-pv_coherence_exhaustion_reversion_20d,0,price_volume_dynamics,AgentPriceVolumeCoherence,"price-volume pressure, liquidity, and order-imbalance proxies",40,pass,pass,0.02727272727272727,1712,0.0214935067,0.0182654931,0.319811757,0.2499412647,0.0,0.25,0.25,0.5,0.5,0.375,0.25,0.375,drop,not_selected,0
+-g001_000_mutation_liquidity_tail_pre_31a9d24477,1,price_volume_dynamics,AgentLiquidity,mutation of liquidity_tail_pre_31a9d24477,20,pass,pass,0.008522727272727272,1720,-0.0094160623,-0.0213967608,0.0329677457,-0.0992983909,0.002237072,0.8333333333333334,0.8333333333333334,0.5,0.5,0.5,0.5,0.6333333333333334,qualified,selected,1
+-g001_001_crossover_liquidity_tail_pre_31a9d24477__liquidity_tail_pre_31a9d24477,1,geometric_fusion,AgentComposite,crossover of liquidity_tail_pre_31a9d24477 and liquidity_tail_pre_31a9d24477,20,pass,pass,0.007954545454545454,1726,0.0058314124,-0.0184235386,0.2203740827,-0.1087135064,0.0236209642,0.3333333333333333,0.3333333333333333,1.0,1.0,1.0,0.3333333333333333,0.7333333333333333,drop,not_selected,1
+-g001_002_crossover_mutation_liquidity_tail_pre_31a9d24477__liquidity_tail_pre_31a9d24477,1,geometric_fusion,AgentCreative,mutated crossover of liquidity_tail_pre_31a9d24477 and liquidity_tail_pre_31a9d24477,20,reject,too_few_distinct_values,0.008522727272727272,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,drop,not_selected,1
+-g001_003_mutation_liquidity_tail_pre_31a9d24477,1,price_volume_dynamics,AgentLiquidity,mutation of liquidity_tail_pre_31a9d24477,20,pass,pass,0.008522727272727272,1720,-0.0094160623,-0.0213967608,0.0329677457,-0.0992983909,0.002237072,0.8333333333333334,0.8333333333333334,0.5,0.5,0.5,0.5,0.6333333333333334,qualified,drop_high_correlation,1
++codex_exec_quality_canary_future_leak_repaired_lag1,0,quality_checker_canary,QualityCheckerCanaryRepair,repaired intentional future-leak canary for CogAlpha repair loop,3,pass,pass,0.0011363636363636363,1758,-0.0597229062,-0.0691940056,-0.7144605177,-0.7114951159,0.0,1.0,1.0,1.0,1.0,0.3333333333333333,0.3333333333333333,0.8666666666666666,drop,not_selected,0
++lagged_ma_cycle_breakout_vix_scaled,0,market_structure_cycle,AgentMarketCycle,"large-scale trend, market phase, and volatility state",60,pass,pass,0.005681818181818182,1750,-0.0321349295,-0.0508573808,-0.6185754461,-0.6795892343,0.035542777,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.6666666666666666,1.0,0.6666666666666666,0.7333333333333333,qualified,selected,0
++vol_phase_drawdown_reversion_v1,0,market_structure_cycle,AgentVolatilityRegime,"large-scale trend, market phase, and volatility state",181,pass,pass,0.005681818181818182,1750,-0.0053771318,-0.0152209712,0.1092825922,0.0802872068,0.0086273788,0.3333333333333333,0.3333333333333333,0.3333333333333333,0.3333333333333333,0.6666666666666666,0.3333333333333333,0.4,drop,not_selected,0
++tail_fragility_vix_drawdown_range_20d,0,extreme_risk_fragility,AgentTailRisk,"tail-risk exposure, crash precursors, and fragility accumulation",61,reject,too_many_missing_values,1.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,drop,not_selected,0
++g001_000_mutation_lagged_ma_cycle_br_198806ad12,1,market_structure_cycle,AgentMarketCycle,mutation of lagged_ma_cycle_br_198806ad12,60,pass,pass,0.011363636363636364,1740,0.0227350642,0.0201332657,0.1509022684,0.1111702433,0.0014569811,0.8333333333333334,0.8333333333333334,0.8333333333333334,0.5,0.5,0.5,0.7,qualified,selected,1
++g001_001_crossover_lagged_ma_cycle_br_198806ad12__lagged_ma_cycle_br_198806ad12,1,geometric_fusion,AgentComposite,crossover of lagged_ma_cycle_br_198806ad12 and lagged_ma_cycle_br_198806ad12,60,pass,pass,0.010795454545454546,1741,-0.0128754177,-0.0148217642,-0.1451820057,-0.1382024355,0.0290421473,0.3333333333333333,0.3333333333333333,0.3333333333333333,1.0,1.0,0.3333333333333333,0.6,drop,not_selected,1
++g001_002_crossover_mutation_lagged_ma_cycle_br_198806ad12__lagged_ma_cycle_br_198806ad12,1,geometric_fusion,AgentCreative,mutated crossover of lagged_ma_cycle_br_198806ad12 and lagged_ma_cycle_br_198806ad12,60,reject,too_few_distinct_values,0.011363636363636364,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,drop,not_selected,1
++g001_003_mutation_lagged_ma_cycle_br_198806ad12,1,market_structure_cycle,AgentMarketCycle,mutation of lagged_ma_cycle_br_198806ad12,60,pass,pass,0.011363636363636364,1740,0.0227350642,0.0201332657,0.1509022684,0.1111702433,0.0014569811,0.8333333333333334,0.8333333333333334,0.8333333333333334,0.5,0.5,0.5,0.7,qualified,drop_high_correlation,1
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/goal_manifest.json b/research/cognitive_alpha_goal_codex_exec_v1/goal_manifest.json
+index fdeca1b4..766fa2b8 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/goal_manifest.json
++++ b/research/cognitive_alpha_goal_codex_exec_v1/goal_manifest.json
+@@ -1,21 +1,23 @@
+ {
++  "attempt_index": 1,
+   "candidate_generation": {
+     "candidate_provider": {
+       "codex_direct_compatible": true,
+       "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+       "external_llm_configured": true,
++      "feedback_context_included": false,
+       "generated_candidate_count": 4,
+       "guidance_style_count": 5,
+-      "invalid_candidate_count": 4,
++      "invalid_candidate_count": 0,
+       "llm_model": "codex-cli",
+       "openai_api_key_required": false,
+       "profile_agent_count": 21,
+-      "prompt_count": 7,
++      "prompt_count": 3,
+       "provider_failure_count": 0,
+       "provider_id": "codex_exec_candidate_provider",
+       "provider_kind": "codex_exec_code",
+       "requested_initial_pool_size": 4,
+-      "response_count": 7
++      "response_count": 3
+     },
+     "checkpoints": {
+       "candidate_pool": "candidate_pool/generation_*.jsonl"
+@@ -58,49 +60,49 @@
+     },
+     "candidate_count": 2,
+     "comparison": {
+-      "beats_constrained_weight_reference": true,
++      "beats_constrained_weight_reference": false,
+       "beats_previous_factor_enhanced": true,
+       "beats_soxl_backtest": true,
+-      "beats_soxl_buyhold": true,
+-      "selected_max_drawdown_pct": -81.99489994023767,
+-      "selected_return_pct": 849.9033768748054,
+-      "selected_vs_constrained_weight_reference_return_gap_pct": 278.68331910515565,
+-      "selected_vs_previous_factor_enhanced_return_gap_pct": 661.1812103432709,
+-      "selected_vs_soxl_backtest_return_gap_pct": 711.9071389234505,
+-      "selected_vs_soxl_buyhold_return_gap_pct": 460.0219378877125
++      "beats_soxl_buyhold": false,
++      "selected_max_drawdown_pct": -80.20124881043981,
++      "selected_return_pct": 353.00551672687186,
++      "selected_vs_constrained_weight_reference_return_gap_pct": -218.2145410427779,
++      "selected_vs_previous_factor_enhanced_return_gap_pct": 164.28335019533733,
++      "selected_vs_soxl_backtest_return_gap_pct": 215.00927877551692,
++      "selected_vs_soxl_buyhold_return_gap_pct": -36.875922260221046
+     },
+     "component_cols": [
+-      "liquidity_tail_pressure_imbalance_20d",
+-      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++      "lagged_ma_cycle_breakout_vix_scaled",
++      "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+     ],
+-    "promotion_decision": "diagnostic_direct_factor_candidate",
++    "promotion_decision": "not_promoted_under_constrained_weight_reference",
+     "selected_candidate": {
+-      "avg_abs_position": 0.4011866068485833,
+-      "avg_holding_days": 1.9061224489795918,
+-      "beats_constrained_weight_reference": true,
++      "avg_abs_position": 0.35613995330009957,
++      "avg_holding_days": 3.0792079207920793,
++      "beats_constrained_weight_reference": false,
+       "benchmark_return_pct": null,
+-      "candidate": "codex_exec_primary_factor_direct",
+-      "component_cols": "[\"liquidity_tail_pressure_imbalance_20d\", \"g001_000_mutation_liquidity_tail_pre_31a9d24477\"]",
++      "candidate": "codex_exec_equal_weight_direct",
++      "component_cols": "[\"lagged_ma_cycle_breakout_vix_scaled\", \"g001_000_mutation_lagged_ma_cycle_br_198806ad12\"]",
+       "cost_per_turnover": 0.0003,
+       "days_above_100": 0,
+       "days_below_0": 0,
+-      "effective_component_count": 1,
+-      "max_drawdown_pct": -81.99489994023767,
++      "effective_component_count": 2,
++      "max_drawdown_pct": -80.20124881043981,
+       "max_position": 1.0,
+       "min_position": 0.0,
+-      "next_day_reversal_count": 506,
+-      "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
++      "next_day_reversal_count": 142,
++      "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+       "passes_drawdown_gate": false,
+       "passes_effective_component_gate": true,
+       "passes_position_bounds": true,
+-      "raw_target_avg_abs": 0.9341749027701348,
+-      "raw_target_max": 1.0,
+-      "raw_target_min": -1.0,
+-      "return_pct": 849.9033768748054,
++      "raw_target_avg_abs": 0.6743786439664321,
++      "raw_target_max": 1.7029447624463745,
++      "raw_target_min": -1.756351428932747,
++      "return_pct": 353.00551672687186,
+       "selection_eligible": false,
+-      "total_turnover": 911.3918767791835,
+-      "trade_count": 981,
+-      "weights": "{\"liquidity_tail_pressure_imbalance_20d\": 1.0}"
++      "total_turnover": 285.0876034054196,
++      "trade_count": 607,
++      "weights": "{\"g001_000_mutation_lagged_ma_cycle_br_198806ad12\": 0.5, \"lagged_ma_cycle_breakout_vix_scaled\": 0.5}"
+     },
+     "selection": "return_sorted_long_only_multifactor_gate",
+     "spec": {
+@@ -113,8 +115,8 @@
+             "rebalance_threshold": 0.2
+           },
+           "weights": {
+-            "g001_000_mutation_liquidity_tail_pre_31a9d24477": 0.5,
+-            "liquidity_tail_pressure_imbalance_20d": 0.5
++            "g001_000_mutation_lagged_ma_cycle_br_198806ad12": 0.5,
++            "lagged_ma_cycle_breakout_vix_scaled": 0.5
+           }
+         },
+         {
+@@ -125,13 +127,13 @@
+             "rebalance_threshold": 0.3
+           },
+           "weights": {
+-            "liquidity_tail_pressure_imbalance_20d": 1.0
++            "lagged_ma_cycle_breakout_vix_scaled": 1.0
+           }
+         }
+       ],
+       "component_cols": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+       ],
+       "constrained_reference_name": "constrained_weight_reference",
+       "cost_per_turnover": 0.0003,
+@@ -174,10 +176,11 @@
+     ],
+     "selected_count": 1,
+     "selected_feature_names": [
+-      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++      "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+     ],
+     "status": "ok"
+   },
++  "max_attempts": 2,
+   "model_and_position": {
+     "artifact_policy": {
+       "policy": "slim_card_recorder_first",
+@@ -190,16 +193,16 @@
+       "beats_previous_factor_enhanced": false,
+       "beats_soxl_backtest": false,
+       "beats_soxl_buyhold": false,
+-      "selected_max_drawdown_pct": -4.311306032411366,
+-      "selected_return_pct": 7.656183733861588,
+-      "selected_vs_constrained_weight_reference_return_gap_pct": -563.5638740357882,
+-      "selected_vs_previous_factor_enhanced_return_gap_pct": -181.06598279767294,
+-      "selected_vs_soxl_backtest_return_gap_pct": -130.34005421749336,
+-      "selected_vs_soxl_buyhold_return_gap_pct": -382.2252552532313
++      "selected_max_drawdown_pct": -1.5635870225187865,
++      "selected_return_pct": -1.1901106794702798,
++      "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++      "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++      "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++      "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
+     },
+     "feature_cols": [
+-      "liquidity_tail_pressure_imbalance_20d",
+-      "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++      "lagged_ma_cycle_breakout_vix_scaled",
++      "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+       "alpha158_MA5",
+       "alpha158_MA10",
+       "alpha158_MA20",
+@@ -213,11 +216,11 @@
+     "latest_signal": {
+       "action": "HOLD",
+       "as_of": "2026-06-24",
+-      "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+-      "last_change_date": "2026-05-01",
++      "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
++      "last_change_date": "2026-03-31",
+       "last_change_target_position": 0.0,
+       "previous_target_position": 0.0,
+-      "probability": 0.2918430596883729,
++      "probability": 0.31791417651632425,
+       "target_delta": 0.0,
+       "target_delta_percent": 0.0,
+       "target_percent": 0.0,
+@@ -227,7 +230,7 @@
+       "logistic_regression",
+       "ridge"
+     ],
+-    "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++    "promotion_decision": "not_promoted_failed_position_risk_gates",
+     "risk_gates": {
+       "extreme_loss_threshold": -0.05,
+       "max_test_extreme_loss_day_count": 5,
+@@ -238,9 +241,9 @@
+       "max_validation_zero_position_day_ratio": 0.98,
+       "min_test_avg_abs_position": 0.01,
+       "min_validation_avg_abs_position": 0.01,
+-      "selected_passes_all": true,
+-      "selected_test_passes": true,
+-      "selected_validation_passes": true,
++      "selected_passes_all": false,
++      "selected_test_passes": false,
++      "selected_validation_passes": false,
+       "test_max_daily_loss_floor": -8.0,
+       "test_max_drawdown_floor": -25.0,
+       "validation_max_daily_loss_floor": -8.0,
+@@ -261,102 +264,102 @@
+       ]
+     },
+     "selected_candidate": {
+-      "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++      "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+       "model": "logistic_regression",
+       "selected_by": "validation_selection_objective_score",
+       "test": {
+-        "avg_abs_position": 0.029946303181179988,
+-        "avg_holding_days": 1.2058823529411764,
+-        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++        "avg_abs_position": 0.0017953187131437337,
++        "avg_holding_days": 1.0,
++        "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+         "cost_per_turnover": 0.0003,
+         "days_above_100": 0,
+         "days_below_0": 0,
+         "extreme_loss_day_count": 0,
+         "extreme_loss_threshold": -0.05,
+-        "max_daily_loss_pct": -2.1829052337852746,
+-        "max_drawdown_pct": -4.311306032411366,
+-        "max_position": 0.19417511642195345,
++        "max_daily_loss_pct": -1.4930648269036562,
++        "max_drawdown_pct": -1.5635870225187865,
++        "max_position": 0.1159092772850359,
+         "min_position": 0.0,
+         "model": "logistic_regression",
+         "model_target_col": "label_return_5d",
+         "model_task": "classification",
+         "month_count": 6,
+-        "next_day_reversal_count": 35,
+-        "next_day_reversal_ratio": 0.5072463768115942,
+-        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++        "next_day_reversal_count": 3,
++        "next_day_reversal_ratio": 0.375,
++        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+         "position_mode": "probability",
+-        "positive_month_count": 3,
+-        "positive_month_ratio": 0.5,
++        "positive_month_count": 0,
++        "positive_month_ratio": 0.0,
+         "report_segment": "test",
+         "return_col": "forward_return",
+-        "return_pct": 7.656183733861588,
+-        "return_to_drawdown": 1.775838615098124,
++        "return_pct": -1.1901106794702798,
++        "return_to_drawdown": -0.7611413131026934,
+         "scale": 1.0,
+         "segment": "test",
+         "selected": true,
+-        "selection_eligible": true,
+-        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-        "selection_objective_score": -61.43671131481166,
++        "selection_eligible": false,
++        "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++        "selection_objective_score": -14.900088252167448,
+         "selection_segment": "validation",
+         "test_end": "2026-06-24",
+         "test_start": "2026-01-02",
+-        "threshold": 0.45,
+-        "total_turnover": 1.6321474269800786,
+-        "trade_count": 69,
++        "threshold": 0.55,
++        "total_turnover": 0.30991527170073885,
++        "trade_count": 8,
+         "train_end": "2024-12-31",
+         "train_start": "2019-01-02",
+         "validation_end": "2025-12-31",
+         "validation_start": "2025-01-02",
+-        "worst_strategy_return_pct": -2.1829052337852746,
+-        "zero_position_day_count": 55,
+-        "zero_position_day_ratio": 0.46218487394957986
++        "worst_strategy_return_pct": -1.4930648269036562,
++        "zero_position_day_count": 113,
++        "zero_position_day_ratio": 0.9495798319327731
+       },
+       "validation": {
+-        "avg_abs_position": 0.07949451091845994,
+-        "avg_holding_days": 1.1857142857142857,
+-        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++        "avg_abs_position": 0.00876378663527083,
++        "avg_holding_days": 4.538461538461538,
++        "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+         "cost_per_turnover": 0.0003,
+         "days_above_100": 0,
+         "days_below_0": 0,
+-        "extreme_loss_day_count": 2,
++        "extreme_loss_day_count": 0,
+         "extreme_loss_threshold": -0.05,
+-        "max_daily_loss_pct": -7.706078837643999,
+-        "max_drawdown_pct": -22.07040467882123,
+-        "max_position": 0.4178959974382218,
++        "max_daily_loss_pct": -4.586107522669143,
++        "max_drawdown_pct": -9.192922545473259,
++        "max_position": 0.2026292314340735,
+         "min_position": 0.0,
+         "model": "logistic_regression",
+         "model_target_col": "label_return_5d",
+         "model_task": "classification",
+         "month_count": 12,
+-        "next_day_reversal_count": 102,
+-        "next_day_reversal_ratio": 0.4834123222748815,
+-        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++        "next_day_reversal_count": 19,
++        "next_day_reversal_ratio": 0.475,
++        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+         "position_mode": "probability",
+-        "positive_month_count": 7,
+-        "positive_month_ratio": 0.5833333333333334,
++        "positive_month_count": 3,
++        "positive_month_ratio": 0.25,
+         "report_segment": "test",
+         "return_col": "forward_return",
+-        "return_pct": 8.450728149181108,
+-        "return_to_drawdown": 0.38289864966954734,
++        "return_pct": -6.745036994765452,
++        "return_to_drawdown": -0.7337206379582536,
+         "scale": 1.0,
+         "segment": "validation",
+         "selected": true,
+-        "selection_eligible": true,
+-        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-        "selection_objective_score": -229.82752124016213,
++        "selection_eligible": false,
++        "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++        "selection_objective_score": -52.125764077214,
+         "selection_segment": "validation",
+         "test_end": "2026-06-24",
+         "test_start": "2026-01-02",
+-        "threshold": 0.45,
+-        "total_turnover": 5.817014866560822,
+-        "trade_count": 211,
++        "threshold": 0.55,
++        "total_turnover": 1.7691046384907674,
++        "trade_count": 40,
+         "train_end": "2024-12-31",
+         "train_start": "2019-01-02",
+         "validation_end": "2025-12-31",
+         "validation_start": "2025-01-02",
+-        "worst_strategy_return_pct": -7.706078837643999,
+-        "zero_position_day_count": 50,
+-        "zero_position_day_ratio": 0.2
++        "worst_strategy_return_pct": -4.586107522669143,
++        "zero_position_day_count": 221,
++        "zero_position_day_ratio": 0.884
+       }
+     },
+     "spec": {
+@@ -365,8 +368,8 @@
+       "datetime_col": "datetime",
+       "extreme_loss_threshold": -0.05,
+       "feature_cols": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+         "alpha158_MA5",
+         "alpha158_MA10",
+         "alpha158_MA20",
+@@ -465,20 +468,84 @@
+       "extreme_loss_threshold": -0.05,
+       "fold_count": 2,
+       "max_test_extreme_loss_day_count": 0,
+-      "max_test_total_turnover": 1.6321474269800786,
+-      "mean_test_avg_abs_position": 0.015111367439400314,
+-      "mean_test_positive_month_ratio": 0.25,
+-      "mean_test_return_pct": 3.803058813943072,
+-      "mean_test_zero_position_day_ratio": 0.72327993697479,
+-      "median_test_return_pct": 3.803058813943072,
++      "max_test_total_turnover": 0.5838824011591283,
++      "mean_test_avg_abs_position": 0.0023326233719346075,
++      "mean_test_positive_month_ratio": 0.08333333333333333,
++      "mean_test_return_pct": -0.3238180314046102,
++      "mean_test_zero_position_day_ratio": 0.9318211659663865,
++      "median_test_return_pct": -0.3238180314046102,
+       "positive_test_fold_count": 1,
+       "positive_test_fold_ratio": 0.5,
+-      "total_test_trade_count": 72,
+-      "worst_test_max_daily_loss_pct": -2.1829052337852746,
+-      "worst_test_max_drawdown_pct": -4.311306032411366
++      "total_test_trade_count": 27,
++      "worst_test_max_daily_loss_pct": -1.4930648269036562,
++      "worst_test_max_drawdown_pct": -1.5635870225187865
+     },
+     "workflow": "cognitive_alpha_position_model"
+   },
++  "next_action": {
++    "action": "continue_codex_exec_factor_generation",
++    "candidate_provider": {
++      "codex_direct_compatible": true,
++      "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
++      "external_llm_configured": true,
++      "feedback_context_included": false,
++      "generated_candidate_count": 4,
++      "guidance_style_count": 5,
++      "invalid_candidate_count": 0,
++      "llm_model": "codex-cli",
++      "openai_api_key_required": false,
++      "profile_agent_count": 21,
++      "prompt_count": 3,
++      "provider_failure_count": 0,
++      "provider_id": "codex_exec_candidate_provider",
++      "provider_kind": "codex_exec_code",
++      "requested_initial_pool_size": 4,
++      "response_count": 3
++    },
++    "direct_factor_role": "prior_only_not_final_promotion",
++    "feedback_focus": [
++      "constrained_weight_reference_gap",
++      "walk_forward_risk_gates",
++      "exposure_participation"
++    ],
++    "max_attempts": 2,
++    "next_attempt": 2,
++    "position_comparison": {
++      "beats_constrained_weight_reference": false,
++      "beats_previous_factor_enhanced": false,
++      "beats_soxl_backtest": false,
++      "beats_soxl_buyhold": false,
++      "selected_max_drawdown_pct": -1.5635870225187865,
++      "selected_return_pct": -1.1901106794702798,
++      "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++      "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++      "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++      "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
++    },
++    "previous_promotion_decision": "not_promoted_failed_position_risk_gates",
++    "read_artifacts": [
++      "failure_modes.md",
++      "goal_manifest.json",
++      "summary.json"
++    ],
++    "walk_forward": {
++      "all_folds_pass_risk_gates": false,
++      "extreme_loss_threshold": -0.05,
++      "fold_count": 2,
++      "max_test_extreme_loss_day_count": 0,
++      "max_test_total_turnover": 0.5838824011591283,
++      "mean_test_avg_abs_position": 0.0023326233719346075,
++      "mean_test_positive_month_ratio": 0.08333333333333333,
++      "mean_test_return_pct": -0.3238180314046102,
++      "mean_test_zero_position_day_ratio": 0.9318211659663865,
++      "median_test_return_pct": -0.3238180314046102,
++      "positive_test_fold_count": 1,
++      "positive_test_fold_ratio": 0.5,
++      "total_test_trade_count": 27,
++      "worst_test_max_daily_loss_pct": -1.4930648269036562,
++      "worst_test_max_drawdown_pct": -1.5635870225187865
++    }
++  },
+   "objective": "SOXL CogAlpha Codex exec provider data/evolution/position/direct-factor/card chain",
+   "paper_reference": "arxiv:2511.18850",
+   "quality_checker": {
+@@ -498,11 +565,12 @@
+       "qualified_percentile": 0.5
+     }
+   },
++  "remaining_attempts": 1,
+   "research_card": {
+     "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
+-    "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+-    "recorder_id": "d8c0dfd3407c46c8b2d04641b407a79e",
+-    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/d8c0dfd3407c46c8b2d04641b407a79e"
++    "promotion_decision": "not_promoted_failed_position_risk_gates",
++    "recorder_id": "83f414c1b0134e7eb14e87a1f5803018",
++    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/83f414c1b0134e7eb14e87a1f5803018"
+   },
+   "run_id": "cognitive_alpha_goal_codex_exec",
+   "signal_push": {
+@@ -547,49 +615,49 @@
+       },
+       "candidate_count": 2,
+       "comparison": {
+-        "beats_constrained_weight_reference": true,
++        "beats_constrained_weight_reference": false,
+         "beats_previous_factor_enhanced": true,
+         "beats_soxl_backtest": true,
+-        "beats_soxl_buyhold": true,
+-        "selected_max_drawdown_pct": -81.99489994023767,
+-        "selected_return_pct": 849.9033768748054,
+-        "selected_vs_constrained_weight_reference_return_gap_pct": 278.68331910515565,
+-        "selected_vs_previous_factor_enhanced_return_gap_pct": 661.1812103432709,
+-        "selected_vs_soxl_backtest_return_gap_pct": 711.9071389234505,
+-        "selected_vs_soxl_buyhold_return_gap_pct": 460.0219378877125
++        "beats_soxl_buyhold": false,
++        "selected_max_drawdown_pct": -80.20124881043981,
++        "selected_return_pct": 353.00551672687186,
++        "selected_vs_constrained_weight_reference_return_gap_pct": -218.2145410427779,
++        "selected_vs_previous_factor_enhanced_return_gap_pct": 164.28335019533733,
++        "selected_vs_soxl_backtest_return_gap_pct": 215.00927877551692,
++        "selected_vs_soxl_buyhold_return_gap_pct": -36.875922260221046
+       },
+       "component_cols": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+       ],
+-      "promotion_decision": "diagnostic_direct_factor_candidate",
++      "promotion_decision": "not_promoted_under_constrained_weight_reference",
+       "selected_candidate": {
+-        "avg_abs_position": 0.4011866068485833,
+-        "avg_holding_days": 1.9061224489795918,
+-        "beats_constrained_weight_reference": true,
++        "avg_abs_position": 0.35613995330009957,
++        "avg_holding_days": 3.0792079207920793,
++        "beats_constrained_weight_reference": false,
+         "benchmark_return_pct": null,
+-        "candidate": "codex_exec_primary_factor_direct",
+-        "component_cols": "[\"liquidity_tail_pressure_imbalance_20d\", \"g001_000_mutation_liquidity_tail_pre_31a9d24477\"]",
++        "candidate": "codex_exec_equal_weight_direct",
++        "component_cols": "[\"lagged_ma_cycle_breakout_vix_scaled\", \"g001_000_mutation_lagged_ma_cycle_br_198806ad12\"]",
+         "cost_per_turnover": 0.0003,
+         "days_above_100": 0,
+         "days_below_0": 0,
+-        "effective_component_count": 1,
+-        "max_drawdown_pct": -81.99489994023767,
++        "effective_component_count": 2,
++        "max_drawdown_pct": -80.20124881043981,
+         "max_position": 1.0,
+         "min_position": 0.0,
+-        "next_day_reversal_count": 506,
+-        "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
++        "next_day_reversal_count": 142,
++        "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+         "passes_drawdown_gate": false,
+         "passes_effective_component_gate": true,
+         "passes_position_bounds": true,
+-        "raw_target_avg_abs": 0.9341749027701348,
+-        "raw_target_max": 1.0,
+-        "raw_target_min": -1.0,
+-        "return_pct": 849.9033768748054,
++        "raw_target_avg_abs": 0.6743786439664321,
++        "raw_target_max": 1.7029447624463745,
++        "raw_target_min": -1.756351428932747,
++        "return_pct": 353.00551672687186,
+         "selection_eligible": false,
+-        "total_turnover": 911.3918767791835,
+-        "trade_count": 981,
+-        "weights": "{\"liquidity_tail_pressure_imbalance_20d\": 1.0}"
++        "total_turnover": 285.0876034054196,
++        "trade_count": 607,
++        "weights": "{\"g001_000_mutation_lagged_ma_cycle_br_198806ad12\": 0.5, \"lagged_ma_cycle_breakout_vix_scaled\": 0.5}"
+       },
+       "selection": "return_sorted_long_only_multifactor_gate",
+       "spec": {
+@@ -602,8 +670,8 @@
+               "rebalance_threshold": 0.2
+             },
+             "weights": {
+-              "g001_000_mutation_liquidity_tail_pre_31a9d24477": 0.5,
+-              "liquidity_tail_pressure_imbalance_20d": 0.5
++              "g001_000_mutation_lagged_ma_cycle_br_198806ad12": 0.5,
++              "lagged_ma_cycle_breakout_vix_scaled": 0.5
+             }
+           },
+           {
+@@ -614,13 +682,13 @@
+               "rebalance_threshold": 0.3
+             },
+             "weights": {
+-              "liquidity_tail_pressure_imbalance_20d": 1.0
++              "lagged_ma_cycle_breakout_vix_scaled": 1.0
+             }
+           }
+         ],
+         "component_cols": [
+-          "liquidity_tail_pressure_imbalance_20d",
+-          "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++          "lagged_ma_cycle_breakout_vix_scaled",
++          "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+         ],
+         "constrained_reference_name": "constrained_weight_reference",
+         "cost_per_turnover": 0.0003,
+@@ -640,18 +708,19 @@
+         "codex_direct_compatible": true,
+         "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+         "external_llm_configured": true,
++        "feedback_context_included": false,
+         "generated_candidate_count": 4,
+         "guidance_style_count": 5,
+-        "invalid_candidate_count": 4,
++        "invalid_candidate_count": 0,
+         "llm_model": "codex-cli",
+         "openai_api_key_required": false,
+         "profile_agent_count": 21,
+-        "prompt_count": 7,
++        "prompt_count": 3,
+         "provider_failure_count": 0,
+         "provider_id": "codex_exec_candidate_provider",
+         "provider_kind": "codex_exec_code",
+         "requested_initial_pool_size": 4,
+-        "response_count": 7
++        "response_count": 3
+       },
+       "checkpoints": {
+         "candidate_pool": "candidate_pool/generation_*.jsonl",
+@@ -682,11 +751,11 @@
+       "repair_attempt_count": 1,
+       "resume_start_generation": 0,
+       "resumed": false,
+-      "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y/cognitive_alpha_evolution",
++      "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk/cognitive_alpha_evolution",
+       "run_id": "cognitive_alpha_evolution",
+       "selected_count": 1,
+       "selected_feature_names": [
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+       ],
+       "spec": {
+         "children_per_generation": 4,
+@@ -703,7 +772,7 @@
+         "qualified_percentile": 0.5,
+         "resume": false,
+         "run_id": "cognitive_alpha_evolution",
+-        "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y"
++        "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk"
+       },
+       "thresholds": {
+         "elite_percentile": 0.75,
+@@ -728,16 +797,16 @@
+         "beats_previous_factor_enhanced": false,
+         "beats_soxl_backtest": false,
+         "beats_soxl_buyhold": false,
+-        "selected_max_drawdown_pct": -4.311306032411366,
+-        "selected_return_pct": 7.656183733861588,
+-        "selected_vs_constrained_weight_reference_return_gap_pct": -563.5638740357882,
+-        "selected_vs_previous_factor_enhanced_return_gap_pct": -181.06598279767294,
+-        "selected_vs_soxl_backtest_return_gap_pct": -130.34005421749336,
+-        "selected_vs_soxl_buyhold_return_gap_pct": -382.2252552532313
++        "selected_max_drawdown_pct": -1.5635870225187865,
++        "selected_return_pct": -1.1901106794702798,
++        "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++        "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++        "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++        "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
+       },
+       "feature_cols": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+         "alpha158_MA5",
+         "alpha158_MA10",
+         "alpha158_MA20",
+@@ -751,11 +820,11 @@
+       "latest_signal": {
+         "action": "HOLD",
+         "as_of": "2026-06-24",
+-        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+-        "last_change_date": "2026-05-01",
++        "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
++        "last_change_date": "2026-03-31",
+         "last_change_target_position": 0.0,
+         "previous_target_position": 0.0,
+-        "probability": 0.2918430596883729,
++        "probability": 0.31791417651632425,
+         "target_delta": 0.0,
+         "target_delta_percent": 0.0,
+         "target_percent": 0.0,
+@@ -765,7 +834,7 @@
+         "logistic_regression",
+         "ridge"
+       ],
+-      "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++      "promotion_decision": "not_promoted_failed_position_risk_gates",
+       "risk_gates": {
+         "extreme_loss_threshold": -0.05,
+         "max_test_extreme_loss_day_count": 5,
+@@ -776,9 +845,9 @@
+         "max_validation_zero_position_day_ratio": 0.98,
+         "min_test_avg_abs_position": 0.01,
+         "min_validation_avg_abs_position": 0.01,
+-        "selected_passes_all": true,
+-        "selected_test_passes": true,
+-        "selected_validation_passes": true,
++        "selected_passes_all": false,
++        "selected_test_passes": false,
++        "selected_validation_passes": false,
+         "test_max_daily_loss_floor": -8.0,
+         "test_max_drawdown_floor": -25.0,
+         "validation_max_daily_loss_floor": -8.0,
+@@ -799,102 +868,102 @@
+         ]
+       },
+       "selected_candidate": {
+-        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++        "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+         "model": "logistic_regression",
+         "selected_by": "validation_selection_objective_score",
+         "test": {
+-          "avg_abs_position": 0.029946303181179988,
+-          "avg_holding_days": 1.2058823529411764,
+-          "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++          "avg_abs_position": 0.0017953187131437337,
++          "avg_holding_days": 1.0,
++          "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+           "cost_per_turnover": 0.0003,
+           "days_above_100": 0,
+           "days_below_0": 0,
+           "extreme_loss_day_count": 0,
+           "extreme_loss_threshold": -0.05,
+-          "max_daily_loss_pct": -2.1829052337852746,
+-          "max_drawdown_pct": -4.311306032411366,
+-          "max_position": 0.19417511642195345,
++          "max_daily_loss_pct": -1.4930648269036562,
++          "max_drawdown_pct": -1.5635870225187865,
++          "max_position": 0.1159092772850359,
+           "min_position": 0.0,
+           "model": "logistic_regression",
+           "model_target_col": "label_return_5d",
+           "model_task": "classification",
+           "month_count": 6,
+-          "next_day_reversal_count": 35,
+-          "next_day_reversal_ratio": 0.5072463768115942,
+-          "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++          "next_day_reversal_count": 3,
++          "next_day_reversal_ratio": 0.375,
++          "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+           "position_mode": "probability",
+-          "positive_month_count": 3,
+-          "positive_month_ratio": 0.5,
++          "positive_month_count": 0,
++          "positive_month_ratio": 0.0,
+           "report_segment": "test",
+           "return_col": "forward_return",
+-          "return_pct": 7.656183733861588,
+-          "return_to_drawdown": 1.775838615098124,
++          "return_pct": -1.1901106794702798,
++          "return_to_drawdown": -0.7611413131026934,
+           "scale": 1.0,
+           "segment": "test",
+           "selected": true,
+-          "selection_eligible": true,
+-          "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-          "selection_objective_score": -61.43671131481166,
++          "selection_eligible": false,
++          "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++          "selection_objective_score": -14.900088252167448,
+           "selection_segment": "validation",
+           "test_end": "2026-06-24",
+           "test_start": "2026-01-02",
+-          "threshold": 0.45,
+-          "total_turnover": 1.6321474269800786,
+-          "trade_count": 69,
++          "threshold": 0.55,
++          "total_turnover": 0.30991527170073885,
++          "trade_count": 8,
+           "train_end": "2024-12-31",
+           "train_start": "2019-01-02",
+           "validation_end": "2025-12-31",
+           "validation_start": "2025-01-02",
+-          "worst_strategy_return_pct": -2.1829052337852746,
+-          "zero_position_day_count": 55,
+-          "zero_position_day_ratio": 0.46218487394957986
++          "worst_strategy_return_pct": -1.4930648269036562,
++          "zero_position_day_count": 113,
++          "zero_position_day_ratio": 0.9495798319327731
+         },
+         "validation": {
+-          "avg_abs_position": 0.07949451091845994,
+-          "avg_holding_days": 1.1857142857142857,
+-          "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++          "avg_abs_position": 0.00876378663527083,
++          "avg_holding_days": 4.538461538461538,
++          "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+           "cost_per_turnover": 0.0003,
+           "days_above_100": 0,
+           "days_below_0": 0,
+-          "extreme_loss_day_count": 2,
++          "extreme_loss_day_count": 0,
+           "extreme_loss_threshold": -0.05,
+-          "max_daily_loss_pct": -7.706078837643999,
+-          "max_drawdown_pct": -22.07040467882123,
+-          "max_position": 0.4178959974382218,
++          "max_daily_loss_pct": -4.586107522669143,
++          "max_drawdown_pct": -9.192922545473259,
++          "max_position": 0.2026292314340735,
+           "min_position": 0.0,
+           "model": "logistic_regression",
+           "model_target_col": "label_return_5d",
+           "model_task": "classification",
+           "month_count": 12,
+-          "next_day_reversal_count": 102,
+-          "next_day_reversal_ratio": 0.4834123222748815,
+-          "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++          "next_day_reversal_count": 19,
++          "next_day_reversal_ratio": 0.475,
++          "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+           "position_mode": "probability",
+-          "positive_month_count": 7,
+-          "positive_month_ratio": 0.5833333333333334,
++          "positive_month_count": 3,
++          "positive_month_ratio": 0.25,
+           "report_segment": "test",
+           "return_col": "forward_return",
+-          "return_pct": 8.450728149181108,
+-          "return_to_drawdown": 0.38289864966954734,
++          "return_pct": -6.745036994765452,
++          "return_to_drawdown": -0.7337206379582536,
+           "scale": 1.0,
+           "segment": "validation",
+           "selected": true,
+-          "selection_eligible": true,
+-          "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-          "selection_objective_score": -229.82752124016213,
++          "selection_eligible": false,
++          "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++          "selection_objective_score": -52.125764077214,
+           "selection_segment": "validation",
+           "test_end": "2026-06-24",
+           "test_start": "2026-01-02",
+-          "threshold": 0.45,
+-          "total_turnover": 5.817014866560822,
+-          "trade_count": 211,
++          "threshold": 0.55,
++          "total_turnover": 1.7691046384907674,
++          "trade_count": 40,
+           "train_end": "2024-12-31",
+           "train_start": "2019-01-02",
+           "validation_end": "2025-12-31",
+           "validation_start": "2025-01-02",
+-          "worst_strategy_return_pct": -7.706078837643999,
+-          "zero_position_day_count": 50,
+-          "zero_position_day_ratio": 0.2
++          "worst_strategy_return_pct": -4.586107522669143,
++          "zero_position_day_count": 221,
++          "zero_position_day_ratio": 0.884
+         }
+       },
+       "spec": {
+@@ -903,8 +972,8 @@
+         "datetime_col": "datetime",
+         "extreme_loss_threshold": -0.05,
+         "feature_cols": [
+-          "liquidity_tail_pressure_imbalance_20d",
+-          "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++          "lagged_ma_cycle_breakout_vix_scaled",
++          "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+           "alpha158_MA5",
+           "alpha158_MA10",
+           "alpha158_MA20",
+@@ -1003,25 +1072,25 @@
+         "extreme_loss_threshold": -0.05,
+         "fold_count": 2,
+         "max_test_extreme_loss_day_count": 0,
+-        "max_test_total_turnover": 1.6321474269800786,
+-        "mean_test_avg_abs_position": 0.015111367439400314,
+-        "mean_test_positive_month_ratio": 0.25,
+-        "mean_test_return_pct": 3.803058813943072,
+-        "mean_test_zero_position_day_ratio": 0.72327993697479,
+-        "median_test_return_pct": 3.803058813943072,
++        "max_test_total_turnover": 0.5838824011591283,
++        "mean_test_avg_abs_position": 0.0023326233719346075,
++        "mean_test_positive_month_ratio": 0.08333333333333333,
++        "mean_test_return_pct": -0.3238180314046102,
++        "mean_test_zero_position_day_ratio": 0.9318211659663865,
++        "median_test_return_pct": -0.3238180314046102,
+         "positive_test_fold_count": 1,
+         "positive_test_fold_ratio": 0.5,
+-        "total_test_trade_count": 72,
+-        "worst_test_max_daily_loss_pct": -2.1829052337852746,
+-        "worst_test_max_drawdown_pct": -4.311306032411366
++        "total_test_trade_count": 27,
++        "worst_test_max_daily_loss_pct": -1.4930648269036562,
++        "worst_test_max_drawdown_pct": -1.5635870225187865
+       },
+       "workflow": "cognitive_alpha_position_model"
+     },
+     "research_card": {
+       "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
+-      "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+-      "recorder_id": "d8c0dfd3407c46c8b2d04641b407a79e",
+-      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/d8c0dfd3407c46c8b2d04641b407a79e"
++      "promotion_decision": "not_promoted_failed_position_risk_gates",
++      "recorder_id": "83f414c1b0134e7eb14e87a1f5803018",
++      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/83f414c1b0134e7eb14e87a1f5803018"
+     },
+     "signal_push": {
+       "notifications": [
+@@ -1034,7 +1103,8 @@
+       ]
+     }
+   },
+-  "status": "complete",
++  "status": "needs_iteration",
++  "terminal_reason": "not_promoted_attempt_has_remaining_budget",
+   "validation_gates": {
+     "max_target_position": 1.0,
+     "min_completed_generations": 2,
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/latest_signal.json b/research/cognitive_alpha_goal_codex_exec_v1/latest_signal.json
+index f042d0a1..797a753b 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/latest_signal.json
++++ b/research/cognitive_alpha_goal_codex_exec_v1/latest_signal.json
+@@ -1,11 +1,11 @@
+ {
+   "action": "HOLD",
+   "as_of": "2026-06-24",
+-  "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+-  "last_change_date": "2026-05-01",
++  "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
++  "last_change_date": "2026-03-31",
+   "last_change_target_position": 0.0,
+   "previous_target_position": 0.0,
+-  "probability": 0.2918430596883729,
++  "probability": 0.31791417651632425,
+   "target_delta": 0.0,
+   "target_delta_percent": 0.0,
+   "target_percent": 0.0,
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/model_selection.csv b/research/cognitive_alpha_goal_codex_exec_v1/model_selection.csv
+index 9a2960ea..4e638da9 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/model_selection.csv
++++ b/research/cognitive_alpha_goal_codex_exec_v1/model_selection.csv
+@@ -1,9 +1,9 @@
+ candidate,segment,return_pct,max_drawdown_pct,max_daily_loss_pct,return_to_drawdown,selection_objective_score,avg_abs_position,max_position,min_position,days_above_100,days_below_0,total_turnover,trade_count,next_day_reversal_count,next_day_reversal_ratio,avg_holding_days,cost_per_turnover,model,model_task,model_target_col,return_col,position_mode,threshold,scale,selection_segment,report_segment,train_start,train_end,validation_start,validation_end,test_start,test_end,params,selection_eligible,selection_gate,selected
+-logistic_regression_probability_p0.45_s1_h0_hold1,test,7.656183733861588,-4.311306032411366,-2.1829052337852746,1.775838615098124,-61.43671131481166,0.029946303181179988,0.19417511642195345,0.0,0,0,1.6321474269800786,69,35,0.5072463768115942,1.2058823529411764,0.0003,logistic_regression,classification,label_return_5d,forward_return,probability,0.45,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.45}",True,"{""fallback_to_all_candidates"": false, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",True
+-logistic_regression_probability_p0.45_s1_h0_hold1,validation,8.450728149181108,-22.07040467882123,-7.706078837643999,0.38289864966954734,-229.82752124016213,0.07949451091845994,0.4178959974382218,0.0,0,0,5.817014866560822,211,102,0.4834123222748815,1.1857142857142857,0.0003,logistic_regression,classification,label_return_5d,forward_return,probability,0.45,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.45}",True,"{""fallback_to_all_candidates"": false, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",True
+-logistic_regression_probability_p0.55_s1_h0_hold1,test,0.27014209172067094,-0.0004530876021480168,-0.00045308760213829123,0.27014209172067094,0.4615149988272935,0.0001269152947166082,0.015102920071276376,0.0,0,0,0.030205840142552752,2,1,0.5,1.0,0.0003,logistic_regression,classification,label_return_5d,forward_return,probability,0.55,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.55}",False,"{""fallback_to_all_candidates"": false, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
+-ridge_probability_p0.55_s1_h0_hold1,test,7.196187876470117,-5.0252066766558245,-4.598955084580641,1.432018290889289,-9.559297424361707,0.01916085237080081,0.410592129006319,0.0,0,0,2.8156027271893325,18,9,0.5,4.235294117647059,0.0003,ridge,regression,label_return_5d,forward_return,probability,0.55,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.55}",False,"{""fallback_to_all_candidates"": false, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
+-ridge_probability_p0.45_s1_h0_hold1,test,12.446043131862083,-8.79532210316556,-6.099385595046796,1.4150753077459866,-33.60953078917286,0.043251407633310396,0.5177571964597155,0.0,0,0,4.339469819513311,35,19,0.5428571428571428,2.323529411764706,0.0003,ridge,regression,label_return_5d,forward_return,probability,0.45,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.45}",False,"{""fallback_to_all_candidates"": false, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
+-logistic_regression_probability_p0.55_s1_h0_hold1,validation,4.33075636796183,-5.397959774026429,-4.198593736140915,0.8022950428049311,-18.167817238564904,0.006142992070537202,0.28853955242449336,0.0,0,0,1.3849218626489685,22,11,0.5,2.8095238095238093,0.0003,logistic_regression,classification,label_return_5d,forward_return,probability,0.55,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.55}",False,"{""fallback_to_all_candidates"": false, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
+-ridge_probability_p0.55_s1_h0_hold1,validation,7.5098832448063035,-48.58765765006511,-20.76313924797932,0.15456359923529345,-143.52133524017967,0.10682183163530291,0.960797399108826,0.0,0,0,16.21144593161915,109,55,0.5045871559633027,2.240740740740741,0.0003,ridge,regression,label_return_5d,forward_return,probability,0.55,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.55}",False,"{""fallback_to_all_candidates"": false, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
+-ridge_probability_p0.45_s1_h0_hold1,validation,2.5616639128417606,-54.77313221248534,-21.258599614199454,0.04676862193865624,-216.70126349235798,0.16572418401266753,0.9679251447254029,0.0,0,0,22.346788660000918,157,84,0.535031847133758,1.5512820512820513,0.0003,ridge,regression,label_return_5d,forward_return,probability,0.45,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.45}",False,"{""fallback_to_all_candidates"": false, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
++logistic_regression_probability_p0.55_s1_h0_hold1,test,-1.1901106794702798,-1.5635870225187865,-1.4930648269036562,-0.7611413131026934,-14.900088252167448,0.0017953187131437337,0.1159092772850359,0.0,0,0,0.30991527170073885,8,3,0.375,1.0,0.0003,logistic_regression,classification,label_return_5d,forward_return,probability,0.55,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.55}",False,"{""fallback_to_all_candidates"": true, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",True
++logistic_regression_probability_p0.55_s1_h0_hold1,validation,-6.745036994765452,-9.192922545473259,-4.586107522669143,-0.7337206379582536,-52.125764077214,0.00876378663527083,0.2026292314340735,0.0,0,0,1.7691046384907674,40,19,0.475,4.538461538461538,0.0003,logistic_regression,classification,label_return_5d,forward_return,probability,0.55,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.55}",False,"{""fallback_to_all_candidates"": true, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",True
++ridge_probability_p0.55_s1_h0_hold1,test,-0.2933854335376074,-11.19078778081789,-7.011178771286189,-0.02621669173643868,-30.63885096254477,0.02657452426574058,0.5447457827800345,0.0,0,0,2.713877557673088,23,12,0.5217391304347826,3.3181818181818183,0.0003,ridge,regression,label_return_5d,forward_return,probability,0.55,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.55}",False,"{""fallback_to_all_candidates"": true, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
++ridge_probability_p0.45_s1_h0_hold1,test,11.006834516873433,-14.565854601190765,-8.073023156896788,0.7556600569096453,-39.907782205053515,0.057569059374287565,0.6275192768200282,0.0,0,0,4.189679642991625,34,19,0.5588235294117647,2.303030303030303,0.0003,ridge,regression,label_return_5d,forward_return,probability,0.45,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.45}",False,"{""fallback_to_all_candidates"": true, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
++logistic_regression_probability_p0.45_s1_h0_hold1,test,9.911878513771445,-6.7188663088405765,-3.5595419063497182,1.4752307990902505,-71.00283696084347,0.04168966174077761,0.27665304505139304,0.0,0,0,2.7022550146809294,79,37,0.46835443037974683,1.3717948717948718,0.0003,logistic_regression,classification,label_return_5d,forward_return,probability,0.45,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.45}",False,"{""fallback_to_all_candidates"": true, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
++ridge_probability_p0.55_s1_h0_hold1,validation,0.7879113292033946,-52.897742745488415,-21.371805715068703,0.014894989621661968,-147.00649090765904,0.11439041141953253,0.9408977727732011,0.0,0,0,14.714132686973151,111,57,0.5135135135135135,2.1454545454545455,0.0003,ridge,regression,label_return_5d,forward_return,probability,0.55,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.55}",False,"{""fallback_to_all_candidates"": true, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
++ridge_probability_p0.45_s1_h0_hold1,validation,7.130358702621242,-56.99408734496609,-21.75659945090895,0.12510698977358078,-207.46866106853506,0.17779358269430978,0.9516436322689827,0.0,0,0,19.44155876021553,157,82,0.5222929936305732,1.5512820512820513,0.0003,ridge,regression,label_return_5d,forward_return,probability,0.45,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.45}",False,"{""fallback_to_all_candidates"": true, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
++logistic_regression_probability_p0.45_s1_h0_hold1,validation,3.306971681398818,-23.709857157291236,-8.02284638440022,0.13947665983225296,-273.41001116574694,0.08445102859368306,0.34760573480969653,0.0,0,0,9.113944798464974,212,120,0.5660377358490566,1.180094786729858,0.0003,logistic_regression,classification,label_return_5d,forward_return,probability,0.45,1.0,validation,test,2019-01-02,2024-12-31,2025-01-02,2025-12-31,2026-01-02,2026-06-24,"{""hold_days"": 3, ""max_position"": 1.0, ""scale"": 1.0, ""threshold"": 0.45}",False,"{""fallback_to_all_candidates"": true, ""max_validation_reversal_ratio"": 0.5, ""max_validation_total_turnover"": 20.0, ""min_validation_avg_abs_position"": 0.01, ""min_validation_trade_count"": 1, ""validation_max_daily_loss_floor"": -8.0, ""validation_max_drawdown_floor"": -25.0}",False
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/position_summary.json b/research/cognitive_alpha_goal_codex_exec_v1/position_summary.json
+index 2c6686c3..77488ed8 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/position_summary.json
++++ b/research/cognitive_alpha_goal_codex_exec_v1/position_summary.json
+@@ -10,16 +10,16 @@
+     "beats_previous_factor_enhanced": false,
+     "beats_soxl_backtest": false,
+     "beats_soxl_buyhold": false,
+-    "selected_max_drawdown_pct": -4.311306032411366,
+-    "selected_return_pct": 7.656183733861588,
+-    "selected_vs_constrained_weight_reference_return_gap_pct": -563.5638740357882,
+-    "selected_vs_previous_factor_enhanced_return_gap_pct": -181.06598279767294,
+-    "selected_vs_soxl_backtest_return_gap_pct": -130.34005421749336,
+-    "selected_vs_soxl_buyhold_return_gap_pct": -382.2252552532313
++    "selected_max_drawdown_pct": -1.5635870225187865,
++    "selected_return_pct": -1.1901106794702798,
++    "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++    "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++    "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++    "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
+   },
+   "feature_cols": [
+-    "liquidity_tail_pressure_imbalance_20d",
+-    "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++    "lagged_ma_cycle_breakout_vix_scaled",
++    "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+     "alpha158_MA5",
+     "alpha158_MA10",
+     "alpha158_MA20",
+@@ -33,11 +33,11 @@
+   "latest_signal": {
+     "action": "HOLD",
+     "as_of": "2026-06-24",
+-    "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+-    "last_change_date": "2026-05-01",
++    "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
++    "last_change_date": "2026-03-31",
+     "last_change_target_position": 0.0,
+     "previous_target_position": 0.0,
+-    "probability": 0.2918430596883729,
++    "probability": 0.31791417651632425,
+     "target_delta": 0.0,
+     "target_delta_percent": 0.0,
+     "target_percent": 0.0,
+@@ -47,7 +47,7 @@
+     "logistic_regression",
+     "ridge"
+   ],
+-  "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++  "promotion_decision": "not_promoted_failed_position_risk_gates",
+   "risk_gates": {
+     "extreme_loss_threshold": -0.05,
+     "max_test_extreme_loss_day_count": 5,
+@@ -58,9 +58,9 @@
+     "max_validation_zero_position_day_ratio": 0.98,
+     "min_test_avg_abs_position": 0.01,
+     "min_validation_avg_abs_position": 0.01,
+-    "selected_passes_all": true,
+-    "selected_test_passes": true,
+-    "selected_validation_passes": true,
++    "selected_passes_all": false,
++    "selected_test_passes": false,
++    "selected_validation_passes": false,
+     "test_max_daily_loss_floor": -8.0,
+     "test_max_drawdown_floor": -25.0,
+     "validation_max_daily_loss_floor": -8.0,
+@@ -81,102 +81,102 @@
+     ]
+   },
+   "selected_candidate": {
+-    "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++    "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+     "model": "logistic_regression",
+     "selected_by": "validation_selection_objective_score",
+     "test": {
+-      "avg_abs_position": 0.029946303181179988,
+-      "avg_holding_days": 1.2058823529411764,
+-      "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++      "avg_abs_position": 0.0017953187131437337,
++      "avg_holding_days": 1.0,
++      "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+       "cost_per_turnover": 0.0003,
+       "days_above_100": 0,
+       "days_below_0": 0,
+       "extreme_loss_day_count": 0,
+       "extreme_loss_threshold": -0.05,
+-      "max_daily_loss_pct": -2.1829052337852746,
+-      "max_drawdown_pct": -4.311306032411366,
+-      "max_position": 0.19417511642195345,
++      "max_daily_loss_pct": -1.4930648269036562,
++      "max_drawdown_pct": -1.5635870225187865,
++      "max_position": 0.1159092772850359,
+       "min_position": 0.0,
+       "model": "logistic_regression",
+       "model_target_col": "label_return_5d",
+       "model_task": "classification",
+       "month_count": 6,
+-      "next_day_reversal_count": 35,
+-      "next_day_reversal_ratio": 0.5072463768115942,
+-      "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++      "next_day_reversal_count": 3,
++      "next_day_reversal_ratio": 0.375,
++      "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+       "position_mode": "probability",
+-      "positive_month_count": 3,
+-      "positive_month_ratio": 0.5,
++      "positive_month_count": 0,
++      "positive_month_ratio": 0.0,
+       "report_segment": "test",
+       "return_col": "forward_return",
+-      "return_pct": 7.656183733861588,
+-      "return_to_drawdown": 1.775838615098124,
++      "return_pct": -1.1901106794702798,
++      "return_to_drawdown": -0.7611413131026934,
+       "scale": 1.0,
+       "segment": "test",
+       "selected": true,
+-      "selection_eligible": true,
+-      "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-      "selection_objective_score": -61.43671131481166,
++      "selection_eligible": false,
++      "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++      "selection_objective_score": -14.900088252167448,
+       "selection_segment": "validation",
+       "test_end": "2026-06-24",
+       "test_start": "2026-01-02",
+-      "threshold": 0.45,
+-      "total_turnover": 1.6321474269800786,
+-      "trade_count": 69,
++      "threshold": 0.55,
++      "total_turnover": 0.30991527170073885,
++      "trade_count": 8,
+       "train_end": "2024-12-31",
+       "train_start": "2019-01-02",
+       "validation_end": "2025-12-31",
+       "validation_start": "2025-01-02",
+-      "worst_strategy_return_pct": -2.1829052337852746,
+-      "zero_position_day_count": 55,
+-      "zero_position_day_ratio": 0.46218487394957986
++      "worst_strategy_return_pct": -1.4930648269036562,
++      "zero_position_day_count": 113,
++      "zero_position_day_ratio": 0.9495798319327731
+     },
+     "validation": {
+-      "avg_abs_position": 0.07949451091845994,
+-      "avg_holding_days": 1.1857142857142857,
+-      "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++      "avg_abs_position": 0.00876378663527083,
++      "avg_holding_days": 4.538461538461538,
++      "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+       "cost_per_turnover": 0.0003,
+       "days_above_100": 0,
+       "days_below_0": 0,
+-      "extreme_loss_day_count": 2,
++      "extreme_loss_day_count": 0,
+       "extreme_loss_threshold": -0.05,
+-      "max_daily_loss_pct": -7.706078837643999,
+-      "max_drawdown_pct": -22.07040467882123,
+-      "max_position": 0.4178959974382218,
++      "max_daily_loss_pct": -4.586107522669143,
++      "max_drawdown_pct": -9.192922545473259,
++      "max_position": 0.2026292314340735,
+       "min_position": 0.0,
+       "model": "logistic_regression",
+       "model_target_col": "label_return_5d",
+       "model_task": "classification",
+       "month_count": 12,
+-      "next_day_reversal_count": 102,
+-      "next_day_reversal_ratio": 0.4834123222748815,
+-      "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++      "next_day_reversal_count": 19,
++      "next_day_reversal_ratio": 0.475,
++      "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+       "position_mode": "probability",
+-      "positive_month_count": 7,
+-      "positive_month_ratio": 0.5833333333333334,
++      "positive_month_count": 3,
++      "positive_month_ratio": 0.25,
+       "report_segment": "test",
+       "return_col": "forward_return",
+-      "return_pct": 8.450728149181108,
+-      "return_to_drawdown": 0.38289864966954734,
++      "return_pct": -6.745036994765452,
++      "return_to_drawdown": -0.7337206379582536,
+       "scale": 1.0,
+       "segment": "validation",
+       "selected": true,
+-      "selection_eligible": true,
+-      "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-      "selection_objective_score": -229.82752124016213,
++      "selection_eligible": false,
++      "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++      "selection_objective_score": -52.125764077214,
+       "selection_segment": "validation",
+       "test_end": "2026-06-24",
+       "test_start": "2026-01-02",
+-      "threshold": 0.45,
+-      "total_turnover": 5.817014866560822,
+-      "trade_count": 211,
++      "threshold": 0.55,
++      "total_turnover": 1.7691046384907674,
++      "trade_count": 40,
+       "train_end": "2024-12-31",
+       "train_start": "2019-01-02",
+       "validation_end": "2025-12-31",
+       "validation_start": "2025-01-02",
+-      "worst_strategy_return_pct": -7.706078837643999,
+-      "zero_position_day_count": 50,
+-      "zero_position_day_ratio": 0.2
++      "worst_strategy_return_pct": -4.586107522669143,
++      "zero_position_day_count": 221,
++      "zero_position_day_ratio": 0.884
+     }
+   },
+   "spec": {
+@@ -185,8 +185,8 @@
+     "datetime_col": "datetime",
+     "extreme_loss_threshold": -0.05,
+     "feature_cols": [
+-      "liquidity_tail_pressure_imbalance_20d",
+-      "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++      "lagged_ma_cycle_breakout_vix_scaled",
++      "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+       "alpha158_MA5",
+       "alpha158_MA10",
+       "alpha158_MA20",
+@@ -285,17 +285,17 @@
+     "extreme_loss_threshold": -0.05,
+     "fold_count": 2,
+     "max_test_extreme_loss_day_count": 0,
+-    "max_test_total_turnover": 1.6321474269800786,
+-    "mean_test_avg_abs_position": 0.015111367439400314,
+-    "mean_test_positive_month_ratio": 0.25,
+-    "mean_test_return_pct": 3.803058813943072,
+-    "mean_test_zero_position_day_ratio": 0.72327993697479,
+-    "median_test_return_pct": 3.803058813943072,
++    "max_test_total_turnover": 0.5838824011591283,
++    "mean_test_avg_abs_position": 0.0023326233719346075,
++    "mean_test_positive_month_ratio": 0.08333333333333333,
++    "mean_test_return_pct": -0.3238180314046102,
++    "mean_test_zero_position_day_ratio": 0.9318211659663865,
++    "median_test_return_pct": -0.3238180314046102,
+     "positive_test_fold_count": 1,
+     "positive_test_fold_ratio": 0.5,
+-    "total_test_trade_count": 72,
+-    "worst_test_max_daily_loss_pct": -2.1829052337852746,
+-    "worst_test_max_drawdown_pct": -4.311306032411366
++    "total_test_trade_count": 27,
++    "worst_test_max_daily_loss_pct": -1.4930648269036562,
++    "worst_test_max_drawdown_pct": -1.5635870225187865
+   },
+   "workflow": "cognitive_alpha_position_model"
+ }
+\ No newline at end of file
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/selected_features.csv b/research/cognitive_alpha_goal_codex_exec_v1/selected_features.csv
+index 437a5a62..887d0850 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/selected_features.csv
++++ b/research/cognitive_alpha_goal_codex_exec_v1/selected_features.csv
+@@ -1,3 +1,3 @@
+ name,level,agent,lookback,code
+-liquidity_tail_pressure_imbalance_20d,price_volume_dynamics,AgentLiquidity,20,"tanh(((2 * close.shift(1) - high.shift(1) - low.shift(1)) / maximum(high.shift(1) - low.shift(1), 1e-12)) * log1p(volume.shift(1) / maximum(volume.shift(1).rolling(20, min_periods=5).mean(), 1e-12)) * (1 + (alpha158_MAX20.shift(1) - close.shift(1)) / maximum(alpha158_MAX20.shift(1), 1e-12)) * (1 + maximum((alpha158_VIX.shift(1) - alpha158_VIX.shift(1).rolling(20, min_periods=5).mean()) / maximum(alpha158_VIX.shift(1).rolling(20, min_periods=5).std(), 1e-12), 0)))"
+-g001_000_mutation_liquidity_tail_pre_31a9d24477,price_volume_dynamics,AgentLiquidity,20,"mutation:zscore(liquidity_tail_pressure_imbalance_20d,10).shift(1)"
++lagged_ma_cycle_breakout_vix_scaled,market_structure_cycle,AgentMarketCycle,60,"tanh(zscore(((alpha158_MA5.shift(1) - alpha158_MA20.shift(1)) / maximum(abs(alpha158_MA20.shift(1)), 1e-12)) + ((alpha158_MA20.shift(1) - alpha158_MA60.shift(1)) / maximum(abs(alpha158_MA60.shift(1)), 1e-12)) + (close.shift(1) / maximum(alpha158_MAX30.shift(1), 1e-12) - 1.0)) / (1.0 + abs(zscore(alpha158_VIX.shift(1)))))"
++g001_000_mutation_lagged_ma_cycle_br_198806ad12,market_structure_cycle,AgentMarketCycle,60,"mutation:zscore(lagged_ma_cycle_breakout_vix_scaled,10).shift(1)"
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/state.json b/research/cognitive_alpha_goal_codex_exec_v1/state.json
+index af4dbe74..39bc33e4 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/state.json
++++ b/research/cognitive_alpha_goal_codex_exec_v1/state.json
+@@ -10,6 +10,73 @@
+     "research_card",
+     "signal_push"
+   ],
++  "current_attempt": 1,
++  "max_attempts": 2,
++  "next_action": {
++    "action": "continue_codex_exec_factor_generation",
++    "candidate_provider": {
++      "codex_direct_compatible": true,
++      "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
++      "external_llm_configured": true,
++      "feedback_context_included": false,
++      "generated_candidate_count": 4,
++      "guidance_style_count": 5,
++      "invalid_candidate_count": 0,
++      "llm_model": "codex-cli",
++      "openai_api_key_required": false,
++      "profile_agent_count": 21,
++      "prompt_count": 3,
++      "provider_failure_count": 0,
++      "provider_id": "codex_exec_candidate_provider",
++      "provider_kind": "codex_exec_code",
++      "requested_initial_pool_size": 4,
++      "response_count": 3
++    },
++    "direct_factor_role": "prior_only_not_final_promotion",
++    "feedback_focus": [
++      "constrained_weight_reference_gap",
++      "walk_forward_risk_gates",
++      "exposure_participation"
++    ],
++    "max_attempts": 2,
++    "next_attempt": 2,
++    "position_comparison": {
++      "beats_constrained_weight_reference": false,
++      "beats_previous_factor_enhanced": false,
++      "beats_soxl_backtest": false,
++      "beats_soxl_buyhold": false,
++      "selected_max_drawdown_pct": -1.5635870225187865,
++      "selected_return_pct": -1.1901106794702798,
++      "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++      "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++      "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++      "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
++    },
++    "previous_promotion_decision": "not_promoted_failed_position_risk_gates",
++    "read_artifacts": [
++      "failure_modes.md",
++      "goal_manifest.json",
++      "summary.json"
++    ],
++    "walk_forward": {
++      "all_folds_pass_risk_gates": false,
++      "extreme_loss_threshold": -0.05,
++      "fold_count": 2,
++      "max_test_extreme_loss_day_count": 0,
++      "max_test_total_turnover": 0.5838824011591283,
++      "mean_test_avg_abs_position": 0.0023326233719346075,
++      "mean_test_positive_month_ratio": 0.08333333333333333,
++      "mean_test_return_pct": -0.3238180314046102,
++      "mean_test_zero_position_day_ratio": 0.9318211659663865,
++      "median_test_return_pct": -0.3238180314046102,
++      "positive_test_fold_count": 1,
++      "positive_test_fold_ratio": 0.5,
++      "total_test_trade_count": 27,
++      "worst_test_max_daily_loss_pct": -1.4930648269036562,
++      "worst_test_max_drawdown_pct": -1.5635870225187865
++    }
++  },
++  "remaining_attempts": 1,
+   "run_id": "cognitive_alpha_goal_codex_exec",
+   "stage_outputs": {
+     "data_gate": {
+@@ -32,49 +99,49 @@
+       },
+       "candidate_count": 2,
+       "comparison": {
+-        "beats_constrained_weight_reference": true,
++        "beats_constrained_weight_reference": false,
+         "beats_previous_factor_enhanced": true,
+         "beats_soxl_backtest": true,
+-        "beats_soxl_buyhold": true,
+-        "selected_max_drawdown_pct": -81.99489994023767,
+-        "selected_return_pct": 849.9033768748054,
+-        "selected_vs_constrained_weight_reference_return_gap_pct": 278.68331910515565,
+-        "selected_vs_previous_factor_enhanced_return_gap_pct": 661.1812103432709,
+-        "selected_vs_soxl_backtest_return_gap_pct": 711.9071389234505,
+-        "selected_vs_soxl_buyhold_return_gap_pct": 460.0219378877125
++        "beats_soxl_buyhold": false,
++        "selected_max_drawdown_pct": -80.20124881043981,
++        "selected_return_pct": 353.00551672687186,
++        "selected_vs_constrained_weight_reference_return_gap_pct": -218.2145410427779,
++        "selected_vs_previous_factor_enhanced_return_gap_pct": 164.28335019533733,
++        "selected_vs_soxl_backtest_return_gap_pct": 215.00927877551692,
++        "selected_vs_soxl_buyhold_return_gap_pct": -36.875922260221046
+       },
+       "component_cols": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+       ],
+-      "promotion_decision": "diagnostic_direct_factor_candidate",
++      "promotion_decision": "not_promoted_under_constrained_weight_reference",
+       "selected_candidate": {
+-        "avg_abs_position": 0.4011866068485833,
+-        "avg_holding_days": 1.9061224489795918,
+-        "beats_constrained_weight_reference": true,
++        "avg_abs_position": 0.35613995330009957,
++        "avg_holding_days": 3.0792079207920793,
++        "beats_constrained_weight_reference": false,
+         "benchmark_return_pct": null,
+-        "candidate": "codex_exec_primary_factor_direct",
+-        "component_cols": "[\"liquidity_tail_pressure_imbalance_20d\", \"g001_000_mutation_liquidity_tail_pre_31a9d24477\"]",
++        "candidate": "codex_exec_equal_weight_direct",
++        "component_cols": "[\"lagged_ma_cycle_breakout_vix_scaled\", \"g001_000_mutation_lagged_ma_cycle_br_198806ad12\"]",
+         "cost_per_turnover": 0.0003,
+         "days_above_100": 0,
+         "days_below_0": 0,
+-        "effective_component_count": 1,
+-        "max_drawdown_pct": -81.99489994023767,
++        "effective_component_count": 2,
++        "max_drawdown_pct": -80.20124881043981,
+         "max_position": 1.0,
+         "min_position": 0.0,
+-        "next_day_reversal_count": 506,
+-        "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
++        "next_day_reversal_count": 142,
++        "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+         "passes_drawdown_gate": false,
+         "passes_effective_component_gate": true,
+         "passes_position_bounds": true,
+-        "raw_target_avg_abs": 0.9341749027701348,
+-        "raw_target_max": 1.0,
+-        "raw_target_min": -1.0,
+-        "return_pct": 849.9033768748054,
++        "raw_target_avg_abs": 0.6743786439664321,
++        "raw_target_max": 1.7029447624463745,
++        "raw_target_min": -1.756351428932747,
++        "return_pct": 353.00551672687186,
+         "selection_eligible": false,
+-        "total_turnover": 911.3918767791835,
+-        "trade_count": 981,
+-        "weights": "{\"liquidity_tail_pressure_imbalance_20d\": 1.0}"
++        "total_turnover": 285.0876034054196,
++        "trade_count": 607,
++        "weights": "{\"g001_000_mutation_lagged_ma_cycle_br_198806ad12\": 0.5, \"lagged_ma_cycle_breakout_vix_scaled\": 0.5}"
+       },
+       "selection": "return_sorted_long_only_multifactor_gate",
+       "spec": {
+@@ -87,8 +154,8 @@
+               "rebalance_threshold": 0.2
+             },
+             "weights": {
+-              "g001_000_mutation_liquidity_tail_pre_31a9d24477": 0.5,
+-              "liquidity_tail_pressure_imbalance_20d": 0.5
++              "g001_000_mutation_lagged_ma_cycle_br_198806ad12": 0.5,
++              "lagged_ma_cycle_breakout_vix_scaled": 0.5
+             }
+           },
+           {
+@@ -99,13 +166,13 @@
+               "rebalance_threshold": 0.3
+             },
+             "weights": {
+-              "liquidity_tail_pressure_imbalance_20d": 1.0
++              "lagged_ma_cycle_breakout_vix_scaled": 1.0
+             }
+           }
+         ],
+         "component_cols": [
+-          "liquidity_tail_pressure_imbalance_20d",
+-          "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++          "lagged_ma_cycle_breakout_vix_scaled",
++          "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+         ],
+         "constrained_reference_name": "constrained_weight_reference",
+         "cost_per_turnover": 0.0003,
+@@ -125,18 +192,19 @@
+         "codex_direct_compatible": true,
+         "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+         "external_llm_configured": true,
++        "feedback_context_included": false,
+         "generated_candidate_count": 4,
+         "guidance_style_count": 5,
+-        "invalid_candidate_count": 4,
++        "invalid_candidate_count": 0,
+         "llm_model": "codex-cli",
+         "openai_api_key_required": false,
+         "profile_agent_count": 21,
+-        "prompt_count": 7,
++        "prompt_count": 3,
+         "provider_failure_count": 0,
+         "provider_id": "codex_exec_candidate_provider",
+         "provider_kind": "codex_exec_code",
+         "requested_initial_pool_size": 4,
+-        "response_count": 7
++        "response_count": 3
+       },
+       "checkpoints": {
+         "candidate_pool": "candidate_pool/generation_*.jsonl",
+@@ -167,11 +235,11 @@
+       "repair_attempt_count": 1,
+       "resume_start_generation": 0,
+       "resumed": false,
+-      "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y/cognitive_alpha_evolution",
++      "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk/cognitive_alpha_evolution",
+       "run_id": "cognitive_alpha_evolution",
+       "selected_count": 1,
+       "selected_feature_names": [
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+       ],
+       "spec": {
+         "children_per_generation": 4,
+@@ -188,7 +256,7 @@
+         "qualified_percentile": 0.5,
+         "resume": false,
+         "run_id": "cognitive_alpha_evolution",
+-        "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y"
++        "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk"
+       },
+       "thresholds": {
+         "elite_percentile": 0.75,
+@@ -213,16 +281,16 @@
+         "beats_previous_factor_enhanced": false,
+         "beats_soxl_backtest": false,
+         "beats_soxl_buyhold": false,
+-        "selected_max_drawdown_pct": -4.311306032411366,
+-        "selected_return_pct": 7.656183733861588,
+-        "selected_vs_constrained_weight_reference_return_gap_pct": -563.5638740357882,
+-        "selected_vs_previous_factor_enhanced_return_gap_pct": -181.06598279767294,
+-        "selected_vs_soxl_backtest_return_gap_pct": -130.34005421749336,
+-        "selected_vs_soxl_buyhold_return_gap_pct": -382.2252552532313
++        "selected_max_drawdown_pct": -1.5635870225187865,
++        "selected_return_pct": -1.1901106794702798,
++        "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++        "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++        "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++        "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
+       },
+       "feature_cols": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+         "alpha158_MA5",
+         "alpha158_MA10",
+         "alpha158_MA20",
+@@ -236,11 +304,11 @@
+       "latest_signal": {
+         "action": "HOLD",
+         "as_of": "2026-06-24",
+-        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+-        "last_change_date": "2026-05-01",
++        "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
++        "last_change_date": "2026-03-31",
+         "last_change_target_position": 0.0,
+         "previous_target_position": 0.0,
+-        "probability": 0.2918430596883729,
++        "probability": 0.31791417651632425,
+         "target_delta": 0.0,
+         "target_delta_percent": 0.0,
+         "target_percent": 0.0,
+@@ -250,7 +318,7 @@
+         "logistic_regression",
+         "ridge"
+       ],
+-      "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++      "promotion_decision": "not_promoted_failed_position_risk_gates",
+       "risk_gates": {
+         "extreme_loss_threshold": -0.05,
+         "max_test_extreme_loss_day_count": 5,
+@@ -261,9 +329,9 @@
+         "max_validation_zero_position_day_ratio": 0.98,
+         "min_test_avg_abs_position": 0.01,
+         "min_validation_avg_abs_position": 0.01,
+-        "selected_passes_all": true,
+-        "selected_test_passes": true,
+-        "selected_validation_passes": true,
++        "selected_passes_all": false,
++        "selected_test_passes": false,
++        "selected_validation_passes": false,
+         "test_max_daily_loss_floor": -8.0,
+         "test_max_drawdown_floor": -25.0,
+         "validation_max_daily_loss_floor": -8.0,
+@@ -284,102 +352,102 @@
+         ]
+       },
+       "selected_candidate": {
+-        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++        "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+         "model": "logistic_regression",
+         "selected_by": "validation_selection_objective_score",
+         "test": {
+-          "avg_abs_position": 0.029946303181179988,
+-          "avg_holding_days": 1.2058823529411764,
+-          "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++          "avg_abs_position": 0.0017953187131437337,
++          "avg_holding_days": 1.0,
++          "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+           "cost_per_turnover": 0.0003,
+           "days_above_100": 0,
+           "days_below_0": 0,
+           "extreme_loss_day_count": 0,
+           "extreme_loss_threshold": -0.05,
+-          "max_daily_loss_pct": -2.1829052337852746,
+-          "max_drawdown_pct": -4.311306032411366,
+-          "max_position": 0.19417511642195345,
++          "max_daily_loss_pct": -1.4930648269036562,
++          "max_drawdown_pct": -1.5635870225187865,
++          "max_position": 0.1159092772850359,
+           "min_position": 0.0,
+           "model": "logistic_regression",
+           "model_target_col": "label_return_5d",
+           "model_task": "classification",
+           "month_count": 6,
+-          "next_day_reversal_count": 35,
+-          "next_day_reversal_ratio": 0.5072463768115942,
+-          "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++          "next_day_reversal_count": 3,
++          "next_day_reversal_ratio": 0.375,
++          "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+           "position_mode": "probability",
+-          "positive_month_count": 3,
+-          "positive_month_ratio": 0.5,
++          "positive_month_count": 0,
++          "positive_month_ratio": 0.0,
+           "report_segment": "test",
+           "return_col": "forward_return",
+-          "return_pct": 7.656183733861588,
+-          "return_to_drawdown": 1.775838615098124,
++          "return_pct": -1.1901106794702798,
++          "return_to_drawdown": -0.7611413131026934,
+           "scale": 1.0,
+           "segment": "test",
+           "selected": true,
+-          "selection_eligible": true,
+-          "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-          "selection_objective_score": -61.43671131481166,
++          "selection_eligible": false,
++          "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++          "selection_objective_score": -14.900088252167448,
+           "selection_segment": "validation",
+           "test_end": "2026-06-24",
+           "test_start": "2026-01-02",
+-          "threshold": 0.45,
+-          "total_turnover": 1.6321474269800786,
+-          "trade_count": 69,
++          "threshold": 0.55,
++          "total_turnover": 0.30991527170073885,
++          "trade_count": 8,
+           "train_end": "2024-12-31",
+           "train_start": "2019-01-02",
+           "validation_end": "2025-12-31",
+           "validation_start": "2025-01-02",
+-          "worst_strategy_return_pct": -2.1829052337852746,
+-          "zero_position_day_count": 55,
+-          "zero_position_day_ratio": 0.46218487394957986
++          "worst_strategy_return_pct": -1.4930648269036562,
++          "zero_position_day_count": 113,
++          "zero_position_day_ratio": 0.9495798319327731
+         },
+         "validation": {
+-          "avg_abs_position": 0.07949451091845994,
+-          "avg_holding_days": 1.1857142857142857,
+-          "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++          "avg_abs_position": 0.00876378663527083,
++          "avg_holding_days": 4.538461538461538,
++          "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+           "cost_per_turnover": 0.0003,
+           "days_above_100": 0,
+           "days_below_0": 0,
+-          "extreme_loss_day_count": 2,
++          "extreme_loss_day_count": 0,
+           "extreme_loss_threshold": -0.05,
+-          "max_daily_loss_pct": -7.706078837643999,
+-          "max_drawdown_pct": -22.07040467882123,
+-          "max_position": 0.4178959974382218,
++          "max_daily_loss_pct": -4.586107522669143,
++          "max_drawdown_pct": -9.192922545473259,
++          "max_position": 0.2026292314340735,
+           "min_position": 0.0,
+           "model": "logistic_regression",
+           "model_target_col": "label_return_5d",
+           "model_task": "classification",
+           "month_count": 12,
+-          "next_day_reversal_count": 102,
+-          "next_day_reversal_ratio": 0.4834123222748815,
+-          "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++          "next_day_reversal_count": 19,
++          "next_day_reversal_ratio": 0.475,
++          "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+           "position_mode": "probability",
+-          "positive_month_count": 7,
+-          "positive_month_ratio": 0.5833333333333334,
++          "positive_month_count": 3,
++          "positive_month_ratio": 0.25,
+           "report_segment": "test",
+           "return_col": "forward_return",
+-          "return_pct": 8.450728149181108,
+-          "return_to_drawdown": 0.38289864966954734,
++          "return_pct": -6.745036994765452,
++          "return_to_drawdown": -0.7337206379582536,
+           "scale": 1.0,
+           "segment": "validation",
+           "selected": true,
+-          "selection_eligible": true,
+-          "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-          "selection_objective_score": -229.82752124016213,
++          "selection_eligible": false,
++          "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++          "selection_objective_score": -52.125764077214,
+           "selection_segment": "validation",
+           "test_end": "2026-06-24",
+           "test_start": "2026-01-02",
+-          "threshold": 0.45,
+-          "total_turnover": 5.817014866560822,
+-          "trade_count": 211,
++          "threshold": 0.55,
++          "total_turnover": 1.7691046384907674,
++          "trade_count": 40,
+           "train_end": "2024-12-31",
+           "train_start": "2019-01-02",
+           "validation_end": "2025-12-31",
+           "validation_start": "2025-01-02",
+-          "worst_strategy_return_pct": -7.706078837643999,
+-          "zero_position_day_count": 50,
+-          "zero_position_day_ratio": 0.2
++          "worst_strategy_return_pct": -4.586107522669143,
++          "zero_position_day_count": 221,
++          "zero_position_day_ratio": 0.884
+         }
+       },
+       "spec": {
+@@ -388,8 +456,8 @@
+         "datetime_col": "datetime",
+         "extreme_loss_threshold": -0.05,
+         "feature_cols": [
+-          "liquidity_tail_pressure_imbalance_20d",
+-          "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++          "lagged_ma_cycle_breakout_vix_scaled",
++          "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+           "alpha158_MA5",
+           "alpha158_MA10",
+           "alpha158_MA20",
+@@ -488,25 +556,25 @@
+         "extreme_loss_threshold": -0.05,
+         "fold_count": 2,
+         "max_test_extreme_loss_day_count": 0,
+-        "max_test_total_turnover": 1.6321474269800786,
+-        "mean_test_avg_abs_position": 0.015111367439400314,
+-        "mean_test_positive_month_ratio": 0.25,
+-        "mean_test_return_pct": 3.803058813943072,
+-        "mean_test_zero_position_day_ratio": 0.72327993697479,
+-        "median_test_return_pct": 3.803058813943072,
++        "max_test_total_turnover": 0.5838824011591283,
++        "mean_test_avg_abs_position": 0.0023326233719346075,
++        "mean_test_positive_month_ratio": 0.08333333333333333,
++        "mean_test_return_pct": -0.3238180314046102,
++        "mean_test_zero_position_day_ratio": 0.9318211659663865,
++        "median_test_return_pct": -0.3238180314046102,
+         "positive_test_fold_count": 1,
+         "positive_test_fold_ratio": 0.5,
+-        "total_test_trade_count": 72,
+-        "worst_test_max_daily_loss_pct": -2.1829052337852746,
+-        "worst_test_max_drawdown_pct": -4.311306032411366
++        "total_test_trade_count": 27,
++        "worst_test_max_daily_loss_pct": -1.4930648269036562,
++        "worst_test_max_drawdown_pct": -1.5635870225187865
+       },
+       "workflow": "cognitive_alpha_position_model"
+     },
+     "research_card": {
+       "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
+-      "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+-      "recorder_id": "d8c0dfd3407c46c8b2d04641b407a79e",
+-      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/d8c0dfd3407c46c8b2d04641b407a79e"
++      "promotion_decision": "not_promoted_failed_position_risk_gates",
++      "recorder_id": "83f414c1b0134e7eb14e87a1f5803018",
++      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/83f414c1b0134e7eb14e87a1f5803018"
+     },
+     "signal_push": {
+       "notifications": [
+@@ -519,5 +587,6 @@
+       ]
+     }
+   },
+-  "status": "complete"
++  "status": "needs_iteration",
++  "terminal_reason": "not_promoted_attempt_has_remaining_budget"
+ }
+\ No newline at end of file
+diff --git a/research/cognitive_alpha_goal_codex_exec_v1/summary.json b/research/cognitive_alpha_goal_codex_exec_v1/summary.json
+index 5295ca52..96515518 100644
+--- a/research/cognitive_alpha_goal_codex_exec_v1/summary.json
++++ b/research/cognitive_alpha_goal_codex_exec_v1/summary.json
+@@ -32,26 +32,41 @@
+     "workflow_config": "workflow.yaml"
+   },
+   "as_of": "2026-06-24",
++  "attempt_index": 1,
++  "attempts": [
++    {
++      "attempt_index": 1,
++      "beats_constrained_weight_reference": false,
++      "direct_factor_promotion_decision": "not_promoted_under_constrained_weight_reference",
++      "promotion_decision": "not_promoted_failed_position_risk_gates",
++      "recorder_id": "83f414c1b0134e7eb14e87a1f5803018",
++      "selected_return_pct": -1.1901106794702798,
++      "status": "needs_iteration",
++      "terminal_reason": "not_promoted_attempt_has_remaining_budget",
++      "walk_forward_all_gates_pass": false
++    }
++  ],
+   "card_type": "diagnostic_cognitive_alpha_codex_exec_goal_chain",
+   "codex_provider": {
+     "codex_direct_compatible": true,
+     "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+     "execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+     "external_llm_configured": true,
++    "feedback_context_included": false,
+     "generated_candidate_count": 4,
+     "guidance_style_count": 5,
+-    "invalid_candidate_count": 4,
++    "invalid_candidate_count": 0,
+     "llm_model": "codex-cli",
+     "openai_api_key_required": false,
+     "output_schema": "cognitive_alpha_candidate_schema.json",
+     "profile_agent_count": 21,
+-    "prompt_count": 7,
++    "prompt_count": 3,
+     "provider_builder": "build_cognitive_alpha_codex_exec_candidate_provider",
+     "provider_failure_count": 0,
+     "provider_id": "codex_exec_candidate_provider",
+     "provider_kind": "codex_exec_code",
+     "requested_initial_pool_size": 4,
+-    "response_count": 7,
++    "response_count": 3,
+     "sandbox": "read-only"
+   },
+   "codex_provider_readiness": {
+@@ -72,49 +87,49 @@
+     },
+     "candidate_count": 2,
+     "comparison": {
+-      "beats_constrained_weight_reference": true,
++      "beats_constrained_weight_reference": false,
+       "beats_previous_factor_enhanced": true,
+       "beats_soxl_backtest": true,
+-      "beats_soxl_buyhold": true,
+-      "selected_max_drawdown_pct": -81.99489994023767,
+-      "selected_return_pct": 849.9033768748054,
+-      "selected_vs_constrained_weight_reference_return_gap_pct": 278.68331910515565,
+-      "selected_vs_previous_factor_enhanced_return_gap_pct": 661.1812103432709,
+-      "selected_vs_soxl_backtest_return_gap_pct": 711.9071389234505,
+-      "selected_vs_soxl_buyhold_return_gap_pct": 460.0219378877125
++      "beats_soxl_buyhold": false,
++      "selected_max_drawdown_pct": -80.20124881043981,
++      "selected_return_pct": 353.00551672687186,
++      "selected_vs_constrained_weight_reference_return_gap_pct": -218.2145410427779,
++      "selected_vs_previous_factor_enhanced_return_gap_pct": 164.28335019533733,
++      "selected_vs_soxl_backtest_return_gap_pct": 215.00927877551692,
++      "selected_vs_soxl_buyhold_return_gap_pct": -36.875922260221046
+     },
+     "component_cols": [
+-      "liquidity_tail_pressure_imbalance_20d",
+-      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++      "lagged_ma_cycle_breakout_vix_scaled",
++      "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+     ],
+-    "promotion_decision": "diagnostic_direct_factor_candidate",
++    "promotion_decision": "not_promoted_under_constrained_weight_reference",
+     "selected_candidate": {
+-      "avg_abs_position": 0.4011866068485833,
+-      "avg_holding_days": 1.9061224489795918,
+-      "beats_constrained_weight_reference": true,
++      "avg_abs_position": 0.35613995330009957,
++      "avg_holding_days": 3.0792079207920793,
++      "beats_constrained_weight_reference": false,
+       "benchmark_return_pct": null,
+-      "candidate": "codex_exec_primary_factor_direct",
+-      "component_cols": "[\"liquidity_tail_pressure_imbalance_20d\", \"g001_000_mutation_liquidity_tail_pre_31a9d24477\"]",
++      "candidate": "codex_exec_equal_weight_direct",
++      "component_cols": "[\"lagged_ma_cycle_breakout_vix_scaled\", \"g001_000_mutation_lagged_ma_cycle_br_198806ad12\"]",
+       "cost_per_turnover": 0.0003,
+       "days_above_100": 0,
+       "days_below_0": 0,
+-      "effective_component_count": 1,
+-      "max_drawdown_pct": -81.99489994023767,
++      "effective_component_count": 2,
++      "max_drawdown_pct": -80.20124881043981,
+       "max_position": 1.0,
+       "min_position": 0.0,
+-      "next_day_reversal_count": 506,
+-      "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
++      "next_day_reversal_count": 142,
++      "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+       "passes_drawdown_gate": false,
+       "passes_effective_component_gate": true,
+       "passes_position_bounds": true,
+-      "raw_target_avg_abs": 0.9341749027701348,
+-      "raw_target_max": 1.0,
+-      "raw_target_min": -1.0,
+-      "return_pct": 849.9033768748054,
++      "raw_target_avg_abs": 0.6743786439664321,
++      "raw_target_max": 1.7029447624463745,
++      "raw_target_min": -1.756351428932747,
++      "return_pct": 353.00551672687186,
+       "selection_eligible": false,
+-      "total_turnover": 911.3918767791835,
+-      "trade_count": 981,
+-      "weights": "{\"liquidity_tail_pressure_imbalance_20d\": 1.0}"
++      "total_turnover": 285.0876034054196,
++      "trade_count": 607,
++      "weights": "{\"g001_000_mutation_lagged_ma_cycle_br_198806ad12\": 0.5, \"lagged_ma_cycle_breakout_vix_scaled\": 0.5}"
+     },
+     "selection": "return_sorted_long_only_multifactor_gate",
+     "spec": {
+@@ -127,8 +142,8 @@
+             "rebalance_threshold": 0.2
+           },
+           "weights": {
+-            "g001_000_mutation_liquidity_tail_pre_31a9d24477": 0.5,
+-            "liquidity_tail_pressure_imbalance_20d": 0.5
++            "g001_000_mutation_lagged_ma_cycle_br_198806ad12": 0.5,
++            "lagged_ma_cycle_breakout_vix_scaled": 0.5
+           }
+         },
+         {
+@@ -139,13 +154,13 @@
+             "rebalance_threshold": 0.3
+           },
+           "weights": {
+-            "liquidity_tail_pressure_imbalance_20d": 1.0
++            "lagged_ma_cycle_breakout_vix_scaled": 1.0
+           }
+         }
+       ],
+       "component_cols": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+       ],
+       "constrained_reference_name": "constrained_weight_reference",
+       "cost_per_turnover": 0.0003,
+@@ -162,25 +177,26 @@
+   "evolution": {
+     "agent_levels_covered": [
+       "geometric_fusion",
+-      "price_volume_dynamics"
++      "market_structure_cycle"
+     ],
+     "candidate_metric_rows": 9,
+     "candidate_provider": {
+       "codex_direct_compatible": true,
+       "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+       "external_llm_configured": true,
++      "feedback_context_included": false,
+       "generated_candidate_count": 4,
+       "guidance_style_count": 5,
+-      "invalid_candidate_count": 4,
++      "invalid_candidate_count": 0,
+       "llm_model": "codex-cli",
+       "openai_api_key_required": false,
+       "profile_agent_count": 21,
+-      "prompt_count": 7,
++      "prompt_count": 3,
+       "provider_failure_count": 0,
+       "provider_id": "codex_exec_candidate_provider",
+       "provider_kind": "codex_exec_code",
+       "requested_initial_pool_size": 4,
+-      "response_count": 7
++      "response_count": 3
+     },
+     "checkpoints": {
+       "candidate_pool": "candidate_pool/generation_*.jsonl",
+@@ -211,11 +227,11 @@
+     "repair_attempt_count": 1,
+     "resume_start_generation": 0,
+     "resumed": false,
+-    "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y/cognitive_alpha_evolution",
++    "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk/cognitive_alpha_evolution",
+     "run_id": "cognitive_alpha_evolution",
+     "selected_count": 1,
+     "selected_feature_names": [
+-      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++      "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+     ],
+     "spec": {
+       "children_per_generation": 4,
+@@ -232,7 +248,7 @@
+       "qualified_percentile": 0.5,
+       "resume": false,
+       "run_id": "cognitive_alpha_evolution",
+-      "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y"
++      "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk"
+     },
+     "thresholds": {
+       "elite_percentile": 0.75,
+@@ -263,18 +279,19 @@
+         "codex_direct_compatible": true,
+         "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+         "external_llm_configured": true,
++        "feedback_context_included": false,
+         "generated_candidate_count": 4,
+         "guidance_style_count": 5,
+-        "invalid_candidate_count": 4,
++        "invalid_candidate_count": 0,
+         "llm_model": "codex-cli",
+         "openai_api_key_required": false,
+         "profile_agent_count": 21,
+-        "prompt_count": 7,
++        "prompt_count": 3,
+         "provider_failure_count": 0,
+         "provider_id": "codex_exec_candidate_provider",
+         "provider_kind": "codex_exec_code",
+         "requested_initial_pool_size": 4,
+-        "response_count": 7
++        "response_count": 3
+       },
+       "checkpoints": {
+         "candidate_pool": "candidate_pool/generation_*.jsonl",
+@@ -305,11 +322,11 @@
+       "repair_attempt_count": 1,
+       "resume_start_generation": 0,
+       "resumed": false,
+-      "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y/cognitive_alpha_evolution",
++      "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk/cognitive_alpha_evolution",
+       "run_id": "cognitive_alpha_evolution",
+       "selected_count": 1,
+       "selected_feature_names": [
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+       ],
+       "spec": {
+         "children_per_generation": 4,
+@@ -326,7 +343,7 @@
+         "qualified_percentile": 0.5,
+         "resume": false,
+         "run_id": "cognitive_alpha_evolution",
+-        "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y"
++        "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk"
+       },
+       "thresholds": {
+         "elite_percentile": 0.75,
+@@ -350,8 +367,8 @@
+       "fallback_selected_count": 0,
+       "selected_count": 2,
+       "selected_feature_names": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477"
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+       ],
+       "selected_generation_counts": {
+         "0": 1,
+@@ -378,8 +395,160 @@
+     ],
+     "workflow": "cognitive_alpha_factor_mining"
+   },
++  "goal_loop": {
++    "attempt_index": 1,
++    "attempts": [
++      {
++        "attempt_index": 1,
++        "beats_constrained_weight_reference": false,
++        "direct_factor_promotion_decision": "not_promoted_under_constrained_weight_reference",
++        "promotion_decision": "not_promoted_failed_position_risk_gates",
++        "recorder_id": "83f414c1b0134e7eb14e87a1f5803018",
++        "selected_return_pct": -1.1901106794702798,
++        "status": "needs_iteration",
++        "terminal_reason": "not_promoted_attempt_has_remaining_budget",
++        "walk_forward_all_gates_pass": false
++      }
++    ],
++    "feedback_context_included": false,
++    "max_attempts": 2,
++    "next_action": {
++      "action": "continue_codex_exec_factor_generation",
++      "candidate_provider": {
++        "codex_direct_compatible": true,
++        "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
++        "external_llm_configured": true,
++        "feedback_context_included": false,
++        "generated_candidate_count": 4,
++        "guidance_style_count": 5,
++        "invalid_candidate_count": 0,
++        "llm_model": "codex-cli",
++        "openai_api_key_required": false,
++        "profile_agent_count": 21,
++        "prompt_count": 3,
++        "provider_failure_count": 0,
++        "provider_id": "codex_exec_candidate_provider",
++        "provider_kind": "codex_exec_code",
++        "requested_initial_pool_size": 4,
++        "response_count": 3
++      },
++      "direct_factor_role": "prior_only_not_final_promotion",
++      "feedback_focus": [
++        "constrained_weight_reference_gap",
++        "walk_forward_risk_gates",
++        "exposure_participation"
++      ],
++      "max_attempts": 2,
++      "next_attempt": 2,
++      "position_comparison": {
++        "beats_constrained_weight_reference": false,
++        "beats_previous_factor_enhanced": false,
++        "beats_soxl_backtest": false,
++        "beats_soxl_buyhold": false,
++        "selected_max_drawdown_pct": -1.5635870225187865,
++        "selected_return_pct": -1.1901106794702798,
++        "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++        "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++        "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++        "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
++      },
++      "previous_promotion_decision": "not_promoted_failed_position_risk_gates",
++      "read_artifacts": [
++        "failure_modes.md",
++        "goal_manifest.json",
++        "summary.json"
++      ],
++      "walk_forward": {
++        "all_folds_pass_risk_gates": false,
++        "extreme_loss_threshold": -0.05,
++        "fold_count": 2,
++        "max_test_extreme_loss_day_count": 0,
++        "max_test_total_turnover": 0.5838824011591283,
++        "mean_test_avg_abs_position": 0.0023326233719346075,
++        "mean_test_positive_month_ratio": 0.08333333333333333,
++        "mean_test_return_pct": -0.3238180314046102,
++        "mean_test_zero_position_day_ratio": 0.9318211659663865,
++        "median_test_return_pct": -0.3238180314046102,
++        "positive_test_fold_count": 1,
++        "positive_test_fold_ratio": 0.5,
++        "total_test_trade_count": 27,
++        "worst_test_max_daily_loss_pct": -1.4930648269036562,
++        "worst_test_max_drawdown_pct": -1.5635870225187865
++      }
++    },
++    "remaining_attempts": 1,
++    "status": "needs_iteration",
++    "terminal_reason": "not_promoted_attempt_has_remaining_budget"
++  },
+   "goal_manifest": {
++    "attempt_index": 1,
++    "max_attempts": 2,
++    "next_action": {
++      "action": "continue_codex_exec_factor_generation",
++      "candidate_provider": {
++        "codex_direct_compatible": true,
++        "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
++        "external_llm_configured": true,
++        "feedback_context_included": false,
++        "generated_candidate_count": 4,
++        "guidance_style_count": 5,
++        "invalid_candidate_count": 0,
++        "llm_model": "codex-cli",
++        "openai_api_key_required": false,
++        "profile_agent_count": 21,
++        "prompt_count": 3,
++        "provider_failure_count": 0,
++        "provider_id": "codex_exec_candidate_provider",
++        "provider_kind": "codex_exec_code",
++        "requested_initial_pool_size": 4,
++        "response_count": 3
++      },
++      "direct_factor_role": "prior_only_not_final_promotion",
++      "feedback_focus": [
++        "constrained_weight_reference_gap",
++        "walk_forward_risk_gates",
++        "exposure_participation"
++      ],
++      "max_attempts": 2,
++      "next_attempt": 2,
++      "position_comparison": {
++        "beats_constrained_weight_reference": false,
++        "beats_previous_factor_enhanced": false,
++        "beats_soxl_backtest": false,
++        "beats_soxl_buyhold": false,
++        "selected_max_drawdown_pct": -1.5635870225187865,
++        "selected_return_pct": -1.1901106794702798,
++        "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++        "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++        "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++        "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
++      },
++      "previous_promotion_decision": "not_promoted_failed_position_risk_gates",
++      "read_artifacts": [
++        "failure_modes.md",
++        "goal_manifest.json",
++        "summary.json"
++      ],
++      "walk_forward": {
++        "all_folds_pass_risk_gates": false,
++        "extreme_loss_threshold": -0.05,
++        "fold_count": 2,
++        "max_test_extreme_loss_day_count": 0,
++        "max_test_total_turnover": 0.5838824011591283,
++        "mean_test_avg_abs_position": 0.0023326233719346075,
++        "mean_test_positive_month_ratio": 0.08333333333333333,
++        "mean_test_return_pct": -0.3238180314046102,
++        "mean_test_zero_position_day_ratio": 0.9318211659663865,
++        "median_test_return_pct": -0.3238180314046102,
++        "positive_test_fold_count": 1,
++        "positive_test_fold_ratio": 0.5,
++        "total_test_trade_count": 27,
++        "worst_test_max_daily_loss_pct": -1.4930648269036562,
++        "worst_test_max_drawdown_pct": -1.5635870225187865
++      }
++    },
+     "path": "goal_manifest.json",
++    "remaining_attempts": 1,
+     "stage_order": [
+       "data_gate",
+       "candidate_generation",
+@@ -391,22 +560,24 @@
+       "research_card",
+       "signal_push"
+     ],
+-    "status": "complete"
++    "status": "needs_iteration",
++    "terminal_reason": "not_promoted_attempt_has_remaining_budget"
+   },
+   "latest_signal": {
+     "action": "HOLD",
+     "as_of": "2026-06-24",
+-    "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+-    "last_change_date": "2026-05-01",
++    "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
++    "last_change_date": "2026-03-31",
+     "last_change_target_position": 0.0,
+     "previous_target_position": 0.0,
+-    "probability": 0.2918430596883729,
++    "probability": 0.31791417651632425,
+     "target_delta": 0.0,
+     "target_delta_percent": 0.0,
+     "target_percent": 0.0,
+     "target_position": 0.0
+   },
+   "market": "all",
++  "max_attempts": 2,
+   "paper_reference": {
+     "arxiv_id": "2511.18850",
+     "source": "arxiv:2511.18850"
+@@ -423,16 +594,16 @@
+       "beats_previous_factor_enhanced": false,
+       "beats_soxl_backtest": false,
+       "beats_soxl_buyhold": false,
+-      "selected_max_drawdown_pct": -4.311306032411366,
+-      "selected_return_pct": 7.656183733861588,
+-      "selected_vs_constrained_weight_reference_return_gap_pct": -563.5638740357882,
+-      "selected_vs_previous_factor_enhanced_return_gap_pct": -181.06598279767294,
+-      "selected_vs_soxl_backtest_return_gap_pct": -130.34005421749336,
+-      "selected_vs_soxl_buyhold_return_gap_pct": -382.2252552532313
++      "selected_max_drawdown_pct": -1.5635870225187865,
++      "selected_return_pct": -1.1901106794702798,
++      "selected_vs_constrained_weight_reference_return_gap_pct": -572.4101684491201,
++      "selected_vs_previous_factor_enhanced_return_gap_pct": -189.9122772110048,
++      "selected_vs_soxl_backtest_return_gap_pct": -139.18634863082522,
++      "selected_vs_soxl_buyhold_return_gap_pct": -391.0715496665632
+     },
+     "feature_cols": [
+-      "liquidity_tail_pressure_imbalance_20d",
+-      "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++      "lagged_ma_cycle_breakout_vix_scaled",
++      "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+       "alpha158_MA5",
+       "alpha158_MA10",
+       "alpha158_MA20",
+@@ -446,11 +617,11 @@
+     "latest_signal": {
+       "action": "HOLD",
+       "as_of": "2026-06-24",
+-      "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
+-      "last_change_date": "2026-05-01",
++      "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
++      "last_change_date": "2026-03-31",
+       "last_change_target_position": 0.0,
+       "previous_target_position": 0.0,
+-      "probability": 0.2918430596883729,
++      "probability": 0.31791417651632425,
+       "target_delta": 0.0,
+       "target_delta_percent": 0.0,
+       "target_percent": 0.0,
+@@ -460,7 +631,7 @@
+       "logistic_regression",
+       "ridge"
+     ],
+-    "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++    "promotion_decision": "not_promoted_failed_position_risk_gates",
+     "risk_gates": {
+       "extreme_loss_threshold": -0.05,
+       "max_test_extreme_loss_day_count": 5,
+@@ -471,9 +642,9 @@
+       "max_validation_zero_position_day_ratio": 0.98,
+       "min_test_avg_abs_position": 0.01,
+       "min_validation_avg_abs_position": 0.01,
+-      "selected_passes_all": true,
+-      "selected_test_passes": true,
+-      "selected_validation_passes": true,
++      "selected_passes_all": false,
++      "selected_test_passes": false,
++      "selected_validation_passes": false,
+       "test_max_daily_loss_floor": -8.0,
+       "test_max_drawdown_floor": -25.0,
+       "validation_max_daily_loss_floor": -8.0,
+@@ -494,102 +665,102 @@
+       ]
+     },
+     "selected_candidate": {
+-      "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++      "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+       "model": "logistic_regression",
+       "selected_by": "validation_selection_objective_score",
+       "test": {
+-        "avg_abs_position": 0.029946303181179988,
+-        "avg_holding_days": 1.2058823529411764,
+-        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++        "avg_abs_position": 0.0017953187131437337,
++        "avg_holding_days": 1.0,
++        "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+         "cost_per_turnover": 0.0003,
+         "days_above_100": 0,
+         "days_below_0": 0,
+         "extreme_loss_day_count": 0,
+         "extreme_loss_threshold": -0.05,
+-        "max_daily_loss_pct": -2.1829052337852746,
+-        "max_drawdown_pct": -4.311306032411366,
+-        "max_position": 0.19417511642195345,
++        "max_daily_loss_pct": -1.4930648269036562,
++        "max_drawdown_pct": -1.5635870225187865,
++        "max_position": 0.1159092772850359,
+         "min_position": 0.0,
+         "model": "logistic_regression",
+         "model_target_col": "label_return_5d",
+         "model_task": "classification",
+         "month_count": 6,
+-        "next_day_reversal_count": 35,
+-        "next_day_reversal_ratio": 0.5072463768115942,
+-        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++        "next_day_reversal_count": 3,
++        "next_day_reversal_ratio": 0.375,
++        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+         "position_mode": "probability",
+-        "positive_month_count": 3,
+-        "positive_month_ratio": 0.5,
++        "positive_month_count": 0,
++        "positive_month_ratio": 0.0,
+         "report_segment": "test",
+         "return_col": "forward_return",
+-        "return_pct": 7.656183733861588,
+-        "return_to_drawdown": 1.775838615098124,
++        "return_pct": -1.1901106794702798,
++        "return_to_drawdown": -0.7611413131026934,
+         "scale": 1.0,
+         "segment": "test",
+         "selected": true,
+-        "selection_eligible": true,
+-        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-        "selection_objective_score": -61.43671131481166,
++        "selection_eligible": false,
++        "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++        "selection_objective_score": -14.900088252167448,
+         "selection_segment": "validation",
+         "test_end": "2026-06-24",
+         "test_start": "2026-01-02",
+-        "threshold": 0.45,
+-        "total_turnover": 1.6321474269800786,
+-        "trade_count": 69,
++        "threshold": 0.55,
++        "total_turnover": 0.30991527170073885,
++        "trade_count": 8,
+         "train_end": "2024-12-31",
+         "train_start": "2019-01-02",
+         "validation_end": "2025-12-31",
+         "validation_start": "2025-01-02",
+-        "worst_strategy_return_pct": -2.1829052337852746,
+-        "zero_position_day_count": 55,
+-        "zero_position_day_ratio": 0.46218487394957986
++        "worst_strategy_return_pct": -1.4930648269036562,
++        "zero_position_day_count": 113,
++        "zero_position_day_ratio": 0.9495798319327731
+       },
+       "validation": {
+-        "avg_abs_position": 0.07949451091845994,
+-        "avg_holding_days": 1.1857142857142857,
+-        "candidate": "logistic_regression_probability_p0.45_s1_h0_hold1",
++        "avg_abs_position": 0.00876378663527083,
++        "avg_holding_days": 4.538461538461538,
++        "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+         "cost_per_turnover": 0.0003,
+         "days_above_100": 0,
+         "days_below_0": 0,
+-        "extreme_loss_day_count": 2,
++        "extreme_loss_day_count": 0,
+         "extreme_loss_threshold": -0.05,
+-        "max_daily_loss_pct": -7.706078837643999,
+-        "max_drawdown_pct": -22.07040467882123,
+-        "max_position": 0.4178959974382218,
++        "max_daily_loss_pct": -4.586107522669143,
++        "max_drawdown_pct": -9.192922545473259,
++        "max_position": 0.2026292314340735,
+         "min_position": 0.0,
+         "model": "logistic_regression",
+         "model_target_col": "label_return_5d",
+         "model_task": "classification",
+         "month_count": 12,
+-        "next_day_reversal_count": 102,
+-        "next_day_reversal_ratio": 0.4834123222748815,
+-        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.45}",
++        "next_day_reversal_count": 19,
++        "next_day_reversal_ratio": 0.475,
++        "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+         "position_mode": "probability",
+-        "positive_month_count": 7,
+-        "positive_month_ratio": 0.5833333333333334,
++        "positive_month_count": 3,
++        "positive_month_ratio": 0.25,
+         "report_segment": "test",
+         "return_col": "forward_return",
+-        "return_pct": 8.450728149181108,
+-        "return_to_drawdown": 0.38289864966954734,
++        "return_pct": -6.745036994765452,
++        "return_to_drawdown": -0.7337206379582536,
+         "scale": 1.0,
+         "segment": "validation",
+         "selected": true,
+-        "selection_eligible": true,
+-        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+-        "selection_objective_score": -229.82752124016213,
++        "selection_eligible": false,
++        "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
++        "selection_objective_score": -52.125764077214,
+         "selection_segment": "validation",
+         "test_end": "2026-06-24",
+         "test_start": "2026-01-02",
+-        "threshold": 0.45,
+-        "total_turnover": 5.817014866560822,
+-        "trade_count": 211,
++        "threshold": 0.55,
++        "total_turnover": 1.7691046384907674,
++        "trade_count": 40,
+         "train_end": "2024-12-31",
+         "train_start": "2019-01-02",
+         "validation_end": "2025-12-31",
+         "validation_start": "2025-01-02",
+-        "worst_strategy_return_pct": -7.706078837643999,
+-        "zero_position_day_count": 50,
+-        "zero_position_day_ratio": 0.2
++        "worst_strategy_return_pct": -4.586107522669143,
++        "zero_position_day_count": 221,
++        "zero_position_day_ratio": 0.884
+       }
+     },
+     "spec": {
+@@ -598,8 +769,8 @@
+       "datetime_col": "datetime",
+       "extreme_loss_threshold": -0.05,
+       "feature_cols": [
+-        "liquidity_tail_pressure_imbalance_20d",
+-        "g001_000_mutation_liquidity_tail_pre_31a9d24477",
++        "lagged_ma_cycle_breakout_vix_scaled",
++        "g001_000_mutation_lagged_ma_cycle_br_198806ad12",
+         "alpha158_MA5",
+         "alpha158_MA10",
+         "alpha158_MA20",
+@@ -698,17 +869,17 @@
+       "extreme_loss_threshold": -0.05,
+       "fold_count": 2,
+       "max_test_extreme_loss_day_count": 0,
+-      "max_test_total_turnover": 1.6321474269800786,
+-      "mean_test_avg_abs_position": 0.015111367439400314,
+-      "mean_test_positive_month_ratio": 0.25,
+-      "mean_test_return_pct": 3.803058813943072,
+-      "mean_test_zero_position_day_ratio": 0.72327993697479,
+-      "median_test_return_pct": 3.803058813943072,
++      "max_test_total_turnover": 0.5838824011591283,
++      "mean_test_avg_abs_position": 0.0023326233719346075,
++      "mean_test_positive_month_ratio": 0.08333333333333333,
++      "mean_test_return_pct": -0.3238180314046102,
++      "mean_test_zero_position_day_ratio": 0.9318211659663865,
++      "median_test_return_pct": -0.3238180314046102,
+       "positive_test_fold_count": 1,
+       "positive_test_fold_ratio": 0.5,
+-      "total_test_trade_count": 72,
+-      "worst_test_max_daily_loss_pct": -2.1829052337852746,
+-      "worst_test_max_drawdown_pct": -4.311306032411366
++      "total_test_trade_count": 27,
++      "worst_test_max_daily_loss_pct": -1.4930648269036562,
++      "worst_test_max_drawdown_pct": -1.5635870225187865
+     },
+     "workflow": "cognitive_alpha_position_model"
+   },
+@@ -717,7 +888,7 @@
+     "required_gate": "validated_research_position_model_or_production_paper_sim",
+     "status": "blocked_not_promoted"
+   },
+-  "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++  "promotion_decision": "not_promoted_failed_position_risk_gates",
+   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+   "qlib_docs": {
+     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+@@ -758,6 +929,7 @@
+     "artifacts/cognitive_alpha_goal_codex_exec_v1/direct_factor_candidate_metrics.csv",
+     "artifacts/cognitive_alpha_goal_codex_exec_v1/direct_factor_summary.json",
+     "artifacts/cognitive_alpha_goal_codex_exec_v1/evolution_summary.json",
++    "artifacts/cognitive_alpha_goal_codex_exec_v1/failure_modes.md",
+     "artifacts/cognitive_alpha_goal_codex_exec_v1/generation_metrics.csv",
+     "artifacts/cognitive_alpha_goal_codex_exec_v1/goal_manifest.json",
+     "artifacts/cognitive_alpha_goal_codex_exec_v1/latest_signal.json",
+@@ -789,14 +961,15 @@
+     "tags/mlflow.source.type",
+     "tags/mlflow.user"
+   ],
+-  "recorder_id": "d8c0dfd3407c46c8b2d04641b407a79e",
+-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/d8c0dfd3407c46c8b2d04641b407a79e",
++  "recorder_id": "83f414c1b0134e7eb14e87a1f5803018",
++  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/83f414c1b0134e7eb14e87a1f5803018",
+   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder",
+   "region": "us",
++  "remaining_attempts": 1,
+   "research_gate": {
+     "direct_factor_backtest_role": "prior_only_not_final_promotion",
+     "final_promotion_source": "position_model",
+-    "promotion_decision": "not_promoted_failed_walk_forward_risk_gates"
++    "promotion_decision": "not_promoted_failed_position_risk_gates"
+   },
+   "segments": {
+     "test": [
+@@ -828,6 +1001,7 @@
+     "selected_features": "selected_features.csv",
+     "state": "state.json"
+   },
+-  "status": "complete",
++  "status": "needs_iteration",
++  "terminal_reason": "not_promoted_attempt_has_remaining_budget",
+   "workflow_config": "workflow.yaml"
+ }
+\ No newline at end of file
+diff --git a/src/workflow/cognitive_alpha_codex_provider.py b/src/workflow/cognitive_alpha_codex_provider.py
+index 3739dd20..136e448f 100644
+--- a/src/workflow/cognitive_alpha_codex_provider.py
++++ b/src/workflow/cognitive_alpha_codex_provider.py
+@@ -99,6 +99,7 @@ def build_cognitive_alpha_codex_exec_candidate_provider(
+     cwd: Path | str | None = None,
+     timeout_seconds: float = 300.0,
+     sandbox: str = "read-only",
++    request_context: dict[str, Any] | None = None,
+ ):
+     def _completion(request: dict[str, Any]) -> dict[str, Any]:
+         return codex_exec_completion(
+@@ -114,6 +115,7 @@ def build_cognitive_alpha_codex_exec_candidate_provider(
+         completion=_completion,
+         provider_id=provider_id,
+         model=model or "codex-cli",
++        request_context=request_context,
+     )
+     provider.provider_kind = "codex_exec_code"
+     provider.openai_api_key_required = False
+diff --git a/src/workflow/cognitive_alpha_evolution.py b/src/workflow/cognitive_alpha_evolution.py
+index b5babbe0..3db3662e 100644
+--- a/src/workflow/cognitive_alpha_evolution.py
++++ b/src/workflow/cognitive_alpha_evolution.py
+@@ -149,6 +149,7 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+     openai_api_key_required: bool | None = None
+     codex_direct_compatible: bool = False
+     codex_execution_mode: str | None = None
++    request_context: dict[str, Any] | None = None
+     guidance_styles: tuple[str, ...] = COGNITIVE_ALPHA_GUIDANCE_STYLES
+     max_candidates_per_request: int = 1
+     request_log: list[dict[str, Any]] = field(default_factory=list, init=False)
+@@ -188,6 +189,7 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+                 guidance_style=guidance_style,
+                 model=self.model,
+                 target_candidate_count=min(self.max_candidates_per_request, target_initial_pool_size - len(candidates)),
++                request_context=self.request_context,
+             )
+             self.request_log.append(request)
+             prompt_hash = _stable_payload_hash(request)
+@@ -257,8 +259,11 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+             "response_count": int(len(self.response_log)),
+             "provider_failure_count": int(self.failure_count),
+             "invalid_candidate_count": int(self.invalid_candidate_count),
++            "feedback_context_included": self.request_context is not None,
+             "external_llm_configured": True,
+         }
++        if self.request_context is not None:
++            summary["feedback_context_hash"] = _stable_payload_hash(_jsonable_payload(self.request_context))
+         if self.openai_api_key_required is not None:
+             summary["openai_api_key_required"] = bool(self.openai_api_key_required)
+         if self.codex_direct_compatible:
+@@ -273,11 +278,13 @@ def build_cognitive_alpha_external_llm_candidate_provider(
+     completion: Callable[[dict[str, Any]], str | dict[str, Any]],
+     provider_id: str = "external_llm_code_provider",
+     model: str = "unspecified",
++    request_context: dict[str, Any] | None = None,
+ ) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
+     return CognitiveAlphaExternalLLMCodeCandidateProvider(
+         completion=completion,
+         provider_id=provider_id,
+         model=model,
++        request_context=request_context,
+     )
+
+
+@@ -290,6 +297,7 @@ def build_cognitive_alpha_command_llm_candidate_provider(
+     openai_api_key_required: bool | None = None,
+     codex_direct_compatible: bool = False,
+     codex_execution_mode: str | None = None,
++    request_context: dict[str, Any] | None = None,
+ ) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
+     command_tuple = tuple(str(part) for part in command)
+     if not command_tuple:
+@@ -319,6 +327,7 @@ def build_cognitive_alpha_command_llm_candidate_provider(
+         openai_api_key_required=openai_api_key_required,
+         codex_direct_compatible=codex_direct_compatible,
+         codex_execution_mode=codex_execution_mode,
++        request_context=request_context,
+     )
+
+
+@@ -409,8 +418,9 @@ def _external_llm_request_payload(
+     guidance_style: str,
+     model: str,
+     target_candidate_count: int,
++    request_context: dict[str, Any] | None = None,
+ ) -> dict[str, Any]:
+-    return {
++    payload = {
+         "paper_reference": COGNITIVE_ALPHA_PAPER_REFERENCE,
+         "profile": profile.profile,
+         "model": model,
+@@ -441,6 +451,9 @@ def _external_llm_request_payload(
+             ),
+         },
+     }
++    if request_context is not None:
++        payload["feedback_context"] = _jsonable_payload(request_context)
++    return payload
+
+
+ def _parse_external_llm_response(raw_response: str | dict[str, Any]) -> dict[str, Any]:
+diff --git a/src/workflow/cognitive_alpha_goal.py b/src/workflow/cognitive_alpha_goal.py
+index 97fefdb2..12ff94b2 100644
+--- a/src/workflow/cognitive_alpha_goal.py
++++ b/src/workflow/cognitive_alpha_goal.py
+@@ -54,6 +54,8 @@ class CognitiveAlphaGoalRunnerSpec:
+     manifest_path: Path
+     required_max_datetime: str | None = None
+     resume: bool = False
++    attempt_index: int = 1
++    max_attempts: int = 1
+     paper_reference: str = COGNITIVE_ALPHA_PAPER_REFERENCE
+     gates: CognitiveAlphaGoalGateSpec = field(default_factory=CognitiveAlphaGoalGateSpec)
+
+@@ -150,7 +152,13 @@ class CognitiveAlphaGoalRunner:
+             stage_outputs=outputs,
+         )
+         self._write_manifest(manifest)
+-        self._write_state(status="complete", completed_stages=COGNITIVE_ALPHA_GOAL_STAGE_ORDER, stage_outputs=outputs)
++        self._write_state(
++            status=str(manifest["status"]),
++            completed_stages=COGNITIVE_ALPHA_GOAL_STAGE_ORDER,
++            stage_outputs=outputs,
++            terminal_reason=str(manifest["terminal_reason"]),
++            next_action=dict(manifest["next_action"]),
++        )
+         return manifest
+
+     def _load_state(self) -> dict[str, Any]:
+@@ -199,11 +207,23 @@ class CognitiveAlphaGoalRunner:
+         stage_outputs: dict[str, Any],
+     ) -> dict[str, Any]:
+         data_gate_summary = _data_gate_summary(manifests, required_max_datetime=self.spec.required_max_datetime)
++        terminal = _goal_terminal_decision(
++            spec=self.spec,
++            evolution_result=evolution_result,
++            position_result=position_result,
++            direct_factor_result=direct_factor_result,
++            research_card_result=research_card_result,
++        )
+         return {
+             "run_id": self.spec.run_id,
+             "objective": self.spec.objective,
+             "paper_reference": self.spec.paper_reference,
+-            "status": "complete",
++            "status": terminal["status"],
++            "terminal_reason": terminal["terminal_reason"],
++            "attempt_index": int(self.spec.attempt_index),
++            "max_attempts": int(self.spec.max_attempts),
++            "remaining_attempts": terminal["remaining_attempts"],
++            "next_action": terminal["next_action"],
+             "stage_order": list(COGNITIVE_ALPHA_GOAL_STAGE_ORDER),
+             "completed_stages": list(COGNITIVE_ALPHA_GOAL_STAGE_ORDER),
+             "validation_gates": _jsonable(asdict(self.spec.gates)),
+@@ -229,14 +249,23 @@ class CognitiveAlphaGoalRunner:
+         status: str,
+         completed_stages: list[str],
+         stage_outputs: dict[str, Any],
++        terminal_reason: str | None = None,
++        next_action: dict[str, Any] | None = None,
+     ) -> None:
+         self.spec.state_path.parent.mkdir(parents=True, exist_ok=True)
+         payload = {
+             "run_id": self.spec.run_id,
+             "status": status,
++            "current_attempt": int(self.spec.attempt_index),
++            "max_attempts": int(self.spec.max_attempts),
++            "remaining_attempts": max(int(self.spec.max_attempts) - int(self.spec.attempt_index), 0),
+             "completed_stages": completed_stages,
+             "stage_outputs": stage_outputs,
+         }
++        if terminal_reason is not None:
++            payload["terminal_reason"] = terminal_reason
++        if next_action is not None:
++            payload["next_action"] = next_action
+         self.spec.state_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+
+
+@@ -442,6 +471,118 @@ def _append_stages(existing: list[str], new_stages: list[str]) -> list[str]:
+     return out
+
+
++def _goal_terminal_decision(
++    *,
++    spec: CognitiveAlphaGoalRunnerSpec,
++    evolution_result: dict[str, Any],
++    position_result: dict[str, Any],
++    direct_factor_result: dict[str, Any],
++    research_card_result: dict[str, Any],
++) -> dict[str, Any]:
++    attempt_index = max(int(spec.attempt_index), 1)
++    max_attempts = max(int(spec.max_attempts), 1)
++    remaining_attempts = max(max_attempts - attempt_index, 0)
++    promotion_decision = str(
++        research_card_result.get("promotion_decision")
++        or position_result.get("promotion_decision")
++        or direct_factor_result.get("promotion_decision")
++        or ""
++    )
++    explicit_status = str(
++        research_card_result.get("status") or position_result.get("status") or direct_factor_result.get("status") or ""
++    )
++    if explicit_status in {"needs_auth", "needs_data"} or promotion_decision in {"needs_auth", "needs_data"}:
++        return {
++            "status": explicit_status or promotion_decision,
++            "terminal_reason": explicit_status or promotion_decision,
++            "remaining_attempts": remaining_attempts,
++            "next_action": {
++                "action": f"stop_{explicit_status or promotion_decision}",
++                "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
++            },
++        }
++
++    if promotion_decision.startswith("not_promoted") and remaining_attempts > 0:
++        return {
++            "status": "needs_iteration",
++            "terminal_reason": "not_promoted_attempt_has_remaining_budget",
++            "remaining_attempts": remaining_attempts,
++            "next_action": _next_codex_iteration_action(
++                evolution_result=evolution_result,
++                position_result=position_result,
++                direct_factor_result=direct_factor_result,
++                research_card_result=research_card_result,
++                next_attempt=attempt_index + 1,
++                max_attempts=max_attempts,
++            ),
++        }
++
++    if promotion_decision.startswith("not_promoted"):
++        return {
++            "status": "complete",
++            "terminal_reason": "max_attempts_exhausted",
++            "remaining_attempts": 0,
++            "next_action": {
++                "action": "stop_max_attempts_exhausted",
++                "promotion_decision": promotion_decision,
++                "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
++            },
++        }
++
++    return {
++        "status": "complete",
++        "terminal_reason": "promotion_or_terminal_decision",
++        "remaining_attempts": remaining_attempts,
++        "next_action": {
++            "action": "stop_terminal_decision",
++            "promotion_decision": promotion_decision,
++            "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
++        },
++    }
++
++
++def _next_codex_iteration_action(
++    *,
++    evolution_result: dict[str, Any],
++    position_result: dict[str, Any],
++    direct_factor_result: dict[str, Any],
++    research_card_result: dict[str, Any],
++    next_attempt: int,
++    max_attempts: int,
++) -> dict[str, Any]:
++    comparison = position_result.get("comparison", {}) if isinstance(position_result.get("comparison", {}), dict) else {}
++    walk_forward = (
++        position_result.get("walk_forward", {}) if isinstance(position_result.get("walk_forward", {}), dict) else {}
++    )
++    candidate_provider = evolution_result.get("candidate_provider", {})
++    feedback_focus = []
++    if comparison.get("beats_constrained_weight_reference") is False:
++        feedback_focus.append("constrained_weight_reference_gap")
++    if walk_forward.get("all_folds_pass_risk_gates") is False:
++        feedback_focus.append("walk_forward_risk_gates")
++    if float(walk_forward.get("mean_test_avg_abs_position", 1.0) or 0.0) <= 0.01:
++        feedback_focus.append("exposure_participation")
++    if not feedback_focus:
++        feedback_focus.append("promotion_gate_failure")
++    return {
++        "action": "continue_codex_exec_factor_generation",
++        "next_attempt": int(next_attempt),
++        "max_attempts": int(max_attempts),
++        "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
++        "candidate_provider": candidate_provider,
++        "feedback_focus": feedback_focus,
++        "previous_promotion_decision": str(
++            research_card_result.get("promotion_decision")
++            or position_result.get("promotion_decision")
++            or direct_factor_result.get("promotion_decision")
++            or ""
++        ),
++        "position_comparison": _jsonable(comparison),
++        "walk_forward": _jsonable(walk_forward),
++        "direct_factor_role": "prior_only_not_final_promotion",
++    }
++
++
+ def _data_gate_summary(manifests: list[dict[str, Any]], *, required_max_datetime: str | None) -> dict[str, Any]:
+     max_datetime = max(str(manifest.get("max_datetime", "")) for manifest in manifests)
+     return {
+diff --git a/src/workflow/cognitive_alpha_goal_codex_exec.py b/src/workflow/cognitive_alpha_goal_codex_exec.py
+index b4e3b463..437929f7 100644
+--- a/src/workflow/cognitive_alpha_goal_codex_exec.py
++++ b/src/workflow/cognitive_alpha_goal_codex_exec.py
+@@ -1,8 +1,9 @@
+ from __future__ import annotations
+
+ import json
++import shutil
+ import tempfile
+-from dataclasses import asdict, dataclass
++from dataclasses import asdict, dataclass, replace
+ from pathlib import Path
+ from typing import Any
+
+@@ -52,6 +53,9 @@ class CognitiveAlphaGoalCodexExecCardSpec:
+     codex_timeout_seconds: float = 300.0
+     codex_sandbox: str = "read-only"
+     resume: bool = False
++    attempt_index: int = 1
++    max_attempts: int = 2
++    request_context: dict[str, Any] | None = None
+     initial_pool_size: int = 4
+     codex_candidate_count: int = 3
+     generations: int = 2
+@@ -76,17 +80,49 @@ def run_cognitive_alpha_goal_codex_exec_card(
+     resume: bool = False,
+     codex_model: str | None = None,
+     codex_timeout_seconds: float = 300.0,
++    max_attempts: int = 2,
+ ) -> dict[str, Any]:
+     spec = CognitiveAlphaGoalCodexExecCardSpec(
+         root=_resolve_root(root),
+         resume=resume,
+         codex_model=codex_model,
+         codex_timeout_seconds=codex_timeout_seconds,
++        max_attempts=max_attempts,
+     )
+     return _run_card(spec)
+
+
+ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
++    card = spec.card_dir
++    card.mkdir(parents=True, exist_ok=True)
++    start_attempt = _resume_start_attempt(card) if spec.resume else 1
++    attempts: list[dict[str, Any]] = _load_attempt_history(card) if spec.resume else []
++    request_context = _feedback_context_from_card(card) if spec.resume and (card / "summary.json").exists() else None
++    final_summary: dict[str, Any] = {}
++    for attempt_index in range(start_attempt, max(int(spec.max_attempts), 1) + 1):
++        attempt_spec = replace(
++            spec,
++            attempt_index=attempt_index,
++            resume=False,
++            request_context=request_context,
++        )
++        summary = _run_card_attempt(attempt_spec, attempts=attempts)
++        attempt_entry = _attempt_entry(summary)
++        attempts = [entry for entry in attempts if int(entry.get("attempt_index", 0) or 0) != attempt_index]
++        attempts.append(attempt_entry)
++        attempts = sorted(attempts, key=lambda item: int(item.get("attempt_index", 0) or 0))
++        summary["attempts"] = attempts
++        summary["goal_loop"]["attempts"] = attempts
++        _write_summary_files(card, summary)
++        _snapshot_attempt_artifacts(card, attempt_index=attempt_index, summary=summary)
++        final_summary = summary
++        if summary["goal_manifest"]["status"] != "needs_iteration":
++            return final_summary
++        request_context = _feedback_context_from_card(card)
++    return final_summary
++
++
++def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: list[dict[str, Any]]) -> dict[str, Any]:
+     card = spec.card_dir
+     recorder_uri = card / "qlib_recorder"
+     card.mkdir(parents=True, exist_ok=True)
+@@ -175,6 +211,7 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
+                 cwd=spec.root,
+                 timeout_seconds=spec.codex_timeout_seconds,
+                 sandbox=spec.codex_sandbox,
++                request_context=spec.request_context,
+             )
+             evolution_spec = CognitiveAlphaEvolutionSpec(
+                 run_id="cognitive_alpha_evolution",
+@@ -252,7 +289,9 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
+                     state_path=card / sidecars["state"],
+                     manifest_path=card / sidecars["goal_manifest"],
+                     required_max_datetime=as_of,
+-                    resume=spec.resume,
++                    resume=False,
++                    attempt_index=spec.attempt_index,
++                    max_attempts=spec.max_attempts,
+                     gates=CognitiveAlphaGoalGateSpec(
+                         min_initial_candidate_count=spec.initial_pool_size,
+                         min_completed_generations=spec.generations,
+@@ -325,10 +364,97 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
+             recorder_uri=recorder_uri,
+             recorder_artifacts=recorder_artifacts,
+         )
++        summary["attempts"] = attempts
+         _write_summary_files(card, summary)
+         return summary
+
+
++def _resume_start_attempt(card: Path) -> int:
++    state_path = card / "state.json"
++    if not state_path.exists():
++        return 1
++    try:
++        state = json.loads(state_path.read_text(encoding="utf-8"))
++    except json.JSONDecodeError:
++        return 1
++    if state.get("status") == "needs_iteration":
++        return int(state.get("current_attempt", 0) or 0) + 1
++    return 1
++
++
++def _load_attempt_history(card: Path) -> list[dict[str, Any]]:
++    summary_path = card / "summary.json"
++    if not summary_path.exists():
++        return []
++    try:
++        summary = json.loads(summary_path.read_text(encoding="utf-8"))
++    except json.JSONDecodeError:
++        return []
++    attempts = summary.get("attempts", [])
++    return list(attempts) if isinstance(attempts, list) else []
++
++
++def _attempt_entry(summary: dict[str, Any]) -> dict[str, Any]:
++    position = summary["position_model"]
++    direct = summary["direct_factor_backtest"]
++    return {
++        "attempt_index": int(summary["attempt_index"]),
++        "status": str(summary["status"]),
++        "terminal_reason": str(summary.get("terminal_reason", "")),
++        "promotion_decision": str(summary["promotion_decision"]),
++        "recorder_id": str(summary["recorder_id"]),
++        "selected_return_pct": position.get("comparison", {}).get("selected_return_pct"),
++        "beats_constrained_weight_reference": position.get("comparison", {}).get(
++            "beats_constrained_weight_reference"
++        ),
++        "walk_forward_all_gates_pass": position.get("walk_forward", {}).get("all_folds_pass_risk_gates"),
++        "direct_factor_promotion_decision": direct.get("promotion_decision"),
++    }
++
++
++def _snapshot_attempt_artifacts(card: Path, *, attempt_index: int, summary: dict[str, Any]) -> None:
++    attempt_dir = card / "attempts" / f"attempt_{attempt_index:03d}"
++    attempt_dir.mkdir(parents=True, exist_ok=True)
++    snapshot_files = [
++        "summary.json",
++        "workflow.yaml",
++        "conclusion.md",
++        "failure_modes.md",
++        *list(summary.get("sidecars", {}).values()),
++    ]
++    for rel_path in dict.fromkeys(snapshot_files):
++        source = card / str(rel_path)
++        if source.exists() and source.is_file():
++            shutil.copy2(source, attempt_dir / source.name)
++
++
++def _feedback_context_from_card(card: Path) -> dict[str, Any]:
++    summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
++    goal_manifest = json.loads((card / "goal_manifest.json").read_text(encoding="utf-8"))
++    failure_modes = (card / "failure_modes.md").read_text(encoding="utf-8")
++    position = summary.get("position_model", {})
++    direct = summary.get("direct_factor_backtest", {})
++    next_action = goal_manifest.get("next_action", {})
++    return {
++        "goal_status": summary.get("status"),
++        "terminal_reason": summary.get("terminal_reason"),
++        "previous_attempt": summary.get("attempt_index"),
++        "next_attempt": next_action.get("next_attempt"),
++        "max_attempts": summary.get("max_attempts"),
++        "previous_promotion_decision": summary.get("promotion_decision"),
++        "failure_modes": failure_modes.splitlines(),
++        "goal_next_action": next_action,
++        "position_comparison": position.get("comparison", {}),
++        "walk_forward": position.get("walk_forward", {}),
++        "direct_factor_promotion_decision": direct.get("promotion_decision"),
++        "direct_factor_role": summary.get("research_gate", {}).get("direct_factor_backtest_role"),
++        "forbidden_repetition": {
++            "recorder_id": summary.get("recorder_id"),
++            "selected_feature_names": summary.get("evolution", {}).get("selected_feature_names", []),
++        },
++    }
++
++
+ def _factor_mining_spec(evolution_spec: CognitiveAlphaEvolutionSpec, alpha158_columns: list[str]):
+     from src.factor import CognitiveAlphaFactorMiningSpec
+
+@@ -557,12 +683,18 @@ def _summary_payload(
+     )
+     promotion_decision = str(position["promotion_decision"])
+     production_status = "candidate_for_paper_sim" if promotion_decision == "candidate_for_validated_research" else "blocked_not_promoted"
++    goal_status = str(goal_manifest["status"])
++    terminal_reason = str(goal_manifest.get("terminal_reason", ""))
+     return {
+         "experiment": EXPERIMENT,
+         "card_type": CARD_TYPE,
+         "workflow_config": "workflow.yaml",
+-        "status": "complete",
++        "status": goal_status,
++        "terminal_reason": terminal_reason,
+         "promotion_decision": promotion_decision,
++        "attempt_index": int(spec.attempt_index),
++        "max_attempts": int(spec.max_attempts),
++        "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
+         "paper_reference": {"arxiv_id": "2511.18850", "source": PAPER_REFERENCE},
+         "provider_uri": provider_meta["provider_uri"],
+         "recorder_uri": recorder_uri.as_posix(),
+@@ -596,9 +728,24 @@ def _summary_payload(
+         },
+         "goal_manifest": {
+             "path": sidecars["goal_manifest"],
+-            "status": goal_manifest["status"],
++            "status": goal_status,
++            "terminal_reason": terminal_reason,
++            "attempt_index": int(goal_manifest.get("attempt_index", spec.attempt_index) or spec.attempt_index),
++            "max_attempts": int(goal_manifest.get("max_attempts", spec.max_attempts) or spec.max_attempts),
++            "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
++            "next_action": goal_manifest.get("next_action", {}),
+             "stage_order": goal_manifest["stage_order"],
+         },
++        "goal_loop": {
++            "status": goal_status,
++            "terminal_reason": terminal_reason,
++            "attempt_index": int(spec.attempt_index),
++            "max_attempts": int(spec.max_attempts),
++            "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
++            "next_action": goal_manifest.get("next_action", {}),
++            "feedback_context_included": spec.request_context is not None,
++            "attempts": [],
++        },
+         "qlib_docs": QLIB_DOCS,
+         "qlib_docs_reference": QLIB_DOCS,
+         "qlib_native_api": QLIB_NATIVE_API,
+diff --git a/tests/test_cognitive_alpha_evolution.py b/tests/test_cognitive_alpha_evolution.py
+index 1b20abc4..435078f3 100644
+--- a/tests/test_cognitive_alpha_evolution.py
++++ b/tests/test_cognitive_alpha_evolution.py
+@@ -456,6 +456,70 @@ def test_cognitive_alpha_external_llm_provider_records_prompt_response_and_repai
+     assert repaired["metadata"]["repair_reason"] == "future_lookahead_code_pattern"
+
+
++def test_cognitive_alpha_external_llm_provider_includes_goal_feedback_context(tmp_path):
++    from src.workflow import (
++        CognitiveAlphaEvolutionSpec,
++        build_cognitive_alpha_external_llm_candidate_provider,
++        run_cognitive_alpha_evolution,
++    )
++
++    requests: list[dict] = []
++
++    def fake_completion(request: dict) -> dict:
++        requests.append(request)
++        return {
++            "candidates": [
++                {
++                    "name": "feedback_context_candidate",
++                    "level": request["level"],
++                    "agent": request["agent"],
++                    "theme": "feedback-aware external code alpha",
++                    "required_columns": ["close", "volume"],
++                    "lookback": 10,
++                    "code": "close.pct_change(5).shift(1) * log1p(volume).pct_change(5).shift(1)",
++                    "economic_rationale": "Uses previous Goal failure feedback to improve exposure and risk gates.",
++                }
++            ]
++        }
++
++    provider = build_cognitive_alpha_external_llm_candidate_provider(
++        completion=fake_completion,
++        provider_id="unit_external_llm",
++        model="unit-llm",
++        request_context={
++            "goal_status": "needs_iteration",
++            "previous_attempt": 1,
++            "next_attempt": 2,
++            "failure_modes": ["walk_forward_risk_gates", "constrained_weight_reference_gap"],
++            "previous_promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++        },
++    )
++    spec = CognitiveAlphaEvolutionSpec(
++        run_id="external_llm_provider_feedback_context",
++        profile="soxl_smoke",
++        runtime_dir=tmp_path,
++        generations=1,
++        initial_pool_size=1,
++        parent_pool_size=1,
++        children_per_generation=1,
++        qualified_percentile=0.50,
++        elite_percentile=0.75,
++        fallback_top_n=1,
++    )
++
++    result = run_cognitive_alpha_evolution(
++        _evolution_frame(rows=160),
++        spec=spec,
++        label_col="label_return_5d",
++        candidate_provider=provider,
++    )
++
++    assert requests[0]["feedback_context"]["goal_status"] == "needs_iteration"
++    assert requests[0]["feedback_context"]["next_attempt"] == 2
++    assert "walk_forward_risk_gates" in requests[0]["feedback_context"]["failure_modes"]
++    assert result.summary["candidate_provider"]["feedback_context_included"] is True
++
++
+ def test_cognitive_alpha_external_llm_provider_skips_malformed_candidate_code(tmp_path):
+     from src.workflow import (
+         CognitiveAlphaEvolutionSpec,
+diff --git a/tests/test_cognitive_alpha_goal_runner.py b/tests/test_cognitive_alpha_goal_runner.py
+index b04c1c46..522e6225 100644
+--- a/tests/test_cognitive_alpha_goal_runner.py
++++ b/tests/test_cognitive_alpha_goal_runner.py
+@@ -474,6 +474,124 @@ def test_cognitive_alpha_goal_runner_records_direct_factor_backtest_goal_gate(tm
+     assert state["completed_stages"] == manifest["stage_order"]
+
+
++def test_cognitive_alpha_goal_runner_keeps_not_promoted_attempt_active_until_max_attempts(tmp_path):
++    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
++
++    runner = CognitiveAlphaGoalRunner(
++        CognitiveAlphaGoalRunnerSpec(
++            run_id="goal-iterative-not-promoted",
++            objective="continue CogAlpha generation until promotion or attempt budget",
++            state_path=tmp_path / "state.json",
++            manifest_path=tmp_path / "goal_manifest.json",
++            required_max_datetime="2026-06-24",
++            attempt_index=1,
++            max_attempts=3,
++        ),
++        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
++        evolution=lambda manifests: {
++            "candidate_provider": {
++                "provider_id": "codex_exec_candidate_provider",
++                "provider_kind": "codex_exec_code",
++                "openai_api_key_required": False,
++            },
++            "initial_candidate_count": 4,
++            "completed_generations": 2,
++            "selected_count": 1,
++            "metric_names": ["ic", "icir", "rank_ic", "rank_icir", "mutual_information"],
++            "evolution_ops": ["mutation", "crossover", "crossover_mutation"],
++        },
++        position=lambda manifests, evolution_result: {
++            "workflow": "cognitive_alpha_position_model",
++            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++            "comparison": {
++                "selected_return_pct": 7.6,
++                "beats_constrained_weight_reference": False,
++                "selected_vs_constrained_weight_reference_return_gap_pct": -563.5,
++            },
++            "walk_forward": {"fold_count": 2, "all_folds_pass_risk_gates": False},
++            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.0},
++        },
++        direct_factor_backtest=lambda manifests, evolution_result, position_result: {
++            "workflow": "cognitive_alpha_weighted_factor_search",
++            "promotion_decision": "diagnostic_direct_factor_candidate",
++            "selected_candidate": {"max_position": 1.0, "min_position": 0.0, "days_above_100": 0},
++            "comparison": {"beats_constrained_weight_reference": True},
++        },
++        research_card=lambda manifests, evolution_result, position_result: {
++            "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
++            "recorder_id": "recorder-attempt-001",
++            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++            "summary_path": "summary.json",
++            "failure_modes_path": "failure_modes.md",
++            "goal_manifest_path": "goal_manifest.json",
++        },
++        signal_push=lambda manifests, model_results: [
++            {"source": "qlib_recorder.latest_signal", "action": "HOLD", "as_of": "2026-06-24"}
++        ],
++    )
++
++    manifest = runner.run()
++    state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
++
++    assert manifest["status"] == "needs_iteration"
++    assert manifest["terminal_reason"] == "not_promoted_attempt_has_remaining_budget"
++    assert manifest["attempt_index"] == 1
++    assert manifest["max_attempts"] == 3
++    assert manifest["remaining_attempts"] == 2
++    assert manifest["next_action"]["action"] == "continue_codex_exec_factor_generation"
++    assert manifest["next_action"]["read_artifacts"] == ["failure_modes.md", "goal_manifest.json", "summary.json"]
++    assert manifest["next_action"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
++    assert "walk_forward_risk_gates" in manifest["next_action"]["feedback_focus"]
++    assert state["status"] == "needs_iteration"
++    assert state["current_attempt"] == 1
++    assert state["next_action"] == manifest["next_action"]
++
++
++def test_cognitive_alpha_goal_runner_stops_not_promoted_when_max_attempts_exhausted(tmp_path):
++    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
++
++    runner = CognitiveAlphaGoalRunner(
++        CognitiveAlphaGoalRunnerSpec(
++            run_id="goal-iterative-exhausted",
++            objective="stop CogAlpha loop at attempt budget",
++            state_path=tmp_path / "state.json",
++            manifest_path=tmp_path / "goal_manifest.json",
++            required_max_datetime="2026-06-24",
++            attempt_index=3,
++            max_attempts=3,
++        ),
++        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
++        evolution=lambda manifests: {
++            "candidate_provider": {"provider_id": "codex_exec_candidate_provider", "provider_kind": "codex_exec_code"},
++            "initial_candidate_count": 4,
++            "completed_generations": 2,
++        },
++        position=lambda manifests, evolution_result: {
++            "workflow": "cognitive_alpha_position_model",
++            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++            "comparison": {"beats_constrained_weight_reference": False},
++            "walk_forward": {"fold_count": 2, "all_folds_pass_risk_gates": False},
++            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.0},
++        },
++        research_card=lambda manifests, evolution_result, position_result: {
++            "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
++            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++        },
++        signal_push=lambda manifests, model_results: [],
++    )
++
++    manifest = runner.run()
++    state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
++
++    assert manifest["status"] == "complete"
++    assert manifest["terminal_reason"] == "max_attempts_exhausted"
++    assert manifest["attempt_index"] == 3
++    assert manifest["remaining_attempts"] == 0
++    assert manifest["next_action"]["action"] == "stop_max_attempts_exhausted"
++    assert state["status"] == "complete"
++    assert state["terminal_reason"] == "max_attempts_exhausted"
++
++
+ def test_cognitive_alpha_goal_runner_rejects_direct_factor_promotion(tmp_path):
+     from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index f5aed38b..0d3c80c4 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -1664,6 +1664,18 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
+     assert summary["codex_provider"]["openai_api_key_required"] is False
+     assert summary["codex_provider"]["prompt_count"] > 0
+     assert summary["codex_provider"]["response_count"] == summary["codex_provider"]["prompt_count"]
++    assert summary["max_attempts"] >= 2
++    assert summary["attempt_index"] >= 1
++    assert summary["goal_loop"]["status"] == summary["status"]
++    assert summary["goal_loop"]["attempt_index"] == summary["attempt_index"]
++    assert summary["goal_loop"]["max_attempts"] == summary["max_attempts"]
++    assert summary["goal_loop"]["terminal_reason"] == summary["terminal_reason"]
++    assert len(summary["attempts"]) == summary["attempt_index"]
++    if summary["promotion_decision"].startswith("not_promoted"):
++        assert summary["terminal_reason"] == "max_attempts_exhausted"
++        assert summary["attempt_index"] == summary["max_attempts"]
++        assert any(attempt["status"] == "needs_iteration" for attempt in summary["attempts"][:-1])
++        assert summary["evolution"]["candidate_provider"]["feedback_context_included"] is True
+     assert summary["codex_provider_readiness"]["status"] in {"ok", "warning"}
+     assert summary["codex_provider_readiness"]["auth_mode"] == "chatgpt"
+     assert summary["codex_provider_readiness"]["stored_api_key"] == "false"
+@@ -1746,8 +1758,13 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
+     goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
+     goal_state = json.loads((card / summary["sidecars"]["state"]).read_text(encoding="utf-8"))
+     assert goal_manifest["status"] == "complete"
++    assert goal_manifest["terminal_reason"] == summary["terminal_reason"]
++    assert goal_manifest["attempt_index"] == summary["attempt_index"]
++    assert goal_manifest["max_attempts"] == summary["max_attempts"]
+     assert goal_manifest["completed_stages"] == goal_manifest["stage_order"]
+     assert goal_state["status"] == "complete"
++    assert goal_state["terminal_reason"] == summary["terminal_reason"]
++    assert goal_state["current_attempt"] == summary["attempt_index"]
+     assert goal_state["completed_stages"] == goal_manifest["stage_order"]
+     assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
+     assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
+@@ -1776,6 +1793,13 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
+         / "generation_001.jsonl"
+     ).exists()
+     assert summary["recorder_id"] in notebook_text
++    assert (card / "attempts" / "attempt_001" / "summary.json").exists()
++    if summary["attempt_index"] > 1:
++        first_attempt = json.loads(
++            (card / "attempts" / "attempt_001" / "summary.json").read_text(encoding="utf-8")
++        )
++        assert first_attempt["status"] == "needs_iteration"
++        assert first_attempt["goal_manifest"]["next_action"]["action"] == "continue_codex_exec_factor_generation"
+     assert "build_cognitive_alpha_codex_exec_candidate_provider" in notebook_text
+     assert "codex_exec_candidate_provider" in notebook_text
+     assert "--output-schema" in notebook_text

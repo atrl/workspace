@@ -1,0 +1,37 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   backtest_benchmark_comparison.csv
+	modified:   backtest_walk_forward_metrics.csv
+	modified:   conclusion.md
+	modified:   direct_factor_benchmark_comparison.csv
+	modified:   direct_factor_candidate_metrics.csv
+	modified:   direct_factor_summary.json
+	modified:   evolution_summary.json
+	modified:   failure_modes.md
+	modified:   generation_metrics.csv
+	modified:   goal_manifest.json
+	modified:   latest_signal.json
+	modified:   model_selection.csv
+	modified:   position_summary.json
+	modified:   selected_features.csv
+	modified:   state.json
+	modified:   summary.json
+	modified:   ../../src/workflow/cognitive_alpha_codex_provider.py
+	modified:   ../../src/workflow/cognitive_alpha_evolution.py
+	modified:   ../../src/workflow/cognitive_alpha_goal.py
+	modified:   ../../src/workflow/cognitive_alpha_goal_codex_exec.py
+	modified:   ../../tests/test_cognitive_alpha_evolution.py
+	modified:   ../../tests/test_cognitive_alpha_goal_runner.py
+	modified:   ../../tests/test_qlib_native_notebook_cards.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	attempts/
+	qlib_recorder/329655557383096645/2d534c12e5fa4aef9479d23347a93cc0/
+	qlib_recorder/329655557383096645/83f414c1b0134e7eb14e87a1f5803018/
+
+no changes added to commit (use "git add" and/or "git commit -a")

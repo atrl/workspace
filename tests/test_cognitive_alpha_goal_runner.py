@@ -474,6 +474,124 @@ def test_cognitive_alpha_goal_runner_records_direct_factor_backtest_goal_gate(tm
     assert state["completed_stages"] == manifest["stage_order"]
 
 
+def test_cognitive_alpha_goal_runner_keeps_not_promoted_attempt_active_until_max_attempts(tmp_path):
+    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-iterative-not-promoted",
+            objective="continue CogAlpha generation until promotion or attempt budget",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+            attempt_index=1,
+            max_attempts=3,
+        ),
+        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
+        evolution=lambda manifests: {
+            "candidate_provider": {
+                "provider_id": "codex_exec_candidate_provider",
+                "provider_kind": "codex_exec_code",
+                "openai_api_key_required": False,
+            },
+            "initial_candidate_count": 4,
+            "completed_generations": 2,
+            "selected_count": 1,
+            "metric_names": ["ic", "icir", "rank_ic", "rank_icir", "mutual_information"],
+            "evolution_ops": ["mutation", "crossover", "crossover_mutation"],
+        },
+        position=lambda manifests, evolution_result: {
+            "workflow": "cognitive_alpha_position_model",
+            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+            "comparison": {
+                "selected_return_pct": 7.6,
+                "beats_constrained_weight_reference": False,
+                "selected_vs_constrained_weight_reference_return_gap_pct": -563.5,
+            },
+            "walk_forward": {"fold_count": 2, "all_folds_pass_risk_gates": False},
+            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.0},
+        },
+        direct_factor_backtest=lambda manifests, evolution_result, position_result: {
+            "workflow": "cognitive_alpha_weighted_factor_search",
+            "promotion_decision": "diagnostic_direct_factor_candidate",
+            "selected_candidate": {"max_position": 1.0, "min_position": 0.0, "days_above_100": 0},
+            "comparison": {"beats_constrained_weight_reference": True},
+        },
+        research_card=lambda manifests, evolution_result, position_result: {
+            "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
+            "recorder_id": "recorder-attempt-001",
+            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+            "summary_path": "summary.json",
+            "failure_modes_path": "failure_modes.md",
+            "goal_manifest_path": "goal_manifest.json",
+        },
+        signal_push=lambda manifests, model_results: [
+            {"source": "qlib_recorder.latest_signal", "action": "HOLD", "as_of": "2026-06-24"}
+        ],
+    )
+
+    manifest = runner.run()
+    state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
+
+    assert manifest["status"] == "needs_iteration"
+    assert manifest["terminal_reason"] == "not_promoted_attempt_has_remaining_budget"
+    assert manifest["attempt_index"] == 1
+    assert manifest["max_attempts"] == 3
+    assert manifest["remaining_attempts"] == 2
+    assert manifest["next_action"]["action"] == "continue_codex_exec_factor_generation"
+    assert manifest["next_action"]["read_artifacts"] == ["failure_modes.md", "goal_manifest.json", "summary.json"]
+    assert manifest["next_action"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
+    assert "walk_forward_risk_gates" in manifest["next_action"]["feedback_focus"]
+    assert state["status"] == "needs_iteration"
+    assert state["current_attempt"] == 1
+    assert state["next_action"] == manifest["next_action"]
+
+
+def test_cognitive_alpha_goal_runner_stops_not_promoted_when_max_attempts_exhausted(tmp_path):
+    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+    runner = CognitiveAlphaGoalRunner(
+        CognitiveAlphaGoalRunnerSpec(
+            run_id="goal-iterative-exhausted",
+            objective="stop CogAlpha loop at attempt budget",
+            state_path=tmp_path / "state.json",
+            manifest_path=tmp_path / "goal_manifest.json",
+            required_max_datetime="2026-06-24",
+            attempt_index=3,
+            max_attempts=3,
+        ),
+        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
+        evolution=lambda manifests: {
+            "candidate_provider": {"provider_id": "codex_exec_candidate_provider", "provider_kind": "codex_exec_code"},
+            "initial_candidate_count": 4,
+            "completed_generations": 2,
+        },
+        position=lambda manifests, evolution_result: {
+            "workflow": "cognitive_alpha_position_model",
+            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+            "comparison": {"beats_constrained_weight_reference": False},
+            "walk_forward": {"fold_count": 2, "all_folds_pass_risk_gates": False},
+            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.0},
+        },
+        research_card=lambda manifests, evolution_result, position_result: {
+            "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
+            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
+        },
+        signal_push=lambda manifests, model_results: [],
+    )
+
+    manifest = runner.run()
+    state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
+
+    assert manifest["status"] == "complete"
+    assert manifest["terminal_reason"] == "max_attempts_exhausted"
+    assert manifest["attempt_index"] == 3
+    assert manifest["remaining_attempts"] == 0
+    assert manifest["next_action"]["action"] == "stop_max_attempts_exhausted"
+    assert state["status"] == "complete"
+    assert state["terminal_reason"] == "max_attempts_exhausted"
+
+
 def test_cognitive_alpha_goal_runner_rejects_direct_factor_promotion(tmp_path):
     from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
 

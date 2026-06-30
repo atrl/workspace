@@ -4,18 +4,20 @@
     "codex_direct_compatible": true,
     "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
     "external_llm_configured": true,
+    "feedback_context_hash": "bd89ce65d3f540a4564e5a72f9b50b7f00c018d8",
+    "feedback_context_included": true,
     "generated_candidate_count": 4,
     "guidance_style_count": 5,
-    "invalid_candidate_count": 4,
+    "invalid_candidate_count": 0,
     "llm_model": "codex-cli",
     "openai_api_key_required": false,
     "profile_agent_count": 21,
-    "prompt_count": 7,
+    "prompt_count": 3,
     "provider_failure_count": 0,
     "provider_id": "codex_exec_candidate_provider",
     "provider_kind": "codex_exec_code",
     "requested_initial_pool_size": 4,
-    "response_count": 7
+    "response_count": 3
   },
   "checkpoints": {
     "candidate_pool": "candidate_pool/generation_*.jsonl",
@@ -46,11 +48,11 @@
   "repair_attempt_count": 1,
   "resume_start_generation": 0,
   "resumed": false,
-  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y/cognitive_alpha_evolution",
+  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_m9ep45fs/cognitive_alpha_evolution",
   "run_id": "cognitive_alpha_evolution",
   "selected_count": 1,
   "selected_feature_names": [
-    "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+    "g001_000_mutation_lagged_ma_stack_hi_31cfa48c6e"
   ],
   "spec": {
     "children_per_generation": 4,
@@ -67,7 +69,7 @@
     "qualified_percentile": 0.5,
     "resume": false,
     "run_id": "cognitive_alpha_evolution",
-    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_q_ko2e2y"
+    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_m9ep45fs"
   },
   "thresholds": {
     "elite_percentile": 0.75,

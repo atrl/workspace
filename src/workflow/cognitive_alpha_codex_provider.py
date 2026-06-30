@@ -99,6 +99,7 @@ def build_cognitive_alpha_codex_exec_candidate_provider(
     cwd: Path | str | None = None,
     timeout_seconds: float = 300.0,
     sandbox: str = "read-only",
+    request_context: dict[str, Any] | None = None,
 ):
     def _completion(request: dict[str, Any]) -> dict[str, Any]:
         return codex_exec_completion(
@@ -114,6 +115,7 @@ def build_cognitive_alpha_codex_exec_candidate_provider(
         completion=_completion,
         provider_id=provider_id,
         model=model or "codex-cli",
+        request_context=request_context,
     )
     provider.provider_kind = "codex_exec_code"
     provider.openai_api_key_required = False

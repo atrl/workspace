@@ -1,0 +1,792 @@
+diff --git a/src/workflow/cognitive_alpha_codex_provider.py b/src/workflow/cognitive_alpha_codex_provider.py
+index 3739dd20..136e448f 100644
+--- a/src/workflow/cognitive_alpha_codex_provider.py
++++ b/src/workflow/cognitive_alpha_codex_provider.py
+@@ -99,6 +99,7 @@ def build_cognitive_alpha_codex_exec_candidate_provider(
+     cwd: Path | str | None = None,
+     timeout_seconds: float = 300.0,
+     sandbox: str = "read-only",
++    request_context: dict[str, Any] | None = None,
+ ):
+     def _completion(request: dict[str, Any]) -> dict[str, Any]:
+         return codex_exec_completion(
+@@ -114,6 +115,7 @@ def build_cognitive_alpha_codex_exec_candidate_provider(
+         completion=_completion,
+         provider_id=provider_id,
+         model=model or "codex-cli",
++        request_context=request_context,
+     )
+     provider.provider_kind = "codex_exec_code"
+     provider.openai_api_key_required = False
+diff --git a/src/workflow/cognitive_alpha_evolution.py b/src/workflow/cognitive_alpha_evolution.py
+index b5babbe0..3db3662e 100644
+--- a/src/workflow/cognitive_alpha_evolution.py
++++ b/src/workflow/cognitive_alpha_evolution.py
+@@ -149,6 +149,7 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+     openai_api_key_required: bool | None = None
+     codex_direct_compatible: bool = False
+     codex_execution_mode: str | None = None
++    request_context: dict[str, Any] | None = None
+     guidance_styles: tuple[str, ...] = COGNITIVE_ALPHA_GUIDANCE_STYLES
+     max_candidates_per_request: int = 1
+     request_log: list[dict[str, Any]] = field(default_factory=list, init=False)
+@@ -188,6 +189,7 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+                 guidance_style=guidance_style,
+                 model=self.model,
+                 target_candidate_count=min(self.max_candidates_per_request, target_initial_pool_size - len(candidates)),
++                request_context=self.request_context,
+             )
+             self.request_log.append(request)
+             prompt_hash = _stable_payload_hash(request)
+@@ -257,8 +259,11 @@ class CognitiveAlphaExternalLLMCodeCandidateProvider:
+             "response_count": int(len(self.response_log)),
+             "provider_failure_count": int(self.failure_count),
+             "invalid_candidate_count": int(self.invalid_candidate_count),
++            "feedback_context_included": self.request_context is not None,
+             "external_llm_configured": True,
+         }
++        if self.request_context is not None:
++            summary["feedback_context_hash"] = _stable_payload_hash(_jsonable_payload(self.request_context))
+         if self.openai_api_key_required is not None:
+             summary["openai_api_key_required"] = bool(self.openai_api_key_required)
+         if self.codex_direct_compatible:
+@@ -273,11 +278,13 @@ def build_cognitive_alpha_external_llm_candidate_provider(
+     completion: Callable[[dict[str, Any]], str | dict[str, Any]],
+     provider_id: str = "external_llm_code_provider",
+     model: str = "unspecified",
++    request_context: dict[str, Any] | None = None,
+ ) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
+     return CognitiveAlphaExternalLLMCodeCandidateProvider(
+         completion=completion,
+         provider_id=provider_id,
+         model=model,
++        request_context=request_context,
+     )
+
+
+@@ -290,6 +297,7 @@ def build_cognitive_alpha_command_llm_candidate_provider(
+     openai_api_key_required: bool | None = None,
+     codex_direct_compatible: bool = False,
+     codex_execution_mode: str | None = None,
++    request_context: dict[str, Any] | None = None,
+ ) -> CognitiveAlphaExternalLLMCodeCandidateProvider:
+     command_tuple = tuple(str(part) for part in command)
+     if not command_tuple:
+@@ -319,6 +327,7 @@ def build_cognitive_alpha_command_llm_candidate_provider(
+         openai_api_key_required=openai_api_key_required,
+         codex_direct_compatible=codex_direct_compatible,
+         codex_execution_mode=codex_execution_mode,
++        request_context=request_context,
+     )
+
+
+@@ -409,8 +418,9 @@ def _external_llm_request_payload(
+     guidance_style: str,
+     model: str,
+     target_candidate_count: int,
++    request_context: dict[str, Any] | None = None,
+ ) -> dict[str, Any]:
+-    return {
++    payload = {
+         "paper_reference": COGNITIVE_ALPHA_PAPER_REFERENCE,
+         "profile": profile.profile,
+         "model": model,
+@@ -441,6 +451,9 @@ def _external_llm_request_payload(
+             ),
+         },
+     }
++    if request_context is not None:
++        payload["feedback_context"] = _jsonable_payload(request_context)
++    return payload
+
+
+ def _parse_external_llm_response(raw_response: str | dict[str, Any]) -> dict[str, Any]:
+diff --git a/src/workflow/cognitive_alpha_goal.py b/src/workflow/cognitive_alpha_goal.py
+index 97fefdb2..12ff94b2 100644
+--- a/src/workflow/cognitive_alpha_goal.py
++++ b/src/workflow/cognitive_alpha_goal.py
+@@ -54,6 +54,8 @@ class CognitiveAlphaGoalRunnerSpec:
+     manifest_path: Path
+     required_max_datetime: str | None = None
+     resume: bool = False
++    attempt_index: int = 1
++    max_attempts: int = 1
+     paper_reference: str = COGNITIVE_ALPHA_PAPER_REFERENCE
+     gates: CognitiveAlphaGoalGateSpec = field(default_factory=CognitiveAlphaGoalGateSpec)
+
+@@ -150,7 +152,13 @@ class CognitiveAlphaGoalRunner:
+             stage_outputs=outputs,
+         )
+         self._write_manifest(manifest)
+-        self._write_state(status="complete", completed_stages=COGNITIVE_ALPHA_GOAL_STAGE_ORDER, stage_outputs=outputs)
++        self._write_state(
++            status=str(manifest["status"]),
++            completed_stages=COGNITIVE_ALPHA_GOAL_STAGE_ORDER,
++            stage_outputs=outputs,
++            terminal_reason=str(manifest["terminal_reason"]),
++            next_action=dict(manifest["next_action"]),
++        )
+         return manifest
+
+     def _load_state(self) -> dict[str, Any]:
+@@ -199,11 +207,23 @@ class CognitiveAlphaGoalRunner:
+         stage_outputs: dict[str, Any],
+     ) -> dict[str, Any]:
+         data_gate_summary = _data_gate_summary(manifests, required_max_datetime=self.spec.required_max_datetime)
++        terminal = _goal_terminal_decision(
++            spec=self.spec,
++            evolution_result=evolution_result,
++            position_result=position_result,
++            direct_factor_result=direct_factor_result,
++            research_card_result=research_card_result,
++        )
+         return {
+             "run_id": self.spec.run_id,
+             "objective": self.spec.objective,
+             "paper_reference": self.spec.paper_reference,
+-            "status": "complete",
++            "status": terminal["status"],
++            "terminal_reason": terminal["terminal_reason"],
++            "attempt_index": int(self.spec.attempt_index),
++            "max_attempts": int(self.spec.max_attempts),
++            "remaining_attempts": terminal["remaining_attempts"],
++            "next_action": terminal["next_action"],
+             "stage_order": list(COGNITIVE_ALPHA_GOAL_STAGE_ORDER),
+             "completed_stages": list(COGNITIVE_ALPHA_GOAL_STAGE_ORDER),
+             "validation_gates": _jsonable(asdict(self.spec.gates)),
+@@ -229,14 +249,23 @@ class CognitiveAlphaGoalRunner:
+         status: str,
+         completed_stages: list[str],
+         stage_outputs: dict[str, Any],
++        terminal_reason: str | None = None,
++        next_action: dict[str, Any] | None = None,
+     ) -> None:
+         self.spec.state_path.parent.mkdir(parents=True, exist_ok=True)
+         payload = {
+             "run_id": self.spec.run_id,
+             "status": status,
++            "current_attempt": int(self.spec.attempt_index),
++            "max_attempts": int(self.spec.max_attempts),
++            "remaining_attempts": max(int(self.spec.max_attempts) - int(self.spec.attempt_index), 0),
+             "completed_stages": completed_stages,
+             "stage_outputs": stage_outputs,
+         }
++        if terminal_reason is not None:
++            payload["terminal_reason"] = terminal_reason
++        if next_action is not None:
++            payload["next_action"] = next_action
+         self.spec.state_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+
+
+@@ -442,6 +471,118 @@ def _append_stages(existing: list[str], new_stages: list[str]) -> list[str]:
+     return out
+
+
++def _goal_terminal_decision(
++    *,
++    spec: CognitiveAlphaGoalRunnerSpec,
++    evolution_result: dict[str, Any],
++    position_result: dict[str, Any],
++    direct_factor_result: dict[str, Any],
++    research_card_result: dict[str, Any],
++) -> dict[str, Any]:
++    attempt_index = max(int(spec.attempt_index), 1)
++    max_attempts = max(int(spec.max_attempts), 1)
++    remaining_attempts = max(max_attempts - attempt_index, 0)
++    promotion_decision = str(
++        research_card_result.get("promotion_decision")
++        or position_result.get("promotion_decision")
++        or direct_factor_result.get("promotion_decision")
++        or ""
++    )
++    explicit_status = str(
++        research_card_result.get("status") or position_result.get("status") or direct_factor_result.get("status") or ""
++    )
++    if explicit_status in {"needs_auth", "needs_data"} or promotion_decision in {"needs_auth", "needs_data"}:
++        return {
++            "status": explicit_status or promotion_decision,
++            "terminal_reason": explicit_status or promotion_decision,
++            "remaining_attempts": remaining_attempts,
++            "next_action": {
++                "action": f"stop_{explicit_status or promotion_decision}",
++                "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
++            },
++        }
++
++    if promotion_decision.startswith("not_promoted") and remaining_attempts > 0:
++        return {
++            "status": "needs_iteration",
++            "terminal_reason": "not_promoted_attempt_has_remaining_budget",
++            "remaining_attempts": remaining_attempts,
++            "next_action": _next_codex_iteration_action(
++                evolution_result=evolution_result,
++                position_result=position_result,
++                direct_factor_result=direct_factor_result,
++                research_card_result=research_card_result,
++                next_attempt=attempt_index + 1,
++                max_attempts=max_attempts,
++            ),
++        }
++
++    if promotion_decision.startswith("not_promoted"):
++        return {
++            "status": "complete",
++            "terminal_reason": "max_attempts_exhausted",
++            "remaining_attempts": 0,
++            "next_action": {
++                "action": "stop_max_attempts_exhausted",
++                "promotion_decision": promotion_decision,
++                "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
++            },
++        }
++
++    return {
++        "status": "complete",
++        "terminal_reason": "promotion_or_terminal_decision",
++        "remaining_attempts": remaining_attempts,
++        "next_action": {
++            "action": "stop_terminal_decision",
++            "promotion_decision": promotion_decision,
++            "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
++        },
++    }
++
++
++def _next_codex_iteration_action(
++    *,
++    evolution_result: dict[str, Any],
++    position_result: dict[str, Any],
++    direct_factor_result: dict[str, Any],
++    research_card_result: dict[str, Any],
++    next_attempt: int,
++    max_attempts: int,
++) -> dict[str, Any]:
++    comparison = position_result.get("comparison", {}) if isinstance(position_result.get("comparison", {}), dict) else {}
++    walk_forward = (
++        position_result.get("walk_forward", {}) if isinstance(position_result.get("walk_forward", {}), dict) else {}
++    )
++    candidate_provider = evolution_result.get("candidate_provider", {})
++    feedback_focus = []
++    if comparison.get("beats_constrained_weight_reference") is False:
++        feedback_focus.append("constrained_weight_reference_gap")
++    if walk_forward.get("all_folds_pass_risk_gates") is False:
++        feedback_focus.append("walk_forward_risk_gates")
++    if float(walk_forward.get("mean_test_avg_abs_position", 1.0) or 0.0) <= 0.01:
++        feedback_focus.append("exposure_participation")
++    if not feedback_focus:
++        feedback_focus.append("promotion_gate_failure")
++    return {
++        "action": "continue_codex_exec_factor_generation",
++        "next_attempt": int(next_attempt),
++        "max_attempts": int(max_attempts),
++        "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
++        "candidate_provider": candidate_provider,
++        "feedback_focus": feedback_focus,
++        "previous_promotion_decision": str(
++            research_card_result.get("promotion_decision")
++            or position_result.get("promotion_decision")
++            or direct_factor_result.get("promotion_decision")
++            or ""
++        ),
++        "position_comparison": _jsonable(comparison),
++        "walk_forward": _jsonable(walk_forward),
++        "direct_factor_role": "prior_only_not_final_promotion",
++    }
++
++
+ def _data_gate_summary(manifests: list[dict[str, Any]], *, required_max_datetime: str | None) -> dict[str, Any]:
+     max_datetime = max(str(manifest.get("max_datetime", "")) for manifest in manifests)
+     return {
+diff --git a/src/workflow/cognitive_alpha_goal_codex_exec.py b/src/workflow/cognitive_alpha_goal_codex_exec.py
+index b4e3b463..437929f7 100644
+--- a/src/workflow/cognitive_alpha_goal_codex_exec.py
++++ b/src/workflow/cognitive_alpha_goal_codex_exec.py
+@@ -1,8 +1,9 @@
+ from __future__ import annotations
+
+ import json
++import shutil
+ import tempfile
+-from dataclasses import asdict, dataclass
++from dataclasses import asdict, dataclass, replace
+ from pathlib import Path
+ from typing import Any
+
+@@ -52,6 +53,9 @@ class CognitiveAlphaGoalCodexExecCardSpec:
+     codex_timeout_seconds: float = 300.0
+     codex_sandbox: str = "read-only"
+     resume: bool = False
++    attempt_index: int = 1
++    max_attempts: int = 2
++    request_context: dict[str, Any] | None = None
+     initial_pool_size: int = 4
+     codex_candidate_count: int = 3
+     generations: int = 2
+@@ -76,17 +80,49 @@ def run_cognitive_alpha_goal_codex_exec_card(
+     resume: bool = False,
+     codex_model: str | None = None,
+     codex_timeout_seconds: float = 300.0,
++    max_attempts: int = 2,
+ ) -> dict[str, Any]:
+     spec = CognitiveAlphaGoalCodexExecCardSpec(
+         root=_resolve_root(root),
+         resume=resume,
+         codex_model=codex_model,
+         codex_timeout_seconds=codex_timeout_seconds,
++        max_attempts=max_attempts,
+     )
+     return _run_card(spec)
+
+
+ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
++    card = spec.card_dir
++    card.mkdir(parents=True, exist_ok=True)
++    start_attempt = _resume_start_attempt(card) if spec.resume else 1
++    attempts: list[dict[str, Any]] = _load_attempt_history(card) if spec.resume else []
++    request_context = _feedback_context_from_card(card) if spec.resume and (card / "summary.json").exists() else None
++    final_summary: dict[str, Any] = {}
++    for attempt_index in range(start_attempt, max(int(spec.max_attempts), 1) + 1):
++        attempt_spec = replace(
++            spec,
++            attempt_index=attempt_index,
++            resume=False,
++            request_context=request_context,
++        )
++        summary = _run_card_attempt(attempt_spec, attempts=attempts)
++        attempt_entry = _attempt_entry(summary)
++        attempts = [entry for entry in attempts if int(entry.get("attempt_index", 0) or 0) != attempt_index]
++        attempts.append(attempt_entry)
++        attempts = sorted(attempts, key=lambda item: int(item.get("attempt_index", 0) or 0))
++        summary["attempts"] = attempts
++        summary["goal_loop"]["attempts"] = attempts
++        _write_summary_files(card, summary)
++        _snapshot_attempt_artifacts(card, attempt_index=attempt_index, summary=summary)
++        final_summary = summary
++        if summary["goal_manifest"]["status"] != "needs_iteration":
++            return final_summary
++        request_context = _feedback_context_from_card(card)
++    return final_summary
++
++
++def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: list[dict[str, Any]]) -> dict[str, Any]:
+     card = spec.card_dir
+     recorder_uri = card / "qlib_recorder"
+     card.mkdir(parents=True, exist_ok=True)
+@@ -175,6 +211,7 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
+                 cwd=spec.root,
+                 timeout_seconds=spec.codex_timeout_seconds,
+                 sandbox=spec.codex_sandbox,
++                request_context=spec.request_context,
+             )
+             evolution_spec = CognitiveAlphaEvolutionSpec(
+                 run_id="cognitive_alpha_evolution",
+@@ -252,7 +289,9 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
+                     state_path=card / sidecars["state"],
+                     manifest_path=card / sidecars["goal_manifest"],
+                     required_max_datetime=as_of,
+-                    resume=spec.resume,
++                    resume=False,
++                    attempt_index=spec.attempt_index,
++                    max_attempts=spec.max_attempts,
+                     gates=CognitiveAlphaGoalGateSpec(
+                         min_initial_candidate_count=spec.initial_pool_size,
+                         min_completed_generations=spec.generations,
+@@ -325,10 +364,97 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
+             recorder_uri=recorder_uri,
+             recorder_artifacts=recorder_artifacts,
+         )
++        summary["attempts"] = attempts
+         _write_summary_files(card, summary)
+         return summary
+
+
++def _resume_start_attempt(card: Path) -> int:
++    state_path = card / "state.json"
++    if not state_path.exists():
++        return 1
++    try:
++        state = json.loads(state_path.read_text(encoding="utf-8"))
++    except json.JSONDecodeError:
++        return 1
++    if state.get("status") == "needs_iteration":
++        return int(state.get("current_attempt", 0) or 0) + 1
++    return 1
++
++
++def _load_attempt_history(card: Path) -> list[dict[str, Any]]:
++    summary_path = card / "summary.json"
++    if not summary_path.exists():
++        return []
++    try:
++        summary = json.loads(summary_path.read_text(encoding="utf-8"))
++    except json.JSONDecodeError:
++        return []
++    attempts = summary.get("attempts", [])
++    return list(attempts) if isinstance(attempts, list) else []
++
++
++def _attempt_entry(summary: dict[str, Any]) -> dict[str, Any]:
++    position = summary["position_model"]
++    direct = summary["direct_factor_backtest"]
++    return {
++        "attempt_index": int(summary["attempt_index"]),
++        "status": str(summary["status"]),
++        "terminal_reason": str(summary.get("terminal_reason", "")),
++        "promotion_decision": str(summary["promotion_decision"]),
++        "recorder_id": str(summary["recorder_id"]),
++        "selected_return_pct": position.get("comparison", {}).get("selected_return_pct"),
++        "beats_constrained_weight_reference": position.get("comparison", {}).get(
++            "beats_constrained_weight_reference"
++        ),
++        "walk_forward_all_gates_pass": position.get("walk_forward", {}).get("all_folds_pass_risk_gates"),
++        "direct_factor_promotion_decision": direct.get("promotion_decision"),
++    }
++
++
++def _snapshot_attempt_artifacts(card: Path, *, attempt_index: int, summary: dict[str, Any]) -> None:
++    attempt_dir = card / "attempts" / f"attempt_{attempt_index:03d}"
++    attempt_dir.mkdir(parents=True, exist_ok=True)
++    snapshot_files = [
++        "summary.json",
++        "workflow.yaml",
++        "conclusion.md",
++        "failure_modes.md",
++        *list(summary.get("sidecars", {}).values()),
++    ]
++    for rel_path in dict.fromkeys(snapshot_files):
++        source = card / str(rel_path)
++        if source.exists() and source.is_file():
++            shutil.copy2(source, attempt_dir / source.name)
++
++
++def _feedback_context_from_card(card: Path) -> dict[str, Any]:
++    summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
++    goal_manifest = json.loads((card / "goal_manifest.json").read_text(encoding="utf-8"))
++    failure_modes = (card / "failure_modes.md").read_text(encoding="utf-8")
++    position = summary.get("position_model", {})
++    direct = summary.get("direct_factor_backtest", {})
++    next_action = goal_manifest.get("next_action", {})
++    return {
++        "goal_status": summary.get("status"),
++        "terminal_reason": summary.get("terminal_reason"),
++        "previous_attempt": summary.get("attempt_index"),
++        "next_attempt": next_action.get("next_attempt"),
++        "max_attempts": summary.get("max_attempts"),
++        "previous_promotion_decision": summary.get("promotion_decision"),
++        "failure_modes": failure_modes.splitlines(),
++        "goal_next_action": next_action,
++        "position_comparison": position.get("comparison", {}),
++        "walk_forward": position.get("walk_forward", {}),
++        "direct_factor_promotion_decision": direct.get("promotion_decision"),
++        "direct_factor_role": summary.get("research_gate", {}).get("direct_factor_backtest_role"),
++        "forbidden_repetition": {
++            "recorder_id": summary.get("recorder_id"),
++            "selected_feature_names": summary.get("evolution", {}).get("selected_feature_names", []),
++        },
++    }
++
++
+ def _factor_mining_spec(evolution_spec: CognitiveAlphaEvolutionSpec, alpha158_columns: list[str]):
+     from src.factor import CognitiveAlphaFactorMiningSpec
+
+@@ -557,12 +683,18 @@ def _summary_payload(
+     )
+     promotion_decision = str(position["promotion_decision"])
+     production_status = "candidate_for_paper_sim" if promotion_decision == "candidate_for_validated_research" else "blocked_not_promoted"
++    goal_status = str(goal_manifest["status"])
++    terminal_reason = str(goal_manifest.get("terminal_reason", ""))
+     return {
+         "experiment": EXPERIMENT,
+         "card_type": CARD_TYPE,
+         "workflow_config": "workflow.yaml",
+-        "status": "complete",
++        "status": goal_status,
++        "terminal_reason": terminal_reason,
+         "promotion_decision": promotion_decision,
++        "attempt_index": int(spec.attempt_index),
++        "max_attempts": int(spec.max_attempts),
++        "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
+         "paper_reference": {"arxiv_id": "2511.18850", "source": PAPER_REFERENCE},
+         "provider_uri": provider_meta["provider_uri"],
+         "recorder_uri": recorder_uri.as_posix(),
+@@ -596,9 +728,24 @@ def _summary_payload(
+         },
+         "goal_manifest": {
+             "path": sidecars["goal_manifest"],
+-            "status": goal_manifest["status"],
++            "status": goal_status,
++            "terminal_reason": terminal_reason,
++            "attempt_index": int(goal_manifest.get("attempt_index", spec.attempt_index) or spec.attempt_index),
++            "max_attempts": int(goal_manifest.get("max_attempts", spec.max_attempts) or spec.max_attempts),
++            "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
++            "next_action": goal_manifest.get("next_action", {}),
+             "stage_order": goal_manifest["stage_order"],
+         },
++        "goal_loop": {
++            "status": goal_status,
++            "terminal_reason": terminal_reason,
++            "attempt_index": int(spec.attempt_index),
++            "max_attempts": int(spec.max_attempts),
++            "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
++            "next_action": goal_manifest.get("next_action", {}),
++            "feedback_context_included": spec.request_context is not None,
++            "attempts": [],
++        },
+         "qlib_docs": QLIB_DOCS,
+         "qlib_docs_reference": QLIB_DOCS,
+         "qlib_native_api": QLIB_NATIVE_API,
+diff --git a/tests/test_cognitive_alpha_evolution.py b/tests/test_cognitive_alpha_evolution.py
+index 1b20abc4..435078f3 100644
+--- a/tests/test_cognitive_alpha_evolution.py
++++ b/tests/test_cognitive_alpha_evolution.py
+@@ -456,6 +456,70 @@ def test_cognitive_alpha_external_llm_provider_records_prompt_response_and_repai
+     assert repaired["metadata"]["repair_reason"] == "future_lookahead_code_pattern"
+
+
++def test_cognitive_alpha_external_llm_provider_includes_goal_feedback_context(tmp_path):
++    from src.workflow import (
++        CognitiveAlphaEvolutionSpec,
++        build_cognitive_alpha_external_llm_candidate_provider,
++        run_cognitive_alpha_evolution,
++    )
++
++    requests: list[dict] = []
++
++    def fake_completion(request: dict) -> dict:
++        requests.append(request)
++        return {
++            "candidates": [
++                {
++                    "name": "feedback_context_candidate",
++                    "level": request["level"],
++                    "agent": request["agent"],
++                    "theme": "feedback-aware external code alpha",
++                    "required_columns": ["close", "volume"],
++                    "lookback": 10,
++                    "code": "close.pct_change(5).shift(1) * log1p(volume).pct_change(5).shift(1)",
++                    "economic_rationale": "Uses previous Goal failure feedback to improve exposure and risk gates.",
++                }
++            ]
++        }
++
++    provider = build_cognitive_alpha_external_llm_candidate_provider(
++        completion=fake_completion,
++        provider_id="unit_external_llm",
++        model="unit-llm",
++        request_context={
++            "goal_status": "needs_iteration",
++            "previous_attempt": 1,
++            "next_attempt": 2,
++            "failure_modes": ["walk_forward_risk_gates", "constrained_weight_reference_gap"],
++            "previous_promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++        },
++    )
++    spec = CognitiveAlphaEvolutionSpec(
++        run_id="external_llm_provider_feedback_context",
++        profile="soxl_smoke",
++        runtime_dir=tmp_path,
++        generations=1,
++        initial_pool_size=1,
++        parent_pool_size=1,
++        children_per_generation=1,
++        qualified_percentile=0.50,
++        elite_percentile=0.75,
++        fallback_top_n=1,
++    )
++
++    result = run_cognitive_alpha_evolution(
++        _evolution_frame(rows=160),
++        spec=spec,
++        label_col="label_return_5d",
++        candidate_provider=provider,
++    )
++
++    assert requests[0]["feedback_context"]["goal_status"] == "needs_iteration"
++    assert requests[0]["feedback_context"]["next_attempt"] == 2
++    assert "walk_forward_risk_gates" in requests[0]["feedback_context"]["failure_modes"]
++    assert result.summary["candidate_provider"]["feedback_context_included"] is True
++
++
+ def test_cognitive_alpha_external_llm_provider_skips_malformed_candidate_code(tmp_path):
+     from src.workflow import (
+         CognitiveAlphaEvolutionSpec,
+diff --git a/tests/test_cognitive_alpha_goal_runner.py b/tests/test_cognitive_alpha_goal_runner.py
+index b04c1c46..522e6225 100644
+--- a/tests/test_cognitive_alpha_goal_runner.py
++++ b/tests/test_cognitive_alpha_goal_runner.py
+@@ -474,6 +474,124 @@ def test_cognitive_alpha_goal_runner_records_direct_factor_backtest_goal_gate(tm
+     assert state["completed_stages"] == manifest["stage_order"]
+
+
++def test_cognitive_alpha_goal_runner_keeps_not_promoted_attempt_active_until_max_attempts(tmp_path):
++    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
++
++    runner = CognitiveAlphaGoalRunner(
++        CognitiveAlphaGoalRunnerSpec(
++            run_id="goal-iterative-not-promoted",
++            objective="continue CogAlpha generation until promotion or attempt budget",
++            state_path=tmp_path / "state.json",
++            manifest_path=tmp_path / "goal_manifest.json",
++            required_max_datetime="2026-06-24",
++            attempt_index=1,
++            max_attempts=3,
++        ),
++        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
++        evolution=lambda manifests: {
++            "candidate_provider": {
++                "provider_id": "codex_exec_candidate_provider",
++                "provider_kind": "codex_exec_code",
++                "openai_api_key_required": False,
++            },
++            "initial_candidate_count": 4,
++            "completed_generations": 2,
++            "selected_count": 1,
++            "metric_names": ["ic", "icir", "rank_ic", "rank_icir", "mutual_information"],
++            "evolution_ops": ["mutation", "crossover", "crossover_mutation"],
++        },
++        position=lambda manifests, evolution_result: {
++            "workflow": "cognitive_alpha_position_model",
++            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++            "comparison": {
++                "selected_return_pct": 7.6,
++                "beats_constrained_weight_reference": False,
++                "selected_vs_constrained_weight_reference_return_gap_pct": -563.5,
++            },
++            "walk_forward": {"fold_count": 2, "all_folds_pass_risk_gates": False},
++            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.0},
++        },
++        direct_factor_backtest=lambda manifests, evolution_result, position_result: {
++            "workflow": "cognitive_alpha_weighted_factor_search",
++            "promotion_decision": "diagnostic_direct_factor_candidate",
++            "selected_candidate": {"max_position": 1.0, "min_position": 0.0, "days_above_100": 0},
++            "comparison": {"beats_constrained_weight_reference": True},
++        },
++        research_card=lambda manifests, evolution_result, position_result: {
++            "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
++            "recorder_id": "recorder-attempt-001",
++            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++            "summary_path": "summary.json",
++            "failure_modes_path": "failure_modes.md",
++            "goal_manifest_path": "goal_manifest.json",
++        },
++        signal_push=lambda manifests, model_results: [
++            {"source": "qlib_recorder.latest_signal", "action": "HOLD", "as_of": "2026-06-24"}
++        ],
++    )
++
++    manifest = runner.run()
++    state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
++
++    assert manifest["status"] == "needs_iteration"
++    assert manifest["terminal_reason"] == "not_promoted_attempt_has_remaining_budget"
++    assert manifest["attempt_index"] == 1
++    assert manifest["max_attempts"] == 3
++    assert manifest["remaining_attempts"] == 2
++    assert manifest["next_action"]["action"] == "continue_codex_exec_factor_generation"
++    assert manifest["next_action"]["read_artifacts"] == ["failure_modes.md", "goal_manifest.json", "summary.json"]
++    assert manifest["next_action"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
++    assert "walk_forward_risk_gates" in manifest["next_action"]["feedback_focus"]
++    assert state["status"] == "needs_iteration"
++    assert state["current_attempt"] == 1
++    assert state["next_action"] == manifest["next_action"]
++
++
++def test_cognitive_alpha_goal_runner_stops_not_promoted_when_max_attempts_exhausted(tmp_path):
++    from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
++
++    runner = CognitiveAlphaGoalRunner(
++        CognitiveAlphaGoalRunnerSpec(
++            run_id="goal-iterative-exhausted",
++            objective="stop CogAlpha loop at attempt budget",
++            state_path=tmp_path / "state.json",
++            manifest_path=tmp_path / "goal_manifest.json",
++            required_max_datetime="2026-06-24",
++            attempt_index=3,
++            max_attempts=3,
++        ),
++        data_gate=lambda: [{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}],
++        evolution=lambda manifests: {
++            "candidate_provider": {"provider_id": "codex_exec_candidate_provider", "provider_kind": "codex_exec_code"},
++            "initial_candidate_count": 4,
++            "completed_generations": 2,
++        },
++        position=lambda manifests, evolution_result: {
++            "workflow": "cognitive_alpha_position_model",
++            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++            "comparison": {"beats_constrained_weight_reference": False},
++            "walk_forward": {"fold_count": 2, "all_folds_pass_risk_gates": False},
++            "latest_signal": {"as_of": "2026-06-24", "action": "HOLD", "target_position": 0.0},
++        },
++        research_card=lambda manifests, evolution_result, position_result: {
++            "card_dir": "research/cognitive_alpha_goal_codex_exec_v1",
++            "promotion_decision": "not_promoted_failed_walk_forward_risk_gates",
++        },
++        signal_push=lambda manifests, model_results: [],
++    )
++
++    manifest = runner.run()
++    state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
++
++    assert manifest["status"] == "complete"
++    assert manifest["terminal_reason"] == "max_attempts_exhausted"
++    assert manifest["attempt_index"] == 3
++    assert manifest["remaining_attempts"] == 0
++    assert manifest["next_action"]["action"] == "stop_max_attempts_exhausted"
++    assert state["status"] == "complete"
++    assert state["terminal_reason"] == "max_attempts_exhausted"
++
++
+ def test_cognitive_alpha_goal_runner_rejects_direct_factor_promotion(tmp_path):
+     from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
+
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index f5aed38b..0d3c80c4 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -1664,6 +1664,18 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
+     assert summary["codex_provider"]["openai_api_key_required"] is False
+     assert summary["codex_provider"]["prompt_count"] > 0
+     assert summary["codex_provider"]["response_count"] == summary["codex_provider"]["prompt_count"]
++    assert summary["max_attempts"] >= 2
++    assert summary["attempt_index"] >= 1
++    assert summary["goal_loop"]["status"] == summary["status"]
++    assert summary["goal_loop"]["attempt_index"] == summary["attempt_index"]
++    assert summary["goal_loop"]["max_attempts"] == summary["max_attempts"]
++    assert summary["goal_loop"]["terminal_reason"] == summary["terminal_reason"]
++    assert len(summary["attempts"]) == summary["attempt_index"]
++    if summary["promotion_decision"].startswith("not_promoted"):
++        assert summary["terminal_reason"] == "max_attempts_exhausted"
++        assert summary["attempt_index"] == summary["max_attempts"]
++        assert any(attempt["status"] == "needs_iteration" for attempt in summary["attempts"][:-1])
++        assert summary["evolution"]["candidate_provider"]["feedback_context_included"] is True
+     assert summary["codex_provider_readiness"]["status"] in {"ok", "warning"}
+     assert summary["codex_provider_readiness"]["auth_mode"] == "chatgpt"
+     assert summary["codex_provider_readiness"]["stored_api_key"] == "false"
+@@ -1746,8 +1758,13 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
+     goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
+     goal_state = json.loads((card / summary["sidecars"]["state"]).read_text(encoding="utf-8"))
+     assert goal_manifest["status"] == "complete"
++    assert goal_manifest["terminal_reason"] == summary["terminal_reason"]
++    assert goal_manifest["attempt_index"] == summary["attempt_index"]
++    assert goal_manifest["max_attempts"] == summary["max_attempts"]
+     assert goal_manifest["completed_stages"] == goal_manifest["stage_order"]
+     assert goal_state["status"] == "complete"
++    assert goal_state["terminal_reason"] == summary["terminal_reason"]
++    assert goal_state["current_attempt"] == summary["attempt_index"]
+     assert goal_state["completed_stages"] == goal_manifest["stage_order"]
+     assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
+     assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
+@@ -1776,6 +1793,13 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
+         / "generation_001.jsonl"
+     ).exists()
+     assert summary["recorder_id"] in notebook_text
++    assert (card / "attempts" / "attempt_001" / "summary.json").exists()
++    if summary["attempt_index"] > 1:
++        first_attempt = json.loads(
++            (card / "attempts" / "attempt_001" / "summary.json").read_text(encoding="utf-8")
++        )
++        assert first_attempt["status"] == "needs_iteration"
++        assert first_attempt["goal_manifest"]["next_action"]["action"] == "continue_codex_exec_factor_generation"
+     assert "build_cognitive_alpha_codex_exec_candidate_provider" in notebook_text
+     assert "codex_exec_candidate_provider" in notebook_text
+     assert "--output-schema" in notebook_text

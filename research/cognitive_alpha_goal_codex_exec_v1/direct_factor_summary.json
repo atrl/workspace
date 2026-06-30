@@ -7,49 +7,49 @@
   },
   "candidate_count": 2,
   "comparison": {
-    "beats_constrained_weight_reference": true,
+    "beats_constrained_weight_reference": false,
     "beats_previous_factor_enhanced": true,
     "beats_soxl_backtest": true,
-    "beats_soxl_buyhold": true,
-    "selected_max_drawdown_pct": -81.99489994023767,
-    "selected_return_pct": 849.9033768748054,
-    "selected_vs_constrained_weight_reference_return_gap_pct": 278.68331910515565,
-    "selected_vs_previous_factor_enhanced_return_gap_pct": 661.1812103432709,
-    "selected_vs_soxl_backtest_return_gap_pct": 711.9071389234505,
-    "selected_vs_soxl_buyhold_return_gap_pct": 460.0219378877125
+    "beats_soxl_buyhold": false,
+    "selected_max_drawdown_pct": -78.19414490160015,
+    "selected_return_pct": 259.6421452925183,
+    "selected_vs_constrained_weight_reference_return_gap_pct": -311.57791247713146,
+    "selected_vs_previous_factor_enhanced_return_gap_pct": 70.91997876098378,
+    "selected_vs_soxl_backtest_return_gap_pct": 121.64590734116337,
+    "selected_vs_soxl_buyhold_return_gap_pct": -130.2392936945746
   },
   "component_cols": [
-    "liquidity_tail_pressure_imbalance_20d",
-    "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+    "lagged_ma_stack_high_proximity_vix_damped",
+    "g001_000_mutation_lagged_ma_stack_hi_31cfa48c6e"
   ],
-  "promotion_decision": "diagnostic_direct_factor_candidate",
+  "promotion_decision": "not_promoted_under_constrained_weight_reference",
   "selected_candidate": {
-    "avg_abs_position": 0.4011866068485833,
-    "avg_holding_days": 1.9061224489795918,
-    "beats_constrained_weight_reference": true,
+    "avg_abs_position": 0.4270378359264815,
+    "avg_holding_days": 3.6284046692607004,
+    "beats_constrained_weight_reference": false,
     "benchmark_return_pct": null,
-    "candidate": "codex_exec_primary_factor_direct",
-    "component_cols": "[\"liquidity_tail_pressure_imbalance_20d\", \"g001_000_mutation_liquidity_tail_pre_31a9d24477\"]",
+    "candidate": "codex_exec_equal_weight_direct",
+    "component_cols": "[\"lagged_ma_stack_high_proximity_vix_damped\", \"g001_000_mutation_lagged_ma_stack_hi_31cfa48c6e\"]",
     "cost_per_turnover": 0.0003,
     "days_above_100": 0,
     "days_below_0": 0,
-    "effective_component_count": 1,
-    "max_drawdown_pct": -81.99489994023767,
+    "effective_component_count": 2,
+    "max_drawdown_pct": -78.19414490160015,
     "max_position": 1.0,
     "min_position": 0.0,
-    "next_day_reversal_count": 506,
-    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+    "next_day_reversal_count": 96,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
     "passes_drawdown_gate": false,
     "passes_effective_component_gate": true,
     "passes_position_bounds": true,
-    "raw_target_avg_abs": 0.9341749027701348,
-    "raw_target_max": 1.0,
-    "raw_target_min": -1.0,
-    "return_pct": 849.9033768748054,
+    "raw_target_avg_abs": 0.8031167814598663,
+    "raw_target_max": 1.9053343618557954,
+    "raw_target_min": -1.9468982140828959,
+    "return_pct": 259.6421452925183,
     "selection_eligible": false,
-    "total_turnover": 911.3918767791835,
-    "trade_count": 981,
-    "weights": "{\"liquidity_tail_pressure_imbalance_20d\": 1.0}"
+    "total_turnover": 237.82253668072238,
+    "trade_count": 515,
+    "weights": "{\"g001_000_mutation_lagged_ma_stack_hi_31cfa48c6e\": 0.5, \"lagged_ma_stack_high_proximity_vix_damped\": 0.5}"
   },
   "selection": "return_sorted_long_only_multifactor_gate",
   "spec": {
@@ -62,8 +62,8 @@
           "rebalance_threshold": 0.2
         },
         "weights": {
-          "g001_000_mutation_liquidity_tail_pre_31a9d24477": 0.5,
-          "liquidity_tail_pressure_imbalance_20d": 0.5
+          "g001_000_mutation_lagged_ma_stack_hi_31cfa48c6e": 0.5,
+          "lagged_ma_stack_high_proximity_vix_damped": 0.5
         }
       },
       {
@@ -74,13 +74,13 @@
           "rebalance_threshold": 0.3
         },
         "weights": {
-          "liquidity_tail_pressure_imbalance_20d": 1.0
+          "lagged_ma_stack_high_proximity_vix_damped": 1.0
         }
       }
     ],
     "component_cols": [
-      "liquidity_tail_pressure_imbalance_20d",
-      "g001_000_mutation_liquidity_tail_pre_31a9d24477"
+      "lagged_ma_stack_high_proximity_vix_damped",
+      "g001_000_mutation_lagged_ma_stack_hi_31cfa48c6e"
     ],
     "constrained_reference_name": "constrained_weight_reference",
     "cost_per_turnover": 0.0003,

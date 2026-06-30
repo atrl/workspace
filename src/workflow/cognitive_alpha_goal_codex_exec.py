@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
+import shutil
 import tempfile
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 
@@ -52,6 +53,9 @@ class CognitiveAlphaGoalCodexExecCardSpec:
     codex_timeout_seconds: float = 300.0
     codex_sandbox: str = "read-only"
     resume: bool = False
+    attempt_index: int = 1
+    max_attempts: int = 2
+    request_context: dict[str, Any] | None = None
     initial_pool_size: int = 4
     codex_candidate_count: int = 3
     generations: int = 2
@@ -76,17 +80,49 @@ def run_cognitive_alpha_goal_codex_exec_card(
     resume: bool = False,
     codex_model: str | None = None,
     codex_timeout_seconds: float = 300.0,
+    max_attempts: int = 2,
 ) -> dict[str, Any]:
     spec = CognitiveAlphaGoalCodexExecCardSpec(
         root=_resolve_root(root),
         resume=resume,
         codex_model=codex_model,
         codex_timeout_seconds=codex_timeout_seconds,
+        max_attempts=max_attempts,
     )
     return _run_card(spec)
 
 
 def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
+    card = spec.card_dir
+    card.mkdir(parents=True, exist_ok=True)
+    start_attempt = _resume_start_attempt(card) if spec.resume else 1
+    attempts: list[dict[str, Any]] = _load_attempt_history(card) if spec.resume else []
+    request_context = _feedback_context_from_card(card) if spec.resume and (card / "summary.json").exists() else None
+    final_summary: dict[str, Any] = {}
+    for attempt_index in range(start_attempt, max(int(spec.max_attempts), 1) + 1):
+        attempt_spec = replace(
+            spec,
+            attempt_index=attempt_index,
+            resume=False,
+            request_context=request_context,
+        )
+        summary = _run_card_attempt(attempt_spec, attempts=attempts)
+        attempt_entry = _attempt_entry(summary)
+        attempts = [entry for entry in attempts if int(entry.get("attempt_index", 0) or 0) != attempt_index]
+        attempts.append(attempt_entry)
+        attempts = sorted(attempts, key=lambda item: int(item.get("attempt_index", 0) or 0))
+        summary["attempts"] = attempts
+        summary["goal_loop"]["attempts"] = attempts
+        _write_summary_files(card, summary)
+        _snapshot_attempt_artifacts(card, attempt_index=attempt_index, summary=summary)
+        final_summary = summary
+        if summary["goal_manifest"]["status"] != "needs_iteration":
+            return final_summary
+        request_context = _feedback_context_from_card(card)
+    return final_summary
+
+
+def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: list[dict[str, Any]]) -> dict[str, Any]:
     card = spec.card_dir
     recorder_uri = card / "qlib_recorder"
     card.mkdir(parents=True, exist_ok=True)
@@ -175,6 +211,7 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
                 cwd=spec.root,
                 timeout_seconds=spec.codex_timeout_seconds,
                 sandbox=spec.codex_sandbox,
+                request_context=spec.request_context,
             )
             evolution_spec = CognitiveAlphaEvolutionSpec(
                 run_id="cognitive_alpha_evolution",
@@ -252,7 +289,9 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
                     state_path=card / sidecars["state"],
                     manifest_path=card / sidecars["goal_manifest"],
                     required_max_datetime=as_of,
-                    resume=spec.resume,
+                    resume=False,
+                    attempt_index=spec.attempt_index,
+                    max_attempts=spec.max_attempts,
                     gates=CognitiveAlphaGoalGateSpec(
                         min_initial_candidate_count=spec.initial_pool_size,
                         min_completed_generations=spec.generations,
@@ -325,8 +364,95 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
             recorder_uri=recorder_uri,
             recorder_artifacts=recorder_artifacts,
         )
+        summary["attempts"] = attempts
         _write_summary_files(card, summary)
         return summary
+
+
+def _resume_start_attempt(card: Path) -> int:
+    state_path = card / "state.json"
+    if not state_path.exists():
+        return 1
+    try:
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return 1
+    if state.get("status") == "needs_iteration":
+        return int(state.get("current_attempt", 0) or 0) + 1
+    return 1
+
+
+def _load_attempt_history(card: Path) -> list[dict[str, Any]]:
+    summary_path = card / "summary.json"
+    if not summary_path.exists():
+        return []
+    try:
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+    attempts = summary.get("attempts", [])
+    return list(attempts) if isinstance(attempts, list) else []
+
+
+def _attempt_entry(summary: dict[str, Any]) -> dict[str, Any]:
+    position = summary["position_model"]
+    direct = summary["direct_factor_backtest"]
+    return {
+        "attempt_index": int(summary["attempt_index"]),
+        "status": str(summary["status"]),
+        "terminal_reason": str(summary.get("terminal_reason", "")),
+        "promotion_decision": str(summary["promotion_decision"]),
+        "recorder_id": str(summary["recorder_id"]),
+        "selected_return_pct": position.get("comparison", {}).get("selected_return_pct"),
+        "beats_constrained_weight_reference": position.get("comparison", {}).get(
+            "beats_constrained_weight_reference"
+        ),
+        "walk_forward_all_gates_pass": position.get("walk_forward", {}).get("all_folds_pass_risk_gates"),
+        "direct_factor_promotion_decision": direct.get("promotion_decision"),
+    }
+
+
+def _snapshot_attempt_artifacts(card: Path, *, attempt_index: int, summary: dict[str, Any]) -> None:
+    attempt_dir = card / "attempts" / f"attempt_{attempt_index:03d}"
+    attempt_dir.mkdir(parents=True, exist_ok=True)
+    snapshot_files = [
+        "summary.json",
+        "workflow.yaml",
+        "conclusion.md",
+        "failure_modes.md",
+        *list(summary.get("sidecars", {}).values()),
+    ]
+    for rel_path in dict.fromkeys(snapshot_files):
+        source = card / str(rel_path)
+        if source.exists() and source.is_file():
+            shutil.copy2(source, attempt_dir / source.name)
+
+
+def _feedback_context_from_card(card: Path) -> dict[str, Any]:
+    summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
+    goal_manifest = json.loads((card / "goal_manifest.json").read_text(encoding="utf-8"))
+    failure_modes = (card / "failure_modes.md").read_text(encoding="utf-8")
+    position = summary.get("position_model", {})
+    direct = summary.get("direct_factor_backtest", {})
+    next_action = goal_manifest.get("next_action", {})
+    return {
+        "goal_status": summary.get("status"),
+        "terminal_reason": summary.get("terminal_reason"),
+        "previous_attempt": summary.get("attempt_index"),
+        "next_attempt": next_action.get("next_attempt"),
+        "max_attempts": summary.get("max_attempts"),
+        "previous_promotion_decision": summary.get("promotion_decision"),
+        "failure_modes": failure_modes.splitlines(),
+        "goal_next_action": next_action,
+        "position_comparison": position.get("comparison", {}),
+        "walk_forward": position.get("walk_forward", {}),
+        "direct_factor_promotion_decision": direct.get("promotion_decision"),
+        "direct_factor_role": summary.get("research_gate", {}).get("direct_factor_backtest_role"),
+        "forbidden_repetition": {
+            "recorder_id": summary.get("recorder_id"),
+            "selected_feature_names": summary.get("evolution", {}).get("selected_feature_names", []),
+        },
+    }
 
 
 def _factor_mining_spec(evolution_spec: CognitiveAlphaEvolutionSpec, alpha158_columns: list[str]):
@@ -557,12 +683,18 @@ def _summary_payload(
     )
     promotion_decision = str(position["promotion_decision"])
     production_status = "candidate_for_paper_sim" if promotion_decision == "candidate_for_validated_research" else "blocked_not_promoted"
+    goal_status = str(goal_manifest["status"])
+    terminal_reason = str(goal_manifest.get("terminal_reason", ""))
     return {
         "experiment": EXPERIMENT,
         "card_type": CARD_TYPE,
         "workflow_config": "workflow.yaml",
-        "status": "complete",
+        "status": goal_status,
+        "terminal_reason": terminal_reason,
         "promotion_decision": promotion_decision,
+        "attempt_index": int(spec.attempt_index),
+        "max_attempts": int(spec.max_attempts),
+        "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
         "paper_reference": {"arxiv_id": "2511.18850", "source": PAPER_REFERENCE},
         "provider_uri": provider_meta["provider_uri"],
         "recorder_uri": recorder_uri.as_posix(),
@@ -596,8 +728,23 @@ def _summary_payload(
         },
         "goal_manifest": {
             "path": sidecars["goal_manifest"],
-            "status": goal_manifest["status"],
+            "status": goal_status,
+            "terminal_reason": terminal_reason,
+            "attempt_index": int(goal_manifest.get("attempt_index", spec.attempt_index) or spec.attempt_index),
+            "max_attempts": int(goal_manifest.get("max_attempts", spec.max_attempts) or spec.max_attempts),
+            "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
+            "next_action": goal_manifest.get("next_action", {}),
             "stage_order": goal_manifest["stage_order"],
+        },
+        "goal_loop": {
+            "status": goal_status,
+            "terminal_reason": terminal_reason,
+            "attempt_index": int(spec.attempt_index),
+            "max_attempts": int(spec.max_attempts),
+            "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
+            "next_action": goal_manifest.get("next_action", {}),
+            "feedback_context_included": spec.request_context is not None,
+            "attempts": [],
         },
         "qlib_docs": QLIB_DOCS,
         "qlib_docs_reference": QLIB_DOCS,
@@ -678,13 +825,19 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
 def _failure_modes(summary: dict[str, Any]) -> str:
     position = summary["position_model"]
     direct = summary["direct_factor_backtest"]
+    goal_loop = summary.get("goal_loop", {})
     return (
         "# Failure Modes\n\n"
+        f"- goal_loop_status: {summary.get('status')}\n"
+        f"- terminal_reason: {summary.get('terminal_reason')}\n"
+        f"- attempts: {summary.get('attempt_index')}/{summary.get('max_attempts')}\n"
         f"- position_model_promotion: {position['promotion_decision']}\n"
         f"- direct_factor_role: {summary['research_gate']['direct_factor_backtest_role']}\n"
         f"- direct_factor_promotion: {direct['promotion_decision']}\n"
+        f"- next_action: {goal_loop.get('next_action', {}).get('action', '')}\n"
         "- direct_factor_backtest 不能作为最终晋升门，只能作为 prior/diagnostic。\n"
-        "- 若未跑赢 constrained_weight_reference 或 walk-forward/exposure/risk gates，保持 not_promoted。\n"
+        "- 若未跑赢 constrained_weight_reference 或 walk-forward/exposure/risk gates 且仍有 attempt 预算，保持 needs_iteration 并继续 Codex exec 因子生成。\n"
+        "- 若达到 max_attempts 仍未晋升，保持 not_promoted 并停止自动循环。\n"
     )
 
 
@@ -692,10 +845,14 @@ def _conclusion(summary: dict[str, Any]) -> str:
     position = summary["position_model"]
     direct = summary["direct_factor_backtest"]
     latest = summary["latest_signal"]
+    goal_loop = summary.get("goal_loop", {})
     return (
         "# 结论\n\n"
         f"- what_ran: 执行 {EXPERIMENT}，使用 Codex exec candidate provider 生成 CogAlpha 候选，"
         "再通过 qlib provider、Alpha158 DatasetH/DataHandlerLP、R.start recorder、position model 和 direct-factor prior 完成研究闭环。\n"
+        f"- goal_loop: status={summary.get('status')}，terminal_reason={summary.get('terminal_reason')}，"
+        f"attempt={summary.get('attempt_index')}/{summary.get('max_attempts')}，"
+        f"feedback_context_included={goal_loop.get('feedback_context_included')}。\n"
         f"- data: provider={summary['provider_uri']}，as_of={summary['as_of']}，"
         f"train={summary['segments']['train'][0]} 到 {summary['segments']['train'][1]}，"
         f"validation={summary['segments']['validation'][0]} 到 {summary['segments']['validation'][1]}，"
@@ -716,7 +873,8 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"- latest_signal: as_of={latest['as_of']}，action={latest['action']}，"
         f"target_position={latest['target_position']:.4f}。\n"
         f"- promotion_decision: {summary['promotion_decision']}；production_paper_sim={summary['production_paper_sim']['status']}。\n"
-        "- next_action: 若未通过 constrained_weight_reference 或 walk-forward/exposure/risk gates，继续扩展 Codex-exec 候选和稳定性筛选，不创建 production paper/sim。\n"
+        f"- next_action: {goal_loop.get('next_action', {}).get('action')}；"
+        "若未通过 constrained_weight_reference 或 walk-forward/exposure/risk gates 且仍有 attempt 预算，继续扩展 Codex-exec 候选和稳定性筛选；达到 max_attempts 后不创建 production paper/sim。\n"
         f"- recorder: {summary['recorder_id']}。\n"
         "- risk: 本研究仅用于 SOXL qlib 研究和 paper/sim 风控，不构成买卖建议。\n"
     )
