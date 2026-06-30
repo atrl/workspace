@@ -518,15 +518,21 @@ def _goal_terminal_decision(
         }
 
     if promotion_decision.startswith("not_promoted"):
+        next_action = _next_codex_iteration_action(
+            evolution_result=evolution_result,
+            position_result=position_result,
+            direct_factor_result=direct_factor_result,
+            research_card_result=research_card_result,
+            next_attempt=attempt_index + 1,
+            max_attempts=max_attempts,
+        )
+        next_action["requires_budget_refresh"] = True
+        next_action["required_max_attempts"] = attempt_index + 1
         return {
-            "status": "complete",
-            "terminal_reason": "max_attempts_exhausted",
+            "status": "needs_iteration",
+            "terminal_reason": "max_attempts_exhausted_needs_iteration",
             "remaining_attempts": 0,
-            "next_action": {
-                "action": "stop_max_attempts_exhausted",
-                "promotion_decision": promotion_decision,
-                "read_artifacts": ["failure_modes.md", "goal_manifest.json", "summary.json"],
-            },
+            "next_action": next_action,
         }
 
     return {

@@ -4,7 +4,7 @@
     "codex_direct_compatible": true,
     "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
     "external_llm_configured": true,
-    "feedback_context_hash": "bd89ce65d3f540a4564e5a72f9b50b7f00c018d8",
+    "feedback_context_hash": "3f06f0d22a24f567e26edcb561b5f2a845b002b5",
     "feedback_context_included": true,
     "generated_candidate_count": 4,
     "guidance_style_count": 5,
@@ -48,11 +48,11 @@
   "repair_attempt_count": 1,
   "resume_start_generation": 0,
   "resumed": false,
-  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_m9ep45fs/cognitive_alpha_evolution",
+  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_d4mpxqwt/cognitive_alpha_evolution",
   "run_id": "cognitive_alpha_evolution",
   "selected_count": 1,
   "selected_feature_names": [
-    "g001_000_mutation_lagged_ma_stack_hi_31cfa48c6e"
+    "g001_000_mutation_lagged_range_vix_d_d1a8e39e31"
   ],
   "spec": {
     "children_per_generation": 4,
@@ -69,7 +69,7 @@
     "qualified_percentile": 0.5,
     "resume": false,
     "run_id": "cognitive_alpha_evolution",
-    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_m9ep45fs"
+    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_d4mpxqwt"
   },
   "thresholds": {
     "elite_percentile": 0.75,

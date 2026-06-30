@@ -1670,11 +1670,18 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     assert summary["goal_loop"]["attempt_index"] == summary["attempt_index"]
     assert summary["goal_loop"]["max_attempts"] == summary["max_attempts"]
     assert summary["goal_loop"]["terminal_reason"] == summary["terminal_reason"]
+    assert summary["next_action"] == summary["goal_loop"]["next_action"]
     assert len(summary["attempts"]) == summary["attempt_index"]
     if summary["promotion_decision"].startswith("not_promoted"):
-        assert summary["terminal_reason"] == "max_attempts_exhausted"
+        assert summary["status"] == "needs_iteration"
+        assert summary["terminal_reason"] == "max_attempts_exhausted_needs_iteration"
         assert summary["attempt_index"] == summary["max_attempts"]
-        assert any(attempt["status"] == "needs_iteration" for attempt in summary["attempts"][:-1])
+        assert summary["remaining_attempts"] == 0
+        assert all(attempt["status"] == "needs_iteration" for attempt in summary["attempts"])
+        assert summary["next_action"]["action"] == "continue_codex_exec_factor_generation"
+        assert summary["next_action"]["next_attempt"] == summary["attempt_index"] + 1
+        assert summary["next_action"]["requires_budget_refresh"] is True
+        assert summary["next_action"]["required_max_attempts"] == summary["attempt_index"] + 1
         assert summary["evolution"]["candidate_provider"]["feedback_context_included"] is True
     assert summary["codex_provider_readiness"]["status"] in {"ok", "warning"}
     assert summary["codex_provider_readiness"]["auth_mode"] == "chatgpt"
@@ -1757,14 +1764,18 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
 
     goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
     goal_state = json.loads((card / summary["sidecars"]["state"]).read_text(encoding="utf-8"))
-    assert goal_manifest["status"] == "complete"
+    assert goal_manifest["status"] == summary["status"]
     assert goal_manifest["terminal_reason"] == summary["terminal_reason"]
     assert goal_manifest["attempt_index"] == summary["attempt_index"]
     assert goal_manifest["max_attempts"] == summary["max_attempts"]
+    assert goal_manifest["remaining_attempts"] == summary["remaining_attempts"]
+    assert goal_manifest["next_action"] == summary["next_action"]
     assert goal_manifest["completed_stages"] == goal_manifest["stage_order"]
-    assert goal_state["status"] == "complete"
+    assert goal_state["status"] == summary["status"]
     assert goal_state["terminal_reason"] == summary["terminal_reason"]
     assert goal_state["current_attempt"] == summary["attempt_index"]
+    assert goal_state["remaining_attempts"] == summary["remaining_attempts"]
+    assert goal_state["next_action"] == summary["next_action"]
     assert goal_state["completed_stages"] == goal_manifest["stage_order"]
     assert goal_manifest["candidate_generation"]["candidate_provider"]["provider_id"] == "codex_exec_candidate_provider"
     assert goal_manifest["validation_gates"]["require_candidate_provider_no_openai_api_key"] is True
@@ -1800,6 +1811,20 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
         )
         assert first_attempt["status"] == "needs_iteration"
         assert first_attempt["goal_manifest"]["next_action"]["action"] == "continue_codex_exec_factor_generation"
+    final_attempt_dir = card / "attempts" / f"attempt_{summary['attempt_index']:03d}"
+    final_attempt = json.loads((final_attempt_dir / "summary.json").read_text(encoding="utf-8"))
+    final_attempt_manifest = json.loads((final_attempt_dir / "goal_manifest.json").read_text(encoding="utf-8"))
+    final_attempt_state = json.loads((final_attempt_dir / "state.json").read_text(encoding="utf-8"))
+    final_attempt_conclusion = (final_attempt_dir / "conclusion.md").read_text(encoding="utf-8")
+    assert final_attempt["status"] == summary["status"]
+    assert final_attempt["terminal_reason"] == summary["terminal_reason"]
+    assert final_attempt["attempts"] == summary["attempts"]
+    assert final_attempt["next_action"] == summary["next_action"]
+    assert final_attempt_manifest["status"] == goal_manifest["status"]
+    assert final_attempt_manifest["next_action"] == goal_manifest["next_action"]
+    assert final_attempt_state["status"] == goal_state["status"]
+    assert final_attempt_state["next_action"] == goal_state["next_action"]
+    assert f"goal_loop: status={summary['status']}" in final_attempt_conclusion
     assert "build_cognitive_alpha_codex_exec_candidate_provider" in notebook_text
     assert "codex_exec_candidate_provider" in notebook_text
     assert "--output-schema" in notebook_text
@@ -1816,6 +1841,41 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     for text in (json.dumps(summary, ensure_ascii=False), conclusion, failure_modes, notebook_text):
         assert "fixture_external_command_provider" not in text
         assert "fixture provider" not in text
+
+
+def test_cognitive_alpha_goal_codex_exec_resume_refreshes_exhausted_iteration_budget(tmp_path):
+    from src.workflow.cognitive_alpha_goal_codex_exec import (
+        CognitiveAlphaGoalCodexExecCardSpec,
+        _effective_max_attempts,
+        _resume_start_attempt,
+    )
+
+    card = tmp_path / "research" / "cognitive_alpha_goal_codex_exec_v1"
+    card.mkdir(parents=True)
+    (card / "summary.json").write_text(
+        json.dumps(
+            {
+                "status": "needs_iteration",
+                "terminal_reason": "max_attempts_exhausted_needs_iteration",
+                "attempt_index": 2,
+                "max_attempts": 2,
+                "remaining_attempts": 0,
+                "next_action": {
+                    "action": "continue_codex_exec_factor_generation",
+                    "next_attempt": 3,
+                    "requires_budget_refresh": True,
+                    "required_max_attempts": 3,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    spec = CognitiveAlphaGoalCodexExecCardSpec(root=tmp_path, resume=True, max_attempts=2)
+    start_attempt = _resume_start_attempt(card)
+
+    assert start_attempt == 3
+    assert _effective_max_attempts(card, spec=spec, start_attempt=start_attempt) == 3
 
 
 def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():

@@ -7,16 +7,16 @@
     "feedback_context_included": false,
     "generated_candidate_count": 4,
     "guidance_style_count": 5,
-    "invalid_candidate_count": 0,
+    "invalid_candidate_count": 2,
     "llm_model": "codex-cli",
     "openai_api_key_required": false,
     "profile_agent_count": 21,
-    "prompt_count": 3,
+    "prompt_count": 5,
     "provider_failure_count": 0,
     "provider_id": "codex_exec_candidate_provider",
     "provider_kind": "codex_exec_code",
     "requested_initial_pool_size": 4,
-    "response_count": 3
+    "response_count": 5
   },
   "checkpoints": {
     "candidate_pool": "candidate_pool/generation_*.jsonl",
@@ -47,11 +47,13 @@
   "repair_attempt_count": 1,
   "resume_start_generation": 0,
   "resumed": false,
-  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk/cognitive_alpha_evolution",
+  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_ysdvrcl8/cognitive_alpha_evolution",
   "run_id": "cognitive_alpha_evolution",
-  "selected_count": 1,
+  "selected_count": 3,
   "selected_feature_names": [
-    "g001_000_mutation_lagged_ma_cycle_br_198806ad12"
+    "g001_001_crossover_liquidity_pressure_f0c78508d4__vix_scaled_uptrend_29958ef52a",
+    "g001_000_mutation_vix_scaled_uptrend_29958ef52a",
+    "g001_003_mutation_liquidity_pressure_f0c78508d4"
   ],
   "spec": {
     "children_per_generation": 4,
@@ -68,7 +70,7 @@
     "qualified_percentile": 0.5,
     "resume": false,
     "run_id": "cognitive_alpha_evolution",
-    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_axdeyqwk"
+    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_ysdvrcl8"
   },
   "thresholds": {
     "elite_percentile": 0.75,

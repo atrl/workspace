@@ -1,0 +1,4 @@
+{"candidate": "g001_000_mutation_vix_scaled_uptrend_29958ef52a", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_001_crossover_liquidity_pressure_f0c78508d4__vix_scaled_uptrend_29958ef52a", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_002_crossover_mutation_vix_scaled_uptrend_29958ef52a__liquidity_pressure_f0c78508d4", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_003_mutation_liquidity_pressure_f0c78508d4", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}

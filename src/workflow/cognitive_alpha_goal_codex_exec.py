@@ -96,13 +96,15 @@ def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
     card = spec.card_dir
     card.mkdir(parents=True, exist_ok=True)
     start_attempt = _resume_start_attempt(card) if spec.resume else 1
+    effective_max_attempts = _effective_max_attempts(card, spec=spec, start_attempt=start_attempt)
     attempts: list[dict[str, Any]] = _load_attempt_history(card) if spec.resume else []
     request_context = _feedback_context_from_card(card) if spec.resume and (card / "summary.json").exists() else None
     final_summary: dict[str, Any] = {}
-    for attempt_index in range(start_attempt, max(int(spec.max_attempts), 1) + 1):
+    for attempt_index in range(start_attempt, effective_max_attempts + 1):
         attempt_spec = replace(
             spec,
             attempt_index=attempt_index,
+            max_attempts=effective_max_attempts,
             resume=False,
             request_context=request_context,
         )
@@ -371,15 +373,33 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
 
 def _resume_start_attempt(card: Path) -> int:
     state_path = card / "state.json"
-    if not state_path.exists():
-        return 1
-    try:
-        state = json.loads(state_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return 1
+    state = _read_json_object(state_path)
     if state.get("status") == "needs_iteration":
-        return int(state.get("current_attempt", 0) or 0) + 1
+        return int(state.get("current_attempt", state.get("attempt_index", 0)) or 0) + 1
+    summary = _read_json_object(card / "summary.json")
+    if summary.get("status") == "needs_iteration":
+        return int(summary.get("attempt_index", 0) or 0) + 1
     return 1
+
+
+def _effective_max_attempts(card: Path, *, spec: CognitiveAlphaGoalCodexExecCardSpec, start_attempt: int) -> int:
+    configured_max_attempts = max(int(spec.max_attempts), 1)
+    if not spec.resume or start_attempt <= configured_max_attempts:
+        return configured_max_attempts
+    summary = _read_json_object(card / "summary.json")
+    if summary.get("status") == "needs_iteration":
+        return start_attempt
+    return configured_max_attempts
+
+
+def _read_json_object(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    return payload if isinstance(payload, dict) else {}
 
 
 def _load_attempt_history(card: Path) -> list[dict[str, Any]]:
@@ -695,6 +715,7 @@ def _summary_payload(
         "attempt_index": int(spec.attempt_index),
         "max_attempts": int(spec.max_attempts),
         "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
+        "next_action": goal_manifest.get("next_action", {}),
         "paper_reference": {"arxiv_id": "2511.18850", "source": PAPER_REFERENCE},
         "provider_uri": provider_meta["provider_uri"],
         "recorder_uri": recorder_uri.as_posix(),
@@ -837,7 +858,7 @@ def _failure_modes(summary: dict[str, Any]) -> str:
         f"- next_action: {goal_loop.get('next_action', {}).get('action', '')}\n"
         "- direct_factor_backtest 不能作为最终晋升门，只能作为 prior/diagnostic。\n"
         "- 若未跑赢 constrained_weight_reference 或 walk-forward/exposure/risk gates 且仍有 attempt 预算，保持 needs_iteration 并继续 Codex exec 因子生成。\n"
-        "- 若达到 max_attempts 仍未晋升，保持 not_promoted 并停止自动循环。\n"
+        "- 若达到当前 max_attempts 仍未晋升，保持 needs_iteration，并由外层 Goal refresh attempt budget 后继续。\n"
     )
 
 
@@ -874,7 +895,8 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"target_position={latest['target_position']:.4f}。\n"
         f"- promotion_decision: {summary['promotion_decision']}；production_paper_sim={summary['production_paper_sim']['status']}。\n"
         f"- next_action: {goal_loop.get('next_action', {}).get('action')}；"
-        "若未通过 constrained_weight_reference 或 walk-forward/exposure/risk gates 且仍有 attempt 预算，继续扩展 Codex-exec 候选和稳定性筛选；达到 max_attempts 后不创建 production paper/sim。\n"
+        "若未通过 constrained_weight_reference 或 walk-forward/exposure/risk gates，继续扩展 Codex-exec 候选和稳定性筛选；"
+        "当前 max_attempts 只是本次命令预算，不作为 Goal 完成条件。\n"
         f"- recorder: {summary['recorder_id']}。\n"
         "- risk: 本研究仅用于 SOXL qlib 研究和 paper/sim 风控，不构成买卖建议。\n"
     )

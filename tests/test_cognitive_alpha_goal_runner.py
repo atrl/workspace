@@ -146,7 +146,10 @@ def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_pa
     manifest = runner.run()
 
     assert calls == ["data_gate", "evolution", "position", "research_card", "signal_push"]
-    assert manifest["status"] == "complete"
+    assert manifest["status"] == "needs_iteration"
+    assert manifest["terminal_reason"] == "max_attempts_exhausted_needs_iteration"
+    assert manifest["next_action"]["action"] == "continue_codex_exec_factor_generation"
+    assert manifest["next_action"]["requires_budget_refresh"] is True
     assert manifest["stage_order"] == [
         "data_gate",
         "candidate_generation",
@@ -167,7 +170,9 @@ def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_pa
     written = json.loads((tmp_path / "goal_manifest.json").read_text(encoding="utf-8"))
     state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
     assert written == manifest
-    assert state["status"] == "complete"
+    assert state["status"] == "needs_iteration"
+    assert state["terminal_reason"] == "max_attempts_exhausted_needs_iteration"
+    assert state["next_action"] == manifest["next_action"]
     assert state["completed_stages"] == manifest["stage_order"]
 
 
@@ -547,13 +552,13 @@ def test_cognitive_alpha_goal_runner_keeps_not_promoted_attempt_active_until_max
     assert state["next_action"] == manifest["next_action"]
 
 
-def test_cognitive_alpha_goal_runner_stops_not_promoted_when_max_attempts_exhausted(tmp_path):
+def test_cognitive_alpha_goal_runner_keeps_not_promoted_active_when_attempt_budget_exhausted(tmp_path):
     from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
 
     runner = CognitiveAlphaGoalRunner(
         CognitiveAlphaGoalRunnerSpec(
             run_id="goal-iterative-exhausted",
-            objective="stop CogAlpha loop at attempt budget",
+            objective="keep CogAlpha goal active after local attempt budget",
             state_path=tmp_path / "state.json",
             manifest_path=tmp_path / "goal_manifest.json",
             required_max_datetime="2026-06-24",
@@ -583,13 +588,19 @@ def test_cognitive_alpha_goal_runner_stops_not_promoted_when_max_attempts_exhaus
     manifest = runner.run()
     state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
 
-    assert manifest["status"] == "complete"
-    assert manifest["terminal_reason"] == "max_attempts_exhausted"
+    assert manifest["status"] == "needs_iteration"
+    assert manifest["terminal_reason"] == "max_attempts_exhausted_needs_iteration"
     assert manifest["attempt_index"] == 3
     assert manifest["remaining_attempts"] == 0
-    assert manifest["next_action"]["action"] == "stop_max_attempts_exhausted"
-    assert state["status"] == "complete"
-    assert state["terminal_reason"] == "max_attempts_exhausted"
+    assert manifest["next_action"]["action"] == "continue_codex_exec_factor_generation"
+    assert manifest["next_action"]["next_attempt"] == 4
+    assert manifest["next_action"]["max_attempts"] == 3
+    assert manifest["next_action"]["requires_budget_refresh"] is True
+    assert manifest["next_action"]["required_max_attempts"] == 4
+    assert "walk_forward_risk_gates" in manifest["next_action"]["feedback_focus"]
+    assert state["status"] == "needs_iteration"
+    assert state["terminal_reason"] == "max_attempts_exhausted_needs_iteration"
+    assert state["next_action"] == manifest["next_action"]
 
 
 def test_cognitive_alpha_goal_runner_rejects_direct_factor_promotion(tmp_path):

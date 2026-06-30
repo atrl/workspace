@@ -1,0 +1,96 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "positions"
+    ]
+  },
+  "candidate_count": 2,
+  "comparison": {
+    "beats_constrained_weight_reference": false,
+    "beats_previous_factor_enhanced": true,
+    "beats_soxl_backtest": true,
+    "beats_soxl_buyhold": false,
+    "selected_max_drawdown_pct": -44.93110236995974,
+    "selected_return_pct": 211.76091802548643,
+    "selected_vs_constrained_weight_reference_return_gap_pct": -359.45913974416334,
+    "selected_vs_previous_factor_enhanced_return_gap_pct": 23.038751493951906,
+    "selected_vs_soxl_backtest_return_gap_pct": 73.76468007413149,
+    "selected_vs_soxl_buyhold_return_gap_pct": -178.12052096160647
+  },
+  "component_cols": [
+    "vix_scaled_uptrend_dip_reversion_20_60",
+    "liquidity_pressure_vix_peak_fragility"
+  ],
+  "promotion_decision": "not_promoted_under_constrained_weight_reference",
+  "selected_candidate": {
+    "avg_abs_position": 0.16853999355089597,
+    "avg_holding_days": 3.289803220035778,
+    "beats_constrained_weight_reference": false,
+    "benchmark_return_pct": null,
+    "candidate": "codex_exec_equal_weight_direct",
+    "component_cols": "[\"vix_scaled_uptrend_dip_reversion_20_60\", \"liquidity_pressure_vix_peak_fragility\"]",
+    "cost_per_turnover": 0.0003,
+    "days_above_100": 0,
+    "days_below_0": 0,
+    "effective_component_count": 2,
+    "max_drawdown_pct": -44.93110236995974,
+    "max_position": 1.0,
+    "min_position": 0.0,
+    "next_day_reversal_count": 260,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+    "passes_drawdown_gate": false,
+    "passes_effective_component_gate": true,
+    "passes_position_bounds": true,
+    "raw_target_avg_abs": 0.4192710965987641,
+    "raw_target_max": 2.366431136400416,
+    "raw_target_min": -2.513235362616521,
+    "return_pct": 211.76091802548643,
+    "selection_eligible": false,
+    "total_turnover": 275.3155761491862,
+    "trade_count": 560,
+    "weights": "{\"liquidity_pressure_vix_peak_fragility\": 0.5, \"vix_scaled_uptrend_dip_reversion_20_60\": 0.5}"
+  },
+  "selection": "return_sorted_long_only_multifactor_gate",
+  "spec": {
+    "candidates": [
+      {
+        "candidate": "codex_exec_equal_weight_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.2
+        },
+        "weights": {
+          "liquidity_pressure_vix_peak_fragility": 0.5,
+          "vix_scaled_uptrend_dip_reversion_20_60": 0.5
+        }
+      },
+      {
+        "candidate": "codex_exec_primary_factor_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.3
+        },
+        "weights": {
+          "vix_scaled_uptrend_dip_reversion_20_60": 1.0
+        }
+      }
+    ],
+    "component_cols": [
+      "vix_scaled_uptrend_dip_reversion_20_60",
+      "liquidity_pressure_vix_peak_fragility"
+    ],
+    "constrained_reference_name": "constrained_weight_reference",
+    "cost_per_turnover": 0.0003,
+    "datetime_col": "datetime",
+    "max_drawdown_floor": -25.0,
+    "max_position": 1.0,
+    "min_effective_component_count": 1,
+    "min_effective_weight": 0.05,
+    "min_position": 0.0,
+    "return_col": "forward_return"
+  },
+  "workflow": "cognitive_alpha_weighted_factor_search"
+}

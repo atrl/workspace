@@ -1,0 +1,301 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "positions"
+    ]
+  },
+  "comparison": {
+    "beats_constrained_weight_reference": false,
+    "beats_previous_factor_enhanced": false,
+    "beats_soxl_backtest": false,
+    "beats_soxl_buyhold": false,
+    "selected_max_drawdown_pct": -0.00012508604746441776,
+    "selected_return_pct": 0.07457965604904526,
+    "selected_vs_constrained_weight_reference_return_gap_pct": -571.1454781136007,
+    "selected_vs_previous_factor_enhanced_return_gap_pct": -188.64758687548547,
+    "selected_vs_soxl_backtest_return_gap_pct": -137.9216582953059,
+    "selected_vs_soxl_buyhold_return_gap_pct": -389.8068593310439
+  },
+  "feature_cols": [
+    "lagged_range_vix_drawdown_fragility_2f7c91b4",
+    "g001_000_mutation_lagged_range_vix_d_d1a8e39e31",
+    "alpha158_MA5",
+    "alpha158_MA10",
+    "alpha158_MA20",
+    "alpha158_MA30",
+    "alpha158_MA60",
+    "alpha158_MAX20",
+    "vix",
+    "realized_vol_20"
+  ],
+  "feature_count": 10,
+  "latest_signal": {
+    "action": "HOLD",
+    "as_of": "2026-06-24",
+    "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+    "last_change_date": "2026-03-31",
+    "last_change_target_position": 0.0,
+    "previous_target_position": 0.0,
+    "probability": 0.2887100023521137,
+    "target_delta": 0.0,
+    "target_delta_percent": 0.0,
+    "target_percent": 0.0,
+    "target_position": 0.0
+  },
+  "model_families": [
+    "logistic_regression",
+    "ridge"
+  ],
+  "promotion_decision": "not_promoted_failed_position_risk_gates",
+  "risk_gates": {
+    "extreme_loss_threshold": -0.05,
+    "max_test_extreme_loss_day_count": 5,
+    "max_test_total_turnover": 20.0,
+    "max_test_zero_position_day_ratio": 0.98,
+    "max_validation_extreme_loss_day_count": 5,
+    "max_validation_total_turnover": 20.0,
+    "max_validation_zero_position_day_ratio": 0.98,
+    "min_test_avg_abs_position": 0.01,
+    "min_validation_avg_abs_position": 0.01,
+    "selected_passes_all": false,
+    "selected_test_passes": false,
+    "selected_validation_passes": false,
+    "test_max_daily_loss_floor": -8.0,
+    "test_max_drawdown_floor": -25.0,
+    "validation_max_daily_loss_floor": -8.0,
+    "validation_max_drawdown_floor": -25.0
+  },
+  "segments": {
+    "test": [
+      "2026-01-02",
+      "2026-06-24"
+    ],
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ]
+  },
+  "selected_candidate": {
+    "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+    "model": "logistic_regression",
+    "selected_by": "validation_selection_objective_score",
+    "test": {
+      "avg_abs_position": 3.503810853244069e-05,
+      "avg_holding_days": 1.0,
+      "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+      "cost_per_turnover": 0.0003,
+      "days_above_100": 0,
+      "days_below_0": 0,
+      "extreme_loss_day_count": 0,
+      "extreme_loss_threshold": -0.05,
+      "max_daily_loss_pct": -0.00012508604746081325,
+      "max_drawdown_pct": -0.00012508604746441776,
+      "max_position": 0.004169534915360442,
+      "min_position": 0.0,
+      "model": "logistic_regression",
+      "model_target_col": "label_return_5d",
+      "model_task": "classification",
+      "month_count": 6,
+      "next_day_reversal_count": 1,
+      "next_day_reversal_ratio": 0.5,
+      "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+      "position_mode": "probability",
+      "positive_month_count": 1,
+      "positive_month_ratio": 0.16666666666666666,
+      "report_segment": "test",
+      "return_col": "forward_return",
+      "return_pct": 0.07457965604904526,
+      "return_to_drawdown": 0.07457965604904526,
+      "scale": 1.0,
+      "segment": "test",
+      "selected": true,
+      "selection_eligible": false,
+      "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+      "selection_objective_score": -1.4652204511346478,
+      "selection_segment": "validation",
+      "test_end": "2026-06-24",
+      "test_start": "2026-01-02",
+      "threshold": 0.55,
+      "total_turnover": 0.008339069830720884,
+      "trade_count": 2,
+      "train_end": "2024-12-31",
+      "train_start": "2019-01-02",
+      "validation_end": "2025-12-31",
+      "validation_start": "2025-01-02",
+      "worst_strategy_return_pct": -0.00012508604746081325,
+      "zero_position_day_count": 118,
+      "zero_position_day_ratio": 0.9915966386554622
+    },
+    "validation": {
+      "avg_abs_position": 0.006385934259841225,
+      "avg_holding_days": 2.608695652173913,
+      "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
+      "cost_per_turnover": 0.0003,
+      "days_above_100": 0,
+      "days_below_0": 0,
+      "extreme_loss_day_count": 1,
+      "extreme_loss_threshold": -0.05,
+      "max_daily_loss_pct": -5.086258331844157,
+      "max_drawdown_pct": -6.187248224194408,
+      "max_position": 0.31008877104014704,
+      "min_position": 0.0,
+      "model": "logistic_regression",
+      "model_target_col": "label_return_5d",
+      "model_task": "classification",
+      "month_count": 12,
+      "next_day_reversal_count": 12,
+      "next_day_reversal_ratio": 0.5,
+      "params": "{\"hold_days\": 3, \"max_position\": 1.0, \"scale\": 1.0, \"threshold\": 0.55}",
+      "position_mode": "probability",
+      "positive_month_count": 3,
+      "positive_month_ratio": 0.25,
+      "report_segment": "test",
+      "return_col": "forward_return",
+      "return_pct": 5.212504331181833,
+      "return_to_drawdown": 0.842459222954565,
+      "scale": 1.0,
+      "segment": "validation",
+      "selected": true,
+      "selection_eligible": false,
+      "selection_gate": "{\"fallback_to_all_candidates\": true, \"max_validation_reversal_ratio\": 0.5, \"max_validation_total_turnover\": 20.0, \"min_validation_avg_abs_position\": 0.01, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -8.0, \"validation_max_drawdown_floor\": -25.0}",
+      "selection_objective_score": -20.088656336563865,
+      "selection_segment": "validation",
+      "test_end": "2026-06-24",
+      "test_start": "2026-01-02",
+      "threshold": 0.55,
+      "total_turnover": 1.478332435155436,
+      "trade_count": 24,
+      "train_end": "2024-12-31",
+      "train_start": "2019-01-02",
+      "validation_end": "2025-12-31",
+      "validation_start": "2025-01-02",
+      "worst_strategy_return_pct": -5.086258331844157,
+      "zero_position_day_count": 232,
+      "zero_position_day_ratio": 0.928
+    }
+  },
+  "spec": {
+    "constrained_reference_name": "constrained_weight_reference",
+    "cost_per_turnover": 0.0003,
+    "datetime_col": "datetime",
+    "extreme_loss_threshold": -0.05,
+    "feature_cols": [
+      "lagged_range_vix_drawdown_fragility_2f7c91b4",
+      "g001_000_mutation_lagged_range_vix_d_d1a8e39e31",
+      "alpha158_MA5",
+      "alpha158_MA10",
+      "alpha158_MA20",
+      "alpha158_MA30",
+      "alpha158_MA60",
+      "alpha158_MAX20",
+      "vix",
+      "realized_vol_20"
+    ],
+    "label_col": "label_return_5d",
+    "max_test_extreme_loss_day_count": 5,
+    "max_test_total_turnover": 20.0,
+    "max_test_zero_position_day_ratio": 0.98,
+    "max_validation_extreme_loss_day_count": 5,
+    "max_validation_reversal_ratio": 0.5,
+    "max_validation_total_turnover": 20.0,
+    "max_validation_zero_position_day_ratio": 0.98,
+    "min_test_avg_abs_position": 0.01,
+    "min_validation_avg_abs_position": 0.01,
+    "min_validation_trade_count": 1,
+    "model_specs": [
+      {
+        "model": "ridge",
+        "task": "regression"
+      },
+      {
+        "model": "logistic_regression"
+      }
+    ],
+    "position_specs": [
+      {
+        "hold_days": 3,
+        "max_position": 1.0,
+        "scale": 1.0,
+        "threshold": 0.45
+      },
+      {
+        "hold_days": 3,
+        "max_position": 1.0,
+        "scale": 1.0,
+        "threshold": 0.55
+      }
+    ],
+    "return_col": "forward_return",
+    "test": [
+      "2026-01-02",
+      "2026-06-24"
+    ],
+    "test_max_daily_loss_floor": -8.0,
+    "test_max_drawdown_floor": -25.0,
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ],
+    "validation_max_daily_loss_floor": -8.0,
+    "validation_max_drawdown_floor": -25.0,
+    "walk_forward_folds": [
+      {
+        "fold": "wf_2025_h2",
+        "test": [
+          "2025-07-01",
+          "2025-12-31"
+        ],
+        "train": [
+          "2019-01-02",
+          "2024-06-28"
+        ],
+        "validation": [
+          "2024-07-01",
+          "2025-06-30"
+        ]
+      },
+      {
+        "fold": "wf_2026_ytd",
+        "test": [
+          "2026-01-02",
+          "2026-06-24"
+        ],
+        "train": [
+          "2019-01-02",
+          "2024-12-31"
+        ],
+        "validation": [
+          "2025-01-02",
+          "2025-12-31"
+        ]
+      }
+    ]
+  },
+  "walk_forward": {
+    "all_folds_pass_risk_gates": false,
+    "extreme_loss_threshold": -0.05,
+    "fold_count": 2,
+    "max_test_extreme_loss_day_count": 0,
+    "max_test_total_turnover": 0.04829730671976674,
+    "mean_test_avg_abs_position": 0.00011184973145326476,
+    "mean_test_positive_month_ratio": 0.08333333333333333,
+    "mean_test_return_pct": 0.021222929952863234,
+    "mean_test_zero_position_day_ratio": 0.9918920693277311,
+    "median_test_return_pct": 0.021222929952863234,
+    "positive_test_fold_count": 1,
+    "positive_test_fold_ratio": 0.5,
+    "total_test_trade_count": 4,
+    "worst_test_max_daily_loss_pct": -0.03140956409212252,
+    "worst_test_max_drawdown_pct": -0.032133796143318794
+  },
+  "workflow": "cognitive_alpha_position_model"
+}
