@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import argparse
 import json
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-from src.api import PaperBroker, TargetPosition
+from src.api import PaperBroker, PaperLedger, TargetPosition
 from src.data import QlibProviderConfig, load_qlib_feature_frame
 from src.schedule import BarkNotifier, TradeNotification, trade_notification_from_order_intents
 
@@ -275,6 +276,8 @@ class CognitiveAlphaSignalRefreshSpec:
     provider_uri: Path
     output_dir: Path
     paper_cash: float
+    ledger_path: Path | None = None
+    paper_account_id: str = "cognitive_alpha_goal"
     symbol: str = "SOXL"
     market: str = "all"
     region: str = "us"
@@ -301,13 +304,14 @@ class CognitiveAlphaSignalRefreshJob:
             required_max_datetime=self.spec.required_max_datetime,
         )
         price = _latest_qlib_close(self.spec, as_of=str(signal["as_of"]))
-        notification = _notification_from_signal(summary, signal, spec=self.spec, price=price)
+        notification, paper_simulation = _notification_from_signal(summary, signal, spec=self.spec, price=price)
         payload = _notification_payload(
             notification,
             summary=summary,
             signal=signal,
             data_gate=data_gate,
             model_results=model_results or [],
+            paper_simulation=paper_simulation,
         )
         if self.notifier is not None:
             payload["push_result"] = self.notifier.send_trade_notification(notification)
@@ -391,7 +395,34 @@ def _notification_from_signal(
     *,
     spec: CognitiveAlphaSignalRefreshSpec,
     price: float,
-) -> TradeNotification:
+) -> tuple[TradeNotification, dict[str, Any] | None]:
+    if spec.ledger_path is not None:
+        update = PaperLedger(path=spec.ledger_path, initial_cash=spec.paper_cash).apply_target(
+            TargetPosition(
+                symbol=spec.symbol,
+                target_percent=float(signal["target_position"]),
+                price=price,
+                as_of=str(signal["as_of"]),
+                recorder_id=str(summary["recorder_id"]),
+            ),
+            account_id=spec.paper_account_id,
+        )
+        notification = trade_notification_from_order_intents(
+            current=update["current_intent"],
+            previous=update["previous_intent"],
+        )
+        paper_simulation = {
+            "execution_mode": "project_owned_paper_sim",
+            "real_broker_orders": False,
+            "ledger_path": spec.ledger_path.as_posix(),
+            "account_id": spec.paper_account_id,
+            "previous_intent": update["previous_intent"],
+            "current_intent": update["current_intent"],
+            "fill": update["fill"],
+            "account": update["account"],
+        }
+        return _notification_with_signal_action(signal, notification), paper_simulation
+
     broker = PaperBroker(cash=spec.paper_cash)
     current = broker.create_order_intent(
         TargetPosition(
@@ -411,6 +442,10 @@ def _notification_from_signal(
     )
     previous = PaperBroker(cash=spec.paper_cash).create_order_intent(previous_target)
     notification = trade_notification_from_order_intents(current=current, previous=previous)
+    return _notification_with_signal_action(signal, notification), None
+
+
+def _notification_with_signal_action(signal: dict[str, Any], notification: TradeNotification) -> TradeNotification:
     if signal.get("action") in {"BUY", "SELL", "HOLD"} and notification.action != signal["action"]:
         return TradeNotification(
             action=str(signal["action"]),
@@ -437,8 +472,9 @@ def _notification_payload(
     signal: dict[str, Any],
     data_gate: dict[str, Any],
     model_results: list[dict[str, Any]],
+    paper_simulation: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return {
+    payload = {
         "source": "qlib_recorder.latest_signal",
         "experiment": str(summary.get("experiment", "")),
         "card_type": str(summary.get("card_type", "")),
@@ -461,6 +497,9 @@ def _notification_payload(
         "notification": asdict(notification),
         "disclaimer": "research risk-control paper/sim notification; not investment advice",
     }
+    if paper_simulation is not None:
+        payload["paper_simulation"] = paper_simulation
+    return payload
 
 
 def _append_stages(existing: list[str], new_stages: list[str]) -> list[str]:
@@ -799,3 +838,63 @@ def _jsonable(value: Any) -> Any:
     if isinstance(value, Path):
         return value.as_posix()
     return value
+
+
+def _provider_manifest_max_datetime(provider_uri: Path) -> str:
+    manifest_path = provider_uri / "qlib_store_manifest.json"
+    if not manifest_path.exists():
+        raise ValueError(
+            f"missing qlib_store_manifest.json under {provider_uri}; pass --required-max-datetime explicitly"
+        )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    max_datetime = str(manifest.get("calendar_end", "")).strip()
+    if not max_datetime:
+        raise ValueError(f"qlib store manifest missing calendar_end: {manifest_path}")
+    return max_datetime
+
+
+def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Refresh a CogAlpha latest signal into the project-owned paper/sim ledger."
+    )
+    parser.add_argument("--card-dir", type=Path, default=Path("research/cognitive_alpha_goal_codex_exec_v1"))
+    parser.add_argument("--provider-uri", type=Path, default=Path("data/qlib/soxl"))
+    parser.add_argument("--output-dir", type=Path, default=Path("runtime/cognitive_alpha_signal_refresh"))
+    parser.add_argument("--paper-cash", type=float, default=10_000.0)
+    parser.add_argument("--ledger-path", type=Path)
+    parser.add_argument("--paper-account-id", default="cognitive_alpha_goal")
+    parser.add_argument("--required-max-datetime")
+    parser.add_argument("--symbol", default="SOXL")
+    parser.add_argument("--market", default="all")
+    parser.add_argument("--region", default="us")
+    parser.add_argument("--freq", default="day")
+    return parser.parse_args(argv)
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = _parse_args(argv)
+    provider_uri = Path(args.provider_uri)
+    required_max_datetime = args.required_max_datetime or _provider_manifest_max_datetime(provider_uri)
+    ledger_path = Path(args.ledger_path) if args.ledger_path is not None else Path(args.output_dir) / "paper_ledger.json"
+    job = CognitiveAlphaSignalRefreshJob(
+        CognitiveAlphaSignalRefreshSpec(
+            card_dir=Path(args.card_dir),
+            provider_uri=provider_uri,
+            output_dir=Path(args.output_dir),
+            paper_cash=float(args.paper_cash),
+            ledger_path=ledger_path,
+            paper_account_id=str(args.paper_account_id),
+            symbol=str(args.symbol),
+            market=str(args.market),
+            region=str(args.region),
+            freq=str(args.freq),
+            required_max_datetime=required_max_datetime,
+        )
+    )
+    notifications = job.run([{"source": "qlib.data.D.features", "max_datetime": required_max_datetime}], [])
+    print(json.dumps({"notifications": _jsonable(notifications)}, indent=2, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

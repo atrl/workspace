@@ -209,3 +209,65 @@ def test_schedule_and_api_are_qlib_manifest_driven(tmp_path):
 
     with pytest.raises(RuntimeError, match="disabled in v1"):
         RealBrokerAdapter().submit_order(intent)
+
+
+def test_project_owned_paper_ledger_separates_virtual_accounts_for_same_symbol(tmp_path):
+    from src.api import PaperLedger, TargetPosition
+
+    ledger_path = tmp_path / "paper_ledger.json"
+    ledger = PaperLedger(path=ledger_path, initial_cash=10_000.0)
+
+    first = ledger.apply_target(
+        TargetPosition(
+            symbol="SOXL",
+            target_percent=0.50,
+            price=100.0,
+            as_of="2026-01-15",
+            recorder_id="recorder-a",
+        ),
+        account_id="cogalpha",
+    )
+    second = ledger.apply_target(
+        TargetPosition(
+            symbol="SOXL",
+            target_percent=0.25,
+            price=100.0,
+            as_of="2026-01-15",
+            recorder_id="recorder-b",
+        ),
+        account_id="baseline",
+    )
+
+    assert first["current_intent"]["quantity"] == 50
+    assert second["current_intent"]["quantity"] == 25
+    assert first["fill"]["quantity_delta"] == 50
+    assert second["fill"]["quantity_delta"] == 25
+
+    state = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert state["execution_mode"] == "project_owned_paper_sim"
+    assert state["real_broker_orders"] is False
+    assert state["accounts"]["cogalpha"]["positions"]["SOXL"]["quantity"] == 50
+    assert state["accounts"]["baseline"]["positions"]["SOXL"]["quantity"] == 25
+    assert state["accounts"]["cogalpha"]["cash"] == pytest.approx(5_000.0)
+    assert state["accounts"]["baseline"]["cash"] == pytest.approx(7_500.0)
+    assert len(state["fills"]) == 2
+
+    reloaded = PaperLedger(path=ledger_path, initial_cash=10_000.0)
+    update = reloaded.apply_target(
+        TargetPosition(
+            symbol="SOXL",
+            target_percent=0.20,
+            price=100.0,
+            as_of="2026-01-16",
+            recorder_id="recorder-c",
+        ),
+        account_id="cogalpha",
+    )
+
+    assert update["previous_intent"]["quantity"] == 50
+    assert update["current_intent"]["quantity"] == 20
+    assert update["fill"]["quantity_delta"] == -30
+    state = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert state["accounts"]["cogalpha"]["cash"] == pytest.approx(8_000.0)
+    assert state["accounts"]["baseline"]["positions"]["SOXL"]["quantity"] == 25
+    assert len(state["fills"]) == 3

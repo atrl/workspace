@@ -86,6 +86,109 @@ def test_cognitive_alpha_signal_refresh_builds_paper_bark_notification_from_late
     assert written["data_gate"]["max_datetime"] == manifest["calendar_end"]
 
 
+def test_cognitive_alpha_signal_refresh_updates_project_owned_paper_ledger(tmp_path):
+    from src.workflow import CognitiveAlphaSignalRefreshJob, CognitiveAlphaSignalRefreshSpec
+
+    card = tmp_path / "card"
+    card.mkdir()
+    (card / "summary.json").write_text(
+        json.dumps(
+            {
+                "experiment": "cogalpha-paper-ledger",
+                "card_type": "research",
+                "instrument": "SOXL",
+                "recorder_id": "recorder-ledger",
+                "provider_uri": PROVIDER_URI.as_posix(),
+                "latest_signal": {
+                    "action": "BUY",
+                    "as_of": "2026-06-24",
+                    "target_position": 0.25,
+                    "previous_target_position": 0.0,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    ledger_path = tmp_path / "paper_ledger.json"
+    job = CognitiveAlphaSignalRefreshJob(
+        CognitiveAlphaSignalRefreshSpec(
+            card_dir=card,
+            provider_uri=PROVIDER_URI,
+            output_dir=tmp_path / "signals",
+            paper_cash=10_000.0,
+            ledger_path=ledger_path,
+            paper_account_id="cogalpha-goal",
+        )
+    )
+
+    notifications = job.run([{"source": "qlib.data.D.features", "max_datetime": "2026-06-24"}], [])
+
+    notification = notifications[0]
+    written = json.loads((tmp_path / "signals" / "latest_signal_push.json").read_text(encoding="utf-8"))
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert notification["paper_simulation"]["execution_mode"] == "project_owned_paper_sim"
+    assert notification["paper_simulation"]["account_id"] == "cogalpha-goal"
+    assert notification["paper_simulation"]["ledger_path"] == ledger_path.as_posix()
+    assert notification["real_broker_order"] is False
+    assert notification["quantity"] == ledger["accounts"]["cogalpha-goal"]["positions"]["SOXL"]["quantity"]
+    assert ledger["accounts"]["cogalpha-goal"]["positions"]["SOXL"]["target_percent"] == pytest.approx(0.25)
+    assert ledger["fills"][0]["real_broker_order"] is False
+    assert written["paper_simulation"] == notification["paper_simulation"]
+
+
+def test_cognitive_alpha_signal_refresh_cli_updates_project_owned_paper_ledger(tmp_path):
+    from src.workflow.cognitive_alpha_goal import main
+
+    card = tmp_path / "card"
+    card.mkdir()
+    (card / "summary.json").write_text(
+        json.dumps(
+            {
+                "experiment": "cogalpha-paper-ledger-cli",
+                "card_type": "research",
+                "instrument": "SOXL",
+                "recorder_id": "recorder-ledger-cli",
+                "provider_uri": PROVIDER_URI.as_posix(),
+                "latest_signal": {
+                    "action": "BUY",
+                    "as_of": "2026-06-24",
+                    "target_position": 0.10,
+                    "previous_target_position": 0.0,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "signals"
+    ledger_path = tmp_path / "paper_ledger.json"
+
+    exit_code = main(
+        [
+            "--card-dir",
+            card.as_posix(),
+            "--provider-uri",
+            PROVIDER_URI.as_posix(),
+            "--output-dir",
+            output_dir.as_posix(),
+            "--paper-cash",
+            "10000",
+            "--ledger-path",
+            ledger_path.as_posix(),
+            "--paper-account-id",
+            "cli-cogalpha",
+            "--required-max-datetime",
+            "2026-06-24",
+        ]
+    )
+
+    written = json.loads((output_dir / "latest_signal_push.json").read_text(encoding="utf-8"))
+    ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
+    assert exit_code == 0
+    assert written["paper_simulation"]["account_id"] == "cli-cogalpha"
+    assert written["paper_simulation"]["ledger_path"] == ledger_path.as_posix()
+    assert ledger["accounts"]["cli-cogalpha"]["positions"]["SOXL"]["target_percent"] == pytest.approx(0.10)
+
+
 def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_path):
     from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
 
