@@ -28,6 +28,7 @@ CLASSIFIER_MODELS = {
     "lgbm_classifier",
     "logistic_regression",
     "random_forest_classifier",
+    "xgb_classifier",
 }
 REGRESSOR_MODELS = {
     "extra_trees_regressor",
@@ -35,6 +36,7 @@ REGRESSOR_MODELS = {
     "lgbm_regressor",
     "random_forest_regressor",
     "ridge",
+    "xgb_regressor",
 }
 
 
@@ -149,6 +151,43 @@ def _build_model(model_name: str, *, random_state: int):
                 reg_lambda=0.2,
                 random_state=random_state,
                 verbose=-1,
+            ),
+        )
+    if model_name == "xgb_classifier":
+        from xgboost import XGBClassifier
+
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            XGBClassifier(
+                n_estimators=160,
+                max_depth=3,
+                learning_rate=0.035,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.05,
+                reg_lambda=1.0,
+                objective="binary:logistic",
+                eval_metric="logloss",
+                random_state=random_state,
+                n_jobs=1,
+            ),
+        )
+    if model_name == "xgb_regressor":
+        from xgboost import XGBRegressor
+
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            XGBRegressor(
+                n_estimators=160,
+                max_depth=3,
+                learning_rate=0.035,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.05,
+                reg_lambda=1.0,
+                objective="reg:squarederror",
+                random_state=random_state,
+                n_jobs=1,
             ),
         )
     raise ValueError(f"unknown ML position model: {model_name}")
@@ -429,6 +468,13 @@ def _candidate_name(model_name: str, position_spec: dict[str, Any]) -> str:
     hold = int(position_spec.get("min_hold_days", 1))
     base = position_spec.get("base_position_col")
     base_suffix = "" if base is None else f"_{base}"
+    risk_suffix = ""
+    if position_spec.get("risk_gate_col") is not None:
+        risk_col = str(position_spec["risk_gate_col"])
+        risk_threshold = float(position_spec.get("risk_gate_threshold", 0.0))
+        risk_cap = float(position_spec.get("risk_gate_max_position", position_spec.get("max_position", 1.0)))
+        risk_direction = str(position_spec.get("risk_gate_direction", "above"))
+        risk_suffix = f"_rg{risk_col}_{risk_direction}{risk_threshold:g}_cap{risk_cap:g}"
     if mode == "base_throttle":
         low = float(position_spec.get("low_probability", threshold))
         high = float(position_spec.get("high_probability", max(low + 0.05, 0.70)))
@@ -436,9 +482,9 @@ def _candidate_name(model_name: str, position_spec: dict[str, Any]) -> str:
         max_throttle = float(position_spec.get("max_throttle", 1.0))
         return (
             f"{model_name}_{mode}{base_suffix}_p{low:g}-{high:g}_"
-            f"t{min_throttle:g}-{max_throttle:g}_s{scale:g}_h{rebalance:g}_hold{hold}"
+            f"t{min_throttle:g}-{max_throttle:g}_s{scale:g}_h{rebalance:g}_hold{hold}{risk_suffix}"
         )
-    return f"{model_name}_{mode}{base_suffix}_p{threshold:g}_s{scale:g}_h{rebalance:g}_hold{hold}"
+    return f"{model_name}_{mode}{base_suffix}_p{threshold:g}_s{scale:g}_h{rebalance:g}_hold{hold}{risk_suffix}"
 
 
 def evaluate_ml_position_candidates(
@@ -614,3 +660,89 @@ def evaluate_ml_position_candidates(
     positions_frame = pd.concat(position_frames, ignore_index=True) if position_frames else pd.DataFrame()
     positions_frame["selected"] = positions_frame["candidate"].eq(selected_candidate)
     return metrics_frame, positions_frame
+
+
+def predict_ml_position_candidate(
+    frame: pd.DataFrame,
+    *,
+    feature_cols: list[str],
+    model_spec: dict[str, Any],
+    train_window: tuple[str, str],
+    score_window: tuple[str, str],
+    position_spec: dict[str, Any],
+    return_col: str = "forward_return",
+    label_col: str | None = None,
+    datetime_col: str = "datetime",
+    cost_per_turnover: float = 0.0003,
+) -> pd.DataFrame:
+    """Fit one ML position model and emit target positions for a score window."""
+
+    if frame.empty:
+        raise ValueError("ML position frame is empty")
+    if not feature_cols:
+        raise ValueError("at least one feature column is required")
+    model_target_col = label_col or return_col
+    required = {datetime_col, return_col, model_target_col, *feature_cols}
+    if str(position_spec.get("position_mode", "probability")) in {"base_gate", "base_probability", "base_throttle"}:
+        required.add(str(position_spec.get("base_position_col", "base_position")))
+    if position_spec.get("trend_floor_col") is not None:
+        required.add(str(position_spec["trend_floor_col"]))
+    if position_spec.get("realized_vol_col") is not None:
+        required.add(str(position_spec["realized_vol_col"]))
+    if position_spec.get("risk_gate_col") is not None:
+        required.add(str(position_spec["risk_gate_col"]))
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"ML position frame missing columns: {missing}")
+
+    data = frame.copy()
+    data["datetime"] = pd.to_datetime(data[datetime_col]).dt.normalize()
+    data = data.sort_values("datetime").reset_index(drop=True)
+    for column in [*feature_cols, return_col, model_target_col]:
+        data[column] = pd.to_numeric(data[column], errors="coerce").replace([np.inf, -np.inf], np.nan)
+    data = data.dropna(subset=[return_col]).reset_index(drop=True)
+
+    def segment(window: tuple[str, str]) -> pd.DataFrame:
+        start, end = pd.Timestamp(window[0]), pd.Timestamp(window[1])
+        return data.loc[(data["datetime"] >= start) & (data["datetime"] <= end)].copy()
+
+    train = segment(train_window).dropna(subset=[model_target_col]).reset_index(drop=True)
+    score = segment(score_window).reset_index(drop=True)
+    if train.empty or score.empty:
+        raise ValueError("train and score windows must both contain rows")
+
+    model_name = str(model_spec["model"])
+    task = _model_task(model_name, model_spec.get("task"))
+    random_state = int(model_spec.get("random_state", 42))
+    x_train = train[feature_cols].astype("float64")
+    if task == "classification":
+        positive_threshold = float(model_spec.get("positive_threshold", 0.0))
+        y_train = train[model_target_col].gt(positive_threshold).astype(int)
+        if y_train.nunique() < 2:
+            model = DummyClassifier(strategy="constant", constant=int(y_train.iloc[0] if len(y_train) else 0))
+        else:
+            model = _build_model(model_name, random_state=random_state)
+        model.fit(x_train, y_train)
+        train_score = None
+    else:
+        model = _build_model(model_name, random_state=random_state)
+        y_train = train[model_target_col].astype("float64")
+        model.fit(x_train, y_train)
+        train_score = pd.Series(model.predict(x_train), index=train.index, name="score")
+
+    probability = _positive_probability(model, score[feature_cols].astype("float64"), train_score=train_score)
+    candidate = _candidate_name(model_name, position_spec)
+    _, positions = _strategy_metrics(
+        candidate=candidate,
+        segment="score",
+        data=score,
+        probability=probability,
+        position_spec=position_spec,
+        return_col=return_col,
+        cost_per_turnover=cost_per_turnover,
+    )
+    positions["model"] = model_name
+    positions["model_task"] = task
+    positions["model_target_col"] = model_target_col
+    positions["return_col"] = return_col
+    return positions

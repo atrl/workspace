@@ -1,0 +1,30 @@
+{
+  "candidate_count": 1440,
+  "candidate_metric_rows": 2880,
+  "comparison": {
+    "beats_base_constrained_ref": false,
+    "beats_legacy_soxlbacktest": true,
+    "beats_ytd_buyhold": true,
+    "passes_drawdown_gate": true,
+    "passes_goal_gate": true,
+    "passes_high_chop_gate": true
+  },
+  "feature_count": 33,
+  "feature_families": [
+    "high_chop_pressure",
+    "chop_breakdown_risk",
+    "chop_reentry_quality",
+    "soxx_lead_10",
+    "levered_decay_20",
+    "panic_reversal_5",
+    "volume_climax_z20",
+    "base_position_priors"
+  ],
+  "goal_passer_count": 172,
+  "model_families": [
+    "lgbm_classifier",
+    "lgbm_regressor",
+    "xgb_classifier",
+    "xgb_regressor"
+  ]
+}

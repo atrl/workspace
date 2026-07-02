@@ -10,7 +10,7 @@ from .position_sizing import (
     evaluate_weighted_position_candidates,
     volatility_scaled_target,
 )
-from .ml_position import evaluate_ml_position_candidates
+from .ml_position import evaluate_ml_position_candidates, predict_ml_position_candidate
 from .strategy import SignalWeightStrategy, calibrated_signal_threshold
 
 __all__ = [
@@ -24,5 +24,6 @@ __all__ = [
     "evaluate_ml_position_candidates",
     "evaluate_position_sizing_policies",
     "evaluate_weighted_position_candidates",
+    "predict_ml_position_candidate",
     "volatility_scaled_target",
 ]

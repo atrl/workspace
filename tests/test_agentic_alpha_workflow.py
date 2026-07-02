@@ -424,6 +424,271 @@ def test_ml_position_base_throttle_uses_model_as_position_overlay():
     assert selected_positions["target_position"].diff().abs().fillna(0.0).max() <= 0.50 + 1e-12
 
 
+def test_ml_position_candidates_support_lgbm_and_xgb_models():
+    from src.backtest import evaluate_ml_position_candidates
+
+    dates = pd.date_range("2025-01-02", periods=190, freq="B")
+    phase = pd.Series(np.sin(np.arange(len(dates)) / 6.0), dtype="float64")
+    trend = phase.rolling(12, min_periods=1).mean()
+    base_position = (trend > -0.15).astype(float)
+    forward_return = 0.012 * phase.shift(1).fillna(0.0) + 0.004 * trend.fillna(0.0)
+    label_return = forward_return.rolling(5, min_periods=1).sum().shift(-4).fillna(forward_return)
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "phase": phase,
+            "trend": trend,
+            "base_position": base_position,
+            "forward_return": forward_return,
+            "label_return": label_return,
+        }
+    )
+
+    metrics, positions = evaluate_ml_position_candidates(
+        frame,
+        feature_cols=["phase", "trend", "base_position"],
+        model_specs=[
+            {"model": "lgbm_classifier", "random_state": 7},
+            {"model": "xgb_classifier", "random_state": 11},
+            {"model": "xgb_regressor", "task": "regression", "random_state": 13},
+        ],
+        train_window=("2025-01-02", "2025-04-30"),
+        validation_window=("2025-05-01", "2025-07-31"),
+        test_window=("2025-08-01", "2025-09-25"),
+        label_col="label_return",
+        position_specs=[
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": "base_position",
+                "low_probability": 0.35,
+                "high_probability": 0.65,
+                "min_throttle": 0.25,
+                "max_throttle": 1.0,
+                "rebalance_threshold": 0.10,
+                "max_daily_change": 0.50,
+                "min_hold_days": 2,
+                "min_position": 0.0,
+                "max_position": 1.0,
+                "objective_min_avg_abs_position": 0.05,
+            }
+        ],
+        min_validation_trade_count=1,
+        min_validation_avg_abs_position=0.05,
+        cost_per_turnover=0.0003,
+    )
+
+    assert {"lgbm_classifier", "xgb_classifier", "xgb_regressor"}.issubset(set(metrics["model"]))
+    assert metrics["max_position"].max() <= 1.0
+    assert metrics["days_above_100"].max() == 0
+    selected_name = metrics.loc[metrics["selected"], "candidate"].iloc[0]
+    selected_positions = positions.loc[positions["candidate"] == selected_name]
+    assert not selected_positions.empty
+    assert selected_positions["target_position"].between(0.0, 1.0).all()
+
+
+def test_ml_position_candidate_name_includes_risk_gate_cap():
+    from src.backtest import evaluate_ml_position_candidates
+
+    dates = pd.date_range("2025-01-02", periods=170, freq="B")
+    signal = pd.Series(np.sin(np.arange(len(dates)) / 5.0), dtype="float64")
+    forward_return = 0.01 * signal.shift(1).fillna(0.0)
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "signal": signal,
+            "base_position": (signal > -0.2).astype(float),
+            "risk_flag": (signal < -0.8).astype(float),
+            "forward_return": forward_return,
+            "label_return": forward_return.rolling(5, min_periods=1).sum().shift(-4).fillna(forward_return),
+        }
+    )
+
+    metrics, _ = evaluate_ml_position_candidates(
+        frame,
+        feature_cols=["signal", "base_position", "risk_flag"],
+        model_specs=[{"model": "xgb_classifier", "random_state": 17}],
+        train_window=("2025-01-02", "2025-04-30"),
+        validation_window=("2025-05-01", "2025-07-15"),
+        test_window=("2025-07-16", "2025-08-29"),
+        label_col="label_return",
+        position_specs=[
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": "base_position",
+                "low_probability": 0.35,
+                "high_probability": 0.65,
+                "min_throttle": 1.0,
+                "max_throttle": 1.0,
+                "risk_gate_col": "risk_flag",
+                "risk_gate_threshold": 0.5,
+                "risk_gate_direction": "above",
+                "risk_gate_max_position": cap,
+            }
+            for cap in [0.05, 0.20]
+        ],
+    )
+
+    candidate_names = set(metrics["candidate"])
+    assert len(candidate_names) == 2
+    assert any("_cap0.05" in name for name in candidate_names)
+    assert any("_cap0.2" in name for name in candidate_names)
+
+
+def test_high_chop_ml_factors_feed_lgb_xgb_candidate_gates():
+    from src.factor import build_high_chop_ml_frame, evaluate_high_chop_ml_candidates
+
+    dates = pd.date_range("2024-01-02", periods=620, freq="B")
+    trend = np.linspace(0.0, 2.2, len(dates))
+    oscillation = 0.18 * np.sin(np.arange(len(dates)) / 6.0)
+    shock = np.zeros(len(dates))
+    shock[410:430] = np.linspace(0.0, -0.35, 20)
+    shock[430:470] = np.linspace(-0.35, 0.20, 40)
+    soxl_close = 20.0 * np.exp(trend + oscillation + shock)
+    soxx_close = 100.0 * np.exp(trend / 3.0 + 0.05 * np.sin(np.arange(len(dates)) / 9.0))
+    vix = 18.0 + 5.0 * (np.sin(np.arange(len(dates)) / 11.0) > 0).astype(float)
+
+    rows = []
+    for symbol, close_values, volume in [("SOXL", soxl_close, 1_000_000), ("SOXX", soxx_close, 600_000)]:
+        for date, close, vix_value in zip(dates, close_values, vix):
+            rows.append(
+                {
+                    "instrument": symbol,
+                    "datetime": date,
+                    "$open": close * 0.99,
+                    "$high": close * 1.03,
+                    "$low": close * 0.97,
+                    "$close": close,
+                    "$volume": volume,
+                    "$vix": vix_value,
+                }
+            )
+    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
+
+    frame = build_high_chop_ml_frame(qlib_frame, start="2024-01-02", end="2026-05-15")
+    assert {
+        "high_chop_pressure",
+        "chop_breakdown_risk",
+        "chop_reentry_quality",
+        "soxx_lead_10",
+        "levered_decay_20",
+        "panic_reversal_5",
+        "base_chop_control",
+    }.issubset(frame.columns)
+    assert frame["high_chop_flag"].max() >= 0.0
+    assert frame.attrs["feature_cols"]
+
+    metrics, positions = evaluate_high_chop_ml_candidates(
+        frame,
+        model_specs=[
+            {"model": "lgbm_classifier", "random_state": 3},
+            {"model": "xgb_classifier", "random_state": 5},
+        ],
+        train_window=("2024-06-03", "2025-02-28"),
+        validation_window=("2025-03-03", "2025-09-30"),
+        test_window=("2025-10-01", "2026-05-01"),
+        position_specs=[
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": "base_chop_control",
+                "low_probability": 0.35,
+                "high_probability": 0.65,
+                "min_throttle": 0.50,
+                "max_throttle": 1.0,
+                "rebalance_threshold": 0.10,
+                "max_daily_change": 0.50,
+                "min_hold_days": 2,
+                "min_position": 0.0,
+                "max_position": 1.0,
+                "risk_gate_col": "chop_breakdown_risk",
+                "risk_gate_threshold": 0.5,
+                "risk_gate_direction": "above",
+                "risk_gate_max_position": 0.10,
+            }
+        ],
+        label_col="label_return_5d",
+        max_drawdown_floor=-20.0,
+    )
+
+    assert {"lgbm_classifier", "xgb_classifier"}.issubset(set(metrics["model"]))
+    assert {"high_chop_return_pct", "post_high_chop_trade_count", "passes_goal_gate"}.issubset(metrics.columns)
+    assert positions["target_position"].between(0.0, 1.0).all()
+
+
+def test_high_chop_ml_frame_can_keep_latest_without_complete_forward_label():
+    from src.factor import build_high_chop_ml_frame
+
+    dates = pd.date_range("2024-01-02", periods=360, freq="B")
+    soxl_close = 20.0 * np.exp(np.linspace(0.0, 1.4, len(dates)) + 0.10 * np.sin(np.arange(len(dates)) / 5.0))
+    soxx_close = 100.0 * np.exp(np.linspace(0.0, 0.45, len(dates)) + 0.03 * np.sin(np.arange(len(dates)) / 8.0))
+    rows = []
+    for symbol, close_values, volume in [("SOXL", soxl_close, 1_000_000), ("SOXX", soxx_close, 600_000)]:
+        for date, close in zip(dates, close_values):
+            rows.append(
+                {
+                    "instrument": symbol,
+                    "datetime": date,
+                    "$open": close * 0.99,
+                    "$high": close * 1.02,
+                    "$low": close * 0.98,
+                    "$close": close,
+                    "$volume": volume,
+                    "$vix": 20.0,
+                }
+            )
+    qlib_frame = pd.DataFrame(rows).set_index(["instrument", "datetime"]).sort_index()
+
+    complete = build_high_chop_ml_frame(qlib_frame, start="2024-01-02", end=str(dates[-1].date()))
+    latest = build_high_chop_ml_frame(
+        qlib_frame,
+        start="2024-01-02",
+        end=str(dates[-1].date()),
+        include_incomplete_latest=True,
+    )
+
+    assert complete["datetime"].max() < dates[-1]
+    assert latest["datetime"].max() == dates[-1]
+    assert pd.isna(latest.loc[latest["datetime"].idxmax(), "label_return_5d"])
+
+
+def test_predict_ml_position_candidate_scores_latest_without_label():
+    from src.backtest import predict_ml_position_candidate
+
+    dates = pd.date_range("2025-01-02", periods=190, freq="B")
+    signal = pd.Series(np.sin(np.arange(len(dates)) / 7.0), dtype="float64")
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "signal": signal,
+            "base_position": (signal > -0.4).astype(float),
+            "forward_return": 0.01 * signal.shift(1).fillna(0.0),
+            "label_return": 0.01 * signal.rolling(5, min_periods=1).sum().shift(-4),
+        }
+    )
+
+    positions = predict_ml_position_candidate(
+        frame,
+        feature_cols=["signal", "base_position"],
+        model_spec={"model": "xgb_classifier", "random_state": 19},
+        train_window=("2025-01-02", "2025-06-30"),
+        score_window=("2025-07-01", str(dates[-1].date())),
+        position_spec={
+            "position_mode": "base_throttle",
+            "base_position_col": "base_position",
+            "low_probability": 0.35,
+            "high_probability": 0.65,
+            "min_throttle": 0.25,
+            "max_throttle": 1.0,
+            "min_position": 0.0,
+            "max_position": 1.0,
+        },
+        label_col="label_return",
+    )
+
+    assert positions["datetime"].max() == dates[-1]
+    assert positions["target_position"].between(0.0, 1.0).all()
+    assert positions["probability"].between(0.0, 1.0).all()
+
+
 def test_agentic_alpha_sfa_validation_uses_qlib_dataset_and_distills_decisions(tmp_path):
     from src.factor import validate_agentic_alpha_factors
 
