@@ -52,6 +52,7 @@ SOXX_DOWNSIDE_5_COL = "soxx_const_downside_ret5_lt_m5_lag1"
 class RiskHardenedOpen2OpenCardSpec:
     root: Path
     experiment: str = EXPERIMENT
+    previous_model_return_floor_card: str = "cognitive_alpha_goal_codex_exec_v1"
     train: tuple[str, str] = ("2019-01-02", "2024-12-31")
     validation: tuple[str, str] = ("2025-01-02", "2025-12-31")
     test_start: str = "2026-01-02"
@@ -141,12 +142,18 @@ def _run_card(spec: RiskHardenedOpen2OpenCardSpec) -> dict[str, Any]:
     position_spec = _position_spec_for_features(_feature_groups(bundle)["base_cogalpha_soxx"], spec=spec, test=bundle.test)
     position_result = run_cognitive_alpha_position_model(bundle.frame, spec=position_spec, benchmarks=benchmarks)
     _attach_open_to_open_execution_context(position_result.summary, position_result.latest_signal)
+    previous_model_floor = _load_previous_model_return_floor(spec)
     feature_groups = _feature_groups(bundle)
     factor_ablation = _run_factor_ablation(bundle.frame, spec=spec, test=bundle.test, feature_groups=feature_groups, benchmarks=benchmarks)
     training_windows = _run_training_window_comparison(bundle.frame, spec=spec, test=bundle.test, feature_cols=feature_groups["base_cogalpha_soxx"], benchmarks=benchmarks)
     execution_stress, execution_summary = _run_execution_stress(bundle.frame, position_result.positions, root=spec.root)
     explainability = _permutation_importance(bundle.frame, position_result.summary, feature_groups["base_cogalpha_soxx"], spec=position_spec)
-    risk_analysis = _risk_analysis_payload(position_result.summary, factor_ablation, execution_summary)
+    risk_analysis = _risk_analysis_payload(
+        position_result.summary,
+        factor_ablation,
+        execution_summary,
+        previous_model_floor=previous_model_floor,
+    )
 
     with tempfile.TemporaryDirectory(prefix="risk_hardened_open2open_") as tmp:
         tmp_dir = Path(tmp)
@@ -201,6 +208,7 @@ def _run_card(spec: RiskHardenedOpen2OpenCardSpec) -> dict[str, Any]:
         execution_summary=execution_summary,
         explainability=explainability,
         risk_analysis=risk_analysis,
+        previous_model_floor=previous_model_floor,
         recorder_id=recorder_id,
         recorder_local_dir=recorder_local_dir,
         recorder_uri=recorder_uri,
@@ -477,6 +485,26 @@ def _position_spec_for_features(
                 "risk_gate_threshold": 0.5,
                 "risk_gate_direction": "above",
                 "risk_gate_max_position": risk_cap,
+                **common_objective,
+            }
+        )
+    for boost in [0.75, 1.0, 1.25, 1.5]:
+        position_specs.append(
+            {
+                "position_mode": "base_plus_probability",
+                "base_position_col": BASE_CONSTRAINED_REF_COL,
+                "threshold": 0.65,
+                "base_scale": 1.0,
+                "boost_scale": boost,
+                "scale": 1.0,
+                "max_position": 1.0,
+                "rebalance_threshold": 0.05,
+                "max_daily_change": None,
+                "min_hold_days": 3,
+                "risk_gate_col": RISK_HARDENED_GATE_COL,
+                "risk_gate_threshold": 0.5,
+                "risk_gate_direction": "above",
+                "risk_gate_max_position": 0.75,
                 **common_objective,
             }
         )
@@ -799,14 +827,72 @@ def _permutation_importance(
     return pd.DataFrame(rows).sort_values("importance_rank_ic_drop", ascending=False).reset_index(drop=True)
 
 
+def _load_previous_model_return_floor(spec: RiskHardenedOpen2OpenCardSpec) -> dict[str, Any]:
+    source_card = spec.previous_model_return_floor_card
+    summary_path = spec.root / "research" / source_card / "summary.json"
+    payload: dict[str, Any] = {
+        "source_card": source_card,
+        "source_summary": summary_path.as_posix(),
+        "status": "needs_data",
+        "return_col": OPEN_TO_OPEN_RETURN_COL,
+        "floor_return_pct": None,
+        "source_model": None,
+        "source_candidate": None,
+        "source_max_drawdown_pct": None,
+        "source_max_daily_loss_pct": None,
+    }
+    if not summary_path.exists():
+        return payload
+    try:
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        payload["status"] = "invalid_json"
+        return payload
+    selected = summary.get("position_model", {}).get("selected_candidate", {})
+    test = selected.get("test", {}) if isinstance(selected, dict) else {}
+    floor_return = _float_or_none(test.get("return_pct"))
+    payload.update(
+        {
+            "status": "ok" if floor_return is not None else "missing_return",
+            "return_col": str(summary.get("return_col") or test.get("return_col") or OPEN_TO_OPEN_RETURN_COL),
+            "floor_return_pct": floor_return,
+            "source_model": selected.get("model"),
+            "source_candidate": selected.get("candidate"),
+            "source_max_drawdown_pct": _float_or_none(test.get("max_drawdown_pct")),
+            "source_max_daily_loss_pct": _float_or_none(test.get("max_daily_loss_pct")),
+        }
+    )
+    return payload
+
+
+def _previous_model_return_floor_payload(
+    selected_test: dict[str, Any],
+    previous_model_floor: dict[str, Any],
+) -> dict[str, Any]:
+    selected_return = _float_or_none(selected_test.get("return_pct"))
+    floor_return = _float_or_none(previous_model_floor.get("floor_return_pct"))
+    return_gap = None
+    if selected_return is not None and floor_return is not None:
+        return_gap = selected_return - floor_return
+    return {
+        **previous_model_floor,
+        "selected_return_pct": selected_return,
+        "selected_vs_floor_return_gap_pct": return_gap,
+        "pass": bool(return_gap is not None and return_gap >= -1e-9),
+    }
+
+
 def _risk_analysis_payload(
     position_summary: dict[str, Any],
     factor_ablation: pd.DataFrame,
     execution_summary: dict[str, Any],
+    *,
+    previous_model_floor: dict[str, Any],
 ) -> pd.DataFrame:
     selected_test = position_summary["selected_candidate"]["test"]
     selected_model = str(position_summary["selected_candidate"]["model"])
     baseline_fallback = _baseline_risk_fallback_payload(selected_test)
+    previous_floor = _previous_model_return_floor_payload(selected_test, previous_model_floor)
     base_ablation = factor_ablation.loc[factor_ablation["feature_group"].eq("base")]
     both_ablation = factor_ablation.loc[factor_ablation["feature_group"].eq("base_cogalpha_soxx")]
     base_return = float(base_ablation.iloc[0]["test_return_pct"]) if not base_ablation.empty else np.nan
@@ -842,6 +928,12 @@ def _risk_analysis_payload(
                 "status": "pass" if baseline_fallback["pass"] else "fail",
                 "value": baseline_fallback["selected_vs_base_return_gap_pct"],
                 "detail": json.dumps(baseline_fallback, sort_keys=True),
+            },
+            {
+                "check": "previous_model_return_floor",
+                "status": "pass" if previous_floor["pass"] else "fail",
+                "value": previous_floor["selected_vs_floor_return_gap_pct"],
+                "detail": json.dumps(previous_floor, sort_keys=True),
             },
             {
                 "check": "intraday_execution_stress",
@@ -951,12 +1043,14 @@ def _summary_payload(
     execution_summary: dict[str, Any],
     explainability: pd.DataFrame,
     risk_analysis: pd.DataFrame,
+    previous_model_floor: dict[str, Any],
     recorder_id: str,
     recorder_local_dir: Path,
     recorder_uri: Path,
 ) -> dict[str, Any]:
     selected_test = position_result.summary["selected_candidate"]["test"]
     baseline_fallback = _baseline_risk_fallback_payload(selected_test)
+    previous_floor = _previous_model_return_floor_payload(selected_test, previous_model_floor)
     risk_rows = risk_analysis.set_index("check") if not risk_analysis.empty else pd.DataFrame()
     promotion_decision = _promotion_decision(position_result.summary, execution_summary)
     return {
@@ -1006,6 +1100,8 @@ def _summary_payload(
             ],
             "baseline_risk_fallback_pass": baseline_fallback["pass"],
             "baseline_risk_fallback": baseline_fallback,
+            "previous_model_return_floor_pass": previous_floor["pass"],
+            "previous_model_return_floor": previous_floor,
             "risk_gate_pass": position_result.summary["risk_gates"]["selected_passes_all"],
             "walk_forward_gate_pass": position_result.summary["walk_forward"].get("all_folds_pass_risk_gates"),
             "intraday_execution_status": execution_summary.get("status"),
@@ -1053,6 +1149,7 @@ def _summary_payload(
             "individual_lgb_xgb_candidates": "diagnostic_only_selection_disabled",
             "whole_position_budget_candidates": True,
             "base_plus_probability_candidates": True,
+            "high_return_floor_candidates": True,
             "pit_soxx_holdings_status": bundle.constituent_factor_summary["point_in_time_status"],
             "risk_analysis_pass_count": int(risk_analysis["status"].eq("pass").sum()) if not risk_analysis.empty else 0,
             "risk_analysis_fail_count": int(risk_analysis["status"].eq("fail").sum()) if not risk_analysis.empty else 0,
@@ -1105,6 +1202,7 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "risk_gates:",
             f"  risk_gate_col: {RISK_HARDENED_GATE_COL}",
             f"  baseline_risk_fallback_pass: {summary['risk_hardened_goal']['baseline_risk_fallback_pass']}",
+            f"  previous_model_return_floor_pass: {summary['risk_hardened_goal']['previous_model_return_floor_pass']}",
             f"  selected_passes_all: {summary['position_model']['risk_gates']['selected_passes_all']}",
             f"  walk_forward_passes_all: {summary['position_model']['walk_forward'].get('all_folds_pass_risk_gates')}",
             "artifact_policy:",
@@ -1126,6 +1224,7 @@ def _failure_modes(summary: dict[str, Any]) -> str:
         f"- promotion_decision: {summary['promotion_decision']}",
         f"- strict_position_risk_gate_pass: {risk['risk_gate_pass']}",
         f"- baseline_risk_fallback_pass: {risk['baseline_risk_fallback_pass']}",
+        f"- previous_model_return_floor_pass: {risk['previous_model_return_floor_pass']}",
         f"- walk_forward_gate_pass: {risk['walk_forward_gate_pass']}",
         f"- intraday_execution_status: {risk['intraday_execution_status']}",
         f"- soxx_pit_status: {summary['constituent_factors']['point_in_time_status']['status']}",
@@ -1142,6 +1241,7 @@ def _conclusion(summary: dict[str, Any]) -> str:
     selected = summary["position_model"]["selected_candidate"]["test"]
     latest = summary["latest_signal"]
     fallback = summary["risk_hardened_goal"]["baseline_risk_fallback"]
+    previous_floor = summary["risk_hardened_goal"]["previous_model_return_floor"]
     return (
         "# 结论\n\n"
         f"- what_ran: 执行 {summary['experiment']}，用 qlib `D.features`/Alpha158、SOXX 成分股 qlib store、"
@@ -1150,6 +1250,8 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"max_daily_loss={selected['max_daily_loss_pct']:.4f}%，CVaR5={selected.get('cvar_5pct_pct', 0.0):.4f}%。\n"
         f"- base_relative: base_return={fallback['base_return_pct']:.4f}%，return_gap={fallback['selected_vs_base_return_gap_pct']:.4f}%，"
         f"risk_fallback_pass={fallback['pass']}。\n"
+        f"- previous_model_floor: floor_return={previous_floor['floor_return_pct']:.4f}%，"
+        f"return_gap={previous_floor['selected_vs_floor_return_gap_pct']:.4f}%，pass={previous_floor['pass']}。\n"
         f"- regime/window: factor_ablation 最优组为 {summary['factor_ablation']['best_group_by_return']['feature_group']}；"
         f"training_window 最优为 {summary['training_window_comparison']['best_window_by_return']['training_window']}。\n"
         f"- execution: intraday_status={summary['execution_stress']['status']}，coverage_days={summary['execution_stress']['coverage_days']}，"

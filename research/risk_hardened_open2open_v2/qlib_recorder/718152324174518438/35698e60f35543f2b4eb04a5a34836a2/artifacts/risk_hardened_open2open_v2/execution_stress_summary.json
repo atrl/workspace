@@ -7,8 +7,8 @@
       "avg_entry_slippage_vs_open_pct": 0.0,
       "coverage_days": 123,
       "max_daily_loss_pct": -14.0085977191175,
-      "max_drawdown_pct": -24.90270574103758,
-      "return_pct": 183.4411819958302,
+      "max_drawdown_pct": -18.016193188366046,
+      "return_pct": 456.4562210230933,
       "scenario": "open",
       "worst_first_15m_adverse_excursion_pct": -11.604714415231188
     },
@@ -17,8 +17,8 @@
       "avg_entry_slippage_vs_open_pct": 0.034103746997788245,
       "coverage_days": 123,
       "max_daily_loss_pct": -12.778378378378385,
-      "max_drawdown_pct": -22.577556090187212,
-      "return_pct": 217.0335110574906,
+      "max_drawdown_pct": -17.029882312232793,
+      "return_pct": 505.5529200471928,
       "scenario": "vwap1",
       "worst_first_15m_adverse_excursion_pct": -11.604714415231188
     },
@@ -27,8 +27,8 @@
       "avg_entry_slippage_vs_open_pct": 0.18840794481370962,
       "coverage_days": 123,
       "max_daily_loss_pct": -13.074785908471743,
-      "max_drawdown_pct": -23.66106324705035,
-      "return_pct": 188.24099651673217,
+      "max_drawdown_pct": -18.22338378438262,
+      "return_pct": 441.712087043796,
       "scenario": "vwap5",
       "worst_first_15m_adverse_excursion_pct": -11.604714415231188
     },
@@ -37,8 +37,8 @@
       "avg_entry_slippage_vs_open_pct": 0.2581092111343974,
       "coverage_days": 123,
       "max_daily_loss_pct": -12.149483956308204,
-      "max_drawdown_pct": -22.684711412912996,
-      "return_pct": 159.0052061138329,
+      "max_drawdown_pct": -17.841966004472898,
+      "return_pct": 384.6106672661995,
       "scenario": "vwap15",
       "worst_first_15m_adverse_excursion_pct": -11.604714415231188
     }

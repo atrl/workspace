@@ -2173,6 +2173,11 @@ def test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_exe
     selected_test = model_selection.loc[
         model_selection["selected"].map(bool) & model_selection["segment"].eq("test")
     ].iloc[0]
+    previous_floor = summary["risk_hardened_goal"]["previous_model_return_floor"]
+    assert previous_floor["source_card"] == "cognitive_alpha_goal_codex_exec_v1"
+    assert previous_floor["return_col"] == "open_to_open_return"
+    assert previous_floor["pass"] is True
+    assert selected_test["return_pct"] >= previous_floor["floor_return_pct"]
     if selected_test["return_pct"] < selected_test["baseline_return_pct"]:
         assert bool(selected_test["baseline_risk_improvement_pass"]) is True
         assert selected_test["max_drawdown_vs_baseline_gap_pct"] > 0.0

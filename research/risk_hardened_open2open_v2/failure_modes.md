@@ -1,8 +1,9 @@
 # Failure Modes
 
-- promotion_decision: not_promoted_under_base_constrained_ref
+- promotion_decision: not_promoted_failed_strict_tail_risk_gates
 - strict_position_risk_gate_pass: False
 - baseline_risk_fallback_pass: True
+- previous_model_return_floor_pass: True
 - walk_forward_gate_pass: False
 - intraday_execution_status: ok
 - soxx_pit_status: single_snapshot_survivorship_biased
