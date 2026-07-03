@@ -30,6 +30,8 @@ class CognitiveAlphaPositionSpec:
     validation_cvar_5pct_floor: float | None = None
     validation_worst_5_daily_loss_floor: float | None = None
     max_validation_underwater_day_ratio: float | None = None
+    require_baseline_risk_improvement_if_not_beating: bool = False
+    baseline_risk_improvement_margin_pct: float = 0.0
     max_validation_total_turnover: float | None = None
     max_validation_extreme_loss_day_count: int | None = None
     max_validation_reversal_ratio: float | None = None
@@ -111,6 +113,8 @@ def run_cognitive_alpha_position_model(
         validation_cvar_5pct_floor=spec.validation_cvar_5pct_floor,
         validation_worst_5_daily_loss_floor=spec.validation_worst_5_daily_loss_floor,
         max_validation_underwater_day_ratio=spec.max_validation_underwater_day_ratio,
+        require_baseline_risk_improvement_if_not_beating=spec.require_baseline_risk_improvement_if_not_beating,
+        baseline_risk_improvement_margin_pct=spec.baseline_risk_improvement_margin_pct,
     )
     selected = _selected_payload(metrics)
     _attach_selected_tail_metrics(selected, positions, extreme_loss_threshold=spec.extreme_loss_threshold)
@@ -440,6 +444,8 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
             validation_cvar_5pct_floor=spec.validation_cvar_5pct_floor,
             validation_worst_5_daily_loss_floor=spec.validation_worst_5_daily_loss_floor,
             max_validation_underwater_day_ratio=spec.max_validation_underwater_day_ratio,
+            require_baseline_risk_improvement_if_not_beating=spec.require_baseline_risk_improvement_if_not_beating,
+            baseline_risk_improvement_margin_pct=spec.baseline_risk_improvement_margin_pct,
         )
         selected = _selected_payload(metrics)
         _attach_selected_tail_metrics(selected, positions, extreme_loss_threshold=spec.extreme_loss_threshold)

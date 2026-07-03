@@ -2,6 +2,7 @@
 
 - promotion_decision: not_promoted_under_base_constrained_ref
 - strict_position_risk_gate_pass: False
+- baseline_risk_fallback_pass: True
 - walk_forward_gate_pass: False
 - intraday_execution_status: ok
 - soxx_pit_status: single_snapshot_survivorship_biased

@@ -497,6 +497,8 @@ def _position_spec_for_features(
         validation_cvar_5pct_floor=spec.validation_cvar_5pct_floor,
         validation_worst_5_daily_loss_floor=spec.validation_worst_5_daily_loss_floor,
         max_validation_underwater_day_ratio=spec.max_validation_underwater_day_ratio,
+        require_baseline_risk_improvement_if_not_beating=True,
+        baseline_risk_improvement_margin_pct=0.0,
         max_validation_total_turnover=20.0,
         max_validation_extreme_loss_day_count=7,
         max_validation_reversal_ratio=0.50,
@@ -804,6 +806,7 @@ def _risk_analysis_payload(
 ) -> pd.DataFrame:
     selected_test = position_summary["selected_candidate"]["test"]
     selected_model = str(position_summary["selected_candidate"]["model"])
+    baseline_fallback = _baseline_risk_fallback_payload(selected_test)
     base_ablation = factor_ablation.loc[factor_ablation["feature_group"].eq("base")]
     both_ablation = factor_ablation.loc[factor_ablation["feature_group"].eq("base_cogalpha_soxx")]
     base_return = float(base_ablation.iloc[0]["test_return_pct"]) if not base_ablation.empty else np.nan
@@ -835,6 +838,12 @@ def _risk_analysis_payload(
                 "detail": "base_cogalpha_soxx minus base test_return_pct",
             },
             {
+                "check": "base_relative_risk_fallback",
+                "status": "pass" if baseline_fallback["pass"] else "fail",
+                "value": baseline_fallback["selected_vs_base_return_gap_pct"],
+                "detail": json.dumps(baseline_fallback, sort_keys=True),
+            },
+            {
                 "check": "intraday_execution_stress",
                 "status": execution_summary.get("status", "needs_data"),
                 "value": execution_summary.get("coverage_days"),
@@ -856,6 +865,45 @@ def _risk_analysis_payload(
             },
         ]
     )
+
+
+def _float_or_none(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        if pd.isna(value):
+            return None
+    except TypeError:
+        pass
+    return float(value)
+
+
+def _baseline_risk_fallback_payload(selected_test: dict[str, Any]) -> dict[str, Any]:
+    selected_return = _float_or_none(selected_test.get("return_pct"))
+    baseline_return = _float_or_none(selected_test.get("baseline_return_pct"))
+    return_gap = _float_or_none(selected_test.get("excess_return_pct"))
+    if return_gap is None and selected_return is not None and baseline_return is not None:
+        return_gap = selected_return - baseline_return
+    beats_return = bool(return_gap is not None and return_gap > 0.0)
+    risk_pass = bool(selected_test.get("baseline_risk_improvement_pass", False))
+    fallback_pass = bool(beats_return or risk_pass)
+    return {
+        "pass": fallback_pass,
+        "beats_base_return": beats_return,
+        "baseline_risk_improvement_pass": risk_pass,
+        "selected_return_pct": selected_return,
+        "base_return_pct": baseline_return,
+        "selected_vs_base_return_gap_pct": return_gap,
+        "max_drawdown_vs_baseline_gap_pct": _float_or_none(selected_test.get("max_drawdown_vs_baseline_gap_pct")),
+        "max_daily_loss_vs_baseline_gap_pct": _float_or_none(selected_test.get("max_daily_loss_vs_baseline_gap_pct")),
+        "cvar_5pct_vs_baseline_gap_pct": _float_or_none(selected_test.get("cvar_5pct_vs_baseline_gap_pct")),
+        "worst_5_daily_loss_vs_baseline_gap_pct": _float_or_none(
+            selected_test.get("worst_5_daily_loss_vs_baseline_gap_pct")
+        ),
+        "underwater_day_ratio_vs_baseline_gap": _float_or_none(
+            selected_test.get("underwater_day_ratio_vs_baseline_gap")
+        ),
+    }
 
 
 def _write_sidecars(
@@ -908,6 +956,7 @@ def _summary_payload(
     recorder_uri: Path,
 ) -> dict[str, Any]:
     selected_test = position_result.summary["selected_candidate"]["test"]
+    baseline_fallback = _baseline_risk_fallback_payload(selected_test)
     risk_rows = risk_analysis.set_index("check") if not risk_analysis.empty else pd.DataFrame()
     promotion_decision = _promotion_decision(position_result.summary, execution_summary)
     return {
@@ -951,6 +1000,12 @@ def _summary_payload(
             "selected_test_max_daily_loss_pct": selected_test["max_daily_loss_pct"],
             "selected_test_cvar_5pct_pct": selected_test.get("cvar_5pct_pct"),
             "selected_test_worst_5_daily_loss_pct": selected_test.get("worst_5_daily_loss_pct"),
+            "base_constrained_ref_test_return_pct": selected_test.get("baseline_return_pct"),
+            "selected_vs_base_constrained_ref_return_gap_pct": baseline_fallback[
+                "selected_vs_base_return_gap_pct"
+            ],
+            "baseline_risk_fallback_pass": baseline_fallback["pass"],
+            "baseline_risk_fallback": baseline_fallback,
             "risk_gate_pass": position_result.summary["risk_gates"]["selected_passes_all"],
             "walk_forward_gate_pass": position_result.summary["walk_forward"].get("all_folds_pass_risk_gates"),
             "intraday_execution_status": execution_summary.get("status"),
@@ -1049,6 +1104,7 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "  objective: risk_adjusted_excess_return_with_tail_penalties",
             "risk_gates:",
             f"  risk_gate_col: {RISK_HARDENED_GATE_COL}",
+            f"  baseline_risk_fallback_pass: {summary['risk_hardened_goal']['baseline_risk_fallback_pass']}",
             f"  selected_passes_all: {summary['position_model']['risk_gates']['selected_passes_all']}",
             f"  walk_forward_passes_all: {summary['position_model']['walk_forward'].get('all_folds_pass_risk_gates')}",
             "artifact_policy:",
@@ -1069,6 +1125,7 @@ def _failure_modes(summary: dict[str, Any]) -> str:
         "",
         f"- promotion_decision: {summary['promotion_decision']}",
         f"- strict_position_risk_gate_pass: {risk['risk_gate_pass']}",
+        f"- baseline_risk_fallback_pass: {risk['baseline_risk_fallback_pass']}",
         f"- walk_forward_gate_pass: {risk['walk_forward_gate_pass']}",
         f"- intraday_execution_status: {risk['intraday_execution_status']}",
         f"- soxx_pit_status: {summary['constituent_factors']['point_in_time_status']['status']}",
@@ -1084,12 +1141,15 @@ def _failure_modes(summary: dict[str, Any]) -> str:
 def _conclusion(summary: dict[str, Any]) -> str:
     selected = summary["position_model"]["selected_candidate"]["test"]
     latest = summary["latest_signal"]
+    fallback = summary["risk_hardened_goal"]["baseline_risk_fallback"]
     return (
         "# 结论\n\n"
         f"- what_ran: 执行 {summary['experiment']}，用 qlib `D.features`/Alpha158、SOXX 成分股 qlib store、"
         "LGB/XGB 和 open-to-open return 重新训练 risk-hardened position selector。\n"
         f"- key_metrics: selected_return={selected['return_pct']:.4f}%，maxDD={selected['max_drawdown_pct']:.4f}%，"
         f"max_daily_loss={selected['max_daily_loss_pct']:.4f}%，CVaR5={selected.get('cvar_5pct_pct', 0.0):.4f}%。\n"
+        f"- base_relative: base_return={fallback['base_return_pct']:.4f}%，return_gap={fallback['selected_vs_base_return_gap_pct']:.4f}%，"
+        f"risk_fallback_pass={fallback['pass']}。\n"
         f"- regime/window: factor_ablation 最优组为 {summary['factor_ablation']['best_group_by_return']['feature_group']}；"
         f"training_window 最优为 {summary['training_window_comparison']['best_window_by_return']['training_window']}。\n"
         f"- execution: intraday_status={summary['execution_stress']['status']}，coverage_days={summary['execution_stress']['coverage_days']}，"

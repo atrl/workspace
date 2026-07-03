@@ -2170,6 +2170,16 @@ def test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_exe
         model_selection["model"].isin({"lgbm_classifier", "lgbm_regressor", "xgb_classifier", "xgb_regressor"}),
         "selection_eligible",
     ].map(bool).any()
+    selected_test = model_selection.loc[
+        model_selection["selected"].map(bool) & model_selection["segment"].eq("test")
+    ].iloc[0]
+    if selected_test["return_pct"] < selected_test["baseline_return_pct"]:
+        assert bool(selected_test["baseline_risk_improvement_pass"]) is True
+        assert selected_test["max_drawdown_vs_baseline_gap_pct"] > 0.0
+        assert selected_test["max_daily_loss_vs_baseline_gap_pct"] > 0.0
+        assert selected_test["cvar_5pct_vs_baseline_gap_pct"] > 0.0
+        assert selected_test["worst_5_daily_loss_vs_baseline_gap_pct"] > 0.0
+        assert summary["risk_hardened_goal"]["baseline_risk_fallback_pass"] is True
     assert summary["model_selection"]["selection_metric"] == "risk_adjusted_excess_return_with_tail_penalties"
     assert summary["position_model"]["risk_gates"]["validation_max_daily_loss_floor"] == -12.0
     assert summary["position_model"]["risk_gates"]["test_max_daily_loss_floor"] == -12.0

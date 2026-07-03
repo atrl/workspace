@@ -466,6 +466,7 @@ def _strategy_metrics(
     position_spec: dict[str, Any],
     return_col: str,
     cost_per_turnover: float,
+    baseline_risk_improvement_margin_pct: float = 0.0,
 ) -> tuple[dict[str, Any], pd.DataFrame]:
     raw_target = _raw_target_from_probability(data, probability, position_spec=position_spec)
     target_position = apply_position_sizing_policy(
@@ -493,8 +494,20 @@ def _strategy_metrics(
     avg_abs_position = float(target_position.abs().mean())
     baseline_return_pct = np.nan
     baseline_max_drawdown_pct = np.nan
+    baseline_max_daily_loss_pct = np.nan
+    baseline_worst_5_daily_loss_pct = np.nan
+    baseline_cvar_5pct_pct = np.nan
+    baseline_underwater_day_count = np.nan
+    baseline_underwater_day_ratio = np.nan
     excess_return_pct = np.nan
     excess_return_to_drawdown = np.nan
+    max_drawdown_vs_baseline_gap_pct = np.nan
+    max_daily_loss_vs_baseline_gap_pct = np.nan
+    cvar_5pct_vs_baseline_gap_pct = np.nan
+    worst_5_daily_loss_vs_baseline_gap_pct = np.nan
+    underwater_day_ratio_vs_baseline_gap = np.nan
+    beats_baseline_return = False
+    baseline_risk_improvement_pass = False
     baseline_col = position_spec.get("objective_baseline_position_col")
     if baseline_col is not None:
         baseline_col = str(baseline_col)
@@ -511,8 +524,29 @@ def _strategy_metrics(
         baseline_returns = baseline_target * forward_return - baseline_turnover * float(cost_per_turnover)
         baseline_return_pct = float(((1.0 + baseline_returns).prod() - 1.0) * 100.0)
         baseline_max_drawdown_pct = _max_drawdown_pct(baseline_returns)
+        baseline_max_daily_loss_pct = float(baseline_returns.min() * 100.0) if not baseline_returns.empty else 0.0
+        baseline_tail_metrics = _tail_risk_metrics(baseline_returns)
+        baseline_worst_5_daily_loss_pct = float(baseline_tail_metrics["worst_5_daily_loss_pct"])
+        baseline_cvar_5pct_pct = float(baseline_tail_metrics["cvar_5pct_pct"])
+        baseline_underwater_day_count = int(baseline_tail_metrics["underwater_day_count"])
+        baseline_underwater_day_ratio = float(baseline_tail_metrics["underwater_day_ratio"])
         excess_return_pct = float(return_pct - baseline_return_pct)
         excess_return_to_drawdown = float(excess_return_pct / max(abs(max_drawdown_pct), 1.0))
+        max_drawdown_vs_baseline_gap_pct = float(max_drawdown_pct - baseline_max_drawdown_pct)
+        max_daily_loss_vs_baseline_gap_pct = float(max_daily_loss_pct - baseline_max_daily_loss_pct)
+        cvar_5pct_vs_baseline_gap_pct = float(tail_metrics["cvar_5pct_pct"] - baseline_cvar_5pct_pct)
+        worst_5_daily_loss_vs_baseline_gap_pct = float(
+            tail_metrics["worst_5_daily_loss_pct"] - baseline_worst_5_daily_loss_pct
+        )
+        underwater_day_ratio_vs_baseline_gap = float(baseline_underwater_day_ratio - tail_metrics["underwater_day_ratio"])
+        beats_baseline_return = bool(excess_return_pct > 0.0)
+        margin = max(float(baseline_risk_improvement_margin_pct), 0.0)
+        baseline_risk_improvement_pass = bool(
+            max_drawdown_vs_baseline_gap_pct > margin
+            and max_daily_loss_vs_baseline_gap_pct > margin
+            and cvar_5pct_vs_baseline_gap_pct > margin
+            and worst_5_daily_loss_vs_baseline_gap_pct > margin
+        )
     stability_penalty = (
         float(position_spec.get("turnover_penalty", 1.5)) * float(turnover.sum())
         + float(position_spec.get("reversal_penalty", 2.0)) * float(next_day_reversal_count)
@@ -579,8 +613,20 @@ def _strategy_metrics(
         "selection_objective_score": selection_objective_score,
         "baseline_return_pct": baseline_return_pct,
         "baseline_max_drawdown_pct": baseline_max_drawdown_pct,
+        "baseline_max_daily_loss_pct": baseline_max_daily_loss_pct,
+        "baseline_worst_5_daily_loss_pct": baseline_worst_5_daily_loss_pct,
+        "baseline_cvar_5pct_pct": baseline_cvar_5pct_pct,
+        "baseline_underwater_day_count": baseline_underwater_day_count,
+        "baseline_underwater_day_ratio": baseline_underwater_day_ratio,
         "excess_return_pct": excess_return_pct,
         "excess_return_to_drawdown": excess_return_to_drawdown,
+        "max_drawdown_vs_baseline_gap_pct": max_drawdown_vs_baseline_gap_pct,
+        "max_daily_loss_vs_baseline_gap_pct": max_daily_loss_vs_baseline_gap_pct,
+        "cvar_5pct_vs_baseline_gap_pct": cvar_5pct_vs_baseline_gap_pct,
+        "worst_5_daily_loss_vs_baseline_gap_pct": worst_5_daily_loss_vs_baseline_gap_pct,
+        "underwater_day_ratio_vs_baseline_gap": underwater_day_ratio_vs_baseline_gap,
+        "beats_baseline_return": bool(beats_baseline_return),
+        "baseline_risk_improvement_pass": bool(baseline_risk_improvement_pass),
         **tail_metrics,
         "avg_abs_position": avg_abs_position,
         "max_position": float(target_position.max()),
@@ -665,6 +711,8 @@ def evaluate_ml_position_candidates(
     validation_cvar_5pct_floor: float | None = None,
     validation_worst_5_daily_loss_floor: float | None = None,
     max_validation_underwater_day_ratio: float | None = None,
+    require_baseline_risk_improvement_if_not_beating: bool = False,
+    baseline_risk_improvement_margin_pct: float = 0.0,
     selection_score_tolerance: float = 0.0,
     selection_tiebreakers: list[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -760,6 +808,7 @@ def evaluate_ml_position_candidates(
                     position_spec=position_spec,
                     return_col=return_col,
                     cost_per_turnover=cost_per_turnover,
+                    baseline_risk_improvement_margin_pct=baseline_risk_improvement_margin_pct,
                 )
                 metrics.update(
                     {
@@ -817,6 +866,7 @@ def evaluate_ml_position_candidates(
                     position_spec=consensus_position_spec,
                     return_col=return_col,
                     cost_per_turnover=cost_per_turnover,
+                    baseline_risk_improvement_margin_pct=baseline_risk_improvement_margin_pct,
                 )
                 metrics.update(
                     {
@@ -846,7 +896,23 @@ def evaluate_ml_position_candidates(
     metrics_frame = pd.DataFrame(metric_rows)
     if metrics_frame.empty:
         raise ValueError("ML position evaluation produced no metrics")
+    for bool_column in ["beats_baseline_return", "baseline_risk_improvement_pass"]:
+        if bool_column in metrics_frame.columns:
+            metrics_frame[bool_column] = metrics_frame[bool_column].map(bool).astype(object)
     validation_metrics = metrics_frame.loc[metrics_frame["segment"] == "validation"].copy()
+    baseline_requirement_mask = pd.Series(True, index=validation_metrics.index, dtype=bool)
+    if require_baseline_risk_improvement_if_not_beating:
+        baseline_requirement_mask = (
+            validation_metrics.get("beats_baseline_return", pd.Series(False, index=validation_metrics.index))
+            .map(bool)
+            .astype(bool)
+            | validation_metrics.get(
+                "baseline_risk_improvement_pass",
+                pd.Series(False, index=validation_metrics.index),
+            )
+            .map(bool)
+            .astype(bool)
+        )
     eligible_mask = (
         validation_metrics["trade_count"].astype(float) >= float(min_validation_trade_count)
     ) & (
@@ -854,6 +920,8 @@ def evaluate_ml_position_candidates(
     ) & (
         ~validation_metrics["selection_disabled"].astype(bool)
     )
+    if require_baseline_risk_improvement_if_not_beating:
+        eligible_mask = eligible_mask & baseline_requirement_mask
     if validation_max_drawdown_floor is not None:
         eligible_mask = eligible_mask & (
             validation_metrics["max_drawdown_pct"].astype(float) >= float(validation_max_drawdown_floor)
@@ -884,9 +952,17 @@ def evaluate_ml_position_candidates(
         )
     eligible_validation = validation_metrics.loc[eligible_mask]
     selectable_validation = validation_metrics.loc[~validation_metrics["selection_disabled"].astype(bool)]
+    baseline_selectable_validation = selectable_validation
+    if require_baseline_risk_improvement_if_not_beating:
+        baseline_selectable_validation = selectable_validation.loc[
+            baseline_requirement_mask.reindex(selectable_validation.index).fillna(False)
+        ]
     if not eligible_validation.empty:
         selection_pool = eligible_validation
         selection_pool_reason = "eligible_validation"
+    elif require_baseline_risk_improvement_if_not_beating and not baseline_selectable_validation.empty:
+        selection_pool = baseline_selectable_validation
+        selection_pool_reason = "baseline_requirement_selectable_fallback"
     elif not selectable_validation.empty:
         selection_pool = selectable_validation
         selection_pool_reason = "selectable_validation_fallback"
@@ -914,11 +990,20 @@ def evaluate_ml_position_candidates(
             "validation_cvar_5pct_floor": validation_cvar_5pct_floor,
             "validation_worst_5_daily_loss_floor": validation_worst_5_daily_loss_floor,
             "max_validation_underwater_day_ratio": max_validation_underwater_day_ratio,
+            "require_baseline_risk_improvement_if_not_beating": bool(
+                require_baseline_risk_improvement_if_not_beating
+            ),
+            "baseline_risk_improvement_margin_pct": float(max(baseline_risk_improvement_margin_pct, 0.0)),
             "selection_score_tolerance": float(selection_tolerance),
             "selection_tiebreakers": list(selection_tiebreakers or []),
             "selection_tiebreaker_pool_size": int(len(near_tie_pool)),
             "selection_disabled_candidate_count": int(validation_metrics["selection_disabled"].astype(bool).sum()),
             "selection_pool_reason": selection_pool_reason,
+            "baseline_requirement_candidate_count": int(baseline_requirement_mask.astype(bool).sum()),
+            "baseline_requirement_selectable_candidate_count": int(len(baseline_selectable_validation)),
+            "fallback_to_baseline_requirement_candidates": bool(
+                selection_pool_reason == "baseline_requirement_selectable_fallback"
+            ),
             "fallback_to_selectable_candidates": bool(eligible_validation.empty and not selectable_validation.empty),
             "fallback_to_all_candidates": bool(eligible_validation.empty and selectable_validation.empty),
         },

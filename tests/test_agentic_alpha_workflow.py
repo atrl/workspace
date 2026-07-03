@@ -420,6 +420,71 @@ def test_ml_position_candidates_report_tail_risk_and_baseline_excess_score():
     assert '"validation_cvar_5pct_floor": -8.0' in selected_validation["selection_gate"]
 
 
+def test_ml_position_candidates_select_baseline_risk_fallback_when_return_lags():
+    from src.backtest import evaluate_ml_position_candidates
+
+    dates = pd.date_range("2025-01-02", periods=140, freq="B")
+    signal = pd.Series(np.sin(np.arange(len(dates)) / 5.0), dtype="float64")
+    forward_return = pd.Series(0.015, index=range(len(dates)), dtype="float64")
+    forward_return.iloc[78] = -0.12
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "signal": signal,
+            "base_position": 1.0,
+            "risk_budget_position": 0.35,
+            "forward_return": forward_return,
+        }
+    )
+
+    metrics, _ = evaluate_ml_position_candidates(
+        frame,
+        feature_cols=["signal", "base_position", "risk_budget_position"],
+        model_specs=[{"model": "ridge", "task": "regression"}],
+        train_window=("2025-01-02", "2025-03-31"),
+        validation_window=("2025-04-01", "2025-05-30"),
+        test_window=("2025-06-02", "2025-07-16"),
+        position_specs=[
+            {
+                "position_mode": "base_plus_probability",
+                "base_position_col": "base_position",
+                "base_scale": 1.0,
+                "boost_scale": 0.0,
+                "max_position": 1.0,
+                "objective_baseline_position_col": "base_position",
+            },
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": "risk_budget_position",
+                "low_probability": 0.0,
+                "high_probability": 1.0,
+                "min_throttle": 1.0,
+                "max_throttle": 1.0,
+                "objective_baseline_position_col": "base_position",
+            },
+        ],
+        min_validation_trade_count=1,
+        min_validation_avg_abs_position=0.01,
+        require_baseline_risk_improvement_if_not_beating=True,
+        cost_per_turnover=0.0,
+    )
+
+    assert {
+        "baseline_max_daily_loss_pct",
+        "baseline_cvar_5pct_pct",
+        "baseline_worst_5_daily_loss_pct",
+        "baseline_risk_improvement_pass",
+    }.issubset(metrics.columns)
+    selected = metrics.loc[(metrics["segment"].eq("validation")) & metrics["selected"].map(bool)].iloc[0]
+    assert selected["return_pct"] < selected["baseline_return_pct"]
+    assert selected["baseline_risk_improvement_pass"] is True
+    assert selected["candidate"].startswith("ridge_base_throttle_risk_budget_position")
+    assert selected["max_drawdown_pct"] > selected["baseline_max_drawdown_pct"]
+    assert selected["max_daily_loss_pct"] > selected["baseline_max_daily_loss_pct"]
+    selection_gate = json.loads(str(selected["selection_gate"]))
+    assert selection_gate["require_baseline_risk_improvement_if_not_beating"] is True
+
+
 def test_ml_position_base_throttle_uses_model_as_position_overlay():
     from src.backtest import evaluate_ml_position_candidates
 
