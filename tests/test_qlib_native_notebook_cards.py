@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pandas as pd
+
 
 ROOT = Path(__file__).resolve().parents[1]
 RECORDER_ONLY_ROOT_FILES = {
@@ -2145,6 +2147,7 @@ def test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_exe
     notebook_text = (card / "risk_hardened_open2open_v2.ipynb").read_text(encoding="utf-8")
     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
     workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
+    model_selection = pd.read_csv(card / "model_selection.csv")
 
     assert summary["experiment"] == "risk_hardened_open2open_v2"
     assert summary["card_type"] == "risk_hardened_open2open_research_card"
@@ -2156,7 +2159,17 @@ def test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_exe
         "lgbm_regressor",
         "xgb_classifier",
         "xgb_regressor",
+        "lgb_xgb_consensus",
     }
+    assert summary["model_selection"]["selected_model"] == "lgb_xgb_consensus"
+    assert summary["implementation_notes"]["lgb_xgb_consensus_selection"] is True
+    assert not model_selection.loc[
+        model_selection["model"].eq("lgb_xgb_consensus"), "selection_disabled"
+    ].map(bool).any()
+    assert not model_selection.loc[
+        model_selection["model"].isin({"lgbm_classifier", "lgbm_regressor", "xgb_classifier", "xgb_regressor"}),
+        "selection_eligible",
+    ].map(bool).any()
     assert summary["model_selection"]["selection_metric"] == "risk_adjusted_excess_return_with_tail_penalties"
     assert summary["position_model"]["risk_gates"]["validation_max_daily_loss_floor"] == -12.0
     assert summary["position_model"]["risk_gates"]["test_max_daily_loss_floor"] == -12.0

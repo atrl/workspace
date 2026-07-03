@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 from src.backtest import evaluate_ml_position_candidates
-from src.backtest.ml_position import _build_model, _model_task, _positive_probability
+from src.backtest.ml_position import _build_model, _consensus_probability, _model_task, _positive_probability
 from src.data import QlibProviderConfig, build_alpha158_legacy_dataset, init_qlib_provider, read_intraday_cache
 from src.factor import build_soxx_constituent_factor_frame
 from src.factor.high_chop_ml import DEFAULT_HIGH_CHOP_FEATURES, build_high_chop_ml_frame
@@ -167,7 +167,7 @@ def _run_card(spec: RiskHardenedOpen2OpenCardSpec) -> dict[str, Any]:
                 test_end=bundle.test[1],
                 return_col=OPEN_TO_OPEN_RETURN_COL,
                 label_col=LABEL_OPEN_TO_OPEN_5D_COL,
-                model_families="lgbm_classifier,lgbm_regressor,xgb_classifier,xgb_regressor",
+                model_families="lgbm_classifier,lgbm_regressor,xgb_classifier,xgb_regressor,lgb_xgb_consensus",
                 validation_max_daily_loss_floor=spec.validation_max_daily_loss_floor,
                 test_max_daily_loss_floor=spec.test_max_daily_loss_floor,
                 risk_gate_col=RISK_HARDENED_GATE_COL,
@@ -404,10 +404,16 @@ def _position_spec_for_features(
     validation: tuple[str, str] | None = None,
 ) -> CognitiveAlphaPositionSpec:
     model_specs = [
-        {"model": "lgbm_classifier"},
-        {"model": "lgbm_regressor", "task": "regression"},
-        {"model": "xgb_classifier"},
-        {"model": "xgb_regressor", "task": "regression"},
+        {"model": "lgbm_classifier", "selection_disabled": True},
+        {"model": "lgbm_regressor", "task": "regression", "selection_disabled": True},
+        {"model": "xgb_classifier", "selection_disabled": True},
+        {"model": "xgb_regressor", "task": "regression", "selection_disabled": True},
+        {
+            "model": "lgb_xgb_consensus",
+            "task": "consensus",
+            "members": ["lgbm_classifier", "lgbm_regressor", "xgb_classifier", "xgb_regressor"],
+            "aggregation": "min",
+        },
     ]
     common_objective = {
         "objective_baseline_position_col": BASE_CONSTRAINED_REF_COL,
@@ -729,19 +735,45 @@ def _permutation_importance(
     ].dropna(subset=[spec.label_col])
     if train.empty or validation.empty:
         return pd.DataFrame()
-    model = _build_model(model_name, random_state=42)
     x_train = train[feature_cols].astype("float64")
-    if task == "classification":
-        y_train = train[spec.label_col].gt(0.0).astype(int)
-        model.fit(x_train, y_train)
-        train_score = None
-    else:
+
+    def fit_probability_model(member_name: str, *, random_state: int):
+        member_task = _model_task(member_name, "regression" if member_name.endswith("regressor") else None)
+        model = _build_model(member_name, random_state=random_state)
+        if member_task == "classification":
+            y_train = train[spec.label_col].gt(0.0).astype(int)
+            model.fit(x_train, y_train)
+            return model, None
         y_train = train[spec.label_col].astype("float64")
         model.fit(x_train, y_train)
-        train_score = pd.Series(model.predict(x_train), index=train.index, name="score")
+        return model, pd.Series(model.predict(x_train), index=train.index, name="score")
+
+    if task == "consensus":
+        members = [str(member) for member in params.get("consensus_members", [])]
+        if len(members) < 2:
+            return pd.DataFrame()
+        aggregation = str(params.get("consensus_aggregation", "min"))
+        fitted_members = [
+            (member, *fit_probability_model(member, random_state=42 + index))
+            for index, member in enumerate(members)
+        ]
+
+        def predict_probability(x: pd.DataFrame) -> pd.Series:
+            probabilities = [
+                _positive_probability(model, x, train_score=train_score)
+                for _, model, train_score in fitted_members
+            ]
+            return _consensus_probability(probabilities, aggregation=aggregation)
+
+    else:
+        model, train_score = fit_probability_model(model_name, random_state=42)
+
+        def predict_probability(x: pd.DataFrame) -> pd.Series:
+            return _positive_probability(model, x, train_score=train_score)
+
     x_valid = validation[feature_cols].astype("float64")
     label = validation[spec.label_col].astype("float64")
-    base_prob = _positive_probability(model, x_valid, train_score=train_score)
+    base_prob = predict_probability(x_valid)
     base_rank_ic = float(base_prob.corr(label, method="spearman") or 0.0)
     rng = np.random.default_rng(7)
     rows: list[dict[str, Any]] = []
@@ -749,7 +781,7 @@ def _permutation_importance(
     for column in candidate_cols:
         shuffled = x_valid.copy()
         shuffled[column] = rng.permutation(shuffled[column].to_numpy())
-        prob = _positive_probability(model, shuffled, train_score=train_score)
+        prob = predict_probability(shuffled)
         rank_ic = float(prob.corr(label, method="spearman") or 0.0)
         rows.append(
             {
@@ -771,12 +803,19 @@ def _risk_analysis_payload(
     execution_summary: dict[str, Any],
 ) -> pd.DataFrame:
     selected_test = position_summary["selected_candidate"]["test"]
+    selected_model = str(position_summary["selected_candidate"]["model"])
     base_ablation = factor_ablation.loc[factor_ablation["feature_group"].eq("base")]
     both_ablation = factor_ablation.loc[factor_ablation["feature_group"].eq("base_cogalpha_soxx")]
     base_return = float(base_ablation.iloc[0]["test_return_pct"]) if not base_ablation.empty else np.nan
     both_return = float(both_ablation.iloc[0]["test_return_pct"]) if not both_ablation.empty else np.nan
     return pd.DataFrame(
         [
+            {
+                "check": "lgb_xgb_consensus_selection",
+                "status": "pass" if selected_model == "lgb_xgb_consensus" else "fail",
+                "value": selected_model,
+                "detail": "selected model must be the LGB/XGB consensus candidate for high exposure",
+            },
             {
                 "check": "strict_position_risk_gates",
                 "status": "pass" if position_summary["risk_gates"]["selected_passes_all"] else "fail",
@@ -953,6 +992,10 @@ def _summary_payload(
         "implementation_notes": {
             "codex_factor_generation": "not_rerun_reused_v1_selected_formula",
             "lgb_xgb_required": True,
+            "lgb_xgb_consensus_selection": position_result.summary["selected_candidate"]["model"] == "lgb_xgb_consensus",
+            "lgb_xgb_consensus_members": ["lgbm_classifier", "lgbm_regressor", "xgb_classifier", "xgb_regressor"],
+            "lgb_xgb_consensus_aggregation": "min",
+            "individual_lgb_xgb_candidates": "diagnostic_only_selection_disabled",
             "whole_position_budget_candidates": True,
             "base_plus_probability_candidates": True,
             "pit_soxx_holdings_status": bundle.constituent_factor_summary["point_in_time_status"],
@@ -1000,7 +1043,9 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "model_selection:",
             f"  return_col: {summary['return_col']}",
             f"  label_col: {summary['model_target_col']}",
-            "  models: [lgbm_classifier, lgbm_regressor, xgb_classifier, xgb_regressor]",
+            "  models: [lgbm_classifier, lgbm_regressor, xgb_classifier, xgb_regressor, lgb_xgb_consensus]",
+            "  selectable_model: lgb_xgb_consensus",
+            "  individual_models: diagnostic_only_selection_disabled",
             "  objective: risk_adjusted_excess_return_with_tail_penalties",
             "risk_gates:",
             f"  risk_gate_col: {RISK_HARDENED_GATE_COL}",
@@ -1027,9 +1072,10 @@ def _failure_modes(summary: dict[str, Any]) -> str:
         f"- walk_forward_gate_pass: {risk['walk_forward_gate_pass']}",
         f"- intraday_execution_status: {risk['intraday_execution_status']}",
         f"- soxx_pit_status: {summary['constituent_factors']['point_in_time_status']['status']}",
+        f"- lgb_xgb_consensus_selection: {summary['implementation_notes']['lgb_xgb_consensus_selection']}",
         "- survivorship_bias: SOXX 成分股仍是 current holdings backfill，未达到 point-in-time holdings 生产标准。",
         "- execution_gap: 1m stress 只覆盖已有 Futu cache，仍不是真实订单簿/夜盘成交证明。",
-        "- model_dependency: LGB/XGB 仍依赖 base/risk-gate priors；若 base_constrained_ref regime 失效，模型会同步退化。",
+        "- model_dependency: 当前只允许 LGB/XGB min-consensus 候选晋升；若共识仍依赖 base/risk-gate priors，base_constrained_ref regime 失效时仍会同步退化。",
         "",
     ]
     return "\n".join(lines)

@@ -606,6 +606,82 @@ def test_ml_position_candidates_support_lgbm_and_xgb_models():
     assert selected_positions["target_position"].between(0.0, 1.0).all()
 
 
+def test_ml_position_candidates_can_select_lgb_xgb_consensus_only():
+    from src.backtest import evaluate_ml_position_candidates
+
+    dates = pd.date_range("2025-01-02", periods=190, freq="B")
+    phase = pd.Series(np.sin(np.arange(len(dates)) / 6.0), dtype="float64")
+    trend = phase.rolling(12, min_periods=1).mean()
+    base_position = (trend > -0.15).astype(float)
+    forward_return = 0.012 * phase.shift(1).fillna(0.0) + 0.004 * trend.fillna(0.0)
+    label_return = forward_return.rolling(5, min_periods=1).sum().shift(-4).fillna(forward_return)
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "phase": phase,
+            "trend": trend,
+            "base_position": base_position,
+            "forward_return": forward_return,
+            "label_return": label_return,
+        }
+    )
+
+    metrics, positions = evaluate_ml_position_candidates(
+        frame,
+        feature_cols=["phase", "trend", "base_position"],
+        model_specs=[
+            {"model": "lgbm_classifier", "random_state": 7, "selection_disabled": True},
+            {"model": "xgb_classifier", "random_state": 11, "selection_disabled": True},
+            {
+                "model": "lgb_xgb_consensus",
+                "task": "consensus",
+                "members": ["lgbm_classifier", "xgb_classifier"],
+                "aggregation": "min",
+            },
+        ],
+        train_window=("2025-01-02", "2025-04-30"),
+        validation_window=("2025-05-01", "2025-07-31"),
+        test_window=("2025-08-01", "2025-09-25"),
+        label_col="label_return",
+        position_specs=[
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": "base_position",
+                "low_probability": 0.35,
+                "high_probability": 0.65,
+                "min_throttle": 0.25,
+                "max_throttle": 1.0,
+                "rebalance_threshold": 0.10,
+                "max_daily_change": 0.50,
+                "min_hold_days": 2,
+                "min_position": 0.0,
+                "max_position": 1.0,
+                "objective_min_avg_abs_position": 0.05,
+            }
+        ],
+        min_validation_trade_count=1,
+        min_validation_avg_abs_position=0.05,
+        validation_max_daily_loss_floor=0.0,
+        cost_per_turnover=0.0003,
+    )
+
+    selected_models = set(metrics.loc[metrics["selected"].map(bool), "model"])
+    assert selected_models == {"lgb_xgb_consensus"}
+    assert not metrics.loc[metrics["model"].eq("lgb_xgb_consensus"), "selection_disabled"].map(bool).any()
+    assert not metrics.loc[metrics["model"].isin({"lgbm_classifier", "xgb_classifier"}), "selection_eligible"].map(bool).any()
+    params = json.loads(
+        metrics.loc[
+            (metrics["model"].eq("lgb_xgb_consensus")) & (metrics["segment"].eq("validation")),
+            "params",
+        ].iloc[0]
+    )
+    assert params["consensus_members"] == ["lgbm_classifier", "xgb_classifier"]
+    assert params["consensus_aggregation"] == "min"
+    selected_name = metrics.loc[metrics["selected"].map(bool), "candidate"].iloc[0]
+    assert selected_name.startswith("lgb_xgb_consensus_")
+    assert not positions.loc[positions["candidate"].eq(selected_name)].empty
+
+
 def test_ml_position_candidate_name_includes_risk_gate_cap():
     from src.backtest import evaluate_ml_position_candidates
 

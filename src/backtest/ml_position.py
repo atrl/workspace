@@ -38,6 +38,9 @@ REGRESSOR_MODELS = {
     "ridge",
     "xgb_regressor",
 }
+CONSENSUS_MODELS = {
+    "lgb_xgb_consensus",
+}
 
 
 def _selection_tiebreaker_sort(
@@ -221,14 +224,35 @@ def _build_model(model_name: str, *, random_state: int):
 
 def _model_task(model_name: str, explicit_task: str | None) -> str:
     if explicit_task is not None:
-        if explicit_task not in {"classification", "regression"}:
-            raise ValueError("model task must be classification or regression")
+        if explicit_task not in {"classification", "regression", "consensus"}:
+            raise ValueError("model task must be classification, regression, or consensus")
         return explicit_task
     if model_name in CLASSIFIER_MODELS:
         return "classification"
     if model_name in REGRESSOR_MODELS:
         return "regression"
+    if model_name in CONSENSUS_MODELS:
+        return "consensus"
     raise ValueError(f"cannot infer ML position model task: {model_name}")
+
+
+def _consensus_probability(
+    probabilities: list[pd.Series],
+    *,
+    aggregation: str,
+) -> pd.Series:
+    if len(probabilities) < 2:
+        raise ValueError("consensus probability requires at least two member probability series")
+    frame = pd.concat([probability.rename(str(index)) for index, probability in enumerate(probabilities)], axis=1)
+    if aggregation == "min":
+        consensus = frame.min(axis=1)
+    elif aggregation == "mean":
+        consensus = frame.mean(axis=1)
+    elif aggregation == "median":
+        consensus = frame.median(axis=1)
+    else:
+        raise ValueError("consensus aggregation must be min, mean, or median")
+    return consensus.clip(lower=0.0, upper=1.0).rename("probability")
 
 
 def _max_drawdown_pct(strategy_returns: pd.Series) -> float:
@@ -697,10 +721,15 @@ def evaluate_ml_position_candidates(
     x_train = train[feature_cols].astype("float64")
     metric_rows: list[dict[str, Any]] = []
     position_frames: list[pd.DataFrame] = []
+    probability_cache: dict[tuple[str, str], pd.Series] = {}
+    consensus_specs: list[dict[str, Any]] = []
 
     for index, spec in enumerate(model_specs):
         model_name = str(spec["model"])
         task = _model_task(model_name, spec.get("task"))
+        if task == "consensus":
+            consensus_specs.append(spec)
+            continue
         positive_threshold = float(spec.get("positive_threshold", 0.0))
         random_state = int(spec.get("random_state", 42 + index))
         if task == "classification":
@@ -720,6 +749,7 @@ def evaluate_ml_position_candidates(
         for segment_name, segment_frame in [("validation", validation), ("test", test)]:
             x_segment = segment_frame[feature_cols].astype("float64")
             probability = _positive_probability(model, x_segment, train_score=train_score)
+            probability_cache[(model_name, segment_name)] = probability
             for position_spec in position_specs:
                 candidate = _candidate_name(model_name, position_spec)
                 metrics, positions = _strategy_metrics(
@@ -738,7 +768,8 @@ def evaluate_ml_position_candidates(
                         "model_target_col": model_target_col,
                         "return_col": return_col,
                         "position_mode": str(position_spec.get("position_mode", "probability")),
-                        "selection_disabled": bool(position_spec.get("selection_disabled", False)),
+                        "selection_disabled": bool(position_spec.get("selection_disabled", False))
+                        or bool(spec.get("selection_disabled", False)),
                         "threshold": float(position_spec.get("threshold", 0.55)),
                         "scale": float(position_spec.get("scale", 1.0)),
                         "selection_segment": "validation",
@@ -750,6 +781,63 @@ def evaluate_ml_position_candidates(
                         "test_start": pd.Timestamp(test["datetime"].min()).date().isoformat(),
                         "test_end": pd.Timestamp(test["datetime"].max()).date().isoformat(),
                         "params": json.dumps(position_spec, sort_keys=True),
+                    }
+                )
+                metric_rows.append(metrics)
+                position_frames.append(positions)
+
+    for spec in consensus_specs:
+        model_name = str(spec["model"])
+        members = [str(member) for member in spec.get("members", [])]
+        if len(members) < 2:
+            raise ValueError("consensus model spec requires at least two members")
+        aggregation = str(spec.get("aggregation", "min"))
+        for segment_name, segment_frame in [("validation", validation), ("test", test)]:
+            missing_members = [member for member in members if (member, segment_name) not in probability_cache]
+            if missing_members:
+                raise ValueError(
+                    f"consensus model {model_name} missing member probabilities for {segment_name}: {missing_members}"
+                )
+            probability = _consensus_probability(
+                [probability_cache[(member, segment_name)] for member in members],
+                aggregation=aggregation,
+            )
+            for position_spec in position_specs:
+                candidate = _candidate_name(model_name, position_spec)
+                consensus_position_spec = {
+                    **position_spec,
+                    "consensus_members": members,
+                    "consensus_aggregation": aggregation,
+                }
+                metrics, positions = _strategy_metrics(
+                    candidate=candidate,
+                    segment=segment_name,
+                    data=segment_frame,
+                    probability=probability,
+                    position_spec=consensus_position_spec,
+                    return_col=return_col,
+                    cost_per_turnover=cost_per_turnover,
+                )
+                metrics.update(
+                    {
+                        "model": model_name,
+                        "model_task": "consensus",
+                        "model_target_col": model_target_col,
+                        "return_col": return_col,
+                        "position_mode": str(position_spec.get("position_mode", "probability")),
+                        "selection_disabled": bool(position_spec.get("selection_disabled", False))
+                        or bool(spec.get("selection_disabled", False)),
+                        "threshold": float(position_spec.get("threshold", 0.55)),
+                        "scale": float(position_spec.get("scale", 1.0)),
+                        "selection_segment": "validation",
+                        "report_segment": "test",
+                        "train_start": pd.Timestamp(train["datetime"].min()).date().isoformat(),
+                        "train_end": pd.Timestamp(train["datetime"].max()).date().isoformat(),
+                        "validation_start": pd.Timestamp(validation["datetime"].min()).date().isoformat(),
+                        "validation_end": pd.Timestamp(validation["datetime"].max()).date().isoformat(),
+                        "test_start": pd.Timestamp(test["datetime"].min()).date().isoformat(),
+                        "test_end": pd.Timestamp(test["datetime"].max()).date().isoformat(),
+                        "params": json.dumps(consensus_position_spec, sort_keys=True),
                     }
                 )
                 metric_rows.append(metrics)
@@ -795,7 +883,16 @@ def evaluate_ml_position_candidates(
             validation_metrics["underwater_day_ratio"].astype(float) <= float(max_validation_underwater_day_ratio)
         )
     eligible_validation = validation_metrics.loc[eligible_mask]
-    selection_pool = eligible_validation if not eligible_validation.empty else validation_metrics
+    selectable_validation = validation_metrics.loc[~validation_metrics["selection_disabled"].astype(bool)]
+    if not eligible_validation.empty:
+        selection_pool = eligible_validation
+        selection_pool_reason = "eligible_validation"
+    elif not selectable_validation.empty:
+        selection_pool = selectable_validation
+        selection_pool_reason = "selectable_validation_fallback"
+    else:
+        selection_pool = validation_metrics
+        selection_pool_reason = "all_validation_fallback"
     best_selection_score = float(selection_pool["selection_objective_score"].max())
     selection_tolerance = max(float(selection_score_tolerance), 0.0)
     near_tie_pool = selection_pool.loc[
@@ -821,7 +918,9 @@ def evaluate_ml_position_candidates(
             "selection_tiebreakers": list(selection_tiebreakers or []),
             "selection_tiebreaker_pool_size": int(len(near_tie_pool)),
             "selection_disabled_candidate_count": int(validation_metrics["selection_disabled"].astype(bool).sum()),
-            "fallback_to_all_candidates": bool(eligible_validation.empty),
+            "selection_pool_reason": selection_pool_reason,
+            "fallback_to_selectable_candidates": bool(eligible_validation.empty and not selectable_validation.empty),
+            "fallback_to_all_candidates": bool(eligible_validation.empty and selectable_validation.empty),
         },
         sort_keys=True,
     )
