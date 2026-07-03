@@ -359,7 +359,7 @@ def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate(
     assert summary["intraday_t1"]["source"] == "data/raw/external/intraday_features_soxl_1m.csv"
     assert summary["intraday_t1"]["provider_manifest"] == "data/qlib/soxl_intraday_t1/qlib_store_manifest.json"
     assert summary["intraday_t1"]["lag_policy"] == "T+1_daily_safe"
-    assert summary["intraday_t1"]["coverage_start"] == "2024-01-03"
+    assert summary["intraday_t1"]["coverage_start"] == "2019-01-02"
     assert summary["intraday_t1"]["coverage_end"] == "2026-07-02"
     assert summary["intraday_t1"]["feature_count"] >= 10
     assert "$intraday_soxl_amplitude" in summary["intraday_t1"]["features"]
@@ -2180,7 +2180,8 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     direct_component_cols = set(direct_component_payload)
     assert direct_component_cols.issubset(set(summary["position_model"]["feature_cols"]))
     assert summary["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
-    assert summary["direct_factor_backtest"]["promotion_decision"] == "diagnostic_direct_factor_candidate"
+    assert summary["direct_factor_backtest"]["promotion_decision"] == "not_promoted_no_selection_eligible"
+    assert summary["direct_factor_backtest"]["comparison"]["selected_selection_eligible"] is False
     assert summary["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
     assert (
         summary["direct_factor_backtest"]["comparison"][
@@ -2190,11 +2191,11 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     )
     assert summary["direct_factor_backtest"]["selected_candidate"]["max_position"] <= 1.0
     assert summary["direct_factor_backtest"]["selected_candidate"]["days_above_100"] == 0
-    assert summary["direct_factor_backtest"]["selected_candidate"]["candidate"] == "mined_canary_tsmom_signed_budget_h03_direct"
-    assert summary["direct_factor_backtest"]["selected_candidate"]["effective_component_count"] >= 2
-    assert summary["direct_factor_backtest"]["comparison"][
-        "selected_vs_constrained_weight_reference_return_gap_pct"
-    ] > 4.0
+    assert summary["direct_factor_backtest"]["selected_candidate"]["selection_eligible"] is False
+    assert summary["direct_factor_backtest"]["selected_candidate"]["passes_effective_component_gate"] is False
+    assert summary["direct_factor_backtest"]["selected_candidate"]["effective_component_count"] < summary[
+        "direct_factor_backtest"
+    ]["spec"]["min_effective_component_count"]
     assert summary["position_model"]["workflow"] == "cognitive_alpha_position_model"
     assert set(summary["position_model"]["model_families"]) >= {
         "hist_gradient_boosting_classifier",
@@ -2270,7 +2271,9 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert summary["production_paper_sim"]["status"] == "blocked_not_promoted"
     assert summary["production_paper_sim"]["required_gate"] == "validated_research_position_model_and_walk_forward"
     goal_manifest = json.loads((card / summary["sidecars"]["goal_manifest"]).read_text(encoding="utf-8"))
-    assert goal_manifest["status"] == "complete"
+    assert goal_manifest["status"] == "needs_iteration"
+    assert goal_manifest["terminal_reason"] == "max_attempts_exhausted_needs_iteration"
+    assert goal_manifest["next_action"]["action"] == "continue_codex_exec_factor_generation"
     assert goal_manifest["stage_order"] == [
         "data_gate",
         "candidate_generation",
@@ -2319,8 +2322,13 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert goal_manifest["evolution_loop"]["completed_generations"] == 24
     assert goal_manifest["model_and_position"]["latest_signal"]["as_of"] == summary["as_of"]
     assert goal_manifest["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
+    assert goal_manifest["direct_factor_backtest"]["promotion_decision"] == "not_promoted_no_selection_eligible"
+    assert goal_manifest["direct_factor_backtest"]["comparison"]["selected_selection_eligible"] is False
     assert goal_manifest["direct_factor_backtest"]["comparison"]["beats_constrained_weight_reference"] is True
-    assert goal_manifest["direct_factor_backtest"]["selected_candidate"]["effective_component_count"] >= 2
+    assert goal_manifest["direct_factor_backtest"]["selected_candidate"]["selection_eligible"] is False
+    assert goal_manifest["direct_factor_backtest"]["selected_candidate"]["effective_component_count"] < goal_manifest[
+        "direct_factor_backtest"
+    ]["spec"]["min_effective_component_count"]
     assert goal_manifest["research_card"]["promotion_decision"] == summary["position_model"]["promotion_decision"]
     assert not (card / "positions.csv").exists()
     recorder_dir = Path(summary["recorder_local_dir"])

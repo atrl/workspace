@@ -1,0 +1,44 @@
+{
+  "as_of": "2026-07-02",
+  "audit_snapshot_hash": "190193abd0907ccd",
+  "calendar_end": "2026-07-02",
+  "calendar_start": "2019-01-02",
+  "feature_file_count": 16,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$vix",
+    "$intraday_soxl_bar_count_1m",
+    "$intraday_soxl_open_range_return_30m",
+    "$intraday_soxl_close_location",
+    "$intraday_soxl_realized_vol_1m",
+    "$intraday_soxl_volume_concentration_close_30m",
+    "$intraday_soxl_first_hour_return",
+    "$intraday_soxl_amplitude",
+    "$intraday_soxl_drawdown_from_open",
+    "$intraday_soxl_late_return_30m",
+    "$intraday_soxl_close_vwap_deviation"
+  ],
+  "freq": "day",
+  "hash": "a47259f8cdc73bcf",
+  "instruments": [
+    "SOXL"
+  ],
+  "market": "all",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_t1",
+  "region": "us",
+  "row_count": 1885,
+  "source": "data/raw/external/intraday_features_soxl_1m.csv",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

@@ -33,10 +33,10 @@
   },
   "branch_results": {
     "intraday_t1_lgbm_replay": {
-      "best_drawdown_gate_max_drawdown_pct": -17.5227543819372,
-      "best_drawdown_gate_return_pct": 585.0207315455409,
-      "best_return_max_drawdown_pct": -41.00484321690473,
-      "best_return_pct": 996.9989047854197,
+      "best_drawdown_gate_max_drawdown_pct": -8.754119200270349,
+      "best_drawdown_gate_return_pct": 215.5739931438522,
+      "best_return_max_drawdown_pct": -8.754119200270349,
+      "best_return_pct": 215.5739931438522,
       "comparison_baseline_return_pct": 384.5243431022234,
       "coverage_end": "2026-07-02",
       "coverage_start": "2025-01-02",
@@ -45,22 +45,22 @@
       "passes_both_count": 0
     },
     "intraday_t1_overlay": {
-      "best_drawdown_gate_max_drawdown_pct": -16.730581278846323,
-      "best_drawdown_gate_return_pct": 323.5034235312338,
-      "best_return_max_drawdown_pct": -52.91168590097486,
-      "best_return_pct": 450.63819905033114,
-      "comparison_baseline_return_pct": 453.83571115941027,
+      "best_drawdown_gate_max_drawdown_pct": -16.883458026239072,
+      "best_drawdown_gate_return_pct": 306.9492351265131,
+      "best_return_max_drawdown_pct": -71.64177229130166,
+      "best_return_pct": 2668.330422382604,
+      "comparison_baseline_return_pct": 4047.567769463895,
       "coverage_end": "2026-07-02",
-      "coverage_start": "2024-02-02",
+      "coverage_start": "2019-02-01",
       "goal_baseline_return_pct": 6570.0232821043,
       "grid_rows": 138240,
       "passes_both_count": 0
     },
     "intraday_t1_xgb_replay": {
-      "best_drawdown_gate_max_drawdown_pct": -7.201288904228176,
-      "best_drawdown_gate_return_pct": 472.46321345510455,
-      "best_return_max_drawdown_pct": -34.222811852265735,
-      "best_return_pct": 506.3621283391918,
+      "best_drawdown_gate_max_drawdown_pct": -15.733192396481543,
+      "best_drawdown_gate_return_pct": 224.3112322896822,
+      "best_return_max_drawdown_pct": -15.733192396481543,
+      "best_return_pct": 224.3112322896822,
       "comparison_baseline_return_pct": 384.5243431022234,
       "coverage_end": "2026-07-02",
       "coverage_start": "2025-01-02",
@@ -71,7 +71,7 @@
   },
   "card_type": "diagnostic_search",
   "data_range": [
-    "2024-01-03",
+    "2019-01-02",
     "2026-07-02"
   ],
   "experiment": "agentic_alpha_intraday_t1_search_v1",
@@ -80,10 +80,10 @@
     "require_return_above_baseline": true
   },
   "intraday_t1": {
-    "audit_snapshot_hash": "ab6bfe04f366fab3",
+    "audit_snapshot_hash": "190193abd0907ccd",
     "audit_status": "ok",
     "coverage_end": "2026-07-02",
-    "coverage_start": "2024-01-03",
+    "coverage_start": "2019-01-02",
     "feature_count": 10,
     "features": [
       "$intraday_soxl_bar_count_1m",
@@ -122,9 +122,9 @@
   ],
   "qlib_store_manifest": {
     "as_of": "2026-07-02",
-    "audit_snapshot_hash": "ab6bfe04f366fab3",
+    "audit_snapshot_hash": "190193abd0907ccd",
     "calendar_end": "2026-07-02",
-    "calendar_start": "2024-01-03",
+    "calendar_start": "2019-01-02",
     "feature_file_count": 16,
     "fields": [
       "$open",
@@ -145,7 +145,7 @@
       "$intraday_soxl_close_vwap_deviation"
     ],
     "freq": "day",
-    "hash": "4b32c4f14e4b3fab",
+    "hash": "a47259f8cdc73bcf",
     "instruments": [
       "SOXL"
     ],
@@ -153,7 +153,7 @@
     "operation": "qlib_store_build",
     "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_t1",
     "region": "us",
-    "row_count": 626,
+    "row_count": 1885,
     "source": "data/raw/external/intraday_features_soxl_1m.csv",
     "source_api": [
       "qlib.init",
@@ -185,8 +185,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "dfaf60c00c6b4d9c99cce38e3d0e8190",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder/103514544745239192/dfaf60c00c6b4d9c99cce38e3d0e8190",
+  "recorder_id": "1f9c0f86731c4ad6954d58dbb57f7446",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder/745183780339559872/1f9c0f86731c4ad6954d58dbb57f7446",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder",
   "region": "us",
   "search_report": {
@@ -200,10 +200,10 @@
     "best_candidate": null,
     "branch_results": {
       "intraday_t1_lgbm_replay": {
-        "best_drawdown_gate_max_drawdown_pct": -17.5227543819372,
-        "best_drawdown_gate_return_pct": 585.0207315455409,
-        "best_return_max_drawdown_pct": -41.00484321690473,
-        "best_return_pct": 996.9989047854197,
+        "best_drawdown_gate_max_drawdown_pct": -8.754119200270349,
+        "best_drawdown_gate_return_pct": 215.5739931438522,
+        "best_return_max_drawdown_pct": -8.754119200270349,
+        "best_return_pct": 215.5739931438522,
         "comparison_baseline_return_pct": 384.5243431022234,
         "coverage_end": "2026-07-02",
         "coverage_start": "2025-01-02",
@@ -212,22 +212,22 @@
         "passes_both_count": 0
       },
       "intraday_t1_overlay": {
-        "best_drawdown_gate_max_drawdown_pct": -16.730581278846323,
-        "best_drawdown_gate_return_pct": 323.5034235312338,
-        "best_return_max_drawdown_pct": -52.91168590097486,
-        "best_return_pct": 450.63819905033114,
-        "comparison_baseline_return_pct": 453.83571115941027,
+        "best_drawdown_gate_max_drawdown_pct": -16.883458026239072,
+        "best_drawdown_gate_return_pct": 306.9492351265131,
+        "best_return_max_drawdown_pct": -71.64177229130166,
+        "best_return_pct": 2668.330422382604,
+        "comparison_baseline_return_pct": 4047.567769463895,
         "coverage_end": "2026-07-02",
-        "coverage_start": "2024-02-02",
+        "coverage_start": "2019-02-01",
         "goal_baseline_return_pct": 6570.0232821043,
         "grid_rows": 138240,
         "passes_both_count": 0
       },
       "intraday_t1_xgb_replay": {
-        "best_drawdown_gate_max_drawdown_pct": -7.201288904228176,
-        "best_drawdown_gate_return_pct": 472.46321345510455,
-        "best_return_max_drawdown_pct": -34.222811852265735,
-        "best_return_pct": 506.3621283391918,
+        "best_drawdown_gate_max_drawdown_pct": -15.733192396481543,
+        "best_drawdown_gate_return_pct": 224.3112322896822,
+        "best_return_max_drawdown_pct": -15.733192396481543,
+        "best_return_pct": 224.3112322896822,
         "comparison_baseline_return_pct": 384.5243431022234,
         "coverage_end": "2026-07-02",
         "coverage_start": "2025-01-02",
@@ -236,7 +236,7 @@
         "passes_both_count": 0
       }
     },
-    "coverage_limitation": "intraday T+1 sidecar covers 2024-01-03 through 2026-07-02, so this diagnostic card cannot by itself prove the full 2019-2026 production goal.",
+    "coverage_limitation": "intraday T+1 sidecar covers 2019-01-02 through 2026-07-02, so this diagnostic card cannot by itself prove the full 2019-2026 production goal.",
     "external_source_counts": {
       "arxiv": 1,
       "github": 1,
@@ -266,7 +266,7 @@
       "tags/mlflow.source.type",
       "tags/mlflow.user"
     ],
-    "recorder_id": "dfaf60c00c6b4d9c99cce38e3d0e8190",
+    "recorder_id": "1f9c0f86731c4ad6954d58dbb57f7446",
     "stage_order": [
       "research",
       "retrieve",

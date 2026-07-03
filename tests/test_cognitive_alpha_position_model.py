@@ -350,3 +350,49 @@ def test_cognitive_alpha_weighted_factor_search_selects_direct_backtest_above_re
     paths = result.write_sidecars(tmp_path)
     assert set(paths) == {"candidate_metrics", "benchmark_comparison", "summary"}
     assert json.loads(paths["summary"].read_text(encoding="utf-8"))["selected_candidate"]["candidate"] == "canary_tsmom_direct"
+
+
+def test_cognitive_alpha_weighted_factor_search_fails_closed_without_eligible_candidate():
+    from src.workflow import (
+        CognitiveAlphaWeightedFactorSearchSpec,
+        run_cognitive_alpha_weighted_factor_search,
+    )
+
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.date_range("2026-01-02", periods=5, freq="B"),
+            "canary_alpha": [1, 1, 1, 1, 1],
+            "tsmom_alpha": [0, 1, 0, 1, 0],
+            "forward_return": [0.10, 0.08, 0.09, 0.07, 0.06],
+        }
+    )
+    spec = CognitiveAlphaWeightedFactorSearchSpec(
+        component_cols=["canary_alpha", "tsmom_alpha"],
+        candidates=[
+            {
+                "candidate": "single_factor_high_return",
+                "weights": {"canary_alpha": 1.0},
+                "policy": {"min_position": 0.0, "max_position": 1.0, "rebalance_threshold": 0.0},
+            },
+            {
+                "candidate": "multi_factor_below_reference",
+                "weights": {"canary_alpha": 0.1, "tsmom_alpha": 0.1},
+                "policy": {"min_position": 0.0, "max_position": 1.0, "rebalance_threshold": 0.0},
+            },
+        ],
+        min_effective_component_count=2,
+        constrained_reference_name="constrained_weight_reference",
+    )
+
+    result = run_cognitive_alpha_weighted_factor_search(
+        frame,
+        spec=spec,
+        benchmarks=[
+            {"name": "constrained_weight_reference", "return_pct": 30.0, "max_drawdown_pct": -12.0},
+        ],
+    )
+
+    assert result.summary["selected_candidate"]["candidate"] == "single_factor_high_return"
+    assert result.summary["selected_candidate"]["selection_eligible"] is False
+    assert result.summary["comparison"]["selected_selection_eligible"] is False
+    assert result.summary["promotion_decision"] == "not_promoted_no_selection_eligible"

@@ -1,8 +1,8 @@
 {
   "as_of": "2026-07-02",
-  "audit_snapshot_hash": "ab6bfe04f366fab3",
+  "audit_snapshot_hash": "190193abd0907ccd",
   "calendar_end": "2026-07-02",
-  "calendar_start": "2024-01-03",
+  "calendar_start": "2019-01-02",
   "feature_file_count": 16,
   "fields": [
     "$open",
@@ -23,7 +23,7 @@
     "$intraday_soxl_close_vwap_deviation"
   ],
   "freq": "day",
-  "hash": "4b32c4f14e4b3fab",
+  "hash": "a47259f8cdc73bcf",
   "instruments": [
     "SOXL"
   ],
@@ -31,7 +31,7 @@
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_t1",
   "region": "us",
-  "row_count": 626,
+  "row_count": 1885,
   "source": "data/raw/external/intraday_features_soxl_1m.csv",
   "source_api": [
     "qlib.init",

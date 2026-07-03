@@ -1,4 +1,5 @@
 {
+  "attempt_index": 1,
   "candidate_generation": {
     "candidate_provider": {
       "codex_direct_compatible": true,
@@ -31,7 +32,7 @@
   "data_gate": {
     "manifests": [
       {
-        "calendar_end": "2026-06-24",
+        "calendar_end": "2026-07-02",
         "calendar_start": "2010-03-11",
         "fields": [
           "$open",
@@ -45,14 +46,14 @@
           "SOXL"
         ],
         "market": "all",
-        "max_datetime": "2026-06-24",
+        "max_datetime": "2026-07-02",
         "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
         "region": "us",
         "source": "qlib.data.D.features"
       }
     ],
-    "max_datetime": "2026-06-24",
-    "required_max_datetime": "2026-06-24",
+    "max_datetime": "2026-07-02",
+    "required_max_datetime": "2026-07-02",
     "source": "qlib.data.D.features",
     "status": "ok"
   },
@@ -70,45 +71,46 @@
       "beats_soxl_backtest": true,
       "beats_soxl_buyhold": true,
       "selected_max_drawdown_pct": -14.619712031891652,
-      "selected_return_pct": 576.1573201293345,
-      "selected_vs_constrained_weight_reference_return_gap_pct": 4.937262359684723,
-      "selected_vs_previous_factor_enhanced_return_gap_pct": 387.43515359779997,
-      "selected_vs_soxl_backtest_return_gap_pct": 438.16108217797955,
-      "selected_vs_soxl_buyhold_return_gap_pct": 186.2758811422416
+      "selected_return_pct": 573.2281789190391,
+      "selected_selection_eligible": false,
+      "selected_vs_constrained_weight_reference_return_gap_pct": 2.0081211493893534,
+      "selected_vs_previous_factor_enhanced_return_gap_pct": 384.5060123875046,
+      "selected_vs_soxl_backtest_return_gap_pct": 435.2319409676842,
+      "selected_vs_soxl_buyhold_return_gap_pct": 183.34673993194622
     },
     "component_cols": [
       "mined_canary_trend60_vix26_autocorr_h3_s1.0",
       "mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02",
       "mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03"
     ],
-    "promotion_decision": "diagnostic_direct_factor_candidate",
+    "promotion_decision": "not_promoted_no_selection_eligible",
     "selected_candidate": {
-      "avg_abs_position": 0.4697033898305087,
+      "avg_abs_position": 0.43548387096774194,
       "avg_holding_days": 12.11111111111111,
       "beats_constrained_weight_reference": true,
       "benchmark_return_pct": null,
-      "candidate": "mined_canary_tsmom_signed_budget_h03_direct",
+      "candidate": "mined_canary_only_budget_h01_direct",
       "component_cols": "[\"mined_canary_trend60_vix26_autocorr_h3_s1.0\", \"mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02\", \"mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03\"]",
       "cost_per_turnover": 0.0003,
       "days_above_100": 0,
       "days_below_0": 0,
-      "effective_component_count": 3,
+      "effective_component_count": 1,
       "max_drawdown_pct": -14.619712031891652,
       "max_position": 1.0,
       "min_position": 0.0,
       "next_day_reversal_count": 1,
-      "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+      "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.1}",
       "passes_drawdown_gate": true,
-      "passes_effective_component_gate": true,
+      "passes_effective_component_gate": false,
       "passes_position_bounds": true,
-      "raw_target_avg_abs": 0.8694915254237289,
-      "raw_target_max": 1.875,
+      "raw_target_avg_abs": 0.7721999999999999,
+      "raw_target_max": 1.7732,
       "raw_target_min": 0.0,
-      "return_pct": 576.1573201293345,
-      "selection_eligible": true,
-      "total_turnover": 9.625,
+      "return_pct": 573.2281789190391,
+      "selection_eligible": false,
+      "total_turnover": 10.0,
       "trade_count": 10,
-      "weights": "{\"mined_canary_trend60_vix26_autocorr_h3_s1.0\": 1.8, \"mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02\": -0.1, \"mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03\": 0.1}"
+      "weights": "{\"mined_canary_trend60_vix26_autocorr_h3_s1.0\": 1.7732}"
     },
     "selection": "return_sorted_long_only_multifactor_gate",
     "spec": {
@@ -208,6 +210,7 @@
     ],
     "status": "ok"
   },
+  "max_attempts": 1,
   "model_and_position": {
     "artifact_policy": {
       "policy": "slim_card_recorder_first",
@@ -255,12 +258,12 @@
     "feature_count": 23,
     "latest_signal": {
       "action": "HOLD",
-      "as_of": "2026-06-24",
-      "candidate": "ridge_probability_p0.45_s1_h0.2_hold3",
-      "last_change_date": "2026-06-24",
+      "as_of": "2026-07-02",
+      "candidate": "ridge_probability_p0.45_s1_h0.2_hold3_rgvix_above30_cap0.5",
+      "last_change_date": "2026-07-02",
       "last_change_target_position": 0.0,
       "previous_target_position": 0.0,
-      "probability": 0.016611879645466954,
+      "probability": 0.042496112914531085,
       "target_delta": 0.0,
       "target_delta_percent": 0.0,
       "target_percent": 0.0,
@@ -294,7 +297,7 @@
     "segments": {
       "test": [
         "2026-01-02",
-        "2026-06-24"
+        "2026-07-02"
       ],
       "train": [
         "2019-01-02",
@@ -306,13 +309,13 @@
       ]
     },
     "selected_candidate": {
-      "candidate": "ridge_probability_p0.45_s1_h0.2_hold3",
+      "candidate": "ridge_probability_p0.45_s1_h0.2_hold3_rgvix_above30_cap0.5",
       "model": "ridge",
       "selected_by": "validation_selection_objective_score",
       "test": {
         "avg_abs_position": 0.0,
-        "avg_holding_days": 119.0,
-        "candidate": "ridge_probability_p0.45_s1_h0.2_hold3",
+        "avg_holding_days": 125.0,
+        "candidate": "ridge_probability_p0.45_s1_h0.2_hold3_rgvix_above30_cap0.5",
         "cost_per_turnover": 0.0003,
         "days_above_100": 0,
         "days_below_0": 0,
@@ -325,7 +328,7 @@
         "model": "ridge",
         "model_target_col": "label_return_5d",
         "model_task": "regression",
-        "month_count": 6,
+        "month_count": 7,
         "next_day_reversal_count": 0,
         "next_day_reversal_ratio": 0.0,
         "params": "{\"max_daily_change\": 0.5, \"max_position\": 1.0, \"max_vol_scale\": 1.0, \"min_hold_days\": 3, \"min_vol_scale\": 0.0, \"objective_max_drawdown_floor\": -25.0, \"objective_return_to_drawdown_weight\": 1.0, \"objective_return_weight\": 0.25, \"position_mode\": \"probability\", \"realized_vol_col\": \"realized_vol_20\", \"rebalance_threshold\": 0.2, \"reversal_penalty\": 4.0, \"risk_gate_col\": \"vix\", \"risk_gate_direction\": \"above\", \"risk_gate_max_position\": 0.5, \"risk_gate_threshold\": 30.0, \"scale\": 1.0, \"target_vol\": 0.35, \"threshold\": 0.45, \"trade_penalty\": 0.05, \"turnover_penalty\": 0.5}",
@@ -339,11 +342,13 @@
         "scale": 1.0,
         "segment": "test",
         "selected": true,
+        "selection_disabled": false,
         "selection_eligible": true,
-        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"max_validation_total_turnover\": 30.0, \"min_validation_avg_abs_position\": 0.05, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -12.0, \"validation_max_drawdown_floor\": -20.0}",
+        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"max_validation_total_turnover\": 30.0, \"min_validation_avg_abs_position\": 0.05, \"min_validation_trade_count\": 1, \"selection_disabled_candidate_count\": 0, \"selection_score_tolerance\": 0.0, \"selection_tiebreaker_pool_size\": 1, \"selection_tiebreakers\": [], \"validation_max_daily_loss_floor\": -12.0, \"validation_max_drawdown_floor\": -20.0}",
         "selection_objective_score": 0.0,
         "selection_segment": "validation",
-        "test_end": "2026-06-24",
+        "selection_tiebreaker_pool_size": 1,
+        "test_end": "2026-07-02",
         "test_start": "2026-01-02",
         "threshold": 0.45,
         "total_turnover": 0.0,
@@ -353,13 +358,13 @@
         "validation_end": "2025-12-31",
         "validation_start": "2025-01-02",
         "worst_strategy_return_pct": -0.0,
-        "zero_position_day_count": 119,
+        "zero_position_day_count": 125,
         "zero_position_day_ratio": 1.0
       },
       "validation": {
         "avg_abs_position": 0.08553631514988086,
         "avg_holding_days": 12.666666666666666,
-        "candidate": "ridge_probability_p0.45_s1_h0.2_hold3",
+        "candidate": "ridge_probability_p0.45_s1_h0.2_hold3_rgvix_above30_cap0.5",
         "cost_per_turnover": 0.0003,
         "days_above_100": 0,
         "days_below_0": 0,
@@ -386,11 +391,13 @@
         "scale": 1.0,
         "segment": "validation",
         "selected": true,
+        "selection_disabled": false,
         "selection_eligible": true,
-        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"max_validation_total_turnover\": 30.0, \"min_validation_avg_abs_position\": 0.05, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -12.0, \"validation_max_drawdown_floor\": -20.0}",
+        "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"max_validation_total_turnover\": 30.0, \"min_validation_avg_abs_position\": 0.05, \"min_validation_trade_count\": 1, \"selection_disabled_candidate_count\": 0, \"selection_score_tolerance\": 0.0, \"selection_tiebreaker_pool_size\": 1, \"selection_tiebreakers\": [], \"validation_max_daily_loss_floor\": -12.0, \"validation_max_drawdown_floor\": -20.0}",
         "selection_objective_score": 2.558872940163902,
         "selection_segment": "validation",
-        "test_end": "2026-06-24",
+        "selection_tiebreaker_pool_size": 1,
+        "test_end": "2026-07-02",
         "test_start": "2026-01-02",
         "threshold": 0.45,
         "total_turnover": 2.873719905005192,
@@ -514,7 +521,7 @@
       "return_col": "forward_return",
       "test": [
         "2026-01-02",
-        "2026-06-24"
+        "2026-07-02"
       ],
       "test_max_daily_loss_floor": -12.0,
       "test_max_drawdown_floor": -20.0,
@@ -563,7 +570,7 @@
           "fold": "wf_2026_ytd",
           "test": [
             "2026-01-02",
-            "2026-06-24"
+            "2026-07-02"
           ],
           "train": [
             "2019-01-02",
@@ -595,6 +602,64 @@
     },
     "workflow": "cognitive_alpha_position_model"
   },
+  "next_action": {
+    "action": "continue_codex_exec_factor_generation",
+    "candidate_provider": {
+      "codex_direct_compatible": true,
+      "codex_execution_mode": "repo_owned_codex_generated_code",
+      "generated_candidate_count": 80,
+      "guidance_style_count": 5,
+      "openai_api_key_required": false,
+      "profile_agent_count": 21,
+      "provider_id": "deterministic_code_agent_pool",
+      "provider_kind": "repo_owned_code",
+      "requested_initial_pool_size": 80
+    },
+    "direct_factor_role": "prior_only_not_final_promotion",
+    "feedback_focus": [
+      "constrained_weight_reference_gap",
+      "walk_forward_risk_gates"
+    ],
+    "max_attempts": 1,
+    "next_attempt": 2,
+    "position_comparison": {
+      "beats_constrained_weight_reference": false,
+      "beats_previous_factor_enhanced": false,
+      "beats_soxl_backtest": false,
+      "beats_soxl_buyhold": false,
+      "selected_max_drawdown_pct": 0.0,
+      "selected_return_pct": 0.0,
+      "selected_vs_constrained_weight_reference_return_gap_pct": -571.2200577696498,
+      "selected_vs_previous_factor_enhanced_return_gap_pct": -188.72216653153453,
+      "selected_vs_soxl_backtest_return_gap_pct": -137.99623795135494,
+      "selected_vs_soxl_buyhold_return_gap_pct": -389.8814389870929
+    },
+    "previous_promotion_decision": "not_promoted_failed_position_risk_gates",
+    "read_artifacts": [
+      "failure_modes.md",
+      "goal_manifest.json",
+      "summary.json"
+    ],
+    "required_max_attempts": 2,
+    "requires_budget_refresh": true,
+    "walk_forward": {
+      "all_folds_pass_risk_gates": false,
+      "extreme_loss_threshold": -0.05,
+      "fold_count": 3,
+      "max_test_extreme_loss_day_count": 1,
+      "max_test_total_turnover": 2.8090015932074235,
+      "mean_test_avg_abs_position": 0.033987251077313214,
+      "mean_test_positive_month_ratio": 0.3333333333333333,
+      "mean_test_return_pct": 5.017131284631064,
+      "mean_test_zero_position_day_ratio": 0.8455857240437158,
+      "median_test_return_pct": 0.0,
+      "positive_test_fold_count": 1,
+      "positive_test_fold_ratio": 0.3333333333333333,
+      "total_test_trade_count": 15,
+      "worst_test_max_daily_loss_pct": -5.915957173585836,
+      "worst_test_max_drawdown_pct": -7.640596359986818
+    }
+  },
   "objective": "SOXL CogAlpha data/evolution/position/card/signal goal chain",
   "paper_reference": "arxiv:2511.18850",
   "quality_checker": {
@@ -614,18 +679,19 @@
       "qualified_percentile": 0.65
     }
   },
+  "remaining_attempts": 0,
   "research_card": {
     "card_dir": "research/cognitive_alpha_position_model_v1",
     "promotion_decision": "not_promoted_failed_position_risk_gates",
-    "recorder_id": "0a8210c16351487ab25873b1504baaa6",
-    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/0a8210c16351487ab25873b1504baaa6"
+    "recorder_id": "0e280619960944e793d965cfbfca7b19",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/0e280619960944e793d965cfbfca7b19"
   },
   "run_id": "cognitive_alpha_goal_runner",
   "signal_push": {
     "notifications": [
       {
         "action": "HOLD",
-        "as_of": "2026-06-24",
+        "as_of": "2026-07-02",
         "real_broker_order": false,
         "source": "qlib_recorder.latest_signal",
         "target_percent": 0.0,
@@ -648,7 +714,7 @@
     "data_gate": {
       "manifests": [
         {
-          "calendar_end": "2026-06-24",
+          "calendar_end": "2026-07-02",
           "calendar_start": "2010-03-11",
           "fields": [
             "$open",
@@ -662,7 +728,7 @@
             "SOXL"
           ],
           "market": "all",
-          "max_datetime": "2026-06-24",
+          "max_datetime": "2026-07-02",
           "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
           "region": "us",
           "source": "qlib.data.D.features"
@@ -683,45 +749,46 @@
         "beats_soxl_backtest": true,
         "beats_soxl_buyhold": true,
         "selected_max_drawdown_pct": -14.619712031891652,
-        "selected_return_pct": 576.1573201293345,
-        "selected_vs_constrained_weight_reference_return_gap_pct": 4.937262359684723,
-        "selected_vs_previous_factor_enhanced_return_gap_pct": 387.43515359779997,
-        "selected_vs_soxl_backtest_return_gap_pct": 438.16108217797955,
-        "selected_vs_soxl_buyhold_return_gap_pct": 186.2758811422416
+        "selected_return_pct": 573.2281789190391,
+        "selected_selection_eligible": false,
+        "selected_vs_constrained_weight_reference_return_gap_pct": 2.0081211493893534,
+        "selected_vs_previous_factor_enhanced_return_gap_pct": 384.5060123875046,
+        "selected_vs_soxl_backtest_return_gap_pct": 435.2319409676842,
+        "selected_vs_soxl_buyhold_return_gap_pct": 183.34673993194622
       },
       "component_cols": [
         "mined_canary_trend60_vix26_autocorr_h3_s1.0",
         "mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02",
         "mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03"
       ],
-      "promotion_decision": "diagnostic_direct_factor_candidate",
+      "promotion_decision": "not_promoted_no_selection_eligible",
       "selected_candidate": {
-        "avg_abs_position": 0.4697033898305087,
+        "avg_abs_position": 0.43548387096774194,
         "avg_holding_days": 12.11111111111111,
         "beats_constrained_weight_reference": true,
         "benchmark_return_pct": null,
-        "candidate": "mined_canary_tsmom_signed_budget_h03_direct",
+        "candidate": "mined_canary_only_budget_h01_direct",
         "component_cols": "[\"mined_canary_trend60_vix26_autocorr_h3_s1.0\", \"mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02\", \"mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03\"]",
         "cost_per_turnover": 0.0003,
         "days_above_100": 0,
         "days_below_0": 0,
-        "effective_component_count": 3,
+        "effective_component_count": 1,
         "max_drawdown_pct": -14.619712031891652,
         "max_position": 1.0,
         "min_position": 0.0,
         "next_day_reversal_count": 1,
-        "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+        "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.1}",
         "passes_drawdown_gate": true,
-        "passes_effective_component_gate": true,
+        "passes_effective_component_gate": false,
         "passes_position_bounds": true,
-        "raw_target_avg_abs": 0.8694915254237289,
-        "raw_target_max": 1.875,
+        "raw_target_avg_abs": 0.7721999999999999,
+        "raw_target_max": 1.7732,
         "raw_target_min": 0.0,
-        "return_pct": 576.1573201293345,
-        "selection_eligible": true,
-        "total_turnover": 9.625,
+        "return_pct": 573.2281789190391,
+        "selection_eligible": false,
+        "total_turnover": 10.0,
         "trade_count": 10,
-        "weights": "{\"mined_canary_trend60_vix26_autocorr_h3_s1.0\": 1.8, \"mined_tsmom_soxx_ret10_th0_lowhv_q70_s0.75_stop0.02\": -0.1, \"mined_tsmom_soxx_ret252_th0.15_vix30_s0.75_stop0.03\": 0.1}"
+        "weights": "{\"mined_canary_trend60_vix26_autocorr_h3_s1.0\": 1.7732}"
       },
       "selection": "return_sorted_long_only_multifactor_gate",
       "spec": {
@@ -911,12 +978,12 @@
       "feature_count": 23,
       "latest_signal": {
         "action": "HOLD",
-        "as_of": "2026-06-24",
-        "candidate": "ridge_probability_p0.45_s1_h0.2_hold3",
-        "last_change_date": "2026-06-24",
+        "as_of": "2026-07-02",
+        "candidate": "ridge_probability_p0.45_s1_h0.2_hold3_rgvix_above30_cap0.5",
+        "last_change_date": "2026-07-02",
         "last_change_target_position": 0.0,
         "previous_target_position": 0.0,
-        "probability": 0.016611879645466954,
+        "probability": 0.042496112914531085,
         "target_delta": 0.0,
         "target_delta_percent": 0.0,
         "target_percent": 0.0,
@@ -950,7 +1017,7 @@
       "segments": {
         "test": [
           "2026-01-02",
-          "2026-06-24"
+          "2026-07-02"
         ],
         "train": [
           "2019-01-02",
@@ -962,13 +1029,13 @@
         ]
       },
       "selected_candidate": {
-        "candidate": "ridge_probability_p0.45_s1_h0.2_hold3",
+        "candidate": "ridge_probability_p0.45_s1_h0.2_hold3_rgvix_above30_cap0.5",
         "model": "ridge",
         "selected_by": "validation_selection_objective_score",
         "test": {
           "avg_abs_position": 0.0,
-          "avg_holding_days": 119.0,
-          "candidate": "ridge_probability_p0.45_s1_h0.2_hold3",
+          "avg_holding_days": 125.0,
+          "candidate": "ridge_probability_p0.45_s1_h0.2_hold3_rgvix_above30_cap0.5",
           "cost_per_turnover": 0.0003,
           "days_above_100": 0,
           "days_below_0": 0,
@@ -981,7 +1048,7 @@
           "model": "ridge",
           "model_target_col": "label_return_5d",
           "model_task": "regression",
-          "month_count": 6,
+          "month_count": 7,
           "next_day_reversal_count": 0,
           "next_day_reversal_ratio": 0.0,
           "params": "{\"max_daily_change\": 0.5, \"max_position\": 1.0, \"max_vol_scale\": 1.0, \"min_hold_days\": 3, \"min_vol_scale\": 0.0, \"objective_max_drawdown_floor\": -25.0, \"objective_return_to_drawdown_weight\": 1.0, \"objective_return_weight\": 0.25, \"position_mode\": \"probability\", \"realized_vol_col\": \"realized_vol_20\", \"rebalance_threshold\": 0.2, \"reversal_penalty\": 4.0, \"risk_gate_col\": \"vix\", \"risk_gate_direction\": \"above\", \"risk_gate_max_position\": 0.5, \"risk_gate_threshold\": 30.0, \"scale\": 1.0, \"target_vol\": 0.35, \"threshold\": 0.45, \"trade_penalty\": 0.05, \"turnover_penalty\": 0.5}",
@@ -995,11 +1062,13 @@
           "scale": 1.0,
           "segment": "test",
           "selected": true,
+          "selection_disabled": false,
           "selection_eligible": true,
-          "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"max_validation_total_turnover\": 30.0, \"min_validation_avg_abs_position\": 0.05, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -12.0, \"validation_max_drawdown_floor\": -20.0}",
+          "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"max_validation_total_turnover\": 30.0, \"min_validation_avg_abs_position\": 0.05, \"min_validation_trade_count\": 1, \"selection_disabled_candidate_count\": 0, \"selection_score_tolerance\": 0.0, \"selection_tiebreaker_pool_size\": 1, \"selection_tiebreakers\": [], \"validation_max_daily_loss_floor\": -12.0, \"validation_max_drawdown_floor\": -20.0}",
           "selection_objective_score": 0.0,
           "selection_segment": "validation",
-          "test_end": "2026-06-24",
+          "selection_tiebreaker_pool_size": 1,
+          "test_end": "2026-07-02",
           "test_start": "2026-01-02",
           "threshold": 0.45,
           "total_turnover": 0.0,
@@ -1009,13 +1078,13 @@
           "validation_end": "2025-12-31",
           "validation_start": "2025-01-02",
           "worst_strategy_return_pct": -0.0,
-          "zero_position_day_count": 119,
+          "zero_position_day_count": 125,
           "zero_position_day_ratio": 1.0
         },
         "validation": {
           "avg_abs_position": 0.08553631514988086,
           "avg_holding_days": 12.666666666666666,
-          "candidate": "ridge_probability_p0.45_s1_h0.2_hold3",
+          "candidate": "ridge_probability_p0.45_s1_h0.2_hold3_rgvix_above30_cap0.5",
           "cost_per_turnover": 0.0003,
           "days_above_100": 0,
           "days_below_0": 0,
@@ -1042,11 +1111,13 @@
           "scale": 1.0,
           "segment": "validation",
           "selected": true,
+          "selection_disabled": false,
           "selection_eligible": true,
-          "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"max_validation_total_turnover\": 30.0, \"min_validation_avg_abs_position\": 0.05, \"min_validation_trade_count\": 1, \"validation_max_daily_loss_floor\": -12.0, \"validation_max_drawdown_floor\": -20.0}",
+          "selection_gate": "{\"fallback_to_all_candidates\": false, \"max_validation_reversal_ratio\": 0.6, \"max_validation_total_turnover\": 30.0, \"min_validation_avg_abs_position\": 0.05, \"min_validation_trade_count\": 1, \"selection_disabled_candidate_count\": 0, \"selection_score_tolerance\": 0.0, \"selection_tiebreaker_pool_size\": 1, \"selection_tiebreakers\": [], \"validation_max_daily_loss_floor\": -12.0, \"validation_max_drawdown_floor\": -20.0}",
           "selection_objective_score": 2.558872940163902,
           "selection_segment": "validation",
-          "test_end": "2026-06-24",
+          "selection_tiebreaker_pool_size": 1,
+          "test_end": "2026-07-02",
           "test_start": "2026-01-02",
           "threshold": 0.45,
           "total_turnover": 2.873719905005192,
@@ -1170,7 +1241,7 @@
         "return_col": "forward_return",
         "test": [
           "2026-01-02",
-          "2026-06-24"
+          "2026-07-02"
         ],
         "test_max_daily_loss_floor": -12.0,
         "test_max_drawdown_floor": -20.0,
@@ -1219,7 +1290,7 @@
             "fold": "wf_2026_ytd",
             "test": [
               "2026-01-02",
-              "2026-06-24"
+              "2026-07-02"
             ],
             "train": [
               "2019-01-02",
@@ -1254,14 +1325,14 @@
     "research_card": {
       "card_dir": "research/cognitive_alpha_position_model_v1",
       "promotion_decision": "not_promoted_failed_position_risk_gates",
-      "recorder_id": "0a8210c16351487ab25873b1504baaa6",
-      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/0a8210c16351487ab25873b1504baaa6"
+      "recorder_id": "0e280619960944e793d965cfbfca7b19",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_position_model_v1/qlib_recorder/877908106740255892/0e280619960944e793d965cfbfca7b19"
     },
     "signal_push": {
       "notifications": [
         {
           "action": "HOLD",
-          "as_of": "2026-06-24",
+          "as_of": "2026-07-02",
           "real_broker_order": false,
           "source": "qlib_recorder.latest_signal",
           "target_percent": 0.0,
@@ -1270,7 +1341,8 @@
       ]
     }
   },
-  "status": "complete",
+  "status": "needs_iteration",
+  "terminal_reason": "max_attempts_exhausted_needs_iteration",
   "validation_gates": {
     "max_target_position": 1.0,
     "min_completed_generations": 24,

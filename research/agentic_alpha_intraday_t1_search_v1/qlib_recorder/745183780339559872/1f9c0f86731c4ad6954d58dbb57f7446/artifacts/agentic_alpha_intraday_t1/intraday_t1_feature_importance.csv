@@ -1,0 +1,35 @@
+model_family,feature,importance
+lgbm,"$close/Ref($close, 1)-1",68.0
+lgbm,$intraday_soxl_drawdown_from_open,63.0
+lgbm,$intraday_soxl_close_vwap_deviation,60.0
+lgbm,"$close/Mean($close, 20)-1",55.0
+lgbm,$intraday_soxl_first_hour_return,50.0
+lgbm,$vix,45.0
+lgbm,$intraday_soxl_realized_vol_1m,43.0
+lgbm,$intraday_soxl_late_return_30m,42.0
+lgbm,$intraday_soxl_amplitude,35.0
+lgbm,$intraday_soxl_close_location,29.0
+lgbm,"$close/Ref($close, 5)-1",27.0
+lgbm,"$close/Mean($close, 5)-1",26.0
+lgbm,"Std($close/Ref($close, 1)-1, 20)*15.874507866387544",25.0
+lgbm,$intraday_soxl_open_range_return_30m,20.0
+lgbm,"$close/Ref($close, 2)-1",19.0
+lgbm,"$volume/(Mean($volume, 5)+1e-12)",19.0
+lgbm,$intraday_soxl_volume_concentration_close_30m,14.0
+xgb,$intraday_soxl_realized_vol_1m,0.07451920956373215
+xgb,"$close/Ref($close, 1)-1",0.07330864667892456
+xgb,$vix,0.07296766340732574
+xgb,$intraday_soxl_open_range_return_30m,0.06793121248483658
+xgb,$intraday_soxl_close_vwap_deviation,0.0613015778362751
+xgb,"$close/Mean($close, 20)-1",0.06110642850399017
+xgb,$intraday_soxl_drawdown_from_open,0.05954236537218094
+xgb,"$close/Ref($close, 2)-1",0.05629238113760948
+xgb,"$close/Mean($close, 5)-1",0.05554768815636635
+xgb,$intraday_soxl_first_hour_return,0.055462390184402466
+xgb,$intraday_soxl_late_return_30m,0.05503922328352928
+xgb,$intraday_soxl_amplitude,0.05329091101884842
+xgb,"$volume/(Mean($volume, 5)+1e-12)",0.052440039813518524
+xgb,$intraday_soxl_volume_concentration_close_30m,0.05223997309803963
+xgb,$intraday_soxl_close_location,0.05166378244757652
+xgb,"$close/Ref($close, 5)-1",0.049127303063869476
+xgb,"Std($close/Ref($close, 1)-1, 20)*15.874507866387544",0.04821910336613655

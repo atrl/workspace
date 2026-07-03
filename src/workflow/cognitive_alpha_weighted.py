@@ -170,6 +170,7 @@ def _comparison_summary(
     constrained_name: str,
 ) -> dict[str, Any]:
     summary = {
+        "selected_selection_eligible": bool(selected.get("selection_eligible", False)),
         "selected_return_pct": float(selected["return_pct"]),
         "selected_max_drawdown_pct": float(selected["max_drawdown_pct"]),
     }
@@ -183,6 +184,8 @@ def _comparison_summary(
 
 
 def _promotion_decision(summary: dict[str, Any], *, constrained_name: str) -> str:
+    if not bool(summary.get("selected_selection_eligible", False)):
+        return "not_promoted_no_selection_eligible"
     if bool(summary.get(f"beats_{constrained_name}", False)):
         return "diagnostic_direct_factor_candidate"
     return f"not_promoted_under_{constrained_name}"

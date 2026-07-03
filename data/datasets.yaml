@@ -120,11 +120,11 @@ external:
     rows: 1
     start: '2026-05-22'
   intraday_features_soxl_1m:
-    end: '2026-06-05'
+    end: '2026-07-02'
     exists: true
     path: data/raw/external/intraday_features_soxl_1m.csv
-    rows: 608
-    start: '2024-01-03'
+    rows: 1885
+    start: '2019-01-02'
   oil_wti:
     end: null
     exists: true
@@ -161,7 +161,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-07-03T03:50:12.390856+00:00'
+generated_at: '2026-07-03T11:46:56+00:00'
 intraday:
   soxl_soxx_1m:
     end: '2026-07-02T16:00:00-04:00'
@@ -171,8 +171,8 @@ intraday:
     path: data/processed/intraday/soxl_soxx_1m.parquet
     providers:
     - futu
-    rows: 486900
-    start: '2024-01-02T09:31:00-05:00'
+    rows: 1465680
+    start: '2018-12-31T09:31:00-05:00'
     symbols:
     - SOXL
     - SOXX

@@ -1,0 +1,96 @@
+{"candidate": "g001_000_mutation_llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_001_crossover_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_002_crossover_mutation_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_003_mutation_llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_004_crossover_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_005_crossover_mutation_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_006_mutation_llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_007_crossover_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_008_crossover_mutation_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_009_mutation_llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_010_crossover_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_011_crossover_mutation_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_012_mutation_llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_013_crossover_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_014_crossover_mutation_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_015_mutation_llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_016_crossover_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_017_crossover_mutation_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_018_mutation_llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_019_crossover_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_020_crossover_mutation_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_021_mutation_llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_022_crossover_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_023_crossover_mutation_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_024_mutation_llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_025_crossover_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_026_crossover_mutation_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_027_mutation_llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_028_crossover_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_029_crossover_mutation_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_030_mutation_llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_031_crossover_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_032_crossover_mutation_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_033_mutation_llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_034_crossover_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_035_crossover_mutation_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_036_mutation_llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_037_crossover_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_038_crossover_mutation_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_039_mutation_llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_040_crossover_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_041_crossover_mutation_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_042_mutation_llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_043_crossover_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_044_crossover_mutation_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_045_mutation_llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_046_crossover_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_047_crossover_mutation_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_048_mutation_llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_049_crossover_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_050_crossover_mutation_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_051_mutation_llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_052_crossover_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_053_crossover_mutation_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_054_mutation_llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_055_crossover_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_056_crossover_mutation_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_057_mutation_llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_058_crossover_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_059_crossover_mutation_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_060_mutation_llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_061_crossover_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_062_crossover_mutation_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_063_mutation_llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_064_crossover_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_065_crossover_mutation_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_066_mutation_llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_067_crossover_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_068_crossover_mutation_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_069_mutation_llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_070_crossover_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_071_crossover_mutation_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_072_mutation_llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_073_crossover_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_074_crossover_mutation_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_075_mutation_llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_076_crossover_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_077_crossover_mutation_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_078_mutation_llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_079_crossover_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_080_crossover_mutation_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_081_mutation_llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_082_crossover_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_083_crossover_mutation_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_084_mutation_llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_085_crossover_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_086_crossover_mutation_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_087_mutation_llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_088_crossover_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_089_crossover_mutation_llm_code_AgentLiqu_66c3b030df__llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_090_mutation_llm_code_AgentRegi_9ca2354d18", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_091_crossover_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_092_crossover_mutation_llm_code_AgentPric_b5577bd725__llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_093_mutation_llm_code_AgentLiqu_66c3b030df", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_094_crossover_llm_code_AgentRegi_9ca2354d18__llm_code_AgentRegi_c36eef4898", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_095_crossover_mutation_llm_code_AgentRegi_c36eef4898__llm_code_AgentPric_b5577bd725", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
