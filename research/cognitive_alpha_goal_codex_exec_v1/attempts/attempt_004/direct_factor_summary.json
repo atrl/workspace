@@ -1,0 +1,100 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "positions"
+    ]
+  },
+  "candidate_count": 2,
+  "comparison": {
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
+    "beats_soxl_backtest": false,
+    "beats_soxl_buyhold": false,
+    "selected_max_drawdown_pct": -34.727558370874014,
+    "selected_return_pct": 128.82032066107774,
+    "selected_vs_base_constrained_ref_return_gap_pct": -149.29766080521154,
+    "selected_vs_constrained_weight_reference_return_gap_pct": -149.29766080521154,
+    "selected_vs_soxl_backtest_return_gap_pct": -8.807767290277212,
+    "selected_vs_soxl_buyhold_return_gap_pct": -220.51436126437824
+  },
+  "component_cols": [
+    "g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g004_002_tail_frag_0f74389cc1",
+    "codex_exec_quality_canary_future_leak_repaired_lag1",
+    "g004_002_tail_fragility_vixrange_drawdown_9f4a2b6c"
+  ],
+  "promotion_decision": "not_promoted_under_base_constrained_ref",
+  "selected_candidate": {
+    "avg_abs_position": 0.12819345671777363,
+    "avg_holding_days": 6.421985815602837,
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
+    "benchmark_return_pct": null,
+    "candidate": "codex_exec_equal_weight_direct",
+    "component_cols": "[\"g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g004_002_tail_frag_0f74389cc1\", \"codex_exec_quality_canary_future_leak_repaired_lag1\", \"g004_002_tail_fragility_vixrange_drawdown_9f4a2b6c\"]",
+    "cost_per_turnover": 0.0003,
+    "days_above_100": 0,
+    "days_below_0": 0,
+    "effective_component_count": 3,
+    "max_drawdown_pct": -34.727558370874014,
+    "max_position": 1.0,
+    "min_position": 0.0,
+    "next_day_reversal_count": 73,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+    "passes_drawdown_gate": false,
+    "passes_effective_component_gate": true,
+    "passes_position_bounds": true,
+    "raw_target_avg_abs": 0.22201596580930355,
+    "raw_target_max": 1.0042060959405106,
+    "raw_target_min": -0.8593301220295906,
+    "return_pct": 128.82032066107774,
+    "selection_eligible": false,
+    "total_turnover": 89.1031201626479,
+    "trade_count": 283,
+    "weights": "{\"codex_exec_quality_canary_future_leak_repaired_lag1\": 0.3333333333333333, \"g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g004_002_tail_frag_0f74389cc1\": 0.3333333333333333, \"g004_002_tail_fragility_vixrange_drawdown_9f4a2b6c\": 0.3333333333333333}"
+  },
+  "selection": "return_sorted_long_only_multifactor_gate",
+  "spec": {
+    "candidates": [
+      {
+        "candidate": "codex_exec_equal_weight_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.2
+        },
+        "weights": {
+          "codex_exec_quality_canary_future_leak_repaired_lag1": 0.3333333333333333,
+          "g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g004_002_tail_frag_0f74389cc1": 0.3333333333333333,
+          "g004_002_tail_fragility_vixrange_drawdown_9f4a2b6c": 0.3333333333333333
+        }
+      },
+      {
+        "candidate": "codex_exec_primary_factor_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.3
+        },
+        "weights": {
+          "g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g004_002_tail_frag_0f74389cc1": 1.0
+        }
+      }
+    ],
+    "component_cols": [
+      "g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g004_002_tail_frag_0f74389cc1",
+      "codex_exec_quality_canary_future_leak_repaired_lag1",
+      "g004_002_tail_fragility_vixrange_drawdown_9f4a2b6c"
+    ],
+    "constrained_reference_name": "base_constrained_ref",
+    "cost_per_turnover": 0.0003,
+    "datetime_col": "datetime",
+    "max_drawdown_floor": -25.0,
+    "max_position": 1.0,
+    "min_effective_component_count": 1,
+    "min_effective_weight": 0.05,
+    "min_position": 0.0,
+    "return_col": "open_to_open_return"
+  },
+  "workflow": "cognitive_alpha_weighted_factor_search"
+}

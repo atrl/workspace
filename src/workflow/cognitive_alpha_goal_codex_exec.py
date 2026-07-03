@@ -43,6 +43,11 @@ QLIB_NATIVE_API = [
     "Alpha158.get_feature_config",
     "qlib.workflow.R.start",
 ]
+DIRECT_FACTOR_BASE_POSITION_COL = "direct_factor_base_position"
+DIRECT_FACTOR_RAW_TARGET_COL = "direct_factor_raw_target"
+OPEN_TO_OPEN_RETURN_COL = "open_to_open_return"
+LABEL_OPEN_TO_OPEN_5D_COL = "label_open_to_open_5d"
+EXECUTION_TIMING = "close_t_signal_next_open_to_following_open"
 
 
 @dataclass(frozen=True)
@@ -157,7 +162,7 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
     alpha_dataset = build_alpha158_legacy_dataset(
         qlib_config,
         instruments=["SOXL"],
-        label="Ref($close, -5) / $close - 1",
+        label="Ref($open, -6) / Ref($open, -1) - 1",
         train=spec.train,
         valid=spec.validation,
         test=test,
@@ -248,16 +253,24 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
             selected_factor_names = list(factor_mining.selected_feature_names)
             model_features = _model_feature_columns(selected_factor_names, alpha158_columns, model_frame)
             benchmarks = _load_benchmarks(spec.root)
-            position_result = run_cognitive_alpha_position_model(
-                model_frame,
-                spec=_position_spec(model_features, spec=spec, test=test),
-                benchmarks=benchmarks,
-            )
             direct_result = run_cognitive_alpha_weighted_factor_search(
                 model_frame,
                 spec=_direct_factor_spec(selected_factor_names, model_features),
                 benchmarks=benchmarks,
             )
+            model_frame, direct_feature_cols = _attach_direct_factor_model_features(model_frame, direct_result)
+            model_features = _model_feature_columns(
+                selected_factor_names,
+                alpha158_columns,
+                model_frame,
+                extra_columns=direct_feature_cols,
+            )
+            position_result = run_cognitive_alpha_position_model(
+                model_frame,
+                spec=_position_spec(model_features, spec=spec, test=test),
+                benchmarks=benchmarks,
+            )
+            _attach_open_to_open_execution_context(position_result.summary, position_result.latest_signal)
 
             _write_evolution_sidecars(card, sidecars, factor_mining)
             _write_position_sidecars(card, sidecars, position_result)
@@ -304,18 +317,18 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
                         require_candidate_provider_no_openai_api_key=True,
                         required_metric_names=("ic", "icir", "rank_ic", "rank_icir", "mutual_information"),
                         required_evolution_ops=("mutation", "crossover", "crossover_mutation"),
-                        required_position_model_families=("ridge",),
+                        required_position_model_families=("lgbm_classifier", "xgb_classifier"),
                         required_benchmark_names=(
                             "soxl_backtest",
+                            "base_constrained_ref",
                             "constrained_weight_reference",
                             "soxl_buyhold",
-                            "previous_factor_enhanced",
                         ),
                         required_direct_factor_benchmark_names=(
+                            "base_constrained_ref",
                             "constrained_weight_reference",
                             "soxl_backtest",
                             "soxl_buyhold",
-                            "previous_factor_enhanced",
                         ),
                         min_walk_forward_fold_count=2,
                     ),
@@ -432,6 +445,15 @@ def _attempt_entry(summary: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _attach_open_to_open_execution_context(position_summary: dict[str, Any], latest_signal: dict[str, Any]) -> None:
+    position_summary["execution_timing"] = EXECUTION_TIMING
+    position_summary["return_col"] = OPEN_TO_OPEN_RETURN_COL
+    position_summary["model_target_col"] = LABEL_OPEN_TO_OPEN_5D_COL
+    latest_signal["execution_timing"] = EXECUTION_TIMING
+    latest_signal["return_col"] = OPEN_TO_OPEN_RETURN_COL
+    latest_signal["model_target_col"] = LABEL_OPEN_TO_OPEN_5D_COL
+
+
 def _snapshot_attempt_artifacts(card: Path, *, attempt_index: int, summary: dict[str, Any]) -> None:
     attempt_dir = card / "attempts" / f"attempt_{attempt_index:03d}"
     attempt_dir.mkdir(parents=True, exist_ok=True)
@@ -480,7 +502,7 @@ def _factor_mining_spec(evolution_spec: CognitiveAlphaEvolutionSpec, alpha158_co
 
     return CognitiveAlphaFactorMiningSpec(
         evolution_spec=evolution_spec,
-        label_col="label_return_5d",
+        label_col=LABEL_OPEN_TO_OPEN_5D_COL,
         alpha158_columns=tuple(alpha158_columns[:8]),
         max_factor_library_size=4,
     )
@@ -521,21 +543,123 @@ def _merge_alpha158_features(frame: pd.DataFrame, alpha_dataset: Any) -> tuple[p
 
 def _add_return_columns(frame: pd.DataFrame) -> None:
     close = pd.to_numeric(frame["close"], errors="coerce").astype("float64")
+    open_ = pd.to_numeric(frame["open"], errors="coerce").astype("float64")
     frame["forward_return"] = close.pct_change().shift(-1).fillna(0.0)
     frame["label_return_5d"] = close.pct_change(5).shift(-5).ffill().fillna(0.0)
+    frame[OPEN_TO_OPEN_RETURN_COL] = open_.shift(-2) / open_.shift(-1) - 1.0
+    frame[LABEL_OPEN_TO_OPEN_5D_COL] = open_.shift(-6) / open_.shift(-1) - 1.0
+    if not frame.empty:
+        latest_index = frame.index.max()
+        if pd.isna(frame.loc[latest_index, OPEN_TO_OPEN_RETURN_COL]):
+            frame.loc[latest_index, OPEN_TO_OPEN_RETURN_COL] = 0.0
 
 
-def _model_feature_columns(selected_factor_names: list[str], alpha158_columns: list[str], frame: pd.DataFrame) -> list[str]:
+def _model_feature_columns(
+    selected_factor_names: list[str],
+    alpha158_columns: list[str],
+    frame: pd.DataFrame,
+    *,
+    extra_columns: list[str] | None = None,
+) -> list[str]:
     base = [
         *selected_factor_names,
         *alpha158_columns[:6],
         "vix",
         "realized_vol_20",
+        *(extra_columns or []),
     ]
     return [column for column in dict.fromkeys(base) if column in frame.columns]
 
 
+def _attach_direct_factor_model_features(frame: pd.DataFrame, direct_result: Any) -> tuple[pd.DataFrame, list[str]]:
+    selected_candidate = str(direct_result.summary.get("selected_candidate", {}).get("candidate", ""))
+    positions = direct_result.positions.copy()
+    if not selected_candidate or positions.empty:
+        out = frame.copy()
+        out[DIRECT_FACTOR_BASE_POSITION_COL] = 0.0
+        out[DIRECT_FACTOR_RAW_TARGET_COL] = 0.0
+        return out, [DIRECT_FACTOR_BASE_POSITION_COL, DIRECT_FACTOR_RAW_TARGET_COL]
+
+    selected = positions.loc[positions["candidate"].astype(str).eq(selected_candidate)].copy()
+    selected["datetime"] = pd.to_datetime(selected["datetime"]).dt.normalize()
+    selected = selected[["datetime", "target_position", "raw_target"]].rename(
+        columns={
+            "target_position": DIRECT_FACTOR_BASE_POSITION_COL,
+            "raw_target": DIRECT_FACTOR_RAW_TARGET_COL,
+        }
+    )
+    out = frame.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    out = out.merge(selected, on="datetime", how="left")
+    out[DIRECT_FACTOR_BASE_POSITION_COL] = (
+        pd.to_numeric(out[DIRECT_FACTOR_BASE_POSITION_COL], errors="coerce")
+        .replace([float("inf"), float("-inf")], pd.NA)
+        .fillna(0.0)
+        .clip(lower=0.0, upper=1.0)
+    )
+    out[DIRECT_FACTOR_RAW_TARGET_COL] = (
+        pd.to_numeric(out[DIRECT_FACTOR_RAW_TARGET_COL], errors="coerce")
+        .replace([float("inf"), float("-inf")], pd.NA)
+        .fillna(0.0)
+    )
+    selected_base = out[DIRECT_FACTOR_BASE_POSITION_COL]
+    selected_raw = out[DIRECT_FACTOR_RAW_TARGET_COL]
+    if selected_base.abs().mean() <= 1e-9 and selected_raw.abs().mean() > 1e-9:
+        out[DIRECT_FACTOR_BASE_POSITION_COL] = _direct_factor_base_position_from_raw(selected_raw)
+    return out, [DIRECT_FACTOR_BASE_POSITION_COL, DIRECT_FACTOR_RAW_TARGET_COL]
+
+
+def _direct_factor_base_position_from_raw(raw_target: pd.Series) -> pd.Series:
+    raw = pd.to_numeric(raw_target, errors="coerce").replace([float("inf"), float("-inf")], pd.NA).fillna(0.0)
+    max_abs = float(raw.abs().max())
+    if max_abs <= 1e-12:
+        return pd.Series(0.0, index=raw.index, name=DIRECT_FACTOR_BASE_POSITION_COL)
+    if float(raw.max()) <= 1e-12 and float(raw.min()) < -1e-12:
+        normalized = (-raw / max_abs).clip(lower=0.0, upper=1.0)
+    else:
+        normalized = (raw / max_abs).clip(lower=0.0, upper=1.0)
+    return normalized.rename(DIRECT_FACTOR_BASE_POSITION_COL)
+
+
 def _load_benchmarks(root: Path) -> list[dict[str, Any]]:
+    open2open_path = (
+        root / "research" / "agentic_alpha_high_chop_open2open_lgb_xgb_v1" / "backtest_benchmark_comparison.csv"
+    )
+    if open2open_path.exists():
+        frame = pd.read_csv(open2open_path)
+        aliases = {
+            "legacy_soxlbacktest_reference": "soxl_backtest",
+            "base_constrained_ref": "base_constrained_ref",
+            "soxl_buyhold": "soxl_buyhold",
+        }
+        rows = []
+        for row in frame.to_dict(orient="records"):
+            strategy = str(row["strategy"])
+            name = aliases.get(strategy)
+            if name is None:
+                continue
+            rows.append(
+                {
+                    "name": name,
+                    "return_pct": _float_or_zero(row.get("return_pct")),
+                    "max_drawdown_pct": _float_or_zero(row.get("max_drawdown_pct")),
+                    "trade_count": _int_or_zero(row.get("trade_count")),
+                    "source": f"open2open:{strategy}",
+                }
+            )
+            if name == "base_constrained_ref":
+                rows.append(
+                    {
+                        "name": "constrained_weight_reference",
+                        "return_pct": _float_or_zero(row.get("return_pct")),
+                        "max_drawdown_pct": _float_or_zero(row.get("max_drawdown_pct")),
+                        "trade_count": _int_or_zero(row.get("trade_count")),
+                        "source": "open2open:base_constrained_ref_alias",
+                    }
+                )
+        if rows:
+            return rows
+
     path = root / "research" / "cognitive_alpha_position_model_v1" / "backtest_benchmark_comparison.csv"
     frame = pd.read_csv(path)
     rows = []
@@ -552,20 +676,83 @@ def _load_benchmarks(root: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _float_or_zero(value: Any) -> float:
+    parsed = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    return 0.0 if pd.isna(parsed) else float(parsed)
+
+
+def _int_or_zero(value: Any) -> int:
+    parsed = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    return 0 if pd.isna(parsed) else int(parsed)
+
+
 def _position_spec(feature_cols: list[str], *, spec: CognitiveAlphaGoalCodexExecCardSpec, test: tuple[str, str]) -> CognitiveAlphaPositionSpec:
+    direct_base_specs = []
+    if DIRECT_FACTOR_BASE_POSITION_COL in feature_cols:
+        direct_base_specs = [
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": DIRECT_FACTOR_BASE_POSITION_COL,
+                "threshold": 0.45,
+                "low_probability": 0.35,
+                "high_probability": 0.65,
+                "min_throttle": 0.65,
+                "max_throttle": 1.0,
+                "scale": 1.0,
+                "max_position": 1.0,
+                "rebalance_threshold": 0.05,
+                "max_daily_change": 0.5,
+                "min_hold_days": 2,
+                "objective_return_weight": 0.20,
+                "objective_return_to_drawdown_weight": 4.0,
+                "objective_exposure_weight": 3.0,
+                "objective_min_avg_abs_position": 0.05,
+                "exposure_shortfall_penalty": 25.0,
+                "objective_max_drawdown_floor": -25.0,
+                "drawdown_floor_penalty": 2.0,
+                "turnover_penalty": 0.25,
+                "reversal_penalty": 1.0,
+                "trade_penalty": 0.05,
+            },
+            {
+                "position_mode": "base_probability",
+                "base_position_col": DIRECT_FACTOR_BASE_POSITION_COL,
+                "threshold": 0.35,
+                "scale": 1.0,
+                "max_position": 1.0,
+                "rebalance_threshold": 0.05,
+                "max_daily_change": 0.5,
+                "min_hold_days": 2,
+                "objective_return_weight": 0.20,
+                "objective_return_to_drawdown_weight": 4.0,
+                "objective_exposure_weight": 3.0,
+                "objective_min_avg_abs_position": 0.05,
+                "exposure_shortfall_penalty": 25.0,
+                "objective_max_drawdown_floor": -25.0,
+                "drawdown_floor_penalty": 2.0,
+                "turnover_penalty": 0.25,
+                "reversal_penalty": 1.0,
+                "trade_penalty": 0.05,
+            },
+        ]
     return CognitiveAlphaPositionSpec(
         feature_cols=feature_cols,
         train=spec.train,
         validation=spec.validation,
         test=test,
         model_specs=[
-            {"model": "ridge", "task": "regression"},
-            {"model": "logistic_regression"},
+            {"model": "lgbm_classifier"},
+            {"model": "lgbm_regressor", "task": "regression"},
+            {"model": "xgb_classifier"},
+            {"model": "xgb_regressor", "task": "regression"},
         ],
         position_specs=[
-            {"threshold": 0.45, "scale": 1.0, "hold_days": 3, "max_position": 1.0},
-            {"threshold": 0.55, "scale": 1.0, "hold_days": 3, "max_position": 1.0},
+            {"threshold": 0.45, "scale": 1.0, "min_hold_days": 3, "max_position": 1.0},
+            {"threshold": 0.55, "scale": 1.0, "min_hold_days": 3, "max_position": 1.0},
+            *direct_base_specs,
         ],
+        return_col=OPEN_TO_OPEN_RETURN_COL,
+        label_col=LABEL_OPEN_TO_OPEN_5D_COL,
         min_validation_trade_count=1,
         min_validation_avg_abs_position=0.01,
         max_validation_zero_position_day_ratio=0.98,
@@ -594,6 +781,7 @@ def _position_spec(feature_cols: list[str], *, spec: CognitiveAlphaGoalCodexExec
                 "test": test,
             },
         ],
+        constrained_reference_name="base_constrained_ref",
     )
 
 
@@ -616,8 +804,10 @@ def _direct_factor_spec(selected_factor_names: list[str], model_features: list[s
     return CognitiveAlphaWeightedFactorSearchSpec(
         component_cols=component_cols,
         candidates=candidates,
+        return_col=OPEN_TO_OPEN_RETURN_COL,
         min_effective_component_count=1,
         max_drawdown_floor=-25.0,
+        constrained_reference_name="base_constrained_ref",
     )
 
 
@@ -725,6 +915,10 @@ def _summary_payload(
         "market": manifest["market"],
         "region": manifest["region"],
         "as_of": as_of,
+        "execution_timing": EXECUTION_TIMING,
+        "return_col": OPEN_TO_OPEN_RETURN_COL,
+        "model_target_col": LABEL_OPEN_TO_OPEN_5D_COL,
+        "benchmark_basis": "open_to_open",
         "segments": {
             "train": list(spec.train),
             "validation": list(spec.validation),
@@ -829,10 +1023,16 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "factor_mining:",
             "  workflow: cognitive_alpha_factor_mining",
             "  candidate_provider: codex_exec_candidate_provider",
+            f"  label_col: {summary['model_target_col']}",
             "position_model:",
             "  workflow: cognitive_alpha_position_model",
+            f"  return_col: {summary['return_col']}",
+            f"  label_col: {summary['model_target_col']}",
+            f"  execution_timing: {summary['execution_timing']}",
+            "  constrained_reference_name: base_constrained_ref",
             "direct_factor_backtest:",
             "  workflow: cognitive_alpha_weighted_factor_search",
+            f"  return_col: {summary['return_col']}",
             "  role: prior_only_not_final_promotion",
             "artifact_policy:",
             "  policy: slim_card_recorder_first",
@@ -857,7 +1057,7 @@ def _failure_modes(summary: dict[str, Any]) -> str:
         f"- direct_factor_promotion: {direct['promotion_decision']}\n"
         f"- next_action: {goal_loop.get('next_action', {}).get('action', '')}\n"
         "- direct_factor_backtest 不能作为最终晋升门，只能作为 prior/diagnostic。\n"
-        "- 若未跑赢 constrained_weight_reference 或 walk-forward/exposure/risk gates 且仍有 attempt 预算，保持 needs_iteration 并继续 Codex exec 因子生成。\n"
+        "- 若未跑赢 base_constrained_ref 或 walk-forward/exposure/risk gates 且仍有 attempt 预算，保持 needs_iteration 并继续 Codex exec 因子生成。\n"
         "- 若达到当前 max_attempts 仍未晋升，保持 needs_iteration，并由外层 Goal refresh attempt budget 后继续。\n"
     )
 
@@ -878,6 +1078,8 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"train={summary['segments']['train'][0]} 到 {summary['segments']['train'][1]}，"
         f"validation={summary['segments']['validation'][0]} 到 {summary['segments']['validation'][1]}，"
         f"test={summary['segments']['test'][0]} 到 {summary['segments']['test'][1]}。\n"
+        f"- execution: timing={summary['execution_timing']}，return_col={summary['return_col']}，"
+        f"model_target_col={summary['model_target_col']}，benchmark_basis={summary['benchmark_basis']}。\n"
         f"- codex_provider: provider_id={summary['codex_provider']['provider_id']}，"
         f"prompt_count={summary['codex_provider'].get('prompt_count', 0)}，sandbox=read-only，"
         "openai_api_key_required=False。\n"
@@ -895,7 +1097,7 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"target_position={latest['target_position']:.4f}。\n"
         f"- promotion_decision: {summary['promotion_decision']}；production_paper_sim={summary['production_paper_sim']['status']}。\n"
         f"- next_action: {goal_loop.get('next_action', {}).get('action')}；"
-        "若未通过 constrained_weight_reference 或 walk-forward/exposure/risk gates，继续扩展 Codex-exec 候选和稳定性筛选；"
+        "若未通过 base_constrained_ref 或 walk-forward/exposure/risk gates，继续扩展 Codex-exec 候选和稳定性筛选；"
         "当前 max_attempts 只是本次命令预算，不作为 Goal 完成条件。\n"
         f"- recorder: {summary['recorder_id']}。\n"
         "- risk: 本研究仅用于 SOXL qlib 研究和 paper/sim 风控，不构成买卖建议。\n"

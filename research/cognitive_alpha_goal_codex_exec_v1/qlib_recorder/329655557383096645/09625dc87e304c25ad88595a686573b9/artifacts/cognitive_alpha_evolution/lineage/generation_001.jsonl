@@ -1,0 +1,4 @@
+{"candidate": "g001_000_mutation_volregime_trendpul_c32f0d497d", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_001_crossover_volregime_trendpul_c32f0d497d__volregime_trendpul_c32f0d497d", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_002_crossover_mutation_volregime_trendpul_c32f0d497d__volregime_trendpul_c32f0d497d", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_003_mutation_volregime_trendpul_c32f0d497d", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}

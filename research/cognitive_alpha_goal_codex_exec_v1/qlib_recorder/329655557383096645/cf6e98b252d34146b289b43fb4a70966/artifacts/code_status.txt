@@ -1,0 +1,34 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/backtest_benchmark_comparison.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/backtest_walk_forward_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/conclusion.md
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/direct_factor_benchmark_comparison.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/direct_factor_candidate_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/direct_factor_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/evolution_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/failure_modes.md
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/generation_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/goal_manifest.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/latest_signal.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/model_selection.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/position_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/selected_features.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/state.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/summary.json
+	modified:   src/workflow/cognitive_alpha_goal_codex_exec.py
+	modified:   src/workflow/cognitive_alpha_weighted.py
+	modified:   tests/test_cognitive_alpha_goal_runner.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_003/
+	research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/09625dc87e304c25ad88595a686573b9/
+	research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/390f0057be234994a938038bc5eaef2e/
+	research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/cf6e98b252d34146b289b43fb4a70966/
+
+no changes added to commit (use "git add" and/or "git commit -a")

@@ -1,0 +1,3 @@
+name,level,agent,lookback,code
+volregime_trendpullback_vixscaled_60,market_structure_cycle,AgentVolatilityRegime,60,tanh(8.0 * (alpha158_MA20.shift(1) / close.shift(1) - 1.0)) * (0.65 + 0.35 * tanh(5.0 * (alpha158_MA20.shift(1) / alpha158_MA60.shift(1) - 1.0))) * (1.0 - 0.25 * tanh(2.5 * (alpha158_VIX.shift(1) / alpha158_VIX.shift(1).rolling(60).mean() - 1.0)))
+g001_000_mutation_volregime_trendpul_c32f0d497d,market_structure_cycle,AgentVolatilityRegime,60,"mutation:zscore(volregime_trendpullback_vixscaled_60,10).shift(1)"

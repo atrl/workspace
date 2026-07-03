@@ -1,0 +1,16 @@
+{
+  "action": "SELL",
+  "as_of": "2026-07-02",
+  "candidate": "lgbm_regressor_base_probability_direct_factor_base_position_p0.35_s1_h0.05_hold2",
+  "execution_timing": "close_t_signal_next_open_to_following_open",
+  "last_change_date": "2026-07-02",
+  "last_change_target_position": 0.0,
+  "model_target_col": "label_open_to_open_5d",
+  "previous_target_position": 0.05138981423222805,
+  "probability": 0.30910813387980557,
+  "return_col": "open_to_open_return",
+  "target_delta": -0.05138981423222805,
+  "target_delta_percent": -5.138981423222805,
+  "target_percent": 0.0,
+  "target_position": 0.0
+}

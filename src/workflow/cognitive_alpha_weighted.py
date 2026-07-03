@@ -113,7 +113,10 @@ def _add_weighted_search_gates(
         out["min_position"] >= float(spec.min_position) - 1e-9
     )
     out["passes_effective_component_gate"] = out["effective_component_count"] >= int(spec.min_effective_component_count)
-    out["beats_constrained_weight_reference"] = out["return_pct"] > constrained_return
+    constrained_col = f"beats_{spec.constrained_reference_name}"
+    out[constrained_col] = out["return_pct"] > constrained_return
+    if "beats_constrained_weight_reference" not in out.columns:
+        out["beats_constrained_weight_reference"] = out[constrained_col]
     if spec.max_drawdown_floor is None:
         out["passes_drawdown_gate"] = True
     else:
@@ -121,7 +124,7 @@ def _add_weighted_search_gates(
     out["selection_eligible"] = (
         out["passes_position_bounds"]
         & out["passes_effective_component_gate"]
-        & out["beats_constrained_weight_reference"]
+        & out[constrained_col]
         & out["passes_drawdown_gate"]
     )
     return out.sort_values(["selection_eligible", "return_pct"], ascending=[False, False]).reset_index(drop=True)

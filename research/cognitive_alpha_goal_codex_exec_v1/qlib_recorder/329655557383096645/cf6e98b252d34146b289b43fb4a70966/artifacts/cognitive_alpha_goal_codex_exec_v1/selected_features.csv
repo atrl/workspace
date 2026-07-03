@@ -1,0 +1,4 @@
+name,level,agent,lookback,code
+g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g004_002_tail_frag_0f74389cc1,geometric_fusion,AgentCreative,65,"crossover_mutation:ewm(zscore(codex_exec_quality_canary_future_leak_repaired_lag1,10)-zscore(g004_002_tail_fragility_vixrange_drawdown_9f4a2b6c,10),5).shift(1)"
+codex_exec_quality_canary_future_leak_repaired_lag1,quality_checker_canary,QualityCheckerCanaryRepair,3,safe_lagged_pct_change(close).rolling(3).mean()
+g004_002_tail_fragility_vixrange_drawdown_9f4a2b6c,extreme_risk_fragility,AgentTailRisk,65,"-tanh(zscore(zscore((alpha158_VIX - alpha158_VIX.shift(5)) / maximum(abs(alpha158_VIX.shift(5)), 1e-6)) + zscore(((high - low) / maximum(abs(close), 1e-6)).rolling(5).mean()) + zscore(log1p(volume / maximum(volume.shift(1).rolling(20).mean(), 1.0))) + zscore((alpha158_MA60 - alpha158_MA5) / maximum(abs(alpha158_MA60), 1e-6)) + zscore((alpha158_MAX20 - close) / maximum(abs(alpha158_MAX20), 1e-6))))"

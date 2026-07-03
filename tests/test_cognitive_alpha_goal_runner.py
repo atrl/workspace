@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
+import pandas as pd
 import pytest
 
 
@@ -187,6 +189,112 @@ def test_cognitive_alpha_signal_refresh_cli_updates_project_owned_paper_ledger(t
     assert written["paper_simulation"]["account_id"] == "cli-cogalpha"
     assert written["paper_simulation"]["ledger_path"] == ledger_path.as_posix()
     assert ledger["accounts"]["cli-cogalpha"]["positions"]["SOXL"]["target_percent"] == pytest.approx(0.10)
+
+
+def test_cognitive_alpha_goal_codex_exec_attaches_direct_factor_base_to_model_frame():
+    from src.workflow.cognitive_alpha_goal_codex_exec import (
+        DIRECT_FACTOR_BASE_POSITION_COL,
+        DIRECT_FACTOR_RAW_TARGET_COL,
+        _attach_direct_factor_model_features,
+    )
+
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06"]),
+            "forward_return": [0.02, -0.01, 0.03],
+        }
+    )
+    direct_result = SimpleNamespace(
+        summary={"selected_candidate": {"candidate": "direct_winner"}},
+        positions=pd.DataFrame(
+            {
+                "datetime": pd.to_datetime(
+                    [
+                        "2026-01-02",
+                        "2026-01-05",
+                        "2026-01-06",
+                        "2026-01-02",
+                        "2026-01-05",
+                        "2026-01-06",
+                    ]
+                ),
+                "candidate": ["direct_winner", "direct_winner", "direct_winner", "other", "other", "other"],
+                "raw_target": [0.1, 0.8, 0.3, 1.0, 1.0, 1.0],
+                "target_position": [0.0, 0.7, 0.7, 1.0, 1.0, 1.0],
+            }
+        ),
+    )
+
+    out, direct_feature_cols = _attach_direct_factor_model_features(frame, direct_result)
+
+    assert direct_feature_cols == [DIRECT_FACTOR_BASE_POSITION_COL, DIRECT_FACTOR_RAW_TARGET_COL]
+    assert out[DIRECT_FACTOR_BASE_POSITION_COL].tolist() == [0.0, 0.7, 0.7]
+    assert out[DIRECT_FACTOR_RAW_TARGET_COL].tolist() == [0.1, 0.8, 0.3]
+
+
+def test_cognitive_alpha_goal_codex_exec_uses_open_to_open_training_and_lgb_xgb():
+    from src.workflow.cognitive_alpha_goal_codex_exec import (
+        LABEL_OPEN_TO_OPEN_5D_COL,
+        OPEN_TO_OPEN_RETURN_COL,
+        CognitiveAlphaGoalCodexExecCardSpec,
+        _add_return_columns,
+        _position_spec,
+    )
+
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.date_range("2026-01-02", periods=8, freq="B"),
+            "open": [10.0, 11.0, 12.1, 10.89, 11.4345, 12.006225, 11.40591375, 12.546505125],
+            "close": [10.5, 11.2, 12.0, 11.0, 11.6, 12.2, 11.4, 12.4],
+        }
+    )
+
+    _add_return_columns(frame)
+
+    assert frame.loc[0, OPEN_TO_OPEN_RETURN_COL] == pytest.approx(12.1 / 11.0 - 1.0)
+    assert frame.loc[0, LABEL_OPEN_TO_OPEN_5D_COL] == pytest.approx(11.40591375 / 11.0 - 1.0)
+    assert frame.loc[frame.index.max(), OPEN_TO_OPEN_RETURN_COL] == 0.0
+    assert pd.isna(frame.loc[frame.index.max(), LABEL_OPEN_TO_OPEN_5D_COL])
+
+    spec = CognitiveAlphaGoalCodexExecCardSpec(root=ROOT)
+    position_spec = _position_spec(["feature_a"], spec=spec, test=("2026-01-02", "2026-07-02"))
+
+    model_families = {item["model"] for item in position_spec.model_specs}
+    assert {"lgbm_classifier", "lgbm_regressor", "xgb_classifier", "xgb_regressor"}.issubset(model_families)
+    assert position_spec.return_col == OPEN_TO_OPEN_RETURN_COL
+    assert position_spec.label_col == LABEL_OPEN_TO_OPEN_5D_COL
+    assert position_spec.constrained_reference_name == "base_constrained_ref"
+
+
+def test_cognitive_alpha_goal_codex_exec_normalizes_clipped_negative_direct_factor_raw_target():
+    from src.workflow.cognitive_alpha_goal_codex_exec import (
+        DIRECT_FACTOR_BASE_POSITION_COL,
+        DIRECT_FACTOR_RAW_TARGET_COL,
+        _attach_direct_factor_model_features,
+    )
+
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06"]),
+            "open_to_open_return": [0.02, -0.01, 0.0],
+        }
+    )
+    direct_result = SimpleNamespace(
+        summary={"selected_candidate": {"candidate": "negative_direct_winner"}},
+        positions=pd.DataFrame(
+            {
+                "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06"]),
+                "candidate": ["negative_direct_winner"] * 3,
+                "raw_target": [-1.0, -0.5, 0.0],
+                "target_position": [0.0, 0.0, 0.0],
+            }
+        ),
+    )
+
+    out, _ = _attach_direct_factor_model_features(frame, direct_result)
+
+    assert out[DIRECT_FACTOR_RAW_TARGET_COL].tolist() == [-1.0, -0.5, 0.0]
+    assert out[DIRECT_FACTOR_BASE_POSITION_COL].tolist() == pytest.approx([1.0, 0.5, 0.0])
 
 
 def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_path):
