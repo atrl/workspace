@@ -117,6 +117,9 @@ def build_high_chop_ml_frame(
     if label_horizon <= 0:
         raise ValueError("label_horizon must be positive")
     panel = _wide_qlib_ohlcv_panel(qlib_frame, symbols=["SOXL", "SOXX"])
+    if "soxl_open" not in panel.columns:
+        raise ValueError("high-chop ML qlib frame missing SOXL $open for open-to-open returns")
+    open_ = panel["soxl_open"].astype("float64")
     close = panel["soxl_close"].astype("float64")
     soxx_close = panel["soxx_close"].astype("float64")
     volume = panel.get("soxl_volume", pd.Series(np.nan, index=panel.index)).astype("float64")
@@ -127,6 +130,10 @@ def build_high_chop_ml_frame(
     data = pd.DataFrame({"datetime": panel.index}, index=panel.index)
     data["forward_return"] = close.shift(-1) / close - 1.0
     data[f"label_return_{label_horizon}d"] = close.shift(-label_horizon) / close - 1.0
+    data["open_to_open_return"] = open_.shift(-2) / open_.shift(-1) - 1.0
+    data[f"label_open_to_open_{label_horizon}d"] = (
+        open_.shift(-(label_horizon + 1)) / open_.shift(-1) - 1.0
+    )
 
     for window in [3, 5, 10, 20, 60, 126, 252]:
         data[f"soxl_ret{window}"] = close / close.shift(window) - 1.0
@@ -223,6 +230,11 @@ def build_high_chop_ml_frame(
         result.loc[latest_index, "forward_return"] = result.loc[latest_index, "forward_return"] if pd.notna(
             result.loc[latest_index, "forward_return"]
         ) else 0.0
+        result.loc[latest_index, "open_to_open_return"] = (
+            result.loc[latest_index, "open_to_open_return"]
+            if pd.notna(result.loc[latest_index, "open_to_open_return"])
+            else 0.0
+        )
     required = ["forward_return", "rv20", "range_pos_252", "base_chop_control"]
     if not include_incomplete_latest:
         required.append(f"label_return_{label_horizon}d")
@@ -332,6 +344,7 @@ def evaluate_high_chop_ml_candidates(
     test_window: tuple[str, str],
     position_specs: list[dict[str, Any]],
     label_col: str = "label_return_5d",
+    return_col: str = "forward_return",
     feature_cols: list[str] | None = None,
     baseline_return_pct: float | None = None,
     max_drawdown_floor: float = -20.0,
@@ -344,7 +357,7 @@ def evaluate_high_chop_ml_candidates(
     feature_cols = feature_cols or DEFAULT_HIGH_CHOP_FEATURES
     if baseline_return_pct is None:
         test_mask = (frame["datetime"] >= pd.Timestamp(test_window[0])) & (frame["datetime"] <= pd.Timestamp(test_window[1]))
-        baseline_return_pct = float(((1.0 + frame.loc[test_mask, "forward_return"].fillna(0.0)).prod() - 1.0) * 100.0)
+        baseline_return_pct = float(((1.0 + frame.loc[test_mask, return_col].fillna(0.0)).prod() - 1.0) * 100.0)
     metrics, positions = evaluate_ml_position_candidates(
         frame,
         feature_cols=feature_cols,
@@ -353,7 +366,7 @@ def evaluate_high_chop_ml_candidates(
         validation_window=validation_window,
         test_window=test_window,
         position_specs=position_specs,
-        return_col="forward_return",
+        return_col=return_col,
         label_col=label_col,
         cost_per_turnover=cost_per_turnover,
         min_validation_trade_count=1,

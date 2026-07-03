@@ -1514,6 +1514,99 @@ def test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal
     assert "最新 2026-07-02" in conclusion
 
 
+def test_agentic_alpha_high_chop_open2open_lgb_xgb_card_records_execution_aligned_reject():
+    card = ROOT / "research" / "agentic_alpha_high_chop_open2open_lgb_xgb_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_high_chop_open2open_lgb_xgb_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_high_chop_open2open_lgb_xgb_v1"
+    assert summary["card_type"] == "high_chop_open2open_lgb_xgb_model_search"
+    assert summary["promotion_decision"] == "research_reject_open2open_goal_gate"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["latest_signal_date"] == "2026-07-02"
+    assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert summary["return_col"] == "open_to_open_return"
+    assert summary["model_target_col"] == "label_open_to_open_5d"
+    assert summary["segments"] == {
+        "train": ["2019-01-02", "2024-12-31"],
+        "validation": ["2025-01-02", "2025-12-31"],
+        "test": ["2026-01-02", "2026-06-24"],
+        "latest_score": ["2026-01-02", "2026-07-02"],
+    }
+    assert Path(summary["recorder_uri"]) == (card / "qlib_recorder").resolve()
+    assert Path(summary["recorder_local_dir"]).exists()
+
+    selected = summary["selected_candidate"]
+    assert selected["selected_by"] == "validation_selection_objective_score_near_tie_implementation_tiebreaker"
+    assert selected["model_spec"]["model"] == "xgb_classifier"
+    assert selected["test"]["position_mode"] == "base_throttle"
+    assert selected["test"]["return_col"] == "open_to_open_return"
+    assert selected["test"]["model_target_col"] == "label_open_to_open_5d"
+    assert selected["test"]["passes_goal_gate"] is False
+    assert selected["test"]["return_pct"] < summary["base_constrained_reference"]["return_pct"]
+    assert selected["test"]["return_pct"] < summary["ytd_buyhold_benchmark"]["return_pct"]
+    assert selected["test"]["max_drawdown_pct"] < summary["goal_gate"]["max_drawdown_floor"]
+
+    report = summary["high_chop_open2open_lgb_xgb_report"]
+    assert report["return_col"] == "open_to_open_return"
+    assert report["model_target_col"] == "label_open_to_open_5d"
+    assert report["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert report["candidate_count"] >= 1800
+    assert report["goal_passer_count"] == 0
+    assert report["oracle_test_source"] == "best_test_diagnostic_no_goal_passers"
+    assert set(report["model_families"]) == {
+        "lgbm_classifier",
+        "lgbm_regressor",
+        "xgb_classifier",
+        "xgb_regressor",
+    }
+    assert report["comparison"]["beats_ytd_buyhold"] is False
+    assert report["comparison"]["beats_base_constrained_ref"] is False
+    assert report["comparison"]["passes_goal_gate"] is False
+    assert summary["oracle_test_best_candidate"]["return_col"] == "open_to_open_return"
+    assert summary["oracle_test_best_candidate"]["passes_goal_gate"] is False
+
+    latest = summary["latest_signal"]
+    assert latest["return_col"] == "open_to_open_return"
+    assert latest["model_target_col"] == "label_open_to_open_5d"
+    assert latest["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert latest["label_incomplete"] is True
+    assert latest["trained_through"] == "2025-12-31"
+    assert 0.0 <= latest["target_position"] <= 1.0
+
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "backtest_benchmark_comparison",
+        "candidate_metrics",
+        "execution_readiness",
+        "failure_modes",
+        "high_chop_open2open_lgb_xgb_summary",
+        "latest_signal",
+        "regime_metrics",
+        "selected_model",
+        "window_metrics",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
+    assert "open_to_open_return" in candidates
+    assert "label_open_to_open_5d" in candidates
+    assert "lgbm_classifier" in candidates
+    assert "xgb_classifier" in candidates
+    assert summary["recorder_id"] in notebook_text
+    assert "R.set_uri" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "evaluate_high_chop_ml_candidates" in notebook_text
+    assert "build_high_chop_ml_frame" in notebook_text
+    assert "open-to-open" in conclusion
+    assert "不构成买卖建议" in (card / "execution_readiness.md").read_text(encoding="utf-8")
+
+
 def test_agentic_alpha_cognitive_alpha_soxl_card_records_codex_alpha158_framework():
     card = ROOT / "research" / "agentic_alpha_cognitive_alpha_soxl_v1"
     summary = _summary(card)

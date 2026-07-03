@@ -1,0 +1,20 @@
+{
+  "as_of": "2026-07-02",
+  "candidate": "xgb_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.55-1_s1_h0.05_hold1",
+  "execution_timing": "close_t_signal_next_open_to_following_open",
+  "label_incomplete": true,
+  "model": "xgb_classifier",
+  "model_target_col": "label_open_to_open_5d",
+  "probability": 0.4603642523288727,
+  "raw_target": 0.0004959824831311159,
+  "recent_25d_avg_abs_position": 0.26550952148969215,
+  "recent_25d_trade_count": 4,
+  "return_col": "open_to_open_return",
+  "score_window": [
+    "2026-01-02",
+    "2026-07-02"
+  ],
+  "target_position": 0.0005,
+  "trained_through": "2025-12-31",
+  "turnover_from_previous_scored_day": 0.0
+}

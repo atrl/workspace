@@ -5,6 +5,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pytest
 
 
 class AgenticAlphaDataset:
@@ -628,9 +629,19 @@ def test_high_chop_ml_factors_feed_lgb_xgb_candidate_gates():
         "levered_decay_20",
         "panic_reversal_5",
         "base_chop_control",
+        "open_to_open_return",
+        "label_open_to_open_5d",
     }.issubset(frame.columns)
     assert frame["high_chop_flag"].max() >= 0.0
     assert frame.attrs["feature_cols"]
+    first = frame.iloc[0]
+    source = qlib_frame.reset_index()
+    soxl = source.loc[source["instrument"].eq("SOXL")].sort_values("datetime")
+    first_source_index = soxl.index[soxl["datetime"].eq(first["datetime"])][0]
+    expected_open_return = float(
+        soxl.loc[first_source_index + 2, "$open"] / soxl.loc[first_source_index + 1, "$open"] - 1.0
+    )
+    assert first["open_to_open_return"] == pytest.approx(expected_open_return)
 
     metrics, positions = evaluate_high_chop_ml_candidates(
         frame,
@@ -668,6 +679,33 @@ def test_high_chop_ml_factors_feed_lgb_xgb_candidate_gates():
     assert {"high_chop_return_pct", "post_high_chop_trade_count", "passes_goal_gate"}.issubset(metrics.columns)
     assert positions["target_position"].between(0.0, 1.0).all()
 
+    open_metrics, _ = evaluate_high_chop_ml_candidates(
+        frame,
+        model_specs=[{"model": "xgb_classifier", "random_state": 7}],
+        train_window=("2024-06-03", "2025-02-28"),
+        validation_window=("2025-03-03", "2025-09-30"),
+        test_window=("2025-10-01", "2026-05-01"),
+        position_specs=[
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": "base_chop_control",
+                "low_probability": 0.35,
+                "high_probability": 0.65,
+                "min_throttle": 0.50,
+                "max_throttle": 1.0,
+                "rebalance_threshold": 0.10,
+                "min_position": 0.0,
+                "max_position": 1.0,
+            }
+        ],
+        label_col="label_open_to_open_5d",
+        return_col="open_to_open_return",
+        max_drawdown_floor=-25.0,
+    )
+
+    assert set(open_metrics["model_target_col"]) == {"label_open_to_open_5d"}
+    assert set(open_metrics["return_col"]) == {"open_to_open_return"}
+
 
 def test_high_chop_ml_frame_can_keep_latest_without_complete_forward_label():
     from src.factor import build_high_chop_ml_frame
@@ -703,6 +741,8 @@ def test_high_chop_ml_frame_can_keep_latest_without_complete_forward_label():
     assert complete["datetime"].max() < dates[-1]
     assert latest["datetime"].max() == dates[-1]
     assert pd.isna(latest.loc[latest["datetime"].idxmax(), "label_return_5d"])
+    assert pd.isna(latest.loc[latest["datetime"].idxmax(), "label_open_to_open_5d"])
+    assert latest.loc[latest["datetime"].idxmax(), "open_to_open_return"] == 0.0
 
 
 def test_predict_ml_position_candidate_scores_latest_without_label():

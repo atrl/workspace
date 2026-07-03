@@ -1,0 +1,9 @@
+# Failure Modes
+
+- selected_model_constraint: selection uses 2025 validation selection_objective_score with a 0.050 near-tie implementation tiebreaker on ['total_turnover:asc', 'max_drawdown_pct:desc', 'trade_count:asc'], not the 2026 test oracle. The strongest test diagnostic is `xgb_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1` and is not promoted unless it also qualifies through validation.
+- base_reference_gap: validation-selected LGB/XGB high-chop model test return 230.307% is below base_constrained_ref 278.118%; the model mainly improves high-chop gating and pacing, not unconditional superiority over the existing base prior.
+- label_lag: complete 5-day open-to-open forward-label backtest ends on 2026-06-24; the 2026-07-02 latest signal uses train+validation refit and an incomplete-label score frame, so it is not verified PnL.
+- high_chop_scope: high_chop means near 252-day highs with low trend efficiency and realized-vol expansion; recent June/July post-high-chop exposure is low, which is risk control but can miss a V recovery.
+- base_throttle_limit: standalone LGB/XGB whole-position probability/binary candidates are tested, but the selected position may remain a base_constrained_ref throttle if standalone validation evidence does not win. In that case, base_constrained_ref drives exposure and ML probability only adjusts the throttle.
+- open_to_open_execution_scope: daily backtest applies target_position(t) to open(t+1) -> open(t+2) open_to_open_return; this removes close-to-close execution mismatch but still does not model same-day open-to-close drawdown, extended-hours fills, or minute adverse excursion.
+- execution_gap: this is qlib research/paper evidence without live broker execution, tax, intraday slippage, or extended-hours fill-quality proof.
