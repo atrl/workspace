@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from pathlib import Path
+from datetime import datetime, timezone
 
 import pandas as pd
+import pytest
 
 
 def _panel(rows: list[dict[str, object]]) -> pd.DataFrame:
@@ -85,6 +87,27 @@ def test_market_update_preserves_existing_overlap_and_appends_new_rows(tmp_path,
     assert result["appended_rows"] == 1
     assert updated.loc[updated["date"] == "2026-06-10", "soxl_close"].item() == 180.0
     assert updated.loc[updated["date"] == "2026-06-11", "soxl_close"].item() == 223.99
+
+
+def test_futu_daily_end_fails_closed_before_us_daily_settlement():
+    from src.data import market_update
+
+    with pytest.raises(ValueError, match="exceeds settled US daily date 2026-07-01"):
+        market_update._require_settled_us_daily_end(
+            "2026-07-02",
+            now=datetime(2026, 7, 2, 17, 0, tzinfo=timezone.utc),
+        )
+
+
+def test_default_us_daily_end_allows_same_date_after_settlement():
+    from src.data import market_update
+
+    assert (
+        market_update._max_settled_us_daily_date(
+            now=datetime(2026, 7, 3, 1, 0, tzinfo=timezone.utc),
+        ).isoformat()
+        == "2026-07-02"
+    )
 
 
 def test_local_surface_sync_derives_raw_symbol_and_vix_files(tmp_path):
@@ -208,6 +231,53 @@ def test_provider_raw_sync_appends_without_rewriting_existing_rows(tmp_path):
     assert updated_text.startswith(existing_text)
     assert updated_text.count("2026-06-10 00:00:00") == 1
     assert "2026-06-11 00:00:00" in updated_text
+
+
+def test_provider_raw_sync_replaces_overlap_when_requested(tmp_path):
+    from src.data import market_update
+
+    paths = market_update.MarketDataUpdatePaths(
+        panel_csv=tmp_path / "panel.csv",
+        raw_symbol_dir=tmp_path / "raw" / "symbols",
+        raw_external_dir=tmp_path / "raw" / "external",
+        qlib_provider_uri=tmp_path / "qlib" / "soxl",
+        registry_yaml=tmp_path / "datasets.yaml",
+    )
+    existing_path = paths.raw_external_dir / "futu_history_kline_US_SOXL.csv"
+    existing_path.parent.mkdir(parents=True, exist_ok=True)
+    existing_path.write_text(
+        "symbol,date,code,time_key,close,volume\n"
+        "US.SOXL,2026-07-02,US.SOXL,2026-07-02 00:00:00,177.03,58628802\n",
+        encoding="utf-8",
+    )
+    frames = market_update.MarketDataFrames(
+        provider="futu",
+        source_api=["futu"],
+        soxl=pd.DataFrame(),
+        soxx=pd.DataFrame(),
+        vix=pd.DataFrame(),
+        raw_provider_frames={
+            "futu_history_kline_US_SOXL": pd.DataFrame(
+                [
+                    {
+                        "symbol": "US.SOXL",
+                        "date": "2026-07-02",
+                        "code": "US.SOXL",
+                        "time_key": "2026-07-02 00:00:00",
+                        "close": 181.47,
+                        "volume": 92078836,
+                    }
+                ]
+            )
+        },
+    )
+
+    market_update.sync_provider_raw_frames(frames, paths=paths, replace_overlap=True)
+
+    updated = pd.read_csv(existing_path)
+    assert len(updated) == 1
+    assert updated.loc[0, "close"] == 181.47
+    assert updated.loc[0, "volume"] == 92078836
 
 
 def test_update_market_data_module_cli_dispatches(monkeypatch, capsys):

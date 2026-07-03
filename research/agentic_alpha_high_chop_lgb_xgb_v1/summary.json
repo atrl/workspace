@@ -8,7 +8,8 @@
       "regime_metrics.csv",
       "window_metrics.csv",
       "latest_signal.json",
-      "failure_modes.md"
+      "failure_modes.md",
+      "execution_readiness.md"
     ],
     "machine_entrypoint": "summary.json",
     "policy": "slim_card_recorder_first",
@@ -98,17 +99,17 @@
     "candidate": "lgbm_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1",
     "label_incomplete": true,
     "model": "lgbm_classifier",
-    "probability": 0.49230877933708844,
-    "raw_target": 0.9998946131601638,
-    "recent_25d_avg_abs_position": 0.3388530463861026,
-    "recent_25d_trade_count": 4,
+    "probability": 0.49114348248897366,
+    "raw_target": 0.0004999302395118069,
+    "recent_25d_avg_abs_position": 0.298877261859696,
+    "recent_25d_trade_count": 3,
     "score_window": [
       "2026-01-02",
       "2026-07-02"
     ],
-    "target_position": 0.9998946131601638,
+    "target_position": 0.0005,
     "trained_through": "2025-12-31",
-    "turnover_from_previous_scored_day": 0.9993946131601639
+    "turnover_from_previous_scored_day": 0.0
   },
   "latest_signal_date": "2026-07-02",
   "legacy_soxlbacktest_benchmark": {
@@ -155,7 +156,7 @@
     "total_turnover": 10.174129380286558,
     "trade_count": 20
   },
-  "promotion_decision": "promote_to_production_review_high_chop_lgb_xgb_ytd_passed",
+  "promotion_decision": "research_pass_execution_not_proven",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
   "qlib_docs_reference": [
     "https://qlib.readthedocs.io/en/latest/component/data.html",
@@ -166,8 +167,8 @@
     "qlib.data.D.features",
     "qlib.workflow.R.start"
   ],
-  "recorder_id": "01965e7264754239baf7ce42fb001e26",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder/234606673851313573/01965e7264754239baf7ce42fb001e26",
+  "recorder_id": "ca27d71ea48d41738c45f69cd728328d",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder/503636334150518293/ca27d71ea48d41738c45f69cd728328d",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder",
   "region": "us",
   "segments": {
@@ -195,17 +196,17 @@
       "candidate": "lgbm_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1",
       "label_incomplete": true,
       "model": "lgbm_classifier",
-      "probability": 0.49230877933708844,
-      "raw_target": 0.9998946131601638,
-      "recent_25d_avg_abs_position": 0.3388530463861026,
-      "recent_25d_trade_count": 4,
+      "probability": 0.49114348248897366,
+      "raw_target": 0.0004999302395118069,
+      "recent_25d_avg_abs_position": 0.298877261859696,
+      "recent_25d_trade_count": 3,
       "score_window": [
         "2026-01-02",
         "2026-07-02"
       ],
-      "target_position": 0.9998946131601638,
+      "target_position": 0.0005,
       "trained_through": "2025-12-31",
-      "turnover_from_previous_scored_day": 0.9993946131601639
+      "turnover_from_previous_scored_day": 0.0
     },
     "model_spec": {
       "model": "lgbm_classifier",
@@ -234,16 +235,16 @@
     },
     "selected_by": "validation_selection_objective_score",
     "test": {
-      "avg_abs_position": 0.43879335473112185,
+      "avg_abs_position": 0.4388297226078296,
       "avg_holding_days": 4.1923076923076925,
       "beats_ytd_baseline": true,
       "candidate": "lgbm_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1",
-      "high_chop_avg_abs_position": 0.5797027867645902,
+      "high_chop_avg_abs_position": 0.579702775036136,
       "high_chop_days": 31,
       "high_chop_max_drawdown_pct": -7.274069589492626,
-      "high_chop_return_pct": 47.867411734859374,
+      "high_chop_return_pct": 47.86741235605061,
       "high_chop_trade_count": 7,
-      "max_drawdown_pct": -14.487056014781786,
+      "max_drawdown_pct": -14.50758483838943,
       "max_position": 1.0,
       "min_position": 0.0004515230130098262,
       "model": "lgbm_classifier",
@@ -256,16 +257,16 @@
       "passes_goal_gate": true,
       "passes_high_chop_trade_gate": true,
       "position_mode": "base_throttle",
-      "post_high_chop_avg_abs_position": 0.48462520370630957,
+      "post_high_chop_avg_abs_position": 0.4846675740481051,
       "post_high_chop_days": 103,
-      "post_high_chop_max_drawdown_pct": -14.487056014781775,
-      "post_high_chop_return_pct": 326.94655569657334,
+      "post_high_chop_max_drawdown_pct": -14.507584838389443,
+      "post_high_chop_return_pct": 326.92887576032194,
       "post_high_chop_trade_count": 25,
       "return_col": "forward_return",
-      "return_pct": 519.8859216871948,
-      "return_to_drawdown": 35.88623673137815,
-      "selection_objective_score": 338.9750006052081,
-      "total_turnover": 10.390056761544848,
+      "return_pct": 519.8602520959256,
+      "return_to_drawdown": 35.83368685325836,
+      "selection_objective_score": 338.44462363772624,
+      "total_turnover": 10.392966624517275,
       "trade_count": 27
     },
     "validation": {
@@ -307,6 +308,7 @@
   "sidecars": {
     "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
     "candidate_metrics": "high_chop_lgb_xgb_candidate_metrics.csv",
+    "execution_readiness": "execution_readiness.md",
     "failure_modes": "failure_modes.md",
     "high_chop_lgb_xgb_summary": "high_chop_lgb_xgb_summary.json",
     "latest_signal": "latest_signal.json",

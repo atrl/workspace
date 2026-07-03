@@ -5,7 +5,8 @@
       "agentic_alpha_intraday_t1_search_summary.json",
       "external_sources.csv",
       "failure_modes.md",
-      "intraday_t1_feature_audit.json"
+      "intraday_t1_feature_audit.json",
+      "intraday_t1_feature_importance.csv"
     ],
     "machine_entrypoint": "summary.json",
     "policy": "slim_card_recorder_first",
@@ -22,7 +23,7 @@
     "reproducible_from_recorder": true,
     "workflow_config": "workflow.yaml"
   },
-  "as_of": "2026-06-05",
+  "as_of": "2026-07-02",
   "baseline": {
     "benchmark_return_pct": 3530.8157772578,
     "max_drawdown_pct": -85.23168365,
@@ -32,34 +33,46 @@
   },
   "branch_results": {
     "intraday_t1_lgbm_replay": {
-      "best_drawdown_gate_max_drawdown_pct": -19.176115458570997,
-      "best_drawdown_gate_return_pct": 214.7393854336332,
-      "best_return_max_drawdown_pct": -58.29249503349128,
-      "best_return_pct": 565.3522126453181,
-      "comparison_baseline_return_pct": 408.0788688457893,
-      "coverage_end": "2026-06-05",
+      "best_drawdown_gate_max_drawdown_pct": -17.5227543819372,
+      "best_drawdown_gate_return_pct": 585.0207315455409,
+      "best_return_max_drawdown_pct": -41.00484321690473,
+      "best_return_pct": 996.9989047854197,
+      "comparison_baseline_return_pct": 384.5243431022234,
+      "coverage_end": "2026-07-02",
       "coverage_start": "2025-01-02",
       "goal_baseline_return_pct": 6570.0232821043,
-      "grid_rows": 5760,
+      "grid_rows": 51840,
       "passes_both_count": 0
     },
     "intraday_t1_overlay": {
-      "best_drawdown_gate_max_drawdown_pct": -19.276084097104718,
-      "best_drawdown_gate_return_pct": 76.34765613449778,
-      "best_return_max_drawdown_pct": -61.62724795635535,
-      "best_return_pct": 399.9296897566272,
-      "comparison_baseline_return_pct": 480.7597196265312,
-      "coverage_end": "2026-06-05",
+      "best_drawdown_gate_max_drawdown_pct": -16.730581278846323,
+      "best_drawdown_gate_return_pct": 323.5034235312338,
+      "best_return_max_drawdown_pct": -52.91168590097486,
+      "best_return_pct": 450.63819905033114,
+      "comparison_baseline_return_pct": 453.83571115941027,
+      "coverage_end": "2026-07-02",
       "coverage_start": "2024-02-02",
       "goal_baseline_return_pct": 6570.0232821043,
-      "grid_rows": 5120,
+      "grid_rows": 138240,
+      "passes_both_count": 0
+    },
+    "intraday_t1_xgb_replay": {
+      "best_drawdown_gate_max_drawdown_pct": -7.201288904228176,
+      "best_drawdown_gate_return_pct": 472.46321345510455,
+      "best_return_max_drawdown_pct": -34.222811852265735,
+      "best_return_pct": 506.3621283391918,
+      "comparison_baseline_return_pct": 384.5243431022234,
+      "coverage_end": "2026-07-02",
+      "coverage_start": "2025-01-02",
+      "goal_baseline_return_pct": 6570.0232821043,
+      "grid_rows": 51840,
       "passes_both_count": 0
     }
   },
   "card_type": "diagnostic_search",
   "data_range": [
     "2024-01-03",
-    "2026-06-05"
+    "2026-07-02"
   ],
   "experiment": "agentic_alpha_intraday_t1_search_v1",
   "goal_gate": {
@@ -67,17 +80,22 @@
     "require_return_above_baseline": true
   },
   "intraday_t1": {
-    "audit_snapshot_hash": "368514c6d8a60853",
+    "audit_snapshot_hash": "ab6bfe04f366fab3",
     "audit_status": "ok",
-    "coverage_end": "2026-06-05",
+    "coverage_end": "2026-07-02",
     "coverage_start": "2024-01-03",
-    "feature_count": 5,
+    "feature_count": 10,
     "features": [
       "$intraday_soxl_bar_count_1m",
       "$intraday_soxl_open_range_return_30m",
       "$intraday_soxl_close_location",
       "$intraday_soxl_realized_vol_1m",
-      "$intraday_soxl_volume_concentration_close_30m"
+      "$intraday_soxl_volume_concentration_close_30m",
+      "$intraday_soxl_first_hour_return",
+      "$intraday_soxl_amplitude",
+      "$intraday_soxl_drawdown_from_open",
+      "$intraday_soxl_late_return_30m",
+      "$intraday_soxl_close_vwap_deviation"
     ],
     "lag_policy": "T+1_daily_safe",
     "provider_manifest": "data/qlib/soxl_intraday_t1/qlib_store_manifest.json",
@@ -99,14 +117,15 @@
     "DataHandlerLP",
     "QlibDataLoader",
     "qlib.workflow.R.start",
-    "LGBMClassifier"
+    "LGBMClassifier",
+    "XGBClassifier"
   ],
   "qlib_store_manifest": {
-    "as_of": "2026-06-05",
-    "audit_snapshot_hash": "368514c6d8a60853",
-    "calendar_end": "2026-06-05",
+    "as_of": "2026-07-02",
+    "audit_snapshot_hash": "ab6bfe04f366fab3",
+    "calendar_end": "2026-07-02",
     "calendar_start": "2024-01-03",
-    "feature_file_count": 11,
+    "feature_file_count": 16,
     "fields": [
       "$open",
       "$high",
@@ -118,10 +137,15 @@
       "$intraday_soxl_open_range_return_30m",
       "$intraday_soxl_close_location",
       "$intraday_soxl_realized_vol_1m",
-      "$intraday_soxl_volume_concentration_close_30m"
+      "$intraday_soxl_volume_concentration_close_30m",
+      "$intraday_soxl_first_hour_return",
+      "$intraday_soxl_amplitude",
+      "$intraday_soxl_drawdown_from_open",
+      "$intraday_soxl_late_return_30m",
+      "$intraday_soxl_close_vwap_deviation"
     ],
     "freq": "day",
-    "hash": "148f05b781eaa4f0",
+    "hash": "4b32c4f14e4b3fab",
     "instruments": [
       "SOXL"
     ],
@@ -129,7 +153,7 @@
     "operation": "qlib_store_build",
     "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_t1",
     "region": "us",
-    "row_count": 608,
+    "row_count": 626,
     "source": "data/raw/external/intraday_features_soxl_1m.csv",
     "source_api": [
       "qlib.init",
@@ -146,6 +170,7 @@
     "artifacts/agentic_alpha_intraday_t1/external_sources.csv",
     "artifacts/agentic_alpha_intraday_t1/failure_modes.md",
     "artifacts/agentic_alpha_intraday_t1/intraday_t1_feature_audit.json",
+    "artifacts/agentic_alpha_intraday_t1/intraday_t1_feature_importance.csv",
     "artifacts/agentic_alpha_intraday_t1/qlib_store_manifest.json",
     "meta.yaml",
     "params/baseline",
@@ -160,8 +185,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "99f2dc48d9f543829ac9fd871a4f5f91",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder/781312017581425654/99f2dc48d9f543829ac9fd871a4f5f91",
+  "recorder_id": "7823d3b7fcaa404988b3c56b4da5e771",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder/920631853084343514/7823d3b7fcaa404988b3c56b4da5e771",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder",
   "region": "us",
   "search_report": {
@@ -175,27 +200,39 @@
     "best_candidate": null,
     "branch_results": {
       "intraday_t1_lgbm_replay": {
-        "best_drawdown_gate_max_drawdown_pct": -19.176115458570997,
-        "best_drawdown_gate_return_pct": 214.7393854336332,
-        "best_return_max_drawdown_pct": -58.29249503349128,
-        "best_return_pct": 565.3522126453181,
-        "comparison_baseline_return_pct": 408.0788688457893,
-        "coverage_end": "2026-06-05",
+        "best_drawdown_gate_max_drawdown_pct": -17.5227543819372,
+        "best_drawdown_gate_return_pct": 585.0207315455409,
+        "best_return_max_drawdown_pct": -41.00484321690473,
+        "best_return_pct": 996.9989047854197,
+        "comparison_baseline_return_pct": 384.5243431022234,
+        "coverage_end": "2026-07-02",
         "coverage_start": "2025-01-02",
         "goal_baseline_return_pct": 6570.0232821043,
-        "grid_rows": 5760,
+        "grid_rows": 51840,
         "passes_both_count": 0
       },
       "intraday_t1_overlay": {
-        "best_drawdown_gate_max_drawdown_pct": -19.276084097104718,
-        "best_drawdown_gate_return_pct": 76.34765613449778,
-        "best_return_max_drawdown_pct": -61.62724795635535,
-        "best_return_pct": 399.9296897566272,
-        "comparison_baseline_return_pct": 480.7597196265312,
-        "coverage_end": "2026-06-05",
+        "best_drawdown_gate_max_drawdown_pct": -16.730581278846323,
+        "best_drawdown_gate_return_pct": 323.5034235312338,
+        "best_return_max_drawdown_pct": -52.91168590097486,
+        "best_return_pct": 450.63819905033114,
+        "comparison_baseline_return_pct": 453.83571115941027,
+        "coverage_end": "2026-07-02",
         "coverage_start": "2024-02-02",
         "goal_baseline_return_pct": 6570.0232821043,
-        "grid_rows": 5120,
+        "grid_rows": 138240,
+        "passes_both_count": 0
+      },
+      "intraday_t1_xgb_replay": {
+        "best_drawdown_gate_max_drawdown_pct": -7.201288904228176,
+        "best_drawdown_gate_return_pct": 472.46321345510455,
+        "best_return_max_drawdown_pct": -34.222811852265735,
+        "best_return_pct": 506.3621283391918,
+        "comparison_baseline_return_pct": 384.5243431022234,
+        "coverage_end": "2026-07-02",
+        "coverage_start": "2025-01-02",
+        "goal_baseline_return_pct": 6570.0232821043,
+        "grid_rows": 51840,
         "passes_both_count": 0
       }
     },
@@ -214,6 +251,7 @@
       "artifacts/agentic_alpha_intraday_t1/external_sources.csv",
       "artifacts/agentic_alpha_intraday_t1/failure_modes.md",
       "artifacts/agentic_alpha_intraday_t1/intraday_t1_feature_audit.json",
+      "artifacts/agentic_alpha_intraday_t1/intraday_t1_feature_importance.csv",
       "artifacts/agentic_alpha_intraday_t1/qlib_store_manifest.json",
       "meta.yaml",
       "params/baseline",
@@ -228,7 +266,7 @@
       "tags/mlflow.source.type",
       "tags/mlflow.user"
     ],
-    "recorder_id": "99f2dc48d9f543829ac9fd871a4f5f91",
+    "recorder_id": "7823d3b7fcaa404988b3c56b4da5e771",
     "stage_order": [
       "research",
       "retrieve",
@@ -243,6 +281,7 @@
     "candidate_metrics": "agentic_alpha_intraday_t1_candidate_metrics.csv",
     "external_sources": "external_sources.csv",
     "failure_modes": "failure_modes.md",
+    "feature_importance": "intraday_t1_feature_importance.csv",
     "intraday_t1_feature_audit": "intraday_t1_feature_audit.json",
     "search_summary": "agentic_alpha_intraday_t1_search_summary.json"
   },

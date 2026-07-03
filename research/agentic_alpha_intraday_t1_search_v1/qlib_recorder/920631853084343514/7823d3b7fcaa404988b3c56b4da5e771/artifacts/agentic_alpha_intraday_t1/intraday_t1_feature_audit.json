@@ -1,0 +1,62 @@
+{
+  "audit_snapshot_hash": "ab6bfe04f366fab3",
+  "audit_status": "ok",
+  "calendar_alignment": "forward_to_next_qlib_trading_day",
+  "coverage_end": "2026-07-02",
+  "coverage_start": "2024-01-03",
+  "feature_count": 10,
+  "intraday_fields": [
+    "$intraday_soxl_bar_count_1m",
+    "$intraday_soxl_open_range_return_30m",
+    "$intraday_soxl_close_location",
+    "$intraday_soxl_realized_vol_1m",
+    "$intraday_soxl_volume_concentration_close_30m",
+    "$intraday_soxl_first_hour_return",
+    "$intraday_soxl_amplitude",
+    "$intraday_soxl_drawdown_from_open",
+    "$intraday_soxl_late_return_30m",
+    "$intraday_soxl_close_vwap_deviation"
+  ],
+  "lag_policy": "T+1_daily_safe",
+  "merged_rows": 626,
+  "provider_manifest": "data/qlib/soxl_intraday_t1/qlib_store_manifest.json",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_t1",
+  "qlib_readback_non_null": {
+    "$close": 626,
+    "$high": 626,
+    "$intraday_soxl_amplitude": 626,
+    "$intraday_soxl_bar_count_1m": 626,
+    "$intraday_soxl_close_location": 626,
+    "$intraday_soxl_close_vwap_deviation": 626,
+    "$intraday_soxl_drawdown_from_open": 626,
+    "$intraday_soxl_first_hour_return": 626,
+    "$intraday_soxl_late_return_30m": 626,
+    "$intraday_soxl_open_range_return_30m": 626,
+    "$intraday_soxl_realized_vol_1m": 626,
+    "$intraday_soxl_volume_concentration_close_30m": 626,
+    "$low": 626,
+    "$open": 626,
+    "$vix": 626,
+    "$volume": 626
+  },
+  "qlib_readback_rows": 626,
+  "raw_cache": {
+    "date_end": "2026-07-02",
+    "date_start": "2024-01-02",
+    "path": "data/processed/intraday/soxl_soxx_1m.parquet",
+    "row_count": 486900,
+    "symbols": [
+      "SOXL",
+      "SOXX"
+    ]
+  },
+  "source": "data/raw/external/intraday_features_soxl_1m.csv",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features",
+    "build_qlib_store_from_frame"
+  ],
+  "source_rows": 626
+}

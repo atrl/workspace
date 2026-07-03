@@ -360,8 +360,10 @@ def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate(
     assert summary["intraday_t1"]["provider_manifest"] == "data/qlib/soxl_intraday_t1/qlib_store_manifest.json"
     assert summary["intraday_t1"]["lag_policy"] == "T+1_daily_safe"
     assert summary["intraday_t1"]["coverage_start"] == "2024-01-03"
-    assert summary["intraday_t1"]["coverage_end"] == "2026-06-05"
-    assert summary["intraday_t1"]["feature_count"] >= 5
+    assert summary["intraday_t1"]["coverage_end"] == "2026-07-02"
+    assert summary["intraday_t1"]["feature_count"] >= 10
+    assert "$intraday_soxl_amplitude" in summary["intraday_t1"]["features"]
+    assert "$intraday_soxl_close_vwap_deviation" in summary["intraday_t1"]["features"]
     assert summary["intraday_t1"]["audit_status"] == "ok"
     assert summary["search_report"]["goal_achieved"] is False
     assert summary["search_report"]["best_candidate"] is None
@@ -373,10 +375,12 @@ def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate(
     }
     assert set(summary["branch_results"]) == {
         "intraday_t1_lgbm_replay",
+        "intraday_t1_xgb_replay",
         "intraday_t1_overlay",
     }
-    assert summary["branch_results"]["intraday_t1_lgbm_replay"]["coverage_end"] == "2026-06-05"
-    assert summary["branch_results"]["intraday_t1_overlay"]["coverage_end"] == "2026-06-05"
+    assert summary["branch_results"]["intraday_t1_lgbm_replay"]["coverage_end"] == "2026-07-02"
+    assert summary["branch_results"]["intraday_t1_xgb_replay"]["coverage_end"] == "2026-07-02"
+    assert summary["branch_results"]["intraday_t1_overlay"]["coverage_end"] == "2026-07-02"
     assert summary["qlib_docs"] == {
         "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
         "model": "https://qlib.readthedocs.io/en/latest/component/model.html",
@@ -387,6 +391,7 @@ def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate(
         "candidate_metrics",
         "external_sources",
         "failure_modes",
+        "feature_importance",
         "intraday_t1_feature_audit",
         "search_summary",
     }
@@ -395,6 +400,7 @@ def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate(
 
     candidates = (card / summary["sidecars"]["candidate_metrics"]).read_text(encoding="utf-8")
     assert "intraday_t1_lgbm_replay" in candidates
+    assert "intraday_t1_xgb_replay" in candidates
     assert "intraday_t1_overlay" in candidates
     assert "drawdown_gate" in candidates
     assert "return_gate" in candidates
@@ -404,7 +410,49 @@ def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate(
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
     assert "LGBMClassifier" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "INTRADAY_SOXL_CLOSE_VWAP_DEVIATION" in notebook_text
     assert "未找到同时满足" in conclusion
+
+
+def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
+    card = ROOT / "research" / "agentic_alpha_high_chop_execution_validation_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_high_chop_execution_validation_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_high_chop_execution_validation_v1"
+    assert summary["card_type"] == "execution_validation"
+    assert summary["promotion_decision"] == "execution_not_proven"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["source_strategy"]["card"] == "research/agentic_alpha_high_chop_lgb_xgb_v1"
+    assert summary["validation_summary"]["latest"]["date"] == "2026-07-02"
+    assert summary["validation_summary"]["latest"]["execution_status"] == "near_cash"
+    assert summary["validation_summary"]["latest"]["target_position"] < 0.01
+    assert summary["validation_summary"]["latest"]["rth_low_from_open"] < -0.20
+    assert summary["validation_summary"]["risk_checks"]["near_cash_days_recent"] == 5
+    assert "futu.OpenQuoteContext.request_history_kline(K_1M, extended_time=True, session=ALL)" in summary[
+        "external_data_api"
+    ]
+    assert summary["qlib_native_api"] == ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["sidecars"]) == {
+        "execution_validation",
+        "execution_validation_summary",
+        "failure_modes",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    validation_csv = (card / summary["sidecars"]["execution_validation"]).read_text(encoding="utf-8")
+    assert "afterhours_mae_from_rth_close" in validation_csv
+    assert "2026-07-02" in validation_csv
+    assert summary["recorder_id"] in notebook_text
+    assert "fetch_futu_intraday_bars" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "execution_not_proven" in conclusion
 
 
 def test_agentic_alpha_budget_overlay_search_card_closes_cppi_tipp_branch():
@@ -1373,7 +1421,7 @@ def test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal
 
     assert summary["experiment"] == "agentic_alpha_high_chop_lgb_xgb_v1"
     assert summary["card_type"] == "high_chop_lgb_xgb_model_search"
-    assert summary["promotion_decision"] == "promote_to_production_review_high_chop_lgb_xgb_ytd_passed"
+    assert summary["promotion_decision"] == "research_pass_execution_not_proven"
     assert summary["as_of"] == "2026-07-02"
     assert summary["latest_signal_date"] == "2026-07-02"
     assert summary["segments"] == {
@@ -1435,6 +1483,7 @@ def test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal
     assert set(summary["sidecars"]) == {
         "backtest_benchmark_comparison",
         "candidate_metrics",
+        "execution_readiness",
         "failure_modes",
         "high_chop_lgb_xgb_summary",
         "latest_signal",

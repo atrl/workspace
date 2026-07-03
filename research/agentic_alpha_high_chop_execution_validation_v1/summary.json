@@ -1,0 +1,148 @@
+{
+  "artifact_policy": {
+    "kept_sidecars": [
+      "execution_validation.csv",
+      "execution_validation_summary.json",
+      "failure_modes.md"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "agentic_alpha_high_chop_execution_validation_v1.ipynb",
+    "recorder_only_artifacts": {
+      "extended_intraday_recent": "artifacts/agentic_alpha_high_chop_execution_validation_v1/.intraday_extended_soxl_recent.csv.gz"
+    },
+    "reproducible_from_recorder": true,
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-02",
+  "card_type": "execution_validation",
+  "experiment": "agentic_alpha_high_chop_execution_validation_v1",
+  "external_data_api": [
+    "futu.OpenQuoteContext.request_history_kline(K_1M, extended_time=True, session=ALL)"
+  ],
+  "market": "all",
+  "promotion_decision": "execution_not_proven",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start"
+  ],
+  "recorder_artifacts": [
+    "artifacts/agentic_alpha_high_chop_execution_validation_v1/.intraday_extended_soxl_recent.csv.gz",
+    "artifacts/agentic_alpha_high_chop_execution_validation_v1/execution_validation.csv",
+    "artifacts/agentic_alpha_high_chop_execution_validation_v1/execution_validation_summary.json",
+    "artifacts/agentic_alpha_high_chop_execution_validation_v1/failure_modes.md",
+    "artifacts/agentic_alpha_high_chop_execution_validation_v1/workflow.yaml",
+    "meta.yaml",
+    "metrics/max_abs_target_recent",
+    "metrics/max_afterhours_mae_recent",
+    "metrics/max_rth_low_from_open_recent",
+    "metrics/near_cash_days_recent",
+    "metrics/needs_next_open_data_rows",
+    "params/cmd-sys.argv",
+    "params/provider_uri",
+    "params/source_recorder_id",
+    "params/source_strategy",
+    "params/validation_end",
+    "params/validation_start",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "dad036329bc94f82b0fee93d658f7bb1",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder/917265902071001972/dad036329bc94f82b0fee93d658f7bb1",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder",
+  "region": "us",
+  "sidecars": {
+    "execution_validation": "execution_validation.csv",
+    "execution_validation_summary": "execution_validation_summary.json",
+    "failure_modes": "failure_modes.md"
+  },
+  "source_strategy": {
+    "card": "research/agentic_alpha_high_chop_lgb_xgb_v1",
+    "latest_signal": {
+      "as_of": "2026-07-02",
+      "candidate": "lgbm_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1",
+      "label_incomplete": true,
+      "model": "lgbm_classifier",
+      "probability": 0.49114348248897366,
+      "raw_target": 0.0004999302395118069,
+      "recent_25d_avg_abs_position": 0.298877261859696,
+      "recent_25d_trade_count": 3,
+      "score_window": [
+        "2026-01-02",
+        "2026-07-02"
+      ],
+      "target_position": 0.0005,
+      "trained_through": "2025-12-31",
+      "turnover_from_previous_scored_day": 0.0
+    },
+    "recorder_id": "ca27d71ea48d41738c45f69cd728328d"
+  },
+  "validation_summary": {
+    "as_of": "2026-07-02",
+    "coverage_end": "2026-07-02",
+    "coverage_start": "2026-06-05",
+    "decision": "execution_not_proven",
+    "decision_reason": "close-to-close daily signal needs before-cutoff generation plus afterhours/next-open fill simulation; latest 2026-07-02 target is near cash, but this does not prove live execution ability.",
+    "extended_intraday_source": "futu.OpenQuoteContext.request_history_kline(K_1M, extended_time=True, session=ALL)",
+    "latest": {
+      "afterhours_close_return_from_rth_close": 0.007990301427233115,
+      "afterhours_first_gap_from_rth_close": -0.002424092136441236,
+      "afterhours_mae_from_rth_close": -0.008100512481401867,
+      "date": "2026-07-02",
+      "execution_status": "near_cash",
+      "probability": 0.4911434824889736,
+      "rth_low_from_open": -0.22966747251744746,
+      "rth_return_open_to_close": -0.1722392008393011,
+      "target_position": 0.0005
+    },
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "recent_rows": 5,
+    "recorder_artifacts": [
+      "artifacts/agentic_alpha_high_chop_execution_validation_v1/.intraday_extended_soxl_recent.csv.gz",
+      "artifacts/agentic_alpha_high_chop_execution_validation_v1/execution_validation.csv",
+      "artifacts/agentic_alpha_high_chop_execution_validation_v1/execution_validation_summary.json",
+      "artifacts/agentic_alpha_high_chop_execution_validation_v1/failure_modes.md",
+      "artifacts/agentic_alpha_high_chop_execution_validation_v1/workflow.yaml",
+      "meta.yaml",
+      "metrics/max_abs_target_recent",
+      "metrics/max_afterhours_mae_recent",
+      "metrics/max_rth_low_from_open_recent",
+      "metrics/near_cash_days_recent",
+      "metrics/needs_next_open_data_rows",
+      "params/cmd-sys.argv",
+      "params/provider_uri",
+      "params/source_recorder_id",
+      "params/source_strategy",
+      "params/validation_end",
+      "params/validation_start",
+      "tags/mlflow.runName",
+      "tags/mlflow.source.name",
+      "tags/mlflow.source.type",
+      "tags/mlflow.user"
+    ],
+    "recorder_id": "dad036329bc94f82b0fee93d658f7bb1",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder/917265902071001972/dad036329bc94f82b0fee93d658f7bb1",
+    "regular_intraday_source": "data/processed/intraday/soxl_soxx_1m.parquet",
+    "risk_checks": {
+      "max_abs_target_recent": 0.0005,
+      "max_afterhours_mae_recent": -0.04086835889168006,
+      "max_rth_low_from_open_recent": -0.22966747251744746,
+      "near_cash_days_recent": 5,
+      "needs_next_open_data_rows": 1
+    },
+    "rows": 19,
+    "source_signal_artifact": "research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder/503636334150518293/ca27d71ea48d41738c45f69cd728328d/artifacts/agentic_alpha_high_chop_lgb_xgb_v1/.high_chop_lgb_xgb_latest_positions.csv.gz",
+    "source_strategy_card": "research/agentic_alpha_high_chop_lgb_xgb_v1",
+    "source_strategy_recorder_id": "ca27d71ea48d41738c45f69cd728328d",
+    "workflow": "agentic_alpha_high_chop_execution_validation"
+  },
+  "workflow_config": "workflow.yaml"
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import time
@@ -10,6 +11,7 @@ from io import StringIO
 from pathlib import Path
 from typing import Any, Sequence
 from urllib.parse import quote
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
@@ -34,6 +36,9 @@ PANEL_COLUMNS = [
 ]
 OHLCV_COLUMNS = ["date", "open", "high", "low", "close", "volume"]
 DEFAULT_PROVIDER_SEQUENCE = ("futu", "yahoo_api", "polygon", "yfinance")
+US_DAILY_SETTLEMENT_TZ = ZoneInfo("America/New_York")
+US_DAILY_SETTLEMENT_HOUR = 20
+US_DAILY_SETTLEMENT_MINUTE = 15
 QLIB_FIELD_MAP = {
     "$open": "open",
     "$high": "high",
@@ -63,8 +68,36 @@ class MarketDataFrames:
     raw_provider_frames: dict[str, pd.DataFrame] = field(default_factory=dict)
 
 
+def _max_settled_us_daily_date(*, now: datetime | None = None) -> date:
+    current = now or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=timezone.utc)
+    new_york_now = current.astimezone(US_DAILY_SETTLEMENT_TZ)
+    settlement_cutoff = new_york_now.replace(
+        hour=US_DAILY_SETTLEMENT_HOUR,
+        minute=US_DAILY_SETTLEMENT_MINUTE,
+        second=0,
+        microsecond=0,
+    )
+    settled = new_york_now.date() if new_york_now >= settlement_cutoff else new_york_now.date() - timedelta(days=1)
+    while settled.weekday() >= 5:
+        settled -= timedelta(days=1)
+    return settled
+
+
 def _default_end_date() -> str:
-    return date.today().isoformat()
+    return _max_settled_us_daily_date().isoformat()
+
+
+def _require_settled_us_daily_end(end: str, *, now: datetime | None = None) -> None:
+    requested = pd.Timestamp(end).date()
+    settled = _max_settled_us_daily_date(now=now)
+    if requested > settled:
+        raise ValueError(
+            f"blocked: futu daily end {requested.isoformat()} exceeds settled US daily date "
+            f"{settled.isoformat()}; run after {US_DAILY_SETTLEMENT_HOUR:02d}:{US_DAILY_SETTLEMENT_MINUTE:02d} "
+            "America/New_York or use an earlier --end"
+        )
 
 
 def _fetch_start_from_existing(existing: pd.DataFrame, *, overlap_days: int, fallback: str) -> str:
@@ -445,6 +478,7 @@ def _futu_autype(name: str):
 def _fetch_futu_market_frames(*, start: str, end: str, host: str, port: int, adjust: str) -> MarketDataFrames:
     from futu import KLType, OpenQuoteContext, RET_OK
 
+    _require_settled_us_daily_end(end)
     quote_ctx = OpenQuoteContext(host=host, port=port)
     raw_frames: dict[str, pd.DataFrame] = {}
     normalized_frames: dict[str, pd.DataFrame] = {}
@@ -623,16 +657,59 @@ def _provider_raw_append_rows(existing_path: Path, update: pd.DataFrame) -> pd.D
     return append_rows.reset_index(drop=True)
 
 
-def sync_provider_raw_frames(frames: MarketDataFrames, *, paths: MarketDataUpdatePaths) -> dict[str, Path]:
+def _write_provider_raw_replace_overlap(existing_path: Path, update: pd.DataFrame) -> None:
+    update = update.copy()
+    if "date" in update.columns:
+        update = update.sort_values("date")
+    if not existing_path.exists():
+        _write_csv(update.reset_index(drop=True), existing_path)
+        return
+
+    keys = [key for key in ["code", "time_key"] if key in update.columns]
+    if not keys and "date" in update.columns:
+        keys = ["date"]
+    if not keys:
+        _write_csv(update.reset_index(drop=True), existing_path)
+        return
+
+    with existing_path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        existing_fieldnames = list(reader.fieldnames or [])
+        update_keys = set(update.loc[:, keys].astype(str).apply(tuple, axis=1))
+        retained_rows = [
+            row
+            for row in reader
+            if tuple(str(row.get(key, "")) for key in keys) not in update_keys
+        ]
+
+    fieldnames = list(dict.fromkeys([*existing_fieldnames, *[str(column) for column in update.columns]]))
+    update_rows = update.reindex(columns=fieldnames).fillna("").to_dict("records")
+    existing_path.parent.mkdir(parents=True, exist_ok=True)
+    with existing_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(retained_rows)
+        writer.writerows(update_rows)
+
+
+def sync_provider_raw_frames(
+    frames: MarketDataFrames,
+    *,
+    paths: MarketDataUpdatePaths,
+    replace_overlap: bool = False,
+) -> dict[str, Path]:
     written: dict[str, Path] = {}
     for name, raw_frame in frames.raw_provider_frames.items():
         path = paths.raw_external_dir / f"{name}.csv"
-        append_rows = _provider_raw_append_rows(path, raw_frame)
-        if path.exists():
-            if not append_rows.empty:
-                append_rows.to_csv(path, mode="a", header=False, index=False)
+        if replace_overlap:
+            _write_provider_raw_replace_overlap(path, raw_frame)
         else:
-            _write_csv(append_rows, path)
+            append_rows = _provider_raw_append_rows(path, raw_frame)
+            if path.exists():
+                if not append_rows.empty:
+                    append_rows.to_csv(path, mode="a", header=False, index=False)
+            else:
+                _write_csv(append_rows, path)
         written[name] = path
     return written
 
@@ -758,7 +835,7 @@ def update_market_data(
     if not dry_run:
         surfaces = sync_local_data_surfaces(updated_panel, paths=paths)
         if frames is not None:
-            provider_raw = sync_provider_raw_frames(frames, paths=paths)
+            provider_raw = sync_provider_raw_frames(frames, paths=paths, replace_overlap=replace_overlap)
         if not skip_qlib:
             qlib_result = refresh_qlib_store(updated_panel, paths=paths)
         if not skip_registry:

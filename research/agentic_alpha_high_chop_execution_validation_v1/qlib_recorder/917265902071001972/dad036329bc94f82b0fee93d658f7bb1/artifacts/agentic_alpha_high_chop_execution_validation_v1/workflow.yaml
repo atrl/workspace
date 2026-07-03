@@ -1,0 +1,17 @@
+experiment: agentic_alpha_high_chop_execution_validation_v1
+card_type: execution_validation
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder
+  market: all
+  region: us
+source_strategy:
+  card: research/agentic_alpha_high_chop_lgb_xgb_v1
+  signal_artifact: .high_chop_lgb_xgb_latest_positions.csv.gz
+validation:
+  start: 2026-06-05
+  end: 2026-07-02
+  source: qlib daily + Futu regular/extended 1m
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json
