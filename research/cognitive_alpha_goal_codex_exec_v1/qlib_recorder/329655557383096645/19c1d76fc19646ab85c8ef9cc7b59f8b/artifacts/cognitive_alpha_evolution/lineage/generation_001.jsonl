@@ -1,0 +1,4 @@
+{"candidate": "g001_000_mutation_vol_phase_pullback_480615fac0", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_001_crossover_vol_phase_pullback_480615fac0__vol_phase_pullback_480615fac0", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_002_crossover_mutation_vol_phase_pullback_480615fac0__vol_phase_pullback_480615fac0", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_003_mutation_vol_phase_pullback_480615fac0", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}

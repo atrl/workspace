@@ -1,0 +1,100 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "positions"
+    ]
+  },
+  "candidate_count": 2,
+  "comparison": {
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
+    "beats_soxl_backtest": true,
+    "beats_soxl_buyhold": false,
+    "selected_max_drawdown_pct": -88.32558581210841,
+    "selected_return_pct": 138.92298164674335,
+    "selected_vs_base_constrained_ref_return_gap_pct": -139.19104405156494,
+    "selected_vs_constrained_weight_reference_return_gap_pct": -139.19104405156494,
+    "selected_vs_soxl_backtest_return_gap_pct": 10.866793695388395,
+    "selected_vs_soxl_buyhold_return_gap_pct": -196.48913825673364
+  },
+  "component_cols": [
+    "g001_001_crossover_tail_fragility_vix_61b19015b2__tail_fragility_vix_61b19015b2",
+    "tail_fragility_vix_drawdown_range_volume_30",
+    "g001_000_mutation_tail_fragility_vix_61b19015b2"
+  ],
+  "promotion_decision": "not_promoted_under_base_constrained_ref",
+  "selected_candidate": {
+    "avg_abs_position": 0.39517407900342005,
+    "avg_holding_days": 4.571788413098237,
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
+    "benchmark_return_pct": null,
+    "candidate": "codex_exec_primary_factor_direct",
+    "component_cols": "[\"g001_001_crossover_tail_fragility_vix_61b19015b2__tail_fragility_vix_61b19015b2\", \"tail_fragility_vix_drawdown_range_volume_30\", \"g001_000_mutation_tail_fragility_vix_61b19015b2\"]",
+    "cost_per_turnover": 0.0003,
+    "days_above_100": 0,
+    "days_below_0": 0,
+    "effective_component_count": 1,
+    "max_drawdown_pct": -88.32558581210841,
+    "max_position": 1.0,
+    "min_position": 0.0,
+    "next_day_reversal_count": 111,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+    "passes_drawdown_gate": false,
+    "passes_effective_component_gate": true,
+    "passes_position_bounds": true,
+    "raw_target_avg_abs": 1.056396087702827,
+    "raw_target_max": 4.083483972428201,
+    "raw_target_min": -4.128962673002707,
+    "return_pct": 138.92298164674335,
+    "selection_eligible": false,
+    "total_turnover": 251.3743752401316,
+    "trade_count": 398,
+    "weights": "{\"g001_001_crossover_tail_fragility_vix_61b19015b2__tail_fragility_vix_61b19015b2\": 1.0}"
+  },
+  "selection": "return_sorted_long_only_multifactor_gate",
+  "spec": {
+    "candidates": [
+      {
+        "candidate": "codex_exec_equal_weight_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.2
+        },
+        "weights": {
+          "g001_000_mutation_tail_fragility_vix_61b19015b2": 0.3333333333333333,
+          "g001_001_crossover_tail_fragility_vix_61b19015b2__tail_fragility_vix_61b19015b2": 0.3333333333333333,
+          "tail_fragility_vix_drawdown_range_volume_30": 0.3333333333333333
+        }
+      },
+      {
+        "candidate": "codex_exec_primary_factor_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.3
+        },
+        "weights": {
+          "g001_001_crossover_tail_fragility_vix_61b19015b2__tail_fragility_vix_61b19015b2": 1.0
+        }
+      }
+    ],
+    "component_cols": [
+      "g001_001_crossover_tail_fragility_vix_61b19015b2__tail_fragility_vix_61b19015b2",
+      "tail_fragility_vix_drawdown_range_volume_30",
+      "g001_000_mutation_tail_fragility_vix_61b19015b2"
+    ],
+    "constrained_reference_name": "base_constrained_ref",
+    "cost_per_turnover": 0.0003,
+    "datetime_col": "datetime",
+    "max_drawdown_floor": -25.0,
+    "max_position": 1.0,
+    "min_effective_component_count": 1,
+    "min_effective_weight": 0.05,
+    "min_position": 0.0,
+    "return_col": "open_to_open_return"
+  },
+  "workflow": "cognitive_alpha_weighted_factor_search"
+}

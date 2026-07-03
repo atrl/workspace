@@ -1,0 +1,85 @@
+{
+  "candidate_metric_rows": 9,
+  "candidate_provider": {
+    "codex_direct_compatible": true,
+    "codex_execution_mode": "codex_exec_chatgpt_auth_no_openai_api_key",
+    "external_llm_configured": true,
+    "feedback_context_hash": "2d1b704afa600ecb73b5c252c87a544f4255270f",
+    "feedback_context_included": true,
+    "generated_candidate_count": 4,
+    "guidance_style_count": 5,
+    "invalid_candidate_count": 1,
+    "llm_model": "codex-cli",
+    "openai_api_key_required": false,
+    "profile_agent_count": 21,
+    "prompt_count": 4,
+    "provider_failure_count": 0,
+    "provider_id": "codex_exec_candidate_provider",
+    "provider_kind": "codex_exec_code",
+    "requested_initial_pool_size": 4,
+    "response_count": 4
+  },
+  "checkpoints": {
+    "candidate_pool": "candidate_pool/generation_*.jsonl",
+    "fitness": "fitness/generation_*.csv",
+    "lineage": "lineage/generation_*.jsonl",
+    "quality": "quality/generation_*.csv",
+    "rejected": "rejected/generation_*.jsonl",
+    "state": "state.json"
+  },
+  "children_per_generation": 4,
+  "completed_generations": 2,
+  "evolution_ops": [
+    "mutation",
+    "crossover",
+    "crossover_mutation"
+  ],
+  "initial_candidate_count": 4,
+  "metric_names": [
+    "ic",
+    "icir",
+    "rank_ic",
+    "rank_icir",
+    "mutual_information"
+  ],
+  "paper_reference": "arxiv:2511.18850",
+  "parent_pool_size": 3,
+  "profile": "soxl_full",
+  "repair_attempt_count": 1,
+  "resume_start_generation": 0,
+  "resumed": false,
+  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_mvkvvidi/cognitive_alpha_evolution",
+  "run_id": "cognitive_alpha_evolution",
+  "selected_count": 2,
+  "selected_feature_names": [
+    "g001_003_mutation_vol_regime_trend_p_5eea011fa7",
+    "g001_001_crossover_vol_regime_trend_p_5eea011fa7__codex_exec_quality_976bcd8f46"
+  ],
+  "spec": {
+    "children_per_generation": 4,
+    "elite_percentile": 0.75,
+    "fallback_top_n": 3,
+    "generations": 2,
+    "initial_pool_size": 4,
+    "max_abs_correlation": 0.98,
+    "max_missing_ratio": 0.6,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "parent_pool_size": 3,
+    "profile": "soxl_full",
+    "qualified_percentile": 0.5,
+    "resume": false,
+    "run_id": "cognitive_alpha_evolution",
+    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/cogalpha_goal_codex_exec_mvkvvidi"
+  },
+  "thresholds": {
+    "elite_percentile": 0.75,
+    "fallback_top_n": 3,
+    "max_abs_correlation": 0.98,
+    "max_missing_ratio": 0.6,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "qualified_percentile": 0.5
+  },
+  "workflow": "cognitive_alpha_evolution"
+}

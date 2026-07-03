@@ -307,6 +307,21 @@ def _raw_target_from_probability(
             raise ValueError(f"position spec requires missing base_position_col: {base_col}")
         raw = data[base_col].astype("float64").replace([np.inf, -np.inf], np.nan).fillna(0.0)
         raw = raw * gated_probability * scale
+    elif mode == "base_plus_probability":
+        base_col = str(position_spec.get("base_position_col", "base_position"))
+        if base_col not in data.columns:
+            raise ValueError(f"position spec requires missing base_position_col: {base_col}")
+        base_cap = float(position_spec.get("base_cap", position_spec.get("max_position", 1.0)))
+        base = (
+            data[base_col]
+            .astype("float64")
+            .replace([np.inf, -np.inf], np.nan)
+            .fillna(0.0)
+            .clip(lower=0.0, upper=base_cap)
+        )
+        base_scale = float(position_spec.get("base_scale", 1.0))
+        boost_scale = float(position_spec.get("boost_scale", scale))
+        raw = (base * base_scale + gated_probability * boost_scale).clip(lower=0.0)
     elif mode == "base_throttle":
         base_col = str(position_spec.get("base_position_col", "base_position"))
         if base_col not in data.columns:
@@ -356,7 +371,10 @@ def _raw_target_from_probability(
             )
             raw = raw.where(~trend_active, np.maximum(raw, base * trend_floor_fraction))
     else:
-        raise ValueError("position_mode must be one of: probability, binary, base_gate, base_probability, base_throttle")
+        raise ValueError(
+            "position_mode must be one of: probability, binary, base_gate, "
+            "base_probability, base_plus_probability, base_throttle"
+        )
 
     target_vol = position_spec.get("target_vol")
     if target_vol is not None:
@@ -510,6 +528,13 @@ def _candidate_name(model_name: str, position_spec: dict[str, Any]) -> str:
             f"{model_name}_{mode}{base_suffix}_p{low:g}-{high:g}_"
             f"t{min_throttle:g}-{max_throttle:g}_s{scale:g}_h{rebalance:g}_hold{hold}{risk_suffix}"
         )
+    if mode == "base_plus_probability":
+        base_scale = float(position_spec.get("base_scale", 1.0))
+        boost_scale = float(position_spec.get("boost_scale", scale))
+        return (
+            f"{model_name}_{mode}{base_suffix}_p{threshold:g}_"
+            f"b{base_scale:g}_boost{boost_scale:g}_h{rebalance:g}_hold{hold}{risk_suffix}"
+        )
     return f"{model_name}_{mode}{base_suffix}_p{threshold:g}_s{scale:g}_h{rebalance:g}_hold{hold}{risk_suffix}"
 
 
@@ -548,7 +573,12 @@ def evaluate_ml_position_candidates(
 
     required = {datetime_col, return_col, model_target_col, *feature_cols}
     for spec in position_specs:
-        if str(spec.get("position_mode", "probability")) in {"base_gate", "base_probability", "base_throttle"}:
+        if str(spec.get("position_mode", "probability")) in {
+            "base_gate",
+            "base_probability",
+            "base_plus_probability",
+            "base_throttle",
+        }:
             required.add(str(spec.get("base_position_col", "base_position")))
         if spec.get("trend_floor_col") is not None:
             required.add(str(spec["trend_floor_col"]))
@@ -724,7 +754,12 @@ def predict_ml_position_candidate(
         raise ValueError("at least one feature column is required")
     model_target_col = label_col or return_col
     required = {datetime_col, return_col, model_target_col, *feature_cols}
-    if str(position_spec.get("position_mode", "probability")) in {"base_gate", "base_probability", "base_throttle"}:
+    if str(position_spec.get("position_mode", "probability")) in {
+        "base_gate",
+        "base_probability",
+        "base_plus_probability",
+        "base_throttle",
+    }:
         required.add(str(position_spec.get("base_position_col", "base_position")))
     if position_spec.get("trend_floor_col") is not None:
         required.add(str(position_spec["trend_floor_col"]))

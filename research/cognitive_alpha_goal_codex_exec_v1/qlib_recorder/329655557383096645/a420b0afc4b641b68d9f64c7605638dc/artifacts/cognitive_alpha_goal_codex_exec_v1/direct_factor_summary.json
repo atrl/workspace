@@ -1,0 +1,97 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "positions"
+    ]
+  },
+  "candidate_count": 2,
+  "comparison": {
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
+    "beats_soxl_backtest": false,
+    "beats_soxl_buyhold": false,
+    "selected_max_drawdown_pct": 0.0,
+    "selected_return_pct": 0.0,
+    "selected_vs_base_constrained_ref_return_gap_pct": -278.1140256983083,
+    "selected_vs_constrained_weight_reference_return_gap_pct": -278.1140256983083,
+    "selected_vs_soxl_backtest_return_gap_pct": -128.05618795135496,
+    "selected_vs_soxl_buyhold_return_gap_pct": -335.412119903477
+  },
+  "component_cols": [
+    "codex_exec_quality_canary_future_leak_repaired_lag1",
+    "g001_000_mutation_codex_exec_quality_976bcd8f46"
+  ],
+  "promotion_decision": "not_promoted_under_base_constrained_ref",
+  "selected_candidate": {
+    "avg_abs_position": 0.0,
+    "avg_holding_days": 1885.0,
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
+    "benchmark_return_pct": null,
+    "candidate": "codex_exec_primary_factor_direct",
+    "component_cols": "[\"codex_exec_quality_canary_future_leak_repaired_lag1\", \"g001_000_mutation_codex_exec_quality_976bcd8f46\"]",
+    "cost_per_turnover": 0.0003,
+    "days_above_100": 0,
+    "days_below_0": 0,
+    "effective_component_count": 1,
+    "max_drawdown_pct": 0.0,
+    "max_position": 0.0,
+    "min_position": 0.0,
+    "next_day_reversal_count": 0,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+    "passes_drawdown_gate": true,
+    "passes_effective_component_gate": true,
+    "passes_position_bounds": true,
+    "raw_target_avg_abs": 0.02835920010566005,
+    "raw_target_max": 0.16728779938475646,
+    "raw_target_min": -0.18181766252572082,
+    "return_pct": 0.0,
+    "selection_eligible": false,
+    "total_turnover": 0.0,
+    "trade_count": 0,
+    "weights": "{\"codex_exec_quality_canary_future_leak_repaired_lag1\": 1.0}"
+  },
+  "selection": "return_sorted_long_only_multifactor_gate",
+  "spec": {
+    "candidates": [
+      {
+        "candidate": "codex_exec_equal_weight_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.2
+        },
+        "weights": {
+          "codex_exec_quality_canary_future_leak_repaired_lag1": 0.5,
+          "g001_000_mutation_codex_exec_quality_976bcd8f46": 0.5
+        }
+      },
+      {
+        "candidate": "codex_exec_primary_factor_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.3
+        },
+        "weights": {
+          "codex_exec_quality_canary_future_leak_repaired_lag1": 1.0
+        }
+      }
+    ],
+    "component_cols": [
+      "codex_exec_quality_canary_future_leak_repaired_lag1",
+      "g001_000_mutation_codex_exec_quality_976bcd8f46"
+    ],
+    "constrained_reference_name": "base_constrained_ref",
+    "cost_per_turnover": 0.0003,
+    "datetime_col": "datetime",
+    "max_drawdown_floor": -25.0,
+    "max_position": 1.0,
+    "min_effective_component_count": 1,
+    "min_effective_weight": 0.05,
+    "min_position": 0.0,
+    "return_col": "open_to_open_return"
+  },
+  "workflow": "cognitive_alpha_weighted_factor_search"
+}

@@ -1,0 +1,3 @@
+name,level,agent,lookback,code
+codex_exec_quality_canary_future_leak_repaired_lag1,quality_checker_canary,QualityCheckerCanaryRepair,3,safe_lagged_pct_change(close).rolling(3).mean()
+g001_000_mutation_codex_exec_quality_976bcd8f46,quality_checker_canary,QualityCheckerCanaryRepair,10,"mutation:zscore(codex_exec_quality_canary_future_leak_repaired_lag1,10).shift(1)"

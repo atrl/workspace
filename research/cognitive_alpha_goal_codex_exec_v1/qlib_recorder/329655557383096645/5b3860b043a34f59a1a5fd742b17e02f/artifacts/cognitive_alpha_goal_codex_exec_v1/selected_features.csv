@@ -1,0 +1,3 @@
+name,level,agent,lookback,code
+market_cycle_lagged_trend_vix_compression,market_structure_cycle,AgentMarketCycle,85,"tanh(zscore((alpha158_MA20.shift(1) - alpha158_MA60.shift(1)).rolling(20, min_periods=10).mean()) + 0.40 * zscore((alpha158_MAX30.shift(1) - alpha158_MA30.shift(1)).rolling(15, min_periods=8).mean()) - 0.35 * zscore((alpha158_VIX.shift(1) - alpha158_VIX.shift(6)).rolling(20, min_periods=10).mean()))"
+g001_000_mutation_market_cycle_lagge_eb50ac0084,market_structure_cycle,AgentMarketCycle,85,"mutation:zscore(market_cycle_lagged_trend_vix_compression,10).shift(1)"

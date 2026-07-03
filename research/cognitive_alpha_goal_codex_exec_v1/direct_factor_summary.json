@@ -11,47 +11,46 @@
     "beats_constrained_weight_reference": true,
     "beats_soxl_backtest": true,
     "beats_soxl_buyhold": true,
-    "selected_max_drawdown_pct": -59.717843052322884,
-    "selected_return_pct": 501.93189874958506,
-    "selected_vs_base_constrained_ref_return_gap_pct": 223.81391728329578,
-    "selected_vs_constrained_weight_reference_return_gap_pct": 223.81391728329578,
-    "selected_vs_soxl_backtest_return_gap_pct": 364.3038107982301,
-    "selected_vs_soxl_buyhold_return_gap_pct": 152.59721682412908
+    "selected_max_drawdown_pct": -52.24747200505,
+    "selected_return_pct": 749.0695416272949,
+    "selected_vs_base_constrained_ref_return_gap_pct": 470.95551592898664,
+    "selected_vs_constrained_weight_reference_return_gap_pct": 470.95551592898664,
+    "selected_vs_soxl_backtest_return_gap_pct": 621.0133536759399,
+    "selected_vs_soxl_buyhold_return_gap_pct": 413.65742172381795
   },
   "component_cols": [
-    "cycle_ma30_ma60_vix_participation_lag1",
-    "g001_000_mutation_cycle_ma30_ma60_vi_ae3ae80c30",
-    "g001_001_crossover_codex_exec_quality_976bcd8f46__cycle_ma30_ma60_vi_ae3ae80c30"
+    "vol_phase_pullback_reversion_61d",
+    "g001_000_mutation_vol_phase_pullback_480615fac0"
   ],
   "promotion_decision": "diagnostic_direct_factor_candidate",
   "selected_candidate": {
-    "avg_abs_position": 0.3939310042084567,
-    "avg_holding_days": 16.267857142857142,
+    "avg_abs_position": 0.2123374833316049,
+    "avg_holding_days": 11.072727272727272,
     "beats_base_constrained_ref": true,
     "beats_constrained_weight_reference": true,
     "benchmark_return_pct": null,
     "candidate": "codex_exec_primary_factor_direct",
-    "component_cols": "[\"cycle_ma30_ma60_vix_participation_lag1\", \"g001_000_mutation_cycle_ma30_ma60_vi_ae3ae80c30\", \"g001_001_crossover_codex_exec_quality_976bcd8f46__cycle_ma30_ma60_vi_ae3ae80c30\"]",
+    "component_cols": "[\"vol_phase_pullback_reversion_61d\", \"g001_000_mutation_vol_phase_pullback_480615fac0\"]",
     "cost_per_turnover": 0.0003,
     "days_above_100": 0,
     "days_below_0": 0,
     "effective_component_count": 1,
-    "max_drawdown_pct": -59.717843052322884,
-    "max_position": 0.9512577977820537,
+    "max_drawdown_pct": -52.24747200505,
+    "max_position": 1.0,
     "min_position": 0.0,
-    "next_day_reversal_count": 12,
+    "next_day_reversal_count": 32,
     "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
     "passes_drawdown_gate": false,
     "passes_effective_component_gate": true,
     "passes_position_bounds": true,
-    "raw_target_avg_abs": 0.7100265072768133,
-    "raw_target_max": 0.9996581332066327,
-    "raw_target_min": -0.999975405743429,
-    "return_pct": 501.93189874958506,
+    "raw_target_avg_abs": 0.30273206050723783,
+    "raw_target_max": 1.419654776602609,
+    "raw_target_min": -1.39279295038064,
+    "return_pct": 749.0695416272949,
     "selection_eligible": false,
-    "total_turnover": 48.094676631619635,
-    "trade_count": 113,
-    "weights": "{\"cycle_ma30_ma60_vix_participation_lag1\": 1.0}"
+    "total_turnover": 90.91678274748801,
+    "trade_count": 166,
+    "weights": "{\"vol_phase_pullback_reversion_61d\": 1.0}"
   },
   "selection": "return_sorted_long_only_multifactor_gate",
   "spec": {
@@ -64,9 +63,8 @@
           "rebalance_threshold": 0.2
         },
         "weights": {
-          "cycle_ma30_ma60_vix_participation_lag1": 0.3333333333333333,
-          "g001_000_mutation_cycle_ma30_ma60_vi_ae3ae80c30": 0.3333333333333333,
-          "g001_001_crossover_codex_exec_quality_976bcd8f46__cycle_ma30_ma60_vi_ae3ae80c30": 0.3333333333333333
+          "g001_000_mutation_vol_phase_pullback_480615fac0": 0.5,
+          "vol_phase_pullback_reversion_61d": 0.5
         }
       },
       {
@@ -77,14 +75,13 @@
           "rebalance_threshold": 0.3
         },
         "weights": {
-          "cycle_ma30_ma60_vix_participation_lag1": 1.0
+          "vol_phase_pullback_reversion_61d": 1.0
         }
       }
     ],
     "component_cols": [
-      "cycle_ma30_ma60_vix_participation_lag1",
-      "g001_000_mutation_cycle_ma30_ma60_vi_ae3ae80c30",
-      "g001_001_crossover_codex_exec_quality_976bcd8f46__cycle_ma30_ma60_vi_ae3ae80c30"
+      "vol_phase_pullback_reversion_61d",
+      "g001_000_mutation_vol_phase_pullback_480615fac0"
     ],
     "constrained_reference_name": "base_constrained_ref",
     "cost_per_turnover": 0.0003,

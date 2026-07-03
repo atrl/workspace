@@ -234,6 +234,8 @@ def test_cognitive_alpha_goal_codex_exec_attaches_direct_factor_base_to_model_fr
 
 def test_cognitive_alpha_goal_codex_exec_uses_open_to_open_training_and_lgb_xgb():
     from src.workflow.cognitive_alpha_goal_codex_exec import (
+        BASE_CONSTRAINED_REF_COL,
+        COGALPHA_OPEN2OPEN_RISK_GATE_COL,
         LABEL_OPEN_TO_OPEN_5D_COL,
         OPEN_TO_OPEN_RETURN_COL,
         CognitiveAlphaGoalCodexExecCardSpec,
@@ -257,13 +259,126 @@ def test_cognitive_alpha_goal_codex_exec_uses_open_to_open_training_and_lgb_xgb(
     assert pd.isna(frame.loc[frame.index.max(), LABEL_OPEN_TO_OPEN_5D_COL])
 
     spec = CognitiveAlphaGoalCodexExecCardSpec(root=ROOT)
-    position_spec = _position_spec(["feature_a"], spec=spec, test=("2026-01-02", "2026-07-02"))
+    position_spec = _position_spec(
+        ["feature_a", BASE_CONSTRAINED_REF_COL, COGALPHA_OPEN2OPEN_RISK_GATE_COL],
+        spec=spec,
+        test=("2026-01-02", "2026-07-02"),
+    )
 
     model_families = {item["model"] for item in position_spec.model_specs}
     assert {"lgbm_classifier", "lgbm_regressor", "xgb_classifier", "xgb_regressor"}.issubset(model_families)
     assert position_spec.return_col == OPEN_TO_OPEN_RETURN_COL
     assert position_spec.label_col == LABEL_OPEN_TO_OPEN_5D_COL
     assert position_spec.constrained_reference_name == "base_constrained_ref"
+    assert position_spec.validation_max_daily_loss_floor is None
+    assert position_spec.test_max_daily_loss_floor is None
+    assert any(
+        item.get("position_mode") == "base_throttle" and item.get("base_position_col") == BASE_CONSTRAINED_REF_COL
+        for item in position_spec.position_specs or []
+    )
+    assert all(
+        item.get("selection_disabled") is not True
+        for item in position_spec.position_specs or []
+        if item.get("position_mode") == "base_throttle" and item.get("base_position_col") == BASE_CONSTRAINED_REF_COL
+    )
+    base_plus_specs = [
+        item
+        for item in position_spec.position_specs or []
+        if item.get("position_mode") == "base_plus_probability"
+        and item.get("base_position_col") == BASE_CONSTRAINED_REF_COL
+    ]
+    assert base_plus_specs
+    assert all(item.get("selection_disabled") is not True for item in base_plus_specs)
+    assert {item["boost_scale"] for item in base_plus_specs} >= {0.1, 0.2, 0.35, 0.5, 1.5}
+    assert {item["risk_gate_max_position"] for item in base_plus_specs} >= {0.35, 0.75}
+    assert all(item.get("risk_gate_col") == COGALPHA_OPEN2OPEN_RISK_GATE_COL for item in base_plus_specs)
+    assert all(
+        item.get("selection_disabled") is True
+        for item in position_spec.position_specs or []
+        if item.get("position_mode", "probability") == "probability"
+    )
+
+
+def test_base_plus_probability_position_mode_adds_model_boost_and_respects_risk_cap():
+    from src.backtest.ml_position import _raw_target_from_probability
+
+    data = pd.DataFrame(
+        {
+            "base_constrained_ref": [0.50, 0.20, 0.80],
+            "risk_gate": [0.0, 0.0, 1.0],
+        }
+    )
+    probability = pd.Series([0.55, 0.80, 0.90])
+
+    raw = _raw_target_from_probability(
+        data,
+        probability,
+        position_spec={
+            "position_mode": "base_plus_probability",
+            "base_position_col": "base_constrained_ref",
+            "threshold": 0.50,
+            "base_scale": 1.0,
+            "boost_scale": 0.40,
+            "max_position": 1.0,
+            "risk_gate_col": "risk_gate",
+            "risk_gate_threshold": 0.5,
+            "risk_gate_direction": "above",
+            "risk_gate_max_position": 0.35,
+        },
+    )
+
+    assert raw.tolist() == pytest.approx([0.54, 0.44, 0.35])
+
+
+def test_cognitive_alpha_goal_codex_exec_resume_returns_completed_card_without_rerun(tmp_path):
+    from src.workflow.cognitive_alpha_goal_codex_exec import CognitiveAlphaGoalCodexExecCardSpec, _run_card
+
+    card = tmp_path / "research" / "cognitive_alpha_goal_codex_exec_v1"
+    card.mkdir(parents=True)
+    (card / "summary.json").write_text(
+        json.dumps(
+            {
+                "status": "complete",
+                "attempt_index": 12,
+                "max_attempts": 12,
+                "promotion_decision": "candidate_for_validated_research",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    summary = _run_card(CognitiveAlphaGoalCodexExecCardSpec(root=tmp_path, resume=True, max_attempts=12))
+
+    assert summary["status"] == "complete"
+    assert summary["attempt_index"] == 12
+
+
+def test_cognitive_alpha_goal_codex_exec_dynamic_open_to_open_benchmarks_use_current_window():
+    from src.workflow.cognitive_alpha_goal_codex_exec import (
+        BASE_CONSTRAINED_REF_COL,
+        OPEN_TO_OPEN_RETURN_COL,
+        _dynamic_open_to_open_benchmarks,
+    )
+
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06"]),
+            OPEN_TO_OPEN_RETURN_COL: [0.10, -0.05, 0.20],
+            BASE_CONSTRAINED_REF_COL: [1.0, 0.5, 0.0],
+        }
+    )
+
+    benchmarks = _dynamic_open_to_open_benchmarks(frame, test=("2026-01-02", "2026-01-06"))
+    rows = {item["name"]: item for item in benchmarks}
+
+    assert rows["soxl_buyhold"]["return_pct"] == pytest.approx(((1.10 * 0.95 * 1.20) - 1.0) * 100.0)
+    expected_base_returns = pd.Series([0.10 - 0.0003, -0.025 - 0.00015, -0.00015])
+    assert rows["base_constrained_ref"]["return_pct"] == pytest.approx(
+        ((1.0 + expected_base_returns).prod() - 1.0) * 100.0
+    )
+    assert rows["constrained_weight_reference"]["return_pct"] == pytest.approx(
+        rows["base_constrained_ref"]["return_pct"]
+    )
 
 
 def test_cognitive_alpha_goal_codex_exec_normalizes_clipped_negative_direct_factor_raw_target():

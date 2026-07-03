@@ -30,7 +30,7 @@ index 4a4c633d..4846d26c 100644
 +++ b/research/cognitive_alpha_goal_codex_exec_v1/conclusion.md
 @@ -1,14 +1,14 @@
  # 结论
- 
+
  - what_ran: 执行 cognitive_alpha_goal_codex_exec_v1，使用 Codex exec candidate provider 生成 CogAlpha 候选，再通过 qlib provider、Alpha158 DatasetH/DataHandlerLP、R.start recorder、position model 和 direct-factor prior 完成研究闭环。
 -- goal_loop: status=needs_iteration，terminal_reason=max_attempts_exhausted_needs_iteration，attempt=2/2，feedback_context_included=True。
 +- goal_loop: status=needs_iteration，terminal_reason=max_attempts_exhausted_needs_iteration，attempt=3/3，feedback_context_included=True。
@@ -241,7 +241,7 @@ index 69e80bcc..2e76714d 100644
 --- a/research/cognitive_alpha_goal_codex_exec_v1/failure_modes.md
 +++ b/research/cognitive_alpha_goal_codex_exec_v1/failure_modes.md
 @@ -2,10 +2,10 @@
- 
+
  - goal_loop_status: needs_iteration
  - terminal_reason: max_attempts_exhausted_needs_iteration
 -- attempts: 2/2
@@ -2784,8 +2784,8 @@ index cff7954a..d8cf402d 100644
 +OPEN_TO_OPEN_RETURN_COL = "open_to_open_return"
 +LABEL_OPEN_TO_OPEN_5D_COL = "label_open_to_open_5d"
 +EXECUTION_TIMING = "close_t_signal_next_open_to_following_open"
- 
- 
+
+
  @dataclass(frozen=True)
 @@ -157,7 +162,7 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
      alpha_dataset = build_alpha158_legacy_dataset(
@@ -2822,7 +2822,7 @@ index cff7954a..d8cf402d 100644
                  benchmarks=benchmarks,
              )
 +            _attach_open_to_open_execution_context(position_result.summary, position_result.latest_signal)
- 
+
              _write_evolution_sidecars(card, sidecars, factor_mining)
              _write_position_sidecars(card, sidecars, position_result)
 @@ -304,18 +317,18 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
@@ -2849,8 +2849,8 @@ index cff7954a..d8cf402d 100644
                      ),
 @@ -432,6 +445,15 @@ def _attempt_entry(summary: dict[str, Any]) -> dict[str, Any]:
      }
- 
- 
+
+
 +def _attach_open_to_open_execution_context(position_summary: dict[str, Any], latest_signal: dict[str, Any]) -> None:
 +    position_summary["execution_timing"] = EXECUTION_TIMING
 +    position_summary["return_col"] = OPEN_TO_OPEN_RETURN_COL
@@ -2864,7 +2864,7 @@ index cff7954a..d8cf402d 100644
      attempt_dir = card / "attempts" / f"attempt_{attempt_index:03d}"
      attempt_dir.mkdir(parents=True, exist_ok=True)
 @@ -480,7 +502,7 @@ def _factor_mining_spec(evolution_spec: CognitiveAlphaEvolutionSpec, alpha158_co
- 
+
      return CognitiveAlphaFactorMiningSpec(
          evolution_spec=evolution_spec,
 -        label_col="label_return_5d",
@@ -2873,7 +2873,7 @@ index cff7954a..d8cf402d 100644
          max_factor_library_size=4,
      )
 @@ -521,21 +543,123 @@ def _merge_alpha158_features(frame: pd.DataFrame, alpha_dataset: Any) -> tuple[p
- 
+
  def _add_return_columns(frame: pd.DataFrame) -> None:
      close = pd.to_numeric(frame["close"], errors="coerce").astype("float64")
 +    open_ = pd.to_numeric(frame["open"], errors="coerce").astype("float64")
@@ -2905,8 +2905,8 @@ index cff7954a..d8cf402d 100644
 +        *(extra_columns or []),
      ]
      return [column for column in dict.fromkeys(base) if column in frame.columns]
- 
- 
+
+
 +def _attach_direct_factor_model_features(frame: pd.DataFrame, direct_result: Any) -> tuple[pd.DataFrame, list[str]]:
 +    selected_candidate = str(direct_result.summary.get("selected_candidate", {}).get("candidate", ""))
 +    positions = direct_result.positions.copy()
@@ -3001,8 +3001,8 @@ index cff7954a..d8cf402d 100644
      rows = []
 @@ -552,7 +676,65 @@ def _load_benchmarks(root: Path) -> list[dict[str, Any]]:
      return rows
- 
- 
+
+
 +def _float_or_zero(value: Any) -> float:
 +    parsed = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
 +    return 0.0 if pd.isna(parsed) else float(parsed)
@@ -3093,8 +3093,8 @@ index cff7954a..d8cf402d 100644
          ],
 +        constrained_reference_name="base_constrained_ref",
      )
- 
- 
+
+
 @@ -616,8 +807,10 @@ def _direct_factor_spec(selected_factor_names: list[str], model_features: list[s
      return CognitiveAlphaWeightedFactorSearchSpec(
          component_cols=component_cols,
@@ -3104,8 +3104,8 @@ index cff7954a..d8cf402d 100644
          max_drawdown_floor=-25.0,
 +        constrained_reference_name="base_constrained_ref",
      )
- 
- 
+
+
 @@ -725,6 +918,10 @@ def _summary_payload(
          "market": manifest["market"],
          "region": manifest["region"],
@@ -3142,7 +3142,7 @@ index cff7954a..d8cf402d 100644
 +        "- 若未跑赢 base_constrained_ref 或 walk-forward/exposure/risk gates 且仍有 attempt 预算，保持 needs_iteration 并继续 Codex exec 因子生成。\n"
          "- 若达到当前 max_attempts 仍未晋升，保持 needs_iteration，并由外层 Goal refresh attempt budget 后继续。\n"
      )
- 
+
 @@ -878,6 +1081,8 @@ def _conclusion(summary: dict[str, Any]) -> str:
          f"train={summary['segments']['train'][0]} 到 {summary['segments']['train'][1]}，"
          f"validation={summary['segments']['validation'][0]} 到 {summary['segments']['validation'][1]}，"
@@ -3191,19 +3191,19 @@ index 7d1a5f0c..f06a4fad 100644
 --- a/tests/test_cognitive_alpha_goal_runner.py
 +++ b/tests/test_cognitive_alpha_goal_runner.py
 @@ -2,7 +2,9 @@ from __future__ import annotations
- 
+
  import json
  from pathlib import Path
 +from types import SimpleNamespace
- 
+
 +import pandas as pd
  import pytest
- 
- 
+
+
 @@ -189,6 +191,112 @@ def test_cognitive_alpha_signal_refresh_cli_updates_project_owned_paper_ledger(t
      assert ledger["accounts"]["cli-cogalpha"]["positions"]["SOXL"]["target_percent"] == pytest.approx(0.10)
- 
- 
+
+
 +def test_cognitive_alpha_goal_codex_exec_attaches_direct_factor_base_to_model_frame():
 +    from src.workflow.cognitive_alpha_goal_codex_exec import (
 +        DIRECT_FACTOR_BASE_POSITION_COL,
@@ -3312,4 +3312,4 @@ index 7d1a5f0c..f06a4fad 100644
 +
  def test_cognitive_alpha_goal_runner_writes_resumable_full_chain_manifest(tmp_path):
      from src.workflow import CognitiveAlphaGoalRunner, CognitiveAlphaGoalRunnerSpec
- 
+

@@ -1,0 +1,5 @@
+name,level,agent,lookback,code
+g001_003_mutation_vol_regime_trend_p_5eea011fa7,market_structure_cycle,AgentVolatilityRegime,66,"mutation:zscore(vol_regime_trend_pullback_decay_guard,10).shift(1)"
+codex_exec_quality_canary_future_leak_repaired_lag1,quality_checker_canary,QualityCheckerCanaryRepair,3,safe_lagged_pct_change(close).rolling(3).mean()
+vol_regime_trend_pullback_decay_guard,market_structure_cycle,AgentVolatilityRegime,66,"tanh(zscore((alpha158_MA20.shift(1) / maximum(alpha158_MA60.shift(1), 1e-9) - 1.0) - 0.70 * zscore(log1p(alpha158_VIX.shift(1)) - log1p(alpha158_VIX.shift(6))) - 0.55 * zscore(((high.shift(1) - low.shift(1)) / maximum(close.shift(1), 1e-9)).rolling(20, min_periods=10).mean()) - 0.65 * zscore(close.shift(1) / maximum(alpha158_MAX30.shift(1), 1e-9) - 1.0)))"
+g001_001_crossover_vol_regime_trend_p_5eea011fa7__codex_exec_quality_976bcd8f46,geometric_fusion,AgentComposite,66,"crossover:mean(zscore(vol_regime_trend_pullback_decay_guard,20), zscore(codex_exec_quality_canary_future_leak_repaired_lag1,20))"

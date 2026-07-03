@@ -1896,7 +1896,11 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     assert summary["experiment"] == "cognitive_alpha_goal_codex_exec_v1"
     assert summary["card_type"] == "diagnostic_cognitive_alpha_codex_exec_goal_chain"
     assert summary["paper_reference"]["arxiv_id"] == "2511.18850"
-    assert summary["promotion_decision"].startswith("not_promoted")
+    assert summary["promotion_decision"] in {
+        "candidate_for_validated_research",
+        "not_promoted_under_base_constrained_ref",
+        "not_promoted_failed_position_risk_gates",
+    }
     assert summary["codex_provider"]["provider_builder"] == "build_cognitive_alpha_codex_exec_candidate_provider"
     assert summary["codex_provider"]["provider_id"] == "codex_exec_candidate_provider"
     assert summary["codex_provider"]["provider_kind"] == "codex_exec_code"
@@ -1925,6 +1929,20 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
         assert summary["next_action"]["requires_budget_refresh"] is True
         assert summary["next_action"]["required_max_attempts"] == summary["attempt_index"] + 1
         assert summary["evolution"]["candidate_provider"]["feedback_context_included"] is True
+    if summary["promotion_decision"] == "candidate_for_validated_research":
+        assert summary["status"] == "complete"
+        assert summary["terminal_reason"] == "promotion_or_terminal_decision"
+        assert summary["remaining_attempts"] == 0
+        assert summary["next_action"]["action"] == "stop_terminal_decision"
+        assert summary["position_model"]["comparison"]["beats_base_constrained_ref"] is True
+        assert summary["position_model"]["comparison"]["beats_constrained_weight_reference"] is True
+        assert summary["position_model"]["comparison"]["beats_soxl_backtest"] is True
+        assert summary["position_model"]["comparison"]["beats_soxl_buyhold"] is True
+        assert summary["position_model"]["comparison"]["selected_vs_base_constrained_ref_return_gap_pct"] > 0.0
+        assert summary["position_model"]["risk_gates"]["selected_passes_all"] is True
+        assert summary["position_model"]["walk_forward"]["all_folds_pass_risk_gates"] is True
+        assert summary["position_model"]["selected_candidate"]["test"]["position_mode"] == "base_plus_probability"
+        assert summary["position_model"]["latest_signal"]["target_position"] <= 0.001
     assert summary["codex_provider_readiness"]["status"] in {"ok", "warning"}
     assert summary["codex_provider_readiness"]["auth_mode"] == "chatgpt"
     assert summary["codex_provider_readiness"]["stored_api_key"] == "false"
@@ -1960,7 +1978,7 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     }
     assert summary["research_gate"]["final_promotion_source"] in {"position_model", "production_paper_sim"}
     assert summary["research_gate"]["direct_factor_backtest_role"] == "prior_only_not_final_promotion"
-    assert summary["production_paper_sim"]["status"] == "blocked_not_promoted"
+    assert summary["production_paper_sim"]["status"] in {"blocked_not_promoted", "candidate_for_paper_sim"}
     assert summary["production_paper_sim"]["required_gate"] == "validated_research_position_model_or_production_paper_sim"
 
     assert summary["qlib_native_api"] == [

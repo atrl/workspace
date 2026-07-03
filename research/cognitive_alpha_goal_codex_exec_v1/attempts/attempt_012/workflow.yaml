@@ -1,0 +1,28 @@
+experiment: cognitive_alpha_goal_codex_exec_v1
+card_type: diagnostic_cognitive_alpha_codex_exec_goal_chain
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder
+codex_provider:
+  provider_builder: build_cognitive_alpha_codex_exec_candidate_provider
+  provider_id: codex_exec_candidate_provider
+  command: codex exec --output-schema cognitive_alpha_candidate_schema.json --output-last-message last_message.json
+  approval_policy: never
+  sandbox: read-only
+factor_mining:
+  workflow: cognitive_alpha_factor_mining
+  candidate_provider: codex_exec_candidate_provider
+  label_col: label_open_to_open_5d
+position_model:
+  workflow: cognitive_alpha_position_model
+  return_col: open_to_open_return
+  label_col: label_open_to_open_5d
+  execution_timing: close_t_signal_next_open_to_following_open
+  constrained_reference_name: base_constrained_ref
+direct_factor_backtest:
+  workflow: cognitive_alpha_weighted_factor_search
+  return_col: open_to_open_return
+  role: prior_only_not_final_promotion
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

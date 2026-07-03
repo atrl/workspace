@@ -11,6 +11,7 @@ import pandas as pd
 
 from src.data import QlibProviderConfig, build_alpha158_legacy_dataset, init_qlib_provider
 from src.factor import CognitiveAlphaCandidate, materialize_cognitive_alpha_features, run_cognitive_alpha_factor_mining
+from src.factor.high_chop_ml import DEFAULT_HIGH_CHOP_FEATURES, build_high_chop_ml_frame
 from src.workflow.cognitive_alpha_codex_provider import (
     build_cognitive_alpha_codex_exec_candidate_provider,
     codex_cli_readiness,
@@ -48,6 +49,11 @@ DIRECT_FACTOR_RAW_TARGET_COL = "direct_factor_raw_target"
 OPEN_TO_OPEN_RETURN_COL = "open_to_open_return"
 LABEL_OPEN_TO_OPEN_5D_COL = "label_open_to_open_5d"
 EXECUTION_TIMING = "close_t_signal_next_open_to_following_open"
+BASE_CONSTRAINED_REF_COL = "base_constrained_ref"
+COGALPHA_DIRECT_ADDON_BASE_COL = "cogalpha_direct_addon_base"
+COGALPHA_DIRECT_BLEND_BASE_COL = "cogalpha_direct_blend_base"
+COGALPHA_DIRECT_RISKCUT_BASE_COL = "cogalpha_direct_riskcut_base"
+COGALPHA_OPEN2OPEN_RISK_GATE_COL = "cogalpha_open2open_risk_gate"
 
 
 @dataclass(frozen=True)
@@ -61,8 +67,8 @@ class CognitiveAlphaGoalCodexExecCardSpec:
     attempt_index: int = 1
     max_attempts: int = 2
     request_context: dict[str, Any] | None = None
-    initial_pool_size: int = 4
-    codex_candidate_count: int = 3
+    initial_pool_size: int = 3
+    codex_candidate_count: int = 2
     generations: int = 2
     parent_pool_size: int = 3
     children_per_generation: int = 4
@@ -100,6 +106,10 @@ def run_cognitive_alpha_goal_codex_exec_card(
 def _run_card(spec: CognitiveAlphaGoalCodexExecCardSpec) -> dict[str, Any]:
     card = spec.card_dir
     card.mkdir(parents=True, exist_ok=True)
+    if spec.resume:
+        existing_summary = _read_json_object(card / "summary.json")
+        if existing_summary.get("status") == "complete":
+            return existing_summary
     start_attempt = _resume_start_attempt(card) if spec.resume else 1
     effective_max_attempts = _effective_max_attempts(card, spec=spec, start_attempt=start_attempt)
     attempts: list[dict[str, Any]] = _load_attempt_history(card) if spec.resume else []
@@ -153,11 +163,20 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
 
     _ = qlib
     fields = ["$open", "$high", "$low", "$close", "$volume", "$vix"]
-    frame = D.features(["SOXL"], fields, start_time=spec.train[0], end_time=as_of, freq="day")
-    frame = frame.reset_index().sort_values(["datetime", "instrument"]).reset_index(drop=True)
+    qlib_panel = D.features(["SOXL", "SOXX"], fields, start_time=spec.train[0], end_time=as_of, freq="day")
+    frame = qlib_panel.reset_index().sort_values(["datetime", "instrument"]).reset_index(drop=True)
+    frame = frame.loc[frame["instrument"].astype(str).str.upper().eq("SOXL")].copy()
     frame = frame.rename(columns={field: field.removeprefix("$") for field in fields})
     frame["datetime"] = pd.to_datetime(frame["datetime"]).dt.normalize()
     _add_return_columns(frame)
+    high_chop_frame = build_high_chop_ml_frame(
+        qlib_panel,
+        start=spec.train[0],
+        end=as_of,
+        label_horizon=5,
+        include_incomplete_latest=True,
+    )
+    frame = _merge_high_chop_model_features(frame, high_chop_frame)
 
     alpha_dataset = build_alpha158_legacy_dataset(
         qlib_config,
@@ -252,18 +271,19 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
             model_frame = pd.concat([frame.reset_index(drop=True), feature_frame.reset_index(drop=True)], axis=1)
             selected_factor_names = list(factor_mining.selected_feature_names)
             model_features = _model_feature_columns(selected_factor_names, alpha158_columns, model_frame)
-            benchmarks = _load_benchmarks(spec.root)
+            benchmarks = _load_benchmarks(spec.root, model_frame=model_frame, test=test)
             direct_result = run_cognitive_alpha_weighted_factor_search(
                 model_frame,
                 spec=_direct_factor_spec(selected_factor_names, model_features),
                 benchmarks=benchmarks,
             )
             model_frame, direct_feature_cols = _attach_direct_factor_model_features(model_frame, direct_result)
+            model_frame, composite_feature_cols = _attach_cogalpha_composite_base_features(model_frame)
             model_features = _model_feature_columns(
                 selected_factor_names,
                 alpha158_columns,
                 model_frame,
-                extra_columns=direct_feature_cols,
+                extra_columns=[*direct_feature_cols, *composite_feature_cols],
             )
             position_result = run_cognitive_alpha_position_model(
                 model_frame,
@@ -541,6 +561,20 @@ def _merge_alpha158_features(frame: pd.DataFrame, alpha_dataset: Any) -> tuple[p
     return out, [f"alpha158_{column}" for column in alpha_cols]
 
 
+def _merge_high_chop_model_features(frame: pd.DataFrame, high_chop_frame: pd.DataFrame) -> pd.DataFrame:
+    high_chop = high_chop_frame.copy()
+    high_chop["datetime"] = pd.to_datetime(high_chop["datetime"]).dt.normalize()
+    out = frame.copy()
+    feature_cols = [
+        column
+        for column in DEFAULT_HIGH_CHOP_FEATURES
+        if column in high_chop.columns and column not in {OPEN_TO_OPEN_RETURN_COL, LABEL_OPEN_TO_OPEN_5D_COL}
+        and column not in out.columns
+    ]
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    return out.merge(high_chop[["datetime", *feature_cols]], on="datetime", how="left")
+
+
 def _add_return_columns(frame: pd.DataFrame) -> None:
     close = pd.to_numeric(frame["close"], errors="coerce").astype("float64")
     open_ = pd.to_numeric(frame["open"], errors="coerce").astype("float64")
@@ -564,6 +598,7 @@ def _model_feature_columns(
     base = [
         *selected_factor_names,
         *alpha158_columns[:6],
+        *[column for column in DEFAULT_HIGH_CHOP_FEATURES if column in frame.columns],
         "vix",
         "realized_vol_20",
         *(extra_columns or []),
@@ -609,6 +644,49 @@ def _attach_direct_factor_model_features(frame: pd.DataFrame, direct_result: Any
     return out, [DIRECT_FACTOR_BASE_POSITION_COL, DIRECT_FACTOR_RAW_TARGET_COL]
 
 
+def _attach_cogalpha_composite_base_features(frame: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
+    out = frame.copy()
+    base = _numeric_series(out, BASE_CONSTRAINED_REF_COL).clip(lower=0.0, upper=1.0)
+    direct = _numeric_series(out, DIRECT_FACTOR_BASE_POSITION_COL).clip(lower=0.0, upper=1.0)
+    vix_chg5 = _numeric_series(out, "vix_chg5")
+    rv20_expansion = _numeric_series(out, "rv20_expansion")
+    breakdown = _numeric_series(out, "chop_breakdown_risk").gt(0.0)
+    risk_active = breakdown | rv20_expansion.gt(1.8) | vix_chg5.gt(0.25)
+    reentry_active = (
+        _numeric_series(out, "chop_reentry_quality").gt(0.02)
+        | _numeric_series(out, "soxx_lead_10").gt(0.02)
+        | _numeric_series(out, "panic_reversal_5").gt(0.01)
+    ) & ~risk_active
+
+    direct_addon = pd.Series(0.0, index=out.index)
+    direct_addon.loc[reentry_active] = direct.loc[reentry_active]
+    out[COGALPHA_DIRECT_ADDON_BASE_COL] = pd.concat([base, direct_addon], axis=1).max(axis=1).clip(0.0, 1.0)
+    out[COGALPHA_DIRECT_BLEND_BASE_COL] = (0.70 * base + 0.30 * direct_addon).clip(0.0, 1.0)
+    out[COGALPHA_DIRECT_RISKCUT_BASE_COL] = out[COGALPHA_DIRECT_ADDON_BASE_COL].where(
+        ~risk_active,
+        base.clip(upper=0.35),
+    ).clip(0.0, 1.0)
+    out[COGALPHA_OPEN2OPEN_RISK_GATE_COL] = risk_active.astype("float64")
+    return out, [
+        COGALPHA_DIRECT_ADDON_BASE_COL,
+        COGALPHA_DIRECT_BLEND_BASE_COL,
+        COGALPHA_DIRECT_RISKCUT_BASE_COL,
+        COGALPHA_OPEN2OPEN_RISK_GATE_COL,
+    ]
+
+
+def _numeric_series(frame: pd.DataFrame, column: str) -> pd.Series:
+    if column not in frame.columns:
+        return pd.Series(0.0, index=frame.index, name=column)
+    return (
+        pd.to_numeric(frame[column], errors="coerce")
+        .replace([float("inf"), float("-inf")], pd.NA)
+        .fillna(0.0)
+        .astype("float64")
+        .rename(column)
+    )
+
+
 def _direct_factor_base_position_from_raw(raw_target: pd.Series) -> pd.Series:
     raw = pd.to_numeric(raw_target, errors="coerce").replace([float("inf"), float("-inf")], pd.NA).fillna(0.0)
     max_abs = float(raw.abs().max())
@@ -621,42 +699,14 @@ def _direct_factor_base_position_from_raw(raw_target: pd.Series) -> pd.Series:
     return normalized.rename(DIRECT_FACTOR_BASE_POSITION_COL)
 
 
-def _load_benchmarks(root: Path) -> list[dict[str, Any]]:
-    open2open_path = (
-        root / "research" / "agentic_alpha_high_chop_open2open_lgb_xgb_v1" / "backtest_benchmark_comparison.csv"
-    )
-    if open2open_path.exists():
-        frame = pd.read_csv(open2open_path)
-        aliases = {
-            "legacy_soxlbacktest_reference": "soxl_backtest",
-            "base_constrained_ref": "base_constrained_ref",
-            "soxl_buyhold": "soxl_buyhold",
-        }
-        rows = []
-        for row in frame.to_dict(orient="records"):
-            strategy = str(row["strategy"])
-            name = aliases.get(strategy)
-            if name is None:
-                continue
-            rows.append(
-                {
-                    "name": name,
-                    "return_pct": _float_or_zero(row.get("return_pct")),
-                    "max_drawdown_pct": _float_or_zero(row.get("max_drawdown_pct")),
-                    "trade_count": _int_or_zero(row.get("trade_count")),
-                    "source": f"open2open:{strategy}",
-                }
-            )
-            if name == "base_constrained_ref":
-                rows.append(
-                    {
-                        "name": "constrained_weight_reference",
-                        "return_pct": _float_or_zero(row.get("return_pct")),
-                        "max_drawdown_pct": _float_or_zero(row.get("max_drawdown_pct")),
-                        "trade_count": _int_or_zero(row.get("trade_count")),
-                        "source": "open2open:base_constrained_ref_alias",
-                    }
-                )
+def _load_benchmarks(
+    root: Path,
+    *,
+    model_frame: pd.DataFrame | None = None,
+    test: tuple[str, str] | None = None,
+) -> list[dict[str, Any]]:
+    if model_frame is not None and test is not None:
+        rows = _dynamic_open_to_open_benchmarks(model_frame, test=test)
         if rows:
             return rows
 
@@ -676,6 +726,88 @@ def _load_benchmarks(root: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _dynamic_open_to_open_benchmarks(frame: pd.DataFrame, *, test: tuple[str, str]) -> list[dict[str, Any]]:
+    data = frame.copy()
+    data["datetime"] = pd.to_datetime(data["datetime"]).dt.normalize()
+    mask = (data["datetime"] >= pd.Timestamp(test[0])) & (data["datetime"] <= pd.Timestamp(test[1]))
+    window = data.loc[mask].sort_values("datetime").reset_index(drop=True)
+    if window.empty or OPEN_TO_OPEN_RETURN_COL not in window.columns:
+        return []
+    returns = pd.to_numeric(window[OPEN_TO_OPEN_RETURN_COL], errors="coerce").replace(
+        [float("inf"), float("-inf")],
+        pd.NA,
+    ).fillna(0.0)
+    rows = [_benchmark_row_from_returns("soxl_buyhold", returns, source="qlib_dynamic_open_to_open_buyhold")]
+    if BASE_CONSTRAINED_REF_COL in window.columns:
+        rows.append(
+            _benchmark_row_from_position(
+                "base_constrained_ref",
+                window[BASE_CONSTRAINED_REF_COL],
+                returns,
+                source="qlib_dynamic_open_to_open_base_constrained_ref",
+            )
+        )
+        rows.append(
+            _benchmark_row_from_position(
+                "constrained_weight_reference",
+                window[BASE_CONSTRAINED_REF_COL],
+                returns,
+                source="qlib_dynamic_open_to_open_base_constrained_ref_alias",
+            )
+        )
+    try:
+        from soxl_backtest.reference import replay_soxlbacktest_reference
+
+        legacy = replay_soxlbacktest_reference(start=test[0], end=test[1]).metrics
+        rows.append(
+            {
+                "name": "soxl_backtest",
+                "return_pct": float(legacy.get("rulebase_return_pct", 0.0)),
+                "max_drawdown_pct": -abs(float(legacy.get("rulebase_max_drawdown_pct", 0.0))),
+                "trade_count": int(legacy.get("trade_count", 0) or 0),
+                "source": "soxl_backtest.reference.replay_soxlbacktest_reference",
+            }
+        )
+    except Exception:
+        pass
+    return rows
+
+
+def _benchmark_row_from_returns(name: str, returns: pd.Series, *, source: str) -> dict[str, Any]:
+    strategy_returns = returns.astype("float64").fillna(0.0)
+    equity = (1.0 + strategy_returns).cumprod()
+    drawdown = equity / equity.cummax() - 1.0
+    return {
+        "name": name,
+        "return_pct": float((equity.iloc[-1] - 1.0) * 100.0) if not equity.empty else 0.0,
+        "max_drawdown_pct": float(drawdown.min() * 100.0) if not drawdown.empty else 0.0,
+        "trade_count": 1,
+        "source": source,
+    }
+
+
+def _benchmark_row_from_position(
+    name: str,
+    position: pd.Series,
+    returns: pd.Series,
+    *,
+    source: str,
+    cost_per_turnover: float = 0.0003,
+) -> dict[str, Any]:
+    target = pd.to_numeric(position, errors="coerce").fillna(0.0).clip(0.0, 1.0).astype("float64")
+    turnover = target.diff().abs().fillna(target.abs())
+    strategy_returns = target * returns.astype("float64").fillna(0.0) - turnover * float(cost_per_turnover)
+    equity = (1.0 + strategy_returns).cumprod()
+    drawdown = equity / equity.cummax() - 1.0
+    return {
+        "name": name,
+        "return_pct": float((equity.iloc[-1] - 1.0) * 100.0) if not equity.empty else 0.0,
+        "max_drawdown_pct": float(drawdown.min() * 100.0) if not drawdown.empty else 0.0,
+        "trade_count": int(turnover.gt(1e-9).sum()),
+        "source": source,
+    }
+
+
 def _float_or_zero(value: Any) -> float:
     parsed = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
     return 0.0 if pd.isna(parsed) else float(parsed)
@@ -687,33 +819,90 @@ def _int_or_zero(value: Any) -> int:
 
 
 def _position_spec(feature_cols: list[str], *, spec: CognitiveAlphaGoalCodexExecCardSpec, test: tuple[str, str]) -> CognitiveAlphaPositionSpec:
-    direct_base_specs = []
+    base_throttle_specs = []
+    base_columns = [
+        BASE_CONSTRAINED_REF_COL,
+        "base_chop_control",
+        "base_recovery",
+        DIRECT_FACTOR_BASE_POSITION_COL,
+        COGALPHA_DIRECT_ADDON_BASE_COL,
+        COGALPHA_DIRECT_BLEND_BASE_COL,
+        COGALPHA_DIRECT_RISKCUT_BASE_COL,
+    ]
+    for base_col in [column for column in base_columns if column in feature_cols]:
+        min_throttles = [0.55, 0.75, 0.85] if base_col == BASE_CONSTRAINED_REF_COL else [0.35, 0.55, 0.75]
+        for min_throttle in min_throttles:
+            base_throttle_specs.append(
+                {
+                    "position_mode": "base_throttle",
+                    "base_position_col": base_col,
+                    "threshold": 0.45,
+                    "low_probability": 0.0 if base_col == BASE_CONSTRAINED_REF_COL else 0.35,
+                    "high_probability": 0.5 if base_col == BASE_CONSTRAINED_REF_COL else 0.65,
+                    "min_throttle": min_throttle,
+                    "max_throttle": 1.0,
+                    "scale": 1.0,
+                    "max_position": 1.0,
+                    "rebalance_threshold": 0.05,
+                    "min_hold_days": 1 if base_col == BASE_CONSTRAINED_REF_COL else 2,
+                    "objective_return_weight": 0.02,
+                    "objective_return_to_drawdown_weight": 10.0,
+                    "objective_exposure_weight": 0.0,
+                    "objective_min_avg_abs_position": 0.03,
+                    "exposure_shortfall_penalty": 25.0,
+                    "objective_max_drawdown_floor": -25.0,
+                    "drawdown_floor_penalty": 2.0,
+                    "turnover_penalty": 1.5,
+                    "reversal_penalty": 2.0,
+                    "trade_penalty": 0.10,
+                    "selection_disabled": base_col != BASE_CONSTRAINED_REF_COL,
+                }
+            )
+    base_plus_specs = []
+    if BASE_CONSTRAINED_REF_COL in feature_cols and COGALPHA_OPEN2OPEN_RISK_GATE_COL in feature_cols:
+        base_plus_grid = [
+            {"threshold": 0.35, "boost_scale": 0.10, "risk_cap": 0.35, "min_hold_days": 2},
+            {"threshold": 0.35, "boost_scale": 0.20, "risk_cap": 0.35, "min_hold_days": 2},
+            {"threshold": 0.45, "boost_scale": 0.20, "risk_cap": 0.35, "min_hold_days": 2},
+            {"threshold": 0.45, "boost_scale": 0.35, "risk_cap": 0.35, "min_hold_days": 2},
+            {"threshold": 0.45, "boost_scale": 0.50, "risk_cap": 0.35, "min_hold_days": 2},
+            {"threshold": 0.55, "boost_scale": 0.35, "risk_cap": 0.35, "min_hold_days": 2},
+            {"threshold": 0.55, "boost_scale": 0.50, "risk_cap": 0.35, "min_hold_days": 2},
+            {"threshold": 0.65, "boost_scale": 1.00, "risk_cap": 0.75, "min_hold_days": 3},
+            {"threshold": 0.65, "boost_scale": 1.50, "risk_cap": 0.75, "min_hold_days": 3},
+            {"threshold": 0.65, "boost_scale": 1.50, "risk_cap": 0.55, "min_hold_days": 2},
+        ]
+        for item in base_plus_grid:
+            base_plus_specs.append(
+                {
+                    "position_mode": "base_plus_probability",
+                    "base_position_col": BASE_CONSTRAINED_REF_COL,
+                    "threshold": item["threshold"],
+                    "base_scale": 1.0,
+                    "boost_scale": item["boost_scale"],
+                    "scale": 1.0,
+                    "max_position": 1.0,
+                    "rebalance_threshold": 0.05,
+                    "min_hold_days": item["min_hold_days"],
+                    "risk_gate_col": COGALPHA_OPEN2OPEN_RISK_GATE_COL,
+                    "risk_gate_threshold": 0.5,
+                    "risk_gate_direction": "above",
+                    "risk_gate_max_position": item["risk_cap"],
+                    "objective_return_weight": 0.02,
+                    "objective_return_to_drawdown_weight": 10.0,
+                    "objective_exposure_weight": 0.0,
+                    "objective_min_avg_abs_position": 0.03,
+                    "exposure_shortfall_penalty": 25.0,
+                    "objective_max_drawdown_floor": -25.0,
+                    "drawdown_floor_penalty": 2.0,
+                    "turnover_penalty": 1.5,
+                    "reversal_penalty": 2.0,
+                    "trade_penalty": 0.10,
+                }
+            )
+    direct_probability_specs = []
     if DIRECT_FACTOR_BASE_POSITION_COL in feature_cols:
-        direct_base_specs = [
-            {
-                "position_mode": "base_throttle",
-                "base_position_col": DIRECT_FACTOR_BASE_POSITION_COL,
-                "threshold": 0.45,
-                "low_probability": 0.35,
-                "high_probability": 0.65,
-                "min_throttle": 0.65,
-                "max_throttle": 1.0,
-                "scale": 1.0,
-                "max_position": 1.0,
-                "rebalance_threshold": 0.05,
-                "max_daily_change": 0.5,
-                "min_hold_days": 2,
-                "objective_return_weight": 0.20,
-                "objective_return_to_drawdown_weight": 4.0,
-                "objective_exposure_weight": 3.0,
-                "objective_min_avg_abs_position": 0.05,
-                "exposure_shortfall_penalty": 25.0,
-                "objective_max_drawdown_floor": -25.0,
-                "drawdown_floor_penalty": 2.0,
-                "turnover_penalty": 0.25,
-                "reversal_penalty": 1.0,
-                "trade_penalty": 0.05,
-            },
+        direct_probability_specs.append(
             {
                 "position_mode": "base_probability",
                 "base_position_col": DIRECT_FACTOR_BASE_POSITION_COL,
@@ -733,8 +922,9 @@ def _position_spec(feature_cols: list[str], *, spec: CognitiveAlphaGoalCodexExec
                 "turnover_penalty": 0.25,
                 "reversal_penalty": 1.0,
                 "trade_penalty": 0.05,
-            },
-        ]
+                "selection_disabled": True,
+            }
+        )
     return CognitiveAlphaPositionSpec(
         feature_cols=feature_cols,
         train=spec.train,
@@ -747,9 +937,11 @@ def _position_spec(feature_cols: list[str], *, spec: CognitiveAlphaGoalCodexExec
             {"model": "xgb_regressor", "task": "regression"},
         ],
         position_specs=[
-            {"threshold": 0.45, "scale": 1.0, "min_hold_days": 3, "max_position": 1.0},
-            {"threshold": 0.55, "scale": 1.0, "min_hold_days": 3, "max_position": 1.0},
-            *direct_base_specs,
+            {"threshold": 0.45, "scale": 1.0, "min_hold_days": 3, "max_position": 1.0, "selection_disabled": True},
+            {"threshold": 0.55, "scale": 1.0, "min_hold_days": 3, "max_position": 1.0, "selection_disabled": True},
+            *base_throttle_specs,
+            *base_plus_specs,
+            *direct_probability_specs,
         ],
         return_col=OPEN_TO_OPEN_RETURN_COL,
         label_col=LABEL_OPEN_TO_OPEN_5D_COL,
@@ -757,16 +949,16 @@ def _position_spec(feature_cols: list[str], *, spec: CognitiveAlphaGoalCodexExec
         min_validation_avg_abs_position=0.01,
         max_validation_zero_position_day_ratio=0.98,
         validation_max_drawdown_floor=-25.0,
-        validation_max_daily_loss_floor=-8.0,
+        validation_max_daily_loss_floor=None,
         max_validation_total_turnover=20.0,
-        max_validation_extreme_loss_day_count=5,
+        max_validation_extreme_loss_day_count=7,
         max_validation_reversal_ratio=0.50,
         min_test_avg_abs_position=0.01,
         max_test_zero_position_day_ratio=0.98,
         test_max_drawdown_floor=-25.0,
-        test_max_daily_loss_floor=-8.0,
+        test_max_daily_loss_floor=None,
         max_test_total_turnover=20.0,
-        max_test_extreme_loss_day_count=5,
+        max_test_extreme_loss_day_count=7,
         walk_forward_folds=[
             {
                 "fold": "wf_2025_h2",

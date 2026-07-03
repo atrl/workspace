@@ -1,0 +1,4 @@
+name,level,agent,lookback,code
+g001_001_crossover_tail_fragility_vix_61b19015b2__tail_fragility_vix_61b19015b2,geometric_fusion,AgentComposite,30,"crossover:mean(zscore(tail_fragility_vix_drawdown_range_volume_30,20), zscore(tail_fragility_vix_drawdown_range_volume_30,20))"
+tail_fragility_vix_drawdown_range_volume_30,extreme_risk_fragility,AgentTailRisk,30,"tanh(zscore((alpha158_VIX.shift(1) / maximum(alpha158_VIX.shift(6), 1e-6) - 1.0) + ((alpha158_MAX30.shift(1) - close.shift(1)) / maximum(abs(close.shift(1)), 1e-6)) + zscore(((high.shift(1) - low.shift(1)) / maximum(abs(close.shift(1)), 1e-6)).rolling(5).mean()) + 0.5 * zscore(log1p(volume.shift(1) / maximum(volume.shift(2).rolling(20).mean(), 1.0))) - 0.75 * zscore(alpha158_MA5.shift(1) / maximum(abs(alpha158_MA60.shift(1)), 1e-6) - 1.0)))"
+g001_000_mutation_tail_fragility_vix_61b19015b2,extreme_risk_fragility,AgentTailRisk,30,"mutation:zscore(tail_fragility_vix_drawdown_range_volume_30,10).shift(1)"

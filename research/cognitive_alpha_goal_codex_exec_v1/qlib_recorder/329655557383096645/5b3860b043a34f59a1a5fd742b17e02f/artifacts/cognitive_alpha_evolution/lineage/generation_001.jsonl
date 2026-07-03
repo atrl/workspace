@@ -1,0 +1,4 @@
+{"candidate": "g001_000_mutation_market_cycle_lagge_eb50ac0084", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
+{"candidate": "g001_001_crossover_market_cycle_lagge_eb50ac0084__market_cycle_lagge_eb50ac0084", "generation": 1, "operation": "crossover", "parents": []}
+{"candidate": "g001_002_crossover_mutation_market_cycle_lagge_eb50ac0084__market_cycle_lagge_eb50ac0084", "generation": 1, "operation": "crossover_mutation", "parents": ["ewm", "-", ".shift", "1"]}
+{"candidate": "g001_003_mutation_market_cycle_lagge_eb50ac0084", "generation": 1, "operation": "mutation", "parents": [".shift", "1"]}
