@@ -6,4 +6,4 @@
 - regime/window 差异：intraday T+1 sidecar 覆盖 2024-01-03 到 2026-07-02，LGBM 分支 test 从 2025-01-02 开始，overlay 分支因滚动波动率从 2024-02-02 开始；这些窗口只能做诊断，不能独立证明 2019-2026 全窗口晋升。
 - 是否晋升：不晋升；未找到同时满足收益超过现有生产策略且 MaxDD < 20% 的候选。
 - 风险：intraday 历史只有 2024 以后，样本短；LGBM/XGB 只作为搜索器，不是生产固定参数；下一步应补更长 intraday 历史，并把 close-to-close 信号放到盘后/次日开盘成交验证里比较。
-- qlib recorder：7823d3b7fcaa404988b3c56b4da5e771
+- qlib recorder：dfaf60c00c6b4d9c99cce38e3d0e8190

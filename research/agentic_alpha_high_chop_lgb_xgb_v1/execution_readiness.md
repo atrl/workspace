@@ -15,7 +15,7 @@
 - root_cause: the stale 2026-07-02 row was written around 2026-07-02 13:00 America/New_York, before the US session had settled. A later append-only refresh did not replace the overlap row.
 - repaired_values: qlib `D.features` now reads 2026-07-02 SOXL open 219.23, high 226.13, low 168.88, close 181.47, volume 92,078,832; SOXX close 566.32, volume 16,150,385; VIX 16.15.
 - guardrail_added: Futu daily refresh now refuses an end date later than the settled US daily date and defaults to the latest settled US date using an America/New_York 20:15 cutoff. `--replace-overlap` also replaces provider raw rows, not only the canonical panel.
-- historical_scope: recent OpenD comparison found material final-row differences on 2026-07-02 plus small SOXX adjustment drift on 2026-06-05 to 2026-06-10. Full repair should periodically rerun a rolling overlap replacement after US settlement and diff against OpenD final daily bars.
+- historical_scope: after a 2026-06-01 through 2026-07-02 overlap replacement, OpenD final daily bars and the canonical panel have no SOXL/SOXX OHLCV differences above tolerance for that window. Full maintenance should still periodically rerun a rolling overlap replacement after US settlement and diff against OpenD final daily bars.
 
 ## Minute Data Sources
 

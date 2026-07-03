@@ -185,8 +185,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "7823d3b7fcaa404988b3c56b4da5e771",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder/920631853084343514/7823d3b7fcaa404988b3c56b4da5e771",
+  "recorder_id": "dfaf60c00c6b4d9c99cce38e3d0e8190",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder/103514544745239192/dfaf60c00c6b4d9c99cce38e3d0e8190",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_t1_search_v1/qlib_recorder",
   "region": "us",
   "search_report": {
@@ -236,7 +236,7 @@
         "passes_both_count": 0
       }
     },
-    "coverage_limitation": "intraday T+1 sidecar covers 2024-01-03 through 2026-06-05, so this diagnostic card cannot by itself prove the full 2019-2026 production goal.",
+    "coverage_limitation": "intraday T+1 sidecar covers 2024-01-03 through 2026-07-02, so this diagnostic card cannot by itself prove the full 2019-2026 production goal.",
     "external_source_counts": {
       "arxiv": 1,
       "github": 1,
@@ -266,7 +266,7 @@
       "tags/mlflow.source.type",
       "tags/mlflow.user"
     ],
-    "recorder_id": "7823d3b7fcaa404988b3c56b4da5e771",
+    "recorder_id": "dfaf60c00c6b4d9c99cce38e3d0e8190",
     "stage_order": [
       "research",
       "retrieve",

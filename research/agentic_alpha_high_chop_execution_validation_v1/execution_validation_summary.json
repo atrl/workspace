@@ -41,8 +41,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "dad036329bc94f82b0fee93d658f7bb1",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder/917265902071001972/dad036329bc94f82b0fee93d658f7bb1",
+  "recorder_id": "ac03374e89e84be8872df1581aa4029b",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder/275443241832882133/ac03374e89e84be8872df1581aa4029b",
   "regular_intraday_source": "data/processed/intraday/soxl_soxx_1m.parquet",
   "risk_checks": {
     "max_abs_target_recent": 0.0005,
@@ -52,8 +52,8 @@
     "needs_next_open_data_rows": 1
   },
   "rows": 19,
-  "source_signal_artifact": "research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder/503636334150518293/ca27d71ea48d41738c45f69cd728328d/artifacts/agentic_alpha_high_chop_lgb_xgb_v1/.high_chop_lgb_xgb_latest_positions.csv.gz",
+  "source_signal_artifact": "research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder/223456940594151343/291a68ad68e846b18d5f36b1b3b5a99f/artifacts/agentic_alpha_high_chop_lgb_xgb_v1/.high_chop_lgb_xgb_latest_positions.csv.gz",
   "source_strategy_card": "research/agentic_alpha_high_chop_lgb_xgb_v1",
-  "source_strategy_recorder_id": "ca27d71ea48d41738c45f69cd728328d",
+  "source_strategy_recorder_id": "291a68ad68e846b18d5f36b1b3b5a99f",
   "workflow": "agentic_alpha_high_chop_execution_validation"
 }
