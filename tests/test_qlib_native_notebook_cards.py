@@ -1974,6 +1974,7 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     assert summary["direct_factor_backtest"]["workflow"] == "cognitive_alpha_weighted_factor_search"
     assert summary["direct_factor_backtest"]["promotion_decision"] in {
         "diagnostic_direct_factor_candidate",
+        "not_promoted_no_selection_eligible",
         "not_promoted_under_constrained_weight_reference",
     }
     assert summary["research_gate"]["final_promotion_source"] in {"position_model", "production_paper_sim"}

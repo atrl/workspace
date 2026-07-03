@@ -1,0 +1,6 @@
+benchmark,return_pct,max_drawdown_pct,trade_count,source,selected_return_gap_pct,selected_beats_return
+cognitive_alpha_weighted_selected,150.15114249691646,-74.1633680942044,603,cognitive_alpha_weighted_factor_search,0.0,False
+soxl_buyhold,335.412119903477,-39.63113922984681,1,qlib_dynamic_open_to_open_buyhold,-185.26097740656053,False
+base_constrained_ref,278.1140256983083,-25.460896169337623,19,qlib_dynamic_open_to_open_base_constrained_ref,-127.96288320139183,False
+constrained_weight_reference,278.1140256983083,-25.460896169337623,19,qlib_dynamic_open_to_open_base_constrained_ref_alias,-127.96288320139183,False
+soxl_backtest,128.05618795135496,-13.554088542803521,3,soxl_backtest.reference.replay_soxlbacktest_reference,22.094954545561507,True

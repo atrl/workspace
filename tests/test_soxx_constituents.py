@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 
 import pandas as pd
+import pytest
 
 
 WORKBOOK_XML = """
@@ -140,6 +141,74 @@ def test_fetch_and_store_soxx_constituent_history_writes_manifest_and_coverage(t
     assert manifest["equity_constituents"] == 2
     assert saved_manifest["successful_symbols"] == ["MU", "AMD"]
     assert saved_manifest["limitations"][0].startswith("Current SOXX constituents backfilled")
+
+
+def test_load_soxx_constituent_daily_history_returns_qlib_ready_panel(tmp_path):
+    from src.data.soxx_constituents import (
+        SoxxConstituentPaths,
+        fetch_and_store_soxx_constituent_history,
+        load_soxx_constituent_daily_history,
+        parse_soxx_holdings_workbook,
+    )
+
+    snapshot = parse_soxx_holdings_workbook(WORKBOOK_XML, source_url="https://example.test/workbook.xls")
+    paths = SoxxConstituentPaths(root=tmp_path / "soxx_constituents")
+    fetch_and_store_soxx_constituent_history(
+        start="2026-07-01",
+        end="2026-07-02",
+        paths=paths,
+        sleep_seconds=0.0,
+        holdings_snapshot=snapshot,
+        price_fetcher=_price_frame,
+    )
+
+    panel = load_soxx_constituent_daily_history(paths=paths)
+
+    assert set(panel["instrument"]) == {"MU", "AMD"}
+    assert str(panel["datetime"].min().date()) == "2026-07-01"
+    assert {"open", "high", "low", "close", "adj_close", "volume", "weight_pct"}.issubset(panel.columns)
+    assert panel.loc[panel["instrument"].eq("MU"), "weight_pct"].unique().tolist() == [8.16407]
+
+
+def test_build_soxx_constituent_qlib_store_audits_adjusted_close_and_weights(tmp_path):
+    from src.data import QlibProviderConfig, load_qlib_feature_frame
+    from src.data.soxx_constituents import (
+        SoxxConstituentPaths,
+        build_soxx_constituent_qlib_store,
+        fetch_and_store_soxx_constituent_history,
+        parse_soxx_holdings_workbook,
+    )
+
+    snapshot = parse_soxx_holdings_workbook(WORKBOOK_XML, source_url="https://example.test/workbook.xls")
+    paths = SoxxConstituentPaths(root=tmp_path / "soxx_constituents")
+    fetch_and_store_soxx_constituent_history(
+        start="2026-07-01",
+        end="2026-07-02",
+        paths=paths,
+        sleep_seconds=0.0,
+        holdings_snapshot=snapshot,
+        price_fetcher=_price_frame,
+    )
+
+    manifest = build_soxx_constituent_qlib_store(
+        paths=paths,
+        provider_uri=tmp_path / "qlib" / "soxx_constituents",
+        as_of="2026-07-02",
+    )
+    loaded = load_qlib_feature_frame(
+        QlibProviderConfig(provider_uri=tmp_path / "qlib" / "soxx_constituents"),
+        instruments=["MU"],
+        fields=["$adj_close", "$weight_pct"],
+        start="2026-07-01",
+        end="2026-07-02",
+    ).reset_index()
+
+    assert manifest["operation"] == "qlib_store_build"
+    assert manifest["source"] == paths.manifest_json.resolve().as_posix()
+    assert manifest["instruments"] == ["AMD", "MU"]
+    assert {"$adj_close", "$weight_pct"}.issubset(set(manifest["fields"]))
+    assert loaded["$adj_close"].tolist() == pytest.approx([100.4, 101.4])
+    assert loaded["$weight_pct"].tolist() == pytest.approx([8.16407, 8.16407])
 
 
 def test_normalize_yahoo_ohlcv_payload_keeps_adjusted_close():

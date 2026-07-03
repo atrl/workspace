@@ -12,6 +12,11 @@ factor_mining:
   workflow: cognitive_alpha_factor_mining
   candidate_provider: codex_exec_candidate_provider
   label_col: label_open_to_open_5d
+constituent_factors:
+  source: qlib.data.D.features
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_constituents
+  lag_days: 1
+  role: model_features_not_gate
 position_model:
   workflow: cognitive_alpha_position_model
   return_col: open_to_open_return

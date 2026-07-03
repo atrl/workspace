@@ -389,6 +389,98 @@ def fetch_and_store_soxx_constituent_history(
     return manifest
 
 
+def load_soxx_constituent_daily_history(
+    *,
+    paths: SoxxConstituentPaths = SoxxConstituentPaths(),
+    symbols: Iterable[str] | None = None,
+) -> pd.DataFrame:
+    """Load stored SOXX constituent OHLCV files into a qlib-ready long panel."""
+
+    if not paths.equity_universe_csv.exists():
+        raise FileNotFoundError(f"SOXX equity universe missing: {paths.equity_universe_csv.as_posix()}")
+    if not paths.coverage_csv.exists():
+        raise FileNotFoundError(f"SOXX coverage missing: {paths.coverage_csv.as_posix()}")
+
+    equity = pd.read_csv(paths.equity_universe_csv)
+    coverage = pd.read_csv(paths.coverage_csv)
+    selected = {item.strip().upper() for item in symbols} if symbols is not None else None
+    ok_symbols = set(coverage.loc[coverage["status"].eq("ok"), "symbol"].astype(str).str.upper())
+    if selected is not None:
+        ok_symbols &= selected
+    if not ok_symbols:
+        raise ValueError("no ok SOXX constituent daily histories selected")
+
+    rows: list[pd.DataFrame] = []
+    equity_by_symbol = equity.assign(ticker=equity["ticker"].astype(str).str.upper()).set_index("ticker")
+    for symbol in sorted(ok_symbols):
+        path = paths.daily_dir / f"{symbol}.csv"
+        if not path.exists():
+            continue
+        frame = pd.read_csv(path)
+        missing = sorted(set(PRICE_COLUMNS) - set(frame.columns))
+        if missing:
+            raise ValueError(f"SOXX constituent {symbol} daily history missing columns {missing}")
+        if symbol not in equity_by_symbol.index:
+            raise ValueError(f"SOXX constituent {symbol} missing from equity universe")
+        row = equity_by_symbol.loc[symbol]
+        normalized = frame.loc[:, PRICE_COLUMNS].copy()
+        normalized.insert(0, "instrument", symbol)
+        normalized.insert(1, "datetime", pd.to_datetime(normalized.pop("date")).dt.normalize())
+        normalized["weight_pct"] = float(row["weight_pct"]) if pd.notna(row.get("weight_pct")) else pd.NA
+        for column in PRICE_COLUMNS[1:]:
+            normalized[column] = pd.to_numeric(normalized[column], errors="coerce")
+        normalized["weight_pct"] = pd.to_numeric(normalized["weight_pct"], errors="coerce")
+        rows.append(normalized)
+
+    if not rows:
+        raise ValueError("no SOXX constituent daily CSVs loaded")
+    panel = pd.concat(rows, ignore_index=True).sort_values(["instrument", "datetime"]).reset_index(drop=True)
+    if panel.duplicated(["instrument", "datetime"]).any():
+        raise ValueError("duplicate SOXX constituent instrument/datetime rows")
+    return panel
+
+
+def build_soxx_constituent_qlib_store(
+    *,
+    paths: SoxxConstituentPaths = SoxxConstituentPaths(),
+    provider_uri: Path = REPO_ROOT / "data" / "qlib" / "soxx_constituents",
+    as_of: str | None = None,
+    symbols: Iterable[str] | None = None,
+) -> dict[str, Any]:
+    """Build and audit a qlib provider for stored SOXX constituent histories."""
+
+    from .qlib_native import build_qlib_store_from_frame
+
+    panel = load_soxx_constituent_daily_history(paths=paths, symbols=symbols)
+    resolved_as_of = as_of or panel["datetime"].max().date().isoformat()
+    manifest = build_qlib_store_from_frame(
+        panel,
+        provider_uri=provider_uri,
+        market="all",
+        region="us",
+        freq="day",
+        field_map={
+            "$open": "open",
+            "$high": "high",
+            "$low": "low",
+            "$close": "close",
+            "$adj_close": "adj_close",
+            "$volume": "volume",
+            "$weight_pct": "weight_pct",
+        },
+        as_of=resolved_as_of,
+        source=paths.manifest_json.resolve().as_posix(),
+    )
+    manifest["raw_manifest"] = paths.manifest_json.resolve().as_posix()
+    manifest["limitations"] = [
+        "Current SOXX constituents backfilled through history are survivorship-biased without point-in-time holdings.",
+        "Model features built from this provider must lag constituent returns before open-to-open labels.",
+    ]
+    manifest_path = Path(provider_uri).resolve() / "qlib_store_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    return manifest
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Fetch current SOXX constituent holdings and daily OHLCV history.")
     parser.add_argument("--start", default=DEFAULT_HISTORY_START)

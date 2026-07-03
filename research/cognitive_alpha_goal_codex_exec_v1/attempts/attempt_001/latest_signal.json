@@ -1,13 +1,16 @@
 {
   "action": "HOLD",
-  "as_of": "2026-06-24",
-  "candidate": "logistic_regression_probability_p0.55_s1_h0_hold1",
-  "last_change_date": "2026-06-08",
-  "last_change_target_position": 0.0,
-  "previous_target_position": 0.0,
-  "probability": 0.2962225127979038,
+  "as_of": "2026-07-02",
+  "candidate": "lgbm_regressor_base_plus_probability_base_constrained_ref_p0.65_b1_boost1_h0.05_hold3_rgcogalpha_open2open_risk_gate_above0.5_cap0.75",
+  "execution_timing": "close_t_signal_next_open_to_following_open",
+  "last_change_date": "2026-06-12",
+  "last_change_target_position": 0.0005,
+  "model_target_col": "label_open_to_open_5d",
+  "previous_target_position": 0.0005,
+  "probability": 0.47147400162640885,
+  "return_col": "open_to_open_return",
   "target_delta": 0.0,
   "target_delta_percent": 0.0,
-  "target_percent": 0.0,
-  "target_position": 0.0
+  "target_percent": 0.05,
+  "target_position": 0.0005
 }

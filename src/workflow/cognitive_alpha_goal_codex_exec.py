@@ -9,8 +9,19 @@ from typing import Any
 
 import pandas as pd
 
-from src.data import QlibProviderConfig, build_alpha158_legacy_dataset, init_qlib_provider
-from src.factor import CognitiveAlphaCandidate, materialize_cognitive_alpha_features, run_cognitive_alpha_factor_mining
+from src.data import (
+    QlibProviderConfig,
+    SoxxConstituentPaths,
+    build_alpha158_legacy_dataset,
+    build_soxx_constituent_qlib_store,
+    init_qlib_provider,
+)
+from src.factor import (
+    CognitiveAlphaCandidate,
+    build_soxx_constituent_factor_frame,
+    materialize_cognitive_alpha_features,
+    run_cognitive_alpha_factor_mining,
+)
 from src.factor.high_chop_ml import DEFAULT_HIGH_CHOP_FEATURES, build_high_chop_ml_frame
 from src.workflow.cognitive_alpha_codex_provider import (
     build_cognitive_alpha_codex_exec_candidate_provider,
@@ -83,6 +94,10 @@ class CognitiveAlphaGoalCodexExecCardSpec:
     @property
     def provider_uri(self) -> Path:
         return self.root / "data" / "qlib" / "soxl"
+
+    @property
+    def soxx_constituent_provider_uri(self) -> Path:
+        return self.root / "data" / "qlib" / "soxx_constituents"
 
 
 def run_cognitive_alpha_goal_codex_exec_card(
@@ -188,6 +203,41 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
     )
     frame, alpha158_columns = _merge_alpha158_features(frame, alpha_dataset)
     frame["realized_vol_20"] = pd.to_numeric(frame["close"], errors="coerce").pct_change().rolling(20, min_periods=10).std().shift(1)
+    constituent_manifest = _ensure_soxx_constituent_qlib_provider(spec.root, as_of=as_of)
+    constituent_end = min(
+        pd.Timestamp(as_of),
+        pd.Timestamp(str(constituent_manifest["calendar_end"])),
+    ).date().isoformat()
+    constituent_factor_frame = build_soxx_constituent_factor_frame(
+        QlibProviderConfig(
+            provider_uri=spec.soxx_constituent_provider_uri,
+            region=str(constituent_manifest["region"]),
+            market=str(constituent_manifest["market"]),
+            kernels=1,
+        ),
+        instruments=list(constituent_manifest["instruments"]),
+        start=spec.train[0],
+        end=constituent_end,
+        lookbacks=(5, 20),
+        lag_days=1,
+        top_n=5,
+    )
+    frame, constituent_feature_cols = _attach_soxx_constituent_model_features(frame, constituent_factor_frame)
+    constituent_factor_summary = {
+        "source": constituent_factor_frame.attrs.get("source", "qlib.data.D.features"),
+        "provider_uri": constituent_factor_frame.attrs.get("provider_uri", spec.soxx_constituent_provider_uri.as_posix()),
+        "raw_manifest": constituent_manifest.get("raw_manifest"),
+        "qlib_store_manifest": (spec.soxx_constituent_provider_uri / "qlib_store_manifest.json").as_posix(),
+        "calendar_end": constituent_manifest.get("calendar_end"),
+        "feature_cols": constituent_feature_cols,
+        "feature_count": len(constituent_feature_cols),
+        "lookbacks": constituent_factor_frame.attrs.get("lookbacks", [5, 20]),
+        "lag_days": constituent_factor_frame.attrs.get("lag_days", 1),
+        "top_n": constituent_factor_frame.attrs.get("top_n", 5),
+        "role": "model_features_not_gate",
+        "limitations": constituent_factor_frame.attrs.get("limitations", []),
+    }
+    init_qlib_provider(qlib_config)
 
     R.set_uri(recorder_uri.as_posix())
     with tempfile.TemporaryDirectory(prefix="cogalpha_goal_codex_exec_") as tmp_dir:
@@ -228,6 +278,9 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
                 generations=spec.generations,
                 parent_pool_size=spec.parent_pool_size,
                 children_per_generation=spec.children_per_generation,
+                soxx_constituent_provider_uri=str(constituent_factor_summary["provider_uri"]),
+                soxx_constituent_factor_count=int(constituent_factor_summary["feature_count"]),
+                soxx_constituent_lag_days=int(constituent_factor_summary["lag_days"]),
             )
 
             candidate_provider = build_cognitive_alpha_codex_exec_candidate_provider(
@@ -283,7 +336,7 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
                 selected_factor_names,
                 alpha158_columns,
                 model_frame,
-                extra_columns=[*direct_feature_cols, *composite_feature_cols],
+                extra_columns=[*direct_feature_cols, *composite_feature_cols, *constituent_feature_cols],
             )
             position_result = run_cognitive_alpha_position_model(
                 model_frame,
@@ -376,6 +429,7 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
                 ],
             )
             goal_manifest = goal_runner.run()
+            goal_manifest = _normalize_terminal_goal_budget(card, sidecars, goal_manifest)
             recorder.log_artifact((card / sidecars["goal_manifest"]).as_posix(), artifact_path=EXPERIMENT)
             recorder.log_artifact((card / sidecars["state"]).as_posix(), artifact_path=EXPERIMENT)
 
@@ -391,6 +445,7 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
             evolution=factor_mining.evolution_result.summary,
             position=position_result.summary,
             direct=direct_result.summary,
+            constituent_factors=constituent_factor_summary,
             goal_manifest=goal_manifest,
             research_card=research_card_result,
             sidecars=sidecars,
@@ -573,6 +628,24 @@ def _merge_high_chop_model_features(frame: pd.DataFrame, high_chop_frame: pd.Dat
     ]
     out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
     return out.merge(high_chop[["datetime", *feature_cols]], on="datetime", how="left")
+
+
+def _attach_soxx_constituent_model_features(
+    frame: pd.DataFrame,
+    constituent_factor_frame: pd.DataFrame,
+) -> tuple[pd.DataFrame, list[str]]:
+    feature_cols = [
+        column
+        for column in list(constituent_factor_frame.attrs.get("feature_cols", []))
+        if column in constituent_factor_frame.columns and column != "datetime"
+    ]
+    out = frame.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    if not feature_cols:
+        return out, []
+    factors = constituent_factor_frame[["datetime", *feature_cols]].copy()
+    factors["datetime"] = pd.to_datetime(factors["datetime"]).dt.normalize()
+    return out.merge(factors, on="datetime", how="left"), feature_cols
 
 
 def _add_return_columns(frame: pd.DataFrame) -> None:
@@ -771,6 +844,22 @@ def _dynamic_open_to_open_benchmarks(frame: pd.DataFrame, *, test: tuple[str, st
     except Exception:
         pass
     return rows
+
+
+def _ensure_soxx_constituent_qlib_provider(root: Path, *, as_of: str) -> dict[str, Any]:
+    provider_uri = root / "data" / "qlib" / "soxx_constituents"
+    manifest_path = provider_uri / "qlib_store_manifest.json"
+    if manifest_path.exists():
+        manifest = _read_json_object(manifest_path)
+        required_fields = {"$adj_close", "$weight_pct"}
+        if required_fields.issubset(set(manifest.get("fields", []))) and manifest.get("instruments"):
+            return manifest
+
+    return build_soxx_constituent_qlib_store(
+        paths=SoxxConstituentPaths(root=root / "data" / "raw" / "soxx_constituents"),
+        provider_uri=provider_uri,
+        as_of=as_of,
+    )
 
 
 def _benchmark_row_from_returns(name: str, returns: pd.Series, *, source: str) -> dict[str, Any]:
@@ -1045,6 +1134,20 @@ def _write_direct_sidecars(card: Path, sidecars: dict[str, str], direct_result: 
     )
 
 
+def _normalize_terminal_goal_budget(card: Path, sidecars: dict[str, str], goal_manifest: dict[str, Any]) -> dict[str, Any]:
+    if goal_manifest.get("status") != "complete":
+        return goal_manifest
+    normalized = dict(goal_manifest)
+    normalized["remaining_attempts"] = 0
+    for key in ["goal_manifest", "state"]:
+        path = card / sidecars[key]
+        payload = _read_json_object(path)
+        if payload:
+            payload["remaining_attempts"] = 0
+            path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+    return normalized
+
+
 def _log_evolution_artifacts(recorder: Any, run_dir: Path) -> None:
     for path in sorted(run_dir.rglob("*")):
         if not path.is_file():
@@ -1066,6 +1169,7 @@ def _summary_payload(
     evolution: dict[str, Any],
     position: dict[str, Any],
     direct: dict[str, Any],
+    constituent_factors: dict[str, Any],
     goal_manifest: dict[str, Any],
     research_card: dict[str, Any],
     sidecars: dict[str, str],
@@ -1087,6 +1191,7 @@ def _summary_payload(
     production_status = "candidate_for_paper_sim" if promotion_decision == "candidate_for_validated_research" else "blocked_not_promoted"
     goal_status = str(goal_manifest["status"])
     terminal_reason = str(goal_manifest.get("terminal_reason", ""))
+    remaining_attempts = 0 if goal_status == "complete" else int(goal_manifest.get("remaining_attempts", 0) or 0)
     return {
         "experiment": EXPERIMENT,
         "card_type": CARD_TYPE,
@@ -1096,7 +1201,7 @@ def _summary_payload(
         "promotion_decision": promotion_decision,
         "attempt_index": int(spec.attempt_index),
         "max_attempts": int(spec.max_attempts),
-        "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
+        "remaining_attempts": remaining_attempts,
         "next_action": goal_manifest.get("next_action", {}),
         "paper_reference": {"arxiv_id": "2511.18850", "source": PAPER_REFERENCE},
         "provider_uri": provider_meta["provider_uri"],
@@ -1120,6 +1225,7 @@ def _summary_payload(
         "codex_provider": codex_provider,
         "factor_mining": factor_mining,
         "evolution": _evolution_summary_for_card(evolution),
+        "constituent_factors": constituent_factors,
         "position_model": position,
         "direct_factor_backtest": direct,
         "latest_signal": position["latest_signal"],
@@ -1139,7 +1245,7 @@ def _summary_payload(
             "terminal_reason": terminal_reason,
             "attempt_index": int(goal_manifest.get("attempt_index", spec.attempt_index) or spec.attempt_index),
             "max_attempts": int(goal_manifest.get("max_attempts", spec.max_attempts) or spec.max_attempts),
-            "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
+            "remaining_attempts": remaining_attempts,
             "next_action": goal_manifest.get("next_action", {}),
             "stage_order": goal_manifest["stage_order"],
         },
@@ -1148,7 +1254,7 @@ def _summary_payload(
             "terminal_reason": terminal_reason,
             "attempt_index": int(spec.attempt_index),
             "max_attempts": int(spec.max_attempts),
-            "remaining_attempts": int(goal_manifest.get("remaining_attempts", 0) or 0),
+            "remaining_attempts": remaining_attempts,
             "next_action": goal_manifest.get("next_action", {}),
             "feedback_context_included": spec.request_context is not None,
             "attempts": [],
@@ -1216,6 +1322,11 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "  workflow: cognitive_alpha_factor_mining",
             "  candidate_provider: codex_exec_candidate_provider",
             f"  label_col: {summary['model_target_col']}",
+            "constituent_factors:",
+            "  source: qlib.data.D.features",
+            f"  provider_uri: {summary['constituent_factors']['provider_uri']}",
+            f"  lag_days: {summary['constituent_factors']['lag_days']}",
+            "  role: model_features_not_gate",
             "position_model:",
             "  workflow: cognitive_alpha_position_model",
             f"  return_col: {summary['return_col']}",
@@ -1278,6 +1389,9 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"- evolution: generations={summary['evolution']['completed_generations']}，"
         f"selected_count={summary['evolution']['selected_count']}，"
         f"metrics={','.join(summary['evolution']['metric_names'])}。\n"
+        f"- constituent_factors: provider={summary['constituent_factors']['provider_uri']}，"
+        f"feature_count={summary['constituent_factors']['feature_count']}，"
+        f"lag_days={summary['constituent_factors']['lag_days']}，role=model_features_not_gate。\n"
         f"- position_model: promotion={position['promotion_decision']}，"
         f"selected_return={position['comparison'].get('selected_return_pct', 0.0):.4f}%，"
         f"walk_forward_folds={position['walk_forward']['fold_count']}，"

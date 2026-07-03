@@ -23,8 +23,10 @@ from .intraday import (
 from .soxx_constituents import (
     SoxxConstituentPaths,
     SoxxHoldingsSnapshot,
+    build_soxx_constituent_qlib_store,
     fetch_and_store_soxx_constituent_history,
     fetch_soxx_holdings_snapshot,
+    load_soxx_constituent_daily_history,
     parse_soxx_holdings_workbook,
 )
 
@@ -49,7 +51,9 @@ __all__ = [
     "write_intraday_cache",
     "SoxxConstituentPaths",
     "SoxxHoldingsSnapshot",
+    "build_soxx_constituent_qlib_store",
     "fetch_and_store_soxx_constituent_history",
     "fetch_soxx_holdings_snapshot",
+    "load_soxx_constituent_daily_history",
     "parse_soxx_holdings_workbook",
 ]

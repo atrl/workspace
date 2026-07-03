@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_constituents
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

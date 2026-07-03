@@ -1,0 +1,59 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/backtest_benchmark_comparison.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/backtest_walk_forward_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/conclusion.md
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/direct_factor_benchmark_comparison.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/direct_factor_candidate_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/direct_factor_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/evolution_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/failure_modes.md
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/generation_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/goal_manifest.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/latest_signal.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/model_selection.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/position_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/selected_features.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/state.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/attempts/attempt_001/workflow.yaml
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/backtest_benchmark_comparison.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/backtest_walk_forward_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/conclusion.md
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/direct_factor_benchmark_comparison.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/direct_factor_candidate_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/direct_factor_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/evolution_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/failure_modes.md
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/generation_metrics.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/goal_manifest.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/latest_signal.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/model_selection.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/position_summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/selected_features.csv
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/state.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/summary.json
+	modified:   research/cognitive_alpha_goal_codex_exec_v1/workflow.yaml
+	modified:   src/data/__init__.py
+	modified:   src/data/soxx_constituents.py
+	modified:   src/factor/__init__.py
+	modified:   src/workflow/cognitive_alpha_goal_codex_exec.py
+	modified:   tests/test_qlib_native_notebook_cards.py
+	modified:   tests/test_soxx_constituents.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	data/qlib/soxx_constituents/
+	research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/17bf135555f44283926718e8f6266a1b/
+	research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/4bf98dcea5704885a463f4aaa43e8bac/
+	research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/516805e34d674eecb32dc0281c147c6a/
+	research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/9ea33585625d45b1a5bd34f43460b9bf/
+	research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/ae45a883990c493ea8e8050ada31abe6/
+	src/factor/soxx_constituent_factors.py
+	tests/test_soxx_constituent_factors.py
+
+no changes added to commit (use "git add" and/or "git commit -a")

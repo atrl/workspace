@@ -74,6 +74,11 @@ from .session_effect import (
     evaluate_signed_session_effect_candidates,
     summarize_session_effect_branch,
 )
+from .soxx_constituent_factors import (
+    SOXX_CONSTITUENT_FACTOR_SOURCE,
+    SOXX_CONSTITUENT_LIMITATIONS,
+    build_soxx_constituent_factor_frame,
+)
 from .tail_risk_external import (
     build_tail_risk_external_frame,
     evaluate_tail_risk_candidate,
@@ -91,9 +96,12 @@ __all__ = [
     "FactorDiagnosticsReport",
     "HIGH_CHOP_ML_SOURCE_FIELDS",
     "QlibScoredDataset",
+    "SOXX_CONSTITUENT_FACTOR_SOURCE",
+    "SOXX_CONSTITUENT_LIMITATIONS",
     "append_high_chop_strategy_metrics",
     "build_canary_trend_component",
     "build_canary_sprint_frame",
+    "build_soxx_constituent_factor_frame",
     "build_cross_asset_price_frame",
     "build_cognitive_alpha_seed_candidates",
     "build_column_alpha_candidates",

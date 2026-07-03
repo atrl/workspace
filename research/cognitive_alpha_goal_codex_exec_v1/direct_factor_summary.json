@@ -7,50 +7,51 @@
   },
   "candidate_count": 2,
   "comparison": {
-    "beats_base_constrained_ref": true,
-    "beats_constrained_weight_reference": true,
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
     "beats_soxl_backtest": true,
-    "beats_soxl_buyhold": true,
-    "selected_max_drawdown_pct": -52.24747200505,
-    "selected_return_pct": 749.0695416272949,
-    "selected_vs_base_constrained_ref_return_gap_pct": 470.95551592898664,
-    "selected_vs_constrained_weight_reference_return_gap_pct": 470.95551592898664,
-    "selected_vs_soxl_backtest_return_gap_pct": 621.0133536759399,
-    "selected_vs_soxl_buyhold_return_gap_pct": 413.65742172381795
+    "beats_soxl_buyhold": false,
+    "selected_max_drawdown_pct": -74.1633680942044,
+    "selected_return_pct": 150.15114249691646,
+    "selected_selection_eligible": false,
+    "selected_vs_base_constrained_ref_return_gap_pct": -127.96288320139183,
+    "selected_vs_constrained_weight_reference_return_gap_pct": -127.96288320139183,
+    "selected_vs_soxl_backtest_return_gap_pct": 22.094954545561507,
+    "selected_vs_soxl_buyhold_return_gap_pct": -185.26097740656053
   },
   "component_cols": [
-    "vol_phase_pullback_reversion_61d",
-    "g001_000_mutation_vol_phase_pullback_480615fac0"
+    "vol_regime_trend_extension_reversion",
+    "g001_000_mutation_vol_regime_trend_e_89dafd5928"
   ],
-  "promotion_decision": "diagnostic_direct_factor_candidate",
+  "promotion_decision": "not_promoted_no_selection_eligible",
   "selected_candidate": {
-    "avg_abs_position": 0.2123374833316049,
-    "avg_holding_days": 11.072727272727272,
-    "beats_base_constrained_ref": true,
-    "beats_constrained_weight_reference": true,
+    "avg_abs_position": 0.3222289165464173,
+    "avg_holding_days": 3.0980066445182723,
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
     "benchmark_return_pct": null,
-    "candidate": "codex_exec_primary_factor_direct",
-    "component_cols": "[\"vol_phase_pullback_reversion_61d\", \"g001_000_mutation_vol_phase_pullback_480615fac0\"]",
+    "candidate": "codex_exec_equal_weight_direct",
+    "component_cols": "[\"vol_regime_trend_extension_reversion\", \"g001_000_mutation_vol_regime_trend_e_89dafd5928\"]",
     "cost_per_turnover": 0.0003,
     "days_above_100": 0,
     "days_below_0": 0,
-    "effective_component_count": 1,
-    "max_drawdown_pct": -52.24747200505,
+    "effective_component_count": 2,
+    "max_drawdown_pct": -74.1633680942044,
     "max_position": 1.0,
     "min_position": 0.0,
-    "next_day_reversal_count": 32,
-    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+    "next_day_reversal_count": 149,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
     "passes_drawdown_gate": false,
     "passes_effective_component_gate": true,
     "passes_position_bounds": true,
-    "raw_target_avg_abs": 0.30273206050723783,
-    "raw_target_max": 1.419654776602609,
-    "raw_target_min": -1.39279295038064,
-    "return_pct": 749.0695416272949,
+    "raw_target_avg_abs": 0.6827332528279162,
+    "raw_target_max": 1.8459518176880487,
+    "raw_target_min": -1.9533304511004086,
+    "return_pct": 150.15114249691646,
     "selection_eligible": false,
-    "total_turnover": 90.91678274748801,
-    "trade_count": 166,
-    "weights": "{\"vol_phase_pullback_reversion_61d\": 1.0}"
+    "total_turnover": 295.91865182916956,
+    "trade_count": 603,
+    "weights": "{\"g001_000_mutation_vol_regime_trend_e_89dafd5928\": 0.5, \"vol_regime_trend_extension_reversion\": 0.5}"
   },
   "selection": "return_sorted_long_only_multifactor_gate",
   "spec": {
@@ -63,8 +64,8 @@
           "rebalance_threshold": 0.2
         },
         "weights": {
-          "g001_000_mutation_vol_phase_pullback_480615fac0": 0.5,
-          "vol_phase_pullback_reversion_61d": 0.5
+          "g001_000_mutation_vol_regime_trend_e_89dafd5928": 0.5,
+          "vol_regime_trend_extension_reversion": 0.5
         }
       },
       {
@@ -75,13 +76,13 @@
           "rebalance_threshold": 0.3
         },
         "weights": {
-          "vol_phase_pullback_reversion_61d": 1.0
+          "vol_regime_trend_extension_reversion": 1.0
         }
       }
     ],
     "component_cols": [
-      "vol_phase_pullback_reversion_61d",
-      "g001_000_mutation_vol_phase_pullback_480615fac0"
+      "vol_regime_trend_extension_reversion",
+      "g001_000_mutation_vol_regime_trend_e_89dafd5928"
     ],
     "constrained_reference_name": "base_constrained_ref",
     "cost_per_turnover": 0.0003,
