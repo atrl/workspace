@@ -356,6 +356,70 @@ def test_ml_position_candidates_select_on_validation_and_report_stability():
     assert positions.loc[positions["candidate"] == selected_name, "target_position"].between(0.0, 1.0).all()
 
 
+def test_ml_position_candidates_report_tail_risk_and_baseline_excess_score():
+    from src.backtest import evaluate_ml_position_candidates
+
+    dates = pd.date_range("2025-01-02", periods=90, freq="B")
+    signal = pd.Series(np.sin(np.arange(len(dates)) / 4.0), dtype="float64")
+    forward_return = 0.012 * signal.shift(1).fillna(0.0)
+    forward_return.iloc[55] = -0.09
+    base_position = pd.Series(0.35, index=range(len(dates)), dtype="float64")
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "signal": signal,
+            "base_position": base_position,
+            "forward_return": forward_return,
+        }
+    )
+
+    metrics, _ = evaluate_ml_position_candidates(
+        frame,
+        feature_cols=["signal", "base_position"],
+        model_specs=[{"model": "ridge", "task": "regression"}],
+        train_window=("2025-01-02", "2025-02-28"),
+        validation_window=("2025-03-03", "2025-04-15"),
+        test_window=("2025-04-16", "2025-05-07"),
+        position_specs=[
+            {
+                "position_mode": "base_throttle",
+                "base_position_col": "base_position",
+                "low_probability": 0.30,
+                "high_probability": 0.70,
+                "min_throttle": 0.20,
+                "max_throttle": 1.0,
+                "objective_baseline_position_col": "base_position",
+                "objective_excess_return_weight": 1.0,
+                "objective_cvar_5pct_floor": -8.0,
+                "objective_worst_5_daily_loss_floor": -8.0,
+                "objective_max_underwater_day_ratio": 1.0,
+            }
+        ],
+        validation_cvar_5pct_floor=-8.0,
+        validation_worst_5_daily_loss_floor=-8.0,
+        max_validation_underwater_day_ratio=1.0,
+        cost_per_turnover=0.0,
+    )
+
+    assert {
+        "baseline_return_pct",
+        "baseline_max_drawdown_pct",
+        "excess_return_pct",
+        "excess_return_to_drawdown",
+        "cvar_5pct_pct",
+        "worst_5_daily_loss_pct",
+        "underwater_day_ratio",
+    }.issubset(metrics.columns)
+    selected_validation = metrics.loc[(metrics["selected"]) & (metrics["segment"] == "validation")].iloc[0]
+    assert selected_validation["selection_eligible"] is True
+    assert selected_validation["baseline_return_pct"] == pytest.approx(
+        selected_validation["return_pct"] - selected_validation["excess_return_pct"]
+    )
+    assert selected_validation["cvar_5pct_pct"] <= 0.0
+    assert 0.0 <= selected_validation["underwater_day_ratio"] <= 1.0
+    assert '"validation_cvar_5pct_floor": -8.0' in selected_validation["selection_gate"]
+
+
 def test_ml_position_base_throttle_uses_model_as_position_overlay():
     from src.backtest import evaluate_ml_position_candidates
 

@@ -97,7 +97,7 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
         "ridge",
     ]
     assert result.summary["feature_count"] == 3
-    assert result.summary["risk_gates"] == {
+    expected_risk_gates = {
         "min_validation_avg_abs_position": 0.0,
         "max_validation_zero_position_day_ratio": None,
         "validation_max_drawdown_floor": -80.0,
@@ -115,6 +115,13 @@ def test_cognitive_alpha_position_model_trains_lightgbm_and_compares_benchmarks(
         "selected_test_passes": True,
         "selected_passes_all": True,
     }
+    assert result.summary["risk_gates"] | expected_risk_gates == result.summary["risk_gates"]
+    assert result.summary["risk_gates"]["validation_cvar_5pct_floor"] is None
+    assert result.summary["risk_gates"]["validation_worst_5_daily_loss_floor"] is None
+    assert result.summary["risk_gates"]["max_validation_underwater_day_ratio"] is None
+    assert result.summary["risk_gates"]["test_cvar_5pct_floor"] is None
+    assert result.summary["risk_gates"]["test_worst_5_daily_loss_floor"] is None
+    assert result.summary["risk_gates"]["max_test_underwater_day_ratio"] is None
     assert result.summary["selected_candidate"]["selected_by"] == "validation_selection_objective_score"
     assert result.summary["selected_candidate"]["test"]["max_position"] <= 1.0
     assert result.summary["selected_candidate"]["test"]["days_above_100"] == 0

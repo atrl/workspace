@@ -2139,6 +2139,63 @@ def test_cognitive_alpha_goal_codex_exec_resume_refreshes_exhausted_iteration_bu
     assert _effective_max_attempts(card, spec=spec, start_attempt=start_attempt) == 3
 
 
+def test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_execution_stress():
+    card = ROOT / "research" / "risk_hardened_open2open_v2"
+    summary = _summary(card)
+    notebook_text = (card / "risk_hardened_open2open_v2.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "risk_hardened_open2open_v2"
+    assert summary["card_type"] == "risk_hardened_open2open_research_card"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["return_col"] == "open_to_open_return"
+    assert summary["model_target_col"] == "label_open_to_open_5d"
+    assert set(summary["model_selection"]["model_families"]) >= {
+        "lgbm_classifier",
+        "lgbm_regressor",
+        "xgb_classifier",
+        "xgb_regressor",
+    }
+    assert summary["model_selection"]["selection_metric"] == "risk_adjusted_excess_return_with_tail_penalties"
+    assert summary["position_model"]["risk_gates"]["validation_max_daily_loss_floor"] == -12.0
+    assert summary["position_model"]["risk_gates"]["test_max_daily_loss_floor"] == -12.0
+    assert summary["position_model"]["risk_gates"]["validation_cvar_5pct_floor"] == -8.0
+    assert summary["position_model"]["selected_candidate"]["test"]["cvar_5pct_pct"] is not None
+    assert summary["position_model"]["selected_candidate"]["test"]["worst_5_daily_loss_pct"] is not None
+    assert summary["position_model"]["selected_candidate"]["test"]["underwater_day_ratio"] is not None
+    assert {row["feature_group"] for row in summary["factor_ablation"]["groups"]} == {
+        "base",
+        "base_cogalpha",
+        "base_soxx",
+        "base_cogalpha_soxx",
+    }
+    assert {row["training_window"] for row in summary["training_window_comparison"]["windows"]} >= {
+        "expanding_2019",
+        "rolling_3y",
+    }
+    assert summary["constituent_factors"]["point_in_time_status"]["status"] in {
+        "single_snapshot_survivorship_biased",
+        "multi_snapshot_partial_history",
+    }
+    assert summary["execution_stress"]["status"] in {"ok", "needs_data"}
+    assert {"model_selection", "factor_ablation", "execution_stress", "explainability"}.issubset(
+        summary["sidecars"]
+    )
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    for forbidden in RECORDER_ONLY_ROOT_FILES:
+        assert not (card / forbidden).exists(), forbidden
+    assert "run_risk_hardened_open2open_card" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "LGBMClassifier" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "risk_adjusted_excess_return_with_tail_penalties" in workflow
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():
     card = ROOT / "research" / "cognitive_alpha_position_model_v1"
     summary = _summary(card)

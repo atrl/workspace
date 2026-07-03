@@ -1,0 +1,48 @@
+{
+  "coverage_days": 123,
+  "detail_policy": "temporary_detail_not_committed",
+  "scenarios": [
+    {
+      "adverse_5pct_day_count": 7,
+      "avg_entry_slippage_vs_open_pct": 0.0,
+      "coverage_days": 123,
+      "max_daily_loss_pct": -14.0085977191175,
+      "max_drawdown_pct": -24.90270574103758,
+      "return_pct": 183.4411819958302,
+      "scenario": "open",
+      "worst_first_15m_adverse_excursion_pct": -11.604714415231188
+    },
+    {
+      "adverse_5pct_day_count": 7,
+      "avg_entry_slippage_vs_open_pct": 0.034103746997788245,
+      "coverage_days": 123,
+      "max_daily_loss_pct": -12.778378378378385,
+      "max_drawdown_pct": -22.577556090187212,
+      "return_pct": 217.0335110574906,
+      "scenario": "vwap1",
+      "worst_first_15m_adverse_excursion_pct": -11.604714415231188
+    },
+    {
+      "adverse_5pct_day_count": 7,
+      "avg_entry_slippage_vs_open_pct": 0.18840794481370962,
+      "coverage_days": 123,
+      "max_daily_loss_pct": -13.074785908471743,
+      "max_drawdown_pct": -23.66106324705035,
+      "return_pct": 188.24099651673217,
+      "scenario": "vwap5",
+      "worst_first_15m_adverse_excursion_pct": -11.604714415231188
+    },
+    {
+      "adverse_5pct_day_count": 7,
+      "avg_entry_slippage_vs_open_pct": 0.2581092111343974,
+      "coverage_days": 123,
+      "max_daily_loss_pct": -12.149483956308204,
+      "max_drawdown_pct": -22.684711412912996,
+      "return_pct": 159.0052061138329,
+      "scenario": "vwap15",
+      "worst_first_15m_adverse_excursion_pct": -11.604714415231188
+    }
+  ],
+  "source": "/Users/rziiiii/dev/workspace/data/raw/intraday/futu/soxl_1m.parquet",
+  "status": "ok"
+}

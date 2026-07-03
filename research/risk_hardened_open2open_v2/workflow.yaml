@@ -1,0 +1,24 @@
+experiment: risk_hardened_open2open_v2
+card_type: risk_hardened_open2open_research_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/risk_hardened_open2open_v2/qlib_recorder
+recorder_id: c8a2405c8a204775a0882b2d5be669d0
+as_of: 2026-07-02
+qlib:
+  market: all
+  region: us
+model_selection:
+  return_col: open_to_open_return
+  label_col: label_open_to_open_5d
+  models: [lgbm_classifier, lgbm_regressor, xgb_classifier, xgb_regressor]
+  objective: risk_adjusted_excess_return_with_tail_penalties
+risk_gates:
+  risk_gate_col: risk_hardened_semis_risk_gate
+  selected_passes_all: False
+  walk_forward_passes_all: False
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    positions: artifacts/risk_hardened_open2open/positions.csv

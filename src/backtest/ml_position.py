@@ -239,6 +239,27 @@ def _max_drawdown_pct(strategy_returns: pd.Series) -> float:
     return float(drawdown.min() * 100.0)
 
 
+def _tail_risk_metrics(strategy_returns: pd.Series) -> dict[str, Any]:
+    if strategy_returns.empty:
+        return {
+            "worst_5_daily_loss_pct": 0.0,
+            "cvar_5pct_pct": 0.0,
+            "underwater_day_count": 0,
+            "underwater_day_ratio": 0.0,
+        }
+    daily = strategy_returns.astype("float64").replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    worst_5_count = min(5, len(daily))
+    cvar_count = max(int(np.ceil(len(daily) * 0.05)), 1)
+    equity = (1.0 + daily).cumprod()
+    drawdown = equity / equity.cummax() - 1.0
+    return {
+        "worst_5_daily_loss_pct": float(daily.nsmallest(worst_5_count).mean() * 100.0),
+        "cvar_5pct_pct": float(daily.nsmallest(cvar_count).mean() * 100.0),
+        "underwater_day_count": int(drawdown.lt(-1e-12).sum()),
+        "underwater_day_ratio": float(drawdown.lt(-1e-12).mean()) if len(drawdown) else 0.0,
+    }
+
+
 def _holding_period_stats(target_position: pd.Series) -> tuple[int, int, float]:
     deltas = target_position.astype("float64").diff().fillna(target_position.astype("float64")).to_numpy()
     trade_mask = np.abs(deltas) > 1e-9
@@ -441,10 +462,33 @@ def _strategy_metrics(
     return_pct = float(((1.0 + strategy_returns).prod() - 1.0) * 100.0)
     max_drawdown_pct = _max_drawdown_pct(strategy_returns)
     max_daily_loss_pct = float(strategy_returns.min() * 100.0) if not strategy_returns.empty else 0.0
+    tail_metrics = _tail_risk_metrics(strategy_returns)
     trade_count, next_day_reversal_count, avg_holding_days = _holding_period_stats(target_position)
     return_to_drawdown = return_pct / max(abs(max_drawdown_pct), 1.0)
     reversal_ratio = float(next_day_reversal_count / max(trade_count, 1))
     avg_abs_position = float(target_position.abs().mean())
+    baseline_return_pct = np.nan
+    baseline_max_drawdown_pct = np.nan
+    excess_return_pct = np.nan
+    excess_return_to_drawdown = np.nan
+    baseline_col = position_spec.get("objective_baseline_position_col")
+    if baseline_col is not None:
+        baseline_col = str(baseline_col)
+        if baseline_col not in data.columns:
+            raise ValueError(f"position spec requires missing objective_baseline_position_col: {baseline_col}")
+        baseline_target = (
+            data[baseline_col]
+            .astype("float64")
+            .replace([np.inf, -np.inf], np.nan)
+            .fillna(0.0)
+            .clip(lower=0.0, upper=1.0)
+        )
+        baseline_turnover = baseline_target.diff().abs().fillna(baseline_target.abs())
+        baseline_returns = baseline_target * forward_return - baseline_turnover * float(cost_per_turnover)
+        baseline_return_pct = float(((1.0 + baseline_returns).prod() - 1.0) * 100.0)
+        baseline_max_drawdown_pct = _max_drawdown_pct(baseline_returns)
+        excess_return_pct = float(return_pct - baseline_return_pct)
+        excess_return_to_drawdown = float(excess_return_pct / max(abs(max_drawdown_pct), 1.0))
     stability_penalty = (
         float(position_spec.get("turnover_penalty", 1.5)) * float(turnover.sum())
         + float(position_spec.get("reversal_penalty", 2.0)) * float(next_day_reversal_count)
@@ -460,13 +504,45 @@ def _strategy_metrics(
         drawdown_penalty = abs(max_drawdown_pct - float(drawdown_floor)) * float(
             position_spec.get("drawdown_floor_penalty", 2.0)
         )
+    daily_loss_penalty = 0.0
+    daily_loss_floor = position_spec.get("objective_max_daily_loss_floor")
+    if daily_loss_floor is not None and max_daily_loss_pct < float(daily_loss_floor):
+        daily_loss_penalty = abs(max_daily_loss_pct - float(daily_loss_floor)) * float(
+            position_spec.get("daily_loss_floor_penalty", 2.0)
+        )
+    cvar_penalty = 0.0
+    cvar_floor = position_spec.get("objective_cvar_5pct_floor")
+    if cvar_floor is not None and tail_metrics["cvar_5pct_pct"] < float(cvar_floor):
+        cvar_penalty = abs(tail_metrics["cvar_5pct_pct"] - float(cvar_floor)) * float(
+            position_spec.get("cvar_floor_penalty", 1.5)
+        )
+    worst_5_penalty = 0.0
+    worst_5_floor = position_spec.get("objective_worst_5_daily_loss_floor")
+    if worst_5_floor is not None and tail_metrics["worst_5_daily_loss_pct"] < float(worst_5_floor):
+        worst_5_penalty = abs(tail_metrics["worst_5_daily_loss_pct"] - float(worst_5_floor)) * float(
+            position_spec.get("worst_5_floor_penalty", 1.0)
+        )
+    underwater_penalty = 0.0
+    max_underwater_ratio = position_spec.get("objective_max_underwater_day_ratio")
+    if max_underwater_ratio is not None:
+        underwater_penalty = max(tail_metrics["underwater_day_ratio"] - float(max_underwater_ratio), 0.0) * float(
+            position_spec.get("underwater_penalty", 25.0)
+        )
     selection_objective_score = float(
         return_to_drawdown * float(position_spec.get("objective_return_to_drawdown_weight", 10.0))
         + return_pct * float(position_spec.get("objective_return_weight", 0.02))
+        + (0.0 if pd.isna(excess_return_pct) else excess_return_pct)
+        * float(position_spec.get("objective_excess_return_weight", 0.0))
+        + (0.0 if pd.isna(excess_return_to_drawdown) else excess_return_to_drawdown)
+        * float(position_spec.get("objective_excess_return_to_drawdown_weight", 0.0))
         + avg_abs_position * float(position_spec.get("objective_exposure_weight", 0.0))
         - stability_penalty
         - exposure_penalty
         - drawdown_penalty
+        - daily_loss_penalty
+        - cvar_penalty
+        - worst_5_penalty
+        - underwater_penalty
     )
 
     metrics = {
@@ -477,6 +553,11 @@ def _strategy_metrics(
         "max_daily_loss_pct": max_daily_loss_pct,
         "return_to_drawdown": float(return_to_drawdown),
         "selection_objective_score": selection_objective_score,
+        "baseline_return_pct": baseline_return_pct,
+        "baseline_max_drawdown_pct": baseline_max_drawdown_pct,
+        "excess_return_pct": excess_return_pct,
+        "excess_return_to_drawdown": excess_return_to_drawdown,
+        **tail_metrics,
         "avg_abs_position": avg_abs_position,
         "max_position": float(target_position.max()),
         "min_position": float(target_position.min()),
@@ -557,6 +638,9 @@ def evaluate_ml_position_candidates(
     validation_max_daily_loss_floor: float | None = None,
     max_validation_total_turnover: float | None = None,
     max_validation_reversal_ratio: float | None = None,
+    validation_cvar_5pct_floor: float | None = None,
+    validation_worst_5_daily_loss_floor: float | None = None,
+    max_validation_underwater_day_ratio: float | None = None,
     selection_score_tolerance: float = 0.0,
     selection_tiebreakers: list[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -586,6 +670,8 @@ def evaluate_ml_position_candidates(
             required.add(str(spec["realized_vol_col"]))
         if spec.get("risk_gate_col") is not None:
             required.add(str(spec["risk_gate_col"]))
+        if spec.get("objective_baseline_position_col") is not None:
+            required.add(str(spec["objective_baseline_position_col"]))
     missing = sorted(required - set(frame.columns))
     if missing:
         raise ValueError(f"ML position frame missing columns: {missing}")
@@ -696,6 +782,18 @@ def evaluate_ml_position_candidates(
         eligible_mask = eligible_mask & (
             validation_metrics["next_day_reversal_ratio"].astype(float) <= float(max_validation_reversal_ratio)
         )
+    if validation_cvar_5pct_floor is not None:
+        eligible_mask = eligible_mask & (
+            validation_metrics["cvar_5pct_pct"].astype(float) >= float(validation_cvar_5pct_floor)
+        )
+    if validation_worst_5_daily_loss_floor is not None:
+        eligible_mask = eligible_mask & (
+            validation_metrics["worst_5_daily_loss_pct"].astype(float) >= float(validation_worst_5_daily_loss_floor)
+        )
+    if max_validation_underwater_day_ratio is not None:
+        eligible_mask = eligible_mask & (
+            validation_metrics["underwater_day_ratio"].astype(float) <= float(max_validation_underwater_day_ratio)
+        )
     eligible_validation = validation_metrics.loc[eligible_mask]
     selection_pool = eligible_validation if not eligible_validation.empty else validation_metrics
     best_selection_score = float(selection_pool["selection_objective_score"].max())
@@ -716,6 +814,9 @@ def evaluate_ml_position_candidates(
             "validation_max_daily_loss_floor": validation_max_daily_loss_floor,
             "max_validation_total_turnover": max_validation_total_turnover,
             "max_validation_reversal_ratio": max_validation_reversal_ratio,
+            "validation_cvar_5pct_floor": validation_cvar_5pct_floor,
+            "validation_worst_5_daily_loss_floor": validation_worst_5_daily_loss_floor,
+            "max_validation_underwater_day_ratio": max_validation_underwater_day_ratio,
             "selection_score_tolerance": float(selection_tolerance),
             "selection_tiebreakers": list(selection_tiebreakers or []),
             "selection_tiebreaker_pool_size": int(len(near_tie_pool)),

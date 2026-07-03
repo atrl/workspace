@@ -27,6 +27,9 @@ class CognitiveAlphaPositionSpec:
     max_validation_zero_position_day_ratio: float | None = None
     validation_max_drawdown_floor: float | None = None
     validation_max_daily_loss_floor: float | None = None
+    validation_cvar_5pct_floor: float | None = None
+    validation_worst_5_daily_loss_floor: float | None = None
+    max_validation_underwater_day_ratio: float | None = None
     max_validation_total_turnover: float | None = None
     max_validation_extreme_loss_day_count: int | None = None
     max_validation_reversal_ratio: float | None = None
@@ -34,6 +37,9 @@ class CognitiveAlphaPositionSpec:
     max_test_zero_position_day_ratio: float | None = None
     test_max_drawdown_floor: float | None = None
     test_max_daily_loss_floor: float | None = None
+    test_cvar_5pct_floor: float | None = None
+    test_worst_5_daily_loss_floor: float | None = None
+    max_test_underwater_day_ratio: float | None = None
     max_test_total_turnover: float | None = None
     max_test_extreme_loss_day_count: int | None = None
     extreme_loss_threshold: float = -0.05
@@ -102,6 +108,9 @@ def run_cognitive_alpha_position_model(
         validation_max_daily_loss_floor=spec.validation_max_daily_loss_floor,
         max_validation_total_turnover=spec.max_validation_total_turnover,
         max_validation_reversal_ratio=spec.max_validation_reversal_ratio,
+        validation_cvar_5pct_floor=spec.validation_cvar_5pct_floor,
+        validation_worst_5_daily_loss_floor=spec.validation_worst_5_daily_loss_floor,
+        max_validation_underwater_day_ratio=spec.max_validation_underwater_day_ratio,
     )
     selected = _selected_payload(metrics)
     _attach_selected_tail_metrics(selected, positions, extreme_loss_threshold=spec.extreme_loss_threshold)
@@ -246,6 +255,9 @@ def _segment_passes_risk_gates(
     *,
     max_drawdown_floor: float | None,
     max_daily_loss_floor: float | None,
+    cvar_5pct_floor: float | None,
+    worst_5_daily_loss_floor: float | None,
+    max_underwater_day_ratio: float | None,
     max_total_turnover: float | None,
     max_extreme_loss_day_count: int | None,
     min_avg_abs_position: float,
@@ -262,6 +274,17 @@ def _segment_passes_risk_gates(
         return False
     if max_daily_loss_floor is not None and float(row.get("max_daily_loss_pct", 0.0)) < float(max_daily_loss_floor):
         return False
+    if cvar_5pct_floor is not None and float(row.get("cvar_5pct_pct", 0.0)) < float(cvar_5pct_floor):
+        return False
+    if worst_5_daily_loss_floor is not None and float(row.get("worst_5_daily_loss_pct", 0.0)) < float(
+        worst_5_daily_loss_floor
+    ):
+        return False
+    if (
+        max_underwater_day_ratio is not None
+        and float(row.get("underwater_day_ratio", 0.0)) > float(max_underwater_day_ratio)
+    ):
+        return False
     if max_total_turnover is not None and float(row.get("total_turnover", 0.0)) > float(max_total_turnover):
         return False
     if (
@@ -277,6 +300,9 @@ def _risk_gate_summary(selected: dict[str, Any], spec: CognitiveAlphaPositionSpe
         selected.get("validation", {}),
         max_drawdown_floor=spec.validation_max_drawdown_floor,
         max_daily_loss_floor=spec.validation_max_daily_loss_floor,
+        cvar_5pct_floor=spec.validation_cvar_5pct_floor,
+        worst_5_daily_loss_floor=spec.validation_worst_5_daily_loss_floor,
+        max_underwater_day_ratio=spec.max_validation_underwater_day_ratio,
         max_total_turnover=spec.max_validation_total_turnover,
         max_extreme_loss_day_count=spec.max_validation_extreme_loss_day_count,
         min_avg_abs_position=spec.min_validation_avg_abs_position,
@@ -286,6 +312,9 @@ def _risk_gate_summary(selected: dict[str, Any], spec: CognitiveAlphaPositionSpe
         selected.get("test", {}),
         max_drawdown_floor=spec.test_max_drawdown_floor,
         max_daily_loss_floor=spec.test_max_daily_loss_floor,
+        cvar_5pct_floor=spec.test_cvar_5pct_floor,
+        worst_5_daily_loss_floor=spec.test_worst_5_daily_loss_floor,
+        max_underwater_day_ratio=spec.max_test_underwater_day_ratio,
         max_total_turnover=spec.max_test_total_turnover,
         max_extreme_loss_day_count=spec.max_test_extreme_loss_day_count,
         min_avg_abs_position=spec.min_test_avg_abs_position,
@@ -296,12 +325,18 @@ def _risk_gate_summary(selected: dict[str, Any], spec: CognitiveAlphaPositionSpe
         "max_validation_zero_position_day_ratio": spec.max_validation_zero_position_day_ratio,
         "validation_max_drawdown_floor": spec.validation_max_drawdown_floor,
         "validation_max_daily_loss_floor": spec.validation_max_daily_loss_floor,
+        "validation_cvar_5pct_floor": spec.validation_cvar_5pct_floor,
+        "validation_worst_5_daily_loss_floor": spec.validation_worst_5_daily_loss_floor,
+        "max_validation_underwater_day_ratio": spec.max_validation_underwater_day_ratio,
         "max_validation_total_turnover": spec.max_validation_total_turnover,
         "max_validation_extreme_loss_day_count": spec.max_validation_extreme_loss_day_count,
         "min_test_avg_abs_position": spec.min_test_avg_abs_position,
         "max_test_zero_position_day_ratio": spec.max_test_zero_position_day_ratio,
         "test_max_drawdown_floor": spec.test_max_drawdown_floor,
         "test_max_daily_loss_floor": spec.test_max_daily_loss_floor,
+        "test_cvar_5pct_floor": spec.test_cvar_5pct_floor,
+        "test_worst_5_daily_loss_floor": spec.test_worst_5_daily_loss_floor,
+        "max_test_underwater_day_ratio": spec.max_test_underwater_day_ratio,
         "max_test_total_turnover": spec.max_test_total_turnover,
         "max_test_extreme_loss_day_count": spec.max_test_extreme_loss_day_count,
         "extreme_loss_threshold": spec.extreme_loss_threshold,
@@ -402,6 +437,9 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
             validation_max_daily_loss_floor=spec.validation_max_daily_loss_floor,
             max_validation_total_turnover=spec.max_validation_total_turnover,
             max_validation_reversal_ratio=spec.max_validation_reversal_ratio,
+            validation_cvar_5pct_floor=spec.validation_cvar_5pct_floor,
+            validation_worst_5_daily_loss_floor=spec.validation_worst_5_daily_loss_floor,
+            max_validation_underwater_day_ratio=spec.max_validation_underwater_day_ratio,
         )
         selected = _selected_payload(metrics)
         _attach_selected_tail_metrics(selected, positions, extreme_loss_threshold=spec.extreme_loss_threshold)
@@ -411,6 +449,9 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
             validation_row,
             max_drawdown_floor=spec.validation_max_drawdown_floor,
             max_daily_loss_floor=spec.validation_max_daily_loss_floor,
+            cvar_5pct_floor=spec.validation_cvar_5pct_floor,
+            worst_5_daily_loss_floor=spec.validation_worst_5_daily_loss_floor,
+            max_underwater_day_ratio=spec.max_validation_underwater_day_ratio,
             max_total_turnover=spec.max_validation_total_turnover,
             max_extreme_loss_day_count=spec.max_validation_extreme_loss_day_count,
             min_avg_abs_position=spec.min_validation_avg_abs_position,
@@ -420,6 +461,9 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
             test_row,
             max_drawdown_floor=spec.test_max_drawdown_floor,
             max_daily_loss_floor=spec.test_max_daily_loss_floor,
+            cvar_5pct_floor=spec.test_cvar_5pct_floor,
+            worst_5_daily_loss_floor=spec.test_worst_5_daily_loss_floor,
+            max_underwater_day_ratio=spec.max_test_underwater_day_ratio,
             max_total_turnover=spec.max_test_total_turnover,
             max_extreme_loss_day_count=spec.max_test_extreme_loss_day_count,
             min_avg_abs_position=spec.min_test_avg_abs_position,
@@ -440,6 +484,9 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
                 "validation_return_pct": float(validation_row.get("return_pct", 0.0)),
                 "validation_max_drawdown_pct": float(validation_row.get("max_drawdown_pct", 0.0)),
                 "validation_max_daily_loss_pct": float(validation_row.get("max_daily_loss_pct", 0.0)),
+                "validation_cvar_5pct_pct": float(validation_row.get("cvar_5pct_pct", 0.0)),
+                "validation_worst_5_daily_loss_pct": float(validation_row.get("worst_5_daily_loss_pct", 0.0)),
+                "validation_underwater_day_ratio": float(validation_row.get("underwater_day_ratio", 0.0)),
                 "validation_total_turnover": float(validation_row.get("total_turnover", 0.0)),
                 "validation_trade_count": int(validation_row.get("trade_count", 0) or 0),
                 "validation_positive_month_ratio": float(validation_row.get("positive_month_ratio", 0.0)),
@@ -448,6 +495,10 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
                 "test_return_pct": float(test_row.get("return_pct", 0.0)),
                 "test_max_drawdown_pct": float(test_row.get("max_drawdown_pct", 0.0)),
                 "test_max_daily_loss_pct": float(test_row.get("max_daily_loss_pct", 0.0)),
+                "test_cvar_5pct_pct": float(test_row.get("cvar_5pct_pct", 0.0)),
+                "test_worst_5_daily_loss_pct": float(test_row.get("worst_5_daily_loss_pct", 0.0)),
+                "test_underwater_day_count": int(test_row.get("underwater_day_count", 0) or 0),
+                "test_underwater_day_ratio": float(test_row.get("underwater_day_ratio", 0.0)),
                 "test_total_turnover": float(test_row.get("total_turnover", 0.0)),
                 "test_trade_count": int(test_row.get("trade_count", 0) or 0),
                 "test_avg_abs_position": float(test_row.get("avg_abs_position", 0.0)),
@@ -483,6 +534,9 @@ def _walk_forward_summary(metrics: pd.DataFrame, *, extreme_loss_threshold: floa
             "median_test_return_pct": None,
             "worst_test_max_drawdown_pct": None,
             "worst_test_max_daily_loss_pct": None,
+            "worst_test_cvar_5pct_pct": None,
+            "worst_test_worst_5_daily_loss_pct": None,
+            "max_test_underwater_day_ratio": None,
             "max_test_total_turnover": None,
             "total_test_trade_count": 0,
             "mean_test_avg_abs_position": None,
@@ -503,6 +557,9 @@ def _walk_forward_summary(metrics: pd.DataFrame, *, extreme_loss_threshold: floa
         "median_test_return_pct": float(returns.median()),
         "worst_test_max_drawdown_pct": float(metrics["test_max_drawdown_pct"].astype(float).min()),
         "worst_test_max_daily_loss_pct": float(metrics["test_max_daily_loss_pct"].astype(float).min()),
+        "worst_test_cvar_5pct_pct": float(metrics["test_cvar_5pct_pct"].astype(float).min()),
+        "worst_test_worst_5_daily_loss_pct": float(metrics["test_worst_5_daily_loss_pct"].astype(float).min()),
+        "max_test_underwater_day_ratio": float(metrics["test_underwater_day_ratio"].astype(float).max()),
         "max_test_total_turnover": float(metrics["test_total_turnover"].astype(float).max()),
         "total_test_trade_count": int(metrics["test_trade_count"].astype(int).sum()),
         "mean_test_avg_abs_position": float(metrics["test_avg_abs_position"].astype(float).mean()),

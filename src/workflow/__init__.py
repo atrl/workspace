@@ -36,6 +36,7 @@ __all__ = [
     "CognitiveAlphaGoalCodexExecCardSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
+    "RiskHardenedOpen2OpenCardSpec",
     "build_agentic_alpha_hypotheses",
     "build_agentic_alpha_workflow_manifest",
     "build_cognitive_alpha_code_candidate_provider",
@@ -52,6 +53,7 @@ __all__ = [
     "run_cognitive_alpha_weighted_factor_search",
     "run_cognitive_alpha_evolution",
     "run_qlib_native_experiment",
+    "run_risk_hardened_open2open_card",
 ]
 
 
@@ -96,6 +98,11 @@ _COGNITIVE_ALPHA_GOAL_CODEX_EXEC_EXPORTS = {
     "run_cognitive_alpha_goal_codex_exec_card",
 }
 
+_RISK_HARDENED_OPEN2OPEN_EXPORTS = {
+    "RiskHardenedOpen2OpenCardSpec",
+    "run_risk_hardened_open2open_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -122,4 +129,8 @@ def __getattr__(name: str):
         from . import cognitive_alpha_goal_codex_exec
 
         return getattr(cognitive_alpha_goal_codex_exec, name)
+    if name in _RISK_HARDENED_OPEN2OPEN_EXPORTS:
+        from . import risk_hardened_open2open
+
+        return getattr(risk_hardened_open2open, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
