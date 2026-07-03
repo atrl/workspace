@@ -1,0 +1,216 @@
+{
+  "as_of": "2026-07-02",
+  "dataset": "soxx_current_constituent_daily_history",
+  "equity_constituents": 30,
+  "error_symbols": [],
+  "hashes": {
+    "coverage": "88d0071891e677bf4c648573db7bcb01ae863e90bf62b77beb6137a251926852",
+    "equity_universe": "7d02e0fb8f2730a8e3da39da19a95d5ba4c367e33a43e484b9ceaa81f964e619",
+    "holdings": "e42494af59f6bfd0cb8422c8136222386483b4685defaa8298879050f8e41a6e"
+  },
+  "holding_rows": 34,
+  "limitations": [
+    "Current SOXX constituents backfilled through history are survivorship-biased unless paired with point-in-time holdings snapshots.",
+    "Raw CSVs are input snapshots; qlib research must build and audit a qlib provider before training or backtesting."
+  ],
+  "number_of_securities_ex_cash_derivatives": 30,
+  "outputs": {
+    "coverage": "data/raw/soxx_constituents/coverage.csv",
+    "equity_universe": "data/raw/soxx_constituents/equity_universe.csv",
+    "holdings": "data/raw/soxx_constituents/holdings/soxx_holdings_2026-07-02.csv",
+    "prices": {
+      "ADI": {
+        "path": "data/raw/soxx_constituents/daily/ADI.csv",
+        "sha256": "f6dc05f93394465279fd75e3bbaa4b1122b7875eb60c796731984cb04b567b3d"
+      },
+      "ALAB": {
+        "path": "data/raw/soxx_constituents/daily/ALAB.csv",
+        "sha256": "1467c52a1dde8310c12d5c67596f0d5967ee9e55ba57e711bb0a16c073e69aba"
+      },
+      "AMAT": {
+        "path": "data/raw/soxx_constituents/daily/AMAT.csv",
+        "sha256": "87816a6dfffcd5ce6ca28df3bf920ce906fd8305f188c732080ba8c8829f2ea4"
+      },
+      "AMD": {
+        "path": "data/raw/soxx_constituents/daily/AMD.csv",
+        "sha256": "a878d6e55c66514446f6ec6002d4eaa0fe3b2a90cb477459c10bc1888c1dcd6a"
+      },
+      "ARM": {
+        "path": "data/raw/soxx_constituents/daily/ARM.csv",
+        "sha256": "5ae1eaf756ab1559a2b6e5a15bdf431dbcba29826988213ad45458f5620ca27e"
+      },
+      "ASML": {
+        "path": "data/raw/soxx_constituents/daily/ASML.csv",
+        "sha256": "35804ffb180b66a99ba57b620eb7da4b720fdaccd18ab3dfe11f6a3a1f51a64b"
+      },
+      "ASX": {
+        "path": "data/raw/soxx_constituents/daily/ASX.csv",
+        "sha256": "e6a6e2bf208bb35f4371a713401bc179b7af10ee14b9fdf69324cba3fe7f8667"
+      },
+      "AVGO": {
+        "path": "data/raw/soxx_constituents/daily/AVGO.csv",
+        "sha256": "1ea6bfe0edf1d5eb59b13d215b7ba6fac281cac4edbeab8b76fa85caa21305db"
+      },
+      "CRDO": {
+        "path": "data/raw/soxx_constituents/daily/CRDO.csv",
+        "sha256": "b7d0cf9f0ecddb8aed2b0783cbe1631c37de020ff06c951022b4627f20847c3d"
+      },
+      "ENTG": {
+        "path": "data/raw/soxx_constituents/daily/ENTG.csv",
+        "sha256": "6687a0c46a89be90f677d03c573b108418cdc1b2af0744f14d6313e216c74c62"
+      },
+      "INTC": {
+        "path": "data/raw/soxx_constituents/daily/INTC.csv",
+        "sha256": "8d40acc00077eb722260970545fb87dbeaf91d3eb4278b411c297916678db149"
+      },
+      "KLAC": {
+        "path": "data/raw/soxx_constituents/daily/KLAC.csv",
+        "sha256": "461d68c43fd3b45876b929a3eadfbc3a3044c0a50c40d0b393b6695cef4e4840"
+      },
+      "LRCX": {
+        "path": "data/raw/soxx_constituents/daily/LRCX.csv",
+        "sha256": "723e638dc18167862a8cf6cb131802754c7786e996bca9f40c5564c795bc7c88"
+      },
+      "MCHP": {
+        "path": "data/raw/soxx_constituents/daily/MCHP.csv",
+        "sha256": "92fe1190df9a92ad91d81e5711e42333aa945e4f8e13b218d7ecffafbc4a7ddf"
+      },
+      "MPWR": {
+        "path": "data/raw/soxx_constituents/daily/MPWR.csv",
+        "sha256": "42c96bef0ee9006de782395084910e5dc68a4021ed60b5ee8ca386f56ef9abf6"
+      },
+      "MRVL": {
+        "path": "data/raw/soxx_constituents/daily/MRVL.csv",
+        "sha256": "4e5a03eca7fbd2055d960900e3da9a060ce196fa11ab9664969ff7e1e218428f"
+      },
+      "MTSI": {
+        "path": "data/raw/soxx_constituents/daily/MTSI.csv",
+        "sha256": "5de60bf6c0872a97199d4b8eeb48311c24f7265a2f5a0abecd7686d0bda5a918"
+      },
+      "MU": {
+        "path": "data/raw/soxx_constituents/daily/MU.csv",
+        "sha256": "ffef4cbfbf25d6e4a7c9afe5027bffed0b2212b5d39c5e83784761ffa2c36615"
+      },
+      "NVDA": {
+        "path": "data/raw/soxx_constituents/daily/NVDA.csv",
+        "sha256": "5fc961180cf2d4e229e34efbb33d90d3b5b57d1177d0e1bc1d4aa6679bc19f00"
+      },
+      "NVMI": {
+        "path": "data/raw/soxx_constituents/daily/NVMI.csv",
+        "sha256": "e03eb564b2db5cd45887e980c3548743126b09366637332f2c059407a4d4a30d"
+      },
+      "NXPI": {
+        "path": "data/raw/soxx_constituents/daily/NXPI.csv",
+        "sha256": "dc5bd243a5227bf6a9f126e2fd3afad9e316d3d8b42b56ce92ed906d8ac25a15"
+      },
+      "ON": {
+        "path": "data/raw/soxx_constituents/daily/ON.csv",
+        "sha256": "2e2b85d38fdd9b48cfc3d8112c0a379cf35d2bf69e005d0684255f7ffe81a135"
+      },
+      "QCOM": {
+        "path": "data/raw/soxx_constituents/daily/QCOM.csv",
+        "sha256": "2fc89476a881ee9ce579e4af014974d2b78d7b90167a38dc3b97ab665fea129d"
+      },
+      "RMBS": {
+        "path": "data/raw/soxx_constituents/daily/RMBS.csv",
+        "sha256": "4b229ac2f4643748bbc0371f332efb5ed73123187213d5fb5c362083b19375d8"
+      },
+      "STM": {
+        "path": "data/raw/soxx_constituents/daily/STM.csv",
+        "sha256": "82a8354a703ee3258ab2e89b2d8f61da5a1b85d4826defc153ca40d5e2280fe6"
+      },
+      "SWKS": {
+        "path": "data/raw/soxx_constituents/daily/SWKS.csv",
+        "sha256": "5a8f03a8a663d219946656e100f0756fe85ae4fd4c68690623c226b04e95309a"
+      },
+      "TER": {
+        "path": "data/raw/soxx_constituents/daily/TER.csv",
+        "sha256": "491d209e699cfd0f92a7ec063dd826d3977a856e12e77f61939686300addd0f8"
+      },
+      "TSM": {
+        "path": "data/raw/soxx_constituents/daily/TSM.csv",
+        "sha256": "75dd784a1315bcf7ca40fb6acd64dcb6f31a3ee1d6e47d52e6eb7ab619ce05fd"
+      },
+      "TXN": {
+        "path": "data/raw/soxx_constituents/daily/TXN.csv",
+        "sha256": "b716be936186021b7027ec9017456b2b259e212439b4569efaa1aaf9c3877fb6"
+      },
+      "UMC": {
+        "path": "data/raw/soxx_constituents/daily/UMC.csv",
+        "sha256": "e02e97cf1a96446a939839bbd692408201fde03a25dfce25ecd044419bedbb23"
+      }
+    }
+  },
+  "requested_end": "2026-07-02",
+  "requested_start": "2010-03-11",
+  "selected_symbols": [
+    "MU",
+    "AMD",
+    "NVDA",
+    "AVGO",
+    "INTC",
+    "AMAT",
+    "KLAC",
+    "MRVL",
+    "LRCX",
+    "TSM",
+    "TXN",
+    "ADI",
+    "NXPI",
+    "MPWR",
+    "TER",
+    "ALAB",
+    "QCOM",
+    "ASML",
+    "MCHP",
+    "CRDO",
+    "ON",
+    "ASX",
+    "MTSI",
+    "ENTG",
+    "UMC",
+    "STM",
+    "ARM",
+    "NVMI",
+    "RMBS",
+    "SWKS"
+  ],
+  "source": {
+    "holdings": "BlackRock iShares SOXX fund download",
+    "holdings_url": "https://www.blackrock.com/varnish-api/blk-one01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=us-ishares&locale=en_US&portfolioId=239705&component=fundDownload&userType=individual",
+    "prices": "Yahoo Finance chart API",
+    "product_url": "https://www.ishares.com/us/products/239705/ishares-phlx-semiconductor-etf"
+  },
+  "successful_symbols": [
+    "MU",
+    "AMD",
+    "NVDA",
+    "AVGO",
+    "INTC",
+    "AMAT",
+    "KLAC",
+    "MRVL",
+    "LRCX",
+    "TSM",
+    "TXN",
+    "ADI",
+    "NXPI",
+    "MPWR",
+    "TER",
+    "ALAB",
+    "QCOM",
+    "ASML",
+    "MCHP",
+    "CRDO",
+    "ON",
+    "ASX",
+    "MTSI",
+    "ENTG",
+    "UMC",
+    "STM",
+    "ARM",
+    "NVMI",
+    "RMBS",
+    "SWKS"
+  ]
+}

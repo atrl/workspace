@@ -20,6 +20,13 @@ from .intraday import (
     read_intraday_cache,
     write_intraday_cache,
 )
+from .soxx_constituents import (
+    SoxxConstituentPaths,
+    SoxxHoldingsSnapshot,
+    fetch_and_store_soxx_constituent_history,
+    fetch_soxx_holdings_snapshot,
+    parse_soxx_holdings_workbook,
+)
 
 __all__ = [
     "QlibProviderConfig",
@@ -40,4 +47,9 @@ __all__ = [
     "normalize_futu_intraday_frame",
     "read_intraday_cache",
     "write_intraday_cache",
+    "SoxxConstituentPaths",
+    "SoxxHoldingsSnapshot",
+    "fetch_and_store_soxx_constituent_history",
+    "fetch_soxx_holdings_snapshot",
+    "parse_soxx_holdings_workbook",
 ]

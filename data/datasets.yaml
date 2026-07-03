@@ -180,10 +180,27 @@ layout:
   processed_intraday: data/processed/intraday/<asset>_<interval>.parquet
   processed_panels: data/processed/panels/<asset>_with_underlying_vix.csv
   qlib: data/qlib/<asset>/
+  raw_constituents: data/raw/<index>_constituents/
   raw_external: data/raw/external/<NAME>.csv
   raw_intraday: data/raw/intraday/<provider>/<ticker>_<interval>.parquet
   raw_symbols: data/raw/symbols/<TICKER>.csv
   training_cache: data/cache/training/<profile>.pkl
+raw_constituents:
+  soxx_current_constituent_daily_history:
+    as_of: '2026-07-02'
+    coverage_path: data/raw/soxx_constituents/coverage.csv
+    end: '2026-07-02'
+    equity_constituents: 30
+    error_symbols: 0
+    exists: true
+    holding_rows: 34
+    holdings_path: data/raw/soxx_constituents/holdings/soxx_holdings_2026-07-02.csv
+    manifest_path: data/raw/soxx_constituents/manifest.json
+    missing_ohlcv_rows: 0
+    price_files: 30
+    source: BlackRock iShares SOXX fund download + Yahoo Finance chart API
+    start: '2010-03-11'
+    survivorship_biased_current_constituents: true
 processed_panels:
   soxl_soxx_vix_full:
     end: '2026-07-02'
