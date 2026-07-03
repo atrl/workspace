@@ -1434,13 +1434,9 @@ def test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal
     assert Path(summary["recorder_local_dir"]).exists()
 
     selected = summary["selected_candidate"]
-    assert selected["selected_by"] == "validation_selection_objective_score"
-    assert selected["model_spec"]["model"] in {
-        "lgbm_classifier",
-        "lgbm_regressor",
-        "xgb_classifier",
-        "xgb_regressor",
-    }
+    assert selected["selected_by"] == "validation_selection_objective_score_near_tie_implementation_tiebreaker"
+    assert selected["model_spec"]["model"] == "xgb_classifier"
+    assert selected["test"]["position_mode"] == "base_throttle"
     assert selected["test"]["return_pct"] > summary["ytd_buyhold_benchmark"]["return_pct"]
     assert selected["test"]["max_drawdown_pct"] >= summary["goal_gate"]["max_drawdown_floor"]
     assert selected["test"]["high_chop_trade_count"] >= summary["goal_gate"]["min_high_chop_trades"]
@@ -1450,8 +1446,17 @@ def test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal
     assert selected["test"]["return_pct"] < summary["base_constrained_reference"]["return_pct"]
 
     report = summary["high_chop_lgb_xgb_report"]
-    assert report["candidate_count"] >= 1000
+    assert report["candidate_count"] >= 1800
     assert report["goal_passer_count"] > 0
+    assert report["selection_policy"]["score_tolerance"] == summary["goal_gate"]["selection_score_tolerance"]
+    assert report["selection_policy"]["tiebreakers"] == summary["goal_gate"]["selection_tiebreakers"]
+    assert report["selection_policy"]["standalone_whole_position_policy"] == (
+        "diagnostic_only_until_validation_and_test_stability_are_proven"
+    )
+    standalone = report["standalone_whole_position_diagnostic"]
+    assert standalone["selection_disabled"] is True
+    assert standalone["best_validation_candidate"]["position_mode"] in {"probability", "binary"}
+    assert standalone["same_candidate_test"]["return_pct"] < 0.0
     assert set(report["model_families"]) == {
         "lgbm_classifier",
         "lgbm_regressor",
@@ -1499,6 +1504,7 @@ def test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal
     assert "lgbm_classifier" in candidates
     assert "xgb_classifier" in candidates
     assert "chop_breakdown_risk" in candidates
+    assert "selection_disabled" in candidates
     assert summary["recorder_id"] in notebook_text
     assert "R.set_uri" in notebook_text
     assert "D.features" in notebook_text

@@ -424,6 +424,61 @@ def test_ml_position_base_throttle_uses_model_as_position_overlay():
     assert selected_positions["target_position"].diff().abs().fillna(0.0).max() <= 0.50 + 1e-12
 
 
+def test_ml_position_selection_tie_breaks_near_scores_by_implementation_cost():
+    from src.backtest import evaluate_ml_position_candidates
+
+    dates = pd.date_range("2025-01-02", periods=150, freq="B")
+    signal = pd.Series(np.sin(np.arange(len(dates)) / 4.0), dtype="float64")
+    trend = signal.rolling(8, min_periods=1).mean()
+    forward_return = 0.010 * signal.shift(1).fillna(0.0) + 0.004 * trend.fillna(0.0)
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "signal": signal,
+            "trend": trend,
+            "forward_return": forward_return,
+        }
+    )
+
+    metrics, _ = evaluate_ml_position_candidates(
+        frame,
+        feature_cols=["signal", "trend"],
+        model_specs=[{"model": "logistic_regression"}, {"model": "ridge"}],
+        train_window=("2025-01-02", "2025-03-31"),
+        validation_window=("2025-04-01", "2025-05-30"),
+        test_window=("2025-06-02", "2025-07-31"),
+        position_specs=[
+            {"position_mode": "probability", "threshold": 0.45, "scale": 1.0, "rebalance_threshold": 0.0},
+            {"position_mode": "probability", "threshold": 0.45, "scale": 1.0, "rebalance_threshold": 0.20},
+            {"position_mode": "binary", "threshold": 0.55, "scale": 1.0, "rebalance_threshold": 0.0},
+            {
+                "position_mode": "probability",
+                "threshold": 0.40,
+                "scale": 1.0,
+                "rebalance_threshold": 0.15,
+                "selection_disabled": True,
+            },
+        ],
+        min_validation_avg_abs_position=0.05,
+        selection_score_tolerance=1_000_000.0,
+        selection_tiebreakers=["total_turnover:asc", "max_drawdown_pct:desc"],
+        cost_per_turnover=0.0003,
+    )
+
+    validation = metrics.loc[
+        (metrics["segment"] == "validation") & metrics["selection_eligible"].map(bool)
+    ].copy()
+    selected = validation.loc[validation["selected"].map(bool)].iloc[0]
+    assert selected["total_turnover"] == validation["total_turnover"].min()
+    assert selected["selection_tiebreaker_pool_size"] == len(validation)
+    selection_gate = json.loads(str(selected["selection_gate"]))
+    assert selection_gate["selection_score_tolerance"] == 1_000_000.0
+    assert selection_gate["selection_tiebreakers"] == ["total_turnover:asc", "max_drawdown_pct:desc"]
+    disabled = metrics.loc[(metrics["segment"] == "validation") & metrics["selection_disabled"].map(bool)]
+    assert not disabled.empty
+    assert not disabled["selection_eligible"].map(bool).any()
+
+
 def test_ml_position_candidates_support_lgbm_and_xgb_models():
     from src.backtest import evaluate_ml_position_candidates
 

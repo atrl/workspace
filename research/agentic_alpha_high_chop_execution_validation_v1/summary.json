@@ -55,8 +55,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "ac03374e89e84be8872df1581aa4029b",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder/275443241832882133/ac03374e89e84be8872df1581aa4029b",
+  "recorder_id": "6b3fd2632fee45dba69a37126db5b053",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder/467263977107809873/6b3fd2632fee45dba69a37126db5b053",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder",
   "region": "us",
   "sidecars": {
@@ -68,22 +68,22 @@
     "card": "research/agentic_alpha_high_chop_lgb_xgb_v1",
     "latest_signal": {
       "as_of": "2026-07-02",
-      "candidate": "lgbm_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1",
+      "candidate": "xgb_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1",
       "label_incomplete": true,
-      "model": "lgbm_classifier",
-      "probability": 0.49114348248897366,
-      "raw_target": 0.0004999302395118069,
-      "recent_25d_avg_abs_position": 0.298877261859696,
+      "model": "xgb_classifier",
+      "probability": 0.450564980506897,
+      "raw_target": 0.0004979455333785058,
+      "recent_25d_avg_abs_position": 0.2998452160440584,
       "recent_25d_trade_count": 3,
       "score_window": [
         "2026-01-02",
         "2026-07-02"
       ],
-      "target_position": 0.0005,
+      "target_position": 0.0004977160787772165,
       "trained_through": "2025-12-31",
       "turnover_from_previous_scored_day": 0.0
     },
-    "recorder_id": "291a68ad68e846b18d5f36b1b3b5a99f"
+    "recorder_id": "e130c1a9a8f94509bda8548a797b67bb"
   },
   "validation_summary": {
     "as_of": "2026-07-02",
@@ -98,10 +98,10 @@
       "afterhours_mae_from_rth_close": -0.008100512481401867,
       "date": "2026-07-02",
       "execution_status": "near_cash",
-      "probability": 0.4911434824889736,
+      "probability": 0.450564980506897,
       "rth_low_from_open": -0.22966747251744746,
       "rth_return_open_to_close": -0.1722392008393011,
-      "target_position": 0.0005
+      "target_position": 0.0004977160787772
     },
     "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
     "recent_rows": 5,
@@ -128,20 +128,20 @@
       "tags/mlflow.source.type",
       "tags/mlflow.user"
     ],
-    "recorder_id": "ac03374e89e84be8872df1581aa4029b",
-    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder/275443241832882133/ac03374e89e84be8872df1581aa4029b",
+    "recorder_id": "6b3fd2632fee45dba69a37126db5b053",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_high_chop_execution_validation_v1/qlib_recorder/467263977107809873/6b3fd2632fee45dba69a37126db5b053",
     "regular_intraday_source": "data/processed/intraday/soxl_soxx_1m.parquet",
     "risk_checks": {
-      "max_abs_target_recent": 0.0005,
+      "max_abs_target_recent": 0.0004977160787772,
       "max_afterhours_mae_recent": -0.04086835889168006,
       "max_rth_low_from_open_recent": -0.22966747251744746,
       "near_cash_days_recent": 5,
       "needs_next_open_data_rows": 1
     },
     "rows": 19,
-    "source_signal_artifact": "research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder/223456940594151343/291a68ad68e846b18d5f36b1b3b5a99f/artifacts/agentic_alpha_high_chop_lgb_xgb_v1/.high_chop_lgb_xgb_latest_positions.csv.gz",
+    "source_signal_artifact": "research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder/319216809948842993/e130c1a9a8f94509bda8548a797b67bb/artifacts/agentic_alpha_high_chop_lgb_xgb_v1/.high_chop_lgb_xgb_latest_positions.csv.gz",
     "source_strategy_card": "research/agentic_alpha_high_chop_lgb_xgb_v1",
-    "source_strategy_recorder_id": "291a68ad68e846b18d5f36b1b3b5a99f",
+    "source_strategy_recorder_id": "e130c1a9a8f94509bda8548a797b67bb",
     "workflow": "agentic_alpha_high_chop_execution_validation"
   },
   "workflow_config": "workflow.yaml"

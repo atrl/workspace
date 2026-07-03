@@ -1,0 +1,5 @@
+strategy,return_pct,max_drawdown_pct,avg_abs_position,trade_count,beats_ytd_buyhold,beats_base_constrained_ref,high_chop_days,high_chop_avg_abs_position,high_chop_trade_count,post_high_chop_days,post_high_chop_avg_abs_position,post_high_chop_trade_count
+selected_validation_lgb_xgb_high_chop,542.0065028945388,-14.577424368094615,0.4490495846657426,20,True,False,,,,,,
+soxl_buyhold,356.39288408787513,,1.0,1,,,,,,,,
+base_constrained_ref,568.5172133373245,-14.619707524038061,0.4607458333333333,19,True,,31.0,0.5873451612903223,5.0,103.0,0.507601941747573,16.0
+legacy_soxlbacktest_reference,142.21304795135495,-13.554088542803521,0.1623258333333334,3,False,False,,,,,,

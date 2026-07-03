@@ -24,7 +24,9 @@ model_selection:
     - xgb_classifier
     - lgbm_regressor
     - xgb_regressor
-  selected_by: validation_selection_objective_score
+  selected_by: validation_selection_objective_score_near_tie_implementation_tiebreaker
+  selection_score_tolerance: 0.05
+  selection_tiebreakers: ['total_turnover:asc', 'max_drawdown_pct:desc', 'trade_count:asc']
   report_segment: test
   max_position: 1.0
   max_drawdown_floor: -20.0

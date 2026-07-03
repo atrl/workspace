@@ -1,0 +1,34 @@
+{
+  "as_of": "2026-07-02",
+  "coverage_end": "2026-07-02",
+  "coverage_start": "2026-06-05",
+  "decision": "execution_not_proven",
+  "decision_reason": "close-to-close daily signal needs before-cutoff generation plus afterhours/next-open fill simulation; latest 2026-07-02 target is near cash, but this does not prove live execution ability.",
+  "extended_intraday_source": "futu.OpenQuoteContext.request_history_kline(K_1M, extended_time=True, session=ALL)",
+  "latest": {
+    "afterhours_close_return_from_rth_close": 0.007990301427233115,
+    "afterhours_first_gap_from_rth_close": -0.002424092136441236,
+    "afterhours_mae_from_rth_close": -0.008100512481401867,
+    "date": "2026-07-02",
+    "execution_status": "near_cash",
+    "probability": 0.450564980506897,
+    "rth_low_from_open": -0.22966747251744746,
+    "rth_return_open_to_close": -0.1722392008393011,
+    "target_position": 0.0004977160787772
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "recent_rows": 5,
+  "regular_intraday_source": "data/processed/intraday/soxl_soxx_1m.parquet",
+  "risk_checks": {
+    "max_abs_target_recent": 0.0004977160787772,
+    "max_afterhours_mae_recent": -0.04086835889168006,
+    "max_rth_low_from_open_recent": -0.22966747251744746,
+    "near_cash_days_recent": 5,
+    "needs_next_open_data_rows": 1
+  },
+  "rows": 19,
+  "source_signal_artifact": "research/agentic_alpha_high_chop_lgb_xgb_v1/qlib_recorder/319216809948842993/e130c1a9a8f94509bda8548a797b67bb/artifacts/agentic_alpha_high_chop_lgb_xgb_v1/.high_chop_lgb_xgb_latest_positions.csv.gz",
+  "source_strategy_card": "research/agentic_alpha_high_chop_lgb_xgb_v1",
+  "source_strategy_recorder_id": "e130c1a9a8f94509bda8548a797b67bb",
+  "workflow": "agentic_alpha_high_chop_execution_validation"
+}

@@ -40,6 +40,32 @@ REGRESSOR_MODELS = {
 }
 
 
+def _selection_tiebreaker_sort(
+    frame: pd.DataFrame,
+    tiebreakers: list[str] | None,
+) -> pd.DataFrame:
+    if not tiebreakers:
+        return frame.sort_values("selection_objective_score", ascending=False)
+
+    sort_columns: list[str] = []
+    ascending: list[bool] = []
+    for item in tiebreakers:
+        column, _, direction = str(item).partition(":")
+        column = column.strip()
+        direction = (direction or "asc").strip().lower()
+        if column not in frame.columns:
+            raise ValueError(f"selection tiebreaker requires missing column: {column}")
+        if direction not in {"asc", "desc"}:
+            raise ValueError("selection tiebreaker direction must be asc or desc")
+        sort_columns.append(column)
+        ascending.append(direction == "asc")
+
+    if "candidate" not in sort_columns:
+        sort_columns.append("candidate")
+        ascending.append(True)
+    return frame.sort_values(sort_columns, ascending=ascending)
+
+
 def _build_model(model_name: str, *, random_state: int):
     if model_name == "logistic_regression":
         return make_pipeline(
@@ -506,6 +532,8 @@ def evaluate_ml_position_candidates(
     validation_max_daily_loss_floor: float | None = None,
     max_validation_total_turnover: float | None = None,
     max_validation_reversal_ratio: float | None = None,
+    selection_score_tolerance: float = 0.0,
+    selection_tiebreakers: list[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Train ML scores on train data, select position candidates on validation, and report test stability."""
 
@@ -594,6 +622,7 @@ def evaluate_ml_position_candidates(
                         "model_target_col": model_target_col,
                         "return_col": return_col,
                         "position_mode": str(position_spec.get("position_mode", "probability")),
+                        "selection_disabled": bool(position_spec.get("selection_disabled", False)),
                         "threshold": float(position_spec.get("threshold", 0.55)),
                         "scale": float(position_spec.get("scale", 1.0)),
                         "selection_segment": "validation",
@@ -618,6 +647,8 @@ def evaluate_ml_position_candidates(
         validation_metrics["trade_count"].astype(float) >= float(min_validation_trade_count)
     ) & (
         validation_metrics["avg_abs_position"].astype(float) >= float(min_validation_avg_abs_position)
+    ) & (
+        ~validation_metrics["selection_disabled"].astype(bool)
     )
     if validation_max_drawdown_floor is not None:
         eligible_mask = eligible_mask & (
@@ -637,10 +668,16 @@ def evaluate_ml_position_candidates(
         )
     eligible_validation = validation_metrics.loc[eligible_mask]
     selection_pool = eligible_validation if not eligible_validation.empty else validation_metrics
-    selected_candidate = str(selection_pool.sort_values("selection_objective_score", ascending=False).iloc[0]["candidate"])
+    best_selection_score = float(selection_pool["selection_objective_score"].max())
+    selection_tolerance = max(float(selection_score_tolerance), 0.0)
+    near_tie_pool = selection_pool.loc[
+        selection_pool["selection_objective_score"].astype(float) >= best_selection_score - selection_tolerance
+    ].copy()
+    selected_candidate = str(_selection_tiebreaker_sort(near_tie_pool, selection_tiebreakers).iloc[0]["candidate"])
     eligible_candidates = set(eligible_validation["candidate"].astype(str))
     metrics_frame["selection_eligible"] = metrics_frame["candidate"].astype(str).isin(eligible_candidates)
     metrics_frame["selection_eligible"] = metrics_frame["selection_eligible"].map(bool).astype(object)
+    metrics_frame["selection_tiebreaker_pool_size"] = int(len(near_tie_pool))
     metrics_frame["selection_gate"] = json.dumps(
         {
             "min_validation_trade_count": int(min_validation_trade_count),
@@ -649,6 +686,10 @@ def evaluate_ml_position_candidates(
             "validation_max_daily_loss_floor": validation_max_daily_loss_floor,
             "max_validation_total_turnover": max_validation_total_turnover,
             "max_validation_reversal_ratio": max_validation_reversal_ratio,
+            "selection_score_tolerance": float(selection_tolerance),
+            "selection_tiebreakers": list(selection_tiebreakers or []),
+            "selection_tiebreaker_pool_size": int(len(near_tie_pool)),
+            "selection_disabled_candidate_count": int(validation_metrics["selection_disabled"].astype(bool).sum()),
             "fallback_to_all_candidates": bool(eligible_validation.empty),
         },
         sort_keys=True,

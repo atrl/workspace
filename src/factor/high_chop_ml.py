@@ -336,6 +336,8 @@ def evaluate_high_chop_ml_candidates(
     baseline_return_pct: float | None = None,
     max_drawdown_floor: float = -20.0,
     cost_per_turnover: float = 0.0003,
+    selection_score_tolerance: float = 0.0,
+    selection_tiebreakers: list[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Evaluate LGB/XGB high-chop position models and append regime gates."""
 
@@ -358,6 +360,8 @@ def evaluate_high_chop_ml_candidates(
         min_validation_avg_abs_position=0.03,
         validation_max_drawdown_floor=-35.0,
         max_validation_reversal_ratio=0.75,
+        selection_score_tolerance=selection_score_tolerance,
+        selection_tiebreakers=selection_tiebreakers,
     )
     metrics = append_high_chop_strategy_metrics(
         metrics,

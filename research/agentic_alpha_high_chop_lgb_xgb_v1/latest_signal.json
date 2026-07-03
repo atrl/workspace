@@ -1,17 +1,17 @@
 {
   "as_of": "2026-07-02",
-  "candidate": "lgbm_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1",
+  "candidate": "xgb_classifier_base_throttle_base_constrained_ref_p0-0.5_t0.85-1_s1_h0.05_hold1",
   "label_incomplete": true,
-  "model": "lgbm_classifier",
-  "probability": 0.49114348248897366,
-  "raw_target": 0.0004999302395118069,
-  "recent_25d_avg_abs_position": 0.298877261859696,
+  "model": "xgb_classifier",
+  "probability": 0.450564980506897,
+  "raw_target": 0.0004979455333785058,
+  "recent_25d_avg_abs_position": 0.2998452160440584,
   "recent_25d_trade_count": 3,
   "score_window": [
     "2026-01-02",
     "2026-07-02"
   ],
-  "target_position": 0.0005,
+  "target_position": 0.0004977160787772165,
   "trained_through": "2025-12-31",
   "turnover_from_previous_scored_day": 0.0
 }

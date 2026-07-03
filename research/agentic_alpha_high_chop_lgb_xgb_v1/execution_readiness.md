@@ -2,10 +2,11 @@
 
 ## Position Rule Assessment
 
-- current_behavior: selected candidate is not a standalone ML position forecast. `base_constrained_ref` supplies nearly all exposure and LGBM probability only throttles that base between 0.85 and 1.0.
+- current_behavior: selected candidate is not a standalone ML position forecast. `base_constrained_ref` supplies nearly all exposure and XGB probability only throttles that base between 0.85 and 1.0 after a validation near-tie implementation tiebreaker.
 - formula: `base_constrained_ref = (2.894 * canary_held + 0.0503 * tsmom + 0.0005 * tsmom252).clip(0, 1)`.
 - effective_driver: the canary is active when SOXX 60-day return is above 6%, VIX is below 26, and SOXL 10-day return autocorrelation is positive. This makes the rule a trend/risk-on prior, not an ML-discovered target position.
-- 2026_evidence: selected latest signal after final 2026-07-02 data is `target_position=0.0005`, while the repaired test return is 519.860% with max drawdown -14.508%. `base_constrained_ref` alone returns 568.517%, so the ML overlay has not proven superiority over the base prior.
+- 2026_evidence: selected latest signal after final 2026-07-02 data is `target_position=0.0004977`, while the repaired test return is 542.007% with max drawdown -14.577%. `base_constrained_ref` alone returns 568.517%, so the ML overlay improves the prior selected LGBM overlay but has not proven superiority over the base prior.
+- standalone_lgb_xgb: pure probability/binary LGB/XGB whole-position candidates are retained as diagnostic-only. The best validation standalone candidate returned 199.166% in validation but -17.102% in the 2026 report window, so direct whole-position control is not stable enough for promotion.
 - judgment: this is acceptable as a research baseline or prior, but not as a normal production position model. A production model should either predict calibrated expected return/probability and map it through a risk budget, or explicitly use the base rule as a benchmark with a hard risk gate and turnover/holding constraints.
 - failure_mode: binary jumps between near-cash and near-full exposure are not acceptable without execution validation. They are especially fragile when the trigger is a small boolean change in `canary_held`.
 
