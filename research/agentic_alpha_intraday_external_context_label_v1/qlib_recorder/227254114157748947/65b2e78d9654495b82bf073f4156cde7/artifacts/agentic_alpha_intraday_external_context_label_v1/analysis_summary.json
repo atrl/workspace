@@ -1,0 +1,162 @@
+{
+  "as_of": "2026-07-02",
+  "dataset_audit": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "QlibDataLoader"
+    ],
+    "label": "Ref($close, -1) / Ref($open, -1) - 1",
+    "segment_rows": {
+      "test": 6500,
+      "train": 6344,
+      "valid": 6584
+    }
+  },
+  "external_intraday_context": {
+    "available_rows": 9339,
+    "available_symbols": [
+      "AMD",
+      "ASML",
+      "AVGO",
+      "NVDA",
+      "QQQ",
+      "SMH",
+      "SOXX",
+      "TSM"
+    ],
+    "coverage_end": "2026-07-02 16:00:00",
+    "coverage_start": "2025-01-02 09:45:00",
+    "data_status": "ok_partial_insufficient_for_full_walk_forward",
+    "feature_count": 40,
+    "features": [
+      "qqq_ret_bar",
+      "qqq_ret_cc1",
+      "qqq_mom_3",
+      "qqq_vwap_dist",
+      "smh_ret_bar",
+      "smh_ret_cc1",
+      "smh_mom_3",
+      "smh_vwap_dist",
+      "external_soxx_ret_bar",
+      "external_soxx_ret_cc1",
+      "external_soxx_mom_3",
+      "external_soxx_vwap_dist",
+      "nvda_ret_bar",
+      "nvda_ret_cc1",
+      "nvda_mom_3",
+      "nvda_vwap_dist",
+      "avgo_ret_bar",
+      "avgo_ret_cc1",
+      "avgo_mom_3",
+      "avgo_vwap_dist",
+      "amd_ret_bar",
+      "amd_ret_cc1",
+      "amd_mom_3",
+      "amd_vwap_dist",
+      "tsm_ret_bar",
+      "tsm_ret_cc1",
+      "tsm_mom_3",
+      "tsm_vwap_dist",
+      "asml_ret_bar",
+      "asml_ret_cc1",
+      "asml_mom_3",
+      "asml_vwap_dist",
+      "qqq_lead_lag_vs_soxl_3",
+      "smh_lead_lag_vs_soxl_3",
+      "external_soxx_lead_lag_vs_soxl_3",
+      "semis_breadth_mom3_pos",
+      "semis_equal_weight_mom3",
+      "semis_breadth_ret_pos_1",
+      "semis_vwap_breadth",
+      "qqq_smh_soxx_lead_lag_3"
+    ],
+    "missing_requested_symbols": [],
+    "provider_card": "research/intraday_external_context_data_v1",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
+    "requested_symbols": [
+      "QQQ",
+      "SMH",
+      "SOXX",
+      "NVDA",
+      "AVGO",
+      "AMD",
+      "TSM",
+      "ASML"
+    ],
+    "required_walk_forward_satisfied": false,
+    "required_walk_forward_start": "2019-01-02"
+  },
+  "feature_count": 97,
+  "label_audit": {
+    "cost_bps": 20.0,
+    "entry_timing": "next_15m_open",
+    "external_context": {
+      "available_rows": 9714,
+      "available_symbols": [
+        "AMD",
+        "ASML",
+        "AVGO",
+        "NVDA",
+        "QQQ",
+        "SMH",
+        "SOXX",
+        "TSM"
+      ],
+      "coverage_end": "2026-07-02 16:00:00",
+      "coverage_start": "2025-01-02 09:45:00",
+      "external_context_requested": true,
+      "external_context_rows": 9717,
+      "lookback_only": true,
+      "merged_rows": 9714,
+      "missing_symbols": []
+    },
+    "horizon_bars": 8,
+    "label_policy": "triple_barrier_1h_2h_execution_improvement",
+    "profit_take": 0.018,
+    "same_session_last_rows_dropped": 375,
+    "stop_loss": 0.014
+  },
+  "model_rows": 9339,
+  "model_selection_rows": 3,
+  "provider_meta": {
+    "calendar_end": "2026-07-02 16:00:00",
+    "calendar_start": "2018-12-31 09:45:00",
+    "freq": "15min",
+    "instruments": {
+      "filter_pipe": [],
+      "market": "all"
+    },
+    "kernels": 1,
+    "market": "all",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "qlib_api": [
+      "qlib.init",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments"
+    ],
+    "region": "us"
+  },
+  "selected_model": {
+    "model": "lgb",
+    "report_segment": "test",
+    "selection_eligible": false,
+    "selection_metric": "valid_net_return + 4*valid_sharpe + 0.5*valid_drawdown + 0.08*avg_execution_improvement_bps + 0.03*profit_outcome_ratio",
+    "selection_score": -1018.3194390037734,
+    "selection_segment": "valid",
+    "selection_uses_test_segment": false,
+    "test_avg_execution_improvement_bps": 91.70968542384155,
+    "test_ic": 0.016538567932060943,
+    "test_max_drawdown_pct": -16.233311666184203,
+    "test_net_return_pct": 7.108521013955271,
+    "test_trades": 76.0,
+    "threshold": 0.8,
+    "valid_avg_execution_improvement_bps": 49.746330462195395,
+    "valid_max_drawdown_pct": -11.980652676900384,
+    "valid_net_return_pct": -9.211868955042101,
+    "valid_trades": 64.0
+  },
+  "selection_uses_test_segment": false,
+  "source": "qlib_dataset_intraday_execution_label_model",
+  "walk_forward_rows": 0
+}

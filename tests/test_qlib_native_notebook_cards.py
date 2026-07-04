@@ -860,6 +860,74 @@ def test_intraday_external_context_data_card_records_requested_symbols_and_fail_
     assert "外部 15m 上下文" in conclusion
 
 
+def test_agentic_alpha_intraday_external_context_label_card_records_external_features_and_partial_gate():
+    card = ROOT / "research" / "agentic_alpha_intraday_external_context_label_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_intraday_external_context_label_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    external_symbols = {"QQQ", "SMH", "SOXX", "NVDA", "AVGO", "AMD", "TSM", "ASML"}
+    assert summary["experiment"] == "agentic_alpha_intraday_external_context_label_v1"
+    assert summary["card_type"] == "intraday_execution_label_model_search"
+    assert summary["promotion_decision"] == "not_promoted_external_history_insufficient_for_required_walk_forward"
+    assert Path(summary["provider_uris"]["15min"]) == (ROOT / "data" / "qlib" / "soxl_intraday_15min").resolve()
+    assert Path(summary["provider_uris"]["external_15min"]) == (
+        ROOT / "data" / "qlib" / "soxl_external_intraday_15min"
+    ).resolve()
+    assert summary["external_intraday_context"]["provider_card"] == "research/intraday_external_context_data_v1"
+    assert set(summary["external_intraday_context"]["available_symbols"]) == external_symbols
+    assert summary["external_intraday_context"]["missing_requested_symbols"] == []
+    assert summary["external_intraday_context"]["required_walk_forward_satisfied"] is False
+    assert summary["external_intraday_context"]["data_status"] == "ok_partial_insufficient_for_full_walk_forward"
+    assert summary["feature_set"]["name"] == "execution_context_external_v2"
+    assert summary["feature_set"]["lookback_only"] is True
+    assert "qqq_smh_soxx_lead_lag_3" in summary["feature_set"]["external_features"]
+    assert "semis_breadth_mom3_pos" in summary["feature_set"]["external_features"]
+    assert "semis_equal_weight_mom3" in summary["feature_set"]["external_features"]
+    assert summary["model_selection"]["selection_segment"] == "valid"
+    assert summary["model_selection"]["report_segment"] == "test"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert set(summary["model_selection"]["models"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert summary["walk_forward"]["required_policy_satisfied"] is False
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "predictions": "artifacts/pred.pkl",
+        "labels": "artifacts/label.pkl",
+        "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+    }
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "backtest_walk_forward_metrics",
+        "cost_sensitivity",
+        "failure_modes",
+        "feature_importance",
+        "label_diagnostics",
+        "model_selection",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    model_selection = pd.read_csv(card / summary["sidecars"]["model_selection"])
+    assert set(model_selection["model"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    feature_importance = pd.read_csv(card / summary["sidecars"]["feature_importance"])
+    assert feature_importance["feature"].str.contains("semis_|qqq_|smh_|external").any()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "pred.pkl").exists()
+    assert (recorder_dir / "artifacts" / "label.pkl").exists()
+    assert (recorder_dir / "artifacts" / "model_selection" / "all_model_predictions.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_intraday_execution_label_model_card" in notebook_text
+    assert "external_provider_uri" in notebook_text
+    assert "R.start" in notebook_text
+    assert "外部 15m 上下文" in conclusion
+    assert "不晋升" in conclusion
+
+
 def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
     card = ROOT / "research" / "agentic_alpha_high_chop_execution_validation_v1"
     summary = _summary(card)

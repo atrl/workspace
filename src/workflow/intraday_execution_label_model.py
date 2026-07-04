@@ -31,6 +31,8 @@ MODEL_TARGET_COL = "target_positive"
 LABEL_POLICY = "triple_barrier_1h_2h_execution_improvement"
 EXECUTION_TIMING = "bar_t_close_signal_next_15m_open_then_horizon_or_barrier_exit"
 REQUESTED_EXTERNAL_INTRADAY_SYMBOLS = ["QQQ", "SMH", "NVDA", "AVGO", "AMD", "TSM", "ASML"]
+REQUESTED_EXTERNAL_CONTEXT_SYMBOLS = ["QQQ", "SMH", "SOXX", "NVDA", "AVGO", "AMD", "TSM", "ASML"]
+EXTERNAL_SEMIS_BREADTH_SYMBOLS = ["NVDA", "AVGO", "AMD", "TSM", "ASML"]
 QLIB_DOCS = {
     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
     "model": "https://qlib.readthedocs.io/en/latest/component/model.html",
@@ -58,6 +60,8 @@ class IntradayExecutionLabelModelSpec:
     output_dir: Path
     recorder_uri: Path
     provider_uri: Path
+    external_provider_uri: Path | None = None
+    external_provider_card: str | None = None
     market: str = "all"
     region: str = "us"
     instruments: tuple[str, str] = ("SOXL", "SOXX")
@@ -71,6 +75,9 @@ class IntradayExecutionLabelModelSpec:
     stop_loss: float = 0.014
     horizon_bars: int = 8
     purge_bars: int = 8
+    require_external_context: bool = False
+    feature_set_name: str = "execution_context_v1"
+    required_walk_forward_start: str = "2019-01-02"
 
 
 def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpec) -> dict[str, Any]:
@@ -95,8 +102,34 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
         start=f"{spec.train[0]} 09:45:00",
         end=f"{spec.test[1]} 16:00:00",
     )
+    external_raw = None
+    external_provider_meta: dict[str, Any] | None = None
+    external_context_data_status = "not_requested"
+    if spec.external_provider_uri is not None:
+        external_config = QlibProviderConfig(
+            provider_uri=spec.external_provider_uri,
+            region=spec.region,
+            market=spec.market,
+            freq="15min",
+        )
+        external_provider_meta = init_qlib_provider(external_config)
+        external_start = max(spec.train[0], external_provider_meta["calendar_start"][:10])
+        external_raw = load_qlib_feature_frame(
+            external_config,
+            instruments=REQUESTED_EXTERNAL_CONTEXT_SYMBOLS,
+            fields=["$open", "$high", "$low", "$close", "$volume", "$vwap", "$bar_index", "$bar_count"],
+            start=f"{external_start} 09:45:00",
+            end=f"{spec.test[1]} 16:00:00",
+        )
+        external_context_data_status = (
+            "ok"
+            if external_provider_meta["calendar_start"][:10] <= spec.required_walk_forward_start
+            else "ok_partial_insufficient_for_full_walk_forward"
+        )
     frame, feature_cols, label_audit = build_execution_label_frame(
         raw,
+        external_raw=external_raw,
+        require_external_context=spec.require_external_context,
         profit_take=spec.profit_take,
         stop_loss=spec.stop_loss,
         horizon_bars=spec.horizon_bars,
@@ -124,10 +157,12 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
         )
     )
     label_diagnostics = _label_diagnostics(frame, spec=spec)
-    feature_importance_frame = pd.DataFrame(feature_importance)
+    feature_importance_frame = _feature_importance_frame(feature_importance, feature_cols=feature_cols)
     analysis_summary = _analysis_summary(
         spec,
         provider_meta=provider_meta,
+        external_provider_meta=external_provider_meta,
+        external_context_data_status=external_context_data_status,
         dataset_audit=dataset_audit,
         frame=frame,
         feature_cols=feature_cols,
@@ -179,6 +214,7 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
                 selected_model=selected_model["model"],
                 selected_threshold=selected_model["threshold"],
                 selection_uses_test_segment=False,
+                external_context=bool(spec.external_provider_uri is not None),
             )
             R.log_metrics(
                 selected_valid_return_pct=selected_model["valid_net_return_pct"],
@@ -198,7 +234,12 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
 
     _remove_transient_code_snapshots(recorder_local_dir)
     recorder_artifacts = _recorder_files(recorder_local_dir)
-    promotion_decision = _promotion_decision(selected_model=selected_model, walk_forward=walk_forward)
+    promotion_decision = _promotion_decision(
+        spec=spec,
+        selected_model=selected_model,
+        walk_forward=walk_forward,
+        external_provider_meta=external_provider_meta,
+    )
     summary = {
         "experiment": spec.experiment,
         "card_type": "intraday_execution_label_model_search",
@@ -207,7 +248,7 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
         "as_of": spec.as_of,
         "market": spec.market,
         "region": spec.region,
-        "provider_uris": {"15min": spec.provider_uri.resolve().as_posix()},
+        "provider_uris": _provider_uris(spec),
         "provider_audit": {
             "15min": {
                 "provider_uri": provider_meta["provider_uri"],
@@ -218,7 +259,8 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
                 "feature_count": int(len(feature_cols)),
                 "manifest": (spec.provider_uri / "qlib_store_manifest.json").as_posix(),
             }
-        },
+        }
+        | _external_provider_audit_payload(spec, external_provider_meta=external_provider_meta, external_raw=external_raw),
         "segments": {"train": list(spec.train), "valid": list(spec.valid), "test": list(spec.test)},
         "label_policy": {
             "name": LABEL_POLICY,
@@ -235,16 +277,19 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
         },
         "execution_timing": EXECUTION_TIMING,
         "feature_set": {
-            "name": "execution_context_v1",
+            "name": spec.feature_set_name,
             "feature_count": int(len(feature_cols)),
             "lookback_only": True,
             "new_features": _execution_context_feature_names(feature_cols),
+            "external_features": _external_context_feature_names(feature_cols),
         },
-        "external_intraday_context": {
-            "available_symbols": list(spec.instruments),
-            "missing_requested_symbols": REQUESTED_EXTERNAL_INTRADAY_SYMBOLS,
-            "reason": "current 15min qlib provider contains SOXL and SOXX only",
-        },
+        "external_intraday_context": _external_context_summary(
+            spec,
+            external_provider_meta=external_provider_meta,
+            external_context_data_status=external_context_data_status,
+            frame=frame,
+            feature_cols=feature_cols,
+        ),
         "cost_bps": float(spec.cost_bps),
         "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
         "selected_model": selected_model,
@@ -260,7 +305,12 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
         },
         "walk_forward": {
             "policy": "train_to_T_minus_2_valid_T_minus_1_test_T",
-            "test_years": sorted(int(value) for value in walk_forward["test_year"].dropna().unique()),
+            "test_years": _walk_forward_years(walk_forward),
+            "required_policy_satisfied": _required_walk_forward_satisfied(
+                spec,
+                external_provider_meta=external_provider_meta,
+                walk_forward=walk_forward,
+            ),
         },
         "recorder_id": recorder_id,
         "recorder_uri": spec.recorder_uri.resolve().as_posix(),
@@ -279,6 +329,8 @@ def run_intraday_execution_label_model_card(spec: IntradayExecutionLabelModelSpe
 def build_execution_label_frame(
     raw: pd.DataFrame,
     *,
+    external_raw: pd.DataFrame | None = None,
+    require_external_context: bool = False,
     profit_take: float = 0.018,
     stop_loss: float = 0.014,
     horizon_bars: int = 8,
@@ -315,6 +367,18 @@ def build_execution_label_frame(
     frame["soxl_minus_3x_soxx_mom3"] = frame["soxl_mom_3"] - 3.0 * frame["soxx_mom_3"]
     frame["range_ratio_soxl_soxx"] = frame["soxl_range"] / (frame["soxx_range"] + 1e-12)
     frame, context_features = _add_execution_context_features(frame)
+    external_context_features: list[str] = []
+    external_context_audit: dict[str, Any] = {"external_context_requested": False}
+    if external_raw is not None:
+        external_context, external_context_features, external_context_audit = build_external_context_feature_frame(
+            external_raw
+        )
+        frame, external_context_features, merge_audit = merge_external_context_features(frame, external_context)
+        external_context_audit = external_context_audit | merge_audit
+        if require_external_context:
+            frame = frame.loc[frame["external_context_available"]].copy()
+    elif require_external_context:
+        raise ValueError("external context is required but external_raw is None")
     frame, label_audit = _add_execution_labels(
         frame,
         profit_take=profit_take,
@@ -352,13 +416,107 @@ def build_execution_label_frame(
             "soxl_minus_3x_soxx_mom3",
             "range_ratio_soxl_soxx",
             *context_features,
+            *external_context_features,
         ]
     )
     feature_cols = _dedupe_preserve_order(feature_cols)
     frame[feature_cols] = frame[feature_cols].replace([np.inf, -np.inf], np.nan).fillna(0.0)
     frame = frame.dropna(subset=["entry_datetime", RETURN_COL, MODEL_TARGET_COL]).copy()
     frame["date"] = pd.to_datetime(frame["date"].astype(str)).dt.date.astype(str)
+    label_audit["external_context"] = external_context_audit
     return frame.reset_index(drop=True), feature_cols, label_audit
+
+
+def build_external_context_feature_frame(raw: pd.DataFrame) -> tuple[pd.DataFrame, list[str], dict[str, Any]]:
+    external = _wide_feature_frame(raw).sort_values("datetime").reset_index(drop=True)
+    external["date"] = pd.to_datetime(external["date"].astype(str)).dt.date
+    available_symbols = sorted(
+        symbol.upper()
+        for symbol in {column.split("_", 1)[0] for column in external.columns if column.endswith("_close")}
+    )
+    external = external.rename(
+        columns={column: column.replace("soxx_", "external_soxx_", 1) for column in external.columns if column.startswith("soxx_")}
+    )
+    feature_cols: list[str] = []
+    for symbol in REQUESTED_EXTERNAL_CONTEXT_SYMBOLS:
+        prefix = _external_context_column_prefix(symbol)
+        if f"{prefix}_close" not in external:
+            continue
+        external[f"{prefix}_ret_bar"] = external[f"{prefix}_close"] / external[f"{prefix}_open"] - 1.0
+        external[f"{prefix}_ret_cc1"] = external.groupby("date")[f"{prefix}_close"].pct_change()
+        external[f"{prefix}_mom_3"] = external.groupby("date")[f"{prefix}_close"].pct_change(3)
+        if f"{prefix}_vwap" in external:
+            external[f"{prefix}_vwap_dist"] = external[f"{prefix}_close"] / (external[f"{prefix}_vwap"] + 1e-12) - 1.0
+        else:
+            external[f"{prefix}_vwap_dist"] = 0.0
+        feature_cols.extend(
+            [
+                f"{prefix}_ret_bar",
+                f"{prefix}_ret_cc1",
+                f"{prefix}_mom_3",
+                f"{prefix}_vwap_dist",
+            ]
+        )
+    for symbol in ["QQQ", "SMH", "SOXX"]:
+        prefix = _external_context_column_prefix(symbol)
+        if f"{prefix}_mom_3" in external:
+            external[f"{prefix}_lead_lag_vs_soxl_3"] = external[f"{prefix}_mom_3"]
+            feature_cols.append(f"{prefix}_lead_lag_vs_soxl_3")
+    leader_mom_cols = [f"{symbol.lower()}_mom_3" for symbol in EXTERNAL_SEMIS_BREADTH_SYMBOLS if f"{symbol.lower()}_mom_3" in external]
+    leader_ret_cols = [f"{symbol.lower()}_ret_cc1" for symbol in EXTERNAL_SEMIS_BREADTH_SYMBOLS if f"{symbol.lower()}_ret_cc1" in external]
+    leader_vwap_cols = [
+        f"{symbol.lower()}_vwap_dist" for symbol in EXTERNAL_SEMIS_BREADTH_SYMBOLS if f"{symbol.lower()}_vwap_dist" in external
+    ]
+    if leader_mom_cols:
+        external["semis_breadth_mom3_pos"] = (external[leader_mom_cols] > 0.0).mean(axis=1)
+        external["semis_equal_weight_mom3"] = external[leader_mom_cols].mean(axis=1)
+        feature_cols.extend(["semis_breadth_mom3_pos", "semis_equal_weight_mom3"])
+    if leader_ret_cols:
+        external["semis_breadth_ret_pos_1"] = (external[leader_ret_cols] > 0.0).mean(axis=1)
+        feature_cols.append("semis_breadth_ret_pos_1")
+    if leader_vwap_cols:
+        external["semis_vwap_breadth"] = (external[leader_vwap_cols] > 0.0).mean(axis=1)
+        feature_cols.append("semis_vwap_breadth")
+    required_close_cols = [
+        f"{_external_context_column_prefix(symbol)}_close"
+        for symbol in REQUESTED_EXTERNAL_CONTEXT_SYMBOLS
+        if f"{_external_context_column_prefix(symbol)}_close" in external
+    ]
+    external["external_context_available"] = external[required_close_cols].notna().all(axis=1) if required_close_cols else False
+    feature_cols = _dedupe_preserve_order([column for column in feature_cols if column in external.columns])
+    external[feature_cols] = external[feature_cols].replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    return external[["datetime", "external_context_available", *feature_cols]].copy(), feature_cols, {
+        "external_context_requested": True,
+        "available_symbols": available_symbols,
+        "missing_symbols": sorted(set(REQUESTED_EXTERNAL_CONTEXT_SYMBOLS) - set(available_symbols)),
+        "external_context_rows": int(len(external)),
+        "coverage_start": _format_datetime(external["datetime"].min()) if not external.empty else "",
+        "coverage_end": _format_datetime(external["datetime"].max()) if not external.empty else "",
+    }
+
+
+def merge_external_context_features(
+    frame: pd.DataFrame,
+    external_context: pd.DataFrame,
+) -> tuple[pd.DataFrame, list[str], dict[str, Any]]:
+    feature_cols = [column for column in external_context.columns if column not in {"datetime", "external_context_available"}]
+    merged = frame.merge(external_context, on="datetime", how="left")
+    merged["external_context_available"] = merged["external_context_available"].fillna(False).astype(bool)
+    for column in feature_cols:
+        merged[column] = pd.to_numeric(merged[column], errors="coerce").fillna(0.0)
+    if {"qqq_mom_3", "smh_mom_3", "external_soxx_mom_3", "soxl_mom_3"}.issubset(merged.columns):
+        merged["qqq_smh_soxx_lead_lag_3"] = (
+            merged[["qqq_mom_3", "smh_mom_3", "external_soxx_mom_3"]].mean(axis=1)
+            - merged["soxl_mom_3"] / 3.0
+        )
+        feature_cols.append("qqq_smh_soxx_lead_lag_3")
+    feature_cols = _dedupe_preserve_order([column for column in feature_cols if column in merged.columns])
+    return merged, feature_cols, {
+        "external_context_rows": int(len(external_context)),
+        "merged_rows": int(len(merged)),
+        "available_rows": int(merged["external_context_available"].sum()),
+        "lookback_only": True,
+    }
 
 
 def _add_execution_context_features(frame: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
@@ -600,6 +758,19 @@ def _fit_predict_once(
         }
     )
     return model_metrics, merged, feature_importance
+
+
+def _feature_importance_frame(feature_importance: list[dict[str, Any]], *, feature_cols: list[str]) -> pd.DataFrame:
+    frame = pd.DataFrame(feature_importance)
+    recorded = set(frame["feature"]) if not frame.empty and "feature" in frame.columns else set()
+    filler_rows = [
+        {"model": "feature_set", "feature": feature, "importance": 0.0}
+        for feature in _external_context_feature_names(feature_cols)
+        if feature not in recorded
+    ]
+    if filler_rows:
+        frame = pd.concat([frame, pd.DataFrame(filler_rows)], ignore_index=True)
+    return frame
 
 
 def _merge_prediction_frames(frames: list[pd.DataFrame]) -> pd.DataFrame:
@@ -854,6 +1025,8 @@ def _analysis_summary(
     spec: IntradayExecutionLabelModelSpec,
     *,
     provider_meta: dict[str, Any],
+    external_provider_meta: dict[str, Any] | None = None,
+    external_context_data_status: str = "not_requested",
     dataset_audit: dict[str, Any],
     frame: pd.DataFrame,
     feature_cols: list[str],
@@ -874,10 +1047,13 @@ def _analysis_summary(
         "model_selection_rows": int(len(model_selection)),
         "walk_forward_rows": int(len(walk_forward)),
         "selection_uses_test_segment": False,
-        "external_intraday_context_limitations": {
-            "available_symbols": list(spec.instruments),
-            "missing_requested_symbols": REQUESTED_EXTERNAL_INTRADAY_SYMBOLS,
-        },
+        "external_intraday_context": _external_context_summary(
+            spec,
+            external_provider_meta=external_provider_meta,
+            external_context_data_status=external_context_data_status,
+            frame=frame,
+            feature_cols=feature_cols,
+        ),
     }
 
 
@@ -890,6 +1066,11 @@ def _write_workflow_yaml(spec: IntradayExecutionLabelModelSpec) -> Path:
                 "qlib:",
                 f"  recorder_uri: {spec.recorder_uri.resolve().as_posix()}",
                 f"  provider_uri: {spec.provider_uri.resolve().as_posix()}",
+                *(
+                    [f"  external_provider_uri: {spec.external_provider_uri.resolve().as_posix()}"]
+                    if spec.external_provider_uri is not None
+                    else []
+                ),
                 f"  market: {spec.market}",
                 f"  region: {spec.region}",
                 "segments:",
@@ -952,10 +1133,15 @@ def _write_sidecars(
         json.dumps(analysis_summary, indent=2, sort_keys=True),
         encoding="utf-8",
     )
+    external_context_line = (
+        "- 外部上下文已接入 QQQ/SMH/SOXX 与 NVDA/AVGO/AMD/TSM/ASML 的 15min qlib store，但历史从 2025 才开始，不能满足 2019 起步的完整 walk-forward。\n"
+        if spec.external_provider_uri is not None
+        else "- 当前 15min qlib provider 只有 SOXL/SOXX；QQQ/SMH 和 NVDA/AVGO/AMD/TSM/ASML 分钟级上下文尚未进入 qlib store。\n"
+    )
     failure_modes = (
         "# Failure Modes\n\n"
         "- Label 已从下一根 15m 涨跌升级到 triple-barrier + execution-improvement，但仍是 bar 数据回放，不是 bid/ask 或队列成交。\n"
-        "- 当前 15min qlib provider 只有 SOXL/SOXX；QQQ/SMH 和 NVDA/AVGO/AMD/TSM/ASML 分钟级上下文尚未进入 qlib store。\n"
+        f"{external_context_line}"
         "- Walk-forward 只允许 valid 选阈值，test 只报告；如果某一年失败，不能用 2026 test 表现反向调参。\n"
         "- 该模型仍然只适合作为日级仓位模型的执行层候选，不应替代日级 open-to-open 趋势仓位模型。\n"
     )
@@ -979,7 +1165,15 @@ def _artifact_policy(experiment: str, sidecars: dict[str, str]) -> dict[str, Any
     }
 
 
-def _promotion_decision(*, selected_model: dict[str, Any], walk_forward: pd.DataFrame) -> str:
+def _promotion_decision(
+    *,
+    spec: IntradayExecutionLabelModelSpec,
+    selected_model: dict[str, Any],
+    walk_forward: pd.DataFrame,
+    external_provider_meta: dict[str, Any] | None = None,
+) -> str:
+    if not _required_walk_forward_satisfied(spec, external_provider_meta=external_provider_meta, walk_forward=walk_forward):
+        return "not_promoted_external_history_insufficient_for_required_walk_forward"
     if float(selected_model.get("test_net_return_pct", 0.0)) <= 0.0:
         return "not_promoted_test_return_failed"
     if walk_forward.empty or (walk_forward["test_net_return_pct"] > 0.0).mean() < 0.75:
@@ -995,16 +1189,28 @@ def _write_conclusion(
     walk_forward: pd.DataFrame,
 ) -> None:
     wf_positive = float((walk_forward["test_net_return_pct"] > 0.0).mean()) if not walk_forward.empty else 0.0
+    external_sentence = (
+        "并接入外部 15m 上下文：QQQ/SMH/SOXX lead-lag，NVDA/AVGO/AMD/TSM/ASML 半导体成分股 breadth/equal-weight。"
+        if spec.external_provider_uri is not None
+        else ""
+    )
+    risk_sentence = (
+        "- 风险：外部 15m 上下文只有 2025-01-02 之后的数据，完整 train-to-T-2 / valid-T-1 / test-T 的 2019 起步 walk-forward 不满足；"
+        "真实执行还缺 bid/ask replay、排队成交、延迟和极端波动成交验证。\n"
+        if spec.external_provider_uri is not None
+        else "- 风险：当前分钟级外部上下文只有 SOXL/SOXX，QQQ/SMH 与 NVDA/AVGO/AMD/TSM/ASML 还没有分钟级 qlib store；"
+        "真实执行还缺 bid/ask replay、排队成交、延迟和极端波动成交验证。\n"
+    )
     text = (
         "# 中文结论\n\n"
         "- 做了什么：把 15m 日内模型的 label 从下一根 bar 涨跌升级为 triple-barrier + execution-improvement，"
-        "并加入 open gap、VWAP 距离、realized vol 扩张、前 30/60 分钟趋势质量、量价吸收/派发、SOXX lead-lag 等同日上下文因子。\n"
+        "并加入 open gap、VWAP 距离、realized vol 扩张、前 30/60 分钟趋势质量、量价吸收/派发、SOXX lead-lag 等同日上下文因子。"
+        f"{external_sentence}\n"
         f"- 核心指标：validation 选择 {selected_model['model']}，valid return_pct={selected_model['valid_net_return_pct']:.4f}、"
         f"test return_pct={selected_model['test_net_return_pct']:.4f}、test max_drawdown_pct={selected_model['test_max_drawdown_pct']:.4f}。\n"
         f"- walk-forward：按 train 到 T-2、valid T-1、test T 记录 2023-2026，正收益比例={wf_positive:.2f}。\n"
         f"- 是否晋升：不晋升；decision={summary['promotion_decision']}。它是执行层候选，不替代日级 open-to-open 仓位模型。\n"
-        "- 风险：当前分钟级外部上下文只有 SOXL/SOXX，QQQ/SMH 与 NVDA/AVGO/AMD/TSM/ASML 还没有分钟级 qlib store；"
-        "真实执行还缺 bid/ask replay、排队成交、延迟和极端波动成交验证。\n"
+        f"{risk_sentence}"
         f"- qlib recorder：{summary['recorder_id']}\n"
     )
     (spec.output_dir / "conclusion.md").write_text(text, encoding="utf-8")
@@ -1022,3 +1228,142 @@ def _execution_context_feature_names(feature_cols: list[str]) -> list[str]:
         "open_gap_reclaim_quality",
     ]
     return [feature for feature in prefixes if feature in feature_cols]
+
+
+def _provider_uris(spec: IntradayExecutionLabelModelSpec) -> dict[str, str]:
+    provider_uris = {"15min": spec.provider_uri.resolve().as_posix()}
+    if spec.external_provider_uri is not None:
+        provider_uris["external_15min"] = spec.external_provider_uri.resolve().as_posix()
+    return provider_uris
+
+
+def _external_provider_audit_payload(
+    spec: IntradayExecutionLabelModelSpec,
+    *,
+    external_provider_meta: dict[str, Any] | None,
+    external_raw: pd.DataFrame | None,
+) -> dict[str, Any]:
+    if spec.external_provider_uri is None:
+        return {}
+    payload = {
+        "external_15min": {
+            "provider_uri": spec.external_provider_uri.resolve().as_posix(),
+            "provider_card": spec.external_provider_card,
+            "requested_symbols": REQUESTED_EXTERNAL_CONTEXT_SYMBOLS,
+            "qlib_feature_rows": int(len(external_raw)) if external_raw is not None else 0,
+            "manifest": (spec.external_provider_uri / "qlib_store_manifest.json").as_posix(),
+        }
+    }
+    if external_provider_meta is not None:
+        payload["external_15min"].update(
+            {
+                "calendar_start": external_provider_meta["calendar_start"],
+                "calendar_end": external_provider_meta["calendar_end"],
+            }
+        )
+    return payload
+
+
+def _external_context_summary(
+    spec: IntradayExecutionLabelModelSpec,
+    *,
+    external_provider_meta: dict[str, Any] | None,
+    external_context_data_status: str,
+    frame: pd.DataFrame,
+    feature_cols: list[str],
+) -> dict[str, Any]:
+    if spec.external_provider_uri is None:
+        return {
+            "available_symbols": list(spec.instruments),
+            "missing_requested_symbols": REQUESTED_EXTERNAL_INTRADAY_SYMBOLS,
+            "reason": "current 15min qlib provider contains SOXL and SOXX only",
+        }
+
+    label_external = {}
+    if "external_context" in frame.attrs:
+        label_external = frame.attrs["external_context"]
+    external_label_audit = {}
+    if "external_context_available" in frame.columns:
+        external_label_audit["available_rows"] = int(frame["external_context_available"].sum())
+
+    available_symbols = REQUESTED_EXTERNAL_CONTEXT_SYMBOLS
+    missing_symbols: list[str] = []
+    if external_provider_meta is not None:
+        manifest_path = spec.external_provider_uri / "qlib_store_manifest.json"
+        if manifest_path.exists():
+            try:
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                available_symbols = sorted(str(symbol).upper() for symbol in manifest.get("instruments", available_symbols))
+                missing_symbols = sorted(set(REQUESTED_EXTERNAL_CONTEXT_SYMBOLS) - set(available_symbols))
+            except json.JSONDecodeError:
+                missing_symbols = []
+
+    return {
+        "provider_uri": spec.external_provider_uri.resolve().as_posix(),
+        "provider_card": spec.external_provider_card,
+        "requested_symbols": REQUESTED_EXTERNAL_CONTEXT_SYMBOLS,
+        "available_symbols": available_symbols,
+        "missing_requested_symbols": missing_symbols,
+        "data_status": external_context_data_status,
+        "coverage_start": external_provider_meta["calendar_start"] if external_provider_meta is not None else "",
+        "coverage_end": external_provider_meta["calendar_end"] if external_provider_meta is not None else "",
+        "required_walk_forward_start": spec.required_walk_forward_start,
+        "required_walk_forward_satisfied": bool(
+            external_provider_meta is not None
+            and external_provider_meta["calendar_start"][:10] <= spec.required_walk_forward_start
+        ),
+        "feature_count": len(_external_context_feature_names(feature_cols)),
+        "features": _external_context_feature_names(feature_cols),
+        **label_external,
+        **external_label_audit,
+    }
+
+
+def _external_context_feature_names(feature_cols: list[str]) -> list[str]:
+    prefixes = (
+        "qqq_",
+        "smh_",
+        "external_soxx_",
+        "nvda_",
+        "avgo_",
+        "amd_",
+        "tsm_",
+        "asml_",
+        "semis_",
+        "qqq_smh_soxx_lead_lag_",
+    )
+    return [feature for feature in feature_cols if feature.startswith(prefixes)]
+
+
+def _external_context_column_prefix(symbol: str) -> str:
+    normalized = symbol.lower()
+    return "external_soxx" if normalized == "soxx" else normalized
+
+
+def _walk_forward_years(walk_forward: pd.DataFrame) -> list[int]:
+    if walk_forward.empty or "test_year" not in walk_forward.columns:
+        return []
+    return sorted(int(value) for value in walk_forward["test_year"].dropna().unique())
+
+
+def _required_walk_forward_satisfied(
+    spec: IntradayExecutionLabelModelSpec,
+    *,
+    external_provider_meta: dict[str, Any] | None,
+    walk_forward: pd.DataFrame,
+) -> bool:
+    years = set(_walk_forward_years(walk_forward))
+    has_required_folds = years >= {2023, 2024, 2025, 2026}
+    if spec.external_provider_uri is None:
+        return has_required_folds
+    return bool(
+        external_provider_meta is not None
+        and external_provider_meta["calendar_start"][:10] <= spec.required_walk_forward_start
+        and has_required_folds
+    )
+
+
+def _format_datetime(value: Any) -> str:
+    if pd.isna(value):
+        return ""
+    return pd.Timestamp(value).strftime("%Y-%m-%d %H:%M:%S")
