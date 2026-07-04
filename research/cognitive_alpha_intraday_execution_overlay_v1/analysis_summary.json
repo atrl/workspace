@@ -166,6 +166,76 @@
   },
   "execution_risk_diagnostics_rows": 30,
   "model_comparison_rows": 10,
+  "optimization_plan": {
+    "external_context_gap": {
+      "earliest_any_symbol_regular_session": "2024-07-05 09:45:00",
+      "earliest_complete_symbol_regular_session": "2025-01-02 09:45:00",
+      "full_walk_forward_history_available": false,
+      "full_walk_forward_start": "2019-01-02",
+      "latest_any_symbol_regular_session": "2026-07-02 16:00:00",
+      "latest_complete_symbol_regular_session": "2026-07-02 16:00:00",
+      "missing_required_history_years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "next_data_action": "upgrade_polygon_history_plan_or_load_alternate_15min_source",
+      "provider_blocker_status_counts": {
+        "blocked_no_rows": 1,
+        "blocked_provider_history": 4,
+        "blocked_provider_rate_limit": 8
+      },
+      "requested_end": "2026-07-02",
+      "requested_start": "2019-01-02"
+    },
+    "external_context_status": "not_used",
+    "guardrails": [
+      "selection_uses_validation_only",
+      "test_segment_report_only",
+      "retain_85_to_95_pct_return_band",
+      "max_drawdown_above_minus_18_pct",
+      "use_5min_only_as_replay_or_feature_probe_until_walk_forward_passes"
+    ],
+    "local_intraday_history": {
+      "calendar_end": "2026-07-02 16:00:00",
+      "calendar_end_5min": "2026-07-02 16:00:00",
+      "calendar_start": "2018-12-31 09:45:00",
+      "calendar_start_5min": "2018-12-31 09:35:00",
+      "freq": "15min",
+      "freq_5min": "5min",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "status": "ok",
+      "supports_5min_probe": true,
+      "supports_required_start": true
+    },
+    "primary_next_action": "replace_open_gate_with_delayed_observable_label",
+    "ranked_actions": [
+      {
+        "action": "replace_open_gate_with_delayed_observable_label",
+        "rank": 1,
+        "reason": "The validation-only execution overlay selected baseline, so the current 15m gate adds no edge."
+      },
+      {
+        "action": "search_local_intraday_risk_sleeve",
+        "rank": 2,
+        "reason": "Optimize only for open-buy-then-dump and same-day risk reduction before changing position size."
+      }
+    ],
+    "selected_overlay_status": {
+      "annual_walk_forward_required_policy_satisfied": false,
+      "conditional_walk_forward_required_policy_satisfied": false,
+      "test_max_drawdown_pct": -18.37863266325662,
+      "test_return_retention_pct": 100.0,
+      "variant": "baseline_next_open"
+    },
+    "status": "needs_new_intraday_factor_or_label"
+  },
   "selected_model": {
     "report_segment": "test",
     "risk_threshold": 0.4069250263853126,

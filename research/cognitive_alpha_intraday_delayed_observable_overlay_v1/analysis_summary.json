@@ -213,6 +213,82 @@
     }
   ],
   "model_comparison_rows": 12,
+  "optimization_plan": {
+    "external_context_gap": {
+      "earliest_any_symbol_regular_session": "2024-07-05 09:45:00",
+      "earliest_complete_symbol_regular_session": "2025-01-02 09:45:00",
+      "full_walk_forward_history_available": false,
+      "full_walk_forward_start": "2019-01-02",
+      "latest_any_symbol_regular_session": "2026-07-02 16:00:00",
+      "latest_complete_symbol_regular_session": "2026-07-02 16:00:00",
+      "missing_required_history_years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "next_data_action": "upgrade_polygon_history_plan_or_load_alternate_15min_source",
+      "provider_blocker_status_counts": {
+        "blocked_no_rows": 1,
+        "blocked_provider_history": 4,
+        "blocked_provider_rate_limit": 8
+      },
+      "requested_end": "2026-07-02",
+      "requested_start": "2019-01-02"
+    },
+    "external_context_status": "blocked_history_insufficient",
+    "guardrails": [
+      "selection_uses_validation_only",
+      "test_segment_report_only",
+      "retain_85_to_95_pct_return_band",
+      "max_drawdown_above_minus_18_pct",
+      "do_not_continue_external_threshold_search",
+      "use_5min_only_as_replay_or_feature_probe_until_walk_forward_passes"
+    ],
+    "local_intraday_history": {
+      "calendar_end": "2026-07-02 16:00:00",
+      "calendar_end_5min": "2026-07-02 16:00:00",
+      "calendar_start": "2018-12-31 09:45:00",
+      "calendar_start_5min": "2018-12-31 09:35:00",
+      "freq": "15min",
+      "freq_5min": "5min",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "status": "ok",
+      "supports_5min_probe": true,
+      "supports_required_start": true
+    },
+    "primary_next_action": "run_soxl_soxx_intraday_only_annual_walk_forward",
+    "ranked_actions": [
+      {
+        "action": "run_soxl_soxx_intraday_only_annual_walk_forward",
+        "rank": 1,
+        "reason": "Local SOXL/SOXX 15m history covers the required annual walk-forward start; external context history does not."
+      },
+      {
+        "action": "train_local_lgb_xgb_execution_label",
+        "rank": 2,
+        "reason": "Use only observable SOXL/SOXX 15m features first: gap reclaim, VWAP distance, realized-vol expansion, 30/60m trend quality, absorption, and drawdown from open."
+      },
+      {
+        "action": "backfill_external_context_history_before_threshold_search",
+        "rank": 3,
+        "reason": "External QQQ/SMH/constituent lead-lag features need full history before promotion gates."
+      }
+    ],
+    "selected_overlay_status": {
+      "annual_walk_forward_required_policy_satisfied": false,
+      "conditional_walk_forward_required_policy_satisfied": false,
+      "test_max_drawdown_pct": -11.018195244224028,
+      "test_return_retention_pct": 86.11136625849181,
+      "variant": "delayed_signal_after_30m"
+    },
+    "status": "needs_local_intraday_fallback"
+  },
   "policy_candidate_count": 28416,
   "policy_selection_rows": 85248,
   "selected_model": {

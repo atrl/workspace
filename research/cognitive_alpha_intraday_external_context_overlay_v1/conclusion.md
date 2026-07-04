@@ -11,6 +11,7 @@
 - 最新条件 sleeve fold：wf_2026 validation 选择 overlay_b_twap3 probability le 0.6202；test retention=88.42%，test max_dd=-15.45%，20/50bp valid+test 过关数=2。
 - walk-forward：要求 [2023, 2024, 2025, 2026] 年度 train_to_T-2/valid_T-1/test_T；当前 feasible 年份=[2026]，缺失=[2023, 2024, 2025]，required_policy_satisfied=False。
 - 最新年度 fold：wf_2026 validation 选择 overlay_a_signal_gate，test retention=76.82%，test max_dd=-15.02%，passes_target=False。
+- 优化方向：status=needs_local_intraday_fallback；next=run_soxl_soxx_intraday_only_annual_walk_forward。若外部 context 历史不足，先跑本地 SOXL/SOXX 15m/5m annual walk-forward fallback，不要继续在短历史外部阈值上调参。
 - 是否晋升：not_promoted_external_intraday_history_insufficient。selected test retention=76.82% 未过 85%-95% 目标，说明 validation-only 选择仍不能推广。
 - 风险：这不是独立日内 alpha；它依赖日级模型的趋势和隔夜收益来源。真实推广前还要补 bid/ask replay、成交队列、延迟和盘前盘后风险验证。
-- qlib recorder：cf7b86e2de3a4d8e883a77e14534395b
+- qlib recorder：4dcf3fc070c94946a8489b291d3db8be

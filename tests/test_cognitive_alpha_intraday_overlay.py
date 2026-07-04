@@ -6,6 +6,7 @@ import pytest
 import src.workflow.cognitive_alpha_intraday_overlay as overlay_workflow
 from src.workflow.cognitive_alpha_intraday_overlay import (
     CognitiveAlphaIntradayOverlaySpec,
+    build_intraday_optimization_plan,
     evaluate_conditional_overlay_candidates,
     evaluate_observable_delayed_signal_candidates,
     select_conditional_risk_sleeve_policy,
@@ -15,6 +16,95 @@ from src.workflow.cognitive_alpha_intraday_overlay import (
     simulate_observable_delayed_signal_overlay,
     simulate_execution_overlays,
 )
+
+
+def test_build_intraday_optimization_plan_prefers_local_fallback_when_external_history_blocked():
+    plan = build_intraday_optimization_plan(
+        selected_model={
+            "variant": "delayed_signal_after_30m",
+            "passes_validation_and_test_target": True,
+            "test_return_retention_pct": 86.1,
+            "test_max_drawdown_pct": -11.0,
+        },
+        walk_forward_summary={
+            "required_policy_satisfied": False,
+            "blocking_reasons": [
+                "annual_walk_forward_not_run",
+                "insufficient_external_intraday_history",
+                "source_intraday_walk_forward_not_satisfied",
+            ],
+            "missing_required_test_years": [2023, 2024, 2025, 2026],
+        },
+        conditional_walk_forward_summary={
+            "required_policy_satisfied": False,
+            "target_failure_years": [2023, 2024, 2025],
+        },
+        source_intraday_model={"external_context": {"provider_uri": "/tmp/external"}},
+        local_intraday_manifest={
+            "status": "ok",
+            "freq": "15min",
+            "calendar_start": "2018-12-31 09:45:00",
+            "calendar_end": "2026-07-02 16:00:00",
+            "instruments": ["SOXL", "SOXX"],
+        },
+        local_intraday_5min_manifest={
+            "status": "ok",
+            "freq": "5min",
+            "calendar_start": "2018-12-31 09:35:00",
+            "calendar_end": "2026-07-02 16:00:00",
+            "instruments": ["SOXL", "SOXX"],
+        },
+        external_context_summary={
+            "coverage_gap_analysis": {
+                "full_walk_forward_history_available": False,
+                "earliest_complete_symbol_regular_session": "2025-01-02 09:45:00",
+                "missing_required_history_years": [2019, 2020, 2021, 2022, 2023, 2024],
+            }
+        },
+    )
+
+    assert plan["status"] == "needs_local_intraday_fallback"
+    assert plan["primary_next_action"] == "run_soxl_soxx_intraday_only_annual_walk_forward"
+    assert plan["external_context_status"] == "blocked_history_insufficient"
+    assert plan["local_intraday_history"]["supports_required_start"] is True
+    assert plan["local_intraday_history"]["supports_5min_probe"] is True
+    assert plan["ranked_actions"][0]["action"] == "run_soxl_soxx_intraday_only_annual_walk_forward"
+    assert "do_not_continue_external_threshold_search" in plan["guardrails"]
+
+
+def test_build_intraday_optimization_plan_does_not_apply_external_gap_to_local_source():
+    plan = build_intraday_optimization_plan(
+        selected_model={
+            "variant": "baseline_next_open",
+            "test_return_retention_pct": 100.0,
+            "test_max_drawdown_pct": -18.4,
+        },
+        walk_forward_summary={
+            "required_policy_satisfied": False,
+            "blocking_reasons": [],
+            "missing_required_test_years": [],
+        },
+        conditional_walk_forward_summary={"required_policy_satisfied": False},
+        source_intraday_model={"external_context": {}},
+        local_intraday_manifest={
+            "status": "ok",
+            "freq": "15min",
+            "calendar_start": "2018-12-31 09:45:00",
+            "calendar_end": "2026-07-02 16:00:00",
+            "instruments": ["SOXL", "SOXX"],
+        },
+        external_context_summary={
+            "coverage_gap_analysis": {
+                "full_walk_forward_history_available": False,
+                "missing_required_history_years": [2019, 2020, 2021, 2022, 2023, 2024],
+            }
+        },
+    )
+
+    assert plan["external_context_status"] == "not_used"
+    assert plan["status"] == "needs_new_intraday_factor_or_label"
+    assert plan["primary_next_action"] == "replace_open_gate_with_delayed_observable_label"
+    assert "do_not_continue_external_threshold_search" not in plan["guardrails"]
 
 
 def test_simulate_execution_overlays_delays_entry_and_records_intraday_variants():

@@ -10,6 +10,7 @@
 - 最新条件 sleeve fold：wf_2026 validation 选择 overlay_b_twap3 probability le 0.6202；test retention=88.42%，test max_dd=-15.45%，20/50bp valid+test 过关数=2。
 - walk-forward：要求 [2023, 2024, 2025, 2026] 年度 train_to_T-2/valid_T-1/test_T；当前 feasible 年份=[2023, 2024, 2025, 2026]，缺失=[]，required_policy_satisfied=False。
 - 最新年度 fold：wf_2026 validation 选择 overlay_a_signal_gate，test retention=13.54%，test max_dd=-0.01%，passes_target=False。
+- 优化方向：status=needs_new_intraday_factor_or_label；next=replace_open_gate_with_delayed_observable_label。当前本地 15m gate 仍选 baseline，下一步先换 delayed observable label 和本地 open-buy-dump 风险因子，不要强推现有 gate。
 - 是否晋升：not_promoted_overlay_did_not_beat_daily_execution。selected 仍是 baseline，当前 15m 执行层没有可靠超过 next-open 一次成交。
 - 风险：这不是独立日内 alpha；它依赖日级模型的趋势和隔夜收益来源。真实推广前还要补 bid/ask replay、成交队列、延迟和盘前盘后风险验证。
-- qlib recorder：7ad30f66eb4d497d86a4a76ad59378da
+- qlib recorder：3ebe5a033eec40a99297255b6aa236d2

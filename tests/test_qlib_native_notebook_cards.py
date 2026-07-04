@@ -717,6 +717,8 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert summary["walk_forward"]["feasible_test_years"] == [2023, 2024, 2025, 2026]
     assert summary["walk_forward"]["missing_required_test_years"] == []
     assert summary["walk_forward"]["required_policy_satisfied"] is False
+    assert summary["optimization_plan"]["status"] == "needs_new_intraday_factor_or_label"
+    assert summary["optimization_plan"]["primary_next_action"] == "replace_open_gate_with_delayed_observable_label"
     assert set(walk_forward["blocking_reason"]) == {"ok"}
     assert walk_forward["test_passes_target"].eq(False).all()
     daily_source_audit = pd.read_csv(card / summary["sidecars"]["daily_position_source_audit"])
@@ -785,6 +787,10 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert summary["walk_forward"]["feasible_test_years"] == [2026]
     assert summary["walk_forward"]["missing_required_test_years"] == [2023, 2024, 2025]
     assert "missing_intraday_prediction_coverage" in summary["walk_forward"]["blocking_reasons"]
+    assert summary["optimization_plan"]["status"] == "needs_local_intraday_fallback"
+    assert summary["optimization_plan"]["primary_next_action"] == "run_soxl_soxx_intraday_only_annual_walk_forward"
+    assert summary["optimization_plan"]["external_context_status"] == "blocked_history_insufficient"
+    assert summary["optimization_plan"]["local_intraday_history"]["supports_required_start"] is True
     assert "not_promoted" in summary["promotion_decision"]
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
@@ -976,6 +982,11 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["walk_forward"]["missing_required_test_years"] == [2023, 2024, 2025, 2026]
     assert summary["walk_forward"]["data_status"] == "ok_partial_insufficient_for_full_walk_forward"
     assert "insufficient_external_intraday_history" in summary["walk_forward"]["blocking_reasons"]
+    assert summary["optimization_plan"]["status"] == "needs_local_intraday_fallback"
+    assert summary["optimization_plan"]["primary_next_action"] == "run_soxl_soxx_intraday_only_annual_walk_forward"
+    assert summary["optimization_plan"]["external_context_status"] == "blocked_history_insufficient"
+    assert summary["optimization_plan"]["local_intraday_history"]["supports_5min_probe"] is True
+    assert "do_not_continue_external_threshold_search" in summary["optimization_plan"]["guardrails"]
     assert summary["selected_model"]["validation_passes_target"] is True
     assert summary["selected_model"]["passes_test_target"] is True
     assert summary["selected_model"]["passes_validation_and_test_target"] is True
@@ -1030,6 +1041,7 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
 
     analysis_summary = json.loads((card / summary["sidecars"]["analysis_summary"]).read_text(encoding="utf-8"))
     assert analysis_summary["data_audit"]["daily_selected_position_start"] == "2025-01-02"
+    assert analysis_summary["optimization_plan"]["status"] == "needs_local_intraday_fallback"
 
     selected_costs = pd.read_csv(card / summary["sidecars"]["selected_policy_cost_sensitivity"])
     required = selected_costs.loc[selected_costs["cost_bps"].isin([20.0, 50.0])]

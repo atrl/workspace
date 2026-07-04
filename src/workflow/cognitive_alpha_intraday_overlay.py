@@ -53,6 +53,209 @@ OPEN_BUY_DUMP_THRESHOLD = -0.03
 CRASH_THRESHOLD = -0.08
 
 
+def build_intraday_optimization_plan(
+    *,
+    selected_model: dict[str, Any],
+    walk_forward_summary: dict[str, Any],
+    conditional_walk_forward_summary: dict[str, Any] | None = None,
+    source_intraday_model: dict[str, Any] | None = None,
+    local_intraday_manifest: dict[str, Any] | None = None,
+    local_intraday_5min_manifest: dict[str, Any] | None = None,
+    external_context_summary: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    conditional_walk_forward_summary = conditional_walk_forward_summary or {}
+    source_intraday_model = source_intraday_model or {}
+    external_context_summary = external_context_summary or {}
+    local_history = _intraday_manifest_history(
+        local_intraday_manifest,
+        required_start=REQUIRED_WALK_FORWARD_START,
+    )
+    local_5min_history = _intraday_manifest_history(
+        local_intraday_5min_manifest,
+        required_start=REQUIRED_WALK_FORWARD_START,
+    )
+    external_status = _external_context_status(
+        walk_forward_summary=walk_forward_summary,
+        source_intraday_model=source_intraday_model,
+        external_context_summary=external_context_summary,
+    )
+    selected_variant = str(selected_model.get("variant") or "")
+    selected_test_retention = _safe_float(selected_model.get("test_return_retention_pct"))
+    selected_test_max_drawdown = _safe_float(selected_model.get("test_max_drawdown_pct"))
+    annual_policy_ok = bool(walk_forward_summary.get("required_policy_satisfied", False))
+    conditional_policy_ok = bool(conditional_walk_forward_summary.get("required_policy_satisfied", False))
+
+    if external_status == "blocked_history_insufficient" and local_history["supports_required_start"]:
+        status = "needs_local_intraday_fallback"
+        primary_next_action = "run_soxl_soxx_intraday_only_annual_walk_forward"
+        ranked_actions = [
+            {
+                "rank": 1,
+                "action": "run_soxl_soxx_intraday_only_annual_walk_forward",
+                "reason": (
+                    "Local SOXL/SOXX 15m history covers the required annual walk-forward start; "
+                    "external context history does not."
+                ),
+            },
+            {
+                "rank": 2,
+                "action": "train_local_lgb_xgb_execution_label",
+                "reason": (
+                    "Use only observable SOXL/SOXX 15m features first: gap reclaim, VWAP distance, "
+                    "realized-vol expansion, 30/60m trend quality, absorption, and drawdown from open."
+                ),
+            },
+            {
+                "rank": 3,
+                "action": "backfill_external_context_history_before_threshold_search",
+                "reason": "External QQQ/SMH/constituent lead-lag features need full history before promotion gates.",
+            },
+        ]
+    elif selected_variant == "baseline_next_open":
+        status = "needs_new_intraday_factor_or_label"
+        primary_next_action = "replace_open_gate_with_delayed_observable_label"
+        ranked_actions = [
+            {
+                "rank": 1,
+                "action": "replace_open_gate_with_delayed_observable_label",
+                "reason": "The validation-only execution overlay selected baseline, so the current 15m gate adds no edge.",
+            },
+            {
+                "rank": 2,
+                "action": "search_local_intraday_risk_sleeve",
+                "reason": "Optimize only for open-buy-then-dump and same-day risk reduction before changing position size.",
+            },
+        ]
+    elif not annual_policy_ok:
+        status = "needs_annual_walk_forward_evidence"
+        primary_next_action = "complete_annual_walk_forward_or_fail_closed"
+        ranked_actions = [
+            {
+                "rank": 1,
+                "action": "complete_annual_walk_forward_or_fail_closed",
+                "reason": "Short-window validation/test results are not enough for promotion without annual folds.",
+            }
+        ]
+    elif not conditional_policy_ok:
+        status = "needs_cost_robust_risk_sleeve"
+        primary_next_action = "optimize_cost_robust_risk_sleeve"
+        ranked_actions = [
+            {
+                "rank": 1,
+                "action": "optimize_cost_robust_risk_sleeve",
+                "reason": "The main overlay has annual evidence, but the 20/50bp conditional sleeve is not robust.",
+            }
+        ]
+    else:
+        status = "needs_execution_replay"
+        primary_next_action = "run_bid_ask_latency_replay"
+        ranked_actions = [
+            {
+                "rank": 1,
+                "action": "run_bid_ask_latency_replay",
+                "reason": "Promotion still needs bid/ask, delay, and queue-quality validation.",
+            }
+        ]
+
+    guardrails = [
+        "selection_uses_validation_only",
+        "test_segment_report_only",
+        "retain_85_to_95_pct_return_band",
+        "max_drawdown_above_minus_18_pct",
+    ]
+    if external_status == "blocked_history_insufficient":
+        guardrails.append("do_not_continue_external_threshold_search")
+    if local_5min_history["supports_required_start"]:
+        guardrails.append("use_5min_only_as_replay_or_feature_probe_until_walk_forward_passes")
+
+    return {
+        "status": status,
+        "primary_next_action": primary_next_action,
+        "ranked_actions": ranked_actions,
+        "guardrails": guardrails,
+        "external_context_status": external_status,
+        "local_intraday_history": {
+            **local_history,
+            "supports_5min_probe": bool(local_5min_history["supports_required_start"]),
+            "freq_5min": local_5min_history.get("freq"),
+            "calendar_start_5min": local_5min_history.get("calendar_start"),
+            "calendar_end_5min": local_5min_history.get("calendar_end"),
+        },
+        "selected_overlay_status": {
+            "variant": selected_variant,
+            "test_return_retention_pct": selected_test_retention,
+            "test_max_drawdown_pct": selected_test_max_drawdown,
+            "annual_walk_forward_required_policy_satisfied": annual_policy_ok,
+            "conditional_walk_forward_required_policy_satisfied": conditional_policy_ok,
+        },
+        "external_context_gap": external_context_summary.get("coverage_gap_analysis", {}),
+    }
+
+
+def _safe_float(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        if pd.isna(value):
+            return None
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _intraday_manifest_history(
+    manifest: dict[str, Any] | None,
+    *,
+    required_start: str,
+) -> dict[str, Any]:
+    manifest = manifest or {}
+    calendar_start = manifest.get("calendar_start")
+    calendar_end = manifest.get("calendar_end")
+    status = str(manifest.get("status") or "missing")
+    supports_required_start = False
+    if calendar_start:
+        try:
+            supports_required_start = pd.Timestamp(calendar_start).date() <= pd.Timestamp(required_start).date()
+        except (TypeError, ValueError):
+            supports_required_start = False
+    return {
+        "status": status,
+        "freq": manifest.get("freq"),
+        "calendar_start": calendar_start,
+        "calendar_end": calendar_end,
+        "instruments": manifest.get("instruments", []),
+        "supports_required_start": bool(status == "ok" and supports_required_start),
+    }
+
+
+def _external_context_status(
+    *,
+    walk_forward_summary: dict[str, Any],
+    source_intraday_model: dict[str, Any],
+    external_context_summary: dict[str, Any],
+) -> str:
+    external_context = source_intraday_model.get("external_context") or {}
+    has_external_context = bool(external_context.get("provider_uri") or external_context.get("provider_card"))
+    if not has_external_context:
+        return "not_used"
+    coverage_gap = external_context_summary.get("coverage_gap_analysis", {})
+    if coverage_gap and not bool(coverage_gap.get("full_walk_forward_history_available", False)):
+        return "blocked_history_insufficient"
+    blocking_reasons = {
+        str(reason)
+        for reason in walk_forward_summary.get("blocking_reasons", [])
+        if reason is not None
+    }
+    history_blockers = {
+        "insufficient_external_intraday_history",
+        "missing_intraday_prediction_coverage",
+        "source_intraday_walk_forward_not_satisfied",
+    }
+    if blocking_reasons & history_blockers:
+        return "blocked_history_insufficient"
+    return "available_partial_or_unverified"
+
+
 @dataclass(frozen=True)
 class CognitiveAlphaIntradayOverlaySpec:
     root: Path
@@ -1784,6 +1987,24 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         condition_columns=walk_forward_condition_columns,
         require_intraday_prediction_coverage=True,
     )
+    walk_forward_summary = _overlay_walk_forward_summary(
+        intraday_summary=intraday_summary,
+        walk_forward=walk_forward,
+    )
+    conditional_risk_sleeve_walk_forward_summary = _conditional_risk_sleeve_walk_forward_summary(
+        intraday_summary=intraday_summary,
+        walk_forward=conditional_risk_sleeve_walk_forward,
+        required_cost_bps=(20.0, 50.0),
+    )
+    optimization_plan = build_intraday_optimization_plan(
+        selected_model=selected_model,
+        walk_forward_summary=walk_forward_summary,
+        conditional_walk_forward_summary=conditional_risk_sleeve_walk_forward_summary,
+        source_intraday_model={"external_context": intraday_summary.get("external_intraday_context", {})},
+        local_intraday_manifest=_read_optional_json(spec.root / "data" / "qlib" / "soxl_intraday_15min" / "qlib_store_manifest.json"),
+        local_intraday_5min_manifest=_read_optional_json(spec.root / "data" / "qlib" / "soxl_intraday_5min" / "qlib_store_manifest.json"),
+        external_context_summary=_read_optional_json(spec.root / "research" / "intraday_external_context_data_v1" / "summary.json"),
+    )
     analysis_summary = _analysis_summary(
         spec,
         daily_summary=daily_summary,
@@ -1803,6 +2024,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         selected_model=selected_model,
         walk_forward=walk_forward,
         daily_position_source_audit=daily_position_source_audit,
+        optimization_plan=optimization_plan,
     )
     sidecars = _write_sidecars(
         spec,
@@ -1882,15 +2104,6 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     _remove_transient_code_snapshots(recorder_local_dir)
     recorder_artifacts = _recorder_files(recorder_local_dir)
     promotion_decision = _promotion_decision(selected_model, intraday_summary=intraday_summary)
-    walk_forward_summary = _overlay_walk_forward_summary(
-        intraday_summary=intraday_summary,
-        walk_forward=walk_forward,
-    )
-    conditional_risk_sleeve_walk_forward_summary = _conditional_risk_sleeve_walk_forward_summary(
-        intraday_summary=intraday_summary,
-        walk_forward=conditional_risk_sleeve_walk_forward,
-        required_cost_bps=(20.0, 50.0),
-    )
     summary = {
         "experiment": spec.experiment,
         "card_type": "execution_overlay_research",
@@ -1976,6 +2189,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         "conditional_risk_sleeve": conditional_risk_sleeve,
         "conditional_risk_sleeve_cost_sensitivity": _json_ready_records(conditional_risk_sleeve_rows),
         "conditional_risk_sleeve_walk_forward": conditional_risk_sleeve_walk_forward_summary,
+        "optimization_plan": optimization_plan,
         "selected_model": selected_model,
         "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
         "recorder_id": recorder_id,
@@ -2327,6 +2541,15 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
             )
     selected_trades = pd.concat(selected_trade_frames, ignore_index=True) if selected_trade_frames else pd.DataFrame()
     model_comparison = summarize_overlay_metrics(selected_trades)
+    optimization_plan = build_intraday_optimization_plan(
+        selected_model=selected_model,
+        walk_forward_summary=walk_forward_summary,
+        conditional_walk_forward_summary={},
+        source_intraday_model={"external_context": intraday_summary.get("external_intraday_context", {})},
+        local_intraday_manifest=_read_optional_json(spec.root / "data" / "qlib" / "soxl_intraday_15min" / "qlib_store_manifest.json"),
+        local_intraday_5min_manifest=_read_optional_json(spec.root / "data" / "qlib" / "soxl_intraday_5min" / "qlib_store_manifest.json"),
+        external_context_summary=_read_optional_json(spec.root / "research" / "intraday_external_context_data_v1" / "summary.json"),
+    )
     analysis_summary = _delayed_analysis_summary(
         spec,
         daily_summary=daily_summary,
@@ -2342,6 +2565,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         intraday_flat_sleeve=intraday_flat_sleeve,
         model_comparison=model_comparison,
         walk_forward_summary=walk_forward_summary,
+        optimization_plan=optimization_plan,
     )
     sidecars = _write_delayed_sidecars(
         spec,
@@ -2558,6 +2782,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         "intraday_flat_sleeve": intraday_flat_sleeve,
         "intraday_flat_sleeve_cost_sensitivity": _json_ready_records(intraday_flat_sleeve_rows),
         "analysis_summary": analysis_summary,
+        "optimization_plan": optimization_plan,
         "recorder_id": recorder_id,
         "recorder_uri": spec.recorder_uri.resolve().as_posix(),
         "recorder_local_dir": recorder_local_dir.as_posix(),
@@ -3951,6 +4176,7 @@ def _analysis_summary(
     selected_model: dict[str, Any],
     walk_forward: pd.DataFrame,
     daily_position_source_audit: pd.DataFrame,
+    optimization_plan: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "source": "daily_open2open_position_model_plus_15m_execution_overlay",
@@ -4016,6 +4242,7 @@ def _analysis_summary(
         "conditional_risk_sleeve_walk_forward_rows": int(len(conditional_risk_sleeve_walk_forward)),
         "threshold_selection_rows": int(0 if not spec.optimize_thresholds else len(threshold_selection)),
         "walk_forward_rows": int(len(walk_forward)),
+        "optimization_plan": optimization_plan,
     }
 
 
@@ -4447,6 +4674,7 @@ def _delayed_analysis_summary(
     intraday_flat_sleeve: dict[str, Any],
     model_comparison: pd.DataFrame,
     walk_forward_summary: dict[str, Any],
+    optimization_plan: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "source": "daily_open2open_position_model_plus_observable_30m_60m_delayed_15m_execution_overlay",
@@ -4491,6 +4719,7 @@ def _delayed_analysis_summary(
         "intraday_flat_sleeve": intraday_flat_sleeve,
         "intraday_flat_sleeve_cost_rows": _json_ready_records(intraday_flat_sleeve_rows),
         "model_comparison_rows": int(len(model_comparison)),
+        "optimization_plan": optimization_plan,
         "source_intraday_model": {
             "recorder_id": intraday_summary.get("recorder_id"),
             "selected_model": intraday_summary.get("selected_model", {}).get("model"),
@@ -4813,6 +5042,15 @@ def _write_delayed_conclusion(
     row50 = rows_by_cost.get(50.0, {})
     flat20 = flat_rows_by_cost.get(20.0, {})
     flat50 = flat_rows_by_cost.get(50.0, {})
+    optimization_plan = summary.get("optimization_plan", {})
+    optimization_sentence = (
+        f"- 优化方向：status={optimization_plan.get('status')}；"
+        f"next={optimization_plan.get('primary_next_action')}。"
+        "短窗口 delayed entry 有效但外部上下文历史不足，下一步先用本地 SOXL/SOXX 15m/5m 特征跑完整年度 walk-forward，"
+        "再决定是否叠加 QQQ/SMH/成分股 lead-lag。\n"
+        if optimization_plan
+        else ""
+    )
     text = (
         "# 中文结论\n\n"
         "- 做了什么：建立 delayed observable intraday overlay，日线 LGB/XGB open-to-open 仓位仍决定是否交易；"
@@ -4843,6 +5081,7 @@ def _write_delayed_conclusion(
         f"当前 feasible 年份={summary['walk_forward']['feasible_test_years']}，"
         f"缺失={summary['walk_forward']['missing_required_test_years']}，因此 required_policy_satisfied="
         f"{summary['walk_forward']['required_policy_satisfied']}。\n"
+        f"{optimization_sentence}"
         f"- 是否晋升：{summary['promotion_decision']}。短窗口内这个 delayed entry 方向确实把 test max_dd 从 baseline 约 -18.38% 压到更低，"
         "但外部 15m 历史和真实成交 replay 还不足，不能直接晋升生产。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
@@ -5314,6 +5553,25 @@ def _write_conclusion(
         promotion_reason = "selected 短窗口过关，但年度/source walk-forward 证据不足，不能晋升。"
     else:
         promotion_reason = "执行层仍缺真实成交 replay 证据，不能晋升。"
+    optimization_plan = summary.get("optimization_plan", {})
+    optimization_detail = ""
+    if optimization_plan:
+        if optimization_plan.get("external_context_status") == "not_used":
+            optimization_detail = (
+                "当前本地 15m gate 仍选 baseline，下一步先换 delayed observable label "
+                "和本地 open-buy-dump 风险因子，不要强推现有 gate。"
+            )
+        else:
+            optimization_detail = (
+                "若外部 context 历史不足，先跑本地 SOXL/SOXX 15m/5m annual walk-forward fallback，"
+                "不要继续在短历史外部阈值上调参。"
+            )
+    optimization_sentence = (
+        f"- 优化方向：status={optimization_plan.get('status')}；"
+        f"next={optimization_plan.get('primary_next_action')}。{optimization_detail}\n"
+        if optimization_plan
+        else ""
+    )
     text = (
         "# 中文结论\n\n"
         f"- 做了什么：建立“{overlay_name}”实验，日级 LGB/XGB 仓位模型仍决定整体 target_position，"
@@ -5331,6 +5589,7 @@ def _write_conclusion(
         f"{conditional_annual_probe_sentence}"
         f"{walk_forward_sentence}"
         f"{annual_probe_sentence}"
+        f"{optimization_sentence}"
         f"- 是否晋升：{summary['promotion_decision']}。{promotion_reason}\n"
         "- 风险：这不是独立日内 alpha；它依赖日级模型的趋势和隔夜收益来源。真实推广前还要补 bid/ask replay、成交队列、延迟和盘前盘后风险验证。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
@@ -5387,6 +5646,12 @@ def _timestamp_or_none(value: Any) -> str | None:
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _read_optional_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    return _read_json(path)
 
 
 def _resolve_root(root: Path | str | None) -> Path:

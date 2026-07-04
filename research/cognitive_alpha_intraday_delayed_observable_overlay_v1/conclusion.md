@@ -7,5 +7,6 @@
 - test 报告：20bp retention=86.11%，max_dd=-11.02%；50bp retention=87.27%，max_dd=-11.52%。
 - 日内 flat sleeve：只在 same_day_close 候选内按 validation 回撤优先选择；选中 obs60_observed_prob_min_ge_q0.525_0.229488_signal_0.60_same_day_close；20bp validation retention=88.23%，max_dd=-10.55%，test retention=40.34%，test max_dd=-18.38%；50bp test retention=38.69%，test max_dd=-19.00%。这个 sleeve 更接近纯日内执行，但仍受外部 15m 历史不足和收盘成交 replay 缺失约束。
 - walk-forward：要求 [2023, 2024, 2025, 2026] 年度 train_to_T-2/valid_T-1/test_T；当前 feasible 年份=[]，缺失=[2023, 2024, 2025, 2026]，因此 required_policy_satisfied=False。
+- 优化方向：status=needs_local_intraday_fallback；next=run_soxl_soxx_intraday_only_annual_walk_forward。短窗口 delayed entry 有效但外部上下文历史不足，下一步先用本地 SOXL/SOXX 15m/5m 特征跑完整年度 walk-forward，再决定是否叠加 QQQ/SMH/成分股 lead-lag。
 - 是否晋升：not_promoted_external_intraday_history_insufficient。短窗口内这个 delayed entry 方向确实把 test max_dd 从 baseline 约 -18.38% 压到更低，但外部 15m 历史和真实成交 replay 还不足，不能直接晋升生产。
-- qlib recorder：1e04f85f6be64a0fa9d4053477e5c61a
+- qlib recorder：533b93fb3f114244a53add7dc562ba90
