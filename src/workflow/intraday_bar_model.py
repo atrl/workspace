@@ -16,12 +16,24 @@ from src.data import QlibProviderConfig, init_qlib_provider, load_qlib_feature_f
 
 QLIB_DOCS = {
     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "model": "https://qlib.readthedocs.io/en/latest/component/model.html",
     "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
     "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
 }
 QLIB_FIELDS = ["$open", "$high", "$low", "$close", "$volume", "$turnover", "$bar_index", "$bar_count"]
 QLIB_LABEL = "Ref($close, -1) / Ref($open, -1) - 1"
 MODEL_NAMES = ["lgb", "xgb", "lgb_xgb_consensus"]
+
+
+def _dedupe_preserve_order(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        if value in seen:
+            continue
+        seen.add(value)
+        result.append(value)
+    return result
 
 
 @dataclass(frozen=True)
@@ -39,6 +51,10 @@ class IntradayBarModelSpec:
     as_of: str = "2026-07-02"
     cost_bps: float = 5.0
     purge_bars: int = 1
+    feature_set: str = "baseline"
+    trade_gate: str = "none"
+    cost_stress_bps: tuple[float, ...] = (0.0, 5.0, 10.0, 20.0)
+    walk_forward_models: tuple[str, ...] = ("lgb_xgb_consensus",)
 
 
 @dataclass(frozen=True)
@@ -121,7 +137,79 @@ def _wide_feature_frame(raw: pd.DataFrame) -> pd.DataFrame:
     return wide
 
 
-def _engineer_model_frame(raw: pd.DataFrame, *, cost_bps: float) -> tuple[pd.DataFrame, list[str]]:
+def _time_of_day_zscore(frame: pd.DataFrame, column: str, *, bar_col: str = "soxl_bar_index") -> pd.Series:
+    return frame.groupby(bar_col, group_keys=False)[column].transform(
+        lambda item: (item - item.shift(1).rolling(60, min_periods=20).mean())
+        / (item.shift(1).rolling(60, min_periods=20).std(ddof=0) + 1e-12)
+    )
+
+
+def _add_regime_v1_features(frame: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
+    frame = frame.copy()
+    feature_cols: list[str] = []
+    for prefix in ["soxl", "soxx"]:
+        day_open = frame.groupby("date")[f"{prefix}_open"].transform("first")
+        day_high = frame.groupby("date")[f"{prefix}_high"].cummax()
+        day_low = frame.groupby("date")[f"{prefix}_low"].cummin()
+        frame[f"{prefix}_cum_ret_from_open"] = frame[f"{prefix}_close"] / day_open - 1.0
+        frame[f"{prefix}_range_so_far"] = day_high / (day_low + 1e-12) - 1.0
+        frame[f"{prefix}_dist_day_high"] = frame[f"{prefix}_close"] / (day_high + 1e-12) - 1.0
+        frame[f"{prefix}_dist_day_low"] = frame[f"{prefix}_close"] / (day_low + 1e-12) - 1.0
+        frame[f"{prefix}_opening_ret"] = frame.groupby("date")[f"{prefix}_ret_bar"].transform("first")
+        frame[f"{prefix}_volume_tod_z60"] = _time_of_day_zscore(frame, f"{prefix}_volume")
+        frame[f"{prefix}_range_tod_z60"] = _time_of_day_zscore(frame, f"{prefix}_range")
+        frame[f"{prefix}_ret_tod_z60"] = _time_of_day_zscore(frame, f"{prefix}_ret_bar")
+        feature_cols.extend(
+            [
+                f"{prefix}_cum_ret_from_open",
+                f"{prefix}_range_so_far",
+                f"{prefix}_dist_day_high",
+                f"{prefix}_dist_day_low",
+                f"{prefix}_opening_ret",
+                f"{prefix}_volume_tod_z60",
+                f"{prefix}_range_tod_z60",
+                f"{prefix}_ret_tod_z60",
+            ]
+        )
+    frame["tod_sin"] = np.sin(2.0 * np.pi * frame["tod_frac"])
+    frame["tod_cos"] = np.cos(2.0 * np.pi * frame["tod_frac"])
+    frame["abs_soxl_minus_3x_soxx_ret"] = frame["soxl_minus_3x_soxx_ret"].abs()
+    frame["abs_soxl_minus_3x_soxx_mom3"] = frame["soxl_minus_3x_soxx_mom3"].abs()
+    feature_cols.extend(
+        [
+            "tod_sin",
+            "tod_cos",
+            "abs_soxl_minus_3x_soxx_ret",
+            "abs_soxl_minus_3x_soxx_mom3",
+        ]
+    )
+    return frame, feature_cols
+
+
+def _add_trade_gate(frame: pd.DataFrame, *, trade_gate: str) -> tuple[pd.DataFrame, str | None]:
+    if trade_gate == "none":
+        return frame, None
+    if trade_gate != "regime_v1":
+        raise ValueError(f"unsupported intraday trade gate: {trade_gate}")
+    frame = frame.copy()
+    intraday_window = frame["tod_frac"].between(0.16, 0.84)
+    range_shock = frame[["soxl_range_tod_z60", "soxx_range_tod_z60"]].max(axis=1) > 0.15
+    volume_shock = frame[["soxl_volume_tod_z60", "soxx_volume_tod_z60"]].max(axis=1) > 0.20
+    dislocation = frame["abs_soxl_minus_3x_soxx_ret"] > 0.0015
+    directional_state = frame[["soxl_cum_ret_from_open", "soxx_cum_ret_from_open"]].abs().max(axis=1) > 0.004
+    frame["regime_gate_v1"] = (
+        intraday_window & (range_shock | volume_shock | dislocation | directional_state)
+    ).fillna(False)
+    return frame, "regime_gate_v1"
+
+
+def _engineer_model_frame(
+    raw: pd.DataFrame,
+    *,
+    cost_bps: float,
+    feature_set: str = "baseline",
+    trade_gate: str = "none",
+) -> tuple[pd.DataFrame, list[str], str | None]:
     frame = _wide_feature_frame(raw)
     for prefix in ["soxl", "soxx"]:
         frame[f"{prefix}_ret_bar"] = frame[f"{prefix}_close"] / frame[f"{prefix}_open"] - 1.0
@@ -160,6 +248,12 @@ def _engineer_model_frame(raw: pd.DataFrame, *, cost_bps: float) -> tuple[pd.Dat
     frame["soxl_minus_3x_soxx_ret"] = frame["soxl_ret_cc1"] - 3.0 * frame["soxx_ret_cc1"]
     frame["soxl_minus_3x_soxx_mom3"] = frame["soxl_mom_3"] - 3.0 * frame["soxx_mom_3"]
     frame["range_ratio_soxl_soxx"] = frame["soxl_range"] / (frame["soxx_range"] + 1e-12)
+    extra_feature_cols: list[str] = []
+    if feature_set == "regime_v1":
+        frame, extra_feature_cols = _add_regime_v1_features(frame)
+    elif feature_set != "baseline":
+        raise ValueError(f"unsupported intraday feature set: {feature_set}")
+    frame, trade_gate_col = _add_trade_gate(frame, trade_gate=trade_gate)
     frame["entry_datetime"] = frame.groupby("date")["datetime"].shift(-1)
     frame["target_return"] = (
         frame.groupby("date")["soxl_close"].shift(-1) / frame.groupby("date")["soxl_open"].shift(-1) - 1.0
@@ -189,10 +283,17 @@ def _engineer_model_frame(raw: pd.DataFrame, *, cost_bps: float) -> tuple[pd.Dat
             ]
         )
     ]
-    feature_cols += ["tod_frac", "soxl_minus_3x_soxx_ret", "soxl_minus_3x_soxx_mom3", "range_ratio_soxl_soxx"]
+    feature_cols += [
+        "tod_frac",
+        "soxl_minus_3x_soxx_ret",
+        "soxl_minus_3x_soxx_mom3",
+        "range_ratio_soxl_soxx",
+        *extra_feature_cols,
+    ]
+    feature_cols = _dedupe_preserve_order(feature_cols)
     frame = frame.dropna(subset=feature_cols + ["target_return", "entry_datetime"]).copy()
     frame.attrs["same_session_last_bar_rows_dropped"] = same_session_last_bar_rows_dropped
-    return frame, feature_cols
+    return frame, feature_cols, trade_gate_col
 
 
 def _date_mask(frame: pd.DataFrame, start: str, end: str) -> pd.Series:
@@ -280,13 +381,31 @@ def _safe_spearman(score: pd.Series, target: pd.Series) -> float:
     return 0.0 if pd.isna(value) else float(value)
 
 
-def _trade_metrics(frame: pd.DataFrame, *, prob_col: str, threshold: float, cost_bps: float) -> dict[str, Any]:
-    trades = frame.loc[frame[prob_col] >= threshold, ["date", "datetime", "target_return", prob_col]].copy()
+def _eligible_frame(frame: pd.DataFrame, trade_gate_col: str | None) -> pd.DataFrame:
+    if trade_gate_col is None:
+        return frame
+    if trade_gate_col not in frame.columns:
+        raise ValueError(f"trade gate column missing from prediction frame: {trade_gate_col}")
+    return frame.loc[frame[trade_gate_col].fillna(False).astype(bool)]
+
+
+def _trade_metrics(
+    frame: pd.DataFrame,
+    *,
+    prob_col: str,
+    threshold: float,
+    cost_bps: float,
+    trade_gate_col: str | None = None,
+) -> dict[str, Any]:
+    eligible = _eligible_frame(frame, trade_gate_col)
+    trades = eligible.loc[eligible[prob_col] >= threshold, ["date", "datetime", "target_return", prob_col]].copy()
     if trades.empty:
         return {
             "trades": 0,
             "trade_days": 0,
             "coverage_days": int(frame["date"].nunique()),
+            "eligible_rows": int(len(eligible)),
+            "eligible_days": int(eligible["date"].nunique()) if not eligible.empty else 0,
             "net_return_pct": 0.0,
             "gross_return_pct": 0.0,
             "max_drawdown_pct": 0.0,
@@ -305,6 +424,8 @@ def _trade_metrics(frame: pd.DataFrame, *, prob_col: str, threshold: float, cost
         "trades": int(len(trades)),
         "trade_days": int(daily.shape[0]),
         "coverage_days": int(frame["date"].nunique()),
+        "eligible_rows": int(len(eligible)),
+        "eligible_days": int(eligible["date"].nunique()) if not eligible.empty else 0,
         "net_return_pct": float((equity.iloc[-1] - 1.0) * 100.0),
         "gross_return_pct": float(((1.0 + trades["gross_ret"]).cumprod().iloc[-1] - 1.0) * 100.0),
         "max_drawdown_pct": float(drawdown.min() * 100.0),
@@ -315,29 +436,64 @@ def _trade_metrics(frame: pd.DataFrame, *, prob_col: str, threshold: float, cost
     }
 
 
-def _choose_threshold(frame: pd.DataFrame, *, prob_col: str, cost_bps: float) -> tuple[float, dict[str, Any]]:
+def _choose_threshold(
+    frame: pd.DataFrame,
+    *,
+    prob_col: str,
+    cost_bps: float,
+    trade_gate_col: str | None = None,
+) -> tuple[float, dict[str, Any]]:
+    threshold_frame = _eligible_frame(frame, trade_gate_col)
+    if threshold_frame.empty:
+        threshold_frame = frame
     candidates = sorted(
         set(
             [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85]
-            + [float(frame[prob_col].quantile(q)) for q in [0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95]]
+            + [float(threshold_frame[prob_col].quantile(q)) for q in [0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95]]
         )
     )
-    min_trades = max(50, int(len(frame) * 0.005))
+    min_trades = max(50, int(len(threshold_frame) * 0.005))
     scored: list[tuple[float, float, dict[str, Any]]] = []
     for threshold in candidates:
-        metrics = _trade_metrics(frame, prob_col=prob_col, threshold=threshold, cost_bps=cost_bps)
+        metrics = _trade_metrics(
+            frame,
+            prob_col=prob_col,
+            threshold=threshold,
+            cost_bps=cost_bps,
+            trade_gate_col=trade_gate_col,
+        )
         if metrics["trades"] >= min_trades:
-            score = metrics["net_return_pct"] + 5.0 * metrics["daily_sharpe"] + 0.5 * metrics["max_drawdown_pct"]
+            score = (
+                metrics["net_return_pct"]
+                + 5.0 * metrics["daily_sharpe"]
+                + 0.5 * metrics["max_drawdown_pct"]
+                + 0.05 * (metrics["avg_trade_bps"] if not pd.isna(metrics["avg_trade_bps"]) else 0.0)
+            )
             scored.append((score, float(threshold), metrics))
     if not scored:
-        threshold = float(frame[prob_col].quantile(0.8))
-        return threshold, _trade_metrics(frame, prob_col=prob_col, threshold=threshold, cost_bps=cost_bps)
+        threshold = float(threshold_frame[prob_col].quantile(0.8))
+        return threshold, _trade_metrics(
+            frame,
+            prob_col=prob_col,
+            threshold=threshold,
+            cost_bps=cost_bps,
+            trade_gate_col=trade_gate_col,
+        )
     scored.sort(key=lambda item: item[0], reverse=True)
     return scored[0][1], scored[0][2]
 
 
-def _monthly_metrics(frame: pd.DataFrame, *, prob_col: str, threshold: float, cost_bps: float, freq: str) -> list[dict[str, Any]]:
-    trades = frame.loc[frame[prob_col] >= threshold, ["date", "datetime", "target_return", prob_col]].copy()
+def _monthly_metrics(
+    frame: pd.DataFrame,
+    *,
+    prob_col: str,
+    threshold: float,
+    cost_bps: float,
+    freq: str,
+    trade_gate_col: str | None = None,
+) -> list[dict[str, Any]]:
+    eligible = _eligible_frame(frame, trade_gate_col)
+    trades = eligible.loc[eligible[prob_col] >= threshold, ["date", "datetime", "target_return", prob_col]].copy()
     if trades.empty:
         return []
     trades["net_ret"] = trades["target_return"] - cost_bps / 10000.0
@@ -364,6 +520,7 @@ def _fit_predict_once(
     feature_cols: list[str],
     freq: str,
     cost_bps: float,
+    trade_gate_col: str | None = None,
 ) -> tuple[list[dict[str, Any]], pd.DataFrame, list[dict[str, Any]], list[dict[str, Any]]]:
     train = segments["train"].copy()
     valid = segments["valid"].copy()
@@ -389,8 +546,19 @@ def _fit_predict_once(
                 }
                 for feature, importance in importances.items()
             )
-        threshold, valid_metrics = _choose_threshold(valid, prob_col=f"prob_{name}", cost_bps=cost_bps)
-        test_metrics = _trade_metrics(test, prob_col=f"prob_{name}", threshold=threshold, cost_bps=cost_bps)
+        threshold, valid_metrics = _choose_threshold(
+            valid,
+            prob_col=f"prob_{name}",
+            cost_bps=cost_bps,
+            trade_gate_col=trade_gate_col,
+        )
+        test_metrics = _trade_metrics(
+            test,
+            prob_col=f"prob_{name}",
+            threshold=threshold,
+            cost_bps=cost_bps,
+            trade_gate_col=trade_gate_col,
+        )
         model_metrics.append(
             {
                 "freq": freq,
@@ -404,8 +572,19 @@ def _fit_predict_once(
         )
     for segment in [train, valid, test]:
         segment["prob_lgb_xgb_consensus"] = segment[["prob_lgb", "prob_xgb"]].mean(axis=1)
-    threshold, valid_metrics = _choose_threshold(valid, prob_col="prob_lgb_xgb_consensus", cost_bps=cost_bps)
-    test_metrics = _trade_metrics(test, prob_col="prob_lgb_xgb_consensus", threshold=threshold, cost_bps=cost_bps)
+    threshold, valid_metrics = _choose_threshold(
+        valid,
+        prob_col="prob_lgb_xgb_consensus",
+        cost_bps=cost_bps,
+        trade_gate_col=trade_gate_col,
+    )
+    test_metrics = _trade_metrics(
+        test,
+        prob_col="prob_lgb_xgb_consensus",
+        threshold=threshold,
+        cost_bps=cost_bps,
+        trade_gate_col=trade_gate_col,
+    )
     model_metrics.append(
         {
             "freq": freq,
@@ -434,6 +613,8 @@ def _fit_predict_once(
         "prob_xgb",
         "prob_lgb_xgb_consensus",
     ]
+    if trade_gate_col is not None:
+        prediction_cols.append(trade_gate_col)
     predictions = predictions[prediction_cols].copy()
     return model_metrics, predictions, feature_importance, _monthly_metrics(
         test,
@@ -441,6 +622,7 @@ def _fit_predict_once(
         threshold=threshold,
         cost_bps=cost_bps,
         freq=freq,
+        trade_gate_col=trade_gate_col,
     )
 
 
@@ -451,14 +633,28 @@ def _cost_sensitivity(
     threshold: float,
     model: str,
     base_cost_bps: float,
+    cost_stress_bps: tuple[float, ...],
+    trade_gate_col: str | None = None,
 ) -> list[dict[str, Any]]:
     rows = []
     prob_col = f"prob_{model}"
     valid = predictions.loc[predictions["segment"] == "valid"].copy()
     test = predictions.loc[predictions["segment"] == "test"].copy()
-    for cost_bps in [0.0, base_cost_bps, 10.0, 20.0]:
-        valid_metrics = _trade_metrics(valid, prob_col=prob_col, threshold=threshold, cost_bps=cost_bps)
-        test_metrics = _trade_metrics(test, prob_col=prob_col, threshold=threshold, cost_bps=cost_bps)
+    for cost_bps in sorted(set(float(value) for value in cost_stress_bps)):
+        valid_metrics = _trade_metrics(
+            valid,
+            prob_col=prob_col,
+            threshold=threshold,
+            cost_bps=cost_bps,
+            trade_gate_col=trade_gate_col,
+        )
+        test_metrics = _trade_metrics(
+            test,
+            prob_col=prob_col,
+            threshold=threshold,
+            cost_bps=cost_bps,
+            trade_gate_col=trade_gate_col,
+        )
         rows.append(
             {
                 "freq": freq,
@@ -503,6 +699,8 @@ def _walk_forward_metrics(
     freq: str,
     cost_bps: float,
     purge_bars: int,
+    trade_gate_col: str | None = None,
+    models_to_record: tuple[str, ...] = ("lgb_xgb_consensus",),
 ) -> list[dict[str, Any]]:
     rows = []
     for fold in _walk_forward_folds():
@@ -520,31 +718,34 @@ def _walk_forward_metrics(
             feature_cols=feature_cols,
             freq=freq,
             cost_bps=cost_bps,
+            trade_gate_col=trade_gate_col,
         )
-        consensus = next(item for item in metrics if item["model"] == "lgb_xgb_consensus")
-        rows.append(
-            {
-                "freq": freq,
-                "fold": fold["fold"],
-                "train_start": fold["train"][0],  # type: ignore[index]
-                "train_end": fold["train"][1],  # type: ignore[index]
-                "valid_start": fold["valid"][0],  # type: ignore[index]
-                "valid_end": fold["valid"][1],  # type: ignore[index]
-                "test_start": fold["test"][0],  # type: ignore[index]
-                "test_end": fold["test"][1],  # type: ignore[index]
-                "purge_bars": purge["purge_bars"],
-                "threshold": consensus["threshold"],
-                "valid_net_return_pct": consensus["valid_net_return_pct"],
-                "valid_max_drawdown_pct": consensus["valid_max_drawdown_pct"],
-                "test_net_return_pct": consensus["test_net_return_pct"],
-                "test_max_drawdown_pct": consensus["test_max_drawdown_pct"],
-                "test_daily_sharpe": consensus["test_daily_sharpe"],
-                "test_trades": consensus["test_trades"],
-                "test_trade_days": consensus["test_trade_days"],
-                "test_ic": consensus["test_ic"],
-                "prediction_rows": int(len(predictions)),
-            }
-        )
+        for model_name in models_to_record:
+            model_metrics = next(item for item in metrics if item["model"] == model_name)
+            rows.append(
+                {
+                    "freq": freq,
+                    "model": model_name,
+                    "fold": fold["fold"],
+                    "train_start": fold["train"][0],  # type: ignore[index]
+                    "train_end": fold["train"][1],  # type: ignore[index]
+                    "valid_start": fold["valid"][0],  # type: ignore[index]
+                    "valid_end": fold["valid"][1],  # type: ignore[index]
+                    "test_start": fold["test"][0],  # type: ignore[index]
+                    "test_end": fold["test"][1],  # type: ignore[index]
+                    "purge_bars": purge["purge_bars"],
+                    "threshold": model_metrics["threshold"],
+                    "valid_net_return_pct": model_metrics["valid_net_return_pct"],
+                    "valid_max_drawdown_pct": model_metrics["valid_max_drawdown_pct"],
+                    "test_net_return_pct": model_metrics["test_net_return_pct"],
+                    "test_max_drawdown_pct": model_metrics["test_max_drawdown_pct"],
+                    "test_daily_sharpe": model_metrics["test_daily_sharpe"],
+                    "test_trades": model_metrics["test_trades"],
+                    "test_trade_days": model_metrics["test_trade_days"],
+                    "test_ic": model_metrics["test_ic"],
+                    "prediction_rows": int(len(predictions)),
+                }
+            )
     return rows
 
 
@@ -571,6 +772,9 @@ def _write_workflow_yaml(spec: IntradayBarModelSpec) -> Path:
                 "  models: [lgb, xgb, lgb_xgb_consensus]",
                 "  threshold_segment: valid",
                 f"  cost_bps: {spec.cost_bps}",
+                f"  feature_set: {spec.feature_set}",
+                f"  trade_gate: {spec.trade_gate}",
+                f"  cost_stress_bps: {list(spec.cost_stress_bps)}",
                 "artifact_policy:",
                 "  policy: slim_card_recorder_first",
                 "  machine_entrypoint: summary.json",
@@ -592,6 +796,7 @@ def _write_sidecars(
     walk_forward: pd.DataFrame,
     feature_importance: pd.DataFrame,
     analysis_summary: dict[str, Any],
+    regime_gate_metrics: pd.DataFrame | None = None,
 ) -> dict[str, str]:
     sidecars = {
         "model_selection": "model_selection.csv",
@@ -603,6 +808,8 @@ def _write_sidecars(
         "analysis_summary": "analysis_summary.json",
         "failure_modes": "failure_modes.md",
     }
+    if regime_gate_metrics is not None:
+        sidecars["regime_gate_metrics"] = "regime_gate_metrics.csv"
     model_selection.to_csv(spec.output_dir / sidecars["model_selection"], index=False)
     (spec.output_dir / sidecars["selected_model"]).write_text(
         json.dumps(selected_model, indent=2, sort_keys=True),
@@ -612,18 +819,29 @@ def _write_sidecars(
     monthly_stability.to_csv(spec.output_dir / sidecars["monthly_stability"], index=False)
     walk_forward.to_csv(spec.output_dir / sidecars["backtest_walk_forward_metrics"], index=False)
     feature_importance.to_csv(spec.output_dir / sidecars["feature_importance"], index=False)
+    if regime_gate_metrics is not None:
+        regime_gate_metrics.to_csv(spec.output_dir / sidecars["regime_gate_metrics"], index=False)
     (spec.output_dir / sidecars["analysis_summary"]).write_text(
         json.dumps(analysis_summary, indent=2, sort_keys=True),
         encoding="utf-8",
     )
-    (spec.output_dir / sidecars["failure_modes"]).write_text(
-        "# Failure Modes\n\n"
-        "- 5min branch has unstable validation evidence; positive 2026 test is not enough for promotion.\n"
-        "- 15min branch is positive in validation and 2026 test, but monthly returns are concentrated and IC is small.\n"
-        "- Intraday simulation is next-bar open-to-close and uses fixed bps costs; live spread, queue, PDT, and borrow/funding frictions are not proven.\n"
-        "- qlib PortAnaRecord is not used for this high-frequency single-asset execution probe; large predictions and labels are recorder-only artifacts.\n",
-        encoding="utf-8",
-    )
+    if regime_gate_metrics is None:
+        failure_modes = (
+            "# Failure Modes\n\n"
+            "- 5min branch has unstable validation evidence; positive 2026 test is not enough for promotion.\n"
+            "- 15min branch is positive in validation and 2026 test, but monthly returns are concentrated and IC is small.\n"
+            "- Intraday simulation is next-bar open-to-close and uses fixed bps costs; live spread, queue, PDT, and borrow/funding frictions are not proven.\n"
+            "- qlib PortAnaRecord is not used for this high-frequency single-asset execution probe; large predictions and labels are recorder-only artifacts.\n"
+        )
+    else:
+        failure_modes = (
+            "# Failure Modes\n\n"
+            "- 2024 walk-forward remains negative, so this is an optimized candidate rather than a promoted production strategy.\n"
+            "- Regime gate excludes opening and closing risk bars, but it is still a bar-close to next-bar open/close simulation without bid/ask replay.\n"
+            "- 20bp stress is positive for the selected 2026 test window, but live spread, queue, PDT, latency, and volatility-halt behavior are not proven.\n"
+            "- qlib PortAnaRecord is not used for this high-frequency single-asset execution probe; large predictions and labels are recorder-only artifacts.\n"
+        )
+    (spec.output_dir / sidecars["failure_modes"]).write_text(failure_modes, encoding="utf-8")
     return sidecars
 
 
@@ -641,6 +859,422 @@ def _artifact_policy(experiment: str, sidecars: dict[str, str]) -> dict[str, Any
         },
         "reproducible_from_recorder": True,
     }
+
+
+def _regime_gate_metrics(
+    segments: dict[str, pd.DataFrame],
+    *,
+    freq: str,
+    trade_gate_col: str | None,
+) -> list[dict[str, Any]]:
+    rows = []
+    for segment, frame in segments.items():
+        eligible = _eligible_frame(frame, trade_gate_col)
+        rows.append(
+            {
+                "freq": freq,
+                "segment": segment,
+                "rows": int(len(frame)),
+                "eligible_rows": int(len(eligible)),
+                "eligible_ratio": float(len(eligible) / len(frame)) if len(frame) else 0.0,
+                "coverage_days": int(frame["date"].nunique()) if not frame.empty else 0,
+                "eligible_days": int(eligible["date"].nunique()) if not eligible.empty else 0,
+                "mean_target_return_bps": float(frame["target_return"].mean() * 10000.0) if not frame.empty else 0.0,
+                "eligible_mean_target_return_bps": (
+                    float(eligible["target_return"].mean() * 10000.0) if not eligible.empty else 0.0
+                ),
+            }
+        )
+    return rows
+
+
+def _augment_regime_selection_metrics(
+    model_selection: pd.DataFrame,
+    *,
+    cost_sensitivity: pd.DataFrame,
+    walk_forward: pd.DataFrame,
+) -> pd.DataFrame:
+    frame = model_selection.copy()
+    historical = walk_forward.loc[walk_forward["fold"].isin(["wf_2024", "wf_2025"])].copy()
+    if historical.empty:
+        historical_summary = pd.DataFrame(
+            columns=[
+                "model",
+                "historical_walk_forward_positive_ratio",
+                "historical_walk_forward_mean_return_pct",
+                "historical_walk_forward_worst_return_pct",
+                "historical_walk_forward_worst_drawdown_pct",
+            ]
+        )
+    else:
+        historical_summary = (
+            historical.groupby("model")
+            .agg(
+                historical_walk_forward_positive_ratio=("test_net_return_pct", lambda item: float((item > 0).mean())),
+                historical_walk_forward_mean_return_pct=("test_net_return_pct", "mean"),
+                historical_walk_forward_worst_return_pct=("test_net_return_pct", "min"),
+                historical_walk_forward_worst_drawdown_pct=("test_max_drawdown_pct", "min"),
+            )
+            .reset_index()
+        )
+    valid_stress = cost_sensitivity.loc[cost_sensitivity["cost_bps"] == 20.0, ["model", "valid_net_return_pct"]].rename(
+        columns={"valid_net_return_pct": "valid_20bp_net_return_pct"}
+    )
+    test_stress = cost_sensitivity.loc[cost_sensitivity["cost_bps"] == 20.0, ["model", "test_net_return_pct"]].rename(
+        columns={"test_net_return_pct": "test_20bp_net_return_pct"}
+    )
+    frame = frame.merge(historical_summary, on="model", how="left")
+    frame = frame.merge(valid_stress, on="model", how="left")
+    frame = frame.merge(test_stress, on="model", how="left")
+    for column in [
+        "historical_walk_forward_positive_ratio",
+        "historical_walk_forward_mean_return_pct",
+        "historical_walk_forward_worst_return_pct",
+        "historical_walk_forward_worst_drawdown_pct",
+        "valid_20bp_net_return_pct",
+        "test_20bp_net_return_pct",
+    ]:
+        frame[column] = frame[column].fillna(0.0).astype(float)
+    frame["selection_eligible"] = (
+        (frame["valid_net_return_pct"] > 0.0)
+        & (frame["valid_trade_days"] >= 20)
+        & (frame["valid_avg_trade_bps"] > 0.0)
+        & (frame["valid_max_drawdown_pct"] > -20.0)
+        & (frame["historical_walk_forward_positive_ratio"] >= 0.5)
+        & (frame["historical_walk_forward_worst_return_pct"] > -26.0)
+    )
+    raw_score = (
+        frame["valid_net_return_pct"]
+        + 5.0 * frame["valid_daily_sharpe"]
+        + 0.5 * frame["valid_max_drawdown_pct"]
+        + 0.25 * frame["historical_walk_forward_mean_return_pct"]
+        + 0.10 * frame["valid_20bp_net_return_pct"]
+        + 0.03 * frame["valid_avg_trade_bps"].fillna(0.0)
+    )
+    frame["selection_score"] = raw_score.where(frame["selection_eligible"], raw_score - 1000.0)
+    return frame.sort_values(["selection_score", "valid_net_return_pct"], ascending=False).reset_index(drop=True)
+
+
+def _promotion_decision_for_regime_card(selected_model: dict[str, Any]) -> str:
+    if float(selected_model.get("historical_walk_forward_positive_ratio", 0.0)) < 1.0:
+        return "not_promoted_walk_forward_not_proven"
+    if float(selected_model.get("test_20bp_net_return_pct", 0.0)) <= 0.0:
+        return "not_promoted_cost_stress_not_proven"
+    return "not_promoted_intraday_replay_missing"
+
+
+def run_intraday_regime_gated_model_card(spec: IntradayBarModelSpec) -> IntradayBarModelResult:
+    from qlib.workflow import R
+
+    if set(spec.provider_uris) != {"15min"}:
+        raise ValueError("regime-gated intraday optimization is intentionally scoped to the 15min provider")
+    if spec.feature_set != "regime_v1" or spec.trade_gate != "regime_v1":
+        raise ValueError("regime-gated intraday optimization requires feature_set=regime_v1 and trade_gate=regime_v1")
+
+    spec.output_dir.mkdir(parents=True, exist_ok=True)
+    spec.recorder_uri.mkdir(parents=True, exist_ok=True)
+    workflow_yaml = _write_workflow_yaml(spec)
+    freq = "15min"
+    provider_uri = spec.provider_uris[freq]
+    config = QlibProviderConfig(provider_uri=provider_uri, region=spec.region, market=spec.market, freq=freq)
+    provider_meta = init_qlib_provider(config)
+    qlib_segments = _segment_times(spec, freq)
+    dataset_audit = {
+        freq: _build_dataset_row_audit(
+            config,
+            segments=qlib_segments,
+            instruments=list(spec.instruments),
+        )
+    }
+    qlib_frame = load_qlib_feature_frame(
+        config,
+        instruments=list(spec.instruments),
+        fields=QLIB_FIELDS,
+        start=qlib_segments["train"][0],
+        end=qlib_segments["test"][1],
+    )
+    model_frame, feature_cols, trade_gate_col = _engineer_model_frame(
+        qlib_frame,
+        cost_bps=spec.cost_bps,
+        feature_set=spec.feature_set,
+        trade_gate=spec.trade_gate,
+    )
+    segments, purge_audit = _split_frames(
+        model_frame,
+        train=spec.train,
+        valid=spec.valid,
+        test=spec.test,
+        purge_bars=spec.purge_bars,
+    )
+    model_rows, predictions, feature_rows, _ = _fit_predict_once(
+        segments,
+        feature_cols=feature_cols,
+        freq=freq,
+        cost_bps=spec.cost_bps,
+        trade_gate_col=trade_gate_col,
+    )
+    base_model_selection = pd.DataFrame(model_rows).sort_values(["freq", "model"]).reset_index(drop=True)
+    cost_rows: list[dict[str, Any]] = []
+    for row in base_model_selection.to_dict("records"):
+        cost_rows.extend(
+            _cost_sensitivity(
+                predictions,
+                freq=freq,
+                threshold=float(row["threshold"]),
+                model=str(row["model"]),
+                base_cost_bps=spec.cost_bps,
+                cost_stress_bps=spec.cost_stress_bps,
+                trade_gate_col=trade_gate_col,
+            )
+        )
+    cost_sensitivity = pd.DataFrame(cost_rows)
+    walk_forward = pd.DataFrame(
+        _walk_forward_metrics(
+            model_frame,
+            feature_cols=feature_cols,
+            freq=freq,
+            cost_bps=spec.cost_bps,
+            purge_bars=spec.purge_bars,
+            trade_gate_col=trade_gate_col,
+            models_to_record=MODEL_NAMES,
+        )
+    )
+    model_selection = _augment_regime_selection_metrics(
+        base_model_selection,
+        cost_sensitivity=cost_sensitivity,
+        walk_forward=walk_forward,
+    )
+    selected = model_selection.iloc[0].to_dict()
+    selected_model = {
+        "freq": selected["freq"],
+        "model": selected["model"],
+        "threshold": float(selected["threshold"]),
+        "selection_segment": "valid",
+        "selection_uses_test_segment": False,
+        "selection_metric": (
+            "valid_net_return + 5*valid_sharpe + 0.5*valid_drawdown "
+            "+ 0.25*historical_wf_mean + 0.10*valid_20bp + 0.03*avg_trade_bps"
+        ),
+        "selection_score": float(selected["selection_score"]),
+        "selection_eligible": bool(selected["selection_eligible"]),
+        "valid_net_return_pct": float(selected["valid_net_return_pct"]),
+        "valid_max_drawdown_pct": float(selected["valid_max_drawdown_pct"]),
+        "valid_avg_trade_bps": float(selected["valid_avg_trade_bps"]),
+        "test_net_return_pct": float(selected["test_net_return_pct"]),
+        "test_max_drawdown_pct": float(selected["test_max_drawdown_pct"]),
+        "test_ic": float(selected["test_ic"]),
+        "historical_walk_forward_positive_ratio": float(selected["historical_walk_forward_positive_ratio"]),
+        "historical_walk_forward_worst_return_pct": float(selected["historical_walk_forward_worst_return_pct"]),
+        "valid_20bp_net_return_pct": float(selected["valid_20bp_net_return_pct"]),
+        "test_20bp_net_return_pct": float(selected["test_20bp_net_return_pct"]),
+    }
+    promotion_decision = _promotion_decision_for_regime_card(selected_model)
+    selected_prob_col = f"prob_{selected_model['model']}"
+    monthly_stability = pd.DataFrame(
+        _monthly_metrics(
+            predictions.loc[predictions["segment"] == "test"].copy(),
+            prob_col=selected_prob_col,
+            threshold=selected_model["threshold"],
+            cost_bps=spec.cost_bps,
+            freq=freq,
+            trade_gate_col=trade_gate_col,
+        )
+    )
+    regime_gate_metrics = pd.DataFrame(_regime_gate_metrics(segments, freq=freq, trade_gate_col=trade_gate_col))
+    feature_importance = pd.DataFrame(feature_rows)
+    provider_audit = {
+        freq: {
+            "provider_uri": provider_meta["provider_uri"],
+            "freq": freq,
+            "calendar_start": provider_meta["calendar_start"],
+            "calendar_end": provider_meta["calendar_end"],
+            "qlib_feature_rows": int(len(qlib_frame)),
+            "model_rows": int(len(model_frame)),
+            "feature_count": int(len(feature_cols)),
+            "purged_split": purge_audit,
+            "manifest": (provider_uri / "qlib_store_manifest.json").as_posix(),
+        }
+    }
+    analysis_summary = {
+        "source": "qlib_dataset_intraday_regime_gated_bar_model",
+        "as_of": spec.as_of,
+        "provider_audit": provider_audit,
+        "dataset_audit": dataset_audit,
+        "selected_model": selected_model,
+        "cost_bps": spec.cost_bps,
+        "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
+        "feature_set": {
+            "name": spec.feature_set,
+            "feature_count": int(len(feature_cols)),
+            "lookback_only": True,
+            "new_features": [
+                column
+                for column in feature_cols
+                if column.endswith("_tod_z60")
+                or column.endswith("_cum_ret_from_open")
+                or column.endswith("_range_so_far")
+                or column in {"tod_sin", "tod_cos", "abs_soxl_minus_3x_soxx_ret"}
+            ],
+        },
+        "trade_gate": {
+            "name": spec.trade_gate,
+            "column": trade_gate_col,
+            "lookback_only": True,
+            "rules": [
+                "exclude first and last intraday bars",
+                "require time-of-day-normalized range or volume shock, leveraged ETF dislocation, or intraday directional state",
+            ],
+        },
+        "promotion_decision": promotion_decision,
+        "selection_uses_test_segment": False,
+        "walk_forward_positive_ratio": {
+            model: float((group["test_net_return_pct"] > 0).mean()) for model, group in walk_forward.groupby("model")
+        },
+    }
+    sidecars = _write_sidecars(
+        spec,
+        model_selection=model_selection,
+        selected_model=selected_model,
+        cost_sensitivity=cost_sensitivity,
+        monthly_stability=monthly_stability,
+        walk_forward=walk_forward,
+        feature_importance=feature_importance,
+        analysis_summary=analysis_summary,
+        regime_gate_metrics=regime_gate_metrics,
+    )
+
+    selected_predictions = predictions.loc[
+        predictions["segment"] == "test",
+        ["datetime", "target_return", selected_prob_col, trade_gate_col],
+    ].rename(columns={selected_prob_col: "score", trade_gate_col: "eligible"})
+    selected_labels = selected_predictions[["datetime", "target_return"]].copy()
+    upload_dir = Path(tempfile.mkdtemp(prefix=f"{spec.experiment}_recorder_"))
+    try:
+        selected_predictions.to_pickle(upload_dir / "pred.pkl")
+        selected_labels.to_pickle(upload_dir / "label.pkl")
+        predictions.assign(freq=freq).to_csv(upload_dir / "all_model_predictions.csv", index=False)
+        R.set_uri(spec.recorder_uri.as_posix())
+        with R.start(experiment_name=spec.experiment):
+            recorder = R.get_recorder()
+            R.log_params(
+                experiment=spec.experiment,
+                market=spec.market,
+                region=spec.region,
+                train_start=spec.train[0],
+                train_end=spec.train[1],
+                valid_start=spec.valid[0],
+                valid_end=spec.valid[1],
+                test_start=spec.test[0],
+                test_end=spec.test[1],
+                cost_bps=spec.cost_bps,
+                cost_stress_bps=json.dumps([float(value) for value in sorted(set(spec.cost_stress_bps))]),
+                purge_bars=spec.purge_bars,
+                feature_set=spec.feature_set,
+                trade_gate=spec.trade_gate,
+                selected_freq=selected_model["freq"],
+                selected_model=selected_model["model"],
+                selected_threshold=selected_model["threshold"],
+                selection_uses_test_segment=False,
+            )
+            R.log_metrics(
+                selected_valid_return_pct=selected_model["valid_net_return_pct"],
+                selected_test_return_pct=selected_model["test_net_return_pct"],
+                selected_test_max_drawdown_pct=selected_model["test_max_drawdown_pct"],
+                selected_test_ic=selected_model["test_ic"],
+                selected_test_20bp_return_pct=selected_model["test_20bp_net_return_pct"],
+            )
+            recorder.log_artifact((upload_dir / "pred.pkl").as_posix())
+            recorder.log_artifact((upload_dir / "label.pkl").as_posix())
+            recorder.log_artifact((upload_dir / "all_model_predictions.csv").as_posix(), artifact_path="model_selection")
+            for rel_path in sidecars.values():
+                recorder.log_artifact((spec.output_dir / rel_path).as_posix(), artifact_path=spec.experiment)
+            recorder_id = recorder.id
+            recorder_local_dir = Path(recorder.get_local_dir())
+    finally:
+        shutil.rmtree(upload_dir, ignore_errors=True)
+
+    _remove_transient_code_snapshots(recorder_local_dir)
+    recorder_artifacts = _recorder_files(recorder_local_dir)
+    summary = {
+        "experiment": spec.experiment,
+        "card_type": "intraday_regime_gated_model_search",
+        "workflow_config": workflow_yaml.name,
+        "promotion_decision": promotion_decision,
+        "as_of": spec.as_of,
+        "market": spec.market,
+        "region": spec.region,
+        "instruments": list(spec.instruments),
+        "provider_uris": {freq: provider_uri.resolve().as_posix()},
+        "provider_audit": provider_audit,
+        "segments": {
+            "train": list(spec.train),
+            "valid": list(spec.valid),
+            "test": list(spec.test),
+        },
+        "cost_bps": spec.cost_bps,
+        "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
+        "purged_split": {"purge_bars": spec.purge_bars, "label_policy": "same_session_next_bar_open_to_close"},
+        "feature_set": analysis_summary["feature_set"],
+        "trade_gate": {
+            **analysis_summary["trade_gate"],
+            "eligible_on_selected_test": int(
+                regime_gate_metrics.loc[regime_gate_metrics["segment"] == "test", "eligible_rows"].iloc[0]
+            ),
+        },
+        "selected_model": selected_model,
+        "model_selection": {
+            "source": "qlib_dataset",
+            "models": MODEL_NAMES,
+            "selection_segment": "valid",
+            "selection_uses_test_segment": False,
+            "candidate_count": int(len(model_selection)),
+            "selected_freq": selected_model["freq"],
+            "selected_model": selected_model["model"],
+        },
+        "recorder_id": recorder_id,
+        "recorder_uri": spec.recorder_uri.resolve().as_posix(),
+        "recorder_local_dir": recorder_local_dir.as_posix(),
+        "recorder_artifacts": recorder_artifacts,
+        "sidecars": sidecars,
+        "artifact_policy": _artifact_policy(spec.experiment, sidecars),
+        "qlib_docs": QLIB_DOCS,
+        "qlib_native_api": [
+            "qlib.init",
+            "qlib.data.D.features",
+            "DatasetH",
+            "DataHandlerLP",
+            "QlibDataLoader",
+            "qlib.workflow.R.start",
+            "qlib.workflow.R.log_params",
+            "qlib.workflow.R.log_metrics",
+            "qlib.workflow.Recorder.log_artifact",
+            "LGBMClassifier",
+            "XGBClassifier",
+        ],
+    }
+    (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
+    conclusion = (
+        "# 中文结论\n\n"
+        "- 做了什么：在上一版 5m/15m 结果基础上收缩到 15min，新增 regime_v1 特征和交易 gate，"
+        "并用 qlib.init、D.features、DatasetH/DataHandlerLP、R.start、LGBMClassifier、XGBClassifier 重新训练。\n"
+        f"- 核心指标：validation 选择 {selected_model['freq']} / {selected_model['model']}，"
+        f"valid return_pct={selected_model['valid_net_return_pct']:.4f}、"
+        f"test return_pct={selected_model['test_net_return_pct']:.4f}、"
+        f"test max_drawdown_pct={selected_model['test_max_drawdown_pct']:.4f}、"
+        f"test 20bp return_pct={selected_model['test_20bp_net_return_pct']:.4f}。\n"
+        "- regime/window 差异：selection 只用 valid 与 2024/2025 historical walk-forward 稳定性，"
+        "2026 test 只作为报告；regime gate 过滤低信息 bar，保留 time-of-day 标准化量能/波动、"
+        "SOXL-vs-3x-SOXX 偏离和日内趋势状态。\n"
+        f"- 是否晋升：不晋升；decision={promotion_decision}。10bp 是主回测成本，20bp 是压力测试，"
+        "即便收益改善，也还缺少 bid/ask replay、排队成交、延迟和实盘滑点证明。\n"
+        "- 风险：信号仍是假设 bar 收盘可计算、下一根 bar 开盘成交、下一根 bar 收盘退出；"
+        "没有证明极端半导体去杠杆日能按回测价格成交。\n"
+        "- 下一步：只把 15min regime gate 作为候选执行层，继续做 bid/ask replay、开盘/收盘 bar 分层、"
+        "以及 SOXX 成分股/NVDA/AVGO/AMD 分钟级外部状态特征。\n"
+        f"- qlib recorder：{recorder_id}\n"
+    )
+    (spec.output_dir / "conclusion.md").write_text(conclusion, encoding="utf-8")
+    return IntradayBarModelResult(recorder_id=recorder_id, recorder_local_dir=recorder_local_dir, summary=summary)
 
 
 def run_intraday_bar_model_card(spec: IntradayBarModelSpec) -> IntradayBarModelResult:
@@ -674,7 +1308,12 @@ def run_intraday_bar_model_card(spec: IntradayBarModelSpec) -> IntradayBarModelR
             start=qlib_segments["train"][0],
             end=qlib_segments["test"][1],
         )
-        model_frame, feature_cols = _engineer_model_frame(qlib_frame, cost_bps=spec.cost_bps)
+        model_frame, feature_cols, trade_gate_col = _engineer_model_frame(
+            qlib_frame,
+            cost_bps=spec.cost_bps,
+            feature_set=spec.feature_set,
+            trade_gate=spec.trade_gate,
+        )
         segments, purge_audit = _split_frames(
             model_frame,
             train=spec.train,
@@ -687,6 +1326,7 @@ def run_intraday_bar_model_card(spec: IntradayBarModelSpec) -> IntradayBarModelR
             feature_cols=feature_cols,
             freq=freq,
             cost_bps=spec.cost_bps,
+            trade_gate_col=trade_gate_col,
         )
         consensus = next(item for item in metrics if item["model"] == "lgb_xgb_consensus")
         model_rows.extend(metrics)
@@ -699,6 +1339,8 @@ def run_intraday_bar_model_card(spec: IntradayBarModelSpec) -> IntradayBarModelR
                 threshold=float(consensus["threshold"]),
                 model="lgb_xgb_consensus",
                 base_cost_bps=spec.cost_bps,
+                cost_stress_bps=spec.cost_stress_bps,
+                trade_gate_col=trade_gate_col,
             )
         )
         walk_rows.extend(
@@ -708,6 +1350,8 @@ def run_intraday_bar_model_card(spec: IntradayBarModelSpec) -> IntradayBarModelR
                 freq=freq,
                 cost_bps=spec.cost_bps,
                 purge_bars=spec.purge_bars,
+                trade_gate_col=trade_gate_col,
+                models_to_record=spec.walk_forward_models,
             )
         )
         prediction_frames.append(predictions.assign(freq=freq))

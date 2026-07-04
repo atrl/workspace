@@ -1,0 +1,20 @@
+{
+  "freq": "15min",
+  "historical_walk_forward_positive_ratio": 0.5,
+  "historical_walk_forward_worst_return_pct": -24.521387100219727,
+  "model": "lgb_xgb_consensus",
+  "selection_eligible": true,
+  "selection_metric": "valid_net_return + 5*valid_sharpe + 0.5*valid_drawdown + 0.25*historical_wf_mean + 0.10*valid_20bp + 0.03*avg_trade_bps",
+  "selection_score": 21.78160539608613,
+  "selection_segment": "valid",
+  "selection_uses_test_segment": false,
+  "test_20bp_net_return_pct": 4.559445381164551,
+  "test_ic": 0.028157383904499702,
+  "test_max_drawdown_pct": -5.922579765319824,
+  "test_net_return_pct": 15.199386596679688,
+  "threshold": 0.5145676637141079,
+  "valid_20bp_net_return_pct": 6.754624843597412,
+  "valid_avg_trade_bps": 17.84004783630371,
+  "valid_max_drawdown_pct": -10.961526870727539,
+  "valid_net_return_pct": 19.752716064453125
+}

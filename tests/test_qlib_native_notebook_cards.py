@@ -505,6 +505,100 @@ def test_agentic_alpha_intraday_5m15m_lgb_xgb_card_records_minute_qlib_research(
     assert "不晋升" in conclusion
 
 
+def test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_selection():
+    card = ROOT / "research" / "agentic_alpha_intraday_15m_regime_gated_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_intraday_15m_regime_gated_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_intraday_15m_regime_gated_v1"
+    assert summary["card_type"] == "intraday_regime_gated_model_search"
+    assert summary["promotion_decision"] in {
+        "not_promoted_cost_stress_not_proven",
+        "not_promoted_walk_forward_not_proven",
+        "not_promoted_intraday_replay_missing",
+    }
+    assert summary["as_of"] == "2026-07-02"
+    assert set(summary["provider_uris"]) == {"15min"}
+    assert summary["selected_model"]["freq"] == "15min"
+    assert summary["model_selection"]["candidate_count"] == 3
+    assert set(summary["model_selection"]["models"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert summary["model_selection"]["selection_segment"] == "valid"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert summary["feature_set"]["name"] == "regime_v1"
+    assert summary["feature_set"]["lookback_only"] is True
+    assert summary["trade_gate"]["name"] == "regime_v1"
+    assert summary["trade_gate"]["eligible_on_selected_test"] > 0
+    assert summary["cost_bps"] == 10.0
+    assert summary["cost_stress_bps"] == [0.0, 10.0, 20.0]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "predictions": "artifacts/pred.pkl",
+        "labels": "artifacts/label.pkl",
+        "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+    assert {
+        "qlib.init",
+        "qlib.data.D.features",
+        "DatasetH",
+        "DataHandlerLP",
+        "QlibDataLoader",
+        "qlib.workflow.R.start",
+        "LGBMClassifier",
+        "XGBClassifier",
+    }.issubset(set(summary["qlib_native_api"]))
+
+    expected_sidecars = {
+        "analysis_summary",
+        "backtest_walk_forward_metrics",
+        "cost_sensitivity",
+        "failure_modes",
+        "feature_importance",
+        "model_selection",
+        "monthly_stability",
+        "regime_gate_metrics",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    model_selection = pd.read_csv(card / summary["sidecars"]["model_selection"])
+    assert set(model_selection["freq"]) == {"15min"}
+    assert set(model_selection["model"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert model_selection["selection_eligible"].dtype == bool
+    assert "historical_walk_forward_positive_ratio" in model_selection.columns
+    assert model_selection["test_net_return_pct"].notna().all()
+    assert model_selection["selection_score"].notna().all()
+
+    cost_sensitivity = pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])
+    assert set(cost_sensitivity["cost_bps"]) == {0.0, 10.0, 20.0}
+    assert set(cost_sensitivity["model"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
+    assert set(walk_forward["fold"]) == {"wf_2024", "wf_2025", "wf_2026"}
+    assert set(walk_forward["model"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert set(walk_forward["freq"]) == {"15min"}
+    regime_gate = pd.read_csv(card / summary["sidecars"]["regime_gate_metrics"])
+    assert set(regime_gate["segment"]) == {"train", "valid", "test"}
+    assert (regime_gate["eligible_rows"] > 0).all()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "pred.pkl").exists()
+    assert (recorder_dir / "artifacts" / "label.pkl").exists()
+    assert (recorder_dir / "artifacts" / "model_selection" / "all_model_predictions.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_intraday_regime_gated_model_card" in notebook_text
+    assert "DatasetH" in notebook_text
+    assert "R.start" in notebook_text
+    assert "10bp" in conclusion
+    assert "20bp" in conclusion
+    assert "不晋升" in conclusion
+
+
 def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
     card = ROOT / "research" / "agentic_alpha_high_chop_execution_validation_v1"
     summary = _summary(card)
