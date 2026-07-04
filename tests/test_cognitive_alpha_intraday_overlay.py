@@ -93,6 +93,117 @@ def test_simulate_execution_overlays_delays_entry_and_records_intraday_variants(
     assert by_variant.loc["overlay_c_risk_exit", "strategy_return"] == (102.0 / 100.0 - 1.0)
 
 
+def test_simulate_execution_overlays_marks_missing_prediction_coverage():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "target_position": 1.0,
+                "strategy_return": 0.10,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 110.0},
+        ]
+    )
+    intraday = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05 09:45:00",
+                "date": "2026-01-05",
+                "open": 101.0,
+                "close": 102.0,
+                "prob_lgb": None,
+                "prediction_available_gate": False,
+            },
+            {
+                "datetime": "2026-01-05 10:00:00",
+                "date": "2026-01-05",
+                "open": 102.0,
+                "close": 103.0,
+                "prob_lgb": None,
+                "prediction_available_gate": False,
+            },
+        ]
+    )
+
+    rows = simulate_execution_overlays(
+        daily,
+        daily_prices=daily_prices,
+        intraday=intraday,
+        signal_threshold=0.55,
+        risk_threshold=0.45,
+        cost_bps=0.0,
+        prob_col="prob_lgb",
+        gate_col="prediction_available_gate",
+    )
+
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["overlay_a_signal_gate", "skipped_reason"] == "missing_intraday_prediction"
+    assert by_variant.loc["overlay_c_risk_exit", "skipped_reason"] == "missing_intraday_prediction"
+    assert by_variant.loc["overlay_c_risk_exit", "strategy_return"] == pytest.approx(0.10)
+
+
+def test_simulate_execution_overlays_keeps_no_signal_separate_from_missing_predictions():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "target_position": 1.0,
+                "strategy_return": 0.10,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 110.0},
+        ]
+    )
+    intraday = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05 09:45:00",
+                "date": "2026-01-05",
+                "open": 101.0,
+                "close": 102.0,
+                "prob_lgb": 0.40,
+                "prediction_available_gate": True,
+            },
+            {
+                "datetime": "2026-01-05 10:00:00",
+                "date": "2026-01-05",
+                "open": 102.0,
+                "close": 103.0,
+                "prob_lgb": 0.42,
+                "prediction_available_gate": True,
+            },
+        ]
+    )
+
+    rows = simulate_execution_overlays(
+        daily,
+        daily_prices=daily_prices,
+        intraday=intraday,
+        signal_threshold=0.55,
+        risk_threshold=0.35,
+        cost_bps=0.0,
+        prob_col="prob_lgb",
+        gate_col="prediction_available_gate",
+    )
+
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["overlay_a_signal_gate", "skipped_reason"] == "no_15m_entry_signal"
+    assert pd.isna(by_variant.loc["overlay_c_risk_exit", "skipped_reason"])
+
+
 def test_evaluate_conditional_overlay_candidates_uses_validation_quantiles_only():
     trades = pd.DataFrame(
         [
@@ -637,6 +748,44 @@ def test_walk_forward_metrics_uses_fold_metadata_when_daily_replay_overlaps_year
     assert fold_2025["test_periods"] == 1
     assert fold_2025["valid_total_return_pct"] == pytest.approx(10.0)
     assert fold_2025["test_total_return_pct"] == pytest.approx(20.0)
+
+
+def test_walk_forward_metrics_fails_closed_when_intraday_predictions_are_missing():
+    rows = []
+    for segment, date in [("validation", "2022-01-03"), ("test", "2023-01-03")]:
+        for variant, skipped_reason in [
+            ("baseline_next_open", None),
+            ("overlay_a_signal_gate", "missing_intraday_prediction"),
+            ("overlay_b_twap4", None),
+            ("overlay_c_risk_exit", "missing_intraday_prediction"),
+        ]:
+            rows.append(
+                {
+                    "walk_forward_fold": "wf_2023",
+                    "test_year": 2023,
+                    "fold_segment": segment,
+                    "datetime": date,
+                    "segment": segment,
+                    "variant": variant,
+                    "cost_bps": 20.0,
+                    "strategy_return": 0.01,
+                    "target_position": 1.0,
+                    "entry_date": date,
+                    "skipped_reason": skipped_reason,
+                }
+            )
+
+    walk_forward = overlay_workflow._walk_forward_metrics(
+        pd.DataFrame(rows),
+        cost_bps=20.0,
+        require_intraday_prediction_coverage=True,
+    )
+
+    fold_2023 = walk_forward.loc[walk_forward["fold"].eq("wf_2023")].iloc[0]
+    assert fold_2023["status"] == "infeasible"
+    assert fold_2023["blocking_reason"] == "missing_intraday_prediction_coverage"
+    assert fold_2023["validation_missing_intraday_prediction_periods"] == 1
+    assert fold_2023["test_missing_intraday_prediction_periods"] == 1
 
 
 def test_daily_position_source_audit_records_required_year_coverage(tmp_path):

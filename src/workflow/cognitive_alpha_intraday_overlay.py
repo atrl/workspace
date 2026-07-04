@@ -1126,7 +1126,11 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     selected_model = _select_variant(model_comparison, cost_bps=spec.selection_cost_bps)
     selected_model["signal_threshold"] = float(thresholds["signal_threshold"])
     selected_model["risk_threshold"] = float(thresholds["risk_threshold"])
-    walk_forward = _walk_forward_metrics(walk_forward_overlay_trades, cost_bps=spec.selection_cost_bps)
+    walk_forward = _walk_forward_metrics(
+        walk_forward_overlay_trades,
+        cost_bps=spec.selection_cost_bps,
+        require_intraday_prediction_coverage=True,
+    )
     analysis_summary = _analysis_summary(
         spec,
         daily_summary=daily_summary,
@@ -1850,6 +1854,10 @@ def _simulate_daily_row(
     entry_open = float(prices.iloc[location + 1]["open"])
     exit_open = float(prices.iloc[location + 2]["open"])
     entry_day_bars = intraday.loc[intraday["date"].eq(pd.Timestamp(entry_date).date().isoformat())].sort_values("datetime")
+    prediction_available = bool(
+        not entry_day_bars.empty
+        and pd.to_numeric(entry_day_bars.get(prob_col), errors="coerce").notna().any()
+    )
     execution_cost = abs(target) * cost_bps / 10000.0
 
     baseline_return = source_return - execution_cost
@@ -1874,6 +1882,7 @@ def _simulate_daily_row(
         & entry_day_bars["next_open"].notna()
     ]
     if signal_candidates.empty:
+        skipped_reason = "no_15m_entry_signal" if prediction_available else "missing_intraday_prediction"
         rows.append(
             {
                 **base_common,
@@ -1885,7 +1894,7 @@ def _simulate_daily_row(
                 "intraday_signal_score": np.nan,
                 "gross_return": 0.0,
                 "strategy_return": 0.0,
-                "skipped_reason": "no_15m_entry_signal",
+                "skipped_reason": skipped_reason,
             }
         )
     else:
@@ -1958,7 +1967,7 @@ def _simulate_daily_row(
                 "intraday_signal_score": np.nan,
                 "gross_return": target * (exit_open / entry_open - 1.0),
                 "strategy_return": source_return - execution_cost,
-                "skipped_reason": None,
+                "skipped_reason": None if prediction_available else "missing_intraday_prediction",
             }
         )
     else:
@@ -2428,7 +2437,24 @@ def _select_variant(model_comparison: pd.DataFrame, *, cost_bps: float) -> dict[
     }
 
 
-def _walk_forward_metrics(trades: pd.DataFrame, *, cost_bps: float) -> pd.DataFrame:
+def _missing_intraday_prediction_period_count(trades: pd.DataFrame) -> int:
+    if trades.empty or "skipped_reason" not in trades or "datetime_ts" not in trades:
+        return 0
+    missing = trades.loc[
+        trades["skipped_reason"].astype(str).eq("missing_intraday_prediction")
+        & trades.get("variant", pd.Series("", index=trades.index)).astype(str).ne("baseline_next_open")
+    ]
+    if missing.empty:
+        return 0
+    return int(missing["datetime_ts"].dt.normalize().nunique())
+
+
+def _walk_forward_metrics(
+    trades: pd.DataFrame,
+    *,
+    cost_bps: float,
+    require_intraday_prediction_coverage: bool = False,
+) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     base = trades.loc[trades["cost_bps"].eq(float(cost_bps))].copy()
     base["datetime_ts"] = pd.to_datetime(base["datetime"])
@@ -2480,6 +2506,34 @@ def _walk_forward_metrics(trades: pd.DataFrame, *, cost_bps: float) -> pd.DataFr
                 }
             )
             continue
+        if require_intraday_prediction_coverage:
+            valid_missing = _missing_intraday_prediction_period_count(valid_trades)
+            test_missing = _missing_intraday_prediction_period_count(test_trades)
+            if valid_missing or test_missing:
+                rows.append(
+                    {
+                        "fold": fold_name,
+                        "test_year": int(test_year),
+                        "status": "infeasible",
+                        "blocking_reason": "missing_intraday_prediction_coverage",
+                        "cost_bps": float(cost_bps),
+                        "train_start": train_start,
+                        "train_end": train_end,
+                        "valid_start": valid_start,
+                        "valid_end": valid_end,
+                        "test_start": test_start,
+                        "test_end": test_end,
+                        "selected_variant": None,
+                        "selection_uses_test_segment": False,
+                        "validation_passes_target": False,
+                        "test_passes_target": False,
+                        "valid_periods": int(valid_trades["datetime_ts"].dt.normalize().nunique()),
+                        "test_periods": int(test_trades["datetime_ts"].dt.normalize().nunique()),
+                        "validation_missing_intraday_prediction_periods": int(valid_missing),
+                        "test_missing_intraday_prediction_periods": int(test_missing),
+                    }
+                )
+                continue
 
         valid_trades["segment"] = "validation"
         test_trades["segment"] = "test"

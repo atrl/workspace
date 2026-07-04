@@ -737,6 +737,9 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert summary["selected_model"]["validation_passes_target"] is True
     assert summary["selected_model"]["test_return_retention_pct"] < 85.0
     assert summary["walk_forward"]["required_policy_satisfied"] is False
+    assert summary["walk_forward"]["feasible_test_years"] == [2026]
+    assert summary["walk_forward"]["missing_required_test_years"] == [2023, 2024, 2025]
+    assert "missing_intraday_prediction_coverage" in summary["walk_forward"]["blocking_reasons"]
     assert "not_promoted" in summary["promotion_decision"]
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
@@ -763,6 +766,11 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert "overlay_a_signal_gate" in set(threshold_selection["variant"])
     assert threshold_selection["passes_target"].any()
     assert {10.0, 20.0, 50.0}.issubset(set(pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])["cost_bps"]))
+    walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
+    blocked = walk_forward.loc[walk_forward["status"].eq("infeasible")]
+    assert set(blocked["test_year"]) == {2023, 2024, 2025}
+    assert set(blocked["blocking_reason"]) == {"missing_intraday_prediction_coverage"}
+    assert walk_forward.loc[walk_forward["test_year"].eq(2026), "status"].iloc[0] == "ok"
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "execution_overlay" / "overlay_trades.csv").exists()

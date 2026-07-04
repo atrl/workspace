@@ -133,8 +133,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "931cdaf8557d43098e1307e0d2a88227",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_external_context_overlay_v1/qlib_recorder/931774022181650049/931cdaf8557d43098e1307e0d2a88227",
+  "recorder_id": "fdcdfba8ff9446d597cc291e927d14d4",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_external_context_overlay_v1/qlib_recorder/931774022181650049/fdcdfba8ff9446d597cc291e927d14d4",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_external_context_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {
@@ -279,11 +279,10 @@
     "trade_gate": null
   },
   "walk_forward": {
-    "blocking_reasons": [],
+    "blocking_reasons": [
+      "missing_intraday_prediction_coverage"
+    ],
     "feasible_test_years": [
-      2023,
-      2024,
-      2025,
       2026
     ],
     "folds": [
@@ -292,7 +291,11 @@
       "wf_2025",
       "wf_2026"
     ],
-    "missing_required_test_years": [],
+    "missing_required_test_years": [
+      2023,
+      2024,
+      2025
+    ],
     "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
     "required_policy_satisfied": false,
     "required_start": "2019-01-02",
