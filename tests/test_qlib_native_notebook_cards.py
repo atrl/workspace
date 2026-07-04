@@ -1073,6 +1073,96 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert "85%-95% hard gate" in conclusion
 
 
+def test_cognitive_alpha_intraday_local_fallback_overlay_card_records_annual_wf():
+    card = ROOT / "research" / "cognitive_alpha_intraday_local_fallback_overlay_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_intraday_local_fallback_overlay_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_intraday_local_fallback_overlay_v1"
+    assert summary["card_type"] == "intraday_local_fallback_execution_overlay"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["source_daily_model"]["card"] == "research/cognitive_alpha_goal_codex_exec_v1"
+    assert summary["source_daily_model"]["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_execution_label_v1"
+    assert summary["source_intraday_model"]["label_policy_name"] == "triple_barrier_1h_2h_execution_improvement"
+    assert summary["source_intraday_model"]["external_context_required"] is False
+    assert summary["provider_uris"]["15min"] == (ROOT / "data" / "qlib" / "soxl_intraday_15min").resolve().as_posix()
+    assert summary["provider_uris"]["5min_probe"] == (ROOT / "data" / "qlib" / "soxl_intraday_5min").resolve().as_posix()
+    assert summary["execution_overlay"]["overlay_signal_timing"] == "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open"
+    assert summary["execution_overlay"]["intraday_flat_can_close_same_day"] is True
+    assert summary["execution_overlay"]["default_exit_timing"] == "following_open_or_same_day_close"
+    assert set(summary["model_selection"]["models"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert summary["model_selection"]["selection_segment"] == "validation"
+    assert summary["model_selection"]["report_segment"] == "test"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
+    assert summary["model_selection"]["return_retention_target_pct"] == [85.0, 95.0]
+    assert summary["walk_forward"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
+    assert summary["walk_forward"]["required_start"] == "2019-01-02"
+    assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
+    assert summary["walk_forward"]["selection_uses_test_segment"] is False
+    assert summary["walk_forward"]["rows"] == 4
+    assert set(summary["walk_forward"]["feasible_test_years"]) == {2023, 2024, 2025, 2026}
+    assert "required_policy_satisfied" in summary["walk_forward"]
+    assert summary["selected_model"]["selection_uses_test_segment"] is False
+    assert "why_intraday_did_not_beat_daily" in summary["analysis_summary"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "intraday_fold_predictions": "artifacts/local_fallback_overlay/intraday_fold_predictions.csv",
+        "all_policy_selection": "artifacts/local_fallback_overlay/all_policy_selection.csv.gz",
+        "selected_trades": "artifacts/local_fallback_overlay/selected_trades.csv",
+        "daily_walk_forward_positions": "artifacts/local_fallback_overlay/daily_walk_forward_positions.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "annual_walk_forward",
+        "failure_modes",
+        "feature_importance",
+        "model_selection",
+        "risk_analysis",
+        "selected_model",
+        "selected_policy_cost_sensitivity",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    annual = pd.read_csv(card / summary["sidecars"]["annual_walk_forward"])
+    assert set(annual["test_year"]) == {2023, 2024, 2025, 2026}
+    assert annual["selection_uses_test_segment"].eq(False).all()
+    assert set(annual["selected_intraday_model"]).issubset({"lgb", "xgb", "lgb_xgb_consensus"})
+    assert set(annual["required_cost_bps"]) == {"20.0,50.0"}
+    assert annual["train_start"].eq("2019-01-02").all()
+    assert annual.loc[annual["test_year"].eq(2023), "train_end"].iloc[0] == "2021-12-31"
+    assert annual.loc[annual["test_year"].eq(2026), "valid_start"].iloc[0] == "2025-01-01"
+
+    model_selection = pd.read_csv(card / summary["sidecars"]["model_selection"])
+    assert set(model_selection["model"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert set(model_selection["test_year"]) == {2023, 2024, 2025, 2026}
+    assert model_selection["selection_uses_test_segment"].eq(False).all()
+
+    selected_costs = pd.read_csv(card / summary["sidecars"]["selected_policy_cost_sensitivity"])
+    assert set(selected_costs["cost_bps"]) == {20.0, 50.0}
+    assert set(selected_costs["test_year"]) == {2023, 2024, 2025, 2026}
+    assert selected_costs["selection_uses_test_segment"].eq(False).all()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "local_fallback_overlay" / "intraday_fold_predictions.csv").exists()
+    assert (recorder_dir / "artifacts" / "local_fallback_overlay" / "all_policy_selection.csv.gz").exists()
+    assert (recorder_dir / "artifacts" / "local_fallback_overlay" / "selected_trades.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_cognitive_alpha_intraday_local_fallback_overlay_card" in notebook_text
+    assert "local SOXL/SOXX" in notebook_text
+    assert "annual walk-forward" in notebook_text
+    assert "本地 SOXL/SOXX" in conclusion
+
+
 def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():
     card = ROOT / "research" / "agentic_alpha_intraday_execution_label_v1"
     summary = _summary(card)

@@ -1,0 +1,662 @@
+{
+  "analysis_summary": {
+    "annual_walk_forward_rows": 4,
+    "as_of": "2026-07-02",
+    "data_audit": {
+      "daily_price_rows": 1128,
+      "daily_walk_forward_end": "2026-07-02",
+      "daily_walk_forward_position_rows": 1879,
+      "daily_walk_forward_start": "2022-01-03",
+      "intraday_calendar_end": "2026-07-02 16:00:00",
+      "intraday_calendar_start": "2018-12-31 09:45:00",
+      "intraday_label_rows": 46945,
+      "intraday_prediction_rows": 46796,
+      "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min"
+    },
+    "feature_set": {
+      "external_context_required": false,
+      "feature_count": 57,
+      "features": [
+        "soxl_ret_bar",
+        "soxl_ret_cc1",
+        "soxl_range",
+        "soxl_close_loc",
+        "soxl_vwap_dist",
+        "soxl_mom_2",
+        "soxl_rv_2",
+        "soxl_mom_3",
+        "soxl_rv_3",
+        "soxl_mom_4",
+        "soxl_rv_4",
+        "soxl_mom_8",
+        "soxl_rv_8",
+        "soxx_ret_bar",
+        "soxx_ret_cc1",
+        "soxx_range",
+        "soxx_close_loc",
+        "soxx_vwap_dist",
+        "soxx_mom_2",
+        "soxx_rv_2",
+        "soxx_mom_3",
+        "soxx_rv_3",
+        "soxx_mom_4",
+        "soxx_rv_4",
+        "soxx_mom_8",
+        "soxx_rv_8",
+        "soxl_range_so_far",
+        "soxl_ret_tod_z60",
+        "soxx_range_so_far",
+        "soxx_ret_tod_z60",
+        "tod_frac",
+        "tod_sin",
+        "tod_cos",
+        "soxl_minus_3x_soxx_ret",
+        "soxl_minus_3x_soxx_mom3",
+        "range_ratio_soxl_soxx",
+        "soxl_open_gap_from_prior_close",
+        "soxl_cum_ret_from_open",
+        "soxl_dist_day_high",
+        "soxl_dist_day_low",
+        "soxl_realized_vol_expansion",
+        "soxl_volume_tod_z60",
+        "soxl_first30_ret",
+        "soxl_first60_trend_quality",
+        "soxl_volume_price_absorption",
+        "soxx_open_gap_from_prior_close",
+        "soxx_cum_ret_from_open",
+        "soxx_dist_day_high",
+        "soxx_dist_day_low",
+        "soxx_realized_vol_expansion",
+        "soxx_volume_tod_z60",
+        "soxx_first30_ret",
+        "soxx_first60_trend_quality",
+        "soxx_volume_price_absorption",
+        "soxx_lead_lag_confirm_3",
+        "leveraged_replication_absorption",
+        "open_gap_reclaim_quality"
+      ],
+      "local_soxl_soxx_only": true
+    },
+    "label_policy": {
+      "cost_bps": 20.0,
+      "entry_timing": "next_15m_open",
+      "external_context": {
+        "external_context_requested": false
+      },
+      "horizon_bars": 8,
+      "label_policy": "triple_barrier_1h_2h_execution_improvement",
+      "profit_take": 0.018,
+      "same_session_last_rows_dropped": 1885,
+      "stop_loss": 0.014
+    },
+    "model_selection_rows": 12,
+    "optimization_plan": {
+      "external_context_gap": {
+        "earliest_any_symbol_regular_session": "2024-07-05 09:45:00",
+        "earliest_complete_symbol_regular_session": "2025-01-02 09:45:00",
+        "full_walk_forward_history_available": false,
+        "full_walk_forward_start": "2019-01-02",
+        "latest_any_symbol_regular_session": "2026-07-02 16:00:00",
+        "latest_complete_symbol_regular_session": "2026-07-02 16:00:00",
+        "missing_required_history_years": [
+          2019,
+          2020,
+          2021,
+          2022,
+          2023,
+          2024
+        ],
+        "next_data_action": "upgrade_polygon_history_plan_or_load_alternate_15min_source",
+        "provider_blocker_status_counts": {
+          "blocked_no_rows": 1,
+          "blocked_provider_history": 4,
+          "blocked_provider_rate_limit": 8
+        },
+        "requested_end": "2026-07-02",
+        "requested_start": "2019-01-02"
+      },
+      "guardrails": [
+        "selection_uses_validation_only",
+        "test_segment_report_only",
+        "retain_85_to_95_pct_return_band",
+        "max_drawdown_above_minus_18_pct",
+        "do_not_promote_without_20bp_50bp_annual_pass"
+      ],
+      "local_intraday_history": {
+        "calendar_end": "2026-07-02 16:00:00",
+        "calendar_end_5min": "2026-07-02 16:00:00",
+        "calendar_start": "2018-12-31 09:45:00",
+        "calendar_start_5min": "2018-12-31 09:35:00",
+        "freq": "15min",
+        "freq_5min": "5min",
+        "instruments": [
+          "SOXL",
+          "SOXX"
+        ],
+        "status": "ok",
+        "supports_5min_probe": true
+      },
+      "primary_next_action": "retrain_with_5min_replay_and_external_lead_lag_before_policy_search",
+      "ranked_actions": [
+        {
+          "action": "retrain_with_5min_replay_and_external_lead_lag_before_policy_search",
+          "rank": 1,
+          "reason": "Local SOXL/SOXX 15m annual folds are feasible but fail return-retention and drawdown targets."
+        },
+        {
+          "action": "separate_risk_sleeve_from_alpha_entry_gate",
+          "rank": 2,
+          "reason": "The delayed entry gate cuts crashes in some years but skips too much daily trend return."
+        },
+        {
+          "action": "run_bid_ask_latency_replay_after_annual_target_passes",
+          "rank": 3,
+          "reason": "Execution replay is useful only after annual 20/50bp policy gates pass."
+        }
+      ],
+      "selected_overlay_status": {
+        "annual_walk_forward_required_policy_satisfied": false,
+        "risk_reduction_test_years": [
+          2023,
+          2024,
+          2025,
+          2026
+        ],
+        "target_pass_test_years": [],
+        "test_max_drawdown_pct": -27.663273418291347,
+        "test_return_retention_pct": 64.71924338968734,
+        "variant": "delayed_signal_after_60m"
+      },
+      "status": "needs_new_intraday_factor_or_label",
+      "why_not_promoted": [
+        "annual_target_gate_failed",
+        "no_validation_policy_in_retention_band"
+      ]
+    },
+    "risk_analysis_rows": 32,
+    "selected_model": {
+      "20bp_passes_test_target": false,
+      "20bp_passes_validation_and_test_target": false,
+      "20bp_passes_validation_target": true,
+      "20bp_test_crash_period_reduction": 0,
+      "20bp_test_max_drawdown_pct": -27.663273418291347,
+      "20bp_test_open_buy_dump_period_reduction": 2,
+      "20bp_test_return_pct": 228.82815258867475,
+      "20bp_test_return_retention_pct": 64.71924338968734,
+      "20bp_test_skipped_periods": 0,
+      "20bp_test_worst_entry_day_return_improvement_pct": 1.0499331202708682,
+      "20bp_test_worst_strategy_return_improvement_pct": 0.0,
+      "20bp_validation_max_drawdown_pct": -15.634637060343204,
+      "20bp_validation_return_pct": 122.27364477479554,
+      "20bp_validation_return_retention_pct": 94.34512139536973,
+      "20bp_validation_skipped_periods": 2,
+      "50bp_passes_test_target": false,
+      "50bp_passes_validation_and_test_target": false,
+      "50bp_passes_validation_target": true,
+      "50bp_test_crash_period_reduction": 0,
+      "50bp_test_max_drawdown_pct": -28.329758082324307,
+      "50bp_test_open_buy_dump_period_reduction": 2,
+      "50bp_test_return_pct": 180.79078490549003,
+      "50bp_test_return_retention_pct": 62.857574157317195,
+      "50bp_test_skipped_periods": 0,
+      "50bp_test_worst_entry_day_return_improvement_pct": 1.1249331202708692,
+      "50bp_test_worst_strategy_return_improvement_pct": 0.0,
+      "50bp_validation_max_drawdown_pct": -17.047419852759482,
+      "50bp_validation_return_pct": 76.4744358552812,
+      "50bp_validation_return_retention_pct": 92.95009926141257,
+      "50bp_validation_skipped_periods": 2,
+      "blocking_reason": "ok",
+      "condition_feature": "observed_prob_max",
+      "condition_operator": "ge",
+      "condition_threshold": 0.5089437686099432,
+      "exit_policy": "hold_to_next_open",
+      "fold": "wf_2026",
+      "intraday_prediction_rows": 9339,
+      "observation_minutes": 60,
+      "passes_test_target": false,
+      "policy_candidate_rows": 56832,
+      "report_segment": "test",
+      "required_cost_bps": "20.0,50.0",
+      "required_cost_test_target_count": 0,
+      "required_cost_validation_and_test_target_count": 0,
+      "required_cost_validation_target_count": 2,
+      "risk_reduction_passes_target": true,
+      "selected_by": "latest_fold_policy_shape_with_annual_walk_forward_summary",
+      "selected_intraday_model": "lgb",
+      "selected_intraday_threshold": 0.6,
+      "selected_policy_id": "obs60_observed_prob_max_ge_q0.775_0.508944_signal_0.45_hold",
+      "selected_variant": "delayed_signal_after_60m",
+      "selection_segment": "validation",
+      "selection_uses_test_segment": false,
+      "signal_threshold": 0.45,
+      "status": "ok",
+      "test_end": "2026-07-02",
+      "test_max_drawdown_pct": -27.663273418291347,
+      "test_passes_required_cost_target": false,
+      "test_passes_target": false,
+      "test_return_retention_pct": 64.71924338968734,
+      "test_start": "2026-01-01",
+      "test_year": 2026,
+      "train_end": "2024-12-31",
+      "train_start": "2019-01-02",
+      "valid_end": "2025-12-31",
+      "valid_start": "2025-01-01",
+      "validation_and_test_passes_required_cost_target": false,
+      "validation_passes_required_cost_target": true,
+      "validation_passes_target": true,
+      "variant": "delayed_signal_after_60m"
+    },
+    "selected_policy_cost_rows": 8,
+    "selection_uses_test_segment": false,
+    "source": "local_soxl_soxx_15m_lgb_xgb_triple_barrier_execution_overlay",
+    "source_daily_model": {
+      "execution_timing": "close_t_signal_next_open_to_following_open",
+      "feature_count": 84,
+      "has_soxx_constituent_features": true,
+      "recorder_id": "a4c54bcd3bdd4eb39b413e2bbfa8618d"
+    },
+    "source_intraday_model": {
+      "label_policy": {
+        "entry_timing": "bar_t_close_signal_next_15m_open",
+        "exit_timing": "first_profit_or_stop_hit_else_horizon_close",
+        "horizon_bars": 8,
+        "horizon_minutes": 120,
+        "model_target_col": "target_positive",
+        "name": "triple_barrier_1h_2h_execution_improvement",
+        "profit_take": 0.018,
+        "return_col": "target_return",
+        "same_session_only": true,
+        "stop_loss": 0.014,
+        "uses_same_bar_future": false
+      },
+      "recorder_id": "13e134d6818f4dc39622b1c3458b979e"
+    },
+    "walk_forward": {
+      "blocking_reasons": [
+        "annual_target_gate_failed",
+        "no_validation_policy_in_retention_band"
+      ],
+      "feasible_test_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "missing_required_test_years": [],
+      "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+      "required_policy_satisfied": false,
+      "required_start": "2019-01-02",
+      "required_test_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "risk_reduction_test_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "rows": 4,
+      "selection_uses_test_segment": false,
+      "target_pass_test_years": []
+    },
+    "why_intraday_did_not_beat_daily": [
+      "intraday_label_targets_1h_2h_execution_quality_not_multi_day_open_to_open_trend",
+      "annual_local_intraday_model_folds_are_unstable_before_overlay",
+      "delayed_entries_reduce_bad_open_risk_but_can_skip_the_daily_model_trend_source",
+      "cost_and_same_day_close_reduce_overnight_alpha_capture"
+    ]
+  },
+  "artifact_policy": {
+    "kept_sidecars": [
+      "analysis_summary.json",
+      "annual_walk_forward.csv",
+      "failure_modes.md",
+      "feature_importance.csv",
+      "model_selection.csv",
+      "risk_analysis.csv",
+      "selected_model.json",
+      "selected_policy_cost_sensitivity.csv"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "cognitive_alpha_intraday_local_fallback_overlay_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_policy_selection": "artifacts/local_fallback_overlay/all_policy_selection.csv.gz",
+      "daily_walk_forward_positions": "artifacts/local_fallback_overlay/daily_walk_forward_positions.csv",
+      "intraday_fold_predictions": "artifacts/local_fallback_overlay/intraday_fold_predictions.csv",
+      "selected_trades": "artifacts/local_fallback_overlay/selected_trades.csv"
+    },
+    "reproducible_from_recorder": true,
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-02",
+  "card_type": "intraday_local_fallback_execution_overlay",
+  "execution_overlay": {
+    "daily_execution_timing": "close_t_signal_next_open_to_following_open",
+    "decision_model_timing": "daily_close_t_signal",
+    "default_exit_timing": "following_open_or_same_day_close",
+    "frequency": "15min",
+    "intraday_flat_can_close_same_day": true,
+    "intraday_overlays_hold_overnight": true,
+    "open_to_open_baseline": true,
+    "overlay_signal_timing": "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open",
+    "variants": [
+      "baseline_next_open",
+      "delayed_signal_after_30m",
+      "delayed_signal_after_60m",
+      "delayed_signal_after_30m_same_day_close",
+      "delayed_signal_after_60m_same_day_close"
+    ]
+  },
+  "experiment": "cognitive_alpha_intraday_local_fallback_overlay_v1",
+  "market": "all",
+  "model_selection": {
+    "max_drawdown_floor_pct": -18.0,
+    "models": [
+      "lgb",
+      "xgb",
+      "lgb_xgb_consensus"
+    ],
+    "policy_candidate_rows": 227328,
+    "report_segment": "test",
+    "required_cost_bps": [
+      20.0,
+      50.0
+    ],
+    "return_retention_target_pct": [
+      85.0,
+      95.0
+    ],
+    "selected_policy_cost_rows": 8,
+    "selection_segment": "validation",
+    "selection_uses_test_segment": false
+  },
+  "optimization_plan": {
+    "external_context_gap": {
+      "earliest_any_symbol_regular_session": "2024-07-05 09:45:00",
+      "earliest_complete_symbol_regular_session": "2025-01-02 09:45:00",
+      "full_walk_forward_history_available": false,
+      "full_walk_forward_start": "2019-01-02",
+      "latest_any_symbol_regular_session": "2026-07-02 16:00:00",
+      "latest_complete_symbol_regular_session": "2026-07-02 16:00:00",
+      "missing_required_history_years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "next_data_action": "upgrade_polygon_history_plan_or_load_alternate_15min_source",
+      "provider_blocker_status_counts": {
+        "blocked_no_rows": 1,
+        "blocked_provider_history": 4,
+        "blocked_provider_rate_limit": 8
+      },
+      "requested_end": "2026-07-02",
+      "requested_start": "2019-01-02"
+    },
+    "guardrails": [
+      "selection_uses_validation_only",
+      "test_segment_report_only",
+      "retain_85_to_95_pct_return_band",
+      "max_drawdown_above_minus_18_pct",
+      "do_not_promote_without_20bp_50bp_annual_pass"
+    ],
+    "local_intraday_history": {
+      "calendar_end": "2026-07-02 16:00:00",
+      "calendar_end_5min": "2026-07-02 16:00:00",
+      "calendar_start": "2018-12-31 09:45:00",
+      "calendar_start_5min": "2018-12-31 09:35:00",
+      "freq": "15min",
+      "freq_5min": "5min",
+      "instruments": [
+        "SOXL",
+        "SOXX"
+      ],
+      "status": "ok",
+      "supports_5min_probe": true
+    },
+    "primary_next_action": "retrain_with_5min_replay_and_external_lead_lag_before_policy_search",
+    "ranked_actions": [
+      {
+        "action": "retrain_with_5min_replay_and_external_lead_lag_before_policy_search",
+        "rank": 1,
+        "reason": "Local SOXL/SOXX 15m annual folds are feasible but fail return-retention and drawdown targets."
+      },
+      {
+        "action": "separate_risk_sleeve_from_alpha_entry_gate",
+        "rank": 2,
+        "reason": "The delayed entry gate cuts crashes in some years but skips too much daily trend return."
+      },
+      {
+        "action": "run_bid_ask_latency_replay_after_annual_target_passes",
+        "rank": 3,
+        "reason": "Execution replay is useful only after annual 20/50bp policy gates pass."
+      }
+    ],
+    "selected_overlay_status": {
+      "annual_walk_forward_required_policy_satisfied": false,
+      "risk_reduction_test_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "target_pass_test_years": [],
+      "test_max_drawdown_pct": -27.663273418291347,
+      "test_return_retention_pct": 64.71924338968734,
+      "variant": "delayed_signal_after_60m"
+    },
+    "status": "needs_new_intraday_factor_or_label",
+    "why_not_promoted": [
+      "annual_target_gate_failed",
+      "no_validation_policy_in_retention_band"
+    ]
+  },
+  "promotion_decision": "not_promoted_local_intraday_target_gate_failed",
+  "provider_uris": {
+    "15min": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "5min_probe": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_5min",
+    "daily": "/Users/rziiiii/dev/workspace/data/qlib/soxl"
+  },
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "highfreq": "https://qlib.readthedocs.io/en/latest/component/highfreq.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.R.log_params",
+    "qlib.workflow.R.log_metrics",
+    "qlib.workflow.Recorder.log_artifact",
+    "LGBMClassifier",
+    "XGBClassifier",
+    "triple_barrier_1h_2h_execution_improvement"
+  ],
+  "recorder_artifacts": [
+    "artifacts/cognitive_alpha_intraday_local_fallback_overlay_v1/analysis_summary.json",
+    "artifacts/cognitive_alpha_intraday_local_fallback_overlay_v1/annual_walk_forward.csv",
+    "artifacts/cognitive_alpha_intraday_local_fallback_overlay_v1/failure_modes.md",
+    "artifacts/cognitive_alpha_intraday_local_fallback_overlay_v1/feature_importance.csv",
+    "artifacts/cognitive_alpha_intraday_local_fallback_overlay_v1/model_selection.csv",
+    "artifacts/cognitive_alpha_intraday_local_fallback_overlay_v1/risk_analysis.csv",
+    "artifacts/cognitive_alpha_intraday_local_fallback_overlay_v1/selected_model.json",
+    "artifacts/cognitive_alpha_intraday_local_fallback_overlay_v1/selected_policy_cost_sensitivity.csv",
+    "artifacts/local_fallback_overlay/all_policy_selection.csv.gz",
+    "artifacts/local_fallback_overlay/daily_walk_forward_positions.csv",
+    "artifacts/local_fallback_overlay/intraday_fold_predictions.csv",
+    "artifacts/local_fallback_overlay/selected_trades.csv",
+    "meta.yaml",
+    "metrics/feasible_fold_count",
+    "metrics/required_policy_satisfied",
+    "metrics/risk_reduction_fold_count",
+    "metrics/target_pass_fold_count",
+    "params/cmd-sys.argv",
+    "params/daily_source",
+    "params/experiment",
+    "params/intraday_source",
+    "params/label_policy",
+    "params/report_segment",
+    "params/required_cost_bps",
+    "params/selection_segment",
+    "params/selection_uses_test_segment",
+    "params/walk_forward_policy",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "959c59a6543d40349a944d5e1de2fe07",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_local_fallback_overlay_v1/qlib_recorder/276773166508699660/959c59a6543d40349a944d5e1de2fe07",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_local_fallback_overlay_v1/qlib_recorder",
+  "region": "us",
+  "selected_model": {
+    "20bp_passes_test_target": false,
+    "20bp_passes_validation_and_test_target": false,
+    "20bp_passes_validation_target": true,
+    "20bp_test_crash_period_reduction": 0,
+    "20bp_test_max_drawdown_pct": -27.663273418291347,
+    "20bp_test_open_buy_dump_period_reduction": 2,
+    "20bp_test_return_pct": 228.82815258867475,
+    "20bp_test_return_retention_pct": 64.71924338968734,
+    "20bp_test_skipped_periods": 0,
+    "20bp_test_worst_entry_day_return_improvement_pct": 1.0499331202708682,
+    "20bp_test_worst_strategy_return_improvement_pct": 0.0,
+    "20bp_validation_max_drawdown_pct": -15.634637060343204,
+    "20bp_validation_return_pct": 122.27364477479554,
+    "20bp_validation_return_retention_pct": 94.34512139536973,
+    "20bp_validation_skipped_periods": 2,
+    "50bp_passes_test_target": false,
+    "50bp_passes_validation_and_test_target": false,
+    "50bp_passes_validation_target": true,
+    "50bp_test_crash_period_reduction": 0,
+    "50bp_test_max_drawdown_pct": -28.329758082324307,
+    "50bp_test_open_buy_dump_period_reduction": 2,
+    "50bp_test_return_pct": 180.79078490549003,
+    "50bp_test_return_retention_pct": 62.857574157317195,
+    "50bp_test_skipped_periods": 0,
+    "50bp_test_worst_entry_day_return_improvement_pct": 1.1249331202708692,
+    "50bp_test_worst_strategy_return_improvement_pct": 0.0,
+    "50bp_validation_max_drawdown_pct": -17.047419852759482,
+    "50bp_validation_return_pct": 76.4744358552812,
+    "50bp_validation_return_retention_pct": 92.95009926141257,
+    "50bp_validation_skipped_periods": 2,
+    "blocking_reason": "ok",
+    "condition_feature": "observed_prob_max",
+    "condition_operator": "ge",
+    "condition_threshold": 0.5089437686099432,
+    "exit_policy": "hold_to_next_open",
+    "fold": "wf_2026",
+    "intraday_prediction_rows": 9339,
+    "observation_minutes": 60,
+    "passes_test_target": false,
+    "policy_candidate_rows": 56832,
+    "report_segment": "test",
+    "required_cost_bps": "20.0,50.0",
+    "required_cost_test_target_count": 0,
+    "required_cost_validation_and_test_target_count": 0,
+    "required_cost_validation_target_count": 2,
+    "risk_reduction_passes_target": true,
+    "selected_by": "latest_fold_policy_shape_with_annual_walk_forward_summary",
+    "selected_intraday_model": "lgb",
+    "selected_intraday_threshold": 0.6,
+    "selected_policy_id": "obs60_observed_prob_max_ge_q0.775_0.508944_signal_0.45_hold",
+    "selected_variant": "delayed_signal_after_60m",
+    "selection_segment": "validation",
+    "selection_uses_test_segment": false,
+    "signal_threshold": 0.45,
+    "status": "ok",
+    "test_end": "2026-07-02",
+    "test_max_drawdown_pct": -27.663273418291347,
+    "test_passes_required_cost_target": false,
+    "test_passes_target": false,
+    "test_return_retention_pct": 64.71924338968734,
+    "test_start": "2026-01-01",
+    "test_year": 2026,
+    "train_end": "2024-12-31",
+    "train_start": "2019-01-02",
+    "valid_end": "2025-12-31",
+    "valid_start": "2025-01-01",
+    "validation_and_test_passes_required_cost_target": false,
+    "validation_passes_required_cost_target": true,
+    "validation_passes_target": true,
+    "variant": "delayed_signal_after_60m"
+  },
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "annual_walk_forward": "annual_walk_forward.csv",
+    "failure_modes": "failure_modes.md",
+    "feature_importance": "feature_importance.csv",
+    "model_selection": "model_selection.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json",
+    "selected_policy_cost_sensitivity": "selected_policy_cost_sensitivity.csv"
+  },
+  "source_daily_model": {
+    "card": "research/cognitive_alpha_goal_codex_exec_v1",
+    "execution_timing": "close_t_signal_next_open_to_following_open",
+    "has_soxx_constituent_features": true,
+    "recorder_id": "a4c54bcd3bdd4eb39b413e2bbfa8618d",
+    "return_col": "open_to_open_return"
+  },
+  "source_intraday_model": {
+    "card": "research/agentic_alpha_intraday_execution_label_v1",
+    "external_context": "not_used_local_soxl_soxx_only",
+    "external_context_required": false,
+    "feature_set": {
+      "feature_count": 57,
+      "lookback_only": true,
+      "name": "execution_context_v1",
+      "new_features": [
+        "soxl_open_gap_from_prior_close",
+        "soxl_realized_vol_expansion",
+        "soxl_first30_ret",
+        "soxl_first60_trend_quality",
+        "soxl_volume_price_absorption",
+        "soxx_lead_lag_confirm_3",
+        "leveraged_replication_absorption",
+        "open_gap_reclaim_quality"
+      ]
+    },
+    "label_policy_name": "triple_barrier_1h_2h_execution_improvement",
+    "recorder_id": "13e134d6818f4dc39622b1c3458b979e"
+  },
+  "walk_forward": {
+    "blocking_reasons": [
+      "annual_target_gate_failed",
+      "no_validation_policy_in_retention_band"
+    ],
+    "feasible_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "missing_required_test_years": [],
+    "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+    "required_policy_satisfied": false,
+    "required_start": "2019-01-02",
+    "required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "risk_reduction_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "rows": 4,
+    "selection_uses_test_segment": false,
+    "target_pass_test_years": []
+  },
+  "workflow_config": "workflow.yaml"
+}
