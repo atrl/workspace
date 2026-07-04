@@ -1,0 +1,135 @@
+{
+  "artifact_policy": {
+    "kept_sidecars": [
+      "analysis_summary.json",
+      "coverage_audit.csv",
+      "failure_modes.md",
+      "qlib_store_manifest.json",
+      "source_audit.csv"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "intraday_external_context_data_v1.ipynb",
+    "recorder_only_artifacts": {
+      "qlib_feature_sample": "artifacts/intraday_external_context/qlib_feature_sample.csv",
+      "source_audit": "artifacts/intraday_external_context/source_audit.csv"
+    },
+    "reproducible_from_recorder": true,
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-02",
+  "available_symbols": [
+    "AMD",
+    "ASML",
+    "AVGO",
+    "NVDA",
+    "QQQ",
+    "SMH",
+    "SOXX",
+    "TSM"
+  ],
+  "card_type": "intraday_external_context_data",
+  "coverage_audit": {
+    "regular_session_rows": 77736,
+    "symbols_with_rows": [
+      "AMD",
+      "ASML",
+      "AVGO",
+      "NVDA",
+      "QQQ",
+      "SMH",
+      "SOXX",
+      "TSM"
+    ]
+  },
+  "data_status": "ok_partial_insufficient_for_full_walk_forward",
+  "experiment": "intraday_external_context_data_v1",
+  "frequency": "15min",
+  "full_walk_forward_required_range": [
+    "2019-01-02",
+    "2026-07-02"
+  ],
+  "manifest_hash": "97af5f6932968b3e",
+  "manifest_status": "ok",
+  "market": "all",
+  "missing_symbols": [],
+  "objective_context_gap_closed_or_audited": [
+    "QQQ",
+    "SMH",
+    "SOXX",
+    "NVDA",
+    "AVGO",
+    "AMD",
+    "TSM",
+    "ASML"
+  ],
+  "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min/qlib_store_manifest.json",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "highfreq": "https://qlib.readthedocs.io/en/latest/component/highfreq.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.Recorder.log_artifact",
+    "build_qlib_store_from_frame"
+  ],
+  "recorder_artifacts": [
+    "artifacts/intraday_external_context/qlib_feature_sample.csv",
+    "artifacts/intraday_external_context/source_audit.csv",
+    "artifacts/intraday_external_context_data_v1/analysis_summary.json",
+    "artifacts/intraday_external_context_data_v1/coverage_audit.csv",
+    "artifacts/intraday_external_context_data_v1/failure_modes.md",
+    "artifacts/intraday_external_context_data_v1/qlib_store_manifest.json",
+    "artifacts/intraday_external_context_data_v1/source_audit.csv",
+    "meta.yaml",
+    "metrics/available_symbol_count",
+    "metrics/missing_symbol_count",
+    "metrics/regular_session_rows",
+    "params/cmd-sys.argv",
+    "params/data_status",
+    "params/end",
+    "params/experiment",
+    "params/frequency",
+    "params/requested_symbols",
+    "params/source",
+    "params/start",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "c205b2b4156248e2bb2374d846d37a33",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/c205b2b4156248e2bb2374d846d37a33",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder",
+  "region": "us",
+  "requested_range": [
+    "2025-01-02",
+    "2026-07-02"
+  ],
+  "requested_symbols": [
+    "QQQ",
+    "SMH",
+    "SOXX",
+    "NVDA",
+    "AVGO",
+    "AMD",
+    "TSM",
+    "ASML"
+  ],
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "coverage_audit": "coverage_audit.csv",
+    "failure_modes": "failure_modes.md",
+    "qlib_store_manifest": "qlib_store_manifest.json",
+    "source_audit": "source_audit.csv"
+  },
+  "source": "polygon_aggs_custom_bars",
+  "source_audit_status_counts": {
+    "ok": 8
+  },
+  "workflow_config": "workflow.yaml"
+}

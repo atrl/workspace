@@ -773,6 +773,93 @@ def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and
     assert "不晋升" in conclusion
 
 
+def test_intraday_external_context_data_card_records_requested_symbols_and_fail_closed_coverage():
+    card = ROOT / "research" / "intraday_external_context_data_v1"
+    summary = _summary(card)
+    notebook_text = (card / "intraday_external_context_data_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    requested_symbols = {"QQQ", "SMH", "SOXX", "NVDA", "AVGO", "AMD", "TSM", "ASML"}
+    assert summary["experiment"] == "intraday_external_context_data_v1"
+    assert summary["card_type"] == "intraday_external_context_data"
+    assert summary["source"] == "polygon_aggs_custom_bars"
+    assert summary["requested_range"] == ["2025-01-02", "2026-07-02"]
+    assert set(summary["requested_symbols"]) == requested_symbols
+    assert summary["frequency"] == "15min"
+    assert summary["data_status"] in {
+        "ok",
+        "ok_partial_insufficient_for_full_walk_forward",
+        "blocked_missing_api_key",
+        "blocked_provider_rate_limit",
+        "blocked_provider_timeout",
+        "blocked_provider_history",
+        "blocked_no_rows",
+    }
+    assert set(summary["available_symbols"]).issubset(requested_symbols)
+    assert set(summary["missing_symbols"]).issubset(requested_symbols)
+    assert set(summary["available_symbols"]).union(summary["missing_symbols"]) == requested_symbols
+    assert {"QQQ", "SMH", "NVDA", "AVGO", "AMD", "TSM", "ASML"}.issubset(
+        set(summary["objective_context_gap_closed_or_audited"])
+    )
+    assert {
+        "qlib.init",
+        "qlib.data.D.features",
+        "qlib.workflow.R.start",
+        "qlib.workflow.Recorder.log_artifact",
+        "build_qlib_store_from_frame",
+    }.issubset(set(summary["qlib_native_api"]))
+    assert summary["qlib_docs"] == {
+        "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+        "highfreq": "https://qlib.readthedocs.io/en/latest/component/highfreq.html",
+        "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    }
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "source_audit": "artifacts/intraday_external_context/source_audit.csv",
+        "qlib_feature_sample": "artifacts/intraday_external_context/qlib_feature_sample.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "coverage_audit",
+        "failure_modes",
+        "qlib_store_manifest",
+        "source_audit",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    source_audit = pd.read_csv(card / summary["sidecars"]["source_audit"])
+    assert set(source_audit["symbol"]) == requested_symbols
+    assert {"status", "http_status", "row_count", "message"}.issubset(source_audit.columns)
+    coverage_audit = pd.read_csv(card / summary["sidecars"]["coverage_audit"])
+    assert set(coverage_audit["symbol"]).issubset(requested_symbols)
+    assert {"coverage_start", "coverage_end", "regular_session_rows"}.issubset(coverage_audit.columns)
+
+    if summary["provider_uri"]:
+        provider_uri = Path(summary["provider_uri"])
+        manifest = json.loads((provider_uri / "qlib_store_manifest.json").read_text(encoding="utf-8"))
+        assert manifest["freq"] == "15min"
+        assert manifest["source"] == "polygon_aggs_custom_bars"
+        assert set(manifest["instruments"]) == set(summary["available_symbols"])
+        assert "$vwap" in manifest["fields"]
+        assert Path(summary["sidecars"]["qlib_store_manifest"]).name == "qlib_store_manifest.json"
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert recorder_dir.exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_intraday_external_context_data_card" in notebook_text
+    assert "build_qlib_store_from_frame" in notebook_text
+    assert "R.start" in notebook_text
+    assert "外部 15m 上下文" in conclusion
+
+
 def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
     card = ROOT / "research" / "agentic_alpha_high_chop_execution_validation_v1"
     summary = _summary(card)

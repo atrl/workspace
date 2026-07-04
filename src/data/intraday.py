@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Sequence
+from typing import Any, Sequence
 from zoneinfo import ZoneInfo
 
 import numpy as np
@@ -44,6 +45,20 @@ def _classify_session(timestamp: pd.Timestamp) -> str:
     return "afterhours"
 
 
+def _classify_aggregate_session(start: pd.Timestamp, end: pd.Timestamp) -> str:
+    local_start = start.tz_convert(NEW_YORK_TZ) if start.tzinfo is not None else start.tz_localize(NEW_YORK_TZ)
+    local_end = end.tz_convert(NEW_YORK_TZ) if end.tzinfo is not None else end.tz_localize(NEW_YORK_TZ)
+    start_minute = local_start.hour * 60 + local_start.minute
+    end_minute = local_end.hour * 60 + local_end.minute
+    regular_start = 9 * 60 + 30
+    regular_end = 16 * 60
+    if start_minute >= regular_start and end_minute <= regular_end:
+        return "regular"
+    if end_minute <= regular_start:
+        return "premarket"
+    return "afterhours"
+
+
 def normalize_futu_intraday_frame(
     raw: pd.DataFrame,
     *,
@@ -79,6 +94,231 @@ def normalize_futu_intraday_frame(
     normalized = normalized.dropna(subset=["timestamp", "open", "high", "low", "close"])
     normalized = normalized.sort_values(["symbol", "timestamp"]).drop_duplicates(["symbol", "timestamp"], keep="last")
     return normalized.reset_index(drop=True)
+
+
+def normalize_polygon_aggregate_frame(
+    raw: pd.DataFrame | list[dict[str, Any]],
+    *,
+    symbol: str,
+    multiplier: int = 15,
+    adjusted: bool = True,
+    fetched_at: str | None = None,
+) -> pd.DataFrame:
+    """Normalize Polygon aggregate bars into the repo canonical intraday schema.
+
+    Polygon aggregate timestamps are the start of the aggregate window. The
+    qlib intraday stores in this repo use right-edge timestamps, so a 09:30
+    15-minute aggregate is stored at 09:45.
+    """
+
+    frame = pd.DataFrame(raw).copy()
+    required = {"t", "o", "h", "l", "c", "v"}
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"polygon aggregate frame missing columns: {missing}")
+
+    start_timestamps = pd.to_datetime(frame["t"], unit="ms", utc=True, errors="coerce").dt.tz_convert(NEW_YORK_TZ)
+    timestamps = start_timestamps + pd.Timedelta(minutes=int(multiplier))
+    volume = pd.to_numeric(frame["v"], errors="coerce")
+    vwap = pd.to_numeric(frame["vw"], errors="coerce") if "vw" in frame else pd.Series(np.nan, index=frame.index)
+    normalized = pd.DataFrame(
+        {
+            "provider": "polygon",
+            "symbol": symbol.upper(),
+            "interval": f"{int(multiplier)}m",
+            "timestamp": timestamps,
+            "date": timestamps.dt.date.astype(str),
+            "session": [
+                _classify_aggregate_session(start, end) for start, end in zip(start_timestamps, timestamps, strict=False)
+            ],
+            "open": pd.to_numeric(frame["o"], errors="coerce"),
+            "high": pd.to_numeric(frame["h"], errors="coerce"),
+            "low": pd.to_numeric(frame["l"], errors="coerce"),
+            "close": pd.to_numeric(frame["c"], errors="coerce"),
+            "volume": volume,
+            "turnover": vwap * volume,
+            "vwap": vwap,
+            "transactions": pd.to_numeric(frame["n"], errors="coerce") if "n" in frame else np.nan,
+            "source_tz": "UTC",
+            "adjusted": bool(adjusted),
+            "fetched_at": fetched_at or datetime.now(timezone.utc).isoformat(),
+        }
+    )
+    normalized = normalized.dropna(subset=["timestamp", "open", "high", "low", "close", "volume"])
+    normalized = normalized.sort_values(["symbol", "timestamp"]).drop_duplicates(["symbol", "timestamp"], keep="last")
+    return normalized.reset_index(drop=True)
+
+
+def polygon_intraday_to_qlib_frame(
+    frame: pd.DataFrame,
+    *,
+    regular_session_only: bool = True,
+) -> pd.DataFrame:
+    required = {
+        "symbol",
+        "timestamp",
+        "date",
+        "session",
+        "interval",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+    }
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"polygon intraday frame missing columns: {missing}")
+
+    result = frame.copy()
+    result["timestamp"] = _as_new_york_timestamp(result["timestamp"])
+    result["symbol"] = result["symbol"].astype(str).str.upper()
+    result["date"] = pd.to_datetime(result["date"]).dt.date.astype(str)
+    if regular_session_only:
+        result = result.loc[result["session"].astype(str).str.lower() == "regular"].copy()
+    result = result.dropna(subset=["timestamp", "open", "high", "low", "close", "volume"])
+    if result.empty:
+        return pd.DataFrame(
+            columns=[
+                "instrument",
+                "datetime",
+                "date",
+                "symbol",
+                "interval",
+                "open",
+                "high",
+                "low",
+                "close",
+                "volume",
+                "turnover",
+                "vwap",
+                "transactions",
+                "bar_index",
+                "bar_count",
+            ]
+        )
+    for column in ["turnover", "vwap", "transactions"]:
+        if column not in result:
+            result[column] = np.nan
+    result = result.sort_values(["symbol", "timestamp"]).copy()
+    result["interval"] = result["interval"].astype(str).str.replace(r"^(\d+)m$", r"\1min", regex=True)
+    result["bar_index"] = result.groupby(["symbol", "date"]).cumcount()
+    result["bar_count"] = result.groupby(["symbol", "date"])["timestamp"].transform("count")
+    result["instrument"] = result["symbol"]
+    result = result.rename(columns={"timestamp": "datetime"})
+    columns = [
+        "instrument",
+        "datetime",
+        "date",
+        "symbol",
+        "interval",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "turnover",
+        "vwap",
+        "transactions",
+        "bar_index",
+        "bar_count",
+    ]
+    return result[columns].sort_values(["instrument", "datetime"]).reset_index(drop=True)
+
+
+def fetch_polygon_aggregate_bars(
+    symbol: str,
+    *,
+    start: str,
+    end: str,
+    api_key: str,
+    multiplier: int = 15,
+    timespan: str = "minute",
+    adjusted: bool = True,
+    base_url: str = "https://api.polygon.io",
+    timeout: float = 30.0,
+    max_pages: int = 50,
+    max_retries: int = 4,
+    retry_sleep_seconds: float = 12.5,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    import requests
+
+    symbol = symbol.upper()
+    url = f"{base_url.rstrip('/')}/v2/aggs/ticker/{symbol}/range/{int(multiplier)}/{timespan}/{start}/{end}"
+    params: dict[str, Any] = {
+        "adjusted": "true" if adjusted else "false",
+        "sort": "asc",
+        "limit": 50000,
+        "apiKey": api_key,
+    }
+    rows: list[dict[str, Any]] = []
+    page_count = 0
+    last_status: int | None = None
+    message = ""
+    current_url: str | None = url
+    current_params: dict[str, Any] | None = params
+
+    while current_url and page_count < max_pages:
+        attempts = 0
+        while True:
+            try:
+                response = requests.get(current_url, params=current_params, timeout=timeout)
+            except requests.exceptions.RequestException as exc:
+                return pd.DataFrame(), {
+                    "symbol": symbol,
+                    "status": "blocked_provider_timeout",
+                    "http_status": 0,
+                    "row_count": 0,
+                    "page_count": page_count,
+                    "message": str(exc),
+                }
+            last_status = int(response.status_code)
+            if response.status_code != 429 or attempts >= max_retries:
+                break
+            attempts += 1
+            retry_after = response.headers.get("Retry-After")
+            sleep_seconds = float(retry_after) if retry_after else retry_sleep_seconds
+            time.sleep(sleep_seconds)
+        try:
+            payload = response.json()
+        except ValueError:
+            payload = {"status": "ERROR", "message": response.text[:240]}
+        message = str(payload.get("message") or payload.get("status") or "")
+        if response.status_code != 200:
+            status = "blocked_provider_rate_limit" if response.status_code == 429 else "blocked_provider_history"
+            return pd.DataFrame(), {
+                "symbol": symbol,
+                "status": status,
+                "http_status": last_status,
+                "row_count": 0,
+                "page_count": page_count,
+                "message": message,
+            }
+        page_rows = payload.get("results") or []
+        rows.extend(page_rows)
+        page_count += 1
+        next_url = payload.get("next_url")
+        if not next_url:
+            current_url = None
+        else:
+            current_url = str(next_url)
+            current_params = {"apiKey": api_key}
+
+    normalized = normalize_polygon_aggregate_frame(
+        rows,
+        symbol=symbol,
+        multiplier=multiplier,
+        adjusted=adjusted,
+    ) if rows else pd.DataFrame()
+    status = "ok" if not normalized.empty else "blocked_no_rows"
+    return normalized, {
+        "symbol": symbol,
+        "status": status,
+        "http_status": last_status,
+        "row_count": int(len(normalized)),
+        "page_count": page_count,
+        "message": message,
+    }
 
 
 def merge_intraday_bars(existing: pd.DataFrame, fetched: pd.DataFrame) -> pd.DataFrame:

@@ -1,0 +1,23 @@
+experiment: intraday_external_context_data_v1
+card_type: intraday_external_context_data
+qlib:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min
+  recorder_uri: /Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder
+  market: all
+  region: us
+  frequency: 15min
+source:
+  provider: polygon_aggs_custom_bars
+  requested_range: [2025-01-02, 2026-07-02]
+  requested_symbols:
+    - QQQ
+    - SMH
+    - SOXX
+    - NVDA
+    - AVGO
+    - AMD
+    - TSM
+    - ASML
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json
