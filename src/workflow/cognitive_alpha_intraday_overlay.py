@@ -29,6 +29,7 @@ SAME_DAY_CLOSE_EXIT_POLICY = "same_day_close"
 VARIANTS = [
     "baseline_next_open",
     "overlay_a_signal_gate",
+    "overlay_b_twap3",
     "overlay_b_twap4",
     "overlay_c_risk_exit",
 ]
@@ -531,6 +532,7 @@ def evaluate_conditional_overlay_candidates(
     cost_bps: float,
     variants: tuple[str, ...] = (
         "overlay_a_signal_gate",
+        "overlay_b_twap3",
         "overlay_b_twap4",
         "overlay_c_risk_exit",
     ),
@@ -791,8 +793,13 @@ def select_conditional_risk_sleeve_policy(
     *,
     required_cost_bps: tuple[float, ...] = (20.0, 50.0),
     selection_cost_bps: float = 20.0,
+    eligible_variants: tuple[str, ...] = ("overlay_b_twap3", "overlay_b_twap4"),
+    max_drawdown_floor: float = -18.0,
 ) -> dict[str, Any]:
     selection_priority = [
+        "validation_min_required_cost_return_retention_pct_desc",
+        "validation_min_required_cost_drawdown_margin_pct_desc",
+        "validation_max_required_cost_skip_rate_asc",
         "validation_open_buy_dump_period_reduction_desc",
         "validation_crash_period_reduction_desc",
         "validation_worst_entry_day_return_improvement_desc",
@@ -808,8 +815,13 @@ def select_conditional_risk_sleeve_policy(
             "selection_priority": selection_priority,
             "selection_uses_test_segment": False,
             "validation_passes_target": False,
+            "eligible_variants": list(eligible_variants),
         }
     frame = candidates.copy()
+    if eligible_variants and "variant" in frame.columns:
+        eligible = frame.loc[frame["variant"].isin(set(eligible_variants))].copy()
+        if not eligible.empty:
+            frame = eligible
     frame["cost_bps"] = pd.to_numeric(frame.get("cost_bps", selection_cost_bps), errors="coerce")
     frame["validation_return_retention_score"] = pd.to_numeric(
         frame.get("validation_return_retention_pct", 0.0),
@@ -822,6 +834,15 @@ def select_conditional_risk_sleeve_policy(
         "validation_drawdown_improvement_pct",
         "condition_valid_active_coverage",
         "selection_score",
+    ]:
+        if column not in frame.columns:
+            frame[column] = 0.0
+        frame[column] = pd.to_numeric(frame[column], errors="coerce").fillna(0.0)
+    for column in [
+        "validation_return_retention_pct",
+        "validation_max_drawdown_pct",
+        "validation_skipped_periods",
+        "validation_periods",
     ]:
         if column not in frame.columns:
             frame[column] = 0.0
@@ -847,12 +868,31 @@ def select_conditional_risk_sleeve_policy(
                 or float(selected_row.get("validation_crash_period_reduction", 0.0)) > 0.0
             )
             if has_validation_risk_reduction:
+                selected_row = selected_row.copy()
+                selected_row["validation_min_required_cost_return_retention_pct"] = float(
+                    pd.to_numeric(required_rows["validation_return_retention_pct"], errors="coerce").min()
+                )
+                selected_row["validation_min_required_cost_drawdown_margin_pct"] = float(
+                    (
+                        pd.to_numeric(required_rows["validation_max_drawdown_pct"], errors="coerce")
+                        - float(max_drawdown_floor)
+                    ).min()
+                )
+                required_periods = pd.to_numeric(required_rows["validation_periods"], errors="coerce").replace(0, np.nan)
+                selected_row["validation_max_required_cost_skip_rate"] = float(
+                    (
+                        pd.to_numeric(required_rows["validation_skipped_periods"], errors="coerce")
+                        / required_periods
+                    )
+                    .fillna(1.0)
+                    .max()
+                )
                 robust_rows.append((selected_row, required_rows.sort_values("cost_bps").copy()))
 
     if robust_rows:
         source = pd.DataFrame([row for row, _ in robust_rows]).copy()
-        required_cost_results_by_index = {
-            int(index): required_rows for index, (_, required_rows) in zip(source.index, robust_rows, strict=False)
+        required_cost_results_by_key = {
+            key: required_rows for key, (_, required_rows) in zip(source.index, robust_rows, strict=False)
         }
         validation_cost_robust = True
     else:
@@ -860,11 +900,27 @@ def select_conditional_risk_sleeve_policy(
             frame.get("passes_validation_target", pd.Series(False, index=frame.index)).astype(bool)
         ].copy()
         source = validation_passes if not validation_passes.empty else frame.copy()
-        required_cost_results_by_index = {}
+        required_cost_results_by_key = {}
         validation_cost_robust = False
+    for column in [
+        "validation_min_required_cost_return_retention_pct",
+        "validation_min_required_cost_drawdown_margin_pct",
+    ]:
+        if column not in source.columns:
+            source[column] = 0.0
+        source[column] = pd.to_numeric(source[column], errors="coerce").fillna(0.0)
+    if "validation_max_required_cost_skip_rate" not in source.columns:
+        source["validation_max_required_cost_skip_rate"] = 1.0
+    source["validation_max_required_cost_skip_rate"] = pd.to_numeric(
+        source["validation_max_required_cost_skip_rate"],
+        errors="coerce",
+    ).fillna(1.0)
 
     selected = source.sort_values(
         [
+            "validation_min_required_cost_return_retention_pct",
+            "validation_min_required_cost_drawdown_margin_pct",
+            "validation_max_required_cost_skip_rate",
             "validation_open_buy_dump_period_reduction",
             "validation_crash_period_reduction",
             "validation_worst_entry_day_return_improvement_pct",
@@ -873,10 +929,10 @@ def select_conditional_risk_sleeve_policy(
             "condition_valid_active_coverage",
             "selection_score",
         ],
-        ascending=[False, False, False, False, False, False, False],
+        ascending=[False, False, True, False, False, False, False, False, False, False],
     ).iloc[0]
     result = _json_ready_dict(selected.to_dict())
-    required_cost_results = required_cost_results_by_index.get(int(selected.name), pd.DataFrame())
+    required_cost_results = required_cost_results_by_key.get(selected.name, pd.DataFrame())
     result["selection_role"] = "conditional_risk_sleeve"
     result["selection_priority"] = selection_priority
     result["selection_segment"] = "validation"
@@ -887,6 +943,7 @@ def select_conditional_risk_sleeve_policy(
     result["validation_passes_target"] = bool(result.get("passes_validation_target", False))
     result["test_passes_target"] = bool(result.get("passes_test_target", False))
     result["validation_cost_robust"] = bool(validation_cost_robust)
+    result["eligible_variants"] = list(eligible_variants)
     if not required_cost_results.empty:
         result["required_cost_validation_target_count"] = int(
             required_cost_results["passes_validation_target"].astype(bool).sum()
@@ -906,6 +963,7 @@ def select_conditional_risk_sleeve_policy(
             "validation_max_drawdown_pct",
             "validation_open_buy_dump_period_reduction",
             "validation_crash_period_reduction",
+            "validation_skipped_periods",
             "test_return_retention_pct",
             "test_max_drawdown_pct",
             "test_open_buy_dump_period_reduction",
@@ -2594,49 +2652,51 @@ def _simulate_daily_row(
             }
         )
 
-    twap_bars = entry_day_bars.loc[entry_day_bars["open"].notna()].head(4)
-    if twap_bars.empty:
-        rows.append(
-            {
-                **base_common,
-                "variant": "overlay_b_twap4",
-                "entry_time": None,
-                "exit_time": pd.Timestamp(exit_date).date().isoformat(),
-                "entry_price": np.nan,
-                "exit_price": exit_open,
-                "entry_day_close_time": entry_day_close_time,
-                "entry_day_close_price": entry_day_close_price,
-                "entry_day_strategy_return": np.nan,
-                "intraday_signal_score": np.nan,
-                "gross_return": 0.0,
-                "strategy_return": 0.0,
-                "skipped_reason": "missing_intraday_twap_bars",
-            }
-        )
-    else:
-        entry_price = float(twap_bars["open"].mean())
-        gross_return = target * (exit_open / entry_price - 1.0)
-        rows.append(
-            {
-                **base_common,
-                "variant": "overlay_b_twap4",
-                "entry_time": "twap4_first_4_bars",
-                "exit_time": pd.Timestamp(exit_date).date().isoformat(),
-                "entry_price": entry_price,
-                "exit_price": exit_open,
-                "entry_day_close_time": entry_day_close_time,
-                "entry_day_close_price": entry_day_close_price,
-                "entry_day_strategy_return": _entry_day_strategy_return(
-                    target=target,
-                    entry_price=entry_price,
-                    exit_price=entry_day_close_price,
-                ),
-                "intraday_signal_score": np.nan,
-                "gross_return": gross_return,
-                "strategy_return": gross_return - execution_cost,
-                "skipped_reason": None,
-            }
-        )
+    for twap_bars_count in (3, 4):
+        twap_bars = entry_day_bars.loc[entry_day_bars["open"].notna()].head(twap_bars_count)
+        twap_variant = f"overlay_b_twap{twap_bars_count}"
+        if len(twap_bars) < twap_bars_count:
+            rows.append(
+                {
+                    **base_common,
+                    "variant": twap_variant,
+                    "entry_time": None,
+                    "exit_time": pd.Timestamp(exit_date).date().isoformat(),
+                    "entry_price": np.nan,
+                    "exit_price": exit_open,
+                    "entry_day_close_time": entry_day_close_time,
+                    "entry_day_close_price": entry_day_close_price,
+                    "entry_day_strategy_return": np.nan,
+                    "intraday_signal_score": np.nan,
+                    "gross_return": 0.0,
+                    "strategy_return": 0.0,
+                    "skipped_reason": "missing_intraday_twap_bars",
+                }
+            )
+        else:
+            entry_price = float(twap_bars["open"].mean())
+            gross_return = target * (exit_open / entry_price - 1.0)
+            rows.append(
+                {
+                    **base_common,
+                    "variant": twap_variant,
+                    "entry_time": f"twap{twap_bars_count}_first_{twap_bars_count}_bars",
+                    "exit_time": pd.Timestamp(exit_date).date().isoformat(),
+                    "entry_price": entry_price,
+                    "exit_price": exit_open,
+                    "entry_day_close_time": entry_day_close_time,
+                    "entry_day_close_price": entry_day_close_price,
+                    "entry_day_strategy_return": _entry_day_strategy_return(
+                        target=target,
+                        entry_price=entry_price,
+                        exit_price=entry_day_close_price,
+                    ),
+                    "intraday_signal_score": np.nan,
+                    "gross_return": gross_return,
+                    "strategy_return": gross_return - execution_cost,
+                    "skipped_reason": None,
+                }
+            )
 
     risk_candidates = entry_day_bars.loc[
         entry_day_bars.get(gate_col, pd.Series(False, index=entry_day_bars.index)).fillna(False).astype(bool)
@@ -4729,7 +4789,7 @@ def _write_conclusion(
     text = (
         "# 中文结论\n\n"
         f"- 做了什么：建立“{overlay_name}”实验，日级 LGB/XGB 仓位模型仍决定整体 target_position，"
-        f"{intraday_source_text}{intraday_source_separator}只负责下一交易日的入场过滤、前 4 根 15m TWAP 和盘中风险退出。\n"
+        f"{intraday_source_text}{intraday_source_separator}只负责下一交易日的入场过滤、前 3/4 根 15m TWAP 和盘中风险退出。\n"
         f"- 选择规则：只用 validation、{spec.selection_cost_bps:.0f}bp 成本选择 variant；test 只报告，"
         "没有用 test 调阈值或调参数。\n"
         f"- validation 选择：{selected_model['variant']}，retention={selected_model['validation_return_retention_pct']:.2f}%，"

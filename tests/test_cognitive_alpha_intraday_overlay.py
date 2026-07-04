@@ -84,6 +84,7 @@ def test_simulate_execution_overlays_delays_entry_and_records_intraday_variants(
     assert set(rows["variant"]) == {
         "baseline_next_open",
         "overlay_a_signal_gate",
+        "overlay_b_twap3",
         "overlay_b_twap4",
         "overlay_c_risk_exit",
     }
@@ -91,6 +92,8 @@ def test_simulate_execution_overlays_delays_entry_and_records_intraday_variants(
     assert by_variant.loc["baseline_next_open", "strategy_return"] == 0.10
     assert by_variant.loc["overlay_a_signal_gate", "entry_time"] == "2026-01-05 10:15:00"
     assert by_variant.loc["overlay_a_signal_gate", "strategy_return"] == (110.0 / 104.0 - 1.0)
+    assert by_variant.loc["overlay_b_twap3", "entry_time"] == "twap3_first_3_bars"
+    assert by_variant.loc["overlay_b_twap3", "strategy_return"] == pytest.approx(110.0 / ((101.0 + 102.0 + 104.0) / 3.0) - 1.0)
     assert by_variant.loc["overlay_b_twap4", "entry_time"] == "twap4_first_4_bars"
     assert by_variant.loc["overlay_c_risk_exit", "exit_time"] == "2026-01-05 09:45:00"
     assert by_variant.loc["overlay_c_risk_exit", "strategy_return"] == (102.0 / 100.0 - 1.0)
@@ -593,9 +596,174 @@ def test_select_conditional_risk_sleeve_policy_prefers_validation_risk_reduction
     assert selected["variant"] == "overlay_b_twap4"
     assert selected["selection_role"] == "conditional_risk_sleeve"
     assert selected["selection_uses_test_segment"] is False
-    assert selected["selection_priority"][0] == "validation_open_buy_dump_period_reduction_desc"
+    assert selected["selection_priority"][0] == "validation_min_required_cost_return_retention_pct_desc"
     assert selected["required_cost_validation_target_count"] == 2
     assert selected["test_open_buy_dump_period_reduction"] == 1
+
+
+def test_select_conditional_risk_sleeve_policy_prefers_cost_buffered_twap_execution():
+    candidates = pd.DataFrame(
+        [
+            {
+                "cost_bps": 20.0,
+                "variant": "overlay_b_twap4",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.75,
+                "selection_score": 110.0,
+                "validation_return_retention_pct": 90.0,
+                "validation_max_drawdown_pct": -14.0,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 4,
+                "validation_crash_period_reduction": 0,
+                "validation_worst_entry_day_return_improvement_pct": 4.0,
+                "validation_drawdown_improvement_pct": 4.0,
+                "test_return_retention_pct": 85.4,
+                "test_max_drawdown_pct": -16.0,
+                "test_open_buy_dump_period_reduction": 3,
+                "test_crash_period_reduction": 1,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+            },
+            {
+                "cost_bps": 50.0,
+                "variant": "overlay_b_twap4",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.75,
+                "selection_score": 96.0,
+                "validation_return_retention_pct": 86.0,
+                "validation_max_drawdown_pct": -17.7,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 4,
+                "validation_crash_period_reduction": 0,
+                "validation_worst_entry_day_return_improvement_pct": 4.0,
+                "validation_drawdown_improvement_pct": 0.3,
+                "test_return_retention_pct": 84.6,
+                "test_max_drawdown_pct": -17.3,
+                "test_open_buy_dump_period_reduction": 3,
+                "test_crash_period_reduction": 1,
+                "passes_validation_target": True,
+                "passes_test_target": False,
+            },
+            {
+                "cost_bps": 20.0,
+                "variant": "overlay_b_twap3",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.75,
+                "selection_score": 108.0,
+                "validation_return_retention_pct": 92.8,
+                "validation_max_drawdown_pct": -14.6,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 2,
+                "validation_crash_period_reduction": 0,
+                "validation_worst_entry_day_return_improvement_pct": 2.0,
+                "validation_drawdown_improvement_pct": 3.7,
+                "test_return_retention_pct": 88.4,
+                "test_max_drawdown_pct": -15.4,
+                "test_open_buy_dump_period_reduction": 2,
+                "test_crash_period_reduction": 1,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+            },
+            {
+                "cost_bps": 50.0,
+                "variant": "overlay_b_twap3",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.75,
+                "selection_score": 101.0,
+                "validation_return_retention_pct": 91.0,
+                "validation_max_drawdown_pct": -17.3,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 2,
+                "validation_crash_period_reduction": 0,
+                "validation_worst_entry_day_return_improvement_pct": 2.0,
+                "validation_drawdown_improvement_pct": 0.7,
+                "test_return_retention_pct": 87.8,
+                "test_max_drawdown_pct": -16.2,
+                "test_open_buy_dump_period_reduction": 2,
+                "test_crash_period_reduction": 1,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+            },
+            {
+                "cost_bps": 20.0,
+                "variant": "overlay_a_signal_gate",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.75,
+                "selection_score": 115.0,
+                "validation_return_retention_pct": 93.0,
+                "validation_max_drawdown_pct": -14.5,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 2,
+                "validation_crash_period_reduction": 0,
+                "validation_worst_entry_day_return_improvement_pct": 2.0,
+                "validation_drawdown_improvement_pct": 3.5,
+                "test_return_retention_pct": 76.0,
+                "test_max_drawdown_pct": -15.0,
+                "test_open_buy_dump_period_reduction": 4,
+                "test_crash_period_reduction": 2,
+                "passes_validation_target": True,
+                "passes_test_target": False,
+            },
+            {
+                "cost_bps": 50.0,
+                "variant": "overlay_a_signal_gate",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.75,
+                "selection_score": 111.0,
+                "validation_return_retention_pct": 92.0,
+                "validation_max_drawdown_pct": -17.8,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 2,
+                "validation_crash_period_reduction": 0,
+                "validation_worst_entry_day_return_improvement_pct": 2.0,
+                "validation_drawdown_improvement_pct": 0.2,
+                "test_return_retention_pct": 75.0,
+                "test_max_drawdown_pct": -15.8,
+                "test_open_buy_dump_period_reduction": 4,
+                "test_crash_period_reduction": 2,
+                "passes_validation_target": True,
+                "passes_test_target": False,
+            },
+        ]
+    )
+
+    selected = select_conditional_risk_sleeve_policy(candidates)
+
+    assert selected["variant"] == "overlay_b_twap3"
+    assert selected["selection_uses_test_segment"] is False
+    assert selected["eligible_variants"] == ["overlay_b_twap3", "overlay_b_twap4"]
+    assert selected["validation_min_required_cost_return_retention_pct"] == 91.0
+    assert selected["required_cost_test_target_count"] == 2
 
 
 def test_simulate_observable_delayed_signal_overlay_waits_for_observation_window():

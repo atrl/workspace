@@ -632,6 +632,7 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert summary["execution_overlay"]["variants"] == [
         "baseline_next_open",
         "overlay_a_signal_gate",
+        "overlay_b_twap3",
         "overlay_b_twap4",
         "overlay_c_risk_exit",
     ]
@@ -692,8 +693,9 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert conditional["selection_role"] == "conditional_risk_sleeve"
     assert conditional["selection_segment"] == "validation"
     assert conditional["selection_uses_test_segment"] is False
-    assert conditional["selection_priority"][0] == "validation_open_buy_dump_period_reduction_desc"
+    assert conditional["selection_priority"][0] == "validation_min_required_cost_return_retention_pct_desc"
     assert conditional["required_cost_bps"] == [20.0, 50.0]
+    assert conditional["eligible_variants"] == ["overlay_b_twap3", "overlay_b_twap4"]
     selected_conditional = json.loads(
         (card / summary["sidecars"]["selected_conditional_risk_sleeve"]).read_text(encoding="utf-8")
     )
@@ -749,6 +751,7 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert summary["execution_overlay"]["variants"] == [
         "baseline_next_open",
         "overlay_a_signal_gate",
+        "overlay_b_twap3",
         "overlay_b_twap4",
         "overlay_c_risk_exit",
     ]
@@ -805,6 +808,7 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert conditional["selection_role"] == "conditional_risk_sleeve"
     assert conditional["selection_uses_test_segment"] is False
     assert conditional["required_cost_bps"] == [20.0, 50.0]
+    assert conditional["eligible_variants"] == ["overlay_b_twap3", "overlay_b_twap4"]
     assert (card / summary["sidecars"]["selected_conditional_risk_sleeve"]).exists()
     conditional_costs = pd.read_csv(card / summary["sidecars"]["selected_conditional_risk_sleeve_cost_sensitivity"])
     assert {20.0, 50.0}.issubset(set(conditional_costs["cost_bps"]))
