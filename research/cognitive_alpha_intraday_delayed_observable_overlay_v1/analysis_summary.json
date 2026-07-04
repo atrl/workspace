@@ -279,5 +279,37 @@
     "selected_model": "lgb"
   },
   "validation_and_test_target_row_count": 38,
-  "validation_target_row_count": 325
+  "validation_target_row_count": 325,
+  "walk_forward": {
+    "blocking_reasons": [
+      "annual_walk_forward_not_run",
+      "insufficient_daily_position_history",
+      "insufficient_external_intraday_history",
+      "source_intraday_walk_forward_not_satisfied"
+    ],
+    "coverage_end": "2026-07-02 16:00:00",
+    "coverage_start": "2025-01-02 09:45:00",
+    "daily_position_end": "2026-07-02",
+    "daily_position_start": "2025-01-02",
+    "data_status": "ok_partial_insufficient_for_full_walk_forward",
+    "feasible_test_years": [],
+    "missing_required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+    "required_policy_satisfied": false,
+    "required_start": "2019-01-02",
+    "required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "rows": 4,
+    "selection_uses_test_segment": false,
+    "source_intraday_required_policy_satisfied": false
+  }
 }

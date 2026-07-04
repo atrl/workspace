@@ -280,7 +280,39 @@
       "selected_model": "lgb"
     },
     "validation_and_test_target_row_count": 38,
-    "validation_target_row_count": 325
+    "validation_target_row_count": 325,
+    "walk_forward": {
+      "blocking_reasons": [
+        "annual_walk_forward_not_run",
+        "insufficient_daily_position_history",
+        "insufficient_external_intraday_history",
+        "source_intraday_walk_forward_not_satisfied"
+      ],
+      "coverage_end": "2026-07-02 16:00:00",
+      "coverage_start": "2025-01-02 09:45:00",
+      "daily_position_end": "2026-07-02",
+      "daily_position_start": "2025-01-02",
+      "data_status": "ok_partial_insufficient_for_full_walk_forward",
+      "feasible_test_years": [],
+      "missing_required_test_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+      "required_policy_satisfied": false,
+      "required_start": "2019-01-02",
+      "required_test_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "rows": 4,
+      "selection_uses_test_segment": false,
+      "source_intraday_required_policy_satisfied": false
+    }
   },
   "artifact_policy": {
     "kept_sidecars": [
@@ -289,7 +321,8 @@
       "model_comparison.csv",
       "policy_selection.csv",
       "selected_model.json",
-      "selected_policy_cost_sensitivity.csv"
+      "selected_policy_cost_sensitivity.csv",
+      "walk_forward_feasibility.csv"
     ],
     "machine_entrypoint": "summary.json",
     "policy": "slim_card_recorder_first",
@@ -361,6 +394,7 @@
     "artifacts/cognitive_alpha_intraday_delayed_observable_overlay_v1/policy_selection.csv",
     "artifacts/cognitive_alpha_intraday_delayed_observable_overlay_v1/selected_model.json",
     "artifacts/cognitive_alpha_intraday_delayed_observable_overlay_v1/selected_policy_cost_sensitivity.csv",
+    "artifacts/cognitive_alpha_intraday_delayed_observable_overlay_v1/walk_forward_feasibility.csv",
     "artifacts/delayed_observable_overlay/all_policy_selection.csv",
     "artifacts/delayed_observable_overlay/selected_trades.csv",
     "meta.yaml",
@@ -372,6 +406,8 @@
     "metrics/selected_validation_return_retention_pct",
     "metrics/validation_and_test_target_row_count",
     "metrics/validation_target_row_count",
+    "metrics/walk_forward_feasible_fold_count",
+    "metrics/walk_forward_required_policy_satisfied",
     "params/cmd-sys.argv",
     "params/daily_source",
     "params/experiment",
@@ -383,13 +419,15 @@
     "params/selection_cost_bps",
     "params/selection_segment",
     "params/selection_uses_test_segment",
+    "params/walk_forward_policy",
+    "params/walk_forward_selection_uses_test_segment",
     "tags/mlflow.runName",
     "tags/mlflow.source.name",
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "b6ffad6f927743228e083bf957e0058f",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/qlib_recorder/364237446447147702/b6ffad6f927743228e083bf957e0058f",
+  "recorder_id": "9b581a04d88c4937acaeb4068d401391",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/qlib_recorder/364237446447147702/9b581a04d88c4937acaeb4068d401391",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {
@@ -546,7 +584,8 @@
     "model_comparison": "model_comparison.csv",
     "policy_selection": "policy_selection.csv",
     "selected_model": "selected_model.json",
-    "selected_policy_cost_sensitivity": "selected_policy_cost_sensitivity.csv"
+    "selected_policy_cost_sensitivity": "selected_policy_cost_sensitivity.csv",
+    "walk_forward_feasibility": "walk_forward_feasibility.csv"
   },
   "source_daily_model": {
     "card": "research/cognitive_alpha_goal_codex_exec_v1",
@@ -634,6 +673,38 @@
     "recorder_id": "65b2e78d9654495b82bf073f4156cde7",
     "selected_model": "lgb",
     "signal_prob_col": "prob_lgb"
+  },
+  "walk_forward": {
+    "blocking_reasons": [
+      "annual_walk_forward_not_run",
+      "insufficient_daily_position_history",
+      "insufficient_external_intraday_history",
+      "source_intraday_walk_forward_not_satisfied"
+    ],
+    "coverage_end": "2026-07-02 16:00:00",
+    "coverage_start": "2025-01-02 09:45:00",
+    "daily_position_end": "2026-07-02",
+    "daily_position_start": "2025-01-02",
+    "data_status": "ok_partial_insufficient_for_full_walk_forward",
+    "feasible_test_years": [],
+    "missing_required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+    "required_policy_satisfied": false,
+    "required_start": "2019-01-02",
+    "required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "rows": 4,
+    "selection_uses_test_segment": false,
+    "source_intraday_required_policy_satisfied": false
   },
   "workflow_config": "workflow.yaml"
 }

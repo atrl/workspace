@@ -5,5 +5,6 @@
 - 候选：4736 个 policy、14208 行成本压力结果；validation+test 同时过门槛行数=38。
 - validation 选中：obs30_observed_prob_mean_ge_q0.525_0.464215_signal_0.70，20bp retention=87.48%，max_dd=-14.29%；50bp retention=88.96%，max_dd=-17.12%。
 - test 报告：20bp retention=85.79%，max_dd=-11.20%；50bp retention=88.29%，max_dd=-12.36%。
+- walk-forward：要求 [2023, 2024, 2025, 2026] 年度 train_to_T-2/valid_T-1/test_T；当前 feasible 年份=[]，缺失=[2023, 2024, 2025, 2026]，因此 required_policy_satisfied=False。
 - 是否晋升：not_promoted_external_intraday_history_insufficient。短窗口内这个 delayed entry 方向确实把 test max_dd 从 baseline 约 -18.38% 压到更低，但外部 15m 历史和真实成交 replay 还不足，不能直接晋升生产。
-- qlib recorder：b6ffad6f927743228e083bf957e0058f
+- qlib recorder：9b581a04d88c4937acaeb4068d401391

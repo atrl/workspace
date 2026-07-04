@@ -842,6 +842,14 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
     assert summary["model_selection"]["max_skip_rate"] == 0.15
     assert summary["model_selection"]["validation_and_test_target_row_count"] > 0
+    assert summary["walk_forward"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
+    assert summary["walk_forward"]["selection_uses_test_segment"] is False
+    assert summary["walk_forward"]["required_policy_satisfied"] is False
+    assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
+    assert summary["walk_forward"]["feasible_test_years"] == []
+    assert summary["walk_forward"]["missing_required_test_years"] == [2023, 2024, 2025, 2026]
+    assert summary["walk_forward"]["data_status"] == "ok_partial_insufficient_for_full_walk_forward"
+    assert "insufficient_external_intraday_history" in summary["walk_forward"]["blocking_reasons"]
     assert summary["selected_model"]["validation_passes_target"] is True
     assert summary["selected_model"]["passes_test_target"] is True
     assert summary["selected_model"]["observation_minutes"] in {30, 60}
@@ -863,10 +871,17 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
         "policy_selection",
         "selected_model",
         "selected_policy_cost_sensitivity",
+        "walk_forward_feasibility",
     }
     assert set(summary["sidecars"]) == expected_sidecars
     for rel_path in summary["sidecars"].values():
         assert (card / rel_path).exists(), rel_path
+
+    walk_forward = pd.read_csv(card / summary["sidecars"]["walk_forward_feasibility"])
+    assert set(walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
+    assert walk_forward["selection_uses_test_segment"].eq(False).all()
+    assert walk_forward["feasible"].eq(False).all()
+    assert "missing_train_coverage" in set(walk_forward["blocking_reason"])
 
     selected_costs = pd.read_csv(card / summary["sidecars"]["selected_policy_cost_sensitivity"])
     required = selected_costs.loc[selected_costs["cost_bps"].isin([20.0, 50.0])]

@@ -44,6 +44,8 @@ QLIB_NATIVE_API = [
     "qlib.workflow.R.log_metrics",
     "qlib.workflow.Recorder.log_artifact",
 ]
+REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS = (2023, 2024, 2025, 2026)
+REQUIRED_WALK_FORWARD_START = "2019-01-02"
 
 
 @dataclass(frozen=True)
@@ -1442,6 +1444,17 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         as_of=as_of,
         signal_config=signal_config,
     )
+    walk_forward_feasibility = _delayed_walk_forward_feasibility(
+        spec,
+        intraday_summary=intraday_summary,
+        daily_positions=daily_positions,
+        intraday_predictions=intraday_predictions,
+    )
+    walk_forward_summary = _delayed_walk_forward_summary(
+        walk_forward_feasibility,
+        intraday_summary=intraday_summary,
+        daily_positions=daily_positions,
+    )
     policy_selection_full = evaluate_observable_delayed_signal_candidates(
         daily_positions,
         daily_prices=daily_prices,
@@ -1492,6 +1505,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         selected_policy_rows=selected_policy_rows,
         selected_model=selected_model,
         model_comparison=model_comparison,
+        walk_forward_summary=walk_forward_summary,
     )
     sidecars = _write_delayed_sidecars(
         spec,
@@ -1500,6 +1514,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         model_comparison=model_comparison,
         selected_model=selected_model,
         analysis_summary=analysis_summary,
+        walk_forward_feasibility=walk_forward_feasibility,
     )
 
     upload_dir = Path(tempfile.mkdtemp(prefix=f"{spec.experiment}_recorder_"))
@@ -1523,6 +1538,8 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                 required_cost_bps="20.0,50.0",
                 max_skip_rate=0.15,
                 selected_policy_id=str(selected_model.get("policy_id")),
+                walk_forward_policy=str(walk_forward_summary.get("policy")),
+                walk_forward_selection_uses_test_segment=False,
             )
             R.log_metrics(
                 policy_candidate_rows=float(len(policy_selection_full)),
@@ -1547,6 +1564,10 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                 ),
                 selected_test_return_retention_pct=float(selected_model.get("test_return_retention_pct") or 0.0),
                 selected_test_max_drawdown_pct=float(selected_model.get("test_max_drawdown_pct") or 0.0),
+                walk_forward_feasible_fold_count=float(len(walk_forward_summary.get("feasible_test_years", []))),
+                walk_forward_required_policy_satisfied=float(
+                    1.0 if walk_forward_summary.get("required_policy_satisfied") else 0.0
+                ),
             )
             for file_name in ["selected_trades.csv", "all_policy_selection.csv"]:
                 recorder.log_artifact((execution_dir / file_name).as_posix(), artifact_path="delayed_observable_overlay")
@@ -1559,7 +1580,11 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
 
     _remove_transient_code_snapshots(recorder_local_dir)
     recorder_artifacts = _recorder_files(recorder_local_dir)
-    promotion_decision = _delayed_promotion_decision(selected_policy_rows, intraday_summary=intraday_summary)
+    promotion_decision = _delayed_promotion_decision(
+        selected_policy_rows,
+        intraday_summary=intraday_summary,
+        walk_forward_summary=walk_forward_summary,
+    )
     summary = {
         "experiment": spec.experiment,
         "card_type": "intraday_delayed_observable_overlay",
@@ -1610,6 +1635,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
             else 0,
             "selected_policy_id": selected_model.get("policy_id"),
         },
+        "walk_forward": walk_forward_summary,
         "selected_model": selected_model,
         "selected_policy_cost_sensitivity": selected_policy_rows.to_dict("records"),
         "analysis_summary": analysis_summary,
@@ -2398,6 +2424,12 @@ def _write_delayed_workflow_yaml(
                 "execution:",
                 "  causal_timing: first_30_or_60m_observed_then_next_15m_open",
                 "  first_hour_features_can_only_trigger_delayed_entries: true",
+                "walk_forward:",
+                "  policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+                f"  required_start: {REQUIRED_WALK_FORWARD_START}",
+                f"  required_test_years: {list(REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS)}",
+                "  threshold_source: validation_only",
+                "  test_segment_usage: report_only",
                 "artifact_policy:",
                 "  policy: slim_card_recorder_first",
                 "  machine_entrypoint: summary.json",
@@ -2592,11 +2624,13 @@ def _delayed_analysis_summary(
     selected_policy_rows: pd.DataFrame,
     selected_model: dict[str, Any],
     model_comparison: pd.DataFrame,
+    walk_forward_summary: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "source": "daily_open2open_position_model_plus_observable_30m_60m_delayed_15m_execution_overlay",
         "as_of": str(daily_summary.get("as_of") or spec.as_of),
         "selection_uses_test_segment": False,
+        "walk_forward": walk_forward_summary,
         "selection_policy": {
             "required_cost_bps": [20.0, 50.0],
             "max_skip_rate": 0.15,
@@ -2642,6 +2676,159 @@ def _delayed_analysis_summary(
     }
 
 
+def _date_only(value: Any) -> Any:
+    if value is None or value == "":
+        return None
+    try:
+        return pd.Timestamp(value).date()
+    except (TypeError, ValueError):
+        return None
+
+
+def _covers_date_range(coverage_start: Any, coverage_end: Any, required_start: str, required_end: str) -> bool:
+    start = _date_only(coverage_start)
+    end = _date_only(coverage_end)
+    required_start_date = _date_only(required_start)
+    required_end_date = _date_only(required_end)
+    if start is None or end is None or required_start_date is None or required_end_date is None:
+        return False
+    return bool(start <= required_start_date and end >= required_end_date)
+
+
+def _delayed_walk_forward_feasibility(
+    spec: CognitiveAlphaIntradayOverlaySpec,
+    *,
+    intraday_summary: dict[str, Any],
+    daily_positions: pd.DataFrame,
+    intraday_predictions: pd.DataFrame,
+) -> pd.DataFrame:
+    external_context = intraday_summary.get("external_intraday_context", {}) or {}
+    external_start = external_context.get("coverage_start")
+    external_end = external_context.get("coverage_end")
+    if not external_start and not intraday_predictions.empty:
+        external_start = intraday_predictions["datetime"].min()
+    if not external_end and not intraday_predictions.empty:
+        external_end = intraday_predictions["datetime"].max()
+
+    daily_start = daily_positions["datetime"].min() if "datetime" in daily_positions else None
+    daily_end = daily_positions["datetime"].max() if "datetime" in daily_positions else None
+
+    rows: list[dict[str, Any]] = []
+    for test_year in REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS:
+        train_start = REQUIRED_WALK_FORWARD_START
+        train_end = f"{test_year - 2}-12-31"
+        valid_start = f"{test_year - 1}-01-01"
+        valid_end = f"{test_year - 1}-12-31"
+        test_start = f"{test_year}-01-01"
+        test_end = spec.as_of if test_year == int(spec.as_of[:4]) else f"{test_year}-12-31"
+
+        has_external_train = _covers_date_range(external_start, external_end, train_start, train_end)
+        has_external_valid = _covers_date_range(external_start, external_end, valid_start, valid_end)
+        has_external_test = _covers_date_range(external_start, external_end, test_start, test_end)
+        has_daily_train = _covers_date_range(daily_start, daily_end, train_start, train_end)
+        has_daily_valid = _covers_date_range(daily_start, daily_end, valid_start, valid_end)
+        has_daily_test = _covers_date_range(daily_start, daily_end, test_start, test_end)
+        feasible = all(
+            [
+                has_external_train,
+                has_external_valid,
+                has_external_test,
+                has_daily_train,
+                has_daily_valid,
+                has_daily_test,
+            ]
+        )
+        blocking_reason = "ok"
+        if not has_external_train:
+            blocking_reason = "missing_train_coverage"
+        elif not has_daily_train:
+            blocking_reason = "missing_daily_position_train_coverage"
+        elif not has_external_valid:
+            blocking_reason = "missing_valid_coverage"
+        elif not has_daily_valid:
+            blocking_reason = "missing_daily_position_valid_coverage"
+        elif not has_external_test:
+            blocking_reason = "missing_test_coverage"
+        elif not has_daily_test:
+            blocking_reason = "missing_daily_position_test_coverage"
+
+        rows.append(
+            {
+                "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+                "test_year": int(test_year),
+                "train_start": train_start,
+                "train_end": train_end,
+                "valid_start": valid_start,
+                "valid_end": valid_end,
+                "test_start": test_start,
+                "test_end": test_end,
+                "external_coverage_start": str(external_context.get("coverage_start") or ""),
+                "external_coverage_end": str(external_context.get("coverage_end") or ""),
+                "daily_position_start": _date_only(daily_start).isoformat() if _date_only(daily_start) else "",
+                "daily_position_end": _date_only(daily_end).isoformat() if _date_only(daily_end) else "",
+                "has_external_train_coverage": bool(has_external_train),
+                "has_external_valid_coverage": bool(has_external_valid),
+                "has_external_test_coverage": bool(has_external_test),
+                "has_daily_position_train_coverage": bool(has_daily_train),
+                "has_daily_position_valid_coverage": bool(has_daily_valid),
+                "has_daily_position_test_coverage": bool(has_daily_test),
+                "selection_uses_test_segment": False,
+                "feasible": bool(feasible),
+                "blocking_reason": blocking_reason,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _delayed_walk_forward_summary(
+    feasibility: pd.DataFrame,
+    *,
+    intraday_summary: dict[str, Any],
+    daily_positions: pd.DataFrame,
+) -> dict[str, Any]:
+    external_context = intraday_summary.get("external_intraday_context", {}) or {}
+    feasible_years = (
+        sorted(int(value) for value in feasibility.loc[feasibility["feasible"], "test_year"].tolist())
+        if not feasibility.empty
+        else []
+    )
+    required_years = list(REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS)
+    missing_years = [year for year in required_years if year not in feasible_years]
+    data_status = external_context.get("data_status") or "unknown"
+    blocking_reasons: list[str] = []
+    if data_status != "ok":
+        blocking_reasons.append("insufficient_external_intraday_history")
+    if not feasibility.empty and bool((~feasibility["has_daily_position_train_coverage"]).any()):
+        blocking_reasons.append("insufficient_daily_position_history")
+    source_required = bool(intraday_summary.get("walk_forward", {}).get("required_policy_satisfied", False))
+    if not source_required:
+        blocking_reasons.append("source_intraday_walk_forward_not_satisfied")
+    if missing_years:
+        blocking_reasons.append("annual_walk_forward_not_run")
+
+    return {
+        "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+        "required_start": REQUIRED_WALK_FORWARD_START,
+        "required_test_years": required_years,
+        "feasible_test_years": feasible_years,
+        "missing_required_test_years": missing_years,
+        "rows": int(len(feasibility)),
+        "selection_uses_test_segment": False,
+        "required_policy_satisfied": bool(not missing_years and source_required and not blocking_reasons),
+        "source_intraday_required_policy_satisfied": source_required,
+        "data_status": data_status,
+        "coverage_start": external_context.get("coverage_start"),
+        "coverage_end": external_context.get("coverage_end"),
+        "daily_position_start": daily_positions["datetime"].min().date().isoformat()
+        if "datetime" in daily_positions and not daily_positions.empty
+        else None,
+        "daily_position_end": daily_positions["datetime"].max().date().isoformat()
+        if "datetime" in daily_positions and not daily_positions.empty
+        else None,
+        "blocking_reasons": sorted(set(blocking_reasons)),
+    }
+
+
 def _write_delayed_sidecars(
     spec: CognitiveAlphaIntradayOverlaySpec,
     *,
@@ -2650,6 +2837,7 @@ def _write_delayed_sidecars(
     model_comparison: pd.DataFrame,
     selected_model: dict[str, Any],
     analysis_summary: dict[str, Any],
+    walk_forward_feasibility: pd.DataFrame,
 ) -> dict[str, str]:
     sidecars = {
         "model_comparison": "model_comparison.csv",
@@ -2657,11 +2845,13 @@ def _write_delayed_sidecars(
         "selected_policy_cost_sensitivity": "selected_policy_cost_sensitivity.csv",
         "selected_model": "selected_model.json",
         "analysis_summary": "analysis_summary.json",
+        "walk_forward_feasibility": "walk_forward_feasibility.csv",
         "failure_modes": "failure_modes.md",
     }
     policy_selection_full.head(500).to_csv(spec.output_dir / sidecars["policy_selection"], index=False)
     selected_policy_rows.to_csv(spec.output_dir / sidecars["selected_policy_cost_sensitivity"], index=False)
     model_comparison.to_csv(spec.output_dir / sidecars["model_comparison"], index=False)
+    walk_forward_feasibility.to_csv(spec.output_dir / sidecars["walk_forward_feasibility"], index=False)
     (spec.output_dir / sidecars["selected_model"]).write_text(
         json.dumps(selected_model, indent=2, sort_keys=True),
         encoding="utf-8",
@@ -2674,7 +2864,7 @@ def _write_delayed_sidecars(
         "# Failure Modes\n\n"
         "- Delayed observable overlay 只能在前 30/60 分钟 bar 完成后使用这些特征，不能影响 next-open 或前 4 根 bar 的成交。\n"
         "- 选择规则只用 validation，并要求 20bp/50bp validation 同时满足 85%-95% retention、max_dd>-18%、skip<=15%。\n"
-        "- 当前外部 15m 上下文覆盖仍只有 2025-01-02 到 2026-07-02，不能证明完整 2019-2026 walk-forward 晋升。\n"
+        "- 当前外部 15m 上下文和 daily selected positions 覆盖仍不足，walk_forward_feasibility.csv 对 2023-2026 年度 fold 全部 fail closed。\n"
         "- 还没有 bid/ask、队列、延迟和盘前盘后 replay；只能作为研究候选，不是生产执行策略。\n"
     )
     (spec.output_dir / sidecars["failure_modes"]).write_text(failure_modes, encoding="utf-8")
@@ -2696,7 +2886,12 @@ def _delayed_artifact_policy(experiment: str, sidecars: dict[str, str]) -> dict[
     }
 
 
-def _delayed_promotion_decision(selected_policy_rows: pd.DataFrame, *, intraday_summary: dict[str, Any]) -> str:
+def _delayed_promotion_decision(
+    selected_policy_rows: pd.DataFrame,
+    *,
+    intraday_summary: dict[str, Any],
+    walk_forward_summary: dict[str, Any],
+) -> str:
     if selected_policy_rows.empty:
         return "not_promoted_delayed_overlay_validation_gate_failed"
     required = selected_policy_rows.loc[selected_policy_rows["cost_bps"].isin([20.0, 50.0])]
@@ -2704,6 +2899,8 @@ def _delayed_promotion_decision(selected_policy_rows: pd.DataFrame, *, intraday_
         return "not_promoted_delayed_overlay_validation_gate_failed"
     if not bool(required["passes_test_target"].all()):
         return "not_promoted_delayed_overlay_test_gate_failed"
+    if not bool(walk_forward_summary.get("required_policy_satisfied", False)):
+        return "not_promoted_external_intraday_history_insufficient"
     if intraday_summary.get("walk_forward", {}).get("required_policy_satisfied") is False:
         return "not_promoted_external_intraday_history_insufficient"
     return "not_promoted_intraday_replay_missing"
@@ -2735,6 +2932,10 @@ def _write_delayed_conclusion(
         f"- test 报告：20bp retention={float(row20.get('test_return_retention_pct', 0.0)):.2f}%，"
         f"max_dd={float(row20.get('test_max_drawdown_pct', 0.0)):.2f}%；50bp retention={float(row50.get('test_return_retention_pct', 0.0)):.2f}%，"
         f"max_dd={float(row50.get('test_max_drawdown_pct', 0.0)):.2f}%。\n"
+        f"- walk-forward：要求 {summary['walk_forward']['required_test_years']} 年度 train_to_T-2/valid_T-1/test_T；"
+        f"当前 feasible 年份={summary['walk_forward']['feasible_test_years']}，"
+        f"缺失={summary['walk_forward']['missing_required_test_years']}，因此 required_policy_satisfied="
+        f"{summary['walk_forward']['required_policy_satisfied']}。\n"
         f"- 是否晋升：{summary['promotion_decision']}。短窗口内这个 delayed entry 方向确实把 test max_dd 从 baseline 约 -18.38% 压到更低，"
         "但外部 15m 历史和真实成交 replay 还不足，不能直接晋升生产。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
