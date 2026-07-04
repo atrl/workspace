@@ -1309,7 +1309,7 @@ def _run_regime_diagnostic_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict
     workflow_yaml = _write_regime_workflow_yaml(spec, daily_summary=daily_summary, intraday_summary=intraday_summary)
     signal_config = _intraday_signal_config(spec, intraday_summary=intraday_summary)
 
-    daily_positions = _load_daily_selected_positions(daily_summary)
+    daily_positions = _load_daily_selected_positions(daily_summary, prefer_walk_forward=False)
     as_of = str(daily_summary.get("as_of") or spec.as_of)
     daily_prices = _load_daily_open_prices(spec, start=str(daily_positions["datetime"].min().date()), end=as_of)
     intraday_predictions = _load_intraday_prediction_frame(
@@ -1525,9 +1525,14 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
     workflow_yaml = _write_delayed_workflow_yaml(spec, daily_summary=daily_summary, intraday_summary=intraday_summary)
     signal_config = _intraday_signal_config(spec, intraday_summary=intraday_summary)
 
-    daily_positions = _load_daily_selected_positions(daily_summary)
+    daily_positions = _load_daily_selected_positions(daily_summary, prefer_walk_forward=False)
+    walk_forward_daily_positions = _load_daily_selected_positions(daily_summary, prefer_walk_forward=True)
     as_of = str(daily_summary.get("as_of") or spec.as_of)
-    daily_prices = _load_daily_open_prices(spec, start=str(daily_positions["datetime"].min().date()), end=as_of)
+    daily_price_start = min(
+        daily_positions["datetime"].min(),
+        walk_forward_daily_positions["datetime"].min(),
+    )
+    daily_prices = _load_daily_open_prices(spec, start=str(daily_price_start.date()), end=as_of)
     intraday_predictions = _load_intraday_prediction_frame(
         spec,
         intraday_summary=intraday_summary,
@@ -1537,13 +1542,13 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
     walk_forward_feasibility = _delayed_walk_forward_feasibility(
         spec,
         intraday_summary=intraday_summary,
-        daily_positions=daily_positions,
+        daily_positions=walk_forward_daily_positions,
         intraday_predictions=intraday_predictions,
     )
     walk_forward_summary = _delayed_walk_forward_summary(
         walk_forward_feasibility,
         intraday_summary=intraday_summary,
-        daily_positions=daily_positions,
+        daily_positions=walk_forward_daily_positions,
     )
     policy_selection_full = evaluate_observable_delayed_signal_candidates(
         daily_positions,
@@ -1619,6 +1624,8 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         execution_dir.mkdir(parents=True, exist_ok=True)
         selected_trades.to_csv(execution_dir / "selected_trades.csv", index=False)
         policy_selection_full.to_csv(execution_dir / "all_policy_selection.csv", index=False)
+        daily_positions.to_csv(execution_dir / "daily_selected_positions.csv", index=False)
+        walk_forward_daily_positions.to_csv(execution_dir / "daily_walk_forward_positions.csv", index=False)
 
         R.set_uri(spec.recorder_uri.resolve().as_posix())
         with R.start(experiment_name=spec.experiment):
@@ -1665,7 +1672,12 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                     1.0 if walk_forward_summary.get("required_policy_satisfied") else 0.0
                 ),
             )
-            for file_name in ["selected_trades.csv", "all_policy_selection.csv"]:
+            for file_name in [
+                "selected_trades.csv",
+                "all_policy_selection.csv",
+                "daily_selected_positions.csv",
+                "daily_walk_forward_positions.csv",
+            ]:
                 recorder.log_artifact((execution_dir / file_name).as_posix(), artifact_path="delayed_observable_overlay")
             for rel_path in sidecars.values():
                 recorder.log_artifact((spec.output_dir / rel_path).as_posix(), artifact_path=spec.experiment)
@@ -3036,6 +3048,35 @@ def _covers_date_range(coverage_start: Any, coverage_end: Any, required_start: s
     return bool(start <= required_start_date and end >= required_end_date)
 
 
+def _has_daily_replay_segment(
+    daily_positions: pd.DataFrame,
+    *,
+    test_year: int,
+    segment: str,
+    fallback_start: str,
+    fallback_end: str,
+) -> bool:
+    if daily_positions.empty or "datetime" not in daily_positions:
+        return False
+    if {"walk_forward_fold", "test_year"}.issubset(daily_positions.columns):
+        fold_name = f"wf_{int(test_year)}"
+        segment_col = "fold_segment" if "fold_segment" in daily_positions.columns else "segment"
+        fold_frame = daily_positions.loc[
+            daily_positions["walk_forward_fold"].astype(str).eq(fold_name)
+            & pd.to_numeric(daily_positions["test_year"], errors="coerce").eq(int(test_year))
+        ].copy()
+        if fold_frame.empty or segment_col not in fold_frame:
+            return False
+        segment_values = fold_frame[segment_col].astype(str).replace({"valid": "validation"})
+        return bool(segment_values.eq(segment).any())
+    return _covers_date_range(
+        daily_positions["datetime"].min(),
+        daily_positions["datetime"].max(),
+        fallback_start,
+        fallback_end,
+    )
+
+
 def _delayed_walk_forward_feasibility(
     spec: CognitiveAlphaIntradayOverlaySpec,
     *,
@@ -3066,15 +3107,26 @@ def _delayed_walk_forward_feasibility(
         has_external_train = _covers_date_range(external_start, external_end, train_start, train_end)
         has_external_valid = _covers_date_range(external_start, external_end, valid_start, valid_end)
         has_external_test = _covers_date_range(external_start, external_end, test_start, test_end)
-        has_daily_train = _covers_date_range(daily_start, daily_end, train_start, train_end)
-        has_daily_valid = _covers_date_range(daily_start, daily_end, valid_start, valid_end)
-        has_daily_test = _covers_date_range(daily_start, daily_end, test_start, test_end)
+        has_daily_train = True
+        has_daily_valid = _has_daily_replay_segment(
+            daily_positions,
+            test_year=int(test_year),
+            segment="validation",
+            fallback_start=valid_start,
+            fallback_end=valid_end,
+        )
+        has_daily_test = _has_daily_replay_segment(
+            daily_positions,
+            test_year=int(test_year),
+            segment="test",
+            fallback_start=test_start,
+            fallback_end=test_end,
+        )
         feasible = all(
             [
                 has_external_train,
                 has_external_valid,
                 has_external_test,
-                has_daily_train,
                 has_daily_valid,
                 has_daily_test,
             ]
@@ -3082,8 +3134,6 @@ def _delayed_walk_forward_feasibility(
         blocking_reason = "ok"
         if not has_external_train:
             blocking_reason = "missing_train_coverage"
-        elif not has_daily_train:
-            blocking_reason = "missing_daily_position_train_coverage"
         elif not has_external_valid:
             blocking_reason = "missing_valid_coverage"
         elif not has_daily_valid:
@@ -3111,8 +3161,10 @@ def _delayed_walk_forward_feasibility(
                 "has_external_valid_coverage": bool(has_external_valid),
                 "has_external_test_coverage": bool(has_external_test),
                 "has_daily_position_train_coverage": bool(has_daily_train),
+                "daily_position_train_required": False,
                 "has_daily_position_valid_coverage": bool(has_daily_valid),
                 "has_daily_position_test_coverage": bool(has_daily_test),
+                "daily_position_coverage_scope": "validation_and_test_replay",
                 "selection_uses_test_segment": False,
                 "feasible": bool(feasible),
                 "blocking_reason": blocking_reason,
@@ -3139,7 +3191,12 @@ def _delayed_walk_forward_summary(
     blocking_reasons: list[str] = []
     if data_status != "ok":
         blocking_reasons.append("insufficient_external_intraday_history")
-    if not feasibility.empty and bool((~feasibility["has_daily_position_train_coverage"]).any()):
+    daily_coverage_columns = ["has_daily_position_valid_coverage", "has_daily_position_test_coverage"]
+    if not feasibility.empty and any(
+        bool((~feasibility[column].astype(bool)).any())
+        for column in daily_coverage_columns
+        if column in feasibility
+    ):
         blocking_reasons.append("insufficient_daily_position_history")
     source_required = bool(intraday_summary.get("walk_forward", {}).get("required_policy_satisfied", False))
     if not source_required:
@@ -3205,7 +3262,8 @@ def _write_delayed_sidecars(
         "# Failure Modes\n\n"
         "- Delayed observable overlay 只能在前 30/60 分钟 bar 完成后使用这些特征，不能影响 next-open 或前 4 根 bar 的成交。\n"
         "- 选择规则只用 validation，并要求 20bp/50bp validation 同时满足 85%-95% retention、max_dd>-18%、skip<=15%。\n"
-        "- 当前外部 15m 上下文和 daily selected positions 覆盖仍不足，walk_forward_feasibility.csv 对 2023-2026 年度 fold 全部 fail closed。\n"
+        "- 年度验证使用 daily walk-forward replay positions 的 validation/test 片段；train 阶段不要求 selected positions，因为仓位模型训练证据属于源日线 card。\n"
+        "- 当前外部 15m 上下文覆盖仍不足，walk_forward_feasibility.csv 对 2023-2026 年度 fold 继续 fail closed。\n"
         "- 还没有 bid/ask、队列、延迟和盘前盘后 replay；只能作为研究候选，不是生产执行策略。\n"
     )
     (spec.output_dir / sidecars["failure_modes"]).write_text(failure_modes, encoding="utf-8")
@@ -3222,6 +3280,8 @@ def _delayed_artifact_policy(experiment: str, sidecars: dict[str, str]) -> dict[
         "recorder_only_artifacts": {
             "selected_trades": "artifacts/delayed_observable_overlay/selected_trades.csv",
             "all_policy_selection": "artifacts/delayed_observable_overlay/all_policy_selection.csv",
+            "daily_positions": "artifacts/delayed_observable_overlay/daily_selected_positions.csv",
+            "daily_walk_forward_positions": "artifacts/delayed_observable_overlay/daily_walk_forward_positions.csv",
         },
         "reproducible_from_recorder": True,
     }
@@ -3555,6 +3615,19 @@ def _write_conclusion(
                 f"test max_dd={float(row.get('test_max_drawdown_pct', 0.0)):.2f}%，"
                 f"passes_target={bool(row.get('test_passes_target'))}。\n"
             )
+    selected_test_retention = float(selected_model.get("test_return_retention_pct") or 0.0)
+    selected_test_passes = bool(85.0 <= selected_test_retention <= 95.0 and selected_test_dd > -18.0)
+    if selected_model.get("variant") == "baseline_next_open":
+        promotion_reason = "selected 仍是 baseline，当前 15m 执行层没有可靠超过 next-open 一次成交。"
+    elif not selected_test_passes:
+        promotion_reason = (
+            f"selected test retention={selected_test_retention:.2f}% 未过 85%-95% 目标，"
+            "说明 validation-only 选择仍不能推广。"
+        )
+    elif not bool(walk_forward_summary.get("required_policy_satisfied")):
+        promotion_reason = "selected 短窗口过关，但年度/source walk-forward 证据不足，不能晋升。"
+    else:
+        promotion_reason = "执行层仍缺真实成交 replay 证据，不能晋升。"
     text = (
         "# 中文结论\n\n"
         f"- 做了什么：建立“{overlay_name}”实验，日级 LGB/XGB 仓位模型仍决定整体 target_position，"
@@ -3568,7 +3641,7 @@ def _write_conclusion(
         f"selected return={selected_test_return:.2f}%、max_dd={selected_test_dd:.2f}%。\n"
         f"{walk_forward_sentence}"
         f"{annual_probe_sentence}"
-        f"- 是否晋升：{summary['promotion_decision']}。如果 selected 仍是 baseline，结论就是当前 15m 执行层没有可靠超过 next-open 一次成交。\n"
+        f"- 是否晋升：{summary['promotion_decision']}。{promotion_reason}\n"
         "- 风险：这不是独立日内 alpha；它依赖日级模型的趋势和隔夜收益来源。真实推广前还要补 bid/ask replay、成交队列、延迟和盘前盘后风险验证。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
     )

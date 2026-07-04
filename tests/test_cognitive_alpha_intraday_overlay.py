@@ -739,3 +739,99 @@ def test_load_daily_selected_positions_prefers_walk_forward_replay_artifact(tmp_
     assert positions["segment"].tolist() == ["validation", "test"]
     assert audit.loc[0, "artifact_name"] == "walk_forward_positions.csv"
     assert audit.loc[0, "selected_years"] == "2022,2023"
+
+    latest_positions = overlay_workflow._load_daily_selected_positions(summary, prefer_walk_forward=False)
+    assert latest_positions["datetime"].dt.year.tolist() == [2026]
+    assert latest_positions["segment"].tolist() == ["test"]
+
+
+def test_delayed_walk_forward_feasibility_uses_replay_validation_and_test_positions(tmp_path):
+    spec = CognitiveAlphaIntradayOverlaySpec(root=tmp_path)
+    daily_positions = pd.DataFrame(
+        [
+            {
+                "walk_forward_fold": "wf_2023",
+                "test_year": 2023,
+                "fold_segment": "validation",
+                "datetime": "2022-01-03",
+                "target_position": 0.4,
+                "strategy_return": 0.004,
+            },
+            {
+                "walk_forward_fold": "wf_2023",
+                "test_year": 2023,
+                "fold_segment": "test",
+                "datetime": "2023-01-03",
+                "target_position": 0.5,
+                "strategy_return": 0.005,
+            },
+            {
+                "walk_forward_fold": "wf_2024",
+                "test_year": 2024,
+                "fold_segment": "validation",
+                "datetime": "2023-01-03",
+                "target_position": 0.5,
+                "strategy_return": 0.005,
+            },
+            {
+                "walk_forward_fold": "wf_2024",
+                "test_year": 2024,
+                "fold_segment": "test",
+                "datetime": "2024-01-02",
+                "target_position": 0.6,
+                "strategy_return": 0.006,
+            },
+            {
+                "walk_forward_fold": "wf_2025",
+                "test_year": 2025,
+                "fold_segment": "validation",
+                "datetime": "2024-01-02",
+                "target_position": 0.6,
+                "strategy_return": 0.006,
+            },
+            {
+                "walk_forward_fold": "wf_2025",
+                "test_year": 2025,
+                "fold_segment": "test",
+                "datetime": "2025-01-02",
+                "target_position": 0.7,
+                "strategy_return": 0.007,
+            },
+            {
+                "walk_forward_fold": "wf_2026",
+                "test_year": 2026,
+                "fold_segment": "validation",
+                "datetime": "2025-01-02",
+                "target_position": 0.7,
+                "strategy_return": 0.007,
+            },
+            {
+                "walk_forward_fold": "wf_2026",
+                "test_year": 2026,
+                "fold_segment": "test",
+                "datetime": "2026-07-02",
+                "target_position": 0.8,
+                "strategy_return": 0.008,
+            },
+        ]
+    )
+    daily_positions = overlay_workflow._normalize_daily_positions(daily_positions)
+    intraday_summary = {
+        "external_intraday_context": {
+            "coverage_start": "2019-01-02 09:45:00",
+            "coverage_end": "2026-07-02 16:00:00",
+        }
+    }
+    intraday_predictions = pd.DataFrame()
+
+    feasibility = overlay_workflow._delayed_walk_forward_feasibility(
+        spec,
+        intraday_summary=intraday_summary,
+        daily_positions=daily_positions,
+        intraday_predictions=intraday_predictions,
+    )
+
+    assert set(feasibility["test_year"]) == {2023, 2024, 2025, 2026}
+    assert feasibility["has_daily_position_valid_coverage"].all()
+    assert feasibility["has_daily_position_test_coverage"].all()
+    assert feasibility["feasible"].all()

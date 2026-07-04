@@ -5,9 +5,9 @@ qlib:
   intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
 sources:
   daily_card: research/cognitive_alpha_goal_codex_exec_v1
-  daily_recorder_id: ce05c33a5d6b446fbb758bfdd747666b
+  daily_recorder_id: a4c54bcd3bdd4eb39b413e2bbfa8618d
   intraday_card: research/agentic_alpha_intraday_external_context_label_v1
-  intraday_recorder_id: 65b2e78d9654495b82bf073f4156cde7
+  intraday_recorder_id: 67579fc016ad420a86806b8d8e6f806d
 selection:
   segment: validation
   report_segment: test

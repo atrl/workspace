@@ -732,9 +732,10 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["model_selection"]["threshold_search"]["enabled"] is True
     assert summary["model_selection"]["threshold_search"]["selection_uses_test_segment"] is False
-    assert summary["model_selection"]["threshold_search"]["target_candidate_count"] == 0
-    assert summary["selected_model"]["variant"] == "baseline_next_open"
-    assert summary["selected_model"]["validation_passes_target"] is False
+    assert summary["model_selection"]["threshold_search"]["target_candidate_count"] > 0
+    assert summary["selected_model"]["variant"] == "overlay_a_signal_gate"
+    assert summary["selected_model"]["validation_passes_target"] is True
+    assert summary["selected_model"]["test_return_retention_pct"] < 85.0
     assert summary["walk_forward"]["required_policy_satisfied"] is False
     assert "not_promoted" in summary["promotion_decision"]
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
@@ -760,7 +761,7 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     threshold_selection = pd.read_csv(card / summary["sidecars"]["threshold_selection"])
     assert threshold_selection["selection_uses_test_segment"].eq(False).all()
     assert "overlay_a_signal_gate" in set(threshold_selection["variant"])
-    assert not threshold_selection["passes_target"].any()
+    assert threshold_selection["passes_target"].any()
     assert {10.0, 20.0, 50.0}.issubset(set(pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])["cost_bps"]))
 
     recorder_dir = Path(summary["recorder_local_dir"])
@@ -797,7 +798,7 @@ def test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_
     assert summary["regime_policy"]["selection_uses_test_segment"] is False
     assert summary["regime_policy"]["condition_threshold_source"] == "validation_quantile"
     assert summary["regime_policy"]["validation_target_candidate_count"] >= 1
-    assert summary["regime_policy"]["validation_and_test_target_candidate_count"] == 0
+    assert summary["regime_policy"]["validation_and_test_target_candidate_count"] >= 1
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["selected_model"]["validation_passes_target"] is True
     assert summary["selected_model"]["test_passes_target"] is False
@@ -828,7 +829,7 @@ def test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_
     assert policy_selection["selection_uses_test_segment"].eq(False).all()
     assert set(policy_selection["condition_threshold_source"]) == {"validation_quantile"}
     assert policy_selection["passes_validation_target"].any()
-    assert not policy_selection["passes_validation_and_test_target"].any()
+    assert policy_selection["passes_validation_and_test_target"].any()
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "regime_overlay" / "overlay_trades.csv").exists()
@@ -874,12 +875,15 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["walk_forward"]["data_status"] == "ok_partial_insufficient_for_full_walk_forward"
     assert "insufficient_external_intraday_history" in summary["walk_forward"]["blocking_reasons"]
     assert summary["selected_model"]["validation_passes_target"] is True
-    assert summary["selected_model"]["passes_test_target"] is True
+    assert summary["selected_model"]["passes_test_target"] is False
     assert summary["selected_model"]["observation_minutes"] in {30, 60}
+    assert summary["promotion_decision"] == "not_promoted_delayed_overlay_test_gate_failed"
     assert "not_promoted" in summary["promotion_decision"]
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert summary["artifact_policy"]["recorder_only_artifacts"] == {
         "all_policy_selection": "artifacts/delayed_observable_overlay/all_policy_selection.csv",
+        "daily_positions": "artifacts/delayed_observable_overlay/daily_selected_positions.csv",
+        "daily_walk_forward_positions": "artifacts/delayed_observable_overlay/daily_walk_forward_positions.csv",
         "selected_trades": "artifacts/delayed_observable_overlay/selected_trades.csv",
     }
     assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
@@ -903,19 +907,29 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     walk_forward = pd.read_csv(card / summary["sidecars"]["walk_forward_feasibility"])
     assert set(walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
     assert walk_forward["selection_uses_test_segment"].eq(False).all()
+    assert walk_forward["daily_position_train_required"].eq(False).all()
+    assert walk_forward["has_daily_position_valid_coverage"].all()
+    assert walk_forward["has_daily_position_test_coverage"].all()
     assert walk_forward["feasible"].eq(False).all()
     assert "missing_train_coverage" in set(walk_forward["blocking_reason"])
+    assert "insufficient_daily_position_history" not in summary["walk_forward"]["blocking_reasons"]
+    assert summary["walk_forward"]["daily_position_start"] == "2022-01-03"
+
+    analysis_summary = json.loads((card / summary["sidecars"]["analysis_summary"]).read_text(encoding="utf-8"))
+    assert analysis_summary["data_audit"]["daily_selected_position_start"] == "2025-01-02"
 
     selected_costs = pd.read_csv(card / summary["sidecars"]["selected_policy_cost_sensitivity"])
     required = selected_costs.loc[selected_costs["cost_bps"].isin([20.0, 50.0])]
     assert set(required["cost_bps"]) == {20.0, 50.0}
     assert required["passes_validation_target"].all()
-    assert required["passes_test_target"].all()
+    assert not required["passes_test_target"].any()
     assert required["test_max_drawdown_pct"].max() > -18.0
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "delayed_observable_overlay" / "selected_trades.csv").exists()
     assert (recorder_dir / "artifacts" / "delayed_observable_overlay" / "all_policy_selection.csv").exists()
+    assert (recorder_dir / "artifacts" / "delayed_observable_overlay" / "daily_selected_positions.csv").exists()
+    assert (recorder_dir / "artifacts" / "delayed_observable_overlay" / "daily_walk_forward_positions.csv").exists()
     assert summary["recorder_id"] in notebook_text
     assert "run_cognitive_alpha_intraday_delayed_observable_overlay_card" in notebook_text
     assert "first 30/60 minutes" in notebook_text

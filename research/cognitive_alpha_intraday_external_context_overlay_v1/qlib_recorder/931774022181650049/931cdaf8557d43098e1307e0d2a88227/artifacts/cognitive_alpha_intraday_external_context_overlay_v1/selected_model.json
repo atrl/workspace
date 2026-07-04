@@ -1,0 +1,20 @@
+{
+  "report_segment": "test",
+  "risk_threshold": 0.05,
+  "selection_cost_bps": 20.0,
+  "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
+  "selection_score": 96.07330843445584,
+  "selection_segment": "validation",
+  "selection_uses_test_segment": false,
+  "signal_threshold": 0.3723449282836747,
+  "test_drawdown_improvement_pct": 3.3636260760435785,
+  "test_max_drawdown_pct": -15.015006587213042,
+  "test_return_retention_pct": 76.81846633315297,
+  "test_total_return_pct": 271.79901026733825,
+  "validation_drawdown_improvement_pct": 1.3483291913375162,
+  "validation_max_drawdown_pct": -16.79316977667903,
+  "validation_passes_target": true,
+  "validation_return_retention_pct": 92.99667639203466,
+  "validation_total_return_pct": 120.6293449222949,
+  "variant": "overlay_a_signal_gate"
+}
