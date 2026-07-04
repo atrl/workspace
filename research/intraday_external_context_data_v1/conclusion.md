@@ -7,4 +7,4 @@
 - provider 阻塞：{'blocked_no_rows': 1, 'blocked_provider_history': 4, 'blocked_provider_rate_limit': 8}；下一步=upgrade_polygon_history_plan_or_load_alternate_15min_source。
 - 用途：这张卡只解决外部 15m 上下文数据和缺口审计，不直接证明日内模型可晋升。
 - 风险：Polygon 权限、历史窗口和限流会影响可重复性；缺失 symbol 不会被空值因子伪装成 breadth。
-- qlib recorder：97f11fc996df4fb898ce7b613a9bff4f
+- qlib recorder：6f1156e23bc74c85a5d9c523c761736f
