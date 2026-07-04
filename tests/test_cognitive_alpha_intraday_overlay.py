@@ -440,7 +440,83 @@ def test_simulate_observable_delayed_signal_overlay_can_exit_on_later_intraday_r
     assert by_variant.loc["delayed_signal_after_30m_risk_exit", "strategy_return"] == (98.0 / 104.0 - 1.0)
 
 
-def test_evaluate_observable_delayed_signal_candidates_includes_risk_exit_policy():
+def test_simulate_observable_delayed_signal_overlay_can_flatten_at_same_day_close():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "target_position": 1.0,
+                "strategy_return": 0.10,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 110.0},
+        ]
+    )
+    intraday = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05 09:45:00",
+                "date": "2026-01-05",
+                "open": 100.0,
+                "close": 101.0,
+                "prob_lgb_xgb_consensus": 0.72,
+                "regime_gate_v2_dislocation": True,
+            },
+            {
+                "datetime": "2026-01-05 10:00:00",
+                "date": "2026-01-05",
+                "open": 102.0,
+                "close": 103.0,
+                "prob_lgb_xgb_consensus": 0.74,
+                "regime_gate_v2_dislocation": True,
+            },
+            {
+                "datetime": "2026-01-05 10:15:00",
+                "date": "2026-01-05",
+                "open": 104.0,
+                "close": 105.0,
+                "prob_lgb_xgb_consensus": 0.80,
+                "regime_gate_v2_dislocation": True,
+            },
+            {
+                "datetime": "2026-01-05 15:45:00",
+                "date": "2026-01-05",
+                "open": 108.0,
+                "close": 106.0,
+                "prob_lgb_xgb_consensus": 0.55,
+                "regime_gate_v2_dislocation": True,
+            },
+        ]
+    )
+
+    rows = simulate_observable_delayed_signal_overlay(
+        daily,
+        daily_prices=daily_prices,
+        intraday=intraday,
+        observation_bars=2,
+        condition_feature="observed_prob_min",
+        condition_operator="ge",
+        condition_threshold=0.70,
+        signal_threshold=0.65,
+        exit_policy="same_day_close",
+        cost_bps=0.0,
+    )
+
+    assert set(rows["variant"]) == {"baseline_next_open", "delayed_signal_after_30m_same_day_close"}
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["delayed_signal_after_30m_same_day_close", "entry_time"] == "2026-01-05 10:15:00"
+    assert by_variant.loc["delayed_signal_after_30m_same_day_close", "exit_time"] == "2026-01-05 15:45:00"
+    assert by_variant.loc["delayed_signal_after_30m_same_day_close", "exit_price"] == 106.0
+    assert by_variant.loc["delayed_signal_after_30m_same_day_close", "strategy_return"] == (106.0 / 104.0 - 1.0)
+
+
+def test_evaluate_observable_delayed_signal_candidates_includes_intraday_flat_policy():
     daily = pd.DataFrame(
         [
             {"datetime": "2026-01-02", "segment": "validation", "target_position": 1.0, "strategy_return": 0.10},
@@ -492,13 +568,15 @@ def test_evaluate_observable_delayed_signal_candidates_includes_risk_exit_policy
         observation_bars_grid=(2,),
         signal_threshold_grid=(0.50,),
         risk_threshold_grid=(None, 0.30),
+        exit_policy_grid=("hold_to_next_open", "risk_exit", "same_day_close"),
         quantiles=(0.50,),
     )
 
-    assert {"hold_to_next_open", "risk_exit"}.issubset(set(candidates["exit_policy"]))
+    assert {"hold_to_next_open", "risk_exit", "same_day_close"}.issubset(set(candidates["exit_policy"]))
     assert set(candidates["condition_threshold_source"]) == {"validation_quantile"}
     assert set(candidates["selection_uses_test_segment"]) == {False}
     assert "delayed_signal_after_30m_risk_exit" in set(candidates["variant"])
+    assert "delayed_signal_after_30m_same_day_close" in set(candidates["variant"])
 
 
 def test_select_validation_robust_delayed_policy_requires_cost_and_skip_robustness():
@@ -773,6 +851,96 @@ def test_select_validation_robust_delayed_policy_keeps_risk_exit_diagnostic_by_d
 
     assert selected["policy_id"] == "hold_robust_lower_score"
     assert selected["exit_policy"] == "hold_to_next_open"
+
+
+def test_select_validation_robust_delayed_policy_allows_same_day_close_as_intraday_flat_candidate():
+    candidates = pd.DataFrame(
+        [
+            {
+                "policy_id": "hold_lower_retention",
+                "variant": "delayed_signal_after_30m",
+                "exit_policy": "hold_to_next_open",
+                "selection_score": 100.0,
+                "validation_drawdown_improvement_pct": 2.0,
+                "condition_valid_active_coverage": 0.50,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 88.0,
+                "validation_max_drawdown_pct": -15.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "hold_lower_retention",
+                "variant": "delayed_signal_after_30m",
+                "exit_policy": "hold_to_next_open",
+                "selection_score": 100.0,
+                "validation_drawdown_improvement_pct": 2.0,
+                "condition_valid_active_coverage": 0.50,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 87.0,
+                "validation_max_drawdown_pct": -16.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "same_day_flat_higher_retention",
+                "variant": "delayed_signal_after_30m_same_day_close",
+                "exit_policy": "same_day_close",
+                "selection_score": 105.0,
+                "validation_drawdown_improvement_pct": 2.0,
+                "condition_valid_active_coverage": 0.50,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 94.0,
+                "validation_max_drawdown_pct": -14.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "same_day_flat_higher_retention",
+                "variant": "delayed_signal_after_30m_same_day_close",
+                "exit_policy": "same_day_close",
+                "selection_score": 105.0,
+                "validation_drawdown_improvement_pct": 2.0,
+                "condition_valid_active_coverage": 0.50,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 93.0,
+                "validation_max_drawdown_pct": -15.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "risk_exit_highest_score",
+                "variant": "delayed_signal_after_30m_risk_exit",
+                "exit_policy": "risk_exit",
+                "selection_score": 130.0,
+                "validation_drawdown_improvement_pct": 5.0,
+                "condition_valid_active_coverage": 0.50,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 95.0,
+                "validation_max_drawdown_pct": -8.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "risk_exit_highest_score",
+                "variant": "delayed_signal_after_30m_risk_exit",
+                "exit_policy": "risk_exit",
+                "selection_score": 130.0,
+                "validation_drawdown_improvement_pct": 5.0,
+                "condition_valid_active_coverage": 0.50,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 94.0,
+                "validation_max_drawdown_pct": -9.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+            },
+        ]
+    )
+
+    selected = select_validation_robust_delayed_policy(candidates)
+
+    assert selected["policy_id"] == "same_day_flat_higher_retention"
+    assert selected["exit_policy"] == "same_day_close"
 
 
 def test_load_intraday_prediction_frame_uses_prediction_history_start(monkeypatch, tmp_path):

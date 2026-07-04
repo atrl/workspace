@@ -878,6 +878,9 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["execution_overlay"]["risk_exit_can_close_intraday"] is True
     assert "delayed_signal_after_30m_risk_exit" in summary["execution_overlay"]["variants"]
     assert "delayed_signal_after_60m_risk_exit" in summary["execution_overlay"]["variants"]
+    assert "delayed_signal_after_30m_same_day_close" in summary["execution_overlay"]["variants"]
+    assert "delayed_signal_after_60m_same_day_close" in summary["execution_overlay"]["variants"]
+    assert summary["execution_overlay"]["intraday_flat_can_close_same_day"] is True
     assert summary["model_selection"]["selection_segment"] == "validation"
     assert summary["model_selection"]["report_segment"] == "test"
     assert summary["model_selection"]["selection_uses_test_segment"] is False
@@ -890,9 +893,11 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
         "condition_valid_active_coverage_desc",
         "validation_drawdown_improvement_desc",
     ]
-    assert summary["model_selection"]["eligible_exit_policies"] == ["hold_to_next_open"]
+    assert summary["model_selection"]["eligible_exit_policies"] == ["hold_to_next_open", "same_day_close"]
     assert summary["model_selection"]["exit_policy_candidate_counts"]["risk_exit"] > 0
+    assert summary["model_selection"]["exit_policy_candidate_counts"]["same_day_close"] > 0
     assert summary["model_selection"]["risk_exit_validation_and_test_target_row_count"] > 0
+    assert "same_day_close_validation_and_test_target_row_count" in summary["model_selection"]
     assert summary["model_selection"]["validation_and_test_target_row_count"] > 0
     assert summary["walk_forward"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
     assert summary["walk_forward"]["selection_uses_test_segment"] is False

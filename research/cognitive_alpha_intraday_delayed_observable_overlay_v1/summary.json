@@ -23,8 +23,8 @@
       "intraday_start": "2025-01-02 09:45:00"
     },
     "model_comparison_rows": 12,
-    "policy_candidate_count": 23680,
-    "policy_selection_rows": 71040,
+    "policy_candidate_count": 28416,
+    "policy_selection_rows": 85248,
     "selected_model": {
       "condition_feature": "observed_return",
       "condition_operator": "le",
@@ -312,8 +312,8 @@
       "recorder_id": "67579fc016ad420a86806b8d8e6f806d",
       "selected_model": "lgb"
     },
-    "validation_and_test_target_row_count": 4007,
-    "validation_target_row_count": 14231,
+    "validation_and_test_target_row_count": 4311,
+    "validation_target_row_count": 15794,
     "walk_forward": {
       "blocking_reasons": [
         "annual_walk_forward_not_run",
@@ -374,8 +374,9 @@
     "daily_execution_timing": "close_t_signal_next_open_to_following_open",
     "decision_model_timing": "daily_close_t_signal",
     "default_exit_timing": "following_open",
-    "description": "the overlay can use first 30/60m features only after those bars are observed, then enters on a later 15m next_open signal and holds to the following open unless an optional risk-exit policy closes intraday",
+    "description": "the overlay can use first 30/60m features only after those bars are observed, then enters on a later 15m next_open signal; eligible policies may hold to following open or flatten at same-day close, while risk-exit remains diagnostic",
     "frequency": "15min",
+    "intraday_flat_can_close_same_day": true,
     "intraday_overlays_hold_overnight": true,
     "open_to_open_baseline": true,
     "overlay_signal_timing": "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open",
@@ -385,20 +386,24 @@
       "delayed_signal_after_30m",
       "delayed_signal_after_60m",
       "delayed_signal_after_30m_risk_exit",
-      "delayed_signal_after_60m_risk_exit"
+      "delayed_signal_after_60m_risk_exit",
+      "delayed_signal_after_30m_same_day_close",
+      "delayed_signal_after_60m_same_day_close"
     ]
   },
   "experiment": "cognitive_alpha_intraday_delayed_observable_overlay_v1",
   "market": "all",
   "model_selection": {
-    "candidate_count": 23680,
-    "candidate_rows": 71040,
+    "candidate_count": 28416,
+    "candidate_rows": 85248,
     "eligible_exit_policies": [
-      "hold_to_next_open"
+      "hold_to_next_open",
+      "same_day_close"
     ],
     "exit_policy_candidate_counts": {
       "hold_to_next_open": 14208,
-      "risk_exit": 56832
+      "risk_exit": 56832,
+      "same_day_close": 14208
     },
     "max_skip_rate": 0.15,
     "report_segment": "test",
@@ -410,6 +415,7 @@
     "return_retention_soft_cap_pct": 95.0,
     "return_retention_upper_policy": "soft_cap_for_scoring",
     "risk_exit_validation_and_test_target_row_count": 2605,
+    "same_day_close_validation_and_test_target_row_count": 304,
     "selected_policy_id": "obs30_observed_return_le_q0.550_0.00175977_signal_0.45_hold",
     "selection_cost_bps": 20.0,
     "selection_priority": [
@@ -420,8 +426,8 @@
     ],
     "selection_segment": "validation",
     "selection_uses_test_segment": false,
-    "validation_and_test_target_row_count": 4007,
-    "validation_target_row_count": 14231
+    "validation_and_test_target_row_count": 4311,
+    "validation_target_row_count": 15794
   },
   "promotion_decision": "not_promoted_external_intraday_history_insufficient",
   "provider_uris": {
@@ -484,8 +490,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "d9eecb07213a4518943d480d394f5fc8",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/qlib_recorder/364237446447147702/d9eecb07213a4518943d480d394f5fc8",
+  "recorder_id": "c62423d6e5064d0fb4ef94f8408bfce2",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/qlib_recorder/364237446447147702/c62423d6e5064d0fb4ef94f8408bfce2",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {

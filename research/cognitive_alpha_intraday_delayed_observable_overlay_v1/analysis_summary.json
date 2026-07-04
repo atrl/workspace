@@ -22,8 +22,8 @@
     "intraday_start": "2025-01-02 09:45:00"
   },
   "model_comparison_rows": 12,
-  "policy_candidate_count": 23680,
-  "policy_selection_rows": 71040,
+  "policy_candidate_count": 28416,
+  "policy_selection_rows": 85248,
   "selected_model": {
     "condition_feature": "observed_return",
     "condition_operator": "le",
@@ -311,8 +311,8 @@
     "recorder_id": "67579fc016ad420a86806b8d8e6f806d",
     "selected_model": "lgb"
   },
-  "validation_and_test_target_row_count": 4007,
-  "validation_target_row_count": 14231,
+  "validation_and_test_target_row_count": 4311,
+  "validation_target_row_count": 15794,
   "walk_forward": {
     "blocking_reasons": [
       "annual_walk_forward_not_run",

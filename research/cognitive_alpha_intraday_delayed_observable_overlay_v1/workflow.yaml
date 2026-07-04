@@ -18,6 +18,11 @@ selection:
 execution:
   causal_timing: first_30_or_60m_observed_then_next_15m_open
   first_hour_features_can_only_trigger_delayed_entries: true
+  eligible_exit_policies:
+    - hold_to_next_open
+    - same_day_close
+  diagnostic_exit_policies:
+    - risk_exit
 walk_forward:
   policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T
   required_start: 2019-01-02
