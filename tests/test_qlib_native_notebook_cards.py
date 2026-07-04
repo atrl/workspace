@@ -752,6 +752,15 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_external_context_label_v1"
     assert summary["source_intraday_model"]["label_policy_name"] == "triple_barrier_1h_2h_execution_improvement"
     assert summary["source_intraday_model"]["external_context"]["data_status"] == "ok_partial_insufficient_for_full_walk_forward"
+    assert summary["source_intraday_model"]["feature_set"]["name"] == "execution_context_external_v2"
+    assert {
+        "soxl_open_gap_from_prior_close",
+        "soxl_realized_vol_expansion",
+        "soxl_first30_ret",
+        "soxl_first60_trend_quality",
+        "soxl_volume_price_absorption",
+        "open_gap_reclaim_quality",
+    }.issubset(set(summary["source_intraday_model"]["feature_set"]["new_features"]))
     assert summary["source_intraday_model"]["signal_prob_col"] == "prob_lgb"
     assert summary["source_intraday_model"]["gate_policy"] == "all_predicted_15m_rows"
     assert summary["execution_overlay"]["variants"] == [

@@ -1884,6 +1884,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             "trade_gate": intraday_summary.get("trade_gate", {}).get("name"),
             "execution_policy": intraday_summary.get("execution_policy"),
             "label_policy_name": intraday_summary.get("label_policy", {}).get("name"),
+            "feature_set": intraday_summary.get("feature_set", {}),
             "external_context": intraday_summary.get("external_intraday_context", {}),
         },
         "provider_uris": _provider_uris(spec, intraday_summary=intraday_summary),
@@ -3508,6 +3509,44 @@ def _conditional_risk_sleeve_walk_forward_metrics(
                     reason="missing_selected_conditional_policy",
                     valid_trades=valid_trades,
                     test_trades=test_trades,
+                )
+            )
+            continue
+
+        required_validation_target_count = int(selected.get("required_cost_validation_target_count", 0) or 0)
+        if required_validation_target_count < len(required_costs) or not bool(
+            selected.get("validation_cost_robust", False)
+        ):
+            rows.append(
+                infeasible_row(
+                    fold_name=fold_name,
+                    test_year=int(test_year),
+                    train_start=train_start,
+                    train_end=train_end,
+                    valid_start=valid_start,
+                    valid_end=valid_end,
+                    test_start=test_start,
+                    test_end=test_end,
+                    reason="failed_validation_target",
+                    valid_trades=valid_trades,
+                    test_trades=test_trades,
+                    extra={
+                        "diagnostic_variant": selected.get("variant"),
+                        "diagnostic_condition_column": selected.get("condition_column"),
+                        "diagnostic_condition_operator": selected.get("condition_operator"),
+                        "diagnostic_condition_threshold": selected.get("condition_threshold"),
+                        "required_cost_validation_target_count": required_validation_target_count,
+                        "required_cost_test_target_count": int(
+                            selected.get("required_cost_test_target_count", 0) or 0
+                        ),
+                        "required_cost_validation_and_test_target_count": int(
+                            selected.get("required_cost_validation_and_test_target_count", 0) or 0
+                        ),
+                        "validation_return_retention_pct": selected.get("validation_return_retention_pct"),
+                        "validation_max_drawdown_pct": selected.get("validation_max_drawdown_pct"),
+                        "test_return_retention_pct": selected.get("test_return_retention_pct"),
+                        "test_max_drawdown_pct": selected.get("test_max_drawdown_pct"),
+                    },
                 )
             )
             continue

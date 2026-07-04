@@ -240,11 +240,10 @@
     }
   ],
   "conditional_risk_sleeve_walk_forward": {
-    "blocking_reasons": [],
+    "blocking_reasons": [
+      "failed_validation_target"
+    ],
     "feasible_test_years": [
-      2023,
-      2024,
-      2025,
       2026
     ],
     "folds": [
@@ -253,7 +252,11 @@
       "wf_2025",
       "wf_2026"
     ],
-    "missing_required_test_years": [],
+    "missing_required_test_years": [
+      2023,
+      2024,
+      2025
+    ],
     "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
     "required_cost_bps": [
       20.0,
@@ -439,8 +442,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "220d60d1635540a59940330eac698b9f",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/220d60d1635540a59940330eac698b9f",
+  "recorder_id": "7ad30f66eb4d497d86a4a76ad59378da",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/7ad30f66eb4d497d86a4a76ad59378da",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {
@@ -517,6 +520,26 @@
       "trade_gate": "regime_v2_dislocation"
     },
     "external_context": {},
+    "feature_set": {
+      "feature_count": 58,
+      "lookback_only": true,
+      "name": "regime_v1",
+      "new_features": [
+        "soxl_range_so_far",
+        "soxl_range_tod_z60",
+        "soxl_ret_tod_z60",
+        "soxx_range_so_far",
+        "soxx_range_tod_z60",
+        "soxx_ret_tod_z60",
+        "soxl_cum_ret_from_open",
+        "soxl_volume_tod_z60",
+        "soxx_cum_ret_from_open",
+        "soxx_volume_tod_z60",
+        "tod_sin",
+        "tod_cos",
+        "abs_soxl_minus_3x_soxx_ret"
+      ]
+    },
     "gate_col": "regime_gate_v2_dislocation",
     "gate_policy": "source_trade_gate",
     "label_policy_name": null,

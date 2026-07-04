@@ -1758,6 +1758,79 @@ def test_conditional_risk_sleeve_walk_forward_selects_fold_local_validation_poli
     assert fold_2026["test_periods"] == 4
 
 
+def test_conditional_risk_sleeve_walk_forward_fails_closed_without_validation_cost_target():
+    rows = []
+    regime_rows = []
+    dates = [
+        ("2025-01-02", "validation", 0.10),
+        ("2025-01-03", "validation", 0.20),
+        ("2025-01-06", "validation", 0.80),
+        ("2025-01-07", "validation", 0.90),
+        ("2026-01-02", "test", 0.10),
+        ("2026-01-05", "test", 0.20),
+    ]
+    for date, segment, probability in dates:
+        regime_rows.append(
+            {
+                "datetime": date,
+                "walk_forward_fold": "wf_2026",
+                "test_year": 2026,
+                "fold_segment": segment,
+                "probability": probability,
+                "target_position": 1.0,
+            }
+        )
+        for cost_bps in [20.0, 50.0]:
+            rows.append(
+                {
+                    "walk_forward_fold": "wf_2026",
+                    "test_year": 2026,
+                    "fold_segment": segment,
+                    "datetime": date,
+                    "segment": segment,
+                    "variant": "baseline_next_open",
+                    "cost_bps": cost_bps,
+                    "strategy_return": 0.02,
+                    "entry_day_strategy_return": -0.01,
+                    "target_position": 1.0,
+                    "entry_date": date,
+                    "skipped_reason": None,
+                }
+            )
+            rows.append(
+                {
+                    "walk_forward_fold": "wf_2026",
+                    "test_year": 2026,
+                    "fold_segment": segment,
+                    "datetime": date,
+                    "segment": segment,
+                    "variant": "overlay_b_twap3",
+                    "cost_bps": cost_bps,
+                    "strategy_return": -0.02,
+                    "entry_day_strategy_return": -0.02,
+                    "target_position": 1.0,
+                    "entry_date": date,
+                    "skipped_reason": None,
+                }
+            )
+
+    walk_forward = overlay_workflow._conditional_risk_sleeve_walk_forward_metrics(
+        pd.DataFrame(rows),
+        pd.DataFrame(regime_rows),
+        required_cost_bps=(20.0, 50.0),
+        selection_cost_bps=20.0,
+        condition_columns=("probability",),
+    )
+
+    fold_2026 = walk_forward.loc[walk_forward["fold"].eq("wf_2026")].iloc[0]
+    assert fold_2026["status"] == "infeasible"
+    assert fold_2026["blocking_reason"] == "failed_validation_target"
+    assert pd.isna(fold_2026["selected_variant"])
+    assert fold_2026["diagnostic_variant"] == "overlay_b_twap3"
+    assert fold_2026["required_cost_validation_target_count"] == 0
+    assert bool(fold_2026["selection_uses_test_segment"]) is False
+
+
 def test_select_regime_policy_prefers_validation_drawdown_improvement_over_score():
     policy_selection = pd.DataFrame(
         [
