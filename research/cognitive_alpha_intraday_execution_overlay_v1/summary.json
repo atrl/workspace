@@ -4,6 +4,7 @@
       "analysis_summary.json",
       "backtest_walk_forward_metrics.csv",
       "conditional_risk_policy_selection.csv",
+      "conditional_risk_sleeve_walk_forward.csv",
       "cost_sensitivity.csv",
       "daily_position_source_audit.csv",
       "execution_risk_diagnostics.csv",
@@ -238,6 +239,52 @@
       "variant": "overlay_b_twap3"
     }
   ],
+  "conditional_risk_sleeve_walk_forward": {
+    "blocking_reasons": [],
+    "feasible_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "folds": [
+      "wf_2023",
+      "wf_2024",
+      "wf_2025",
+      "wf_2026"
+    ],
+    "missing_required_test_years": [],
+    "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+    "required_cost_bps": [
+      20.0,
+      50.0
+    ],
+    "required_cost_test_target_years": [
+      2026
+    ],
+    "required_cost_validation_and_test_target_years": [
+      2026
+    ],
+    "required_cost_validation_target_years": [
+      2026
+    ],
+    "required_policy_satisfied": false,
+    "required_start": "2019-01-02",
+    "required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "rows": 4,
+    "selection_uses_test_segment": false,
+    "source_intraday_required_policy_satisfied": true,
+    "target_failure_years": [
+      2023,
+      2024,
+      2025
+    ]
+  },
   "cost_stress_bps": [
     10.0,
     20.0,
@@ -352,6 +399,7 @@
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/analysis_summary.json",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/backtest_walk_forward_metrics.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/conditional_risk_policy_selection.csv",
+    "artifacts/cognitive_alpha_intraday_execution_overlay_v1/conditional_risk_sleeve_walk_forward.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/cost_sensitivity.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/daily_position_source_audit.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/execution_risk_diagnostics.csv",
@@ -391,8 +439,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "84dde4849a3e4bd19ff650fdd7c8c081",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/84dde4849a3e4bd19ff650fdd7c8c081",
+  "recorder_id": "220d60d1635540a59940330eac698b9f",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/220d60d1635540a59940330eac698b9f",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {
@@ -419,6 +467,7 @@
     "analysis_summary": "analysis_summary.json",
     "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
     "conditional_risk_policy_selection": "conditional_risk_policy_selection.csv",
+    "conditional_risk_sleeve_walk_forward": "conditional_risk_sleeve_walk_forward.csv",
     "cost_sensitivity": "cost_sensitivity.csv",
     "daily_position_source_audit": "daily_position_source_audit.csv",
     "execution_risk_diagnostics": "execution_risk_diagnostics.csv",

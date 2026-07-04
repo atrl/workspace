@@ -113,6 +113,7 @@
     "validation_worst_strategy_return_pct": -10.99971079697647,
     "variant": "overlay_b_twap3"
   },
+  "conditional_risk_sleeve_walk_forward_rows": 4,
   "daily_position_source_audit": [
     {
       "artifact_name": "walk_forward_positions.csv",

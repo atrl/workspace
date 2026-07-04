@@ -1366,6 +1366,9 @@ def build_regime_feature_frame(
         for column in ["probability", "raw_target", "turnover"]:
             if column in daily_row:
                 row[column] = float(daily_row.get(column, np.nan) or 0.0)
+        for key in ["walk_forward_fold", "test_year", "fold_segment"]:
+            if key in daily_row:
+                row[key] = daily_row[key]
         rows.append(row)
     return pd.DataFrame(rows)
 
@@ -1708,6 +1711,12 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             ).assign(cost_bps=float(cost_bps))
         )
     walk_forward_overlay_trades = pd.concat(walk_forward_trade_frames, ignore_index=True)
+    walk_forward_regime_features = build_regime_feature_frame(walk_forward_daily_positions, daily_prices=daily_prices)
+    walk_forward_condition_columns = tuple(
+        column
+        for column in ("probability", "target_position", "turnover", "raw_target")
+        if column in walk_forward_regime_features.columns
+    )
     cost_sensitivity = summarize_overlay_metrics(overlay_trades)
     execution_risk_diagnostics = summarize_execution_risk_diagnostics(overlay_trades)
     model_comparison = (
@@ -1728,6 +1737,14 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         cost_bps=spec.selection_cost_bps,
         require_intraday_prediction_coverage=True,
     )
+    conditional_risk_sleeve_walk_forward = _conditional_risk_sleeve_walk_forward_metrics(
+        walk_forward_overlay_trades,
+        walk_forward_regime_features,
+        required_cost_bps=(20.0, 50.0),
+        selection_cost_bps=float(spec.selection_cost_bps),
+        condition_columns=walk_forward_condition_columns,
+        require_intraday_prediction_coverage=True,
+    )
     analysis_summary = _analysis_summary(
         spec,
         daily_summary=daily_summary,
@@ -1743,6 +1760,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         execution_risk_summary=execution_risk_summary,
         conditional_risk_policy_selection=conditional_risk_policy_selection,
         conditional_risk_sleeve=conditional_risk_sleeve,
+        conditional_risk_sleeve_walk_forward=conditional_risk_sleeve_walk_forward,
         selected_model=selected_model,
         walk_forward=walk_forward,
         daily_position_source_audit=daily_position_source_audit,
@@ -1756,6 +1774,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         conditional_risk_policy_selection=conditional_risk_policy_selection,
         conditional_risk_sleeve=conditional_risk_sleeve,
         conditional_risk_sleeve_rows=conditional_risk_sleeve_rows,
+        conditional_risk_sleeve_walk_forward=conditional_risk_sleeve_walk_forward,
         walk_forward=walk_forward,
         daily_position_source_audit=daily_position_source_audit,
         selected_model=selected_model,
@@ -1827,6 +1846,11 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     walk_forward_summary = _overlay_walk_forward_summary(
         intraday_summary=intraday_summary,
         walk_forward=walk_forward,
+    )
+    conditional_risk_sleeve_walk_forward_summary = _conditional_risk_sleeve_walk_forward_summary(
+        intraday_summary=intraday_summary,
+        walk_forward=conditional_risk_sleeve_walk_forward,
+        required_cost_bps=(20.0, 50.0),
     )
     summary = {
         "experiment": spec.experiment,
@@ -1911,6 +1935,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         "execution_risk_diagnostics": execution_risk_summary,
         "conditional_risk_sleeve": conditional_risk_sleeve,
         "conditional_risk_sleeve_cost_sensitivity": _json_ready_records(conditional_risk_sleeve_rows),
+        "conditional_risk_sleeve_walk_forward": conditional_risk_sleeve_walk_forward_summary,
         "selected_model": selected_model,
         "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
         "recorder_id": recorder_id,
@@ -1929,6 +1954,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         selected_model=selected_model,
         model_comparison=model_comparison,
         walk_forward=walk_forward,
+        conditional_risk_sleeve_walk_forward=conditional_risk_sleeve_walk_forward,
         execution_risk_summary=execution_risk_summary,
         conditional_risk_sleeve=conditional_risk_sleeve,
     )
@@ -3269,6 +3295,296 @@ def _missing_intraday_prediction_period_count(trades: pd.DataFrame) -> int:
     return int(missing["datetime_ts"].dt.normalize().nunique())
 
 
+def _normalise_fold_segment(series: pd.Series) -> pd.Series:
+    return series.astype(str).replace({"valid": "validation", "val": "validation"})
+
+
+def _conditional_risk_sleeve_walk_forward_metrics(
+    trades: pd.DataFrame,
+    regime_features: pd.DataFrame,
+    *,
+    required_cost_bps: tuple[float, ...] = (20.0, 50.0),
+    selection_cost_bps: float = 20.0,
+    condition_columns: tuple[str, ...] = (
+        "probability",
+        "target_position",
+        "turnover",
+        "raw_target",
+    ),
+    require_intraday_prediction_coverage: bool = False,
+) -> pd.DataFrame:
+    rows: list[dict[str, Any]] = []
+    base = trades.copy()
+    if "datetime" in base.columns:
+        base["datetime_ts"] = pd.to_datetime(base["datetime"])
+    max_date = base["datetime_ts"].max() if "datetime_ts" in base and not base.empty else pd.Timestamp("2026-07-02")
+    required_costs = tuple(float(value) for value in required_cost_bps)
+    required_cost_set = set(required_costs)
+
+    features = regime_features.copy()
+    if "datetime" in features.columns:
+        features["datetime_key"] = pd.to_datetime(features["datetime"]).dt.normalize()
+
+    def infeasible_row(
+        *,
+        fold_name: str,
+        test_year: int,
+        train_start: str,
+        train_end: str,
+        valid_start: str,
+        valid_end: str,
+        test_start: str,
+        test_end: str,
+        reason: str,
+        valid_trades: pd.DataFrame,
+        test_trades: pd.DataFrame,
+        extra: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        row = {
+            "fold": fold_name,
+            "test_year": int(test_year),
+            "status": "infeasible",
+            "blocking_reason": reason,
+            "selection_cost_bps": float(selection_cost_bps),
+            "required_cost_bps": ",".join(str(float(value)) for value in required_costs),
+            "train_start": train_start,
+            "train_end": train_end,
+            "valid_start": valid_start,
+            "valid_end": valid_end,
+            "test_start": test_start,
+            "test_end": test_end,
+            "selected_variant": None,
+            "condition_column": None,
+            "condition_operator": None,
+            "condition_quantile": None,
+            "condition_threshold": None,
+            "selection_uses_test_segment": False,
+            "validation_passes_target": False,
+            "test_passes_target": False,
+            "required_cost_validation_target_count": 0,
+            "required_cost_test_target_count": 0,
+            "required_cost_validation_and_test_target_count": 0,
+            "valid_periods": int(valid_trades["datetime_ts"].dt.normalize().nunique()) if "datetime_ts" in valid_trades else 0,
+            "test_periods": int(test_trades["datetime_ts"].dt.normalize().nunique()) if "datetime_ts" in test_trades else 0,
+        }
+        if extra:
+            row.update(extra)
+        return row
+
+    for test_year in REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS:
+        fold_name = f"wf_{int(test_year)}"
+        train_start = REQUIRED_WALK_FORWARD_START
+        train_end = f"{int(test_year) - 2}-12-31"
+        valid_start = f"{int(test_year) - 1}-01-01"
+        valid_end = f"{int(test_year) - 1}-12-31"
+        test_start = f"{int(test_year)}-01-01"
+        test_end = max_date.date().isoformat() if int(test_year) == int(max_date.year) else f"{int(test_year)}-12-31"
+
+        if "walk_forward_fold" in base.columns and base["walk_forward_fold"].notna().any():
+            fold_base = base.loc[base["walk_forward_fold"].astype(str).eq(fold_name)].copy()
+            segment_col = "fold_segment" if "fold_segment" in fold_base.columns else "segment"
+            segments = _normalise_fold_segment(fold_base[segment_col]) if segment_col in fold_base else pd.Series("", index=fold_base.index)
+            valid_trades = fold_base.loc[segments.eq("validation")].copy()
+            test_trades = fold_base.loc[segments.eq("test")].copy()
+        elif "datetime_ts" in base.columns:
+            valid_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(valid_start), pd.Timestamp(valid_end))].copy()
+            test_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(test_start), pd.Timestamp(test_end))].copy()
+        else:
+            valid_trades = pd.DataFrame()
+            test_trades = pd.DataFrame()
+
+        blocking_reasons: list[str] = []
+        if valid_trades.empty:
+            blocking_reasons.append("missing_validation_data")
+        if test_trades.empty:
+            blocking_reasons.append("missing_test_data")
+        if blocking_reasons:
+            rows.append(
+                infeasible_row(
+                    fold_name=fold_name,
+                    test_year=int(test_year),
+                    train_start=train_start,
+                    train_end=train_end,
+                    valid_start=valid_start,
+                    valid_end=valid_end,
+                    test_start=test_start,
+                    test_end=test_end,
+                    reason="|".join(blocking_reasons),
+                    valid_trades=valid_trades,
+                    test_trades=test_trades,
+                )
+            )
+            continue
+
+        if require_intraday_prediction_coverage:
+            valid_missing = _missing_intraday_prediction_period_count(valid_trades)
+            test_missing = _missing_intraday_prediction_period_count(test_trades)
+            if valid_missing or test_missing:
+                rows.append(
+                    infeasible_row(
+                        fold_name=fold_name,
+                        test_year=int(test_year),
+                        train_start=train_start,
+                        train_end=train_end,
+                        valid_start=valid_start,
+                        valid_end=valid_end,
+                        test_start=test_start,
+                        test_end=test_end,
+                        reason="missing_intraday_prediction_coverage",
+                        valid_trades=valid_trades,
+                        test_trades=test_trades,
+                        extra={
+                            "validation_missing_intraday_prediction_periods": int(valid_missing),
+                            "test_missing_intraday_prediction_periods": int(test_missing),
+                        },
+                    )
+                )
+                continue
+
+        fold_trades = pd.concat([valid_trades, test_trades], ignore_index=True)
+        if "cost_bps" in fold_trades.columns:
+            fold_trades = fold_trades.loc[
+                pd.to_numeric(fold_trades["cost_bps"], errors="coerce").isin(required_cost_set)
+            ].copy()
+        segment_col = "fold_segment" if "fold_segment" in fold_trades.columns else "segment"
+        if segment_col in fold_trades.columns:
+            fold_trades["segment"] = _normalise_fold_segment(fold_trades[segment_col])
+
+        fold_features = features.copy()
+        if "walk_forward_fold" in fold_features.columns:
+            fold_features = fold_features.loc[fold_features["walk_forward_fold"].astype(str).eq(fold_name)].copy()
+        elif "datetime_key" in fold_features.columns and "datetime_ts" in fold_trades.columns:
+            fold_dates = set(fold_trades["datetime_ts"].dt.normalize())
+            fold_features = fold_features.loc[fold_features["datetime_key"].isin(fold_dates)].copy()
+
+        candidate_frames = [
+            evaluate_conditional_overlay_candidates(
+                fold_trades.drop(columns=["datetime_ts"], errors="ignore"),
+                fold_features.drop(columns=["datetime_key"], errors="ignore"),
+                cost_bps=float(cost_bps),
+                condition_columns=condition_columns,
+            )
+            for cost_bps in required_costs
+        ]
+        candidates = (
+            pd.concat([frame for frame in candidate_frames if not frame.empty], ignore_index=True)
+            if candidate_frames
+            else pd.DataFrame()
+        )
+        if candidates.empty:
+            rows.append(
+                infeasible_row(
+                    fold_name=fold_name,
+                    test_year=int(test_year),
+                    train_start=train_start,
+                    train_end=train_end,
+                    valid_start=valid_start,
+                    valid_end=valid_end,
+                    test_start=test_start,
+                    test_end=test_end,
+                    reason="missing_conditional_candidates",
+                    valid_trades=valid_trades,
+                    test_trades=test_trades,
+                )
+            )
+            continue
+
+        selected = select_conditional_risk_sleeve_policy(
+            candidates,
+            required_cost_bps=required_costs,
+            selection_cost_bps=float(selection_cost_bps),
+        )
+        if not selected.get("variant"):
+            rows.append(
+                infeasible_row(
+                    fold_name=fold_name,
+                    test_year=int(test_year),
+                    train_start=train_start,
+                    train_end=train_end,
+                    valid_start=valid_start,
+                    valid_end=valid_end,
+                    test_start=test_start,
+                    test_end=test_end,
+                    reason="missing_selected_conditional_policy",
+                    valid_trades=valid_trades,
+                    test_trades=test_trades,
+                )
+            )
+            continue
+
+        selected_row = {
+            "fold": fold_name,
+            "test_year": int(test_year),
+            "status": "ok",
+            "blocking_reason": "ok",
+            "selection_cost_bps": float(selection_cost_bps),
+            "required_cost_bps": ",".join(str(float(value)) for value in required_costs),
+            "train_start": train_start,
+            "train_end": train_end,
+            "valid_start": valid_start,
+            "valid_end": valid_end,
+            "test_start": test_start,
+            "test_end": test_end,
+            "selected_variant": selected.get("variant"),
+            "condition_column": selected.get("condition_column"),
+            "condition_operator": selected.get("condition_operator"),
+            "condition_quantile": selected.get("condition_quantile"),
+            "condition_threshold": selected.get("condition_threshold"),
+            "condition_valid_active_coverage": selected.get("condition_valid_active_coverage"),
+            "selection_uses_test_segment": bool(selected.get("selection_uses_test_segment", False)),
+            "validation_cost_robust": bool(selected.get("validation_cost_robust", False)),
+            "validation_passes_target": bool(selected.get("validation_passes_target", False)),
+            "test_passes_target": bool(selected.get("test_passes_target", False)),
+            "required_cost_validation_target_count": int(selected.get("required_cost_validation_target_count", 0) or 0),
+            "required_cost_test_target_count": int(selected.get("required_cost_test_target_count", 0) or 0),
+            "required_cost_validation_and_test_target_count": int(
+                selected.get("required_cost_validation_and_test_target_count", 0) or 0
+            ),
+            "valid_periods": int(selected.get("validation_periods") or valid_trades["datetime_ts"].dt.normalize().nunique()),
+            "test_periods": int(selected.get("test_periods") or test_trades["datetime_ts"].dt.normalize().nunique()),
+            "validation_return_pct": selected.get("validation_return_pct"),
+            "validation_return_retention_pct": selected.get("validation_return_retention_pct"),
+            "validation_max_drawdown_pct": selected.get("validation_max_drawdown_pct"),
+            "validation_drawdown_improvement_pct": selected.get("validation_drawdown_improvement_pct"),
+            "validation_open_buy_dump_period_reduction": selected.get("validation_open_buy_dump_period_reduction"),
+            "validation_crash_period_reduction": selected.get("validation_crash_period_reduction"),
+            "validation_worst_entry_day_return_improvement_pct": selected.get(
+                "validation_worst_entry_day_return_improvement_pct"
+            ),
+            "test_return_pct": selected.get("test_return_pct"),
+            "test_return_retention_pct": selected.get("test_return_retention_pct"),
+            "test_max_drawdown_pct": selected.get("test_max_drawdown_pct"),
+            "test_drawdown_improvement_pct": selected.get("test_drawdown_improvement_pct"),
+            "test_open_buy_dump_period_reduction": selected.get("test_open_buy_dump_period_reduction"),
+            "test_crash_period_reduction": selected.get("test_crash_period_reduction"),
+            "test_worst_entry_day_return_improvement_pct": selected.get(
+                "test_worst_entry_day_return_improvement_pct"
+            ),
+        }
+        required_results = pd.DataFrame(selected.get("required_cost_results", []))
+        if not required_results.empty:
+            for result in required_results.to_dict("records"):
+                cost_label = f"{float(result.get('cost_bps')):g}".replace(".", "p")
+                for column in [
+                    "validation_return_retention_pct",
+                    "validation_max_drawdown_pct",
+                    "validation_open_buy_dump_period_reduction",
+                    "validation_crash_period_reduction",
+                    "test_return_retention_pct",
+                    "test_max_drawdown_pct",
+                    "test_open_buy_dump_period_reduction",
+                    "test_crash_period_reduction",
+                    "passes_validation_target",
+                    "passes_test_target",
+                    "passes_validation_and_test_target",
+                ]:
+                    if column in result:
+                        selected_row[f"cost_{cost_label}_{column}"] = result[column]
+        rows.append(selected_row)
+
+    return pd.DataFrame(rows)
+
+
 def _walk_forward_metrics(
     trades: pd.DataFrame,
     *,
@@ -3543,6 +3859,7 @@ def _analysis_summary(
     execution_risk_summary: dict[str, Any],
     conditional_risk_policy_selection: pd.DataFrame,
     conditional_risk_sleeve: dict[str, Any],
+    conditional_risk_sleeve_walk_forward: pd.DataFrame,
     selected_model: dict[str, Any],
     walk_forward: pd.DataFrame,
     daily_position_source_audit: pd.DataFrame,
@@ -3608,6 +3925,7 @@ def _analysis_summary(
         "execution_risk_diagnostics": execution_risk_summary,
         "conditional_risk_sleeve": conditional_risk_sleeve,
         "conditional_risk_policy_selection_rows": int(len(conditional_risk_policy_selection)),
+        "conditional_risk_sleeve_walk_forward_rows": int(len(conditional_risk_sleeve_walk_forward)),
         "threshold_selection_rows": int(0 if not spec.optimize_thresholds else len(threshold_selection)),
         "walk_forward_rows": int(len(walk_forward)),
     }
@@ -4546,6 +4864,7 @@ def _write_sidecars(
     conditional_risk_policy_selection: pd.DataFrame,
     conditional_risk_sleeve: dict[str, Any],
     conditional_risk_sleeve_rows: pd.DataFrame,
+    conditional_risk_sleeve_walk_forward: pd.DataFrame,
     walk_forward: pd.DataFrame,
     daily_position_source_audit: pd.DataFrame,
     selected_model: dict[str, Any],
@@ -4557,6 +4876,7 @@ def _write_sidecars(
         "cost_sensitivity": "cost_sensitivity.csv",
         "execution_risk_diagnostics": "execution_risk_diagnostics.csv",
         "conditional_risk_policy_selection": "conditional_risk_policy_selection.csv",
+        "conditional_risk_sleeve_walk_forward": "conditional_risk_sleeve_walk_forward.csv",
         "selected_conditional_risk_sleeve": "selected_conditional_risk_sleeve.json",
         "selected_conditional_risk_sleeve_cost_sensitivity": "selected_conditional_risk_sleeve_cost_sensitivity.csv",
         "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
@@ -4579,6 +4899,10 @@ def _write_sidecars(
         spec.output_dir / sidecars["selected_conditional_risk_sleeve_cost_sensitivity"],
         index=False,
     )
+    conditional_risk_sleeve_walk_forward.to_csv(
+        spec.output_dir / sidecars["conditional_risk_sleeve_walk_forward"],
+        index=False,
+    )
     walk_forward.to_csv(spec.output_dir / sidecars["backtest_walk_forward_metrics"], index=False)
     daily_position_source_audit.to_csv(spec.output_dir / sidecars["daily_position_source_audit"], index=False)
     (spec.output_dir / sidecars["selected_model"]).write_text(
@@ -4599,6 +4923,7 @@ def _write_sidecars(
         "- 15m 信号来自 bar close，overlay A 只允许下一根 15m open 入场；没有使用同一根 bar 的未来价格。\n"
         "- 成本压力用固定 bps；尚未验证 bid/ask、排队、延迟、停牌、跳空和盘前盘后成交质量。\n"
         "- walk-forward 只在已有日级 selected positions 上重新选择执行 variant；不是完整重训日级 LGB/XGB 仓位模型。\n"
+        "- conditional_risk_sleeve_walk_forward.csv 按年度 fold 重新选择条件 sleeve；主切分 selected_conditional_risk_sleeve.json 不能单独作为年度稳定证据。\n"
         "- 若 daily_position_source_audit.csv 缺少 2022-2026 的 selected positions，年度日内 overlay 只能作为局部诊断，不能作为超过日级模型的晋升证据。\n"
         "- 若 validation 选择 baseline，说明日内执行层没有足够证据替代 next-open 一次成交。\n"
     )
@@ -4688,6 +5013,94 @@ def _overlay_walk_forward_summary(
     }
 
 
+def _conditional_risk_sleeve_walk_forward_summary(
+    *,
+    intraday_summary: dict[str, Any],
+    walk_forward: pd.DataFrame,
+    required_cost_bps: tuple[float, ...] = (20.0, 50.0),
+) -> dict[str, Any]:
+    required_years = [int(year) for year in REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS]
+    required_cost_count = len(tuple(float(value) for value in required_cost_bps))
+    feasible_years = (
+        sorted(
+            int(row["test_year"])
+            for row in walk_forward.to_dict("records")
+            if str(row.get("status")) == "ok"
+        )
+        if not walk_forward.empty and "test_year" in walk_forward
+        else []
+    )
+    validation_target_years = (
+        sorted(
+            int(row["test_year"])
+            for row in walk_forward.to_dict("records")
+            if str(row.get("status")) == "ok"
+            and int(row.get("required_cost_validation_target_count") or 0) >= required_cost_count
+        )
+        if not walk_forward.empty and "test_year" in walk_forward
+        else []
+    )
+    test_target_years = (
+        sorted(
+            int(row["test_year"])
+            for row in walk_forward.to_dict("records")
+            if str(row.get("status")) == "ok"
+            and int(row.get("required_cost_test_target_count") or 0) >= required_cost_count
+        )
+        if not walk_forward.empty and "test_year" in walk_forward
+        else []
+    )
+    validation_and_test_target_years = (
+        sorted(
+            int(row["test_year"])
+            for row in walk_forward.to_dict("records")
+            if str(row.get("status")) == "ok"
+            and int(row.get("required_cost_validation_and_test_target_count") or 0) >= required_cost_count
+        )
+        if not walk_forward.empty and "test_year" in walk_forward
+        else []
+    )
+    blocking_reasons = (
+        sorted(
+            {
+                str(reason)
+                for reason in walk_forward.get("blocking_reason", pd.Series(dtype=object)).dropna().tolist()
+                if str(reason) != "ok"
+            }
+        )
+        if not walk_forward.empty
+        else []
+    )
+    missing_years = [year for year in required_years if year not in feasible_years]
+    target_failure_years = [year for year in required_years if year not in validation_and_test_target_years]
+    selection_uses_test_segment = bool(
+        walk_forward.get("selection_uses_test_segment", pd.Series(dtype=bool)).fillna(False).astype(bool).any()
+    )
+    source_required_policy = bool(intraday_summary.get("walk_forward", {}).get("required_policy_satisfied", True))
+    return {
+        "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+        "required_start": REQUIRED_WALK_FORWARD_START,
+        "required_test_years": required_years,
+        "required_cost_bps": [float(value) for value in required_cost_bps],
+        "feasible_test_years": feasible_years,
+        "missing_required_test_years": missing_years,
+        "required_cost_validation_target_years": validation_target_years,
+        "required_cost_test_target_years": test_target_years,
+        "required_cost_validation_and_test_target_years": validation_and_test_target_years,
+        "target_failure_years": target_failure_years,
+        "folds": walk_forward["fold"].tolist() if "fold" in walk_forward else [],
+        "rows": int(len(walk_forward)),
+        "selection_uses_test_segment": selection_uses_test_segment,
+        "blocking_reasons": blocking_reasons,
+        "source_intraday_required_policy_satisfied": source_required_policy,
+        "required_policy_satisfied": bool(
+            source_required_policy
+            and not selection_uses_test_segment
+            and set(required_years).issubset(set(validation_and_test_target_years))
+        ),
+    }
+
+
 def _promotion_decision(selected_model: dict[str, Any], *, intraday_summary: dict[str, Any]) -> str:
     if intraday_summary.get("walk_forward", {}).get("required_policy_satisfied") is False:
         return "not_promoted_external_intraday_history_insufficient"
@@ -4707,6 +5120,7 @@ def _write_conclusion(
     selected_model: dict[str, Any],
     model_comparison: pd.DataFrame,
     walk_forward: pd.DataFrame,
+    conditional_risk_sleeve_walk_forward: pd.DataFrame,
     execution_risk_summary: dict[str, Any],
     conditional_risk_sleeve: dict[str, Any],
 ) -> None:
@@ -4773,6 +5187,29 @@ def _write_conclusion(
         f"test max_dd={float(conditional_risk_sleeve.get('test_max_drawdown_pct') or 0.0):.2f}%，"
         f"test open-buy-dump 减少={conditional_risk_sleeve.get('test_open_buy_dump_period_reduction', 0)}。\n"
     )
+    conditional_walk_forward_summary = summary.get("conditional_risk_sleeve_walk_forward", {})
+    conditional_walk_forward_sentence = (
+        "- 条件化 risk sleeve 年度 walk-forward："
+        f"feasible 年份={conditional_walk_forward_summary.get('feasible_test_years', [])}，"
+        f"20/50bp valid+test 都过目标的年份="
+        f"{conditional_walk_forward_summary.get('required_cost_validation_and_test_target_years', [])}，"
+        f"required_policy_satisfied={conditional_walk_forward_summary.get('required_policy_satisfied')}。\n"
+    )
+    conditional_annual_probe_sentence = ""
+    if not conditional_risk_sleeve_walk_forward.empty and "test_year" in conditional_risk_sleeve_walk_forward:
+        latest_ok = conditional_risk_sleeve_walk_forward.loc[
+            conditional_risk_sleeve_walk_forward["status"].eq("ok")
+        ].sort_values("test_year")
+        if not latest_ok.empty:
+            row = latest_ok.iloc[-1]
+            conditional_annual_probe_sentence = (
+                f"- 最新条件 sleeve fold：{row['fold']} validation 选择 {row['selected_variant']} "
+                f"{row.get('condition_column')} {row.get('condition_operator')} "
+                f"{float(row.get('condition_threshold') or 0.0):.4f}；"
+                f"test retention={float(row.get('test_return_retention_pct') or 0.0):.2f}%，"
+                f"test max_dd={float(row.get('test_max_drawdown_pct') or 0.0):.2f}%，"
+                f"20/50bp valid+test 过关数={int(row.get('required_cost_validation_and_test_target_count') or 0)}。\n"
+            )
     selected_test_retention = float(selected_model.get("test_return_retention_pct") or 0.0)
     selected_test_passes = bool(85.0 <= selected_test_retention <= 95.0 and selected_test_dd > -18.0)
     if selected_model.get("variant") == "baseline_next_open":
@@ -4799,6 +5236,8 @@ def _write_conclusion(
         f"selected return={selected_test_return:.2f}%、max_dd={selected_test_dd:.2f}%。\n"
         f"{risk_sentence}"
         f"{conditional_sentence}"
+        f"{conditional_walk_forward_sentence}"
+        f"{conditional_annual_probe_sentence}"
         f"{walk_forward_sentence}"
         f"{annual_probe_sentence}"
         f"- 是否晋升：{summary['promotion_decision']}。{promotion_reason}\n"

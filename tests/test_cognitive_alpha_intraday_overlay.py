@@ -1671,6 +1671,93 @@ def test_walk_forward_metrics_fails_closed_when_intraday_predictions_are_missing
     assert fold_2023["test_missing_intraday_prediction_periods"] == 1
 
 
+def test_conditional_risk_sleeve_walk_forward_selects_fold_local_validation_policy():
+    rows = []
+    regime_rows = []
+    dates = [
+        ("2025-01-02", "validation", 0.10),
+        ("2025-01-03", "validation", 0.15),
+        ("2025-01-06", "validation", 0.90),
+        ("2025-01-07", "validation", 0.95),
+        ("2026-01-02", "test", 0.10),
+        ("2026-01-05", "test", 0.18),
+        ("2026-01-06", "test", 0.88),
+        ("2026-01-07", "test", 0.92),
+    ]
+    for date, segment, probability in dates:
+        is_low_prob = probability < 0.50
+        regime_rows.append(
+            {
+                "datetime": date,
+                "walk_forward_fold": "wf_2026",
+                "test_year": 2026,
+                "fold_segment": segment,
+                "probability": probability,
+                "target_position": 1.0,
+                "turnover": 0.1,
+                "raw_target": 1.0,
+            }
+        )
+        for cost_bps in [20.0, 50.0]:
+            rows.append(
+                {
+                    "walk_forward_fold": "wf_2026",
+                    "test_year": 2026,
+                    "fold_segment": segment,
+                    "datetime": date,
+                    "segment": "stale_daily_segment",
+                    "variant": "baseline_next_open",
+                    "cost_bps": cost_bps,
+                    "strategy_return": 0.02,
+                    "entry_day_strategy_return": -0.04 if is_low_prob else 0.01,
+                    "target_position": 1.0,
+                    "entry_date": date,
+                    "skipped_reason": None,
+                }
+            )
+            rows.append(
+                {
+                    "walk_forward_fold": "wf_2026",
+                    "test_year": 2026,
+                    "fold_segment": segment,
+                    "datetime": date,
+                    "segment": "stale_daily_segment",
+                    "variant": "overlay_b_twap3",
+                    "cost_bps": cost_bps,
+                    "strategy_return": 0.015 if is_low_prob else -0.03,
+                    "entry_day_strategy_return": -0.01 if is_low_prob else 0.01,
+                    "target_position": 1.0,
+                    "entry_date": date,
+                    "skipped_reason": None,
+                }
+            )
+
+    walk_forward = overlay_workflow._conditional_risk_sleeve_walk_forward_metrics(
+        pd.DataFrame(rows),
+        pd.DataFrame(regime_rows),
+        required_cost_bps=(20.0, 50.0),
+        selection_cost_bps=20.0,
+        condition_columns=("probability",),
+    )
+
+    assert set(walk_forward["fold"]) == {"wf_2023", "wf_2024", "wf_2025", "wf_2026"}
+    assert set(walk_forward["selection_uses_test_segment"]) == {False}
+    fold_2026 = walk_forward.loc[walk_forward["fold"].eq("wf_2026")].iloc[0]
+    assert fold_2026["status"] == "ok"
+    assert fold_2026["selected_variant"] == "overlay_b_twap3"
+    assert fold_2026["condition_column"] == "probability"
+    assert fold_2026["condition_operator"] == "le"
+    assert fold_2026["required_cost_validation_target_count"] == 2
+    assert fold_2026["required_cost_test_target_count"] == 2
+    assert fold_2026["required_cost_validation_and_test_target_count"] == 2
+    assert bool(fold_2026["validation_passes_target"]) is True
+    assert bool(fold_2026["test_passes_target"]) is True
+    assert fold_2026["validation_open_buy_dump_period_reduction"] > 0
+    assert fold_2026["test_open_buy_dump_period_reduction"] > 0
+    assert fold_2026["valid_periods"] == 4
+    assert fold_2026["test_periods"] == 4
+
+
 def test_select_regime_policy_prefers_validation_drawdown_improvement_over_score():
     policy_selection = pd.DataFrame(
         [
