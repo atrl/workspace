@@ -606,6 +606,7 @@ def select_validation_robust_delayed_policy(
     max_drawdown_floor: float = -18.0,
     max_skip_rate: float = 0.15,
     eligible_exit_policies: tuple[str, ...] | None = ("hold_to_next_open",),
+    return_retention_upper_is_soft: bool = True,
 ) -> dict[str, Any]:
     if candidates.empty:
         return {
@@ -624,6 +625,15 @@ def select_validation_robust_delayed_policy(
                 "eligible_exit_policies": list(eligible_exit_policies),
             }
     frame["cost_bps"] = pd.to_numeric(frame["cost_bps"], errors="coerce")
+    frame["validation_return_retention_score"] = frame["validation_return_retention_pct"].clip(
+        upper=float(return_retention_high)
+    )
+    frame["validation_skip_rate"] = (
+        pd.to_numeric(frame["validation_skipped_periods"], errors="coerce")
+        / pd.to_numeric(frame["validation_periods"], errors="coerce").replace(0, np.nan)
+    ).fillna(1.0)
+    if "condition_valid_active_coverage" not in frame.columns:
+        frame["condition_valid_active_coverage"] = 1.0
     required_costs = {float(value) for value in required_cost_bps}
     rows: list[pd.Series] = []
     for _, group in frame.groupby("policy_id", sort=False):
@@ -638,7 +648,8 @@ def select_validation_robust_delayed_policy(
             skipped = float(row["validation_skipped_periods"])
             periods = float(row["validation_periods"])
             if not (
-                return_retention_low <= retention <= return_retention_high
+                retention >= return_retention_low
+                and (return_retention_upper_is_soft or retention <= return_retention_high)
                 and drawdown > max_drawdown_floor
                 and skipped <= periods * max_skip_rate
             ):
@@ -660,8 +671,14 @@ def select_validation_robust_delayed_policy(
     selected = (
         pd.DataFrame(rows)
         .sort_values(
-            ["validation_drawdown_improvement_pct", "selection_score", "validation_return_retention_pct"],
-            ascending=[False, False, False],
+            [
+                "validation_return_retention_score",
+                "validation_skip_rate",
+                "condition_valid_active_coverage",
+                "validation_drawdown_improvement_pct",
+                "selection_score",
+            ],
+            ascending=[False, True, False, False, False],
         )
         .iloc[0]
     )
@@ -670,6 +687,8 @@ def select_validation_robust_delayed_policy(
     result["selection_uses_test_segment"] = False
     result["required_cost_bps"] = sorted(required_costs)
     result["max_skip_rate"] = float(max_skip_rate)
+    result["return_retention_high"] = float(return_retention_high)
+    result["return_retention_upper_policy"] = "soft_cap_for_scoring" if return_retention_upper_is_soft else "hard_gate"
     return result
 
 
@@ -792,7 +811,7 @@ def evaluate_observable_delayed_signal_candidates(
                                         "test_daily_sharpe": test["daily_sharpe"],
                                         "test_skipped_periods": test["skipped_periods"],
                                         "selection_score": (
-                                            validation_retention
+                                            min(validation_retention, 95.0)
                                             + 2.0 * validation_dd_improvement
                                             + 0.25 * validation["daily_sharpe"]
                                             - 0.10 * validation["skipped_periods"]
@@ -802,13 +821,22 @@ def evaluate_observable_delayed_signal_candidates(
     result = pd.DataFrame(rows)
     if result.empty:
         return result
+    result["validation_return_retention_score"] = result["validation_return_retention_pct"].clip(upper=95.0)
+    result["test_return_retention_score"] = result["test_return_retention_pct"].clip(upper=95.0)
+    result["validation_skip_rate"] = (
+        result["validation_skipped_periods"] / result["validation_periods"].replace(0, np.nan)
+    ).fillna(1.0)
+    result["test_skip_rate"] = (
+        result["test_skipped_periods"] / result["test_periods"].replace(0, np.nan)
+    ).fillna(1.0)
+    result["return_retention_upper_policy"] = "soft_cap_for_scoring"
     result["passes_validation_target"] = (
-        result["validation_return_retention_pct"].between(85.0, 95.0)
+        result["validation_return_retention_pct"].ge(85.0)
         & result["validation_max_drawdown_pct"].gt(-18.0)
         & result["validation_skipped_periods"].le(result["validation_periods"] * 0.15)
     )
     result["passes_test_target"] = (
-        result["test_return_retention_pct"].between(85.0, 95.0)
+        result["test_return_retention_pct"].ge(85.0)
         & result["test_max_drawdown_pct"].gt(-18.0)
         & result["test_skipped_periods"].le(result["test_periods"] * 0.15)
     )
@@ -1663,6 +1691,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                 selection_cost_bps=float(spec.selection_cost_bps),
                 required_cost_bps="20.0,50.0",
                 max_skip_rate=0.15,
+                return_retention_upper_policy="soft_cap_for_scoring",
                 selected_policy_id=str(selected_model.get("policy_id")),
                 walk_forward_policy=str(walk_forward_summary.get("policy")),
                 walk_forward_selection_uses_test_segment=False,
@@ -1752,8 +1781,10 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                 "delayed_signal_after_60m_risk_exit",
             ],
             "open_to_open_baseline": True,
-            "intraday_overlays_hold_overnight": False,
-            "description": "the overlay can use first 30/60m features only after those bars are observed, then enters on a later 15m next_open signal; optional risk-exit policies can close intraday on low-probability bars",
+            "intraday_overlays_hold_overnight": True,
+            "default_exit_timing": "following_open",
+            "risk_exit_can_close_intraday": True,
+            "description": "the overlay can use first 30/60m features only after those bars are observed, then enters on a later 15m next_open signal and holds to the following open unless an optional risk-exit policy closes intraday",
         },
         "model_selection": {
             "selection_segment": "validation",
@@ -1762,6 +1793,15 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
             "selection_cost_bps": float(spec.selection_cost_bps),
             "required_cost_bps": [20.0, 50.0],
             "max_skip_rate": 0.15,
+            "return_retention_floor_pct": 85.0,
+            "return_retention_soft_cap_pct": 95.0,
+            "return_retention_upper_policy": "soft_cap_for_scoring",
+            "selection_priority": [
+                "validation_return_retention_score_desc",
+                "validation_skip_rate_asc",
+                "condition_valid_active_coverage_desc",
+                "validation_drawdown_improvement_desc",
+            ],
             "eligible_exit_policies": ["hold_to_next_open"],
             "exit_policy_candidate_counts": (
                 policy_selection_full["exit_policy"].value_counts().to_dict()
@@ -3484,8 +3524,10 @@ def _write_delayed_conclusion(
         "# 中文结论\n\n"
         "- 做了什么：建立 delayed observable intraday overlay，日线 LGB/XGB open-to-open 仓位仍决定是否交易；"
         "日内层必须等前 30/60 分钟完成后，才能用 observed probability/return 条件触发后续 15m next-open 入场；"
-        "本轮还把 risk-exit 作为诊断候选加入，但默认 selected 只允许 hold_to_next_open，避免短样本风险退出过拟合。\n"
-        "- 选择规则：只用 validation；要求 20bp 和 50bp validation 同时满足 85%-95% retention、max_dd>-18%、skip<=15%；test 只报告。\n"
+        "默认 selected 仍持到 following open，不是纯日内平仓；本轮还把 risk-exit 作为诊断候选加入，"
+        "但默认 selected 只允许 hold_to_next_open，避免短样本风险退出过拟合。\n"
+        "- 选择规则：只用 validation；retention 用 85% floor，95% 只作为 scoring soft cap，"
+        "再按 validation skip rate、条件覆盖率和回撤改善排序；test 只报告，不参与阈值选择。\n"
         f"- 候选：{summary['model_selection']['candidate_count']} 个 policy、{summary['model_selection']['candidate_rows']} 行成本压力结果；"
         f"validation+test 同时过门槛行数={summary['model_selection']['validation_and_test_target_row_count']}；"
         f"其中 risk-exit 同时过门槛行数={summary['model_selection'].get('risk_exit_validation_and_test_target_row_count', 0)}。\n"

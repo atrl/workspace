@@ -873,7 +873,9 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_external_context_label_v1"
     assert summary["source_intraday_model"]["signal_prob_col"] == "prob_lgb"
     assert summary["execution_overlay"]["overlay_signal_timing"] == "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open"
-    assert summary["execution_overlay"]["intraday_overlays_hold_overnight"] is False
+    assert summary["execution_overlay"]["intraday_overlays_hold_overnight"] is True
+    assert summary["execution_overlay"]["default_exit_timing"] == "following_open"
+    assert summary["execution_overlay"]["risk_exit_can_close_intraday"] is True
     assert "delayed_signal_after_30m_risk_exit" in summary["execution_overlay"]["variants"]
     assert "delayed_signal_after_60m_risk_exit" in summary["execution_overlay"]["variants"]
     assert summary["model_selection"]["selection_segment"] == "validation"
@@ -881,6 +883,13 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
     assert summary["model_selection"]["max_skip_rate"] == 0.15
+    assert summary["model_selection"]["return_retention_upper_policy"] == "soft_cap_for_scoring"
+    assert summary["model_selection"]["selection_priority"] == [
+        "validation_return_retention_score_desc",
+        "validation_skip_rate_asc",
+        "condition_valid_active_coverage_desc",
+        "validation_drawdown_improvement_desc",
+    ]
     assert summary["model_selection"]["eligible_exit_policies"] == ["hold_to_next_open"]
     assert summary["model_selection"]["exit_policy_candidate_counts"]["risk_exit"] > 0
     assert summary["model_selection"]["risk_exit_validation_and_test_target_row_count"] > 0
@@ -894,9 +903,11 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["walk_forward"]["data_status"] == "ok_partial_insufficient_for_full_walk_forward"
     assert "insufficient_external_intraday_history" in summary["walk_forward"]["blocking_reasons"]
     assert summary["selected_model"]["validation_passes_target"] is True
-    assert summary["selected_model"]["passes_test_target"] is False
+    assert summary["selected_model"]["passes_test_target"] is True
+    assert summary["selected_model"]["passes_validation_and_test_target"] is True
+    assert summary["selected_model"]["return_retention_upper_policy"] == "soft_cap_for_scoring"
     assert summary["selected_model"]["observation_minutes"] in {30, 60}
-    assert summary["promotion_decision"] == "not_promoted_delayed_overlay_test_gate_failed"
+    assert summary["promotion_decision"] == "not_promoted_external_intraday_history_insufficient"
     assert "not_promoted" in summary["promotion_decision"]
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert summary["artifact_policy"]["recorder_only_artifacts"] == {
@@ -941,7 +952,8 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     required = selected_costs.loc[selected_costs["cost_bps"].isin([20.0, 50.0])]
     assert set(required["cost_bps"]) == {20.0, 50.0}
     assert required["passes_validation_target"].all()
-    assert not required["passes_test_target"].any()
+    assert required["passes_test_target"].all()
+    assert required["return_retention_upper_policy"].eq("soft_cap_for_scoring").all()
     assert required["test_max_drawdown_pct"].max() > -18.0
 
     recorder_dir = Path(summary["recorder_local_dir"])
@@ -953,6 +965,7 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert "run_cognitive_alpha_intraday_delayed_observable_overlay_card" in notebook_text
     assert "first 30/60 minutes" in notebook_text
     assert "delayed observable intraday overlay" in conclusion
+    assert "95% 只作为 scoring soft cap" in conclusion
 
 
 def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():

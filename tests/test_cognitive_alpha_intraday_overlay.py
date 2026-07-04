@@ -553,6 +553,168 @@ def test_select_validation_robust_delayed_policy_requires_cost_and_skip_robustne
     assert selected["validation_passes_target"] is True
 
 
+def test_select_validation_robust_delayed_policy_prefers_return_retention_after_risk_gates():
+    candidates = pd.DataFrame(
+        [
+            {
+                "policy_id": "low_retention_large_drawdown_repair",
+                "selection_score": 110.0,
+                "validation_drawdown_improvement_pct": 8.0,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 87.0,
+                "validation_max_drawdown_pct": -10.0,
+                "validation_skipped_periods": 5,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "low_retention_large_drawdown_repair",
+                "selection_score": 110.0,
+                "validation_drawdown_improvement_pct": 8.0,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 86.0,
+                "validation_max_drawdown_pct": -11.0,
+                "validation_skipped_periods": 5,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "higher_retention_still_reduces_drawdown",
+                "selection_score": 100.0,
+                "validation_drawdown_improvement_pct": 3.0,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 94.0,
+                "validation_max_drawdown_pct": -14.0,
+                "validation_skipped_periods": 5,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "higher_retention_still_reduces_drawdown",
+                "selection_score": 100.0,
+                "validation_drawdown_improvement_pct": 3.0,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 93.0,
+                "validation_max_drawdown_pct": -15.0,
+                "validation_skipped_periods": 5,
+                "validation_periods": 250,
+            },
+        ]
+    )
+
+    selected = select_validation_robust_delayed_policy(candidates)
+
+    assert selected["policy_id"] == "higher_retention_still_reduces_drawdown"
+    assert selected["validation_passes_target"] is True
+
+
+def test_select_validation_robust_delayed_policy_treats_retention_upper_bound_as_soft_cap():
+    candidates = pd.DataFrame(
+        [
+            {
+                "policy_id": "capped_upside_with_lower_drawdown",
+                "selection_score": 99.0,
+                "validation_drawdown_improvement_pct": 2.0,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 98.0,
+                "validation_max_drawdown_pct": -15.0,
+                "validation_skipped_periods": 1,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "capped_upside_with_lower_drawdown",
+                "selection_score": 99.0,
+                "validation_drawdown_improvement_pct": 2.0,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 97.0,
+                "validation_max_drawdown_pct": -16.0,
+                "validation_skipped_periods": 1,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "in_band_but_weaker",
+                "selection_score": 98.0,
+                "validation_drawdown_improvement_pct": 2.0,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 92.0,
+                "validation_max_drawdown_pct": -15.0,
+                "validation_skipped_periods": 1,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "in_band_but_weaker",
+                "selection_score": 98.0,
+                "validation_drawdown_improvement_pct": 2.0,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 91.0,
+                "validation_max_drawdown_pct": -16.0,
+                "validation_skipped_periods": 1,
+                "validation_periods": 250,
+            },
+        ]
+    )
+
+    selected = select_validation_robust_delayed_policy(candidates)
+
+    assert selected["policy_id"] == "capped_upside_with_lower_drawdown"
+    assert selected["validation_return_retention_score"] == pytest.approx(95.0)
+    assert selected["validation_passes_target"] is True
+
+
+def test_select_validation_robust_delayed_policy_prefers_lower_skip_after_retention_cap():
+    candidates = pd.DataFrame(
+        [
+            {
+                "policy_id": "extreme_sparse_repair",
+                "selection_score": 130.0,
+                "validation_drawdown_improvement_pct": 12.0,
+                "condition_valid_active_coverage": 0.35,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 180.0,
+                "validation_max_drawdown_pct": -8.0,
+                "validation_skipped_periods": 30,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "extreme_sparse_repair",
+                "selection_score": 130.0,
+                "validation_drawdown_improvement_pct": 12.0,
+                "condition_valid_active_coverage": 0.35,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 170.0,
+                "validation_max_drawdown_pct": -9.0,
+                "validation_skipped_periods": 30,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "stable_retention_repair",
+                "selection_score": 105.0,
+                "validation_drawdown_improvement_pct": 4.0,
+                "condition_valid_active_coverage": 0.60,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 95.0,
+                "validation_max_drawdown_pct": -14.0,
+                "validation_skipped_periods": 3,
+                "validation_periods": 250,
+            },
+            {
+                "policy_id": "stable_retention_repair",
+                "selection_score": 105.0,
+                "validation_drawdown_improvement_pct": 4.0,
+                "condition_valid_active_coverage": 0.60,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 94.0,
+                "validation_max_drawdown_pct": -15.0,
+                "validation_skipped_periods": 3,
+                "validation_periods": 250,
+            },
+        ]
+    )
+
+    selected = select_validation_robust_delayed_policy(candidates)
+
+    assert selected["policy_id"] == "stable_retention_repair"
+    assert selected["validation_skip_rate"] == pytest.approx(3 / 250)
+    assert selected["validation_passes_target"] is True
+
+
 def test_select_validation_robust_delayed_policy_keeps_risk_exit_diagnostic_by_default():
     candidates = pd.DataFrame(
         [
