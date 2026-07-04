@@ -206,6 +206,25 @@ def test_cognitive_alpha_position_model_records_walk_forward_metrics(tmp_path):
     result = run_cognitive_alpha_position_model(frame, spec=spec, benchmarks=[])
 
     assert len(result.walk_forward_metrics) == 2
+    assert not result.walk_forward_positions.empty
+    assert set(result.walk_forward_positions["walk_forward_fold"]) == {"wf_q3", "wf_q4"}
+    assert set(result.walk_forward_positions["fold_segment"]) == {"validation", "test"}
+    assert result.walk_forward_positions["selected"].eq(True).all()
+    assert {
+        "walk_forward_fold",
+        "test_year",
+        "fold_train_start",
+        "fold_train_end",
+        "fold_validation_start",
+        "fold_validation_end",
+        "fold_test_start",
+        "fold_test_end",
+        "fold_segment",
+        "datetime",
+        "candidate",
+        "target_position",
+        "strategy_return",
+    }.issubset(result.walk_forward_positions.columns)
     assert set(result.walk_forward_metrics["fold"]) == {"wf_q3", "wf_q4"}
     assert set(result.walk_forward_metrics["segment"]) == {"test"}
     assert {
@@ -234,9 +253,15 @@ def test_cognitive_alpha_position_model_records_walk_forward_metrics(tmp_path):
 
     paths = result.write_sidecars(tmp_path)
     assert "walk_forward_metrics" in paths
+    assert "walk_forward_positions" not in paths
     assert paths["walk_forward_metrics"].exists()
     persisted = pd.read_csv(paths["walk_forward_metrics"])
     assert set(persisted["fold"]) == {"wf_q3", "wf_q4"}
+
+    recorder_paths = result.write_sidecars(tmp_path / "recorder_upload", include_positions=True)
+    assert "walk_forward_positions" in recorder_paths
+    persisted_positions = pd.read_csv(recorder_paths["walk_forward_positions"])
+    assert set(persisted_positions["walk_forward_fold"]) == {"wf_q3", "wf_q4"}
 
 
 def test_cognitive_alpha_position_model_blocks_inactive_test_position():

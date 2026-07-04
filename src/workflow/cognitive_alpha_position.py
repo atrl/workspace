@@ -53,6 +53,7 @@ class CognitiveAlphaPositionSpec:
 class CognitiveAlphaPositionResult:
     metrics: pd.DataFrame
     positions: pd.DataFrame
+    walk_forward_positions: pd.DataFrame
     walk_forward_metrics: pd.DataFrame
     benchmark_comparison: pd.DataFrame
     summary: dict[str, Any]
@@ -82,6 +83,9 @@ class CognitiveAlphaPositionResult:
         if include_positions:
             paths["positions"] = directory / f"{prefix}_positions.csv"
             self.positions.to_csv(paths["positions"], index=False)
+            if not self.walk_forward_positions.empty:
+                paths["walk_forward_positions"] = directory / f"{prefix}_walk_forward_positions.csv"
+                self.walk_forward_positions.to_csv(paths["walk_forward_positions"], index=False)
         return paths
 
 
@@ -121,7 +125,7 @@ def run_cognitive_alpha_position_model(
     comparison = _benchmark_comparison(selected["test"], benchmarks=benchmarks)
     comparison_summary = _comparison_summary(selected["test"], comparison, constrained_name=spec.constrained_reference_name)
     risk_gates = _risk_gate_summary(selected, spec)
-    walk_forward_metrics = _run_walk_forward_metrics(frame, spec)
+    walk_forward_metrics, walk_forward_positions = _run_walk_forward_replay(frame, spec)
     walk_forward_summary = _walk_forward_summary(walk_forward_metrics, extreme_loss_threshold=spec.extreme_loss_threshold)
     latest_signal = _latest_signal(positions)
     summary = {
@@ -154,6 +158,7 @@ def run_cognitive_alpha_position_model(
     return CognitiveAlphaPositionResult(
         metrics=metrics,
         positions=positions,
+        walk_forward_positions=walk_forward_positions,
         walk_forward_metrics=walk_forward_metrics,
         benchmark_comparison=comparison,
         summary=summary,
@@ -414,10 +419,19 @@ def _fold_window(fold: dict[str, Any], key: str) -> tuple[str, str]:
 
 
 def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionSpec) -> pd.DataFrame:
+    metrics, _ = _run_walk_forward_replay(frame, spec)
+    return metrics
+
+
+def _run_walk_forward_replay(
+    frame: pd.DataFrame,
+    spec: CognitiveAlphaPositionSpec,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     folds = spec.walk_forward_folds or []
     if not folds:
-        return pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame()
     rows: list[dict[str, Any]] = []
+    position_frames: list[pd.DataFrame] = []
     for index, fold in enumerate(folds, start=1):
         fold_name = str(fold.get("fold") or f"walk_forward_{index}")
         train = _fold_window(fold, "train")
@@ -449,6 +463,19 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
         )
         selected = _selected_payload(metrics)
         _attach_selected_tail_metrics(selected, positions, extreme_loss_threshold=spec.extreme_loss_threshold)
+        test_year = int(pd.Timestamp(test[0]).year)
+        selected_positions = positions.loc[positions["selected"].astype(bool)].copy()
+        if not selected_positions.empty:
+            selected_positions.insert(0, "fold_test_end", test[1])
+            selected_positions.insert(0, "fold_test_start", test[0])
+            selected_positions.insert(0, "fold_validation_end", validation[1])
+            selected_positions.insert(0, "fold_validation_start", validation[0])
+            selected_positions.insert(0, "fold_train_end", train[1])
+            selected_positions.insert(0, "fold_train_start", train[0])
+            selected_positions.insert(0, "test_year", test_year)
+            selected_positions.insert(0, "walk_forward_fold", fold_name)
+            selected_positions = selected_positions.rename(columns={"segment": "fold_segment"})
+            position_frames.append(selected_positions)
         validation_row = selected.get("validation", {})
         test_row = selected.get("test", {})
         validation_passes = _segment_passes_risk_gates(
@@ -523,7 +550,9 @@ def _run_walk_forward_metrics(frame: pd.DataFrame, spec: CognitiveAlphaPositionS
                 "risk_gate_pass": bool(validation_passes and test_passes),
             }
         )
-    return pd.DataFrame(rows)
+    metrics_frame = pd.DataFrame(rows)
+    positions_frame = pd.concat(position_frames, ignore_index=True) if position_frames else pd.DataFrame()
+    return metrics_frame, positions_frame
 
 
 def _walk_forward_summary(metrics: pd.DataFrame, *, extreme_loss_threshold: float) -> dict[str, Any]:

@@ -228,6 +228,7 @@ def simulate_observable_delayed_signal_overlay(
         base_common = {
             "datetime": decision_date.date().isoformat(),
             "segment": segment,
+            **_daily_walk_forward_metadata(daily_row),
             "target_position": target,
             "cost_bps": float(cost_bps),
             "entry_date": _date_or_none(entry_date),
@@ -1053,10 +1054,15 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     workflow_yaml = _write_workflow_yaml(spec, daily_summary=daily_summary, intraday_summary=intraday_summary)
     signal_config = _intraday_signal_config(spec, intraday_summary=intraday_summary)
 
-    daily_positions = _load_daily_selected_positions(daily_summary)
+    daily_positions = _load_daily_selected_positions(daily_summary, prefer_walk_forward=False)
+    walk_forward_daily_positions = _load_daily_selected_positions(daily_summary, prefer_walk_forward=True)
     daily_position_source_audit = _daily_position_source_audit(spec, daily_summary=daily_summary)
     as_of = str(daily_summary.get("as_of") or spec.as_of)
-    daily_prices = _load_daily_open_prices(spec, start=str(daily_positions["datetime"].min().date()), end=as_of)
+    daily_price_start = min(
+        daily_positions["datetime"].min(),
+        walk_forward_daily_positions["datetime"].min(),
+    )
+    daily_prices = _load_daily_open_prices(spec, start=str(daily_price_start.date()), end=as_of)
     intraday_predictions = _load_intraday_prediction_frame(
         spec,
         intraday_summary=intraday_summary,
@@ -1096,6 +1102,21 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             ).assign(cost_bps=float(cost_bps))
         )
     overlay_trades = pd.concat(trade_frames, ignore_index=True)
+    walk_forward_trade_frames = []
+    for cost_bps in sorted(set(float(value) for value in spec.cost_stress_bps)):
+        walk_forward_trade_frames.append(
+            simulate_execution_overlays(
+                walk_forward_daily_positions,
+                daily_prices=daily_prices,
+                intraday=intraday_predictions,
+                signal_threshold=thresholds["signal_threshold"],
+                risk_threshold=thresholds["risk_threshold"],
+                cost_bps=cost_bps,
+                prob_col=signal_config["prob_col"],
+                gate_col=signal_config["gate_col"],
+            ).assign(cost_bps=float(cost_bps))
+        )
+    walk_forward_overlay_trades = pd.concat(walk_forward_trade_frames, ignore_index=True)
     cost_sensitivity = summarize_overlay_metrics(overlay_trades)
     model_comparison = (
         cost_sensitivity.loc[cost_sensitivity["cost_bps"].eq(float(spec.selection_cost_bps))]
@@ -1105,7 +1126,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     selected_model = _select_variant(model_comparison, cost_bps=spec.selection_cost_bps)
     selected_model["signal_threshold"] = float(thresholds["signal_threshold"])
     selected_model["risk_threshold"] = float(thresholds["risk_threshold"])
-    walk_forward = _walk_forward_metrics(overlay_trades, cost_bps=spec.selection_cost_bps)
+    walk_forward = _walk_forward_metrics(walk_forward_overlay_trades, cost_bps=spec.selection_cost_bps)
     analysis_summary = _analysis_summary(
         spec,
         daily_summary=daily_summary,
@@ -1137,7 +1158,9 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         execution_dir = upload_dir / "execution_overlay"
         execution_dir.mkdir(parents=True, exist_ok=True)
         overlay_trades.to_csv(execution_dir / "overlay_trades.csv", index=False)
+        walk_forward_overlay_trades.to_csv(execution_dir / "walk_forward_overlay_trades.csv", index=False)
         daily_positions.to_csv(execution_dir / "daily_selected_positions.csv", index=False)
+        walk_forward_daily_positions.to_csv(execution_dir / "daily_walk_forward_positions.csv", index=False)
         intraday_predictions.to_csv(execution_dir / "intraday_predictions_15m.csv", index=False)
 
         R.set_uri(spec.recorder_uri.resolve().as_posix())
@@ -1163,7 +1186,9 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             )
             for file_name in [
                 "overlay_trades.csv",
+                "walk_forward_overlay_trades.csv",
                 "daily_selected_positions.csv",
+                "daily_walk_forward_positions.csv",
                 "intraday_predictions_15m.csv",
             ]:
                 recorder.log_artifact((execution_dir / file_name).as_posix(), artifact_path="execution_overlay")
@@ -1784,6 +1809,7 @@ def _simulate_daily_row(
     base_common = {
         "datetime": decision_date.date().isoformat(),
         "segment": segment,
+        **_daily_walk_forward_metadata(daily_row),
         "target_position": target,
         "cost_bps": float(cost_bps),
         "entry_date": _date_or_none(entry_date),
@@ -1949,6 +1975,8 @@ def _normalize_daily_positions(frame: pd.DataFrame) -> pd.DataFrame:
     result["datetime"] = pd.to_datetime(result["datetime"]).dt.normalize()
     if "segment" in result.columns:
         result["segment"] = result["segment"].replace({"valid": "validation"})
+    elif "fold_segment" in result.columns:
+        result["segment"] = result["fold_segment"].replace({"valid": "validation"})
     else:
         result["segment"] = "unknown"
     for column in ["target_position", "strategy_return"]:
@@ -2018,16 +2046,20 @@ def _condition_matches(value: float, *, operator: str, threshold: float) -> bool
     raise ValueError(f"Unsupported condition operator: {operator}")
 
 
-def _load_daily_selected_positions(daily_summary: dict[str, Any]) -> pd.DataFrame:
-    path = _daily_positions_path(daily_summary)
+def _load_daily_selected_positions(daily_summary: dict[str, Any], *, prefer_walk_forward: bool = True) -> pd.DataFrame:
+    path = _daily_positions_path(daily_summary, prefer_walk_forward=prefer_walk_forward)
     frame = pd.read_csv(path)
     frame = frame.loc[frame["selected"].astype(bool)].copy()
     return _normalize_daily_positions(frame)
 
 
-def _daily_positions_path(daily_summary: dict[str, Any]) -> Path:
+def _daily_positions_path(daily_summary: dict[str, Any], *, prefer_walk_forward: bool = True) -> Path:
     recorder_dir = Path(str(daily_summary["recorder_local_dir"]))
-    return recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv"
+    position_dir = recorder_dir / "artifacts" / "cognitive_alpha_position"
+    walk_forward_path = position_dir / "walk_forward_positions.csv"
+    if prefer_walk_forward and walk_forward_path.exists():
+        return walk_forward_path
+    return position_dir / "positions.csv"
 
 
 def _required_daily_position_years() -> tuple[int, ...]:
@@ -2050,6 +2082,7 @@ def _daily_position_source_audit(
         "card": spec.source_daily_card,
         "recorder_id": daily_summary.get("recorder_id"),
         "artifact_path": path.as_posix(),
+        "artifact_name": path.name,
         "required_position_years": ",".join(str(year) for year in required_years),
     }
     if not path.exists():
@@ -2389,6 +2422,7 @@ def _walk_forward_metrics(trades: pd.DataFrame, *, cost_bps: float) -> pd.DataFr
     base["datetime_ts"] = pd.to_datetime(base["datetime"])
     max_date = base["datetime_ts"].max() if not base.empty else pd.Timestamp("2026-07-02")
     for test_year in REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS:
+        fold_name = f"wf_{int(test_year)}"
         train_start = REQUIRED_WALK_FORWARD_START
         train_end = f"{int(test_year) - 2}-12-31"
         valid_start = f"{int(test_year) - 1}-01-01"
@@ -2396,8 +2430,14 @@ def _walk_forward_metrics(trades: pd.DataFrame, *, cost_bps: float) -> pd.DataFr
         test_start = f"{int(test_year)}-01-01"
         test_end = max_date.date().isoformat() if int(test_year) == int(max_date.year) else f"{int(test_year)}-12-31"
 
-        valid_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(valid_start), pd.Timestamp(valid_end))].copy()
-        test_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(test_start), pd.Timestamp(test_end))].copy()
+        if "walk_forward_fold" in base.columns and base["walk_forward_fold"].notna().any():
+            fold_base = base.loc[base["walk_forward_fold"].astype(str).eq(fold_name)].copy()
+            segment_col = "fold_segment" if "fold_segment" in fold_base.columns else "segment"
+            valid_trades = fold_base.loc[fold_base[segment_col].astype(str).eq("validation")].copy()
+            test_trades = fold_base.loc[fold_base[segment_col].astype(str).eq("test")].copy()
+        else:
+            valid_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(valid_start), pd.Timestamp(valid_end))].copy()
+            test_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(test_start), pd.Timestamp(test_end))].copy()
         blocking_reasons: list[str] = []
         if valid_trades.empty:
             blocking_reasons.append("missing_validation_data")
@@ -2408,7 +2448,7 @@ def _walk_forward_metrics(trades: pd.DataFrame, *, cost_bps: float) -> pd.DataFr
             test_periods = int(test_trades["datetime_ts"].dt.normalize().nunique()) if not test_trades.empty else 0
             rows.append(
                 {
-                    "fold": f"wf_{int(test_year)}",
+                    "fold": fold_name,
                     "test_year": int(test_year),
                     "status": "infeasible",
                     "blocking_reason": "|".join(blocking_reasons),
@@ -2438,7 +2478,7 @@ def _walk_forward_metrics(trades: pd.DataFrame, *, cost_bps: float) -> pd.DataFr
             test_periods = int(test_trades["datetime_ts"].dt.normalize().nunique()) if not test_trades.empty else 0
             rows.append(
                 {
-                    "fold": f"wf_{int(test_year)}",
+                    "fold": fold_name,
                     "test_year": int(test_year),
                     "status": "infeasible",
                     "blocking_reason": "missing_validation_metrics",
@@ -2476,7 +2516,7 @@ def _walk_forward_metrics(trades: pd.DataFrame, *, cost_bps: float) -> pd.DataFr
             test_periods = int(test_trades["datetime_ts"].dt.normalize().nunique()) if not test_trades.empty else 0
             rows.append(
                 {
-                    "fold": f"wf_{int(test_year)}",
+                    "fold": fold_name,
                     "test_year": int(test_year),
                     "status": "infeasible",
                     "blocking_reason": "missing_selected_variant_test_metrics",
@@ -3378,7 +3418,9 @@ def _artifact_policy(experiment: str, sidecars: dict[str, str]) -> dict[str, Any
         "kept_sidecars": sorted(sidecars.values()),
         "recorder_only_artifacts": {
             "overlay_trades": "artifacts/execution_overlay/overlay_trades.csv",
+            "walk_forward_overlay_trades": "artifacts/execution_overlay/walk_forward_overlay_trades.csv",
             "daily_positions": "artifacts/execution_overlay/daily_selected_positions.csv",
+            "daily_walk_forward_positions": "artifacts/execution_overlay/daily_walk_forward_positions.csv",
             "intraday_predictions": "artifacts/execution_overlay/intraday_predictions_15m.csv",
         },
         "reproducible_from_recorder": True,
@@ -3538,6 +3580,7 @@ def _empty_variant_row(daily_row: dict[str, Any], variant: str, cost_bps: float,
     return {
         "datetime": date,
         "segment": str(daily_row.get("segment", "unknown")),
+        **_daily_walk_forward_metadata(daily_row),
         "target_position": float(daily_row.get("target_position", 0.0) or 0.0),
         "cost_bps": float(cost_bps),
         "entry_date": None,
@@ -3553,6 +3596,15 @@ def _empty_variant_row(daily_row: dict[str, Any], variant: str, cost_bps: float,
         "strategy_return": 0.0,
         "skipped_reason": reason,
     }
+
+
+def _daily_walk_forward_metadata(daily_row: dict[str, Any]) -> dict[str, Any]:
+    metadata: dict[str, Any] = {}
+    for key in ["walk_forward_fold", "test_year", "fold_segment"]:
+        value = daily_row.get(key)
+        if value is not None and not pd.isna(value):
+            metadata[key] = value
+    return metadata
 
 
 def _date_or_none(value: Any) -> str | None:

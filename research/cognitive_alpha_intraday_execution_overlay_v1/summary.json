@@ -14,8 +14,10 @@
     "primary_artifact": "cognitive_alpha_intraday_execution_overlay_v1.ipynb",
     "recorder_only_artifacts": {
       "daily_positions": "artifacts/execution_overlay/daily_selected_positions.csv",
+      "daily_walk_forward_positions": "artifacts/execution_overlay/daily_walk_forward_positions.csv",
       "intraday_predictions": "artifacts/execution_overlay/intraday_predictions_15m.csv",
-      "overlay_trades": "artifacts/execution_overlay/overlay_trades.csv"
+      "overlay_trades": "artifacts/execution_overlay/overlay_trades.csv",
+      "walk_forward_overlay_trades": "artifacts/execution_overlay/walk_forward_overlay_trades.csv"
     },
     "reproducible_from_recorder": true,
     "workflow_config": "workflow.yaml"
@@ -29,8 +31,8 @@
   ],
   "data_audit": {
     "daily_price_end": "2026-07-02",
-    "daily_price_rows": 375,
-    "daily_price_start": "2025-01-02",
+    "daily_price_rows": 1128,
+    "daily_price_start": "2022-01-03",
     "daily_selected_position_end": "2026-07-02",
     "daily_selected_position_rows": 374,
     "daily_selected_position_start": "2025-01-02",
@@ -103,8 +105,10 @@
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/model_comparison.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/selected_model.json",
     "artifacts/execution_overlay/daily_selected_positions.csv",
+    "artifacts/execution_overlay/daily_walk_forward_positions.csv",
     "artifacts/execution_overlay/intraday_predictions_15m.csv",
     "artifacts/execution_overlay/overlay_trades.csv",
+    "artifacts/execution_overlay/walk_forward_overlay_trades.csv",
     "meta.yaml",
     "metrics/selected_test_max_drawdown_pct",
     "metrics/selected_test_retention_pct",
@@ -126,8 +130,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "b2d4280a9dd743ef82ebbf45705acbe0",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/b2d4280a9dd743ef82ebbf45705acbe0",
+  "recorder_id": "2aaaf29818de4e5a9ad1d653e519ddcd",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/2aaaf29818de4e5a9ad1d653e519ddcd",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {
@@ -135,19 +139,19 @@
     "risk_threshold": 0.4069250263853126,
     "selection_cost_bps": 20.0,
     "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
-    "selection_score": 100.50210076730214,
+    "selection_score": 100.55834175199298,
     "selection_segment": "validation",
     "selection_uses_test_segment": false,
     "signal_threshold": 0.45848443370274555,
     "test_drawdown_improvement_pct": 0.0,
-    "test_max_drawdown_pct": -18.37863266325661,
+    "test_max_drawdown_pct": -18.37863266325662,
     "test_return_retention_pct": 100.0,
-    "test_total_return_pct": 356.7877549816555,
+    "test_total_return_pct": 353.8198863390175,
     "validation_drawdown_improvement_pct": 0.0,
-    "validation_max_drawdown_pct": -19.059973964030164,
+    "validation_max_drawdown_pct": -18.141498968016545,
     "validation_passes_target": false,
     "validation_return_retention_pct": 100.0,
-    "validation_total_return_pct": 120.57838078202971,
+    "validation_total_return_pct": 129.7136087033612,
     "variant": "baseline_next_open"
   },
   "sidecars": {
@@ -164,23 +168,24 @@
     "execution_timing": "close_t_signal_next_open_to_following_open",
     "model_target_col": "label_open_to_open_5d",
     "position_source_audit": {
-      "artifact_path": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/ce05c33a5d6b446fbb758bfdd747666b/artifacts/cognitive_alpha_position/positions.csv",
-      "blocking_reason": "missing_required_position_years",
+      "artifact_name": "walk_forward_positions.csv",
+      "artifact_path": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/a4c54bcd3bdd4eb39b413e2bbfa8618d/artifacts/cognitive_alpha_position/walk_forward_positions.csv",
+      "blocking_reason": "ok",
       "card": "research/cognitive_alpha_goal_codex_exec_v1",
-      "missing_required_position_years": "2022,2023,2024",
-      "recorder_id": "ce05c33a5d6b446fbb758bfdd747666b",
+      "missing_required_position_years": "",
+      "recorder_id": "a4c54bcd3bdd4eb39b413e2bbfa8618d",
       "required_position_years": "2022,2023,2024,2025,2026",
-      "rows": 50864,
-      "satisfies_required_annual_walk_forward": false,
+      "rows": 1879,
+      "satisfies_required_annual_walk_forward": true,
       "selected_end": "2026-07-02",
-      "selected_rows": 374,
-      "selected_start": "2025-01-02",
-      "selected_years": "2025,2026"
+      "selected_rows": 1879,
+      "selected_start": "2022-01-03",
+      "selected_years": "2022,2023,2024,2025,2026"
     },
-    "recorder_id": "ce05c33a5d6b446fbb758bfdd747666b",
+    "recorder_id": "a4c54bcd3bdd4eb39b413e2bbfa8618d",
     "return_col": "open_to_open_return",
-    "selected_max_drawdown_pct": -18.016191569324935,
-    "selected_return_pct": 406.54748150020754
+    "selected_max_drawdown_pct": -18.016191569324914,
+    "selected_return_pct": 403.5389056502787
   },
   "source_intraday_model": {
     "card": "research/agentic_alpha_intraday_15m_regime_gated_v1",
@@ -209,11 +214,11 @@
     "trade_gate": "regime_v2_dislocation"
   },
   "walk_forward": {
-    "blocking_reasons": [
-      "missing_validation_data",
-      "missing_validation_data|missing_test_data"
-    ],
+    "blocking_reasons": [],
     "feasible_test_years": [
+      2023,
+      2024,
+      2025,
       2026
     ],
     "folds": [
@@ -222,11 +227,7 @@
       "wf_2025",
       "wf_2026"
     ],
-    "missing_required_test_years": [
-      2023,
-      2024,
-      2025
-    ],
+    "missing_required_test_years": [],
     "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
     "required_policy_satisfied": false,
     "required_start": "2019-01-02",

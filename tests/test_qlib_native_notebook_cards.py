@@ -648,7 +648,9 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert summary["artifact_policy"]["recorder_only_artifacts"] == {
         "overlay_trades": "artifacts/execution_overlay/overlay_trades.csv",
+        "walk_forward_overlay_trades": "artifacts/execution_overlay/walk_forward_overlay_trades.csv",
         "daily_positions": "artifacts/execution_overlay/daily_selected_positions.csv",
+        "daily_walk_forward_positions": "artifacts/execution_overlay/daily_walk_forward_positions.csv",
         "intraday_predictions": "artifacts/execution_overlay/intraday_predictions_15m.csv",
     }
     assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
@@ -677,19 +679,23 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
     assert set(walk_forward["fold"]) == {"wf_2023", "wf_2024", "wf_2025", "wf_2026"}
     assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
-    assert summary["walk_forward"]["feasible_test_years"] == [2026]
-    assert summary["walk_forward"]["missing_required_test_years"] == [2023, 2024, 2025]
+    assert summary["walk_forward"]["feasible_test_years"] == [2023, 2024, 2025, 2026]
+    assert summary["walk_forward"]["missing_required_test_years"] == []
     assert summary["walk_forward"]["required_policy_satisfied"] is False
-    assert "missing_validation_data" in set(walk_forward["blocking_reason"])
+    assert set(walk_forward["blocking_reason"]) == {"ok"}
+    assert walk_forward["test_passes_target"].eq(False).all()
     daily_source_audit = pd.read_csv(card / summary["sidecars"]["daily_position_source_audit"])
     assert daily_source_audit.loc[0, "required_position_years"] == "2022,2023,2024,2025,2026"
-    assert daily_source_audit.loc[0, "selected_years"] == "2025,2026"
-    assert daily_source_audit.loc[0, "missing_required_position_years"] == "2022,2023,2024"
-    assert summary["source_daily_model"]["position_source_audit"]["blocking_reason"] == "missing_required_position_years"
+    assert daily_source_audit.loc[0, "selected_years"] == "2022,2023,2024,2025,2026"
+    assert pd.isna(daily_source_audit.loc[0, "missing_required_position_years"])
+    assert daily_source_audit.loc[0, "artifact_name"] == "walk_forward_positions.csv"
+    assert summary["source_daily_model"]["position_source_audit"]["blocking_reason"] == "ok"
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "execution_overlay" / "overlay_trades.csv").exists()
+    assert (recorder_dir / "artifacts" / "execution_overlay" / "walk_forward_overlay_trades.csv").exists()
     assert (recorder_dir / "artifacts" / "execution_overlay" / "daily_selected_positions.csv").exists()
+    assert (recorder_dir / "artifacts" / "execution_overlay" / "daily_walk_forward_positions.csv").exists()
     assert (recorder_dir / "artifacts" / "execution_overlay" / "intraday_predictions_15m.csv").exists()
     assert summary["recorder_id"] in notebook_text
     assert "run_cognitive_alpha_intraday_execution_overlay_card" in notebook_text
@@ -2663,6 +2669,7 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
         "candidate_for_validated_research",
         "not_promoted_under_base_constrained_ref",
         "not_promoted_failed_position_risk_gates",
+        "not_promoted_failed_walk_forward_risk_gates",
     }
     assert summary["codex_provider"]["provider_builder"] == "build_cognitive_alpha_codex_exec_candidate_provider"
     assert summary["codex_provider"]["provider_id"] == "codex_exec_candidate_provider"
@@ -2789,6 +2796,7 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
         "fitness",
         "lineage",
         "positions",
+        "walk_forward_positions",
         "quality",
         "rejected",
         "state",
@@ -2830,6 +2838,7 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv").exists()
+    assert (recorder_dir / "artifacts" / "cognitive_alpha_position" / "walk_forward_positions.csv").exists()
     assert (recorder_dir / "artifacts" / "cognitive_alpha_direct_weighted" / "direct_weighted_positions.csv").exists()
     assert (recorder_dir / "artifacts" / "cognitive_alpha_evolution" / "state.json").exists()
     assert (

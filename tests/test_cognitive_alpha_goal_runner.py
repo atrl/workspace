@@ -272,6 +272,32 @@ def test_cognitive_alpha_goal_codex_exec_uses_open_to_open_training_and_lgb_xgb(
     assert position_spec.constrained_reference_name == "base_constrained_ref"
     assert position_spec.validation_max_daily_loss_floor is None
     assert position_spec.test_max_daily_loss_floor is None
+    assert position_spec.walk_forward_folds == [
+        {
+            "fold": "wf_2023",
+            "train": ("2019-01-02", "2021-12-31"),
+            "validation": ("2022-01-03", "2022-12-30"),
+            "test": ("2023-01-03", "2023-12-29"),
+        },
+        {
+            "fold": "wf_2024",
+            "train": ("2019-01-02", "2022-12-30"),
+            "validation": ("2023-01-03", "2023-12-29"),
+            "test": ("2024-01-02", "2024-12-31"),
+        },
+        {
+            "fold": "wf_2025",
+            "train": ("2019-01-02", "2023-12-29"),
+            "validation": ("2024-01-02", "2024-12-31"),
+            "test": ("2025-01-02", "2025-12-31"),
+        },
+        {
+            "fold": "wf_2026",
+            "train": ("2019-01-02", "2024-12-31"),
+            "validation": ("2025-01-02", "2025-12-31"),
+            "test": ("2026-01-02", "2026-07-02"),
+        },
+    ]
     assert any(
         item.get("position_mode") == "base_throttle" and item.get("base_position_col") == BASE_CONSTRAINED_REF_COL
         for item in position_spec.position_specs or []

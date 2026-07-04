@@ -1,0 +1,5 @@
+factor,generation,level,agent,quality_status,quality_reason,missing_ratio,distinct_values,selection_tier,redundancy_status
+codex_exec_quality_canary_future_leak,0,quality_checker_canary,QualityCheckerCanary,reject,future_lookahead_declared,1.0,0,drop,not_selected
+codex_exec_quality_canary_future_leak_repaired_lag1,0,quality_checker_canary,QualityCheckerCanaryRepair,pass,pass,0.0011363636363636363,1758,drop,not_selected
+lagged_ma_stack_vix_cycle_trend,0,market_structure_cycle,AgentMarketCycle,pass,pass,0.010795454545454546,1741,drop,not_selected
+lagged_volatility_regime_trend_stretch_reversion,0,market_structure_cycle,AgentVolatilityRegime,pass,pass,0.05,1672,elite,selected

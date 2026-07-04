@@ -1,4 +1,3 @@
 name,level,agent,lookback,code
-g001_003_mutation_cycle_trend_vix_ra_7c5732b93e,market_structure_cycle,AgentMarketCycle,60,"mutation:zscore(cycle_trend_vix_range_continuation,10).shift(1)"
-codex_exec_quality_canary_future_leak_repaired_lag1,quality_checker_canary,QualityCheckerCanaryRepair,3,safe_lagged_pct_change(close).rolling(3).mean()
-cycle_trend_vix_range_continuation,market_structure_cycle,AgentMarketCycle,60,tanh(zscore((alpha158_MA20.shift(1) / alpha158_MA60.shift(1)) - 1.0) + 0.7 * zscore((alpha158_MA5.shift(1) / alpha158_MA20.shift(1)) - 1.0) + 0.5 * zscore((close.shift(1) / alpha158_MAX30.shift(1)) - 1.0) - 0.6 * zscore((alpha158_VIX.shift(1) / alpha158_VIX.shift(6)) - 1.0) - 0.4 * zscore(((high.shift(1) - low.shift(1)) / close.shift(1)).rolling(20).mean()))
+lagged_volatility_regime_trend_stretch_reversion,market_structure_cycle,AgentVolatilityRegime,60,tanh(-zscore(((close.shift(1) / alpha158_MA20.shift(1)) - 1.0) * (alpha158_VIX.shift(1) / alpha158_VIX.shift(1).rolling(60).mean()) * (alpha158_MA20.shift(1) / alpha158_MA60.shift(1))).rolling(20).mean())
+g001_000_mutation_lagged_volatility__68e631a4cd,market_structure_cycle,AgentVolatilityRegime,60,"mutation:zscore(lagged_volatility_regime_trend_stretch_reversion,10).shift(1)"

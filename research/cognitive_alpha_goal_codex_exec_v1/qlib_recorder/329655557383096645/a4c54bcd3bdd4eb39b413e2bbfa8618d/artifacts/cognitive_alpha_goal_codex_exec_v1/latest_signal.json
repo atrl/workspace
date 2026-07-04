@@ -1,0 +1,16 @@
+{
+  "action": "BUY",
+  "as_of": "2026-07-02",
+  "candidate": "lgbm_regressor_base_plus_probability_base_constrained_ref_p0.65_b1_boost1_h0.05_hold3_rgcogalpha_open2open_risk_gate_above0.5_cap0.75",
+  "execution_timing": "close_t_signal_next_open_to_following_open",
+  "last_change_date": "2026-07-02",
+  "last_change_target_position": 0.23236730265299305,
+  "model_target_col": "label_open_to_open_5d",
+  "previous_target_position": 0.0005,
+  "probability": 0.7311535559285476,
+  "return_col": "open_to_open_return",
+  "target_delta": 0.23186730265299305,
+  "target_delta_percent": 23.186730265299303,
+  "target_percent": 23.236730265299304,
+  "target_position": 0.23236730265299305
+}

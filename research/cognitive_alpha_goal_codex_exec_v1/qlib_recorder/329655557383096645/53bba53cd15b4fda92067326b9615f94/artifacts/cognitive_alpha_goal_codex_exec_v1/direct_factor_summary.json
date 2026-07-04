@@ -1,0 +1,98 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "positions"
+    ]
+  },
+  "candidate_count": 2,
+  "comparison": {
+    "beats_base_constrained_ref": true,
+    "beats_constrained_weight_reference": true,
+    "beats_soxl_backtest": true,
+    "beats_soxl_buyhold": true,
+    "selected_max_drawdown_pct": -69.69263664478672,
+    "selected_return_pct": 1779.9009469152097,
+    "selected_selection_eligible": false,
+    "selected_vs_base_constrained_ref_return_gap_pct": 1501.7869212169014,
+    "selected_vs_constrained_weight_reference_return_gap_pct": 1501.7869212169014,
+    "selected_vs_soxl_backtest_return_gap_pct": 1651.8447589638547,
+    "selected_vs_soxl_buyhold_return_gap_pct": 1444.4888270117326
+  },
+  "component_cols": [
+    "lagged_volatility_regime_trend_stretch_reversion",
+    "g001_000_mutation_lagged_volatility__68e631a4cd"
+  ],
+  "promotion_decision": "not_promoted_no_selection_eligible",
+  "selected_candidate": {
+    "avg_abs_position": 0.3876955909901916,
+    "avg_holding_days": 7.311475409836065,
+    "beats_base_constrained_ref": true,
+    "beats_constrained_weight_reference": true,
+    "benchmark_return_pct": null,
+    "candidate": "codex_exec_equal_weight_direct",
+    "component_cols": "[\"lagged_volatility_regime_trend_stretch_reversion\", \"g001_000_mutation_lagged_volatility__68e631a4cd\"]",
+    "cost_per_turnover": 0.0003,
+    "days_above_100": 0,
+    "days_below_0": 0,
+    "effective_component_count": 2,
+    "max_drawdown_pct": -69.69263664478672,
+    "max_position": 1.0,
+    "min_position": 0.0,
+    "next_day_reversal_count": 3,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+    "passes_drawdown_gate": false,
+    "passes_effective_component_gate": true,
+    "passes_position_bounds": true,
+    "raw_target_avg_abs": 0.7755804945712479,
+    "raw_target_max": 1.5100586729606462,
+    "raw_target_min": -1.688583544197126,
+    "return_pct": 1779.9009469152097,
+    "selection_eligible": false,
+    "total_turnover": 90.78716362925874,
+    "trade_count": 245,
+    "weights": "{\"g001_000_mutation_lagged_volatility__68e631a4cd\": 0.5, \"lagged_volatility_regime_trend_stretch_reversion\": 0.5}"
+  },
+  "selection": "return_sorted_long_only_multifactor_gate",
+  "spec": {
+    "candidates": [
+      {
+        "candidate": "codex_exec_equal_weight_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.2
+        },
+        "weights": {
+          "g001_000_mutation_lagged_volatility__68e631a4cd": 0.5,
+          "lagged_volatility_regime_trend_stretch_reversion": 0.5
+        }
+      },
+      {
+        "candidate": "codex_exec_primary_factor_direct",
+        "policy": {
+          "max_position": 1.0,
+          "min_position": 0.0,
+          "rebalance_threshold": 0.3
+        },
+        "weights": {
+          "lagged_volatility_regime_trend_stretch_reversion": 1.0
+        }
+      }
+    ],
+    "component_cols": [
+      "lagged_volatility_regime_trend_stretch_reversion",
+      "g001_000_mutation_lagged_volatility__68e631a4cd"
+    ],
+    "constrained_reference_name": "base_constrained_ref",
+    "cost_per_turnover": 0.0003,
+    "datetime_col": "datetime",
+    "max_drawdown_floor": -25.0,
+    "max_position": 1.0,
+    "min_effective_component_count": 1,
+    "min_effective_weight": 0.05,
+    "min_position": 0.0,
+    "return_col": "open_to_open_return"
+  },
+  "workflow": "cognitive_alpha_weighted_factor_search"
+}

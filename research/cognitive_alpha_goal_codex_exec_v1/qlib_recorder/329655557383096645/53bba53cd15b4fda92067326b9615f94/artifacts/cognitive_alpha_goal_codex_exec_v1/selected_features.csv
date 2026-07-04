@@ -1,0 +1,3 @@
+name,level,agent,lookback,code
+lagged_volatility_regime_trend_stretch_reversion,market_structure_cycle,AgentVolatilityRegime,60,tanh(-zscore(((close.shift(1) / alpha158_MA20.shift(1)) - 1.0) * (alpha158_VIX.shift(1) / alpha158_VIX.shift(1).rolling(60).mean()) * (alpha158_MA20.shift(1) / alpha158_MA60.shift(1))).rolling(20).mean())
+g001_000_mutation_lagged_volatility__68e631a4cd,market_structure_cycle,AgentVolatilityRegime,60,"mutation:zscore(lagged_volatility_regime_trend_stretch_reversion,10).shift(1)"

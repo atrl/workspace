@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pandas as pd
+import pytest
 
 import src.workflow.cognitive_alpha_intraday_overlay as overlay_workflow
 from src.workflow.cognitive_alpha_intraday_overlay import (
@@ -604,6 +605,40 @@ def test_walk_forward_metrics_records_required_annual_folds_and_fail_closed_miss
     assert bool(fold_2026["test_passes_target"]) is True
 
 
+def test_walk_forward_metrics_uses_fold_metadata_when_daily_replay_overlaps_years():
+    rows = []
+    for fold, test_year, segment, date, strategy_return in [
+        ("wf_2024", 2024, "test", "2024-01-02", 0.50),
+        ("wf_2025", 2025, "validation", "2024-01-02", 0.10),
+        ("wf_2025", 2025, "test", "2025-01-02", 0.20),
+    ]:
+        for variant in ["baseline_next_open", "overlay_a_signal_gate"]:
+            rows.append(
+                {
+                    "walk_forward_fold": fold,
+                    "test_year": test_year,
+                    "fold_segment": segment,
+                    "datetime": date,
+                    "segment": segment,
+                    "variant": variant,
+                    "cost_bps": 20.0,
+                    "strategy_return": strategy_return,
+                    "target_position": 1.0,
+                    "entry_date": date,
+                    "skipped_reason": None,
+                }
+            )
+
+    walk_forward = overlay_workflow._walk_forward_metrics(pd.DataFrame(rows), cost_bps=20.0)
+
+    fold_2025 = walk_forward.loc[walk_forward["fold"].eq("wf_2025")].iloc[0]
+    assert fold_2025["status"] == "ok"
+    assert fold_2025["valid_periods"] == 1
+    assert fold_2025["test_periods"] == 1
+    assert fold_2025["valid_total_return_pct"] == pytest.approx(10.0)
+    assert fold_2025["test_total_return_pct"] == pytest.approx(20.0)
+
+
 def test_daily_position_source_audit_records_required_year_coverage(tmp_path):
     recorder_dir = tmp_path / "recorder"
     position_dir = recorder_dir / "artifacts" / "cognitive_alpha_position"
@@ -653,3 +688,54 @@ def test_daily_position_source_audit_records_required_year_coverage(tmp_path):
     assert audit.loc[0, "missing_required_position_years"] == "2024"
     assert bool(audit.loc[0, "satisfies_required_annual_walk_forward"]) is False
     assert audit.loc[0, "blocking_reason"] == "missing_required_position_years"
+
+
+def test_load_daily_selected_positions_prefers_walk_forward_replay_artifact(tmp_path):
+    recorder_dir = tmp_path / "recorder"
+    position_dir = recorder_dir / "artifacts" / "cognitive_alpha_position"
+    position_dir.mkdir(parents=True)
+    pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05",
+                "segment": "test",
+                "target_position": 0.1,
+                "strategy_return": 0.001,
+                "selected": True,
+            }
+        ]
+    ).to_csv(position_dir / "positions.csv", index=False)
+    pd.DataFrame(
+        [
+            {
+                "walk_forward_fold": "wf_2023",
+                "test_year": 2023,
+                "fold_segment": "validation",
+                "datetime": "2022-01-03",
+                "target_position": 0.4,
+                "strategy_return": 0.004,
+                "selected": True,
+            },
+            {
+                "walk_forward_fold": "wf_2023",
+                "test_year": 2023,
+                "fold_segment": "test",
+                "datetime": "2023-01-03",
+                "target_position": 0.5,
+                "strategy_return": 0.005,
+                "selected": True,
+            },
+        ]
+    ).to_csv(position_dir / "walk_forward_positions.csv", index=False)
+
+    summary = {"recorder_id": "rec-1", "recorder_local_dir": str(recorder_dir)}
+    positions = overlay_workflow._load_daily_selected_positions(summary)
+    audit = overlay_workflow._daily_position_source_audit(
+        CognitiveAlphaIntradayOverlaySpec(root=tmp_path),
+        daily_summary=summary,
+    )
+
+    assert positions["datetime"].dt.year.tolist() == [2022, 2023]
+    assert positions["segment"].tolist() == ["validation", "test"]
+    assert audit.loc[0, "artifact_name"] == "walk_forward_positions.csv"
+    assert audit.loc[0, "selected_years"] == "2022,2023"

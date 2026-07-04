@@ -11,48 +11,47 @@
     "beats_constrained_weight_reference": true,
     "beats_soxl_backtest": true,
     "beats_soxl_buyhold": true,
-    "selected_max_drawdown_pct": -75.12422130787897,
-    "selected_return_pct": 1683.9267255703626,
+    "selected_max_drawdown_pct": -69.69263664478672,
+    "selected_return_pct": 1779.9009469152097,
     "selected_selection_eligible": false,
-    "selected_vs_base_constrained_ref_return_gap_pct": 1405.8126998720543,
-    "selected_vs_constrained_weight_reference_return_gap_pct": 1405.8126998720543,
-    "selected_vs_soxl_backtest_return_gap_pct": 1555.8705376190076,
-    "selected_vs_soxl_buyhold_return_gap_pct": 1348.5146056668855
+    "selected_vs_base_constrained_ref_return_gap_pct": 1501.7869212169014,
+    "selected_vs_constrained_weight_reference_return_gap_pct": 1501.7869212169014,
+    "selected_vs_soxl_backtest_return_gap_pct": 1651.8447589638547,
+    "selected_vs_soxl_buyhold_return_gap_pct": 1444.4888270117326
   },
   "component_cols": [
-    "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e",
-    "codex_exec_quality_canary_future_leak_repaired_lag1",
-    "cycle_trend_vix_range_continuation"
+    "lagged_volatility_regime_trend_stretch_reversion",
+    "g001_000_mutation_lagged_volatility__68e631a4cd"
   ],
   "promotion_decision": "not_promoted_no_selection_eligible",
   "selected_candidate": {
-    "avg_abs_position": 0.40011937432294853,
-    "avg_holding_days": 4.704370179948586,
+    "avg_abs_position": 0.3876955909901916,
+    "avg_holding_days": 7.311475409836065,
     "beats_base_constrained_ref": true,
     "beats_constrained_weight_reference": true,
     "benchmark_return_pct": null,
-    "candidate": "codex_exec_primary_factor_direct",
-    "component_cols": "[\"g001_003_mutation_cycle_trend_vix_ra_7c5732b93e\", \"codex_exec_quality_canary_future_leak_repaired_lag1\", \"cycle_trend_vix_range_continuation\"]",
+    "candidate": "codex_exec_equal_weight_direct",
+    "component_cols": "[\"lagged_volatility_regime_trend_stretch_reversion\", \"g001_000_mutation_lagged_volatility__68e631a4cd\"]",
     "cost_per_turnover": 0.0003,
     "days_above_100": 0,
     "days_below_0": 0,
-    "effective_component_count": 1,
-    "max_drawdown_pct": -75.12422130787897,
+    "effective_component_count": 2,
+    "max_drawdown_pct": -69.69263664478672,
     "max_position": 1.0,
     "min_position": 0.0,
-    "next_day_reversal_count": 95,
-    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+    "next_day_reversal_count": 3,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
     "passes_drawdown_gate": false,
     "passes_effective_component_gate": true,
     "passes_position_bounds": true,
-    "raw_target_avg_abs": 1.0820934194399572,
-    "raw_target_max": 2.9958850916411657,
-    "raw_target_min": -2.999993259909456,
-    "return_pct": 1683.9267255703626,
+    "raw_target_avg_abs": 0.7755804945712479,
+    "raw_target_max": 1.5100586729606462,
+    "raw_target_min": -1.688583544197126,
+    "return_pct": 1779.9009469152097,
     "selection_eligible": false,
-    "total_turnover": 253.38809026511606,
-    "trade_count": 390,
-    "weights": "{\"g001_003_mutation_cycle_trend_vix_ra_7c5732b93e\": 1.0}"
+    "total_turnover": 90.78716362925874,
+    "trade_count": 245,
+    "weights": "{\"g001_000_mutation_lagged_volatility__68e631a4cd\": 0.5, \"lagged_volatility_regime_trend_stretch_reversion\": 0.5}"
   },
   "selection": "return_sorted_long_only_multifactor_gate",
   "spec": {
@@ -65,9 +64,8 @@
           "rebalance_threshold": 0.2
         },
         "weights": {
-          "codex_exec_quality_canary_future_leak_repaired_lag1": 0.3333333333333333,
-          "cycle_trend_vix_range_continuation": 0.3333333333333333,
-          "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e": 0.3333333333333333
+          "g001_000_mutation_lagged_volatility__68e631a4cd": 0.5,
+          "lagged_volatility_regime_trend_stretch_reversion": 0.5
         }
       },
       {
@@ -78,14 +76,13 @@
           "rebalance_threshold": 0.3
         },
         "weights": {
-          "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e": 1.0
+          "lagged_volatility_regime_trend_stretch_reversion": 1.0
         }
       }
     ],
     "component_cols": [
-      "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e",
-      "codex_exec_quality_canary_future_leak_repaired_lag1",
-      "cycle_trend_vix_range_continuation"
+      "lagged_volatility_regime_trend_stretch_reversion",
+      "g001_000_mutation_lagged_volatility__68e631a4cd"
     ],
     "constrained_reference_name": "base_constrained_ref",
     "cost_per_turnover": 0.0003,

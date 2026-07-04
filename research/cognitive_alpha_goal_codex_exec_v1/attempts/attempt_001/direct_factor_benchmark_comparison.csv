@@ -1,6 +1,6 @@
 benchmark,return_pct,max_drawdown_pct,trade_count,source,selected_return_gap_pct,selected_beats_return
-cognitive_alpha_weighted_selected,1683.9267255703626,-75.12422130787897,390,cognitive_alpha_weighted_factor_search,0.0,False
-soxl_buyhold,335.412119903477,-39.63113922984681,1,qlib_dynamic_open_to_open_buyhold,1348.5146056668855,True
-base_constrained_ref,278.1140256983083,-25.460896169337623,19,qlib_dynamic_open_to_open_base_constrained_ref,1405.8126998720543,True
-constrained_weight_reference,278.1140256983083,-25.460896169337623,19,qlib_dynamic_open_to_open_base_constrained_ref_alias,1405.8126998720543,True
-soxl_backtest,128.05618795135496,-13.554088542803521,3,soxl_backtest.reference.replay_soxlbacktest_reference,1555.8705376190076,True
+cognitive_alpha_weighted_selected,1779.9009469152097,-69.69263664478672,245,cognitive_alpha_weighted_factor_search,0.0,False
+soxl_buyhold,335.412119903477,-39.63113922984681,1,qlib_dynamic_open_to_open_buyhold,1444.4888270117326,True
+base_constrained_ref,278.1140256983083,-25.460896169337623,19,qlib_dynamic_open_to_open_base_constrained_ref,1501.7869212169014,True
+constrained_weight_reference,278.1140256983083,-25.460896169337623,19,qlib_dynamic_open_to_open_base_constrained_ref_alias,1501.7869212169014,True
+soxl_backtest,128.05618795135496,-13.554088542803521,3,soxl_backtest.reference.replay_soxlbacktest_reference,1651.8447589638547,True

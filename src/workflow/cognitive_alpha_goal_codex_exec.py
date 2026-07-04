@@ -412,11 +412,14 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
 
             positions_path = runtime_dir / "positions.csv"
             position_result.positions.to_csv(positions_path, index=False)
+            walk_forward_positions_path = runtime_dir / "walk_forward_positions.csv"
+            position_result.walk_forward_positions.to_csv(walk_forward_positions_path, index=False)
             direct_positions_path = runtime_dir / "direct_weighted_positions.csv"
             direct_result.positions.to_csv(direct_positions_path, index=False)
 
             _log_evolution_artifacts(recorder, factor_mining.run_dir)
             recorder.log_artifact(positions_path.as_posix(), artifact_path="cognitive_alpha_position")
+            recorder.log_artifact(walk_forward_positions_path.as_posix(), artifact_path="cognitive_alpha_position")
             recorder.log_artifact(direct_positions_path.as_posix(), artifact_path="cognitive_alpha_direct_weighted")
             for rel_path in sidecars.values():
                 path = card / rel_path
@@ -1208,22 +1211,39 @@ def _position_spec(feature_cols: list[str], *, spec: CognitiveAlphaGoalCodexExec
         test_max_daily_loss_floor=None,
         max_test_total_turnover=20.0,
         max_test_extreme_loss_day_count=7,
-        walk_forward_folds=[
-            {
-                "fold": "wf_2025_h2",
-                "train": ("2019-01-02", "2024-06-28"),
-                "validation": ("2024-07-01", "2025-06-30"),
-                "test": ("2025-07-01", "2025-12-31"),
-            },
-            {
-                "fold": "wf_2026_ytd",
-                "train": ("2019-01-02", "2024-12-31"),
-                "validation": ("2025-01-02", "2025-12-31"),
-                "test": test,
-            },
-        ],
+        walk_forward_folds=_annual_position_walk_forward_folds(test),
         constrained_reference_name="base_constrained_ref",
     )
+
+
+def _annual_position_walk_forward_folds(test: tuple[str, str]) -> list[dict[str, tuple[str, str] | str]]:
+    test_end = test[1]
+    return [
+        {
+            "fold": "wf_2023",
+            "train": ("2019-01-02", "2021-12-31"),
+            "validation": ("2022-01-03", "2022-12-30"),
+            "test": ("2023-01-03", "2023-12-29"),
+        },
+        {
+            "fold": "wf_2024",
+            "train": ("2019-01-02", "2022-12-30"),
+            "validation": ("2023-01-03", "2023-12-29"),
+            "test": ("2024-01-02", "2024-12-31"),
+        },
+        {
+            "fold": "wf_2025",
+            "train": ("2019-01-02", "2023-12-29"),
+            "validation": ("2024-01-02", "2024-12-31"),
+            "test": ("2025-01-02", "2025-12-31"),
+        },
+        {
+            "fold": "wf_2026",
+            "train": ("2019-01-02", "2024-12-31"),
+            "validation": ("2025-01-02", "2025-12-31"),
+            "test": ("2026-01-02", test_end),
+        },
+    ]
 
 
 def _direct_factor_spec(selected_factor_names: list[str], model_features: list[str]) -> CognitiveAlphaWeightedFactorSearchSpec:
@@ -1448,6 +1468,7 @@ def _summary_payload(
                 "rejected": "artifacts/cognitive_alpha_evolution/rejected/generation_*.jsonl",
                 "state": "artifacts/cognitive_alpha_evolution/state.json",
                 "positions": "artifacts/cognitive_alpha_position/positions.csv",
+                "walk_forward_positions": "artifacts/cognitive_alpha_position/walk_forward_positions.csv",
                 "direct_weighted_positions": "artifacts/cognitive_alpha_direct_weighted/direct_weighted_positions.csv",
             },
         },

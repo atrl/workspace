@@ -7,52 +7,52 @@
   },
   "candidate_count": 2,
   "comparison": {
-    "beats_base_constrained_ref": true,
-    "beats_constrained_weight_reference": true,
-    "beats_soxl_backtest": true,
-    "beats_soxl_buyhold": true,
-    "selected_max_drawdown_pct": -75.12422130787897,
-    "selected_return_pct": 1683.9267255703626,
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
+    "beats_soxl_backtest": false,
+    "beats_soxl_buyhold": false,
+    "selected_max_drawdown_pct": -44.49033894246076,
+    "selected_return_pct": 73.30406253551133,
     "selected_selection_eligible": false,
-    "selected_vs_base_constrained_ref_return_gap_pct": 1405.8126998720543,
-    "selected_vs_constrained_weight_reference_return_gap_pct": 1405.8126998720543,
-    "selected_vs_soxl_backtest_return_gap_pct": 1555.8705376190076,
-    "selected_vs_soxl_buyhold_return_gap_pct": 1348.5146056668855
+    "selected_vs_base_constrained_ref_return_gap_pct": -204.80996316279698,
+    "selected_vs_constrained_weight_reference_return_gap_pct": -204.80996316279698,
+    "selected_vs_soxl_backtest_return_gap_pct": -54.75212541584362,
+    "selected_vs_soxl_buyhold_return_gap_pct": -262.10805736796567
   },
   "component_cols": [
-    "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e",
+    "g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g002_market_cycle__91db7bc3e2",
     "codex_exec_quality_canary_future_leak_repaired_lag1",
-    "cycle_trend_vix_range_continuation"
+    "g002_market_cycle_lagged_trend_phase_vix_guard"
   ],
   "promotion_decision": "not_promoted_no_selection_eligible",
   "selected_candidate": {
-    "avg_abs_position": 0.40011937432294853,
-    "avg_holding_days": 4.704370179948586,
-    "beats_base_constrained_ref": true,
-    "beats_constrained_weight_reference": true,
+    "avg_abs_position": 0.14435546775495733,
+    "avg_holding_days": 5.655487804878049,
+    "beats_base_constrained_ref": false,
+    "beats_constrained_weight_reference": false,
     "benchmark_return_pct": null,
-    "candidate": "codex_exec_primary_factor_direct",
-    "component_cols": "[\"g001_003_mutation_cycle_trend_vix_ra_7c5732b93e\", \"codex_exec_quality_canary_future_leak_repaired_lag1\", \"cycle_trend_vix_range_continuation\"]",
+    "candidate": "codex_exec_equal_weight_direct",
+    "component_cols": "[\"g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g002_market_cycle__91db7bc3e2\", \"codex_exec_quality_canary_future_leak_repaired_lag1\", \"g002_market_cycle_lagged_trend_phase_vix_guard\"]",
     "cost_per_turnover": 0.0003,
     "days_above_100": 0,
     "days_below_0": 0,
-    "effective_component_count": 1,
-    "max_drawdown_pct": -75.12422130787897,
-    "max_position": 1.0,
+    "effective_component_count": 3,
+    "max_drawdown_pct": -44.49033894246076,
+    "max_position": 0.9899821435534172,
     "min_position": 0.0,
-    "next_day_reversal_count": 95,
-    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
+    "next_day_reversal_count": 64,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
     "passes_drawdown_gate": false,
     "passes_effective_component_gate": true,
     "passes_position_bounds": true,
-    "raw_target_avg_abs": 1.0820934194399572,
-    "raw_target_max": 2.9958850916411657,
-    "raw_target_min": -2.999993259909456,
-    "return_pct": 1683.9267255703626,
+    "raw_target_avg_abs": 0.2419285857005377,
+    "raw_target_max": 1.1462634171989678,
+    "raw_target_min": -0.9083896059501251,
+    "return_pct": 73.30406253551133,
     "selection_eligible": false,
-    "total_turnover": 253.38809026511606,
-    "trade_count": 390,
-    "weights": "{\"g001_003_mutation_cycle_trend_vix_ra_7c5732b93e\": 1.0}"
+    "total_turnover": 103.34566322453965,
+    "trade_count": 329,
+    "weights": "{\"codex_exec_quality_canary_future_leak_repaired_lag1\": 0.3333333333333333, \"g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g002_market_cycle__91db7bc3e2\": 0.3333333333333333, \"g002_market_cycle_lagged_trend_phase_vix_guard\": 0.3333333333333333}"
   },
   "selection": "return_sorted_long_only_multifactor_gate",
   "spec": {
@@ -66,8 +66,8 @@
         },
         "weights": {
           "codex_exec_quality_canary_future_leak_repaired_lag1": 0.3333333333333333,
-          "cycle_trend_vix_range_continuation": 0.3333333333333333,
-          "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e": 0.3333333333333333
+          "g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g002_market_cycle__91db7bc3e2": 0.3333333333333333,
+          "g002_market_cycle_lagged_trend_phase_vix_guard": 0.3333333333333333
         }
       },
       {
@@ -78,14 +78,14 @@
           "rebalance_threshold": 0.3
         },
         "weights": {
-          "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e": 1.0
+          "g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g002_market_cycle__91db7bc3e2": 1.0
         }
       }
     ],
     "component_cols": [
-      "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e",
+      "g001_002_crossover_mutation_codex_exec_quality_976bcd8f46__g002_market_cycle__91db7bc3e2",
       "codex_exec_quality_canary_future_leak_repaired_lag1",
-      "cycle_trend_vix_range_continuation"
+      "g002_market_cycle_lagged_trend_phase_vix_guard"
     ],
     "constrained_reference_name": "base_constrained_ref",
     "cost_per_turnover": 0.0003,
