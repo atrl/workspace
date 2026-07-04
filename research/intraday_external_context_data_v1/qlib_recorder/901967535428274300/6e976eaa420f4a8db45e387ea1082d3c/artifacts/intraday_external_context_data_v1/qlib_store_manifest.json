@@ -1,0 +1,45 @@
+{
+  "as_of": "2026-07-02",
+  "audit_snapshot_hash": "8bd6b317287b3ccf",
+  "calendar_end": "2026-07-02 16:00:00",
+  "calendar_start": "2024-07-05 09:45:00",
+  "feature_file_count": 72,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$turnover",
+    "$vwap",
+    "$bar_index",
+    "$bar_count"
+  ],
+  "freq": "15min",
+  "hash": "99d8626661728f19",
+  "instruments": [
+    "AMD",
+    "ASML",
+    "AVGO",
+    "NVDA",
+    "QQQ",
+    "SMH",
+    "SOXX",
+    "TSM"
+  ],
+  "market": "all",
+  "max_datetime": "2026-07-02 16:00:00",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
+  "region": "us",
+  "row_count": 83464,
+  "source": "polygon_aggs_custom_bars",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

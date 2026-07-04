@@ -1062,10 +1062,12 @@ def test_intraday_external_context_data_card_records_requested_symbols_and_fail_
         "provider_history_truncated",
         "raw_cache_path",
         "cache_row_count",
+        "seeded_provider_row_count",
         "fetched_row_count",
         "fetch_range_count",
         "blocked_range_count",
         "chunk_statuses",
+        "cache_source",
     }.issubset(source_audit.columns)
     if summary["data_status"] == "ok_partial_insufficient_for_full_walk_forward":
         assert source_audit["provider_history_truncated"].fillna(False).astype(bool).any()

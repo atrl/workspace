@@ -1,8 +1,8 @@
 {
   "as_of": "2026-07-02",
-  "audit_snapshot_hash": "d301e2a349ade254",
+  "audit_snapshot_hash": "8bd6b317287b3ccf",
   "calendar_end": "2026-07-02 16:00:00",
-  "calendar_start": "2025-01-02 09:45:00",
+  "calendar_start": "2024-07-05 09:45:00",
   "feature_file_count": 72,
   "fields": [
     "$open",
@@ -16,7 +16,7 @@
     "$bar_count"
   ],
   "freq": "15min",
-  "hash": "97af5f6932968b3e",
+  "hash": "99d8626661728f19",
   "instruments": [
     "AMD",
     "ASML",
@@ -32,7 +32,7 @@
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
   "region": "us",
-  "row_count": 77736,
+  "row_count": 83464,
   "source": "polygon_aggs_custom_bars",
   "source_api": [
     "qlib.init",

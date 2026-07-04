@@ -237,9 +237,28 @@ def _fetch_symbol_with_cache(
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     cached = _read_cached_symbol_frame(spec, symbol)
     cache_row_count = int(len(cached))
+    seeded_provider_row_count = 0
+    cache_source = "raw_cache" if cache_row_count else ""
+    if cached.empty:
+        seeded = _read_existing_provider_symbol_frame(spec, symbol)
+        if not seeded.empty:
+            write_intraday_cache(seeded, _raw_cache_path(spec, symbol))
+            cached = seeded
+            seeded_provider_row_count = int(len(seeded))
+            cache_source = "existing_qlib_provider"
+
     ranges = _missing_fetch_ranges(spec, cached)
     if not ranges and not cached.empty:
-        return cached, _cached_source_audit(spec, symbol, cached)
+        status = "ok_seeded_provider_cache" if seeded_provider_row_count else "ok_cached"
+        return cached, _cached_source_audit(
+            spec,
+            symbol,
+            cached,
+            status=status,
+            cache_row_count=cache_row_count or int(len(cached)),
+            seeded_provider_row_count=seeded_provider_row_count,
+            cache_source=cache_source,
+        )
 
     merged = cached.copy()
     chunk_audits: list[dict[str, Any]] = []
@@ -278,10 +297,12 @@ def _fetch_symbol_with_cache(
             **audit,
             "raw_cache_path": "",
             "cache_row_count": cache_row_count,
+            "seeded_provider_row_count": seeded_provider_row_count,
             "fetched_row_count": fetched_row_count,
             "fetch_range_count": len(chunk_audits),
             "blocked_range_count": blocked_range_count,
             "chunk_statuses": ",".join(str(row.get("status", "")) for row in chunk_audits),
+            "cache_source": cache_source,
         }
 
     return merged, _merged_source_audit(
@@ -289,10 +310,12 @@ def _fetch_symbol_with_cache(
         symbol,
         merged,
         cache_row_count=cache_row_count,
+        seeded_provider_row_count=seeded_provider_row_count,
         fetched_row_count=fetched_row_count,
         fetch_range_count=len(chunk_audits),
         blocked_range_count=blocked_range_count,
         chunk_statuses=[str(row.get("status", "")) for row in chunk_audits],
+        cache_source=cache_source,
     )
 
 
@@ -318,10 +341,77 @@ def _read_cached_symbol_frame(
     return frame
 
 
+def _read_existing_provider_symbol_frame(
+    spec: IntradayExternalContextDataSpec,
+    symbol: str,
+) -> pd.DataFrame:
+    manifest_path = spec.provider_uri / "qlib_store_manifest.json"
+    if not manifest_path.exists():
+        return pd.DataFrame()
+    try:
+        sample = load_qlib_feature_frame(
+            QlibProviderConfig(
+                provider_uri=spec.provider_uri,
+                region=spec.region,
+                market=spec.market,
+                freq=spec.frequency,
+            ),
+            instruments=[symbol.upper()],
+            fields=["$open", "$high", "$low", "$close", "$volume", "$turnover", "$vwap"],
+            start=f"{spec.start} 00:00:00",
+            end=f"{spec.end} 23:59:59",
+        )
+    except Exception:
+        return pd.DataFrame()
+    if sample.empty:
+        return pd.DataFrame()
+    frame = sample.reset_index()
+    if "datetime" not in frame:
+        return pd.DataFrame()
+    timestamps = pd.to_datetime(frame["datetime"], errors="coerce")
+    if timestamps.dt.tz is None:
+        timestamps = timestamps.dt.tz_localize("America/New_York")
+    else:
+        timestamps = timestamps.dt.tz_convert("America/New_York")
+    interval = spec.frequency.replace("min", "m")
+    normalized = pd.DataFrame(
+        {
+            "provider": "qlib_seed",
+            "symbol": symbol.upper(),
+            "interval": interval,
+            "timestamp": timestamps,
+            "date": timestamps.dt.date.astype(str),
+            "session": "regular",
+            "open": pd.to_numeric(frame["$open"], errors="coerce") if "$open" in frame else pd.NA,
+            "high": pd.to_numeric(frame["$high"], errors="coerce") if "$high" in frame else pd.NA,
+            "low": pd.to_numeric(frame["$low"], errors="coerce") if "$low" in frame else pd.NA,
+            "close": pd.to_numeric(frame["$close"], errors="coerce") if "$close" in frame else pd.NA,
+            "volume": pd.to_numeric(frame["$volume"], errors="coerce") if "$volume" in frame else pd.NA,
+            "turnover": pd.to_numeric(frame["$turnover"], errors="coerce") if "$turnover" in frame else pd.NA,
+            "vwap": pd.to_numeric(frame["$vwap"], errors="coerce") if "$vwap" in frame else pd.NA,
+            "transactions": pd.NA,
+            "source_tz": "America/New_York",
+            "adjusted": True,
+            "fetched_at": "existing_qlib_provider_seed",
+        }
+    )
+    normalized = normalized.dropna(subset=["timestamp", "open", "high", "low", "close", "volume"])
+    if normalized.empty:
+        return pd.DataFrame()
+    return normalized.sort_values(["symbol", "timestamp"]).drop_duplicates(["symbol", "timestamp"], keep="last").reset_index(
+        drop=True
+    )
+
+
 def _cached_source_audit(
     spec: IntradayExternalContextDataSpec,
     symbol: str,
     frame: pd.DataFrame,
+    *,
+    status: str = "ok_cached",
+    cache_row_count: int | None = None,
+    seeded_provider_row_count: int = 0,
+    cache_source: str = "raw_cache",
 ) -> dict[str, Any]:
     coverage_start = _format_min(frame["timestamp"].min()) if "timestamp" in frame else ""
     coverage_end = _format_min(frame["timestamp"].max()) if "timestamp" in frame else ""
@@ -333,7 +423,7 @@ def _cached_source_audit(
         )
     return {
         "symbol": symbol.upper(),
-        "status": "ok_cached",
+        "status": status,
         "http_status": 0,
         "row_count": int(len(frame)),
         "page_count": 0,
@@ -344,11 +434,13 @@ def _cached_source_audit(
         "coverage_end": coverage_end,
         "provider_history_truncated": provider_history_truncated,
         "raw_cache_path": _raw_cache_path(spec, symbol).as_posix(),
-        "cache_row_count": int(len(frame)),
+        "cache_row_count": int(len(frame)) if cache_row_count is None else int(cache_row_count),
+        "seeded_provider_row_count": seeded_provider_row_count,
         "fetched_row_count": 0,
         "fetch_range_count": 0,
         "blocked_range_count": 0,
         "chunk_statuses": "",
+        "cache_source": cache_source,
     }
 
 
@@ -358,10 +450,12 @@ def _merged_source_audit(
     frame: pd.DataFrame,
     *,
     cache_row_count: int,
+    seeded_provider_row_count: int,
     fetched_row_count: int,
     fetch_range_count: int,
     blocked_range_count: int,
     chunk_statuses: list[str],
+    cache_source: str,
 ) -> dict[str, Any]:
     coverage_start = _format_min(frame["timestamp"].min()) if "timestamp" in frame else ""
     coverage_end = _format_min(frame["timestamp"].max()) if "timestamp" in frame else ""
@@ -375,6 +469,12 @@ def _merged_source_audit(
             status = "ok_partial_cache_updated" if provider_history_truncated or blocked_range_count else "ok_cache_updated"
     elif cache_row_count > 0:
         status = "ok_cached_partial_fetch_blocked" if provider_history_truncated or blocked_range_count else "ok_cached"
+    elif seeded_provider_row_count > 0:
+        status = (
+            "ok_seeded_provider_partial_fetch_blocked"
+            if provider_history_truncated or blocked_range_count
+            else "ok_seeded_provider_cache"
+        )
     else:
         status = "blocked_no_rows"
     return {
@@ -391,10 +491,12 @@ def _merged_source_audit(
         "provider_history_truncated": provider_history_truncated,
         "raw_cache_path": _raw_cache_path(spec, symbol).as_posix(),
         "cache_row_count": cache_row_count,
+        "seeded_provider_row_count": seeded_provider_row_count,
         "fetched_row_count": fetched_row_count,
         "fetch_range_count": fetch_range_count,
         "blocked_range_count": blocked_range_count,
         "chunk_statuses": ",".join(status for status in chunk_statuses if status),
+        "cache_source": cache_source,
     }
 
 
@@ -411,6 +513,14 @@ def _blocked_no_rows_audit(spec: IntradayExternalContextDataSpec, symbol: str) -
         "coverage_start": "",
         "coverage_end": "",
         "provider_history_truncated": True,
+        "raw_cache_path": "",
+        "cache_row_count": 0,
+        "seeded_provider_row_count": 0,
+        "fetched_row_count": 0,
+        "fetch_range_count": 0,
+        "blocked_range_count": 0,
+        "chunk_statuses": "",
+        "cache_source": "",
     }
 
 

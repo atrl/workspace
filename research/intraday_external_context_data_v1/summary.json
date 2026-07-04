@@ -19,15 +19,27 @@
   },
   "as_of": "2026-07-02",
   "available_symbols": [
+    "AMD",
+    "ASML",
+    "AVGO",
+    "NVDA",
     "QQQ",
-    "SMH"
+    "SMH",
+    "SOXX",
+    "TSM"
   ],
   "card_type": "intraday_external_context_data",
   "coverage_audit": {
-    "regular_session_rows": 25162,
+    "regular_session_rows": 83464,
     "symbols_with_rows": [
+      "AMD",
+      "ASML",
+      "AVGO",
+      "NVDA",
       "QQQ",
-      "SMH"
+      "SMH",
+      "SOXX",
+      "TSM"
     ]
   },
   "data_status": "ok_partial_insufficient_for_full_walk_forward",
@@ -37,17 +49,10 @@
     "2019-01-02",
     "2026-07-02"
   ],
-  "manifest_hash": "",
-  "manifest_status": "ok_partial_insufficient_for_full_walk_forward",
+  "manifest_hash": "99d8626661728f19",
+  "manifest_status": "ok",
   "market": "all",
-  "missing_symbols": [
-    "AMD",
-    "ASML",
-    "AVGO",
-    "NVDA",
-    "SOXX",
-    "TSM"
-  ],
+  "missing_symbols": [],
   "objective_context_gap_closed_or_audited": [
     "QQQ",
     "SMH",
@@ -58,8 +63,8 @@
     "TSM",
     "ASML"
   ],
-  "provider_manifest": "",
-  "provider_uri": "",
+  "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min/qlib_store_manifest.json",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
   "qlib_docs": {
     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
     "highfreq": "https://qlib.readthedocs.io/en/latest/component/highfreq.html",
@@ -98,8 +103,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "e0a10338b30f473080ba4b244bbc5584",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/e0a10338b30f473080ba4b244bbc5584",
+  "recorder_id": "6e976eaa420f4a8db45e387ea1082d3c",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/6e976eaa420f4a8db45e387ea1082d3c",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder",
   "region": "us",
   "requested_range": [
@@ -125,8 +130,7 @@
   },
   "source": "polygon_aggs_custom_bars",
   "source_audit_status_counts": {
-    "blocked_provider_rate_limit": 6,
-    "ok_cached_partial_fetch_blocked": 2
+    "ok_cached_partial_fetch_blocked": 8
   },
   "workflow_config": "workflow.yaml"
 }
