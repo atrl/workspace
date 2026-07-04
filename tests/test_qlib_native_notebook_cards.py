@@ -1179,7 +1179,12 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert summary["provider_uris"]["5min"] == (ROOT / "data" / "qlib" / "soxl_intraday_5min").resolve().as_posix()
     assert summary["execution_overlay"]["frequency"] == "5min"
     assert summary["execution_overlay"]["daily_entry_is_not_skipped"] is True
-    assert summary["execution_overlay"]["risk_sleeve_timing"] == "daily_next_open_entry_then_5min_close_trigger_same_day_reduce_or_exit"
+    assert (
+        summary["execution_overlay"]["risk_sleeve_timing"]
+        == "daily_next_open_entry_then_5min_close_trigger_next_5min_open_reduce_or_exit"
+    )
+    assert summary["execution_overlay"]["risk_sleeve_execution_delay_bars"] == 1
+    assert summary["execution_overlay"]["risk_sleeve_execution_price"] == "next_5min_open"
     assert summary["execution_overlay"]["variants"] == [
         "baseline_next_open",
         "risk_exit_full_5m",

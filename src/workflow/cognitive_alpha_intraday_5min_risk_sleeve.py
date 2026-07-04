@@ -52,6 +52,9 @@ EXPERIMENT = "cognitive_alpha_intraday_5min_risk_sleeve_v1"
 REQUIRED_COST_BPS = (20.0, 50.0)
 RISK_SLEEVE_VARIANTS = ("risk_exit_full_5m", "risk_reduce_half_5m", "risk_reduce_quarter_5m")
 TRIGGER_MODES = ("drawdown_only", "risk_score_or_drawdown")
+RISK_SLEEVE_EXECUTION_DELAY_BARS = 1
+RISK_SLEEVE_EXECUTION_PRICE = "open"
+RISK_SLEEVE_EXECUTION_TIMING = "daily_next_open_entry_then_5min_close_trigger_next_5min_open_reduce_or_exit"
 
 
 @dataclass(frozen=True)
@@ -112,9 +115,16 @@ def simulate_5min_risk_sleeve(
     cost_bps: float = 0.0,
     risk_score_col: str = "risk_score",
     gate_col: str = PREDICTION_AVAILABLE_GATE_COL,
+    execution_delay_bars: int = 0,
+    execution_price: str = "close",
 ) -> pd.DataFrame:
     if trigger_mode not in {"drawdown_only", "risk_score_only", "risk_score_or_drawdown", "risk_score_and_drawdown"}:
         raise ValueError(f"unsupported 5min risk trigger mode: {trigger_mode}")
+    execution_delay_bars = int(execution_delay_bars)
+    if execution_delay_bars < 0:
+        raise ValueError("execution_delay_bars must be non-negative")
+    if execution_price not in {"open", "close"}:
+        raise ValueError(f"unsupported 5min execution price: {execution_price}")
     daily_frame = _normalize_daily_positions(daily)
     prices = _normalize_daily_prices(daily_prices)
     bars = _normalize_5min_bars(bars_5min, intraday_scores=intraday_scores, risk_score_col=risk_score_col, gate_col=gate_col)
@@ -127,7 +137,15 @@ def simulate_5min_risk_sleeve(
     for daily_row in daily_frame.to_dict("records"):
         decision_date = pd.Timestamp(daily_row["datetime"]).normalize()
         if decision_date not in set(price_index):
-            rows.extend(_missing_5min_rows(daily_row, cost_bps=float(cost_bps), reason="missing_decision_open"))
+            rows.extend(
+                _missing_5min_rows(
+                    daily_row,
+                    cost_bps=float(cost_bps),
+                    reason="missing_decision_open",
+                    execution_delay_bars=execution_delay_bars,
+                    execution_price=execution_price,
+                )
+            )
             continue
         location = int(price_index.get_loc(decision_date))
         if isinstance(location, slice):
@@ -149,12 +167,22 @@ def simulate_5min_risk_sleeve(
             "drawdown_threshold": float(drawdown_threshold),
             "risk_score_threshold": np.nan if risk_score_threshold is None else float(risk_score_threshold),
             "trigger_mode": trigger_mode,
+            "risk_sleeve_execution_delay_bars": execution_delay_bars,
+            "risk_sleeve_execution_price": execution_price,
         }
         if abs(target) <= 1e-12:
             rows.extend(_zero_5min_rows(common))
             continue
         if pd.isna(entry_date) or pd.isna(exit_date):
-            rows.extend(_missing_5min_rows(daily_row, cost_bps=float(cost_bps), reason="missing_entry_or_exit_open"))
+            rows.extend(
+                _missing_5min_rows(
+                    daily_row,
+                    cost_bps=float(cost_bps),
+                    reason="missing_entry_or_exit_open",
+                    execution_delay_bars=execution_delay_bars,
+                    execution_price=execution_price,
+                )
+            )
             continue
         entry_open = float(prices.iloc[location + 1]["open"])
         exit_open = float(prices.iloc[location + 2]["open"])
@@ -176,6 +204,8 @@ def simulate_5min_risk_sleeve(
                 "trigger_price": np.nan,
                 "trigger_drawdown_from_entry": np.nan,
                 "trigger_risk_score": np.nan,
+                "risk_execution_time": None,
+                "risk_execution_price": np.nan,
                 "risk_triggered": False,
                 "gross_return": source_return,
                 "strategy_return": baseline_return,
@@ -231,18 +261,43 @@ def simulate_5min_risk_sleeve(
         trigger_price = float(trigger["close"])
         trigger_pnl = target * (trigger_price / entry_open - 1.0)
         trigger_score = float(trigger[risk_score_col]) if pd.notna(trigger.get(risk_score_col)) else np.nan
-        full_return = trigger_pnl - execution_cost
-        half_gross = target * (0.5 * (trigger_price / entry_open - 1.0) + 0.5 * (exit_open / entry_open - 1.0))
+        execution_bar = _resolve_5min_execution_bar(
+            entry_bars,
+            trigger=trigger,
+            execution_delay_bars=execution_delay_bars,
+            execution_price=execution_price,
+        )
+        if execution_bar is None:
+            rows.extend(
+                _no_trigger_variant_rows(
+                    common,
+                    entry_open=entry_open,
+                    exit_open=exit_open,
+                    entry_date=entry_date,
+                    exit_date=exit_date,
+                    baseline_return=baseline_return,
+                    entry_day_strategy_return=baseline_entry_day,
+                    entry_day_close_time=entry_close_time,
+                    entry_day_close_price=entry_close,
+                    reason="missing_delayed_execution_bar",
+                )
+            )
+            continue
+        risk_execution_time = pd.Timestamp(execution_bar["datetime"])
+        risk_execution_price = float(execution_bar[execution_price])
+        executed_pnl = target * (risk_execution_price / entry_open - 1.0)
+        full_return = executed_pnl - execution_cost
+        half_gross = target * (0.5 * (risk_execution_price / entry_open - 1.0) + 0.5 * (exit_open / entry_open - 1.0))
         half_return = half_gross - execution_cost
-        quarter_gross = target * (0.25 * (trigger_price / entry_open - 1.0) + 0.75 * (exit_open / entry_open - 1.0))
+        quarter_gross = target * (0.25 * (risk_execution_price / entry_open - 1.0) + 0.75 * (exit_open / entry_open - 1.0))
         quarter_return = quarter_gross - execution_cost
         half_entry_day = (
-            target * (0.5 * (trigger_price / entry_open - 1.0) + 0.5 * (entry_close / entry_open - 1.0)) - execution_cost
+            target * (0.5 * (risk_execution_price / entry_open - 1.0) + 0.5 * (entry_close / entry_open - 1.0)) - execution_cost
             if not pd.isna(entry_close)
             else np.nan
         )
         quarter_entry_day = (
-            target * (0.25 * (trigger_price / entry_open - 1.0) + 0.75 * (entry_close / entry_open - 1.0)) - execution_cost
+            target * (0.25 * (risk_execution_price / entry_open - 1.0) + 0.75 * (entry_close / entry_open - 1.0)) - execution_cost
             if not pd.isna(entry_close)
             else np.nan
         )
@@ -252,18 +307,20 @@ def simulate_5min_risk_sleeve(
                     **common,
                     "variant": "risk_exit_full_5m",
                     "entry_time": _timestamp_or_none(entry_bars.iloc[0]["datetime"]),
-                    "exit_time": _timestamp_or_none(trigger_time),
+                    "exit_time": _timestamp_or_none(risk_execution_time),
                     "entry_price": entry_open,
-                    "exit_price": trigger_price,
+                    "exit_price": risk_execution_price,
                     "trigger_time": _timestamp_or_none(trigger_time),
                     "trigger_price": trigger_price,
                     "trigger_drawdown_from_entry": trigger_pnl,
                     "trigger_risk_score": trigger_score,
+                    "risk_execution_time": _timestamp_or_none(risk_execution_time),
+                    "risk_execution_price": risk_execution_price,
                     "risk_triggered": True,
-                    "gross_return": trigger_pnl,
+                    "gross_return": executed_pnl,
                     "strategy_return": full_return,
-                    "entry_day_close_time": _timestamp_or_none(trigger_time),
-                    "entry_day_close_price": trigger_price,
+                    "entry_day_close_time": _timestamp_or_none(risk_execution_time),
+                    "entry_day_close_price": risk_execution_price,
                     "entry_day_strategy_return": full_return,
                     "skipped_reason": None,
                 },
@@ -278,6 +335,8 @@ def simulate_5min_risk_sleeve(
                     "trigger_price": trigger_price,
                     "trigger_drawdown_from_entry": trigger_pnl,
                     "trigger_risk_score": trigger_score,
+                    "risk_execution_time": _timestamp_or_none(risk_execution_time),
+                    "risk_execution_price": risk_execution_price,
                     "risk_triggered": True,
                     "gross_return": half_gross,
                     "strategy_return": half_return,
@@ -297,6 +356,8 @@ def simulate_5min_risk_sleeve(
                     "trigger_price": trigger_price,
                     "trigger_drawdown_from_entry": trigger_pnl,
                     "trigger_risk_score": trigger_score,
+                    "risk_execution_time": _timestamp_or_none(risk_execution_time),
+                    "risk_execution_price": risk_execution_price,
                     "risk_triggered": True,
                     "gross_return": quarter_gross,
                     "strategy_return": quarter_return,
@@ -319,6 +380,8 @@ def evaluate_5min_risk_sleeve_candidates(
     cost_bps_values: tuple[float, ...] = REQUIRED_COST_BPS,
     risk_score_col: str = "risk_score",
     gate_col: str = PREDICTION_AVAILABLE_GATE_COL,
+    execution_delay_bars: int = 0,
+    execution_price: str = "close",
 ) -> pd.DataFrame:
     daily_frame = _normalize_daily_positions(daily)
     prices = _normalize_daily_prices(daily_prices)
@@ -338,6 +401,8 @@ def evaluate_5min_risk_sleeve_candidates(
                 cost_bps=float(cost_bps),
                 risk_score_col=risk_score_col,
                 gate_col=gate_col,
+                execution_delay_bars=execution_delay_bars,
+                execution_price=execution_price,
             ).assign(cost_bps=float(cost_bps))
             for cost_bps in cost_bps_values
         ]
@@ -562,6 +627,8 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
                 report_segment="test",
                 selection_uses_test_segment=False,
                 required_cost_bps="20.0,50.0",
+                risk_sleeve_execution_delay_bars=RISK_SLEEVE_EXECUTION_DELAY_BARS,
+                risk_sleeve_execution_price=RISK_SLEEVE_EXECUTION_PRICE,
                 walk_forward_policy=walk_forward_summary["policy"],
             )
             R.log_metrics(
@@ -621,7 +688,9 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
             "frequency": "5min",
             "decision_model_timing": "daily_close_t_signal",
             "daily_execution_timing": DAILY_EXECUTION_TIMING,
-            "risk_sleeve_timing": "daily_next_open_entry_then_5min_close_trigger_same_day_reduce_or_exit",
+            "risk_sleeve_timing": RISK_SLEEVE_EXECUTION_TIMING,
+            "risk_sleeve_execution_delay_bars": RISK_SLEEVE_EXECUTION_DELAY_BARS,
+            "risk_sleeve_execution_price": f"next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
             "open_to_open_baseline": True,
             "daily_entry_is_not_skipped": True,
             "variants": ["baseline_next_open", *RISK_SLEEVE_VARIANTS],
@@ -735,6 +804,26 @@ def _first_5min_trigger(
     return trigger_rows.iloc[0]
 
 
+def _resolve_5min_execution_bar(
+    bars: pd.DataFrame,
+    *,
+    trigger: pd.Series,
+    execution_delay_bars: int,
+    execution_price: str,
+) -> pd.Series | None:
+    trigger_time = pd.Timestamp(trigger["datetime"])
+    trigger_positions = np.flatnonzero(pd.to_datetime(bars["datetime"]).eq(trigger_time).to_numpy())
+    if len(trigger_positions) == 0:
+        return None
+    execution_position = int(trigger_positions[0]) + int(execution_delay_bars)
+    if execution_position >= len(bars):
+        return None
+    execution_bar = bars.iloc[execution_position]
+    if pd.isna(execution_bar.get(execution_price)):
+        return None
+    return execution_bar
+
+
 def _zero_5min_rows(common: dict[str, Any]) -> list[dict[str, Any]]:
     rows = []
     for variant in ["baseline_next_open", *RISK_SLEEVE_VARIANTS]:
@@ -750,6 +839,8 @@ def _zero_5min_rows(common: dict[str, Any]) -> list[dict[str, Any]]:
                 "trigger_price": np.nan,
                 "trigger_drawdown_from_entry": np.nan,
                 "trigger_risk_score": np.nan,
+                "risk_execution_time": None,
+                "risk_execution_price": np.nan,
                 "risk_triggered": False,
                 "gross_return": 0.0,
                 "strategy_return": 0.0,
@@ -762,7 +853,14 @@ def _zero_5min_rows(common: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
-def _missing_5min_rows(daily_row: dict[str, Any], *, cost_bps: float, reason: str) -> list[dict[str, Any]]:
+def _missing_5min_rows(
+    daily_row: dict[str, Any],
+    *,
+    cost_bps: float,
+    reason: str,
+    execution_delay_bars: int = 0,
+    execution_price: str = "close",
+) -> list[dict[str, Any]]:
     common = {
         "datetime": pd.Timestamp(daily_row["datetime"]).date().isoformat(),
         "segment": str(daily_row.get("segment", "unknown")),
@@ -775,6 +873,8 @@ def _missing_5min_rows(daily_row: dict[str, Any], *, cost_bps: float, reason: st
         "drawdown_threshold": np.nan,
         "risk_score_threshold": np.nan,
         "trigger_mode": None,
+        "risk_sleeve_execution_delay_bars": int(execution_delay_bars),
+        "risk_sleeve_execution_price": execution_price,
     }
     rows = _zero_5min_rows(common)
     for row in rows:
@@ -809,6 +909,8 @@ def _no_trigger_variant_rows(
                 "trigger_price": np.nan,
                 "trigger_drawdown_from_entry": np.nan,
                 "trigger_risk_score": np.nan,
+                "risk_execution_time": None,
+                "risk_execution_price": np.nan,
                 "risk_triggered": False,
                 "gross_return": baseline_return,
                 "strategy_return": baseline_return,
@@ -1149,6 +1251,8 @@ def _evaluate_annual_5min_risk_sleeve(
             bars_5min=bars_5min,
             intraday_scores=fold_scores,
             cost_bps_values=tuple(float(value) for value in spec.required_cost_bps),
+            execution_delay_bars=RISK_SLEEVE_EXECUTION_DELAY_BARS,
+            execution_price=RISK_SLEEVE_EXECUTION_PRICE,
         )
         if not candidates.empty:
             candidates["fold"] = fold
@@ -1244,6 +1348,8 @@ def _simulate_selected_trades(
             risk_score_threshold=selected.get("risk_score_threshold"),
             trigger_mode=str(selected.get("trigger_mode")),
             cost_bps=float(cost_bps),
+            execution_delay_bars=RISK_SLEEVE_EXECUTION_DELAY_BARS,
+            execution_price=RISK_SLEEVE_EXECUTION_PRICE,
         ).assign(cost_bps=float(cost_bps))
         selected_variant = str(selected.get("variant"))
         frames.append(trades.loc[trades["variant"].isin(["baseline_next_open", selected_variant])].copy())
@@ -1505,6 +1611,7 @@ def _analysis_summary(
         "optimization_answer": [
             "do_not_replace_daily_model_with_intraday_entry_gate",
             "preserve_daily_next_open_entry_and_use_5min_only_as_risk_sleeve",
+            "trigger_on_5min_close_then_execute_risk_action_on_next_5min_open",
             "select_drawdown_and_risk_score_thresholds_from_validation_year_only",
             "report_test_year_without_threshold_refit",
         ],
@@ -1525,6 +1632,13 @@ def _analysis_summary(
             "intraday_5m_calendar_start": provider_meta_5m.get("calendar_start"),
             "intraday_5m_calendar_end": provider_meta_5m.get("calendar_end"),
             "intraday_5m_rows": int(len(bars_5min)),
+        },
+        "execution_overlay": {
+            "risk_sleeve_timing": RISK_SLEEVE_EXECUTION_TIMING,
+            "risk_sleeve_execution_delay_bars": RISK_SLEEVE_EXECUTION_DELAY_BARS,
+            "risk_sleeve_execution_price": f"next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
+            "trigger_price_role": "signal_only_5min_close",
+            "execution_price_role": "risk_reduce_or_exit_fill_price",
         },
         "label_policy": label_audit,
         "feature_set": {
@@ -1596,7 +1710,7 @@ def _write_sidecars(
         "- 本卡不是新的日内主 alpha；它保留日线 next-open 入场，只验证 5m 风控减仓/退出是否能减少买入后下杀。\n"
         "- 15m LGB/XGB/consensus 的 label 是 triple-barrier 1h/2h execution improvement，不等同于 open-to-open 收益预测。\n"
         "- 5m 阈值只从 validation 年份生成；若 test 年效果差，不能用 test 重新调阈值。\n"
-        "- 当前仍缺 bid/ask、盘口深度、延迟和真实成交容量，不能据此直接实盘。\n"
+        "- 风控 replay 已避免同一根 5m bar 收盘触发又按同一收盘成交；当前仍缺 bid/ask、盘口深度和真实成交容量，不能据此直接实盘。\n"
         "- 若 20/50bp 年度 retention、max drawdown 和风险降低不能同时过门槛，应继续作为诊断卡而非晋升。\n",
         encoding="utf-8",
     )
@@ -1636,7 +1750,9 @@ def _write_workflow_yaml(
                 "  required_cost_bps: [20.0, 50.0]",
                 "execution:",
                 f"  daily_timing: {DAILY_EXECUTION_TIMING}",
-                "  risk_sleeve_timing: next_open_entry_then_5min_close_reduce_or_exit",
+                f"  risk_sleeve_timing: {RISK_SLEEVE_EXECUTION_TIMING}",
+                f"  risk_sleeve_execution_delay_bars: {RISK_SLEEVE_EXECUTION_DELAY_BARS}",
+                f"  risk_sleeve_execution_price: next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
                 "  daily_entry_is_not_skipped: true",
                 "walk_forward:",
                 "  policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T",
@@ -1685,7 +1801,7 @@ def _promotion_decision(walk_forward_summary: dict[str, Any]) -> str:
         set(walk_forward_summary.get("risk_reduction_test_years", []))
     ):
         return "not_promoted_5min_risk_sleeve_risk_reduction_unstable"
-    return "not_promoted_bid_ask_latency_replay_missing"
+    return "not_promoted_bid_ask_depth_replay_missing"
 
 
 def _write_conclusion(
@@ -1700,7 +1816,7 @@ def _write_conclusion(
     text = (
         "# 中文结论\n\n"
         "- 做了什么：新增 5m 日内风控 sleeve。日线 open-to-open 模型仍按 next-open 入场；"
-        "15m LGB/XGB/consensus triple-barrier 模型提供风险分数，5m qlib bar 只用于入场后同日触发全平或半仓减仓 replay。\n"
+        "15m LGB/XGB/consensus triple-barrier 模型提供风险分数，5m qlib bar 在收盘触发后按下一根 5m 开盘做全平或半仓减仓 replay。\n"
         "- 为什么日内模型没有超过日线模型：日线模型吃的是 open-to-open/隔夜/趋势段收益；"
         "日内模型学的是 1h/2h 执行改善。把它做入场 gate 会漏掉大趋势日，所以本卡改为保留入场、只控制买入后下杀。\n"
         f"- 年度 walk-forward：2023-2026 均按 train_to_T-2 / valid_T-1 / test_T；"

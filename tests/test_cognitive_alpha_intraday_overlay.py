@@ -71,6 +71,58 @@ def test_simulate_5min_risk_sleeve_keeps_daily_entry_and_reduces_after_trigger()
     assert by_variant.loc["risk_exit_full_5m", "skipped_reason"] is None
 
 
+def test_simulate_5min_risk_sleeve_executes_on_next_5min_open_after_trigger():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "walk_forward_fold": "wf_2026",
+                "target_position": 1.0,
+                "strategy_return": 0.10,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 110.0},
+        ]
+    )
+    bars_5min = pd.DataFrame(
+        [
+            {"datetime": "2026-01-05 09:35:00", "date": "2026-01-05", "open": 100.0, "close": 99.2},
+            {"datetime": "2026-01-05 09:40:00", "date": "2026-01-05", "open": 99.1, "close": 97.4},
+            {"datetime": "2026-01-05 09:45:00", "date": "2026-01-05", "open": 97.6, "close": 98.0},
+        ]
+    )
+
+    rows = simulate_5min_risk_sleeve(
+        daily,
+        daily_prices=daily_prices,
+        bars_5min=bars_5min,
+        drawdown_threshold=-0.02,
+        cost_bps=0.0,
+        execution_delay_bars=1,
+        execution_price="open",
+    )
+
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["risk_exit_full_5m", "entry_time"] == "2026-01-05 09:35:00"
+    assert by_variant.loc["risk_exit_full_5m", "trigger_time"] == "2026-01-05 09:40:00"
+    assert by_variant.loc["risk_exit_full_5m", "exit_time"] == "2026-01-05 09:45:00"
+    assert by_variant.loc["risk_exit_full_5m", "trigger_price"] == pytest.approx(97.4)
+    assert by_variant.loc["risk_exit_full_5m", "exit_price"] == pytest.approx(97.6)
+    assert by_variant.loc["risk_exit_full_5m", "trigger_drawdown_from_entry"] == pytest.approx(-0.026)
+    assert by_variant.loc["risk_exit_full_5m", "gross_return"] == pytest.approx(-0.024)
+    assert by_variant.loc["risk_exit_full_5m", "strategy_return"] == pytest.approx(-0.024)
+    assert by_variant.loc["risk_reduce_half_5m", "strategy_return"] == pytest.approx(0.038)
+    assert by_variant.loc["risk_reduce_quarter_5m", "strategy_return"] == pytest.approx(0.069)
+    assert bool(by_variant.loc["risk_exit_full_5m", "risk_triggered"]) is True
+    assert by_variant.loc["risk_exit_full_5m", "skipped_reason"] is None
+
+
 def test_build_intraday_optimization_plan_prefers_local_fallback_when_external_history_blocked():
     plan = build_intraday_optimization_plan(
         selected_model={
