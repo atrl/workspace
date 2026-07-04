@@ -48,6 +48,12 @@ from .high_chop_ml import (
     build_high_chop_ml_frame,
     evaluate_high_chop_ml_candidates,
 )
+from .intraday_15m_factors import (
+    INTRADAY_15M_FACTOR_SOURCE,
+    INTRADAY_15M_FIELDS,
+    INTRADAY_15M_LIMITATIONS,
+    build_intraday_15m_factor_frame,
+)
 from .long_short_crisis_alpha import (
     build_long_short_crisis_alpha_frame,
     compact_long_short_crisis_alpha_summary,
@@ -95,6 +101,9 @@ __all__ = [
     "DEFAULT_HIGH_CHOP_FEATURES",
     "FactorDiagnosticsReport",
     "HIGH_CHOP_ML_SOURCE_FIELDS",
+    "INTRADAY_15M_FACTOR_SOURCE",
+    "INTRADAY_15M_FIELDS",
+    "INTRADAY_15M_LIMITATIONS",
     "QlibScoredDataset",
     "SOXX_CONSTITUENT_FACTOR_SOURCE",
     "SOXX_CONSTITUENT_LIMITATIONS",
@@ -107,6 +116,7 @@ __all__ = [
     "build_column_alpha_candidates",
     "build_factor_library_reversal_frame",
     "build_high_chop_ml_frame",
+    "build_intraday_15m_factor_frame",
     "build_long_short_crisis_alpha_frame",
     "build_macro_rate_gate_component",
     "build_macro_credit_frame",

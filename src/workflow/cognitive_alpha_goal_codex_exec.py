@@ -18,6 +18,7 @@ from src.data import (
 )
 from src.factor import (
     CognitiveAlphaCandidate,
+    build_intraday_15m_factor_frame,
     build_soxx_constituent_factor_frame,
     materialize_cognitive_alpha_features,
     run_cognitive_alpha_factor_mining,
@@ -45,7 +46,9 @@ CARD_TYPE = "diagnostic_cognitive_alpha_codex_exec_goal_chain"
 PAPER_REFERENCE = "arxiv:2511.18850"
 QLIB_DOCS = {
     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "model": "https://qlib.readthedocs.io/en/latest/component/model.html",
     "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
 }
 QLIB_NATIVE_API = [
     "qlib.init",
@@ -98,6 +101,10 @@ class CognitiveAlphaGoalCodexExecCardSpec:
     @property
     def soxx_constituent_provider_uri(self) -> Path:
         return self.root / "data" / "qlib" / "soxx_constituents"
+
+    @property
+    def intraday_15m_provider_uri(self) -> Path:
+        return self.root / "data" / "qlib" / "soxl_intraday_15min"
 
 
 def run_cognitive_alpha_goal_codex_exec_card(
@@ -237,6 +244,50 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
         "role": "model_features_not_gate",
         "limitations": constituent_factor_frame.attrs.get("limitations", []),
     }
+    intraday_15m_manifest = _ensure_intraday_15m_qlib_provider(spec.root)
+    intraday_15m_end = _intraday_15m_end_time(as_of=as_of, manifest=intraday_15m_manifest)
+    intraday_15m_factor_frame = build_intraday_15m_factor_frame(
+        QlibProviderConfig(
+            provider_uri=spec.intraday_15m_provider_uri,
+            region=str(intraday_15m_manifest["region"]),
+            market=str(intraday_15m_manifest["market"]),
+            freq="15min",
+            kernels=1,
+        ),
+        instruments=list(intraday_15m_manifest["instruments"]),
+        start=f"{spec.train[0]} 09:45:00",
+        end=intraday_15m_end,
+        lag_days=1,
+    )
+    frame, intraday_15m_feature_cols = _attach_intraday_15m_model_features(frame, intraday_15m_factor_frame)
+    intraday_15m_factor_summary = {
+        "source": intraday_15m_factor_frame.attrs.get("source", "qlib.data.D.features"),
+        "provider_uri": intraday_15m_factor_frame.attrs.get("provider_uri", spec.intraday_15m_provider_uri.as_posix()),
+        "qlib_store_manifest": (spec.intraday_15m_provider_uri / "qlib_store_manifest.json").as_posix(),
+        "calendar_end": intraday_15m_manifest.get("calendar_end"),
+        "end": intraday_15m_end,
+        "feature_cols": intraday_15m_feature_cols,
+        "feature_count": len(intraday_15m_feature_cols),
+        "freq": intraday_15m_factor_frame.attrs.get("freq", "15min"),
+        "lag_days": intraday_15m_factor_frame.attrs.get("lag_days", 1),
+        "role": "model_features_not_gate",
+        "limitations": intraday_15m_factor_frame.attrs.get("limitations", []),
+    }
+    frame, combo_feature_cols = _attach_constituent_intraday_combo_features(frame)
+    combo_factor_summary = {
+        "source": "derived_from_soxx_constituent_and_intraday_15m_model_features",
+        "feature_cols": combo_feature_cols,
+        "feature_count": len(combo_feature_cols),
+        "role": "model_features_not_gate",
+        "inputs": {
+            "constituent_factors": constituent_feature_cols,
+            "intraday_15m_factors": intraday_15m_feature_cols,
+        },
+        "limitations": [
+            "Combo factors inherit SOXX constituent survivorship bias until point-in-time holdings are available.",
+            "Combo factors are computed from already lagged daily-safe inputs and are model inputs only.",
+        ],
+    }
     init_qlib_provider(qlib_config)
 
     R.set_uri(recorder_uri.as_posix())
@@ -281,6 +332,10 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
                 soxx_constituent_provider_uri=str(constituent_factor_summary["provider_uri"]),
                 soxx_constituent_factor_count=int(constituent_factor_summary["feature_count"]),
                 soxx_constituent_lag_days=int(constituent_factor_summary["lag_days"]),
+                intraday_15m_provider_uri=str(intraday_15m_factor_summary["provider_uri"]),
+                intraday_15m_factor_count=int(intraday_15m_factor_summary["feature_count"]),
+                intraday_15m_lag_days=int(intraday_15m_factor_summary["lag_days"]),
+                constituent_intraday_combo_factor_count=int(combo_factor_summary["feature_count"]),
             )
 
             candidate_provider = build_cognitive_alpha_codex_exec_candidate_provider(
@@ -336,7 +391,13 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
                 selected_factor_names,
                 alpha158_columns,
                 model_frame,
-                extra_columns=[*direct_feature_cols, *composite_feature_cols, *constituent_feature_cols],
+                extra_columns=[
+                    *direct_feature_cols,
+                    *composite_feature_cols,
+                    *constituent_feature_cols,
+                    *intraday_15m_feature_cols,
+                    *combo_feature_cols,
+                ],
             )
             position_result = run_cognitive_alpha_position_model(
                 model_frame,
@@ -433,6 +494,7 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
             recorder.log_artifact((card / sidecars["goal_manifest"]).as_posix(), artifact_path=EXPERIMENT)
             recorder.log_artifact((card / sidecars["state"]).as_posix(), artifact_path=EXPERIMENT)
 
+        _remove_transient_code_snapshots(recorder_local_dir)
         recorder_artifacts = _recorder_files(recorder_local_dir)
         summary = _summary_payload(
             spec=spec,
@@ -446,6 +508,8 @@ def _run_card_attempt(spec: CognitiveAlphaGoalCodexExecCardSpec, *, attempts: li
             position=position_result.summary,
             direct=direct_result.summary,
             constituent_factors=constituent_factor_summary,
+            intraday_15m_factors=intraday_15m_factor_summary,
+            constituent_intraday_combo_factors=combo_factor_summary,
             goal_manifest=goal_manifest,
             research_card=research_card_result,
             sidecars=sidecars,
@@ -646,6 +710,78 @@ def _attach_soxx_constituent_model_features(
     factors = constituent_factor_frame[["datetime", *feature_cols]].copy()
     factors["datetime"] = pd.to_datetime(factors["datetime"]).dt.normalize()
     return out.merge(factors, on="datetime", how="left"), feature_cols
+
+
+def _attach_intraday_15m_model_features(
+    frame: pd.DataFrame,
+    intraday_15m_factor_frame: pd.DataFrame,
+) -> tuple[pd.DataFrame, list[str]]:
+    feature_cols = [
+        column
+        for column in list(intraday_15m_factor_frame.attrs.get("feature_cols", []))
+        if column in intraday_15m_factor_frame.columns and column != "datetime"
+    ]
+    out = frame.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    if not feature_cols:
+        return out, []
+    factors = intraday_15m_factor_frame[["datetime", *feature_cols]].copy()
+    factors["datetime"] = pd.to_datetime(factors["datetime"]).dt.normalize()
+    return out.merge(factors, on="datetime", how="left"), feature_cols
+
+
+def _attach_constituent_intraday_combo_features(frame: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
+    out = frame.copy()
+    specs = [
+        (
+            "combo_semi_breadth_thrust_15m_lag1",
+            ["intraday15m_soxx_ret_lag1", "soxx_const_breadth_ret5_pos_lag1"],
+            lambda data: _numeric_series(data, "intraday15m_soxx_ret_lag1")
+            * _numeric_series(data, "soxx_const_breadth_ret5_pos_lag1"),
+        ),
+        (
+            "combo_levered_dislocation_absorption_lag1",
+            [
+                "intraday15m_soxl_minus_3x_soxx_ret_lag1",
+                "intraday15m_soxx_realized_vol_lag1",
+                "soxx_const_downside_ret5_lt_m5_lag1",
+            ],
+            lambda data: _numeric_series(data, "intraday15m_soxl_minus_3x_soxx_ret_lag1")
+            / (_numeric_series(data, "intraday15m_soxx_realized_vol_lag1").abs() + 1e-6)
+            * (1.0 - _numeric_series(data, "soxx_const_downside_ret5_lt_m5_lag1").clip(0.0, 1.0)),
+        ),
+        (
+            "combo_top_weight_lead_confirm_15m_lag1",
+            ["intraday15m_soxx_late_ret_lag1", "soxx_const_top5_minus_rest_ret5_lag1"],
+            lambda data: _numeric_series(data, "intraday15m_soxx_late_ret_lag1")
+            * _numeric_series(data, "soxx_const_top5_minus_rest_ret5_lag1"),
+        ),
+        (
+            "combo_panic_recovery_quality_15m_lag1",
+            [
+                "intraday15m_soxx_close_location_lag1",
+                "soxx_const_breadth_ret5_pos_lag1",
+                "soxx_const_downside_ret5_lt_m5_lag1",
+            ],
+            lambda data: (_numeric_series(data, "intraday15m_soxx_close_location_lag1") - 0.5)
+            * (
+                _numeric_series(data, "soxx_const_breadth_ret5_pos_lag1")
+                - _numeric_series(data, "soxx_const_downside_ret5_lt_m5_lag1")
+            ),
+        ),
+        (
+            "combo_crowded_close_risk_15m_lag1",
+            ["intraday15m_soxx_volume_z20_lag1", "soxx_const_dispersion_ret5_lag1"],
+            lambda data: _numeric_series(data, "intraday15m_soxx_volume_z20_lag1")
+            * _numeric_series(data, "soxx_const_dispersion_ret5_lag1"),
+        ),
+    ]
+    feature_cols: list[str] = []
+    for feature_col, required_cols, builder in specs:
+        if all(column in out.columns for column in required_cols):
+            out[feature_col] = builder(out).replace([float("inf"), float("-inf")], pd.NA).fillna(0.0)
+            feature_cols.append(feature_col)
+    return out, feature_cols
 
 
 def _add_return_columns(frame: pd.DataFrame) -> None:
@@ -860,6 +996,30 @@ def _ensure_soxx_constituent_qlib_provider(root: Path, *, as_of: str) -> dict[st
         provider_uri=provider_uri,
         as_of=as_of,
     )
+
+
+def _ensure_intraday_15m_qlib_provider(root: Path) -> dict[str, Any]:
+    provider_uri = root / "data" / "qlib" / "soxl_intraday_15min"
+    manifest_path = provider_uri / "qlib_store_manifest.json"
+    manifest = _read_json_object(manifest_path)
+    if not manifest:
+        raise FileNotFoundError(f"blocked: missing 15min intraday qlib store manifest {manifest_path}")
+    if str(manifest.get("freq", "")).lower() != "15min":
+        raise ValueError(f"blocked: expected 15min intraday qlib store, got freq={manifest.get('freq')}")
+    required_fields = {"$open", "$high", "$low", "$close", "$volume", "$bar_index", "$bar_count"}
+    missing_fields = sorted(required_fields - set(manifest.get("fields", [])))
+    if missing_fields:
+        raise ValueError(f"blocked: intraday 15m qlib store missing fields {missing_fields}")
+    instruments = {str(item).upper() for item in manifest.get("instruments", [])}
+    if not {"SOXL", "SOXX"}.issubset(instruments):
+        raise ValueError("blocked: intraday 15m qlib store must include SOXL and SOXX")
+    return manifest
+
+
+def _intraday_15m_end_time(*, as_of: str, manifest: dict[str, Any]) -> str:
+    daily_end = pd.Timestamp(as_of).normalize() + pd.Timedelta(hours=16)
+    intraday_end = pd.Timestamp(str(manifest["calendar_end"]))
+    return min(daily_end, intraday_end).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def _benchmark_row_from_returns(name: str, returns: pd.Series, *, source: str) -> dict[str, Any]:
@@ -1157,6 +1317,13 @@ def _log_evolution_artifacts(recorder: Any, run_dir: Path) -> None:
         recorder.log_artifact(path.as_posix(), artifact_path=artifact_path)
 
 
+def _remove_transient_code_snapshots(recorder_dir: Path) -> None:
+    for name in ["code_cached.txt", "code_diff.txt", "code_status.txt"]:
+        path = recorder_dir / "artifacts" / name
+        if path.exists():
+            path.unlink()
+
+
 def _summary_payload(
     *,
     spec: CognitiveAlphaGoalCodexExecCardSpec,
@@ -1170,6 +1337,8 @@ def _summary_payload(
     position: dict[str, Any],
     direct: dict[str, Any],
     constituent_factors: dict[str, Any],
+    intraday_15m_factors: dict[str, Any],
+    constituent_intraday_combo_factors: dict[str, Any],
     goal_manifest: dict[str, Any],
     research_card: dict[str, Any],
     sidecars: dict[str, str],
@@ -1226,6 +1395,8 @@ def _summary_payload(
         "factor_mining": factor_mining,
         "evolution": _evolution_summary_for_card(evolution),
         "constituent_factors": constituent_factors,
+        "intraday_15m_factors": intraday_15m_factors,
+        "constituent_intraday_combo_factors": constituent_intraday_combo_factors,
         "position_model": position,
         "direct_factor_backtest": direct,
         "latest_signal": position["latest_signal"],
@@ -1327,6 +1498,15 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             f"  provider_uri: {summary['constituent_factors']['provider_uri']}",
             f"  lag_days: {summary['constituent_factors']['lag_days']}",
             "  role: model_features_not_gate",
+            "intraday_15m_factors:",
+            "  source: qlib.data.D.features",
+            f"  provider_uri: {summary['intraday_15m_factors']['provider_uri']}",
+            f"  freq: {summary['intraday_15m_factors']['freq']}",
+            f"  lag_days: {summary['intraday_15m_factors']['lag_days']}",
+            "  role: model_features_not_gate",
+            "constituent_intraday_combo_factors:",
+            f"  feature_count: {summary['constituent_intraday_combo_factors']['feature_count']}",
+            "  role: model_features_not_gate",
             "position_model:",
             "  workflow: cognitive_alpha_position_model",
             f"  return_col: {summary['return_col']}",
@@ -1392,6 +1572,11 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"- constituent_factors: provider={summary['constituent_factors']['provider_uri']}，"
         f"feature_count={summary['constituent_factors']['feature_count']}，"
         f"lag_days={summary['constituent_factors']['lag_days']}，role=model_features_not_gate。\n"
+        f"- intraday_15m_factors: provider={summary['intraday_15m_factors']['provider_uri']}，"
+        f"feature_count={summary['intraday_15m_factors']['feature_count']}，"
+        f"lag_days={summary['intraday_15m_factors']['lag_days']}，role=model_features_not_gate。\n"
+        f"- constituent_intraday_combo_factors: feature_count={summary['constituent_intraday_combo_factors']['feature_count']}，"
+        "role=model_features_not_gate。\n"
         f"- position_model: promotion={position['promotion_decision']}，"
         f"selected_return={position['comparison'].get('selected_return_pct', 0.0):.4f}%，"
         f"walk_forward_folds={position['walk_forward']['fold_count']}，"

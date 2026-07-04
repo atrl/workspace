@@ -2165,6 +2165,18 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     assert summary["research_gate"]["direct_factor_backtest_role"] == "prior_only_not_final_promotion"
     assert summary["production_paper_sim"]["status"] in {"blocked_not_promoted", "candidate_for_paper_sim"}
     assert summary["production_paper_sim"]["required_gate"] == "validated_research_position_model_or_production_paper_sim"
+    assert summary["intraday_15m_factors"]["source"] == "qlib.data.D.features"
+    assert summary["intraday_15m_factors"]["freq"] == "15min"
+    assert summary["intraday_15m_factors"]["lag_days"] == 1
+    assert summary["intraday_15m_factors"]["role"] == "model_features_not_gate"
+    assert summary["intraday_15m_factors"]["feature_count"] >= 10
+    assert "intraday15m_soxl_minus_3x_soxx_ret_lag1" in summary["intraday_15m_factors"]["feature_cols"]
+    assert summary["constituent_intraday_combo_factors"]["role"] == "model_features_not_gate"
+    assert summary["constituent_intraday_combo_factors"]["feature_count"] >= 5
+    assert "combo_semi_breadth_thrust_15m_lag1" in summary["constituent_intraday_combo_factors"]["feature_cols"]
+    feature_cols = set(summary["position_model"]["feature_cols"])
+    assert set(summary["intraday_15m_factors"]["feature_cols"]).issubset(feature_cols)
+    assert set(summary["constituent_intraday_combo_factors"]["feature_cols"]).issubset(feature_cols)
 
     assert summary["qlib_native_api"] == [
         "qlib.init",
@@ -2282,6 +2294,10 @@ def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
     assert "CognitiveAlphaGoalRunner" in notebook_text
     assert "R.start" in notebook_text
     assert "provider_builder: build_cognitive_alpha_codex_exec_candidate_provider" in workflow
+    assert "intraday_15m_factors:" in workflow
+    assert "constituent_intraday_combo_factors:" in workflow
+    assert "intraday_15m_factors:" in conclusion
+    assert "constituent_intraday_combo_factors:" in conclusion
     assert "不构成买卖建议" in conclusion
     for text in (json.dumps(summary, ensure_ascii=False), conclusion, failure_modes, notebook_text):
         assert "fixture_external_command_provider" not in text

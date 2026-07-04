@@ -17,6 +17,15 @@ constituent_factors:
   provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_constituents
   lag_days: 1
   role: model_features_not_gate
+intraday_15m_factors:
+  source: qlib.data.D.features
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+  freq: 15min
+  lag_days: 1
+  role: model_features_not_gate
+constituent_intraday_combo_factors:
+  feature_count: 5
+  role: model_features_not_gate
 position_model:
   workflow: cognitive_alpha_position_model
   return_col: open_to_open_return

@@ -7,51 +7,52 @@
   },
   "candidate_count": 2,
   "comparison": {
-    "beats_base_constrained_ref": false,
-    "beats_constrained_weight_reference": false,
+    "beats_base_constrained_ref": true,
+    "beats_constrained_weight_reference": true,
     "beats_soxl_backtest": true,
-    "beats_soxl_buyhold": false,
-    "selected_max_drawdown_pct": -74.1633680942044,
-    "selected_return_pct": 150.15114249691646,
+    "beats_soxl_buyhold": true,
+    "selected_max_drawdown_pct": -75.12422130787897,
+    "selected_return_pct": 1683.9267255703626,
     "selected_selection_eligible": false,
-    "selected_vs_base_constrained_ref_return_gap_pct": -127.96288320139183,
-    "selected_vs_constrained_weight_reference_return_gap_pct": -127.96288320139183,
-    "selected_vs_soxl_backtest_return_gap_pct": 22.094954545561507,
-    "selected_vs_soxl_buyhold_return_gap_pct": -185.26097740656053
+    "selected_vs_base_constrained_ref_return_gap_pct": 1405.8126998720543,
+    "selected_vs_constrained_weight_reference_return_gap_pct": 1405.8126998720543,
+    "selected_vs_soxl_backtest_return_gap_pct": 1555.8705376190076,
+    "selected_vs_soxl_buyhold_return_gap_pct": 1348.5146056668855
   },
   "component_cols": [
-    "vol_regime_trend_extension_reversion",
-    "g001_000_mutation_vol_regime_trend_e_89dafd5928"
+    "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e",
+    "codex_exec_quality_canary_future_leak_repaired_lag1",
+    "cycle_trend_vix_range_continuation"
   ],
   "promotion_decision": "not_promoted_no_selection_eligible",
   "selected_candidate": {
-    "avg_abs_position": 0.3222289165464173,
-    "avg_holding_days": 3.0980066445182723,
-    "beats_base_constrained_ref": false,
-    "beats_constrained_weight_reference": false,
+    "avg_abs_position": 0.40011937432294853,
+    "avg_holding_days": 4.704370179948586,
+    "beats_base_constrained_ref": true,
+    "beats_constrained_weight_reference": true,
     "benchmark_return_pct": null,
-    "candidate": "codex_exec_equal_weight_direct",
-    "component_cols": "[\"vol_regime_trend_extension_reversion\", \"g001_000_mutation_vol_regime_trend_e_89dafd5928\"]",
+    "candidate": "codex_exec_primary_factor_direct",
+    "component_cols": "[\"g001_003_mutation_cycle_trend_vix_ra_7c5732b93e\", \"codex_exec_quality_canary_future_leak_repaired_lag1\", \"cycle_trend_vix_range_continuation\"]",
     "cost_per_turnover": 0.0003,
     "days_above_100": 0,
     "days_below_0": 0,
-    "effective_component_count": 2,
-    "max_drawdown_pct": -74.1633680942044,
+    "effective_component_count": 1,
+    "max_drawdown_pct": -75.12422130787897,
     "max_position": 1.0,
     "min_position": 0.0,
-    "next_day_reversal_count": 149,
-    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.2}",
+    "next_day_reversal_count": 95,
+    "params": "{'min_position': 0.0, 'max_position': 1.0, 'rebalance_threshold': 0.3}",
     "passes_drawdown_gate": false,
     "passes_effective_component_gate": true,
     "passes_position_bounds": true,
-    "raw_target_avg_abs": 0.6827332528279162,
-    "raw_target_max": 1.8459518176880487,
-    "raw_target_min": -1.9533304511004086,
-    "return_pct": 150.15114249691646,
+    "raw_target_avg_abs": 1.0820934194399572,
+    "raw_target_max": 2.9958850916411657,
+    "raw_target_min": -2.999993259909456,
+    "return_pct": 1683.9267255703626,
     "selection_eligible": false,
-    "total_turnover": 295.91865182916956,
-    "trade_count": 603,
-    "weights": "{\"g001_000_mutation_vol_regime_trend_e_89dafd5928\": 0.5, \"vol_regime_trend_extension_reversion\": 0.5}"
+    "total_turnover": 253.38809026511606,
+    "trade_count": 390,
+    "weights": "{\"g001_003_mutation_cycle_trend_vix_ra_7c5732b93e\": 1.0}"
   },
   "selection": "return_sorted_long_only_multifactor_gate",
   "spec": {
@@ -64,8 +65,9 @@
           "rebalance_threshold": 0.2
         },
         "weights": {
-          "g001_000_mutation_vol_regime_trend_e_89dafd5928": 0.5,
-          "vol_regime_trend_extension_reversion": 0.5
+          "codex_exec_quality_canary_future_leak_repaired_lag1": 0.3333333333333333,
+          "cycle_trend_vix_range_continuation": 0.3333333333333333,
+          "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e": 0.3333333333333333
         }
       },
       {
@@ -76,13 +78,14 @@
           "rebalance_threshold": 0.3
         },
         "weights": {
-          "vol_regime_trend_extension_reversion": 1.0
+          "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e": 1.0
         }
       }
     ],
     "component_cols": [
-      "vol_regime_trend_extension_reversion",
-      "g001_000_mutation_vol_regime_trend_e_89dafd5928"
+      "g001_003_mutation_cycle_trend_vix_ra_7c5732b93e",
+      "codex_exec_quality_canary_future_leak_repaired_lag1",
+      "cycle_trend_vix_range_continuation"
     ],
     "constrained_reference_name": "base_constrained_ref",
     "cost_per_turnover": 0.0003,
