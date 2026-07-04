@@ -167,6 +167,97 @@ def write_intraday_cache(frame: pd.DataFrame, path: Path) -> None:
     frame.to_parquet(path, index=False)
 
 
+def resample_intraday_bars(
+    minute_frame: pd.DataFrame,
+    *,
+    freq: str,
+    symbols: Sequence[str] | None = None,
+    regular_session_only: bool = True,
+) -> pd.DataFrame:
+    required = {"symbol", "timestamp", "date", "session", "open", "high", "low", "close", "volume"}
+    missing = sorted(required - set(minute_frame.columns))
+    if missing:
+        raise ValueError(f"intraday minute frame missing columns: {missing}")
+
+    frame = minute_frame.copy()
+    frame["timestamp"] = _as_new_york_timestamp(frame["timestamp"])
+    frame["date"] = pd.to_datetime(frame["date"]).dt.date.astype(str)
+    frame["symbol"] = frame["symbol"].astype(str).str.upper()
+    if symbols is not None:
+        wanted = {symbol.upper() for symbol in symbols}
+        frame = frame.loc[frame["symbol"].isin(wanted)].copy()
+    if regular_session_only:
+        frame = frame.loc[frame["session"].astype(str).str.lower() == "regular"].copy()
+    frame = frame.dropna(subset=["timestamp", "open", "high", "low", "close", "volume"])
+    if frame.empty:
+        return pd.DataFrame(
+            columns=[
+                "instrument",
+                "datetime",
+                "date",
+                "symbol",
+                "interval",
+                "open",
+                "high",
+                "low",
+                "close",
+                "volume",
+                "turnover",
+                "bar_index",
+                "bar_count",
+            ]
+        )
+
+    rows: list[pd.DataFrame] = []
+    aggregations = {
+        "open": "first",
+        "high": "max",
+        "low": "min",
+        "close": "last",
+        "volume": "sum",
+    }
+    if "turnover" in frame.columns:
+        aggregations["turnover"] = "sum"
+    for (symbol, session_date), bars in frame.sort_values("timestamp").groupby(["symbol", "date"], sort=True):
+        resampled = (
+            bars.set_index("timestamp")
+            .resample(freq, label="right", closed="right", origin="start_day")
+            .agg(aggregations)
+            .dropna(subset=["open", "high", "low", "close"])
+        )
+        if resampled.empty:
+            continue
+        if "turnover" not in resampled.columns:
+            resampled["turnover"] = np.nan
+        resampled = resampled.reset_index().rename(columns={"timestamp": "datetime"})
+        resampled["instrument"] = symbol
+        resampled["symbol"] = symbol
+        resampled["date"] = session_date
+        resampled["interval"] = freq
+        resampled["bar_index"] = np.arange(len(resampled), dtype=int)
+        resampled["bar_count"] = len(resampled)
+        rows.append(resampled)
+    if not rows:
+        return pd.DataFrame()
+    result = pd.concat(rows, ignore_index=True)
+    columns = [
+        "instrument",
+        "datetime",
+        "date",
+        "symbol",
+        "interval",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "turnover",
+        "bar_index",
+        "bar_count",
+    ]
+    return result[columns].sort_values(["instrument", "datetime"]).reset_index(drop=True)
+
+
 def _safe_ratio(numerator: float, denominator: float, default: float = np.nan) -> float:
     if denominator == 0 or pd.isna(denominator):
         return default

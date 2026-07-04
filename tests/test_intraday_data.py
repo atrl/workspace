@@ -55,6 +55,24 @@ def test_intraday_merge_replaces_overlap_by_symbol_timestamp():
     assert len(merged) == len(existing) + len(_minute_rows("2026-07-02", base=120.0))
 
 
+def test_resample_intraday_bars_returns_qlib_ready_frequency_rows():
+    from src.data.intraday import resample_intraday_bars
+
+    minute_frame = pd.DataFrame(_minute_rows("2026-07-02", base=100.0))
+
+    bars = resample_intraday_bars(minute_frame, freq="5min", symbols=["SOXL"])
+
+    first = bars.iloc[0]
+    assert first["instrument"] == "SOXL"
+    assert first["interval"] == "5min"
+    assert first["datetime"] == pd.Timestamp("2026-07-02 09:35", tz="America/New_York")
+    assert first["open"] == pytest.approx(100.0)
+    assert first["close"] == pytest.approx(102.0)
+    assert first["bar_index"] == 0
+    assert first["bar_count"] == len(bars)
+    assert {"open", "high", "low", "close", "volume", "turnover"}.issubset(bars.columns)
+
+
 def test_build_t1_intraday_features_aligns_to_next_qlib_calendar_day():
     from src.data.intraday import build_t1_intraday_feature_frame
 

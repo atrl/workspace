@@ -1,0 +1,12 @@
+{
+  "freq": "15min",
+  "model": "xgb",
+  "selection_metric": "valid_net_return_pct + 5*valid_daily_sharpe + 0.5*valid_max_drawdown_pct",
+  "selection_segment": "valid",
+  "test_ic": 0.0032409104141955867,
+  "test_max_drawdown_pct": -7.314026355743408,
+  "test_net_return_pct": 20.412731170654297,
+  "threshold": 0.5242983669042587,
+  "valid_max_drawdown_pct": -15.537637710571289,
+  "valid_net_return_pct": 42.24726104736328
+}

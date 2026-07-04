@@ -1,0 +1,21 @@
+experiment: agentic_alpha_intraday_5m15m_lgb_xgb_v1
+qlib:
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_5m15m_lgb_xgb_v1/qlib_recorder
+  market: all
+  region: us
+providers:
+  15min:
+    provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+  5min:
+    provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_5min
+segments:
+  train: 2019-01-02 to 2024-12-31
+  valid: 2025-01-02 to 2025-12-31
+  test: 2026-01-02 to 2026-07-02
+model_selection:
+  models: [lgb, xgb, lgb_xgb_consensus]
+  threshold_segment: valid
+  cost_bps: 5.0
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

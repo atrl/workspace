@@ -417,6 +417,94 @@ def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate(
     assert "未找到同时满足" in conclusion
 
 
+def test_agentic_alpha_intraday_5m15m_lgb_xgb_card_records_minute_qlib_research():
+    card = ROOT / "research" / "agentic_alpha_intraday_5m15m_lgb_xgb_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_intraday_5m15m_lgb_xgb_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_intraday_5m15m_lgb_xgb_v1"
+    assert summary["card_type"] == "diagnostic_search"
+    assert summary["promotion_decision"] == "not_promoted_intraday_stability_not_proven"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["model_selection"]["source"] == "qlib_dataset"
+    assert summary["model_selection"]["candidate_count"] == 6
+    assert set(summary["model_selection"]["models"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert summary["selected_model"]["freq"] in {"5min", "15min"}
+    assert summary["selected_model"]["model"] in {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert summary["purged_split"]["purge_bars"] == 1
+    assert summary["purged_split"]["label_policy"] == "same_session_next_bar_open_to_close"
+    assert {
+        "qlib.init",
+        "qlib.data.D.features",
+        "DatasetH",
+        "DataHandlerLP",
+        "QlibDataLoader",
+        "qlib.workflow.R.start",
+        "LGBMClassifier",
+        "XGBClassifier",
+    }.issubset(set(summary["qlib_native_api"]))
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "predictions": "artifacts/pred.pkl",
+        "labels": "artifacts/label.pkl",
+        "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "backtest_walk_forward_metrics",
+        "cost_sensitivity",
+        "failure_modes",
+        "feature_importance",
+        "model_selection",
+        "monthly_stability",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    for freq, expected_start in {"5min": "2018-12-31 09:35:00", "15min": "2018-12-31 09:45:00"}.items():
+        provider_uri = (ROOT / "data" / "qlib" / f"soxl_intraday_{freq}").resolve()
+        manifest = json.loads((provider_uri / "qlib_store_manifest.json").read_text(encoding="utf-8"))
+        assert Path(summary["provider_uris"][freq]) == provider_uri
+        assert summary["provider_audit"][freq]["provider_uri"] == provider_uri.as_posix()
+        assert summary["provider_audit"][freq]["calendar_start"] == expected_start
+        assert summary["provider_audit"][freq]["calendar_end"] == "2026-07-02 16:00:00"
+        assert summary["provider_audit"][freq]["purged_split"]["same_session_last_bar_rows_dropped"] == 1885
+        assert manifest["freq"] == freq
+        assert manifest["status"] == "ok"
+        assert set(manifest["instruments"]) == {"SOXL", "SOXX"}
+        assert manifest["calendar_end"] == "2026-07-02 16:00:00"
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "pred.pkl").exists()
+    assert (recorder_dir / "artifacts" / "label.pkl").exists()
+    assert (recorder_dir / "artifacts" / "model_selection" / "all_model_predictions.csv").exists()
+
+    model_selection = pd.read_csv(card / summary["sidecars"]["model_selection"])
+    assert set(model_selection["freq"]) == {"5min", "15min"}
+    assert set(model_selection["model"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    cost_sensitivity = pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])
+    assert {0.0, 5.0, 10.0, 20.0}.issubset(set(cost_sensitivity["cost_bps"]))
+    monthly = pd.read_csv(card / summary["sidecars"]["monthly_stability"])
+    assert {"2026-01", "2026-06"}.issubset(set(monthly["month"]))
+    walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
+    assert set(walk_forward["fold"]) == {"wf_2024", "wf_2025", "wf_2026"}
+    assert set(walk_forward["freq"]) == {"5min", "15min"}
+
+    assert summary["recorder_id"] in notebook_text
+    assert "run_intraday_bar_model_card" in notebook_text
+    assert "DatasetH" in notebook_text
+    assert "R.start" in notebook_text
+    assert "不晋升" in conclusion
+
+
 def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
     card = ROOT / "research" / "agentic_alpha_high_chop_execution_validation_v1"
     summary = _summary(card)

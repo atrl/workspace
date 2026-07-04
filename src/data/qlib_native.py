@@ -42,6 +42,44 @@ def _require_provider(config: QlibProviderConfig) -> Path:
     return provider_uri
 
 
+def _is_day_freq(freq: str) -> bool:
+    return freq.lower() == "day"
+
+
+def _as_naive_timestamp(value: Any) -> pd.Timestamp:
+    timestamp = pd.Timestamp(value)
+    if timestamp.tzinfo is not None:
+        return timestamp.tz_localize(None)
+    return timestamp
+
+
+def _coerce_qlib_datetime(series: pd.Series, *, freq: str) -> pd.Series:
+    if isinstance(series.dtype, pd.DatetimeTZDtype):
+        result = series.dt.tz_localize(None)
+    else:
+        converted = pd.to_datetime(series, errors="raise")
+        if isinstance(converted.dtype, pd.DatetimeTZDtype):
+            result = converted.dt.tz_localize(None)
+        elif converted.dtype == object:
+            result = converted.map(_as_naive_timestamp)
+        else:
+            result = converted
+    if _is_day_freq(freq):
+        return result.dt.normalize()
+    return result
+
+
+def _format_qlib_datetime(value: Any, *, freq: str) -> str:
+    timestamp = _as_naive_timestamp(value)
+    if _is_day_freq(freq):
+        return timestamp.date().isoformat()
+    return timestamp.strftime("%Y-%m-%d %H:%M:%S")
+
+
+def _max_date_exceeds_as_of(value: Any, *, as_of: str) -> bool:
+    return pd.Timestamp(value).date() > pd.Timestamp(as_of).date()
+
+
 def init_qlib_provider(config: QlibProviderConfig) -> dict[str, Any]:
     provider_uri = _require_provider(config)
 
@@ -59,8 +97,8 @@ def init_qlib_provider(config: QlibProviderConfig) -> dict[str, Any]:
         "market": config.market,
         "freq": config.freq,
         "kernels": int(config.kernels),
-        "calendar_start": pd.Timestamp(calendar[0]).date().isoformat(),
-        "calendar_end": pd.Timestamp(calendar[-1]).date().isoformat(),
+        "calendar_start": _format_qlib_datetime(calendar[0], freq=config.freq),
+        "calendar_end": _format_qlib_datetime(calendar[-1], freq=config.freq),
         "instruments": instruments,
         "qlib_api": ["qlib.init", "qlib.data.D.calendar", "qlib.data.D.instruments"],
     }
@@ -115,7 +153,7 @@ def audit_qlib_provider(
         ]
         if missing:
             missing_features[instrument] = missing
-    max_datetime = normalized["datetime"].max().date().isoformat()
+    max_datetime = _format_qlib_datetime(normalized["datetime"].max(), freq=config.freq)
     snapshot_payload = {
         "provider_uri": provider_meta["provider_uri"],
         "market": config.market,
@@ -150,7 +188,7 @@ def audit_qlib_provider(
 
 
 def write_snapshot_manifest(audit: dict[str, Any], output_dir: Path, *, as_of: str) -> Path:
-    if audit["max_datetime"] > as_of:
+    if _max_date_exceeds_as_of(audit["max_datetime"], as_of=as_of):
         raise QlibUnavailableError(
             f"blocked: qlib unavailable: snapshot max_datetime {audit['max_datetime']} exceeds as_of {as_of}"
         )
@@ -177,7 +215,7 @@ def write_snapshot_manifest(audit: dict[str, Any], output_dir: Path, *, as_of: s
 
 
 def build_data_update_manifest(audit: dict[str, Any], *, as_of: str) -> dict[str, Any]:
-    if audit["max_datetime"] > as_of:
+    if _max_date_exceeds_as_of(audit["max_datetime"], as_of=as_of):
         raise QlibUnavailableError(
             f"blocked: qlib unavailable: update max_datetime {audit['max_datetime']} exceeds as_of {as_of}"
         )
@@ -294,21 +332,22 @@ def build_qlib_store_from_frame(
     )
     normalized = frame.copy()
     normalized[instrument_col] = normalized[instrument_col].astype(str).str.upper()
-    normalized[datetime_col] = pd.to_datetime(normalized[datetime_col]).dt.normalize()
+    normalized[datetime_col] = _coerce_qlib_datetime(normalized[datetime_col], freq=freq)
     if normalized.duplicated([instrument_col, datetime_col]).any():
         raise QlibUnavailableError("blocked: qlib unavailable: duplicate instrument/datetime raw rows")
-    max_datetime = normalized[datetime_col].max().date().isoformat()
-    if max_datetime > as_of:
+    max_timestamp = normalized[datetime_col].max()
+    max_datetime = _format_qlib_datetime(max_timestamp, freq=freq)
+    if _max_date_exceeds_as_of(max_timestamp, as_of=as_of):
         raise QlibUnavailableError(
             f"blocked: qlib unavailable: raw max_datetime {max_datetime} exceeds as_of {as_of}"
         )
 
     provider_uri = Path(provider_uri).resolve()
-    calendar = sorted(normalized[datetime_col].dt.date.astype(str).unique().tolist())
+    calendar = sorted(_format_qlib_datetime(value, freq=freq) for value in normalized[datetime_col].unique())
     instrument_ranges = {
         instrument: (
-            instrument_frame[datetime_col].min().date().isoformat(),
-            instrument_frame[datetime_col].max().date().isoformat(),
+            _format_qlib_datetime(instrument_frame[datetime_col].min(), freq=freq),
+            _format_qlib_datetime(instrument_frame[datetime_col].max(), freq=freq),
         )
         for instrument, instrument_frame in normalized.groupby(instrument_col)
     }
@@ -361,6 +400,7 @@ def build_qlib_store_from_frame(
         "fields": qlib_fields,
         "calendar_start": calendar[0],
         "calendar_end": calendar[-1],
+        "max_datetime": max_datetime,
         "row_count": int(len(normalized)),
         "feature_file_count": feature_file_count,
         "audit_snapshot_hash": audit["snapshot_hash"],

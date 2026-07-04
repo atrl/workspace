@@ -18,6 +18,7 @@ from .intraday import (
     merge_intraday_bars,
     normalize_futu_intraday_frame,
     read_intraday_cache,
+    resample_intraday_bars,
     write_intraday_cache,
 )
 from .soxx_constituents import (
@@ -48,6 +49,7 @@ __all__ = [
     "merge_intraday_bars",
     "normalize_futu_intraday_frame",
     "read_intraday_cache",
+    "resample_intraday_bars",
     "write_intraday_cache",
     "SoxxConstituentPaths",
     "SoxxHoldingsSnapshot",
