@@ -29,6 +29,28 @@
     "intraday_rows": 9714,
     "intraday_start": "2025-01-02 09:45:00"
   },
+  "execution_risk_diagnostics": {
+    "baseline_test_crash_periods": 4,
+    "baseline_test_open_buy_dump_periods": 8,
+    "baseline_test_worst_entry_day_return_pct": -10.170612199007401,
+    "baseline_test_worst_strategy_return_pct": -15.457540365994522,
+    "best_open_buy_dump_periods": 4,
+    "best_open_buy_dump_variant": "overlay_a_signal_gate",
+    "best_open_buy_dump_worst_entry_day_return_pct": -8.097880704099957,
+    "crash_threshold_pct": -8.0,
+    "open_buy_dump_threshold_pct": -3.0,
+    "selected_test_crash_period_reduction": 2,
+    "selected_test_crash_periods": 2,
+    "selected_test_crash_rate": 0.01680672268907563,
+    "selected_test_open_buy_dump_period_reduction": 4,
+    "selected_test_open_buy_dump_periods": 4,
+    "selected_test_open_buy_dump_rate": 0.03361344537815126,
+    "selected_test_worst_entry_day_return_pct": -8.097880704099957,
+    "selected_test_worst_strategy_return_pct": -11.799737467453985,
+    "selected_variant": "overlay_a_signal_gate",
+    "selection_cost_bps": 20.0
+  },
+  "execution_risk_diagnostics_rows": 24,
   "model_comparison_rows": 8,
   "selected_model": {
     "report_segment": "test",

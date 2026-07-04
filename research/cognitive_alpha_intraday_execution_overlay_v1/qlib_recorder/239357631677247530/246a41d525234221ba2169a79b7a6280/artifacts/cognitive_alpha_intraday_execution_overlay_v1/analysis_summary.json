@@ -1,0 +1,114 @@
+{
+  "as_of": "2026-07-02",
+  "daily_position_source_audit": [
+    {
+      "artifact_name": "walk_forward_positions.csv",
+      "artifact_path": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/a4c54bcd3bdd4eb39b413e2bbfa8618d/artifacts/cognitive_alpha_position/walk_forward_positions.csv",
+      "blocking_reason": "ok",
+      "card": "research/cognitive_alpha_goal_codex_exec_v1",
+      "missing_required_position_years": "",
+      "recorder_id": "a4c54bcd3bdd4eb39b413e2bbfa8618d",
+      "required_position_years": "2022,2023,2024,2025,2026",
+      "rows": 1879,
+      "satisfies_required_annual_walk_forward": true,
+      "selected_end": "2026-07-02",
+      "selected_rows": 1879,
+      "selected_start": "2022-01-03",
+      "selected_years": "2022,2023,2024,2025,2026"
+    }
+  ],
+  "data_audit": {
+    "daily_price_end": "2026-07-02",
+    "daily_price_rows": 1128,
+    "daily_price_start": "2022-01-03",
+    "daily_selected_position_end": "2026-07-02",
+    "daily_selected_position_rows": 374,
+    "daily_selected_position_start": "2025-01-02",
+    "intraday_end": "2026-07-02 16:00:00",
+    "intraday_prediction_rows": 24061,
+    "intraday_rows": 48310,
+    "intraday_start": "2019-01-31 09:45:00"
+  },
+  "execution_risk_diagnostics": {
+    "baseline_test_crash_periods": 4,
+    "baseline_test_open_buy_dump_periods": 8,
+    "baseline_test_worst_entry_day_return_pct": -10.170612199007401,
+    "baseline_test_worst_strategy_return_pct": -15.457540365994522,
+    "best_open_buy_dump_periods": 0,
+    "best_open_buy_dump_variant": "overlay_a_signal_gate",
+    "best_open_buy_dump_worst_entry_day_return_pct": -1.6781860732842269,
+    "crash_threshold_pct": -8.0,
+    "open_buy_dump_threshold_pct": -3.0,
+    "selected_test_crash_period_reduction": 0,
+    "selected_test_crash_periods": 4,
+    "selected_test_crash_rate": 0.03361344537815126,
+    "selected_test_open_buy_dump_period_reduction": 0,
+    "selected_test_open_buy_dump_periods": 8,
+    "selected_test_open_buy_dump_rate": 0.06722689075630252,
+    "selected_test_worst_entry_day_return_pct": -10.170612199007401,
+    "selected_test_worst_strategy_return_pct": -15.457540365994522,
+    "selected_variant": "baseline_next_open",
+    "selection_cost_bps": 20.0
+  },
+  "execution_risk_diagnostics_rows": 24,
+  "model_comparison_rows": 8,
+  "selected_model": {
+    "report_segment": "test",
+    "risk_threshold": 0.4069250263853126,
+    "selection_cost_bps": 20.0,
+    "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
+    "selection_score": 100.55834175199298,
+    "selection_segment": "validation",
+    "selection_uses_test_segment": false,
+    "signal_threshold": 0.45848443370274555,
+    "test_drawdown_improvement_pct": 0.0,
+    "test_max_drawdown_pct": -18.37863266325662,
+    "test_return_retention_pct": 100.0,
+    "test_total_return_pct": 353.8198863390175,
+    "validation_drawdown_improvement_pct": 0.0,
+    "validation_max_drawdown_pct": -18.141498968016545,
+    "validation_passes_target": false,
+    "validation_return_retention_pct": 100.0,
+    "validation_total_return_pct": 129.7136087033612,
+    "variant": "baseline_next_open"
+  },
+  "selection_uses_test_segment": false,
+  "source": "daily_open2open_position_model_plus_15m_execution_overlay",
+  "source_daily_model": {
+    "execution_timing": "close_t_signal_next_open_to_following_open",
+    "feature_count": 84,
+    "has_intraday_t1_features": true,
+    "has_soxx_constituent_features": true,
+    "recorder_id": "a4c54bcd3bdd4eb39b413e2bbfa8618d"
+  },
+  "source_intraday_model": {
+    "external_context": null,
+    "label_policy": null,
+    "recorder_id": "19df951d1fa544e3ba64217a6c3d866e",
+    "selected_model": "lgb_xgb_consensus",
+    "trade_gate": {
+      "column": "regime_gate_v2_dislocation",
+      "dislocation_threshold": 0.0012,
+      "eligible_on_selected_test": 94,
+      "lookback_only": true,
+      "name": "regime_v2_dislocation",
+      "rules": [
+        "exclude first and last intraday bars",
+        "require SOXL-vs-3x-SOXX same-bar replication dislocation above 12bp",
+        "keep the signal as next 15min open-to-close intraday execution, not open-to-open"
+      ]
+    }
+  },
+  "threshold_selection_rows": 0,
+  "thresholds": {
+    "gate_col": "regime_gate_v2_dislocation",
+    "gate_policy": "source_trade_gate",
+    "risk_threshold": 0.4069250263853126,
+    "risk_threshold_source": "validation_gated_probability_quantile_20pct_or_user_override",
+    "signal_prob_col": "prob_lgb_xgb_consensus",
+    "signal_threshold": 0.45848443370274555,
+    "signal_threshold_source": "source_intraday_selected_model_valid_threshold",
+    "threshold_search_enabled": false
+  },
+  "walk_forward_rows": 4
+}

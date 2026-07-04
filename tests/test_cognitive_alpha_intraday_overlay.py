@@ -10,6 +10,7 @@ from src.workflow.cognitive_alpha_intraday_overlay import (
     evaluate_observable_delayed_signal_candidates,
     select_intraday_flat_sleeve_policy,
     select_validation_robust_delayed_policy,
+    summarize_execution_risk_diagnostics,
     simulate_observable_delayed_signal_overlay,
     simulate_execution_overlays,
 )
@@ -203,6 +204,79 @@ def test_simulate_execution_overlays_keeps_no_signal_separate_from_missing_predi
     by_variant = rows.set_index("variant")
     assert by_variant.loc["overlay_a_signal_gate", "skipped_reason"] == "no_15m_entry_signal"
     assert pd.isna(by_variant.loc["overlay_c_risk_exit", "skipped_reason"])
+
+
+def test_summarize_execution_risk_diagnostics_quantifies_open_buy_dump_reduction():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "target_position": 1.0,
+                "strategy_return": 0.05,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 105.0},
+        ]
+    )
+    intraday = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05 09:45:00",
+                "date": "2026-01-05",
+                "open": 100.0,
+                "close": 95.0,
+                "prob_lgb_xgb_consensus": 0.65,
+                "regime_gate_v2_dislocation": True,
+            },
+            {
+                "datetime": "2026-01-05 10:00:00",
+                "date": "2026-01-05",
+                "open": 96.0,
+                "close": 96.0,
+                "prob_lgb_xgb_consensus": 0.62,
+                "regime_gate_v2_dislocation": True,
+            },
+            {
+                "datetime": "2026-01-05 10:15:00",
+                "date": "2026-01-05",
+                "open": 96.0,
+                "close": 96.0,
+                "prob_lgb_xgb_consensus": 0.61,
+                "regime_gate_v2_dislocation": True,
+            },
+            {
+                "datetime": "2026-01-05 10:30:00",
+                "date": "2026-01-05",
+                "open": 96.0,
+                "close": 96.0,
+                "prob_lgb_xgb_consensus": 0.60,
+                "regime_gate_v2_dislocation": True,
+            },
+        ]
+    )
+
+    rows = simulate_execution_overlays(
+        daily,
+        daily_prices=daily_prices,
+        intraday=intraday,
+        signal_threshold=0.55,
+        risk_threshold=0.45,
+        cost_bps=0.0,
+    ).assign(cost_bps=0.0)
+    diagnostics = summarize_execution_risk_diagnostics(rows, open_buy_dump_threshold=-0.03)
+
+    by_variant = diagnostics.set_index("variant")
+    assert by_variant.loc["baseline_next_open", "open_buy_dump_periods"] == 1
+    assert by_variant.loc["overlay_a_signal_gate", "open_buy_dump_periods"] == 0
+    assert by_variant.loc["overlay_a_signal_gate", "open_buy_dump_period_reduction"] == 1
+    assert by_variant.loc["baseline_next_open", "worst_entry_day_return_pct"] == pytest.approx(-4.0)
+    assert by_variant.loc["overlay_a_signal_gate", "worst_entry_day_return_pct"] == pytest.approx(0.0)
 
 
 def test_evaluate_conditional_overlay_candidates_uses_validation_quantiles_only():

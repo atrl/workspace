@@ -663,6 +663,7 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
         "backtest_walk_forward_metrics",
         "cost_sensitivity",
         "daily_position_source_audit",
+        "execution_risk_diagnostics",
         "failure_modes",
         "model_comparison",
         "selected_model",
@@ -676,6 +677,14 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert {"validation", "test"}.issubset(set(model_comparison["segment"]))
     cost_sensitivity = pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])
     assert {10.0, 20.0, 50.0}.issubset(set(cost_sensitivity["cost_bps"]))
+    risk_diagnostics = pd.read_csv(card / summary["sidecars"]["execution_risk_diagnostics"])
+    assert set(risk_diagnostics["variant"]) == set(summary["execution_overlay"]["variants"])
+    assert {"validation", "test"}.issubset(set(risk_diagnostics["segment"]))
+    assert "open_buy_dump_periods" in risk_diagnostics.columns
+    assert "crash_periods" in risk_diagnostics.columns
+    assert summary["execution_risk_diagnostics"]["open_buy_dump_threshold_pct"] == -3.0
+    assert summary["execution_risk_diagnostics"]["crash_threshold_pct"] == -8.0
+    assert summary["execution_risk_diagnostics"]["selection_cost_bps"] == 20.0
     walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
     assert set(walk_forward["fold"]) == {"wf_2023", "wf_2024", "wf_2025", "wf_2026"}
     assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
@@ -749,6 +758,7 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
         "backtest_walk_forward_metrics",
         "cost_sensitivity",
         "daily_position_source_audit",
+        "execution_risk_diagnostics",
         "failure_modes",
         "model_comparison",
         "selected_model",
@@ -766,6 +776,10 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert "overlay_a_signal_gate" in set(threshold_selection["variant"])
     assert threshold_selection["passes_target"].any()
     assert {10.0, 20.0, 50.0}.issubset(set(pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])["cost_bps"]))
+    risk_diagnostics = pd.read_csv(card / summary["sidecars"]["execution_risk_diagnostics"])
+    assert set(risk_diagnostics["variant"]) == set(summary["execution_overlay"]["variants"])
+    assert summary["execution_risk_diagnostics"]["open_buy_dump_threshold_pct"] == -3.0
+    assert summary["execution_risk_diagnostics"]["crash_threshold_pct"] == -8.0
     walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
     blocked = walk_forward.loc[walk_forward["status"].eq("infeasible")]
     assert set(blocked["test_year"]) == {2023, 2024, 2025}

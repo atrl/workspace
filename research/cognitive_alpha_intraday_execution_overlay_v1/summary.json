@@ -5,6 +5,7 @@
       "backtest_walk_forward_metrics.csv",
       "cost_sensitivity.csv",
       "daily_position_source_audit.csv",
+      "execution_risk_diagnostics.csv",
       "failure_modes.md",
       "model_comparison.csv",
       "selected_model.json"
@@ -58,6 +59,27 @@
       "overlay_c_risk_exit"
     ]
   },
+  "execution_risk_diagnostics": {
+    "baseline_test_crash_periods": 4,
+    "baseline_test_open_buy_dump_periods": 8,
+    "baseline_test_worst_entry_day_return_pct": -10.170612199007401,
+    "baseline_test_worst_strategy_return_pct": -15.457540365994522,
+    "best_open_buy_dump_periods": 0,
+    "best_open_buy_dump_variant": "overlay_a_signal_gate",
+    "best_open_buy_dump_worst_entry_day_return_pct": -1.6781860732842269,
+    "crash_threshold_pct": -8.0,
+    "open_buy_dump_threshold_pct": -3.0,
+    "selected_test_crash_period_reduction": 0,
+    "selected_test_crash_periods": 4,
+    "selected_test_crash_rate": 0.03361344537815126,
+    "selected_test_open_buy_dump_period_reduction": 0,
+    "selected_test_open_buy_dump_periods": 8,
+    "selected_test_open_buy_dump_rate": 0.06722689075630252,
+    "selected_test_worst_entry_day_return_pct": -10.170612199007401,
+    "selected_test_worst_strategy_return_pct": -15.457540365994522,
+    "selected_variant": "baseline_next_open",
+    "selection_cost_bps": 20.0
+  },
   "experiment": "cognitive_alpha_intraday_execution_overlay_v1",
   "market": "all",
   "model_selection": {
@@ -101,6 +123,7 @@
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/backtest_walk_forward_metrics.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/cost_sensitivity.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/daily_position_source_audit.csv",
+    "artifacts/cognitive_alpha_intraday_execution_overlay_v1/execution_risk_diagnostics.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/failure_modes.md",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/model_comparison.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/selected_model.json",
@@ -110,7 +133,9 @@
     "artifacts/execution_overlay/overlay_trades.csv",
     "artifacts/execution_overlay/walk_forward_overlay_trades.csv",
     "meta.yaml",
+    "metrics/selected_test_crash_periods",
     "metrics/selected_test_max_drawdown_pct",
+    "metrics/selected_test_open_buy_dump_periods",
     "metrics/selected_test_retention_pct",
     "metrics/selected_test_return_pct",
     "metrics/selected_validation_max_drawdown_pct",
@@ -130,8 +155,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "4a32ea0d0ada462c86318538338f860e",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/4a32ea0d0ada462c86318538338f860e",
+  "recorder_id": "246a41d525234221ba2169a79b7a6280",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/246a41d525234221ba2169a79b7a6280",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {
@@ -159,6 +184,7 @@
     "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
     "cost_sensitivity": "cost_sensitivity.csv",
     "daily_position_source_audit": "daily_position_source_audit.csv",
+    "execution_risk_diagnostics": "execution_risk_diagnostics.csv",
     "failure_modes": "failure_modes.md",
     "model_comparison": "model_comparison.csv",
     "selected_model": "selected_model.json"

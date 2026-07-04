@@ -48,6 +48,8 @@ QLIB_NATIVE_API = [
 REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS = (2023, 2024, 2025, 2026)
 REQUIRED_WALK_FORWARD_START = "2019-01-02"
 REGIME_REQUIRED_COST_BPS = (20.0, 50.0)
+OPEN_BUY_DUMP_THRESHOLD = -0.03
+CRASH_THRESHOLD = -0.08
 
 
 @dataclass(frozen=True)
@@ -444,6 +446,82 @@ def summarize_overlay_metrics(trades: pd.DataFrame) -> pd.DataFrame:
         - 0.10 * metrics["skipped_periods"].fillna(0.0)
     )
     return metrics.sort_values(["cost_bps", "segment", "selection_score"], ascending=[True, True, False]).reset_index(drop=True)
+
+
+def summarize_execution_risk_diagnostics(
+    trades: pd.DataFrame,
+    *,
+    open_buy_dump_threshold: float = OPEN_BUY_DUMP_THRESHOLD,
+    crash_threshold: float = CRASH_THRESHOLD,
+) -> pd.DataFrame:
+    rows: list[dict[str, Any]] = []
+    if trades.empty:
+        return pd.DataFrame(rows)
+    frame = trades.copy()
+    if "entry_day_strategy_return" not in frame.columns:
+        frame["entry_day_strategy_return"] = np.nan
+    grouped = frame.groupby(["cost_bps", "segment", "variant"], sort=True)
+    for (cost_bps, segment, variant), group in grouped:
+        active = pd.to_numeric(group["target_position"], errors="coerce").abs().gt(1e-9)
+        strategy_returns = pd.to_numeric(group["strategy_return"], errors="coerce").fillna(0.0)
+        entry_day_returns = pd.to_numeric(group["entry_day_strategy_return"], errors="coerce")
+        entry_day_available = active & entry_day_returns.notna()
+        open_buy_dump = entry_day_available & entry_day_returns.le(float(open_buy_dump_threshold))
+        crash = active & strategy_returns.le(float(crash_threshold))
+        rows.append(
+            {
+                "cost_bps": float(cost_bps),
+                "segment": str(segment),
+                "variant": str(variant),
+                "periods": int(len(group)),
+                "active_periods": int(active.sum()),
+                "entry_day_available_periods": int(entry_day_available.sum()),
+                "open_buy_dump_threshold_pct": float(open_buy_dump_threshold) * 100.0,
+                "open_buy_dump_periods": int(open_buy_dump.sum()),
+                "open_buy_dump_rate": float(open_buy_dump.sum() / active.sum()) if active.sum() else 0.0,
+                "open_buy_dump_loss_sum_pct": float(entry_day_returns.loc[open_buy_dump].sum() * 100.0),
+                "crash_threshold_pct": float(crash_threshold) * 100.0,
+                "crash_periods": int(crash.sum()),
+                "crash_rate": float(crash.sum() / active.sum()) if active.sum() else 0.0,
+                "worst_strategy_return_pct": float(strategy_returns.loc[active].min() * 100.0) if active.any() else 0.0,
+                "worst_entry_day_return_pct": float(entry_day_returns.loc[entry_day_available].min() * 100.0)
+                if entry_day_available.any()
+                else 0.0,
+            }
+        )
+    diagnostics = pd.DataFrame(rows)
+    if diagnostics.empty:
+        return diagnostics
+    baseline = diagnostics.loc[
+        diagnostics["variant"].eq("baseline_next_open"),
+        [
+            "cost_bps",
+            "segment",
+            "open_buy_dump_periods",
+            "crash_periods",
+            "worst_strategy_return_pct",
+            "worst_entry_day_return_pct",
+        ],
+    ].rename(
+        columns={
+            "open_buy_dump_periods": "baseline_open_buy_dump_periods",
+            "crash_periods": "baseline_crash_periods",
+            "worst_strategy_return_pct": "baseline_worst_strategy_return_pct",
+            "worst_entry_day_return_pct": "baseline_worst_entry_day_return_pct",
+        }
+    )
+    diagnostics = diagnostics.merge(baseline, on=["cost_bps", "segment"], how="left")
+    diagnostics["open_buy_dump_period_reduction"] = (
+        diagnostics["baseline_open_buy_dump_periods"].fillna(0) - diagnostics["open_buy_dump_periods"]
+    )
+    diagnostics["crash_period_reduction"] = diagnostics["baseline_crash_periods"].fillna(0) - diagnostics["crash_periods"]
+    diagnostics["worst_strategy_return_improvement_pct"] = (
+        diagnostics["worst_strategy_return_pct"] - diagnostics["baseline_worst_strategy_return_pct"].fillna(0.0)
+    )
+    diagnostics["worst_entry_day_return_improvement_pct"] = (
+        diagnostics["worst_entry_day_return_pct"] - diagnostics["baseline_worst_entry_day_return_pct"].fillna(0.0)
+    )
+    return diagnostics.sort_values(["cost_bps", "segment", "variant"]).reset_index(drop=True)
 
 
 def evaluate_conditional_overlay_candidates(
@@ -1288,6 +1366,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         )
     walk_forward_overlay_trades = pd.concat(walk_forward_trade_frames, ignore_index=True)
     cost_sensitivity = summarize_overlay_metrics(overlay_trades)
+    execution_risk_diagnostics = summarize_execution_risk_diagnostics(overlay_trades)
     model_comparison = (
         cost_sensitivity.loc[cost_sensitivity["cost_bps"].eq(float(spec.selection_cost_bps))]
         .sort_values(["segment", "selection_score"], ascending=[True, False])
@@ -1296,6 +1375,11 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     selected_model = _select_variant(model_comparison, cost_bps=spec.selection_cost_bps)
     selected_model["signal_threshold"] = float(thresholds["signal_threshold"])
     selected_model["risk_threshold"] = float(thresholds["risk_threshold"])
+    execution_risk_summary = _execution_risk_diagnostics_summary(
+        execution_risk_diagnostics,
+        selected_variant=str(selected_model["variant"]),
+        cost_bps=float(spec.selection_cost_bps),
+    )
     walk_forward = _walk_forward_metrics(
         walk_forward_overlay_trades,
         cost_bps=spec.selection_cost_bps,
@@ -1312,6 +1396,8 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         signal_config=signal_config,
         model_comparison=model_comparison,
         threshold_selection=threshold_selection,
+        execution_risk_diagnostics=execution_risk_diagnostics,
+        execution_risk_summary=execution_risk_summary,
         selected_model=selected_model,
         walk_forward=walk_forward,
         daily_position_source_audit=daily_position_source_audit,
@@ -1321,6 +1407,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         model_comparison=model_comparison,
         threshold_selection=threshold_selection,
         cost_sensitivity=cost_sensitivity,
+        execution_risk_diagnostics=execution_risk_diagnostics,
         walk_forward=walk_forward,
         daily_position_source_audit=daily_position_source_audit,
         selected_model=selected_model,
@@ -1357,6 +1444,10 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
                 selected_test_return_pct=float(selected_model.get("test_total_return_pct", 0.0)),
                 selected_test_max_drawdown_pct=float(selected_model.get("test_max_drawdown_pct", 0.0)),
                 selected_test_retention_pct=float(selected_model.get("test_return_retention_pct", 0.0)),
+                selected_test_open_buy_dump_periods=float(
+                    execution_risk_summary.get("selected_test_open_buy_dump_periods", 0.0)
+                ),
+                selected_test_crash_periods=float(execution_risk_summary.get("selected_test_crash_periods", 0.0)),
             )
             for file_name in [
                 "overlay_trades.csv",
@@ -1450,6 +1541,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
                 "selected_risk_threshold": float(thresholds["risk_threshold"]),
             },
         },
+        "execution_risk_diagnostics": execution_risk_summary,
         "selected_model": selected_model,
         "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
         "recorder_id": recorder_id,
@@ -1468,6 +1560,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         selected_model=selected_model,
         model_comparison=model_comparison,
         walk_forward=walk_forward,
+        execution_risk_summary=execution_risk_summary,
     )
     return summary
 
@@ -2093,6 +2186,9 @@ def _simulate_daily_row(
                 "exit_time": None,
                 "entry_price": np.nan,
                 "exit_price": np.nan,
+                "entry_day_close_time": None,
+                "entry_day_close_price": np.nan,
+                "entry_day_strategy_return": np.nan,
                 "intraday_signal_score": np.nan,
                 "gross_return": 0.0,
                 "strategy_return": 0.0,
@@ -2110,6 +2206,7 @@ def _simulate_daily_row(
         not entry_day_bars.empty
         and pd.to_numeric(entry_day_bars.get(prob_col), errors="coerce").notna().any()
     )
+    entry_day_close_time, entry_day_close_price = _entry_day_close(entry_day_bars)
     execution_cost = abs(target) * cost_bps / 10000.0
 
     baseline_return = source_return - execution_cost
@@ -2121,6 +2218,13 @@ def _simulate_daily_row(
             "exit_time": pd.Timestamp(exit_date).date().isoformat(),
             "entry_price": entry_open,
             "exit_price": exit_open,
+            "entry_day_close_time": entry_day_close_time,
+            "entry_day_close_price": entry_day_close_price,
+            "entry_day_strategy_return": _entry_day_strategy_return(
+                target=target,
+                entry_price=entry_open,
+                exit_price=entry_day_close_price,
+            ),
             "intraday_signal_score": np.nan,
             "gross_return": source_return,
             "strategy_return": baseline_return,
@@ -2143,6 +2247,9 @@ def _simulate_daily_row(
                 "exit_time": pd.Timestamp(exit_date).date().isoformat(),
                 "entry_price": np.nan,
                 "exit_price": exit_open,
+                "entry_day_close_time": entry_day_close_time,
+                "entry_day_close_price": entry_day_close_price,
+                "entry_day_strategy_return": np.nan,
                 "intraday_signal_score": np.nan,
                 "gross_return": 0.0,
                 "strategy_return": 0.0,
@@ -2161,6 +2268,13 @@ def _simulate_daily_row(
                 "exit_time": pd.Timestamp(exit_date).date().isoformat(),
                 "entry_price": entry_price,
                 "exit_price": exit_open,
+                "entry_day_close_time": entry_day_close_time,
+                "entry_day_close_price": entry_day_close_price,
+                "entry_day_strategy_return": _entry_day_strategy_return(
+                    target=target,
+                    entry_price=entry_price,
+                    exit_price=entry_day_close_price,
+                ),
                 "intraday_signal_score": float(signal[prob_col]),
                 "gross_return": gross_return,
                 "strategy_return": gross_return - execution_cost,
@@ -2178,6 +2292,9 @@ def _simulate_daily_row(
                 "exit_time": pd.Timestamp(exit_date).date().isoformat(),
                 "entry_price": np.nan,
                 "exit_price": exit_open,
+                "entry_day_close_time": entry_day_close_time,
+                "entry_day_close_price": entry_day_close_price,
+                "entry_day_strategy_return": np.nan,
                 "intraday_signal_score": np.nan,
                 "gross_return": 0.0,
                 "strategy_return": 0.0,
@@ -2195,6 +2312,13 @@ def _simulate_daily_row(
                 "exit_time": pd.Timestamp(exit_date).date().isoformat(),
                 "entry_price": entry_price,
                 "exit_price": exit_open,
+                "entry_day_close_time": entry_day_close_time,
+                "entry_day_close_price": entry_day_close_price,
+                "entry_day_strategy_return": _entry_day_strategy_return(
+                    target=target,
+                    entry_price=entry_price,
+                    exit_price=entry_day_close_price,
+                ),
                 "intraday_signal_score": np.nan,
                 "gross_return": gross_return,
                 "strategy_return": gross_return - execution_cost,
@@ -2216,6 +2340,13 @@ def _simulate_daily_row(
                 "exit_time": pd.Timestamp(exit_date).date().isoformat(),
                 "entry_price": entry_open,
                 "exit_price": exit_open,
+                "entry_day_close_time": entry_day_close_time,
+                "entry_day_close_price": entry_day_close_price,
+                "entry_day_strategy_return": _entry_day_strategy_return(
+                    target=target,
+                    entry_price=entry_open,
+                    exit_price=entry_day_close_price,
+                ),
                 "intraday_signal_score": np.nan,
                 "gross_return": target * (exit_open / entry_open - 1.0),
                 "strategy_return": source_return - execution_cost,
@@ -2234,6 +2365,13 @@ def _simulate_daily_row(
                 "exit_time": _timestamp_or_none(risk["datetime"]),
                 "entry_price": entry_open,
                 "exit_price": exit_price,
+                "entry_day_close_time": entry_day_close_time,
+                "entry_day_close_price": entry_day_close_price,
+                "entry_day_strategy_return": _entry_day_strategy_return(
+                    target=target,
+                    entry_price=entry_open,
+                    exit_price=exit_price,
+                ),
                 "intraday_signal_score": float(risk[prob_col]),
                 "gross_return": gross_return,
                 "strategy_return": gross_return - execution_cost,
@@ -2361,6 +2499,20 @@ def _same_day_close_exit(
         return None
     exit_row = exit_candidates.iloc[-1]
     return _timestamp_or_none(exit_row["datetime"]), float(exit_row["close"])
+
+
+def _entry_day_close(entry_day_bars: pd.DataFrame) -> tuple[str | None, float]:
+    close_candidates = entry_day_bars.loc[entry_day_bars["close"].notna()].sort_values("datetime")
+    if close_candidates.empty:
+        return None, float("nan")
+    close_row = close_candidates.iloc[-1]
+    return _timestamp_or_none(close_row["datetime"]), float(close_row["close"])
+
+
+def _entry_day_strategy_return(*, target: float, entry_price: float, exit_price: float) -> float:
+    if pd.isna(entry_price) or pd.isna(exit_price) or abs(float(entry_price)) <= 1e-12:
+        return float("nan")
+    return float(target) * (float(exit_price) / float(entry_price) - 1.0)
 
 
 def _load_daily_selected_positions(daily_summary: dict[str, Any], *, prefer_walk_forward: bool = True) -> pd.DataFrame:
@@ -2936,6 +3088,73 @@ def _walk_forward_metrics(
     return pd.DataFrame(rows)
 
 
+def _execution_risk_diagnostics_summary(
+    execution_risk_diagnostics: pd.DataFrame,
+    *,
+    selected_variant: str,
+    cost_bps: float,
+) -> dict[str, Any]:
+    summary: dict[str, Any] = {
+        "selection_cost_bps": float(cost_bps),
+        "selected_variant": selected_variant,
+        "open_buy_dump_threshold_pct": float(OPEN_BUY_DUMP_THRESHOLD * 100.0),
+        "crash_threshold_pct": float(CRASH_THRESHOLD * 100.0),
+    }
+    if execution_risk_diagnostics.empty:
+        return summary
+    frame = execution_risk_diagnostics.loc[
+        execution_risk_diagnostics["cost_bps"].eq(float(cost_bps))
+        & execution_risk_diagnostics["segment"].eq("test")
+    ].copy()
+    if frame.empty:
+        return summary
+    selected = frame.loc[frame["variant"].eq(selected_variant)]
+    baseline = frame.loc[frame["variant"].eq("baseline_next_open")]
+    if not selected.empty:
+        selected_row = selected.iloc[0]
+        summary.update(
+            {
+                "selected_test_open_buy_dump_periods": int(selected_row["open_buy_dump_periods"]),
+                "selected_test_open_buy_dump_rate": float(selected_row["open_buy_dump_rate"]),
+                "selected_test_crash_periods": int(selected_row["crash_periods"]),
+                "selected_test_crash_rate": float(selected_row["crash_rate"]),
+                "selected_test_worst_entry_day_return_pct": float(selected_row["worst_entry_day_return_pct"]),
+                "selected_test_worst_strategy_return_pct": float(selected_row["worst_strategy_return_pct"]),
+                "selected_test_open_buy_dump_period_reduction": int(
+                    selected_row["open_buy_dump_period_reduction"]
+                ),
+                "selected_test_crash_period_reduction": int(selected_row["crash_period_reduction"]),
+            }
+        )
+    if not baseline.empty:
+        baseline_row = baseline.iloc[0]
+        summary.update(
+            {
+                "baseline_test_open_buy_dump_periods": int(baseline_row["open_buy_dump_periods"]),
+                "baseline_test_crash_periods": int(baseline_row["crash_periods"]),
+                "baseline_test_worst_entry_day_return_pct": float(baseline_row["worst_entry_day_return_pct"]),
+                "baseline_test_worst_strategy_return_pct": float(baseline_row["worst_strategy_return_pct"]),
+            }
+        )
+    best_dump = frame.sort_values(
+        [
+            "open_buy_dump_periods",
+            "worst_entry_day_return_pct",
+            "crash_periods",
+            "worst_strategy_return_pct",
+        ],
+        ascending=[True, False, True, False],
+    ).iloc[0]
+    summary.update(
+        {
+            "best_open_buy_dump_variant": str(best_dump["variant"]),
+            "best_open_buy_dump_periods": int(best_dump["open_buy_dump_periods"]),
+            "best_open_buy_dump_worst_entry_day_return_pct": float(best_dump["worst_entry_day_return_pct"]),
+        }
+    )
+    return summary
+
+
 def _analysis_summary(
     spec: CognitiveAlphaIntradayOverlaySpec,
     *,
@@ -2948,6 +3167,8 @@ def _analysis_summary(
     signal_config: dict[str, str],
     model_comparison: pd.DataFrame,
     threshold_selection: pd.DataFrame,
+    execution_risk_diagnostics: pd.DataFrame,
+    execution_risk_summary: dict[str, Any],
     selected_model: dict[str, Any],
     walk_forward: pd.DataFrame,
     daily_position_source_audit: pd.DataFrame,
@@ -3009,6 +3230,8 @@ def _analysis_summary(
         },
         "selected_model": selected_model,
         "model_comparison_rows": int(len(model_comparison)),
+        "execution_risk_diagnostics_rows": int(len(execution_risk_diagnostics)),
+        "execution_risk_diagnostics": execution_risk_summary,
         "threshold_selection_rows": int(0 if not spec.optimize_thresholds else len(threshold_selection)),
         "walk_forward_rows": int(len(walk_forward)),
     }
@@ -3923,6 +4146,7 @@ def _write_sidecars(
     model_comparison: pd.DataFrame,
     threshold_selection: pd.DataFrame,
     cost_sensitivity: pd.DataFrame,
+    execution_risk_diagnostics: pd.DataFrame,
     walk_forward: pd.DataFrame,
     daily_position_source_audit: pd.DataFrame,
     selected_model: dict[str, Any],
@@ -3932,6 +4156,7 @@ def _write_sidecars(
         "model_comparison": "model_comparison.csv",
         "selected_model": "selected_model.json",
         "cost_sensitivity": "cost_sensitivity.csv",
+        "execution_risk_diagnostics": "execution_risk_diagnostics.csv",
         "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
         "daily_position_source_audit": "daily_position_source_audit.csv",
         "analysis_summary": "analysis_summary.json",
@@ -3943,6 +4168,7 @@ def _write_sidecars(
     if spec.optimize_thresholds:
         threshold_selection.to_csv(spec.output_dir / sidecars["threshold_selection"], index=False)
     cost_sensitivity.to_csv(spec.output_dir / sidecars["cost_sensitivity"], index=False)
+    execution_risk_diagnostics.to_csv(spec.output_dir / sidecars["execution_risk_diagnostics"], index=False)
     walk_forward.to_csv(spec.output_dir / sidecars["backtest_walk_forward_metrics"], index=False)
     daily_position_source_audit.to_csv(spec.output_dir / sidecars["daily_position_source_audit"], index=False)
     (spec.output_dir / sidecars["selected_model"]).write_text(
@@ -4067,6 +4293,7 @@ def _write_conclusion(
     selected_model: dict[str, Any],
     model_comparison: pd.DataFrame,
     walk_forward: pd.DataFrame,
+    execution_risk_summary: dict[str, Any],
 ) -> None:
     test_rows = model_comparison.loc[model_comparison["segment"].eq("test")].copy()
     selected_test = test_rows.loc[test_rows["variant"].eq(selected_model["variant"])]
@@ -4112,6 +4339,14 @@ def _write_conclusion(
                 f"test max_dd={float(row.get('test_max_drawdown_pct', 0.0)):.2f}%，"
                 f"passes_target={bool(row.get('test_passes_target'))}。\n"
             )
+    risk_sentence = (
+        "- open-buy-dump 诊断："
+        f"{execution_risk_summary.get('open_buy_dump_threshold_pct', -3.0):.0f}% 当日入场后回撤阈值，"
+        f"baseline test 次数={execution_risk_summary.get('baseline_test_open_buy_dump_periods', 0)}，"
+        f"selected test 次数={execution_risk_summary.get('selected_test_open_buy_dump_periods', 0)}，"
+        f"减少={execution_risk_summary.get('selected_test_open_buy_dump_period_reduction', 0)}；"
+        f"crash 次数减少={execution_risk_summary.get('selected_test_crash_period_reduction', 0)}。\n"
+    )
     selected_test_retention = float(selected_model.get("test_return_retention_pct") or 0.0)
     selected_test_passes = bool(85.0 <= selected_test_retention <= 95.0 and selected_test_dd > -18.0)
     if selected_model.get("variant") == "baseline_next_open":
@@ -4136,6 +4371,7 @@ def _write_conclusion(
         f"{threshold_sentence}"
         f"- test 对照：baseline_next_open return={baseline_return:.2f}%，"
         f"selected return={selected_test_return:.2f}%、max_dd={selected_test_dd:.2f}%。\n"
+        f"{risk_sentence}"
         f"{walk_forward_sentence}"
         f"{annual_probe_sentence}"
         f"- 是否晋升：{summary['promotion_decision']}。{promotion_reason}\n"
@@ -4161,6 +4397,9 @@ def _empty_variant_row(daily_row: dict[str, Any], variant: str, cost_bps: float,
         "exit_time": None,
         "entry_price": np.nan,
         "exit_price": np.nan,
+        "entry_day_close_time": None,
+        "entry_day_close_price": np.nan,
+        "entry_day_strategy_return": np.nan,
         "intraday_signal_score": np.nan,
         "gross_return": 0.0,
         "strategy_return": 0.0,
