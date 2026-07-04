@@ -993,7 +993,7 @@ def select_validation_robust_delayed_policy(
     max_drawdown_floor: float = -18.0,
     max_skip_rate: float = 0.15,
     eligible_exit_policies: tuple[str, ...] | None = ("hold_to_next_open", SAME_DAY_CLOSE_EXIT_POLICY),
-    return_retention_upper_is_soft: bool = True,
+    return_retention_upper_is_soft: bool = False,
 ) -> dict[str, Any]:
     if candidates.empty:
         return {
@@ -1054,6 +1054,13 @@ def select_validation_robust_delayed_policy(
         result = _json_ready_dict(fallback.to_dict())
         result["validation_passes_target"] = False
         result["selection_uses_test_segment"] = False
+        result["required_cost_bps"] = sorted(required_costs)
+        result["max_skip_rate"] = float(max_skip_rate)
+        result["return_retention_high"] = float(return_retention_high)
+        result["return_retention_upper_policy"] = (
+            "soft_cap_for_scoring" if return_retention_upper_is_soft else "hard_gate"
+        )
+        result["blocking_reason"] = "no_validation_policy_in_retention_band"
         return result
     selected = (
         pd.DataFrame(rows)
@@ -1085,6 +1092,7 @@ def select_intraday_flat_sleeve_policy(
     required_cost_bps: tuple[float, ...] = (20.0, 50.0),
     selection_cost_bps: float = 20.0,
     return_retention_low: float = 85.0,
+    return_retention_high: float = 95.0,
     max_drawdown_floor: float = -18.0,
     max_skip_rate: float = 0.15,
 ) -> dict[str, Any]:
@@ -1137,6 +1145,7 @@ def select_intraday_flat_sleeve_policy(
             periods = float(row["validation_periods"])
             if not (
                 retention >= float(return_retention_low)
+                and retention <= float(return_retention_high)
                 and drawdown > float(max_drawdown_floor)
                 and skipped <= periods * float(max_skip_rate)
             ):
@@ -1166,6 +1175,8 @@ def select_intraday_flat_sleeve_policy(
     result["required_cost_bps"] = sorted(required_costs)
     result["max_skip_rate"] = float(max_skip_rate)
     result["return_retention_floor_pct"] = float(return_retention_low)
+    result["return_retention_high"] = float(return_retention_high)
+    result["return_retention_upper_policy"] = "hard_gate"
     result["max_drawdown_floor_pct"] = float(max_drawdown_floor)
     result["validation_passes_target"] = bool(robust_rows)
     return result
@@ -1320,14 +1331,16 @@ def evaluate_observable_delayed_signal_candidates(
     result["test_skip_rate"] = (
         result["test_skipped_periods"] / result["test_periods"].replace(0, np.nan)
     ).fillna(1.0)
-    result["return_retention_upper_policy"] = "soft_cap_for_scoring"
+    result["return_retention_upper_policy"] = "hard_gate"
     result["passes_validation_target"] = (
         result["validation_return_retention_pct"].ge(85.0)
+        & result["validation_return_retention_pct"].le(95.0)
         & result["validation_max_drawdown_pct"].gt(-18.0)
         & result["validation_skipped_periods"].le(result["validation_periods"] * 0.15)
     )
     result["passes_test_target"] = (
         result["test_return_retention_pct"].ge(85.0)
+        & result["test_return_retention_pct"].le(95.0)
         & result["test_max_drawdown_pct"].gt(-18.0)
         & result["test_skipped_periods"].le(result["test_periods"] * 0.15)
     )
@@ -2338,7 +2351,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                 selection_cost_bps=float(spec.selection_cost_bps),
                 required_cost_bps="20.0,50.0",
                 max_skip_rate=0.15,
-                return_retention_upper_policy="soft_cap_for_scoring",
+                return_retention_upper_policy="hard_gate",
                 selected_policy_id=str(selected_model.get("policy_id")),
                 selected_intraday_flat_sleeve_policy_id=str(intraday_flat_sleeve.get("policy_id")),
                 walk_forward_policy=str(walk_forward_summary.get("policy")),
@@ -2457,8 +2470,8 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
             "required_cost_bps": [20.0, 50.0],
             "max_skip_rate": 0.15,
             "return_retention_floor_pct": 85.0,
-            "return_retention_soft_cap_pct": 95.0,
-            "return_retention_upper_policy": "soft_cap_for_scoring",
+            "return_retention_ceiling_pct": 95.0,
+            "return_retention_upper_policy": "hard_gate",
             "selection_priority": [
                 "validation_return_retention_score_desc",
                 "validation_skip_rate_asc",
@@ -4697,6 +4710,7 @@ def _write_delayed_sidecars(
         "- Delayed observable overlay 只能在前 30/60 分钟 bar 完成后使用这些特征，不能影响 next-open 或前 4 根 bar 的成交。\n"
         "- 选择规则只用 validation，并要求 20bp/50bp validation 同时满足 85%-95% retention、max_dd>-18%、skip<=15%；eligible exit policy 是 hold_to_next_open 和 same_day_close。\n"
         "- same_day_close 是纯日内平仓候选，用 entry day 最后一根可用 15m close 退出；它仍缺少 bid/ask、收盘成交容量和延迟 replay。\n"
+        "- retention 目标是 validation 85%-95% hard gate；超过 95% 的短窗口收益只能作为诊断，不算晋级通过。\n"
         "- 年度验证使用 daily walk-forward replay positions 的 validation/test 片段；train 阶段不要求 selected positions，因为仓位模型训练证据属于源日线 card。\n"
         "- 当前外部 15m 上下文覆盖仍不足，walk_forward_feasibility.csv 对 2023-2026 年度 fold 继续 fail closed。\n"
         "- 还没有 bid/ask、队列、延迟和盘前盘后 replay；只能作为研究候选，不是生产执行策略。\n"
@@ -4769,8 +4783,9 @@ def _write_delayed_conclusion(
         "日内层必须等前 30/60 分钟完成后，才能用 observed probability/return 条件触发后续 15m next-open 入场；"
         "本轮把 same_day_close 作为可晋升的纯日内平仓候选加入，同时保留 hold_to_next_open；risk-exit 仍只作为诊断候选，"
         "避免短样本风险退出过拟合。\n"
-        "- 选择规则：只用 validation；retention 用 85% floor，95% 只作为 scoring soft cap，"
-        "再按 validation skip rate、条件覆盖率和回撤改善排序；test 只报告，不参与阈值选择。\n"
+        "- 选择规则：只用 validation；retention 必须落在 85%-95% hard gate 内，"
+        "再按 validation skip rate、条件覆盖率和回撤改善排序；test 只报告，不参与阈值选择。"
+        "超过 95% 的短窗口收益保留为诊断，不计入晋级目标。\n"
         f"- 候选：{summary['model_selection']['candidate_count']} 个 policy、{summary['model_selection']['candidate_rows']} 行成本压力结果；"
         f"validation+test 同时过门槛行数={summary['model_selection']['validation_and_test_target_row_count']}；"
         f"其中 same_day_close 同时过门槛行数={summary['model_selection'].get('same_day_close_validation_and_test_target_row_count', 0)}，"

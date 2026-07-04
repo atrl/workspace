@@ -953,7 +953,8 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
     assert summary["model_selection"]["max_skip_rate"] == 0.15
-    assert summary["model_selection"]["return_retention_upper_policy"] == "soft_cap_for_scoring"
+    assert summary["model_selection"]["return_retention_upper_policy"] == "hard_gate"
+    assert summary["model_selection"]["return_retention_ceiling_pct"] == 95.0
     assert summary["model_selection"]["selection_priority"] == [
         "validation_return_retention_score_desc",
         "validation_skip_rate_asc",
@@ -975,9 +976,9 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["walk_forward"]["data_status"] == "ok_partial_insufficient_for_full_walk_forward"
     assert "insufficient_external_intraday_history" in summary["walk_forward"]["blocking_reasons"]
     assert summary["selected_model"]["validation_passes_target"] is True
-    assert summary["selected_model"]["passes_test_target"] is True
-    assert summary["selected_model"]["passes_validation_and_test_target"] is True
-    assert summary["selected_model"]["return_retention_upper_policy"] == "soft_cap_for_scoring"
+    assert summary["selected_model"]["passes_test_target"] is False
+    assert summary["selected_model"]["passes_validation_and_test_target"] is False
+    assert summary["selected_model"]["return_retention_upper_policy"] == "hard_gate"
     assert summary["selected_model"]["observation_minutes"] in {30, 60}
     assert summary["intraday_flat_sleeve"]["selection_role"] == "intraday_flat_sleeve"
     assert summary["intraday_flat_sleeve"]["selection_segment"] == "validation"
@@ -985,8 +986,8 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["intraday_flat_sleeve"]["exit_policy"] == "same_day_close"
     assert summary["intraday_flat_sleeve"]["selection_priority"][0] == "validation_max_drawdown_desc"
     assert summary["intraday_flat_sleeve"]["validation_passes_target"] is True
-    assert summary["intraday_flat_sleeve"]["test_max_drawdown_pct"] >= summary["selected_model"]["test_max_drawdown_pct"]
-    assert summary["promotion_decision"] == "not_promoted_external_intraday_history_insufficient"
+    assert summary["intraday_flat_sleeve"]["passes_test_target"] is False
+    assert summary["promotion_decision"] == "not_promoted_delayed_overlay_test_gate_failed"
     assert "not_promoted" in summary["promotion_decision"]
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert summary["artifact_policy"]["recorder_only_artifacts"] == {
@@ -1033,8 +1034,8 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     required = selected_costs.loc[selected_costs["cost_bps"].isin([20.0, 50.0])]
     assert set(required["cost_bps"]) == {20.0, 50.0}
     assert required["passes_validation_target"].all()
-    assert required["passes_test_target"].all()
-    assert required["return_retention_upper_policy"].eq("soft_cap_for_scoring").all()
+    assert not required["passes_test_target"].any()
+    assert required["return_retention_upper_policy"].eq("hard_gate").all()
     assert required["test_max_drawdown_pct"].max() > -18.0
     flat_sleeve = json.loads((card / summary["sidecars"]["selected_intraday_flat_sleeve"]).read_text(encoding="utf-8"))
     assert flat_sleeve["exit_policy"] == "same_day_close"
@@ -1052,7 +1053,7 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert "first 30/60 minutes" in notebook_text
     assert "delayed observable intraday overlay" in conclusion
     assert "日内 flat sleeve" in conclusion
-    assert "95% 只作为 scoring soft cap" in conclusion
+    assert "85%-95% hard gate" in conclusion
 
 
 def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():

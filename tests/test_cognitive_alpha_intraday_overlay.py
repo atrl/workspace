@@ -1044,6 +1044,7 @@ def test_evaluate_observable_delayed_signal_candidates_includes_intraday_flat_po
     assert {"hold_to_next_open", "risk_exit", "same_day_close"}.issubset(set(candidates["exit_policy"]))
     assert set(candidates["condition_threshold_source"]) == {"validation_quantile"}
     assert set(candidates["selection_uses_test_segment"]) == {False}
+    assert set(candidates["return_retention_upper_policy"]) == {"hard_gate"}
     assert "delayed_signal_after_30m_risk_exit" in set(candidates["variant"])
     assert "delayed_signal_after_30m_same_day_close" in set(candidates["variant"])
 
@@ -1152,7 +1153,7 @@ def test_select_validation_robust_delayed_policy_prefers_return_retention_after_
     assert selected["validation_passes_target"] is True
 
 
-def test_select_validation_robust_delayed_policy_treats_retention_upper_bound_as_soft_cap():
+def test_select_validation_robust_delayed_policy_rejects_retention_above_hard_band_by_default():
     candidates = pd.DataFrame(
         [
             {
@@ -1200,8 +1201,8 @@ def test_select_validation_robust_delayed_policy_treats_retention_upper_bound_as
 
     selected = select_validation_robust_delayed_policy(candidates)
 
-    assert selected["policy_id"] == "capped_upside_with_lower_drawdown"
-    assert selected["validation_return_retention_score"] == pytest.approx(95.0)
+    assert selected["policy_id"] == "in_band_but_weaker"
+    assert selected["return_retention_upper_policy"] == "hard_gate"
     assert selected["validation_passes_target"] is True
 
 
@@ -1450,7 +1451,7 @@ def test_select_intraday_flat_sleeve_policy_prefers_validation_drawdown_over_cov
                 "selection_score": 90.0,
                 "condition_valid_active_coverage": 0.20,
                 "cost_bps": 20.0,
-                "validation_return_retention_pct": 100.0,
+                "validation_return_retention_pct": 94.0,
                 "validation_max_drawdown_pct": -8.0,
                 "validation_skipped_periods": 2,
                 "validation_periods": 250,
@@ -1464,7 +1465,7 @@ def test_select_intraday_flat_sleeve_policy_prefers_validation_drawdown_over_cov
                 "selection_score": 90.0,
                 "condition_valid_active_coverage": 0.20,
                 "cost_bps": 50.0,
-                "validation_return_retention_pct": 95.0,
+                "validation_return_retention_pct": 92.0,
                 "validation_max_drawdown_pct": -9.0,
                 "validation_skipped_periods": 2,
                 "validation_periods": 250,
@@ -1494,6 +1495,8 @@ def test_select_intraday_flat_sleeve_policy_prefers_validation_drawdown_over_cov
     assert selected["exit_policy"] == "same_day_close"
     assert selected["selection_role"] == "intraday_flat_sleeve"
     assert selected["selection_priority"][0] == "validation_max_drawdown_desc"
+    assert selected["validation_passes_target"] is True
+    assert selected["return_retention_upper_policy"] == "hard_gate"
 
 
 def test_load_intraday_prediction_frame_uses_prediction_history_start(monkeypatch, tmp_path):
