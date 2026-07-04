@@ -44,7 +44,7 @@
       "TSM"
     ],
     "coverage_end": "2026-07-02 16:00:00",
-    "coverage_start": "2025-01-02 09:45:00",
+    "coverage_start": "2024-07-05 09:45:00",
     "data_status": "ok_partial_insufficient_for_full_walk_forward",
     "feature_count": 40,
     "features": [
@@ -203,7 +203,7 @@
     },
     "external_15min": {
       "calendar_end": "2026-07-02 16:00:00",
-      "calendar_start": "2025-01-02 09:45:00",
+      "calendar_start": "2024-07-05 09:45:00",
       "manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min/qlib_store_manifest.json",
       "provider_card": "research/intraday_external_context_data_v1",
       "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
@@ -284,8 +284,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "65b2e78d9654495b82bf073f4156cde7",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_external_context_label_v1/qlib_recorder/227254114157748947/65b2e78d9654495b82bf073f4156cde7",
+  "recorder_id": "67579fc016ad420a86806b8d8e6f806d",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_external_context_label_v1/qlib_recorder/227254114157748947/67579fc016ad420a86806b8d8e6f806d",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_external_context_label_v1/qlib_recorder",
   "region": "us",
   "segments": {

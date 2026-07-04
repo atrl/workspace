@@ -5,4 +5,4 @@
 - walk-forward：按 train 到 T-2、valid T-1、test T 记录 2023-2026，正收益比例=0.00。
 - 是否晋升：不晋升；decision=not_promoted_external_history_insufficient_for_required_walk_forward。它是执行层候选，不替代日级 open-to-open 仓位模型。
 - 风险：外部 15m 上下文只有 2025-01-02 之后的数据，完整 train-to-T-2 / valid-T-1 / test-T 的 2019 起步 walk-forward 不满足；真实执行还缺 bid/ask replay、排队成交、延迟和极端波动成交验证。
-- qlib recorder：65b2e78d9654495b82bf073f4156cde7
+- qlib recorder：67579fc016ad420a86806b8d8e6f806d

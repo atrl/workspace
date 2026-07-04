@@ -16,7 +16,7 @@
     "$bar_count"
   ],
   "freq": "15min",
-  "hash": "99d8626661728f19",
+  "hash": "c2b41234600d61db",
   "instruments": [
     "AMD",
     "ASML",
@@ -32,7 +32,7 @@
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
   "region": "us",
-  "row_count": 83464,
+  "row_count": 84192,
   "source": "polygon_aggs_custom_bars",
   "source_api": [
     "qlib.init",

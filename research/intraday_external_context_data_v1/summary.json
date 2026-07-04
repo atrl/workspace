@@ -30,7 +30,7 @@
   ],
   "card_type": "intraday_external_context_data",
   "coverage_audit": {
-    "regular_session_rows": 83464,
+    "regular_session_rows": 84192,
     "symbols_with_rows": [
       "AMD",
       "ASML",
@@ -49,7 +49,7 @@
     "2019-01-02",
     "2026-07-02"
   ],
-  "manifest_hash": "99d8626661728f19",
+  "manifest_hash": "c2b41234600d61db",
   "manifest_status": "ok",
   "market": "all",
   "missing_symbols": [],
@@ -103,8 +103,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "6e976eaa420f4a8db45e387ea1082d3c",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/6e976eaa420f4a8db45e387ea1082d3c",
+  "recorder_id": "fba736760591439ab8115928d6129af5",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/fba736760591439ab8115928d6129af5",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder",
   "region": "us",
   "requested_range": [

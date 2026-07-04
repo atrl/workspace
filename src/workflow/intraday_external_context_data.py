@@ -239,13 +239,14 @@ def _fetch_symbol_with_cache(
     cache_row_count = int(len(cached))
     seeded_provider_row_count = 0
     cache_source = "raw_cache" if cache_row_count else ""
-    if cached.empty:
-        seeded = _read_existing_provider_symbol_frame(spec, symbol)
-        if not seeded.empty:
-            write_intraday_cache(seeded, _raw_cache_path(spec, symbol))
-            cached = seeded
-            seeded_provider_row_count = int(len(seeded))
-            cache_source = "existing_qlib_provider"
+    seeded = _read_existing_provider_symbol_frame(spec, symbol)
+    if not seeded.empty:
+        merged_seeded = merge_intraday_bars(seeded, cached)
+        seeded_provider_row_count = max(0, int(len(merged_seeded)) - int(len(cached)))
+        if seeded_provider_row_count:
+            write_intraday_cache(merged_seeded, _raw_cache_path(spec, symbol))
+            cached = merged_seeded
+            cache_source = "existing_qlib_provider" if cache_row_count == 0 else "raw_cache+existing_qlib_provider"
 
     ranges = _missing_fetch_ranges(spec, cached)
     if not ranges and not cached.empty:

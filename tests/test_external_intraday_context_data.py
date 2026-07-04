@@ -505,3 +505,68 @@ def test_external_context_symbol_fetch_seeds_raw_cache_from_existing_qlib_provid
     assert source_audit["row_count"].tolist() == [1]
     assert source_audit["seeded_provider_row_count"].tolist() == [1]
     assert source_audit["cache_source"].tolist() == ["existing_qlib_provider"]
+
+
+def test_external_context_symbol_fetch_merges_existing_provider_when_raw_cache_is_partial(
+    monkeypatch,
+    tmp_path,
+):
+    provider_rows = normalize_polygon_aggregate_frame(
+        pd.DataFrame(
+            [
+                {
+                    "t": int(pd.Timestamp("2026-01-02 14:30:00", tz="UTC").timestamp() * 1000),
+                    "o": 150.0,
+                    "h": 151.0,
+                    "l": 149.0,
+                    "c": 150.5,
+                    "v": 1000,
+                    "vw": 150.25,
+                    "n": 10,
+                },
+                {
+                    "t": int(pd.Timestamp("2026-01-05 14:30:00", tz="UTC").timestamp() * 1000),
+                    "o": 152.0,
+                    "h": 153.0,
+                    "l": 151.0,
+                    "c": 152.5,
+                    "v": 1100,
+                    "vw": 152.25,
+                    "n": 11,
+                },
+            ]
+        ),
+        symbol="NVDA",
+        multiplier=15,
+        fetched_at="2026-07-04T00:00:00+00:00",
+    )
+    spec = external_context_workflow.IntradayExternalContextDataSpec(
+        root=tmp_path,
+        requested_symbols=("NVDA",),
+        start="2026-01-02",
+        end="2026-01-05",
+        full_walk_forward_start="2026-01-02",
+    )
+    external_context_workflow._write_or_build_provider(
+        spec,
+        qlib_frame=polygon_intraday_to_qlib_frame(provider_rows),
+    )
+    external_context_workflow.write_intraday_cache(
+        provider_rows.head(1),
+        external_context_workflow._raw_cache_path(spec, "NVDA"),
+    )
+
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("existing qlib provider should fill partial raw cache before Polygon calls")
+
+    monkeypatch.setattr(external_context_workflow, "fetch_polygon_aggregate_bars", fail_if_called)
+
+    source_audit, seeded = external_context_workflow._fetch_requested_symbols(spec, api_key="test-key")
+    persisted = external_context_workflow.read_intraday_cache(external_context_workflow._raw_cache_path(spec, "NVDA"))
+
+    assert len(seeded) == 2
+    assert len(persisted) == 2
+    assert source_audit["status"].tolist() == ["ok_seeded_provider_cache"]
+    assert source_audit["cache_row_count"].tolist() == [1]
+    assert source_audit["seeded_provider_row_count"].tolist() == [1]
+    assert source_audit["cache_source"].tolist() == ["raw_cache+existing_qlib_provider"]

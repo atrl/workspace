@@ -29,10 +29,23 @@ EXPANDED_INTRADAY_FEATURES = [
 
 
 def _as_new_york_timestamp(series: pd.Series) -> pd.Series:
-    timestamps = pd.to_datetime(series, errors="coerce")
-    if timestamps.dt.tz is None:
-        return timestamps.dt.tz_localize(NEW_YORK_TZ)
-    return timestamps.dt.tz_convert(NEW_YORK_TZ)
+    if isinstance(series.dtype, pd.DatetimeTZDtype):
+        return series.dt.tz_convert(NEW_YORK_TZ)
+
+    def coerce_timestamp(value: Any) -> pd.Timestamp:
+        if pd.isna(value):
+            return pd.NaT
+        try:
+            timestamp = pd.Timestamp(value)
+        except (TypeError, ValueError):
+            return pd.NaT
+        if pd.isna(timestamp):
+            return pd.NaT
+        if timestamp.tzinfo is None:
+            return timestamp.tz_localize(NEW_YORK_TZ)
+        return timestamp.tz_convert(NEW_YORK_TZ)
+
+    return pd.Series([coerce_timestamp(value) for value in series], index=series.index)
 
 
 def _classify_session(timestamp: pd.Timestamp) -> str:
