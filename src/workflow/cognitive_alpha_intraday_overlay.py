@@ -578,8 +578,26 @@ def evaluate_conditional_overlay_candidates(
     )
     baseline_returns = pd.to_numeric(aligned["strategy_return"], errors="coerce").fillna(0.0).to_numpy()
     baseline_skipped = aligned["skipped_reason"].notna().to_numpy()
+    if "entry_day_strategy_return" not in aligned.columns:
+        aligned["entry_day_strategy_return"] = np.nan
+    baseline_entry_day_returns = (
+        pd.to_numeric(aligned["entry_day_strategy_return"], errors="coerce")
+        .to_numpy(dtype=float)
+    )
     baseline_validation = _segment_return_metrics(baseline_returns, validation_mask, baseline_skipped)
     baseline_test = _segment_return_metrics(baseline_returns, test_mask, baseline_skipped)
+    baseline_validation_risk = _segment_execution_risk_metrics(
+        baseline_returns,
+        baseline_entry_day_returns,
+        validation_mask,
+        active_mask,
+    )
+    baseline_test_risk = _segment_execution_risk_metrics(
+        baseline_returns,
+        baseline_entry_day_returns,
+        test_mask,
+        active_mask,
+    )
 
     rows: list[dict[str, Any]] = []
     for variant in variants:
@@ -587,16 +605,28 @@ def evaluate_conditional_overlay_candidates(
         if variant_frame.empty:
             continue
         variant_aligned = aligned[["datetime_key"]].merge(
-            variant_frame[["datetime_key", "strategy_return", "skipped_reason"]],
+            variant_frame[
+                [
+                    column
+                    for column in ["datetime_key", "strategy_return", "skipped_reason", "entry_day_strategy_return"]
+                    if column in variant_frame.columns
+                ]
+            ],
             on="datetime_key",
             how="left",
         )
+        if "entry_day_strategy_return" not in variant_aligned.columns:
+            variant_aligned["entry_day_strategy_return"] = np.nan
         variant_returns = (
             pd.to_numeric(variant_aligned["strategy_return"], errors="coerce")
             .fillna(0.0)
             .to_numpy()
         )
         variant_skipped = variant_aligned["skipped_reason"].notna().to_numpy()
+        variant_entry_day_returns = pd.to_numeric(
+            variant_aligned["entry_day_strategy_return"],
+            errors="coerce",
+        ).to_numpy(dtype=float)
         for column in condition_columns:
             if column not in aligned.columns:
                 continue
@@ -620,8 +650,25 @@ def evaluate_conditional_overlay_candidates(
                         continue
                     returns = np.where(condition_mask, variant_returns, baseline_returns)
                     skipped = np.where(condition_mask, variant_skipped, baseline_skipped)
+                    entry_day_returns = np.where(
+                        condition_mask,
+                        variant_entry_day_returns,
+                        baseline_entry_day_returns,
+                    )
                     validation = _segment_return_metrics(returns, validation_mask, skipped)
                     test = _segment_return_metrics(returns, test_mask, skipped)
+                    validation_risk = _segment_execution_risk_metrics(
+                        returns,
+                        entry_day_returns,
+                        validation_mask,
+                        active_mask,
+                    )
+                    test_risk = _segment_execution_risk_metrics(
+                        returns,
+                        entry_day_returns,
+                        test_mask,
+                        active_mask,
+                    )
                     validation_retention = _retention(
                         validation["total_return_pct"],
                         baseline_validation["total_return_pct"],
@@ -662,6 +709,27 @@ def evaluate_conditional_overlay_candidates(
                             "validation_drawdown_improvement_pct": validation_dd_improvement,
                             "validation_daily_sharpe": validation["daily_sharpe"],
                             "validation_skipped_periods": validation["skipped_periods"],
+                            "validation_open_buy_dump_periods": validation_risk["open_buy_dump_periods"],
+                            "validation_open_buy_dump_period_reduction": (
+                                baseline_validation_risk["open_buy_dump_periods"]
+                                - validation_risk["open_buy_dump_periods"]
+                            ),
+                            "validation_crash_periods": validation_risk["crash_periods"],
+                            "validation_crash_period_reduction": (
+                                baseline_validation_risk["crash_periods"] - validation_risk["crash_periods"]
+                            ),
+                            "validation_worst_entry_day_return_pct": validation_risk[
+                                "worst_entry_day_return_pct"
+                            ],
+                            "validation_worst_entry_day_return_improvement_pct": (
+                                validation_risk["worst_entry_day_return_pct"]
+                                - baseline_validation_risk["worst_entry_day_return_pct"]
+                            ),
+                            "validation_worst_strategy_return_pct": validation_risk["worst_strategy_return_pct"],
+                            "validation_worst_strategy_return_improvement_pct": (
+                                validation_risk["worst_strategy_return_pct"]
+                                - baseline_validation_risk["worst_strategy_return_pct"]
+                            ),
                             "test_periods": test["periods"],
                             "test_return_pct": test["total_return_pct"],
                             "test_return_retention_pct": test_retention,
@@ -669,6 +737,25 @@ def evaluate_conditional_overlay_candidates(
                             "test_drawdown_improvement_pct": test_dd_improvement,
                             "test_daily_sharpe": test["daily_sharpe"],
                             "test_skipped_periods": test["skipped_periods"],
+                            "test_open_buy_dump_periods": test_risk["open_buy_dump_periods"],
+                            "test_open_buy_dump_period_reduction": (
+                                baseline_test_risk["open_buy_dump_periods"]
+                                - test_risk["open_buy_dump_periods"]
+                            ),
+                            "test_crash_periods": test_risk["crash_periods"],
+                            "test_crash_period_reduction": (
+                                baseline_test_risk["crash_periods"] - test_risk["crash_periods"]
+                            ),
+                            "test_worst_entry_day_return_pct": test_risk["worst_entry_day_return_pct"],
+                            "test_worst_entry_day_return_improvement_pct": (
+                                test_risk["worst_entry_day_return_pct"]
+                                - baseline_test_risk["worst_entry_day_return_pct"]
+                            ),
+                            "test_worst_strategy_return_pct": test_risk["worst_strategy_return_pct"],
+                            "test_worst_strategy_return_improvement_pct": (
+                                test_risk["worst_strategy_return_pct"]
+                                - baseline_test_risk["worst_strategy_return_pct"]
+                            ),
                             "passes_validation_target": passes_validation,
                             "passes_test_target": passes_test,
                             "passes_validation_and_test_target": bool(passes_validation and passes_test),
@@ -697,6 +784,145 @@ def evaluate_conditional_overlay_candidates(
         )
         .reset_index(drop=True)
     )
+
+
+def select_conditional_risk_sleeve_policy(
+    candidates: pd.DataFrame,
+    *,
+    required_cost_bps: tuple[float, ...] = (20.0, 50.0),
+    selection_cost_bps: float = 20.0,
+) -> dict[str, Any]:
+    selection_priority = [
+        "validation_open_buy_dump_period_reduction_desc",
+        "validation_crash_period_reduction_desc",
+        "validation_worst_entry_day_return_improvement_desc",
+        "validation_drawdown_improvement_desc",
+        "validation_return_retention_score_desc",
+        "condition_valid_active_coverage_desc",
+        "selection_score_desc",
+    ]
+    if candidates.empty:
+        return {
+            "variant": None,
+            "selection_role": "conditional_risk_sleeve",
+            "selection_priority": selection_priority,
+            "selection_uses_test_segment": False,
+            "validation_passes_target": False,
+        }
+    frame = candidates.copy()
+    frame["cost_bps"] = pd.to_numeric(frame.get("cost_bps", selection_cost_bps), errors="coerce")
+    frame["validation_return_retention_score"] = pd.to_numeric(
+        frame.get("validation_return_retention_pct", 0.0),
+        errors="coerce",
+    ).clip(upper=95.0)
+    for column in [
+        "validation_open_buy_dump_period_reduction",
+        "validation_crash_period_reduction",
+        "validation_worst_entry_day_return_improvement_pct",
+        "validation_drawdown_improvement_pct",
+        "condition_valid_active_coverage",
+        "selection_score",
+    ]:
+        if column not in frame.columns:
+            frame[column] = 0.0
+        frame[column] = pd.to_numeric(frame[column], errors="coerce").fillna(0.0)
+
+    required_costs = tuple(float(value) for value in required_cost_bps)
+    group_columns = _regime_policy_group_columns(frame)
+    robust_rows: list[tuple[pd.Series, pd.DataFrame]] = []
+    if group_columns:
+        for _, group in frame.groupby(group_columns, sort=False, dropna=False):
+            costs = {float(value) for value in group["cost_bps"].dropna().unique()}
+            if not set(required_costs).issubset(costs):
+                continue
+            required_rows = group.loc[group["cost_bps"].isin(required_costs)].copy()
+            if not bool(required_rows.get("passes_validation_target", False).astype(bool).all()):
+                continue
+            selected_cost_row = group.loc[group["cost_bps"].eq(float(selection_cost_bps))]
+            if selected_cost_row.empty:
+                continue
+            selected_row = selected_cost_row.iloc[0]
+            has_validation_risk_reduction = bool(
+                float(selected_row.get("validation_open_buy_dump_period_reduction", 0.0)) > 0.0
+                or float(selected_row.get("validation_crash_period_reduction", 0.0)) > 0.0
+            )
+            if has_validation_risk_reduction:
+                robust_rows.append((selected_row, required_rows.sort_values("cost_bps").copy()))
+
+    if robust_rows:
+        source = pd.DataFrame([row for row, _ in robust_rows]).copy()
+        required_cost_results_by_index = {
+            int(index): required_rows for index, (_, required_rows) in zip(source.index, robust_rows, strict=False)
+        }
+        validation_cost_robust = True
+    else:
+        validation_passes = frame.loc[
+            frame.get("passes_validation_target", pd.Series(False, index=frame.index)).astype(bool)
+        ].copy()
+        source = validation_passes if not validation_passes.empty else frame.copy()
+        required_cost_results_by_index = {}
+        validation_cost_robust = False
+
+    selected = source.sort_values(
+        [
+            "validation_open_buy_dump_period_reduction",
+            "validation_crash_period_reduction",
+            "validation_worst_entry_day_return_improvement_pct",
+            "validation_drawdown_improvement_pct",
+            "validation_return_retention_score",
+            "condition_valid_active_coverage",
+            "selection_score",
+        ],
+        ascending=[False, False, False, False, False, False, False],
+    ).iloc[0]
+    result = _json_ready_dict(selected.to_dict())
+    required_cost_results = required_cost_results_by_index.get(int(selected.name), pd.DataFrame())
+    result["selection_role"] = "conditional_risk_sleeve"
+    result["selection_priority"] = selection_priority
+    result["selection_segment"] = "validation"
+    result["report_segment"] = "test"
+    result["selection_uses_test_segment"] = False
+    result["required_cost_bps"] = list(required_costs)
+    result["selection_cost_bps"] = float(selection_cost_bps)
+    result["validation_passes_target"] = bool(result.get("passes_validation_target", False))
+    result["test_passes_target"] = bool(result.get("passes_test_target", False))
+    result["validation_cost_robust"] = bool(validation_cost_robust)
+    if not required_cost_results.empty:
+        result["required_cost_validation_target_count"] = int(
+            required_cost_results["passes_validation_target"].astype(bool).sum()
+        )
+        result["required_cost_test_target_count"] = int(required_cost_results["passes_test_target"].astype(bool).sum())
+        result["required_cost_validation_and_test_target_count"] = int(
+            required_cost_results.get(
+                "passes_validation_and_test_target",
+                pd.Series(False, index=required_cost_results.index),
+            )
+            .astype(bool)
+            .sum()
+        )
+        required_columns = [
+            "cost_bps",
+            "validation_return_retention_pct",
+            "validation_max_drawdown_pct",
+            "validation_open_buy_dump_period_reduction",
+            "validation_crash_period_reduction",
+            "test_return_retention_pct",
+            "test_max_drawdown_pct",
+            "test_open_buy_dump_period_reduction",
+            "test_crash_period_reduction",
+            "passes_validation_target",
+            "passes_test_target",
+            "passes_validation_and_test_target",
+        ]
+        result["required_cost_results"] = _json_ready_records(
+            required_cost_results[[column for column in required_columns if column in required_cost_results.columns]]
+        )
+    else:
+        result["required_cost_validation_target_count"] = 0
+        result["required_cost_test_target_count"] = 0
+        result["required_cost_validation_and_test_target_count"] = 0
+        result["required_cost_results"] = []
+    return result
 
 
 def select_validation_robust_delayed_policy(
@@ -1285,6 +1511,38 @@ def _segment_return_metrics(
     }
 
 
+def _segment_execution_risk_metrics(
+    returns: np.ndarray,
+    entry_day_returns: np.ndarray,
+    mask: np.ndarray,
+    active: np.ndarray,
+    *,
+    open_buy_dump_threshold: float = OPEN_BUY_DUMP_THRESHOLD,
+    crash_threshold: float = CRASH_THRESHOLD,
+) -> dict[str, float | int]:
+    segment_mask = np.asarray(mask, dtype=bool)
+    segment_active = segment_mask & np.asarray(active, dtype=bool)
+    segment_returns = np.nan_to_num(np.asarray(returns, dtype=float), nan=0.0)
+    segment_entry_day_returns = np.asarray(entry_day_returns, dtype=float)
+    active_returns = segment_returns[segment_active]
+    active_entry_day_returns = segment_entry_day_returns[segment_active]
+    entry_day_available = ~np.isnan(active_entry_day_returns)
+    open_buy_dump = entry_day_available & (active_entry_day_returns <= float(open_buy_dump_threshold))
+    crash = active_returns <= float(crash_threshold)
+    return {
+        "active_periods": int(segment_active.sum()),
+        "entry_day_available_periods": int(entry_day_available.sum()),
+        "open_buy_dump_periods": int(open_buy_dump.sum()),
+        "crash_periods": int(crash.sum()),
+        "worst_entry_day_return_pct": float(np.nanmin(active_entry_day_returns) * 100.0)
+        if entry_day_available.any()
+        else 0.0,
+        "worst_strategy_return_pct": float(np.min(active_returns) * 100.0)
+        if len(active_returns)
+        else 0.0,
+    }
+
+
 def _retention(total_return_pct: float, baseline_return_pct: float) -> float:
     if abs(float(baseline_return_pct)) <= 1e-12:
         return float("nan")
@@ -1350,6 +1608,33 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             ).assign(cost_bps=float(cost_bps))
         )
     overlay_trades = pd.concat(trade_frames, ignore_index=True)
+    regime_features = build_regime_feature_frame(daily_positions, daily_prices=daily_prices)
+    condition_columns = tuple(
+        column
+        for column in ("probability", "target_position", "turnover", "raw_target")
+        if column in regime_features.columns
+    )
+    conditional_risk_policy_selection = pd.concat(
+        [
+            evaluate_conditional_overlay_candidates(
+                overlay_trades,
+                regime_features,
+                cost_bps=float(cost_bps),
+                condition_columns=condition_columns,
+            )
+            for cost_bps in (20.0, 50.0)
+        ],
+        ignore_index=True,
+    )
+    conditional_risk_sleeve = select_conditional_risk_sleeve_policy(
+        conditional_risk_policy_selection,
+        required_cost_bps=(20.0, 50.0),
+        selection_cost_bps=float(spec.selection_cost_bps),
+    )
+    conditional_risk_sleeve_rows = _conditional_policy_rows(
+        conditional_risk_policy_selection,
+        conditional_risk_sleeve,
+    )
     walk_forward_trade_frames = []
     for cost_bps in sorted(set(float(value) for value in spec.cost_stress_bps)):
         walk_forward_trade_frames.append(
@@ -1398,6 +1683,8 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         threshold_selection=threshold_selection,
         execution_risk_diagnostics=execution_risk_diagnostics,
         execution_risk_summary=execution_risk_summary,
+        conditional_risk_policy_selection=conditional_risk_policy_selection,
+        conditional_risk_sleeve=conditional_risk_sleeve,
         selected_model=selected_model,
         walk_forward=walk_forward,
         daily_position_source_audit=daily_position_source_audit,
@@ -1408,6 +1695,9 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         threshold_selection=threshold_selection,
         cost_sensitivity=cost_sensitivity,
         execution_risk_diagnostics=execution_risk_diagnostics,
+        conditional_risk_policy_selection=conditional_risk_policy_selection,
+        conditional_risk_sleeve=conditional_risk_sleeve,
+        conditional_risk_sleeve_rows=conditional_risk_sleeve_rows,
         walk_forward=walk_forward,
         daily_position_source_audit=daily_position_source_audit,
         selected_model=selected_model,
@@ -1448,6 +1738,15 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
                     execution_risk_summary.get("selected_test_open_buy_dump_periods", 0.0)
                 ),
                 selected_test_crash_periods=float(execution_risk_summary.get("selected_test_crash_periods", 0.0)),
+                conditional_risk_validation_open_buy_dump_reduction=float(
+                    conditional_risk_sleeve.get("validation_open_buy_dump_period_reduction") or 0.0
+                ),
+                conditional_risk_test_open_buy_dump_reduction=float(
+                    conditional_risk_sleeve.get("test_open_buy_dump_period_reduction") or 0.0
+                ),
+                conditional_risk_test_retention_pct=float(
+                    conditional_risk_sleeve.get("test_return_retention_pct") or 0.0
+                ),
             )
             for file_name in [
                 "overlay_trades.csv",
@@ -1540,8 +1839,20 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
                 "selected_signal_threshold": float(thresholds["signal_threshold"]),
                 "selected_risk_threshold": float(thresholds["risk_threshold"]),
             },
+            "conditional_risk_sleeve": {
+                "candidate_rows": int(len(conditional_risk_policy_selection)),
+                "candidate_count": int(len(conditional_risk_policy_selection.drop_duplicates(_regime_policy_group_columns(conditional_risk_policy_selection))))
+                if not conditional_risk_policy_selection.empty
+                else 0,
+                "condition_columns": list(condition_columns),
+                "required_cost_bps": [20.0, 50.0],
+                "selection_uses_test_segment": False,
+                "selected_variant": conditional_risk_sleeve.get("variant"),
+            },
         },
         "execution_risk_diagnostics": execution_risk_summary,
+        "conditional_risk_sleeve": conditional_risk_sleeve,
+        "conditional_risk_sleeve_cost_sensitivity": _json_ready_records(conditional_risk_sleeve_rows),
         "selected_model": selected_model,
         "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
         "recorder_id": recorder_id,
@@ -1561,6 +1872,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         model_comparison=model_comparison,
         walk_forward=walk_forward,
         execution_risk_summary=execution_risk_summary,
+        conditional_risk_sleeve=conditional_risk_sleeve,
     )
     return summary
 
@@ -3169,6 +3481,8 @@ def _analysis_summary(
     threshold_selection: pd.DataFrame,
     execution_risk_diagnostics: pd.DataFrame,
     execution_risk_summary: dict[str, Any],
+    conditional_risk_policy_selection: pd.DataFrame,
+    conditional_risk_sleeve: dict[str, Any],
     selected_model: dict[str, Any],
     walk_forward: pd.DataFrame,
     daily_position_source_audit: pd.DataFrame,
@@ -3232,6 +3546,8 @@ def _analysis_summary(
         "model_comparison_rows": int(len(model_comparison)),
         "execution_risk_diagnostics_rows": int(len(execution_risk_diagnostics)),
         "execution_risk_diagnostics": execution_risk_summary,
+        "conditional_risk_sleeve": conditional_risk_sleeve,
+        "conditional_risk_policy_selection_rows": int(len(conditional_risk_policy_selection)),
         "threshold_selection_rows": int(0 if not spec.optimize_thresholds else len(threshold_selection)),
         "walk_forward_rows": int(len(walk_forward)),
     }
@@ -3411,6 +3727,26 @@ def _regime_policy_group_columns(policy_selection: pd.DataFrame) -> list[str]:
         "condition_threshold",
     ]
     return [column for column in candidates if column in policy_selection.columns]
+
+
+def _conditional_policy_rows(policy_selection: pd.DataFrame, selected_policy: dict[str, Any]) -> pd.DataFrame:
+    if policy_selection.empty or not selected_policy.get("variant"):
+        return pd.DataFrame()
+    mask = policy_selection["variant"].astype(str).eq(str(selected_policy.get("variant")))
+    for column in [
+        "condition_column",
+        "condition_operator",
+        "condition_quantile",
+        "condition_threshold",
+    ]:
+        if column not in policy_selection or column not in selected_policy:
+            continue
+        if column in {"condition_quantile", "condition_threshold"}:
+            values = pd.to_numeric(policy_selection[column], errors="coerce")
+            mask &= np.isclose(values, float(selected_policy[column]), equal_nan=True)
+        else:
+            mask &= policy_selection[column].astype(str).eq(str(selected_policy[column]))
+    return policy_selection.loc[mask].sort_values("cost_bps").reset_index(drop=True)
 
 
 def _select_regime_policy(
@@ -4147,6 +4483,9 @@ def _write_sidecars(
     threshold_selection: pd.DataFrame,
     cost_sensitivity: pd.DataFrame,
     execution_risk_diagnostics: pd.DataFrame,
+    conditional_risk_policy_selection: pd.DataFrame,
+    conditional_risk_sleeve: dict[str, Any],
+    conditional_risk_sleeve_rows: pd.DataFrame,
     walk_forward: pd.DataFrame,
     daily_position_source_audit: pd.DataFrame,
     selected_model: dict[str, Any],
@@ -4157,6 +4496,9 @@ def _write_sidecars(
         "selected_model": "selected_model.json",
         "cost_sensitivity": "cost_sensitivity.csv",
         "execution_risk_diagnostics": "execution_risk_diagnostics.csv",
+        "conditional_risk_policy_selection": "conditional_risk_policy_selection.csv",
+        "selected_conditional_risk_sleeve": "selected_conditional_risk_sleeve.json",
+        "selected_conditional_risk_sleeve_cost_sensitivity": "selected_conditional_risk_sleeve_cost_sensitivity.csv",
         "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
         "daily_position_source_audit": "daily_position_source_audit.csv",
         "analysis_summary": "analysis_summary.json",
@@ -4169,10 +4511,22 @@ def _write_sidecars(
         threshold_selection.to_csv(spec.output_dir / sidecars["threshold_selection"], index=False)
     cost_sensitivity.to_csv(spec.output_dir / sidecars["cost_sensitivity"], index=False)
     execution_risk_diagnostics.to_csv(spec.output_dir / sidecars["execution_risk_diagnostics"], index=False)
+    conditional_risk_policy_selection.to_csv(
+        spec.output_dir / sidecars["conditional_risk_policy_selection"],
+        index=False,
+    )
+    conditional_risk_sleeve_rows.to_csv(
+        spec.output_dir / sidecars["selected_conditional_risk_sleeve_cost_sensitivity"],
+        index=False,
+    )
     walk_forward.to_csv(spec.output_dir / sidecars["backtest_walk_forward_metrics"], index=False)
     daily_position_source_audit.to_csv(spec.output_dir / sidecars["daily_position_source_audit"], index=False)
     (spec.output_dir / sidecars["selected_model"]).write_text(
         json.dumps(selected_model, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    (spec.output_dir / sidecars["selected_conditional_risk_sleeve"]).write_text(
+        json.dumps(conditional_risk_sleeve, indent=2, sort_keys=True),
         encoding="utf-8",
     )
     (spec.output_dir / sidecars["analysis_summary"]).write_text(
@@ -4294,6 +4648,7 @@ def _write_conclusion(
     model_comparison: pd.DataFrame,
     walk_forward: pd.DataFrame,
     execution_risk_summary: dict[str, Any],
+    conditional_risk_sleeve: dict[str, Any],
 ) -> None:
     test_rows = model_comparison.loc[model_comparison["segment"].eq("test")].copy()
     selected_test = test_rows.loc[test_rows["variant"].eq(selected_model["variant"])]
@@ -4347,6 +4702,17 @@ def _write_conclusion(
         f"减少={execution_risk_summary.get('selected_test_open_buy_dump_period_reduction', 0)}；"
         f"crash 次数减少={execution_risk_summary.get('selected_test_crash_period_reduction', 0)}。\n"
     )
+    conditional_sentence = (
+        "- 条件化 risk sleeve："
+        f"validation 只用 {conditional_risk_sleeve.get('condition_column')} "
+        f"{conditional_risk_sleeve.get('condition_operator')} "
+        f"{float(conditional_risk_sleeve.get('condition_threshold') or 0.0):.4f} 时切到 "
+        f"{conditional_risk_sleeve.get('variant')}；"
+        f"validation open-buy-dump 减少={conditional_risk_sleeve.get('validation_open_buy_dump_period_reduction', 0)}，"
+        f"test retention={float(conditional_risk_sleeve.get('test_return_retention_pct') or 0.0):.2f}%，"
+        f"test max_dd={float(conditional_risk_sleeve.get('test_max_drawdown_pct') or 0.0):.2f}%，"
+        f"test open-buy-dump 减少={conditional_risk_sleeve.get('test_open_buy_dump_period_reduction', 0)}。\n"
+    )
     selected_test_retention = float(selected_model.get("test_return_retention_pct") or 0.0)
     selected_test_passes = bool(85.0 <= selected_test_retention <= 95.0 and selected_test_dd > -18.0)
     if selected_model.get("variant") == "baseline_next_open":
@@ -4372,6 +4738,7 @@ def _write_conclusion(
         f"- test 对照：baseline_next_open return={baseline_return:.2f}%，"
         f"selected return={selected_test_return:.2f}%、max_dd={selected_test_dd:.2f}%。\n"
         f"{risk_sentence}"
+        f"{conditional_sentence}"
         f"{walk_forward_sentence}"
         f"{annual_probe_sentence}"
         f"- 是否晋升：{summary['promotion_decision']}。{promotion_reason}\n"

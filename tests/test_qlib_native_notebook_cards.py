@@ -666,6 +666,9 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
         "execution_risk_diagnostics",
         "failure_modes",
         "model_comparison",
+        "conditional_risk_policy_selection",
+        "selected_conditional_risk_sleeve",
+        "selected_conditional_risk_sleeve_cost_sensitivity",
         "selected_model",
     }
     assert set(summary["sidecars"]) == expected_sidecars
@@ -685,6 +688,21 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert summary["execution_risk_diagnostics"]["open_buy_dump_threshold_pct"] == -3.0
     assert summary["execution_risk_diagnostics"]["crash_threshold_pct"] == -8.0
     assert summary["execution_risk_diagnostics"]["selection_cost_bps"] == 20.0
+    conditional = summary["conditional_risk_sleeve"]
+    assert conditional["selection_role"] == "conditional_risk_sleeve"
+    assert conditional["selection_segment"] == "validation"
+    assert conditional["selection_uses_test_segment"] is False
+    assert conditional["selection_priority"][0] == "validation_open_buy_dump_period_reduction_desc"
+    assert conditional["required_cost_bps"] == [20.0, 50.0]
+    selected_conditional = json.loads(
+        (card / summary["sidecars"]["selected_conditional_risk_sleeve"]).read_text(encoding="utf-8")
+    )
+    assert selected_conditional["selection_uses_test_segment"] is False
+    conditional_costs = pd.read_csv(card / summary["sidecars"]["selected_conditional_risk_sleeve_cost_sensitivity"])
+    assert {20.0, 50.0}.issubset(set(conditional_costs["cost_bps"]))
+    conditional_policy = pd.read_csv(card / summary["sidecars"]["conditional_risk_policy_selection"])
+    assert "validation_open_buy_dump_period_reduction" in conditional_policy.columns
+    assert "test_open_buy_dump_period_reduction" in conditional_policy.columns
     walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
     assert set(walk_forward["fold"]) == {"wf_2023", "wf_2024", "wf_2025", "wf_2026"}
     assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
@@ -761,6 +779,9 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
         "execution_risk_diagnostics",
         "failure_modes",
         "model_comparison",
+        "conditional_risk_policy_selection",
+        "selected_conditional_risk_sleeve",
+        "selected_conditional_risk_sleeve_cost_sensitivity",
         "selected_model",
         "threshold_selection",
     }
@@ -780,6 +801,13 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert set(risk_diagnostics["variant"]) == set(summary["execution_overlay"]["variants"])
     assert summary["execution_risk_diagnostics"]["open_buy_dump_threshold_pct"] == -3.0
     assert summary["execution_risk_diagnostics"]["crash_threshold_pct"] == -8.0
+    conditional = summary["conditional_risk_sleeve"]
+    assert conditional["selection_role"] == "conditional_risk_sleeve"
+    assert conditional["selection_uses_test_segment"] is False
+    assert conditional["required_cost_bps"] == [20.0, 50.0]
+    assert (card / summary["sidecars"]["selected_conditional_risk_sleeve"]).exists()
+    conditional_costs = pd.read_csv(card / summary["sidecars"]["selected_conditional_risk_sleeve_cost_sensitivity"])
+    assert {20.0, 50.0}.issubset(set(conditional_costs["cost_bps"]))
     walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
     blocked = walk_forward.loc[walk_forward["status"].eq("infeasible")]
     assert set(blocked["test_year"]) == {2023, 2024, 2025}

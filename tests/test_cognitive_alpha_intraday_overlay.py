@@ -8,6 +8,7 @@ from src.workflow.cognitive_alpha_intraday_overlay import (
     CognitiveAlphaIntradayOverlaySpec,
     evaluate_conditional_overlay_candidates,
     evaluate_observable_delayed_signal_candidates,
+    select_conditional_risk_sleeve_policy,
     select_intraday_flat_sleeve_policy,
     select_validation_robust_delayed_policy,
     summarize_execution_risk_diagnostics,
@@ -370,6 +371,231 @@ def test_evaluate_conditional_overlay_candidates_uses_validation_quantiles_only(
     assert set(candidates["selection_uses_test_segment"]) == {False}
     assert set(candidates["condition_threshold_source"]) == {"validation_quantile"}
     assert set(candidates["condition_threshold"]) == {0.50}
+
+
+def test_evaluate_conditional_overlay_candidates_reports_open_buy_dump_reduction():
+    trades = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "validation",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": 0.02,
+                "entry_day_strategy_return": 0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-03",
+                "segment": "validation",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": -0.09,
+                "entry_day_strategy_return": -0.05,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-04",
+                "segment": "test",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": -0.10,
+                "entry_day_strategy_return": -0.06,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-05",
+                "segment": "test",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": -0.02,
+                "entry_day_strategy_return": -0.04,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-02",
+                "segment": "validation",
+                "variant": "overlay_b_twap4",
+                "cost_bps": 20.0,
+                "strategy_return": 0.02,
+                "entry_day_strategy_return": 0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-03",
+                "segment": "validation",
+                "variant": "overlay_b_twap4",
+                "cost_bps": 20.0,
+                "strategy_return": -0.01,
+                "entry_day_strategy_return": -0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-04",
+                "segment": "test",
+                "variant": "overlay_b_twap4",
+                "cost_bps": 20.0,
+                "strategy_return": -0.02,
+                "entry_day_strategy_return": -0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-05",
+                "segment": "test",
+                "variant": "overlay_b_twap4",
+                "cost_bps": 20.0,
+                "strategy_return": 0.01,
+                "entry_day_strategy_return": 0.00,
+                "skipped_reason": None,
+            },
+        ]
+    )
+    regime_features = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "score": 0.20},
+            {"datetime": "2026-01-03", "score": 0.80},
+            {"datetime": "2026-01-04", "score": 0.90},
+            {"datetime": "2026-01-05", "score": 0.95},
+        ]
+    )
+
+    candidates = evaluate_conditional_overlay_candidates(
+        trades,
+        regime_features,
+        cost_bps=20.0,
+        variants=("overlay_b_twap4",),
+        condition_columns=("score",),
+        quantiles=(0.50,),
+        min_validation_coverage=0.0,
+    )
+
+    selected = candidates.loc[
+        candidates["variant"].eq("overlay_b_twap4")
+        & candidates["condition_operator"].eq("ge")
+    ].iloc[0]
+    assert selected["condition_threshold"] == 0.50
+    assert bool(selected["selection_uses_test_segment"]) is False
+    assert selected["validation_open_buy_dump_period_reduction"] == 1
+    assert selected["validation_crash_period_reduction"] == 1
+    assert selected["test_open_buy_dump_period_reduction"] == 2
+    assert selected["test_crash_period_reduction"] == 1
+    assert selected["validation_worst_entry_day_return_improvement_pct"] == pytest.approx(4.0)
+
+
+def test_select_conditional_risk_sleeve_policy_prefers_validation_risk_reduction():
+    candidates = pd.DataFrame(
+        [
+            {
+                "cost_bps": 20.0,
+                "variant": "overlay_b_twap4",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.74,
+                "selection_score": 98.0,
+                "validation_return_retention_pct": 90.0,
+                "validation_max_drawdown_pct": -14.0,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 2,
+                "validation_crash_period_reduction": 1,
+                "validation_worst_entry_day_return_improvement_pct": 4.0,
+                "validation_drawdown_improvement_pct": 4.0,
+                "test_return_retention_pct": 88.0,
+                "test_max_drawdown_pct": -16.0,
+                "test_open_buy_dump_period_reduction": 1,
+                "test_crash_period_reduction": 1,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+            },
+            {
+                "cost_bps": 50.0,
+                "variant": "overlay_b_twap4",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.74,
+                "selection_score": 95.0,
+                "validation_return_retention_pct": 87.0,
+                "validation_max_drawdown_pct": -17.0,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 2,
+                "validation_crash_period_reduction": 1,
+                "validation_worst_entry_day_return_improvement_pct": 3.5,
+                "validation_drawdown_improvement_pct": 2.0,
+                "test_return_retention_pct": 86.0,
+                "test_max_drawdown_pct": -17.0,
+                "test_open_buy_dump_period_reduction": 1,
+                "test_crash_period_reduction": 0,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+            },
+            {
+                "cost_bps": 20.0,
+                "variant": "overlay_a_signal_gate",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.90,
+                "condition_threshold": 0.72,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.90,
+                "selection_score": 120.0,
+                "validation_return_retention_pct": 91.0,
+                "validation_max_drawdown_pct": -13.0,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 0,
+                "validation_crash_period_reduction": 0,
+                "validation_worst_entry_day_return_improvement_pct": 1.0,
+                "validation_drawdown_improvement_pct": 5.0,
+                "test_return_retention_pct": 80.0,
+                "test_max_drawdown_pct": -15.0,
+                "test_open_buy_dump_period_reduction": 4,
+                "test_crash_period_reduction": 2,
+                "passes_validation_target": True,
+                "passes_test_target": False,
+            },
+            {
+                "cost_bps": 50.0,
+                "variant": "overlay_a_signal_gate",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.90,
+                "condition_threshold": 0.72,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.90,
+                "selection_score": 115.0,
+                "validation_return_retention_pct": 90.0,
+                "validation_max_drawdown_pct": -13.5,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 0,
+                "validation_crash_period_reduction": 0,
+                "validation_worst_entry_day_return_improvement_pct": 1.0,
+                "validation_drawdown_improvement_pct": 5.0,
+                "test_return_retention_pct": 79.0,
+                "test_max_drawdown_pct": -15.0,
+                "test_open_buy_dump_period_reduction": 4,
+                "test_crash_period_reduction": 2,
+                "passes_validation_target": True,
+                "passes_test_target": False,
+            },
+        ]
+    )
+
+    selected = select_conditional_risk_sleeve_policy(candidates)
+
+    assert selected["variant"] == "overlay_b_twap4"
+    assert selected["selection_role"] == "conditional_risk_sleeve"
+    assert selected["selection_uses_test_segment"] is False
+    assert selected["selection_priority"][0] == "validation_open_buy_dump_period_reduction_desc"
+    assert selected["required_cost_validation_target_count"] == 2
+    assert selected["test_open_buy_dump_period_reduction"] == 1
 
 
 def test_simulate_observable_delayed_signal_overlay_waits_for_observation_window():
