@@ -58,11 +58,19 @@ EXPERIMENT = "cognitive_alpha_intraday_5min_risk_sleeve_v1"
 REQUIRED_COST_BPS = (20.0, 50.0)
 RISK_SLEEVE_VARIANTS = (
     "risk_exit_full_5m",
+    "risk_exit_full_5m_reenter_close",
     "risk_reduce_half_5m",
     "risk_reduce_quarter_5m",
+    "risk_reduce_quarter_5m_reenter_close",
     "risk_reduce_eighth_5m",
 )
-TRIGGER_MODES = ("drawdown_only", "risk_score_or_drawdown", "context_stress_or_drawdown")
+TRIGGER_MODES = (
+    "drawdown_only",
+    "risk_score_only",
+    "risk_score_or_drawdown",
+    "risk_score_and_drawdown",
+    "context_stress_or_drawdown",
+)
 RISK_SLEEVE_EXECUTION_DELAY_BARS = 1
 RISK_SLEEVE_EXECUTION_PRICE = "open"
 RISK_SLEEVE_EXECUTION_TIMING = "daily_next_open_entry_then_5min_close_trigger_next_5min_open_reduce_or_exit"
@@ -354,6 +362,24 @@ def simulate_5min_risk_sleeve(
         quarter_return = quarter_gross - execution_cost
         eighth_gross = target * (0.125 * (risk_execution_price / entry_open - 1.0) + 0.875 * (exit_open / entry_open - 1.0))
         eighth_return = eighth_gross - execution_cost
+        full_reenter_gross = _reenter_close_gross_return(
+            target=target,
+            entry_open=entry_open,
+            risk_execution_price=risk_execution_price,
+            entry_close=entry_close,
+            exit_open=exit_open,
+            closed_fraction=1.0,
+        )
+        full_reenter_return = full_reenter_gross - execution_cost if not pd.isna(full_reenter_gross) else np.nan
+        quarter_reenter_gross = _reenter_close_gross_return(
+            target=target,
+            entry_open=entry_open,
+            risk_execution_price=risk_execution_price,
+            entry_close=entry_close,
+            exit_open=exit_open,
+            closed_fraction=0.25,
+        )
+        quarter_reenter_return = quarter_reenter_gross - execution_cost if not pd.isna(quarter_reenter_gross) else np.nan
         half_entry_day = (
             target * (0.5 * (risk_execution_price / entry_open - 1.0) + 0.5 * (entry_close / entry_open - 1.0)) - execution_cost
             if not pd.isna(entry_close)
@@ -389,6 +415,28 @@ def simulate_5min_risk_sleeve(
                     "strategy_return": full_return,
                     "entry_day_close_time": _timestamp_or_none(risk_execution_time),
                     "entry_day_close_price": risk_execution_price,
+                    "entry_day_strategy_return": full_return,
+                    "skipped_reason": None,
+                },
+            "risk_exit_full_5m_reenter_close": {
+                    **common,
+                    "variant": "risk_exit_full_5m_reenter_close",
+                    "entry_time": _timestamp_or_none(entry_bars.iloc[0]["datetime"]),
+                    "exit_time": pd.Timestamp(exit_date).date().isoformat(),
+                    "entry_price": entry_open,
+                    "exit_price": exit_open,
+                    "trigger_time": _timestamp_or_none(trigger_time),
+                    "trigger_price": trigger_price,
+                    "trigger_drawdown_from_entry": trigger_pnl,
+                    "trigger_risk_score": trigger_score,
+                    **context_trigger_row,
+                    "risk_execution_time": _timestamp_or_none(risk_execution_time),
+                    "risk_execution_price": risk_execution_price,
+                    "risk_triggered": True,
+                    "gross_return": full_reenter_gross,
+                    "strategy_return": full_reenter_return,
+                    "entry_day_close_time": _timestamp_or_none(entry_close_time),
+                    "entry_day_close_price": entry_close,
                     "entry_day_strategy_return": full_return,
                     "skipped_reason": None,
                 },
@@ -436,6 +484,28 @@ def simulate_5min_risk_sleeve(
                     "entry_day_strategy_return": quarter_entry_day,
                     "skipped_reason": None,
                 },
+            "risk_reduce_quarter_5m_reenter_close": {
+                    **common,
+                    "variant": "risk_reduce_quarter_5m_reenter_close",
+                    "entry_time": _timestamp_or_none(entry_bars.iloc[0]["datetime"]),
+                    "exit_time": pd.Timestamp(exit_date).date().isoformat(),
+                    "entry_price": entry_open,
+                    "exit_price": exit_open,
+                    "trigger_time": _timestamp_or_none(trigger_time),
+                    "trigger_price": trigger_price,
+                    "trigger_drawdown_from_entry": trigger_pnl,
+                    "trigger_risk_score": trigger_score,
+                    **context_trigger_row,
+                    "risk_execution_time": _timestamp_or_none(risk_execution_time),
+                    "risk_execution_price": risk_execution_price,
+                    "risk_triggered": True,
+                    "gross_return": quarter_reenter_gross,
+                    "strategy_return": quarter_reenter_return,
+                    "entry_day_close_time": _timestamp_or_none(entry_close_time),
+                    "entry_day_close_price": entry_close,
+                    "entry_day_strategy_return": quarter_entry_day,
+                    "skipped_reason": None,
+                },
             "risk_reduce_eighth_5m": {
                     **common,
                     "variant": "risk_reduce_eighth_5m",
@@ -471,6 +541,24 @@ def _resolve_requested_risk_sleeve_variants(variants: tuple[str, ...] | None) ->
     if unsupported:
         raise ValueError(f"unsupported 5min risk sleeve variants: {unsupported}")
     return requested
+
+
+def _reenter_close_gross_return(
+    *,
+    target: float,
+    entry_open: float,
+    risk_execution_price: float,
+    entry_close: float,
+    exit_open: float,
+    closed_fraction: float,
+) -> float:
+    if pd.isna(entry_close) or float(entry_close) <= 0.0:
+        return np.nan
+    closed_fraction = float(closed_fraction)
+    held_fraction = 1.0 - closed_fraction
+    held_leg = float(exit_open) / float(entry_open) - 1.0
+    reentered_leg = (float(risk_execution_price) / float(entry_open)) * (float(exit_open) / float(entry_close)) - 1.0
+    return float(target) * (held_fraction * held_leg + closed_fraction * reentered_leg)
 
 
 def evaluate_5min_risk_sleeve_candidates(
@@ -817,6 +905,8 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
             "recorder_id": intraday_summary.get("recorder_id"),
             "label_policy_name": LABEL_POLICY,
             "score_source": score_source,
+            "score_semantics": "probability_of_positive_1h_2h_execution_improvement",
+            "risk_trigger_direction": "trigger_when_execution_improvement_probability_is_less_or_equal_validation_quantile",
             "models": MODEL_NAMES,
             "feature_set": {
                 "source": "local_soxl_soxx_15m_lgb_xgb_triple_barrier",
@@ -1235,18 +1325,48 @@ def _validation_policy_grid(
         )
     context_candidates = _validation_context_threshold_candidates(context_values)
     policies: list[dict[str, Any]] = []
+    score_thresholds = [threshold for threshold in risk_thresholds if threshold is not None]
     for variant in RISK_SLEEVE_VARIANTS:
-        for trigger_mode in ("drawdown_only", "risk_score_or_drawdown"):
+        for drawdown_threshold in drawdown_thresholds:
+            policy_id = f"{variant}_drawdown_only_dd_{drawdown_threshold:.5f}_risk_none"
+            policies.append(
+                {
+                    "policy_id": policy_id,
+                    "variant": variant,
+                    "trigger_mode": "drawdown_only",
+                    "drawdown_threshold": float(drawdown_threshold),
+                    "drawdown_threshold_source": "validation_quantile",
+                    "risk_score_threshold": None,
+                    "risk_score_threshold_source": "disabled",
+                    "context_trigger_source": "disabled",
+                    **_context_threshold_row({}),
+                    "selection_segment": "validation",
+                    "report_segment": "test",
+                    "selection_uses_test_segment": False,
+                }
+            )
+        for risk_threshold in score_thresholds:
+            policy_id = f"{variant}_risk_score_only_dd_disabled_risk_{risk_threshold:.5f}"
+            policies.append(
+                {
+                    "policy_id": policy_id,
+                    "variant": variant,
+                    "trigger_mode": "risk_score_only",
+                    "drawdown_threshold": np.nan,
+                    "drawdown_threshold_source": "disabled_for_risk_score_only",
+                    "risk_score_threshold": float(risk_threshold),
+                    "risk_score_threshold_source": "validation_quantile",
+                    "context_trigger_source": "disabled",
+                    **_context_threshold_row({}),
+                    "selection_segment": "validation",
+                    "report_segment": "test",
+                    "selection_uses_test_segment": False,
+                }
+            )
+        for trigger_mode in ("risk_score_or_drawdown", "risk_score_and_drawdown"):
             for drawdown_threshold in drawdown_thresholds:
-                for risk_threshold in risk_thresholds:
-                    if trigger_mode == "drawdown_only" and risk_threshold is not None:
-                        continue
-                    if trigger_mode != "drawdown_only" and risk_threshold is None:
-                        continue
-                    policy_id = (
-                        f"{variant}_{trigger_mode}_dd_{drawdown_threshold:.5f}_"
-                        f"risk_{'none' if risk_threshold is None else f'{risk_threshold:.5f}'}"
-                    )
+                for risk_threshold in score_thresholds:
+                    policy_id = f"{variant}_{trigger_mode}_dd_{drawdown_threshold:.5f}_risk_{risk_threshold:.5f}"
                     policies.append(
                         {
                             "policy_id": policy_id,
@@ -1254,8 +1374,8 @@ def _validation_policy_grid(
                             "trigger_mode": trigger_mode,
                             "drawdown_threshold": float(drawdown_threshold),
                             "drawdown_threshold_source": "validation_quantile",
-                            "risk_score_threshold": risk_threshold,
-                            "risk_score_threshold_source": "disabled" if risk_threshold is None else "validation_quantile",
+                            "risk_score_threshold": float(risk_threshold),
+                            "risk_score_threshold_source": "validation_quantile",
                             "context_trigger_source": "disabled",
                             **_context_threshold_row({}),
                             "selection_segment": "validation",
@@ -1910,13 +2030,19 @@ def _simulate_selected_trades(
     if not selected.get("policy_id"):
         return pd.DataFrame()
     frames = []
+    selected_drawdown_threshold = selected.get("drawdown_threshold")
+    drawdown_threshold = (
+        np.nan
+        if selected_drawdown_threshold is None or pd.isna(selected_drawdown_threshold)
+        else float(selected_drawdown_threshold)
+    )
     for cost_bps in required_cost_bps:
         trades = simulate_5min_risk_sleeve(
             fold_daily,
             daily_prices=daily_prices,
             bars_5min=bars_5min,
             intraday_scores=fold_scores,
-            drawdown_threshold=float(selected.get("drawdown_threshold")),
+            drawdown_threshold=drawdown_threshold,
             risk_score_threshold=selected.get("risk_score_threshold"),
             trigger_mode=str(selected.get("trigger_mode")),
             cost_bps=float(cost_bps),
@@ -2193,6 +2319,8 @@ def _analysis_summary(
             "trigger_on_5min_close_then_execute_risk_action_on_next_5min_open",
             "add_validation_selected_5min_context_stress_candidates",
             "select_drawdown_and_risk_score_thresholds_from_validation_year_only",
+            "search_risk_score_only_and_risk_score_confirmed_drawdown_modes",
+            "search_reenter_close_intraday_risk_reduction_variants",
             "report_test_year_without_threshold_refit",
         ],
         "why_intraday_did_not_beat_daily": [
@@ -2235,6 +2363,10 @@ def _analysis_summary(
             "risk_sleeve_execution_price": f"next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
             "trigger_price_role": "signal_only_5min_close",
             "execution_price_role": "risk_reduce_or_exit_fill_price",
+            "risk_score_semantics": "probability_of_positive_1h_2h_execution_improvement",
+            "risk_score_trigger_direction": "low_probability_triggers_risk_action",
+            "trigger_modes": list(TRIGGER_MODES),
+            "reenter_close_variants": ["risk_exit_full_5m_reenter_close", "risk_reduce_quarter_5m_reenter_close"],
             "context_trigger_features": list(CONTEXT_THRESHOLD_COLUMNS),
         },
         "label_policy": label_audit,
@@ -2263,6 +2395,8 @@ def _analysis_summary(
         "source_intraday_model": {
             "recorder_id": intraday_summary.get("recorder_id"),
             "label_policy": intraday_summary.get("label_policy"),
+            "score_semantics": "probability_of_positive_1h_2h_execution_improvement",
+            "risk_trigger_direction": "trigger_when_execution_improvement_probability_is_less_or_equal_validation_quantile",
             "models": MODEL_NAMES,
         },
         "model_selection_rows": int(len(model_selection)),
@@ -2385,6 +2519,8 @@ def _write_sidecars(
         "# Failure Modes\n\n"
         "- 本卡不是新的日内主 alpha；它保留日线 next-open 入场，只验证 5m 风控减仓/退出是否能减少买入后下杀。\n"
         "- 15m LGB/XGB/consensus 的 label 是 triple-barrier 1h/2h execution improvement，不等同于 open-to-open 收益预测。\n"
+        "- 5m risk_score 字段沿用 15m 执行改善概率；风控触发方向是低概率触发，而不是高风险概率触发。\n"
+        "- reenter-close 变体只降低触发日至收盘的日内风险，收盘恢复目标仓位以保留日线模型的隔夜段。\n"
         "- 5m 阈值只从 validation 年份生成；若 test 年效果差，不能用 test 重新调阈值。\n"
         "- 5m context stress 候选包含 SOXL/SOXX 本地 qlib bar 的 VWAP、SOXX 确认、波动扩张、杠杆偏离、gap reclaim、趋势质量和量价吸收/派发。\n"
         "- 外部 QQQ/SMH/SOXX lead-lag 与 NVDA/AVGO/AMD/TSM/ASML breadth 已按 15m bar 向后对齐到 5m replay，但外部历史不足完整 annual walk-forward 前只能作为诊断候选。\n"
@@ -2435,6 +2571,9 @@ def _write_workflow_yaml(
                 f"  context_trigger_features: {list(CONTEXT_THRESHOLD_COLUMNS)}",
                 f"  external_context_trigger_features: {list(EXTERNAL_CONTEXT_THRESHOLD_COLUMNS)}",
                 "  daily_entry_is_not_skipped: true",
+                "  risk_score_semantics: probability_of_positive_1h_2h_execution_improvement",
+                "  risk_score_trigger_direction: low_probability_triggers_risk_action",
+                f"  trigger_modes: {list(TRIGGER_MODES)}",
                 "walk_forward:",
                 "  policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T",
                 f"  required_start: {REQUIRED_WALK_FORWARD_START}",
@@ -2500,7 +2639,7 @@ def _write_conclusion(
     text = (
         "# 中文结论\n\n"
         "- 做了什么：新增 5m 日内风控 sleeve。日线 open-to-open 模型仍按 next-open 入场；"
-        "15m LGB/XGB/consensus triple-barrier 模型提供风险分数，5m qlib bar 在收盘触发后按下一根 5m 开盘做全平、半仓、1/4 或 1/8 减仓 replay；"
+        "15m LGB/XGB/consensus triple-barrier 模型提供 1h/2h 执行改善概率，5m qlib bar 在低概率、破位或 context stress 触发后按下一根 5m 开盘做全平、半仓、1/4、1/8 减仓，或收盘恢复仓位的日内风险 replay；"
         "本轮新增 SOXL/SOXX 5m VWAP、SOXX 确认、波动扩张、杠杆偏离、gap reclaim、趋势质量和量价吸收/派发 context stress 候选，"
         "并接入 QQQ/SMH/SOXX 15m lead-lag 与半导体成分股 breadth 诊断候选。\n"
         f"- 外部 context 覆盖：5m replay 可对齐行数={external_rows}，full_walk_forward_history_available={external_full_history}；"

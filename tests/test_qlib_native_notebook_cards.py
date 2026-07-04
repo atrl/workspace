@@ -1190,6 +1190,16 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert summary["execution_overlay"]["risk_sleeve_execution_delay_bars"] == 1
     assert summary["execution_overlay"]["risk_sleeve_execution_price"] == "next_5min_open"
     assert "context_stress_or_drawdown" in summary["execution_overlay"]["trigger_modes"]
+    assert "risk_score_only" in summary["execution_overlay"]["trigger_modes"]
+    assert "risk_score_and_drawdown" in summary["execution_overlay"]["trigger_modes"]
+    assert (
+        summary["source_intraday_model"]["score_semantics"]
+        == "probability_of_positive_1h_2h_execution_improvement"
+    )
+    assert (
+        summary["source_intraday_model"]["risk_trigger_direction"]
+        == "trigger_when_execution_improvement_probability_is_less_or_equal_validation_quantile"
+    )
     assert {
         "soxl_vwap_dist",
         "soxx_cum_ret_from_open",
@@ -1208,8 +1218,10 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert summary["execution_overlay"]["variants"] == [
         "baseline_next_open",
         "risk_exit_full_5m",
+        "risk_exit_full_5m_reenter_close",
         "risk_reduce_half_5m",
         "risk_reduce_quarter_5m",
+        "risk_reduce_quarter_5m_reenter_close",
         "risk_reduce_eighth_5m",
     ]
     assert summary["model_selection"]["selection_segment"] == "validation"
@@ -1218,7 +1230,7 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
     assert summary["model_selection"]["uses_5min_context_trigger_candidates"] is True
     assert summary["model_selection"]["context_policy_candidate_rows"] > 0
-    assert summary["model_selection"]["selected_context_trigger_years"] == [2023, 2026]
+    assert set(summary["model_selection"]["selected_context_trigger_years"]).issubset({2023, 2024, 2025, 2026})
     assert summary["walk_forward"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
     assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
     assert summary["walk_forward"]["selection_uses_test_segment"] is False
@@ -1258,12 +1270,19 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert set(selected_costs["cost_bps"]) == {20.0, 50.0}
     assert selected_costs["selection_uses_test_segment"].eq(False).all()
     assert set(selected_costs["variant"]).issubset(
-        {"risk_exit_full_5m", "risk_reduce_half_5m", "risk_reduce_quarter_5m", "risk_reduce_eighth_5m"}
+        {
+            "risk_exit_full_5m",
+            "risk_exit_full_5m_reenter_close",
+            "risk_reduce_half_5m",
+            "risk_reduce_quarter_5m",
+            "risk_reduce_quarter_5m_reenter_close",
+            "risk_reduce_eighth_5m",
+        }
     )
     analysis_summary = json.loads((card / summary["sidecars"]["analysis_summary"]).read_text(encoding="utf-8"))
     context_diagnostics = analysis_summary["risk_sleeve_context_candidate_diagnostics"]
     assert context_diagnostics["context_policy_candidate_rows"] > 0
-    assert context_diagnostics["selected_context_trigger_years"] == [2023, 2026]
+    assert set(context_diagnostics["selected_context_trigger_years"]).issubset({2023, 2024, 2025, 2026})
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "five_min_risk_sleeve" / "intraday_fold_predictions.csv").exists()

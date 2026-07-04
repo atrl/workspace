@@ -63,8 +63,10 @@ def test_simulate_5min_risk_sleeve_keeps_daily_entry_and_reduces_after_trigger()
     assert set(by_variant.index) == {
         "baseline_next_open",
         "risk_exit_full_5m",
+        "risk_exit_full_5m_reenter_close",
         "risk_reduce_half_5m",
         "risk_reduce_quarter_5m",
+        "risk_reduce_quarter_5m_reenter_close",
         "risk_reduce_eighth_5m",
     }
     assert by_variant.loc["baseline_next_open", "entry_time"] == "2026-01-05"
@@ -131,6 +133,56 @@ def test_simulate_5min_risk_sleeve_executes_on_next_5min_open_after_trigger():
     assert by_variant.loc["risk_exit_full_5m", "skipped_reason"] is None
 
 
+def test_simulate_5min_risk_sleeve_can_reenter_at_close_after_intraday_risk_reduction():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "walk_forward_fold": "wf_2026",
+                "target_position": 1.0,
+                "strategy_return": 0.20,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 120.0},
+        ]
+    )
+    bars_5min = pd.DataFrame(
+        [
+            {"datetime": "2026-01-05 09:35:00", "date": "2026-01-05", "open": 100.0, "close": 99.0},
+            {"datetime": "2026-01-05 09:40:00", "date": "2026-01-05", "open": 99.0, "close": 95.0},
+            {"datetime": "2026-01-05 16:00:00", "date": "2026-01-05", "open": 91.0, "close": 90.0},
+        ]
+    )
+
+    rows = simulate_5min_risk_sleeve(
+        daily,
+        daily_prices=daily_prices,
+        bars_5min=bars_5min,
+        drawdown_threshold=-0.04,
+        execution_delay_bars=0,
+        execution_price="close",
+        cost_bps=0.0,
+        variants=("risk_exit_full_5m_reenter_close", "risk_reduce_quarter_5m_reenter_close"),
+    )
+
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["baseline_next_open", "strategy_return"] == pytest.approx(0.20)
+    assert by_variant.loc["risk_exit_full_5m_reenter_close", "entry_day_strategy_return"] == pytest.approx(-0.05)
+    assert by_variant.loc["risk_exit_full_5m_reenter_close", "strategy_return"] == pytest.approx((95.0 / 100.0) * (120.0 / 90.0) - 1.0)
+    assert by_variant.loc["risk_reduce_quarter_5m_reenter_close", "entry_day_strategy_return"] == pytest.approx(
+        0.25 * (95.0 / 100.0 - 1.0) + 0.75 * (90.0 / 100.0 - 1.0)
+    )
+    assert by_variant.loc["risk_reduce_quarter_5m_reenter_close", "strategy_return"] == pytest.approx(
+        0.75 * (120.0 / 100.0 - 1.0) + 0.25 * ((95.0 / 100.0) * (120.0 / 90.0) - 1.0)
+    )
+
+
 def test_simulate_5min_risk_sleeve_can_limit_output_to_requested_variant():
     daily = pd.DataFrame(
         [
@@ -170,6 +222,59 @@ def test_simulate_5min_risk_sleeve_can_limit_output_to_requested_variant():
     assert set(rows["variant"]) == {"baseline_next_open", "risk_reduce_eighth_5m"}
     by_variant = rows.set_index("variant")
     assert by_variant.loc["risk_reduce_eighth_5m", "strategy_return"] == pytest.approx(0.08425)
+
+
+def test_selected_trades_replay_accepts_score_only_policy_without_drawdown_threshold():
+    selected = {
+        "policy_id": "risk_exit_full_5m_risk_score_only_dd_disabled_risk_0.40000",
+        "variant": "risk_exit_full_5m",
+        "trigger_mode": "risk_score_only",
+        "drawdown_threshold": None,
+        "risk_score_threshold": 0.40,
+        "context_trigger_source": "disabled",
+    }
+
+    trades = risk_sleeve_workflow._simulate_selected_trades(
+        selected,
+        fold_daily=pd.DataFrame(
+            [
+                {
+                    "datetime": "2026-01-02",
+                    "segment": "test",
+                    "walk_forward_fold": "wf_2026",
+                    "target_position": 1.0,
+                    "strategy_return": 0.10,
+                }
+            ]
+        ),
+        daily_prices=pd.DataFrame(
+            [
+                {"datetime": "2026-01-02", "open": 90.0},
+                {"datetime": "2026-01-05", "open": 100.0},
+                {"datetime": "2026-01-06", "open": 110.0},
+            ]
+        ),
+        bars_5min=pd.DataFrame(
+            [
+                {"datetime": "2026-01-05 09:35:00", "date": "2026-01-05", "open": 100.0, "close": 99.8},
+                {"datetime": "2026-01-05 09:40:00", "date": "2026-01-05", "open": 99.6, "close": 99.7},
+            ]
+        ),
+        fold_scores=pd.DataFrame(
+            [
+                {
+                    "datetime": "2026-01-05 09:35:00",
+                    "date": "2026-01-05",
+                    "risk_score": 0.35,
+                    "prediction_available_gate": True,
+                }
+            ]
+        ),
+        required_cost_bps=(20.0,),
+    )
+
+    assert set(trades["variant"]) == {"baseline_next_open", "risk_exit_full_5m"}
+    assert bool(trades.set_index("variant").loc["risk_exit_full_5m", "risk_triggered"]) is True
 
 
 def test_evaluate_5min_risk_sleeve_candidates_reuses_trigger_replay_across_variants(monkeypatch):
@@ -520,6 +625,57 @@ def test_5min_risk_sleeve_triggers_on_local_gap_reclaim_and_absorption_stress():
     assert by_variant.loc["risk_exit_full_5m", "context_open_gap_reclaim_quality"] == pytest.approx(-0.45)
     assert by_variant.loc["risk_exit_full_5m", "context_soxl_volume_price_absorption"] == pytest.approx(2.1)
     assert bool(by_variant.loc["risk_exit_full_5m", "context_stress_hit"]) is True
+
+
+def test_validation_policy_grid_searches_pure_and_confirmed_intraday_score_triggers():
+    policies = risk_sleeve_workflow._validation_policy_grid(
+        pd.DataFrame(
+            [
+                {
+                    "datetime": "2026-01-02",
+                    "segment": "validation",
+                    "target_position": 1.0,
+                }
+            ]
+        ),
+        daily_prices=pd.DataFrame(
+            [
+                {"datetime": "2026-01-02", "open": 100.0},
+                {"datetime": "2026-01-05", "open": 100.0},
+            ]
+        ),
+        bars_5min=pd.DataFrame(
+            [
+                {
+                    "datetime": "2026-01-05 09:35:00",
+                    "date": "2026-01-05",
+                    "open": 100.0,
+                    "close": 99.5,
+                    "risk_score": 0.25,
+                    "prediction_available_gate": True,
+                },
+                {
+                    "datetime": "2026-01-05 09:40:00",
+                    "date": "2026-01-05",
+                    "open": 99.5,
+                    "close": 99.0,
+                    "risk_score": 0.35,
+                    "prediction_available_gate": True,
+                },
+            ]
+        ),
+        risk_score_col="risk_score",
+        gate_col="prediction_available_gate",
+    )
+
+    trigger_modes = {policy["trigger_mode"] for policy in policies}
+    assert {
+        "drawdown_only",
+        "risk_score_only",
+        "risk_score_or_drawdown",
+        "risk_score_and_drawdown",
+        "context_stress_or_drawdown",
+    }.issubset(trigger_modes)
 
 
 def test_build_intraday_optimization_plan_prefers_local_fallback_when_external_history_blocked():
