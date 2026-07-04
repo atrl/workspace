@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import pandas as pd
 
-from src.workflow.cognitive_alpha_intraday_overlay import simulate_execution_overlays
+from src.workflow.cognitive_alpha_intraday_overlay import (
+    evaluate_conditional_overlay_candidates,
+    simulate_execution_overlays,
+)
 
 
 def test_simulate_execution_overlays_delays_entry_and_records_intraday_variants():
@@ -82,3 +85,96 @@ def test_simulate_execution_overlays_delays_entry_and_records_intraday_variants(
     assert by_variant.loc["overlay_b_twap4", "entry_time"] == "twap4_first_4_bars"
     assert by_variant.loc["overlay_c_risk_exit", "exit_time"] == "2026-01-05 09:45:00"
     assert by_variant.loc["overlay_c_risk_exit", "strategy_return"] == (102.0 / 100.0 - 1.0)
+
+
+def test_evaluate_conditional_overlay_candidates_uses_validation_quantiles_only():
+    trades = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "validation",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": 0.10,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-03",
+                "segment": "validation",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": -0.02,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-04",
+                "segment": "test",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": 0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-05",
+                "segment": "test",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": -0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-02",
+                "segment": "validation",
+                "variant": "overlay_b_twap4",
+                "cost_bps": 20.0,
+                "strategy_return": 0.08,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-03",
+                "segment": "validation",
+                "variant": "overlay_b_twap4",
+                "cost_bps": 20.0,
+                "strategy_return": -0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-04",
+                "segment": "test",
+                "variant": "overlay_b_twap4",
+                "cost_bps": 20.0,
+                "strategy_return": 0.50,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2026-01-05",
+                "segment": "test",
+                "variant": "overlay_b_twap4",
+                "cost_bps": 20.0,
+                "strategy_return": 0.50,
+                "skipped_reason": None,
+            },
+        ]
+    )
+    regime_features = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "score": 0.20},
+            {"datetime": "2026-01-03", "score": 0.80},
+            {"datetime": "2026-01-04", "score": 100.00},
+            {"datetime": "2026-01-05", "score": 200.00},
+        ]
+    )
+
+    candidates = evaluate_conditional_overlay_candidates(
+        trades,
+        regime_features,
+        cost_bps=20.0,
+        variants=("overlay_b_twap4",),
+        condition_columns=("score",),
+        quantiles=(0.50,),
+    )
+
+    assert not candidates.empty
+    assert set(candidates["selection_uses_test_segment"]) == {False}
+    assert set(candidates["condition_threshold_source"]) == {"validation_quantile"}
+    assert set(candidates["condition_threshold"]) == {0.50}

@@ -15,6 +15,7 @@ from src.data import QlibProviderConfig, init_qlib_provider, load_qlib_feature_f
 
 EXPERIMENT = "cognitive_alpha_intraday_execution_overlay_v1"
 EXTERNAL_CONTEXT_OVERLAY_EXPERIMENT = "cognitive_alpha_intraday_external_context_overlay_v1"
+REGIME_DIAGNOSTIC_EXPERIMENT = "cognitive_alpha_intraday_regime_overlay_diagnostic_v1"
 DAILY_SOURCE_CARD = "research/cognitive_alpha_goal_codex_exec_v1"
 INTRADAY_SOURCE_CARD = "research/agentic_alpha_intraday_15m_regime_gated_v1"
 EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD = "research/agentic_alpha_intraday_external_context_label_v1"
@@ -120,6 +121,21 @@ def run_cognitive_alpha_intraday_external_context_overlay_card(
     return _run_card(spec)
 
 
+def run_cognitive_alpha_intraday_regime_overlay_diagnostic_card(
+    *,
+    root: Path | str | None = None,
+) -> dict[str, Any]:
+    spec = CognitiveAlphaIntradayOverlaySpec(
+        root=_resolve_root(root),
+        experiment=REGIME_DIAGNOSTIC_EXPERIMENT,
+        source_intraday_card=EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD,
+        intraday_gate_col=None,
+        intraday_gate_policy="all_predicted_15m_rows",
+        optimize_thresholds=True,
+    )
+    return _run_regime_diagnostic_card(spec)
+
+
 def simulate_execution_overlays(
     daily: pd.DataFrame,
     *,
@@ -206,6 +222,255 @@ def summarize_overlay_metrics(trades: pd.DataFrame) -> pd.DataFrame:
         - 0.10 * metrics["skipped_periods"].fillna(0.0)
     )
     return metrics.sort_values(["cost_bps", "segment", "selection_score"], ascending=[True, True, False]).reset_index(drop=True)
+
+
+def evaluate_conditional_overlay_candidates(
+    trades: pd.DataFrame,
+    regime_features: pd.DataFrame,
+    *,
+    cost_bps: float,
+    variants: tuple[str, ...] = (
+        "overlay_a_signal_gate",
+        "overlay_b_twap4",
+        "overlay_c_risk_exit",
+    ),
+    condition_columns: tuple[str, ...] = (
+        "probability",
+        "target_position",
+        "turnover",
+        "raw_target",
+    ),
+    quantiles: tuple[float, ...] = tuple(float(value) for value in np.arange(0.05, 0.975, 0.025)),
+    validation_segment: str = "validation",
+    test_segment: str = "test",
+    return_retention_low: float = 85.0,
+    return_retention_high: float = 95.0,
+    max_drawdown_floor: float = -18.0,
+    max_skip_rate: float = 0.50,
+    min_validation_coverage: float = 0.03,
+) -> pd.DataFrame:
+    frame = trades.copy()
+    if "cost_bps" in frame.columns:
+        frame = frame.loc[pd.to_numeric(frame["cost_bps"], errors="coerce").eq(float(cost_bps))].copy()
+    if frame.empty:
+        return pd.DataFrame()
+
+    features = regime_features.copy()
+    frame["datetime_key"] = pd.to_datetime(frame["datetime"]).dt.normalize()
+    features["datetime_key"] = pd.to_datetime(features["datetime"]).dt.normalize()
+
+    baseline = _variant_return_frame(frame, variant="baseline_next_open")
+    if baseline.empty:
+        return pd.DataFrame()
+
+    feature_columns = ["datetime_key", *[column for column in condition_columns if column in features.columns]]
+    if "target_position" in features.columns and "target_position" not in feature_columns:
+        feature_columns.append("target_position")
+    aligned = baseline.merge(features[feature_columns].drop_duplicates("datetime_key"), on="datetime_key", how="left")
+    validation_mask = aligned["segment"].eq(validation_segment).to_numpy()
+    test_mask = aligned["segment"].eq(test_segment).to_numpy()
+    active_mask = (
+        pd.to_numeric(aligned.get("target_position", pd.Series(1.0, index=aligned.index)), errors="coerce")
+        .fillna(0.0)
+        .abs()
+        .gt(1e-12)
+        .to_numpy()
+    )
+    baseline_returns = pd.to_numeric(aligned["strategy_return"], errors="coerce").fillna(0.0).to_numpy()
+    baseline_skipped = aligned["skipped_reason"].notna().to_numpy()
+    baseline_validation = _segment_return_metrics(baseline_returns, validation_mask, baseline_skipped)
+    baseline_test = _segment_return_metrics(baseline_returns, test_mask, baseline_skipped)
+
+    rows: list[dict[str, Any]] = []
+    for variant in variants:
+        variant_frame = _variant_return_frame(frame, variant=variant)
+        if variant_frame.empty:
+            continue
+        variant_aligned = aligned[["datetime_key"]].merge(
+            variant_frame[["datetime_key", "strategy_return", "skipped_reason"]],
+            on="datetime_key",
+            how="left",
+        )
+        variant_returns = (
+            pd.to_numeric(variant_aligned["strategy_return"], errors="coerce")
+            .fillna(0.0)
+            .to_numpy()
+        )
+        variant_skipped = variant_aligned["skipped_reason"].notna().to_numpy()
+        for column in condition_columns:
+            if column not in aligned.columns:
+                continue
+            values = pd.to_numeric(aligned[column], errors="coerce")
+            validation_values = values.loc[validation_mask].dropna()
+            if validation_values.nunique() < 2:
+                continue
+            for quantile in quantiles:
+                threshold = float(validation_values.quantile(float(quantile)))
+                for operator in ("ge", "le"):
+                    condition_mask = (
+                        values.ge(threshold) if operator == "ge" else values.le(threshold)
+                    ).fillna(False).to_numpy()
+                    coverage_base = validation_mask & active_mask
+                    coverage = (
+                        float(condition_mask[coverage_base].mean())
+                        if coverage_base.any()
+                        else 0.0
+                    )
+                    if coverage < float(min_validation_coverage):
+                        continue
+                    returns = np.where(condition_mask, variant_returns, baseline_returns)
+                    skipped = np.where(condition_mask, variant_skipped, baseline_skipped)
+                    validation = _segment_return_metrics(returns, validation_mask, skipped)
+                    test = _segment_return_metrics(returns, test_mask, skipped)
+                    validation_retention = _retention(
+                        validation["total_return_pct"],
+                        baseline_validation["total_return_pct"],
+                    )
+                    test_retention = _retention(test["total_return_pct"], baseline_test["total_return_pct"])
+                    validation_dd_improvement = (
+                        validation["max_drawdown_pct"] - baseline_validation["max_drawdown_pct"]
+                    )
+                    test_dd_improvement = test["max_drawdown_pct"] - baseline_test["max_drawdown_pct"]
+                    passes_validation = bool(
+                        return_retention_low <= validation_retention <= return_retention_high
+                        and validation["max_drawdown_pct"] > max_drawdown_floor
+                        and validation["skipped_periods"] <= validation["periods"] * max_skip_rate
+                    )
+                    passes_test = bool(
+                        return_retention_low <= test_retention <= return_retention_high
+                        and test["max_drawdown_pct"] > max_drawdown_floor
+                        and test["skipped_periods"] <= test["periods"] * max_skip_rate
+                    )
+                    rows.append(
+                        {
+                            "cost_bps": float(cost_bps),
+                            "variant": variant,
+                            "condition_column": column,
+                            "condition_operator": operator,
+                            "condition_quantile": float(quantile),
+                            "condition_threshold": threshold,
+                            "condition_threshold_source": "validation_quantile",
+                            "condition_name": f"{column}_{operator}_valid_q{quantile:.3f}_{threshold:.6g}",
+                            "condition_valid_active_coverage": coverage,
+                            "selection_segment": validation_segment,
+                            "report_segment": test_segment,
+                            "selection_uses_test_segment": False,
+                            "validation_periods": validation["periods"],
+                            "validation_return_pct": validation["total_return_pct"],
+                            "validation_return_retention_pct": validation_retention,
+                            "validation_max_drawdown_pct": validation["max_drawdown_pct"],
+                            "validation_drawdown_improvement_pct": validation_dd_improvement,
+                            "validation_daily_sharpe": validation["daily_sharpe"],
+                            "validation_skipped_periods": validation["skipped_periods"],
+                            "test_periods": test["periods"],
+                            "test_return_pct": test["total_return_pct"],
+                            "test_return_retention_pct": test_retention,
+                            "test_max_drawdown_pct": test["max_drawdown_pct"],
+                            "test_drawdown_improvement_pct": test_dd_improvement,
+                            "test_daily_sharpe": test["daily_sharpe"],
+                            "test_skipped_periods": test["skipped_periods"],
+                            "passes_validation_target": passes_validation,
+                            "passes_test_target": passes_test,
+                            "passes_validation_and_test_target": bool(passes_validation and passes_test),
+                            "selection_score": (
+                                validation_retention
+                                + 2.0 * validation_dd_improvement
+                                + 0.25 * validation["daily_sharpe"]
+                                - 0.10 * validation["skipped_periods"]
+                            ),
+                        }
+                    )
+
+    result = pd.DataFrame(rows)
+    if result.empty:
+        return result
+    return (
+        result.drop_duplicates()
+        .sort_values(
+            [
+                "passes_validation_target",
+                "selection_score",
+                "validation_drawdown_improvement_pct",
+                "validation_return_pct",
+            ],
+            ascending=[False, False, False, False],
+        )
+        .reset_index(drop=True)
+    )
+
+
+def build_regime_feature_frame(
+    daily: pd.DataFrame,
+    *,
+    daily_prices: pd.DataFrame,
+) -> pd.DataFrame:
+    daily_frame = _normalize_daily_positions(daily)
+    prices = _normalize_daily_prices(daily_prices)
+    price_index = pd.Index(prices["datetime"])
+    rows: list[dict[str, Any]] = []
+    for daily_row in daily_frame.to_dict("records"):
+        decision_date = pd.Timestamp(daily_row["datetime"]).normalize()
+        location = price_index.get_loc(decision_date) if decision_date in set(price_index) else None
+        if isinstance(location, slice):
+            location = int(location.start)
+        entry_date = (
+            prices.iloc[int(location) + 1]["datetime"]
+            if location is not None and int(location) + 1 < len(prices)
+            else pd.NaT
+        )
+        row = {
+            "datetime": decision_date.date().isoformat(),
+            "segment": str(daily_row.get("segment", "unknown")),
+            "entry_date": _date_or_none(entry_date),
+            "target_position": float(daily_row.get("target_position", 0.0) or 0.0),
+        }
+        for column in ["probability", "raw_target", "turnover"]:
+            if column in daily_row:
+                row[column] = float(daily_row.get(column, np.nan) or 0.0)
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def _variant_return_frame(trades: pd.DataFrame, *, variant: str) -> pd.DataFrame:
+    frame = trades.loc[trades["variant"].eq(variant)].copy()
+    if frame.empty:
+        return frame
+    frame["datetime_key"] = pd.to_datetime(frame["datetime"]).dt.normalize()
+    return frame.sort_values("datetime_key").drop_duplicates("datetime_key").reset_index(drop=True)
+
+
+def _segment_return_metrics(
+    returns: np.ndarray,
+    mask: np.ndarray,
+    skipped: np.ndarray,
+) -> dict[str, float | int]:
+    segment_returns = np.nan_to_num(np.asarray(returns, dtype=float)[mask], nan=0.0)
+    segment_skipped = np.asarray(skipped, dtype=bool)[mask]
+    if len(segment_returns) == 0:
+        return {
+            "periods": 0,
+            "total_return_pct": 0.0,
+            "max_drawdown_pct": 0.0,
+            "daily_sharpe": 0.0,
+            "skipped_periods": 0,
+        }
+    equity = np.cumprod(1.0 + segment_returns)
+    drawdown = equity / np.maximum.accumulate(equity) - 1.0
+    std = float(np.std(segment_returns))
+    sharpe = 0.0 if std == 0.0 else float(np.mean(segment_returns) / std * np.sqrt(252.0))
+    return {
+        "periods": int(len(segment_returns)),
+        "total_return_pct": float((equity[-1] - 1.0) * 100.0),
+        "max_drawdown_pct": float(drawdown.min() * 100.0),
+        "daily_sharpe": sharpe,
+        "skipped_periods": int(segment_skipped.sum()),
+    }
+
+
+def _retention(total_return_pct: float, baseline_return_pct: float) -> float:
+    if abs(float(baseline_return_pct)) <= 1e-12:
+        return float("nan")
+    return float(total_return_pct) / float(baseline_return_pct) * 100.0
 
 
 def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
@@ -427,6 +692,222 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     }
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     _write_conclusion(spec, summary=summary, selected_model=selected_model, model_comparison=model_comparison)
+    return summary
+
+
+def _run_regime_diagnostic_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
+    from qlib.workflow import R
+
+    spec.output_dir.mkdir(parents=True, exist_ok=True)
+    spec.recorder_uri.mkdir(parents=True, exist_ok=True)
+
+    daily_summary = _read_json(spec.daily_card_dir / "summary.json")
+    intraday_summary = _read_json(spec.intraday_card_dir / "summary.json")
+    workflow_yaml = _write_regime_workflow_yaml(spec, daily_summary=daily_summary, intraday_summary=intraday_summary)
+    signal_config = _intraday_signal_config(spec, intraday_summary=intraday_summary)
+
+    daily_positions = _load_daily_selected_positions(daily_summary)
+    as_of = str(daily_summary.get("as_of") or spec.as_of)
+    daily_prices = _load_daily_open_prices(spec, start=str(daily_positions["datetime"].min().date()), end=as_of)
+    intraday_predictions = _load_intraday_prediction_frame(
+        spec,
+        intraday_summary=intraday_summary,
+        as_of=as_of,
+        signal_config=signal_config,
+    )
+    thresholds = _regime_overlay_thresholds(
+        spec,
+        intraday_predictions=intraday_predictions,
+        intraday_summary=intraday_summary,
+        signal_config=signal_config,
+    )
+    overlay_trades = simulate_execution_overlays(
+        daily_positions,
+        daily_prices=daily_prices,
+        intraday=intraday_predictions,
+        signal_threshold=thresholds["signal_threshold"],
+        risk_threshold=thresholds["risk_threshold"],
+        cost_bps=float(spec.selection_cost_bps),
+        prob_col=signal_config["prob_col"],
+        gate_col=signal_config["gate_col"],
+    ).assign(cost_bps=float(spec.selection_cost_bps))
+    regime_features = build_regime_feature_frame(daily_positions, daily_prices=daily_prices)
+    condition_columns = tuple(
+        column
+        for column in ("probability", "target_position", "turnover", "raw_target")
+        if column in regime_features.columns
+    )
+    policy_selection = evaluate_conditional_overlay_candidates(
+        overlay_trades,
+        regime_features,
+        cost_bps=float(spec.selection_cost_bps),
+        condition_columns=condition_columns,
+    )
+    model_comparison = summarize_overlay_metrics(overlay_trades)
+    selected_model = _select_regime_policy(policy_selection)
+    analysis_summary = _regime_analysis_summary(
+        spec,
+        daily_summary=daily_summary,
+        intraday_summary=intraday_summary,
+        daily_positions=daily_positions,
+        daily_prices=daily_prices,
+        intraday_predictions=intraday_predictions,
+        thresholds=thresholds,
+        signal_config=signal_config,
+        model_comparison=model_comparison,
+        policy_selection=policy_selection,
+        selected_model=selected_model,
+        condition_columns=condition_columns,
+    )
+    sidecars = _write_regime_sidecars(
+        spec,
+        model_comparison=model_comparison,
+        policy_selection=policy_selection,
+        selected_model=selected_model,
+        analysis_summary=analysis_summary,
+    )
+
+    upload_dir = Path(tempfile.mkdtemp(prefix=f"{spec.experiment}_recorder_"))
+    try:
+        execution_dir = upload_dir / "regime_overlay"
+        execution_dir.mkdir(parents=True, exist_ok=True)
+        overlay_trades.to_csv(execution_dir / "overlay_trades.csv", index=False)
+        regime_features.to_csv(execution_dir / "regime_features.csv", index=False)
+        policy_selection.to_csv(execution_dir / "policy_selection.csv", index=False)
+
+        R.set_uri(spec.recorder_uri.resolve().as_posix())
+        with R.start(experiment_name=spec.experiment):
+            recorder = R.get_recorder()
+            R.log_params(
+                experiment=spec.experiment,
+                daily_source=spec.source_daily_card,
+                intraday_source=spec.source_intraday_card,
+                selection_segment="validation",
+                report_segment="test",
+                selection_uses_test_segment=False,
+                selection_cost_bps=float(spec.selection_cost_bps),
+                signal_threshold=float(thresholds["signal_threshold"]),
+                risk_threshold=float(thresholds["risk_threshold"]),
+                condition_columns=",".join(condition_columns),
+            )
+            R.log_metrics(
+                candidate_count=float(len(policy_selection)),
+                validation_target_candidate_count=float(
+                    policy_selection["passes_validation_target"].sum()
+                    if "passes_validation_target" in policy_selection
+                    else 0
+                ),
+                validation_and_test_target_candidate_count=float(
+                    policy_selection["passes_validation_and_test_target"].sum()
+                    if "passes_validation_and_test_target" in policy_selection
+                    else 0
+                ),
+                selected_validation_return_retention_pct=float(
+                    selected_model.get("validation_return_retention_pct") or 0.0
+                ),
+                selected_validation_max_drawdown_pct=float(
+                    selected_model.get("validation_max_drawdown_pct") or 0.0
+                ),
+                selected_test_return_retention_pct=float(selected_model.get("test_return_retention_pct") or 0.0),
+                selected_test_max_drawdown_pct=float(selected_model.get("test_max_drawdown_pct") or 0.0),
+            )
+            for file_name in [
+                "overlay_trades.csv",
+                "regime_features.csv",
+                "policy_selection.csv",
+            ]:
+                recorder.log_artifact((execution_dir / file_name).as_posix(), artifact_path="regime_overlay")
+            for rel_path in sidecars.values():
+                recorder.log_artifact((spec.output_dir / rel_path).as_posix(), artifact_path=spec.experiment)
+            recorder_id = recorder.id
+            recorder_local_dir = Path(recorder.get_local_dir())
+    finally:
+        shutil.rmtree(upload_dir, ignore_errors=True)
+
+    _remove_transient_code_snapshots(recorder_local_dir)
+    recorder_artifacts = _recorder_files(recorder_local_dir)
+    promotion_decision = _regime_promotion_decision(selected_model, intraday_summary=intraday_summary)
+    validation_target_count = int(
+        policy_selection["passes_validation_target"].sum()
+        if "passes_validation_target" in policy_selection
+        else 0
+    )
+    validation_and_test_target_count = int(
+        policy_selection["passes_validation_and_test_target"].sum()
+        if "passes_validation_and_test_target" in policy_selection
+        else 0
+    )
+    summary = {
+        "experiment": spec.experiment,
+        "card_type": "intraday_regime_overlay_diagnostic",
+        "workflow_config": workflow_yaml.name,
+        "promotion_decision": promotion_decision,
+        "as_of": as_of,
+        "market": spec.market,
+        "region": spec.region,
+        "source_daily_model": {
+            "card": spec.source_daily_card,
+            "recorder_id": daily_summary.get("recorder_id"),
+            "execution_timing": daily_summary.get("position_model", {}).get("execution_timing", DAILY_EXECUTION_TIMING),
+            "return_col": daily_summary.get("position_model", {}).get("return_col", "open_to_open_return"),
+        },
+        "source_intraday_model": {
+            "card": spec.source_intraday_card,
+            "recorder_id": intraday_summary.get("recorder_id"),
+            "selected_model": intraday_summary.get("selected_model", {}).get("model"),
+            "signal_prob_col": signal_config["prob_col"],
+            "gate_policy": signal_config["gate_policy"],
+            "external_context": intraday_summary.get("external_intraday_context", {}),
+        },
+        "provider_uris": _provider_uris(spec, intraday_summary=intraday_summary),
+        "execution_overlay": {
+            "frequency": "15min",
+            "decision_model_timing": "daily_close_t_signal",
+            "daily_execution_timing": DAILY_EXECUTION_TIMING,
+            "overlay_signal_timing": OVERLAY_SIGNAL_TIMING,
+            "variants": VARIANTS,
+            "open_to_open_baseline": True,
+            "intraday_overlays_hold_overnight": False,
+            "description": "baseline remains default; a validation-selected daily-regime condition can switch execution to a 15m overlay",
+        },
+        "regime_policy": {
+            "selection_segment": "validation",
+            "report_segment": "test",
+            "selection_uses_test_segment": False,
+            "selection_cost_bps": float(spec.selection_cost_bps),
+            "condition_columns": list(condition_columns),
+            "condition_threshold_source": "validation_quantile",
+            "causal_scope": "daily_close_known_features_only",
+            "excludes_first_hour_features_from_twap_selection": True,
+            "target_return_retention_pct": [85.0, 95.0],
+            "target_max_drawdown_floor_pct": -18.0,
+            "candidate_count": int(len(policy_selection)),
+            "validation_target_candidate_count": validation_target_count,
+            "validation_and_test_target_candidate_count": validation_and_test_target_count,
+        },
+        "model_selection": {
+            "selection_segment": "validation",
+            "report_segment": "test",
+            "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
+            "selection_uses_test_segment": False,
+            "candidate_count": int(len(policy_selection)),
+            "validation_target_candidate_count": validation_target_count,
+            "validation_and_test_target_candidate_count": validation_and_test_target_count,
+            "selected_variant": selected_model.get("variant"),
+        },
+        "selected_model": selected_model,
+        "analysis_summary": analysis_summary,
+        "recorder_id": recorder_id,
+        "recorder_uri": spec.recorder_uri.resolve().as_posix(),
+        "recorder_local_dir": recorder_local_dir.as_posix(),
+        "recorder_artifacts": recorder_artifacts,
+        "sidecars": sidecars,
+        "artifact_policy": _regime_artifact_policy(spec.experiment, sidecars),
+        "qlib_docs": QLIB_DOCS,
+        "qlib_native_api": QLIB_NATIVE_API,
+    }
+    (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
+    _write_regime_conclusion(spec, summary=summary, selected_model=selected_model)
     return summary
 
 
@@ -1094,6 +1575,286 @@ def _write_workflow_yaml(
         encoding="utf-8",
     )
     return path
+
+
+def _write_regime_workflow_yaml(
+    spec: CognitiveAlphaIntradayOverlaySpec,
+    *,
+    daily_summary: dict[str, Any],
+    intraday_summary: dict[str, Any],
+) -> Path:
+    path = spec.output_dir / "workflow.yaml"
+    path.write_text(
+        "\n".join(
+            [
+                f"experiment: {spec.experiment}",
+                "qlib:",
+                f"  recorder_uri: {spec.recorder_uri.resolve().as_posix()}",
+                f"  daily_provider_uri: {spec.daily_provider_uri.resolve().as_posix()}",
+                f"  intraday_provider_uri: {spec.intraday_provider_uri.resolve().as_posix()}",
+                "sources:",
+                f"  daily_card: {spec.source_daily_card}",
+                f"  daily_recorder_id: {daily_summary.get('recorder_id')}",
+                f"  intraday_card: {spec.source_intraday_card}",
+                f"  intraday_recorder_id: {intraday_summary.get('recorder_id')}",
+                "selection:",
+                "  segment: validation",
+                "  report_segment: test",
+                "  uses_test_segment: false",
+                f"  selection_cost_bps: {float(spec.selection_cost_bps)}",
+                "regime_policy:",
+                "  causal_scope: daily_close_known_features_only",
+                "  condition_threshold_source: validation_quantile",
+                "  target_return_retention_pct: [85.0, 95.0]",
+                "  target_max_drawdown_floor_pct: -18.0",
+                "artifact_policy:",
+                "  policy: slim_card_recorder_first",
+                "  machine_entrypoint: summary.json",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return path
+
+
+def _regime_overlay_thresholds(
+    spec: CognitiveAlphaIntradayOverlaySpec,
+    *,
+    intraday_predictions: pd.DataFrame,
+    intraday_summary: dict[str, Any],
+    signal_config: dict[str, str],
+) -> dict[str, float]:
+    overlay_summary_path = spec.root / "research" / EXTERNAL_CONTEXT_OVERLAY_EXPERIMENT / "summary.json"
+    if overlay_summary_path.exists():
+        overlay_summary = _read_json(overlay_summary_path)
+        selected = overlay_summary.get("selected_model", {})
+        if "signal_threshold" in selected and "risk_threshold" in selected:
+            return {
+                "signal_threshold": float(selected["signal_threshold"]),
+                "risk_threshold": float(selected["risk_threshold"]),
+                "source": "external_context_overlay_validation_search",
+            }
+    thresholds = _thresholds_from_validation(
+        intraday_predictions,
+        intraday_summary=intraday_summary,
+        signal_config=signal_config,
+        signal_threshold=spec.signal_threshold,
+        risk_threshold=spec.risk_threshold,
+    )
+    thresholds["source"] = "source_intraday_validation_threshold"
+    return thresholds
+
+
+def _select_regime_policy(policy_selection: pd.DataFrame) -> dict[str, Any]:
+    if policy_selection.empty:
+        return {
+            "variant": "baseline_next_open",
+            "selection_segment": "validation",
+            "report_segment": "test",
+            "selection_uses_test_segment": False,
+            "validation_passes_target": False,
+            "test_passes_target": False,
+        }
+    validation_passes = policy_selection.loc[policy_selection["passes_validation_target"].astype(bool)].copy()
+    source = validation_passes if not validation_passes.empty else policy_selection.copy()
+    selected = source.sort_values(
+        [
+            "passes_validation_target",
+            "selection_score",
+            "validation_drawdown_improvement_pct",
+            "validation_return_pct",
+        ],
+        ascending=[False, False, False, False],
+    ).iloc[0]
+    result = _json_ready_dict(selected.to_dict())
+    result["validation_passes_target"] = bool(result.get("passes_validation_target", False))
+    result["test_passes_target"] = bool(result.get("passes_test_target", False))
+    result["selection_uses_test_segment"] = False
+    return result
+
+
+def _regime_analysis_summary(
+    spec: CognitiveAlphaIntradayOverlaySpec,
+    *,
+    daily_summary: dict[str, Any],
+    intraday_summary: dict[str, Any],
+    daily_positions: pd.DataFrame,
+    daily_prices: pd.DataFrame,
+    intraday_predictions: pd.DataFrame,
+    thresholds: dict[str, float],
+    signal_config: dict[str, str],
+    model_comparison: pd.DataFrame,
+    policy_selection: pd.DataFrame,
+    selected_model: dict[str, Any],
+    condition_columns: tuple[str, ...],
+) -> dict[str, Any]:
+    validation_target_count = int(
+        policy_selection["passes_validation_target"].sum()
+        if "passes_validation_target" in policy_selection
+        else 0
+    )
+    validation_and_test_count = int(
+        policy_selection["passes_validation_and_test_target"].sum()
+        if "passes_validation_and_test_target" in policy_selection
+        else 0
+    )
+    return {
+        "source": "daily_open2open_position_model_plus_causal_daily_regime_intraday_execution_overlay",
+        "as_of": str(daily_summary.get("as_of") or spec.as_of),
+        "selection_uses_test_segment": False,
+        "thresholds": {
+            "signal_threshold": float(thresholds["signal_threshold"]),
+            "risk_threshold": float(thresholds["risk_threshold"]),
+            "source": thresholds.get("source"),
+            "signal_prob_col": signal_config["prob_col"],
+            "gate_col": signal_config["gate_col"],
+            "gate_policy": signal_config["gate_policy"],
+        },
+        "regime_policy": {
+            "condition_columns": list(condition_columns),
+            "condition_threshold_source": "validation_quantile",
+            "causal_scope": "daily_close_known_features_only",
+            "noncausal_first_hour_probe_excluded_from_selection": True,
+            "validation_target_candidate_count": validation_target_count,
+            "validation_and_test_target_candidate_count": validation_and_test_count,
+        },
+        "data_audit": {
+            "daily_selected_position_rows": int(len(daily_positions)),
+            "daily_selected_position_start": daily_positions["datetime"].min().date().isoformat(),
+            "daily_selected_position_end": daily_positions["datetime"].max().date().isoformat(),
+            "daily_price_rows": int(len(daily_prices)),
+            "daily_price_start": daily_prices["datetime"].min().date().isoformat(),
+            "daily_price_end": daily_prices["datetime"].max().date().isoformat(),
+            "intraday_rows": int(len(intraday_predictions)),
+            "intraday_prediction_rows": int(intraday_predictions[signal_config["prob_col"]].notna().sum()),
+            "intraday_start": intraday_predictions["datetime"].min().strftime("%Y-%m-%d %H:%M:%S"),
+            "intraday_end": intraday_predictions["datetime"].max().strftime("%Y-%m-%d %H:%M:%S"),
+        },
+        "source_daily_model": {
+            "recorder_id": daily_summary.get("recorder_id"),
+            "execution_timing": daily_summary.get("position_model", {}).get("execution_timing"),
+            "feature_count": daily_summary.get("position_model", {}).get("feature_count"),
+            "has_soxx_constituent_features": any(
+                str(col).startswith("soxx_const_")
+                for col in daily_summary.get("position_model", {}).get("feature_cols", [])
+            ),
+        },
+        "source_intraday_model": {
+            "recorder_id": intraday_summary.get("recorder_id"),
+            "selected_model": intraday_summary.get("selected_model", {}).get("model"),
+            "label_policy": intraday_summary.get("label_policy"),
+            "external_context": intraday_summary.get("external_intraday_context"),
+        },
+        "model_comparison_rows": int(len(model_comparison)),
+        "policy_selection_rows": int(len(policy_selection)),
+        "selected_model": selected_model,
+    }
+
+
+def _write_regime_sidecars(
+    spec: CognitiveAlphaIntradayOverlaySpec,
+    *,
+    model_comparison: pd.DataFrame,
+    policy_selection: pd.DataFrame,
+    selected_model: dict[str, Any],
+    analysis_summary: dict[str, Any],
+) -> dict[str, str]:
+    sidecars = {
+        "model_comparison": "model_comparison.csv",
+        "policy_selection": "policy_selection.csv",
+        "selected_model": "selected_model.json",
+        "analysis_summary": "analysis_summary.json",
+        "failure_modes": "failure_modes.md",
+    }
+    model_comparison.to_csv(spec.output_dir / sidecars["model_comparison"], index=False)
+    policy_selection.to_csv(spec.output_dir / sidecars["policy_selection"], index=False)
+    (spec.output_dir / sidecars["selected_model"]).write_text(
+        json.dumps(selected_model, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    (spec.output_dir / sidecars["analysis_summary"]).write_text(
+        json.dumps(analysis_summary, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    failure_modes = (
+        "# Failure Modes\n\n"
+        "- Regime overlay 只允许使用 daily close 时已知的 probability、target_position、turnover、raw_target 做条件选择。\n"
+        "- 第一小时走势或 15m 概率不能用于选择前 4 根 15m TWAP；这类条件会造成执行时序泄漏，已从正式选择中排除。\n"
+        "- 即使 validation 有候选过 85%-95% retention 与 max_dd>-18% 门槛，test 仍必须独立报告，不能回填调参。\n"
+        "- 当前外部 15m 历史仍不足以证明完整 2019-2026 walk-forward 推广。\n"
+    )
+    (spec.output_dir / sidecars["failure_modes"]).write_text(failure_modes, encoding="utf-8")
+    return sidecars
+
+
+def _regime_artifact_policy(experiment: str, sidecars: dict[str, str]) -> dict[str, Any]:
+    return {
+        "policy": "slim_card_recorder_first",
+        "primary_artifact": f"{experiment}.ipynb",
+        "machine_entrypoint": "summary.json",
+        "workflow_config": "workflow.yaml",
+        "kept_sidecars": sorted(sidecars.values()),
+        "recorder_only_artifacts": {
+            "overlay_trades": "artifacts/regime_overlay/overlay_trades.csv",
+            "regime_features": "artifacts/regime_overlay/regime_features.csv",
+            "policy_selection": "artifacts/regime_overlay/policy_selection.csv",
+        },
+        "reproducible_from_recorder": True,
+    }
+
+
+def _regime_promotion_decision(selected_model: dict[str, Any], *, intraday_summary: dict[str, Any]) -> str:
+    if not bool(selected_model.get("validation_passes_target")):
+        return "not_promoted_regime_overlay_validation_gate_failed"
+    if not bool(selected_model.get("test_passes_target")):
+        return "not_promoted_regime_overlay_test_gate_failed"
+    if intraday_summary.get("walk_forward", {}).get("required_policy_satisfied") is False:
+        return "not_promoted_external_intraday_history_insufficient"
+    return "not_promoted_intraday_replay_missing"
+
+
+def _write_regime_conclusion(
+    spec: CognitiveAlphaIntradayOverlaySpec,
+    *,
+    summary: dict[str, Any],
+    selected_model: dict[str, Any],
+) -> None:
+    policy = summary["regime_policy"]
+    text = (
+        "# 中文结论\n\n"
+        "- 做了什么：建立 causal regime overlay 诊断卡，日线 LGB/XGB open-to-open 仓位仍是 baseline，"
+        "外部 15m LGB 模型只作为执行 overlay；条件选择只允许使用 daily close 时已知的 probability、target_position、turnover、raw_target。\n"
+        f"- 选择规则：只用 validation、{spec.selection_cost_bps:.0f}bp 成本和 validation quantile 阈值选条件；test 只报告，不参与调参。\n"
+        f"- 候选数：{policy['candidate_count']}；validation 过 85%-95% retention 且 max_dd>-18% 的候选数="
+        f"{policy['validation_target_candidate_count']}；validation 和 test 同时过门槛的候选数="
+        f"{policy['validation_and_test_target_candidate_count']}。\n"
+        f"- validation 选中：{selected_model.get('variant')} / {selected_model.get('condition_name')}，"
+        f"retention={float(selected_model.get('validation_return_retention_pct') or 0.0):.2f}%，"
+        f"max_dd={float(selected_model.get('validation_max_drawdown_pct') or 0.0):.2f}%。\n"
+        f"- test 报告：retention={float(selected_model.get('test_return_retention_pct') or 0.0):.2f}%，"
+        f"max_dd={float(selected_model.get('test_max_drawdown_pct') or 0.0):.2f}%。\n"
+        f"- 是否晋升：{summary['promotion_decision']}。结论是当前 causal 日内 overlay 还不能替代日线 next-open 执行；"
+        "下一步应优化日线整体仓位模型或做真正延迟入场/风险退出模型，而不是用看完第一小时后的特征证明开盘 TWAP。\n"
+        f"- qlib recorder：{summary['recorder_id']}\n"
+    )
+    (spec.output_dir / "conclusion.md").write_text(text, encoding="utf-8")
+
+
+def _json_ready_dict(values: dict[str, Any]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in values.items():
+        if isinstance(value, (np.bool_, bool)):
+            result[key] = bool(value)
+        elif isinstance(value, (np.integer,)):
+            result[key] = int(value)
+        elif isinstance(value, (np.floating,)):
+            result[key] = None if np.isnan(value) else float(value)
+        elif pd.isna(value):
+            result[key] = None
+        else:
+            result[key] = value
+    return result
 
 
 def _write_sidecars(

@@ -756,6 +756,72 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
     assert "外部 15m 上下文执行 overlay" in conclusion
 
 
+def test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_policy_search():
+    card = ROOT / "research" / "cognitive_alpha_intraday_regime_overlay_diagnostic_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_intraday_regime_overlay_diagnostic_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_intraday_regime_overlay_diagnostic_v1"
+    assert summary["card_type"] == "intraday_regime_overlay_diagnostic"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["source_daily_model"]["card"] == "research/cognitive_alpha_goal_codex_exec_v1"
+    assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_external_context_label_v1"
+    assert summary["source_intraday_model"]["signal_prob_col"] == "prob_lgb"
+    assert summary["execution_overlay"]["variants"] == [
+        "baseline_next_open",
+        "overlay_a_signal_gate",
+        "overlay_b_twap4",
+        "overlay_c_risk_exit",
+    ]
+    assert summary["regime_policy"]["causal_scope"] == "daily_close_known_features_only"
+    assert summary["regime_policy"]["excludes_first_hour_features_from_twap_selection"] is True
+    assert summary["regime_policy"]["selection_uses_test_segment"] is False
+    assert summary["regime_policy"]["condition_threshold_source"] == "validation_quantile"
+    assert summary["regime_policy"]["validation_target_candidate_count"] >= 1
+    assert summary["regime_policy"]["validation_and_test_target_candidate_count"] == 0
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert summary["selected_model"]["validation_passes_target"] is True
+    assert summary["selected_model"]["test_passes_target"] is False
+    assert "not_promoted" in summary["promotion_decision"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "overlay_trades": "artifacts/regime_overlay/overlay_trades.csv",
+        "policy_selection": "artifacts/regime_overlay/policy_selection.csv",
+        "regime_features": "artifacts/regime_overlay/regime_features.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "failure_modes",
+        "model_comparison",
+        "policy_selection",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    policy_selection = pd.read_csv(card / summary["sidecars"]["policy_selection"])
+    assert policy_selection["selection_uses_test_segment"].eq(False).all()
+    assert set(policy_selection["condition_threshold_source"]) == {"validation_quantile"}
+    assert policy_selection["passes_validation_target"].any()
+    assert not policy_selection["passes_validation_and_test_target"].any()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "regime_overlay" / "overlay_trades.csv").exists()
+    assert (recorder_dir / "artifacts" / "regime_overlay" / "regime_features.csv").exists()
+    assert (recorder_dir / "artifacts" / "regime_overlay" / "policy_selection.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_cognitive_alpha_intraday_regime_overlay_diagnostic_card" in notebook_text
+    assert "validation-only quantiles" in notebook_text
+    assert "causal regime overlay" in conclusion
+
+
 def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():
     card = ROOT / "research" / "agentic_alpha_intraday_execution_label_v1"
     summary = _summary(card)
