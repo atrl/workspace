@@ -827,6 +827,83 @@ def test_select_regime_policy_prefers_validation_drawdown_improvement_over_score
     assert selected["selection_uses_test_segment"] is False
 
 
+def test_select_regime_policy_requires_validation_target_at_required_costs():
+    policy_selection = pd.DataFrame(
+        [
+            {
+                "cost_bps": 20.0,
+                "variant": "overlay_a_signal_gate",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.60,
+                "condition_threshold": 0.60,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+                "validation_return_retention_pct": 93.0,
+                "validation_drawdown_improvement_pct": 4.5,
+                "validation_return_pct": 125.0,
+                "selection_score": 105.0,
+            },
+            {
+                "cost_bps": 50.0,
+                "variant": "overlay_a_signal_gate",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.60,
+                "condition_threshold": 0.60,
+                "passes_validation_target": False,
+                "passes_test_target": False,
+                "validation_return_retention_pct": 83.0,
+                "validation_drawdown_improvement_pct": 4.5,
+                "validation_return_pct": 108.0,
+                "selection_score": 90.0,
+            },
+            {
+                "cost_bps": 20.0,
+                "variant": "overlay_b_twap4",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+                "validation_return_retention_pct": 89.0,
+                "validation_drawdown_improvement_pct": 3.8,
+                "validation_return_pct": 115.0,
+                "selection_score": 97.0,
+            },
+            {
+                "cost_bps": 50.0,
+                "variant": "overlay_b_twap4",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+                "validation_return_retention_pct": 88.0,
+                "validation_drawdown_improvement_pct": 3.7,
+                "validation_return_pct": 112.0,
+                "selection_score": 96.0,
+            },
+        ]
+    )
+
+    selected = overlay_workflow._select_regime_policy(
+        policy_selection,
+        required_cost_bps=(20.0, 50.0),
+        selection_cost_bps=20.0,
+    )
+
+    assert selected["variant"] == "overlay_b_twap4"
+    assert selected["condition_threshold"] == 0.62
+    assert selected["validation_cost_robust"] is True
+    assert selected["required_cost_bps"] == [20.0, 50.0]
+    assert selected["required_cost_validation_target_count"] == 2
+    assert selected["required_cost_test_target_count"] == 2
+    assert [row["cost_bps"] for row in selected["required_cost_results"]] == [20.0, 50.0]
+
+
 def test_daily_position_source_audit_records_required_year_coverage(tmp_path):
     recorder_dir = tmp_path / "recorder"
     position_dir = recorder_dir / "artifacts" / "cognitive_alpha_position"

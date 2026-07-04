@@ -11,6 +11,36 @@
   "passes_validation_and_test_target": true,
   "passes_validation_target": true,
   "report_segment": "test",
+  "required_cost_bps": [
+    20.0,
+    50.0
+  ],
+  "required_cost_results": [
+    {
+      "cost_bps": 20.0,
+      "passes_test_target": true,
+      "passes_validation_and_test_target": true,
+      "passes_validation_target": true,
+      "test_max_drawdown_pct": -16.632553960442397,
+      "test_return_retention_pct": 85.37938014553838,
+      "validation_max_drawdown_pct": -14.33836692927838,
+      "validation_return_retention_pct": 88.89677299334693
+    },
+    {
+      "cost_bps": 50.0,
+      "passes_test_target": false,
+      "passes_validation_and_test_target": false,
+      "passes_validation_target": true,
+      "test_max_drawdown_pct": -17.364737394765307,
+      "test_return_retention_pct": 84.62232861302729,
+      "validation_max_drawdown_pct": -17.667371751449856,
+      "validation_return_retention_pct": 86.07874509783578
+    }
+  ],
+  "required_cost_test_target_count": 1,
+  "required_cost_validation_and_test_target_count": 1,
+  "required_cost_validation_target_count": 2,
+  "selection_cost_bps": 20.0,
   "selection_metric": "validation_target_first_then_max_drawdown_improvement",
   "selection_score": 97.0778310078651,
   "selection_segment": "validation",
@@ -23,6 +53,7 @@
   "test_return_pct": 302.08922578790157,
   "test_return_retention_pct": 85.37938014553838,
   "test_skipped_periods": 1,
+  "validation_cost_robust": true,
   "validation_daily_sharpe": 2.2991757481673476,
   "validation_drawdown_improvement_pct": 3.803132038738166,
   "validation_max_drawdown_pct": -14.33836692927838,

@@ -805,12 +805,17 @@ def test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_
     assert summary["regime_policy"]["excludes_first_hour_features_from_twap_selection"] is True
     assert summary["regime_policy"]["selection_uses_test_segment"] is False
     assert summary["regime_policy"]["condition_threshold_source"] == "validation_quantile"
+    assert summary["regime_policy"]["required_cost_bps"] == [20.0, 50.0]
     assert summary["regime_policy"]["validation_target_candidate_count"] >= 1
     assert summary["regime_policy"]["validation_and_test_target_candidate_count"] >= 1
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["model_selection"]["selection_metric"] == "validation_target_first_then_max_drawdown_improvement"
+    assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
     assert summary["selected_model"]["variant"] == "overlay_b_twap4"
     assert summary["selected_model"]["validation_passes_target"] is True
+    assert summary["selected_model"]["validation_cost_robust"] is True
+    assert summary["selected_model"]["required_cost_validation_target_count"] == 2
+    assert summary["selected_model"]["required_cost_test_target_count"] == 1
     assert summary["selected_model"]["test_passes_target"] is True
     assert 85.0 <= summary["selected_model"]["test_return_retention_pct"] <= 95.0
     assert summary["selected_model"]["test_max_drawdown_pct"] > -18.0
@@ -840,8 +845,10 @@ def test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_
     policy_selection = pd.read_csv(card / summary["sidecars"]["policy_selection"])
     assert policy_selection["selection_uses_test_segment"].eq(False).all()
     assert set(policy_selection["condition_threshold_source"]) == {"validation_quantile"}
+    assert {20.0, 50.0}.issubset(set(policy_selection["cost_bps"]))
     assert policy_selection["passes_validation_target"].any()
     assert policy_selection["passes_validation_and_test_target"].any()
+    assert "20/50bp validation" in conclusion
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "regime_overlay" / "overlay_trades.csv").exists()

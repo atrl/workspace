@@ -46,6 +46,7 @@ QLIB_NATIVE_API = [
 ]
 REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS = (2023, 2024, 2025, 2026)
 REQUIRED_WALK_FORWARD_START = "2019-01-02"
+REGIME_REQUIRED_COST_BPS = (20.0, 50.0)
 
 
 @dataclass(frozen=True)
@@ -1328,30 +1329,45 @@ def _run_regime_diagnostic_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict
         intraday_summary=intraday_summary,
         signal_config=signal_config,
     )
-    overlay_trades = simulate_execution_overlays(
-        daily_positions,
-        daily_prices=daily_prices,
-        intraday=intraday_predictions,
-        signal_threshold=thresholds["signal_threshold"],
-        risk_threshold=thresholds["risk_threshold"],
-        cost_bps=float(spec.selection_cost_bps),
-        prob_col=signal_config["prob_col"],
-        gate_col=signal_config["gate_col"],
-    ).assign(cost_bps=float(spec.selection_cost_bps))
+    trade_frames = []
+    for cost_bps in sorted(set(float(value) for value in (*spec.cost_stress_bps, *REGIME_REQUIRED_COST_BPS))):
+        trade_frames.append(
+            simulate_execution_overlays(
+                daily_positions,
+                daily_prices=daily_prices,
+                intraday=intraday_predictions,
+                signal_threshold=thresholds["signal_threshold"],
+                risk_threshold=thresholds["risk_threshold"],
+                cost_bps=cost_bps,
+                prob_col=signal_config["prob_col"],
+                gate_col=signal_config["gate_col"],
+            ).assign(cost_bps=cost_bps)
+        )
+    overlay_trades = pd.concat(trade_frames, ignore_index=True)
     regime_features = build_regime_feature_frame(daily_positions, daily_prices=daily_prices)
     condition_columns = tuple(
         column
         for column in ("probability", "target_position", "turnover", "raw_target")
         if column in regime_features.columns
     )
-    policy_selection = evaluate_conditional_overlay_candidates(
-        overlay_trades,
-        regime_features,
-        cost_bps=float(spec.selection_cost_bps),
-        condition_columns=condition_columns,
+    policy_selection = pd.concat(
+        [
+            evaluate_conditional_overlay_candidates(
+                overlay_trades,
+                regime_features,
+                cost_bps=float(cost_bps),
+                condition_columns=condition_columns,
+            )
+            for cost_bps in sorted(set(float(value) for value in REGIME_REQUIRED_COST_BPS))
+        ],
+        ignore_index=True,
     )
     model_comparison = summarize_overlay_metrics(overlay_trades)
-    selected_model = _select_regime_policy(policy_selection)
+    selected_model = _select_regime_policy(
+        policy_selection,
+        required_cost_bps=REGIME_REQUIRED_COST_BPS,
+        selection_cost_bps=float(spec.selection_cost_bps),
+    )
     analysis_summary = _regime_analysis_summary(
         spec,
         daily_summary=daily_summary,
@@ -1393,6 +1409,7 @@ def _run_regime_diagnostic_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict
                 report_segment="test",
                 selection_uses_test_segment=False,
                 selection_cost_bps=float(spec.selection_cost_bps),
+                required_cost_bps=",".join(str(float(value)) for value in REGIME_REQUIRED_COST_BPS),
                 signal_threshold=float(thresholds["signal_threshold"]),
                 risk_threshold=float(thresholds["risk_threshold"]),
                 condition_columns=",".join(condition_columns),
@@ -1482,6 +1499,7 @@ def _run_regime_diagnostic_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict
             "report_segment": "test",
             "selection_uses_test_segment": False,
             "selection_cost_bps": float(spec.selection_cost_bps),
+            "required_cost_bps": list(REGIME_REQUIRED_COST_BPS),
             "condition_columns": list(condition_columns),
             "condition_threshold_source": "validation_quantile",
             "causal_scope": "daily_close_known_features_only",
@@ -1497,6 +1515,7 @@ def _run_regime_diagnostic_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict
             "report_segment": "test",
             "selection_metric": "validation_target_first_then_max_drawdown_improvement",
             "selection_uses_test_segment": False,
+            "required_cost_bps": list(REGIME_REQUIRED_COST_BPS),
             "candidate_count": int(len(policy_selection)),
             "validation_target_candidate_count": validation_target_count,
             "validation_and_test_target_candidate_count": validation_and_test_target_count,
@@ -2876,7 +2895,25 @@ def _regime_overlay_thresholds(
     return thresholds
 
 
-def _select_regime_policy(policy_selection: pd.DataFrame) -> dict[str, Any]:
+def _regime_policy_group_columns(policy_selection: pd.DataFrame) -> list[str]:
+    if "policy_id" in policy_selection.columns:
+        return ["policy_id"]
+    candidates = [
+        "variant",
+        "condition_column",
+        "condition_operator",
+        "condition_quantile",
+        "condition_threshold",
+    ]
+    return [column for column in candidates if column in policy_selection.columns]
+
+
+def _select_regime_policy(
+    policy_selection: pd.DataFrame,
+    *,
+    required_cost_bps: tuple[float, ...] = (20.0,),
+    selection_cost_bps: float = 20.0,
+) -> dict[str, Any]:
     if policy_selection.empty:
         return {
             "variant": "baseline_next_open",
@@ -2886,9 +2923,40 @@ def _select_regime_policy(policy_selection: pd.DataFrame) -> dict[str, Any]:
             "validation_passes_target": False,
             "test_passes_target": False,
         }
-    validation_passes = policy_selection.loc[policy_selection["passes_validation_target"].astype(bool)].copy()
-    source = validation_passes if not validation_passes.empty else policy_selection.copy()
-    selected = source.sort_values(
+    frame = policy_selection.copy()
+    frame["cost_bps"] = pd.to_numeric(frame.get("cost_bps", selection_cost_bps), errors="coerce")
+    required_costs = tuple(float(value) for value in required_cost_bps)
+    group_columns = _regime_policy_group_columns(frame)
+    robust_rows: list[tuple[pd.Series, pd.DataFrame]] = []
+    if group_columns and required_costs:
+        for _, group in frame.groupby(group_columns, sort=False, dropna=False):
+            costs = {float(value) for value in group["cost_bps"].dropna().unique()}
+            if not set(required_costs).issubset(costs):
+                continue
+            required_rows = group.loc[group["cost_bps"].isin(required_costs)].copy()
+            if not bool(required_rows["passes_validation_target"].astype(bool).all()):
+                continue
+            selected_cost_row = group.loc[group["cost_bps"].eq(float(selection_cost_bps))]
+            if selected_cost_row.empty:
+                continue
+            robust_rows.append(
+                (
+                    selected_cost_row.iloc[0],
+                    required_rows.sort_values("cost_bps").copy(),
+                )
+            )
+    if robust_rows:
+        source = pd.DataFrame([row for row, _ in robust_rows]).copy()
+        required_cost_results_by_index = {
+            int(index): required_rows for index, (_, required_rows) in zip(source.index, robust_rows, strict=False)
+        }
+        validation_cost_robust = True
+    else:
+        validation_passes = frame.loc[frame["passes_validation_target"].astype(bool)].copy()
+        source = validation_passes if not validation_passes.empty else frame.copy()
+        required_cost_results_by_index = {}
+        validation_cost_robust = False
+    sorted_source = source.sort_values(
         [
             "passes_validation_target",
             "validation_drawdown_improvement_pct",
@@ -2897,12 +2965,48 @@ def _select_regime_policy(policy_selection: pd.DataFrame) -> dict[str, Any]:
             "validation_return_pct",
         ],
         ascending=[False, False, False, False, False],
-    ).iloc[0]
+    )
+    selected = sorted_source.iloc[0]
     result = _json_ready_dict(selected.to_dict())
+    required_cost_results = required_cost_results_by_index.get(int(selected.name), pd.DataFrame())
     result["validation_passes_target"] = bool(result.get("passes_validation_target", False))
     result["test_passes_target"] = bool(result.get("passes_test_target", False))
     result["selection_uses_test_segment"] = False
     result["selection_metric"] = "validation_target_first_then_max_drawdown_improvement"
+    result["required_cost_bps"] = list(required_costs)
+    result["selection_cost_bps"] = float(selection_cost_bps)
+    result["validation_cost_robust"] = bool(validation_cost_robust)
+    if not required_cost_results.empty:
+        result["required_cost_validation_target_count"] = int(
+            required_cost_results["passes_validation_target"].astype(bool).sum()
+        )
+        result["required_cost_test_target_count"] = int(required_cost_results["passes_test_target"].astype(bool).sum())
+        result["required_cost_validation_and_test_target_count"] = int(
+            required_cost_results.get(
+                "passes_validation_and_test_target",
+                pd.Series(False, index=required_cost_results.index),
+            )
+            .astype(bool)
+            .sum()
+        )
+        required_columns = [
+            "cost_bps",
+            "validation_return_retention_pct",
+            "validation_max_drawdown_pct",
+            "test_return_retention_pct",
+            "test_max_drawdown_pct",
+            "passes_validation_target",
+            "passes_test_target",
+            "passes_validation_and_test_target",
+        ]
+        result["required_cost_results"] = _json_ready_records(
+            required_cost_results[[column for column in required_columns if column in required_cost_results.columns]]
+        )
+    else:
+        result["required_cost_validation_target_count"] = 0
+        result["required_cost_test_target_count"] = 0
+        result["required_cost_validation_and_test_target_count"] = 0
+        result["required_cost_results"] = []
     return result
 
 
@@ -3436,11 +3540,32 @@ def _write_regime_conclusion(
     selected_model: dict[str, Any],
 ) -> None:
     policy = summary["regime_policy"]
+    required_cost_results = selected_model.get("required_cost_results") or []
+    required_cost_sentence = ""
+    if required_cost_results:
+        cost_parts = []
+        for row in required_cost_results:
+            cost_parts.append(
+                f"{float(row.get('cost_bps') or 0.0):.0f}bp "
+                f"valid_ret={float(row.get('validation_return_retention_pct') or 0.0):.2f}%/"
+                f"valid_dd={float(row.get('validation_max_drawdown_pct') or 0.0):.2f}%/"
+                f"test_ret={float(row.get('test_return_retention_pct') or 0.0):.2f}%/"
+                f"test_dd={float(row.get('test_max_drawdown_pct') or 0.0):.2f}%/"
+                f"test_pass={bool(row.get('passes_test_target'))}"
+            )
+        required_cost_sentence = (
+            f"- 20/50bp validation 成本鲁棒：validation_pass_count="
+            f"{selected_model.get('required_cost_validation_target_count', 0)}，"
+            f"test_pass_count={selected_model.get('required_cost_test_target_count', 0)}；"
+            + "；".join(cost_parts)
+            + "。\n"
+        )
     text = (
         "# 中文结论\n\n"
         "- 做了什么：建立 causal regime overlay 诊断卡，日线 LGB/XGB open-to-open 仓位仍是 baseline，"
         "外部 15m LGB 模型只作为执行 overlay；条件选择只允许使用 daily close 时已知的 probability、target_position、turnover、raw_target。\n"
-        f"- 选择规则：只用 validation、{spec.selection_cost_bps:.0f}bp 成本和 validation quantile 阈值选条件；test 只报告，不参与调参。\n"
+        f"- 选择规则：只用 validation、required_cost_bps={policy.get('required_cost_bps', [spec.selection_cost_bps])} "
+        "和 validation quantile 阈值选条件；test 只报告，不参与调参。\n"
         f"- 候选数：{policy['candidate_count']}；validation 过 85%-95% retention 且 max_dd>-18% 的候选数="
         f"{policy['validation_target_candidate_count']}；validation 和 test 同时过门槛的候选数="
         f"{policy['validation_and_test_target_candidate_count']}。\n"
@@ -3449,6 +3574,7 @@ def _write_regime_conclusion(
         f"max_dd={float(selected_model.get('validation_max_drawdown_pct') or 0.0):.2f}%。\n"
         f"- test 报告：retention={float(selected_model.get('test_return_retention_pct') or 0.0):.2f}%，"
         f"max_dd={float(selected_model.get('test_max_drawdown_pct') or 0.0):.2f}%。\n"
+        f"{required_cost_sentence}"
         f"- 是否晋升：{summary['promotion_decision']}。结论是当前 causal 日内 overlay 还不能替代日线 next-open 执行；"
         "下一步应优化日线整体仓位模型或做真正延迟入场/风险退出模型，而不是用看完第一小时后的特征证明开盘 TWAP。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
