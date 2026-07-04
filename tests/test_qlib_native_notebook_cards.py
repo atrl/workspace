@@ -1210,6 +1210,7 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
         "risk_exit_full_5m",
         "risk_reduce_half_5m",
         "risk_reduce_quarter_5m",
+        "risk_reduce_eighth_5m",
     ]
     assert summary["model_selection"]["selection_segment"] == "validation"
     assert summary["model_selection"]["report_segment"] == "test"
@@ -1257,7 +1258,7 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert set(selected_costs["cost_bps"]) == {20.0, 50.0}
     assert selected_costs["selection_uses_test_segment"].eq(False).all()
     assert set(selected_costs["variant"]).issubset(
-        {"risk_exit_full_5m", "risk_reduce_half_5m", "risk_reduce_quarter_5m"}
+        {"risk_exit_full_5m", "risk_reduce_half_5m", "risk_reduce_quarter_5m", "risk_reduce_eighth_5m"}
     )
     analysis_summary = json.loads((card / summary["sidecars"]["analysis_summary"]).read_text(encoding="utf-8"))
     context_diagnostics = analysis_summary["risk_sleeve_context_candidate_diagnostics"]

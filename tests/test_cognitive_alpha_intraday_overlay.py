@@ -3,9 +3,11 @@ from __future__ import annotations
 import pandas as pd
 import pytest
 
+import src.workflow.cognitive_alpha_intraday_5min_risk_sleeve as risk_sleeve_workflow
 import src.workflow.cognitive_alpha_intraday_overlay as overlay_workflow
 from src.workflow.cognitive_alpha_intraday_5min_risk_sleeve import (
     _attach_external_context_to_5min_bars,
+    evaluate_5min_risk_sleeve_candidates,
     simulate_5min_risk_sleeve,
 )
 from src.workflow.cognitive_alpha_intraday_overlay import (
@@ -63,6 +65,7 @@ def test_simulate_5min_risk_sleeve_keeps_daily_entry_and_reduces_after_trigger()
         "risk_exit_full_5m",
         "risk_reduce_half_5m",
         "risk_reduce_quarter_5m",
+        "risk_reduce_eighth_5m",
     }
     assert by_variant.loc["baseline_next_open", "entry_time"] == "2026-01-05"
     assert by_variant.loc["baseline_next_open", "strategy_return"] == pytest.approx(0.10)
@@ -71,6 +74,7 @@ def test_simulate_5min_risk_sleeve_keeps_daily_entry_and_reduces_after_trigger()
     assert by_variant.loc["risk_exit_full_5m", "strategy_return"] == pytest.approx(-0.026)
     assert by_variant.loc["risk_reduce_half_5m", "strategy_return"] == pytest.approx(0.037)
     assert by_variant.loc["risk_reduce_quarter_5m", "strategy_return"] == pytest.approx(0.0685)
+    assert by_variant.loc["risk_reduce_eighth_5m", "strategy_return"] == pytest.approx(0.08425)
     assert by_variant.loc["risk_exit_full_5m", "skipped_reason"] is None
 
 
@@ -122,8 +126,153 @@ def test_simulate_5min_risk_sleeve_executes_on_next_5min_open_after_trigger():
     assert by_variant.loc["risk_exit_full_5m", "strategy_return"] == pytest.approx(-0.024)
     assert by_variant.loc["risk_reduce_half_5m", "strategy_return"] == pytest.approx(0.038)
     assert by_variant.loc["risk_reduce_quarter_5m", "strategy_return"] == pytest.approx(0.069)
+    assert by_variant.loc["risk_reduce_eighth_5m", "strategy_return"] == pytest.approx(0.0845)
     assert bool(by_variant.loc["risk_exit_full_5m", "risk_triggered"]) is True
     assert by_variant.loc["risk_exit_full_5m", "skipped_reason"] is None
+
+
+def test_simulate_5min_risk_sleeve_can_limit_output_to_requested_variant():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "walk_forward_fold": "wf_2026",
+                "target_position": 1.0,
+                "strategy_return": 0.10,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 110.0},
+        ]
+    )
+    bars_5min = pd.DataFrame(
+        [
+            {"datetime": "2026-01-05 09:35:00", "date": "2026-01-05", "open": 100.0, "close": 99.2},
+            {"datetime": "2026-01-05 09:40:00", "date": "2026-01-05", "open": 99.1, "close": 97.4},
+            {"datetime": "2026-01-05 09:45:00", "date": "2026-01-05", "open": 97.6, "close": 98.0},
+        ]
+    )
+
+    rows = simulate_5min_risk_sleeve(
+        daily,
+        daily_prices=daily_prices,
+        bars_5min=bars_5min,
+        drawdown_threshold=-0.02,
+        cost_bps=0.0,
+        variants=("risk_reduce_eighth_5m",),
+    )
+
+    assert set(rows["variant"]) == {"baseline_next_open", "risk_reduce_eighth_5m"}
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["risk_reduce_eighth_5m", "strategy_return"] == pytest.approx(0.08425)
+
+
+def test_evaluate_5min_risk_sleeve_candidates_reuses_trigger_replay_across_variants(monkeypatch):
+    policies = [
+        {
+            "policy_id": "half_same_trigger",
+            "variant": "risk_reduce_half_5m",
+            "trigger_mode": "drawdown_only",
+            "drawdown_threshold": -0.02,
+            "risk_score_threshold": None,
+            "context_trigger_source": "disabled",
+            "selection_segment": "validation",
+            "report_segment": "test",
+            "selection_uses_test_segment": False,
+        },
+        {
+            "policy_id": "eighth_same_trigger",
+            "variant": "risk_reduce_eighth_5m",
+            "trigger_mode": "drawdown_only",
+            "drawdown_threshold": -0.02,
+            "risk_score_threshold": None,
+            "context_trigger_source": "disabled",
+            "selection_segment": "validation",
+            "report_segment": "test",
+            "selection_uses_test_segment": False,
+        },
+    ]
+    for policy in policies:
+        policy.update(risk_sleeve_workflow._context_threshold_row({}))
+    calls: list[tuple[str, ...]] = []
+
+    def fake_policy_grid(*args, **kwargs):
+        return policies
+
+    def fake_simulate(*args, variants=None, **kwargs):
+        calls.append(tuple(variants or ()))
+        rows = []
+        for segment in ["validation", "test"]:
+            for variant, strategy_return, entry_day_return in [
+                ("baseline_next_open", 0.10, -0.04),
+                ("risk_reduce_half_5m", 0.09, -0.02),
+                ("risk_reduce_eighth_5m", 0.092, -0.025),
+            ]:
+                if variant != "baseline_next_open" and variant not in set(variants or ()):
+                    continue
+                rows.append(
+                    {
+                        "datetime": "2026-01-02" if segment == "validation" else "2026-01-03",
+                        "segment": segment,
+                        "variant": variant,
+                        "entry_date": "2026-01-05",
+                        "target_position": 1.0,
+                        "strategy_return": strategy_return,
+                        "entry_day_strategy_return": entry_day_return,
+                        "skipped_reason": None,
+                    }
+                )
+        return pd.DataFrame(rows)
+
+    monkeypatch.setattr(risk_sleeve_workflow, "_validation_policy_grid", fake_policy_grid)
+    monkeypatch.setattr(risk_sleeve_workflow, "simulate_5min_risk_sleeve", fake_simulate)
+
+    candidates = evaluate_5min_risk_sleeve_candidates(
+        pd.DataFrame(
+            [
+                {"datetime": "2026-01-02", "segment": "validation", "target_position": 1.0},
+                {"datetime": "2026-01-03", "segment": "test", "target_position": 1.0},
+            ]
+        ),
+        daily_prices=pd.DataFrame(
+            [
+                {"datetime": "2026-01-02", "open": 100.0},
+                {"datetime": "2026-01-05", "open": 100.0},
+                {"datetime": "2026-01-06", "open": 101.0},
+            ]
+        ),
+        bars_5min=pd.DataFrame(
+            [
+                {
+                    "datetime": "2026-01-05 09:35:00",
+                    "date": "2026-01-05",
+                    "open": 100.0,
+                    "close": 99.0,
+                    "risk_score": 0.8,
+                    "prediction_available_gate": True,
+                }
+            ]
+        ),
+        intraday_scores=pd.DataFrame(
+            [
+                {
+                    "datetime": "2026-01-05 09:35:00",
+                    "date": "2026-01-05",
+                    "risk_score": 0.8,
+                    "prediction_available_gate": True,
+                }
+            ]
+        ),
+        cost_bps_values=(20.0,),
+    )
+
+    assert calls == [("risk_reduce_half_5m", "risk_reduce_eighth_5m")]
+    assert set(candidates["variant"]) == {"risk_reduce_half_5m", "risk_reduce_eighth_5m"}
 
 
 def test_simulate_5min_risk_sleeve_triggers_on_5min_context_stress():

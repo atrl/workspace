@@ -309,45 +309,45 @@
         "cost_bps": 50.0,
         "passes_test_target": false,
         "passes_validation_target": false,
-        "test_max_drawdown_pct": -29.466450658789732,
-        "test_return_retention_pct": 27.173113678753552,
+        "test_max_drawdown_pct": -28.396106465281257,
+        "test_return_retention_pct": 62.508735839332374,
         "test_year": 2024,
-        "validation_crash_period_reduction": 2.0,
-        "validation_max_drawdown_pct": -46.0696792255351,
+        "validation_crash_period_reduction": 1.0,
+        "validation_max_drawdown_pct": -42.39140843749078,
         "validation_open_buy_dump_period_reduction": 0.0,
-        "validation_return_retention_pct": 258.517080587215,
-        "variant": "risk_reduce_quarter_5m"
+        "validation_return_retention_pct": 181.22945797593607,
+        "variant": "risk_reduce_eighth_5m"
       },
       {
         "context_trigger_source": "vwap_gap_reclaim_failure",
         "cost_bps": 20.0,
-        "passes_test_target": false,
+        "passes_test_target": true,
         "passes_validation_target": false,
-        "test_max_drawdown_pct": -15.307134827809655,
-        "test_return_retention_pct": 82.5616860309958,
+        "test_max_drawdown_pct": -16.728924166967907,
+        "test_return_retention_pct": 91.42392284031786,
         "test_year": 2025,
         "validation_crash_period_reduction": 0.0,
-        "validation_max_drawdown_pct": -26.691192585685986,
-        "validation_open_buy_dump_period_reduction": 1.0,
-        "validation_return_retention_pct": 59.06741150042839,
-        "variant": "risk_reduce_quarter_5m"
+        "validation_max_drawdown_pct": -25.422048002904518,
+        "validation_open_buy_dump_period_reduction": 0.0,
+        "validation_return_retention_pct": 78.96137325129875,
+        "variant": "risk_reduce_eighth_5m"
       },
       {
         "context_trigger_source": "vwap_gap_reclaim_failure",
         "cost_bps": 20.0,
-        "passes_test_target": false,
+        "passes_test_target": true,
         "passes_validation_target": true,
-        "test_max_drawdown_pct": -16.670655997203966,
-        "test_return_retention_pct": 80.48283333381872,
+        "test_max_drawdown_pct": -17.447688447448794,
+        "test_return_retention_pct": 90.03106869347948,
         "test_year": 2026,
         "validation_crash_period_reduction": 0.0,
-        "validation_max_drawdown_pct": -14.870098405142373,
-        "validation_open_buy_dump_period_reduction": 1.0,
-        "validation_return_retention_pct": 87.00406472797864,
-        "variant": "risk_reduce_quarter_5m"
+        "validation_max_drawdown_pct": -16.377659754893536,
+        "validation_open_buy_dump_period_reduction": 0.0,
+        "validation_return_retention_pct": 93.59729824979621,
+        "variant": "risk_reduce_eighth_5m"
       }
     ],
-    "context_policy_candidate_rows": 546,
+    "context_policy_candidate_rows": 728,
     "selected_context_trigger_years": [
       2023,
       2026
@@ -356,7 +356,7 @@
       {
         "best_validation_max_drawdown_pct": -28.51091153597174,
         "best_validation_retention_pct": 116.92150953608156,
-        "candidate_rows": 96,
+        "candidate_rows": 128,
         "test_pass_count": 0,
         "test_year": 2023,
         "trigger_mode": "context_stress_or_drawdown",
@@ -365,7 +365,7 @@
       {
         "best_validation_max_drawdown_pct": -30.965622687949445,
         "best_validation_retention_pct": 119.12718146153631,
-        "candidate_rows": 12,
+        "candidate_rows": 16,
         "test_pass_count": 0,
         "test_year": 2023,
         "trigger_mode": "drawdown_only",
@@ -374,34 +374,34 @@
       {
         "best_validation_max_drawdown_pct": -30.98027486098738,
         "best_validation_retention_pct": 138.5635565317789,
-        "candidate_rows": 24,
+        "candidate_rows": 32,
         "test_pass_count": 0,
         "test_year": 2023,
         "trigger_mode": "risk_score_or_drawdown",
         "validation_pass_count": 0
       },
       {
-        "best_validation_max_drawdown_pct": -32.912989108511056,
+        "best_validation_max_drawdown_pct": -28.673766083503505,
         "best_validation_retention_pct": 837.9151732835248,
-        "candidate_rows": 144,
+        "candidate_rows": 192,
         "test_pass_count": 0,
         "test_year": 2024,
         "trigger_mode": "context_stress_or_drawdown",
         "validation_pass_count": 0
       },
       {
-        "best_validation_max_drawdown_pct": -25.066482063831998,
+        "best_validation_max_drawdown_pct": -24.751690304005603,
         "best_validation_retention_pct": 797.7871752910062,
-        "candidate_rows": 18,
+        "candidate_rows": 24,
         "test_pass_count": 0,
         "test_year": 2024,
         "trigger_mode": "drawdown_only",
         "validation_pass_count": 0
       },
       {
-        "best_validation_max_drawdown_pct": -42.560975874445106,
+        "best_validation_max_drawdown_pct": -33.58602438888623,
         "best_validation_retention_pct": 851.5398620771799,
-        "candidate_rows": 36,
+        "candidate_rows": 48,
         "test_pass_count": 0,
         "test_year": 2024,
         "trigger_mode": "risk_score_or_drawdown",
@@ -409,57 +409,57 @@
       },
       {
         "best_validation_max_drawdown_pct": -21.55655231635706,
-        "best_validation_retention_pct": 59.06741150042839,
-        "candidate_rows": 144,
-        "test_pass_count": 0,
+        "best_validation_retention_pct": 78.96137325129875,
+        "candidate_rows": 192,
+        "test_pass_count": 24,
         "test_year": 2025,
         "trigger_mode": "context_stress_or_drawdown",
         "validation_pass_count": 0
       },
       {
         "best_validation_max_drawdown_pct": -22.231664846141108,
-        "best_validation_retention_pct": 95.16700759023597,
-        "candidate_rows": 18,
-        "test_pass_count": 0,
+        "best_validation_retention_pct": 97.60132527419432,
+        "candidate_rows": 24,
+        "test_pass_count": 1,
         "test_year": 2025,
         "trigger_mode": "drawdown_only",
         "validation_pass_count": 0
       },
       {
         "best_validation_max_drawdown_pct": -23.141954506721707,
-        "best_validation_retention_pct": 22.11487037261728,
-        "candidate_rows": 36,
-        "test_pass_count": 0,
+        "best_validation_retention_pct": 58.11774096029837,
+        "candidate_rows": 48,
+        "test_pass_count": 6,
         "test_year": 2025,
         "trigger_mode": "risk_score_or_drawdown",
         "validation_pass_count": 0
       },
       {
         "best_validation_max_drawdown_pct": -9.394399761657368,
-        "best_validation_retention_pct": 87.00406472797864,
-        "candidate_rows": 162,
-        "test_pass_count": 0,
+        "best_validation_retention_pct": 93.59729824979621,
+        "candidate_rows": 216,
+        "test_pass_count": 24,
         "test_year": 2026,
         "trigger_mode": "context_stress_or_drawdown",
-        "validation_pass_count": 1
+        "validation_pass_count": 18
       },
       {
         "best_validation_max_drawdown_pct": -11.812871777955714,
         "best_validation_retention_pct": 100.08295373199559,
-        "candidate_rows": 18,
-        "test_pass_count": 2,
+        "candidate_rows": 24,
+        "test_pass_count": 5,
         "test_year": 2026,
         "trigger_mode": "drawdown_only",
-        "validation_pass_count": 0
+        "validation_pass_count": 1
       },
       {
         "best_validation_max_drawdown_pct": -10.432979178724688,
-        "best_validation_retention_pct": 76.68885130749068,
-        "candidate_rows": 36,
-        "test_pass_count": 0,
+        "best_validation_retention_pct": 88.39927303462282,
+        "candidate_rows": 48,
+        "test_pass_count": 3,
         "test_year": 2026,
         "trigger_mode": "risk_score_or_drawdown",
-        "validation_pass_count": 0
+        "validation_pass_count": 3
       }
     ]
   },
@@ -511,7 +511,7 @@
     "fold": "wf_2026",
     "intraday_prediction_rows": 9339,
     "passes_test_target": false,
-    "policy_candidate_rows": 216,
+    "policy_candidate_rows": 288,
     "report_segment": "test",
     "required_cost_bps": "20.0,50.0",
     "required_cost_test_target_count": 0,
