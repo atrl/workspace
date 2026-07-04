@@ -1495,7 +1495,7 @@ def _run_regime_diagnostic_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict
         "model_selection": {
             "selection_segment": "validation",
             "report_segment": "test",
-            "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
+            "selection_metric": "validation_target_first_then_max_drawdown_improvement",
             "selection_uses_test_segment": False,
             "candidate_count": int(len(policy_selection)),
             "validation_target_candidate_count": validation_target_count,
@@ -2891,16 +2891,18 @@ def _select_regime_policy(policy_selection: pd.DataFrame) -> dict[str, Any]:
     selected = source.sort_values(
         [
             "passes_validation_target",
-            "selection_score",
             "validation_drawdown_improvement_pct",
+            "selection_score",
+            "validation_return_retention_pct",
             "validation_return_pct",
         ],
-        ascending=[False, False, False, False],
+        ascending=[False, False, False, False, False],
     ).iloc[0]
     result = _json_ready_dict(selected.to_dict())
     result["validation_passes_target"] = bool(result.get("passes_validation_target", False))
     result["test_passes_target"] = bool(result.get("passes_test_target", False))
     result["selection_uses_test_segment"] = False
+    result["selection_metric"] = "validation_target_first_then_max_drawdown_improvement"
     return result
 
 

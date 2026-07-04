@@ -808,9 +808,13 @@ def test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_
     assert summary["regime_policy"]["validation_target_candidate_count"] >= 1
     assert summary["regime_policy"]["validation_and_test_target_candidate_count"] >= 1
     assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert summary["model_selection"]["selection_metric"] == "validation_target_first_then_max_drawdown_improvement"
+    assert summary["selected_model"]["variant"] == "overlay_b_twap4"
     assert summary["selected_model"]["validation_passes_target"] is True
-    assert summary["selected_model"]["test_passes_target"] is False
-    assert "not_promoted" in summary["promotion_decision"]
+    assert summary["selected_model"]["test_passes_target"] is True
+    assert 85.0 <= summary["selected_model"]["test_return_retention_pct"] <= 95.0
+    assert summary["selected_model"]["test_max_drawdown_pct"] > -18.0
+    assert summary["promotion_decision"] == "not_promoted_external_intraday_history_insufficient"
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert summary["artifact_policy"]["recorder_only_artifacts"] == {
         "overlay_trades": "artifacts/regime_overlay/overlay_trades.csv",

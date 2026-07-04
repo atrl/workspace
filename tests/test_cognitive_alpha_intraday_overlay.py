@@ -788,6 +788,45 @@ def test_walk_forward_metrics_fails_closed_when_intraday_predictions_are_missing
     assert fold_2023["test_missing_intraday_prediction_periods"] == 1
 
 
+def test_select_regime_policy_prefers_validation_drawdown_improvement_over_score():
+    policy_selection = pd.DataFrame(
+        [
+            {
+                "variant": "overlay_a_signal_gate",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_threshold": 0.65,
+                "passes_validation_target": True,
+                "passes_test_target": False,
+                "passes_validation_and_test_target": False,
+                "validation_return_retention_pct": 93.0,
+                "validation_drawdown_improvement_pct": 2.9,
+                "validation_return_pct": 120.0,
+                "selection_score": 99.0,
+            },
+            {
+                "variant": "overlay_b_twap4",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_threshold": 0.62,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+                "passes_validation_and_test_target": True,
+                "validation_return_retention_pct": 89.0,
+                "validation_drawdown_improvement_pct": 3.8,
+                "validation_return_pct": 115.0,
+                "selection_score": 97.0,
+            },
+        ]
+    )
+
+    selected = overlay_workflow._select_regime_policy(policy_selection)
+
+    assert selected["variant"] == "overlay_b_twap4"
+    assert selected["condition_threshold"] == 0.62
+    assert selected["selection_uses_test_segment"] is False
+
+
 def test_daily_position_source_audit_records_required_year_coverage(tmp_path):
     recorder_dir = tmp_path / "recorder"
     position_dir = recorder_dir / "artifacts" / "cognitive_alpha_position"
