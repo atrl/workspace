@@ -614,6 +614,79 @@ def test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_select
     assert "日内执行" in conclusion
 
 
+def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
+    card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_intraday_execution_overlay_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_intraday_execution_overlay_v1"
+    assert summary["card_type"] == "execution_overlay_research"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["source_daily_model"]["card"] == "research/cognitive_alpha_goal_codex_exec_v1"
+    assert summary["source_daily_model"]["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_15m_regime_gated_v1"
+    assert summary["execution_overlay"]["frequency"] == "15min"
+    assert summary["execution_overlay"]["decision_model_timing"] == "daily_close_t_signal"
+    assert summary["execution_overlay"]["overlay_signal_timing"] == "15m_bar_close_to_next_bar_open"
+    assert summary["execution_overlay"]["variants"] == [
+        "baseline_next_open",
+        "overlay_a_signal_gate",
+        "overlay_b_twap4",
+        "overlay_c_risk_exit",
+    ]
+    assert summary["model_selection"]["selection_segment"] == "validation"
+    assert summary["model_selection"]["report_segment"] == "test"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert {10.0, 20.0, 50.0}.issubset(set(summary["cost_stress_bps"]))
+    assert {
+        "qlib.init",
+        "qlib.data.D.features",
+        "qlib.workflow.R.start",
+        "qlib.workflow.Recorder.log_artifact",
+    }.issubset(set(summary["qlib_native_api"]))
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "overlay_trades": "artifacts/execution_overlay/overlay_trades.csv",
+        "daily_positions": "artifacts/execution_overlay/daily_selected_positions.csv",
+        "intraday_predictions": "artifacts/execution_overlay/intraday_predictions_15m.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "backtest_walk_forward_metrics",
+        "cost_sensitivity",
+        "failure_modes",
+        "model_comparison",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    model_comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
+    assert set(model_comparison["variant"]) == set(summary["execution_overlay"]["variants"])
+    assert {"validation", "test"}.issubset(set(model_comparison["segment"]))
+    cost_sensitivity = pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])
+    assert {10.0, 20.0, 50.0}.issubset(set(cost_sensitivity["cost_bps"]))
+    walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
+    assert set(walk_forward["fold"]) == {"wf_2025_h2", "wf_2026_ytd"}
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "execution_overlay" / "overlay_trades.csv").exists()
+    assert (recorder_dir / "artifacts" / "execution_overlay" / "daily_selected_positions.csv").exists()
+    assert (recorder_dir / "artifacts" / "execution_overlay" / "intraday_predictions_15m.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_cognitive_alpha_intraday_execution_overlay_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "R.start" in notebook_text
+    assert "日级模型 + 日内执行 overlay" in conclusion
+
+
 def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
     card = ROOT / "research" / "agentic_alpha_high_chop_execution_validation_v1"
     summary = _summary(card)

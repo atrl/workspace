@@ -1,0 +1,66 @@
+{
+  "as_of": "2026-07-02",
+  "data_audit": {
+    "daily_price_end": "2026-07-02",
+    "daily_price_rows": 375,
+    "daily_price_start": "2025-01-02",
+    "daily_selected_position_end": "2026-07-02",
+    "daily_selected_position_rows": 374,
+    "daily_selected_position_start": "2025-01-02",
+    "intraday_end": "2026-07-02 16:00:00",
+    "intraday_prediction_rows": 4836,
+    "intraday_rows": 9714,
+    "intraday_start": "2025-01-02 09:45:00"
+  },
+  "model_comparison_rows": 8,
+  "selected_model": {
+    "report_segment": "test",
+    "selection_cost_bps": 20.0,
+    "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
+    "selection_score": 100.50210076730214,
+    "selection_segment": "validation",
+    "selection_uses_test_segment": false,
+    "test_drawdown_improvement_pct": 0.0,
+    "test_max_drawdown_pct": -18.37863266325661,
+    "test_return_retention_pct": 100.0,
+    "test_total_return_pct": 356.7877549816555,
+    "validation_drawdown_improvement_pct": 0.0,
+    "validation_max_drawdown_pct": -19.059973964030164,
+    "validation_passes_target": false,
+    "validation_return_retention_pct": 100.0,
+    "validation_total_return_pct": 120.57838078202971,
+    "variant": "baseline_next_open"
+  },
+  "selection_uses_test_segment": false,
+  "source": "daily_open2open_position_model_plus_15m_execution_overlay",
+  "source_daily_model": {
+    "execution_timing": "close_t_signal_next_open_to_following_open",
+    "feature_count": 84,
+    "has_intraday_t1_features": true,
+    "has_soxx_constituent_features": true,
+    "recorder_id": "ce05c33a5d6b446fbb758bfdd747666b"
+  },
+  "source_intraday_model": {
+    "recorder_id": "19df951d1fa544e3ba64217a6c3d866e",
+    "selected_model": "lgb_xgb_consensus",
+    "trade_gate": {
+      "column": "regime_gate_v2_dislocation",
+      "dislocation_threshold": 0.0012,
+      "eligible_on_selected_test": 94,
+      "lookback_only": true,
+      "name": "regime_v2_dislocation",
+      "rules": [
+        "exclude first and last intraday bars",
+        "require SOXL-vs-3x-SOXX same-bar replication dislocation above 12bp",
+        "keep the signal as next 15min open-to-close intraday execution, not open-to-open"
+      ]
+    }
+  },
+  "thresholds": {
+    "risk_threshold": 0.4069250263853126,
+    "risk_threshold_source": "validation_gated_probability_quantile_20pct_or_user_override",
+    "signal_threshold": 0.45848443370274555,
+    "signal_threshold_source": "source_intraday_selected_model_valid_threshold"
+  },
+  "walk_forward_rows": 2
+}

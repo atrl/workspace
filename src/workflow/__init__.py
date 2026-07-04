@@ -34,6 +34,7 @@ __all__ = [
     "CognitiveAlphaSignalRefreshJob",
     "CognitiveAlphaSignalRefreshSpec",
     "CognitiveAlphaGoalCodexExecCardSpec",
+    "CognitiveAlphaIntradayOverlaySpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
     "RiskHardenedOpen2OpenCardSpec",
@@ -49,6 +50,7 @@ __all__ = [
     "distill_agentic_alpha_search",
     "load_agentic_alpha_backtest_metric",
     "run_cognitive_alpha_goal_codex_exec_card",
+    "run_cognitive_alpha_intraday_execution_overlay_card",
     "run_cognitive_alpha_position_model",
     "run_cognitive_alpha_weighted_factor_search",
     "run_cognitive_alpha_evolution",
@@ -98,6 +100,11 @@ _COGNITIVE_ALPHA_GOAL_CODEX_EXEC_EXPORTS = {
     "run_cognitive_alpha_goal_codex_exec_card",
 }
 
+_COGNITIVE_ALPHA_INTRADAY_OVERLAY_EXPORTS = {
+    "CognitiveAlphaIntradayOverlaySpec",
+    "run_cognitive_alpha_intraday_execution_overlay_card",
+}
+
 _RISK_HARDENED_OPEN2OPEN_EXPORTS = {
     "RiskHardenedOpen2OpenCardSpec",
     "run_risk_hardened_open2open_card",
@@ -129,6 +136,10 @@ def __getattr__(name: str):
         from . import cognitive_alpha_goal_codex_exec
 
         return getattr(cognitive_alpha_goal_codex_exec, name)
+    if name in _COGNITIVE_ALPHA_INTRADAY_OVERLAY_EXPORTS:
+        from . import cognitive_alpha_intraday_overlay
+
+        return getattr(cognitive_alpha_intraday_overlay, name)
     if name in _RISK_HARDENED_OPEN2OPEN_EXPORTS:
         from . import risk_hardened_open2open
 
