@@ -1,0 +1,24 @@
+experiment: agentic_alpha_intraday_execution_label_v1
+qlib:
+  recorder_uri: /Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_execution_label_v1/qlib_recorder
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+  market: all
+  region: us
+segments:
+  train: 2019-01-02 to 2024-12-31
+  valid: 2025-01-02 to 2025-12-31
+  test: 2026-01-02 to 2026-07-02
+label_policy:
+  name: triple_barrier_1h_2h_execution_improvement
+  horizon_bars: 8
+  profit_take: 0.018
+  stop_loss: 0.014
+model_selection:
+  models: [lgb, xgb, lgb_xgb_consensus]
+  threshold_segment: valid
+  selection_uses_test_segment: false
+  cost_bps: 20.0
+  cost_stress_bps: [10.0, 20.0, 50.0]
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

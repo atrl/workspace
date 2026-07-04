@@ -687,6 +687,92 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert "日级模型 + 日内执行 overlay" in conclusion
 
 
+def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():
+    card = ROOT / "research" / "agentic_alpha_intraday_execution_label_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_intraday_execution_label_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "agentic_alpha_intraday_execution_label_v1"
+    assert summary["card_type"] == "intraday_execution_label_model_search"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["provider_uris"] == {
+        "15min": (ROOT / "data" / "qlib" / "soxl_intraday_15min").resolve().as_posix()
+    }
+    assert summary["label_policy"]["name"] == "triple_barrier_1h_2h_execution_improvement"
+    assert summary["label_policy"]["entry_timing"] == "bar_t_close_signal_next_15m_open"
+    assert summary["label_policy"]["horizon_bars"] == 8
+    assert summary["label_policy"]["uses_same_bar_future"] is False
+    assert summary["feature_set"]["name"] == "execution_context_v1"
+    assert summary["feature_set"]["lookback_only"] is True
+    assert "soxl_open_gap_from_prior_close" in summary["feature_set"]["new_features"]
+    assert "soxl_realized_vol_expansion" in summary["feature_set"]["new_features"]
+    assert "soxl_volume_price_absorption" in summary["feature_set"]["new_features"]
+    assert summary["external_intraday_context"]["available_symbols"] == ["SOXL", "SOXX"]
+    assert {"QQQ", "SMH", "NVDA", "AVGO", "AMD", "TSM", "ASML"}.issubset(
+        set(summary["external_intraday_context"]["missing_requested_symbols"])
+    )
+    assert summary["model_selection"]["selection_segment"] == "valid"
+    assert summary["model_selection"]["report_segment"] == "test"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert set(summary["model_selection"]["models"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert set(summary["walk_forward"]["test_years"]) == {2023, 2024, 2025, 2026}
+    assert {10.0, 20.0, 50.0}.issubset(set(summary["cost_stress_bps"]))
+    assert {
+        "qlib.init",
+        "qlib.data.D.features",
+        "DatasetH",
+        "DataHandlerLP",
+        "QlibDataLoader",
+        "qlib.workflow.R.start",
+        "LGBMClassifier",
+        "XGBClassifier",
+    }.issubset(set(summary["qlib_native_api"]))
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "predictions": "artifacts/pred.pkl",
+        "labels": "artifacts/label.pkl",
+        "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "backtest_walk_forward_metrics",
+        "cost_sensitivity",
+        "failure_modes",
+        "feature_importance",
+        "label_diagnostics",
+        "model_selection",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    model_selection = pd.read_csv(card / summary["sidecars"]["model_selection"])
+    assert set(model_selection["model"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert model_selection["selection_score"].notna().all()
+    walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
+    assert set(walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
+    label_diagnostics = pd.read_csv(card / summary["sidecars"]["label_diagnostics"])
+    assert {"profit", "stop", "timeout"}.issubset(set(label_diagnostics["triple_barrier_outcome"]))
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "pred.pkl").exists()
+    assert (recorder_dir / "artifacts" / "label.pkl").exists()
+    assert (recorder_dir / "artifacts" / "model_selection" / "all_model_predictions.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_intraday_execution_label_model_card" in notebook_text
+    assert "triple_barrier" in notebook_text
+    assert "R.start" in notebook_text
+    assert "triple-barrier" in conclusion
+    assert "不晋升" in conclusion
+
+
 def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
     card = ROOT / "research" / "agentic_alpha_high_chop_execution_validation_v1"
     summary = _summary(card)

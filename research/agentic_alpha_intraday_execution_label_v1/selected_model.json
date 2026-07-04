@@ -1,0 +1,19 @@
+{
+  "model": "lgb",
+  "report_segment": "test",
+  "selection_eligible": false,
+  "selection_metric": "valid_net_return + 4*valid_sharpe + 0.5*valid_drawdown + 0.08*avg_execution_improvement_bps + 0.03*profit_outcome_ratio",
+  "selection_score": -1042.9651922628382,
+  "selection_segment": "valid",
+  "selection_uses_test_segment": false,
+  "test_avg_execution_improvement_bps": -41.881349516719546,
+  "test_ic": -0.005308028691268986,
+  "test_max_drawdown_pct": -11.204859341650074,
+  "test_net_return_pct": 12.9097993929014,
+  "test_trades": 70.0,
+  "threshold": 0.6,
+  "valid_avg_execution_improvement_bps": 16.695113753409387,
+  "valid_max_drawdown_pct": -26.135423776348567,
+  "valid_net_return_pct": -21.244815371452784,
+  "valid_trades": 84.0
+}
