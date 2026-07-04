@@ -14,6 +14,10 @@ label_policy:
   source: local_soxl_soxx_15m
 model_selection:
   models: [lgb, xgb, lgb_xgb_consensus]
+  adverse_event_risk_head_models: [lgb, xgb, lgb_xgb_consensus]
+  adverse_event_risk_target: adverse_event_risk_target
+  adverse_event_risk_score_col: adverse_event_risk_score
+  adverse_event_risk_training_policy: fit_on_train_only_predict_valid_and_test
   selection_segment: validation
   report_segment: test
   selection_uses_test_segment: false

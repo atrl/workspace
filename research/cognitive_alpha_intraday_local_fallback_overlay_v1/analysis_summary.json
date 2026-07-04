@@ -2,6 +2,7 @@
   "annual_walk_forward_rows": 4,
   "as_of": "2026-07-02",
   "data_audit": {
+    "adverse_event_risk_prediction_rows": 46796,
     "daily_price_rows": 1128,
     "daily_walk_forward_end": "2026-07-02",
     "daily_walk_forward_position_rows": 1879,
@@ -77,6 +78,20 @@
     "local_soxl_soxx_only": true
   },
   "label_policy": {
+    "adverse_event_policy": {
+      "crash_event_target_col": "crash_event_target",
+      "crash_threshold": -0.08,
+      "entry_timing": "next_15m_open",
+      "label_policy": "same_session_entry_day_adverse_event_risk",
+      "missing_target_rows": 1885,
+      "model_target_col": "adverse_event_risk_target",
+      "open_buy_dump_target_col": "open_buy_dump_target",
+      "open_buy_dump_threshold": -0.03,
+      "risk_horizon": "same_session_entry_to_close",
+      "same_session_only": true,
+      "uses_same_bar_future": false,
+      "worst_return_col": "entry_day_worst_return"
+    },
     "cost_bps": 20.0,
     "entry_timing": "next_15m_open",
     "external_context": {
@@ -161,7 +176,11 @@
         2025,
         2026
       ],
-      "target_pass_test_years": [],
+      "target_pass_test_years": [
+        2023,
+        2024,
+        2025
+      ],
       "test_max_drawdown_pct": -27.663273418291347,
       "test_return_retention_pct": 64.71924338968734,
       "variant": "delayed_signal_after_60m"
@@ -255,6 +274,16 @@
     "recorder_id": "a4c54bcd3bdd4eb39b413e2bbfa8618d"
   },
   "source_intraday_model": {
+    "adverse_event_risk_head": {
+      "prob_cols": {
+        "lgb": "risk_prob_lgb",
+        "xgb": "risk_prob_xgb"
+      },
+      "score_col": "adverse_event_risk_score",
+      "score_semantics": "higher_score_means_higher_same_session_open_buy_dump_risk",
+      "target_col": "adverse_event_risk_target",
+      "training_policy": "fit_on_train_only_predict_valid_and_test"
+    },
     "label_policy": {
       "entry_timing": "bar_t_close_signal_next_15m_open",
       "exit_timing": "first_profit_or_stop_hit_else_horizon_close",
@@ -299,7 +328,11 @@
     ],
     "rows": 4,
     "selection_uses_test_segment": false,
-    "target_pass_test_years": []
+    "target_pass_test_years": [
+      2023,
+      2024,
+      2025
+    ]
   },
   "why_intraday_did_not_beat_daily": [
     "intraday_label_targets_1h_2h_execution_quality_not_multi_day_open_to_open_trend",

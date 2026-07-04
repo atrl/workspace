@@ -1,8 +1,14 @@
 from __future__ import annotations
 
 import pandas as pd
+import pytest
 
 from src.workflow.intraday_execution_label_model import build_execution_label_frame
+
+
+ADVERSE_EVENT_RISK_COL = "adverse_event_risk_target"
+CRASH_EVENT_TARGET_COL = "crash_event_target"
+OPEN_BUY_DUMP_TARGET_COL = "open_buy_dump_target"
 
 
 def test_build_execution_label_frame_uses_next_bar_entry_and_triple_barrier():
@@ -139,6 +145,10 @@ def test_build_execution_label_frame_uses_next_bar_entry_and_triple_barrier():
         cost_bps=0.0,
     )
 
+    assert "entry_day_worst_return" in frame.columns
+    assert OPEN_BUY_DUMP_TARGET_COL in frame.columns
+    assert CRASH_EVENT_TARGET_COL in frame.columns
+    assert ADVERSE_EVENT_RISK_COL in frame.columns
     first = frame.loc[frame["datetime"].eq(pd.Timestamp("2026-01-05 09:45:00"))].iloc[0]
     assert first["entry_datetime"] == pd.Timestamp("2026-01-05 10:00:00")
     assert first["triple_barrier_outcome"] == "profit"
@@ -149,3 +159,50 @@ def test_build_execution_label_frame_uses_next_bar_entry_and_triple_barrier():
     assert "soxl_realized_vol_expansion" in feature_cols
     assert "soxl_volume_price_absorption" in feature_cols
     assert label_audit["label_policy"] == "triple_barrier_1h_2h_execution_improvement"
+
+
+def test_build_execution_label_frame_records_entry_day_adverse_event_targets():
+    rows = []
+    for instrument, base in [("SOXL", 100.0), ("SOXX", 50.0)]:
+        for index, (time, open_, high, low, close) in enumerate(
+            [
+                ("2026-01-05 09:45:00", base, base + 1.0, base - 0.5, base + 0.5),
+                ("2026-01-05 10:00:00", base + 1.0, base + 1.5, base, base + 1.2),
+                ("2026-01-05 10:15:00", base + 1.2, base + 1.3, base * 0.965, base * 0.97),
+                ("2026-01-05 10:30:00", base * 0.97, base * 0.975, base * 0.91, base * 0.92),
+                ("2026-01-05 10:45:00", base * 0.92, base * 0.93, base * 0.90, base * 0.91),
+            ]
+        ):
+            rows.append(
+                {
+                    "instrument": instrument,
+                    "datetime": time,
+                    "$open": open_,
+                    "$high": high,
+                    "$low": low,
+                    "$close": close,
+                    "$volume": 1000.0 + index,
+                    "$turnover": 100000.0,
+                    "$bar_index": float(index),
+                    "$bar_count": 5.0,
+                }
+            )
+    raw = pd.DataFrame(rows).set_index(["instrument", "datetime"])
+
+    frame, _, label_audit = build_execution_label_frame(
+        raw,
+        profit_take=0.20,
+        stop_loss=0.20,
+        horizon_bars=4,
+        cost_bps=0.0,
+    )
+
+    first = frame.loc[frame["datetime"].eq(pd.Timestamp("2026-01-05 09:45:00"))].iloc[0]
+    assert first["entry_datetime"] == pd.Timestamp("2026-01-05 10:00:00")
+    assert first["entry_day_worst_return"] == pytest.approx(90.0 / 101.0 - 1.0)
+    assert first[OPEN_BUY_DUMP_TARGET_COL] == 1
+    assert first[CRASH_EVENT_TARGET_COL] == 1
+    assert first[ADVERSE_EVENT_RISK_COL] == 1
+    assert label_audit["adverse_event_policy"]["entry_timing"] == "next_15m_open"
+    assert label_audit["adverse_event_policy"]["open_buy_dump_threshold"] == -0.03
+    assert label_audit["adverse_event_policy"]["uses_same_bar_future"] is False

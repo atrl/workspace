@@ -905,8 +905,8 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
             "recorder_id": intraday_summary.get("recorder_id"),
             "label_policy_name": LABEL_POLICY,
             "score_source": score_source,
-            "score_semantics": "probability_of_positive_1h_2h_execution_improvement",
-            "risk_trigger_direction": "trigger_when_execution_improvement_probability_is_less_or_equal_validation_quantile",
+            "score_semantics": "higher_risk_score_means_higher_intraday_adverse_event_risk",
+            "risk_trigger_direction": "trigger_when_risk_score_is_greater_or_equal_validation_high_quantile",
             "models": MODEL_NAMES,
             "feature_set": {
                 "source": "local_soxl_soxx_15m_lgb_xgb_triple_barrier",
@@ -942,6 +942,8 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
             "risk_sleeve_execution_price": f"next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
             "open_to_open_baseline": True,
             "daily_entry_is_not_skipped": True,
+            "risk_score_semantics": "higher_risk_score_means_higher_intraday_adverse_event_risk",
+            "risk_score_trigger_direction": "high_risk_score_triggers_risk_action",
             "variants": ["baseline_next_open", *RISK_SLEEVE_VARIANTS],
             "trigger_modes": list(TRIGGER_MODES),
             "context_trigger_features": list(CONTEXT_THRESHOLD_COLUMNS),
@@ -1051,7 +1053,7 @@ def _first_5min_trigger(
     drawdown_hit = frame["pnl_from_entry"].le(float(drawdown_threshold))
     score = pd.to_numeric(frame.get(risk_score_col), errors="coerce")
     score_hit = frame.get(gate_col, pd.Series(False, index=frame.index)).fillna(False).astype(bool)
-    score_hit &= score.le(float(risk_score_threshold)) if risk_score_threshold is not None else False
+    score_hit &= score.ge(float(risk_score_threshold)) if risk_score_threshold is not None else False
     context_hit = _context_stress_mask(frame, context_thresholds=context_thresholds)
     if trigger_mode == "drawdown_only":
         trigger_mask = drawdown_hit
@@ -1321,7 +1323,7 @@ def _validation_policy_grid(
     risk_thresholds: list[float | None] = [None]
     if not score_series.empty:
         risk_thresholds.extend(
-            sorted({float(value) for value in score_series.quantile([0.10, 0.35]).dropna().tolist()})
+            sorted({float(value) for value in score_series.quantile([0.65, 0.90]).dropna().tolist()})
         )
     context_candidates = _validation_context_threshold_candidates(context_values)
     policies: list[dict[str, Any]] = []
@@ -2010,12 +2012,17 @@ def _risk_scores_for_fold(fold_predictions: pd.DataFrame, *, fold: str) -> pd.Da
     frame = fold_predictions.loc[fold_predictions["walk_forward_fold"].astype(str).eq(fold)].copy()
     if frame.empty:
         return frame
-    selected_model = str(frame["selected_intraday_model"].dropna().iloc[0])
-    prob_col = f"prob_{selected_model}"
-    frame["risk_score"] = pd.to_numeric(frame[prob_col], errors="coerce")
+    if "adverse_event_risk_score" in frame.columns and frame["adverse_event_risk_score"].notna().any():
+        frame["risk_score"] = pd.to_numeric(frame["adverse_event_risk_score"], errors="coerce")
+        frame["risk_score_source"] = "adverse_event_risk_score"
+    else:
+        selected_model = str(frame["selected_intraday_model"].dropna().iloc[0])
+        prob_col = f"prob_{selected_model}"
+        frame["risk_score"] = 1.0 - pd.to_numeric(frame[prob_col], errors="coerce")
+        frame["risk_score_source"] = "inverse_execution_improvement_probability"
     if PREDICTION_AVAILABLE_GATE_COL not in frame.columns:
         frame[PREDICTION_AVAILABLE_GATE_COL] = frame["risk_score"].notna()
-    return frame[["datetime", "date", "risk_score", PREDICTION_AVAILABLE_GATE_COL]].copy()
+    return frame[["datetime", "date", "risk_score", "risk_score_source", PREDICTION_AVAILABLE_GATE_COL]].copy()
 
 
 def _simulate_selected_trades(
@@ -2363,8 +2370,8 @@ def _analysis_summary(
             "risk_sleeve_execution_price": f"next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
             "trigger_price_role": "signal_only_5min_close",
             "execution_price_role": "risk_reduce_or_exit_fill_price",
-            "risk_score_semantics": "probability_of_positive_1h_2h_execution_improvement",
-            "risk_score_trigger_direction": "low_probability_triggers_risk_action",
+            "risk_score_semantics": "higher_risk_score_means_higher_intraday_adverse_event_risk",
+            "risk_score_trigger_direction": "high_risk_score_triggers_risk_action",
             "trigger_modes": list(TRIGGER_MODES),
             "reenter_close_variants": ["risk_exit_full_5m_reenter_close", "risk_reduce_quarter_5m_reenter_close"],
             "context_trigger_features": list(CONTEXT_THRESHOLD_COLUMNS),
@@ -2395,8 +2402,8 @@ def _analysis_summary(
         "source_intraday_model": {
             "recorder_id": intraday_summary.get("recorder_id"),
             "label_policy": intraday_summary.get("label_policy"),
-            "score_semantics": "probability_of_positive_1h_2h_execution_improvement",
-            "risk_trigger_direction": "trigger_when_execution_improvement_probability_is_less_or_equal_validation_quantile",
+            "score_semantics": "higher_risk_score_means_higher_intraday_adverse_event_risk",
+            "risk_trigger_direction": "trigger_when_risk_score_is_greater_or_equal_validation_high_quantile",
             "models": MODEL_NAMES,
         },
         "model_selection_rows": int(len(model_selection)),
@@ -2571,8 +2578,8 @@ def _write_workflow_yaml(
                 f"  context_trigger_features: {list(CONTEXT_THRESHOLD_COLUMNS)}",
                 f"  external_context_trigger_features: {list(EXTERNAL_CONTEXT_THRESHOLD_COLUMNS)}",
                 "  daily_entry_is_not_skipped: true",
-                "  risk_score_semantics: probability_of_positive_1h_2h_execution_improvement",
-                "  risk_score_trigger_direction: low_probability_triggers_risk_action",
+                "  risk_score_semantics: higher_risk_score_means_higher_intraday_adverse_event_risk",
+                "  risk_score_trigger_direction: high_risk_score_triggers_risk_action",
                 f"  trigger_modes: {list(TRIGGER_MODES)}",
                 "walk_forward:",
                 "  policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T",

@@ -1091,12 +1091,19 @@ def test_cognitive_alpha_intraday_local_fallback_overlay_card_records_annual_wf(
     assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_execution_label_v1"
     assert summary["source_intraday_model"]["label_policy_name"] == "triple_barrier_1h_2h_execution_improvement"
     assert summary["source_intraday_model"]["external_context_required"] is False
+    assert summary["source_intraday_model"]["adverse_event_risk_head"]["target_col"] == "adverse_event_risk_target"
+    assert summary["source_intraday_model"]["adverse_event_risk_head"]["score_col"] == "adverse_event_risk_score"
+    assert (
+        summary["source_intraday_model"]["adverse_event_risk_head"]["training_policy"]
+        == "fit_on_train_only_predict_valid_and_test"
+    )
     assert summary["provider_uris"]["15min"] == (ROOT / "data" / "qlib" / "soxl_intraday_15min").resolve().as_posix()
     assert summary["provider_uris"]["5min_probe"] == (ROOT / "data" / "qlib" / "soxl_intraday_5min").resolve().as_posix()
     assert summary["execution_overlay"]["overlay_signal_timing"] == "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open"
     assert summary["execution_overlay"]["intraday_flat_can_close_same_day"] is True
     assert summary["execution_overlay"]["default_exit_timing"] == "following_open_or_same_day_close"
     assert set(summary["model_selection"]["models"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert set(summary["model_selection"]["adverse_event_risk_head_models"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
     assert summary["model_selection"]["selection_segment"] == "validation"
     assert summary["model_selection"]["report_segment"] == "test"
     assert summary["model_selection"]["selection_uses_test_segment"] is False
@@ -1157,7 +1164,10 @@ def test_cognitive_alpha_intraday_local_fallback_overlay_card_records_annual_wf(
     assert selected_costs["selection_uses_test_segment"].eq(False).all()
 
     recorder_dir = Path(summary["recorder_local_dir"])
-    assert (recorder_dir / "artifacts" / "local_fallback_overlay" / "intraday_fold_predictions.csv").exists()
+    prediction_path = recorder_dir / "artifacts" / "local_fallback_overlay" / "intraday_fold_predictions.csv"
+    assert prediction_path.exists()
+    prediction_cols = set(pd.read_csv(prediction_path, nrows=5).columns)
+    assert {"risk_prob_lgb", "risk_prob_xgb", "adverse_event_risk_score"}.issubset(prediction_cols)
     assert (recorder_dir / "artifacts" / "local_fallback_overlay" / "all_policy_selection.csv.gz").exists()
     assert (recorder_dir / "artifacts" / "local_fallback_overlay" / "selected_trades.csv").exists()
     assert summary["recorder_id"] in notebook_text
@@ -1192,14 +1202,13 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert "context_stress_or_drawdown" in summary["execution_overlay"]["trigger_modes"]
     assert "risk_score_only" in summary["execution_overlay"]["trigger_modes"]
     assert "risk_score_and_drawdown" in summary["execution_overlay"]["trigger_modes"]
-    assert (
-        summary["source_intraday_model"]["score_semantics"]
-        == "probability_of_positive_1h_2h_execution_improvement"
+    assert summary["source_intraday_model"]["score_semantics"] == (
+        "higher_risk_score_means_higher_intraday_adverse_event_risk"
     )
-    assert (
-        summary["source_intraday_model"]["risk_trigger_direction"]
-        == "trigger_when_execution_improvement_probability_is_less_or_equal_validation_quantile"
+    assert summary["source_intraday_model"]["risk_trigger_direction"] == (
+        "trigger_when_risk_score_is_greater_or_equal_validation_high_quantile"
     )
+    assert summary["execution_overlay"]["risk_score_trigger_direction"] == "high_risk_score_triggers_risk_action"
     assert {
         "soxl_vwap_dist",
         "soxx_cum_ret_from_open",

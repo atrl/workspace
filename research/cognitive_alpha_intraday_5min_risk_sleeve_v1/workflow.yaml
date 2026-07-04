@@ -28,8 +28,8 @@ execution:
   context_trigger_features: ['soxl_vwap_dist', 'soxx_cum_ret_from_open', 'soxl_rv_6', 'soxl_minus_3x_soxx_ret', 'open_gap_reclaim_quality', 'soxl_trend_quality_60m', 'soxl_volume_price_absorption', 'leveraged_replication_absorption', 'qqq_smh_soxx_lead_lag_3', 'semis_breadth_mom3_pos', 'semis_vwap_breadth']
   external_context_trigger_features: ['qqq_smh_soxx_lead_lag_3', 'semis_breadth_mom3_pos', 'semis_vwap_breadth']
   daily_entry_is_not_skipped: true
-  risk_score_semantics: probability_of_positive_1h_2h_execution_improvement
-  risk_score_trigger_direction: low_probability_triggers_risk_action
+  risk_score_semantics: higher_risk_score_means_higher_intraday_adverse_event_risk
+  risk_score_trigger_direction: high_risk_score_triggers_risk_action
   trigger_modes: ['drawdown_only', 'risk_score_only', 'risk_score_or_drawdown', 'risk_score_and_drawdown', 'context_stress_or_drawdown']
 walk_forward:
   policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T

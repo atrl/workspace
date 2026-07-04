@@ -34,8 +34,9 @@ from src.workflow.cognitive_alpha_intraday_overlay import (
     simulate_observable_delayed_signal_overlay,
     summarize_execution_risk_diagnostics,
 )
-from src.workflow.intraday_bar_model import QLIB_FIELDS
+from src.workflow.intraday_bar_model import QLIB_FIELDS, _models
 from src.workflow.intraday_execution_label_model import (
+    ADVERSE_EVENT_RISK_COL,
     LABEL_POLICY,
     MODEL_NAMES,
     build_execution_label_frame,
@@ -48,6 +49,12 @@ EXPERIMENT = "cognitive_alpha_intraday_local_fallback_overlay_v1"
 INTRADAY_SOURCE_CARD = "research/agentic_alpha_intraday_execution_label_v1"
 OVERLAY_SIGNAL_TIMING = "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open"
 REQUIRED_COST_BPS = (20.0, 50.0)
+ADVERSE_EVENT_RISK_SCORE_COL = "adverse_event_risk_score"
+ADVERSE_EVENT_RISK_SCORE_SOURCE_COL = "adverse_event_risk_score_source"
+ADVERSE_EVENT_RISK_PROB_COLS = {
+    "lgb": "risk_prob_lgb",
+    "xgb": "risk_prob_xgb",
+}
 
 
 @dataclass(frozen=True)
@@ -242,6 +249,15 @@ def run_cognitive_alpha_intraday_local_fallback_overlay_card(
             "feature_set": intraday_summary.get("feature_set", {}),
             "external_context_required": False,
             "external_context": "not_used_local_soxl_soxx_only",
+            "adverse_event_risk_head": {
+                "target_col": ADVERSE_EVENT_RISK_COL,
+                "score_col": ADVERSE_EVENT_RISK_SCORE_COL,
+                "prob_cols": ADVERSE_EVENT_RISK_PROB_COLS,
+                "models": ["lgb", "xgb", "lgb_xgb_consensus"],
+                "score_semantics": "higher_score_means_higher_same_session_open_buy_dump_risk",
+                "training_policy": "fit_on_train_only_predict_valid_and_test",
+                "selection_uses_test_segment": False,
+            },
         },
         "provider_uris": {
             "daily": spec.daily_provider_uri.resolve().as_posix(),
@@ -267,6 +283,7 @@ def run_cognitive_alpha_intraday_local_fallback_overlay_card(
         },
         "model_selection": {
             "models": MODEL_NAMES,
+            "adverse_event_risk_head_models": ["lgb", "xgb", "lgb_xgb_consensus"],
             "selection_segment": "validation",
             "report_segment": "test",
             "selection_uses_test_segment": False,
@@ -371,6 +388,11 @@ def _fit_local_intraday_walk_forward(
         selected_model = str(selection.iloc[0]["model"])
         selected_threshold = float(selection.iloc[0]["threshold"])
         fold_predictions = predictions.loc[predictions["segment"].isin(["valid", "test"])].copy()
+        fold_predictions, risk_importance = _append_adverse_event_risk_scores(
+            fold_predictions,
+            segments={"train": train, "valid": valid, "test": test},
+            feature_cols=feature_cols,
+        )
         fold_predictions = fold_predictions.merge(bar_prices, on=["datetime", "date"], how="left")
         fold_predictions["walk_forward_fold"] = fold
         fold_predictions["test_year"] = int(test_year)
@@ -388,12 +410,97 @@ def _fit_local_intraday_walk_forward(
                     **row,
                 }
             )
+        for row in risk_importance.to_dict("records"):
+            importance_rows.append(
+                {
+                    "fold": fold,
+                    "test_year": int(test_year),
+                    **row,
+                }
+            )
 
     return (
         pd.concat(prediction_frames, ignore_index=True) if prediction_frames else pd.DataFrame(),
         pd.concat(model_rows, ignore_index=True) if model_rows else pd.DataFrame(),
         pd.DataFrame(importance_rows),
     )
+
+
+def _append_adverse_event_risk_scores(
+    predictions: pd.DataFrame,
+    *,
+    segments: dict[str, pd.DataFrame],
+    feature_cols: list[str],
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    out = predictions.copy()
+    if out.empty:
+        return out, pd.DataFrame(columns=["model", "feature", "importance"])
+
+    train = segments.get("train", pd.DataFrame()).copy()
+    target_col = ADVERSE_EVENT_RISK_COL
+    score_cols = list(ADVERSE_EVENT_RISK_PROB_COLS.values()) + [
+        ADVERSE_EVENT_RISK_SCORE_COL,
+        ADVERSE_EVENT_RISK_SCORE_SOURCE_COL,
+    ]
+    if target_col not in train.columns:
+        for col in score_cols:
+            out[col] = np.nan if col != ADVERSE_EVENT_RISK_SCORE_SOURCE_COL else "unavailable_missing_target"
+        return out, pd.DataFrame(columns=["model", "feature", "importance"])
+
+    train_target = pd.to_numeric(train[target_col], errors="coerce")
+    train_fit = train.loc[train_target.notna(), feature_cols + [target_col]].dropna(subset=feature_cols + [target_col]).copy()
+    if train_fit.empty or pd.to_numeric(train_fit[target_col], errors="coerce").nunique() < 2:
+        for col in score_cols:
+            out[col] = np.nan if col != ADVERSE_EVENT_RISK_SCORE_SOURCE_COL else "unavailable_insufficient_train_classes"
+        return out, pd.DataFrame(columns=["model", "feature", "importance"])
+
+    score_frames: list[pd.DataFrame] = []
+    importance_rows: list[dict[str, Any]] = []
+    fitted_models = _models()
+    for model_name, prob_col in ADVERSE_EVENT_RISK_PROB_COLS.items():
+        model = fitted_models[model_name]
+        model.fit(train_fit[feature_cols], pd.to_numeric(train_fit[target_col], errors="coerce").astype(int))
+        if hasattr(model, "feature_importances_"):
+            top = pd.Series(model.feature_importances_, index=feature_cols).sort_values(ascending=False).head(25)
+            importance_rows.extend(
+                {
+                    "model": f"adverse_event_risk_{model_name}",
+                    "feature": feature,
+                    "importance": float(importance),
+                }
+                for feature, importance in top.items()
+            )
+        prediction_pieces: list[pd.DataFrame] = []
+        for segment_name in ["valid", "test"]:
+            segment = segments.get(segment_name, pd.DataFrame()).copy()
+            if segment.empty:
+                continue
+            base = segment[["datetime", "date"]].copy()
+            base["segment"] = segment_name
+            feature_frame = segment[feature_cols].copy()
+            valid_features = feature_frame.notna().all(axis=1)
+            base[prob_col] = np.nan
+            if valid_features.any():
+                probabilities = np.asarray(model.predict_proba(feature_frame.loc[valid_features]))
+                base.loc[valid_features, prob_col] = probabilities[:, 1]
+            prediction_pieces.append(base)
+        if prediction_pieces:
+            score_frames.append(pd.concat(prediction_pieces, ignore_index=True))
+
+    if not score_frames:
+        for col in score_cols:
+            out[col] = np.nan if col != ADVERSE_EVENT_RISK_SCORE_SOURCE_COL else "unavailable_no_prediction_segments"
+        return out, pd.DataFrame(importance_rows)
+
+    scores = score_frames[0]
+    for frame in score_frames[1:]:
+        prob_cols = [col for col in frame.columns if col in ADVERSE_EVENT_RISK_PROB_COLS.values()]
+        scores = scores.merge(frame[["datetime", "date", "segment"] + prob_cols], on=["datetime", "date", "segment"], how="outer")
+    prob_cols = [col for col in ADVERSE_EVENT_RISK_PROB_COLS.values() if col in scores.columns]
+    scores[ADVERSE_EVENT_RISK_SCORE_COL] = scores[prob_cols].mean(axis=1)
+    scores[ADVERSE_EVENT_RISK_SCORE_SOURCE_COL] = "lgb_xgb_adverse_event_consensus"
+    out = out.merge(scores, on=["datetime", "date", "segment"], how="left")
+    return out, pd.DataFrame(importance_rows)
 
 
 def _evaluate_local_overlay_walk_forward(
@@ -858,6 +965,9 @@ def _analysis_summary(
             "daily_price_rows": int(len(daily_prices)),
             "intraday_label_rows": int(len(intraday_frame)),
             "intraday_prediction_rows": int(len(fold_predictions)),
+            "adverse_event_risk_prediction_rows": int(
+                fold_predictions.get(ADVERSE_EVENT_RISK_SCORE_COL, pd.Series(dtype=float)).notna().sum()
+            ),
             "intraday_provider_uri": provider_meta.get("provider_uri"),
             "intraday_calendar_start": provider_meta.get("calendar_start"),
             "intraday_calendar_end": provider_meta.get("calendar_end"),
@@ -881,6 +991,13 @@ def _analysis_summary(
         "source_intraday_model": {
             "recorder_id": intraday_summary.get("recorder_id"),
             "label_policy": intraday_summary.get("label_policy"),
+            "adverse_event_risk_head": {
+                "target_col": ADVERSE_EVENT_RISK_COL,
+                "score_col": ADVERSE_EVENT_RISK_SCORE_COL,
+                "prob_cols": ADVERSE_EVENT_RISK_PROB_COLS,
+                "score_semantics": "higher_score_means_higher_same_session_open_buy_dump_risk",
+                "training_policy": "fit_on_train_only_predict_valid_and_test",
+            },
         },
         "model_selection_rows": int(len(model_selection)),
         "annual_walk_forward_rows": int(len(annual_walk_forward)),
@@ -1010,6 +1127,7 @@ def _write_sidecars(
         "# Failure Modes\n\n"
         "- 本地 fallback 只用 SOXL/SOXX 15m 特征；没有 QQQ/SMH/成分股分钟级上下文，因此不能证明外部 lead-lag 因子。\n"
         "- 每个年度 fold 独立训练 LGB/XGB/consensus，valid 只用于选择 intraday 模型和 delayed policy，test 只报告。\n"
+        "- adverse_event_risk_head 单独训练买入后同日 open-buy-dump 风险，只用 train 拟合并只给 valid/test 输出风险分数；仍不是晋升信号。\n"
         "- 日内模型的目标是 1h/2h triple-barrier execution improvement，不是日线 open-to-open 趋势收益；若它跳过入场，可能降低回撤但也会丢掉日线 alpha。\n"
         "- same_day_close 是可交易时序更纯的候选，但仍缺 bid/ask、收盘成交容量、延迟、盘前盘后和极端波动 replay。\n"
         "- 晋升必须同时满足 2023-2026 年度 20/50bp 的 85%-95% retention、max_dd>-18%、且降低 open-buy-dump 或 crash 暴露。\n"
@@ -1044,6 +1162,10 @@ def _write_workflow_yaml(
                 "  source: local_soxl_soxx_15m",
                 "model_selection:",
                 "  models: [lgb, xgb, lgb_xgb_consensus]",
+                "  adverse_event_risk_head_models: [lgb, xgb, lgb_xgb_consensus]",
+                f"  adverse_event_risk_target: {ADVERSE_EVENT_RISK_COL}",
+                f"  adverse_event_risk_score_col: {ADVERSE_EVENT_RISK_SCORE_COL}",
+                "  adverse_event_risk_training_policy: fit_on_train_only_predict_valid_and_test",
                 "  selection_segment: validation",
                 "  report_segment: test",
                 "  selection_uses_test_segment: false",
@@ -1115,7 +1237,8 @@ def _write_conclusion(
     text = (
         "# 中文结论\n\n"
         "- 做了什么：建立本地 SOXL/SOXX 15m fallback overlay。日线 LGB/XGB open-to-open 模型仍决定 target_position；"
-        "本卡每个年度 fold 重新训练本地 15m LGB/XGB/consensus triple-barrier 模型，再用 validation-only delayed policy 决定是否延迟入场或 same_day_close。\n"
+        "本卡每个年度 fold 重新训练本地 15m LGB/XGB/consensus triple-barrier 模型，并额外训练同日 open-buy-dump adverse-event 风险头，"
+        "再用 validation-only delayed policy 决定是否延迟入场或 same_day_close。\n"
         "- 为什么之前日内模型没有超过日线模型：日内 label 学的是 1h/2h 执行改善，不是多日 open-to-open 趋势；"
         "延迟入场能规避部分开盘后下杀，但也会错过 SOXL 日线模型主要依赖的隔夜和趋势段收益。\n"
         f"- 年度 walk-forward：2023-2026 都完成 train_to_T-2 / valid_T-1 / test_T；"

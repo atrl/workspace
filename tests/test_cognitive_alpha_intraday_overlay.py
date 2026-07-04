@@ -4,6 +4,7 @@ import pandas as pd
 import pytest
 
 import src.workflow.cognitive_alpha_intraday_5min_risk_sleeve as risk_sleeve_workflow
+import src.workflow.cognitive_alpha_intraday_local_fallback_overlay as local_fallback_workflow
 import src.workflow.cognitive_alpha_intraday_overlay as overlay_workflow
 from src.workflow.cognitive_alpha_intraday_5min_risk_sleeve import (
     _attach_external_context_to_5min_bars,
@@ -226,11 +227,11 @@ def test_simulate_5min_risk_sleeve_can_limit_output_to_requested_variant():
 
 def test_selected_trades_replay_accepts_score_only_policy_without_drawdown_threshold():
     selected = {
-        "policy_id": "risk_exit_full_5m_risk_score_only_dd_disabled_risk_0.40000",
+        "policy_id": "risk_exit_full_5m_risk_score_only_dd_disabled_risk_0.60000",
         "variant": "risk_exit_full_5m",
         "trigger_mode": "risk_score_only",
         "drawdown_threshold": None,
-        "risk_score_threshold": 0.40,
+        "risk_score_threshold": 0.60,
         "context_trigger_source": "disabled",
     }
 
@@ -265,7 +266,7 @@ def test_selected_trades_replay_accepts_score_only_policy_without_drawdown_thres
                 {
                     "datetime": "2026-01-05 09:35:00",
                     "date": "2026-01-05",
-                    "risk_score": 0.35,
+                    "risk_score": 0.75,
                     "prediction_available_gate": True,
                 }
             ]
@@ -275,6 +276,122 @@ def test_selected_trades_replay_accepts_score_only_policy_without_drawdown_thres
 
     assert set(trades["variant"]) == {"baseline_next_open", "risk_exit_full_5m"}
     assert bool(trades.set_index("variant").loc["risk_exit_full_5m", "risk_triggered"]) is True
+
+
+def test_5min_risk_scores_prefer_dedicated_adverse_event_risk_score():
+    scores = risk_sleeve_workflow._risk_scores_for_fold(
+        pd.DataFrame(
+            [
+                {
+                    "datetime": "2026-01-05 09:45:00",
+                    "date": "2026-01-05",
+                    "walk_forward_fold": "wf_2026",
+                    "selected_intraday_model": "lgb",
+                    "prob_lgb": 0.80,
+                    "adverse_event_risk_score": 0.65,
+                    "prediction_available_gate": True,
+                }
+            ]
+        ),
+        fold="wf_2026",
+    )
+
+    assert scores.iloc[0]["risk_score"] == pytest.approx(0.65)
+    assert scores.iloc[0]["risk_score_source"] == "adverse_event_risk_score"
+
+
+def test_5min_risk_scores_fallback_inverts_execution_improvement_probability():
+    scores = risk_sleeve_workflow._risk_scores_for_fold(
+        pd.DataFrame(
+            [
+                {
+                    "datetime": "2026-01-05 09:45:00",
+                    "date": "2026-01-05",
+                    "walk_forward_fold": "wf_2026",
+                    "selected_intraday_model": "lgb",
+                    "prob_lgb": 0.20,
+                    "prediction_available_gate": True,
+                }
+            ]
+        ),
+        fold="wf_2026",
+    )
+
+    assert scores.iloc[0]["risk_score"] == pytest.approx(0.80)
+    assert scores.iloc[0]["risk_score_source"] == "inverse_execution_improvement_probability"
+
+
+def test_local_fallback_adverse_event_risk_head_trains_only_on_train_segment(monkeypatch):
+    trained_targets: list[list[int]] = []
+
+    class FakeRiskModel:
+        def __init__(self, probability: float):
+            self.probability = probability
+            self.feature_importances_ = [1.0, 0.5]
+
+        def fit(self, features: pd.DataFrame, target: pd.Series):
+            assert list(features.columns) == ["feature_a", "feature_b"]
+            trained_targets.append([int(value) for value in target.tolist()])
+            return self
+
+        def predict_proba(self, features: pd.DataFrame):
+            return [[1.0 - self.probability, self.probability] for _ in range(len(features))]
+
+    monkeypatch.setattr(
+        local_fallback_workflow,
+        "_models",
+        lambda: {"lgb": FakeRiskModel(0.70), "xgb": FakeRiskModel(0.30)},
+    )
+    segments = {
+        "train": pd.DataFrame(
+            {
+                "datetime": pd.date_range("2024-01-02 09:45:00", periods=4, freq="15min"),
+                "date": ["2024-01-02"] * 4,
+                "feature_a": [0.0, 1.0, 2.0, 3.0],
+                "feature_b": [1.0, 1.0, 1.0, 1.0],
+                "adverse_event_risk_target": [0, 1, 0, 1],
+            }
+        ),
+        "valid": pd.DataFrame(
+            {
+                "datetime": [pd.Timestamp("2025-01-02 09:45:00")],
+                "date": ["2025-01-02"],
+                "feature_a": [4.0],
+                "feature_b": [1.0],
+                "adverse_event_risk_target": [1],
+            }
+        ),
+        "test": pd.DataFrame(
+            {
+                "datetime": [pd.Timestamp("2026-01-02 09:45:00")],
+                "date": ["2026-01-02"],
+                "feature_a": [5.0],
+                "feature_b": [1.0],
+                "adverse_event_risk_target": [0],
+            }
+        ),
+    }
+    predictions = pd.DataFrame(
+        {
+            "datetime": [pd.Timestamp("2025-01-02 09:45:00"), pd.Timestamp("2026-01-02 09:45:00")],
+            "date": ["2025-01-02", "2026-01-02"],
+            "segment": ["valid", "test"],
+            "prob_lgb": [0.6, 0.4],
+        }
+    )
+
+    out, importance = local_fallback_workflow._append_adverse_event_risk_scores(
+        predictions,
+        segments=segments,
+        feature_cols=["feature_a", "feature_b"],
+    )
+
+    assert trained_targets == [[0, 1, 0, 1], [0, 1, 0, 1]]
+    assert out["risk_prob_lgb"].tolist() == pytest.approx([0.70, 0.70])
+    assert out["risk_prob_xgb"].tolist() == pytest.approx([0.30, 0.30])
+    assert out["adverse_event_risk_score"].tolist() == pytest.approx([0.50, 0.50])
+    assert out["adverse_event_risk_score_source"].tolist() == ["lgb_xgb_adverse_event_consensus"] * 2
+    assert set(importance["model"]) == {"adverse_event_risk_lgb", "adverse_event_risk_xgb"}
 
 
 def test_evaluate_5min_risk_sleeve_candidates_reuses_trigger_replay_across_variants(monkeypatch):

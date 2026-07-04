@@ -28,8 +28,15 @@ EXPERIMENT = "agentic_alpha_intraday_execution_label_v1"
 MODEL_NAMES = ["lgb", "xgb", "lgb_xgb_consensus"]
 RETURN_COL = "target_return"
 MODEL_TARGET_COL = "target_positive"
+ENTRY_DAY_WORST_RETURN_COL = "entry_day_worst_return"
+OPEN_BUY_DUMP_TARGET_COL = "open_buy_dump_target"
+CRASH_EVENT_TARGET_COL = "crash_event_target"
+ADVERSE_EVENT_RISK_COL = "adverse_event_risk_target"
 LABEL_POLICY = "triple_barrier_1h_2h_execution_improvement"
+ADVERSE_EVENT_POLICY = "same_session_entry_day_adverse_event_risk"
 EXECUTION_TIMING = "bar_t_close_signal_next_15m_open_then_horizon_or_barrier_exit"
+OPEN_BUY_DUMP_THRESHOLD = -0.03
+CRASH_EVENT_THRESHOLD = -0.08
 REQUESTED_EXTERNAL_INTRADAY_SYMBOLS = ["QQQ", "SMH", "NVDA", "AVGO", "AMD", "TSM", "ASML"]
 REQUESTED_EXTERNAL_CONTEXT_SYMBOLS = ["QQQ", "SMH", "SOXX", "NVDA", "AVGO", "AMD", "TSM", "ASML"]
 EXTERNAL_SEMIS_BREADTH_SYMBOLS = ["NVDA", "AVGO", "AMD", "TSM", "ASML"]
@@ -386,6 +393,11 @@ def build_execution_label_frame(
         horizon_bars=horizon_bars,
         cost_bps=cost_bps,
     )
+    frame, adverse_audit = add_entry_day_adverse_event_labels(
+        frame,
+        open_buy_dump_threshold=OPEN_BUY_DUMP_THRESHOLD,
+        crash_threshold=CRASH_EVENT_THRESHOLD,
+    )
     feature_cols = [
         col
         for col in frame.columns
@@ -424,6 +436,7 @@ def build_execution_label_frame(
     frame = frame.dropna(subset=["entry_datetime", RETURN_COL, MODEL_TARGET_COL]).copy()
     frame["date"] = pd.to_datetime(frame["date"].astype(str)).dt.date.astype(str)
     label_audit["external_context"] = external_context_audit
+    label_audit["adverse_event_policy"] = adverse_audit
     return frame.reset_index(drop=True), feature_cols, label_audit
 
 
@@ -663,6 +676,55 @@ def _add_execution_labels(
         "stop_loss": float(stop_loss),
         "cost_bps": float(cost_bps),
         "same_session_last_rows_dropped": int(frame[RETURN_COL].isna().sum()),
+    }
+
+
+def add_entry_day_adverse_event_labels(
+    frame: pd.DataFrame,
+    *,
+    open_buy_dump_threshold: float = OPEN_BUY_DUMP_THRESHOLD,
+    crash_threshold: float = CRASH_EVENT_THRESHOLD,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    frame = frame.copy()
+    worst_returns: list[float] = []
+    open_buy_dump_targets: list[float] = []
+    crash_targets: list[float] = []
+    for _, row in frame.iterrows():
+        date = row.get("date")
+        entry_dt = row.get("entry_datetime")
+        entry_open = row.get("entry_open")
+        if pd.isna(entry_dt) or pd.isna(entry_open) or float(entry_open) <= 0.0:
+            worst_returns.append(np.nan)
+            open_buy_dump_targets.append(np.nan)
+            crash_targets.append(np.nan)
+            continue
+        future = frame.loc[(frame["date"] == date) & (frame["datetime"] >= entry_dt)]
+        if future.empty or future["soxl_low"].isna().all():
+            worst_returns.append(np.nan)
+            open_buy_dump_targets.append(np.nan)
+            crash_targets.append(np.nan)
+            continue
+        worst_return = float(pd.to_numeric(future["soxl_low"], errors="coerce").min() / float(entry_open) - 1.0)
+        worst_returns.append(worst_return)
+        open_buy_dump_targets.append(float(worst_return <= float(open_buy_dump_threshold)))
+        crash_targets.append(float(worst_return <= float(crash_threshold)))
+    frame[ENTRY_DAY_WORST_RETURN_COL] = worst_returns
+    frame[OPEN_BUY_DUMP_TARGET_COL] = open_buy_dump_targets
+    frame[CRASH_EVENT_TARGET_COL] = crash_targets
+    frame[ADVERSE_EVENT_RISK_COL] = frame[OPEN_BUY_DUMP_TARGET_COL]
+    return frame, {
+        "label_policy": ADVERSE_EVENT_POLICY,
+        "entry_timing": "next_15m_open",
+        "risk_horizon": "same_session_entry_to_close",
+        "worst_return_col": ENTRY_DAY_WORST_RETURN_COL,
+        "open_buy_dump_target_col": OPEN_BUY_DUMP_TARGET_COL,
+        "crash_event_target_col": CRASH_EVENT_TARGET_COL,
+        "model_target_col": ADVERSE_EVENT_RISK_COL,
+        "open_buy_dump_threshold": float(open_buy_dump_threshold),
+        "crash_threshold": float(crash_threshold),
+        "uses_same_bar_future": False,
+        "same_session_only": True,
+        "missing_target_rows": int(frame[ADVERSE_EVENT_RISK_COL].isna().sum()),
     }
 
 
