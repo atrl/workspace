@@ -995,7 +995,7 @@ def test_intraday_external_context_data_card_records_requested_symbols_and_fail_
     assert summary["experiment"] == "intraday_external_context_data_v1"
     assert summary["card_type"] == "intraday_external_context_data"
     assert summary["source"] == "polygon_aggs_custom_bars"
-    assert summary["requested_range"] == ["2025-01-02", "2026-07-02"]
+    assert summary["requested_range"] == ["2019-01-02", "2026-07-02"]
     assert set(summary["requested_symbols"]) == requested_symbols
     assert summary["frequency"] == "15min"
     assert summary["data_status"] in {
@@ -1049,7 +1049,19 @@ def test_intraday_external_context_data_card_records_requested_symbols_and_fail_
 
     source_audit = pd.read_csv(card / summary["sidecars"]["source_audit"])
     assert set(source_audit["symbol"]) == requested_symbols
-    assert {"status", "http_status", "row_count", "message"}.issubset(source_audit.columns)
+    assert {
+        "status",
+        "http_status",
+        "row_count",
+        "message",
+        "requested_start",
+        "requested_end",
+        "coverage_start",
+        "coverage_end",
+        "provider_history_truncated",
+    }.issubset(source_audit.columns)
+    if summary["data_status"] == "ok_partial_insufficient_for_full_walk_forward":
+        assert source_audit["provider_history_truncated"].fillna(False).astype(bool).any()
     coverage_audit = pd.read_csv(card / summary["sidecars"]["coverage_audit"])
     assert set(coverage_audit["symbol"]).issubset(requested_symbols)
     assert {"coverage_start", "coverage_end", "regular_session_rows"}.issubset(coverage_audit.columns)

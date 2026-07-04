@@ -1,0 +1,52 @@
+{
+  "available_symbols": [],
+  "coverage_rows": 8,
+  "data_status": "blocked_provider_rate_limit",
+  "full_walk_forward_required_range": [
+    "2019-01-02",
+    "2026-07-02"
+  ],
+  "missing_symbols": [
+    "AMD",
+    "ASML",
+    "AVGO",
+    "NVDA",
+    "QQQ",
+    "SMH",
+    "SOXX",
+    "TSM"
+  ],
+  "provider_manifest_hash": "",
+  "provider_manifest_status": "blocked_provider_rate_limit",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "highfreq": "https://qlib.readthedocs.io/en/latest/component/highfreq.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.Recorder.log_artifact",
+    "build_qlib_store_from_frame"
+  ],
+  "regular_session_rows": 0,
+  "requested_range": [
+    "2019-01-02",
+    "2026-07-02"
+  ],
+  "requested_symbols": [
+    "QQQ",
+    "SMH",
+    "SOXX",
+    "NVDA",
+    "AVGO",
+    "AMD",
+    "TSM",
+    "ASML"
+  ],
+  "source": "intraday_external_context_data_card",
+  "source_status_counts": {
+    "blocked_provider_rate_limit": 8
+  }
+}

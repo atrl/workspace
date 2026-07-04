@@ -1,45 +1,20 @@
 {
   "as_of": "2026-07-02",
-  "audit_snapshot_hash": "d301e2a349ade254",
-  "calendar_end": "2026-07-02 16:00:00",
-  "calendar_start": "2025-01-02 09:45:00",
-  "feature_file_count": 72,
-  "fields": [
-    "$open",
-    "$high",
-    "$low",
-    "$close",
-    "$volume",
-    "$turnover",
-    "$vwap",
-    "$bar_index",
-    "$bar_count"
-  ],
+  "fields": [],
   "freq": "15min",
-  "hash": "97af5f6932968b3e",
-  "instruments": [
-    "AMD",
-    "ASML",
-    "AVGO",
-    "NVDA",
-    "QQQ",
-    "SMH",
-    "SOXX",
-    "TSM"
-  ],
+  "instruments": [],
   "market": "all",
-  "max_datetime": "2026-07-02 16:00:00",
   "operation": "qlib_store_build",
-  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
+  "provider_uri": "",
   "region": "us",
-  "row_count": 77736,
+  "row_count": 0,
   "source": "polygon_aggs_custom_bars",
   "source_api": [
     "qlib.init",
-    "qlib.data.storage.file_storage.FileFeatureStorage",
-    "qlib.data.D.calendar",
-    "qlib.data.D.instruments",
-    "qlib.data.D.features"
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.Recorder.log_artifact",
+    "build_qlib_store_from_frame"
   ],
-  "status": "ok"
+  "status": "blocked_provider_rate_limit"
 }

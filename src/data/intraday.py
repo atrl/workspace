@@ -244,6 +244,13 @@ def fetch_polygon_aggregate_bars(
     import requests
 
     symbol = symbol.upper()
+    requested_audit = {
+        "requested_start": start,
+        "requested_end": end,
+        "coverage_start": "",
+        "coverage_end": "",
+        "provider_history_truncated": True,
+    }
     url = f"{base_url.rstrip('/')}/v2/aggs/ticker/{symbol}/range/{int(multiplier)}/{timespan}/{start}/{end}"
     params: dict[str, Any] = {
         "adjusted": "true" if adjusted else "false",
@@ -271,6 +278,7 @@ def fetch_polygon_aggregate_bars(
                     "row_count": 0,
                     "page_count": page_count,
                     "message": str(exc),
+                    **requested_audit,
                 }
             last_status = int(response.status_code)
             if response.status_code != 429 or attempts >= max_retries:
@@ -293,6 +301,7 @@ def fetch_polygon_aggregate_bars(
                 "row_count": 0,
                 "page_count": page_count,
                 "message": message,
+                **requested_audit,
             }
         page_rows = payload.get("results") or []
         rows.extend(page_rows)
@@ -311,6 +320,14 @@ def fetch_polygon_aggregate_bars(
         adjusted=adjusted,
     ) if rows else pd.DataFrame()
     status = "ok" if not normalized.empty else "blocked_no_rows"
+    coverage_start = _format_timestamp_for_audit(normalized["timestamp"].min()) if not normalized.empty else ""
+    coverage_end = _format_timestamp_for_audit(normalized["timestamp"].max()) if not normalized.empty else ""
+    provider_history_truncated = False
+    if not normalized.empty:
+        provider_history_truncated = bool(
+            pd.Timestamp(normalized["timestamp"].min()).date() > pd.Timestamp(start).date()
+            or pd.Timestamp(normalized["timestamp"].max()).date() < pd.Timestamp(end).date()
+        )
     return normalized, {
         "symbol": symbol,
         "status": status,
@@ -318,7 +335,21 @@ def fetch_polygon_aggregate_bars(
         "row_count": int(len(normalized)),
         "page_count": page_count,
         "message": message,
+        "requested_start": start,
+        "requested_end": end,
+        "coverage_start": coverage_start,
+        "coverage_end": coverage_end,
+        "provider_history_truncated": provider_history_truncated,
     }
+
+
+def _format_timestamp_for_audit(value: Any) -> str:
+    if pd.isna(value):
+        return ""
+    timestamp = pd.Timestamp(value)
+    if timestamp.tzinfo is not None:
+        timestamp = timestamp.tz_localize(None)
+    return timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def merge_intraday_bars(existing: pd.DataFrame, fetched: pd.DataFrame) -> pd.DataFrame:

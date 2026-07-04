@@ -49,7 +49,7 @@ class IntradayExternalContextDataSpec:
     root: Path
     experiment: str = EXPERIMENT
     requested_symbols: tuple[str, ...] = REQUESTED_SYMBOLS
-    start: str = "2025-01-02"
+    start: str = "2019-01-02"
     end: str = "2026-07-02"
     full_walk_forward_start: str = "2019-01-02"
     as_of: str = "2026-07-02"
@@ -102,6 +102,7 @@ def _run_card(spec: IntradayExternalContextDataSpec, *, api_key: str | None) -> 
     coverage_audit = _coverage_audit(spec, qlib_frame=qlib_frame, source_audit=source_audit)
     available_symbols = sorted(symbol for symbol in spec.requested_symbols if symbol in set(qlib_frame.get("symbol", [])))
     missing_symbols = sorted(set(spec.requested_symbols) - set(available_symbols))
+    provider_built = bool(not qlib_frame.empty and set(available_symbols) == set(spec.requested_symbols))
     data_status = _data_status(
         spec,
         source_audit=source_audit,
@@ -110,8 +111,8 @@ def _run_card(spec: IntradayExternalContextDataSpec, *, api_key: str | None) -> 
         api_key=api_key,
     )
 
-    manifest = _write_or_build_provider(spec, qlib_frame=qlib_frame) if not qlib_frame.empty else _blocked_manifest(spec, data_status)
-    qlib_feature_sample = _qlib_feature_sample(spec, available_symbols=available_symbols, provider_built=not qlib_frame.empty)
+    manifest = _write_or_build_provider(spec, qlib_frame=qlib_frame) if provider_built else _blocked_manifest(spec, data_status)
+    qlib_feature_sample = _qlib_feature_sample(spec, available_symbols=available_symbols, provider_built=provider_built)
     analysis_summary = _analysis_summary(
         spec,
         data_status=data_status,
@@ -173,7 +174,7 @@ def _run_card(spec: IntradayExternalContextDataSpec, *, api_key: str | None) -> 
         recorder_id=recorder_id,
         recorder_local_dir=recorder_local_dir,
         recorder_artifacts=recorder_artifacts,
-        provider_built=not qlib_frame.empty,
+        provider_built=provider_built,
     )
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     (spec.output_dir / "conclusion.md").write_text(_conclusion(summary), encoding="utf-8")
@@ -197,6 +198,11 @@ def _fetch_requested_symbols(
                     "row_count": 0,
                     "page_count": 0,
                     "message": "POLYGON_API_KEY missing",
+                    "requested_start": spec.start,
+                    "requested_end": spec.end,
+                    "coverage_start": "",
+                    "coverage_end": "",
+                    "provider_history_truncated": True,
                 }
             )
         return pd.DataFrame(audit_rows), pd.DataFrame()
@@ -208,6 +214,8 @@ def _fetch_requested_symbols(
             end=spec.end,
             api_key=api_key,
             multiplier=15,
+            max_retries=0,
+            retry_sleep_seconds=0.0,
         )
         audit_rows.append(audit)
         if not frame.empty:

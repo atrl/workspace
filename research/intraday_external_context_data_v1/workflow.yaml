@@ -8,7 +8,7 @@ qlib:
   frequency: 15min
 source:
   provider: polygon_aggs_custom_bars
-  requested_range: [2025-01-02, 2026-07-02]
+  requested_range: [2019-01-02, 2026-07-02]
   requested_symbols:
     - QQQ
     - SMH

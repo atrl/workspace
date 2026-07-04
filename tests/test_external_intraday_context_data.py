@@ -8,6 +8,7 @@ from src.data.intraday import (
     normalize_polygon_aggregate_frame,
     polygon_intraday_to_qlib_frame,
 )
+from src.workflow import intraday_external_context_data as external_context_workflow
 
 
 def test_polygon_aggregates_normalize_to_ny_bar_end_canonical_schema():
@@ -128,11 +129,89 @@ def test_polygon_fetch_timeout_returns_fail_closed_audit(monkeypatch):
     )
 
     assert frame.empty
-    assert audit == {
-        "symbol": "SMH",
-        "status": "blocked_provider_timeout",
-        "http_status": 0,
-        "row_count": 0,
-        "page_count": 0,
-        "message": "read timed out",
-    }
+    assert audit["symbol"] == "SMH"
+    assert audit["status"] == "blocked_provider_timeout"
+    assert audit["http_status"] == 0
+    assert audit["row_count"] == 0
+    assert audit["page_count"] == 0
+    assert audit["message"] == "read timed out"
+    assert audit["requested_start"] == "2025-01-02"
+    assert audit["requested_end"] == "2026-07-02"
+    assert audit["coverage_start"] == ""
+    assert audit["coverage_end"] == ""
+    assert audit["provider_history_truncated"] is True
+
+
+def test_polygon_fetch_marks_provider_history_truncation(monkeypatch):
+    class Response:
+        status_code = 200
+        headers = {}
+
+        @staticmethod
+        def json():
+            return {
+                "status": "OK",
+                "results": [
+                    {
+                        "t": int(pd.Timestamp("2024-07-05 13:30:00", tz="UTC").timestamp() * 1000),
+                        "o": 490.0,
+                        "h": 491.0,
+                        "l": 489.0,
+                        "c": 490.5,
+                        "v": 1000,
+                        "vw": 490.25,
+                        "n": 10,
+                    }
+                ],
+            }
+
+    monkeypatch.setattr(requests, "get", lambda *args, **kwargs: Response())
+
+    frame, audit = fetch_polygon_aggregate_bars(
+        "QQQ",
+        start="2019-01-02",
+        end="2026-07-02",
+        api_key="test-key",
+    )
+
+    assert not frame.empty
+    assert audit["status"] == "ok"
+    assert audit["requested_start"] == "2019-01-02"
+    assert audit["requested_end"] == "2026-07-02"
+    assert audit["coverage_start"] == "2024-07-05 09:45:00"
+    assert audit["coverage_end"] == "2024-07-05 09:45:00"
+    assert audit["provider_history_truncated"] is True
+
+
+def test_external_context_symbol_fetch_uses_fast_fail_rate_limit_policy(monkeypatch, tmp_path):
+    calls = []
+
+    def fake_fetch(symbol, **kwargs):
+        calls.append({"symbol": symbol, **kwargs})
+        return pd.DataFrame(), {
+            "symbol": symbol,
+            "status": "blocked_provider_rate_limit",
+            "http_status": 429,
+            "row_count": 0,
+            "page_count": 0,
+            "message": "rate limit",
+            "requested_start": kwargs["start"],
+            "requested_end": kwargs["end"],
+            "coverage_start": "",
+            "coverage_end": "",
+            "provider_history_truncated": True,
+        }
+
+    monkeypatch.setattr(external_context_workflow, "fetch_polygon_aggregate_bars", fake_fetch)
+    spec = external_context_workflow.IntradayExternalContextDataSpec(
+        root=tmp_path,
+        requested_symbols=("QQQ",),
+    )
+
+    source_audit, normalized = external_context_workflow._fetch_requested_symbols(spec, api_key="test-key")
+
+    assert normalized.empty
+    assert source_audit["status"].tolist() == ["blocked_provider_rate_limit"]
+    assert calls[0]["start"] == "2019-01-02"
+    assert calls[0]["max_retries"] == 0
+    assert calls[0]["retry_sleep_seconds"] == 0.0
