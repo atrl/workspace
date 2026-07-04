@@ -14,6 +14,7 @@ from src.data import (
     fetch_polygon_aggregate_bars,
     init_qlib_provider,
     load_qlib_feature_frame,
+    merge_intraday_bars,
     polygon_intraday_to_qlib_frame,
     read_intraday_cache,
     write_intraday_cache,
@@ -210,56 +211,111 @@ def _fetch_requested_symbols(
                     "coverage_end": "",
                     "provider_history_truncated": True,
                     "raw_cache_path": "",
+                    "cache_row_count": 0,
+                    "fetched_row_count": 0,
+                    "fetch_range_count": 0,
+                    "blocked_range_count": 0,
+                    "chunk_statuses": "",
                 }
             )
         return pd.DataFrame(audit_rows), pd.DataFrame()
 
     for symbol in spec.requested_symbols:
-        cached = _read_cached_symbol(spec, symbol)
-        if cached is not None:
-            cached_frame, cached_audit = cached
-            audit_rows.append(cached_audit)
-            frames.append(cached_frame)
-            continue
+        frame, audit = _fetch_symbol_with_cache(spec, symbol, api_key=api_key)
+        audit_rows.append(audit)
+        if not frame.empty:
+            frames.append(frame)
+    normalized = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+    return pd.DataFrame(audit_rows), normalized
 
+
+def _fetch_symbol_with_cache(
+    spec: IntradayExternalContextDataSpec,
+    symbol: str,
+    *,
+    api_key: str,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    cached = _read_cached_symbol_frame(spec, symbol)
+    cache_row_count = int(len(cached))
+    ranges = _missing_fetch_ranges(spec, cached)
+    if not ranges and not cached.empty:
+        return cached, _cached_source_audit(spec, symbol, cached)
+
+    merged = cached.copy()
+    chunk_audits: list[dict[str, Any]] = []
+    fetched_row_count = 0
+    blocked_range_count = 0
+    cache_path = _raw_cache_path(spec, symbol)
+
+    for range_start, range_end in ranges:
         frame, audit = fetch_polygon_aggregate_bars(
             symbol,
-            start=spec.start,
-            end=spec.end,
+            start=range_start,
+            end=range_end,
             api_key=api_key,
             multiplier=15,
             max_retries=0,
             retry_sleep_seconds=0.0,
         )
-        audit = {**audit, "raw_cache_path": _raw_cache_path(spec, symbol).as_posix() if not frame.empty else ""}
-        audit_rows.append(audit)
+        chunk_audits.append(audit)
         if not frame.empty:
-            write_intraday_cache(frame, _raw_cache_path(spec, symbol))
-            frames.append(frame)
-    normalized = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
-    return pd.DataFrame(audit_rows), normalized
+            fetched_row_count += int(len(frame))
+            merged = merge_intraday_bars(merged, frame)
+            write_intraday_cache(merged, cache_path)
+        status = str(audit.get("status", ""))
+        if status in {"blocked_provider_rate_limit", "blocked_provider_timeout"}:
+            blocked_range_count += 1
+            break
+        if status == "ok_partial_provider_rate_limit":
+            blocked_range_count += 1
+            break
+        if status.startswith("blocked_"):
+            blocked_range_count += 1
+
+    if merged.empty:
+        audit = chunk_audits[-1] if chunk_audits else _blocked_no_rows_audit(spec, symbol)
+        return pd.DataFrame(), {
+            **audit,
+            "raw_cache_path": "",
+            "cache_row_count": cache_row_count,
+            "fetched_row_count": fetched_row_count,
+            "fetch_range_count": len(chunk_audits),
+            "blocked_range_count": blocked_range_count,
+            "chunk_statuses": ",".join(str(row.get("status", "")) for row in chunk_audits),
+        }
+
+    return merged, _merged_source_audit(
+        spec,
+        symbol,
+        merged,
+        cache_row_count=cache_row_count,
+        fetched_row_count=fetched_row_count,
+        fetch_range_count=len(chunk_audits),
+        blocked_range_count=blocked_range_count,
+        chunk_statuses=[str(row.get("status", "")) for row in chunk_audits],
+    )
 
 
 def _raw_cache_path(spec: IntradayExternalContextDataSpec, symbol: str) -> Path:
     return spec.raw_cache_dir / f"{symbol.upper()}_{spec.frequency}.parquet"
 
 
-def _read_cached_symbol(
+def _read_cached_symbol_frame(
     spec: IntradayExternalContextDataSpec,
     symbol: str,
-) -> tuple[pd.DataFrame, dict[str, Any]] | None:
+) -> pd.DataFrame:
     path = _raw_cache_path(spec, symbol)
     if not path.exists():
-        return None
+        return pd.DataFrame()
     frame = read_intraday_cache(path)
     if frame.empty:
-        return None
+        return pd.DataFrame()
     frame = frame.copy()
     frame["symbol"] = frame["symbol"].astype(str).str.upper()
     frame = frame.loc[frame["symbol"].eq(symbol.upper())].copy()
     if frame.empty:
-        return None
-    return frame, _cached_source_audit(spec, symbol, frame)
+        return pd.DataFrame()
+    return frame
 
 
 def _cached_source_audit(
@@ -288,7 +344,121 @@ def _cached_source_audit(
         "coverage_end": coverage_end,
         "provider_history_truncated": provider_history_truncated,
         "raw_cache_path": _raw_cache_path(spec, symbol).as_posix(),
+        "cache_row_count": int(len(frame)),
+        "fetched_row_count": 0,
+        "fetch_range_count": 0,
+        "blocked_range_count": 0,
+        "chunk_statuses": "",
     }
+
+
+def _merged_source_audit(
+    spec: IntradayExternalContextDataSpec,
+    symbol: str,
+    frame: pd.DataFrame,
+    *,
+    cache_row_count: int,
+    fetched_row_count: int,
+    fetch_range_count: int,
+    blocked_range_count: int,
+    chunk_statuses: list[str],
+) -> dict[str, Any]:
+    coverage_start = _format_min(frame["timestamp"].min()) if "timestamp" in frame else ""
+    coverage_end = _format_min(frame["timestamp"].max()) if "timestamp" in frame else ""
+    provider_history_truncated = _frame_history_truncated(spec, frame)
+    if fetched_row_count > 0:
+        if cache_row_count == 0 and "ok_partial_provider_rate_limit" in chunk_statuses:
+            status = "ok_partial_provider_rate_limit"
+        elif cache_row_count == 0:
+            status = "ok_partial_provider_history" if provider_history_truncated or blocked_range_count else "ok"
+        else:
+            status = "ok_partial_cache_updated" if provider_history_truncated or blocked_range_count else "ok_cache_updated"
+    elif cache_row_count > 0:
+        status = "ok_cached_partial_fetch_blocked" if provider_history_truncated or blocked_range_count else "ok_cached"
+    else:
+        status = "blocked_no_rows"
+    return {
+        "symbol": symbol.upper(),
+        "status": status,
+        "http_status": 0,
+        "row_count": int(len(frame)),
+        "page_count": 0,
+        "message": "raw cache updated" if fetched_row_count else "raw cache hit",
+        "requested_start": spec.start,
+        "requested_end": spec.end,
+        "coverage_start": coverage_start,
+        "coverage_end": coverage_end,
+        "provider_history_truncated": provider_history_truncated,
+        "raw_cache_path": _raw_cache_path(spec, symbol).as_posix(),
+        "cache_row_count": cache_row_count,
+        "fetched_row_count": fetched_row_count,
+        "fetch_range_count": fetch_range_count,
+        "blocked_range_count": blocked_range_count,
+        "chunk_statuses": ",".join(status for status in chunk_statuses if status),
+    }
+
+
+def _blocked_no_rows_audit(spec: IntradayExternalContextDataSpec, symbol: str) -> dict[str, Any]:
+    return {
+        "symbol": symbol.upper(),
+        "status": "blocked_no_rows",
+        "http_status": 0,
+        "row_count": 0,
+        "page_count": 0,
+        "message": "no fetch ranges",
+        "requested_start": spec.start,
+        "requested_end": spec.end,
+        "coverage_start": "",
+        "coverage_end": "",
+        "provider_history_truncated": True,
+    }
+
+
+def _missing_fetch_ranges(spec: IntradayExternalContextDataSpec, cached: pd.DataFrame) -> list[tuple[str, str]]:
+    requested_start = pd.Timestamp(spec.start).date()
+    requested_end = pd.Timestamp(spec.end).date()
+    if requested_start > requested_end:
+        return []
+    if cached.empty:
+        return _split_date_range_recent_first(requested_start, requested_end)
+
+    timestamps = pd.to_datetime(cached["timestamp"], errors="coerce")
+    min_date = timestamps.min().date()
+    max_date = timestamps.max().date()
+    ranges: list[tuple[str, str]] = []
+    if max_date < requested_end:
+        after_start = (pd.Timestamp(max_date) + pd.Timedelta(days=1)).date()
+        ranges.extend(_split_date_range_recent_first(after_start, requested_end))
+    if min_date > requested_start:
+        before_end = (pd.Timestamp(min_date) - pd.Timedelta(days=1)).date()
+        ranges.extend(_split_date_range_recent_first(requested_start, before_end))
+    return ranges
+
+
+def _split_date_range_recent_first(start: Any, end: Any) -> list[tuple[str, str]]:
+    start_date = pd.Timestamp(start).date()
+    end_date = pd.Timestamp(end).date()
+    if start_date > end_date:
+        return []
+    ranges: list[tuple[str, str]] = []
+    for year in range(end_date.year, start_date.year - 1, -1):
+        chunk_start = max(start_date, pd.Timestamp(year=year, month=1, day=1).date())
+        chunk_end = min(end_date, pd.Timestamp(year=year, month=12, day=31).date())
+        if chunk_start <= chunk_end:
+            ranges.append((chunk_start.isoformat(), chunk_end.isoformat()))
+    return ranges
+
+
+def _frame_history_truncated(spec: IntradayExternalContextDataSpec, frame: pd.DataFrame) -> bool:
+    if frame.empty or "timestamp" not in frame:
+        return True
+    timestamps = pd.to_datetime(frame["timestamp"], errors="coerce")
+    if timestamps.isna().all():
+        return True
+    return bool(
+        timestamps.min().date() > pd.Timestamp(spec.start).date()
+        or timestamps.max().date() < pd.Timestamp(spec.end).date()
+    )
 
 
 def _coverage_audit(

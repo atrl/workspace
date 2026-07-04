@@ -24,7 +24,7 @@
   ],
   "card_type": "intraday_external_context_data",
   "coverage_audit": {
-    "regular_session_rows": 19750,
+    "regular_session_rows": 25162,
     "symbols_with_rows": [
       "QQQ",
       "SMH"
@@ -98,8 +98,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "bd4e85674233402fb59d1c77250c9091",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/bd4e85674233402fb59d1c77250c9091",
+  "recorder_id": "e0a10338b30f473080ba4b244bbc5584",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/e0a10338b30f473080ba4b244bbc5584",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder",
   "region": "us",
   "requested_range": [
@@ -126,8 +126,7 @@
   "source": "polygon_aggs_custom_bars",
   "source_audit_status_counts": {
     "blocked_provider_rate_limit": 6,
-    "ok_cached": 1,
-    "ok_partial_provider_rate_limit": 1
+    "ok_cached_partial_fetch_blocked": 2
   },
   "workflow_config": "workflow.yaml"
 }

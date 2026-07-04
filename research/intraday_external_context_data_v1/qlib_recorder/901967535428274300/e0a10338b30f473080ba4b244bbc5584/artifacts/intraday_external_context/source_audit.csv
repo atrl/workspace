@@ -1,0 +1,9 @@
+symbol,status,http_status,row_count,page_count,message,requested_start,requested_end,coverage_start,coverage_end,provider_history_truncated,raw_cache_path,cache_row_count,fetched_row_count,fetch_range_count,blocked_range_count,chunk_statuses
+QQQ,ok_cached_partial_fetch_blocked,0,31866,0,raw cache hit,2019-01-02,2026-07-02,2024-07-05 04:15:00,2026-07-02 20:00:00,True,/Users/rziiiii/dev/workspace/data/raw/intraday/polygon_external_15min/QQQ_15min.parquet,31866,0,6,6,"blocked_no_rows,blocked_provider_history,blocked_provider_history,blocked_provider_history,blocked_provider_history,blocked_provider_rate_limit"
+SMH,ok_cached_partial_fetch_blocked,0,26567,0,raw cache hit,2019-01-02,2026-07-02,2024-07-05 04:15:00,2026-05-21 19:15:00,True,/Users/rziiiii/dev/workspace/data/raw/intraday/polygon_external_15min/SMH_15min.parquet,26567,0,1,1,blocked_provider_rate_limit
+SOXX,blocked_provider_rate_limit,429,0,0,ERROR,2026-01-01,2026-07-02,,,True,,0,0,1,1,blocked_provider_rate_limit
+NVDA,blocked_provider_rate_limit,429,0,0,ERROR,2026-01-01,2026-07-02,,,True,,0,0,1,1,blocked_provider_rate_limit
+AVGO,blocked_provider_rate_limit,429,0,0,ERROR,2026-01-01,2026-07-02,,,True,,0,0,1,1,blocked_provider_rate_limit
+AMD,blocked_provider_rate_limit,429,0,0,ERROR,2026-01-01,2026-07-02,,,True,,0,0,1,1,blocked_provider_rate_limit
+TSM,blocked_provider_rate_limit,429,0,0,ERROR,2026-01-01,2026-07-02,,,True,,0,0,1,1,blocked_provider_rate_limit
+ASML,blocked_provider_rate_limit,429,0,0,ERROR,2026-01-01,2026-07-02,,,True,,0,0,1,1,blocked_provider_rate_limit

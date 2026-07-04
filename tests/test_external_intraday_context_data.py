@@ -235,7 +235,7 @@ def test_polygon_fetch_preserves_partial_rows_when_later_page_hits_rate_limit(mo
     assert audit["provider_history_truncated"] is True
 
 
-def test_external_context_symbol_fetch_uses_fast_fail_rate_limit_policy(monkeypatch, tmp_path):
+def test_external_context_symbol_fetch_uses_fast_fail_recent_chunk_policy(monkeypatch, tmp_path):
     calls = []
 
     def fake_fetch(symbol, **kwargs):
@@ -264,12 +264,13 @@ def test_external_context_symbol_fetch_uses_fast_fail_rate_limit_policy(monkeypa
 
     assert normalized.empty
     assert source_audit["status"].tolist() == ["blocked_provider_rate_limit"]
-    assert calls[0]["start"] == "2019-01-02"
+    assert calls[0]["start"] == "2026-01-01"
+    assert calls[0]["end"] == "2026-07-02"
     assert calls[0]["max_retries"] == 0
     assert calls[0]["retry_sleep_seconds"] == 0.0
 
 
-def test_external_context_symbol_fetch_persists_and_reuses_raw_cache(monkeypatch, tmp_path):
+def test_external_context_symbol_fetch_reuses_complete_raw_cache(monkeypatch, tmp_path):
     normalized = normalize_polygon_aggregate_frame(
         pd.DataFrame(
             [
@@ -311,6 +312,8 @@ def test_external_context_symbol_fetch_persists_and_reuses_raw_cache(monkeypatch
     spec = external_context_workflow.IntradayExternalContextDataSpec(
         root=tmp_path,
         requested_symbols=("QQQ",),
+        start="2024-07-05",
+        end="2024-07-05",
     )
 
     source_audit, cached_frame = external_context_workflow._fetch_requested_symbols(spec, api_key="test-key")
@@ -330,4 +333,128 @@ def test_external_context_symbol_fetch_persists_and_reuses_raw_cache(monkeypatch
     assert not cached_again.empty
     assert cached_audit["status"].tolist() == ["ok_cached"]
     assert cached_audit["row_count"].tolist() == [1]
-    assert cached_audit["provider_history_truncated"].tolist() == [True]
+    assert cached_audit["provider_history_truncated"].tolist() == [False]
+
+
+def test_external_context_symbol_fetch_resumes_partial_raw_cache_and_merges(monkeypatch, tmp_path):
+    cached = normalize_polygon_aggregate_frame(
+        pd.DataFrame(
+            [
+                {
+                    "t": int(pd.Timestamp("2024-07-05 13:30:00", tz="UTC").timestamp() * 1000),
+                    "o": 490.0,
+                    "h": 491.0,
+                    "l": 489.0,
+                    "c": 490.5,
+                    "v": 1000,
+                    "vw": 490.25,
+                    "n": 10,
+                }
+            ]
+        ),
+        symbol="QQQ",
+        multiplier=15,
+        fetched_at="2026-07-04T00:00:00+00:00",
+    )
+    fetched = normalize_polygon_aggregate_frame(
+        pd.DataFrame(
+            [
+                {
+                    "t": int(pd.Timestamp("2024-07-06 13:30:00", tz="UTC").timestamp() * 1000),
+                    "o": 491.0,
+                    "h": 492.0,
+                    "l": 490.0,
+                    "c": 491.5,
+                    "v": 1100,
+                    "vw": 491.25,
+                    "n": 11,
+                }
+            ]
+        ),
+        symbol="QQQ",
+        multiplier=15,
+        fetched_at="2026-07-04T00:00:00+00:00",
+    )
+    spec = external_context_workflow.IntradayExternalContextDataSpec(
+        root=tmp_path,
+        requested_symbols=("QQQ",),
+        start="2024-07-05",
+        end="2024-07-06",
+    )
+    external_context_workflow.write_intraday_cache(cached, external_context_workflow._raw_cache_path(spec, "QQQ"))
+    calls = []
+
+    def fake_fetch(symbol, **kwargs):
+        calls.append({"symbol": symbol, **kwargs})
+        return fetched, {
+            "symbol": symbol,
+            "status": "ok",
+            "http_status": 200,
+            "row_count": len(fetched),
+            "page_count": 1,
+            "message": "OK",
+            "requested_start": kwargs["start"],
+            "requested_end": kwargs["end"],
+            "coverage_start": "2024-07-06 09:45:00",
+            "coverage_end": "2024-07-06 09:45:00",
+            "provider_history_truncated": False,
+        }
+
+    monkeypatch.setattr(external_context_workflow, "fetch_polygon_aggregate_bars", fake_fetch)
+
+    source_audit, merged = external_context_workflow._fetch_requested_symbols(spec, api_key="test-key")
+    persisted = external_context_workflow.read_intraday_cache(external_context_workflow._raw_cache_path(spec, "QQQ"))
+
+    assert calls == [
+        {
+            "symbol": "QQQ",
+            "start": "2024-07-06",
+            "end": "2024-07-06",
+            "api_key": "test-key",
+            "multiplier": 15,
+            "max_retries": 0,
+            "retry_sleep_seconds": 0.0,
+        }
+    ]
+    assert len(merged) == 2
+    assert len(persisted) == 2
+    assert source_audit["status"].tolist() == ["ok_cache_updated"]
+    assert source_audit["cache_row_count"].tolist() == [1]
+    assert source_audit["fetched_row_count"].tolist() == [1]
+    assert source_audit["fetch_range_count"].tolist() == [1]
+    assert source_audit["provider_history_truncated"].tolist() == [False]
+
+
+def test_external_context_symbol_fetch_starts_uncached_requests_from_recent_chunk(monkeypatch, tmp_path):
+    calls = []
+
+    def fake_fetch(symbol, **kwargs):
+        calls.append({"symbol": symbol, **kwargs})
+        return pd.DataFrame(), {
+            "symbol": symbol,
+            "status": "blocked_provider_rate_limit",
+            "http_status": 429,
+            "row_count": 0,
+            "page_count": 0,
+            "message": "rate limit",
+            "requested_start": kwargs["start"],
+            "requested_end": kwargs["end"],
+            "coverage_start": "",
+            "coverage_end": "",
+            "provider_history_truncated": True,
+        }
+
+    monkeypatch.setattr(external_context_workflow, "fetch_polygon_aggregate_bars", fake_fetch)
+    spec = external_context_workflow.IntradayExternalContextDataSpec(
+        root=tmp_path,
+        requested_symbols=("SOXX",),
+        start="2025-01-02",
+        end="2026-07-02",
+    )
+
+    source_audit, normalized = external_context_workflow._fetch_requested_symbols(spec, api_key="test-key")
+
+    assert normalized.empty
+    assert calls[0]["start"] == "2026-01-01"
+    assert calls[0]["end"] == "2026-07-02"
+    assert source_audit["status"].tolist() == ["blocked_provider_rate_limit"]
