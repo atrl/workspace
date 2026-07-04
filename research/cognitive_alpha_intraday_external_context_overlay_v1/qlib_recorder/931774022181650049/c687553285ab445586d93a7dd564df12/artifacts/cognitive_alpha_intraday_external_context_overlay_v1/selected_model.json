@@ -1,0 +1,20 @@
+{
+  "report_segment": "test",
+  "risk_threshold": 0.16514861034619188,
+  "selection_cost_bps": 20.0,
+  "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
+  "selection_score": 100.50210076730214,
+  "selection_segment": "validation",
+  "selection_uses_test_segment": false,
+  "signal_threshold": 0.8,
+  "test_drawdown_improvement_pct": 0.0,
+  "test_max_drawdown_pct": -18.37863266325661,
+  "test_return_retention_pct": 100.0,
+  "test_total_return_pct": 356.7877549816555,
+  "validation_drawdown_improvement_pct": 0.0,
+  "validation_max_drawdown_pct": -19.059973964030164,
+  "validation_passes_target": false,
+  "validation_return_retention_pct": 100.0,
+  "validation_total_return_pct": 120.57838078202971,
+  "variant": "baseline_next_open"
+}

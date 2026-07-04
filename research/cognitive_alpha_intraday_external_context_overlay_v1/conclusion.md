@@ -1,0 +1,10 @@
+# 中文结论
+
+- 做了什么：建立“外部 15m 上下文执行 overlay”实验，日级 LGB/XGB 仓位模型仍决定整体 target_position，外部 15m 上下文 triple-barrier/execution-improvement 模型只负责下一交易日的入场过滤、前 4 根 15m TWAP 和盘中风险退出。
+- 选择规则：只用 validation、20bp 成本选择 variant；test 只报告，没有用 test 调阈值或调参数。
+- validation 选择：baseline_next_open，retention=100.00%，max_dd=-19.06%。
+- 阈值搜索：只用 validation 搜 768 个候选，满足 85%-95% retention 且 max_dd>-18% 的候选数=0。
+- test 对照：baseline_next_open return=356.79%，selected return=356.79%、max_dd=-18.38%。
+- 是否晋升：not_promoted_external_intraday_history_insufficient。如果 selected 仍是 baseline，结论就是当前 15m 执行层没有可靠超过 next-open 一次成交。
+- 风险：这不是独立日内 alpha；它依赖日级模型的趋势和隔夜收益来源。真实推广前还要补 bid/ask replay、成交队列、延迟和盘前盘后风险验证。
+- qlib recorder：c687553285ab445586d93a7dd564df12

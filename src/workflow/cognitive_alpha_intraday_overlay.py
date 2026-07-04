@@ -14,12 +14,15 @@ from src.data import QlibProviderConfig, init_qlib_provider, load_qlib_feature_f
 
 
 EXPERIMENT = "cognitive_alpha_intraday_execution_overlay_v1"
+EXTERNAL_CONTEXT_OVERLAY_EXPERIMENT = "cognitive_alpha_intraday_external_context_overlay_v1"
 DAILY_SOURCE_CARD = "research/cognitive_alpha_goal_codex_exec_v1"
 INTRADAY_SOURCE_CARD = "research/agentic_alpha_intraday_15m_regime_gated_v1"
+EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD = "research/agentic_alpha_intraday_external_context_label_v1"
 DAILY_EXECUTION_TIMING = "close_t_signal_next_open_to_following_open"
 OVERLAY_SIGNAL_TIMING = "15m_bar_close_to_next_bar_open"
 PROB_COL = "prob_lgb_xgb_consensus"
 GATE_COL = "regime_gate_v2_dislocation"
+PREDICTION_AVAILABLE_GATE_COL = "prediction_available_gate"
 VARIANTS = [
     "baseline_next_open",
     "overlay_a_signal_gate",
@@ -54,6 +57,10 @@ class CognitiveAlphaIntradayOverlaySpec:
     risk_threshold: float | None = None
     source_daily_card: str = DAILY_SOURCE_CARD
     source_intraday_card: str = INTRADAY_SOURCE_CARD
+    intraday_prob_col: str | None = None
+    intraday_gate_col: str | None = GATE_COL
+    intraday_gate_policy: str = "source_trade_gate"
+    optimize_thresholds: bool = False
 
     @property
     def output_dir(self) -> Path:
@@ -88,6 +95,25 @@ def run_cognitive_alpha_intraday_execution_overlay_card(
 ) -> dict[str, Any]:
     spec = CognitiveAlphaIntradayOverlaySpec(
         root=_resolve_root(root),
+        signal_threshold=signal_threshold,
+        risk_threshold=risk_threshold,
+    )
+    return _run_card(spec)
+
+
+def run_cognitive_alpha_intraday_external_context_overlay_card(
+    *,
+    root: Path | str | None = None,
+    signal_threshold: float | None = None,
+    risk_threshold: float | None = None,
+) -> dict[str, Any]:
+    spec = CognitiveAlphaIntradayOverlaySpec(
+        root=_resolve_root(root),
+        experiment=EXTERNAL_CONTEXT_OVERLAY_EXPERIMENT,
+        source_intraday_card=EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD,
+        intraday_gate_col=None,
+        intraday_gate_policy="all_predicted_15m_rows",
+        optimize_thresholds=True,
         signal_threshold=signal_threshold,
         risk_threshold=risk_threshold,
     )
@@ -191,17 +217,34 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     daily_summary = _read_json(spec.daily_card_dir / "summary.json")
     intraday_summary = _read_json(spec.intraday_card_dir / "summary.json")
     workflow_yaml = _write_workflow_yaml(spec, daily_summary=daily_summary, intraday_summary=intraday_summary)
+    signal_config = _intraday_signal_config(spec, intraday_summary=intraday_summary)
 
     daily_positions = _load_daily_selected_positions(daily_summary)
     as_of = str(daily_summary.get("as_of") or spec.as_of)
     daily_prices = _load_daily_open_prices(spec, start=str(daily_positions["datetime"].min().date()), end=as_of)
-    intraday_predictions = _load_intraday_prediction_frame(spec, intraday_summary=intraday_summary, as_of=as_of)
+    intraday_predictions = _load_intraday_prediction_frame(
+        spec,
+        intraday_summary=intraday_summary,
+        as_of=as_of,
+        signal_config=signal_config,
+    )
     thresholds = _thresholds_from_validation(
         intraday_predictions,
         intraday_summary=intraday_summary,
+        signal_config=signal_config,
         signal_threshold=spec.signal_threshold,
         risk_threshold=spec.risk_threshold,
     )
+    threshold_selection = pd.DataFrame()
+    if spec.optimize_thresholds and spec.signal_threshold is None and spec.risk_threshold is None:
+        thresholds, threshold_selection = _select_thresholds_from_validation(
+            daily_positions,
+            daily_prices=daily_prices,
+            intraday_predictions=intraday_predictions,
+            signal_config=signal_config,
+            base_thresholds=thresholds,
+            cost_bps=spec.selection_cost_bps,
+        )
 
     trade_frames = []
     for cost_bps in sorted(set(float(value) for value in spec.cost_stress_bps)):
@@ -213,6 +256,8 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
                 signal_threshold=thresholds["signal_threshold"],
                 risk_threshold=thresholds["risk_threshold"],
                 cost_bps=cost_bps,
+                prob_col=signal_config["prob_col"],
+                gate_col=signal_config["gate_col"],
             ).assign(cost_bps=float(cost_bps))
         )
     overlay_trades = pd.concat(trade_frames, ignore_index=True)
@@ -223,6 +268,8 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         .reset_index(drop=True)
     )
     selected_model = _select_variant(model_comparison, cost_bps=spec.selection_cost_bps)
+    selected_model["signal_threshold"] = float(thresholds["signal_threshold"])
+    selected_model["risk_threshold"] = float(thresholds["risk_threshold"])
     walk_forward = _walk_forward_metrics(overlay_trades, cost_bps=spec.selection_cost_bps)
     analysis_summary = _analysis_summary(
         spec,
@@ -232,13 +279,16 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         daily_prices=daily_prices,
         intraday_predictions=intraday_predictions,
         thresholds=thresholds,
+        signal_config=signal_config,
         model_comparison=model_comparison,
+        threshold_selection=threshold_selection,
         selected_model=selected_model,
         walk_forward=walk_forward,
     )
     sidecars = _write_sidecars(
         spec,
         model_comparison=model_comparison,
+        threshold_selection=threshold_selection,
         cost_sensitivity=cost_sensitivity,
         walk_forward=walk_forward,
         selected_model=selected_model,
@@ -289,7 +339,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
 
     _remove_transient_code_snapshots(recorder_local_dir)
     recorder_artifacts = _recorder_files(recorder_local_dir)
-    promotion_decision = _promotion_decision(selected_model)
+    promotion_decision = _promotion_decision(selected_model, intraday_summary=intraday_summary)
     summary = {
         "experiment": spec.experiment,
         "card_type": "execution_overlay_research",
@@ -313,13 +363,15 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             "selected_model": intraday_summary.get("selected_model", {}).get("model"),
             "threshold": thresholds["signal_threshold"],
             "risk_threshold": thresholds["risk_threshold"],
+            "signal_prob_col": signal_config["prob_col"],
+            "gate_col": signal_config["gate_col"],
+            "gate_policy": signal_config["gate_policy"],
             "trade_gate": intraday_summary.get("trade_gate", {}).get("name"),
             "execution_policy": intraday_summary.get("execution_policy"),
+            "label_policy_name": intraday_summary.get("label_policy", {}).get("name"),
+            "external_context": intraday_summary.get("external_intraday_context", {}),
         },
-        "provider_uris": {
-            "daily": spec.daily_provider_uri.resolve().as_posix(),
-            "15min": spec.intraday_provider_uri.resolve().as_posix(),
-        },
+        "provider_uris": _provider_uris(spec, intraday_summary=intraday_summary),
         "data_audit": analysis_summary["data_audit"],
         "execution_overlay": {
             "frequency": "15min",
@@ -329,7 +381,18 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             "variants": VARIANTS,
             "open_to_open_baseline": True,
             "intraday_overlays_hold_overnight": False,
+            "intraday_label_policy": intraday_summary.get("label_policy", {}).get("name")
+            or intraday_summary.get("execution_policy", {}).get("label_policy"),
+            "uses_external_intraday_context": bool(intraday_summary.get("external_intraday_context", {}).get("provider_uri")),
             "description": "daily target_position retained; 15m model only changes next-session entry/exit execution",
+        },
+        "walk_forward": {
+            "folds": walk_forward["fold"].tolist() if "fold" in walk_forward else [],
+            "rows": int(len(walk_forward)),
+            "required_policy_satisfied": _required_overlay_policy_satisfied(
+                intraday_summary=intraday_summary,
+                walk_forward=walk_forward,
+            ),
         },
         "model_selection": {
             "selection_segment": "validation",
@@ -339,6 +402,17 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             "selection_cost_bps": float(spec.selection_cost_bps),
             "selected_variant": selected_model["variant"],
             "candidate_count": len(VARIANTS),
+            "threshold_search": {
+                "enabled": bool(spec.optimize_thresholds),
+                "selection_segment": "validation",
+                "selection_uses_test_segment": False,
+                "candidate_count": int(len(threshold_selection)),
+                "target_candidate_count": int(threshold_selection["passes_target"].sum())
+                if "passes_target" in threshold_selection
+                else 0,
+                "selected_signal_threshold": float(thresholds["signal_threshold"]),
+                "selected_risk_threshold": float(thresholds["risk_threshold"]),
+            },
         },
         "selected_model": selected_model,
         "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
@@ -354,6 +428,17 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     _write_conclusion(spec, summary=summary, selected_model=selected_model, model_comparison=model_comparison)
     return summary
+
+
+def _provider_uris(spec: CognitiveAlphaIntradayOverlaySpec, *, intraday_summary: dict[str, Any]) -> dict[str, str]:
+    provider_uris = {
+            "daily": spec.daily_provider_uri.resolve().as_posix(),
+            "15min": spec.intraday_provider_uri.resolve().as_posix(),
+    }
+    external_uri = intraday_summary.get("provider_uris", {}).get("external_15min")
+    if external_uri:
+        provider_uris["external_context_15min"] = str(external_uri)
+    return provider_uris
 
 
 def _simulate_daily_row(
@@ -607,11 +692,32 @@ def _load_daily_open_prices(spec: CognitiveAlphaIntradayOverlaySpec, *, start: s
     return _normalize_daily_prices(frame)
 
 
+def _intraday_signal_config(
+    spec: CognitiveAlphaIntradayOverlaySpec,
+    *,
+    intraday_summary: dict[str, Any],
+) -> dict[str, str]:
+    selected_model = str(intraday_summary.get("selected_model", {}).get("model") or "lgb_xgb_consensus")
+    prob_col = str(spec.intraday_prob_col or f"prob_{selected_model}")
+    if spec.intraday_gate_col is None:
+        return {
+            "prob_col": prob_col,
+            "gate_col": PREDICTION_AVAILABLE_GATE_COL,
+            "gate_policy": spec.intraday_gate_policy,
+        }
+    return {
+        "prob_col": prob_col,
+        "gate_col": spec.intraday_gate_col,
+        "gate_policy": spec.intraday_gate_policy,
+    }
+
+
 def _load_intraday_prediction_frame(
     spec: CognitiveAlphaIntradayOverlaySpec,
     *,
     intraday_summary: dict[str, Any],
     as_of: str,
+    signal_config: dict[str, str],
 ) -> pd.DataFrame:
     config = QlibProviderConfig(
         provider_uri=spec.intraday_provider_uri,
@@ -643,36 +749,143 @@ def _load_intraday_prediction_frame(
     )
     predictions = pd.read_csv(predictions_path)
     predictions["datetime"] = pd.to_datetime(predictions["datetime"])
-    columns = ["datetime", "segment", PROB_COL, GATE_COL, "freq"]
-    predictions = predictions.loc[predictions["datetime"].between(bars["datetime"].min(), bars["datetime"].max()), columns]
+    prob_col = signal_config["prob_col"]
+    gate_col = signal_config["gate_col"]
+    columns = ["datetime", "segment", prob_col]
+    if "freq" in predictions.columns:
+        columns.append("freq")
+    if spec.intraday_gate_col is not None and spec.intraday_gate_col in predictions.columns:
+        columns.append(spec.intraday_gate_col)
+    predictions = predictions.loc[predictions["datetime"].between(bars["datetime"].min(), bars["datetime"].max()), columns].copy()
     merged = bars.merge(predictions, on="datetime", how="left")
-    return _normalize_intraday_bars(merged, prob_col=PROB_COL, gate_col=GATE_COL)
+    if spec.intraday_gate_col is None:
+        merged[gate_col] = merged[prob_col].notna()
+    elif spec.intraday_gate_col not in merged.columns:
+        merged[gate_col] = False
+    return _normalize_intraday_bars(merged, prob_col=prob_col, gate_col=gate_col)
 
 
 def _thresholds_from_validation(
     intraday: pd.DataFrame,
     *,
     intraday_summary: dict[str, Any],
+    signal_config: dict[str, str],
     signal_threshold: float | None,
     risk_threshold: float | None,
 ) -> dict[str, float]:
     selected_threshold = float(intraday_summary.get("selected_model", {}).get("threshold", 0.5))
+    prob_col = signal_config["prob_col"]
+    gate_col = signal_config["gate_col"]
     validation = intraday.loc[
         intraday.get("segment", pd.Series(index=intraday.index, dtype=object)).eq("valid")
-        & intraday[GATE_COL].fillna(False).astype(bool)
-        & intraday[PROB_COL].notna()
+        & intraday[gate_col].fillna(False).astype(bool)
+        & intraday[prob_col].notna()
     ]
     if risk_threshold is None:
         if validation.empty:
             risk_value = max(0.0, selected_threshold - 0.05)
         else:
-            risk_value = float(validation[PROB_COL].quantile(0.20))
+            risk_value = float(validation[prob_col].quantile(0.20))
     else:
         risk_value = float(risk_threshold)
     return {
         "signal_threshold": float(selected_threshold if signal_threshold is None else signal_threshold),
         "risk_threshold": risk_value,
     }
+
+
+def _select_thresholds_from_validation(
+    daily_positions: pd.DataFrame,
+    *,
+    daily_prices: pd.DataFrame,
+    intraday_predictions: pd.DataFrame,
+    signal_config: dict[str, str],
+    base_thresholds: dict[str, float],
+    cost_bps: float,
+) -> tuple[dict[str, float], pd.DataFrame]:
+    prob_col = signal_config["prob_col"]
+    gate_col = signal_config["gate_col"]
+    validation_probs = intraday_predictions.loc[
+        intraday_predictions.get("segment", pd.Series(index=intraday_predictions.index, dtype=object)).eq("valid")
+        & intraday_predictions[gate_col].fillna(False).astype(bool)
+        & intraday_predictions[prob_col].notna(),
+        prob_col,
+    ]
+    if validation_probs.empty:
+        return base_thresholds, pd.DataFrame()
+
+    signal_grid = sorted(
+        set(
+            [0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80]
+            + [float(validation_probs.quantile(value)) for value in [0.40, 0.50, 0.60, 0.70, 0.80, 0.90]]
+        )
+    )
+    risk_grid = sorted(
+        set(
+            [0.05, 0.10, 0.15, 0.20, 0.25, 0.30]
+            + [float(validation_probs.quantile(value)) for value in [0.05, 0.10, 0.15, 0.20, 0.25, 0.30]]
+        )
+    )
+
+    rows: list[dict[str, Any]] = []
+    for signal_threshold in signal_grid:
+        for risk_threshold in risk_grid:
+            trades = simulate_execution_overlays(
+                daily_positions,
+                daily_prices=daily_prices,
+                intraday=intraday_predictions,
+                signal_threshold=float(signal_threshold),
+                risk_threshold=float(risk_threshold),
+                cost_bps=float(cost_bps),
+                prob_col=prob_col,
+                gate_col=gate_col,
+            ).assign(cost_bps=float(cost_bps))
+            metrics = summarize_overlay_metrics(trades)
+            validation_metrics = metrics.loc[metrics["segment"].eq("validation")].copy()
+            for row in validation_metrics.to_dict("records"):
+                row.update(
+                    {
+                        "signal_threshold": float(signal_threshold),
+                        "risk_threshold": float(risk_threshold),
+                        "selection_uses_test_segment": False,
+                    }
+                )
+                rows.append(row)
+
+    selection = pd.DataFrame(rows)
+    if selection.empty:
+        return base_thresholds, selection
+    selection["passes_target"] = (
+        (selection["return_retention_pct"].fillna(-np.inf) >= 85.0)
+        & (selection["return_retention_pct"].fillna(np.inf) <= 95.0)
+        & (selection["max_drawdown_pct"].fillna(-np.inf) > -18.0)
+        & (selection["skipped_periods"].fillna(0) <= selection["periods"].fillna(0) * 0.5)
+    )
+    target_candidates = selection.loc[selection["passes_target"]].copy()
+    if target_candidates.empty:
+        return base_thresholds, selection.sort_values(
+            ["passes_target", "selection_score", "total_return_pct"],
+            ascending=[False, False, False],
+        ).reset_index(drop=True)
+    selected = target_candidates.sort_values(
+        [
+            "drawdown_improvement_pct",
+            "selection_score",
+            "total_return_pct",
+            "return_retention_pct",
+            "signal_threshold",
+            "risk_threshold",
+        ],
+        ascending=[False, False, False, False, True, True],
+    ).iloc[0]
+    thresholds = {
+        "signal_threshold": float(selected["signal_threshold"]),
+        "risk_threshold": float(selected["risk_threshold"]),
+    }
+    return thresholds, selection.sort_values(
+        ["passes_target", "selection_score", "total_return_pct"],
+        ascending=[False, False, False],
+    ).reset_index(drop=True)
 
 
 def _select_variant(model_comparison: pd.DataFrame, *, cost_bps: float) -> dict[str, Any]:
@@ -774,7 +987,9 @@ def _analysis_summary(
     daily_prices: pd.DataFrame,
     intraday_predictions: pd.DataFrame,
     thresholds: dict[str, float],
+    signal_config: dict[str, str],
     model_comparison: pd.DataFrame,
+    threshold_selection: pd.DataFrame,
     selected_model: dict[str, Any],
     walk_forward: pd.DataFrame,
 ) -> dict[str, Any]:
@@ -782,11 +997,23 @@ def _analysis_summary(
         "source": "daily_open2open_position_model_plus_15m_execution_overlay",
         "as_of": str(daily_summary.get("as_of") or spec.as_of),
         "selection_uses_test_segment": False,
-        "thresholds": {
+    "thresholds": {
             "signal_threshold": thresholds["signal_threshold"],
-            "signal_threshold_source": "source_intraday_selected_model_valid_threshold",
+            "signal_threshold_source": (
+                "overlay_validation_threshold_search"
+                if spec.optimize_thresholds
+                else "source_intraday_selected_model_valid_threshold"
+            ),
             "risk_threshold": thresholds["risk_threshold"],
-            "risk_threshold_source": "validation_gated_probability_quantile_20pct_or_user_override",
+            "risk_threshold_source": (
+                "overlay_validation_threshold_search"
+                if spec.optimize_thresholds
+                else "validation_gated_probability_quantile_20pct_or_user_override"
+            ),
+            "signal_prob_col": signal_config["prob_col"],
+            "gate_col": signal_config["gate_col"],
+            "gate_policy": signal_config["gate_policy"],
+            "threshold_search_enabled": bool(spec.optimize_thresholds),
         },
         "data_audit": {
             "daily_selected_position_rows": int(len(daily_positions)),
@@ -796,7 +1023,7 @@ def _analysis_summary(
             "daily_price_start": daily_prices["datetime"].min().date().isoformat(),
             "daily_price_end": daily_prices["datetime"].max().date().isoformat(),
             "intraday_rows": int(len(intraday_predictions)),
-            "intraday_prediction_rows": int(intraday_predictions[PROB_COL].notna().sum()),
+            "intraday_prediction_rows": int(intraday_predictions[signal_config["prob_col"]].notna().sum()),
             "intraday_start": intraday_predictions["datetime"].min().strftime("%Y-%m-%d %H:%M:%S"),
             "intraday_end": intraday_predictions["datetime"].max().strftime("%Y-%m-%d %H:%M:%S"),
         },
@@ -817,9 +1044,12 @@ def _analysis_summary(
             "recorder_id": intraday_summary.get("recorder_id"),
             "selected_model": intraday_summary.get("selected_model", {}).get("model"),
             "trade_gate": intraday_summary.get("trade_gate"),
+            "label_policy": intraday_summary.get("label_policy"),
+            "external_context": intraday_summary.get("external_intraday_context"),
         },
         "selected_model": selected_model,
         "model_comparison_rows": int(len(model_comparison)),
+        "threshold_selection_rows": int(0 if not spec.optimize_thresholds else len(threshold_selection)),
         "walk_forward_rows": int(len(walk_forward)),
     }
 
@@ -870,6 +1100,7 @@ def _write_sidecars(
     spec: CognitiveAlphaIntradayOverlaySpec,
     *,
     model_comparison: pd.DataFrame,
+    threshold_selection: pd.DataFrame,
     cost_sensitivity: pd.DataFrame,
     walk_forward: pd.DataFrame,
     selected_model: dict[str, Any],
@@ -883,7 +1114,11 @@ def _write_sidecars(
         "analysis_summary": "analysis_summary.json",
         "failure_modes": "failure_modes.md",
     }
+    if spec.optimize_thresholds:
+        sidecars["threshold_selection"] = "threshold_selection.csv"
     model_comparison.to_csv(spec.output_dir / sidecars["model_comparison"], index=False)
+    if spec.optimize_thresholds:
+        threshold_selection.to_csv(spec.output_dir / sidecars["threshold_selection"], index=False)
     cost_sensitivity.to_csv(spec.output_dir / sidecars["cost_sensitivity"], index=False)
     walk_forward.to_csv(spec.output_dir / sidecars["backtest_walk_forward_metrics"], index=False)
     (spec.output_dir / sidecars["selected_model"]).write_text(
@@ -922,7 +1157,22 @@ def _artifact_policy(experiment: str, sidecars: dict[str, str]) -> dict[str, Any
     }
 
 
-def _promotion_decision(selected_model: dict[str, Any]) -> str:
+def _required_overlay_policy_satisfied(
+    *,
+    intraday_summary: dict[str, Any],
+    walk_forward: pd.DataFrame,
+) -> bool:
+    source_required_policy = intraday_summary.get("walk_forward", {}).get("required_policy_satisfied", True)
+    has_overlay_folds = not walk_forward.empty and set(walk_forward.get("fold", pd.Series(dtype=object))) >= {
+        "wf_2025_h2",
+        "wf_2026_ytd",
+    }
+    return bool(source_required_policy and has_overlay_folds)
+
+
+def _promotion_decision(selected_model: dict[str, Any], *, intraday_summary: dict[str, Any]) -> str:
+    if intraday_summary.get("walk_forward", {}).get("required_policy_satisfied") is False:
+        return "not_promoted_external_intraday_history_insufficient"
     if selected_model["variant"] == "baseline_next_open":
         return "not_promoted_overlay_did_not_beat_daily_execution"
     if not bool(selected_model.get("validation_passes_target")):
@@ -946,14 +1196,32 @@ def _write_conclusion(
     baseline_return = float(baseline_test.iloc[0]["total_return_pct"]) if not baseline_test.empty else 0.0
     selected_test_return = float(selected_test_row["total_return_pct"]) if selected_test_row is not None else 0.0
     selected_test_dd = float(selected_test_row["max_drawdown_pct"]) if selected_test_row is not None else 0.0
+    threshold_search = summary.get("model_selection", {}).get("threshold_search", {})
+    threshold_sentence = (
+        f"- 阈值搜索：只用 validation 搜 {threshold_search.get('candidate_count', 0)} 个候选，"
+        f"满足 85%-95% retention 且 max_dd>-18% 的候选数={threshold_search.get('target_candidate_count', 0)}。\n"
+        if threshold_search.get("enabled")
+        else ""
+    )
+    overlay_name = (
+        "外部 15m 上下文执行 overlay"
+        if spec.source_intraday_card == EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD
+        else "日级模型 + 日内执行 overlay"
+    )
+    intraday_source_text = (
+        "外部 15m 上下文 triple-barrier/execution-improvement 模型"
+        if spec.source_intraday_card == EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD
+        else "15m lgb_xgb_consensus"
+    )
     text = (
         "# 中文结论\n\n"
-        "- 做了什么：建立“日级模型 + 日内执行 overlay”实验，日级 LGB/XGB 仓位模型仍决定整体 target_position，"
-        "15m lgb_xgb_consensus 只负责下一交易日的入场过滤、前 4 根 15m TWAP 和盘中风险退出。\n"
+        f"- 做了什么：建立“{overlay_name}”实验，日级 LGB/XGB 仓位模型仍决定整体 target_position，"
+        f"{intraday_source_text}只负责下一交易日的入场过滤、前 4 根 15m TWAP 和盘中风险退出。\n"
         f"- 选择规则：只用 validation、{spec.selection_cost_bps:.0f}bp 成本选择 variant；test 只报告，"
         "没有用 test 调阈值或调参数。\n"
         f"- validation 选择：{selected_model['variant']}，retention={selected_model['validation_return_retention_pct']:.2f}%，"
         f"max_dd={selected_model['validation_max_drawdown_pct']:.2f}%。\n"
+        f"{threshold_sentence}"
         f"- test 对照：baseline_next_open return={baseline_return:.2f}%，"
         f"selected return={selected_test_return:.2f}%、max_dd={selected_test_dd:.2f}%。\n"
         f"- 是否晋升：{summary['promotion_decision']}。如果 selected 仍是 baseline，结论就是当前 15m 执行层没有可靠超过 next-open 一次成交。\n"

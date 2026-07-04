@@ -52,6 +52,7 @@ __all__ = [
     "load_agentic_alpha_backtest_metric",
     "run_cognitive_alpha_goal_codex_exec_card",
     "run_cognitive_alpha_intraday_execution_overlay_card",
+    "run_cognitive_alpha_intraday_external_context_overlay_card",
     "run_intraday_execution_label_model_card",
     "run_cognitive_alpha_position_model",
     "run_cognitive_alpha_weighted_factor_search",
@@ -105,6 +106,7 @@ _COGNITIVE_ALPHA_GOAL_CODEX_EXEC_EXPORTS = {
 _COGNITIVE_ALPHA_INTRADAY_OVERLAY_EXPORTS = {
     "CognitiveAlphaIntradayOverlaySpec",
     "run_cognitive_alpha_intraday_execution_overlay_card",
+    "run_cognitive_alpha_intraday_external_context_overlay_card",
 }
 
 _INTRADAY_EXECUTION_LABEL_EXPORTS = {

@@ -687,6 +687,75 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert "日级模型 + 日内执行 overlay" in conclusion
 
 
+def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded_intraday_source():
+    card = ROOT / "research" / "cognitive_alpha_intraday_external_context_overlay_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_intraday_external_context_overlay_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_intraday_external_context_overlay_v1"
+    assert summary["card_type"] == "execution_overlay_research"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["source_daily_model"]["card"] == "research/cognitive_alpha_goal_codex_exec_v1"
+    assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_external_context_label_v1"
+    assert summary["source_intraday_model"]["label_policy_name"] == "triple_barrier_1h_2h_execution_improvement"
+    assert summary["source_intraday_model"]["external_context"]["data_status"] == "ok_partial_insufficient_for_full_walk_forward"
+    assert summary["source_intraday_model"]["signal_prob_col"] == "prob_lgb"
+    assert summary["source_intraday_model"]["gate_policy"] == "all_predicted_15m_rows"
+    assert summary["execution_overlay"]["variants"] == [
+        "baseline_next_open",
+        "overlay_a_signal_gate",
+        "overlay_b_twap4",
+        "overlay_c_risk_exit",
+    ]
+    assert summary["execution_overlay"]["intraday_label_policy"] == "triple_barrier_1h_2h_execution_improvement"
+    assert summary["execution_overlay"]["uses_external_intraday_context"] is True
+    assert summary["model_selection"]["selection_segment"] == "validation"
+    assert summary["model_selection"]["report_segment"] == "test"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert summary["model_selection"]["threshold_search"]["enabled"] is True
+    assert summary["model_selection"]["threshold_search"]["selection_uses_test_segment"] is False
+    assert summary["model_selection"]["threshold_search"]["target_candidate_count"] == 0
+    assert summary["selected_model"]["variant"] == "baseline_next_open"
+    assert summary["selected_model"]["validation_passes_target"] is False
+    assert summary["walk_forward"]["required_policy_satisfied"] is False
+    assert "not_promoted" in summary["promotion_decision"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "backtest_walk_forward_metrics",
+        "cost_sensitivity",
+        "failure_modes",
+        "model_comparison",
+        "selected_model",
+        "threshold_selection",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    model_comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
+    assert set(model_comparison["variant"]) == set(summary["execution_overlay"]["variants"])
+    assert {"validation", "test"}.issubset(set(model_comparison["segment"]))
+    threshold_selection = pd.read_csv(card / summary["sidecars"]["threshold_selection"])
+    assert threshold_selection["selection_uses_test_segment"].eq(False).all()
+    assert "overlay_a_signal_gate" in set(threshold_selection["variant"])
+    assert not threshold_selection["passes_target"].any()
+    assert {10.0, 20.0, 50.0}.issubset(set(pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])["cost_bps"]))
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "execution_overlay" / "overlay_trades.csv").exists()
+    assert (recorder_dir / "artifacts" / "execution_overlay" / "daily_selected_positions.csv").exists()
+    assert (recorder_dir / "artifacts" / "execution_overlay" / "intraday_predictions_15m.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_cognitive_alpha_intraday_external_context_overlay_card" in notebook_text
+    assert "external_context" in notebook_text
+    assert "R.start" in notebook_text
+    assert "外部 15m 上下文执行 overlay" in conclusion
+
+
 def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():
     card = ROOT / "research" / "agentic_alpha_intraday_execution_label_v1"
     summary = _summary(card)
