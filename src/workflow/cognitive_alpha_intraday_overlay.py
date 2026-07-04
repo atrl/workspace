@@ -1174,6 +1174,10 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     _remove_transient_code_snapshots(recorder_local_dir)
     recorder_artifacts = _recorder_files(recorder_local_dir)
     promotion_decision = _promotion_decision(selected_model, intraday_summary=intraday_summary)
+    walk_forward_summary = _overlay_walk_forward_summary(
+        intraday_summary=intraday_summary,
+        walk_forward=walk_forward,
+    )
     summary = {
         "experiment": spec.experiment,
         "card_type": "execution_overlay_research",
@@ -1220,14 +1224,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             "uses_external_intraday_context": bool(intraday_summary.get("external_intraday_context", {}).get("provider_uri")),
             "description": "daily target_position retained; 15m model only changes next-session entry/exit execution",
         },
-        "walk_forward": {
-            "folds": walk_forward["fold"].tolist() if "fold" in walk_forward else [],
-            "rows": int(len(walk_forward)),
-            "required_policy_satisfied": _required_overlay_policy_satisfied(
-                intraday_summary=intraday_summary,
-                walk_forward=walk_forward,
-            ),
-        },
+        "walk_forward": walk_forward_summary,
         "model_selection": {
             "selection_segment": "validation",
             "report_segment": "test",
@@ -1260,7 +1257,13 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         "qlib_native_api": QLIB_NATIVE_API,
     }
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
-    _write_conclusion(spec, summary=summary, selected_model=selected_model, model_comparison=model_comparison)
+    _write_conclusion(
+        spec,
+        summary=summary,
+        selected_model=selected_model,
+        model_comparison=model_comparison,
+        walk_forward=walk_forward,
+    )
     return summary
 
 
@@ -2069,11 +2072,27 @@ def _load_intraday_prediction_frame(
         kernels=1,
     )
     init_qlib_provider(config)
+    predictions_path = (
+        Path(str(intraday_summary["recorder_local_dir"]))
+        / "artifacts"
+        / "model_selection"
+        / "all_model_predictions.csv"
+    )
+    predictions = pd.read_csv(predictions_path)
+    predictions["datetime"] = pd.to_datetime(predictions["datetime"])
+    prediction_datetimes = predictions["datetime"].dropna()
+    if prediction_datetimes.empty:
+        intraday_start = f"{REQUIRED_WALK_FORWARD_START} 09:45:00"
+    else:
+        required_start_date = pd.Timestamp(REQUIRED_WALK_FORWARD_START).date()
+        prediction_start_date = prediction_datetimes.min().date()
+        intraday_start_date = max(required_start_date, prediction_start_date)
+        intraday_start = f"{intraday_start_date.isoformat()} 09:45:00"
     raw = load_qlib_feature_frame(
         config,
         instruments=["SOXL"],
         fields=["$open", "$close"],
-        start="2025-01-02 09:45:00",
+        start=intraday_start,
         end=f"{as_of} 16:00:00",
     )
     bars = raw.reset_index()
@@ -2083,14 +2102,6 @@ def _load_intraday_prediction_frame(
     bars["datetime"] = pd.to_datetime(bars["datetime"])
     bars["date"] = bars["datetime"].dt.date.astype(str)
 
-    predictions_path = (
-        Path(str(intraday_summary["recorder_local_dir"]))
-        / "artifacts"
-        / "model_selection"
-        / "all_model_predictions.csv"
-    )
-    predictions = pd.read_csv(predictions_path)
-    predictions["datetime"] = pd.to_datetime(predictions["datetime"])
     prob_col = signal_config["prob_col"]
     gate_col = signal_config["gate_col"]
     columns = ["datetime", "segment", prob_col]
@@ -2268,53 +2279,151 @@ def _select_variant(model_comparison: pd.DataFrame, *, cost_bps: float) -> dict[
 
 
 def _walk_forward_metrics(trades: pd.DataFrame, *, cost_bps: float) -> pd.DataFrame:
-    folds = [
-        {
-            "fold": "wf_2025_h2",
-            "validation": ("2025-01-02", "2025-06-30"),
-            "test": ("2025-07-01", "2025-12-31"),
-        },
-        {
-            "fold": "wf_2026_ytd",
-            "validation": ("2025-01-02", "2025-12-31"),
-            "test": ("2026-01-02", "2026-07-02"),
-        },
-    ]
     rows: list[dict[str, Any]] = []
     base = trades.loc[trades["cost_bps"].eq(float(cost_bps))].copy()
     base["datetime_ts"] = pd.to_datetime(base["datetime"])
-    for fold in folds:
-        valid_start, valid_end = fold["validation"]
-        test_start, test_end = fold["test"]
-        valid_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(valid_start), pd.Timestamp(valid_end))]
-        test_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(test_start), pd.Timestamp(test_end))]
+    max_date = base["datetime_ts"].max() if not base.empty else pd.Timestamp("2026-07-02")
+    for test_year in REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS:
+        train_start = REQUIRED_WALK_FORWARD_START
+        train_end = f"{int(test_year) - 2}-12-31"
+        valid_start = f"{int(test_year) - 1}-01-01"
+        valid_end = f"{int(test_year) - 1}-12-31"
+        test_start = f"{int(test_year)}-01-01"
+        test_end = max_date.date().isoformat() if int(test_year) == int(max_date.year) else f"{int(test_year)}-12-31"
+
+        valid_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(valid_start), pd.Timestamp(valid_end))].copy()
+        test_trades = base.loc[base["datetime_ts"].between(pd.Timestamp(test_start), pd.Timestamp(test_end))].copy()
+        blocking_reasons: list[str] = []
+        if valid_trades.empty:
+            blocking_reasons.append("missing_validation_data")
+        if test_trades.empty:
+            blocking_reasons.append("missing_test_data")
+        if blocking_reasons:
+            valid_periods = int(valid_trades["datetime_ts"].dt.normalize().nunique()) if not valid_trades.empty else 0
+            test_periods = int(test_trades["datetime_ts"].dt.normalize().nunique()) if not test_trades.empty else 0
+            rows.append(
+                {
+                    "fold": f"wf_{int(test_year)}",
+                    "test_year": int(test_year),
+                    "status": "infeasible",
+                    "blocking_reason": "|".join(blocking_reasons),
+                    "cost_bps": float(cost_bps),
+                    "train_start": train_start,
+                    "train_end": train_end,
+                    "valid_start": valid_start,
+                    "valid_end": valid_end,
+                    "test_start": test_start,
+                    "test_end": test_end,
+                    "selected_variant": None,
+                    "selection_uses_test_segment": False,
+                    "validation_passes_target": False,
+                    "test_passes_target": False,
+                    "valid_periods": valid_periods,
+                    "test_periods": test_periods,
+                }
+            )
+            continue
+
+        valid_trades["segment"] = "validation"
+        test_trades["segment"] = "test"
         valid_metrics = summarize_overlay_metrics(valid_trades.drop(columns=["datetime_ts"], errors="ignore"))
         test_metrics = summarize_overlay_metrics(test_trades.drop(columns=["datetime_ts"], errors="ignore"))
-        valid_selection = valid_metrics.loc[valid_metrics["segment"].isin(["validation", "test"])].copy()
-        if valid_selection.empty:
+        if valid_metrics.empty or "variant" not in valid_metrics:
+            valid_periods = int(valid_trades["datetime_ts"].dt.normalize().nunique()) if not valid_trades.empty else 0
+            test_periods = int(test_trades["datetime_ts"].dt.normalize().nunique()) if not test_trades.empty else 0
+            rows.append(
+                {
+                    "fold": f"wf_{int(test_year)}",
+                    "test_year": int(test_year),
+                    "status": "infeasible",
+                    "blocking_reason": "missing_validation_metrics",
+                    "cost_bps": float(cost_bps),
+                    "train_start": train_start,
+                    "train_end": train_end,
+                    "valid_start": valid_start,
+                    "valid_end": valid_end,
+                    "test_start": test_start,
+                    "test_end": test_end,
+                    "selected_variant": None,
+                    "selection_uses_test_segment": False,
+                    "validation_passes_target": False,
+                    "test_passes_target": False,
+                    "valid_periods": valid_periods,
+                    "test_periods": test_periods,
+                }
+            )
             continue
-        selected = valid_selection.sort_values(["selection_score", "total_return_pct"], ascending=False).iloc[0]
+        valid_selection = valid_metrics.copy()
+        valid_selection["passes_target"] = (
+            valid_selection["return_retention_pct"].between(85.0, 95.0)
+            & valid_selection["max_drawdown_pct"].gt(-18.0)
+            & valid_selection["skipped_periods"].le(valid_selection["periods"] * 0.5)
+        )
+        eligible = valid_selection.loc[valid_selection["passes_target"]].copy()
+        selected = (eligible if not eligible.empty else valid_selection).sort_values(
+            ["passes_target", "drawdown_improvement_pct", "selection_score", "total_return_pct"],
+            ascending=[False, False, False, False],
+        ).iloc[0]
         variant = str(selected["variant"])
-        test_row = test_metrics.loc[test_metrics["variant"].eq(variant)]
-        if test_row.empty:
+        test_row_frame = test_metrics.loc[test_metrics["variant"].eq(variant)] if "variant" in test_metrics else pd.DataFrame()
+        if test_row_frame.empty:
+            valid_periods = int(valid_trades["datetime_ts"].dt.normalize().nunique()) if not valid_trades.empty else 0
+            test_periods = int(test_trades["datetime_ts"].dt.normalize().nunique()) if not test_trades.empty else 0
+            rows.append(
+                {
+                    "fold": f"wf_{int(test_year)}",
+                    "test_year": int(test_year),
+                    "status": "infeasible",
+                    "blocking_reason": "missing_selected_variant_test_metrics",
+                    "cost_bps": float(cost_bps),
+                    "train_start": train_start,
+                    "train_end": train_end,
+                    "valid_start": valid_start,
+                    "valid_end": valid_end,
+                    "test_start": test_start,
+                    "test_end": test_end,
+                    "selected_variant": variant,
+                    "selection_uses_test_segment": False,
+                    "validation_passes_target": bool(selected["passes_target"]),
+                    "test_passes_target": False,
+                    "valid_periods": valid_periods,
+                    "test_periods": test_periods,
+                }
+            )
             continue
-        test_row = test_row.iloc[0]
+        test_row = test_row_frame.iloc[0]
+        test_passes_target = bool(
+            85.0 <= float(test_row["return_retention_pct"]) <= 95.0
+            and float(test_row["max_drawdown_pct"]) > -18.0
+            and float(test_row["skipped_periods"]) <= float(test_row["periods"]) * 0.5
+        )
         rows.append(
             {
-                "fold": fold["fold"],
+                "fold": f"wf_{int(test_year)}",
+                "test_year": int(test_year),
+                "status": "ok",
+                "blocking_reason": "ok",
                 "cost_bps": float(cost_bps),
+                "train_start": train_start,
+                "train_end": train_end,
                 "valid_start": valid_start,
                 "valid_end": valid_end,
                 "test_start": test_start,
                 "test_end": test_end,
                 "selected_variant": variant,
                 "selection_uses_test_segment": False,
+                "validation_passes_target": bool(selected["passes_target"]),
+                "test_passes_target": test_passes_target,
+                "valid_periods": int(selected["periods"]),
+                "test_periods": int(test_row["periods"]),
                 "valid_total_return_pct": float(selected["total_return_pct"]),
                 "valid_max_drawdown_pct": float(selected["max_drawdown_pct"]),
                 "valid_return_retention_pct": float(selected["return_retention_pct"]),
+                "valid_drawdown_improvement_pct": float(selected["drawdown_improvement_pct"]),
                 "test_total_return_pct": float(test_row["total_return_pct"]),
                 "test_max_drawdown_pct": float(test_row["max_drawdown_pct"]),
                 "test_return_retention_pct": float(test_row["return_retention_pct"]),
+                "test_drawdown_improvement_pct": float(test_row["drawdown_improvement_pct"]),
             }
         )
     return pd.DataFrame(rows)
@@ -3171,11 +3280,62 @@ def _required_overlay_policy_satisfied(
     walk_forward: pd.DataFrame,
 ) -> bool:
     source_required_policy = intraday_summary.get("walk_forward", {}).get("required_policy_satisfied", True)
-    has_overlay_folds = not walk_forward.empty and set(walk_forward.get("fold", pd.Series(dtype=object))) >= {
-        "wf_2025_h2",
-        "wf_2026_ytd",
+    if walk_forward.empty or "test_year" not in walk_forward or "status" not in walk_forward:
+        return False
+    required_years = {int(year) for year in REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS}
+    ok_years = {
+        int(row["test_year"])
+        for row in walk_forward.to_dict("records")
+        if str(row.get("status")) == "ok" and bool(row.get("validation_passes_target")) and bool(row.get("test_passes_target"))
     }
-    return bool(source_required_policy and has_overlay_folds)
+    return bool(source_required_policy and required_years.issubset(ok_years))
+
+
+def _overlay_walk_forward_summary(
+    *,
+    intraday_summary: dict[str, Any],
+    walk_forward: pd.DataFrame,
+) -> dict[str, Any]:
+    required_years = [int(year) for year in REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS]
+    feasible_years = (
+        sorted(
+            int(row["test_year"])
+            for row in walk_forward.to_dict("records")
+            if str(row.get("status")) == "ok"
+        )
+        if not walk_forward.empty and "test_year" in walk_forward
+        else []
+    )
+    blocking_reasons = (
+        sorted(
+            {
+                str(reason)
+                for reason in walk_forward.get("blocking_reason", pd.Series(dtype=object)).dropna().tolist()
+                if str(reason) != "ok"
+            }
+        )
+        if not walk_forward.empty
+        else []
+    )
+    missing_years = [year for year in required_years if year not in feasible_years]
+    return {
+        "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+        "required_start": REQUIRED_WALK_FORWARD_START,
+        "required_test_years": required_years,
+        "feasible_test_years": feasible_years,
+        "missing_required_test_years": missing_years,
+        "folds": walk_forward["fold"].tolist() if "fold" in walk_forward else [],
+        "rows": int(len(walk_forward)),
+        "selection_uses_test_segment": False,
+        "blocking_reasons": blocking_reasons,
+        "source_intraday_required_policy_satisfied": bool(
+            intraday_summary.get("walk_forward", {}).get("required_policy_satisfied", True)
+        ),
+        "required_policy_satisfied": _required_overlay_policy_satisfied(
+            intraday_summary=intraday_summary,
+            walk_forward=walk_forward,
+        ),
+    }
 
 
 def _promotion_decision(selected_model: dict[str, Any], *, intraday_summary: dict[str, Any]) -> str:
@@ -3196,6 +3356,7 @@ def _write_conclusion(
     summary: dict[str, Any],
     selected_model: dict[str, Any],
     model_comparison: pd.DataFrame,
+    walk_forward: pd.DataFrame,
 ) -> None:
     test_rows = model_comparison.loc[model_comparison["segment"].eq("test")].copy()
     selected_test = test_rows.loc[test_rows["variant"].eq(selected_model["variant"])]
@@ -3221,10 +3382,29 @@ def _write_conclusion(
         if spec.source_intraday_card == EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD
         else "15m lgb_xgb_consensus"
     )
+    walk_forward_summary = summary.get("walk_forward", {})
+    walk_forward_sentence = (
+        f"- walk-forward：要求 {walk_forward_summary.get('required_test_years', [])} 年度 "
+        "train_to_T-2/valid_T-1/test_T；"
+        f"当前 feasible 年份={walk_forward_summary.get('feasible_test_years', [])}，"
+        f"缺失={walk_forward_summary.get('missing_required_test_years', [])}，"
+        f"required_policy_satisfied={walk_forward_summary.get('required_policy_satisfied')}。\n"
+    )
+    annual_probe_sentence = ""
+    if not walk_forward.empty and "test_year" in walk_forward:
+        latest_ok = walk_forward.loc[walk_forward["status"].eq("ok")].sort_values("test_year")
+        if not latest_ok.empty:
+            row = latest_ok.iloc[-1]
+            annual_probe_sentence = (
+                f"- 最新年度 fold：{row['fold']} validation 选择 {row['selected_variant']}，"
+                f"test retention={float(row.get('test_return_retention_pct', 0.0)):.2f}%，"
+                f"test max_dd={float(row.get('test_max_drawdown_pct', 0.0)):.2f}%，"
+                f"passes_target={bool(row.get('test_passes_target'))}。\n"
+            )
     text = (
         "# 中文结论\n\n"
         f"- 做了什么：建立“{overlay_name}”实验，日级 LGB/XGB 仓位模型仍决定整体 target_position，"
-        f"{intraday_source_text}只负责下一交易日的入场过滤、前 4 根 15m TWAP 和盘中风险退出。\n"
+        f"{intraday_source_text} 只负责下一交易日的入场过滤、前 4 根 15m TWAP 和盘中风险退出。\n"
         f"- 选择规则：只用 validation、{spec.selection_cost_bps:.0f}bp 成本选择 variant；test 只报告，"
         "没有用 test 调阈值或调参数。\n"
         f"- validation 选择：{selected_model['variant']}，retention={selected_model['validation_return_retention_pct']:.2f}%，"
@@ -3232,6 +3412,8 @@ def _write_conclusion(
         f"{threshold_sentence}"
         f"- test 对照：baseline_next_open return={baseline_return:.2f}%，"
         f"selected return={selected_test_return:.2f}%、max_dd={selected_test_dd:.2f}%。\n"
+        f"{walk_forward_sentence}"
+        f"{annual_probe_sentence}"
         f"- 是否晋升：{summary['promotion_decision']}。如果 selected 仍是 baseline，结论就是当前 15m 执行层没有可靠超过 next-open 一次成交。\n"
         "- 风险：这不是独立日内 alpha；它依赖日级模型的趋势和隔夜收益来源。真实推广前还要补 bid/ask replay、成交队列、延迟和盘前盘后风险验证。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"

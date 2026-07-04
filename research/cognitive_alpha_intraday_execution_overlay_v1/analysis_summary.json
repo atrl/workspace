@@ -8,18 +8,20 @@
     "daily_selected_position_rows": 374,
     "daily_selected_position_start": "2025-01-02",
     "intraday_end": "2026-07-02 16:00:00",
-    "intraday_prediction_rows": 4836,
-    "intraday_rows": 9714,
-    "intraday_start": "2025-01-02 09:45:00"
+    "intraday_prediction_rows": 24061,
+    "intraday_rows": 48310,
+    "intraday_start": "2019-01-31 09:45:00"
   },
   "model_comparison_rows": 8,
   "selected_model": {
     "report_segment": "test",
+    "risk_threshold": 0.4069250263853126,
     "selection_cost_bps": 20.0,
     "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
     "selection_score": 100.50210076730214,
     "selection_segment": "validation",
     "selection_uses_test_segment": false,
+    "signal_threshold": 0.45848443370274555,
     "test_drawdown_improvement_pct": 0.0,
     "test_max_drawdown_pct": -18.37863266325661,
     "test_return_retention_pct": 100.0,
@@ -41,6 +43,8 @@
     "recorder_id": "ce05c33a5d6b446fbb758bfdd747666b"
   },
   "source_intraday_model": {
+    "external_context": null,
+    "label_policy": null,
     "recorder_id": "19df951d1fa544e3ba64217a6c3d866e",
     "selected_model": "lgb_xgb_consensus",
     "trade_gate": {
@@ -56,11 +60,16 @@
       ]
     }
   },
+  "threshold_selection_rows": 0,
   "thresholds": {
+    "gate_col": "regime_gate_v2_dislocation",
+    "gate_policy": "source_trade_gate",
     "risk_threshold": 0.4069250263853126,
     "risk_threshold_source": "validation_gated_probability_quantile_20pct_or_user_override",
+    "signal_prob_col": "prob_lgb_xgb_consensus",
     "signal_threshold": 0.45848443370274555,
-    "signal_threshold_source": "source_intraday_selected_model_valid_threshold"
+    "signal_threshold_source": "source_intraday_selected_model_valid_threshold",
+    "threshold_search_enabled": false
   },
-  "walk_forward_rows": 2
+  "walk_forward_rows": 4
 }

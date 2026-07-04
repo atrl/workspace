@@ -34,18 +34,20 @@
     "daily_selected_position_rows": 374,
     "daily_selected_position_start": "2025-01-02",
     "intraday_end": "2026-07-02 16:00:00",
-    "intraday_prediction_rows": 4836,
-    "intraday_rows": 9714,
-    "intraday_start": "2025-01-02 09:45:00"
+    "intraday_prediction_rows": 24061,
+    "intraday_rows": 48310,
+    "intraday_start": "2019-01-31 09:45:00"
   },
   "execution_overlay": {
     "daily_execution_timing": "close_t_signal_next_open_to_following_open",
     "decision_model_timing": "daily_close_t_signal",
     "description": "daily target_position retained; 15m model only changes next-session entry/exit execution",
     "frequency": "15min",
+    "intraday_label_policy": "same_session_next_bar_open_to_close",
     "intraday_overlays_hold_overnight": false,
     "open_to_open_baseline": true,
     "overlay_signal_timing": "15m_bar_close_to_next_bar_open",
+    "uses_external_intraday_context": false,
     "variants": [
       "baseline_next_open",
       "overlay_a_signal_gate",
@@ -62,7 +64,16 @@
     "selection_cost_bps": 20.0,
     "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
     "selection_segment": "validation",
-    "selection_uses_test_segment": false
+    "selection_uses_test_segment": false,
+    "threshold_search": {
+      "candidate_count": 0,
+      "enabled": false,
+      "selected_risk_threshold": 0.4069250263853126,
+      "selected_signal_threshold": 0.45848443370274555,
+      "selection_segment": "validation",
+      "selection_uses_test_segment": false,
+      "target_candidate_count": 0
+    }
   },
   "promotion_decision": "not_promoted_overlay_did_not_beat_daily_execution",
   "provider_uris": {
@@ -113,17 +124,19 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "1feac58db9e3403abe5db08545906d7c",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/1feac58db9e3403abe5db08545906d7c",
+  "recorder_id": "b21466deb7ca404f9cf2b5d60dce1406",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/b21466deb7ca404f9cf2b5d60dce1406",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {
     "report_segment": "test",
+    "risk_threshold": 0.4069250263853126,
     "selection_cost_bps": 20.0,
     "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
     "selection_score": 100.50210076730214,
     "selection_segment": "validation",
     "selection_uses_test_segment": false,
+    "signal_threshold": 0.45848443370274555,
     "test_drawdown_improvement_pct": 0.0,
     "test_max_drawdown_pct": -18.37863266325661,
     "test_return_retention_pct": 100.0,
@@ -167,11 +180,48 @@
       "signal_timing": "bar_t_close",
       "trade_gate": "regime_v2_dislocation"
     },
+    "external_context": {},
+    "gate_col": "regime_gate_v2_dislocation",
+    "gate_policy": "source_trade_gate",
+    "label_policy_name": null,
     "recorder_id": "19df951d1fa544e3ba64217a6c3d866e",
     "risk_threshold": 0.4069250263853126,
     "selected_model": "lgb_xgb_consensus",
+    "signal_prob_col": "prob_lgb_xgb_consensus",
     "threshold": 0.45848443370274555,
     "trade_gate": "regime_v2_dislocation"
+  },
+  "walk_forward": {
+    "blocking_reasons": [
+      "missing_validation_data",
+      "missing_validation_data|missing_test_data"
+    ],
+    "feasible_test_years": [
+      2026
+    ],
+    "folds": [
+      "wf_2023",
+      "wf_2024",
+      "wf_2025",
+      "wf_2026"
+    ],
+    "missing_required_test_years": [
+      2023,
+      2024,
+      2025
+    ],
+    "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
+    "required_policy_satisfied": false,
+    "required_start": "2019-01-02",
+    "required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "rows": 4,
+    "selection_uses_test_segment": false,
+    "source_intraday_required_policy_satisfied": true
   },
   "workflow_config": "workflow.yaml"
 }

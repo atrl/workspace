@@ -674,7 +674,12 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     cost_sensitivity = pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])
     assert {10.0, 20.0, 50.0}.issubset(set(cost_sensitivity["cost_bps"]))
     walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
-    assert set(walk_forward["fold"]) == {"wf_2025_h2", "wf_2026_ytd"}
+    assert set(walk_forward["fold"]) == {"wf_2023", "wf_2024", "wf_2025", "wf_2026"}
+    assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
+    assert summary["walk_forward"]["feasible_test_years"] == [2026]
+    assert summary["walk_forward"]["missing_required_test_years"] == [2023, 2024, 2025]
+    assert summary["walk_forward"]["required_policy_satisfied"] is False
+    assert "missing_validation_data" in set(walk_forward["blocking_reason"])
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "execution_overlay" / "overlay_trades.csv").exists()

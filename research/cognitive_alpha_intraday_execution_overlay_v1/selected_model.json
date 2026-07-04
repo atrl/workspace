@@ -1,10 +1,12 @@
 {
   "report_segment": "test",
+  "risk_threshold": 0.4069250263853126,
   "selection_cost_bps": 20.0,
   "selection_metric": "validation return_retention + 2*drawdown_improvement + 0.25*sharpe - skipped_penalty",
   "selection_score": 100.50210076730214,
   "selection_segment": "validation",
   "selection_uses_test_segment": false,
+  "signal_threshold": 0.45848443370274555,
   "test_drawdown_improvement_pct": 0.0,
   "test_max_drawdown_pct": -18.37863266325661,
   "test_return_retention_pct": 100.0,

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import pandas as pd
 
+import src.workflow.cognitive_alpha_intraday_overlay as overlay_workflow
 from src.workflow.cognitive_alpha_intraday_overlay import (
+    CognitiveAlphaIntradayOverlaySpec,
     evaluate_conditional_overlay_candidates,
     evaluate_observable_delayed_signal_candidates,
     select_validation_robust_delayed_policy,
@@ -497,3 +499,106 @@ def test_select_validation_robust_delayed_policy_keeps_risk_exit_diagnostic_by_d
 
     assert selected["policy_id"] == "hold_robust_lower_score"
     assert selected["exit_policy"] == "hold_to_next_open"
+
+
+def test_load_intraday_prediction_frame_uses_prediction_history_start(monkeypatch, tmp_path):
+    recorder_dir = tmp_path / "source_recorder"
+    prediction_dir = recorder_dir / "artifacts" / "model_selection"
+    prediction_dir.mkdir(parents=True)
+    pd.DataFrame(
+        [
+            {
+                "datetime": "2019-01-31 12:45:00",
+                "segment": "valid",
+                "prob_lgb_xgb_consensus": 0.62,
+                "regime_gate_v2_dislocation": True,
+            },
+            {
+                "datetime": "2019-01-31 13:00:00",
+                "segment": "valid",
+                "prob_lgb_xgb_consensus": 0.64,
+                "regime_gate_v2_dislocation": True,
+            },
+        ]
+    ).to_csv(prediction_dir / "all_model_predictions.csv", index=False)
+    captured: dict[str, str] = {}
+
+    def fake_load_qlib_feature_frame(config, *, instruments, fields, start, end):
+        captured["start"] = start
+        index = pd.MultiIndex.from_arrays(
+            [
+                ["SOXL", "SOXL"],
+                pd.to_datetime(["2019-01-31 12:45:00", "2019-01-31 13:00:00"]),
+            ],
+            names=["instrument", "datetime"],
+        )
+        return pd.DataFrame({"$open": [10.0, 10.2], "$close": [10.1, 10.3]}, index=index)
+
+    monkeypatch.setattr(overlay_workflow, "init_qlib_provider", lambda config: None)
+    monkeypatch.setattr(overlay_workflow, "load_qlib_feature_frame", fake_load_qlib_feature_frame)
+
+    frame = overlay_workflow._load_intraday_prediction_frame(
+        CognitiveAlphaIntradayOverlaySpec(root=tmp_path),
+        intraday_summary={"recorder_local_dir": str(recorder_dir)},
+        as_of="2026-07-02",
+        signal_config={
+            "prob_col": "prob_lgb_xgb_consensus",
+            "gate_col": "regime_gate_v2_dislocation",
+            "gate_policy": "source_trade_gate",
+        },
+    )
+
+    assert captured["start"] == "2019-01-31 09:45:00"
+    assert frame["prob_lgb_xgb_consensus"].notna().all()
+
+
+def test_walk_forward_metrics_records_required_annual_folds_and_fail_closed_missing_years():
+    rows = []
+    for date, segment, baseline_return, overlay_return in [
+        ("2025-01-02", "validation", 0.10, 0.09),
+        ("2025-01-03", "validation", 0.10, 0.09),
+        ("2026-01-02", "test", 0.20, 0.18),
+        ("2026-01-03", "test", 0.20, 0.18),
+    ]:
+        rows.append(
+            {
+                "datetime": date,
+                "segment": segment,
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "strategy_return": baseline_return,
+                "target_position": 1.0,
+                "entry_date": date,
+                "skipped_reason": None,
+            }
+        )
+        rows.append(
+            {
+                "datetime": date,
+                "segment": segment,
+                "variant": "overlay_a_signal_gate",
+                "cost_bps": 20.0,
+                "strategy_return": overlay_return,
+                "target_position": 1.0,
+                "entry_date": date,
+                "skipped_reason": None,
+            }
+        )
+    walk_forward = overlay_workflow._walk_forward_metrics(pd.DataFrame(rows), cost_bps=20.0)
+
+    assert set(walk_forward["fold"]) == {"wf_2023", "wf_2024", "wf_2025", "wf_2026"}
+    assert set(walk_forward["selection_uses_test_segment"]) == {False}
+    missing = walk_forward.loc[walk_forward["status"].eq("infeasible")]
+    assert set(missing["test_year"]) == {2023, 2024, 2025}
+    assert missing["blocking_reason"].str.contains("missing_validation_data").all()
+    fold_2025 = walk_forward.loc[walk_forward["fold"].eq("wf_2025")].iloc[0]
+    assert fold_2025["valid_periods"] == 0
+    assert fold_2025["test_periods"] == 2
+    fold_2026 = walk_forward.loc[walk_forward["fold"].eq("wf_2026")].iloc[0]
+    assert fold_2026["status"] == "ok"
+    assert fold_2026["train_end"] == "2024-12-31"
+    assert fold_2026["valid_start"] == "2025-01-01"
+    assert fold_2026["valid_end"] == "2025-12-31"
+    assert fold_2026["selected_variant"] == "overlay_a_signal_gate"
+    assert bool(fold_2026["validation_passes_target"]) is True
+    assert bool(fold_2026["test_passes_target"]) is True
