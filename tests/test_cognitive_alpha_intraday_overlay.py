@@ -4,7 +4,10 @@ import pandas as pd
 import pytest
 
 import src.workflow.cognitive_alpha_intraday_overlay as overlay_workflow
-from src.workflow.cognitive_alpha_intraday_5min_risk_sleeve import simulate_5min_risk_sleeve
+from src.workflow.cognitive_alpha_intraday_5min_risk_sleeve import (
+    _attach_external_context_to_5min_bars,
+    simulate_5min_risk_sleeve,
+)
 from src.workflow.cognitive_alpha_intraday_overlay import (
     CognitiveAlphaIntradayOverlaySpec,
     build_intraday_optimization_plan,
@@ -203,6 +206,92 @@ def test_simulate_5min_risk_sleeve_triggers_on_5min_context_stress():
     assert by_variant.loc["risk_exit_full_5m", "context_trigger_source"] == "manual"
     assert by_variant.loc["risk_exit_full_5m", "context_soxl_vwap_dist"] == pytest.approx(-0.014)
     assert bool(by_variant.loc["risk_exit_full_5m", "risk_triggered"]) is True
+
+
+def test_5min_risk_sleeve_uses_observable_external_15min_context_without_future_rows():
+    bars_5min = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05 09:35:00",
+                "date": "2026-01-05",
+                "open": 100.0,
+                "close": 99.6,
+                "soxl_vwap_dist": -0.012,
+            },
+            {
+                "datetime": "2026-01-05 09:40:00",
+                "date": "2026-01-05",
+                "open": 99.5,
+                "close": 99.1,
+                "soxl_vwap_dist": -0.014,
+            },
+            {
+                "datetime": "2026-01-05 09:45:00",
+                "date": "2026-01-05",
+                "open": 99.0,
+                "close": 98.8,
+                "soxl_vwap_dist": -0.016,
+            },
+        ]
+    )
+    external_15m = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05 09:45:00",
+                "external_context_available": True,
+                "qqq_smh_soxx_lead_lag_3": -0.020,
+                "semis_breadth_mom3_pos": 0.20,
+                "semis_vwap_breadth": 0.25,
+            }
+        ]
+    )
+
+    merged, audit = _attach_external_context_to_5min_bars(bars_5min, external_15m)
+
+    assert audit["external_15m_rows"] == 1
+    assert audit["external_context_available_5min_rows"] == 1
+    assert bool(merged.loc[merged["datetime"].eq(pd.Timestamp("2026-01-05 09:40:00")), "external_context_available"].iloc[0]) is False
+    assert bool(merged.loc[merged["datetime"].eq(pd.Timestamp("2026-01-05 09:45:00")), "external_context_available"].iloc[0]) is True
+
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "walk_forward_fold": "wf_2026",
+                "target_position": 1.0,
+                "strategy_return": 0.10,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 110.0},
+        ]
+    )
+
+    rows = simulate_5min_risk_sleeve(
+        daily,
+        daily_prices=daily_prices,
+        bars_5min=merged,
+        drawdown_threshold=-0.05,
+        trigger_mode="context_stress_or_drawdown",
+        context_thresholds={
+            "soxl_vwap_dist": -0.01,
+            "qqq_smh_soxx_lead_lag_3": -0.01,
+            "semis_breadth_mom3_pos": 0.30,
+        },
+        execution_delay_bars=0,
+        execution_price="close",
+        cost_bps=0.0,
+    )
+
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["risk_exit_full_5m", "trigger_time"] == "2026-01-05 09:45:00"
+    assert by_variant.loc["risk_exit_full_5m", "context_qqq_smh_soxx_lead_lag_3"] == pytest.approx(-0.020)
+    assert by_variant.loc["risk_exit_full_5m", "context_semis_breadth_mom3_pos"] == pytest.approx(0.20)
 
 
 def test_build_intraday_optimization_plan_prefers_local_fallback_when_external_history_blocked():

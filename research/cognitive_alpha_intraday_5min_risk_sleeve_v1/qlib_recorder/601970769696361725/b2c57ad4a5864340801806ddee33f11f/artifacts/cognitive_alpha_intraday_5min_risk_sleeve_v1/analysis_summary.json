@@ -5,6 +5,19 @@
     "daily_walk_forward_end": "2026-07-02",
     "daily_walk_forward_position_rows": 1879,
     "daily_walk_forward_start": "2022-01-03",
+    "external_context_15m_calendar_end": "2026-07-02 16:00:00",
+    "external_context_15m_calendar_start": "2024-07-05 09:45:00",
+    "external_context_15m_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
+    "external_context_available_5m_rows": 28392,
+    "external_context_full_walk_forward_history_available": false,
+    "external_context_missing_required_history_years": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
     "intraday_15m_calendar_end": "2026-07-02 16:00:00",
     "intraday_15m_calendar_start": "2018-12-31 09:45:00",
     "intraday_15m_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
@@ -18,7 +31,10 @@
       "soxl_vwap_dist",
       "soxx_cum_ret_from_open",
       "soxl_rv_6",
-      "soxl_minus_3x_soxx_ret"
+      "soxl_minus_3x_soxx_ret",
+      "qqq_smh_soxx_lead_lag_3",
+      "semis_breadth_mom3_pos",
+      "semis_vwap_breadth"
     ],
     "execution_price_role": "risk_reduce_or_exit_fill_price",
     "risk_sleeve_execution_delay_bars": 1,
@@ -26,20 +42,150 @@
     "risk_sleeve_timing": "daily_next_open_entry_then_5min_close_trigger_next_5min_open_reduce_or_exit",
     "trigger_price_role": "signal_only_5min_close"
   },
+  "external_context": {
+    "coverage_gap_analysis": {
+      "earliest_any_symbol_regular_session": "2024-07-05 09:45:00",
+      "earliest_complete_symbol_regular_session": "2025-01-02 09:45:00",
+      "full_walk_forward_history_available": false,
+      "full_walk_forward_start": "2019-01-02",
+      "latest_any_symbol_regular_session": "2026-07-02 16:00:00",
+      "latest_complete_symbol_regular_session": "2026-07-02 16:00:00",
+      "missing_required_history_years": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "next_data_action": "upgrade_polygon_history_plan_or_load_alternate_15min_source",
+      "provider_blocker_status_counts": {
+        "blocked_no_rows": 1,
+        "blocked_provider_history": 4,
+        "blocked_provider_rate_limit": 8
+      },
+      "requested_end": "2026-07-02",
+      "requested_start": "2019-01-02"
+    },
+    "feature_audit": {
+      "available_symbols": [
+        "AMD",
+        "ASML",
+        "AVGO",
+        "NVDA",
+        "QQQ",
+        "SMH",
+        "SOXX",
+        "TSM"
+      ],
+      "coverage_end": "2026-07-02 16:00:00",
+      "coverage_start": "2024-07-05 09:45:00",
+      "external_context_requested": true,
+      "external_context_rows": 12945,
+      "missing_symbols": []
+    },
+    "feature_cols": [
+      "qqq_ret_bar",
+      "qqq_ret_cc1",
+      "qqq_mom_3",
+      "qqq_vwap_dist",
+      "smh_ret_bar",
+      "smh_ret_cc1",
+      "smh_mom_3",
+      "smh_vwap_dist",
+      "external_soxx_ret_bar",
+      "external_soxx_ret_cc1",
+      "external_soxx_mom_3",
+      "external_soxx_vwap_dist",
+      "nvda_ret_bar",
+      "nvda_ret_cc1",
+      "nvda_mom_3",
+      "nvda_vwap_dist",
+      "avgo_ret_bar",
+      "avgo_ret_cc1",
+      "avgo_mom_3",
+      "avgo_vwap_dist",
+      "amd_ret_bar",
+      "amd_ret_cc1",
+      "amd_mom_3",
+      "amd_vwap_dist",
+      "tsm_ret_bar",
+      "tsm_ret_cc1",
+      "tsm_mom_3",
+      "tsm_vwap_dist",
+      "asml_ret_bar",
+      "asml_ret_cc1",
+      "asml_mom_3",
+      "asml_vwap_dist",
+      "qqq_lead_lag_vs_soxl_3",
+      "smh_lead_lag_vs_soxl_3",
+      "external_soxx_lead_lag_vs_soxl_3",
+      "semis_breadth_mom3_pos",
+      "semis_equal_weight_mom3",
+      "semis_breadth_ret_pos_1",
+      "semis_vwap_breadth"
+    ],
+    "merge_audit": {
+      "attached_feature_cols": [
+        "qqq_smh_soxx_lead_lag_3",
+        "semis_breadth_mom3_pos",
+        "semis_vwap_breadth"
+      ],
+      "external_15m_end": "2026-07-02 16:00:00",
+      "external_15m_rows": 12945,
+      "external_15m_start": "2024-07-05 09:45:00",
+      "external_context_available_5min_rows": 28392,
+      "lookback_only": true,
+      "status": "ok_partial"
+    },
+    "provider_meta": {
+      "calendar_end": "2026-07-02 16:00:00",
+      "calendar_start": "2024-07-05 09:45:00",
+      "freq": "15min",
+      "instruments": {
+        "filter_pipe": [],
+        "market": "all"
+      },
+      "kernels": 1,
+      "market": "all",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
+      "qlib_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments"
+      ],
+      "region": "us"
+    },
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_external_intraday_15min",
+    "source_card": "research/intraday_external_context_data_v1",
+    "status": "ok_partial",
+    "summary_recorder_id": "6f1156e23bc74c85a5d9c523c761736f"
+  },
   "feature_set": {
+    "external_context_history_gate": "diagnostic_only_until_full_walk_forward_history_available",
     "external_context_required": false,
+    "external_context_trigger_features": [
+      "qqq_smh_soxx_lead_lag_3",
+      "semis_breadth_mom3_pos",
+      "semis_vwap_breadth"
+    ],
     "five_min_context_trigger_features": [
       "soxl_vwap_dist",
       "soxx_cum_ret_from_open",
       "soxl_rv_6",
-      "soxl_minus_3x_soxx_ret"
+      "soxl_minus_3x_soxx_ret",
+      "qqq_smh_soxx_lead_lag_3",
+      "semis_breadth_mom3_pos",
+      "semis_vwap_breadth"
     ],
     "five_min_replay_context": [
       "SOXL close drawdown from entry open",
       "SOXL VWAP distance",
       "SOXX same-session confirmation",
       "SOXL minus 3x SOXX 5min dislocation",
-      "5min realized volatility/trend quality replay"
+      "5min realized volatility/trend quality replay",
+      "QQQ/SMH/SOXX 15min lead-lag replay aligned backward to 5min bars",
+      "NVDA/AVGO/AMD/TSM/ASML 15min breadth replay aligned backward to 5min bars"
     ],
     "lgb_xgb_15m_feature_count": 57,
     "lgb_xgb_15m_features": [
@@ -100,6 +246,12 @@
       "soxx_lead_lag_confirm_3",
       "leveraged_replication_absorption",
       "open_gap_reclaim_quality"
+    ],
+    "local_context_trigger_features": [
+      "soxl_vwap_dist",
+      "soxx_cum_ret_from_open",
+      "soxl_rv_6",
+      "soxl_minus_3x_soxx_ret"
     ]
   },
   "label_policy": {
@@ -183,7 +335,7 @@
         "variant": "risk_reduce_quarter_5m"
       }
     ],
-    "context_policy_candidate_rows": 264,
+    "context_policy_candidate_rows": 282,
     "selected_context_trigger_years": [
       2023
     ],
@@ -272,7 +424,7 @@
       {
         "best_validation_max_drawdown_pct": -9.394399761657368,
         "best_validation_retention_pct": 74.02834448913197,
-        "candidate_rows": 72,
+        "candidate_rows": 90,
         "test_pass_count": 0,
         "test_year": 2026,
         "trigger_mode": "context_stress_or_drawdown",
@@ -330,6 +482,9 @@
     "50bp_validation_return_pct": 64.65290435596063,
     "50bp_validation_return_retention_pct": 78.49758588308589,
     "blocking_reason": "ok",
+    "context_qqq_smh_soxx_lead_lag_3_threshold": null,
+    "context_semis_breadth_mom3_pos_threshold": null,
+    "context_semis_vwap_breadth_threshold": null,
     "context_soxl_minus_3x_soxx_ret_threshold": null,
     "context_soxl_rv_6_threshold": null,
     "context_soxl_vwap_dist_threshold": null,
@@ -339,7 +494,7 @@
     "fold": "wf_2026",
     "intraday_prediction_rows": 9339,
     "passes_test_target": true,
-    "policy_candidate_rows": 126,
+    "policy_candidate_rows": 144,
     "report_segment": "test",
     "required_cost_bps": "20.0,50.0",
     "required_cost_test_target_count": 2,

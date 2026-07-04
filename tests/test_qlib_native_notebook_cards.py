@@ -1186,12 +1186,17 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert summary["execution_overlay"]["risk_sleeve_execution_delay_bars"] == 1
     assert summary["execution_overlay"]["risk_sleeve_execution_price"] == "next_5min_open"
     assert "context_stress_or_drawdown" in summary["execution_overlay"]["trigger_modes"]
-    assert summary["execution_overlay"]["context_trigger_features"] == [
+    assert {
         "soxl_vwap_dist",
         "soxx_cum_ret_from_open",
         "soxl_rv_6",
         "soxl_minus_3x_soxx_ret",
-    ]
+        "qqq_smh_soxx_lead_lag_3",
+        "semis_breadth_mom3_pos",
+        "semis_vwap_breadth",
+    }.issubset(set(summary["execution_overlay"]["context_trigger_features"]))
+    assert summary["external_context"]["full_walk_forward_history_available"] is False
+    assert summary["external_context"]["external_context_available_5min_rows"] > 0
     assert summary["execution_overlay"]["variants"] == [
         "baseline_next_open",
         "risk_exit_full_5m",

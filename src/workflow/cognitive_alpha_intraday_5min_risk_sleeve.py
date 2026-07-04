@@ -36,6 +36,7 @@ from src.workflow.cognitive_alpha_intraday_overlay import (
     _normalize_daily_positions,
     _normalize_daily_prices,
     _read_json,
+    _read_optional_json,
     _recorder_files,
     _remove_transient_code_snapshots,
     _resolve_root,
@@ -45,7 +46,12 @@ from src.workflow.cognitive_alpha_intraday_overlay import (
     summarize_overlay_metrics,
 )
 from src.workflow.intraday_bar_model import QLIB_FIELDS, _wide_feature_frame
-from src.workflow.intraday_execution_label_model import LABEL_POLICY, MODEL_NAMES
+from src.workflow.intraday_execution_label_model import (
+    LABEL_POLICY,
+    MODEL_NAMES,
+    REQUESTED_EXTERNAL_CONTEXT_SYMBOLS,
+    build_external_context_feature_frame,
+)
 
 
 EXPERIMENT = "cognitive_alpha_intraday_5min_risk_sleeve_v1"
@@ -55,12 +61,19 @@ TRIGGER_MODES = ("drawdown_only", "risk_score_or_drawdown", "context_stress_or_d
 RISK_SLEEVE_EXECUTION_DELAY_BARS = 1
 RISK_SLEEVE_EXECUTION_PRICE = "open"
 RISK_SLEEVE_EXECUTION_TIMING = "daily_next_open_entry_then_5min_close_trigger_next_5min_open_reduce_or_exit"
-CONTEXT_THRESHOLD_COLUMNS = (
+LOCAL_CONTEXT_THRESHOLD_COLUMNS = (
     "soxl_vwap_dist",
     "soxx_cum_ret_from_open",
     "soxl_rv_6",
     "soxl_minus_3x_soxx_ret",
 )
+EXTERNAL_CONTEXT_THRESHOLD_COLUMNS = (
+    "qqq_smh_soxx_lead_lag_3",
+    "semis_breadth_mom3_pos",
+    "semis_vwap_breadth",
+)
+CONTEXT_THRESHOLD_COLUMNS = (*LOCAL_CONTEXT_THRESHOLD_COLUMNS, *EXTERNAL_CONTEXT_THRESHOLD_COLUMNS)
+CONTEXT_STRESS_UPPER_COLUMNS = ("soxl_rv_6",)
 
 
 @dataclass(frozen=True)
@@ -107,6 +120,14 @@ class CognitiveAlphaIntraday5MinRiskSleeveSpec:
     @property
     def intraday_5min_provider_uri(self) -> Path:
         return self.root / "data" / "qlib" / "soxl_intraday_5min"
+
+    @property
+    def external_context_provider_uri(self) -> Path:
+        return self.root / "data" / "qlib" / "soxl_external_intraday_15min"
+
+    @property
+    def external_context_card_dir(self) -> Path:
+        return self.root / "research" / "intraday_external_context_data_v1"
 
 
 def simulate_5min_risk_sleeve(
@@ -593,6 +614,9 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
         as_of=as_of,
     )
     provider_meta_5m, bars_5min = _load_5min_bar_frame(spec, as_of=as_of)
+    external_provider_meta, external_context_15m, external_context_audit = _load_external_15min_context_frame(spec, as_of=as_of)
+    bars_5min, external_merge_audit = _attach_external_context_to_5min_bars(bars_5min, external_context_15m)
+    external_context_audit["merge_audit"] = external_merge_audit
     annual_walk_forward, selected_costs, selected_trades, all_policy_selection, risk_analysis = _evaluate_annual_5min_risk_sleeve(
         daily_positions=daily_positions,
         daily_prices=daily_prices,
@@ -613,6 +637,8 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
         intraday_summary=intraday_summary,
         provider_meta_15m=provider_meta_15m,
         provider_meta_5m=provider_meta_5m,
+        external_provider_meta=external_provider_meta,
+        external_context_audit=external_context_audit,
         daily_positions=daily_positions,
         bars_5min=bars_5min,
         feature_cols=feature_cols,
@@ -660,6 +686,7 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
                 risk_sleeve_execution_delay_bars=RISK_SLEEVE_EXECUTION_DELAY_BARS,
                 risk_sleeve_execution_price=RISK_SLEEVE_EXECUTION_PRICE,
                 risk_sleeve_context_trigger_features=",".join(CONTEXT_THRESHOLD_COLUMNS),
+                risk_sleeve_external_context_features=",".join(EXTERNAL_CONTEXT_THRESHOLD_COLUMNS),
                 walk_forward_policy=walk_forward_summary["policy"],
             )
             R.log_metrics(
@@ -714,6 +741,20 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
             "daily": spec.daily_provider_uri.resolve().as_posix(),
             "15min": spec.intraday_provider_uri.resolve().as_posix(),
             "5min": spec.intraday_5min_provider_uri.resolve().as_posix(),
+            "external_context_15min": spec.external_context_provider_uri.resolve().as_posix(),
+        },
+        "external_context": {
+            "source_card": spec.external_context_card_dir.relative_to(spec.root).as_posix(),
+            "provider_uri": spec.external_context_provider_uri.resolve().as_posix(),
+            "requested_symbols": list(REQUESTED_EXTERNAL_CONTEXT_SYMBOLS),
+            "feature_columns": list(EXTERNAL_CONTEXT_THRESHOLD_COLUMNS),
+            "status": external_context_audit.get("status"),
+            "merge_status": external_merge_audit.get("status"),
+            "full_walk_forward_history_available": bool(
+                external_context_audit.get("coverage_gap_analysis", {}).get("full_walk_forward_history_available", False)
+            ),
+            "missing_required_history_years": external_context_audit.get("coverage_gap_analysis", {}).get("missing_required_history_years", []),
+            "external_context_available_5min_rows": external_merge_audit.get("external_context_available_5min_rows", 0),
         },
         "execution_overlay": {
             "frequency": "5min",
@@ -872,11 +913,18 @@ def _context_stress_mask(
         return pd.Series(False, index=frame.index)
     below_vwap = pd.to_numeric(frame["soxl_vwap_dist"], errors="coerce").le(thresholds["soxl_vwap_dist"])
     stress_masks: list[pd.Series] = []
-    for column in ["soxx_cum_ret_from_open", "soxl_minus_3x_soxx_ret"]:
-        if column in thresholds and column in frame.columns:
-            stress_masks.append(pd.to_numeric(frame[column], errors="coerce").le(thresholds[column]))
-    if "soxl_rv_6" in thresholds and "soxl_rv_6" in frame.columns:
-        stress_masks.append(pd.to_numeric(frame["soxl_rv_6"], errors="coerce").ge(thresholds["soxl_rv_6"]))
+    external_available = frame.get("external_context_available", pd.Series(False, index=frame.index)).fillna(False).astype(bool)
+    for column in CONTEXT_THRESHOLD_COLUMNS:
+        if column == "soxl_vwap_dist" or column not in thresholds or column not in frame.columns:
+            continue
+        values = pd.to_numeric(frame[column], errors="coerce")
+        if column in CONTEXT_STRESS_UPPER_COLUMNS:
+            mask = values.ge(thresholds[column])
+        else:
+            mask = values.le(thresholds[column])
+        if column in EXTERNAL_CONTEXT_THRESHOLD_COLUMNS:
+            mask = mask & external_available
+        stress_masks.append(mask)
     if not stress_masks:
         return pd.Series(False, index=frame.index)
     stress = stress_masks[0].fillna(False)
@@ -1205,6 +1253,53 @@ def _validation_context_threshold_candidates(context_values: dict[str, list[floa
             ),
         },
     ]
+    if not series.get("qqq_smh_soxx_lead_lag_3", pd.Series(dtype=float)).empty:
+        lead_lag_weak = lower_threshold("qqq_smh_soxx_lead_lag_3", 0.25, -0.004, -0.0005)
+        candidates.append(
+            {
+                "context_trigger_source": "external_lead_lag_weak",
+                **_context_threshold_row(
+                    {
+                        "soxl_vwap_dist": vwap,
+                        "qqq_smh_soxx_lead_lag_3": lead_lag_weak,
+                    }
+                ),
+            }
+        )
+    if not series.get("semis_breadth_mom3_pos", pd.Series(dtype=float)).empty:
+        semis_breadth_weak = lower_threshold("semis_breadth_mom3_pos", 0.25, 0.40, 0.40)
+        candidates.append(
+            {
+                "context_trigger_source": "external_semis_breadth_weak",
+                **_context_threshold_row(
+                    {
+                        "soxl_vwap_dist": vwap,
+                        "semis_breadth_mom3_pos": semis_breadth_weak,
+                    }
+                ),
+            }
+        )
+    if (
+        not series.get("qqq_smh_soxx_lead_lag_3", pd.Series(dtype=float)).empty
+        and not series.get("semis_breadth_mom3_pos", pd.Series(dtype=float)).empty
+        and not series.get("semis_vwap_breadth", pd.Series(dtype=float)).empty
+    ):
+        lead_lag_weak = lower_threshold("qqq_smh_soxx_lead_lag_3", 0.25, -0.004, -0.0005)
+        semis_breadth_weak = lower_threshold("semis_breadth_mom3_pos", 0.25, 0.40, 0.40)
+        semis_vwap_weak = lower_threshold("semis_vwap_breadth", 0.25, 0.40, 0.40)
+        candidates.append(
+            {
+                "context_trigger_source": "external_multi_breadth_weak",
+                **_context_threshold_row(
+                    {
+                        "soxl_vwap_dist": vwap,
+                        "qqq_smh_soxx_lead_lag_3": lead_lag_weak,
+                        "semis_breadth_mom3_pos": semis_breadth_weak,
+                        "semis_vwap_breadth": semis_vwap_weak,
+                    }
+                ),
+            }
+        )
     unique: dict[str, dict[str, Any]] = {}
     for candidate in candidates:
         unique[str(candidate["context_trigger_source"])] = candidate
@@ -1407,6 +1502,110 @@ def _load_5min_bar_frame(
             "soxl_volume": "volume",
         }
     )
+
+
+def _load_external_15min_context_frame(
+    spec: CognitiveAlphaIntraday5MinRiskSleeveSpec,
+    *,
+    as_of: str,
+) -> tuple[dict[str, Any], pd.DataFrame, dict[str, Any]]:
+    summary = _read_optional_json(spec.external_context_card_dir / "summary.json")
+    if not spec.external_context_provider_uri.exists():
+        return (
+            {},
+            pd.DataFrame(),
+            {
+                "status": "blocked_missing_external_context_provider",
+                "provider_uri": spec.external_context_provider_uri.resolve().as_posix(),
+                "summary": summary,
+            },
+        )
+    config = QlibProviderConfig(
+        provider_uri=spec.external_context_provider_uri,
+        region=spec.region,
+        market=spec.market,
+        freq="15min",
+        kernels=1,
+    )
+    provider_meta = init_qlib_provider(config)
+    raw = load_qlib_feature_frame(
+        config,
+        instruments=list(REQUESTED_EXTERNAL_CONTEXT_SYMBOLS),
+        fields=QLIB_FIELDS,
+        start=f"{REQUIRED_WALK_FORWARD_START} 09:45:00",
+        end=f"{as_of} 16:00:00",
+    )
+    external_context, feature_cols, feature_audit = build_external_context_feature_frame(raw)
+    coverage_gap = summary.get("coverage_gap_analysis", {}) if summary else {}
+    return (
+        provider_meta,
+        external_context,
+        {
+            "status": "ok_partial" if not bool(coverage_gap.get("full_walk_forward_history_available", False)) else "ok",
+            "provider_uri": spec.external_context_provider_uri.resolve().as_posix(),
+            "provider_meta": provider_meta,
+            "feature_cols": feature_cols,
+            "feature_audit": feature_audit,
+            "coverage_gap_analysis": coverage_gap,
+            "source_card": spec.external_context_card_dir.relative_to(spec.root).as_posix(),
+            "summary_recorder_id": summary.get("recorder_id") if summary else None,
+        },
+    )
+
+
+def _attach_external_context_to_5min_bars(
+    bars_5min: pd.DataFrame,
+    external_context_15m: pd.DataFrame,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    bars = bars_5min.copy()
+    bars["datetime"] = pd.to_datetime(bars["datetime"])
+    bars["date"] = pd.to_datetime(bars.get("date", bars["datetime"]).astype(str)).dt.date.astype(str)
+    for column in ["external_context_available", *EXTERNAL_CONTEXT_THRESHOLD_COLUMNS]:
+        if column in bars.columns:
+            bars = bars.drop(columns=[column])
+    if external_context_15m.empty:
+        bars["external_context_available"] = False
+        for column in EXTERNAL_CONTEXT_THRESHOLD_COLUMNS:
+            bars[column] = np.nan
+        return bars.sort_values(["date", "datetime"]).reset_index(drop=True), {
+            "status": "blocked_no_external_context_rows",
+            "external_15m_rows": 0,
+            "external_context_available_5min_rows": 0,
+            "attached_feature_cols": list(EXTERNAL_CONTEXT_THRESHOLD_COLUMNS),
+            "lookback_only": True,
+        }
+    external = external_context_15m.copy()
+    external["datetime"] = pd.to_datetime(external["datetime"])
+    external["date"] = external["datetime"].dt.date.astype(str)
+    if "external_context_available" not in external.columns:
+        external["external_context_available"] = False
+    attach_cols = ["datetime", "date", "external_context_available"]
+    attach_cols.extend([column for column in EXTERNAL_CONTEXT_THRESHOLD_COLUMNS if column in external.columns])
+    external = external[attach_cols].sort_values(["date", "datetime"]).reset_index(drop=True)
+    merged = pd.merge_asof(
+        bars.sort_values(["date", "datetime"]),
+        external,
+        on="datetime",
+        by="date",
+        direction="backward",
+        suffixes=("", "_external"),
+    )
+    merged["external_context_available"] = merged["external_context_available"].map(lambda value: bool(value) if pd.notna(value) else False)
+    for column in EXTERNAL_CONTEXT_THRESHOLD_COLUMNS:
+        if column not in merged.columns:
+            merged[column] = np.nan
+        merged[column] = pd.to_numeric(merged[column], errors="coerce")
+        merged.loc[~merged["external_context_available"], column] = np.nan
+    available = int(merged["external_context_available"].sum())
+    return merged.sort_values(["date", "datetime"]).reset_index(drop=True), {
+        "status": "ok_partial" if available else "blocked_no_5min_external_context_overlap",
+        "external_15m_rows": int(len(external)),
+        "external_context_available_5min_rows": available,
+        "external_15m_start": _timestamp_or_none(external["datetime"].min()) if not external.empty else None,
+        "external_15m_end": _timestamp_or_none(external["datetime"].max()) if not external.empty else None,
+        "attached_feature_cols": [column for column in EXTERNAL_CONTEXT_THRESHOLD_COLUMNS if column in merged.columns],
+        "lookback_only": True,
+    }
 
 
 def _evaluate_annual_5min_risk_sleeve(
@@ -1800,6 +1999,8 @@ def _analysis_summary(
     intraday_summary: dict[str, Any],
     provider_meta_15m: dict[str, Any],
     provider_meta_5m: dict[str, Any],
+    external_provider_meta: dict[str, Any],
+    external_context_audit: dict[str, Any],
     daily_positions: pd.DataFrame,
     bars_5min: pd.DataFrame,
     feature_cols: list[str],
@@ -1841,7 +2042,23 @@ def _analysis_summary(
             "intraday_5m_calendar_start": provider_meta_5m.get("calendar_start"),
             "intraday_5m_calendar_end": provider_meta_5m.get("calendar_end"),
             "intraday_5m_rows": int(len(bars_5min)),
+            "external_context_15m_provider_uri": external_provider_meta.get("provider_uri")
+            or external_context_audit.get("provider_uri"),
+            "external_context_15m_calendar_start": external_provider_meta.get("calendar_start"),
+            "external_context_15m_calendar_end": external_provider_meta.get("calendar_end"),
+            "external_context_available_5m_rows": external_context_audit.get("merge_audit", {}).get(
+                "external_context_available_5min_rows",
+                0,
+            ),
+            "external_context_full_walk_forward_history_available": bool(
+                external_context_audit.get("coverage_gap_analysis", {}).get("full_walk_forward_history_available", False)
+            ),
+            "external_context_missing_required_history_years": external_context_audit.get("coverage_gap_analysis", {}).get(
+                "missing_required_history_years",
+                [],
+            ),
         },
+        "external_context": external_context_audit,
         "execution_overlay": {
             "risk_sleeve_timing": RISK_SLEEVE_EXECUTION_TIMING,
             "risk_sleeve_execution_delay_bars": RISK_SLEEVE_EXECUTION_DELAY_BARS,
@@ -1860,9 +2077,14 @@ def _analysis_summary(
                 "SOXX same-session confirmation",
                 "SOXL minus 3x SOXX 5min dislocation",
                 "5min realized volatility/trend quality replay",
+                "QQQ/SMH/SOXX 15min lead-lag replay aligned backward to 5min bars",
+                "NVDA/AVGO/AMD/TSM/ASML 15min breadth replay aligned backward to 5min bars",
             ],
             "five_min_context_trigger_features": list(CONTEXT_THRESHOLD_COLUMNS),
+            "local_context_trigger_features": list(LOCAL_CONTEXT_THRESHOLD_COLUMNS),
+            "external_context_trigger_features": list(EXTERNAL_CONTEXT_THRESHOLD_COLUMNS),
             "external_context_required": False,
+            "external_context_history_gate": "diagnostic_only_until_full_walk_forward_history_available",
         },
         "source_daily_model": {
             "recorder_id": daily_summary.get("recorder_id"),
@@ -1994,7 +2216,8 @@ def _write_sidecars(
         "- 本卡不是新的日内主 alpha；它保留日线 next-open 入场，只验证 5m 风控减仓/退出是否能减少买入后下杀。\n"
         "- 15m LGB/XGB/consensus 的 label 是 triple-barrier 1h/2h execution improvement，不等同于 open-to-open 收益预测。\n"
         "- 5m 阈值只从 validation 年份生成；若 test 年效果差，不能用 test 重新调阈值。\n"
-        "- 新增 5m context stress 候选只使用 SOXL/SOXX 本地 qlib bar 的 VWAP、SOXX 确认、波动扩张和杠杆偏离，不依赖外部成分股历史。\n"
+        "- 5m context stress 候选包含 SOXL/SOXX 本地 qlib bar 的 VWAP、SOXX 确认、波动扩张和杠杆偏离。\n"
+        "- 外部 QQQ/SMH/SOXX lead-lag 与 NVDA/AVGO/AMD/TSM/ASML breadth 已按 15m bar 向后对齐到 5m replay，但外部历史不足完整 annual walk-forward 前只能作为诊断候选。\n"
         "- 风控 replay 已避免同一根 5m bar 收盘触发又按同一收盘成交；当前仍缺 bid/ask、盘口深度和真实成交容量，不能据此直接实盘。\n"
         "- 若 20/50bp 年度 retention、max drawdown 和风险降低不能同时过门槛，应继续作为诊断卡而非晋升。\n",
         encoding="utf-8",
@@ -2018,6 +2241,7 @@ def _write_workflow_yaml(
                 f"  daily_provider_uri: {spec.daily_provider_uri.resolve().as_posix()}",
                 f"  intraday_15min_provider_uri: {spec.intraday_provider_uri.resolve().as_posix()}",
                 f"  intraday_5min_provider_uri: {spec.intraday_5min_provider_uri.resolve().as_posix()}",
+                f"  external_context_15min_provider_uri: {spec.external_context_provider_uri.resolve().as_posix()}",
                 "sources:",
                 f"  daily_card: {spec.source_daily_card}",
                 f"  daily_recorder_id: {daily_summary.get('recorder_id')}",
@@ -2039,6 +2263,7 @@ def _write_workflow_yaml(
                 f"  risk_sleeve_execution_delay_bars: {RISK_SLEEVE_EXECUTION_DELAY_BARS}",
                 f"  risk_sleeve_execution_price: next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
                 f"  context_trigger_features: {list(CONTEXT_THRESHOLD_COLUMNS)}",
+                f"  external_context_trigger_features: {list(EXTERNAL_CONTEXT_THRESHOLD_COLUMNS)}",
                 "  daily_entry_is_not_skipped: true",
                 "walk_forward:",
                 "  policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T",
@@ -2099,11 +2324,16 @@ def _write_conclusion(
     pass_count = len(summary["walk_forward"].get("target_pass_test_years", []))
     risk_count = len(summary["walk_forward"].get("risk_reduction_test_years", []))
     latest = annual_walk_forward.sort_values("test_year").iloc[-1].to_dict() if not annual_walk_forward.empty else {}
+    external_context = summary.get("external_context", {})
+    external_rows = int(external_context.get("external_context_available_5min_rows", 0) or 0)
+    external_full_history = bool(external_context.get("full_walk_forward_history_available", False))
     text = (
         "# 中文结论\n\n"
         "- 做了什么：新增 5m 日内风控 sleeve。日线 open-to-open 模型仍按 next-open 入场；"
         "15m LGB/XGB/consensus triple-barrier 模型提供风险分数，5m qlib bar 在收盘触发后按下一根 5m 开盘做全平或半仓减仓 replay；"
-        "本轮新增 SOXL/SOXX 5m VWAP、SOXX 确认、波动扩张和杠杆偏离 context stress 候选。\n"
+        "本轮新增 SOXL/SOXX 5m VWAP、SOXX 确认、波动扩张和杠杆偏离 context stress 候选，并接入 QQQ/SMH/SOXX 15m lead-lag 与半导体成分股 breadth 诊断候选。\n"
+        f"- 外部 context 覆盖：5m replay 可对齐行数={external_rows}，full_walk_forward_history_available={external_full_history}；"
+        "历史不足完整 2023-2026 annual walk-forward 前，外部因子只能解释/诊断，不能作为晋升门槛放宽依据。\n"
         "- 为什么日内模型没有超过日线模型：日线模型吃的是 open-to-open/隔夜/趋势段收益；"
         "日内模型学的是 1h/2h 执行改善。把它做入场 gate 会漏掉大趋势日，所以本卡改为保留入场、只控制买入后下杀。\n"
         f"- 年度 walk-forward：2023-2026 均按 train_to_T-2 / valid_T-1 / test_T；"
