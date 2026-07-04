@@ -990,16 +990,25 @@ def select_validation_robust_delayed_policy(
     selection_cost_bps: float = 20.0,
     return_retention_low: float = 85.0,
     return_retention_high: float = 95.0,
+    min_validation_retention_band_margin: float = 0.05,
     max_drawdown_floor: float = -18.0,
     max_skip_rate: float = 0.15,
     eligible_exit_policies: tuple[str, ...] | None = ("hold_to_next_open", SAME_DAY_CLOSE_EXIT_POLICY),
     return_retention_upper_is_soft: bool = False,
 ) -> dict[str, Any]:
+    selection_priority = [
+        "validation_return_retention_score_desc",
+        "validation_skip_rate_asc",
+        "condition_valid_active_coverage_desc",
+        "validation_drawdown_improvement_pct_desc",
+        "selection_score_desc",
+    ]
     if candidates.empty:
         return {
             "policy_id": None,
             "validation_passes_target": False,
             "selection_uses_test_segment": False,
+            "selection_priority": selection_priority,
         }
     frame = candidates.copy()
     if eligible_exit_policies is not None and "exit_policy" in frame.columns:
@@ -1010,6 +1019,7 @@ def select_validation_robust_delayed_policy(
                 "validation_passes_target": False,
                 "selection_uses_test_segment": False,
                 "eligible_exit_policies": list(eligible_exit_policies),
+                "selection_priority": selection_priority,
             }
     frame["cost_bps"] = pd.to_numeric(frame["cost_bps"], errors="coerce")
     frame["validation_return_retention_score"] = frame["validation_return_retention_pct"].clip(
@@ -1028,15 +1038,25 @@ def select_validation_robust_delayed_policy(
         if not required_costs.issubset(costs):
             continue
         robust = True
+        retention_band_margins: list[float] = []
         for cost in required_costs:
             row = group.loc[group["cost_bps"].eq(cost)].iloc[0]
             retention = float(row["validation_return_retention_pct"])
             drawdown = float(row["validation_max_drawdown_pct"])
             skipped = float(row["validation_skipped_periods"])
             periods = float(row["validation_periods"])
+            retention_band_margin = min(
+                retention - float(return_retention_low),
+                float(return_retention_high) - retention,
+            )
+            retention_band_margins.append(retention_band_margin)
             if not (
                 retention >= return_retention_low
                 and (return_retention_upper_is_soft or retention <= return_retention_high)
+                and (
+                    return_retention_upper_is_soft
+                    or retention_band_margin >= float(min_validation_retention_band_margin)
+                )
                 and drawdown > max_drawdown_floor
                 and skipped <= periods * max_skip_rate
             ):
@@ -1045,7 +1065,9 @@ def select_validation_robust_delayed_policy(
         if robust:
             selected_cost_row = group.loc[group["cost_bps"].eq(float(selection_cost_bps))]
             if not selected_cost_row.empty:
-                rows.append(selected_cost_row.iloc[0])
+                selected_row = selected_cost_row.iloc[0].copy()
+                selected_row["required_cost_min_validation_band_margin"] = float(min(retention_band_margins))
+                rows.append(selected_row)
     if not rows:
         fallback = frame.sort_values(
             ["selection_score", "validation_drawdown_improvement_pct"],
@@ -1060,6 +1082,8 @@ def select_validation_robust_delayed_policy(
         result["return_retention_upper_policy"] = (
             "soft_cap_for_scoring" if return_retention_upper_is_soft else "hard_gate"
         )
+        result["min_validation_retention_band_margin"] = float(min_validation_retention_band_margin)
+        result["selection_priority"] = selection_priority
         result["blocking_reason"] = "no_validation_policy_in_retention_band"
         return result
     selected = (
@@ -1081,8 +1105,10 @@ def select_validation_robust_delayed_policy(
     result["selection_uses_test_segment"] = False
     result["required_cost_bps"] = sorted(required_costs)
     result["max_skip_rate"] = float(max_skip_rate)
+    result["min_validation_retention_band_margin"] = float(min_validation_retention_band_margin)
     result["return_retention_high"] = float(return_retention_high)
     result["return_retention_upper_policy"] = "soft_cap_for_scoring" if return_retention_upper_is_soft else "hard_gate"
+    result["selection_priority"] = selection_priority
     return result
 
 
@@ -2352,6 +2378,9 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                 required_cost_bps="20.0,50.0",
                 max_skip_rate=0.15,
                 return_retention_upper_policy="hard_gate",
+                min_validation_retention_band_margin=float(
+                    selected_model.get("min_validation_retention_band_margin", 0.05) or 0.05
+                ),
                 selected_policy_id=str(selected_model.get("policy_id")),
                 selected_intraday_flat_sleeve_policy_id=str(intraday_flat_sleeve.get("policy_id")),
                 walk_forward_policy=str(walk_forward_summary.get("policy")),
@@ -2472,12 +2501,19 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
             "return_retention_floor_pct": 85.0,
             "return_retention_ceiling_pct": 95.0,
             "return_retention_upper_policy": "hard_gate",
-            "selection_priority": [
-                "validation_return_retention_score_desc",
-                "validation_skip_rate_asc",
-                "condition_valid_active_coverage_desc",
-                "validation_drawdown_improvement_desc",
-            ],
+            "min_validation_retention_band_margin": float(
+                selected_model.get("min_validation_retention_band_margin", 0.05) or 0.05
+            ),
+            "selection_priority": selected_model.get(
+                "selection_priority",
+                [
+                    "validation_return_retention_score_desc",
+                    "validation_skip_rate_asc",
+                    "condition_valid_active_coverage_desc",
+                    "validation_drawdown_improvement_pct_desc",
+                    "selection_score_desc",
+                ],
+            ),
             "eligible_exit_policies": ["hold_to_next_open", SAME_DAY_CLOSE_EXIT_POLICY],
             "exit_policy_candidate_counts": (
                 policy_selection_full["exit_policy"].value_counts().to_dict()
@@ -4708,7 +4744,7 @@ def _write_delayed_sidecars(
     failure_modes = (
         "# Failure Modes\n\n"
         "- Delayed observable overlay 只能在前 30/60 分钟 bar 完成后使用这些特征，不能影响 next-open 或前 4 根 bar 的成交。\n"
-        "- 选择规则只用 validation，并要求 20bp/50bp validation 同时满足 85%-95% retention、max_dd>-18%、skip<=15%；eligible exit policy 是 hold_to_next_open 和 same_day_close。\n"
+        "- 选择规则只用 validation，并要求 20bp/50bp validation 同时满足 85%-95% retention、距离 retention 边界至少 0.05pct、max_dd>-18%、skip<=15%；eligible exit policy 是 hold_to_next_open 和 same_day_close。\n"
         "- same_day_close 是纯日内平仓候选，用 entry day 最后一根可用 15m close 退出；它仍缺少 bid/ask、收盘成交容量和延迟 replay。\n"
         "- retention 目标是 validation 85%-95% hard gate；超过 95% 的短窗口收益只能作为诊断，不算晋级通过。\n"
         "- 年度验证使用 daily walk-forward replay positions 的 validation/test 片段；train 阶段不要求 selected positions，因为仓位模型训练证据属于源日线 card。\n"
@@ -4784,6 +4820,7 @@ def _write_delayed_conclusion(
         "本轮把 same_day_close 作为可晋升的纯日内平仓候选加入，同时保留 hold_to_next_open；risk-exit 仍只作为诊断候选，"
         "避免短样本风险退出过拟合。\n"
         "- 选择规则：只用 validation；retention 必须落在 85%-95% hard gate 内，"
+        "并且 20/50bp required cost 下都要距离 retention 边界至少 0.05pct，"
         "再按 validation skip rate、条件覆盖率和回撤改善排序；test 只报告，不参与阈值选择。"
         "超过 95% 的短窗口收益保留为诊断，不计入晋级目标。\n"
         f"- 候选：{summary['model_selection']['candidate_count']} 个 policy、{summary['model_selection']['candidate_rows']} 行成本压力结果；"
