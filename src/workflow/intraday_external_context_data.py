@@ -596,6 +596,87 @@ def _coverage_audit(
     return pd.DataFrame(rows)
 
 
+def _coverage_gap_analysis(
+    spec: IntradayExternalContextDataSpec,
+    *,
+    source_audit: pd.DataFrame,
+    coverage_audit: pd.DataFrame,
+) -> dict[str, Any]:
+    nonempty = coverage_audit.loc[coverage_audit["regular_session_rows"].astype(int) > 0].copy()
+    coverage_starts = (
+        pd.to_datetime(nonempty["coverage_start"], errors="coerce")
+        if not nonempty.empty
+        else pd.Series(dtype="datetime64[ns]")
+    )
+    coverage_ends = (
+        pd.to_datetime(nonempty["coverage_end"], errors="coerce")
+        if not nonempty.empty
+        else pd.Series(dtype="datetime64[ns]")
+    )
+    earliest_any = _format_min(coverage_starts.min()) if not coverage_starts.empty and not coverage_starts.isna().all() else ""
+    latest_any = _format_min(coverage_ends.max()) if not coverage_ends.empty and not coverage_ends.isna().all() else ""
+
+    if set(nonempty["symbol"].astype(str)) == set(spec.requested_symbols):
+        earliest_complete = _format_min(coverage_starts.max())
+        latest_complete = _format_min(coverage_ends.min())
+    else:
+        earliest_complete = ""
+        latest_complete = ""
+
+    required_start = pd.Timestamp(spec.full_walk_forward_start)
+    requested_end = pd.Timestamp(spec.end)
+    complete_start_ts = pd.Timestamp(earliest_complete) if earliest_complete else pd.NaT
+    complete_end_ts = pd.Timestamp(latest_complete) if latest_complete else pd.NaT
+    full_history_available = bool(
+        pd.notna(complete_start_ts)
+        and pd.notna(complete_end_ts)
+        and complete_start_ts.date() <= required_start.date()
+        and complete_end_ts.date() >= requested_end.date()
+    )
+
+    missing_year_end = requested_end.year if pd.isna(complete_start_ts) else int(complete_start_ts.year) - 1
+    missing_years = (
+        list(range(required_start.year, missing_year_end + 1))
+        if missing_year_end >= required_start.year and not full_history_available
+        else []
+    )
+    blocker_counts: dict[str, int] = {}
+    for row in source_audit.to_dict("records") if not source_audit.empty else []:
+        statuses = [str(row.get("status", ""))]
+        statuses.extend(str(row.get("chunk_statuses", "")).split(","))
+        for status in statuses:
+            status = status.strip()
+            if not status:
+                continue
+            if status.startswith("blocked_") or status in {"ok_partial_provider_rate_limit"}:
+                blocker_counts[status] = blocker_counts.get(status, 0) + 1
+
+    if "blocked_missing_api_key" in blocker_counts:
+        next_action = "set_polygon_api_key"
+    elif "blocked_provider_history" in blocker_counts:
+        next_action = "upgrade_polygon_history_plan_or_load_alternate_15min_source"
+    elif "blocked_provider_rate_limit" in blocker_counts or "ok_partial_provider_rate_limit" in blocker_counts:
+        next_action = "rerun_with_backoff_or_paid_quota_window"
+    elif full_history_available:
+        next_action = "none"
+    else:
+        next_action = "load_alternate_15min_source_or_extend_cache"
+
+    return {
+        "requested_start": spec.start,
+        "requested_end": spec.end,
+        "full_walk_forward_start": spec.full_walk_forward_start,
+        "earliest_any_symbol_regular_session": earliest_any,
+        "latest_any_symbol_regular_session": latest_any,
+        "earliest_complete_symbol_regular_session": earliest_complete,
+        "latest_complete_symbol_regular_session": latest_complete,
+        "full_walk_forward_history_available": full_history_available,
+        "missing_required_history_years": missing_years,
+        "provider_blocker_status_counts": blocker_counts,
+        "next_data_action": next_action,
+    }
+
+
 def _data_status(
     spec: IntradayExternalContextDataSpec,
     *,
@@ -703,6 +784,7 @@ def _analysis_summary(
     available_symbols: list[str],
     missing_symbols: list[str],
 ) -> dict[str, Any]:
+    coverage_gap = _coverage_gap_analysis(spec, source_audit=source_audit, coverage_audit=coverage_audit)
     return {
         "source": "intraday_external_context_data_card",
         "data_status": data_status,
@@ -715,6 +797,7 @@ def _analysis_summary(
         "source_status_counts": source_audit["status"].value_counts().to_dict() if not source_audit.empty else {},
         "coverage_rows": int(len(coverage_audit)),
         "regular_session_rows": int(coverage_audit["regular_session_rows"].sum()) if not coverage_audit.empty else 0,
+        "coverage_gap_analysis": coverage_gap,
         "provider_manifest_status": manifest.get("status"),
         "provider_manifest_hash": manifest.get("hash", ""),
         "qlib_docs": QLIB_DOCS,
@@ -748,7 +831,10 @@ def _write_sidecars(
         json.dumps(analysis_summary, indent=2, sort_keys=True),
         encoding="utf-8",
     )
-    (spec.output_dir / sidecars["failure_modes"]).write_text(_failure_modes(data_status), encoding="utf-8")
+    (spec.output_dir / sidecars["failure_modes"]).write_text(
+        _failure_modes(data_status, coverage_gap_analysis=analysis_summary["coverage_gap_analysis"]),
+        encoding="utf-8",
+    )
     return sidecars
 
 
@@ -770,6 +856,7 @@ def _summary(
 ) -> dict[str, Any]:
     if data_status not in ALLOWED_DATA_STATUS:
         raise ValueError(f"unexpected external context data status: {data_status}")
+    coverage_gap = _coverage_gap_analysis(spec, source_audit=source_audit, coverage_audit=coverage_audit)
     return {
         "experiment": spec.experiment,
         "card_type": "intraday_external_context_data",
@@ -794,6 +881,7 @@ def _summary(
             "regular_session_rows": int(coverage_audit["regular_session_rows"].sum()) if not coverage_audit.empty else 0,
             "symbols_with_rows": available_symbols,
         },
+        "coverage_gap_analysis": coverage_gap,
         "qlib_docs": QLIB_DOCS,
         "qlib_native_api": QLIB_NATIVE_API,
         "recorder_id": recorder_id,
@@ -847,12 +935,17 @@ def _write_workflow_yaml(spec: IntradayExternalContextDataSpec) -> Path:
     return path
 
 
-def _failure_modes(data_status: str) -> str:
+def _failure_modes(data_status: str, *, coverage_gap_analysis: dict[str, Any] | None = None) -> str:
+    coverage_gap_analysis = coverage_gap_analysis or {}
     return "\n".join(
         [
             "# Failure Modes",
             "",
             f"- data_status: {data_status}",
+            f"- earliest_complete_symbol_regular_session: {coverage_gap_analysis.get('earliest_complete_symbol_regular_session', '')}",
+            f"- missing_required_history_years: {coverage_gap_analysis.get('missing_required_history_years', [])}",
+            f"- provider_blocker_status_counts: {coverage_gap_analysis.get('provider_blocker_status_counts', {})}",
+            f"- next_data_action: {coverage_gap_analysis.get('next_data_action', '')}",
             "- blocked_missing_api_key: POLYGON_API_KEY was absent; no external minute context can be trusted.",
             "- blocked_provider_rate_limit: provider throttled the request; rerun with backoff or a paid quota window.",
             "- blocked_provider_history: provider plan did not authorize the requested range or symbol.",
@@ -871,6 +964,8 @@ def _conclusion(summary: dict[str, Any]) -> str:
             "- 做了什么：建立外部 15m 上下文数据卡，审计 QQQ/SMH/SOXX 与 NVDA/AVGO/AMD/TSM/ASML 是否可进入 qlib provider。",
             f"- 数据状态：{summary['data_status']}；可用={summary['available_symbols']}；缺失={summary['missing_symbols']}。",
             f"- 覆盖范围：请求 {summary['requested_range'][0]} 到 {summary['requested_range'][1]}，完整 walk-forward 需要 {summary['full_walk_forward_required_range'][0]} 到 {summary['full_walk_forward_required_range'][1]}。",
+            f"- 覆盖缺口：任一 symbol 最早 regular bar={summary['coverage_gap_analysis']['earliest_any_symbol_regular_session']}；全 symbol 完整 regular 起点={summary['coverage_gap_analysis']['earliest_complete_symbol_regular_session']}；缺失年份={summary['coverage_gap_analysis']['missing_required_history_years']}。",
+            f"- provider 阻塞：{summary['coverage_gap_analysis']['provider_blocker_status_counts']}；下一步={summary['coverage_gap_analysis']['next_data_action']}。",
             "- 用途：这张卡只解决外部 15m 上下文数据和缺口审计，不直接证明日内模型可晋升。",
             "- 风险：Polygon 权限、历史窗口和限流会影响可重复性；缺失 symbol 不会被空值因子伪装成 breadth。",
             f"- qlib recorder：{summary['recorder_id']}",

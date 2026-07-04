@@ -1236,6 +1236,18 @@ def test_intraday_external_context_data_card_records_requested_symbols_and_fail_
     coverage_audit = pd.read_csv(card / summary["sidecars"]["coverage_audit"])
     assert set(coverage_audit["symbol"]).issubset(requested_symbols)
     assert {"coverage_start", "coverage_end", "regular_session_rows"}.issubset(coverage_audit.columns)
+    gap = summary["coverage_gap_analysis"]
+    assert gap["requested_start"] == "2019-01-02"
+    assert gap["requested_end"] == "2026-07-02"
+    assert gap["full_walk_forward_history_available"] is False
+    assert gap["earliest_any_symbol_regular_session"] <= gap["earliest_complete_symbol_regular_session"]
+    assert gap["earliest_complete_symbol_regular_session"] > "2019-01-02"
+    assert 2019 in gap["missing_required_history_years"]
+    if summary["data_status"] == "ok_partial_insufficient_for_full_walk_forward":
+        assert "blocked_provider_history" in gap["provider_blocker_status_counts"]
+        assert gap["next_data_action"] == "upgrade_polygon_history_plan_or_load_alternate_15min_source"
+    analysis_summary = json.loads((card / summary["sidecars"]["analysis_summary"]).read_text(encoding="utf-8"))
+    assert analysis_summary["coverage_gap_analysis"] == gap
 
     if summary["provider_uri"]:
         provider_uri = Path(summary["provider_uri"])

@@ -9,6 +9,30 @@
     "SOXX",
     "TSM"
   ],
+  "coverage_gap_analysis": {
+    "earliest_any_symbol_regular_session": "2024-07-05 09:45:00",
+    "earliest_complete_symbol_regular_session": "2025-01-02 09:45:00",
+    "full_walk_forward_history_available": false,
+    "full_walk_forward_start": "2019-01-02",
+    "latest_any_symbol_regular_session": "2026-07-02 16:00:00",
+    "latest_complete_symbol_regular_session": "2026-07-02 16:00:00",
+    "missing_required_history_years": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "next_data_action": "upgrade_polygon_history_plan_or_load_alternate_15min_source",
+    "provider_blocker_status_counts": {
+      "blocked_no_rows": 1,
+      "blocked_provider_history": 4,
+      "blocked_provider_rate_limit": 8
+    },
+    "requested_end": "2026-07-02",
+    "requested_start": "2019-01-02"
+  },
   "coverage_rows": 8,
   "data_status": "ok_partial_insufficient_for_full_walk_forward",
   "full_walk_forward_required_range": [
