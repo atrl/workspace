@@ -123,6 +123,88 @@ def test_simulate_5min_risk_sleeve_executes_on_next_5min_open_after_trigger():
     assert by_variant.loc["risk_exit_full_5m", "skipped_reason"] is None
 
 
+def test_simulate_5min_risk_sleeve_triggers_on_5min_context_stress():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "walk_forward_fold": "wf_2026",
+                "target_position": 1.0,
+                "strategy_return": 0.10,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 110.0},
+        ]
+    )
+    bars_5min = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05 09:35:00",
+                "date": "2026-01-05",
+                "open": 100.0,
+                "close": 99.6,
+                "soxl_vwap_dist": -0.002,
+                "soxx_cum_ret_from_open": -0.001,
+                "soxl_rv_6": 0.004,
+                "soxl_minus_3x_soxx_ret": 0.001,
+            },
+            {
+                "datetime": "2026-01-05 09:40:00",
+                "date": "2026-01-05",
+                "open": 99.5,
+                "close": 98.8,
+                "soxl_vwap_dist": -0.014,
+                "soxx_cum_ret_from_open": -0.008,
+                "soxl_rv_6": 0.016,
+                "soxl_minus_3x_soxx_ret": -0.006,
+            },
+            {
+                "datetime": "2026-01-05 09:45:00",
+                "date": "2026-01-05",
+                "open": 98.6,
+                "close": 98.7,
+                "soxl_vwap_dist": -0.011,
+                "soxx_cum_ret_from_open": -0.006,
+                "soxl_rv_6": 0.014,
+                "soxl_minus_3x_soxx_ret": -0.004,
+            },
+        ]
+    )
+
+    rows = simulate_5min_risk_sleeve(
+        daily,
+        daily_prices=daily_prices,
+        bars_5min=bars_5min,
+        drawdown_threshold=-0.05,
+        trigger_mode="context_stress_or_drawdown",
+        context_thresholds={
+            "soxl_vwap_dist": -0.01,
+            "soxx_cum_ret_from_open": -0.005,
+            "soxl_rv_6": 0.012,
+            "soxl_minus_3x_soxx_ret": -0.005,
+        },
+        execution_delay_bars=1,
+        execution_price="open",
+        cost_bps=0.0,
+    )
+
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["risk_exit_full_5m", "trigger_time"] == "2026-01-05 09:40:00"
+    assert by_variant.loc["risk_exit_full_5m", "exit_time"] == "2026-01-05 09:45:00"
+    assert by_variant.loc["risk_exit_full_5m", "trigger_drawdown_from_entry"] == pytest.approx(-0.012)
+    assert by_variant.loc["risk_exit_full_5m", "risk_execution_price"] == pytest.approx(98.6)
+    assert by_variant.loc["risk_exit_full_5m", "strategy_return"] == pytest.approx(-0.014)
+    assert by_variant.loc["risk_exit_full_5m", "context_trigger_source"] == "manual"
+    assert by_variant.loc["risk_exit_full_5m", "context_soxl_vwap_dist"] == pytest.approx(-0.014)
+    assert bool(by_variant.loc["risk_exit_full_5m", "risk_triggered"]) is True
+
+
 def test_build_intraday_optimization_plan_prefers_local_fallback_when_external_history_blocked():
     plan = build_intraday_optimization_plan(
         selected_model={

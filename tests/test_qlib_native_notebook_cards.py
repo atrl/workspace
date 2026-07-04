@@ -1185,6 +1185,13 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     )
     assert summary["execution_overlay"]["risk_sleeve_execution_delay_bars"] == 1
     assert summary["execution_overlay"]["risk_sleeve_execution_price"] == "next_5min_open"
+    assert "context_stress_or_drawdown" in summary["execution_overlay"]["trigger_modes"]
+    assert summary["execution_overlay"]["context_trigger_features"] == [
+        "soxl_vwap_dist",
+        "soxx_cum_ret_from_open",
+        "soxl_rv_6",
+        "soxl_minus_3x_soxx_ret",
+    ]
     assert summary["execution_overlay"]["variants"] == [
         "baseline_next_open",
         "risk_exit_full_5m",
@@ -1195,6 +1202,9 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert summary["model_selection"]["report_segment"] == "test"
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
+    assert summary["model_selection"]["uses_5min_context_trigger_candidates"] is True
+    assert summary["model_selection"]["context_policy_candidate_rows"] > 0
+    assert summary["model_selection"]["selected_context_trigger_years"] == [2023]
     assert summary["walk_forward"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
     assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
     assert summary["walk_forward"]["selection_uses_test_segment"] is False
@@ -1236,6 +1246,10 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert set(selected_costs["variant"]).issubset(
         {"risk_exit_full_5m", "risk_reduce_half_5m", "risk_reduce_quarter_5m"}
     )
+    analysis_summary = json.loads((card / summary["sidecars"]["analysis_summary"]).read_text(encoding="utf-8"))
+    context_diagnostics = analysis_summary["risk_sleeve_context_candidate_diagnostics"]
+    assert context_diagnostics["context_policy_candidate_rows"] > 0
+    assert context_diagnostics["selected_context_trigger_years"] == [2023]
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "five_min_risk_sleeve" / "intraday_fold_predictions.csv").exists()

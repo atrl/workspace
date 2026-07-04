@@ -24,6 +24,7 @@ execution:
   risk_sleeve_timing: daily_next_open_entry_then_5min_close_trigger_next_5min_open_reduce_or_exit
   risk_sleeve_execution_delay_bars: 1
   risk_sleeve_execution_price: next_5min_open
+  context_trigger_features: ['soxl_vwap_dist', 'soxx_cum_ret_from_open', 'soxl_rv_6', 'soxl_minus_3x_soxx_ret']
   daily_entry_is_not_skipped: true
 walk_forward:
   policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T

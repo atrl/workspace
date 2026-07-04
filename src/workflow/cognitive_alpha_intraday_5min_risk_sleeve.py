@@ -51,10 +51,16 @@ from src.workflow.intraday_execution_label_model import LABEL_POLICY, MODEL_NAME
 EXPERIMENT = "cognitive_alpha_intraday_5min_risk_sleeve_v1"
 REQUIRED_COST_BPS = (20.0, 50.0)
 RISK_SLEEVE_VARIANTS = ("risk_exit_full_5m", "risk_reduce_half_5m", "risk_reduce_quarter_5m")
-TRIGGER_MODES = ("drawdown_only", "risk_score_or_drawdown")
+TRIGGER_MODES = ("drawdown_only", "risk_score_or_drawdown", "context_stress_or_drawdown")
 RISK_SLEEVE_EXECUTION_DELAY_BARS = 1
 RISK_SLEEVE_EXECUTION_PRICE = "open"
 RISK_SLEEVE_EXECUTION_TIMING = "daily_next_open_entry_then_5min_close_trigger_next_5min_open_reduce_or_exit"
+CONTEXT_THRESHOLD_COLUMNS = (
+    "soxl_vwap_dist",
+    "soxx_cum_ret_from_open",
+    "soxl_rv_6",
+    "soxl_minus_3x_soxx_ret",
+)
 
 
 @dataclass(frozen=True)
@@ -117,14 +123,23 @@ def simulate_5min_risk_sleeve(
     gate_col: str = PREDICTION_AVAILABLE_GATE_COL,
     execution_delay_bars: int = 0,
     execution_price: str = "close",
+    context_thresholds: dict[str, float] | None = None,
+    context_trigger_source: str = "manual",
 ) -> pd.DataFrame:
-    if trigger_mode not in {"drawdown_only", "risk_score_only", "risk_score_or_drawdown", "risk_score_and_drawdown"}:
+    if trigger_mode not in {
+        "drawdown_only",
+        "risk_score_only",
+        "risk_score_or_drawdown",
+        "risk_score_and_drawdown",
+        "context_stress_or_drawdown",
+    }:
         raise ValueError(f"unsupported 5min risk trigger mode: {trigger_mode}")
     execution_delay_bars = int(execution_delay_bars)
     if execution_delay_bars < 0:
         raise ValueError("execution_delay_bars must be non-negative")
     if execution_price not in {"open", "close"}:
         raise ValueError(f"unsupported 5min execution price: {execution_price}")
+    context_thresholds = _normalize_context_thresholds(context_thresholds)
     daily_frame = _normalize_daily_positions(daily)
     prices = _normalize_daily_prices(daily_prices)
     bars = _normalize_5min_bars(bars_5min, intraday_scores=intraday_scores, risk_score_col=risk_score_col, gate_col=gate_col)
@@ -167,6 +182,8 @@ def simulate_5min_risk_sleeve(
             "drawdown_threshold": float(drawdown_threshold),
             "risk_score_threshold": np.nan if risk_score_threshold is None else float(risk_score_threshold),
             "trigger_mode": trigger_mode,
+            "context_trigger_source": context_trigger_source if trigger_mode == "context_stress_or_drawdown" else "disabled",
+            **_context_threshold_row(context_thresholds),
             "risk_sleeve_execution_delay_bars": execution_delay_bars,
             "risk_sleeve_execution_price": execution_price,
         }
@@ -204,6 +221,7 @@ def simulate_5min_risk_sleeve(
                 "trigger_price": np.nan,
                 "trigger_drawdown_from_entry": np.nan,
                 "trigger_risk_score": np.nan,
+                **_empty_context_trigger_row(),
                 "risk_execution_time": None,
                 "risk_execution_price": np.nan,
                 "risk_triggered": False,
@@ -240,6 +258,7 @@ def simulate_5min_risk_sleeve(
             trigger_mode=trigger_mode,
             risk_score_col=risk_score_col,
             gate_col=gate_col,
+            context_thresholds=context_thresholds,
         )
         if trigger is None:
             rows.extend(
@@ -261,6 +280,7 @@ def simulate_5min_risk_sleeve(
         trigger_price = float(trigger["close"])
         trigger_pnl = target * (trigger_price / entry_open - 1.0)
         trigger_score = float(trigger[risk_score_col]) if pd.notna(trigger.get(risk_score_col)) else np.nan
+        context_trigger_row = _context_trigger_row(trigger, context_thresholds=context_thresholds)
         execution_bar = _resolve_5min_execution_bar(
             entry_bars,
             trigger=trigger,
@@ -314,6 +334,7 @@ def simulate_5min_risk_sleeve(
                     "trigger_price": trigger_price,
                     "trigger_drawdown_from_entry": trigger_pnl,
                     "trigger_risk_score": trigger_score,
+                    **context_trigger_row,
                     "risk_execution_time": _timestamp_or_none(risk_execution_time),
                     "risk_execution_price": risk_execution_price,
                     "risk_triggered": True,
@@ -335,6 +356,7 @@ def simulate_5min_risk_sleeve(
                     "trigger_price": trigger_price,
                     "trigger_drawdown_from_entry": trigger_pnl,
                     "trigger_risk_score": trigger_score,
+                    **context_trigger_row,
                     "risk_execution_time": _timestamp_or_none(risk_execution_time),
                     "risk_execution_price": risk_execution_price,
                     "risk_triggered": True,
@@ -356,6 +378,7 @@ def simulate_5min_risk_sleeve(
                     "trigger_price": trigger_price,
                     "trigger_drawdown_from_entry": trigger_pnl,
                     "trigger_risk_score": trigger_score,
+                    **context_trigger_row,
                     "risk_execution_time": _timestamp_or_none(risk_execution_time),
                     "risk_execution_price": risk_execution_price,
                     "risk_triggered": True,
@@ -403,6 +426,8 @@ def evaluate_5min_risk_sleeve_candidates(
                 gate_col=gate_col,
                 execution_delay_bars=execution_delay_bars,
                 execution_price=execution_price,
+                context_thresholds=_context_thresholds_from_policy(policy),
+                context_trigger_source=str(policy.get("context_trigger_source", "disabled")),
             ).assign(cost_bps=float(cost_bps))
             for cost_bps in cost_bps_values
         ]
@@ -578,6 +603,10 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
     )
     selected_model = _selected_model_payload(annual_walk_forward)
     walk_forward_summary = _walk_forward_summary(annual_walk_forward)
+    context_candidate_diagnostics = _risk_sleeve_context_candidate_diagnostics(
+        all_policy_selection=all_policy_selection,
+        annual_walk_forward=annual_walk_forward,
+    )
     analysis_summary = _analysis_summary(
         spec,
         daily_summary=daily_summary,
@@ -594,6 +623,7 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
         risk_analysis=risk_analysis,
         selected_model=selected_model,
         walk_forward_summary=walk_forward_summary,
+        context_candidate_diagnostics=context_candidate_diagnostics,
     )
     sidecars = _write_sidecars(
         spec,
@@ -629,6 +659,7 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
                 required_cost_bps="20.0,50.0",
                 risk_sleeve_execution_delay_bars=RISK_SLEEVE_EXECUTION_DELAY_BARS,
                 risk_sleeve_execution_price=RISK_SLEEVE_EXECUTION_PRICE,
+                risk_sleeve_context_trigger_features=",".join(CONTEXT_THRESHOLD_COLUMNS),
                 walk_forward_policy=walk_forward_summary["policy"],
             )
             R.log_metrics(
@@ -695,6 +726,7 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
             "daily_entry_is_not_skipped": True,
             "variants": ["baseline_next_open", *RISK_SLEEVE_VARIANTS],
             "trigger_modes": list(TRIGGER_MODES),
+            "context_trigger_features": list(CONTEXT_THRESHOLD_COLUMNS),
         },
         "model_selection": {
             "models": MODEL_NAMES,
@@ -704,6 +736,9 @@ def run_cognitive_alpha_intraday_5min_risk_sleeve_card(
             "required_cost_bps": [float(value) for value in spec.required_cost_bps],
             "return_retention_target_pct": [85.0, 95.0],
             "max_drawdown_floor_pct": -18.0,
+            "uses_5min_context_trigger_candidates": True,
+            "context_policy_candidate_rows": context_candidate_diagnostics["context_policy_candidate_rows"],
+            "selected_context_trigger_years": context_candidate_diagnostics["selected_context_trigger_years"],
             "policy_candidate_rows": int(len(all_policy_selection)),
             "selected_policy_cost_rows": int(len(selected_costs)),
         },
@@ -737,7 +772,15 @@ def _normalize_5min_bars(
         bars["date"] = bars["datetime"].dt.date.astype(str)
     else:
         bars["date"] = pd.to_datetime(bars["date"]).dt.date.astype(str)
-    for column in ["open", "high", "low", "close", "volume", risk_score_col]:
+    for column in [
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        risk_score_col,
+        *CONTEXT_THRESHOLD_COLUMNS,
+    ]:
         if column in bars.columns:
             bars[column] = pd.to_numeric(bars[column], errors="coerce")
     if intraday_scores is not None and not intraday_scores.empty:
@@ -783,6 +826,7 @@ def _first_5min_trigger(
     trigger_mode: str,
     risk_score_col: str,
     gate_col: str,
+    context_thresholds: dict[str, float] | None,
 ) -> pd.Series | None:
     frame = bars.copy()
     frame["pnl_from_entry"] = float(target) * (pd.to_numeric(frame["close"], errors="coerce") / float(entry_open) - 1.0)
@@ -790,18 +834,82 @@ def _first_5min_trigger(
     score = pd.to_numeric(frame.get(risk_score_col), errors="coerce")
     score_hit = frame.get(gate_col, pd.Series(False, index=frame.index)).fillna(False).astype(bool)
     score_hit &= score.le(float(risk_score_threshold)) if risk_score_threshold is not None else False
+    context_hit = _context_stress_mask(frame, context_thresholds=context_thresholds)
     if trigger_mode == "drawdown_only":
         trigger_mask = drawdown_hit
     elif trigger_mode == "risk_score_only":
         trigger_mask = score_hit
     elif trigger_mode == "risk_score_or_drawdown":
         trigger_mask = score_hit | drawdown_hit
+    elif trigger_mode == "context_stress_or_drawdown":
+        trigger_mask = context_hit | drawdown_hit
     else:
         trigger_mask = score_hit & drawdown_hit
     trigger_rows = frame.loc[trigger_mask & frame["close"].notna()]
     if trigger_rows.empty:
         return None
     return trigger_rows.iloc[0]
+
+
+def _normalize_context_thresholds(context_thresholds: dict[str, float] | None) -> dict[str, float]:
+    if not context_thresholds:
+        return {}
+    normalized: dict[str, float] = {}
+    for column in CONTEXT_THRESHOLD_COLUMNS:
+        value = context_thresholds.get(column)
+        if value is not None and pd.notna(value):
+            normalized[column] = float(value)
+    return normalized
+
+
+def _context_stress_mask(
+    frame: pd.DataFrame,
+    *,
+    context_thresholds: dict[str, float] | None,
+) -> pd.Series:
+    thresholds = _normalize_context_thresholds(context_thresholds)
+    if "soxl_vwap_dist" not in thresholds or "soxl_vwap_dist" not in frame.columns:
+        return pd.Series(False, index=frame.index)
+    below_vwap = pd.to_numeric(frame["soxl_vwap_dist"], errors="coerce").le(thresholds["soxl_vwap_dist"])
+    stress_masks: list[pd.Series] = []
+    for column in ["soxx_cum_ret_from_open", "soxl_minus_3x_soxx_ret"]:
+        if column in thresholds and column in frame.columns:
+            stress_masks.append(pd.to_numeric(frame[column], errors="coerce").le(thresholds[column]))
+    if "soxl_rv_6" in thresholds and "soxl_rv_6" in frame.columns:
+        stress_masks.append(pd.to_numeric(frame["soxl_rv_6"], errors="coerce").ge(thresholds["soxl_rv_6"]))
+    if not stress_masks:
+        return pd.Series(False, index=frame.index)
+    stress = stress_masks[0].fillna(False)
+    for mask in stress_masks[1:]:
+        stress = stress | mask.fillna(False)
+    return below_vwap.fillna(False) & stress
+
+
+def _context_threshold_row(context_thresholds: dict[str, float]) -> dict[str, Any]:
+    return {f"context_{column}_threshold": context_thresholds.get(column, np.nan) for column in CONTEXT_THRESHOLD_COLUMNS}
+
+
+def _empty_context_trigger_row() -> dict[str, Any]:
+    row = {f"context_{column}": np.nan for column in CONTEXT_THRESHOLD_COLUMNS}
+    row["context_stress_hit"] = False
+    return row
+
+
+def _context_trigger_row(trigger: pd.Series, *, context_thresholds: dict[str, float]) -> dict[str, Any]:
+    row = {f"context_{column}": float(trigger[column]) if column in trigger and pd.notna(trigger[column]) else np.nan for column in CONTEXT_THRESHOLD_COLUMNS}
+    frame = pd.DataFrame([trigger.to_dict()])
+    row["context_stress_hit"] = bool(_context_stress_mask(frame, context_thresholds=context_thresholds).iloc[0])
+    return row
+
+
+def _context_thresholds_from_policy(policy: dict[str, Any] | pd.Series) -> dict[str, float]:
+    data = policy.to_dict() if isinstance(policy, pd.Series) else dict(policy)
+    thresholds: dict[str, float] = {}
+    for column in CONTEXT_THRESHOLD_COLUMNS:
+        value = data.get(f"context_{column}_threshold")
+        if value is not None and pd.notna(value):
+            thresholds[column] = float(value)
+    return thresholds
 
 
 def _resolve_5min_execution_bar(
@@ -839,6 +947,7 @@ def _zero_5min_rows(common: dict[str, Any]) -> list[dict[str, Any]]:
                 "trigger_price": np.nan,
                 "trigger_drawdown_from_entry": np.nan,
                 "trigger_risk_score": np.nan,
+                **_empty_context_trigger_row(),
                 "risk_execution_time": None,
                 "risk_execution_price": np.nan,
                 "risk_triggered": False,
@@ -909,6 +1018,7 @@ def _no_trigger_variant_rows(
                 "trigger_price": np.nan,
                 "trigger_drawdown_from_entry": np.nan,
                 "trigger_risk_score": np.nan,
+                **_empty_context_trigger_row(),
                 "risk_execution_time": None,
                 "risk_execution_price": np.nan,
                 "risk_triggered": False,
@@ -936,6 +1046,7 @@ def _validation_policy_grid(
         validation = daily.copy()
     drawdowns: list[float] = []
     scores: list[float] = []
+    context_values: dict[str, list[float]] = {column: [] for column in CONTEXT_THRESHOLD_COLUMNS}
     prices = _normalize_daily_prices(daily_prices)
     price_index = pd.Index(prices["datetime"])
     bars_by_date = {
@@ -963,6 +1074,9 @@ def _validation_policy_grid(
             drawdowns.append(float(pnl.min()))
         valid_scores = pd.to_numeric(entry_bars.loc[entry_bars[gate_col].fillna(False).astype(bool), risk_score_col], errors="coerce").dropna()
         scores.extend(float(value) for value in valid_scores.tolist())
+        for column in CONTEXT_THRESHOLD_COLUMNS:
+            if column in entry_bars.columns:
+                context_values[column].extend(float(value) for value in pd.to_numeric(entry_bars[column], errors="coerce").dropna().tolist())
     drawdown_series = pd.Series(drawdowns, dtype=float).dropna()
     score_series = pd.Series(scores, dtype=float).dropna()
     drawdown_thresholds = sorted(
@@ -978,9 +1092,10 @@ def _validation_policy_grid(
         risk_thresholds.extend(
             sorted({float(value) for value in score_series.quantile([0.10, 0.35]).dropna().tolist()})
         )
+    context_candidates = _validation_context_threshold_candidates(context_values)
     policies: list[dict[str, Any]] = []
     for variant in RISK_SLEEVE_VARIANTS:
-        for trigger_mode in TRIGGER_MODES:
+        for trigger_mode in ("drawdown_only", "risk_score_or_drawdown"):
             for drawdown_threshold in drawdown_thresholds:
                 for risk_threshold in risk_thresholds:
                     if trigger_mode == "drawdown_only" and risk_threshold is not None:
@@ -1000,12 +1115,100 @@ def _validation_policy_grid(
                             "drawdown_threshold_source": "validation_quantile",
                             "risk_score_threshold": risk_threshold,
                             "risk_score_threshold_source": "disabled" if risk_threshold is None else "validation_quantile",
+                            "context_trigger_source": "disabled",
+                            **_context_threshold_row({}),
                             "selection_segment": "validation",
                             "report_segment": "test",
                             "selection_uses_test_segment": False,
                         }
                     )
+        for drawdown_threshold in drawdown_thresholds:
+            for context_candidate in context_candidates:
+                policy_id = (
+                    f"{variant}_context_stress_or_drawdown_dd_{drawdown_threshold:.5f}_"
+                    f"ctx_{context_candidate['context_trigger_source']}"
+                )
+                policies.append(
+                    {
+                        "policy_id": policy_id,
+                        "variant": variant,
+                        "trigger_mode": "context_stress_or_drawdown",
+                        "drawdown_threshold": float(drawdown_threshold),
+                        "drawdown_threshold_source": "validation_quantile",
+                        "risk_score_threshold": None,
+                        "risk_score_threshold_source": "disabled",
+                        "selection_segment": "validation",
+                        "report_segment": "test",
+                        "selection_uses_test_segment": False,
+                        **context_candidate,
+                    }
+                )
     return policies
+
+
+def _validation_context_threshold_candidates(context_values: dict[str, list[float]]) -> list[dict[str, Any]]:
+    series = {column: pd.Series(values, dtype=float).dropna() for column, values in context_values.items()}
+
+    def lower_threshold(column: str, quantile: float, fallback: float, cap: float) -> float:
+        values = series.get(column, pd.Series(dtype=float))
+        if values.empty:
+            return float(fallback)
+        return float(min(values.quantile(quantile), cap))
+
+    def upper_threshold(column: str, quantile: float, fallback: float, floor: float) -> float:
+        values = series.get(column, pd.Series(dtype=float))
+        if values.empty:
+            return float(fallback)
+        return float(max(values.quantile(quantile), floor))
+
+    vwap = lower_threshold("soxl_vwap_dist", 0.25, -0.005, -0.001)
+    soxx_weak = lower_threshold("soxx_cum_ret_from_open", 0.25, -0.004, -0.001)
+    dislocation = lower_threshold("soxl_minus_3x_soxx_ret", 0.25, -0.002, -0.0005)
+    rv_expansion = upper_threshold("soxl_rv_6", 0.75, 0.006, 0.001)
+    candidates = [
+        {
+            "context_trigger_source": "vwap_soxx_weak",
+            **_context_threshold_row(
+                {
+                    "soxl_vwap_dist": vwap,
+                    "soxx_cum_ret_from_open": soxx_weak,
+                }
+            ),
+        },
+        {
+            "context_trigger_source": "vwap_vol_expansion",
+            **_context_threshold_row(
+                {
+                    "soxl_vwap_dist": vwap,
+                    "soxl_rv_6": rv_expansion,
+                }
+            ),
+        },
+        {
+            "context_trigger_source": "vwap_leverage_dislocation",
+            **_context_threshold_row(
+                {
+                    "soxl_vwap_dist": vwap,
+                    "soxl_minus_3x_soxx_ret": dislocation,
+                }
+            ),
+        },
+        {
+            "context_trigger_source": "vwap_multi_stress",
+            **_context_threshold_row(
+                {
+                    "soxl_vwap_dist": vwap,
+                    "soxx_cum_ret_from_open": soxx_weak,
+                    "soxl_rv_6": rv_expansion,
+                    "soxl_minus_3x_soxx_ret": dislocation,
+                }
+            ),
+        },
+    ]
+    unique: dict[str, dict[str, Any]] = {}
+    for candidate in candidates:
+        unique[str(candidate["context_trigger_source"])] = candidate
+    return list(unique.values())
 
 
 def _policy_metric_rows(policy: dict[str, Any], *, metrics: pd.DataFrame, risk: pd.DataFrame) -> list[dict[str, Any]]:
@@ -1350,6 +1553,8 @@ def _simulate_selected_trades(
             cost_bps=float(cost_bps),
             execution_delay_bars=RISK_SLEEVE_EXECUTION_DELAY_BARS,
             execution_price=RISK_SLEEVE_EXECUTION_PRICE,
+            context_thresholds=_context_thresholds_from_policy(selected),
+            context_trigger_source=str(selected.get("context_trigger_source", "disabled")),
         ).assign(cost_bps=float(cost_bps))
         selected_variant = str(selected.get("variant"))
         frames.append(trades.loc[trades["variant"].isin(["baseline_next_open", selected_variant])].copy())
@@ -1390,6 +1595,8 @@ def _annual_fold_row(
         "trigger_mode": selected.get("trigger_mode"),
         "drawdown_threshold": selected.get("drawdown_threshold"),
         "risk_score_threshold": selected.get("risk_score_threshold"),
+        "context_trigger_source": selected.get("context_trigger_source", "disabled"),
+        **_context_threshold_row(_context_thresholds_from_policy(selected)),
         "validation_passes_target": bool(selected.get("validation_passes_target", False)),
         "test_passes_target": bool(selected.get("test_passes_target", False)),
         "intraday_prediction_rows": int(intraday_prediction_rows),
@@ -1603,6 +1810,7 @@ def _analysis_summary(
     risk_analysis: pd.DataFrame,
     selected_model: dict[str, Any],
     walk_forward_summary: dict[str, Any],
+    context_candidate_diagnostics: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "source": "daily_open2open_model_plus_local_15m_lgb_xgb_scores_plus_5min_replay",
@@ -1612,6 +1820,7 @@ def _analysis_summary(
             "do_not_replace_daily_model_with_intraday_entry_gate",
             "preserve_daily_next_open_entry_and_use_5min_only_as_risk_sleeve",
             "trigger_on_5min_close_then_execute_risk_action_on_next_5min_open",
+            "add_validation_selected_5min_context_stress_candidates",
             "select_drawdown_and_risk_score_thresholds_from_validation_year_only",
             "report_test_year_without_threshold_refit",
         ],
@@ -1639,6 +1848,7 @@ def _analysis_summary(
             "risk_sleeve_execution_price": f"next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
             "trigger_price_role": "signal_only_5min_close",
             "execution_price_role": "risk_reduce_or_exit_fill_price",
+            "context_trigger_features": list(CONTEXT_THRESHOLD_COLUMNS),
         },
         "label_policy": label_audit,
         "feature_set": {
@@ -1651,6 +1861,7 @@ def _analysis_summary(
                 "SOXL minus 3x SOXX 5min dislocation",
                 "5min realized volatility/trend quality replay",
             ],
+            "five_min_context_trigger_features": list(CONTEXT_THRESHOLD_COLUMNS),
             "external_context_required": False,
         },
         "source_daily_model": {
@@ -1666,8 +1877,81 @@ def _analysis_summary(
         "annual_walk_forward_rows": int(len(annual_walk_forward)),
         "selected_policy_cost_rows": int(len(selected_policy_cost_sensitivity)),
         "risk_analysis_rows": int(len(risk_analysis)),
+        "risk_sleeve_context_candidate_diagnostics": context_candidate_diagnostics,
         "selected_model": selected_model,
         "walk_forward": walk_forward_summary,
+    }
+
+
+def _risk_sleeve_context_candidate_diagnostics(
+    *,
+    all_policy_selection: pd.DataFrame,
+    annual_walk_forward: pd.DataFrame,
+) -> dict[str, Any]:
+    if all_policy_selection.empty:
+        return {
+            "context_policy_candidate_rows": 0,
+            "selected_context_trigger_years": [],
+            "trigger_mode_year_summary": [],
+            "best_context_validation_rows": [],
+        }
+    frame = all_policy_selection.copy()
+    context = frame.loc[frame["trigger_mode"].astype(str).eq("context_stress_or_drawdown")].copy()
+    selected_context_years = (
+        sorted(
+            int(value)
+            for value in annual_walk_forward.loc[
+                annual_walk_forward.get("trigger_mode", pd.Series(dtype=object)).astype(str).eq("context_stress_or_drawdown"),
+                "test_year",
+            ].dropna().tolist()
+        )
+        if not annual_walk_forward.empty
+        else []
+    )
+    trigger_rows: list[dict[str, Any]] = []
+    for (test_year, trigger_mode), group in frame.groupby(["test_year", "trigger_mode"], sort=True):
+        trigger_rows.append(
+            {
+                "test_year": int(test_year),
+                "trigger_mode": str(trigger_mode),
+                "candidate_rows": int(len(group)),
+                "validation_pass_count": int(group["passes_validation_target"].astype(bool).sum()),
+                "test_pass_count": int(group["passes_test_target"].astype(bool).sum()),
+                "best_validation_retention_pct": float(pd.to_numeric(group["validation_return_retention_pct"], errors="coerce").max()),
+                "best_validation_max_drawdown_pct": float(pd.to_numeric(group["validation_max_drawdown_pct"], errors="coerce").max()),
+            }
+        )
+    best_context_rows: list[dict[str, Any]] = []
+    if not context.empty:
+        sort_columns = [
+            "test_year",
+            "validation_return_retention_score",
+            "validation_max_drawdown_pct",
+            "selection_score",
+        ]
+        ranked = context.sort_values(sort_columns, ascending=[True, False, False, False])
+        for _, row in ranked.groupby("test_year", sort=True).head(1).iterrows():
+            best_context_rows.append(
+                {
+                    "test_year": int(row["test_year"]),
+                    "variant": str(row["variant"]),
+                    "context_trigger_source": str(row.get("context_trigger_source", "unknown")),
+                    "cost_bps": float(row["cost_bps"]),
+                    "validation_return_retention_pct": float(row["validation_return_retention_pct"]),
+                    "validation_max_drawdown_pct": float(row["validation_max_drawdown_pct"]),
+                    "validation_open_buy_dump_period_reduction": float(row["validation_open_buy_dump_period_reduction"]),
+                    "validation_crash_period_reduction": float(row["validation_crash_period_reduction"]),
+                    "passes_validation_target": bool(row["passes_validation_target"]),
+                    "test_return_retention_pct": float(row["test_return_retention_pct"]),
+                    "test_max_drawdown_pct": float(row["test_max_drawdown_pct"]),
+                    "passes_test_target": bool(row["passes_test_target"]),
+                }
+            )
+    return {
+        "context_policy_candidate_rows": int(len(context)),
+        "selected_context_trigger_years": selected_context_years,
+        "trigger_mode_year_summary": _json_ready_records(pd.DataFrame(trigger_rows)),
+        "best_context_validation_rows": _json_ready_records(pd.DataFrame(best_context_rows)),
     }
 
 
@@ -1710,6 +1994,7 @@ def _write_sidecars(
         "- 本卡不是新的日内主 alpha；它保留日线 next-open 入场，只验证 5m 风控减仓/退出是否能减少买入后下杀。\n"
         "- 15m LGB/XGB/consensus 的 label 是 triple-barrier 1h/2h execution improvement，不等同于 open-to-open 收益预测。\n"
         "- 5m 阈值只从 validation 年份生成；若 test 年效果差，不能用 test 重新调阈值。\n"
+        "- 新增 5m context stress 候选只使用 SOXL/SOXX 本地 qlib bar 的 VWAP、SOXX 确认、波动扩张和杠杆偏离，不依赖外部成分股历史。\n"
         "- 风控 replay 已避免同一根 5m bar 收盘触发又按同一收盘成交；当前仍缺 bid/ask、盘口深度和真实成交容量，不能据此直接实盘。\n"
         "- 若 20/50bp 年度 retention、max drawdown 和风险降低不能同时过门槛，应继续作为诊断卡而非晋升。\n",
         encoding="utf-8",
@@ -1753,6 +2038,7 @@ def _write_workflow_yaml(
                 f"  risk_sleeve_timing: {RISK_SLEEVE_EXECUTION_TIMING}",
                 f"  risk_sleeve_execution_delay_bars: {RISK_SLEEVE_EXECUTION_DELAY_BARS}",
                 f"  risk_sleeve_execution_price: next_5min_{RISK_SLEEVE_EXECUTION_PRICE}",
+                f"  context_trigger_features: {list(CONTEXT_THRESHOLD_COLUMNS)}",
                 "  daily_entry_is_not_skipped: true",
                 "walk_forward:",
                 "  policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T",
@@ -1816,7 +2102,8 @@ def _write_conclusion(
     text = (
         "# 中文结论\n\n"
         "- 做了什么：新增 5m 日内风控 sleeve。日线 open-to-open 模型仍按 next-open 入场；"
-        "15m LGB/XGB/consensus triple-barrier 模型提供风险分数，5m qlib bar 在收盘触发后按下一根 5m 开盘做全平或半仓减仓 replay。\n"
+        "15m LGB/XGB/consensus triple-barrier 模型提供风险分数，5m qlib bar 在收盘触发后按下一根 5m 开盘做全平或半仓减仓 replay；"
+        "本轮新增 SOXL/SOXX 5m VWAP、SOXX 确认、波动扩张和杠杆偏离 context stress 候选。\n"
         "- 为什么日内模型没有超过日线模型：日线模型吃的是 open-to-open/隔夜/趋势段收益；"
         "日内模型学的是 1h/2h 执行改善。把它做入场 gate 会漏掉大趋势日，所以本卡改为保留入场、只控制买入后下杀。\n"
         f"- 年度 walk-forward：2023-2026 均按 train_to_T-2 / valid_T-1 / test_T；"
