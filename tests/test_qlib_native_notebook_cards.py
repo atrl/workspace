@@ -836,11 +836,16 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["source_intraday_model"]["signal_prob_col"] == "prob_lgb"
     assert summary["execution_overlay"]["overlay_signal_timing"] == "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open"
     assert summary["execution_overlay"]["intraday_overlays_hold_overnight"] is False
+    assert "delayed_signal_after_30m_risk_exit" in summary["execution_overlay"]["variants"]
+    assert "delayed_signal_after_60m_risk_exit" in summary["execution_overlay"]["variants"]
     assert summary["model_selection"]["selection_segment"] == "validation"
     assert summary["model_selection"]["report_segment"] == "test"
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
     assert summary["model_selection"]["max_skip_rate"] == 0.15
+    assert summary["model_selection"]["eligible_exit_policies"] == ["hold_to_next_open"]
+    assert summary["model_selection"]["exit_policy_candidate_counts"]["risk_exit"] > 0
+    assert summary["model_selection"]["risk_exit_validation_and_test_target_row_count"] > 0
     assert summary["model_selection"]["validation_and_test_target_row_count"] > 0
     assert summary["walk_forward"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
     assert summary["walk_forward"]["selection_uses_test_segment"] is False

@@ -196,6 +196,7 @@ def simulate_observable_delayed_signal_overlay(
     condition_operator: str,
     condition_threshold: float,
     signal_threshold: float,
+    risk_threshold: float | None = None,
     cost_bps: float = 0.0,
     prob_col: str = PROB_COL,
     gate_col: str = GATE_COL,
@@ -204,6 +205,8 @@ def simulate_observable_delayed_signal_overlay(
     prices = _normalize_daily_prices(daily_prices)
     bars = _normalize_intraday_bars(intraday, prob_col=prob_col, gate_col=gate_col)
     variant = f"delayed_signal_after_{int(observation_bars) * 15}m"
+    if risk_threshold is not None:
+        variant = f"{variant}_risk_exit"
 
     rows: list[dict[str, Any]] = []
     price_index = pd.Index(prices["datetime"])
@@ -328,15 +331,28 @@ def simulate_observable_delayed_signal_overlay(
 
         signal = signal_candidates.iloc[0]
         entry_price = float(signal["next_open"])
-        gross_return = target * (exit_open / entry_price - 1.0)
+        selected_exit_time = pd.Timestamp(exit_date).date().isoformat()
+        selected_exit_price = exit_open
+        if risk_threshold is not None and pd.notna(signal["next_datetime"]):
+            risk_candidates = entry_day_bars.loc[
+                entry_day_bars["datetime"].ge(pd.Timestamp(signal["next_datetime"]))
+                & entry_day_bars.get(gate_col, pd.Series(False, index=entry_day_bars.index)).fillna(False).astype(bool)
+                & pd.to_numeric(entry_day_bars.get(prob_col), errors="coerce").le(float(risk_threshold))
+                & entry_day_bars["close"].notna()
+            ]
+            if not risk_candidates.empty:
+                risk = risk_candidates.iloc[0]
+                selected_exit_time = _timestamp_or_none(risk["datetime"])
+                selected_exit_price = float(risk["close"])
+        gross_return = target * (selected_exit_price / entry_price - 1.0)
         rows.append(
             {
                 **base_common,
                 "variant": variant,
                 "entry_time": _timestamp_or_none(signal["next_datetime"]),
-                "exit_time": pd.Timestamp(exit_date).date().isoformat(),
+                "exit_time": selected_exit_time,
                 "entry_price": entry_price,
-                "exit_price": exit_open,
+                "exit_price": selected_exit_price,
                 "intraday_signal_score": float(signal[prob_col]),
                 "observed_feature_value": observed_value,
                 "gross_return": gross_return,
@@ -587,6 +603,7 @@ def select_validation_robust_delayed_policy(
     return_retention_high: float = 95.0,
     max_drawdown_floor: float = -18.0,
     max_skip_rate: float = 0.15,
+    eligible_exit_policies: tuple[str, ...] | None = ("hold_to_next_open",),
 ) -> dict[str, Any]:
     if candidates.empty:
         return {
@@ -595,6 +612,15 @@ def select_validation_robust_delayed_policy(
             "selection_uses_test_segment": False,
         }
     frame = candidates.copy()
+    if eligible_exit_policies is not None and "exit_policy" in frame.columns:
+        frame = frame.loc[frame["exit_policy"].isin(set(eligible_exit_policies))].copy()
+        if frame.empty:
+            return {
+                "policy_id": None,
+                "validation_passes_target": False,
+                "selection_uses_test_segment": False,
+                "eligible_exit_policies": list(eligible_exit_policies),
+            }
     frame["cost_bps"] = pd.to_numeric(frame["cost_bps"], errors="coerce")
     required_costs = {float(value) for value in required_cost_bps}
     rows: list[pd.Series] = []
@@ -655,6 +681,7 @@ def evaluate_observable_delayed_signal_candidates(
     gate_col: str = GATE_COL,
     observation_bars_grid: tuple[int, ...] = (2, 4),
     signal_threshold_grid: tuple[float, ...] = (0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80),
+    risk_threshold_grid: tuple[float | None, ...] = (None, 0.20, 0.30, 0.40, 0.50),
     quantiles: tuple[float, ...] = tuple(float(value) for value in np.arange(0.05, 0.975, 0.025)),
 ) -> pd.DataFrame:
     daily_frame = _normalize_daily_positions(daily)
@@ -668,6 +695,7 @@ def evaluate_observable_delayed_signal_candidates(
         gate_col=gate_col,
         observation_bars_grid=observation_bars_grid,
         signal_threshold_grid=signal_threshold_grid,
+        risk_threshold_grid=risk_threshold_grid,
         cost_bps_values=cost_bps_values,
     )
     segment = prepared["segment"]
@@ -697,69 +725,78 @@ def evaluate_observable_delayed_signal_candidates(
                     if coverage < 0.03:
                         continue
                     for signal_threshold in signal_threshold_grid:
-                        policy_id = (
-                            f"obs{observation_minutes}_{feature}_{operator}_q{quantile:.3f}_"
-                            f"{threshold:.6g}_signal_{signal_threshold:.2f}"
-                        )
-                        for cost_bps in cost_bps_values:
-                            cost_key = float(cost_bps)
-                            base_returns = prepared["base_returns"][cost_key]
-                            base_skipped = prepared["base_skipped"][cost_key]
-                            action_returns, action_skipped = prepared["actions"][cost_key][int(observation_bars)][float(signal_threshold)]
-                            returns = np.where(condition, action_returns, base_returns)
-                            skipped = np.where(condition, action_skipped, base_skipped)
-                            baseline_validation = _segment_return_metrics(base_returns, validation_mask, base_skipped)
-                            baseline_test = _segment_return_metrics(base_returns, test_mask, base_skipped)
-                            validation = _segment_return_metrics(returns, validation_mask, skipped)
-                            test = _segment_return_metrics(returns, test_mask, skipped)
-                            validation_retention = _retention(
-                                validation["total_return_pct"],
-                                baseline_validation["total_return_pct"],
+                        for risk_threshold in risk_threshold_grid:
+                            exit_policy = "hold_to_next_open" if risk_threshold is None else "risk_exit"
+                            risk_suffix = "hold" if risk_threshold is None else f"risk_{float(risk_threshold):.2f}"
+                            variant = f"delayed_signal_after_{observation_minutes}m"
+                            if risk_threshold is not None:
+                                variant = f"{variant}_risk_exit"
+                            policy_id = (
+                                f"obs{observation_minutes}_{feature}_{operator}_q{quantile:.3f}_"
+                                f"{threshold:.6g}_signal_{signal_threshold:.2f}_{risk_suffix}"
                             )
-                            test_retention = _retention(test["total_return_pct"], baseline_test["total_return_pct"])
-                            validation_dd_improvement = (
-                                validation["max_drawdown_pct"] - baseline_validation["max_drawdown_pct"]
-                            )
-                            test_dd_improvement = test["max_drawdown_pct"] - baseline_test["max_drawdown_pct"]
-                            rows.append(
-                                {
-                                    "policy_id": policy_id,
-                                    "cost_bps": cost_key,
-                                    "variant": f"delayed_signal_after_{observation_minutes}m",
-                                    "observation_bars": int(observation_bars),
-                                    "observation_minutes": observation_minutes,
-                                    "condition_feature": feature,
-                                    "condition_operator": operator,
-                                    "condition_quantile": float(quantile),
-                                    "condition_threshold": threshold,
-                                    "condition_threshold_source": "validation_quantile",
-                                    "condition_valid_active_coverage": coverage,
-                                    "signal_threshold": float(signal_threshold),
-                                    "selection_segment": "validation",
-                                    "report_segment": "test",
-                                    "selection_uses_test_segment": False,
-                                    "validation_periods": validation["periods"],
-                                    "validation_return_pct": validation["total_return_pct"],
-                                    "validation_return_retention_pct": validation_retention,
-                                    "validation_max_drawdown_pct": validation["max_drawdown_pct"],
-                                    "validation_drawdown_improvement_pct": validation_dd_improvement,
-                                    "validation_daily_sharpe": validation["daily_sharpe"],
-                                    "validation_skipped_periods": validation["skipped_periods"],
-                                    "test_periods": test["periods"],
-                                    "test_return_pct": test["total_return_pct"],
-                                    "test_return_retention_pct": test_retention,
-                                    "test_max_drawdown_pct": test["max_drawdown_pct"],
-                                    "test_drawdown_improvement_pct": test_dd_improvement,
-                                    "test_daily_sharpe": test["daily_sharpe"],
-                                    "test_skipped_periods": test["skipped_periods"],
-                                    "selection_score": (
-                                        validation_retention
-                                        + 2.0 * validation_dd_improvement
-                                        + 0.25 * validation["daily_sharpe"]
-                                        - 0.10 * validation["skipped_periods"]
-                                    ),
-                                }
-                            )
+                            for cost_bps in cost_bps_values:
+                                cost_key = float(cost_bps)
+                                base_returns = prepared["base_returns"][cost_key]
+                                base_skipped = prepared["base_skipped"][cost_key]
+                                action_returns, action_skipped = prepared["actions"][cost_key][int(observation_bars)][float(signal_threshold)][risk_threshold]
+                                returns = np.where(condition, action_returns, base_returns)
+                                skipped = np.where(condition, action_skipped, base_skipped)
+                                baseline_validation = _segment_return_metrics(base_returns, validation_mask, base_skipped)
+                                baseline_test = _segment_return_metrics(base_returns, test_mask, base_skipped)
+                                validation = _segment_return_metrics(returns, validation_mask, skipped)
+                                test = _segment_return_metrics(returns, test_mask, skipped)
+                                validation_retention = _retention(
+                                    validation["total_return_pct"],
+                                    baseline_validation["total_return_pct"],
+                                )
+                                test_retention = _retention(test["total_return_pct"], baseline_test["total_return_pct"])
+                                validation_dd_improvement = (
+                                    validation["max_drawdown_pct"] - baseline_validation["max_drawdown_pct"]
+                                )
+                                test_dd_improvement = test["max_drawdown_pct"] - baseline_test["max_drawdown_pct"]
+                                rows.append(
+                                    {
+                                        "policy_id": policy_id,
+                                        "cost_bps": cost_key,
+                                        "variant": variant,
+                                        "exit_policy": exit_policy,
+                                        "risk_threshold": np.nan if risk_threshold is None else float(risk_threshold),
+                                        "risk_threshold_source": "disabled" if risk_threshold is None else "fixed_grid",
+                                        "observation_bars": int(observation_bars),
+                                        "observation_minutes": observation_minutes,
+                                        "condition_feature": feature,
+                                        "condition_operator": operator,
+                                        "condition_quantile": float(quantile),
+                                        "condition_threshold": threshold,
+                                        "condition_threshold_source": "validation_quantile",
+                                        "condition_valid_active_coverage": coverage,
+                                        "signal_threshold": float(signal_threshold),
+                                        "selection_segment": "validation",
+                                        "report_segment": "test",
+                                        "selection_uses_test_segment": False,
+                                        "validation_periods": validation["periods"],
+                                        "validation_return_pct": validation["total_return_pct"],
+                                        "validation_return_retention_pct": validation_retention,
+                                        "validation_max_drawdown_pct": validation["max_drawdown_pct"],
+                                        "validation_drawdown_improvement_pct": validation_dd_improvement,
+                                        "validation_daily_sharpe": validation["daily_sharpe"],
+                                        "validation_skipped_periods": validation["skipped_periods"],
+                                        "test_periods": test["periods"],
+                                        "test_return_pct": test["total_return_pct"],
+                                        "test_return_retention_pct": test_retention,
+                                        "test_max_drawdown_pct": test["max_drawdown_pct"],
+                                        "test_drawdown_improvement_pct": test_dd_improvement,
+                                        "test_daily_sharpe": test["daily_sharpe"],
+                                        "test_skipped_periods": test["skipped_periods"],
+                                        "selection_score": (
+                                            validation_retention
+                                            + 2.0 * validation_dd_improvement
+                                            + 0.25 * validation["daily_sharpe"]
+                                            - 0.10 * validation["skipped_periods"]
+                                        ),
+                                    }
+                                )
     result = pd.DataFrame(rows)
     if result.empty:
         return result
@@ -829,6 +866,7 @@ def _prepare_delayed_signal_arrays(
     gate_col: str,
     observation_bars_grid: tuple[int, ...],
     signal_threshold_grid: tuple[float, ...],
+    risk_threshold_grid: tuple[float | None, ...],
     cost_bps_values: tuple[float, ...],
 ) -> dict[str, Any]:
     daily_frame = _normalize_daily_positions(daily).sort_values("datetime").reset_index(drop=True)
@@ -884,17 +922,21 @@ def _prepare_delayed_signal_arrays(
         }
         for cost_bps in cost_bps_values:
             actions[float(cost_bps)][obs_key] = {
-                float(signal_threshold): (
-                    np.zeros(len(daily_frame), dtype=float),
-                    np.zeros(len(daily_frame), dtype=bool),
-                )
+                float(signal_threshold): {
+                    risk_threshold: (
+                        np.zeros(len(daily_frame), dtype=float),
+                        np.zeros(len(daily_frame), dtype=bool),
+                    )
+                    for risk_threshold in risk_threshold_grid
+                }
                 for signal_threshold in signal_threshold_grid
             }
         for index, bars_for_day in enumerate(row_bars):
             if not active[index] or bars_for_day.empty or len(bars_for_day) < obs_key:
                 for cost_bps in cost_bps_values:
                     for signal_threshold in signal_threshold_grid:
-                        actions[float(cost_bps)][obs_key][float(signal_threshold)][1][index] = bool(active[index])
+                        for risk_threshold in risk_threshold_grid:
+                            actions[float(cost_bps)][obs_key][float(signal_threshold)][risk_threshold][1][index] = bool(active[index])
                 continue
             observed = bars_for_day.iloc[:obs_key]
             obs_features["observed_return"][index] = _observed_intraday_feature_value(
@@ -932,14 +974,28 @@ def _prepare_delayed_signal_arrays(
                 ]
                 for cost_bps in cost_bps_values:
                     cost_key = float(cost_bps)
-                    returns, skipped = actions[cost_key][obs_key][signal_threshold]
                     if signal_candidates.empty:
-                        skipped[index] = True
-                        returns[index] = 0.0
-                    else:
-                        entry_price = float(signal_candidates.iloc[0]["next_open"])
-                        cost = abs(target[index]) * cost_key / 10000.0
-                        returns[index] = float(target[index] * (exit_open[index] / entry_price - 1.0) - cost)
+                        for risk_threshold in risk_threshold_grid:
+                            returns, skipped = actions[cost_key][obs_key][signal_threshold][risk_threshold]
+                            skipped[index] = True
+                            returns[index] = 0.0
+                        continue
+                    signal = signal_candidates.iloc[0]
+                    entry_price = float(signal["next_open"])
+                    cost = abs(target[index]) * cost_key / 10000.0
+                    for risk_threshold in risk_threshold_grid:
+                        returns, skipped = actions[cost_key][obs_key][signal_threshold][risk_threshold]
+                        selected_exit_open = float(exit_open[index])
+                        if risk_threshold is not None and pd.notna(signal["next_datetime"]):
+                            risk_candidates = bars_for_day.loc[
+                                bars_for_day["datetime"].ge(pd.Timestamp(signal["next_datetime"]))
+                                & bars_for_day[gate_col].fillna(False).astype(bool)
+                                & pd.to_numeric(bars_for_day[prob_col], errors="coerce").le(float(risk_threshold))
+                                & bars_for_day["close"].notna()
+                            ]
+                            if not risk_candidates.empty:
+                                selected_exit_open = float(risk_candidates.iloc[0]["close"])
+                        returns[index] = float(target[index] * (selected_exit_open / entry_price - 1.0) - cost)
         features[obs_key] = obs_features
 
     return {
@@ -1475,6 +1531,11 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
     )
     selected_trade_frames = []
     if selected_model.get("policy_id"):
+        selected_risk_threshold = selected_model.get("risk_threshold")
+        if selected_risk_threshold is not None and not pd.isna(selected_risk_threshold):
+            selected_risk_threshold = float(selected_risk_threshold)
+        else:
+            selected_risk_threshold = None
         for cost_bps in sorted(set(float(value) for value in spec.cost_stress_bps)):
             selected_trade_frames.append(
                 simulate_observable_delayed_signal_overlay(
@@ -1486,6 +1547,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                     condition_operator=str(selected_model["condition_operator"]),
                     condition_threshold=float(selected_model["condition_threshold"]),
                     signal_threshold=float(selected_model["signal_threshold"]),
+                    risk_threshold=selected_risk_threshold,
                     cost_bps=cost_bps,
                     prob_col=signal_config["prob_col"],
                     gate_col=signal_config["gate_col"],
@@ -1613,10 +1675,16 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
             "decision_model_timing": "daily_close_t_signal",
             "daily_execution_timing": DAILY_EXECUTION_TIMING,
             "overlay_signal_timing": "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open",
-            "variants": ["baseline_next_open", "delayed_signal_after_30m", "delayed_signal_after_60m"],
+            "variants": [
+                "baseline_next_open",
+                "delayed_signal_after_30m",
+                "delayed_signal_after_60m",
+                "delayed_signal_after_30m_risk_exit",
+                "delayed_signal_after_60m_risk_exit",
+            ],
             "open_to_open_baseline": True,
             "intraday_overlays_hold_overnight": False,
-            "description": "the overlay can use first 30/60m features only after those bars are observed, then enters on a later 15m next_open signal",
+            "description": "the overlay can use first 30/60m features only after those bars are observed, then enters on a later 15m next_open signal; optional risk-exit policies can close intraday on low-probability bars",
         },
         "model_selection": {
             "selection_segment": "validation",
@@ -1625,6 +1693,23 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
             "selection_cost_bps": float(spec.selection_cost_bps),
             "required_cost_bps": [20.0, 50.0],
             "max_skip_rate": 0.15,
+            "eligible_exit_policies": ["hold_to_next_open"],
+            "exit_policy_candidate_counts": (
+                policy_selection_full["exit_policy"].value_counts().to_dict()
+                if "exit_policy" in policy_selection_full
+                else {}
+            ),
+            "risk_exit_validation_and_test_target_row_count": int(
+                policy_selection_full.loc[
+                    policy_selection_full.get("exit_policy", pd.Series(index=policy_selection_full.index, dtype=object)).eq("risk_exit")
+                    & policy_selection_full.get(
+                        "passes_validation_and_test_target",
+                        pd.Series(False, index=policy_selection_full.index),
+                    ).astype(bool)
+                ].shape[0]
+            )
+            if not policy_selection_full.empty
+            else 0,
             "candidate_rows": int(len(policy_selection_full)),
             "candidate_count": int(policy_selection_full["policy_id"].nunique()) if "policy_id" in policy_selection_full else 0,
             "validation_target_row_count": int(policy_selection_full["passes_validation_target"].sum())
@@ -1637,7 +1722,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         },
         "walk_forward": walk_forward_summary,
         "selected_model": selected_model,
-        "selected_policy_cost_sensitivity": selected_policy_rows.to_dict("records"),
+        "selected_policy_cost_sensitivity": _json_ready_records(selected_policy_rows),
         "analysis_summary": analysis_summary,
         "recorder_id": recorder_id,
         "recorder_uri": spec.recorder_uri.resolve().as_posix(),
@@ -2664,7 +2749,7 @@ def _delayed_analysis_summary(
         "validation_and_test_target_row_count": int(policy_selection_full["passes_validation_and_test_target"].sum())
         if "passes_validation_and_test_target" in policy_selection_full
         else 0,
-        "selected_policy_cost_rows": selected_policy_rows.to_dict("records"),
+        "selected_policy_cost_rows": _json_ready_records(selected_policy_rows),
         "selected_model": selected_model,
         "model_comparison_rows": int(len(model_comparison)),
         "source_intraday_model": {
@@ -2922,11 +3007,14 @@ def _write_delayed_conclusion(
     text = (
         "# 中文结论\n\n"
         "- 做了什么：建立 delayed observable intraday overlay，日线 LGB/XGB open-to-open 仓位仍决定是否交易；"
-        "日内层必须等前 30/60 分钟完成后，才能用 observed probability/return 条件触发后续 15m next-open 入场。\n"
+        "日内层必须等前 30/60 分钟完成后，才能用 observed probability/return 条件触发后续 15m next-open 入场；"
+        "本轮还把 risk-exit 作为诊断候选加入，但默认 selected 只允许 hold_to_next_open，避免短样本风险退出过拟合。\n"
         "- 选择规则：只用 validation；要求 20bp 和 50bp validation 同时满足 85%-95% retention、max_dd>-18%、skip<=15%；test 只报告。\n"
         f"- 候选：{summary['model_selection']['candidate_count']} 个 policy、{summary['model_selection']['candidate_rows']} 行成本压力结果；"
-        f"validation+test 同时过门槛行数={summary['model_selection']['validation_and_test_target_row_count']}。\n"
-        f"- validation 选中：{selected_model.get('policy_id')}，20bp retention={float(row20.get('validation_return_retention_pct', 0.0)):.2f}%，"
+        f"validation+test 同时过门槛行数={summary['model_selection']['validation_and_test_target_row_count']}；"
+        f"其中 risk-exit 同时过门槛行数={summary['model_selection'].get('risk_exit_validation_and_test_target_row_count', 0)}。\n"
+        f"- validation 选中：{selected_model.get('policy_id')}，exit_policy={selected_model.get('exit_policy', 'unknown')}；"
+        f"20bp retention={float(row20.get('validation_return_retention_pct', 0.0)):.2f}%，"
         f"max_dd={float(row20.get('validation_max_drawdown_pct', 0.0)):.2f}%；50bp retention={float(row50.get('validation_return_retention_pct', 0.0)):.2f}%，"
         f"max_dd={float(row50.get('validation_max_drawdown_pct', 0.0)):.2f}%。\n"
         f"- test 报告：20bp retention={float(row20.get('test_return_retention_pct', 0.0)):.2f}%，"
@@ -3010,6 +3098,10 @@ def _json_ready_dict(values: dict[str, Any]) -> dict[str, Any]:
         else:
             result[key] = value
     return result
+
+
+def _json_ready_records(frame: pd.DataFrame) -> list[dict[str, Any]]:
+    return [_json_ready_dict(row) for row in frame.to_dict("records")]
 
 
 def _write_sidecars(
