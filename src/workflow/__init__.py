@@ -35,6 +35,7 @@ __all__ = [
     "CognitiveAlphaSignalRefreshSpec",
     "CognitiveAlphaGoalCodexExecCardSpec",
     "CognitiveAlphaIntradayOverlaySpec",
+    "CognitiveAlphaIntraday5MinRiskSleeveSpec",
     "IntradayExecutionLabelModelSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
@@ -55,6 +56,7 @@ __all__ = [
     "run_cognitive_alpha_intraday_external_context_overlay_card",
     "run_cognitive_alpha_intraday_delayed_observable_overlay_card",
     "run_cognitive_alpha_intraday_regime_overlay_diagnostic_card",
+    "run_cognitive_alpha_intraday_5min_risk_sleeve_card",
     "run_intraday_execution_label_model_card",
     "run_cognitive_alpha_position_model",
     "run_cognitive_alpha_weighted_factor_search",
@@ -113,6 +115,11 @@ _COGNITIVE_ALPHA_INTRADAY_OVERLAY_EXPORTS = {
     "run_cognitive_alpha_intraday_regime_overlay_diagnostic_card",
 }
 
+_COGNITIVE_ALPHA_INTRADAY_5MIN_RISK_EXPORTS = {
+    "CognitiveAlphaIntraday5MinRiskSleeveSpec",
+    "run_cognitive_alpha_intraday_5min_risk_sleeve_card",
+}
+
 _INTRADAY_EXECUTION_LABEL_EXPORTS = {
     "IntradayExecutionLabelModelSpec",
     "run_intraday_execution_label_model_card",
@@ -153,6 +160,10 @@ def __getattr__(name: str):
         from . import cognitive_alpha_intraday_overlay
 
         return getattr(cognitive_alpha_intraday_overlay, name)
+    if name in _COGNITIVE_ALPHA_INTRADAY_5MIN_RISK_EXPORTS:
+        from . import cognitive_alpha_intraday_5min_risk_sleeve
+
+        return getattr(cognitive_alpha_intraday_5min_risk_sleeve, name)
     if name in _INTRADAY_EXECUTION_LABEL_EXPORTS:
         from . import intraday_execution_label_model
 

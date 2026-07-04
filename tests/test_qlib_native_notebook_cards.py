@@ -1163,6 +1163,85 @@ def test_cognitive_alpha_intraday_local_fallback_overlay_card_records_annual_wf(
     assert "本地 SOXL/SOXX" in conclusion
 
 
+def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
+    card = ROOT / "research" / "cognitive_alpha_intraday_5min_risk_sleeve_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_intraday_5min_risk_sleeve_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_intraday_5min_risk_sleeve_v1"
+    assert summary["card_type"] == "intraday_5min_risk_sleeve_replay"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["source_daily_model"]["card"] == "research/cognitive_alpha_goal_codex_exec_v1"
+    assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_execution_label_v1"
+    assert set(summary["source_intraday_model"]["models"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
+    assert summary["source_intraday_model"]["label_policy_name"] == "triple_barrier_1h_2h_execution_improvement"
+    assert summary["provider_uris"]["5min"] == (ROOT / "data" / "qlib" / "soxl_intraday_5min").resolve().as_posix()
+    assert summary["execution_overlay"]["frequency"] == "5min"
+    assert summary["execution_overlay"]["daily_entry_is_not_skipped"] is True
+    assert summary["execution_overlay"]["risk_sleeve_timing"] == "daily_next_open_entry_then_5min_close_trigger_same_day_reduce_or_exit"
+    assert summary["execution_overlay"]["variants"] == [
+        "baseline_next_open",
+        "risk_exit_full_5m",
+        "risk_reduce_half_5m",
+        "risk_reduce_quarter_5m",
+    ]
+    assert summary["model_selection"]["selection_segment"] == "validation"
+    assert summary["model_selection"]["report_segment"] == "test"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
+    assert summary["walk_forward"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
+    assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
+    assert summary["walk_forward"]["selection_uses_test_segment"] is False
+    assert summary["walk_forward"]["rows"] == 4
+    assert set(summary["walk_forward"]["feasible_test_years"]) == {2023, 2024, 2025, 2026}
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "intraday_fold_predictions": "artifacts/five_min_risk_sleeve/intraday_fold_predictions.csv",
+        "all_policy_selection": "artifacts/five_min_risk_sleeve/all_policy_selection.csv.gz",
+        "selected_trades": "artifacts/five_min_risk_sleeve/selected_trades.csv",
+        "daily_walk_forward_positions": "artifacts/five_min_risk_sleeve/daily_walk_forward_positions.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "annual_walk_forward",
+        "failure_modes",
+        "feature_importance",
+        "model_selection",
+        "risk_analysis",
+        "selected_model",
+        "selected_policy_cost_sensitivity",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    annual = pd.read_csv(card / summary["sidecars"]["annual_walk_forward"])
+    assert set(annual["test_year"]) == {2023, 2024, 2025, 2026}
+    assert annual["selection_uses_test_segment"].eq(False).all()
+    assert set(annual["required_cost_bps"]) == {"20.0,50.0"}
+    selected_costs = pd.read_csv(card / summary["sidecars"]["selected_policy_cost_sensitivity"])
+    assert set(selected_costs["cost_bps"]) == {20.0, 50.0}
+    assert selected_costs["selection_uses_test_segment"].eq(False).all()
+    assert set(selected_costs["variant"]).issubset(
+        {"risk_exit_full_5m", "risk_reduce_half_5m", "risk_reduce_quarter_5m"}
+    )
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "five_min_risk_sleeve" / "intraday_fold_predictions.csv").exists()
+    assert (recorder_dir / "artifacts" / "five_min_risk_sleeve" / "all_policy_selection.csv.gz").exists()
+    assert (recorder_dir / "artifacts" / "five_min_risk_sleeve" / "selected_trades.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_cognitive_alpha_intraday_5min_risk_sleeve_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "5m 日内风控 sleeve" in conclusion
+
+
 def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():
     card = ROOT / "research" / "agentic_alpha_intraday_execution_label_v1"
     summary = _summary(card)

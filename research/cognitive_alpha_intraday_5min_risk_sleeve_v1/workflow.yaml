@@ -1,0 +1,32 @@
+experiment: cognitive_alpha_intraday_5min_risk_sleeve_v1
+qlib:
+  recorder_uri: /Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_5min_risk_sleeve_v1/qlib_recorder
+  daily_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  intraday_15min_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+  intraday_5min_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_5min
+sources:
+  daily_card: research/cognitive_alpha_goal_codex_exec_v1
+  daily_recorder_id: a4c54bcd3bdd4eb39b413e2bbfa8618d
+  intraday_label_card: research/agentic_alpha_intraday_execution_label_v1
+  intraday_label_recorder_id: 13e134d6818f4dc39622b1c3458b979e
+  intraday_score_card: research/cognitive_alpha_intraday_local_fallback_overlay_v1
+label_policy:
+  name: triple_barrier_1h_2h_execution_improvement
+  source: local_soxl_soxx_15m_lgb_xgb
+model_selection:
+  models: [lgb, xgb, lgb_xgb_consensus]
+  selection_segment: validation
+  report_segment: test
+  selection_uses_test_segment: false
+  required_cost_bps: [20.0, 50.0]
+execution:
+  daily_timing: close_t_signal_next_open_to_following_open
+  risk_sleeve_timing: next_open_entry_then_5min_close_reduce_or_exit
+  daily_entry_is_not_skipped: true
+walk_forward:
+  policy: annual_train_to_T_minus_2_valid_T_minus_1_test_T
+  required_start: 2019-01-02
+  required_test_years: [2023, 2024, 2025, 2026]
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json
