@@ -1,5 +1,21 @@
 {
   "as_of": "2026-07-02",
+  "daily_position_source_audit": [
+    {
+      "artifact_path": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/ce05c33a5d6b446fbb758bfdd747666b/artifacts/cognitive_alpha_position/positions.csv",
+      "blocking_reason": "missing_required_position_years",
+      "card": "research/cognitive_alpha_goal_codex_exec_v1",
+      "missing_required_position_years": "2022,2023,2024",
+      "recorder_id": "ce05c33a5d6b446fbb758bfdd747666b",
+      "required_position_years": "2022,2023,2024,2025,2026",
+      "rows": 50864,
+      "satisfies_required_annual_walk_forward": false,
+      "selected_end": "2026-07-02",
+      "selected_rows": 374,
+      "selected_start": "2025-01-02",
+      "selected_years": "2025,2026"
+    }
+  ],
   "data_audit": {
     "daily_price_end": "2026-07-02",
     "daily_price_rows": 375,

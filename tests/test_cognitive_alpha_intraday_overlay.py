@@ -602,3 +602,54 @@ def test_walk_forward_metrics_records_required_annual_folds_and_fail_closed_miss
     assert fold_2026["selected_variant"] == "overlay_a_signal_gate"
     assert bool(fold_2026["validation_passes_target"]) is True
     assert bool(fold_2026["test_passes_target"]) is True
+
+
+def test_daily_position_source_audit_records_required_year_coverage(tmp_path):
+    recorder_dir = tmp_path / "recorder"
+    position_dir = recorder_dir / "artifacts" / "cognitive_alpha_position"
+    position_dir.mkdir(parents=True)
+    pd.DataFrame(
+        [
+            {
+                "datetime": "2022-01-03",
+                "segment": "validation",
+                "target_position": 0.5,
+                "strategy_return": 0.01,
+                "selected": True,
+            },
+            {
+                "datetime": "2023-01-03",
+                "segment": "test",
+                "target_position": 0.5,
+                "strategy_return": 0.01,
+                "selected": True,
+            },
+            {
+                "datetime": "2025-01-03",
+                "segment": "validation",
+                "target_position": 0.5,
+                "strategy_return": 0.01,
+                "selected": True,
+            },
+            {
+                "datetime": "2026-01-05",
+                "segment": "test",
+                "target_position": 0.5,
+                "strategy_return": 0.01,
+                "selected": True,
+            },
+        ]
+    ).to_csv(position_dir / "positions.csv", index=False)
+
+    summary = {"recorder_id": "rec-1", "recorder_local_dir": str(recorder_dir)}
+    audit = overlay_workflow._daily_position_source_audit(
+        CognitiveAlphaIntradayOverlaySpec(root=tmp_path),
+        daily_summary=summary,
+        daily_positions_path=position_dir / "positions.csv",
+    )
+
+    assert audit.loc[0, "required_position_years"] == "2022,2023,2024,2025,2026"
+    assert audit.loc[0, "selected_years"] == "2022,2023,2025,2026"
+    assert audit.loc[0, "missing_required_position_years"] == "2024"
+    assert bool(audit.loc[0, "satisfies_required_annual_walk_forward"]) is False
+    assert audit.loc[0, "blocking_reason"] == "missing_required_position_years"

@@ -4,6 +4,7 @@
       "analysis_summary.json",
       "backtest_walk_forward_metrics.csv",
       "cost_sensitivity.csv",
+      "daily_position_source_audit.csv",
       "failure_modes.md",
       "model_comparison.csv",
       "selected_model.json"
@@ -97,6 +98,7 @@
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/analysis_summary.json",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/backtest_walk_forward_metrics.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/cost_sensitivity.csv",
+    "artifacts/cognitive_alpha_intraday_execution_overlay_v1/daily_position_source_audit.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/failure_modes.md",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/model_comparison.csv",
     "artifacts/cognitive_alpha_intraday_execution_overlay_v1/selected_model.json",
@@ -124,8 +126,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "b21466deb7ca404f9cf2b5d60dce1406",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/b21466deb7ca404f9cf2b5d60dce1406",
+  "recorder_id": "b2d4280a9dd743ef82ebbf45705acbe0",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder/239357631677247530/b2d4280a9dd743ef82ebbf45705acbe0",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_execution_overlay_v1/qlib_recorder",
   "region": "us",
   "selected_model": {
@@ -152,6 +154,7 @@
     "analysis_summary": "analysis_summary.json",
     "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
     "cost_sensitivity": "cost_sensitivity.csv",
+    "daily_position_source_audit": "daily_position_source_audit.csv",
     "failure_modes": "failure_modes.md",
     "model_comparison": "model_comparison.csv",
     "selected_model": "selected_model.json"
@@ -160,6 +163,20 @@
     "card": "research/cognitive_alpha_goal_codex_exec_v1",
     "execution_timing": "close_t_signal_next_open_to_following_open",
     "model_target_col": "label_open_to_open_5d",
+    "position_source_audit": {
+      "artifact_path": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/ce05c33a5d6b446fbb758bfdd747666b/artifacts/cognitive_alpha_position/positions.csv",
+      "blocking_reason": "missing_required_position_years",
+      "card": "research/cognitive_alpha_goal_codex_exec_v1",
+      "missing_required_position_years": "2022,2023,2024",
+      "recorder_id": "ce05c33a5d6b446fbb758bfdd747666b",
+      "required_position_years": "2022,2023,2024,2025,2026",
+      "rows": 50864,
+      "satisfies_required_annual_walk_forward": false,
+      "selected_end": "2026-07-02",
+      "selected_rows": 374,
+      "selected_start": "2025-01-02",
+      "selected_years": "2025,2026"
+    },
     "recorder_id": "ce05c33a5d6b446fbb758bfdd747666b",
     "return_col": "open_to_open_return",
     "selected_max_drawdown_pct": -18.016191569324935,

@@ -8,4 +8,4 @@
 - 最新年度 fold：wf_2026 validation 选择 overlay_a_signal_gate，test retention=13.42%，test max_dd=-0.01%，passes_target=False。
 - 是否晋升：not_promoted_overlay_did_not_beat_daily_execution。如果 selected 仍是 baseline，结论就是当前 15m 执行层没有可靠超过 next-open 一次成交。
 - 风险：这不是独立日内 alpha；它依赖日级模型的趋势和隔夜收益来源。真实推广前还要补 bid/ask replay、成交队列、延迟和盘前盘后风险验证。
-- qlib recorder：b21466deb7ca404f9cf2b5d60dce1406
+- qlib recorder：b2d4280a9dd743ef82ebbf45705acbe0

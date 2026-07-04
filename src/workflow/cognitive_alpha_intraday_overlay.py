@@ -1054,6 +1054,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
     signal_config = _intraday_signal_config(spec, intraday_summary=intraday_summary)
 
     daily_positions = _load_daily_selected_positions(daily_summary)
+    daily_position_source_audit = _daily_position_source_audit(spec, daily_summary=daily_summary)
     as_of = str(daily_summary.get("as_of") or spec.as_of)
     daily_prices = _load_daily_open_prices(spec, start=str(daily_positions["datetime"].min().date()), end=as_of)
     intraday_predictions = _load_intraday_prediction_frame(
@@ -1118,6 +1119,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         threshold_selection=threshold_selection,
         selected_model=selected_model,
         walk_forward=walk_forward,
+        daily_position_source_audit=daily_position_source_audit,
     )
     sidecars = _write_sidecars(
         spec,
@@ -1125,6 +1127,7 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
         threshold_selection=threshold_selection,
         cost_sensitivity=cost_sensitivity,
         walk_forward=walk_forward,
+        daily_position_source_audit=daily_position_source_audit,
         selected_model=selected_model,
         analysis_summary=analysis_summary,
     )
@@ -1194,6 +1197,9 @@ def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
             "model_target_col": daily_summary.get("position_model", {}).get("model_target_col", "label_open_to_open_5d"),
             "selected_return_pct": daily_summary.get("position_model", {}).get("comparison", {}).get("selected_return_pct"),
             "selected_max_drawdown_pct": daily_summary.get("position_model", {}).get("comparison", {}).get("selected_max_drawdown_pct"),
+            "position_source_audit": daily_position_source_audit.iloc[0].to_dict()
+            if not daily_position_source_audit.empty
+            else {},
         },
         "source_intraday_model": {
             "card": spec.source_intraday_card,
@@ -2013,11 +2019,110 @@ def _condition_matches(value: float, *, operator: str, threshold: float) -> bool
 
 
 def _load_daily_selected_positions(daily_summary: dict[str, Any]) -> pd.DataFrame:
-    recorder_dir = Path(str(daily_summary["recorder_local_dir"]))
-    path = recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv"
+    path = _daily_positions_path(daily_summary)
     frame = pd.read_csv(path)
     frame = frame.loc[frame["selected"].astype(bool)].copy()
     return _normalize_daily_positions(frame)
+
+
+def _daily_positions_path(daily_summary: dict[str, Any]) -> Path:
+    recorder_dir = Path(str(daily_summary["recorder_local_dir"]))
+    return recorder_dir / "artifacts" / "cognitive_alpha_position" / "positions.csv"
+
+
+def _required_daily_position_years() -> tuple[int, ...]:
+    years: set[int] = set()
+    for test_year in REQUIRED_ANNUAL_WALK_FORWARD_TEST_YEARS:
+        years.add(int(test_year) - 1)
+        years.add(int(test_year))
+    return tuple(sorted(years))
+
+
+def _daily_position_source_audit(
+    spec: CognitiveAlphaIntradayOverlaySpec,
+    *,
+    daily_summary: dict[str, Any],
+    daily_positions_path: Path | None = None,
+) -> pd.DataFrame:
+    path = Path(daily_positions_path) if daily_positions_path is not None else _daily_positions_path(daily_summary)
+    required_years = _required_daily_position_years()
+    base_row: dict[str, Any] = {
+        "card": spec.source_daily_card,
+        "recorder_id": daily_summary.get("recorder_id"),
+        "artifact_path": path.as_posix(),
+        "required_position_years": ",".join(str(year) for year in required_years),
+    }
+    if not path.exists():
+        return pd.DataFrame(
+            [
+                {
+                    **base_row,
+                    "rows": 0,
+                    "selected_rows": 0,
+                    "selected_start": None,
+                    "selected_end": None,
+                    "selected_years": "",
+                    "missing_required_position_years": base_row["required_position_years"],
+                    "satisfies_required_annual_walk_forward": False,
+                    "blocking_reason": "missing_positions_artifact",
+                }
+            ]
+        )
+
+    frame = pd.read_csv(path)
+    if "datetime" not in frame.columns:
+        return pd.DataFrame(
+            [
+                {
+                    **base_row,
+                    "rows": int(len(frame)),
+                    "selected_rows": 0,
+                    "selected_start": None,
+                    "selected_end": None,
+                    "selected_years": "",
+                    "missing_required_position_years": base_row["required_position_years"],
+                    "satisfies_required_annual_walk_forward": False,
+                    "blocking_reason": "missing_datetime_column",
+                }
+            ]
+        )
+    if "selected" not in frame.columns:
+        return pd.DataFrame(
+            [
+                {
+                    **base_row,
+                    "rows": int(len(frame)),
+                    "selected_rows": 0,
+                    "selected_start": None,
+                    "selected_end": None,
+                    "selected_years": "",
+                    "missing_required_position_years": base_row["required_position_years"],
+                    "satisfies_required_annual_walk_forward": False,
+                    "blocking_reason": "missing_selected_column",
+                }
+            ]
+        )
+
+    frame["datetime"] = pd.to_datetime(frame["datetime"])
+    selected = frame.loc[frame["selected"].astype(bool)].copy()
+    selected_years = tuple(sorted(int(year) for year in selected["datetime"].dt.year.unique())) if not selected.empty else ()
+    missing_years = tuple(year for year in required_years if year not in set(selected_years))
+    satisfies = not missing_years
+    return pd.DataFrame(
+        [
+            {
+                **base_row,
+                "rows": int(len(frame)),
+                "selected_rows": int(len(selected)),
+                "selected_start": selected["datetime"].min().date().isoformat() if not selected.empty else None,
+                "selected_end": selected["datetime"].max().date().isoformat() if not selected.empty else None,
+                "selected_years": ",".join(str(year) for year in selected_years),
+                "missing_required_position_years": ",".join(str(year) for year in missing_years),
+                "satisfies_required_annual_walk_forward": bool(satisfies),
+                "blocking_reason": "ok" if satisfies else "missing_required_position_years",
+            }
+        ]
+    )
 
 
 def _load_daily_open_prices(spec: CognitiveAlphaIntradayOverlaySpec, *, start: str, end: str) -> pd.DataFrame:
@@ -2443,12 +2548,13 @@ def _analysis_summary(
     threshold_selection: pd.DataFrame,
     selected_model: dict[str, Any],
     walk_forward: pd.DataFrame,
+    daily_position_source_audit: pd.DataFrame,
 ) -> dict[str, Any]:
     return {
         "source": "daily_open2open_position_model_plus_15m_execution_overlay",
         "as_of": str(daily_summary.get("as_of") or spec.as_of),
         "selection_uses_test_segment": False,
-    "thresholds": {
+        "thresholds": {
             "signal_threshold": thresholds["signal_threshold"],
             "signal_threshold_source": (
                 "overlay_validation_threshold_search"
@@ -2478,6 +2584,7 @@ def _analysis_summary(
             "intraday_start": intraday_predictions["datetime"].min().strftime("%Y-%m-%d %H:%M:%S"),
             "intraday_end": intraday_predictions["datetime"].max().strftime("%Y-%m-%d %H:%M:%S"),
         },
+        "daily_position_source_audit": daily_position_source_audit.to_dict("records"),
         "source_daily_model": {
             "recorder_id": daily_summary.get("recorder_id"),
             "execution_timing": daily_summary.get("position_model", {}).get("execution_timing"),
@@ -3220,6 +3327,7 @@ def _write_sidecars(
     threshold_selection: pd.DataFrame,
     cost_sensitivity: pd.DataFrame,
     walk_forward: pd.DataFrame,
+    daily_position_source_audit: pd.DataFrame,
     selected_model: dict[str, Any],
     analysis_summary: dict[str, Any],
 ) -> dict[str, str]:
@@ -3228,6 +3336,7 @@ def _write_sidecars(
         "selected_model": "selected_model.json",
         "cost_sensitivity": "cost_sensitivity.csv",
         "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
+        "daily_position_source_audit": "daily_position_source_audit.csv",
         "analysis_summary": "analysis_summary.json",
         "failure_modes": "failure_modes.md",
     }
@@ -3238,6 +3347,7 @@ def _write_sidecars(
         threshold_selection.to_csv(spec.output_dir / sidecars["threshold_selection"], index=False)
     cost_sensitivity.to_csv(spec.output_dir / sidecars["cost_sensitivity"], index=False)
     walk_forward.to_csv(spec.output_dir / sidecars["backtest_walk_forward_metrics"], index=False)
+    daily_position_source_audit.to_csv(spec.output_dir / sidecars["daily_position_source_audit"], index=False)
     (spec.output_dir / sidecars["selected_model"]).write_text(
         json.dumps(selected_model, indent=2, sort_keys=True),
         encoding="utf-8",
@@ -3252,6 +3362,7 @@ def _write_sidecars(
         "- 15m 信号来自 bar close，overlay A 只允许下一根 15m open 入场；没有使用同一根 bar 的未来价格。\n"
         "- 成本压力用固定 bps；尚未验证 bid/ask、排队、延迟、停牌、跳空和盘前盘后成交质量。\n"
         "- walk-forward 只在已有日级 selected positions 上重新选择执行 variant；不是完整重训日级 LGB/XGB 仓位模型。\n"
+        "- 若 daily_position_source_audit.csv 缺少 2022-2026 的 selected positions，年度日内 overlay 只能作为局部诊断，不能作为超过日级模型的晋升证据。\n"
         "- 若 validation 选择 baseline，说明日内执行层没有足够证据替代 next-open 一次成交。\n"
     )
     (spec.output_dir / sidecars["failure_modes"]).write_text(failure_modes, encoding="utf-8")
@@ -3382,6 +3493,7 @@ def _write_conclusion(
         if spec.source_intraday_card == EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD
         else "15m lgb_xgb_consensus"
     )
+    intraday_source_separator = "" if spec.source_intraday_card == EXTERNAL_CONTEXT_INTRADAY_SOURCE_CARD else " "
     walk_forward_summary = summary.get("walk_forward", {})
     walk_forward_sentence = (
         f"- walk-forward：要求 {walk_forward_summary.get('required_test_years', [])} 年度 "
@@ -3404,7 +3516,7 @@ def _write_conclusion(
     text = (
         "# 中文结论\n\n"
         f"- 做了什么：建立“{overlay_name}”实验，日级 LGB/XGB 仓位模型仍决定整体 target_position，"
-        f"{intraday_source_text} 只负责下一交易日的入场过滤、前 4 根 15m TWAP 和盘中风险退出。\n"
+        f"{intraday_source_text}{intraday_source_separator}只负责下一交易日的入场过滤、前 4 根 15m TWAP 和盘中风险退出。\n"
         f"- 选择规则：只用 validation、{spec.selection_cost_bps:.0f}bp 成本选择 variant；test 只报告，"
         "没有用 test 调阈值或调参数。\n"
         f"- validation 选择：{selected_model['variant']}，retention={selected_model['validation_return_retention_pct']:.2f}%，"

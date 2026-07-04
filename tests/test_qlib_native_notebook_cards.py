@@ -660,6 +660,7 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
         "analysis_summary",
         "backtest_walk_forward_metrics",
         "cost_sensitivity",
+        "daily_position_source_audit",
         "failure_modes",
         "model_comparison",
         "selected_model",
@@ -680,6 +681,11 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert summary["walk_forward"]["missing_required_test_years"] == [2023, 2024, 2025]
     assert summary["walk_forward"]["required_policy_satisfied"] is False
     assert "missing_validation_data" in set(walk_forward["blocking_reason"])
+    daily_source_audit = pd.read_csv(card / summary["sidecars"]["daily_position_source_audit"])
+    assert daily_source_audit.loc[0, "required_position_years"] == "2022,2023,2024,2025,2026"
+    assert daily_source_audit.loc[0, "selected_years"] == "2025,2026"
+    assert daily_source_audit.loc[0, "missing_required_position_years"] == "2022,2023,2024"
+    assert summary["source_daily_model"]["position_source_audit"]["blocking_reason"] == "missing_required_position_years"
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "execution_overlay" / "overlay_trades.csv").exists()
@@ -732,6 +738,7 @@ def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded
         "analysis_summary",
         "backtest_walk_forward_metrics",
         "cost_sensitivity",
+        "daily_position_source_audit",
         "failure_modes",
         "model_comparison",
         "selected_model",

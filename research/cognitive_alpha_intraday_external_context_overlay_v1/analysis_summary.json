@@ -1,5 +1,21 @@
 {
   "as_of": "2026-07-02",
+  "daily_position_source_audit": [
+    {
+      "artifact_path": "/Users/rziiiii/dev/workspace/research/cognitive_alpha_goal_codex_exec_v1/qlib_recorder/329655557383096645/ce05c33a5d6b446fbb758bfdd747666b/artifacts/cognitive_alpha_position/positions.csv",
+      "blocking_reason": "missing_required_position_years",
+      "card": "research/cognitive_alpha_goal_codex_exec_v1",
+      "missing_required_position_years": "2022,2023,2024",
+      "recorder_id": "ce05c33a5d6b446fbb758bfdd747666b",
+      "required_position_years": "2022,2023,2024,2025,2026",
+      "rows": 50864,
+      "satisfies_required_annual_walk_forward": false,
+      "selected_end": "2026-07-02",
+      "selected_rows": 374,
+      "selected_start": "2025-01-02",
+      "selected_years": "2025,2026"
+    }
+  ],
   "data_audit": {
     "daily_price_end": "2026-07-02",
     "daily_price_rows": 375,
@@ -56,7 +72,7 @@
         "TSM"
       ],
       "coverage_end": "2026-07-02 16:00:00",
-      "coverage_start": "2025-01-02 09:45:00",
+      "coverage_start": "2024-07-05 09:45:00",
       "data_status": "ok_partial_insufficient_for_full_walk_forward",
       "feature_count": 40,
       "features": [
@@ -130,7 +146,7 @@
       "stop_loss": 0.014,
       "uses_same_bar_future": false
     },
-    "recorder_id": "65b2e78d9654495b82bf073f4156cde7",
+    "recorder_id": "67579fc016ad420a86806b8d8e6f806d",
     "selected_model": "lgb",
     "trade_gate": null
   },
@@ -145,5 +161,5 @@
     "signal_threshold_source": "overlay_validation_threshold_search",
     "threshold_search_enabled": true
   },
-  "walk_forward_rows": 2
+  "walk_forward_rows": 4
 }
