@@ -1,13 +1,7 @@
 {
   "available_symbols": [
-    "AMD",
-    "ASML",
-    "AVGO",
-    "NVDA",
     "QQQ",
-    "SMH",
-    "SOXX",
-    "TSM"
+    "SMH"
   ],
   "coverage_rows": 8,
   "data_status": "ok_partial_insufficient_for_full_walk_forward",
@@ -15,9 +9,16 @@
     "2019-01-02",
     "2026-07-02"
   ],
-  "missing_symbols": [],
-  "provider_manifest_hash": "97af5f6932968b3e",
-  "provider_manifest_status": "ok",
+  "missing_symbols": [
+    "AMD",
+    "ASML",
+    "AVGO",
+    "NVDA",
+    "SOXX",
+    "TSM"
+  ],
+  "provider_manifest_hash": "",
+  "provider_manifest_status": "ok_partial_insufficient_for_full_walk_forward",
   "qlib_docs": {
     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
     "highfreq": "https://qlib.readthedocs.io/en/latest/component/highfreq.html",
@@ -30,9 +31,10 @@
     "qlib.workflow.Recorder.log_artifact",
     "build_qlib_store_from_frame"
   ],
-  "regular_session_rows": 77736,
+  "raw_cache_dir": "/Users/rziiiii/dev/workspace/data/raw/intraday/polygon_external_15min",
+  "regular_session_rows": 19750,
   "requested_range": [
-    "2025-01-02",
+    "2019-01-02",
     "2026-07-02"
   ],
   "requested_symbols": [
@@ -47,6 +49,8 @@
   ],
   "source": "intraday_external_context_data_card",
   "source_status_counts": {
-    "ok": 8
+    "blocked_provider_rate_limit": 6,
+    "ok_cached": 1,
+    "ok_partial_provider_rate_limit": 1
   }
 }

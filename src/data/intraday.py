@@ -293,10 +293,26 @@ def fetch_polygon_aggregate_bars(
             payload = {"status": "ERROR", "message": response.text[:240]}
         message = str(payload.get("message") or payload.get("status") or "")
         if response.status_code != 200:
-            status = "blocked_provider_rate_limit" if response.status_code == 429 else "blocked_provider_history"
+            if rows:
+                status = (
+                    "ok_partial_provider_rate_limit" if response.status_code == 429 else "ok_partial_provider_history"
+                )
+                return _polygon_rows_with_audit(
+                    rows,
+                    symbol=symbol,
+                    multiplier=multiplier,
+                    adjusted=adjusted,
+                    status=status,
+                    http_status=last_status,
+                    page_count=page_count,
+                    message=message,
+                    start=start,
+                    end=end,
+                )
+            blocked_status = "blocked_provider_rate_limit" if response.status_code == 429 else "blocked_provider_history"
             return pd.DataFrame(), {
                 "symbol": symbol,
-                "status": status,
+                "status": blocked_status,
                 "http_status": last_status,
                 "row_count": 0,
                 "page_count": page_count,
@@ -313,16 +329,48 @@ def fetch_polygon_aggregate_bars(
             current_url = str(next_url)
             current_params = {"apiKey": api_key}
 
-    normalized = normalize_polygon_aggregate_frame(
+    return _polygon_rows_with_audit(
         rows,
         symbol=symbol,
         multiplier=multiplier,
         adjusted=adjusted,
-    ) if rows else pd.DataFrame()
-    status = "ok" if not normalized.empty else "blocked_no_rows"
+        status="ok" if rows else "blocked_no_rows",
+        http_status=last_status,
+        page_count=page_count,
+        message=message,
+        start=start,
+        end=end,
+    )
+
+
+def _polygon_rows_with_audit(
+    rows: list[dict[str, Any]],
+    *,
+    symbol: str,
+    multiplier: int,
+    adjusted: bool,
+    status: str,
+    http_status: int | None,
+    page_count: int,
+    message: str,
+    start: str,
+    end: str,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    normalized = (
+        normalize_polygon_aggregate_frame(
+            rows,
+            symbol=symbol,
+            multiplier=multiplier,
+            adjusted=adjusted,
+        )
+        if rows
+        else pd.DataFrame()
+    )
+    if normalized.empty and status.startswith("ok"):
+        status = "blocked_no_rows"
     coverage_start = _format_timestamp_for_audit(normalized["timestamp"].min()) if not normalized.empty else ""
     coverage_end = _format_timestamp_for_audit(normalized["timestamp"].max()) if not normalized.empty else ""
-    provider_history_truncated = False
+    provider_history_truncated = True
     if not normalized.empty:
         provider_history_truncated = bool(
             pd.Timestamp(normalized["timestamp"].min()).date() > pd.Timestamp(start).date()
@@ -331,7 +379,7 @@ def fetch_polygon_aggregate_bars(
     return normalized, {
         "symbol": symbol,
         "status": status,
-        "http_status": last_status,
+        "http_status": http_status,
         "row_count": int(len(normalized)),
         "page_count": page_count,
         "message": message,

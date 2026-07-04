@@ -18,13 +18,19 @@
     "workflow_config": "workflow.yaml"
   },
   "as_of": "2026-07-02",
-  "available_symbols": [],
+  "available_symbols": [
+    "QQQ",
+    "SMH"
+  ],
   "card_type": "intraday_external_context_data",
   "coverage_audit": {
-    "regular_session_rows": 0,
-    "symbols_with_rows": []
+    "regular_session_rows": 19750,
+    "symbols_with_rows": [
+      "QQQ",
+      "SMH"
+    ]
   },
-  "data_status": "blocked_provider_rate_limit",
+  "data_status": "ok_partial_insufficient_for_full_walk_forward",
   "experiment": "intraday_external_context_data_v1",
   "frequency": "15min",
   "full_walk_forward_required_range": [
@@ -32,15 +38,13 @@
     "2026-07-02"
   ],
   "manifest_hash": "",
-  "manifest_status": "blocked_provider_rate_limit",
+  "manifest_status": "ok_partial_insufficient_for_full_walk_forward",
   "market": "all",
   "missing_symbols": [
     "AMD",
     "ASML",
     "AVGO",
     "NVDA",
-    "QQQ",
-    "SMH",
     "SOXX",
     "TSM"
   ],
@@ -68,6 +72,7 @@
     "qlib.workflow.Recorder.log_artifact",
     "build_qlib_store_from_frame"
   ],
+  "raw_cache_dir": "/Users/rziiiii/dev/workspace/data/raw/intraday/polygon_external_15min",
   "recorder_artifacts": [
     "artifacts/intraday_external_context/qlib_feature_sample.csv",
     "artifacts/intraday_external_context/source_audit.csv",
@@ -93,8 +98,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "e4e7568375e04ed78175ef8250f5dacf",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/e4e7568375e04ed78175ef8250f5dacf",
+  "recorder_id": "bd4e85674233402fb59d1c77250c9091",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder/901967535428274300/bd4e85674233402fb59d1c77250c9091",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/intraday_external_context_data_v1/qlib_recorder",
   "region": "us",
   "requested_range": [
@@ -120,7 +125,9 @@
   },
   "source": "polygon_aggs_custom_bars",
   "source_audit_status_counts": {
-    "blocked_provider_rate_limit": 8
+    "blocked_provider_rate_limit": 6,
+    "ok_cached": 1,
+    "ok_partial_provider_rate_limit": 1
   },
   "workflow_config": "workflow.yaml"
 }

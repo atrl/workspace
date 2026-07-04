@@ -9,6 +9,7 @@ qlib:
 source:
   provider: polygon_aggs_custom_bars
   requested_range: [2019-01-02, 2026-07-02]
+  raw_cache_dir: /Users/rziiiii/dev/workspace/data/raw/intraday/polygon_external_15min
   requested_symbols:
     - QQQ
     - SMH

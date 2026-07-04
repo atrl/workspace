@@ -1,6 +1,6 @@
 symbol,status,coverage_start,coverage_end,regular_session_rows,first_session,last_session
-QQQ,blocked_provider_rate_limit,,,0,,
-SMH,blocked_provider_rate_limit,,,0,,
+QQQ,ok_cached,2024-07-05 09:45:00,2025-09-02 16:00:00,7533,2024-07-05,2025-09-02
+SMH,ok_partial_provider_rate_limit,2024-07-05 09:45:00,2026-05-21 16:00:00,12217,2024-07-05,2026-05-21
 SOXX,blocked_provider_rate_limit,,,0,,
 NVDA,blocked_provider_rate_limit,,,0,,
 AVGO,blocked_provider_rate_limit,,,0,,

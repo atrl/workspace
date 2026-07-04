@@ -1,9 +1,0 @@
-symbol,status,http_status,row_count,page_count,message,requested_start,requested_end,coverage_start,coverage_end,provider_history_truncated
-QQQ,blocked_provider_rate_limit,429,0,5,ERROR,2019-01-02,2026-07-02,,,True
-SMH,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-SOXX,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-NVDA,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-AVGO,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-AMD,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-TSM,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-ASML,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True

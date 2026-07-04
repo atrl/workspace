@@ -15,6 +15,8 @@ from src.data import (
     init_qlib_provider,
     load_qlib_feature_frame,
     polygon_intraday_to_qlib_frame,
+    read_intraday_cache,
+    write_intraday_cache,
 )
 from src.workflow.intraday_bar_model import _recorder_files, _remove_transient_code_snapshots
 
@@ -73,6 +75,10 @@ class IntradayExternalContextDataSpec:
     @property
     def fallback_provider_uri(self) -> Path:
         return self.root / "data" / "qlib" / "soxl"
+
+    @property
+    def raw_cache_dir(self) -> Path:
+        return self.root / "data" / "raw" / "intraday" / "polygon_external_15min"
 
 
 def run_intraday_external_context_data_card(
@@ -203,11 +209,19 @@ def _fetch_requested_symbols(
                     "coverage_start": "",
                     "coverage_end": "",
                     "provider_history_truncated": True,
+                    "raw_cache_path": "",
                 }
             )
         return pd.DataFrame(audit_rows), pd.DataFrame()
 
     for symbol in spec.requested_symbols:
+        cached = _read_cached_symbol(spec, symbol)
+        if cached is not None:
+            cached_frame, cached_audit = cached
+            audit_rows.append(cached_audit)
+            frames.append(cached_frame)
+            continue
+
         frame, audit = fetch_polygon_aggregate_bars(
             symbol,
             start=spec.start,
@@ -217,11 +231,64 @@ def _fetch_requested_symbols(
             max_retries=0,
             retry_sleep_seconds=0.0,
         )
+        audit = {**audit, "raw_cache_path": _raw_cache_path(spec, symbol).as_posix() if not frame.empty else ""}
         audit_rows.append(audit)
         if not frame.empty:
+            write_intraday_cache(frame, _raw_cache_path(spec, symbol))
             frames.append(frame)
     normalized = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     return pd.DataFrame(audit_rows), normalized
+
+
+def _raw_cache_path(spec: IntradayExternalContextDataSpec, symbol: str) -> Path:
+    return spec.raw_cache_dir / f"{symbol.upper()}_{spec.frequency}.parquet"
+
+
+def _read_cached_symbol(
+    spec: IntradayExternalContextDataSpec,
+    symbol: str,
+) -> tuple[pd.DataFrame, dict[str, Any]] | None:
+    path = _raw_cache_path(spec, symbol)
+    if not path.exists():
+        return None
+    frame = read_intraday_cache(path)
+    if frame.empty:
+        return None
+    frame = frame.copy()
+    frame["symbol"] = frame["symbol"].astype(str).str.upper()
+    frame = frame.loc[frame["symbol"].eq(symbol.upper())].copy()
+    if frame.empty:
+        return None
+    return frame, _cached_source_audit(spec, symbol, frame)
+
+
+def _cached_source_audit(
+    spec: IntradayExternalContextDataSpec,
+    symbol: str,
+    frame: pd.DataFrame,
+) -> dict[str, Any]:
+    coverage_start = _format_min(frame["timestamp"].min()) if "timestamp" in frame else ""
+    coverage_end = _format_min(frame["timestamp"].max()) if "timestamp" in frame else ""
+    provider_history_truncated = True
+    if coverage_start and coverage_end:
+        provider_history_truncated = bool(
+            pd.Timestamp(frame["timestamp"].min()).date() > pd.Timestamp(spec.start).date()
+            or pd.Timestamp(frame["timestamp"].max()).date() < pd.Timestamp(spec.end).date()
+        )
+    return {
+        "symbol": symbol.upper(),
+        "status": "ok_cached",
+        "http_status": 0,
+        "row_count": int(len(frame)),
+        "page_count": 0,
+        "message": "raw cache hit",
+        "requested_start": spec.start,
+        "requested_end": spec.end,
+        "coverage_start": coverage_start,
+        "coverage_end": coverage_end,
+        "provider_history_truncated": provider_history_truncated,
+        "raw_cache_path": _raw_cache_path(spec, symbol).as_posix(),
+    }
 
 
 def _coverage_audit(
@@ -363,6 +430,7 @@ def _analysis_summary(
         "missing_symbols": missing_symbols,
         "requested_range": [spec.start, spec.end],
         "full_walk_forward_required_range": [spec.full_walk_forward_start, spec.end],
+        "raw_cache_dir": spec.raw_cache_dir.resolve().as_posix(),
         "source_status_counts": source_audit["status"].value_counts().to_dict() if not source_audit.empty else {},
         "coverage_rows": int(len(coverage_audit)),
         "regular_session_rows": int(coverage_audit["regular_session_rows"].sum()) if not coverage_audit.empty else 0,
@@ -432,6 +500,7 @@ def _summary(
         "frequency": spec.frequency,
         "requested_range": [spec.start, spec.end],
         "full_walk_forward_required_range": [spec.full_walk_forward_start, spec.end],
+        "raw_cache_dir": spec.raw_cache_dir.resolve().as_posix(),
         "requested_symbols": list(spec.requested_symbols),
         "available_symbols": available_symbols,
         "missing_symbols": missing_symbols,
@@ -482,6 +551,7 @@ def _write_workflow_yaml(spec: IntradayExternalContextDataSpec) -> Path:
         "source:",
         f"  provider: {spec.source}",
         f"  requested_range: [{spec.start}, {spec.end}]",
+        f"  raw_cache_dir: {spec.raw_cache_dir.resolve().as_posix()}",
         "  requested_symbols:",
     ]
     lines.extend(f"    - {symbol}" for symbol in spec.requested_symbols)

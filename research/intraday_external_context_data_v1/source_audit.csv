@@ -1,9 +1,9 @@
-symbol,status,http_status,row_count,page_count,message,requested_start,requested_end,coverage_start,coverage_end,provider_history_truncated
-QQQ,blocked_provider_rate_limit,429,0,5,ERROR,2019-01-02,2026-07-02,,,True
-SMH,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-SOXX,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-NVDA,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-AVGO,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-AMD,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-TSM,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
-ASML,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True
+symbol,status,http_status,row_count,page_count,message,requested_start,requested_end,coverage_start,coverage_end,provider_history_truncated,raw_cache_path
+QQQ,ok_cached,0,18537,0,raw cache hit,2019-01-02,2026-07-02,2024-07-05 04:15:00,2025-09-02 16:15:00,True,/Users/rziiiii/dev/workspace/data/raw/intraday/polygon_external_15min/QQQ_15min.parquet
+SMH,ok_partial_provider_rate_limit,429,26567,5,ERROR,2019-01-02,2026-07-02,2024-07-05 04:15:00,2026-05-21 19:15:00,True,/Users/rziiiii/dev/workspace/data/raw/intraday/polygon_external_15min/SMH_15min.parquet
+SOXX,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True,
+NVDA,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True,
+AVGO,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True,
+AMD,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True,
+TSM,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True,
+ASML,blocked_provider_rate_limit,429,0,0,ERROR,2019-01-02,2026-07-02,,,True,

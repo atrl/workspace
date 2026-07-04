@@ -996,6 +996,7 @@ def test_intraday_external_context_data_card_records_requested_symbols_and_fail_
     assert summary["card_type"] == "intraday_external_context_data"
     assert summary["source"] == "polygon_aggs_custom_bars"
     assert summary["requested_range"] == ["2019-01-02", "2026-07-02"]
+    assert summary["raw_cache_dir"].endswith("data/raw/intraday/polygon_external_15min")
     assert set(summary["requested_symbols"]) == requested_symbols
     assert summary["frequency"] == "15min"
     assert summary["data_status"] in {
@@ -1059,6 +1060,7 @@ def test_intraday_external_context_data_card_records_requested_symbols_and_fail_
         "coverage_start",
         "coverage_end",
         "provider_history_truncated",
+        "raw_cache_path",
     }.issubset(source_audit.columns)
     if summary["data_status"] == "ok_partial_insufficient_for_full_walk_forward":
         assert source_audit["provider_history_truncated"].fillna(False).astype(bool).any()

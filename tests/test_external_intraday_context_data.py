@@ -183,6 +183,58 @@ def test_polygon_fetch_marks_provider_history_truncation(monkeypatch):
     assert audit["provider_history_truncated"] is True
 
 
+def test_polygon_fetch_preserves_partial_rows_when_later_page_hits_rate_limit(monkeypatch):
+    class FirstResponse:
+        status_code = 200
+        headers = {}
+
+        @staticmethod
+        def json():
+            return {
+                "status": "OK",
+                "results": [
+                    {
+                        "t": int(pd.Timestamp("2024-07-05 13:30:00", tz="UTC").timestamp() * 1000),
+                        "o": 490.0,
+                        "h": 491.0,
+                        "l": 489.0,
+                        "c": 490.5,
+                        "v": 1000,
+                        "vw": 490.25,
+                        "n": 10,
+                    }
+                ],
+                "next_url": "https://api.polygon.io/next",
+            }
+
+    class RateLimitResponse:
+        status_code = 429
+        headers = {}
+
+        @staticmethod
+        def json():
+            return {"status": "ERROR", "message": "rate limit"}
+
+    responses = iter([FirstResponse(), RateLimitResponse()])
+    monkeypatch.setattr(requests, "get", lambda *args, **kwargs: next(responses))
+
+    frame, audit = fetch_polygon_aggregate_bars(
+        "QQQ",
+        start="2019-01-02",
+        end="2026-07-02",
+        api_key="test-key",
+        max_retries=0,
+    )
+
+    assert not frame.empty
+    assert audit["status"] == "ok_partial_provider_rate_limit"
+    assert audit["row_count"] == 1
+    assert audit["http_status"] == 429
+    assert audit["page_count"] == 1
+    assert audit["coverage_start"] == "2024-07-05 09:45:00"
+    assert audit["provider_history_truncated"] is True
+
+
 def test_external_context_symbol_fetch_uses_fast_fail_rate_limit_policy(monkeypatch, tmp_path):
     calls = []
 
@@ -215,3 +267,67 @@ def test_external_context_symbol_fetch_uses_fast_fail_rate_limit_policy(monkeypa
     assert calls[0]["start"] == "2019-01-02"
     assert calls[0]["max_retries"] == 0
     assert calls[0]["retry_sleep_seconds"] == 0.0
+
+
+def test_external_context_symbol_fetch_persists_and_reuses_raw_cache(monkeypatch, tmp_path):
+    normalized = normalize_polygon_aggregate_frame(
+        pd.DataFrame(
+            [
+                {
+                    "t": int(pd.Timestamp("2024-07-05 13:30:00", tz="UTC").timestamp() * 1000),
+                    "o": 490.0,
+                    "h": 491.0,
+                    "l": 489.0,
+                    "c": 490.5,
+                    "v": 1000,
+                    "vw": 490.25,
+                    "n": 10,
+                }
+            ]
+        ),
+        symbol="QQQ",
+        multiplier=15,
+        fetched_at="2026-07-04T00:00:00+00:00",
+    )
+    calls = []
+
+    def fake_fetch(symbol, **kwargs):
+        calls.append(symbol)
+        return normalized, {
+            "symbol": symbol,
+            "status": "ok_partial_provider_rate_limit",
+            "http_status": 429,
+            "row_count": len(normalized),
+            "page_count": 1,
+            "message": "rate limit",
+            "requested_start": kwargs["start"],
+            "requested_end": kwargs["end"],
+            "coverage_start": "2024-07-05 09:45:00",
+            "coverage_end": "2024-07-05 09:45:00",
+            "provider_history_truncated": True,
+        }
+
+    monkeypatch.setattr(external_context_workflow, "fetch_polygon_aggregate_bars", fake_fetch)
+    spec = external_context_workflow.IntradayExternalContextDataSpec(
+        root=tmp_path,
+        requested_symbols=("QQQ",),
+    )
+
+    source_audit, cached_frame = external_context_workflow._fetch_requested_symbols(spec, api_key="test-key")
+
+    assert calls == ["QQQ"]
+    assert not cached_frame.empty
+    assert source_audit["status"].tolist() == ["ok_partial_provider_rate_limit"]
+    assert external_context_workflow._raw_cache_path(spec, "QQQ").exists()
+
+    def fail_if_called(*args, **kwargs):
+        raise AssertionError("cache should avoid a second Polygon call")
+
+    monkeypatch.setattr(external_context_workflow, "fetch_polygon_aggregate_bars", fail_if_called)
+
+    cached_audit, cached_again = external_context_workflow._fetch_requested_symbols(spec, api_key="test-key")
+
+    assert not cached_again.empty
+    assert cached_audit["status"].tolist() == ["ok_cached"]
+    assert cached_audit["row_count"].tolist() == [1]
+    assert cached_audit["provider_history_truncated"].tolist() == [True]
