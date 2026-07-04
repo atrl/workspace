@@ -8,6 +8,7 @@ from src.workflow.cognitive_alpha_intraday_overlay import (
     CognitiveAlphaIntradayOverlaySpec,
     evaluate_conditional_overlay_candidates,
     evaluate_observable_delayed_signal_candidates,
+    select_intraday_flat_sleeve_policy,
     select_validation_robust_delayed_policy,
     simulate_observable_delayed_signal_overlay,
     simulate_execution_overlays,
@@ -941,6 +942,90 @@ def test_select_validation_robust_delayed_policy_allows_same_day_close_as_intrad
 
     assert selected["policy_id"] == "same_day_flat_higher_retention"
     assert selected["exit_policy"] == "same_day_close"
+
+
+def test_select_intraday_flat_sleeve_policy_prefers_validation_drawdown_over_coverage():
+    candidates = pd.DataFrame(
+        [
+            {
+                "policy_id": "wide_coverage_weaker_drawdown",
+                "variant": "delayed_signal_after_30m_same_day_close",
+                "exit_policy": "same_day_close",
+                "selection_score": 120.0,
+                "condition_valid_active_coverage": 0.80,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 140.0,
+                "validation_max_drawdown_pct": -14.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+                "test_return_retention_pct": 110.0,
+                "test_max_drawdown_pct": -12.0,
+            },
+            {
+                "policy_id": "wide_coverage_weaker_drawdown",
+                "variant": "delayed_signal_after_30m_same_day_close",
+                "exit_policy": "same_day_close",
+                "selection_score": 120.0,
+                "condition_valid_active_coverage": 0.80,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 130.0,
+                "validation_max_drawdown_pct": -15.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+                "test_return_retention_pct": 105.0,
+                "test_max_drawdown_pct": -13.0,
+            },
+            {
+                "policy_id": "lower_drawdown_flat_sleeve",
+                "variant": "delayed_signal_after_30m_same_day_close",
+                "exit_policy": "same_day_close",
+                "selection_score": 90.0,
+                "condition_valid_active_coverage": 0.20,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 100.0,
+                "validation_max_drawdown_pct": -8.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+                "test_return_retention_pct": 95.0,
+                "test_max_drawdown_pct": -7.0,
+            },
+            {
+                "policy_id": "lower_drawdown_flat_sleeve",
+                "variant": "delayed_signal_after_30m_same_day_close",
+                "exit_policy": "same_day_close",
+                "selection_score": 90.0,
+                "condition_valid_active_coverage": 0.20,
+                "cost_bps": 50.0,
+                "validation_return_retention_pct": 95.0,
+                "validation_max_drawdown_pct": -9.0,
+                "validation_skipped_periods": 2,
+                "validation_periods": 250,
+                "test_return_retention_pct": 90.0,
+                "test_max_drawdown_pct": -8.0,
+            },
+            {
+                "policy_id": "hold_is_not_intraday_flat",
+                "variant": "delayed_signal_after_30m",
+                "exit_policy": "hold_to_next_open",
+                "selection_score": 200.0,
+                "condition_valid_active_coverage": 1.0,
+                "cost_bps": 20.0,
+                "validation_return_retention_pct": 200.0,
+                "validation_max_drawdown_pct": -6.0,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "test_return_retention_pct": 200.0,
+                "test_max_drawdown_pct": -6.0,
+            },
+        ]
+    )
+
+    selected = select_intraday_flat_sleeve_policy(candidates)
+
+    assert selected["policy_id"] == "lower_drawdown_flat_sleeve"
+    assert selected["exit_policy"] == "same_day_close"
+    assert selected["selection_role"] == "intraday_flat_sleeve"
+    assert selected["selection_priority"][0] == "validation_max_drawdown_desc"
 
 
 def test_load_intraday_prediction_frame_uses_prediction_history_start(monkeypatch, tmp_path):

@@ -717,6 +717,98 @@ def select_validation_robust_delayed_policy(
     return result
 
 
+def select_intraday_flat_sleeve_policy(
+    candidates: pd.DataFrame,
+    *,
+    required_cost_bps: tuple[float, ...] = (20.0, 50.0),
+    selection_cost_bps: float = 20.0,
+    return_retention_low: float = 85.0,
+    max_drawdown_floor: float = -18.0,
+    max_skip_rate: float = 0.15,
+) -> dict[str, Any]:
+    selection_priority = [
+        "validation_max_drawdown_desc",
+        "validation_return_retention_score_desc",
+        "validation_skip_rate_asc",
+        "condition_valid_active_coverage_desc",
+        "selection_score_desc",
+    ]
+    if candidates.empty or "exit_policy" not in candidates.columns:
+        return {
+            "policy_id": None,
+            "exit_policy": SAME_DAY_CLOSE_EXIT_POLICY,
+            "selection_role": "intraday_flat_sleeve",
+            "selection_priority": selection_priority,
+            "validation_passes_target": False,
+            "selection_uses_test_segment": False,
+        }
+    frame = candidates.loc[candidates["exit_policy"].eq(SAME_DAY_CLOSE_EXIT_POLICY)].copy()
+    if frame.empty:
+        return {
+            "policy_id": None,
+            "exit_policy": SAME_DAY_CLOSE_EXIT_POLICY,
+            "selection_role": "intraday_flat_sleeve",
+            "selection_priority": selection_priority,
+            "validation_passes_target": False,
+            "selection_uses_test_segment": False,
+        }
+    frame["cost_bps"] = pd.to_numeric(frame["cost_bps"], errors="coerce")
+    frame["validation_return_retention_score"] = frame["validation_return_retention_pct"].clip(upper=95.0)
+    frame["validation_skip_rate"] = (
+        pd.to_numeric(frame["validation_skipped_periods"], errors="coerce")
+        / pd.to_numeric(frame["validation_periods"], errors="coerce").replace(0, np.nan)
+    ).fillna(1.0)
+    if "condition_valid_active_coverage" not in frame.columns:
+        frame["condition_valid_active_coverage"] = 1.0
+    required_costs = {float(value) for value in required_cost_bps}
+    robust_rows: list[pd.Series] = []
+    for _, group in frame.groupby("policy_id", sort=False):
+        costs = {float(value) for value in group["cost_bps"].dropna().unique()}
+        if not required_costs.issubset(costs):
+            continue
+        robust = True
+        for cost in required_costs:
+            row = group.loc[group["cost_bps"].eq(cost)].iloc[0]
+            retention = float(row["validation_return_retention_pct"])
+            drawdown = float(row["validation_max_drawdown_pct"])
+            skipped = float(row["validation_skipped_periods"])
+            periods = float(row["validation_periods"])
+            if not (
+                retention >= float(return_retention_low)
+                and drawdown > float(max_drawdown_floor)
+                and skipped <= periods * float(max_skip_rate)
+            ):
+                robust = False
+                break
+        if robust:
+            selected_cost_row = group.loc[group["cost_bps"].eq(float(selection_cost_bps))]
+            if not selected_cost_row.empty:
+                robust_rows.append(selected_cost_row.iloc[0])
+    source = pd.DataFrame(robust_rows) if robust_rows else frame.copy()
+    selected = source.sort_values(
+        [
+            "validation_max_drawdown_pct",
+            "validation_return_retention_score",
+            "validation_skip_rate",
+            "condition_valid_active_coverage",
+            "selection_score",
+        ],
+        ascending=[False, False, True, False, False],
+    ).iloc[0]
+    result = _json_ready_dict(selected.to_dict())
+    result["selection_role"] = "intraday_flat_sleeve"
+    result["selection_priority"] = selection_priority
+    result["selection_segment"] = "validation"
+    result["report_segment"] = "test"
+    result["selection_uses_test_segment"] = False
+    result["required_cost_bps"] = sorted(required_costs)
+    result["max_skip_rate"] = float(max_skip_rate)
+    result["return_retention_floor_pct"] = float(return_retention_low)
+    result["max_drawdown_floor_pct"] = float(max_drawdown_floor)
+    result["validation_passes_target"] = bool(robust_rows)
+    return result
+
+
 def evaluate_observable_delayed_signal_candidates(
     daily: pd.DataFrame,
     *,
@@ -1663,9 +1755,19 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         required_cost_bps=(20.0, 50.0),
         selection_cost_bps=float(spec.selection_cost_bps),
     )
+    intraday_flat_sleeve = select_intraday_flat_sleeve_policy(
+        policy_selection_full,
+        required_cost_bps=(20.0, 50.0),
+        selection_cost_bps=float(spec.selection_cost_bps),
+    )
     selected_policy_rows = (
         policy_selection_full.loc[policy_selection_full["policy_id"].eq(selected_model.get("policy_id"))].copy()
         if not policy_selection_full.empty and selected_model.get("policy_id")
+        else pd.DataFrame()
+    )
+    intraday_flat_sleeve_rows = (
+        policy_selection_full.loc[policy_selection_full["policy_id"].eq(intraday_flat_sleeve.get("policy_id"))].copy()
+        if not policy_selection_full.empty and intraday_flat_sleeve.get("policy_id")
         else pd.DataFrame()
     )
     selected_trade_frames = []
@@ -1706,7 +1808,9 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         signal_config=signal_config,
         policy_selection_full=policy_selection_full,
         selected_policy_rows=selected_policy_rows,
+        intraday_flat_sleeve_rows=intraday_flat_sleeve_rows,
         selected_model=selected_model,
+        intraday_flat_sleeve=intraday_flat_sleeve,
         model_comparison=model_comparison,
         walk_forward_summary=walk_forward_summary,
     )
@@ -1714,8 +1818,10 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         spec,
         policy_selection_full=policy_selection_full,
         selected_policy_rows=selected_policy_rows,
+        intraday_flat_sleeve_rows=intraday_flat_sleeve_rows,
         model_comparison=model_comparison,
         selected_model=selected_model,
+        intraday_flat_sleeve=intraday_flat_sleeve,
         analysis_summary=analysis_summary,
         walk_forward_feasibility=walk_forward_feasibility,
     )
@@ -1744,6 +1850,7 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                 max_skip_rate=0.15,
                 return_retention_upper_policy="soft_cap_for_scoring",
                 selected_policy_id=str(selected_model.get("policy_id")),
+                selected_intraday_flat_sleeve_policy_id=str(intraday_flat_sleeve.get("policy_id")),
                 walk_forward_policy=str(walk_forward_summary.get("policy")),
                 walk_forward_selection_uses_test_segment=False,
             )
@@ -1770,6 +1877,18 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
                 ),
                 selected_test_return_retention_pct=float(selected_model.get("test_return_retention_pct") or 0.0),
                 selected_test_max_drawdown_pct=float(selected_model.get("test_max_drawdown_pct") or 0.0),
+                selected_intraday_flat_validation_return_retention_pct=float(
+                    intraday_flat_sleeve.get("validation_return_retention_pct") or 0.0
+                ),
+                selected_intraday_flat_validation_max_drawdown_pct=float(
+                    intraday_flat_sleeve.get("validation_max_drawdown_pct") or 0.0
+                ),
+                selected_intraday_flat_test_return_retention_pct=float(
+                    intraday_flat_sleeve.get("test_return_retention_pct") or 0.0
+                ),
+                selected_intraday_flat_test_max_drawdown_pct=float(
+                    intraday_flat_sleeve.get("test_max_drawdown_pct") or 0.0
+                ),
                 walk_forward_feasible_fold_count=float(len(walk_forward_summary.get("feasible_test_years", []))),
                 walk_forward_required_policy_satisfied=float(
                     1.0 if walk_forward_summary.get("required_policy_satisfied") else 0.0
@@ -1897,6 +2016,8 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         "walk_forward": walk_forward_summary,
         "selected_model": selected_model,
         "selected_policy_cost_sensitivity": _json_ready_records(selected_policy_rows),
+        "intraday_flat_sleeve": intraday_flat_sleeve,
+        "intraday_flat_sleeve_cost_sensitivity": _json_ready_records(intraday_flat_sleeve_rows),
         "analysis_summary": analysis_summary,
         "recorder_id": recorder_id,
         "recorder_uri": spec.recorder_uri.resolve().as_posix(),
@@ -1908,7 +2029,14 @@ def _run_delayed_observable_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dic
         "qlib_native_api": QLIB_NATIVE_API,
     }
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
-    _write_delayed_conclusion(spec, summary=summary, selected_model=selected_model, selected_policy_rows=selected_policy_rows)
+    _write_delayed_conclusion(
+        spec,
+        summary=summary,
+        selected_model=selected_model,
+        selected_policy_rows=selected_policy_rows,
+        intraday_flat_sleeve=intraday_flat_sleeve,
+        intraday_flat_sleeve_rows=intraday_flat_sleeve_rows,
+    )
     return summary
 
 
@@ -3289,7 +3417,9 @@ def _delayed_analysis_summary(
     signal_config: dict[str, str],
     policy_selection_full: pd.DataFrame,
     selected_policy_rows: pd.DataFrame,
+    intraday_flat_sleeve_rows: pd.DataFrame,
     selected_model: dict[str, Any],
+    intraday_flat_sleeve: dict[str, Any],
     model_comparison: pd.DataFrame,
     walk_forward_summary: dict[str, Any],
 ) -> dict[str, Any]:
@@ -3333,6 +3463,8 @@ def _delayed_analysis_summary(
         else 0,
         "selected_policy_cost_rows": _json_ready_records(selected_policy_rows),
         "selected_model": selected_model,
+        "intraday_flat_sleeve": intraday_flat_sleeve,
+        "intraday_flat_sleeve_cost_rows": _json_ready_records(intraday_flat_sleeve_rows),
         "model_comparison_rows": int(len(model_comparison)),
         "source_intraday_model": {
             "recorder_id": intraday_summary.get("recorder_id"),
@@ -3546,8 +3678,10 @@ def _write_delayed_sidecars(
     *,
     policy_selection_full: pd.DataFrame,
     selected_policy_rows: pd.DataFrame,
+    intraday_flat_sleeve_rows: pd.DataFrame,
     model_comparison: pd.DataFrame,
     selected_model: dict[str, Any],
+    intraday_flat_sleeve: dict[str, Any],
     analysis_summary: dict[str, Any],
     walk_forward_feasibility: pd.DataFrame,
 ) -> dict[str, str]:
@@ -3555,6 +3689,8 @@ def _write_delayed_sidecars(
         "model_comparison": "model_comparison.csv",
         "policy_selection": "policy_selection.csv",
         "selected_policy_cost_sensitivity": "selected_policy_cost_sensitivity.csv",
+        "selected_intraday_flat_sleeve": "selected_intraday_flat_sleeve.json",
+        "selected_intraday_flat_sleeve_cost_sensitivity": "selected_intraday_flat_sleeve_cost_sensitivity.csv",
         "selected_model": "selected_model.json",
         "analysis_summary": "analysis_summary.json",
         "walk_forward_feasibility": "walk_forward_feasibility.csv",
@@ -3562,10 +3698,18 @@ def _write_delayed_sidecars(
     }
     policy_selection_full.head(500).to_csv(spec.output_dir / sidecars["policy_selection"], index=False)
     selected_policy_rows.to_csv(spec.output_dir / sidecars["selected_policy_cost_sensitivity"], index=False)
+    intraday_flat_sleeve_rows.to_csv(
+        spec.output_dir / sidecars["selected_intraday_flat_sleeve_cost_sensitivity"],
+        index=False,
+    )
     model_comparison.to_csv(spec.output_dir / sidecars["model_comparison"], index=False)
     walk_forward_feasibility.to_csv(spec.output_dir / sidecars["walk_forward_feasibility"], index=False)
     (spec.output_dir / sidecars["selected_model"]).write_text(
         json.dumps(selected_model, indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+    (spec.output_dir / sidecars["selected_intraday_flat_sleeve"]).write_text(
+        json.dumps(intraday_flat_sleeve, indent=2, sort_keys=True),
         encoding="utf-8",
     )
     (spec.output_dir / sidecars["analysis_summary"]).write_text(
@@ -3628,13 +3772,21 @@ def _write_delayed_conclusion(
     summary: dict[str, Any],
     selected_model: dict[str, Any],
     selected_policy_rows: pd.DataFrame,
+    intraday_flat_sleeve: dict[str, Any],
+    intraday_flat_sleeve_rows: pd.DataFrame,
 ) -> None:
     rows_by_cost = {
         float(row["cost_bps"]): row
         for row in selected_policy_rows.to_dict("records")
     }
+    flat_rows_by_cost = {
+        float(row["cost_bps"]): row
+        for row in intraday_flat_sleeve_rows.to_dict("records")
+    }
     row20 = rows_by_cost.get(20.0, {})
     row50 = rows_by_cost.get(50.0, {})
+    flat20 = flat_rows_by_cost.get(20.0, {})
+    flat50 = flat_rows_by_cost.get(50.0, {})
     text = (
         "# 中文结论\n\n"
         "- 做了什么：建立 delayed observable intraday overlay，日线 LGB/XGB open-to-open 仓位仍决定是否交易；"
@@ -3654,6 +3806,11 @@ def _write_delayed_conclusion(
         f"- test 报告：20bp retention={float(row20.get('test_return_retention_pct', 0.0)):.2f}%，"
         f"max_dd={float(row20.get('test_max_drawdown_pct', 0.0)):.2f}%；50bp retention={float(row50.get('test_return_retention_pct', 0.0)):.2f}%，"
         f"max_dd={float(row50.get('test_max_drawdown_pct', 0.0)):.2f}%。\n"
+        f"- 日内 flat sleeve：只在 same_day_close 候选内按 validation 回撤优先选择；选中 {intraday_flat_sleeve.get('policy_id')}；"
+        f"20bp validation retention={float(flat20.get('validation_return_retention_pct', 0.0)):.2f}%，"
+        f"max_dd={float(flat20.get('validation_max_drawdown_pct', 0.0)):.2f}%，test retention={float(flat20.get('test_return_retention_pct', 0.0)):.2f}%，"
+        f"test max_dd={float(flat20.get('test_max_drawdown_pct', 0.0)):.2f}%；50bp test retention={float(flat50.get('test_return_retention_pct', 0.0)):.2f}%，"
+        f"test max_dd={float(flat50.get('test_max_drawdown_pct', 0.0)):.2f}%。这个 sleeve 更接近纯日内执行，但仍受外部 15m 历史不足和收盘成交 replay 缺失约束。\n"
         f"- walk-forward：要求 {summary['walk_forward']['required_test_years']} 年度 train_to_T-2/valid_T-1/test_T；"
         f"当前 feasible 年份={summary['walk_forward']['feasible_test_years']}，"
         f"缺失={summary['walk_forward']['missing_required_test_years']}，因此 required_policy_satisfied="

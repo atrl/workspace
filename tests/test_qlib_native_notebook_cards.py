@@ -912,6 +912,13 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert summary["selected_model"]["passes_validation_and_test_target"] is True
     assert summary["selected_model"]["return_retention_upper_policy"] == "soft_cap_for_scoring"
     assert summary["selected_model"]["observation_minutes"] in {30, 60}
+    assert summary["intraday_flat_sleeve"]["selection_role"] == "intraday_flat_sleeve"
+    assert summary["intraday_flat_sleeve"]["selection_segment"] == "validation"
+    assert summary["intraday_flat_sleeve"]["selection_uses_test_segment"] is False
+    assert summary["intraday_flat_sleeve"]["exit_policy"] == "same_day_close"
+    assert summary["intraday_flat_sleeve"]["selection_priority"][0] == "validation_max_drawdown_desc"
+    assert summary["intraday_flat_sleeve"]["validation_passes_target"] is True
+    assert summary["intraday_flat_sleeve"]["test_max_drawdown_pct"] >= summary["selected_model"]["test_max_drawdown_pct"]
     assert summary["promotion_decision"] == "not_promoted_external_intraday_history_insufficient"
     assert "not_promoted" in summary["promotion_decision"]
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
@@ -932,6 +939,8 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
         "model_comparison",
         "policy_selection",
         "selected_model",
+        "selected_intraday_flat_sleeve",
+        "selected_intraday_flat_sleeve_cost_sensitivity",
         "selected_policy_cost_sensitivity",
         "walk_forward_feasibility",
     }
@@ -960,6 +969,11 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert required["passes_test_target"].all()
     assert required["return_retention_upper_policy"].eq("soft_cap_for_scoring").all()
     assert required["test_max_drawdown_pct"].max() > -18.0
+    flat_sleeve = json.loads((card / summary["sidecars"]["selected_intraday_flat_sleeve"]).read_text(encoding="utf-8"))
+    assert flat_sleeve["exit_policy"] == "same_day_close"
+    flat_costs = pd.read_csv(card / summary["sidecars"]["selected_intraday_flat_sleeve_cost_sensitivity"])
+    assert set(flat_costs["cost_bps"]) >= {20.0, 50.0}
+    assert flat_costs["exit_policy"].eq("same_day_close").all()
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "delayed_observable_overlay" / "selected_trades.csv").exists()
@@ -970,6 +984,7 @@ def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust
     assert "run_cognitive_alpha_intraday_delayed_observable_overlay_card" in notebook_text
     assert "first 30/60 minutes" in notebook_text
     assert "delayed observable intraday overlay" in conclusion
+    assert "日内 flat sleeve" in conclusion
     assert "95% 只作为 scoring soft cap" in conclusion
 
 
