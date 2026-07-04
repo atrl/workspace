@@ -822,6 +822,68 @@ def test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_
     assert "causal regime overlay" in conclusion
 
 
+def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust_delayed_entry():
+    card = ROOT / "research" / "cognitive_alpha_intraday_delayed_observable_overlay_v1"
+    summary = _summary(card)
+    notebook_text = (card / "cognitive_alpha_intraday_delayed_observable_overlay_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "cognitive_alpha_intraday_delayed_observable_overlay_v1"
+    assert summary["card_type"] == "intraday_delayed_observable_overlay"
+    assert summary["as_of"] == "2026-07-02"
+    assert summary["source_daily_model"]["card"] == "research/cognitive_alpha_goal_codex_exec_v1"
+    assert summary["source_intraday_model"]["card"] == "research/agentic_alpha_intraday_external_context_label_v1"
+    assert summary["source_intraday_model"]["signal_prob_col"] == "prob_lgb"
+    assert summary["execution_overlay"]["overlay_signal_timing"] == "first_30_or_60m_observed_then_15m_bar_close_to_next_bar_open"
+    assert summary["execution_overlay"]["intraday_overlays_hold_overnight"] is False
+    assert summary["model_selection"]["selection_segment"] == "validation"
+    assert summary["model_selection"]["report_segment"] == "test"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
+    assert summary["model_selection"]["max_skip_rate"] == 0.15
+    assert summary["model_selection"]["validation_and_test_target_row_count"] > 0
+    assert summary["selected_model"]["validation_passes_target"] is True
+    assert summary["selected_model"]["passes_test_target"] is True
+    assert summary["selected_model"]["observation_minutes"] in {30, 60}
+    assert "not_promoted" in summary["promotion_decision"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == {
+        "all_policy_selection": "artifacts/delayed_observable_overlay/all_policy_selection.csv",
+        "selected_trades": "artifacts/delayed_observable_overlay/selected_trades.csv",
+    }
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
+        set(summary["recorder_artifacts"])
+    )
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "failure_modes",
+        "model_comparison",
+        "policy_selection",
+        "selected_model",
+        "selected_policy_cost_sensitivity",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    selected_costs = pd.read_csv(card / summary["sidecars"]["selected_policy_cost_sensitivity"])
+    required = selected_costs.loc[selected_costs["cost_bps"].isin([20.0, 50.0])]
+    assert set(required["cost_bps"]) == {20.0, 50.0}
+    assert required["passes_validation_target"].all()
+    assert required["passes_test_target"].all()
+    assert required["test_max_drawdown_pct"].max() > -18.0
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / "delayed_observable_overlay" / "selected_trades.csv").exists()
+    assert (recorder_dir / "artifacts" / "delayed_observable_overlay" / "all_policy_selection.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_cognitive_alpha_intraday_delayed_observable_overlay_card" in notebook_text
+    assert "first 30/60 minutes" in notebook_text
+    assert "delayed observable intraday overlay" in conclusion
+
+
 def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():
     card = ROOT / "research" / "agentic_alpha_intraday_execution_label_v1"
     summary = _summary(card)

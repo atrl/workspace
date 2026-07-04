@@ -53,6 +53,7 @@ __all__ = [
     "run_cognitive_alpha_goal_codex_exec_card",
     "run_cognitive_alpha_intraday_execution_overlay_card",
     "run_cognitive_alpha_intraday_external_context_overlay_card",
+    "run_cognitive_alpha_intraday_delayed_observable_overlay_card",
     "run_cognitive_alpha_intraday_regime_overlay_diagnostic_card",
     "run_intraday_execution_label_model_card",
     "run_cognitive_alpha_position_model",
@@ -108,6 +109,7 @@ _COGNITIVE_ALPHA_INTRADAY_OVERLAY_EXPORTS = {
     "CognitiveAlphaIntradayOverlaySpec",
     "run_cognitive_alpha_intraday_execution_overlay_card",
     "run_cognitive_alpha_intraday_external_context_overlay_card",
+    "run_cognitive_alpha_intraday_delayed_observable_overlay_card",
     "run_cognitive_alpha_intraday_regime_overlay_diagnostic_card",
 }
 

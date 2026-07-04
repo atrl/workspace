@@ -1,0 +1,23 @@
+experiment: cognitive_alpha_intraday_delayed_observable_overlay_v1
+qlib:
+  recorder_uri: /Users/rziiiii/dev/workspace/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/qlib_recorder
+  daily_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+sources:
+  daily_card: research/cognitive_alpha_goal_codex_exec_v1
+  daily_recorder_id: ce05c33a5d6b446fbb758bfdd747666b
+  intraday_card: research/agentic_alpha_intraday_external_context_label_v1
+  intraday_recorder_id: 65b2e78d9654495b82bf073f4156cde7
+selection:
+  segment: validation
+  report_segment: test
+  uses_test_segment: false
+  selection_cost_bps: 20.0
+  required_cost_bps: [20.0, 50.0]
+  max_skip_rate: 0.15
+execution:
+  causal_timing: first_30_or_60m_observed_then_next_15m_open
+  first_hour_features_can_only_trigger_delayed_entries: true
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json

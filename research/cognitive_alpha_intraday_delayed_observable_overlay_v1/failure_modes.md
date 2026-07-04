@@ -1,0 +1,6 @@
+# Failure Modes
+
+- Delayed observable overlay 只能在前 30/60 分钟 bar 完成后使用这些特征，不能影响 next-open 或前 4 根 bar 的成交。
+- 选择规则只用 validation，并要求 20bp/50bp validation 同时满足 85%-95% retention、max_dd>-18%、skip<=15%。
+- 当前外部 15m 上下文覆盖仍只有 2025-01-02 到 2026-07-02，不能证明完整 2019-2026 walk-forward 晋升。
+- 还没有 bid/ask、队列、延迟和盘前盘后 replay；只能作为研究候选，不是生产执行策略。
