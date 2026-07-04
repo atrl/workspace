@@ -15,8 +15,15 @@ model_selection:
   threshold_segment: valid
   cost_bps: 10.0
   feature_set: regime_v1
-  trade_gate: regime_v1
+  trade_gate: regime_v2_dislocation
   cost_stress_bps: [0.0, 10.0, 20.0]
+execution:
+  timing: bar_t_close_signal_next_15m_open_to_close
+  label_policy: same_session_next_bar_open_to_close
+  return_col: target_return
+  model_target_col: target_positive
+  open_to_open: false
+  holds_overnight: false
 artifact_policy:
   policy: slim_card_recorder_first
   machine_entrypoint: summary.json

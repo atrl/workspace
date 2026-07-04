@@ -23,6 +23,10 @@ QLIB_DOCS = {
 QLIB_FIELDS = ["$open", "$high", "$low", "$close", "$volume", "$turnover", "$bar_index", "$bar_count"]
 QLIB_LABEL = "Ref($close, -1) / Ref($open, -1) - 1"
 MODEL_NAMES = ["lgb", "xgb", "lgb_xgb_consensus"]
+RETURN_COL = "target_return"
+MODEL_TARGET_COL = "target_positive"
+INTRADAY_EXECUTION_TIMING = "bar_t_close_signal_next_15m_open_to_close"
+REGIME_V2_DISLOCATION_THRESHOLD = 0.0012
 
 
 def _dedupe_preserve_order(values: list[str]) -> list[str]:
@@ -189,10 +193,15 @@ def _add_regime_v1_features(frame: pd.DataFrame) -> tuple[pd.DataFrame, list[str
 def _add_trade_gate(frame: pd.DataFrame, *, trade_gate: str) -> tuple[pd.DataFrame, str | None]:
     if trade_gate == "none":
         return frame, None
-    if trade_gate != "regime_v1":
-        raise ValueError(f"unsupported intraday trade gate: {trade_gate}")
     frame = frame.copy()
     intraday_window = frame["tod_frac"].between(0.16, 0.84)
+    if trade_gate == "regime_v2_dislocation":
+        frame["regime_gate_v2_dislocation"] = (
+            intraday_window & (frame["abs_soxl_minus_3x_soxx_ret"] > REGIME_V2_DISLOCATION_THRESHOLD)
+        ).fillna(False)
+        return frame, "regime_gate_v2_dislocation"
+    if trade_gate != "regime_v1":
+        raise ValueError(f"unsupported intraday trade gate: {trade_gate}")
     range_shock = frame[["soxl_range_tod_z60", "soxx_range_tod_z60"]].max(axis=1) > 0.15
     volume_shock = frame[["soxl_volume_tod_z60", "soxx_volume_tod_z60"]].max(axis=1) > 0.20
     dislocation = frame["abs_soxl_minus_3x_soxx_ret"] > 0.0015
@@ -337,6 +346,46 @@ def _split_frames(
         "purged_rows": {name: int(len(value)) for name, value in purged.items()},
         "label_policy": "same_session_next_bar_open_to_close",
         "same_session_last_bar_rows_dropped": int(frame.attrs.get("same_session_last_bar_rows_dropped", 0)),
+    }
+
+
+def _execution_policy(freq: str, *, trade_gate: str) -> dict[str, Any]:
+    return {
+        "frequency": freq,
+        "signal_timing": "bar_t_close",
+        "entry_timing": "bar_t_plus_1_open",
+        "exit_timing": "bar_t_plus_1_close",
+        "label_policy": "same_session_next_bar_open_to_close",
+        "return_col": RETURN_COL,
+        "model_target_col": MODEL_TARGET_COL,
+        "trade_gate": trade_gate,
+        "holds_overnight": False,
+        "open_to_open": False,
+        "benchmark_basis": "intraday_next_bar_open_to_close",
+    }
+
+
+def _trade_gate_summary(*, trade_gate: str, trade_gate_col: str | None) -> dict[str, Any]:
+    if trade_gate == "regime_v2_dislocation":
+        return {
+            "name": trade_gate,
+            "column": trade_gate_col,
+            "lookback_only": True,
+            "dislocation_threshold": REGIME_V2_DISLOCATION_THRESHOLD,
+            "rules": [
+                "exclude first and last intraday bars",
+                "require SOXL-vs-3x-SOXX same-bar replication dislocation above 12bp",
+                "keep the signal as next 15min open-to-close intraday execution, not open-to-open",
+            ],
+        }
+    return {
+        "name": trade_gate,
+        "column": trade_gate_col,
+        "lookback_only": True,
+        "rules": [
+            "exclude first and last intraday bars",
+            "require time-of-day-normalized range or volume shock, leveraged ETF dislocation, or intraday directional state",
+        ],
     }
 
 
@@ -775,6 +824,13 @@ def _write_workflow_yaml(spec: IntradayBarModelSpec) -> Path:
                 f"  feature_set: {spec.feature_set}",
                 f"  trade_gate: {spec.trade_gate}",
                 f"  cost_stress_bps: {list(spec.cost_stress_bps)}",
+                "execution:",
+                f"  timing: {INTRADAY_EXECUTION_TIMING}",
+                "  label_policy: same_session_next_bar_open_to_close",
+                f"  return_col: {RETURN_COL}",
+                f"  model_target_col: {MODEL_TARGET_COL}",
+                "  open_to_open: false",
+                "  holds_overnight: false",
                 "artifact_policy:",
                 "  policy: slim_card_recorder_first",
                 "  machine_entrypoint: summary.json",
@@ -834,13 +890,22 @@ def _write_sidecars(
             "- qlib PortAnaRecord is not used for this high-frequency single-asset execution probe; large predictions and labels are recorder-only artifacts.\n"
         )
     else:
-        failure_modes = (
-            "# Failure Modes\n\n"
-            "- 2024 walk-forward remains negative, so this is an optimized candidate rather than a promoted production strategy.\n"
-            "- Regime gate excludes opening and closing risk bars, but it is still a bar-close to next-bar open/close simulation without bid/ask replay.\n"
-            "- 20bp stress is positive for the selected 2026 test window, but live spread, queue, PDT, latency, and volatility-halt behavior are not proven.\n"
-            "- qlib PortAnaRecord is not used for this high-frequency single-asset execution probe; large predictions and labels are recorder-only artifacts.\n"
-        )
+        if spec.trade_gate == "regime_v2_dislocation":
+            failure_modes = (
+                "# Failure Modes\n\n"
+                "- The v2 dislocation gate improves historical walk-forward, but this is still a model-bar replay rather than bid/ask or order-book replay.\n"
+                "- Regime gate excludes opening and closing risk bars, but it still assumes bar-close signal calculation, next-bar open entry, and next-bar close exit.\n"
+                "- 20bp stress is positive for the selected 2026 test window, but live spread, queue, PDT, latency, and volatility-halt behavior are not proven.\n"
+                "- qlib PortAnaRecord is not used for this high-frequency single-asset execution probe; large predictions and labels are recorder-only artifacts.\n"
+            )
+        else:
+            failure_modes = (
+                "# Failure Modes\n\n"
+                "- 2024 walk-forward remains negative, so this is an optimized candidate rather than a promoted production strategy.\n"
+                "- Regime gate excludes opening and closing risk bars, but it is still a bar-close to next-bar open/close simulation without bid/ask replay.\n"
+                "- 20bp stress is positive for the selected 2026 test window, but live spread, queue, PDT, latency, and volatility-halt behavior are not proven.\n"
+                "- qlib PortAnaRecord is not used for this high-frequency single-asset execution probe; large predictions and labels are recorder-only artifacts.\n"
+            )
     (spec.output_dir / sidecars["failure_modes"]).write_text(failure_modes, encoding="utf-8")
     return sidecars
 
@@ -968,8 +1033,11 @@ def run_intraday_regime_gated_model_card(spec: IntradayBarModelSpec) -> Intraday
 
     if set(spec.provider_uris) != {"15min"}:
         raise ValueError("regime-gated intraday optimization is intentionally scoped to the 15min provider")
-    if spec.feature_set != "regime_v1" or spec.trade_gate != "regime_v1":
-        raise ValueError("regime-gated intraday optimization requires feature_set=regime_v1 and trade_gate=regime_v1")
+    if spec.feature_set != "regime_v1" or spec.trade_gate not in {"regime_v1", "regime_v2_dislocation"}:
+        raise ValueError(
+            "regime-gated intraday optimization requires feature_set=regime_v1 "
+            "and trade_gate in {regime_v1, regime_v2_dislocation}"
+        )
 
     spec.output_dir.mkdir(parents=True, exist_ok=True)
     spec.recorder_uri.mkdir(parents=True, exist_ok=True)
@@ -1101,6 +1169,10 @@ def run_intraday_regime_gated_model_card(spec: IntradayBarModelSpec) -> Intraday
         "provider_audit": provider_audit,
         "dataset_audit": dataset_audit,
         "selected_model": selected_model,
+        "execution_policy": _execution_policy(freq, trade_gate=spec.trade_gate),
+        "execution_timing": INTRADAY_EXECUTION_TIMING,
+        "return_col": RETURN_COL,
+        "model_target_col": MODEL_TARGET_COL,
         "cost_bps": spec.cost_bps,
         "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
         "feature_set": {
@@ -1116,15 +1188,7 @@ def run_intraday_regime_gated_model_card(spec: IntradayBarModelSpec) -> Intraday
                 or column in {"tod_sin", "tod_cos", "abs_soxl_minus_3x_soxx_ret"}
             ],
         },
-        "trade_gate": {
-            "name": spec.trade_gate,
-            "column": trade_gate_col,
-            "lookback_only": True,
-            "rules": [
-                "exclude first and last intraday bars",
-                "require time-of-day-normalized range or volume shock, leveraged ETF dislocation, or intraday directional state",
-            ],
-        },
+        "trade_gate": _trade_gate_summary(trade_gate=spec.trade_gate, trade_gate_col=trade_gate_col),
         "promotion_decision": promotion_decision,
         "selection_uses_test_segment": False,
         "walk_forward_positive_ratio": {
@@ -1214,6 +1278,10 @@ def run_intraday_regime_gated_model_card(spec: IntradayBarModelSpec) -> Intraday
         "cost_bps": spec.cost_bps,
         "cost_stress_bps": [float(value) for value in sorted(set(spec.cost_stress_bps))],
         "purged_split": {"purge_bars": spec.purge_bars, "label_policy": "same_session_next_bar_open_to_close"},
+        "execution_policy": analysis_summary["execution_policy"],
+        "execution_timing": INTRADAY_EXECUTION_TIMING,
+        "return_col": RETURN_COL,
+        "model_target_col": MODEL_TARGET_COL,
         "feature_set": analysis_summary["feature_set"],
         "trade_gate": {
             **analysis_summary["trade_gate"],
@@ -1255,7 +1323,8 @@ def run_intraday_regime_gated_model_card(spec: IntradayBarModelSpec) -> Intraday
     (spec.output_dir / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
     conclusion = (
         "# 中文结论\n\n"
-        "- 做了什么：在上一版 5m/15m 结果基础上收缩到 15min，新增 regime_v1 特征和交易 gate，"
+        "- 做了什么：在上一版 5m/15m 结果基础上收缩到 15min，保留 regime_v1 特征，"
+        f"把交易 gate 优化为 {spec.trade_gate}，并明确为 15min 日内执行，"
         "并用 qlib.init、D.features、DatasetH/DataHandlerLP、R.start、LGBMClassifier、XGBClassifier 重新训练。\n"
         f"- 核心指标：validation 选择 {selected_model['freq']} / {selected_model['model']}，"
         f"valid return_pct={selected_model['valid_net_return_pct']:.4f}、"
@@ -1263,13 +1332,13 @@ def run_intraday_regime_gated_model_card(spec: IntradayBarModelSpec) -> Intraday
         f"test max_drawdown_pct={selected_model['test_max_drawdown_pct']:.4f}、"
         f"test 20bp return_pct={selected_model['test_20bp_net_return_pct']:.4f}。\n"
         "- regime/window 差异：selection 只用 valid 与 2024/2025 historical walk-forward 稳定性，"
-        "2026 test 只作为报告；regime gate 过滤低信息 bar，保留 time-of-day 标准化量能/波动、"
-        "SOXL-vs-3x-SOXX 偏离和日内趋势状态。\n"
+        "2026 test 只作为报告；regime_v2_dislocation 只交易 SOXL-vs-3x-SOXX 同一根 15m bar "
+        f"复制偏离超过 {REGIME_V2_DISLOCATION_THRESHOLD:.4f} 的状态，过滤低信息普通 bar。\n"
         f"- 是否晋升：不晋升；decision={promotion_decision}。10bp 是主回测成本，20bp 是压力测试，"
         "即便收益改善，也还缺少 bid/ask replay、排队成交、延迟和实盘滑点证明。\n"
-        "- 风险：信号仍是假设 bar 收盘可计算、下一根 bar 开盘成交、下一根 bar 收盘退出；"
-        "没有证明极端半导体去杠杆日能按回测价格成交。\n"
-        "- 下一步：只把 15min regime gate 作为候选执行层，继续做 bid/ask replay、开盘/收盘 bar 分层、"
+        "- 风险：信号假设 bar_t 收盘可计算、bar_t+1 开盘进、bar_t+1 收盘出；"
+        "这是日内执行，不是 open-to-open，但仍没有证明极端半导体去杠杆日能按回测价格成交。\n"
+        "- 下一步：只把 15min regime_v2_dislocation 作为候选日内执行层，继续做 bid/ask replay、开盘/收盘 bar 分层、"
         "以及 SOXX 成分股/NVDA/AVGO/AMD 分钟级外部状态特征。\n"
         f"- qlib recorder：{recorder_id}\n"
     )

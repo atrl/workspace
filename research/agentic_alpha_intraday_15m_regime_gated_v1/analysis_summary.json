@@ -21,6 +21,20 @@
       }
     }
   },
+  "execution_policy": {
+    "benchmark_basis": "intraday_next_bar_open_to_close",
+    "entry_timing": "bar_t_plus_1_open",
+    "exit_timing": "bar_t_plus_1_close",
+    "frequency": "15min",
+    "holds_overnight": false,
+    "label_policy": "same_session_next_bar_open_to_close",
+    "model_target_col": "target_positive",
+    "open_to_open": false,
+    "return_col": "target_return",
+    "signal_timing": "bar_t_close",
+    "trade_gate": "regime_v2_dislocation"
+  },
+  "execution_timing": "bar_t_close_signal_next_15m_open_to_close",
   "feature_set": {
     "feature_count": 58,
     "lookback_only": true,
@@ -41,7 +55,8 @@
       "abs_soxl_minus_3x_soxx_ret"
     ]
   },
-  "promotion_decision": "not_promoted_walk_forward_not_proven",
+  "model_target_col": "target_positive",
+  "promotion_decision": "not_promoted_intraday_replay_missing",
   "provider_audit": {
     "15min": {
       "calendar_end": "2026-07-02 16:00:00",
@@ -69,40 +84,43 @@
       "qlib_feature_rows": 97660
     }
   },
+  "return_col": "target_return",
   "selected_model": {
     "freq": "15min",
-    "historical_walk_forward_positive_ratio": 0.5,
-    "historical_walk_forward_worst_return_pct": -24.521387100219727,
+    "historical_walk_forward_positive_ratio": 1.0,
+    "historical_walk_forward_worst_return_pct": 3.2102346420288086,
     "model": "lgb_xgb_consensus",
     "selection_eligible": true,
     "selection_metric": "valid_net_return + 5*valid_sharpe + 0.5*valid_drawdown + 0.25*historical_wf_mean + 0.10*valid_20bp + 0.03*avg_trade_bps",
-    "selection_score": 21.78160539608613,
+    "selection_score": 72.43763974180851,
     "selection_segment": "valid",
     "selection_uses_test_segment": false,
-    "test_20bp_net_return_pct": 4.559445381164551,
+    "test_20bp_net_return_pct": 9.08561897277832,
     "test_ic": 0.028157383904499702,
-    "test_max_drawdown_pct": -5.922579765319824,
-    "test_net_return_pct": 15.199386596679688,
-    "threshold": 0.5145676637141079,
-    "valid_20bp_net_return_pct": 6.754624843597412,
-    "valid_avg_trade_bps": 17.84004783630371,
-    "valid_max_drawdown_pct": -10.961526870727539,
-    "valid_net_return_pct": 19.752716064453125
+    "test_max_drawdown_pct": -8.642077445983887,
+    "test_net_return_pct": 13.753271102905273,
+    "threshold": 0.45848443370274555,
+    "valid_20bp_net_return_pct": 36.92922592163086,
+    "valid_avg_trade_bps": 50.19797134399414,
+    "valid_max_drawdown_pct": -6.476193428039551,
+    "valid_net_return_pct": 48.57945251464844
   },
   "selection_uses_test_segment": false,
   "source": "qlib_dataset_intraday_regime_gated_bar_model",
   "trade_gate": {
-    "column": "regime_gate_v1",
+    "column": "regime_gate_v2_dislocation",
+    "dislocation_threshold": 0.0012,
     "lookback_only": true,
-    "name": "regime_v1",
+    "name": "regime_v2_dislocation",
     "rules": [
       "exclude first and last intraday bars",
-      "require time-of-day-normalized range or volume shock, leveraged ETF dislocation, or intraday directional state"
+      "require SOXL-vs-3x-SOXX same-bar replication dislocation above 12bp",
+      "keep the signal as next 15min open-to-close intraday execution, not open-to-open"
     ]
   },
   "walk_forward_positive_ratio": {
     "lgb": 0.6666666666666666,
-    "lgb_xgb_consensus": 0.6666666666666666,
+    "lgb_xgb_consensus": 1.0,
     "xgb": 0.6666666666666666
   }
 }

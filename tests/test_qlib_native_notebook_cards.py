@@ -527,8 +527,19 @@ def test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_select
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["feature_set"]["name"] == "regime_v1"
     assert summary["feature_set"]["lookback_only"] is True
-    assert summary["trade_gate"]["name"] == "regime_v1"
+    assert summary["trade_gate"]["name"] == "regime_v2_dislocation"
+    assert summary["trade_gate"]["column"] == "regime_gate_v2_dislocation"
+    assert summary["trade_gate"]["dislocation_threshold"] == 0.0012
     assert summary["trade_gate"]["eligible_on_selected_test"] > 0
+    assert summary["execution_policy"]["frequency"] == "15min"
+    assert summary["execution_policy"]["label_policy"] == "same_session_next_bar_open_to_close"
+    assert summary["execution_policy"]["entry_timing"] == "bar_t_plus_1_open"
+    assert summary["execution_policy"]["exit_timing"] == "bar_t_plus_1_close"
+    assert summary["execution_policy"]["holds_overnight"] is False
+    assert summary["execution_policy"]["open_to_open"] is False
+    assert summary["return_col"] == "target_return"
+    assert summary["model_target_col"] == "target_positive"
+    assert summary["execution_timing"] == "bar_t_close_signal_next_15m_open_to_close"
     assert summary["cost_bps"] == 10.0
     assert summary["cost_stress_bps"] == [0.0, 10.0, 20.0]
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
@@ -582,6 +593,9 @@ def test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_select
     assert set(walk_forward["fold"]) == {"wf_2024", "wf_2025", "wf_2026"}
     assert set(walk_forward["model"]) == {"lgb", "xgb", "lgb_xgb_consensus"}
     assert set(walk_forward["freq"]) == {"15min"}
+    selected_walk_forward = walk_forward.loc[walk_forward["model"] == summary["selected_model"]["model"]]
+    assert (selected_walk_forward["test_net_return_pct"] > 0.0).all()
+    assert selected_walk_forward["test_max_drawdown_pct"].min() > -10.0
     regime_gate = pd.read_csv(card / summary["sidecars"]["regime_gate_metrics"])
     assert set(regime_gate["segment"]) == {"train", "valid", "test"}
     assert (regime_gate["eligible_rows"] > 0).all()
@@ -594,9 +608,10 @@ def test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_select
     assert "run_intraday_regime_gated_model_card" in notebook_text
     assert "DatasetH" in notebook_text
     assert "R.start" in notebook_text
+    assert "regime_v2_dislocation" in conclusion
     assert "10bp" in conclusion
     assert "20bp" in conclusion
-    assert "不晋升" in conclusion
+    assert "日内执行" in conclusion
 
 
 def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
