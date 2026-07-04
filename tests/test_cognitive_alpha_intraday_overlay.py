@@ -294,6 +294,85 @@ def test_5min_risk_sleeve_uses_observable_external_15min_context_without_future_
     assert by_variant.loc["risk_exit_full_5m", "context_semis_breadth_mom3_pos"] == pytest.approx(0.20)
 
 
+def test_5min_risk_sleeve_triggers_on_local_gap_reclaim_and_absorption_stress():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "walk_forward_fold": "wf_2026",
+                "target_position": 1.0,
+                "strategy_return": 0.10,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 110.0},
+        ]
+    )
+    bars_5min = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-05 09:35:00",
+                "date": "2026-01-05",
+                "open": 100.0,
+                "close": 99.8,
+                "soxl_vwap_dist": -0.003,
+                "open_gap_reclaim_quality": 0.15,
+                "soxl_volume_price_absorption": 0.2,
+                "leveraged_replication_absorption": 0.1,
+            },
+            {
+                "datetime": "2026-01-05 09:40:00",
+                "date": "2026-01-05",
+                "open": 99.7,
+                "close": 99.0,
+                "soxl_vwap_dist": -0.016,
+                "open_gap_reclaim_quality": -0.45,
+                "soxl_volume_price_absorption": 2.1,
+                "leveraged_replication_absorption": 1.4,
+            },
+            {
+                "datetime": "2026-01-05 09:45:00",
+                "date": "2026-01-05",
+                "open": 98.8,
+                "close": 98.9,
+                "soxl_vwap_dist": -0.012,
+                "open_gap_reclaim_quality": -0.30,
+                "soxl_volume_price_absorption": 1.8,
+                "leveraged_replication_absorption": 1.2,
+            },
+        ]
+    )
+
+    rows = simulate_5min_risk_sleeve(
+        daily,
+        daily_prices=daily_prices,
+        bars_5min=bars_5min,
+        drawdown_threshold=-0.05,
+        trigger_mode="context_stress_or_drawdown",
+        context_thresholds={
+            "soxl_vwap_dist": -0.01,
+            "open_gap_reclaim_quality": -0.20,
+            "soxl_volume_price_absorption": 1.0,
+            "leveraged_replication_absorption": 1.0,
+        },
+        execution_delay_bars=1,
+        execution_price="open",
+        cost_bps=0.0,
+    )
+
+    by_variant = rows.set_index("variant")
+    assert by_variant.loc["risk_exit_full_5m", "trigger_time"] == "2026-01-05 09:40:00"
+    assert by_variant.loc["risk_exit_full_5m", "risk_execution_price"] == pytest.approx(98.8)
+    assert by_variant.loc["risk_exit_full_5m", "context_open_gap_reclaim_quality"] == pytest.approx(-0.45)
+    assert by_variant.loc["risk_exit_full_5m", "context_soxl_volume_price_absorption"] == pytest.approx(2.1)
+    assert bool(by_variant.loc["risk_exit_full_5m", "context_stress_hit"]) is True
+
+
 def test_build_intraday_optimization_plan_prefers_local_fallback_when_external_history_blocked():
     plan = build_intraday_optimization_plan(
         selected_model={

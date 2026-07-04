@@ -1191,6 +1191,10 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
         "soxx_cum_ret_from_open",
         "soxl_rv_6",
         "soxl_minus_3x_soxx_ret",
+        "open_gap_reclaim_quality",
+        "soxl_trend_quality_60m",
+        "soxl_volume_price_absorption",
+        "leveraged_replication_absorption",
         "qqq_smh_soxx_lead_lag_3",
         "semis_breadth_mom3_pos",
         "semis_vwap_breadth",
@@ -1209,7 +1213,7 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     assert summary["model_selection"]["required_cost_bps"] == [20.0, 50.0]
     assert summary["model_selection"]["uses_5min_context_trigger_candidates"] is True
     assert summary["model_selection"]["context_policy_candidate_rows"] > 0
-    assert summary["model_selection"]["selected_context_trigger_years"] == [2023]
+    assert summary["model_selection"]["selected_context_trigger_years"] == [2023, 2026]
     assert summary["walk_forward"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
     assert summary["walk_forward"]["required_test_years"] == [2023, 2024, 2025, 2026]
     assert summary["walk_forward"]["selection_uses_test_segment"] is False
@@ -1254,7 +1258,7 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
     analysis_summary = json.loads((card / summary["sidecars"]["analysis_summary"]).read_text(encoding="utf-8"))
     context_diagnostics = analysis_summary["risk_sleeve_context_candidate_diagnostics"]
     assert context_diagnostics["context_policy_candidate_rows"] > 0
-    assert context_diagnostics["selected_context_trigger_years"] == [2023]
+    assert context_diagnostics["selected_context_trigger_years"] == [2023, 2026]
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "five_min_risk_sleeve" / "intraday_fold_predictions.csv").exists()

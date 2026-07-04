@@ -66,6 +66,10 @@ LOCAL_CONTEXT_THRESHOLD_COLUMNS = (
     "soxx_cum_ret_from_open",
     "soxl_rv_6",
     "soxl_minus_3x_soxx_ret",
+    "open_gap_reclaim_quality",
+    "soxl_trend_quality_60m",
+    "soxl_volume_price_absorption",
+    "leveraged_replication_absorption",
 )
 EXTERNAL_CONTEXT_THRESHOLD_COLUMNS = (
     "qqq_smh_soxx_lead_lag_3",
@@ -73,7 +77,11 @@ EXTERNAL_CONTEXT_THRESHOLD_COLUMNS = (
     "semis_vwap_breadth",
 )
 CONTEXT_THRESHOLD_COLUMNS = (*LOCAL_CONTEXT_THRESHOLD_COLUMNS, *EXTERNAL_CONTEXT_THRESHOLD_COLUMNS)
-CONTEXT_STRESS_UPPER_COLUMNS = ("soxl_rv_6",)
+CONTEXT_STRESS_UPPER_COLUMNS = (
+    "soxl_rv_6",
+    "soxl_volume_price_absorption",
+    "leveraged_replication_absorption",
+)
 
 
 @dataclass(frozen=True)
@@ -1213,6 +1221,10 @@ def _validation_context_threshold_candidates(context_values: dict[str, list[floa
     soxx_weak = lower_threshold("soxx_cum_ret_from_open", 0.25, -0.004, -0.001)
     dislocation = lower_threshold("soxl_minus_3x_soxx_ret", 0.25, -0.002, -0.0005)
     rv_expansion = upper_threshold("soxl_rv_6", 0.75, 0.006, 0.001)
+    gap_reclaim_failure = lower_threshold("open_gap_reclaim_quality", 0.25, -0.20, -0.05)
+    weak_trend = lower_threshold("soxl_trend_quality_60m", 0.25, 0.20, 0.30)
+    absorption = upper_threshold("soxl_volume_price_absorption", 0.75, 1.0, 0.5)
+    leveraged_absorption = upper_threshold("leveraged_replication_absorption", 0.75, 0.75, 0.25)
     candidates = [
         {
             "context_trigger_source": "vwap_soxx_weak",
@@ -1249,6 +1261,46 @@ def _validation_context_threshold_candidates(context_values: dict[str, list[floa
                     "soxx_cum_ret_from_open": soxx_weak,
                     "soxl_rv_6": rv_expansion,
                     "soxl_minus_3x_soxx_ret": dislocation,
+                }
+            ),
+        },
+        {
+            "context_trigger_source": "vwap_gap_reclaim_failure",
+            **_context_threshold_row(
+                {
+                    "soxl_vwap_dist": vwap,
+                    "open_gap_reclaim_quality": gap_reclaim_failure,
+                }
+            ),
+        },
+        {
+            "context_trigger_source": "vwap_weak_trend",
+            **_context_threshold_row(
+                {
+                    "soxl_vwap_dist": vwap,
+                    "soxl_trend_quality_60m": weak_trend,
+                }
+            ),
+        },
+        {
+            "context_trigger_source": "vwap_volume_absorption",
+            **_context_threshold_row(
+                {
+                    "soxl_vwap_dist": vwap,
+                    "soxl_volume_price_absorption": absorption,
+                    "leveraged_replication_absorption": leveraged_absorption,
+                }
+            ),
+        },
+        {
+            "context_trigger_source": "vwap_local_microstructure_stress",
+            **_context_threshold_row(
+                {
+                    "soxl_vwap_dist": vwap,
+                    "open_gap_reclaim_quality": gap_reclaim_failure,
+                    "soxl_trend_quality_60m": weak_trend,
+                    "soxl_volume_price_absorption": absorption,
+                    "leveraged_replication_absorption": leveraged_absorption,
                 }
             ),
         },
@@ -1478,7 +1530,13 @@ def _load_5min_bar_frame(
     for prefix in ["soxl", "soxx"]:
         wide[f"{prefix}_ret_cc1"] = wide.groupby("date")[f"{prefix}_close"].pct_change()
         day_open = wide.groupby("date")[f"{prefix}_open"].transform("first")
+        day_high = wide.groupby("date")[f"{prefix}_high"].cummax()
+        day_low = wide.groupby("date")[f"{prefix}_low"].cummin()
+        prior_close_by_day = wide.groupby("date")[f"{prefix}_close"].last().shift(1)
+        wide[f"{prefix}_prior_day_close"] = wide["date"].map(prior_close_by_day)
+        wide[f"{prefix}_open_gap_from_prior_close"] = day_open / (wide[f"{prefix}_prior_day_close"] + 1e-12) - 1.0
         wide[f"{prefix}_cum_ret_from_open"] = wide[f"{prefix}_close"] / day_open - 1.0
+        wide[f"{prefix}_range_so_far"] = day_high / (day_low + 1e-12) - 1.0
         typical = (wide[f"{prefix}_high"] + wide[f"{prefix}_low"] + wide[f"{prefix}_close"]) / 3.0
         pv = typical * wide[f"{prefix}_volume"]
         wide[f"{prefix}_cum_vwap"] = pv.groupby(wide["date"]).cumsum() / (
@@ -1490,9 +1548,36 @@ def _load_5min_bar_frame(
         )
         wide[f"{prefix}_trend_quality_30m"] = (
             wide[f"{prefix}_cum_ret_from_open"].abs()
-            / ((wide.groupby("date")[f"{prefix}_high"].cummax() / (wide.groupby("date")[f"{prefix}_low"].cummin() + 1e-12) - 1.0) + 1e-12)
+            / (wide[f"{prefix}_range_so_far"] + 1e-12)
         ).clip(0.0, 5.0)
+        wide[f"{prefix}_trend_quality_60m"] = (
+            wide.groupby("date")[f"{prefix}_cum_ret_from_open"]
+            .rolling(12, min_periods=3)
+            .mean()
+            .reset_index(level=0, drop=True)
+            .abs()
+            / (
+                wide.groupby("date")[f"{prefix}_range_so_far"]
+                .rolling(12, min_periods=3)
+                .max()
+                .reset_index(level=0, drop=True)
+                + 1e-12
+            )
+        ).clip(0.0, 5.0)
+        rolling_volume = wide.groupby("date")[f"{prefix}_volume"].rolling(6, min_periods=3).mean().reset_index(level=0, drop=True)
+        rolling_abs_ret = (
+            wide.groupby("date")[f"{prefix}_ret_cc1"].rolling(6, min_periods=3).apply(lambda values: np.nanmean(np.abs(values)), raw=True).reset_index(level=0, drop=True)
+        )
+        volume_pressure = wide[f"{prefix}_volume"] / (rolling_volume + 1e-12) - 1.0
+        ret_response = wide[f"{prefix}_ret_cc1"].abs() / (rolling_abs_ret + 1e-12)
+        wide[f"{prefix}_volume_price_absorption"] = (volume_pressure - 0.25 * ret_response).replace([np.inf, -np.inf], np.nan)
     wide["soxl_minus_3x_soxx_ret"] = wide["soxl_ret_cc1"] - 3.0 * wide["soxx_ret_cc1"]
+    wide["leveraged_replication_absorption"] = wide["soxl_volume_price_absorption"] - wide["soxx_volume_price_absorption"]
+    wide["open_gap_reclaim_quality"] = np.where(
+        wide["soxl_open_gap_from_prior_close"].abs() > 1e-12,
+        wide["soxl_cum_ret_from_open"] / wide["soxl_open_gap_from_prior_close"].abs(),
+        0.0,
+    )
     return provider_meta, wide.rename(
         columns={
             "soxl_open": "open",
@@ -2216,7 +2301,7 @@ def _write_sidecars(
         "- 本卡不是新的日内主 alpha；它保留日线 next-open 入场，只验证 5m 风控减仓/退出是否能减少买入后下杀。\n"
         "- 15m LGB/XGB/consensus 的 label 是 triple-barrier 1h/2h execution improvement，不等同于 open-to-open 收益预测。\n"
         "- 5m 阈值只从 validation 年份生成；若 test 年效果差，不能用 test 重新调阈值。\n"
-        "- 5m context stress 候选包含 SOXL/SOXX 本地 qlib bar 的 VWAP、SOXX 确认、波动扩张和杠杆偏离。\n"
+        "- 5m context stress 候选包含 SOXL/SOXX 本地 qlib bar 的 VWAP、SOXX 确认、波动扩张、杠杆偏离、gap reclaim、趋势质量和量价吸收/派发。\n"
         "- 外部 QQQ/SMH/SOXX lead-lag 与 NVDA/AVGO/AMD/TSM/ASML breadth 已按 15m bar 向后对齐到 5m replay，但外部历史不足完整 annual walk-forward 前只能作为诊断候选。\n"
         "- 风控 replay 已避免同一根 5m bar 收盘触发又按同一收盘成交；当前仍缺 bid/ask、盘口深度和真实成交容量，不能据此直接实盘。\n"
         "- 若 20/50bp 年度 retention、max drawdown 和风险降低不能同时过门槛，应继续作为诊断卡而非晋升。\n",
@@ -2331,7 +2416,8 @@ def _write_conclusion(
         "# 中文结论\n\n"
         "- 做了什么：新增 5m 日内风控 sleeve。日线 open-to-open 模型仍按 next-open 入场；"
         "15m LGB/XGB/consensus triple-barrier 模型提供风险分数，5m qlib bar 在收盘触发后按下一根 5m 开盘做全平或半仓减仓 replay；"
-        "本轮新增 SOXL/SOXX 5m VWAP、SOXX 确认、波动扩张和杠杆偏离 context stress 候选，并接入 QQQ/SMH/SOXX 15m lead-lag 与半导体成分股 breadth 诊断候选。\n"
+        "本轮新增 SOXL/SOXX 5m VWAP、SOXX 确认、波动扩张、杠杆偏离、gap reclaim、趋势质量和量价吸收/派发 context stress 候选，"
+        "并接入 QQQ/SMH/SOXX 15m lead-lag 与半导体成分股 breadth 诊断候选。\n"
         f"- 外部 context 覆盖：5m replay 可对齐行数={external_rows}，full_walk_forward_history_available={external_full_history}；"
         "历史不足完整 2023-2026 annual walk-forward 前，外部因子只能解释/诊断，不能作为晋升门槛放宽依据。\n"
         "- 为什么日内模型没有超过日线模型：日线模型吃的是 open-to-open/隔夜/趋势段收益；"
