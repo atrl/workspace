@@ -728,6 +728,230 @@ def test_summarize_execution_risk_diagnostics_quantifies_open_buy_dump_reduction
     assert by_variant.loc["overlay_a_signal_gate", "worst_entry_day_return_pct"] == pytest.approx(0.0)
 
 
+def test_conditional_overlay_target_treats_nonpositive_baseline_as_improvement_gate():
+    trades = pd.DataFrame(
+        [
+            {
+                "datetime": "2022-01-03",
+                "segment": "validation",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": -0.10,
+                "entry_day_strategy_return": -0.04,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2022-01-04",
+                "segment": "validation",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": -0.05,
+                "entry_day_strategy_return": -0.03,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2023-01-03",
+                "segment": "test",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": -0.08,
+                "entry_day_strategy_return": -0.05,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2023-01-04",
+                "segment": "test",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": -0.02,
+                "entry_day_strategy_return": -0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2022-01-03",
+                "segment": "validation",
+                "variant": "overlay_b_twap3",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": -0.10,
+                "entry_day_strategy_return": -0.04,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2022-01-04",
+                "segment": "validation",
+                "variant": "overlay_b_twap3",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.20,
+                "entry_day_strategy_return": -0.005,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2023-01-03",
+                "segment": "test",
+                "variant": "overlay_b_twap3",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": -0.08,
+                "entry_day_strategy_return": -0.05,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2023-01-04",
+                "segment": "test",
+                "variant": "overlay_b_twap3",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.12,
+                "entry_day_strategy_return": -0.002,
+                "skipped_reason": None,
+            },
+        ]
+    )
+    regime_features = pd.DataFrame(
+        [
+            {"datetime": "2022-01-03", "probability": 0.10, "target_position": 1.0},
+            {"datetime": "2022-01-04", "probability": 0.20, "target_position": 1.0},
+            {"datetime": "2023-01-03", "probability": 0.10, "target_position": 1.0},
+            {"datetime": "2023-01-04", "probability": 0.20, "target_position": 1.0},
+        ]
+    )
+
+    candidates = evaluate_conditional_overlay_candidates(
+        trades,
+        regime_features,
+        cost_bps=20.0,
+        variants=("overlay_b_twap3",),
+        condition_columns=("probability",),
+        quantiles=(0.50,),
+        min_validation_coverage=0.01,
+    )
+
+    selected = candidates.loc[candidates["passes_validation_target"].astype(bool)].iloc[0]
+    assert selected["validation_return_target_mode"] == "baseline_nonpositive_improvement"
+    assert selected["test_return_target_mode"] == "baseline_nonpositive_improvement"
+    assert selected["validation_return_retention_pct"] < 0.0
+    assert selected["test_return_retention_pct"] < 0.0
+    assert selected["validation_return_pct"] > selected["validation_baseline_return_pct"]
+    assert selected["test_return_pct"] > selected["test_baseline_return_pct"]
+
+
+def test_conditional_overlay_return_upper_bound_is_score_cap_not_hard_failure():
+    trades = pd.DataFrame(
+        [
+            {
+                "datetime": "2024-01-03",
+                "segment": "validation",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.05,
+                "entry_day_strategy_return": 0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2024-01-04",
+                "segment": "validation",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.05,
+                "entry_day_strategy_return": 0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2025-01-03",
+                "segment": "test",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.04,
+                "entry_day_strategy_return": 0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2025-01-04",
+                "segment": "test",
+                "variant": "baseline_next_open",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.04,
+                "entry_day_strategy_return": 0.01,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2024-01-03",
+                "segment": "validation",
+                "variant": "overlay_b_twap3",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.20,
+                "entry_day_strategy_return": 0.02,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2024-01-04",
+                "segment": "validation",
+                "variant": "overlay_b_twap3",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.20,
+                "entry_day_strategy_return": 0.02,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2025-01-03",
+                "segment": "test",
+                "variant": "overlay_b_twap3",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.12,
+                "entry_day_strategy_return": 0.02,
+                "skipped_reason": None,
+            },
+            {
+                "datetime": "2025-01-04",
+                "segment": "test",
+                "variant": "overlay_b_twap3",
+                "cost_bps": 20.0,
+                "target_position": 1.0,
+                "strategy_return": 0.12,
+                "entry_day_strategy_return": 0.02,
+                "skipped_reason": None,
+            },
+        ]
+    )
+    regime_features = pd.DataFrame(
+        [
+            {"datetime": "2024-01-03", "probability": 0.10, "target_position": 1.0},
+            {"datetime": "2024-01-04", "probability": 0.20, "target_position": 1.0},
+            {"datetime": "2025-01-03", "probability": 0.10, "target_position": 1.0},
+            {"datetime": "2025-01-04", "probability": 0.20, "target_position": 1.0},
+        ]
+    )
+
+    candidates = evaluate_conditional_overlay_candidates(
+        trades,
+        regime_features,
+        cost_bps=20.0,
+        variants=("overlay_b_twap3",),
+        condition_columns=("probability",),
+        quantiles=(0.50,),
+        min_validation_coverage=0.01,
+    )
+
+    selected = candidates.loc[candidates["passes_validation_target"].astype(bool)].iloc[0]
+    assert selected["validation_return_target_mode"] == "positive_retention_band"
+    assert selected["validation_return_retention_pct"] > 95.0
+    assert selected["validation_return_retention_score"] == pytest.approx(95.0)
+    assert bool(selected["validation_return_target_satisfied"]) is True
+
+
 def test_evaluate_conditional_overlay_candidates_uses_validation_quantiles_only():
     trades = pd.DataFrame(
         [
@@ -1044,6 +1268,76 @@ def test_select_conditional_risk_sleeve_policy_prefers_validation_risk_reduction
     assert selected["selection_priority"][0] == "validation_min_required_cost_return_retention_pct_desc"
     assert selected["required_cost_validation_target_count"] == 2
     assert selected["test_open_buy_dump_period_reduction"] == 1
+
+
+def test_select_conditional_risk_sleeve_policy_prefers_return_band_before_soft_cap_score():
+    candidates = pd.DataFrame(
+        [
+            {
+                "cost_bps": cost_bps,
+                "variant": "overlay_b_twap3",
+                "condition_column": "probability",
+                "condition_operator": "le",
+                "condition_quantile": 0.75,
+                "condition_threshold": 0.62,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.75,
+                "selection_score": 100.0 - cost_bps / 100.0,
+                "validation_return_retention_pct": 92.0,
+                "validation_return_retention_score": 92.0,
+                "validation_return_retention_in_target_band": True,
+                "validation_max_drawdown_pct": -14.5,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 2,
+                "validation_crash_period_reduction": 1,
+                "validation_worst_entry_day_return_improvement_pct": 2.0,
+                "validation_drawdown_improvement_pct": 3.5,
+                "test_return_retention_pct": 88.0,
+                "test_max_drawdown_pct": -15.5,
+                "test_open_buy_dump_period_reduction": 2,
+                "test_crash_period_reduction": 1,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+            }
+            for cost_bps in (20.0, 50.0)
+        ]
+        + [
+            {
+                "cost_bps": cost_bps,
+                "variant": "overlay_b_twap4",
+                "condition_column": "probability",
+                "condition_operator": "ge",
+                "condition_quantile": 0.55,
+                "condition_threshold": 0.54,
+                "condition_threshold_source": "validation_quantile",
+                "condition_valid_active_coverage": 0.70,
+                "selection_score": 125.0 - cost_bps / 100.0,
+                "validation_return_retention_pct": 130.0,
+                "validation_return_retention_score": 95.0,
+                "validation_return_retention_in_target_band": False,
+                "validation_max_drawdown_pct": -13.0,
+                "validation_skipped_periods": 0,
+                "validation_periods": 250,
+                "validation_open_buy_dump_period_reduction": 3,
+                "validation_crash_period_reduction": 1,
+                "validation_worst_entry_day_return_improvement_pct": 3.0,
+                "validation_drawdown_improvement_pct": 4.0,
+                "test_return_retention_pct": 120.0,
+                "test_max_drawdown_pct": -14.0,
+                "test_open_buy_dump_period_reduction": 3,
+                "test_crash_period_reduction": 1,
+                "passes_validation_target": True,
+                "passes_test_target": True,
+            }
+            for cost_bps in (20.0, 50.0)
+        ]
+    )
+
+    selected = select_conditional_risk_sleeve_policy(candidates)
+
+    assert selected["variant"] == "overlay_b_twap3"
+    assert selected["validation_return_retention_in_target_band"] is True
 
 
 def test_select_conditional_risk_sleeve_policy_prefers_cost_buffered_twap_execution():

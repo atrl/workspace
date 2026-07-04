@@ -680,6 +680,8 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     model_comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
     assert set(model_comparison["variant"]) == set(summary["execution_overlay"]["variants"])
     assert {"validation", "test"}.issubset(set(model_comparison["segment"]))
+    assert "return_retention_in_target_band" in model_comparison.columns
+    assert "return_target_satisfied" in model_comparison.columns
     cost_sensitivity = pd.read_csv(card / summary["sidecars"]["cost_sensitivity"])
     assert {10.0, 20.0, 50.0}.issubset(set(cost_sensitivity["cost_bps"]))
     risk_diagnostics = pd.read_csv(card / summary["sidecars"]["execution_risk_diagnostics"])
@@ -720,7 +722,9 @@ def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intr
     assert summary["optimization_plan"]["status"] == "needs_new_intraday_factor_or_label"
     assert summary["optimization_plan"]["primary_next_action"] == "replace_open_gate_with_delayed_observable_label"
     assert set(walk_forward["blocking_reason"]) == {"ok"}
-    assert walk_forward["test_passes_target"].eq(False).all()
+    assert walk_forward["test_passes_target"].eq(True).any()
+    assert walk_forward["test_passes_target"].eq(False).any()
+    assert summary["selected_model"]["test_return_retention_pct"] < 85.0
     daily_source_audit = pd.read_csv(card / summary["sidecars"]["daily_position_source_audit"])
     assert daily_source_audit.loc[0, "required_position_years"] == "2022,2023,2024,2025,2026"
     assert daily_source_audit.loc[0, "selected_years"] == "2022,2023,2024,2025,2026"

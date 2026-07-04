@@ -126,6 +126,24 @@ def build_intraday_optimization_plan(
                 "reason": "Optimize only for open-buy-then-dump and same-day risk reduction before changing position size.",
             },
         ]
+    elif selected_test_retention is not None and selected_test_retention < 85.0:
+        status = "needs_new_intraday_factor_or_label"
+        primary_next_action = "replace_open_gate_with_delayed_observable_label"
+        ranked_actions = [
+            {
+                "rank": 1,
+                "action": "replace_open_gate_with_delayed_observable_label",
+                "reason": (
+                    "The validation-selected intraday overlay keeps too little of the daily model return; "
+                    "the current gate is over-filtering trend exposure."
+                ),
+            },
+            {
+                "rank": 2,
+                "action": "search_local_intraday_risk_sleeve",
+                "reason": "Optimize only for open-buy-then-dump and same-day risk reduction before changing position size.",
+            },
+        ]
     elif not annual_policy_ok:
         status = "needs_annual_walk_forward_evidence"
         primary_next_action = "complete_annual_walk_forward_or_fail_closed"
@@ -643,8 +661,42 @@ def summarize_overlay_metrics(trades: pd.DataFrame) -> pd.DataFrame:
         np.nan,
     )
     metrics["drawdown_improvement_pct"] = metrics["max_drawdown_pct"] - metrics["baseline_max_drawdown_pct"]
+    metrics["return_target_mode"] = [
+        _return_target_mode(baseline_return_pct)
+        for baseline_return_pct in metrics["baseline_return_pct"]
+    ]
+    metrics["return_target_satisfied"] = [
+        _return_target_satisfied(
+            total_return_pct,
+            baseline_return_pct,
+            return_retention_pct,
+        )
+        for total_return_pct, baseline_return_pct, return_retention_pct in zip(
+            metrics["total_return_pct"],
+            metrics["baseline_return_pct"],
+            metrics["return_retention_pct"],
+            strict=False,
+        )
+    ]
+    metrics["return_retention_in_target_band"] = [
+        _return_retention_in_target_band(baseline_return_pct, return_retention_pct)
+        for baseline_return_pct, return_retention_pct in zip(
+            metrics["baseline_return_pct"],
+            metrics["return_retention_pct"],
+            strict=False,
+        )
+    ]
+    metrics["return_retention_score"] = [
+        _return_retention_score(total_return_pct, baseline_return_pct, return_retention_pct)
+        for total_return_pct, baseline_return_pct, return_retention_pct in zip(
+            metrics["total_return_pct"],
+            metrics["baseline_return_pct"],
+            metrics["return_retention_pct"],
+            strict=False,
+        )
+    ]
     metrics["selection_score"] = (
-        metrics["return_retention_pct"].fillna(0.0)
+        metrics["return_retention_score"].fillna(0.0)
         + 2.0 * metrics["drawdown_improvement_pct"].fillna(0.0)
         + 0.25 * metrics["daily_sharpe"].fillna(0.0)
         - 0.10 * metrics["skipped_periods"].fillna(0.0)
@@ -879,17 +931,37 @@ def evaluate_conditional_overlay_candidates(
                         baseline_validation["total_return_pct"],
                     )
                     test_retention = _retention(test["total_return_pct"], baseline_test["total_return_pct"])
+                    validation_return_target_satisfied = _return_target_satisfied(
+                        validation["total_return_pct"],
+                        baseline_validation["total_return_pct"],
+                        validation_retention,
+                        return_retention_low=return_retention_low,
+                        return_retention_high=return_retention_high,
+                    )
+                    test_return_target_satisfied = _return_target_satisfied(
+                        test["total_return_pct"],
+                        baseline_test["total_return_pct"],
+                        test_retention,
+                        return_retention_low=return_retention_low,
+                        return_retention_high=return_retention_high,
+                    )
+                    validation_return_score = _return_retention_score(
+                        validation["total_return_pct"],
+                        baseline_validation["total_return_pct"],
+                        validation_retention,
+                        return_retention_high=return_retention_high,
+                    )
                     validation_dd_improvement = (
                         validation["max_drawdown_pct"] - baseline_validation["max_drawdown_pct"]
                     )
                     test_dd_improvement = test["max_drawdown_pct"] - baseline_test["max_drawdown_pct"]
                     passes_validation = bool(
-                        return_retention_low <= validation_retention <= return_retention_high
+                        validation_return_target_satisfied
                         and validation["max_drawdown_pct"] > max_drawdown_floor
                         and validation["skipped_periods"] <= validation["periods"] * max_skip_rate
                     )
                     passes_test = bool(
-                        return_retention_low <= test_retention <= return_retention_high
+                        test_return_target_satisfied
                         and test["max_drawdown_pct"] > max_drawdown_floor
                         and test["skipped_periods"] <= test["periods"] * max_skip_rate
                     )
@@ -908,8 +980,20 @@ def evaluate_conditional_overlay_candidates(
                             "report_segment": test_segment,
                             "selection_uses_test_segment": False,
                             "validation_periods": validation["periods"],
+                            "validation_baseline_return_pct": baseline_validation["total_return_pct"],
                             "validation_return_pct": validation["total_return_pct"],
                             "validation_return_retention_pct": validation_retention,
+                            "validation_return_retention_score": validation_return_score,
+                            "validation_return_target_mode": _return_target_mode(
+                                baseline_validation["total_return_pct"]
+                            ),
+                            "validation_return_target_satisfied": validation_return_target_satisfied,
+                            "validation_return_retention_in_target_band": _return_retention_in_target_band(
+                                baseline_validation["total_return_pct"],
+                                validation_retention,
+                                return_retention_low=return_retention_low,
+                                return_retention_high=return_retention_high,
+                            ),
                             "validation_max_drawdown_pct": validation["max_drawdown_pct"],
                             "validation_drawdown_improvement_pct": validation_dd_improvement,
                             "validation_daily_sharpe": validation["daily_sharpe"],
@@ -936,8 +1020,23 @@ def evaluate_conditional_overlay_candidates(
                                 - baseline_validation_risk["worst_strategy_return_pct"]
                             ),
                             "test_periods": test["periods"],
+                            "test_baseline_return_pct": baseline_test["total_return_pct"],
                             "test_return_pct": test["total_return_pct"],
                             "test_return_retention_pct": test_retention,
+                            "test_return_retention_score": _return_retention_score(
+                                test["total_return_pct"],
+                                baseline_test["total_return_pct"],
+                                test_retention,
+                                return_retention_high=return_retention_high,
+                            ),
+                            "test_return_target_mode": _return_target_mode(baseline_test["total_return_pct"]),
+                            "test_return_target_satisfied": test_return_target_satisfied,
+                            "test_return_retention_in_target_band": _return_retention_in_target_band(
+                                baseline_test["total_return_pct"],
+                                test_retention,
+                                return_retention_low=return_retention_low,
+                                return_retention_high=return_retention_high,
+                            ),
                             "test_max_drawdown_pct": test["max_drawdown_pct"],
                             "test_drawdown_improvement_pct": test_dd_improvement,
                             "test_daily_sharpe": test["daily_sharpe"],
@@ -965,7 +1064,7 @@ def evaluate_conditional_overlay_candidates(
                             "passes_test_target": passes_test,
                             "passes_validation_and_test_target": bool(passes_validation and passes_test),
                             "selection_score": (
-                                validation_retention
+                                validation_return_score
                                 + 2.0 * validation_dd_improvement
                                 + 0.25 * validation["daily_sharpe"]
                                 - 0.10 * validation["skipped_periods"]
@@ -1026,10 +1125,25 @@ def select_conditional_risk_sleeve_policy(
         if not eligible.empty:
             frame = eligible
     frame["cost_bps"] = pd.to_numeric(frame.get("cost_bps", selection_cost_bps), errors="coerce")
-    frame["validation_return_retention_score"] = pd.to_numeric(
-        frame.get("validation_return_retention_pct", 0.0),
-        errors="coerce",
-    ).clip(upper=95.0)
+    if "validation_return_retention_score" in frame.columns:
+        frame["validation_return_retention_score"] = pd.to_numeric(
+            frame["validation_return_retention_score"],
+            errors="coerce",
+        ).fillna(0.0)
+    else:
+        frame["validation_return_retention_score"] = pd.to_numeric(
+            frame.get("validation_return_retention_pct", 0.0),
+            errors="coerce",
+        ).clip(upper=95.0)
+    if "validation_return_retention_in_target_band" in frame.columns:
+        frame["validation_return_retention_in_target_band"] = (
+            frame["validation_return_retention_in_target_band"].fillna(False).astype(bool)
+        )
+    else:
+        frame["validation_return_retention_in_target_band"] = pd.to_numeric(
+            frame.get("validation_return_retention_pct", 0.0),
+            errors="coerce",
+        ).between(85.0, 95.0)
     for column in [
         "validation_open_buy_dump_period_reduction",
         "validation_crash_period_reduction",
@@ -1075,6 +1189,13 @@ def select_conditional_risk_sleeve_policy(
                 selected_row["validation_min_required_cost_return_retention_pct"] = float(
                     pd.to_numeric(required_rows["validation_return_retention_pct"], errors="coerce").min()
                 )
+                if "validation_return_retention_score" in required_rows.columns:
+                    selected_row["validation_min_required_cost_return_retention_score"] = float(
+                        pd.to_numeric(required_rows["validation_return_retention_score"], errors="coerce").min()
+                    )
+                selected_row["validation_required_cost_all_return_retention_in_target_band"] = bool(
+                    required_rows["validation_return_retention_in_target_band"].astype(bool).all()
+                )
                 selected_row["validation_min_required_cost_drawdown_margin_pct"] = float(
                     (
                         pd.to_numeric(required_rows["validation_max_drawdown_pct"], errors="coerce")
@@ -1106,7 +1227,9 @@ def select_conditional_risk_sleeve_policy(
         required_cost_results_by_key = {}
         validation_cost_robust = False
     for column in [
+        "validation_required_cost_all_return_retention_in_target_band",
         "validation_min_required_cost_return_retention_pct",
+        "validation_min_required_cost_return_retention_score",
         "validation_min_required_cost_drawdown_margin_pct",
     ]:
         if column not in source.columns:
@@ -1121,7 +1244,8 @@ def select_conditional_risk_sleeve_policy(
 
     selected = source.sort_values(
         [
-            "validation_min_required_cost_return_retention_pct",
+            "validation_required_cost_all_return_retention_in_target_band",
+            "validation_min_required_cost_return_retention_score",
             "validation_min_required_cost_drawdown_margin_pct",
             "validation_max_required_cost_skip_rate",
             "validation_open_buy_dump_period_reduction",
@@ -1132,7 +1256,7 @@ def select_conditional_risk_sleeve_policy(
             "condition_valid_active_coverage",
             "selection_score",
         ],
-        ascending=[False, False, True, False, False, False, False, False, False, False],
+        ascending=[False, False, False, True, False, False, False, False, False, False, False],
     ).iloc[0]
     result = _json_ready_dict(selected.to_dict())
     required_cost_results = required_cost_results_by_key.get(selected.name, pd.DataFrame())
@@ -1225,9 +1349,15 @@ def select_validation_robust_delayed_policy(
                 "selection_priority": selection_priority,
             }
     frame["cost_bps"] = pd.to_numeric(frame["cost_bps"], errors="coerce")
-    frame["validation_return_retention_score"] = frame["validation_return_retention_pct"].clip(
-        upper=float(return_retention_high)
-    )
+    if "validation_return_retention_score" in frame.columns:
+        frame["validation_return_retention_score"] = pd.to_numeric(
+            frame["validation_return_retention_score"],
+            errors="coerce",
+        ).fillna(0.0)
+    else:
+        frame["validation_return_retention_score"] = frame["validation_return_retention_pct"].clip(
+            upper=float(return_retention_high)
+        )
     frame["validation_skip_rate"] = (
         pd.to_numeric(frame["validation_skipped_periods"], errors="coerce")
         / pd.to_numeric(frame["validation_periods"], errors="coerce").replace(0, np.nan)
@@ -1248,14 +1378,27 @@ def select_validation_robust_delayed_policy(
             drawdown = float(row["validation_max_drawdown_pct"])
             skipped = float(row["validation_skipped_periods"])
             periods = float(row["validation_periods"])
-            retention_band_margin = min(
-                retention - float(return_retention_low),
-                float(return_retention_high) - retention,
-            )
+            target_value = row.get("validation_return_target_satisfied", np.nan)
+            if pd.isna(target_value):
+                return_target_satisfied = bool(
+                    retention >= float(return_retention_low)
+                    and (return_retention_upper_is_soft or retention <= float(return_retention_high))
+                )
+                retention_band_margin = min(
+                    retention - float(return_retention_low),
+                    float(return_retention_high) - retention,
+                )
+            else:
+                return_target_satisfied = bool(target_value)
+                retention_band_margin = (
+                    float(return_retention_high)
+                    if str(row.get("validation_return_target_mode", "")) == "baseline_nonpositive_improvement"
+                    and return_target_satisfied
+                    else min(retention - float(return_retention_low), float(return_retention_high) - retention)
+                )
             retention_band_margins.append(retention_band_margin)
             if not (
-                retention >= return_retention_low
-                and (return_retention_upper_is_soft or retention <= return_retention_high)
+                return_target_satisfied
                 and (
                     return_retention_upper_is_soft
                     or retention_band_margin >= float(min_validation_retention_band_margin)
@@ -1352,7 +1495,13 @@ def select_intraday_flat_sleeve_policy(
             "selection_uses_test_segment": False,
         }
     frame["cost_bps"] = pd.to_numeric(frame["cost_bps"], errors="coerce")
-    frame["validation_return_retention_score"] = frame["validation_return_retention_pct"].clip(upper=95.0)
+    if "validation_return_retention_score" in frame.columns:
+        frame["validation_return_retention_score"] = pd.to_numeric(
+            frame["validation_return_retention_score"],
+            errors="coerce",
+        ).fillna(0.0)
+    else:
+        frame["validation_return_retention_score"] = frame["validation_return_retention_pct"].clip(upper=95.0)
     frame["validation_skip_rate"] = (
         pd.to_numeric(frame["validation_skipped_periods"], errors="coerce")
         / pd.to_numeric(frame["validation_periods"], errors="coerce").replace(0, np.nan)
@@ -1372,9 +1521,15 @@ def select_intraday_flat_sleeve_policy(
             drawdown = float(row["validation_max_drawdown_pct"])
             skipped = float(row["validation_skipped_periods"])
             periods = float(row["validation_periods"])
+            target_value = row.get("validation_return_target_satisfied", np.nan)
+            if pd.isna(target_value):
+                return_target_satisfied = bool(
+                    retention >= float(return_retention_low) and retention <= float(return_retention_high)
+                )
+            else:
+                return_target_satisfied = bool(target_value)
             if not (
-                retention >= float(return_retention_low)
-                and retention <= float(return_retention_high)
+                return_target_satisfied
                 and drawdown > float(max_drawdown_floor)
                 and skipped <= periods * float(max_skip_rate)
             ):
@@ -1503,6 +1658,21 @@ def evaluate_observable_delayed_signal_candidates(
                                     baseline_validation["total_return_pct"],
                                 )
                                 test_retention = _retention(test["total_return_pct"], baseline_test["total_return_pct"])
+                                validation_return_target_satisfied = _return_target_satisfied(
+                                    validation["total_return_pct"],
+                                    baseline_validation["total_return_pct"],
+                                    validation_retention,
+                                )
+                                test_return_target_satisfied = _return_target_satisfied(
+                                    test["total_return_pct"],
+                                    baseline_test["total_return_pct"],
+                                    test_retention,
+                                )
+                                validation_return_score = _return_retention_score(
+                                    validation["total_return_pct"],
+                                    baseline_validation["total_return_pct"],
+                                    validation_retention,
+                                )
                                 validation_dd_improvement = (
                                     validation["max_drawdown_pct"] - baseline_validation["max_drawdown_pct"]
                                 )
@@ -1528,21 +1698,45 @@ def evaluate_observable_delayed_signal_candidates(
                                         "report_segment": "test",
                                         "selection_uses_test_segment": False,
                                         "validation_periods": validation["periods"],
+                                        "validation_baseline_return_pct": baseline_validation["total_return_pct"],
                                         "validation_return_pct": validation["total_return_pct"],
                                         "validation_return_retention_pct": validation_retention,
+                                        "validation_return_retention_score": validation_return_score,
+                                        "validation_return_target_mode": _return_target_mode(
+                                            baseline_validation["total_return_pct"]
+                                        ),
+                                        "validation_return_target_satisfied": validation_return_target_satisfied,
+                                        "validation_return_retention_in_target_band": _return_retention_in_target_band(
+                                            baseline_validation["total_return_pct"],
+                                            validation_retention,
+                                        ),
                                         "validation_max_drawdown_pct": validation["max_drawdown_pct"],
                                         "validation_drawdown_improvement_pct": validation_dd_improvement,
                                         "validation_daily_sharpe": validation["daily_sharpe"],
                                         "validation_skipped_periods": validation["skipped_periods"],
                                         "test_periods": test["periods"],
+                                        "test_baseline_return_pct": baseline_test["total_return_pct"],
                                         "test_return_pct": test["total_return_pct"],
                                         "test_return_retention_pct": test_retention,
+                                        "test_return_retention_score": _return_retention_score(
+                                            test["total_return_pct"],
+                                            baseline_test["total_return_pct"],
+                                            test_retention,
+                                        ),
+                                        "test_return_target_mode": _return_target_mode(
+                                            baseline_test["total_return_pct"]
+                                        ),
+                                        "test_return_target_satisfied": test_return_target_satisfied,
+                                        "test_return_retention_in_target_band": _return_retention_in_target_band(
+                                            baseline_test["total_return_pct"],
+                                            test_retention,
+                                        ),
                                         "test_max_drawdown_pct": test["max_drawdown_pct"],
                                         "test_drawdown_improvement_pct": test_dd_improvement,
                                         "test_daily_sharpe": test["daily_sharpe"],
                                         "test_skipped_periods": test["skipped_periods"],
                                         "selection_score": (
-                                            min(validation_retention, 95.0)
+                                            validation_return_score
                                             + 2.0 * validation_dd_improvement
                                             + 0.25 * validation["daily_sharpe"]
                                             - 0.10 * validation["skipped_periods"]
@@ -1552,8 +1746,10 @@ def evaluate_observable_delayed_signal_candidates(
     result = pd.DataFrame(rows)
     if result.empty:
         return result
-    result["validation_return_retention_score"] = result["validation_return_retention_pct"].clip(upper=95.0)
-    result["test_return_retention_score"] = result["test_return_retention_pct"].clip(upper=95.0)
+    if "validation_return_retention_score" not in result.columns:
+        result["validation_return_retention_score"] = result["validation_return_retention_pct"].clip(upper=95.0)
+    if "test_return_retention_score" not in result.columns:
+        result["test_return_retention_score"] = result["test_return_retention_pct"].clip(upper=95.0)
     result["validation_skip_rate"] = (
         result["validation_skipped_periods"] / result["validation_periods"].replace(0, np.nan)
     ).fillna(1.0)
@@ -1562,14 +1758,12 @@ def evaluate_observable_delayed_signal_candidates(
     ).fillna(1.0)
     result["return_retention_upper_policy"] = "hard_gate"
     result["passes_validation_target"] = (
-        result["validation_return_retention_pct"].ge(85.0)
-        & result["validation_return_retention_pct"].le(95.0)
+        result["validation_return_target_satisfied"].astype(bool)
         & result["validation_max_drawdown_pct"].gt(-18.0)
         & result["validation_skipped_periods"].le(result["validation_periods"] * 0.15)
     )
     result["passes_test_target"] = (
-        result["test_return_retention_pct"].ge(85.0)
-        & result["test_return_retention_pct"].le(95.0)
+        result["test_return_target_satisfied"].astype(bool)
         & result["test_max_drawdown_pct"].gt(-18.0)
         & result["test_skipped_periods"].le(result["test_periods"] * 0.15)
     )
@@ -1850,6 +2044,63 @@ def _retention(total_return_pct: float, baseline_return_pct: float) -> float:
     if abs(float(baseline_return_pct)) <= 1e-12:
         return float("nan")
     return float(total_return_pct) / float(baseline_return_pct) * 100.0
+
+
+def _return_target_mode(baseline_return_pct: float) -> str:
+    return "positive_retention_band" if float(baseline_return_pct) > 0.0 else "baseline_nonpositive_improvement"
+
+
+def _return_target_satisfied(
+    total_return_pct: float,
+    baseline_return_pct: float,
+    return_retention_pct: float,
+    *,
+    return_retention_low: float = 85.0,
+    return_retention_high: float = 95.0,
+    return_retention_upper_is_soft: bool = True,
+) -> bool:
+    total = float(total_return_pct)
+    baseline = float(baseline_return_pct)
+    if baseline <= 0.0:
+        return bool(total >= baseline)
+    if pd.isna(return_retention_pct):
+        return False
+    retention = float(return_retention_pct)
+    return bool(
+        retention >= float(return_retention_low)
+        and (return_retention_upper_is_soft or retention <= float(return_retention_high))
+    )
+
+
+def _return_retention_in_target_band(
+    baseline_return_pct: float,
+    return_retention_pct: float,
+    *,
+    return_retention_low: float = 85.0,
+    return_retention_high: float = 95.0,
+) -> bool:
+    if float(baseline_return_pct) <= 0.0:
+        return True
+    if pd.isna(return_retention_pct):
+        return False
+    retention = float(return_retention_pct)
+    return bool(float(return_retention_low) <= retention <= float(return_retention_high))
+
+
+def _return_retention_score(
+    total_return_pct: float,
+    baseline_return_pct: float,
+    return_retention_pct: float,
+    *,
+    return_retention_high: float = 95.0,
+) -> float:
+    baseline = float(baseline_return_pct)
+    total = float(total_return_pct)
+    if baseline <= 0.0:
+        return float(return_retention_high) if total >= baseline else 0.0
+    if pd.isna(return_retention_pct):
+        return 0.0
+    return float(min(float(return_retention_pct), float(return_retention_high)))
 
 
 def _run_card(spec: CognitiveAlphaIntradayOverlaySpec) -> dict[str, Any]:
@@ -3489,8 +3740,7 @@ def _select_thresholds_from_validation(
     if selection.empty:
         return base_thresholds, selection
     selection["passes_target"] = (
-        (selection["return_retention_pct"].fillna(-np.inf) >= 85.0)
-        & (selection["return_retention_pct"].fillna(np.inf) <= 95.0)
+        selection["return_target_satisfied"].astype(bool)
         & (selection["max_drawdown_pct"].fillna(-np.inf) > -18.0)
         & (selection["skipped_periods"].fillna(0) <= selection["periods"].fillna(0) * 0.5)
     )
@@ -3502,6 +3752,7 @@ def _select_thresholds_from_validation(
         ).reset_index(drop=True)
     selected = target_candidates.sort_values(
         [
+            "return_retention_in_target_band",
             "drawdown_improvement_pct",
             "selection_score",
             "total_return_pct",
@@ -3509,7 +3760,7 @@ def _select_thresholds_from_validation(
             "signal_threshold",
             "risk_threshold",
         ],
-        ascending=[False, False, False, False, True, True],
+        ascending=[False, False, False, False, False, True, True],
     ).iloc[0]
     thresholds = {
         "signal_threshold": float(selected["signal_threshold"]),
@@ -3526,14 +3777,20 @@ def _select_variant(model_comparison: pd.DataFrame, *, cost_bps: float) -> dict[
     if validation.empty:
         validation = model_comparison.copy()
     validation["passes_target"] = (
-        (validation["return_retention_pct"].fillna(-np.inf) >= 85.0)
+        validation["return_target_satisfied"].astype(bool)
         & (validation["max_drawdown_pct"].fillna(-np.inf) > -18.0)
         & (validation["skipped_periods"].fillna(0) <= validation["periods"].fillna(0) * 0.5)
     )
     eligible = validation.loc[validation["passes_target"]]
     selected = (eligible if not eligible.empty else validation).sort_values(
-        ["passes_target", "selection_score", "total_return_pct"],
-        ascending=[False, False, False],
+        [
+            "passes_target",
+            "return_retention_in_target_band",
+            "drawdown_improvement_pct",
+            "selection_score",
+            "total_return_pct",
+        ],
+        ascending=[False, False, False, False, False],
     ).iloc[0]
     variant = str(selected["variant"])
     test = model_comparison.loc[(model_comparison["segment"].eq("test")) & (model_comparison["variant"].eq(variant))]
@@ -3548,12 +3805,22 @@ def _select_variant(model_comparison: pd.DataFrame, *, cost_bps: float) -> dict[
         "selection_score": float(selected["selection_score"]),
         "validation_passes_target": bool(selected["passes_target"]),
         "validation_total_return_pct": float(selected["total_return_pct"]),
+        "validation_baseline_return_pct": float(selected["baseline_return_pct"]),
         "validation_max_drawdown_pct": float(selected["max_drawdown_pct"]),
         "validation_return_retention_pct": float(selected["return_retention_pct"]),
+        "validation_return_target_mode": str(selected.get("return_target_mode", "")),
+        "validation_return_target_satisfied": bool(selected.get("return_target_satisfied", False)),
+        "validation_return_retention_in_target_band": bool(
+            selected.get("return_retention_in_target_band", False)
+        ),
         "validation_drawdown_improvement_pct": float(selected["drawdown_improvement_pct"]),
         "test_total_return_pct": float(test_row["total_return_pct"]),
+        "test_baseline_return_pct": float(test_row["baseline_return_pct"]),
         "test_max_drawdown_pct": float(test_row["max_drawdown_pct"]),
         "test_return_retention_pct": float(test_row["return_retention_pct"]),
+        "test_return_target_mode": str(test_row.get("return_target_mode", "")),
+        "test_return_target_satisfied": bool(test_row.get("return_target_satisfied", False)),
+        "test_return_retention_in_target_band": bool(test_row.get("return_retention_in_target_band", False)),
         "test_drawdown_improvement_pct": float(test_row["drawdown_improvement_pct"]),
     }
 
@@ -4015,14 +4282,20 @@ def _walk_forward_metrics(
             continue
         valid_selection = valid_metrics.copy()
         valid_selection["passes_target"] = (
-            valid_selection["return_retention_pct"].between(85.0, 95.0)
+            valid_selection["return_target_satisfied"].astype(bool)
             & valid_selection["max_drawdown_pct"].gt(-18.0)
             & valid_selection["skipped_periods"].le(valid_selection["periods"] * 0.5)
         )
         eligible = valid_selection.loc[valid_selection["passes_target"]].copy()
         selected = (eligible if not eligible.empty else valid_selection).sort_values(
-            ["passes_target", "drawdown_improvement_pct", "selection_score", "total_return_pct"],
-            ascending=[False, False, False, False],
+            [
+                "passes_target",
+                "return_retention_in_target_band",
+                "drawdown_improvement_pct",
+                "selection_score",
+                "total_return_pct",
+            ],
+            ascending=[False, False, False, False, False],
         ).iloc[0]
         variant = str(selected["variant"])
         test_row_frame = test_metrics.loc[test_metrics["variant"].eq(variant)] if "variant" in test_metrics else pd.DataFrame()
@@ -4053,7 +4326,7 @@ def _walk_forward_metrics(
             continue
         test_row = test_row_frame.iloc[0]
         test_passes_target = bool(
-            85.0 <= float(test_row["return_retention_pct"]) <= 95.0
+            bool(test_row.get("return_target_satisfied", False))
             and float(test_row["max_drawdown_pct"]) > -18.0
             and float(test_row["skipped_periods"]) <= float(test_row["periods"]) * 0.5
         )
@@ -4076,13 +4349,23 @@ def _walk_forward_metrics(
                 "test_passes_target": test_passes_target,
                 "valid_periods": int(selected["periods"]),
                 "test_periods": int(test_row["periods"]),
+                "valid_baseline_return_pct": float(selected["baseline_return_pct"]),
                 "valid_total_return_pct": float(selected["total_return_pct"]),
                 "valid_max_drawdown_pct": float(selected["max_drawdown_pct"]),
                 "valid_return_retention_pct": float(selected["return_retention_pct"]),
+                "valid_return_target_mode": str(selected.get("return_target_mode", "")),
+                "valid_return_target_satisfied": bool(selected.get("return_target_satisfied", False)),
+                "valid_return_retention_in_target_band": bool(
+                    selected.get("return_retention_in_target_band", False)
+                ),
                 "valid_drawdown_improvement_pct": float(selected["drawdown_improvement_pct"]),
+                "test_baseline_return_pct": float(test_row["baseline_return_pct"]),
                 "test_total_return_pct": float(test_row["total_return_pct"]),
                 "test_max_drawdown_pct": float(test_row["max_drawdown_pct"]),
                 "test_return_retention_pct": float(test_row["return_retention_pct"]),
+                "test_return_target_mode": str(test_row.get("return_target_mode", "")),
+                "test_return_target_satisfied": bool(test_row.get("return_target_satisfied", False)),
+                "test_return_retention_in_target_band": bool(test_row.get("return_retention_in_target_band", False)),
                 "test_drawdown_improvement_pct": float(test_row["drawdown_improvement_pct"]),
             }
         )
@@ -5557,10 +5840,18 @@ def _write_conclusion(
     optimization_detail = ""
     if optimization_plan:
         if optimization_plan.get("external_context_status") == "not_used":
-            optimization_detail = (
-                "当前本地 15m gate 仍选 baseline，下一步先换 delayed observable label "
-                "和本地 open-buy-dump 风险因子，不要强推现有 gate。"
-            )
+            selected_variant = str(selected_model.get("variant") or "unknown")
+            if selected_variant == "baseline_next_open":
+                optimization_detail = (
+                    "当前本地 15m gate 仍选 baseline，下一步先换 delayed observable label "
+                    "和本地 open-buy-dump 风险因子，不要强推现有 gate。"
+                )
+            else:
+                optimization_detail = (
+                    f"当前本地 15m validation 选择 {selected_variant}，但 test retention="
+                    f"{selected_test_retention:.2f}%，说明它过度过滤日线趋势收益；"
+                    "下一步先换 delayed observable label 和本地 open-buy-dump 风险因子。"
+                )
         else:
             optimization_detail = (
                 "若外部 context 历史不足，先跑本地 SOXL/SOXX 15m/5m annual walk-forward fallback，"
