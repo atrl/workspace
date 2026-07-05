@@ -1,0 +1,16 @@
+{
+  "action": "HOLD",
+  "as_of": "2026-07-02",
+  "candidate": "lgb_xgb_consensus_base_throttle_base_constrained_ref_p0.5-0.75_t0.5-1.15_s1_h0.05_hold2_mdc0.5_bc1_rghybrid_intraday15m_regime_risk_gate_above0.5_cap0.65",
+  "execution_timing": "close_t_signal_next_open_to_following_open",
+  "last_change_date": "2026-06-10",
+  "last_change_target_position": 0.00024999999999997247,
+  "model_target_col": "label_open_to_open_5d",
+  "previous_target_position": 0.00024999999999997247,
+  "probability": 0.4372368520802712,
+  "return_col": "open_to_open_return",
+  "target_delta": 0.0,
+  "target_delta_percent": 0.0,
+  "target_percent": 0.024999999999997247,
+  "target_position": 0.00024999999999997247
+}

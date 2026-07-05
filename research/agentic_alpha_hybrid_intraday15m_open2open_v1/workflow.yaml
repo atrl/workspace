@@ -1,0 +1,18 @@
+experiment: agentic_alpha_hybrid_intraday15m_open2open_v1
+card_type: hybrid_intraday15m_open2open_research_card
+benchmark_basis: open_to_open
+return_col: open_to_open_return
+model_target_col: label_open_to_open_5d
+model_selection:
+  selected_model: lgb_xgb_consensus
+  selection_uses_test_segment: false
+intraday_15m_factors:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+  role: lagged_model_features_and_regime_risk_gate
+  lag_days: 1
+hybrid_goal:
+  required_policy_satisfied: false
+  target_pass_test_years: [2024]
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml

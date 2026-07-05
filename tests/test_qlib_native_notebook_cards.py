@@ -3409,6 +3409,60 @@ def test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_exe
     assert "不构成买卖建议" in conclusion
 
 
+def test_hybrid_intraday15m_open2open_card_records_lagged_hybrid_walk_forward():
+    card = ROOT / "research" / "agentic_alpha_hybrid_intraday15m_open2open_v1"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_hybrid_intraday15m_open2open_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
+    walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
+    feature_sets = pd.read_csv(card / summary["sidecars"]["feature_sets"])
+
+    assert summary["experiment"] == "agentic_alpha_hybrid_intraday15m_open2open_v1"
+    assert summary["card_type"] == "hybrid_intraday15m_open2open_research_card"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["return_col"] == "open_to_open_return"
+    assert summary["model_target_col"] == "label_open_to_open_5d"
+    assert summary["model_selection"]["selected_model"] == "lgb_xgb_consensus"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert set(summary["model_selection"]["model_families"]) >= {
+        "lgbm_classifier",
+        "lgbm_regressor",
+        "xgb_classifier",
+        "xgb_regressor",
+        "lgb_xgb_consensus",
+    }
+    assert summary["intraday_15m_factors"]["role"] == "lagged_model_features_and_regime_risk_gate"
+    assert summary["intraday_15m_factors"]["lag_days"] == 1
+    assert summary["intraday_15m_factors"]["feature_count"] >= 10
+    assert summary["hybrid_regime_gate"]["column"] == "hybrid_intraday15m_regime_risk_gate"
+    assert summary["hybrid_regime_gate"]["lag_days"] == 1
+    assert summary["hybrid_goal"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
+    assert summary["hybrid_goal"]["selection_uses_test_segment"] is False
+    assert summary["hybrid_goal"]["required_test_years"] == [2023, 2024, 2025, 2026]
+    assert set(walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
+    assert {"buyhold_return_pct", "beats_buyhold", "passes_drawdown", "test_passes_target"}.issubset(
+        set(walk_forward.columns)
+    )
+    assert summary["promotion_decision"] in {
+        "candidate_for_validated_research_hybrid_intraday15m_open2open",
+        "not_promoted_hybrid_intraday15m_walk_forward_goal_failed",
+    }
+    assert bool(feature_sets.loc[0, "contains_intraday15m"]) is True
+    assert bool(feature_sets.loc[0, "contains_soxx_constituents"]) is True
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    for forbidden in RECORDER_ONLY_ROOT_FILES:
+        assert not (card / forbidden).exists(), forbidden
+    assert "run_hybrid_intraday15m_open2open_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.calendar" in notebook_text
+    assert "R" in notebook_text
+    assert "intraday_15m_factors:" in workflow
+    assert "不构成买卖建议" in conclusion
+
+
 def test_meta_label_risk_budget_open2open_card_replaces_probability_boost_and_records_failure():
     card = ROOT / "research" / "meta_label_risk_budget_open2open_v1"
     summary = _summary(card)

@@ -37,6 +37,7 @@ __all__ = [
     "CognitiveAlphaIntradayOverlaySpec",
     "CognitiveAlphaIntraday5MinRiskSleeveSpec",
     "IntradayExecutionLabelModelSpec",
+    "HybridIntraday15mOpen2OpenSpec",
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
     "QlibNativeExperimentResult",
@@ -60,6 +61,7 @@ __all__ = [
     "run_cognitive_alpha_intraday_regime_overlay_diagnostic_card",
     "run_cognitive_alpha_intraday_5min_risk_sleeve_card",
     "run_intraday_execution_label_model_card",
+    "run_hybrid_intraday15m_open2open_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_probability_budget_open2open_card",
     "run_cognitive_alpha_position_model",
@@ -129,6 +131,11 @@ _INTRADAY_EXECUTION_LABEL_EXPORTS = {
     "run_intraday_execution_label_model_card",
 }
 
+_HYBRID_INTRADAY15M_OPEN2OPEN_EXPORTS = {
+    "HybridIntraday15mOpen2OpenSpec",
+    "run_hybrid_intraday15m_open2open_card",
+}
+
 _RISK_HARDENED_OPEN2OPEN_EXPORTS = {
     "RiskHardenedOpen2OpenCardSpec",
     "run_risk_hardened_open2open_card",
@@ -182,6 +189,10 @@ def __getattr__(name: str):
         from . import intraday_execution_label_model
 
         return getattr(intraday_execution_label_model, name)
+    if name in _HYBRID_INTRADAY15M_OPEN2OPEN_EXPORTS:
+        from . import hybrid_intraday15m_open2open
+
+        return getattr(hybrid_intraday15m_open2open, name)
     if name in _RISK_HARDENED_OPEN2OPEN_EXPORTS:
         from . import risk_hardened_open2open
 
