@@ -37,6 +37,7 @@ __all__ = [
     "CognitiveAlphaIntradayOverlaySpec",
     "CognitiveAlphaIntraday5MinRiskSleeveSpec",
     "IntradayExecutionLabelModelSpec",
+    "MetaLabelRiskBudgetOpen2OpenSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
     "RiskHardenedOpen2OpenCardSpec",
@@ -58,6 +59,7 @@ __all__ = [
     "run_cognitive_alpha_intraday_regime_overlay_diagnostic_card",
     "run_cognitive_alpha_intraday_5min_risk_sleeve_card",
     "run_intraday_execution_label_model_card",
+    "run_meta_label_risk_budget_open2open_card",
     "run_cognitive_alpha_position_model",
     "run_cognitive_alpha_weighted_factor_search",
     "run_cognitive_alpha_evolution",
@@ -130,6 +132,11 @@ _RISK_HARDENED_OPEN2OPEN_EXPORTS = {
     "run_risk_hardened_open2open_card",
 }
 
+_META_LABEL_RISK_BUDGET_OPEN2OPEN_EXPORTS = {
+    "MetaLabelRiskBudgetOpen2OpenSpec",
+    "run_meta_label_risk_budget_open2open_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -172,4 +179,8 @@ def __getattr__(name: str):
         from . import risk_hardened_open2open
 
         return getattr(risk_hardened_open2open, name)
+    if name in _META_LABEL_RISK_BUDGET_OPEN2OPEN_EXPORTS:
+        from . import meta_label_risk_budget_open2open
+
+        return getattr(meta_label_risk_budget_open2open, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

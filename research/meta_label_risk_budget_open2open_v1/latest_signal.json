@@ -1,0 +1,19 @@
+{
+  "action": "score_next_open_target_position",
+  "as_of": "2026-07-02",
+  "candidate": "lgb_xgb_consensus_meta_label_risk_budget_p0.55_mp0.55_tv0.035_ts0.2_th0.45_rb0.1",
+  "drawdown_budget": 1.0,
+  "edge_score": 0.0,
+  "execution_timing": "close_t_signal_next_open_to_following_open",
+  "intraday_execution_cap": 0.35,
+  "model": "lgb_xgb_consensus",
+  "model_target_col": "label_open_to_open_5d",
+  "return_col": "open_to_open_return",
+  "status": "ok",
+  "tail_cap": 0.6,
+  "tail_probability": 0.23994527757167816,
+  "take_probability": 0.4244397533709209,
+  "target_percent": 0.0,
+  "target_position": 0.0,
+  "volatility_budget": 0.2294843215137159
+}

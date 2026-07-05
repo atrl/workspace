@@ -3403,6 +3403,62 @@ def test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_exe
     assert "不构成买卖建议" in conclusion
 
 
+def test_meta_label_risk_budget_open2open_card_replaces_probability_boost_and_records_failure():
+    card = ROOT / "research" / "meta_label_risk_budget_open2open_v1"
+    summary = _summary(card)
+    notebook_text = (card / "meta_label_risk_budget_open2open_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
+    model_selection = pd.read_csv(card / "model_selection.csv")
+    risk_analysis = pd.read_csv(card / "risk_analysis.csv")
+
+    assert summary["experiment"] == "meta_label_risk_budget_open2open_v1"
+    assert summary["card_type"] == "meta_label_risk_budget_open2open_research_card"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["return_col"] == "open_to_open_return"
+    assert summary["model_target_col"] == "label_open_to_open_5d"
+    assert summary["take_label_col"] == "take_trade_prob_label"
+    assert summary["tail_label_col"] == "tail_loss_prob_label"
+    assert summary["position_model"]["base_constrained_ref_role"] == "opportunity_side_only_not_final_position"
+    assert "probability boost" in workflow
+    assert "new_structure: base opportunity + ML meta-label" in workflow
+    assert summary["position_model"]["formula"].startswith("opportunity_side * calibrated_edge_score")
+    assert summary["model_selection"]["selected_model"] == "lgb_xgb_consensus"
+    assert summary["implementation_notes"]["lgb_xgb_consensus_selection"] is True
+    assert set(summary["model_selection"]["model_families"]) >= {
+        "lgbm_classifier",
+        "xgb_classifier",
+        "lgb_xgb_consensus",
+    }
+    selected = model_selection.loc[model_selection["selected"].map(bool)]
+    assert set(selected["position_mode"]) == {"meta_label_risk_budget"}
+    assert set(selected["position_architecture"]) == {"opportunity_side_times_edge_times_risk_budgets"}
+    assert not selected["params"].str.contains("base_plus_probability").any()
+    assert not model_selection.loc[
+        model_selection["model"].isin({"lgbm_classifier", "xgb_classifier"}),
+        "selection_eligible",
+    ].map(bool).any()
+    assert summary["intraday_15m_factors"]["feature_count"] > 0
+    assert summary["intraday_15m_factors"]["role"] == "execution_overlay_and_risk_budget_features_not_primary_alpha"
+    assert summary["execution_stress"]["status"] in {"ok", "needs_data"}
+    assert {"architecture_replaces_probability_boost", "walk_forward_all_years"}.issubset(
+        set(risk_analysis["check"])
+    )
+    assert summary["promotion_decision"] != "candidate_for_validated_research_meta_label_risk_budget"
+    assert summary["meta_label_risk_budget_goal"]["walk_forward_gate_pass"] is False
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    for forbidden in RECORDER_ONLY_ROOT_FILES:
+        assert not (card / forbidden).exists(), forbidden
+    assert "run_meta_label_risk_budget_open2open_card" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "LGBMClassifier" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():
     card = ROOT / "research" / "cognitive_alpha_position_model_v1"
     summary = _summary(card)

@@ -1,0 +1,36 @@
+experiment: meta_label_risk_budget_open2open_v1
+card_type: meta_label_risk_budget_open2open_research_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/meta_label_risk_budget_open2open_v1/qlib_recorder
+recorder_id: 4fbc224c4fb84ba2832ffdae2796048f
+as_of: 2026-07-02
+qlib:
+  market: all
+  region: us
+architecture:
+  old_structure: base_constrained_ref + ML probability boost + risk gate
+  new_structure: base opportunity + ML meta-label + volatility/tail/drawdown/intraday risk budget
+  formula: opportunity_side * calibrated_edge_score * volatility_budget * tail_risk_cap * drawdown_budget * intraday_execution_cap
+model_selection:
+  return_col: open_to_open_return
+  label_col: label_open_to_open_5d
+  take_label_col: take_trade_prob_label
+  tail_label_col: tail_loss_prob_label
+  models: [lgbm_classifier, xgb_classifier, lgb_xgb_consensus]
+  selectable_model: lgb_xgb_consensus
+risk_gates:
+  selected_model: lgb_xgb_consensus
+  walk_forward_passes_all: False
+  baseline_risk_fallback_pass: True
+  previous_model_return_floor_pass: False
+intraday_15m:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+  feature_count: 22
+  role: execution_overlay_and_risk_budget_features_not_primary_alpha
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    positions: artifacts/meta_label_risk_budget_open2open/positions.csv
+    walk_forward_positions: artifacts/meta_label_risk_budget_open2open/walk_forward_positions.csv
