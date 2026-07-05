@@ -3463,6 +3463,74 @@ def test_hybrid_intraday15m_open2open_card_records_lagged_hybrid_walk_forward():
     assert "不构成买卖建议" in conclusion
 
 
+def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal():
+    card = ROOT / "research" / "agentic_alpha_intraday_execution_sleeve_v2"
+    summary = _summary(card)
+    notebook_text = (card / "agentic_alpha_intraday_execution_sleeve_v2.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
+    regime_walk_forward = pd.read_csv(card / summary["sidecars"]["regime_template_walk_forward"])
+
+    assert summary["experiment"] == "agentic_alpha_intraday_execution_sleeve_v2"
+    assert summary["card_type"] == "intraday_execution_sleeve_v2_open2open_research_card"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert summary["model_selection"]["selection_uses_test_segment"] is False
+    assert summary["model_selection"]["return_retention_floor_pct"] == 85.0
+    assert summary["model_selection"]["annual_goal_gate"] == "report_only_not_selection"
+    assert set(summary["position_model"]["model_families"]) >= {
+        "lgbm_classifier",
+        "lgbm_regressor",
+        "xgb_classifier",
+        "xgb_regressor",
+        "lgb_xgb_consensus",
+    }
+    assert summary["execution_sleeve"]["triple_risk_gate_col"] == "intraday_execution_sleeve_v2_triple_risk_gate"
+    assert summary["execution_sleeve"]["trend_protection_floor_col"] == (
+        "intraday_execution_sleeve_v2_trend_protection_floor"
+    )
+    assert summary["execution_sleeve"]["trend_protection_active_days"] > 0
+    assert summary["annual_goal"]["policy"] == "annual_train_to_T_minus_2_valid_T_minus_1_test_T"
+    assert summary["annual_goal"]["selection_uses_test_segment"] is False
+    assert summary["annual_goal"]["required_test_years"] == [2023, 2024, 2025, 2026]
+    assert set(summary["annual_goal"]["feasible_test_years"]) == {2023, 2024, 2025, 2026}
+    assert summary["annual_goal"]["return_gate"] == "test_return_pct_gt_soxl_buyhold_open2open"
+    assert summary["annual_goal"]["max_drawdown_floor_pct"] == -20.0
+    assert "required_policy_satisfied" in summary["annual_goal"]
+    assert summary["pure_ml_annual_goal"]["selection_uses_test_segment"] is False
+    assert summary["regime_template"]["annual_gate_source"] == "regime_template_walk_forward"
+    assert summary["regime_template"]["selection_uses_test_segment"] is False
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv" in summary["recorder_artifacts"]
+    assert set(summary["sidecars"]) == {
+        "analysis_summary",
+        "backtest_benchmark_comparison",
+        "backtest_walk_forward_metrics",
+        "failure_modes",
+        "feature_sets",
+        "latest_signal",
+        "model_selection",
+        "regime_template_walk_forward",
+        "risk_analysis",
+        "selected_model",
+    }
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    for forbidden in RECORDER_ONLY_ROOT_FILES:
+        assert not (card / forbidden).exists(), forbidden
+    assert set(walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
+    assert {"buyhold_return_pct", "beats_buyhold", "passes_drawdown", "test_passes_target"}.issubset(
+        set(walk_forward.columns)
+    )
+    assert set(regime_walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
+    assert {"template_id", "selection_uses_test_segment", "test_passes_target"}.issubset(
+        set(regime_walk_forward.columns)
+    )
+    assert "run_intraday_execution_sleeve_v2_card" in notebook_text
+    assert "trend-protected" in notebook_text
+    assert "trend-protected 15m execution sleeve v2" in conclusion
+
+
 def test_meta_label_risk_budget_open2open_card_replaces_probability_boost_and_records_failure():
     card = ROOT / "research" / "meta_label_risk_budget_open2open_v1"
     summary = _summary(card)

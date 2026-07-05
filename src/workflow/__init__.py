@@ -37,6 +37,7 @@ __all__ = [
     "CognitiveAlphaIntradayOverlaySpec",
     "CognitiveAlphaIntraday5MinRiskSleeveSpec",
     "IntradayExecutionLabelModelSpec",
+    "IntradayExecutionSleeveV2Spec",
     "HybridIntraday15mOpen2OpenSpec",
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
@@ -61,6 +62,7 @@ __all__ = [
     "run_cognitive_alpha_intraday_regime_overlay_diagnostic_card",
     "run_cognitive_alpha_intraday_5min_risk_sleeve_card",
     "run_intraday_execution_label_model_card",
+    "run_intraday_execution_sleeve_v2_card",
     "run_hybrid_intraday15m_open2open_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_probability_budget_open2open_card",
@@ -131,6 +133,11 @@ _INTRADAY_EXECUTION_LABEL_EXPORTS = {
     "run_intraday_execution_label_model_card",
 }
 
+_INTRADAY_EXECUTION_SLEEVE_V2_EXPORTS = {
+    "IntradayExecutionSleeveV2Spec",
+    "run_intraday_execution_sleeve_v2_card",
+}
+
 _HYBRID_INTRADAY15M_OPEN2OPEN_EXPORTS = {
     "HybridIntraday15mOpen2OpenSpec",
     "run_hybrid_intraday15m_open2open_card",
@@ -189,6 +196,10 @@ def __getattr__(name: str):
         from . import intraday_execution_label_model
 
         return getattr(intraday_execution_label_model, name)
+    if name in _INTRADAY_EXECUTION_SLEEVE_V2_EXPORTS:
+        from . import intraday_execution_sleeve_v2
+
+        return getattr(intraday_execution_sleeve_v2, name)
     if name in _HYBRID_INTRADAY15M_OPEN2OPEN_EXPORTS:
         from . import hybrid_intraday15m_open2open
 

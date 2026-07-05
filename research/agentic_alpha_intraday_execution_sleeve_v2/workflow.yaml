@@ -1,0 +1,20 @@
+experiment: agentic_alpha_intraday_execution_sleeve_v2
+card_type: intraday_execution_sleeve_v2_open2open_research_card
+benchmark_basis: open_to_open
+return_col: open_to_open_return
+model_target_col: label_open_to_open_5d
+model_selection:
+  selected_model: lgb_xgb_consensus
+  selection_uses_test_segment: false
+execution_sleeve:
+  triple_risk_gate_col: intraday_execution_sleeve_v2_triple_risk_gate
+  trend_protection_floor_col: intraday_execution_sleeve_v2_trend_protection_floor
+regime_template:
+  annual_gate_source: regime_template_walk_forward
+  selection_uses_test_segment: false
+annual_goal:
+  required_policy_satisfied: true
+  target_pass_test_years: [2023, 2024, 2025, 2026]
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
