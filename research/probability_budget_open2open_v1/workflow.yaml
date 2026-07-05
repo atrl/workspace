@@ -1,0 +1,23 @@
+experiment: probability_budget_open2open_v1
+card_type: probability_budget_open2open_research_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/probability_budget_open2open_v1/qlib_recorder
+recorder_id: 77501a073c524aec89765eacf916c290
+as_of: 2026-07-02
+architecture:
+  old_structure: base_constrained_ref + ML probability boost + risk gate
+  new_structure: LGB/XGB consensus probability budget without base boost or risk_gate_col
+  formula: target_position = clip(consensus_probability_edge * scale, min_position, max_position)
+model_selection:
+  return_col: open_to_open_return
+  label_col: label_open_to_open_5d
+  models: [lgbm_classifier, lgbm_regressor, xgb_classifier, xgb_regressor, lgb_xgb_consensus]
+  selectable_model: lgb_xgb_consensus
+walk_forward:
+  all_risk_gates_pass: True
+  all_return_gates_pass: True
+  min_test_return_pct: 3.2041134447919006
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
