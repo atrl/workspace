@@ -1228,9 +1228,12 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
         "baseline_next_open",
         "risk_exit_full_5m",
         "risk_exit_full_5m_reenter_close",
+        "risk_exit_full_5m_reenter_recovery",
         "risk_reduce_half_5m",
+        "risk_reduce_half_5m_reenter_recovery",
         "risk_reduce_quarter_5m",
         "risk_reduce_quarter_5m_reenter_close",
+        "risk_reduce_quarter_5m_reenter_recovery",
         "risk_reduce_eighth_5m",
     ]
     assert summary["model_selection"]["selection_segment"] == "validation"
@@ -1282,9 +1285,12 @@ def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
         {
             "risk_exit_full_5m",
             "risk_exit_full_5m_reenter_close",
+            "risk_exit_full_5m_reenter_recovery",
             "risk_reduce_half_5m",
+            "risk_reduce_half_5m_reenter_recovery",
             "risk_reduce_quarter_5m",
             "risk_reduce_quarter_5m_reenter_close",
+            "risk_reduce_quarter_5m_reenter_recovery",
             "risk_reduce_eighth_5m",
         }
     )

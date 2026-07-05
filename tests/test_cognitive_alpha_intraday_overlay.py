@@ -65,9 +65,12 @@ def test_simulate_5min_risk_sleeve_keeps_daily_entry_and_reduces_after_trigger()
         "baseline_next_open",
         "risk_exit_full_5m",
         "risk_exit_full_5m_reenter_close",
+        "risk_exit_full_5m_reenter_recovery",
         "risk_reduce_half_5m",
+        "risk_reduce_half_5m_reenter_recovery",
         "risk_reduce_quarter_5m",
         "risk_reduce_quarter_5m_reenter_close",
+        "risk_reduce_quarter_5m_reenter_recovery",
         "risk_reduce_eighth_5m",
     }
     assert by_variant.loc["baseline_next_open", "entry_time"] == "2026-01-05"
@@ -181,6 +184,58 @@ def test_simulate_5min_risk_sleeve_can_reenter_at_close_after_intraday_risk_redu
     )
     assert by_variant.loc["risk_reduce_quarter_5m_reenter_close", "strategy_return"] == pytest.approx(
         0.75 * (120.0 / 100.0 - 1.0) + 0.25 * ((95.0 / 100.0) * (120.0 / 90.0) - 1.0)
+    )
+
+
+def test_simulate_5min_risk_sleeve_can_reenter_on_recovery_before_close():
+    daily = pd.DataFrame(
+        [
+            {
+                "datetime": "2026-01-02",
+                "segment": "test",
+                "walk_forward_fold": "wf_2026",
+                "target_position": 1.0,
+                "strategy_return": 0.20,
+            }
+        ]
+    )
+    daily_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-01-02", "open": 90.0},
+            {"datetime": "2026-01-05", "open": 100.0},
+            {"datetime": "2026-01-06", "open": 120.0},
+        ]
+    )
+    bars_5min = pd.DataFrame(
+        [
+            {"datetime": "2026-01-05 09:35:00", "date": "2026-01-05", "open": 100.0, "close": 99.0},
+            {"datetime": "2026-01-05 09:40:00", "date": "2026-01-05", "open": 99.0, "close": 95.0},
+            {"datetime": "2026-01-05 09:45:00", "date": "2026-01-05", "open": 96.0, "close": 98.0},
+            {"datetime": "2026-01-05 09:50:00", "date": "2026-01-05", "open": 98.5, "close": 101.0},
+            {"datetime": "2026-01-05 16:00:00", "date": "2026-01-05", "open": 109.0, "close": 110.0},
+        ]
+    )
+
+    rows = simulate_5min_risk_sleeve(
+        daily,
+        daily_prices=daily_prices,
+        bars_5min=bars_5min,
+        drawdown_threshold=-0.04,
+        execution_delay_bars=0,
+        execution_price="close",
+        cost_bps=0.0,
+        variants=("risk_exit_full_5m_reenter_recovery",),
+    )
+
+    by_variant = rows.set_index("variant")
+    expected_gross = (95.0 / 100.0) * (120.0 / 98.5) - 1.0
+    expected_entry_day = (95.0 / 100.0) * (110.0 / 98.5) - 1.0
+    assert by_variant.loc["baseline_next_open", "strategy_return"] == pytest.approx(0.20)
+    assert by_variant.loc["risk_exit_full_5m_reenter_recovery", "reentry_time"] == "2026-01-05 09:50:00"
+    assert by_variant.loc["risk_exit_full_5m_reenter_recovery", "reentry_price"] == pytest.approx(98.5)
+    assert by_variant.loc["risk_exit_full_5m_reenter_recovery", "strategy_return"] == pytest.approx(expected_gross)
+    assert by_variant.loc["risk_exit_full_5m_reenter_recovery", "entry_day_strategy_return"] == pytest.approx(
+        expected_entry_day
     )
 
 

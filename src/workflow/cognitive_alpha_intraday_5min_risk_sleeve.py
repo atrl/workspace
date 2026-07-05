@@ -59,9 +59,12 @@ REQUIRED_COST_BPS = (20.0, 50.0)
 RISK_SLEEVE_VARIANTS = (
     "risk_exit_full_5m",
     "risk_exit_full_5m_reenter_close",
+    "risk_exit_full_5m_reenter_recovery",
     "risk_reduce_half_5m",
+    "risk_reduce_half_5m_reenter_recovery",
     "risk_reduce_quarter_5m",
     "risk_reduce_quarter_5m_reenter_close",
+    "risk_reduce_quarter_5m_reenter_recovery",
     "risk_reduce_eighth_5m",
 )
 TRIGGER_MODES = (
@@ -380,6 +383,68 @@ def simulate_5min_risk_sleeve(
             closed_fraction=0.25,
         )
         quarter_reenter_return = quarter_reenter_gross - execution_cost if not pd.isna(quarter_reenter_gross) else np.nan
+        recovery_reentry = _resolve_5min_recovery_reentry_bar(
+            entry_bars,
+            risk_execution_time=risk_execution_time,
+            entry_open=entry_open,
+            trigger_drawdown_from_entry=trigger_pnl,
+        )
+        recovery_reentry_time = pd.Timestamp(recovery_reentry["datetime"]) if recovery_reentry is not None else entry_close_time
+        recovery_reentry_price = float(recovery_reentry["open"]) if recovery_reentry is not None else entry_close
+        full_recovery_gross = _reenter_price_gross_return(
+            target=target,
+            entry_open=entry_open,
+            risk_execution_price=risk_execution_price,
+            reentry_price=recovery_reentry_price,
+            exit_open=exit_open,
+            closed_fraction=1.0,
+        )
+        full_recovery_return = full_recovery_gross - execution_cost if not pd.isna(full_recovery_gross) else np.nan
+        half_recovery_gross = _reenter_price_gross_return(
+            target=target,
+            entry_open=entry_open,
+            risk_execution_price=risk_execution_price,
+            reentry_price=recovery_reentry_price,
+            exit_open=exit_open,
+            closed_fraction=0.5,
+        )
+        half_recovery_return = half_recovery_gross - execution_cost if not pd.isna(half_recovery_gross) else np.nan
+        quarter_recovery_gross = _reenter_price_gross_return(
+            target=target,
+            entry_open=entry_open,
+            risk_execution_price=risk_execution_price,
+            reentry_price=recovery_reentry_price,
+            exit_open=exit_open,
+            closed_fraction=0.25,
+        )
+        quarter_recovery_return = quarter_recovery_gross - execution_cost if not pd.isna(quarter_recovery_gross) else np.nan
+        full_recovery_entry_day = _reenter_price_entry_day_return(
+            target=target,
+            entry_open=entry_open,
+            risk_execution_price=risk_execution_price,
+            reentry_price=recovery_reentry_price,
+            entry_close=entry_close,
+            closed_fraction=1.0,
+            execution_cost=execution_cost,
+        )
+        half_recovery_entry_day = _reenter_price_entry_day_return(
+            target=target,
+            entry_open=entry_open,
+            risk_execution_price=risk_execution_price,
+            reentry_price=recovery_reentry_price,
+            entry_close=entry_close,
+            closed_fraction=0.5,
+            execution_cost=execution_cost,
+        )
+        quarter_recovery_entry_day = _reenter_price_entry_day_return(
+            target=target,
+            entry_open=entry_open,
+            risk_execution_price=risk_execution_price,
+            reentry_price=recovery_reentry_price,
+            entry_close=entry_close,
+            closed_fraction=0.25,
+            execution_cost=execution_cost,
+        )
         half_entry_day = (
             target * (0.5 * (risk_execution_price / entry_open - 1.0) + 0.5 * (entry_close / entry_open - 1.0)) - execution_cost
             if not pd.isna(entry_close)
@@ -440,6 +505,30 @@ def simulate_5min_risk_sleeve(
                     "entry_day_strategy_return": full_return,
                     "skipped_reason": None,
                 },
+            "risk_exit_full_5m_reenter_recovery": {
+                    **common,
+                    "variant": "risk_exit_full_5m_reenter_recovery",
+                    "entry_time": _timestamp_or_none(entry_bars.iloc[0]["datetime"]),
+                    "exit_time": pd.Timestamp(exit_date).date().isoformat(),
+                    "entry_price": entry_open,
+                    "exit_price": exit_open,
+                    "trigger_time": _timestamp_or_none(trigger_time),
+                    "trigger_price": trigger_price,
+                    "trigger_drawdown_from_entry": trigger_pnl,
+                    "trigger_risk_score": trigger_score,
+                    **context_trigger_row,
+                    "risk_execution_time": _timestamp_or_none(risk_execution_time),
+                    "risk_execution_price": risk_execution_price,
+                    "reentry_time": _timestamp_or_none(recovery_reentry_time),
+                    "reentry_price": recovery_reentry_price,
+                    "risk_triggered": True,
+                    "gross_return": full_recovery_gross,
+                    "strategy_return": full_recovery_return,
+                    "entry_day_close_time": _timestamp_or_none(entry_close_time),
+                    "entry_day_close_price": entry_close,
+                    "entry_day_strategy_return": full_recovery_entry_day,
+                    "skipped_reason": None,
+                },
             "risk_reduce_half_5m": {
                     **common,
                     "variant": "risk_reduce_half_5m",
@@ -460,6 +549,30 @@ def simulate_5min_risk_sleeve(
                     "entry_day_close_time": _timestamp_or_none(entry_close_time),
                     "entry_day_close_price": entry_close,
                     "entry_day_strategy_return": half_entry_day,
+                    "skipped_reason": None,
+                },
+            "risk_reduce_half_5m_reenter_recovery": {
+                    **common,
+                    "variant": "risk_reduce_half_5m_reenter_recovery",
+                    "entry_time": _timestamp_or_none(entry_bars.iloc[0]["datetime"]),
+                    "exit_time": pd.Timestamp(exit_date).date().isoformat(),
+                    "entry_price": entry_open,
+                    "exit_price": exit_open,
+                    "trigger_time": _timestamp_or_none(trigger_time),
+                    "trigger_price": trigger_price,
+                    "trigger_drawdown_from_entry": trigger_pnl,
+                    "trigger_risk_score": trigger_score,
+                    **context_trigger_row,
+                    "risk_execution_time": _timestamp_or_none(risk_execution_time),
+                    "risk_execution_price": risk_execution_price,
+                    "reentry_time": _timestamp_or_none(recovery_reentry_time),
+                    "reentry_price": recovery_reentry_price,
+                    "risk_triggered": True,
+                    "gross_return": half_recovery_gross,
+                    "strategy_return": half_recovery_return,
+                    "entry_day_close_time": _timestamp_or_none(entry_close_time),
+                    "entry_day_close_price": entry_close,
+                    "entry_day_strategy_return": half_recovery_entry_day,
                     "skipped_reason": None,
                 },
             "risk_reduce_quarter_5m": {
@@ -504,6 +617,30 @@ def simulate_5min_risk_sleeve(
                     "entry_day_close_time": _timestamp_or_none(entry_close_time),
                     "entry_day_close_price": entry_close,
                     "entry_day_strategy_return": quarter_entry_day,
+                    "skipped_reason": None,
+                },
+            "risk_reduce_quarter_5m_reenter_recovery": {
+                    **common,
+                    "variant": "risk_reduce_quarter_5m_reenter_recovery",
+                    "entry_time": _timestamp_or_none(entry_bars.iloc[0]["datetime"]),
+                    "exit_time": pd.Timestamp(exit_date).date().isoformat(),
+                    "entry_price": entry_open,
+                    "exit_price": exit_open,
+                    "trigger_time": _timestamp_or_none(trigger_time),
+                    "trigger_price": trigger_price,
+                    "trigger_drawdown_from_entry": trigger_pnl,
+                    "trigger_risk_score": trigger_score,
+                    **context_trigger_row,
+                    "risk_execution_time": _timestamp_or_none(risk_execution_time),
+                    "risk_execution_price": risk_execution_price,
+                    "reentry_time": _timestamp_or_none(recovery_reentry_time),
+                    "reentry_price": recovery_reentry_price,
+                    "risk_triggered": True,
+                    "gross_return": quarter_recovery_gross,
+                    "strategy_return": quarter_recovery_return,
+                    "entry_day_close_time": _timestamp_or_none(entry_close_time),
+                    "entry_day_close_price": entry_close,
+                    "entry_day_strategy_return": quarter_recovery_entry_day,
                     "skipped_reason": None,
                 },
             "risk_reduce_eighth_5m": {
@@ -559,6 +696,72 @@ def _reenter_close_gross_return(
     held_leg = float(exit_open) / float(entry_open) - 1.0
     reentered_leg = (float(risk_execution_price) / float(entry_open)) * (float(exit_open) / float(entry_close)) - 1.0
     return float(target) * (held_fraction * held_leg + closed_fraction * reentered_leg)
+
+
+def _reenter_price_gross_return(
+    *,
+    target: float,
+    entry_open: float,
+    risk_execution_price: float,
+    reentry_price: float,
+    exit_open: float,
+    closed_fraction: float,
+) -> float:
+    if pd.isna(reentry_price) or float(reentry_price) <= 0.0:
+        return np.nan
+    closed_fraction = float(closed_fraction)
+    held_fraction = 1.0 - closed_fraction
+    held_leg = float(exit_open) / float(entry_open) - 1.0
+    reentered_leg = (float(risk_execution_price) / float(entry_open)) * (float(exit_open) / float(reentry_price)) - 1.0
+    return float(target) * (held_fraction * held_leg + closed_fraction * reentered_leg)
+
+
+def _reenter_price_entry_day_return(
+    *,
+    target: float,
+    entry_open: float,
+    risk_execution_price: float,
+    reentry_price: float,
+    entry_close: float,
+    closed_fraction: float,
+    execution_cost: float,
+) -> float:
+    if pd.isna(entry_close) or float(entry_close) <= 0.0:
+        return np.nan
+    gross = _reenter_price_gross_return(
+        target=target,
+        entry_open=entry_open,
+        risk_execution_price=risk_execution_price,
+        reentry_price=reentry_price,
+        exit_open=entry_close,
+        closed_fraction=closed_fraction,
+    )
+    return gross - float(execution_cost) if not pd.isna(gross) else np.nan
+
+
+def _resolve_5min_recovery_reentry_bar(
+    entry_bars: pd.DataFrame,
+    *,
+    risk_execution_time: pd.Timestamp,
+    entry_open: float,
+    trigger_drawdown_from_entry: float,
+) -> pd.Series | None:
+    if pd.isna(trigger_drawdown_from_entry) or float(trigger_drawdown_from_entry) >= 0.0:
+        return None
+    recovery_threshold = float(trigger_drawdown_from_entry) * 0.5
+    bars = entry_bars.sort_values("datetime").reset_index(drop=True)
+    after_execution = bars.loc[pd.to_datetime(bars["datetime"]) > pd.Timestamp(risk_execution_time)].copy()
+    if after_execution.empty:
+        return None
+    recovered = after_execution["close"].astype("float64") / float(entry_open) - 1.0 >= recovery_threshold
+    if not bool(recovered.any()):
+        return None
+    signal_position = int(np.flatnonzero(recovered.to_numpy())[0])
+    signal_index = int(after_execution.index[signal_position])
+    reentry_index = signal_index + 1
+    if reentry_index >= len(bars):
+        return None
+    return bars.iloc[reentry_index]
 
 
 def evaluate_5min_risk_sleeve_candidates(
