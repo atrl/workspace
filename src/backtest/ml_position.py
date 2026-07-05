@@ -663,6 +663,16 @@ def _candidate_name(model_name: str, position_spec: dict[str, Any]) -> str:
     hold = int(position_spec.get("min_hold_days", 1))
     base = position_spec.get("base_position_col")
     base_suffix = "" if base is None else f"_{base}"
+    sizing_suffix = ""
+    if position_spec.get("target_vol") is not None:
+        target_vol = float(position_spec["target_vol"])
+        min_vol_scale = float(position_spec.get("min_vol_scale", 0.0))
+        max_vol_scale = float(position_spec.get("max_vol_scale", 1.0))
+        sizing_suffix += f"_tv{target_vol:g}_vs{min_vol_scale:g}-{max_vol_scale:g}"
+    if position_spec.get("max_daily_change") is not None:
+        sizing_suffix += f"_mdc{float(position_spec['max_daily_change']):g}"
+    if position_spec.get("base_cap") is not None:
+        sizing_suffix += f"_bc{float(position_spec['base_cap']):g}"
     risk_suffix = ""
     if position_spec.get("risk_gate_col") is not None:
         risk_col = str(position_spec["risk_gate_col"])
@@ -677,16 +687,16 @@ def _candidate_name(model_name: str, position_spec: dict[str, Any]) -> str:
         max_throttle = float(position_spec.get("max_throttle", 1.0))
         return (
             f"{model_name}_{mode}{base_suffix}_p{low:g}-{high:g}_"
-            f"t{min_throttle:g}-{max_throttle:g}_s{scale:g}_h{rebalance:g}_hold{hold}{risk_suffix}"
+            f"t{min_throttle:g}-{max_throttle:g}_s{scale:g}_h{rebalance:g}_hold{hold}{sizing_suffix}{risk_suffix}"
         )
     if mode == "base_plus_probability":
         base_scale = float(position_spec.get("base_scale", 1.0))
         boost_scale = float(position_spec.get("boost_scale", scale))
         return (
             f"{model_name}_{mode}{base_suffix}_p{threshold:g}_"
-            f"b{base_scale:g}_boost{boost_scale:g}_h{rebalance:g}_hold{hold}{risk_suffix}"
+            f"b{base_scale:g}_boost{boost_scale:g}_h{rebalance:g}_hold{hold}{sizing_suffix}{risk_suffix}"
         )
-    return f"{model_name}_{mode}{base_suffix}_p{threshold:g}_s{scale:g}_h{rebalance:g}_hold{hold}{risk_suffix}"
+    return f"{model_name}_{mode}{base_suffix}_p{threshold:g}_s{scale:g}_h{rebalance:g}_hold{hold}{sizing_suffix}{risk_suffix}"
 
 
 def evaluate_ml_position_candidates(

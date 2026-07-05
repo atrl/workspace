@@ -83,6 +83,89 @@ def volatility_scaled_target(
     return raw_target.astype("float64") * scale
 
 
+def apply_drawdown_budget_policy(
+    target_position: pd.Series,
+    forward_return: pd.Series,
+    *,
+    trigger_drawdown: float,
+    recovery_drawdown: float,
+    stress_cap: float,
+    cost_per_turnover: float = 0.0003,
+    cooldown_days: int = 0,
+) -> pd.DataFrame:
+    """Cap exposure using only previously realized strategy equity drawdown."""
+
+    if trigger_drawdown >= 0.0:
+        raise ValueError("trigger_drawdown must be negative")
+    if recovery_drawdown <= trigger_drawdown:
+        raise ValueError("recovery_drawdown must be greater than trigger_drawdown")
+    if stress_cap < 0.0:
+        raise ValueError("stress_cap cannot be negative")
+    if cooldown_days < 0:
+        raise ValueError("cooldown_days cannot be negative")
+
+    desired = target_position.astype("float64").replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    returns = (
+        forward_return.astype("float64")
+        .replace([np.inf, -np.inf], np.nan)
+        .reindex(desired.index)
+        .fillna(0.0)
+    )
+
+    capped_targets: list[float] = []
+    turnovers: list[float] = []
+    strategy_returns: list[float] = []
+    prior_drawdowns: list[float] = []
+    active_flags: list[bool] = []
+    budget_caps: list[float] = []
+
+    equity = 1.0
+    peak = 1.0
+    last_position = 0.0
+    active = False
+    cooldown = 0
+    for raw_target, next_return in zip(desired.to_numpy(dtype="float64"), returns.to_numpy(dtype="float64")):
+        prior_drawdown = equity / max(peak, 1e-12) - 1.0
+        if active and prior_drawdown >= float(recovery_drawdown) and cooldown <= 0:
+            active = False
+        if prior_drawdown <= float(trigger_drawdown):
+            active = True
+            cooldown = max(cooldown, int(cooldown_days))
+
+        if active:
+            target = float(np.clip(raw_target, -float(stress_cap), float(stress_cap)))
+            budget_cap = float(stress_cap)
+        else:
+            target = float(raw_target)
+            budget_cap = float("inf")
+
+        turnover = abs(target - last_position)
+        strategy_return = target * float(next_return) - turnover * float(cost_per_turnover)
+        equity *= 1.0 + strategy_return
+        peak = max(peak, equity)
+        last_position = target
+        if cooldown > 0:
+            cooldown -= 1
+
+        capped_targets.append(target)
+        turnovers.append(turnover)
+        strategy_returns.append(strategy_return)
+        prior_drawdowns.append(prior_drawdown)
+        active_flags.append(bool(active))
+        budget_caps.append(budget_cap)
+
+    return pd.DataFrame(
+        {
+            "target_position": pd.Series(capped_targets, index=desired.index, dtype="float64"),
+            "turnover": pd.Series(turnovers, index=desired.index, dtype="float64"),
+            "strategy_return": pd.Series(strategy_returns, index=desired.index, dtype="float64"),
+            "drawdown_budget_prior_drawdown": pd.Series(prior_drawdowns, index=desired.index, dtype="float64"),
+            "drawdown_budget_active": pd.Series(active_flags, index=desired.index, dtype=bool),
+            "drawdown_budget_cap": pd.Series(budget_caps, index=desired.index, dtype="float64"),
+        }
+    )
+
+
 def _max_drawdown_pct(strategy_returns: pd.Series) -> float:
     if strategy_returns.empty:
         return 0.0
@@ -166,8 +249,23 @@ def evaluate_position_sizing_policies(
             max_daily_change=_float_or_none(policy.get("max_daily_change")),
             min_hold_days=int(policy.get("min_hold_days", 1)),
         )
-        turnover = target_position.diff().abs().fillna(target_position.abs())
-        strategy_returns = target_position * forward_return - turnover * float(cost_per_turnover)
+        drawdown_budget = None
+        if policy.get("drawdown_budget_trigger") is not None:
+            drawdown_budget = apply_drawdown_budget_policy(
+                target_position,
+                forward_return,
+                trigger_drawdown=float(policy["drawdown_budget_trigger"]),
+                recovery_drawdown=float(policy.get("drawdown_budget_recovery", 0.0)),
+                stress_cap=float(policy.get("drawdown_budget_stress_cap", 0.0)),
+                cost_per_turnover=float(cost_per_turnover),
+                cooldown_days=int(policy.get("drawdown_budget_cooldown_days", 0)),
+            )
+            target_position = drawdown_budget["target_position"]
+            turnover = drawdown_budget["turnover"]
+            strategy_returns = drawdown_budget["strategy_return"]
+        else:
+            turnover = target_position.diff().abs().fillna(target_position.abs())
+            strategy_returns = target_position * forward_return - turnover * float(cost_per_turnover)
         return_pct = float(((1.0 + strategy_returns).prod() - 1.0) * 100.0)
         benchmark_return_pct = None
         if benchmark_return_col is not None:
@@ -190,6 +288,19 @@ def evaluate_position_sizing_policies(
                 "next_day_reversal_count": next_day_reversal_count,
                 "avg_holding_days": avg_holding_days,
                 "cost_per_turnover": float(cost_per_turnover),
+                "drawdown_budget_active_ratio": (
+                    float(drawdown_budget["drawdown_budget_active"].mean()) if drawdown_budget is not None else 0.0
+                ),
+                "min_drawdown_budget_cap": (
+                    float(
+                        drawdown_budget.loc[
+                            drawdown_budget["drawdown_budget_active"],
+                            "drawdown_budget_cap",
+                        ].min()
+                    )
+                    if drawdown_budget is not None and drawdown_budget["drawdown_budget_active"].any()
+                    else None
+                ),
                 "params": {
                     key: value
                     for key, value in policy.items()
@@ -207,6 +318,10 @@ def evaluate_position_sizing_policies(
                 "strategy_return": strategy_returns,
             }
         )
+        if drawdown_budget is not None:
+            position_frame["drawdown_budget_prior_drawdown"] = drawdown_budget["drawdown_budget_prior_drawdown"]
+            position_frame["drawdown_budget_active"] = drawdown_budget["drawdown_budget_active"]
+            position_frame["drawdown_budget_cap"] = drawdown_budget["drawdown_budget_cap"]
         if "datetime" in data.columns:
             position_frame.insert(0, "datetime", pd.to_datetime(data["datetime"]).dt.normalize())
         position_rows.append(position_frame)

@@ -12,6 +12,7 @@ from src.workflow.meta_label_risk_budget_open2open import (
     _risk_budget_components,
     evaluate_meta_label_risk_budget_candidates,
 )
+from src.backtest.ml_position import _candidate_name
 
 
 def _candidate_spec() -> dict:
@@ -123,3 +124,41 @@ def test_risk_budget_components_cap_tail_and_intraday_pressure():
     assert components["tail_cap"].iloc[1] < components["tail_cap"].iloc[0]
     assert components["intraday_execution_cap"].iloc[1] < components["intraday_execution_cap"].iloc[0]
     assert components["raw_target"].iloc[1] < components["raw_target"].iloc[0]
+
+
+def test_ml_position_candidate_name_includes_sizing_parameters():
+    base_spec = {
+        "position_mode": "base_plus_probability",
+        "base_position_col": BASE_CONSTRAINED_REF_COL,
+        "threshold": 0.65,
+        "base_scale": 1.0,
+        "boost_scale": 1.5,
+        "rebalance_threshold": 0.05,
+        "min_hold_days": 3,
+    }
+
+    plain = _candidate_name("lgb_xgb_consensus", base_spec)
+    vol_scaled = _candidate_name(
+        "lgb_xgb_consensus",
+        {
+            **base_spec,
+            "target_vol": 0.04,
+            "min_vol_scale": 0.0,
+            "max_vol_scale": 1.0,
+        },
+    )
+    vol_scaled_with_daily_change = _candidate_name(
+        "lgb_xgb_consensus",
+        {
+            **base_spec,
+            "target_vol": 0.04,
+            "min_vol_scale": 0.0,
+            "max_vol_scale": 1.0,
+            "max_daily_change": 0.5,
+        },
+    )
+
+    assert plain != vol_scaled
+    assert vol_scaled != vol_scaled_with_daily_change
+    assert "_tv0.04_vs0-1" in vol_scaled
+    assert "_mdc0.5" in vol_scaled_with_daily_change

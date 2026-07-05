@@ -259,6 +259,73 @@ def test_position_sizing_policy_caps_noise_and_reports_reversals():
     assert capped["next_day_reversal_count"] < raw["next_day_reversal_count"]
 
 
+def test_drawdown_budget_policy_uses_prior_realized_equity_and_recovers():
+    from src.backtest import apply_drawdown_budget_policy
+
+    dates = pd.date_range("2026-01-02", periods=6, freq="B")
+    desired = pd.Series([1.0] * len(dates), index=dates)
+    forward_return = pd.Series([0.0, -0.12, 0.40, 0.40, 0.02, 0.02], index=dates)
+
+    budget = apply_drawdown_budget_policy(
+        desired,
+        forward_return,
+        trigger_drawdown=-0.10,
+        recovery_drawdown=-0.02,
+        stress_cap=0.25,
+        cost_per_turnover=0.0,
+    )
+
+    assert budget["target_position"].iloc[0] == 1.0
+    assert budget["target_position"].iloc[1] == 1.0
+    assert budget["drawdown_budget_prior_drawdown"].iloc[1] == 0.0
+    assert budget["target_position"].iloc[2] == 0.25
+    assert bool(budget["drawdown_budget_active"].iloc[2]) is True
+    assert budget["target_position"].iloc[3] == 0.25
+    assert budget["target_position"].iloc[4] == 1.0
+    assert bool(budget["drawdown_budget_active"].iloc[4]) is False
+
+
+def test_position_sizing_policy_applies_drawdown_budget_parameters():
+    from src.backtest import evaluate_position_sizing_policies
+
+    dates = pd.date_range("2026-01-02", periods=6, freq="B")
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "raw_target": [1.0] * len(dates),
+            "forward_return": [0.0, -0.12, 0.40, 0.40, 0.02, 0.02],
+        }
+    )
+
+    metrics, positions = evaluate_position_sizing_policies(
+        frame,
+        policies=[
+            {
+                "candidate": "prior_dd_budget",
+                "min_position": 0.0,
+                "max_position": 1.0,
+                "rebalance_threshold": 0.0,
+                "drawdown_budget_trigger": -0.10,
+                "drawdown_budget_recovery": -0.02,
+                "drawdown_budget_stress_cap": 0.25,
+            }
+        ],
+        raw_target_col="raw_target",
+        return_col="forward_return",
+        cost_per_turnover=0.0,
+    )
+
+    row = metrics.set_index("candidate").loc["prior_dd_budget"]
+    target = positions.loc[positions["candidate"] == "prior_dd_budget", "target_position"].reset_index(drop=True)
+    active = positions.loc[positions["candidate"] == "prior_dd_budget", "drawdown_budget_active"].reset_index(drop=True)
+
+    assert target.iloc[1] == 1.0
+    assert target.iloc[2] == 0.25
+    assert row["drawdown_budget_active_ratio"] > 0.0
+    assert row["min_drawdown_budget_cap"] == 0.25
+    assert bool(active.iloc[2]) is True
+
+
 def test_weighted_position_candidates_keep_factor_weights_and_cap_target_position():
     from src.backtest import evaluate_weighted_position_candidates
 
