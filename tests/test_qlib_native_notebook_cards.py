@@ -748,6 +748,25 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["intraday_risk_state"]["uses_5min"] is True
     assert summary["intraday_risk_state"]["uses_15min"] is True
     assert summary["intraday_risk_state"]["role"] == "risk_cap_not_alpha_template"
+    constituent = summary["soxx_constituent_factors"]
+    assert constituent["status"] == "ok"
+    assert constituent["source"] == "qlib.data.D.features"
+    assert constituent["role"] == "normalized_lagged_model_features_not_template_not_gate"
+    assert constituent["lag_days"] == 1
+    assert constituent["raw_feature_count"] == 13
+    assert constituent["model_raw_feature_filter"] == "breadth_downside_dispersion_diffusion_only"
+    assert constituent["model_raw_feature_count"] == 6
+    assert constituent["feature_count"] == 12
+    assert constituent["normalization"] == "rolling_z60_and_pctile252_on_lagged_constituent_aggregates"
+    assert constituent["instrument_count"] >= 20
+    assert any("survivorship-biased" in item for item in constituent["limitations"])
+    assert summary["feature_sets"]["contains_soxx_constituents"] is True
+    assert summary["feature_sets"]["soxx_constituent_feature_count"] == constituent["feature_count"]
+    assert "soxx_const_breadth_ret5_pos_lag1" not in summary["feature_sets"]["feature_cols"]
+    assert "soxx_const_breadth_ret5_pos_lag1_z60" in summary["feature_sets"]["feature_cols"]
+    assert "soxx_const_dispersion_ret20_lag1_pctile252" in summary["feature_sets"]["feature_cols"]
+    assert "soxx_const_weighted_ret5_lag1_z60" not in summary["feature_sets"]["feature_cols"]
+    assert "soxx_const_available_count_lag1_pctile252" not in summary["feature_sets"]["feature_cols"]
 
     overfit = summary["overfit_audit"]
     assert overfit["manual_template_selection"] is False
@@ -786,6 +805,9 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert "selected_regime_model" in annual.columns
     assert "test_intraday_risk_cap_day_ratio" in annual.columns
     assert "template_id" not in annual.columns
+    feature_sets = pd.read_csv(card / summary["sidecars"]["feature_sets"])
+    assert feature_sets["contains_soxx_constituents"].eq(True).all()
+    assert int(feature_sets["soxx_constituent_feature_count"].iloc[0]) == constituent["feature_count"]
 
     selected = pd.read_csv(card / summary["sidecars"]["selected_candidates"])
     assert selected["selection_uses_outer_test"].eq(False).all()
@@ -809,6 +831,7 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
     assert "人工模板" in conclusion
+    assert "SOXX 成分股" in conclusion
     assert "不构成买卖建议" in conclusion
 
 

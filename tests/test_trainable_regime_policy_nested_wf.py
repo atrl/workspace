@@ -8,7 +8,10 @@ from src.workflow.trainable_regime_policy_nested_wf import (
     REGIME_TARGET_COL,
     RISK_TARGET_COL,
     VOL_ADJUSTED_TARGET_COL,
+    _append_soxx_constituent_normalized_features,
+    _attach_soxx_constituent_model_features,
     _attach_trainable_policy_targets,
+    _policy_feature_columns,
     _select_policy_from_inner_metrics,
     _simulate_alpha_risk_policy,
 )
@@ -164,6 +167,66 @@ def test_drawdown_cooldown_cap_is_path_dependent_without_future_returns():
 
     assert list(positions["target_position"]) == [1.0, 0.25, 0.25, 0.25]
     assert list(positions["drawdown_cooldown_active"]) == [0, 1, 1, 1]
+
+
+def test_attach_soxx_constituent_features_enters_model_feature_columns_without_template_gate():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05"]),
+            "instrument": ["SOXL", "SOXL"],
+            "ret_5_z": [0.1, -0.2],
+            "intraday_risk_state": [0.0, 1.0],
+            "intraday_risk_score": [0.0, 1.2],
+        }
+    )
+    factors = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05"]),
+            "soxx_const_breadth_ret5_pos_lag1": [0.7, 0.3],
+            "soxx_const_breadth_ret5_pos_lag1_z60": [1.1, -0.8],
+            "soxx_const_dispersion_ret20_lag1_pctile252": [0.6, 0.9],
+        }
+    )
+    factors.attrs["feature_cols"] = [
+        "soxx_const_breadth_ret5_pos_lag1_z60",
+        "soxx_const_dispersion_ret20_lag1_pctile252",
+    ]
+
+    out, constituent_cols = _attach_soxx_constituent_model_features(frame, factors)
+    feature_cols = _policy_feature_columns(out)
+
+    assert constituent_cols == [
+        "soxx_const_breadth_ret5_pos_lag1_z60",
+        "soxx_const_dispersion_ret20_lag1_pctile252",
+    ]
+    assert "ret_5_z" in feature_cols
+    assert "soxx_const_breadth_ret5_pos_lag1" not in feature_cols
+    assert "soxx_const_breadth_ret5_pos_lag1_z60" in feature_cols
+    assert "soxx_const_dispersion_ret20_lag1_pctile252" in feature_cols
+    assert "intraday_risk_state" not in feature_cols
+    assert "intraday_risk_score" not in feature_cols
+
+
+def test_soxx_constituent_normalization_creates_zscore_and_percentile_features():
+    values = list(range(1, 70))
+    factors = pd.DataFrame(
+        {
+            "datetime": pd.date_range("2025-01-02", periods=len(values), freq="B"),
+            "soxx_const_weighted_ret5_lag1": values,
+        }
+    )
+
+    out, feature_cols = _append_soxx_constituent_normalized_features(
+        factors,
+        raw_feature_cols=["soxx_const_weighted_ret5_lag1"],
+    )
+
+    assert feature_cols == [
+        "soxx_const_weighted_ret5_lag1_z60",
+        "soxx_const_weighted_ret5_lag1_pctile252",
+    ]
+    assert out["soxx_const_weighted_ret5_lag1_z60"].notna().sum() > 0
+    assert out["soxx_const_weighted_ret5_lag1_pctile252"].notna().sum() > 0
 
 
 def test_selector_uses_soxl_inner_calibration_before_cross_asset_stress_average():

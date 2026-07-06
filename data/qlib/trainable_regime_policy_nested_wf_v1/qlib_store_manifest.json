@@ -1,9 +1,9 @@
 {
   "as_of": "2026-04-13",
-  "audit_snapshot_hash": "bbe2297bc925673f",
+  "audit_snapshot_hash": "dce5509d6ad32278",
   "calendar_end": "2026-04-13",
   "calendar_start": "2011-01-03",
-  "feature_file_count": 355,
+  "feature_file_count": 415,
   "fields": [
     "$open",
     "$close",
@@ -75,10 +75,22 @@
     "$tracking_error_60_z20",
     "$tracking_error_60_pctile20",
     "$tracking_error_60_z60",
-    "$tracking_error_60_pctile60"
+    "$tracking_error_60_pctile60",
+    "$soxx_const_breadth_ret5_pos_lag1_z60",
+    "$soxx_const_breadth_ret5_pos_lag1_pctile252",
+    "$soxx_const_downside_ret5_lt_m5_lag1_z60",
+    "$soxx_const_downside_ret5_lt_m5_lag1_pctile252",
+    "$soxx_const_dispersion_ret5_lag1_z60",
+    "$soxx_const_dispersion_ret5_lag1_pctile252",
+    "$soxx_const_breadth_ret20_pos_lag1_z60",
+    "$soxx_const_breadth_ret20_pos_lag1_pctile252",
+    "$soxx_const_downside_ret20_lt_m5_lag1_z60",
+    "$soxx_const_downside_ret20_lt_m5_lag1_pctile252",
+    "$soxx_const_dispersion_ret20_lag1_z60",
+    "$soxx_const_dispersion_ret20_lag1_pctile252"
   ],
   "freq": "day",
-  "hash": "82f4f05d48902261",
+  "hash": "660a21785b78b62a",
   "instruments": [
     "SOXL",
     "SPXL",

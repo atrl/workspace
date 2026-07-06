@@ -21,6 +21,11 @@ intraday_risk_state:
   uses_5min: true
   uses_15min: true
   role: risk_cap_not_alpha_template
+soxx_constituent_factors:
+  provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_constituents
+  role: normalized_lagged_model_features_not_template_not_gate
+  feature_count: 12
+  lag_days: 1
 overfit_audit:
   status: mitigated
   manual_template_selection: false

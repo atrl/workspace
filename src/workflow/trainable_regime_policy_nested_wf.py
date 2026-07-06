@@ -13,6 +13,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import make_pipeline
 
 from src.data import QlibProviderConfig, build_qlib_store_from_frame, init_qlib_provider
+from src.factor.soxx_constituent_factors import (
+    SOXX_CONSTITUENT_FACTOR_SOURCE,
+    SOXX_CONSTITUENT_LIMITATIONS,
+    build_soxx_constituent_factor_frame,
+)
 from src.workflow.cognitive_alpha_goal_codex_exec import (
     LABEL_OPEN_TO_OPEN_5D_COL,
     OPEN_TO_OPEN_RETURN_COL,
@@ -44,6 +49,7 @@ VOL_ADJUSTED_TARGET_COL = "vol_adjusted_return_target"
 ALPHA_TARGET_COL = "alpha_opportunity_target"
 INTRADAY_RISK_STATE_COL = "intraday_risk_state"
 REGIME_LABELS = ["defensive", "rebound", "selective", "trend"]
+SOXX_CONSTITUENT_MODEL_RAW_TOKENS = ("breadth", "downside", "dispersion")
 
 
 @dataclass(frozen=True)
@@ -73,6 +79,10 @@ class TrainableRegimePolicyNestedWfSpec:
     def intraday_15min_provider_uri(self) -> Path:
         return self.root / "data" / "qlib" / "soxl_intraday_15min"
 
+    @property
+    def soxx_constituent_provider_uri(self) -> Path:
+        return self.root / "data" / "qlib" / "soxx_constituents"
+
 
 def run_trainable_regime_policy_nested_wf_card(*, root: Path | str | None = None) -> dict[str, Any]:
     spec = TrainableRegimePolicyNestedWfSpec(root=_resolve_root(root))
@@ -90,6 +100,15 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
         pd.to_datetime(normalized.groupby("instrument")["datetime"].max()).min(),
     ).date().isoformat()
     normalized = normalized.loc[pd.to_datetime(normalized["datetime"]).le(pd.Timestamp(common_end))].copy()
+    constituent_factor_frame, constituent_audit = _load_soxx_constituent_factor_frame(
+        spec,
+        start=spec.train_start,
+        end=common_end,
+    )
+    normalized, constituent_feature_cols = _attach_soxx_constituent_model_features(
+        normalized,
+        constituent_factor_frame,
+    )
     intraday_risk_state, intraday_audit = _build_intraday_risk_state_daily(
         spec,
         start=spec.train_start,
@@ -192,6 +211,7 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
                 leave_one_asset_out="true",
                 selection_uses_outer_test="false",
                 intraday_risk_state="5min,15min",
+                soxx_constituent_features="lagged_model_features",
             )
             summary = _summary_payload(
                 spec=spec,
@@ -209,6 +229,8 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
                 overfit_audit=overfit_audit,
                 selected_candidates=selected_candidates,
                 intraday_audit=intraday_audit,
+                constituent_audit=constituent_audit,
+                constituent_feature_cols=constituent_feature_cols,
             )
             _write_sidecars(
                 card,
@@ -276,6 +298,116 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
     regime_code = {label: index for index, label in enumerate(REGIME_LABELS)}
     out[REGIME_TARGET_CODE_COL] = out[REGIME_TARGET_COL].map(regime_code).astype("float64")
     return out
+
+
+def _load_soxx_constituent_factor_frame(
+    spec: TrainableRegimePolicyNestedWfSpec,
+    *,
+    start: str,
+    end: str,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    manifest_path = spec.soxx_constituent_provider_uri / "qlib_store_manifest.json"
+    if not manifest_path.exists():
+        raise FileNotFoundError(f"missing SOXX constituent qlib manifest: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    instruments = [str(item).upper() for item in manifest.get("instruments", [])]
+    if not instruments:
+        raise ValueError(f"SOXX constituent qlib manifest has no instruments: {manifest_path}")
+    factor_frame = build_soxx_constituent_factor_frame(
+        QlibProviderConfig(provider_uri=spec.soxx_constituent_provider_uri, market="all", region="us", kernels=1),
+        instruments=instruments,
+        start=start,
+        end=end,
+        lookbacks=(5, 20),
+        lag_days=1,
+        top_n=5,
+    )
+    raw_feature_cols = [
+        column
+        for column in list(factor_frame.attrs.get("feature_cols", []))
+        if column in factor_frame.columns and column != "datetime"
+    ]
+    model_raw_feature_cols = [
+        column
+        for column in raw_feature_cols
+        if any(token in column for token in SOXX_CONSTITUENT_MODEL_RAW_TOKENS)
+    ]
+    factor_frame, feature_cols = _append_soxx_constituent_normalized_features(
+        factor_frame,
+        raw_feature_cols=model_raw_feature_cols,
+    )
+    feature_cols = [
+        column
+        for column in feature_cols
+        if column in factor_frame.columns and column != "datetime"
+    ]
+    factor_frame.attrs["raw_feature_cols"] = raw_feature_cols
+    factor_frame.attrs["feature_cols"] = feature_cols
+    return factor_frame, {
+        "status": "ok",
+        "role": "normalized_lagged_model_features_not_template_not_gate",
+        "source": SOXX_CONSTITUENT_FACTOR_SOURCE,
+        "provider_uri": spec.soxx_constituent_provider_uri.resolve().as_posix(),
+        "manifest": manifest_path.resolve().as_posix(),
+        "raw_manifest": manifest.get("raw_manifest"),
+        "as_of": manifest.get("as_of"),
+        "calendar_start": manifest.get("calendar_start"),
+        "calendar_end": manifest.get("calendar_end"),
+        "instruments": instruments,
+        "instrument_count": int(len(instruments)),
+        "raw_feature_cols": raw_feature_cols,
+        "raw_feature_count": int(len(raw_feature_cols)),
+        "model_raw_feature_cols": model_raw_feature_cols,
+        "model_raw_feature_count": int(len(model_raw_feature_cols)),
+        "model_raw_feature_filter": "breadth_downside_dispersion_diffusion_only",
+        "excluded_raw_feature_reason": "weighted_equal_top_minus_rest_and_available_count_overlap_index_beta_or_are_less_direct_diffusion_signals",
+        "feature_cols": feature_cols,
+        "feature_count": int(len(feature_cols)),
+        "normalization": "rolling_z60_and_pctile252_on_lagged_constituent_aggregates",
+        "lookbacks": list(factor_frame.attrs.get("lookbacks", [5, 20])),
+        "lag_days": int(factor_frame.attrs.get("lag_days", 1)),
+        "top_n": int(factor_frame.attrs.get("top_n", 5)),
+        "limitations": list(factor_frame.attrs.get("limitations", SOXX_CONSTITUENT_LIMITATIONS)),
+    }
+
+
+def _append_soxx_constituent_normalized_features(
+    factor_frame: pd.DataFrame,
+    *,
+    raw_feature_cols: list[str],
+) -> tuple[pd.DataFrame, list[str]]:
+    out = factor_frame.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    normalized_cols: list[str] = []
+    for column in raw_feature_cols:
+        values = pd.to_numeric(out[column], errors="coerce").astype("float64")
+        mean60 = values.rolling(60, min_periods=20).mean()
+        std60 = values.rolling(60, min_periods=20).std(ddof=0).replace(0.0, np.nan)
+        z_col = f"{column}_z60"
+        pctile_col = f"{column}_pctile252"
+        out[z_col] = ((values - mean60) / std60).replace([np.inf, -np.inf], np.nan)
+        out[pctile_col] = values.rolling(252, min_periods=40).rank(pct=True)
+        normalized_cols.extend([z_col, pctile_col])
+    out.attrs.update(factor_frame.attrs)
+    return out, normalized_cols
+
+
+def _attach_soxx_constituent_model_features(
+    frame: pd.DataFrame,
+    constituent_factor_frame: pd.DataFrame,
+) -> tuple[pd.DataFrame, list[str]]:
+    feature_cols = [
+        column
+        for column in list(constituent_factor_frame.attrs.get("feature_cols", []))
+        if column in constituent_factor_frame.columns and column != "datetime"
+    ]
+    out = frame.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    if not feature_cols:
+        return out, []
+    factors = constituent_factor_frame[["datetime", *feature_cols]].copy()
+    factors["datetime"] = pd.to_datetime(factors["datetime"]).dt.normalize()
+    return out.merge(factors, on="datetime", how="left"), feature_cols
 
 
 def _build_intraday_risk_state_daily(
@@ -485,7 +617,16 @@ def _load_policy_provider(
 
 def _policy_feature_columns(frame: pd.DataFrame) -> list[str]:
     base = _model_feature_columns(frame)
-    return [column for column in dict.fromkeys(base) if column not in {INTRADAY_RISK_STATE_COL, "intraday_risk_score"}]
+    constituent = [
+        column
+        for column in frame.columns
+        if column.startswith("soxx_const_") and ("_z" in column or "_pctile" in column)
+    ]
+    return [
+        column
+        for column in dict.fromkeys([*base, *constituent])
+        if column not in {INTRADAY_RISK_STATE_COL, "intraday_risk_score"}
+    ]
 
 
 def _policy_candidate_configs() -> list[dict[str, Any]]:
@@ -1345,6 +1486,8 @@ def _summary_payload(
     overfit_audit: dict[str, Any],
     selected_candidates: pd.DataFrame,
     intraday_audit: dict[str, Any],
+    constituent_audit: dict[str, Any],
+    constituent_feature_cols: list[str],
 ) -> dict[str, Any]:
     recorder_artifacts = [
         f"artifacts/{spec.experiment}/{rel_path}"
@@ -1378,6 +1521,15 @@ def _summary_payload(
             "selected": "trainable_regime_policy_normalized_features",
             "feature_count": int(len(feature_cols)),
             "feature_cols": feature_cols,
+            "contains_soxx_constituents": bool(
+                any(column in feature_cols for column in constituent_feature_cols)
+            ),
+            "soxx_constituent_feature_count": int(
+                sum(1 for column in constituent_feature_cols if column in feature_cols)
+            ),
+            "soxx_constituent_feature_cols": [
+                column for column in constituent_feature_cols if column in feature_cols
+            ],
             "contains_asset_identity": any(
                 "instrument" in column.lower() or "symbol" in column.lower() or "asset" in column.lower()
                 for column in feature_cols
@@ -1417,6 +1569,7 @@ def _summary_payload(
             "risk_budget": "path_dependent_drawdown_cooldown_cap_uses_realized_strategy_equity_only",
         },
         "intraday_risk_state": intraday_audit,
+        "soxx_constituent_factors": constituent_audit,
         "annual_goal": annual_goal,
         "overfit_audit": overfit_audit,
         "annual_summary": annual_metrics.to_dict("records") if not annual_metrics.empty else [],
@@ -1473,6 +1626,11 @@ def _write_sidecars(
                 "status": "pass" if summary["intraday_risk_state"].get("status") == "ok" else "fail",
                 "detail": json.dumps(summary["intraday_risk_state"], sort_keys=True),
             },
+            {
+                "check": "soxx_constituent_factors",
+                "status": "pass" if summary["soxx_constituent_factors"].get("status") == "ok" else "fail",
+                "detail": json.dumps(summary["soxx_constituent_factors"], sort_keys=True),
+            },
         ]
     ).to_csv(card / sidecars["risk_analysis"], index=False)
     pd.DataFrame(
@@ -1483,6 +1641,8 @@ def _write_sidecars(
                 "contains_asset_identity": summary["feature_sets"]["contains_asset_identity"],
                 "normalization": summary["feature_sets"]["normalization"],
                 "contains_intraday_risk_score": "intraday_risk_score" in summary["feature_sets"]["feature_cols"],
+                "contains_soxx_constituents": summary["feature_sets"]["contains_soxx_constituents"],
+                "soxx_constituent_feature_count": summary["feature_sets"]["soxx_constituent_feature_count"],
             }
         ]
     ).to_csv(card / sidecars["feature_sets"], index=False)
@@ -1495,6 +1655,7 @@ def _write_sidecars(
                 "regime_classifier": summary["regime_classifier"],
                 "policy_architecture": summary["policy_architecture"],
                 "intraday_risk_state": summary["intraday_risk_state"],
+                "soxx_constituent_factors": summary["soxx_constituent_factors"],
                 "annual_summary": summary["annual_summary"],
             },
             indent=2,
@@ -1537,6 +1698,11 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             f"  uses_5min: {str(summary['intraday_risk_state']['uses_5min']).lower()}",
             f"  uses_15min: {str(summary['intraday_risk_state']['uses_15min']).lower()}",
             "  role: risk_cap_not_alpha_template",
+            "soxx_constituent_factors:",
+            f"  provider_uri: {summary['soxx_constituent_factors']['provider_uri']}",
+            "  role: normalized_lagged_model_features_not_template_not_gate",
+            f"  feature_count: {summary['soxx_constituent_factors']['feature_count']}",
+            f"  lag_days: {summary['soxx_constituent_factors']['lag_days']}",
             "overfit_audit:",
             f"  status: {summary['overfit_audit']['overfit_risk_status']}",
             f"  manual_template_selection: {str(summary['overfit_audit']['manual_template_selection']).lower()}",
@@ -1557,10 +1723,11 @@ def _conclusion(summary: dict[str, Any]) -> str:
         "- 做了什么：trainable regime policy nested WF 已移除人工模板和 prior-year regime selector；regime classifier、alpha model、risk model 都在 inner folds 内训练，最终只用 SOXL inner 校准、drawdown/activity gate 和跨 ETF stress audit 选固定参数网格候选。\n"
         f"- 核心指标：annual target pass years={summary['annual_goal']['target_pass_test_years']}，"
         f"overfit audit={summary['overfit_audit']['overfit_risk_status']}，common_data_end={summary['common_data_end']}。\n"
+        f"- 特征：已接入 SOXX 成分股 normalized lagged breadth/dispersion 特征 {summary['feature_sets']['soxx_constituent_feature_count']} 个，lag_days={summary['soxx_constituent_factors']['lag_days']}，只作为模型输入，不作为模板或 gate。\n"
         "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签，outer SOXL 年份只报告，不参与选择。\n"
         f"- 是否晋升：{summary['promotion_decision']}。\n"
-        "- 风险：固定参数网格仍可能有数据窥探风险，尤其如果看完 2023-2026 后继续改网格；多 3x ETF 仍共享权益 beta；5m/15m 风险状态只作为 risk cap，不证明独立盘中 alpha。\n"
-        "- 下一步：若 annual gate 未过，继续转向可训练 position model、SOXX 成分股特征和更长分钟历史，而不是按年份手工修模板。\n"
+        "- 风险：固定参数网格仍可能有数据窥探风险，尤其如果看完 2023-2026 后继续改网格；SOXX 当前成分股回填历史有 survivorship bias；多 3x ETF 仍共享权益 beta；5m/15m 风险状态只作为 risk cap，不证明独立盘中 alpha。\n"
+        "- 下一步：若 annual gate 未过，继续转向可训练 position sizing 和更长分钟历史，而不是按年份手工修模板。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
         "- 不构成买卖建议。\n"
     )
@@ -1572,6 +1739,7 @@ def _failure_modes(summary: dict[str, Any]) -> str:
         "- Manual regime template selection is rejected and is not part of the active selector or summary evidence.\n"
         "- Regime classifier labels are supervised by forward outcomes inside training folds; bad label design can still overfit the training era.\n"
         "- Fixed hyperparameter grids can still be data-snooped if edited after reading outer-test failures.\n"
+        "- SOXX constituent features use current holdings backfilled through history and remain survivorship-biased until point-in-time holdings are available.\n"
         "- Leave-one-asset-out reduces single-symbol fitting but does not remove shared US equity beta risk.\n"
         "- 5m/15m intraday state is used only as a risk cap, not as proof of same-day alpha generation.\n"
         f"- Current promotion decision: {summary['promotion_decision']}.\n"
