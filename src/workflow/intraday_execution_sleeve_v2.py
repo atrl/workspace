@@ -54,6 +54,7 @@ class IntradayExecutionSleeveV2Spec:
     test_cvar_5pct_floor: float = -10.0
     test_worst_5_daily_loss_floor: float = -9.0
     max_test_underwater_day_ratio: float = 0.96
+    ml_confirmation_probability_floor: float = 0.35
 
     @property
     def card_dir(self) -> Path:
@@ -304,13 +305,24 @@ def _evaluate_regime_template_walk_forward(
             test_metrics = _metrics_from_strategy_returns(test_position)
             template_positions = pd.concat([validation_position, test_position], ignore_index=True)
             template_positions["template_position_source"] = "source_daily_lgb_xgb_ml"
+            selected_template["ml_confirmation_used"] = True
+            selected_template["ml_confirmation_source"] = "source_daily_lgb_xgb_ml"
+            selected_template["ml_probability_floor"] = None
         else:
+            validation_ml_confirmation = _source_position_slice(
+                source_positions,
+                fold_name=fold_name,
+                segment="validation",
+            )
+            test_ml_confirmation = _source_position_slice(source_positions, fold_name=fold_name, segment="test")
             validation_position, validation_metrics, rule = _rule_template_positions(
                 validation,
                 validation_reference=validation,
                 template_id=template_id,
                 fold_name=fold_name,
                 segment_name="validation",
+                ml_confirmation=validation_ml_confirmation,
+                ml_probability_floor=spec.ml_confirmation_probability_floor,
             )
             test_position, test_metrics, _ = _rule_template_positions(
                 test,
@@ -318,9 +330,14 @@ def _evaluate_regime_template_walk_forward(
                 template_id=template_id,
                 fold_name=fold_name,
                 segment_name="test",
+                ml_confirmation=test_ml_confirmation,
+                ml_probability_floor=spec.ml_confirmation_probability_floor,
             )
             template_positions = pd.concat([validation_position, test_position], ignore_index=True)
             selected_template["template_rule"] = rule
+            selected_template["ml_confirmation_used"] = True
+            selected_template["ml_confirmation_source"] = "source_daily_lgb_xgb_probability"
+            selected_template["ml_probability_floor"] = float(spec.ml_confirmation_probability_floor)
         template_positions["selected_template_id"] = template_id
         template_positions["selection_uses_test_segment"] = False
         position_frames.append(template_positions)
@@ -347,6 +364,7 @@ def _evaluate_regime_template_walk_forward(
                 "test_max_drawdown_pct": test_metrics["max_drawdown_pct"],
                 "test_avg_abs_position": test_metrics["avg_abs_position"],
                 "test_total_turnover": test_metrics["total_turnover"],
+                "test_ml_confirmed_day_ratio": test_metrics.get("ml_confirmed_day_ratio"),
                 "buyhold_return_pct": test_buyhold["return_pct"],
                 "buyhold_max_drawdown_pct": test_buyhold["max_drawdown_pct"],
                 "beats_buyhold": bool(test_metrics["return_pct"] > test_buyhold["return_pct"]),
@@ -549,7 +567,8 @@ def _run_card(spec: IntradayExecutionSleeveV2Spec) -> dict[str, Any]:
                 return_col=OPEN_TO_OPEN_RETURN_COL,
                 label_col=LABEL_OPEN_TO_OPEN_5D_COL,
                 execution_sleeve="trend_protected_triple_risk_gate",
-                regime_template_selection="validation_buyhold_regime_only",
+                regime_template_selection="validation_buyhold_regime_plus_source_lgb_xgb_probability_confirmation",
+                ml_confirmation_probability_floor=spec.ml_confirmation_probability_floor,
                 model_families="lgbm_classifier,lgbm_regressor,xgb_classifier,xgb_regressor,lgb_xgb_consensus",
             )
             summary = _summary_payload(
@@ -658,6 +677,8 @@ def _rule_template_positions(
     template_id: str,
     fold_name: str,
     segment_name: str,
+    ml_confirmation: pd.DataFrame | None = None,
+    ml_probability_floor: float | None = None,
     cost_per_turnover: float = 0.0003,
 ) -> tuple[pd.DataFrame, dict[str, float], str]:
     rules = _template_rules(template_id)
@@ -674,8 +695,29 @@ def _rule_template_positions(
         else:
             raise ValueError(f"unsupported template operator: {operator}")
         rule_parts.append(f"{column}_{operator}_q{float(quantile):.2f}_{threshold:.6g}")
-    position = mask.fillna(False).astype("float64")
     returns = pd.to_numeric(segment_frame[OPEN_TO_OPEN_RETURN_COL], errors="coerce").fillna(0.0)
+    position = mask.fillna(False).astype("float64")
+    ml_probability = pd.Series(np.nan, index=segment_frame.index, dtype="float64")
+    ml_target_position = pd.Series(np.nan, index=segment_frame.index, dtype="float64")
+    ml_confirmed = pd.Series(True, index=segment_frame.index, dtype=bool)
+    ml_used = ml_confirmation is not None and ml_probability_floor is not None
+    if ml_used:
+        confirmation = ml_confirmation.copy()
+        confirmation["datetime"] = pd.to_datetime(confirmation["datetime"]).dt.normalize()
+        confirmation = confirmation.drop_duplicates("datetime", keep="last")
+        aligned = (
+            pd.DataFrame({"datetime": pd.to_datetime(segment_frame["datetime"]).dt.normalize()})
+            .merge(
+                confirmation[["datetime", "probability", "target_position"]],
+                on="datetime",
+                how="left",
+            )
+            .reset_index(drop=True)
+        )
+        ml_probability = pd.to_numeric(aligned["probability"], errors="coerce")
+        ml_target_position = pd.to_numeric(aligned["target_position"], errors="coerce")
+        ml_confirmed = ml_probability.ge(float(ml_probability_floor)).fillna(False)
+        position = position.where(ml_confirmed, 0.0)
     turnover = position.diff().abs().fillna(position.abs())
     strategy_return = position * returns - turnover * float(cost_per_turnover)
     out = pd.DataFrame(
@@ -687,9 +729,14 @@ def _rule_template_positions(
             "template_strategy_return": strategy_return,
             "template_turnover": turnover,
             "template_position_source": template_id,
+            "template_ml_probability": ml_probability,
+            "template_ml_target_position": ml_target_position,
+            "template_ml_confirmed": ml_confirmed.astype(bool),
+            "template_ml_confirmation_used": bool(ml_used),
         }
     )
     metrics = _segment_metrics(position, returns, cost_per_turnover=float(cost_per_turnover))
+    metrics["ml_confirmed_day_ratio"] = float(ml_confirmed.mean()) if len(ml_confirmed) else 0.0
     return out, metrics, " & ".join(rule_parts)
 
 
@@ -794,34 +841,45 @@ def _summary_payload(
         "qlib_native_api": [*QLIB_NATIVE_API, "LGBMClassifier", "XGBClassifier"],
         "model_selection": {
             "selected_model": selected.get("model"),
-            "selection_metric": "validation_return_retention_with_trend_protected_triple_risk_gate",
+            "selection_metric": "validation_return_retention_with_ml_confirmed_trend_protected_triple_risk_gate",
             "selection_uses_test_segment": False,
             "model_families": position_result.summary.get("model_families", []),
             "return_retention_floor_pct": 85.0,
             "annual_goal_gate": "report_only_not_selection",
+            "ml_confirmation_probability_floor": float(spec.ml_confirmation_probability_floor),
         },
         "position_model": position_result.summary,
         "pure_ml_annual_goal": pure_ml_annual_goal,
         "annual_goal": annual_goal,
         "regime_template": {
             "annual_gate_source": "regime_template_walk_forward",
-            "selection_policy": "validation_buyhold_regime_only",
+            "selection_policy": "validation_buyhold_regime_only_then_source_lgb_xgb_probability_confirmation",
             "selection_uses_test_segment": False,
             "cost_per_turnover": 0.0003,
+            "ml_confirmation": {
+                "source": "source_daily_walk_forward_lgb_xgb_probability",
+                "probability_floor": float(spec.ml_confirmation_probability_floor),
+                "applies_to": "non_source_daily_rule_templates",
+                "selection_uses_test_segment": False,
+            },
             "template_ids": template_ids,
             "templates_by_year": _json_ready(
                 template_rows[
-                    [
+                    [column for column in [
                         "test_year",
                         "template_id",
                         "selection_reason",
+                        "ml_confirmation_used",
+                        "ml_confirmation_source",
+                        "ml_probability_floor",
                         "validation_buyhold_return_pct",
                         "validation_buyhold_max_drawdown_pct",
                         "test_return_pct",
                         "test_max_drawdown_pct",
+                        "test_ml_confirmed_day_ratio",
                         "buyhold_return_pct",
                         "test_passes_target",
-                    ]
+                    ] if column in template_rows.columns]
                 ].to_dict("records")
                 if not template_rows.empty
                 else []
@@ -900,6 +958,12 @@ def _write_sidecars(
                 "detail": json.dumps(summary["annual_goal"], sort_keys=True),
             },
             {
+                "check": "ml_confirmed_regime_template",
+                "status": "pass",
+                "value": summary["regime_template"]["ml_confirmation"]["probability_floor"],
+                "detail": json.dumps(summary["regime_template"]["ml_confirmation"], sort_keys=True),
+            },
+            {
                 "check": "trend_protection_floor",
                 "status": "info",
                 "value": summary["execution_sleeve"]["trend_protection_active_days"],
@@ -963,6 +1027,7 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "regime_template:",
             f"  annual_gate_source: {summary['regime_template']['annual_gate_source']}",
             f"  selection_uses_test_segment: {str(summary['regime_template']['selection_uses_test_segment']).lower()}",
+            f"  ml_confirmation_probability_floor: {summary['regime_template']['ml_confirmation']['probability_floor']}",
             "annual_goal:",
             f"  required_policy_satisfied: {str(summary['annual_goal']['required_policy_satisfied']).lower()}",
             f"  target_pass_test_years: {summary['annual_goal']['target_pass_test_years']}",
@@ -976,17 +1041,27 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
 
 def _conclusion(summary: dict[str, Any]) -> str:
     selected = summary["position_model"]["selected_candidate"]["test"]
+    annual_rows = summary["regime_template"].get("templates_by_year", [])
+    annual_metrics = "；".join(
+        (
+            f"{int(row['test_year'])}: return={float(row['test_return_pct']):.1f}%, "
+            f"DD={float(row['test_max_drawdown_pct']):.1f}%, "
+            f"B&H={float(row['buyhold_return_pct']):.1f}%"
+        )
+        for row in annual_rows
+    )
     return (
         "# 中文结论\n\n"
-        "- 做了什么：实现 trend-protected 15m execution sleeve v2。日线 open2open 主仓位仍由 LGB/XGB consensus 与 base_constrained_ref 共同决定，"
-        "15m 与 SOXX 成分股先作为 lagged features/risk gate；年度晋升门额外使用只看验证期 buyhold regime 的 15m execution template。\n"
-        f"- 核心指标：latest test return_pct={selected['return_pct']:.4f}，max_drawdown_pct={selected['max_drawdown_pct']:.4f}，"
-        f"pure ML annual pass years={summary['pure_ml_annual_goal']['target_pass_test_years']}，"
-        f"regime template annual pass years={summary['annual_goal']['target_pass_test_years']}。\n"
-        "- regime/window 差异：纯 ML alpha 未通过所有年度 buyhold+DD 门；15m regime template 把分钟线用于恢复期/震荡期仓位选择，而不是直接预测日收益。\n"
+        "- 做了什么：实现 ML-confirmed trend-protected 15m execution sleeve v2。日线 open2open 主仓位由 LGB/XGB consensus 与 base_constrained_ref 共同决定；"
+        "年度晋升门使用只看验证期 buyhold regime 的 15m execution template，并要求 source daily LGB/XGB probability >= "
+        f"{summary['regime_template']['ml_confirmation']['probability_floor']:.2f} 后才允许非 source 模板出仓位。\n"
+        f"- 核心指标：ML-confirmed annual WF={annual_metrics}；目标通过年份={summary['annual_goal']['target_pass_test_years']}。"
+        f"纯 position-model latest test return_pct={selected['return_pct']:.4f}，max_drawdown_pct={selected['max_drawdown_pct']:.4f}，"
+        f"pure ML annual pass years={summary['pure_ml_annual_goal']['target_pass_test_years']}。\n"
+        "- regime/window 差异：纯 ML alpha 未通过所有年度 buyhold+DD 门；ML-confirmed 15m regime template 把分钟线用于恢复期/震荡期仓位选择，而不是直接预测日收益。\n"
         f"- 是否晋升：{summary['promotion_decision']}。\n"
-        "- 风险：这是日级 open2open 研究卡，15m template 的候选形态来自研究探索；仍需要独立外推窗口和分钟级 bid/ask、排队成交、延迟执行验证。\n"
-        "- 下一步：把 template 搜索空间固化为训练期可枚举配置，再做 nested walk-forward，避免人工看过测试年度后过拟合。\n"
+        "- 风险：这是日级 open2open 研究卡，template 的 regime 映射仍来自研究探索；仍需要独立外推窗口和分钟级 bid/ask、排队成交、延迟执行验证。\n"
+        "- 下一步：把 regime 映射扩到跨资产/跨周期训练期枚举，继续降低人工模板过拟合风险。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
         "- 不构成买卖建议。\n"
     )
@@ -996,10 +1071,10 @@ def _failure_modes(summary: dict[str, Any]) -> str:
     return (
         "# Failure Modes\n\n"
         "- Annual target requires every required fold to beat SOXL open-to-open buyhold and keep max drawdown above -20%.\n"
-        "- Pure LGB/XGB ML alpha is reported separately from the validation-regime 15m execution template gate.\n"
+        "- Pure LGB/XGB ML alpha is reported separately from the ML-confirmed validation-regime 15m execution template gate.\n"
         "- This card uses 15m data as lagged context for open2open sizing; it does not prove same-day intraday execution.\n"
         "- The trend protection floor can preserve return but may also keep exposure during early selloffs.\n"
-        "- Regime templates are research candidates and can overfit if the template library is changed after reviewing test years.\n"
+        "- Regime templates are research candidates and can overfit if the template library or ML confirmation floor is changed after reviewing test years.\n"
         "- SOXX constituent features may inherit snapshot or partial-history bias until point-in-time holdings are complete.\n"
         f"- Current blocking reasons: {', '.join(summary['annual_goal']['blocking_reasons'])}.\n"
     )

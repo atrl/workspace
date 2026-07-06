@@ -3580,6 +3580,7 @@ def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal()
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["model_selection"]["return_retention_floor_pct"] == 85.0
     assert summary["model_selection"]["annual_goal_gate"] == "report_only_not_selection"
+    assert summary["model_selection"]["ml_confirmation_probability_floor"] == 0.35
     assert set(summary["position_model"]["model_families"]) >= {
         "lgbm_classifier",
         "lgbm_regressor",
@@ -3602,6 +3603,8 @@ def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal()
     assert summary["pure_ml_annual_goal"]["selection_uses_test_segment"] is False
     assert summary["regime_template"]["annual_gate_source"] == "regime_template_walk_forward"
     assert summary["regime_template"]["selection_uses_test_segment"] is False
+    assert summary["regime_template"]["ml_confirmation"]["probability_floor"] == 0.35
+    assert summary["regime_template"]["ml_confirmation"]["selection_uses_test_segment"] is False
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv" in summary["recorder_artifacts"]
     assert set(summary["sidecars"]) == {
@@ -3625,12 +3628,12 @@ def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal()
         set(walk_forward.columns)
     )
     assert set(regime_walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
-    assert {"template_id", "selection_uses_test_segment", "test_passes_target"}.issubset(
+    assert {"template_id", "selection_uses_test_segment", "test_passes_target", "ml_confirmation_used"}.issubset(
         set(regime_walk_forward.columns)
     )
     assert "run_intraday_execution_sleeve_v2_card" in notebook_text
     assert "trend-protected" in notebook_text
-    assert "trend-protected 15m execution sleeve v2" in conclusion
+    assert "ML-confirmed trend-protected 15m execution sleeve v2" in conclusion
 
 
 def test_meta_label_risk_budget_open2open_card_replaces_probability_boost_and_records_failure():

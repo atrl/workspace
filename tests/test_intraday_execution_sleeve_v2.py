@@ -8,6 +8,7 @@ from src.workflow.intraday_execution_sleeve_v2 import (
     TREND_PROTECTION_FLOOR_COL,
     _annual_goal_summary,
     _attach_execution_sleeve_context,
+    _rule_template_positions,
     _select_validation_sleeve_policy,
     _select_validation_regime_template,
 )
@@ -136,3 +137,36 @@ def test_select_validation_regime_template_uses_validation_regime_not_test_resul
     assert selected["template_id"] == "source_daily_lgb_xgb_ml"
     assert selected["selection_uses_test_segment"] is False
     assert selected["selection_basis"] == "validation_regime_only"
+
+
+def test_rule_template_positions_require_ml_probability_confirmation():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06"]),
+            "trend_efficiency_20": [0.50, 0.55, 0.60],
+            "open_to_open_return": [0.10, 0.10, 0.10],
+        }
+    )
+    validation_reference = pd.DataFrame({"trend_efficiency_20": [0.0, 0.0, 0.0]})
+    ml_confirmation = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06"]),
+            "probability": [0.34, 0.35, 0.60],
+            "target_position": [0.80, 0.80, 0.80],
+        }
+    )
+
+    positions, metrics, _ = _rule_template_positions(
+        frame,
+        validation_reference=validation_reference,
+        template_id="range_repair_high_trend_efficiency",
+        fold_name="wf_unit",
+        segment_name="test",
+        ml_confirmation=ml_confirmation,
+        ml_probability_floor=0.35,
+    )
+
+    assert positions["template_target_position"].tolist() == [0.0, 1.0, 1.0]
+    assert positions["template_ml_confirmed"].tolist() == [False, True, True]
+    assert positions["template_ml_confirmation_used"].tolist() == [True, True, True]
+    assert metrics["avg_abs_position"] == 2 / 3
