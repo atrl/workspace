@@ -1,0 +1,1486 @@
+from __future__ import annotations
+
+import json
+import tempfile
+from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+import pandas as pd
+from sklearn.dummy import DummyClassifier, DummyRegressor
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import make_pipeline
+
+from src.data import QlibProviderConfig, build_qlib_store_from_frame, init_qlib_provider
+from src.workflow.cognitive_alpha_goal_codex_exec import (
+    LABEL_OPEN_TO_OPEN_5D_COL,
+    OPEN_TO_OPEN_RETURN_COL,
+    QLIB_DOCS,
+)
+from src.workflow.multi_3x_etf_normalized_nested_wf import (
+    ETF_UNIVERSE,
+    FEATURE_SOURCE,
+    _attach_normalized_features,
+    _json_ready,
+    _load_multi_3x_raw_panel,
+    _model_feature_columns,
+    _overfit_audit_summary,
+    _resolve_root,
+    _return_metrics,
+)
+
+
+EXPERIMENT = "trainable_regime_policy_nested_wf_v1"
+CARD_TYPE = "trainable_regime_policy_nested_wf_research_card"
+REGIME_TARGET_COL = "trainable_regime_target"
+REGIME_TARGET_CODE_COL = "trainable_regime_target_code"
+CRASH_TARGET_COL = "crash_probability_target"
+MAX_ADVERSE_TARGET_COL = "max_adverse_return_target"
+RISK_TARGET_COL = "risk_probability_target"
+VOL_ADJUSTED_TARGET_COL = "vol_adjusted_return_target"
+ALPHA_TARGET_COL = "alpha_opportunity_target"
+INTRADAY_RISK_STATE_COL = "intraday_risk_state"
+REGIME_LABELS = ["defensive", "rebound", "selective", "trend"]
+
+
+@dataclass(frozen=True)
+class TrainableRegimePolicyNestedWfSpec:
+    root: Path
+    experiment: str = EXPERIMENT
+    train_start: str = "2011-01-03"
+    outer_test_years: tuple[int, ...] = (2023, 2024, 2025, 2026)
+    max_common_end: str = "2026-04-13"
+    max_drawdown_floor_pct: float = -20.0
+    cost_per_turnover: float = 0.0003
+
+    @property
+    def card_dir(self) -> Path:
+        return self.root / "research" / self.experiment
+
+    @property
+    def provider_uri(self) -> Path:
+        return self.root / "data" / "qlib" / self.experiment
+
+    @property
+    def intraday_5min_provider_uri(self) -> Path:
+        return self.root / "data" / "qlib" / "soxl_intraday_5min"
+
+    @property
+    def intraday_15min_provider_uri(self) -> Path:
+        return self.root / "data" / "qlib" / "soxl_intraday_15min"
+
+
+def run_trainable_regime_policy_nested_wf_card(*, root: Path | str | None = None) -> dict[str, Any]:
+    spec = TrainableRegimePolicyNestedWfSpec(root=_resolve_root(root))
+    return _run_card(spec)
+
+
+def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
+    card = spec.card_dir
+    card.mkdir(parents=True, exist_ok=True)
+    raw_panel, source_audit = _load_multi_3x_raw_panel(spec)  # type: ignore[arg-type]
+    normalized = _attach_normalized_features(raw_panel)
+    normalized = _attach_trainable_policy_targets(normalized)
+    common_end = min(
+        pd.Timestamp(spec.max_common_end),
+        pd.to_datetime(normalized.groupby("instrument")["datetime"].max()).min(),
+    ).date().isoformat()
+    normalized = normalized.loc[pd.to_datetime(normalized["datetime"]).le(pd.Timestamp(common_end))].copy()
+    intraday_risk_state, intraday_audit = _build_intraday_risk_state_daily(
+        spec,
+        start=spec.train_start,
+        end=common_end,
+    )
+    normalized = _attach_intraday_risk_state(normalized, intraday_risk_state)
+    provider_manifest = _build_policy_provider(spec, normalized, as_of=common_end)
+    provider_frame, provider_meta = _load_policy_provider(spec, normalized, as_of=common_end)
+    feature_cols = _policy_feature_columns(provider_frame)
+    candidates = _policy_candidate_configs()
+
+    annual_rows: list[dict[str, Any]] = []
+    inner_frames: list[pd.DataFrame] = []
+    position_frames: list[pd.DataFrame] = []
+    selected_rows: list[dict[str, Any]] = []
+    policy_diagnostics: list[dict[str, Any]] = []
+
+    for outer_year in spec.outer_test_years:
+        inner_metrics = _inner_policy_metrics(
+            provider_frame,
+            outer_test_year=int(outer_year),
+            candidates=candidates,
+            feature_cols=feature_cols,
+            cost_per_turnover=spec.cost_per_turnover,
+        )
+        selected = _select_policy_from_inner_metrics(
+            inner_metrics,
+            outer_test_year=int(outer_year),
+            required_heldout_assets=tuple(ETF_UNIVERSE),
+        )
+        selected_rows.append(selected)
+        outer_metrics, outer_positions = _outer_soxl_policy_test(
+            provider_frame,
+            outer_test_year=int(outer_year),
+            selected_candidate=selected,
+            candidates=candidates,
+            feature_cols=feature_cols,
+            common_end=common_end,
+            cost_per_turnover=spec.cost_per_turnover,
+            max_drawdown_floor_pct=spec.max_drawdown_floor_pct,
+        )
+        annual_rows.append(outer_metrics)
+        outer_positions["outer_test_year"] = int(outer_year)
+        position_frames.append(outer_positions)
+        inner_metrics["outer_test_year"] = int(outer_year)
+        inner_frames.append(inner_metrics)
+        policy_diagnostics.append(_policy_diagnostic_row(outer_metrics, selected))
+
+    annual_metrics = pd.DataFrame(annual_rows)
+    inner_selection = pd.concat(inner_frames, ignore_index=True) if inner_frames else pd.DataFrame()
+    positions = pd.concat(position_frames, ignore_index=True) if position_frames else pd.DataFrame()
+    selected_candidates = pd.DataFrame(selected_rows)
+    policy_diagnostics_frame = pd.DataFrame(policy_diagnostics)
+    annual_goal = _annual_goal_summary(annual_metrics, max_drawdown_floor_pct=spec.max_drawdown_floor_pct)
+    overfit_audit = _overfit_audit_summary(
+        experiment=spec.experiment,
+        manual_template_selection=False,
+        nested_walk_forward=True,
+        leave_one_asset_out_assets=tuple(ETF_UNIVERSE),
+        feature_identity_columns=tuple(
+            column
+            for column in feature_cols
+            if "instrument" in column.lower() or "symbol" in column.lower() or "asset" in column.lower()
+        ),
+        selection_uses_outer_test=bool(selected_candidates.get("selection_uses_outer_test", pd.Series([False])).any()),
+    )
+    prior_template_audit = _overfit_audit_summary(
+        experiment="agentic_alpha_intraday_execution_sleeve_v2",
+        manual_template_selection=True,
+        nested_walk_forward=False,
+        leave_one_asset_out_assets=("SOXL",),
+        feature_identity_columns=(),
+        selection_uses_outer_test=False,
+    )
+    sidecars = {
+        "annual_walk_forward": "annual_walk_forward.csv",
+        "inner_selection": "inner_selection.csv",
+        "selected_candidates": "selected_candidates.csv",
+        "model_comparison": "model_comparison.csv",
+        "policy_diagnostics": "policy_diagnostics.csv",
+        "risk_analysis": "risk_analysis.csv",
+        "analysis_summary": "analysis_summary.json",
+        "feature_sets": "feature_sets.csv",
+        "failure_modes": "failure_modes.md",
+    }
+
+    import qlib
+    from qlib.workflow import R
+
+    _ = qlib
+    recorder_uri = card / "qlib_recorder"
+    recorder_uri.mkdir(parents=True, exist_ok=True)
+    R.set_uri(recorder_uri.resolve().as_posix())
+    with tempfile.TemporaryDirectory(prefix="trainable_regime_policy_nested_wf_") as tmp:
+        tmp_dir = Path(tmp)
+        positions_path = tmp_dir / "positions.csv"
+        positions.to_csv(positions_path, index=False)
+        with R.start(experiment_name=spec.experiment):
+            recorder = R.get_recorder()
+            R.log_params(
+                provider_uri=spec.provider_uri.resolve().as_posix(),
+                source_symbols=",".join(ETF_UNIVERSE),
+                feature_source=FEATURE_SOURCE,
+                model_families="lgbm_classifier,xgb_classifier,lgbm_regressor,xgb_regressor,lgb_xgb_consensus",
+                regime_classifier="supervised_trainable_policy_classifier",
+                nested_walk_forward="true",
+                leave_one_asset_out="true",
+                selection_uses_outer_test="false",
+                intraday_risk_state="5min,15min",
+            )
+            summary = _summary_payload(
+                spec=spec,
+                sidecars=sidecars,
+                recorder_id=recorder.id,
+                recorder_uri=recorder_uri,
+                recorder_local_dir=Path(recorder.get_local_dir()).resolve(),
+                provider_manifest=provider_manifest,
+                provider_meta=provider_meta,
+                source_audit=source_audit,
+                common_end=common_end,
+                feature_cols=feature_cols,
+                annual_metrics=annual_metrics,
+                annual_goal=annual_goal,
+                overfit_audit=overfit_audit,
+                prior_template_audit=prior_template_audit,
+                selected_candidates=selected_candidates,
+                intraday_audit=intraday_audit,
+            )
+            _write_sidecars(
+                card,
+                sidecars=sidecars,
+                summary=summary,
+                annual_metrics=annual_metrics,
+                inner_selection=inner_selection,
+                selected_candidates=selected_candidates,
+                policy_diagnostics=policy_diagnostics_frame,
+            )
+            recorder.log_artifact(positions_path.as_posix(), artifact_path=spec.experiment)
+            for rel_path in sidecars.values():
+                path = card / rel_path
+                if path.exists() and path.name != "failure_modes.md":
+                    recorder.log_artifact(path.as_posix(), artifact_path=spec.experiment)
+            _remove_qlib_code_snapshot_artifacts(Path(recorder.get_local_dir()).resolve())
+    _write_summary_files(card, summary)
+    return summary
+
+
+def _remove_qlib_code_snapshot_artifacts(recorder_local_dir: Path) -> None:
+    artifacts_dir = recorder_local_dir / "artifacts"
+    for name in ["code_status.txt", "code_diff.txt", "code_cached.txt"]:
+        path = artifacts_dir / name
+        if path.exists():
+            path.unlink()
+
+
+def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    future_return = pd.to_numeric(out[LABEL_OPEN_TO_OPEN_5D_COL], errors="coerce").fillna(0.0)
+    realized_vol = pd.to_numeric(out.get("realized_vol_20", 0.0), errors="coerce").fillna(0.0).abs()
+    ret20 = pd.to_numeric(out.get("ret_20", 0.0), errors="coerce").fillna(0.0)
+    ret60 = pd.to_numeric(out.get("ret_60", 0.0), errors="coerce").fillna(0.0)
+    drawdown60 = pd.to_numeric(out.get("drawdown_60", 0.0), errors="coerce").fillna(0.0)
+
+    out[ALPHA_TARGET_COL] = future_return.gt(0.0).astype(int)
+    out[CRASH_TARGET_COL] = future_return.le(-0.08).astype(int)
+    if "open" in out.columns:
+        adverse_pieces: list[pd.Series] = []
+        for _, group in out.sort_values(["instrument", "datetime"]).groupby("instrument", sort=False):
+            open_ = pd.to_numeric(group["open"], errors="coerce").astype("float64")
+            entry = open_.shift(-1)
+            future_path = pd.concat(
+                [(open_.shift(-offset) / entry - 1.0) for offset in range(2, 7)],
+                axis=1,
+            )
+            adverse_pieces.append(future_path.min(axis=1).reindex(group.index))
+        max_adverse = pd.concat(adverse_pieces).reindex(out.index) if adverse_pieces else pd.Series(np.nan, index=out.index)
+    else:
+        max_adverse = future_return.clip(upper=0.0)
+    out[MAX_ADVERSE_TARGET_COL] = pd.to_numeric(max_adverse, errors="coerce").fillna(0.0)
+    out[RISK_TARGET_COL] = (out[CRASH_TARGET_COL].eq(1) | out[MAX_ADVERSE_TARGET_COL].le(-0.12)).astype(int)
+    out[VOL_ADJUSTED_TARGET_COL] = (future_return / (realized_vol + 0.02)).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    regimes = np.select(
+        [
+            out[RISK_TARGET_COL].eq(1) | out[VOL_ADJUSTED_TARGET_COL].lt(-0.75),
+            ret60.lt(-0.20) & drawdown60.lt(-0.25) & future_return.gt(0.0),
+            ret60.gt(0.10) & ret20.gt(0.0) & future_return.gt(0.0),
+        ],
+        ["defensive", "rebound", "trend"],
+        default="selective",
+    )
+    out[REGIME_TARGET_COL] = pd.Series(regimes, index=out.index).astype(str)
+    regime_code = {label: index for index, label in enumerate(REGIME_LABELS)}
+    out[REGIME_TARGET_CODE_COL] = out[REGIME_TARGET_COL].map(regime_code).astype("float64")
+    return out
+
+
+def _build_intraday_risk_state_daily(
+    spec: TrainableRegimePolicyNestedWfSpec,
+    *,
+    start: str,
+    end: str,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    frames: list[pd.DataFrame] = []
+    audits: dict[str, Any] = {}
+    for freq, provider_uri in [("5min", spec.intraday_5min_provider_uri), ("15min", spec.intraday_15min_provider_uri)]:
+        daily, audit = _intraday_provider_daily_state(provider_uri=provider_uri, freq=freq, start=start, end=end)
+        frames.append(daily)
+        audits[freq] = audit
+    if not frames:
+        return pd.DataFrame({"datetime": [], INTRADAY_RISK_STATE_COL: []}), {"status": "missing_intraday_state"}
+    out = frames[0]
+    for frame in frames[1:]:
+        out = out.merge(frame, on="datetime", how="outer")
+    risk_cols = [column for column in out.columns if column.endswith("_risk_state")]
+    score_cols = [column for column in out.columns if column.endswith("_risk_score")]
+    out[INTRADAY_RISK_STATE_COL] = out[risk_cols].max(axis=1).fillna(0.0) if risk_cols else 0.0
+    out["intraday_risk_score"] = out[score_cols].max(axis=1).fillna(0.0) if score_cols else 0.0
+    return out.sort_values("datetime").reset_index(drop=True), {
+        "status": "ok",
+        "uses_5min": "5min" in audits and audits["5min"].get("status") == "ok",
+        "uses_15min": "15min" in audits and audits["15min"].get("status") == "ok",
+        "providers": audits,
+        "rows": int(len(out)),
+        "role": "risk_cap_not_alpha_template",
+    }
+
+
+def _intraday_provider_daily_state(
+    *,
+    provider_uri: Path,
+    freq: str,
+    start: str,
+    end: str,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    config = QlibProviderConfig(provider_uri=provider_uri, market="all", region="us", freq=freq, kernels=1)
+    provider_meta = init_qlib_provider(config)
+    from qlib.data import D
+
+    fields = ["$open", "$high", "$low", "$close", "$volume", "$bar_index", "$bar_count"]
+    raw = D.features(["SOXL", "SOXX"], fields, start_time=start, end_time=end, freq=freq).reset_index()
+    if raw.empty:
+        return pd.DataFrame({"datetime": [], f"intraday_{freq}_risk_state": []}), {
+            "status": "empty",
+            "provider_uri": provider_meta["provider_uri"],
+        }
+    raw = raw.rename(columns={field: field.removeprefix("$") for field in fields})
+    raw["datetime"] = pd.to_datetime(raw["datetime"])
+    raw["date"] = raw["datetime"].dt.normalize()
+    wide = (
+        raw.pivot_table(
+            index=["datetime", "date"],
+            columns="instrument",
+            values=["open", "high", "low", "close", "volume", "bar_index"],
+            aggfunc="last",
+        )
+        .sort_index()
+    )
+    wide.columns = [f"{field}_{instrument}".lower() for field, instrument in wide.columns]
+    wide = wide.reset_index()
+    rows: list[dict[str, Any]] = []
+    for date, group in wide.groupby("date", sort=True):
+        g = group.sort_values("datetime")
+        if g.empty or "open_soxl" not in g or "close_soxl" not in g:
+            continue
+        soxl_open_values = pd.to_numeric(g["open_soxl"], errors="coerce").dropna()
+        soxl_close = pd.to_numeric(g["close_soxl"], errors="coerce")
+        soxx_open_values = pd.to_numeric(g.get("open_soxx", pd.Series(dtype=float)), errors="coerce").dropna()
+        soxx_close = pd.to_numeric(g.get("close_soxx", pd.Series(dtype=float)), errors="coerce")
+        if soxl_open_values.empty or soxl_close.dropna().empty or soxx_open_values.empty:
+            continue
+        soxl_open = float(soxl_open_values.iloc[0])
+        soxx_open = float(soxx_open_values.iloc[0])
+        if not np.isfinite(soxl_open) or not np.isfinite(soxx_open) or soxl_open <= 0 or soxx_open <= 0:
+            continue
+        day_ret = float(soxl_close.dropna().iloc[-1] / soxl_open - 1.0)
+        day_soxx_ret = float(soxx_close.dropna().iloc[-1] / soxx_open - 1.0) if not soxx_close.dropna().empty else 0.0
+        drawdown_from_open = float(soxl_close.min() / soxl_open - 1.0)
+        dislocation = day_ret - 3.0 * day_soxx_ret
+        late = g.tail(3)
+        late_open = pd.to_numeric(late["open_soxl"], errors="coerce").dropna()
+        late_close = pd.to_numeric(late["close_soxl"], errors="coerce").dropna()
+        late_ret = float(late_close.iloc[-1] / late_open.iloc[0] - 1.0) if not late_open.empty and not late_close.empty else 0.0
+        ret_cc = soxl_close.pct_change().replace([np.inf, -np.inf], np.nan)
+        realized_vol = float(ret_cc.std(ddof=0)) if ret_cc.notna().sum() >= 3 else 0.0
+        risk_score = max(
+            0.0,
+            -drawdown_from_open / 0.08,
+            -late_ret / 0.03,
+            -dislocation / 0.04,
+            realized_vol / 0.035,
+        )
+        rows.append(
+            {
+                "datetime": pd.Timestamp(date).normalize(),
+                f"intraday_{freq}_day_ret": day_ret,
+                f"intraday_{freq}_drawdown_from_open": drawdown_from_open,
+                f"intraday_{freq}_late_ret": late_ret,
+                f"intraday_{freq}_soxl_minus_3x_soxx": dislocation,
+                f"intraday_{freq}_realized_vol": realized_vol,
+                f"intraday_{freq}_risk_score": risk_score,
+                f"intraday_{freq}_risk_state": float(risk_score >= 1.0),
+            }
+        )
+    out = pd.DataFrame(rows)
+    return out, {
+        "status": "ok",
+        "provider_uri": provider_meta["provider_uri"],
+        "calendar_start": provider_meta["calendar_start"],
+        "calendar_end": provider_meta["calendar_end"],
+        "rows": int(len(out)),
+        "lookback_only": True,
+    }
+
+
+def _attach_intraday_risk_state(frame: pd.DataFrame, intraday_state: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    if intraday_state.empty:
+        out[INTRADAY_RISK_STATE_COL] = 0.0
+        out["intraday_risk_score"] = 0.0
+        return out
+    state = intraday_state.copy()
+    state["datetime"] = pd.to_datetime(state["datetime"]).dt.normalize()
+    out = out.merge(state, on="datetime", how="left")
+    risk_cols = [column for column in out.columns if column.startswith("intraday_")]
+    for column in risk_cols:
+        out[column] = pd.to_numeric(out[column], errors="coerce").fillna(0.0)
+    mask = out["instrument"].astype(str).str.upper().eq("SOXL")
+    out.loc[~mask, [INTRADAY_RISK_STATE_COL, "intraday_risk_score"]] = 0.0
+    return out
+
+
+def _build_policy_provider(
+    spec: TrainableRegimePolicyNestedWfSpec,
+    frame: pd.DataFrame,
+    *,
+    as_of: str,
+) -> dict[str, Any]:
+    store_cols = [
+        "instrument",
+        "datetime",
+        "open",
+        "close",
+        "volume",
+        OPEN_TO_OPEN_RETURN_COL,
+        LABEL_OPEN_TO_OPEN_5D_COL,
+        ALPHA_TARGET_COL,
+        CRASH_TARGET_COL,
+        MAX_ADVERSE_TARGET_COL,
+        RISK_TARGET_COL,
+        VOL_ADJUSTED_TARGET_COL,
+        REGIME_TARGET_CODE_COL,
+        INTRADAY_RISK_STATE_COL,
+        "intraday_risk_score",
+        *_policy_feature_columns(frame),
+    ]
+    store = frame.loc[:, [column for column in dict.fromkeys(store_cols) if column in frame.columns]].copy()
+    return build_qlib_store_from_frame(
+        store,
+        provider_uri=spec.provider_uri,
+        market="all",
+        region="us",
+        freq="day",
+        as_of=as_of,
+        source="qlib_trainable_regime_policy_multi_3x_panel",
+    )
+
+
+def _load_policy_provider(
+    spec: TrainableRegimePolicyNestedWfSpec,
+    frame: pd.DataFrame,
+    *,
+    as_of: str,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    config = QlibProviderConfig(provider_uri=spec.provider_uri, market="all", region="us", kernels=1)
+    provider_meta = init_qlib_provider(config)
+    from qlib.data import D
+
+    fields = list(dict.fromkeys([
+        "$open",
+        "$close",
+        "$volume",
+        f"${OPEN_TO_OPEN_RETURN_COL}",
+        f"${LABEL_OPEN_TO_OPEN_5D_COL}",
+        f"${ALPHA_TARGET_COL}",
+        f"${CRASH_TARGET_COL}",
+        f"${MAX_ADVERSE_TARGET_COL}",
+        f"${RISK_TARGET_COL}",
+        f"${VOL_ADJUSTED_TARGET_COL}",
+        f"${REGIME_TARGET_CODE_COL}",
+        f"${INTRADAY_RISK_STATE_COL}",
+        "$intraday_risk_score",
+        *[f"${column}" for column in _policy_feature_columns(frame)],
+    ]))
+    qframe = D.features(list(ETF_UNIVERSE), fields, start_time=spec.train_start, end_time=as_of, freq="day")
+    out = qframe.reset_index().rename(columns={field: field.removeprefix("$") for field in fields})
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    out["instrument"] = out["instrument"].astype(str).str.upper()
+    return out.sort_values(["instrument", "datetime"]).reset_index(drop=True), provider_meta
+
+
+def _policy_feature_columns(frame: pd.DataFrame) -> list[str]:
+    base = _model_feature_columns(frame)
+    return [column for column in dict.fromkeys(base) if column not in {INTRADAY_RISK_STATE_COL, "intraday_risk_score"}]
+
+
+def _policy_candidate_configs() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for model_family in ["lgbm", "xgb", "lgb_xgb_consensus"]:
+        for suffix, alpha_floor, risk_cut, risk_cap, trend_scale, rebound_scale, selective_scale in [
+            ("balanced", 0.50, 0.72, 0.30, 1.25, 1.10, 0.55),
+            ("attack", 0.45, 0.78, 0.35, 1.50, 1.25, 0.70),
+            ("trend_attack", 0.40, 0.86, 0.55, 2.00, 1.20, 0.75),
+            ("rebound_harvest", 0.48, 0.80, 0.40, 1.05, 1.75, 0.60),
+            ("risk_first", 0.55, 0.65, 0.20, 1.00, 0.90, 0.35),
+            ("cash_bias", 0.62, 0.62, 0.15, 0.85, 0.70, 0.25),
+        ]:
+            rows.append(
+                {
+                    "candidate": f"{model_family}_trainable_regime_{suffix}",
+                    "model_family": model_family,
+                    "policy_id": suffix,
+                    "position_mode": "scaled_alpha",
+                    "alpha_floor": alpha_floor,
+                    "risk_cut": risk_cut,
+                    "risk_cap": risk_cap,
+                    "trend_scale": trend_scale,
+                    "rebound_scale": rebound_scale,
+                    "selective_scale": selective_scale,
+                    "defensive_scale": 0.0,
+                    "intraday_risk_cap": 0.10,
+                }
+            )
+        for suffix, alpha_floor, risk_cut, risk_cap, intraday_risk_cap in [
+            ("binary_high_alpha_zero_cap", 0.58, 0.12, 0.00, 1.00),
+            ("binary_high_alpha_soft_cap", 0.58, 0.12, 0.20, 1.00),
+            ("binary_high_alpha_repair_cap", 0.58, 0.12, 0.35, 0.50),
+            ("binary_mid_alpha_zero_cap", 0.55, 0.12, 0.00, 1.00),
+            ("binary_low_alpha_zero_cap", 0.48, 0.12, 0.00, 1.00),
+            ("binary_high_alpha_lenient_risk", 0.58, 0.22, 0.20, 1.00),
+        ]:
+            rows.append(
+                {
+                    "candidate": f"{model_family}_trainable_regime_{suffix}",
+                    "model_family": model_family,
+                    "policy_id": suffix,
+                    "position_mode": "binary_full",
+                    "alpha_floor": alpha_floor,
+                    "risk_cut": risk_cut,
+                    "risk_cap": risk_cap,
+                    "trend_scale": 1.0,
+                    "rebound_scale": 1.0,
+                    "selective_scale": 1.0,
+                    "defensive_scale": 0.0,
+                    "intraday_risk_cap": intraday_risk_cap,
+                }
+            )
+        for suffix, alpha_floor, risk_cut, risk_cap, cooldown_trigger, cooldown_days, cooldown_cap in [
+            ("cooldown_fast_reentry", 0.54, 0.14, 0.00, -0.18, 1, 0.10),
+            ("cooldown_zero_reentry", 0.54, 0.16, 0.00, -0.18, 1, 0.00),
+            ("cooldown_high_alpha_reentry", 0.58, 0.14, 0.00, -0.16, 1, 0.50),
+            ("cooldown_tight_repair", 0.58, 0.18, 0.10, -0.08, 1, 0.25),
+            ("cooldown_tight_soft_cap", 0.58, 0.22, 0.20, -0.08, 1, 0.25),
+            ("cooldown_low_alpha_defensive", 0.48, 0.12, 0.00, -0.16, 1, 0.00),
+        ]:
+            rows.append(
+                {
+                    "candidate": f"{model_family}_trainable_regime_{suffix}",
+                    "model_family": model_family,
+                    "policy_id": suffix,
+                    "position_mode": "binary_full",
+                    "alpha_floor": alpha_floor,
+                    "risk_cut": risk_cut,
+                    "risk_cap": risk_cap,
+                    "trend_scale": 1.0,
+                    "rebound_scale": 1.0,
+                    "selective_scale": 1.0,
+                    "defensive_scale": 0.0,
+                    "intraday_risk_cap": 1.0,
+                    "drawdown_cooldown_trigger": cooldown_trigger,
+                    "drawdown_cooldown_days": cooldown_days,
+                    "drawdown_cooldown_cap": cooldown_cap,
+                }
+            )
+    return rows
+
+
+def _inner_policy_metrics(
+    frame: pd.DataFrame,
+    *,
+    outer_test_year: int,
+    candidates: list[dict[str, Any]],
+    feature_cols: list[str],
+    cost_per_turnover: float,
+) -> pd.DataFrame:
+    rows: list[dict[str, Any]] = []
+    data = _clean_policy_frame(frame, feature_cols)
+    available = data.loc[data["datetime"].dt.year < int(outer_test_year)].copy()
+    inner_years = [
+        year
+        for year in sorted(available["datetime"].dt.year.unique())
+        if year >= 2015 and year <= int(outer_test_year) - 1
+    ][-2:]
+    for inner_year in inner_years:
+        train_end = pd.Timestamp(f"{inner_year - 1}-12-31")
+        for heldout_asset in ETF_UNIVERSE:
+            train = available.loc[
+                available["datetime"].le(train_end) & ~available["instrument"].eq(heldout_asset)
+            ].copy()
+            validation = available.loc[
+                available["instrument"].eq(heldout_asset) & available["datetime"].dt.year.eq(inner_year)
+            ].copy()
+            if len(train) < 300 or len(validation) < 40:
+                continue
+            prediction_cache = _predict_trainable_policy_cache(
+                train,
+                validation,
+                feature_cols=feature_cols,
+                candidates=candidates,
+            )
+            for candidate in candidates:
+                pred = prediction_cache[str(candidate["model_family"])]
+                metrics, _ = _simulate_alpha_risk_policy(
+                    validation,
+                    pred,
+                    policy=candidate,
+                    segment_name="inner_validation",
+                    cost_per_turnover=cost_per_turnover,
+                )
+                buyhold = _buyhold_metrics(validation)
+                excess_return = float(metrics["selection_return_pct"] - buyhold["return_pct"])
+                rows.append(
+                    {
+                        **metrics,
+                        "candidate": str(candidate["candidate"]),
+                        "model": str(candidate["model_family"]),
+                        "inner_year": int(inner_year),
+                        "heldout_asset": heldout_asset,
+                        "buyhold_return_pct": buyhold["return_pct"],
+                        "excess_return_pct": excess_return,
+                        "beats_buyhold": bool(metrics["selection_return_pct"] > buyhold["return_pct"]),
+                        "selection_uses_outer_test": False,
+                    }
+                )
+    return pd.DataFrame(rows)
+
+
+def _select_policy_from_inner_metrics(
+    metrics: pd.DataFrame,
+    *,
+    outer_test_year: int,
+    required_heldout_assets: tuple[str, ...],
+) -> dict[str, Any]:
+    if metrics.empty:
+        raise ValueError("trainable regime policy inner nested walk-forward produced no candidate metrics")
+    rows = metrics.copy()
+    rows["selection_return_pct"] = pd.to_numeric(rows["selection_return_pct"], errors="coerce").fillna(0.0)
+    rows["selection_max_drawdown_pct"] = pd.to_numeric(rows["selection_max_drawdown_pct"], errors="coerce").fillna(-100.0)
+    rows["selection_total_turnover"] = pd.to_numeric(rows["selection_total_turnover"], errors="coerce").fillna(0.0)
+    rows["selection_avg_abs_position"] = pd.to_numeric(rows["selection_avg_abs_position"], errors="coerce").fillna(0.0)
+    rows["excess_return_pct"] = pd.to_numeric(rows.get("excess_return_pct", 0.0), errors="coerce").fillna(0.0)
+    rows["beats_buyhold"] = rows["beats_buyhold"].fillna(False).astype(bool)
+    rows["passes_inner_drawdown"] = rows["selection_max_drawdown_pct"].ge(-20.0)
+    rows["passes_inner_activity"] = rows["selection_avg_abs_position"].ge(0.05)
+    grouped = (
+        rows.groupby("candidate")
+        .agg(
+            avg_selection_return_pct=("selection_return_pct", "mean"),
+            avg_excess_return_pct=("excess_return_pct", "mean"),
+            worst_selection_max_drawdown_pct=("selection_max_drawdown_pct", "min"),
+            avg_selection_avg_abs_position=("selection_avg_abs_position", "mean"),
+            avg_selection_total_turnover=("selection_total_turnover", "mean"),
+            inner_pass_rate=("passes_inner_drawdown", "mean"),
+            inner_activity_pass_rate=("passes_inner_activity", "mean"),
+            inner_beats_buyhold_rate=("beats_buyhold", "mean"),
+            heldout_assets=("heldout_asset", lambda values: sorted({str(value) for value in values})),
+            inner_fold_count=("candidate", "size"),
+        )
+        .reset_index()
+    )
+    required_assets = [str(asset) for asset in required_heldout_assets]
+    grouped["has_required_heldout_assets"] = grouped["heldout_assets"].map(
+        lambda assets: all(asset in assets for asset in required_assets)
+    )
+    eligible = grouped.loc[grouped["has_required_heldout_assets"]].copy()
+    if eligible.empty:
+        raise ValueError("trainable regime policy inner nested walk-forward missing required heldout assets")
+    eligible["selection_score"] = (
+        eligible["avg_selection_return_pct"]
+        + 1.50 * eligible["avg_excess_return_pct"]
+        + 2.0 * eligible["worst_selection_max_drawdown_pct"]
+        - 0.03 * eligible["avg_selection_total_turnover"]
+        + 25.0 * eligible["inner_pass_rate"]
+        + 20.0 * eligible["inner_activity_pass_rate"]
+        + 35.0 * eligible["inner_beats_buyhold_rate"]
+    )
+    selected = eligible.sort_values(
+        [
+            "selection_score",
+            "inner_beats_buyhold_rate",
+            "avg_excess_return_pct",
+            "worst_selection_max_drawdown_pct",
+            "avg_selection_return_pct",
+        ],
+        ascending=[False, False, False, False, False],
+    ).iloc[0]
+    return {
+        "candidate": str(selected["candidate"]),
+        "outer_test_year": int(outer_test_year),
+        "selection_uses_outer_test": False,
+        "required_heldout_assets": required_assets,
+        "observed_heldout_assets": list(selected["heldout_assets"]),
+        "inner_fold_count": int(selected["inner_fold_count"]),
+        "avg_selection_return_pct": float(selected["avg_selection_return_pct"]),
+        "avg_excess_return_pct": float(selected["avg_excess_return_pct"]),
+        "avg_selection_avg_abs_position": float(selected["avg_selection_avg_abs_position"]),
+        "worst_selection_max_drawdown_pct": float(selected["worst_selection_max_drawdown_pct"]),
+        "avg_selection_total_turnover": float(selected["avg_selection_total_turnover"]),
+        "inner_pass_rate": float(selected["inner_pass_rate"]),
+        "inner_activity_pass_rate": float(selected["inner_activity_pass_rate"]),
+        "inner_beats_buyhold_rate": float(selected["inner_beats_buyhold_rate"]),
+        "selection_score": float(selected["selection_score"]),
+    }
+
+
+def _outer_soxl_policy_test(
+    frame: pd.DataFrame,
+    *,
+    outer_test_year: int,
+    selected_candidate: dict[str, Any],
+    candidates: list[dict[str, Any]],
+    feature_cols: list[str],
+    common_end: str,
+    cost_per_turnover: float,
+    max_drawdown_floor_pct: float,
+) -> tuple[dict[str, Any], pd.DataFrame]:
+    candidate = next(item for item in candidates if item["candidate"] == selected_candidate["candidate"])
+    data = _clean_policy_frame(frame, feature_cols)
+    train_end = pd.Timestamp(f"{outer_test_year - 1}-12-31")
+    test_start = pd.Timestamp(f"{outer_test_year}-01-01")
+    test_end = min(pd.Timestamp(f"{outer_test_year}-12-31"), pd.Timestamp(common_end))
+    train = data.loc[data["datetime"].le(train_end)].copy()
+    test = data.loc[
+        data["instrument"].eq("SOXL") & data["datetime"].between(test_start, test_end)
+    ].copy()
+    if len(train) < 300 or len(test) < 40:
+        raise ValueError(f"outer fold {outer_test_year} lacks enough train/test rows")
+    pred = _predict_trainable_policy(train, test, feature_cols=feature_cols, candidate=candidate)
+    metrics, positions = _simulate_alpha_risk_policy(
+        test,
+        pred,
+        policy=candidate,
+        segment_name="outer_test",
+        cost_per_turnover=cost_per_turnover,
+    )
+    buyhold = _buyhold_metrics(test)
+    row = {
+        "outer_test_year": int(outer_test_year),
+        "candidate": str(candidate["candidate"]),
+        "selected_regime_model": str(candidate["model_family"]),
+        "policy_id": str(candidate["policy_id"]),
+        "position_mode": str(candidate.get("position_mode", "scaled_alpha")),
+        "train_start": pd.Timestamp(train["datetime"].min()).date().isoformat(),
+        "train_end": train_end.date().isoformat(),
+        "test_start": pd.Timestamp(test["datetime"].min()).date().isoformat(),
+        "test_end": pd.Timestamp(test["datetime"].max()).date().isoformat(),
+        "test_return_pct": metrics["selection_return_pct"],
+        "test_max_drawdown_pct": metrics["selection_max_drawdown_pct"],
+        "test_avg_abs_position": metrics["selection_avg_abs_position"],
+        "test_total_turnover": metrics["selection_total_turnover"],
+        "test_intraday_risk_cap_day_ratio": metrics["intraday_risk_cap_day_ratio"],
+        "test_drawdown_cooldown_day_ratio": metrics["drawdown_cooldown_day_ratio"],
+        "buyhold_return_pct": buyhold["return_pct"],
+        "buyhold_max_drawdown_pct": buyhold["max_drawdown_pct"],
+        "beats_buyhold": bool(metrics["selection_return_pct"] > buyhold["return_pct"]),
+        "passes_drawdown": bool(metrics["selection_max_drawdown_pct"] >= max_drawdown_floor_pct),
+        "test_passes_target": bool(
+            metrics["selection_return_pct"] > buyhold["return_pct"]
+            and metrics["selection_max_drawdown_pct"] >= max_drawdown_floor_pct
+        ),
+        "selection_uses_outer_test": False,
+    }
+    return row, positions
+
+
+def _predict_trainable_policy(
+    train: pd.DataFrame,
+    predict: pd.DataFrame,
+    *,
+    feature_cols: list[str],
+    candidate: dict[str, Any],
+) -> pd.DataFrame:
+    cache = _predict_trainable_policy_cache(
+        train,
+        predict,
+        feature_cols=feature_cols,
+        candidates=[candidate],
+    )
+    return cache[str(candidate["model_family"])].copy()
+
+
+def _predict_trainable_policy_cache(
+    train: pd.DataFrame,
+    predict: pd.DataFrame,
+    *,
+    feature_cols: list[str],
+    candidates: list[dict[str, Any]],
+) -> dict[str, pd.DataFrame]:
+    requested = {str(candidate["model_family"]) for candidate in candidates}
+    base_requested = set(requested)
+    if "lgb_xgb_consensus" in requested:
+        base_requested.update({"lgbm", "xgb"})
+    cache = {
+        family: _predict_base_trainable_policy(train, predict, feature_cols=feature_cols, model_family=family)
+        for family in sorted(base_requested)
+        if family in {"lgbm", "xgb"}
+    }
+    if "lgb_xgb_consensus" in requested:
+        cache["lgb_xgb_consensus"] = _combine_consensus_predictions(cache["lgbm"], cache["xgb"], predict)
+    return {family: cache[family].copy() for family in requested}
+
+
+def _predict_base_trainable_policy(
+    train: pd.DataFrame,
+    predict: pd.DataFrame,
+    *,
+    feature_cols: list[str],
+    model_family: str,
+) -> pd.DataFrame:
+    family = str(model_family)
+    alpha = _fit_predict_binary_probability(family, train, predict, feature_cols, ALPHA_TARGET_COL)
+    risk = _fit_predict_binary_probability(family, train, predict, feature_cols, RISK_TARGET_COL)
+    regime = _fit_predict_regime(family, train, predict, feature_cols)
+    vol_score = _fit_predict_regression(family, train, predict, feature_cols, VOL_ADJUSTED_TARGET_COL)
+    return pd.DataFrame(
+        {
+            "alpha_probability": alpha.reindex(predict.index).fillna(0.0),
+            "risk_probability": risk.reindex(predict.index).fillna(1.0),
+            "vol_adjusted_score": vol_score.reindex(predict.index).fillna(0.0),
+            "regime": regime.reindex(predict.index).fillna("selective"),
+            "intraday_risk_state": predict.get(INTRADAY_RISK_STATE_COL, pd.Series(0.0, index=predict.index)).to_numpy(),
+        },
+        index=predict.index,
+    )
+
+
+def _combine_consensus_predictions(lgb: pd.DataFrame, xgb: pd.DataFrame, predict: pd.DataFrame) -> pd.DataFrame:
+    regime = []
+    for left, right in zip(lgb["regime"], xgb["regime"], strict=False):
+        regime.append(left if left == right else "selective")
+    return pd.DataFrame(
+        {
+            "alpha_probability": (lgb["alpha_probability"].to_numpy() + xgb["alpha_probability"].to_numpy()) / 2.0,
+            "risk_probability": (lgb["risk_probability"].to_numpy() + xgb["risk_probability"].to_numpy()) / 2.0,
+            "vol_adjusted_score": (lgb["vol_adjusted_score"].to_numpy() + xgb["vol_adjusted_score"].to_numpy()) / 2.0,
+            "regime": regime,
+            "intraday_risk_state": predict.get(INTRADAY_RISK_STATE_COL, pd.Series(0.0, index=predict.index)).to_numpy(),
+        },
+        index=predict.index,
+    )
+
+
+def _simulate_alpha_risk_policy(
+    segment_frame: pd.DataFrame,
+    predictions: pd.DataFrame,
+    *,
+    policy: dict[str, Any],
+    cost_per_turnover: float,
+    segment_name: str = "test",
+) -> tuple[dict[str, Any], pd.DataFrame]:
+    alpha_floor = float(policy["alpha_floor"])
+    alpha = pd.to_numeric(predictions["alpha_probability"], errors="coerce").fillna(0.0)
+    risk = pd.to_numeric(predictions["risk_probability"], errors="coerce").fillna(1.0)
+    vol_score = pd.to_numeric(predictions["vol_adjusted_score"], errors="coerce").fillna(0.0)
+    regime = predictions["regime"].astype(str).where(predictions["regime"].astype(str).isin(REGIME_LABELS), "selective")
+    intraday_risk = pd.to_numeric(predictions.get("intraday_risk_state", 0.0), errors="coerce").fillna(0.0)
+    scale = regime.map(
+        {
+            "trend": float(policy["trend_scale"]),
+            "rebound": float(policy["rebound_scale"]),
+            "selective": float(policy["selective_scale"]),
+            "defensive": float(policy["defensive_scale"]),
+        }
+    ).fillna(float(policy["selective_scale"]))
+    if str(policy.get("position_mode", "scaled_alpha")) == "binary_full":
+        target_position = alpha.ge(alpha_floor).astype("float64") * scale.clip(lower=0.0, upper=1.0)
+    else:
+        raw = ((alpha - alpha_floor) / max(1.0 - alpha_floor, 1e-12)).clip(lower=0.0, upper=1.0)
+        vol_boost = (1.0 + 0.20 * vol_score.clip(lower=0.0, upper=2.0)).clip(lower=0.5, upper=1.35)
+        target_position = (raw * vol_boost * scale).clip(lower=0.0, upper=1.0)
+    risk_cap_mask = risk.ge(float(policy["risk_cut"]))
+    target_position = target_position.where(~risk_cap_mask, np.minimum(target_position, float(policy["risk_cap"])))
+    intraday_cap_mask = intraday_risk.ge(0.5)
+    target_position = target_position.where(
+        ~intraday_cap_mask,
+        np.minimum(target_position, float(policy["intraday_risk_cap"])),
+    )
+    returns = pd.to_numeric(segment_frame[OPEN_TO_OPEN_RETURN_COL], errors="coerce").fillna(0.0)
+    cooldown_active = pd.Series(0, index=segment_frame.index, dtype="int64")
+    if "drawdown_cooldown_trigger" in policy:
+        target_position, turnover, strategy_returns, cooldown_active = _apply_drawdown_cooldown_cap(
+            target_position,
+            returns,
+            trigger=float(policy["drawdown_cooldown_trigger"]),
+            cooldown_days=int(policy.get("drawdown_cooldown_days", 1)),
+            cooldown_cap=float(policy.get("drawdown_cooldown_cap", 0.0)),
+            cost_per_turnover=float(cost_per_turnover),
+        )
+    else:
+        turnover = target_position.diff().abs().fillna(target_position.abs())
+        strategy_returns = target_position * returns - turnover * float(cost_per_turnover)
+    metrics = _return_metrics(strategy_returns, target_position, turnover)
+    out = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(segment_frame["datetime"]).dt.normalize(),
+            "instrument": segment_frame["instrument"].astype(str).to_numpy(),
+            "segment": segment_name,
+            "candidate": str(policy["candidate"]) if "candidate" in policy else str(policy["policy_id"]),
+            "alpha_probability": alpha.to_numpy(),
+            "risk_probability": risk.to_numpy(),
+            "vol_adjusted_score": vol_score.to_numpy(),
+            "regime": regime.to_numpy(),
+            "intraday_risk_state": intraday_risk.to_numpy(),
+            "target_position": target_position.to_numpy(),
+            "turnover": turnover.to_numpy(),
+            "strategy_return": strategy_returns.to_numpy(),
+            "drawdown_cooldown_active": cooldown_active.to_numpy(),
+            OPEN_TO_OPEN_RETURN_COL: returns.to_numpy(),
+        }
+    )
+    return {
+        "selection_return_pct": metrics["return_pct"],
+        "selection_max_drawdown_pct": metrics["max_drawdown_pct"],
+        "selection_avg_abs_position": metrics["avg_abs_position"],
+        "selection_total_turnover": metrics["total_turnover"],
+        "selection_trade_count": int(turnover.gt(1e-9).sum()),
+        "intraday_risk_cap_day_ratio": float(intraday_cap_mask.mean()) if len(intraday_cap_mask) else 0.0,
+        "drawdown_cooldown_day_ratio": float(cooldown_active.mean()) if len(cooldown_active) else 0.0,
+    }, out
+
+
+def _apply_drawdown_cooldown_cap(
+    target_position: pd.Series,
+    returns: pd.Series,
+    *,
+    trigger: float,
+    cooldown_days: int,
+    cooldown_cap: float,
+    cost_per_turnover: float,
+) -> tuple[pd.Series, pd.Series, pd.Series, pd.Series]:
+    positions: list[float] = []
+    turnovers: list[float] = []
+    strategy_returns: list[float] = []
+    cooldown_flags: list[int] = []
+    equity = 1.0
+    peak = 1.0
+    previous_position = 0.0
+    cooldown_left = 0
+    for desired_position, raw_return in zip(target_position.to_numpy(), returns.to_numpy(), strict=False):
+        if cooldown_left > 0:
+            position = min(float(desired_position), float(cooldown_cap))
+            cooldown_flags.append(1)
+            cooldown_left -= 1
+        else:
+            position = float(desired_position)
+            cooldown_flags.append(0)
+        turnover = abs(position - previous_position)
+        strategy_return = position * float(raw_return) - turnover * float(cost_per_turnover)
+        equity *= 1.0 + strategy_return
+        peak = max(peak, equity)
+        if equity / peak - 1.0 <= float(trigger):
+            cooldown_left = max(cooldown_left, int(cooldown_days))
+        positions.append(position)
+        turnovers.append(turnover)
+        strategy_returns.append(strategy_return)
+        previous_position = position
+    index = target_position.index
+    return (
+        pd.Series(positions, index=index, dtype="float64"),
+        pd.Series(turnovers, index=index, dtype="float64"),
+        pd.Series(strategy_returns, index=index, dtype="float64"),
+        pd.Series(cooldown_flags, index=index, dtype="int64"),
+    )
+
+
+def _fit_predict_binary_probability(
+    model_family: str,
+    train: pd.DataFrame,
+    predict: pd.DataFrame,
+    feature_cols: list[str],
+    target_col: str,
+) -> pd.Series:
+    fit = train.dropna(subset=[target_col]).copy()
+    x_train = fit[feature_cols].astype("float64")
+    y_train = fit[target_col].astype(int)
+    if y_train.nunique() < 2:
+        model = make_pipeline(SimpleImputer(strategy="median"), DummyClassifier(strategy="constant", constant=int(y_train.iloc[0])))
+    else:
+        model = _build_classifier(model_family)
+    model.fit(x_train, y_train)
+    probabilities = model.predict_proba(predict[feature_cols].astype("float64"))
+    classes = list(getattr(model[-1], "classes_", []))
+    positive_index = classes.index(1) if 1 in classes else 0
+    return pd.Series(probabilities[:, positive_index], index=predict.index, name=target_col)
+
+
+def _fit_predict_regime(
+    model_family: str,
+    train: pd.DataFrame,
+    predict: pd.DataFrame,
+    feature_cols: list[str],
+) -> pd.Series:
+    fit = train.dropna(subset=[REGIME_TARGET_CODE_COL]).copy()
+    x_train = fit[feature_cols].astype("float64")
+    y_train = pd.to_numeric(fit[REGIME_TARGET_CODE_COL], errors="coerce").fillna(2).astype(int).clip(0, len(REGIME_LABELS) - 1)
+    if len(set(y_train)) < 2:
+        return pd.Series([REGIME_LABELS[int(y_train.iloc[0])]] * len(predict), index=predict.index)
+    model = _build_regime_classifier(model_family, num_class=len(REGIME_LABELS))
+    model.fit(x_train, y_train)
+    pred = model.predict(predict[feature_cols].astype("float64"))
+    pred = pd.Series(pred, index=predict.index).astype(int).clip(0, len(REGIME_LABELS) - 1)
+    return pred.map(lambda value: REGIME_LABELS[int(value)]).rename("regime")
+
+
+def _fit_predict_regression(
+    model_family: str,
+    train: pd.DataFrame,
+    predict: pd.DataFrame,
+    feature_cols: list[str],
+    target_col: str,
+) -> pd.Series:
+    fit = train.dropna(subset=[target_col]).copy()
+    x_train = fit[feature_cols].astype("float64")
+    y_train = pd.to_numeric(fit[target_col], errors="coerce").fillna(0.0)
+    if y_train.nunique() < 2:
+        model = make_pipeline(SimpleImputer(strategy="median"), DummyRegressor(strategy="constant", constant=float(y_train.iloc[0])))
+    else:
+        model = _build_regressor(model_family)
+    model.fit(x_train, y_train)
+    return pd.Series(model.predict(predict[feature_cols].astype("float64")), index=predict.index, name=target_col)
+
+
+def _build_classifier(model_family: str):
+    if model_family == "lgbm":
+        from lightgbm import LGBMClassifier
+
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            LGBMClassifier(
+                n_estimators=25,
+                learning_rate=0.04,
+                num_leaves=15,
+                min_child_samples=25,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.1,
+                reg_lambda=0.4,
+                random_state=42,
+                verbose=-1,
+            ),
+        )
+    if model_family == "xgb":
+        from xgboost import XGBClassifier
+
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            XGBClassifier(
+                n_estimators=30,
+                max_depth=3,
+                learning_rate=0.04,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.05,
+                reg_lambda=1.0,
+                objective="binary:logistic",
+                eval_metric="logloss",
+                random_state=43,
+                n_jobs=1,
+            ),
+        )
+    raise ValueError(f"unsupported classifier family: {model_family}")
+
+
+def _build_regime_classifier(model_family: str, *, num_class: int):
+    if model_family == "lgbm":
+        from lightgbm import LGBMClassifier
+
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            LGBMClassifier(
+                n_estimators=25,
+                learning_rate=0.04,
+                num_leaves=15,
+                min_child_samples=25,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.1,
+                reg_lambda=0.4,
+                objective="multiclass",
+                num_class=int(num_class),
+                random_state=46,
+                verbose=-1,
+            ),
+        )
+    if model_family == "xgb":
+        from xgboost import XGBClassifier
+
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            XGBClassifier(
+                n_estimators=30,
+                max_depth=3,
+                learning_rate=0.04,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.05,
+                reg_lambda=1.0,
+                objective="multi:softprob",
+                eval_metric="mlogloss",
+                num_class=int(num_class),
+                random_state=47,
+                n_jobs=1,
+            ),
+        )
+    raise ValueError(f"unsupported regime classifier family: {model_family}")
+
+
+def _build_regressor(model_family: str):
+    if model_family == "lgbm":
+        from lightgbm import LGBMRegressor
+
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            LGBMRegressor(
+                n_estimators=25,
+                learning_rate=0.04,
+                num_leaves=15,
+                min_child_samples=25,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.1,
+                reg_lambda=0.4,
+                random_state=44,
+                verbose=-1,
+            ),
+        )
+    if model_family == "xgb":
+        from xgboost import XGBRegressor
+
+        return make_pipeline(
+            SimpleImputer(strategy="median"),
+            XGBRegressor(
+                n_estimators=35,
+                max_depth=3,
+                learning_rate=0.04,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                reg_alpha=0.05,
+                reg_lambda=1.0,
+                objective="reg:squarederror",
+                random_state=45,
+                n_jobs=1,
+            ),
+        )
+    raise ValueError(f"unsupported regressor family: {model_family}")
+
+
+def _clean_policy_frame(frame: pd.DataFrame, feature_cols: list[str]) -> pd.DataFrame:
+    out = frame.copy()
+    out["datetime"] = pd.to_datetime(out["datetime"]).dt.normalize()
+    out["instrument"] = out["instrument"].astype(str).str.upper()
+    for column in [
+        *feature_cols,
+        OPEN_TO_OPEN_RETURN_COL,
+        LABEL_OPEN_TO_OPEN_5D_COL,
+        ALPHA_TARGET_COL,
+        CRASH_TARGET_COL,
+        MAX_ADVERSE_TARGET_COL,
+        RISK_TARGET_COL,
+        VOL_ADJUSTED_TARGET_COL,
+        REGIME_TARGET_CODE_COL,
+        INTRADAY_RISK_STATE_COL,
+        "intraday_risk_score",
+    ]:
+        if column in out.columns:
+            out[column] = pd.to_numeric(out[column], errors="coerce").replace([np.inf, -np.inf], np.nan)
+    if REGIME_TARGET_CODE_COL not in out.columns and REGIME_TARGET_COL in out.columns:
+        code_map = {label: index for index, label in enumerate(REGIME_LABELS)}
+        out[REGIME_TARGET_CODE_COL] = out[REGIME_TARGET_COL].map(code_map)
+    out[REGIME_TARGET_CODE_COL] = pd.to_numeric(out.get(REGIME_TARGET_CODE_COL, 2), errors="coerce").fillna(2).clip(
+        0,
+        len(REGIME_LABELS) - 1,
+    )
+    return out.dropna(subset=[OPEN_TO_OPEN_RETURN_COL]).sort_values(["datetime", "instrument"]).reset_index(drop=True)
+
+
+def _buyhold_metrics(frame: pd.DataFrame) -> dict[str, float]:
+    position = pd.Series(1.0, index=frame.index)
+    returns = pd.to_numeric(frame[OPEN_TO_OPEN_RETURN_COL], errors="coerce").fillna(0.0)
+    turnover = pd.Series(0.0, index=frame.index)
+    return _return_metrics(returns, position, turnover)
+
+
+def _annual_goal_summary(
+    annual_metrics: pd.DataFrame,
+    *,
+    max_drawdown_floor_pct: float,
+) -> dict[str, Any]:
+    if annual_metrics.empty:
+        pass_years: list[int] = []
+        feasible_years: list[int] = []
+    else:
+        feasible_years = sorted(int(year) for year in annual_metrics["outer_test_year"].dropna().astype(int).unique())
+        pass_years = sorted(
+            int(year)
+            for year in annual_metrics.loc[annual_metrics["test_passes_target"].astype(bool), "outer_test_year"]
+            .dropna()
+            .astype(int)
+            .unique()
+        )
+    required_years = [2023, 2024, 2025, 2026]
+    missing = [year for year in required_years if year not in feasible_years]
+    blocking = []
+    if missing:
+        blocking.append("missing_required_test_years")
+    if pass_years != required_years:
+        blocking.append("annual_target_gate_failed")
+    return {
+        "policy": "nested_outer_soxl_year_inner_trainable_regime_policy",
+        "selection_uses_outer_test": False,
+        "required_test_years": required_years,
+        "feasible_test_years": feasible_years,
+        "target_pass_test_years": pass_years,
+        "missing_required_test_years": missing,
+        "return_gate": "test_return_pct_gt_soxl_buyhold_open2open",
+        "max_drawdown_floor_pct": float(max_drawdown_floor_pct),
+        "required_policy_satisfied": bool(not missing and pass_years == required_years),
+        "blocking_reasons": blocking or ["ok"],
+    }
+
+
+def _policy_diagnostic_row(outer_metrics: dict[str, Any], selected: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "outer_test_year": int(outer_metrics["outer_test_year"]),
+        "candidate": outer_metrics["candidate"],
+        "selected_regime_model": outer_metrics["selected_regime_model"],
+        "policy_id": outer_metrics["policy_id"],
+        "position_mode": outer_metrics.get("position_mode"),
+        "inner_beats_buyhold_rate": selected.get("inner_beats_buyhold_rate"),
+        "inner_activity_pass_rate": selected.get("inner_activity_pass_rate"),
+        "inner_pass_rate": selected.get("inner_pass_rate"),
+        "test_intraday_risk_cap_day_ratio": outer_metrics.get("test_intraday_risk_cap_day_ratio"),
+        "test_drawdown_cooldown_day_ratio": outer_metrics.get("test_drawdown_cooldown_day_ratio"),
+        "test_avg_abs_position": outer_metrics.get("test_avg_abs_position"),
+        "beats_buyhold": outer_metrics.get("beats_buyhold"),
+        "passes_drawdown": outer_metrics.get("passes_drawdown"),
+    }
+
+
+def _summary_payload(
+    *,
+    spec: TrainableRegimePolicyNestedWfSpec,
+    sidecars: dict[str, str],
+    recorder_id: str,
+    recorder_uri: Path,
+    recorder_local_dir: Path,
+    provider_manifest: dict[str, Any],
+    provider_meta: dict[str, Any],
+    source_audit: dict[str, Any],
+    common_end: str,
+    feature_cols: list[str],
+    annual_metrics: pd.DataFrame,
+    annual_goal: dict[str, Any],
+    overfit_audit: dict[str, Any],
+    prior_template_audit: dict[str, Any],
+    selected_candidates: pd.DataFrame,
+    intraday_audit: dict[str, Any],
+) -> dict[str, Any]:
+    recorder_artifacts = [
+        f"artifacts/{spec.experiment}/{rel_path}"
+        for rel_path in sidecars.values()
+        if rel_path != "failure_modes.md"
+    ]
+    recorder_only = [f"artifacts/{spec.experiment}/positions.csv"]
+    return {
+        "experiment": spec.experiment,
+        "card_type": CARD_TYPE,
+        "workflow_config": "workflow.yaml",
+        "primary_notebook": f"{spec.experiment}.ipynb",
+        "promotion_decision": (
+            "candidate_for_validated_research_trainable_regime_policy"
+            if annual_goal["required_policy_satisfied"] and overfit_audit["overfit_risk_status"] == "mitigated"
+            else "not_promoted_trainable_regime_policy_goal_or_overfit_audit_failed"
+        ),
+        "benchmark_basis": "open_to_open",
+        "execution_timing": "close_t_signal_next_open_to_following_open",
+        "return_col": OPEN_TO_OPEN_RETURN_COL,
+        "model_target_col": LABEL_OPEN_TO_OPEN_5D_COL,
+        "provider_uri": spec.provider_uri.resolve().as_posix(),
+        "provider_manifest": (spec.provider_uri / "qlib_store_manifest.json").as_posix(),
+        "provider_meta": provider_meta,
+        "provider_build": provider_manifest,
+        "source_audit": source_audit,
+        "common_data_end": common_end,
+        "symbols": list(ETF_UNIVERSE),
+        "feature_source": FEATURE_SOURCE,
+        "feature_sets": {
+            "selected": "trainable_regime_policy_normalized_features",
+            "feature_count": int(len(feature_cols)),
+            "feature_cols": feature_cols,
+            "contains_asset_identity": any(
+                "instrument" in column.lower() or "symbol" in column.lower() or "asset" in column.lower()
+                for column in feature_cols
+            ),
+            "normalization": "per_asset_rolling_zscore_and_percentile",
+        },
+        "model_selection": {
+            "selection_policy": "nested_inner_trainable_regime_policy",
+            "selection_uses_outer_test": False,
+            "model_families": ["lgbm_classifier", "xgb_classifier", "lgbm_regressor", "xgb_regressor", "lgb_xgb_consensus"],
+            "candidate_count": int(len(_policy_candidate_configs())),
+            "selected_by_year": selected_candidates.to_dict("records") if not selected_candidates.empty else [],
+        },
+        "regime_classifier": {
+            "type": "supervised_trainable_policy_classifier",
+            "manual_template_selection": False,
+            "target_col": REGIME_TARGET_COL,
+            "target_code_col": REGIME_TARGET_CODE_COL,
+            "target_labels": REGIME_LABELS,
+            "training_target_source": "forward_return_crash_and_vol_adjusted_labels_inside_training_folds",
+        },
+        "policy_architecture": {
+            "alpha_model": "opportunity_probability_plus_vol_adjusted_return",
+            "risk_model": "independent_crash_probability_cap",
+            "risk_target_cols": [CRASH_TARGET_COL, MAX_ADVERSE_TARGET_COL, RISK_TARGET_COL],
+            "position_policy": "regime_scaled_or_binary_alpha_then_independent_risk_cap",
+            "risk_budget": "path_dependent_drawdown_cooldown_cap_uses_realized_strategy_equity_only",
+        },
+        "intraday_risk_state": intraday_audit,
+        "annual_goal": annual_goal,
+        "overfit_audit": overfit_audit,
+        "prior_template_v2_overfit_audit": prior_template_audit,
+        "annual_summary": annual_metrics.to_dict("records") if not annual_metrics.empty else [],
+        "qlib_docs": QLIB_DOCS,
+        "qlib_native_api": ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"],
+        "sidecars": sidecars,
+        "artifact_policy": {
+            "policy": "slim_card_recorder_first",
+            "workflow_config": "workflow.yaml",
+            "recorder_only_artifacts": recorder_only,
+        },
+        "recorder_artifacts": recorder_artifacts + recorder_only,
+        "recorder_id": recorder_id,
+        "recorder_uri": recorder_uri.resolve().as_posix(),
+        "recorder_local_dir": recorder_local_dir.resolve().as_posix(),
+        "spec": asdict(spec),
+    }
+
+
+def _write_sidecars(
+    card: Path,
+    *,
+    sidecars: dict[str, str],
+    summary: dict[str, Any],
+    annual_metrics: pd.DataFrame,
+    inner_selection: pd.DataFrame,
+    selected_candidates: pd.DataFrame,
+    policy_diagnostics: pd.DataFrame,
+) -> None:
+    annual_metrics.to_csv(card / sidecars["annual_walk_forward"], index=False)
+    inner_selection.to_csv(card / sidecars["inner_selection"], index=False)
+    selected_candidates.to_csv(card / sidecars["selected_candidates"], index=False)
+    selected_candidates.to_csv(card / sidecars["model_comparison"], index=False)
+    policy_diagnostics.to_csv(card / sidecars["policy_diagnostics"], index=False)
+    pd.DataFrame(
+        [
+            {
+                "check": "overfit_audit",
+                "status": summary["overfit_audit"]["overfit_risk_status"],
+                "detail": json.dumps(summary["overfit_audit"], sort_keys=True),
+            },
+            {
+                "check": "annual_goal",
+                "status": "pass" if summary["annual_goal"]["required_policy_satisfied"] else "fail",
+                "detail": json.dumps(summary["annual_goal"], sort_keys=True),
+            },
+            {
+                "check": "prior_template_v2",
+                "status": summary["prior_template_v2_overfit_audit"]["overfit_risk_status"],
+                "detail": json.dumps(summary["prior_template_v2_overfit_audit"], sort_keys=True),
+            },
+            {
+                "check": "trainable_regime_classifier",
+                "status": "pass",
+                "detail": json.dumps(summary["regime_classifier"], sort_keys=True),
+            },
+            {
+                "check": "intraday_risk_state",
+                "status": "pass" if summary["intraday_risk_state"].get("status") == "ok" else "fail",
+                "detail": json.dumps(summary["intraday_risk_state"], sort_keys=True),
+            },
+        ]
+    ).to_csv(card / sidecars["risk_analysis"], index=False)
+    pd.DataFrame(
+        [
+            {
+                "feature_set": summary["feature_sets"]["selected"],
+                "feature_count": summary["feature_sets"]["feature_count"],
+                "contains_asset_identity": summary["feature_sets"]["contains_asset_identity"],
+                "normalization": summary["feature_sets"]["normalization"],
+                "contains_intraday_risk_score": "intraday_risk_score" in summary["feature_sets"]["feature_cols"],
+            }
+        ]
+    ).to_csv(card / sidecars["feature_sets"], index=False)
+    (card / sidecars["analysis_summary"]).write_text(
+        json.dumps(
+            {
+                "annual_goal": summary["annual_goal"],
+                "overfit_audit": summary["overfit_audit"],
+                "prior_template_v2_overfit_audit": summary["prior_template_v2_overfit_audit"],
+                "model_selection": summary["model_selection"],
+                "regime_classifier": summary["regime_classifier"],
+                "policy_architecture": summary["policy_architecture"],
+                "intraday_risk_state": summary["intraday_risk_state"],
+                "annual_summary": summary["annual_summary"],
+            },
+            indent=2,
+            sort_keys=True,
+        ),
+        encoding="utf-8",
+    )
+    (card / sidecars["failure_modes"]).write_text(_failure_modes(summary), encoding="utf-8")
+
+
+def _write_summary_files(card: Path, summary: dict[str, Any]) -> None:
+    (card / "summary.json").write_text(json.dumps(_json_ready(summary), indent=2, sort_keys=True), encoding="utf-8")
+    (card / "workflow.yaml").write_text(_workflow_yaml(summary), encoding="utf-8")
+    (card / "conclusion.md").write_text(_conclusion(summary), encoding="utf-8")
+
+
+def _workflow_yaml(summary: dict[str, Any]) -> str:
+    return "\n".join(
+        [
+            f"experiment: {summary['experiment']}",
+            f"card_type: {summary['card_type']}",
+            f"provider_uri: {summary['provider_uri']}",
+            "model_selection:",
+            "  selection_policy: nested_inner_trainable_regime_policy",
+            "  selection_uses_outer_test: false",
+            "regime_classifier:",
+            "  type: supervised_trainable_policy_classifier",
+            "  manual_template_selection: false",
+            "policy_architecture:",
+            "  alpha_model: opportunity_probability_plus_vol_adjusted_return",
+            "  risk_model: independent_crash_probability_cap",
+            "intraday_risk_state:",
+            f"  uses_5min: {str(summary['intraday_risk_state']['uses_5min']).lower()}",
+            f"  uses_15min: {str(summary['intraday_risk_state']['uses_15min']).lower()}",
+            "  role: risk_cap_not_alpha_template",
+            "overfit_audit:",
+            f"  status: {summary['overfit_audit']['overfit_risk_status']}",
+            f"  manual_template_selection: {str(summary['overfit_audit']['manual_template_selection']).lower()}",
+            "annual_goal:",
+            f"  required_policy_satisfied: {str(summary['annual_goal']['required_policy_satisfied']).lower()}",
+            f"  target_pass_test_years: {summary['annual_goal']['target_pass_test_years']}",
+            "artifact_policy:",
+            "  policy: slim_card_recorder_first",
+            "  workflow_config: workflow.yaml",
+            "",
+        ]
+    )
+
+
+def _conclusion(summary: dict[str, Any]) -> str:
+    return (
+        "# 中文结论\n\n"
+        "- 做了什么：新增 trainable regime policy nested WF，不再用人工模板；regime classifier、alpha model、risk model 都在 inner folds 内训练/选择。\n"
+        f"- 核心指标：annual target pass years={summary['annual_goal']['target_pass_test_years']}，"
+        f"overfit audit={summary['overfit_audit']['overfit_risk_status']}，common_data_end={summary['common_data_end']}。\n"
+        "- regime/window 差异：post_bear/rebound/range/source 这类人工模板被替换成 supervised regime label；outer SOXL 年份只报告，不参与选择。\n"
+        f"- 是否晋升：{summary['promotion_decision']}。\n"
+        "- 风险：虽然人工模板已移除，但多 3x ETF 仍共享权益 beta；5m/15m 风险状态只作为 risk cap，不证明独立盘中 alpha。\n"
+        "- 下一步：若 annual gate 未过，继续扩充候选 policy 和独立资产/分钟历史，而不是按年份手工修模板。\n"
+        f"- qlib recorder：{summary['recorder_id']}\n"
+        "- 不构成买卖建议。\n"
+    )
+
+
+def _failure_modes(summary: dict[str, Any]) -> str:
+    return (
+        "# Failure Modes\n\n"
+        "- Manual regime template selection is rejected; prior template v2 remains recorded as overfit failure evidence.\n"
+        "- Regime classifier labels are supervised by forward outcomes inside training folds; bad label design can still overfit the training era.\n"
+        "- Leave-one-asset-out reduces single-symbol fitting but does not remove shared US equity beta risk.\n"
+        "- 5m/15m intraday state is used only as a risk cap, not as proof of same-day alpha generation.\n"
+        f"- Current promotion decision: {summary['promotion_decision']}.\n"
+    )

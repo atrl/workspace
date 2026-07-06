@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/trainable_regime_policy_nested_wf_v1
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

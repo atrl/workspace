@@ -716,6 +716,89 @@ def test_multi_3x_etf_normalized_lgb_xgb_nested_wf_card_rejects_manual_templates
     assert "不构成买卖建议" in conclusion
 
 
+def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
+    card = ROOT / "research" / "trainable_regime_policy_nested_wf_v1"
+    summary = _summary(card)
+    notebook_text = (card / "trainable_regime_policy_nested_wf_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "trainable_regime_policy_nested_wf_v1"
+    assert summary["card_type"] == "trainable_regime_policy_nested_wf_research_card"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert summary["model_selection"]["selection_policy"] == "nested_inner_trainable_regime_policy"
+    assert summary["model_selection"]["selection_uses_outer_test"] is False
+    assert set(summary["model_selection"]["model_families"]) >= {
+        "lgbm_classifier",
+        "xgb_classifier",
+        "lgbm_regressor",
+        "xgb_regressor",
+    }
+    assert summary["regime_classifier"]["type"] == "supervised_trainable_policy_classifier"
+    assert summary["regime_classifier"]["manual_template_selection"] is False
+    assert summary["regime_classifier"]["target_labels"] == ["defensive", "rebound", "selective", "trend"]
+    assert summary["policy_architecture"]["alpha_model"] == "opportunity_probability_plus_vol_adjusted_return"
+    assert summary["policy_architecture"]["risk_model"] == "independent_crash_probability_cap"
+    assert summary["intraday_risk_state"]["uses_5min"] is True
+    assert summary["intraday_risk_state"]["uses_15min"] is True
+    assert summary["intraday_risk_state"]["role"] == "risk_cap_not_alpha_template"
+
+    overfit = summary["overfit_audit"]
+    assert overfit["manual_template_selection"] is False
+    assert overfit["nested_walk_forward"] is True
+    assert overfit["selection_uses_outer_test"] is False
+    assert "manual_template_selection" not in overfit["blocking_reasons"]
+
+    prior_template = summary["prior_template_v2_overfit_audit"]
+    assert prior_template["manual_template_selection"] is True
+    assert prior_template["overfit_risk_status"] == "fail"
+
+    annual_goal = summary["annual_goal"]
+    assert annual_goal["selection_uses_outer_test"] is False
+    assert annual_goal["required_test_years"] == [2023, 2024, 2025, 2026]
+    assert annual_goal["missing_required_test_years"] == []
+
+    expected_sidecars = {
+        "analysis_summary",
+        "annual_walk_forward",
+        "failure_modes",
+        "feature_sets",
+        "inner_selection",
+        "model_comparison",
+        "policy_diagnostics",
+        "risk_analysis",
+        "selected_candidates",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+        "artifacts/trainable_regime_policy_nested_wf_v1/positions.csv"
+    ]
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    annual = pd.read_csv(card / summary["sidecars"]["annual_walk_forward"])
+    assert set(annual["outer_test_year"]) == {2023, 2024, 2025, 2026}
+    assert annual["selection_uses_outer_test"].eq(False).all()
+    assert "selected_regime_model" in annual.columns
+    assert "test_intraday_risk_cap_day_ratio" in annual.columns
+    assert "template_id" not in annual.columns
+
+    selected = pd.read_csv(card / summary["sidecars"]["selected_candidates"])
+    assert selected["selection_uses_outer_test"].eq(False).all()
+    assert selected["inner_fold_count"].min() >= 10
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "positions.csv").exists()
+    assert not (recorder_dir / "artifacts" / "code_status.txt").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_trainable_regime_policy_nested_wf_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "人工模板" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)

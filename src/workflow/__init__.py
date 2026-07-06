@@ -45,6 +45,7 @@ __all__ = [
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
     "RiskHardenedOpen2OpenCardSpec",
+    "TrainableRegimePolicyNestedWfSpec",
     "build_agentic_alpha_hypotheses",
     "build_agentic_alpha_workflow_manifest",
     "build_cognitive_alpha_code_candidate_provider",
@@ -73,6 +74,7 @@ __all__ = [
     "run_cognitive_alpha_evolution",
     "run_qlib_native_experiment",
     "run_risk_hardened_open2open_card",
+    "run_trainable_regime_policy_nested_wf_card",
 ]
 
 
@@ -160,6 +162,11 @@ _MULTI_3X_ETF_NORMALIZED_NESTED_WF_EXPORTS = {
     "run_multi_3x_etf_normalized_nested_wf_card",
 }
 
+_TRAINABLE_REGIME_POLICY_NESTED_WF_EXPORTS = {
+    "TrainableRegimePolicyNestedWfSpec",
+    "run_trainable_regime_policy_nested_wf_card",
+}
+
 _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS = {
     "ProbabilityBudgetOpen2OpenCardSpec",
     "run_probability_budget_open2open_card",
@@ -223,6 +230,10 @@ def __getattr__(name: str):
         from . import multi_3x_etf_normalized_nested_wf
 
         return getattr(multi_3x_etf_normalized_nested_wf, name)
+    if name in _TRAINABLE_REGIME_POLICY_NESTED_WF_EXPORTS:
+        from . import trainable_regime_policy_nested_wf
+
+        return getattr(trainable_regime_policy_nested_wf, name)
     if name in _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS:
         from . import probability_budget_open2open
 
