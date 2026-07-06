@@ -7,7 +7,9 @@ model_selection:
   final_calibration_asset: SOXL
   cross_asset_role: overfit_stress_audit_not_primary_selection_target
   inner_validation_years: 8
-  search_space_type: pre_registered_hyperparameter_grid
+  search_space_type: pre_registered_hyperparameter_and_feature_set_grid
+  feature_set_selection: nested_inner_soxl_calibrated
+  available_feature_sets: ['base', 'base_soxx_diffusion']
   manual_template_selection: false
   template_library_used: false
   selector_regime_source: none
@@ -16,7 +18,7 @@ regime_classifier:
   manual_template_selection: false
 policy_architecture:
   alpha_model: opportunity_probability_plus_vol_adjusted_return
-  risk_model: independent_crash_probability_cap
+  risk_model: independent_risk_crash_probability_and_max_adverse_cap
 intraday_risk_state:
   uses_5min: true
   uses_15min: true
@@ -26,6 +28,10 @@ soxx_constituent_factors:
   role: normalized_lagged_model_features_not_template_not_gate
   feature_count: 12
   lag_days: 1
+feature_sets:
+  selection_policy: nested_inner_feature_set_selection
+  selected_feature_sets: ['base_soxx_diffusion']
+  selected_soxx_outer_year_count: 4
 overfit_audit:
   status: mitigated
   manual_template_selection: false

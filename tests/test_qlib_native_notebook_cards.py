@@ -731,7 +731,12 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["model_selection"]["final_calibration_asset"] == "SOXL"
     assert summary["model_selection"]["cross_asset_role"] == "overfit_stress_audit_not_primary_selection_target"
     assert summary["model_selection"]["inner_validation_years"] == 8
-    assert summary["model_selection"]["search_space_type"] == "pre_registered_hyperparameter_grid"
+    assert summary["model_selection"]["search_space_type"] == "pre_registered_hyperparameter_and_feature_set_grid"
+    assert summary["model_selection"]["feature_set_selection"] == "nested_inner_soxl_calibrated"
+    assert set(summary["model_selection"]["available_feature_sets"]) == {"base", "base_soxx_diffusion"}
+    assert summary["model_selection"]["candidate_feature_set_count"] == (
+        summary["model_selection"]["candidate_count"] * len(summary["model_selection"]["available_feature_sets"])
+    )
     assert summary["model_selection"]["manual_template_selection"] is False
     assert summary["model_selection"]["template_library_used"] is False
     assert set(summary["model_selection"]["model_families"]) >= {
@@ -744,7 +749,10 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["regime_classifier"]["manual_template_selection"] is False
     assert summary["regime_classifier"]["target_labels"] == ["defensive", "rebound", "selective", "trend"]
     assert summary["policy_architecture"]["alpha_model"] == "opportunity_probability_plus_vol_adjusted_return"
-    assert summary["policy_architecture"]["risk_model"] == "independent_crash_probability_cap"
+    assert summary["policy_architecture"]["risk_model"] == "independent_risk_crash_probability_and_max_adverse_cap"
+    assert summary["policy_architecture"]["position_policy"] == (
+        "regime_scaled_or_binary_alpha_then_independent_multi_target_risk_cap"
+    )
     assert summary["intraday_risk_state"]["uses_5min"] is True
     assert summary["intraday_risk_state"]["uses_15min"] is True
     assert summary["intraday_risk_state"]["role"] == "risk_cap_not_alpha_template"
@@ -760,8 +768,16 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert constituent["normalization"] == "rolling_z60_and_pctile252_on_lagged_constituent_aggregates"
     assert constituent["instrument_count"] >= 20
     assert any("survivorship-biased" in item for item in constituent["limitations"])
-    assert summary["feature_sets"]["contains_soxx_constituents"] is True
-    assert summary["feature_sets"]["soxx_constituent_feature_count"] == constituent["feature_count"]
+    assert summary["feature_sets"]["selection_policy"] == "nested_inner_feature_set_selection"
+    assert {item["feature_set"] for item in summary["feature_sets"]["available"]} == {"base", "base_soxx_diffusion"}
+    base_feature_set = next(item for item in summary["feature_sets"]["available"] if item["feature_set"] == "base")
+    soxx_feature_set = next(
+        item for item in summary["feature_sets"]["available"] if item["feature_set"] == "base_soxx_diffusion"
+    )
+    assert base_feature_set["contains_soxx_constituents"] is False
+    assert soxx_feature_set["contains_soxx_constituents"] is True
+    assert soxx_feature_set["soxx_constituent_feature_count"] == constituent["feature_count"]
+    assert summary["feature_sets"]["available_soxx_constituent_feature_count"] == constituent["feature_count"]
     assert "soxx_const_breadth_ret5_pos_lag1" not in summary["feature_sets"]["feature_cols"]
     assert "soxx_const_breadth_ret5_pos_lag1_z60" in summary["feature_sets"]["feature_cols"]
     assert "soxx_const_dispersion_ret20_lag1_pctile252" in summary["feature_sets"]["feature_cols"]
@@ -804,15 +820,29 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert annual["selection_uses_outer_test"].eq(False).all()
     assert "selected_regime_model" in annual.columns
     assert "test_intraday_risk_cap_day_ratio" in annual.columns
+    assert "test_multi_target_risk_cap_day_ratio" in annual.columns
+    assert "test_percentile_risk_cap_day_ratio" in annual.columns
+    assert "feature_set" in annual.columns
     assert "template_id" not in annual.columns
     feature_sets = pd.read_csv(card / summary["sidecars"]["feature_sets"])
-    assert feature_sets["contains_soxx_constituents"].eq(True).all()
-    assert int(feature_sets["soxx_constituent_feature_count"].iloc[0]) == constituent["feature_count"]
+    assert set(feature_sets["feature_set"]) == {"base", "base_soxx_diffusion"}
+    assert feature_sets.loc[feature_sets["feature_set"].eq("base"), "contains_soxx_constituents"].eq(False).all()
+    assert feature_sets.loc[
+        feature_sets["feature_set"].eq("base_soxx_diffusion"), "contains_soxx_constituents"
+    ].eq(True).all()
+    assert int(
+        feature_sets.loc[
+            feature_sets["feature_set"].eq("base_soxx_diffusion"), "soxx_constituent_feature_count"
+        ].iloc[0]
+    ) == constituent["feature_count"]
 
     selected = pd.read_csv(card / summary["sidecars"]["selected_candidates"])
     assert selected["selection_uses_outer_test"].eq(False).all()
     assert selected["selection_policy"].eq("nested_inner_soxl_calibrated_no_template_policy_grid").all()
     assert selected["calibration_asset"].eq("SOXL").all()
+    assert "feature_set" in selected.columns
+    assert "contains_soxx_constituents" in selected.columns
+    assert "soxx_constituent_feature_count" in selected.columns
     assert selected["cross_asset_stress_role"].eq("overfit_audit_not_primary_selection_target").all()
     assert "soxl_inner_excess_return_pct" in selected.columns
     assert "cross_asset_avg_excess_return_pct" in selected.columns

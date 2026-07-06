@@ -11,7 +11,9 @@ from src.workflow.trainable_regime_policy_nested_wf import (
     _append_soxx_constituent_normalized_features,
     _attach_soxx_constituent_model_features,
     _attach_trainable_policy_targets,
+    _policy_feature_set_configs,
     _policy_feature_columns,
+    _percentile_against_train,
     _select_policy_from_inner_metrics,
     _simulate_alpha_risk_policy,
 )
@@ -85,6 +87,109 @@ def test_simulate_alpha_risk_policy_caps_position_independently_from_alpha():
     assert positions["target_position"].iloc[0] > positions["target_position"].iloc[2]
     assert positions["target_position"].iloc[1] == 0.10
     assert metrics["selection_avg_abs_position"] > 0.0
+
+
+def test_crash_and_max_adverse_predictions_cap_position_independently_from_alpha():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06"]),
+            "instrument": ["SOXL", "SOXL", "SOXL"],
+            "open_to_open_return": [0.01, 0.01, 0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.80, 0.80, 0.80],
+            "risk_probability": [0.05, 0.05, 0.05],
+            "crash_probability": [0.75, 0.10, 0.10],
+            "max_adverse_score": [-0.02, -0.18, -0.02],
+            "regime": ["trend", "trend", "trend"],
+            "vol_adjusted_score": [0.50, 0.50, 0.50],
+            "intraday_risk_state": [0.0, 0.0, 0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_multi_target_risk_cap",
+            "position_mode": "binary_full",
+            "alpha_floor": 0.55,
+            "risk_cut": 0.99,
+            "risk_cap": 1.0,
+            "crash_cut": 0.60,
+            "max_adverse_cut": -0.12,
+            "adverse_risk_cap": 0.15,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 0.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert list(positions["target_position"]) == [0.15, 0.15, 1.0]
+
+
+def test_percentile_risk_predictions_use_training_distribution_without_test_ranking():
+    train_scores = pd.Series([0.10, 0.20, 0.30, 0.40])
+    predict_scores = pd.Series([0.05, 0.25, 0.50])
+
+    high_risk = _percentile_against_train(train_scores, predict_scores, higher_is_risk=True)
+    low_value_risk = _percentile_against_train(train_scores, predict_scores, higher_is_risk=False)
+
+    assert list(high_risk.round(2)) == [0.0, 0.5, 1.0]
+    assert list(low_value_risk.round(2)) == [1.0, 0.5, 0.0]
+
+
+def test_risk_percentile_predictions_cap_position_independently_from_raw_probability():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06"]),
+            "instrument": ["SOXL", "SOXL", "SOXL"],
+            "open_to_open_return": [0.01, 0.01, 0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.80, 0.80, 0.80],
+            "risk_probability": [0.05, 0.05, 0.05],
+            "risk_percentile": [0.20, 0.92, 0.20],
+            "crash_probability": [0.05, 0.05, 0.05],
+            "crash_risk_percentile": [0.91, 0.10, 0.10],
+            "max_adverse_score": [-0.02, -0.02, -0.02],
+            "max_adverse_risk_percentile": [0.10, 0.10, 0.93],
+            "regime": ["trend", "trend", "trend"],
+            "vol_adjusted_score": [0.50, 0.50, 0.50],
+            "intraday_risk_state": [0.0, 0.0, 0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_percentile_multi_target_risk_cap",
+            "position_mode": "binary_full",
+            "alpha_floor": 0.55,
+            "risk_cut": 0.99,
+            "risk_cap": 1.0,
+            "risk_percentile_cut": 0.90,
+            "crash_percentile_cut": 0.90,
+            "adverse_percentile_cut": 0.90,
+            "percentile_risk_cap": 0.20,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 0.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert list(positions["target_position"]) == [0.20, 0.20, 0.20]
 
 
 def test_binary_full_policy_uses_alpha_as_entry_permission_and_risk_as_cap():
@@ -169,6 +274,51 @@ def test_drawdown_cooldown_cap_is_path_dependent_without_future_returns():
     assert list(positions["drawdown_cooldown_active"]) == [0, 1, 1, 1]
 
 
+def test_fixed_window_drawdown_cooldown_releases_without_retrigger_until_rearmed():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05", "2026-01-06", "2026-01-07"]),
+            "instrument": ["SOXL", "SOXL", "SOXL", "SOXL"],
+            "open_to_open_return": [-0.20, 0.01, 0.01, 0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.90, 0.90, 0.90, 0.90],
+            "risk_probability": [0.0, 0.0, 0.0, 0.0],
+            "regime": ["trend", "trend", "trend", "trend"],
+            "vol_adjusted_score": [0.0, 0.0, 0.0, 0.0],
+            "intraday_risk_state": [0.0, 0.0, 0.0, 0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_fixed_window_cooldown",
+            "position_mode": "binary_full",
+            "alpha_floor": 0.50,
+            "risk_cut": 0.99,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 0.0,
+            "intraday_risk_cap": 1.0,
+            "drawdown_cooldown_trigger": -0.10,
+            "drawdown_cooldown_days": 1,
+            "drawdown_cooldown_cap": 0.25,
+            "drawdown_cooldown_retrigger": False,
+            "drawdown_cooldown_rearm_level": -0.05,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert list(positions["target_position"]) == [1.0, 0.25, 1.0, 1.0]
+    assert list(positions["drawdown_cooldown_active"]) == [0, 1, 0, 0]
+
+
 def test_attach_soxx_constituent_features_enters_model_feature_columns_without_template_gate():
     frame = pd.DataFrame(
         {
@@ -227,6 +377,66 @@ def test_soxx_constituent_normalization_creates_zscore_and_percentile_features()
     ]
     assert out["soxx_const_weighted_ret5_lag1_z60"].notna().sum() > 0
     assert out["soxx_const_weighted_ret5_lag1_pctile252"].notna().sum() > 0
+
+
+def test_policy_feature_sets_make_soxx_diffusion_nested_selectable_not_forced():
+    frame = pd.DataFrame(
+        {
+            "ret_5_z": [0.1, -0.2],
+            "ret_20_pctile": [0.7, 0.4],
+            "soxx_const_breadth_ret5_pos_lag1_z60": [1.1, -0.8],
+            "soxx_const_dispersion_ret20_lag1_pctile252": [0.6, 0.9],
+            "intraday_risk_state": [0.0, 1.0],
+            "intraday_risk_score": [0.0, 1.2],
+        }
+    )
+
+    configs = _policy_feature_set_configs(frame)
+    by_name = {config["feature_set"]: config for config in configs}
+
+    assert set(by_name) == {"base", "base_soxx_diffusion"}
+    assert by_name["base"]["contains_soxx_constituents"] is False
+    assert by_name["base_soxx_diffusion"]["contains_soxx_constituents"] is True
+    assert "ret_5_z" in by_name["base"]["feature_cols"]
+    assert "soxx_const_breadth_ret5_pos_lag1_z60" not in by_name["base"]["feature_cols"]
+    assert "soxx_const_breadth_ret5_pos_lag1_z60" in by_name["base_soxx_diffusion"]["feature_cols"]
+    assert "intraday_risk_state" not in by_name["base_soxx_diffusion"]["feature_cols"]
+
+
+def test_selector_treats_feature_set_as_nested_choice_without_manual_template():
+    rows = []
+    for feature_set in ["base", "base_soxx_diffusion"]:
+        for heldout_asset in ["SOXL", "TQQQ", "UPRO", "SPXL", "TECL"]:
+            base_winner = feature_set == "base"
+            rows.append(
+                {
+                    "candidate": "same_policy",
+                    "feature_set": feature_set,
+                    "contains_soxx_constituents": not base_winner,
+                    "feature_count": 42 if base_winner else 54,
+                    "soxx_constituent_feature_count": 0 if base_winner else 12,
+                    "selection_return_pct": 25.0 if base_winner and heldout_asset == "SOXL" else 8.0,
+                    "selection_max_drawdown_pct": -12.0,
+                    "selection_avg_abs_position": 0.30,
+                    "selection_total_turnover": 4.0,
+                    "excess_return_pct": 18.0 if base_winner and heldout_asset == "SOXL" else -4.0,
+                    "beats_buyhold": bool(base_winner and heldout_asset == "SOXL"),
+                    "heldout_asset": heldout_asset,
+                    "inner_year": 2024,
+                }
+            )
+
+    selected = _select_policy_from_inner_metrics(
+        pd.DataFrame(rows),
+        outer_test_year=2025,
+        required_heldout_assets=("SOXL", "TQQQ", "UPRO", "SPXL", "TECL"),
+    )
+
+    assert selected["candidate"] == "same_policy"
+    assert selected["feature_set"] == "base"
+    assert selected["contains_soxx_constituents"] is False
+    assert selected["soxx_constituent_feature_count"] == 0
+    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_no_template_policy_grid"
 
 
 def test_selector_uses_soxl_inner_calibration_before_cross_asset_stress_average():

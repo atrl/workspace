@@ -118,6 +118,7 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
     provider_manifest = _build_policy_provider(spec, normalized, as_of=common_end)
     provider_frame, provider_meta = _load_policy_provider(spec, normalized, as_of=common_end)
     feature_cols = _policy_feature_columns(provider_frame)
+    feature_set_configs = _policy_feature_set_configs(provider_frame)
     candidates = _policy_candidate_configs()
 
     annual_rows: list[dict[str, Any]] = []
@@ -131,7 +132,7 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
             provider_frame,
             outer_test_year=int(outer_year),
             candidates=candidates,
-            feature_cols=feature_cols,
+            feature_set_configs=feature_set_configs,
             cost_per_turnover=spec.cost_per_turnover,
             max_inner_years=spec.inner_validation_years,
         )
@@ -146,7 +147,7 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
             outer_test_year=int(outer_year),
             selected_candidate=selected,
             candidates=candidates,
-            feature_cols=feature_cols,
+            feature_set_configs=feature_set_configs,
             common_end=common_end,
             cost_per_turnover=spec.cost_per_turnover,
             max_drawdown_floor_pct=spec.max_drawdown_floor_pct,
@@ -224,6 +225,7 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
                 source_audit=source_audit,
                 common_end=common_end,
                 feature_cols=feature_cols,
+                feature_set_configs=feature_set_configs,
                 annual_metrics=annual_metrics,
                 annual_goal=annual_goal,
                 overfit_audit=overfit_audit,
@@ -616,17 +618,69 @@ def _load_policy_provider(
 
 
 def _policy_feature_columns(frame: pd.DataFrame) -> list[str]:
-    base = _model_feature_columns(frame)
+    base = _base_policy_feature_columns(frame)
+    constituent = _soxx_constituent_policy_feature_columns(frame)
+    return list(dict.fromkeys([*base, *constituent]))
+
+
+def _base_policy_feature_columns(frame: pd.DataFrame) -> list[str]:
+    return [
+        column
+        for column in _model_feature_columns(frame)
+        if not column.startswith("soxx_const_") and column not in {INTRADAY_RISK_STATE_COL, "intraday_risk_score"}
+    ]
+
+
+def _soxx_constituent_policy_feature_columns(frame: pd.DataFrame) -> list[str]:
     constituent = [
         column
         for column in frame.columns
         if column.startswith("soxx_const_") and ("_z" in column or "_pctile" in column)
     ]
-    return [
-        column
-        for column in dict.fromkeys([*base, *constituent])
-        if column not in {INTRADAY_RISK_STATE_COL, "intraday_risk_score"}
+    return [column for column in dict.fromkeys(constituent) if column not in {INTRADAY_RISK_STATE_COL, "intraday_risk_score"}]
+
+
+def _policy_feature_set_configs(frame: pd.DataFrame) -> list[dict[str, Any]]:
+    base_cols = _base_policy_feature_columns(frame)
+    soxx_cols = _soxx_constituent_policy_feature_columns(frame)
+    configs = [
+        _feature_set_config(
+            feature_set="base",
+            feature_cols=base_cols,
+            soxx_constituent_feature_cols=[],
+        )
     ]
+    if soxx_cols:
+        configs.append(
+            _feature_set_config(
+                feature_set="base_soxx_diffusion",
+                feature_cols=list(dict.fromkeys([*base_cols, *soxx_cols])),
+                soxx_constituent_feature_cols=soxx_cols,
+            )
+        )
+    return configs
+
+
+def _feature_set_config(
+    *,
+    feature_set: str,
+    feature_cols: list[str],
+    soxx_constituent_feature_cols: list[str],
+) -> dict[str, Any]:
+    selected_soxx_cols = [column for column in soxx_constituent_feature_cols if column in feature_cols]
+    return {
+        "feature_set": feature_set,
+        "feature_cols": list(dict.fromkeys(feature_cols)),
+        "feature_count": int(len(list(dict.fromkeys(feature_cols)))),
+        "contains_soxx_constituents": bool(selected_soxx_cols),
+        "soxx_constituent_feature_count": int(len(selected_soxx_cols)),
+        "soxx_constituent_feature_cols": selected_soxx_cols,
+        "contains_asset_identity": any(
+            "instrument" in column.lower() or "symbol" in column.lower() or "asset" in column.lower()
+            for column in feature_cols
+        ),
+        "normalization": "per_asset_rolling_zscore_and_percentile",
+    }
 
 
 def _policy_candidate_configs() -> list[dict[str, Any]]:
@@ -707,6 +761,81 @@ def _policy_candidate_configs() -> list[dict[str, Any]]:
                     "drawdown_cooldown_cap": cooldown_cap,
                 }
             )
+        for suffix, alpha_floor, risk_cut, risk_cap, cooldown_trigger, cooldown_days, cooldown_cap, rearm_level in [
+            ("cooldown_fixed_low_alpha_zero", 0.48, 0.12, 0.00, -0.16, 1, 0.00, -0.05),
+            ("cooldown_fixed_low_alpha_soft", 0.48, 0.16, 0.20, -0.12, 1, 0.25, -0.05),
+            ("cooldown_fixed_rebound_reentry", 0.45, 0.18, 0.25, -0.18, 2, 0.25, -0.04),
+        ]:
+            rows.append(
+                {
+                    "candidate": f"{model_family}_trainable_regime_{suffix}",
+                    "model_family": model_family,
+                    "policy_id": suffix,
+                    "position_mode": "binary_full",
+                    "alpha_floor": alpha_floor,
+                    "risk_cut": risk_cut,
+                    "risk_cap": risk_cap,
+                    "trend_scale": 1.0,
+                    "rebound_scale": 1.0,
+                    "selective_scale": 1.0,
+                    "defensive_scale": 0.0,
+                    "intraday_risk_cap": 1.0,
+                    "drawdown_cooldown_trigger": cooldown_trigger,
+                    "drawdown_cooldown_days": cooldown_days,
+                    "drawdown_cooldown_cap": cooldown_cap,
+                    "drawdown_cooldown_retrigger": False,
+                    "drawdown_cooldown_rearm_level": rearm_level,
+                }
+            )
+        for suffix, alpha_floor, risk_cut, risk_cap, crash_cut, max_adverse_cut, adverse_risk_cap in [
+            ("multi_target_balanced_cap", 0.50, 0.60, 0.25, 0.55, -0.12, 0.15),
+            ("multi_target_reentry_cap", 0.46, 0.68, 0.35, 0.62, -0.16, 0.25),
+            ("multi_target_attack_cap", 0.42, 0.76, 0.45, 0.70, -0.20, 0.35),
+        ]:
+            rows.append(
+                {
+                    "candidate": f"{model_family}_trainable_regime_{suffix}",
+                    "model_family": model_family,
+                    "policy_id": suffix,
+                    "position_mode": "binary_full",
+                    "alpha_floor": alpha_floor,
+                    "risk_cut": risk_cut,
+                    "risk_cap": risk_cap,
+                    "crash_cut": crash_cut,
+                    "max_adverse_cut": max_adverse_cut,
+                    "adverse_risk_cap": adverse_risk_cap,
+                    "trend_scale": 1.0,
+                    "rebound_scale": 1.0,
+                    "selective_scale": 1.0,
+                    "defensive_scale": 0.0,
+                    "intraday_risk_cap": 1.0,
+                }
+            )
+        for suffix, alpha_floor, risk_percentile_cut, percentile_risk_cap in [
+            ("multi_target_percentile_guard", 0.48, 0.82, 0.10),
+            ("multi_target_percentile_reentry", 0.44, 0.88, 0.25),
+            ("multi_target_percentile_attack", 0.40, 0.94, 0.40),
+        ]:
+            rows.append(
+                {
+                    "candidate": f"{model_family}_trainable_regime_{suffix}",
+                    "model_family": model_family,
+                    "policy_id": suffix,
+                    "position_mode": "binary_full",
+                    "alpha_floor": alpha_floor,
+                    "risk_cut": 0.99,
+                    "risk_cap": 1.0,
+                    "risk_percentile_cut": risk_percentile_cut,
+                    "crash_percentile_cut": risk_percentile_cut,
+                    "adverse_percentile_cut": risk_percentile_cut,
+                    "percentile_risk_cap": percentile_risk_cap,
+                    "trend_scale": 1.0,
+                    "rebound_scale": 1.0,
+                    "selective_scale": 1.0,
+                    "defensive_scale": 0.0,
+                    "intraday_risk_cap": 1.0,
+                }
+            )
     return rows
 
 
@@ -715,59 +844,65 @@ def _inner_policy_metrics(
     *,
     outer_test_year: int,
     candidates: list[dict[str, Any]],
-    feature_cols: list[str],
+    feature_set_configs: list[dict[str, Any]],
     cost_per_turnover: float,
     max_inner_years: int,
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
-    data = _clean_policy_frame(frame, feature_cols)
-    available = data.loc[data["datetime"].dt.year < int(outer_test_year)].copy()
-    inner_years = [
-        year
-        for year in sorted(available["datetime"].dt.year.unique())
-        if year >= 2015 and year <= int(outer_test_year) - 1
-    ][-int(max_inner_years) :]
-    for inner_year in inner_years:
-        train_end = pd.Timestamp(f"{inner_year - 1}-12-31")
-        for heldout_asset in ETF_UNIVERSE:
-            train = available.loc[
-                available["datetime"].le(train_end) & ~available["instrument"].eq(heldout_asset)
-            ].copy()
-            validation = available.loc[
-                available["instrument"].eq(heldout_asset) & available["datetime"].dt.year.eq(inner_year)
-            ].copy()
-            if len(train) < 300 or len(validation) < 40:
-                continue
-            prediction_cache = _predict_trainable_policy_cache(
-                train,
-                validation,
-                feature_cols=feature_cols,
-                candidates=candidates,
-            )
-            for candidate in candidates:
-                pred = prediction_cache[str(candidate["model_family"])]
-                metrics, _ = _simulate_alpha_risk_policy(
+    for feature_set in feature_set_configs:
+        feature_cols = list(feature_set["feature_cols"])
+        data = _clean_policy_frame(frame, feature_cols)
+        available = data.loc[data["datetime"].dt.year < int(outer_test_year)].copy()
+        inner_years = [
+            year
+            for year in sorted(available["datetime"].dt.year.unique())
+            if year >= 2015 and year <= int(outer_test_year) - 1
+        ][-int(max_inner_years) :]
+        for inner_year in inner_years:
+            train_end = pd.Timestamp(f"{inner_year - 1}-12-31")
+            for heldout_asset in ETF_UNIVERSE:
+                train = available.loc[
+                    available["datetime"].le(train_end) & ~available["instrument"].eq(heldout_asset)
+                ].copy()
+                validation = available.loc[
+                    available["instrument"].eq(heldout_asset) & available["datetime"].dt.year.eq(inner_year)
+                ].copy()
+                if len(train) < 300 or len(validation) < 40:
+                    continue
+                prediction_cache = _predict_trainable_policy_cache(
+                    train,
                     validation,
-                    pred,
-                    policy=candidate,
-                    segment_name="inner_validation",
-                    cost_per_turnover=cost_per_turnover,
+                    feature_cols=feature_cols,
+                    candidates=candidates,
                 )
-                buyhold = _buyhold_metrics(validation)
-                excess_return = float(metrics["selection_return_pct"] - buyhold["return_pct"])
-                rows.append(
-                    {
-                        **metrics,
-                        "candidate": str(candidate["candidate"]),
-                        "model": str(candidate["model_family"]),
-                        "inner_year": int(inner_year),
-                        "heldout_asset": heldout_asset,
-                        "buyhold_return_pct": buyhold["return_pct"],
-                        "excess_return_pct": excess_return,
-                        "beats_buyhold": bool(metrics["selection_return_pct"] > buyhold["return_pct"]),
-                        "selection_uses_outer_test": False,
-                    }
-                )
+                for candidate in candidates:
+                    pred = prediction_cache[str(candidate["model_family"])]
+                    metrics, _ = _simulate_alpha_risk_policy(
+                        validation,
+                        pred,
+                        policy=candidate,
+                        segment_name="inner_validation",
+                        cost_per_turnover=cost_per_turnover,
+                    )
+                    buyhold = _buyhold_metrics(validation)
+                    excess_return = float(metrics["selection_return_pct"] - buyhold["return_pct"])
+                    rows.append(
+                        {
+                            **metrics,
+                            "candidate": str(candidate["candidate"]),
+                            "model": str(candidate["model_family"]),
+                            "feature_set": str(feature_set["feature_set"]),
+                            "feature_count": int(feature_set["feature_count"]),
+                            "contains_soxx_constituents": bool(feature_set["contains_soxx_constituents"]),
+                            "soxx_constituent_feature_count": int(feature_set["soxx_constituent_feature_count"]),
+                            "inner_year": int(inner_year),
+                            "heldout_asset": heldout_asset,
+                            "buyhold_return_pct": buyhold["return_pct"],
+                            "excess_return_pct": excess_return,
+                            "beats_buyhold": bool(metrics["selection_return_pct"] > buyhold["return_pct"]),
+                            "selection_uses_outer_test": False,
+                        }
+                    )
     return pd.DataFrame(rows)
 
 
@@ -786,12 +921,30 @@ def _select_policy_from_inner_metrics(
     rows["selection_avg_abs_position"] = pd.to_numeric(rows["selection_avg_abs_position"], errors="coerce").fillna(0.0)
     rows["excess_return_pct"] = pd.to_numeric(rows.get("excess_return_pct", 0.0), errors="coerce").fillna(0.0)
     rows["beats_buyhold"] = rows["beats_buyhold"].fillna(False).astype(bool)
+    if "feature_set" not in rows.columns:
+        rows["feature_set"] = "all_features"
+    rows["feature_set"] = rows["feature_set"].fillna("all_features").astype(str)
+    if "feature_count" not in rows.columns:
+        rows["feature_count"] = 0
+    if "contains_soxx_constituents" not in rows.columns:
+        rows["contains_soxx_constituents"] = False
+    if "soxx_constituent_feature_count" not in rows.columns:
+        rows["soxx_constituent_feature_count"] = 0
+    rows["feature_count"] = pd.to_numeric(rows["feature_count"], errors="coerce").fillna(0).astype(int)
+    rows["contains_soxx_constituents"] = rows["contains_soxx_constituents"].fillna(False).astype(bool)
+    rows["soxx_constituent_feature_count"] = (
+        pd.to_numeric(rows["soxx_constituent_feature_count"], errors="coerce").fillna(0).astype(int)
+    )
     rows["passes_inner_drawdown"] = rows["selection_max_drawdown_pct"].ge(-20.0)
     rows["passes_inner_activity"] = rows["selection_avg_abs_position"].ge(0.05)
     rows["is_calibration_asset"] = rows["heldout_asset"].astype(str).eq(CALIBRATION_ASSET)
+    group_keys = ["candidate", "feature_set"]
     grouped = (
-        rows.groupby("candidate")
+        rows.groupby(group_keys)
         .agg(
+            feature_count=("feature_count", "first"),
+            contains_soxx_constituents=("contains_soxx_constituents", "first"),
+            soxx_constituent_feature_count=("soxx_constituent_feature_count", "first"),
             avg_selection_return_pct=("selection_return_pct", "mean"),
             avg_excess_return_pct=("excess_return_pct", "mean"),
             worst_selection_max_drawdown_pct=("selection_max_drawdown_pct", "min"),
@@ -807,7 +960,7 @@ def _select_policy_from_inner_metrics(
     )
     calibration = (
         rows.loc[rows["is_calibration_asset"]]
-        .groupby("candidate")
+        .groupby(group_keys)
         .agg(
             soxl_inner_return_pct=("selection_return_pct", "mean"),
             soxl_inner_excess_return_pct=("excess_return_pct", "mean"),
@@ -823,7 +976,7 @@ def _select_policy_from_inner_metrics(
     )
     stress = (
         rows.loc[~rows["is_calibration_asset"]]
-        .groupby("candidate")
+        .groupby(group_keys)
         .agg(
             cross_asset_avg_excess_return_pct=("excess_return_pct", "mean"),
             cross_asset_avg_return_pct=("selection_return_pct", "mean"),
@@ -836,8 +989,8 @@ def _select_policy_from_inner_metrics(
         .reset_index()
     )
     grouped = (
-        grouped.merge(calibration, on="candidate", how="left")
-        .merge(stress, on="candidate", how="left")
+        grouped.merge(calibration, on=group_keys, how="left")
+        .merge(stress, on=group_keys, how="left")
     )
     required_assets = [str(asset) for asset in required_heldout_assets]
     grouped["has_required_heldout_assets"] = grouped["heldout_assets"].map(
@@ -888,9 +1041,13 @@ def _select_policy_from_inner_metrics(
     ).iloc[0]
     return {
         "candidate": str(selected["candidate"]),
+        "feature_set": str(selected["feature_set"]),
         "outer_test_year": int(outer_test_year),
         "selection_policy": SELECTION_POLICY,
         "calibration_asset": CALIBRATION_ASSET,
+        "feature_count": int(selected["feature_count"]),
+        "contains_soxx_constituents": bool(selected["contains_soxx_constituents"]),
+        "soxx_constituent_feature_count": int(selected["soxx_constituent_feature_count"]),
         "soxl_drawdown_gate_applied": bool(soxl_drawdown_gate_applied),
         "selection_uses_outer_test": False,
         "required_heldout_assets": required_assets,
@@ -932,12 +1089,14 @@ def _outer_soxl_policy_test(
     outer_test_year: int,
     selected_candidate: dict[str, Any],
     candidates: list[dict[str, Any]],
-    feature_cols: list[str],
+    feature_set_configs: list[dict[str, Any]],
     common_end: str,
     cost_per_turnover: float,
     max_drawdown_floor_pct: float,
 ) -> tuple[dict[str, Any], pd.DataFrame]:
     candidate = next(item for item in candidates if item["candidate"] == selected_candidate["candidate"])
+    feature_set = _feature_set_for_selected_candidate(feature_set_configs, selected_candidate)
+    feature_cols = list(feature_set["feature_cols"])
     data = _clean_policy_frame(frame, feature_cols)
     train_end = pd.Timestamp(f"{outer_test_year - 1}-12-31")
     test_start = pd.Timestamp(f"{outer_test_year}-01-01")
@@ -960,6 +1119,10 @@ def _outer_soxl_policy_test(
     row = {
         "outer_test_year": int(outer_test_year),
         "candidate": str(candidate["candidate"]),
+        "feature_set": str(feature_set["feature_set"]),
+        "feature_count": int(feature_set["feature_count"]),
+        "contains_soxx_constituents": bool(feature_set["contains_soxx_constituents"]),
+        "soxx_constituent_feature_count": int(feature_set["soxx_constituent_feature_count"]),
         "selected_regime_model": str(candidate["model_family"]),
         "policy_id": str(candidate["policy_id"]),
         "position_mode": str(candidate.get("position_mode", "scaled_alpha")),
@@ -972,6 +1135,8 @@ def _outer_soxl_policy_test(
         "test_avg_abs_position": metrics["selection_avg_abs_position"],
         "test_total_turnover": metrics["selection_total_turnover"],
         "test_intraday_risk_cap_day_ratio": metrics["intraday_risk_cap_day_ratio"],
+        "test_multi_target_risk_cap_day_ratio": metrics["multi_target_risk_cap_day_ratio"],
+        "test_percentile_risk_cap_day_ratio": metrics["percentile_risk_cap_day_ratio"],
         "test_drawdown_cooldown_day_ratio": metrics["drawdown_cooldown_day_ratio"],
         "buyhold_return_pct": buyhold["return_pct"],
         "buyhold_max_drawdown_pct": buyhold["max_drawdown_pct"],
@@ -983,7 +1148,19 @@ def _outer_soxl_policy_test(
         ),
         "selection_uses_outer_test": False,
     }
+    positions["feature_set"] = str(feature_set["feature_set"])
     return row, positions
+
+
+def _feature_set_for_selected_candidate(
+    feature_set_configs: list[dict[str, Any]],
+    selected_candidate: dict[str, Any],
+) -> dict[str, Any]:
+    selected_name = str(selected_candidate.get("feature_set", feature_set_configs[0]["feature_set"]))
+    for config in feature_set_configs:
+        if str(config["feature_set"]) == selected_name:
+            return config
+    raise ValueError(f"selected feature_set not found in pre-registered configs: {selected_name}")
 
 
 def _predict_trainable_policy(
@@ -1032,13 +1209,39 @@ def _predict_base_trainable_policy(
 ) -> pd.DataFrame:
     family = str(model_family)
     alpha = _fit_predict_binary_probability(family, train, predict, feature_cols, ALPHA_TARGET_COL)
-    risk = _fit_predict_binary_probability(family, train, predict, feature_cols, RISK_TARGET_COL)
+    risk, risk_percentile = _fit_predict_binary_probability_with_train_percentile(
+        family,
+        train,
+        predict,
+        feature_cols,
+        RISK_TARGET_COL,
+    )
+    crash, crash_percentile = _fit_predict_binary_probability_with_train_percentile(
+        family,
+        train,
+        predict,
+        feature_cols,
+        CRASH_TARGET_COL,
+    )
+    max_adverse, max_adverse_risk_percentile = _fit_predict_regression_with_train_risk_percentile(
+        family,
+        train,
+        predict,
+        feature_cols,
+        MAX_ADVERSE_TARGET_COL,
+        higher_is_risk=False,
+    )
     regime = _fit_predict_regime(family, train, predict, feature_cols)
     vol_score = _fit_predict_regression(family, train, predict, feature_cols, VOL_ADJUSTED_TARGET_COL)
     return pd.DataFrame(
         {
             "alpha_probability": alpha.reindex(predict.index).fillna(0.0),
             "risk_probability": risk.reindex(predict.index).fillna(1.0),
+            "risk_percentile": risk_percentile.reindex(predict.index).fillna(1.0),
+            "crash_probability": crash.reindex(predict.index).fillna(1.0),
+            "crash_risk_percentile": crash_percentile.reindex(predict.index).fillna(1.0),
+            "max_adverse_score": max_adverse.reindex(predict.index).fillna(-1.0),
+            "max_adverse_risk_percentile": max_adverse_risk_percentile.reindex(predict.index).fillna(1.0),
             "vol_adjusted_score": vol_score.reindex(predict.index).fillna(0.0),
             "regime": regime.reindex(predict.index).fillna("selective"),
             "intraday_risk_state": predict.get(INTRADAY_RISK_STATE_COL, pd.Series(0.0, index=predict.index)).to_numpy(),
@@ -1055,6 +1258,13 @@ def _combine_consensus_predictions(lgb: pd.DataFrame, xgb: pd.DataFrame, predict
         {
             "alpha_probability": (lgb["alpha_probability"].to_numpy() + xgb["alpha_probability"].to_numpy()) / 2.0,
             "risk_probability": (lgb["risk_probability"].to_numpy() + xgb["risk_probability"].to_numpy()) / 2.0,
+            "risk_percentile": (lgb["risk_percentile"].to_numpy() + xgb["risk_percentile"].to_numpy()) / 2.0,
+            "crash_probability": (lgb["crash_probability"].to_numpy() + xgb["crash_probability"].to_numpy()) / 2.0,
+            "crash_risk_percentile": (lgb["crash_risk_percentile"].to_numpy() + xgb["crash_risk_percentile"].to_numpy()) / 2.0,
+            "max_adverse_score": (lgb["max_adverse_score"].to_numpy() + xgb["max_adverse_score"].to_numpy()) / 2.0,
+            "max_adverse_risk_percentile": (
+                lgb["max_adverse_risk_percentile"].to_numpy() + xgb["max_adverse_risk_percentile"].to_numpy()
+            ) / 2.0,
             "vol_adjusted_score": (lgb["vol_adjusted_score"].to_numpy() + xgb["vol_adjusted_score"].to_numpy()) / 2.0,
             "regime": regime,
             "intraday_risk_state": predict.get(INTRADAY_RISK_STATE_COL, pd.Series(0.0, index=predict.index)).to_numpy(),
@@ -1074,6 +1284,20 @@ def _simulate_alpha_risk_policy(
     alpha_floor = float(policy["alpha_floor"])
     alpha = pd.to_numeric(predictions["alpha_probability"], errors="coerce").fillna(0.0)
     risk = pd.to_numeric(predictions["risk_probability"], errors="coerce").fillna(1.0)
+    risk_percentile = pd.to_numeric(predictions.get("risk_percentile", risk), errors="coerce").fillna(1.0)
+    crash = pd.to_numeric(predictions.get("crash_probability", risk), errors="coerce").fillna(1.0)
+    crash_risk_percentile = pd.to_numeric(
+        predictions.get("crash_risk_percentile", crash),
+        errors="coerce",
+    ).fillna(1.0)
+    max_adverse = pd.to_numeric(
+        predictions.get("max_adverse_score", pd.Series(0.0, index=predictions.index)),
+        errors="coerce",
+    ).fillna(-1.0)
+    max_adverse_risk_percentile = pd.to_numeric(
+        predictions.get("max_adverse_risk_percentile", pd.Series(0.0, index=predictions.index)),
+        errors="coerce",
+    ).fillna(1.0)
     vol_score = pd.to_numeric(predictions["vol_adjusted_score"], errors="coerce").fillna(0.0)
     regime = predictions["regime"].astype(str).where(predictions["regime"].astype(str).isin(REGIME_LABELS), "selective")
     intraday_risk = pd.to_numeric(predictions.get("intraday_risk_state", 0.0), errors="coerce").fillna(0.0)
@@ -1093,6 +1317,27 @@ def _simulate_alpha_risk_policy(
         target_position = (raw * vol_boost * scale).clip(lower=0.0, upper=1.0)
     risk_cap_mask = risk.ge(float(policy["risk_cut"]))
     target_position = target_position.where(~risk_cap_mask, np.minimum(target_position, float(policy["risk_cap"])))
+    crash_cut = float(policy.get("crash_cut", np.inf))
+    max_adverse_cut = float(policy.get("max_adverse_cut", -np.inf))
+    adverse_risk_cap = float(policy.get("adverse_risk_cap", policy["risk_cap"]))
+    multi_target_risk_mask = crash.ge(crash_cut) | max_adverse.le(max_adverse_cut)
+    target_position = target_position.where(
+        ~multi_target_risk_mask,
+        np.minimum(target_position, adverse_risk_cap),
+    )
+    percentile_risk_cut = float(policy.get("risk_percentile_cut", np.inf))
+    crash_percentile_cut = float(policy.get("crash_percentile_cut", np.inf))
+    adverse_percentile_cut = float(policy.get("adverse_percentile_cut", np.inf))
+    percentile_risk_cap = float(policy.get("percentile_risk_cap", adverse_risk_cap))
+    percentile_risk_mask = (
+        risk_percentile.ge(percentile_risk_cut)
+        | crash_risk_percentile.ge(crash_percentile_cut)
+        | max_adverse_risk_percentile.ge(adverse_percentile_cut)
+    )
+    target_position = target_position.where(
+        ~percentile_risk_mask,
+        np.minimum(target_position, percentile_risk_cap),
+    )
     intraday_cap_mask = intraday_risk.ge(0.5)
     target_position = target_position.where(
         ~intraday_cap_mask,
@@ -1107,6 +1352,8 @@ def _simulate_alpha_risk_policy(
             trigger=float(policy["drawdown_cooldown_trigger"]),
             cooldown_days=int(policy.get("drawdown_cooldown_days", 1)),
             cooldown_cap=float(policy.get("drawdown_cooldown_cap", 0.0)),
+            retrigger=bool(policy.get("drawdown_cooldown_retrigger", True)),
+            rearm_level=float(policy.get("drawdown_cooldown_rearm_level", policy["drawdown_cooldown_trigger"] / 2.0)),
             cost_per_turnover=float(cost_per_turnover),
         )
     else:
@@ -1121,6 +1368,11 @@ def _simulate_alpha_risk_policy(
             "candidate": str(policy["candidate"]) if "candidate" in policy else str(policy["policy_id"]),
             "alpha_probability": alpha.to_numpy(),
             "risk_probability": risk.to_numpy(),
+            "risk_percentile": risk_percentile.to_numpy(),
+            "crash_probability": crash.to_numpy(),
+            "crash_risk_percentile": crash_risk_percentile.to_numpy(),
+            "max_adverse_score": max_adverse.to_numpy(),
+            "max_adverse_risk_percentile": max_adverse_risk_percentile.to_numpy(),
             "vol_adjusted_score": vol_score.to_numpy(),
             "regime": regime.to_numpy(),
             "intraday_risk_state": intraday_risk.to_numpy(),
@@ -1138,6 +1390,8 @@ def _simulate_alpha_risk_policy(
         "selection_total_turnover": metrics["total_turnover"],
         "selection_trade_count": int(turnover.gt(1e-9).sum()),
         "intraday_risk_cap_day_ratio": float(intraday_cap_mask.mean()) if len(intraday_cap_mask) else 0.0,
+        "multi_target_risk_cap_day_ratio": float(multi_target_risk_mask.mean()) if len(multi_target_risk_mask) else 0.0,
+        "percentile_risk_cap_day_ratio": float(percentile_risk_mask.mean()) if len(percentile_risk_mask) else 0.0,
         "drawdown_cooldown_day_ratio": float(cooldown_active.mean()) if len(cooldown_active) else 0.0,
     }, out
 
@@ -1149,6 +1403,8 @@ def _apply_drawdown_cooldown_cap(
     trigger: float,
     cooldown_days: int,
     cooldown_cap: float,
+    retrigger: bool,
+    rearm_level: float,
     cost_per_turnover: float,
 ) -> tuple[pd.Series, pd.Series, pd.Series, pd.Series]:
     positions: list[float] = []
@@ -1159,6 +1415,7 @@ def _apply_drawdown_cooldown_cap(
     peak = 1.0
     previous_position = 0.0
     cooldown_left = 0
+    cooldown_armed = True
     for desired_position, raw_return in zip(target_position.to_numpy(), returns.to_numpy(), strict=False):
         if cooldown_left > 0:
             position = min(float(desired_position), float(cooldown_cap))
@@ -1171,8 +1428,16 @@ def _apply_drawdown_cooldown_cap(
         strategy_return = position * float(raw_return) - turnover * float(cost_per_turnover)
         equity *= 1.0 + strategy_return
         peak = max(peak, equity)
-        if equity / peak - 1.0 <= float(trigger):
-            cooldown_left = max(cooldown_left, int(cooldown_days))
+        drawdown = equity / peak - 1.0
+        if retrigger:
+            if drawdown <= float(trigger):
+                cooldown_left = max(cooldown_left, int(cooldown_days))
+        else:
+            if not cooldown_armed and drawdown >= float(rearm_level):
+                cooldown_armed = True
+            if cooldown_armed and drawdown <= float(trigger):
+                cooldown_left = max(cooldown_left, int(cooldown_days))
+                cooldown_armed = False
         positions.append(position)
         turnovers.append(turnover)
         strategy_returns.append(strategy_return)
@@ -1205,6 +1470,88 @@ def _fit_predict_binary_probability(
     classes = list(getattr(model[-1], "classes_", []))
     positive_index = classes.index(1) if 1 in classes else 0
     return pd.Series(probabilities[:, positive_index], index=predict.index, name=target_col)
+
+
+def _fit_predict_binary_probability_with_train_percentile(
+    model_family: str,
+    train: pd.DataFrame,
+    predict: pd.DataFrame,
+    feature_cols: list[str],
+    target_col: str,
+) -> tuple[pd.Series, pd.Series]:
+    fit = train.dropna(subset=[target_col]).copy()
+    x_train = fit[feature_cols].astype("float64")
+    y_train = fit[target_col].astype(int)
+    if y_train.nunique() < 2:
+        model = make_pipeline(SimpleImputer(strategy="median"), DummyClassifier(strategy="constant", constant=int(y_train.iloc[0])))
+    else:
+        model = _build_classifier(model_family)
+    model.fit(x_train, y_train)
+    classes = list(getattr(model[-1], "classes_", []))
+    positive_index = classes.index(1) if 1 in classes else 0
+    train_probabilities = model.predict_proba(x_train)[:, positive_index]
+    predict_probabilities = model.predict_proba(predict[feature_cols].astype("float64"))[:, positive_index]
+    probability = pd.Series(predict_probabilities, index=predict.index, name=target_col)
+    percentile = _percentile_against_train(
+        pd.Series(train_probabilities, index=fit.index),
+        probability,
+        higher_is_risk=True,
+    ).rename(f"{target_col}_percentile")
+    return probability, percentile
+
+
+def _fit_predict_regression_with_train_risk_percentile(
+    model_family: str,
+    train: pd.DataFrame,
+    predict: pd.DataFrame,
+    feature_cols: list[str],
+    target_col: str,
+    *,
+    higher_is_risk: bool,
+) -> tuple[pd.Series, pd.Series]:
+    fit = train.dropna(subset=[target_col]).copy()
+    x_train = fit[feature_cols].astype("float64")
+    y_train = pd.to_numeric(fit[target_col], errors="coerce").fillna(0.0)
+    if y_train.nunique() < 2:
+        model = make_pipeline(SimpleImputer(strategy="median"), DummyRegressor(strategy="constant", constant=float(y_train.iloc[0])))
+    else:
+        model = _build_regressor(model_family)
+    model.fit(x_train, y_train)
+    train_scores = pd.Series(model.predict(x_train), index=fit.index, name=target_col)
+    predict_scores = pd.Series(
+        model.predict(predict[feature_cols].astype("float64")),
+        index=predict.index,
+        name=target_col,
+    )
+    risk_percentile = _percentile_against_train(
+        train_scores,
+        predict_scores,
+        higher_is_risk=higher_is_risk,
+    ).rename(f"{target_col}_risk_percentile")
+    return predict_scores, risk_percentile
+
+
+def _percentile_against_train(
+    train_scores: pd.Series,
+    predict_scores: pd.Series,
+    *,
+    higher_is_risk: bool,
+) -> pd.Series:
+    train_values = pd.to_numeric(train_scores, errors="coerce").replace([np.inf, -np.inf], np.nan).dropna().to_numpy()
+    predict_values = pd.to_numeric(predict_scores, errors="coerce").replace([np.inf, -np.inf], np.nan)
+    if len(train_values) == 0:
+        return pd.Series(0.0, index=predict_scores.index, dtype="float64")
+    sorted_train = np.sort(train_values.astype("float64"))
+    side = "right" if higher_is_risk else "left"
+    predict_array = predict_values.to_numpy(dtype="float64")
+    valid = np.isfinite(predict_array)
+    ranks = np.zeros(len(predict_array), dtype="float64")
+    ranks[valid] = np.searchsorted(sorted_train, predict_array[valid], side=side)
+    percentile = ranks / float(len(sorted_train))
+    if not higher_is_risk:
+        percentile = 1.0 - percentile
+    percentile = np.where(valid & np.isfinite(percentile), percentile, 0.0)
+    return pd.Series(percentile, index=predict_scores.index, dtype="float64").clip(0.0, 1.0)
 
 
 def _fit_predict_regime(
@@ -1446,6 +1793,10 @@ def _policy_diagnostic_row(outer_metrics: dict[str, Any], selected: dict[str, An
     return {
         "outer_test_year": int(outer_metrics["outer_test_year"]),
         "candidate": outer_metrics["candidate"],
+        "feature_set": outer_metrics.get("feature_set"),
+        "feature_count": outer_metrics.get("feature_count"),
+        "contains_soxx_constituents": outer_metrics.get("contains_soxx_constituents"),
+        "soxx_constituent_feature_count": outer_metrics.get("soxx_constituent_feature_count"),
         "selected_regime_model": outer_metrics["selected_regime_model"],
         "policy_id": outer_metrics["policy_id"],
         "position_mode": outer_metrics.get("position_mode"),
@@ -1462,6 +1813,8 @@ def _policy_diagnostic_row(outer_metrics: dict[str, Any], selected: dict[str, An
         "inner_activity_pass_rate": selected.get("inner_activity_pass_rate"),
         "inner_pass_rate": selected.get("inner_pass_rate"),
         "test_intraday_risk_cap_day_ratio": outer_metrics.get("test_intraday_risk_cap_day_ratio"),
+        "test_multi_target_risk_cap_day_ratio": outer_metrics.get("test_multi_target_risk_cap_day_ratio"),
+        "test_percentile_risk_cap_day_ratio": outer_metrics.get("test_percentile_risk_cap_day_ratio"),
         "test_drawdown_cooldown_day_ratio": outer_metrics.get("test_drawdown_cooldown_day_ratio"),
         "test_avg_abs_position": outer_metrics.get("test_avg_abs_position"),
         "beats_buyhold": outer_metrics.get("beats_buyhold"),
@@ -1481,6 +1834,7 @@ def _summary_payload(
     source_audit: dict[str, Any],
     common_end: str,
     feature_cols: list[str],
+    feature_set_configs: list[dict[str, Any]],
     annual_metrics: pd.DataFrame,
     annual_goal: dict[str, Any],
     overfit_audit: dict[str, Any],
@@ -1495,6 +1849,12 @@ def _summary_payload(
         if rel_path != "failure_modes.md"
     ]
     recorder_only = [f"artifacts/{spec.experiment}/positions.csv"]
+    selected_feature_rows = selected_candidates.to_dict("records") if not selected_candidates.empty else []
+    selected_soxx_count = (
+        int(pd.to_numeric(selected_candidates.get("contains_soxx_constituents", pd.Series(dtype=bool)), errors="coerce").fillna(0).astype(bool).sum())
+        if not selected_candidates.empty
+        else 0
+    )
     return {
         "experiment": spec.experiment,
         "card_type": CARD_TYPE,
@@ -1518,15 +1878,23 @@ def _summary_payload(
         "symbols": list(ETF_UNIVERSE),
         "feature_source": FEATURE_SOURCE,
         "feature_sets": {
-            "selected": "trainable_regime_policy_normalized_features",
+            "selection_policy": "nested_inner_feature_set_selection",
+            "selected": "outer_year_selected_feature_set",
+            "available": feature_set_configs,
+            "selected_by_year": selected_feature_rows,
+            "selected_feature_sets": (
+                sorted({str(value) for value in selected_candidates["feature_set"].dropna().unique()})
+                if "feature_set" in selected_candidates
+                else []
+            ),
             "feature_count": int(len(feature_cols)),
             "feature_cols": feature_cols,
-            "contains_soxx_constituents": bool(
-                any(column in feature_cols for column in constituent_feature_cols)
-            ),
-            "soxx_constituent_feature_count": int(
+            "contains_soxx_constituents": bool(any(column in feature_cols for column in constituent_feature_cols)),
+            "available_soxx_constituent_feature_count": int(
                 sum(1 for column in constituent_feature_cols if column in feature_cols)
             ),
+            "selected_outer_year_count": int(len(selected_candidates)),
+            "selected_soxx_outer_year_count": selected_soxx_count,
             "soxx_constituent_feature_cols": [
                 column for column in constituent_feature_cols if column in feature_cols
             ],
@@ -1544,13 +1912,16 @@ def _summary_payload(
             "cross_asset_role": "overfit_stress_audit_not_primary_selection_target",
             "primary_selection_target": "SOXL inner-fold excess return with drawdown and activity gates",
             "inner_validation_years": int(spec.inner_validation_years),
-            "search_space_type": "pre_registered_hyperparameter_grid",
+            "search_space_type": "pre_registered_hyperparameter_and_feature_set_grid",
+            "feature_set_selection": "nested_inner_soxl_calibrated",
+            "available_feature_sets": [str(config["feature_set"]) for config in feature_set_configs],
             "manual_template_selection": False,
             "template_library_used": False,
             "selector_regime_source": "none",
             "selector_regime_matching": "disabled_manual_prior_year_regime_templates",
             "model_families": ["lgbm_classifier", "xgb_classifier", "lgbm_regressor", "xgb_regressor", "lgb_xgb_consensus"],
             "candidate_count": int(len(_policy_candidate_configs())),
+            "candidate_feature_set_count": int(len(_policy_candidate_configs()) * len(feature_set_configs)),
             "selected_by_year": selected_candidates.to_dict("records") if not selected_candidates.empty else [],
         },
         "regime_classifier": {
@@ -1563,9 +1934,9 @@ def _summary_payload(
         },
         "policy_architecture": {
             "alpha_model": "opportunity_probability_plus_vol_adjusted_return",
-            "risk_model": "independent_crash_probability_cap",
+            "risk_model": "independent_risk_crash_probability_and_max_adverse_cap",
             "risk_target_cols": [CRASH_TARGET_COL, MAX_ADVERSE_TARGET_COL, RISK_TARGET_COL],
-            "position_policy": "regime_scaled_or_binary_alpha_then_independent_risk_cap",
+            "position_policy": "regime_scaled_or_binary_alpha_then_independent_multi_target_risk_cap",
             "risk_budget": "path_dependent_drawdown_cooldown_cap_uses_realized_strategy_equity_only",
         },
         "intraday_risk_state": intraday_audit,
@@ -1633,17 +2004,24 @@ def _write_sidecars(
             },
         ]
     ).to_csv(card / sidecars["risk_analysis"], index=False)
+    selected_by_feature_set = {
+        str(name): sorted(int(year) for year in group["outer_test_year"].dropna().astype(int).unique())
+        for name, group in selected_candidates.groupby("feature_set")
+    } if not selected_candidates.empty and "feature_set" in selected_candidates else {}
     pd.DataFrame(
         [
             {
-                "feature_set": summary["feature_sets"]["selected"],
-                "feature_count": summary["feature_sets"]["feature_count"],
-                "contains_asset_identity": summary["feature_sets"]["contains_asset_identity"],
-                "normalization": summary["feature_sets"]["normalization"],
-                "contains_intraday_risk_score": "intraday_risk_score" in summary["feature_sets"]["feature_cols"],
-                "contains_soxx_constituents": summary["feature_sets"]["contains_soxx_constituents"],
-                "soxx_constituent_feature_count": summary["feature_sets"]["soxx_constituent_feature_count"],
+                "feature_set": str(config["feature_set"]),
+                "role": "nested_selectable_model_feature_set",
+                "selected_outer_years": selected_by_feature_set.get(str(config["feature_set"]), []),
+                "feature_count": int(config["feature_count"]),
+                "contains_asset_identity": bool(config["contains_asset_identity"]),
+                "normalization": config["normalization"],
+                "contains_intraday_risk_score": "intraday_risk_score" in config["feature_cols"],
+                "contains_soxx_constituents": bool(config["contains_soxx_constituents"]),
+                "soxx_constituent_feature_count": int(config["soxx_constituent_feature_count"]),
             }
+            for config in summary["feature_sets"]["available"]
         ]
     ).to_csv(card / sidecars["feature_sets"], index=False)
     (card / sidecars["analysis_summary"]).write_text(
@@ -1652,6 +2030,7 @@ def _write_sidecars(
                 "annual_goal": summary["annual_goal"],
                 "overfit_audit": summary["overfit_audit"],
                 "model_selection": summary["model_selection"],
+                "feature_sets": summary["feature_sets"],
                 "regime_classifier": summary["regime_classifier"],
                 "policy_architecture": summary["policy_architecture"],
                 "intraday_risk_state": summary["intraday_risk_state"],
@@ -1684,7 +2063,9 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             f"  final_calibration_asset: {CALIBRATION_ASSET}",
             "  cross_asset_role: overfit_stress_audit_not_primary_selection_target",
             f"  inner_validation_years: {summary['model_selection']['inner_validation_years']}",
-            "  search_space_type: pre_registered_hyperparameter_grid",
+            "  search_space_type: pre_registered_hyperparameter_and_feature_set_grid",
+            "  feature_set_selection: nested_inner_soxl_calibrated",
+            f"  available_feature_sets: {summary['model_selection']['available_feature_sets']}",
             "  manual_template_selection: false",
             "  template_library_used: false",
             "  selector_regime_source: none",
@@ -1693,7 +2074,7 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "  manual_template_selection: false",
             "policy_architecture:",
             "  alpha_model: opportunity_probability_plus_vol_adjusted_return",
-            "  risk_model: independent_crash_probability_cap",
+            "  risk_model: independent_risk_crash_probability_and_max_adverse_cap",
             "intraday_risk_state:",
             f"  uses_5min: {str(summary['intraday_risk_state']['uses_5min']).lower()}",
             f"  uses_15min: {str(summary['intraday_risk_state']['uses_15min']).lower()}",
@@ -1703,6 +2084,10 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "  role: normalized_lagged_model_features_not_template_not_gate",
             f"  feature_count: {summary['soxx_constituent_factors']['feature_count']}",
             f"  lag_days: {summary['soxx_constituent_factors']['lag_days']}",
+            "feature_sets:",
+            "  selection_policy: nested_inner_feature_set_selection",
+            f"  selected_feature_sets: {summary['feature_sets']['selected_feature_sets']}",
+            f"  selected_soxx_outer_year_count: {summary['feature_sets']['selected_soxx_outer_year_count']}",
             "overfit_audit:",
             f"  status: {summary['overfit_audit']['overfit_risk_status']}",
             f"  manual_template_selection: {str(summary['overfit_audit']['manual_template_selection']).lower()}",
@@ -1720,10 +2105,10 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
 def _conclusion(summary: dict[str, Any]) -> str:
     return (
         "# 中文结论\n\n"
-        "- 做了什么：trainable regime policy nested WF 已移除人工模板和 prior-year regime selector；regime classifier、alpha model、risk model 都在 inner folds 内训练，最终只用 SOXL inner 校准、drawdown/activity gate 和跨 ETF stress audit 选固定参数网格候选。\n"
+        "- 做了什么：trainable regime policy nested WF 已移除人工模板和 prior-year regime selector；regime classifier、alpha model、risk model 都在 inner folds 内训练，最终只用 SOXL inner 校准、drawdown/activity gate 和跨 ETF stress audit 选择固定参数与特征集候选。\n"
         f"- 核心指标：annual target pass years={summary['annual_goal']['target_pass_test_years']}，"
         f"overfit audit={summary['overfit_audit']['overfit_risk_status']}，common_data_end={summary['common_data_end']}。\n"
-        f"- 特征：已接入 SOXX 成分股 normalized lagged breadth/dispersion 特征 {summary['feature_sets']['soxx_constituent_feature_count']} 个，lag_days={summary['soxx_constituent_factors']['lag_days']}，只作为模型输入，不作为模板或 gate。\n"
+        f"- 特征：SOXX 成分股 normalized lagged breadth/dispersion 特征可用 {summary['feature_sets']['available_soxx_constituent_feature_count']} 个，lag_days={summary['soxx_constituent_factors']['lag_days']}；它们是 nested feature-set 候选，不是强制 alpha 输入、模板或 gate。实际选中特征集={summary['feature_sets']['selected_feature_sets']}。\n"
         "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签，outer SOXL 年份只报告，不参与选择。\n"
         f"- 是否晋升：{summary['promotion_decision']}。\n"
         "- 风险：固定参数网格仍可能有数据窥探风险，尤其如果看完 2023-2026 后继续改网格；SOXX 当前成分股回填历史有 survivorship bias；多 3x ETF 仍共享权益 beta；5m/15m 风险状态只作为 risk cap，不证明独立盘中 alpha。\n"
@@ -1739,6 +2124,7 @@ def _failure_modes(summary: dict[str, Any]) -> str:
         "- Manual regime template selection is rejected and is not part of the active selector or summary evidence.\n"
         "- Regime classifier labels are supervised by forward outcomes inside training folds; bad label design can still overfit the training era.\n"
         "- Fixed hyperparameter grids can still be data-snooped if edited after reading outer-test failures.\n"
+        "- SOXX constituent diffusion features are nested-selectable, but the feature-set search space itself must stay frozen before future outer-test evaluation.\n"
         "- SOXX constituent features use current holdings backfilled through history and remain survivorship-biased until point-in-time holdings are available.\n"
         "- Leave-one-asset-out reduces single-symbol fitting but does not remove shared US equity beta risk.\n"
         "- 5m/15m intraday state is used only as a risk cap, not as proof of same-day alpha generation.\n"
