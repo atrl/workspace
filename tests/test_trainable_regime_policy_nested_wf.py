@@ -53,6 +53,149 @@ def test_attach_trainable_policy_targets_replaces_manual_templates_with_supervis
     assert out[POSITION_TARGET_COL].between(0.0, 1.0).all()
 
 
+def test_position_target_is_risk_budget_exposure_not_low_return_score():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2024-01-02", "2024-01-03"]),
+            "instrument": ["SOXL", "SOXL"],
+            "open_to_open_return": [0.01, -0.01],
+            "label_open_to_open_5d": [0.18, -0.14],
+            "ret_20": [0.10, -0.20],
+            "ret_60": [0.20, -0.30],
+            "drawdown_60": [-0.05, -0.35],
+            "realized_vol_20": [0.12, 0.18],
+        }
+    )
+
+    out = _attach_trainable_policy_targets(frame)
+
+    assert out[POSITION_TARGET_COL].iloc[0] >= 0.80
+    assert out[POSITION_TARGET_COL].iloc[1] <= 0.05
+
+
+def test_trainable_policy_targets_include_20d_adverse_risk_when_5d_return_is_positive():
+    dates = pd.date_range("2024-01-02", periods=30, freq="B")
+    open_prices = [100.0] * len(dates)
+    open_prices[1] = 100.0
+    open_prices[2:7] = [104.0, 105.0, 106.0, 107.0, 108.0]
+    open_prices[10] = 70.0
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "instrument": ["SOXL"] * len(dates),
+            "open": open_prices,
+            "open_to_open_return": [0.0] * len(dates),
+            "label_open_to_open_5d": [0.08] + [0.0] * (len(dates) - 1),
+            "ret_20": [0.10] * len(dates),
+            "ret_60": [0.20] * len(dates),
+            "drawdown_60": [-0.05] * len(dates),
+            "realized_vol_20": [0.12] * len(dates),
+        }
+    )
+
+    out = _attach_trainable_policy_targets(frame)
+
+    assert round(out["max_adverse_return_20d_target"].iloc[0], 6) == -0.30
+    assert out["crash_probability_20d_target"].iloc[0] == 1
+
+
+def test_learned_position_policy_uses_long_horizon_risk_head_as_independent_cap():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02"]),
+            "instrument": ["SOXL"],
+            "open_to_open_return": [0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.90],
+            "risk_probability": [0.0],
+            "risk_percentile": [0.0],
+            "crash_probability": [0.0],
+            "crash_risk_percentile": [0.0],
+            "max_adverse_score": [-0.02],
+            "max_adverse_risk_percentile": [0.0],
+            "crash_20d_probability": [0.90],
+            "max_adverse_20d_score": [-0.25],
+            "max_adverse_20d_risk_percentile": [0.95],
+            "regime": ["trend"],
+            "vol_adjusted_score": [0.0],
+            "learned_position_score": [0.80],
+            "intraday_risk_state": [0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_learned_position_long_horizon_risk",
+            "position_mode": "learned_position",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] <= 0.10
+
+
+def test_learned_position_policy_does_not_blanket_discount_budgeted_20d_risk():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02"]),
+            "instrument": ["SOXL"],
+            "open_to_open_return": [0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.90],
+            "risk_probability": [0.0],
+            "risk_percentile": [0.0],
+            "crash_probability": [0.0],
+            "crash_risk_percentile": [0.0],
+            "max_adverse_score": [-0.02],
+            "max_adverse_risk_percentile": [0.0],
+            "crash_20d_probability": [0.15],
+            "crash_20d_risk_percentile": [0.40],
+            "max_adverse_20d_score": [-0.08],
+            "max_adverse_20d_risk_percentile": [0.45],
+            "regime": ["trend"],
+            "vol_adjusted_score": [0.0],
+            "learned_position_score": [0.80],
+            "intraday_risk_state": [0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_learned_position_budgeted_long_horizon_risk",
+            "position_mode": "learned_position",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] >= 0.60
+
+
 def test_learned_position_policy_uses_model_position_score_without_manual_thresholds():
     frame = pd.DataFrame(
         {

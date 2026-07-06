@@ -44,6 +44,8 @@ REGIME_TARGET_COL = "trainable_regime_target"
 REGIME_TARGET_CODE_COL = "trainable_regime_target_code"
 CRASH_TARGET_COL = "crash_probability_target"
 MAX_ADVERSE_TARGET_COL = "max_adverse_return_target"
+CRASH_20D_TARGET_COL = "crash_probability_20d_target"
+MAX_ADVERSE_20D_TARGET_COL = "max_adverse_return_20d_target"
 RISK_TARGET_COL = "risk_probability_target"
 VOL_ADJUSTED_TARGET_COL = "vol_adjusted_return_target"
 ALPHA_TARGET_COL = "alpha_opportunity_target"
@@ -276,25 +278,38 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
     out[ALPHA_TARGET_COL] = future_return.gt(0.0).astype(int)
     out[CRASH_TARGET_COL] = future_return.le(-0.08).astype(int)
     if "open" in out.columns:
-        adverse_pieces: list[pd.Series] = []
-        for _, group in out.sort_values(["instrument", "datetime"]).groupby("instrument", sort=False):
-            open_ = pd.to_numeric(group["open"], errors="coerce").astype("float64")
-            entry = open_.shift(-1)
-            future_path = pd.concat(
-                [(open_.shift(-offset) / entry - 1.0) for offset in range(2, 7)],
-                axis=1,
-            )
-            adverse_pieces.append(future_path.min(axis=1).reindex(group.index))
-        max_adverse = pd.concat(adverse_pieces).reindex(out.index) if adverse_pieces else pd.Series(np.nan, index=out.index)
+        max_adverse = _future_open_path_min_adverse(out, offsets=range(2, 7))
+        max_adverse_20d = _future_open_path_min_adverse(out, offsets=range(2, 22))
     else:
         max_adverse = future_return.clip(upper=0.0)
+        max_adverse_20d = future_return.clip(upper=0.0)
     out[MAX_ADVERSE_TARGET_COL] = pd.to_numeric(max_adverse, errors="coerce").fillna(0.0)
-    out[RISK_TARGET_COL] = (out[CRASH_TARGET_COL].eq(1) | out[MAX_ADVERSE_TARGET_COL].le(-0.12)).astype(int)
+    out[MAX_ADVERSE_20D_TARGET_COL] = pd.to_numeric(max_adverse_20d, errors="coerce").fillna(0.0)
+    out[CRASH_20D_TARGET_COL] = (
+        out[CRASH_TARGET_COL].eq(1) | out[MAX_ADVERSE_20D_TARGET_COL].le(-0.20)
+    ).astype(int)
+    out[RISK_TARGET_COL] = (
+        out[CRASH_TARGET_COL].eq(1)
+        | out[MAX_ADVERSE_TARGET_COL].le(-0.12)
+        | out[CRASH_20D_TARGET_COL].eq(1)
+    ).astype(int)
     out[VOL_ADJUSTED_TARGET_COL] = (future_return / (realized_vol + 0.02)).replace([np.inf, -np.inf], np.nan).fillna(0.0)
-    return_score = (future_return / 0.12).clip(lower=0.0, upper=1.0)
-    adverse_survival = ((out[MAX_ADVERSE_TARGET_COL] + 0.20) / 0.20).clip(lower=0.0, upper=1.0)
-    vol_survival = (0.20 / (realized_vol + 0.20)).clip(lower=0.25, upper=1.0)
-    out[POSITION_TARGET_COL] = (return_score * adverse_survival * vol_survival).clip(lower=0.0, upper=1.0)
+    positive_exposure = pd.Series(
+        np.where(
+            future_return.gt(0.0),
+            1.0,
+            ((future_return + 0.04) / 0.04).clip(lower=0.0, upper=1.0) * 0.25,
+        ),
+        index=out.index,
+        dtype="float64",
+    )
+    adverse_survival = ((out[MAX_ADVERSE_TARGET_COL] + 0.18) / 0.18).clip(lower=0.0, upper=1.0)
+    long_adverse_survival = ((out[MAX_ADVERSE_20D_TARGET_COL] + 0.30) / 0.30).clip(lower=0.0, upper=1.0)
+    crash_survival = pd.Series(np.where(future_return.le(-0.08), 0.0, 1.0), index=out.index, dtype="float64")
+    vol_survival = (0.35 / (realized_vol + 0.20)).clip(lower=0.65, upper=1.0)
+    out[POSITION_TARGET_COL] = (
+        positive_exposure * adverse_survival * long_adverse_survival * crash_survival * vol_survival
+    ).clip(lower=0.0, upper=1.0)
     regimes = np.select(
         [
             out[RISK_TARGET_COL].eq(1) | out[VOL_ADJUSTED_TARGET_COL].lt(-0.75),
@@ -308,6 +323,19 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
     regime_code = {label: index for index, label in enumerate(REGIME_LABELS)}
     out[REGIME_TARGET_CODE_COL] = out[REGIME_TARGET_COL].map(regime_code).astype("float64")
     return out
+
+
+def _future_open_path_min_adverse(frame: pd.DataFrame, *, offsets: range) -> pd.Series:
+    adverse_pieces: list[pd.Series] = []
+    for _, group in frame.sort_values(["instrument", "datetime"]).groupby("instrument", sort=False):
+        open_ = pd.to_numeric(group["open"], errors="coerce").astype("float64")
+        entry = open_.shift(-1)
+        future_path = pd.concat(
+            [(open_.shift(-offset) / entry - 1.0) for offset in offsets],
+            axis=1,
+        )
+        adverse_pieces.append(future_path.min(axis=1).reindex(group.index))
+    return pd.concat(adverse_pieces).reindex(frame.index) if adverse_pieces else pd.Series(np.nan, index=frame.index)
 
 
 def _load_soxx_constituent_factor_frame(
@@ -659,6 +687,8 @@ def _build_policy_provider(
         ALPHA_TARGET_COL,
         CRASH_TARGET_COL,
         MAX_ADVERSE_TARGET_COL,
+        CRASH_20D_TARGET_COL,
+        MAX_ADVERSE_20D_TARGET_COL,
         RISK_TARGET_COL,
         VOL_ADJUSTED_TARGET_COL,
         POSITION_TARGET_COL,
@@ -701,6 +731,8 @@ def _load_policy_provider(
         f"${ALPHA_TARGET_COL}",
         f"${CRASH_TARGET_COL}",
         f"${MAX_ADVERSE_TARGET_COL}",
+        f"${CRASH_20D_TARGET_COL}",
+        f"${MAX_ADVERSE_20D_TARGET_COL}",
         f"${RISK_TARGET_COL}",
         f"${VOL_ADJUSTED_TARGET_COL}",
         f"${POSITION_TARGET_COL}",
@@ -1207,6 +1239,21 @@ def _predict_base_trainable_policy(
         MAX_ADVERSE_TARGET_COL,
         higher_is_risk=False,
     )
+    crash_20d, crash_20d_percentile = _fit_predict_binary_probability_with_train_percentile(
+        family,
+        train,
+        predict,
+        feature_cols,
+        CRASH_20D_TARGET_COL,
+    )
+    max_adverse_20d, max_adverse_20d_risk_percentile = _fit_predict_regression_with_train_risk_percentile(
+        family,
+        train,
+        predict,
+        feature_cols,
+        MAX_ADVERSE_20D_TARGET_COL,
+        higher_is_risk=False,
+    )
     regime = _fit_predict_regime(family, train, predict, feature_cols)
     vol_score = _fit_predict_regression(family, train, predict, feature_cols, VOL_ADJUSTED_TARGET_COL)
     learned_position = _fit_predict_regression(family, train, predict, feature_cols, POSITION_TARGET_COL)
@@ -1219,6 +1266,10 @@ def _predict_base_trainable_policy(
             "crash_risk_percentile": crash_percentile.reindex(predict.index).fillna(1.0),
             "max_adverse_score": max_adverse.reindex(predict.index).fillna(-1.0),
             "max_adverse_risk_percentile": max_adverse_risk_percentile.reindex(predict.index).fillna(1.0),
+            "crash_20d_probability": crash_20d.reindex(predict.index).fillna(1.0),
+            "crash_20d_risk_percentile": crash_20d_percentile.reindex(predict.index).fillna(1.0),
+            "max_adverse_20d_score": max_adverse_20d.reindex(predict.index).fillna(-1.0),
+            "max_adverse_20d_risk_percentile": max_adverse_20d_risk_percentile.reindex(predict.index).fillna(1.0),
             "vol_adjusted_score": vol_score.reindex(predict.index).fillna(0.0),
             "learned_position_score": learned_position.reindex(predict.index).fillna(0.0).clip(0.0, 1.0),
             "regime": regime.reindex(predict.index).fillna("selective"),
@@ -1242,6 +1293,19 @@ def _combine_consensus_predictions(lgb: pd.DataFrame, xgb: pd.DataFrame, predict
             "max_adverse_score": (lgb["max_adverse_score"].to_numpy() + xgb["max_adverse_score"].to_numpy()) / 2.0,
             "max_adverse_risk_percentile": (
                 lgb["max_adverse_risk_percentile"].to_numpy() + xgb["max_adverse_risk_percentile"].to_numpy()
+            ) / 2.0,
+            "crash_20d_probability": (
+                lgb["crash_20d_probability"].to_numpy() + xgb["crash_20d_probability"].to_numpy()
+            ) / 2.0,
+            "crash_20d_risk_percentile": (
+                lgb["crash_20d_risk_percentile"].to_numpy() + xgb["crash_20d_risk_percentile"].to_numpy()
+            ) / 2.0,
+            "max_adverse_20d_score": (
+                lgb["max_adverse_20d_score"].to_numpy() + xgb["max_adverse_20d_score"].to_numpy()
+            ) / 2.0,
+            "max_adverse_20d_risk_percentile": (
+                lgb["max_adverse_20d_risk_percentile"].to_numpy()
+                + xgb["max_adverse_20d_risk_percentile"].to_numpy()
             ) / 2.0,
             "vol_adjusted_score": (lgb["vol_adjusted_score"].to_numpy() + xgb["vol_adjusted_score"].to_numpy()) / 2.0,
             "learned_position_score": (
@@ -1280,6 +1344,22 @@ def _simulate_alpha_risk_policy(
         predictions.get("max_adverse_risk_percentile", pd.Series(0.0, index=predictions.index)),
         errors="coerce",
     ).fillna(1.0)
+    crash_20d = pd.to_numeric(
+        predictions.get("crash_20d_probability", pd.Series(0.0, index=predictions.index)),
+        errors="coerce",
+    ).fillna(0.0)
+    crash_20d_risk_percentile = pd.to_numeric(
+        predictions.get("crash_20d_risk_percentile", pd.Series(0.0, index=predictions.index)),
+        errors="coerce",
+    ).fillna(0.0)
+    max_adverse_20d = pd.to_numeric(
+        predictions.get("max_adverse_20d_score", pd.Series(0.0, index=predictions.index)),
+        errors="coerce",
+    ).fillna(0.0)
+    max_adverse_20d_risk_percentile = pd.to_numeric(
+        predictions.get("max_adverse_20d_risk_percentile", pd.Series(0.0, index=predictions.index)),
+        errors="coerce",
+    ).fillna(0.0)
     vol_score = pd.to_numeric(predictions["vol_adjusted_score"], errors="coerce").fillna(0.0)
     regime = predictions["regime"].astype(str).where(predictions["regime"].astype(str).isin(REGIME_LABELS), "selective")
     intraday_risk = pd.to_numeric(predictions.get("intraday_risk_state", 0.0), errors="coerce").fillna(0.0)
@@ -1313,6 +1393,19 @@ def _simulate_alpha_risk_policy(
         raw = ((alpha - alpha_floor) / max(1.0 - alpha_floor, 1e-12)).clip(lower=0.0, upper=1.0)
         vol_boost = (1.0 + 0.20 * vol_score.clip(lower=0.0, upper=2.0)).clip(lower=0.5, upper=1.35)
         target_position = (raw * vol_boost * scale).clip(lower=0.0, upper=1.0)
+    long_adverse_pressure = ((-max_adverse_20d - 0.12) / 0.18).clip(lower=0.0, upper=1.0)
+    long_crash_pressure = ((crash_20d - 0.35) / 0.65).clip(lower=0.0, upper=1.0)
+    long_adverse_percentile_pressure = (
+        (max_adverse_20d_risk_percentile - 0.75) / 0.25
+    ).clip(lower=0.0, upper=1.0)
+    long_crash_percentile_pressure = ((crash_20d_risk_percentile - 0.75) / 0.25).clip(lower=0.0, upper=1.0)
+    long_horizon_risk_factor = (
+        (1.0 - long_adverse_pressure)
+        * (1.0 - 0.75 * long_crash_pressure)
+        * (1.0 - 0.50 * long_adverse_percentile_pressure)
+        * (1.0 - 0.25 * long_crash_percentile_pressure)
+    ).clip(lower=0.0, upper=1.0)
+    target_position = (target_position * long_horizon_risk_factor).clip(lower=0.0, upper=1.0)
     risk_cap_mask = risk.ge(float(policy["risk_cut"]))
     target_position = target_position.where(~risk_cap_mask, np.minimum(target_position, float(policy["risk_cap"])))
     crash_cut = float(policy.get("crash_cut", np.inf))
@@ -1391,6 +1484,11 @@ def _simulate_alpha_risk_policy(
             "crash_risk_percentile": crash_risk_percentile.to_numpy(),
             "max_adverse_score": max_adverse.to_numpy(),
             "max_adverse_risk_percentile": max_adverse_risk_percentile.to_numpy(),
+            "crash_20d_probability": crash_20d.to_numpy(),
+            "crash_20d_risk_percentile": crash_20d_risk_percentile.to_numpy(),
+            "max_adverse_20d_score": max_adverse_20d.to_numpy(),
+            "max_adverse_20d_risk_percentile": max_adverse_20d_risk_percentile.to_numpy(),
+            "long_horizon_risk_factor": long_horizon_risk_factor.to_numpy(),
             "vol_adjusted_score": vol_score.to_numpy(),
             "learned_position_score": pd.to_numeric(
                 predictions.get("learned_position_score", pd.Series(0.0, index=predictions.index)),
@@ -1794,6 +1892,8 @@ def _clean_policy_frame(frame: pd.DataFrame, feature_cols: list[str]) -> pd.Data
         ALPHA_TARGET_COL,
         CRASH_TARGET_COL,
         MAX_ADVERSE_TARGET_COL,
+        CRASH_20D_TARGET_COL,
+        MAX_ADVERSE_20D_TARGET_COL,
         RISK_TARGET_COL,
         VOL_ADJUSTED_TARGET_COL,
         POSITION_TARGET_COL,
@@ -2005,8 +2105,14 @@ def _summary_payload(
         },
         "policy_architecture": {
             "alpha_model": "opportunity_probability_plus_vol_adjusted_return",
-            "risk_model": "independent_risk_crash_probability_max_adverse_and_percentile_discount",
-            "risk_target_cols": [CRASH_TARGET_COL, MAX_ADVERSE_TARGET_COL, RISK_TARGET_COL],
+            "risk_model": "independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount",
+            "risk_target_cols": [
+                CRASH_TARGET_COL,
+                MAX_ADVERSE_TARGET_COL,
+                CRASH_20D_TARGET_COL,
+                MAX_ADVERSE_20D_TARGET_COL,
+                RISK_TARGET_COL,
+            ],
             "position_target_col": POSITION_TARGET_COL,
             "position_policy": "learned_position_regressor_discounted_by_independent_risk_heads",
             "risk_budget": "path_dependent_drawdown_cooldown_cap_uses_realized_strategy_equity_only",
@@ -2147,7 +2253,7 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "  manual_template_selection: false",
             "policy_architecture:",
             "  alpha_model: opportunity_probability_plus_vol_adjusted_return",
-            "  risk_model: independent_risk_crash_probability_max_adverse_and_percentile_discount",
+            "  risk_model: independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount",
             f"  position_target_col: {POSITION_TARGET_COL}",
             "  position_policy: learned_position_regressor_discounted_by_independent_risk_heads",
             "intraday_risk_state:",

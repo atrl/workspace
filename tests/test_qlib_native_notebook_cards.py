@@ -756,7 +756,7 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["regime_classifier"]["target_labels"] == ["defensive", "rebound", "selective", "trend"]
     assert summary["policy_architecture"]["alpha_model"] == "opportunity_probability_plus_vol_adjusted_return"
     assert summary["policy_architecture"]["risk_model"] == (
-        "independent_risk_crash_probability_max_adverse_and_percentile_discount"
+        "independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount"
     )
     assert summary["policy_architecture"]["position_policy"] == (
         "learned_position_regressor_discounted_by_independent_risk_heads"

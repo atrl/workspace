@@ -19,7 +19,7 @@ regime_classifier:
   manual_template_selection: false
 policy_architecture:
   alpha_model: opportunity_probability_plus_vol_adjusted_return
-  risk_model: independent_risk_crash_probability_max_adverse_and_percentile_discount
+  risk_model: independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount
   position_target_col: learned_position_target
   position_policy: learned_position_regressor_discounted_by_independent_risk_heads
 intraday_risk_state:
@@ -34,8 +34,8 @@ soxx_constituent_factors:
   lag_days: 1
 feature_sets:
   selection_policy: nested_inner_feature_set_selection
-  selected_feature_sets: ['base', 'base_soxx_diffusion']
-  selected_soxx_outer_year_count: 2
+  selected_feature_sets: ['base_soxx_diffusion']
+  selected_soxx_outer_year_count: 4
 overfit_audit:
   status: mitigated
   manual_template_selection: false
