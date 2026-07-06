@@ -2,8 +2,15 @@ experiment: trainable_regime_policy_nested_wf_v1
 card_type: trainable_regime_policy_nested_wf_research_card
 provider_uri: /Users/rziiiii/dev/workspace/data/qlib/trainable_regime_policy_nested_wf_v1
 model_selection:
-  selection_policy: nested_inner_trainable_regime_policy
+  selection_policy: nested_inner_soxl_calibrated_no_template_policy_grid
   selection_uses_outer_test: false
+  final_calibration_asset: SOXL
+  cross_asset_role: overfit_stress_audit_not_primary_selection_target
+  inner_validation_years: 8
+  search_space_type: pre_registered_hyperparameter_grid
+  manual_template_selection: false
+  template_library_used: false
+  selector_regime_source: none
 regime_classifier:
   type: supervised_trainable_policy_classifier
   manual_template_selection: false
@@ -19,7 +26,7 @@ overfit_audit:
   manual_template_selection: false
 annual_goal:
   required_policy_satisfied: false
-  target_pass_test_years: []
+  target_pass_test_years: [2024]
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml

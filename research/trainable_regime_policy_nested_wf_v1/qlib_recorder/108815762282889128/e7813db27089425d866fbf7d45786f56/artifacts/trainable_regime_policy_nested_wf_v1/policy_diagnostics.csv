@@ -1,5 +1,0 @@
-outer_test_year,candidate,selected_regime_model,policy_id,position_mode,inner_beats_buyhold_rate,inner_activity_pass_rate,inner_pass_rate,test_intraday_risk_cap_day_ratio,test_drawdown_cooldown_day_ratio,test_avg_abs_position,beats_buyhold,passes_drawdown
-2023,lgbm_trainable_regime_cooldown_tight_repair,lgbm,cooldown_tight_repair,binary_full,0.5,1.0,0.7,0.048,0.88,0.1974,False,False
-2024,lgbm_trainable_regime_cooldown_low_alpha_defensive,lgbm,cooldown_low_alpha_defensive,binary_full,0.5,0.6,1.0,0.1388888888888889,0.6746031746031746,0.047619047619047616,False,True
-2025,lgb_xgb_consensus_trainable_regime_binary_low_alpha_zero_cap,lgb_xgb_consensus,binary_low_alpha_zero_cap,binary_full,0.2,1.0,0.5,0.144,0.0,0.404,False,False
-2026,lgbm_trainable_regime_cooldown_low_alpha_defensive,lgbm,cooldown_low_alpha_defensive,binary_full,0.5,0.9,0.9,0.13432835820895522,0.0,0.29850746268656714,False,True

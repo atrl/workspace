@@ -726,8 +726,14 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["card_type"] == "trainable_regime_policy_nested_wf_research_card"
     assert summary["benchmark_basis"] == "open_to_open"
     assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
-    assert summary["model_selection"]["selection_policy"] == "nested_inner_trainable_regime_policy"
+    assert summary["model_selection"]["selection_policy"] == "nested_inner_soxl_calibrated_no_template_policy_grid"
     assert summary["model_selection"]["selection_uses_outer_test"] is False
+    assert summary["model_selection"]["final_calibration_asset"] == "SOXL"
+    assert summary["model_selection"]["cross_asset_role"] == "overfit_stress_audit_not_primary_selection_target"
+    assert summary["model_selection"]["inner_validation_years"] == 8
+    assert summary["model_selection"]["search_space_type"] == "pre_registered_hyperparameter_grid"
+    assert summary["model_selection"]["manual_template_selection"] is False
+    assert summary["model_selection"]["template_library_used"] is False
     assert set(summary["model_selection"]["model_families"]) >= {
         "lgbm_classifier",
         "xgb_classifier",
@@ -749,9 +755,7 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert overfit["selection_uses_outer_test"] is False
     assert "manual_template_selection" not in overfit["blocking_reasons"]
 
-    prior_template = summary["prior_template_v2_overfit_audit"]
-    assert prior_template["manual_template_selection"] is True
-    assert prior_template["overfit_risk_status"] == "fail"
+    assert "prior_template_v2_overfit_audit" not in summary
 
     annual_goal = summary["annual_goal"]
     assert annual_goal["selection_uses_outer_test"] is False
@@ -785,6 +789,15 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
 
     selected = pd.read_csv(card / summary["sidecars"]["selected_candidates"])
     assert selected["selection_uses_outer_test"].eq(False).all()
+    assert selected["selection_policy"].eq("nested_inner_soxl_calibrated_no_template_policy_grid").all()
+    assert selected["calibration_asset"].eq("SOXL").all()
+    assert selected["cross_asset_stress_role"].eq("overfit_audit_not_primary_selection_target").all()
+    assert "soxl_inner_excess_return_pct" in selected.columns
+    assert "cross_asset_avg_excess_return_pct" in selected.columns
+    assert "outer_selector_regime" not in selected.columns
+    assert "selector_regime_filter_applied" not in selected.columns
+    assert "regime_soxl_inner_excess_return_pct" not in selected.columns
+    assert "regime_cross_asset_stress_pass_rate" not in selected.columns
     assert selected["inner_fold_count"].min() >= 10
 
     recorder_dir = Path(summary["recorder_local_dir"])

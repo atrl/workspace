@@ -9,6 +9,7 @@ from src.workflow.trainable_regime_policy_nested_wf import (
     RISK_TARGET_COL,
     VOL_ADJUSTED_TARGET_COL,
     _attach_trainable_policy_targets,
+    _select_policy_from_inner_metrics,
     _simulate_alpha_risk_policy,
 )
 
@@ -163,3 +164,110 @@ def test_drawdown_cooldown_cap_is_path_dependent_without_future_returns():
 
     assert list(positions["target_position"]) == [1.0, 0.25, 0.25, 0.25]
     assert list(positions["drawdown_cooldown_active"]) == [0, 1, 1, 1]
+
+
+def test_selector_uses_soxl_inner_calibration_before_cross_asset_stress_average():
+    rows = []
+    for candidate in ["cross_average_winner", "soxl_calibrated_winner"]:
+        for heldout_asset in ["SOXL", "TQQQ", "UPRO", "SPXL", "TECL"]:
+            if candidate == "cross_average_winner":
+                selection_return = 18.0 if heldout_asset != "SOXL" else 3.0
+                excess_return = 12.0 if heldout_asset != "SOXL" else -5.0
+                max_drawdown = -10.0
+            else:
+                selection_return = 22.0 if heldout_asset == "SOXL" else 1.0
+                excess_return = 18.0 if heldout_asset == "SOXL" else -2.0
+                max_drawdown = -12.0
+            rows.append(
+                {
+                    "candidate": candidate,
+                    "selection_return_pct": selection_return,
+                    "selection_max_drawdown_pct": max_drawdown,
+                    "selection_avg_abs_position": 0.35,
+                    "selection_total_turnover": 4.0,
+                    "excess_return_pct": excess_return,
+                    "beats_buyhold": excess_return > 0,
+                    "heldout_asset": heldout_asset,
+                    "inner_year": 2024,
+                }
+            )
+    metrics = pd.DataFrame(rows)
+
+    selected = _select_policy_from_inner_metrics(
+        metrics,
+        outer_test_year=2025,
+        required_heldout_assets=("SOXL", "TQQQ", "UPRO", "SPXL", "TECL"),
+    )
+
+    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_no_template_policy_grid"
+    assert selected["calibration_asset"] == "SOXL"
+    assert selected["candidate"] == "soxl_calibrated_winner"
+    assert selected["soxl_inner_excess_return_pct"] == 18.0
+    assert selected["cross_asset_stress_role"] == "overfit_audit_not_primary_selection_target"
+    assert selected["selection_uses_outer_test"] is False
+
+
+def test_selector_prefers_soxl_drawdown_qualified_candidate_over_risky_soxl_return():
+    rows = []
+    for candidate in ["risky_soxl_return", "drawdown_qualified_soxl"]:
+        for heldout_asset in ["SOXL", "TQQQ", "UPRO", "SPXL", "TECL"]:
+            if candidate == "risky_soxl_return" and heldout_asset == "SOXL":
+                selection_return, excess_return, max_drawdown = 85.0, 60.0, -55.0
+            elif candidate == "drawdown_qualified_soxl" and heldout_asset == "SOXL":
+                selection_return, excess_return, max_drawdown = 24.0, 16.0, -12.0
+            else:
+                selection_return, excess_return, max_drawdown = 6.0, 1.0, -14.0
+            rows.append(
+                {
+                    "candidate": candidate,
+                    "selection_return_pct": selection_return,
+                    "selection_max_drawdown_pct": max_drawdown,
+                    "selection_avg_abs_position": 0.30,
+                    "selection_total_turnover": 4.0,
+                    "excess_return_pct": excess_return,
+                    "beats_buyhold": excess_return > 0,
+                    "heldout_asset": heldout_asset,
+                    "inner_year": 2024,
+                }
+            )
+    selected = _select_policy_from_inner_metrics(
+        pd.DataFrame(rows),
+        outer_test_year=2025,
+        required_heldout_assets=("SOXL", "TQQQ", "UPRO", "SPXL", "TECL"),
+    )
+
+    assert selected["candidate"] == "drawdown_qualified_soxl"
+    assert selected["soxl_drawdown_gate_applied"] is True
+    assert selected["soxl_inner_pass_rate"] == 1.0
+
+
+def test_selector_does_not_expose_manual_regime_template_filter_fields():
+    rows = []
+    for candidate in ["soxl_calibrated_winner", "manual_regime_shape_winner"]:
+        for heldout_asset in ["SOXL", "TQQQ", "UPRO", "SPXL", "TECL"]:
+            is_manual_shape = candidate == "manual_regime_shape_winner"
+            rows.append(
+                {
+                    "candidate": candidate,
+                    "selection_return_pct": 40.0 if is_manual_shape else 24.0,
+                    "selection_max_drawdown_pct": -12.0,
+                    "selection_avg_abs_position": 0.30,
+                    "selection_total_turnover": 4.0,
+                    "excess_return_pct": -20.0 if is_manual_shape and heldout_asset != "SOXL" else 12.0,
+                    "beats_buyhold": not (is_manual_shape and heldout_asset != "SOXL"),
+                    "heldout_asset": heldout_asset,
+                    "inner_year": 2024,
+                    "selector_regime": "post_bear_repair_setup" if is_manual_shape else "balanced_setup",
+                }
+            )
+
+    selected = _select_policy_from_inner_metrics(
+        pd.DataFrame(rows),
+        outer_test_year=2025,
+        required_heldout_assets=("SOXL", "TQQQ", "UPRO", "SPXL", "TECL"),
+    )
+
+    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_no_template_policy_grid"
+    assert "outer_selector_regime" not in selected
+    assert "selector_regime_filter_applied" not in selected
+    assert "regime_soxl_inner_excess_return_pct" not in selected

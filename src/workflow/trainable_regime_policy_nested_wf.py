@@ -33,6 +33,8 @@ from src.workflow.multi_3x_etf_normalized_nested_wf import (
 
 EXPERIMENT = "trainable_regime_policy_nested_wf_v1"
 CARD_TYPE = "trainable_regime_policy_nested_wf_research_card"
+SELECTION_POLICY = "nested_inner_soxl_calibrated_no_template_policy_grid"
+CALIBRATION_ASSET = "SOXL"
 REGIME_TARGET_COL = "trainable_regime_target"
 REGIME_TARGET_CODE_COL = "trainable_regime_target_code"
 CRASH_TARGET_COL = "crash_probability_target"
@@ -50,6 +52,7 @@ class TrainableRegimePolicyNestedWfSpec:
     experiment: str = EXPERIMENT
     train_start: str = "2011-01-03"
     outer_test_years: tuple[int, ...] = (2023, 2024, 2025, 2026)
+    inner_validation_years: int = 8
     max_common_end: str = "2026-04-13"
     max_drawdown_floor_pct: float = -20.0
     cost_per_turnover: float = 0.0003
@@ -111,6 +114,7 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
             candidates=candidates,
             feature_cols=feature_cols,
             cost_per_turnover=spec.cost_per_turnover,
+            max_inner_years=spec.inner_validation_years,
         )
         selected = _select_policy_from_inner_metrics(
             inner_metrics,
@@ -152,14 +156,6 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
             if "instrument" in column.lower() or "symbol" in column.lower() or "asset" in column.lower()
         ),
         selection_uses_outer_test=bool(selected_candidates.get("selection_uses_outer_test", pd.Series([False])).any()),
-    )
-    prior_template_audit = _overfit_audit_summary(
-        experiment="agentic_alpha_intraday_execution_sleeve_v2",
-        manual_template_selection=True,
-        nested_walk_forward=False,
-        leave_one_asset_out_assets=("SOXL",),
-        feature_identity_columns=(),
-        selection_uses_outer_test=False,
     )
     sidecars = {
         "annual_walk_forward": "annual_walk_forward.csv",
@@ -211,7 +207,6 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
                 annual_metrics=annual_metrics,
                 annual_goal=annual_goal,
                 overfit_audit=overfit_audit,
-                prior_template_audit=prior_template_audit,
                 selected_candidates=selected_candidates,
                 intraday_audit=intraday_audit,
             )
@@ -581,6 +576,7 @@ def _inner_policy_metrics(
     candidates: list[dict[str, Any]],
     feature_cols: list[str],
     cost_per_turnover: float,
+    max_inner_years: int,
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     data = _clean_policy_frame(frame, feature_cols)
@@ -589,7 +585,7 @@ def _inner_policy_metrics(
         year
         for year in sorted(available["datetime"].dt.year.unique())
         if year >= 2015 and year <= int(outer_test_year) - 1
-    ][-2:]
+    ][-int(max_inner_years) :]
     for inner_year in inner_years:
         train_end = pd.Timestamp(f"{inner_year - 1}-12-31")
         for heldout_asset in ETF_UNIVERSE:
@@ -651,6 +647,7 @@ def _select_policy_from_inner_metrics(
     rows["beats_buyhold"] = rows["beats_buyhold"].fillna(False).astype(bool)
     rows["passes_inner_drawdown"] = rows["selection_max_drawdown_pct"].ge(-20.0)
     rows["passes_inner_activity"] = rows["selection_avg_abs_position"].ge(0.05)
+    rows["is_calibration_asset"] = rows["heldout_asset"].astype(str).eq(CALIBRATION_ASSET)
     grouped = (
         rows.groupby("candidate")
         .agg(
@@ -667,39 +664,115 @@ def _select_policy_from_inner_metrics(
         )
         .reset_index()
     )
+    calibration = (
+        rows.loc[rows["is_calibration_asset"]]
+        .groupby("candidate")
+        .agg(
+            soxl_inner_return_pct=("selection_return_pct", "mean"),
+            soxl_inner_excess_return_pct=("excess_return_pct", "mean"),
+            soxl_inner_worst_drawdown_pct=("selection_max_drawdown_pct", "min"),
+            soxl_inner_avg_abs_position=("selection_avg_abs_position", "mean"),
+            soxl_inner_total_turnover=("selection_total_turnover", "mean"),
+            soxl_inner_pass_rate=("passes_inner_drawdown", "mean"),
+            soxl_inner_activity_pass_rate=("passes_inner_activity", "mean"),
+            soxl_inner_beats_buyhold_rate=("beats_buyhold", "mean"),
+            soxl_inner_fold_count=("candidate", "size"),
+        )
+        .reset_index()
+    )
+    stress = (
+        rows.loc[~rows["is_calibration_asset"]]
+        .groupby("candidate")
+        .agg(
+            cross_asset_avg_excess_return_pct=("excess_return_pct", "mean"),
+            cross_asset_avg_return_pct=("selection_return_pct", "mean"),
+            cross_asset_worst_drawdown_pct=("selection_max_drawdown_pct", "min"),
+            cross_asset_stress_pass_rate=("passes_inner_drawdown", "mean"),
+            cross_asset_activity_pass_rate=("passes_inner_activity", "mean"),
+            cross_asset_beats_buyhold_rate=("beats_buyhold", "mean"),
+            cross_asset_fold_count=("candidate", "size"),
+        )
+        .reset_index()
+    )
+    grouped = (
+        grouped.merge(calibration, on="candidate", how="left")
+        .merge(stress, on="candidate", how="left")
+    )
     required_assets = [str(asset) for asset in required_heldout_assets]
     grouped["has_required_heldout_assets"] = grouped["heldout_assets"].map(
         lambda assets: all(asset in assets for asset in required_assets)
     )
-    eligible = grouped.loc[grouped["has_required_heldout_assets"]].copy()
+    grouped["has_calibration_asset"] = grouped["soxl_inner_fold_count"].fillna(0).gt(0)
+    grouped["soxl_drawdown_shortfall_pct"] = (
+        (-20.0 - grouped["soxl_inner_worst_drawdown_pct"].fillna(-100.0)).clip(lower=0.0)
+    )
+    grouped["cross_asset_drawdown_shortfall_pct"] = (
+        (-30.0 - grouped["cross_asset_worst_drawdown_pct"].fillna(-100.0)).clip(lower=0.0)
+    )
+    eligible = grouped.loc[grouped["has_required_heldout_assets"] & grouped["has_calibration_asset"]].copy()
     if eligible.empty:
-        raise ValueError("trainable regime policy inner nested walk-forward missing required heldout assets")
+        raise ValueError("trainable regime policy inner nested walk-forward missing required heldout or SOXL calibration assets")
+    soxl_risk_eligible = eligible.loc[
+        eligible["soxl_inner_pass_rate"].fillna(0.0).ge(0.5)
+        & eligible["soxl_inner_activity_pass_rate"].fillna(0.0).ge(0.5)
+        & eligible["inner_activity_pass_rate"].fillna(0.0).ge(0.5)
+    ].copy()
+    soxl_drawdown_gate_applied = not soxl_risk_eligible.empty
+    if soxl_drawdown_gate_applied:
+        eligible = soxl_risk_eligible
     eligible["selection_score"] = (
-        eligible["avg_selection_return_pct"]
-        + 1.50 * eligible["avg_excess_return_pct"]
-        + 2.0 * eligible["worst_selection_max_drawdown_pct"]
-        - 0.03 * eligible["avg_selection_total_turnover"]
-        + 25.0 * eligible["inner_pass_rate"]
-        + 20.0 * eligible["inner_activity_pass_rate"]
-        + 35.0 * eligible["inner_beats_buyhold_rate"]
+        2.50 * eligible["soxl_inner_excess_return_pct"].fillna(0.0)
+        + 0.75 * eligible["soxl_inner_return_pct"].fillna(0.0)
+        + 55.0 * eligible["soxl_inner_beats_buyhold_rate"].fillna(0.0)
+        + 40.0 * eligible["soxl_inner_pass_rate"].fillna(0.0)
+        + 25.0 * eligible["soxl_inner_activity_pass_rate"].fillna(0.0)
+        - 4.00 * eligible["soxl_drawdown_shortfall_pct"].fillna(0.0)
+        + 0.25 * eligible["cross_asset_avg_excess_return_pct"].fillna(0.0)
+        + 20.0 * eligible["cross_asset_stress_pass_rate"].fillna(0.0)
+        + 10.0 * eligible["cross_asset_beats_buyhold_rate"].fillna(0.0)
+        + 10.0 * eligible["cross_asset_activity_pass_rate"].fillna(0.0)
+        - 0.75 * eligible["cross_asset_drawdown_shortfall_pct"].fillna(0.0)
+        - 0.03 * eligible["avg_selection_total_turnover"].fillna(0.0)
     )
     selected = eligible.sort_values(
         [
             "selection_score",
-            "inner_beats_buyhold_rate",
+            "soxl_inner_beats_buyhold_rate",
+            "soxl_inner_excess_return_pct",
+            "soxl_inner_worst_drawdown_pct",
+            "cross_asset_stress_pass_rate",
             "avg_excess_return_pct",
-            "worst_selection_max_drawdown_pct",
-            "avg_selection_return_pct",
         ],
-        ascending=[False, False, False, False, False],
+        ascending=[False, False, False, False, False, False],
     ).iloc[0]
     return {
         "candidate": str(selected["candidate"]),
         "outer_test_year": int(outer_test_year),
+        "selection_policy": SELECTION_POLICY,
+        "calibration_asset": CALIBRATION_ASSET,
+        "soxl_drawdown_gate_applied": bool(soxl_drawdown_gate_applied),
         "selection_uses_outer_test": False,
         "required_heldout_assets": required_assets,
         "observed_heldout_assets": list(selected["heldout_assets"]),
         "inner_fold_count": int(selected["inner_fold_count"]),
+        "soxl_inner_fold_count": int(selected["soxl_inner_fold_count"]),
+        "soxl_inner_return_pct": float(selected["soxl_inner_return_pct"]),
+        "soxl_inner_excess_return_pct": float(selected["soxl_inner_excess_return_pct"]),
+        "soxl_inner_worst_drawdown_pct": float(selected["soxl_inner_worst_drawdown_pct"]),
+        "soxl_inner_avg_abs_position": float(selected["soxl_inner_avg_abs_position"]),
+        "soxl_inner_pass_rate": float(selected["soxl_inner_pass_rate"]),
+        "soxl_inner_activity_pass_rate": float(selected["soxl_inner_activity_pass_rate"]),
+        "soxl_inner_beats_buyhold_rate": float(selected["soxl_inner_beats_buyhold_rate"]),
+        "soxl_drawdown_shortfall_pct": float(selected["soxl_drawdown_shortfall_pct"]),
+        "cross_asset_stress_role": "overfit_audit_not_primary_selection_target",
+        "cross_asset_fold_count": int(selected["cross_asset_fold_count"]),
+        "cross_asset_avg_return_pct": float(selected["cross_asset_avg_return_pct"]),
+        "cross_asset_avg_excess_return_pct": float(selected["cross_asset_avg_excess_return_pct"]),
+        "cross_asset_worst_drawdown_pct": float(selected["cross_asset_worst_drawdown_pct"]),
+        "cross_asset_stress_pass_rate": float(selected["cross_asset_stress_pass_rate"]),
+        "cross_asset_activity_pass_rate": float(selected["cross_asset_activity_pass_rate"]),
+        "cross_asset_beats_buyhold_rate": float(selected["cross_asset_beats_buyhold_rate"]),
+        "cross_asset_drawdown_shortfall_pct": float(selected["cross_asset_drawdown_shortfall_pct"]),
         "avg_selection_return_pct": float(selected["avg_selection_return_pct"]),
         "avg_excess_return_pct": float(selected["avg_excess_return_pct"]),
         "avg_selection_avg_abs_position": float(selected["avg_selection_avg_abs_position"]),
@@ -1215,7 +1288,7 @@ def _annual_goal_summary(
     if pass_years != required_years:
         blocking.append("annual_target_gate_failed")
     return {
-        "policy": "nested_outer_soxl_year_inner_trainable_regime_policy",
+        "policy": "nested_outer_soxl_year_inner_soxl_calibrated_no_template_policy_grid",
         "selection_uses_outer_test": False,
         "required_test_years": required_years,
         "feasible_test_years": feasible_years,
@@ -1235,6 +1308,15 @@ def _policy_diagnostic_row(outer_metrics: dict[str, Any], selected: dict[str, An
         "selected_regime_model": outer_metrics["selected_regime_model"],
         "policy_id": outer_metrics["policy_id"],
         "position_mode": outer_metrics.get("position_mode"),
+        "selection_policy": selected.get("selection_policy"),
+        "calibration_asset": selected.get("calibration_asset"),
+        "soxl_drawdown_gate_applied": selected.get("soxl_drawdown_gate_applied"),
+        "soxl_inner_excess_return_pct": selected.get("soxl_inner_excess_return_pct"),
+        "soxl_inner_worst_drawdown_pct": selected.get("soxl_inner_worst_drawdown_pct"),
+        "soxl_drawdown_shortfall_pct": selected.get("soxl_drawdown_shortfall_pct"),
+        "cross_asset_avg_excess_return_pct": selected.get("cross_asset_avg_excess_return_pct"),
+        "cross_asset_stress_pass_rate": selected.get("cross_asset_stress_pass_rate"),
+        "cross_asset_worst_drawdown_pct": selected.get("cross_asset_worst_drawdown_pct"),
         "inner_beats_buyhold_rate": selected.get("inner_beats_buyhold_rate"),
         "inner_activity_pass_rate": selected.get("inner_activity_pass_rate"),
         "inner_pass_rate": selected.get("inner_pass_rate"),
@@ -1261,7 +1343,6 @@ def _summary_payload(
     annual_metrics: pd.DataFrame,
     annual_goal: dict[str, Any],
     overfit_audit: dict[str, Any],
-    prior_template_audit: dict[str, Any],
     selected_candidates: pd.DataFrame,
     intraday_audit: dict[str, Any],
 ) -> dict[str, Any]:
@@ -1304,8 +1385,18 @@ def _summary_payload(
             "normalization": "per_asset_rolling_zscore_and_percentile",
         },
         "model_selection": {
-            "selection_policy": "nested_inner_trainable_regime_policy",
+            "selection_policy": SELECTION_POLICY,
             "selection_uses_outer_test": False,
+            "final_calibration_asset": CALIBRATION_ASSET,
+            "cross_asset_training_universe": list(ETF_UNIVERSE),
+            "cross_asset_role": "overfit_stress_audit_not_primary_selection_target",
+            "primary_selection_target": "SOXL inner-fold excess return with drawdown and activity gates",
+            "inner_validation_years": int(spec.inner_validation_years),
+            "search_space_type": "pre_registered_hyperparameter_grid",
+            "manual_template_selection": False,
+            "template_library_used": False,
+            "selector_regime_source": "none",
+            "selector_regime_matching": "disabled_manual_prior_year_regime_templates",
             "model_families": ["lgbm_classifier", "xgb_classifier", "lgbm_regressor", "xgb_regressor", "lgb_xgb_consensus"],
             "candidate_count": int(len(_policy_candidate_configs())),
             "selected_by_year": selected_candidates.to_dict("records") if not selected_candidates.empty else [],
@@ -1328,7 +1419,6 @@ def _summary_payload(
         "intraday_risk_state": intraday_audit,
         "annual_goal": annual_goal,
         "overfit_audit": overfit_audit,
-        "prior_template_v2_overfit_audit": prior_template_audit,
         "annual_summary": annual_metrics.to_dict("records") if not annual_metrics.empty else [],
         "qlib_docs": QLIB_DOCS,
         "qlib_native_api": ["qlib.init", "qlib.data.D.features", "qlib.workflow.R.start"],
@@ -1374,11 +1464,6 @@ def _write_sidecars(
                 "detail": json.dumps(summary["annual_goal"], sort_keys=True),
             },
             {
-                "check": "prior_template_v2",
-                "status": summary["prior_template_v2_overfit_audit"]["overfit_risk_status"],
-                "detail": json.dumps(summary["prior_template_v2_overfit_audit"], sort_keys=True),
-            },
-            {
                 "check": "trainable_regime_classifier",
                 "status": "pass",
                 "detail": json.dumps(summary["regime_classifier"], sort_keys=True),
@@ -1406,7 +1491,6 @@ def _write_sidecars(
             {
                 "annual_goal": summary["annual_goal"],
                 "overfit_audit": summary["overfit_audit"],
-                "prior_template_v2_overfit_audit": summary["prior_template_v2_overfit_audit"],
                 "model_selection": summary["model_selection"],
                 "regime_classifier": summary["regime_classifier"],
                 "policy_architecture": summary["policy_architecture"],
@@ -1434,8 +1518,15 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             f"card_type: {summary['card_type']}",
             f"provider_uri: {summary['provider_uri']}",
             "model_selection:",
-            "  selection_policy: nested_inner_trainable_regime_policy",
+            f"  selection_policy: {SELECTION_POLICY}",
             "  selection_uses_outer_test: false",
+            f"  final_calibration_asset: {CALIBRATION_ASSET}",
+            "  cross_asset_role: overfit_stress_audit_not_primary_selection_target",
+            f"  inner_validation_years: {summary['model_selection']['inner_validation_years']}",
+            "  search_space_type: pre_registered_hyperparameter_grid",
+            "  manual_template_selection: false",
+            "  template_library_used: false",
+            "  selector_regime_source: none",
             "regime_classifier:",
             "  type: supervised_trainable_policy_classifier",
             "  manual_template_selection: false",
@@ -1463,13 +1554,13 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
 def _conclusion(summary: dict[str, Any]) -> str:
     return (
         "# 中文结论\n\n"
-        "- 做了什么：新增 trainable regime policy nested WF，不再用人工模板；regime classifier、alpha model、risk model 都在 inner folds 内训练/选择。\n"
+        "- 做了什么：trainable regime policy nested WF 已移除人工模板和 prior-year regime selector；regime classifier、alpha model、risk model 都在 inner folds 内训练，最终只用 SOXL inner 校准、drawdown/activity gate 和跨 ETF stress audit 选固定参数网格候选。\n"
         f"- 核心指标：annual target pass years={summary['annual_goal']['target_pass_test_years']}，"
         f"overfit audit={summary['overfit_audit']['overfit_risk_status']}，common_data_end={summary['common_data_end']}。\n"
-        "- regime/window 差异：post_bear/rebound/range/source 这类人工模板被替换成 supervised regime label；outer SOXL 年份只报告，不参与选择。\n"
+        "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签，outer SOXL 年份只报告，不参与选择。\n"
         f"- 是否晋升：{summary['promotion_decision']}。\n"
-        "- 风险：虽然人工模板已移除，但多 3x ETF 仍共享权益 beta；5m/15m 风险状态只作为 risk cap，不证明独立盘中 alpha。\n"
-        "- 下一步：若 annual gate 未过，继续扩充候选 policy 和独立资产/分钟历史，而不是按年份手工修模板。\n"
+        "- 风险：固定参数网格仍可能有数据窥探风险，尤其如果看完 2023-2026 后继续改网格；多 3x ETF 仍共享权益 beta；5m/15m 风险状态只作为 risk cap，不证明独立盘中 alpha。\n"
+        "- 下一步：若 annual gate 未过，继续转向可训练 position model、SOXX 成分股特征和更长分钟历史，而不是按年份手工修模板。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
         "- 不构成买卖建议。\n"
     )
@@ -1478,8 +1569,9 @@ def _conclusion(summary: dict[str, Any]) -> str:
 def _failure_modes(summary: dict[str, Any]) -> str:
     return (
         "# Failure Modes\n\n"
-        "- Manual regime template selection is rejected; prior template v2 remains recorded as overfit failure evidence.\n"
+        "- Manual regime template selection is rejected and is not part of the active selector or summary evidence.\n"
         "- Regime classifier labels are supervised by forward outcomes inside training folds; bad label design can still overfit the training era.\n"
+        "- Fixed hyperparameter grids can still be data-snooped if edited after reading outer-test failures.\n"
         "- Leave-one-asset-out reduces single-symbol fitting but does not remove shared US equity beta risk.\n"
         "- 5m/15m intraday state is used only as a risk cap, not as proof of same-day alpha generation.\n"
         f"- Current promotion decision: {summary['promotion_decision']}.\n"
