@@ -1,7 +1,7 @@
 {
   "annual_goal": {
     "blocking_reasons": [
-      "ok"
+      "annual_target_gate_failed"
     ],
     "feasible_test_years": [
       2023,
@@ -12,7 +12,7 @@
     "max_drawdown_floor_pct": -20.0,
     "missing_required_test_years": [],
     "policy": "nested_outer_soxl_year_inner_soxl_calibrated_model_family_feature_grid",
-    "required_policy_satisfied": true,
+    "required_policy_satisfied": false,
     "required_test_years": [
       2023,
       2024,
@@ -24,8 +24,7 @@
     "target_pass_test_years": [
       2023,
       2024,
-      2025,
-      2026
+      2025
     ]
   },
   "annual_summary": [
@@ -130,9 +129,9 @@
     },
     {
       "alpha_20d_blend": true,
-      "beats_buyhold": true,
+      "beats_buyhold": false,
       "buyhold_max_drawdown_pct": -39.63111114501953,
-      "buyhold_return_pct": 50.12911605834961,
+      "buyhold_return_pct": 335.4120178222656,
       "candidate": "lgbm_participation_boosted_opportunity_intraday_replay",
       "contains_soxx_constituents": true,
       "feature_count": 70,
@@ -146,18 +145,18 @@
       "selected_regime_model": "lgbm",
       "selection_uses_outer_test": false,
       "soxx_constituent_feature_count": 12,
-      "test_avg_abs_position": 0.46899486517827915,
+      "test_avg_abs_position": 0.466096342149267,
       "test_drawdown_cooldown_day_ratio": 0.0,
-      "test_end": "2026-04-09",
-      "test_intraday_execution_replay_day_ratio": 0.13432835820895522,
-      "test_intraday_risk_cap_day_ratio": 0.13432835820895522,
-      "test_max_drawdown_pct": -5.049685985948438,
+      "test_end": "2026-06-30",
+      "test_intraday_execution_replay_day_ratio": 0.15447154471544716,
+      "test_intraday_risk_cap_day_ratio": 0.17886178861788618,
+      "test_max_drawdown_pct": -5.639851792665917,
       "test_multi_target_risk_cap_day_ratio": 0.0,
-      "test_passes_target": true,
+      "test_passes_target": false,
       "test_percentile_risk_cap_day_ratio": 0.0,
-      "test_return_pct": 60.94192073929974,
+      "test_return_pct": 191.16301835217908,
       "test_start": "2026-01-02",
-      "test_total_turnover": 7.68520494179211,
+      "test_total_turnover": 15.743431354605244,
       "train_end": "2025-12-31",
       "train_start": "2011-01-03"
     }
@@ -666,7 +665,7 @@
         "execution_replay_fields": true,
         "lookback_only": true,
         "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
-        "rows": 1829,
+        "rows": 1885,
         "status": "ok"
       },
       "5min": {
@@ -675,12 +674,12 @@
         "execution_replay_fields": true,
         "lookback_only": true,
         "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_5min",
-        "rows": 1829,
+        "rows": 1885,
         "status": "ok"
       }
     },
     "role": "risk_cap_and_intraday_execution_replay_not_alpha_source",
-    "rows": 1829,
+    "rows": 1885,
     "status": "ok",
     "uses_15min": true,
     "uses_5min": true

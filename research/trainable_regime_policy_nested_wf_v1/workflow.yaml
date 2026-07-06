@@ -43,8 +43,8 @@ overfit_audit:
   status: mitigated
   manual_template_selection: false
 annual_goal:
-  required_policy_satisfied: true
-  target_pass_test_years: [2023, 2024, 2025, 2026]
+  required_policy_satisfied: false
+  target_pass_test_years: [2023, 2024, 2025]
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml

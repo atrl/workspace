@@ -53,7 +53,7 @@ class Multi3xEtfNormalizedNestedWfSpec:
     experiment: str = EXPERIMENT
     train_start: str = "2011-01-03"
     outer_test_years: tuple[int, ...] = (2023, 2024, 2025, 2026)
-    max_common_end: str = "2026-04-13"
+    max_common_end: str | None = None
     max_drawdown_floor_pct: float = -20.0
     cost_per_turnover: float = 0.0003
 
@@ -87,10 +87,10 @@ def _run_card(spec: Multi3xEtfNormalizedNestedWfSpec) -> dict[str, Any]:
     card.mkdir(parents=True, exist_ok=True)
     raw_panel, source_audit = _load_multi_3x_raw_panel(spec)
     normalized = _attach_normalized_features(raw_panel)
-    common_end = min(
-        pd.Timestamp(spec.max_common_end),
-        pd.to_datetime(normalized.groupby("instrument")["datetime"].max()).min(),
-    ).date().isoformat()
+    common_end_ts = pd.to_datetime(normalized.groupby("instrument")["datetime"].max()).min()
+    if spec.max_common_end is not None:
+        common_end_ts = min(pd.Timestamp(spec.max_common_end), common_end_ts)
+    common_end = common_end_ts.date().isoformat()
     normalized = normalized.loc[pd.to_datetime(normalized["datetime"]).le(pd.Timestamp(common_end))].copy()
     provider_manifest = _build_normalized_provider(spec, normalized, as_of=common_end)
     provider_frame, provider_meta = _load_normalized_provider(spec, normalized, as_of=common_end)
@@ -233,7 +233,10 @@ def _load_multi_3x_raw_panel(spec: Multi3xEtfNormalizedNestedWfSpec) -> tuple[pd
         provider_uri = spec.root / "data" / "qlib" / meta["provider"]
         config = QlibProviderConfig(provider_uri=provider_uri, market="all", region="us", kernels=1)
         provider_meta = init_qlib_provider(config)
-        end = min(pd.Timestamp(provider_meta["calendar_end"]), pd.Timestamp(spec.max_common_end)).date().isoformat()
+        end_ts = pd.Timestamp(provider_meta["calendar_end"])
+        if spec.max_common_end is not None:
+            end_ts = min(end_ts, pd.Timestamp(spec.max_common_end))
+        end = end_ts.date().isoformat()
         start = max(pd.Timestamp(provider_meta["calendar_start"]), pd.Timestamp(spec.train_start)).date().isoformat()
         frame = _load_pair_frame(
             config,

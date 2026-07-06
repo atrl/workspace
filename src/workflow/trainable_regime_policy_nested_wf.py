@@ -69,7 +69,7 @@ class TrainableRegimePolicyNestedWfSpec:
     train_start: str = "2011-01-03"
     outer_test_years: tuple[int, ...] = (2023, 2024, 2025, 2026)
     inner_validation_years: int = 8
-    max_common_end: str = "2026-04-13"
+    max_common_end: str | None = None
     max_drawdown_floor_pct: float = -20.0
     cost_per_turnover: float = 0.0003
 
@@ -105,10 +105,10 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
     raw_panel, source_audit = _load_multi_3x_raw_panel(spec)  # type: ignore[arg-type]
     normalized = _attach_normalized_features(raw_panel)
     normalized = _attach_trainable_policy_targets(normalized)
-    common_end = min(
-        pd.Timestamp(spec.max_common_end),
-        pd.to_datetime(normalized.groupby("instrument")["datetime"].max()).min(),
-    ).date().isoformat()
+    common_end_ts = pd.to_datetime(normalized.groupby("instrument")["datetime"].max()).min()
+    if spec.max_common_end is not None:
+        common_end_ts = min(pd.Timestamp(spec.max_common_end), common_end_ts)
+    common_end = common_end_ts.date().isoformat()
     normalized = normalized.loc[pd.to_datetime(normalized["datetime"]).le(pd.Timestamp(common_end))].copy()
     constituent_factor_frame, constituent_audit = _load_soxx_constituent_factor_frame(
         spec,

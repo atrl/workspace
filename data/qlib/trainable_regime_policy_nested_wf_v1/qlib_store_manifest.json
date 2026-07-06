@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-04-13",
-  "audit_snapshot_hash": "43ab0ea437decfce",
-  "calendar_end": "2026-04-13",
+  "as_of": "2026-07-02",
+  "audit_snapshot_hash": "50291d714cfe5054",
+  "calendar_end": "2026-07-02",
   "calendar_start": "2011-01-03",
   "feature_file_count": 465,
   "fields": [
@@ -100,7 +100,7 @@
     "$soxx_const_dispersion_ret20_lag1_pctile252"
   ],
   "freq": "day",
-  "hash": "3427c05cf6526722",
+  "hash": "ef3238107640c23d",
   "instruments": [
     "SOXL",
     "SPXL",
@@ -109,11 +109,11 @@
     "UPRO"
   ],
   "market": "all",
-  "max_datetime": "2026-04-13",
+  "max_datetime": "2026-07-02",
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/trainable_regime_policy_nested_wf_v1",
   "region": "us",
-  "row_count": 19205,
+  "row_count": 19485,
   "source": "qlib_trainable_regime_policy_multi_3x_panel",
   "source_api": [
     "qlib.init",
