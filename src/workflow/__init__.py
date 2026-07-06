@@ -40,6 +40,7 @@ __all__ = [
     "IntradayExecutionSleeveV2Spec",
     "HybridIntraday15mOpen2OpenSpec",
     "MetaLabelRiskBudgetOpen2OpenSpec",
+    "Multi3xEtfNormalizedNestedWfSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
@@ -65,6 +66,7 @@ __all__ = [
     "run_intraday_execution_sleeve_v2_card",
     "run_hybrid_intraday15m_open2open_card",
     "run_meta_label_risk_budget_open2open_card",
+    "run_multi_3x_etf_normalized_nested_wf_card",
     "run_probability_budget_open2open_card",
     "run_cognitive_alpha_position_model",
     "run_cognitive_alpha_weighted_factor_search",
@@ -153,6 +155,11 @@ _META_LABEL_RISK_BUDGET_OPEN2OPEN_EXPORTS = {
     "run_meta_label_risk_budget_open2open_card",
 }
 
+_MULTI_3X_ETF_NORMALIZED_NESTED_WF_EXPORTS = {
+    "Multi3xEtfNormalizedNestedWfSpec",
+    "run_multi_3x_etf_normalized_nested_wf_card",
+}
+
 _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS = {
     "ProbabilityBudgetOpen2OpenCardSpec",
     "run_probability_budget_open2open_card",
@@ -212,6 +219,10 @@ def __getattr__(name: str):
         from . import meta_label_risk_budget_open2open
 
         return getattr(meta_label_risk_budget_open2open, name)
+    if name in _MULTI_3X_ETF_NORMALIZED_NESTED_WF_EXPORTS:
+        from . import multi_3x_etf_normalized_nested_wf
+
+        return getattr(multi_3x_etf_normalized_nested_wf, name)
     if name in _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS:
         from . import probability_budget_open2open
 

@@ -1,0 +1,15 @@
+experiment: multi_3x_etf_normalized_lgb_xgb_nested_wf_v1
+card_type: multi_3x_etf_normalized_nested_wf_research_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/multi_3x_etf_normalized_lgb_xgb_nested_wf_v1
+model_selection:
+  selection_policy: inner_nested_leave_one_asset_out
+  selection_uses_outer_test: false
+overfit_audit:
+  status: mitigated
+  manual_template_selection: false
+annual_goal:
+  required_policy_satisfied: false
+  target_pass_test_years: []
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml

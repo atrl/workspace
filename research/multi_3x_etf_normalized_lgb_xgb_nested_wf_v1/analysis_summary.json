@@ -1,0 +1,250 @@
+{
+  "annual_goal": {
+    "blocking_reasons": [
+      "annual_target_gate_failed"
+    ],
+    "feasible_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "max_drawdown_floor_pct": -20.0,
+    "missing_required_test_years": [],
+    "policy": "nested_outer_soxl_year_inner_multi_asset_leave_one_asset_out",
+    "required_policy_satisfied": false,
+    "required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "return_gate": "test_return_pct_gt_soxl_buyhold_open2open",
+    "selection_uses_outer_test": false,
+    "target_pass_test_years": []
+  },
+  "annual_summary": [
+    {
+      "beats_buyhold": false,
+      "buyhold_max_drawdown_pct": -48.91074752807617,
+      "buyhold_return_pct": 169.1296844482422,
+      "candidate": "xgb_opp_tail_p55_t45",
+      "model": "xgb_classifier",
+      "outer_test_year": 2023,
+      "passes_drawdown": true,
+      "selection_uses_outer_test": false,
+      "test_avg_abs_position": 0.059675171971321106,
+      "test_end": "2023-12-29",
+      "test_max_drawdown_pct": -8.824312210083008,
+      "test_passes_target": false,
+      "test_return_pct": 2.615809440612793,
+      "test_start": "2023-01-03",
+      "test_total_turnover": 8.278312683105469,
+      "train_end": "2022-12-31",
+      "train_start": "2011-01-03"
+    },
+    {
+      "beats_buyhold": false,
+      "buyhold_max_drawdown_pct": -66.4048080444336,
+      "buyhold_return_pct": 6.506204605102539,
+      "candidate": "xgb_opp_tail_p55_t45",
+      "model": "xgb_classifier",
+      "outer_test_year": 2024,
+      "passes_drawdown": true,
+      "selection_uses_outer_test": false,
+      "test_avg_abs_position": 0.06189396604895592,
+      "test_end": "2024-12-31",
+      "test_max_drawdown_pct": -7.442837715148926,
+      "test_passes_target": false,
+      "test_return_pct": 1.9197702407836914,
+      "test_start": "2024-01-02",
+      "test_total_turnover": 9.335725784301758,
+      "train_end": "2023-12-31",
+      "train_start": "2011-01-03"
+    },
+    {
+      "beats_buyhold": false,
+      "buyhold_max_drawdown_pct": -77.44705963134766,
+      "buyhold_return_pct": 77.78945922851562,
+      "candidate": "xgb_opp_tail_p55_t45",
+      "model": "xgb_classifier",
+      "outer_test_year": 2025,
+      "passes_drawdown": true,
+      "selection_uses_outer_test": false,
+      "test_avg_abs_position": 0.07339336723089218,
+      "test_end": "2025-12-31",
+      "test_max_drawdown_pct": -10.305059432983398,
+      "test_passes_target": false,
+      "test_return_pct": 12.087154388427734,
+      "test_start": "2025-01-02",
+      "test_total_turnover": 7.08667516708374,
+      "train_end": "2024-12-31",
+      "train_start": "2011-01-03"
+    },
+    {
+      "beats_buyhold": false,
+      "buyhold_max_drawdown_pct": -39.63111114501953,
+      "buyhold_return_pct": 50.12911605834961,
+      "candidate": "lgbm_opp_tail_p55_t45",
+      "model": "lgbm_classifier",
+      "outer_test_year": 2026,
+      "passes_drawdown": true,
+      "selection_uses_outer_test": false,
+      "test_avg_abs_position": 0.06381436659041884,
+      "test_end": "2026-04-09",
+      "test_max_drawdown_pct": -1.7289657542260084,
+      "test_passes_target": false,
+      "test_return_pct": 11.663990188281437,
+      "test_start": "2026-01-02",
+      "test_total_turnover": 3.3849703553321193,
+      "train_end": "2025-12-31",
+      "train_start": "2011-01-03"
+    }
+  ],
+  "model_selection": {
+    "candidate_count": 3,
+    "model_families": [
+      "lgbm_classifier",
+      "xgb_classifier",
+      "lgb_xgb_consensus"
+    ],
+    "selected_by_year": [
+      {
+        "avg_selection_return_pct": 4.760807800292969,
+        "avg_selection_total_turnover": 11.551796340942383,
+        "candidate": "xgb_opp_tail_p55_t45",
+        "inner_fold_count": 10,
+        "inner_pass_rate": 1.0,
+        "observed_heldout_assets": [
+          "SOXL",
+          "SPXL",
+          "TECL",
+          "TQQQ",
+          "UPRO"
+        ],
+        "outer_test_year": 2023,
+        "required_heldout_assets": [
+          "SOXL",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "TECL"
+        ],
+        "selection_score": 3.452608089447022,
+        "selection_uses_outer_test": false,
+        "worst_selection_max_drawdown_pct": -12.865304946899414
+      },
+      {
+        "avg_selection_return_pct": 1.5388524055480957,
+        "avg_selection_total_turnover": 10.24755277633667,
+        "candidate": "xgb_opp_tail_p55_t45",
+        "inner_fold_count": 10,
+        "inner_pass_rate": 1.0,
+        "observed_heldout_assets": [
+          "SOXL",
+          "SPXL",
+          "TECL",
+          "TQQQ",
+          "UPRO"
+        ],
+        "outer_test_year": 2024,
+        "required_heldout_assets": [
+          "SOXL",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "TECL"
+        ],
+        "selection_score": 0.2958648729324338,
+        "selection_uses_outer_test": false,
+        "worst_selection_max_drawdown_pct": -12.865304946899414
+      },
+      {
+        "avg_selection_return_pct": 5.5345964431762695,
+        "avg_selection_total_turnover": 9.373916816711425,
+        "candidate": "xgb_opp_tail_p55_t45",
+        "inner_fold_count": 10,
+        "inner_pass_rate": 1.0,
+        "observed_heldout_assets": [
+          "SOXL",
+          "SPXL",
+          "TECL",
+          "TQQQ",
+          "UPRO"
+        ],
+        "outer_test_year": 2025,
+        "required_heldout_assets": [
+          "SOXL",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "TECL"
+        ],
+        "selection_score": 12.486715116500854,
+        "selection_uses_outer_test": false,
+        "worst_selection_max_drawdown_pct": -8.789592742919922
+      },
+      {
+        "avg_selection_return_pct": 5.8804140536465885,
+        "avg_selection_total_turnover": 11.141527612146469,
+        "candidate": "lgbm_opp_tail_p55_t45",
+        "inner_fold_count": 10,
+        "inner_pass_rate": 1.0,
+        "observed_heldout_assets": [
+          "SOXL",
+          "SPXL",
+          "TECL",
+          "TQQQ",
+          "UPRO"
+        ],
+        "outer_test_year": 2026,
+        "required_heldout_assets": [
+          "SOXL",
+          "TQQQ",
+          "UPRO",
+          "SPXL",
+          "TECL"
+        ],
+        "selection_score": 9.411441990291262,
+        "selection_uses_outer_test": false,
+        "worst_selection_max_drawdown_pct": -10.455947841374002
+      }
+    ],
+    "selection_policy": "inner_nested_leave_one_asset_out",
+    "selection_uses_outer_test": false
+  },
+  "overfit_audit": {
+    "blocking_reasons": [
+      "ok"
+    ],
+    "experiment": "multi_3x_etf_normalized_lgb_xgb_nested_wf_v1",
+    "feature_identity_columns": [],
+    "leave_one_asset_out_assets": [
+      "SOXL",
+      "SPXL",
+      "TECL",
+      "TQQQ",
+      "UPRO"
+    ],
+    "manual_template_selection": false,
+    "nested_walk_forward": true,
+    "overfit_risk_status": "mitigated",
+    "selection_uses_outer_test": false
+  },
+  "prior_template_v2_overfit_audit": {
+    "blocking_reasons": [
+      "manual_template_selection",
+      "missing_nested_walk_forward",
+      "insufficient_leave_one_asset_out_assets"
+    ],
+    "experiment": "agentic_alpha_intraday_execution_sleeve_v2",
+    "feature_identity_columns": [],
+    "leave_one_asset_out_assets": [
+      "SOXL"
+    ],
+    "manual_template_selection": true,
+    "nested_walk_forward": false,
+    "overfit_risk_status": "fail",
+    "selection_uses_outer_test": false
+  }
+}

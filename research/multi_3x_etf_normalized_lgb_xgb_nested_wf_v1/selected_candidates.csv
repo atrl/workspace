@@ -1,0 +1,5 @@
+candidate,outer_test_year,selection_uses_outer_test,required_heldout_assets,observed_heldout_assets,inner_fold_count,avg_selection_return_pct,worst_selection_max_drawdown_pct,avg_selection_total_turnover,inner_pass_rate,selection_score
+xgb_opp_tail_p55_t45,2023,False,"['SOXL', 'TQQQ', 'UPRO', 'SPXL', 'TECL']","['SOXL', 'SPXL', 'TECL', 'TQQQ', 'UPRO']",10,4.760807800292969,-12.865304946899414,11.551796340942383,1.0,3.452608089447022
+xgb_opp_tail_p55_t45,2024,False,"['SOXL', 'TQQQ', 'UPRO', 'SPXL', 'TECL']","['SOXL', 'SPXL', 'TECL', 'TQQQ', 'UPRO']",10,1.5388524055480957,-12.865304946899414,10.24755277633667,1.0,0.2958648729324338
+xgb_opp_tail_p55_t45,2025,False,"['SOXL', 'TQQQ', 'UPRO', 'SPXL', 'TECL']","['SOXL', 'SPXL', 'TECL', 'TQQQ', 'UPRO']",10,5.5345964431762695,-8.789592742919922,9.373916816711425,1.0,12.486715116500854
+lgbm_opp_tail_p55_t45,2026,False,"['SOXL', 'TQQQ', 'UPRO', 'SPXL', 'TECL']","['SOXL', 'SPXL', 'TECL', 'TQQQ', 'UPRO']",10,5.8804140536465885,-10.455947841374002,11.141527612146469,1.0,9.411441990291262

@@ -614,6 +614,108 @@ def test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_select
     assert "日内执行" in conclusion
 
 
+def test_multi_3x_etf_normalized_lgb_xgb_nested_wf_card_rejects_manual_templates():
+    card = ROOT / "research" / "multi_3x_etf_normalized_lgb_xgb_nested_wf_v1"
+    summary = _summary(card)
+    notebook_text = (card / "multi_3x_etf_normalized_lgb_xgb_nested_wf_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "multi_3x_etf_normalized_lgb_xgb_nested_wf_v1"
+    assert summary["card_type"] == "multi_3x_etf_normalized_nested_wf_research_card"
+    assert summary["promotion_decision"] == "not_promoted_multi_3x_nested_wf_goal_or_overfit_audit_failed"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert summary["symbols"] == ["SOXL", "TQQQ", "UPRO", "SPXL", "TECL"]
+    assert summary["feature_sets"]["normalization"] == "per_asset_rolling_zscore_and_percentile"
+    assert summary["feature_sets"]["contains_asset_identity"] is False
+    assert summary["feature_sets"]["feature_count"] >= 50
+    assert set(summary["model_selection"]["model_families"]) == {
+        "lgbm_classifier",
+        "xgb_classifier",
+        "lgb_xgb_consensus",
+    }
+    assert summary["model_selection"]["selection_policy"] == "inner_nested_leave_one_asset_out"
+    assert summary["model_selection"]["selection_uses_outer_test"] is False
+    assert summary["model_selection"]["candidate_count"] == 3
+
+    overfit = summary["overfit_audit"]
+    assert overfit["overfit_risk_status"] == "mitigated"
+    assert overfit["manual_template_selection"] is False
+    assert overfit["nested_walk_forward"] is True
+    assert overfit["selection_uses_outer_test"] is False
+    assert overfit["feature_identity_columns"] == []
+    assert set(overfit["leave_one_asset_out_assets"]) == {"SOXL", "TQQQ", "UPRO", "SPXL", "TECL"}
+
+    prior_template = summary["prior_template_v2_overfit_audit"]
+    assert prior_template["overfit_risk_status"] == "fail"
+    assert prior_template["manual_template_selection"] is True
+    assert "manual_template_selection" in prior_template["blocking_reasons"]
+    assert "missing_nested_walk_forward" in prior_template["blocking_reasons"]
+
+    annual_goal = summary["annual_goal"]
+    assert annual_goal["selection_uses_outer_test"] is False
+    assert annual_goal["required_test_years"] == [2023, 2024, 2025, 2026]
+    assert annual_goal["missing_required_test_years"] == []
+    assert annual_goal["required_policy_satisfied"] is False
+    assert annual_goal["target_pass_test_years"] == []
+    assert annual_goal["blocking_reasons"] == ["annual_target_gate_failed"]
+
+    expected_sidecars = {
+        "analysis_summary",
+        "annual_walk_forward",
+        "failure_modes",
+        "feature_sets",
+        "inner_selection",
+        "model_comparison",
+        "qlib_store_manifest",
+        "risk_analysis",
+        "selected_candidates",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+        "artifacts/multi_3x_etf_normalized_lgb_xgb_nested_wf_v1/positions.csv"
+    ]
+
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    assert Path(summary["provider_manifest"]).exists()
+    assert Path(summary["provider_uri"]) == (ROOT / "data" / "qlib" / summary["experiment"]).resolve()
+    assert set(summary["provider_build"]["instruments"]) == {"SOXL", "TQQQ", "UPRO", "SPXL", "TECL"}
+    assert summary["provider_build"]["source"] == "qlib_multi_3x_etf_normalized_panel"
+    assert summary["provider_build"]["status"] == "ok"
+
+    annual = pd.read_csv(card / summary["sidecars"]["annual_walk_forward"])
+    assert set(annual["outer_test_year"]) == {2023, 2024, 2025, 2026}
+    assert annual["selection_uses_outer_test"].eq(False).all()
+    assert annual["passes_drawdown"].eq(True).all()
+    assert annual["beats_buyhold"].eq(False).all()
+    assert annual["test_passes_target"].eq(False).all()
+    assert annual["test_avg_abs_position"].max() < 0.1
+
+    selected = pd.read_csv(card / summary["sidecars"]["selected_candidates"])
+    assert set(selected["outer_test_year"]) == {2023, 2024, 2025, 2026}
+    assert selected["selection_uses_outer_test"].eq(False).all()
+    assert selected["inner_fold_count"].min() >= 10
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "positions.csv").exists()
+    assert not (recorder_dir / "artifacts" / "code_status.txt").exists()
+    assert not (recorder_dir / "artifacts" / "code_diff.txt").exists()
+    assert not (recorder_dir / "artifacts" / "code_cached.txt").exists()
+
+    assert summary["recorder_id"] in notebook_text
+    assert "run_multi_3x_etf_normalized_nested_wf_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R" in notebook_text
+    assert "SOXL/TQQQ/UPRO/SPXL/TECL" in notebook_text
+    assert "不再选择人工模板" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)
