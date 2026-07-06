@@ -734,18 +734,21 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["model_selection"]["cross_asset_role"] == "overfit_stress_audit_not_primary_selection_target"
     assert summary["model_selection"]["inner_validation_years"] == 8
     assert summary["model_selection"]["search_space_type"] == (
-        "pre_registered_learned_position_model_family_and_feature_set_grid"
+        "pre_registered_learned_participation_boosted_opportunity_risk_budgeted_position_model_family_and_feature_set_grid"
     )
     assert summary["model_selection"]["feature_set_selection"] == "nested_inner_soxl_calibrated"
     assert set(summary["model_selection"]["available_feature_sets"]) == {"base", "base_soxx_diffusion"}
     assert summary["model_selection"]["candidate_feature_set_count"] == (
         summary["model_selection"]["candidate_count"] * len(summary["model_selection"]["available_feature_sets"])
     )
-    assert summary["model_selection"]["candidate_count"] == 18
+    assert summary["model_selection"]["candidate_count"] == 36
     assert set(summary["model_selection"]["candidate_architectures"]) == {
         "carry_position_20d_risk_discount",
         "learned_position_risk_discount",
         "learned_position_20d_alpha_blend_risk_discount",
+        "opportunity_rescaled_position_risk_discount",
+        "participation_boosted_opportunity_position_risk_discount",
+        "risk_budgeted_opportunity_position_risk_discount",
     }
     assert summary["model_selection"]["alpha_20d_blend_role"] == (
         "nested_candidate_architecture_optional_not_forced"
@@ -768,6 +771,7 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["policy_architecture"]["alpha_target_cols"] == [
         "alpha_opportunity_target",
         "alpha_opportunity_20d_target",
+        "trend_continuation_20d_target",
         "vol_adjusted_return_target",
         "vol_adjusted_return_20d_target",
     ]
@@ -775,7 +779,7 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
         "independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount"
     )
     assert summary["policy_architecture"]["position_policy"] == (
-        "learned_position_regressor_discounted_by_independent_risk_heads"
+        "learned_or_participation_boosted_opportunity_risk_budgeted_position_discounted_by_independent_risk_heads"
     )
     assert summary["policy_architecture"]["alpha_20d_usage"] == (
         "available_as_nested_candidate_architecture_not_forced_overlay"

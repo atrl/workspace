@@ -10,6 +10,7 @@ from src.workflow.trainable_regime_policy_nested_wf import (
     POSITION_TARGET_COL,
     REGIME_TARGET_COL,
     RISK_TARGET_COL,
+    TREND_CONTINUATION_20D_TARGET_COL,
     VOL_ADJUSTED_20D_TARGET_COL,
     VOL_ADJUSTED_TARGET_COL,
     _append_soxx_constituent_normalized_features,
@@ -28,15 +29,21 @@ from src.workflow.trainable_regime_policy_nested_wf import (
 def test_policy_candidate_configs_treat_20d_alpha_as_nested_architecture_choice():
     candidates = _policy_candidate_configs()
 
-    assert len(candidates) == 18
+    assert len(candidates) == 36
     assert any(not candidate["alpha_20d_blend"] for candidate in candidates)
     assert any(candidate["alpha_20d_blend"] for candidate in candidates)
     assert {candidate["model_architecture"] for candidate in candidates} == {
         "carry_position_20d_risk_discount",
         "learned_position_risk_discount",
         "learned_position_20d_alpha_blend_risk_discount",
+        "opportunity_rescaled_position_risk_discount",
+        "participation_boosted_opportunity_position_risk_discount",
+        "risk_budgeted_opportunity_position_risk_discount",
     }
     assert any(candidate["position_score_col"] == "carry_position_20d_score" for candidate in candidates)
+    assert any(candidate["position_mode"] == "opportunity_rescaled_position" for candidate in candidates)
+    assert any(candidate["position_mode"] == "risk_budgeted_opportunity_position" for candidate in candidates)
+    assert any(candidate["position_mode"] == "participation_boosted_opportunity_position" for candidate in candidates)
     assert all(candidate["manual_policy_grid"] is False for candidate in candidates)
 
 
@@ -140,6 +147,7 @@ def test_trainable_policy_targets_include_20d_alpha_opportunity():
     out = _attach_trainable_policy_targets(frame)
 
     assert out[ALPHA_20D_TARGET_COL].iloc[0] == 1
+    assert out[TREND_CONTINUATION_20D_TARGET_COL].iloc[0] == 1
     assert out[VOL_ADJUSTED_20D_TARGET_COL].iloc[0] > out[VOL_ADJUSTED_TARGET_COL].iloc[0]
     assert out[CARRY_POSITION_20D_TARGET_COL].iloc[0] > out[POSITION_TARGET_COL].iloc[0]
 
@@ -398,6 +406,336 @@ def test_learned_position_policy_uses_20d_alpha_head_when_candidate_opts_in():
 
     assert positions["target_position"].iloc[0] >= 0.60
     assert bool(positions["alpha_20d_blend_used"].iloc[0]) is True
+
+
+def test_opportunity_rescaled_position_raises_exposure_without_template_rules():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05"]),
+            "instrument": ["SOXL", "SOXL"],
+            "open_to_open_return": [0.01, 0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.35, 0.35],
+            "alpha_20d_probability": [0.93, 0.93],
+            "risk_probability": [0.0, 0.0],
+            "risk_percentile": [0.0, 0.0],
+            "crash_probability": [0.0, 0.80],
+            "crash_risk_percentile": [0.0, 0.95],
+            "max_adverse_score": [-0.02, -0.16],
+            "max_adverse_risk_percentile": [0.0, 0.95],
+            "crash_20d_probability": [0.05, 0.05],
+            "crash_20d_risk_percentile": [0.0, 0.0],
+            "max_adverse_20d_score": [-0.04, -0.04],
+            "max_adverse_20d_risk_percentile": [0.0, 0.0],
+            "regime": ["trend", "trend"],
+            "vol_adjusted_score": [0.20, 0.20],
+            "vol_adjusted_20d_score": [1.0, 1.0],
+            "learned_position_score": [0.18, 0.18],
+            "carry_position_20d_score": [0.88, 0.88],
+            "intraday_risk_state": [0.0, 0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_opportunity_rescaled_position",
+            "position_mode": "opportunity_rescaled_position",
+            "position_score_col": "learned_position_score",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "crash_cut": 0.60,
+            "max_adverse_cut": -0.12,
+            "adverse_risk_cap": 0.20,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] >= 0.74
+    assert positions["target_position"].iloc[1] <= 0.20
+
+
+def test_risk_budgeted_opportunity_position_uses_risk_heads_as_continuous_cap():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05"]),
+            "instrument": ["SOXL", "SOXL"],
+            "open_to_open_return": [0.01, 0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.35, 0.35],
+            "alpha_20d_probability": [0.93, 0.93],
+            "risk_probability": [0.0, 0.70],
+            "risk_percentile": [0.0, 0.92],
+            "crash_probability": [0.0, 0.35],
+            "crash_risk_percentile": [0.0, 0.95],
+            "max_adverse_score": [-0.02, -0.10],
+            "max_adverse_risk_percentile": [0.0, 0.95],
+            "crash_20d_probability": [0.05, 0.55],
+            "crash_20d_risk_percentile": [0.0, 0.94],
+            "max_adverse_20d_score": [-0.04, -0.22],
+            "max_adverse_20d_risk_percentile": [0.0, 0.96],
+            "regime": ["trend", "trend"],
+            "vol_adjusted_score": [0.20, 0.20],
+            "vol_adjusted_20d_score": [1.0, 1.0],
+            "learned_position_score": [0.18, 0.18],
+            "carry_position_20d_score": [0.88, 0.88],
+            "intraday_risk_state": [0.0, 0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_risk_budgeted_opportunity_position",
+            "position_mode": "risk_budgeted_opportunity_position",
+            "position_score_col": "learned_position_score",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] >= 0.74
+    assert positions["target_position"].iloc[1] <= 0.20
+
+
+def test_risk_budgeted_opportunity_position_does_not_overreact_to_single_noisy_risk_head():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02"]),
+            "instrument": ["SOXL"],
+            "open_to_open_return": [0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.35],
+            "alpha_20d_probability": [0.93],
+            "risk_probability": [0.0],
+            "risk_percentile": [0.0],
+            "crash_probability": [0.0],
+            "crash_risk_percentile": [0.95],
+            "max_adverse_score": [-0.02],
+            "max_adverse_risk_percentile": [0.0],
+            "crash_20d_probability": [0.05],
+            "crash_20d_risk_percentile": [0.0],
+            "max_adverse_20d_score": [-0.04],
+            "max_adverse_20d_risk_percentile": [0.0],
+            "regime": ["trend"],
+            "vol_adjusted_score": [0.20],
+            "vol_adjusted_20d_score": [1.0],
+            "learned_position_score": [0.18],
+            "carry_position_20d_score": [0.88],
+            "intraday_risk_state": [0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_risk_budget_consensus",
+            "position_mode": "risk_budgeted_opportunity_position",
+            "position_score_col": "learned_position_score",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] >= 0.45
+
+
+def test_opportunity_position_uses_trained_trend_continuation_head():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02"]),
+            "instrument": ["SOXL"],
+            "open_to_open_return": [0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.35],
+            "alpha_20d_probability": [0.30],
+            "trend_continuation_probability": [0.95],
+            "risk_probability": [0.0],
+            "risk_percentile": [0.0],
+            "crash_probability": [0.0],
+            "crash_risk_percentile": [0.0],
+            "max_adverse_score": [-0.02],
+            "max_adverse_risk_percentile": [0.0],
+            "crash_20d_probability": [0.05],
+            "crash_20d_risk_percentile": [0.0],
+            "max_adverse_20d_score": [-0.04],
+            "max_adverse_20d_risk_percentile": [0.0],
+            "regime": ["trend"],
+            "vol_adjusted_score": [0.20],
+            "vol_adjusted_20d_score": [0.0],
+            "learned_position_score": [0.18],
+            "carry_position_20d_score": [0.30],
+            "intraday_risk_state": [0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_trend_continuation_opportunity",
+            "position_mode": "risk_budgeted_opportunity_position",
+            "position_score_col": "learned_position_score",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] >= 0.45
+    assert positions["trend_continuation_probability"].iloc[0] == 0.95
+
+
+def test_trend_continuation_head_is_boost_not_drag_when_20d_alpha_is_stronger():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02"]),
+            "instrument": ["SOXL"],
+            "open_to_open_return": [0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.35],
+            "alpha_20d_probability": [0.93],
+            "trend_continuation_probability": [0.0],
+            "risk_probability": [0.0],
+            "risk_percentile": [0.0],
+            "crash_probability": [0.0],
+            "crash_risk_percentile": [0.0],
+            "max_adverse_score": [-0.02],
+            "max_adverse_risk_percentile": [0.0],
+            "crash_20d_probability": [0.05],
+            "crash_20d_risk_percentile": [0.0],
+            "max_adverse_20d_score": [-0.04],
+            "max_adverse_20d_risk_percentile": [0.0],
+            "regime": ["trend"],
+            "vol_adjusted_score": [0.20],
+            "vol_adjusted_20d_score": [1.0],
+            "learned_position_score": [0.18],
+            "carry_position_20d_score": [0.88],
+            "intraday_risk_state": [0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_trend_boost_not_drag",
+            "position_mode": "risk_budgeted_opportunity_position",
+            "position_score_col": "learned_position_score",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] >= 0.74
+
+
+def test_participation_boosted_opportunity_uses_ml_trend_head_without_template():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02", "2026-01-05"]),
+            "instrument": ["SOXL", "SOXL"],
+            "open_to_open_return": [0.01, 0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.35, 0.35],
+            "alpha_20d_probability": [0.93, 0.93],
+            "trend_continuation_probability": [0.10, 0.10],
+            "risk_probability": [0.0, 0.70],
+            "risk_percentile": [0.0, 0.92],
+            "crash_probability": [0.0, 0.35],
+            "crash_risk_percentile": [0.0, 0.95],
+            "max_adverse_score": [-0.02, -0.10],
+            "max_adverse_risk_percentile": [0.0, 0.95],
+            "crash_20d_probability": [0.05, 0.55],
+            "crash_20d_risk_percentile": [0.0, 0.94],
+            "max_adverse_20d_score": [-0.04, -0.22],
+            "max_adverse_20d_risk_percentile": [0.0, 0.96],
+            "regime": ["trend", "trend"],
+            "vol_adjusted_score": [0.20, 0.20],
+            "vol_adjusted_20d_score": [1.0, 1.0],
+            "learned_position_score": [0.18, 0.18],
+            "carry_position_20d_score": [0.88, 0.88],
+            "intraday_risk_state": [0.0, 1.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_participation_boosted_opportunity",
+            "position_mode": "participation_boosted_opportunity_position",
+            "position_score_col": "learned_position_score",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["participation_multiplier"].iloc[0] > 1.60
+    assert positions["target_position"].iloc[0] >= 0.95
+    assert positions["target_position"].iloc[1] <= 0.25
+    assert "template_id" not in positions.columns
 
 
 def test_learned_position_policy_uses_model_position_score_without_manual_thresholds():

@@ -8,4 +8,4 @@
 - SOXX constituent features use current holdings backfilled through history and remain survivorship-biased until point-in-time holdings are available.
 - Leave-one-asset-out reduces single-symbol fitting but does not remove shared US equity beta risk.
 - 5m/15m intraday execution replay is available as learned-position candidate behavior, but it is not proof of same-day alpha generation.
-- Current promotion decision: not_promoted_trainable_regime_policy_goal_or_overfit_audit_failed.
+- Current promotion decision: candidate_for_validated_research_trainable_regime_policy.

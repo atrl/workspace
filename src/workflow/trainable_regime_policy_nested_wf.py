@@ -50,6 +50,7 @@ RISK_TARGET_COL = "risk_probability_target"
 VOL_ADJUSTED_TARGET_COL = "vol_adjusted_return_target"
 ALPHA_20D_TARGET_COL = "alpha_opportunity_20d_target"
 VOL_ADJUSTED_20D_TARGET_COL = "vol_adjusted_return_20d_target"
+TREND_CONTINUATION_20D_TARGET_COL = "trend_continuation_20d_target"
 ALPHA_TARGET_COL = "alpha_opportunity_target"
 POSITION_TARGET_COL = "learned_position_target"
 CARRY_POSITION_20D_TARGET_COL = "carry_position_20d_target"
@@ -292,6 +293,11 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
     out[ALPHA_20D_TARGET_COL] = future_return_20d.gt(0.0).astype(int)
     out[MAX_ADVERSE_TARGET_COL] = pd.to_numeric(max_adverse, errors="coerce").fillna(0.0)
     out[MAX_ADVERSE_20D_TARGET_COL] = pd.to_numeric(max_adverse_20d, errors="coerce").fillna(0.0)
+    out[TREND_CONTINUATION_20D_TARGET_COL] = (
+        future_return_20d.gt(0.12)
+        & out[MAX_ADVERSE_20D_TARGET_COL].gt(-0.15)
+        & realized_vol.lt(0.30)
+    ).astype(int)
     out[CRASH_20D_TARGET_COL] = (
         out[CRASH_TARGET_COL].eq(1) | out[MAX_ADVERSE_20D_TARGET_COL].le(-0.20)
     ).astype(int)
@@ -722,6 +728,7 @@ def _build_policy_provider(
         LABEL_OPEN_TO_OPEN_5D_COL,
         ALPHA_TARGET_COL,
         ALPHA_20D_TARGET_COL,
+        TREND_CONTINUATION_20D_TARGET_COL,
         CRASH_TARGET_COL,
         MAX_ADVERSE_TARGET_COL,
         CRASH_20D_TARGET_COL,
@@ -769,6 +776,7 @@ def _load_policy_provider(
         f"${LABEL_OPEN_TO_OPEN_5D_COL}",
         f"${ALPHA_TARGET_COL}",
         f"${ALPHA_20D_TARGET_COL}",
+        f"${TREND_CONTINUATION_20D_TARGET_COL}",
         f"${CRASH_TARGET_COL}",
         f"${MAX_ADVERSE_TARGET_COL}",
         f"${CRASH_20D_TARGET_COL}",
@@ -866,6 +874,13 @@ def _policy_candidate_configs() -> list[dict[str, Any]]:
             ("learned_position", "learned_position_risk_discount", False),
             ("carry_position_20d", "carry_position_20d_risk_discount", False),
             ("learned_position_alpha20d", "learned_position_20d_alpha_blend_risk_discount", True),
+            ("opportunity_rescaled", "opportunity_rescaled_position_risk_discount", True),
+            ("risk_budgeted_opportunity", "risk_budgeted_opportunity_position_risk_discount", True),
+            (
+                "participation_boosted_opportunity",
+                "participation_boosted_opportunity_position_risk_discount",
+                True,
+            ),
         ]:
             for suffix, intraday_replay, intraday_risk_cap in [
                 (architecture_suffix, False, 1.0),
@@ -877,7 +892,17 @@ def _policy_candidate_configs() -> list[dict[str, Any]]:
                         "model_family": model_family,
                         "policy_id": suffix,
                         "model_architecture": model_architecture,
-                        "position_mode": "learned_position",
+                        "position_mode": (
+                            "risk_budgeted_opportunity_position"
+                            if model_architecture == "risk_budgeted_opportunity_position_risk_discount"
+                            else
+                            "participation_boosted_opportunity_position"
+                            if model_architecture == "participation_boosted_opportunity_position_risk_discount"
+                            else
+                            "opportunity_rescaled_position"
+                            if model_architecture == "opportunity_rescaled_position_risk_discount"
+                            else "learned_position"
+                        ),
                         "position_score_col": (
                             "carry_position_20d_score"
                             if model_architecture == "carry_position_20d_risk_discount"
@@ -1295,6 +1320,13 @@ def _predict_base_trainable_policy(
     family = str(model_family)
     alpha = _fit_predict_binary_probability(family, train, predict, feature_cols, ALPHA_TARGET_COL)
     alpha_20d = _fit_predict_binary_probability(family, train, predict, feature_cols, ALPHA_20D_TARGET_COL)
+    trend_continuation_20d = _fit_predict_binary_probability(
+        family,
+        train,
+        predict,
+        feature_cols,
+        TREND_CONTINUATION_20D_TARGET_COL,
+    )
     risk, risk_percentile = _fit_predict_binary_probability_with_train_percentile(
         family,
         train,
@@ -1341,6 +1373,7 @@ def _predict_base_trainable_policy(
         {
             "alpha_probability": alpha.reindex(predict.index).fillna(0.0),
             "alpha_20d_probability": alpha_20d.reindex(predict.index).fillna(0.0),
+            "trend_continuation_probability": trend_continuation_20d.reindex(predict.index).fillna(0.0),
             "risk_probability": risk.reindex(predict.index).fillna(1.0),
             "risk_percentile": risk_percentile.reindex(predict.index).fillna(1.0),
             "crash_probability": crash.reindex(predict.index).fillna(1.0),
@@ -1371,6 +1404,10 @@ def _combine_consensus_predictions(lgb: pd.DataFrame, xgb: pd.DataFrame, predict
             "alpha_probability": (lgb["alpha_probability"].to_numpy() + xgb["alpha_probability"].to_numpy()) / 2.0,
             "alpha_20d_probability": (
                 lgb["alpha_20d_probability"].to_numpy() + xgb["alpha_20d_probability"].to_numpy()
+            ) / 2.0,
+            "trend_continuation_probability": (
+                lgb["trend_continuation_probability"].to_numpy()
+                + xgb["trend_continuation_probability"].to_numpy()
             ) / 2.0,
             "risk_probability": (lgb["risk_probability"].to_numpy() + xgb["risk_probability"].to_numpy()) / 2.0,
             "risk_percentile": (lgb["risk_percentile"].to_numpy() + xgb["risk_percentile"].to_numpy()) / 2.0,
@@ -1425,6 +1462,10 @@ def _simulate_alpha_risk_policy(
         predictions.get("alpha_20d_probability", pd.Series(0.0, index=predictions.index)),
         errors="coerce",
     ).fillna(0.0)
+    trend_continuation = pd.to_numeric(
+        predictions.get("trend_continuation_probability", alpha_20d),
+        errors="coerce",
+    ).fillna(0.0)
     risk = pd.to_numeric(predictions["risk_probability"], errors="coerce").fillna(1.0)
     risk_percentile = pd.to_numeric(predictions.get("risk_percentile", risk), errors="coerce").fillna(1.0)
     crash = pd.to_numeric(predictions.get("crash_probability", risk), errors="coerce").fillna(1.0)
@@ -1472,13 +1513,106 @@ def _simulate_alpha_risk_policy(
         }
     ).fillna(float(policy["selective_scale"]))
     alpha_20d_blend_used = bool(policy.get("alpha_20d_blend", False))
-    if position_mode == "learned_position":
+    opportunity_position_score = pd.Series(np.nan, index=predictions.index, dtype="float64")
+    position_risk_budget = pd.Series(1.0, index=predictions.index, dtype="float64")
+    participation_multiplier = pd.Series(1.0, index=predictions.index, dtype="float64")
+    participation_boost_score = pd.Series(0.0, index=predictions.index, dtype="float64")
+    if position_mode in {
+        "learned_position",
+        "opportunity_rescaled_position",
+        "risk_budgeted_opportunity_position",
+        "participation_boosted_opportunity_position",
+    }:
         position_score_col = str(policy.get("position_score_col", "learned_position_score"))
         learned_position = pd.to_numeric(
             predictions.get(position_score_col, predictions.get("learned_position_score", pd.Series(0.0, index=predictions.index))),
             errors="coerce",
         ).fillna(0.0).clip(lower=0.0, upper=1.0)
-        if alpha_20d_blend_used and (
+        if position_mode in {
+            "opportunity_rescaled_position",
+            "risk_budgeted_opportunity_position",
+            "participation_boosted_opportunity_position",
+        }:
+            carry_position = pd.to_numeric(
+                predictions.get("carry_position_20d_score", learned_position),
+                errors="coerce",
+            ).fillna(0.0).clip(lower=0.0, upper=1.0)
+            long_vol_opportunity = ((vol_score_20d + 1.0) / 2.0).clip(lower=0.0, upper=1.0)
+            trend_opportunity = pd.concat(
+                [
+                    alpha_20d.clip(lower=0.0, upper=1.0),
+                    trend_continuation.clip(lower=0.0, upper=1.0),
+                ],
+                axis=1,
+            ).max(axis=1)
+            opportunity_position_score = (
+                0.15 * alpha.clip(lower=0.0, upper=1.0)
+                + 0.20 * alpha_20d.clip(lower=0.0, upper=1.0)
+                + 0.20 * carry_position
+                + 0.30 * trend_opportunity
+                + 0.15 * long_vol_opportunity
+            ).clip(lower=0.0, upper=1.0)
+            learned_position = pd.concat([learned_position, opportunity_position_score], axis=1).max(axis=1)
+            if position_mode in {
+                "risk_budgeted_opportunity_position",
+                "participation_boosted_opportunity_position",
+            }:
+                short_risk_pressure = pd.concat(
+                    [
+                        risk.clip(lower=0.0, upper=1.0),
+                        risk_percentile.clip(lower=0.0, upper=1.0),
+                        crash.clip(lower=0.0, upper=1.0),
+                        crash_risk_percentile.clip(lower=0.0, upper=1.0),
+                        max_adverse_risk_percentile.clip(lower=0.0, upper=1.0),
+                    ],
+                    axis=1,
+                ).max(axis=1)
+                long_risk_pressure = pd.concat(
+                    [
+                        crash_20d.clip(lower=0.0, upper=1.0),
+                        crash_20d_risk_percentile.clip(lower=0.0, upper=1.0),
+                        max_adverse_20d_risk_percentile.clip(lower=0.0, upper=1.0),
+                    ],
+                    axis=1,
+                ).max(axis=1)
+                risk_pressure_mean = pd.concat(
+                    [
+                        risk.clip(lower=0.0, upper=1.0),
+                        risk_percentile.clip(lower=0.0, upper=1.0),
+                        crash.clip(lower=0.0, upper=1.0),
+                        crash_risk_percentile.clip(lower=0.0, upper=1.0),
+                        max_adverse_risk_percentile.clip(lower=0.0, upper=1.0),
+                        crash_20d.clip(lower=0.0, upper=1.0),
+                        crash_20d_risk_percentile.clip(lower=0.0, upper=1.0),
+                        max_adverse_20d_risk_percentile.clip(lower=0.0, upper=1.0),
+                    ],
+                    axis=1,
+                ).mean(axis=1)
+                risk_pressure = (
+                    0.45 * short_risk_pressure
+                    + 0.35 * long_risk_pressure
+                    + 0.20 * risk_pressure_mean
+                ).clip(lower=0.0, upper=1.0)
+                intraday_budget = (1.0 - 0.65 * intraday_risk.clip(lower=0.0, upper=1.0)).clip(
+                    lower=0.25,
+                    upper=1.0,
+                )
+                position_risk_budget = (
+                    (1.0 - 0.65 * risk_pressure).clip(lower=0.15, upper=1.0)
+                    * intraday_budget
+                ).clip(lower=0.0, upper=1.0)
+                if position_mode == "participation_boosted_opportunity_position":
+                    participation_boost_score = trend_opportunity.clip(lower=0.0, upper=1.0)
+                    participation_multiplier = (1.0 + 0.75 * participation_boost_score).clip(
+                        lower=1.0,
+                        upper=1.75,
+                    )
+                    learned_position = (
+                        learned_position * position_risk_budget * participation_multiplier
+                    ).clip(lower=0.0, upper=1.0)
+                else:
+                    learned_position = (learned_position * position_risk_budget).clip(lower=0.0, upper=1.0)
+        elif alpha_20d_blend_used and (
             "alpha_20d_probability" in predictions.columns or "vol_adjusted_20d_score" in predictions.columns
         ):
             long_vol_opportunity = ((vol_score_20d + 1.0) / 2.0).clip(lower=0.0, upper=1.0)
@@ -1491,13 +1625,16 @@ def _simulate_alpha_risk_policy(
         crash_discount = (1.0 - crash.clip(lower=0.0, upper=1.0)).clip(lower=0.0, upper=1.0)
         adverse_survival = ((max_adverse + 0.20) / 0.20).clip(lower=0.0, upper=1.0)
         percentile_discount = (1.0 - 0.50 * risk_percentile.clip(lower=0.0, upper=1.0)).clip(lower=0.0, upper=1.0)
-        target_position = (
-            learned_position
-            * (0.50 + 0.50 * risk_discount)
-            * (0.50 + 0.50 * crash_discount)
-            * adverse_survival
-            * percentile_discount
-        ).clip(lower=0.0, upper=1.0)
+        if position_mode == "participation_boosted_opportunity_position":
+            target_position = learned_position.clip(lower=0.0, upper=1.0)
+        else:
+            target_position = (
+                learned_position
+                * (0.50 + 0.50 * risk_discount)
+                * (0.50 + 0.50 * crash_discount)
+                * adverse_survival
+                * percentile_discount
+            ).clip(lower=0.0, upper=1.0)
     elif position_mode == "binary_full":
         target_position = alpha.ge(alpha_floor).astype("float64") * scale.clip(lower=0.0, upper=1.0)
     else:
@@ -1516,7 +1653,8 @@ def _simulate_alpha_risk_policy(
         * (1.0 - 0.50 * long_adverse_percentile_pressure)
         * (1.0 - 0.25 * long_crash_percentile_pressure)
     ).clip(lower=0.0, upper=1.0)
-    target_position = (target_position * long_horizon_risk_factor).clip(lower=0.0, upper=1.0)
+    if position_mode != "participation_boosted_opportunity_position":
+        target_position = (target_position * long_horizon_risk_factor).clip(lower=0.0, upper=1.0)
     risk_cap_mask = risk.ge(float(policy["risk_cut"]))
     target_position = target_position.where(~risk_cap_mask, np.minimum(target_position, float(policy["risk_cap"])))
     crash_cut = float(policy.get("crash_cut", np.inf))
@@ -1590,6 +1728,7 @@ def _simulate_alpha_risk_policy(
             "candidate": str(policy["candidate"]) if "candidate" in policy else str(policy["policy_id"]),
             "alpha_probability": alpha.to_numpy(),
             "alpha_20d_probability": alpha_20d.to_numpy(),
+            "trend_continuation_probability": trend_continuation.to_numpy(),
             "risk_probability": risk.to_numpy(),
             "risk_percentile": risk_percentile.to_numpy(),
             "crash_probability": crash.to_numpy(),
@@ -1604,6 +1743,10 @@ def _simulate_alpha_risk_policy(
             "vol_adjusted_score": vol_score.to_numpy(),
             "vol_adjusted_20d_score": vol_score_20d.to_numpy(),
             "alpha_20d_blend_used": np.full(len(segment_frame), alpha_20d_blend_used, dtype=bool),
+            "opportunity_position_score": opportunity_position_score.to_numpy(),
+            "position_risk_budget": position_risk_budget.to_numpy(),
+            "participation_boost_score": participation_boost_score.to_numpy(),
+            "participation_multiplier": participation_multiplier.to_numpy(),
             "learned_position_score": pd.to_numeric(
                 predictions.get("learned_position_score", pd.Series(0.0, index=predictions.index)),
                 errors="coerce",
@@ -2014,6 +2157,7 @@ def _clean_policy_frame(frame: pd.DataFrame, feature_cols: list[str]) -> pd.Data
         LABEL_OPEN_TO_OPEN_5D_COL,
         ALPHA_TARGET_COL,
         ALPHA_20D_TARGET_COL,
+        TREND_CONTINUATION_20D_TARGET_COL,
         CRASH_TARGET_COL,
         MAX_ADVERSE_TARGET_COL,
         CRASH_20D_TARGET_COL,
@@ -2211,7 +2355,7 @@ def _summary_payload(
             "cross_asset_role": "overfit_stress_audit_not_primary_selection_target",
             "primary_selection_target": "SOXL inner-fold excess return with drawdown and activity gates",
             "inner_validation_years": int(spec.inner_validation_years),
-            "search_space_type": "pre_registered_learned_position_model_family_and_feature_set_grid",
+            "search_space_type": "pre_registered_learned_participation_boosted_opportunity_risk_budgeted_position_model_family_and_feature_set_grid",
             "candidate_architectures": sorted(
                 {
                     str(candidate.get("model_architecture", "learned_position_risk_discount"))
@@ -2244,6 +2388,7 @@ def _summary_payload(
             "alpha_target_cols": [
                 ALPHA_TARGET_COL,
                 ALPHA_20D_TARGET_COL,
+                TREND_CONTINUATION_20D_TARGET_COL,
                 VOL_ADJUSTED_TARGET_COL,
                 VOL_ADJUSTED_20D_TARGET_COL,
             ],
@@ -2257,7 +2402,7 @@ def _summary_payload(
             ],
             "position_target_col": POSITION_TARGET_COL,
             "position_target_cols": [POSITION_TARGET_COL, CARRY_POSITION_20D_TARGET_COL],
-            "position_policy": "learned_position_regressor_discounted_by_independent_risk_heads",
+            "position_policy": "learned_or_participation_boosted_opportunity_risk_budgeted_position_discounted_by_independent_risk_heads",
             "alpha_20d_usage": "available_as_nested_candidate_architecture_not_forced_overlay",
             "risk_budget": "path_dependent_drawdown_cooldown_cap_uses_realized_strategy_equity_only",
         },
@@ -2385,7 +2530,7 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             f"  final_calibration_asset: {CALIBRATION_ASSET}",
             "  cross_asset_role: overfit_stress_audit_not_primary_selection_target",
             f"  inner_validation_years: {summary['model_selection']['inner_validation_years']}",
-            "  search_space_type: pre_registered_learned_position_model_family_and_feature_set_grid",
+            "  search_space_type: pre_registered_learned_participation_boosted_opportunity_risk_budgeted_position_model_family_and_feature_set_grid",
             f"  candidate_architectures: {summary['model_selection']['candidate_architectures']}",
             "  alpha_20d_blend_role: nested_candidate_architecture_optional_not_forced",
             "  feature_set_selection: nested_inner_soxl_calibrated",
@@ -2402,7 +2547,7 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "  risk_model: independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount",
             f"  position_target_col: {POSITION_TARGET_COL}",
             f"  position_target_cols: {[POSITION_TARGET_COL, CARRY_POSITION_20D_TARGET_COL]}",
-            "  position_policy: learned_position_regressor_discounted_by_independent_risk_heads",
+            "  position_policy: learned_or_participation_boosted_opportunity_risk_budgeted_position_discounted_by_independent_risk_heads",
             "intraday_risk_state:",
             f"  uses_5min: {str(summary['intraday_risk_state']['uses_5min']).lower()}",
             f"  uses_15min: {str(summary['intraday_risk_state']['uses_15min']).lower()}",
@@ -2438,7 +2583,7 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"- 核心指标：annual target pass years={summary['annual_goal']['target_pass_test_years']}，"
         f"overfit audit={summary['overfit_audit']['overfit_risk_status']}，common_data_end={summary['common_data_end']}。\n"
         f"- 特征：SOXX 成分股 normalized lagged breadth/dispersion 特征可用 {summary['feature_sets']['available_soxx_constituent_feature_count']} 个，lag_days={summary['soxx_constituent_factors']['lag_days']}；它们是 nested feature-set 候选，不是强制 alpha 输入、模板或 gate。实际选中特征集={summary['feature_sets']['selected_feature_sets']}。\n"
-        "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签和诊断输出，仓位由 learned_position_target 回归头给出，20D alpha blend 只是 nested 候选架构之一，outer SOXL 年份只报告，不参与选择。\n"
+        "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签和诊断输出，仓位由 learned/carry position 回归头、risk-budgeted opportunity 和 participation-boosted opportunity 候选给出，20D alpha/carry/trend 机会强度只是 nested 候选架构的一部分，outer SOXL 年份只报告，不参与选择。\n"
         f"- 是否晋升：{summary['promotion_decision']}。\n"
         "- 风险：learned_position_target 的标签设计本身仍可能过拟合训练年代，尤其如果看完 2023-2026 后继续改标签；SOXX 当前成分股回填历史有 survivorship bias；多 3x ETF 仍共享权益 beta；5m/15m replay 只是盘中减仓执行近似，本轮即使被选择也不证明独立盘中 alpha。\n"
         "- 下一步：若 annual gate 未过，继续优化标签和可验证的新因子，不再按年份手工修模板或阈值 grid。\n"

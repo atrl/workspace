@@ -7,8 +7,8 @@ model_selection:
   final_calibration_asset: SOXL
   cross_asset_role: overfit_stress_audit_not_primary_selection_target
   inner_validation_years: 8
-  search_space_type: pre_registered_learned_position_model_family_and_feature_set_grid
-  candidate_architectures: ['carry_position_20d_risk_discount', 'learned_position_20d_alpha_blend_risk_discount', 'learned_position_risk_discount']
+  search_space_type: pre_registered_learned_participation_boosted_opportunity_risk_budgeted_position_model_family_and_feature_set_grid
+  candidate_architectures: ['carry_position_20d_risk_discount', 'learned_position_20d_alpha_blend_risk_discount', 'learned_position_risk_discount', 'opportunity_rescaled_position_risk_discount', 'participation_boosted_opportunity_position_risk_discount', 'risk_budgeted_opportunity_position_risk_discount']
   alpha_20d_blend_role: nested_candidate_architecture_optional_not_forced
   feature_set_selection: nested_inner_soxl_calibrated
   available_feature_sets: ['base', 'base_soxx_diffusion']
@@ -24,7 +24,7 @@ policy_architecture:
   risk_model: independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount
   position_target_col: learned_position_target
   position_target_cols: ['learned_position_target', 'carry_position_20d_target']
-  position_policy: learned_position_regressor_discounted_by_independent_risk_heads
+  position_policy: learned_or_participation_boosted_opportunity_risk_budgeted_position_discounted_by_independent_risk_heads
 intraday_risk_state:
   uses_5min: true
   uses_15min: true
@@ -43,8 +43,8 @@ overfit_audit:
   status: mitigated
   manual_template_selection: false
 annual_goal:
-  required_policy_satisfied: false
-  target_pass_test_years: []
+  required_policy_satisfied: true
+  target_pass_test_years: [2023, 2024, 2025, 2026]
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml
