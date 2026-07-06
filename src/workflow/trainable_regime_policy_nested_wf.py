@@ -38,7 +38,7 @@ from src.workflow.multi_3x_etf_normalized_nested_wf import (
 
 EXPERIMENT = "trainable_regime_policy_nested_wf_v1"
 CARD_TYPE = "trainable_regime_policy_nested_wf_research_card"
-SELECTION_POLICY = "nested_inner_soxl_calibrated_learned_position_no_template_grid"
+SELECTION_POLICY = "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid"
 CALIBRATION_ASSET = "SOXL"
 REGIME_TARGET_COL = "trainable_regime_target"
 REGIME_TARGET_CODE_COL = "trainable_regime_target_code"
@@ -48,8 +48,11 @@ CRASH_20D_TARGET_COL = "crash_probability_20d_target"
 MAX_ADVERSE_20D_TARGET_COL = "max_adverse_return_20d_target"
 RISK_TARGET_COL = "risk_probability_target"
 VOL_ADJUSTED_TARGET_COL = "vol_adjusted_return_target"
+ALPHA_20D_TARGET_COL = "alpha_opportunity_20d_target"
+VOL_ADJUSTED_20D_TARGET_COL = "vol_adjusted_return_20d_target"
 ALPHA_TARGET_COL = "alpha_opportunity_target"
 POSITION_TARGET_COL = "learned_position_target"
+CARRY_POSITION_20D_TARGET_COL = "carry_position_20d_target"
 INTRADAY_RISK_STATE_COL = "intraday_risk_state"
 INTRADAY_EXECUTION_TRIGGERED_COL = "intraday_execution_triggered"
 INTRADAY_OPEN_TO_TRIGGER_RETURN_COL = "intraday_open_to_trigger_return"
@@ -278,11 +281,15 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
     out[ALPHA_TARGET_COL] = future_return.gt(0.0).astype(int)
     out[CRASH_TARGET_COL] = future_return.le(-0.08).astype(int)
     if "open" in out.columns:
+        future_return_20d = _future_open_return(out, offset=21)
         max_adverse = _future_open_path_min_adverse(out, offsets=range(2, 7))
         max_adverse_20d = _future_open_path_min_adverse(out, offsets=range(2, 22))
     else:
+        future_return_20d = future_return
         max_adverse = future_return.clip(upper=0.0)
         max_adverse_20d = future_return.clip(upper=0.0)
+    future_return_20d = pd.to_numeric(future_return_20d, errors="coerce").fillna(0.0)
+    out[ALPHA_20D_TARGET_COL] = future_return_20d.gt(0.0).astype(int)
     out[MAX_ADVERSE_TARGET_COL] = pd.to_numeric(max_adverse, errors="coerce").fillna(0.0)
     out[MAX_ADVERSE_20D_TARGET_COL] = pd.to_numeric(max_adverse_20d, errors="coerce").fillna(0.0)
     out[CRASH_20D_TARGET_COL] = (
@@ -294,6 +301,9 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
         | out[CRASH_20D_TARGET_COL].eq(1)
     ).astype(int)
     out[VOL_ADJUSTED_TARGET_COL] = (future_return / (realized_vol + 0.02)).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    out[VOL_ADJUSTED_20D_TARGET_COL] = (
+        future_return_20d / (realized_vol * np.sqrt(4.0) + 0.02)
+    ).replace([np.inf, -np.inf], np.nan).fillna(0.0)
     positive_exposure = pd.Series(
         np.where(
             future_return.gt(0.0),
@@ -310,6 +320,22 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
     out[POSITION_TARGET_COL] = (
         positive_exposure * adverse_survival * long_adverse_survival * crash_survival * vol_survival
     ).clip(lower=0.0, upper=1.0)
+    carry_positive_exposure = pd.Series(
+        np.where(
+            future_return_20d.gt(0.02),
+            1.0,
+            ((future_return_20d + 0.08) / 0.10).clip(lower=0.0, upper=1.0) * 0.35,
+        ),
+        index=out.index,
+        dtype="float64",
+    )
+    carry_vol_survival = (0.42 / (realized_vol * np.sqrt(4.0) + 0.20)).clip(lower=0.60, upper=1.0)
+    out[CARRY_POSITION_20D_TARGET_COL] = (
+        carry_positive_exposure
+        * long_adverse_survival
+        * (1.0 - 0.60 * out[CRASH_20D_TARGET_COL].astype("float64"))
+        * carry_vol_survival
+    ).clip(lower=0.0, upper=1.0)
     regimes = np.select(
         [
             out[RISK_TARGET_COL].eq(1) | out[VOL_ADJUSTED_TARGET_COL].lt(-0.75),
@@ -323,6 +349,16 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
     regime_code = {label: index for index, label in enumerate(REGIME_LABELS)}
     out[REGIME_TARGET_CODE_COL] = out[REGIME_TARGET_COL].map(regime_code).astype("float64")
     return out
+
+
+def _future_open_return(frame: pd.DataFrame, *, offset: int) -> pd.Series:
+    pieces: list[pd.Series] = []
+    for _, group in frame.sort_values(["instrument", "datetime"]).groupby("instrument", sort=False):
+        open_ = pd.to_numeric(group["open"], errors="coerce").astype("float64")
+        entry = open_.shift(-1)
+        future = open_.shift(-int(offset)) / entry - 1.0
+        pieces.append(future.reindex(group.index))
+    return pd.concat(pieces).reindex(frame.index) if pieces else pd.Series(np.nan, index=frame.index)
 
 
 def _future_open_path_min_adverse(frame: pd.DataFrame, *, offsets: range) -> pd.Series:
@@ -383,7 +419,7 @@ def _load_soxx_constituent_factor_frame(
     factor_frame.attrs["feature_cols"] = feature_cols
     return factor_frame, {
         "status": "ok",
-        "role": "normalized_lagged_model_features_not_template_not_gate",
+        "role": "normalized_lagged_model_features_not_rule_or_gate",
         "source": SOXX_CONSTITUENT_FACTOR_SOURCE,
         "provider_uri": spec.soxx_constituent_provider_uri.resolve().as_posix(),
         "manifest": manifest_path.resolve().as_posix(),
@@ -476,7 +512,7 @@ def _build_intraday_risk_state_daily(
         "uses_15min": "15min" in audits and audits["15min"].get("status") == "ok",
         "providers": audits,
         "rows": int(len(out)),
-        "role": "risk_cap_and_intraday_execution_replay_not_alpha_template",
+        "role": "risk_cap_and_intraday_execution_replay_not_alpha_source",
         "execution_replay_fields": True,
     }
 
@@ -685,13 +721,16 @@ def _build_policy_provider(
         OPEN_TO_OPEN_RETURN_COL,
         LABEL_OPEN_TO_OPEN_5D_COL,
         ALPHA_TARGET_COL,
+        ALPHA_20D_TARGET_COL,
         CRASH_TARGET_COL,
         MAX_ADVERSE_TARGET_COL,
         CRASH_20D_TARGET_COL,
         MAX_ADVERSE_20D_TARGET_COL,
         RISK_TARGET_COL,
         VOL_ADJUSTED_TARGET_COL,
+        VOL_ADJUSTED_20D_TARGET_COL,
         POSITION_TARGET_COL,
+        CARRY_POSITION_20D_TARGET_COL,
         REGIME_TARGET_CODE_COL,
         INTRADAY_RISK_STATE_COL,
         "intraday_risk_score",
@@ -729,13 +768,16 @@ def _load_policy_provider(
         f"${OPEN_TO_OPEN_RETURN_COL}",
         f"${LABEL_OPEN_TO_OPEN_5D_COL}",
         f"${ALPHA_TARGET_COL}",
+        f"${ALPHA_20D_TARGET_COL}",
         f"${CRASH_TARGET_COL}",
         f"${MAX_ADVERSE_TARGET_COL}",
         f"${CRASH_20D_TARGET_COL}",
         f"${MAX_ADVERSE_20D_TARGET_COL}",
         f"${RISK_TARGET_COL}",
         f"${VOL_ADJUSTED_TARGET_COL}",
+        f"${VOL_ADJUSTED_20D_TARGET_COL}",
         f"${POSITION_TARGET_COL}",
+        f"${CARRY_POSITION_20D_TARGET_COL}",
         f"${REGIME_TARGET_CODE_COL}",
         f"${INTRADAY_RISK_STATE_COL}",
         "$intraday_risk_score",
@@ -820,29 +862,41 @@ def _feature_set_config(
 def _policy_candidate_configs() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for model_family in ["lgbm", "xgb", "lgb_xgb_consensus"]:
-        for suffix, intraday_replay, intraday_risk_cap in [
-            ("learned_position", False, 1.0),
-            ("learned_position_intraday_replay", True, 0.25),
+        for architecture_suffix, model_architecture, alpha_20d_blend in [
+            ("learned_position", "learned_position_risk_discount", False),
+            ("carry_position_20d", "carry_position_20d_risk_discount", False),
+            ("learned_position_alpha20d", "learned_position_20d_alpha_blend_risk_discount", True),
         ]:
-            rows.append(
-                {
-                    "candidate": f"{model_family}_{suffix}",
-                    "model_family": model_family,
-                    "policy_id": suffix,
-                    "position_mode": "learned_position",
-                    "alpha_floor": 0.0,
-                    "risk_cut": 2.0,
-                    "risk_cap": 1.0,
-                    "trend_scale": 1.0,
-                    "rebound_scale": 1.0,
-                    "selective_scale": 1.0,
-                    "defensive_scale": 1.0,
-                    "intraday_risk_cap": intraday_risk_cap,
-                    "intraday_execution_replay": intraday_replay,
-                    "manual_policy_grid": False,
-                    "position_target": POSITION_TARGET_COL,
-                }
-            )
+            for suffix, intraday_replay, intraday_risk_cap in [
+                (architecture_suffix, False, 1.0),
+                (f"{architecture_suffix}_intraday_replay", True, 0.25),
+            ]:
+                rows.append(
+                    {
+                        "candidate": f"{model_family}_{suffix}",
+                        "model_family": model_family,
+                        "policy_id": suffix,
+                        "model_architecture": model_architecture,
+                        "position_mode": "learned_position",
+                        "position_score_col": (
+                            "carry_position_20d_score"
+                            if model_architecture == "carry_position_20d_risk_discount"
+                            else "learned_position_score"
+                        ),
+                        "alpha_20d_blend": bool(alpha_20d_blend),
+                        "alpha_floor": 0.0,
+                        "risk_cut": 2.0,
+                        "risk_cap": 1.0,
+                        "trend_scale": 1.0,
+                        "rebound_scale": 1.0,
+                        "selective_scale": 1.0,
+                        "defensive_scale": 1.0,
+                        "intraday_risk_cap": intraday_risk_cap,
+                        "intraday_execution_replay": intraday_replay,
+                        "manual_policy_grid": False,
+                        "position_target": POSITION_TARGET_COL,
+                    }
+                )
     return rows
 
 
@@ -898,6 +952,11 @@ def _inner_policy_metrics(
                             **metrics,
                             "candidate": str(candidate["candidate"]),
                             "model": str(candidate["model_family"]),
+                            "model_architecture": str(
+                                candidate.get("model_architecture", "learned_position_risk_discount")
+                            ),
+                            "position_score_col": str(candidate.get("position_score_col", "learned_position_score")),
+                            "alpha_20d_blend": bool(candidate.get("alpha_20d_blend", False)),
                             "feature_set": str(feature_set["feature_set"]),
                             "feature_count": int(feature_set["feature_count"]),
                             "contains_soxx_constituents": bool(feature_set["contains_soxx_constituents"]),
@@ -933,11 +992,20 @@ def _select_policy_from_inner_metrics(
     rows["feature_set"] = rows["feature_set"].fillna("all_features").astype(str)
     if "feature_count" not in rows.columns:
         rows["feature_count"] = 0
+    if "model_architecture" not in rows.columns:
+        rows["model_architecture"] = "learned_position_risk_discount"
+    if "alpha_20d_blend" not in rows.columns:
+        rows["alpha_20d_blend"] = False
+    if "position_score_col" not in rows.columns:
+        rows["position_score_col"] = "learned_position_score"
     if "contains_soxx_constituents" not in rows.columns:
         rows["contains_soxx_constituents"] = False
     if "soxx_constituent_feature_count" not in rows.columns:
         rows["soxx_constituent_feature_count"] = 0
     rows["feature_count"] = pd.to_numeric(rows["feature_count"], errors="coerce").fillna(0).astype(int)
+    rows["model_architecture"] = rows["model_architecture"].fillna("learned_position_risk_discount").astype(str)
+    rows["position_score_col"] = rows["position_score_col"].fillna("learned_position_score").astype(str)
+    rows["alpha_20d_blend"] = rows["alpha_20d_blend"].fillna(False).astype(bool)
     rows["contains_soxx_constituents"] = rows["contains_soxx_constituents"].fillna(False).astype(bool)
     rows["soxx_constituent_feature_count"] = (
         pd.to_numeric(rows["soxx_constituent_feature_count"], errors="coerce").fillna(0).astype(int)
@@ -950,6 +1018,9 @@ def _select_policy_from_inner_metrics(
         rows.groupby(group_keys)
         .agg(
             feature_count=("feature_count", "first"),
+            model_architecture=("model_architecture", "first"),
+            position_score_col=("position_score_col", "first"),
+            alpha_20d_blend=("alpha_20d_blend", "first"),
             contains_soxx_constituents=("contains_soxx_constituents", "first"),
             soxx_constituent_feature_count=("soxx_constituent_feature_count", "first"),
             avg_selection_return_pct=("selection_return_pct", "mean"),
@@ -1053,6 +1124,9 @@ def _select_policy_from_inner_metrics(
         "selection_policy": SELECTION_POLICY,
         "calibration_asset": CALIBRATION_ASSET,
         "feature_count": int(selected["feature_count"]),
+        "model_architecture": str(selected["model_architecture"]),
+        "position_score_col": str(selected["position_score_col"]),
+        "alpha_20d_blend": bool(selected["alpha_20d_blend"]),
         "contains_soxx_constituents": bool(selected["contains_soxx_constituents"]),
         "soxx_constituent_feature_count": int(selected["soxx_constituent_feature_count"]),
         "soxl_drawdown_gate_applied": bool(soxl_drawdown_gate_applied),
@@ -1132,6 +1206,9 @@ def _outer_soxl_policy_test(
         "soxx_constituent_feature_count": int(feature_set["soxx_constituent_feature_count"]),
         "selected_regime_model": str(candidate["model_family"]),
         "policy_id": str(candidate["policy_id"]),
+        "model_architecture": str(candidate.get("model_architecture", "learned_position_risk_discount")),
+        "position_score_col": str(candidate.get("position_score_col", "learned_position_score")),
+        "alpha_20d_blend": bool(candidate.get("alpha_20d_blend", False)),
         "position_mode": str(candidate.get("position_mode", "scaled_alpha")),
         "train_start": pd.Timestamp(train["datetime"].min()).date().isoformat(),
         "train_end": train_end.date().isoformat(),
@@ -1217,6 +1294,7 @@ def _predict_base_trainable_policy(
 ) -> pd.DataFrame:
     family = str(model_family)
     alpha = _fit_predict_binary_probability(family, train, predict, feature_cols, ALPHA_TARGET_COL)
+    alpha_20d = _fit_predict_binary_probability(family, train, predict, feature_cols, ALPHA_20D_TARGET_COL)
     risk, risk_percentile = _fit_predict_binary_probability_with_train_percentile(
         family,
         train,
@@ -1256,10 +1334,13 @@ def _predict_base_trainable_policy(
     )
     regime = _fit_predict_regime(family, train, predict, feature_cols)
     vol_score = _fit_predict_regression(family, train, predict, feature_cols, VOL_ADJUSTED_TARGET_COL)
+    vol_score_20d = _fit_predict_regression(family, train, predict, feature_cols, VOL_ADJUSTED_20D_TARGET_COL)
     learned_position = _fit_predict_regression(family, train, predict, feature_cols, POSITION_TARGET_COL)
+    carry_position_20d = _fit_predict_regression(family, train, predict, feature_cols, CARRY_POSITION_20D_TARGET_COL)
     return pd.DataFrame(
         {
             "alpha_probability": alpha.reindex(predict.index).fillna(0.0),
+            "alpha_20d_probability": alpha_20d.reindex(predict.index).fillna(0.0),
             "risk_probability": risk.reindex(predict.index).fillna(1.0),
             "risk_percentile": risk_percentile.reindex(predict.index).fillna(1.0),
             "crash_probability": crash.reindex(predict.index).fillna(1.0),
@@ -1271,7 +1352,9 @@ def _predict_base_trainable_policy(
             "max_adverse_20d_score": max_adverse_20d.reindex(predict.index).fillna(-1.0),
             "max_adverse_20d_risk_percentile": max_adverse_20d_risk_percentile.reindex(predict.index).fillna(1.0),
             "vol_adjusted_score": vol_score.reindex(predict.index).fillna(0.0),
+            "vol_adjusted_20d_score": vol_score_20d.reindex(predict.index).fillna(0.0),
             "learned_position_score": learned_position.reindex(predict.index).fillna(0.0).clip(0.0, 1.0),
+            "carry_position_20d_score": carry_position_20d.reindex(predict.index).fillna(0.0).clip(0.0, 1.0),
             "regime": regime.reindex(predict.index).fillna("selective"),
             "intraday_risk_state": predict.get(INTRADAY_RISK_STATE_COL, pd.Series(0.0, index=predict.index)).to_numpy(),
         },
@@ -1286,6 +1369,9 @@ def _combine_consensus_predictions(lgb: pd.DataFrame, xgb: pd.DataFrame, predict
     return pd.DataFrame(
         {
             "alpha_probability": (lgb["alpha_probability"].to_numpy() + xgb["alpha_probability"].to_numpy()) / 2.0,
+            "alpha_20d_probability": (
+                lgb["alpha_20d_probability"].to_numpy() + xgb["alpha_20d_probability"].to_numpy()
+            ) / 2.0,
             "risk_probability": (lgb["risk_probability"].to_numpy() + xgb["risk_probability"].to_numpy()) / 2.0,
             "risk_percentile": (lgb["risk_percentile"].to_numpy() + xgb["risk_percentile"].to_numpy()) / 2.0,
             "crash_probability": (lgb["crash_probability"].to_numpy() + xgb["crash_probability"].to_numpy()) / 2.0,
@@ -1308,8 +1394,14 @@ def _combine_consensus_predictions(lgb: pd.DataFrame, xgb: pd.DataFrame, predict
                 + xgb["max_adverse_20d_risk_percentile"].to_numpy()
             ) / 2.0,
             "vol_adjusted_score": (lgb["vol_adjusted_score"].to_numpy() + xgb["vol_adjusted_score"].to_numpy()) / 2.0,
+            "vol_adjusted_20d_score": (
+                lgb["vol_adjusted_20d_score"].to_numpy() + xgb["vol_adjusted_20d_score"].to_numpy()
+            ) / 2.0,
             "learned_position_score": (
                 lgb["learned_position_score"].to_numpy() + xgb["learned_position_score"].to_numpy()
+            ) / 2.0,
+            "carry_position_20d_score": (
+                lgb["carry_position_20d_score"].to_numpy() + xgb["carry_position_20d_score"].to_numpy()
             ) / 2.0,
             "regime": regime,
             "intraday_risk_state": predict.get(INTRADAY_RISK_STATE_COL, pd.Series(0.0, index=predict.index)).to_numpy(),
@@ -1329,6 +1421,10 @@ def _simulate_alpha_risk_policy(
     position_mode = str(policy.get("position_mode", "scaled_alpha"))
     alpha_floor = float(policy.get("alpha_floor", 0.0))
     alpha = pd.to_numeric(predictions["alpha_probability"], errors="coerce").fillna(0.0)
+    alpha_20d = pd.to_numeric(
+        predictions.get("alpha_20d_probability", pd.Series(0.0, index=predictions.index)),
+        errors="coerce",
+    ).fillna(0.0)
     risk = pd.to_numeric(predictions["risk_probability"], errors="coerce").fillna(1.0)
     risk_percentile = pd.to_numeric(predictions.get("risk_percentile", risk), errors="coerce").fillna(1.0)
     crash = pd.to_numeric(predictions.get("crash_probability", risk), errors="coerce").fillna(1.0)
@@ -1361,6 +1457,10 @@ def _simulate_alpha_risk_policy(
         errors="coerce",
     ).fillna(0.0)
     vol_score = pd.to_numeric(predictions["vol_adjusted_score"], errors="coerce").fillna(0.0)
+    vol_score_20d = pd.to_numeric(
+        predictions.get("vol_adjusted_20d_score", pd.Series(0.0, index=predictions.index)),
+        errors="coerce",
+    ).fillna(0.0)
     regime = predictions["regime"].astype(str).where(predictions["regime"].astype(str).isin(REGIME_LABELS), "selective")
     intraday_risk = pd.to_numeric(predictions.get("intraday_risk_state", 0.0), errors="coerce").fillna(0.0)
     scale = regime.map(
@@ -1371,11 +1471,22 @@ def _simulate_alpha_risk_policy(
             "defensive": float(policy["defensive_scale"]),
         }
     ).fillna(float(policy["selective_scale"]))
+    alpha_20d_blend_used = bool(policy.get("alpha_20d_blend", False))
     if position_mode == "learned_position":
+        position_score_col = str(policy.get("position_score_col", "learned_position_score"))
         learned_position = pd.to_numeric(
-            predictions.get("learned_position_score", pd.Series(0.0, index=predictions.index)),
+            predictions.get(position_score_col, predictions.get("learned_position_score", pd.Series(0.0, index=predictions.index))),
             errors="coerce",
         ).fillna(0.0).clip(lower=0.0, upper=1.0)
+        if alpha_20d_blend_used and (
+            "alpha_20d_probability" in predictions.columns or "vol_adjusted_20d_score" in predictions.columns
+        ):
+            long_vol_opportunity = ((vol_score_20d + 1.0) / 2.0).clip(lower=0.0, upper=1.0)
+            learned_position = (
+                0.45 * learned_position
+                + 0.40 * alpha_20d.clip(lower=0.0, upper=1.0)
+                + 0.15 * long_vol_opportunity
+            ).clip(lower=0.0, upper=1.0)
         risk_discount = (1.0 - risk.clip(lower=0.0, upper=1.0)).clip(lower=0.0, upper=1.0)
         crash_discount = (1.0 - crash.clip(lower=0.0, upper=1.0)).clip(lower=0.0, upper=1.0)
         adverse_survival = ((max_adverse + 0.20) / 0.20).clip(lower=0.0, upper=1.0)
@@ -1478,6 +1589,7 @@ def _simulate_alpha_risk_policy(
             "segment": segment_name,
             "candidate": str(policy["candidate"]) if "candidate" in policy else str(policy["policy_id"]),
             "alpha_probability": alpha.to_numpy(),
+            "alpha_20d_probability": alpha_20d.to_numpy(),
             "risk_probability": risk.to_numpy(),
             "risk_percentile": risk_percentile.to_numpy(),
             "crash_probability": crash.to_numpy(),
@@ -1490,10 +1602,21 @@ def _simulate_alpha_risk_policy(
             "max_adverse_20d_risk_percentile": max_adverse_20d_risk_percentile.to_numpy(),
             "long_horizon_risk_factor": long_horizon_risk_factor.to_numpy(),
             "vol_adjusted_score": vol_score.to_numpy(),
+            "vol_adjusted_20d_score": vol_score_20d.to_numpy(),
+            "alpha_20d_blend_used": np.full(len(segment_frame), alpha_20d_blend_used, dtype=bool),
             "learned_position_score": pd.to_numeric(
                 predictions.get("learned_position_score", pd.Series(0.0, index=predictions.index)),
                 errors="coerce",
             ).fillna(0.0).to_numpy(),
+            "carry_position_20d_score": pd.to_numeric(
+                predictions.get("carry_position_20d_score", pd.Series(0.0, index=predictions.index)),
+                errors="coerce",
+            ).fillna(0.0).to_numpy(),
+            "position_score_col": np.full(
+                len(segment_frame),
+                str(policy.get("position_score_col", "learned_position_score")),
+                dtype=object,
+            ),
             "regime": regime.to_numpy(),
             "intraday_risk_state": intraday_risk.to_numpy(),
             "intraday_execution_replay_used": np.full(len(segment_frame), use_intraday_execution_replay, dtype=bool),
@@ -1890,13 +2013,16 @@ def _clean_policy_frame(frame: pd.DataFrame, feature_cols: list[str]) -> pd.Data
         OPEN_TO_OPEN_RETURN_COL,
         LABEL_OPEN_TO_OPEN_5D_COL,
         ALPHA_TARGET_COL,
+        ALPHA_20D_TARGET_COL,
         CRASH_TARGET_COL,
         MAX_ADVERSE_TARGET_COL,
         CRASH_20D_TARGET_COL,
         MAX_ADVERSE_20D_TARGET_COL,
         RISK_TARGET_COL,
         VOL_ADJUSTED_TARGET_COL,
+        VOL_ADJUSTED_20D_TARGET_COL,
         POSITION_TARGET_COL,
+        CARRY_POSITION_20D_TARGET_COL,
         REGIME_TARGET_CODE_COL,
         INTRADAY_RISK_STATE_COL,
         "intraday_risk_score",
@@ -1945,7 +2071,7 @@ def _annual_goal_summary(
     if pass_years != required_years:
         blocking.append("annual_target_gate_failed")
     return {
-        "policy": "nested_outer_soxl_year_inner_soxl_calibrated_no_template_policy_grid",
+        "policy": "nested_outer_soxl_year_inner_soxl_calibrated_model_family_feature_grid",
         "selection_uses_outer_test": False,
         "required_test_years": required_years,
         "feasible_test_years": feasible_years,
@@ -1964,6 +2090,9 @@ def _policy_diagnostic_row(outer_metrics: dict[str, Any], selected: dict[str, An
         "candidate": outer_metrics["candidate"],
         "feature_set": outer_metrics.get("feature_set"),
         "feature_count": outer_metrics.get("feature_count"),
+        "model_architecture": outer_metrics.get("model_architecture"),
+        "position_score_col": outer_metrics.get("position_score_col"),
+        "alpha_20d_blend": outer_metrics.get("alpha_20d_blend"),
         "contains_soxx_constituents": outer_metrics.get("contains_soxx_constituents"),
         "soxx_constituent_feature_count": outer_metrics.get("soxx_constituent_feature_count"),
         "selected_regime_model": outer_metrics["selected_regime_model"],
@@ -2083,13 +2212,20 @@ def _summary_payload(
             "primary_selection_target": "SOXL inner-fold excess return with drawdown and activity gates",
             "inner_validation_years": int(spec.inner_validation_years),
             "search_space_type": "pre_registered_learned_position_model_family_and_feature_set_grid",
+            "candidate_architectures": sorted(
+                {
+                    str(candidate.get("model_architecture", "learned_position_risk_discount"))
+                    for candidate in _policy_candidate_configs()
+                }
+            ),
+            "alpha_20d_blend_role": "nested_candidate_architecture_optional_not_forced",
             "feature_set_selection": "nested_inner_soxl_calibrated",
             "available_feature_sets": [str(config["feature_set"]) for config in feature_set_configs],
             "manual_template_selection": False,
             "template_library_used": False,
             "manual_policy_grid_used": False,
             "selector_regime_source": "none",
-            "selector_regime_matching": "disabled_manual_prior_year_regime_templates",
+            "selector_regime_matching": "disabled_manual_prior_year_regime_shape_rules",
             "model_families": ["lgbm_classifier", "xgb_classifier", "lgbm_regressor", "xgb_regressor", "lgb_xgb_consensus"],
             "candidate_count": int(len(_policy_candidate_configs())),
             "candidate_feature_set_count": int(len(_policy_candidate_configs()) * len(feature_set_configs)),
@@ -2104,7 +2240,13 @@ def _summary_payload(
             "training_target_source": "forward_return_crash_and_vol_adjusted_labels_inside_training_folds",
         },
         "policy_architecture": {
-            "alpha_model": "opportunity_probability_plus_vol_adjusted_return",
+            "alpha_model": "independent_5d_20d_opportunity_probability_plus_vol_adjusted_return",
+            "alpha_target_cols": [
+                ALPHA_TARGET_COL,
+                ALPHA_20D_TARGET_COL,
+                VOL_ADJUSTED_TARGET_COL,
+                VOL_ADJUSTED_20D_TARGET_COL,
+            ],
             "risk_model": "independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount",
             "risk_target_cols": [
                 CRASH_TARGET_COL,
@@ -2114,7 +2256,9 @@ def _summary_payload(
                 RISK_TARGET_COL,
             ],
             "position_target_col": POSITION_TARGET_COL,
+            "position_target_cols": [POSITION_TARGET_COL, CARRY_POSITION_20D_TARGET_COL],
             "position_policy": "learned_position_regressor_discounted_by_independent_risk_heads",
+            "alpha_20d_usage": "available_as_nested_candidate_architecture_not_forced_overlay",
             "risk_budget": "path_dependent_drawdown_cooldown_cap_uses_realized_strategy_equity_only",
         },
         "intraday_risk_state": intraday_audit,
@@ -2242,6 +2386,8 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "  cross_asset_role: overfit_stress_audit_not_primary_selection_target",
             f"  inner_validation_years: {summary['model_selection']['inner_validation_years']}",
             "  search_space_type: pre_registered_learned_position_model_family_and_feature_set_grid",
+            f"  candidate_architectures: {summary['model_selection']['candidate_architectures']}",
+            "  alpha_20d_blend_role: nested_candidate_architecture_optional_not_forced",
             "  feature_set_selection: nested_inner_soxl_calibrated",
             f"  available_feature_sets: {summary['model_selection']['available_feature_sets']}",
             "  manual_template_selection: false",
@@ -2252,18 +2398,19 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "  type: supervised_trainable_policy_classifier",
             "  manual_template_selection: false",
             "policy_architecture:",
-            "  alpha_model: opportunity_probability_plus_vol_adjusted_return",
+            "  alpha_model: independent_5d_20d_opportunity_probability_plus_vol_adjusted_return",
             "  risk_model: independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount",
             f"  position_target_col: {POSITION_TARGET_COL}",
+            f"  position_target_cols: {[POSITION_TARGET_COL, CARRY_POSITION_20D_TARGET_COL]}",
             "  position_policy: learned_position_regressor_discounted_by_independent_risk_heads",
             "intraday_risk_state:",
             f"  uses_5min: {str(summary['intraday_risk_state']['uses_5min']).lower()}",
             f"  uses_15min: {str(summary['intraday_risk_state']['uses_15min']).lower()}",
-            "  role: risk_cap_and_intraday_execution_replay_not_alpha_template",
+            "  role: risk_cap_and_intraday_execution_replay_not_alpha_source",
             f"  execution_replay_fields: {str(summary['intraday_risk_state'].get('execution_replay_fields', False)).lower()}",
             "soxx_constituent_factors:",
             f"  provider_uri: {summary['soxx_constituent_factors']['provider_uri']}",
-            "  role: normalized_lagged_model_features_not_template_not_gate",
+            "  role: normalized_lagged_model_features_not_rule_or_gate",
             f"  feature_count: {summary['soxx_constituent_factors']['feature_count']}",
             f"  lag_days: {summary['soxx_constituent_factors']['lag_days']}",
             "feature_sets:",
@@ -2291,7 +2438,7 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"- 核心指标：annual target pass years={summary['annual_goal']['target_pass_test_years']}，"
         f"overfit audit={summary['overfit_audit']['overfit_risk_status']}，common_data_end={summary['common_data_end']}。\n"
         f"- 特征：SOXX 成分股 normalized lagged breadth/dispersion 特征可用 {summary['feature_sets']['available_soxx_constituent_feature_count']} 个，lag_days={summary['soxx_constituent_factors']['lag_days']}；它们是 nested feature-set 候选，不是强制 alpha 输入、模板或 gate。实际选中特征集={summary['feature_sets']['selected_feature_sets']}。\n"
-        "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签和诊断输出，仓位由 learned_position_target 回归头给出，outer SOXL 年份只报告，不参与选择。\n"
+        "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签和诊断输出，仓位由 learned_position_target 回归头给出，20D alpha blend 只是 nested 候选架构之一，outer SOXL 年份只报告，不参与选择。\n"
         f"- 是否晋升：{summary['promotion_decision']}。\n"
         "- 风险：learned_position_target 的标签设计本身仍可能过拟合训练年代，尤其如果看完 2023-2026 后继续改标签；SOXX 当前成分股回填历史有 survivorship bias；多 3x ETF 仍共享权益 beta；5m/15m replay 只是盘中减仓执行近似，本轮即使被选择也不证明独立盘中 alpha。\n"
         "- 下一步：若 annual gate 未过，继续优化标签和可验证的新因子，不再按年份手工修模板或阈值 grid。\n"

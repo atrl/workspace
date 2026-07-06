@@ -1,9 +1,9 @@
 {
   "as_of": "2026-04-13",
-  "audit_snapshot_hash": "867cfc36caa5fd31",
+  "audit_snapshot_hash": "40902daee5776b36",
   "calendar_end": "2026-04-13",
   "calendar_start": "2011-01-03",
-  "feature_file_count": 445,
+  "feature_file_count": 460,
   "fields": [
     "$open",
     "$close",
@@ -11,13 +11,16 @@
     "$open_to_open_return",
     "$label_open_to_open_5d",
     "$alpha_opportunity_target",
+    "$alpha_opportunity_20d_target",
     "$crash_probability_target",
     "$max_adverse_return_target",
     "$crash_probability_20d_target",
     "$max_adverse_return_20d_target",
     "$risk_probability_target",
     "$vol_adjusted_return_target",
+    "$vol_adjusted_return_20d_target",
     "$learned_position_target",
+    "$carry_position_20d_target",
     "$trainable_regime_target_code",
     "$intraday_risk_state",
     "$intraday_risk_score",
@@ -96,7 +99,7 @@
     "$soxx_const_dispersion_ret20_lag1_pctile252"
   ],
   "freq": "day",
-  "hash": "0ed3c42097749f8e",
+  "hash": "469c90d224b877f4",
   "instruments": [
     "SOXL",
     "SPXL",

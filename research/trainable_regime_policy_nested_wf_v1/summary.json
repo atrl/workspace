@@ -11,7 +11,7 @@
     ],
     "max_drawdown_floor_pct": -20.0,
     "missing_required_test_years": [],
-    "policy": "nested_outer_soxl_year_inner_soxl_calibrated_no_template_policy_grid",
+    "policy": "nested_outer_soxl_year_inner_soxl_calibrated_model_family_feature_grid",
     "required_policy_satisfied": false,
     "required_test_years": [
       2023,
@@ -25,6 +25,7 @@
   },
   "annual_summary": [
     {
+      "alpha_20d_blend": false,
       "beats_buyhold": false,
       "buyhold_max_drawdown_pct": -48.91074752807617,
       "buyhold_return_pct": 169.1296844482422,
@@ -32,10 +33,12 @@
       "contains_soxx_constituents": true,
       "feature_count": 70,
       "feature_set": "base_soxx_diffusion",
+      "model_architecture": "learned_position_risk_discount",
       "outer_test_year": 2023,
       "passes_drawdown": true,
       "policy_id": "learned_position_intraday_replay",
       "position_mode": "learned_position",
+      "position_score_col": "learned_position_score",
       "selected_regime_model": "lgbm",
       "selection_uses_outer_test": false,
       "soxx_constituent_feature_count": 12,
@@ -55,6 +58,7 @@
       "train_start": "2011-01-03"
     },
     {
+      "alpha_20d_blend": false,
       "beats_buyhold": false,
       "buyhold_max_drawdown_pct": -66.4048080444336,
       "buyhold_return_pct": 6.506204605102539,
@@ -62,10 +66,12 @@
       "contains_soxx_constituents": true,
       "feature_count": 70,
       "feature_set": "base_soxx_diffusion",
+      "model_architecture": "learned_position_risk_discount",
       "outer_test_year": 2024,
       "passes_drawdown": true,
       "policy_id": "learned_position_intraday_replay",
       "position_mode": "learned_position",
+      "position_score_col": "learned_position_score",
       "selected_regime_model": "lgbm",
       "selection_uses_outer_test": false,
       "soxx_constituent_feature_count": 12,
@@ -85,6 +91,7 @@
       "train_start": "2011-01-03"
     },
     {
+      "alpha_20d_blend": false,
       "beats_buyhold": false,
       "buyhold_max_drawdown_pct": -77.44705963134766,
       "buyhold_return_pct": 77.78945922851562,
@@ -92,10 +99,12 @@
       "contains_soxx_constituents": true,
       "feature_count": 70,
       "feature_set": "base_soxx_diffusion",
+      "model_architecture": "learned_position_risk_discount",
       "outer_test_year": 2025,
       "passes_drawdown": true,
       "policy_id": "learned_position_intraday_replay",
       "position_mode": "learned_position",
+      "position_score_col": "learned_position_score",
       "selected_regime_model": "lgbm",
       "selection_uses_outer_test": false,
       "soxx_constituent_feature_count": 12,
@@ -115,6 +124,7 @@
       "train_start": "2011-01-03"
     },
     {
+      "alpha_20d_blend": false,
       "beats_buyhold": false,
       "buyhold_max_drawdown_pct": -39.63111114501953,
       "buyhold_return_pct": 50.12911605834961,
@@ -122,10 +132,12 @@
       "contains_soxx_constituents": true,
       "feature_count": 70,
       "feature_set": "base_soxx_diffusion",
+      "model_architecture": "learned_position_risk_discount",
       "outer_test_year": 2026,
       "passes_drawdown": true,
       "policy_id": "learned_position_intraday_replay",
       "position_mode": "learned_position",
+      "position_score_col": "learned_position_score",
       "selected_regime_model": "lgbm",
       "selection_uses_outer_test": false,
       "soxx_constituent_feature_count": 12,
@@ -403,6 +415,7 @@
     "selected": "outer_year_selected_feature_set",
     "selected_by_year": [
       {
+        "alpha_20d_blend": false,
         "avg_excess_return_pct": -37.711632072258695,
         "avg_selection_avg_abs_position": 0.27380910023049554,
         "avg_selection_return_pct": 10.498103762339852,
@@ -425,6 +438,7 @@
         "inner_beats_buyhold_rate": 0.4,
         "inner_fold_count": 40,
         "inner_pass_rate": 0.825,
+        "model_architecture": "learned_position_risk_discount",
         "observed_heldout_assets": [
           "SOXL",
           "SPXL",
@@ -433,6 +447,7 @@
           "UPRO"
         ],
         "outer_test_year": 2023,
+        "position_score_col": "learned_position_score",
         "required_heldout_assets": [
           "SOXL",
           "TQQQ",
@@ -440,7 +455,7 @@
           "SPXL",
           "TECL"
         ],
-        "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+        "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
         "selection_score": -52.28250664461481,
         "selection_uses_outer_test": false,
         "soxl_drawdown_gate_applied": true,
@@ -457,6 +472,7 @@
         "worst_selection_max_drawdown_pct": -28.717227672734836
       },
       {
+        "alpha_20d_blend": false,
         "avg_excess_return_pct": -51.128530555800495,
         "avg_selection_avg_abs_position": 0.27558015954672876,
         "avg_selection_return_pct": 13.690644699498119,
@@ -479,6 +495,7 @@
         "inner_beats_buyhold_rate": 0.3,
         "inner_fold_count": 40,
         "inner_pass_rate": 0.825,
+        "model_architecture": "learned_position_risk_discount",
         "observed_heldout_assets": [
           "SOXL",
           "SPXL",
@@ -487,6 +504,7 @@
           "UPRO"
         ],
         "outer_test_year": 2024,
+        "position_score_col": "learned_position_score",
         "required_heldout_assets": [
           "SOXL",
           "TQQQ",
@@ -494,7 +512,7 @@
           "SPXL",
           "TECL"
         ],
-        "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+        "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
         "selection_score": -102.73620063877257,
         "selection_uses_outer_test": false,
         "soxl_drawdown_gate_applied": true,
@@ -511,6 +529,7 @@
         "worst_selection_max_drawdown_pct": -28.717227672734836
       },
       {
+        "alpha_20d_blend": false,
         "avg_excess_return_pct": -51.61730463527981,
         "avg_selection_avg_abs_position": 0.2679674568969853,
         "avg_selection_return_pct": 13.32687357640918,
@@ -533,6 +552,7 @@
         "inner_beats_buyhold_rate": 0.3,
         "inner_fold_count": 40,
         "inner_pass_rate": 0.8,
+        "model_architecture": "learned_position_risk_discount",
         "observed_heldout_assets": [
           "SOXL",
           "SPXL",
@@ -541,6 +561,7 @@
           "UPRO"
         ],
         "outer_test_year": 2025,
+        "position_score_col": "learned_position_score",
         "required_heldout_assets": [
           "SOXL",
           "TQQQ",
@@ -548,7 +569,7 @@
           "SPXL",
           "TECL"
         ],
-        "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+        "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
         "selection_score": -78.94088209917986,
         "selection_uses_outer_test": false,
         "soxl_drawdown_gate_applied": true,
@@ -565,6 +586,7 @@
         "worst_selection_max_drawdown_pct": -28.717227672734836
       },
       {
+        "alpha_20d_blend": false,
         "avg_excess_return_pct": -44.1671486336741,
         "avg_selection_avg_abs_position": 0.26143903901928195,
         "avg_selection_return_pct": 12.57720143012671,
@@ -587,6 +609,7 @@
         "inner_beats_buyhold_rate": 0.3,
         "inner_fold_count": 40,
         "inner_pass_rate": 0.8,
+        "model_architecture": "learned_position_risk_discount",
         "observed_heldout_assets": [
           "SOXL",
           "SPXL",
@@ -595,6 +618,7 @@
           "UPRO"
         ],
         "outer_test_year": 2026,
+        "position_score_col": "learned_position_score",
         "required_heldout_assets": [
           "SOXL",
           "TQQQ",
@@ -602,7 +626,7 @@
           "SPXL",
           "TECL"
         ],
-        "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+        "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
         "selection_score": -46.82682624707669,
         "selection_uses_outer_test": false,
         "soxl_drawdown_gate_applied": true,
@@ -663,19 +687,25 @@
         "status": "ok"
       }
     },
-    "role": "risk_cap_and_intraday_execution_replay_not_alpha_template",
+    "role": "risk_cap_and_intraday_execution_replay_not_alpha_source",
     "rows": 1829,
     "status": "ok",
     "uses_15min": true,
     "uses_5min": true
   },
   "model_selection": {
+    "alpha_20d_blend_role": "nested_candidate_architecture_optional_not_forced",
     "available_feature_sets": [
       "base",
       "base_soxx_diffusion"
     ],
-    "candidate_count": 6,
-    "candidate_feature_set_count": 12,
+    "candidate_architectures": [
+      "carry_position_20d_risk_discount",
+      "learned_position_20d_alpha_blend_risk_discount",
+      "learned_position_risk_discount"
+    ],
+    "candidate_count": 18,
+    "candidate_feature_set_count": 36,
     "cross_asset_role": "overfit_stress_audit_not_primary_selection_target",
     "cross_asset_training_universe": [
       "SOXL",
@@ -700,6 +730,7 @@
     "search_space_type": "pre_registered_learned_position_model_family_and_feature_set_grid",
     "selected_by_year": [
       {
+        "alpha_20d_blend": false,
         "avg_excess_return_pct": -37.711632072258695,
         "avg_selection_avg_abs_position": 0.27380910023049554,
         "avg_selection_return_pct": 10.498103762339852,
@@ -722,6 +753,7 @@
         "inner_beats_buyhold_rate": 0.4,
         "inner_fold_count": 40,
         "inner_pass_rate": 0.825,
+        "model_architecture": "learned_position_risk_discount",
         "observed_heldout_assets": [
           "SOXL",
           "SPXL",
@@ -730,6 +762,7 @@
           "UPRO"
         ],
         "outer_test_year": 2023,
+        "position_score_col": "learned_position_score",
         "required_heldout_assets": [
           "SOXL",
           "TQQQ",
@@ -737,7 +770,7 @@
           "SPXL",
           "TECL"
         ],
-        "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+        "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
         "selection_score": -52.28250664461481,
         "selection_uses_outer_test": false,
         "soxl_drawdown_gate_applied": true,
@@ -754,6 +787,7 @@
         "worst_selection_max_drawdown_pct": -28.717227672734836
       },
       {
+        "alpha_20d_blend": false,
         "avg_excess_return_pct": -51.128530555800495,
         "avg_selection_avg_abs_position": 0.27558015954672876,
         "avg_selection_return_pct": 13.690644699498119,
@@ -776,6 +810,7 @@
         "inner_beats_buyhold_rate": 0.3,
         "inner_fold_count": 40,
         "inner_pass_rate": 0.825,
+        "model_architecture": "learned_position_risk_discount",
         "observed_heldout_assets": [
           "SOXL",
           "SPXL",
@@ -784,6 +819,7 @@
           "UPRO"
         ],
         "outer_test_year": 2024,
+        "position_score_col": "learned_position_score",
         "required_heldout_assets": [
           "SOXL",
           "TQQQ",
@@ -791,7 +827,7 @@
           "SPXL",
           "TECL"
         ],
-        "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+        "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
         "selection_score": -102.73620063877257,
         "selection_uses_outer_test": false,
         "soxl_drawdown_gate_applied": true,
@@ -808,6 +844,7 @@
         "worst_selection_max_drawdown_pct": -28.717227672734836
       },
       {
+        "alpha_20d_blend": false,
         "avg_excess_return_pct": -51.61730463527981,
         "avg_selection_avg_abs_position": 0.2679674568969853,
         "avg_selection_return_pct": 13.32687357640918,
@@ -830,6 +867,7 @@
         "inner_beats_buyhold_rate": 0.3,
         "inner_fold_count": 40,
         "inner_pass_rate": 0.8,
+        "model_architecture": "learned_position_risk_discount",
         "observed_heldout_assets": [
           "SOXL",
           "SPXL",
@@ -838,6 +876,7 @@
           "UPRO"
         ],
         "outer_test_year": 2025,
+        "position_score_col": "learned_position_score",
         "required_heldout_assets": [
           "SOXL",
           "TQQQ",
@@ -845,7 +884,7 @@
           "SPXL",
           "TECL"
         ],
-        "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+        "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
         "selection_score": -78.94088209917986,
         "selection_uses_outer_test": false,
         "soxl_drawdown_gate_applied": true,
@@ -862,6 +901,7 @@
         "worst_selection_max_drawdown_pct": -28.717227672734836
       },
       {
+        "alpha_20d_blend": false,
         "avg_excess_return_pct": -44.1671486336741,
         "avg_selection_avg_abs_position": 0.26143903901928195,
         "avg_selection_return_pct": 12.57720143012671,
@@ -884,6 +924,7 @@
         "inner_beats_buyhold_rate": 0.3,
         "inner_fold_count": 40,
         "inner_pass_rate": 0.8,
+        "model_architecture": "learned_position_risk_discount",
         "observed_heldout_assets": [
           "SOXL",
           "SPXL",
@@ -892,6 +933,7 @@
           "UPRO"
         ],
         "outer_test_year": 2026,
+        "position_score_col": "learned_position_score",
         "required_heldout_assets": [
           "SOXL",
           "TQQQ",
@@ -899,7 +941,7 @@
           "SPXL",
           "TECL"
         ],
-        "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+        "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
         "selection_score": -46.82682624707669,
         "selection_uses_outer_test": false,
         "soxl_drawdown_gate_applied": true,
@@ -916,9 +958,9 @@
         "worst_selection_max_drawdown_pct": -28.717227672734836
       }
     ],
-    "selection_policy": "nested_inner_soxl_calibrated_learned_position_no_template_grid",
+    "selection_policy": "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid",
     "selection_uses_outer_test": false,
-    "selector_regime_matching": "disabled_manual_prior_year_regime_templates",
+    "selector_regime_matching": "disabled_manual_prior_year_regime_shape_rules",
     "selector_regime_source": "none",
     "template_library_used": false
   },
@@ -942,9 +984,20 @@
     "selection_uses_outer_test": false
   },
   "policy_architecture": {
-    "alpha_model": "opportunity_probability_plus_vol_adjusted_return",
+    "alpha_20d_usage": "available_as_nested_candidate_architecture_not_forced_overlay",
+    "alpha_model": "independent_5d_20d_opportunity_probability_plus_vol_adjusted_return",
+    "alpha_target_cols": [
+      "alpha_opportunity_target",
+      "alpha_opportunity_20d_target",
+      "vol_adjusted_return_target",
+      "vol_adjusted_return_20d_target"
+    ],
     "position_policy": "learned_position_regressor_discounted_by_independent_risk_heads",
     "position_target_col": "learned_position_target",
+    "position_target_cols": [
+      "learned_position_target",
+      "carry_position_20d_target"
+    ],
     "risk_budget": "path_dependent_drawdown_cooldown_cap_uses_realized_strategy_equity_only",
     "risk_model": "independent_5d_20d_risk_crash_probability_max_adverse_and_percentile_discount",
     "risk_target_cols": [
@@ -959,10 +1012,10 @@
   "promotion_decision": "not_promoted_trainable_regime_policy_goal_or_overfit_audit_failed",
   "provider_build": {
     "as_of": "2026-04-13",
-    "audit_snapshot_hash": "867cfc36caa5fd31",
+    "audit_snapshot_hash": "40902daee5776b36",
     "calendar_end": "2026-04-13",
     "calendar_start": "2011-01-03",
-    "feature_file_count": 445,
+    "feature_file_count": 460,
     "fields": [
       "$open",
       "$close",
@@ -970,13 +1023,16 @@
       "$open_to_open_return",
       "$label_open_to_open_5d",
       "$alpha_opportunity_target",
+      "$alpha_opportunity_20d_target",
       "$crash_probability_target",
       "$max_adverse_return_target",
       "$crash_probability_20d_target",
       "$max_adverse_return_20d_target",
       "$risk_probability_target",
       "$vol_adjusted_return_target",
+      "$vol_adjusted_return_20d_target",
       "$learned_position_target",
+      "$carry_position_20d_target",
       "$trainable_regime_target_code",
       "$intraday_risk_state",
       "$intraday_risk_score",
@@ -1055,7 +1111,7 @@
       "$soxx_const_dispersion_ret20_lag1_pctile252"
     ],
     "freq": "day",
-    "hash": "0ed3c42097749f8e",
+    "hash": "469c90d224b877f4",
     "instruments": [
       "SOXL",
       "SPXL",
@@ -1121,8 +1177,8 @@
     "artifacts/trainable_regime_policy_nested_wf_v1/feature_sets.csv",
     "artifacts/trainable_regime_policy_nested_wf_v1/positions.csv"
   ],
-  "recorder_id": "94d1de518a6b414a8a0a4c945dedc98e",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/trainable_regime_policy_nested_wf_v1/qlib_recorder/108815762282889128/94d1de518a6b414a8a0a4c945dedc98e",
+  "recorder_id": "28888ec1315e4f40995758881ff013bb",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/trainable_regime_policy_nested_wf_v1/qlib_recorder/108815762282889128/28888ec1315e4f40995758881ff013bb",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/trainable_regime_policy_nested_wf_v1/qlib_recorder",
   "regime_classifier": {
     "manual_template_selection": false,
@@ -1298,7 +1354,7 @@
     ],
     "raw_feature_count": 13,
     "raw_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxx_constituents/manifest.json",
-    "role": "normalized_lagged_model_features_not_template_not_gate",
+    "role": "normalized_lagged_model_features_not_rule_or_gate",
     "source": "qlib.data.D.features",
     "status": "ok",
     "top_n": 5

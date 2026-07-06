@@ -3,22 +3,41 @@ from __future__ import annotations
 import pandas as pd
 
 from src.workflow.trainable_regime_policy_nested_wf import (
+    ALPHA_20D_TARGET_COL,
+    CARRY_POSITION_20D_TARGET_COL,
     CRASH_TARGET_COL,
     MAX_ADVERSE_TARGET_COL,
     POSITION_TARGET_COL,
     REGIME_TARGET_COL,
     RISK_TARGET_COL,
+    VOL_ADJUSTED_20D_TARGET_COL,
     VOL_ADJUSTED_TARGET_COL,
     _append_soxx_constituent_normalized_features,
     _attach_soxx_constituent_model_features,
     _attach_trainable_policy_targets,
     _intraday_execution_rows_from_wide,
+    _policy_candidate_configs,
     _policy_feature_set_configs,
     _policy_feature_columns,
     _percentile_against_train,
     _select_policy_from_inner_metrics,
     _simulate_alpha_risk_policy,
 )
+
+
+def test_policy_candidate_configs_treat_20d_alpha_as_nested_architecture_choice():
+    candidates = _policy_candidate_configs()
+
+    assert len(candidates) == 18
+    assert any(not candidate["alpha_20d_blend"] for candidate in candidates)
+    assert any(candidate["alpha_20d_blend"] for candidate in candidates)
+    assert {candidate["model_architecture"] for candidate in candidates} == {
+        "carry_position_20d_risk_discount",
+        "learned_position_risk_discount",
+        "learned_position_20d_alpha_blend_risk_discount",
+    }
+    assert any(candidate["position_score_col"] == "carry_position_20d_score" for candidate in candidates)
+    assert all(candidate["manual_policy_grid"] is False for candidate in candidates)
 
 
 def test_attach_trainable_policy_targets_replaces_manual_templates_with_supervised_labels():
@@ -97,6 +116,32 @@ def test_trainable_policy_targets_include_20d_adverse_risk_when_5d_return_is_pos
 
     assert round(out["max_adverse_return_20d_target"].iloc[0], 6) == -0.30
     assert out["crash_probability_20d_target"].iloc[0] == 1
+
+
+def test_trainable_policy_targets_include_20d_alpha_opportunity():
+    dates = pd.date_range("2024-01-02", periods=30, freq="B")
+    open_prices = [100.0] * len(dates)
+    open_prices[1] = 100.0
+    open_prices[21] = 135.0
+    frame = pd.DataFrame(
+        {
+            "datetime": dates,
+            "instrument": ["SOXL"] * len(dates),
+            "open": open_prices,
+            "open_to_open_return": [0.0] * len(dates),
+            "label_open_to_open_5d": [0.0] * len(dates),
+            "ret_20": [0.10] * len(dates),
+            "ret_60": [0.20] * len(dates),
+            "drawdown_60": [-0.05] * len(dates),
+            "realized_vol_20": [0.10] * len(dates),
+        }
+    )
+
+    out = _attach_trainable_policy_targets(frame)
+
+    assert out[ALPHA_20D_TARGET_COL].iloc[0] == 1
+    assert out[VOL_ADJUSTED_20D_TARGET_COL].iloc[0] > out[VOL_ADJUSTED_TARGET_COL].iloc[0]
+    assert out[CARRY_POSITION_20D_TARGET_COL].iloc[0] > out[POSITION_TARGET_COL].iloc[0]
 
 
 def test_learned_position_policy_uses_long_horizon_risk_head_as_independent_cap():
@@ -194,6 +239,165 @@ def test_learned_position_policy_does_not_blanket_discount_budgeted_20d_risk():
     )
 
     assert positions["target_position"].iloc[0] >= 0.60
+
+
+def test_learned_position_policy_does_not_force_20d_alpha_boost_by_default():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02"]),
+            "instrument": ["SOXL"],
+            "open_to_open_return": [0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.55],
+            "alpha_20d_probability": [0.90],
+            "risk_probability": [0.0],
+            "risk_percentile": [0.0],
+            "crash_probability": [0.0],
+            "crash_risk_percentile": [0.0],
+            "max_adverse_score": [-0.02],
+            "max_adverse_risk_percentile": [0.0],
+            "crash_20d_probability": [0.10],
+            "crash_20d_risk_percentile": [0.20],
+            "max_adverse_20d_score": [-0.06],
+            "max_adverse_20d_risk_percentile": [0.20],
+            "regime": ["trend"],
+            "vol_adjusted_score": [0.0],
+            "vol_adjusted_20d_score": [1.0],
+            "learned_position_score": [0.45],
+            "intraday_risk_state": [0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_learned_position_no_forced_20d_alpha_boost",
+            "position_mode": "learned_position",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] < 0.60
+    assert bool(positions["alpha_20d_blend_used"].iloc[0]) is False
+
+
+def test_learned_position_policy_can_use_carry_position_20d_score_candidate():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02"]),
+            "instrument": ["SOXL"],
+            "open_to_open_return": [0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.55],
+            "alpha_20d_probability": [0.50],
+            "risk_probability": [0.0],
+            "risk_percentile": [0.0],
+            "crash_probability": [0.0],
+            "crash_risk_percentile": [0.0],
+            "max_adverse_score": [-0.02],
+            "max_adverse_risk_percentile": [0.0],
+            "crash_20d_probability": [0.10],
+            "crash_20d_risk_percentile": [0.20],
+            "max_adverse_20d_score": [-0.06],
+            "max_adverse_20d_risk_percentile": [0.20],
+            "regime": ["trend"],
+            "vol_adjusted_score": [0.0],
+            "vol_adjusted_20d_score": [0.0],
+            "learned_position_score": [0.10],
+            "carry_position_20d_score": [0.85],
+            "intraday_risk_state": [0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_carry_position_20d",
+            "position_mode": "learned_position",
+            "position_score_col": "carry_position_20d_score",
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] >= 0.70
+    assert positions["position_score_col"].iloc[0] == "carry_position_20d_score"
+
+
+def test_learned_position_policy_uses_20d_alpha_head_when_candidate_opts_in():
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-01-02"]),
+            "instrument": ["SOXL"],
+            "open_to_open_return": [0.01],
+        }
+    )
+    predictions = pd.DataFrame(
+        {
+            "alpha_probability": [0.55],
+            "alpha_20d_probability": [0.90],
+            "risk_probability": [0.0],
+            "risk_percentile": [0.0],
+            "crash_probability": [0.0],
+            "crash_risk_percentile": [0.0],
+            "max_adverse_score": [-0.02],
+            "max_adverse_risk_percentile": [0.0],
+            "crash_20d_probability": [0.10],
+            "crash_20d_risk_percentile": [0.20],
+            "max_adverse_20d_score": [-0.06],
+            "max_adverse_20d_risk_percentile": [0.20],
+            "regime": ["trend"],
+            "vol_adjusted_score": [0.0],
+            "vol_adjusted_20d_score": [1.0],
+            "learned_position_score": [0.45],
+            "intraday_risk_state": [0.0],
+        }
+    )
+
+    _, positions = _simulate_alpha_risk_policy(
+        frame,
+        predictions,
+        policy={
+            "policy_id": "unit_learned_position_20d_alpha_boost",
+            "position_mode": "learned_position",
+            "alpha_20d_blend": True,
+            "alpha_floor": 0.0,
+            "risk_cut": 2.0,
+            "risk_cap": 1.0,
+            "trend_scale": 1.0,
+            "rebound_scale": 1.0,
+            "selective_scale": 1.0,
+            "defensive_scale": 1.0,
+            "intraday_risk_cap": 1.0,
+        },
+        cost_per_turnover=0.0,
+    )
+
+    assert positions["target_position"].iloc[0] >= 0.60
+    assert bool(positions["alpha_20d_blend_used"].iloc[0]) is True
 
 
 def test_learned_position_policy_uses_model_position_score_without_manual_thresholds():
@@ -696,7 +900,7 @@ def test_selector_treats_feature_set_as_nested_choice_without_manual_template():
     assert selected["feature_set"] == "base"
     assert selected["contains_soxx_constituents"] is False
     assert selected["soxx_constituent_feature_count"] == 0
-    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_learned_position_no_template_grid"
+    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid"
 
 
 def test_selector_uses_soxl_inner_calibration_before_cross_asset_stress_average():
@@ -732,7 +936,7 @@ def test_selector_uses_soxl_inner_calibration_before_cross_asset_stress_average(
         required_heldout_assets=("SOXL", "TQQQ", "UPRO", "SPXL", "TECL"),
     )
 
-    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_learned_position_no_template_grid"
+    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid"
     assert selected["calibration_asset"] == "SOXL"
     assert selected["candidate"] == "soxl_calibrated_winner"
     assert selected["soxl_inner_excess_return_pct"] == 18.0
@@ -800,7 +1004,7 @@ def test_selector_does_not_expose_manual_regime_template_filter_fields():
         required_heldout_assets=("SOXL", "TQQQ", "UPRO", "SPXL", "TECL"),
     )
 
-    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_learned_position_no_template_grid"
+    assert selected["selection_policy"] == "nested_inner_soxl_calibrated_learned_position_model_family_feature_grid"
     assert "outer_selector_regime" not in selected
     assert "selector_regime_filter_applied" not in selected
     assert "regime_soxl_inner_excess_return_pct" not in selected
