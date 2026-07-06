@@ -2,27 +2,31 @@ experiment: trainable_regime_policy_nested_wf_v1
 card_type: trainable_regime_policy_nested_wf_research_card
 provider_uri: /Users/rziiiii/dev/workspace/data/qlib/trainable_regime_policy_nested_wf_v1
 model_selection:
-  selection_policy: nested_inner_soxl_calibrated_no_template_policy_grid
+  selection_policy: nested_inner_soxl_calibrated_learned_position_no_template_grid
   selection_uses_outer_test: false
   final_calibration_asset: SOXL
   cross_asset_role: overfit_stress_audit_not_primary_selection_target
   inner_validation_years: 8
-  search_space_type: pre_registered_hyperparameter_and_feature_set_grid
+  search_space_type: pre_registered_learned_position_model_family_and_feature_set_grid
   feature_set_selection: nested_inner_soxl_calibrated
   available_feature_sets: ['base', 'base_soxx_diffusion']
   manual_template_selection: false
   template_library_used: false
+  manual_policy_grid_used: false
   selector_regime_source: none
 regime_classifier:
   type: supervised_trainable_policy_classifier
   manual_template_selection: false
 policy_architecture:
   alpha_model: opportunity_probability_plus_vol_adjusted_return
-  risk_model: independent_risk_crash_probability_and_max_adverse_cap
+  risk_model: independent_risk_crash_probability_max_adverse_and_percentile_discount
+  position_target_col: learned_position_target
+  position_policy: learned_position_regressor_discounted_by_independent_risk_heads
 intraday_risk_state:
   uses_5min: true
   uses_15min: true
-  role: risk_cap_not_alpha_template
+  role: risk_cap_and_intraday_execution_replay_not_alpha_template
+  execution_replay_fields: true
 soxx_constituent_factors:
   provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_constituents
   role: normalized_lagged_model_features_not_template_not_gate
@@ -30,14 +34,14 @@ soxx_constituent_factors:
   lag_days: 1
 feature_sets:
   selection_policy: nested_inner_feature_set_selection
-  selected_feature_sets: ['base_soxx_diffusion']
-  selected_soxx_outer_year_count: 4
+  selected_feature_sets: ['base', 'base_soxx_diffusion']
+  selected_soxx_outer_year_count: 2
 overfit_audit:
   status: mitigated
   manual_template_selection: false
 annual_goal:
   required_policy_satisfied: false
-  target_pass_test_years: [2024]
+  target_pass_test_years: []
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml

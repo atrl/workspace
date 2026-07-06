@@ -726,19 +726,25 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["card_type"] == "trainable_regime_policy_nested_wf_research_card"
     assert summary["benchmark_basis"] == "open_to_open"
     assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
-    assert summary["model_selection"]["selection_policy"] == "nested_inner_soxl_calibrated_no_template_policy_grid"
+    assert summary["model_selection"]["selection_policy"] == (
+        "nested_inner_soxl_calibrated_learned_position_no_template_grid"
+    )
     assert summary["model_selection"]["selection_uses_outer_test"] is False
     assert summary["model_selection"]["final_calibration_asset"] == "SOXL"
     assert summary["model_selection"]["cross_asset_role"] == "overfit_stress_audit_not_primary_selection_target"
     assert summary["model_selection"]["inner_validation_years"] == 8
-    assert summary["model_selection"]["search_space_type"] == "pre_registered_hyperparameter_and_feature_set_grid"
+    assert summary["model_selection"]["search_space_type"] == (
+        "pre_registered_learned_position_model_family_and_feature_set_grid"
+    )
     assert summary["model_selection"]["feature_set_selection"] == "nested_inner_soxl_calibrated"
     assert set(summary["model_selection"]["available_feature_sets"]) == {"base", "base_soxx_diffusion"}
     assert summary["model_selection"]["candidate_feature_set_count"] == (
         summary["model_selection"]["candidate_count"] * len(summary["model_selection"]["available_feature_sets"])
     )
+    assert summary["model_selection"]["candidate_count"] == 6
     assert summary["model_selection"]["manual_template_selection"] is False
     assert summary["model_selection"]["template_library_used"] is False
+    assert summary["model_selection"]["manual_policy_grid_used"] is False
     assert set(summary["model_selection"]["model_families"]) >= {
         "lgbm_classifier",
         "xgb_classifier",
@@ -749,13 +755,17 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert summary["regime_classifier"]["manual_template_selection"] is False
     assert summary["regime_classifier"]["target_labels"] == ["defensive", "rebound", "selective", "trend"]
     assert summary["policy_architecture"]["alpha_model"] == "opportunity_probability_plus_vol_adjusted_return"
-    assert summary["policy_architecture"]["risk_model"] == "independent_risk_crash_probability_and_max_adverse_cap"
-    assert summary["policy_architecture"]["position_policy"] == (
-        "regime_scaled_or_binary_alpha_then_independent_multi_target_risk_cap"
+    assert summary["policy_architecture"]["risk_model"] == (
+        "independent_risk_crash_probability_max_adverse_and_percentile_discount"
     )
+    assert summary["policy_architecture"]["position_policy"] == (
+        "learned_position_regressor_discounted_by_independent_risk_heads"
+    )
+    assert summary["policy_architecture"]["position_target_col"] == "learned_position_target"
     assert summary["intraday_risk_state"]["uses_5min"] is True
     assert summary["intraday_risk_state"]["uses_15min"] is True
-    assert summary["intraday_risk_state"]["role"] == "risk_cap_not_alpha_template"
+    assert summary["intraday_risk_state"]["role"] == "risk_cap_and_intraday_execution_replay_not_alpha_template"
+    assert summary["intraday_risk_state"]["execution_replay_fields"] is True
     constituent = summary["soxx_constituent_factors"]
     assert constituent["status"] == "ok"
     assert constituent["source"] == "qlib.data.D.features"
@@ -820,6 +830,7 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert annual["selection_uses_outer_test"].eq(False).all()
     assert "selected_regime_model" in annual.columns
     assert "test_intraday_risk_cap_day_ratio" in annual.columns
+    assert "test_intraday_execution_replay_day_ratio" in annual.columns
     assert "test_multi_target_risk_cap_day_ratio" in annual.columns
     assert "test_percentile_risk_cap_day_ratio" in annual.columns
     assert "feature_set" in annual.columns
@@ -838,7 +849,7 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
 
     selected = pd.read_csv(card / summary["sidecars"]["selected_candidates"])
     assert selected["selection_uses_outer_test"].eq(False).all()
-    assert selected["selection_policy"].eq("nested_inner_soxl_calibrated_no_template_policy_grid").all()
+    assert selected["selection_policy"].eq("nested_inner_soxl_calibrated_learned_position_no_template_grid").all()
     assert selected["calibration_asset"].eq("SOXL").all()
     assert "feature_set" in selected.columns
     assert "contains_soxx_constituents" in selected.columns

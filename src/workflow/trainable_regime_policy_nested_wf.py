@@ -38,7 +38,7 @@ from src.workflow.multi_3x_etf_normalized_nested_wf import (
 
 EXPERIMENT = "trainable_regime_policy_nested_wf_v1"
 CARD_TYPE = "trainable_regime_policy_nested_wf_research_card"
-SELECTION_POLICY = "nested_inner_soxl_calibrated_no_template_policy_grid"
+SELECTION_POLICY = "nested_inner_soxl_calibrated_learned_position_no_template_grid"
 CALIBRATION_ASSET = "SOXL"
 REGIME_TARGET_COL = "trainable_regime_target"
 REGIME_TARGET_CODE_COL = "trainable_regime_target_code"
@@ -47,7 +47,11 @@ MAX_ADVERSE_TARGET_COL = "max_adverse_return_target"
 RISK_TARGET_COL = "risk_probability_target"
 VOL_ADJUSTED_TARGET_COL = "vol_adjusted_return_target"
 ALPHA_TARGET_COL = "alpha_opportunity_target"
+POSITION_TARGET_COL = "learned_position_target"
 INTRADAY_RISK_STATE_COL = "intraday_risk_state"
+INTRADAY_EXECUTION_TRIGGERED_COL = "intraday_execution_triggered"
+INTRADAY_OPEN_TO_TRIGGER_RETURN_COL = "intraday_open_to_trigger_return"
+INTRADAY_TRIGGER_TO_CLOSE_RETURN_COL = "intraday_trigger_to_close_return"
 REGIME_LABELS = ["defensive", "rebound", "selective", "trend"]
 SOXX_CONSTITUENT_MODEL_RAW_TOKENS = ("breadth", "downside", "dispersion")
 
@@ -211,7 +215,7 @@ def _run_card(spec: TrainableRegimePolicyNestedWfSpec) -> dict[str, Any]:
                 nested_walk_forward="true",
                 leave_one_asset_out="true",
                 selection_uses_outer_test="false",
-                intraday_risk_state="5min,15min",
+                intraday_risk_state="5min,15min,risk_state,execution_replay",
                 soxx_constituent_features="lagged_model_features",
             )
             summary = _summary_payload(
@@ -287,6 +291,10 @@ def _attach_trainable_policy_targets(frame: pd.DataFrame) -> pd.DataFrame:
     out[MAX_ADVERSE_TARGET_COL] = pd.to_numeric(max_adverse, errors="coerce").fillna(0.0)
     out[RISK_TARGET_COL] = (out[CRASH_TARGET_COL].eq(1) | out[MAX_ADVERSE_TARGET_COL].le(-0.12)).astype(int)
     out[VOL_ADJUSTED_TARGET_COL] = (future_return / (realized_vol + 0.02)).replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    return_score = (future_return / 0.12).clip(lower=0.0, upper=1.0)
+    adverse_survival = ((out[MAX_ADVERSE_TARGET_COL] + 0.20) / 0.20).clip(lower=0.0, upper=1.0)
+    vol_survival = (0.20 / (realized_vol + 0.20)).clip(lower=0.25, upper=1.0)
+    out[POSITION_TARGET_COL] = (return_score * adverse_survival * vol_survival).clip(lower=0.0, upper=1.0)
     regimes = np.select(
         [
             out[RISK_TARGET_COL].eq(1) | out[VOL_ADJUSTED_TARGET_COL].lt(-0.75),
@@ -433,14 +441,63 @@ def _build_intraday_risk_state_daily(
     score_cols = [column for column in out.columns if column.endswith("_risk_score")]
     out[INTRADAY_RISK_STATE_COL] = out[risk_cols].max(axis=1).fillna(0.0) if risk_cols else 0.0
     out["intraday_risk_score"] = out[score_cols].max(axis=1).fillna(0.0) if score_cols else 0.0
+    out = _attach_intraday_execution_replay_columns(out)
     return out.sort_values("datetime").reset_index(drop=True), {
         "status": "ok",
         "uses_5min": "5min" in audits and audits["5min"].get("status") == "ok",
         "uses_15min": "15min" in audits and audits["15min"].get("status") == "ok",
         "providers": audits,
         "rows": int(len(out)),
-        "role": "risk_cap_not_alpha_template",
+        "role": "risk_cap_and_intraday_execution_replay_not_alpha_template",
+        "execution_replay_fields": True,
     }
+
+
+def _attach_intraday_execution_replay_columns(frame: pd.DataFrame) -> pd.DataFrame:
+    out = frame.copy()
+    out[INTRADAY_EXECUTION_TRIGGERED_COL] = 0.0
+    out[INTRADAY_OPEN_TO_TRIGGER_RETURN_COL] = 0.0
+    out[INTRADAY_TRIGGER_TO_CLOSE_RETURN_COL] = 0.0
+    out["intraday_execution_source_freq"] = "none"
+    for idx, row in out.iterrows():
+        selected_freq = None
+        for freq in ["5min", "15min"]:
+            trigger_col = f"intraday_{freq}_execution_triggered"
+            if trigger_col in out.columns and float(pd.to_numeric(pd.Series([row.get(trigger_col, 0.0)]), errors="coerce").fillna(0.0).iloc[0]) >= 0.5:
+                selected_freq = freq
+                break
+        if selected_freq is None:
+            selected_freq = "5min" if "intraday_5min_day_ret" in out.columns else "15min"
+        day_ret = float(pd.to_numeric(pd.Series([row.get(f"intraday_{selected_freq}_day_ret", 0.0)]), errors="coerce").fillna(0.0).iloc[0])
+        open_to_trigger = float(
+            pd.to_numeric(
+                pd.Series([row.get(f"intraday_{selected_freq}_open_to_trigger_return", day_ret)]),
+                errors="coerce",
+            )
+            .fillna(day_ret)
+            .iloc[0]
+        )
+        trigger_to_close = float(
+            pd.to_numeric(
+                pd.Series([row.get(f"intraday_{selected_freq}_trigger_to_close_return", 0.0)]),
+                errors="coerce",
+            )
+            .fillna(0.0)
+            .iloc[0]
+        )
+        triggered = float(
+            pd.to_numeric(
+                pd.Series([row.get(f"intraday_{selected_freq}_execution_triggered", 0.0)]),
+                errors="coerce",
+            )
+            .fillna(0.0)
+            .iloc[0]
+        )
+        out.at[idx, INTRADAY_EXECUTION_TRIGGERED_COL] = triggered
+        out.at[idx, INTRADAY_OPEN_TO_TRIGGER_RETURN_COL] = open_to_trigger
+        out.at[idx, INTRADAY_TRIGGER_TO_CLOSE_RETURN_COL] = trigger_to_close
+        out.at[idx, "intraday_execution_source_freq"] = selected_freq
+    return out
 
 
 def _intraday_provider_daily_state(
@@ -475,6 +532,20 @@ def _intraday_provider_daily_state(
     )
     wide.columns = [f"{field}_{instrument}".lower() for field, instrument in wide.columns]
     wide = wide.reset_index()
+    rows = _intraday_execution_rows_from_wide(wide, freq=freq)
+    out = pd.DataFrame(rows)
+    return out, {
+        "status": "ok",
+        "provider_uri": provider_meta["provider_uri"],
+        "calendar_start": provider_meta["calendar_start"],
+        "calendar_end": provider_meta["calendar_end"],
+        "rows": int(len(out)),
+        "lookback_only": True,
+        "execution_replay_fields": True,
+    }
+
+
+def _intraday_execution_rows_from_wide(wide: pd.DataFrame, *, freq: str) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for date, group in wide.groupby("date", sort=True):
         g = group.sort_values("datetime")
@@ -494,6 +565,24 @@ def _intraday_provider_daily_state(
         day_soxx_ret = float(soxx_close.dropna().iloc[-1] / soxx_open - 1.0) if not soxx_close.dropna().empty else 0.0
         drawdown_from_open = float(soxl_close.min() / soxl_open - 1.0)
         dislocation = day_ret - 3.0 * day_soxx_ret
+        soxl_path_ret = (soxl_close / soxl_open - 1.0).replace([np.inf, -np.inf], np.nan)
+        soxx_path_ret = (soxx_close / soxx_open - 1.0).replace([np.inf, -np.inf], np.nan)
+        path_dislocation = (soxl_path_ret - 3.0 * soxx_path_ret).replace([np.inf, -np.inf], np.nan)
+        trigger_mask = soxl_path_ret.le(-0.08) | path_dislocation.le(-0.04)
+        trigger_indices = list(trigger_mask[trigger_mask.fillna(False)].index)
+        trigger_bar_index = -1
+        execution_triggered = 0.0
+        open_to_trigger_return = day_ret
+        trigger_to_close_return = 0.0
+        if trigger_indices:
+            trigger_idx = trigger_indices[0]
+            trigger_close = float(soxl_close.loc[trigger_idx])
+            final_close = float(soxl_close.dropna().iloc[-1])
+            if np.isfinite(trigger_close) and trigger_close > 0:
+                trigger_bar_index = int(g.index.get_loc(trigger_idx))
+                execution_triggered = 1.0
+                open_to_trigger_return = float(trigger_close / soxl_open - 1.0)
+                trigger_to_close_return = float(final_close / trigger_close - 1.0)
         late = g.tail(3)
         late_open = pd.to_numeric(late["open_soxl"], errors="coerce").dropna()
         late_close = pd.to_numeric(late["close_soxl"], errors="coerce").dropna()
@@ -517,17 +606,13 @@ def _intraday_provider_daily_state(
                 f"intraday_{freq}_realized_vol": realized_vol,
                 f"intraday_{freq}_risk_score": risk_score,
                 f"intraday_{freq}_risk_state": float(risk_score >= 1.0),
+                f"intraday_{freq}_execution_triggered": execution_triggered,
+                f"intraday_{freq}_trigger_bar_index": trigger_bar_index,
+                f"intraday_{freq}_open_to_trigger_return": open_to_trigger_return,
+                f"intraday_{freq}_trigger_to_close_return": trigger_to_close_return,
             }
         )
-    out = pd.DataFrame(rows)
-    return out, {
-        "status": "ok",
-        "provider_uri": provider_meta["provider_uri"],
-        "calendar_start": provider_meta["calendar_start"],
-        "calendar_end": provider_meta["calendar_end"],
-        "rows": int(len(out)),
-        "lookback_only": True,
-    }
+    return rows
 
 
 def _attach_intraday_risk_state(frame: pd.DataFrame, intraday_state: pd.DataFrame) -> pd.DataFrame:
@@ -545,6 +630,15 @@ def _attach_intraday_risk_state(frame: pd.DataFrame, intraday_state: pd.DataFram
         out[column] = pd.to_numeric(out[column], errors="coerce").fillna(0.0)
     mask = out["instrument"].astype(str).str.upper().eq("SOXL")
     out.loc[~mask, [INTRADAY_RISK_STATE_COL, "intraday_risk_score"]] = 0.0
+    if INTRADAY_EXECUTION_TRIGGERED_COL in out.columns:
+        out.loc[~mask, INTRADAY_EXECUTION_TRIGGERED_COL] = 0.0
+    if INTRADAY_OPEN_TO_TRIGGER_RETURN_COL in out.columns and OPEN_TO_OPEN_RETURN_COL in out.columns:
+        out.loc[~mask, INTRADAY_OPEN_TO_TRIGGER_RETURN_COL] = pd.to_numeric(
+            out.loc[~mask, OPEN_TO_OPEN_RETURN_COL],
+            errors="coerce",
+        ).fillna(0.0)
+    if INTRADAY_TRIGGER_TO_CLOSE_RETURN_COL in out.columns:
+        out.loc[~mask, INTRADAY_TRIGGER_TO_CLOSE_RETURN_COL] = 0.0
     return out
 
 
@@ -567,9 +661,13 @@ def _build_policy_provider(
         MAX_ADVERSE_TARGET_COL,
         RISK_TARGET_COL,
         VOL_ADJUSTED_TARGET_COL,
+        POSITION_TARGET_COL,
         REGIME_TARGET_CODE_COL,
         INTRADAY_RISK_STATE_COL,
         "intraday_risk_score",
+        INTRADAY_EXECUTION_TRIGGERED_COL,
+        INTRADAY_OPEN_TO_TRIGGER_RETURN_COL,
+        INTRADAY_TRIGGER_TO_CLOSE_RETURN_COL,
         *_policy_feature_columns(frame),
     ]
     store = frame.loc[:, [column for column in dict.fromkeys(store_cols) if column in frame.columns]].copy()
@@ -605,9 +703,13 @@ def _load_policy_provider(
         f"${MAX_ADVERSE_TARGET_COL}",
         f"${RISK_TARGET_COL}",
         f"${VOL_ADJUSTED_TARGET_COL}",
+        f"${POSITION_TARGET_COL}",
         f"${REGIME_TARGET_CODE_COL}",
         f"${INTRADAY_RISK_STATE_COL}",
         "$intraday_risk_score",
+        f"${INTRADAY_EXECUTION_TRIGGERED_COL}",
+        f"${INTRADAY_OPEN_TO_TRIGGER_RETURN_COL}",
+        f"${INTRADAY_TRIGGER_TO_CLOSE_RETURN_COL}",
         *[f"${column}" for column in _policy_feature_columns(frame)],
     ]))
     qframe = D.features(list(ETF_UNIVERSE), fields, start_time=spec.train_start, end_time=as_of, freq="day")
@@ -686,154 +788,27 @@ def _feature_set_config(
 def _policy_candidate_configs() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for model_family in ["lgbm", "xgb", "lgb_xgb_consensus"]:
-        for suffix, alpha_floor, risk_cut, risk_cap, trend_scale, rebound_scale, selective_scale in [
-            ("balanced", 0.50, 0.72, 0.30, 1.25, 1.10, 0.55),
-            ("attack", 0.45, 0.78, 0.35, 1.50, 1.25, 0.70),
-            ("trend_attack", 0.40, 0.86, 0.55, 2.00, 1.20, 0.75),
-            ("rebound_harvest", 0.48, 0.80, 0.40, 1.05, 1.75, 0.60),
-            ("risk_first", 0.55, 0.65, 0.20, 1.00, 0.90, 0.35),
-            ("cash_bias", 0.62, 0.62, 0.15, 0.85, 0.70, 0.25),
+        for suffix, intraday_replay, intraday_risk_cap in [
+            ("learned_position", False, 1.0),
+            ("learned_position_intraday_replay", True, 0.25),
         ]:
             rows.append(
                 {
-                    "candidate": f"{model_family}_trainable_regime_{suffix}",
+                    "candidate": f"{model_family}_{suffix}",
                     "model_family": model_family,
                     "policy_id": suffix,
-                    "position_mode": "scaled_alpha",
-                    "alpha_floor": alpha_floor,
-                    "risk_cut": risk_cut,
-                    "risk_cap": risk_cap,
-                    "trend_scale": trend_scale,
-                    "rebound_scale": rebound_scale,
-                    "selective_scale": selective_scale,
-                    "defensive_scale": 0.0,
-                    "intraday_risk_cap": 0.10,
-                }
-            )
-        for suffix, alpha_floor, risk_cut, risk_cap, intraday_risk_cap in [
-            ("binary_high_alpha_zero_cap", 0.58, 0.12, 0.00, 1.00),
-            ("binary_high_alpha_soft_cap", 0.58, 0.12, 0.20, 1.00),
-            ("binary_high_alpha_repair_cap", 0.58, 0.12, 0.35, 0.50),
-            ("binary_mid_alpha_zero_cap", 0.55, 0.12, 0.00, 1.00),
-            ("binary_low_alpha_zero_cap", 0.48, 0.12, 0.00, 1.00),
-            ("binary_high_alpha_lenient_risk", 0.58, 0.22, 0.20, 1.00),
-        ]:
-            rows.append(
-                {
-                    "candidate": f"{model_family}_trainable_regime_{suffix}",
-                    "model_family": model_family,
-                    "policy_id": suffix,
-                    "position_mode": "binary_full",
-                    "alpha_floor": alpha_floor,
-                    "risk_cut": risk_cut,
-                    "risk_cap": risk_cap,
-                    "trend_scale": 1.0,
-                    "rebound_scale": 1.0,
-                    "selective_scale": 1.0,
-                    "defensive_scale": 0.0,
-                    "intraday_risk_cap": intraday_risk_cap,
-                }
-            )
-        for suffix, alpha_floor, risk_cut, risk_cap, cooldown_trigger, cooldown_days, cooldown_cap in [
-            ("cooldown_fast_reentry", 0.54, 0.14, 0.00, -0.18, 1, 0.10),
-            ("cooldown_zero_reentry", 0.54, 0.16, 0.00, -0.18, 1, 0.00),
-            ("cooldown_high_alpha_reentry", 0.58, 0.14, 0.00, -0.16, 1, 0.50),
-            ("cooldown_tight_repair", 0.58, 0.18, 0.10, -0.08, 1, 0.25),
-            ("cooldown_tight_soft_cap", 0.58, 0.22, 0.20, -0.08, 1, 0.25),
-            ("cooldown_low_alpha_defensive", 0.48, 0.12, 0.00, -0.16, 1, 0.00),
-        ]:
-            rows.append(
-                {
-                    "candidate": f"{model_family}_trainable_regime_{suffix}",
-                    "model_family": model_family,
-                    "policy_id": suffix,
-                    "position_mode": "binary_full",
-                    "alpha_floor": alpha_floor,
-                    "risk_cut": risk_cut,
-                    "risk_cap": risk_cap,
-                    "trend_scale": 1.0,
-                    "rebound_scale": 1.0,
-                    "selective_scale": 1.0,
-                    "defensive_scale": 0.0,
-                    "intraday_risk_cap": 1.0,
-                    "drawdown_cooldown_trigger": cooldown_trigger,
-                    "drawdown_cooldown_days": cooldown_days,
-                    "drawdown_cooldown_cap": cooldown_cap,
-                }
-            )
-        for suffix, alpha_floor, risk_cut, risk_cap, cooldown_trigger, cooldown_days, cooldown_cap, rearm_level in [
-            ("cooldown_fixed_low_alpha_zero", 0.48, 0.12, 0.00, -0.16, 1, 0.00, -0.05),
-            ("cooldown_fixed_low_alpha_soft", 0.48, 0.16, 0.20, -0.12, 1, 0.25, -0.05),
-            ("cooldown_fixed_rebound_reentry", 0.45, 0.18, 0.25, -0.18, 2, 0.25, -0.04),
-        ]:
-            rows.append(
-                {
-                    "candidate": f"{model_family}_trainable_regime_{suffix}",
-                    "model_family": model_family,
-                    "policy_id": suffix,
-                    "position_mode": "binary_full",
-                    "alpha_floor": alpha_floor,
-                    "risk_cut": risk_cut,
-                    "risk_cap": risk_cap,
-                    "trend_scale": 1.0,
-                    "rebound_scale": 1.0,
-                    "selective_scale": 1.0,
-                    "defensive_scale": 0.0,
-                    "intraday_risk_cap": 1.0,
-                    "drawdown_cooldown_trigger": cooldown_trigger,
-                    "drawdown_cooldown_days": cooldown_days,
-                    "drawdown_cooldown_cap": cooldown_cap,
-                    "drawdown_cooldown_retrigger": False,
-                    "drawdown_cooldown_rearm_level": rearm_level,
-                }
-            )
-        for suffix, alpha_floor, risk_cut, risk_cap, crash_cut, max_adverse_cut, adverse_risk_cap in [
-            ("multi_target_balanced_cap", 0.50, 0.60, 0.25, 0.55, -0.12, 0.15),
-            ("multi_target_reentry_cap", 0.46, 0.68, 0.35, 0.62, -0.16, 0.25),
-            ("multi_target_attack_cap", 0.42, 0.76, 0.45, 0.70, -0.20, 0.35),
-        ]:
-            rows.append(
-                {
-                    "candidate": f"{model_family}_trainable_regime_{suffix}",
-                    "model_family": model_family,
-                    "policy_id": suffix,
-                    "position_mode": "binary_full",
-                    "alpha_floor": alpha_floor,
-                    "risk_cut": risk_cut,
-                    "risk_cap": risk_cap,
-                    "crash_cut": crash_cut,
-                    "max_adverse_cut": max_adverse_cut,
-                    "adverse_risk_cap": adverse_risk_cap,
-                    "trend_scale": 1.0,
-                    "rebound_scale": 1.0,
-                    "selective_scale": 1.0,
-                    "defensive_scale": 0.0,
-                    "intraday_risk_cap": 1.0,
-                }
-            )
-        for suffix, alpha_floor, risk_percentile_cut, percentile_risk_cap in [
-            ("multi_target_percentile_guard", 0.48, 0.82, 0.10),
-            ("multi_target_percentile_reentry", 0.44, 0.88, 0.25),
-            ("multi_target_percentile_attack", 0.40, 0.94, 0.40),
-        ]:
-            rows.append(
-                {
-                    "candidate": f"{model_family}_trainable_regime_{suffix}",
-                    "model_family": model_family,
-                    "policy_id": suffix,
-                    "position_mode": "binary_full",
-                    "alpha_floor": alpha_floor,
-                    "risk_cut": 0.99,
+                    "position_mode": "learned_position",
+                    "alpha_floor": 0.0,
+                    "risk_cut": 2.0,
                     "risk_cap": 1.0,
-                    "risk_percentile_cut": risk_percentile_cut,
-                    "crash_percentile_cut": risk_percentile_cut,
-                    "adverse_percentile_cut": risk_percentile_cut,
-                    "percentile_risk_cap": percentile_risk_cap,
                     "trend_scale": 1.0,
                     "rebound_scale": 1.0,
                     "selective_scale": 1.0,
-                    "defensive_scale": 0.0,
-                    "intraday_risk_cap": 1.0,
+                    "defensive_scale": 1.0,
+                    "intraday_risk_cap": intraday_risk_cap,
+                    "intraday_execution_replay": intraday_replay,
+                    "manual_policy_grid": False,
+                    "position_target": POSITION_TARGET_COL,
                 }
             )
     return rows
@@ -1135,6 +1110,7 @@ def _outer_soxl_policy_test(
         "test_avg_abs_position": metrics["selection_avg_abs_position"],
         "test_total_turnover": metrics["selection_total_turnover"],
         "test_intraday_risk_cap_day_ratio": metrics["intraday_risk_cap_day_ratio"],
+        "test_intraday_execution_replay_day_ratio": metrics["intraday_execution_replay_day_ratio"],
         "test_multi_target_risk_cap_day_ratio": metrics["multi_target_risk_cap_day_ratio"],
         "test_percentile_risk_cap_day_ratio": metrics["percentile_risk_cap_day_ratio"],
         "test_drawdown_cooldown_day_ratio": metrics["drawdown_cooldown_day_ratio"],
@@ -1233,6 +1209,7 @@ def _predict_base_trainable_policy(
     )
     regime = _fit_predict_regime(family, train, predict, feature_cols)
     vol_score = _fit_predict_regression(family, train, predict, feature_cols, VOL_ADJUSTED_TARGET_COL)
+    learned_position = _fit_predict_regression(family, train, predict, feature_cols, POSITION_TARGET_COL)
     return pd.DataFrame(
         {
             "alpha_probability": alpha.reindex(predict.index).fillna(0.0),
@@ -1243,6 +1220,7 @@ def _predict_base_trainable_policy(
             "max_adverse_score": max_adverse.reindex(predict.index).fillna(-1.0),
             "max_adverse_risk_percentile": max_adverse_risk_percentile.reindex(predict.index).fillna(1.0),
             "vol_adjusted_score": vol_score.reindex(predict.index).fillna(0.0),
+            "learned_position_score": learned_position.reindex(predict.index).fillna(0.0).clip(0.0, 1.0),
             "regime": regime.reindex(predict.index).fillna("selective"),
             "intraday_risk_state": predict.get(INTRADAY_RISK_STATE_COL, pd.Series(0.0, index=predict.index)).to_numpy(),
         },
@@ -1266,6 +1244,9 @@ def _combine_consensus_predictions(lgb: pd.DataFrame, xgb: pd.DataFrame, predict
                 lgb["max_adverse_risk_percentile"].to_numpy() + xgb["max_adverse_risk_percentile"].to_numpy()
             ) / 2.0,
             "vol_adjusted_score": (lgb["vol_adjusted_score"].to_numpy() + xgb["vol_adjusted_score"].to_numpy()) / 2.0,
+            "learned_position_score": (
+                lgb["learned_position_score"].to_numpy() + xgb["learned_position_score"].to_numpy()
+            ) / 2.0,
             "regime": regime,
             "intraday_risk_state": predict.get(INTRADAY_RISK_STATE_COL, pd.Series(0.0, index=predict.index)).to_numpy(),
         },
@@ -1281,7 +1262,8 @@ def _simulate_alpha_risk_policy(
     cost_per_turnover: float,
     segment_name: str = "test",
 ) -> tuple[dict[str, Any], pd.DataFrame]:
-    alpha_floor = float(policy["alpha_floor"])
+    position_mode = str(policy.get("position_mode", "scaled_alpha"))
+    alpha_floor = float(policy.get("alpha_floor", 0.0))
     alpha = pd.to_numeric(predictions["alpha_probability"], errors="coerce").fillna(0.0)
     risk = pd.to_numeric(predictions["risk_probability"], errors="coerce").fillna(1.0)
     risk_percentile = pd.to_numeric(predictions.get("risk_percentile", risk), errors="coerce").fillna(1.0)
@@ -1309,7 +1291,23 @@ def _simulate_alpha_risk_policy(
             "defensive": float(policy["defensive_scale"]),
         }
     ).fillna(float(policy["selective_scale"]))
-    if str(policy.get("position_mode", "scaled_alpha")) == "binary_full":
+    if position_mode == "learned_position":
+        learned_position = pd.to_numeric(
+            predictions.get("learned_position_score", pd.Series(0.0, index=predictions.index)),
+            errors="coerce",
+        ).fillna(0.0).clip(lower=0.0, upper=1.0)
+        risk_discount = (1.0 - risk.clip(lower=0.0, upper=1.0)).clip(lower=0.0, upper=1.0)
+        crash_discount = (1.0 - crash.clip(lower=0.0, upper=1.0)).clip(lower=0.0, upper=1.0)
+        adverse_survival = ((max_adverse + 0.20) / 0.20).clip(lower=0.0, upper=1.0)
+        percentile_discount = (1.0 - 0.50 * risk_percentile.clip(lower=0.0, upper=1.0)).clip(lower=0.0, upper=1.0)
+        target_position = (
+            learned_position
+            * (0.50 + 0.50 * risk_discount)
+            * (0.50 + 0.50 * crash_discount)
+            * adverse_survival
+            * percentile_discount
+        ).clip(lower=0.0, upper=1.0)
+    elif position_mode == "binary_full":
         target_position = alpha.ge(alpha_floor).astype("float64") * scale.clip(lower=0.0, upper=1.0)
     else:
         raw = ((alpha - alpha_floor) / max(1.0 - alpha_floor, 1e-12)).clip(lower=0.0, upper=1.0)
@@ -1338,11 +1336,13 @@ def _simulate_alpha_risk_policy(
         ~percentile_risk_mask,
         np.minimum(target_position, percentile_risk_cap),
     )
+    use_intraday_execution_replay = bool(policy.get("intraday_execution_replay", False))
     intraday_cap_mask = intraday_risk.ge(0.5)
-    target_position = target_position.where(
-        ~intraday_cap_mask,
-        np.minimum(target_position, float(policy["intraday_risk_cap"])),
-    )
+    if not use_intraday_execution_replay:
+        target_position = target_position.where(
+            ~intraday_cap_mask,
+            np.minimum(target_position, float(policy["intraday_risk_cap"])),
+        )
     returns = pd.to_numeric(segment_frame[OPEN_TO_OPEN_RETURN_COL], errors="coerce").fillna(0.0)
     cooldown_active = pd.Series(0, index=segment_frame.index, dtype="int64")
     if "drawdown_cooldown_trigger" in policy:
@@ -1356,9 +1356,27 @@ def _simulate_alpha_risk_policy(
             rearm_level=float(policy.get("drawdown_cooldown_rearm_level", policy["drawdown_cooldown_trigger"] / 2.0)),
             cost_per_turnover=float(cost_per_turnover),
         )
+        opening_position = target_position.copy()
+        intraday_replay_triggered = pd.Series(0.0, index=segment_frame.index, dtype="float64")
     else:
-        turnover = target_position.diff().abs().fillna(target_position.abs())
-        strategy_returns = target_position * returns - turnover * float(cost_per_turnover)
+        if use_intraday_execution_replay:
+            (
+                opening_position,
+                target_position,
+                turnover,
+                strategy_returns,
+                intraday_replay_triggered,
+            ) = _apply_intraday_execution_replay(
+                target_position,
+                segment_frame,
+                intraday_cap=float(policy["intraday_risk_cap"]),
+                cost_per_turnover=float(cost_per_turnover),
+            )
+        else:
+            opening_position = target_position.copy()
+            turnover = target_position.diff().abs().fillna(target_position.abs())
+            strategy_returns = target_position * returns - turnover * float(cost_per_turnover)
+            intraday_replay_triggered = pd.Series(0.0, index=segment_frame.index, dtype="float64")
     metrics = _return_metrics(strategy_returns, target_position, turnover)
     out = pd.DataFrame(
         {
@@ -1374,8 +1392,15 @@ def _simulate_alpha_risk_policy(
             "max_adverse_score": max_adverse.to_numpy(),
             "max_adverse_risk_percentile": max_adverse_risk_percentile.to_numpy(),
             "vol_adjusted_score": vol_score.to_numpy(),
+            "learned_position_score": pd.to_numeric(
+                predictions.get("learned_position_score", pd.Series(0.0, index=predictions.index)),
+                errors="coerce",
+            ).fillna(0.0).to_numpy(),
             "regime": regime.to_numpy(),
             "intraday_risk_state": intraday_risk.to_numpy(),
+            "intraday_execution_replay_used": np.full(len(segment_frame), use_intraday_execution_replay, dtype=bool),
+            "intraday_execution_triggered": intraday_replay_triggered.to_numpy(),
+            "opening_position": opening_position.to_numpy(),
             "target_position": target_position.to_numpy(),
             "turnover": turnover.to_numpy(),
             "strategy_return": strategy_returns.to_numpy(),
@@ -1390,10 +1415,53 @@ def _simulate_alpha_risk_policy(
         "selection_total_turnover": metrics["total_turnover"],
         "selection_trade_count": int(turnover.gt(1e-9).sum()),
         "intraday_risk_cap_day_ratio": float(intraday_cap_mask.mean()) if len(intraday_cap_mask) else 0.0,
+        "intraday_execution_replay_day_ratio": (
+            float(intraday_replay_triggered.mean()) if use_intraday_execution_replay and len(intraday_replay_triggered) else 0.0
+        ),
         "multi_target_risk_cap_day_ratio": float(multi_target_risk_mask.mean()) if len(multi_target_risk_mask) else 0.0,
         "percentile_risk_cap_day_ratio": float(percentile_risk_mask.mean()) if len(percentile_risk_mask) else 0.0,
         "drawdown_cooldown_day_ratio": float(cooldown_active.mean()) if len(cooldown_active) else 0.0,
     }, out
+
+
+def _apply_intraday_execution_replay(
+    target_position: pd.Series,
+    segment_frame: pd.DataFrame,
+    *,
+    intraday_cap: float,
+    cost_per_turnover: float,
+) -> tuple[pd.Series, pd.Series, pd.Series, pd.Series, pd.Series]:
+    daily_returns = pd.to_numeric(segment_frame[OPEN_TO_OPEN_RETURN_COL], errors="coerce").fillna(0.0)
+    triggered = pd.to_numeric(
+        segment_frame.get(INTRADAY_EXECUTION_TRIGGERED_COL, pd.Series(0.0, index=segment_frame.index)),
+        errors="coerce",
+    ).fillna(0.0).ge(0.5)
+    open_to_trigger = pd.to_numeric(
+        segment_frame.get(INTRADAY_OPEN_TO_TRIGGER_RETURN_COL, daily_returns),
+        errors="coerce",
+    ).fillna(daily_returns)
+    trigger_to_close = pd.to_numeric(
+        segment_frame.get(INTRADAY_TRIGGER_TO_CLOSE_RETURN_COL, pd.Series(0.0, index=segment_frame.index)),
+        errors="coerce",
+    ).fillna(0.0)
+    opening_position = target_position.astype("float64").copy()
+    closing_position = opening_position.where(~triggered, np.minimum(opening_position, float(intraday_cap)))
+    previous_close_position = closing_position.shift(1).fillna(0.0)
+    entry_turnover = (opening_position - previous_close_position).abs()
+    intraday_turnover = (closing_position - opening_position).abs().where(triggered, 0.0)
+    turnover = entry_turnover + intraday_turnover
+    strategy_returns = (
+        opening_position * open_to_trigger
+        + closing_position * trigger_to_close
+        - turnover * float(cost_per_turnover)
+    )
+    return (
+        opening_position,
+        closing_position,
+        turnover.astype("float64"),
+        strategy_returns.astype("float64"),
+        triggered.astype("float64"),
+    )
 
 
 def _apply_drawdown_cooldown_cap(
@@ -1728,6 +1796,7 @@ def _clean_policy_frame(frame: pd.DataFrame, feature_cols: list[str]) -> pd.Data
         MAX_ADVERSE_TARGET_COL,
         RISK_TARGET_COL,
         VOL_ADJUSTED_TARGET_COL,
+        POSITION_TARGET_COL,
         REGIME_TARGET_CODE_COL,
         INTRADAY_RISK_STATE_COL,
         "intraday_risk_score",
@@ -1813,6 +1882,7 @@ def _policy_diagnostic_row(outer_metrics: dict[str, Any], selected: dict[str, An
         "inner_activity_pass_rate": selected.get("inner_activity_pass_rate"),
         "inner_pass_rate": selected.get("inner_pass_rate"),
         "test_intraday_risk_cap_day_ratio": outer_metrics.get("test_intraday_risk_cap_day_ratio"),
+        "test_intraday_execution_replay_day_ratio": outer_metrics.get("test_intraday_execution_replay_day_ratio"),
         "test_multi_target_risk_cap_day_ratio": outer_metrics.get("test_multi_target_risk_cap_day_ratio"),
         "test_percentile_risk_cap_day_ratio": outer_metrics.get("test_percentile_risk_cap_day_ratio"),
         "test_drawdown_cooldown_day_ratio": outer_metrics.get("test_drawdown_cooldown_day_ratio"),
@@ -1912,11 +1982,12 @@ def _summary_payload(
             "cross_asset_role": "overfit_stress_audit_not_primary_selection_target",
             "primary_selection_target": "SOXL inner-fold excess return with drawdown and activity gates",
             "inner_validation_years": int(spec.inner_validation_years),
-            "search_space_type": "pre_registered_hyperparameter_and_feature_set_grid",
+            "search_space_type": "pre_registered_learned_position_model_family_and_feature_set_grid",
             "feature_set_selection": "nested_inner_soxl_calibrated",
             "available_feature_sets": [str(config["feature_set"]) for config in feature_set_configs],
             "manual_template_selection": False,
             "template_library_used": False,
+            "manual_policy_grid_used": False,
             "selector_regime_source": "none",
             "selector_regime_matching": "disabled_manual_prior_year_regime_templates",
             "model_families": ["lgbm_classifier", "xgb_classifier", "lgbm_regressor", "xgb_regressor", "lgb_xgb_consensus"],
@@ -1934,9 +2005,10 @@ def _summary_payload(
         },
         "policy_architecture": {
             "alpha_model": "opportunity_probability_plus_vol_adjusted_return",
-            "risk_model": "independent_risk_crash_probability_and_max_adverse_cap",
+            "risk_model": "independent_risk_crash_probability_max_adverse_and_percentile_discount",
             "risk_target_cols": [CRASH_TARGET_COL, MAX_ADVERSE_TARGET_COL, RISK_TARGET_COL],
-            "position_policy": "regime_scaled_or_binary_alpha_then_independent_multi_target_risk_cap",
+            "position_target_col": POSITION_TARGET_COL,
+            "position_policy": "learned_position_regressor_discounted_by_independent_risk_heads",
             "risk_budget": "path_dependent_drawdown_cooldown_cap_uses_realized_strategy_equity_only",
         },
         "intraday_risk_state": intraday_audit,
@@ -2063,22 +2135,26 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             f"  final_calibration_asset: {CALIBRATION_ASSET}",
             "  cross_asset_role: overfit_stress_audit_not_primary_selection_target",
             f"  inner_validation_years: {summary['model_selection']['inner_validation_years']}",
-            "  search_space_type: pre_registered_hyperparameter_and_feature_set_grid",
+            "  search_space_type: pre_registered_learned_position_model_family_and_feature_set_grid",
             "  feature_set_selection: nested_inner_soxl_calibrated",
             f"  available_feature_sets: {summary['model_selection']['available_feature_sets']}",
             "  manual_template_selection: false",
             "  template_library_used: false",
+            "  manual_policy_grid_used: false",
             "  selector_regime_source: none",
             "regime_classifier:",
             "  type: supervised_trainable_policy_classifier",
             "  manual_template_selection: false",
             "policy_architecture:",
             "  alpha_model: opportunity_probability_plus_vol_adjusted_return",
-            "  risk_model: independent_risk_crash_probability_and_max_adverse_cap",
+            "  risk_model: independent_risk_crash_probability_max_adverse_and_percentile_discount",
+            f"  position_target_col: {POSITION_TARGET_COL}",
+            "  position_policy: learned_position_regressor_discounted_by_independent_risk_heads",
             "intraday_risk_state:",
             f"  uses_5min: {str(summary['intraday_risk_state']['uses_5min']).lower()}",
             f"  uses_15min: {str(summary['intraday_risk_state']['uses_15min']).lower()}",
-            "  role: risk_cap_not_alpha_template",
+            "  role: risk_cap_and_intraday_execution_replay_not_alpha_template",
+            f"  execution_replay_fields: {str(summary['intraday_risk_state'].get('execution_replay_fields', False)).lower()}",
             "soxx_constituent_factors:",
             f"  provider_uri: {summary['soxx_constituent_factors']['provider_uri']}",
             "  role: normalized_lagged_model_features_not_template_not_gate",
@@ -2105,14 +2181,14 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
 def _conclusion(summary: dict[str, Any]) -> str:
     return (
         "# 中文结论\n\n"
-        "- 做了什么：trainable regime policy nested WF 已移除人工模板和 prior-year regime selector；regime classifier、alpha model、risk model 都在 inner folds 内训练，最终只用 SOXL inner 校准、drawdown/activity gate 和跨 ETF stress audit 选择固定参数与特征集候选。\n"
+        "- 做了什么：trainable regime policy nested WF 已移除人工模板、prior-year regime selector 和手写 policy grid；regime classifier、alpha model、risk model、learned position model 都在 inner folds 内训练，最终只用 SOXL inner 校准、drawdown/activity gate 和跨 ETF stress audit 选择模型族与特征集候选。\n"
         f"- 核心指标：annual target pass years={summary['annual_goal']['target_pass_test_years']}，"
         f"overfit audit={summary['overfit_audit']['overfit_risk_status']}，common_data_end={summary['common_data_end']}。\n"
         f"- 特征：SOXX 成分股 normalized lagged breadth/dispersion 特征可用 {summary['feature_sets']['available_soxx_constituent_feature_count']} 个，lag_days={summary['soxx_constituent_factors']['lag_days']}；它们是 nested feature-set 候选，不是强制 alpha 输入、模板或 gate。实际选中特征集={summary['feature_sets']['selected_feature_sets']}。\n"
-        "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签，outer SOXL 年份只报告，不参与选择。\n"
+        "- regime/window 差异：post_bear/range/source 这类人工形态模板不再参与 selector；rebound/trend/defensive/selective 仅作为监督学习标签和诊断输出，仓位由 learned_position_target 回归头给出，outer SOXL 年份只报告，不参与选择。\n"
         f"- 是否晋升：{summary['promotion_decision']}。\n"
-        "- 风险：固定参数网格仍可能有数据窥探风险，尤其如果看完 2023-2026 后继续改网格；SOXX 当前成分股回填历史有 survivorship bias；多 3x ETF 仍共享权益 beta；5m/15m 风险状态只作为 risk cap，不证明独立盘中 alpha。\n"
-        "- 下一步：若 annual gate 未过，继续转向可训练 position sizing 和更长分钟历史，而不是按年份手工修模板。\n"
+        "- 风险：learned_position_target 的标签设计本身仍可能过拟合训练年代，尤其如果看完 2023-2026 后继续改标签；SOXX 当前成分股回填历史有 survivorship bias；多 3x ETF 仍共享权益 beta；5m/15m replay 只是盘中减仓执行近似，本轮即使被选择也不证明独立盘中 alpha。\n"
+        "- 下一步：若 annual gate 未过，继续优化标签和可验证的新因子，不再按年份手工修模板或阈值 grid。\n"
         f"- qlib recorder：{summary['recorder_id']}\n"
         "- 不构成买卖建议。\n"
     )
@@ -2122,11 +2198,12 @@ def _failure_modes(summary: dict[str, Any]) -> str:
     return (
         "# Failure Modes\n\n"
         "- Manual regime template selection is rejected and is not part of the active selector or summary evidence.\n"
+        "- Manual policy-grid selection is rejected; active candidates are learned-position model-family and feature-set choices only.\n"
         "- Regime classifier labels are supervised by forward outcomes inside training folds; bad label design can still overfit the training era.\n"
-        "- Fixed hyperparameter grids can still be data-snooped if edited after reading outer-test failures.\n"
+        "- Learned-position label design can still be data-snooped if edited after reading outer-test failures.\n"
         "- SOXX constituent diffusion features are nested-selectable, but the feature-set search space itself must stay frozen before future outer-test evaluation.\n"
         "- SOXX constituent features use current holdings backfilled through history and remain survivorship-biased until point-in-time holdings are available.\n"
         "- Leave-one-asset-out reduces single-symbol fitting but does not remove shared US equity beta risk.\n"
-        "- 5m/15m intraday state is used only as a risk cap, not as proof of same-day alpha generation.\n"
+        "- 5m/15m intraday execution replay is available as learned-position candidate behavior, but it is not proof of same-day alpha generation.\n"
         f"- Current promotion decision: {summary['promotion_decision']}.\n"
     )
