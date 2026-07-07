@@ -1,0 +1,21 @@
+experiment: dynamic_soxx_soxl_cash_allocation_wf_v10
+card_type: dynamic_soxx_soxl_cash_risk_budget_template_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1
+raw_price_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v10/qlib_recorder
+benchmark: SOXX
+benchmark_basis: open_to_open
+allocation_assets: [SOXX, SOXL, cash]
+model_source:
+  source_card: research/agentic_alpha_intraday_execution_sleeve_v2
+  source_template_artifact: artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv
+  uses_lgb_xgb: true
+risk_budget:
+  selected_policy: risk_budget_scale0p40_soxxfloor0p10
+  risk_budget_scale: 0.4
+  soxx_floor: 0.1
+  selection_uses_test_segment: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+promotion_decision: candidate_for_validated_research_soxx_excess_goal_passed

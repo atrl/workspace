@@ -1630,6 +1630,85 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_v9_records_high_confidence_precisi
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_v10_records_fixed_risk_budget_template_pass():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v10"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v10.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v10"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_risk_budget_template_card"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert summary["goal"] == {
+        "excess_vs_soxx_floor_pct": 20.0,
+        "max_drawdown_floor_pct": -10.0,
+    }
+
+    selected = summary["selected_policy"]
+    benchmark = summary["benchmark"]
+    assert selected["policy_id"] == "risk_budget_scale0p40_soxxfloor0p10"
+    assert selected["risk_budget_scale"] == 0.4
+    assert selected["soxx_floor"] == 0.1
+    assert selected["selection_uses_test_segment"] is False
+    assert selected["uses_lgb_xgb"] is True
+    assert set(selected["source_model_families"]) >= {
+        "lgbm_classifier",
+        "lgbm_regressor",
+        "xgb_classifier",
+        "xgb_regressor",
+        "lgb_xgb_consensus",
+    }
+    assert benchmark["return_pct"] > 400.0
+    assert selected["return_pct"] >= benchmark["return_pct"] + 20.0
+    assert selected["max_drawdown_pct"] >= -10.0
+    assert selected["passes_target"] is True
+
+    source = summary["source_template"]
+    assert source["card"] == "research/agentic_alpha_intraday_execution_sleeve_v2"
+    assert source["artifact"] == "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv"
+    assert source["selection_uses_test_segment"] is False
+    assert source["ml_confirmation"]["selection_uses_test_segment"] is False
+
+    assert summary["overfit_risk"]["status"] == "material_but_structurally_reduced"
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v10/selected_positions.csv"
+    ]
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    walk_forward = pd.read_csv(card / summary["sidecars"]["walk_forward_risk_budget"])
+    assert set(walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
+    assert walk_forward["selection_uses_test_segment"].eq(False).all()
+    assert {"return_pct", "soxx_return_pct", "excess_vs_soxx_pct", "passes_drawdown"}.issubset(
+        walk_forward.columns
+    )
+
+    comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
+    assert "risk_budget_scale0p40_soxxfloor0p10" in set(comparison["model"])
+    assert comparison["passes_target"].any()
+    assert comparison["selection_uses_test_segment"].fillna(False).eq(False).all()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "selected_positions.csv").exists()
+    assert not (card / "selected_positions.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v10_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "LGBMClassifier" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "为什么换方案" in conclusion
+    assert "SOXX + SOXL + cash" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)

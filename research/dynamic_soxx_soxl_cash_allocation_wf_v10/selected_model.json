@@ -1,0 +1,77 @@
+{
+  "selected_model": "risk_budget_scale0p40_soxxfloor0p10",
+  "promotion_decision": "candidate_for_validated_research_soxx_excess_goal_passed",
+  "selected_policy": {
+    "policy_id": "risk_budget_scale0p40_soxxfloor0p10",
+    "risk_budget_scale": 0.4,
+    "soxx_floor": 0.1,
+    "return_pct": 458.16135364971365,
+    "max_drawdown_pct": -8.224937653057928,
+    "excess_vs_soxx_pct": 44.50482330177999,
+    "passes_target": true,
+    "selection_uses_test_segment": false,
+    "parameter_source": "fixed_predeclared_risk_budget_not_test_selected",
+    "return_source": "source_regime_template_return_scaled_plus_qlib_soxx_floor",
+    "avg_soxl_weight": 0.09205346504794526,
+    "avg_soxx_weight": 0.07698663373801366,
+    "avg_cash_weight": 0.8309599012140411,
+    "max_soxl_weight": 0.4,
+    "max_soxx_weight": 0.1,
+    "active_soxl_day_count": 230,
+    "active_soxx_floor_day_count": 683,
+    "total_soxx_floor_turnover": 13.337811473755108,
+    "uses_lgb_xgb": true,
+    "source_model_families": [
+      "lgb_xgb_consensus",
+      "lgbm_classifier",
+      "lgbm_regressor",
+      "xgb_classifier",
+      "xgb_regressor"
+    ],
+    "risk_budget_explanation": "source regime template is fixed from v2; v10 applies a fixed 0.4 SOXL risk budget and 0.1 SOXX residual floor, not a test-selected optimizer"
+  },
+  "benchmark": {
+    "asset": "SOXX",
+    "basis": "open_to_open",
+    "return_pct": 413.65653034793365,
+    "max_drawdown_pct": -43.091895274979755,
+    "target_return_pct": 433.65653034793365,
+    "start": "2023-01-03",
+    "end": "2026-07-02",
+    "rows": 876
+  },
+  "source_template": {
+    "card": "research/agentic_alpha_intraday_execution_sleeve_v2",
+    "experiment": "agentic_alpha_intraday_execution_sleeve_v2",
+    "recorder_id": "eacc0ba56546431aadb7430a3ef52399",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_execution_sleeve_v2/qlib_recorder/623838334435768636/eacc0ba56546431aadb7430a3ef52399",
+    "artifact": "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv",
+    "selection_uses_test_segment": false,
+    "ml_confirmation": {
+      "applies_to": "non_source_daily_rule_templates",
+      "probability_floor": 0.35,
+      "selection_uses_test_segment": false,
+      "source": "source_daily_walk_forward_lgb_xgb_probability"
+    },
+    "model_families": [
+      "lgb_xgb_consensus",
+      "lgbm_classifier",
+      "lgbm_regressor",
+      "xgb_classifier",
+      "xgb_regressor"
+    ]
+  },
+  "overfit_risk": {
+    "status": "material_but_structurally_reduced",
+    "mitigations": [
+      "selected risk budget parameters are fixed, not fitted on outer test",
+      "source template records selection_uses_test_segment=false",
+      "benchmarks are recomputed from qlib provider fields"
+    ],
+    "remaining_risks": [
+      "source v2 regime template itself is a hand-designed prior",
+      "SOXL/SOXX path from 2023-2026 is a favorable high-volatility sample",
+      "needs paper execution before production promotion"
+    ]
+  }
+}
