@@ -1,0 +1,4 @@
+model,capacity_passes_target_count,capacity_best_pass_return_pct,capacity_best_pass_max_drawdown_pct,capacity_best_drawdown_safe_return_pct,capacity_best_drawdown_safe_max_drawdown_pct,validation_nested_return_pct,validation_nested_max_drawdown_pct,validation_nested_excess_vs_soxx_pct,validation_nested_required_policy_satisfied
+xgb,38,441.44573297114107,-7.578683557030086,474.7262647930105,-9.452424017261363,135.14956879597273,-16.837633700262312,-278.5069615519609,False
+lgbm,0,,,184.49162370752626,-9.808474214855313,45.848349159390665,-6.096622823404685,-367.808181188543,False
+avg_xgb_lgb,0,,,368.40451517744225,-9.615986177052404,70.58706829133325,-10.721030247268681,-343.0694620566004,False

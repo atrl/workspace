@@ -1414,6 +1414,71 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_v6_records_same_day_15m_capacity_a
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_v7_records_online_threshold_generalization_audit():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v7"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v7.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v7"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_online_threshold_generalization_audit_card"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["execution_timing"] == "same_day_15m_close_t_signal_next_open_to_following_open"
+    assert summary["goal"] == {
+        "excess_vs_soxx_floor_pct": 20.0,
+        "max_drawdown_floor_pct": -10.0,
+    }
+
+    capacity = summary["online_threshold_capacity"]
+    assert capacity["selection_uses_outer_test"] is True
+    assert capacity["best_model"] == "xgb"
+    assert capacity["passes_target_count"] > 0
+    assert capacity["best_pass_return_pct"] >= summary["benchmark"]["return_pct"] + 20.0
+    assert capacity["best_pass_max_drawdown_pct"] >= -10.0
+
+    nested = summary["validation_only_nested"]
+    assert nested["selection_uses_outer_test"] is False
+    assert nested["required_policy_satisfied"] is False
+    assert nested["stitched_return_pct"] < summary["benchmark"]["return_pct"] + 20.0
+    assert "capacity_pass_does_not_validate_out_of_sample" in nested["blocking_reasons"]
+
+    generalization = summary["generalization_assessment"]
+    assert generalization["capacity_pass_but_validation_selection_failed"] is True
+    assert generalization["promotable"] is False
+    assert "regime_generalization_failed" in generalization["primary_failure_mode"]
+    assert summary["promotion_decision"] == "not_promoted_online_threshold_capacity_pass_failed_generalization"
+
+    comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
+    assert {"xgb", "lgbm", "avg_xgb_lgb"}.issubset(set(comparison["model"]))
+    assert comparison.loc[comparison["model"].eq("xgb"), "capacity_passes_target_count"].iloc[0] > 0
+    assert comparison.loc[comparison["model"].eq("lgbm"), "capacity_passes_target_count"].iloc[0] == 0
+
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v7/capacity_grid.csv",
+    }
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "capacity_grid.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "analysis_summary.json").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v7_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "XGBRegressor" in notebook_text
+    assert "LGBMRegressor" in notebook_text
+    assert "rolling threshold" in conclusion
+    assert "泛化" in conclusion
+    assert "不晋升" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)
