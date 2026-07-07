@@ -1,0 +1,62 @@
+{
+  "source": "qlib_recorder_same_day_15m_xgb_threshold_calibration",
+  "recorder_id": "a8f05e338d7d4ed8a558ec737f5bfd24",
+  "same_day_15m_capacity": {
+    "model": "xgb",
+    "uses_same_day_15m_features": true,
+    "selection_role": "same_day_15m_xgb_threshold_capacity_diagnostic_not_promotable",
+    "selection_uses_outer_test": true,
+    "row_count": 576,
+    "passes_target_count": 0,
+    "best_pass_return_pct": null,
+    "best_pass_max_drawdown_pct": null,
+    "best_pass_excess_vs_soxx_pct": null,
+    "best_pass_params": {},
+    "best_excess_candidate_return_pct": 433.8208074825939,
+    "best_excess_candidate_max_drawdown_pct": -10.240960829828827,
+    "best_excess_candidate_excess_vs_soxx_pct": 20.164277134660267,
+    "best_excess_candidate_params": {
+      "qret": 0.44,
+      "qtail": 0.96,
+      "pupthr": 0.58,
+      "fallback": 0.24,
+      "soxl_w": 0.95
+    },
+    "best_drawdown_safe_return_pct": 410.7293827614509,
+    "best_drawdown_safe_max_drawdown_pct": -9.927901685162588,
+    "best_drawdown_safe_excess_vs_soxx_pct": -2.9271475864827607
+  },
+  "nested_calibration": {
+    "selection_uses_outer_test": false,
+    "validation_window_years": 4,
+    "stitched_return_pct": 236.00082668631663,
+    "stitched_max_drawdown_pct": -11.337869430227432,
+    "stitched_excess_vs_soxx_pct": -177.65570366161703,
+    "required_policy_satisfied": false,
+    "annual_rows": 4,
+    "blocking_reasons": [
+      "same_day_15m_capacity_near_miss_does_not_survive_nested_threshold_calibration"
+    ]
+  },
+  "model_diagnostics": {
+    "prediction_years": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "soxl_spearman_ic": 0.017028782229315784,
+    "soxl_up_auc": 0.5115490291228957
+  },
+  "promotion_decision": "not_promoted_same_day_15m_capacity_and_nested_calibration_failed"
+}

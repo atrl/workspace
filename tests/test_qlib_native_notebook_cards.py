@@ -1328,6 +1328,92 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_v5_records_causal_meta_label_leaka
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_v6_records_same_day_15m_capacity_and_nested_calibration():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v6"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v6.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v6"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_same_day_15m_xgb_threshold_calibration_card"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["goal"] == {
+        "excess_vs_soxx_floor_pct": 20.0,
+        "max_drawdown_floor_pct": -10.0,
+    }
+
+    capacity = summary["same_day_15m_capacity"]
+    assert capacity["model"] == "xgb"
+    assert capacity["uses_same_day_15m_features"] is True
+    assert capacity["selection_role"] == "same_day_15m_xgb_threshold_capacity_diagnostic_not_promotable"
+    assert capacity["passes_target_count"] == 0
+    assert capacity["best_excess_candidate_return_pct"] > summary["benchmark"]["return_pct"] + 20.0
+    assert capacity["best_excess_candidate_max_drawdown_pct"] < -10.0
+    assert capacity["best_drawdown_safe_return_pct"] < summary["benchmark"]["return_pct"] + 20.0
+
+    nested = summary["nested_calibration"]
+    assert nested["selection_uses_outer_test"] is False
+    assert nested["validation_window_years"] == 4
+    assert nested["required_policy_satisfied"] is False
+    assert nested["stitched_return_pct"] < summary["benchmark"]["return_pct"] + 20.0
+    assert nested["stitched_max_drawdown_pct"] < -10.0
+    assert "same_day_15m_capacity_near_miss_does_not_survive_nested_threshold_calibration" in nested[
+        "blocking_reasons"
+    ]
+    assert summary["promotion_decision"] == "not_promoted_same_day_15m_capacity_and_nested_calibration_failed"
+
+    feature_audit = summary["feature_audit"]
+    assert feature_audit["same_day_15m_feature_count"] > 0
+    assert feature_audit["same_day_15m_timing"] == "session_close_known_before_next_open_signal"
+    assert set(feature_audit["causal_feature_columns"]).isdisjoint(set(feature_audit["forbidden_feature_columns"]))
+
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v6/capacity_grid.csv",
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v6/nested_walk_forward.csv",
+    }
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "capacity_grid",
+        "failure_modes",
+        "nested_walk_forward",
+        "risk_analysis",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    capacity_frame = pd.read_csv(card / summary["sidecars"]["capacity_grid"])
+    assert not capacity_frame["passes_target"].any()
+    assert capacity_frame["selection_uses_outer_test"].eq(True).all()
+    assert {"qret", "qtail", "pupthr", "fallback", "soxl_w"}.issubset(capacity_frame.columns)
+
+    nested_frame = pd.read_csv(card / summary["sidecars"]["nested_walk_forward"])
+    assert set(nested_frame["outer_year"]) == {2023, 2024, 2025, 2026}
+    assert nested_frame["selection_uses_outer_test"].eq(False).all()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "capacity_grid.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "nested_walk_forward.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "analysis_summary.json").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v6_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "XGBRegressor" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "same-day 15m" in conclusion
+    assert "nested" in conclusion
+    assert "不晋升" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)
