@@ -1,0 +1,9 @@
+oracle_type,candidate,return_pct,max_drawdown_pct,cash_days,notes
+benchmark,soxx_buy_hold,413.65653034793365,-43.091895274979755,0,not_oracle
+benchmark,soxl_buy_hold,2118.9270364775803,-88.74446502935061,0,not_oracle
+perfect_next_open_action,best_daily_action_cash_soxx_soxl,1529979652696.6672,-0.08524945442847098,384,hindsight_upper_bound_not_promotable
+avoid_worst_soxx_days,avoid_worst_20,1812.7216733407913,-14.651420316278408,20,hindsight_upper_bound_not_promotable
+avoid_worst_soxx_days,avoid_worst_40,4206.139819709605,-14.65142031627844,40,hindsight_upper_bound_not_promotable
+avoid_worst_soxx_days,avoid_worst_60,8234.325152873065,-11.831679066065693,60,hindsight_upper_bound_not_promotable
+avoid_worst_soxx_days,avoid_worst_80,14585.99762551309,-8.474935914133386,80,hindsight_upper_bound_not_promotable
+avoid_worst_soxx_days,avoid_worst_100,23977.78315922094,-7.049189636680698,100,hindsight_upper_bound_not_promotable

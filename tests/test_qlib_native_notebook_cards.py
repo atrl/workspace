@@ -1074,6 +1074,82 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_v2_records_failed_frontier_goal():
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_v3_records_signal_capacity_diagnostic():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v3"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v3.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v3"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_allocation_signal_capacity_research_card"
+    assert summary["promotion_decision"] == "not_promoted_signal_capacity_goal_failed"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["goal"] == {
+        "excess_vs_soxx_floor_pct": 20.0,
+        "max_drawdown_floor_pct": -10.0,
+    }
+    assert summary["stitched_goal"]["required_policy_satisfied"] is False
+    assert summary["stitched_goal"]["passes_target_count"] == 0
+    assert "no_lgb_xgb_signal_capacity_candidate_combines_soxx_plus_20_with_10pct_drawdown" in summary[
+        "stitched_goal"
+    ]["blocking_reasons"]
+    assert summary["model_capacity"]["uses_lgb_xgb"] is True
+    assert summary["model_capacity"]["selection_role"] == "parameter_oracle_capacity_diagnostic_not_promotable"
+    assert summary["model_capacity"]["best_tail_auc"] >= 0.5
+    assert {"base_soxx_diffusion", "base_cross_asset_context", "base_intraday15m"}.issubset(
+        set(summary["model_capacity"]["feature_groups"])
+    )
+    assert summary["feature_audit"]["intraday15m_lag_days"] == 1
+    assert summary["feature_audit"]["intraday15m_feature_count"] > 0
+    assert summary["feature_audit"]["cross_asset_context_feature_count"] > 0
+    assert summary["oracle"]["source"] == "hindsight_upper_bound_not_promotable"
+    assert summary["oracle"]["avoid_worst_80"]["candidate"] == "avoid_worst_80"
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v3/model_capacity.csv",
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v3/oracle_frontier.csv",
+    }
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "failure_modes",
+        "model_capacity",
+        "oracle_frontier",
+        "risk_analysis",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    capacity = pd.read_csv(card / summary["sidecars"]["model_capacity"])
+    assert {"lgbm", "xgb"}.issubset(set(capacity["model"]))
+    assert {"base_cross_asset_context", "base_intraday15m"}.issubset(set(capacity["feature_group"]))
+    assert capacity["passes_target_count"].sum() == 0
+    assert capacity["selection_uses_outer_test"].eq(True).all()
+
+    oracle = pd.read_csv(card / summary["sidecars"]["oracle_frontier"])
+    assert "avoid_worst_80" in set(oracle["candidate"])
+    assert "hindsight_upper_bound_not_promotable" in set(oracle["notes"])
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "model_capacity.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "oracle_frontier.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v3_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "LGBMClassifier" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "不晋升" in conclusion
+    assert "15m" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)

@@ -1,0 +1,72 @@
+{
+  "source": "qlib_recorder_signal_capacity_diagnostics",
+  "recorder_id": "a556eb3d0e74436180b9c5e731b74550",
+  "stitched_goal": {
+    "policy": "signal_capacity_parameter_oracle_soxx_plus_20_maxdd_10_gate",
+    "benchmark_return_pct": 413.65653034793365,
+    "benchmark_max_drawdown_pct": -43.091895274979755,
+    "excess_return_floor_pct": 20.0,
+    "max_drawdown_floor_pct": -10.0,
+    "passes_target_count": 0,
+    "candidate_count": 20736,
+    "required_policy_satisfied": false,
+    "best_drawdown_safe_return_pct": 58.03103242785485,
+    "best_drawdown_safe_excess_pct": -355.62549792007883,
+    "min_drawdown_if_excess_passes_pct": -23.199256132918432,
+    "best_tail_auc_row": {
+      "feature_group": "base_cross_asset_context",
+      "model": "xgb",
+      "tail_rate": 0.08,
+      "feature_count": 153,
+      "tail_auc": 0.6352021584731976,
+      "upside_auc": 0.4905986286919831,
+      "candidate_count": 3456,
+      "passes_target_count": 0,
+      "best_drawdown_safe_return_pct": 0.0,
+      "best_drawdown_safe_max_drawdown_pct": 0.0,
+      "best_drawdown_safe_excess_pct": -413.65653034793365,
+      "min_drawdown_if_excess_passes_pct": -41.11921548211443,
+      "return_if_min_drawdown_excess_passes_pct": 436.4187111060111,
+      "best_return_pct": 512.7379709572101,
+      "best_return_max_drawdown_pct": -49.27395379579177,
+      "best_return_excess_pct": 99.08144060927646,
+      "selection_uses_outer_test": true,
+      "notes": "parameter_oracle_capacity_diagnostic_not_promotable",
+      "passes_excess_gate": true,
+      "passes_drawdown_gate": true,
+      "passes_target": false
+    },
+    "blocking_reasons": [
+      "no_lgb_xgb_signal_capacity_candidate_combines_soxx_plus_20_with_10pct_drawdown"
+    ]
+  },
+  "oracle": {
+    "source": "hindsight_upper_bound_not_promotable",
+    "row_count": 8,
+    "best_drawdown_safe_return_pct": 1529979652696.6672,
+    "avoid_worst_80": {
+      "oracle_type": "avoid_worst_soxx_days",
+      "candidate": "avoid_worst_80",
+      "return_pct": 14585.99762551309,
+      "max_drawdown_pct": -8.474935914133386,
+      "cash_days": 80,
+      "notes": "hindsight_upper_bound_not_promotable"
+    }
+  },
+  "feature_audit": {
+    "daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "intraday_15m_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "daily_common_end": "2026-07-02",
+    "intraday_15m_end": "2026-07-02 16:00:00",
+    "base_feature_count": 78,
+    "cross_asset_context_feature_count": 75,
+    "intraday15m_feature_count": 17,
+    "intraday15m_lag_days": 1,
+    "feature_groups": {
+      "base_soxx_diffusion": 78,
+      "base_cross_asset_context": 153,
+      "base_intraday15m": 95
+    }
+  },
+  "promotion_decision": "not_promoted_signal_capacity_goal_failed"
+}
