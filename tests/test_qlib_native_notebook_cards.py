@@ -1007,6 +1007,73 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_card_records_soxx_benchmark_genera
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_v2_records_failed_frontier_goal():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v2"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v2.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v2"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_allocation_frontier_research_card"
+    assert summary["promotion_decision"] == "not_promoted_dynamic_allocation_frontier_goal_failed"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["goal"] == {
+        "excess_vs_soxx_floor_pct": 20.0,
+        "max_drawdown_floor_pct": -10.0,
+    }
+    assert summary["stitched_goal"]["required_policy_satisfied"] is False
+    assert summary["stitched_goal"]["passes_target_count"] == 0
+    assert "no_candidate_combines_soxx_plus_20_with_10pct_drawdown" in summary["stitched_goal"][
+        "blocking_reasons"
+    ]
+    assert summary["annual_goal"]["required_policy_satisfied"] is False
+    assert summary["frontier"]["uses_lgb_xgb"] is True
+    assert summary["frontier"]["contains_soxx_constituent_feature_probe"] is True
+    assert summary["model_selection"]["selection_uses_outer_test"] is False
+    assert set(summary["model_selection"]["model_families"]) >= {
+        "lgbm_classifier",
+        "xgb_classifier",
+    }
+    assert summary["intraday_execution_context"]["role"] == "candidate_intraday_execution_sleeve_not_core_allocation_alpha"
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v2/frontier_diagnostics.csv"
+    ]
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "failure_modes",
+        "frontier_diagnostics",
+        "model_comparison",
+        "risk_analysis",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    frontier = pd.read_csv(card / summary["sidecars"]["frontier_diagnostics"])
+    assert {"direct_action_lgb_xgb", "trend_momentum_oracle_frontier"}.issubset(set(frontier["branch"]))
+    assert {"lgbm", "xgb"}.issubset(set(frontier["model"]))
+    assert "base_soxx_diffusion" in set(frontier["feature_set"])
+    assert frontier.loc[frontier["branch"].eq("direct_action_lgb_xgb"), "selection_uses_outer_test"].eq(False).all()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "frontier_diagnostics.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v2_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "LGBMClassifier" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "不晋升" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)

@@ -1,0 +1,169 @@
+{
+  "experiment": "dynamic_soxx_soxl_cash_allocation_wf_v2",
+  "card_type": "dynamic_soxx_soxl_cash_allocation_frontier_research_card",
+  "promotion_decision": "not_promoted_dynamic_allocation_frontier_goal_failed",
+  "common_data_end": "2026-07-02",
+  "source_experiment": "dynamic_soxx_soxl_cash_allocation_wf_v1",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+  "benchmark_asset": "SOXX",
+  "benchmark_basis": "open_to_open",
+  "allocation_assets": [
+    "SOXX",
+    "SOXL",
+    "cash"
+  ],
+  "execution_timing": "close_t_signal_next_open_to_following_open",
+  "goal": {
+    "excess_vs_soxx_floor_pct": 20.0,
+    "max_drawdown_floor_pct": -10.0
+  },
+  "benchmark": {
+    "asset": "SOXX",
+    "return_pct": 413.65653034793365,
+    "max_drawdown_pct": -43.091895274979755,
+    "start": "2023-01-03",
+    "end": "2026-06-30",
+    "rows": 875
+  },
+  "stitched_goal": {
+    "policy": "stitched_2023_2026_soxx_plus_20_maxdd_10_gate",
+    "benchmark_return_pct": 413.65653034793365,
+    "benchmark_max_drawdown_pct": -43.091895274979755,
+    "excess_return_floor_pct": 20.0,
+    "max_drawdown_floor_pct": -10.0,
+    "passes_target_count": 0,
+    "candidate_count": 180,
+    "required_policy_satisfied": false,
+    "best_drawdown_safe_return_pct": 117.81167946638922,
+    "best_drawdown_safe_excess_pct": -295.8448508815444,
+    "min_drawdown_if_excess_passes_pct": -25.77217542987026,
+    "best_return_candidate": {
+      "branch": "direct_action_lgb_xgb",
+      "candidate": "lgbm_base_aggressive_no_stop",
+      "model": "lgbm",
+      "feature_set": "base",
+      "return_pct": 856.696615363347,
+      "max_drawdown_pct": -55.750378294039805,
+      "avg_soxx_weight": 0.00013186868501439286,
+      "avg_soxl_weight": 0.45269716019617523,
+      "avg_cash_weight": 0.5471709711188104,
+      "turnover": 69.6282039520006,
+      "selection_uses_outer_test": false,
+      "notes": "direct_action_label_learned_on_prior_years_only",
+      "variant": "aggressive_no_stop",
+      "gamma": 3.0,
+      "scale": 1.0,
+      "stop_thr": -1.0,
+      "stop_mult": 1.0,
+      "annual_pass_years": 0.0,
+      "min_annual_excess_pct": -2.317411205014519,
+      "worst_annual_drawdown_pct": -49.377964203334365,
+      "trend_col": null,
+      "trend_thr": null,
+      "mom_col": null,
+      "mom_thr": null,
+      "dd_thr": null,
+      "vol_thr": null,
+      "core": null,
+      "overlay": null,
+      "excess_vs_soxx_pct": 443.0400850154133,
+      "passes_excess_gate": true,
+      "passes_drawdown_gate": false,
+      "passes_target": false
+    },
+    "blocking_reasons": [
+      "no_candidate_combines_soxx_plus_20_with_10pct_drawdown"
+    ]
+  },
+  "annual_goal": {
+    "policy": "annual_gate_reported_by_v1_and_direct_action_rows",
+    "required_test_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "return_gate": "each_test_year_return_pct_ge_soxx_buyhold_return_pct_plus_20pp",
+    "max_drawdown_floor_pct": -10.0,
+    "required_policy_satisfied": false,
+    "blocking_reasons": [
+      "annual_gate_not_satisfied_by_frontier_or_v1"
+    ]
+  },
+  "frontier": {
+    "candidate_count": 180,
+    "direct_action_candidate_count": 20,
+    "trend_oracle_candidate_count": 160,
+    "uses_lgb_xgb": true,
+    "contains_soxx_constituent_feature_probe": true,
+    "selection_uses_outer_test": true
+  },
+  "model_selection": {
+    "source": "diagnostic_frontier",
+    "selection_uses_outer_test": false,
+    "model_families": [
+      "lgbm_classifier",
+      "xgb_classifier",
+      "lgb_xgb_consensus_context"
+    ],
+    "direct_action_label": "argmax_next_open_to_open_action_utility_trained_only_on_prior_years",
+    "manual_template_selection": false,
+    "promotion_gate": "stitched_and_annual_goal_must_pass"
+  },
+  "intraday_execution_context": {
+    "status": "ok",
+    "source_card": "research/agentic_alpha_intraday_15m_regime_gated_v1",
+    "role": "candidate_intraday_execution_sleeve_not_core_allocation_alpha",
+    "promotion_decision": "not_promoted_intraday_replay_missing",
+    "selected_model": "lgb_xgb_consensus",
+    "test_return_pct": 13.753271102905273,
+    "test_max_drawdown_pct": -8.642077445983887,
+    "test_ic": 0.028157383904499702,
+    "limitation": "intraday returns are small and replay/slippage proof is missing; not enough to close daily allocation target gap"
+  },
+  "source_v1": {
+    "promotion_decision": "not_promoted_dynamic_allocation_goal_or_generalization_gate_failed",
+    "annual_goal_satisfied": false,
+    "common_data_end": "2026-07-02"
+  },
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.R.log_params",
+    "qlib.workflow.R.log_metrics",
+    "qlib.workflow.Recorder.log_artifact",
+    "LGBMClassifier",
+    "XGBClassifier"
+  ],
+  "sidecars": {
+    "frontier_diagnostics": "frontier_diagnostics.csv",
+    "model_comparison": "model_comparison.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v2/frontier_diagnostics.csv"
+    ]
+  },
+  "workflow_config": "workflow.yaml",
+  "recorder_id": "07d4bb5d601d4e0f85ab1298f5acaae0",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v2/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v2/qlib_recorder/937376446596338005/07d4bb5d601d4e0f85ab1298f5acaae0",
+  "recorder_artifacts": [
+    "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v2/frontier_diagnostics.csv",
+    "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v2/analysis_summary.json",
+    "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v2/frontier_diagnostics.csv",
+    "meta.yaml"
+  ]
+}

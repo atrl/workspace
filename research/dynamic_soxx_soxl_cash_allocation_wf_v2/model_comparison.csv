@@ -1,0 +1,6 @@
+branch,model,feature_set,candidate_count,best_return_pct,best_max_drawdown_pct,avg_return_pct
+direct_action_lgb_xgb,lgbm,base,5,856.696615363347,-9.763809735376327,369.7792039528978
+direct_action_lgb_xgb,lgbm,base_soxx_diffusion,5,620.3157738052304,-16.188339933659,289.0025554522595
+direct_action_lgb_xgb,xgb,base,5,701.4336724806343,-9.74939188586056,304.1096035046233
+direct_action_lgb_xgb,xgb,base_soxx_diffusion,5,645.043234188535,-11.820928921075623,286.853766627624
+trend_momentum_oracle_frontier,rule_oracle_parameter_probe,daily_trend_momentum_vol,160,714.5815206580269,-7.536498508646572,172.08018306596222
