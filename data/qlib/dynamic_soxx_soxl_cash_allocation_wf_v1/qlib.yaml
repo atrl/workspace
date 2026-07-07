@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

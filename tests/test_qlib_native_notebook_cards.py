@@ -911,6 +911,102 @@ def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_card_records_soxx_benchmark_generalization():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v1"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v1"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_allocation_wf_research_card"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
+    assert summary["model_selection"]["selection_policy"] == "nested_inner_soxx_benchmark_proxy_generalization_gate"
+    assert summary["model_selection"]["selection_uses_outer_test"] is False
+    assert summary["model_selection"]["proxy_generalization_role"] == "primary_selection_gate"
+    assert summary["model_selection"]["candidate_count"] == 9
+    assert set(summary["model_selection"]["model_families"]) >= {
+        "lgbm_classifier",
+        "xgb_classifier",
+        "lgb_xgb_consensus",
+    }
+    assert summary["model_selection"]["manual_template_selection"] is False
+    assert summary["model_selection"]["manual_policy_grid_used"] is False
+    assert summary["annual_goal"]["return_gate"] == "test_return_pct_ge_soxx_buyhold_return_pct_plus_20pp"
+    assert summary["annual_goal"]["excess_return_floor_pct"] == 20.0
+    assert summary["annual_goal"]["max_drawdown_floor_pct"] == -10.0
+    assert summary["annual_goal"]["selection_uses_outer_test"] is False
+    assert summary["generalization_gate"]["selection_uses_outer_test"] is False
+    assert summary["proxy_generalization_assets"] == ["TQQQ", "UPRO", "SPXL", "TECL"]
+    assert summary["allocation_policy"]["weight_sum_constraint"] == "weight_soxx + weight_soxl + weight_cash = 1"
+    assert summary["model_heads"] == {
+        "relative_alpha_probability": "relative_alpha_5d_label",
+        "underlying_positive_probability": "underlying_positive_5d_label",
+        "tail_risk_probability": "tail_risk_5d_label",
+    }
+    assert summary["intraday_risk_state"]["uses_5min"] is True
+    assert summary["intraday_risk_state"]["uses_15min"] is True
+    assert summary["soxx_constituent_factors"]["status"] == "ok"
+    assert summary["feature_sets"]["available_soxx_constituent_feature_count"] == summary["soxx_constituent_factors"]["feature_count"]
+    assert summary["overfit_audit"]["manual_template_selection"] is False
+    assert summary["overfit_audit"]["nested_walk_forward"] is True
+    assert summary["overfit_audit"]["selection_uses_outer_test"] is False
+
+    expected_sidecars = {
+        "analysis_summary",
+        "annual_walk_forward",
+        "failure_modes",
+        "feature_sets",
+        "generalization_stress",
+        "inner_selection",
+        "model_comparison",
+        "risk_analysis",
+        "selected_candidates",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v1/positions.csv"
+    ]
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    annual = pd.read_csv(card / summary["sidecars"]["annual_walk_forward"])
+    assert set(annual["outer_test_year"]) == {2023, 2024, 2025, 2026}
+    assert annual["selection_uses_outer_test"].eq(False).all()
+    assert "soxx_buyhold_return_pct" in annual.columns
+    assert "test_excess_vs_soxx_pct" in annual.columns
+    assert "test_avg_soxx_weight" in annual.columns
+    assert "test_avg_soxl_weight" in annual.columns
+    assert "test_avg_cash_weight" in annual.columns
+    assert annual["test_max_soxl_weight"].le(max(summary["allocation_policy"]["max_soxl_weight_candidates"]) + 1e-9).all()
+
+    selected = pd.read_csv(card / summary["sidecars"]["selected_candidates"])
+    assert selected["selection_uses_outer_test"].eq(False).all()
+    assert selected["selection_policy"].eq("nested_inner_soxx_benchmark_proxy_generalization_gate").all()
+    assert selected["proxy_generalization_gate_applied"].eq(True).all()
+    assert "generalization_selection_satisfied" in selected.columns
+    assert "proxy_avg_excess_pct" in selected.columns
+
+    stress = pd.read_csv(card / summary["sidecars"]["generalization_stress"])
+    assert set(stress["heldout_asset"]).issubset({"TQQQ", "UPRO", "SPXL", "TECL"})
+    assert stress["selection_uses_outer_test"].eq(False).all()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "positions.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "LGBMClassifier" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "SOXX/SOXL/cash" in conclusion
+    assert "泛化验证" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)

@@ -41,6 +41,7 @@ __all__ = [
     "HybridIntraday15mOpen2OpenSpec",
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "Multi3xEtfNormalizedNestedWfSpec",
+    "DynamicSoxxSoxlCashAllocationWfSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
@@ -66,6 +67,7 @@ __all__ = [
     "run_intraday_execution_label_model_card",
     "run_intraday_execution_sleeve_v2_card",
     "run_hybrid_intraday15m_open2open_card",
+    "run_dynamic_soxx_soxl_cash_allocation_wf_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_multi_3x_etf_normalized_nested_wf_card",
     "run_probability_budget_open2open_card",
@@ -167,6 +169,11 @@ _TRAINABLE_REGIME_POLICY_NESTED_WF_EXPORTS = {
     "run_trainable_regime_policy_nested_wf_card",
 }
 
+_DYNAMIC_SOXX_SOXL_CASH_ALLOCATION_WF_EXPORTS = {
+    "DynamicSoxxSoxlCashAllocationWfSpec",
+    "run_dynamic_soxx_soxl_cash_allocation_wf_card",
+}
+
 _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS = {
     "ProbabilityBudgetOpen2OpenCardSpec",
     "run_probability_budget_open2open_card",
@@ -234,6 +241,10 @@ def __getattr__(name: str):
         from . import trainable_regime_policy_nested_wf
 
         return getattr(trainable_regime_policy_nested_wf, name)
+    if name in _DYNAMIC_SOXX_SOXL_CASH_ALLOCATION_WF_EXPORTS:
+        from . import dynamic_soxx_soxl_cash_allocation_wf
+
+        return getattr(dynamic_soxx_soxl_cash_allocation_wf, name)
     if name in _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS:
         from . import probability_budget_open2open
 
