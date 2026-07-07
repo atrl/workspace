@@ -1,0 +1,183 @@
+{
+  "experiment": "dynamic_soxx_soxl_cash_allocation_wf_v4",
+  "card_type": "dynamic_soxx_soxl_cash_allocation_full_factor_frontier_research_card",
+  "promotion_decision": "not_promoted_full_factor_frontier_goal_failed",
+  "common_data_end": "2026-07-02",
+  "source_experiment": "dynamic_soxx_soxl_cash_allocation_wf_v1",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+  "benchmark_asset": "SOXX",
+  "benchmark_basis": "open_to_open",
+  "allocation_assets": [
+    "SOXX",
+    "SOXL",
+    "cash"
+  ],
+  "execution_timing": "close_t_signal_next_open_to_following_open",
+  "goal": {
+    "excess_vs_soxx_floor_pct": 20.0,
+    "max_drawdown_floor_pct": -10.0
+  },
+  "benchmark": {
+    "asset": "SOXX",
+    "return_pct": 413.65653034793365,
+    "max_drawdown_pct": -43.091895274979755,
+    "start": "2023-01-03",
+    "end": "2026-06-30",
+    "rows": 875
+  },
+  "oracle": {
+    "source": "hindsight_upper_bound_not_promotable",
+    "row_count": 8,
+    "best_drawdown_safe_return_pct": 1529979652696.6672,
+    "avoid_worst_80": {
+      "oracle_type": "avoid_worst_soxx_days",
+      "candidate": "avoid_worst_80",
+      "return_pct": 14585.99762551309,
+      "max_drawdown_pct": -8.474935914133386,
+      "cash_days": 80,
+      "notes": "hindsight_upper_bound_not_promotable"
+    }
+  },
+  "feature_audit": {
+    "daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "intraday_15m_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "tail_risk_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_tail_risk_external_v1",
+    "constituents_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_constituents",
+    "daily_common_end": "2026-07-02",
+    "intraday_15m_end": "2026-07-02 16:00:00",
+    "tail_risk_end": "2026-07-01",
+    "tail_risk_as_of": "2026-07-02",
+    "constituents_end": "2026-07-02",
+    "constituents_as_of": "2026-07-02",
+    "base_feature_count": 78,
+    "cross_asset_context_feature_count": 75,
+    "intraday15m_feature_count": 17,
+    "tail_risk_feature_count": 18,
+    "constituent_feature_count": 41,
+    "intraday15m_lag_days": 1,
+    "excluded_tail_fields": [
+      "next_return",
+      "same_day_return"
+    ],
+    "constituent_limitations": [
+      "Current SOXX constituents backfilled through history are survivorship-biased without point-in-time holdings.",
+      "Model features built from this provider must lag constituent returns before open-to-open labels."
+    ],
+    "feature_groups": {
+      "base_soxx_diffusion": 78,
+      "base_cross_asset_context": 153,
+      "base_intraday15m": 95,
+      "tail_risk_external": 18,
+      "constituents_diffusion": 41,
+      "base_tail_risk": 96,
+      "base_constituents": 119,
+      "full_factor_stack": 229
+    }
+  },
+  "model_capacity": {
+    "uses_lgb_xgb": true,
+    "tail_label": "next_open_to_open_underlying_return_bottom_0.08",
+    "action_label": "argmax(cash_return_0, next_open_to_open_soxx_return, next_open_to_open_soxl_return)",
+    "selection_uses_outer_test": true,
+    "selection_role": "full_factor_parameter_oracle_capacity_diagnostic_not_promotable",
+    "row_count": 16,
+    "best_tail_auc": 0.6699797643137722,
+    "best_action_accuracy": 0.5474285714285714,
+    "best_soxl_action_auc": 0.5328108045468433,
+    "feature_groups": [
+      "base_constituents",
+      "base_cross_asset_context",
+      "base_intraday15m",
+      "base_soxx_diffusion",
+      "base_tail_risk",
+      "constituents_diffusion",
+      "full_factor_stack",
+      "tail_risk_external"
+    ]
+  },
+  "stitched_goal": {
+    "policy": "full_factor_action_capacity_soxx_plus_20_maxdd_10_gate",
+    "benchmark_return_pct": 413.65653034793365,
+    "benchmark_max_drawdown_pct": -43.091895274979755,
+    "excess_return_floor_pct": 20.0,
+    "max_drawdown_floor_pct": -10.0,
+    "passes_target_count": 0,
+    "candidate_count": 62208,
+    "required_policy_satisfied": false,
+    "best_drawdown_safe_return_pct": 127.4561849142616,
+    "best_drawdown_safe_excess_pct": -286.20034543367206,
+    "min_drawdown_if_excess_passes_pct": -26.847616011453113,
+    "best_tail_auc_row": {
+      "feature_group": "base_tail_risk",
+      "model": "lgbm",
+      "tail_rate": 0.08,
+      "feature_count": 96,
+      "tail_auc": 0.6699797643137722,
+      "soxl_action_auc": 0.5249886750313412,
+      "action_accuracy": 0.4857142857142857,
+      "candidate_count": 3888,
+      "passes_target_count": 0,
+      "best_drawdown_safe_return_pct": 26.643035864220344,
+      "best_drawdown_safe_max_drawdown_pct": -6.580722738451906,
+      "best_drawdown_safe_excess_pct": -387.0134944837133,
+      "min_drawdown_if_excess_passes_pct": -30.924495312720424,
+      "return_if_min_drawdown_excess_passes_pct": 536.533617457179,
+      "best_return_pct": 1470.5055208226208,
+      "best_return_max_drawdown_pct": -70.1616006663351,
+      "best_return_excess_pct": 1056.848990474687,
+      "selection_uses_outer_test": true,
+      "notes": "full_factor_action_capacity_parameter_oracle_not_promotable"
+    },
+    "blocking_reasons": [
+      "no_full_factor_lgb_xgb_action_capacity_candidate_combines_soxx_plus_20_with_10pct_drawdown"
+    ]
+  },
+  "source_v2": {
+    "summary_path": "/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v2/summary.json",
+    "promotion_decision": "not_promoted_dynamic_allocation_frontier_goal_failed",
+    "common_data_end": "2026-07-02",
+    "recorder_id": "07d4bb5d601d4e0f85ab1298f5acaae0",
+    "source_v1_promotion_decision": "not_promoted_dynamic_allocation_goal_or_generalization_gate_failed"
+  },
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.R.log_params",
+    "qlib.workflow.R.log_metrics",
+    "qlib.workflow.Recorder.log_artifact",
+    "LGBMClassifier",
+    "XGBClassifier"
+  ],
+  "sidecars": {
+    "model_capacity": "model_capacity.csv",
+    "oracle_frontier": "oracle_frontier.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v4/model_capacity.csv",
+      "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v4/oracle_frontier.csv"
+    ]
+  },
+  "workflow_config": "workflow.yaml",
+  "recorder_id": "d9195f5833054eba9e27c1a97a391b46",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v4/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v4/qlib_recorder/131278286559840262/d9195f5833054eba9e27c1a97a391b46",
+  "recorder_artifacts": [
+    "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v4/model_capacity.csv",
+    "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v4/oracle_frontier.csv",
+    "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v4/analysis_summary.json",
+    "meta.yaml"
+  ]
+}

@@ -1150,6 +1150,105 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_v3_records_signal_capacity_diagnos
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_v4_records_full_factor_frontier_diagnostic():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v4"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v4.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v4"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_allocation_full_factor_frontier_research_card"
+    assert summary["promotion_decision"] == "not_promoted_full_factor_frontier_goal_failed"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["goal"] == {
+        "excess_vs_soxx_floor_pct": 20.0,
+        "max_drawdown_floor_pct": -10.0,
+    }
+    assert summary["stitched_goal"]["policy"] == "full_factor_action_capacity_soxx_plus_20_maxdd_10_gate"
+    assert summary["stitched_goal"]["required_policy_satisfied"] is False
+    assert summary["stitched_goal"]["passes_target_count"] == 0
+    assert "no_full_factor_lgb_xgb_action_capacity_candidate_combines_soxx_plus_20_with_10pct_drawdown" in summary[
+        "stitched_goal"
+    ]["blocking_reasons"]
+    assert summary["stitched_goal"]["best_drawdown_safe_return_pct"] < summary["benchmark"]["return_pct"]
+    assert summary["stitched_goal"]["min_drawdown_if_excess_passes_pct"] < -10.0
+
+    feature_audit = summary["feature_audit"]
+    assert feature_audit["tail_risk_as_of"] == "2026-07-02"
+    assert feature_audit["tail_risk_end"] == "2026-07-01"
+    assert feature_audit["constituents_as_of"] == "2026-07-02"
+    assert feature_audit["tail_risk_feature_count"] > 0
+    assert feature_audit["constituent_feature_count"] > 0
+    assert feature_audit["excluded_tail_fields"] == ["next_return", "same_day_return"]
+    tail_manifest = json.loads(
+        (ROOT / "data" / "qlib" / "soxl_tail_risk_external_v1" / "qlib_store_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert "$next_return" not in tail_manifest["fields"]
+    assert "$same_day_return" not in tail_manifest["fields"]
+    assert any("survivorship-biased" in item for item in feature_audit["constituent_limitations"])
+    assert {"tail_risk_external", "constituents_diffusion", "base_tail_risk", "full_factor_stack"}.issubset(
+        set(feature_audit["feature_groups"])
+    )
+
+    assert summary["model_capacity"]["uses_lgb_xgb"] is True
+    assert "argmax" in summary["model_capacity"]["action_label"]
+    assert summary["model_capacity"]["selection_role"] == "full_factor_parameter_oracle_capacity_diagnostic_not_promotable"
+    assert summary["model_capacity"]["row_count"] == 16
+    assert summary["model_capacity"]["best_tail_auc"] >= 0.65
+    assert summary["model_capacity"]["best_soxl_action_auc"] >= 0.5
+    assert {"tail_risk_external", "constituents_diffusion", "full_factor_stack"}.issubset(
+        set(summary["model_capacity"]["feature_groups"])
+    )
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v4/model_capacity.csv",
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v4/oracle_frontier.csv",
+    }
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+
+    expected_sidecars = {
+        "analysis_summary",
+        "failure_modes",
+        "model_capacity",
+        "oracle_frontier",
+        "risk_analysis",
+        "selected_model",
+    }
+    assert set(summary["sidecars"]) == expected_sidecars
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    capacity = pd.read_csv(card / summary["sidecars"]["model_capacity"])
+    assert {"lgbm", "xgb"}.issubset(set(capacity["model"]))
+    assert {"tail_risk_external", "constituents_diffusion", "full_factor_stack"}.issubset(
+        set(capacity["feature_group"])
+    )
+    assert capacity["passes_target_count"].sum() == 0
+    assert capacity["selection_uses_outer_test"].eq(True).all()
+    assert "soxl_action_auc" in capacity.columns
+    assert "action_accuracy" in capacity.columns
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "model_capacity.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "oracle_frontier.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "analysis_summary.json").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v4_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "LGBMClassifier" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "不晋升" in conclusion
+    assert "为什么" in conclusion
+    assert "SOXX 成分股" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)
