@@ -1,0 +1,36 @@
+{
+  "selected_model": null,
+  "promotion_decision": "not_promoted_high_confidence_capacity_pass_failed_validation",
+  "reason": "high-confidence XGB capacity can pass on the outer test window, but validation-selected thresholds do not generate enough return",
+  "capacity": {
+    "selection_uses_outer_test": true,
+    "frontier_policy": "high_confidence_lgb_xgb_soxl_cash",
+    "threshold_policy": "outer_test_quantile_capacity_diagnostic_not_promotable",
+    "row_count": 54,
+    "passes_target_count": 1,
+    "best_pass_model": "xgb",
+    "best_pass_score": "pup",
+    "best_pass_q": 0.92,
+    "best_pass_return_pct": 482.13866723478844,
+    "best_pass_max_drawdown_pct": -9.981746849982843,
+    "best_pass_excess_vs_soxx_pct": 68.48213688685479,
+    "best_pass_precision": 0.6857142857142857,
+    "best_pass_recall": 0.1,
+    "best_pass_false_positive_count": 22,
+    "best_drawdown_safe_return_pct": 482.13866723478844,
+    "best_drawdown_safe_max_drawdown_pct": -9.981746849982843
+  },
+  "validation_only_nested": {
+    "selection_uses_outer_test": false,
+    "threshold_policy": "validation_quantile_threshold_applied_to_outer_year",
+    "validation_window_years": 4,
+    "stitched_return_pct": 0.0,
+    "stitched_max_drawdown_pct": 0.0,
+    "stitched_excess_vs_soxx_pct": -413.65653034793365,
+    "required_policy_satisfied": false,
+    "annual_rows": 4,
+    "blocking_reasons": [
+      "high_confidence_capacity_pass_does_not_validate_out_of_sample"
+    ]
+  }
+}

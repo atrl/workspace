@@ -1,0 +1,4 @@
+model,capacity_passes_target_count,best_return_pct,best_drawdown_safe_return_pct,nested_year_count
+avg_xgb_lgb,0,428.6149492166664,37.23539127002233,1.0
+lgbm,0,343.97191229435225,66.47255514704942,
+xgb,1,564.060650433675,482.13866723478844,3.0
