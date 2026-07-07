@@ -1479,6 +1479,72 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_v7_records_online_threshold_genera
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_v8_records_intraday_cppi_ml_risk_budget_frontier():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v8"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v8.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v8"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_intraday_cppi_ml_risk_budget_frontier_card"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["execution_timing"] == "close_t_signal_next_open_with_15m_intraday_stop"
+    assert summary["goal"] == {
+        "excess_vs_soxx_floor_pct": 20.0,
+        "max_drawdown_floor_pct": -10.0,
+    }
+
+    capacity = summary["intraday_cppi_capacity"]
+    assert capacity["selection_uses_outer_test"] is True
+    assert capacity["frontier_policy"] == "trend_vix_active_signal_plus_cppi_intraday_stop"
+    assert capacity["uses_15m_intraday_stop"] is True
+    assert capacity["row_count"] > 0
+    assert capacity["passes_target_count"] == 0
+    assert capacity["best_drawdown_safe_return_pct"] < summary["benchmark"]["return_pct"] + 20.0
+
+    ml = summary["ml_risk_budget_selector"]
+    assert ml["selection_uses_outer_test"] is False
+    assert ml["required_policy_satisfied"] is False
+    assert set(ml["model_families"]) == {"xgb", "lgbm", "avg_xgb_lgb"}
+    assert ml["stitched_return_pct"] < summary["benchmark"]["return_pct"] + 20.0
+    assert "risk_budget_ml_selector_failed_goal" in ml["blocking_reasons"]
+
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert set(summary["artifact_policy"]["recorder_only_artifacts"]) == {
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v8/capacity_frontier.csv",
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v8/ml_risk_budget_grid.csv",
+    }
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    frontier = pd.read_csv(card / summary["sidecars"]["frontier_summary"])
+    assert {"return_pct", "max_drawdown_pct", "passes_target", "uses_15m_intraday_stop"}.issubset(frontier.columns)
+    assert not frontier["passes_target"].any()
+
+    comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
+    assert {"xgb", "lgbm", "avg_xgb_lgb"}.issubset(set(comparison["model"]))
+    assert comparison["selection_uses_outer_test"].eq(False).all()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "capacity_frontier.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "ml_risk_budget_grid.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "analysis_summary.json").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v8_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "XGBClassifier" in notebook_text
+    assert "LGBMClassifier" in notebook_text
+    assert "15m intraday stop" in conclusion
+    assert "CPPI" in conclusion
+    assert "不晋升" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)

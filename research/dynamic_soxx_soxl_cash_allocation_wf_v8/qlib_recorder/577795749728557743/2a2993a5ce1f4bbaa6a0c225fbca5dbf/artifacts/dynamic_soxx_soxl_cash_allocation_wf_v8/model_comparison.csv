@@ -1,0 +1,4 @@
+model,selection_uses_outer_test,stitched_return_pct,stitched_max_drawdown_pct,stitched_excess_vs_soxx_pct,required_policy_satisfied
+xgb,False,9.709954425984456,-13.651870787785613,-403.9465759219492,False
+lgbm,False,-8.884524213303157,-10.985163244315366,-422.5410545612368,False
+avg_xgb_lgb,False,-1.5846765843686605,-8.812154907070813,-415.2412069323023,False
