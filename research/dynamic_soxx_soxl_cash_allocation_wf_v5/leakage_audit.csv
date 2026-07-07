@@ -1,0 +1,4 @@
+audit_case,candidate,return_pct,max_drawdown_pct,excess_vs_soxx_pct,passes_target,notes
+future_label_feature_invalid,future_soxl_positive_or_cash,1516998792024.1094,-0.051009144731550826,1516998791610.453,True,invalid: uses current row next open-to-open return label as if it were known before the trade
+future_label_feature_invalid,future_best_of_cash_soxx_soxl,1529979652696.6672,-0.08524945442847098,1529979652283.0107,True,invalid: uses current row next open-to-open return label as if it were known before the trade
+causal_feature_valid,best_causal_event_drawdown_safe,106.65440186800322,-9.80421690788048,-307.00212847993043,False,valid: uses only causal feature columns; capacity grid still fails the SOXX plus 20 / maxDD 10 gate

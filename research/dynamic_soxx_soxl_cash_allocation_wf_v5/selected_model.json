@@ -1,0 +1,27 @@
+{
+  "selected_model": null,
+  "promotion_decision": "not_promoted_causal_meta_label_goal_failed",
+  "reason": "no causal LGB/XGB event meta-label candidate satisfies SOXX plus 20 percentage points with max drawdown above -10%",
+  "best_auc_row": {
+    "event_name": "dip_130",
+    "model": "lgbm",
+    "feature_count": 131,
+    "event_test_count": 117,
+    "positive_event_rate": 0.5811965811965812,
+    "event_auc": 0.5837334933973589,
+    "all_day_auc": 0.546223628691983,
+    "event_accuracy": 0.5897435897435898,
+    "candidate_count": 1260,
+    "passes_target_count": 0,
+    "best_drawdown_safe_return_pct": 57.94976911012364,
+    "best_drawdown_safe_max_drawdown_pct": -7.935066088949149,
+    "best_drawdown_safe_excess_pct": -355.70676123781004,
+    "min_drawdown_if_excess_passes_pct": -25.267580700904002,
+    "return_if_min_drawdown_excess_passes_pct": 600.5069047307749,
+    "best_return_pct": 1176.7281412226578,
+    "best_return_max_drawdown_pct": -48.4078848721143,
+    "best_return_excess_pct": 763.0716108747241,
+    "selection_uses_outer_test": true,
+    "notes": "causal_event_parameter_oracle_not_promotable"
+  }
+}
