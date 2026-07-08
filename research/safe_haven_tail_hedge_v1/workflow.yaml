@@ -1,0 +1,28 @@
+experiment: safe_haven_tail_hedge_v1
+workflow_type: safe_haven_tail_hedge_diagnostic
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+option_snapshot_dir: /Users/rziiiii/dev/workspace/data/raw/options/polygon_soxl_safe_haven_daily
+recorder_uri: /Users/rziiiii/dev/workspace/research/safe_haven_tail_hedge_v1/qlib_recorder
+market: all
+region: us
+freq: day
+as_of: 2026-07-02
+event_date: 2026-07-02
+execution_basis: soxl_open_to_close_plus_option_daily_open_to_close
+targets:
+  - put_80
+  - put_70
+  - put_60
+funding_budgets:
+  - 0.005
+  - 0.01
+  - 0.02
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    same_day_option_trace: artifacts/safe_haven_tail_hedge_v1/same_day_option_trace.csv
+  raw_snapshot_artifacts:
+    option_daily_bars: data/raw/options/polygon_soxl_safe_haven_daily/option_daily_bars.parquet
+    selected_contracts: data/raw/options/polygon_soxl_safe_haven_daily/selected_contracts.csv
+    contracts: data/raw/options/polygon_soxl_safe_haven_daily/contracts.parquet

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import time
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Iterable, Sequence
 from zoneinfo import ZoneInfo
 
@@ -450,11 +451,22 @@ def _target_contract_type_and_strike(target_name: str, underlying_open: float) -
         return "call", underlying_open
     if name == "atm_put":
         return "put", underlying_open
-    if name == "put_90":
-        return "put", 0.90 * underlying_open
-    if name == "call_115":
-        return "call", 1.15 * underlying_open
+    if name.startswith("put_"):
+        return "put", _parse_strike_ratio(name, prefix="put_") * underlying_open
+    if name.startswith("call_"):
+        return "call", _parse_strike_ratio(name, prefix="call_") * underlying_open
     raise ValueError(f"unsupported option target spec: {target_name}")
+
+
+def _parse_strike_ratio(target_name: str, *, prefix: str) -> float:
+    raw_ratio = target_name.removeprefix(prefix)
+    try:
+        ratio = float(raw_ratio) / 100.0
+    except ValueError as exc:
+        raise ValueError(f"unsupported option target spec: {target_name}") from exc
+    if ratio <= 0:
+        raise ValueError(f"option target ratio must be positive: {target_name}")
+    return ratio
 
 
 def option_ticker_date_bounds(selections: pd.DataFrame, *, fetch_until: str) -> pd.DataFrame:

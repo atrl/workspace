@@ -1,0 +1,17 @@
+{
+  "funding_budgets": [
+    0.005,
+    0.01,
+    0.02
+  ],
+  "promotion_decision": "not_promoted_convexity_insufficient",
+  "safe_haven_min_net_multiple": 10.0,
+  "selected_model": "none",
+  "selection_reason": "No candidate passed the pre-declared convexity screen.",
+  "strategy_class": "diagnostic_safe_haven_otm_put_sleeve",
+  "targets": [
+    "put_80",
+    "put_70",
+    "put_60"
+  ]
+}

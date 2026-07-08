@@ -1,0 +1,4 @@
+date,target,option_ticker,strike_price,strike_to_open,dte,soxl_open,soxl_close,soxl_open_close_return,option_open,option_close,option_volume,option_transactions,option_raw_return,option_cost_return,has_same_day_quote,0.5%_portfolio_improvement_pct,1.0%_portfolio_improvement_pct,2.0%_portfolio_improvement_pct
+2026-07-02,put_60,O:SOXL260731P00132000,132.0,0.6021073875495155,29,219.23,181.47,-0.17223918,,,,,,,False,,,
+2026-07-02,put_70,O:SOXL260731P00153000,153.0,0.6978971992051203,29,219.23,181.47,-0.17223918,,,,,,,False,,,
+2026-07-02,put_80,O:SOXL260731P00175000,175.0,0.7982484304633729,29,219.23,181.47,-0.17223918,25.0,34.0,140.0,67.0,0.3600000000000001,0.28077669902912605,True,0.22650794170435185,0.4530158834087037,0.9060317668174074

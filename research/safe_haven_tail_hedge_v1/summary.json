@@ -1,0 +1,386 @@
+{
+  "analysis_summary": {
+    "as_of": "2026-07-02",
+    "benchmark": {
+      "annual_vol_pct": 102.12723117361531,
+      "avg_day_pct": 0.6497949600219727,
+      "best_day_pct": 17.161071300506592,
+      "days": 125.0,
+      "funding_budget": 0.0,
+      "max_drawdown_pct": -43.87106944701679,
+      "model": "soxl_open_close_benchmark",
+      "role": "benchmark",
+      "sharpe": 1.6033757896282,
+      "target": "",
+      "total_return_pct": 73.11726177685888,
+      "worst_day_pct": -20.926398038864136
+    },
+    "best_daily_sleeve": {
+      "annual_vol_pct": 98.46331534928191,
+      "avg_day_pct": 0.577023323562735,
+      "best_day_pct": 17.161071300506592,
+      "days": 125.0,
+      "drawdown_improvement_vs_soxl_pct": 1.3320361241028422,
+      "excess_return_vs_soxl_pct": -11.98352034796001,
+      "funding_budget": 0.02,
+      "max_drawdown_pct": -42.539033322913944,
+      "model": "2.0%_funded_put_80_daily_cost3%",
+      "quote_days_used": 77.0,
+      "quote_rate": 0.616,
+      "role": "daily_funded_otm_put_sleeve",
+      "selection_days": 125.0,
+      "sharpe": 1.4767924177851655,
+      "target": "put_80",
+      "total_return_pct": 61.13374142889887,
+      "worst_day_pct": -19.895415961104167
+    },
+    "event_date": "2026-07-02",
+    "event_trace": [
+      {
+        "0.5%_portfolio_improvement_pct": null,
+        "1.0%_portfolio_improvement_pct": null,
+        "2.0%_portfolio_improvement_pct": null,
+        "date": "2026-07-02",
+        "dte": 29,
+        "has_same_day_quote": false,
+        "option_close": null,
+        "option_cost_return": null,
+        "option_open": null,
+        "option_raw_return": null,
+        "option_ticker": "O:SOXL260731P00132000",
+        "option_transactions": null,
+        "option_volume": null,
+        "soxl_close": 181.47000122070312,
+        "soxl_open": 219.22999572753906,
+        "soxl_open_close_return": -0.17223918437957764,
+        "strike_price": 132.0,
+        "strike_to_open": 0.6021073875495155,
+        "target": "put_60"
+      },
+      {
+        "0.5%_portfolio_improvement_pct": null,
+        "1.0%_portfolio_improvement_pct": null,
+        "2.0%_portfolio_improvement_pct": null,
+        "date": "2026-07-02",
+        "dte": 29,
+        "has_same_day_quote": false,
+        "option_close": null,
+        "option_cost_return": null,
+        "option_open": null,
+        "option_raw_return": null,
+        "option_ticker": "O:SOXL260731P00153000",
+        "option_transactions": null,
+        "option_volume": null,
+        "soxl_close": 181.47000122070312,
+        "soxl_open": 219.22999572753906,
+        "soxl_open_close_return": -0.17223918437957764,
+        "strike_price": 153.0,
+        "strike_to_open": 0.6978971992051203,
+        "target": "put_70"
+      },
+      {
+        "0.5%_portfolio_improvement_pct": 0.22650794170435185,
+        "1.0%_portfolio_improvement_pct": 0.4530158834087037,
+        "2.0%_portfolio_improvement_pct": 0.9060317668174074,
+        "date": "2026-07-02",
+        "dte": 29,
+        "has_same_day_quote": true,
+        "option_close": 34.0,
+        "option_cost_return": 0.28077669902912605,
+        "option_open": 25.0,
+        "option_raw_return": 0.3600000000000001,
+        "option_ticker": "O:SOXL260731P00175000",
+        "option_transactions": 67.0,
+        "option_volume": 140.0,
+        "soxl_close": 181.47000122070312,
+        "soxl_open": 219.22999572753906,
+        "soxl_open_close_return": -0.17223918437957764,
+        "strike_price": 175.0,
+        "strike_to_open": 0.7982484304633729,
+        "target": "put_80"
+      }
+    ],
+    "execution_basis": "SOXL open_to_close with option daily open_to_close aggregate",
+    "experiment": "safe_haven_tail_hedge_v1",
+    "option_roundtrip_spread_pct": 0.03,
+    "option_snapshot_dir": "/Users/rziiiii/dev/workspace/data/raw/options/polygon_soxl_safe_haven_daily",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "qlib_docs": {
+      "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+      "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+      "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+    },
+    "qlib_native_api": [
+      "qlib.init",
+      "qlib.data.D.features",
+      "qlib.workflow.R.start",
+      "qlib.workflow.R.log_params",
+      "qlib.workflow.R.log_metrics",
+      "qlib.workflow.Recorder.log_artifact"
+    ],
+    "quote_coverage": [
+      {
+        "avg_option_open": 7.724025974025974,
+        "avg_strike_to_open": 0.799913154358776,
+        "median_transactions": 10.0,
+        "median_volume": 25.0,
+        "quote_days": 77,
+        "quote_rate": 0.616,
+        "selection_days": 125,
+        "target": "put_80"
+      },
+      {
+        "avg_option_open": 5.066119402985075,
+        "avg_strike_to_open": 0.7004451036985836,
+        "median_transactions": 10.0,
+        "median_volume": 34.0,
+        "quote_days": 67,
+        "quote_rate": 0.536,
+        "selection_days": 125,
+        "target": "put_70"
+      },
+      {
+        "avg_option_open": 3.17125,
+        "avg_strike_to_open": 0.6001994362847612,
+        "median_transactions": 16.5,
+        "median_volume": 50.5,
+        "quote_days": 72,
+        "quote_rate": 0.576,
+        "selection_days": 125,
+        "target": "put_60"
+      }
+    ],
+    "rows": {
+      "future_option_bar_rows_excluded": 78,
+      "option_bar_rows_used": 5009,
+      "selection_rows": 375,
+      "spot_days": 125,
+      "tail_payoff_cases": 15
+    },
+    "safe_haven_screen": {
+      "benchmark_max_drawdown_pct": -43.87106944701679,
+      "benchmark_total_return_pct": 73.11726177685888,
+      "best_daily_drawdown_improvement_pct": 1.3320361241028422,
+      "best_daily_return_gap_pct": -3.048380680593624,
+      "diagnosis": "SOXL OTM puts were expensive and not deep-convex enough into the 2026-07-02 selloff; daily aggregate liquidity is sparse for deeper strikes.",
+      "event_date": "2026-07-02",
+      "event_put80_cost_return_pct": 28.077669902912604,
+      "event_soxl_open_close_return_pct": -17.223918437957764,
+      "event_targets_with_same_day_quotes": [
+        "put_80"
+      ],
+      "max_pre_event_net_multiple_to_event": 2.169443954104148,
+      "passes_safe_haven_convexity": false,
+      "promotion_decision": "not_promoted_convexity_insufficient",
+      "required_event_option_return_for_5pp_improvement_with_1pct_budget_pct": 482.77608156204224,
+      "safe_haven_min_net_multiple": 10.0
+    },
+    "source": "qlib_spot_plus_polygon_option_daily_snapshot",
+    "tail_payoff_summary": [
+      {
+        "case_count": 5,
+        "max_net_multiple": 2.0852981969486826,
+        "median_entry_volume": 68.0,
+        "median_exit_volume": 220.0,
+        "median_net_multiple": 1.7386109036594475,
+        "target": "put_60"
+      },
+      {
+        "case_count": 4,
+        "max_net_multiple": 2.09897625473818,
+        "median_entry_volume": 38.5,
+        "median_exit_volume": 90.0,
+        "median_net_multiple": 1.821107208708187,
+        "target": "put_70"
+      },
+      {
+        "case_count": 6,
+        "max_net_multiple": 2.169443954104148,
+        "median_entry_volume": 11.0,
+        "median_exit_volume": 8.5,
+        "median_net_multiple": 1.6994607754588125,
+        "target": "put_80"
+      }
+    ]
+  },
+  "artifact_policy": {
+    "kept_sidecars": [
+      "analysis_summary.json",
+      "backtest_benchmark_comparison.csv",
+      "event_trace.csv",
+      "failure_modes.md",
+      "model_comparison.csv",
+      "quote_coverage.csv",
+      "risk_analysis.csv",
+      "selected_model.json",
+      "tail_payoff_cases.csv",
+      "tail_payoff_summary.csv"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "safe_haven_tail_hedge_v1.ipynb",
+    "raw_snapshot_artifacts": {
+      "contracts": "data/raw/options/polygon_soxl_safe_haven_daily/contracts.parquet",
+      "option_daily_bars": "data/raw/options/polygon_soxl_safe_haven_daily/option_daily_bars.parquet",
+      "selected_contracts": "data/raw/options/polygon_soxl_safe_haven_daily/selected_contracts.csv"
+    },
+    "recorder_only_artifacts": {
+      "same_day_option_trace": "artifacts/safe_haven_tail_hedge_v1/same_day_option_trace.csv"
+    },
+    "reproducible_from_recorder": true,
+    "workflow_config": "workflow.yaml"
+  },
+  "card_type": "safe_haven_tail_hedge_diagnostic",
+  "experiment": "safe_haven_tail_hedge_v1",
+  "option_snapshot_dir": "/Users/rziiiii/dev/workspace/data/raw/options/polygon_soxl_safe_haven_daily",
+  "option_snapshot_manifest": {
+    "bar_request_status_counts": {
+      "blocked_no_rows": 2,
+      "ok": 315
+    },
+    "bars": {
+      "date_end": "2026-07-07",
+      "date_start": "2026-01-02",
+      "rows": 5087,
+      "unique_option_tickers": 315
+    },
+    "contract_request_status_counts": {
+      "ok": 2
+    },
+    "contracts": {
+      "expiration_end": "2026-08-07",
+      "expiration_start": "2026-01-30",
+      "rows": 8264,
+      "unique_option_tickers": 8264
+    },
+    "created_at": "2026-07-08T16:05:03.632456+00:00",
+    "fetch_until": "2026-07-08",
+    "limitations": [
+      "Polygon/Massive rate limits can leave a partial snapshot; inspect audits.bar_requests statuses.",
+      "Contract definitions are selected by expiration window and do not prove each contract was listed on every trade date.",
+      "Daily aggregates are OHLCV bars, not full bid/ask NBBO, IV surface, or Greeks."
+    ],
+    "max_dte": 35,
+    "min_dte": 25,
+    "provider": "polygon",
+    "requested_end": "2026-07-02",
+    "requested_start": "2026-01-02",
+    "schema_version": 1,
+    "selections": {
+      "rows": 375,
+      "trade_dates": 125,
+      "unique_option_tickers": 317
+    },
+    "target_specs": [
+      "put_80",
+      "put_70",
+      "put_60"
+    ],
+    "underlying": "SOXL"
+  },
+  "option_snapshot_manifest_path": "/Users/rziiiii/dev/workspace/data/raw/options/polygon_soxl_safe_haven_daily/manifest.json",
+  "promotion_decision": "not_promoted_convexity_insufficient",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.R.log_params",
+    "qlib.workflow.R.log_metrics",
+    "qlib.workflow.Recorder.log_artifact"
+  ],
+  "recorder_artifacts": [
+    "artifacts/safe_haven_tail_hedge_v1/analysis_summary.json",
+    "artifacts/safe_haven_tail_hedge_v1/backtest_benchmark_comparison.csv",
+    "artifacts/safe_haven_tail_hedge_v1/event_trace.csv",
+    "artifacts/safe_haven_tail_hedge_v1/failure_modes.md",
+    "artifacts/safe_haven_tail_hedge_v1/model_comparison.csv",
+    "artifacts/safe_haven_tail_hedge_v1/quote_coverage.csv",
+    "artifacts/safe_haven_tail_hedge_v1/risk_analysis.csv",
+    "artifacts/safe_haven_tail_hedge_v1/same_day_option_trace.csv",
+    "artifacts/safe_haven_tail_hedge_v1/selected_model.json",
+    "artifacts/safe_haven_tail_hedge_v1/tail_payoff_cases.csv",
+    "artifacts/safe_haven_tail_hedge_v1/tail_payoff_summary.csv",
+    "meta.yaml",
+    "metrics/benchmark_max_drawdown_pct",
+    "metrics/benchmark_total_return_pct",
+    "metrics/best_daily_drawdown_improvement_pct",
+    "metrics/best_daily_return_gap_pct",
+    "metrics/event_put80_cost_return_pct",
+    "metrics/event_soxl_open_close_return_pct",
+    "metrics/max_pre_event_net_multiple_to_event",
+    "params/as_of",
+    "params/cmd-sys.argv",
+    "params/end",
+    "params/event_date",
+    "params/execution_basis",
+    "params/experiment",
+    "params/funding_budgets",
+    "params/option_roundtrip_spread_pct",
+    "params/option_snapshot_dir",
+    "params/pre_event_entry_start",
+    "params/provider_uri",
+    "params/start",
+    "params/targets",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "c42c9ae118a64e6d831cd297aa6a0ddb",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/safe_haven_tail_hedge_v1/qlib_recorder/885389558869163610/c42c9ae118a64e6d831cd297aa6a0ddb",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/safe_haven_tail_hedge_v1/qlib_recorder",
+  "safe_haven_screen": {
+    "benchmark_max_drawdown_pct": -43.87106944701679,
+    "benchmark_total_return_pct": 73.11726177685888,
+    "best_daily_drawdown_improvement_pct": 1.3320361241028422,
+    "best_daily_return_gap_pct": -3.048380680593624,
+    "diagnosis": "SOXL OTM puts were expensive and not deep-convex enough into the 2026-07-02 selloff; daily aggregate liquidity is sparse for deeper strikes.",
+    "event_date": "2026-07-02",
+    "event_put80_cost_return_pct": 28.077669902912604,
+    "event_soxl_open_close_return_pct": -17.223918437957764,
+    "event_targets_with_same_day_quotes": [
+      "put_80"
+    ],
+    "max_pre_event_net_multiple_to_event": 2.169443954104148,
+    "passes_safe_haven_convexity": false,
+    "promotion_decision": "not_promoted_convexity_insufficient",
+    "required_event_option_return_for_5pp_improvement_with_1pct_budget_pct": 482.77608156204224,
+    "safe_haven_min_net_multiple": 10.0
+  },
+  "selected_model": {
+    "funding_budgets": [
+      0.005,
+      0.01,
+      0.02
+    ],
+    "promotion_decision": "not_promoted_convexity_insufficient",
+    "safe_haven_min_net_multiple": 10.0,
+    "selected_model": "none",
+    "selection_reason": "No candidate passed the pre-declared convexity screen.",
+    "strategy_class": "diagnostic_safe_haven_otm_put_sleeve",
+    "targets": [
+      "put_80",
+      "put_70",
+      "put_60"
+    ]
+  },
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "event_trace": "event_trace.csv",
+    "failure_modes": "failure_modes.md",
+    "model_comparison": "model_comparison.csv",
+    "quote_coverage": "quote_coverage.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json",
+    "tail_payoff_cases": "tail_payoff_cases.csv",
+    "tail_payoff_summary": "tail_payoff_summary.csv"
+  },
+  "workflow_config": "workflow.yaml"
+}

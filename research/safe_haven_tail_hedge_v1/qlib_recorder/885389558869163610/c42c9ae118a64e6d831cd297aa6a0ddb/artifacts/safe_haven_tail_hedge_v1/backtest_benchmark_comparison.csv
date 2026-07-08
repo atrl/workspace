@@ -1,0 +1,11 @@
+model,benchmark,model_return_pct,benchmark_return_pct,return_gap_pct,model_max_drawdown_pct,benchmark_max_drawdown_pct,drawdown_gap_pct,beats_return,beats_drawdown,role
+soxl_open_close_benchmark,soxl_open_close_benchmark,73.11726177685888,73.11726177685888,0.0,-43.87106944701679,-43.87106944701679,0.0,False,False,benchmark
+0.5%_funded_put_80_daily_cost3%,soxl_open_close_benchmark,70.06888109626526,73.11726177685888,-3.048380680593624,-43.53925636719029,-43.87106944701679,0.331813079826496,False,True,daily_funded_otm_put_sleeve
+1.0%_funded_put_80_daily_cost3%,soxl_open_close_benchmark,67.055457108566,73.11726177685888,-6.061804668292879,-43.206644116004234,-43.87106944701679,0.6644253310125521,False,True,daily_funded_otm_put_sleeve
+2.0%_funded_put_80_daily_cost3%,soxl_open_close_benchmark,61.13374142889887,73.11726177685888,-11.98352034796001,-42.539033322913944,-43.87106944701679,1.3320361241028422,False,True,daily_funded_otm_put_sleeve
+0.5%_funded_put_70_daily_cost3%,soxl_open_close_benchmark,69.14846339891642,73.11726177685888,-3.9687983779424627,-43.80313940202495,-43.87106944701679,0.06793004499184008,False,True,daily_funded_otm_put_sleeve
+1.0%_funded_put_70_daily_cost3%,soxl_open_close_benchmark,65.25514974807946,73.11726177685888,-7.862112028779421,-43.73555892939851,-43.87106944701679,0.13551051761827893,False,True,daily_funded_otm_put_sleeve
+2.0%_funded_put_70_daily_cost3%,soxl_open_close_benchmark,57.69086581222873,73.11726177685888,-15.426395964630153,-43.60145080424882,-43.87106944701679,0.2696186427679663,False,True,daily_funded_otm_put_sleeve
+0.5%_funded_put_60_daily_cost3%,soxl_open_close_benchmark,67.9335763430066,73.11726177685888,-5.1836854338522755,-43.56019489687824,-43.87106944701679,0.3108745501385499,False,True,daily_funded_otm_put_sleeve
+1.0%_funded_put_60_daily_cost3%,soxl_open_close_benchmark,62.8767530000208,73.11726177685888,-10.240508776838084,-43.25197916936985,-43.87106944701679,0.61909027764694,False,True,daily_funded_otm_put_sleeve
+2.0%_funded_put_60_daily_cost3%,soxl_open_close_benchmark,53.13595279388825,73.11726177685888,-19.98130898297063,-42.643540340410645,-43.87106944701679,1.2275291066061413,False,True,daily_funded_otm_put_sleeve

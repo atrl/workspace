@@ -35,6 +35,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--targets", nargs="+", default=["atm_call", "atm_put"])
     parser.add_argument("--sleep-seconds", type=float, default=13.0)
     parser.add_argument("--max-contracts", type=int, default=0, help="Optional debug cap for unique option tickers.")
+    parser.add_argument("--checkpoint-every", type=int, default=25)
     return parser.parse_args()
 
 
@@ -100,6 +101,7 @@ def main() -> int:
 
     bar_parts: list[pd.DataFrame] = []
     bar_audits: list[dict[str, object]] = []
+    last_checkpoint_count = 0
     for idx, row in enumerate(bounds.itertuples(index=False), start=1):
         bars, audit = fetch_polygon_option_daily_bars(
             row.option_ticker,
@@ -114,13 +116,36 @@ def main() -> int:
             f"[{idx}/{len(bounds)}] {row.option_ticker} {row.start}..{row.end} "
             f"{audit['status']} rows={audit['row_count']}"
         )
+        should_checkpoint = args.checkpoint_every > 0 and idx % args.checkpoint_every == 0
+        if should_checkpoint:
+            partial_bars = _merge_bar_parts(bar_parts)
+            partial_manifest = build_option_snapshot_manifest(
+                underlying=underlying,
+                provider="polygon",
+                requested_start=args.start,
+                requested_end=args.end,
+                fetch_until=args.fetch_until,
+                target_specs=args.targets,
+                min_dte=args.min_dte,
+                max_dte=args.max_dte,
+                contracts=contracts,
+                selections=selections,
+                bars=partial_bars,
+                contract_audits=contract_audits,
+                bar_audits=bar_audits,
+            )
+            write_option_daily_snapshot(
+                output_dir=Path(args.output_dir),
+                contracts=contracts,
+                selections=selections,
+                bars=partial_bars,
+                manifest=partial_manifest,
+            )
+            last_checkpoint_count = idx
+            print(f"checkpoint wrote {idx}/{len(bounds)} to {Path(args.output_dir).resolve()}")
         if idx < len(bounds):
             time.sleep(args.sleep_seconds)
-    bars = (
-        merge_option_daily_bars(pd.DataFrame(), pd.concat([part for part in bar_parts if not part.empty], ignore_index=True))
-        if any(not part.empty for part in bar_parts)
-        else pd.DataFrame()
-    )
+    bars = _merge_bar_parts(bar_parts)
     manifest = build_option_snapshot_manifest(
         underlying=underlying,
         provider="polygon",
@@ -146,9 +171,16 @@ def main() -> int:
     print(f"wrote {Path(args.output_dir).resolve()}")
     print(
         f"contracts={len(contracts)} selections={len(selections)} "
-        f"unique_selected={selections['option_ticker'].nunique()} bars={len(bars)}"
+        f"unique_selected={selections['option_ticker'].nunique()} bars={len(bars)} "
+        f"last_checkpoint={last_checkpoint_count}"
     )
     return 0
+
+
+def _merge_bar_parts(bar_parts: list[pd.DataFrame]) -> pd.DataFrame:
+    if not any(not part.empty for part in bar_parts):
+        return pd.DataFrame()
+    return merge_option_daily_bars(pd.DataFrame(), pd.concat([part for part in bar_parts if not part.empty], ignore_index=True))
 
 
 if __name__ == "__main__":
