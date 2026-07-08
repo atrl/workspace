@@ -1709,6 +1709,68 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_v10_records_fixed_risk_budget_temp
     assert "不构成买卖建议" in conclusion
 
 
+def test_dynamic_soxx_soxl_cash_allocation_wf_v11_records_no_template_regime_satellite_failure():
+    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v11"
+    summary = _summary(card)
+    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v11.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v11"
+    assert summary["card_type"] == "dynamic_soxx_soxl_cash_no_template_regime_satellite_card"
+    assert summary["benchmark_asset"] == "SOXX"
+    assert summary["benchmark_basis"] == "open_to_open"
+    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+    assert summary["final_position_source"] == "no_template_ml_regime_satellite"
+    assert summary["template_usage"] == {
+        "uses_template_as_final_position_source": False,
+        "template_allowed_roles": ["benchmark_only", "teacher_diagnostic_only"],
+    }
+
+    selected = summary["selected_model"]
+    benchmark = summary["benchmark"]
+    assert selected["selection_uses_outer_test"] is False
+    assert selected["required_policy_satisfied"] is False
+    assert selected["stitched_return_pct"] < benchmark["return_pct"]
+    assert selected["stitched_max_drawdown_pct"] < -10.0
+    assert "no_template_regime_satellite_failed_target" in selected["blocking_reasons"]
+    assert summary["capacity_frontier"]["passes_target_count"] == 0
+    assert summary["generalization_assessment"]["promotable"] is False
+
+    assert set(summary["model_families"]) >= {"xgb", "lgbm", "avg_xgb_lgb"}
+    assert "XGBClassifier" in summary["qlib_native_api"]
+    assert "LGBMClassifier" in summary["qlib_native_api"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v11/capacity_grid.csv",
+        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v11/selected_positions.csv",
+    ]
+    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+    assert not (card / "capacity_grid.csv").exists()
+    assert not (card / "selected_positions.csv").exists()
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+
+    model_comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
+    assert set(model_comparison["model"]) == {"xgb", "lgbm", "avg_xgb_lgb"}
+    assert model_comparison["required_policy_satisfied"].eq(False).all()
+
+    nested = pd.read_csv(card / summary["sidecars"]["nested_walk_forward"])
+    assert set(nested["outer_year"]) == {2023, 2024, 2025, 2026}
+    assert nested["selection_uses_outer_test"].eq(False).all()
+
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "capacity_grid.csv").exists()
+    assert (recorder_dir / "artifacts" / summary["experiment"] / "selected_positions.csv").exists()
+    assert summary["recorder_id"] in notebook_text
+    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v11_card" in notebook_text
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "no-template" in notebook_text
+    assert "不晋升" in conclusion
+    assert "不构成买卖建议" in conclusion
+
+
 def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
     card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
     summary = _summary(card)

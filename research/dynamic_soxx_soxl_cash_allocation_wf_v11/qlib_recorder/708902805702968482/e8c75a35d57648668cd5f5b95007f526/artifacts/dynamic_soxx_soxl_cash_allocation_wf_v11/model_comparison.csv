@@ -1,0 +1,4 @@
+model,capacity_passes_target_count,capacity_best_drawdown_safe_return_pct,capacity_best_drawdown_safe_max_drawdown_pct,stitched_return_pct,stitched_max_drawdown_pct,stitched_excess_vs_soxx_pct,required_policy_satisfied,selection_score
+xgb,0,67.2894011227418,-9.791860682073272,48.195868999153824,-15.545954688328866,-365.4606613487798,False,-506.39959983373274
+lgbm,0,,,51.59201030147125,-14.895264692599442,-362.0645200464624,False,-437.93445895847293
+avg_xgb_lgb,0,41.2228703253263,-9.790780250901943,43.30924134432952,-13.795163033787839,-370.34728900360415,False,-336.2070620344544
