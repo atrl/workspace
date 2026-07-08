@@ -24,6 +24,17 @@ from .intraday import (
     resample_intraday_bars,
     write_intraday_cache,
 )
+from .options import (
+    build_option_snapshot_manifest,
+    fetch_polygon_option_contracts,
+    fetch_polygon_option_daily_bars,
+    merge_option_daily_bars,
+    normalize_polygon_option_contracts,
+    normalize_polygon_option_daily_aggregates,
+    option_ticker_date_bounds,
+    select_daily_option_targets,
+    write_option_daily_snapshot,
+)
 from .soxx_constituents import (
     SoxxConstituentPaths,
     SoxxHoldingsSnapshot,
@@ -57,6 +68,15 @@ __all__ = [
     "read_intraday_cache",
     "resample_intraday_bars",
     "write_intraday_cache",
+    "build_option_snapshot_manifest",
+    "fetch_polygon_option_contracts",
+    "fetch_polygon_option_daily_bars",
+    "merge_option_daily_bars",
+    "normalize_polygon_option_contracts",
+    "normalize_polygon_option_daily_aggregates",
+    "option_ticker_date_bounds",
+    "select_daily_option_targets",
+    "write_option_daily_snapshot",
     "SoxxConstituentPaths",
     "SoxxHoldingsSnapshot",
     "build_soxx_constituent_qlib_store",
