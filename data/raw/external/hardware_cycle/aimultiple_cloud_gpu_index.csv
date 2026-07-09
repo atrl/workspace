@@ -1,0 +1,708 @@
+datetime,field,value,series_id,category,gpu_model,billing_type,chart_index,source
+2024-07-01,cloud_gpu_a100_on_demand,2.11,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_a100_on_demand,2.6,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_a100_on_demand,2.4,A100,,nvidia-a100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_a100_reservation,1.34,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_a100_reservation,1.34,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_a100_reservation,1.39,A100,,nvidia-a100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_a100_spot,1.08,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_a100_spot,1.08,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_a100_spot,1.08,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_a100_spot,1.08,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_a100_spot,0.8,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_a100_spot,0.8,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_a100_spot,0.8,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_a100_spot,0.69,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_a100_spot,0.69,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_a100_spot,0.53,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_a100_spot,0.46,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_a100_spot,0.67,A100,,nvidia-a100,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_a10_on_demand,1.1,A10,,nvidia-a10,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_a10_on_demand,1.1,A10,,nvidia-a10,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_a10g_on_demand,0.75,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_a10g_on_demand,1.97,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_a10g_on_demand,1.97,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_a10g_on_demand,1.97,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_a10g_on_demand,1.97,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_a10g_on_demand,0.79,A10G,,nvidia-a10g,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_a10g_reservation,1.05,A10G,,nvidia-a10g,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_a10g_reservation,1.05,A10G,,nvidia-a10g,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_a10g_reservation,1.05,A10G,,nvidia-a10g,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_a10g_reservation,1.05,A10G,,nvidia-a10g,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_a10g_reservation,1.05,A10G,,nvidia-a10g,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_a10g_reservation,1.05,A10G,,nvidia-a10g,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_a10g_spot,0.39,A10G,,nvidia-a10g,SPOT,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_b200_on_demand,4.9,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_b200_on_demand,5.31,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_b200_on_demand,4.49,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_b200_on_demand,2.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_b200_on_demand,2.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_b200_on_demand,2.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_b200_on_demand,2.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_b200_on_demand,2.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_b200_on_demand,2.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_b200_on_demand,2.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_b200_on_demand,3.99,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_b200_on_demand,4.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_b200_on_demand,4.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_b200_on_demand,4.89,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_b200_on_demand,6.11,B200,,nvidia-b200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_b200_reservation,2.89,B200,,nvidia-b200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_b200_spot,2.69,B200,,nvidia-b200,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_b200_spot,2.69,B200,,nvidia-b200,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_b200_spot,3.59,B200,,nvidia-b200,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_b200_spot,3.59,B200,,nvidia-b200,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_b200_spot,3.05,B200,,nvidia-b200,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_b200_spot,2.97,B200,,nvidia-b200,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_b200_spot,3.74,B200,,nvidia-b200,SPOT,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_b300_on_demand,5.89,B300,,nvidia-b300,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_b300_on_demand,4.95,B300,,nvidia-b300,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_b300_on_demand,4.95,B300,,nvidia-b300,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_b300_on_demand,4.95,B300,,nvidia-b300,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_b300_on_demand,6.99,B300,,nvidia-b300,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_b300_on_demand,6.99,B300,,nvidia-b300,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_b300_on_demand,6.99,B300,,nvidia-b300,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_b300_on_demand,7.5,B300,,nvidia-b300,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_b300_reservation,5.65,B300,,nvidia-b300,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_b300_reservation,5.65,B300,,nvidia-b300,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_b300_reservation,5.65,B300,,nvidia-b300,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_b300_reservation,5.51,B300,,nvidia-b300,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_b300_spot,6.94,B300,,nvidia-b300,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_b300_spot,0.81,B300,,nvidia-b300,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_b300_spot,2.67,B300,,nvidia-b300,SPOT,3,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_h100_on_demand,2.5,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_h100_on_demand,2.5,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_h100_on_demand,2.5,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_h100_on_demand,2.5,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_h100_on_demand,2.5,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_h100_on_demand,2.3,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_h100_on_demand,2.3,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_h100_on_demand,2.3,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_h100_on_demand,2.3,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_h100_on_demand,2.3,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_h100_on_demand,2.3,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_h100_on_demand,2.3,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_h100_on_demand,2.3,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_h100_on_demand,2.65,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_h100_on_demand,2.65,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_h100_on_demand,2.65,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_h100_on_demand,2.65,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_h100_on_demand,2.99,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_h100_on_demand,2.99,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_h100_on_demand,2.99,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_h100_on_demand,2.99,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_h100_on_demand,2.99,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_h100_on_demand,2.99,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_h100_on_demand,2.99,H100,,nvidia-h100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_h100_reservation,2.3,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_h100_reservation,5.47,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_h100_reservation,5.47,H100,,nvidia-h100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_h100_spot,0.9,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_h100_spot,0.9,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_h100_spot,0.9,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_h100_spot,0.9,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_h100_spot,0.73,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_h100_spot,0.73,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_h100_spot,1.38,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_h100_spot,1.38,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_h100_spot,1.1,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_h100_spot,1.33,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_h100_spot,1.54,H100,,nvidia-h100,SPOT,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_h200_on_demand,3.59,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_h200_on_demand,3.59,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_h200_on_demand,3.03,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_h200_on_demand,3.03,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_h200_on_demand,3.03,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_h200_on_demand,3.03,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_h200_on_demand,3.03,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_h200_on_demand,3.03,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_h200_on_demand,3.03,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_h200_on_demand,2.9,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_h200_on_demand,2.02,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_h200_on_demand,1.9,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_h200_on_demand,1.9,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_h200_on_demand,2.59,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_h200_on_demand,2.9,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_h200_on_demand,2.9,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_h200_on_demand,2.99,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_h200_on_demand,3.39,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_h200_on_demand,3.39,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_h200_on_demand,3.39,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_h200_on_demand,4.0,H200,,nvidia-h200,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_h200_reservation,2.45,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_h200_reservation,2.45,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_h200_reservation,2.45,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_h200_reservation,2.45,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_h200_reservation,2.3,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_h200_reservation,2.3,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_h200_reservation,2.3,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_h200_reservation,3.12,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_h200_reservation,3.12,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_h200_reservation,2.32,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_h200_reservation,5.47,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_h200_reservation,5.47,H200,,nvidia-h200,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_h200_spot,1.63,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_h200_spot,1.63,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_h200_spot,1.63,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_h200_spot,1.63,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_h200_spot,1.63,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_h200_spot,1.63,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_h200_spot,2.29,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_h200_spot,2.29,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_h200_spot,1.94,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_h200_spot,3.04,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_h200_spot,2.47,H200,,nvidia-h200,SPOT,3,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_l40s_on_demand,2.23,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_l40s_on_demand,1.67,L40S,,nvidia-l40s,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_l40s_reservation,0.85,L40S,,nvidia-l40s,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_l40s_spot,0.26,L40S,,nvidia-l40s,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_l40s_spot,0.26,L40S,,nvidia-l40s,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_l40s_spot,0.26,L40S,,nvidia-l40s,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_l40s_spot,0.67,L40S,,nvidia-l40s,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_l40s_spot,0.82,L40S,,nvidia-l40s,SPOT,3,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_l4_on_demand,0.9,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_l4_on_demand,0.85,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_l4_on_demand,0.94,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_l4_on_demand,0.94,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_l4_on_demand,0.94,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_l4_on_demand,0.94,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_l4_on_demand,0.94,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_l4_on_demand,0.94,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_l4_on_demand,0.39,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_l4_on_demand,0.39,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_l4_on_demand,0.38,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_l4_on_demand,0.34,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_l4_on_demand,0.34,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_l4_on_demand,0.33,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_l4_on_demand,0.33,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_l4_on_demand,0.34,L4,,nvidia-l4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_l4_reservation,0.82,L4,,nvidia-l4,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_l4_reservation,0.82,L4,,nvidia-l4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_l4_reservation,0.82,L4,,nvidia-l4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_l4_reservation,0.33,L4,,nvidia-l4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_l4_reservation,0.33,L4,,nvidia-l4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_l4_reservation,0.29,L4,,nvidia-l4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_l4_reservation,0.29,L4,,nvidia-l4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_l4_reservation,0.36,L4,,nvidia-l4,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_l4_spot,0.51,L4,,nvidia-l4,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_l4_spot,0.51,L4,,nvidia-l4,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_l4_spot,0.47,L4,,nvidia-l4,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_l4_spot,0.22,L4,,nvidia-l4,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_l4_spot,0.22,L4,,nvidia-l4,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_l4_spot,0.32,L4,,nvidia-l4,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_l4_spot,0.27,L4,,nvidia-l4,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_l4_spot,0.27,L4,,nvidia-l4,SPOT,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_last_released_average,1.93,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_last_released_average,1.93,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_last_released_average,1.93,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_last_released_average,2.31,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_last_released_average,2.58,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_last_released_average,2.58,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_last_released_average,2.27,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_last_released_average,2.79,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_last_released_average,3.1,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_last_released_average,3.25,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_last_released_average,3.34,Last released,last-released,,AVERAGE,1,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_last_released_on_demand,3.99,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_last_released_on_demand,2.12,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_last_released_on_demand,2.12,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_last_released_on_demand,1.87,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_last_released_on_demand,1.87,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_last_released_on_demand,1.87,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_last_released_on_demand,1.87,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_last_released_on_demand,2.99,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_last_released_on_demand,2.99,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_last_released_on_demand,2.99,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_last_released_on_demand,3.07,Last released,last-released,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_last_released_on_demand,50.0,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_last_released_on_demand,50.0,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_last_released_on_demand,50.0,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_last_released_on_demand,51.8,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_last_released_on_demand,44.8,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_last_released_on_demand,51.4,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_last_released_on_demand,52.6,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_last_released_on_demand,55.6,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_last_released_on_demand,30.4,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_last_released_on_demand,42.6,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_last_released_on_demand,46.9,Last released,last-released,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_last_released_reservation,2.35,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_last_released_reservation,2.55,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_last_released_reservation,2.55,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_last_released_reservation,2.55,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_last_released_reservation,1.68,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_last_released_reservation,1.68,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_last_released_reservation,1.68,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_last_released_reservation,1.85,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_last_released_reservation,2.69,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_last_released_reservation,2.81,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_last_released_reservation,3.16,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_last_released_reservation,2.99,Last released,last-released,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_last_released_spot,0.25,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_last_released_spot,0.25,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_last_released_spot,0.25,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_last_released_spot,1.05,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_last_released_spot,1.85,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_last_released_spot,1.85,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_last_released_spot,0.95,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_last_released_spot,1.2,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_last_released_spot,2.39,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_last_released_spot,2.49,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_last_released_spot,2.61,Last released,last-released,,SPOT,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_legacy_average,0.76,Legacy,legacy,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_legacy_average,0.77,Legacy,legacy,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_legacy_average,0.76,Legacy,legacy,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_legacy_average,0.79,Legacy,legacy,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_legacy_average,0.72,Legacy,legacy,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_legacy_average,0.68,Legacy,legacy,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_legacy_average,0.68,Legacy,legacy,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_legacy_average,0.69,Legacy,legacy,,AVERAGE,1,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_legacy_on_demand,1.77,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_legacy_on_demand,1.37,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_legacy_on_demand,1.37,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_legacy_on_demand,1.77,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_legacy_on_demand,1.16,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_legacy_on_demand,1.16,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_legacy_on_demand,1.16,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_legacy_on_demand,1.16,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_legacy_on_demand,1.16,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_legacy_on_demand,1.36,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_legacy_on_demand,1.14,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_legacy_on_demand,1.14,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_legacy_on_demand,1.28,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_legacy_on_demand,1.14,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_legacy_on_demand,1.14,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_legacy_on_demand,1.14,Legacy,legacy,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_legacy_on_demand,75.3,Legacy,legacy,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_legacy_on_demand,76.5,Legacy,legacy,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_legacy_on_demand,77.5,Legacy,legacy,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_legacy_on_demand,78.5,Legacy,legacy,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_legacy_on_demand,80.0,Legacy,legacy,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_legacy_on_demand,57.1,Legacy,legacy,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_legacy_on_demand,53.8,Legacy,legacy,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_legacy_on_demand,71.6,Legacy,legacy,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_legacy_reservation,0.71,Legacy,legacy,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_legacy_reservation,0.71,Legacy,legacy,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_legacy_reservation,0.71,Legacy,legacy,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_legacy_reservation,0.88,Legacy,legacy,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_legacy_reservation,0.88,Legacy,legacy,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_legacy_reservation,0.88,Legacy,legacy,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_legacy_reservation,0.88,Legacy,legacy,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_legacy_reservation,0.88,Legacy,legacy,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_legacy_spot,0.47,Legacy,legacy,,SPOT,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_legacy_spot,0.47,Legacy,legacy,,SPOT,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_legacy_spot,0.43,Legacy,legacy,,SPOT,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_legacy_spot,0.36,Legacy,legacy,,SPOT,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_legacy_spot,0.33,Legacy,legacy,,SPOT,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_legacy_spot,0.2,Legacy,legacy,,SPOT,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_legacy_spot,0.19,Legacy,legacy,,SPOT,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_legacy_spot,0.21,Legacy,legacy,,SPOT,1,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_mi300x_on_demand,3.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_mi300x_on_demand,3.49,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_mi300x_on_demand,3.49,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_mi300x_on_demand,2.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_mi300x_on_demand,2.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_mi300x_on_demand,2.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_mi300x_on_demand,2.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_mi300x_on_demand,3.0,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_mi300x_on_demand,3.15,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_mi300x_on_demand,3.3,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_mi300x_on_demand,3.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_mi300x_on_demand,3.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_mi300x_on_demand,3.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_mi300x_on_demand,3.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_mi300x_on_demand,3.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_mi300x_on_demand,3.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_mi300x_on_demand,3.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_mi300x_on_demand,6.0,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_mi300x_on_demand,6.0,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_mi300x_on_demand,0.5,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_mi300x_on_demand,0.5,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_mi300x_on_demand,1.99,MI300X,,amd-mi300x,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_mi300x_reservation,1.85,MI300X,,amd-mi300x,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_mi300x_spot,1.85,MI300X,,amd-mi300x,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_mi300x_spot,1.85,MI300X,,amd-mi300x,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_mi300x_spot,1.85,MI300X,,amd-mi300x,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_mi300x_spot,0.95,MI300X,,amd-mi300x,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_mi300x_spot,1.45,MI300X,,amd-mi300x,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_mi300x_spot,1.59,MI300X,,amd-mi300x,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_mi300x_spot,1.84,MI300X,,amd-mi300x,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_mi300x_spot,1.45,MI300X,,amd-mi300x,SPOT,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_modern_average,1.37,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_modern_average,1.4,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_modern_average,1.4,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_modern_average,1.46,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_modern_average,1.11,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_modern_average,1.15,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_modern_average,1.2,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_modern_average,1.04,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_modern_average,1.01,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_modern_average,1.02,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_modern_average,1.15,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_modern_average,1.12,Modern,modern,,AVERAGE,1,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_modern_on_demand,1.54,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_modern_on_demand,1.54,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_modern_on_demand,1.29,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_modern_on_demand,1.35,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_modern_on_demand,1.37,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_modern_on_demand,1.37,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_modern_on_demand,1.37,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_modern_on_demand,1.37,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_modern_on_demand,1.37,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_modern_on_demand,1.35,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_modern_on_demand,1.37,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_modern_on_demand,1.39,Modern,modern,,ON_DEMAND,1,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_modern_on_demand,20.0,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_modern_on_demand,49.9,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_modern_on_demand,49.9,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_modern_on_demand,49.9,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_modern_on_demand,54.6,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_modern_on_demand,54.5,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_modern_on_demand,55.9,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_modern_on_demand,54.3,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_modern_on_demand,50.0,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_modern_on_demand,44.0,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_modern_on_demand,50.0,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_modern_on_demand,50.4,Modern,modern,,ON_DEMAND,4,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_modern_reservation,1.61,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_modern_reservation,1.91,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_modern_reservation,1.91,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_modern_reservation,1.91,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_modern_reservation,1.04,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_modern_reservation,1.12,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_modern_reservation,1.36,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_modern_reservation,1.08,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_modern_reservation,1.08,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_modern_reservation,1.08,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_modern_reservation,1.08,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_modern_reservation,1.08,Modern,modern,,RESERVATION,1,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_modern_spot,1.08,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_modern_spot,0.99,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_modern_spot,0.99,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_modern_spot,0.99,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_modern_spot,0.73,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_modern_spot,0.73,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_modern_spot,0.71,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_modern_spot,0.38,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_modern_spot,0.3,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_modern_spot,0.28,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_modern_spot,0.67,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_modern_spot,0.6,Modern,modern,,SPOT,1,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_p100_on_demand,1.48,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_p100_on_demand,0.09,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_p100_on_demand,0.09,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_p100_on_demand,0.09,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_p100_on_demand,0.08,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_p100_on_demand,0.08,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_p100_on_demand,0.08,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_p100_on_demand,0.08,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_p100_on_demand,0.13,P100,,nvidia-p100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_p100_reservation,1.22,P100,,nvidia-p100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_p100_reservation,1.22,P100,,nvidia-p100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_p100_reservation,1.22,P100,,nvidia-p100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_p100_reservation,1.22,P100,,nvidia-p100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_p100_reservation,1.22,P100,,nvidia-p100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_p100_reservation,1.22,P100,,nvidia-p100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_p100_reservation,1.22,P100,,nvidia-p100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_p100_reservation,1.22,P100,,nvidia-p100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_p100_spot,0.47,P100,,nvidia-p100,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_p100_spot,0.47,P100,,nvidia-p100,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_p100_spot,0.43,P100,,nvidia-p100,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_p100_spot,0.36,P100,,nvidia-p100,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_p100_spot,0.33,P100,,nvidia-p100,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_p100_spot,0.07,P100,,nvidia-p100,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_p100_spot,0.07,P100,,nvidia-p100,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_p100_spot,0.15,P100,,nvidia-p100,SPOT,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_rtx_4090_on_demand,0.44,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_rtx_4090_on_demand,0.44,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_rtx_4090_on_demand,0.44,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_rtx_4090_on_demand,0.56,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_rtx_4090_on_demand,0.56,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_rtx_4090_on_demand,0.56,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_rtx_4090_on_demand,0.56,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_rtx_4090_on_demand,0.6,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_rtx_4090_on_demand,0.63,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_rtx_4090_on_demand,0.66,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_rtx_4090_on_demand,0.35,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_rtx_4090_on_demand,0.35,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_rtx_4090_on_demand,0.35,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_rtx_4090_on_demand,0.35,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_rtx_4090_on_demand,0.37,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_rtx_4090_on_demand,0.39,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_rtx_4090_on_demand,0.38,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_rtx_4090_on_demand,0.63,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_rtx_4090_on_demand,0.63,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_rtx_4090_on_demand,0.63,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_rtx_4090_on_demand,0.63,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_rtx_4090_on_demand,0.63,RTX 4090,,nvidia-rtx-4090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_rtx_4090_reservation,0.42,RTX 4090,,nvidia-rtx-4090,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_rtx_4090_reservation,0.44,RTX 4090,,nvidia-rtx-4090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_rtx_4090_reservation,0.44,RTX 4090,,nvidia-rtx-4090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_rtx_4090_reservation,0.51,RTX 4090,,nvidia-rtx-4090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_rtx_4090_reservation,0.51,RTX 4090,,nvidia-rtx-4090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_rtx_4090_reservation,0.36,RTX 4090,,nvidia-rtx-4090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_rtx_4090_reservation,0.6,RTX 4090,,nvidia-rtx-4090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_rtx_4090_reservation,0.53,RTX 4090,,nvidia-rtx-4090,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_rtx_4090_spot,0.18,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_rtx_4090_spot,0.18,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_rtx_4090_spot,0.18,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_rtx_4090_spot,0.18,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_rtx_4090_spot,0.35,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_rtx_4090_spot,0.18,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_rtx_4090_spot,0.2,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_rtx_4090_spot,0.2,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_rtx_4090_spot,0.27,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_rtx_4090_spot,0.39,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_rtx_4090_spot,0.4,RTX 4090,,nvidia-rtx-4090,SPOT,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_rtx_5090_on_demand,0.89,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_rtx_5090_on_demand,0.89,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_rtx_5090_on_demand,0.89,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_rtx_5090_on_demand,0.44,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_rtx_5090_on_demand,0.44,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_rtx_5090_on_demand,0.44,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_rtx_5090_on_demand,0.44,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_rtx_5090_on_demand,0.44,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_rtx_5090_on_demand,0.46,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_rtx_5090_on_demand,0.47,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_rtx_5090_on_demand,0.42,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_rtx_5090_on_demand,0.47,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_rtx_5090_on_demand,0.47,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_rtx_5090_on_demand,0.7,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_rtx_5090_on_demand,0.8,RTX 5090,,nvidia-rtx-5090,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_rtx_5090_reservation,0.23,RTX 5090,,nvidia-rtx-5090,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_rtx_5090_reservation,0.23,RTX 5090,,nvidia-rtx-5090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_rtx_5090_reservation,0.23,RTX 5090,,nvidia-rtx-5090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_rtx_5090_reservation,0.54,RTX 5090,,nvidia-rtx-5090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_rtx_5090_reservation,0.61,RTX 5090,,nvidia-rtx-5090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_rtx_5090_reservation,0.5,RTX 5090,,nvidia-rtx-5090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_rtx_5090_reservation,0.62,RTX 5090,,nvidia-rtx-5090,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_rtx_5090_reservation,0.83,RTX 5090,,nvidia-rtx-5090,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_rtx_5090_spot,0.25,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_rtx_5090_spot,0.25,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_rtx_5090_spot,0.25,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_rtx_5090_spot,0.25,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_rtx_5090_spot,0.32,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_rtx_5090_spot,0.32,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_rtx_5090_spot,0.32,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_rtx_5090_spot,0.32,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_rtx_5090_spot,0.32,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_rtx_5090_spot,0.42,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_rtx_5090_spot,0.53,RTX 5090,,nvidia-rtx-5090,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_rtx_pro_6000_on_demand,1.79,RTX PRO 6000,,nvidia-rtx-pro-6000,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_rtx_pro_6000_on_demand,1.79,RTX PRO 6000,,nvidia-rtx-pro-6000,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_t4_on_demand,0.81,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_t4_on_demand,0.27,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_t4_on_demand,0.27,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_t4_on_demand,0.27,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_t4_on_demand,0.27,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_t4_on_demand,0.27,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_t4_on_demand,0.27,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_t4_on_demand,0.27,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_t4_on_demand,0.15,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_t4_on_demand,0.15,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_t4_on_demand,0.15,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_t4_on_demand,0.15,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_t4_on_demand,0.15,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_t4_on_demand,0.15,T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_t4_reservation,0.53,T4,,nvidia-t4,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_t4_reservation,0.53,T4,,nvidia-t4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_t4_reservation,0.53,T4,,nvidia-t4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_t4_reservation,0.53,T4,,nvidia-t4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_t4_reservation,0.53,T4,,nvidia-t4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_t4_reservation,0.15,T4,,nvidia-t4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_t4_reservation,0.15,T4,,nvidia-t4,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_t4_reservation,0.15,T4,,nvidia-t4,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_t4_spot,0.49,T4,,nvidia-t4,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_t4_spot,0.53,T4,,nvidia-t4,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_t4_spot,0.59,T4,,nvidia-t4,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_t4_spot,0.43,T4,,nvidia-t4,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_t4_spot,0.34,T4,,nvidia-t4,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_t4_spot,0.06,T4,,nvidia-t4,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_t4_spot,0.06,T4,,nvidia-t4,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_t4_spot,0.06,T4,,nvidia-t4,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_tesla_t4_on_demand,0.94,Tesla T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_tesla_t4_on_demand,0.94,Tesla T4,,nvidia-t4,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-07-01,cloud_gpu_v100_on_demand,0.62,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-08-01,cloud_gpu_v100_on_demand,0.62,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-09-01,cloud_gpu_v100_on_demand,0.62,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-10-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-11-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2024-12-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-01-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-02-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-03-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-04-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-05-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-06-01,cloud_gpu_v100_on_demand,0.51,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-07-01,cloud_gpu_v100_on_demand,0.45,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-08-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-09-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-10-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_v100_on_demand,0.14,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_v100_on_demand,0.17,V100,,nvidia-v100,ON_DEMAND,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_v100_reservation,2.0,V100,,nvidia-v100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_v100_reservation,2.0,V100,,nvidia-v100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_v100_reservation,2.0,V100,,nvidia-v100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_v100_reservation,0.42,V100,,nvidia-v100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_v100_reservation,0.42,V100,,nvidia-v100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_v100_reservation,0.33,V100,,nvidia-v100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_v100_reservation,0.29,V100,,nvidia-v100,RESERVATION,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_v100_reservation,0.25,V100,,nvidia-v100,RESERVATION,3,aimultiple_cloud_gpu_index
+2025-11-01,cloud_gpu_v100_spot,0.55,V100,,nvidia-v100,SPOT,3,aimultiple_cloud_gpu_index
+2025-12-01,cloud_gpu_v100_spot,0.55,V100,,nvidia-v100,SPOT,3,aimultiple_cloud_gpu_index
+2026-01-01,cloud_gpu_v100_spot,0.55,V100,,nvidia-v100,SPOT,3,aimultiple_cloud_gpu_index
+2026-02-01,cloud_gpu_v100_spot,0.17,V100,,nvidia-v100,SPOT,3,aimultiple_cloud_gpu_index
+2026-03-01,cloud_gpu_v100_spot,0.17,V100,,nvidia-v100,SPOT,3,aimultiple_cloud_gpu_index
+2026-04-01,cloud_gpu_v100_spot,0.08,V100,,nvidia-v100,SPOT,3,aimultiple_cloud_gpu_index
+2026-05-01,cloud_gpu_v100_spot,0.12,V100,,nvidia-v100,SPOT,3,aimultiple_cloud_gpu_index
+2026-06-01,cloud_gpu_v100_spot,0.25,V100,,nvidia-v100,SPOT,3,aimultiple_cloud_gpu_index

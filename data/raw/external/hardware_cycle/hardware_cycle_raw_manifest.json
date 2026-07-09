@@ -1,0 +1,57 @@
+{
+  "calendar_end": "2026-07-02",
+  "calendar_start": "2019-01-02",
+  "cloud_gpu_field_count": 57,
+  "cloud_gpu_source": "https://aimultiple.com/gpu-index",
+  "limitations": [
+    "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
+    "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
+    "All model-facing hardware-cycle factors must be lagged by the factor builder."
+  ],
+  "proxy_groups": {
+    "ai_accelerator": [
+      "NVDA",
+      "AMD",
+      "AVGO",
+      "TSM",
+      "ASML"
+    ],
+    "ai_server": [
+      "SMCI",
+      "DELL"
+    ],
+    "cloud_capex": [
+      "AMZN",
+      "MSFT",
+      "GOOGL",
+      "ORCL",
+      "META"
+    ],
+    "memory_storage": [
+      "MU",
+      "WDC",
+      "STX"
+    ]
+  },
+  "proxy_symbols": [
+    "NVDA",
+    "AMD",
+    "AVGO",
+    "TSM",
+    "ASML",
+    "MU",
+    "WDC",
+    "STX",
+    "AMZN",
+    "MSFT",
+    "GOOGL",
+    "ORCL",
+    "META",
+    "SMCI",
+    "DELL"
+  ],
+  "raw_cloud_gpu_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/aimultiple_cloud_gpu_index.csv",
+  "raw_daily_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/hardware_cycle_daily.csv",
+  "row_count": 1885,
+  "source": "hardware_cycle_public_market_proxy_and_cloud_gpu_index"
+}

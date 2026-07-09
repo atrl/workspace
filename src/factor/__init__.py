@@ -48,6 +48,11 @@ from .high_chop_ml import (
     build_high_chop_ml_frame,
     evaluate_high_chop_ml_candidates,
 )
+from .hardware_cycle import (
+    HARDWARE_CYCLE_FACTOR_SOURCE,
+    HARDWARE_CYCLE_LIMITATIONS,
+    build_hardware_cycle_factor_frame,
+)
 from .intraday_15m_factors import (
     INTRADAY_15M_FACTOR_SOURCE,
     INTRADAY_15M_FIELDS,
@@ -101,6 +106,8 @@ __all__ = [
     "DEFAULT_HIGH_CHOP_FEATURES",
     "FactorDiagnosticsReport",
     "HIGH_CHOP_ML_SOURCE_FIELDS",
+    "HARDWARE_CYCLE_FACTOR_SOURCE",
+    "HARDWARE_CYCLE_LIMITATIONS",
     "INTRADAY_15M_FACTOR_SOURCE",
     "INTRADAY_15M_FIELDS",
     "INTRADAY_15M_LIMITATIONS",
@@ -116,6 +123,7 @@ __all__ = [
     "build_column_alpha_candidates",
     "build_factor_library_reversal_frame",
     "build_high_chop_ml_frame",
+    "build_hardware_cycle_factor_frame",
     "build_intraday_15m_factor_frame",
     "build_long_short_crisis_alpha_frame",
     "build_macro_rate_gate_component",

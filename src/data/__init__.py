@@ -44,6 +44,15 @@ from .soxx_constituents import (
     load_soxx_constituent_daily_history,
     parse_soxx_holdings_workbook,
 )
+from .hardware_cycle import (
+    HARDWARE_CYCLE_INSTRUMENT,
+    build_hardware_cycle_daily_frame,
+    build_hardware_cycle_qlib_store,
+    build_hardware_cycle_qlib_store_from_frame,
+    extract_aimultiple_gpu_index_series,
+    fetch_aimultiple_gpu_index_series,
+    fetch_hardware_proxy_price_frames,
+)
 
 __all__ = [
     "QlibProviderConfig",
@@ -84,4 +93,11 @@ __all__ = [
     "fetch_soxx_holdings_snapshot",
     "load_soxx_constituent_daily_history",
     "parse_soxx_holdings_workbook",
+    "HARDWARE_CYCLE_INSTRUMENT",
+    "build_hardware_cycle_daily_frame",
+    "build_hardware_cycle_qlib_store",
+    "build_hardware_cycle_qlib_store_from_frame",
+    "extract_aimultiple_gpu_index_series",
+    "fetch_aimultiple_gpu_index_series",
+    "fetch_hardware_proxy_price_frames",
 ]

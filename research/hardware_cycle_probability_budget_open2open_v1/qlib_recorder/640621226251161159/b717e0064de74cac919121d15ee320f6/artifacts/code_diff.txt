@@ -1,0 +1,106 @@
+diff --git a/src/data/__init__.py b/src/data/__init__.py
+index 0883002a..bddc15d0 100644
+--- a/src/data/__init__.py
++++ b/src/data/__init__.py
+@@ -44,6 +44,15 @@ from .soxx_constituents import (
+     load_soxx_constituent_daily_history,
+     parse_soxx_holdings_workbook,
+ )
++from .hardware_cycle import (
++    HARDWARE_CYCLE_INSTRUMENT,
++    build_hardware_cycle_daily_frame,
++    build_hardware_cycle_qlib_store,
++    build_hardware_cycle_qlib_store_from_frame,
++    extract_aimultiple_gpu_index_series,
++    fetch_aimultiple_gpu_index_series,
++    fetch_hardware_proxy_price_frames,
++)
+
+ __all__ = [
+     "QlibProviderConfig",
+@@ -84,4 +93,11 @@ __all__ = [
+     "fetch_soxx_holdings_snapshot",
+     "load_soxx_constituent_daily_history",
+     "parse_soxx_holdings_workbook",
++    "HARDWARE_CYCLE_INSTRUMENT",
++    "build_hardware_cycle_daily_frame",
++    "build_hardware_cycle_qlib_store",
++    "build_hardware_cycle_qlib_store_from_frame",
++    "extract_aimultiple_gpu_index_series",
++    "fetch_aimultiple_gpu_index_series",
++    "fetch_hardware_proxy_price_frames",
+ ]
+diff --git a/src/factor/__init__.py b/src/factor/__init__.py
+index 4cd34d00..82349ba8 100644
+--- a/src/factor/__init__.py
++++ b/src/factor/__init__.py
+@@ -48,6 +48,11 @@ from .high_chop_ml import (
+     build_high_chop_ml_frame,
+     evaluate_high_chop_ml_candidates,
+ )
++from .hardware_cycle import (
++    HARDWARE_CYCLE_FACTOR_SOURCE,
++    HARDWARE_CYCLE_LIMITATIONS,
++    build_hardware_cycle_factor_frame,
++)
+ from .intraday_15m_factors import (
+     INTRADAY_15M_FACTOR_SOURCE,
+     INTRADAY_15M_FIELDS,
+@@ -101,6 +106,8 @@ __all__ = [
+     "DEFAULT_HIGH_CHOP_FEATURES",
+     "FactorDiagnosticsReport",
+     "HIGH_CHOP_ML_SOURCE_FIELDS",
++    "HARDWARE_CYCLE_FACTOR_SOURCE",
++    "HARDWARE_CYCLE_LIMITATIONS",
+     "INTRADAY_15M_FACTOR_SOURCE",
+     "INTRADAY_15M_FIELDS",
+     "INTRADAY_15M_LIMITATIONS",
+@@ -116,6 +123,7 @@ __all__ = [
+     "build_column_alpha_candidates",
+     "build_factor_library_reversal_frame",
+     "build_high_chop_ml_frame",
++    "build_hardware_cycle_factor_frame",
+     "build_intraday_15m_factor_frame",
+     "build_long_short_crisis_alpha_frame",
+     "build_macro_rate_gate_component",
+diff --git a/src/workflow/__init__.py b/src/workflow/__init__.py
+index fc8a8f9b..ac58d257 100644
+--- a/src/workflow/__init__.py
++++ b/src/workflow/__init__.py
+@@ -39,6 +39,7 @@ __all__ = [
+     "IntradayExecutionLabelModelSpec",
+     "IntradayExecutionSleeveV2Spec",
+     "HybridIntraday15mOpen2OpenSpec",
++    "HardwareCycleProbabilityBudgetOpen2OpenCardSpec",
+     "MetaLabelRiskBudgetOpen2OpenSpec",
+     "Multi3xEtfNormalizedNestedWfSpec",
+     "DynamicSoxxSoxlCashAllocationWfSpec",
+@@ -67,6 +68,7 @@ __all__ = [
+     "run_intraday_execution_label_model_card",
+     "run_intraday_execution_sleeve_v2_card",
+     "run_hybrid_intraday15m_open2open_card",
++    "run_hardware_cycle_probability_budget_open2open_card",
+     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
+     "run_meta_label_risk_budget_open2open_card",
+     "run_multi_3x_etf_normalized_nested_wf_card",
+@@ -179,6 +181,11 @@ _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS = {
+     "run_probability_budget_open2open_card",
+ }
+
++_HARDWARE_CYCLE_PROBABILITY_BUDGET_EXPORTS = {
++    "HardwareCycleProbabilityBudgetOpen2OpenCardSpec",
++    "run_hardware_cycle_probability_budget_open2open_card",
++}
++
+
+ def __getattr__(name: str):
+     if name in _COGNITIVE_ALPHA_EXPORTS:
+@@ -249,4 +256,8 @@ def __getattr__(name: str):
+         from . import probability_budget_open2open
+
+         return getattr(probability_budget_open2open, name)
++    if name in _HARDWARE_CYCLE_PROBABILITY_BUDGET_EXPORTS:
++        from . import hardware_cycle_probability_budget_open2open
++
++        return getattr(hardware_cycle_probability_budget_open2open, name)
+     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

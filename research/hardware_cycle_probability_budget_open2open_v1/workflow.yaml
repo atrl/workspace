@@ -1,0 +1,23 @@
+experiment: hardware_cycle_probability_budget_open2open_v1
+card_type: hardware_cycle_probability_budget_open2open_research_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+hardware_cycle_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/hardware_cycle_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/hardware_cycle_probability_budget_open2open_v1/qlib_recorder
+recorder_id: b717e0064de74cac919121d15ee320f6
+as_of: 2026-07-02
+architecture:
+  base_structure: LGB/XGB consensus probability budget
+  added_features: lagged hardware-cycle and cloud-GPU pricing factors
+  feature_group: base_cogalpha_soxx_hardware
+model_selection:
+  return_col: open_to_open_return
+  label_col: label_open_to_open_5d
+  selectable_model: lgb_xgb_consensus
+walk_forward:
+  all_risk_gates_pass: False
+  all_return_gates_pass: True
+  min_test_return_pct: 1.3999651319125173
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

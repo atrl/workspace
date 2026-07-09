@@ -39,6 +39,7 @@ __all__ = [
     "IntradayExecutionLabelModelSpec",
     "IntradayExecutionSleeveV2Spec",
     "HybridIntraday15mOpen2OpenSpec",
+    "HardwareCycleProbabilityBudgetOpen2OpenCardSpec",
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "Multi3xEtfNormalizedNestedWfSpec",
     "DynamicSoxxSoxlCashAllocationWfSpec",
@@ -67,6 +68,7 @@ __all__ = [
     "run_intraday_execution_label_model_card",
     "run_intraday_execution_sleeve_v2_card",
     "run_hybrid_intraday15m_open2open_card",
+    "run_hardware_cycle_probability_budget_open2open_card",
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_multi_3x_etf_normalized_nested_wf_card",
@@ -179,6 +181,11 @@ _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS = {
     "run_probability_budget_open2open_card",
 }
 
+_HARDWARE_CYCLE_PROBABILITY_BUDGET_EXPORTS = {
+    "HardwareCycleProbabilityBudgetOpen2OpenCardSpec",
+    "run_hardware_cycle_probability_budget_open2open_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -249,4 +256,8 @@ def __getattr__(name: str):
         from . import probability_budget_open2open
 
         return getattr(probability_budget_open2open, name)
+    if name in _HARDWARE_CYCLE_PROBABILITY_BUDGET_EXPORTS:
+        from . import hardware_cycle_probability_budget_open2open
+
+        return getattr(hardware_cycle_probability_budget_open2open, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
