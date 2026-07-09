@@ -3,9 +3,49 @@
   "calendar_start": "2019-01-02",
   "cloud_gpu_field_count": 57,
   "cloud_gpu_source": "https://aimultiple.com/gpu-index",
+  "daily_proxy_fields": [
+    "cloud_gpu_daily_hopper_proxy_index",
+    "cloud_gpu_daily_modern_proxy_index",
+    "cloud_gpu_daily_hyperscaler_demand_proxy_index",
+    "cloud_gpu_daily_server_supply_proxy_index",
+    "cloud_gpu_daily_supply_demand_pressure_index",
+    "cloud_gpu_daily_server_tightness_index",
+    "cloud_gpu_daily_memory_pressure_index"
+  ],
+  "daily_proxy_groups": {
+    "cloud_gpu_daily_hopper_proxy": [
+      "NVDA",
+      "SMCI",
+      "DELL",
+      "VRT"
+    ],
+    "cloud_gpu_daily_hyperscaler_demand_proxy": [
+      "AMZN",
+      "MSFT",
+      "GOOGL",
+      "ORCL",
+      "META"
+    ],
+    "cloud_gpu_daily_modern_proxy": [
+      "NVDA",
+      "AMD",
+      "AVGO",
+      "TSM",
+      "ASML"
+    ],
+    "cloud_gpu_daily_server_supply_proxy": [
+      "SMCI",
+      "DELL",
+      "VRT",
+      "ETN",
+      "PWR"
+    ]
+  },
   "limitations": [
     "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
     "Monthly cloud GPU values are forward-filled as daily state; source_observed, is_carried, and staleness_days fields preserve update provenance.",
+    "cloud_gpu_daily_* fields are daily public-market proxy indices from trading-day closes; they are not direct rental quote history.",
+    "Direct daily GPU rental indices are not fetched unless a licensed or host-authenticated source is provided.",
     "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
     "All model-facing hardware-cycle factors must be lagged by the factor builder."
   ],
@@ -113,5 +153,5 @@
   "raw_cloud_gpu_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/aimultiple_cloud_gpu_index.csv",
   "raw_daily_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/hardware_cycle_daily.csv",
   "row_count": 1885,
-  "source": "hardware_cycle_public_market_proxy_and_cloud_gpu_index"
+  "source": "hardware_cycle_daily_public_market_proxy_and_cloud_gpu_index"
 }

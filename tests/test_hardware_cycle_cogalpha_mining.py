@@ -22,10 +22,10 @@ def test_hardware_cycle_cogalpha_candidates_are_lagged_and_materialize():
             "hardware_ai_server_ret20_lag1": np.cos(np.linspace(0.0, 3.0, len(dates))),
             "hardware_cpu_compute_ret20_lag1": x**2,
             "hardware_enterprise_storage_ret20_lag1": np.tanh(x),
-            "hardware_cloud_gpu_modern_on_demand_ret21_lag1": -0.5 * x,
-            "hardware_cloud_gpu_modern_on_demand_available_lag1": 1.0,
-            "hardware_cloud_gpu_h100_on_demand_staleness_days_lag1": np.arange(len(dates)) % 31,
-            "hardware_cloud_gpu_h100_on_demand_is_carried_lag1": (np.arange(len(dates)) % 5 != 0).astype(float),
+            "hardware_cloud_gpu_daily_hopper_proxy_ret20_lag1": -0.5 * x,
+            "hardware_cloud_gpu_daily_supply_demand_pressure_ret20_lag1": np.sin(np.linspace(0.0, 8.0, len(dates))),
+            "hardware_cloud_gpu_daily_server_supply_proxy_ret20_lag1": np.cos(np.linspace(0.0, 8.0, len(dates))),
+            "hardware_cloud_gpu_daily_server_tightness_ret20_lag1": np.tanh(2.0 * x),
         }
     ).set_index("datetime")
 
@@ -42,14 +42,16 @@ def test_hardware_cycle_cogalpha_candidates_are_lagged_and_materialize():
         "hardware_cpu_compute_breadth",
         "hardware_storage_cycle_confirmation",
     }.issubset(names)
-    assert {"proxy_promotable", "cloud_diagnostic_short_history"}.issubset(roles)
+    assert {"proxy_promotable", "daily_cloud_gpu_proxy_promotable"}.issubset(roles)
     assert all(candidate.declared_lookahead == 0 for candidate in candidates)
     assert all("lag1" in column for candidate in candidates for column in candidate.required_columns)
+    assert not any("is_carried" in column for candidate in candidates for column in candidate.required_columns)
+    assert not any("staleness_days" in column for candidate in candidates for column in candidate.required_columns)
     assert set(features.columns) == names
     assert all(features[column].dropna().nunique() > 5 for column in features.columns)
 
 
-def test_hardware_cycle_cogalpha_daily_semantics_payload_marks_carried_cloud_state():
+def test_hardware_cycle_cogalpha_daily_semantics_payload_marks_daily_proxy_primary():
     from src.workflow.hardware_cycle_cogalpha_mining import _daily_data_semantics_payload
 
     payload = _daily_data_semantics_payload(
@@ -58,11 +60,12 @@ def test_hardware_cycle_cogalpha_daily_semantics_payload_marks_carried_cloud_sta
     )
 
     assert payload["calendar_frequency"] == "day"
-    assert payload["cloud_gpu_level_semantics"] == "last_observed_state_forward_filled_to_qlib_daily_calendar"
+    assert payload["cloud_gpu_daily_proxy_semantics"] == "daily_market_proxy_indices_from_trading_day_closes"
+    assert payload["cloud_gpu_monthly_state_semantics"] == "diagnostic_last_observed_state_forward_filled_to_qlib_daily_calendar"
     assert payload["source_observed_flag"] == "<field>_source_observed"
     assert payload["carried_state_flag"] == "<field>_is_carried"
     assert payload["staleness_measure"] == "<field>_staleness_days"
-    assert payload["model_use_rule"] == "use_lagged_state_features_only"
+    assert payload["model_use_rule"] == "prefer_lagged_daily_proxy_features; monthly_direct_price_state_is_diagnostic"
 
 
 def test_hardware_cycle_cogalpha_workflow_exports_and_summary_payload(tmp_path):
@@ -112,7 +115,7 @@ def test_hardware_cycle_cogalpha_workflow_exports_and_summary_payload(tmp_path):
     assert workflow_exports.HardwareCycleCogAlphaMiningCardSpec is HardwareCycleCogAlphaMiningCardSpec
     assert workflow_exports.run_hardware_cycle_cogalpha_mining_card.__name__ == "run_hardware_cycle_cogalpha_mining_card"
     assert HARDWARE_COGALPHA_EXPERIMENT == "hardware_cycle_cogalpha_mining_v1"
-    assert summary["daily_data_semantics"]["cloud_gpu_level_semantics"] == "last_observed_state_forward_filled_to_qlib_daily_calendar"
+    assert summary["daily_data_semantics"]["cloud_gpu_daily_proxy_semantics"] == "daily_market_proxy_indices_from_trading_day_closes"
     assert summary["factor_mining"]["workflow"] == "cognitive_alpha_factor_mining"
     assert summary["hardware_cycle"]["feature_count"] == 2
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"

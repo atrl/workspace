@@ -31,6 +31,21 @@ HARDWARE_PROXY_SYMBOLS = tuple(dict.fromkeys(symbol for symbols in HARDWARE_PROX
 
 HARDWARE_LEVEL_FIELDS = tuple(f"{group}_index" for group in HARDWARE_PROXY_GROUPS)
 HARDWARE_COUNT_FIELDS = tuple(f"{group}_available_count" for group in HARDWARE_PROXY_GROUPS)
+CLOUD_GPU_DAILY_PROXY_GROUPS: dict[str, tuple[str, ...]] = {
+    "cloud_gpu_daily_hopper_proxy": ("NVDA", "SMCI", "DELL", "VRT"),
+    "cloud_gpu_daily_modern_proxy": ("NVDA", "AMD", "AVGO", "TSM", "ASML"),
+    "cloud_gpu_daily_hyperscaler_demand_proxy": ("AMZN", "MSFT", "GOOGL", "ORCL", "META"),
+    "cloud_gpu_daily_server_supply_proxy": ("SMCI", "DELL", "VRT", "ETN", "PWR"),
+}
+CLOUD_GPU_DAILY_DERIVED_FIELDS = (
+    "cloud_gpu_daily_supply_demand_pressure_index",
+    "cloud_gpu_daily_server_tightness_index",
+    "cloud_gpu_daily_memory_pressure_index",
+)
+CLOUD_GPU_DAILY_PROXY_FIELDS = tuple(
+    [f"{group}_index" for group in CLOUD_GPU_DAILY_PROXY_GROUPS] + list(CLOUD_GPU_DAILY_DERIVED_FIELDS)
+)
+CLOUD_GPU_DAILY_PROXY_COUNT_FIELDS = tuple(f"{group}_available_count" for group in CLOUD_GPU_DAILY_PROXY_GROUPS)
 
 
 def _slug(value: Any) -> str:
@@ -196,6 +211,13 @@ def _proxy_available_count(price_frame: pd.DataFrame, symbols: Iterable[str]) ->
     return price_frame[symbol_list].notna().sum(axis=1).astype("float64")
 
 
+def _safe_index_ratio(numerator: pd.Series, denominator: pd.Series) -> pd.Series:
+    num = pd.to_numeric(numerator, errors="coerce").astype("float64")
+    den = pd.to_numeric(denominator, errors="coerce").astype("float64")
+    den = den.where(den.abs() > 1e-12)
+    return (num / den * 100.0).replace([np.inf, -np.inf], np.nan)
+
+
 def _pivot_cloud_gpu_index(cloud_gpu_index: pd.DataFrame, calendar: pd.DatetimeIndex) -> pd.DataFrame:
     if cloud_gpu_index.empty:
         return pd.DataFrame(index=calendar)
@@ -265,9 +287,30 @@ def build_hardware_cycle_daily_frame(
 
     daily = pd.DataFrame({"datetime": calendar_index})
     daily["instrument"] = HARDWARE_CYCLE_INSTRUMENT
+    group_indices: dict[str, pd.Series] = {}
+    group_counts: dict[str, pd.Series] = {}
     for group, symbols in HARDWARE_PROXY_GROUPS.items():
+        group_indices[group] = _rebased_equal_weight_index(prices, symbols)
+        group_counts[group] = _proxy_available_count(prices, symbols)
+        daily[f"{group}_index"] = group_indices[group].to_numpy(dtype="float64")
+        daily[f"{group}_available_count"] = group_counts[group].to_numpy(dtype="float64")
+
+    for group, symbols in CLOUD_GPU_DAILY_PROXY_GROUPS.items():
         daily[f"{group}_index"] = _rebased_equal_weight_index(prices, symbols).to_numpy(dtype="float64")
         daily[f"{group}_available_count"] = _proxy_available_count(prices, symbols).to_numpy(dtype="float64")
+
+    daily["cloud_gpu_daily_supply_demand_pressure_index"] = _safe_index_ratio(
+        group_indices["ai_accelerator"],
+        group_indices["cloud_capex"],
+    ).to_numpy(dtype="float64")
+    daily["cloud_gpu_daily_server_tightness_index"] = _safe_index_ratio(
+        pd.Series(daily["cloud_gpu_daily_server_supply_proxy_index"].to_numpy(dtype="float64"), index=calendar_index),
+        group_indices["cloud_capex"],
+    ).to_numpy(dtype="float64")
+    daily["cloud_gpu_daily_memory_pressure_index"] = _safe_index_ratio(
+        group_indices["memory_storage"],
+        group_indices["ai_accelerator"],
+    ).to_numpy(dtype="float64")
 
     cloud = _pivot_cloud_gpu_index(cloud_gpu_index, calendar_index)
     if not cloud.empty:
@@ -299,7 +342,7 @@ def build_hardware_cycle_qlib_store_from_frame(
         instrument_col="instrument",
         datetime_col="datetime",
         as_of=as_of,
-        source="hardware_cycle_public_market_proxy_and_cloud_gpu_index",
+        source="hardware_cycle_daily_public_market_proxy_and_cloud_gpu_index",
     )
 
 
@@ -328,11 +371,13 @@ def build_hardware_cycle_qlib_store(
 
     manifest = build_hardware_cycle_qlib_store_from_frame(daily, provider_uri=provider_uri, as_of=end)
     raw_manifest = {
-        "source": "hardware_cycle_public_market_proxy_and_cloud_gpu_index",
+        "source": "hardware_cycle_daily_public_market_proxy_and_cloud_gpu_index",
         "proxy_symbols": requested_symbols,
         "proxy_symbols_fetched": sorted(proxy_frames),
         "proxy_symbols_missing": [symbol for symbol in requested_symbols if symbol not in proxy_frames],
         "proxy_groups": {group: list(symbols) for group, symbols in HARDWARE_PROXY_GROUPS.items()},
+        "daily_proxy_groups": {group: list(symbols) for group, symbols in CLOUD_GPU_DAILY_PROXY_GROUPS.items()},
+        "daily_proxy_fields": list(CLOUD_GPU_DAILY_PROXY_FIELDS),
         "cloud_gpu_source": HARDWARE_CYCLE_AIMULTIPLE_URL,
         "raw_daily_csv": daily_path.as_posix(),
         "raw_cloud_gpu_csv": cloud_path.as_posix(),
@@ -343,6 +388,8 @@ def build_hardware_cycle_qlib_store(
         "limitations": [
             "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
             "Monthly cloud GPU values are forward-filled as daily state; source_observed, is_carried, and staleness_days fields preserve update provenance.",
+            "cloud_gpu_daily_* fields are daily public-market proxy indices from trading-day closes; they are not direct rental quote history.",
+            "Direct daily GPU rental indices are not fetched unless a licensed or host-authenticated source is provided.",
             "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
             "All model-facing hardware-cycle factors must be lagged by the factor builder.",
         ],

@@ -1,0 +1,75 @@
+{
+  "candidate_metric_rows": 6,
+  "candidate_provider": {
+    "generated_candidate_count": 6,
+    "guidance_style_count": 0,
+    "profile_agent_count": 0,
+    "provider_id": "static_seed_alpha158_pool",
+    "provider_kind": "repo_owned_static",
+    "requested_initial_pool_size": 6
+  },
+  "checkpoints": {
+    "candidate_pool": "candidate_pool/generation_*.jsonl",
+    "fitness": "fitness/generation_*.csv",
+    "lineage": "lineage/generation_*.jsonl",
+    "quality": "quality/generation_*.csv",
+    "rejected": "rejected/generation_*.jsonl",
+    "state": "state.json"
+  },
+  "children_per_generation": 4,
+  "completed_generation": 0,
+  "completed_generations": 1,
+  "evolution_ops": [
+    "mutation",
+    "crossover",
+    "crossover_mutation"
+  ],
+  "initial_candidate_count": 6,
+  "metric_names": [
+    "ic",
+    "icir",
+    "rank_ic",
+    "rank_icir",
+    "mutual_information"
+  ],
+  "paper_reference": "arxiv:2511.18850",
+  "parent_pool_size": 6,
+  "profile": "soxl_smoke",
+  "repair_attempt_count": 0,
+  "resume_start_generation": 0,
+  "resumed": false,
+  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/hardware_cycle_cogalpha_mining_1ub9comc/hardware_cycle_cogalpha_evolution",
+  "run_id": "hardware_cycle_cogalpha_evolution",
+  "selected_count": 1,
+  "selected_feature_names": [
+    "hardware_server_supply_chain_confirmation"
+  ],
+  "spec": {
+    "children_per_generation": 4,
+    "elite_percentile": 0.75,
+    "fallback_top_n": 4,
+    "generations": 1,
+    "initial_pool_size": 6,
+    "max_abs_correlation": 0.98,
+    "max_missing_ratio": 0.75,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "parent_pool_size": 6,
+    "profile": "soxl_smoke",
+    "qualified_percentile": 0.5,
+    "resume": false,
+    "run_id": "hardware_cycle_cogalpha_evolution",
+    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/hardware_cycle_cogalpha_mining_1ub9comc"
+  },
+  "status": "complete",
+  "thresholds": {
+    "elite_percentile": 0.75,
+    "fallback_top_n": 4,
+    "max_abs_correlation": 0.98,
+    "max_missing_ratio": 0.75,
+    "min_distinct_values": 5,
+    "min_observations": 180,
+    "qualified_percentile": 0.5
+  },
+  "workflow": "cognitive_alpha_evolution"
+}

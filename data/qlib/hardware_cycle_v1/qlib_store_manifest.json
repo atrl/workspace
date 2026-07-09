@@ -1,9 +1,9 @@
 {
   "as_of": "2026-07-02",
-  "audit_snapshot_hash": "676416c279ae6920",
+  "audit_snapshot_hash": "5fa71339b0f7b5e9",
   "calendar_end": "2026-07-02",
   "calendar_start": "2019-01-02",
-  "feature_file_count": 299,
+  "feature_file_count": 310,
   "fields": [
     "$ai_accelerator_index",
     "$ai_accelerator_available_count",
@@ -19,6 +19,17 @@
     "$ai_server_available_count",
     "$power_cooling_index",
     "$power_cooling_available_count",
+    "$cloud_gpu_daily_hopper_proxy_index",
+    "$cloud_gpu_daily_hopper_proxy_available_count",
+    "$cloud_gpu_daily_modern_proxy_index",
+    "$cloud_gpu_daily_modern_proxy_available_count",
+    "$cloud_gpu_daily_hyperscaler_demand_proxy_index",
+    "$cloud_gpu_daily_hyperscaler_demand_proxy_available_count",
+    "$cloud_gpu_daily_server_supply_proxy_index",
+    "$cloud_gpu_daily_server_supply_proxy_available_count",
+    "$cloud_gpu_daily_supply_demand_pressure_index",
+    "$cloud_gpu_daily_server_tightness_index",
+    "$cloud_gpu_daily_memory_pressure_index",
     "$cloud_gpu_a100_on_demand",
     "$cloud_gpu_a100_on_demand_available",
     "$cloud_gpu_a100_on_demand_source_observed",
@@ -306,7 +317,7 @@
     "$cloud_gpu_v100_spot_staleness_days"
   ],
   "freq": "day",
-  "hash": "7e2675dcffc73c51",
+  "hash": "beb54611400081da",
   "instruments": [
     "HARDWARE_CYCLE"
   ],
@@ -317,7 +328,7 @@
   "raw_manifest": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/hardware_cycle_raw_manifest.json",
   "region": "us",
   "row_count": 1885,
-  "source": "hardware_cycle_public_market_proxy_and_cloud_gpu_index",
+  "source": "hardware_cycle_daily_public_market_proxy_and_cloud_gpu_index",
   "source_api": [
     "qlib.init",
     "qlib.data.storage.file_storage.FileFeatureStorage",

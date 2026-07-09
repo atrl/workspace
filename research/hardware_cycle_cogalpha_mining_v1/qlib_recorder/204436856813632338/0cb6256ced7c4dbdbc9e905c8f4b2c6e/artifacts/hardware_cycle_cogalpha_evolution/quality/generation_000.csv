@@ -1,7 +1,0 @@
-factor,generation,level,agent,quality_status,quality_reason,missing_ratio,distinct_values,selection_tier,redundancy_status
-hardware_compute_scarcity_accelerator_vs_gpu_price,0,market_structure_cycle,AgentMarketCycle,pass,pass,0.0,1740,drop,not_selected
-hardware_capex_confirmed_accelerator_momentum,0,geometric_fusion,AgentComposite,pass,pass,0.0,1700,drop,not_selected
-hardware_memory_bottleneck_spread,0,market_structure_cycle,AgentMarketCycle,pass,pass,0.0,1740,drop,not_selected
-hardware_server_supply_chain_confirmation,0,stability_regime_gating,AgentRegimeGating,pass,pass,0.0,1740,drop,not_selected
-hardware_cpu_compute_breadth,0,price_volume_dynamics,AgentPriceVolumeCoherence,pass,pass,0.0,1740,qualified,selected
-hardware_storage_cycle_confirmation,0,geometric_fusion,AgentComposite,pass,pass,0.0,1740,drop,not_selected

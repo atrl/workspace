@@ -38,6 +38,9 @@ HARDWARE_COGALPHA_FEATURE_GROUP = "base_cogalpha_soxx_hardware_cogalpha"
 REQUIRED_HARDWARE_DAILY_STATE_FIELDS = {
     "$cpu_compute_index",
     "$enterprise_storage_index",
+    "$cloud_gpu_daily_hopper_proxy_index",
+    "$cloud_gpu_daily_server_supply_proxy_index",
+    "$cloud_gpu_daily_supply_demand_pressure_index",
     "$cloud_gpu_h100_on_demand_source_observed",
     "$cloud_gpu_h100_on_demand_is_carried",
     "$cloud_gpu_h100_on_demand_staleness_days",
@@ -59,11 +62,13 @@ def _daily_data_semantics_payload(*, provider_uri: str, raw_manifest: str | None
         "provider_uri": provider_uri,
         "raw_manifest": raw_manifest,
         "calendar_frequency": "day",
-        "cloud_gpu_level_semantics": "last_observed_state_forward_filled_to_qlib_daily_calendar",
+        "cloud_gpu_level_semantics": "daily_proxy_primary_monthly_direct_price_state_diagnostic",
+        "cloud_gpu_daily_proxy_semantics": "daily_market_proxy_indices_from_trading_day_closes",
+        "cloud_gpu_monthly_state_semantics": "diagnostic_last_observed_state_forward_filled_to_qlib_daily_calendar",
         "source_observed_flag": "<field>_source_observed",
         "carried_state_flag": "<field>_is_carried",
         "staleness_measure": "<field>_staleness_days",
-        "model_use_rule": "use_lagged_state_features_only",
+        "model_use_rule": "prefer_lagged_daily_proxy_features; monthly_direct_price_state_is_diagnostic",
         "leakage_guard": "non_trading_source_dates_are_mapped_to_first_qlib_calendar_date_on_or_after_source_date",
     }
 
@@ -405,10 +410,10 @@ def _hardware_cogalpha_risk_analysis(summary: dict[str, Any]) -> pd.DataFrame:
     return pd.DataFrame(
         [
             {
-                "check": "daily_state_semantics_present",
+                "check": "daily_proxy_semantics_present",
                 "status": "pass",
                 "value": summary["daily_data_semantics"]["model_use_rule"],
-                "detail": summary["daily_data_semantics"]["cloud_gpu_level_semantics"],
+                "detail": summary["daily_data_semantics"]["cloud_gpu_daily_proxy_semantics"],
             },
             {
                 "check": "cognitive_alpha_selected_factor_count",
@@ -429,10 +434,10 @@ def _hardware_cogalpha_risk_analysis(summary: dict[str, Any]) -> pd.DataFrame:
                 "detail": json.dumps(walk_forward, sort_keys=True),
             },
             {
-                "check": "cloud_direct_short_history_role",
+                "check": "daily_cloud_gpu_proxy_role",
                 "status": "pass",
-                "value": factor_mining.get("candidate_roles", {}).get("cloud_diagnostic_short_history", 0),
-                "detail": "cloud direct pricing candidates are diagnostic unless they survive walk-forward gates",
+                "value": factor_mining.get("candidate_roles", {}).get("daily_cloud_gpu_proxy_promotable", 0),
+                "detail": "daily cloud GPU proxy candidates are promotable only after position and walk-forward gates",
             },
         ]
     )
@@ -497,7 +502,8 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             f"recorder_id: {summary['recorder_id']}",
             f"as_of: {summary['as_of']}",
             "daily_data_semantics:",
-            f"  cloud_gpu_level_semantics: {summary['daily_data_semantics']['cloud_gpu_level_semantics']}",
+            f"  cloud_gpu_daily_proxy_semantics: {summary['daily_data_semantics']['cloud_gpu_daily_proxy_semantics']}",
+            f"  cloud_gpu_monthly_state_semantics: {summary['daily_data_semantics']['cloud_gpu_monthly_state_semantics']}",
             f"  source_observed_flag: {summary['daily_data_semantics']['source_observed_flag']}",
             f"  carried_state_flag: {summary['daily_data_semantics']['carried_state_flag']}",
             f"  staleness_measure: {summary['daily_data_semantics']['staleness_measure']}",
@@ -528,7 +534,7 @@ def _failure_modes(summary: dict[str, Any], risk_analysis: pd.DataFrame) -> str:
             f"- failed_checks: {json.dumps(failed, ensure_ascii=False)}",
             f"- selected_factor_count: {summary['factor_mining'].get('selected_count')}",
             f"- candidate_roles: {json.dumps(summary['factor_mining'].get('candidate_roles', {}), sort_keys=True)}",
-            "- cloud_direct_role: 云 GPU 直接价格历史较短，带有 source_observed/is_carried/staleness 语义，默认按诊断特征处理。",
+            "- cloud_daily_proxy_role: 云 GPU 主特征改为日频公开市场代理；真实租赁价格月频状态只作为诊断，不作为主晋升信号。",
             "- promotion_rule: 只有 position model 和 walk-forward gates 同时通过，才可进入 validated research；单个硬件因子 IC 不作为晋升依据。",
             "",
         ]
@@ -551,7 +557,7 @@ def _conclusion(summary: dict[str, Any]) -> str:
         "再把选中硬件因子输入 open-to-open probability budget position model。\n"
         f"- data: hardware_provider={summary['hardware_cycle']['provider_uri']}，"
         f"feature_count={summary['hardware_cycle']['feature_count']}，"
-        f"daily_semantics={daily_semantics.get('cloud_gpu_level_semantics', 'daily_state_semantics_recorded_in_summary')}。\n"
+        f"daily_semantics={daily_semantics.get('cloud_gpu_daily_proxy_semantics', 'daily_proxy_semantics_recorded_in_summary')}。\n"
         f"- factor_mining: selected_count={summary.get('factor_mining', {}).get('selected_count', library.get('selected_count'))}，"
         f"selected={json.dumps(selected_names, ensure_ascii=False)}。\n"
         f"- key_metrics: selected_return={float(selected.get('return_pct', 0.0)):.4f}%，"
@@ -561,7 +567,7 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"- latest_signal: as_of={latest.get('as_of')}，action={latest.get('action')}，"
         f"target_position={float(latest.get('target_position', latest.get('target_percent', 0.0)) or 0.0):.4f}。\n"
         f"- promotion_decision: {summary['promotion_decision']}。\n"
-        "- risks: 月频云 GPU 价格只作为日频状态 carry，不是每日新增观测；短历史 cloud direct 因子必须通过 WF 才能升级。\n"
+        "- risks: 云 GPU 主特征是日频公开市场代理，不是直接租赁报价；月频直接价格只保留为诊断状态，不能单独晋升。\n"
         f"- recorder: {summary['recorder_id']}。\n"
     )
 

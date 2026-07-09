@@ -96,6 +96,30 @@ def test_build_hardware_cycle_daily_frame_marks_cloud_state_updates_and_stalenes
     assert weekend_update["cloud_gpu_h100_on_demand_staleness_days"] == 0.0
 
 
+def test_build_hardware_cycle_daily_frame_adds_trading_day_cloud_gpu_proxy_features():
+    dates = pd.date_range("2024-07-01", "2024-07-10", freq="B")
+    cloud_gpu = pd.DataFrame(
+        [
+            {"datetime": "2024-07-01", "field": "cloud_gpu_h100_on_demand", "value": 7.0},
+        ]
+    )
+
+    frame = build_hardware_cycle_daily_frame(
+        _proxy_frames(dates),
+        cloud_gpu,
+        calendar=[date.date().isoformat() for date in dates],
+    )
+
+    assert "cloud_gpu_daily_hopper_proxy_index" in frame.columns
+    assert "cloud_gpu_daily_server_supply_proxy_index" in frame.columns
+    assert "cloud_gpu_daily_supply_demand_pressure_index" in frame.columns
+    assert frame["cloud_gpu_daily_hopper_proxy_index"].notna().all()
+    assert frame["cloud_gpu_daily_hopper_proxy_index"].nunique() > 1
+    assert frame["cloud_gpu_daily_supply_demand_pressure_index"].nunique() > 1
+    assert "cloud_gpu_daily_hopper_proxy_index_is_carried" not in frame.columns
+    assert frame.loc[frame["datetime"].eq(pd.Timestamp("2024-07-02")), "cloud_gpu_h100_on_demand_is_carried"].iloc[0] == 1.0
+
+
 def test_build_hardware_cycle_qlib_store_from_frame_reads_back(tmp_path: Path):
     dates = pd.date_range("2024-07-01", periods=6, freq="D")
     frame = pd.DataFrame(

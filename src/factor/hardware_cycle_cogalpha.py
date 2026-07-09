@@ -7,7 +7,7 @@ from .cognitive_alpha import CognitiveAlphaCandidate
 
 
 HARDWARE_COGALPHA_SOURCE_LAYER = "src.factor.hardware_cycle_cogalpha"
-HARDWARE_COGALPHA_DATA_SEMANTICS = "daily_qlib_features_lagged_from_hardware_cycle_state"
+HARDWARE_COGALPHA_DATA_SEMANTICS = "daily_qlib_features_lagged_from_hardware_cycle_daily_proxy_surface"
 
 
 def _col(frame: pd.DataFrame, name: str) -> pd.Series:
@@ -16,9 +16,8 @@ def _col(frame: pd.DataFrame, name: str) -> pd.Series:
 
 def _hardware_compute_scarcity_accelerator_vs_gpu_price(frame: pd.DataFrame) -> pd.Series:
     accelerator = _col(frame, "hardware_ai_accelerator_ret20_lag1")
-    gpu_price = _col(frame, "hardware_cloud_gpu_modern_on_demand_ret21_lag1")
-    available = _col(frame, "hardware_cloud_gpu_modern_on_demand_available_lag1").clip(0.0, 1.0)
-    return (accelerator - gpu_price * available).rename("hardware_compute_scarcity_accelerator_vs_gpu_price")
+    gpu_pressure = _col(frame, "hardware_cloud_gpu_daily_supply_demand_pressure_ret20_lag1")
+    return (0.5 * accelerator + 0.5 * gpu_pressure).rename("hardware_compute_scarcity_accelerator_vs_gpu_price")
 
 
 def _hardware_capex_confirmed_accelerator_momentum(frame: pd.DataFrame) -> pd.Series:
@@ -34,11 +33,10 @@ def _hardware_memory_bottleneck_spread(frame: pd.DataFrame) -> pd.Series:
 
 
 def _hardware_server_supply_chain_confirmation(frame: pd.DataFrame) -> pd.Series:
-    server = _col(frame, "hardware_ai_server_ret20_lag1")
+    server = _col(frame, "hardware_cloud_gpu_daily_server_supply_proxy_ret20_lag1")
     accelerator = _col(frame, "hardware_ai_accelerator_ret20_lag1")
-    carried = _col(frame, "hardware_cloud_gpu_h100_on_demand_is_carried_lag1").clip(0.0, 1.0)
-    staleness = np.log1p(_col(frame, "hardware_cloud_gpu_h100_on_demand_staleness_days_lag1").clip(lower=0.0))
-    return (server + 0.5 * accelerator - 0.05 * carried * staleness).rename("hardware_server_supply_chain_confirmation")
+    tightness = _col(frame, "hardware_cloud_gpu_daily_server_tightness_ret20_lag1")
+    return (server + 0.5 * accelerator + 0.5 * tightness).rename("hardware_server_supply_chain_confirmation")
 
 
 def _hardware_cpu_compute_breadth(frame: pd.DataFrame) -> pd.Series:
@@ -64,17 +62,17 @@ def build_hardware_cycle_cogalpha_candidates() -> list[CognitiveAlphaCandidate]:
             theme="accelerator equity strength versus cloud GPU price scarcity",
             required_columns=(
                 "hardware_ai_accelerator_ret20_lag1",
-                "hardware_cloud_gpu_modern_on_demand_ret21_lag1",
-                "hardware_cloud_gpu_modern_on_demand_available_lag1",
+                "hardware_cloud_gpu_daily_supply_demand_pressure_ret20_lag1",
             ),
-            lookback=21,
+            lookback=20,
             function=_hardware_compute_scarcity_accelerator_vs_gpu_price,
-            economic_rationale="Rising accelerator equities with falling or stable cloud GPU rental prices can flag improving compute supply/demand economics.",
-            code="ai_accelerator_ret20_lag1 - cloud_gpu_modern_on_demand_ret21_lag1 * availability_lag1",
+            economic_rationale="A daily supplier-versus-hyperscaler pressure proxy can flag tighter compute economics without relying on monthly rental price carry.",
+            code="0.5 * ai_accelerator_ret20_lag1 + 0.5 * cloud_gpu_daily_supply_demand_pressure_ret20_lag1",
             metadata={
-                "history_role": "cloud_diagnostic_short_history",
+                "history_role": "daily_cloud_gpu_proxy_promotable",
                 "data_semantics": HARDWARE_COGALPHA_DATA_SEMANTICS,
-                "cloud_direct_pricing": True,
+                "cloud_direct_pricing": False,
+                "daily_proxy_pricing": True,
             },
         ),
         CognitiveAlphaCandidate(
@@ -113,21 +111,21 @@ def build_hardware_cycle_cogalpha_candidates() -> list[CognitiveAlphaCandidate]:
             name="hardware_server_supply_chain_confirmation",
             level="stability_regime_gating",
             agent="AgentRegimeGating",
-            theme="AI server confirmation with stale cloud GPU state penalty",
+            theme="AI server confirmation with daily cloud GPU proxy tightness",
             required_columns=(
-                "hardware_ai_server_ret20_lag1",
+                "hardware_cloud_gpu_daily_server_supply_proxy_ret20_lag1",
                 "hardware_ai_accelerator_ret20_lag1",
-                "hardware_cloud_gpu_h100_on_demand_is_carried_lag1",
-                "hardware_cloud_gpu_h100_on_demand_staleness_days_lag1",
+                "hardware_cloud_gpu_daily_server_tightness_ret20_lag1",
             ),
-            lookback=31,
+            lookback=20,
             function=_hardware_server_supply_chain_confirmation,
-            economic_rationale="Server and accelerator strength is less informative when the direct cloud GPU state is stale and only carried forward.",
-            code="ai_server_ret20_lag1 + 0.5 * ai_accelerator_ret20_lag1 - 0.05 * carried_lag1 * log1p(staleness_days_lag1)",
+            economic_rationale="Daily AI server supply-chain strength and server tightness proxy can confirm GPU-cycle pressure without monthly price carry.",
+            code="cloud_gpu_daily_server_supply_proxy_ret20_lag1 + 0.5 * ai_accelerator_ret20_lag1 + 0.5 * cloud_gpu_daily_server_tightness_ret20_lag1",
             metadata={
-                "history_role": "cloud_diagnostic_short_history",
+                "history_role": "daily_cloud_gpu_proxy_promotable",
                 "data_semantics": HARDWARE_COGALPHA_DATA_SEMANTICS,
-                "cloud_direct_pricing": True,
+                "cloud_direct_pricing": False,
+                "daily_proxy_pricing": True,
             },
         ),
         CognitiveAlphaCandidate(

@@ -95,3 +95,43 @@ def test_hardware_cycle_factor_frame_lags_cloud_state_features(tmp_path: Path):
     assert row_after_carried["hardware_cloud_gpu_h100_on_demand_source_observed_lag1"] == 0.0
     assert row_after_carried["hardware_cloud_gpu_h100_on_demand_is_carried_lag1"] == 1.0
     assert row_after_carried["hardware_cloud_gpu_h100_on_demand_staleness_days_lag1"] == 1.0
+
+
+def test_hardware_cycle_factor_frame_treats_cloud_gpu_daily_proxies_as_daily_indices(tmp_path: Path):
+    dates = pd.date_range("2024-07-01", periods=6, freq="D")
+    frame = pd.DataFrame(
+        {
+            "instrument": [HARDWARE_CYCLE_INSTRUMENT] * len(dates),
+            "datetime": dates,
+            "ai_accelerator_index": [100, 101, 102, 103, 104, 105],
+            "memory_storage_index": [100, 100, 101, 101, 102, 102],
+            "cloud_capex_index": [100, 100, 100, 101, 101, 101],
+            "ai_server_index": [100, 99, 100, 101, 102, 103],
+            "cloud_gpu_daily_hopper_proxy_index": [100, 100, 110, 110, 121, 121],
+            "cloud_gpu_h100_on_demand": [7.0, 7.0, 7.0, 7.0, 7.0, 7.0],
+            "cloud_gpu_h100_on_demand_available": [1, 1, 1, 1, 1, 1],
+        }
+    )
+    manifest = build_hardware_cycle_qlib_store_from_frame(
+        frame,
+        provider_uri=tmp_path / "hardware_cycle",
+        as_of="2024-07-06",
+    )
+
+    factors = build_hardware_cycle_factor_frame(
+        QlibProviderConfig(provider_uri=Path(manifest["provider_uri"]), region="us", market="all", kernels=1),
+        start="2024-07-01",
+        end="2024-07-06",
+        proxy_return_windows=(1,),
+        zscore_windows=(3,),
+        cloud_return_windows=(1,),
+        lag_days=1,
+    )
+
+    feature_cols = set(factors.attrs["feature_cols"])
+    assert "hardware_cloud_gpu_daily_hopper_proxy_ret1_lag1" in feature_cols
+    assert "hardware_cloud_gpu_daily_hopper_proxy_z3_lag1" in feature_cols
+    assert "hardware_cloud_gpu_daily_hopper_proxy_available_lag1" in feature_cols
+    assert "hardware_cloud_gpu_daily_hopper_proxy_index_ret1_lag1" not in feature_cols
+    row_after_daily_move = factors.loc[factors["datetime"].eq(pd.Timestamp("2024-07-04"))].iloc[0]
+    assert np.isclose(row_after_daily_move["hardware_cloud_gpu_daily_hopper_proxy_ret1_lag1"], np.log(110.0 / 100.0))
