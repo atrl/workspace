@@ -9,13 +9,9 @@ model_selection:
 execution_sleeve:
   triple_risk_gate_col: intraday_execution_sleeve_v2_triple_risk_gate
   trend_protection_floor_col: intraday_execution_sleeve_v2_trend_protection_floor
-regime_template:
-  annual_gate_source: regime_template_walk_forward
-  selection_uses_test_segment: false
-  ml_confirmation_probability_floor: 0.35
 annual_goal:
-  required_policy_satisfied: true
-  target_pass_test_years: [2023, 2024, 2025, 2026]
+  required_policy_satisfied: false
+  target_pass_test_years: []
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml

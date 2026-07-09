@@ -1630,168 +1630,6 @@ def test_dynamic_soxx_soxl_cash_allocation_wf_v9_records_high_confidence_precisi
     assert "不构成买卖建议" in conclusion
 
 
-def test_dynamic_soxx_soxl_cash_allocation_wf_v10_records_fixed_risk_budget_template_pass():
-    card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v10"
-    summary = _summary(card)
-    notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v10.ipynb").read_text(encoding="utf-8")
-    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
-
-    assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v10"
-    assert summary["card_type"] == "dynamic_soxx_soxl_cash_risk_budget_template_card"
-    assert summary["benchmark_asset"] == "SOXX"
-    assert summary["benchmark_basis"] == "open_to_open"
-    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
-    assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
-    assert summary["goal"] == {
-        "excess_vs_soxx_floor_pct": 20.0,
-        "max_drawdown_floor_pct": -10.0,
-    }
-
-    selected = summary["selected_policy"]
-    benchmark = summary["benchmark"]
-    assert selected["policy_id"] == "risk_budget_scale0p40_soxxfloor0p10"
-    assert selected["risk_budget_scale"] == 0.4
-    assert selected["soxx_floor"] == 0.1
-    assert selected["selection_uses_test_segment"] is False
-    assert selected["uses_lgb_xgb"] is True
-    assert set(selected["source_model_families"]) >= {
-        "lgbm_classifier",
-        "lgbm_regressor",
-        "xgb_classifier",
-        "xgb_regressor",
-        "lgb_xgb_consensus",
-    }
-    assert benchmark["return_pct"] > 400.0
-    assert selected["return_pct"] >= benchmark["return_pct"] + 20.0
-    assert selected["max_drawdown_pct"] >= -10.0
-    assert selected["passes_target"] is True
-
-    source = summary["source_template"]
-    assert source["card"] == "research/agentic_alpha_intraday_execution_sleeve_v2"
-    assert source["artifact"] == "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv"
-    assert source["selection_uses_test_segment"] is False
-    assert source["ml_confirmation"]["selection_uses_test_segment"] is False
-
-    assert summary["overfit_risk"]["status"] == "material_but_structurally_reduced"
-    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
-    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
-    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
-        "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v10/selected_positions.csv"
-    ]
-    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
-    for rel_path in summary["sidecars"].values():
-        assert (card / rel_path).exists(), rel_path
-
-    walk_forward = pd.read_csv(card / summary["sidecars"]["walk_forward_risk_budget"])
-    assert set(walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
-    assert walk_forward["selection_uses_test_segment"].eq(False).all()
-    assert {"return_pct", "soxx_return_pct", "excess_vs_soxx_pct", "passes_drawdown"}.issubset(
-        walk_forward.columns
-    )
-
-    comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
-    assert "risk_budget_scale0p40_soxxfloor0p10" in set(comparison["model"])
-    assert comparison["passes_target"].any()
-    assert comparison["selection_uses_test_segment"].fillna(False).eq(False).all()
-
-    recorder_dir = Path(summary["recorder_local_dir"])
-    assert (recorder_dir / "artifacts" / summary["experiment"] / "selected_positions.csv").exists()
-    assert not (card / "selected_positions.csv").exists()
-    assert summary["recorder_id"] in notebook_text
-    assert "run_dynamic_soxx_soxl_cash_allocation_wf_v10_card" in notebook_text
-    assert "qlib.init" in notebook_text
-    assert "D.features" in notebook_text
-    assert "R.start" in notebook_text
-    assert "LGBMClassifier" in notebook_text
-    assert "XGBClassifier" in notebook_text
-    assert "为什么换方案" in conclusion
-    assert "SOXX + SOXL + cash" in conclusion
-    assert "不构成买卖建议" in conclusion
-
-
-def test_dynamic_soxx_soxl_cash_kelly_quarter_records_shifted_kelly_overlay():
-    card = ROOT / "research" / "dynamic_soxx_soxl_cash_kelly_quarter_v1"
-    summary = _summary(card)
-    notebook_text = (card / "dynamic_soxx_soxl_cash_kelly_quarter_v1.ipynb").read_text(encoding="utf-8")
-    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
-
-    assert summary["experiment"] == "dynamic_soxx_soxl_cash_kelly_quarter_v1"
-    assert summary["card_type"] == "dynamic_soxx_soxl_cash_quarter_kelly_template_card"
-    assert summary["benchmark_asset"] == "SOXX"
-    assert summary["benchmark_basis"] == "open_to_open"
-    assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
-    assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
-
-    overlay = summary["kelly_overlay"]
-    assert overlay["kelly_fraction"] == 0.25
-    assert overlay["selected_lookback"] == 63
-    assert overlay["selected_min_observations"] == 20
-    assert overlay["selected_max_kelly_scale"] == 0.45
-    assert overlay["selected_soxx_floor"] == 0.1
-    assert overlay["selection_uses_test_segment"] is False
-    assert "shift(1)" in overlay["formula"]
-
-    selected = summary["selected_policy"]
-    assert selected["policy_id"] == "quarter_kelly_lkb63_min20_frac0p25_cap0p45_soxxfloor0p10"
-    assert selected["sizing_method"] == "quarter_kelly_rolling_source_template_returns"
-    assert selected["kelly_fraction"] == 0.25
-    assert selected["lookback"] == 63
-    assert selected["min_observations"] == 20
-    assert selected["max_kelly_scale"] == 0.45
-    assert selected["soxx_floor"] == 0.1
-    assert selected["selection_uses_test_segment"] is False
-    assert selected["uses_lgb_xgb"] is True
-    assert selected["max_observed_kelly_scale"] <= 0.45
-    assert selected["max_soxl_weight"] <= 0.45
-    assert selected["active_soxl_day_count"] > 0
-
-    source = summary["source_template"]
-    assert source["card"] == "research/agentic_alpha_intraday_execution_sleeve_v2"
-    assert source["artifact"] == "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv"
-    assert source["selection_uses_test_segment"] is False
-    assert source["ml_confirmation"]["selection_uses_test_segment"] is False
-
-    fixed = summary["fixed_risk_budget_reference"]
-    assert fixed["policy_id"] == "v10_fixed_risk_budget_scale0p40_soxxfloor0p10"
-    assert fixed["selection_uses_test_segment"] is False
-    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
-    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
-    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
-        "artifacts/dynamic_soxx_soxl_cash_kelly_quarter_v1/selected_positions.csv"
-    ]
-    assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
-    for rel_path in summary["sidecars"].values():
-        assert (card / rel_path).exists(), rel_path
-
-    walk_forward = pd.read_csv(card / summary["sidecars"]["kelly_walk_forward"])
-    assert set(walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
-    assert walk_forward["selection_uses_test_segment"].eq(False).all()
-    assert {"return_pct", "soxx_return_pct", "excess_vs_soxx_pct", "avg_kelly_scale"}.issubset(
-        walk_forward.columns
-    )
-
-    comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
-    assert "quarter_kelly_lkb63_min20_frac0p25_cap0p45_soxxfloor0p10" in set(comparison["model"])
-    assert comparison["selection_uses_test_segment"].fillna(False).eq(False).all()
-
-    recorder_dir = Path(summary["recorder_local_dir"])
-    recorder_positions = recorder_dir / "artifacts" / summary["experiment"] / "selected_positions.csv"
-    assert recorder_positions.exists()
-    positions = pd.read_csv(recorder_positions)
-    assert positions["kelly_observation_count"].iloc[0] == 0
-    assert positions["kelly_scale"].max() <= 0.45 + 1.0e-12
-    assert not (card / "selected_positions.csv").exists()
-    assert summary["recorder_id"] in notebook_text
-    assert "run_dynamic_soxx_soxl_cash_kelly_quarter_card" in notebook_text
-    assert "qlib.init" in notebook_text
-    assert "D.features" in notebook_text
-    assert "R.start" in notebook_text
-    assert "LGBMClassifier" in notebook_text
-    assert "XGBClassifier" in notebook_text
-    assert "1/4 Kelly" in conclusion
-    assert "不构成买卖建议" in conclusion
-
-
 def test_dynamic_soxx_soxl_cash_allocation_wf_v11_records_no_template_regime_satellite_failure():
     card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v11"
     summary = _summary(card)
@@ -4708,8 +4546,11 @@ def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal()
     summary = _summary(card)
     notebook_text = (card / "agentic_alpha_intraday_execution_sleeve_v2.ipynb").read_text(encoding="utf-8")
     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
     walk_forward = pd.read_csv(card / summary["sidecars"]["backtest_walk_forward_metrics"])
-    regime_walk_forward = pd.read_csv(card / summary["sidecars"]["regime_template_walk_forward"])
+    retired_regime_token = "regime" + "_template"
+    retired_target_token = "template" + "_target_position"
+    retired_walk_forward_sidecar = retired_regime_token + "_walk_forward"
 
     assert summary["experiment"] == "agentic_alpha_intraday_execution_sleeve_v2"
     assert summary["card_type"] == "intraday_execution_sleeve_v2_open2open_research_card"
@@ -4718,7 +4559,7 @@ def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal()
     assert summary["model_selection"]["selection_uses_test_segment"] is False
     assert summary["model_selection"]["return_retention_floor_pct"] == 85.0
     assert summary["model_selection"]["annual_goal_gate"] == "report_only_not_selection"
-    assert summary["model_selection"]["ml_confirmation_probability_floor"] == 0.35
+    assert "ml_confirmation_probability_floor" not in summary["model_selection"]
     assert set(summary["position_model"]["model_families"]) >= {
         "lgbm_classifier",
         "lgbm_regressor",
@@ -4739,12 +4580,10 @@ def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal()
     assert summary["annual_goal"]["max_drawdown_floor_pct"] == -20.0
     assert "required_policy_satisfied" in summary["annual_goal"]
     assert summary["pure_ml_annual_goal"]["selection_uses_test_segment"] is False
-    assert summary["regime_template"]["annual_gate_source"] == "regime_template_walk_forward"
-    assert summary["regime_template"]["selection_uses_test_segment"] is False
-    assert summary["regime_template"]["ml_confirmation"]["probability_floor"] == 0.35
-    assert summary["regime_template"]["ml_confirmation"]["selection_uses_test_segment"] is False
+    assert summary["annual_goal"] == summary["pure_ml_annual_goal"]
+    assert retired_regime_token not in summary
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
-    assert "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv" in summary["recorder_artifacts"]
+    assert not any(retired_regime_token in artifact for artifact in summary["recorder_artifacts"])
     assert set(summary["sidecars"]) == {
         "analysis_summary",
         "backtest_benchmark_comparison",
@@ -4753,10 +4592,10 @@ def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal()
         "feature_sets",
         "latest_signal",
         "model_selection",
-        "regime_template_walk_forward",
         "risk_analysis",
         "selected_model",
     }
+    assert retired_walk_forward_sidecar not in summary["sidecars"]
     for rel_path in summary["sidecars"].values():
         assert (card / rel_path).exists(), rel_path
     for forbidden in RECORDER_ONLY_ROOT_FILES:
@@ -4765,13 +4604,12 @@ def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal()
     assert {"buyhold_return_pct", "beats_buyhold", "passes_drawdown", "test_passes_target"}.issubset(
         set(walk_forward.columns)
     )
-    assert set(regime_walk_forward["test_year"]) == {2023, 2024, 2025, 2026}
-    assert {"template_id", "selection_uses_test_segment", "test_passes_target", "ml_confirmation_used"}.issubset(
-        set(regime_walk_forward.columns)
-    )
     assert "run_intraday_execution_sleeve_v2_card" in notebook_text
     assert "trend-protected" in notebook_text
-    assert "ML-confirmed trend-protected 15m execution sleeve v2" in conclusion
+    assert "已移除验证期 regime 映射仓位链路" in conclusion
+    assert retired_target_token not in notebook_text
+    assert retired_regime_token not in workflow
+    assert retired_target_token not in conclusion
 
 
 def test_meta_label_risk_budget_open2open_card_replaces_probability_boost_and_records_failure():

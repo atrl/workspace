@@ -1316,7 +1316,7 @@ def test_selector_prefers_soxl_drawdown_qualified_candidate_over_risky_soxl_retu
     assert selected["soxl_inner_pass_rate"] == 1.0
 
 
-def test_selector_does_not_expose_manual_regime_template_filter_fields():
+def test_selector_does_not_expose_manual_shape_filter_fields():
     rows = []
     for candidate in ["soxl_calibrated_winner", "manual_regime_shape_winner"]:
         for heldout_asset in ["SOXL", "TQQQ", "UPRO", "SPXL", "TECL"]:

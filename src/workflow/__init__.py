@@ -42,7 +42,6 @@ __all__ = [
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "Multi3xEtfNormalizedNestedWfSpec",
     "DynamicSoxxSoxlCashAllocationWfSpec",
-    "DynamicSoxxSoxlCashKellyQuarterSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
@@ -69,7 +68,6 @@ __all__ = [
     "run_intraday_execution_sleeve_v2_card",
     "run_hybrid_intraday15m_open2open_card",
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
-    "run_dynamic_soxx_soxl_cash_kelly_quarter_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_multi_3x_etf_normalized_nested_wf_card",
     "run_probability_budget_open2open_card",
@@ -176,11 +174,6 @@ _DYNAMIC_SOXX_SOXL_CASH_ALLOCATION_WF_EXPORTS = {
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
 }
 
-_DYNAMIC_SOXX_SOXL_CASH_KELLY_QUARTER_EXPORTS = {
-    "DynamicSoxxSoxlCashKellyQuarterSpec",
-    "run_dynamic_soxx_soxl_cash_kelly_quarter_card",
-}
-
 _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS = {
     "ProbabilityBudgetOpen2OpenCardSpec",
     "run_probability_budget_open2open_card",
@@ -252,10 +245,6 @@ def __getattr__(name: str):
         from . import dynamic_soxx_soxl_cash_allocation_wf
 
         return getattr(dynamic_soxx_soxl_cash_allocation_wf, name)
-    if name in _DYNAMIC_SOXX_SOXL_CASH_KELLY_QUARTER_EXPORTS:
-        from . import dynamic_soxx_soxl_cash_kelly_quarter
-
-        return getattr(dynamic_soxx_soxl_cash_kelly_quarter, name)
     if name in _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS:
         from . import probability_budget_open2open
 

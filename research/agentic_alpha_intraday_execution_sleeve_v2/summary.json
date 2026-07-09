@@ -1,7 +1,7 @@
 {
   "annual_goal": {
     "blocking_reasons": [
-      "ok"
+      "annual_target_gate_failed"
     ],
     "experiment": "agentic_alpha_intraday_execution_sleeve_v2",
     "feasible_test_years": [
@@ -13,7 +13,7 @@
     "max_drawdown_floor_pct": -20.0,
     "missing_required_test_years": [],
     "policy": "annual_train_to_T_minus_2_valid_T_minus_1_test_T",
-    "required_policy_satisfied": true,
+    "required_policy_satisfied": false,
     "required_test_years": [
       2023,
       2024,
@@ -22,19 +22,13 @@
     ],
     "return_gate": "test_return_pct_gt_soxl_buyhold_open2open",
     "selection_uses_test_segment": false,
-    "target_pass_test_years": [
-      2023,
-      2024,
-      2025,
-      2026
-    ]
+    "target_pass_test_years": []
   },
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "recorder_only_artifacts": [
       "artifacts/intraday_execution_sleeve_v2/positions.csv",
-      "artifacts/intraday_execution_sleeve_v2/walk_forward_positions.csv",
-      "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv"
+      "artifacts/intraday_execution_sleeve_v2/walk_forward_positions.csv"
     ],
     "workflow_config": "workflow.yaml"
   },
@@ -229,7 +223,6 @@
   },
   "model_selection": {
     "annual_goal_gate": "report_only_not_selection",
-    "ml_confirmation_probability_floor": 0.35,
     "model_families": [
       "lgb_xgb_consensus",
       "lgbm_classifier",
@@ -239,7 +232,7 @@
     ],
     "return_retention_floor_pct": 85.0,
     "selected_model": "lgb_xgb_consensus",
-    "selection_metric": "validation_return_retention_with_ml_confirmed_trend_protected_triple_risk_gate",
+    "selection_metric": "validation_return_retention_with_trend_protected_triple_risk_gate",
     "selection_uses_test_segment": false
   },
   "model_target_col": "label_open_to_open_5d",
@@ -1039,7 +1032,7 @@
     "workflow": "cognitive_alpha_position_model"
   },
   "primary_notebook": "agentic_alpha_intraday_execution_sleeve_v2.ipynb",
-  "promotion_decision": "candidate_for_validated_research_intraday_execution_sleeve_v2",
+  "promotion_decision": "not_promoted_intraday_execution_sleeve_v2_annual_goal_failed",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
   "pure_ml_annual_goal": {
     "blocking_reasons": [
@@ -1086,99 +1079,16 @@
     "artifacts/agentic_alpha_intraday_execution_sleeve_v2/model_selection.csv",
     "artifacts/agentic_alpha_intraday_execution_sleeve_v2/backtest_benchmark_comparison.csv",
     "artifacts/agentic_alpha_intraday_execution_sleeve_v2/backtest_walk_forward_metrics.csv",
-    "artifacts/agentic_alpha_intraday_execution_sleeve_v2/regime_template_walk_forward.csv",
     "artifacts/agentic_alpha_intraday_execution_sleeve_v2/risk_analysis.csv",
     "artifacts/agentic_alpha_intraday_execution_sleeve_v2/analysis_summary.json",
     "artifacts/agentic_alpha_intraday_execution_sleeve_v2/feature_sets.csv",
     "artifacts/agentic_alpha_intraday_execution_sleeve_v2/latest_signal.json",
     "artifacts/intraday_execution_sleeve_v2/positions.csv",
-    "artifacts/intraday_execution_sleeve_v2/walk_forward_positions.csv",
-    "artifacts/intraday_execution_sleeve_v2/regime_template_positions.csv"
+    "artifacts/intraday_execution_sleeve_v2/walk_forward_positions.csv"
   ],
-  "recorder_id": "eacc0ba56546431aadb7430a3ef52399",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_execution_sleeve_v2/qlib_recorder/623838334435768636/eacc0ba56546431aadb7430a3ef52399",
+  "recorder_id": "1627903a9e05438e80236ce6e6f892df",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_execution_sleeve_v2/qlib_recorder/851554220392028799/1627903a9e05438e80236ce6e6f892df",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/agentic_alpha_intraday_execution_sleeve_v2/qlib_recorder",
-  "regime_template": {
-    "annual_gate_source": "regime_template_walk_forward",
-    "cost_per_turnover": 0.0003,
-    "ml_confirmation": {
-      "applies_to": "non_source_daily_rule_templates",
-      "probability_floor": 0.35,
-      "selection_uses_test_segment": false,
-      "source": "source_daily_walk_forward_lgb_xgb_probability"
-    },
-    "selection_policy": "validation_buyhold_regime_only_then_source_lgb_xgb_probability_confirmation",
-    "selection_uses_test_segment": false,
-    "template_ids": [
-      "post_bear_ret60_late_confirm",
-      "post_rebound_low_ret60_defense",
-      "range_repair_high_trend_efficiency",
-      "source_daily_lgb_xgb_ml"
-    ],
-    "templates_by_year": [
-      {
-        "buyhold_return_pct": 169.12955308293087,
-        "ml_confirmation_source": "source_daily_lgb_xgb_probability",
-        "ml_confirmation_used": true,
-        "ml_probability_floor": 0.35,
-        "selection_reason": "deep_negative_validation_year_sets_post_bear_recovery_template",
-        "template_id": "post_bear_ret60_late_confirm",
-        "test_max_drawdown_pct": -11.331551932410767,
-        "test_ml_confirmed_day_ratio": 0.92,
-        "test_passes_target": true,
-        "test_return_pct": 316.3389000338436,
-        "test_year": 2023,
-        "validation_buyhold_max_drawdown_pct": -90.77453597623146,
-        "validation_buyhold_return_pct": -86.38743474071728
-      },
-      {
-        "buyhold_return_pct": 6.506203581454084,
-        "ml_confirmation_source": "source_daily_lgb_xgb_probability",
-        "ml_confirmation_used": true,
-        "ml_probability_floor": 0.35,
-        "selection_reason": "strong_rebound_validation_year_sets_low_ret60_defense_template",
-        "template_id": "post_rebound_low_ret60_defense",
-        "test_max_drawdown_pct": -7.488389360591475,
-        "test_ml_confirmed_day_ratio": 0.5079365079365079,
-        "test_passes_target": true,
-        "test_return_pct": 43.6941275534608,
-        "test_year": 2024,
-        "validation_buyhold_max_drawdown_pct": -48.91075042308827,
-        "validation_buyhold_return_pct": 169.12955308293087
-      },
-      {
-        "buyhold_return_pct": 77.78954455046517,
-        "ml_confirmation_source": "source_daily_lgb_xgb_probability",
-        "ml_confirmation_used": true,
-        "ml_probability_floor": 0.35,
-        "selection_reason": "range_bound_high_drawdown_validation_year_sets_selective_trend_template",
-        "template_id": "range_repair_high_trend_efficiency",
-        "test_max_drawdown_pct": -19.820766532977963,
-        "test_ml_confirmed_day_ratio": 0.728,
-        "test_passes_target": true,
-        "test_return_pct": 81.41008416285771,
-        "test_year": 2025,
-        "validation_buyhold_max_drawdown_pct": -66.40479968562667,
-        "validation_buyhold_return_pct": 6.506203581454084
-      },
-      {
-        "buyhold_return_pct": 335.412119903477,
-        "ml_confirmation_source": "source_daily_lgb_xgb_ml",
-        "ml_confirmation_used": true,
-        "ml_probability_floor": null,
-        "selection_reason": "positive_high_drawdown_validation_year_keeps_source_daily_ml_template",
-        "template_id": "source_daily_lgb_xgb_ml",
-        "test_max_drawdown_pct": -18.016191569324924,
-        "test_ml_confirmed_day_ratio": null,
-        "test_passes_target": true,
-        "test_return_pct": 403.5389056502789,
-        "test_year": 2026,
-        "validation_buyhold_max_drawdown_pct": -77.4470508753333,
-        "validation_buyhold_return_pct": 77.78954455046517
-      }
-    ]
-  },
-  "regime_template_walk_forward_rows": 4,
   "return_col": "open_to_open_return",
   "sidecars": {
     "analysis_summary": "analysis_summary.json",
@@ -1188,7 +1098,6 @@
     "feature_sets": "feature_sets.csv",
     "latest_signal": "latest_signal.json",
     "model_selection": "model_selection.csv",
-    "regime_template_walk_forward": "regime_template_walk_forward.csv",
     "risk_analysis": "risk_analysis.csv",
     "selected_model": "selected_model.json"
   },
@@ -1196,10 +1105,8 @@
     "experiment": "agentic_alpha_intraday_execution_sleeve_v2",
     "max_test_underwater_day_ratio": 0.96,
     "max_validation_underwater_day_ratio": 0.96,
-    "ml_confirmation_probability_floor": 0.35,
     "opportunity_threshold": 0.01,
     "root": "/Users/rziiiii/dev/workspace",
-    "source_daily_card": "research/cognitive_alpha_goal_codex_exec_v1",
     "tail_loss_return_threshold": -0.05,
     "take_label_return_threshold": 0.0,
     "test_cvar_5pct_floor": -10.0,
