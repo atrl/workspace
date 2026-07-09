@@ -1,0 +1,24 @@
+experiment: hardware_cycle_cogalpha_mining_v1
+card_type: hardware_cycle_cogalpha_factor_mining_research_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+hardware_cycle_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/hardware_cycle_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/hardware_cycle_cogalpha_mining_v1/qlib_recorder
+recorder_id: 0cb6256ced7c4dbdbc9e905c8f4b2c6e
+as_of: 2026-07-02
+daily_data_semantics:
+  cloud_gpu_level_semantics: last_observed_state_forward_filled_to_qlib_daily_calendar
+  source_observed_flag: <field>_source_observed
+  carried_state_flag: <field>_is_carried
+  staleness_measure: <field>_staleness_days
+factor_mining:
+  workflow: cognitive_alpha_factor_mining
+  source_layer: src.factor.hardware_cycle_cogalpha
+  selected_count: 1
+position_model:
+  workflow: hardware_cycle_cogalpha_position_model
+  return_col: open_to_open_return
+  label_col: label_open_to_open_5d
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

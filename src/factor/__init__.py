@@ -53,6 +53,11 @@ from .hardware_cycle import (
     HARDWARE_CYCLE_LIMITATIONS,
     build_hardware_cycle_factor_frame,
 )
+from .hardware_cycle_cogalpha import (
+    HARDWARE_COGALPHA_DATA_SEMANTICS,
+    HARDWARE_COGALPHA_SOURCE_LAYER,
+    build_hardware_cycle_cogalpha_candidates,
+)
 from .intraday_15m_factors import (
     INTRADAY_15M_FACTOR_SOURCE,
     INTRADAY_15M_FIELDS,
@@ -108,6 +113,8 @@ __all__ = [
     "HIGH_CHOP_ML_SOURCE_FIELDS",
     "HARDWARE_CYCLE_FACTOR_SOURCE",
     "HARDWARE_CYCLE_LIMITATIONS",
+    "HARDWARE_COGALPHA_DATA_SEMANTICS",
+    "HARDWARE_COGALPHA_SOURCE_LAYER",
     "INTRADAY_15M_FACTOR_SOURCE",
     "INTRADAY_15M_FIELDS",
     "INTRADAY_15M_LIMITATIONS",
@@ -124,6 +131,7 @@ __all__ = [
     "build_factor_library_reversal_frame",
     "build_high_chop_ml_frame",
     "build_hardware_cycle_factor_frame",
+    "build_hardware_cycle_cogalpha_candidates",
     "build_intraday_15m_factor_frame",
     "build_long_short_crisis_alpha_frame",
     "build_macro_rate_gate_component",

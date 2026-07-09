@@ -20,9 +20,12 @@ HARDWARE_CYCLE_USER_AGENT = "Mozilla/5.0 soxl-qlib-hardware-cycle"
 
 HARDWARE_PROXY_GROUPS: dict[str, tuple[str, ...]] = {
     "ai_accelerator": ("NVDA", "AMD", "AVGO", "TSM", "ASML"),
+    "cpu_compute": ("AMD", "INTC", "QCOM", "MRVL", "ARM"),
     "memory_storage": ("MU", "WDC", "STX"),
+    "enterprise_storage": ("NTAP", "PSTG", "HPE", "HPQ"),
     "cloud_capex": ("AMZN", "MSFT", "GOOGL", "ORCL", "META"),
     "ai_server": ("SMCI", "DELL"),
+    "power_cooling": ("VRT", "ETN", "PWR"),
 }
 HARDWARE_PROXY_SYMBOLS = tuple(dict.fromkeys(symbol for symbols in HARDWARE_PROXY_GROUPS.values() for symbol in symbols))
 
@@ -142,10 +145,20 @@ def fetch_hardware_proxy_price_frames(
     start: str,
     end: str,
     symbols: Iterable[str] = HARDWARE_PROXY_SYMBOLS,
+    allow_missing: bool = True,
 ) -> dict[str, pd.DataFrame]:
     frames: dict[str, pd.DataFrame] = {}
+    errors: dict[str, str] = {}
     for symbol in symbols:
-        frames[str(symbol).upper()] = _fetch_yahoo_chart_ohlcv(str(symbol).upper(), start=start, end=end)
+        normalized = str(symbol).upper()
+        try:
+            frames[normalized] = _fetch_yahoo_chart_ohlcv(normalized, start=start, end=end)
+        except Exception as exc:
+            if not allow_missing:
+                raise
+            errors[normalized] = str(exc)
+    if not frames:
+        raise RuntimeError(f"no hardware proxy price frames could be fetched: {errors}")
     return frames
 
 
@@ -186,6 +199,7 @@ def _proxy_available_count(price_frame: pd.DataFrame, symbols: Iterable[str]) ->
 def _pivot_cloud_gpu_index(cloud_gpu_index: pd.DataFrame, calendar: pd.DatetimeIndex) -> pd.DataFrame:
     if cloud_gpu_index.empty:
         return pd.DataFrame(index=calendar)
+    calendar_index = pd.DatetimeIndex(calendar).normalize().sort_values().unique()
     raw = cloud_gpu_index.copy()
     raw["datetime"] = pd.to_datetime(raw["datetime"]).dt.normalize()
     raw["field"] = raw["field"].astype(str)
@@ -193,11 +207,42 @@ def _pivot_cloud_gpu_index(cloud_gpu_index: pd.DataFrame, calendar: pd.DatetimeI
     pivot = raw.pivot_table(index="datetime", columns="field", values="value", aggfunc="last").sort_index()
     columns: dict[str, pd.Series] = {}
     for field in pivot.columns:
-        aligned = pivot[field].reindex(calendar.union(pivot.index)).sort_index().ffill().reindex(calendar)
+        points = pivot[field].dropna().sort_index()
+        mapped_points = _map_source_points_to_calendar(points, calendar_index)
+        aligned = mapped_points.reindex(calendar_index).ffill()
         available = aligned.notna().astype("float64")
+        source_observed = pd.Series(0.0, index=calendar_index, dtype="float64")
+        if not mapped_points.empty:
+            source_observed.loc[mapped_points.index] = 1.0
+        is_carried = ((available > 0.0) & (source_observed <= 0.0)).astype("float64")
+        last_update = pd.Series(pd.NaT, index=calendar_index, dtype="datetime64[ns]")
+        if not mapped_points.empty:
+            last_update.loc[mapped_points.index] = mapped_points.index
+        last_update = last_update.ffill()
+        staleness = pd.Series(
+            (calendar_index - pd.DatetimeIndex(last_update)).days,
+            index=calendar_index,
+            dtype="float64",
+        )
+        staleness = staleness.where(available > 0.0)
         columns[str(field)] = aligned
         columns[f"{field}_available"] = available
-    return pd.DataFrame(columns, index=calendar)
+        columns[f"{field}_source_observed"] = source_observed
+        columns[f"{field}_is_carried"] = is_carried
+        columns[f"{field}_staleness_days"] = staleness
+    return pd.DataFrame(columns, index=calendar_index)
+
+
+def _map_source_points_to_calendar(points: pd.Series, calendar: pd.DatetimeIndex) -> pd.Series:
+    mapped: dict[pd.Timestamp, float] = {}
+    for source_date, value in points.items():
+        pos = calendar.searchsorted(pd.Timestamp(source_date), side="left")
+        if pos >= len(calendar):
+            continue
+        mapped[pd.Timestamp(calendar[pos])] = float(value)
+    if not mapped:
+        return pd.Series(dtype="float64")
+    return pd.Series(mapped, dtype="float64").sort_index()
 
 
 def build_hardware_cycle_daily_frame(
@@ -271,7 +316,8 @@ def build_hardware_cycle_qlib_store(
     raw_dir = raw_dir or root / "data" / "raw" / "external" / "hardware_cycle"
     raw_dir.mkdir(parents=True, exist_ok=True)
 
-    proxy_frames = fetch_hardware_proxy_price_frames(start=start, end=end)
+    requested_symbols = list(HARDWARE_PROXY_SYMBOLS)
+    proxy_frames = fetch_hardware_proxy_price_frames(start=start, end=end, symbols=requested_symbols)
     cloud_gpu = fetch_aimultiple_gpu_index_series()
     calendar = _calendar_from_soxl_provider(root, start=start, end=end)
     daily = build_hardware_cycle_daily_frame(proxy_frames, cloud_gpu, calendar=calendar)
@@ -283,7 +329,9 @@ def build_hardware_cycle_qlib_store(
     manifest = build_hardware_cycle_qlib_store_from_frame(daily, provider_uri=provider_uri, as_of=end)
     raw_manifest = {
         "source": "hardware_cycle_public_market_proxy_and_cloud_gpu_index",
-        "proxy_symbols": list(HARDWARE_PROXY_SYMBOLS),
+        "proxy_symbols": requested_symbols,
+        "proxy_symbols_fetched": sorted(proxy_frames),
+        "proxy_symbols_missing": [symbol for symbol in requested_symbols if symbol not in proxy_frames],
         "proxy_groups": {group: list(symbols) for group, symbols in HARDWARE_PROXY_GROUPS.items()},
         "cloud_gpu_source": HARDWARE_CYCLE_AIMULTIPLE_URL,
         "raw_daily_csv": daily_path.as_posix(),
@@ -294,6 +342,7 @@ def build_hardware_cycle_qlib_store(
         "cloud_gpu_field_count": int(cloud_gpu["field"].nunique()) if not cloud_gpu.empty else 0,
         "limitations": [
             "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
+            "Monthly cloud GPU values are forward-filled as daily state; source_observed, is_carried, and staleness_days fields preserve update provenance.",
             "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
             "All model-facing hardware-cycle factors must be lagged by the factor builder.",
         ],

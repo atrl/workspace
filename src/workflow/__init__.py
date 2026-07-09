@@ -40,6 +40,7 @@ __all__ = [
     "IntradayExecutionSleeveV2Spec",
     "HybridIntraday15mOpen2OpenSpec",
     "HardwareCycleProbabilityBudgetOpen2OpenCardSpec",
+    "HardwareCycleCogAlphaMiningCardSpec",
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "Multi3xEtfNormalizedNestedWfSpec",
     "DynamicSoxxSoxlCashAllocationWfSpec",
@@ -69,6 +70,7 @@ __all__ = [
     "run_intraday_execution_sleeve_v2_card",
     "run_hybrid_intraday15m_open2open_card",
     "run_hardware_cycle_probability_budget_open2open_card",
+    "run_hardware_cycle_cogalpha_mining_card",
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_multi_3x_etf_normalized_nested_wf_card",
@@ -186,6 +188,11 @@ _HARDWARE_CYCLE_PROBABILITY_BUDGET_EXPORTS = {
     "run_hardware_cycle_probability_budget_open2open_card",
 }
 
+_HARDWARE_CYCLE_COGALPHA_MINING_EXPORTS = {
+    "HardwareCycleCogAlphaMiningCardSpec",
+    "run_hardware_cycle_cogalpha_mining_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -260,4 +267,8 @@ def __getattr__(name: str):
         from . import hardware_cycle_probability_budget_open2open
 
         return getattr(hardware_cycle_probability_budget_open2open, name)
+    if name in _HARDWARE_CYCLE_COGALPHA_MINING_EXPORTS:
+        from . import hardware_cycle_cogalpha_mining
+
+        return getattr(hardware_cycle_cogalpha_mining, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

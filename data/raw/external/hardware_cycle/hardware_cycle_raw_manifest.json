@@ -5,6 +5,7 @@
   "cloud_gpu_source": "https://aimultiple.com/gpu-index",
   "limitations": [
     "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
+    "Monthly cloud GPU values are forward-filled as daily state; source_observed, is_carried, and staleness_days fields preserve update provenance.",
     "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
     "All model-facing hardware-cycle factors must be lagged by the factor builder."
   ],
@@ -27,10 +28,28 @@
       "ORCL",
       "META"
     ],
+    "cpu_compute": [
+      "AMD",
+      "INTC",
+      "QCOM",
+      "MRVL",
+      "ARM"
+    ],
+    "enterprise_storage": [
+      "NTAP",
+      "PSTG",
+      "HPE",
+      "HPQ"
+    ],
     "memory_storage": [
       "MU",
       "WDC",
       "STX"
+    ],
+    "power_cooling": [
+      "VRT",
+      "ETN",
+      "PWR"
     ]
   },
   "proxy_symbols": [
@@ -39,16 +58,57 @@
     "AVGO",
     "TSM",
     "ASML",
+    "INTC",
+    "QCOM",
+    "MRVL",
+    "ARM",
     "MU",
     "WDC",
     "STX",
+    "NTAP",
+    "PSTG",
+    "HPE",
+    "HPQ",
     "AMZN",
     "MSFT",
     "GOOGL",
     "ORCL",
     "META",
     "SMCI",
-    "DELL"
+    "DELL",
+    "VRT",
+    "ETN",
+    "PWR"
+  ],
+  "proxy_symbols_fetched": [
+    "AMD",
+    "AMZN",
+    "ARM",
+    "ASML",
+    "AVGO",
+    "DELL",
+    "ETN",
+    "GOOGL",
+    "HPE",
+    "HPQ",
+    "INTC",
+    "META",
+    "MRVL",
+    "MSFT",
+    "MU",
+    "NTAP",
+    "NVDA",
+    "ORCL",
+    "PWR",
+    "QCOM",
+    "SMCI",
+    "STX",
+    "TSM",
+    "VRT",
+    "WDC"
+  ],
+  "proxy_symbols_missing": [
+    "PSTG"
   ],
   "raw_cloud_gpu_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/aimultiple_cloud_gpu_index.csv",
   "raw_daily_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/hardware_cycle_daily.csv",

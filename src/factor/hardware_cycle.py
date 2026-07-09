@@ -11,9 +11,10 @@ from src.data.hardware_cycle import HARDWARE_COUNT_FIELDS, HARDWARE_CYCLE_INSTRU
 
 HARDWARE_CYCLE_FACTOR_SOURCE = "qlib.data.D.features"
 HARDWARE_CYCLE_LIMITATIONS = [
-    "Cloud GPU direct pricing history starts later than market proxy history and is exposed with availability masks.",
+    "Cloud GPU direct pricing history starts later than market proxy history and is exposed with availability and daily state-provenance masks.",
     "All hardware-cycle features are shifted before open-to-open model use.",
 ]
+CLOUD_GPU_STATE_SUFFIXES = ("_available", "_source_observed", "_is_carried", "_staleness_days")
 DEFAULT_CLOUD_GPU_FIELDS = (
     "cloud_gpu_h100_on_demand",
     "cloud_gpu_h200_on_demand",
@@ -100,11 +101,7 @@ def build_hardware_cycle_factor_frame(
         feature_data[col] = panel[field].shift(lag_days).fillna(0.0)
         feature_cols.append(col)
 
-    cloud_fields = [
-        field
-        for field in fields
-        if field.startswith("cloud_gpu_") and not field.endswith("_available") and field in panel
-    ]
+    cloud_fields = [field for field in fields if _is_cloud_gpu_level_field(field) and field in panel]
     for field in cloud_fields:
         available_field = f"{field}_available"
         available = panel[available_field] if available_field in panel else panel[field].notna().astype("float64")
@@ -119,6 +116,13 @@ def build_hardware_cycle_factor_frame(
         availability_col = f"hardware_{field}_available_lag{lag_days}"
         feature_data[availability_col] = pd.to_numeric(available, errors="coerce").shift(lag_days).fillna(0.0)
         feature_cols.append(availability_col)
+        for state_suffix in ("source_observed", "is_carried", "staleness_days"):
+            state_field = f"{field}_{state_suffix}"
+            if state_field not in panel:
+                continue
+            state_col = f"hardware_{state_field}_lag{lag_days}"
+            feature_data[state_col] = pd.to_numeric(panel[state_field], errors="coerce").shift(lag_days).fillna(0.0)
+            feature_cols.append(state_col)
 
     feature_frame = pd.DataFrame(feature_data).replace([np.inf, -np.inf], np.nan)
     feature_frame.attrs["feature_cols"] = feature_cols
@@ -128,3 +132,7 @@ def build_hardware_cycle_factor_frame(
     feature_frame.attrs["lag_days"] = int(lag_days)
     feature_frame.attrs["limitations"] = HARDWARE_CYCLE_LIMITATIONS
     return feature_frame
+
+
+def _is_cloud_gpu_level_field(field: str) -> bool:
+    return field.startswith("cloud_gpu_") and not field.endswith(CLOUD_GPU_STATE_SUFFIXES)
