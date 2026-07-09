@@ -41,11 +41,21 @@
       "PWR"
     ]
   },
+  "free_gpu_price_end": "2026-03-28",
+  "free_gpu_price_error": null,
+  "free_gpu_price_field_count": 9,
+  "free_gpu_price_latest_meta": "https://freellm.org/latest/meta.json",
+  "free_gpu_price_quote_rows": 2687,
+  "free_gpu_price_snapshot_count": 52,
+  "free_gpu_price_source": "https://freellm.org/history/YYYY-MM-DD/all.json",
+  "free_gpu_price_start": "2026-02-05",
+  "free_gpu_price_status": "ok",
   "limitations": [
     "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
     "Monthly cloud GPU values are forward-filled as daily state; source_observed, is_carried, and staleness_days fields preserve update provenance.",
     "cloud_gpu_daily_* fields are daily public-market proxy indices from trading-day closes; they are not direct rental quote history.",
-    "Direct daily GPU rental indices are not fetched unless a licensed or host-authenticated source is provided.",
+    "free_cloud_gpu_* fields are free daily provider snapshot rental prices from freellm history; missing dates are not forward-filled.",
+    "Free direct GPU rental price history is short and may be stale relative to the market-proxy calendar.",
     "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
     "All model-facing hardware-cycle factors must be lagged by the factor builder."
   ],
@@ -152,6 +162,7 @@
   ],
   "raw_cloud_gpu_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/aimultiple_cloud_gpu_index.csv",
   "raw_daily_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/hardware_cycle_daily.csv",
+  "raw_free_gpu_price_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/freellm_gpu_price_history.csv",
   "row_count": 1885,
-  "source": "hardware_cycle_daily_public_market_proxy_and_cloud_gpu_index"
+  "source": "hardware_cycle_daily_public_market_proxy_cloud_gpu_index_and_free_gpu_prices"
 }

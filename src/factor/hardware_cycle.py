@@ -9,6 +9,7 @@ from src.data import QlibProviderConfig, load_qlib_feature_frame
 from src.data.hardware_cycle import (
     CLOUD_GPU_DAILY_PROXY_COUNT_FIELDS,
     CLOUD_GPU_DAILY_PROXY_FIELDS,
+    FREE_GPU_PRICE_FIELDS,
     HARDWARE_COUNT_FIELDS,
     HARDWARE_CYCLE_INSTRUMENT,
     HARDWARE_LEVEL_FIELDS,
@@ -18,10 +19,12 @@ from src.data.hardware_cycle import (
 HARDWARE_CYCLE_FACTOR_SOURCE = "qlib.data.D.features"
 HARDWARE_CYCLE_LIMITATIONS = [
     "cloud_gpu_daily_* features are daily public-market proxy indices from trading-day closes, not direct rental quote history.",
+    "free_cloud_gpu_* features are direct no-auth daily rental quote snapshots when available; missing dates remain missing before factor lagging.",
     "Cloud GPU direct pricing history starts later than market proxy history and is exposed only as diagnostic state-provenance fields.",
     "All hardware-cycle features are shifted before open-to-open model use.",
 ]
 CLOUD_GPU_STATE_SUFFIXES = ("_available", "_source_observed", "_is_carried", "_staleness_days")
+FREE_GPU_PRICE_STATE_SUFFIXES = ("_available", "_source_observed", "_provider_count", "_quote_count")
 DEFAULT_CLOUD_GPU_FIELDS = (
     "cloud_gpu_h100_on_demand",
     "cloud_gpu_h200_on_demand",
@@ -53,7 +56,13 @@ def _available_fields(config: QlibProviderConfig, *, start: str, end: str) -> li
 
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         return [str(field).removeprefix("$") for field in manifest.get("fields", [])]
-    return [*HARDWARE_LEVEL_FIELDS, *HARDWARE_COUNT_FIELDS, *CLOUD_GPU_DAILY_PROXY_FIELDS, *DEFAULT_CLOUD_GPU_FIELDS]
+    return [
+        *HARDWARE_LEVEL_FIELDS,
+        *HARDWARE_COUNT_FIELDS,
+        *CLOUD_GPU_DAILY_PROXY_FIELDS,
+        *DEFAULT_CLOUD_GPU_FIELDS,
+        *FREE_GPU_PRICE_FIELDS,
+    ]
 
 
 def build_hardware_cycle_factor_frame(
@@ -131,6 +140,24 @@ def build_hardware_cycle_factor_frame(
         feature_data[col] = panel[field].shift(lag_days).fillna(0.0)
         feature_cols.append(col)
 
+    free_gpu_fields = [field for field in fields if _is_free_gpu_price_field(field) and field in panel]
+    for field in free_gpu_fields:
+        for window in tuple(int(item) for item in proxy_return_windows):
+            col = f"hardware_{field}_ret{window}_lag{lag_days}"
+            feature_data[col] = _log_return(panel[field], window).shift(lag_days).fillna(0.0)
+            feature_cols.append(col)
+        for window in tuple(int(item) for item in zscore_windows):
+            col = f"hardware_{field}_z{window}_lag{lag_days}"
+            feature_data[col] = _zscore(panel[field], window=window).shift(lag_days).fillna(0.0)
+            feature_cols.append(col)
+        for state_suffix in ("available", "source_observed", "provider_count", "quote_count"):
+            state_field = f"{field}_{state_suffix}"
+            if state_field not in panel:
+                continue
+            state_col = f"hardware_{state_field}_lag{lag_days}"
+            feature_data[state_col] = pd.to_numeric(panel[state_field], errors="coerce").shift(lag_days).fillna(0.0)
+            feature_cols.append(state_col)
+
     cloud_fields = [field for field in fields if _is_cloud_gpu_level_field(field) and field in panel]
     for field in cloud_fields:
         available_field = f"{field}_available"
@@ -170,4 +197,12 @@ def _is_cloud_gpu_level_field(field: str) -> bool:
         and field not in CLOUD_GPU_DAILY_PROXY_FIELDS
         and field not in CLOUD_GPU_DAILY_PROXY_COUNT_FIELDS
         and not field.endswith(CLOUD_GPU_STATE_SUFFIXES)
+    )
+
+
+def _is_free_gpu_price_field(field: str) -> bool:
+    return (
+        field.startswith("free_cloud_gpu_")
+        and field.endswith("_price")
+        and not field.endswith(FREE_GPU_PRICE_STATE_SUFFIXES)
     )

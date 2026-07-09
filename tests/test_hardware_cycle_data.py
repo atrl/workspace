@@ -11,6 +11,7 @@ from src.data.hardware_cycle import (
     build_hardware_cycle_daily_frame,
     build_hardware_cycle_qlib_store_from_frame,
     extract_aimultiple_gpu_index_series,
+    extract_freellm_gpu_price_snapshot,
     fetch_hardware_proxy_price_frames,
 )
 
@@ -118,6 +119,59 @@ def test_build_hardware_cycle_daily_frame_adds_trading_day_cloud_gpu_proxy_featu
     assert frame["cloud_gpu_daily_supply_demand_pressure_index"].nunique() > 1
     assert "cloud_gpu_daily_hopper_proxy_index_is_carried" not in frame.columns
     assert frame.loc[frame["datetime"].eq(pd.Timestamp("2024-07-02")), "cloud_gpu_h100_on_demand_is_carried"].iloc[0] == 1.0
+
+
+def test_extract_freellm_gpu_price_snapshot_builds_daily_direct_price_indices():
+    rows = [
+        {"provider": "lambda", "product": "NVIDIA H100 SXM", "price_per_hour_usd": 3.99},
+        {"provider": "crusoe", "product": "NVIDIA H100", "price_per_hour_usd": 3.90},
+        {"provider": "coreweave", "product": "NVIDIA HGX B200", "price_per_hour_usd": 8.60},
+        {"provider": "runpod", "product": "NVIDIA RTX 4090", "secure_price": "0.44"},
+        {"provider": "empty", "product": "NVIDIA H100", "price_per_hour_usd": None},
+    ]
+
+    frame = extract_freellm_gpu_price_snapshot(rows, snapshot_date="2026-03-28")
+
+    h100 = frame.loc[frame["field"].eq("free_cloud_gpu_h100_price")].iloc[0]
+    assert h100["datetime"] == pd.Timestamp("2026-03-28")
+    assert h100["source"] == "freellm_gpu_cloud_pricing_history"
+    assert h100["provider_count"] == 2
+    assert h100["quote_count"] == 2
+    assert h100["value"] == 3.945
+    assert set(frame["field"]) == {
+        "free_cloud_gpu_h100_price",
+        "free_cloud_gpu_b200_price",
+        "free_cloud_gpu_rtx_4090_price",
+    }
+
+
+def test_build_hardware_cycle_daily_frame_adds_free_daily_gpu_rental_price_observations():
+    dates = pd.date_range("2026-03-27", "2026-04-02", freq="B")
+    free_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-03-27", "field": "free_cloud_gpu_h100_price", "value": 3.90},
+            {"datetime": "2026-03-28", "field": "free_cloud_gpu_h100_price", "value": 3.80},
+            {"datetime": "2026-03-30", "field": "free_cloud_gpu_h100_price", "value": 3.70},
+        ]
+    )
+
+    frame = build_hardware_cycle_daily_frame(
+        _proxy_frames(dates),
+        cloud_gpu_index=pd.DataFrame(),
+        free_gpu_price_history=free_prices,
+        calendar=[date.date().isoformat() for date in dates],
+    )
+
+    friday = frame.loc[frame["datetime"].eq(pd.Timestamp("2026-03-27"))].iloc[0]
+    monday = frame.loc[frame["datetime"].eq(pd.Timestamp("2026-03-30"))].iloc[0]
+    tuesday = frame.loc[frame["datetime"].eq(pd.Timestamp("2026-03-31"))].iloc[0]
+    assert friday["free_cloud_gpu_h100_price"] == 3.90
+    assert friday["free_cloud_gpu_h100_price_source_observed"] == 1.0
+    assert monday["free_cloud_gpu_h100_price"] == 3.70
+    assert monday["free_cloud_gpu_h100_price_source_observed"] == 1.0
+    assert monday["free_cloud_gpu_h100_price_quote_count"] == 0.0
+    assert pd.isna(tuesday["free_cloud_gpu_h100_price"])
+    assert tuesday["free_cloud_gpu_h100_price_available"] == 0.0
 
 
 def test_build_hardware_cycle_qlib_store_from_frame_reads_back(tmp_path: Path):

@@ -39,6 +39,12 @@ def _hardware_server_supply_chain_confirmation(frame: pd.DataFrame) -> pd.Series
     return (server + 0.5 * accelerator + 0.5 * tightness).rename("hardware_server_supply_chain_confirmation")
 
 
+def _hardware_free_h100_rental_price_pressure(frame: pd.DataFrame) -> pd.Series:
+    h100_price = _col(frame, "hardware_free_cloud_gpu_h100_price_ret20_lag1")
+    available = _col(frame, "hardware_free_cloud_gpu_h100_price_available_lag1").clip(lower=0.0, upper=1.0)
+    return (-h100_price * available).rename("hardware_free_h100_rental_price_pressure")
+
+
 def _hardware_cpu_compute_breadth(frame: pd.DataFrame) -> pd.Series:
     cpu = _col(frame, "hardware_cpu_compute_ret20_lag1")
     accelerator = _col(frame, "hardware_ai_accelerator_ret20_lag1")
@@ -142,6 +148,30 @@ def build_hardware_cycle_cogalpha_candidates() -> list[CognitiveAlphaCandidate]:
                 "history_role": "proxy_promotable",
                 "data_semantics": HARDWARE_COGALPHA_DATA_SEMANTICS,
                 "cloud_direct_pricing": False,
+            },
+        ),
+        CognitiveAlphaCandidate(
+            name="hardware_free_h100_rental_price_pressure",
+            level="market_structure_cycle",
+            agent="AgentMarketCycle",
+            theme="free no-auth daily H100 rental quote pressure",
+            required_columns=(
+                "hardware_free_cloud_gpu_h100_price_ret20_lag1",
+                "hardware_free_cloud_gpu_h100_price_available_lag1",
+            ),
+            lookback=20,
+            function=_hardware_free_h100_rental_price_pressure,
+            economic_rationale=(
+                "Observed daily H100 rental quote declines can indicate easing compute scarcity, but the free source has "
+                "short history and is diagnostic unless it survives position and walk-forward gates."
+            ),
+            code="-free_cloud_gpu_h100_price_ret20_lag1 * free_cloud_gpu_h100_price_available_lag1",
+            metadata={
+                "history_role": "free_direct_gpu_price_short_history",
+                "data_semantics": HARDWARE_COGALPHA_DATA_SEMANTICS,
+                "cloud_direct_pricing": True,
+                "free_daily_source": True,
+                "no_forward_fill": True,
             },
         ),
         CognitiveAlphaCandidate(

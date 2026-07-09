@@ -3,10 +3,12 @@ card_type: hardware_cycle_cogalpha_factor_mining_research_card
 provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
 hardware_cycle_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/hardware_cycle_v1
 recorder_uri: /Users/rziiiii/dev/workspace/research/hardware_cycle_cogalpha_mining_v1/qlib_recorder
-recorder_id: f79b0434b22d4df5a483a79bcfaeeb6d
+recorder_id: dfd7d40fe3424856a093a7be272dd870
 as_of: 2026-07-02
 daily_data_semantics:
   cloud_gpu_daily_proxy_semantics: daily_market_proxy_indices_from_trading_day_closes
+  free_gpu_direct_quote_semantics: free_daily_provider_snapshot_prices_no_forward_fill
+  free_gpu_direct_quote_source: https://freellm.org/history/YYYY-MM-DD/all.json
   cloud_gpu_monthly_state_semantics: diagnostic_last_observed_state_forward_filled_to_qlib_daily_calendar
   source_observed_flag: <field>_source_observed
   carried_state_flag: <field>_is_carried

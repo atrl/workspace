@@ -135,3 +135,45 @@ def test_hardware_cycle_factor_frame_treats_cloud_gpu_daily_proxies_as_daily_ind
     assert "hardware_cloud_gpu_daily_hopper_proxy_index_ret1_lag1" not in feature_cols
     row_after_daily_move = factors.loc[factors["datetime"].eq(pd.Timestamp("2024-07-04"))].iloc[0]
     assert np.isclose(row_after_daily_move["hardware_cloud_gpu_daily_hopper_proxy_ret1_lag1"], np.log(110.0 / 100.0))
+
+
+def test_hardware_cycle_factor_frame_lags_free_daily_gpu_price_observations(tmp_path: Path):
+    dates = pd.date_range("2026-03-27", periods=6, freq="D")
+    frame = pd.DataFrame(
+        {
+            "instrument": [HARDWARE_CYCLE_INSTRUMENT] * len(dates),
+            "datetime": dates,
+            "ai_accelerator_index": [100, 101, 102, 103, 104, 105],
+            "memory_storage_index": [100, 100, 101, 101, 102, 102],
+            "cloud_capex_index": [100, 100, 100, 101, 101, 101],
+            "ai_server_index": [100, 99, 100, 101, 102, 103],
+            "free_cloud_gpu_h100_price": [4.0, 3.9, 3.8, float("nan"), 3.7, float("nan")],
+            "free_cloud_gpu_h100_price_available": [1, 1, 1, 0, 1, 0],
+            "free_cloud_gpu_h100_price_source_observed": [1, 1, 1, 0, 1, 0],
+            "free_cloud_gpu_h100_price_provider_count": [3, 3, 4, 0, 4, 0],
+            "free_cloud_gpu_h100_price_quote_count": [5, 5, 6, 0, 6, 0],
+        }
+    )
+    manifest = build_hardware_cycle_qlib_store_from_frame(
+        frame,
+        provider_uri=tmp_path / "hardware_cycle",
+        as_of="2026-04-01",
+    )
+
+    factors = build_hardware_cycle_factor_frame(
+        QlibProviderConfig(provider_uri=Path(manifest["provider_uri"]), region="us", market="all", kernels=1),
+        start="2026-03-27",
+        end="2026-04-01",
+        proxy_return_windows=(1,),
+        zscore_windows=(3,),
+        cloud_return_windows=(1,),
+        lag_days=1,
+    )
+
+    feature_cols = set(factors.attrs["feature_cols"])
+    assert "hardware_free_cloud_gpu_h100_price_ret1_lag1" in feature_cols
+    assert "hardware_free_cloud_gpu_h100_price_available_lag1" in feature_cols
+    assert "hardware_free_cloud_gpu_h100_price_provider_count_lag1" in feature_cols
+    row = factors.loc[factors["datetime"].eq(pd.Timestamp("2026-03-29"))].iloc[0]
+    assert np.isclose(row["hardware_free_cloud_gpu_h100_price_ret1_lag1"], np.log(3.9 / 4.0))
+    assert row["hardware_free_cloud_gpu_h100_price_available_lag1"] == 1.0

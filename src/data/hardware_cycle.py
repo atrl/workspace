@@ -17,6 +17,30 @@ HARDWARE_CYCLE_INSTRUMENT = "HARDWARE_CYCLE"
 HARDWARE_CYCLE_PROVIDER_NAME = "hardware_cycle_v1"
 HARDWARE_CYCLE_AIMULTIPLE_URL = "https://aimultiple.com/gpu-index"
 HARDWARE_CYCLE_USER_AGENT = "Mozilla/5.0 soxl-qlib-hardware-cycle"
+FREE_GPU_PRICE_HISTORY_BASE_URL = "https://freellm.org/history"
+FREE_GPU_PRICE_LATEST_META_URL = "https://freellm.org/latest/meta.json"
+FREE_GPU_PRICE_LATEST_URL = "https://freellm.org/latest/all.json"
+FREE_GPU_PRICE_SOURCE = "freellm_gpu_cloud_pricing_history"
+FREE_GPU_PRICE_MODELS = (
+    "gb200",
+    "b200",
+    "h200",
+    "h100",
+    "a100",
+    "l40s",
+    "rtx_pro_6000",
+    "rtx_4090",
+    "mi300x",
+)
+FREE_GPU_PRICE_FIELDS = tuple(f"free_cloud_gpu_{model}_price" for model in FREE_GPU_PRICE_MODELS)
+FREE_GPU_PRICE_SNAPSHOT_COLUMNS = (
+    "datetime",
+    "field",
+    "value",
+    "provider_count",
+    "quote_count",
+    "source",
+)
 
 HARDWARE_PROXY_GROUPS: dict[str, tuple[str, ...]] = {
     "ai_accelerator": ("NVDA", "AMD", "AVGO", "TSM", "ASML"),
@@ -155,6 +179,194 @@ def fetch_aimultiple_gpu_index_series(*, url: str = HARDWARE_CYCLE_AIMULTIPLE_UR
     return extract_aimultiple_gpu_index_series(response.text)
 
 
+def _empty_free_gpu_price_history() -> pd.DataFrame:
+    return pd.DataFrame(columns=list(FREE_GPU_PRICE_SNAPSHOT_COLUMNS))
+
+
+def _free_gpu_model_key(row: dict[str, Any]) -> str | None:
+    text = " ".join(
+        str(row.get(key) or "")
+        for key in ("product", "gpu_model", "model", "name", "sku", "description")
+    ).lower()
+    normalized = re.sub(r"[^a-z0-9]+", " ", text)
+    patterns = (
+        ("gb200", r"(?<![a-z0-9])gb200(?![a-z0-9])"),
+        ("b200", r"(?<![a-z0-9])b200(?![a-z0-9])"),
+        ("h200", r"(?<![a-z0-9])h200(?![a-z0-9])"),
+        ("h100", r"(?<![a-z0-9])h100(?![a-z0-9])"),
+        ("a100", r"(?<![a-z0-9])a100(?![a-z0-9])"),
+        ("l40s", r"(?<![a-z0-9])l40s(?![a-z0-9])"),
+        ("rtx_pro_6000", r"rtx\s+pro\s+6000|rtx\s+6000|pro\s+6000"),
+        ("rtx_4090", r"rtx\s+4090|(?<![a-z0-9])4090(?![a-z0-9])"),
+        ("mi300x", r"(?<![a-z0-9])mi300x(?![a-z0-9])"),
+    )
+    for model, pattern in patterns:
+        if re.search(pattern, normalized):
+            return model
+    return None
+
+
+def _free_gpu_price_value(row: dict[str, Any]) -> float | None:
+    for key in (
+        "price_per_hour_usd",
+        "price_per_gpu_hour_usd",
+        "price_per_gpu_hour",
+        "hourly_price_usd",
+        "secure_price",
+        "community_price",
+        "price",
+        "raw_price",
+    ):
+        value = row.get(key)
+        if value is None or value == "":
+            continue
+        if isinstance(value, str):
+            match = re.search(r"-?\d+(?:,\d{3})*(?:\.\d+)?", value)
+            if match is None:
+                continue
+            value = match.group(0).replace(",", "")
+        numeric = pd.to_numeric(value, errors="coerce")
+        if pd.isna(numeric):
+            continue
+        price = float(numeric)
+        if price > 0.0:
+            return price
+    return None
+
+
+def extract_freellm_gpu_price_snapshot(
+    rows: list[dict[str, Any]],
+    *,
+    snapshot_date: str | pd.Timestamp,
+) -> pd.DataFrame:
+    """Extract daily free cloud-GPU rental price indices from a freellm snapshot."""
+
+    snapshot_ts = pd.Timestamp(snapshot_date).normalize()
+    parsed: list[dict[str, Any]] = []
+    for row in rows:
+        model = _free_gpu_model_key(row)
+        price = _free_gpu_price_value(row)
+        if model is None or price is None:
+            continue
+        parsed.append(
+            {
+                "datetime": snapshot_ts,
+                "field": f"free_cloud_gpu_{model}_price",
+                "value": price,
+                "provider": str(row.get("provider") or "").strip().lower(),
+            }
+        )
+    if not parsed:
+        return _empty_free_gpu_price_history()
+
+    frame = pd.DataFrame(parsed)
+    grouped = []
+    for field, field_frame in frame.groupby("field", sort=True):
+        providers = field_frame["provider"].replace("", np.nan).dropna()
+        grouped.append(
+            {
+                "datetime": snapshot_ts,
+                "field": str(field),
+                "value": round(float(field_frame["value"].median()), 6),
+                "provider_count": int(providers.nunique()),
+                "quote_count": int(len(field_frame)),
+                "source": FREE_GPU_PRICE_SOURCE,
+            }
+        )
+    return pd.DataFrame(grouped, columns=list(FREE_GPU_PRICE_SNAPSHOT_COLUMNS)).sort_values(
+        ["datetime", "field"],
+    )
+
+
+def _freellm_latest_snapshot_date(
+    session: requests.Session,
+    *,
+    meta_url: str,
+) -> pd.Timestamp | None:
+    response = session.get(meta_url, timeout=20)
+    response.raise_for_status()
+    meta = response.json()
+    generated_at = meta.get("generated_at_utc") if isinstance(meta, dict) else None
+    if not generated_at:
+        return None
+    return pd.Timestamp(generated_at).tz_localize(None).normalize()
+
+
+def fetch_freellm_gpu_price_history(
+    *,
+    start: str,
+    end: str,
+    base_url: str = FREE_GPU_PRICE_HISTORY_BASE_URL,
+    meta_url: str = FREE_GPU_PRICE_LATEST_META_URL,
+    latest_url: str = FREE_GPU_PRICE_LATEST_URL,
+    max_scan_days: int = 120,
+) -> pd.DataFrame:
+    """Fetch no-auth daily cloud-GPU rental price history snapshots from freellm."""
+
+    start_ts = pd.Timestamp(start).normalize()
+    end_ts = pd.Timestamp(end).normalize()
+    if end_ts < start_ts:
+        return _empty_free_gpu_price_history()
+
+    session = requests.Session()
+    session.headers.update({"User-Agent": HARDWARE_CYCLE_USER_AGENT})
+    try:
+        latest_ts = _freellm_latest_snapshot_date(session, meta_url=meta_url) or end_ts
+    except Exception:
+        latest_ts = end_ts
+    latest_ts = min(latest_ts, end_ts)
+    scan_start = max(start_ts, latest_ts - pd.Timedelta(days=max_scan_days))
+    if scan_start > latest_ts:
+        return _empty_free_gpu_price_history()
+
+    snapshots: list[pd.DataFrame] = []
+    for snapshot_ts in pd.date_range(scan_start, latest_ts, freq="D"):
+        url = f"{base_url.rstrip('/')}/{snapshot_ts.date().isoformat()}/all.json"
+        try:
+            response = session.get(url, timeout=20)
+        except requests.RequestException:
+            continue
+        if response.status_code == 404:
+            continue
+        if not response.ok:
+            continue
+        try:
+            rows = response.json()
+        except ValueError:
+            continue
+        if not isinstance(rows, list):
+            continue
+        snapshot = extract_freellm_gpu_price_snapshot(rows, snapshot_date=snapshot_ts)
+        if not snapshot.empty:
+            snapshots.append(snapshot)
+
+    if not snapshots and start_ts <= latest_ts <= end_ts:
+        try:
+            response = session.get(latest_url, timeout=20)
+            response.raise_for_status()
+            rows = response.json()
+            if isinstance(rows, list):
+                snapshot = extract_freellm_gpu_price_snapshot(rows, snapshot_date=latest_ts)
+                if not snapshot.empty:
+                    snapshots.append(snapshot)
+        except Exception:
+            pass
+
+    if not snapshots:
+        return _empty_free_gpu_price_history()
+    frame = pd.concat(snapshots, ignore_index=True)
+    frame["datetime"] = pd.to_datetime(frame["datetime"]).dt.normalize()
+    frame["value"] = pd.to_numeric(frame["value"], errors="coerce")
+    frame["provider_count"] = pd.to_numeric(frame["provider_count"], errors="coerce").fillna(0.0).astype("int64")
+    frame["quote_count"] = pd.to_numeric(frame["quote_count"], errors="coerce").fillna(0.0).astype("int64")
+    return (
+        frame.dropna(subset=["datetime", "field", "value"])
+        .sort_values(["datetime", "field"])
+        .drop_duplicates(["datetime", "field"], keep="last")
+        .reset_index(drop=True)
+    )
+
+
 def fetch_hardware_proxy_price_frames(
     *,
     start: str,
@@ -267,10 +479,66 @@ def _map_source_points_to_calendar(points: pd.Series, calendar: pd.DatetimeIndex
     return pd.Series(mapped, dtype="float64").sort_index()
 
 
+def _pivot_free_gpu_price_history(
+    free_gpu_price_history: pd.DataFrame | None,
+    calendar: pd.DatetimeIndex,
+) -> pd.DataFrame:
+    if free_gpu_price_history is None or free_gpu_price_history.empty:
+        return pd.DataFrame(index=calendar)
+    calendar_index = pd.DatetimeIndex(calendar).normalize().sort_values().unique()
+    raw = free_gpu_price_history.copy()
+    raw["datetime"] = pd.to_datetime(raw["datetime"], errors="coerce").dt.normalize()
+    raw["field"] = raw["field"].astype(str)
+    raw["value"] = pd.to_numeric(raw["value"], errors="coerce")
+    for column in ("provider_count", "quote_count"):
+        if column not in raw.columns:
+            raw[column] = 0.0
+        raw[column] = pd.to_numeric(raw[column], errors="coerce").fillna(0.0)
+    raw = raw.dropna(subset=["datetime", "field", "value"])
+    raw = raw.loc[raw["field"].str.startswith("free_cloud_gpu_") & raw["field"].str.endswith("_price")]
+    if raw.empty:
+        return pd.DataFrame(index=calendar_index)
+
+    columns: dict[str, pd.Series] = {}
+    for field, field_frame in raw.sort_values(["datetime", "field"]).groupby("field", sort=True):
+        mapped_values: dict[pd.Timestamp, float] = {}
+        mapped_provider_counts: dict[pd.Timestamp, float] = {}
+        mapped_quote_counts: dict[pd.Timestamp, float] = {}
+        for row in field_frame.itertuples(index=False):
+            pos = calendar_index.searchsorted(pd.Timestamp(row.datetime), side="left")
+            if pos >= len(calendar_index):
+                continue
+            mapped_date = pd.Timestamp(calendar_index[pos])
+            mapped_values[mapped_date] = float(row.value)
+            mapped_provider_counts[mapped_date] = float(row.provider_count)
+            mapped_quote_counts[mapped_date] = float(row.quote_count)
+
+        values = pd.Series(np.nan, index=calendar_index, dtype="float64")
+        provider_counts = pd.Series(0.0, index=calendar_index, dtype="float64")
+        quote_counts = pd.Series(0.0, index=calendar_index, dtype="float64")
+        if mapped_values:
+            mapped_index = pd.DatetimeIndex(sorted(mapped_values))
+            values.loc[mapped_index] = [mapped_values[pd.Timestamp(date)] for date in mapped_index]
+            provider_counts.loc[mapped_index] = [
+                mapped_provider_counts.get(pd.Timestamp(date), 0.0) for date in mapped_index
+            ]
+            quote_counts.loc[mapped_index] = [
+                mapped_quote_counts.get(pd.Timestamp(date), 0.0) for date in mapped_index
+            ]
+        available = values.notna().astype("float64")
+        columns[str(field)] = values
+        columns[f"{field}_available"] = available
+        columns[f"{field}_source_observed"] = available.copy()
+        columns[f"{field}_provider_count"] = provider_counts
+        columns[f"{field}_quote_count"] = quote_counts
+    return pd.DataFrame(columns, index=calendar_index)
+
+
 def build_hardware_cycle_daily_frame(
     proxy_frames: dict[str, pd.DataFrame],
     cloud_gpu_index: pd.DataFrame,
     *,
+    free_gpu_price_history: pd.DataFrame | None = None,
     calendar: Iterable[str | pd.Timestamp],
 ) -> pd.DataFrame:
     """Build one qlib-ready daily hardware-cycle instrument from raw source frames."""
@@ -315,6 +583,9 @@ def build_hardware_cycle_daily_frame(
     cloud = _pivot_cloud_gpu_index(cloud_gpu_index, calendar_index)
     if not cloud.empty:
         daily = daily.join(cloud.reset_index(drop=True))
+    free_gpu = _pivot_free_gpu_price_history(free_gpu_price_history, calendar_index)
+    if not free_gpu.empty:
+        daily = daily.join(free_gpu.reset_index(drop=True))
     return daily.replace([np.inf, -np.inf], np.nan)
 
 
@@ -342,7 +613,7 @@ def build_hardware_cycle_qlib_store_from_frame(
         instrument_col="instrument",
         datetime_col="datetime",
         as_of=as_of,
-        source="hardware_cycle_daily_public_market_proxy_and_cloud_gpu_index",
+        source="hardware_cycle_daily_public_market_proxy_cloud_gpu_index_and_free_gpu_prices",
     )
 
 
@@ -362,16 +633,29 @@ def build_hardware_cycle_qlib_store(
     requested_symbols = list(HARDWARE_PROXY_SYMBOLS)
     proxy_frames = fetch_hardware_proxy_price_frames(start=start, end=end, symbols=requested_symbols)
     cloud_gpu = fetch_aimultiple_gpu_index_series()
+    free_gpu_error: str | None = None
+    try:
+        free_gpu = fetch_freellm_gpu_price_history(start=start, end=end)
+    except Exception as exc:
+        free_gpu_error = str(exc)
+        free_gpu = _empty_free_gpu_price_history()
     calendar = _calendar_from_soxl_provider(root, start=start, end=end)
-    daily = build_hardware_cycle_daily_frame(proxy_frames, cloud_gpu, calendar=calendar)
+    daily = build_hardware_cycle_daily_frame(
+        proxy_frames,
+        cloud_gpu,
+        free_gpu_price_history=free_gpu,
+        calendar=calendar,
+    )
     daily_path = raw_dir / "hardware_cycle_daily.csv"
     cloud_path = raw_dir / "aimultiple_cloud_gpu_index.csv"
+    free_gpu_path = raw_dir / "freellm_gpu_price_history.csv"
     daily.to_csv(daily_path, index=False)
     cloud_gpu.to_csv(cloud_path, index=False)
+    free_gpu.to_csv(free_gpu_path, index=False)
 
     manifest = build_hardware_cycle_qlib_store_from_frame(daily, provider_uri=provider_uri, as_of=end)
     raw_manifest = {
-        "source": "hardware_cycle_daily_public_market_proxy_and_cloud_gpu_index",
+        "source": "hardware_cycle_daily_public_market_proxy_cloud_gpu_index_and_free_gpu_prices",
         "proxy_symbols": requested_symbols,
         "proxy_symbols_fetched": sorted(proxy_frames),
         "proxy_symbols_missing": [symbol for symbol in requested_symbols if symbol not in proxy_frames],
@@ -379,8 +663,22 @@ def build_hardware_cycle_qlib_store(
         "daily_proxy_groups": {group: list(symbols) for group, symbols in CLOUD_GPU_DAILY_PROXY_GROUPS.items()},
         "daily_proxy_fields": list(CLOUD_GPU_DAILY_PROXY_FIELDS),
         "cloud_gpu_source": HARDWARE_CYCLE_AIMULTIPLE_URL,
+        "free_gpu_price_source": f"{FREE_GPU_PRICE_HISTORY_BASE_URL}/YYYY-MM-DD/all.json",
+        "free_gpu_price_latest_meta": FREE_GPU_PRICE_LATEST_META_URL,
+        "free_gpu_price_status": "ok" if free_gpu_error is None else "fetch_failed",
+        "free_gpu_price_error": free_gpu_error,
+        "free_gpu_price_field_count": int(free_gpu["field"].nunique()) if not free_gpu.empty else 0,
+        "free_gpu_price_snapshot_count": int(free_gpu["datetime"].nunique()) if not free_gpu.empty else 0,
+        "free_gpu_price_start": (
+            pd.Timestamp(free_gpu["datetime"].min()).date().isoformat() if not free_gpu.empty else None
+        ),
+        "free_gpu_price_end": (
+            pd.Timestamp(free_gpu["datetime"].max()).date().isoformat() if not free_gpu.empty else None
+        ),
+        "free_gpu_price_quote_rows": int(free_gpu["quote_count"].sum()) if not free_gpu.empty else 0,
         "raw_daily_csv": daily_path.as_posix(),
         "raw_cloud_gpu_csv": cloud_path.as_posix(),
+        "raw_free_gpu_price_csv": free_gpu_path.as_posix(),
         "calendar_start": min(calendar),
         "calendar_end": max(calendar),
         "row_count": int(len(daily)),
@@ -389,7 +687,8 @@ def build_hardware_cycle_qlib_store(
             "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
             "Monthly cloud GPU values are forward-filled as daily state; source_observed, is_carried, and staleness_days fields preserve update provenance.",
             "cloud_gpu_daily_* fields are daily public-market proxy indices from trading-day closes; they are not direct rental quote history.",
-            "Direct daily GPU rental indices are not fetched unless a licensed or host-authenticated source is provided.",
+            "free_cloud_gpu_* fields are free daily provider snapshot rental prices from freellm history; missing dates are not forward-filled.",
+            "Free direct GPU rental price history is short and may be stale relative to the market-proxy calendar.",
             "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
             "All model-facing hardware-cycle factors must be lagged by the factor builder.",
         ],
@@ -397,6 +696,13 @@ def build_hardware_cycle_qlib_store(
     raw_manifest_path = raw_dir / "hardware_cycle_raw_manifest.json"
     raw_manifest_path.write_text(json.dumps(raw_manifest, indent=2, sort_keys=True), encoding="utf-8")
     manifest["raw_manifest"] = raw_manifest_path.as_posix()
+    manifest["free_gpu_price_source"] = raw_manifest["free_gpu_price_source"]
+    manifest["free_gpu_price_status"] = raw_manifest["free_gpu_price_status"]
+    manifest["free_gpu_price_field_count"] = raw_manifest["free_gpu_price_field_count"]
+    manifest["free_gpu_price_snapshot_count"] = raw_manifest["free_gpu_price_snapshot_count"]
+    manifest["free_gpu_price_start"] = raw_manifest["free_gpu_price_start"]
+    manifest["free_gpu_price_end"] = raw_manifest["free_gpu_price_end"]
+    manifest["free_gpu_price_quote_rows"] = raw_manifest["free_gpu_price_quote_rows"]
     (Path(manifest["provider_uri"]) / "qlib_store_manifest.json").write_text(
         json.dumps(manifest, indent=2, sort_keys=True),
         encoding="utf-8",
