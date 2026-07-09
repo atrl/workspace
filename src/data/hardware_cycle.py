@@ -46,6 +46,7 @@ FRED_HARDWARE_SALES_PRICE_BASE_URL = "https://fred.stlouisfed.org/graph/fredgrap
 FRED_HARDWARE_SALES_PRICE_SOURCE = "fred_bls_hardware_sales_price_index"
 BLS_HARDWARE_SALES_PRICE_API_URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/"
 BLS_HARDWARE_SALES_PRICE_SOURCE = "bls_public_api_hardware_sales_price_index"
+BLS_HARDWARE_SALES_PRICE_DEFAULT_RELEASE_LAG_DAYS = 45
 FRED_HARDWARE_SALES_PRICE_SERIES: dict[str, dict[str, str]] = {
     "hardware_sales_storage_device_ppi": {
         "series_id": "PCU334112334112",
@@ -85,6 +86,7 @@ FRED_HARDWARE_SALES_PRICE_COLUMNS = (
     "series_id",
     "source",
 )
+HARDWARE_SALES_PRICE_OPTIONAL_DATE_COLUMNS = ("available_datetime", "release_datetime")
 
 HARDWARE_PROXY_GROUPS: dict[str, tuple[str, ...]] = {
     "ai_accelerator": ("NVDA", "AMD", "AVGO", "TSM", "ASML"),
@@ -425,6 +427,69 @@ def _empty_hardware_sales_price_index() -> pd.DataFrame:
     return frame
 
 
+def _normalize_hardware_sales_price_snapshot(frame: pd.DataFrame) -> pd.DataFrame:
+    errors = dict(frame.attrs.get("errors", {}))
+    if frame.empty:
+        out = _empty_hardware_sales_price_index()
+        out.attrs["errors"] = errors
+        return out
+    required = {"datetime", "field", "value", "series_id", "source"}
+    missing = required - set(frame.columns)
+    if missing:
+        raise ValueError(f"hardware sales price snapshot missing columns: {sorted(missing)}")
+    optional_date_columns = [column for column in HARDWARE_SALES_PRICE_OPTIONAL_DATE_COLUMNS if column in frame.columns]
+    out = frame[list(FRED_HARDWARE_SALES_PRICE_COLUMNS) + optional_date_columns].copy()
+    out["datetime"] = pd.to_datetime(out["datetime"], errors="coerce").dt.normalize()
+    out["field"] = out["field"].astype(str)
+    out["value"] = pd.to_numeric(out["value"], errors="coerce")
+    out["series_id"] = out["series_id"].astype(str)
+    out["source"] = out["source"].astype(str)
+    for column in optional_date_columns:
+        out[column] = pd.to_datetime(out[column], errors="coerce").dt.normalize()
+    out = out.dropna(subset=["datetime", "field", "value"])
+    if out.empty:
+        empty = _empty_hardware_sales_price_index()
+        empty.attrs["errors"] = errors
+        return empty
+    out = out.sort_values(["field", "datetime"]).drop_duplicates(["field", "datetime"], keep="last").reset_index(drop=True)
+    out.attrs["errors"] = errors
+    return out
+
+
+def _read_hardware_sales_price_snapshot(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return _empty_hardware_sales_price_index()
+    try:
+        return _normalize_hardware_sales_price_snapshot(pd.read_csv(path))
+    except Exception:
+        return _empty_hardware_sales_price_index()
+
+
+def _select_hardware_sales_price_snapshot(fetched: pd.DataFrame, cached: pd.DataFrame | None = None) -> pd.DataFrame:
+    fetched = _normalize_hardware_sales_price_snapshot(fetched)
+    fetched_errors = dict(fetched.attrs.get("errors", {}))
+    cached = _normalize_hardware_sales_price_snapshot(cached) if cached is not None else _empty_hardware_sales_price_index()
+    if cached.empty:
+        fetched.attrs["snapshot_source"] = "fresh_fetch"
+        return fetched
+    if fetched.empty:
+        out = cached.copy()
+        out.attrs["errors"] = fetched_errors
+        out.attrs["snapshot_source"] = "cached_existing_raw"
+        return out
+
+    fetched_end = pd.Timestamp(fetched["datetime"].max())
+    cached_end = pd.Timestamp(cached["datetime"].max())
+    if fetched_errors and (cached_end >= fetched_end or len(cached) > len(fetched)):
+        out = pd.concat([cached, fetched], ignore_index=True)
+        out = _normalize_hardware_sales_price_snapshot(out)
+        out.attrs["errors"] = fetched_errors
+        out.attrs["snapshot_source"] = "cached_existing_raw"
+        return out
+    fetched.attrs["snapshot_source"] = "fresh_fetch"
+    return fetched
+
+
 def extract_fred_hardware_sales_price_series(
     csv_text: str,
     *,
@@ -570,6 +635,11 @@ def fetch_bls_hardware_sales_price_series(
             response = session.post(api_url, json=payload, timeout=30)
             response.raise_for_status()
             response_payload = response.json()
+            status = str(response_payload.get("status") or "")
+            if status and status != "REQUEST_SUCCEEDED":
+                message = "; ".join(str(item) for item in response_payload.get("message", []))
+                errors[f"{chunk_start}-{chunk_end}"] = f"{status}: {message}".rstrip(": ")
+                continue
             frame = extract_bls_hardware_sales_price_payload(
                 response_payload,
                 series_id_to_field=series_id_to_field,
@@ -700,10 +770,93 @@ def _pivot_cloud_gpu_index(cloud_gpu_index: pd.DataFrame, calendar: pd.DatetimeI
 def _pivot_hardware_sales_price_index(
     hardware_sales_price_index: pd.DataFrame | None,
     calendar: pd.DatetimeIndex,
+    *,
+    release_lag_days: int = BLS_HARDWARE_SALES_PRICE_DEFAULT_RELEASE_LAG_DAYS,
 ) -> pd.DataFrame:
+    calendar_index = pd.DatetimeIndex(calendar).normalize().sort_values().unique()
     if hardware_sales_price_index is None or hardware_sales_price_index.empty:
-        return pd.DataFrame(index=pd.DatetimeIndex(calendar).normalize().sort_values().unique())
-    return _pivot_cloud_gpu_index(hardware_sales_price_index, calendar)
+        return pd.DataFrame(index=calendar_index)
+    if release_lag_days < 0:
+        raise ValueError("hardware sales price release_lag_days must be non-negative")
+
+    raw = hardware_sales_price_index.copy()
+    raw["period_datetime"] = pd.to_datetime(raw["datetime"], errors="coerce").dt.normalize()
+    raw["field"] = raw["field"].astype(str)
+    raw["value"] = pd.to_numeric(raw["value"], errors="coerce")
+    if "available_datetime" in raw.columns:
+        available = pd.to_datetime(raw["available_datetime"], errors="coerce").dt.normalize()
+    elif "release_datetime" in raw.columns:
+        available = pd.to_datetime(raw["release_datetime"], errors="coerce").dt.normalize()
+    else:
+        available = pd.Series(pd.NaT, index=raw.index, dtype="datetime64[ns]")
+    fallback_available = raw["period_datetime"] + pd.to_timedelta(int(release_lag_days), unit="D")
+    raw["available_datetime"] = available.where(available.notna(), fallback_available)
+    raw = raw.dropna(subset=["period_datetime", "available_datetime", "field", "value"])
+    if raw.empty:
+        return pd.DataFrame(index=calendar_index)
+
+    columns: dict[str, pd.Series] = {}
+    for field, field_frame in raw.sort_values(["available_datetime", "period_datetime"]).groupby("field", sort=True):
+        mapped_rows: list[dict[str, Any]] = []
+        for row in field_frame.itertuples(index=False):
+            pos = calendar_index.searchsorted(pd.Timestamp(row.available_datetime), side="left")
+            if pos >= len(calendar_index):
+                continue
+            mapped_date = pd.Timestamp(calendar_index[pos])
+            period_date = pd.Timestamp(row.period_datetime)
+            available_date = pd.Timestamp(row.available_datetime)
+            mapped_rows.append(
+                {
+                    "mapped_date": mapped_date,
+                    "period_datetime": period_date,
+                    "available_datetime": available_date,
+                    "value": float(row.value),
+                    "publication_lag_days": float((available_date - period_date).days),
+                }
+            )
+        if not mapped_rows:
+            continue
+        mapped = (
+            pd.DataFrame(mapped_rows)
+            .sort_values(["mapped_date", "period_datetime", "available_datetime"])
+            .drop_duplicates(["mapped_date"], keep="last")
+            .set_index("mapped_date")
+        )
+
+        values = mapped["value"].reindex(calendar_index).ffill()
+        available_flag = values.notna().astype("float64")
+        source_observed = pd.Series(0.0, index=calendar_index, dtype="float64")
+        source_observed.loc[mapped.index] = 1.0
+        is_carried = ((available_flag > 0.0) & (source_observed <= 0.0)).astype("float64")
+
+        last_update = pd.Series(pd.NaT, index=calendar_index, dtype="datetime64[ns]")
+        last_update.loc[mapped.index] = mapped.index
+        last_update = last_update.ffill()
+        staleness = pd.Series(
+            (calendar_index - pd.DatetimeIndex(last_update)).days,
+            index=calendar_index,
+            dtype="float64",
+        ).where(available_flag > 0.0)
+
+        period_state = pd.Series(pd.NaT, index=calendar_index, dtype="datetime64[ns]")
+        period_state.loc[mapped.index] = pd.to_datetime(mapped["period_datetime"])
+        period_state = period_state.ffill()
+        period_age = pd.Series(
+            (calendar_index - pd.DatetimeIndex(period_state)).days,
+            index=calendar_index,
+            dtype="float64",
+        ).where(available_flag > 0.0)
+
+        publication_lag = mapped["publication_lag_days"].reindex(calendar_index).ffill().where(available_flag > 0.0)
+
+        columns[str(field)] = values
+        columns[f"{field}_available"] = available_flag
+        columns[f"{field}_source_observed"] = source_observed
+        columns[f"{field}_is_carried"] = is_carried
+        columns[f"{field}_staleness_days"] = staleness
+        columns[f"{field}_period_age_days"] = period_age
+        columns[f"{field}_publication_lag_days"] = publication_lag
+    return pd.DataFrame(columns, index=calendar_index)
 
 
 def _map_source_points_to_calendar(points: pd.Series, calendar: pd.DatetimeIndex) -> pd.Series:
@@ -779,6 +932,7 @@ def build_hardware_cycle_daily_frame(
     *,
     free_gpu_price_history: pd.DataFrame | None = None,
     hardware_sales_price_index: pd.DataFrame | None = None,
+    hardware_sales_price_release_lag_days: int = BLS_HARDWARE_SALES_PRICE_DEFAULT_RELEASE_LAG_DAYS,
     calendar: Iterable[str | pd.Timestamp],
 ) -> pd.DataFrame:
     """Build one qlib-ready daily hardware-cycle instrument from raw source frames."""
@@ -838,7 +992,11 @@ def build_hardware_cycle_daily_frame(
     free_gpu = _pivot_free_gpu_price_history(free_gpu_price_history, calendar_index)
     if not free_gpu.empty:
         daily = daily.join(free_gpu.reset_index(drop=True))
-    sales_price = _pivot_hardware_sales_price_index(hardware_sales_price_index, calendar_index)
+    sales_price = _pivot_hardware_sales_price_index(
+        hardware_sales_price_index,
+        calendar_index,
+        release_lag_days=hardware_sales_price_release_lag_days,
+    )
     if not sales_price.empty:
         daily = daily.join(sales_price.reset_index(drop=True))
     return daily.replace([np.inf, -np.inf], np.nan)
@@ -884,6 +1042,10 @@ def build_hardware_cycle_qlib_store(
     provider_uri = provider_uri or root / "data" / "qlib" / HARDWARE_CYCLE_PROVIDER_NAME
     raw_dir = raw_dir or root / "data" / "raw" / "external" / "hardware_cycle"
     raw_dir.mkdir(parents=True, exist_ok=True)
+    daily_path = raw_dir / "hardware_cycle_daily.csv"
+    cloud_path = raw_dir / "aimultiple_cloud_gpu_index.csv"
+    free_gpu_path = raw_dir / "freellm_gpu_price_history.csv"
+    sales_price_path = raw_dir / "bls_hardware_sales_price_index.csv"
 
     requested_symbols = list(HARDWARE_PROXY_SYMBOLS)
     proxy_frames = fetch_hardware_proxy_price_frames(start=start, end=end, symbols=requested_symbols)
@@ -894,20 +1056,25 @@ def build_hardware_cycle_qlib_store(
     except Exception as exc:
         free_gpu_error = str(exc)
         free_gpu = _empty_free_gpu_price_history()
+    cached_sales_price = _read_hardware_sales_price_snapshot(sales_price_path)
     sales_price_error: str | None = None
     try:
-        hardware_sales_price = fetch_bls_hardware_sales_price_series(end_year=pd.Timestamp(end).year)
+        fetched_hardware_sales_price = fetch_bls_hardware_sales_price_series(end_year=pd.Timestamp(end).year)
     except Exception as exc:
         sales_price_error = str(exc)
         try:
-            hardware_sales_price = fetch_fred_hardware_sales_price_series()
+            fetched_hardware_sales_price = fetch_fred_hardware_sales_price_series()
         except Exception as fallback_exc:
             sales_price_error = f"BLS API failed: {sales_price_error}; FRED CSV failed: {fallback_exc}"
-            hardware_sales_price = _empty_hardware_sales_price_index()
+            fetched_hardware_sales_price = _empty_hardware_sales_price_index()
+    hardware_sales_price = _select_hardware_sales_price_snapshot(fetched_hardware_sales_price, cached_sales_price)
     sales_price_errors = dict(hardware_sales_price.attrs.get("errors", {}))
     if sales_price_error is not None:
         sales_price_errors["_fetch"] = sales_price_error
-    if sales_price_errors and not hardware_sales_price.empty:
+    sales_price_snapshot_source = str(hardware_sales_price.attrs.get("snapshot_source", "fresh_fetch"))
+    if sales_price_errors and sales_price_snapshot_source == "cached_existing_raw" and not hardware_sales_price.empty:
+        sales_price_status = "cache_fallback"
+    elif sales_price_errors and not hardware_sales_price.empty:
         sales_price_status = "partial"
     elif sales_price_errors:
         sales_price_status = "fetch_failed"
@@ -921,10 +1088,6 @@ def build_hardware_cycle_qlib_store(
         hardware_sales_price_index=hardware_sales_price,
         calendar=calendar,
     )
-    daily_path = raw_dir / "hardware_cycle_daily.csv"
-    cloud_path = raw_dir / "aimultiple_cloud_gpu_index.csv"
-    free_gpu_path = raw_dir / "freellm_gpu_price_history.csv"
-    sales_price_path = raw_dir / "bls_hardware_sales_price_index.csv"
     daily.to_csv(daily_path, index=False)
     cloud_gpu.to_csv(cloud_path, index=False)
     free_gpu.to_csv(free_gpu_path, index=False)
@@ -957,6 +1120,8 @@ def build_hardware_cycle_qlib_store(
         "hardware_sales_price_source": BLS_HARDWARE_SALES_PRICE_API_URL,
         "hardware_sales_price_fred_csv_source": FRED_HARDWARE_SALES_PRICE_BASE_URL,
         "hardware_sales_price_series": FRED_HARDWARE_SALES_PRICE_SERIES,
+        "hardware_sales_price_default_release_lag_days": BLS_HARDWARE_SALES_PRICE_DEFAULT_RELEASE_LAG_DAYS,
+        "hardware_sales_price_snapshot_source": sales_price_snapshot_source,
         "hardware_sales_price_status": sales_price_status,
         "hardware_sales_price_error": sales_price_error,
         "hardware_sales_price_errors": sales_price_errors,
@@ -994,7 +1159,8 @@ def build_hardware_cycle_qlib_store(
             "free_cloud_gpu_* fields are free daily provider snapshot rental prices from freellm history; missing dates are not forward-filled.",
             "Free direct GPU price history is cloud rental and instance-hour pricing, not hardware sales pricing.",
             "Free direct GPU rental price history is short and may be stale relative to the market-proxy calendar.",
-            "FRED/BLS hardware_sales_* fields are official monthly producer sales price indices mapped to the first available qlib trading day and forward-filled as staleness-tracked state, not direct daily product quotes.",
+            "FRED/BLS hardware_sales_* fields are official monthly producer sales price indices mapped by release/as-of availability; when exact release dates are unavailable, a conservative default release lag is applied before forward-filling as staleness-tracked state.",
+            "hardware_sales_*_period_age_days and hardware_sales_*_publication_lag_days expose periodic-release state similar to earnings-style as-of features.",
             "storage_hdd_* and networking_* daily fields are public-market proxy indices from listed supply-chain equities, not hard-disk spot or contract prices.",
             "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
             "All model-facing hardware-cycle factors must be lagged by the factor builder.",
@@ -1012,6 +1178,10 @@ def build_hardware_cycle_qlib_store(
     manifest["free_gpu_price_quote_rows"] = raw_manifest["free_gpu_price_quote_rows"]
     manifest["hardware_sales_price_source"] = raw_manifest["hardware_sales_price_source"]
     manifest["hardware_sales_price_fred_csv_source"] = raw_manifest["hardware_sales_price_fred_csv_source"]
+    manifest["hardware_sales_price_default_release_lag_days"] = raw_manifest[
+        "hardware_sales_price_default_release_lag_days"
+    ]
+    manifest["hardware_sales_price_snapshot_source"] = raw_manifest["hardware_sales_price_snapshot_source"]
     manifest["hardware_sales_price_status"] = raw_manifest["hardware_sales_price_status"]
     manifest["hardware_sales_price_field_count"] = raw_manifest["hardware_sales_price_field_count"]
     manifest["hardware_sales_price_observation_count"] = raw_manifest["hardware_sales_price_observation_count"]

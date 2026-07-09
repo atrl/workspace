@@ -1,9 +1,9 @@
 # Failure Modes
 
-- promotion_decision: not_promoted_under_base_constrained_ref
-- failed_checks: []
-- selected_factor_count: 1
-- candidate_roles: {"daily_cloud_gpu_proxy_promotable": 1}
+- promotion_decision: not_promoted_failed_walk_forward_risk_gates
+- failed_checks: ["walk_forward_risk_gates"]
+- selected_factor_count: 3
+- candidate_roles: {"official_storage_sales_price_state": 1, "proxy_promotable": 2}
 - cloud_daily_proxy_role: 云 GPU 主特征改为日频公开市场代理；真实租赁价格月频状态只作为诊断，不作为主晋升信号。
 - free_direct_price_role: 免费日频 GPU 租赁报价已接入，但它是云实例小时租赁价，不是 GPU 销售价；历史覆盖短且缺口不前填，默认只作为诊断候选。
 - storage_sales_price_role: FRED/BLS 存储设备 PPI 是官方销售价格指数，但为月频；进入模型时只作为带 staleness 的 lagged 状态。

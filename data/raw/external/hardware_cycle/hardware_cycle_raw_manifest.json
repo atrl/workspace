@@ -55,9 +55,15 @@
     "storage_hdd_vs_nand_index",
     "networking_cloud_demand_pressure_index"
   ],
+  "hardware_sales_price_default_release_lag_days": 45,
   "hardware_sales_price_end": "2026-05-01",
   "hardware_sales_price_error": null,
-  "hardware_sales_price_errors": {},
+  "hardware_sales_price_errors": {
+    "1992-2001": "REQUEST_NOT_PROCESSED: Request could not be serviced, as the daily threshold for total number of requests allocated to the user with registration key  has been reached.",
+    "2002-2011": "REQUEST_NOT_PROCESSED: Request could not be serviced, as the daily threshold for total number of requests allocated to the user with registration key  has been reached.",
+    "2012-2021": "REQUEST_NOT_PROCESSED: Request could not be serviced, as the daily threshold for total number of requests allocated to the user with registration key  has been reached.",
+    "2022-2026": "REQUEST_NOT_PROCESSED: Request could not be serviced, as the daily threshold for total number of requests allocated to the user with registration key  has been reached."
+  },
   "hardware_sales_price_field_count": 7,
   "hardware_sales_price_fred_csv_source": "https://fred.stlouisfed.org/graph/fredgraph.csv",
   "hardware_sales_price_observation_count": 2644,
@@ -101,9 +107,10 @@
     "PCU334413334413",
     "WPU1154"
   ],
+  "hardware_sales_price_snapshot_source": "cached_existing_raw",
   "hardware_sales_price_source": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
   "hardware_sales_price_start": "1992-01-01",
-  "hardware_sales_price_status": "ok",
+  "hardware_sales_price_status": "cache_fallback",
   "limitations": [
     "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
     "Monthly cloud GPU values are forward-filled as daily state; source_observed, is_carried, and staleness_days fields preserve update provenance.",
@@ -111,7 +118,8 @@
     "free_cloud_gpu_* fields are free daily provider snapshot rental prices from freellm history; missing dates are not forward-filled.",
     "Free direct GPU price history is cloud rental and instance-hour pricing, not hardware sales pricing.",
     "Free direct GPU rental price history is short and may be stale relative to the market-proxy calendar.",
-    "FRED/BLS hardware_sales_* fields are official monthly producer sales price indices mapped to the first available qlib trading day and forward-filled as staleness-tracked state, not direct daily product quotes.",
+    "FRED/BLS hardware_sales_* fields are official monthly producer sales price indices mapped by release/as-of availability; when exact release dates are unavailable, a conservative default release lag is applied before forward-filling as staleness-tracked state.",
+    "hardware_sales_*_period_age_days and hardware_sales_*_publication_lag_days expose periodic-release state similar to earnings-style as-of features.",
     "storage_hdd_* and networking_* daily fields are public-market proxy indices from listed supply-chain equities, not hard-disk spot or contract prices.",
     "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
     "All model-facing hardware-cycle factors must be lagged by the factor builder."

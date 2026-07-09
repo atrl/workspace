@@ -46,6 +46,7 @@ from .soxx_constituents import (
 )
 from .hardware_cycle import (
     BLS_HARDWARE_SALES_PRICE_API_URL,
+    BLS_HARDWARE_SALES_PRICE_DEFAULT_RELEASE_LAG_DAYS,
     FRED_HARDWARE_SALES_PRICE_BASE_URL,
     FRED_HARDWARE_SALES_PRICE_SERIES,
     FREE_GPU_PRICE_FIELDS,
@@ -107,6 +108,7 @@ __all__ = [
     "load_soxx_constituent_daily_history",
     "parse_soxx_holdings_workbook",
     "BLS_HARDWARE_SALES_PRICE_API_URL",
+    "BLS_HARDWARE_SALES_PRICE_DEFAULT_RELEASE_LAG_DAYS",
     "FRED_HARDWARE_SALES_PRICE_BASE_URL",
     "FRED_HARDWARE_SALES_PRICE_SERIES",
     "FREE_GPU_PRICE_FIELDS",

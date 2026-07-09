@@ -76,10 +76,13 @@ def test_hardware_cycle_cogalpha_daily_semantics_payload_marks_daily_proxy_prima
     assert payload["cloud_gpu_monthly_state_semantics"] == "diagnostic_last_observed_state_forward_filled_to_qlib_daily_calendar"
     assert payload["free_gpu_direct_quote_semantics"] == "free_daily_provider_snapshot_prices_no_forward_fill"
     assert payload["free_gpu_direct_quote_source"] == "https://freellm.org/history/YYYY-MM-DD/all.json"
-    assert payload["hardware_sales_price_semantics"] == "official_bls_fred_monthly_sales_price_state_with_staleness"
+    assert payload["hardware_sales_price_semantics"] == "official_bls_fred_monthly_sales_price_release_date_state_with_staleness"
+    assert payload["hardware_sales_price_default_release_lag_days"] == 45
     assert payload["source_observed_flag"] == "<field>_source_observed"
     assert payload["carried_state_flag"] == "<field>_is_carried"
     assert payload["staleness_measure"] == "<field>_staleness_days"
+    assert payload["period_age_measure"] == "<field>_period_age_days"
+    assert payload["publication_lag_measure"] == "<field>_publication_lag_days"
     assert payload["model_use_rule"] == (
         "prefer_lagged_daily_proxy_features; official_sales_price_state_is_staleness_gated; "
         "free_direct_daily_price_is_short_history_diagnostic; "

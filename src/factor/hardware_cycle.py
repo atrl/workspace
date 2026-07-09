@@ -191,7 +191,14 @@ def build_hardware_cycle_factor_frame(
             col = f"hardware_{field}_z{window}_lag{lag_days}"
             feature_data[col] = _zscore(panel[field], window=window).shift(lag_days).fillna(0.0)
             feature_cols.append(col)
-        for state_suffix in ("available", "source_observed", "is_carried", "staleness_days"):
+        for state_suffix in (
+            "available",
+            "source_observed",
+            "is_carried",
+            "staleness_days",
+            "period_age_days",
+            "publication_lag_days",
+        ):
             state_field = f"{field}_{state_suffix}"
             if state_field not in panel:
                 continue

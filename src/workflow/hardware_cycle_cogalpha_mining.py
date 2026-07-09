@@ -10,6 +10,7 @@ import pandas as pd
 
 from src.data import (
     BLS_HARDWARE_SALES_PRICE_API_URL,
+    BLS_HARDWARE_SALES_PRICE_DEFAULT_RELEASE_LAG_DAYS,
     FRED_HARDWARE_SALES_PRICE_BASE_URL,
     FRED_HARDWARE_SALES_PRICE_SERIES,
     FREE_GPU_PRICE_HISTORY_BASE_URL,
@@ -80,8 +81,9 @@ def _daily_data_semantics_payload(*, provider_uri: str, raw_manifest: str | None
         "cloud_gpu_daily_proxy_semantics": "daily_market_proxy_indices_from_trading_day_closes",
         "free_gpu_direct_quote_semantics": "free_daily_provider_snapshot_prices_no_forward_fill",
         "free_gpu_direct_quote_source": f"{FREE_GPU_PRICE_HISTORY_BASE_URL}/YYYY-MM-DD/all.json",
-        "hardware_sales_price_semantics": "official_bls_fred_monthly_sales_price_state_with_staleness",
+        "hardware_sales_price_semantics": "official_bls_fred_monthly_sales_price_release_date_state_with_staleness",
         "hardware_sales_price_source": BLS_HARDWARE_SALES_PRICE_API_URL,
+        "hardware_sales_price_default_release_lag_days": BLS_HARDWARE_SALES_PRICE_DEFAULT_RELEASE_LAG_DAYS,
         "hardware_sales_price_fred_reference": (
             f"{FRED_HARDWARE_SALES_PRICE_BASE_URL}?id="
             f"{FRED_HARDWARE_SALES_PRICE_SERIES['hardware_sales_storage_device_ppi']['series_id']}"
@@ -91,6 +93,8 @@ def _daily_data_semantics_payload(*, provider_uri: str, raw_manifest: str | None
         "source_observed_flag": "<field>_source_observed",
         "carried_state_flag": "<field>_is_carried",
         "staleness_measure": "<field>_staleness_days",
+        "period_age_measure": "<field>_period_age_days",
+        "publication_lag_measure": "<field>_publication_lag_days",
         "direct_quote_gap_rule": "free direct quote gaps remain missing and are not forward-filled",
         "model_use_rule": (
             "prefer_lagged_daily_proxy_features; official_sales_price_state_is_staleness_gated; "
@@ -373,6 +377,7 @@ def _hardware_cogalpha_summary_payload(
             "free_gpu_price_end": hardware_manifest.get("free_gpu_price_end"),
             "hardware_sales_price_source": hardware_manifest.get("hardware_sales_price_source"),
             "hardware_sales_price_fred_csv_source": hardware_manifest.get("hardware_sales_price_fred_csv_source"),
+            "hardware_sales_price_snapshot_source": hardware_manifest.get("hardware_sales_price_snapshot_source"),
             "hardware_sales_price_status": hardware_manifest.get("hardware_sales_price_status"),
             "hardware_sales_price_field_count": hardware_manifest.get("hardware_sales_price_field_count"),
             "hardware_sales_price_observation_count": hardware_manifest.get("hardware_sales_price_observation_count"),
@@ -554,18 +559,23 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             f"recorder_uri: {summary['recorder_uri']}",
             f"recorder_id: {summary['recorder_id']}",
             f"as_of: {summary['as_of']}",
+            f"hardware_sales_price_status: {summary['hardware_cycle'].get('hardware_sales_price_status')}",
+            f"hardware_sales_price_snapshot_source: {summary['hardware_cycle'].get('hardware_sales_price_snapshot_source')}",
             "daily_data_semantics:",
             f"  cloud_gpu_daily_proxy_semantics: {summary['daily_data_semantics']['cloud_gpu_daily_proxy_semantics']}",
             f"  free_gpu_direct_quote_semantics: {summary['daily_data_semantics']['free_gpu_direct_quote_semantics']}",
             f"  free_gpu_direct_quote_source: {summary['daily_data_semantics']['free_gpu_direct_quote_source']}",
             f"  hardware_sales_price_semantics: {summary['daily_data_semantics']['hardware_sales_price_semantics']}",
             f"  hardware_sales_price_source: {summary['daily_data_semantics']['hardware_sales_price_source']}",
+            f"  hardware_sales_price_default_release_lag_days: {summary['daily_data_semantics']['hardware_sales_price_default_release_lag_days']}",
             f"  hardware_sales_price_fred_reference: {summary['daily_data_semantics']['hardware_sales_price_fred_reference']}",
             f"  storage_daily_proxy_semantics: {summary['daily_data_semantics']['storage_daily_proxy_semantics']}",
             f"  cloud_gpu_monthly_state_semantics: {summary['daily_data_semantics']['cloud_gpu_monthly_state_semantics']}",
             f"  source_observed_flag: {summary['daily_data_semantics']['source_observed_flag']}",
             f"  carried_state_flag: {summary['daily_data_semantics']['carried_state_flag']}",
             f"  staleness_measure: {summary['daily_data_semantics']['staleness_measure']}",
+            f"  period_age_measure: {summary['daily_data_semantics']['period_age_measure']}",
+            f"  publication_lag_measure: {summary['daily_data_semantics']['publication_lag_measure']}",
             f"  model_use_rule: {summary['daily_data_semantics']['model_use_rule']}",
             "factor_mining:",
             "  workflow: cognitive_alpha_factor_mining",
@@ -625,7 +635,9 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"free_gpu_snapshots={summary['hardware_cycle'].get('free_gpu_price_snapshot_count')} "
         f"({summary['hardware_cycle'].get('free_gpu_price_start')}..{summary['hardware_cycle'].get('free_gpu_price_end')})，"
         f"hardware_sales_ppi_obs={summary['hardware_cycle'].get('hardware_sales_price_observation_count')} "
-        f"({summary['hardware_cycle'].get('hardware_sales_price_start')}..{summary['hardware_cycle'].get('hardware_sales_price_end')})。\n"
+        f"({summary['hardware_cycle'].get('hardware_sales_price_start')}..{summary['hardware_cycle'].get('hardware_sales_price_end')})，"
+        f"sales_status={summary['hardware_cycle'].get('hardware_sales_price_status')}，"
+        f"sales_snapshot={summary['hardware_cycle'].get('hardware_sales_price_snapshot_source')}。\n"
         f"- factor_mining: selected_count={summary.get('factor_mining', {}).get('selected_count', library.get('selected_count'))}，"
         f"selected={json.dumps(selected_names, ensure_ascii=False)}。\n"
         f"- key_metrics: selected_return={float(selected.get('return_pct', 0.0)):.4f}%，"
@@ -636,7 +648,7 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"target_position={float(latest.get('target_position', latest.get('target_percent', 0.0)) or 0.0):.4f}。\n"
         f"- promotion_decision: {summary['promotion_decision']}。\n"
         "- risks: free_cloud_gpu_* 是云 GPU 租赁/实例小时价，不是销售价；"
-        "FRED/BLS hardware_sales_* 是月频官方销售价指数状态，不是日频现货报价；"
+        "FRED/BLS hardware_sales_* 是按披露日/as-of 生效的月频官方销售价指数状态，不是日频现货报价；"
         "硬盘和网络日频数据是公开市场代理，不能单独晋升。\n"
         f"- recorder: {summary['recorder_id']}。\n"
     )

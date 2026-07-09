@@ -153,6 +153,8 @@ def test_hardware_cycle_factor_frame_lags_storage_daily_proxy_and_sales_price_st
             "hardware_sales_storage_device_ppi_source_observed": [1, 0, 0, 1, 0, 0],
             "hardware_sales_storage_device_ppi_is_carried": [0, 1, 1, 0, 1, 1],
             "hardware_sales_storage_device_ppi_staleness_days": [0, 1, 2, 0, 1, 2],
+            "hardware_sales_storage_device_ppi_period_age_days": [45, 46, 47, 45, 46, 47],
+            "hardware_sales_storage_device_ppi_publication_lag_days": [45, 45, 45, 45, 45, 45],
         }
     )
     manifest = build_hardware_cycle_qlib_store_from_frame(
@@ -177,10 +179,14 @@ def test_hardware_cycle_factor_frame_lags_storage_daily_proxy_and_sales_price_st
     assert "hardware_hardware_sales_storage_device_ppi_ret1_lag1" in feature_cols
     assert "hardware_hardware_sales_storage_device_ppi_source_observed_lag1" in feature_cols
     assert "hardware_hardware_sales_storage_device_ppi_staleness_days_lag1" in feature_cols
+    assert "hardware_hardware_sales_storage_device_ppi_period_age_days_lag1" in feature_cols
+    assert "hardware_hardware_sales_storage_device_ppi_publication_lag_days_lag1" in feature_cols
     row = factors.loc[factors["datetime"].eq(pd.Timestamp("2026-02-04"))].iloc[0]
     assert np.isclose(row["hardware_storage_hdd_manufacturer_ret1_lag1"], np.log(102.0 / 100.0))
     assert row["hardware_hardware_sales_storage_device_ppi_source_observed_lag1"] == 0.0
     assert row["hardware_hardware_sales_storage_device_ppi_staleness_days_lag1"] == 1.0
+    assert row["hardware_hardware_sales_storage_device_ppi_period_age_days_lag1"] == 46.0
+    assert row["hardware_hardware_sales_storage_device_ppi_publication_lag_days_lag1"] == 45.0
 
 
 def test_hardware_cycle_factor_frame_lags_free_daily_gpu_price_observations(tmp_path: Path):
