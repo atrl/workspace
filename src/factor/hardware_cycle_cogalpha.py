@@ -57,6 +57,12 @@ def _hardware_storage_cycle_confirmation(frame: pd.DataFrame) -> pd.Series:
     return (0.5 * enterprise + 0.5 * memory).rename("hardware_storage_cycle_confirmation")
 
 
+def _hardware_storage_sales_price_pressure(frame: pd.DataFrame) -> pd.Series:
+    hdd = _col(frame, "hardware_storage_hdd_manufacturer_ret20_lag1")
+    sales_price = _col(frame, "hardware_hardware_sales_storage_device_ppi_ret21_lag1")
+    return (0.5 * hdd + 0.5 * sales_price).rename("hardware_storage_sales_price_pressure")
+
+
 def build_hardware_cycle_cogalpha_candidates() -> list[CognitiveAlphaCandidate]:
     """Return deterministic CognitiveAlpha candidates for lagged hardware-cycle features."""
 
@@ -187,6 +193,31 @@ def build_hardware_cycle_cogalpha_candidates() -> list[CognitiveAlphaCandidate]:
             metadata={
                 "history_role": "proxy_promotable",
                 "data_semantics": HARDWARE_COGALPHA_DATA_SEMANTICS,
+                "cloud_direct_pricing": False,
+            },
+        ),
+        CognitiveAlphaCandidate(
+            name="hardware_storage_sales_price_pressure",
+            level="market_structure_cycle",
+            agent="AgentMarketCycle",
+            theme="HDD public-market proxy confirmed by official storage producer sales price",
+            required_columns=(
+                "hardware_storage_hdd_manufacturer_ret20_lag1",
+                "hardware_hardware_sales_storage_device_ppi_ret21_lag1",
+            ),
+            lookback=21,
+            function=_hardware_storage_sales_price_pressure,
+            economic_rationale=(
+                "HDD manufacturer equity momentum is more interpretable when paired with official storage-device "
+                "producer sales price state, while staleness flags remain separate guards."
+            ),
+            code="0.5 * storage_hdd_manufacturer_ret20_lag1 + 0.5 * hardware_sales_storage_device_ppi_ret21_lag1",
+            metadata={
+                "history_role": "official_storage_sales_price_state",
+                "data_semantics": HARDWARE_COGALPHA_DATA_SEMANTICS,
+                "official_bls_fred": True,
+                "sales_price_index": True,
+                "monthly_state": True,
                 "cloud_direct_pricing": False,
             },
         ),

@@ -50,12 +50,69 @@
   "free_gpu_price_source": "https://freellm.org/history/YYYY-MM-DD/all.json",
   "free_gpu_price_start": "2026-02-05",
   "free_gpu_price_status": "ok",
+  "hardware_daily_derived_fields": [
+    "storage_hdd_cloud_demand_pressure_index",
+    "storage_hdd_vs_nand_index",
+    "networking_cloud_demand_pressure_index"
+  ],
+  "hardware_sales_price_end": "2026-05-01",
+  "hardware_sales_price_error": null,
+  "hardware_sales_price_errors": {},
+  "hardware_sales_price_field_count": 7,
+  "hardware_sales_price_fred_csv_source": "https://fred.stlouisfed.org/graph/fredgraph.csv",
+  "hardware_sales_price_observation_count": 2644,
+  "hardware_sales_price_series": {
+    "hardware_sales_computer_peripheral_equipment_ppi": {
+      "description": "Producer Price Index by Industry: Computer and Peripheral Equipment Manufacturing",
+      "fred_series_id": "PCU33413341",
+      "series_id": "PCU3341--3341--"
+    },
+    "hardware_sales_computer_peripheral_parts_ppi": {
+      "description": "Producer Price Index by Commodity: Computer Peripheral Equipment and Parts",
+      "series_id": "WPU1154"
+    },
+    "hardware_sales_semiconductor_related_ppi": {
+      "description": "Producer Price Index by Industry: Semiconductor and Related Device Manufacturing",
+      "series_id": "PCU334413334413"
+    },
+    "hardware_sales_server_ppi": {
+      "description": "Producer Price Index by Industry: Host Computers, Mainframes, Unix and PC Servers",
+      "series_id": "PCU3341113341115"
+    },
+    "hardware_sales_storage_device_except_parts_ppi": {
+      "description": "Producer Price Index by Industry: Computer Storage Devices Except Parts",
+      "series_id": "PCU3341123341121"
+    },
+    "hardware_sales_storage_device_ppi": {
+      "description": "Producer Price Index by Industry: Computer Storage Device Manufacturing",
+      "series_id": "PCU334112334112"
+    },
+    "hardware_sales_storage_device_primary_ppi": {
+      "description": "Producer Price Index by Industry: Computer Storage Device Manufacturing Primary Products",
+      "series_id": "PCU334112334112P"
+    }
+  },
+  "hardware_sales_price_series_ids": [
+    "PCU3341--3341--",
+    "PCU3341113341115",
+    "PCU334112334112",
+    "PCU3341123341121",
+    "PCU334112334112P",
+    "PCU334413334413",
+    "WPU1154"
+  ],
+  "hardware_sales_price_source": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
+  "hardware_sales_price_start": "1992-01-01",
+  "hardware_sales_price_status": "ok",
   "limitations": [
     "AIMultiple cloud GPU index is a reconstructed monthly external index with shorter history than market proxies.",
     "Monthly cloud GPU values are forward-filled as daily state; source_observed, is_carried, and staleness_days fields preserve update provenance.",
     "cloud_gpu_daily_* fields are daily public-market proxy indices from trading-day closes; they are not direct rental quote history.",
     "free_cloud_gpu_* fields are free daily provider snapshot rental prices from freellm history; missing dates are not forward-filled.",
+    "Free direct GPU price history is cloud rental and instance-hour pricing, not hardware sales pricing.",
     "Free direct GPU rental price history is short and may be stale relative to the market-proxy calendar.",
+    "FRED/BLS hardware_sales_* fields are official monthly producer sales price indices mapped to the first available qlib trading day and forward-filled as staleness-tracked state, not direct daily product quotes.",
+    "storage_hdd_* and networking_* daily fields are public-market proxy indices from listed supply-chain equities, not hard-disk spot or contract prices.",
     "PricePerGig product-level storage data is excluded from training due to ML/caching restrictions.",
     "All model-facing hardware-cycle factors must be lagged by the factor builder."
   ],
@@ -96,10 +153,27 @@
       "WDC",
       "STX"
     ],
+    "networking_interconnect": [
+      "ANET",
+      "CSCO",
+      "CIEN",
+      "COHR",
+      "LITE",
+      "GLW"
+    ],
     "power_cooling": [
       "VRT",
       "ETN",
       "PWR"
+    ],
+    "storage_hdd_manufacturer": [
+      "WDC",
+      "STX"
+    ],
+    "storage_nand_ssd": [
+      "MU",
+      "WDC",
+      "SIMO"
     ]
   },
   "proxy_symbols": [
@@ -128,20 +202,33 @@
     "DELL",
     "VRT",
     "ETN",
-    "PWR"
+    "PWR",
+    "SIMO",
+    "ANET",
+    "CSCO",
+    "CIEN",
+    "COHR",
+    "LITE",
+    "GLW"
   ],
   "proxy_symbols_fetched": [
     "AMD",
     "AMZN",
+    "ANET",
     "ARM",
     "ASML",
     "AVGO",
+    "CIEN",
+    "COHR",
+    "CSCO",
     "DELL",
     "ETN",
+    "GLW",
     "GOOGL",
     "HPE",
     "HPQ",
     "INTC",
+    "LITE",
     "META",
     "MRVL",
     "MSFT",
@@ -151,6 +238,7 @@
     "ORCL",
     "PWR",
     "QCOM",
+    "SIMO",
     "SMCI",
     "STX",
     "TSM",
@@ -160,9 +248,10 @@
   "proxy_symbols_missing": [
     "PSTG"
   ],
-  "raw_cloud_gpu_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/aimultiple_cloud_gpu_index.csv",
-  "raw_daily_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/hardware_cycle_daily.csv",
-  "raw_free_gpu_price_csv": "/Users/rziiiii/dev/workspace/data/raw/external/hardware_cycle/freellm_gpu_price_history.csv",
+  "raw_cloud_gpu_csv": "data/raw/external/hardware_cycle/aimultiple_cloud_gpu_index.csv",
+  "raw_daily_csv": "data/raw/external/hardware_cycle/hardware_cycle_daily.csv",
+  "raw_free_gpu_price_csv": "data/raw/external/hardware_cycle/freellm_gpu_price_history.csv",
+  "raw_hardware_sales_price_csv": "data/raw/external/hardware_cycle/bls_hardware_sales_price_index.csv",
   "row_count": 1885,
-  "source": "hardware_cycle_daily_public_market_proxy_cloud_gpu_index_and_free_gpu_prices"
+  "source": "hardware_cycle_daily_public_market_proxy_cloud_gpu_index_free_gpu_prices_and_bls_fred_sales_prices"
 }

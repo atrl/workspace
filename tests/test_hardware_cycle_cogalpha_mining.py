@@ -28,6 +28,9 @@ def test_hardware_cycle_cogalpha_candidates_are_lagged_and_materialize():
             "hardware_cloud_gpu_daily_server_tightness_ret20_lag1": np.tanh(2.0 * x),
             "hardware_free_cloud_gpu_h100_price_ret20_lag1": -0.25 * x,
             "hardware_free_cloud_gpu_h100_price_available_lag1": np.ones(len(dates)),
+            "hardware_storage_hdd_manufacturer_ret20_lag1": 0.4 * x,
+            "hardware_hardware_sales_storage_device_ppi_ret21_lag1": 0.1
+            * np.sin(np.linspace(0.0, 10.0, len(dates))),
         }
     ).set_index("datetime")
 
@@ -42,10 +45,16 @@ def test_hardware_cycle_cogalpha_candidates_are_lagged_and_materialize():
         "hardware_memory_bottleneck_spread",
         "hardware_server_supply_chain_confirmation",
         "hardware_free_h100_rental_price_pressure",
+        "hardware_storage_sales_price_pressure",
         "hardware_cpu_compute_breadth",
         "hardware_storage_cycle_confirmation",
     }.issubset(names)
-    assert {"proxy_promotable", "daily_cloud_gpu_proxy_promotable", "free_direct_gpu_price_short_history"}.issubset(roles)
+    assert {
+        "proxy_promotable",
+        "daily_cloud_gpu_proxy_promotable",
+        "free_direct_gpu_price_short_history",
+        "official_storage_sales_price_state",
+    }.issubset(roles)
     assert all(candidate.declared_lookahead == 0 for candidate in candidates)
     assert all("lag1" in column for candidate in candidates for column in candidate.required_columns)
     assert not any("is_carried" in column for candidate in candidates for column in candidate.required_columns)
@@ -67,11 +76,13 @@ def test_hardware_cycle_cogalpha_daily_semantics_payload_marks_daily_proxy_prima
     assert payload["cloud_gpu_monthly_state_semantics"] == "diagnostic_last_observed_state_forward_filled_to_qlib_daily_calendar"
     assert payload["free_gpu_direct_quote_semantics"] == "free_daily_provider_snapshot_prices_no_forward_fill"
     assert payload["free_gpu_direct_quote_source"] == "https://freellm.org/history/YYYY-MM-DD/all.json"
+    assert payload["hardware_sales_price_semantics"] == "official_bls_fred_monthly_sales_price_state_with_staleness"
     assert payload["source_observed_flag"] == "<field>_source_observed"
     assert payload["carried_state_flag"] == "<field>_is_carried"
     assert payload["staleness_measure"] == "<field>_staleness_days"
     assert payload["model_use_rule"] == (
-        "prefer_lagged_daily_proxy_features; free_direct_daily_price_is_short_history_diagnostic; "
+        "prefer_lagged_daily_proxy_features; official_sales_price_state_is_staleness_gated; "
+        "free_direct_daily_price_is_short_history_diagnostic; "
         "monthly_direct_price_state_is_diagnostic"
     )
 

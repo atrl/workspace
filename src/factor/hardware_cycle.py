@@ -12,7 +12,9 @@ from src.data.hardware_cycle import (
     FREE_GPU_PRICE_FIELDS,
     HARDWARE_COUNT_FIELDS,
     HARDWARE_CYCLE_INSTRUMENT,
+    HARDWARE_DAILY_DERIVED_FIELDS,
     HARDWARE_LEVEL_FIELDS,
+    HARDWARE_SALES_PRICE_FIELDS,
 )
 
 
@@ -20,6 +22,9 @@ HARDWARE_CYCLE_FACTOR_SOURCE = "qlib.data.D.features"
 HARDWARE_CYCLE_LIMITATIONS = [
     "cloud_gpu_daily_* features are daily public-market proxy indices from trading-day closes, not direct rental quote history.",
     "free_cloud_gpu_* features are direct no-auth daily rental quote snapshots when available; missing dates remain missing before factor lagging.",
+    "free_cloud_gpu_* prices are cloud rental or instance-hour quotes, not GPU hardware sales prices.",
+    "hardware_sales_* features are official monthly FRED/BLS producer sales price indices carried as observed/stale daily state, not direct daily quotes.",
+    "storage_hdd_* and networking_* features are daily listed-equity supply-chain proxies, not product-level hard-disk spot prices.",
     "Cloud GPU direct pricing history starts later than market proxy history and is exposed only as diagnostic state-provenance fields.",
     "All hardware-cycle features are shifted before open-to-open model use.",
 ]
@@ -60,8 +65,10 @@ def _available_fields(config: QlibProviderConfig, *, start: str, end: str) -> li
         *HARDWARE_LEVEL_FIELDS,
         *HARDWARE_COUNT_FIELDS,
         *CLOUD_GPU_DAILY_PROXY_FIELDS,
+        *HARDWARE_DAILY_DERIVED_FIELDS,
         *DEFAULT_CLOUD_GPU_FIELDS,
         *FREE_GPU_PRICE_FIELDS,
+        *HARDWARE_SALES_PRICE_FIELDS,
     ]
 
 
@@ -140,6 +147,22 @@ def build_hardware_cycle_factor_frame(
         feature_data[col] = panel[field].shift(lag_days).fillna(0.0)
         feature_cols.append(col)
 
+    for field in HARDWARE_DAILY_DERIVED_FIELDS:
+        if field not in panel:
+            continue
+        feature_base = field.removesuffix("_index")
+        for window in tuple(int(item) for item in proxy_return_windows):
+            col = f"hardware_{feature_base}_ret{window}_lag{lag_days}"
+            feature_data[col] = _log_return(panel[field], window).shift(lag_days).fillna(0.0)
+            feature_cols.append(col)
+        for window in tuple(int(item) for item in zscore_windows):
+            col = f"hardware_{feature_base}_z{window}_lag{lag_days}"
+            feature_data[col] = _zscore(panel[field], window=window).shift(lag_days).fillna(0.0)
+            feature_cols.append(col)
+        availability_col = f"hardware_{feature_base}_available_lag{lag_days}"
+        feature_data[availability_col] = panel[field].notna().astype("float64").shift(lag_days).fillna(0.0)
+        feature_cols.append(availability_col)
+
     free_gpu_fields = [field for field in fields if _is_free_gpu_price_field(field) and field in panel]
     for field in free_gpu_fields:
         for window in tuple(int(item) for item in proxy_return_windows):
@@ -151,6 +174,24 @@ def build_hardware_cycle_factor_frame(
             feature_data[col] = _zscore(panel[field], window=window).shift(lag_days).fillna(0.0)
             feature_cols.append(col)
         for state_suffix in ("available", "source_observed", "provider_count", "quote_count"):
+            state_field = f"{field}_{state_suffix}"
+            if state_field not in panel:
+                continue
+            state_col = f"hardware_{state_field}_lag{lag_days}"
+            feature_data[state_col] = pd.to_numeric(panel[state_field], errors="coerce").shift(lag_days).fillna(0.0)
+            feature_cols.append(state_col)
+
+    hardware_sales_fields = [field for field in fields if _is_hardware_sales_price_field(field) and field in panel]
+    for field in hardware_sales_fields:
+        for window in tuple(int(item) for item in cloud_return_windows):
+            col = f"hardware_{field}_ret{window}_lag{lag_days}"
+            feature_data[col] = _log_return(panel[field], window).shift(lag_days).fillna(0.0)
+            feature_cols.append(col)
+        for window in tuple(int(item) for item in zscore_windows):
+            col = f"hardware_{field}_z{window}_lag{lag_days}"
+            feature_data[col] = _zscore(panel[field], window=window).shift(lag_days).fillna(0.0)
+            feature_cols.append(col)
+        for state_suffix in ("available", "source_observed", "is_carried", "staleness_days"):
             state_field = f"{field}_{state_suffix}"
             if state_field not in panel:
                 continue
@@ -206,3 +247,7 @@ def _is_free_gpu_price_field(field: str) -> bool:
         and field.endswith("_price")
         and not field.endswith(FREE_GPU_PRICE_STATE_SUFFIXES)
     )
+
+
+def _is_hardware_sales_price_field(field: str) -> bool:
+    return field in HARDWARE_SALES_PRICE_FIELDS

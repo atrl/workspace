@@ -1,0 +1,55 @@
+[
+  {
+    "agent": "AgentRegimeGating",
+    "artifact_role": "alpha_factor",
+    "code": "cloud_gpu_daily_server_supply_proxy_ret20_lag1 + 0.5 * ai_accelerator_ret20_lag1 + 0.5 * cloud_gpu_daily_server_tightness_ret20_lag1",
+    "declared_lookahead": 0,
+    "economic_rationale": "Daily AI server supply-chain strength and server tightness proxy can confirm GPU-cycle pressure without monthly price carry.",
+    "level": "stability_regime_gating",
+    "lookback": 20,
+    "metadata": {
+      "cloud_direct_pricing": false,
+      "daily_proxy_pricing": true,
+      "data_semantics": "daily_qlib_features_lagged_from_hardware_cycle_daily_proxy_surface",
+      "history_role": "daily_cloud_gpu_proxy_promotable"
+    },
+    "metrics": {
+      "abs_ic": 0.0273182799,
+      "abs_ic_percentile": 0.5714285714285714,
+      "abs_icir": 0.7798396979,
+      "abs_icir_percentile": 0.8571428571428571,
+      "abs_rank_ic": 0.0535152296,
+      "abs_rank_ic_percentile": 1.0,
+      "abs_rank_icir": 0.742893774,
+      "abs_rank_icir_percentile": 1.0,
+      "agent": "AgentRegimeGating",
+      "distinct_values": 1740,
+      "evolution_generation": 0,
+      "generation": 0,
+      "ic": -0.0273182799,
+      "icir": -0.7798396979,
+      "level": "stability_regime_gating",
+      "lookback": 20,
+      "min_metric_percentile": 0.5714285714285714,
+      "missing_ratio": 0.0,
+      "mutual_information": 0.0400182232,
+      "mutual_information_percentile": 0.5714285714285714,
+      "quality_reason": "pass",
+      "quality_status": "pass",
+      "rank_ic": -0.0535152296,
+      "rank_icir": -0.742893774,
+      "redundancy_status": "selected",
+      "selection_score": 0.8,
+      "selection_tier": "qualified",
+      "theme": "AI server confirmation with daily cloud GPU proxy tightness"
+    },
+    "name": "hardware_server_supply_chain_confirmation",
+    "required_columns": [
+      "hardware_cloud_gpu_daily_server_supply_proxy_ret20_lag1",
+      "hardware_ai_accelerator_ret20_lag1",
+      "hardware_cloud_gpu_daily_server_tightness_ret20_lag1"
+    ],
+    "source_layer": "src.factor.hardware_cycle_cogalpha",
+    "theme": "AI server confirmation with daily cloud GPU proxy tightness"
+  }
+]

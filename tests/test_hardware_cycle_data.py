@@ -11,7 +11,11 @@ from src.data.hardware_cycle import (
     build_hardware_cycle_daily_frame,
     build_hardware_cycle_qlib_store_from_frame,
     extract_aimultiple_gpu_index_series,
+    extract_bls_hardware_sales_price_payload,
+    extract_fred_hardware_sales_price_series,
     extract_freellm_gpu_price_snapshot,
+    fetch_bls_hardware_sales_price_series,
+    fetch_fred_hardware_sales_price_series,
     fetch_hardware_proxy_price_frames,
 )
 
@@ -121,6 +125,25 @@ def test_build_hardware_cycle_daily_frame_adds_trading_day_cloud_gpu_proxy_featu
     assert frame.loc[frame["datetime"].eq(pd.Timestamp("2024-07-02")), "cloud_gpu_h100_on_demand_is_carried"].iloc[0] == 1.0
 
 
+def test_build_hardware_cycle_daily_frame_adds_storage_and_interconnect_daily_proxy_features():
+    dates = pd.date_range("2024-07-01", "2024-07-10", freq="B")
+
+    frame = build_hardware_cycle_daily_frame(
+        _proxy_frames(dates),
+        cloud_gpu_index=pd.DataFrame(),
+        calendar=[date.date().isoformat() for date in dates],
+    )
+
+    assert "storage_hdd_manufacturer_index" in frame.columns
+    assert "storage_nand_ssd_index" in frame.columns
+    assert "networking_interconnect_index" in frame.columns
+    assert "storage_hdd_cloud_demand_pressure_index" in frame.columns
+    assert "storage_hdd_vs_nand_index" in frame.columns
+    assert "networking_cloud_demand_pressure_index" in frame.columns
+    assert frame["storage_hdd_manufacturer_index"].notna().all()
+    assert frame["storage_hdd_cloud_demand_pressure_index"].nunique() > 1
+
+
 def test_extract_freellm_gpu_price_snapshot_builds_daily_direct_price_indices():
     rows = [
         {"provider": "lambda", "product": "NVIDIA H100 SXM", "price_per_hour_usd": 3.99},
@@ -172,6 +195,167 @@ def test_build_hardware_cycle_daily_frame_adds_free_daily_gpu_rental_price_obser
     assert monday["free_cloud_gpu_h100_price_quote_count"] == 0.0
     assert pd.isna(tuesday["free_cloud_gpu_h100_price"])
     assert tuesday["free_cloud_gpu_h100_price_available"] == 0.0
+
+
+def test_extract_fred_hardware_sales_price_series_marks_official_sales_price_index():
+    csv_text = "observation_date,PCU334112334112\n2026-01-01,70.918\n2026-02-01,72.266\n2026-03-01,.\n"
+
+    frame = extract_fred_hardware_sales_price_series(
+        csv_text,
+        series_id="PCU334112334112",
+        field="hardware_sales_storage_device_ppi",
+    )
+
+    assert frame["field"].unique().tolist() == ["hardware_sales_storage_device_ppi"]
+    assert frame["datetime"].tolist() == [pd.Timestamp("2026-01-01"), pd.Timestamp("2026-02-01")]
+    assert frame["value"].tolist() == [70.918, 72.266]
+    assert frame["source"].eq("fred_bls_hardware_sales_price_index").all()
+    assert frame["series_id"].eq("PCU334112334112").all()
+
+
+def test_fetch_fred_hardware_sales_price_series_keeps_successful_series_when_one_request_fails(monkeypatch):
+    class FakeResponse:
+        text = "observation_date,GOOD\n2026-01-01,100.0\n2026-02-01,101.0\n"
+
+        def raise_for_status(self) -> None:
+            return None
+
+    class FakeSession:
+        def __init__(self) -> None:
+            self.headers = {}
+
+        def get(self, url: str, *, params: dict[str, str], timeout: int) -> FakeResponse:
+            if params["id"] == "BAD":
+                raise RuntimeError("timeout")
+            return FakeResponse()
+
+    monkeypatch.setattr("src.data.hardware_cycle.requests.Session", FakeSession)
+
+    frame = fetch_fred_hardware_sales_price_series(
+        series_map={
+            "hardware_sales_good_ppi": {"series_id": "GOOD"},
+            "hardware_sales_bad_ppi": {"series_id": "BAD"},
+        }
+    )
+
+    assert frame["field"].unique().tolist() == ["hardware_sales_good_ppi"]
+    assert frame["value"].tolist() == [100.0, 101.0]
+    assert frame.attrs["errors"] == {"hardware_sales_bad_ppi": "timeout"}
+
+
+def test_extract_bls_hardware_sales_price_payload_marks_official_sales_price_index():
+    payload = {
+        "Results": {
+            "series": [
+                {
+                    "seriesID": "PCU334112334112",
+                    "data": [
+                        {"year": "2026", "period": "M02", "value": "72.266"},
+                        {"year": "2026", "period": "M01", "value": "70.918"},
+                        {"year": "2026", "period": "M13", "value": "74.0"},
+                    ],
+                }
+            ]
+        }
+    }
+
+    frame = extract_bls_hardware_sales_price_payload(
+        payload,
+        series_id_to_field={"PCU334112334112": "hardware_sales_storage_device_ppi"},
+    )
+
+    assert frame["field"].unique().tolist() == ["hardware_sales_storage_device_ppi"]
+    assert frame["datetime"].tolist() == [pd.Timestamp("2026-01-01"), pd.Timestamp("2026-02-01")]
+    assert frame["value"].tolist() == [70.918, 72.266]
+    assert frame["source"].eq("bls_public_api_hardware_sales_price_index").all()
+
+
+def test_fetch_bls_hardware_sales_price_series_batches_series_and_year_chunks(monkeypatch):
+    class FakeResponse:
+        def __init__(self, payload: dict[str, object]) -> None:
+            self._payload = payload
+
+        def raise_for_status(self) -> None:
+            return None
+
+        def json(self) -> dict[str, object]:
+            return self._payload
+
+    class FakeSession:
+        def __init__(self) -> None:
+            self.headers = {}
+            self.requests: list[dict[str, object]] = []
+
+        def post(self, url: str, *, json: dict[str, object], timeout: int) -> FakeResponse:
+            self.requests.append(json)
+            start_year = str(json["startyear"])
+            return FakeResponse(
+                {
+                    "status": "REQUEST_SUCCEEDED",
+                    "Results": {
+                        "series": [
+                            {
+                                "seriesID": "PCU334112334112",
+                                "data": [{"year": start_year, "period": "M01", "value": "100.0"}],
+                            },
+                            {
+                                "seriesID": "WPU1154",
+                                "data": [{"year": start_year, "period": "M01", "value": "200.0"}],
+                            },
+                        ]
+                    },
+                }
+            )
+
+    fake_session = FakeSession()
+    monkeypatch.setattr("src.data.hardware_cycle.requests.Session", lambda: fake_session)
+
+    frame = fetch_bls_hardware_sales_price_series(
+        series_map={
+            "hardware_sales_storage_device_ppi": {"series_id": "PCU334112334112"},
+            "hardware_sales_computer_peripheral_parts_ppi": {"series_id": "WPU1154"},
+        },
+        start_year=2000,
+        end_year=2012,
+    )
+
+    assert [request["startyear"] for request in fake_session.requests] == ["2000", "2010"]
+    assert set(frame["field"]) == {
+        "hardware_sales_storage_device_ppi",
+        "hardware_sales_computer_peripheral_parts_ppi",
+    }
+    assert frame["datetime"].min() == pd.Timestamp("2000-01-01")
+    assert frame["datetime"].max() == pd.Timestamp("2010-01-01")
+
+
+def test_build_hardware_cycle_daily_frame_adds_official_sales_price_state_with_staleness():
+    dates = pd.date_range("2026-01-30", "2026-02-05", freq="B")
+    sales_prices = pd.DataFrame(
+        [
+            {"datetime": "2026-02-01", "field": "hardware_sales_storage_device_ppi", "value": 72.266},
+        ]
+    )
+
+    frame = build_hardware_cycle_daily_frame(
+        _proxy_frames(dates),
+        cloud_gpu_index=pd.DataFrame(),
+        hardware_sales_price_index=sales_prices,
+        calendar=[date.date().isoformat() for date in dates],
+    )
+
+    before = frame.loc[frame["datetime"].eq(pd.Timestamp("2026-01-30"))].iloc[0]
+    observed = frame.loc[frame["datetime"].eq(pd.Timestamp("2026-02-02"))].iloc[0]
+    carried = frame.loc[frame["datetime"].eq(pd.Timestamp("2026-02-03"))].iloc[0]
+    assert pd.isna(before["hardware_sales_storage_device_ppi"])
+    assert before["hardware_sales_storage_device_ppi_available"] == 0.0
+    assert observed["hardware_sales_storage_device_ppi"] == 72.266
+    assert observed["hardware_sales_storage_device_ppi_source_observed"] == 1.0
+    assert observed["hardware_sales_storage_device_ppi_is_carried"] == 0.0
+    assert observed["hardware_sales_storage_device_ppi_staleness_days"] == 0.0
+    assert carried["hardware_sales_storage_device_ppi"] == 72.266
+    assert carried["hardware_sales_storage_device_ppi_source_observed"] == 0.0
+    assert carried["hardware_sales_storage_device_ppi_is_carried"] == 1.0
+    assert carried["hardware_sales_storage_device_ppi_staleness_days"] == 1.0
 
 
 def test_build_hardware_cycle_qlib_store_from_frame_reads_back(tmp_path: Path):

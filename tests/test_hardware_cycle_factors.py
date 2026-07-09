@@ -137,6 +137,52 @@ def test_hardware_cycle_factor_frame_treats_cloud_gpu_daily_proxies_as_daily_ind
     assert np.isclose(row_after_daily_move["hardware_cloud_gpu_daily_hopper_proxy_ret1_lag1"], np.log(110.0 / 100.0))
 
 
+def test_hardware_cycle_factor_frame_lags_storage_daily_proxy_and_sales_price_state(tmp_path: Path):
+    dates = pd.date_range("2026-02-02", periods=6, freq="D")
+    frame = pd.DataFrame(
+        {
+            "instrument": [HARDWARE_CYCLE_INSTRUMENT] * len(dates),
+            "datetime": dates,
+            "ai_accelerator_index": [100, 101, 102, 103, 104, 105],
+            "memory_storage_index": [100, 100, 101, 101, 102, 102],
+            "cloud_capex_index": [100, 100, 100, 101, 101, 101],
+            "storage_hdd_manufacturer_index": [100, 102, 104, 104, 108, 108],
+            "storage_hdd_cloud_demand_pressure_index": [100, 102, 104, 103, 107, 107],
+            "hardware_sales_storage_device_ppi": [72.266, 72.266, 72.266, 73.0, 73.0, 73.0],
+            "hardware_sales_storage_device_ppi_available": [1, 1, 1, 1, 1, 1],
+            "hardware_sales_storage_device_ppi_source_observed": [1, 0, 0, 1, 0, 0],
+            "hardware_sales_storage_device_ppi_is_carried": [0, 1, 1, 0, 1, 1],
+            "hardware_sales_storage_device_ppi_staleness_days": [0, 1, 2, 0, 1, 2],
+        }
+    )
+    manifest = build_hardware_cycle_qlib_store_from_frame(
+        frame,
+        provider_uri=tmp_path / "hardware_cycle",
+        as_of="2026-02-07",
+    )
+
+    factors = build_hardware_cycle_factor_frame(
+        QlibProviderConfig(provider_uri=Path(manifest["provider_uri"]), region="us", market="all", kernels=1),
+        start="2026-02-02",
+        end="2026-02-07",
+        proxy_return_windows=(1,),
+        zscore_windows=(3,),
+        cloud_return_windows=(1,),
+        lag_days=1,
+    )
+
+    feature_cols = set(factors.attrs["feature_cols"])
+    assert "hardware_storage_hdd_manufacturer_ret1_lag1" in feature_cols
+    assert "hardware_storage_hdd_cloud_demand_pressure_ret1_lag1" in feature_cols
+    assert "hardware_hardware_sales_storage_device_ppi_ret1_lag1" in feature_cols
+    assert "hardware_hardware_sales_storage_device_ppi_source_observed_lag1" in feature_cols
+    assert "hardware_hardware_sales_storage_device_ppi_staleness_days_lag1" in feature_cols
+    row = factors.loc[factors["datetime"].eq(pd.Timestamp("2026-02-04"))].iloc[0]
+    assert np.isclose(row["hardware_storage_hdd_manufacturer_ret1_lag1"], np.log(102.0 / 100.0))
+    assert row["hardware_hardware_sales_storage_device_ppi_source_observed_lag1"] == 0.0
+    assert row["hardware_hardware_sales_storage_device_ppi_staleness_days_lag1"] == 1.0
+
+
 def test_hardware_cycle_factor_frame_lags_free_daily_gpu_price_observations(tmp_path: Path):
     dates = pd.date_range("2026-03-27", periods=6, freq="D")
     frame = pd.DataFrame(
