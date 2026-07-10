@@ -48,6 +48,7 @@ __all__ = [
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
     "RiskHardenedOpen2OpenCardSpec",
+    "SoxxConstituentAlphaAttributionSpec",
     "TrainableRegimePolicyNestedWfSpec",
     "build_agentic_alpha_hypotheses",
     "build_agentic_alpha_workflow_manifest",
@@ -80,6 +81,7 @@ __all__ = [
     "run_cognitive_alpha_evolution",
     "run_qlib_native_experiment",
     "run_risk_hardened_open2open_card",
+    "run_soxx_constituent_alpha_attribution_card",
     "run_trainable_regime_policy_nested_wf_card",
 ]
 
@@ -193,6 +195,11 @@ _HARDWARE_CYCLE_COGALPHA_MINING_EXPORTS = {
     "run_hardware_cycle_cogalpha_mining_card",
 }
 
+_SOXX_CONSTITUENT_ATTRIBUTION_EXPORTS = {
+    "SoxxConstituentAlphaAttributionSpec",
+    "run_soxx_constituent_alpha_attribution_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -271,4 +278,8 @@ def __getattr__(name: str):
         from . import hardware_cycle_cogalpha_mining
 
         return getattr(hardware_cycle_cogalpha_mining, name)
+    if name in _SOXX_CONSTITUENT_ATTRIBUTION_EXPORTS:
+        from . import soxx_constituent_alpha_attribution
+
+        return getattr(soxx_constituent_alpha_attribution, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

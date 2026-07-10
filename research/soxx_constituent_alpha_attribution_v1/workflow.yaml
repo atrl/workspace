@@ -1,0 +1,17 @@
+experiment: soxx_constituent_alpha_attribution_v1
+card_type: diagnostic_soxx_constituent_alpha_attribution
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+constituent_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_constituents
+recorder_uri: /Users/rziiiii/dev/workspace/research/soxx_constituent_alpha_attribution_v1/qlib_recorder
+recorder_id: 50ec0f54805242b4b79df4720a25911b
+as_of: 2026-07-02
+promotion_decision: not_promoted_missing_pit_holdings
+analysis_layers:
+  - constituent_attribution
+  - soxx_aggregation
+  - daily_reset_leverage_mapping
+  - execution_censoring
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

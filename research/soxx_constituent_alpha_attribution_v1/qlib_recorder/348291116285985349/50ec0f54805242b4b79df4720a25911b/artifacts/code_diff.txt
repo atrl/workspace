@@ -1,0 +1,101 @@
+diff --git a/src/analysis/__init__.py b/src/analysis/__init__.py
+index 6bbcc4e8..90630a9f 100644
+--- a/src/analysis/__init__.py
++++ b/src/analysis/__init__.py
+@@ -1,3 +1,16 @@
+ from .report import AnalysisReport, build_analysis_report_from_qlib_recorder
+ 
+ __all__ = ["AnalysisReport", "build_analysis_report_from_qlib_recorder"]
++from .soxx_constituent_attribution import (
++    ConstituentAttributionPanel,
++    build_constituent_attribution_panel,
++    evaluate_constituent_attribution,
++    summarize_execution_censoring,
++)
++
++__all__ = [
++    "ConstituentAttributionPanel",
++    "build_constituent_attribution_panel",
++    "evaluate_constituent_attribution",
++    "summarize_execution_censoring",
++]
+diff --git a/src/workflow/__init__.py b/src/workflow/__init__.py
+index fb9ed7e1..b3c95e87 100644
+--- a/src/workflow/__init__.py
++++ b/src/workflow/__init__.py
+@@ -48,6 +48,7 @@ __all__ = [
+     "QlibNativeExperimentResult",
+     "QlibNativeExperimentSpec",
+     "RiskHardenedOpen2OpenCardSpec",
++    "SoxxConstituentAlphaAttributionSpec",
+     "TrainableRegimePolicyNestedWfSpec",
+     "build_agentic_alpha_hypotheses",
+     "build_agentic_alpha_workflow_manifest",
+@@ -80,6 +81,7 @@ __all__ = [
+     "run_cognitive_alpha_evolution",
+     "run_qlib_native_experiment",
+     "run_risk_hardened_open2open_card",
++    "run_soxx_constituent_alpha_attribution_card",
+     "run_trainable_regime_policy_nested_wf_card",
+ ]
+ 
+@@ -193,6 +195,11 @@ _HARDWARE_CYCLE_COGALPHA_MINING_EXPORTS = {
+     "run_hardware_cycle_cogalpha_mining_card",
+ }
+ 
++_SOXX_CONSTITUENT_ATTRIBUTION_EXPORTS = {
++    "SoxxConstituentAlphaAttributionSpec",
++    "run_soxx_constituent_alpha_attribution_card",
++}
++
+ 
+ def __getattr__(name: str):
+     if name in _COGNITIVE_ALPHA_EXPORTS:
+@@ -271,4 +278,8 @@ def __getattr__(name: str):
+         from . import hardware_cycle_cogalpha_mining
+ 
+         return getattr(hardware_cycle_cogalpha_mining, name)
++    if name in _SOXX_CONSTITUENT_ATTRIBUTION_EXPORTS:
++        from . import soxx_constituent_alpha_attribution
++
++        return getattr(soxx_constituent_alpha_attribution, name)
+     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index bb1abe87..be55b00c 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -4882,3 +4882,34 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
+     assert "D.features" in notebook_text
+     assert "R.start" in notebook_text
+     assert "不构成买卖建议" in conclusion
++
++
++def test_soxx_constituent_alpha_attribution_card_separates_signal_leverage_and_execution():
++    card = ROOT / "research" / "soxx_constituent_alpha_attribution_v1"
++    summary = _summary(card)
++    notebook_text = (card / "soxx_constituent_alpha_attribution_v1.ipynb").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "soxx_constituent_alpha_attribution_v1"
++    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings"
++    assert summary["constituent_data"]["source"] == "qlib.data.D.features"
++    assert summary["constituent_data"]["point_in_time_status"] == "blocked_current_holdings_backfill"
++    assert summary["analysis_layers"] == [
++        "constituent_attribution",
++        "soxx_aggregation",
++        "daily_reset_leverage_mapping",
++        "execution_censoring",
++    ]
++    assert summary["execution_censoring"]["source"] == "qlib_recorder_artifact"
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert "daily_attribution_panel.csv" in summary["artifact_policy"]["recorder_only_artifacts"]
++    for rel_path in summary["sidecars"].values():
++        assert (card / rel_path).exists(), rel_path
++    for forbidden in RECORDER_ONLY_ROOT_FILES | {"daily_attribution_panel.csv", "source_selected_positions.csv"}:
++        assert not (card / forbidden).exists(), forbidden
++    assert "qlib.init" in notebook_text
++    assert "D.features" in notebook_text
++    assert "R.start" in notebook_text
++    assert "run_soxx_constituent_alpha_attribution_card" in notebook_text
++    assert "反思" in conclusion
++    assert "不构成买卖建议" in conclusion

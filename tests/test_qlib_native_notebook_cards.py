@@ -4882,3 +4882,34 @@ def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_sign
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
     assert "不构成买卖建议" in conclusion
+
+
+def test_soxx_constituent_alpha_attribution_card_separates_signal_leverage_and_execution():
+    card = ROOT / "research" / "soxx_constituent_alpha_attribution_v1"
+    summary = _summary(card)
+    notebook_text = (card / "soxx_constituent_alpha_attribution_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "soxx_constituent_alpha_attribution_v1"
+    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings"
+    assert summary["constituent_data"]["source"] == "qlib.data.D.features"
+    assert summary["constituent_data"]["point_in_time_status"] == "blocked_current_holdings_backfill"
+    assert summary["analysis_layers"] == [
+        "constituent_attribution",
+        "soxx_aggregation",
+        "daily_reset_leverage_mapping",
+        "execution_censoring",
+    ]
+    assert summary["execution_censoring"]["source"] == "qlib_recorder_artifact"
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert "daily_attribution_panel.csv" in summary["artifact_policy"]["recorder_only_artifacts"]
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    for forbidden in RECORDER_ONLY_ROOT_FILES | {"daily_attribution_panel.csv", "source_selected_positions.csv"}:
+        assert not (card / forbidden).exists(), forbidden
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "run_soxx_constituent_alpha_attribution_card" in notebook_text
+    assert "反思" in conclusion
+    assert "不构成买卖建议" in conclusion

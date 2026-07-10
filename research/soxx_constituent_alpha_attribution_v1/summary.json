@@ -1,0 +1,167 @@
+{
+  "analysis_layers": [
+    "constituent_attribution",
+    "soxx_aggregation",
+    "daily_reset_leverage_mapping",
+    "execution_censoring"
+  ],
+  "artifact_policy": {
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "soxx_constituent_alpha_attribution_v1.ipynb",
+    "recorder_only_artifacts": [
+      "daily_attribution_panel.csv",
+      "source_selected_positions.csv"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-02",
+  "card_type": "diagnostic_soxx_constituent_alpha_attribution",
+  "constituent_data": {
+    "instrument_count": 30,
+    "limitations": [
+      "Current SOXX constituents backfilled through history are survivorship-biased without point-in-time holdings.",
+      "Model features built from this provider must lag constituent returns before open-to-open labels."
+    ],
+    "point_in_time_status": "blocked_current_holdings_backfill",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_constituents",
+    "source": "qlib.data.D.features"
+  },
+  "execution_censoring": {
+    "source": "qlib_recorder_artifact",
+    "source_experiment": "hardware_cycle_cogalpha_mining_v1",
+    "source_recorder_id": "29aa119c76484e06b5b939591b36518a",
+    "test": {
+      "candidate": "lgb_xgb_consensus_probability_p0.55_s0.5_h0.1_hold2_mdc0.35",
+      "observations": 124,
+      "position_distinct_count": 1,
+      "position_floor": 0.015,
+      "position_floor_ratio": 1.0,
+      "probability_directional_auc": 0.4718614718614718,
+      "probability_rank_correlation": -0.18854863979490102,
+      "probability_top_bottom_spread_pct": -8.637742698192596,
+      "raw_zero_ratio": 0.9838709677419355,
+      "segment": "test",
+      "trade_count": 1
+    }
+  },
+  "experiment": "soxx_constituent_alpha_attribution_v1",
+  "factor_diagnostic": {
+    "aggregate_stable_signal_count": 1,
+    "best_test_nonoverlap": {
+      "finite_offset_count": 5,
+      "horizon_offsets": 5,
+      "observations_per_offset_max": 24,
+      "observations_per_offset_min": 23,
+      "positive_offset_ratio": 0.8,
+      "rank_correlation_max": 0.3408695652173913,
+      "rank_correlation_median": 0.2052173913043478,
+      "rank_correlation_min": -0.17885375494071146,
+      "segment": "test",
+      "signal": "weighted_residual",
+      "target": "soxx_5d"
+    },
+    "best_test_soxx_signal": {
+      "directional_auc": 0.595578231292517,
+      "observations": 119,
+      "rank_correlation": 0.14940179461615158,
+      "segment": "test",
+      "signal": "weighted_residual",
+      "target": "soxx_5d",
+      "top_bottom_spread_pct": 1.8655505031347275,
+      "train_direction": 1.0
+    },
+    "horizon": 5,
+    "lag_days": 1,
+    "lookback": 20,
+    "single_name_all_segment_same_sign_ratio": 0.06666666666666667,
+    "train_only_orientation": true
+  },
+  "leverage_mapping": {
+    "formula": "product(1 + 3 * future_daily_soxx_open_to_open_return) - 1",
+    "metrics": [
+      {
+        "observations": 1510,
+        "segment": "train",
+        "synthetic_actual_rank_correlation": 0.9981098275962771,
+        "tracking_residual_mean_pct": -0.17974689582648712,
+        "tracking_residual_p05_pct": -1.2984588532790853,
+        "tracking_residual_p95_pct": 1.0126892950609596,
+        "tracking_rmse_pct": 1.0271095614300052
+      },
+      {
+        "observations": 250,
+        "segment": "validation",
+        "synthetic_actual_rank_correlation": 0.9981145298324773,
+        "tracking_residual_mean_pct": -0.23293038036138106,
+        "tracking_residual_p05_pct": -1.3184772497532176,
+        "tracking_residual_p95_pct": 0.47555505119952657,
+        "tracking_rmse_pct": 0.7809259435127325
+      },
+      {
+        "observations": 119,
+        "segment": "test",
+        "synthetic_actual_rank_correlation": 0.9974006551773253,
+        "tracking_residual_mean_pct": -0.32130611972915024,
+        "tracking_residual_p05_pct": -2.4598793283761795,
+        "tracking_residual_p95_pct": 1.0942403323561187,
+        "tracking_rmse_pct": 1.2477460804944784
+      }
+    ]
+  },
+  "promotion_decision": "not_promoted_missing_pit_holdings",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.Recorder.download_artifact"
+  ],
+  "recorder_id": "50ec0f54805242b4b79df4720a25911b",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxx_constituent_alpha_attribution_v1/qlib_recorder/348291116285985349/50ec0f54805242b4b79df4720a25911b",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxx_constituent_alpha_attribution_v1/qlib_recorder",
+  "segments": {
+    "test": [
+      "2026-01-02",
+      "2026-07-02"
+    ],
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ]
+  },
+  "sidecars": {
+    "aggregate_factor_metrics": "aggregate_factor_metrics.csv",
+    "aggregate_stability": "aggregate_stability.csv",
+    "execution_censoring_metrics": "execution_censoring_metrics.csv",
+    "individual_factor_metrics": "individual_factor_metrics.csv",
+    "leverage_mapping_metrics": "leverage_mapping_metrics.csv",
+    "nonoverlap_factor_metrics": "nonoverlap_factor_metrics.csv",
+    "risk_analysis": "risk_analysis.csv"
+  },
+  "spec": {
+    "experiment": "soxx_constituent_alpha_attribution_v1",
+    "horizon": 5,
+    "lag_days": 1,
+    "lookback": 20,
+    "root": "/Users/rziiiii/dev/workspace",
+    "test_start": "2026-01-02",
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ]
+  },
+  "status": "complete"
+}
