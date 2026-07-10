@@ -145,11 +145,13 @@ def _select_factor_library_archive(
     if pass_metrics.empty:
         return list(evolution.selected_candidates), evolution.final_report.metrics.copy()
 
-    non_fallback = pass_metrics.loc[pass_metrics["redundancy_status"] != "selected_fallback"].copy()
-    tiered = non_fallback.loc[non_fallback["selection_tier"].isin(["elite", "qualified"])].copy()
-    selected_rows = tiered if not tiered.empty else non_fallback
+    selected_non_fallback = pass_metrics.loc[pass_metrics["redundancy_status"] == "selected"].copy()
+    tiered = selected_non_fallback.loc[
+        selected_non_fallback["selection_tier"].isin(["elite", "qualified"])
+    ].copy()
+    selected_rows = tiered if not tiered.empty else selected_non_fallback
     if selected_rows.empty:
-        selected_rows = pass_metrics
+        selected_rows = pass_metrics.loc[pass_metrics["redundancy_status"] == "selected_fallback"].copy()
 
     sort_cols = [
         column

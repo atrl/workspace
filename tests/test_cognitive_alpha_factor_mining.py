@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
@@ -165,3 +166,89 @@ def test_cognitive_alpha_factor_mining_selects_diverse_all_generation_elite_arch
     assert "seed_alpha158_good_archive" in result.selected_feature_names
     assert any(item["name"] == "seed_alpha158_good_archive" and item["metrics"]["evolution_generation"] == 0 for item in result.factor_library)
     assert len({item["name"] for item in result.factor_library}) == len(result.factor_library)
+
+
+def test_factor_library_archive_never_promotes_unselected_candidates(tmp_path):
+    from src.factor import CognitiveAlphaCandidate, CognitiveAlphaFactorMiningSpec
+    from src.factor.cognitive_alpha_mining import _select_factor_library_archive
+    from src.workflow import CognitiveAlphaEvolutionSpec
+
+    selected_fallback = CognitiveAlphaCandidate(
+        name="selected_fallback",
+        level="market_structure_cycle",
+        agent="AgentMarketCycle",
+        theme="selected fallback control",
+        required_columns=("alpha158_good",),
+        lookback=5,
+        code="selected_fallback_code",
+        economic_rationale="A selected fallback must remain eligible for the archive.",
+        function=lambda data: data["alpha158_good"],
+    )
+    unselected = CognitiveAlphaCandidate(
+        name="unselected_high_score",
+        level="market_structure_cycle",
+        agent="AgentMarketCycle",
+        theme="unselected high-score control",
+        required_columns=("alpha158_good",),
+        lookback=5,
+        code="unselected_high_score_code",
+        economic_rationale="An unselected candidate must not enter the archive.",
+        function=lambda data: data["alpha158_good"],
+    )
+    metrics = pd.DataFrame(
+        [
+            {
+                "factor": "unselected_high_score",
+                "quality_status": "pass",
+                "redundancy_status": "not_selected",
+                "selection_tier": "drop",
+                "selection_score": 1.0,
+                "min_metric_percentile": 1.0,
+                "ic": 0.2,
+                "rank_ic": 0.2,
+                "icir": 1.0,
+                "rank_icir": 1.0,
+                "mutual_information": 0.2,
+            },
+            {
+                "factor": "selected_fallback",
+                "quality_status": "pass",
+                "redundancy_status": "selected_fallback",
+                "selection_tier": "drop",
+                "selection_score": 0.8,
+                "min_metric_percentile": 0.8,
+                "ic": 0.1,
+                "rank_ic": 0.1,
+                "icir": 0.5,
+                "rank_icir": 0.5,
+                "mutual_information": 0.1,
+            },
+        ]
+    )
+    evolution = SimpleNamespace(
+        generation_metrics=metrics,
+        selected_candidates=[selected_fallback],
+        final_report=SimpleNamespace(metrics=metrics),
+        candidate_map={
+            selected_fallback.name: selected_fallback,
+            unselected.name: unselected,
+        },
+    )
+    spec = CognitiveAlphaFactorMiningSpec(
+        evolution_spec=CognitiveAlphaEvolutionSpec(
+            run_id="archive_selection_contract",
+            profile="soxl_smoke",
+            runtime_dir=tmp_path,
+            generations=1,
+            parent_pool_size=1,
+            children_per_generation=1,
+            fallback_top_n=1,
+        ),
+        label_col="label_return_5d",
+        max_factor_library_size=2,
+    )
+
+    selected, selected_metrics = _select_factor_library_archive(evolution, spec=spec)
+
+    assert [candidate.name for candidate in selected] == ["selected_fallback"]
+    assert selected_metrics["factor"].tolist() == ["selected_fallback"]

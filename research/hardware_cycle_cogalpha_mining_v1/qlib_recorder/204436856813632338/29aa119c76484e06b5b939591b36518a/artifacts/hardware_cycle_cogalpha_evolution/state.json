@@ -38,14 +38,12 @@
   "repair_attempt_count": 0,
   "resume_start_generation": 0,
   "resumed": false,
-  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/hardware_cycle_cogalpha_mining_air7ctuo/hardware_cycle_cogalpha_evolution",
+  "run_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/hardware_cycle_cogalpha_mining_s5mud1au/hardware_cycle_cogalpha_evolution",
   "run_id": "hardware_cycle_cogalpha_evolution",
-  "selected_count": 4,
+  "selected_count": 2,
   "selected_feature_names": [
-    "hardware_server_supply_chain_confirmation",
-    "hardware_cpu_compute_breadth",
-    "hardware_compute_scarcity_accelerator_vs_gpu_price",
-    "hardware_storage_cycle_confirmation"
+    "hardware_storage_cycle_confirmation",
+    "hardware_cpu_compute_breadth"
   ],
   "spec": {
     "children_per_generation": 4,
@@ -62,7 +60,7 @@
     "qualified_percentile": 0.5,
     "resume": false,
     "run_id": "hardware_cycle_cogalpha_evolution",
-    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/hardware_cycle_cogalpha_mining_air7ctuo"
+    "runtime_dir": "/var/folders/4n/bc8v7c391nq228754jxg84_w0000gn/T/hardware_cycle_cogalpha_mining_s5mud1au"
   },
   "status": "complete",
   "thresholds": {

@@ -90,11 +90,35 @@ def test_hardware_cycle_cogalpha_daily_semantics_payload_marks_daily_proxy_prima
     )
 
 
+def test_hardware_cycle_factor_mining_inputs_are_train_only_and_auditable():
+    from src.workflow.hardware_cycle_cogalpha_mining import (
+        _factor_mining_summary_for_train,
+        _factor_mining_train_frame,
+    )
+
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2024-12-31", "2025-01-02", "2025-12-31"]),
+            "label": [1.0, 2.0, 3.0],
+        }
+    )
+    train = ("2019-01-02", "2024-12-31")
+
+    mining_frame = _factor_mining_train_frame(frame, train=train)
+    summary = _factor_mining_summary_for_train({"workflow": "cognitive_alpha_factor_mining"}, train=train)
+
+    assert mining_frame["datetime"].max() == pd.Timestamp("2024-12-31")
+    assert summary["segments"] == {"selection": ["2019-01-02", "2024-12-31"]}
+    assert summary["selection_data_rule"] == "factor_discovery_uses_train_only"
+
+
 def test_hardware_cycle_cogalpha_workflow_exports_and_summary_payload(tmp_path):
     from src.workflow.hardware_cycle_cogalpha_mining import (
         HARDWARE_COGALPHA_EXPERIMENT,
         HardwareCycleCogAlphaMiningCardSpec,
+        _conclusion,
         _hardware_cogalpha_summary_payload,
+        _workflow_yaml,
     )
 
     spec = HardwareCycleCogAlphaMiningCardSpec(root=tmp_path)
@@ -115,6 +139,8 @@ def test_hardware_cycle_cogalpha_workflow_exports_and_summary_payload(tmp_path):
         ],
         factor_mining={
             "workflow": "cognitive_alpha_factor_mining",
+            "segments": {"selection": ["2019-01-02", "2024-12-31"]},
+            "selection_data_rule": "factor_discovery_uses_train_only",
             "factor_library": {"selected_count": 2, "selected_feature_names": ["hardware_memory_bottleneck_spread"]},
         },
         position_summary={
@@ -142,6 +168,9 @@ def test_hardware_cycle_cogalpha_workflow_exports_and_summary_payload(tmp_path):
     assert summary["hardware_cycle"]["feature_count"] == 2
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert summary["artifact_policy"]["recorder_only_artifacts"]["positions"].startswith("artifacts/")
+    assert "selection_start: 2019-01-02" in _workflow_yaml(summary)
+    assert "selection_end: 2024-12-31" in _workflow_yaml(summary)
+    assert "factor_discovery_uses_train_only" in _conclusion(summary)
 
 
 def test_hardware_cycle_cogalpha_notebook_bootstraps_repo_root(tmp_path):

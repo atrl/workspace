@@ -3,7 +3,7 @@ card_type: hardware_cycle_cogalpha_factor_mining_research_card
 provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
 hardware_cycle_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/hardware_cycle_v1
 recorder_uri: /Users/rziiiii/dev/workspace/research/hardware_cycle_cogalpha_mining_v1/qlib_recorder
-recorder_id: 4df2dd47bf664a48a3cde494aec003f7
+recorder_id: 29aa119c76484e06b5b939591b36518a
 as_of: 2026-07-02
 hardware_sales_price_status: cache_fallback
 hardware_sales_price_snapshot_source: cached_existing_raw
@@ -26,7 +26,10 @@ daily_data_semantics:
 factor_mining:
   workflow: cognitive_alpha_factor_mining
   source_layer: src.factor.hardware_cycle_cogalpha
-  selected_count: 3
+  selection_data_rule: factor_discovery_uses_train_only
+  selection_start: 2019-01-02
+  selection_end: 2024-12-31
+  selected_count: 2
 position_model:
   workflow: hardware_cycle_cogalpha_position_model
   return_col: open_to_open_return

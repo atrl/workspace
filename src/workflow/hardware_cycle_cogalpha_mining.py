@@ -110,6 +110,23 @@ def run_hardware_cycle_cogalpha_mining_card(*, root: Path | str | None = None) -
     return _run_card(spec)
 
 
+def _factor_mining_train_frame(frame: pd.DataFrame, *, train: tuple[str, str]) -> pd.DataFrame:
+    datetimes = pd.to_datetime(frame["datetime"]).dt.normalize()
+    mask = datetimes.between(pd.Timestamp(train[0]), pd.Timestamp(train[1]))
+    out = frame.loc[mask].copy()
+    if out.empty:
+        raise ValueError(f"hardware-cycle factor mining train segment is empty: {train}")
+    return out
+
+
+def _factor_mining_summary_for_train(summary: dict[str, Any], *, train: tuple[str, str]) -> dict[str, Any]:
+    return {
+        **summary,
+        "segments": {"selection": list(train)},
+        "selection_data_rule": "factor_discovery_uses_train_only",
+    }
+
+
 def _run_card(spec: HardwareCycleCogAlphaMiningCardSpec) -> dict[str, Any]:
     card = spec.card_dir
     card.mkdir(parents=True, exist_ok=True)
@@ -133,7 +150,7 @@ def _run_card(spec: HardwareCycleCogAlphaMiningCardSpec) -> dict[str, Any]:
     )
     frame, hardware_feature_cols = _attach_hardware_cycle_features(base_bundle.frame, hardware_factors)
     mining_candidates = build_hardware_cycle_cogalpha_candidates()
-    mining_frame = frame.loc[pd.to_datetime(frame["datetime"]).dt.normalize() <= pd.Timestamp(spec.validation[1])].copy()
+    mining_frame = _factor_mining_train_frame(frame, train=spec.train)
 
     with tempfile.TemporaryDirectory(prefix="hardware_cycle_cogalpha_mining_") as tmp:
         tmp_dir = Path(tmp)
@@ -229,6 +246,8 @@ def _run_card(spec: HardwareCycleCogAlphaMiningCardSpec) -> dict[str, Any]:
                 return_col=OPEN_TO_OPEN_RETURN_COL,
                 label_col=LABEL_OPEN_TO_OPEN_5D_COL,
                 factor_mining="cognitive_alpha_factor_mining",
+                factor_mining_start=spec.train[0],
+                factor_mining_end=spec.train[1],
                 hardware_candidate_count=len(mining_candidates),
                 selected_factor_count=len(factor_mining.selected_feature_names),
                 hardware_feature_count=len(hardware_feature_cols),
@@ -239,7 +258,7 @@ def _run_card(spec: HardwareCycleCogAlphaMiningCardSpec) -> dict[str, Any]:
                 provider_meta=base_bundle.provider_meta,
                 hardware_manifest=hardware_manifest,
                 hardware_feature_cols=hardware_feature_cols,
-                factor_mining=factor_mining.summary,
+                factor_mining=_factor_mining_summary_for_train(factor_mining.summary, train=spec.train),
                 position_summary=position_result.summary,
                 latest_signal=position_result.latest_signal,
                 sidecars=sidecars,
@@ -550,6 +569,9 @@ def _write_summary_files(card: Path, summary: dict[str, Any], risk_analysis: pd.
 
 
 def _workflow_yaml(summary: dict[str, Any]) -> str:
+    selection_segment = summary.get("factor_mining", {}).get("segments", {}).get("selection", [])
+    selection_start = selection_segment[0] if len(selection_segment) >= 1 else None
+    selection_end = selection_segment[1] if len(selection_segment) >= 2 else None
     return "\n".join(
         [
             f"experiment: {summary['experiment']}",
@@ -580,6 +602,9 @@ def _workflow_yaml(summary: dict[str, Any]) -> str:
             "factor_mining:",
             "  workflow: cognitive_alpha_factor_mining",
             f"  source_layer: {summary['factor_mining'].get('source_layer')}",
+            f"  selection_data_rule: {summary['factor_mining'].get('selection_data_rule')}",
+            f"  selection_start: {selection_start}",
+            f"  selection_end: {selection_end}",
             f"  selected_count: {summary['factor_mining'].get('selected_count')}",
             "position_model:",
             f"  workflow: {summary['position_model']['workflow']}",
@@ -625,6 +650,8 @@ def _conclusion(summary: dict[str, Any]) -> str:
         "selected_feature_names",
         library.get("selected_feature_names", []),
     )
+    factor_mining_rule = summary.get("factor_mining", {}).get("selection_data_rule")
+    factor_mining_segment = summary.get("factor_mining", {}).get("segments", {}).get("selection", [])
     return (
         "# 结论\n\n"
         f"- what_ran: 执行 {summary['experiment']}，将硬件周期 qlib 日频状态特征交给 CognitiveAlpha factor mining，"
@@ -638,7 +665,8 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"({summary['hardware_cycle'].get('hardware_sales_price_start')}..{summary['hardware_cycle'].get('hardware_sales_price_end')})，"
         f"sales_status={summary['hardware_cycle'].get('hardware_sales_price_status')}，"
         f"sales_snapshot={summary['hardware_cycle'].get('hardware_sales_price_snapshot_source')}。\n"
-        f"- factor_mining: selected_count={summary.get('factor_mining', {}).get('selected_count', library.get('selected_count'))}，"
+        f"- factor_mining: selection_rule={factor_mining_rule}，selection_segment={factor_mining_segment}，"
+        f"selected_count={summary.get('factor_mining', {}).get('selected_count', library.get('selected_count'))}，"
         f"selected={json.dumps(selected_names, ensure_ascii=False)}。\n"
         f"- key_metrics: selected_return={float(selected.get('return_pct', 0.0)):.4f}%，"
         f"maxDD={float(selected.get('max_drawdown_pct', 0.0)):.4f}%。\n"
