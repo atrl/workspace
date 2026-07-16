@@ -260,14 +260,14 @@ def evaluate_hidden_dispersion(
         raise ValueError("hidden dispersion evaluation requires a train segment")
     targets = ("soxx_5d", "soxl_5d", "soxx_abs_5d")
     features = ("weighted_residual", *HIDDEN_DISPERSION_FEATURES)
-    train_sample = _window(panel.daily, segments["train"])
+    train_sample = _segment_window(panel.daily, segments["train"], horizon=panel.horizon)
     feature_rows: list[dict[str, object]] = []
     for feature in features:
         for target in targets:
             train_corr = _rank_correlation(train_sample[feature], train_sample[target])
             direction = 1.0 if not np.isfinite(train_corr) or train_corr >= 0.0 else -1.0
             for segment, window in segments.items():
-                sample = _window(panel.daily, window)
+                sample = _segment_window(panel.daily, window, horizon=panel.horizon)
                 oriented = pd.to_numeric(sample[feature], errors="coerce") * direction
                 feature_rows.append(
                     {
@@ -282,17 +282,17 @@ def evaluate_hidden_dispersion(
     candidate_series: dict[tuple[str, str], pd.Series] = {}
     candidate_rows: list[dict[str, object]] = []
     nonoverlap_rows: list[dict[str, object]] = []
-    for candidate, candidate_features in CANDIDATE_FEATURES.items():
-        for target in targets:
-            signal = _train_oriented_composite(
-                panel.daily,
-                train_sample,
-                features=candidate_features,
-                target=target,
-            )
+    for target in targets:
+        target_signals = build_hidden_dispersion_candidate_signals(panel, segments=segments, target=target)
+        for candidate in CANDIDATE_FEATURES:
+            signal = target_signals[candidate]
             candidate_series[(candidate, target)] = signal
             for segment, window in segments.items():
-                sample = _window(panel.daily.assign(candidate_signal=signal), window).reset_index(drop=True)
+                sample = _segment_window(
+                    panel.daily.assign(candidate_signal=signal),
+                    window,
+                    horizon=panel.horizon,
+                ).reset_index(drop=True)
                 candidate_rows.append(
                     {
                         "candidate": candidate,
@@ -357,6 +357,28 @@ def evaluate_hidden_dispersion(
     }
 
 
+def build_hidden_dispersion_candidate_signals(
+    panel: HiddenDispersionPanel,
+    *,
+    segments: dict[str, tuple[str, str]],
+    target: str = "soxx_5d",
+) -> pd.DataFrame:
+    if "train" not in segments:
+        raise ValueError("hidden dispersion candidate signals require a train segment")
+    if target not in panel.daily:
+        raise ValueError(f"hidden dispersion target missing: {target}")
+    train_sample = _segment_window(panel.daily, segments["train"], horizon=panel.horizon)
+    signals = pd.DataFrame({"datetime": panel.daily["datetime"]})
+    for candidate, candidate_features in CANDIDATE_FEATURES.items():
+        signals[candidate] = _train_oriented_composite(
+            panel.daily,
+            train_sample,
+            features=candidate_features,
+            target=target,
+        )
+    return signals
+
+
 def _train_oriented_composite(
     full_frame: pd.DataFrame,
     train_frame: pd.DataFrame,
@@ -383,6 +405,19 @@ def _train_oriented_composite(
 def _window(frame: pd.DataFrame, window: tuple[str, str]) -> pd.DataFrame:
     dates = pd.to_datetime(frame["datetime"]).dt.normalize()
     return frame.loc[dates.between(pd.Timestamp(window[0]), pd.Timestamp(window[1]))].copy()
+
+
+def _segment_window(
+    frame: pd.DataFrame,
+    window: tuple[str, str],
+    *,
+    horizon: int,
+) -> pd.DataFrame:
+    sample = _window(frame, window).sort_values("datetime")
+    purge_rows = int(horizon) + 1
+    if len(sample) <= purge_rows:
+        return sample.iloc[0:0].copy()
+    return sample.iloc[:-purge_rows].copy()
 
 
 def _metric_payload(signal: pd.Series, target: pd.Series, *, signed_target: bool) -> dict[str, float | int]:

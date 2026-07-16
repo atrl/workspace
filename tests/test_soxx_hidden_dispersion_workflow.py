@@ -10,7 +10,7 @@ def _summary(tmp_path):
         "experiment": "soxx_hidden_dispersion_v1",
         "card_type": "diagnostic_soxx_hidden_dispersion",
         "status": "complete",
-        "promotion_decision": "not_promoted_missing_pit_holdings",
+        "promotion_decision": "not_promoted_missing_pit_holdings_and_no_incremental_evidence",
         "as_of": "2026-07-02",
         "provider_uri": (tmp_path / "data" / "qlib" / "soxl").as_posix(),
         "recorder_uri": (tmp_path / "research" / "card" / "qlib_recorder").as_posix(),
@@ -31,7 +31,12 @@ def _summary(tmp_path):
             "incremental_test_soxx_rank_correlation": 0.05,
             "combined_test_soxx_abs_rank_correlation": 0.20,
             "nonoverlap_positive_offset_ratio": 0.8,
+            "nonoverlap_finite_offset_count": 5,
             "stable_candidate_count": 1,
+        },
+        "qlib_analyzer": {
+            "api": "qlib.contrib.evaluate.risk_analysis",
+            "sidecar": "qlib_risk_analysis.csv",
         },
         "artifact_policy": {
             "policy": "slim_card_recorder_first",
@@ -42,6 +47,7 @@ def _summary(tmp_path):
             "feature_metrics": "feature_metrics.csv",
             "nonoverlap_feature_metrics": "nonoverlap_feature_metrics.csv",
             "model_comparison": "model_comparison.csv",
+            "qlib_risk_analysis": "qlib_risk_analysis.csv",
             "risk_analysis": "risk_analysis.csv",
         },
     }
@@ -83,6 +89,19 @@ def test_hidden_dispersion_summary_keeps_recorder_only_panel_and_pit_gate(tmp_pa
     assert summary["artifact_policy"]["recorder_only_artifacts"] == [
         "daily_hidden_dispersion_panel.csv"
     ]
-    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings"
+    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings_and_no_incremental_evidence"
     pit = risk.loc[risk["check"].eq("point_in_time_holdings")].iloc[0]
     assert pit["status"] == "fail"
+
+
+def test_hidden_dispersion_offset_gate_requires_all_five_finite_offsets(tmp_path):
+    from src.workflow.soxx_hidden_dispersion import _risk_analysis
+
+    summary = _summary(tmp_path)
+    summary["candidate_diagnostic"]["nonoverlap_positive_offset_ratio"] = 1.0
+    summary["candidate_diagnostic"]["nonoverlap_finite_offset_count"] = 1
+
+    risk = _risk_analysis(summary)
+
+    offset = risk.loc[risk["check"].eq("nonoverlap_offset_stability")].iloc[0]
+    assert offset["status"] == "fail"

@@ -4922,10 +4922,17 @@ def test_soxx_hidden_dispersion_card_is_qlib_native_slim_and_diagnostic():
     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
 
     assert summary["experiment"] == "soxx_hidden_dispersion_v1"
-    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings"
+    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings_and_no_incremental_evidence"
     assert summary["constituent_data"]["source"] == "qlib.data.D.features"
     assert summary["constituent_data"]["point_in_time_status"] == "blocked_current_holdings_backfill"
     assert summary["lag_policy"]["train_only_beta_and_orientation"] is True
+    assert summary["lag_policy"]["segment_end_purge_rows"] == 6
+    assert summary["qlib_analyzer"]["api"] == "qlib.contrib.evaluate.risk_analysis"
+    assert summary["candidate_diagnostic"]["nonoverlap_finite_offset_count"] == 5
+    assert summary["candidate_diagnostic"]["best_test_feature_selection_policy"] == "diagnostic_not_selection"
+    assert not Path(summary["provider_uri"]).is_absolute()
+    assert not Path(summary["recorder_uri"]).is_absolute()
+    assert not Path(summary["recorder_local_dir"]).is_absolute()
     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
     assert summary["artifact_policy"]["recorder_only_artifacts"] == [
         "daily_hidden_dispersion_panel.csv"
@@ -4933,7 +4940,7 @@ def test_soxx_hidden_dispersion_card_is_qlib_native_slim_and_diagnostic():
     for rel_path in summary["sidecars"].values():
         assert (card / rel_path).exists(), rel_path
     assert not (card / "daily_hidden_dispersion_panel.csv").exists()
-    recorder_dir = Path(summary["recorder_local_dir"])
+    recorder_dir = ROOT / summary["recorder_local_dir"]
     assert (
         recorder_dir
         / "artifacts"
@@ -4949,5 +4956,8 @@ def test_soxx_hidden_dispersion_card_is_qlib_native_slim_and_diagnostic():
     assert "qlib.init" in notebook_text
     assert "D.features" in notebook_text
     assert "R.start" in notebook_text
+    assert "risk_analysis" in notebook_text
     assert "run_soxx_hidden_dispersion_card" in notebook_text
     assert "VIX 是 SPX 隐含波动率" in conclusion
+    assert "不具样本外增量" in conclusion
+    assert "后验诊断" in conclusion

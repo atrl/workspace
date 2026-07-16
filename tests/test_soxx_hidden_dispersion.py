@@ -173,3 +173,46 @@ def test_hidden_dispersion_evaluation_uses_train_orientation_and_nonoverlap_offs
     }
     assert set(metrics["candidate_comparison"]["target"]) == {"soxx_5d", "soxl_5d", "soxx_abs_5d"}
     assert set(metrics["stability"]["segment_pair"]) == {"train_validation", "validation_test"}
+
+
+def test_hidden_dispersion_evaluation_purges_labels_that_cross_segment_boundaries():
+    from src.analysis.soxx_hidden_dispersion import build_hidden_dispersion_panel, evaluate_hidden_dispersion
+
+    constituents, index_frame = _synthetic_frames()
+    segments = {
+        "train": ("2024-01-02", "2024-03-29"),
+        "validation": ("2024-04-01", "2024-04-30"),
+        "test": ("2024-05-01", "2024-05-20"),
+    }
+    baseline = build_hidden_dispersion_panel(
+        constituents,
+        index_frame,
+        train=segments["train"],
+        lag_days=1,
+        horizon=5,
+    )
+    changed_index = index_frame.copy()
+    future = changed_index["datetime"].gt(pd.Timestamp(segments["train"][1]))
+    changed_index.loc[future, "soxx_open"] *= np.linspace(1.2, 2.0, int(future.sum()))
+    changed_index.loc[future, "soxl_open"] *= np.linspace(1.4, 3.0, int(future.sum()))
+    perturbed = build_hidden_dispersion_panel(
+        constituents,
+        changed_index,
+        train=segments["train"],
+        lag_days=1,
+        horizon=5,
+    )
+
+    baseline_metrics = evaluate_hidden_dispersion(baseline, segments=segments)["candidate_comparison"]
+    perturbed_metrics = evaluate_hidden_dispersion(perturbed, segments=segments)["candidate_comparison"]
+    train_columns = [
+        "candidate",
+        "target",
+        "rank_correlation",
+        "directional_auc",
+        "top_bottom_spread_pct",
+        "observations",
+    ]
+    baseline_train = baseline_metrics.loc[baseline_metrics["segment"].eq("train"), train_columns].reset_index(drop=True)
+    perturbed_train = perturbed_metrics.loc[perturbed_metrics["segment"].eq("train"), train_columns].reset_index(drop=True)
+    pd.testing.assert_frame_equal(baseline_train, perturbed_train)

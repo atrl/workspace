@@ -153,7 +153,9 @@ CANDIDATE_FEATURES = {
 
 Average only available standardized components. Evaluate Spearman rank
 correlation, directional AUC for signed targets, quartile spread, observations,
-five non-overlapping offsets, and train/validation/test sign stability.
+five non-overlapping offsets, and train/validation/test sign stability. Purge
+the final `horizon + 1` signal rows of every segment before fitting orientation
+or reporting metrics.
 
 - [ ] **Step 4: Run focused tests and verify GREEN**
 
@@ -245,6 +247,7 @@ git commit -m "feat: add qlib hidden dispersion research workflow"
 - Create: `research/soxx_hidden_dispersion_v1/feature_metrics.csv`
 - Create: `research/soxx_hidden_dispersion_v1/nonoverlap_feature_metrics.csv`
 - Create: `research/soxx_hidden_dispersion_v1/model_comparison.csv`
+- Create: `research/soxx_hidden_dispersion_v1/qlib_risk_analysis.csv`
 - Create: `research/soxx_hidden_dispersion_v1/risk_analysis.csv`
 - Recorder-only: `research/soxx_hidden_dispersion_v1/qlib_recorder/**/artifacts/soxx_hidden_dispersion/daily_hidden_dispersion_panel.csv`
 

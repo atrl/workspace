@@ -53,7 +53,9 @@ diagnostic until point-in-time holdings exist.
 
 Use one-day-lagged features against future five-day open-to-open SOXX and SOXL
 returns and future five-day SOXX absolute return. Fit feature orientation on the
-train segment only. Report, by train/validation/test:
+train segment only. Purge the final `horizon + 1` signal rows from every
+segment so no label endpoint crosses a train/validation/test boundary. Report,
+by train/validation/test:
 
 - Spearman rank correlation;
 - directional AUC for signed returns;
@@ -61,6 +63,13 @@ train segment only. Report, by train/validation/test:
 - five non-overlapping horizon offsets;
 - risk-target rank correlation for future absolute return;
 - incremental results versus the existing `weighted_residual` baseline.
+
+For the single-instrument time-series risk view, run the train-oriented
+candidate score against the next open-to-open SOXX return and pass that return
+series through `qlib.contrib.evaluate.risk_analysis`. Record the analyzer output
+as a compact sidecar and qlib recorder artifact. This is the qlib analyzer
+equivalent for a time-series card where cross-sectional `SigAnaRecord` IC is not
+well-defined.
 
 The main model comparison is deliberately small:
 
@@ -91,6 +100,7 @@ Card-root artifacts:
 - `feature_metrics.csv`
 - `nonoverlap_feature_metrics.csv`
 - `model_comparison.csv`
+- `qlib_risk_analysis.csv`
 - `risk_analysis.csv`
 
 Recorder-only artifacts:
@@ -100,9 +110,13 @@ Recorder-only artifacts:
 
 ## Promotion Boundary
 
-This card is diagnostic and must remain
-`not_promoted_missing_pit_holdings` while the constituent universe and weights
-are current-holdings backfills. A candidate can be considered for a later
-validated card only if its validation and test signs are stable, its five
-non-overlapping offsets are not dominated by one offset, and it improves on the
-`weighted_residual` baseline without relying on the current-weight version.
+This card is diagnostic. It must remain `not_promoted_missing_pit_holdings`
+while the constituent universe and weights are current-holdings backfills, and
+must use `not_promoted_missing_pit_holdings_and_no_incremental_evidence` when
+the predeclared combined candidate also fails to improve on the
+`weighted_residual` baseline. A candidate can be considered for a later
+validated card only if its validation and test signs are stable, all five
+non-overlapping offsets are finite and not dominated by one offset, and it
+improves on the baseline without relying on the current-weight version. Any
+feature ranked on the test segment is explicitly post-hoc diagnostic evidence,
+not a selected candidate.

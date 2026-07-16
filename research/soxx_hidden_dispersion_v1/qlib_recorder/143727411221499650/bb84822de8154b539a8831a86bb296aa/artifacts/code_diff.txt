@@ -1,0 +1,1525 @@
+diff --git a/docs/superpowers/plans/2026-07-16-soxx-hidden-dispersion.md b/docs/superpowers/plans/2026-07-16-soxx-hidden-dispersion.md
+index 7f86596b..8470dbfe 100644
+--- a/docs/superpowers/plans/2026-07-16-soxx-hidden-dispersion.md
++++ b/docs/superpowers/plans/2026-07-16-soxx-hidden-dispersion.md
+@@ -153,7 +153,9 @@ CANDIDATE_FEATURES = {
+
+ Average only available standardized components. Evaluate Spearman rank
+ correlation, directional AUC for signed targets, quartile spread, observations,
+-five non-overlapping offsets, and train/validation/test sign stability.
++five non-overlapping offsets, and train/validation/test sign stability. Purge
++the final `horizon + 1` signal rows of every segment before fitting orientation
++or reporting metrics.
+
+ - [ ] **Step 4: Run focused tests and verify GREEN**
+
+@@ -245,6 +247,7 @@ git commit -m "feat: add qlib hidden dispersion research workflow"
+ - Create: `research/soxx_hidden_dispersion_v1/feature_metrics.csv`
+ - Create: `research/soxx_hidden_dispersion_v1/nonoverlap_feature_metrics.csv`
+ - Create: `research/soxx_hidden_dispersion_v1/model_comparison.csv`
++- Create: `research/soxx_hidden_dispersion_v1/qlib_risk_analysis.csv`
+ - Create: `research/soxx_hidden_dispersion_v1/risk_analysis.csv`
+ - Recorder-only: `research/soxx_hidden_dispersion_v1/qlib_recorder/**/artifacts/soxx_hidden_dispersion/daily_hidden_dispersion_panel.csv`
+
+diff --git a/docs/superpowers/specs/2026-07-16-soxx-hidden-dispersion-design.md b/docs/superpowers/specs/2026-07-16-soxx-hidden-dispersion-design.md
+index dba62d0b..74f01048 100644
+--- a/docs/superpowers/specs/2026-07-16-soxx-hidden-dispersion-design.md
++++ b/docs/superpowers/specs/2026-07-16-soxx-hidden-dispersion-design.md
+@@ -53,7 +53,9 @@ diagnostic until point-in-time holdings exist.
+
+ Use one-day-lagged features against future five-day open-to-open SOXX and SOXL
+ returns and future five-day SOXX absolute return. Fit feature orientation on the
+-train segment only. Report, by train/validation/test:
++train segment only. Purge the final `horizon + 1` signal rows from every
++segment so no label endpoint crosses a train/validation/test boundary. Report,
++by train/validation/test:
+
+ - Spearman rank correlation;
+ - directional AUC for signed returns;
+@@ -62,6 +64,13 @@ train segment only. Report, by train/validation/test:
+ - risk-target rank correlation for future absolute return;
+ - incremental results versus the existing `weighted_residual` baseline.
+
++For the single-instrument time-series risk view, run the train-oriented
++candidate score against the next open-to-open SOXX return and pass that return
++series through `qlib.contrib.evaluate.risk_analysis`. Record the analyzer output
++as a compact sidecar and qlib recorder artifact. This is the qlib analyzer
++equivalent for a time-series card where cross-sectional `SigAnaRecord` IC is not
++well-defined.
++
+ The main model comparison is deliberately small:
+
+ 1. `weighted_residual` baseline;
+@@ -91,6 +100,7 @@ Card-root artifacts:
+ - `feature_metrics.csv`
+ - `nonoverlap_feature_metrics.csv`
+ - `model_comparison.csv`
++- `qlib_risk_analysis.csv`
+ - `risk_analysis.csv`
+
+ Recorder-only artifacts:
+@@ -100,9 +110,13 @@ Recorder-only artifacts:
+
+ ## Promotion Boundary
+
+-This card is diagnostic and must remain
+-`not_promoted_missing_pit_holdings` while the constituent universe and weights
+-are current-holdings backfills. A candidate can be considered for a later
+-validated card only if its validation and test signs are stable, its five
+-non-overlapping offsets are not dominated by one offset, and it improves on the
+-`weighted_residual` baseline without relying on the current-weight version.
++This card is diagnostic. It must remain `not_promoted_missing_pit_holdings`
++while the constituent universe and weights are current-holdings backfills, and
++must use `not_promoted_missing_pit_holdings_and_no_incremental_evidence` when
++the predeclared combined candidate also fails to improve on the
++`weighted_residual` baseline. A candidate can be considered for a later
++validated card only if its validation and test signs are stable, all five
++non-overlapping offsets are finite and not dominated by one offset, and it
++improves on the baseline without relying on the current-weight version. Any
++feature ranked on the test segment is explicitly post-hoc diagnostic evidence,
++not a selected candidate.
+diff --git a/research/soxx_hidden_dispersion_v1/conclusion.md b/research/soxx_hidden_dispersion_v1/conclusion.md
+index 475dd70f..2f6c8266 100644
+--- a/research/soxx_hidden_dispersion_v1/conclusion.md
++++ b/research/soxx_hidden_dispersion_v1/conclusion.md
+@@ -2,12 +2,13 @@
+
+ - what_ran: 使用 qlib SOXX 成分股 OHLCV、SOXX/SOXL open 与 VIX，构建内部离散度、抵消、相关性破裂、领导轮换和成交量 breadth 特征。
+ - data: as_of=2026-07-02，constituents=30，PIT=blocked_current_holdings_backfill。
+-- direction: baseline_test_rank_corr=0.1494，combined_test_rank_corr=0.1473，increment=-0.0021。
+-- risk: combined_test_abs_return_rank_corr=0.0794。
+-- nonoverlap: positive_offset_ratio=0.8000，rank_corr_range=[-0.1739, 0.4843]。
+-- best_feature: residual_dispersion_5，test_rank_corr=0.1841。
+-- promotion_decision: not_promoted_missing_pit_holdings。
+-- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。只有与残差动量交互后仍有样本外增量，才适合作为方向 meta-label。
+-- next_action: 补齐 point-in-time SOXX holdings 后重跑 validated card；在此之前仅保留诊断，不放宽仓位约束。
++- direction: baseline_test_rank_corr=0.1494，combined_test_rank_corr=0.1471，increment=-0.0023。
++- risk: combined_test_abs_return_rank_corr=0.0793。
++- nonoverlap: finite_offset_count=5，positive_offset_ratio=0.8000，rank_corr_range=[-0.1739, 0.4843]。
++- best_feature: residual_dispersion_5，test_rank_corr=0.1841；这是 test 上的后验诊断，不用于候选选择或晋升。
++- qlib_analyzer: qlib.contrib.evaluate.risk_analysis，sidecar=qlib_risk_analysis.csv。
++- promotion_decision: not_promoted_missing_pit_holdings_and_no_incremental_evidence。
++- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。当前预定义交互相对 weighted_residual 不具样本外增量。
++- next_action: 先重新定义或约束交互并取得 validation/test 增量，同时补齐 point-in-time SOXX holdings；两项都通过后才重跑 validated card。
+ - risk_notes: 当前成分回填存在 survivorship bias；VIX 是 SPX 隐含波动率，不是半导体板块隐含波动率。
+-- recorder: eb197b16966a41058286d92b40f50da5。
++- recorder: 6121073a052a423097bc13a5d8b4071e。
+diff --git a/research/soxx_hidden_dispersion_v1/feature_metrics.csv b/research/soxx_hidden_dispersion_v1/feature_metrics.csv
+index 6c98978d..82434b94 100644
+--- a/research/soxx_hidden_dispersion_v1/feature_metrics.csv
++++ b/research/soxx_hidden_dispersion_v1/feature_metrics.csv
+@@ -1,91 +1,91 @@
+ feature,target,segment,train_direction,rank_correlation,directional_auc,top_bottom_spread_pct,observations
+-weighted_residual,soxx_5d,train,1.0,0.0166703113158456,0.5155205998015363,0.23504588752985,1489
+-weighted_residual,soxx_5d,validation,1.0,0.049792924686794984,0.5215287856797292,0.12576431035995483,250
++weighted_residual,soxx_5d,train,1.0,0.015929577645162122,0.5157207892991951,0.22119777277112007,1483
++weighted_residual,soxx_5d,validation,1.0,0.07346856168089579,0.5323565323565324,0.42349942959845066,244
+ weighted_residual,soxx_5d,test,1.0,0.14940179461615158,0.595578231292517,1.8655505031347275,119
+-weighted_residual,soxl_5d,train,1.0,0.019511606793464673,0.5118309551145372,0.7850049994885921,1489
+-weighted_residual,soxl_5d,validation,1.0,0.050659242547880755,0.5296052631578948,0.6425423547625542,250
++weighted_residual,soxl_5d,train,1.0,0.01880963837138972,0.5119558429153962,0.7472015917301178,1483
++weighted_residual,soxl_5d,validation,1.0,0.0749141915418262,0.5411657813810457,1.564963161945343,244
+ weighted_residual,soxl_5d,test,1.0,0.15515596068936052,0.6045145330859617,6.184149533510208,119
+-weighted_residual,soxx_abs_5d,train,-1.0,0.04207970018760629,,0.18781758844852448,1489
+-weighted_residual,soxx_abs_5d,validation,-1.0,0.02634934958959343,,0.09402632713317871,250
++weighted_residual,soxx_abs_5d,train,-1.0,0.04288290934257706,,0.18920712172985077,1483
++weighted_residual,soxx_abs_5d,validation,-1.0,0.01534102408419348,,-0.07743649184703827,244
+ weighted_residual,soxx_abs_5d,test,-1.0,-0.07413473864121921,,-0.24331621825695038,119
+-residual_dispersion_5,soxx_5d,train,1.0,0.05765363157892837,0.5241966705381339,0.5196780897676945,1506
+-residual_dispersion_5,soxx_5d,validation,1.0,-0.017963423414774634,0.49381436173889004,0.3135015722364187,250
++residual_dispersion_5,soxx_5d,train,1.0,0.057933734244267426,0.5248624900417564,0.524380523711443,1500
++residual_dispersion_5,soxx_5d,validation,1.0,0.007469362972875853,0.5038425626660921,0.4684103652834892,244
+ residual_dispersion_5,soxx_5d,test,1.0,0.18412619285002138,0.6010204081632654,3.1446967273950577,119
+-residual_dispersion_5,soxl_5d,train,1.0,0.047145276566042955,0.5220899093051489,1.2087907642126083,1506
+-residual_dispersion_5,soxl_5d,validation,1.0,-0.004893390294244708,0.49946294307196565,1.1110631749033928,250
++residual_dispersion_5,soxl_5d,train,1.0,0.047354908999602395,0.5226746027176417,1.220066286623478,1500
++residual_dispersion_5,soxl_5d,validation,1.0,0.020774940212879324,0.5098546267822197,1.5631068497896194,244
+ residual_dispersion_5,soxl_5d,test,1.0,0.16299672411337418,0.5797773654916512,8.907467126846313,119
+-residual_dispersion_5,soxx_abs_5d,train,1.0,0.07507345313147931,,0.7737603038549423,1506
+-residual_dispersion_5,soxx_abs_5d,validation,1.0,-0.10025517208275334,,-1.8897958099842072,250
++residual_dispersion_5,soxx_abs_5d,train,1.0,0.07550076784523084,,0.7586469873785973,1500
++residual_dispersion_5,soxx_abs_5d,validation,1.0,-0.08586958766505993,,-1.8804453313350677,244
+ residual_dispersion_5,soxx_abs_5d,test,1.0,0.08116365190143855,,1.3663750141859055,119
+-range_energy_5,soxx_5d,train,1.0,0.022625432243719684,0.5003902947894746,0.2991125453263521,1507
+-range_energy_5,soxx_5d,validation,1.0,-0.0184925838813421,0.48565899509295735,-0.06579533219337463,250
++range_energy_5,soxx_5d,train,1.0,0.023870284456496634,0.5015968997306477,0.2808752469718456,1501
++range_energy_5,soxx_5d,validation,1.0,0.015870537650397136,0.4979530273647921,0.23967158049345016,244
+ range_energy_5,soxx_5d,test,1.0,0.10507050277738215,0.5125850340136054,1.630498468875885,119
+-range_energy_5,soxl_5d,train,1.0,0.0014439504350425615,0.4949713796608356,0.37625227123498917,1507
+-range_energy_5,soxl_5d,validation,1.0,-0.04359736955791292,0.48247851772287864,-0.9009456261992455,250
++range_energy_5,soxl_5d,train,1.0,0.00256693855347103,0.4961038307538584,0.3261411562561989,1501
++range_energy_5,soxl_5d,validation,1.0,-0.010185494963012527,0.49524741403410677,0.003157183527946472,244
+ range_energy_5,soxl_5d,test,1.0,0.06981199259364763,0.49257884972170685,3.383806347846985,119
+-range_energy_5,soxx_abs_5d,train,1.0,0.17322533361615955,,1.532573439180851,1507
+-range_energy_5,soxx_abs_5d,validation,1.0,0.03999615993855901,,0.3329910337924957,250
++range_energy_5,soxx_abs_5d,train,1.0,0.17422445060969072,,1.5646444633603096,1501
++range_energy_5,soxx_abs_5d,validation,1.0,0.07020474249201805,,0.4570361226797104,244
+ range_energy_5,soxx_abs_5d,test,1.0,0.09082751744765703,,0.9591832756996155,119
+-cancellation_ratio_5,soxx_5d,train,-1.0,0.06602082348156463,0.542908145829961,0.4897007253021002,1507
+-cancellation_ratio_5,soxx_5d,validation,-1.0,0.13122733881140236,0.5395327942497754,0.8929941803216934,250
++cancellation_ratio_5,soxx_5d,train,-1.0,0.06463921809070115,0.5422108995203863,0.46659279614686966,1501
++cancellation_ratio_5,soxx_5d,validation,-1.0,0.12063507011529294,0.53828197945845,0.7458468899130821,244
+ cancellation_ratio_5,soxx_5d,test,-1.0,0.035700042728955994,0.5680272108843538,0.8751164190471172,119
+-cancellation_ratio_5,soxl_5d,train,-1.0,0.05805151325296295,0.5382736853367571,1.2317747808992863,1507
+-cancellation_ratio_5,soxl_5d,validation,-1.0,0.10059474940120845,0.5266178839957035,2.143063396215439,250
++cancellation_ratio_5,soxl_5d,train,-1.0,0.05663429698245245,0.5375931809849688,1.1577138677239418,1501
++cancellation_ratio_5,soxl_5d,validation,-1.0,0.08953953327582463,0.5251956947162426,1.678531989455223,244
+ cancellation_ratio_5,soxl_5d,test,-1.0,0.001986896453496653,0.4990723562152133,1.077631488442421,119
+-cancellation_ratio_5,soxx_abs_5d,train,-1.0,0.06985593354002521,,0.5032839253544807,1507
+-cancellation_ratio_5,soxx_abs_5d,validation,-1.0,0.23524320289157205,,2.33469158411026,250
++cancellation_ratio_5,soxx_abs_5d,train,-1.0,0.06884432432724946,,0.49971677362918854,1501
++cancellation_ratio_5,soxx_abs_5d,validation,-1.0,0.22492169839432372,,2.4223612621426582,244
+ cancellation_ratio_5,soxx_abs_5d,test,-1.0,-0.014100555476427861,,0.5615588277578354,119
+-correlation_breakdown_20,soxx_5d,train,1.0,0.02856545389551733,0.5267719483723184,0.6686859764158726,1490
+-correlation_breakdown_20,soxx_5d,validation,1.0,-0.1432869005904094,0.4025157232704403,-2.0170120522379875,250
++correlation_breakdown_20,soxx_5d,train,1.0,0.02814263875130415,0.5265870461221983,0.6781726144254208,1484
++correlation_breakdown_20,soxx_5d,validation,1.0,-0.16606321945900399,0.391941391941392,-2.248336188495159,244
+ correlation_breakdown_20,soxx_5d,test,1.0,-0.22647058823529415,0.41360544217687073,-2.262166701257229,119
+-correlation_breakdown_20,soxl_5d,train,1.0,0.04031341247576349,0.531847469967237,2.339799143373966,1490
+-correlation_breakdown_20,soxl_5d,validation,1.0,-0.13357308116929872,0.41662191192266385,-5.9670910239219666,250
++correlation_breakdown_20,soxl_5d,train,1.0,0.03997908832944679,0.5315875601737701,2.3675139993429184,1484
++correlation_breakdown_20,soxl_5d,validation,1.0,-0.15660880016851914,0.40557729941291587,-6.650792062282562,244
+ correlation_breakdown_20,soxl_5d,test,1.0,-0.2123130608175474,0.43104514533085964,-6.491847336292267,119
+-correlation_breakdown_20,soxx_abs_5d,train,-1.0,0.10757047058546328,,1.0858114808797836,1490
+-correlation_breakdown_20,soxx_abs_5d,validation,-1.0,0.07551519224307589,,0.8721034973859787,250
++correlation_breakdown_20,soxx_abs_5d,train,-1.0,0.1073442677400093,,1.0635599493980408,1484
++correlation_breakdown_20,soxx_abs_5d,validation,-1.0,0.08610749703645877,,0.9115234017372131,244
+ correlation_breakdown_20,soxx_abs_5d,test,-1.0,0.2445449366187153,,1.9739247858524323,119
+-breadth_entropy_5,soxx_5d,train,-1.0,0.019434278485904805,0.5120352884044677,-0.09558242745697498,1507
+-breadth_entropy_5,soxx_5d,validation,-1.0,0.16875714014290466,0.5738820927500172,1.4079404063522816,250
++breadth_entropy_5,soxx_5d,train,-1.0,0.017418579926283973,0.5108456861956084,-0.11620596051216125,1501
++breadth_entropy_5,soxx_5d,validation,-1.0,0.15906041931835582,0.5711053652230123,1.3701546005904675,244
+ breadth_entropy_5,soxx_5d,test,-1.0,0.16232961587768013,0.5981292517006802,1.3384472578763962,119
+-breadth_entropy_5,soxl_5d,train,-1.0,0.00951903591022298,0.5084871342213663,-0.4987175576388836,1507
+-breadth_entropy_5,soxl_5d,validation,-1.0,0.14036246479233638,0.559781149301826,3.6775872111320496,250
++breadth_entropy_5,soxl_5d,train,-1.0,0.007535918547146595,0.5072415193622359,-0.5603296682238579,1501
++breadth_entropy_5,soxl_5d,validation,-1.0,0.13002337799770566,0.5567864131954152,3.5495471209287643,244
+ breadth_entropy_5,soxl_5d,test,-1.0,0.1365708100239656,0.5429808286951143,3.213753178715706,119
+-breadth_entropy_5,soxx_abs_5d,train,-1.0,0.09353954037860138,,0.7526392117142677,1507
+-breadth_entropy_5,soxx_abs_5d,validation,-1.0,0.19782536485669733,,1.9900903105735779,250
++breadth_entropy_5,soxx_abs_5d,train,-1.0,0.09363224656189377,,0.7494872435927391,1501
++breadth_entropy_5,soxx_abs_5d,validation,-1.0,0.1907359525517286,,2.1870657801628113,244
+ breadth_entropy_5,soxx_abs_5d,test,-1.0,0.083824723334572,,0.49067623913288116,119
+-leadership_turnover_5,soxx_5d,train,-1.0,0.03248840588889608,0.5204104874221795,0.47926465049386024,1503
+-leadership_turnover_5,soxx_5d,validation,-1.0,0.10302827826693645,0.5279217637708203,1.1669637635350227,250
++leadership_turnover_5,soxx_5d,train,-1.0,0.03432386368653404,0.5214962379989434,0.4937531426548958,1497
++leadership_turnover_5,soxx_5d,validation,-1.0,0.08588298221683395,0.5236299648064353,1.0692069306969643,244
+ leadership_turnover_5,soxx_5d,test,-1.0,0.04666026915891843,0.6125850340136054,1.4191124588251114,119
+-leadership_turnover_5,soxl_5d,train,-1.0,0.032034800737493443,0.5180600598448335,1.4942634850740433,1503
+-leadership_turnover_5,soxl_5d,validation,-1.0,0.09310170038264245,0.5208445220193341,2.77884379029274,250
++leadership_turnover_5,soxl_5d,train,-1.0,0.033827497882482044,0.5191396459192592,1.5369778499007225,1497
++leadership_turnover_5,soxl_5d,validation,-1.0,0.07686718971056236,0.5162496505451496,2.4528464302420616,244
+ leadership_turnover_5,soxl_5d,test,-1.0,0.0325347130116787,0.5697278911564626,3.9901189506053925,119
+-leadership_turnover_5,soxx_abs_5d,train,-1.0,0.029127360329929446,,0.23802034556865692,1503
+-leadership_turnover_5,soxx_abs_5d,validation,-1.0,0.0035716480039388134,,-0.23872479796409607,250
++leadership_turnover_5,soxx_abs_5d,train,-1.0,0.030400914226696513,,0.24290159344673157,1497
++leadership_turnover_5,soxx_abs_5d,validation,-1.0,-0.018822552698520366,,-0.3825698047876358,244
+ leadership_turnover_5,soxx_abs_5d,test,-1.0,0.0244232895422025,,0.196186825633049,119
+-abnormal_volume_breadth_5,soxx_5d,train,1.0,0.0439005052645555,0.5383217324052592,0.42793811298906803,1507
+-abnormal_volume_breadth_5,soxx_5d,validation,1.0,0.06665730944307903,0.5495196627272099,0.20016059279441833,250
++abnormal_volume_breadth_5,soxx_5d,train,1.0,0.043632602701676126,0.5390850725220865,0.39599891752004623,1501
++abnormal_volume_breadth_5,soxx_5d,validation,1.0,0.06593337808996015,0.5466494290023701,0.5148328840732574,244
+ abnormal_volume_breadth_5,soxx_5d,test,1.0,0.05457521014468294,0.5241496598639456,0.17162226140499115,119
+-abnormal_volume_breadth_5,soxl_5d,train,1.0,0.04036387200398576,0.532796590524082,1.1272585950791836,1507
+-abnormal_volume_breadth_5,soxl_5d,validation,1.0,0.07007734668661904,0.5485700859291085,0.4263702780008316,250
++abnormal_volume_breadth_5,soxl_5d,train,1.0,0.0400475479352838,0.5334526025979255,1.0258328169584274,1501
++abnormal_volume_breadth_5,soxl_5d,validation,1.0,0.06956781359026017,0.5459533128319821,1.293960027396679,244
+ abnormal_volume_breadth_5,soxl_5d,test,1.0,0.03211794770055679,0.5321583178726036,-1.1958956718444824,119
+-abnormal_volume_breadth_5,soxx_abs_5d,train,1.0,0.008608795007113066,,0.12037977576255798,1507
+-abnormal_volume_breadth_5,soxx_abs_5d,validation,1.0,-0.07423140135742823,,-0.9565204381942749,250
++abnormal_volume_breadth_5,soxx_abs_5d,train,1.0,0.007820935223918751,,0.10672397911548615,1501
++abnormal_volume_breadth_5,soxx_abs_5d,validation,1.0,-0.07442309220791685,,-1.0485175997018814,244
+ abnormal_volume_breadth_5,soxx_abs_5d,test,1.0,-0.017311548866005205,,-0.6590135395526886,119
+-dispersion_vix_gap,soxx_5d,train,1.0,0.057564445646332875,0.5170715135043316,0.8246301673352718,1485
+-dispersion_vix_gap,soxx_5d,validation,1.0,-0.051210675370805925,0.5069458843043748,0.5334647838026285,250
++dispersion_vix_gap,soxx_5d,train,1.0,0.06075518071191018,0.5185464330776359,0.8649523369967937,1479
++dispersion_vix_gap,soxx_5d,validation,1.0,-0.02599325097373497,0.5172017524958701,0.9062934666872025,244
+ dispersion_vix_gap,soxx_5d,test,1.0,0.0863480985614585,0.5503401360544218,1.2085365131497383,119
+-dispersion_vix_gap,soxl_5d,train,1.0,0.0542155025716438,0.5121582272685651,2.403644844889641,1485
+-dispersion_vix_gap,soxl_5d,validation,1.0,-0.02558824941199059,0.5002685284640171,2.34574843198061,250
++dispersion_vix_gap,soxl_5d,train,1.0,0.05735549229563323,0.5136041111365431,2.5258779525756836,1479
++dispersion_vix_gap,soxl_5d,validation,1.0,9.086816268705417e-06,0.5109728823036064,3.49363274872303,244
+ dispersion_vix_gap,soxl_5d,test,1.0,0.07649195271328872,0.5284477427334571,3.539353609085083,119
+-dispersion_vix_gap,soxx_abs_5d,train,1.0,0.04244735745615119,,0.562574714422226,1485
+-dispersion_vix_gap,soxx_abs_5d,validation,1.0,-0.21037354197667157,,-1.8116246908903122,250
++dispersion_vix_gap,soxx_abs_5d,train,1.0,0.04525467139118811,,0.5847934633493423,1479
++dispersion_vix_gap,soxx_abs_5d,validation,1.0,-0.19778612112726085,,-1.802050694823265,244
+ dispersion_vix_gap,soxx_abs_5d,test,1.0,0.004187437686939183,,0.7423155009746552,119
+-weighted_residual_x_dispersion_vix_gap,soxx_5d,train,1.0,0.006351562559925713,0.5112259141365277,0.20732376724481583,1485
+-weighted_residual_x_dispersion_vix_gap,soxx_5d,validation,1.0,0.03998156770508328,0.5099177552007741,1.2421298772096634,250
++weighted_residual_x_dispersion_vix_gap,soxx_5d,train,1.0,0.00980103336945173,0.5130360991078508,0.2425120212137699,1479
++weighted_residual_x_dispersion_vix_gap,soxx_5d,validation,1.0,0.049279456773601966,0.5147597500538676,1.3318837620317936,244
+ weighted_residual_x_dispersion_vix_gap,soxx_5d,test,1.0,0.12986754023643357,0.5877551020408164,2.1021898835897446,119
+-weighted_residual_x_dispersion_vix_gap,soxl_5d,train,1.0,0.004023954652545609,0.5070561303909898,0.5467436276376247,1485
+-weighted_residual_x_dispersion_vix_gap,soxl_5d,validation,1.0,0.04023040368645898,0.5168501611170784,3.508627414703369,250
++weighted_residual_x_dispersion_vix_gap,soxl_5d,train,1.0,0.007417642248355193,0.5088380575470514,0.6505324505269527,1479
++weighted_residual_x_dispersion_vix_gap,soxl_5d,validation,1.0,0.04912498089703398,0.5219457646072128,3.819466382265091,244
+ weighted_residual_x_dispersion_vix_gap,soxl_5d,test,1.0,0.1400797607178465,0.6057513914656771,7.244674116373062,119
+-weighted_residual_x_dispersion_vix_gap,soxx_abs_5d,train,1.0,0.024135717131240023,,0.15921331942081451,1485
+-weighted_residual_x_dispersion_vix_gap,soxx_abs_5d,validation,1.0,-0.06597494359909757,,-0.7260974496603012,250
++weighted_residual_x_dispersion_vix_gap,soxx_abs_5d,train,1.0,0.026861546071417528,,0.1771576702594757,1479
++weighted_residual_x_dispersion_vix_gap,soxx_abs_5d,validation,1.0,-0.0639687083090674,,-0.6381966173648834,244
+ weighted_residual_x_dispersion_vix_gap,soxx_abs_5d,test,1.0,0.07682666286853725,,1.2344758957624435,119
+diff --git a/research/soxx_hidden_dispersion_v1/model_comparison.csv b/research/soxx_hidden_dispersion_v1/model_comparison.csv
+index 9a724f51..2a21f0b5 100644
+--- a/research/soxx_hidden_dispersion_v1/model_comparison.csv
++++ b/research/soxx_hidden_dispersion_v1/model_comparison.csv
+@@ -1,28 +1,28 @@
+ candidate,target,segment,train_direction,rank_correlation,directional_auc,top_bottom_spread_pct,observations
+-weighted_residual_baseline,soxx_5d,train,1.0,0.0166703113158456,0.5155205998015363,0.23504588752985,1489
+-weighted_residual_baseline,soxx_5d,validation,1.0,0.049792924686794984,0.5215287856797292,0.12576431035995483,250
++weighted_residual_baseline,soxx_5d,train,1.0,0.015929577645162122,0.5157207892991951,0.22119777277112007,1483
++weighted_residual_baseline,soxx_5d,validation,1.0,0.07346856168089579,0.5323565323565324,0.42349942959845066,244
+ weighted_residual_baseline,soxx_5d,test,1.0,0.14940179461615158,0.595578231292517,1.8655505031347275,119
+-weighted_residual_baseline,soxl_5d,train,1.0,0.019511606793464673,0.5118309551145372,0.7850049994885921,1489
+-weighted_residual_baseline,soxl_5d,validation,1.0,0.050659242547880755,0.5296052631578948,0.6425423547625542,250
++hidden_dispersion_composite,soxx_5d,train,1.0,0.10283401665009304,0.560986706398837,1.0597825981676579,1501
++hidden_dispersion_composite,soxx_5d,validation,1.0,-0.007656055743487436,0.48768225238813473,0.021790433675050735,244
++hidden_dispersion_composite,soxx_5d,test,1.0,0.08469591226321037,0.5863945578231293,0.47887563705444336,119
++baseline_plus_interaction,soxx_5d,train,1.0,0.02485167132192029,0.513551957504973,0.57898317463696,1483
++baseline_plus_interaction,soxx_5d,validation,1.0,0.017734161059687992,0.5137542196365725,0.9644436649978161,244
++baseline_plus_interaction,soxx_5d,test,1.0,0.1470873095000712,0.5863945578231292,1.8033822998404503,119
++weighted_residual_baseline,soxl_5d,train,1.0,0.01880963837138972,0.5119558429153962,0.7472015917301178,1483
++weighted_residual_baseline,soxl_5d,validation,1.0,0.0749141915418262,0.5411657813810457,1.564963161945343,244
+ weighted_residual_baseline,soxl_5d,test,1.0,0.15515596068936052,0.6045145330859617,6.184149533510208,119
+-weighted_residual_baseline,soxx_abs_5d,train,1.0,0.04207970018760629,,0.18781758844852448,1489
+-weighted_residual_baseline,soxx_abs_5d,validation,1.0,0.02634934958959343,,0.09402632713317871,250
++hidden_dispersion_composite,soxl_5d,train,1.0,0.09805168676810555,0.555673167470581,3.03528793156147,1501
++hidden_dispersion_composite,soxl_5d,validation,1.0,-0.003563684125745016,0.48420464076041375,-0.17429962754249573,244
++hidden_dispersion_composite,soxl_5d,test,1.0,0.05731377296681384,0.5451453308596166,0.30200034379959106,119
++baseline_plus_interaction,soxl_5d,train,1.0,0.025808882806550876,0.5078248411153153,1.8281534314155579,1483
++baseline_plus_interaction,soxl_5d,validation,1.0,0.032854623330813806,0.5217360916969528,3.401724249124527,244
++baseline_plus_interaction,soxl_5d,test,1.0,0.15235721407206954,0.6029684601113173,6.040032207965851,119
++weighted_residual_baseline,soxx_abs_5d,train,1.0,0.04288290934257706,,0.18920712172985077,1483
++weighted_residual_baseline,soxx_abs_5d,validation,1.0,0.01534102408419348,,-0.07743649184703827,244
+ weighted_residual_baseline,soxx_abs_5d,test,1.0,-0.07413473864121921,,-0.24331621825695038,119
+-hidden_dispersion_composite,soxx_5d,train,1.0,0.10072934085221211,0.5594561053256353,1.0283016599714756,1507
+-hidden_dispersion_composite,soxx_5d,validation,1.0,-0.0018820141122257955,0.48959845186260276,0.002814922481775284,250
+-hidden_dispersion_composite,soxx_5d,test,1.0,0.08542942600769123,0.5870748299319728,0.47887563705444336,119
+-hidden_dispersion_composite,soxl_5d,train,1.0,0.09602832618679147,0.5542324221187966,2.9427124187350273,1507
+-hidden_dispersion_composite,soxl_5d,validation,1.0,0.0016969231507704121,0.48637218045112784,-0.23598559200763702,250
+-hidden_dispersion_composite,soxl_5d,test,1.0,0.05801167924797038,0.5457637600494742,0.30200034379959106,119
+-hidden_dispersion_composite,soxx_abs_5d,train,1.0,0.10013558710242502,,0.9826125577092171,1507
+-hidden_dispersion_composite,soxx_abs_5d,validation,1.0,0.011764796236739787,,0.004612281918525696,250
+-hidden_dispersion_composite,soxx_abs_5d,test,1.0,0.09560603902577981,,1.0627087205648422,119
+-baseline_plus_interaction,soxx_5d,train,1.0,0.021405341579577127,0.5117626520636553,0.5378599278628826,1489
+-baseline_plus_interaction,soxx_5d,validation,1.0,-0.008685834973359573,0.5022461814914645,0.8069374598562717,250
+-baseline_plus_interaction,soxx_5d,test,1.0,0.14725822532402794,0.5867346938775511,1.8033822998404503,119
+-baseline_plus_interaction,soxl_5d,train,1.0,0.02238313015194944,0.5060849598163031,1.7115958034992218,1489
+-baseline_plus_interaction,soxl_5d,validation,1.0,0.0061759708155330485,0.5098684210526316,2.95322984457016,250
+-baseline_plus_interaction,soxl_5d,test,1.0,0.15250676541803163,0.6032776747062462,6.040032207965851,119
+-baseline_plus_interaction,soxx_abs_5d,train,1.0,0.04498933221646383,,0.49374550580978394,1489
+-baseline_plus_interaction,soxx_abs_5d,validation,1.0,-0.09930206883310133,,-1.1701900511980057,250
+-baseline_plus_interaction,soxx_abs_5d,test,1.0,0.0793690357498932,,1.5930619090795517,119
++hidden_dispersion_composite,soxx_abs_5d,train,1.0,0.10172113229593156,,0.9968772530555725,1501
++hidden_dispersion_composite,soxx_abs_5d,validation,1.0,0.012358896199645614,,-0.039418041706085205,244
++hidden_dispersion_composite,soxx_abs_5d,test,1.0,0.09635379575559037,,1.0627087205648422,119
++baseline_plus_interaction,soxx_abs_5d,train,1.0,0.04716418028897288,,0.48538148403167725,1483
++baseline_plus_interaction,soxx_abs_5d,validation,1.0,-0.09048238603273731,,-1.3978127390146255,244
++baseline_plus_interaction,soxx_abs_5d,test,1.0,0.07930494231590943,,1.5930619090795517,119
+diff --git a/research/soxx_hidden_dispersion_v1/nonoverlap_feature_metrics.csv b/research/soxx_hidden_dispersion_v1/nonoverlap_feature_metrics.csv
+index 568befa6..b31581ca 100644
+--- a/research/soxx_hidden_dispersion_v1/nonoverlap_feature_metrics.csv
++++ b/research/soxx_hidden_dispersion_v1/nonoverlap_feature_metrics.csv
+@@ -1,134 +1,134 @@
+ candidate,target,segment,offset,train_direction,overlap_purged,rank_correlation,directional_auc,top_bottom_spread_pct,observations
+-weighted_residual_baseline,soxx_5d,train,0,1.0,True,-0.010123454754327238,0.5311113165680473,-0.6431609392166138,297
+-weighted_residual_baseline,soxx_5d,train,1,1.0,True,0.02996339004509416,0.5171703296703297,0.4841027781367302,298
+-weighted_residual_baseline,soxx_5d,train,2,1.0,True,0.036531279892820595,0.5472706155632985,-0.139223737642169,298
+-weighted_residual_baseline,soxx_5d,train,3,1.0,True,-0.02244913274968717,0.4842535787321063,-0.24264687672257423,298
+-weighted_residual_baseline,soxx_5d,train,4,1.0,True,0.0381782403959235,0.4955882352941177,0.8445534855127335,298
+-weighted_residual_baseline,soxx_5d,validation,0,1.0,True,-0.12115246098439375,0.46825396825396826,-2.527094818651676,50
+-weighted_residual_baseline,soxx_5d,validation,1,1.0,True,0.19097238895558222,0.5960591133004927,0.9923444129526615,50
+-weighted_residual_baseline,soxx_5d,validation,2,1.0,True,0.0018727490996398558,0.5090311986863711,1.429541315883398,50
+-weighted_residual_baseline,soxx_5d,validation,3,1.0,True,0.10348139255702281,0.5525846702317291,-0.33717979677021503,50
+-weighted_residual_baseline,soxx_5d,validation,4,1.0,True,0.07534213685474188,0.5052083333333334,1.763353869318962,50
++weighted_residual_baseline,soxx_5d,train,0,1.0,True,-0.007517224466377007,0.5337091739272236,-0.633978471159935,296
++weighted_residual_baseline,soxx_5d,train,1,1.0,True,0.028756639494894532,0.5160755412252418,0.42367037385702133,297
++weighted_residual_baseline,soxx_5d,train,2,1.0,True,0.029705727692304878,0.5451359686010653,-0.21617170423269272,297
++weighted_residual_baseline,soxx_5d,train,3,1.0,True,-0.024889746366256432,0.4828989483310471,-0.2759108552709222,297
++weighted_residual_baseline,soxx_5d,train,4,1.0,True,0.041396558345710883,0.49843917439314167,0.8140495046973228,296
++weighted_residual_baseline,soxx_5d,validation,0,1.0,True,-0.10418367346938774,0.47551020408163264,-2.9901769012212753,49
++weighted_residual_baseline,soxx_5d,validation,1,1.0,True,0.22234693877551018,0.6105442176870749,1.9300268962979317,49
++weighted_residual_baseline,soxx_5d,validation,2,1.0,True,0.024285714285714282,0.5170068027210885,1.7208874225616455,49
++weighted_residual_baseline,soxx_5d,validation,3,1.0,True,0.1133673469387755,0.5533088235294118,-0.5489406641572714,49
++weighted_residual_baseline,soxx_5d,validation,4,1.0,True,0.1070343030829353,0.5277777777777778,2.2998765110969543,48
+ weighted_residual_baseline,soxx_5d,test,0,1.0,True,0.2052173913043478,0.6631578947368421,3.1544119119644165,24
+ weighted_residual_baseline,soxx_5d,test,1,1.0,True,0.3408695652173913,0.6890756302521008,5.628466606140137,24
+ weighted_residual_baseline,soxx_5d,test,2,1.0,True,0.2713043478260869,0.7058823529411764,4.088665917515755,24
+ weighted_residual_baseline,soxx_5d,test,3,1.0,True,0.18347826086956517,0.5798319327731092,1.7768658697605133,24
+ weighted_residual_baseline,soxx_5d,test,4,1.0,True,-0.17885375494071146,0.4126984126984127,-5.3766753524541855,23
+-weighted_residual_baseline,soxl_5d,train,0,1.0,True,-0.008056714432553359,0.5210893086374473,-1.7655465751886368,297
+-weighted_residual_baseline,soxl_5d,train,1,1.0,True,0.036782949242826685,0.513883208361736,1.722453348338604,298
+-weighted_residual_baseline,soxl_5d,train,2,1.0,True,0.034762343050983566,0.5361213235294118,-0.5751995369791985,298
+-weighted_residual_baseline,soxl_5d,train,3,1.0,True,-0.020904429460417588,0.47889235781186373,-0.5142230074852705,298
+-weighted_residual_baseline,soxl_5d,train,4,1.0,True,0.04327284426496565,0.505885026130425,2.3221520707011223,298
+-weighted_residual_baseline,soxl_5d,validation,0,1.0,True,-0.16139255702280914,0.4848484848484848,-8.38920921087265,50
+-weighted_residual_baseline,soxl_5d,validation,1,1.0,True,0.21190876350540214,0.6360708534621579,4.251286014914513,50
+-weighted_residual_baseline,soxl_5d,validation,2,1.0,True,-0.0168547418967587,0.5,3.822557255625725,50
+-weighted_residual_baseline,soxl_5d,validation,3,1.0,True,0.09512605042016806,0.5525846702317291,-0.05149981006979942,50
+-weighted_residual_baseline,soxl_5d,validation,4,1.0,True,0.12864345738295319,0.499151103565365,6.632421910762787,50
++hidden_dispersion_composite,soxx_5d,train,0,1.0,True,0.10697718863542928,0.5598655523255814,0.9481227025389671,300
++hidden_dispersion_composite,soxx_5d,train,1,1.0,True,0.11950577228635872,0.5728506787330316,0.8980590850114822,300
++hidden_dispersion_composite,soxx_5d,train,2,1.0,True,0.055243724930276995,0.5187175600569565,0.6160701159387827,300
++hidden_dispersion_composite,soxx_5d,train,3,1.0,True,0.1458053728190799,0.6071396697902722,1.532612182199955,301
++hidden_dispersion_composite,soxx_5d,train,4,1.0,True,0.09019122434693719,0.5456283282508761,0.6470201071351767,300
++hidden_dispersion_composite,soxx_5d,validation,0,1.0,True,0.04224489795918367,0.5918367346938775,1.5485077165067196,49
++hidden_dispersion_composite,soxx_5d,validation,1,1.0,True,-0.06030612244897959,0.423469387755102,0.3312772139906883,49
++hidden_dispersion_composite,soxx_5d,validation,2,1.0,True,0.037959183673469385,0.45238095238095233,-0.8185806684195995,49
++hidden_dispersion_composite,soxx_5d,validation,3,1.0,True,-0.042755102040816326,0.5147058823529411,-1.7506420612335205,49
++hidden_dispersion_composite,soxx_5d,validation,4,1.0,True,0.012266608771168043,0.4685185185185185,-0.6520990282297134,48
++hidden_dispersion_composite,soxx_5d,test,0,1.0,True,0.017391304347826087,0.5578947368421052,-1.9568033516407013,24
++hidden_dispersion_composite,soxx_5d,test,1,1.0,True,0.07217391304347825,0.5882352941176471,1.5233885496854782,24
++hidden_dispersion_composite,soxx_5d,test,2,1.0,True,0.11304347826086956,0.5210084033613446,2.0124752074480057,24
++hidden_dispersion_composite,soxx_5d,test,3,1.0,True,0.15217391304347824,0.6218487394957983,2.5164613500237465,24
++hidden_dispersion_composite,soxx_5d,test,4,1.0,True,-0.021739130434782608,0.6031746031746033,-1.4565249904990196,23
++baseline_plus_interaction,soxx_5d,train,0,1.0,True,-0.0032431507007778192,0.5281647486371897,-0.39004944264888763,296
++baseline_plus_interaction,soxx_5d,train,1,1.0,True,0.03390700034995337,0.5066789497927222,0.7520155049860477,297
++baseline_plus_interaction,soxx_5d,train,2,1.0,True,-0.03428031448165677,0.49752359592561446,-0.24455608800053596,297
++baseline_plus_interaction,soxx_5d,train,3,1.0,True,0.05703965099938255,0.5375857338820302,1.205784734338522,297
++baseline_plus_interaction,soxx_5d,train,4,1.0,True,0.06547240615037224,0.5005358058053395,1.5600893646478653,296
++baseline_plus_interaction,soxx_5d,validation,0,1.0,True,-0.026734693877551015,0.5510204081632654,2.4305902421474457,49
++baseline_plus_interaction,soxx_5d,validation,1,1.0,True,0.12979591836734694,0.5051020408163266,1.7327973619103432,49
++baseline_plus_interaction,soxx_5d,validation,2,1.0,True,-0.036224489795918365,0.5,-1.1654410511255264,49
++baseline_plus_interaction,soxx_5d,validation,3,1.0,True,-0.046938775510204075,0.5257352941176471,-1.1634908616542816,49
++baseline_plus_interaction,soxx_5d,validation,4,1.0,True,0.032457663916630485,0.4907407407407407,2.3764029145240784,48
++baseline_plus_interaction,soxx_5d,test,0,1.0,True,0.15304347826086956,0.6526315789473683,3.614138811826706,24
++baseline_plus_interaction,soxx_5d,test,1,1.0,True,0.4843478260869564,0.7647058823529412,6.524022668600082,24
++baseline_plus_interaction,soxx_5d,test,2,1.0,True,0.4017391304347826,0.7226890756302522,5.918210372328758,24
++baseline_plus_interaction,soxx_5d,test,3,1.0,True,0.09130434782608696,0.546218487394958,2.267494797706604,24
++baseline_plus_interaction,soxx_5d,test,4,1.0,True,-0.17391304347826086,0.41269841269841273,-4.823069274425507,23
++weighted_residual_baseline,soxl_5d,train,0,1.0,True,-0.005280473077083246,0.5235125646711012,-1.7667416483163834,296
++weighted_residual_baseline,soxl_5d,train,1,1.0,True,0.035784106253904914,0.5128029263831733,1.5150683000683784,297
++weighted_residual_baseline,soxl_5d,train,2,1.0,True,0.0278737433139834,0.5338849852071006,-0.8094190619885921,297
++weighted_residual_baseline,soxl_5d,train,3,1.0,True,-0.02311318599485552,0.47746106911938807,-0.6019285880029202,297
++weighted_residual_baseline,soxl_5d,train,4,1.0,True,0.04618192923277669,0.5086604016952276,2.2497890517115593,296
++weighted_residual_baseline,soxl_5d,validation,0,1.0,True,-0.14275510204081632,0.49264705882352944,-9.912824630737305,49
++weighted_residual_baseline,soxl_5d,validation,1,1.0,True,0.2420408163265306,0.6521739130434783,7.1511805057525635,49
++weighted_residual_baseline,soxl_5d,validation,2,1.0,True,0.00510204081632653,0.5084175084175084,4.658119007945061,49
++weighted_residual_baseline,soxl_5d,validation,3,1.0,True,0.10459183673469387,0.5533088235294118,-0.6116281263530254,49
++weighted_residual_baseline,soxl_5d,validation,4,1.0,True,0.1622883195831524,0.5226860254083484,8.495539426803589,48
+ weighted_residual_baseline,soxl_5d,test,0,1.0,True,0.2452173913043478,0.6444444444444445,10.013483464717865,24
+ weighted_residual_baseline,soxl_5d,test,1,1.0,True,0.3017391304347826,0.6666666666666666,17.42667704820633,24
+ weighted_residual_baseline,soxl_5d,test,2,1.0,True,0.2834782608695652,0.75,13.698746263980865,24
+ weighted_residual_baseline,soxl_5d,test,3,1.0,True,0.17739130434782607,0.5798319327731092,7.259969413280487,24
+ weighted_residual_baseline,soxl_5d,test,4,1.0,True,-0.18774703557312253,0.4126984126984127,-18.24483573436737,23
+-weighted_residual_baseline,soxx_abs_5d,train,0,1.0,True,0.06201686738599491,,0.3339312970638275,297
+-weighted_residual_baseline,soxx_abs_5d,train,1,1.0,True,0.04144903502942604,,0.04270002245903015,298
+-weighted_residual_baseline,soxx_abs_5d,train,2,1.0,True,0.009504258993608279,,0.2706807106733322,298
+-weighted_residual_baseline,soxx_abs_5d,train,3,1.0,True,-0.009089798118102758,,-0.2003539353609085,298
+-weighted_residual_baseline,soxx_abs_5d,train,4,1.0,True,0.10981149965684543,,0.8180618286132812,298
+-weighted_residual_baseline,soxx_abs_5d,validation,0,1.0,True,0.12797118847539016,,0.17108432948589325,50
+-weighted_residual_baseline,soxx_abs_5d,validation,1,1.0,True,-0.20422569027611043,,-0.685766339302063,50
+-weighted_residual_baseline,soxx_abs_5d,validation,2,1.0,True,0.014357743097238897,,0.29110200703144073,50
+-weighted_residual_baseline,soxx_abs_5d,validation,3,1.0,True,0.08801920768307324,,0.6646275520324707,50
+-weighted_residual_baseline,soxx_abs_5d,validation,4,1.0,True,0.055750300120048016,,-0.30933618545532227,50
++hidden_dispersion_composite,soxl_5d,train,0,1.0,True,0.10189446549406103,0.5477543290043289,2.951716259121895,300
++hidden_dispersion_composite,soxl_5d,train,1,1.0,True,0.11798975544172711,0.560763187429854,2.3930825293064117,300
++hidden_dispersion_composite,soxl_5d,train,2,1.0,True,0.036045293397181676,0.5177143895348837,1.1655393987894058,300
++hidden_dispersion_composite,soxl_5d,train,3,1.0,True,0.1423647601114132,0.594857447375433,4.649403691291809,301
++hidden_dispersion_composite,soxl_5d,train,4,1.0,True,0.09318503538928208,0.556464664628664,1.9569570198655128,300
++hidden_dispersion_composite,soxl_5d,validation,0,1.0,True,0.019591836734693877,0.6029411764705883,3.148926794528961,49
++hidden_dispersion_composite,soxl_5d,validation,1,1.0,True,-0.046020408163265296,0.40635451505016723,0.7641825824975967,49
++hidden_dispersion_composite,soxl_5d,validation,2,1.0,True,0.06734693877551019,0.4797979797979798,-1.3300811871886253,49
++hidden_dispersion_composite,soxl_5d,validation,3,1.0,True,-0.03561224489795918,0.5147058823529411,-5.661523342132568,49
++hidden_dispersion_composite,soxl_5d,validation,4,1.0,True,0.020299609205384282,0.42649727767695095,-2.2983118891716003,48
++hidden_dispersion_composite,soxl_5d,test,0,1.0,True,-0.05130434782608695,0.48148148148148145,-7.7652499079704285,24
++hidden_dispersion_composite,soxl_5d,test,1,1.0,True,0.07130434782608694,0.5185185185185185,2.867887169122696,24
++hidden_dispersion_composite,soxl_5d,test,2,1.0,True,0.08521739130434783,0.453125,5.858379602432251,24
++hidden_dispersion_composite,soxl_5d,test,3,1.0,True,0.1469565217391304,0.6218487394957983,7.058186084032059,24
++hidden_dispersion_composite,soxl_5d,test,4,1.0,True,-0.03458498023715415,0.6031746031746033,-6.158300489187241,23
++baseline_plus_interaction,soxl_5d,train,0,1.0,True,-0.004948245626211728,0.5115946045824095,-0.7858674973249435,296
++baseline_plus_interaction,soxl_5d,train,1,1.0,True,0.03962672251262856,0.5094650205761316,2.341790124773979,297
++baseline_plus_interaction,soxl_5d,train,2,1.0,True,-0.03909675833896289,0.4901997041420118,-0.9736248292028904,297
++baseline_plus_interaction,soxl_5d,train,3,1.0,True,0.05936061817162895,0.5243147254348419,3.936304524540901,297
++baseline_plus_interaction,soxl_5d,train,4,1.0,True,0.06735518260941989,0.5072784227013083,4.655289649963379,296
++baseline_plus_interaction,soxl_5d,validation,0,1.0,True,-0.00836734693877551,0.5422794117647058,7.79372900724411,49
++baseline_plus_interaction,soxl_5d,validation,1,1.0,True,0.15693877551020405,0.5518394648829432,6.241922080516815,49
++baseline_plus_interaction,soxl_5d,validation,2,1.0,True,-0.0062244897959183665,0.5269360269360269,-2.9091577976942062,49
++baseline_plus_interaction,soxl_5d,validation,3,1.0,True,-0.047448979591836735,0.5257352941176471,-3.185204789042473,49
++baseline_plus_interaction,soxl_5d,validation,4,1.0,True,0.056339557099435514,0.4627949183303085,7.8489623963832855,48
++baseline_plus_interaction,soxl_5d,test,0,1.0,True,0.19913043478260867,0.6592592592592593,11.58832311630249,24
++baseline_plus_interaction,soxl_5d,test,1,1.0,True,0.477391304347826,0.7481481481481482,20.306865870952606,24
++baseline_plus_interaction,soxl_5d,test,2,1.0,True,0.40956521739130425,0.7578125,19.581273198127747,24
++baseline_plus_interaction,soxl_5d,test,3,1.0,True,0.09043478260869564,0.546218487394958,8.593114465475082,24
++baseline_plus_interaction,soxl_5d,test,4,1.0,True,-0.18675889328063244,0.41269841269841273,-16.580820083618164,23
++weighted_residual_baseline,soxx_abs_5d,train,0,1.0,True,0.06014288556661438,,0.3057017922401428,296
++weighted_residual_baseline,soxx_abs_5d,train,1,1.0,True,0.040975233928254064,,0.07242262363433838,297
++weighted_residual_baseline,soxx_abs_5d,train,2,1.0,True,0.016003953923417014,,0.2373781055212021,297
++weighted_residual_baseline,soxx_abs_5d,train,3,1.0,True,-0.008302231456593874,,-0.1816384494304657,297
++weighted_residual_baseline,soxx_abs_5d,train,4,1.0,True,0.10995710656727606,,0.7872000336647034,296
++weighted_residual_baseline,soxx_abs_5d,validation,0,1.0,True,0.1196938775510204,,0.17432942986488342,49
++weighted_residual_baseline,soxx_abs_5d,validation,1,1.0,True,-0.2277551020408163,,-0.9383605793118477,49
++weighted_residual_baseline,soxx_abs_5d,validation,2,1.0,True,-0.004591836734693877,,0.07179640233516693,49
++weighted_residual_baseline,soxx_abs_5d,validation,3,1.0,True,0.0807142857142857,,0.7858514785766602,49
++weighted_residual_baseline,soxx_abs_5d,validation,4,1.0,True,0.057316543638732086,,-0.69010891020298,48
+ weighted_residual_baseline,soxx_abs_5d,test,0,1.0,True,0.008695652173913044,,-0.0836104154586792,24
+ weighted_residual_baseline,soxx_abs_5d,test,1,1.0,True,-0.2008695652173913,,-2.8166133910417557,24
+ weighted_residual_baseline,soxx_abs_5d,test,2,1.0,True,-0.23565217391304347,,-0.7766824215650558,24
+ weighted_residual_baseline,soxx_abs_5d,test,3,1.0,True,-0.1469565217391304,,-1.6648132354021072,24
+ weighted_residual_baseline,soxx_abs_5d,test,4,1.0,True,0.1057312252964427,,4.681556299328804,23
+-hidden_dispersion_composite,soxx_5d,train,0,1.0,True,0.10245275131460255,0.5559311339462774,0.9079834446310997,301
+-hidden_dispersion_composite,soxx_5d,train,1,1.0,True,0.12163560757739106,0.5752586594691858,0.8549315854907036,301
+-hidden_dispersion_composite,soxx_5d,train,2,1.0,True,0.056409319926954304,0.5191833379007947,0.5494349170476198,301
+-hidden_dispersion_composite,soxx_5d,train,3,1.0,True,0.1426196985939161,0.6051009092925261,1.4874263666570187,302
+-hidden_dispersion_composite,soxx_5d,train,4,1.0,True,0.08521177523133935,0.5414870689655172,0.6413328927010298,302
+-hidden_dispersion_composite,soxx_5d,validation,0,1.0,True,0.054981992797118844,0.5992063492063492,1.501512061804533,50
+-hidden_dispersion_composite,soxx_5d,validation,1,1.0,True,-0.043745498199279705,0.4285714285714286,0.46465806663036346,50
+-hidden_dispersion_composite,soxx_5d,validation,2,1.0,True,0.04605042016806723,0.458128078817734,-0.49141738563776016,50
+-hidden_dispersion_composite,soxx_5d,validation,3,1.0,True,-0.053061224489795916,0.5115864527629232,-1.636173203587532,50
+-hidden_dispersion_composite,soxx_5d,validation,4,1.0,True,-0.0009123649459783913,0.45833333333333337,-0.33554062247276306,50
+-hidden_dispersion_composite,soxx_5d,test,0,1.0,True,0.017391304347826087,0.5578947368421052,-1.9568033516407013,24
+-hidden_dispersion_composite,soxx_5d,test,1,1.0,True,0.07217391304347825,0.5882352941176471,1.5233885496854782,24
+-hidden_dispersion_composite,soxx_5d,test,2,1.0,True,0.11043478260869564,0.5210084033613446,2.0124752074480057,24
+-hidden_dispersion_composite,soxx_5d,test,3,1.0,True,0.15217391304347824,0.6218487394957983,2.5164613500237465,24
+-hidden_dispersion_composite,soxx_5d,test,4,1.0,True,-0.021739130434782608,0.6031746031746033,-1.4565249904990196,23
+-hidden_dispersion_composite,soxl_5d,train,0,1.0,True,0.09728234802314582,0.5441281775868242,2.828586846590042,301
+-hidden_dispersion_composite,soxl_5d,train,1,1.0,True,0.119915513410046,0.5632307005800982,2.2505655884742737,301
+-hidden_dispersion_composite,soxl_5d,train,2,1.0,True,0.03725925032004273,0.5182442196531792,0.9590156376361847,301
+-hidden_dispersion_composite,soxl_5d,train,3,1.0,True,0.13936062788112316,0.5928410645716556,4.5279935002326965,302
+-hidden_dispersion_composite,soxl_5d,train,4,1.0,True,0.08844058153367647,0.552406298514083,1.950724609196186,302
+-hidden_dispersion_composite,soxl_5d,validation,0,1.0,True,0.03346938775510204,0.6096256684491979,3.0466750264167786,50
+-hidden_dispersion_composite,soxl_5d,validation,1,1.0,True,-0.031260504201680674,0.41223832528180354,1.1144984513521194,50
+-hidden_dispersion_composite,soxl_5d,validation,2,1.0,True,0.07438175270108043,0.48538961038961037,-0.352305150590837,50
+-hidden_dispersion_composite,soxl_5d,validation,3,1.0,True,-0.04614645858343337,0.5115864527629232,-5.327354744076729,50
+-hidden_dispersion_composite,soxl_5d,validation,4,1.0,True,0.0050420168067226885,0.4176570458404075,-1.3029158115386963,50
+-hidden_dispersion_composite,soxl_5d,test,0,1.0,True,-0.05130434782608695,0.48148148148148145,-7.7652499079704285,24
+-hidden_dispersion_composite,soxl_5d,test,1,1.0,True,0.07130434782608694,0.5185185185185185,2.867887169122696,24
+-hidden_dispersion_composite,soxl_5d,test,2,1.0,True,0.0826086956521739,0.453125,5.858379602432251,24
+-hidden_dispersion_composite,soxl_5d,test,3,1.0,True,0.1469565217391304,0.6218487394957983,7.058186084032059,24
+-hidden_dispersion_composite,soxl_5d,test,4,1.0,True,-0.03458498023715415,0.6031746031746033,-6.158300489187241,23
+-hidden_dispersion_composite,soxx_abs_5d,train,0,1.0,True,0.089440496358716,,0.8239518851041794,301
+-hidden_dispersion_composite,soxx_abs_5d,train,1,1.0,True,0.08646234406283691,,0.9768461808562279,301
+-hidden_dispersion_composite,soxx_abs_5d,train,2,1.0,True,0.12665111878726543,,0.9594812989234924,301
+-hidden_dispersion_composite,soxx_abs_5d,train,3,1.0,True,0.09551032109217392,,0.7942963391542435,302
+-hidden_dispersion_composite,soxx_abs_5d,train,4,1.0,True,0.10306540543825786,,1.2516994029283524,302
+-hidden_dispersion_composite,soxx_abs_5d,validation,0,1.0,True,0.062088835534213675,,-0.15648752450942993,50
+-hidden_dispersion_composite,soxx_abs_5d,validation,1,1.0,True,-0.023097238895558224,,0.003876909613609314,50
+-hidden_dispersion_composite,soxx_abs_5d,validation,2,1.0,True,0.06996398559423768,,1.3723762705922127,50
+-hidden_dispersion_composite,soxx_abs_5d,validation,3,1.0,True,-0.02588235294117647,,0.3300856798887253,50
+-hidden_dispersion_composite,soxx_abs_5d,validation,4,1.0,True,-0.06986794717887154,,-0.36658868193626404,50
++hidden_dispersion_composite,soxx_abs_5d,train,0,1.0,True,0.09353392815475726,,0.8483234792947769,300
++hidden_dispersion_composite,soxx_abs_5d,train,1,1.0,True,0.0875605284503161,,0.9634703397750854,300
++hidden_dispersion_composite,soxx_abs_5d,train,2,1.0,True,0.12979655329503662,,0.9315835312008858,300
++hidden_dispersion_composite,soxx_abs_5d,train,3,1.0,True,0.09780598886713167,,0.743408128619194,301
++hidden_dispersion_composite,soxx_abs_5d,train,4,1.0,True,0.10178779764219603,,1.1996902525424957,300
++hidden_dispersion_composite,soxx_abs_5d,validation,0,1.0,True,0.06030612244897959,,-0.425642728805542,49
++hidden_dispersion_composite,soxx_abs_5d,validation,1,1.0,True,-0.03265306122448979,,0.28285421431064606,49
++hidden_dispersion_composite,soxx_abs_5d,validation,2,1.0,True,0.07663265306122448,,0.8736079558730125,49
++hidden_dispersion_composite,soxx_abs_5d,validation,3,1.0,True,-0.010510204081632652,,0.8621040731668472,49
++hidden_dispersion_composite,soxx_abs_5d,validation,4,1.0,True,-0.08673469387755102,,-0.4210907965898514,48
+ hidden_dispersion_composite,soxx_abs_5d,test,0,1.0,True,0.06521739130434781,,-0.7997334003448486,24
+ hidden_dispersion_composite,soxx_abs_5d,test,1,1.0,True,-0.04,,0.25741346180438995,24
+ hidden_dispersion_composite,soxx_abs_5d,test,2,1.0,True,0.19999999999999998,,1.953202486038208,24
+ hidden_dispersion_composite,soxx_abs_5d,test,3,1.0,True,0.21826086956521737,,2.842831611633301,24
+ hidden_dispersion_composite,soxx_abs_5d,test,4,1.0,True,0.05928853754940712,,0.30807964503765106,23
+-baseline_plus_interaction,soxx_5d,train,0,1.0,True,-0.006485130646204471,0.5251479289940828,-0.44080987572669983,297
+-baseline_plus_interaction,soxx_5d,train,1,1.0,True,0.03640295119723191,0.5089285714285714,0.6996975280344486,298
+-baseline_plus_interaction,soxx_5d,train,2,1.0,True,-0.042412180433773664,0.4947270615563299,-0.40509686805307865,298
+-baseline_plus_interaction,soxx_5d,train,3,1.0,True,0.05159652460498681,0.5340604408089071,1.2116764672100544,298
+-baseline_plus_interaction,soxx_5d,train,4,1.0,True,0.06276429532922091,0.4983915441176471,1.5031802468001842,298
+-baseline_plus_interaction,soxx_5d,validation,0,1.0,True,-0.04902761104441777,0.5436507936507937,1.0557707399129868,50
+-baseline_plus_interaction,soxx_5d,validation,1,1.0,True,0.10165666266506602,0.49261083743842365,1.4285853132605553,50
+-baseline_plus_interaction,soxx_5d,validation,2,1.0,True,-0.07188475390156063,0.4876847290640395,-1.650581881403923,50
+-baseline_plus_interaction,soxx_5d,validation,3,1.0,True,-0.05171668667466986,0.5240641711229946,-1.066824421286583,50
+-baseline_plus_interaction,soxx_5d,validation,4,1.0,True,0.007827130852340937,0.4704861111111111,1.8339935690164566,50
+-baseline_plus_interaction,soxx_5d,test,0,1.0,True,0.15304347826086956,0.6526315789473683,3.614138811826706,24
+-baseline_plus_interaction,soxx_5d,test,1,1.0,True,0.4843478260869564,0.7647058823529412,6.524022668600082,24
+-baseline_plus_interaction,soxx_5d,test,2,1.0,True,0.4017391304347826,0.7226890756302522,5.918210372328758,24
+-baseline_plus_interaction,soxx_5d,test,3,1.0,True,0.09130434782608696,0.546218487394958,2.267494797706604,24
+-baseline_plus_interaction,soxx_5d,test,4,1.0,True,-0.17391304347826086,0.41269841269841273,-4.823069274425507,23
+-baseline_plus_interaction,soxl_5d,train,0,1.0,True,-0.00840620974849163,0.508802494039978,-0.9561758488416672,297
+-baseline_plus_interaction,soxl_5d,train,1,1.0,True,0.041842183365381494,0.5116564417177915,2.1700356155633926,298
+-baseline_plus_interaction,soxl_5d,train,2,1.0,True,-0.04727121808092606,0.4873621323529412,-1.4444558881223202,298
+-baseline_plus_interaction,soxl_5d,train,3,1.0,True,0.05404157782189709,0.5207909144382608,3.9438195526599884,298
+-baseline_plus_interaction,soxl_5d,train,4,1.0,True,0.06500211198197775,0.5052033628720746,4.473328590393066,298
+-baseline_plus_interaction,soxl_5d,validation,0,1.0,True,-0.028667466986794718,0.53475935828877,3.6297842860221863,50
+-baseline_plus_interaction,soxl_5d,validation,1,1.0,True,0.12960384153661464,0.537842190016103,5.232954770326614,50
+-baseline_plus_interaction,soxl_5d,validation,2,1.0,True,-0.04403361344537814,0.512987012987013,-4.36752662062645,50
+-baseline_plus_interaction,soxl_5d,validation,3,1.0,True,-0.05238895558223289,0.5240641711229946,-2.8839770704507828,50
+-baseline_plus_interaction,soxl_5d,validation,4,1.0,True,0.025690276110444176,0.44312393887945667,6.035581976175308,50
+-baseline_plus_interaction,soxl_5d,test,0,1.0,True,0.19913043478260867,0.6592592592592593,11.58832311630249,24
+-baseline_plus_interaction,soxl_5d,test,1,1.0,True,0.477391304347826,0.7481481481481482,20.306865870952606,24
+-baseline_plus_interaction,soxl_5d,test,2,1.0,True,0.40956521739130425,0.7578125,19.581273198127747,24
+-baseline_plus_interaction,soxl_5d,test,3,1.0,True,0.09043478260869564,0.546218487394958,8.593114465475082,24
+-baseline_plus_interaction,soxl_5d,test,4,1.0,True,-0.18675889328063244,0.41269841269841273,-16.580820083618164,23
+-baseline_plus_interaction,soxx_abs_5d,train,0,1.0,True,0.035897703682938584,,0.3955775871872902,297
+-baseline_plus_interaction,soxx_abs_5d,train,1,1.0,True,0.04942309902916847,,0.7718106731772423,298
+-baseline_plus_interaction,soxx_abs_5d,train,2,1.0,True,0.00360113899652855,,-0.03173239529132843,298
+-baseline_plus_interaction,soxx_abs_5d,train,3,1.0,True,0.008064075469969838,,-0.15490315854549408,298
+-baseline_plus_interaction,soxx_abs_5d,train,4,1.0,True,0.10742766943525624,,1.2985525652766228,298
+-baseline_plus_interaction,soxx_abs_5d,validation,0,1.0,True,-0.04499399759903961,,-0.78473761677742,50
+-baseline_plus_interaction,soxx_abs_5d,validation,1,1.0,True,-0.22093637454981993,,-1.7443802207708359,50
+-baseline_plus_interaction,soxx_abs_5d,validation,2,1.0,True,-0.08936374549819928,,0.2743259072303772,50
+-baseline_plus_interaction,soxx_abs_5d,validation,3,1.0,True,-0.07745498199279711,,-2.08757184445858,50
+-baseline_plus_interaction,soxx_abs_5d,validation,4,1.0,True,-0.031164465786314523,,-0.8086748421192169,50
++baseline_plus_interaction,soxx_abs_5d,train,0,1.0,True,0.03795351591961762,,0.3607258200645447,296
++baseline_plus_interaction,soxx_abs_5d,train,1,1.0,True,0.051023109747941976,,0.7916418835520744,297
++baseline_plus_interaction,soxx_abs_5d,train,2,1.0,True,0.011285538131175716,,0.06146244704723358,297
++baseline_plus_interaction,soxx_abs_5d,train,3,1.0,True,0.008889914930183386,,-0.20338520407676697,297
++baseline_plus_interaction,soxx_abs_5d,train,4,1.0,True,0.10587367028044994,,1.3174984604120255,296
++baseline_plus_interaction,soxx_abs_5d,validation,0,1.0,True,-0.04418367346938775,,-0.6981682032346725,49
++baseline_plus_interaction,soxx_abs_5d,validation,1,1.0,True,-0.20387755102040817,,-1.386047899723053,49
++baseline_plus_interaction,soxx_abs_5d,validation,2,1.0,True,-0.07857142857142856,,0.2518933266401291,49
++baseline_plus_interaction,soxx_abs_5d,validation,3,1.0,True,-0.06673469387755102,,-1.849212497472763,49
++baseline_plus_interaction,soxx_abs_5d,validation,4,1.0,True,-0.03300043421623968,,-1.0620567947626114,48
+ baseline_plus_interaction,soxx_abs_5d,test,0,1.0,True,0.15565217391304348,,1.3279728591442108,24
+ baseline_plus_interaction,soxx_abs_5d,test,1,1.0,True,0.2069565217391304,,1.7845869064331055,24
+ baseline_plus_interaction,soxx_abs_5d,test,2,1.0,True,0.29217391304347823,,3.4586597234010696,24
+diff --git a/research/soxx_hidden_dispersion_v1/risk_analysis.csv b/research/soxx_hidden_dispersion_v1/risk_analysis.csv
+index 51775ee2..701628c9 100644
+--- a/research/soxx_hidden_dispersion_v1/risk_analysis.csv
++++ b/research/soxx_hidden_dispersion_v1/risk_analysis.csv
+@@ -1,5 +1,5 @@
+ check,status,value,detail
+ point_in_time_holdings,fail,blocked_current_holdings_backfill,current holdings are backfilled through history
+-incremental_directional_evidence,fail,-0.0021435692921236427,test SOXX rank-correlation increment over weighted residual baseline
+-nonoverlap_offset_stability,pass,0.8,positive share across five non-overlapping test offsets
+-promotion_boundary,fail,not_promoted_missing_pit_holdings,diagnostic evidence cannot promote without PIT holdings
++incremental_directional_evidence,fail,-0.0023144851160803726,test SOXX rank-correlation increment over weighted residual baseline
++nonoverlap_offset_stability,pass,0.8,positive share across five non-overlapping test offsets; finite=5
++promotion_boundary,fail,not_promoted_missing_pit_holdings_and_no_incremental_evidence,diagnostic evidence cannot promote without PIT holdings
+diff --git a/research/soxx_hidden_dispersion_v1/soxx_hidden_dispersion_v1.ipynb b/research/soxx_hidden_dispersion_v1/soxx_hidden_dispersion_v1.ipynb
+index 706b58fd..a317f1d3 100644
+--- a/research/soxx_hidden_dispersion_v1/soxx_hidden_dispersion_v1.ipynb
++++ b/research/soxx_hidden_dispersion_v1/soxx_hidden_dispersion_v1.ipynb
+@@ -7,236 +7,21 @@
+    "source": [
+     "# soxx_hidden_dispersion_v1\n",
+     "\n",
+-    "# 结论与反思\n",
+-    "\n",
+-    "- what_ran: 使用 qlib SOXX 成分股 OHLCV、SOXX/SOXL open 与 VIX，构建内部离散度、抵消、相关性破裂、领导轮换和成交量 breadth 特征。\n",
+-    "- data: as_of=2026-07-02，constituents=30，PIT=blocked_current_holdings_backfill。\n",
+-    "- direction: baseline_test_rank_corr=0.1494，combined_test_rank_corr=0.1473，increment=-0.0021。\n",
+-    "- risk: combined_test_abs_return_rank_corr=0.0794。\n",
+-    "- nonoverlap: positive_offset_ratio=0.8000，rank_corr_range=[-0.1739, 0.4843]。\n",
+-    "- best_feature: residual_dispersion_5，test_rank_corr=0.1841。\n",
+-    "- promotion_decision: not_promoted_missing_pit_holdings。\n",
+-    "- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。只有与残差动量交互后仍有样本外增量，才适合作为方向 meta-label。\n",
+-    "- next_action: 补齐 point-in-time SOXX holdings 后重跑 validated card；在此之前仅保留诊断，不放宽仓位约束。\n",
+-    "- risk_notes: 当前成分回填存在 survivorship bias；VIX 是 SPX 隐含波动率，不是半导体板块隐含波动率。\n",
+-    "- recorder: b568d02b98f94582b54d862b4cfeaef8。\n"
++    "# 结论与反思\n\n- what_ran: 使用 qlib SOXX 成分股 OHLCV、SOXX/SOXL open 与 VIX，构建内部离散度、抵消、相关性破裂、领导轮换和成交量 breadth 特征。\n- data: as_of=2026-07-02，constituents=30，PIT=blocked_current_holdings_backfill。\n- direction: baseline_test_rank_corr=0.1494，combined_test_rank_corr=0.1471，increment=-0.0023。\n- risk: combined_test_abs_return_rank_corr=0.0793。\n- nonoverlap: finite_offset_count=5，positive_offset_ratio=0.8000，rank_corr_range=[-0.1739, 0.4843]。\n- best_feature: residual_dispersion_5，test_rank_corr=0.1841；这是 test 上的后验诊断，不用于候选选择或晋升。\n- qlib_analyzer: qlib.contrib.evaluate.risk_analysis，sidecar=qlib_risk_analysis.csv。\n- promotion_decision: not_promoted_missing_pit_holdings_and_no_incremental_evidence。\n- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。当前预定义交互相对 weighted_residual 不具样本外增量。\n- next_action: 先重新定义或约束交互并取得 validation/test 增量，同时补齐 point-in-time SOXX holdings；两项都通过后才重跑 validated card。\n- risk_notes: 当前成分回填存在 survivorship bias；VIX 是 SPX 隐含波动率，不是半导体板块隐含波动率。\n- recorder: 6121073a052a423097bc13a5d8b4071e。\n"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 1,
++   "execution_count": null,
+    "id": "hidden-dispersion-run",
+-   "metadata": {
+-    "execution": {
+-     "iopub.execute_input": "2026-07-16T13:23:00.973812Z",
+-     "iopub.status.busy": "2026-07-16T13:23:00.973737Z",
+-     "iopub.status.idle": "2026-07-16T13:23:06.248727Z",
+-     "shell.execute_reply": "2026-07-16T13:23:06.248206Z"
+-    }
+-   },
+-   "outputs": [
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.\n",
+-      "Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.\n",
+-      "Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.\n",
+-      "See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,584) INFO - qlib.Initialization - [config.py:452] - default_conf: client.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,586) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,587) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxl')}\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,598) INFO - qlib.Initialization - [config.py:452] - default_conf: client.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,598) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,599) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxl')}\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,602) INFO - qlib.Initialization - [config.py:452] - default_conf: client.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,603) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,603) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxl')}\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,613) INFO - qlib.Initialization - [config.py:452] - default_conf: client.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,614) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:02,614) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxx_constituents')}\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "/Users/rziiiii/dev/workspace/qlib_venv/lib/python3.11/site-packages/mlflow/tracking/_tracking_service/utils.py:184: FutureWarning: The filesystem tracking backend (e.g., './mlruns') is deprecated as of February 2026. Consider transitioning to a database backend (e.g., 'sqlite:///mlflow.db') to take advantage of the latest MLflow features. See https://mlflow.org/docs/latest/self-hosting/migrate-from-file-store for migration guidance.\n",
+-      "  return FileStore(store_uri, store_uri)\n",
+-      "[7578:MainThread](2026-07-16 21:23:06,059) INFO - qlib.workflow - [exp.py:258] - Experiment 143727411221499650 starts running ...\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:06,120) INFO - qlib.workflow - [recorder.py:345] - Recorder eb197b16966a41058286d92b40f50da5 starts running under Experiment 143727411221499650 ...\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "[7578:MainThread](2026-07-16 21:23:06,241) INFO - qlib.timer - [log.py:127] - Time cost: 0.001s | waiting `async_log` Done\n"
+-     ]
+-    },
+-    {
+-     "data": {
+-      "text/plain": [
+-       "{'experiment': 'soxx_hidden_dispersion_v1',\n",
+-       " 'card_type': 'diagnostic_soxx_hidden_dispersion',\n",
+-       " 'status': 'complete',\n",
+-       " 'promotion_decision': 'not_promoted_missing_pit_holdings',\n",
+-       " 'as_of': '2026-07-02',\n",
+-       " 'provider_uri': '/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxl',\n",
+-       " 'recorder_uri': '/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/research/soxx_hidden_dispersion_v1/qlib_recorder',\n",
+-       " 'recorder_id': 'eb197b16966a41058286d92b40f50da5',\n",
+-       " 'recorder_local_dir': '/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/research/soxx_hidden_dispersion_v1/qlib_recorder/143727411221499650/eb197b16966a41058286d92b40f50da5',\n",
+-       " 'segments': {'train': ['2019-01-02', '2024-12-31'],\n",
+-       "  'validation': ['2025-01-02', '2025-12-31'],\n",
+-       "  'test': ['2026-01-02', '2026-07-02']},\n",
+-       " 'lag_policy': {'lag_days': 1,\n",
+-       "  'label': 'future_open_to_open',\n",
+-       "  'train_only_beta_and_orientation': True},\n",
+-       " 'constituent_data': {'source': 'qlib.data.D.features',\n",
+-       "  'provider_uri': '/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxx_constituents',\n",
+-       "  'instrument_count': 30,\n",
+-       "  'point_in_time_status': 'blocked_current_holdings_backfill',\n",
+-       "  'limitations': ['Current SOXX constituents backfilled through history are survivorship-biased without point-in-time holdings.',\n",
+-       "   'Model features built from this provider must lag constituent returns before open-to-open labels.']},\n",
+-       " 'feature_set': ['weighted_residual',\n",
+-       "  'residual_dispersion_5',\n",
+-       "  'range_energy_5',\n",
+-       "  'cancellation_ratio_5',\n",
+-       "  'correlation_breakdown_20',\n",
+-       "  'breadth_entropy_5',\n",
+-       "  'leadership_turnover_5',\n",
+-       "  'abnormal_volume_breadth_5',\n",
+-       "  'dispersion_vix_gap',\n",
+-       "  'weighted_residual_x_dispersion_vix_gap'],\n",
+-       " 'candidate_diagnostic': {'baseline_test_soxx_rank_correlation': 0.14940179461615158,\n",
+-       "  'combined_test_soxx_rank_correlation': 0.14725822532402794,\n",
+-       "  'incremental_test_soxx_rank_correlation': -0.0021435692921236427,\n",
+-       "  'combined_test_soxx_abs_rank_correlation': 0.0793690357498932,\n",
+-       "  'nonoverlap_positive_offset_ratio': 0.8,\n",
+-       "  'nonoverlap_rank_correlation_min': -0.17391304347826086,\n",
+-       "  'nonoverlap_rank_correlation_median': 0.15304347826086956,\n",
+-       "  'nonoverlap_rank_correlation_max': 0.4843478260869564,\n",
+-       "  'stable_candidate_count': 1,\n",
+-       "  'best_test_feature': {'feature': 'residual_dispersion_5',\n",
+-       "   'target': 'soxx_5d',\n",
+-       "   'segment': 'test',\n",
+-       "   'train_direction': 1.0,\n",
+-       "   'rank_correlation': 0.18412619285002138,\n",
+-       "   'directional_auc': 0.6010204081632654,\n",
+-       "   'top_bottom_spread_pct': 3.1446967273950577,\n",
+-       "   'observations': 119}},\n",
+-       " 'qlib_native_api': ['qlib.init',\n",
+-       "  'qlib.data.D.features',\n",
+-       "  'qlib.workflow.R.start',\n",
+-       "  'qlib.workflow.Recorder.log_artifact'],\n",
+-       " 'qlib_docs': {'data': 'https://qlib.readthedocs.io/en/latest/component/data.html',\n",
+-       "  'workflow': 'https://qlib.readthedocs.io/en/latest/component/workflow.html'},\n",
+-       " 'sidecars': {'feature_metrics': 'feature_metrics.csv',\n",
+-       "  'nonoverlap_feature_metrics': 'nonoverlap_feature_metrics.csv',\n",
+-       "  'model_comparison': 'model_comparison.csv',\n",
+-       "  'risk_analysis': 'risk_analysis.csv'},\n",
+-       " 'artifact_policy': {'policy': 'slim_card_recorder_first',\n",
+-       "  'workflow_config': 'workflow.yaml',\n",
+-       "  'machine_entrypoint': 'summary.json',\n",
+-       "  'primary_artifact': 'soxx_hidden_dispersion_v1.ipynb',\n",
+-       "  'recorder_only_artifacts': ['daily_hidden_dispersion_panel.csv']},\n",
+-       " 'spec': {'root': '/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1',\n",
+-       "  'experiment': 'soxx_hidden_dispersion_v1',\n",
+-       "  'train': ['2019-01-02', '2024-12-31'],\n",
+-       "  'validation': ['2025-01-02', '2025-12-31'],\n",
+-       "  'test_start': '2026-01-02',\n",
+-       "  'lag_days': 1,\n",
+-       "  'horizon': 5}}"
+-      ]
+-     },
+-     "execution_count": 1,
+-     "metadata": {},
+-     "output_type": "execute_result"
+-    }
+-   ],
++   "metadata": {},
++   "outputs": [],
+    "source": [
+     "import sys\n",
+     "from pathlib import Path\n",
+     "import qlib\n",
+     "from qlib.data import D\n",
++    "from qlib.contrib.evaluate import risk_analysis\n",
+     "from qlib.workflow import R\n",
+     "\n",
+     "ROOT = Path.cwd()\n",
+@@ -250,8 +35,9 @@
+     "qlib.init(provider_uri=(ROOT / 'data' / 'qlib' / 'soxl').as_posix(), region='us', kernels=1)\n",
+     "_ = D.features(['SOXL', 'SOXX'], ['$open', '$vix'], start_time='2019-01-02', freq='day')\n",
+     "assert callable(R.start)\n",
++    "assert callable(risk_analysis)\n",
+     "summary = run_soxx_hidden_dispersion_card(root=ROOT)\n",
+-    "assert R.get_uri() == summary['recorder_uri']\n",
++    "assert Path(R.get_uri()).resolve() == (ROOT / summary['recorder_uri']).resolve()\n",
+     "summary\n"
+    ]
+   },
+@@ -260,19 +46,7 @@
+    "id": "hidden-dispersion-final",
+    "metadata": {},
+    "source": [
+-    "# 结论与反思\n",
+-    "\n",
+-    "- what_ran: 使用 qlib SOXX 成分股 OHLCV、SOXX/SOXL open 与 VIX，构建内部离散度、抵消、相关性破裂、领导轮换和成交量 breadth 特征。\n",
+-    "- data: as_of=2026-07-02，constituents=30，PIT=blocked_current_holdings_backfill。\n",
+-    "- direction: baseline_test_rank_corr=0.1494，combined_test_rank_corr=0.1473，increment=-0.0021。\n",
+-    "- risk: combined_test_abs_return_rank_corr=0.0794。\n",
+-    "- nonoverlap: positive_offset_ratio=0.8000，rank_corr_range=[-0.1739, 0.4843]。\n",
+-    "- best_feature: residual_dispersion_5，test_rank_corr=0.1841。\n",
+-    "- promotion_decision: not_promoted_missing_pit_holdings。\n",
+-    "- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。只有与残差动量交互后仍有样本外增量，才适合作为方向 meta-label。\n",
+-    "- next_action: 补齐 point-in-time SOXX holdings 后重跑 validated card；在此之前仅保留诊断，不放宽仓位约束。\n",
+-    "- risk_notes: 当前成分回填存在 survivorship bias；VIX 是 SPX 隐含波动率，不是半导体板块隐含波动率。\n",
+-    "- recorder: b568d02b98f94582b54d862b4cfeaef8。\n"
++    "# 结论与反思\n\n- what_ran: 使用 qlib SOXX 成分股 OHLCV、SOXX/SOXL open 与 VIX，构建内部离散度、抵消、相关性破裂、领导轮换和成交量 breadth 特征。\n- data: as_of=2026-07-02，constituents=30，PIT=blocked_current_holdings_backfill。\n- direction: baseline_test_rank_corr=0.1494，combined_test_rank_corr=0.1471，increment=-0.0023。\n- risk: combined_test_abs_return_rank_corr=0.0793。\n- nonoverlap: finite_offset_count=5，positive_offset_ratio=0.8000，rank_corr_range=[-0.1739, 0.4843]。\n- best_feature: residual_dispersion_5，test_rank_corr=0.1841；这是 test 上的后验诊断，不用于候选选择或晋升。\n- qlib_analyzer: qlib.contrib.evaluate.risk_analysis，sidecar=qlib_risk_analysis.csv。\n- promotion_decision: not_promoted_missing_pit_holdings_and_no_incremental_evidence。\n- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。当前预定义交互相对 weighted_residual 不具样本外增量。\n- next_action: 先重新定义或约束交互并取得 validation/test 增量，同时补齐 point-in-time SOXX holdings；两项都通过后才重跑 validated card。\n- risk_notes: 当前成分回填存在 survivorship bias；VIX 是 SPX 隐含波动率，不是半导体板块隐含波动率。\n- recorder: 6121073a052a423097bc13a5d8b4071e。\n"
+    ]
+   }
+  ],
+@@ -283,18 +57,10 @@
+    "name": "python3"
+   },
+   "language_info": {
+-   "codemirror_mode": {
+-    "name": "ipython",
+-    "version": 3
+-   },
+-   "file_extension": ".py",
+-   "mimetype": "text/x-python",
+    "name": "python",
+-   "nbconvert_exporter": "python",
+-   "pygments_lexer": "ipython3",
+-   "version": "3.11.14"
++   "version": "3.11"
+   }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+-}
++}
+\ No newline at end of file
+diff --git a/research/soxx_hidden_dispersion_v1/summary.json b/research/soxx_hidden_dispersion_v1/summary.json
+index 871cdd89..86bc5bdc 100644
+--- a/research/soxx_hidden_dispersion_v1/summary.json
++++ b/research/soxx_hidden_dispersion_v1/summary.json
+@@ -21,14 +21,16 @@
+       "top_bottom_spread_pct": 3.1446967273950577,
+       "train_direction": 1.0
+     },
+-    "combined_test_soxx_abs_rank_correlation": 0.0793690357498932,
+-    "combined_test_soxx_rank_correlation": 0.14725822532402794,
+-    "incremental_test_soxx_rank_correlation": -0.0021435692921236427,
++    "best_test_feature_selection_policy": "diagnostic_not_selection",
++    "combined_test_soxx_abs_rank_correlation": 0.07930494231590943,
++    "combined_test_soxx_rank_correlation": 0.1470873095000712,
++    "incremental_test_soxx_rank_correlation": -0.0023144851160803726,
++    "nonoverlap_finite_offset_count": 5,
+     "nonoverlap_positive_offset_ratio": 0.8,
+     "nonoverlap_rank_correlation_max": 0.4843478260869564,
+     "nonoverlap_rank_correlation_median": 0.15304347826086956,
+     "nonoverlap_rank_correlation_min": -0.17391304347826086,
+-    "stable_candidate_count": 1
++    "stable_candidate_count": 2
+   },
+   "card_type": "diagnostic_soxx_hidden_dispersion",
+   "constituent_data": {
+@@ -38,7 +40,7 @@
+       "Model features built from this provider must lag constituent returns before open-to-open labels."
+     ],
+     "point_in_time_status": "blocked_current_holdings_backfill",
+-    "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxx_constituents",
++    "provider_uri": "data/qlib/soxx_constituents",
+     "source": "qlib.data.D.features"
+   },
+   "experiment": "soxx_hidden_dispersion_v1",
+@@ -57,10 +59,18 @@
+   "lag_policy": {
+     "label": "future_open_to_open",
+     "lag_days": 1,
++    "segment_end_purge_rows": 6,
+     "train_only_beta_and_orientation": true
+   },
+-  "promotion_decision": "not_promoted_missing_pit_holdings",
+-  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxl",
++  "promotion_decision": "not_promoted_missing_pit_holdings_and_no_incremental_evidence",
++  "provider_uri": "data/qlib/soxl",
++  "qlib_analyzer": {
++    "api": "qlib.contrib.evaluate.risk_analysis",
++    "mode": "single_instrument_time_series_equivalent",
++    "recorder_artifact": "soxx_hidden_dispersion_v1/qlib_risk_analysis.csv",
++    "sidecar": "qlib_risk_analysis.csv",
++    "signal": "train_oriented_candidate_times_next_open_to_open_return"
++  },
+   "qlib_docs": {
+     "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+     "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+@@ -69,11 +79,12 @@
+     "qlib.init",
+     "qlib.data.D.features",
+     "qlib.workflow.R.start",
+-    "qlib.workflow.Recorder.log_artifact"
++    "qlib.workflow.Recorder.log_artifact",
++    "qlib.contrib.evaluate.risk_analysis"
+   ],
+-  "recorder_id": "eb197b16966a41058286d92b40f50da5",
+-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/research/soxx_hidden_dispersion_v1/qlib_recorder/143727411221499650/eb197b16966a41058286d92b40f50da5",
+-  "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/research/soxx_hidden_dispersion_v1/qlib_recorder",
++  "recorder_id": "6121073a052a423097bc13a5d8b4071e",
++  "recorder_local_dir": "research/soxx_hidden_dispersion_v1/qlib_recorder/143727411221499650/6121073a052a423097bc13a5d8b4071e",
++  "recorder_uri": "research/soxx_hidden_dispersion_v1/qlib_recorder",
+   "segments": {
+     "test": [
+       "2026-01-02",
+@@ -92,13 +103,13 @@
+     "feature_metrics": "feature_metrics.csv",
+     "model_comparison": "model_comparison.csv",
+     "nonoverlap_feature_metrics": "nonoverlap_feature_metrics.csv",
++    "qlib_risk_analysis": "qlib_risk_analysis.csv",
+     "risk_analysis": "risk_analysis.csv"
+   },
+   "spec": {
+     "experiment": "soxx_hidden_dispersion_v1",
+     "horizon": 5,
+     "lag_days": 1,
+-    "root": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1",
+     "test_start": "2026-01-02",
+     "train": [
+       "2019-01-02",
+diff --git a/research/soxx_hidden_dispersion_v1/workflow.yaml b/research/soxx_hidden_dispersion_v1/workflow.yaml
+index ebad267d..1de144a2 100644
+--- a/research/soxx_hidden_dispersion_v1/workflow.yaml
++++ b/research/soxx_hidden_dispersion_v1/workflow.yaml
+@@ -1,11 +1,11 @@
+ experiment: soxx_hidden_dispersion_v1
+ card_type: diagnostic_soxx_hidden_dispersion
+-provider_uri: /Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxl
+-constituent_provider_uri: /Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxx_constituents
+-recorder_uri: /Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/research/soxx_hidden_dispersion_v1/qlib_recorder
+-recorder_id: eb197b16966a41058286d92b40f50da5
++provider_uri: data/qlib/soxl
++constituent_provider_uri: data/qlib/soxx_constituents
++recorder_uri: research/soxx_hidden_dispersion_v1/qlib_recorder
++recorder_id: 6121073a052a423097bc13a5d8b4071e
+ as_of: 2026-07-02
+-promotion_decision: not_promoted_missing_pit_holdings
++promotion_decision: not_promoted_missing_pit_holdings_and_no_incremental_evidence
+ artifact_policy:
+   policy: slim_card_recorder_first
+   workflow_config: workflow.yaml
+diff --git a/src/analysis/__init__.py b/src/analysis/__init__.py
+index 4474d8c9..cdde9561 100644
+--- a/src/analysis/__init__.py
++++ b/src/analysis/__init__.py
+@@ -9,6 +9,7 @@ from .soxx_constituent_attribution import (
+ from .soxx_hidden_dispersion import (
+     HIDDEN_DISPERSION_FEATURES,
+     HiddenDispersionPanel,
++    build_hidden_dispersion_candidate_signals,
+     build_hidden_dispersion_panel,
+     evaluate_hidden_dispersion,
+ )
+@@ -20,6 +21,7 @@ __all__ = [
+     "HiddenDispersionPanel",
+     "build_constituent_attribution_panel",
+     "build_analysis_report_from_qlib_recorder",
++    "build_hidden_dispersion_candidate_signals",
+     "build_hidden_dispersion_panel",
+     "evaluate_constituent_attribution",
+     "evaluate_hidden_dispersion",
+diff --git a/src/analysis/soxx_hidden_dispersion.py b/src/analysis/soxx_hidden_dispersion.py
+index e9cca9ab..1fa1d783 100644
+--- a/src/analysis/soxx_hidden_dispersion.py
++++ b/src/analysis/soxx_hidden_dispersion.py
+@@ -260,14 +260,14 @@ def evaluate_hidden_dispersion(
+         raise ValueError("hidden dispersion evaluation requires a train segment")
+     targets = ("soxx_5d", "soxl_5d", "soxx_abs_5d")
+     features = ("weighted_residual", *HIDDEN_DISPERSION_FEATURES)
+-    train_sample = _window(panel.daily, segments["train"])
++    train_sample = _segment_window(panel.daily, segments["train"], horizon=panel.horizon)
+     feature_rows: list[dict[str, object]] = []
+     for feature in features:
+         for target in targets:
+             train_corr = _rank_correlation(train_sample[feature], train_sample[target])
+             direction = 1.0 if not np.isfinite(train_corr) or train_corr >= 0.0 else -1.0
+             for segment, window in segments.items():
+-                sample = _window(panel.daily, window)
++                sample = _segment_window(panel.daily, window, horizon=panel.horizon)
+                 oriented = pd.to_numeric(sample[feature], errors="coerce") * direction
+                 feature_rows.append(
+                     {
+@@ -282,17 +282,17 @@ def evaluate_hidden_dispersion(
+     candidate_series: dict[tuple[str, str], pd.Series] = {}
+     candidate_rows: list[dict[str, object]] = []
+     nonoverlap_rows: list[dict[str, object]] = []
+-    for candidate, candidate_features in CANDIDATE_FEATURES.items():
+-        for target in targets:
+-            signal = _train_oriented_composite(
+-                panel.daily,
+-                train_sample,
+-                features=candidate_features,
+-                target=target,
+-            )
++    for target in targets:
++        target_signals = build_hidden_dispersion_candidate_signals(panel, segments=segments, target=target)
++        for candidate in CANDIDATE_FEATURES:
++            signal = target_signals[candidate]
+             candidate_series[(candidate, target)] = signal
+             for segment, window in segments.items():
+-                sample = _window(panel.daily.assign(candidate_signal=signal), window).reset_index(drop=True)
++                sample = _segment_window(
++                    panel.daily.assign(candidate_signal=signal),
++                    window,
++                    horizon=panel.horizon,
++                ).reset_index(drop=True)
+                 candidate_rows.append(
+                     {
+                         "candidate": candidate,
+@@ -357,6 +357,28 @@ def evaluate_hidden_dispersion(
+     }
+
+
++def build_hidden_dispersion_candidate_signals(
++    panel: HiddenDispersionPanel,
++    *,
++    segments: dict[str, tuple[str, str]],
++    target: str = "soxx_5d",
++) -> pd.DataFrame:
++    if "train" not in segments:
++        raise ValueError("hidden dispersion candidate signals require a train segment")
++    if target not in panel.daily:
++        raise ValueError(f"hidden dispersion target missing: {target}")
++    train_sample = _segment_window(panel.daily, segments["train"], horizon=panel.horizon)
++    signals = pd.DataFrame({"datetime": panel.daily["datetime"]})
++    for candidate, candidate_features in CANDIDATE_FEATURES.items():
++        signals[candidate] = _train_oriented_composite(
++            panel.daily,
++            train_sample,
++            features=candidate_features,
++            target=target,
++        )
++    return signals
++
++
+ def _train_oriented_composite(
+     full_frame: pd.DataFrame,
+     train_frame: pd.DataFrame,
+@@ -385,6 +407,19 @@ def _window(frame: pd.DataFrame, window: tuple[str, str]) -> pd.DataFrame:
+     return frame.loc[dates.between(pd.Timestamp(window[0]), pd.Timestamp(window[1]))].copy()
+
+
++def _segment_window(
++    frame: pd.DataFrame,
++    window: tuple[str, str],
++    *,
++    horizon: int,
++) -> pd.DataFrame:
++    sample = _window(frame, window).sort_values("datetime")
++    purge_rows = int(horizon) + 1
++    if len(sample) <= purge_rows:
++        return sample.iloc[0:0].copy()
++    return sample.iloc[:-purge_rows].copy()
++
++
+ def _metric_payload(signal: pd.Series, target: pd.Series, *, signed_target: bool) -> dict[str, float | int]:
+     clean = pd.concat(
+         [
+diff --git a/src/workflow/soxx_hidden_dispersion.py b/src/workflow/soxx_hidden_dispersion.py
+index 1b7882e7..ac539b0e 100644
+--- a/src/workflow/soxx_hidden_dispersion.py
++++ b/src/workflow/soxx_hidden_dispersion.py
+@@ -9,7 +9,11 @@ from typing import Any
+ import numpy as np
+ import pandas as pd
+
+-from src.analysis import build_hidden_dispersion_panel, evaluate_hidden_dispersion
++from src.analysis import (
++    build_hidden_dispersion_candidate_signals,
++    build_hidden_dispersion_panel,
++    evaluate_hidden_dispersion,
++)
+ from src.data import QlibProviderConfig, init_qlib_provider, load_qlib_feature_frame
+
+
+@@ -108,6 +112,8 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
+         horizon=spec.horizon,
+     )
+     metrics = evaluate_hidden_dispersion(panel, segments=segments)
++    candidate_signals = build_hidden_dispersion_candidate_signals(panel, segments=segments, target="soxx_5d")
++    qlib_risk_analysis = _run_qlib_risk_analysis(panel.daily, candidate_signals, segments=segments)
+
+     card = spec.card_dir
+     card.mkdir(parents=True, exist_ok=True)
+@@ -122,6 +128,7 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
+         "feature_metrics": "feature_metrics.csv",
+         "nonoverlap_feature_metrics": "nonoverlap_feature_metrics.csv",
+         "model_comparison": "model_comparison.csv",
++        "qlib_risk_analysis": "qlib_risk_analysis.csv",
+         "risk_analysis": "risk_analysis.csv",
+     }
+     with tempfile.TemporaryDirectory(prefix="soxx_hidden_dispersion_") as tmp:
+@@ -144,7 +151,6 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
+             )
+             summary = _summary_payload(
+                 spec=spec,
+-                provider_meta=provider_meta,
+                 constituent_manifest=constituent_manifest,
+                 as_of=as_of,
+                 segments=segments,
+@@ -155,7 +161,13 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
+                 recorder_local_dir=Path(recorder.get_local_dir()).resolve(),
+             )
+             risk_analysis = _risk_analysis(summary)
+-            _write_card(card, summary=summary, metrics=metrics, risk_analysis=risk_analysis)
++            _write_card(
++                card,
++                summary=summary,
++                metrics=metrics,
++                qlib_risk_analysis=qlib_risk_analysis,
++                risk_analysis=risk_analysis,
++            )
+             recorder.log_artifact(daily_path.as_posix(), artifact_path="soxx_hidden_dispersion")
+             for rel_path in sidecars.values():
+                 recorder.log_artifact((card / rel_path).as_posix(), artifact_path=spec.experiment)
+@@ -165,7 +177,6 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
+ def _summary_payload(
+     *,
+     spec: SoxxHiddenDispersionSpec,
+-    provider_meta: dict[str, Any],
+     constituent_manifest: dict[str, Any],
+     as_of: str,
+     segments: dict[str, tuple[str, str]],
+@@ -209,25 +220,33 @@ def _summary_payload(
+     incremental = (
+         float(combined_corr - baseline_corr) if baseline_corr is not None and combined_corr is not None else None
+     )
++    promotion_decision = (
++        "not_promoted_missing_pit_holdings"
++        if incremental is not None and incremental > 0.0
++        else "not_promoted_missing_pit_holdings_and_no_incremental_evidence"
++    )
++    spec_payload = asdict(spec)
++    spec_payload.pop("root", None)
+     return {
+         "experiment": spec.experiment,
+         "card_type": SOXX_HIDDEN_DISPERSION_CARD_TYPE,
+         "status": "complete",
+-        "promotion_decision": "not_promoted_missing_pit_holdings",
++        "promotion_decision": promotion_decision,
+         "as_of": as_of,
+-        "provider_uri": provider_meta["provider_uri"],
+-        "recorder_uri": recorder_uri.resolve().as_posix(),
++        "provider_uri": _repo_relative(spec.soxl_provider_uri, spec.root),
++        "recorder_uri": _repo_relative(recorder_uri, spec.root),
+         "recorder_id": recorder_id,
+-        "recorder_local_dir": recorder_local_dir.as_posix(),
++        "recorder_local_dir": _repo_relative(recorder_local_dir, spec.root),
+         "segments": {name: list(window) for name, window in segments.items()},
+         "lag_policy": {
+             "lag_days": spec.lag_days,
+             "label": "future_open_to_open",
+             "train_only_beta_and_orientation": True,
++            "segment_end_purge_rows": spec.horizon + 1,
+         },
+         "constituent_data": {
+             "source": "qlib.data.D.features",
+-            "provider_uri": spec.constituent_provider_uri.resolve().as_posix(),
++            "provider_uri": _repo_relative(spec.constituent_provider_uri, spec.root),
+             "instrument_count": len(constituent_manifest["instruments"]),
+             "point_in_time_status": "blocked_current_holdings_backfill",
+             "limitations": list(constituent_manifest.get("limitations", [])),
+@@ -239,17 +258,27 @@ def _summary_payload(
+             "incremental_test_soxx_rank_correlation": incremental,
+             "combined_test_soxx_abs_rank_correlation": _finite_or_none(combined_risk.get("rank_correlation")),
+             "nonoverlap_positive_offset_ratio": float(offset_corr.gt(0.0).mean()) if len(offset_corr) else None,
++            "nonoverlap_finite_offset_count": int(len(offset_corr)),
+             "nonoverlap_rank_correlation_min": float(offset_corr.min()) if len(offset_corr) else None,
+             "nonoverlap_rank_correlation_median": float(offset_corr.median()) if len(offset_corr) else None,
+             "nonoverlap_rank_correlation_max": float(offset_corr.max()) if len(offset_corr) else None,
+             "stable_candidate_count": stable_candidate_count,
+             "best_test_feature": _json_safe(best_feature),
++            "best_test_feature_selection_policy": "diagnostic_not_selection",
++        },
++        "qlib_analyzer": {
++            "api": "qlib.contrib.evaluate.risk_analysis",
++            "mode": "single_instrument_time_series_equivalent",
++            "signal": "train_oriented_candidate_times_next_open_to_open_return",
++            "sidecar": sidecars["qlib_risk_analysis"],
++            "recorder_artifact": f"{spec.experiment}/{sidecars['qlib_risk_analysis']}",
+         },
+         "qlib_native_api": [
+             "qlib.init",
+             "qlib.data.D.features",
+             "qlib.workflow.R.start",
+             "qlib.workflow.Recorder.log_artifact",
++            "qlib.contrib.evaluate.risk_analysis",
+         ],
+         "qlib_docs": {
+             "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+@@ -263,7 +292,7 @@ def _summary_payload(
+             "primary_artifact": f"{spec.experiment}.ipynb",
+             "recorder_only_artifacts": ["daily_hidden_dispersion_panel.csv"],
+         },
+-        "spec": _json_safe(asdict(spec)),
++        "spec": _json_safe(spec_payload),
+     }
+
+
+@@ -274,10 +303,50 @@ def _select_metric(frame: pd.DataFrame, candidate: str, target: str, segment: st
+     return rows.iloc[0].to_dict() if not rows.empty else {}
+
+
++def _run_qlib_risk_analysis(
++    daily: pd.DataFrame,
++    candidate_signals: pd.DataFrame,
++    *,
++    segments: dict[str, tuple[str, str]],
++) -> pd.DataFrame:
++    from qlib.contrib.evaluate import risk_analysis as qlib_risk_analysis
++
++    data = daily[["datetime", "soxx_open"]].merge(candidate_signals, on="datetime", how="left")
++    data["future_soxx_1d"] = data["soxx_open"].shift(-2) / data["soxx_open"].shift(-1) - 1.0
++    rows: list[dict[str, Any]] = []
++    for segment, window in segments.items():
++        dates = pd.to_datetime(data["datetime"]).dt.normalize()
++        sample = data.loc[dates.between(pd.Timestamp(window[0]), pd.Timestamp(window[1]))].sort_values("datetime")
++        sample = sample.iloc[:-2] if len(sample) > 2 else sample.iloc[0:0]
++        for candidate in candidate_signals.columns:
++            if candidate == "datetime":
++                continue
++            score = pd.to_numeric(sample[candidate], errors="coerce")
++            strategy_return = np.tanh(score) * pd.to_numeric(sample["future_soxx_1d"], errors="coerce")
++            strategy_return = strategy_return.dropna()
++            if len(strategy_return) < 2:
++                continue
++            analyzed = qlib_risk_analysis(strategy_return, freq="day", mode="product")
++            for metric, value in analyzed["risk"].items():
++                rows.append(
++                    {
++                        "candidate": candidate,
++                        "segment": segment,
++                        "metric": str(metric),
++                        "value": _finite_or_none(value),
++                        "observations": int(len(strategy_return)),
++                        "analyzer_api": "qlib.contrib.evaluate.risk_analysis",
++                        "return_policy": "tanh(train_oriented_score)*next_open_to_open_soxx_return",
++                    }
++                )
++    return pd.DataFrame(rows)
++
++
+ def _risk_analysis(summary: dict[str, Any]) -> pd.DataFrame:
+     diagnostic = summary["candidate_diagnostic"]
+     incremental = diagnostic.get("incremental_test_soxx_rank_correlation")
+     offset_ratio = diagnostic.get("nonoverlap_positive_offset_ratio")
++    finite_offset_count = int(diagnostic.get("nonoverlap_finite_offset_count", 0) or 0)
+     return pd.DataFrame(
+         [
+             {
+@@ -294,9 +363,11 @@ def _risk_analysis(summary: dict[str, Any]) -> pd.DataFrame:
+             },
+             {
+                 "check": "nonoverlap_offset_stability",
+-                "status": "pass" if offset_ratio is not None and float(offset_ratio) >= 0.8 else "fail",
++                "status": "pass"
++                if finite_offset_count == 5 and offset_ratio is not None and float(offset_ratio) >= 0.8
++                else "fail",
+                 "value": offset_ratio,
+-                "detail": "positive share across five non-overlapping test offsets",
++                "detail": f"positive share across five non-overlapping test offsets; finite={finite_offset_count}",
+             },
+             {
+                 "check": "promotion_boundary",
+@@ -313,11 +384,13 @@ def _write_card(
+     *,
+     summary: dict[str, Any],
+     metrics: dict[str, pd.DataFrame],
++    qlib_risk_analysis: pd.DataFrame,
+     risk_analysis: pd.DataFrame,
+ ) -> None:
+     metrics["feature_metrics"].to_csv(card / summary["sidecars"]["feature_metrics"], index=False)
+     metrics["nonoverlap"].to_csv(card / summary["sidecars"]["nonoverlap_feature_metrics"], index=False)
+     metrics["candidate_comparison"].to_csv(card / summary["sidecars"]["model_comparison"], index=False)
++    qlib_risk_analysis.to_csv(card / summary["sidecars"]["qlib_risk_analysis"], index=False)
+     risk_analysis.to_csv(card / summary["sidecars"]["risk_analysis"], index=False)
+     (card / "summary.json").write_text(json.dumps(_json_safe(summary), indent=2, sort_keys=True), encoding="utf-8")
+     (card / "workflow.yaml").write_text(_workflow_yaml(summary), encoding="utf-8")
+@@ -357,13 +430,16 @@ def _conclusion(summary: dict[str, Any]) -> str:
+         f"combined_test_rank_corr={_number(diagnostic.get('combined_test_soxx_rank_correlation')):.4f}，"
+         f"increment={_number(diagnostic.get('incremental_test_soxx_rank_correlation')):.4f}。\n"
+         f"- risk: combined_test_abs_return_rank_corr={_number(diagnostic.get('combined_test_soxx_abs_rank_correlation')):.4f}。\n"
+-        f"- nonoverlap: positive_offset_ratio={_number(diagnostic.get('nonoverlap_positive_offset_ratio')):.4f}，"
++        f"- nonoverlap: finite_offset_count={int(diagnostic.get('nonoverlap_finite_offset_count', 0) or 0)}，"
++        f"positive_offset_ratio={_number(diagnostic.get('nonoverlap_positive_offset_ratio')):.4f}，"
+         f"rank_corr_range=[{_number(diagnostic.get('nonoverlap_rank_correlation_min')):.4f}, "
+         f"{_number(diagnostic.get('nonoverlap_rank_correlation_max')):.4f}]。\n"
+-        f"- best_feature: {best.get('feature')}，test_rank_corr={_number(best.get('rank_correlation')):.4f}。\n"
++        f"- best_feature: {best.get('feature')}，test_rank_corr={_number(best.get('rank_correlation')):.4f}；"
++        "这是 test 上的后验诊断，不用于候选选择或晋升。\n"
++        f"- qlib_analyzer: {summary['qlib_analyzer']['api']}，sidecar={summary['qlib_analyzer']['sidecar']}。\n"
+         f"- promotion_decision: {summary['promotion_decision']}。\n"
+-        "- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。只有与残差动量交互后仍有样本外增量，才适合作为方向 meta-label。\n"
+-        "- next_action: 补齐 point-in-time SOXX holdings 后重跑 validated card；在此之前仅保留诊断，不放宽仓位约束。\n"
++        "- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。当前预定义交互相对 weighted_residual 不具样本外增量。\n"
++        "- next_action: 先重新定义或约束交互并取得 validation/test 增量，同时补齐 point-in-time SOXX holdings；两项都通过后才重跑 validated card。\n"
+         "- risk_notes: 当前成分回填存在 survivorship bias；VIX 是 SPX 隐含波动率，不是半导体板块隐含波动率。\n"
+         f"- recorder: {summary['recorder_id']}。\n"
+     )
+@@ -389,6 +465,7 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
+                     "from pathlib import Path\n",
+                     "import qlib\n",
+                     "from qlib.data import D\n",
++                    "from qlib.contrib.evaluate import risk_analysis\n",
+                     "from qlib.workflow import R\n",
+                     "\n",
+                     "ROOT = Path.cwd()\n",
+@@ -402,8 +479,9 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
+                     "qlib.init(provider_uri=(ROOT / 'data' / 'qlib' / 'soxl').as_posix(), region='us', kernels=1)\n",
+                     "_ = D.features(['SOXL', 'SOXX'], ['$open', '$vix'], start_time='2019-01-02', freq='day')\n",
+                     "assert callable(R.start)\n",
++                    "assert callable(risk_analysis)\n",
+                     "summary = run_soxx_hidden_dispersion_card(root=ROOT)\n",
+-                    "assert R.get_uri() == summary['recorder_uri']\n",
++                    "assert Path(R.get_uri()).resolve() == (ROOT / summary['recorder_uri']).resolve()\n",
+                     "summary\n",
+                 ],
+             },
+@@ -437,6 +515,10 @@ def _resolve_root(root: Path | str | None) -> Path:
+     return Path(root).resolve() if root is not None else Path(__file__).resolve().parents[2]
+
+
++def _repo_relative(path: Path, root: Path) -> str:
++    return path.resolve().relative_to(root.resolve()).as_posix()
++
++
+ def _finite_or_none(value: Any) -> float | None:
+     try:
+         numeric = float(value)
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index 0a3b986a..579ee0c7 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -4922,10 +4922,17 @@ def test_soxx_hidden_dispersion_card_is_qlib_native_slim_and_diagnostic():
+     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+     assert summary["experiment"] == "soxx_hidden_dispersion_v1"
+-    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings"
++    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings_and_no_incremental_evidence"
+     assert summary["constituent_data"]["source"] == "qlib.data.D.features"
+     assert summary["constituent_data"]["point_in_time_status"] == "blocked_current_holdings_backfill"
+     assert summary["lag_policy"]["train_only_beta_and_orientation"] is True
++    assert summary["lag_policy"]["segment_end_purge_rows"] == 6
++    assert summary["qlib_analyzer"]["api"] == "qlib.contrib.evaluate.risk_analysis"
++    assert summary["candidate_diagnostic"]["nonoverlap_finite_offset_count"] == 5
++    assert summary["candidate_diagnostic"]["best_test_feature_selection_policy"] == "diagnostic_not_selection"
++    assert not Path(summary["provider_uri"]).is_absolute()
++    assert not Path(summary["recorder_uri"]).is_absolute()
++    assert not Path(summary["recorder_local_dir"]).is_absolute()
+     assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+     assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+         "daily_hidden_dispersion_panel.csv"
+@@ -4933,7 +4940,7 @@ def test_soxx_hidden_dispersion_card_is_qlib_native_slim_and_diagnostic():
+     for rel_path in summary["sidecars"].values():
+         assert (card / rel_path).exists(), rel_path
+     assert not (card / "daily_hidden_dispersion_panel.csv").exists()
+-    recorder_dir = Path(summary["recorder_local_dir"])
++    recorder_dir = ROOT / summary["recorder_local_dir"]
+     assert (
+         recorder_dir
+         / "artifacts"
+@@ -4949,5 +4956,8 @@ def test_soxx_hidden_dispersion_card_is_qlib_native_slim_and_diagnostic():
+     assert "qlib.init" in notebook_text
+     assert "D.features" in notebook_text
+     assert "R.start" in notebook_text
++    assert "risk_analysis" in notebook_text
+     assert "run_soxx_hidden_dispersion_card" in notebook_text
+     assert "VIX 是 SPX 隐含波动率" in conclusion
++    assert "不具样本外增量" in conclusion
++    assert "后验诊断" in conclusion
+diff --git a/tests/test_soxx_hidden_dispersion.py b/tests/test_soxx_hidden_dispersion.py
+index 59e86f21..89b68d61 100644
+--- a/tests/test_soxx_hidden_dispersion.py
++++ b/tests/test_soxx_hidden_dispersion.py
+@@ -173,3 +173,46 @@ def test_hidden_dispersion_evaluation_uses_train_orientation_and_nonoverlap_offs
+     }
+     assert set(metrics["candidate_comparison"]["target"]) == {"soxx_5d", "soxl_5d", "soxx_abs_5d"}
+     assert set(metrics["stability"]["segment_pair"]) == {"train_validation", "validation_test"}
++
++
++def test_hidden_dispersion_evaluation_purges_labels_that_cross_segment_boundaries():
++    from src.analysis.soxx_hidden_dispersion import build_hidden_dispersion_panel, evaluate_hidden_dispersion
++
++    constituents, index_frame = _synthetic_frames()
++    segments = {
++        "train": ("2024-01-02", "2024-03-29"),
++        "validation": ("2024-04-01", "2024-04-30"),
++        "test": ("2024-05-01", "2024-05-20"),
++    }
++    baseline = build_hidden_dispersion_panel(
++        constituents,
++        index_frame,
++        train=segments["train"],
++        lag_days=1,
++        horizon=5,
++    )
++    changed_index = index_frame.copy()
++    future = changed_index["datetime"].gt(pd.Timestamp(segments["train"][1]))
++    changed_index.loc[future, "soxx_open"] *= np.linspace(1.2, 2.0, int(future.sum()))
++    changed_index.loc[future, "soxl_open"] *= np.linspace(1.4, 3.0, int(future.sum()))
++    perturbed = build_hidden_dispersion_panel(
++        constituents,
++        changed_index,
++        train=segments["train"],
++        lag_days=1,
++        horizon=5,
++    )
++
++    baseline_metrics = evaluate_hidden_dispersion(baseline, segments=segments)["candidate_comparison"]
++    perturbed_metrics = evaluate_hidden_dispersion(perturbed, segments=segments)["candidate_comparison"]
++    train_columns = [
++        "candidate",
++        "target",
++        "rank_correlation",
++        "directional_auc",
++        "top_bottom_spread_pct",
++        "observations",
++    ]
++    baseline_train = baseline_metrics.loc[baseline_metrics["segment"].eq("train"), train_columns].reset_index(drop=True)
++    perturbed_train = perturbed_metrics.loc[perturbed_metrics["segment"].eq("train"), train_columns].reset_index(drop=True)
++    pd.testing.assert_frame_equal(baseline_train, perturbed_train)
+diff --git a/tests/test_soxx_hidden_dispersion_workflow.py b/tests/test_soxx_hidden_dispersion_workflow.py
+index 817a380b..d6eeb9f9 100644
+--- a/tests/test_soxx_hidden_dispersion_workflow.py
++++ b/tests/test_soxx_hidden_dispersion_workflow.py
+@@ -10,7 +10,7 @@ def _summary(tmp_path):
+         "experiment": "soxx_hidden_dispersion_v1",
+         "card_type": "diagnostic_soxx_hidden_dispersion",
+         "status": "complete",
+-        "promotion_decision": "not_promoted_missing_pit_holdings",
++        "promotion_decision": "not_promoted_missing_pit_holdings_and_no_incremental_evidence",
+         "as_of": "2026-07-02",
+         "provider_uri": (tmp_path / "data" / "qlib" / "soxl").as_posix(),
+         "recorder_uri": (tmp_path / "research" / "card" / "qlib_recorder").as_posix(),
+@@ -31,8 +31,13 @@ def _summary(tmp_path):
+             "incremental_test_soxx_rank_correlation": 0.05,
+             "combined_test_soxx_abs_rank_correlation": 0.20,
+             "nonoverlap_positive_offset_ratio": 0.8,
++            "nonoverlap_finite_offset_count": 5,
+             "stable_candidate_count": 1,
+         },
++        "qlib_analyzer": {
++            "api": "qlib.contrib.evaluate.risk_analysis",
++            "sidecar": "qlib_risk_analysis.csv",
++        },
+         "artifact_policy": {
+             "policy": "slim_card_recorder_first",
+             "workflow_config": "workflow.yaml",
+@@ -42,6 +47,7 @@ def _summary(tmp_path):
+             "feature_metrics": "feature_metrics.csv",
+             "nonoverlap_feature_metrics": "nonoverlap_feature_metrics.csv",
+             "model_comparison": "model_comparison.csv",
++            "qlib_risk_analysis": "qlib_risk_analysis.csv",
+             "risk_analysis": "risk_analysis.csv",
+         },
+     }
+@@ -83,6 +89,19 @@ def test_hidden_dispersion_summary_keeps_recorder_only_panel_and_pit_gate(tmp_pa
+     assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+         "daily_hidden_dispersion_panel.csv"
+     ]
+-    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings"
++    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings_and_no_incremental_evidence"
+     pit = risk.loc[risk["check"].eq("point_in_time_holdings")].iloc[0]
+     assert pit["status"] == "fail"
++
++
++def test_hidden_dispersion_offset_gate_requires_all_five_finite_offsets(tmp_path):
++    from src.workflow.soxx_hidden_dispersion import _risk_analysis
++
++    summary = _summary(tmp_path)
++    summary["candidate_diagnostic"]["nonoverlap_positive_offset_ratio"] = 1.0
++    summary["candidate_diagnostic"]["nonoverlap_finite_offset_count"] = 1
++
++    risk = _risk_analysis(summary)
++
++    offset = risk.loc[risk["check"].eq("nonoverlap_offset_stability")].iloc[0]
++    assert offset["status"] == "fail"

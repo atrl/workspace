@@ -9,7 +9,11 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from src.analysis import build_hidden_dispersion_panel, evaluate_hidden_dispersion
+from src.analysis import (
+    build_hidden_dispersion_candidate_signals,
+    build_hidden_dispersion_panel,
+    evaluate_hidden_dispersion,
+)
 from src.data import QlibProviderConfig, init_qlib_provider, load_qlib_feature_frame
 
 
@@ -108,6 +112,8 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
         horizon=spec.horizon,
     )
     metrics = evaluate_hidden_dispersion(panel, segments=segments)
+    candidate_signals = build_hidden_dispersion_candidate_signals(panel, segments=segments, target="soxx_5d")
+    qlib_risk_analysis = _run_qlib_risk_analysis(panel.daily, candidate_signals, segments=segments)
 
     card = spec.card_dir
     card.mkdir(parents=True, exist_ok=True)
@@ -122,6 +128,7 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
         "feature_metrics": "feature_metrics.csv",
         "nonoverlap_feature_metrics": "nonoverlap_feature_metrics.csv",
         "model_comparison": "model_comparison.csv",
+        "qlib_risk_analysis": "qlib_risk_analysis.csv",
         "risk_analysis": "risk_analysis.csv",
     }
     with tempfile.TemporaryDirectory(prefix="soxx_hidden_dispersion_") as tmp:
@@ -144,7 +151,6 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
             )
             summary = _summary_payload(
                 spec=spec,
-                provider_meta=provider_meta,
                 constituent_manifest=constituent_manifest,
                 as_of=as_of,
                 segments=segments,
@@ -155,7 +161,13 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
                 recorder_local_dir=Path(recorder.get_local_dir()).resolve(),
             )
             risk_analysis = _risk_analysis(summary)
-            _write_card(card, summary=summary, metrics=metrics, risk_analysis=risk_analysis)
+            _write_card(
+                card,
+                summary=summary,
+                metrics=metrics,
+                qlib_risk_analysis=qlib_risk_analysis,
+                risk_analysis=risk_analysis,
+            )
             recorder.log_artifact(daily_path.as_posix(), artifact_path="soxx_hidden_dispersion")
             for rel_path in sidecars.values():
                 recorder.log_artifact((card / rel_path).as_posix(), artifact_path=spec.experiment)
@@ -165,7 +177,6 @@ def _run_card(spec: SoxxHiddenDispersionSpec) -> dict[str, Any]:
 def _summary_payload(
     *,
     spec: SoxxHiddenDispersionSpec,
-    provider_meta: dict[str, Any],
     constituent_manifest: dict[str, Any],
     as_of: str,
     segments: dict[str, tuple[str, str]],
@@ -209,25 +220,33 @@ def _summary_payload(
     incremental = (
         float(combined_corr - baseline_corr) if baseline_corr is not None and combined_corr is not None else None
     )
+    promotion_decision = (
+        "not_promoted_missing_pit_holdings"
+        if incremental is not None and incremental > 0.0
+        else "not_promoted_missing_pit_holdings_and_no_incremental_evidence"
+    )
+    spec_payload = asdict(spec)
+    spec_payload.pop("root", None)
     return {
         "experiment": spec.experiment,
         "card_type": SOXX_HIDDEN_DISPERSION_CARD_TYPE,
         "status": "complete",
-        "promotion_decision": "not_promoted_missing_pit_holdings",
+        "promotion_decision": promotion_decision,
         "as_of": as_of,
-        "provider_uri": provider_meta["provider_uri"],
-        "recorder_uri": recorder_uri.resolve().as_posix(),
+        "provider_uri": _repo_relative(spec.soxl_provider_uri, spec.root),
+        "recorder_uri": _repo_relative(recorder_uri, spec.root),
         "recorder_id": recorder_id,
-        "recorder_local_dir": recorder_local_dir.as_posix(),
+        "recorder_local_dir": _repo_relative(recorder_local_dir, spec.root),
         "segments": {name: list(window) for name, window in segments.items()},
         "lag_policy": {
             "lag_days": spec.lag_days,
             "label": "future_open_to_open",
             "train_only_beta_and_orientation": True,
+            "segment_end_purge_rows": spec.horizon + 1,
         },
         "constituent_data": {
             "source": "qlib.data.D.features",
-            "provider_uri": spec.constituent_provider_uri.resolve().as_posix(),
+            "provider_uri": _repo_relative(spec.constituent_provider_uri, spec.root),
             "instrument_count": len(constituent_manifest["instruments"]),
             "point_in_time_status": "blocked_current_holdings_backfill",
             "limitations": list(constituent_manifest.get("limitations", [])),
@@ -239,17 +258,27 @@ def _summary_payload(
             "incremental_test_soxx_rank_correlation": incremental,
             "combined_test_soxx_abs_rank_correlation": _finite_or_none(combined_risk.get("rank_correlation")),
             "nonoverlap_positive_offset_ratio": float(offset_corr.gt(0.0).mean()) if len(offset_corr) else None,
+            "nonoverlap_finite_offset_count": int(len(offset_corr)),
             "nonoverlap_rank_correlation_min": float(offset_corr.min()) if len(offset_corr) else None,
             "nonoverlap_rank_correlation_median": float(offset_corr.median()) if len(offset_corr) else None,
             "nonoverlap_rank_correlation_max": float(offset_corr.max()) if len(offset_corr) else None,
             "stable_candidate_count": stable_candidate_count,
             "best_test_feature": _json_safe(best_feature),
+            "best_test_feature_selection_policy": "diagnostic_not_selection",
+        },
+        "qlib_analyzer": {
+            "api": "qlib.contrib.evaluate.risk_analysis",
+            "mode": "single_instrument_time_series_equivalent",
+            "signal": "train_oriented_candidate_times_next_open_to_open_return",
+            "sidecar": sidecars["qlib_risk_analysis"],
+            "recorder_artifact": f"{spec.experiment}/{sidecars['qlib_risk_analysis']}",
         },
         "qlib_native_api": [
             "qlib.init",
             "qlib.data.D.features",
             "qlib.workflow.R.start",
             "qlib.workflow.Recorder.log_artifact",
+            "qlib.contrib.evaluate.risk_analysis",
         ],
         "qlib_docs": {
             "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
@@ -263,7 +292,7 @@ def _summary_payload(
             "primary_artifact": f"{spec.experiment}.ipynb",
             "recorder_only_artifacts": ["daily_hidden_dispersion_panel.csv"],
         },
-        "spec": _json_safe(asdict(spec)),
+        "spec": _json_safe(spec_payload),
     }
 
 
@@ -274,10 +303,50 @@ def _select_metric(frame: pd.DataFrame, candidate: str, target: str, segment: st
     return rows.iloc[0].to_dict() if not rows.empty else {}
 
 
+def _run_qlib_risk_analysis(
+    daily: pd.DataFrame,
+    candidate_signals: pd.DataFrame,
+    *,
+    segments: dict[str, tuple[str, str]],
+) -> pd.DataFrame:
+    from qlib.contrib.evaluate import risk_analysis as qlib_risk_analysis
+
+    data = daily[["datetime", "soxx_open"]].merge(candidate_signals, on="datetime", how="left")
+    data["future_soxx_1d"] = data["soxx_open"].shift(-2) / data["soxx_open"].shift(-1) - 1.0
+    rows: list[dict[str, Any]] = []
+    for segment, window in segments.items():
+        dates = pd.to_datetime(data["datetime"]).dt.normalize()
+        sample = data.loc[dates.between(pd.Timestamp(window[0]), pd.Timestamp(window[1]))].sort_values("datetime")
+        sample = sample.iloc[:-2] if len(sample) > 2 else sample.iloc[0:0]
+        for candidate in candidate_signals.columns:
+            if candidate == "datetime":
+                continue
+            score = pd.to_numeric(sample[candidate], errors="coerce")
+            strategy_return = np.tanh(score) * pd.to_numeric(sample["future_soxx_1d"], errors="coerce")
+            strategy_return = strategy_return.dropna()
+            if len(strategy_return) < 2:
+                continue
+            analyzed = qlib_risk_analysis(strategy_return, freq="day", mode="product")
+            for metric, value in analyzed["risk"].items():
+                rows.append(
+                    {
+                        "candidate": candidate,
+                        "segment": segment,
+                        "metric": str(metric),
+                        "value": _finite_or_none(value),
+                        "observations": int(len(strategy_return)),
+                        "analyzer_api": "qlib.contrib.evaluate.risk_analysis",
+                        "return_policy": "tanh(train_oriented_score)*next_open_to_open_soxx_return",
+                    }
+                )
+    return pd.DataFrame(rows)
+
+
 def _risk_analysis(summary: dict[str, Any]) -> pd.DataFrame:
     diagnostic = summary["candidate_diagnostic"]
     incremental = diagnostic.get("incremental_test_soxx_rank_correlation")
     offset_ratio = diagnostic.get("nonoverlap_positive_offset_ratio")
+    finite_offset_count = int(diagnostic.get("nonoverlap_finite_offset_count", 0) or 0)
     return pd.DataFrame(
         [
             {
@@ -294,9 +363,11 @@ def _risk_analysis(summary: dict[str, Any]) -> pd.DataFrame:
             },
             {
                 "check": "nonoverlap_offset_stability",
-                "status": "pass" if offset_ratio is not None and float(offset_ratio) >= 0.8 else "fail",
+                "status": "pass"
+                if finite_offset_count == 5 and offset_ratio is not None and float(offset_ratio) >= 0.8
+                else "fail",
                 "value": offset_ratio,
-                "detail": "positive share across five non-overlapping test offsets",
+                "detail": f"positive share across five non-overlapping test offsets; finite={finite_offset_count}",
             },
             {
                 "check": "promotion_boundary",
@@ -313,11 +384,13 @@ def _write_card(
     *,
     summary: dict[str, Any],
     metrics: dict[str, pd.DataFrame],
+    qlib_risk_analysis: pd.DataFrame,
     risk_analysis: pd.DataFrame,
 ) -> None:
     metrics["feature_metrics"].to_csv(card / summary["sidecars"]["feature_metrics"], index=False)
     metrics["nonoverlap"].to_csv(card / summary["sidecars"]["nonoverlap_feature_metrics"], index=False)
     metrics["candidate_comparison"].to_csv(card / summary["sidecars"]["model_comparison"], index=False)
+    qlib_risk_analysis.to_csv(card / summary["sidecars"]["qlib_risk_analysis"], index=False)
     risk_analysis.to_csv(card / summary["sidecars"]["risk_analysis"], index=False)
     (card / "summary.json").write_text(json.dumps(_json_safe(summary), indent=2, sort_keys=True), encoding="utf-8")
     (card / "workflow.yaml").write_text(_workflow_yaml(summary), encoding="utf-8")
@@ -357,13 +430,16 @@ def _conclusion(summary: dict[str, Any]) -> str:
         f"combined_test_rank_corr={_number(diagnostic.get('combined_test_soxx_rank_correlation')):.4f}，"
         f"increment={_number(diagnostic.get('incremental_test_soxx_rank_correlation')):.4f}。\n"
         f"- risk: combined_test_abs_return_rank_corr={_number(diagnostic.get('combined_test_soxx_abs_rank_correlation')):.4f}。\n"
-        f"- nonoverlap: positive_offset_ratio={_number(diagnostic.get('nonoverlap_positive_offset_ratio')):.4f}，"
+        f"- nonoverlap: finite_offset_count={int(diagnostic.get('nonoverlap_finite_offset_count', 0) or 0)}，"
+        f"positive_offset_ratio={_number(diagnostic.get('nonoverlap_positive_offset_ratio')):.4f}，"
         f"rank_corr_range=[{_number(diagnostic.get('nonoverlap_rank_correlation_min')):.4f}, "
         f"{_number(diagnostic.get('nonoverlap_rank_correlation_max')):.4f}]。\n"
-        f"- best_feature: {best.get('feature')}，test_rank_corr={_number(best.get('rank_correlation')):.4f}。\n"
+        f"- best_feature: {best.get('feature')}，test_rank_corr={_number(best.get('rank_correlation')):.4f}；"
+        "这是 test 上的后验诊断，不用于候选选择或晋升。\n"
+        f"- qlib_analyzer: {summary['qlib_analyzer']['api']}，sidecar={summary['qlib_analyzer']['sidecar']}。\n"
         f"- promotion_decision: {summary['promotion_decision']}。\n"
-        "- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。只有与残差动量交互后仍有样本外增量，才适合作为方向 meta-label。\n"
-        "- next_action: 补齐 point-in-time SOXX holdings 后重跑 validated card；在此之前仅保留诊断，不放宽仓位约束。\n"
+        "- 反思: 成分股高振动而 VIX 平静首先是风险状态，不自动给出方向。当前预定义交互相对 weighted_residual 不具样本外增量。\n"
+        "- next_action: 先重新定义或约束交互并取得 validation/test 增量，同时补齐 point-in-time SOXX holdings；两项都通过后才重跑 validated card。\n"
         "- risk_notes: 当前成分回填存在 survivorship bias；VIX 是 SPX 隐含波动率，不是半导体板块隐含波动率。\n"
         f"- recorder: {summary['recorder_id']}。\n"
     )
@@ -389,6 +465,7 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
                     "from pathlib import Path\n",
                     "import qlib\n",
                     "from qlib.data import D\n",
+                    "from qlib.contrib.evaluate import risk_analysis\n",
                     "from qlib.workflow import R\n",
                     "\n",
                     "ROOT = Path.cwd()\n",
@@ -402,8 +479,9 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
                     "qlib.init(provider_uri=(ROOT / 'data' / 'qlib' / 'soxl').as_posix(), region='us', kernels=1)\n",
                     "_ = D.features(['SOXL', 'SOXX'], ['$open', '$vix'], start_time='2019-01-02', freq='day')\n",
                     "assert callable(R.start)\n",
+                    "assert callable(risk_analysis)\n",
                     "summary = run_soxx_hidden_dispersion_card(root=ROOT)\n",
-                    "assert R.get_uri() == summary['recorder_uri']\n",
+                    "assert Path(R.get_uri()).resolve() == (ROOT / summary['recorder_uri']).resolve()\n",
                     "summary\n",
                 ],
             },
@@ -435,6 +513,10 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def _resolve_root(root: Path | str | None) -> Path:
     return Path(root).resolve() if root is not None else Path(__file__).resolve().parents[2]
+
+
+def _repo_relative(path: Path, root: Path) -> str:
+    return path.resolve().relative_to(root.resolve()).as_posix()
 
 
 def _finite_or_none(value: Any) -> float | None:

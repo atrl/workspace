@@ -1,0 +1,30 @@
+On branch feature/soxx-hidden-dispersion-v1
+Your branch is up to date with 'origin/feature/soxx-hidden-dispersion-v1'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../../docs/superpowers/plans/2026-07-16-soxx-hidden-dispersion.md
+	modified:   ../../docs/superpowers/specs/2026-07-16-soxx-hidden-dispersion-design.md
+	modified:   conclusion.md
+	modified:   feature_metrics.csv
+	modified:   model_comparison.csv
+	modified:   nonoverlap_feature_metrics.csv
+	modified:   risk_analysis.csv
+	modified:   soxx_hidden_dispersion_v1.ipynb
+	modified:   summary.json
+	modified:   workflow.yaml
+	modified:   ../../src/analysis/__init__.py
+	modified:   ../../src/analysis/soxx_hidden_dispersion.py
+	modified:   ../../src/workflow/soxx_hidden_dispersion.py
+	modified:   ../../tests/test_qlib_native_notebook_cards.py
+	modified:   ../../tests/test_soxx_hidden_dispersion.py
+	modified:   ../../tests/test_soxx_hidden_dispersion_workflow.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	qlib_recorder/143727411221499650/6121073a052a423097bc13a5d8b4071e/
+	qlib_recorder/143727411221499650/bb84822de8154b539a8831a86bb296aa/
+	qlib_risk_analysis.csv
+
+no changes added to commit (use "git add" and/or "git commit -a")
