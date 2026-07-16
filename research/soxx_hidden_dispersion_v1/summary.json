@@ -1,0 +1,113 @@
+{
+  "artifact_policy": {
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "soxx_hidden_dispersion_v1.ipynb",
+    "recorder_only_artifacts": [
+      "daily_hidden_dispersion_panel.csv"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-02",
+  "candidate_diagnostic": {
+    "baseline_test_soxx_rank_correlation": 0.14940179461615158,
+    "best_test_feature": {
+      "directional_auc": 0.6010204081632654,
+      "feature": "residual_dispersion_5",
+      "observations": 119,
+      "rank_correlation": 0.18412619285002138,
+      "segment": "test",
+      "target": "soxx_5d",
+      "top_bottom_spread_pct": 3.1446967273950577,
+      "train_direction": 1.0
+    },
+    "combined_test_soxx_abs_rank_correlation": 0.0793690357498932,
+    "combined_test_soxx_rank_correlation": 0.14725822532402794,
+    "incremental_test_soxx_rank_correlation": -0.0021435692921236427,
+    "nonoverlap_positive_offset_ratio": 0.8,
+    "nonoverlap_rank_correlation_max": 0.4843478260869564,
+    "nonoverlap_rank_correlation_median": 0.15304347826086956,
+    "nonoverlap_rank_correlation_min": -0.17391304347826086,
+    "stable_candidate_count": 1
+  },
+  "card_type": "diagnostic_soxx_hidden_dispersion",
+  "constituent_data": {
+    "instrument_count": 30,
+    "limitations": [
+      "Current SOXX constituents backfilled through history are survivorship-biased without point-in-time holdings.",
+      "Model features built from this provider must lag constituent returns before open-to-open labels."
+    ],
+    "point_in_time_status": "blocked_current_holdings_backfill",
+    "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxx_constituents",
+    "source": "qlib.data.D.features"
+  },
+  "experiment": "soxx_hidden_dispersion_v1",
+  "feature_set": [
+    "weighted_residual",
+    "residual_dispersion_5",
+    "range_energy_5",
+    "cancellation_ratio_5",
+    "correlation_breakdown_20",
+    "breadth_entropy_5",
+    "leadership_turnover_5",
+    "abnormal_volume_breadth_5",
+    "dispersion_vix_gap",
+    "weighted_residual_x_dispersion_vix_gap"
+  ],
+  "lag_policy": {
+    "label": "future_open_to_open",
+    "lag_days": 1,
+    "train_only_beta_and_orientation": true
+  },
+  "promotion_decision": "not_promoted_missing_pit_holdings",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.Recorder.log_artifact"
+  ],
+  "recorder_id": "eb197b16966a41058286d92b40f50da5",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/research/soxx_hidden_dispersion_v1/qlib_recorder/143727411221499650/eb197b16966a41058286d92b40f50da5",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/research/soxx_hidden_dispersion_v1/qlib_recorder",
+  "segments": {
+    "test": [
+      "2026-01-02",
+      "2026-07-02"
+    ],
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ]
+  },
+  "sidecars": {
+    "feature_metrics": "feature_metrics.csv",
+    "model_comparison": "model_comparison.csv",
+    "nonoverlap_feature_metrics": "nonoverlap_feature_metrics.csv",
+    "risk_analysis": "risk_analysis.csv"
+  },
+  "spec": {
+    "experiment": "soxx_hidden_dispersion_v1",
+    "horizon": 5,
+    "lag_days": 1,
+    "root": "/Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1",
+    "test_start": "2026-01-02",
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ]
+  },
+  "status": "complete"
+}

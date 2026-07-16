@@ -1,0 +1,12 @@
+experiment: soxx_hidden_dispersion_v1
+card_type: diagnostic_soxx_hidden_dispersion
+provider_uri: /Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxl
+constituent_provider_uri: /Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/data/qlib/soxx_constituents
+recorder_uri: /Users/rziiiii/dev/workspace/.worktrees/soxx-hidden-dispersion-v1/research/soxx_hidden_dispersion_v1/qlib_recorder
+recorder_id: eb197b16966a41058286d92b40f50da5
+as_of: 2026-07-02
+promotion_decision: not_promoted_missing_pit_holdings
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

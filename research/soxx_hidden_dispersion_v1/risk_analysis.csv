@@ -1,0 +1,5 @@
+check,status,value,detail
+point_in_time_holdings,fail,blocked_current_holdings_backfill,current holdings are backfilled through history
+incremental_directional_evidence,fail,-0.0021435692921236427,test SOXX rank-correlation increment over weighted residual baseline
+nonoverlap_offset_stability,pass,0.8,positive share across five non-overlapping test offsets
+promotion_boundary,fail,not_promoted_missing_pit_holdings,diagnostic evidence cannot promote without PIT holdings

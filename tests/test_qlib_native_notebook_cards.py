@@ -4913,3 +4913,41 @@ def test_soxx_constituent_alpha_attribution_card_separates_signal_leverage_and_e
     assert "run_soxx_constituent_alpha_attribution_card" in notebook_text
     assert "反思" in conclusion
     assert "不构成买卖建议" in conclusion
+
+
+def test_soxx_hidden_dispersion_card_is_qlib_native_slim_and_diagnostic():
+    card = ROOT / "research" / "soxx_hidden_dispersion_v1"
+    summary = _summary(card)
+    notebook_text = (card / "soxx_hidden_dispersion_v1.ipynb").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "soxx_hidden_dispersion_v1"
+    assert summary["promotion_decision"] == "not_promoted_missing_pit_holdings"
+    assert summary["constituent_data"]["source"] == "qlib.data.D.features"
+    assert summary["constituent_data"]["point_in_time_status"] == "blocked_current_holdings_backfill"
+    assert summary["lag_policy"]["train_only_beta_and_orientation"] is True
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+        "daily_hidden_dispersion_panel.csv"
+    ]
+    for rel_path in summary["sidecars"].values():
+        assert (card / rel_path).exists(), rel_path
+    assert not (card / "daily_hidden_dispersion_panel.csv").exists()
+    recorder_dir = Path(summary["recorder_local_dir"])
+    assert (
+        recorder_dir
+        / "artifacts"
+        / "soxx_hidden_dispersion"
+        / "daily_hidden_dispersion_panel.csv"
+    ).exists()
+    model_comparison = pd.read_csv(card / summary["sidecars"]["model_comparison"])
+    assert set(model_comparison["candidate"]) == {
+        "weighted_residual_baseline",
+        "hidden_dispersion_composite",
+        "baseline_plus_interaction",
+    }
+    assert "qlib.init" in notebook_text
+    assert "D.features" in notebook_text
+    assert "R.start" in notebook_text
+    assert "run_soxx_hidden_dispersion_card" in notebook_text
+    assert "VIX 是 SPX 隐含波动率" in conclusion
