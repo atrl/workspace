@@ -6,12 +6,20 @@ from .soxx_constituent_attribution import (
     evaluate_constituent_attribution,
     summarize_execution_censoring,
 )
+from .soxx_hidden_dispersion import (
+    HIDDEN_DISPERSION_FEATURES,
+    HiddenDispersionPanel,
+    build_hidden_dispersion_panel,
+)
 
 __all__ = [
     "AnalysisReport",
     "ConstituentAttributionPanel",
+    "HIDDEN_DISPERSION_FEATURES",
+    "HiddenDispersionPanel",
     "build_constituent_attribution_panel",
     "build_analysis_report_from_qlib_recorder",
+    "build_hidden_dispersion_panel",
     "evaluate_constituent_attribution",
     "summarize_execution_censoring",
 ]

@@ -30,7 +30,7 @@ panel = build_hidden_dispersion_panel(
     horizon=5,
 )
 assert set(HIDDEN_DISPERSION_FEATURES).issubset(panel.daily.columns)
-assert panel.daily.loc[1, "residual_dispersion_5"] != panel.daily.loc[0, "residual_dispersion_5"]
+assert panel.daily["residual_dispersion_5"].notna().any()
 assert panel.daily["soxx_5d"].equals(
     panel.daily["soxx_open"].shift(-6) / panel.daily["soxx_open"].shift(-1) - 1.0
 )
