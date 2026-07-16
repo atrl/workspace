@@ -80,6 +80,8 @@ def build_hidden_dispersion_panel(
     index_data = index_data.sort_values("datetime").drop_duplicates("datetime", keep="last").reset_index(drop=True)
     for column in ["soxx_open", "soxl_open", "vix"]:
         index_data[column] = pd.to_numeric(index_data[column], errors="coerce")
+    if not np.isfinite(index_data["vix"]).any():
+        raise ValueError("hidden dispersion vix has no usable values")
     index_data["soxx_return"] = index_data["soxx_open"].pct_change(fill_method=None)
     index_data["soxx_5d"] = (
         index_data["soxx_open"].shift(-(horizon + 1)) / index_data["soxx_open"].shift(-1) - 1.0

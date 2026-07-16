@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
+import pytest
 
 
 def _synthetic_frames(rows: int = 100) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -120,6 +121,22 @@ def test_hidden_dispersion_degenerate_cross_sections_remain_finite():
         values = panel.daily[column].dropna()
         assert len(values) > 0
         assert np.isfinite(values).all()
+
+
+def test_hidden_dispersion_panel_fails_closed_when_vix_has_no_usable_values():
+    from src.analysis.soxx_hidden_dispersion import build_hidden_dispersion_panel
+
+    constituents, index_frame = _synthetic_frames()
+    index_frame["vix"] = np.nan
+
+    with pytest.raises(ValueError, match="vix has no usable values"):
+        build_hidden_dispersion_panel(
+            constituents,
+            index_frame,
+            train=("2024-01-02", "2024-03-29"),
+            lag_days=1,
+            horizon=5,
+        )
 
 
 def test_hidden_dispersion_evaluation_uses_train_orientation_and_nonoverlap_offsets():
