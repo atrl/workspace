@@ -10,6 +10,7 @@ from .soxx_hidden_dispersion import (
     HIDDEN_DISPERSION_FEATURES,
     HiddenDispersionPanel,
     build_hidden_dispersion_panel,
+    evaluate_hidden_dispersion,
 )
 
 __all__ = [
@@ -21,5 +22,6 @@ __all__ = [
     "build_analysis_report_from_qlib_recorder",
     "build_hidden_dispersion_panel",
     "evaluate_constituent_attribution",
+    "evaluate_hidden_dispersion",
     "summarize_execution_censoring",
 ]

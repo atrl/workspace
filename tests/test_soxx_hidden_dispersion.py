@@ -120,3 +120,39 @@ def test_hidden_dispersion_degenerate_cross_sections_remain_finite():
         values = panel.daily[column].dropna()
         assert len(values) > 0
         assert np.isfinite(values).all()
+
+
+def test_hidden_dispersion_evaluation_uses_train_orientation_and_nonoverlap_offsets():
+    from src.analysis.soxx_hidden_dispersion import (
+        build_hidden_dispersion_panel,
+        evaluate_hidden_dispersion,
+    )
+
+    constituents, index_frame = _synthetic_frames()
+    panel = build_hidden_dispersion_panel(
+        constituents,
+        index_frame,
+        train=("2024-01-02", "2024-03-29"),
+        lag_days=1,
+        horizon=5,
+    )
+    metrics = evaluate_hidden_dispersion(
+        panel,
+        segments={
+            "train": ("2024-01-02", "2024-03-29"),
+            "validation": ("2024-04-01", "2024-04-30"),
+            "test": ("2024-05-01", "2024-05-20"),
+        },
+    )
+
+    assert set(metrics) == {"feature_metrics", "nonoverlap", "candidate_comparison", "stability"}
+    assert metrics["feature_metrics"]["train_direction"].notna().all()
+    assert set(metrics["nonoverlap"]["offset"]) == set(range(5))
+    assert metrics["nonoverlap"]["overlap_purged"].all()
+    assert set(metrics["candidate_comparison"]["candidate"]) == {
+        "weighted_residual_baseline",
+        "hidden_dispersion_composite",
+        "baseline_plus_interaction",
+    }
+    assert set(metrics["candidate_comparison"]["target"]) == {"soxx_5d", "soxl_5d", "soxx_abs_5d"}
+    assert set(metrics["stability"]["segment_pair"]) == {"train_validation", "validation_test"}

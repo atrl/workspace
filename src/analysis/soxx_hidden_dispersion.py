@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
+from sklearn.metrics import roc_auc_score
 
 from .soxx_constituent_attribution import build_constituent_attribution_panel
 
@@ -19,6 +20,23 @@ HIDDEN_DISPERSION_FEATURES = (
     "dispersion_vix_gap",
     "weighted_residual_x_dispersion_vix_gap",
 )
+
+CANDIDATE_FEATURES = {
+    "weighted_residual_baseline": ("weighted_residual",),
+    "hidden_dispersion_composite": (
+        "residual_dispersion_5",
+        "cancellation_ratio_5",
+        "correlation_breakdown_20",
+        "leadership_turnover_5",
+        "abnormal_volume_breadth_5",
+        "dispersion_vix_gap",
+    ),
+    "baseline_plus_interaction": (
+        "weighted_residual",
+        "dispersion_vix_gap",
+        "weighted_residual_x_dispersion_vix_gap",
+    ),
+}
 
 
 @dataclass(frozen=True)
@@ -229,3 +247,197 @@ def _expanding_z(values: pd.Series, *, min_periods: int = 20) -> pd.Series:
     mean = numeric.expanding(min_periods=min_periods).mean()
     std = numeric.expanding(min_periods=min_periods).std(ddof=0)
     return (numeric - mean) / std.replace(0.0, np.nan)
+
+
+def evaluate_hidden_dispersion(
+    panel: HiddenDispersionPanel,
+    *,
+    segments: dict[str, tuple[str, str]],
+) -> dict[str, pd.DataFrame]:
+    if "train" not in segments:
+        raise ValueError("hidden dispersion evaluation requires a train segment")
+    targets = ("soxx_5d", "soxl_5d", "soxx_abs_5d")
+    features = ("weighted_residual", *HIDDEN_DISPERSION_FEATURES)
+    train_sample = _window(panel.daily, segments["train"])
+    feature_rows: list[dict[str, object]] = []
+    for feature in features:
+        for target in targets:
+            train_corr = _rank_correlation(train_sample[feature], train_sample[target])
+            direction = 1.0 if not np.isfinite(train_corr) or train_corr >= 0.0 else -1.0
+            for segment, window in segments.items():
+                sample = _window(panel.daily, window)
+                oriented = pd.to_numeric(sample[feature], errors="coerce") * direction
+                feature_rows.append(
+                    {
+                        "feature": feature,
+                        "target": target,
+                        "segment": segment,
+                        "train_direction": direction,
+                        **_metric_payload(oriented, sample[target], signed_target=target != "soxx_abs_5d"),
+                    }
+                )
+
+    candidate_series: dict[tuple[str, str], pd.Series] = {}
+    candidate_rows: list[dict[str, object]] = []
+    nonoverlap_rows: list[dict[str, object]] = []
+    for candidate, candidate_features in CANDIDATE_FEATURES.items():
+        for target in targets:
+            signal = _train_oriented_composite(
+                panel.daily,
+                train_sample,
+                features=candidate_features,
+                target=target,
+            )
+            candidate_series[(candidate, target)] = signal
+            for segment, window in segments.items():
+                sample = _window(panel.daily.assign(candidate_signal=signal), window).reset_index(drop=True)
+                candidate_rows.append(
+                    {
+                        "candidate": candidate,
+                        "target": target,
+                        "segment": segment,
+                        "train_direction": 1.0,
+                        **_metric_payload(
+                            sample["candidate_signal"],
+                            sample[target],
+                            signed_target=target != "soxx_abs_5d",
+                        ),
+                    }
+                )
+                for offset in range(panel.horizon):
+                    offset_sample = sample.iloc[offset :: panel.horizon]
+                    nonoverlap_rows.append(
+                        {
+                            "candidate": candidate,
+                            "target": target,
+                            "segment": segment,
+                            "offset": offset,
+                            "train_direction": 1.0,
+                            "overlap_purged": True,
+                            **_metric_payload(
+                                offset_sample["candidate_signal"],
+                                offset_sample[target],
+                                signed_target=target != "soxx_abs_5d",
+                            ),
+                        }
+                    )
+
+    comparison = pd.DataFrame(candidate_rows)
+    stability_rows: list[dict[str, object]] = []
+    segment_pairs = (("train", "validation"), ("validation", "test"))
+    for candidate in CANDIDATE_FEATURES:
+        for target in targets:
+            rows = comparison.loc[
+                comparison["candidate"].eq(candidate) & comparison["target"].eq(target)
+            ].set_index("segment")
+            for left, right in segment_pairs:
+                left_value = rows.at[left, "rank_correlation"] if left in rows.index else np.nan
+                right_value = rows.at[right, "rank_correlation"] if right in rows.index else np.nan
+                stability_rows.append(
+                    {
+                        "candidate": candidate,
+                        "target": target,
+                        "segment_pair": f"{left}_{right}",
+                        "left_rank_correlation": left_value,
+                        "right_rank_correlation": right_value,
+                        "same_sign": bool(
+                            np.isfinite(left_value)
+                            and np.isfinite(right_value)
+                            and np.sign(left_value) == np.sign(right_value)
+                        ),
+                    }
+                )
+    return {
+        "feature_metrics": pd.DataFrame(feature_rows),
+        "nonoverlap": pd.DataFrame(nonoverlap_rows),
+        "candidate_comparison": comparison,
+        "stability": pd.DataFrame(stability_rows),
+    }
+
+
+def _train_oriented_composite(
+    full_frame: pd.DataFrame,
+    train_frame: pd.DataFrame,
+    *,
+    features: tuple[str, ...],
+    target: str,
+) -> pd.Series:
+    components: list[pd.Series] = []
+    for feature in features:
+        train_values = pd.to_numeric(train_frame[feature], errors="coerce")
+        mean = float(train_values.mean())
+        std = float(train_values.std(ddof=0))
+        if not np.isfinite(std) or std <= 1e-12:
+            continue
+        train_corr = _rank_correlation(train_values, train_frame[target])
+        direction = 1.0 if not np.isfinite(train_corr) or train_corr >= 0.0 else -1.0
+        values = pd.to_numeric(full_frame[feature], errors="coerce")
+        components.append(((values - mean) / std) * direction)
+    if not components:
+        return pd.Series(np.nan, index=full_frame.index, dtype="float64")
+    return pd.concat(components, axis=1).mean(axis=1, skipna=True)
+
+
+def _window(frame: pd.DataFrame, window: tuple[str, str]) -> pd.DataFrame:
+    dates = pd.to_datetime(frame["datetime"]).dt.normalize()
+    return frame.loc[dates.between(pd.Timestamp(window[0]), pd.Timestamp(window[1]))].copy()
+
+
+def _metric_payload(signal: pd.Series, target: pd.Series, *, signed_target: bool) -> dict[str, float | int]:
+    clean = pd.concat(
+        [
+            pd.to_numeric(signal, errors="coerce").rename("signal"),
+            pd.to_numeric(target, errors="coerce").rename("target"),
+        ],
+        axis=1,
+    ).dropna()
+    return {
+        "rank_correlation": _rank_correlation(clean["signal"], clean["target"]),
+        "directional_auc": _directional_auc(clean["signal"], clean["target"]) if signed_target else np.nan,
+        "top_bottom_spread_pct": _quartile_spread(clean["signal"], clean["target"]) * 100.0,
+        "observations": int(len(clean)),
+    }
+
+
+def _rank_correlation(signal: pd.Series, target: pd.Series) -> float:
+    clean = pd.concat(
+        [
+            pd.to_numeric(signal, errors="coerce").rename("signal"),
+            pd.to_numeric(target, errors="coerce").rename("target"),
+        ],
+        axis=1,
+    ).dropna()
+    if len(clean) < 3 or clean["signal"].nunique() < 2 or clean["target"].nunique() < 2:
+        return np.nan
+    return float(clean["signal"].corr(clean["target"], method="spearman"))
+
+
+def _directional_auc(signal: pd.Series, target: pd.Series) -> float:
+    clean = pd.concat(
+        [
+            pd.to_numeric(signal, errors="coerce").rename("signal"),
+            pd.to_numeric(target, errors="coerce").rename("target"),
+        ],
+        axis=1,
+    ).dropna()
+    labels = clean["target"].gt(0.0).astype(int)
+    if len(clean) < 3 or clean["signal"].nunique() < 2 or labels.nunique() < 2:
+        return np.nan
+    return float(roc_auc_score(labels, clean["signal"]))
+
+
+def _quartile_spread(signal: pd.Series, target: pd.Series) -> float:
+    clean = pd.concat(
+        [
+            pd.to_numeric(signal, errors="coerce").rename("signal"),
+            pd.to_numeric(target, errors="coerce").rename("target"),
+        ],
+        axis=1,
+    ).dropna()
+    if len(clean) < 4 or clean["signal"].nunique() < 4:
+        return np.nan
+    quantiles = pd.qcut(clean["signal"], 4, labels=False, duplicates="drop")
+    if quantiles.nunique() < 2:
+        return np.nan
+    grouped = clean.assign(quantile=quantiles).groupby("quantile")["target"].mean()
+    return float(grouped.iloc[-1] - grouped.iloc[0])
