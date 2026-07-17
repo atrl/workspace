@@ -28,14 +28,25 @@ from .regime_moe import (
     RegimeMoESpec,
     run_regime_moe_models,
 )
+from .panel_sequence import (
+    FittedPanelSequencePolicy,
+    PanelSequenceResult,
+    PanelSequenceSpec,
+    SequenceWindowBatch,
+    build_sequence_windows,
+    run_panel_sequence_models,
+)
 from .tail_budget import FittedTailBudgetPolicy, TailBudgetResult, TailBudgetSpec, run_tail_budget_models
 
 __all__ = [
     "ModelSelectionResult",
     "ModelSpec",
     "FittedTailBudgetPolicy",
+    "FittedPanelSequencePolicy",
     "FittedRegimeMoEPolicy",
     "PromotionEvaluation",
+    "PanelSequenceResult",
+    "PanelSequenceSpec",
     "QlibMeanReturnModel",
     "RegimeMoEResult",
     "RegimeMoESpec",
@@ -43,11 +54,13 @@ __all__ = [
     "RiskAdjustedLabels",
     "RiskMetrics",
     "SegmentWindow",
+    "SequenceWindowBatch",
     "TailBudgetResult",
     "TailBudgetSpec",
     "WalkForwardAggregate",
     "aggregate_walk_forward",
     "build_model_from_spec",
+    "build_sequence_windows",
     "build_risk_adjusted_labels",
     "compute_risk_metrics",
     "evaluate_promotion",
@@ -55,6 +68,7 @@ __all__ = [
     "purge_segment_tail",
     "quantbench_supervised_model_specs",
     "run_model_family_smoke_matrix",
+    "run_panel_sequence_models",
     "run_qlib_model_selection",
     "run_regime_moe_models",
     "run_tail_budget_models",
