@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import nbformat
@@ -10,6 +12,14 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _markdown_output(cell) -> str:
+    for output in cell.get("outputs", []):
+        markdown = output.get("data", {}).get("text/markdown")
+        if markdown:
+            return "".join(markdown) if isinstance(markdown, list) else markdown
+    return ""
 
 
 def _actual_summaries() -> dict[str, dict]:
@@ -163,12 +173,19 @@ def test_generated_risk_adjusted_cards_are_executable_slim_and_chinese():
         code_source = "\n".join(
             cell.source for cell in notebook_node.cells if cell.cell_type == "code"
         )
-        assert "sync_notebook_conclusion" in code_source
         last = notebook_node.cells[-1]
-        assert last.cell_type == "markdown"
-        assert summary["recorder_id"] in last.source
+        assert last.cell_type == "code"
+        assert "display(Markdown(notebook_conclusion_markdown(summary)))" in last.source
+        assert "sync_notebook_conclusion" not in code_source
+        rendered = _markdown_output(last)
+        assert summary["recorder_id"] in rendered
         for heading in ("做了什么", "核心指标", "Regime / window 差异", "晋升决定", "风险", "下一步"):
-            assert heading in last.source
+            assert heading in rendered
+        if summary["route"] == "frontier":
+            assert summary["frontier"]["decision"] in rendered
+        else:
+            assert f"{summary['metrics']['test']['candidate']['total_return']:.4f}" in rendered
+            assert summary["promotion"]["decision"] in rendered
         serialized_outputs = json.dumps(
             [cell.get("outputs", []) for cell in notebook_node.cells], ensure_ascii=False
         )
@@ -262,17 +279,45 @@ def test_internal_missing_dates_fail_data_and_label_evidence():
     assert evidence["internal_label_missing_dates"] == [index[7].date().isoformat()]
 
 
-def test_notebook_conclusion_generator_tracks_latest_summary(tmp_path: Path):
-    from src.workflow.soxl_risk_adjusted_frontier import sync_notebook_conclusion
-
-    notebook = nbformat.v4.new_notebook(
-        cells=[nbformat.v4.new_code_cell("x = 1"), nbformat.v4.new_markdown_cell("stale")]
-    )
-    path = tmp_path / "card.ipynb"
-    nbformat.write(notebook, path)
+def test_real_card_nbconvert_renders_current_in_memory_summary(tmp_path: Path):
+    name = "soxl_tail_budget_v1"
+    source = ROOT / "research" / name / f"{name}.ipynb"
+    notebook = nbformat.read(source, as_version=4)
     summary = _actual_summaries()["tail_budget"]
-    sync_notebook_conclusion(path, summary)
-    synced = nbformat.read(path, as_version=4)
-    assert synced.cells[-1].cell_type == "markdown"
-    assert summary["recorder_id"] in synced.cells[-1].source
-    assert "核心指标" in synced.cells[-1].source
+    summary["recorder_id"] = "nbconvert-current-recorder-id"
+    summary["metrics"]["test"]["candidate"]["total_return"] = 7.654321
+    summary["promotion"]["decision"] = "nbconvert_current_decision"
+    notebook.cells[-2] = nbformat.v4.new_code_cell(
+        "from pathlib import Path\n"
+        "import os, sys\n"
+        f"ROOT = Path({str(ROOT)!r})\n"
+        "os.chdir(ROOT)\n"
+        "sys.path.insert(0, ROOT.as_posix())\n"
+        f"summary = {summary!r}\n"
+    )
+    path = tmp_path / source.name
+    nbformat.write(notebook, path)
+
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "nbconvert",
+            "--execute",
+            path.as_posix(),
+            "--to",
+            "notebook",
+            "--inplace",
+        ],
+        cwd=ROOT,
+        check=True,
+        timeout=120,
+        capture_output=True,
+        text=True,
+    )
+    executed = nbformat.read(path, as_version=4)
+    assert executed.cells[-1].cell_type == "code"
+    rendered = _markdown_output(executed.cells[-1])
+    assert "nbconvert-current-recorder-id" in rendered
+    assert "7.6543" in rendered
+    assert "nbconvert_current_decision" in rendered

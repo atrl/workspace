@@ -2,7 +2,7 @@
 
 ## 做了什么
 
-通过 qlib Recorder 对象读取三条冻结路线的预测、标签、组合报告、仓位、风险分析和选择证据；前沿 recorder 为 `9399f829592541629bdaab73dd86be21`，没有在 test 上重新选择或重训。
+通过 qlib Recorder 对象读取三条冻结路线的预测、标签、组合报告、仓位、风险分析和选择证据；前沿 recorder 为 `ae2deb9590dd4fd3b3bfcf4cc3c93aa3`，没有在 test 上重新选择或重训。
 
 ## 核心指标
 

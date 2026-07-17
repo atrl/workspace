@@ -2,7 +2,7 @@
 
 ## 做了什么
 
-使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `panel_sequence` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `f8c4ea43a01c42a5a257e35ce463faa1`。
+使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `panel_sequence` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `8121f13a7b604c0db7e0a5cba34047e8`。
 
 ## 核心指标
 

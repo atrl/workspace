@@ -191,10 +191,10 @@
           ],
           "promoted": false
         },
-        "recorder_id": "f8c4ea43a01c42a5a257e35ce463faa1",
+        "recorder_id": "8121f13a7b604c0db7e0a5cba34047e8",
         "recorder_status": "FINISHED",
         "route_status": "ok",
-        "run_manifest_id": "d03db04b873d14b0713be170d478df759cbbd2b642738258828805962fae6948",
+        "run_manifest_id": "33166b5a3fe71f7bb4d468f4a779eac109bded844405e00ce56f85b8a33483fe",
         "selected_candidate": "gru_alstm_w20"
       },
       "regime_moe": {
@@ -317,10 +317,10 @@
           ],
           "promoted": false
         },
-        "recorder_id": "6890bdf021dd4da4935d08086df91dca",
+        "recorder_id": "07e951ab7960462ea70f23897f403273",
         "recorder_status": "FINISHED",
         "route_status": "ok",
-        "run_manifest_id": "fd629bfb6bcb717a47f790f78f34119c240fc06e45ef7dd4ebfefcafe042c024",
+        "run_manifest_id": "f5f7c09779b77873c25309be010433cee81de3811648ee8660b4969c50b407b7",
         "selected_candidate": "validation_selected_regime_moe"
       },
       "tail_budget": {
@@ -439,10 +439,10 @@
           ],
           "promoted": false
         },
-        "recorder_id": "65c4f59e35e24edf8c3b570dccefa11e",
+        "recorder_id": "6a3f7eff06ae4977b7950e59f6bc5d37",
         "recorder_status": "FINISHED",
         "route_status": "ok",
-        "run_manifest_id": "09217bbf2f7e0ccbd32603c9b5b673f7679fc76af376e08865c0e8f39feb1206",
+        "run_manifest_id": "03dfdc5b3a32bb8382d870b53c82f6f7454c11e6986b2420b665c2d59a03ece6",
         "selected_candidate": "validation_selected_individual"
       }
     },
@@ -493,7 +493,7 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "9399f829592541629bdaab73dd86be21",
+  "recorder_id": "ae2deb9590dd4fd3b3bfcf4cc3c93aa3",
   "recorder_uri": "git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1",
   "region": "us",
   "route": "frontier",
@@ -510,9 +510,9 @@
         "run_manifest": "artifacts/evidence/run_manifest.pkl"
       },
       "experiment": "soxl_panel_sequence_v1",
-      "recorder_id": "f8c4ea43a01c42a5a257e35ce463faa1",
+      "recorder_id": "8121f13a7b604c0db7e0a5cba34047e8",
       "recorder_uri": "git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1",
-      "run_manifest_id": "d03db04b873d14b0713be170d478df759cbbd2b642738258828805962fae6948"
+      "run_manifest_id": "33166b5a3fe71f7bb4d468f4a779eac109bded844405e00ce56f85b8a33483fe"
     },
     "regime_moe": {
       "artifacts": {
@@ -526,9 +526,9 @@
         "run_manifest": "artifacts/evidence/run_manifest.pkl"
       },
       "experiment": "soxl_regime_moe_v1",
-      "recorder_id": "6890bdf021dd4da4935d08086df91dca",
+      "recorder_id": "07e951ab7960462ea70f23897f403273",
       "recorder_uri": "git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1",
-      "run_manifest_id": "fd629bfb6bcb717a47f790f78f34119c240fc06e45ef7dd4ebfefcafe042c024"
+      "run_manifest_id": "f5f7c09779b77873c25309be010433cee81de3811648ee8660b4969c50b407b7"
     },
     "tail_budget": {
       "artifacts": {
@@ -542,9 +542,9 @@
         "run_manifest": "artifacts/evidence/run_manifest.pkl"
       },
       "experiment": "soxl_tail_budget_v1",
-      "recorder_id": "65c4f59e35e24edf8c3b570dccefa11e",
+      "recorder_id": "6a3f7eff06ae4977b7950e59f6bc5d37",
       "recorder_uri": "git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1",
-      "run_manifest_id": "09217bbf2f7e0ccbd32603c9b5b673f7679fc76af376e08865c0e8f39feb1206"
+      "run_manifest_id": "03dfdc5b3a32bb8382d870b53c82f6f7454c11e6986b2420b665c2d59a03ece6"
     }
   },
   "route_status": "ok",
@@ -667,10 +667,10 @@
         ],
         "promoted": false
       },
-      "recorder_id": "f8c4ea43a01c42a5a257e35ce463faa1",
+      "recorder_id": "8121f13a7b604c0db7e0a5cba34047e8",
       "recorder_status": "FINISHED",
       "route_status": "ok",
-      "run_manifest_id": "d03db04b873d14b0713be170d478df759cbbd2b642738258828805962fae6948",
+      "run_manifest_id": "33166b5a3fe71f7bb4d468f4a779eac109bded844405e00ce56f85b8a33483fe",
       "selected_candidate": "gru_alstm_w20"
     },
     "regime_moe": {
@@ -793,10 +793,10 @@
         ],
         "promoted": false
       },
-      "recorder_id": "6890bdf021dd4da4935d08086df91dca",
+      "recorder_id": "07e951ab7960462ea70f23897f403273",
       "recorder_status": "FINISHED",
       "route_status": "ok",
-      "run_manifest_id": "fd629bfb6bcb717a47f790f78f34119c240fc06e45ef7dd4ebfefcafe042c024",
+      "run_manifest_id": "f5f7c09779b77873c25309be010433cee81de3811648ee8660b4969c50b407b7",
       "selected_candidate": "validation_selected_regime_moe"
     },
     "tail_budget": {
@@ -915,10 +915,10 @@
         ],
         "promoted": false
       },
-      "recorder_id": "65c4f59e35e24edf8c3b570dccefa11e",
+      "recorder_id": "6a3f7eff06ae4977b7950e59f6bc5d37",
       "recorder_status": "FINISHED",
       "route_status": "ok",
-      "run_manifest_id": "09217bbf2f7e0ccbd32603c9b5b673f7679fc76af376e08865c0e8f39feb1206",
+      "run_manifest_id": "03dfdc5b3a32bb8382d870b53c82f6f7454c11e6986b2420b665c2d59a03ece6",
       "selected_candidate": "validation_selected_individual"
     }
   },

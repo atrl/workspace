@@ -337,12 +337,12 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "65c4f59e35e24edf8c3b570dccefa11e",
+  "recorder_id": "6a3f7eff06ae4977b7950e59f6bc5d37",
   "recorder_uri": "git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1",
   "region": "us",
   "route": "tail_budget",
   "route_status": "ok",
-  "run_manifest_id": "09217bbf2f7e0ccbd32603c9b5b673f7679fc76af376e08865c0e8f39feb1206",
+  "run_manifest_id": "03dfdc5b3a32bb8382d870b53c82f6f7454c11e6986b2420b665c2d59a03ece6",
   "segments": {
     "test": [
       "2024-01-02",
