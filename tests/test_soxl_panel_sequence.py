@@ -17,6 +17,7 @@ def _dataset(
     nonfinite_test_feature: bool = False,
     nonfinite_validation_downside: bool = False,
     missing_source: str | None = None,
+    boundary_nan_labels: bool = False,
 ) -> DatasetH:
     random = np.random.default_rng(20260717)
     dates = pd.bdate_range("2023-01-03", periods=periods)
@@ -53,6 +54,10 @@ def _dataset(
     if nonfinite_validation_downside:
         future_downside = future_downside.copy()
         future_downside[train_end + 2] = np.nan
+    if boundary_nan_labels:
+        for values in (future_return, future_downside, future_crash):
+            values[train_end - 5 : train_end + 1] = np.nan
+            values[valid_end - 5 : valid_end + 1] = np.nan
 
     feature_values = {
         "soxl_return": soxl_return,
@@ -288,10 +293,18 @@ def test_missing_pit_panel_is_separate_deterministic_block_and_aligned_pit_is_el
             "source": "synthetic_pit_fixture",
             "as_of": "2023-12-04",
             "effective_date_field": "datetime",
+            "provider_uri": "memory://qlib-fixture",
+            "manifest_hash": "fixture-manifest-sha256",
         }
     )
     eligible = module.run_panel_sequence_models(
-        dataset, spec=_fast_spec(), pit_panel=pit
+        dataset,
+        spec=_fast_spec(),
+        pit_panel=pit,
+        qlib_lineage={
+            "provider_uri": "memory://qlib-fixture",
+            "manifest_hash": "fixture-manifest-sha256",
+        },
     )
     assert eligible.mode_evidence["constituent_cross_sectional"]["status"] == "eligible"
     assert eligible.mode_evidence["constituent_cross_sectional"]["provenance"] == {
@@ -299,6 +312,8 @@ def test_missing_pit_panel_is_separate_deterministic_block_and_aligned_pit_is_el
         "source": "synthetic_pit_fixture",
         "as_of": "2023-12-04",
         "effective_date_field": "datetime",
+        "provider_uri": "memory://qlib-fixture",
+        "manifest_hash": "fixture-manifest-sha256",
     }
     assert eligible.model_comparison.set_index("candidate").loc[
         "pit_cross_sectional_panel", "status"
@@ -327,6 +342,97 @@ def test_structurally_aligned_pit_without_explicit_provenance_is_blocked():
     assert result.model_comparison.set_index("candidate").loc[
         "pit_cross_sectional_panel", "reason_code"
     ] == "blocked_missing_pit_panel"
+
+
+@pytest.mark.parametrize(
+    "missing_field",
+    ("source", "as_of", "effective_date_field", "provider_uri", "manifest_hash"),
+)
+def test_pit_provenance_metadata_and_qlib_lineage_must_be_verifiable(missing_field):
+    module = importlib.import_module("src.model.panel_sequence")
+    dates = pd.bdate_range("2023-09-01", periods=3)
+    index = pd.MultiIndex.from_product(
+        [dates, ["NVDA", "AMD"]], names=["datetime", "instrument"]
+    )
+    pit = pd.DataFrame(
+        {"pit_member": True, "feature_1": np.arange(len(index), dtype=float)},
+        index=index,
+    )
+    metadata = {
+        "point_in_time_membership": True,
+        "source": "fixture",
+        "as_of": "2023-12-04",
+        "effective_date_field": "datetime",
+        "provider_uri": "memory://qlib-fixture",
+        "manifest_hash": "fixture-manifest-sha256",
+    }
+    metadata[missing_field] = ""
+    pit.attrs.update(metadata)
+
+    result = module.run_panel_sequence_models(
+        _dataset(),
+        spec=_fast_spec(),
+        pit_panel=pit,
+        qlib_lineage={
+            "provider_uri": "memory://qlib-fixture",
+            "manifest_hash": "fixture-manifest-sha256",
+        },
+    )
+
+    evidence = result.mode_evidence["constituent_cross_sectional"]
+    assert evidence["status"] == "blocked_missing_pit_panel"
+    assert f"missing_provenance_{missing_field}" in evidence["validation_errors"]
+
+
+@pytest.mark.parametrize(
+    ("defect", "expected_error"),
+    (
+        ("lineage_mismatch", "provenance_manifest_hash_mismatch"),
+        ("early_as_of", "provenance_as_of_precedes_panel"),
+        ("missing_effective_mapping", "effective_date_field_not_found"),
+    ),
+)
+def test_pit_provenance_values_must_match_lineage_and_effective_dates(
+    defect, expected_error
+):
+    module = importlib.import_module("src.model.panel_sequence")
+    dates = pd.bdate_range("2023-09-01", periods=3)
+    index = pd.MultiIndex.from_product(
+        [dates, ["NVDA", "AMD"]], names=["datetime", "instrument"]
+    )
+    pit = pd.DataFrame(
+        {"pit_member": True, "feature_1": np.arange(len(index), dtype=float)},
+        index=index,
+    )
+    pit.attrs.update(
+        {
+            "point_in_time_membership": True,
+            "source": "fixture",
+            "as_of": "2023-12-04",
+            "effective_date_field": "datetime",
+            "provider_uri": "memory://qlib-fixture",
+            "manifest_hash": "fixture-manifest-sha256",
+        }
+    )
+    if defect == "lineage_mismatch":
+        pit.attrs["manifest_hash"] = "wrong-hash"
+    elif defect == "early_as_of":
+        pit.attrs["as_of"] = "2023-08-01"
+    else:
+        pit.attrs["effective_date_field"] = "effective_date"
+    result = module.run_panel_sequence_models(
+        _dataset(),
+        spec=_fast_spec(),
+        pit_panel=pit,
+        qlib_lineage={
+            "provider_uri": "memory://qlib-fixture",
+            "manifest_hash": "fixture-manifest-sha256",
+        },
+    )
+
+    evidence = result.mode_evidence["constituent_cross_sectional"]
+    assert evidence["status"] == "blocked_missing_pit_panel"
+    assert expected_error in evidence["validation_errors"]
 
 
 @pytest.mark.parametrize(
@@ -417,6 +523,29 @@ def test_incomplete_shared_validation_labels_block_before_model_selection():
     assert result.positions_by_segment["test"].eq(0.0).all()
 
 
+def test_boundary_purge_label_nans_are_excluded_but_internal_nans_still_block():
+    module = importlib.import_module("src.model.panel_sequence")
+
+    boundary = module.run_panel_sequence_models(
+        _dataset(boundary_nan_labels=True), spec=_fast_spec()
+    )
+    internal = module.run_panel_sequence_models(
+        _dataset(nonfinite_validation_downside=True), spec=_fast_spec()
+    )
+
+    assert boundary.selection_evidence["route_status"] == "ok"
+    for segment in ("train", "valid"):
+        evidence = boundary.selection_evidence["label_completeness_evidence"][segment]
+        assert evidence["boundary_excluded_rows"] == 6
+        assert evidence["boundary_invalid_rows"] == 6
+        assert evidence["internal_invalid_rows"] == 0
+        assert evidence["labels_complete"] is True
+    assert internal.selection_evidence["route_status"] == "blocked_data_quality"
+    assert internal.selection_evidence["label_completeness_evidence"]["valid"][
+        "internal_invalid_rows"
+    ] == 1
+
+
 def test_frozen_test_inference_failure_has_explicit_fail_closed_status(monkeypatch):
     module = importlib.import_module("src.model.panel_sequence")
     original = module._predict_policy_segment
@@ -504,6 +633,98 @@ def test_fitted_policy_pickle_round_trip_has_inference_parity():
     actual = restored.predict(test_features, segment="test")
 
     pd.testing.assert_frame_equal(actual, result.predictions_by_segment["test"])
+
+
+def test_segment_datetime_order_overlap_and_public_policy_inference_are_guarded():
+    module = importlib.import_module("src.model.panel_sequence")
+    native = _dataset()
+
+    class MutatingDataset:
+        def __init__(self, mutation):
+            self.mutation = mutation
+
+        def prepare(self, segment, *, col_set, data_key):
+            frame = native.prepare(segment, col_set=col_set, data_key=data_key)
+            return self.mutation(segment, frame)
+
+    with pytest.raises(ValueError, match="strictly increasing"):
+        module.run_panel_sequence_models(
+            MutatingDataset(
+                lambda segment, frame: frame.iloc[::-1] if segment == "train" else frame
+            ),
+            spec=_fast_spec(),
+        )
+
+    with pytest.raises(ValueError, match="unique"):
+        module.run_panel_sequence_models(
+            MutatingDataset(
+                lambda segment, frame: pd.concat([frame.iloc[:1], frame])
+                if segment == "train"
+                else frame
+            ),
+            spec=_fast_spec(),
+        )
+
+    train_tail = native.prepare(
+        "train", col_set=["feature", "label"], data_key=DataHandlerLP.DK_L
+    ).tail(1)
+    with pytest.raises(ValueError, match="must not overlap"):
+        module.run_panel_sequence_models(
+            MutatingDataset(
+                lambda segment, frame: pd.concat([train_tail, frame])
+                if segment == "valid"
+                else frame
+            ),
+            spec=_fast_spec(),
+        )
+
+    result = module.run_panel_sequence_models(native, spec=_fast_spec())
+    test_features = native.prepare("test", col_set="feature", data_key=DataHandlerLP.DK_I)
+    with pytest.raises(ValueError, match="strictly increasing"):
+        result.fitted_policy.predict(test_features.iloc[::-1])
+    duplicate = pd.concat([test_features.iloc[:1], test_features])
+    with pytest.raises(ValueError, match="unique"):
+        result.fitted_policy.predict(duplicate)
+
+
+def test_test_segment_must_follow_validation_without_overlap():
+    module = importlib.import_module("src.model.panel_sequence")
+    native = _dataset()
+    valid_features = native.prepare(
+        "valid", col_set="feature", data_key=DataHandlerLP.DK_I
+    )
+
+    class OverlappingTestDataset:
+        def prepare(self, segment, *, col_set, data_key):
+            if segment == "test":
+                return valid_features.tail(3)
+            return native.prepare(segment, col_set=col_set, data_key=data_key)
+
+    with pytest.raises(ValueError, match="must not overlap"):
+        module.run_panel_sequence_models(OverlappingTestDataset(), spec=_fast_spec())
+
+
+def test_sequence_training_restores_numpy_and_torch_process_state():
+    torch = pytest.importorskip("torch")
+    module = importlib.import_module("src.model.panel_sequence")
+    np.random.seed(9182)
+    torch.manual_seed(8173)
+    numpy_before = np.random.get_state()
+    torch_before = torch.random.get_rng_state().clone()
+    threads_before = torch.get_num_threads()
+    deterministic_before = torch.are_deterministic_algorithms_enabled()
+    warn_only_before = torch.is_deterministic_algorithms_warn_only_enabled()
+
+    module.run_panel_sequence_models(_dataset(), spec=_fast_spec())
+
+    numpy_after = np.random.get_state()
+    assert numpy_after[0] == numpy_before[0]
+    np.testing.assert_array_equal(numpy_after[1], numpy_before[1])
+    assert numpy_after[2:] == numpy_before[2:]
+    assert torch.equal(torch.random.get_rng_state(), torch_before)
+    assert torch.get_num_threads() == threads_before
+    assert torch.are_deterministic_algorithms_enabled() is deterministic_before
+    assert torch.is_deterministic_algorithms_warn_only_enabled() is warn_only_before
 
 
 @pytest.mark.parametrize(

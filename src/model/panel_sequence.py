@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import contextmanager
 from dataclasses import dataclass
 from typing import Any, Mapping, Sequence
 
@@ -91,20 +92,21 @@ class _FittedTorchSequenceEstimator:
     validation_loss: float
 
     def predict(self, values: np.ndarray) -> np.ndarray:
-        torch, _ = _torch_modules()
-        model = _build_torch_model(
-            family=self.family,
-            input_width=self.input_width,
-            hidden_width=self.hidden_width,
-            temporal_layers=self.temporal_layers,
-            dropout=self.dropout,
-        )
-        model.load_state_dict(
-            {name: torch.as_tensor(value).clone() for name, value in self.state.items()}
-        )
-        model.eval()
-        with torch.no_grad():
-            prediction = model(torch.as_tensor(values, dtype=torch.float32))
+        with _isolated_torch_process_state(self.random_state):
+            torch, _ = _torch_modules()
+            model = _build_torch_model(
+                family=self.family,
+                input_width=self.input_width,
+                hidden_width=self.hidden_width,
+                temporal_layers=self.temporal_layers,
+                dropout=self.dropout,
+            )
+            model.load_state_dict(
+                {name: torch.as_tensor(value).clone() for name, value in self.state.items()}
+            )
+            model.eval()
+            with torch.no_grad():
+                prediction = model(torch.as_tensor(values, dtype=torch.float32))
         return prediction.detach().cpu().numpy().reshape(-1).astype("float64")
 
 
@@ -133,6 +135,7 @@ class FittedPanelSequencePolicy:
         segment: str = "inference",
     ) -> pd.DataFrame:
         raw = _coerce_feature_frame(features).reindex(columns=list(self.feature_columns))
+        _validate_datetime_index(raw.index, role=f"{segment} inference")
         intrinsic = pd.Series(
             np.isfinite(raw.to_numpy(dtype="float64")).all(axis=1), index=raw.index
         )
@@ -292,6 +295,45 @@ def _coerce_feature_frame(frame: pd.DataFrame) -> pd.DataFrame:
     return result.apply(pd.to_numeric, errors="coerce").astype("float64")
 
 
+def _validate_datetime_index(index: pd.Index, *, role: str) -> pd.DatetimeIndex:
+    if isinstance(index, pd.MultiIndex):
+        if "datetime" not in index.names:
+            raise ValueError(f"{role} index must include a datetime level")
+        values = index.get_level_values("datetime")
+    else:
+        values = index
+    if not isinstance(values, pd.DatetimeIndex) and not pd.api.types.is_datetime64_any_dtype(
+        values.dtype
+    ):
+        raise ValueError(f"{role} index must be a datetime index")
+    try:
+        datetimes = pd.DatetimeIndex(values)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{role} datetime index is invalid") from exc
+    if datetimes.hasnans:
+        raise ValueError(f"{role} datetime index must not contain missing values")
+    if not datetimes.is_unique:
+        raise ValueError(f"{role} datetime index must be unique")
+    if not datetimes.is_monotonic_increasing:
+        raise ValueError(f"{role} datetime index must be strictly increasing")
+    return datetimes
+
+
+def _require_ordered_non_overlapping_segments(
+    left: _SegmentData,
+    right: _SegmentData,
+    *,
+    left_name: str,
+    right_name: str,
+) -> None:
+    left_dates = _validate_datetime_index(left.features.index, role=left_name)
+    right_dates = _validate_datetime_index(right.features.index, role=right_name)
+    if left_dates[-1] >= right_dates[0]:
+        raise ValueError(
+            f"{left_name} and {right_name} must not overlap and {left_name} must precede {right_name}"
+        )
+
+
 def _prepare_learning_segment(dataset, segment: str, spec: PanelSequenceSpec) -> _SegmentData:
     from qlib.data.dataset.handler import DataHandlerLP
 
@@ -323,6 +365,7 @@ def _prepare_learning_segment(dataset, segment: str, spec: PanelSequenceSpec) ->
     quality = pd.Series(
         np.isfinite(features.to_numpy(dtype="float64")).all(axis=1), index=features.index
     )
+    _validate_datetime_index(features.index, role=segment)
     return _SegmentData(features, labels.astype("float64"), quality)
 
 
@@ -346,6 +389,7 @@ def _prepare_inference_segment(
     quality = pd.Series(
         np.isfinite(features.to_numpy(dtype="float64")).all(axis=1), index=features.index
     )
+    _validate_datetime_index(features.index, role=segment)
     return _SegmentData(features, pd.DataFrame(index=features.index), quality)
 
 
@@ -420,18 +464,37 @@ def _transform(
     return ((aligned - mean) / scale).fillna(0.0).astype("float64")
 
 
-def _set_deterministic_seed(seed: int) -> None:
+@contextmanager
+def _isolated_torch_process_state(seed: int):
     torch, _ = _torch_modules()
-    np.random.seed(int(seed))
-    torch.manual_seed(int(seed))
-    torch.set_num_threads(1)
+    numpy_state = np.random.get_state()
+    thread_count = torch.get_num_threads()
+    deterministic = torch.are_deterministic_algorithms_enabled()
+    warn_only = torch.is_deterministic_algorithms_warn_only_enabled()
     try:
-        torch.use_deterministic_algorithms(True)
-    except (AttributeError, RuntimeError):
-        pass
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(int(seed))
+            torch.set_num_threads(1)
+            torch.use_deterministic_algorithms(True)
+            yield
+    finally:
+        np.random.set_state(numpy_state)
+        torch.set_num_threads(thread_count)
+        torch.use_deterministic_algorithms(deterministic, warn_only=warn_only)
 
 
 def _fit_torch_candidate(
+    train: SequenceWindowBatch,
+    valid: SequenceWindowBatch,
+    *,
+    family: str,
+    spec: PanelSequenceSpec,
+) -> _FittedTorchSequenceEstimator:
+    with _isolated_torch_process_state(spec.random_state):
+        return _fit_torch_candidate_impl(train, valid, family=family, spec=spec)
+
+
+def _fit_torch_candidate_impl(
     train: SequenceWindowBatch,
     valid: SequenceWindowBatch,
     *,
@@ -450,7 +513,6 @@ def _fit_torch_candidate(
     valid_finite = np.isfinite(valid.values).all(axis=(1, 2)) & np.isfinite(valid.targets)
     if not train_finite.all() or not valid_finite.all():
         raise ValueError("sequence train and validation evidence must be finite")
-    _set_deterministic_seed(spec.random_state)
     model = _build_torch_model(
         family=family,
         input_width=train.values.shape[2],
@@ -539,6 +601,32 @@ def _quality_evidence(quality: pd.Series) -> dict[str, Any]:
             else None
         ),
         "reason_code": "invalid_required_data" if invalid.any() else "",
+    }
+
+
+def _label_completeness_evidence(
+    labels: pd.DataFrame,
+    *,
+    required_labels: Sequence[str],
+    purge_rows: int,
+) -> dict[str, Any]:
+    finite = pd.Series(
+        np.isfinite(labels.loc[:, list(required_labels)].to_numpy(dtype="float64")).all(
+            axis=1
+        ),
+        index=labels.index,
+    )
+    boundary_count = min(int(purge_rows), len(finite))
+    eligible_count = len(finite) - boundary_count
+    eligible = finite.iloc[:eligible_count]
+    boundary = finite.iloc[eligible_count:]
+    internal_invalid = int((~eligible).sum())
+    return {
+        "checked_observations": int(len(eligible)),
+        "boundary_excluded_rows": boundary_count,
+        "boundary_invalid_rows": int((~boundary).sum()),
+        "internal_invalid_rows": internal_invalid,
+        "labels_complete": internal_invalid == 0,
     }
 
 
@@ -714,6 +802,7 @@ def _pit_evidence(
     pit_panel: pd.DataFrame | None,
     *,
     qlib_indices: Sequence[pd.Index],
+    qlib_lineage: Mapping[str, Any] | None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     if pit_panel is None:
         evidence = {
@@ -727,6 +816,8 @@ def _pit_evidence(
                 "source": None,
                 "as_of": None,
                 "effective_date_field": None,
+                "provider_uri": None,
+                "manifest_hash": None,
             },
         }
         row = {
@@ -755,9 +846,30 @@ def _pit_evidence(
         "source": attrs.get("source"),
         "as_of": attrs.get("as_of"),
         "effective_date_field": attrs.get("effective_date_field"),
+        "provider_uri": attrs.get("provider_uri"),
+        "manifest_hash": attrs.get("manifest_hash"),
     }
     if not provenance["point_in_time_membership"]:
         errors.append("missing_point_in_time_provenance")
+    for field in (
+        "source",
+        "as_of",
+        "effective_date_field",
+        "provider_uri",
+        "manifest_hash",
+    ):
+        if not isinstance(provenance[field], str) or not provenance[field].strip():
+            errors.append(f"missing_provenance_{field}")
+    lineage = dict(qlib_lineage or {})
+    if not lineage:
+        errors.append("missing_qlib_lineage")
+    else:
+        for field in ("provider_uri", "manifest_hash"):
+            expected = lineage.get(field)
+            if not isinstance(expected, str) or not expected.strip():
+                errors.append(f"missing_qlib_lineage_{field}")
+            elif provenance[field] != expected:
+                errors.append(f"provenance_{field}_mismatch")
     index_valid = isinstance(pit_panel, pd.DataFrame) and isinstance(
         pit_panel.index, pd.MultiIndex
     )
@@ -812,6 +924,22 @@ def _pit_evidence(
             errors.append("invalid_datetime_values")
     if not pit_dates or not pit_dates.issubset(qlib_dates):
         errors.append("dates_not_aligned_to_qlib_segments")
+    effective_date_field = provenance["effective_date_field"]
+    if isinstance(effective_date_field, str) and effective_date_field.strip():
+        if effective_date_field not in pit_panel.columns and effective_date_field not in (
+            pit_panel.index.names if index_valid else ()
+        ):
+            errors.append("effective_date_field_not_found")
+    as_of = pd.NaT
+    if isinstance(provenance["as_of"], str) and provenance["as_of"].strip():
+        try:
+            as_of = pd.Timestamp(provenance["as_of"]).normalize()
+        except (TypeError, ValueError):
+            errors.append("invalid_provenance_as_of")
+    if not pd.isna(as_of) and pit_dates and as_of < max(pit_dates):
+        errors.append("provenance_as_of_precedes_panel")
+    if not pd.isna(as_of) and qlib_dates and as_of > max(qlib_dates):
+        errors.append("provenance_as_of_exceeds_qlib_data")
     valid = not errors
     status = "eligible" if valid else "blocked_missing_pit_panel"
     validation_status = (
@@ -828,6 +956,7 @@ def _pit_evidence(
         "validation_status": validation_status,
         "validation_errors": tuple(errors),
         "provenance": provenance,
+        "qlib_lineage": lineage,
     }
     row = {
         "candidate": "pit_cross_sectional_panel",
@@ -887,6 +1016,7 @@ def run_panel_sequence_models(
     spec: PanelSequenceSpec | None = None,
     data_quality_by_segment: Mapping[str, bool | pd.Series | Sequence[bool]] | None = None,
     pit_panel: pd.DataFrame | None = None,
+    qlib_lineage: Mapping[str, Any] | None = None,
 ) -> PanelSequenceResult:
     """Fit compact sequences, select on validation, then access test inference data."""
 
@@ -894,6 +1024,12 @@ def run_panel_sequence_models(
     external_quality = dict(data_quality_by_segment or {})
     train = _prepare_learning_segment(dataset, spec.train_segment, spec)
     valid = _prepare_learning_segment(dataset, spec.selection_segment, spec)
+    _require_ordered_non_overlapping_segments(
+        train,
+        valid,
+        left_name=spec.train_segment,
+        right_name=spec.selection_segment,
+    )
     if tuple(train.features.columns) != tuple(valid.features.columns):
         raise ValueError("train and validation feature columns must match")
     train_quality = _combine_quality(
@@ -908,28 +1044,25 @@ def run_panel_sequence_models(
     missing_required_source = not all(
         item["available"] for item in source_evidence.values()
     )
-    label_quality = {
-        spec.train_segment: pd.Series(
-            np.isfinite(
-                train.labels[
-                    [spec.return_label, spec.downside_label, spec.crash_label]
-                ].to_numpy(dtype="float64")
-            ).all(axis=1),
-            index=train.labels.index,
-        ),
-        spec.selection_segment: pd.Series(
-            np.isfinite(
-                valid.labels[
-                    [spec.return_label, spec.downside_label, spec.crash_label]
-                ].to_numpy(dtype="float64")
-            ).all(axis=1),
-            index=valid.labels.index,
-        ),
+    purge_rows = spec.label_horizon + 1
+    required_labels = (spec.return_label, spec.downside_label, spec.crash_label)
+    train_label_evidence = _label_completeness_evidence(
+        train.labels,
+        required_labels=required_labels,
+        purge_rows=purge_rows,
+    )
+    valid_label_evidence = _label_completeness_evidence(
+        valid.labels,
+        required_labels=required_labels,
+        purge_rows=purge_rows,
+    )
+    label_completeness_evidence = {
+        spec.train_segment: train_label_evidence,
+        spec.selection_segment: valid_label_evidence,
     }
     median, mean, scale = _fit_preprocessor(train.features)
     train_x = _transform(train.features, median, mean, scale)
     valid_x = _transform(valid.features, median, mean, scale)
-    purge_rows = spec.label_horizon + 1
     train_endpoints = train.features.index[:-purge_rows]
     valid_endpoints = valid.features.index[:-purge_rows]
     rows: list[dict[str, Any]] = []
@@ -944,7 +1077,10 @@ def run_panel_sequence_models(
         missing_required_source
         or not train_quality.all()
         or not valid_quality.all()
-        or not all(quality.all() for quality in label_quality.values())
+        or not all(
+            evidence["labels_complete"]
+            for evidence in label_completeness_evidence.values()
+        )
     ):
         backend_candidates: Sequence[tuple[str, int]] = ()
     else:
@@ -1048,12 +1184,8 @@ def run_panel_sequence_models(
             rows.append(_failure_row(candidate, exc))
 
     pre_quality_evidence = {
-        spec.train_segment: _quality_evidence(
-            train_quality & label_quality[spec.train_segment]
-        ),
-        spec.selection_segment: _quality_evidence(
-            valid_quality & label_quality[spec.selection_segment]
-        ),
+        spec.train_segment: _quality_evidence(train_quality),
+        spec.selection_segment: _quality_evidence(valid_quality),
     }
     policy: FittedPanelSequencePolicy | None = None
     selected_row: dict[str, Any] | None = None
@@ -1115,7 +1247,9 @@ def run_panel_sequence_models(
         frozen_reason = selected_candidate
     elif missing_required_source:
         frozen_reason = "blocked_missing_required_source"
-    elif any(item["invalid_count"] for item in pre_quality_evidence.values()):
+    elif any(item["invalid_count"] for item in pre_quality_evidence.values()) or not all(
+        item["labels_complete"] for item in label_completeness_evidence.values()
+    ):
         frozen_reason = "blocked_data_quality"
     elif rows and all(row["reason_code"] == "backend_unavailable" for row in rows):
         frozen_reason = "blocked_model_backend_unavailable"
@@ -1132,6 +1266,12 @@ def run_panel_sequence_models(
         spec.test_segment,
         frozen_decision=frozen_decision,
         event_trace=event_trace,
+    )
+    _require_ordered_non_overlapping_segments(
+        valid,
+        test,
+        left_name=spec.selection_segment,
+        right_name=spec.test_segment,
     )
     test_aligned = test.features.reindex(columns=train.features.columns)
     test_intrinsic_quality = pd.Series(
@@ -1158,6 +1298,7 @@ def run_panel_sequence_models(
     pit_mode, pit_row = _pit_evidence(
         pit_panel,
         qlib_indices=(train.features.index, valid.features.index, test.features.index),
+        qlib_lineage=qlib_lineage,
     )
     test_accessed_after_freeze = (
         event_trace.index("candidate_selection_frozen")
@@ -1222,6 +1363,7 @@ def run_panel_sequence_models(
                 "random_state": spec.random_state,
                 "source_evidence": source_evidence,
                 "data_quality_evidence": quality_evidence,
+                "label_completeness_evidence": label_completeness_evidence,
             },
             mode_evidence={
                 "diagnostic_multivariate": {
@@ -1252,6 +1394,9 @@ def run_panel_sequence_models(
             "detail": str(exc),
         }
     data_quality_blocked = any(item["invalid_count"] for item in quality_evidence.values())
+    data_quality_blocked = data_quality_blocked or not all(
+        item["labels_complete"] for item in label_completeness_evidence.values()
+    )
     failure_rows = pd.DataFrame([row for row in rows if row["status"] != "ok"])
     degraded = bool(failure_rows.shape[0])
     route_status = (
@@ -1312,6 +1457,7 @@ def run_panel_sequence_models(
                 spec.test_segment: "DataHandlerLP.DK_I",
             },
             "data_quality_evidence": quality_evidence,
+            "label_completeness_evidence": label_completeness_evidence,
             "source_evidence": source_evidence,
             "test_prediction_failure": test_prediction_failure,
             "frozen_policy": frozen_policy,
