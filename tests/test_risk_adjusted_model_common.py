@@ -119,6 +119,21 @@ def test_label_builder_rejects_overlap_hidden_inside_purged_segment_tails() -> N
         build_risk_adjusted_labels(returns, segments=segments)
 
 
+def test_label_builder_records_skipped_nonfinite_candidates_as_incomplete() -> None:
+    index = pd.bdate_range("2024-01-02", periods=24)
+    returns = pd.Series(np.linspace(-0.02, 0.02, len(index)), index=index)
+    returns.loc[index[4]] = np.nan
+    segments = (
+        SegmentWindow("train", index[0], index[11]),
+        SegmentWindow("valid", index[12], index[23]),
+    )
+
+    result = build_risk_adjusted_labels(returns, segments=segments)
+
+    assert result.skipped_invalid_rows == {"train": 5, "valid": 0}
+    assert result.labels_complete is False
+
+
 def test_soft_budget_respects_floor_cap_and_fails_closed_on_bad_data() -> None:
     scores = pd.Series([-100.0, 100.0, 100.0, np.nan], index=list("abcd"))
     positions = soft_budget_position(
@@ -221,26 +236,15 @@ def test_walk_forward_aggregate_rejects_summary_only_metrics() -> None:
 
 
 def test_promotion_requires_test_and_walk_forward_to_beat_every_shared_gate() -> None:
-    candidate_test = _metrics()
-    legacy_test = _metrics(
-        total_return=0.15,
-        max_drawdown=-0.20,
-        cvar_5pct=-0.04,
-        worst_five_day_mean=-0.05,
-        extreme_loss_day_count=2,
+    candidate_fold = compute_risk_metrics([0.0015] * 10, [0.40] * 10)
+    legacy_fold = compute_risk_metrics([0.001] * 9 + [0.01], [0.60] * 10)
+    candidate_test = compute_risk_metrics(
+        candidate_fold.daily_returns * 3,
+        candidate_fold.positions * 3,
     )
-    candidate_walk_forward = WalkForwardAggregate(_metrics(total_return=0.18, max_drawdown=-0.12), 2, 3)
-    legacy_walk_forward = WalkForwardAggregate(
-        _metrics(
-            total_return=0.22,
-            max_drawdown=-0.25,
-            cvar_5pct=-0.04,
-            worst_five_day_mean=-0.05,
-            extreme_loss_day_count=2,
-        ),
-        3,
-        3,
-    )
+    legacy_test = compute_risk_metrics(legacy_fold.daily_returns * 3, legacy_fold.positions * 3)
+    candidate_walk_forward = aggregate_walk_forward((candidate_fold, candidate_fold, candidate_fold))
+    legacy_walk_forward = aggregate_walk_forward((legacy_fold, legacy_fold, legacy_fold))
 
     result = evaluate_promotion(
         candidate_test,
@@ -248,12 +252,51 @@ def test_promotion_requires_test_and_walk_forward_to_beat_every_shared_gate() ->
         candidate_walk_forward,
         legacy_walk_forward,
         spec=RiskAdjustedGateSpec(max_total_turnover=20.0),
+        data_quality_valid=True,
+        label_leakage_free=True,
+        test_time_selection_free=True,
+        labels_complete=True,
     )
 
     assert result.promoted is True
     assert result.decision == "promoted_risk_adjusted_candidate"
     assert result.failed_checks == ()
     assert all(result.checks.values())
+
+
+def test_promotion_integrity_flags_default_to_fail_closed() -> None:
+    metrics = _metrics()
+    walk_forward = WalkForwardAggregate(metrics, 3, 3)
+
+    result = evaluate_promotion(metrics, metrics, walk_forward, walk_forward)
+
+    assert result.promoted is False
+    assert result.checks["data_quality_valid"] is False
+    assert result.checks["label_leakage_free"] is False
+    assert result.checks["test_time_selection_free"] is False
+    assert result.checks["labels_complete"] is False
+
+
+def test_promotion_integrity_flags_only_accept_literal_true() -> None:
+    metrics = _metrics()
+    walk_forward = WalkForwardAggregate(metrics, 3, 3)
+
+    result = evaluate_promotion(
+        metrics,
+        metrics,
+        walk_forward,
+        walk_forward,
+        data_quality_valid=np.nan,  # type: ignore[arg-type]
+        label_leakage_free=1,  # type: ignore[arg-type]
+        test_time_selection_free=np.bool_(True),  # type: ignore[arg-type]
+        labels_complete="true",  # type: ignore[arg-type]
+    )
+
+    assert result.promoted is False
+    assert result.checks["data_quality_valid"] is False
+    assert result.checks["label_leakage_free"] is False
+    assert result.checks["test_time_selection_free"] is False
+    assert result.checks["labels_complete"] is False
 
 
 def test_promotion_fails_closed_and_reports_every_failed_gate() -> None:
@@ -290,6 +333,10 @@ def test_promotion_fails_closed_and_reports_every_failed_gate() -> None:
         "label_leakage_free",
         "test_time_selection_free",
         "labels_complete",
+        "test_candidate_metrics_valid",
+        "test_legacy_metrics_valid",
+        "walk_forward_candidate_metrics_valid",
+        "walk_forward_legacy_metrics_valid",
         "test_max_drawdown",
         "test_participation",
         "test_zero_position_day_ratio",
@@ -340,3 +387,43 @@ def test_promotion_rejects_nonfinite_and_structurally_invalid_metrics() -> None:
     assert result.checks["walk_forward_legacy_metrics_valid"] is False
     assert result.checks["walk_forward_candidate_structure_valid"] is False
     assert result.checks["walk_forward_legacy_structure_valid"] is False
+
+
+@pytest.mark.parametrize(
+    ("field_name", "delta"),
+    [
+        ("total_return", 0.01),
+        ("max_drawdown", -0.01),
+        ("cvar_5pct", -0.01),
+        ("worst_five_day_mean", -0.01),
+        ("extreme_loss_day_count", 1),
+        ("avg_abs_position", 0.10),
+        ("zero_position_day_ratio", 0.10),
+        ("total_turnover", 0.10),
+        ("observations", 1),
+    ],
+)
+def test_promotion_recomputes_path_backed_metrics_before_accepting_them(
+    field_name: str,
+    delta: float | int,
+) -> None:
+    metrics = compute_risk_metrics(
+        [0.01, -0.01, 0.02, -0.02, 0.03, -0.03],
+        [0.20, 0.20, 0.00, 0.30, 0.30, 0.10],
+    )
+    tampered = replace(metrics, **{field_name: getattr(metrics, field_name) + delta})
+    walk_forward = aggregate_walk_forward((metrics, metrics, metrics))
+
+    result = evaluate_promotion(
+        tampered,
+        metrics,
+        walk_forward,
+        walk_forward,
+        data_quality_valid=True,
+        label_leakage_free=True,
+        test_time_selection_free=True,
+        labels_complete=True,
+    )
+
+    assert result.promoted is False
+    assert result.checks["test_candidate_metrics_valid"] is False

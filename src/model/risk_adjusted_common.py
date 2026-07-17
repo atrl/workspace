@@ -36,6 +36,11 @@ class RiskAdjustedLabels:
     horizon: int
     purge_rows: int
     purged_boundary_rows: Mapping[str, int]
+    skipped_invalid_rows: Mapping[str, int]
+
+    @property
+    def labels_complete(self) -> bool:
+        return all(count == 0 for count in self.skipped_invalid_rows.values())
 
 
 @dataclass(frozen=True)
@@ -51,6 +56,7 @@ class RiskMetrics:
     observations: int
     daily_returns: tuple[float, ...] = field(default=(), repr=False, compare=False)
     positions: tuple[float, ...] = field(default=(), repr=False, compare=False)
+    extreme_loss_threshold: float = field(default=-0.08, repr=False, compare=False)
 
     @property
     def return_to_drawdown(self) -> float:
@@ -151,14 +157,17 @@ def build_risk_adjusted_labels(
     rows: list[dict[str, object]] = []
     seen_dates: set[object] = set()
     purged: dict[str, int] = {}
+    skipped_invalid: dict[str, int] = {}
     for window in windows:
         segment_returns = returns.loc[window.start : window.end]
         purged[window.name] = min(len(segment_returns), horizon + 1)
+        skipped_invalid[window.name] = 0
         eligible = purge_segment_tail(segment_returns, horizon=horizon)
         for offset, decision_date in enumerate(eligible.index):
             future = segment_returns.iloc[offset : offset + horizon]
             values = future.to_numpy(dtype="float64")
             if len(values) != horizon or not np.isfinite(values).all():
+                skipped_invalid[window.name] += 1
                 continue
             if decision_date in seen_dates:
                 raise ValueError("segments must not overlap")
@@ -191,6 +200,7 @@ def build_risk_adjusted_labels(
         horizon=horizon,
         purge_rows=horizon + 1,
         purged_boundary_rows=MappingProxyType(purged),
+        skipped_invalid_rows=MappingProxyType(skipped_invalid),
     )
 
 
@@ -276,6 +286,7 @@ def compute_risk_metrics(
         observations=int(len(returns)),
         daily_returns=tuple(float(value) for value in returns),
         positions=tuple(float(value) for value in position),
+        extreme_loss_threshold=float(extreme_loss_threshold),
     )
 
 
@@ -309,6 +320,7 @@ def _risk_metrics_are_valid(metrics: RiskMetrics) -> bool:
         metrics.avg_abs_position,
         metrics.zero_position_day_ratio,
         metrics.total_turnover,
+        metrics.extreme_loss_threshold,
     )
     if not all(np.isfinite(float(value)) for value in scalar_values):
         return False
@@ -338,18 +350,44 @@ def _risk_metrics_are_valid(metrics: RiskMetrics) -> bool:
         return False
     has_returns = bool(metrics.daily_returns)
     has_positions = bool(metrics.positions)
-    if has_returns != has_positions:
+    if not has_returns or not has_positions:
         return False
-    if has_returns:
-        if len(metrics.daily_returns) != metrics.observations or len(metrics.positions) != metrics.observations:
-            return False
-        returns = np.asarray(metrics.daily_returns, dtype="float64")
-        positions = np.asarray(metrics.positions, dtype="float64")
-        if not np.isfinite(returns).all() or not np.isfinite(positions).all():
-            return False
-        if (returns <= -1.0).any() or (np.abs(positions) > 1.0).any():
-            return False
-    return True
+    if len(metrics.daily_returns) != metrics.observations or len(metrics.positions) != metrics.observations:
+        return False
+    returns = np.asarray(metrics.daily_returns, dtype="float64")
+    positions = np.asarray(metrics.positions, dtype="float64")
+    if not np.isfinite(returns).all() or not np.isfinite(positions).all():
+        return False
+    if (returns <= -1.0).any() or (np.abs(positions) > 1.0).any():
+        return False
+    recomputed = compute_risk_metrics(
+        metrics.daily_returns,
+        metrics.positions,
+        extreme_loss_threshold=metrics.extreme_loss_threshold,
+    )
+    float_fields = (
+        "total_return",
+        "max_drawdown",
+        "cvar_5pct",
+        "worst_five_day_mean",
+        "avg_abs_position",
+        "zero_position_day_ratio",
+        "total_turnover",
+    )
+    if not all(
+        np.isclose(
+            float(getattr(metrics, name)),
+            float(getattr(recomputed, name)),
+            rtol=1e-9,
+            atol=1e-12,
+        )
+        for name in float_fields
+    ):
+        return False
+    return (
+        metrics.extreme_loss_day_count == recomputed.extreme_loss_day_count
+        and metrics.observations == recomputed.observations
+    )
 
 
 def _walk_forward_structure_is_valid(aggregate: WalkForwardAggregate) -> bool:
@@ -371,18 +409,18 @@ def evaluate_promotion(
     legacy_walk_forward: WalkForwardAggregate,
     *,
     spec: RiskAdjustedGateSpec = RiskAdjustedGateSpec(),
-    data_quality_valid: bool = True,
-    label_leakage_free: bool = True,
-    test_time_selection_free: bool = True,
-    labels_complete: bool = True,
+    data_quality_valid: bool | None = None,
+    label_leakage_free: bool | None = None,
+    test_time_selection_free: bool | None = None,
+    labels_complete: bool | None = None,
 ) -> PromotionEvaluation:
     """Evaluate every untouched-test and walk-forward promotion requirement."""
 
     checks: dict[str, bool] = {
-        "data_quality_valid": bool(data_quality_valid),
-        "label_leakage_free": bool(label_leakage_free),
-        "test_time_selection_free": bool(test_time_selection_free),
-        "labels_complete": bool(labels_complete),
+        "data_quality_valid": data_quality_valid is True,
+        "label_leakage_free": label_leakage_free is True,
+        "test_time_selection_free": test_time_selection_free is True,
+        "labels_complete": labels_complete is True,
         "test_candidate_metrics_valid": _risk_metrics_are_valid(candidate_test),
         "test_legacy_metrics_valid": _risk_metrics_are_valid(legacy_test),
         "walk_forward_candidate_metrics_valid": _risk_metrics_are_valid(candidate_walk_forward.metrics),
