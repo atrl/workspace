@@ -1,0 +1,296 @@
+{
+  "artifact_policy": {
+    "kept_sidecars": [
+      "backtest_benchmark_comparison.csv",
+      "backtest_walk_forward_metrics.csv",
+      "model_selection.csv",
+      "regime_metrics.csv",
+      "risk_analysis.csv",
+      "selected_model.json",
+      "window_metrics.csv"
+    ],
+    "machine_entrypoint": "summary.json",
+    "policy": "slim_card_recorder_first",
+    "primary_artifact": "soxl_tail_budget_v1.ipynb",
+    "recorder_only_artifacts": {
+      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+      "labels": "artifacts/label.pkl",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+    },
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-02",
+  "benchmark": {
+    "end": "2026-06-24",
+    "matched_window": true,
+    "name": "legacy_soxl_backtest",
+    "source": "soxl_backtest.reference.replay_soxlbacktest_reference",
+    "start": "2024-01-02"
+  },
+  "blocked_modes": {},
+  "data_lineage": {
+    "calendar_end": "2026-07-02",
+    "calendar_start": "2010-03-11",
+    "feature_count": 19,
+    "feature_rows": 3065,
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close",
+      "$volume",
+      "$vix"
+    ],
+    "instruments": [
+      "SOXL",
+      "SOXX"
+    ],
+    "manifest_as_of": "2026-07-02",
+    "manifest_hash": "e6bb1fee60429e99",
+    "provider_uri": "data/qlib/soxl",
+    "source": "qlib.data.D.features"
+  },
+  "data_range": [
+    "2014-01-02",
+    "2026-07-02"
+  ],
+  "experiment": "soxl_tail_budget_v1",
+  "label_contract": {
+    "decision_time": "after close_t",
+    "entry_time": "next session open",
+    "future_crash_5d": "train tenth percentile or daily next-open return <= -8%",
+    "future_downside_5d": "negative part of future_return_5d",
+    "future_return_5d": "five compounded next-open daily returns",
+    "horizon": 5,
+    "purge_rows": 6
+  },
+  "label_evidence": {
+    "purged_boundary_rows": {
+      "test": 6,
+      "train": 6,
+      "valid": 6
+    },
+    "skipped_invalid_rows": {
+      "test": 0,
+      "train": 0,
+      "valid": 0
+    },
+    "train_crash_threshold": -0.11486519682942371
+  },
+  "market": "all",
+  "metrics": {
+    "test": {
+      "candidate": {
+        "avg_abs_position": 0.3097459444375352,
+        "cvar_5pct": -0.04776774647656164,
+        "extreme_loss_day_count": 0,
+        "extreme_loss_threshold": -0.08,
+        "max_drawdown": -0.42779797458361013,
+        "observations": 621,
+        "return_to_drawdown": 3.968378969950273,
+        "total_return": 1.69766448572492,
+        "total_turnover": 12.4954824149256,
+        "worst_five_day_mean": -0.06834660027050923,
+        "zero_position_day_ratio": 0.0
+      },
+      "legacy": {
+        "avg_abs_position": 0.3827958132045089,
+        "cvar_5pct": -0.0793976527611506,
+        "extreme_loss_day_count": 11,
+        "extreme_loss_threshold": -0.08,
+        "max_drawdown": -0.5397123929946303,
+        "observations": 621,
+        "return_to_drawdown": 4.3703872235769525,
+        "total_return": 2.3587521467498753,
+        "total_turnover": 3.3318000000000003,
+        "worst_five_day_mean": -0.1397287828833781,
+        "zero_position_day_ratio": 0.12077294685990338
+      }
+    },
+    "walk_forward": {
+      "candidate": {
+        "avg_abs_position": 0.3097459444375352,
+        "cvar_5pct": -0.04776774647656164,
+        "extreme_loss_day_count": 0,
+        "extreme_loss_threshold": -0.08,
+        "max_drawdown": -0.42779797458361013,
+        "observations": 621,
+        "return_to_drawdown": 3.968378969950273,
+        "total_return": 1.69766448572492,
+        "total_turnover": 12.4954824149256,
+        "worst_five_day_mean": -0.06834660027050923,
+        "zero_position_day_ratio": 0.0
+      },
+      "candidate_positive_folds": 3,
+      "fold_count": 3,
+      "legacy": {
+        "avg_abs_position": 0.3827958132045089,
+        "cvar_5pct": -0.0793976527611506,
+        "extreme_loss_day_count": 11,
+        "extreme_loss_threshold": -0.08,
+        "max_drawdown": -0.5397123929946303,
+        "observations": 621,
+        "return_to_drawdown": 4.3703872235769525,
+        "total_return": 2.3587521467498753,
+        "total_turnover": 3.3318000000000003,
+        "worst_five_day_mean": -0.1397287828833781,
+        "zero_position_day_ratio": 0.12077294685990338
+      },
+      "method": "frozen_policy_chronological_three_fold_diagnostic"
+    }
+  },
+  "promotion": {
+    "checks": {
+      "candidate_walk_forward_fold_count": true,
+      "data_quality_valid": true,
+      "label_leakage_free": true,
+      "labels_complete": true,
+      "legacy_walk_forward_fold_count": true,
+      "nested_walk_forward": false,
+      "test_candidate_metrics_valid": true,
+      "test_cvar_5pct": true,
+      "test_extreme_loss_day_count": true,
+      "test_extreme_loss_threshold_comparable": true,
+      "test_legacy_metrics_valid": true,
+      "test_max_drawdown": false,
+      "test_observation_count_matched": true,
+      "test_participation": true,
+      "test_positive_return_capture": true,
+      "test_return_to_drawdown": false,
+      "test_time_selection_free": true,
+      "test_total_turnover": true,
+      "test_worst_five_day_mean": true,
+      "test_zero_position_day_ratio": true,
+      "walk_forward_candidate_metrics_valid": true,
+      "walk_forward_candidate_structure_valid": true,
+      "walk_forward_cvar_5pct": true,
+      "walk_forward_extreme_loss_day_count": true,
+      "walk_forward_extreme_loss_threshold_comparable": true,
+      "walk_forward_fold_counts_matched": true,
+      "walk_forward_legacy_metrics_valid": true,
+      "walk_forward_legacy_structure_valid": true,
+      "walk_forward_max_drawdown": false,
+      "walk_forward_observation_count_matched": true,
+      "walk_forward_participation": true,
+      "walk_forward_positive_folds": true,
+      "walk_forward_positive_return_capture": true,
+      "walk_forward_return_to_drawdown": false,
+      "walk_forward_total_turnover": true,
+      "walk_forward_worst_five_day_mean": true,
+      "walk_forward_zero_position_day_ratio": true
+    },
+    "decision": "not_promoted_failed_risk_adjusted_gates",
+    "failed_checks": [
+      "test_max_drawdown",
+      "test_return_to_drawdown",
+      "walk_forward_max_drawdown",
+      "walk_forward_return_to_drawdown",
+      "nested_walk_forward"
+    ],
+    "promoted": false
+  },
+  "provider_uri": "data/qlib/soxl",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "dataset": "https://qlib.readthedocs.io/en/latest/component/data.html#data-handler",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R.start",
+    "qlib.workflow.Recorder.save_objects"
+  ],
+  "recorder_artifacts": [
+    "artifacts/evidence/selection_evidence.pkl",
+    "artifacts/label.pkl",
+    "artifacts/model/fitted_policy.pkl",
+    "artifacts/model_selection/all_model_predictions.csv",
+    "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+    "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+    "artifacts/portfolio_analysis/report_normal_1day.pkl",
+    "artifacts/pred.pkl",
+    "meta.yaml",
+    "metrics/candidate_test_avg_abs_position",
+    "metrics/candidate_test_max_drawdown",
+    "metrics/candidate_test_return",
+    "metrics/legacy_test_return",
+    "params/as_of",
+    "params/cmd-sys.argv",
+    "params/label_horizon",
+    "params/provider_uri",
+    "params/purge_rows",
+    "params/route",
+    "params/selected_candidate",
+    "params/selection_segment",
+    "params/test_labels_used_for_selection",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "8295a8f75db94e059624defd0109636d",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/170464538437232873/8295a8f75db94e059624defd0109636d",
+  "recorder_uri": "../.qlib-recorders/soxl-risk-adjusted-frontier-v1",
+  "region": "us",
+  "route": "tail_budget",
+  "route_status": "ok",
+  "segments": {
+    "test": [
+      "2024-01-02",
+      "2026-06-24"
+    ],
+    "train": [
+      "2014-03-31",
+      "2021-12-22"
+    ],
+    "valid": [
+      "2022-01-03",
+      "2023-12-20"
+    ]
+  },
+  "selected_candidate": "validation_selected_individual",
+  "selection_evidence": {
+    "calibration_fit_segment": "train",
+    "data_quality_failures_by_segment": {
+      "test": {
+        "first_offending_date": null,
+        "invalid_count": 0,
+        "reason_code": ""
+      },
+      "train": {
+        "first_offending_date": null,
+        "invalid_count": 0,
+        "reason_code": ""
+      },
+      "valid": {
+        "first_offending_date": null,
+        "invalid_count": 0,
+        "reason_code": ""
+      }
+    },
+    "preprocessing_fit_segment": "train",
+    "route_status": "ok",
+    "selected_validation_utility": 0.027009799458327426,
+    "selection_segment": "valid",
+    "test_accessed_after_freeze": true,
+    "test_labels_used_for_selection": false,
+    "test_prediction_failure": null
+  },
+  "selection_frozen_before_test": true,
+  "sidecars": {
+    "benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "model_selection": "model_selection.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json",
+    "walk_forward_metrics": "backtest_walk_forward_metrics.csv",
+    "window_metrics": "window_metrics.csv"
+  },
+  "test_labels_used_for_selection": false
+}

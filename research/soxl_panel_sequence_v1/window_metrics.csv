@@ -1,0 +1,8 @@
+candidate,model,family,window,status,validation_score,validation_loss,best_epoch,floor,cap,selected,reason_code,failure_type,detail
+tcn_w20,tcn_w20,tcn,20.0,ok,0.04797525529076019,0.020889636129140854,3.0,0.15,0.75,False,,,
+tcn_w60,tcn_w60,tcn,60.0,ok,0.023754353460900594,0.021470781415700912,2.0,0.2,0.75,False,,,
+gru_alstm_w20,gru_alstm_w20,gru_alstm,20.0,ok,0.13056434986748072,0.020423632115125656,3.0,0.15,0.75,True,,,
+gru_alstm_w60,gru_alstm_w60,gru_alstm,60.0,ok,0.02881768671697993,0.02218974381685257,4.0,0.15,0.75,False,,,
+transformer_w20,transformer_w20,transformer,20.0,ok,0.01224051028276344,0.021490518003702164,2.0,0.2,0.75,False,,,
+transformer_w60,transformer_w60,transformer,60.0,ok,0.016171385896157554,0.02191312424838543,3.0,0.2,0.75,False,,,
+pit_cross_sectional_panel,pit_cross_sectional_panel,constituent_cross_sectional,,blocked,,,,,,False,blocked_missing_pit_panel,MissingPointInTimePanel,point-in-time constituent membership and aligned features are required

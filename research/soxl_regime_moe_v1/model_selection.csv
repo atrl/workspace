@@ -1,0 +1,6 @@
+candidate,model,role,status,validation_score,selected,reason_code,failure_type,detail
+validation_selected_regime_moe,validation_selected_regime_moe,allocation_policy,ok,0.1397735192542751,True,,,
+multinomial_soft_gate,multinomial_soft_gate,regime_gate,ok,,False,,,
+reversal_catboost_expert,reversal_catboost_expert,reversal_expert,ok,,False,,,
+stress_downside_expert,stress_downside_expert,stress_expert,ok,,False,,,
+trend_ridge_expert,trend_ridge_expert,trend_expert,ok,,False,,,

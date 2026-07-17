@@ -1,0 +1,24 @@
+experiment: soxl_tail_budget_v1
+route: tail_budget
+qlib:
+  provider_uri: data/qlib/soxl
+  recorder_uri: ../.qlib-recorders/soxl-risk-adjusted-frontier-v1
+  market: all
+  region: us
+segments:
+  train:
+    start: 2014-03-31
+    end: 2021-12-22
+  valid:
+    start: 2022-01-03
+    end: 2023-12-20
+  test:
+    start: 2024-01-02
+    end: 2026-06-24
+model_selection:
+  segment: valid
+  test_reselection: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json
+  workflow_config: workflow.yaml

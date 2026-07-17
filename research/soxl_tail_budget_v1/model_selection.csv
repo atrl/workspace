@@ -1,0 +1,10 @@
+candidate,model,role,status,validation_score,selected,reason_code,failure_type,detail,segment,first_offending_date,blend_weight,floor,cap
+validation_selected_individual,validation_selected_individual,allocation_policy,ok,0.027009799458327426,True,,,,,,,0.2,0.75
+validation_selected_blend,validation_selected_blend,allocation_policy_blend,ok,0.02677390217438483,False,,,,,,,0.2,0.75
+catboost_crash,catboost_crash,crash_probability,ok,0.027009799458327426,False,,,,,,,,
+catboost_downside,catboost_downside,downside_budget,ok,0.027009799458327426,False,,,,,,,,
+qlib_densemble_downside,qlib_densemble_downside,downside_budget,ok,0.024679603162660397,False,,,,,,,,
+validation_blend_downside,validation_blend_downside,downside_budget_blend,ok,0.02677390217438483,False,,,,,,0.75,0.2,0.75
+lightgbm_expected,lightgbm_expected,expected_return,ok,0.027009799458327426,False,,,,,,,,
+ridge_expected,ridge_expected,expected_return,ok,0.02447380529814011,False,,,,,,,,
+validation_blend_expected,validation_blend_expected,expected_return_blend,ok,0.025724916320584698,False,,,,,,0.25,0.2,0.75

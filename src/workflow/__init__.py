@@ -11,6 +11,12 @@ from .agentic_alpha import (
     load_agentic_alpha_backtest_metric,
 )
 from .qlib_native import QlibNativeExperimentResult, QlibNativeExperimentSpec, run_qlib_native_experiment
+from .soxl_risk_adjusted_frontier import (
+    RiskAdjustedRouteCardSpec,
+    compare_frozen_route_summaries,
+    run_risk_adjusted_frontier_card,
+    run_risk_adjusted_route_card,
+)
 
 __all__ = [
     "AgenticAlphaBacktestMetric",
@@ -48,6 +54,7 @@ __all__ = [
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
     "RiskHardenedOpen2OpenCardSpec",
+    "RiskAdjustedRouteCardSpec",
     "SoxxConstituentAlphaAttributionSpec",
     "TrainableRegimePolicyNestedWfSpec",
     "build_agentic_alpha_hypotheses",
@@ -81,6 +88,9 @@ __all__ = [
     "run_cognitive_alpha_evolution",
     "run_qlib_native_experiment",
     "run_risk_hardened_open2open_card",
+    "compare_frozen_route_summaries",
+    "run_risk_adjusted_frontier_card",
+    "run_risk_adjusted_route_card",
     "run_soxx_constituent_alpha_attribution_card",
     "run_trainable_regime_policy_nested_wf_card",
 ]

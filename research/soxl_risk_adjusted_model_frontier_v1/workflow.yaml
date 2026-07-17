@@ -1,0 +1,12 @@
+experiment: soxl_risk_adjusted_model_frontier_v1
+route: frontier
+qlib:
+  provider_uri: data/qlib/soxl
+  recorder_uri: ../.qlib-recorders/soxl-risk-adjusted-frontier-v1
+model_selection:
+  source: frozen_route_summaries
+  test_reselection: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  machine_entrypoint: summary.json
+  workflow_config: workflow.yaml

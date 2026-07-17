@@ -1,0 +1,8 @@
+{
+  "cap": 0.75,
+  "floor": 0.2,
+  "selected_candidate": "validation_selected_individual",
+  "selection_frozen_before_test": true,
+  "selection_segment": "valid",
+  "test_labels_used_for_selection": false
+}
