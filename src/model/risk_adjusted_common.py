@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from types import MappingProxyType
 from typing import Mapping, Sequence
 
@@ -49,6 +49,8 @@ class RiskMetrics:
     zero_position_day_ratio: float
     total_turnover: float
     observations: int
+    daily_returns: tuple[float, ...] = field(default=(), repr=False, compare=False)
+    positions: tuple[float, ...] = field(default=(), repr=False, compare=False)
 
     @property
     def return_to_drawdown(self) -> float:
@@ -142,6 +144,9 @@ def build_risk_adjusted_labels(
         raise ValueError("segment names must be unique")
     if train_segment not in names:
         raise ValueError(f"train segment is missing: {train_segment}")
+    ordered_windows = sorted(windows, key=lambda window: window.start)
+    if any(right.start <= left.end for left, right in zip(ordered_windows, ordered_windows[1:])):
+        raise ValueError("segments must not overlap")
 
     rows: list[dict[str, object]] = []
     seen_dates: set[object] = set()
@@ -219,11 +224,11 @@ def soft_budget_position(
             return np.full(len(index), value, dtype=dtype)
         return np.asarray(value, dtype=dtype)
 
-    mu, tail, crash, valid = np.broadcast_arrays(
+    mu, tail, crash, quality = np.broadcast_arrays(
         values(mu_score, dtype="float64"),
         values(tail_score, dtype="float64"),
         values(crash_probability, dtype="float64"),
-        values(data_quality_valid, dtype="bool"),
+        values(data_quality_valid, dtype="float64"),
     )
     sigmoid = np.empty_like(mu, dtype="float64")
     non_negative = mu >= 0.0
@@ -233,6 +238,7 @@ def soft_budget_position(
     risk_multiplier = np.clip(1.0 - crash - 0.5 * tail, 0.0, 1.0)
     position = np.clip(floor + (cap - floor) * sigmoid * risk_multiplier, floor, cap)
     finite = np.isfinite(mu) & np.isfinite(tail) & np.isfinite(crash) & np.isfinite(position)
+    valid = np.isfinite(quality) & (quality == 1.0)
     position = np.where(valid & finite, position, 0.0)
     if index is not None:
         return pd.Series(position, index=index, dtype="float64", name="target_position")
@@ -255,11 +261,11 @@ def compute_risk_metrics(
         raise ValueError("daily_returns and positions must have the same non-zero length")
     if not np.isfinite(returns.to_numpy()).all() or not np.isfinite(position.to_numpy()).all():
         raise ValueError("daily_returns and positions must be finite")
-    cumulative_return = returns.cumsum()
-    drawdown = cumulative_return - cumulative_return.cummax()
+    nav = pd.Series(np.r_[1.0, (1.0 + returns.to_numpy()).cumprod()])
+    drawdown = nav / nav.cummax() - 1.0
     tail_count = max(1, int(np.ceil(len(returns) * 0.05)))
     return RiskMetrics(
-        total_return=float(returns.sum()),
+        total_return=float(nav.iloc[-1] - 1.0),
         max_drawdown=float(drawdown.min()),
         cvar_5pct=float(returns.nsmallest(tail_count).mean()),
         worst_five_day_mean=float(returns.nsmallest(min(5, len(returns))).mean()),
@@ -268,6 +274,8 @@ def compute_risk_metrics(
         zero_position_day_ratio=float(position.abs().le(1e-12).mean()),
         total_turnover=float(position.diff().abs().fillna(position.abs()).sum()),
         observations=int(len(returns)),
+        daily_returns=tuple(float(value) for value in returns),
+        positions=tuple(float(value) for value in position),
     )
 
 
@@ -277,29 +285,83 @@ def aggregate_walk_forward(folds: Sequence[RiskMetrics]) -> WalkForwardAggregate
     metrics = tuple(folds)
     if not metrics:
         raise ValueError("at least one walk-forward fold is required")
-    observations = sum(item.observations for item in metrics)
-    if observations <= 0:
-        raise ValueError("walk-forward folds must contain observations")
-
-    def weighted(field: str) -> float:
-        return float(sum(getattr(item, field) * item.observations for item in metrics) / observations)
-
-    aggregate = RiskMetrics(
-        total_return=float(sum(item.total_return for item in metrics)),
-        max_drawdown=float(min(item.max_drawdown for item in metrics)),
-        cvar_5pct=weighted("cvar_5pct"),
-        worst_five_day_mean=weighted("worst_five_day_mean"),
-        extreme_loss_day_count=sum(item.extreme_loss_day_count for item in metrics),
-        avg_abs_position=weighted("avg_abs_position"),
-        zero_position_day_ratio=weighted("zero_position_day_ratio"),
-        total_turnover=float(sum(item.total_turnover for item in metrics)),
-        observations=observations,
-    )
+    if any(
+        len(item.daily_returns) != item.observations or len(item.positions) != item.observations
+        for item in metrics
+    ):
+        raise ValueError("walk-forward metrics must include daily return and position paths")
+    combined_returns = tuple(value for item in metrics for value in item.daily_returns)
+    combined_positions = tuple(value for item in metrics for value in item.positions)
+    aggregate = compute_risk_metrics(combined_returns, combined_positions)
     return WalkForwardAggregate(
         metrics=aggregate,
         positive_return_folds=sum(item.total_return > 0.0 for item in metrics),
         fold_count=len(metrics),
     )
+
+
+def _risk_metrics_are_valid(metrics: RiskMetrics) -> bool:
+    scalar_values = (
+        metrics.total_return,
+        metrics.max_drawdown,
+        metrics.cvar_5pct,
+        metrics.worst_five_day_mean,
+        metrics.avg_abs_position,
+        metrics.zero_position_day_ratio,
+        metrics.total_turnover,
+    )
+    if not all(np.isfinite(float(value)) for value in scalar_values):
+        return False
+    integer_types = (int, np.integer)
+    if isinstance(metrics.observations, bool) or not isinstance(metrics.observations, integer_types):
+        return False
+    if isinstance(metrics.extreme_loss_day_count, bool) or not isinstance(
+        metrics.extreme_loss_day_count,
+        integer_types,
+    ):
+        return False
+    if metrics.observations <= 0:
+        return False
+    if not 0 <= metrics.extreme_loss_day_count <= metrics.observations:
+        return False
+    if not -1.0 <= metrics.total_return:
+        return False
+    if not -1.0 <= metrics.max_drawdown <= 0.0:
+        return False
+    if not -1.0 <= metrics.cvar_5pct or not -1.0 <= metrics.worst_five_day_mean:
+        return False
+    if not 0.0 <= metrics.avg_abs_position <= 1.0:
+        return False
+    if not 0.0 <= metrics.zero_position_day_ratio <= 1.0:
+        return False
+    if metrics.total_turnover < 0.0:
+        return False
+    has_returns = bool(metrics.daily_returns)
+    has_positions = bool(metrics.positions)
+    if has_returns != has_positions:
+        return False
+    if has_returns:
+        if len(metrics.daily_returns) != metrics.observations or len(metrics.positions) != metrics.observations:
+            return False
+        returns = np.asarray(metrics.daily_returns, dtype="float64")
+        positions = np.asarray(metrics.positions, dtype="float64")
+        if not np.isfinite(returns).all() or not np.isfinite(positions).all():
+            return False
+        if (returns <= -1.0).any() or (np.abs(positions) > 1.0).any():
+            return False
+    return True
+
+
+def _walk_forward_structure_is_valid(aggregate: WalkForwardAggregate) -> bool:
+    integer_types = (int, np.integer)
+    if isinstance(aggregate.fold_count, bool) or not isinstance(aggregate.fold_count, integer_types):
+        return False
+    if isinstance(aggregate.positive_return_folds, bool) or not isinstance(
+        aggregate.positive_return_folds,
+        integer_types,
+    ):
+        return False
+    return aggregate.fold_count > 0 and 0 <= aggregate.positive_return_folds <= aggregate.fold_count
 
 
 def evaluate_promotion(
@@ -321,6 +383,12 @@ def evaluate_promotion(
         "label_leakage_free": bool(label_leakage_free),
         "test_time_selection_free": bool(test_time_selection_free),
         "labels_complete": bool(labels_complete),
+        "test_candidate_metrics_valid": _risk_metrics_are_valid(candidate_test),
+        "test_legacy_metrics_valid": _risk_metrics_are_valid(legacy_test),
+        "walk_forward_candidate_metrics_valid": _risk_metrics_are_valid(candidate_walk_forward.metrics),
+        "walk_forward_legacy_metrics_valid": _risk_metrics_are_valid(legacy_walk_forward.metrics),
+        "walk_forward_candidate_structure_valid": _walk_forward_structure_is_valid(candidate_walk_forward),
+        "walk_forward_legacy_structure_valid": _walk_forward_structure_is_valid(legacy_walk_forward),
         "walk_forward_fold_count": candidate_walk_forward.fold_count == spec.expected_walk_forward_folds,
     }
 

@@ -107,6 +107,18 @@ def test_label_at_a_decision_is_invariant_to_returns_after_its_horizon() -> None
     pd.testing.assert_series_equal(original.labels.loc[index[0], columns], perturbed.labels.loc[index[0], columns])
 
 
+def test_label_builder_rejects_overlap_hidden_inside_purged_segment_tails() -> None:
+    index = pd.bdate_range("2024-01-02", periods=18)
+    returns = pd.Series(np.linspace(-0.02, 0.02, len(index)), index=index)
+    segments = (
+        SegmentWindow("train", index[0], index[11]),
+        SegmentWindow("valid", index[6], index[17]),
+    )
+
+    with pytest.raises(ValueError, match="segments must not overlap"):
+        build_risk_adjusted_labels(returns, segments=segments)
+
+
 def test_soft_budget_respects_floor_cap_and_fails_closed_on_bad_data() -> None:
     scores = pd.Series([-100.0, 100.0, 100.0, np.nan], index=list("abcd"))
     positions = soft_budget_position(
@@ -127,15 +139,27 @@ def test_soft_budget_respects_floor_cap_and_fails_closed_on_bad_data() -> None:
         soft_budget_position(0.0, 0.0, 0.0, data_quality_valid=True, floor=0.75, cap=0.15)
 
 
+def test_soft_budget_treats_nonfinite_data_quality_as_invalid() -> None:
+    positions = soft_budget_position(
+        pd.Series([100.0, 100.0]),
+        pd.Series([0.0, 0.0]),
+        pd.Series([0.0, 0.0]),
+        data_quality_valid=pd.Series([True, np.nan]),
+    )
+
+    assert positions.tolist() == pytest.approx([0.75, 0.0])
+    assert soft_budget_position(100.0, 0.0, 0.0, data_quality_valid=np.nan) == 0.0
+
+
 def test_risk_metrics_cover_drawdown_tail_participation_and_turnover() -> None:
     returns = pd.Series([0.10, -0.10, -0.20, 0.05, 0.02, -0.01])
     positions = pd.Series([0.50, 0.50, 0.00, 0.25, -0.25, -0.25])
 
     metrics = compute_risk_metrics(returns, positions)
 
-    cumulative_return = returns.cumsum()
-    assert metrics.total_return == pytest.approx(float(returns.sum()))
-    assert metrics.max_drawdown == pytest.approx(float((cumulative_return - cumulative_return.cummax()).min()))
+    nav = pd.Series([1.0, *(1.0 + returns).cumprod().tolist()])
+    assert metrics.total_return == pytest.approx(float(nav.iloc[-1] - 1.0))
+    assert metrics.max_drawdown == pytest.approx(float((nav / nav.cummax() - 1.0).min()))
     assert metrics.cvar_5pct == pytest.approx(-0.20)
     assert metrics.worst_five_day_mean == pytest.approx(float(returns.nsmallest(5).mean()))
     assert metrics.extreme_loss_day_count == 2
@@ -146,27 +170,34 @@ def test_risk_metrics_cover_drawdown_tail_participation_and_turnover() -> None:
     assert metrics.return_to_drawdown == pytest.approx(metrics.total_return / abs(metrics.max_drawdown))
 
 
+def test_risk_metrics_include_initial_nav_peak_and_compound_offsetting_returns() -> None:
+    metrics = compute_risk_metrics(
+        pd.Series([-0.25, 0.25]),
+        pd.Series([0.50, 0.50]),
+    )
+
+    assert metrics.total_return == pytest.approx(-0.0625)
+    assert metrics.max_drawdown == pytest.approx(-0.25)
+
+
 def test_walk_forward_aggregate_is_weighted_and_counts_positive_folds() -> None:
-    first = compute_risk_metrics(pd.Series([0.02, -0.01]), pd.Series([0.2, 0.2]))
-    second = compute_risk_metrics(pd.Series([-0.03, -0.01, 0.01]), pd.Series([0.4, 0.0, 0.4]))
-    third = compute_risk_metrics(pd.Series([0.01, 0.01]), pd.Series([0.3, 0.3]))
+    fold_returns = ([0.02, -0.01], [-0.03, -0.01, 0.01], [0.01, 0.01])
+    fold_positions = ([0.2, 0.2], [0.4, 0.0, 0.4], [0.3, 0.3])
+    first, second, third = (
+        compute_risk_metrics(pd.Series(returns), pd.Series(positions))
+        for returns, positions in zip(fold_returns, fold_positions)
+    )
 
     aggregate = aggregate_walk_forward((first, second, third))
+    combined_returns = tuple(value for fold in fold_returns for value in fold)
+    combined_positions = tuple(value for fold in fold_positions for value in fold)
+    expected = compute_risk_metrics(combined_returns, combined_positions)
 
     assert aggregate.fold_count == 3
     assert aggregate.positive_return_folds == 2
-    assert aggregate.metrics.observations == 7
-    assert aggregate.metrics.total_return == pytest.approx(
-        first.total_return + second.total_return + third.total_return
-    )
-    assert aggregate.metrics.max_drawdown == min(
-        first.max_drawdown,
-        second.max_drawdown,
-        third.max_drawdown,
-    )
-    assert aggregate.metrics.total_turnover == pytest.approx(
-        first.total_turnover + second.total_turnover + third.total_turnover
-    )
+    assert aggregate.metrics == expected
+    assert aggregate.metrics.daily_returns == combined_returns
+    assert aggregate.metrics.positions == combined_positions
 
 
 def _metrics(**overrides: float | int) -> RiskMetrics:
@@ -182,6 +213,11 @@ def _metrics(**overrides: float | int) -> RiskMetrics:
         observations=100,
     )
     return replace(base, **overrides)
+
+
+def test_walk_forward_aggregate_rejects_summary_only_metrics() -> None:
+    with pytest.raises(ValueError, match="daily return and position paths"):
+        aggregate_walk_forward((_metrics(), _metrics(), _metrics()))
 
 
 def test_promotion_requires_test_and_walk_forward_to_beat_every_shared_gate() -> None:
@@ -274,3 +310,33 @@ def test_promotion_fails_closed_and_reports_every_failed_gate() -> None:
         "walk_forward_total_turnover",
         "walk_forward_positive_folds",
     }
+
+
+def test_promotion_rejects_nonfinite_and_structurally_invalid_metrics() -> None:
+    candidate_test = replace(_metrics(), total_return=float("inf"))
+    legacy_test = replace(_metrics(), zero_position_day_ratio=1.10)
+    candidate_walk_forward = WalkForwardAggregate(
+        replace(_metrics(), observations=-1),
+        positive_return_folds=4,
+        fold_count=3,
+    )
+    legacy_walk_forward = WalkForwardAggregate(
+        replace(_metrics(), avg_abs_position=-0.10),
+        positive_return_folds=-1,
+        fold_count=3,
+    )
+
+    result = evaluate_promotion(
+        candidate_test,
+        legacy_test,
+        candidate_walk_forward,
+        legacy_walk_forward,
+    )
+
+    assert result.promoted is False
+    assert result.checks["test_candidate_metrics_valid"] is False
+    assert result.checks["test_legacy_metrics_valid"] is False
+    assert result.checks["walk_forward_candidate_metrics_valid"] is False
+    assert result.checks["walk_forward_legacy_metrics_valid"] is False
+    assert result.checks["walk_forward_candidate_structure_valid"] is False
+    assert result.checks["walk_forward_legacy_structure_valid"] is False
