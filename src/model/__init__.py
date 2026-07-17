@@ -22,6 +22,7 @@ from .risk_adjusted_common import (
     purge_segment_tail,
     soft_budget_position,
 )
+from .tail_budget import TailBudgetResult, TailBudgetSpec, run_tail_budget_models
 
 __all__ = [
     "ModelSelectionResult",
@@ -32,6 +33,8 @@ __all__ = [
     "RiskAdjustedLabels",
     "RiskMetrics",
     "SegmentWindow",
+    "TailBudgetResult",
+    "TailBudgetSpec",
     "WalkForwardAggregate",
     "aggregate_walk_forward",
     "build_model_from_spec",
@@ -43,5 +46,6 @@ __all__ = [
     "quantbench_supervised_model_specs",
     "run_model_family_smoke_matrix",
     "run_qlib_model_selection",
+    "run_tail_budget_models",
     "soft_budget_position",
 ]
