@@ -59,8 +59,8 @@ class RegimeMoESpec:
     def __post_init__(self) -> None:
         if self.selection_segment != "valid":
             raise ValueError("selection_segment must be the validation segment")
-        if self.test_segment in {self.train_segment, self.selection_segment}:
-            raise ValueError("test segment must be separate from train and validation")
+        if len({self.train_segment, self.selection_segment, self.test_segment}) != 3:
+            raise ValueError("train, validation, and test segments must be distinct")
         if self.ridge_alpha <= 0.0 or self.catboost_iterations <= 0:
             raise ValueError("model parameters must be positive")
         if self.min_regime_observations < 1:
@@ -86,6 +86,7 @@ class RegimeMoEResult:
     selected_candidate: str
     regime_thresholds: Mapping[str, float]
     regime_occupancy: Mapping[str, int]
+    regime_usable_observations: Mapping[str, int]
     gate_probabilities_by_segment: Mapping[str, pd.DataFrame]
     expert_predictions_by_segment: Mapping[str, pd.DataFrame]
     predictions_by_segment: Mapping[str, pd.DataFrame]
@@ -271,6 +272,45 @@ def _assign_regimes(
     )
     labels = np.where(stress, "stress", np.where(trend, "trend", "reversal"))
     return pd.Series(labels, index=features.index, name="regime")
+
+
+def _usable_regime_observations(
+    features: pd.DataFrame,
+    labels: pd.DataFrame,
+    regime_labels: pd.Series,
+    spec: RegimeMoESpec,
+) -> dict[str, int]:
+    definitions = {
+        "trend": (spec.trend_features, spec.return_label),
+        "reversal": (spec.reversal_features, spec.return_label),
+        "stress": (spec.stress_features, spec.downside_label),
+    }
+    counts: dict[str, int] = {}
+    for regime, (columns, target_name) in definitions.items():
+        feature_finite = np.isfinite(
+            features.loc[:, list(columns)].to_numpy(dtype="float64")
+        ).all(axis=1)
+        target_finite = np.isfinite(labels[target_name].to_numpy(dtype="float64"))
+        counts[regime] = int(
+            (regime_labels.eq(regime).to_numpy() & feature_finite & target_finite).sum()
+        )
+    return counts
+
+
+def _validation_label_evidence(valid: _SegmentData, spec: RegimeMoESpec) -> dict[str, Any]:
+    values = valid.labels[spec.return_label].to_numpy(dtype="float64")
+    invalid = ~np.isfinite(values)
+    invalid_count = int(invalid.sum())
+    return {
+        "reason_code": "incomplete_validation_labels" if invalid_count else "",
+        "invalid_count": invalid_count,
+        "first_offending_date": (
+            _prediction_date(valid.labels.index, int(np.flatnonzero(invalid)[0]))
+            if invalid_count
+            else None
+        ),
+        "labels_complete": invalid_count == 0,
+    }
 
 
 def _finite_training_rows(
@@ -538,13 +578,16 @@ def _zero_predictions(index: pd.Index) -> pd.DataFrame:
     )
 
 
-def _sparse_result(
+def _blocked_result(
     *,
     train: _SegmentData,
     valid: _SegmentData,
     test: _SegmentData,
     thresholds: Mapping[str, float],
     occupancy: Mapping[str, int],
+    usable_observations: Mapping[str, int],
+    reason_code: str,
+    validation_label_quality: Mapping[str, Any],
     spec: RegimeMoESpec,
 ) -> RegimeMoEResult:
     rows = []
@@ -556,9 +599,13 @@ def _sparse_result(
     ):
         rows.append(
             {
-                **_failure_row(candidate, role, RuntimeError("blocked_sparse_regime")),
-                "reason_code": "blocked_sparse_regime",
-                "failure_type": "SparseRegime",
+                **_failure_row(candidate, role, RuntimeError(reason_code)),
+                "reason_code": reason_code,
+                "failure_type": (
+                    "SparseRegime"
+                    if reason_code == "blocked_sparse_regime"
+                    else "IncompleteValidationLabels"
+                ),
             }
         )
     comparison = pd.DataFrame(rows)
@@ -581,9 +628,10 @@ def _sparse_result(
     }
     return RegimeMoEResult(
         model_comparison=comparison,
-        selected_candidate="blocked_sparse_regime",
+        selected_candidate=reason_code,
         regime_thresholds=dict(thresholds),
         regime_occupancy=dict(occupancy),
+        regime_usable_observations=dict(usable_observations),
         gate_probabilities_by_segment=gate,
         expert_predictions_by_segment=experts,
         predictions_by_segment=predictions,
@@ -592,13 +640,16 @@ def _sparse_result(
         },
         failure_rows=comparison.copy(),
         selection_evidence={
-            "route_status": "blocked_sparse_regime",
-            "blocked_reason": "blocked_sparse_regime",
+            "route_status": reason_code,
+            "blocked_reason": reason_code,
             "threshold_fit_segment": spec.train_segment,
             "selection_segment": spec.selection_segment,
             "test_labels_used_for_selection": False,
             "test_accessed_after_freeze": True,
             "min_regime_observations": spec.min_regime_observations,
+            "raw_regime_occupancy": dict(occupancy),
+            "usable_regime_observations": dict(usable_observations),
+            "validation_label_quality": dict(validation_label_quality),
         },
         floor=float(spec.floor_cap_candidates[0][0]),
         cap=float(spec.floor_cap_candidates[0][1]),
@@ -637,14 +688,26 @@ def run_regime_moe_models(
     thresholds = _regime_thresholds(train_raw.features, spec)
     train_regime = _assign_regimes(train_raw.features, thresholds, spec)
     occupancy = {name: int(train_regime.eq(name).sum()) for name in REGIMES}
-    if min(occupancy.values()) < spec.min_regime_observations:
+    usable_observations = _usable_regime_observations(
+        train_raw.features, train_raw.labels, train_regime, spec
+    )
+    validation_label_quality = _validation_label_evidence(valid_raw, spec)
+    blocked_reason = None
+    if not validation_label_quality["labels_complete"]:
+        blocked_reason = "blocked_incomplete_validation_labels"
+    elif min(usable_observations.values()) < spec.min_regime_observations:
+        blocked_reason = "blocked_sparse_regime"
+    if blocked_reason is not None:
         test_raw = _prepare_inference_segment(dataset, spec.test_segment)
-        return _sparse_result(
+        return _blocked_result(
             train=train_raw,
             valid=valid_raw,
             test=test_raw,
             thresholds=thresholds,
             occupancy=occupancy,
+            usable_observations=usable_observations,
+            reason_code=blocked_reason,
+            validation_label_quality=validation_label_quality,
             spec=spec,
         )
 
@@ -910,6 +973,7 @@ def run_regime_moe_models(
         selected_candidate="validation_selected_regime_moe",
         regime_thresholds=dict(thresholds),
         regime_occupancy=dict(occupancy),
+        regime_usable_observations=dict(usable_observations),
         gate_probabilities_by_segment=gate_by_segment,
         expert_predictions_by_segment=expert_by_segment,
         predictions_by_segment=predictions,
@@ -929,7 +993,10 @@ def run_regime_moe_models(
                 spec.test_segment: "DataHandlerLP.DK_I",
             },
             "regime_occupancy": dict(occupancy),
+            "raw_regime_occupancy": dict(occupancy),
+            "usable_regime_observations": dict(usable_observations),
             "min_regime_observations": spec.min_regime_observations,
+            "validation_label_quality": validation_label_quality,
             "policy_grid_evaluations": tuple(
                 {
                     "floor": item[1],

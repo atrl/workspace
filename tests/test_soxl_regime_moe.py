@@ -15,6 +15,8 @@ def _dataset(
     periods: int = 360,
     post_train_feature_shift: float = 0.0,
     test_label_shift: float = 0.0,
+    validation_invalid_labels: int = 0,
+    reversal_finite_train_targets: int | None = None,
 ) -> DatasetH:
     random = np.random.default_rng(20260717)
     dates = pd.bdate_range("2024-01-02", periods=periods)
@@ -47,6 +49,21 @@ def _dataset(
     crash_cutoff = float(np.quantile(future_return[: train_end + 1], 0.10))
     future_crash = (future_return <= crash_cutoff).astype("float64")
 
+    if reversal_finite_train_targets is not None:
+        train_slice = slice(0, train_end + 1)
+        return_threshold = float(np.median(lagged_return[train_slice]))
+        trend_threshold = float(np.median(trend[train_slice]))
+        volatility_threshold = float(np.quantile(volatility[train_slice], 2.0 / 3.0))
+        stress_regime = volatility[train_slice] >= volatility_threshold
+        trend_regime = (~stress_regime) & (
+            (trend[train_slice] >= trend_threshold)
+            | (lagged_return[train_slice] >= return_threshold)
+        )
+        reversal_rows = np.flatnonzero(~stress_regime & ~trend_regime)
+        invalid_rows = reversal_rows[int(reversal_finite_train_targets) :]
+        future_return[invalid_rows] = np.nan
+        future_downside[invalid_rows] = np.nan
+
     if post_train_feature_shift:
         for values in (lagged_return, trend, volatility):
             values[train_end + 1 :] += post_train_feature_shift
@@ -60,6 +77,11 @@ def _dataset(
     future_crash[valid_end + 1 :] = (
         future_return[valid_end + 1 :] <= crash_cutoff
     ).astype("float64")
+    if validation_invalid_labels:
+        valid_rows = np.arange(train_end + 1, valid_end + 1)
+        invalid_rows = valid_rows[: int(validation_invalid_labels)]
+        future_return[invalid_rows] = np.nan
+        future_downside[invalid_rows] = np.nan
 
     columns = [
         ("feature", "lagged_return"),
@@ -196,6 +218,41 @@ def test_sparse_regime_blocks_route_deterministically_without_partial_fit():
         assert positions.eq(0.0).all()
 
 
+def test_sparse_gate_uses_expert_usable_rows_not_raw_regime_occupancy():
+    module = importlib.import_module("src.model.regime_moe")
+
+    result = module.run_regime_moe_models(
+        _dataset(reversal_finite_train_targets=1), spec=_fast_spec()
+    )
+
+    evidence = result.selection_evidence
+    assert evidence["route_status"] == "blocked_sparse_regime"
+    assert evidence["raw_regime_occupancy"]["reversal"] >= 40
+    assert evidence["usable_regime_observations"]["reversal"] == 1
+    assert result.regime_occupancy["reversal"] >= 40
+    assert result.regime_usable_observations["reversal"] == 1
+    assert result.fitted_policy is None
+
+
+@pytest.mark.parametrize("invalid_count", [1, 60])
+def test_incomplete_validation_return_labels_fail_closed(invalid_count):
+    module = importlib.import_module("src.model.regime_moe")
+
+    result = module.run_regime_moe_models(
+        _dataset(validation_invalid_labels=invalid_count), spec=_fast_spec()
+    )
+
+    evidence = result.selection_evidence
+    assert evidence["route_status"] == "blocked_incomplete_validation_labels"
+    label_quality = evidence["validation_label_quality"]
+    assert label_quality["reason_code"] == "incomplete_validation_labels"
+    assert label_quality["invalid_count"] == invalid_count
+    assert label_quality["first_offending_date"]
+    assert result.fitted_policy is None
+    for positions in result.positions_by_segment.values():
+        assert positions.eq(0.0).all()
+
+
 def test_dataset_contract_uses_dk_l_then_delayed_dk_i_test_access():
     module = importlib.import_module("src.model.regime_moe")
     native = _dataset()
@@ -285,5 +342,7 @@ def test_config_forbids_test_selection_and_invalid_floor_cap():
 
     with pytest.raises(ValueError, match="validation segment"):
         module.RegimeMoESpec(selection_segment="test")
+    with pytest.raises(ValueError, match="distinct"):
+        module.RegimeMoESpec(train_segment="valid")
     with pytest.raises(ValueError, match="floor/cap"):
         module.RegimeMoESpec(floor_cap_candidates=((0.8, 0.2),))
