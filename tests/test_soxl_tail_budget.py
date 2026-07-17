@@ -121,6 +121,7 @@ def test_tail_budget_fits_qlib_components_and_emits_finite_bounded_positions():
     assert result.selection_evidence["selection_segment"] == "valid"
     assert result.selection_evidence["test_labels_used_for_selection"] is False
     assert result.selection_evidence["test_accessed_after_freeze"] is True
+    assert result.selection_evidence["densemble_prediction_api"] == "DEnsembleModel.predict(dataset, segment)"
     assert set(result.predictions_by_segment) == {"train", "valid", "test"}
     assert set(result.positions_by_segment) == {"train", "valid", "test"}
 
@@ -167,6 +168,10 @@ def test_failed_optional_candidate_is_retained_without_aborting_route():
     assert "catboost_crash" in failures.index
     assert failures.loc["catboost_crash", "status"] == "failed"
     assert failures.loc["catboost_crash", "reason_code"] == "fit_failed"
+    comparison = result.model_comparison.set_index("candidate")
+    assert comparison.loc["validation_blend_downside", "status"] == "ok"
+    assert comparison.loc["validation_selected_blend", "status"] == "ok"
+    assert result.selection_evidence["utility_best_blend"]["crash_candidate"] == "train_crash_prior"
     assert result.selected_candidate
     assert np.isfinite(result.positions_by_segment["test"].to_numpy()).all()
 
@@ -213,7 +218,6 @@ def test_blend_weights_are_frozen_from_end_to_end_validation_utility():
             row["validation_utility"],
             -row["expected_weight"],
             -row["downside_weight"],
-            -row["crash_weight"],
             -row["floor"],
             -row["cap"],
         ),
@@ -226,7 +230,8 @@ def test_blend_weights_are_frozen_from_end_to_end_validation_utility():
     )
     assert comparison.loc["validation_blend_expected", "blend_weight"] == utility_best["expected_weight"]
     assert comparison.loc["validation_blend_downside", "blend_weight"] == utility_best["downside_weight"]
-    assert comparison.loc["validation_blend_crash", "blend_weight"] == utility_best["crash_weight"]
+    assert "validation_blend_crash" not in comparison.index
+    assert all("crash_weight" not in row for row in evaluations)
     assert evidence["test_labels_used_for_selection"] is False
 
 
@@ -251,17 +256,88 @@ def test_unavailable_base_models_emit_all_declared_blend_failure_rows(monkeypatc
         "catboost_crash",
         "validation_blend_expected",
         "validation_blend_downside",
-        "validation_blend_crash",
         "validation_selected_blend",
     }.issubset(comparison.index)
     assert comparison.loc["catboost_downside", "status"] == "failed"
     assert comparison.loc["catboost_crash", "status"] == "failed"
-    for candidate in (
-        "validation_blend_downside",
-        "validation_blend_crash",
-        "validation_selected_blend",
-    ):
+    assert comparison.loc["validation_blend_expected", "status"] == "ok"
+    for candidate in ("validation_blend_downside", "validation_selected_blend"):
         assert comparison.loc[candidate, "status"] == "unavailable"
         assert comparison.loc[candidate, "reason_code"] == "base_candidate_unavailable"
     assert result.selected_candidate
     assert np.isfinite(result.positions_by_segment["test"].to_numpy()).all()
+
+
+def test_non_finite_train_prediction_fails_only_that_candidate(monkeypatch):
+    module = importlib.import_module("src.model.tail_budget")
+    from lightgbm import LGBMRegressor
+
+    original_predict = LGBMRegressor.predict
+
+    def non_finite_predict(self, features, *args, **kwargs):
+        values = np.asarray(original_predict(self, features, *args, **kwargs), dtype="float64")
+        values[2] = np.nan
+        return values
+
+    monkeypatch.setattr(LGBMRegressor, "predict", non_finite_predict)
+    result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
+
+    comparison = result.model_comparison.set_index("candidate")
+    failed = comparison.loc["lightgbm_expected"]
+    assert failed["status"] == "failed"
+    assert failed["reason_code"] == "non_finite_prediction"
+    assert failed["segment"] == "train"
+    assert failed["first_offending_date"].startswith("2025-01-06")
+    assert comparison.loc["ridge_expected", "status"] == "ok"
+    assert comparison.loc["validation_blend_downside", "status"] == "ok"
+    assert np.isfinite(result.positions_by_segment["test"].to_numpy()).all()
+
+
+def test_non_finite_validation_prediction_fails_only_that_candidate(monkeypatch):
+    module = importlib.import_module("src.model.tail_budget")
+    from catboost import CatBoostRegressor
+
+    original_predict = CatBoostRegressor.predict
+
+    def non_finite_valid_predict(self, features, *args, **kwargs):
+        values = np.asarray(original_predict(self, features, *args, **kwargs), dtype="float64")
+        if len(features) == 24:
+            values[4] = np.inf
+        return values
+
+    monkeypatch.setattr(CatBoostRegressor, "predict", non_finite_valid_predict)
+    result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
+
+    comparison = result.model_comparison.set_index("candidate")
+    failed = comparison.loc["catboost_downside"]
+    assert failed["status"] == "failed"
+    assert failed["reason_code"] == "non_finite_prediction"
+    assert failed["segment"] == "valid"
+    assert failed["first_offending_date"].startswith("2025-04-18")
+    assert comparison.loc["qlib_densemble_downside", "status"] == "ok"
+    assert np.isfinite(result.positions_by_segment["test"].to_numpy()).all()
+
+
+def test_non_finite_frozen_test_prediction_returns_blocked_fail_closed_result(monkeypatch):
+    module = importlib.import_module("src.model.tail_budget")
+    original_predict = module._predict_model
+
+    def non_finite_on_test(model, features, *, segment=None):
+        values = np.asarray(original_predict(model, features), dtype="float64")
+        if segment == "test":
+            values[0] = np.nan
+        return values
+
+    monkeypatch.setattr(module, "_predict_model", non_finite_on_test)
+    result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
+
+    evidence = result.selection_evidence
+    assert evidence["route_status"] == "blocked_non_finite_prediction"
+    assert evidence["test_prediction_failure"]["reason_code"] == "non_finite_prediction"
+    assert evidence["test_prediction_failure"]["segment"] == "test"
+    assert evidence["test_prediction_failure"]["first_offending_date"].startswith("2025-05-16")
+    failed = result.model_comparison.set_index("candidate").loc["frozen_test_prediction"]
+    assert failed["status"] == "failed"
+    assert failed["reason_code"] == "non_finite_prediction"
+    assert (result.positions_by_segment["test"] == 0.0).all()
+    assert np.isfinite(result.predictions_by_segment["test"].to_numpy()).all()

@@ -114,10 +114,30 @@ class _BlendModel:
         self.right = right
         self.weight = float(weight)
 
-    def predict(self, features: pd.DataFrame) -> np.ndarray:
-        left = _predict_model(self.left, features)
-        right = _predict_model(self.right, features)
+    def predict_segment(self, features: pd.DataFrame, segment: str) -> np.ndarray:
+        left = _predict_model(self.left, features, segment=segment)
+        right = _predict_model(self.right, features, segment=segment)
         return self.weight * left + (1.0 - self.weight) * right
+
+
+class _DEnsemblePredictor:
+    """Use qlib's public DEnsembleModel.predict(dataset, segment) API."""
+
+    def __init__(self, model: Any, dataset_view: "_DEnsembleDatasetView") -> None:
+        self.model = model
+        self.dataset_view = dataset_view
+
+    def predict_segment(self, features: pd.DataFrame, segment: str) -> np.ndarray:
+        placeholder = pd.Series(0.0, index=features.index, name="target")
+        self.dataset_view.frames[segment] = (features, placeholder)
+        return np.asarray(self.model.predict(self.dataset_view, segment=segment), dtype="float64")
+
+
+class _NonFinitePredictionError(ValueError):
+    def __init__(self, *, segment: str, first_offending_date: str) -> None:
+        super().__init__(f"non-finite prediction in {segment} at {first_offending_date}")
+        self.segment = str(segment)
+        self.first_offending_date = str(first_offending_date)
 
 
 class _CalibratedCrashModel:
@@ -221,21 +241,37 @@ def _finite_target(features: pd.DataFrame, target: pd.Series) -> tuple[pd.DataFr
     return features.loc[mask], target.loc[mask].astype("float64")
 
 
-def _predict_model(model: Any, features: pd.DataFrame) -> np.ndarray:
-    if model.__class__.__name__ == "DEnsembleModel" and hasattr(model, "ensemble"):
-        values = np.zeros(len(features), dtype="float64")
-        weights = np.asarray(model.sub_weights, dtype="float64")
-        for submodel, sub_features, weight in zip(model.ensemble, model.sub_features, weights):
-            values += np.asarray(
-                submodel.predict(features.loc[:, sub_features].to_numpy(dtype="float64")),
-                dtype="float64",
-            ) * float(weight)
-        values /= float(weights.sum())
+def _prediction_date(index: pd.Index, position: int) -> str:
+    value = index[position]
+    if isinstance(value, tuple):
+        datetime_level = index.names.index("datetime") if "datetime" in index.names else len(value) - 1
+        value = value[datetime_level]
+    try:
+        return pd.Timestamp(value).isoformat()
+    except (TypeError, ValueError):
+        return str(value)
+
+
+def _validate_prediction_values(values: np.ndarray, index: pd.Index, *, segment: str) -> np.ndarray:
+    values = np.asarray(values, dtype="float64").reshape(-1)
+    if len(values) != len(index):
+        raise ValueError(f"candidate produced {len(values)} predictions for {len(index)} rows")
+    finite = np.isfinite(values)
+    if not finite.all():
+        position = int(np.flatnonzero(~finite)[0])
+        raise _NonFinitePredictionError(
+            segment=segment,
+            first_offending_date=_prediction_date(index, position),
+        )
+    return values
+
+
+def _predict_model(model: Any, features: pd.DataFrame, *, segment: str = "unknown") -> np.ndarray:
+    if hasattr(model, "predict_segment"):
+        values = model.predict_segment(features, segment)
     else:
         values = np.asarray(model.predict(features), dtype="float64").reshape(-1)
-    if len(values) != len(features) or not np.isfinite(values).all():
-        raise ValueError("candidate produced non-finite or misaligned predictions")
-    return values
+    return _validate_prediction_values(values, features.index, segment=segment)
 
 
 def _series(values: np.ndarray, index: pd.Index, name: str) -> pd.Series:
@@ -315,6 +351,7 @@ def _budget_utility(realized_return: pd.Series, position: pd.Series) -> float:
 
 
 def _failure_row(name: str, role: str, exc: Exception) -> dict[str, Any]:
+    non_finite = isinstance(exc, _NonFinitePredictionError)
     return {
         "candidate": name,
         "model": name,
@@ -322,9 +359,11 @@ def _failure_row(name: str, role: str, exc: Exception) -> dict[str, Any]:
         "status": "failed",
         "validation_score": np.nan,
         "selected": False,
-        "reason_code": "fit_failed",
+        "reason_code": "non_finite_prediction" if non_finite else "fit_failed",
         "failure_type": type(exc).__name__,
         "detail": type(exc).__name__,
+        "segment": exc.segment if non_finite else "",
+        "first_offending_date": exc.first_offending_date if non_finite else "",
         "blend_weight": np.nan,
         "floor": np.nan,
         "cap": np.nan,
@@ -342,6 +381,8 @@ def _success_row(candidate: _Candidate) -> dict[str, Any]:
         "reason_code": "",
         "failure_type": "",
         "detail": "",
+        "segment": "",
+        "first_offending_date": "",
         "blend_weight": float(candidate.metadata.get("blend_weight", np.nan)),
         "floor": np.nan,
         "cap": np.nan,
@@ -359,6 +400,8 @@ def _unavailable_row(name: str, role: str) -> dict[str, Any]:
         "reason_code": "base_candidate_unavailable",
         "failure_type": "DependencyUnavailable",
         "detail": "DependencyUnavailable",
+        "segment": "",
+        "first_offending_date": "",
         "blend_weight": np.nan,
         "floor": np.nan,
         "cap": np.nan,
@@ -453,12 +496,11 @@ def _policy_choice(
     )
 
 
-def _choice_key(choice: _PolicyChoice) -> tuple[float, float, float, float, float, float]:
+def _choice_key(choice: _PolicyChoice) -> tuple[float, float, float, float, float]:
     return (
         float(choice.validation_utility),
         -float(choice.weights.get("expected", 0.0)),
         -float(choice.weights.get("downside", 0.0)),
-        -float(choice.weights.get("crash", 0.0)),
         -float(choice.floor),
         -float(choice.cap),
     )
@@ -498,8 +540,10 @@ def run_tail_budget_models(
         try:
             fit_x, fit_y = _finite_target(train_x, train_return)
             model = Ridge(alpha=float(alpha)).fit(fit_x, fit_y)
-            train_pred = _series(_predict_model(model, train_x), train_x.index, name)
-            valid_pred = _series(_predict_model(model, valid_x), valid_x.index, name)
+            train_pred = _series(_predict_model(model, train_x, segment=spec.train_segment), train_x.index, name)
+            valid_pred = _series(
+                _predict_model(model, valid_x, segment=spec.selection_segment), valid_x.index, name
+            )
             score = -float(mean_squared_error(valid_return, valid_pred))
             candidate = _Candidate(name, "expected_return", model, train_pred, valid_pred, score)
             expected.append(candidate)
@@ -523,8 +567,14 @@ def run_tail_budget_models(
             deterministic=True,
             force_col_wise=True,
         ).fit(fit_x, fit_y)
-        train_pred = _series(_predict_model(model, train_x), train_x.index, "lightgbm_expected")
-        valid_pred = _series(_predict_model(model, valid_x), valid_x.index, "lightgbm_expected")
+        train_pred = _series(
+            _predict_model(model, train_x, segment=spec.train_segment), train_x.index, "lightgbm_expected"
+        )
+        valid_pred = _series(
+            _predict_model(model, valid_x, segment=spec.selection_segment),
+            valid_x.index,
+            "lightgbm_expected",
+        )
         score = -float(mean_squared_error(valid_return, valid_pred))
         candidate = _Candidate("lightgbm_expected", "expected_return", model, train_pred, valid_pred, score)
         expected.append(candidate)
@@ -547,8 +597,14 @@ def run_tail_budget_models(
             allow_writing_files=False,
         )
         model.fit(fit_x, fit_y)
-        train_pred = _series(_predict_model(model, train_x), train_x.index, "catboost_downside")
-        valid_pred = _series(_predict_model(model, valid_x), valid_x.index, "catboost_downside")
+        train_pred = _series(
+            _predict_model(model, train_x, segment=spec.train_segment), train_x.index, "catboost_downside"
+        )
+        valid_pred = _series(
+            _predict_model(model, valid_x, segment=spec.selection_segment),
+            valid_x.index,
+            "catboost_downside",
+        )
         score = -float(mean_pinball_loss(valid_downside, valid_pred, alpha=spec.downside_quantile))
         candidate = _Candidate("catboost_downside", "downside_budget", model, train_pred, valid_pred, score)
         downside.append(candidate)
@@ -565,7 +621,7 @@ def run_tail_budget_models(
                 spec.selection_segment: (valid_x, valid_downside),
             }
         )
-        model = DEnsembleModel(
+        qlib_model = DEnsembleModel(
             num_models=1,
             enable_sr=False,
             enable_fs=False,
@@ -581,19 +637,18 @@ def run_tail_budget_models(
             deterministic=True,
             force_col_wise=True,
         )
-        model.fit(view)
+        qlib_model.fit(view)
+        model = _DEnsemblePredictor(qlib_model, view)
         train_pred = _series(
-            np.asarray(model.predict(view, segment=spec.train_segment)),
+            _predict_model(model, train_x, segment=spec.train_segment),
             train_x.index,
             "qlib_densemble_downside",
         )
         valid_pred = _series(
-            np.asarray(model.predict(view, segment=spec.selection_segment)),
+            _predict_model(model, valid_x, segment=spec.selection_segment),
             valid_x.index,
             "qlib_densemble_downside",
         )
-        if not np.isfinite(train_pred).all() or not np.isfinite(valid_pred).all():
-            raise ValueError("DEnsemble produced non-finite predictions")
         score = -float(mean_pinball_loss(valid_downside, valid_pred, alpha=spec.downside_quantile))
         candidate = _Candidate("qlib_densemble_downside", "downside_budget", model, train_pred, valid_pred, score)
         downside.append(candidate)
@@ -614,8 +669,14 @@ def run_tail_budget_models(
     crash_candidate: _Candidate | None = None
     try:
         crash_model = _fit_crash_model(train_x, train_crash, spec)
-        train_crash_pred = _series(crash_model.predict(train_x), train_x.index, "catboost_crash")
-        valid_crash_pred = _series(crash_model.predict(valid_x), valid_x.index, "catboost_crash")
+        train_crash_pred = _series(
+            _predict_model(crash_model, train_x, segment=spec.train_segment), train_x.index, "catboost_crash"
+        )
+        valid_crash_pred = _series(
+            _predict_model(crash_model, valid_x, segment=spec.selection_segment),
+            valid_x.index,
+            "catboost_crash",
+        )
         score = -float(log_loss(valid_crash.astype("int64"), valid_crash_pred, labels=[0, 1]))
         crash_candidate = _Candidate(
             "catboost_crash",
@@ -681,7 +742,6 @@ def run_tail_budget_models(
         and lgb_candidates
         and catboost_downside
         and densemble_downside
-        and crash_candidate is not None
     )
     blend_choices: list[_PolicyChoice] = []
     blend_evaluations: list[dict[str, float]] = []
@@ -691,7 +751,6 @@ def run_tail_budget_models(
         expected_right = lgb_candidates[0]
         downside_left = catboost_downside[0]
         downside_right = densemble_downside[0]
-        assert crash_candidate is not None
         for expected_weight in spec.blend_weights:
             expected_blend = _blend_candidate(
                 "validation_blend_expected",
@@ -708,49 +767,39 @@ def run_tail_budget_models(
                     downside_right,
                     downside_weight,
                 )
-                for crash_weight in spec.blend_weights:
-                    crash_blend = _blend_candidate(
-                        "validation_blend_crash",
-                        "crash_probability_blend",
-                        crash_candidate,
-                        prior_candidate,
-                        crash_weight,
+                for candidate_floor, candidate_cap in spec.floor_cap_candidates:
+                    weights = {
+                        "expected": float(expected_weight),
+                        "downside": float(downside_weight),
+                    }
+                    choice = _policy_choice(
+                        name="validation_selected_blend",
+                        expected=expected_blend,
+                        downside=downside_blend,
+                        crash=active_crash,
+                        floor=candidate_floor,
+                        cap=candidate_cap,
+                        train_return=train_return,
+                        valid_return=valid_return,
+                        train_quality=train_quality,
+                        valid_quality=valid_quality,
+                        weights=weights,
                     )
-                    for candidate_floor, candidate_cap in spec.floor_cap_candidates:
-                        weights = {
-                            "expected": float(expected_weight),
-                            "downside": float(downside_weight),
-                            "crash": float(crash_weight),
+                    blend_choices.append(choice)
+                    blend_evaluations.append(
+                        {
+                            "expected_weight": float(expected_weight),
+                            "downside_weight": float(downside_weight),
+                            "floor": float(candidate_floor),
+                            "cap": float(candidate_cap),
+                            "validation_utility": float(choice.validation_utility),
+                            "crash_candidate": active_crash.name,
                         }
-                        choice = _policy_choice(
-                            name="validation_selected_blend",
-                            expected=expected_blend,
-                            downside=downside_blend,
-                            crash=crash_blend,
-                            floor=candidate_floor,
-                            cap=candidate_cap,
-                            train_return=train_return,
-                            valid_return=valid_return,
-                            train_quality=train_quality,
-                            valid_quality=valid_quality,
-                            weights=weights,
-                        )
-                        blend_choices.append(choice)
-                        blend_evaluations.append(
-                            {
-                                "expected_weight": float(expected_weight),
-                                "downside_weight": float(downside_weight),
-                                "crash_weight": float(crash_weight),
-                                "floor": float(candidate_floor),
-                                "cap": float(candidate_cap),
-                                "validation_utility": float(choice.validation_utility),
-                            }
-                        )
+                    )
         best_blend = max(blend_choices, key=_choice_key)
         for candidate_name, role, weight in (
             ("validation_blend_expected", "expected_return_blend", best_blend.weights["expected"]),
             ("validation_blend_downside", "downside_budget_blend", best_blend.weights["downside"]),
-            ("validation_blend_crash", "crash_probability_blend", best_blend.weights["crash"]),
         ):
             row = _success_row(
                 _Candidate(
@@ -783,14 +832,78 @@ def run_tail_budget_models(
             }
         )
     else:
-        rows.extend(
-            [
-                _unavailable_row("validation_blend_expected", "expected_return_blend"),
-                _unavailable_row("validation_blend_downside", "downside_budget_blend"),
-                _unavailable_row("validation_blend_crash", "crash_probability_blend"),
-                _unavailable_row("validation_selected_blend", "allocation_policy_blend"),
-            ]
-        )
+        if ridge_candidates and lgb_candidates:
+            expected_left = max(ridge_candidates, key=lambda candidate: (candidate.component_score, candidate.name))
+            expected_right = lgb_candidates[0]
+            expected_only_choices = []
+            for weight in spec.blend_weights:
+                expected_blend = _blend_candidate(
+                    "validation_blend_expected",
+                    "expected_return_blend",
+                    expected_left,
+                    expected_right,
+                    weight,
+                )
+                for candidate_floor, candidate_cap in spec.floor_cap_candidates:
+                    expected_only_choices.append(
+                        _policy_choice(
+                            name="validation_blend_expected",
+                            expected=expected_blend,
+                            downside=best_individual.downside,
+                            crash=active_crash,
+                            floor=candidate_floor,
+                            cap=candidate_cap,
+                            train_return=train_return,
+                            valid_return=valid_return,
+                            train_quality=train_quality,
+                            valid_quality=valid_quality,
+                            weights={"expected": float(weight)},
+                        )
+                    )
+            expected_only_best = max(expected_only_choices, key=_choice_key)
+            expected_row = _success_row(expected_only_best.expected)
+            expected_row["validation_score"] = expected_only_best.validation_utility
+            expected_row["floor"] = expected_only_best.floor
+            expected_row["cap"] = expected_only_best.cap
+            rows.append(expected_row)
+        else:
+            rows.append(_unavailable_row("validation_blend_expected", "expected_return_blend"))
+
+        if catboost_downside and densemble_downside:
+            downside_only_choices = []
+            for weight in spec.blend_weights:
+                downside_blend = _blend_candidate(
+                    "validation_blend_downside",
+                    "downside_budget_blend",
+                    catboost_downside[0],
+                    densemble_downside[0],
+                    weight,
+                )
+                for candidate_floor, candidate_cap in spec.floor_cap_candidates:
+                    downside_only_choices.append(
+                        _policy_choice(
+                            name="validation_blend_downside",
+                            expected=best_individual.expected,
+                            downside=downside_blend,
+                            crash=active_crash,
+                            floor=candidate_floor,
+                            cap=candidate_cap,
+                            train_return=train_return,
+                            valid_return=valid_return,
+                            train_quality=train_quality,
+                            valid_quality=valid_quality,
+                            weights={"downside": float(weight)},
+                        )
+                    )
+            downside_only_best = max(downside_only_choices, key=_choice_key)
+            downside_row = _success_row(downside_only_best.downside)
+            downside_row["validation_score"] = downside_only_best.validation_utility
+            downside_row["floor"] = downside_only_best.floor
+            downside_row["cap"] = downside_only_best.cap
+            rows.append(downside_row)
+        else:
+            rows.append(_unavailable_row("validation_blend_downside", "downside_budget_blend"))
+        rows.append(_unavailable_row("validation_selected_blend", "allocation_policy_blend"))
 
     policy_choices = [best_individual]
     if best_blend is not None:
@@ -815,7 +928,6 @@ def run_tail_budget_models(
         "crash_candidate": selected_policy.crash.name,
         "expected_blend_weight": selected_policy.weights.get("expected"),
         "downside_blend_weight": selected_policy.weights.get("downside"),
-        "crash_blend_weight": selected_policy.weights.get("crash"),
         "mu_center": selected_policy.mu_center,
         "mu_scale": selected_policy.mu_scale,
         "mu_direction": selected_policy.mu_direction,
@@ -849,40 +961,73 @@ def run_tail_budget_models(
     # This is the first test-segment access: the validation-selected policy is frozen above.
     test_raw = _prepare_segment(dataset, spec.test_segment, spec)
     test_x = _transform(test_raw.features, median, mean, scale)
-    test_mu_raw = _series(_predict_model(selected_policy.expected.model, test_x), test_x.index, "mu_raw")
-    test_tail_values = _predict_model(selected_policy.downside.model, test_x)
-    test_tail_raw = _series(test_tail_values, test_x.index, "tail_raw")
-    test_crash_probability = _series(
-        _predict_model(selected_policy.crash.model, test_x),
-        test_x.index,
-        "crash_probability",
-    ).clip(0.0, 1.0)
-    test_mu_score = (
-        (test_mu_raw - selected_policy.mu_center)
-        / selected_policy.mu_scale
-        * selected_policy.mu_direction
-    )
-    test_tail_score = (test_tail_raw.clip(lower=0.0) / selected_policy.tail_scale).clip(0.0, 1.0)
-    test_quality = _quality_for_segment(test_raw, data_quality_by_segment.get(spec.test_segment))
-    test_position = soft_budget_position(
-        test_mu_score,
-        test_tail_score,
-        test_crash_probability,
-        data_quality_valid=test_quality,
-        floor=selected_policy.floor,
-        cap=selected_policy.cap,
-    )
-    test_predictions = pd.DataFrame(
-        {
-            "mu_raw": test_mu_raw,
-            "mu_score": test_mu_score,
-            "tail_raw": test_tail_raw,
-            "tail_score": test_tail_score,
-            "crash_probability": test_crash_probability,
-            "target_position": test_position,
-        },
-        index=test_x.index,
-    ).astype("float64")
+    test_prediction_failure: dict[str, str] | None = None
+    try:
+        test_mu_values = _validate_prediction_values(
+            _predict_model(selected_policy.expected.model, test_x, segment=spec.test_segment),
+            test_x.index,
+            segment=spec.test_segment,
+        )
+        test_tail_values = _validate_prediction_values(
+            _predict_model(selected_policy.downside.model, test_x, segment=spec.test_segment),
+            test_x.index,
+            segment=spec.test_segment,
+        )
+        test_crash_values = _validate_prediction_values(
+            _predict_model(selected_policy.crash.model, test_x, segment=spec.test_segment),
+            test_x.index,
+            segment=spec.test_segment,
+        )
+        test_mu_raw = _series(test_mu_values, test_x.index, "mu_raw")
+        test_tail_raw = _series(test_tail_values, test_x.index, "tail_raw")
+        test_crash_probability = _series(
+            test_crash_values, test_x.index, "crash_probability"
+        ).clip(0.0, 1.0)
+        test_mu_score = (
+            (test_mu_raw - selected_policy.mu_center)
+            / selected_policy.mu_scale
+            * selected_policy.mu_direction
+        )
+        test_tail_score = (test_tail_raw.clip(lower=0.0) / selected_policy.tail_scale).clip(0.0, 1.0)
+        test_quality = _quality_for_segment(test_raw, data_quality_by_segment.get(spec.test_segment))
+        test_position = soft_budget_position(
+            test_mu_score,
+            test_tail_score,
+            test_crash_probability,
+            data_quality_valid=test_quality,
+            floor=selected_policy.floor,
+            cap=selected_policy.cap,
+        )
+        test_predictions = pd.DataFrame(
+            {
+                "mu_raw": test_mu_raw,
+                "mu_score": test_mu_score,
+                "tail_raw": test_tail_raw,
+                "tail_score": test_tail_score,
+                "crash_probability": test_crash_probability,
+                "target_position": test_position,
+            },
+            index=test_x.index,
+        ).astype("float64")
+    except _NonFinitePredictionError as exc:
+        test_prediction_failure = {
+            "reason_code": "non_finite_prediction",
+            "segment": exc.segment,
+            "first_offending_date": exc.first_offending_date,
+        }
+        rows.append(_failure_row("frozen_test_prediction", "allocation_policy", exc))
+        test_predictions = pd.DataFrame(
+            0.0,
+            index=test_x.index,
+            columns=(
+                "mu_raw",
+                "mu_score",
+                "tail_raw",
+                "tail_score",
+                "crash_probability",
+                "target_position",
+            ),
+        )
     for segment_name, predictions in (
         (spec.train_segment, train_predictions),
         (spec.selection_segment, valid_predictions),
@@ -898,8 +1043,13 @@ def run_tail_budget_models(
             "selection_segment": spec.selection_segment,
             "test_labels_used_for_selection": False,
             "test_accessed_after_freeze": True,
+            "route_status": (
+                "blocked_non_finite_prediction" if test_prediction_failure else "ok"
+            ),
+            "test_prediction_failure": test_prediction_failure,
             "preprocessing_fit_segment": spec.train_segment,
             "calibration_fit_segment": spec.train_segment,
+            "densemble_prediction_api": "DEnsembleModel.predict(dataset, segment)",
             "blend_selection_metric": "validation_allocation_utility",
             "blend_grid_evaluations": tuple(blend_evaluations),
             "utility_best_blend": (
@@ -909,7 +1059,6 @@ def run_tail_budget_models(
                         row["validation_utility"],
                         -row["expected_weight"],
                         -row["downside_weight"],
-                        -row["crash_weight"],
                         -row["floor"],
                         -row["cap"],
                     ),
