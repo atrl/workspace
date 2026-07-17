@@ -16,6 +16,7 @@ def _dataset(
     test_label_shift: float = 0.0,
     nonfinite_test_feature: bool = False,
     nonfinite_validation_downside: bool = False,
+    missing_source: str | None = None,
 ) -> DatasetH:
     random = np.random.default_rng(20260717)
     dates = pd.bdate_range("2023-01-03", periods=periods)
@@ -53,14 +54,23 @@ def _dataset(
         future_downside = future_downside.copy()
         future_downside[train_end + 2] = np.nan
 
+    feature_values = {
+        "soxl_return": soxl_return,
+        "soxx_return": soxx_return,
+        "vix_level": vix_level,
+        "vix_change": vix_change,
+        "soxl_trend": soxl_trend,
+        "soxl_volatility": soxl_volatility,
+    }
+    if missing_source is not None:
+        feature_values = {
+            name: values
+            for name, values in feature_values.items()
+            if not name.startswith(f"{missing_source.lower()}_")
+        }
     columns = pd.MultiIndex.from_tuples(
         [
-            ("feature", "soxl_return"),
-            ("feature", "soxx_return"),
-            ("feature", "vix_level"),
-            ("feature", "vix_change"),
-            ("feature", "soxl_trend"),
-            ("feature", "soxl_volatility"),
+            *[("feature", name) for name in feature_values],
             ("label", "future_return_5d"),
             ("label", "future_downside_5d"),
             ("label", "future_crash_5d"),
@@ -69,12 +79,7 @@ def _dataset(
     frame = pd.DataFrame(
         np.column_stack(
             [
-                soxl_return,
-                soxx_return,
-                vix_level,
-                vix_change,
-                soxl_trend,
-                soxl_volatility,
+                *feature_values.values(),
                 future_return,
                 future_downside,
                 future_crash,
@@ -221,18 +226,52 @@ def test_dataset_contract_reads_test_dk_i_only_after_policy_freeze():
         ("test", ("feature",), DataHandlerLP.DK_I),
     ]
     assert result.selection_evidence["test_accessed_after_freeze"] is True
+    assert result.selection_evidence["event_trace"][-2:] == (
+        "candidate_selection_frozen",
+        "test_dk_i_accessed",
+    )
 
 
-def test_missing_pit_panel_is_separate_deterministic_block_and_valid_pit_is_eligible():
+def test_test_prepare_requires_an_observable_frozen_decision(monkeypatch):
     module = importlib.import_module("src.model.panel_sequence")
-    blocked = module.run_panel_sequence_models(_dataset(), spec=_fast_spec())
+    original = module._prepare_inference_segment
+    observed = []
+
+    def require_frozen(dataset, segment, *, frozen_decision, event_trace):
+        assert isinstance(frozen_decision, module._FrozenRouteDecision)
+        assert frozen_decision.frozen is True
+        assert event_trace[-1] == "candidate_selection_frozen"
+        observed.append((frozen_decision.selected_candidate, frozen_decision.policy is not None))
+        return original(
+            dataset,
+            segment,
+            frozen_decision=frozen_decision,
+            event_trace=event_trace,
+        )
+
+    monkeypatch.setattr(module, "_prepare_inference_segment", require_frozen)
+    success = module.run_panel_sequence_models(_dataset(), spec=_fast_spec())
+    blocked = module.run_panel_sequence_models(
+        _dataset(missing_source="VIX"), spec=_fast_spec()
+    )
+
+    assert observed[0][1] is True
+    assert observed[1] == ("blocked_missing_required_source", False)
+    assert success.selection_evidence["test_accessed_after_freeze"] is True
+    assert blocked.selection_evidence["test_accessed_after_freeze"] is True
+
+
+def test_missing_pit_panel_is_separate_deterministic_block_and_aligned_pit_is_eligible():
+    module = importlib.import_module("src.model.panel_sequence")
+    dataset = _dataset()
+    blocked = module.run_panel_sequence_models(dataset, spec=_fast_spec())
     assert blocked.mode_evidence["diagnostic_multivariate"]["status"] == "ok"
     assert blocked.mode_evidence["constituent_cross_sectional"]["status"] == (
         "blocked_missing_pit_panel"
     )
     assert blocked.blocked_mode_positions["constituent_cross_sectional"].eq(0.0).all()
 
-    dates = pd.bdate_range("2025-01-02", periods=3)
+    dates = pd.bdate_range("2023-09-01", periods=3)
     index = pd.MultiIndex.from_product(
         [dates, ["NVDA", "AMD"]], names=["datetime", "instrument"]
     )
@@ -243,14 +282,69 @@ def test_missing_pit_panel_is_separate_deterministic_block_and_valid_pit_is_elig
         },
         index=index,
     )
-    pit.attrs["point_in_time_membership"] = True
     eligible = module.run_panel_sequence_models(
-        _dataset(), spec=_fast_spec(), pit_panel=pit
+        dataset, spec=_fast_spec(), pit_panel=pit
     )
     assert eligible.mode_evidence["constituent_cross_sectional"]["status"] == "eligible"
     assert eligible.model_comparison.set_index("candidate").loc[
         "pit_cross_sectional_panel", "status"
     ] == "eligible"
+
+
+@pytest.mark.parametrize(
+    "defect",
+    ("no_overlap", "duplicate", "nonfinite", "no_active", "no_feature"),
+)
+def test_pit_panel_requires_real_unique_finite_active_qlib_alignment(defect):
+    module = importlib.import_module("src.model.panel_sequence")
+    dataset = _dataset()
+    dates = (
+        pd.bdate_range("2025-01-02", periods=3)
+        if defect == "no_overlap"
+        else pd.bdate_range("2023-09-01", periods=3)
+    )
+    index = pd.MultiIndex.from_product(
+        [dates, ["NVDA", "AMD"]], names=["datetime", "instrument"]
+    )
+    pit = pd.DataFrame(
+        {"pit_member": defect != "no_active", "feature_1": np.arange(len(index), dtype=float)},
+        index=index,
+    )
+    if defect == "duplicate":
+        pit = pd.concat([pit, pit.iloc[[0]]])
+    elif defect == "nonfinite":
+        pit.iloc[0, pit.columns.get_loc("feature_1")] = np.nan
+    elif defect == "no_feature":
+        pit = pit[["pit_member"]]
+    result = module.run_panel_sequence_models(dataset, spec=_fast_spec(), pit_panel=pit)
+
+    evidence = result.mode_evidence["constituent_cross_sectional"]
+    row = result.model_comparison.set_index("candidate").loc["pit_cross_sectional_panel"]
+    assert evidence["status"] == "blocked_missing_pit_panel"
+    assert evidence["validation_status"].startswith("invalid_pit_panel")
+    assert evidence["validation_errors"]
+    assert row["status"] == "blocked"
+    assert row["reason_code"] == "blocked_missing_pit_panel"
+    assert result.blocked_mode_positions["constituent_cross_sectional"].eq(0.0).all()
+
+
+@pytest.mark.parametrize("missing_source", ("SOXL", "SOXX", "VIX"))
+def test_missing_diagnostic_source_blocks_route_with_zero_finite_positions(missing_source):
+    module = importlib.import_module("src.model.panel_sequence")
+
+    result = module.run_panel_sequence_models(
+        _dataset(missing_source=missing_source), spec=_fast_spec()
+    )
+
+    evidence = result.selection_evidence
+    assert evidence["route_status"] == "blocked_missing_required_source"
+    assert evidence["source_evidence"][missing_source]["available"] is False
+    assert evidence["source_evidence"][missing_source]["matched_columns"] == ()
+    assert result.fitted_policy is None
+    assert result.selected_candidate == "blocked_missing_required_source"
+    for positions in result.positions_by_segment.values():
+        assert np.isfinite(positions.to_numpy()).all()
+        assert positions.eq(0.0).all()
 
 
 def test_nonfinite_test_feature_and_external_quality_fail_closed_to_finite_zero():

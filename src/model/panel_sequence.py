@@ -162,6 +162,35 @@ class _SegmentData:
     intrinsic_quality: pd.Series
 
 
+@dataclass(frozen=True)
+class _FrozenRouteDecision:
+    """Capability token required before the route may read DK_I test data."""
+
+    selected_candidate: str
+    policy: FittedPanelSequencePolicy | None
+    frozen: bool = True
+
+    def __post_init__(self) -> None:
+        if not str(self.selected_candidate).strip():
+            raise ValueError("a frozen route decision requires a candidate or block reason")
+        if self.frozen is not True:
+            raise ValueError("route decision token must be frozen")
+
+
+def _freeze_route_decision(
+    selected_candidate: str,
+    policy: FittedPanelSequencePolicy | None,
+    *,
+    event_trace: list[str],
+) -> _FrozenRouteDecision:
+    decision = _FrozenRouteDecision(
+        selected_candidate=selected_candidate,
+        policy=policy,
+    )
+    event_trace.append("candidate_selection_frozen")
+    return decision
+
+
 def _torch_modules():
     try:
         import torch
@@ -297,12 +326,23 @@ def _prepare_learning_segment(dataset, segment: str, spec: PanelSequenceSpec) ->
     return _SegmentData(features, labels.astype("float64"), quality)
 
 
-def _prepare_inference_segment(dataset, segment: str) -> _SegmentData:
+def _prepare_inference_segment(
+    dataset,
+    segment: str,
+    *,
+    frozen_decision: _FrozenRouteDecision,
+    event_trace: list[str],
+) -> _SegmentData:
     from qlib.data.dataset.handler import DataHandlerLP
 
+    if not isinstance(frozen_decision, _FrozenRouteDecision) or not frozen_decision.frozen:
+        raise RuntimeError("test DK_I access requires a frozen route decision")
+    if not event_trace or event_trace[-1] != "candidate_selection_frozen":
+        raise RuntimeError("frozen decision must be recorded before test DK_I access")
     features = _coerce_feature_frame(
         dataset.prepare(segment, col_set="feature", data_key=DataHandlerLP.DK_I)
     )
+    event_trace.append("test_dk_i_accessed")
     quality = pd.Series(
         np.isfinite(features.to_numpy(dtype="float64")).all(axis=1), index=features.index
     )
@@ -670,12 +710,18 @@ def _zero_predictions(index: pd.Index) -> pd.DataFrame:
     )
 
 
-def _pit_evidence(pit_panel: pd.DataFrame | None) -> tuple[dict[str, Any], dict[str, Any]]:
+def _pit_evidence(
+    pit_panel: pd.DataFrame | None,
+    *,
+    qlib_indices: Sequence[pd.Index],
+) -> tuple[dict[str, Any], dict[str, Any]]:
     if pit_panel is None:
         evidence = {
             "status": "blocked_missing_pit_panel",
             "reason_code": "blocked_missing_pit_panel",
             "point_in_time_membership": False,
+            "validation_status": "missing_pit_panel",
+            "validation_errors": ("missing_panel",),
         }
         row = {
             "candidate": "pit_cross_sectional_panel",
@@ -694,34 +740,92 @@ def _pit_evidence(pit_panel: pd.DataFrame | None) -> tuple[dict[str, Any], dict[
             "detail": "point-in-time constituent membership and aligned features are required",
         }
         return evidence, row
-    valid = (
-        isinstance(pit_panel, pd.DataFrame)
-        and not pit_panel.empty
-        and isinstance(pit_panel.index, pd.MultiIndex)
-        and {"datetime", "instrument"}.issubset(set(pit_panel.index.names))
-        and "pit_member" in pit_panel.columns
-        and pit_panel.attrs.get("point_in_time_membership") is True
+    errors: list[str] = []
+    if not isinstance(pit_panel, pd.DataFrame) or pit_panel.empty:
+        errors.append("empty_panel")
+    index_valid = isinstance(pit_panel, pd.DataFrame) and isinstance(
+        pit_panel.index, pd.MultiIndex
     )
-    status = "eligible" if valid else "blocked_invalid_pit_panel"
+    if not index_valid or not {"datetime", "instrument"}.issubset(
+        set(pit_panel.index.names if index_valid else ())
+    ):
+        errors.append("missing_datetime_instrument_index")
+    elif not pit_panel.index.is_unique:
+        errors.append("duplicate_datetime_instrument_rows")
+    if not isinstance(pit_panel, pd.DataFrame) or "pit_member" not in pit_panel.columns:
+        errors.append("missing_membership_column")
+        active_members = pd.Series(dtype=bool)
+    else:
+        membership = pit_panel["pit_member"]
+        membership_valid = membership.notna() & membership.isin((True, False, 0, 1))
+        if not bool(membership_valid.all()):
+            errors.append("invalid_membership_values")
+        active_members = membership.fillna(False).astype(bool)
+        if not bool(active_members.any()):
+            errors.append("no_active_membership")
+    raw_feature_columns = (
+        tuple(column for column in pit_panel.columns if str(column) != "pit_member")
+        if isinstance(pit_panel, pd.DataFrame)
+        else ()
+    )
+    feature_columns = tuple(str(column) for column in raw_feature_columns)
+    if not raw_feature_columns:
+        errors.append("missing_feature_columns")
+    elif not np.isfinite(
+        pit_panel.loc[:, list(raw_feature_columns)]
+        .apply(pd.to_numeric, errors="coerce")
+        .to_numpy(dtype="float64")
+    ).all():
+        errors.append("non_finite_feature_values")
+    qlib_dates = set()
+    for index in qlib_indices:
+        if isinstance(index, pd.MultiIndex):
+            level = "datetime" if "datetime" in index.names else index.names[-1]
+            values = index.get_level_values(level)
+        else:
+            values = index
+        qlib_dates.update(pd.DatetimeIndex(values).normalize().tolist())
+    pit_dates: set[pd.Timestamp] = set()
+    if index_valid and "datetime" in pit_panel.index.names:
+        try:
+            pit_dates = set(
+                pd.DatetimeIndex(pit_panel.index.get_level_values("datetime"))
+                .normalize()
+                .tolist()
+            )
+        except (TypeError, ValueError):
+            errors.append("invalid_datetime_values")
+    if not pit_dates or not pit_dates.issubset(qlib_dates):
+        errors.append("dates_not_aligned_to_qlib_segments")
+    valid = not errors
+    status = "eligible" if valid else "blocked_missing_pit_panel"
+    validation_status = (
+        "valid_aligned_pit_panel" if valid else f"invalid_pit_panel_{errors[0]}"
+    )
     evidence = {
         "status": status,
-        "reason_code": "" if valid else status,
+        "reason_code": "" if valid else "blocked_missing_pit_panel",
         "point_in_time_membership": bool(valid),
         "observations": int(len(pit_panel)) if isinstance(pit_panel, pd.DataFrame) else 0,
+        "active_observations": int(active_members.sum()),
+        "feature_columns": feature_columns,
+        "aligned_dates": len(pit_dates & qlib_dates),
+        "validation_status": validation_status,
+        "validation_errors": tuple(errors),
     }
     row = {
         "candidate": "pit_cross_sectional_panel",
         "model": "pit_cross_sectional_panel",
         "family": "constituent_cross_sectional",
         "window": np.nan,
-        "status": status,
+        "status": "eligible" if valid else "blocked",
         "validation_score": np.nan,
         "validation_loss": np.nan,
         "best_epoch": np.nan,
         "floor": np.nan,
         "cap": np.nan,
         "selected": False,
-        "reason_code": "" if valid else status,
+        "reason_code": "" if valid else "blocked_missing_pit_panel",
         "failure_type": "" if valid else "InvalidPointInTimePanel",
         "detail": (
             "PIT panel passed membership gate"
@@ -730,6 +834,35 @@ def _pit_evidence(pit_panel: pd.DataFrame | None) -> tuple[dict[str, Any], dict[
         ),
     }
     return evidence, row
+
+
+def _diagnostic_source_evidence(
+    features_by_segment: Mapping[str, pd.DataFrame],
+) -> dict[str, dict[str, Any]]:
+    required_prefixes = {
+        "SOXL": ("soxl_",),
+        "SOXX": ("soxx_",),
+        "VIX": ("vix_",),
+    }
+    evidence: dict[str, dict[str, Any]] = {}
+    for source, prefixes in required_prefixes.items():
+        matches_by_segment: dict[str, tuple[str, ...]] = {}
+        for segment, features in features_by_segment.items():
+            matches_by_segment[segment] = tuple(
+                column
+                for column in features.columns
+                if any(str(column).lower().startswith(prefix) for prefix in prefixes)
+            )
+        common_matches = tuple(
+            sorted(set.intersection(*(set(values) for values in matches_by_segment.values())))
+        )
+        evidence[source] = {
+            "available": all(bool(values) for values in matches_by_segment.values())
+            and bool(common_matches),
+            "matched_columns": common_matches,
+            "matches_by_segment": matches_by_segment,
+        }
+    return evidence
 
 
 def run_panel_sequence_models(
@@ -752,6 +885,12 @@ def run_panel_sequence_models(
     )
     valid_quality = _combine_quality(
         valid.intrinsic_quality, external_quality.get(spec.selection_segment)
+    )
+    source_evidence = _diagnostic_source_evidence(
+        {spec.train_segment: train.features, spec.selection_segment: valid.features}
+    )
+    missing_required_source = not all(
+        item["available"] for item in source_evidence.values()
     )
     label_quality = {
         spec.train_segment: pd.Series(
@@ -785,8 +924,11 @@ def run_panel_sequence_models(
     train_target = train.labels[spec.return_label]
     valid_target = valid.labels[spec.return_label]
 
-    if not train_quality.all() or not valid_quality.all() or not all(
-        quality.all() for quality in label_quality.values()
+    if (
+        missing_required_source
+        or not train_quality.all()
+        or not valid_quality.all()
+        or not all(quality.all() for quality in label_quality.values())
     ):
         backend_candidates: Sequence[tuple[str, int]] = ()
     else:
@@ -889,46 +1031,162 @@ def run_panel_sequence_models(
         except Exception as exc:  # candidate-local failure is retained
             rows.append(_failure_row(candidate, exc))
 
-    pit_mode, pit_row = _pit_evidence(pit_panel)
-    test = _prepare_inference_segment(dataset, spec.test_segment)
-    if tuple(test.features.columns) != tuple(train.features.columns):
-        raise ValueError("test feature columns must match frozen training columns")
-    test_quality = _combine_quality(
-        test.intrinsic_quality, external_quality.get(spec.test_segment)
-    )
-    quality_evidence = {
+    pre_quality_evidence = {
         spec.train_segment: _quality_evidence(
             train_quality & label_quality[spec.train_segment]
         ),
         spec.selection_segment: _quality_evidence(
             valid_quality & label_quality[spec.selection_segment]
         ),
+    }
+    policy: FittedPanelSequencePolicy | None = None
+    selected_row: dict[str, Any] | None = None
+    estimator: _FittedTorchSequenceEstimator | None = None
+    train_predictions = _zero_predictions(train.features.index)
+    valid_predictions = _zero_predictions(valid.features.index)
+    floor = float(spec.floor_cap_candidates[0][0])
+    cap = float(spec.floor_cap_candidates[0][1])
+    if fitted:
+        successful_rows = [row for row in rows if row["status"] == "ok"]
+        selected_row = max(
+            successful_rows,
+            key=lambda row: (
+                float(row["validation_score"]),
+                -int(row["window"]),
+                row["family"],
+            ),
+        )
+        selected_candidate = str(selected_row["candidate"])
+        selected_row["selected"] = True
+        estimator = fitted[selected_candidate]
+        train_raw, valid_raw, mu_center, mu_scale, floor, cap = candidate_predictions[
+            selected_candidate
+        ]
+        policy = FittedPanelSequencePolicy(
+            feature_columns=tuple(train.features.columns),
+            preprocessing_median=median,
+            preprocessing_mean=mean,
+            preprocessing_scale=scale,
+            estimator=estimator,
+            family=str(selected_row["family"]),
+            window=int(selected_row["window"]),
+            mu_center=mu_center,
+            mu_scale=mu_scale,
+            floor=floor,
+            cap=cap,
+            history_tail=pd.concat([train.features, valid.features]).tail(
+                int(selected_row["window"]) - 1
+            ),
+        )
+        train_predictions = _scores_to_predictions(
+            train_raw,
+            _sequence_quality(pd.Series(dtype=bool), train_quality, window=policy.window),
+            mu_center=mu_center,
+            mu_scale=mu_scale,
+            floor=floor,
+            cap=cap,
+        )
+        valid_predictions = _scores_to_predictions(
+            valid_raw,
+            _sequence_quality(
+                train_quality.tail(policy.window - 1), valid_quality, window=policy.window
+            ),
+            mu_center=mu_center,
+            mu_scale=mu_scale,
+            floor=floor,
+            cap=cap,
+        )
+        frozen_reason = selected_candidate
+    elif missing_required_source:
+        frozen_reason = "blocked_missing_required_source"
+    elif any(item["invalid_count"] for item in pre_quality_evidence.values()):
+        frozen_reason = "blocked_data_quality"
+    elif rows and all(row["reason_code"] == "backend_unavailable" for row in rows):
+        frozen_reason = "blocked_model_backend_unavailable"
+    else:
+        frozen_reason = "blocked_no_valid_sequence_candidate"
+    event_trace: list[str] = []
+    frozen_decision = _freeze_route_decision(
+        frozen_reason,
+        policy,
+        event_trace=event_trace,
+    )
+    test = _prepare_inference_segment(
+        dataset,
+        spec.test_segment,
+        frozen_decision=frozen_decision,
+        event_trace=event_trace,
+    )
+    test_aligned = test.features.reindex(columns=train.features.columns)
+    test_intrinsic_quality = pd.Series(
+        np.isfinite(test_aligned.to_numpy(dtype="float64")).all(axis=1),
+        index=test.features.index,
+    )
+    test_quality = _combine_quality(
+        test_intrinsic_quality, external_quality.get(spec.test_segment)
+    )
+    source_evidence = _diagnostic_source_evidence(
+        {
+            spec.train_segment: train.features,
+            spec.selection_segment: valid.features,
+            spec.test_segment: test.features,
+        }
+    )
+    missing_required_source = not all(
+        item["available"] for item in source_evidence.values()
+    )
+    quality_evidence = {
+        **pre_quality_evidence,
         spec.test_segment: _quality_evidence(test_quality),
     }
-    failure_rows = pd.DataFrame([row for row in rows if row["status"] != "ok"])
-    if not fitted:
-        if any(item["invalid_count"] for item in quality_evidence.values()):
-            reason = "blocked_data_quality"
-        elif rows and all(row["reason_code"] == "backend_unavailable" for row in rows):
-            reason = "blocked_model_backend_unavailable"
-        else:
-            reason = "blocked_no_valid_sequence_candidate"
-        if reason == "blocked_data_quality" and not rows:
+    pit_mode, pit_row = _pit_evidence(
+        pit_panel,
+        qlib_indices=(train.features.index, valid.features.index, test.features.index),
+    )
+    test_accessed_after_freeze = (
+        event_trace.index("candidate_selection_frozen")
+        < event_trace.index("test_dk_i_accessed")
+    )
+    if missing_required_source or policy is None:
+        reason = (
+            "blocked_missing_required_source"
+            if missing_required_source
+            else frozen_decision.selected_candidate
+        )
+        if not rows:
             for family in spec.model_families:
                 for window in spec.windows:
                     row = _failure_row(
                         f"{family}_w{window}",
-                        ValueError("invalid train or validation evidence"),
+                        ValueError(reason),
                     )
-                    row["reason_code"] = "invalid_required_data"
+                    row["reason_code"] = (
+                        "blocked_missing_required_source"
+                        if reason == "blocked_missing_required_source"
+                        else "invalid_required_data"
+                        if reason == "blocked_data_quality"
+                        else row["reason_code"]
+                    )
                     rows.append(row)
-            failure_rows = pd.DataFrame(rows)
-        comparison = pd.DataFrame([*rows, pit_row])
+        if policy is not None:
+            selected_row["selected"] = False
+            rows.append(
+                {
+                    **_failure_row("diagnostic_source_gate_w0", ValueError(reason)),
+                    "candidate": "diagnostic_source_gate",
+                    "model": "diagnostic_source_gate",
+                    "family": "source_gate",
+                    "window": np.nan,
+                    "reason_code": reason,
+                }
+            )
         predictions = {
             spec.train_segment: _zero_predictions(train.features.index),
             spec.selection_segment: _zero_predictions(valid.features.index),
             spec.test_segment: _zero_predictions(test.features.index),
         }
+        failure_rows = pd.DataFrame([row for row in rows if row["status"] != "ok"])
+        comparison = pd.DataFrame([*rows, pit_row])
         return PanelSequenceResult(
             model_comparison=comparison,
             selected_candidate=reason,
@@ -941,77 +1199,29 @@ def run_panel_sequence_models(
                 "route_status": reason,
                 "selection_segment": spec.selection_segment,
                 "test_labels_used_for_selection": False,
-                "test_accessed_after_freeze": True,
+                "test_accessed_after_freeze": test_accessed_after_freeze,
+                "event_trace": tuple(event_trace),
                 "label_horizon": spec.label_horizon,
                 "purge_rows": purge_rows,
                 "random_state": spec.random_state,
+                "source_evidence": source_evidence,
                 "data_quality_evidence": quality_evidence,
             },
             mode_evidence={
-                "diagnostic_multivariate": {"status": reason},
+                "diagnostic_multivariate": {
+                    "status": reason,
+                    "source_evidence": source_evidence,
+                },
                 "constituent_cross_sectional": pit_mode,
             },
             blocked_mode_positions={
                 "constituent_cross_sectional": pd.Series(0.0, index=test.features.index)
             },
-            floor=float(spec.floor_cap_candidates[0][0]),
-            cap=float(spec.floor_cap_candidates[0][1]),
+            floor=floor,
+            cap=cap,
             fitted_policy=None,
         )
 
-    successful_rows = [row for row in rows if row["status"] == "ok"]
-    selected_row = max(
-        successful_rows,
-        key=lambda row: (
-            float(row["validation_score"]),
-            -int(row["window"]),
-            row["family"],
-        ),
-    )
-    selected_candidate = str(selected_row["candidate"])
-    selected_row["selected"] = True
-    estimator = fitted[selected_candidate]
-    train_raw, valid_raw, mu_center, mu_scale, floor, cap = candidate_predictions[
-        selected_candidate
-    ]
-    policy = FittedPanelSequencePolicy(
-        feature_columns=tuple(train.features.columns),
-        preprocessing_median=median,
-        preprocessing_mean=mean,
-        preprocessing_scale=scale,
-        estimator=estimator,
-        family=str(selected_row["family"]),
-        window=int(selected_row["window"]),
-        mu_center=mu_center,
-        mu_scale=mu_scale,
-        floor=floor,
-        cap=cap,
-        history_tail=pd.concat([train.features, valid.features]).tail(
-            int(selected_row["window"]) - 1
-        ),
-    )
-    train_sequence_quality = _sequence_quality(
-        pd.Series(dtype=bool), train_quality, window=policy.window
-    )
-    valid_sequence_quality = _sequence_quality(
-        train_quality.tail(policy.window - 1), valid_quality, window=policy.window
-    )
-    train_predictions = _scores_to_predictions(
-        train_raw,
-        train_sequence_quality,
-        mu_center=mu_center,
-        mu_scale=mu_scale,
-        floor=floor,
-        cap=cap,
-    )
-    valid_predictions = _scores_to_predictions(
-        valid_raw,
-        valid_sequence_quality,
-        mu_center=mu_center,
-        mu_scale=mu_scale,
-        floor=floor,
-        cap=cap,
-    )
     test_prediction_failure: dict[str, Any] | None = None
     try:
         test_predictions = policy.predict(
@@ -1026,6 +1236,7 @@ def run_panel_sequence_models(
             "detail": str(exc),
         }
     data_quality_blocked = any(item["invalid_count"] for item in quality_evidence.values())
+    failure_rows = pd.DataFrame([row for row in rows if row["status"] != "ok"])
     degraded = bool(failure_rows.shape[0])
     route_status = (
         "blocked_prediction_failed"
@@ -1040,6 +1251,7 @@ def run_panel_sequence_models(
         spec.selection_segment: valid_predictions,
         spec.test_segment: test_predictions,
     }
+    assert selected_row is not None and estimator is not None
     frozen_policy = {
         "candidate": selected_candidate,
         "family": policy.family,
@@ -1061,7 +1273,8 @@ def run_panel_sequence_models(
             "route_status": route_status,
             "selection_segment": spec.selection_segment,
             "test_labels_used_for_selection": False,
-            "test_accessed_after_freeze": True,
+            "test_accessed_after_freeze": test_accessed_after_freeze,
+            "event_trace": tuple(event_trace),
             "label_horizon": spec.label_horizon,
             "purge_rows": purge_rows,
             "random_state": spec.random_state,
@@ -1074,20 +1287,26 @@ def run_panel_sequence_models(
                 "temporal_layers": spec.temporal_layers,
                 "dropout": spec.dropout,
             },
-            "diagnostic_assets": ("SOXL", "SOXX", "VIX"),
+            "diagnostic_assets": tuple(
+                source for source, item in source_evidence.items() if item["available"]
+            ),
             "data_keys": {
                 spec.train_segment: "DataHandlerLP.DK_L",
                 spec.selection_segment: "DataHandlerLP.DK_L",
                 spec.test_segment: "DataHandlerLP.DK_I",
             },
             "data_quality_evidence": quality_evidence,
+            "source_evidence": source_evidence,
             "test_prediction_failure": test_prediction_failure,
             "frozen_policy": frozen_policy,
         },
         mode_evidence={
             "diagnostic_multivariate": {
                 "status": route_status,
-                "assets": ("SOXL", "SOXX", "VIX"),
+                "assets": tuple(
+                    source for source, item in source_evidence.items() if item["available"]
+                ),
+                "source_evidence": source_evidence,
             },
             "constituent_cross_sectional": pit_mode,
         },
