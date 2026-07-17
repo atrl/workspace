@@ -2,7 +2,7 @@
 
 ## 做了什么
 
-读取三张已冻结 route summary 和 qlib recorder 证据，未在 test 上重新选择或重训。
+通过 qlib Recorder 对象读取三条冻结路线的预测、标签、组合报告、仓位、风险分析和选择证据；前沿 recorder 为 `81ecd009c8774365a8a159ffb91ca1e5`，没有在 test 上重新选择或重训。
 
 ## 核心指标
 
@@ -10,7 +10,7 @@
 
 ## Regime / window 差异
 
-Regime MoE、tail budget、20/60 日序列结果均按各自 card 原样进入比较；blocked 路线没有被省略。
+Regime MoE、tail budget、20/60 日序列结果按同一窗口和执行成本比较；blocked 路线不会被省略。
 
 ## 晋升决定
 

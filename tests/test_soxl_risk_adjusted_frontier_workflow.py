@@ -4,140 +4,59 @@ import json
 from pathlib import Path
 
 import nbformat
+import numpy as np
 import pandas as pd
 import pytest
 
 
-def _summary(
-    route: str,
-    *,
-    recorder_id: str = "rid",
-    status: str = "ok",
-    selected_candidate: str = "candidate",
-    start: str = "2024-01-02",
-    end: str = "2026-07-02",
-    promoted: bool = False,
-    recorder_local_dir: str = "/tmp/missing-recorder",
-) -> dict:
-    from src.workflow.soxl_risk_adjusted_frontier import REQUIRED_PROMOTION_CHECKS
+ROOT = Path(__file__).resolve().parents[1]
 
+
+def _actual_summaries() -> dict[str, dict]:
+    cards = {
+        "tail_budget": "soxl_tail_budget_v1",
+        "regime_moe": "soxl_regime_moe_v1",
+        "panel_sequence": "soxl_panel_sequence_v1",
+    }
     return {
-        "experiment": route,
-        "route": route,
-        "route_status": status,
-        "selected_candidate": selected_candidate,
-        "selection_frozen_before_test": True,
-        "test_labels_used_for_selection": False,
-        "data_range": [start, end],
-        "segments": {
-            "train": ["2024-01-02", "2025-03-31"],
-            "valid": ["2025-04-01", "2025-09-30"],
-            "test": ["2025-10-01", end],
-        },
-        "label_contract": {"horizon": 5, "purge_rows": 6},
-        "benchmark": {"name": "legacy_soxl_backtest", "matched_window": True},
-        "recorder_id": recorder_id,
-        "recorder_uri": "/tmp/mlruns",
-        "recorder_local_dir": recorder_local_dir,
-        "recorder_artifacts": [
-            "artifacts/pred.pkl",
-            "artifacts/label.pkl",
-            "artifacts/model_selection/all_model_predictions.csv",
-            "artifacts/portfolio_analysis/report_normal_1day.pkl",
-            "artifacts/portfolio_analysis/positions_normal_1day.pkl",
-            "artifacts/portfolio_analysis/port_analysis_1day.pkl",
-        ],
-        "promotion": {
-            "promoted": promoted,
-            "decision": "promoted_risk_adjusted_candidate" if promoted else "not_promoted_failed_risk_gates",
-            "checks": {key: promoted for key in REQUIRED_PROMOTION_CHECKS},
-            "failed_checks": [] if promoted else list(REQUIRED_PROMOTION_CHECKS),
-        },
+        route: json.loads((ROOT / "research" / name / "summary.json").read_text(encoding="utf-8"))
+        for route, name in cards.items()
     }
 
 
-def _recorder_dir(tmp_path: Path, route: str) -> Path:
-    from src.workflow.soxl_risk_adjusted_frontier import RECORDER_ONLY_ARTIFACTS
-
-    root = tmp_path / route
-    for relative in RECORDER_ONLY_ARTIFACTS.values():
-        path = root / relative
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(b"artifact")
-    return root
-
-
-def test_frontier_compares_frozen_route_results_without_test_reselection(tmp_path: Path):
+def test_frontier_compares_frozen_route_results_without_test_reselection():
     from src.workflow.soxl_risk_adjusted_frontier import compare_frozen_route_summaries
 
-    summaries = {
-        name: _summary(
-            name,
-            recorder_id=f"rid-{name}",
-            recorder_local_dir=_recorder_dir(tmp_path, name).as_posix(),
-        )
-        for name in ("tail_budget", "regime_moe", "panel_sequence")
-    }
-    summaries["panel_sequence"]["route_status"] = "blocked_missing_required_source"
-    summaries["panel_sequence"]["selected_candidate"] = "blocked_missing_required_source"
-
-    result = compare_frozen_route_summaries(summaries)
+    result = compare_frozen_route_summaries(_actual_summaries())
 
     assert result["decision"] == "not_promoted_no_risk_adjusted_candidate"
     assert result["selection_source"] == "frozen_route_summaries"
     assert result["test_reselection_performed"] is False
-    assert set(result["routes"]) == set(summaries)
-    assert result["routes"]["panel_sequence"]["route_status"].startswith("blocked_")
+    assert set(result["routes"]) == set(_actual_summaries())
+    assert result["routes"]["panel_sequence"]["route_status"] == "ok"
+    assert result["evidence_source"] == "qlib_recorder_objects"
 
 
-def test_frontier_fails_closed_on_window_or_recorder_mismatch(tmp_path: Path):
+def test_frontier_fails_closed_on_window_or_recorder_mismatch():
     from src.workflow.soxl_risk_adjusted_frontier import compare_frozen_route_summaries
 
-    summaries = {
-        name: _summary(
-            name,
-            recorder_id=f"rid-{name}",
-            recorder_local_dir=_recorder_dir(tmp_path, name).as_posix(),
-        )
-        for name in ("tail_budget", "regime_moe", "panel_sequence")
-    }
+    summaries = _actual_summaries()
     summaries["regime_moe"]["data_range"] = ["2024-02-01", "2026-07-02"]
     with pytest.raises(ValueError, match="matched data windows"):
         compare_frozen_route_summaries(summaries)
 
-    summaries["regime_moe"] = _summary("regime_moe", recorder_id="")
-    with pytest.raises(ValueError, match="recorder evidence"):
+    summaries = _actual_summaries()
+    summaries["regime_moe"]["recorder_id"] = "stale-recorder-id"
+    with pytest.raises((ValueError, RuntimeError), match="recorder"):
         compare_frozen_route_summaries(summaries)
 
 
-def test_frontier_revalidates_literal_promotion_checks_and_artifact_access(tmp_path: Path):
-    from src.workflow.soxl_risk_adjusted_frontier import (
-        REQUIRED_PROMOTION_CHECKS,
-        compare_frozen_route_summaries,
-    )
+def test_frontier_rejects_tampered_summary_against_recorder_truth():
+    from src.workflow.soxl_risk_adjusted_frontier import compare_frozen_route_summaries
 
-    summaries = {
-        name: _summary(
-            name,
-            recorder_id=f"rid-{name}",
-            promoted=True,
-            recorder_local_dir=_recorder_dir(tmp_path, name).as_posix(),
-        )
-        for name in ("tail_budget", "regime_moe", "panel_sequence")
-    }
-    summaries["tail_budget"]["promotion"]["checks"].pop(next(iter(REQUIRED_PROMOTION_CHECKS)))
-    with pytest.raises(ValueError, match="promotion check evidence"):
-        compare_frozen_route_summaries(summaries)
-
-    summaries["tail_budget"] = _summary(
-        "tail_budget",
-        recorder_id="rid-tail",
-        promoted=True,
-        recorder_local_dir=_recorder_dir(tmp_path, "tail-fixed").as_posix(),
-    )
-    missing = Path(summaries["regime_moe"]["recorder_local_dir"]) / "artifacts/pred.pkl"
-    missing.unlink()
-    with pytest.raises(ValueError, match="recorder artifact is not accessible"):
+    summaries = _actual_summaries()
+    summaries["tail_budget"]["metrics"]["test"]["candidate"]["total_return"] += 10.0
+    with pytest.raises(ValueError, match="summary and recorder metrics differ"):
         compare_frozen_route_summaries(summaries)
 
 
@@ -148,7 +67,7 @@ def test_card_payload_uses_relative_paths_and_slim_recorder_policy(tmp_path: Pat
         experiment="soxl_tail_budget_v1",
         route="tail_budget",
         provider_uri=Path("data/qlib/soxl"),
-        recorder_uri=Path(".qlib_recorder/soxl_risk_adjusted_frontier"),
+        recorder_uri=Path("git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1"),
         recorder_id="rid-tail",
         recorder_local_dir=tmp_path / "mlruns" / "run",
         data_range=("2024-01-02", "2026-07-02"),
@@ -168,7 +87,8 @@ def test_card_payload_uses_relative_paths_and_slim_recorder_policy(tmp_path: Pat
 
     policy = payload["artifact_policy"]
     assert payload["provider_uri"] == "data/qlib/soxl"
-    assert payload["recorder_uri"] == ".qlib_recorder/soxl_risk_adjusted_frontier"
+    assert payload["recorder_uri"].startswith("git-common-parent:")
+    assert "recorder_local_dir" not in payload
     assert policy["policy"] == "slim_card_recorder_first"
     assert policy["workflow_config"] == "workflow.yaml"
     assert set(policy["recorder_only_artifacts"].values()) == {
@@ -178,6 +98,7 @@ def test_card_payload_uses_relative_paths_and_slim_recorder_policy(tmp_path: Pat
         "artifacts/portfolio_analysis/report_normal_1day.pkl",
         "artifacts/portfolio_analysis/positions_normal_1day.pkl",
         "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+        "artifacts/evidence/legacy_report.pkl",
     }
     assert all(not Path(path).is_absolute() for path in payload["sidecars"].values())
     json.dumps(payload, allow_nan=False)
@@ -225,6 +146,11 @@ def test_generated_risk_adjusted_cards_are_executable_slim_and_chinese():
         assert summary["recorder_id"] in last.source
         for heading in ("做了什么", "核心指标", "Regime / window 差异", "晋升决定", "风险", "下一步"):
             assert heading in last.source
+        serialized_outputs = json.dumps(
+            [cell.get("outputs", []) for cell in notebook_node.cells], ensure_ascii=False
+        )
+        for forbidden_output in ("Traceback", "MlflowException", "background exception"):
+            assert forbidden_output not in serialized_outputs
 
 
 def test_route_cards_use_native_qlib_record_outputs_and_frontier_has_own_policy():
@@ -236,15 +162,32 @@ def test_route_cards_use_native_qlib_record_outputs_and_frontier_has_own_policy(
         assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
             set(summary["recorder_artifacts"])
         )
-        recorder = Path(summary["recorder_local_dir"]) / "artifacts" / "portfolio_analysis"
-        report = pd.read_pickle(recorder / "report_normal_1day.pkl")
-        positions = pd.read_pickle(recorder / "positions_normal_1day.pkl")
-        risk = pd.read_pickle(recorder / "port_analysis_1day.pkl")
+        from src.workflow.soxl_risk_adjusted_frontier import load_route_recorder_evidence
+
+        evidence = load_route_recorder_evidence(summary)
+        report = evidence["report"]
+        positions = evidence["positions"]
+        risk = evidence["risk"]
+        legacy_report = evidence["legacy_report"]
         assert {"account", "return", "turnover", "cost", "value", "cash", "bench"}.issubset(
             report.columns
         )
         assert isinstance(positions, dict) and positions
         assert isinstance(risk, pd.DataFrame) and not risk.empty
+        assert {"account", "return", "turnover", "cost", "value", "cash", "bench"}.issubset(
+            legacy_report.columns
+        )
+        assert summary["metrics"]["test"]["candidate"]["total_turnover"] == pytest.approx(
+            float(report["turnover"].sum()), abs=1e-12
+        )
+        assert summary["metrics"]["test"]["legacy"]["total_turnover"] == pytest.approx(
+            float(legacy_report["turnover"].sum()), abs=1e-12
+        )
+        assert summary["execution_config"] == {
+            "cost_rate": 0.0004,
+            "deal_price": "open",
+            "timing": "signal_after_close_t_to_next_open",
+        }
 
     card = root / "research" / "soxl_risk_adjusted_model_frontier_v1"
     summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
@@ -261,3 +204,37 @@ def test_route_cards_use_native_qlib_record_outputs_and_frontier_has_own_policy(
     assert "market: all" in workflow
     assert "region: us" in workflow
     assert "segments:" in workflow
+    comparison = pd.read_csv(card / "backtest_benchmark_comparison.csv")
+    assert {"candidate_return", "legacy_return", "return_gap"}.issubset(comparison.columns)
+
+
+def test_internal_missing_dates_fail_data_and_label_evidence():
+    from src.workflow.soxl_risk_adjusted_frontier import build_calendar_alignment_evidence
+
+    index = pd.bdate_range("2026-01-02", periods=12)
+    features = pd.DataFrame({"x": 1.0}, index=index)
+    labels = pd.DataFrame({"future_return_5d": 0.1}, index=index)
+    features.loc[index[4], "x"] = np.nan
+    labels.loc[index[7], "future_return_5d"] = np.nan
+    evidence = build_calendar_alignment_evidence(index, features, labels)
+    assert evidence["calendar_rows_complete"] is True
+    assert evidence["data_quality_valid"] is False
+    assert evidence["labels_complete"] is False
+    assert evidence["internal_feature_missing_dates"] == [index[4].date().isoformat()]
+    assert evidence["internal_label_missing_dates"] == [index[7].date().isoformat()]
+
+
+def test_notebook_conclusion_generator_tracks_latest_summary(tmp_path: Path):
+    from src.workflow.soxl_risk_adjusted_frontier import sync_notebook_conclusion
+
+    notebook = nbformat.v4.new_notebook(
+        cells=[nbformat.v4.new_code_cell("x = 1"), nbformat.v4.new_markdown_cell("stale")]
+    )
+    path = tmp_path / "card.ipynb"
+    nbformat.write(notebook, path)
+    summary = _actual_summaries()["tail_budget"]
+    sync_notebook_conclusion(path, summary)
+    synced = nbformat.read(path, as_version=4)
+    assert synced.cells[-1].cell_type == "markdown"
+    assert summary["recorder_id"] in synced.cells[-1].source
+    assert "核心指标" in synced.cells[-1].source

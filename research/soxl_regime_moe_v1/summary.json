@@ -19,6 +19,7 @@
     "recorder_only_artifacts": {
       "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
       "labels": "artifacts/label.pkl",
+      "legacy_report": "artifacts/evidence/legacy_report.pkl",
       "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
       "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
       "predictions": "artifacts/pred.pkl",
@@ -36,10 +37,19 @@
   },
   "blocked_modes": {},
   "data_lineage": {
+    "calendar_alignment": {
+      "calendar_rows_complete": true,
+      "data_quality_valid": true,
+      "expected_rows": 3065,
+      "internal_feature_missing_dates": [],
+      "internal_label_missing_dates": [],
+      "labels_complete": true
+    },
     "calendar_end": "2026-07-02",
     "calendar_start": "2010-03-11",
     "feature_count": 19,
     "feature_rows": 3065,
+    "feature_warmup_end": "2014-03-31",
     "fields": [
       "$open",
       "$high",
@@ -55,12 +65,43 @@
     "manifest_as_of": "2026-07-02",
     "manifest_hash": "e6bb1fee60429e99",
     "provider_uri": "data/qlib/soxl",
+    "segment_alignment": {
+      "test": {
+        "calendar_rows_complete": true,
+        "data_quality_valid": true,
+        "expected_rows": 621,
+        "internal_feature_missing_dates": [],
+        "internal_label_missing_dates": [],
+        "labels_complete": true
+      },
+      "train": {
+        "calendar_rows_complete": true,
+        "data_quality_valid": true,
+        "expected_rows": 1949,
+        "internal_feature_missing_dates": [],
+        "internal_label_missing_dates": [],
+        "labels_complete": true
+      },
+      "valid": {
+        "calendar_rows_complete": true,
+        "data_quality_valid": true,
+        "expected_rows": 495,
+        "internal_feature_missing_dates": [],
+        "internal_label_missing_dates": [],
+        "labels_complete": true
+      }
+    },
     "source": "qlib.data.D.features"
   },
   "data_range": [
     "2014-01-02",
     "2026-07-02"
   ],
+  "execution_config": {
+    "cost_rate": 0.0004,
+    "deal_price": "open",
+    "timing": "signal_after_close_t_to_next_open"
+  },
   "experiment": "soxl_regime_moe_v1",
   "label_contract": {
     "decision_time": "after close_t",
@@ -72,10 +113,44 @@
     "purge_rows": 6
   },
   "label_evidence": {
+    "calendar_alignment": {
+      "calendar_rows_complete": true,
+      "data_quality_valid": true,
+      "expected_rows": 3065,
+      "internal_feature_missing_dates": [],
+      "internal_label_missing_dates": [],
+      "labels_complete": true
+    },
     "purged_boundary_rows": {
       "test": 6,
       "train": 6,
       "valid": 6
+    },
+    "segment_alignment": {
+      "test": {
+        "calendar_rows_complete": true,
+        "data_quality_valid": true,
+        "expected_rows": 621,
+        "internal_feature_missing_dates": [],
+        "internal_label_missing_dates": [],
+        "labels_complete": true
+      },
+      "train": {
+        "calendar_rows_complete": true,
+        "data_quality_valid": true,
+        "expected_rows": 1949,
+        "internal_feature_missing_dates": [],
+        "internal_label_missing_dates": [],
+        "labels_complete": true
+      },
+      "valid": {
+        "calendar_rows_complete": true,
+        "data_quality_valid": true,
+        "expected_rows": 495,
+        "internal_feature_missing_dates": [],
+        "internal_label_missing_dates": [],
+        "labels_complete": true
+      }
     },
     "skipped_invalid_rows": {
       "test": 0,
@@ -96,22 +171,24 @@
         "observations": 622,
         "return_to_drawdown": 2.8023270950632253,
         "total_return": 0.9448748173815087,
-        "total_turnover": 25.98097893809149,
+        "total_turnover": 24.45544905938251,
+        "turnover_is_explicit": true,
         "worst_five_day_mean": -0.06633236274523571,
         "zero_position_day_ratio": 0.001607717041800643
       },
       "legacy": {
-        "avg_abs_position": 0.3830099678456591,
-        "cvar_5pct": -0.0793976527611506,
+        "avg_abs_position": 0.38295037036488705,
+        "cvar_5pct": -0.07775751069590989,
         "extreme_loss_day_count": 11,
         "extreme_loss_threshold": -0.08,
-        "max_drawdown": -0.5397123929946303,
+        "max_drawdown": -0.5018393458718943,
         "observations": 622,
-        "return_to_drawdown": 4.691411536245874,
-        "total_return": 2.5320129467498753,
-        "total_turnover": 3.3318000000000003,
-        "worst_five_day_mean": -0.1397287828833781,
-        "zero_position_day_ratio": 0.12057877813504823
+        "return_to_drawdown": 4.748065659103397,
+        "total_return": 2.3827661645212532,
+        "total_turnover": 9.415305977235654,
+        "turnover_is_explicit": true,
+        "worst_five_day_mean": -0.13214376887345924,
+        "zero_position_day_ratio": 0.12218649517684887
       }
     },
     "walk_forward": {
@@ -124,24 +201,26 @@
         "observations": 622,
         "return_to_drawdown": 2.8023270950632253,
         "total_return": 0.9448748173815087,
-        "total_turnover": 25.98097893809149,
+        "total_turnover": 24.45544905938251,
+        "turnover_is_explicit": true,
         "worst_five_day_mean": -0.06633236274523571,
         "zero_position_day_ratio": 0.001607717041800643
       },
       "candidate_positive_folds": 2,
       "fold_count": 3,
       "legacy": {
-        "avg_abs_position": 0.3830099678456591,
-        "cvar_5pct": -0.0793976527611506,
+        "avg_abs_position": 0.38295037036488705,
+        "cvar_5pct": -0.07775751069590989,
         "extreme_loss_day_count": 11,
         "extreme_loss_threshold": -0.08,
-        "max_drawdown": -0.5397123929946303,
+        "max_drawdown": -0.5018393458718943,
         "observations": 622,
-        "return_to_drawdown": 4.691411536245874,
-        "total_return": 2.5320129467498753,
-        "total_turnover": 3.3318000000000003,
-        "worst_five_day_mean": -0.1397287828833781,
-        "zero_position_day_ratio": 0.12057877813504823
+        "return_to_drawdown": 4.748065659103397,
+        "total_return": 2.3827661645212532,
+        "total_turnover": 9.415305977235654,
+        "turnover_is_explicit": true,
+        "worst_five_day_mean": -0.13214376887345924,
+        "zero_position_day_ratio": 0.12218649517684887
       },
       "method": "frozen_policy_chronological_three_fold_diagnostic"
     }
@@ -216,6 +295,7 @@
     "qlib.workflow.Recorder.save_objects"
   ],
   "recorder_artifacts": [
+    "artifacts/evidence/legacy_report.pkl",
     "artifacts/evidence/selection_evidence.pkl",
     "artifacts/label.pkl",
     "artifacts/model/fitted_policy.pkl",
@@ -242,7 +322,11 @@
     "metrics/1day.pa",
     "metrics/1day.pos",
     "params/as_of",
+    "params/backtest_strategy",
     "params/cmd-sys.argv",
+    "params/cost_rate",
+    "params/deal_price",
+    "params/execution_timing",
     "params/label_horizon",
     "params/provider_uri",
     "params/purge_rows",
@@ -255,9 +339,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "608ea5b8cb5d41ef9727c5908b9e97c6",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/279338918515063373/608ea5b8cb5d41ef9727c5908b9e97c6",
-  "recorder_uri": "../.qlib-recorders/soxl-risk-adjusted-frontier-v1",
+  "recorder_id": "77f48b23c1804fd2b188dc1bc277371d",
+  "recorder_uri": "git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1",
   "region": "us",
   "route": "regime_moe",
   "route_status": "ok",

@@ -2,7 +2,7 @@ experiment: soxl_risk_adjusted_model_frontier_v1
 route: frontier
 qlib:
   provider_uri: data/qlib/soxl
-  recorder_uri: ../.qlib-recorders/soxl-risk-adjusted-frontier-v1
+  recorder_uri: git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1
   market: all
   region: us
 segments:

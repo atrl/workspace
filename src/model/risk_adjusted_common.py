@@ -59,6 +59,8 @@ class RiskMetrics:
     observations: int
     daily_returns: tuple[float, ...] = field(default=(), repr=False, compare=False)
     positions: tuple[float, ...] = field(default=(), repr=False, compare=False)
+    daily_turnover: tuple[float, ...] = field(default=(), repr=False, compare=False)
+    turnover_is_explicit: bool = field(default=False, repr=False, compare=False)
     extreme_loss_threshold: float = field(default=-0.08, repr=False, compare=False)
 
     @property
@@ -285,6 +287,7 @@ def compute_risk_metrics(
     positions: pd.Series | Sequence[float],
     *,
     extreme_loss_threshold: float = -0.08,
+    daily_turnover: pd.Series | Sequence[float] | None = None,
 ) -> RiskMetrics:
     """Compute the shared candidate/legacy metrics on decimal daily returns."""
 
@@ -294,6 +297,15 @@ def compute_risk_metrics(
         raise ValueError("daily_returns and positions must have the same non-zero length")
     if not np.isfinite(returns.to_numpy()).all() or not np.isfinite(position.to_numpy()).all():
         raise ValueError("daily_returns and positions must be finite")
+    turnover_is_explicit = daily_turnover is not None
+    if daily_turnover is None:
+        turnover = position.diff().abs().fillna(position.abs())
+    else:
+        turnover = pd.Series(daily_turnover, dtype="float64")
+        if len(turnover) != len(position) or not np.isfinite(turnover.to_numpy()).all():
+            raise ValueError("daily_turnover must be finite and aligned with positions")
+        if turnover.lt(0.0).any():
+            raise ValueError("daily_turnover must be non-negative")
     nav = pd.Series(np.r_[1.0, (1.0 + returns.to_numpy()).cumprod()])
     drawdown = nav / nav.cummax() - 1.0
     tail_count = max(1, int(np.ceil(len(returns) * 0.05)))
@@ -305,10 +317,12 @@ def compute_risk_metrics(
         extreme_loss_day_count=int(returns.le(float(extreme_loss_threshold)).sum()),
         avg_abs_position=float(position.abs().mean()),
         zero_position_day_ratio=float(position.abs().le(1e-12).mean()),
-        total_turnover=float(position.diff().abs().fillna(position.abs()).sum()),
+        total_turnover=float(turnover.sum()),
         observations=int(len(returns)),
         daily_returns=tuple(float(value) for value in returns),
         positions=tuple(float(value) for value in position),
+        daily_turnover=tuple(float(value) for value in turnover),
+        turnover_is_explicit=turnover_is_explicit,
         extreme_loss_threshold=float(extreme_loss_threshold),
     )
 
@@ -320,7 +334,9 @@ def aggregate_walk_forward(folds: Sequence[RiskMetrics]) -> WalkForwardAggregate
     if not metrics:
         raise ValueError("at least one walk-forward fold is required")
     if any(
-        len(item.daily_returns) != item.observations or len(item.positions) != item.observations
+        len(item.daily_returns) != item.observations
+        or len(item.positions) != item.observations
+        or (item.daily_turnover and len(item.daily_turnover) != item.observations)
         for item in metrics
     ):
         raise ValueError("walk-forward metrics must include daily return and position paths")
@@ -332,10 +348,16 @@ def aggregate_walk_forward(folds: Sequence[RiskMetrics]) -> WalkForwardAggregate
         raise ValueError("walk-forward folds must use one finite extreme-loss threshold")
     combined_returns = tuple(value for item in metrics for value in item.daily_returns)
     combined_positions = tuple(value for item in metrics for value in item.positions)
+    combined_turnover = (
+        tuple(value for item in metrics for value in item.daily_turnover)
+        if all(item.turnover_is_explicit for item in metrics)
+        else None
+    )
     aggregate = compute_risk_metrics(
         combined_returns,
         combined_positions,
         extreme_loss_threshold=thresholds[0],
+        daily_turnover=combined_turnover,
     )
     return WalkForwardAggregate(
         metrics=aggregate,
@@ -396,6 +418,7 @@ def _risk_metrics_are_valid(metrics: RiskMetrics) -> bool:
         metrics.daily_returns,
         metrics.positions,
         extreme_loss_threshold=metrics.extreme_loss_threshold,
+        daily_turnover=metrics.daily_turnover or None,
     )
     float_fields = (
         "total_return",
