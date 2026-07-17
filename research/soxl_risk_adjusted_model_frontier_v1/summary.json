@@ -9,16 +9,30 @@
     "policy": "slim_card_recorder_first",
     "primary_artifact": "soxl_risk_adjusted_model_frontier_v1.ipynb",
     "recorder_only_artifacts": {
-      "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
-      "labels": "artifacts/label.pkl",
-      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
-      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
-      "predictions": "artifacts/pred.pkl",
-      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+      "canonical_dataset_audit": "artifacts/frontier/canonical_dataset_audit.pkl",
+      "route_summaries": "artifacts/frontier/route_summaries.pkl"
     },
     "workflow_config": "workflow.yaml"
   },
   "as_of": "2026-07-02",
+  "canonical_dataset_audit": {
+    "DatasetH_prepare_rows": 621,
+    "columns": [
+      "close",
+      "vix"
+    ],
+    "end": "2026-06-24",
+    "provider_uri": "data/qlib/soxl",
+    "selection_performed": false,
+    "source_api": [
+      "qlib.data.D.features",
+      "DatasetH",
+      "DataHandlerLP",
+      "DatasetH.prepare"
+    ],
+    "start": "2024-01-02",
+    "training_performed": false
+  },
   "data_range": [
     "2014-01-02",
     "2026-07-02"
@@ -81,7 +95,7 @@
           ],
           "promoted": false
         },
-        "recorder_id": "7a6c991407e24954803013cf4e2ed82b",
+        "recorder_id": "2405f15fb3ac4b63b67c54a99d395003",
         "route_status": "ok",
         "selected_candidate": "gru_alstm_w20"
       },
@@ -140,7 +154,7 @@
           ],
           "promoted": false
         },
-        "recorder_id": "561f65ce9fd54971b5cb73f3dc434cb3",
+        "recorder_id": "608ea5b8cb5d41ef9727c5908b9e97c6",
         "route_status": "ok",
         "selected_candidate": "validation_selected_regime_moe"
       },
@@ -195,7 +209,7 @@
           ],
           "promoted": false
         },
-        "recorder_id": "8295a8f75db94e059624defd0109636d",
+        "recorder_id": "a2766fbed909491280de33d721f441f4",
         "route_status": "ok",
         "selected_candidate": "validation_selected_individual"
       }
@@ -234,6 +248,7 @@
     "qlib.workflow.R.start"
   ],
   "recorder_artifacts": [
+    "artifacts/frontier/canonical_dataset_audit.pkl",
     "artifacts/frontier/route_summaries.pkl",
     "meta.yaml",
     "params/cmd-sys.argv",
@@ -246,11 +261,49 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "ab2942f7550148b990c829f6251f1ed8",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/453178819825299972/ab2942f7550148b990c829f6251f1ed8",
+  "recorder_id": "ad75bf1a91614e799edfb44ba852bf7a",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/453178819825299972/ad75bf1a91614e799edfb44ba852bf7a",
   "recorder_uri": "../.qlib-recorders/soxl-risk-adjusted-frontier-v1",
   "region": "us",
   "route": "frontier",
+  "route_recorder_artifacts": {
+    "panel_sequence": {
+      "artifacts": {
+        "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+        "labels": "artifacts/label.pkl",
+        "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+        "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+        "predictions": "artifacts/pred.pkl",
+        "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+      },
+      "recorder_id": "2405f15fb3ac4b63b67c54a99d395003",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/774951167539249193/2405f15fb3ac4b63b67c54a99d395003"
+    },
+    "regime_moe": {
+      "artifacts": {
+        "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+        "labels": "artifacts/label.pkl",
+        "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+        "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+        "predictions": "artifacts/pred.pkl",
+        "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+      },
+      "recorder_id": "608ea5b8cb5d41ef9727c5908b9e97c6",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/279338918515063373/608ea5b8cb5d41ef9727c5908b9e97c6"
+    },
+    "tail_budget": {
+      "artifacts": {
+        "all_model_predictions": "artifacts/model_selection/all_model_predictions.csv",
+        "labels": "artifacts/label.pkl",
+        "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+        "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+        "predictions": "artifacts/pred.pkl",
+        "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+      },
+      "recorder_id": "a2766fbed909491280de33d721f441f4",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/170464538437232873/a2766fbed909491280de33d721f441f4"
+    }
+  },
   "route_status": "ok",
   "routes": {
     "panel_sequence": {
@@ -306,7 +359,7 @@
         ],
         "promoted": false
       },
-      "recorder_id": "7a6c991407e24954803013cf4e2ed82b",
+      "recorder_id": "2405f15fb3ac4b63b67c54a99d395003",
       "route_status": "ok",
       "selected_candidate": "gru_alstm_w20"
     },
@@ -365,7 +418,7 @@
         ],
         "promoted": false
       },
-      "recorder_id": "561f65ce9fd54971b5cb73f3dc434cb3",
+      "recorder_id": "608ea5b8cb5d41ef9727c5908b9e97c6",
       "route_status": "ok",
       "selected_candidate": "validation_selected_regime_moe"
     },
@@ -420,7 +473,7 @@
         ],
         "promoted": false
       },
-      "recorder_id": "8295a8f75db94e059624defd0109636d",
+      "recorder_id": "a2766fbed909491280de33d721f441f4",
       "route_status": "ok",
       "selected_candidate": "validation_selected_individual"
     }

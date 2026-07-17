@@ -1,4 +1,8 @@
 {
+  "artifact_generation_api": [
+    "SignalRecord.generate",
+    "PortAnaRecord.generate"
+  ],
   "artifact_policy": {
     "kept_sidecars": [
       "backtest_benchmark_comparison.csv",
@@ -24,7 +28,7 @@
   },
   "as_of": "2026-07-02",
   "benchmark": {
-    "end": "2026-06-24",
+    "end": "2026-06-25",
     "matched_window": true,
     "name": "legacy_soxl_backtest",
     "source": "soxl_backtest.reference.replay_soxlbacktest_reference",
@@ -84,64 +88,65 @@
   "metrics": {
     "test": {
       "candidate": {
-        "avg_abs_position": 0.2131086420884717,
-        "cvar_5pct": -0.03726371734027266,
-        "extreme_loss_day_count": 0,
+        "avg_abs_position": 0.21337539901139593,
+        "cvar_5pct": -0.04001403456836543,
+        "extreme_loss_day_count": 1,
         "extreme_loss_threshold": -0.08,
-        "max_drawdown": -0.3543585460444131,
-        "observations": 621,
-        "return_to_drawdown": 2.501631628486239,
-        "total_return": 0.8864745466091011,
-        "total_turnover": 20.913340415252723,
-        "worst_five_day_mean": -0.06426954357453955,
-        "zero_position_day_ratio": 0.0
+        "max_drawdown": -0.33717506391244123,
+        "observations": 622,
+        "return_to_drawdown": 2.8023270950632253,
+        "total_return": 0.9448748173815087,
+        "total_turnover": 25.98097893809149,
+        "worst_five_day_mean": -0.06633236274523571,
+        "zero_position_day_ratio": 0.001607717041800643
       },
       "legacy": {
-        "avg_abs_position": 0.3827958132045089,
+        "avg_abs_position": 0.3830099678456591,
         "cvar_5pct": -0.0793976527611506,
         "extreme_loss_day_count": 11,
         "extreme_loss_threshold": -0.08,
         "max_drawdown": -0.5397123929946303,
-        "observations": 621,
-        "return_to_drawdown": 4.3703872235769525,
-        "total_return": 2.3587521467498753,
+        "observations": 622,
+        "return_to_drawdown": 4.691411536245874,
+        "total_return": 2.5320129467498753,
         "total_turnover": 3.3318000000000003,
         "worst_five_day_mean": -0.1397287828833781,
-        "zero_position_day_ratio": 0.12077294685990338
+        "zero_position_day_ratio": 0.12057877813504823
       }
     },
     "walk_forward": {
       "candidate": {
-        "avg_abs_position": 0.2131086420884717,
-        "cvar_5pct": -0.03726371734027266,
-        "extreme_loss_day_count": 0,
+        "avg_abs_position": 0.21337539901139593,
+        "cvar_5pct": -0.04001403456836543,
+        "extreme_loss_day_count": 1,
         "extreme_loss_threshold": -0.08,
-        "max_drawdown": -0.3543585460444131,
-        "observations": 621,
-        "return_to_drawdown": 2.501631628486239,
-        "total_return": 0.8864745466091011,
-        "total_turnover": 20.913340415252723,
-        "worst_five_day_mean": -0.06426954357453955,
-        "zero_position_day_ratio": 0.0
+        "max_drawdown": -0.33717506391244123,
+        "observations": 622,
+        "return_to_drawdown": 2.8023270950632253,
+        "total_return": 0.9448748173815087,
+        "total_turnover": 25.98097893809149,
+        "worst_five_day_mean": -0.06633236274523571,
+        "zero_position_day_ratio": 0.001607717041800643
       },
       "candidate_positive_folds": 2,
       "fold_count": 3,
       "legacy": {
-        "avg_abs_position": 0.3827958132045089,
+        "avg_abs_position": 0.3830099678456591,
         "cvar_5pct": -0.0793976527611506,
         "extreme_loss_day_count": 11,
         "extreme_loss_threshold": -0.08,
         "max_drawdown": -0.5397123929946303,
-        "observations": 621,
-        "return_to_drawdown": 4.3703872235769525,
-        "total_return": 2.3587521467498753,
+        "observations": 622,
+        "return_to_drawdown": 4.691411536245874,
+        "total_return": 2.5320129467498753,
         "total_turnover": 3.3318000000000003,
         "worst_five_day_mean": -0.1397287828833781,
-        "zero_position_day_ratio": 0.12077294685990338
+        "zero_position_day_ratio": 0.12057877813504823
       },
       "method": "frozen_policy_chronological_three_fold_diagnostic"
     }
   },
+  "metrics_source": "qlib_portfolio_analysis/report_normal_1day.pkl",
   "promotion": {
     "checks": {
       "candidate_walk_forward_fold_count": true,
@@ -215,15 +220,27 @@
     "artifacts/label.pkl",
     "artifacts/model/fitted_policy.pkl",
     "artifacts/model_selection/all_model_predictions.csv",
+    "artifacts/portfolio_analysis/indicator_analysis_1day.pkl",
+    "artifacts/portfolio_analysis/indicators_normal_1day.pkl",
+    "artifacts/portfolio_analysis/indicators_normal_1day_obj.pkl",
     "artifacts/portfolio_analysis/port_analysis_1day.pkl",
     "artifacts/portfolio_analysis/positions_normal_1day.pkl",
     "artifacts/portfolio_analysis/report_normal_1day.pkl",
     "artifacts/pred.pkl",
     "meta.yaml",
-    "metrics/candidate_test_avg_abs_position",
-    "metrics/candidate_test_max_drawdown",
-    "metrics/candidate_test_return",
-    "metrics/legacy_test_return",
+    "metrics/1day.excess_return_with_cost.annualized_return",
+    "metrics/1day.excess_return_with_cost.information_ratio",
+    "metrics/1day.excess_return_with_cost.max_drawdown",
+    "metrics/1day.excess_return_with_cost.mean",
+    "metrics/1day.excess_return_with_cost.std",
+    "metrics/1day.excess_return_without_cost.annualized_return",
+    "metrics/1day.excess_return_without_cost.information_ratio",
+    "metrics/1day.excess_return_without_cost.max_drawdown",
+    "metrics/1day.excess_return_without_cost.mean",
+    "metrics/1day.excess_return_without_cost.std",
+    "metrics/1day.ffr",
+    "metrics/1day.pa",
+    "metrics/1day.pos",
     "params/as_of",
     "params/cmd-sys.argv",
     "params/label_horizon",
@@ -238,8 +255,8 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "561f65ce9fd54971b5cb73f3dc434cb3",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/279338918515063373/561f65ce9fd54971b5cb73f3dc434cb3",
+  "recorder_id": "608ea5b8cb5d41ef9727c5908b9e97c6",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/.worktrees/.qlib-recorders/soxl-risk-adjusted-frontier-v1/279338918515063373/608ea5b8cb5d41ef9727c5908b9e97c6",
   "recorder_uri": "../.qlib-recorders/soxl-risk-adjusted-frontier-v1",
   "region": "us",
   "route": "regime_moe",

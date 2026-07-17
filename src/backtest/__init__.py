@@ -12,10 +12,11 @@ from .position_sizing import (
     volatility_scaled_target,
 )
 from .ml_position import evaluate_ml_position_candidates, predict_ml_position_candidate
-from .strategy import SignalWeightStrategy, calibrated_signal_threshold
+from .strategy import ContinuousSignalWeightStrategy, SignalWeightStrategy, calibrated_signal_threshold
 
 __all__ = [
     "BacktestExtensionReport",
+    "ContinuousSignalWeightStrategy",
     "PortfolioReport",
     "SignalWeightStrategy",
     "apply_drawdown_budget_policy",

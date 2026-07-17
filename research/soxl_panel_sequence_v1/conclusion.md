@@ -2,12 +2,12 @@
 
 ## 做了什么
 
-使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `panel_sequence` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `7a6c991407e24954803013cf4e2ed82b`。
+使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `panel_sequence` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `2405f15fb3ac4b63b67c54a99d395003`。
 
 ## 核心指标
 
-- 候选测试收益：1.0410；最大回撤：-0.3845；平均绝对仓位：0.2234。
-- 匹配 legacy 收益：2.3588；最大回撤：-0.5397。
+- 候选测试收益：1.1151；最大回撤：-0.3531；平均绝对仓位：0.2239。
+- 匹配 legacy 收益：2.5320；最大回撤：-0.5397。
 - as-of 为 2026-07-02，没有外推到更新日期。
 
 ## Regime / window 差异

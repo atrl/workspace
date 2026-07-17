@@ -4,6 +4,7 @@ from typing import Any
 
 import pandas as pd
 from qlib.contrib.strategy.signal_strategy import WeightStrategyBase
+import numpy as np
 
 
 def _instrument_from_index(index_value: Any, *, index_names: list[str | None], default: str | None) -> str | None:
@@ -78,3 +79,31 @@ class SignalWeightStrategy(WeightStrategyBase):
                 self.max_weight if value is not None and value > self.score_threshold else self.min_weight
             )
         return target
+
+
+class ContinuousSignalWeightStrategy(WeightStrategyBase):
+    """Interpret a qlib prediction score as a bounded target portfolio weight."""
+
+    def __init__(
+        self,
+        *,
+        instrument: str | None = None,
+        min_weight: float = 0.0,
+        max_weight: float = 1.0,
+        **kwargs,
+    ) -> None:
+        super().__init__(**kwargs)
+        if not 0.0 <= float(min_weight) <= float(max_weight) <= 1.0:
+            raise ValueError("continuous target weights must satisfy 0 <= min <= max <= 1")
+        self.instrument = instrument
+        self.min_weight = float(min_weight)
+        self.max_weight = float(max_weight)
+
+    def generate_target_weight_position(self, score, current, trade_start_time, trade_end_time):
+        scores = _score_by_instrument(score, default_instrument=self.instrument)
+        instruments = [self.instrument] if self.instrument else sorted(scores)
+        return {
+            instrument: float(np.clip(scores.get(instrument, 0.0), self.min_weight, self.max_weight))
+            for instrument in instruments
+            if instrument is not None
+        }

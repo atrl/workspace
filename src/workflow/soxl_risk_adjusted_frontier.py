@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import pickle
 import tempfile
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -40,6 +39,50 @@ RECORDER_ONLY_ARTIFACTS = {
     "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
     "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
 }
+
+FRONTIER_RECORDER_ONLY_ARTIFACTS = {
+    "canonical_dataset_audit": "artifacts/frontier/canonical_dataset_audit.pkl",
+    "route_summaries": "artifacts/frontier/route_summaries.pkl",
+}
+
+REQUIRED_PROMOTION_CHECKS = frozenset(
+    {
+        "data_quality_valid",
+        "label_leakage_free",
+        "test_time_selection_free",
+        "labels_complete",
+        "test_candidate_metrics_valid",
+        "test_legacy_metrics_valid",
+        "walk_forward_candidate_metrics_valid",
+        "walk_forward_legacy_metrics_valid",
+        "walk_forward_candidate_structure_valid",
+        "walk_forward_legacy_structure_valid",
+        "test_extreme_loss_threshold_comparable",
+        "walk_forward_extreme_loss_threshold_comparable",
+        "test_observation_count_matched",
+        "walk_forward_fold_counts_matched",
+        "candidate_walk_forward_fold_count",
+        "legacy_walk_forward_fold_count",
+        "walk_forward_observation_count_matched",
+        "walk_forward_positive_folds",
+        "nested_walk_forward",
+        *{
+            f"{scope}_{metric}"
+            for scope in ("test", "walk_forward")
+            for metric in (
+                "max_drawdown",
+                "participation",
+                "zero_position_day_ratio",
+                "positive_return_capture",
+                "return_to_drawdown",
+                "cvar_5pct",
+                "worst_five_day_mean",
+                "extreme_loss_day_count",
+                "total_turnover",
+            )
+        },
+    }
+)
 
 ROUTES = ("tail_budget", "regime_moe", "panel_sequence")
 
@@ -326,6 +369,17 @@ def _series_datetime(series: pd.Series) -> pd.Series:
     return result.sort_index()
 
 
+class _FrozenPositionSignalModel:
+    """Qlib SignalRecord adapter for a validation-frozen continuous position path."""
+
+    def __init__(self, positions: pd.Series) -> None:
+        self.positions = positions.astype("float64").rename("score")
+
+    def predict(self, dataset) -> pd.Series:
+        del dataset
+        return self.positions.copy()
+
+
 def _legacy_paths(start: str, end: str, dates: pd.DatetimeIndex):
     from soxl_backtest.reference import replay_soxlbacktest_reference
 
@@ -371,11 +425,16 @@ def _compact_selection_evidence(evidence: Mapping[str, Any]) -> dict[str, Any]:
     return _jsonable({key: evidence[key] for key in keys if key in evidence})
 
 
-def _route_metrics(spec: RiskAdjustedRouteCardSpec, result, next_open_return: pd.Series):
-    position = _series_datetime(result.positions_by_segment["test"])
-    gross = next_open_return.reindex(position.index).astype("float64") * position
-    turnover_cost = position.diff().abs().fillna(position.abs()) * spec.cost_rate
-    candidate_return = (gross - turnover_cost).fillna(0.0)
+def _route_metrics(
+    spec: RiskAdjustedRouteCardSpec, recorder_local_dir: Path, *, route_status: str
+):
+    portfolio_dir = recorder_local_dir / "artifacts" / "portfolio_analysis"
+    report = pd.read_pickle(portfolio_dir / "report_normal_1day.pkl").sort_index()
+    if not {"return", "cost", "value", "account"}.issubset(report.columns):
+        raise ValueError("qlib portfolio report is missing required native columns")
+    candidate_return = (report["return"].astype("float64") - report["cost"].astype("float64")).fillna(0.0)
+    position = (report["value"].astype("float64") / report["account"].replace(0.0, np.nan)).fillna(0.0)
+    position = position.clip(0.0, 1.0)
     legacy, legacy_return, legacy_position = _legacy_paths(
         position.index.min().date().isoformat(), position.index.max().date().isoformat(), position.index
     )
@@ -390,7 +449,6 @@ def _route_metrics(spec: RiskAdjustedRouteCardSpec, result, next_open_return: pd
     )
     candidate_wf = aggregate_walk_forward(candidate_folds)
     legacy_wf = aggregate_walk_forward(legacy_folds)
-    route_status = str(result.selection_evidence.get("route_status", "blocked_unknown"))
     evidence_ok = route_status == "ok"
     evaluation = evaluate_promotion(
         candidate_test,
@@ -412,14 +470,11 @@ def _route_metrics(spec: RiskAdjustedRouteCardSpec, result, next_open_return: pd
         "checks": checks,
         "failed_checks": list(failed),
     }
-    report = pd.DataFrame(
-        {
-            "candidate_return": candidate_return,
-            "legacy_return": legacy_return,
-            "target_position": position,
-            "legacy_position": legacy_position,
-        }
-    )
+    project_report = report.copy()
+    project_report["candidate_return_after_cost"] = candidate_return
+    project_report["actual_position_weight"] = position
+    project_report["legacy_return"] = legacy_return
+    project_report["legacy_position"] = legacy_position
     risk = pd.DataFrame(
         [
             {"scope": "test", "side": "candidate", **_metrics_dict(candidate_test)},
@@ -442,7 +497,7 @@ def _route_metrics(spec: RiskAdjustedRouteCardSpec, result, next_open_return: pd
         "candidate_wf": candidate_wf,
         "legacy_wf": legacy_wf,
         "promotion": promotion,
-        "report": report,
+        "report": project_report,
         "risk": risk,
         "walk_forward": pd.DataFrame(wf_rows),
         "legacy": legacy,
@@ -453,18 +508,13 @@ def _record_route(
     spec: RiskAdjustedRouteCardSpec,
     result,
     dataset,
-    metrics: Mapping[str, Any],
-    labels,
 ):
     from qlib.workflow import R
+    from qlib.workflow.record_temp import PortAnaRecord, SignalRecord
 
     recorder_uri = spec.recorder_uri.resolve()
     recorder_uri.mkdir(parents=True, exist_ok=True)
     R.set_uri(recorder_uri.as_posix())
-    predictions = result.predictions_by_segment
-    positions = pd.concat(
-        {name: values for name, values in result.positions_by_segment.items()}, names=["segment"]
-    )
     all_predictions = pd.concat(
         {name: values for name, values in result.predictions_by_segment.items()}, names=["segment"]
     )
@@ -472,7 +522,11 @@ def _record_route(
         temp_dir = Path(temp)
         all_path = temp_dir / "all_model_predictions.csv"
         all_predictions.to_csv(all_path)
-        with R.start(experiment_name=spec.experiment):
+        with R.start(
+            experiment_name=spec.experiment,
+            recorder_name=f"{spec.experiment}-canonical",
+            resume=True,
+        ):
             recorder = R.get_recorder()
             R.log_params(
                 route=spec.route,
@@ -484,22 +538,40 @@ def _record_route(
                 test_labels_used_for_selection=False,
                 selected_candidate=result.selected_candidate,
             )
-            R.log_metrics(
-                candidate_test_return=metrics["candidate_test"].total_return,
-                candidate_test_max_drawdown=metrics["candidate_test"].max_drawdown,
-                candidate_test_avg_abs_position=metrics["candidate_test"].avg_abs_position,
-                legacy_test_return=metrics["legacy_test"].total_return,
-            )
-            R.save_objects(**{"pred.pkl": predictions, "label.pkl": labels.labels})
             recorder.log_artifact(all_path.as_posix(), artifact_path="model_selection")
-            R.save_objects(
-                artifact_path="portfolio_analysis",
-                **{
-                    "report_normal_1day.pkl": metrics["report"],
-                    "positions_normal_1day.pkl": positions,
-                    "port_analysis_1day.pkl": metrics["risk"],
+            model = _FrozenPositionSignalModel(result.positions_by_segment["test"])
+            SignalRecord(model, dataset, recorder).generate()
+            PortAnaRecord(
+                recorder,
+                {
+                    "strategy": {
+                        "class": "ContinuousSignalWeightStrategy",
+                        "module_path": "src.backtest.strategy",
+                        "kwargs": {
+                            "signal": "<PRED>",
+                            "instrument": "SOXL",
+                            "min_weight": 0.0,
+                            "max_weight": 1.0,
+                            "risk_degree": 1.0,
+                        },
+                    },
+                    "backtest": {
+                        "start_time": None,
+                        "end_time": None,
+                        "account": 100000.0,
+                        "benchmark": "SOXL",
+                        "exchange_kwargs": {
+                            "freq": "day",
+                            "limit_threshold": None,
+                            "deal_price": "open",
+                            "open_cost": spec.cost_rate / 2.0,
+                            "close_cost": spec.cost_rate / 2.0,
+                            "min_cost": 0.0,
+                        },
+                    },
                 },
-            )
+                risk_analysis_freq="day",
+            ).generate()
             R.save_objects(artifact_path="model", **{"fitted_policy.pkl": result.fitted_policy})
             R.save_objects(artifact_path="evidence", **{"selection_evidence.pkl": result.selection_evidence})
             recorder_id = recorder.id
@@ -574,8 +646,13 @@ def run_risk_adjusted_route_card(spec: RiskAdjustedRouteCardSpec) -> dict[str, A
     spec.output_dir.mkdir(parents=True, exist_ok=True)
     dataset, next_open_return, labels, segments, lineage = _canonical_dataset(spec)
     result = _run_route(spec.route, dataset, lineage)
-    metrics = _route_metrics(spec, result, next_open_return)
-    recorder_id, recorder_local_dir = _record_route(spec, result, dataset, metrics, labels)
+    del next_open_return
+    recorder_id, recorder_local_dir = _record_route(spec, result, dataset)
+    metrics = _route_metrics(
+        spec,
+        recorder_local_dir,
+        route_status=str(result.selection_evidence.get("route_status", "blocked_unknown")),
+    )
 
     model_selection_path = spec.output_dir / "model_selection.csv"
     result.model_comparison.to_csv(model_selection_path, index=False)
@@ -660,6 +737,8 @@ def run_risk_adjusted_route_card(spec: RiskAdjustedRouteCardSpec) -> dict[str, A
             "end": metrics["legacy"].metrics["end"],
         },
         "promotion": metrics["promotion"],
+        "artifact_generation_api": ["SignalRecord.generate", "PortAnaRecord.generate"],
+        "metrics_source": "qlib_portfolio_analysis/report_normal_1day.pkl",
         "blocked_modes": blocked_modes,
         "recorder_artifacts": _recorder_files(recorder_local_dir),
     }
@@ -699,7 +778,10 @@ def compare_frozen_route_summaries(
     segments = {
         json.dumps(summary.get("segments", {}), sort_keys=True) for summary in summaries.values()
     }
-    if len(windows) != 1 or len(segments) != 1:
+    label_contracts = {
+        json.dumps(summary.get("label_contract", {}), sort_keys=True) for summary in summaries.values()
+    }
+    if len(windows) != 1 or len(segments) != 1 or len(label_contracts) != 1:
         raise ValueError("frontier requires matched data windows and segments")
     frozen_routes: dict[str, Any] = {}
     promoted: list[str] = []
@@ -707,17 +789,33 @@ def compare_frozen_route_summaries(
         artifacts = set(summary.get("recorder_artifacts", ()))
         if not summary.get("recorder_id") or not set(RECORDER_ONLY_ARTIFACTS.values()).issubset(artifacts):
             raise ValueError(f"frontier requires complete recorder evidence for {route}")
+        recorder_dir = Path(str(summary.get("recorder_local_dir", "")))
+        for relative in RECORDER_ONLY_ARTIFACTS.values():
+            if not (recorder_dir / relative).is_file():
+                raise ValueError(f"recorder artifact is not accessible for {route}: {relative}")
         if summary.get("selection_frozen_before_test") is not True:
             raise ValueError(f"route is not frozen before test: {route}")
         if summary.get("test_labels_used_for_selection") is not False:
             raise ValueError(f"route used test labels for selection: {route}")
+        benchmark = summary.get("benchmark", {})
+        if benchmark.get("name") != "legacy_soxl_backtest" or benchmark.get("matched_window") is not True:
+            raise ValueError(f"route lacks matched legacy benchmark evidence: {route}")
+        promotion = summary.get("promotion", {})
+        if promotion.get("promoted") is True:
+            checks = promotion.get("checks")
+            if not isinstance(checks, Mapping) or set(checks) != REQUIRED_PROMOTION_CHECKS:
+                raise ValueError(f"promotion check evidence is incomplete for {route}")
+            if not all(value is True for value in checks.values()):
+                raise ValueError(f"promotion check evidence is not literal true for {route}")
+            if summary.get("route_status") != "ok":
+                raise ValueError(f"promoted route status is not ok: {route}")
         frozen_routes[route] = {
             "route_status": summary.get("route_status"),
             "selected_candidate": summary.get("selected_candidate"),
             "recorder_id": summary.get("recorder_id"),
             "promotion": summary.get("promotion"),
         }
-        if summary.get("promotion", {}).get("promoted") is True:
+        if promotion.get("promoted") is True:
             promoted.append(route)
     decision = (
         "promoted_risk_adjusted_candidate" if promoted else "not_promoted_no_risk_adjusted_candidate"
@@ -731,6 +829,47 @@ def compare_frozen_route_summaries(
     }
 
 
+def _frontier_readonly_dataset_audit(
+    *, provider_uri: Path, segments: Mapping[str, Any]
+) -> dict[str, Any]:
+    from qlib.data import D
+    from qlib.data.dataset import DatasetH
+    from qlib.data.dataset.handler import DataHandlerLP
+
+    test = segments["test"]
+    frame = D.features(
+        ["SOXL"],
+        ["$close", "$vix"],
+        start_time=test[0],
+        end_time=test[1],
+        freq="day",
+    )
+    if frame.empty:
+        raise ValueError("frontier canonical DatasetH audit returned no rows")
+    handler_frame = frame.copy()
+    handler_frame.columns = pd.MultiIndex.from_tuples(
+        [("feature", str(column).removeprefix("$")) for column in handler_frame.columns]
+    )
+    dataset = DatasetH(
+        handler=DataHandlerLP.from_df(handler_frame),
+        segments={"audit": (test[0], test[1])},
+    )
+    prepared = dataset.prepare("audit", col_set="feature", data_key=DataHandlerLP.DK_I)
+    if prepared.empty:
+        raise ValueError("frontier DatasetH.prepare audit returned no rows")
+    dates = prepared.index.get_level_values("datetime")
+    return {
+        "provider_uri": provider_uri.as_posix(),
+        "source_api": ["qlib.data.D.features", "DatasetH", "DataHandlerLP", "DatasetH.prepare"],
+        "DatasetH_prepare_rows": int(len(prepared)),
+        "start": pd.Timestamp(dates.min()).date().isoformat(),
+        "end": pd.Timestamp(dates.max()).date().isoformat(),
+        "columns": [str(column) for column in prepared.columns],
+        "training_performed": False,
+        "selection_performed": False,
+    }
+
+
 def run_risk_adjusted_frontier_card(
     *,
     output_dir: Path,
@@ -740,11 +879,8 @@ def run_risk_adjusted_frontier_card(
 ) -> dict[str, Any]:
     import qlib
     from qlib.data import D
-    from qlib.data.dataset import DatasetH
-    from qlib.data.dataset.handler import DataHandlerLP
     from qlib.workflow import R
 
-    del DatasetH, DataHandlerLP  # imports are executable API evidence for the frontier notebook.
     summaries = {
         route: json.loads((path / "summary.json").read_text(encoding="utf-8"))
         for route, path in route_card_dirs.items()
@@ -754,8 +890,16 @@ def run_risk_adjusted_frontier_card(
     calendar = D.calendar(freq="day")
     if not len(calendar):
         raise ValueError("blocked_missing_required_source: empty qlib calendar")
+    canonical_audit = _frontier_readonly_dataset_audit(
+        provider_uri=provider_uri,
+        segments=next(iter(summaries.values()))["segments"],
+    )
     R.set_uri(recorder_uri.resolve().as_posix())
-    with R.start(experiment_name="soxl_risk_adjusted_model_frontier_v1"):
+    with R.start(
+        experiment_name="soxl_risk_adjusted_model_frontier_v1",
+        recorder_name="soxl_risk_adjusted_model_frontier_v1-canonical",
+        resume=True,
+    ):
         recorder = R.get_recorder()
         R.log_params(
             selection_source="frozen_route_summaries",
@@ -763,7 +907,13 @@ def run_risk_adjusted_frontier_card(
             route_count=3,
             decision=comparison["decision"],
         )
-        R.save_objects(artifact_path="frontier", **{"route_summaries.pkl": summaries})
+        R.save_objects(
+            artifact_path="frontier",
+            **{
+                "route_summaries.pkl": summaries,
+                "canonical_dataset_audit.pkl": canonical_audit,
+            },
+        )
         recorder_id = recorder.id
         recorder_local_dir = Path(recorder.get_local_dir())
     _remove_transient_recorder_files(recorder_local_dir)
@@ -808,12 +958,23 @@ def run_risk_adjusted_frontier_card(
         "segments": next(iter(summaries.values()))["segments"],
         "label_contract": next(iter(summaries.values()))["label_contract"],
         "frontier": comparison,
+        "canonical_dataset_audit": canonical_audit,
         "promotion": {
             "promoted": bool(comparison["promoted_routes"]),
             "decision": comparison["decision"],
             "failed_checks": [] if comparison["promoted_routes"] else ["no_route_passed_all_gates"],
         },
         "routes": {route: summary for route, summary in comparison["routes"].items()},
+        "route_recorder_artifacts": {
+            route: {
+                "recorder_id": route_summary["recorder_id"],
+                "recorder_local_dir": route_summary["recorder_local_dir"],
+                "artifacts": {
+                    key: value for key, value in RECORDER_ONLY_ARTIFACTS.items()
+                },
+            }
+            for route, route_summary in summaries.items()
+        },
         "qlib_native_api": [
             "qlib.init",
             "qlib.data.D.calendar",
@@ -837,7 +998,7 @@ def run_risk_adjusted_frontier_card(
                 "selected_model.json",
                 "backtest_benchmark_comparison.csv",
             ],
-            "recorder_only_artifacts": dict(RECORDER_ONLY_ARTIFACTS),
+            "recorder_only_artifacts": dict(FRONTIER_RECORDER_ONLY_ARTIFACTS),
         },
     }
     _write_json(output_dir / "summary.json", summary)
@@ -847,6 +1008,12 @@ route: frontier
 qlib:
   provider_uri: data/qlib/soxl
   recorder_uri: ../.qlib-recorders/soxl-risk-adjusted-frontier-v1
+  market: all
+  region: us
+segments:
+  train: inherited_matched_route_window
+  valid: inherited_matched_route_window
+  test: inherited_matched_route_window
 model_selection:
   source: frozen_route_summaries
   test_reselection: false
@@ -888,7 +1055,9 @@ canonical 数据截至 {summary['as_of']}；三折仍是冻结策略诊断，nes
 
 
 __all__ = [
+    "FRONTIER_RECORDER_ONLY_ARTIFACTS",
     "RECORDER_ONLY_ARTIFACTS",
+    "REQUIRED_PROMOTION_CHECKS",
     "RiskAdjustedRouteCardSpec",
     "build_card_summary",
     "compare_frozen_route_summaries",

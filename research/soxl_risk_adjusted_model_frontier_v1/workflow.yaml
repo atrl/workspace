@@ -3,6 +3,12 @@ route: frontier
 qlib:
   provider_uri: data/qlib/soxl
   recorder_uri: ../.qlib-recorders/soxl-risk-adjusted-frontier-v1
+  market: all
+  region: us
+segments:
+  train: inherited_matched_route_window
+  valid: inherited_matched_route_window
+  test: inherited_matched_route_window
 model_selection:
   source: frozen_route_summaries
   test_reselection: false

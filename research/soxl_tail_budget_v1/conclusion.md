@@ -2,12 +2,12 @@
 
 ## 做了什么
 
-使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `tail_budget` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `8295a8f75db94e059624defd0109636d`。
+使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `tail_budget` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `a2766fbed909491280de33d721f441f4`。
 
 ## 核心指标
 
-- 候选测试收益：1.6977；最大回撤：-0.4278；平均绝对仓位：0.3097。
-- 匹配 legacy 收益：2.3588；最大回撤：-0.5397。
+- 候选测试收益：1.8515；最大回撤：-0.4029；平均绝对仓位：0.3102。
+- 匹配 legacy 收益：2.5320；最大回撤：-0.5397。
 - as-of 为 2026-07-02，没有外推到更新日期。
 
 ## Regime / window 差异

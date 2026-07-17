@@ -2,12 +2,12 @@
 
 ## 做了什么
 
-使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `regime_moe` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `561f65ce9fd54971b5cb73f3dc434cb3`。
+使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `regime_moe` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `608ea5b8cb5d41ef9727c5908b9e97c6`。
 
 ## 核心指标
 
-- 候选测试收益：0.8865；最大回撤：-0.3544；平均绝对仓位：0.2131。
-- 匹配 legacy 收益：2.3588；最大回撤：-0.5397。
+- 候选测试收益：0.9449；最大回撤：-0.3372；平均绝对仓位：0.2134。
+- 匹配 legacy 收益：2.5320；最大回撤：-0.5397。
 - as-of 为 2026-07-02，没有外推到更新日期。
 
 ## Regime / window 差异
