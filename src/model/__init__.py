@@ -22,11 +22,12 @@ from .risk_adjusted_common import (
     purge_segment_tail,
     soft_budget_position,
 )
-from .tail_budget import TailBudgetResult, TailBudgetSpec, run_tail_budget_models
+from .tail_budget import FittedTailBudgetPolicy, TailBudgetResult, TailBudgetSpec, run_tail_budget_models
 
 __all__ = [
     "ModelSelectionResult",
     "ModelSpec",
+    "FittedTailBudgetPolicy",
     "PromotionEvaluation",
     "QlibMeanReturnModel",
     "RiskAdjustedGateSpec",

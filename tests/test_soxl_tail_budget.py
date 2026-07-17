@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import builtins
 import importlib
+import pickle
 
 import numpy as np
 import pandas as pd
@@ -197,17 +198,45 @@ def test_tail_budget_accepts_flat_dataset_frames_and_delays_test_prepare():
             self.calls = []
 
         def prepare(self, segment, *, col_set, data_key):
-            self.calls.append((segment, tuple(col_set), data_key))
-            frame = native.prepare(segment, col_set=["feature", "label"], data_key=data_key).copy()
-            frame.columns = frame.columns.get_level_values(1)
+            normalized_col_set = (col_set,) if isinstance(col_set, str) else tuple(col_set)
+            self.calls.append((segment, normalized_col_set, data_key))
+            frame = native.prepare(segment, col_set=col_set, data_key=data_key).copy()
+            if isinstance(frame.columns, pd.MultiIndex):
+                frame.columns = frame.columns.get_level_values(1)
             return frame
 
     dataset = FlatDataset()
     result = module.run_tail_budget_models(dataset, spec=_fast_config())
 
-    assert [call[0] for call in dataset.calls] == ["train", "valid", "test"]
-    assert all(call[1] == ("feature", "label") for call in dataset.calls)
+    assert dataset.calls == [
+        ("train", ("feature", "label"), DataHandlerLP.DK_L),
+        ("valid", ("feature", "label"), DataHandlerLP.DK_L),
+        ("test", ("feature",), DataHandlerLP.DK_I),
+    ]
     assert result.selection_evidence["test_accessed_after_freeze"] is True
+
+
+def test_fitted_policy_is_pickleable_and_predicts_identically_after_load():
+    module = importlib.import_module("src.model.tail_budget")
+    dataset = _dataset()
+    result = module.run_tail_budget_models(dataset, spec=_fast_config())
+
+    restored_result = pickle.loads(pickle.dumps(result))
+    restored_policy = pickle.loads(pickle.dumps(restored_result.fitted_policy))
+    test_features = dataset.prepare(
+        "test",
+        col_set="feature",
+        data_key=DataHandlerLP.DK_I,
+    )
+    restored_predictions = restored_policy.predict(test_features)
+
+    pd.testing.assert_frame_equal(
+        restored_predictions,
+        result.predictions_by_segment["test"],
+        check_exact=False,
+        rtol=0.0,
+        atol=1e-12,
+    )
 
 
 def test_blend_weights_are_frozen_from_end_to_end_validation_utility():
@@ -409,6 +438,36 @@ def test_non_finite_frozen_test_prediction_returns_blocked_fail_closed_result(mo
     failed = result.model_comparison.set_index("candidate").loc["frozen_test_prediction"]
     assert failed["status"] == "failed"
     assert failed["reason_code"] == "non_finite_prediction"
+    assert (result.positions_by_segment["test"] == 0.0).all()
+    assert np.isfinite(result.predictions_by_segment["test"].to_numpy()).all()
+
+
+def test_backend_error_on_frozen_test_prediction_returns_blocked_fail_closed_result(monkeypatch):
+    module = importlib.import_module("src.model.tail_budget")
+    original_predict = module._predict_model
+
+    def error_on_test(model, features, *, segment=None):
+        if segment == "test":
+            raise RuntimeError("backend prediction failed")
+        return original_predict(model, features, segment=segment)
+
+    monkeypatch.setattr(module, "_predict_model", error_on_test)
+    result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
+
+    evidence = result.selection_evidence
+    assert evidence["route_status"] == "blocked_prediction_failed"
+    assert evidence["test_prediction_failure"] == {
+        "reason_code": "prediction_failed",
+        "failure_type": "RuntimeError",
+        "segment": "test",
+        "first_offending_date": "2025-05-16T00:00:00",
+    }
+    failed = result.model_comparison.set_index("candidate").loc["frozen_test_prediction"]
+    assert failed["status"] == "failed"
+    assert failed["reason_code"] == "prediction_failed"
+    assert failed["failure_type"] == "RuntimeError"
+    assert failed["segment"] == "test"
+    assert failed["first_offending_date"] == "2025-05-16T00:00:00"
     assert (result.positions_by_segment["test"] == 0.0).all()
     assert np.isfinite(result.predictions_by_segment["test"].to_numpy()).all()
 

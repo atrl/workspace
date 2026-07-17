@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from types import MappingProxyType
 from typing import Any, Mapping, Sequence
 
 import numpy as np
@@ -66,6 +65,109 @@ class TailBudgetResult:
     selection_evidence: Mapping[str, Any]
     floor: float
     cap: float
+    fitted_policy: "FittedTailBudgetPolicy"
+
+
+@dataclass(frozen=True)
+class FittedTailBudgetPolicy:
+    """Serializable train/validation-frozen policy for independent inference."""
+
+    feature_columns: tuple[Any, ...]
+    preprocessing_median: pd.Series
+    preprocessing_mean: pd.Series
+    preprocessing_scale: pd.Series
+    expected_model: Any
+    downside_model: Any
+    crash_model: Any
+    expected_candidate: str
+    downside_candidate: str
+    crash_candidate: str
+    expected_blend_weight: float | None
+    downside_blend_weight: float | None
+    mu_center: float
+    mu_scale: float
+    mu_direction: float
+    tail_scale: float
+    floor: float
+    cap: float
+
+    def predict(
+        self,
+        features: pd.DataFrame,
+        *,
+        data_quality_valid: bool | pd.Series | Sequence[bool] | None = None,
+        segment: str = "inference",
+    ) -> pd.DataFrame:
+        """Predict scores and the target position from an inference feature frame."""
+
+        if not isinstance(features, pd.DataFrame) or features.empty:
+            raise ValueError("inference features must be a non-empty DataFrame")
+        raw = features.copy()
+        if isinstance(raw.columns, pd.MultiIndex) and "feature" in raw.columns.get_level_values(0):
+            raw = raw["feature"].copy()
+        raw = raw.reindex(columns=list(self.feature_columns)).apply(pd.to_numeric, errors="coerce")
+        intrinsic_quality = pd.Series(
+            np.isfinite(raw.to_numpy(dtype="float64")).all(axis=1),
+            index=raw.index,
+            name="data_quality_valid",
+        )
+        quality = _quality_for_segment(
+            _SegmentData(
+                features=raw,
+                labels=pd.DataFrame(index=raw.index),
+                quality=intrinsic_quality,
+            ),
+            data_quality_valid,
+        )
+        transformed = _transform(
+            raw,
+            self.preprocessing_median,
+            self.preprocessing_mean,
+            self.preprocessing_scale,
+        )
+        mu_values = _validate_prediction_values(
+            _predict_model(self.expected_model, transformed, segment=segment),
+            transformed.index,
+            segment=segment,
+        )
+        tail_values = _validate_prediction_values(
+            _predict_model(self.downside_model, transformed, segment=segment),
+            transformed.index,
+            segment=segment,
+        )
+        crash_values = _validate_prediction_values(
+            _predict_model(self.crash_model, transformed, segment=segment),
+            transformed.index,
+            segment=segment,
+        )
+        mu_raw = _series(mu_values, transformed.index, "mu_raw")
+        tail_raw = _series(tail_values, transformed.index, "tail_raw")
+        crash_probability = _series(
+            crash_values,
+            transformed.index,
+            "crash_probability",
+        ).clip(0.0, 1.0)
+        mu_score = (mu_raw - self.mu_center) / self.mu_scale * self.mu_direction
+        tail_score = (tail_raw.clip(lower=0.0) / self.tail_scale).clip(0.0, 1.0)
+        target_position = soft_budget_position(
+            mu_score,
+            tail_score,
+            crash_probability,
+            data_quality_valid=quality,
+            floor=self.floor,
+            cap=self.cap,
+        )
+        return pd.DataFrame(
+            {
+                "mu_raw": mu_raw,
+                "mu_score": mu_score,
+                "tail_raw": tail_raw,
+                "tail_score": tail_score,
+                "crash_probability": crash_probability,
+                "target_position": target_position,
+            },
+            index=transformed.index,
+        ).astype("float64")
 
 
 @dataclass
@@ -184,7 +286,7 @@ class _DEnsembleDatasetView:
         raise KeyError(f"unsupported col_set: {col_set!r}")
 
 
-def _prepare_segment(dataset, segment: str, spec: TailBudgetSpec) -> _SegmentData:
+def _prepare_learning_segment(dataset, segment: str, spec: TailBudgetSpec) -> _SegmentData:
     from qlib.data.dataset.handler import DataHandlerLP
 
     frame = dataset.prepare(
@@ -219,6 +321,33 @@ def _prepare_segment(dataset, segment: str, spec: TailBudgetSpec) -> _SegmentDat
         name="data_quality_valid",
     )
     return _SegmentData(features=features, labels=labels, quality=quality)
+
+
+def _prepare_inference_segment(dataset, segment: str) -> _SegmentData:
+    from qlib.data.dataset.handler import DataHandlerLP
+
+    features = dataset.prepare(
+        segment,
+        col_set="feature",
+        data_key=DataHandlerLP.DK_I,
+    )
+    if not isinstance(features, pd.DataFrame) or features.empty:
+        raise ValueError(f"segment {segment!r} is empty")
+    if isinstance(features.columns, pd.MultiIndex) and "feature" in features.columns.get_level_values(0):
+        features = features["feature"].copy()
+    if features.empty:
+        raise ValueError(f"segment {segment!r} does not include features")
+    features = features.apply(pd.to_numeric, errors="coerce").astype("float64")
+    quality = pd.Series(
+        np.isfinite(features.to_numpy(dtype="float64")).all(axis=1),
+        index=features.index,
+        name="data_quality_valid",
+    )
+    return _SegmentData(
+        features=features,
+        labels=pd.DataFrame(index=features.index),
+        quality=quality,
+    )
 
 
 def _fit_preprocessor(train: pd.DataFrame) -> tuple[pd.Series, pd.Series, pd.Series]:
@@ -563,8 +692,8 @@ def run_tail_budget_models(
     """
 
     data_quality_by_segment = data_quality_by_segment or {}
-    train_raw = _prepare_segment(dataset, spec.train_segment, spec)
-    valid_raw = _prepare_segment(dataset, spec.selection_segment, spec)
+    train_raw = _prepare_learning_segment(dataset, spec.train_segment, spec)
+    valid_raw = _prepare_learning_segment(dataset, spec.selection_segment, spec)
     median, mean, scale = _fit_preprocessor(train_raw.features)
     train_x = _transform(train_raw.features, median, mean, scale)
     valid_x = _transform(valid_raw.features, median, mean, scale)
@@ -893,6 +1022,26 @@ def run_tail_budget_models(
         "floor": selected_policy.floor,
         "cap": selected_policy.cap,
     }
+    fitted_policy = FittedTailBudgetPolicy(
+        feature_columns=tuple(median.index),
+        preprocessing_median=median.copy(),
+        preprocessing_mean=mean.copy(),
+        preprocessing_scale=scale.copy(),
+        expected_model=selected_policy.expected.model,
+        downside_model=selected_policy.downside.model,
+        crash_model=selected_policy.crash.model,
+        expected_candidate=selected_policy.expected.name,
+        downside_candidate=selected_policy.downside.name,
+        crash_candidate=selected_policy.crash.name,
+        expected_blend_weight=selected_policy.weights.get("expected"),
+        downside_blend_weight=selected_policy.weights.get("downside"),
+        mu_center=selected_policy.mu_center,
+        mu_scale=selected_policy.mu_scale,
+        mu_direction=selected_policy.mu_direction,
+        tail_scale=selected_policy.tail_scale,
+        floor=selected_policy.floor,
+        cap=selected_policy.cap,
+    )
     train_predictions = pd.DataFrame(
         {
             "mu_raw": selected_policy.expected.train_prediction,
@@ -917,68 +1066,44 @@ def run_tail_budget_models(
     ).astype("float64")
 
     # This is the first test-segment access: the validation-selected policy is frozen above.
-    test_raw = _prepare_segment(dataset, spec.test_segment, spec)
-    test_x = _transform(test_raw.features, median, mean, scale)
+    test_raw = _prepare_inference_segment(dataset, spec.test_segment)
     test_quality, test_quality_evidence = _quality_with_evidence(
         test_raw, data_quality_by_segment.get(spec.test_segment)
     )
     test_prediction_failure: dict[str, str] | None = None
     try:
-        test_mu_values = _validate_prediction_values(
-            _predict_model(selected_policy.expected.model, test_x, segment=spec.test_segment),
-            test_x.index,
-            segment=spec.test_segment,
-        )
-        test_tail_values = _validate_prediction_values(
-            _predict_model(selected_policy.downside.model, test_x, segment=spec.test_segment),
-            test_x.index,
-            segment=spec.test_segment,
-        )
-        test_crash_values = _validate_prediction_values(
-            _predict_model(selected_policy.crash.model, test_x, segment=spec.test_segment),
-            test_x.index,
-            segment=spec.test_segment,
-        )
-        test_mu_raw = _series(test_mu_values, test_x.index, "mu_raw")
-        test_tail_raw = _series(test_tail_values, test_x.index, "tail_raw")
-        test_crash_probability = _series(
-            test_crash_values, test_x.index, "crash_probability"
-        ).clip(0.0, 1.0)
-        test_mu_score = (
-            (test_mu_raw - selected_policy.mu_center)
-            / selected_policy.mu_scale
-            * selected_policy.mu_direction
-        )
-        test_tail_score = (test_tail_raw.clip(lower=0.0) / selected_policy.tail_scale).clip(0.0, 1.0)
-        test_position = soft_budget_position(
-            test_mu_score,
-            test_tail_score,
-            test_crash_probability,
+        test_predictions = fitted_policy.predict(
+            test_raw.features,
             data_quality_valid=test_quality,
-            floor=selected_policy.floor,
-            cap=selected_policy.cap,
+            segment=spec.test_segment,
         )
-        test_predictions = pd.DataFrame(
-            {
-                "mu_raw": test_mu_raw,
-                "mu_score": test_mu_score,
-                "tail_raw": test_tail_raw,
-                "tail_score": test_tail_score,
-                "crash_probability": test_crash_probability,
-                "target_position": test_position,
-            },
-            index=test_x.index,
-        ).astype("float64")
-    except _NonFinitePredictionError as exc:
+    except Exception as exc:
+        if isinstance(exc, _NonFinitePredictionError):
+            reason_code = "non_finite_prediction"
+            failure_segment = exc.segment
+            first_offending_date = exc.first_offending_date
+        else:
+            reason_code = "prediction_failed"
+            failure_segment = spec.test_segment
+            first_offending_date = _prediction_date(test_raw.features.index, 0)
         test_prediction_failure = {
-            "reason_code": "non_finite_prediction",
-            "segment": exc.segment,
-            "first_offending_date": exc.first_offending_date,
+            "reason_code": reason_code,
+            "failure_type": type(exc).__name__,
+            "segment": failure_segment,
+            "first_offending_date": first_offending_date,
         }
-        rows.append(_failure_row("frozen_test_prediction", "allocation_policy", exc))
+        failure_row = _failure_row("frozen_test_prediction", "allocation_policy", exc)
+        failure_row.update(
+            {
+                "reason_code": reason_code,
+                "segment": failure_segment,
+                "first_offending_date": first_offending_date,
+            }
+        )
+        rows.append(failure_row)
         test_predictions = pd.DataFrame(
             0.0,
-            index=test_x.index,
+            index=test_raw.features.index,
             columns=(
                 "mu_raw",
                 "mu_score",
@@ -1006,45 +1131,43 @@ def run_tail_budget_models(
     data_quality_blocked = any(
         evidence["invalid_count"] > 0 for evidence in data_quality_failures_by_segment.values()
     )
-    evidence = MappingProxyType(
-        {
-            "selection_segment": spec.selection_segment,
-            "test_labels_used_for_selection": False,
-            "test_accessed_after_freeze": True,
-            "route_status": (
-                "blocked_non_finite_prediction"
-                if test_prediction_failure
-                else "blocked_data_quality" if data_quality_blocked else "ok"
-            ),
-            "test_prediction_failure": test_prediction_failure,
-            "data_quality_failures_by_segment": MappingProxyType(data_quality_failures_by_segment),
-            "preprocessing_fit_segment": spec.train_segment,
-            "calibration_fit_segment": spec.train_segment,
-            "densemble_prediction_api": "DEnsembleModel.predict(dataset, segment)",
-            "blend_selection_metric": "validation_allocation_utility",
-            "blend_grid_evaluations": tuple(blend_evaluations),
-            "two_sided_blend_grid_evaluations": tuple(two_sided_blend_evaluations),
-            "policy_grid_evaluations": policy_grid_evaluations,
-            "utility_best_blend": utility_best_blend,
-            "utility_best_two_sided_blend": utility_best_two_sided_blend,
-            "selected_validation_utility": float(selected_policy.validation_utility),
-            "frozen_policy": MappingProxyType(frozen_policy),
-        }
-    )
-    predictions_by_segment = MappingProxyType(
-        {
-            spec.train_segment: train_predictions,
-            spec.selection_segment: valid_predictions,
-            spec.test_segment: test_predictions,
-        }
-    )
-    positions_by_segment = MappingProxyType(
-        {
-            spec.train_segment: train_predictions["target_position"].copy(),
-            spec.selection_segment: valid_predictions["target_position"].copy(),
-            spec.test_segment: test_predictions["target_position"].copy(),
-        }
-    )
+    if test_prediction_failure:
+        route_status = (
+            "blocked_non_finite_prediction"
+            if test_prediction_failure["reason_code"] == "non_finite_prediction"
+            else "blocked_prediction_failed"
+        )
+    else:
+        route_status = "blocked_data_quality" if data_quality_blocked else "ok"
+    evidence = {
+        "selection_segment": spec.selection_segment,
+        "test_labels_used_for_selection": False,
+        "test_accessed_after_freeze": True,
+        "route_status": route_status,
+        "test_prediction_failure": test_prediction_failure,
+        "data_quality_failures_by_segment": data_quality_failures_by_segment,
+        "preprocessing_fit_segment": spec.train_segment,
+        "calibration_fit_segment": spec.train_segment,
+        "densemble_prediction_api": "DEnsembleModel.predict(dataset, segment)",
+        "blend_selection_metric": "validation_allocation_utility",
+        "blend_grid_evaluations": tuple(blend_evaluations),
+        "two_sided_blend_grid_evaluations": tuple(two_sided_blend_evaluations),
+        "policy_grid_evaluations": policy_grid_evaluations,
+        "utility_best_blend": utility_best_blend,
+        "utility_best_two_sided_blend": utility_best_two_sided_blend,
+        "selected_validation_utility": float(selected_policy.validation_utility),
+        "frozen_policy": frozen_policy,
+    }
+    predictions_by_segment = {
+        spec.train_segment: train_predictions,
+        spec.selection_segment: valid_predictions,
+        spec.test_segment: test_predictions,
+    }
+    positions_by_segment = {
+        spec.train_segment: train_predictions["target_position"].copy(),
+        spec.selection_segment: valid_predictions["target_position"].copy(),
+        spec.test_segment: test_predictions["target_position"].copy(),
+    }
     return TailBudgetResult(
         model_comparison=comparison,
         selected_candidate=selected_name,
@@ -1054,6 +1177,7 @@ def run_tail_budget_models(
         selection_evidence=evidence,
         floor=selected_policy.floor,
         cap=selected_policy.cap,
+        fitted_policy=fitted_policy,
     )
 
-__all__ = ["TailBudgetResult", "TailBudgetSpec", "run_tail_budget_models"]
+__all__ = ["FittedTailBudgetPolicy", "TailBudgetResult", "TailBudgetSpec", "run_tail_budget_models"]
