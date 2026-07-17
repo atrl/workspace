@@ -22,14 +22,23 @@ from .risk_adjusted_common import (
     purge_segment_tail,
     soft_budget_position,
 )
+from .regime_moe import (
+    FittedRegimeMoEPolicy,
+    RegimeMoEResult,
+    RegimeMoESpec,
+    run_regime_moe_models,
+)
 from .tail_budget import FittedTailBudgetPolicy, TailBudgetResult, TailBudgetSpec, run_tail_budget_models
 
 __all__ = [
     "ModelSelectionResult",
     "ModelSpec",
     "FittedTailBudgetPolicy",
+    "FittedRegimeMoEPolicy",
     "PromotionEvaluation",
     "QlibMeanReturnModel",
+    "RegimeMoEResult",
+    "RegimeMoESpec",
     "RiskAdjustedGateSpec",
     "RiskAdjustedLabels",
     "RiskMetrics",
@@ -47,6 +56,7 @@ __all__ = [
     "quantbench_supervised_model_specs",
     "run_model_family_smoke_matrix",
     "run_qlib_model_selection",
+    "run_regime_moe_models",
     "run_tail_budget_models",
     "soft_budget_position",
 ]
