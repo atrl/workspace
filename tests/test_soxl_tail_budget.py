@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import builtins
 import importlib
 
 import numpy as np
@@ -197,3 +198,70 @@ def test_tail_budget_accepts_flat_dataset_frames_and_delays_test_prepare():
     assert [call[0] for call in dataset.calls] == ["train", "valid", "test"]
     assert all(call[1] == ("feature", "label") for call in dataset.calls)
     assert result.selection_evidence["test_accessed_after_freeze"] is True
+
+
+def test_blend_weights_are_frozen_from_end_to_end_validation_utility():
+    module = importlib.import_module("src.model.tail_budget")
+
+    result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
+
+    evidence = result.selection_evidence
+    evaluations = evidence["blend_grid_evaluations"]
+    utility_best = max(
+        evaluations,
+        key=lambda row: (
+            row["validation_utility"],
+            -row["expected_weight"],
+            -row["downside_weight"],
+            -row["crash_weight"],
+            -row["floor"],
+            -row["cap"],
+        ),
+    )
+    assert evidence["blend_selection_metric"] == "validation_allocation_utility"
+    assert evidence["utility_best_blend"] == utility_best
+    comparison = result.model_comparison.set_index("candidate")
+    assert comparison.loc["validation_selected_blend", "validation_score"] == pytest.approx(
+        utility_best["validation_utility"]
+    )
+    assert comparison.loc["validation_blend_expected", "blend_weight"] == utility_best["expected_weight"]
+    assert comparison.loc["validation_blend_downside", "blend_weight"] == utility_best["downside_weight"]
+    assert comparison.loc["validation_blend_crash", "blend_weight"] == utility_best["crash_weight"]
+    assert evidence["test_labels_used_for_selection"] is False
+
+
+def test_unavailable_base_models_emit_all_declared_blend_failure_rows(monkeypatch):
+    module = importlib.import_module("src.model.tail_budget")
+    real_import = builtins.__import__
+
+    def without_catboost(name, globals=None, locals=None, fromlist=(), level=0):
+        if name == "catboost":
+            raise ModuleNotFoundError("catboost intentionally unavailable")
+        return real_import(name, globals, locals, fromlist, level)
+
+    monkeypatch.setattr(builtins, "__import__", without_catboost)
+    result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
+
+    comparison = result.model_comparison.set_index("candidate")
+    assert {
+        "ridge_expected",
+        "lightgbm_expected",
+        "catboost_downside",
+        "qlib_densemble_downside",
+        "catboost_crash",
+        "validation_blend_expected",
+        "validation_blend_downside",
+        "validation_blend_crash",
+        "validation_selected_blend",
+    }.issubset(comparison.index)
+    assert comparison.loc["catboost_downside", "status"] == "failed"
+    assert comparison.loc["catboost_crash", "status"] == "failed"
+    for candidate in (
+        "validation_blend_downside",
+        "validation_blend_crash",
+        "validation_selected_blend",
+    ):
+        assert comparison.loc[candidate, "status"] == "unavailable"
+        assert comparison.loc[candidate, "reason_code"] == "base_candidate_unavailable"
+    assert result.selected_candidate
+    assert np.isfinite(result.positions_by_segment["test"].to_numpy()).all()
