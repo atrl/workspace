@@ -37,10 +37,13 @@ class RiskAdjustedLabels:
     purge_rows: int
     purged_boundary_rows: Mapping[str, int]
     skipped_invalid_rows: Mapping[str, int]
+    missing_label_segments: tuple[str, ...]
 
     @property
     def labels_complete(self) -> bool:
-        return all(count == 0 for count in self.skipped_invalid_rows.values())
+        return not self.missing_label_segments and all(
+            count == 0 for count in self.skipped_invalid_rows.values()
+        )
 
 
 @dataclass(frozen=True)
@@ -73,9 +76,22 @@ class RiskMetrics:
 @dataclass(frozen=True)
 class WalkForwardAggregate:
     metrics: RiskMetrics
-    positive_return_folds: int
-    fold_count: int
-    fold_extreme_loss_thresholds: tuple[float, ...] = ()
+    folds: tuple[RiskMetrics, ...]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "folds", tuple(self.folds))
+
+    @property
+    def positive_return_folds(self) -> int:
+        return sum(fold.total_return > 0.0 for fold in self.folds)
+
+    @property
+    def fold_count(self) -> int:
+        return len(self.folds)
+
+    @property
+    def fold_extreme_loss_thresholds(self) -> tuple[float, ...]:
+        return tuple(float(fold.extreme_loss_threshold) for fold in self.folds)
 
 
 @dataclass(frozen=True)
@@ -135,9 +151,9 @@ def build_risk_adjusted_labels(
 ) -> RiskAdjustedLabels:
     """Build boundary-safe future labels with one train-fitted crash cutoff."""
 
-    horizon = int(horizon)
-    if horizon < 1:
-        raise ValueError("horizon must be positive")
+    if horizon != 5:
+        raise ValueError("risk-adjusted label horizon is fixed at five trading days")
+    horizon = 5
     if not 0.0 < crash_quantile < 1.0:
         raise ValueError("crash_quantile must be between zero and one")
     returns = pd.to_numeric(next_open_returns, errors="coerce").astype("float64")
@@ -154,6 +170,9 @@ def build_risk_adjusted_labels(
     ordered_windows = sorted(windows, key=lambda window: window.start)
     if any(right.start <= left.end for left, right in zip(ordered_windows, ordered_windows[1:])):
         raise ValueError("segments must not overlap")
+    train_window = next(window for window in windows if window.name == train_segment)
+    if any(window.start <= train_window.end for window in windows if window.name != train_segment):
+        raise ValueError("train segment must precede every non-train segment")
 
     rows: list[dict[str, object]] = []
     seen_dates: set[object] = set()
@@ -187,6 +206,8 @@ def build_risk_adjusted_labels(
     if not rows:
         raise ValueError("segments do not contain any complete labels")
     labels = pd.DataFrame(rows).set_index("date")
+    present_segments = set(labels["segment"])
+    missing_segments = tuple(name for name in names if name not in present_segments)
     train_labels = labels.loc[labels["segment"] == train_segment, "future_return_5d"]
     if train_labels.empty:
         raise ValueError("train segment does not contain any complete labels")
@@ -202,6 +223,7 @@ def build_risk_adjusted_labels(
         purge_rows=horizon + 1,
         purged_boundary_rows=MappingProxyType(purged),
         skipped_invalid_rows=MappingProxyType(skipped_invalid),
+        missing_label_segments=missing_segments,
     )
 
 
@@ -317,9 +339,7 @@ def aggregate_walk_forward(folds: Sequence[RiskMetrics]) -> WalkForwardAggregate
     )
     return WalkForwardAggregate(
         metrics=aggregate,
-        positive_return_folds=sum(item.total_return > 0.0 for item in metrics),
-        fold_count=len(metrics),
-        fold_extreme_loss_thresholds=thresholds,
+        folds=metrics,
     )
 
 
@@ -403,22 +423,14 @@ def _risk_metrics_are_valid(metrics: RiskMetrics) -> bool:
 
 
 def _walk_forward_structure_is_valid(aggregate: WalkForwardAggregate) -> bool:
-    integer_types = (int, np.integer)
-    if isinstance(aggregate.fold_count, bool) or not isinstance(aggregate.fold_count, integer_types):
+    if not aggregate.folds:
         return False
-    if isinstance(aggregate.positive_return_folds, bool) or not isinstance(
-        aggregate.positive_return_folds,
-        integer_types,
-    ):
-        return False
-    if aggregate.fold_count <= 0 or not 0 <= aggregate.positive_return_folds <= aggregate.fold_count:
+    if not all(_risk_metrics_are_valid(fold) for fold in aggregate.folds):
         return False
     thresholds = aggregate.fold_extreme_loss_thresholds
-    if len(thresholds) != aggregate.fold_count:
-        return False
     if not all(np.isfinite(float(threshold)) for threshold in thresholds):
         return False
-    return all(
+    if not all(
         np.isclose(
             float(threshold),
             float(aggregate.metrics.extreme_loss_threshold),
@@ -426,6 +438,19 @@ def _walk_forward_structure_is_valid(aggregate: WalkForwardAggregate) -> bool:
             atol=1e-12,
         )
         for threshold in thresholds
+    ):
+        return False
+    canonical = aggregate_walk_forward(aggregate.folds)
+    return (
+        aggregate.metrics == canonical.metrics
+        and aggregate.metrics.daily_returns == canonical.metrics.daily_returns
+        and aggregate.metrics.positions == canonical.metrics.positions
+        and np.isclose(
+            aggregate.metrics.extreme_loss_threshold,
+            canonical.metrics.extreme_loss_threshold,
+            rtol=1e-12,
+            atol=1e-12,
+        )
     )
 
 
@@ -472,7 +497,20 @@ def evaluate_promotion(
             candidate_walk_forward.metrics,
             legacy_walk_forward.metrics,
         ),
-        "walk_forward_fold_count": candidate_walk_forward.fold_count == spec.expected_walk_forward_folds,
+        "test_observation_count_matched": candidate_test.observations == legacy_test.observations,
+        "walk_forward_fold_counts_matched": (
+            candidate_walk_forward.fold_count == legacy_walk_forward.fold_count
+        ),
+        "candidate_walk_forward_fold_count": (
+            candidate_walk_forward.fold_count == spec.expected_walk_forward_folds
+        ),
+        "legacy_walk_forward_fold_count": (
+            legacy_walk_forward.fold_count == spec.expected_walk_forward_folds
+        ),
+        "walk_forward_observation_count_matched": (
+            candidate_walk_forward.metrics.observations
+            == legacy_walk_forward.metrics.observations
+        ),
     }
 
     def add_metric_checks(scope: str, candidate: RiskMetrics, legacy: RiskMetrics) -> None:

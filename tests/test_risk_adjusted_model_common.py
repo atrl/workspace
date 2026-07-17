@@ -61,6 +61,19 @@ def test_five_day_labels_use_compounded_next_open_returns_and_purge_six_rows() -
     assert index[18] not in result.labels.index
 
 
+@pytest.mark.parametrize("horizon", [2, 5.5])
+def test_risk_adjusted_label_horizon_is_fixed_at_five_days(horizon: float) -> None:
+    index = pd.bdate_range("2024-01-02", periods=12)
+    returns = pd.Series(np.linspace(-0.02, 0.02, len(index)), index=index)
+
+    with pytest.raises(ValueError, match="horizon is fixed at five"):
+        build_risk_adjusted_labels(
+            returns,
+            segments=(SegmentWindow("train", index[0], index[-1]),),
+            horizon=horizon,
+        )
+
+
 def test_crash_threshold_is_fit_on_train_only_and_frozen_for_other_segments() -> None:
     index = pd.bdate_range("2024-01-02", periods=28)
     train = pd.Series(np.linspace(-0.04, 0.03, 14), index=index[:14])
@@ -119,6 +132,18 @@ def test_label_builder_rejects_overlap_hidden_inside_purged_segment_tails() -> N
         build_risk_adjusted_labels(returns, segments=segments)
 
 
+def test_label_builder_requires_train_to_precede_every_other_segment() -> None:
+    index = pd.bdate_range("2024-01-02", periods=24)
+    returns = pd.Series(np.linspace(-0.02, 0.02, len(index)), index=index)
+    segments = (
+        SegmentWindow("valid", index[0], index[11]),
+        SegmentWindow("train", index[12], index[23]),
+    )
+
+    with pytest.raises(ValueError, match="train segment must precede"):
+        build_risk_adjusted_labels(returns, segments=segments)
+
+
 def test_label_builder_records_skipped_nonfinite_candidates_as_incomplete() -> None:
     index = pd.bdate_range("2024-01-02", periods=24)
     returns = pd.Series(np.linspace(-0.02, 0.02, len(index)), index=index)
@@ -131,6 +156,20 @@ def test_label_builder_records_skipped_nonfinite_candidates_as_incomplete() -> N
     result = build_risk_adjusted_labels(returns, segments=segments)
 
     assert result.skipped_invalid_rows == {"train": 5, "valid": 0}
+    assert result.labels_complete is False
+
+
+def test_label_builder_marks_declared_segments_without_complete_labels_missing() -> None:
+    index = pd.bdate_range("2024-01-02", periods=18)
+    returns = pd.Series(np.linspace(-0.02, 0.02, len(index)), index=index)
+    segments = (
+        SegmentWindow("train", index[0], index[11]),
+        SegmentWindow("valid", index[12], index[17]),
+    )
+
+    result = build_risk_adjusted_labels(returns, segments=segments)
+
+    assert result.missing_label_segments == ("valid",)
     assert result.labels_complete is False
 
 
@@ -248,6 +287,30 @@ def test_walk_forward_aggregate_preserves_one_finite_extreme_loss_threshold() ->
     assert aggregate.fold_extreme_loss_thresholds == (-0.08, -0.08, -0.08)
 
 
+def test_walk_forward_aggregate_retains_immutable_folds_and_derives_counts() -> None:
+    positive = compute_risk_metrics([0.01], [0.30])
+    negative = compute_risk_metrics([-0.01], [0.30])
+
+    aggregate = aggregate_walk_forward((positive, negative, positive))
+
+    assert aggregate.folds == (positive, negative, positive)
+    assert aggregate.fold_count == 3
+    assert aggregate.positive_return_folds == 2
+    coerced = WalkForwardAggregate(
+        metrics=aggregate.metrics,
+        folds=[positive, negative, positive],  # type: ignore[arg-type]
+    )
+    assert isinstance(coerced.folds, tuple)
+    with pytest.raises(FrozenInstanceError):
+        aggregate.folds = ()  # type: ignore[misc]
+    with pytest.raises(TypeError):
+        WalkForwardAggregate(  # type: ignore[call-arg]
+            metrics=aggregate.metrics,
+            positive_return_folds=99,
+            fold_count=99,
+        )
+
+
 def test_walk_forward_aggregate_rejects_mixed_or_nonfinite_extreme_loss_thresholds() -> None:
     standard = compute_risk_metrics([-0.10, 0.01], [0.30, 0.30], extreme_loss_threshold=-0.08)
     different = compute_risk_metrics([-0.10, 0.01], [0.30, 0.30], extreme_loss_threshold=-2.0)
@@ -290,7 +353,7 @@ def test_promotion_requires_test_and_walk_forward_to_beat_every_shared_gate() ->
 
 def test_promotion_integrity_flags_default_to_fail_closed() -> None:
     metrics = _metrics()
-    walk_forward = WalkForwardAggregate(metrics, 3, 3)
+    walk_forward = WalkForwardAggregate(metrics=metrics, folds=())
 
     result = evaluate_promotion(metrics, metrics, walk_forward, walk_forward)
 
@@ -303,7 +366,7 @@ def test_promotion_integrity_flags_default_to_fail_closed() -> None:
 
 def test_promotion_integrity_flags_only_accept_literal_true() -> None:
     metrics = _metrics()
-    walk_forward = WalkForwardAggregate(metrics, 3, 3)
+    walk_forward = WalkForwardAggregate(metrics=metrics, folds=())
 
     result = evaluate_promotion(
         metrics,
@@ -335,8 +398,8 @@ def test_promotion_fails_closed_and_reports_every_failed_gate() -> None:
         total_turnover=25.0,
     )
     legacy = _metrics(total_return=0.20, max_drawdown=-0.10)
-    bad_walk_forward = WalkForwardAggregate(bad, 1, 3)
-    legacy_walk_forward = WalkForwardAggregate(legacy, 3, 3)
+    bad_walk_forward = WalkForwardAggregate(metrics=bad, folds=())
+    legacy_walk_forward = WalkForwardAggregate(metrics=legacy, folds=())
 
     result = evaluate_promotion(
         bad,
@@ -363,6 +426,8 @@ def test_promotion_fails_closed_and_reports_every_failed_gate() -> None:
         "walk_forward_legacy_metrics_valid",
         "walk_forward_candidate_structure_valid",
         "walk_forward_legacy_structure_valid",
+        "candidate_walk_forward_fold_count",
+        "legacy_walk_forward_fold_count",
         "test_max_drawdown",
         "test_participation",
         "test_zero_position_day_ratio",
@@ -389,14 +454,12 @@ def test_promotion_rejects_nonfinite_and_structurally_invalid_metrics() -> None:
     candidate_test = replace(_metrics(), total_return=float("inf"))
     legacy_test = replace(_metrics(), zero_position_day_ratio=1.10)
     candidate_walk_forward = WalkForwardAggregate(
-        replace(_metrics(), observations=-1),
-        positive_return_folds=4,
-        fold_count=3,
+        metrics=replace(_metrics(), observations=-1),
+        folds=(replace(_metrics(), observations=-1),) * 3,
     )
     legacy_walk_forward = WalkForwardAggregate(
-        replace(_metrics(), avg_abs_position=-0.10),
-        positive_return_folds=-1,
-        fold_count=3,
+        metrics=replace(_metrics(), avg_abs_position=-0.10),
+        folds=(replace(_metrics(), avg_abs_position=-0.10),) * 3,
     )
 
     result = evaluate_promotion(
@@ -483,3 +546,28 @@ def test_promotion_rejects_incomparable_extreme_loss_thresholds() -> None:
     assert result.promoted is False
     assert result.checks["test_extreme_loss_threshold_comparable"] is False
     assert result.checks["walk_forward_extreme_loss_threshold_comparable"] is False
+
+
+def test_promotion_requires_matched_test_and_walk_forward_observation_evidence() -> None:
+    candidate_fold = compute_risk_metrics([0.01, -0.01], [0.30, 0.30])
+    legacy_fold = compute_risk_metrics([0.01, -0.01, 0.02], [0.30, 0.30, 0.30])
+    candidate_walk_forward = aggregate_walk_forward((candidate_fold, candidate_fold))
+    legacy_walk_forward = aggregate_walk_forward((legacy_fold, legacy_fold, legacy_fold))
+
+    result = evaluate_promotion(
+        candidate_fold,
+        legacy_fold,
+        candidate_walk_forward,
+        legacy_walk_forward,
+        data_quality_valid=True,
+        label_leakage_free=True,
+        test_time_selection_free=True,
+        labels_complete=True,
+    )
+
+    assert result.promoted is False
+    assert result.checks["test_observation_count_matched"] is False
+    assert result.checks["walk_forward_fold_counts_matched"] is False
+    assert result.checks["candidate_walk_forward_fold_count"] is False
+    assert result.checks["legacy_walk_forward_fold_count"] is True
+    assert result.checks["walk_forward_observation_count_matched"] is False
