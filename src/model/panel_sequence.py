@@ -92,7 +92,7 @@ class _FittedTorchSequenceEstimator:
     validation_loss: float
 
     def predict(self, values: np.ndarray) -> np.ndarray:
-        with _isolated_torch_process_state(self.random_state):
+        with _isolated_torch_process_state():
             torch, _ = _torch_modules()
             model = _build_torch_model(
                 family=self.family,
@@ -405,6 +405,7 @@ def build_sequence_windows(
     if int(window) < 1:
         raise ValueError("window must be positive")
     numeric = _coerce_feature_frame(features)
+    _validate_datetime_index(numeric.index, role="sequence window")
     values = numeric.to_numpy(dtype="float64")
     target_series = (
         None
@@ -465,7 +466,7 @@ def _transform(
 
 
 @contextmanager
-def _isolated_torch_process_state(seed: int):
+def _isolated_torch_process_state(seed: int | None = None):
     torch, _ = _torch_modules()
     numpy_state = np.random.get_state()
     thread_count = torch.get_num_threads()
@@ -473,7 +474,8 @@ def _isolated_torch_process_state(seed: int):
     warn_only = torch.is_deterministic_algorithms_warn_only_enabled()
     try:
         with torch.random.fork_rng(devices=[]):
-            torch.manual_seed(int(seed))
+            if seed is not None:
+                torch.random.default_generator.manual_seed(int(seed))
             torch.set_num_threads(1)
             torch.use_deterministic_algorithms(True)
             yield

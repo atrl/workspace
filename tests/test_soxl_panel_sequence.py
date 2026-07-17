@@ -153,6 +153,18 @@ def test_sequence_windows_end_at_decision_row_and_ignore_future_perturbations():
     np.testing.assert_allclose(baseline.targets, targets.iloc[19:].to_numpy())
 
 
+def test_public_sequence_window_builder_rejects_duplicate_and_unsorted_datetimes():
+    module = importlib.import_module("src.model.panel_sequence")
+    index = pd.bdate_range("2026-01-02", periods=25)
+    features = pd.DataFrame({"feature": np.arange(25.0)}, index=index)
+
+    with pytest.raises(ValueError, match="strictly increasing"):
+        module.build_sequence_windows(features.iloc[::-1], window=20)
+    duplicate = pd.concat([features.iloc[:1], features])
+    with pytest.raises(ValueError, match="unique"):
+        module.build_sequence_windows(duplicate, window=20)
+
+
 def test_compact_candidates_are_deterministic_validation_selected_and_bounded():
     module = importlib.import_module("src.model.panel_sequence")
     first = module.run_panel_sequence_models(_dataset(), spec=_fast_spec())
@@ -725,6 +737,47 @@ def test_sequence_training_restores_numpy_and_torch_process_state():
     assert torch.get_num_threads() == threads_before
     assert torch.are_deterministic_algorithms_enabled() is deterministic_before
     assert torch.is_deterministic_algorithms_warn_only_enabled() is warn_only_before
+
+
+def test_sequence_route_does_not_call_all_accelerator_manual_seed(monkeypatch):
+    torch = pytest.importorskip("torch")
+    module = importlib.import_module("src.model.panel_sequence")
+
+    def forbidden_manual_seed(*args, **kwargs):
+        raise AssertionError("torch.manual_seed affects accelerator RNGs")
+
+    monkeypatch.setattr(torch, "manual_seed", forbidden_manual_seed)
+
+    result = module.run_panel_sequence_models(_dataset(), spec=_fast_spec())
+
+    assert result.selection_evidence["route_status"] == "ok"
+
+
+def test_sequence_route_preserves_available_accelerator_rng_states():
+    torch = pytest.importorskip("torch")
+    module = importlib.import_module("src.model.panel_sequence")
+    snapshots = {}
+    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        snapshots["mps"] = torch.mps.get_rng_state().clone()
+    if torch.cuda.is_available():
+        snapshots["cuda"] = tuple(state.clone() for state in torch.cuda.get_rng_state_all())
+    if hasattr(torch, "xpu") and torch.xpu.is_available():
+        snapshots["xpu"] = tuple(state.clone() for state in torch.xpu.get_rng_state_all())
+
+    module.run_panel_sequence_models(_dataset(), spec=_fast_spec())
+
+    if "mps" in snapshots:
+        assert torch.equal(torch.mps.get_rng_state(), snapshots["mps"])
+    if "cuda" in snapshots:
+        assert all(
+            torch.equal(actual, expected)
+            for actual, expected in zip(torch.cuda.get_rng_state_all(), snapshots["cuda"])
+        )
+    if "xpu" in snapshots:
+        assert all(
+            torch.equal(actual, expected)
+            for actual, expected in zip(torch.xpu.get_rng_state_all(), snapshots["xpu"])
+        )
 
 
 @pytest.mark.parametrize(
