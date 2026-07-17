@@ -122,6 +122,11 @@ def test_tail_budget_fits_qlib_components_and_emits_finite_bounded_positions():
     assert result.selection_evidence["test_labels_used_for_selection"] is False
     assert result.selection_evidence["test_accessed_after_freeze"] is True
     assert result.selection_evidence["densemble_prediction_api"] == "DEnsembleModel.predict(dataset, segment)"
+    quality_failure = result.selection_evidence["data_quality_failures_by_segment"]["test"]
+    assert quality_failure["invalid_count"] == 1
+    assert quality_failure["first_offending_date"].startswith("2025-05-21")
+    assert quality_failure["reason_code"] == "missing_or_stale_required_source"
+    assert result.selection_evidence["route_status"] == "blocked_data_quality"
     assert set(result.predictions_by_segment) == {"train", "valid", "test"}
     assert set(result.positions_by_segment) == {"train", "valid", "test"}
 
@@ -224,12 +229,25 @@ def test_blend_weights_are_frozen_from_end_to_end_validation_utility():
     )
     assert evidence["blend_selection_metric"] == "validation_allocation_utility"
     assert evidence["utility_best_blend"] == utility_best
+    policy_evaluations = evidence["policy_grid_evaluations"]
+    route_best = max(
+        (row for row in policy_evaluations if row["route_candidate"] == "validation_selected_blend"),
+        key=lambda row: row["validation_utility"],
+    )
+    expected_best = max(
+        (row for row in policy_evaluations if row["expected_candidate"] == "validation_blend_expected"),
+        key=lambda row: row["validation_utility"],
+    )
+    downside_best = max(
+        (row for row in policy_evaluations if row["downside_candidate"] == "validation_blend_downside"),
+        key=lambda row: row["validation_utility"],
+    )
     comparison = result.model_comparison.set_index("candidate")
     assert comparison.loc["validation_selected_blend", "validation_score"] == pytest.approx(
-        utility_best["validation_utility"]
+        route_best["validation_utility"]
     )
-    assert comparison.loc["validation_blend_expected", "blend_weight"] == utility_best["expected_weight"]
-    assert comparison.loc["validation_blend_downside", "blend_weight"] == utility_best["downside_weight"]
+    assert comparison.loc["validation_blend_expected", "blend_weight"] == expected_best["expected_weight"]
+    assert comparison.loc["validation_blend_downside", "blend_weight"] == downside_best["downside_weight"]
     assert "validation_blend_crash" not in comparison.index
     assert all("crash_weight" not in row for row in evaluations)
     assert evidence["test_labels_used_for_selection"] is False
@@ -238,6 +256,7 @@ def test_blend_weights_are_frozen_from_end_to_end_validation_utility():
 def test_unavailable_base_models_emit_all_declared_blend_failure_rows(monkeypatch):
     module = importlib.import_module("src.model.tail_budget")
     real_import = builtins.__import__
+    original_choice_key = module._choice_key
 
     def without_catboost(name, globals=None, locals=None, fromlist=(), level=0):
         if name == "catboost":
@@ -245,6 +264,14 @@ def test_unavailable_base_models_emit_all_declared_blend_failure_rows(monkeypatc
         return real_import(name, globals, locals, fromlist, level)
 
     monkeypatch.setattr(builtins, "__import__", without_catboost)
+    monkeypatch.setattr(
+        module,
+        "_choice_key",
+        lambda choice: (
+            choice.expected.name == "validation_blend_expected",
+            *original_choice_key(choice),
+        ),
+    )
     result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
 
     comparison = result.model_comparison.set_index("candidate")
@@ -261,10 +288,11 @@ def test_unavailable_base_models_emit_all_declared_blend_failure_rows(monkeypatc
     assert comparison.loc["catboost_downside", "status"] == "failed"
     assert comparison.loc["catboost_crash", "status"] == "failed"
     assert comparison.loc["validation_blend_expected", "status"] == "ok"
-    for candidate in ("validation_blend_downside", "validation_selected_blend"):
-        assert comparison.loc[candidate, "status"] == "unavailable"
-        assert comparison.loc[candidate, "reason_code"] == "base_candidate_unavailable"
-    assert result.selected_candidate
+    assert comparison.loc["validation_blend_downside", "status"] == "unavailable"
+    assert comparison.loc["validation_blend_downside", "reason_code"] == "base_candidate_unavailable"
+    assert comparison.loc["validation_selected_blend", "status"] == "ok"
+    assert result.selected_candidate == "validation_selected_blend"
+    assert result.selection_evidence["frozen_policy"]["expected_candidate"] == "validation_blend_expected"
     assert np.isfinite(result.positions_by_segment["test"].to_numpy()).all()
 
 
@@ -273,6 +301,7 @@ def test_non_finite_train_prediction_fails_only_that_candidate(monkeypatch):
     from lightgbm import LGBMRegressor
 
     original_predict = LGBMRegressor.predict
+    original_choice_key = module._choice_key
 
     def non_finite_predict(self, features, *args, **kwargs):
         values = np.asarray(original_predict(self, features, *args, **kwargs), dtype="float64")
@@ -280,6 +309,14 @@ def test_non_finite_train_prediction_fails_only_that_candidate(monkeypatch):
         return values
 
     monkeypatch.setattr(LGBMRegressor, "predict", non_finite_predict)
+    monkeypatch.setattr(
+        module,
+        "_choice_key",
+        lambda choice: (
+            choice.downside.name == "validation_blend_downside",
+            *original_choice_key(choice),
+        ),
+    )
     result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
 
     comparison = result.model_comparison.set_index("candidate")
@@ -290,6 +327,8 @@ def test_non_finite_train_prediction_fails_only_that_candidate(monkeypatch):
     assert failed["first_offending_date"].startswith("2025-01-06")
     assert comparison.loc["ridge_expected", "status"] == "ok"
     assert comparison.loc["validation_blend_downside", "status"] == "ok"
+    assert result.selected_candidate == "validation_selected_blend"
+    assert result.selection_evidence["frozen_policy"]["downside_candidate"] == "validation_blend_downside"
     assert np.isfinite(result.positions_by_segment["test"].to_numpy()).all()
 
 
@@ -341,3 +380,22 @@ def test_non_finite_frozen_test_prediction_returns_blocked_fail_closed_result(mo
     assert failed["reason_code"] == "non_finite_prediction"
     assert (result.positions_by_segment["test"] == 0.0).all()
     assert np.isfinite(result.predictions_by_segment["test"].to_numpy()).all()
+
+
+def test_missing_required_source_blocks_route_with_deterministic_quality_evidence():
+    module = importlib.import_module("src.model.tail_budget")
+
+    result = module.run_tail_budget_models(
+        _dataset(),
+        spec=_fast_config(),
+        data_quality_by_segment={"test": False},
+    )
+
+    failure = result.selection_evidence["data_quality_failures_by_segment"]["test"]
+    assert failure == {
+        "invalid_count": 24,
+        "first_offending_date": "2025-05-16T00:00:00",
+        "reason_code": "missing_or_stale_required_source",
+    }
+    assert result.selection_evidence["route_status"] == "blocked_data_quality"
+    assert (result.positions_by_segment["test"] == 0.0).all()

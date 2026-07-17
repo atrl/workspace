@@ -338,6 +338,36 @@ def _quality_for_segment(
     return quality & values
 
 
+def _quality_with_evidence(
+    segment: _SegmentData,
+    external: bool | pd.Series | Sequence[bool] | None,
+) -> tuple[pd.Series, dict[str, Any]]:
+    quality = _quality_for_segment(segment, external)
+    invalid = ~quality
+    invalid_count = int(invalid.sum())
+    external_invalid = False
+    if external is not None:
+        if isinstance(external, pd.Series):
+            external_invalid = bool((~external.reindex(quality.index).fillna(False).astype(bool)).any())
+        elif np.isscalar(external):
+            external_invalid = not bool(external)
+        else:
+            external_invalid = bool((~np.asarray(external).astype(bool)).any())
+    first_offending_date = None
+    if invalid_count:
+        first_offending_date = _prediction_date(quality.index, int(np.flatnonzero(invalid.to_numpy())[0]))
+    evidence = {
+        "invalid_count": invalid_count,
+        "first_offending_date": first_offending_date,
+        "reason_code": (
+            "missing_or_stale_required_source"
+            if external_invalid
+            else "non_finite_required_feature" if invalid_count else ""
+        ),
+    }
+    return quality, evidence
+
+
 def _budget_utility(realized_return: pd.Series, position: pd.Series) -> float:
     aligned = pd.concat([realized_return.rename("return"), position.rename("position")], axis=1).dropna()
     if aligned.empty:
@@ -694,16 +724,61 @@ def run_tail_budget_models(
         raise RuntimeError("all expected-return candidates failed")
     if not downside:
         raise RuntimeError("all downside candidates failed")
-    train_quality = _quality_for_segment(train_raw, data_quality_by_segment.get(spec.train_segment))
-    valid_quality = _quality_for_segment(valid_raw, data_quality_by_segment.get(spec.selection_segment))
+    train_quality, train_quality_evidence = _quality_with_evidence(
+        train_raw, data_quality_by_segment.get(spec.train_segment)
+    )
+    valid_quality, valid_quality_evidence = _quality_with_evidence(
+        valid_raw, data_quality_by_segment.get(spec.selection_segment)
+    )
     active_crash = crash_candidate if crash_candidate is not None else prior_candidate
-    individual_choices: list[_PolicyChoice] = []
-    for expected_candidate in expected:
-        for downside_candidate in downside:
+    ridge_candidates = [candidate for candidate in expected if candidate.name.startswith("ridge_expected")]
+    lgb_candidates = [candidate for candidate in expected if candidate.name == "lightgbm_expected"]
+    catboost_downside = [candidate for candidate in downside if candidate.name == "catboost_downside"]
+    densemble_downside = [candidate for candidate in downside if candidate.name == "qlib_densemble_downside"]
+    expected_options = list(expected)
+    if ridge_candidates and lgb_candidates:
+        expected_left = max(ridge_candidates, key=lambda candidate: (candidate.component_score, candidate.name))
+        expected_right = lgb_candidates[0]
+        for expected_weight in spec.blend_weights:
+            expected_options.append(
+                _blend_candidate(
+                    "validation_blend_expected",
+                    "expected_return_blend",
+                    expected_left,
+                    expected_right,
+                    expected_weight,
+                )
+            )
+
+    downside_options = list(downside)
+    if catboost_downside and densemble_downside:
+        for downside_weight in spec.blend_weights:
+            downside_options.append(
+                _blend_candidate(
+                    "validation_blend_downside",
+                    "downside_budget_blend",
+                    catboost_downside[0],
+                    densemble_downside[0],
+                    downside_weight,
+                )
+            )
+
+    policy_choices: list[_PolicyChoice] = []
+    for expected_candidate in expected_options:
+        for downside_candidate in downside_options:
+            is_blend = (
+                expected_candidate.name == "validation_blend_expected"
+                or downside_candidate.name == "validation_blend_downside"
+            )
+            weights = {}
+            if expected_candidate.name == "validation_blend_expected":
+                weights["expected"] = float(expected_candidate.metadata["blend_weight"])
+            if downside_candidate.name == "validation_blend_downside":
+                weights["downside"] = float(downside_candidate.metadata["blend_weight"])
             for candidate_floor, candidate_cap in spec.floor_cap_candidates:
-                individual_choices.append(
+                policy_choices.append(
                     _policy_choice(
-                        name="validation_selected_individual",
+                        name=("validation_selected_blend" if is_blend else "validation_selected_individual"),
                         expected=expected_candidate,
                         downside=downside_candidate,
                         crash=active_crash,
@@ -713,207 +788,90 @@ def run_tail_budget_models(
                         valid_return=valid_return,
                         train_quality=train_quality,
                         valid_quality=valid_quality,
-                    )
-                )
-    best_individual = max(individual_choices, key=_choice_key)
-    rows.append(
-        {
-            "candidate": "validation_selected_individual",
-            "model": "validation_selected_individual",
-            "role": "allocation_policy",
-            "status": "ok",
-            "validation_score": float(best_individual.validation_utility),
-            "selected": False,
-            "reason_code": "",
-            "failure_type": "",
-            "detail": "",
-            "blend_weight": np.nan,
-            "floor": best_individual.floor,
-            "cap": best_individual.cap,
-        }
-    )
-
-    ridge_candidates = [candidate for candidate in expected if candidate.name.startswith("ridge_expected")]
-    lgb_candidates = [candidate for candidate in expected if candidate.name == "lightgbm_expected"]
-    catboost_downside = [candidate for candidate in downside if candidate.name == "catboost_downside"]
-    densemble_downside = [candidate for candidate in downside if candidate.name == "qlib_densemble_downside"]
-    blend_dependencies_available = bool(
-        ridge_candidates
-        and lgb_candidates
-        and catboost_downside
-        and densemble_downside
-    )
-    blend_choices: list[_PolicyChoice] = []
-    blend_evaluations: list[dict[str, float]] = []
-    best_blend: _PolicyChoice | None = None
-    if blend_dependencies_available:
-        expected_left = max(ridge_candidates, key=lambda candidate: (candidate.component_score, candidate.name))
-        expected_right = lgb_candidates[0]
-        downside_left = catboost_downside[0]
-        downside_right = densemble_downside[0]
-        for expected_weight in spec.blend_weights:
-            expected_blend = _blend_candidate(
-                "validation_blend_expected",
-                "expected_return_blend",
-                expected_left,
-                expected_right,
-                expected_weight,
-            )
-            for downside_weight in spec.blend_weights:
-                downside_blend = _blend_candidate(
-                    "validation_blend_downside",
-                    "downside_budget_blend",
-                    downside_left,
-                    downside_right,
-                    downside_weight,
-                )
-                for candidate_floor, candidate_cap in spec.floor_cap_candidates:
-                    weights = {
-                        "expected": float(expected_weight),
-                        "downside": float(downside_weight),
-                    }
-                    choice = _policy_choice(
-                        name="validation_selected_blend",
-                        expected=expected_blend,
-                        downside=downside_blend,
-                        crash=active_crash,
-                        floor=candidate_floor,
-                        cap=candidate_cap,
-                        train_return=train_return,
-                        valid_return=valid_return,
-                        train_quality=train_quality,
-                        valid_quality=valid_quality,
                         weights=weights,
                     )
-                    blend_choices.append(choice)
-                    blend_evaluations.append(
-                        {
-                            "expected_weight": float(expected_weight),
-                            "downside_weight": float(downside_weight),
-                            "floor": float(candidate_floor),
-                            "cap": float(candidate_cap),
-                            "validation_utility": float(choice.validation_utility),
-                            "crash_candidate": active_crash.name,
-                        }
-                    )
-        best_blend = max(blend_choices, key=_choice_key)
-        for candidate_name, role, weight in (
-            ("validation_blend_expected", "expected_return_blend", best_blend.weights["expected"]),
-            ("validation_blend_downside", "downside_budget_blend", best_blend.weights["downside"]),
-        ):
-            row = _success_row(
-                _Candidate(
-                    candidate_name,
-                    role,
-                    model=None,
-                    train_prediction=pd.Series(dtype="float64"),
-                    valid_prediction=pd.Series(dtype="float64"),
-                    component_score=best_blend.validation_utility,
-                    metadata={"blend_weight": weight},
                 )
+
+    individual_choices = [choice for choice in policy_choices if choice.name == "validation_selected_individual"]
+    blend_choices = [choice for choice in policy_choices if choice.name == "validation_selected_blend"]
+    for route_name, role, choices in (
+        ("validation_selected_individual", "allocation_policy", individual_choices),
+        ("validation_selected_blend", "allocation_policy_blend", blend_choices),
+    ):
+        if choices:
+            route_best = max(choices, key=_choice_key)
+            rows.append(
+                {
+                    "candidate": route_name,
+                    "model": route_name,
+                    "role": role,
+                    "status": "ok",
+                    "validation_score": float(route_best.validation_utility),
+                    "selected": False,
+                    "reason_code": "",
+                    "failure_type": "",
+                    "detail": "",
+                    "blend_weight": np.nan,
+                    "floor": route_best.floor,
+                    "cap": route_best.cap,
+                }
             )
-            row["floor"] = best_blend.floor
-            row["cap"] = best_blend.cap
+        else:
+            rows.append(_unavailable_row(route_name, role))
+
+    expected_blend_choices = [
+        choice for choice in policy_choices if choice.expected.name == "validation_blend_expected"
+    ]
+    downside_blend_choices = [
+        choice for choice in policy_choices if choice.downside.name == "validation_blend_downside"
+    ]
+    for candidate_name, role, choices, component in (
+        ("validation_blend_expected", "expected_return_blend", expected_blend_choices, "expected"),
+        ("validation_blend_downside", "downside_budget_blend", downside_blend_choices, "downside"),
+    ):
+        if choices:
+            component_best = max(choices, key=_choice_key)
+            candidate = getattr(component_best, component)
+            row = _success_row(candidate)
+            row["validation_score"] = component_best.validation_utility
+            row["floor"] = component_best.floor
+            row["cap"] = component_best.cap
             rows.append(row)
-        rows.append(
-            {
-                "candidate": "validation_selected_blend",
-                "model": "validation_selected_blend",
-                "role": "allocation_policy_blend",
-                "status": "ok",
-                "validation_score": float(best_blend.validation_utility),
-                "selected": False,
-                "reason_code": "",
-                "failure_type": "",
-                "detail": "",
-                "blend_weight": np.nan,
-                "floor": best_blend.floor,
-                "cap": best_blend.cap,
-            }
-        )
-    else:
-        if ridge_candidates and lgb_candidates:
-            expected_left = max(ridge_candidates, key=lambda candidate: (candidate.component_score, candidate.name))
-            expected_right = lgb_candidates[0]
-            expected_only_choices = []
-            for weight in spec.blend_weights:
-                expected_blend = _blend_candidate(
-                    "validation_blend_expected",
-                    "expected_return_blend",
-                    expected_left,
-                    expected_right,
-                    weight,
-                )
-                for candidate_floor, candidate_cap in spec.floor_cap_candidates:
-                    expected_only_choices.append(
-                        _policy_choice(
-                            name="validation_blend_expected",
-                            expected=expected_blend,
-                            downside=best_individual.downside,
-                            crash=active_crash,
-                            floor=candidate_floor,
-                            cap=candidate_cap,
-                            train_return=train_return,
-                            valid_return=valid_return,
-                            train_quality=train_quality,
-                            valid_quality=valid_quality,
-                            weights={"expected": float(weight)},
-                        )
-                    )
-            expected_only_best = max(expected_only_choices, key=_choice_key)
-            expected_row = _success_row(expected_only_best.expected)
-            expected_row["validation_score"] = expected_only_best.validation_utility
-            expected_row["floor"] = expected_only_best.floor
-            expected_row["cap"] = expected_only_best.cap
-            rows.append(expected_row)
         else:
-            rows.append(_unavailable_row("validation_blend_expected", "expected_return_blend"))
+            rows.append(_unavailable_row(candidate_name, role))
 
-        if catboost_downside and densemble_downside:
-            downside_only_choices = []
-            for weight in spec.blend_weights:
-                downside_blend = _blend_candidate(
-                    "validation_blend_downside",
-                    "downside_budget_blend",
-                    catboost_downside[0],
-                    densemble_downside[0],
-                    weight,
-                )
-                for candidate_floor, candidate_cap in spec.floor_cap_candidates:
-                    downside_only_choices.append(
-                        _policy_choice(
-                            name="validation_blend_downside",
-                            expected=best_individual.expected,
-                            downside=downside_blend,
-                            crash=active_crash,
-                            floor=candidate_floor,
-                            cap=candidate_cap,
-                            train_return=train_return,
-                            valid_return=valid_return,
-                            train_quality=train_quality,
-                            valid_quality=valid_quality,
-                            weights={"downside": float(weight)},
-                        )
-                    )
-            downside_only_best = max(downside_only_choices, key=_choice_key)
-            downside_row = _success_row(downside_only_best.downside)
-            downside_row["validation_score"] = downside_only_best.validation_utility
-            downside_row["floor"] = downside_only_best.floor
-            downside_row["cap"] = downside_only_best.cap
-            rows.append(downside_row)
-        else:
-            rows.append(_unavailable_row("validation_blend_downside", "downside_budget_blend"))
-        rows.append(_unavailable_row("validation_selected_blend", "allocation_policy_blend"))
-
-    policy_choices = [best_individual]
-    if best_blend is not None:
-        policy_choices.append(best_blend)
+    blend_evaluations = [
+        {
+            "expected_weight": float(choice.weights["expected"]),
+            "downside_weight": float(choice.weights["downside"]),
+            "floor": choice.floor,
+            "cap": choice.cap,
+            "validation_utility": float(choice.validation_utility),
+            "crash_candidate": active_crash.name,
+        }
+        for choice in blend_choices
+        if "expected" in choice.weights and "downside" in choice.weights
+    ]
+    policy_grid_evaluations = tuple(
+        {
+            "route_candidate": choice.name,
+            "expected_candidate": choice.expected.name,
+            "downside_candidate": choice.downside.name,
+            "crash_candidate": choice.crash.name,
+            "expected_weight": choice.weights.get("expected"),
+            "downside_weight": choice.weights.get("downside"),
+            "floor": choice.floor,
+            "cap": choice.cap,
+            "validation_utility": float(choice.validation_utility),
+        }
+        for choice in policy_choices
+    )
     selected_policy = max(policy_choices, key=_choice_key)
     selected_name = selected_policy.name
     for row in rows:
         component_choices = [
             choice
-            for choice in individual_choices
+            for choice in policy_choices
             if row["candidate"]
             in {choice.expected.name, choice.downside.name, choice.crash.name}
         ]
@@ -961,6 +919,9 @@ def run_tail_budget_models(
     # This is the first test-segment access: the validation-selected policy is frozen above.
     test_raw = _prepare_segment(dataset, spec.test_segment, spec)
     test_x = _transform(test_raw.features, median, mean, scale)
+    test_quality, test_quality_evidence = _quality_with_evidence(
+        test_raw, data_quality_by_segment.get(spec.test_segment)
+    )
     test_prediction_failure: dict[str, str] | None = None
     try:
         test_mu_values = _validate_prediction_values(
@@ -989,7 +950,6 @@ def run_tail_budget_models(
             * selected_policy.mu_direction
         )
         test_tail_score = (test_tail_raw.clip(lower=0.0) / selected_policy.tail_scale).clip(0.0, 1.0)
-        test_quality = _quality_for_segment(test_raw, data_quality_by_segment.get(spec.test_segment))
         test_position = soft_budget_position(
             test_mu_score,
             test_tail_score,
@@ -1038,20 +998,32 @@ def run_tail_budget_models(
 
     comparison = pd.DataFrame(rows).sort_values(["role", "candidate"], kind="stable").reset_index(drop=True)
     failures = comparison.loc[comparison["status"] != "ok"].reset_index(drop=True)
+    data_quality_failures_by_segment = {
+        spec.train_segment: train_quality_evidence,
+        spec.selection_segment: valid_quality_evidence,
+        spec.test_segment: test_quality_evidence,
+    }
+    data_quality_blocked = any(
+        evidence["invalid_count"] > 0 for evidence in data_quality_failures_by_segment.values()
+    )
     evidence = MappingProxyType(
         {
             "selection_segment": spec.selection_segment,
             "test_labels_used_for_selection": False,
             "test_accessed_after_freeze": True,
             "route_status": (
-                "blocked_non_finite_prediction" if test_prediction_failure else "ok"
+                "blocked_non_finite_prediction"
+                if test_prediction_failure
+                else "blocked_data_quality" if data_quality_blocked else "ok"
             ),
             "test_prediction_failure": test_prediction_failure,
+            "data_quality_failures_by_segment": MappingProxyType(data_quality_failures_by_segment),
             "preprocessing_fit_segment": spec.train_segment,
             "calibration_fit_segment": spec.train_segment,
             "densemble_prediction_api": "DEnsembleModel.predict(dataset, segment)",
             "blend_selection_metric": "validation_allocation_utility",
             "blend_grid_evaluations": tuple(blend_evaluations),
+            "policy_grid_evaluations": policy_grid_evaluations,
             "utility_best_blend": (
                 max(
                     blend_evaluations,
