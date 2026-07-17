@@ -75,6 +75,7 @@ class WalkForwardAggregate:
     metrics: RiskMetrics
     positive_return_folds: int
     fold_count: int
+    fold_extreme_loss_thresholds: tuple[float, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -301,13 +302,24 @@ def aggregate_walk_forward(folds: Sequence[RiskMetrics]) -> WalkForwardAggregate
         for item in metrics
     ):
         raise ValueError("walk-forward metrics must include daily return and position paths")
+    thresholds = tuple(float(item.extreme_loss_threshold) for item in metrics)
+    if not all(np.isfinite(threshold) for threshold in thresholds) or not all(
+        np.isclose(threshold, thresholds[0], rtol=1e-12, atol=1e-12)
+        for threshold in thresholds[1:]
+    ):
+        raise ValueError("walk-forward folds must use one finite extreme-loss threshold")
     combined_returns = tuple(value for item in metrics for value in item.daily_returns)
     combined_positions = tuple(value for item in metrics for value in item.positions)
-    aggregate = compute_risk_metrics(combined_returns, combined_positions)
+    aggregate = compute_risk_metrics(
+        combined_returns,
+        combined_positions,
+        extreme_loss_threshold=thresholds[0],
+    )
     return WalkForwardAggregate(
         metrics=aggregate,
         positive_return_folds=sum(item.total_return > 0.0 for item in metrics),
         fold_count=len(metrics),
+        fold_extreme_loss_thresholds=thresholds,
     )
 
 
@@ -399,7 +411,32 @@ def _walk_forward_structure_is_valid(aggregate: WalkForwardAggregate) -> bool:
         integer_types,
     ):
         return False
-    return aggregate.fold_count > 0 and 0 <= aggregate.positive_return_folds <= aggregate.fold_count
+    if aggregate.fold_count <= 0 or not 0 <= aggregate.positive_return_folds <= aggregate.fold_count:
+        return False
+    thresholds = aggregate.fold_extreme_loss_thresholds
+    if len(thresholds) != aggregate.fold_count:
+        return False
+    if not all(np.isfinite(float(threshold)) for threshold in thresholds):
+        return False
+    return all(
+        np.isclose(
+            float(threshold),
+            float(aggregate.metrics.extreme_loss_threshold),
+            rtol=1e-12,
+            atol=1e-12,
+        )
+        for threshold in thresholds
+    )
+
+
+def _extreme_loss_thresholds_are_comparable(left: RiskMetrics, right: RiskMetrics) -> bool:
+    left_threshold = float(left.extreme_loss_threshold)
+    right_threshold = float(right.extreme_loss_threshold)
+    return bool(
+        np.isfinite(left_threshold)
+        and np.isfinite(right_threshold)
+        and np.isclose(left_threshold, right_threshold, rtol=1e-12, atol=1e-12)
+    )
 
 
 def evaluate_promotion(
@@ -427,6 +464,14 @@ def evaluate_promotion(
         "walk_forward_legacy_metrics_valid": _risk_metrics_are_valid(legacy_walk_forward.metrics),
         "walk_forward_candidate_structure_valid": _walk_forward_structure_is_valid(candidate_walk_forward),
         "walk_forward_legacy_structure_valid": _walk_forward_structure_is_valid(legacy_walk_forward),
+        "test_extreme_loss_threshold_comparable": _extreme_loss_thresholds_are_comparable(
+            candidate_test,
+            legacy_test,
+        ),
+        "walk_forward_extreme_loss_threshold_comparable": _extreme_loss_thresholds_are_comparable(
+            candidate_walk_forward.metrics,
+            legacy_walk_forward.metrics,
+        ),
         "walk_forward_fold_count": candidate_walk_forward.fold_count == spec.expected_walk_forward_folds,
     }
 

@@ -235,6 +235,30 @@ def test_walk_forward_aggregate_rejects_summary_only_metrics() -> None:
         aggregate_walk_forward((_metrics(), _metrics(), _metrics()))
 
 
+def test_walk_forward_aggregate_preserves_one_finite_extreme_loss_threshold() -> None:
+    fold = compute_risk_metrics(
+        [-0.10, 0.01],
+        [0.30, 0.30],
+        extreme_loss_threshold=-0.08,
+    )
+
+    aggregate = aggregate_walk_forward((fold, fold, fold))
+
+    assert aggregate.metrics.extreme_loss_threshold == -0.08
+    assert aggregate.fold_extreme_loss_thresholds == (-0.08, -0.08, -0.08)
+
+
+def test_walk_forward_aggregate_rejects_mixed_or_nonfinite_extreme_loss_thresholds() -> None:
+    standard = compute_risk_metrics([-0.10, 0.01], [0.30, 0.30], extreme_loss_threshold=-0.08)
+    different = compute_risk_metrics([-0.10, 0.01], [0.30, 0.30], extreme_loss_threshold=-2.0)
+    nonfinite = compute_risk_metrics([-0.10, 0.01], [0.30, 0.30], extreme_loss_threshold=np.nan)
+
+    with pytest.raises(ValueError, match="one finite extreme-loss threshold"):
+        aggregate_walk_forward((standard, different))
+    with pytest.raises(ValueError, match="one finite extreme-loss threshold"):
+        aggregate_walk_forward((standard, nonfinite))
+
+
 def test_promotion_requires_test_and_walk_forward_to_beat_every_shared_gate() -> None:
     candidate_fold = compute_risk_metrics([0.0015] * 10, [0.40] * 10)
     legacy_fold = compute_risk_metrics([0.001] * 9 + [0.01], [0.60] * 10)
@@ -337,6 +361,8 @@ def test_promotion_fails_closed_and_reports_every_failed_gate() -> None:
         "test_legacy_metrics_valid",
         "walk_forward_candidate_metrics_valid",
         "walk_forward_legacy_metrics_valid",
+        "walk_forward_candidate_structure_valid",
+        "walk_forward_legacy_structure_valid",
         "test_max_drawdown",
         "test_participation",
         "test_zero_position_day_ratio",
@@ -427,3 +453,33 @@ def test_promotion_recomputes_path_backed_metrics_before_accepting_them(
 
     assert result.promoted is False
     assert result.checks["test_candidate_metrics_valid"] is False
+
+
+def test_promotion_rejects_incomparable_extreme_loss_thresholds() -> None:
+    candidate_fold = compute_risk_metrics(
+        [-0.10, 0.01],
+        [0.30, 0.30],
+        extreme_loss_threshold=-2.0,
+    )
+    legacy_fold = compute_risk_metrics(
+        [-0.10, 0.01],
+        [0.30, 0.30],
+        extreme_loss_threshold=-0.08,
+    )
+    candidate_walk_forward = aggregate_walk_forward((candidate_fold, candidate_fold, candidate_fold))
+    legacy_walk_forward = aggregate_walk_forward((legacy_fold, legacy_fold, legacy_fold))
+
+    result = evaluate_promotion(
+        candidate_fold,
+        legacy_fold,
+        candidate_walk_forward,
+        legacy_walk_forward,
+        data_quality_valid=True,
+        label_leakage_free=True,
+        test_time_selection_free=True,
+        labels_complete=True,
+    )
+
+    assert result.promoted is False
+    assert result.checks["test_extreme_loss_threshold_comparable"] is False
+    assert result.checks["walk_forward_extreme_loss_threshold_comparable"] is False
