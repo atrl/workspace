@@ -282,13 +282,51 @@ def test_missing_pit_panel_is_separate_deterministic_block_and_aligned_pit_is_el
         },
         index=index,
     )
+    pit.attrs.update(
+        {
+            "point_in_time_membership": True,
+            "source": "synthetic_pit_fixture",
+            "as_of": "2023-12-04",
+            "effective_date_field": "datetime",
+        }
+    )
     eligible = module.run_panel_sequence_models(
         dataset, spec=_fast_spec(), pit_panel=pit
     )
     assert eligible.mode_evidence["constituent_cross_sectional"]["status"] == "eligible"
+    assert eligible.mode_evidence["constituent_cross_sectional"]["provenance"] == {
+        "point_in_time_membership": True,
+        "source": "synthetic_pit_fixture",
+        "as_of": "2023-12-04",
+        "effective_date_field": "datetime",
+    }
     assert eligible.model_comparison.set_index("candidate").loc[
         "pit_cross_sectional_panel", "status"
     ] == "eligible"
+
+
+def test_structurally_aligned_pit_without_explicit_provenance_is_blocked():
+    module = importlib.import_module("src.model.panel_sequence")
+    dates = pd.bdate_range("2023-09-01", periods=3)
+    index = pd.MultiIndex.from_product(
+        [dates, ["NVDA", "AMD"]], names=["datetime", "instrument"]
+    )
+    pit = pd.DataFrame(
+        {"pit_member": True, "feature_1": np.arange(len(index), dtype=float)},
+        index=index,
+    )
+
+    result = module.run_panel_sequence_models(
+        _dataset(), spec=_fast_spec(), pit_panel=pit
+    )
+
+    evidence = result.mode_evidence["constituent_cross_sectional"]
+    assert evidence["status"] == "blocked_missing_pit_panel"
+    assert "missing_point_in_time_provenance" in evidence["validation_errors"]
+    assert evidence["provenance"]["point_in_time_membership"] is False
+    assert result.model_comparison.set_index("candidate").loc[
+        "pit_cross_sectional_panel", "reason_code"
+    ] == "blocked_missing_pit_panel"
 
 
 @pytest.mark.parametrize(

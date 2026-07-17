@@ -722,6 +722,12 @@ def _pit_evidence(
             "point_in_time_membership": False,
             "validation_status": "missing_pit_panel",
             "validation_errors": ("missing_panel",),
+            "provenance": {
+                "point_in_time_membership": False,
+                "source": None,
+                "as_of": None,
+                "effective_date_field": None,
+            },
         }
         row = {
             "candidate": "pit_cross_sectional_panel",
@@ -743,6 +749,15 @@ def _pit_evidence(
     errors: list[str] = []
     if not isinstance(pit_panel, pd.DataFrame) or pit_panel.empty:
         errors.append("empty_panel")
+    attrs = pit_panel.attrs if isinstance(pit_panel, pd.DataFrame) else {}
+    provenance = {
+        "point_in_time_membership": attrs.get("point_in_time_membership") is True,
+        "source": attrs.get("source"),
+        "as_of": attrs.get("as_of"),
+        "effective_date_field": attrs.get("effective_date_field"),
+    }
+    if not provenance["point_in_time_membership"]:
+        errors.append("missing_point_in_time_provenance")
     index_valid = isinstance(pit_panel, pd.DataFrame) and isinstance(
         pit_panel.index, pd.MultiIndex
     )
@@ -812,6 +827,7 @@ def _pit_evidence(
         "aligned_dates": len(pit_dates & qlib_dates),
         "validation_status": validation_status,
         "validation_errors": tuple(errors),
+        "provenance": provenance,
     }
     row = {
         "candidate": "pit_cross_sectional_panel",
