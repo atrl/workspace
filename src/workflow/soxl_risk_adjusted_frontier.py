@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 import tempfile
@@ -40,11 +41,12 @@ RECORDER_ONLY_ARTIFACTS = {
     "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
     "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
     "legacy_report": "artifacts/evidence/legacy_report.pkl",
+    "run_manifest": "artifacts/evidence/run_manifest.pkl",
 }
 
 FRONTIER_RECORDER_ONLY_ARTIFACTS = {
     "canonical_dataset_audit": "artifacts/frontier/canonical_dataset_audit.pkl",
-    "route_summaries": "artifacts/frontier/route_summaries.pkl",
+    "route_manifests": "artifacts/frontier/route_manifests.pkl",
 }
 
 REQUIRED_PROMOTION_CHECKS = frozenset(
@@ -151,6 +153,73 @@ def _jsonable(value: Any) -> Any:
     return str(value)
 
 
+def _canonical_payload_hash(payload: Mapping[str, Any]) -> str:
+    encoded = json.dumps(
+        _jsonable(payload), sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def _label_contract() -> dict[str, Any]:
+    return {
+        "future_return_5d": "five compounded next-open daily returns",
+        "future_downside_5d": "negative part of future_return_5d",
+        "future_crash_5d": "train tenth percentile or daily next-open return <= -8%",
+        "horizon": 5,
+        "purge_rows": 6,
+        "decision_time": "after close_t",
+        "entry_time": "next session open",
+    }
+
+
+def _execution_config(spec: RiskAdjustedRouteCardSpec) -> dict[str, Any]:
+    return {
+        "cost_rate": spec.cost_rate,
+        "deal_price": "open",
+        "timing": "signal_after_close_t_to_next_open",
+    }
+
+
+def _seal_run_manifest(payload: Mapping[str, Any]) -> dict[str, Any]:
+    normalized = _jsonable(payload)
+    return {"manifest_id": _canonical_payload_hash(normalized), **normalized}
+
+
+def _validate_run_manifest(manifest: Mapping[str, Any]) -> None:
+    required = {
+        "schema_version",
+        "manifest_id",
+        "experiment",
+        "route",
+        "provider_uri",
+        "recorder_uri",
+        "provider_manifest_hash",
+        "recorder_id",
+        "data_lineage",
+        "effective_segments",
+        "data_range",
+        "label_contract",
+        "execution_config",
+        "selected_candidate",
+        "frozen_policy_id",
+        "selection_contract",
+        "route_status",
+        "metrics",
+        "benchmark",
+        "promotion",
+    }
+    if not required.issubset(manifest) or manifest.get("schema_version") != 1:
+        raise ValueError("recorder run manifest is incomplete")
+    payload = {key: value for key, value in manifest.items() if key != "manifest_id"}
+    if manifest.get("manifest_id") != _canonical_payload_hash(payload):
+        raise ValueError("recorder run manifest hash is invalid")
+    lineage = manifest.get("data_lineage", {})
+    if manifest.get("provider_manifest_hash") != lineage.get("manifest_hash"):
+        raise ValueError("recorder run manifest provider hash is inconsistent")
+    if manifest.get("label_contract", {}).get("purge_rows") != 6:
+        raise ValueError("recorder run manifest label purge contract is invalid")
+
+
 def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.write_text(
         json.dumps(_jsonable(payload), indent=2, sort_keys=True, ensure_ascii=False, allow_nan=False),
@@ -198,15 +267,7 @@ def build_card_summary(
         "as_of": data_range[1],
         "data_range": list(data_range),
         "segments": {name: list(window) for name, window in segments.items()},
-        "label_contract": {
-            "future_return_5d": "five compounded next-open daily returns",
-            "future_downside_5d": "negative part of future_return_5d",
-            "future_crash_5d": "train tenth percentile or daily next-open return <= -8%",
-            "horizon": 5,
-            "purge_rows": 6,
-            "decision_time": "after close_t",
-            "entry_time": "next session open",
-        },
+        "label_contract": _label_contract(),
         "selection_frozen_before_test": bool(route_payload["selection_frozen_before_test"]),
         "test_labels_used_for_selection": bool(route_payload["test_labels_used_for_selection"]),
         **_jsonable(route_payload),
@@ -724,10 +785,81 @@ def _matched_legacy_qlib_report(
     return report
 
 
+def _build_run_manifest(
+    *,
+    spec: RiskAdjustedRouteCardSpec,
+    result,
+    recorder_id: str,
+    segments: Mapping[str, tuple[str, str]],
+    lineage: Mapping[str, Any],
+    labels,
+    metrics: Mapping[str, Any],
+) -> dict[str, Any]:
+    selection = result.selection_evidence
+    frozen_policy = selection.get("frozen_policy")
+    if not isinstance(frozen_policy, Mapping):
+        raise ValueError("recorder run manifest requires a frozen policy")
+    blocked_modes = (
+        {
+            name: evidence.get("status", evidence.get("reason_code", "blocked"))
+            for name, evidence in result.mode_evidence.items()
+        }
+        if spec.route == "panel_sequence"
+        else {}
+    )
+    payload = {
+        "schema_version": 1,
+        "experiment": spec.experiment,
+        "route": spec.route,
+        "provider_uri": spec.provider_uri.as_posix(),
+        "recorder_uri": spec.recorder_uri.as_posix(),
+        "provider_manifest_hash": lineage.get("manifest_hash"),
+        "recorder_id": recorder_id,
+        "market": spec.market,
+        "region": spec.region,
+        "as_of": spec.as_of,
+        "data_lineage": lineage,
+        "effective_segments": {name: list(window) for name, window in segments.items()},
+        "data_range": [spec.data_start, spec.as_of],
+        "label_contract": _label_contract(),
+        "label_evidence": {
+            "train_crash_threshold": labels.train_crash_threshold,
+            "purged_boundary_rows": labels.purged_boundary_rows,
+            "skipped_invalid_rows": labels.skipped_invalid_rows,
+            "calendar_alignment": lineage["calendar_alignment"],
+            "segment_alignment": lineage["segment_alignment"],
+        },
+        "execution_config": _execution_config(spec),
+        "selected_candidate": result.selected_candidate,
+        "frozen_policy_id": _canonical_payload_hash(frozen_policy),
+        "selection_contract": {
+            "selection_frozen_before_test": metrics["selection_gates"]["frozen_policy"],
+            "test_labels_used_for_selection": bool(
+                selection.get("test_labels_used_for_selection")
+            ),
+        },
+        "route_status": str(selection.get("route_status", "blocked_unknown")),
+        "metrics": _metric_payload(metrics),
+        "benchmark": {
+            "name": "legacy_soxl_backtest",
+            "source": "soxl_backtest.reference.replay_soxlbacktest_reference",
+            "matched_window": True,
+            "start": metrics["legacy"].metrics["start"],
+            "end": metrics["legacy"].metrics["end"],
+        },
+        "promotion": metrics["promotion"],
+        "blocked_modes": blocked_modes,
+    }
+    return _seal_run_manifest(payload)
+
+
 def _record_route(
     spec: RiskAdjustedRouteCardSpec,
     result,
     dataset,
+    segments: Mapping[str, tuple[str, str]],
+    lineage: Mapping[str, Any],
+    labels,
 ):
     from qlib.workflow import R
     from qlib.workflow.record_temp import PortAnaRecord, SignalRecord
@@ -799,6 +931,24 @@ def _record_route(
             R.save_objects(artifact_path="evidence", **{"selection_evidence.pkl": result.selection_evidence})
             R.save_objects(artifact_path="evidence", **{"legacy_report.pkl": legacy_report})
             recorder_id = recorder.id
+            report = recorder.load_object("portfolio_analysis/report_normal_1day.pkl")
+            metrics = _route_metrics_from_report(
+                route=spec.route,
+                report=report,
+                legacy_report=legacy_report,
+                selection_evidence=result.selection_evidence,
+                lineage=lineage,
+            )
+            run_manifest = _build_run_manifest(
+                spec=spec,
+                result=result,
+                recorder_id=recorder_id,
+                segments=segments,
+                lineage=lineage,
+                labels=labels,
+                metrics=metrics,
+            )
+            R.save_objects(artifact_path="evidence", **{"run_manifest.pkl": run_manifest})
             recorder_local_dir = Path(recorder.get_local_dir())
     _remove_transient_recorder_files(recorder_local_dir)
     persisted = R.get_recorder(experiment_name=spec.experiment, recorder_id=recorder_id)
@@ -812,12 +962,13 @@ def _record_route(
         "portfolio_analysis/port_analysis_1day.pkl",
         "evidence/selection_evidence.pkl",
         "evidence/legacy_report.pkl",
+        "evidence/run_manifest.pkl",
     ):
         try:
             persisted.load_object(artifact)
         except Exception as exc:
             raise RuntimeError(f"recorder write is incomplete: {artifact}") from exc
-    return recorder_id, recorder_local_dir
+    return recorder_id, recorder_local_dir, run_manifest
 
 
 def _workflow_text(spec: RiskAdjustedRouteCardSpec, segments: Mapping[str, tuple[str, str]]) -> str:
@@ -939,7 +1090,9 @@ def run_risk_adjusted_route_card(spec: RiskAdjustedRouteCardSpec) -> dict[str, A
     dataset, next_open_return, labels, segments, lineage = _canonical_dataset(spec)
     result = _run_route(spec.route, dataset, lineage)
     del next_open_return
-    recorder_id, recorder_local_dir = _record_route(spec, result, dataset)
+    recorder_id, recorder_local_dir, run_manifest = _record_route(
+        spec, result, dataset, segments, lineage, labels
+    )
     recorder_evidence = load_route_recorder_evidence(
         {
             "experiment": spec.experiment,
@@ -949,13 +1102,9 @@ def run_risk_adjusted_route_card(spec: RiskAdjustedRouteCardSpec) -> dict[str, A
             "region": spec.region,
         }
     )
-    metrics = _route_metrics_from_report(
-        route=spec.route,
-        report=recorder_evidence["report"],
-        legacy_report=recorder_evidence["legacy_report"],
-        selection_evidence=recorder_evidence["selection_evidence"],
-        lineage=lineage,
-    )
+    if recorder_evidence["run_manifest"] != run_manifest:
+        raise ValueError("recorder run manifest changed after write")
+    metrics = _recompute_and_validate_manifest(recorder_evidence)
 
     model_selection_path = spec.output_dir / "model_selection.csv"
     result.model_comparison.to_csv(model_selection_path, index=False)
@@ -963,12 +1112,9 @@ def run_risk_adjusted_route_card(spec: RiskAdjustedRouteCardSpec) -> dict[str, A
     _write_json(
         selected_model_path,
         {
-            "selected_candidate": result.selected_candidate,
+            "selected_candidate": run_manifest["selected_candidate"],
             "selection_segment": "valid",
-            "selection_frozen_before_test": metrics["selection_gates"]["frozen_policy"],
-            "test_labels_used_for_selection": bool(
-                result.selection_evidence.get("test_labels_used_for_selection")
-            ),
+            **run_manifest["selection_contract"],
             "floor": result.floor,
             "cap": result.cap,
         },
@@ -1001,47 +1147,21 @@ def run_risk_adjusted_route_card(spec: RiskAdjustedRouteCardSpec) -> dict[str, A
     else:
         pd.DataFrame([{"window": "not_applicable", "route": spec.route}]).to_csv(window_path, index=False)
 
-    blocked_modes = (
-        {
-            name: evidence.get("status", evidence.get("reason_code", "blocked"))
-            for name, evidence in result.mode_evidence.items()
-        }
-        if spec.route == "panel_sequence"
-        else {}
-    )
     route_payload = {
-        "route_status": str(result.selection_evidence.get("route_status", "blocked_unknown")),
-        "selected_candidate": result.selected_candidate,
-        "selection_frozen_before_test": metrics["selection_gates"]["frozen_policy"],
-        "test_labels_used_for_selection": bool(
-            result.selection_evidence.get("test_labels_used_for_selection")
-        ),
+        "run_manifest_id": run_manifest["manifest_id"],
+        "route_status": run_manifest["route_status"],
+        "selected_candidate": run_manifest["selected_candidate"],
+        **run_manifest["selection_contract"],
         "selection_evidence": _compact_selection_evidence(result.selection_evidence),
-        "data_lineage": lineage,
-        "label_evidence": {
-            "train_crash_threshold": labels.train_crash_threshold,
-            "purged_boundary_rows": labels.purged_boundary_rows,
-            "skipped_invalid_rows": labels.skipped_invalid_rows,
-            "calendar_alignment": lineage["calendar_alignment"],
-            "segment_alignment": lineage["segment_alignment"],
-        },
-        "metrics": _metric_payload(metrics),
-        "benchmark": {
-            "name": "legacy_soxl_backtest",
-            "source": "soxl_backtest.reference.replay_soxlbacktest_reference",
-            "matched_window": True,
-            "start": metrics["legacy"].metrics["start"],
-            "end": metrics["legacy"].metrics["end"],
-        },
-        "promotion": metrics["promotion"],
+        "data_lineage": run_manifest["data_lineage"],
+        "label_evidence": run_manifest["label_evidence"],
+        "metrics": run_manifest["metrics"],
+        "benchmark": run_manifest["benchmark"],
+        "promotion": run_manifest["promotion"],
         "artifact_generation_api": ["SignalRecord.generate", "PortAnaRecord.generate"],
         "metrics_source": "qlib_portfolio_analysis/report_normal_1day.pkl",
-        "execution_config": {
-            "cost_rate": spec.cost_rate,
-            "deal_price": "open",
-            "timing": "signal_after_close_t_to_next_open",
-        },
-        "blocked_modes": blocked_modes,
+        "execution_config": run_manifest["execution_config"],
+        "blocked_modes": run_manifest["blocked_modes"],
         "recorder_artifacts": _recorder_files(recorder_local_dir),
     }
     sidecars = {
@@ -1060,11 +1180,12 @@ def run_risk_adjusted_route_card(spec: RiskAdjustedRouteCardSpec) -> dict[str, A
         recorder_uri=spec.recorder_uri,
         recorder_id=recorder_id,
         recorder_local_dir=recorder_local_dir,
-        data_range=(spec.data_start, spec.as_of),
-        segments=segments,
+        data_range=tuple(run_manifest["data_range"]),
+        segments=run_manifest["effective_segments"],
         route_payload=route_payload,
         sidecars=sidecars,
     )
+    _assert_summary_matches_manifest(summary, run_manifest)
     _write_json(spec.output_dir / "summary.json", summary)
     (spec.output_dir / "workflow.yaml").write_text(_workflow_text(spec, segments), encoding="utf-8")
     (spec.output_dir / "conclusion.md").write_text(
@@ -1106,6 +1227,7 @@ def load_route_recorder_evidence(summary: Mapping[str, Any]) -> dict[str, Any]:
         "risk": "portfolio_analysis/port_analysis_1day.pkl",
         "selection_evidence": "evidence/selection_evidence.pkl",
         "legacy_report": "evidence/legacy_report.pkl",
+        "run_manifest": "evidence/run_manifest.pkl",
     }
     objects: dict[str, Any] = {}
     for key, artifact in names.items():
@@ -1125,6 +1247,32 @@ def load_route_recorder_evidence(summary: Mapping[str, Any]) -> dict[str, Any]:
         raise ValueError("recorder legacy report is invalid")
     if not isinstance(objects["selection_evidence"], Mapping):
         raise ValueError("recorder selection evidence is invalid")
+    if not isinstance(objects["run_manifest"], Mapping):
+        raise ValueError("recorder run manifest is invalid")
+    _validate_run_manifest(objects["run_manifest"])
+    manifest = objects["run_manifest"]
+    params = recorder.list_params()
+    if manifest.get("recorder_id") != recorder_id or manifest.get("experiment") != experiment:
+        raise ValueError("recorder run manifest identity is inconsistent")
+    if manifest.get("route") != params.get("route") or manifest.get(
+        "selected_candidate"
+    ) != params.get("selected_candidate"):
+        raise ValueError("recorder run manifest selection identity is inconsistent")
+    frozen_policy = objects["selection_evidence"].get("frozen_policy")
+    if not isinstance(frozen_policy, Mapping) or manifest.get(
+        "frozen_policy_id"
+    ) != _canonical_payload_hash(frozen_policy):
+        raise ValueError("recorder run manifest frozen policy is inconsistent")
+    if manifest.get("route_status") != objects["selection_evidence"].get("route_status"):
+        raise ValueError("recorder run manifest route status is inconsistent")
+    expected_selection_contract = {
+        "selection_frozen_before_test": isinstance(frozen_policy, Mapping),
+        "test_labels_used_for_selection": bool(
+            objects["selection_evidence"].get("test_labels_used_for_selection")
+        ),
+    }
+    if manifest.get("selection_contract") != expected_selection_contract:
+        raise ValueError("recorder run manifest selection contract is inconsistent")
     if not isinstance(objects["predictions"], (pd.Series, pd.DataFrame)) or objects[
         "predictions"
     ].empty:
@@ -1134,7 +1282,7 @@ def load_route_recorder_evidence(summary: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "recorder": recorder,
         "recorder_status": recorder.status,
-        "params": recorder.list_params(),
+        "params": params,
         **objects,
     }
 
@@ -1156,28 +1304,89 @@ def _metric_payload(metrics: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _assert_metric_payload_matches(
-    summary_metrics: Mapping[str, Any], recorder_metrics: Mapping[str, Any]
+    summary_metrics: Mapping[str, Any],
+    recorder_metrics: Mapping[str, Any],
+    *,
+    error_message: str = "summary and recorder metrics differ",
 ) -> None:
     for scope in ("test", "walk_forward"):
         for side in ("candidate", "legacy"):
             stated = summary_metrics.get(scope, {}).get(side, {})
             actual = recorder_metrics.get(scope, {}).get(side, {})
             if set(stated) != set(actual):
-                raise ValueError("summary and recorder metrics differ")
+                raise ValueError(error_message)
             for field, value in actual.items():
                 stated_value = stated[field]
                 if isinstance(value, (int, float)) and not isinstance(value, bool):
                     if stated_value is None or not np.isclose(
                         float(stated_value), float(value), rtol=1e-10, atol=1e-12
                     ):
-                        raise ValueError("summary and recorder metrics differ")
+                        raise ValueError(error_message)
                 elif stated_value != value:
-                    raise ValueError("summary and recorder metrics differ")
+                    raise ValueError(error_message)
     for field in ("candidate_positive_folds", "fold_count", "method"):
         if summary_metrics.get("walk_forward", {}).get(field) != recorder_metrics[
             "walk_forward"
         ][field]:
-            raise ValueError("summary and recorder metrics differ")
+            raise ValueError(error_message)
+
+
+def _assert_summary_matches_manifest(
+    summary: Mapping[str, Any], manifest: Mapping[str, Any]
+) -> None:
+    if summary.get("run_manifest_id") != manifest.get("manifest_id"):
+        raise ValueError("summary and recorder manifest differ: run_manifest_id")
+    mirrors = {
+        "experiment": "experiment",
+        "route": "route",
+        "provider_uri": "provider_uri",
+        "recorder_uri": "recorder_uri",
+        "recorder_id": "recorder_id",
+        "market": "market",
+        "region": "region",
+        "as_of": "as_of",
+        "data_range": "data_range",
+        "segments": "effective_segments",
+        "label_contract": "label_contract",
+        "route_status": "route_status",
+        "selected_candidate": "selected_candidate",
+        "data_lineage": "data_lineage",
+        "label_evidence": "label_evidence",
+        "benchmark": "benchmark",
+        "promotion": "promotion",
+        "execution_config": "execution_config",
+        "blocked_modes": "blocked_modes",
+    }
+    for summary_key, manifest_key in mirrors.items():
+        if _jsonable(summary.get(summary_key)) != _jsonable(manifest.get(manifest_key)):
+            raise ValueError(f"summary and recorder manifest differ: {summary_key}")
+    selection_contract = manifest["selection_contract"]
+    for field in ("selection_frozen_before_test", "test_labels_used_for_selection"):
+        if summary.get(field) != selection_contract.get(field):
+            raise ValueError(f"summary and recorder manifest differ: {field}")
+    _assert_metric_payload_matches(
+        summary.get("metrics", {}), manifest.get("metrics", {})
+    )
+
+
+def _recompute_and_validate_manifest(evidence: Mapping[str, Any]) -> dict[str, Any]:
+    manifest = evidence["run_manifest"]
+    metrics = _route_metrics_from_report(
+        route=str(manifest["route"]),
+        report=evidence["report"],
+        legacy_report=evidence["legacy_report"],
+        selection_evidence=evidence["selection_evidence"],
+        lineage=manifest["data_lineage"],
+    )
+    recorder_metric_payload = _metric_payload(metrics)
+    _assert_metric_payload_matches(
+        manifest.get("metrics", {}),
+        recorder_metric_payload,
+        error_message="recorder manifest and recorder metrics differ",
+    )
+    if manifest.get("promotion") != _jsonable(metrics["promotion"]):
+        raise ValueError("recorder manifest and recomputed promotion differ")
+    return metrics
 
 
 def compare_frozen_route_summaries(
@@ -1185,45 +1394,30 @@ def compare_frozen_route_summaries(
 ) -> dict[str, Any]:
     if set(summaries) != set(ROUTES):
         raise ValueError(f"frontier requires route summaries: {ROUTES}")
-    windows = {tuple(summary.get("data_range", ())) for summary in summaries.values()}
-    segments = {
-        json.dumps(summary.get("segments", {}), sort_keys=True) for summary in summaries.values()
-    }
-    label_contracts = {
-        json.dumps(summary.get("label_contract", {}), sort_keys=True) for summary in summaries.values()
-    }
-    if len(windows) != 1 or len(segments) != 1 or len(label_contracts) != 1:
-        raise ValueError("frontier requires matched data windows and segments")
     frozen_routes: dict[str, Any] = {}
+    route_manifests: dict[str, Any] = {}
     promoted: list[str] = []
     for route, summary in summaries.items():
-        benchmark = summary.get("benchmark", {})
-        if benchmark.get("name") != "legacy_soxl_backtest" or benchmark.get("matched_window") is not True:
-            raise ValueError(f"route lacks matched legacy benchmark evidence: {route}")
         evidence = load_route_recorder_evidence(summary)
+        manifest = evidence["run_manifest"]
+        if manifest.get("route") != route:
+            raise ValueError(f"recorder run manifest route differs for {route}")
+        _assert_summary_matches_manifest(summary, manifest)
         selection_evidence = evidence["selection_evidence"]
-        if evidence["params"].get("route") != route:
-            raise ValueError(f"recorder route identity differs for {route}")
-        if selection_evidence.get("route_status") != summary.get("route_status"):
-            raise ValueError("summary and recorder route status differ")
         if selection_evidence.get("test_labels_used_for_selection") is not False:
             raise ValueError(f"route used test labels for selection: {route}")
-        metrics = _route_metrics_from_report(
-            route=route,
-            report=evidence["report"],
-            legacy_report=evidence["legacy_report"],
-            selection_evidence=selection_evidence,
-            lineage=summary.get("data_lineage", {}),
-        )
+        metrics = _recompute_and_validate_manifest(evidence)
         recorder_metric_payload = _metric_payload(metrics)
-        _assert_metric_payload_matches(summary.get("metrics", {}), recorder_metric_payload)
-        if summary.get("promotion") != _jsonable(metrics["promotion"]):
-            raise ValueError("summary and recorder promotion differ")
         gates = metrics["selection_gates"]
-        if summary.get("selection_frozen_before_test") is not gates["frozen_policy"]:
-            raise ValueError("summary and recorder frozen-policy evidence differ")
-        if summary.get("test_labels_used_for_selection") is not False:
-            raise ValueError(f"route used test labels for selection: {route}")
+        if manifest["selection_contract"]["selection_frozen_before_test"] is not gates[
+            "frozen_policy"
+        ]:
+            raise ValueError("recorder manifest frozen-policy evidence differs")
+        benchmark = manifest["benchmark"]
+        if benchmark.get("name") != "legacy_soxl_backtest" or benchmark.get(
+            "matched_window"
+        ) is not True:
+            raise ValueError(f"route lacks matched legacy benchmark evidence: {route}")
         promotion = metrics["promotion"]
         if promotion.get("promoted") is True:
             checks = promotion.get("checks")
@@ -1231,27 +1425,48 @@ def compare_frozen_route_summaries(
                 raise ValueError(f"promotion check evidence is incomplete for {route}")
             if not all(value is True for value in checks.values()):
                 raise ValueError(f"promotion check evidence is not literal true for {route}")
-            if summary.get("route_status") != "ok":
+            if manifest.get("route_status") != "ok":
                 raise ValueError(f"promoted route status is not ok: {route}")
         frozen_routes[route] = {
-            "route_status": selection_evidence.get("route_status"),
-            "selected_candidate": summary.get("selected_candidate"),
-            "recorder_id": summary.get("recorder_id"),
+            "route_status": manifest["route_status"],
+            "selected_candidate": manifest["selected_candidate"],
+            "recorder_id": manifest["recorder_id"],
+            "run_manifest_id": manifest["manifest_id"],
             "recorder_status": evidence["recorder_status"],
             "metrics": recorder_metric_payload,
             "promotion": promotion,
         }
+        route_manifests[route] = manifest
         if promotion.get("promoted") is True:
             promoted.append(route)
+    windows = {json.dumps(manifest["data_range"]) for manifest in route_manifests.values()}
+    segments = {
+        json.dumps(manifest["effective_segments"], sort_keys=True)
+        for manifest in route_manifests.values()
+    }
+    label_contracts = {
+        json.dumps(manifest["label_contract"], sort_keys=True)
+        for manifest in route_manifests.values()
+    }
+    if len(windows) != 1 or len(segments) != 1 or len(label_contracts) != 1:
+        raise ValueError("frontier requires matched recorder manifest windows and segments")
+    canonical_manifest = next(iter(route_manifests.values()))
     decision = (
         "promoted_risk_adjusted_candidate" if promoted else "not_promoted_no_risk_adjusted_candidate"
     )
     return {
         "decision": decision,
         "promoted_routes": promoted,
-        "selection_source": "frozen_route_summaries",
+        "selection_source": "recorder_run_manifests",
         "evidence_source": "qlib_recorder_objects",
         "test_reselection_performed": False,
+        "canonical_contract": {
+            "as_of": canonical_manifest["as_of"],
+            "data_range": canonical_manifest["data_range"],
+            "segments": canonical_manifest["effective_segments"],
+            "label_contract": canonical_manifest["label_contract"],
+        },
+        "route_manifests": route_manifests,
         "routes": frozen_routes,
     }
 
@@ -1313,19 +1528,24 @@ def run_risk_adjusted_frontier_card(
         for route, path in route_card_dirs.items()
     }
     comparison = compare_frozen_route_summaries(summaries)
+    canonical_contract = comparison["canonical_contract"]
+    route_manifests = comparison["route_manifests"]
+    comparison = {
+        key: value for key, value in comparison.items() if key != "route_manifests"
+    }
     qlib.init(provider_uri=provider_uri.resolve().as_posix(), region="us", kernels=1)
     calendar = D.calendar(freq="day")
     if not len(calendar):
         raise ValueError("blocked_missing_required_source: empty qlib calendar")
     canonical_audit = _frontier_readonly_dataset_audit(
         provider_uri=provider_uri,
-        segments=next(iter(summaries.values()))["segments"],
+        segments=canonical_contract["segments"],
     )
     R.set_uri(resolve_recorder_uri(recorder_uri).as_posix())
     with R.start(experiment_name="soxl_risk_adjusted_model_frontier_v1"):
         recorder = R.get_recorder()
         R.log_params(
-            selection_source="qlib_recorder_objects",
+            selection_source="recorder_run_manifests",
             test_reselection_performed=False,
             route_count=3,
             decision=comparison["decision"],
@@ -1333,7 +1553,7 @@ def run_risk_adjusted_frontier_card(
         R.save_objects(
             artifact_path="frontier",
             **{
-                "route_summaries.pkl": summaries,
+                "route_manifests.pkl": route_manifests,
                 "canonical_dataset_audit.pkl": canonical_audit,
             },
         )
@@ -1346,7 +1566,7 @@ def run_risk_adjusted_frontier_card(
     if persisted.status != "FINISHED":
         raise RuntimeError(f"frontier recorder write did not finish: {recorder_id}")
     for artifact in (
-        "frontier/route_summaries.pkl",
+        "frontier/route_manifests.pkl",
         "frontier/canonical_dataset_audit.pkl",
     ):
         try:
@@ -1357,15 +1577,15 @@ def run_risk_adjusted_frontier_card(
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = []
     benchmark_rows = []
-    for route, summary in summaries.items():
+    for route in ROUTES:
         recorder_route = comparison["routes"][route]
         metric = recorder_route["metrics"]["test"]["candidate"]
         legacy_metric = recorder_route["metrics"]["test"]["legacy"]
         rows.append(
             {
                 "route": route,
-                "route_status": summary["route_status"],
-                "selected_candidate": summary["selected_candidate"],
+                "route_status": recorder_route["route_status"],
+                "selected_candidate": recorder_route["selected_candidate"],
                 "total_return": metric["total_return"],
                 "max_drawdown": metric["max_drawdown"],
                 "return_to_drawdown": metric["return_to_drawdown"],
@@ -1405,10 +1625,10 @@ def run_risk_adjusted_frontier_card(
         "recorder_artifacts": _recorder_files(recorder_local_dir),
         "market": "all",
         "region": "us",
-        "as_of": next(iter(summaries.values()))["as_of"],
-        "data_range": next(iter(summaries.values()))["data_range"],
-        "segments": next(iter(summaries.values()))["segments"],
-        "label_contract": next(iter(summaries.values()))["label_contract"],
+        "as_of": canonical_contract["as_of"],
+        "data_range": canonical_contract["data_range"],
+        "segments": canonical_contract["segments"],
+        "label_contract": canonical_contract["label_contract"],
         "frontier": comparison,
         "canonical_dataset_audit": canonical_audit,
         "promotion": {
@@ -1419,14 +1639,15 @@ def run_risk_adjusted_frontier_card(
         "routes": {route: summary for route, summary in comparison["routes"].items()},
         "route_recorder_artifacts": {
             route: {
-                "recorder_id": route_summary["recorder_id"],
-                "recorder_uri": route_summary["recorder_uri"],
-                "experiment": route_summary["experiment"],
+                "recorder_id": route_manifests[route]["recorder_id"],
+                "recorder_uri": route_manifests[route]["recorder_uri"],
+                "experiment": route_manifests[route]["experiment"],
+                "run_manifest_id": route_manifests[route]["manifest_id"],
                 "artifacts": {
                     key: value for key, value in RECORDER_ONLY_ARTIFACTS.items()
                 },
             }
-            for route, route_summary in summaries.items()
+            for route in ROUTES
         },
         "qlib_native_api": [
             "qlib.init",
@@ -1468,7 +1689,7 @@ segments:
   valid: inherited_matched_route_window
   test: inherited_matched_route_window
 model_selection:
-  source: frozen_route_summaries
+  source: recorder_run_manifests
   test_reselection: false
 artifact_policy:
   policy: slim_card_recorder_first

@@ -23,7 +23,8 @@
       "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
       "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
       "predictions": "artifacts/pred.pkl",
-      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl"
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+      "run_manifest": "artifacts/evidence/run_manifest.pkl"
     },
     "workflow_config": "workflow.yaml"
   },
@@ -296,6 +297,7 @@
   ],
   "recorder_artifacts": [
     "artifacts/evidence/legacy_report.pkl",
+    "artifacts/evidence/run_manifest.pkl",
     "artifacts/evidence/selection_evidence.pkl",
     "artifacts/label.pkl",
     "artifacts/model/fitted_policy.pkl",
@@ -339,11 +341,12 @@
     "tags/mlflow.source.type",
     "tags/mlflow.user"
   ],
-  "recorder_id": "77f48b23c1804fd2b188dc1bc277371d",
+  "recorder_id": "6890bdf021dd4da4935d08086df91dca",
   "recorder_uri": "git-common-parent:.qlib-recorders/soxl-risk-adjusted-frontier-v1",
   "region": "us",
   "route": "regime_moe",
   "route_status": "ok",
+  "run_manifest_id": "fd629bfb6bcb717a47f790f78f34119c240fc06e45ef7dd4ebfefcafe042c024",
   "segments": {
     "test": [
       "2024-01-02",

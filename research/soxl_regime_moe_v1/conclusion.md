@@ -2,7 +2,7 @@
 
 ## 做了什么
 
-使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `regime_moe` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `77f48b23c1804fd2b188dc1bc277371d`。
+使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `regime_moe` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `6890bdf021dd4da4935d08086df91dca`。
 
 ## 核心指标
 

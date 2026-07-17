@@ -30,7 +30,7 @@ def test_frontier_compares_frozen_route_results_without_test_reselection():
     result = compare_frozen_route_summaries(_actual_summaries())
 
     assert result["decision"] == "not_promoted_no_risk_adjusted_candidate"
-    assert result["selection_source"] == "frozen_route_summaries"
+    assert result["selection_source"] == "recorder_run_manifests"
     assert result["test_reselection_performed"] is False
     assert set(result["routes"]) == set(_actual_summaries())
     assert result["routes"]["panel_sequence"]["route_status"] == "ok"
@@ -42,7 +42,7 @@ def test_frontier_fails_closed_on_window_or_recorder_mismatch():
 
     summaries = _actual_summaries()
     summaries["regime_moe"]["data_range"] = ["2024-02-01", "2026-07-02"]
-    with pytest.raises(ValueError, match="matched data windows"):
+    with pytest.raises(ValueError, match="summary and recorder manifest differ"):
         compare_frozen_route_summaries(summaries)
 
     summaries = _actual_summaries()
@@ -57,6 +57,24 @@ def test_frontier_rejects_tampered_summary_against_recorder_truth():
     summaries = _actual_summaries()
     summaries["tail_budget"]["metrics"]["test"]["candidate"]["total_return"] += 10.0
     with pytest.raises(ValueError, match="summary and recorder metrics differ"):
+        compare_frozen_route_summaries(summaries)
+
+
+@pytest.mark.parametrize(
+    ("field", "mutate"),
+    [
+        ("data_lineage", lambda summary: summary["data_lineage"].update(manifest_hash="tampered")),
+        ("segments", lambda summary: summary["segments"]["test"].__setitem__(0, "2025-01-02")),
+        ("selected_candidate", lambda summary: summary.__setitem__("selected_candidate", "tampered")),
+        ("promotion", lambda summary: summary["promotion"].__setitem__("promoted", True)),
+    ],
+)
+def test_frontier_rejects_tampered_summary_manifest_mirrors(field, mutate):
+    from src.workflow.soxl_risk_adjusted_frontier import compare_frozen_route_summaries
+
+    summaries = _actual_summaries()
+    mutate(summaries["tail_budget"])
+    with pytest.raises(ValueError, match="summary and recorder manifest differ"):
         compare_frozen_route_summaries(summaries)
 
 
@@ -99,6 +117,7 @@ def test_card_payload_uses_relative_paths_and_slim_recorder_policy(tmp_path: Pat
         "artifacts/portfolio_analysis/positions_normal_1day.pkl",
         "artifacts/portfolio_analysis/port_analysis_1day.pkl",
         "artifacts/evidence/legacy_report.pkl",
+        "artifacts/evidence/run_manifest.pkl",
     }
     assert all(not Path(path).is_absolute() for path in payload["sidecars"].values())
     json.dumps(payload, allow_nan=False)
@@ -141,6 +160,10 @@ def test_generated_risk_adjusted_cards_are_executable_slim_and_chinese():
         assert "风险" in conclusion
         assert "下一步" in conclusion
         notebook_node = nbformat.read(card / f"{name}.ipynb", as_version=4)
+        code_source = "\n".join(
+            cell.source for cell in notebook_node.cells if cell.cell_type == "code"
+        )
+        assert "sync_notebook_conclusion" in code_source
         last = notebook_node.cells[-1]
         assert last.cell_type == "markdown"
         assert summary["recorder_id"] in last.source
@@ -165,6 +188,7 @@ def test_route_cards_use_native_qlib_record_outputs_and_frontier_has_own_policy(
         from src.workflow.soxl_risk_adjusted_frontier import load_route_recorder_evidence
 
         evidence = load_route_recorder_evidence(summary)
+        manifest = evidence["run_manifest"]
         report = evidence["report"]
         positions = evidence["positions"]
         risk = evidence["risk"]
@@ -188,14 +212,28 @@ def test_route_cards_use_native_qlib_record_outputs_and_frontier_has_own_policy(
             "deal_price": "open",
             "timing": "signal_after_close_t_to_next_open",
         }
+        assert manifest["schema_version"] == 1
+        assert manifest["manifest_id"] == summary["run_manifest_id"]
+        assert manifest["recorder_id"] == summary["recorder_id"]
+        assert manifest["provider_manifest_hash"] == summary["data_lineage"]["manifest_hash"]
+        assert manifest["data_lineage"] == summary["data_lineage"]
+        assert manifest["effective_segments"] == summary["segments"]
+        assert manifest["data_range"] == summary["data_range"]
+        assert manifest["label_contract"] == summary["label_contract"]
+        assert manifest["execution_config"] == summary["execution_config"]
+        assert manifest["selected_candidate"] == summary["selected_candidate"]
+        assert len(manifest["frozen_policy_id"]) == 64
+        assert manifest["metrics"] == summary["metrics"]
+        assert manifest["promotion"] == summary["promotion"]
 
     card = root / "research" / "soxl_risk_adjusted_model_frontier_v1"
     summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
+    assert "route_manifests" not in summary["frontier"]
     assert summary["canonical_dataset_audit"]["DatasetH_prepare_rows"] > 0
     assert summary["canonical_dataset_audit"]["training_performed"] is False
     assert summary["artifact_policy"]["recorder_only_artifacts"] == {
         "canonical_dataset_audit": "artifacts/frontier/canonical_dataset_audit.pkl",
-        "route_summaries": "artifacts/frontier/route_summaries.pkl",
+        "route_manifests": "artifacts/frontier/route_manifests.pkl",
     }
     assert set(summary["artifact_policy"]["recorder_only_artifacts"].values()).issubset(
         set(summary["recorder_artifacts"])

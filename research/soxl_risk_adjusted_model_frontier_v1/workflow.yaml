@@ -10,7 +10,7 @@ segments:
   valid: inherited_matched_route_window
   test: inherited_matched_route_window
 model_selection:
-  source: frozen_route_summaries
+  source: recorder_run_manifests
   test_reselection: false
 artifact_policy:
   policy: slim_card_recorder_first

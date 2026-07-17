@@ -2,7 +2,7 @@
 
 ## 做了什么
 
-使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `tail_budget` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `b7211bfaeee447aaab6f40a4b8d69345`。
+使用 canonical qlib store、DatasetH/DataHandlerLP 和 qlib Recorder 执行 `tail_budget` 路线；模型、预测、标签、仓位和组合证据均登记在 recorder `65c4f59e35e24edf8c3b570dccefa11e`。
 
 ## 核心指标
 

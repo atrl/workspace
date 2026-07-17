@@ -1,4 +1,34 @@
 {
+  "canonical_contract": {
+    "as_of": "2026-07-02",
+    "data_range": [
+      "2014-01-02",
+      "2026-07-02"
+    ],
+    "label_contract": {
+      "decision_time": "after close_t",
+      "entry_time": "next session open",
+      "future_crash_5d": "train tenth percentile or daily next-open return <= -8%",
+      "future_downside_5d": "negative part of future_return_5d",
+      "future_return_5d": "five compounded next-open daily returns",
+      "horizon": 5,
+      "purge_rows": 6
+    },
+    "segments": {
+      "test": [
+        "2024-01-02",
+        "2026-06-24"
+      ],
+      "train": [
+        "2014-03-31",
+        "2021-12-22"
+      ],
+      "valid": [
+        "2022-01-03",
+        "2023-12-20"
+      ]
+    }
+  },
   "decision": "not_promoted_no_risk_adjusted_candidate",
   "evidence_source": "qlib_recorder_objects",
   "promoted_routes": [],
@@ -121,9 +151,10 @@
         ],
         "promoted": false
       },
-      "recorder_id": "1bde7100636d44b681c645b42199df1e",
+      "recorder_id": "f8c4ea43a01c42a5a257e35ce463faa1",
       "recorder_status": "FINISHED",
       "route_status": "ok",
+      "run_manifest_id": "d03db04b873d14b0713be170d478df759cbbd2b642738258828805962fae6948",
       "selected_candidate": "gru_alstm_w20"
     },
     "regime_moe": {
@@ -246,9 +277,10 @@
         ],
         "promoted": false
       },
-      "recorder_id": "77f48b23c1804fd2b188dc1bc277371d",
+      "recorder_id": "6890bdf021dd4da4935d08086df91dca",
       "recorder_status": "FINISHED",
       "route_status": "ok",
+      "run_manifest_id": "fd629bfb6bcb717a47f790f78f34119c240fc06e45ef7dd4ebfefcafe042c024",
       "selected_candidate": "validation_selected_regime_moe"
     },
     "tail_budget": {
@@ -367,12 +399,13 @@
         ],
         "promoted": false
       },
-      "recorder_id": "b7211bfaeee447aaab6f40a4b8d69345",
+      "recorder_id": "65c4f59e35e24edf8c3b570dccefa11e",
       "recorder_status": "FINISHED",
       "route_status": "ok",
+      "run_manifest_id": "09217bbf2f7e0ccbd32603c9b5b673f7679fc76af376e08865c0e8f39feb1206",
       "selected_candidate": "validation_selected_individual"
     }
   },
-  "selection_source": "frozen_route_summaries",
+  "selection_source": "recorder_run_manifests",
   "test_reselection_performed": false
 }
