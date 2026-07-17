@@ -536,6 +536,20 @@ def _choice_key(choice: _PolicyChoice) -> tuple[float, float, float, float, floa
     )
 
 
+def _policy_evidence(choice: _PolicyChoice) -> dict[str, Any]:
+    return {
+        "route_candidate": choice.name,
+        "expected_candidate": choice.expected.name,
+        "downside_candidate": choice.downside.name,
+        "crash_candidate": choice.crash.name,
+        "expected_weight": choice.weights.get("expected"),
+        "downside_weight": choice.weights.get("downside"),
+        "floor": choice.floor,
+        "cap": choice.cap,
+        "validation_utility": float(choice.validation_utility),
+    }
+
+
 def run_tail_budget_models(
     dataset,
     spec: TailBudgetSpec = TailBudgetSpec(),
@@ -840,31 +854,17 @@ def run_tail_budget_models(
         else:
             rows.append(_unavailable_row(candidate_name, role))
 
-    blend_evaluations = [
-        {
-            "expected_weight": float(choice.weights["expected"]),
-            "downside_weight": float(choice.weights["downside"]),
-            "floor": choice.floor,
-            "cap": choice.cap,
-            "validation_utility": float(choice.validation_utility),
-            "crash_candidate": active_crash.name,
-        }
-        for choice in blend_choices
-        if "expected" in choice.weights and "downside" in choice.weights
+    blend_evaluations = [_policy_evidence(choice) for choice in blend_choices]
+    two_sided_blend_choices = [
+        choice for choice in blend_choices if "expected" in choice.weights and "downside" in choice.weights
     ]
-    policy_grid_evaluations = tuple(
-        {
-            "route_candidate": choice.name,
-            "expected_candidate": choice.expected.name,
-            "downside_candidate": choice.downside.name,
-            "crash_candidate": choice.crash.name,
-            "expected_weight": choice.weights.get("expected"),
-            "downside_weight": choice.weights.get("downside"),
-            "floor": choice.floor,
-            "cap": choice.cap,
-            "validation_utility": float(choice.validation_utility),
-        }
-        for choice in policy_choices
+    two_sided_blend_evaluations = [_policy_evidence(choice) for choice in two_sided_blend_choices]
+    policy_grid_evaluations = tuple(_policy_evidence(choice) for choice in policy_choices)
+    utility_best_blend = _policy_evidence(max(blend_choices, key=_choice_key)) if blend_choices else None
+    utility_best_two_sided_blend = (
+        _policy_evidence(max(two_sided_blend_choices, key=_choice_key))
+        if two_sided_blend_choices
+        else None
     )
     selected_policy = max(policy_choices, key=_choice_key)
     selected_name = selected_policy.name
@@ -1023,21 +1023,10 @@ def run_tail_budget_models(
             "densemble_prediction_api": "DEnsembleModel.predict(dataset, segment)",
             "blend_selection_metric": "validation_allocation_utility",
             "blend_grid_evaluations": tuple(blend_evaluations),
+            "two_sided_blend_grid_evaluations": tuple(two_sided_blend_evaluations),
             "policy_grid_evaluations": policy_grid_evaluations,
-            "utility_best_blend": (
-                max(
-                    blend_evaluations,
-                    key=lambda row: (
-                        row["validation_utility"],
-                        -row["expected_weight"],
-                        -row["downside_weight"],
-                        -row["floor"],
-                        -row["cap"],
-                    ),
-                )
-                if blend_evaluations
-                else None
-            ),
+            "utility_best_blend": utility_best_blend,
+            "utility_best_two_sided_blend": utility_best_two_sided_blend,
             "selected_validation_utility": float(selected_policy.validation_utility),
             "frozen_policy": MappingProxyType(frozen_policy),
         }

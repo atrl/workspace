@@ -221,14 +221,17 @@ def test_blend_weights_are_frozen_from_end_to_end_validation_utility():
         evaluations,
         key=lambda row: (
             row["validation_utility"],
-            -row["expected_weight"],
-            -row["downside_weight"],
+            -float(row["expected_weight"] or 0.0),
+            -float(row["downside_weight"] or 0.0),
             -row["floor"],
             -row["cap"],
         ),
     )
     assert evidence["blend_selection_metric"] == "validation_allocation_utility"
     assert evidence["utility_best_blend"] == utility_best
+    assert any(row["expected_weight"] is None for row in evaluations)
+    assert any(row["downside_weight"] is None for row in evaluations)
+    assert all(row["expected_candidate"] and row["downside_candidate"] for row in evaluations)
     policy_evaluations = evidence["policy_grid_evaluations"]
     route_best = max(
         (row for row in policy_evaluations if row["route_candidate"] == "validation_selected_blend"),
@@ -251,6 +254,34 @@ def test_blend_weights_are_frozen_from_end_to_end_validation_utility():
     assert "validation_blend_crash" not in comparison.index
     assert all("crash_weight" not in row for row in evaluations)
     assert evidence["test_labels_used_for_selection"] is False
+
+
+def test_selected_blend_evidence_exactly_matches_frozen_policy(monkeypatch):
+    module = importlib.import_module("src.model.tail_budget")
+    original_choice_key = module._choice_key
+    monkeypatch.setattr(
+        module,
+        "_choice_key",
+        lambda choice: (
+            choice.name == "validation_selected_blend",
+            *original_choice_key(choice),
+        ),
+    )
+
+    result = module.run_tail_budget_models(_dataset(), spec=_fast_config())
+
+    assert result.selected_candidate == "validation_selected_blend"
+    evidence = result.selection_evidence
+    best = evidence["utility_best_blend"]
+    frozen = evidence["frozen_policy"]
+    assert best["expected_candidate"] == frozen["expected_candidate"]
+    assert best["downside_candidate"] == frozen["downside_candidate"]
+    assert best["crash_candidate"] == frozen["crash_candidate"]
+    assert best["expected_weight"] == frozen["expected_blend_weight"]
+    assert best["downside_weight"] == frozen["downside_blend_weight"]
+    assert best["floor"] == frozen["floor"]
+    assert best["cap"] == frozen["cap"]
+    assert best["validation_utility"] == evidence["selected_validation_utility"]
 
 
 def test_unavailable_base_models_emit_all_declared_blend_failure_rows(monkeypatch):
