@@ -1,0 +1,12 @@
+experiment: soxl_exhaustion_structure_fragility_v1
+provider_uri: /Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/soxl_exhaustion_structure_fragility_v1
+method: transparent_factor_only_no_predictive_model
+factor_direction: higher_means_more_breakdown_pressure
+development_end: 2022-12-31
+outer_soxl_start: 2023-01-01
+qlib_api:
+  - qlib.data.D.features
+  - DatasetH
+  - qlib.workflow.R
+  - Recorder
+artifact_policy: slim_card_recorder_first

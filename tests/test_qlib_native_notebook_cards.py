@@ -4979,3 +4979,39 @@ def test_multi_3x_price_volume_transfer_card_is_factor_only_and_zero_shot():
     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
     assert "不是交易策略晋升" in conclusion
     assert "停止调模型" in conclusion
+
+
+def test_soxl_exhaustion_structure_fragility_card_is_factor_only_and_fail_closed():
+    card = ROOT / "research" / "soxl_exhaustion_structure_fragility_v1"
+    summary = _summary(card)
+    notebook = card / "soxl_exhaustion_structure_fragility_v1.ipynb"
+    notebook_text = notebook.read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "soxl_exhaustion_structure_fragility_v1"
+    assert summary["status"] == "completed"
+    assert summary["method"] == "transparent_factor_only_no_predictive_model"
+    assert summary["promotion_decision"] == "not_retained_no_incremental_factor_evidence"
+    assert summary["factor_contract"]["direction"] == "higher_means_more_breakdown_pressure"
+    assert summary["factor_contract"]["fixed_bellwether_membership"] == (
+        "fixed_bellwether_proxy_not_historical_constituents"
+    )
+    assert summary["factor_contract"]["external_intraday_selection"] == "blocked_insufficient_history"
+    assert summary["data_quality"]["daily"]["duplicate_instrument_datetime_rows"] == 0
+    assert summary["data_quality"]["fixed_bellwether"]["required_close_null_rows"] == 0
+    assert summary["qlib_contract"]["dataset_api"] == ["DatasetH", "DataHandlerLP", "QlibDataLoader"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert "outer_soxl_scored_rows.csv" in summary["artifact_policy"]["recorder_only_artifacts"]
+    for name in summary["compact_sidecars"]:
+        assert (card / name).exists(), name
+    for forbidden in RECORDER_ONLY_ROOT_FILES | {
+        "development_non_soxl_rows.csv",
+        "development_soxl_rows.csv",
+        "outer_soxl_scored_rows.csv",
+    }:
+        assert not (card / forbidden).exists(), forbidden
+    assert "run_soxl_exhaustion_structure_fragility_card" in notebook_text
+    assert "qlib.data.D.features" in notebook_text
+    assert "DatasetH" in notebook_text
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    assert "不用预测模型" in conclusion
+    assert "固定五龙头" in conclusion

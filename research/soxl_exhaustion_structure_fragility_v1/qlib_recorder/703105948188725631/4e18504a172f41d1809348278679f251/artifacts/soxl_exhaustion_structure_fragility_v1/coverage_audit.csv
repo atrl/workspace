@@ -1,0 +1,3 @@
+source,status,start,included_in_selection,complete_start,required_development_end,outer_start
+soxl_soxx_intraday,eligible,2018-12-31,True,,,
+external_bellwether_intraday,blocked_insufficient_history,,False,2025-01-02,2022-12-31,2023-01-01

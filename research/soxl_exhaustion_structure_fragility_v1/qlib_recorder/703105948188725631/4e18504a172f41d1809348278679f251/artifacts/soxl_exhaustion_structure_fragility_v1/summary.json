@@ -1,0 +1,588 @@
+{
+  "experiment": "soxl_exhaustion_structure_fragility_v1",
+  "card_type": "soxl_factor_only_exhaustion_structure_fragility_research_card",
+  "status": "completed",
+  "as_of": "2026-07-02",
+  "method": "transparent_factor_only_no_predictive_model",
+  "research_universe": [
+    "SOXL",
+    "TQQQ",
+    "UPRO",
+    "SPXL",
+    "TECL",
+    "UDOW",
+    "TNA",
+    "MIDU",
+    "FAS",
+    "LABU",
+    "CURE",
+    "NAIL",
+    "RETL",
+    "ERX",
+    "DRN",
+    "WANT"
+  ],
+  "underlying_groups": {
+    "SOXL": "SOXX",
+    "TQQQ": "QQQ",
+    "UPRO": "SPY",
+    "SPXL": "SPY",
+    "TECL": "XLK",
+    "UDOW": "DIA",
+    "TNA": "IWM",
+    "MIDU": "MDY",
+    "FAS": "XLF",
+    "LABU": "XBI",
+    "CURE": "XLV",
+    "NAIL": "ITB",
+    "RETL": "XRT",
+    "ERX": "XLE",
+    "DRN": "XLRE",
+    "WANT": "XLY"
+  },
+  "qlib_contract": {
+    "docs": {
+      "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+      "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+      "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+    },
+    "data_api": [
+      "qlib.init",
+      "qlib.data.D.features"
+    ],
+    "dataset_api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "QlibDataLoader"
+    ],
+    "workflow_api": [
+      "qlib.workflow.R",
+      "Recorder"
+    ],
+    "dataset_evidence": {
+      "api": [
+        "DatasetH",
+        "DataHandlerLP",
+        "QlibDataLoader"
+      ],
+      "segments": {
+        "train": [
+          "2011-01-03",
+          "2020-12-31"
+        ],
+        "test": [
+          "2023-01-01",
+          "2026-07-02"
+        ],
+        "valid": [
+          "2021-01-01",
+          "2022-12-31"
+        ]
+      },
+      "prepared_rows": {
+        "train": 40272,
+        "valid": 8048,
+        "test": 14032
+      }
+    }
+  },
+  "data_lineage": {
+    "provider_manifest": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/soxl_exhaustion_structure_fragility_v1",
+      "market": "all",
+      "region": "us",
+      "freq": "day",
+      "as_of": "2026-07-02",
+      "source": "qlib D.features daily pair, fixed bellwether, and lagged SOXL/SOXX 15min providers",
+      "instruments": [
+        "CURE",
+        "DRN",
+        "ERX",
+        "FAS",
+        "LABU",
+        "MIDU",
+        "NAIL",
+        "RETL",
+        "SOXL",
+        "SPXL",
+        "TECL",
+        "TNA",
+        "TQQQ",
+        "UDOW",
+        "UPRO",
+        "WANT"
+      ],
+      "fields": [
+        "$range_pos_252",
+        "$low_trend_efficiency_pressure_20",
+        "$sign_change_density_pressure_20",
+        "$high_chop_price_pressure",
+        "$failed_breakout_persistence_10",
+        "$high_level_duration_60",
+        "$efficiency_collapse_20",
+        "$upside_progress_per_range_pressure_20",
+        "$downside_range_skew_20",
+        "$close_location_decay_5",
+        "$cumulative_leverage_residual_pressure_20",
+        "$up_day_leverage_shortfall_20",
+        "$asymmetric_beta_pressure_60",
+        "$volatility_drag_pressure_20",
+        "$relative_strength_breakdown_20",
+        "$fixed_bellwether_residual_dispersion_20",
+        "$fixed_bellwether_leadership_concentration_20",
+        "$fixed_bellwether_breadth_divergence_20",
+        "$fixed_bellwether_new_high_participation_decay_20",
+        "$fixed_bellwether_downside_breadth_5",
+        "$intraday_late_selloff_pressure",
+        "$intraday_close_location_pressure",
+        "$intraday_leverage_residual_pressure",
+        "$intraday_range_ratio_pressure",
+        "$intraday_realized_vol_ratio_pressure",
+        "$high_level_state",
+        "$breakdown_label"
+      ],
+      "calendar_start": "2011-01-03",
+      "calendar_end": "2026-07-02",
+      "max_datetime": "2026-07-02",
+      "row_count": 56779,
+      "feature_file_count": 432,
+      "audit_snapshot_hash": "b82651cfbb51f5b2",
+      "operation": "qlib_store_build",
+      "status": "ok",
+      "hash": "d24ec5f1b6e26c92",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ]
+    },
+    "daily_source_audit": {
+      "instruments": {
+        "SOXL": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/soxl",
+          "underlying": "SOXX",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "TQQQ": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/tqqq",
+          "underlying": "QQQ",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "UPRO": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/upro",
+          "underlying": "SPY",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "SPXL": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/spxl",
+          "underlying": "SPY",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "TECL": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/tecl",
+          "underlying": "XLK",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "UDOW": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/udow",
+          "underlying": "DIA",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "TNA": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/tna",
+          "underlying": "IWM",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "MIDU": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/midu",
+          "underlying": "MDY",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "FAS": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/fas",
+          "underlying": "XLF",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "LABU": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/labu",
+          "underlying": "XBI",
+          "row_count": 2791,
+          "min_datetime": "2015-05-28",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "CURE": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/cure",
+          "underlying": "XLV",
+          "row_count": 3784,
+          "min_datetime": "2011-06-15",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "NAIL": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/nail",
+          "underlying": "ITB",
+          "row_count": 2733,
+          "min_datetime": "2015-08-19",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "RETL": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/retl",
+          "underlying": "XRT",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "ERX": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/erx",
+          "underlying": "XLE",
+          "row_count": 3897,
+          "min_datetime": "2011-01-03",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "DRN": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/drn",
+          "underlying": "XLRE",
+          "row_count": 2698,
+          "min_datetime": "2015-10-08",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        },
+        "WANT": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/want",
+          "underlying": "XLY",
+          "row_count": 1906,
+          "min_datetime": "2018-11-29",
+          "max_datetime": "2026-07-02",
+          "source_api": "qlib.data.D.features"
+        }
+      },
+      "quality": {
+        "grain": "one ETF trading session per instrument/datetime",
+        "row_count": 56779,
+        "instrument_count": 16,
+        "duplicate_instrument_datetime_rows": 0,
+        "required_field_null_count": 0,
+        "nonpositive_volume_rows": 167,
+        "nonpositive_volume_share": 0.0029412282710156923,
+        "nonpositive_volume_by_instrument": {
+          "CURE": 31,
+          "NAIL": 84,
+          "RETL": 51,
+          "WANT": 1
+        },
+        "nonpositive_volume_outer_soxl_rows": 0,
+        "common_end": "2026-07-02"
+      }
+    },
+    "fixed_bellwether_audit": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/soxx_constituents",
+      "source_api": "qlib.data.D.features",
+      "fixed_bellwethers": [
+        "NVDA",
+        "AVGO",
+        "AMD",
+        "TSM",
+        "ASML"
+      ],
+      "membership_contract": "fixed_bellwether_proxy_not_historical_constituents",
+      "row_count": 19485,
+      "duplicate_instrument_datetime_rows": 0,
+      "required_close_null_rows": 0,
+      "min_datetime": "2011-01-03",
+      "max_datetime": "2026-07-02",
+      "limitation": "fixed current bellwether proxy, not point-in-time historical SOXX membership"
+    }
+  },
+  "data_quality": {
+    "daily": {
+      "grain": "one ETF trading session per instrument/datetime",
+      "row_count": 56779,
+      "instrument_count": 16,
+      "duplicate_instrument_datetime_rows": 0,
+      "required_field_null_count": 0,
+      "nonpositive_volume_rows": 167,
+      "nonpositive_volume_share": 0.0029412282710156923,
+      "nonpositive_volume_by_instrument": {
+        "CURE": 31,
+        "NAIL": 84,
+        "RETL": 51,
+        "WANT": 1
+      },
+      "nonpositive_volume_outer_soxl_rows": 0,
+      "common_end": "2026-07-02"
+    },
+    "fixed_bellwether": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/soxx_constituents",
+      "source_api": "qlib.data.D.features",
+      "fixed_bellwethers": [
+        "NVDA",
+        "AVGO",
+        "AMD",
+        "TSM",
+        "ASML"
+      ],
+      "membership_contract": "fixed_bellwether_proxy_not_historical_constituents",
+      "row_count": 19485,
+      "duplicate_instrument_datetime_rows": 0,
+      "required_close_null_rows": 0,
+      "min_datetime": "2011-01-03",
+      "max_datetime": "2026-07-02",
+      "limitation": "fixed current bellwether proxy, not point-in-time historical SOXX membership"
+    },
+    "intraday_coverage": {
+      "soxl_soxx_intraday": {
+        "status": "eligible",
+        "start": "2018-12-31",
+        "included_in_selection": true
+      },
+      "external_bellwether_intraday": {
+        "status": "blocked_insufficient_history",
+        "complete_start": "2025-01-02",
+        "required_development_end": "2022-12-31",
+        "outer_start": "2023-01-01",
+        "included_in_selection": false
+      }
+    }
+  },
+  "factor_contract": {
+    "direction": "higher_means_more_breakdown_pressure",
+    "families": {
+      "price_path_exhaustion": [
+        "failed_breakout_persistence_10",
+        "high_level_duration_60",
+        "efficiency_collapse_20",
+        "upside_progress_per_range_pressure_20",
+        "downside_range_skew_20",
+        "close_location_decay_5"
+      ],
+      "leverage_fragility": [
+        "cumulative_leverage_residual_pressure_20",
+        "up_day_leverage_shortfall_20",
+        "asymmetric_beta_pressure_60",
+        "volatility_drag_pressure_20",
+        "relative_strength_breakdown_20"
+      ],
+      "fixed_bellwether_structure": [
+        "fixed_bellwether_residual_dispersion_20",
+        "fixed_bellwether_leadership_concentration_20",
+        "fixed_bellwether_breadth_divergence_20",
+        "fixed_bellwether_new_high_participation_decay_20",
+        "fixed_bellwether_downside_breadth_5"
+      ],
+      "soxl_soxx_intraday_path": [
+        "intraday_late_selloff_pressure",
+        "intraday_close_location_pressure",
+        "intraday_leverage_residual_pressure",
+        "intraday_range_ratio_pressure",
+        "intraday_realized_vol_ratio_pressure"
+      ]
+    },
+    "selected_factors": {
+      "price_path_exhaustion": [],
+      "leverage_fragility": [],
+      "fixed_bellwether_structure": [],
+      "soxl_soxx_intraday_path": [
+        "intraday_range_ratio_pressure"
+      ]
+    },
+    "label": "20_session_volatility_scaled_breakdown",
+    "subset": "range_pos_252_gte_0_70",
+    "fixed_bellwether_membership": "fixed_bellwether_proxy_not_historical_constituents",
+    "external_intraday_selection": "blocked_insufficient_history"
+  },
+  "benchmark": "price_only_equal_weight_composite",
+  "family_decisions": {
+    "price_path_exhaustion": {
+      "decision": "not_retained_no_incremental_factor_evidence",
+      "all_passed": false,
+      "gates": {
+        "development_selection": {
+          "passed": false,
+          "value": 0,
+          "threshold": 1
+        },
+        "outer_auc_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "outer_ap_lift_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "outer_quintile_lift_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "conditional_increment": {
+          "passed": false,
+          "value": NaN,
+          "threshold": 0.0
+        }
+      }
+    },
+    "leverage_fragility": {
+      "decision": "not_retained_no_incremental_factor_evidence",
+      "all_passed": false,
+      "gates": {
+        "development_selection": {
+          "passed": false,
+          "value": 0,
+          "threshold": 1
+        },
+        "outer_auc_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "outer_ap_lift_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "outer_quintile_lift_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "conditional_increment": {
+          "passed": false,
+          "value": NaN,
+          "threshold": 0.0
+        }
+      }
+    },
+    "fixed_bellwether_structure": {
+      "decision": "not_retained_no_incremental_factor_evidence",
+      "all_passed": false,
+      "gates": {
+        "development_selection": {
+          "passed": false,
+          "value": 0,
+          "threshold": 1
+        },
+        "outer_auc_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "outer_ap_lift_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "outer_quintile_lift_increment": {
+          "passed": false,
+          "value": 0.0,
+          "threshold": 0.0
+        },
+        "conditional_increment": {
+          "passed": false,
+          "value": NaN,
+          "threshold": 0.0
+        }
+      }
+    },
+    "soxl_soxx_intraday_path": {
+      "decision": "not_retained_no_incremental_factor_evidence",
+      "all_passed": false,
+      "gates": {
+        "development_selection": {
+          "passed": true,
+          "value": 1,
+          "threshold": 1
+        },
+        "outer_auc_increment": {
+          "passed": false,
+          "value": -0.3041277258566979,
+          "threshold": 0.0
+        },
+        "outer_ap_lift_increment": {
+          "passed": false,
+          "value": -0.8349012116892272,
+          "threshold": 0.0
+        },
+        "outer_quintile_lift_increment": {
+          "passed": false,
+          "value": -0.19471715755025712,
+          "threshold": 0.0
+        },
+        "conditional_increment": {
+          "passed": false,
+          "value": -0.03902838427947598,
+          "threshold": 0.0
+        },
+        "annual_direction_consistency": {
+          "passed": false,
+          "positive_years": 0,
+          "eligible_years": 2,
+          "threshold": "all_eligible_years"
+        }
+      }
+    }
+  },
+  "promotion_decision": "not_retained_no_incremental_factor_evidence",
+  "recorder": {
+    "experiment": "soxl_exhaustion_structure_fragility_v1",
+    "recorder_id": "4e18504a172f41d1809348278679f251",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/research/soxl_exhaustion_structure_fragility_v1/qlib_recorder",
+    "local_dir": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/research/soxl_exhaustion_structure_fragility_v1/qlib_recorder/703105948188725631/4e18504a172f41d1809348278679f251"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "development_non_soxl_rows.csv",
+      "development_soxl_rows.csv",
+      "outer_soxl_scored_rows.csv",
+      "factor_summary.csv",
+      "outer_factor_metrics.csv",
+      "outer_family_metrics.csv"
+    ]
+  },
+  "compact_sidecars": [
+    "factor_summary.csv",
+    "group_metrics.csv",
+    "correlations.csv",
+    "outer_factor_metrics.csv",
+    "outer_family_metrics.csv",
+    "annual_metrics.csv",
+    "coverage_audit.csv",
+    "failure_modes.md"
+  ]
+}
