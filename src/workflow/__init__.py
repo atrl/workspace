@@ -44,6 +44,7 @@ __all__ = [
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "Multi3xEtfNormalizedNestedWfSpec",
     "Multi3xHighChopRiskControlSpec",
+    "Multi3xPriceVolumeTransferSpec",
     "DynamicSoxxSoxlCashAllocationWfSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
     "QlibNativeExperimentResult",
@@ -77,6 +78,7 @@ __all__ = [
     "run_meta_label_risk_budget_open2open_card",
     "run_multi_3x_etf_normalized_nested_wf_card",
     "run_multi_3x_high_chop_risk_control_card",
+    "run_multi_3x_price_volume_transfer_card",
     "run_probability_budget_open2open_card",
     "run_cognitive_alpha_position_model",
     "run_cognitive_alpha_weighted_factor_search",
@@ -177,6 +179,11 @@ _MULTI_3X_HIGH_CHOP_RISK_CONTROL_EXPORTS = {
     "run_multi_3x_high_chop_risk_control_card",
 }
 
+_MULTI_3X_PRICE_VOLUME_TRANSFER_EXPORTS = {
+    "Multi3xPriceVolumeTransferSpec",
+    "run_multi_3x_price_volume_transfer_card",
+}
+
 _TRAINABLE_REGIME_POLICY_NESTED_WF_EXPORTS = {
     "TrainableRegimePolicyNestedWfSpec",
     "run_trainable_regime_policy_nested_wf_card",
@@ -269,6 +276,10 @@ def __getattr__(name: str):
         from . import multi_3x_high_chop_risk_control
 
         return getattr(multi_3x_high_chop_risk_control, name)
+    if name in _MULTI_3X_PRICE_VOLUME_TRANSFER_EXPORTS:
+        from . import multi_3x_price_volume_transfer
+
+        return getattr(multi_3x_price_volume_transfer, name)
     if name in _TRAINABLE_REGIME_POLICY_NESTED_WF_EXPORTS:
         from . import trainable_regime_policy_nested_wf
 

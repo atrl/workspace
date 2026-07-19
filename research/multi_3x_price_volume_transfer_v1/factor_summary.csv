@@ -1,0 +1,9 @@
+factor,eligible_group_count,direction_consistency,median_group_auc,median_group_quintile_lift,development_gate_passed,selection_status
+effort_result_pressure_20,14,0.14285714285714285,0.46240558592137815,-0.03327433628318585,False,failed_development_gate
+failed_breakout_pressure_20,14,0.5714285714285714,0.5286304022808117,0.039230769230769236,False,failed_development_gate
+leverage_residual_pressure_20,14,0.35714285714285715,0.4853152288133219,-0.022305902052657367,False,failed_development_gate
+price_volume_divergence_pressure_20,14,0.7857142857142857,0.5333333211547089,0.030357142857142846,True,selected
+realized_leverage_shortfall_pressure_60,14,0.5714285714285714,0.5296649186341282,0.02865345425622537,False,failed_development_gate
+signed_volume_selling_pressure_20,14,0.7142857142857143,0.5228174258314906,0.023800652072659523,True,selected
+volume_sign_flip_pressure_20,14,0.2857142857142857,0.4872735405769566,-0.009890840650409141,False,failed_development_gate
+volume_weighted_clv_pressure_20,14,0.5,0.5303300290121241,0.020854700854700856,False,failed_development_gate

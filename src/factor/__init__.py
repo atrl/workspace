@@ -89,6 +89,12 @@ from .multi_3x_high_chop import (
     build_multi_3x_high_chop_frame,
     purge_segment_tail,
 )
+from .multi_3x_price_volume import (
+    ALL_FACTOR_FEATURES,
+    PRICE_ONLY_BASELINE_FEATURES,
+    PRICE_VOLUME_PRESSURE_FEATURES,
+    build_multi_3x_price_volume_frame,
+)
 from .session_effect import (
     build_session_effect_frame,
     compact_session_effect_summary,
@@ -125,7 +131,10 @@ __all__ = [
     "INTRADAY_15M_FIELDS",
     "INTRADAY_15M_LIMITATIONS",
     "PATH_LABELS",
+    "ALL_FACTOR_FEATURES",
     "QlibScoredDataset",
+    "PRICE_ONLY_BASELINE_FEATURES",
+    "PRICE_VOLUME_PRESSURE_FEATURES",
     "SOXX_CONSTITUENT_FACTOR_SOURCE",
     "SOXX_CONSTITUENT_LIMITATIONS",
     "TRANSFERABLE_FEATURES",
@@ -146,6 +155,7 @@ __all__ = [
     "build_macro_credit_frame",
     "build_meta_label_probability_frame",
     "build_multi_3x_high_chop_frame",
+    "build_multi_3x_price_volume_frame",
     "build_signed_overnight_component",
     "build_session_effect_frame",
     "build_tail_risk_external_frame",

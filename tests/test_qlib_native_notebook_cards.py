@@ -4945,3 +4945,37 @@ def test_multi_3x_high_chop_risk_control_card_is_qlib_native_and_fail_closed():
     assert "qlib.data.D.features" in notebook_text
     assert "DatasetH" in notebook_text
     assert "不进入真实交易" in (card / "conclusion.md").read_text(encoding="utf-8")
+
+
+def test_multi_3x_price_volume_transfer_card_is_factor_only_and_zero_shot():
+    card = ROOT / "research" / "multi_3x_price_volume_transfer_v1"
+    summary = _summary(card)
+    notebook = card / "multi_3x_price_volume_transfer_v1.ipynb"
+    notebook_text = notebook.read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "multi_3x_price_volume_transfer_v1"
+    assert summary["status"] == "completed"
+    assert len(summary["research_universe"]) == 16
+    assert summary["factor_contract"]["selection_uses_soxl"] is False
+    assert summary["factor_contract"]["direction"] == "higher_means_more_breakdown_pressure"
+    assert len(summary["factor_contract"]["price_volume_candidates"]) == 8
+    assert summary["benchmark"] == "price_only_equal_weight_composite"
+    assert summary["data_quality"]["duplicate_instrument_datetime_rows"] == 0
+    assert summary["data_quality"]["required_field_null_count"] == 0
+    assert summary["data_quality"]["nonpositive_volume_outer_soxl_rows"] == 0
+    assert summary["qlib_contract"]["dataset_api"] == ["DatasetH", "DataHandlerLP", "QlibDataLoader"]
+    assert summary["qlib_contract"]["data_api"] == ["qlib.init", "qlib.data.D.features"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
+    assert "development_factor_rows.csv" in summary["artifact_policy"]["recorder_only_artifacts"]
+    for name in summary["compact_sidecars"]:
+        assert (card / name).exists(), name
+    for forbidden in RECORDER_ONLY_ROOT_FILES | {"development_factor_rows.csv", "outer_soxl_scored_rows.csv"}:
+        assert not (card / forbidden).exists(), forbidden
+    assert notebook.exists()
+    assert "run_multi_3x_price_volume_transfer_card" in notebook_text
+    assert "qlib.data.D.features" in notebook_text
+    assert "DatasetH" in notebook_text
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    assert "不是交易策略晋升" in conclusion
+    assert "停止调模型" in conclusion

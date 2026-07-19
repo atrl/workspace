@@ -1,0 +1,15 @@
+experiment: multi_3x_price_volume_transfer_v1
+provider_uri: /Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/multi_3x_price_volume_transfer_v1
+data_api: qlib.data.D.features
+dataset_api:
+  - DatasetH
+  - DataHandlerLP
+  - QlibDataLoader
+workflow_api:
+  - qlib.workflow.R
+  - Recorder
+development_end: 2022-12-31
+outer_soxl_start: 2023-01-01
+selection_uses_soxl: false
+factor_direction: higher_means_more_breakdown_pressure
+artifact_policy: slim_card_recorder_first
