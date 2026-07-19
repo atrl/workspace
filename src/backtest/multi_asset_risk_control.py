@@ -41,27 +41,33 @@ _REQUIRED_COLUMNS = {
 }
 
 
-def _desired_weights(row: pd.Series, drawdown: float, spec: RiskControlSpec) -> tuple[str, float, float]:
-    if drawdown <= spec.drawdown_hard_stop:
-        return "drawdown_hard_stop", 0.0, spec.hard_stop_soxx_cap
-    if drawdown <= spec.drawdown_soft_stop:
-        soxl = min(spec.breakdown_soxl_cap, spec.soft_stop_risky_cap)
-        return "drawdown_soft_stop", soxl, max(0.0, spec.soft_stop_risky_cap - soxl)
+def _desired_weights(row: pd.Series, spec: RiskControlSpec) -> tuple[str, float, float]:
+    p_breakdown = float(row["p_breakdown"])
+    vol_scale = float(np.clip(spec.target_vol / max(float(row["realized_vol_20"]), 1e-6), 0.15, 1.0))
+    chop_scale = 1.0 - 0.50 * float(np.clip(row["high_chop_intensity"], 0.0, 1.0))
+    downside_scale = (1.0 - float(np.clip(p_breakdown, 0.0, 1.0))) ** 2
+    soxl = float(np.clip(vol_scale * chop_scale * downside_scale, 0.0, 1.0))
 
-    confirmed_break = bool(row["price_break"]) or bool(row["breadth_break"])
-    if float(row["p_breakdown"]) >= spec.breakdown_probability_threshold and confirmed_break:
-        return "breakdown", spec.breakdown_soxl_cap, spec.hard_stop_soxx_cap
+    price_break = bool(row["price_break"])
+    breadth_break = bool(row["breadth_break"])
+    replacement_allowed = (
+        float(row["p_breakout"]) > p_breakdown and not price_break and not breadth_break
+    )
+    soxx = min(0.50, 0.50 * (1.0 - soxl)) if replacement_allowed else 0.0
+
+    probability_confirmed = p_breakdown >= spec.breakdown_probability_threshold
+    if probability_confirmed and price_break and breadth_break:
+        return "hard_downside_gate", 0.0, min(soxx, spec.hard_stop_soxx_cap)
+    if probability_confirmed and (price_break or breadth_break):
+        return "breakdown", min(soxl, spec.breakdown_soxl_cap), min(soxx, spec.high_chop_soxl_cap)
 
     high_chop = (
         float(row["p_whipsaw"]) >= spec.whipsaw_probability_threshold
         or float(row["high_chop_intensity"]) >= spec.breakdown_probability_threshold
     )
     if high_chop:
-        return "high_chop", spec.high_chop_soxl_cap, 0.50
-
-    realized_vol = max(float(row["realized_vol_20"]), 1e-6)
-    target = float(np.clip(spec.target_vol / realized_vol, 0.0, 1.0))
-    return "normal", target, 0.0
+        return "high_chop", min(soxl, spec.high_chop_soxl_cap), soxx
+    return "normal", soxl, soxx
 
 
 def _cap_risk_increase(
@@ -107,7 +113,8 @@ def apply_multi_asset_risk_control(
     last_risk_event = -10_000
     prior_state = "initial"
     state_age = 0
-    hard_stop_lock_until = -1
+    drawdown_budget_active = False
+    drawdown_budget_started = -10_000
     rows: list[dict[str, object]] = []
 
     for index, row in out.iterrows():
@@ -117,25 +124,25 @@ def apply_multi_asset_risk_control(
         equity_peak = max(equity_peak, equity)
         drawdown = equity / equity_peak - 1.0
 
-        confirmed_break = bool(row["price_break"]) or bool(row["breadth_break"])
-        market_recovered = (
-            float(row["p_breakdown"]) < policy.recovery_probability_threshold and not confirmed_break
-        )
-        if drawdown <= policy.drawdown_hard_stop and hard_stop_lock_until < 0:
-            hard_stop_lock_until = index + policy.cooldown_days
-        if hard_stop_lock_until >= 0 and index <= hard_stop_lock_until:
-            state, desired_soxl, desired_soxx = "drawdown_hard_stop", 0.0, policy.hard_stop_soxx_cap
-        elif hard_stop_lock_until >= 0 and not market_recovered:
-            state, desired_soxl, desired_soxx = "drawdown_hard_stop", 0.0, policy.hard_stop_soxx_cap
-        else:
-            if hard_stop_lock_until >= 0:
-                # Start a fresh recovery budget after a completed hard-stop cooldown.
-                equity_peak = equity
-                drawdown = 0.0
-                hard_stop_lock_until = -1
-            state, desired_soxl, desired_soxx = _desired_weights(row, drawdown, policy)
+        if not drawdown_budget_active and drawdown <= policy.drawdown_hard_stop:
+            drawdown_budget_active = True
+            drawdown_budget_started = index
+        if (
+            drawdown_budget_active
+            and drawdown > policy.drawdown_soft_stop
+            and index - drawdown_budget_started >= policy.cooldown_days
+        ):
+            drawdown_budget_active = False
 
-        de_risk_states = {"drawdown_hard_stop", "drawdown_soft_stop", "breakdown", "high_chop"}
+        state, desired_soxl, desired_soxx = _desired_weights(row, policy)
+        if drawdown_budget_active:
+            desired_risk = min(desired_soxl + desired_soxx, policy.soft_stop_risky_cap)
+            # Recovery budget uses the lower-volatility sleeve before restoring leverage.
+            desired_soxx = min(desired_risk, policy.soft_stop_risky_cap)
+            desired_soxl = max(0.0, desired_risk - desired_soxx)
+            state = "drawdown_budget"
+
+        de_risk_states = {"drawdown_budget", "hard_downside_gate", "breakdown", "high_chop"}
         if prior_state in de_risk_states and state not in de_risk_states and state_age < policy.min_state_days:
             state, desired_soxl, desired_soxx = prior_state, previous_soxl, previous_soxx
         is_risk_event = state in de_risk_states

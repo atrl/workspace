@@ -43,6 +43,7 @@ __all__ = [
     "HardwareCycleCogAlphaMiningCardSpec",
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "Multi3xEtfNormalizedNestedWfSpec",
+    "Multi3xHighChopRiskControlSpec",
     "DynamicSoxxSoxlCashAllocationWfSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
     "QlibNativeExperimentResult",
@@ -75,6 +76,7 @@ __all__ = [
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_multi_3x_etf_normalized_nested_wf_card",
+    "run_multi_3x_high_chop_risk_control_card",
     "run_probability_budget_open2open_card",
     "run_cognitive_alpha_position_model",
     "run_cognitive_alpha_weighted_factor_search",
@@ -170,6 +172,11 @@ _MULTI_3X_ETF_NORMALIZED_NESTED_WF_EXPORTS = {
     "run_multi_3x_etf_normalized_nested_wf_card",
 }
 
+_MULTI_3X_HIGH_CHOP_RISK_CONTROL_EXPORTS = {
+    "Multi3xHighChopRiskControlSpec",
+    "run_multi_3x_high_chop_risk_control_card",
+}
+
 _TRAINABLE_REGIME_POLICY_NESTED_WF_EXPORTS = {
     "TrainableRegimePolicyNestedWfSpec",
     "run_trainable_regime_policy_nested_wf_card",
@@ -258,6 +265,10 @@ def __getattr__(name: str):
         from . import multi_3x_etf_normalized_nested_wf
 
         return getattr(multi_3x_etf_normalized_nested_wf, name)
+    if name in _MULTI_3X_HIGH_CHOP_RISK_CONTROL_EXPORTS:
+        from . import multi_3x_high_chop_risk_control
+
+        return getattr(multi_3x_high_chop_risk_control, name)
     if name in _TRAINABLE_REGIME_POLICY_NESTED_WF_EXPORTS:
         from . import trainable_regime_policy_nested_wf
 

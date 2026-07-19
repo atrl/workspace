@@ -35,7 +35,19 @@ def test_breakdown_gate_needs_probability_and_confirming_market_break():
     assert probability_only.loc[5, "controller_state"] != "breakdown"
     assert confirmed.loc[5, "controller_state"] == "breakdown"
     assert confirmed.loc[5, "soxl_weight"] <= 0.15
-    assert confirmed.loc[5, "risky_weight"] < probability_only.loc[5, "risky_weight"]
+    assert confirmed.loc[5, "risky_weight"] <= probability_only.loc[5, "risky_weight"]
+
+
+def test_three_downside_confirmations_zero_soxl_and_cap_soxx():
+    from src.backtest.multi_asset_risk_control import apply_multi_asset_risk_control
+
+    signals = _signals()
+    signals.loc[5, ["p_breakdown", "price_break", "breadth_break"]] = [0.90, True, True]
+    controlled = apply_multi_asset_risk_control(signals)
+
+    assert controlled.loc[5, "controller_state"] == "hard_downside_gate"
+    assert controlled.loc[5, "soxl_weight"] == 0.0
+    assert controlled.loc[5, "soxx_weight"] <= 0.10
 
 
 def test_controller_cuts_immediately_and_recovers_by_bounded_steps():
@@ -62,10 +74,9 @@ def test_drawdown_override_uses_only_returns_available_before_new_target():
     spec = RiskControlSpec(drawdown_hard_stop=-0.08, drawdown_soft_stop=-0.04, min_state_days=1)
     controlled = apply_multi_asset_risk_control(signals, spec=spec)
 
-    hard_rows = controlled[controlled["controller_state"] == "drawdown_hard_stop"]
+    hard_rows = controlled[controlled["controller_state"] == "drawdown_budget"]
     assert not hard_rows.empty
-    assert hard_rows["soxl_weight"].eq(0.0).all()
-    assert hard_rows["soxx_weight"].le(0.10).all()
+    assert hard_rows["risky_weight"].le(0.25).all()
 
     mutated = signals.copy()
     mutated.loc[12:, ["soxl_return", "soxx_return"]] = 1.0
