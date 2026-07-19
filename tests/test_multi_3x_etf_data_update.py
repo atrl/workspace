@@ -34,6 +34,22 @@ def test_pair_panel_to_qlib_frame_keeps_shared_vix_for_pair_provider():
     )
 
 
+def test_multi_3x_registry_contains_diversified_long_equity_pairs():
+    from src.data.multi_3x_etf_update import MULTI_3X_ETF_PAIRS
+
+    pairs = {(item.etf, item.underlying) for item in MULTI_3X_ETF_PAIRS}
+
+    assert len(pairs) == 15
+    assert {
+        ("TNA", "IWM"),
+        ("FAS", "XLF"),
+        ("LABU", "XBI"),
+        ("ERX", "XLE"),
+        ("WANT", "XLY"),
+    }.issubset(pairs)
+    assert {"SQQQ", "SPXU"}.isdisjoint({etf for etf, _ in pairs})
+
+
 def test_update_multi_3x_etf_data_appends_and_builds_provider(tmp_path, monkeypatch):
     from src.data import multi_3x_etf_update
     from src.data.multi_3x_etf_update import Multi3xEtfPairSpec, Multi3xEtfUpdatePaths

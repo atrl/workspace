@@ -52,6 +52,17 @@ MULTI_3X_ETF_PAIRS: tuple[Multi3xEtfPairSpec, ...] = (
     Multi3xEtfPairSpec("UPRO", "SPY"),
     Multi3xEtfPairSpec("SPXL", "SPY"),
     Multi3xEtfPairSpec("TECL", "XLK"),
+    Multi3xEtfPairSpec("UDOW", "DIA"),
+    Multi3xEtfPairSpec("TNA", "IWM"),
+    Multi3xEtfPairSpec("MIDU", "MDY"),
+    Multi3xEtfPairSpec("FAS", "XLF"),
+    Multi3xEtfPairSpec("LABU", "XBI"),
+    Multi3xEtfPairSpec("CURE", "XLV"),
+    Multi3xEtfPairSpec("NAIL", "ITB"),
+    Multi3xEtfPairSpec("RETL", "XRT"),
+    Multi3xEtfPairSpec("ERX", "XLE"),
+    Multi3xEtfPairSpec("DRN", "XLRE"),
+    Multi3xEtfPairSpec("WANT", "XLY"),
 )
 
 
