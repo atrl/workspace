@@ -83,6 +83,12 @@ from .meta_label_probability_gate import (
     evaluate_probability_gate_grid,
     summarize_meta_label_probability_branch,
 )
+from .multi_3x_high_chop import (
+    PATH_LABELS,
+    TRANSFERABLE_FEATURES,
+    build_multi_3x_high_chop_frame,
+    purge_segment_tail,
+)
 from .session_effect import (
     build_session_effect_frame,
     compact_session_effect_summary,
@@ -118,9 +124,11 @@ __all__ = [
     "INTRADAY_15M_FACTOR_SOURCE",
     "INTRADAY_15M_FIELDS",
     "INTRADAY_15M_LIMITATIONS",
+    "PATH_LABELS",
     "QlibScoredDataset",
     "SOXX_CONSTITUENT_FACTOR_SOURCE",
     "SOXX_CONSTITUENT_LIMITATIONS",
+    "TRANSFERABLE_FEATURES",
     "append_high_chop_strategy_metrics",
     "build_canary_trend_component",
     "build_canary_sprint_frame",
@@ -137,6 +145,7 @@ __all__ = [
     "build_macro_rate_gate_component",
     "build_macro_credit_frame",
     "build_meta_label_probability_frame",
+    "build_multi_3x_high_chop_frame",
     "build_signed_overnight_component",
     "build_session_effect_frame",
     "build_tail_risk_external_frame",
@@ -165,6 +174,7 @@ __all__ = [
     "evaluate_tail_risk_candidate",
     "materialize_cognitive_alpha_features",
     "qlib_factor_diagnostics",
+    "purge_segment_tail",
     "run_cognitive_alpha_factor_mining",
     "summarize_agentic_ensemble_components",
     "summarize_canary_sprint_branch",
