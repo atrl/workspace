@@ -1,6 +1,6 @@
 {
   "as_of": "2026-07-02",
-  "audit_snapshot_hash": "3766a099aa02aa5c",
+  "audit_snapshot_hash": "0d5b1021ab62a1c9",
   "calendar_end": "2026-07-02",
   "calendar_start": "2009-06-25",
   "feature_file_count": 12,
@@ -13,7 +13,7 @@
     "$vix"
   ],
   "freq": "day",
-  "hash": "e8897a51c92be975",
+  "hash": "908026b3efe45410",
   "instruments": [
     "SPY",
     "UPRO"
@@ -21,10 +21,10 @@
   "market": "all",
   "max_datetime": "2026-07-02",
   "operation": "qlib_store_build",
-  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/upro",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/upro",
   "region": "us",
   "row_count": 8562,
-  "source": "/Users/rziiiii/dev/workspace/data/processed/panels/upro_with_underlying_vix.csv",
+  "source": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/processed/panels/upro_with_underlying_vix.csv",
   "source_api": [
     "qlib.init",
     "qlib.data.storage.file_storage.FileFeatureStorage",

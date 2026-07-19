@@ -1,6 +1,6 @@
 {
   "as_of": "2026-07-02",
-  "audit_snapshot_hash": "a7c7a6c0202d99aa",
+  "audit_snapshot_hash": "fa2f791f6d4dee23",
   "calendar_end": "2026-07-02",
   "calendar_start": "2008-12-30",
   "feature_file_count": 12,
@@ -13,7 +13,7 @@
     "$vix"
   ],
   "freq": "day",
-  "hash": "fc067a765aeea322",
+  "hash": "855c1df37e8af8bf",
   "instruments": [
     "TECL",
     "XLK"
@@ -21,10 +21,10 @@
   "market": "all",
   "max_datetime": "2026-07-02",
   "operation": "qlib_store_build",
-  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tecl",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/tecl",
   "region": "us",
   "row_count": 8806,
-  "source": "/Users/rziiiii/dev/workspace/data/processed/panels/tecl_with_underlying_vix.csv",
+  "source": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/processed/panels/tecl_with_underlying_vix.csv",
   "source_api": [
     "qlib.init",
     "qlib.data.storage.file_storage.FileFeatureStorage",

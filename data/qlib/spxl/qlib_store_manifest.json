@@ -1,6 +1,6 @@
 {
   "as_of": "2026-07-02",
-  "audit_snapshot_hash": "816bc8960684b708",
+  "audit_snapshot_hash": "7429498ba7b5674f",
   "calendar_end": "2026-07-02",
   "calendar_start": "2008-11-05",
   "feature_file_count": 12,
@@ -13,7 +13,7 @@
     "$vix"
   ],
   "freq": "day",
-  "hash": "784c4350eee4ac5b",
+  "hash": "c0711a46348f82a2",
   "instruments": [
     "SPXL",
     "SPY"
@@ -21,10 +21,10 @@
   "market": "all",
   "max_datetime": "2026-07-02",
   "operation": "qlib_store_build",
-  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/spxl",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/spxl",
   "region": "us",
   "row_count": 8880,
-  "source": "/Users/rziiiii/dev/workspace/data/processed/panels/spxl_with_underlying_vix.csv",
+  "source": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/processed/panels/spxl_with_underlying_vix.csv",
   "source_api": [
     "qlib.init",
     "qlib.data.storage.file_storage.FileFeatureStorage",

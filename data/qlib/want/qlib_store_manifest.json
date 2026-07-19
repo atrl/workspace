@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-07-02",
+  "audit_snapshot_hash": "c781ad706338ac47",
+  "calendar_end": "2026-07-02",
+  "calendar_start": "2018-11-29",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$vix"
+  ],
+  "freq": "day",
+  "hash": "bfafadd48a08bc57",
+  "instruments": [
+    "WANT",
+    "XLY"
+  ],
+  "market": "all",
+  "max_datetime": "2026-07-02",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/want",
+  "region": "us",
+  "row_count": 3812,
+  "source": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/processed/panels/want_with_underlying_vix.csv",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

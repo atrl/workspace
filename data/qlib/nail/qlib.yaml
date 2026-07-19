@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/nail
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-07-02",
+  "audit_snapshot_hash": "0e1ed924bcfd0cf6",
+  "calendar_end": "2026-07-02",
+  "calendar_start": "2010-02-11",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$vix"
+  ],
+  "freq": "day",
+  "hash": "1d5112852a4deb72",
+  "instruments": [
+    "DIA",
+    "UDOW"
+  ],
+  "market": "all",
+  "max_datetime": "2026-07-02",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/udow",
+  "region": "us",
+  "row_count": 8244,
+  "source": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/processed/panels/udow_with_underlying_vix.csv",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

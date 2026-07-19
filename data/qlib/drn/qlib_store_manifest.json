@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-07-02",
+  "audit_snapshot_hash": "88f162a7e97ecad9",
+  "calendar_end": "2026-07-02",
+  "calendar_start": "2015-10-08",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close",
+    "$volume",
+    "$vix"
+  ],
+  "freq": "day",
+  "hash": "fbafe5fb561063c4",
+  "instruments": [
+    "DRN",
+    "XLRE"
+  ],
+  "market": "all",
+  "max_datetime": "2026-07-02",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/drn",
+  "region": "us",
+  "row_count": 5396,
+  "source": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/processed/panels/drn_with_underlying_vix.csv",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

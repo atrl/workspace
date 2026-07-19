@@ -1,0 +1,10 @@
+experiment: multi_3x_high_chop_risk_control_v1
+provider_uri: /Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/multi_3x_high_chop_risk_control_v1
+data_api: qlib.data.D.features
+dataset_api:
+  - DatasetH
+  - DataHandlerLP
+  - QlibDataLoader
+selection_uses_outer_test: false
+execution_timing: close_t_signal_next_open_t_plus_1
+cost_per_turnover: 0.0003

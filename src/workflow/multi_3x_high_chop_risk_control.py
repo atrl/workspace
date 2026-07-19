@@ -381,8 +381,10 @@ def _execute_nested_card(
     dataset_evidence: list[dict[str, Any]] = []
 
     for outer_year in spec.outer_test_years:
-        train_end = f"{outer_year - 2}-12-31"
-        valid_range = (f"{outer_year - 1}-01-01", f"{outer_year - 1}-12-31")
+        # A three-year validation window preserves the fixed 20-observation
+        # minimum for the rare whipsaw class without weakening the class gate.
+        train_end = f"{outer_year - 4}-12-31"
+        valid_range = (f"{outer_year - 3}-01-01", f"{outer_year - 1}-12-31")
         test_end = min(pd.Timestamp(spec.as_of), pd.Timestamp(f"{outer_year}-12-31")).date().isoformat()
         test_range = (f"{outer_year}-01-01", test_end)
         dataset = build_path_dataset(
@@ -932,6 +934,27 @@ def _record_and_write_card(
     )
     (card / "workflow.yaml").write_text(workflow_yaml, encoding="utf-8")
 
+    failed_gates = [name for name, value in promotion["gates"].items() if not value["passed"]]
+    failure_text = (
+        f"# Failure Modes\n\n- promotion_decision: {promotion['promotion_decision']}\n"
+        f"- failed_gates: {', '.join(failed_gates) if failed_gates else 'none'}\n"
+        "- model_risk: 跨ETF可迁移不等于SOXL结构稳定，年度和underlying holdout结果必须同时审阅。\n"
+        "- execution_risk: 仅验证次日开盘持有与固定单边换手成本，未包含滑点冲击。\n"
+        "- data_risk: ETF起始日期不同，晚成立产品的早期fold会按类别样本门槛阻断。\n"
+    )
+    (card / "failure_modes.md").write_text(failure_text, encoding="utf-8")
+    metrics = strategy_metrics
+    conclusion = (
+        "# 结论\n\n"
+        f"- 执行内容：16只长期股票类3x ETF的归一化路径状态模型，按2023至2026年度样本外拼接，并用SOXL/SOXX/现金控制器执行。\n"
+        f"- 关键指标：年化收益 {metrics['annualized_return']:.2%}，年化波动 {metrics['annualized_volatility']:.2%}，最大回撤 {metrics['max_drawdown']:.2%}，5% CVaR {metrics['cvar_95']:.2%}。\n"
+        f"- 区间差异：高位震荡与下行确认采用独立状态；跨资产验证通过率为 {artifacts['transfer_pass_rate']:.1%}。\n"
+        f"- 晋升决定：{promotion['promotion_decision']}；失败门槛为 {', '.join(failed_gates) if failed_gates else '无'}。\n"
+        "- 风险：模型概率仍可能在SOXL独有半导体周期中失效，且固定成本未覆盖开盘跳空冲击。\n"
+        "- 下一步：仅保留样本外风险改善稳定的状态，继续缩减无迁移增益特征并做paper验证，不进入真实交易。\n"
+    )
+    (card / "conclusion.md").write_text(conclusion, encoding="utf-8")
+
     recorder_uri = card / "qlib_recorder"
     recorder_uri.mkdir(parents=True, exist_ok=True)
     import qlib
@@ -1027,30 +1050,9 @@ def _record_and_write_card(
                 ],
             }
             (card / "summary.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
-            for name in summary["compact_sidecars"] + ["workflow.yaml", "summary.json"]:
+            for name in summary["compact_sidecars"] + ["workflow.yaml", "summary.json", "conclusion.md"]:
                 path = card / name
                 if path.exists():
                     recorder.log_artifact(path.as_posix(), artifact_path=spec.experiment)
-
-    failed_gates = [name for name, value in promotion["gates"].items() if not value["passed"]]
-    failure_text = (
-        f"# Failure Modes\n\n- promotion_decision: {promotion['promotion_decision']}\n"
-        f"- failed_gates: {', '.join(failed_gates) if failed_gates else 'none'}\n"
-        "- model_risk: 跨ETF可迁移不等于SOXL结构稳定，年度和underlying holdout结果必须同时审阅。\n"
-        "- execution_risk: 仅验证次日开盘持有与固定单边换手成本，未包含滑点冲击。\n"
-        "- data_risk: ETF起始日期不同，晚成立产品的早期fold会按类别样本门槛阻断。\n"
-    )
-    (card / "failure_modes.md").write_text(failure_text, encoding="utf-8")
-    metrics = strategy_metrics
-    conclusion = (
-        "# 结论\n\n"
-        f"- 执行内容：16只长期股票类3x ETF的归一化路径状态模型，按2023至2026年度样本外拼接，并用SOXL/SOXX/现金控制器执行。\n"
-        f"- 关键指标：年化收益 {metrics['annualized_return']:.2%}，年化波动 {metrics['annualized_volatility']:.2%}，最大回撤 {metrics['max_drawdown']:.2%}，5% CVaR {metrics['cvar_95']:.2%}。\n"
-        f"- 区间差异：高位震荡与下行确认采用独立状态；跨资产验证通过率为 {artifacts['transfer_pass_rate']:.1%}。\n"
-        f"- 晋升决定：{promotion['promotion_decision']}；失败门槛为 {', '.join(failed_gates) if failed_gates else '无'}。\n"
-        "- 风险：模型概率仍可能在SOXL独有半导体周期中失效，且固定成本未覆盖开盘跳空冲击。\n"
-        "- 下一步：仅保留样本外风险改善稳定的状态，继续缩减无迁移增益特征并做paper验证，不进入真实交易。\n"
-    )
-    (card / "conclusion.md").write_text(conclusion, encoding="utf-8")
     summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
     return summary

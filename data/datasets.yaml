@@ -161,7 +161,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-07-06T12:33:53.184502+00:00'
+generated_at: '2026-07-19T06:55:54.598577+00:00'
 intraday:
   soxl_soxx_1m:
     end: '2026-07-02T16:00:00-04:00'
@@ -186,6 +186,54 @@ layout:
   raw_symbols: data/raw/symbols/<TICKER>.csv
   training_cache: data/cache/training/<profile>.pkl
 processed_panels:
+  cure_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/cure_with_underlying_vix.csv
+    rows: 3784
+    start: '2011-06-15'
+  drn_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/drn_with_underlying_vix.csv
+    rows: 2698
+    start: '2015-10-08'
+  erx_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/erx_with_underlying_vix.csv
+    rows: 4430
+    start: '2008-11-19'
+  fas_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/fas_with_underlying_vix.csv
+    rows: 4430
+    start: '2008-11-19'
+  labu_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/labu_with_underlying_vix.csv
+    rows: 2791
+    start: '2015-05-28'
+  midu_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/midu_with_underlying_vix.csv
+    rows: 4397
+    start: '2009-01-08'
+  nail_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/nail_with_underlying_vix.csv
+    rows: 2733
+    start: '2015-08-19'
+  retl_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/retl_with_underlying_vix.csv
+    rows: 4017
+    start: '2010-07-14'
   soxl_soxx_vix_full:
     end: '2026-07-02'
     exists: true
@@ -228,10 +276,22 @@ processed_panels:
     path: data/processed/panels/tecl_with_underlying_vix.csv
     rows: 4403
     start: '2008-12-30'
+  tna_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/tna_with_underlying_vix.csv
+    rows: 4430
+    start: '2008-11-19'
   tqqq_with_underlying_vix:
     end: '2026-07-02'
     exists: true
     path: data/processed/panels/tqqq_with_underlying_vix.csv
+    rows: 4122
+    start: '2010-02-11'
+  udow_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/udow_with_underlying_vix.csv
     rows: 4122
     start: '2010-02-11'
   upro_with_underlying_vix:
@@ -246,7 +306,53 @@ processed_panels:
     path: data/processed/panels/vix.csv
     rows: 1570
     start: null
+  want_with_underlying_vix:
+    end: '2026-07-02'
+    exists: true
+    path: data/processed/panels/want_with_underlying_vix.csv
+    rows: 1906
+    start: '2018-11-29'
 qlib:
+  CURE:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/cure
+  DRN:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/drn
+  ERX:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/erx
+  FAS:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/fas
+  LABU:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/labu
+  MIDU:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/midu
+  NAIL:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/nail
+  RETL:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/retl
   SOXL:
     exists: true
     has_calendar: true
@@ -267,16 +373,31 @@ qlib:
     has_calendar: true
     has_instruments: true
     path: data/qlib/tecl
+  TNA:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/tna
   TQQQ:
     exists: true
     has_calendar: true
     has_instruments: true
     path: data/qlib/tqqq
+  UDOW:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/udow
   UPRO:
     exists: true
     has_calendar: true
     has_instruments: true
     path: data/qlib/upro
+  WANT:
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    path: data/qlib/want
 raw_constituents:
   soxx_current_constituent_daily_history:
     as_of: '2026-07-02'
@@ -294,6 +415,54 @@ raw_constituents:
     start: '2010-03-11'
     survivorship_biased_current_constituents: true
 symbols:
+  CURE:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/CURE.csv
+    rows: 3784
+    start: '2011-06-15'
+  DRN:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/DRN.csv
+    rows: 2698
+    start: '2015-10-08'
+  ERX:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/ERX.csv
+    rows: 4430
+    start: '2008-11-19'
+  FAS:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/FAS.csv
+    rows: 4430
+    start: '2008-11-19'
+  LABU:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/LABU.csv
+    rows: 2791
+    start: '2015-05-28'
+  MIDU:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/MIDU.csv
+    rows: 4397
+    start: '2009-01-08'
+  NAIL:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/NAIL.csv
+    rows: 2733
+    start: '2015-08-19'
+  RETL:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/RETL.csv
+    rows: 4017
+    start: '2010-07-14'
   SOXL:
     end: '2026-07-02'
     exists: true
@@ -318,10 +487,22 @@ symbols:
     path: data/raw/symbols/TECL.csv
     rows: 4403
     start: '2008-12-30'
+  TNA:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/TNA.csv
+    rows: 4430
+    start: '2008-11-19'
   TQQQ:
     end: '2026-07-02'
     exists: true
     path: data/raw/symbols/TQQQ.csv
+    rows: 4122
+    start: '2010-02-11'
+  UDOW:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/UDOW.csv
     rows: 4122
     start: '2010-02-11'
   UPRO:
@@ -330,6 +511,12 @@ symbols:
     path: data/raw/symbols/UPRO.csv
     rows: 4281
     start: '2009-06-25'
+  WANT:
+    end: '2026-07-02'
+    exists: true
+    path: data/raw/symbols/WANT.csv
+    rows: 1906
+    start: '2018-11-29'
 training_cache:
   SOXL_train:
     bytes: 709116

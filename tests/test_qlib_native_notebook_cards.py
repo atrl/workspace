@@ -4913,3 +4913,35 @@ def test_soxx_constituent_alpha_attribution_card_separates_signal_leverage_and_e
     assert "run_soxx_constituent_alpha_attribution_card" in notebook_text
     assert "反思" in conclusion
     assert "不构成买卖建议" in conclusion
+
+
+def test_multi_3x_high_chop_risk_control_card_is_qlib_native_and_fail_closed():
+    card = ROOT / "research" / "multi_3x_high_chop_risk_control_v1"
+    summary = _summary(card)
+    notebook = card / "multi_3x_high_chop_risk_control_v1.ipynb"
+    notebook_text = notebook.read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "multi_3x_high_chop_risk_control_v1"
+    assert summary["status"] == "completed"
+    assert summary["promotion_decision"] == "not_promoted_risk_control_gates_failed"
+    assert len(summary["research_universe"]) == 16
+    assert {"SOXL", "TNA", "FAS", "LABU", "ERX", "WANT"}.issubset(summary["research_universe"])
+    assert summary["underlying_groups"]["UPRO"] == summary["underlying_groups"]["SPXL"] == "SPY"
+    assert summary["qlib_contract"]["dataset_api"] == ["DatasetH", "DataHandlerLP", "QlibDataLoader"]
+    assert summary["qlib_contract"]["data_api"] == ["qlib.init", "qlib.data.D.features"]
+    assert summary["model_selection"]["selection_uses_outer_test"] is False
+    assert summary["path_labels"] == {"benign_chop": 0, "breakout": 1, "breakdown": 2, "whipsaw": 3}
+    assert summary["execution"]["target_start"] == "next_open_t_plus_1"
+    assert summary["execution"]["return"] == "open_to_open"
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert summary["artifact_policy"]["workflow_config"] == "workflow.yaml"
+    assert "portfolio_report.csv" in summary["artifact_policy"]["recorder_only_artifacts"]
+    for name in summary["compact_sidecars"]:
+        assert (card / name).exists(), name
+    for forbidden in RECORDER_ONLY_ROOT_FILES | {"positions.csv", "all_model_selection.csv", "annual_metrics.csv"}:
+        assert not (card / forbidden).exists(), forbidden
+    assert notebook.exists()
+    assert "run_multi_3x_high_chop_risk_control_card" in notebook_text
+    assert "qlib.data.D.features" in notebook_text
+    assert "DatasetH" in notebook_text
+    assert "不进入真实交易" in (card / "conclusion.md").read_text(encoding="utf-8")

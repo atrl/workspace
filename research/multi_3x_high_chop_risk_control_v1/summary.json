@@ -1,0 +1,630 @@
+{
+  "experiment": "multi_3x_high_chop_risk_control_v1",
+  "card_type": "multi_3x_high_chop_risk_control_research_card",
+  "status": "completed",
+  "as_of": "2026-07-02",
+  "research_universe": [
+    "SOXL",
+    "TQQQ",
+    "UPRO",
+    "SPXL",
+    "TECL",
+    "UDOW",
+    "TNA",
+    "MIDU",
+    "FAS",
+    "LABU",
+    "CURE",
+    "NAIL",
+    "RETL",
+    "ERX",
+    "DRN",
+    "WANT"
+  ],
+  "underlying_groups": {
+    "SOXL": "SOXX",
+    "TQQQ": "QQQ",
+    "UPRO": "SPY",
+    "SPXL": "SPY",
+    "TECL": "XLK",
+    "UDOW": "DIA",
+    "TNA": "IWM",
+    "MIDU": "MDY",
+    "FAS": "XLF",
+    "LABU": "XBI",
+    "CURE": "XLV",
+    "NAIL": "ITB",
+    "RETL": "XRT",
+    "ERX": "XLE",
+    "DRN": "XLRE",
+    "WANT": "XLY"
+  },
+  "qlib_contract": {
+    "docs": "https://qlib.readthedocs.io/en/latest/",
+    "data_api": [
+      "qlib.init",
+      "qlib.data.D.features"
+    ],
+    "dataset_api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "QlibDataLoader"
+    ],
+    "workflow_api": [
+      "qlib.workflow.R",
+      "Recorder"
+    ],
+    "dataset_evidence": [
+      {
+        "outer_year": 2023,
+        "qlib_dataset_api": [
+          "DatasetH",
+          "DataHandlerLP",
+          "QlibDataLoader"
+        ],
+        "segments": {
+          "train": [
+            "2011-01-03",
+            "2019-12-31"
+          ],
+          "test": [
+            "2023-01-01",
+            "2023-12-31"
+          ],
+          "valid": [
+            "2020-01-01",
+            "2022-12-31"
+          ]
+        },
+        "prepared_rows": {
+          "train": 36224,
+          "valid": 12096,
+          "test": 4000
+        }
+      },
+      {
+        "outer_year": 2024,
+        "qlib_dataset_api": [
+          "DatasetH",
+          "DataHandlerLP",
+          "QlibDataLoader"
+        ],
+        "segments": {
+          "train": [
+            "2011-01-03",
+            "2020-12-31"
+          ],
+          "test": [
+            "2024-01-01",
+            "2024-12-31"
+          ],
+          "valid": [
+            "2021-01-01",
+            "2023-12-31"
+          ]
+        },
+        "prepared_rows": {
+          "train": 40272,
+          "valid": 12048,
+          "test": 4032
+        }
+      },
+      {
+        "outer_year": 2025,
+        "qlib_dataset_api": [
+          "DatasetH",
+          "DataHandlerLP",
+          "QlibDataLoader"
+        ],
+        "segments": {
+          "train": [
+            "2011-01-03",
+            "2021-12-31"
+          ],
+          "test": [
+            "2025-01-01",
+            "2025-12-31"
+          ],
+          "valid": [
+            "2022-01-01",
+            "2024-12-31"
+          ]
+        },
+        "prepared_rows": {
+          "train": 44304,
+          "valid": 12048,
+          "test": 4000
+        }
+      },
+      {
+        "outer_year": 2026,
+        "qlib_dataset_api": [
+          "DatasetH",
+          "DataHandlerLP",
+          "QlibDataLoader"
+        ],
+        "segments": {
+          "train": [
+            "2011-01-03",
+            "2022-12-31"
+          ],
+          "test": [
+            "2026-01-01",
+            "2026-07-02"
+          ],
+          "valid": [
+            "2023-01-01",
+            "2025-12-31"
+          ]
+        },
+        "prepared_rows": {
+          "train": 48320,
+          "valid": 12032,
+          "test": 2000
+        }
+      }
+    ],
+    "provider_readback": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/multi_3x_high_chop_risk_control_v1",
+      "source": "qlib.data.D.features",
+      "qlib_data_api": [
+        "qlib.data.D.features"
+      ],
+      "instruments": [
+        "CURE",
+        "DRN",
+        "ERX",
+        "FAS",
+        "LABU",
+        "MIDU",
+        "NAIL",
+        "RETL",
+        "SOXL",
+        "SPXL",
+        "TECL",
+        "TNA",
+        "TQQQ",
+        "UDOW",
+        "UPRO",
+        "WANT"
+      ],
+      "fields": [
+        "$ret_5_pctile252",
+        "$ret_20_pctile252",
+        "$ret_60_pctile252",
+        "$range_pos_252",
+        "$dist_high_252",
+        "$drawdown_60_pctile252",
+        "$trend_efficiency_20_pctile252",
+        "$sign_change_density_20_pctile252",
+        "$rv_20_pctile252",
+        "$downside_semivariance_20_pctile252",
+        "$tracking_error_20_pctile252",
+        "$tracking_error_expansion_pctile252",
+        "$realized_vix_gap",
+        "$range_vix_gap",
+        "$abs_vix_change_5_pctile252",
+        "$cross_asset_dispersion",
+        "$cross_asset_positive_breadth",
+        "$cross_asset_downside_breadth",
+        "$cohort_leadership_turnover",
+        "$high_chop_intensity",
+        "$path_label",
+        "$open",
+        "$underlying_open",
+        "$_lagged_sigma_20"
+      ],
+      "row_count": 62352,
+      "max_datetime": "2026-07-02",
+      "missing_feature_columns": []
+    }
+  },
+  "data_lineage": {
+    "provider_manifest": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/multi_3x_high_chop_risk_control_v1",
+      "market": "all",
+      "region": "us",
+      "freq": "day",
+      "as_of": "2026-07-02",
+      "source": "qlib.data.D.features multi-provider normalized panel",
+      "instruments": [
+        "CURE",
+        "DRN",
+        "ERX",
+        "FAS",
+        "LABU",
+        "MIDU",
+        "NAIL",
+        "RETL",
+        "SOXL",
+        "SPXL",
+        "TECL",
+        "TNA",
+        "TQQQ",
+        "UDOW",
+        "UPRO",
+        "WANT"
+      ],
+      "fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close",
+        "$volume",
+        "$vix",
+        "$underlying_open",
+        "$underlying_high",
+        "$underlying_low",
+        "$underlying_close",
+        "$underlying_volume",
+        "$ret_5_pctile252",
+        "$ret_20_pctile252",
+        "$ret_60_pctile252",
+        "$range_pos_252",
+        "$dist_high_252",
+        "$drawdown_60_pctile252",
+        "$trend_efficiency_20_pctile252",
+        "$sign_change_density_20_pctile252",
+        "$rv_20_pctile252",
+        "$downside_semivariance_20_pctile252",
+        "$tracking_error_20_pctile252",
+        "$tracking_error_expansion_pctile252",
+        "$realized_vix_gap",
+        "$range_vix_gap",
+        "$abs_vix_change_5_pctile252",
+        "$_lagged_return",
+        "$_lagged_ret_5",
+        "$_lagged_sigma_20",
+        "$cross_asset_dispersion",
+        "$cross_asset_positive_breadth",
+        "$cross_asset_downside_breadth",
+        "$cohort_leadership_turnover",
+        "$high_chop_intensity",
+        "$forward_mfe",
+        "$forward_mae",
+        "$forward_terminal_return",
+        "$path_label"
+      ],
+      "calendar_start": "2011-01-03",
+      "calendar_end": "2026-07-02",
+      "max_datetime": "2026-07-02",
+      "row_count": 56779,
+      "feature_file_count": 608,
+      "audit_snapshot_hash": "4fe5446b34912095",
+      "operation": "qlib_store_build",
+      "status": "ok",
+      "hash": "e5ab5b202d9e7491",
+      "source_api": [
+        "qlib.init",
+        "qlib.data.storage.file_storage.FileFeatureStorage",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ]
+    },
+    "source_audit": {
+      "SOXL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/soxl",
+        "underlying": "SOXX",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "TQQQ": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/tqqq",
+        "underlying": "QQQ",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "UPRO": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/upro",
+        "underlying": "SPY",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "SPXL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/spxl",
+        "underlying": "SPY",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "TECL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/tecl",
+        "underlying": "XLK",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "UDOW": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/udow",
+        "underlying": "DIA",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "TNA": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/tna",
+        "underlying": "IWM",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "MIDU": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/midu",
+        "underlying": "MDY",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "FAS": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/fas",
+        "underlying": "XLF",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "LABU": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/labu",
+        "underlying": "XBI",
+        "row_count": 2791,
+        "min_datetime": "2015-05-28",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "CURE": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/cure",
+        "underlying": "XLV",
+        "row_count": 3784,
+        "min_datetime": "2011-06-15",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "NAIL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/nail",
+        "underlying": "ITB",
+        "row_count": 2733,
+        "min_datetime": "2015-08-19",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "RETL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/retl",
+        "underlying": "XRT",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "ERX": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/erx",
+        "underlying": "XLE",
+        "row_count": 3897,
+        "min_datetime": "2011-01-03",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "DRN": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/drn",
+        "underlying": "XLRE",
+        "row_count": 2698,
+        "min_datetime": "2015-10-08",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      },
+      "WANT": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/want",
+        "underlying": "XLY",
+        "row_count": 1906,
+        "min_datetime": "2018-11-29",
+        "max_datetime": "2026-07-02",
+        "source": "qlib.data.D.features"
+      }
+    }
+  },
+  "path_labels": {
+    "benign_chop": 0,
+    "breakout": 1,
+    "breakdown": 2,
+    "whipsaw": 3
+  },
+  "transferable_features": [
+    "ret_5_pctile252",
+    "ret_20_pctile252",
+    "ret_60_pctile252",
+    "range_pos_252",
+    "dist_high_252",
+    "drawdown_60_pctile252",
+    "trend_efficiency_20_pctile252",
+    "sign_change_density_20_pctile252",
+    "rv_20_pctile252",
+    "downside_semivariance_20_pctile252",
+    "tracking_error_20_pctile252",
+    "tracking_error_expansion_pctile252",
+    "realized_vix_gap",
+    "range_vix_gap",
+    "abs_vix_change_5_pctile252",
+    "cross_asset_dispersion",
+    "cross_asset_positive_breadth",
+    "cross_asset_downside_breadth",
+    "cohort_leadership_turnover",
+    "high_chop_intensity"
+  ],
+  "model_selection": {
+    "selection_uses_outer_test": false,
+    "selection_metric": "validation_utility_desc_then_log_loss_asc",
+    "outer_models": [
+      {
+        "candidate": "lightgbm_multiclass",
+        "validation_utility": -1.3607154183395864,
+        "validation_log_loss": 1.1882497257800197,
+        "validation_fold_count": 14,
+        "selection_metric": "validation_utility_desc_then_log_loss_asc",
+        "selection_uses_outer_test": false,
+        "outer_year": 2023
+      },
+      {
+        "candidate": "lightgbm_multiclass",
+        "validation_utility": -1.4062502363338207,
+        "validation_log_loss": 1.1955420279645923,
+        "validation_fold_count": 9,
+        "selection_metric": "validation_utility_desc_then_log_loss_asc",
+        "selection_uses_outer_test": false,
+        "outer_year": 2024
+      },
+      {
+        "candidate": "lightgbm_multiclass",
+        "validation_utility": -1.3569483070935062,
+        "validation_log_loss": 1.1816156642634952,
+        "validation_fold_count": 10,
+        "selection_metric": "validation_utility_desc_then_log_loss_asc",
+        "selection_uses_outer_test": false,
+        "outer_year": 2025
+      },
+      {
+        "candidate": "lightgbm_multiclass",
+        "validation_utility": -1.291256686664613,
+        "validation_log_loss": 1.1353185744995622,
+        "validation_fold_count": 11,
+        "selection_metric": "validation_utility_desc_then_log_loss_asc",
+        "selection_uses_outer_test": false,
+        "outer_year": 2026
+      }
+    ]
+  },
+  "controller": {
+    "target_vol": 0.35,
+    "whipsaw_probability_threshold": 0.5,
+    "breakdown_probability_threshold": 0.65,
+    "recovery_probability_threshold": 0.4,
+    "breakdown_soxl_cap": 0.15,
+    "high_chop_soxl_cap": 0.25,
+    "hard_stop_soxx_cap": 0.1,
+    "drawdown_hard_stop": -0.08,
+    "drawdown_soft_stop": -0.04,
+    "soft_stop_risky_cap": 0.25,
+    "cooldown_days": 5,
+    "rebalance_threshold": 0.1,
+    "risk_up_step": 0.2,
+    "min_state_days": 3
+  },
+  "execution": {
+    "signal": "close_t",
+    "target_start": "next_open_t_plus_1",
+    "return": "open_to_open",
+    "cost_per_turnover": 0.0003
+  },
+  "stitched_metrics": {
+    "total_return": 0.48660122790860294,
+    "annualized_return": 0.12067302294851445,
+    "annualized_volatility": 0.11590804112655885,
+    "max_drawdown": -0.09589698942240887,
+    "sharpe": 1.0411100194226626,
+    "total_turnover": 12.188353143191147,
+    "total_transaction_cost": 0.003656505942957344,
+    "cvar_95": -0.017560828028405112,
+    "worst_five_session_return": -0.07625037724761641,
+    "underwater_day_ratio": 0.942987457240593,
+    "upside_capture": 0.0876230596039497,
+    "average_risky_weight": 0.14024687255853271
+  },
+  "transfer_fold_pass_rate": 0.0,
+  "promotion": {
+    "gates": {
+      "drawdown_absolute": {
+        "passed": true,
+        "value": -0.09589698942240887,
+        "threshold": -0.2
+      },
+      "drawdown_relative_improvement": {
+        "passed": true,
+        "value": 0.6731681131882127,
+        "threshold": 0.2
+      },
+      "annualized_volatility": {
+        "passed": true,
+        "value": 0.11590804112655885,
+        "threshold": 0.35
+      },
+      "cvar_95": {
+        "passed": true,
+        "value": -0.017560828028405112,
+        "threshold": -0.08
+      },
+      "worst_five_session_return": {
+        "passed": true,
+        "value": -0.07625037724761641,
+        "threshold": -0.12
+      },
+      "upside_capture": {
+        "passed": false,
+        "value": 0.0876230596039497,
+        "threshold": 0.6
+      },
+      "average_risky_weight": {
+        "passed": false,
+        "value": 0.14024687255853271,
+        "threshold": 0.15
+      },
+      "return_to_drawdown_benchmarks": {
+        "passed": false
+      },
+      "annual_fold_gate": {
+        "passed": true,
+        "annual_pass_count": 4,
+        "annual_fold_count": 4,
+        "worst_annual_drawdown": -0.09526448524233855
+      },
+      "stress_10bps": {
+        "passed": true
+      },
+      "transfer_fold_pass_rate": {
+        "passed": false,
+        "value": 0.0,
+        "threshold": 0.6
+      }
+    },
+    "all_passed": false,
+    "promotion_decision": "not_promoted_risk_control_gates_failed"
+  },
+  "promotion_decision": "not_promoted_risk_control_gates_failed",
+  "recorder": {
+    "experiment": "multi_3x_high_chop_risk_control_v1",
+    "recorder_id": "4e4506ceaca044b79d546723ea90dec9",
+    "recorder_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/research/multi_3x_high_chop_risk_control_v1/qlib_recorder",
+    "local_dir": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/research/multi_3x_high_chop_risk_control_v1/qlib_recorder/598612766348301076/4e4506ceaca044b79d546723ea90dec9"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "predictions.csv",
+      "positions.csv",
+      "portfolio_report.csv",
+      "all_model_selection.csv",
+      "annual_metrics.csv",
+      "cost_stress.csv"
+    ]
+  },
+  "compact_sidecars": [
+    "selected_model.json",
+    "model_selection.csv",
+    "backtest_benchmark_comparison.csv",
+    "risk_analysis.csv",
+    "regime_metrics.csv",
+    "window_metrics.csv",
+    "calibration_metrics.csv",
+    "failure_modes.md"
+  ]
+}

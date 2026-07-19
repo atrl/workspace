@@ -1,0 +1,42 @@
+{
+  "selection_uses_outer_test": false,
+  "selection_metric": "validation_utility_desc_then_log_loss_asc",
+  "outer_models": [
+    {
+      "candidate": "lightgbm_multiclass",
+      "validation_utility": -1.3607154183395864,
+      "validation_log_loss": 1.1882497257800197,
+      "validation_fold_count": 14,
+      "selection_metric": "validation_utility_desc_then_log_loss_asc",
+      "selection_uses_outer_test": false,
+      "outer_year": 2023
+    },
+    {
+      "candidate": "lightgbm_multiclass",
+      "validation_utility": -1.4062502363338207,
+      "validation_log_loss": 1.1955420279645923,
+      "validation_fold_count": 9,
+      "selection_metric": "validation_utility_desc_then_log_loss_asc",
+      "selection_uses_outer_test": false,
+      "outer_year": 2024
+    },
+    {
+      "candidate": "lightgbm_multiclass",
+      "validation_utility": -1.3569483070935062,
+      "validation_log_loss": 1.1816156642634952,
+      "validation_fold_count": 10,
+      "selection_metric": "validation_utility_desc_then_log_loss_asc",
+      "selection_uses_outer_test": false,
+      "outer_year": 2025
+    },
+    {
+      "candidate": "lightgbm_multiclass",
+      "validation_utility": -1.291256686664613,
+      "validation_log_loss": 1.1353185744995622,
+      "validation_fold_count": 11,
+      "selection_metric": "validation_utility_desc_then_log_loss_asc",
+      "selection_uses_outer_test": false,
+      "outer_year": 2026
+    }
+  ]
+}
