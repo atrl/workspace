@@ -5015,3 +5015,30 @@ def test_soxl_exhaustion_structure_fragility_card_is_factor_only_and_fail_closed
     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
     assert "不用预测模型" in conclusion
     assert "固定五龙头" in conclusion
+
+
+def test_soxl_path_state_risk_card_is_factor_only_purged_and_recorder_first():
+    card = ROOT / "research" / "soxl_path_state_risk_v2"
+    summary = _summary(card)
+    notebook = card / "soxl_path_state_risk_v2.ipynb"
+    notebook_text = notebook.read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "soxl_path_state_risk_v2"
+    assert summary["status"] == "completed"
+    assert summary["method"] == "transparent_factor_only_no_predictive_model"
+    assert summary["promotion_decision"] == "not_promoted_factor_diagnostic_only"
+    assert summary["factor_contract"]["timing"] == "close_t_features_predict_strictly_after_close_t"
+    assert summary["factor_contract"]["segment_purge_rows"] == {"fast": 6, "structural": 21}
+    assert summary["qlib_contract"]["dataset_api"] == ["DatasetH", "DataHandlerLP", "QlibDataLoader"]
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert "scored_rows.csv" in summary["artifact_policy"]["recorder_only_artifacts"]
+    for name in summary["compact_sidecars"]:
+        assert (card / name).exists(), name
+    for forbidden in RECORDER_ONLY_ROOT_FILES | {"scored_rows.csv", "episode_rows.csv"}:
+        assert not (card / forbidden).exists(), forbidden
+    assert "run_soxl_path_state_risk_card" in notebook_text
+    assert "qlib.data.D.features" in notebook_text
+    assert "DatasetH" in notebook_text or "DatasetH" in (card / "workflow.yaml").read_text(encoding="utf-8")
+    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    assert "不用预测模型" in conclusion
+    assert "episode" in conclusion

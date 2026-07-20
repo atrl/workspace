@@ -1,0 +1,15 @@
+experiment: soxl_path_state_risk_v2
+provider_uri: /Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/soxl_path_state_risk_v2
+method: transparent_factor_only_path_state
+feature_timing: close_t
+label_timing: strictly_after_close_t
+segments:
+  development: [2011-01-03, 2022-12-30]
+  validation: [2023-01-03, 2024-12-31]
+  test: [2025-01-02, 2026-07-02]
+qlib_api:
+  - qlib.data.D.features
+  - DatasetH
+  - qlib.workflow.R
+  - Recorder
+artifact_policy: slim_card_recorder_first

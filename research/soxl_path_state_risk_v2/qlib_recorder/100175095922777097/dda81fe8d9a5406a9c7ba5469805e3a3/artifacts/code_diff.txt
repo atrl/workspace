@@ -1,0 +1,474 @@
+diff --git a/docs/superpowers/specs/2026-07-20-soxl-path-state-risk-v2-design.md b/docs/superpowers/specs/2026-07-20-soxl-path-state-risk-v2-design.md
+deleted file mode 100644
+index 3867b897..00000000
+--- a/docs/superpowers/specs/2026-07-20-soxl-path-state-risk-v2-design.md
++++ /dev/null
+@@ -1,338 +0,0 @@
+-# SOXL Path-State Risk V2 Design
+-
+-## Decision
+-
+-Build a qlib-native, factor-only research card that represents SOXL risk as
+-state interactions with separate forecast horizons. Do not train a predictive
+-model and do not average the new features into one generic pressure score.
+-
+-The card tests whether two transparent states add stable future-risk evidence
+-beyond the existing price-only baseline:
+-
+-1. a five-session `fast_turbulence_risk` state while the trend is still up;
+-2. a twenty-session `structural_chop_risk` state after high-level, high-volatility
+-   chop persists.
+-
+-The first state is a short-horizon volatility-control input, not a directional
+-sell signal. The second state remains diagnostic unless its rare-event and
+-episode gates pass independently.
+-
+-## Evidence behind the design
+-
+-The qlib SOXL/SOXX daily provider contains 3,897 aligned sessions from
+-2011-01-03 through 2026-07-02 with no required-field nulls or duplicate dates.
+-
+-A descriptive-only 20% reversal segmentation found 65 upswings and 64
+-downswings. Median upswings lasted 21 sessions, returned 54.8%, and had 74.3%
+-annualized realized volatility. Median downswings lasted 12 sessions, returned
+--31.3%, and had 102.0% annualized realized volatility. This segmentation uses
+-future pivots and therefore must never become a feature or label input.
+-
+-The causal state analysis showed the useful asymmetry:
+-
+-- stable uptrends had a 12.7% development and 19.3% outer five-session
+-  10%-drawdown rate;
+-- turbulent uptrends had a 32.8% development and 33.3% outer five-session
+-  10%-drawdown rate;
+-- turbulent uptrends also retained substantial upside, including a 69.4%
+-  outer probability of gaining at least 10% within five sessions;
+-- persistent high-level chop had a 24.0% development and 87.5% outer
+-  twenty-session 20%-drawdown rate, but the outer sample contained only 16
+-  daily observations and must remain rare-event evidence.
+-
+-Single continuous candidates were unstable. Leverage-residual pressure was
+-stronger in development than outer data, while intraday selling pressure had
+-the opposite pattern. The existing price-only composite remained the more
+-stable outer baseline. V2 therefore tests logical state interactions and state
+-duration rather than adding another equal-weight continuous family.
+-
+-## Fixed scope
+-
+-- Card: `research/soxl_path_state_risk_v2/`.
+-- Instruments: SOXL and SOXX for aligned source evidence; SOXL is the evaluated
+-  security.
+-- Primary frequency: daily.
+-- Signal time: after close `t`; any later portfolio experiment must first apply
+-  the target at open `t+1`.
+-- Method: transparent factor-only diagnostics, no fitted model and no fitted
+-  factor weights.
+-- Data cutoff: 2026-07-02. The card must not describe this as a live
+-  2026-07-20 state.
+-- Phase 2 only: use the complete SOXL/SOXX 15-minute provider to refine timing
+-  after the daily state passes. It is excluded from V2 selection.
+-
+-## Non-goals
+-
+-- Do not tune another LGBM, XGBoost, logistic, or neural model.
+-- Do not use future-aware swing pivots as inputs.
+-- Do not use `turnover / volume` or turnover-derived VWAP until the adjusted
+-  price and turnover basis is repaired and audited.
+-- Do not use short external bellwether intraday history, current-holdings-
+-  backfilled constituents, options, order book, or trade-direction proxies.
+-- Do not map a negative trend directly to maximum risk. Completed downside
+-  states have high rebound probability and require a separate recovery study.
+-- Do not create a production position rule in this card.
+-
+-## Qlib-native contract
+-
+-The notebook must initialize the daily provider with `qlib.init`, read calendar,
+-instrument, and feature evidence through `qlib.data.D`, construct the analysis
+-dataset through `DatasetH` and `DataHandlerLP` or the repository's thin qlib
+-wrapper, and log final scores, labels, parameters, metrics, and analyzer outputs
+-through `qlib.workflow.R` and its recorder.
+-
+-The implementation follows the official qlib authorities:
+-
+-- Data: https://qlib.readthedocs.io/en/latest/component/data.html
+-- Workflow: https://qlib.readthedocs.io/en/latest/component/workflow.html
+-- Recorder: https://qlib.readthedocs.io/en/latest/component/recorder.html
+-
+-Missing provider files, failed qlib initialization, failed recorder writes, or
+-failed qlib readback must fail closed. A pandas-only research fallback is not
+-allowed.
+-
+-## Base state variables
+-
+-All state variables use observations available at close `t`. Rolling
+-normalization includes the current completed session but never a future row.
+-
+-### Signed path efficiency
+-
+-```text
+-signed_efficiency_20(t)
+-  = log(close_t / close_t-20)
+-    / sum(abs(log_return_i), i=t-19..t)
+-```
+-
+-It lies approximately in `[-1, 1]`. Positive values identify efficient upward
+-paths, negative values identify efficient downward paths, and values near zero
+-identify directionless movement. Unlike the previous absolute efficiency
+-pressure, it preserves direction.
+-
+-### Volatility rank
+-
+-```text
+-rv_20(t) = std(log_return, 20) * sqrt(252)
+-rv_rank_20_252(t) = historical percentile of rv_20(t)
+-```
+-
+-The percentile uses at most the trailing 252 completed observations and needs
+-at least 60 observations.
+-
+-### High-level position
+-
+-```text
+-range_position_252(t)
+-  = (close_t - rolling_min_252)
+-    / (rolling_max_252 - rolling_min_252)
+-```
+-
+-The implementation must handle a zero denominator as missing rather than
+-silently filling a value.
+-
+-## Feature design
+-
+-### Trend permission
+-
+-`trend_permission` is positive evidence for maintaining ordinary trend
+-participation. It is not inverted and presented as generic risk.
+-
+-```text
+-trend_up_strength
+-  = clip((signed_efficiency_20 - 0.15) / 0.20, 0, 1)
+-
+-ordinary_vol_permission
+-  = clip((0.75 - rv_rank_20_252) / 0.20, 0, 1)
+-
+-trend_permission
+-  = trend_up_strength * ordinary_vol_permission
+-```
+-
+-### Fast turbulence risk
+-
+-```text
+-fast_vol_stress
+-  = clip((rv_rank_20_252 - 0.67) / 0.13, 0, 1)
+-
+-fast_turbulence_risk
+-  = trend_up_strength * fast_vol_stress
+-```
+-
+-The product is intentional. A high volatility rank without an uptrend, or an
+-uptrend without elevated volatility, cannot produce maximum fast turbulence
+-risk. The interpretable event audit uses
+-`signed_efficiency_20 >= 0.25 and rv_rank_20_252 >= 0.75`; the continuous score
+-is the factor used for diagnostics.
+-
+-### Structural chop risk
+-
+-Define the causal state flag:
+-
+-```text
+-structural_chop_state
+-  = range_position_252 >= 0.70
+-    and abs(signed_efficiency_20) <= 0.20
+-    and rv_rank_20_252 >= 0.67
+-```
+-
+-`state_age` is the number of consecutive completed sessions for which this
+-exact flag remains true. It resets to zero immediately after any condition
+-fails.
+-
+-```text
+-high_level_gate
+-  = clip((range_position_252 - 0.60) / 0.10, 0, 1)
+-
+-chop_gate
+-  = clip((0.25 - abs(signed_efficiency_20)) / 0.10, 0, 1)
+-
+-structural_vol_stress
+-  = clip((rv_rank_20_252 - 0.60) / 0.15, 0, 1)
+-
+-persistence_score
+-  = clip(state_age / 4, 0, 1)
+-
+-structural_chop_risk
+-  = high_level_gate
+-    * chop_gate
+-    * structural_vol_stress
+-    * persistence_score
+-```
+-
+-This differs from generic high-level duration: duration contributes only after
+-level, directionlessness, and volatility conditions are simultaneously true.
+-
+-## Horizon-specific labels
+-
+-Both labels start strictly after close `t`.
+-
+-### Five-session fast-tail label
+-
+-```text
+-fast_tail_5d = 1 when:
+-  minimum(close_t+1..close_t+5) / close_t - 1 <= -10%
+-  and close_t+5 / close_t - 1 <= -5%
+-```
+-
+-Also retain five-session maximum favorable excursion and a `>= +10%` upside
+-indicator. Fast turbulence cannot pass if it reduces downside evidence only by
+-selecting states that eliminate the observed right tail.
+-
+-### Twenty-session structural-break label
+-
+-```text
+-structural_break_20d = 1 when:
+-  minimum(close_t+1..close_t+20) / close_t - 1 <= -20%
+-  and close_t+20 / close_t - 1 <= -10%
+-```
+-
+-Also retain twenty-session maximum favorable excursion and a `>= +20%` upside
+-indicator.
+-
+-The final 21 observations of every segment must be purged so neither label nor
+-path statistic crosses a segment boundary.
+-
+-## Segments and selection discipline
+-
+-- Development: 2011-01-03 through 2022-12-31.
+-- Validation: 2023-01-01 through 2024-12-31.
+-- Frozen test: 2025-01-01 through 2026-07-02.
+-- Annual and fixed stress-window reports are required.
+-- No threshold, direction, horizon, or feature formula may be changed after
+-  reading validation or test results.
+-- Consecutive flagged days are grouped into episodes for support and stability
+-  gates; daily observations and episode counts are both reported.
+-
+-## Diagnostics and incremental evidence
+-
+-Evaluate `fast_turbulence_risk` only against `fast_tail_5d` and evaluate
+-`structural_chop_risk` only against `structural_break_20d`.
+-
+-For each feature and segment report:
+-
+-- daily observations, positive labels, episodes, and positive episodes;
+-- AUC, average-precision lift, Q5-Q1 event-rate lift, and quintile
+-  monotonicity;
+-- conditional event-rate lift inside fixed price-only quintiles;
+-- mean terminal return, maximum adverse excursion, maximum favorable
+-  excursion, and downside/upside hit rates;
+-- yearly direction and threshold-neighborhood stability.
+-
+-The benchmark is the existing equal-weight `price_only` score built from range
+-position, low absolute trend efficiency, sign-change density, and realized
+-volatility rank. New features must show positive conditional lift after fixing
+-the benchmark quintile; a favorable standalone AUC is insufficient.
+-
+-## Evidence gates
+-
+-`fast_turbulence_risk` is retained only when:
+-
+-- development has at least 50 daily observations and 20 episodes;
+-- validation and test each have at least 10 daily observations and three
+-  episodes;
+-- event-rate lift, AUC direction, and Q5-Q1 direction are positive in
+-  development, validation, and test;
+-- conditional event-rate lift inside price-only quintiles is positive in
+-  validation and test;
+-- the five-session upside diagnostics remain explicit so a later controller
+-  cannot interpret the feature as an automatic cash signal.
+-
+-`structural_chop_risk` is retained as validated evidence only when:
+-
+-- development has at least 50 daily observations and 15 episodes;
+-- validation and test each have at least 10 daily observations and three
+-  episodes;
+-- all directional and conditional gates above pass for the twenty-session
+-  label.
+-
+-If the structural test sample stays below 10 rows or three episodes, its status
+-is `diagnostic_rare_event_support`; it cannot be promoted or used to relax any
+-other gate.
+-
+-## Failure handling
+-
+-- If a feature changes direction across validation and test, record
+-  `not_retained_direction_instability`.
+-- If a label or feature uses a future row, record `blocked_temporal_leakage`.
+-- If state-age episodes cross a segment boundary, split their evaluation
+-  episode identifiers at the boundary. Preserve the causal state age computed
+-  from earlier completed sessions because that history was observable at the
+-  later segment's first date.
+-- If data ends before the stated as-of date, record `needs_data`; do not call
+-  the latest row current.
+-- If the baseline cannot be reproduced within numerical tolerance, stop before
+-  evaluating the new features.
+-
+-## Card and recorder contract
+-
+-The slim card root contains:
+-
+-- `soxl_path_state_risk_v2.ipynb`;
+-- `workflow.yaml`;
+-- `summary.json`;
+-- `conclusion.md`;
+-- `factor_summary.csv`;
+-- `segment_metrics.csv`;
+-- `annual_metrics.csv`;
+-- `episode_metrics.csv`;
+-- `threshold_stability.csv`;
+-- `conditional_increment.csv`;
+-- `failure_modes.md`.
+-
+-Row-level factor scores, labels, event rows, and all prediction-like matrices
+-are recorder-only. `summary.json` must use
+-`artifact_policy.policy = slim_card_recorder_first` and enumerate every
+-recorder-only artifact.
+-
+-The notebook ends with a Chinese conclusion covering the data cutoff, what ran,
+-five- and twenty-session evidence separately, benchmark increment, event
+-support, retention decision, risks, and the next action.
+-
+-## Follow-on boundary
+-
+-Passing this card authorizes only a later daily position-controller design.
+-`fast_turbulence_risk` may support partial volatility reduction but not an
+-automatic exit. `structural_chop_risk` may support a stronger cap only after its
+-rare-event gate passes. Minute-event timing, execution replay, transaction
+-costs, and recovery rules belong to later cards and are not implied by a factor
+-passing this diagnostic.
+diff --git a/src/factor/__init__.py b/src/factor/__init__.py
+index 300a243b..4ef79037 100644
+--- a/src/factor/__init__.py
++++ b/src/factor/__init__.py
+@@ -102,6 +102,15 @@ from .session_effect import (
+     evaluate_signed_session_effect_candidates,
+     summarize_session_effect_branch,
+ )
++from .soxl_path_state_risk import (
++    PATH_STATE_BASELINE_FEATURES,
++    PATH_STATE_FEATURES,
++    PATH_STATE_FORWARD_METRICS,
++    PATH_STATE_LABELS,
++    build_soxl_path_state_frame,
++    forward_path_metrics,
++    structural_state_age,
++)
+ from .soxx_constituent_factors import (
+     SOXX_CONSTITUENT_FACTOR_SOURCE,
+     SOXX_CONSTITUENT_LIMITATIONS,
+@@ -131,6 +140,10 @@ __all__ = [
+     "INTRADAY_15M_FIELDS",
+     "INTRADAY_15M_LIMITATIONS",
+     "PATH_LABELS",
++    "PATH_STATE_BASELINE_FEATURES",
++    "PATH_STATE_FEATURES",
++    "PATH_STATE_FORWARD_METRICS",
++    "PATH_STATE_LABELS",
+     "ALL_FACTOR_FEATURES",
+     "QlibScoredDataset",
+     "PRICE_ONLY_BASELINE_FEATURES",
+@@ -157,6 +170,7 @@ __all__ = [
+     "build_multi_3x_high_chop_frame",
+     "build_multi_3x_price_volume_frame",
+     "build_signed_overnight_component",
++    "build_soxl_path_state_frame",
+     "build_session_effect_frame",
+     "build_tail_risk_external_frame",
+     "build_tsmom_stop_component",
+@@ -182,6 +196,7 @@ __all__ = [
+     "evaluate_session_effect_candidates",
+     "evaluate_signed_session_effect_candidates",
+     "evaluate_tail_risk_candidate",
++    "forward_path_metrics",
+     "materialize_cognitive_alpha_features",
+     "qlib_factor_diagnostics",
+     "purge_segment_tail",
+@@ -195,5 +210,6 @@ __all__ = [
+     "summarize_meta_label_probability_branch",
+     "summarize_session_effect_branch",
+     "summarize_tail_risk_branch",
++    "structural_state_age",
+     "validate_agentic_alpha_factors",
+ ]
+diff --git a/src/workflow/__init__.py b/src/workflow/__init__.py
+index 970eeb16..d044f844 100644
+--- a/src/workflow/__init__.py
++++ b/src/workflow/__init__.py
+@@ -51,6 +51,7 @@ __all__ = [
+     "QlibNativeExperimentSpec",
+     "RiskHardenedOpen2OpenCardSpec",
+     "SoxxConstituentAlphaAttributionSpec",
++    "SoxlPathStateRiskSpec",
+     "TrainableRegimePolicyNestedWfSpec",
+     "build_agentic_alpha_hypotheses",
+     "build_agentic_alpha_workflow_manifest",
+@@ -86,6 +87,7 @@ __all__ = [
+     "run_qlib_native_experiment",
+     "run_risk_hardened_open2open_card",
+     "run_soxx_constituent_alpha_attribution_card",
++    "run_soxl_path_state_risk_card",
+     "run_trainable_regime_policy_nested_wf_card",
+ ]
+
+@@ -214,6 +216,11 @@ _SOXX_CONSTITUENT_ATTRIBUTION_EXPORTS = {
+     "run_soxx_constituent_alpha_attribution_card",
+ }
+
++_SOXL_PATH_STATE_RISK_EXPORTS = {
++    "SoxlPathStateRiskSpec",
++    "run_soxl_path_state_risk_card",
++}
++
+
+ def __getattr__(name: str):
+     if name in _COGNITIVE_ALPHA_EXPORTS:
+@@ -304,4 +311,8 @@ def __getattr__(name: str):
+         from . import soxx_constituent_alpha_attribution
+
+         return getattr(soxx_constituent_alpha_attribution, name)
++    if name in _SOXL_PATH_STATE_RISK_EXPORTS:
++        from . import soxl_path_state_risk
++
++        return getattr(soxl_path_state_risk, name)
+     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+diff --git a/tests/test_qlib_native_notebook_cards.py b/tests/test_qlib_native_notebook_cards.py
+index 91cc14bb..efa4545b 100644
+--- a/tests/test_qlib_native_notebook_cards.py
++++ b/tests/test_qlib_native_notebook_cards.py
+@@ -5015,3 +5015,30 @@ def test_soxl_exhaustion_structure_fragility_card_is_factor_only_and_fail_closed
+     conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+     assert "不用预测模型" in conclusion
+     assert "固定五龙头" in conclusion
++
++
++def test_soxl_path_state_risk_card_is_factor_only_purged_and_recorder_first():
++    card = ROOT / "research" / "soxl_path_state_risk_v2"
++    summary = _summary(card)
++    notebook = card / "soxl_path_state_risk_v2.ipynb"
++    notebook_text = notebook.read_text(encoding="utf-8")
++
++    assert summary["experiment"] == "soxl_path_state_risk_v2"
++    assert summary["status"] == "completed"
++    assert summary["method"] == "transparent_factor_only_no_predictive_model"
++    assert summary["promotion_decision"] == "not_promoted_factor_diagnostic_only"
++    assert summary["factor_contract"]["timing"] == "close_t_features_predict_strictly_after_close_t"
++    assert summary["factor_contract"]["segment_purge_rows"] == {"fast": 6, "structural": 21}
++    assert summary["qlib_contract"]["dataset_api"] == ["DatasetH", "DataHandlerLP", "QlibDataLoader"]
++    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
++    assert "scored_rows.csv" in summary["artifact_policy"]["recorder_only_artifacts"]
++    for name in summary["compact_sidecars"]:
++        assert (card / name).exists(), name
++    for forbidden in RECORDER_ONLY_ROOT_FILES | {"scored_rows.csv", "episode_rows.csv"}:
++        assert not (card / forbidden).exists(), forbidden
++    assert "run_soxl_path_state_risk_card" in notebook_text
++    assert "qlib.data.D.features" in notebook_text
++    assert "DatasetH" in notebook_text or "DatasetH" in (card / "workflow.yaml").read_text(encoding="utf-8")
++    conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
++    assert "不用预测模型" in conclusion
++    assert "episode" in conclusion

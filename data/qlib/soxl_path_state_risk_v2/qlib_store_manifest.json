@@ -1,0 +1,51 @@
+{
+  "as_of": "2026-07-02",
+  "audit_snapshot_hash": "13df96ec6f5d612b",
+  "calendar_end": "2026-07-02",
+  "calendar_start": "2011-01-03",
+  "feature_file_count": 22,
+  "fields": [
+    "$signed_efficiency_20",
+    "$rv_20",
+    "$rv_rank_20_252",
+    "$structural_chop_age",
+    "$fast_turbulence_event",
+    "$structural_chop_event",
+    "$range_pos_252",
+    "$low_trend_efficiency_pressure_20",
+    "$sign_change_density_pressure_20",
+    "$realized_volatility_rank_20",
+    "$price_only_score",
+    "$trend_permission",
+    "$fast_turbulence_risk",
+    "$structural_chop_risk",
+    "$fast_tail_5d",
+    "$structural_break_20d",
+    "$forward_terminal_5",
+    "$forward_mae_5",
+    "$forward_mfe_5",
+    "$forward_terminal_20",
+    "$forward_mae_20",
+    "$forward_mfe_20"
+  ],
+  "freq": "day",
+  "hash": "2af87d408f0bc480",
+  "instruments": [
+    "SOXL"
+  ],
+  "market": "all",
+  "max_datetime": "2026-07-02",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/.worktrees/multi-3x-high-chop-risk-control-v1/data/qlib/soxl_path_state_risk_v2",
+  "region": "us",
+  "row_count": 3897,
+  "source": "qlib D.features SOXL daily close with segment-purged forward paths",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

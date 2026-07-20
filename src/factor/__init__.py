@@ -102,6 +102,15 @@ from .session_effect import (
     evaluate_signed_session_effect_candidates,
     summarize_session_effect_branch,
 )
+from .soxl_path_state_risk import (
+    PATH_STATE_BASELINE_FEATURES,
+    PATH_STATE_FEATURES,
+    PATH_STATE_FORWARD_METRICS,
+    PATH_STATE_LABELS,
+    build_soxl_path_state_frame,
+    forward_path_metrics,
+    structural_state_age,
+)
 from .soxx_constituent_factors import (
     SOXX_CONSTITUENT_FACTOR_SOURCE,
     SOXX_CONSTITUENT_LIMITATIONS,
@@ -131,6 +140,10 @@ __all__ = [
     "INTRADAY_15M_FIELDS",
     "INTRADAY_15M_LIMITATIONS",
     "PATH_LABELS",
+    "PATH_STATE_BASELINE_FEATURES",
+    "PATH_STATE_FEATURES",
+    "PATH_STATE_FORWARD_METRICS",
+    "PATH_STATE_LABELS",
     "ALL_FACTOR_FEATURES",
     "QlibScoredDataset",
     "PRICE_ONLY_BASELINE_FEATURES",
@@ -157,6 +170,7 @@ __all__ = [
     "build_multi_3x_high_chop_frame",
     "build_multi_3x_price_volume_frame",
     "build_signed_overnight_component",
+    "build_soxl_path_state_frame",
     "build_session_effect_frame",
     "build_tail_risk_external_frame",
     "build_tsmom_stop_component",
@@ -182,6 +196,7 @@ __all__ = [
     "evaluate_session_effect_candidates",
     "evaluate_signed_session_effect_candidates",
     "evaluate_tail_risk_candidate",
+    "forward_path_metrics",
     "materialize_cognitive_alpha_features",
     "qlib_factor_diagnostics",
     "purge_segment_tail",
@@ -195,5 +210,6 @@ __all__ = [
     "summarize_meta_label_probability_branch",
     "summarize_session_effect_branch",
     "summarize_tail_risk_branch",
+    "structural_state_age",
     "validate_agentic_alpha_factors",
 ]
