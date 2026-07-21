@@ -42,6 +42,7 @@ __all__ = [
     "HardwareCycleProbabilityBudgetOpen2OpenCardSpec",
     "HardwareCycleCogAlphaMiningCardSpec",
     "MetaLabelRiskBudgetOpen2OpenSpec",
+    "LeveragedEtfPaperReplaySpec",
     "Multi3xEtfNormalizedNestedWfSpec",
     "DynamicSoxxSoxlCashAllocationWfSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
@@ -74,6 +75,7 @@ __all__ = [
     "run_hardware_cycle_cogalpha_mining_card",
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
     "run_meta_label_risk_budget_open2open_card",
+    "run_leveraged_etf_paper_replay_card",
     "run_multi_3x_etf_normalized_nested_wf_card",
     "run_probability_budget_open2open_card",
     "run_cognitive_alpha_position_model",
@@ -180,6 +182,11 @@ _DYNAMIC_SOXX_SOXL_CASH_ALLOCATION_WF_EXPORTS = {
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
 }
 
+_LEVERAGED_ETF_PAPER_REPLAY_EXPORTS = {
+    "LeveragedEtfPaperReplaySpec",
+    "run_leveraged_etf_paper_replay_card",
+}
+
 _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS = {
     "ProbabilityBudgetOpen2OpenCardSpec",
     "run_probability_budget_open2open_card",
@@ -266,6 +273,10 @@ def __getattr__(name: str):
         from . import dynamic_soxx_soxl_cash_allocation_wf
 
         return getattr(dynamic_soxx_soxl_cash_allocation_wf, name)
+    if name in _LEVERAGED_ETF_PAPER_REPLAY_EXPORTS:
+        from . import leveraged_etf_paper_replay
+
+        return getattr(leveraged_etf_paper_replay, name)
     if name in _PROBABILITY_BUDGET_OPEN2OPEN_EXPORTS:
         from . import probability_budget_open2open
 

@@ -1,0 +1,37 @@
+[
+  {
+    "strategy": "avellaneda_daily_or_weekly_1x_replication",
+    "paper": "Avellaneda and Zhang (2010), Path-Dependence of Leveraged ETF Returns",
+    "status": "mechanism_replay",
+    "implementation": "one-third SOXL plus cash, daily or weekly rebalance",
+    "difference": "SOXX is an ETF proxy for the semiconductor index and cash return is zero"
+  },
+  {
+    "strategy": "gayed_ma200_2x_equivalent",
+    "paper": "Gayed (2016/2020), Leverage for the Long Run",
+    "status": "mechanism_replay",
+    "implementation": "SOXX close above 200-day moving average selects two-thirds SOXL; otherwise cash",
+    "difference": "uses SOXX/SOXL instead of a broad-market 2x fund and Treasury bills"
+  },
+  {
+    "strategy": "moreira_muir_lagged_inverse_variance",
+    "paper": "Moreira and Muir (2017), Volatility-Managed Portfolios",
+    "status": "paper_adapted",
+    "implementation": "monthly SOXL weight scales with inverse previous-month SOXX variance",
+    "difference": "long-only weight clipped at one; normalizer fixed from 2011-2018 and mapped to SOXL"
+  },
+  {
+    "strategy": "george_trainor_cppi_3x_2p5pct",
+    "paper": "George and Trainor (2017), Portfolio Insurance Using Leveraged ETFs",
+    "status": "near_exact_mechanism_replay",
+    "implementation": "90% annual floor, multiplier 5/3, one-third cap, 2.5% SOXX rebalance barrier",
+    "difference": "uses observed SOXL returns, SOXX trigger, zero cash return, and explicit turnover costs"
+  },
+  {
+    "strategy": "smart_leverage_neural_control",
+    "paper": "van Staden, Forsyth and Li (2026), Smart leverage?",
+    "status": "not_replicated_needs_data_and_scope",
+    "implementation": "excluded from result ranking",
+    "difference": "paper requires broad-market LETF plus PIT T-bills/T-bonds and bootstrap-trained neural control"
+  }
+]

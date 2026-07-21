@@ -1,0 +1,25 @@
+experiment: leveraged_etf_paper_replay_v1
+card_type: leveraged_etf_paper_strategy_replay_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/leveraged_etf_paper_replay_v1/qlib_recorder
+recorder_id: 68a5e9251dc64df3b4674aa669e32874
+as_of: 2026-07-20
+qlib:
+  market: all
+  region: us
+  data_api: [qlib.init, qlib.data.D.calendar, qlib.data.D.features]
+execution:
+  timing: close_t_signal_then_open_t_plus_1_to_open_t_plus_2_return
+  costs_bps: [0, 10, 25]
+selection:
+  outer_years: [2023, 2024, 2025, 2026]
+  selection_uses_outer_test: false
+promotion:
+  decision: research_reject_no_paper_strategy_passed_all_gates
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    - artifacts/leveraged_etf_paper_replay_v1/positions.csv
+    - artifacts/leveraged_etf_paper_replay_v1/strategy_returns.csv

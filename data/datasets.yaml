@@ -6,10 +6,10 @@ external:
     rows: 9124
     start: null
   VIX:
-    end: '2026-07-02'
+    end: '2026-07-20'
     exists: true
     path: data/raw/external/VIX.csv
-    rows: 4103
+    rows: 4114
     start: '2010-03-11'
   VIX3M:
     end: null
@@ -161,7 +161,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-07-06T12:33:53.184502+00:00'
+generated_at: '2026-07-21T02:46:41.985857+00:00'
 intraday:
   soxl_soxx_1m:
     end: '2026-07-02T16:00:00-04:00'
@@ -187,10 +187,10 @@ layout:
   training_cache: data/cache/training/<profile>.pkl
 processed_panels:
   soxl_soxx_vix_full:
-    end: '2026-07-02'
+    end: '2026-07-20'
     exists: true
     path: data/processed/panels/soxl_soxx_vix_full.csv
-    rows: 4103
+    rows: 4114
     start: '2010-03-11'
   soxl_with_underlying_vix:
     end: '2026-04-13'
@@ -295,16 +295,16 @@ raw_constituents:
     survivorship_biased_current_constituents: true
 symbols:
   SOXL:
-    end: '2026-07-02'
+    end: '2026-07-20'
     exists: true
     path: data/raw/symbols/SOXL.csv
-    rows: 4103
+    rows: 4114
     start: '2010-03-11'
   SOXX:
-    end: '2026-07-02'
+    end: '2026-07-20'
     exists: true
     path: data/raw/symbols/SOXX.csv
-    rows: 4103
+    rows: 4114
     start: '2010-03-11'
   SPXL:
     end: '2026-07-02'
