@@ -1,0 +1,22 @@
+{
+  "status": "diagnostic_fixed_primary_not_outer_selected",
+  "candidate": "smart_leverage_asymmetric_lock_beta_ladder",
+  "source_recorder_id": "48dcb259f9aa4a7cb1bfd1da8b067ebb",
+  "controller": {
+    "policy": "asymmetric_de_risk_only_no_loss_chasing",
+    "inputs": [
+      "strategy_wealth",
+      "benchmark_wealth",
+      "time_order"
+    ],
+    "benchmark": "70% SOXX plus zero-return cash",
+    "target_surplus": 0.0,
+    "strength": 1.0,
+    "multiplier_floor": 0.5,
+    "allocation_modes": [
+      "soxl_only",
+      "beta_preserving_soxl_soxx_ladder"
+    ]
+  },
+  "selection_uses_outer_test": false
+}

@@ -50,6 +50,7 @@ __all__ = [
     "QlibNativeExperimentSpec",
     "RiskHardenedOpen2OpenCardSpec",
     "SoxxConstituentAlphaAttributionSpec",
+    "SmartLeverageSoxlWealthControlSpec",
     "TrainableRegimePolicyNestedWfSpec",
     "build_agentic_alpha_hypotheses",
     "build_agentic_alpha_workflow_manifest",
@@ -84,6 +85,7 @@ __all__ = [
     "run_qlib_native_experiment",
     "run_risk_hardened_open2open_card",
     "run_soxx_constituent_alpha_attribution_card",
+    "run_smart_leverage_soxl_wealth_control_card",
     "run_trainable_regime_policy_nested_wf_card",
 ]
 
@@ -207,6 +209,11 @@ _SOXX_CONSTITUENT_ATTRIBUTION_EXPORTS = {
     "run_soxx_constituent_alpha_attribution_card",
 }
 
+_SMART_LEVERAGE_SOXL_WEALTH_CONTROL_EXPORTS = {
+    "SmartLeverageSoxlWealthControlSpec",
+    "run_smart_leverage_soxl_wealth_control_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -293,4 +300,8 @@ def __getattr__(name: str):
         from . import soxx_constituent_alpha_attribution
 
         return getattr(soxx_constituent_alpha_attribution, name)
+    if name in _SMART_LEVERAGE_SOXL_WEALTH_CONTROL_EXPORTS:
+        from . import smart_leverage_soxl_wealth_control
+
+        return getattr(smart_leverage_soxl_wealth_control, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -1,0 +1,33 @@
+experiment: smart_leverage_soxl_wealth_control_v1
+card_type: smart_leverage_soxl_wealth_control_research_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/smart_leverage_soxl_wealth_control_v1/qlib_recorder
+recorder_id: 9b3a66708a464e629ee6b066385ab22e
+as_of: 2026-07-20
+qlib:
+  market: all
+  region: us
+  data_api: [qlib.init, qlib.data.D.calendar, qlib.data.D.features]
+  analysis_api: [qlib.contrib.evaluate.risk_analysis]
+execution:
+  timing: close_t_signal_then_open_t_plus_1_to_open_t_plus_2_return
+  costs_bps: [0, 10, 25]
+source_opportunity:
+  experiment: trainable_regime_policy_nested_wf_v1
+  recorder_id: 48dcb259f9aa4a7cb1bfd1da8b067ebb
+selection:
+  outer_years: [2023, 2024, 2025, 2026]
+  selection_uses_outer_test: false
+controller:
+  policy: asymmetric_de_risk_only_no_loss_chasing
+  wealth_lock_strength: 1.0
+  wealth_lock_floor: 0.5
+promotion:
+  decision: research_reject_smart_leverage_controller_failed_required_gates
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    - artifacts/smart_leverage_soxl_wealth_control_v1/positions.csv
+    - artifacts/smart_leverage_soxl_wealth_control_v1/strategy_returns.csv
