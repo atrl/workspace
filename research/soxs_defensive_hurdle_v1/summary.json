@@ -1,0 +1,338 @@
+{
+  "experiment": "soxs_defensive_hurdle_v1",
+  "card_type": "soxs_feature_and_constrained_defense_ablation",
+  "primary_notebook": "soxs_defensive_hurdle_v1.ipynb",
+  "promotion_decision": "research_reject_soxs_ablation_failed_validation_gates",
+  "selection_uses_outer_test": false,
+  "outer_test_use": "diagnostic_only_previously_observed_requires_new_sealed_forward",
+  "data_audit": {
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+    "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+    "as_of": "2026-07-21",
+    "instruments": [
+      "SOXL",
+      "SOXS",
+      "SOXX"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close"
+    ],
+    "calendar_rows": 4115,
+    "usable_rows": 4054,
+    "usable_start": "2010-06-04",
+    "usable_end": "2026-07-17",
+    "relationship_audit": {
+      "common_end": "2026-07-21",
+      "common_rows_per_instrument": 4115,
+      "common_start": "2010-03-11",
+      "soxs_soxl_close_return_correlation": -0.9971576228487848,
+      "soxs_soxx_close_return_correlation": -0.9979840555866599
+    },
+    "source_api": [
+      "qlib.init",
+      "qlib.data.D.calendar",
+      "qlib.data.D.features"
+    ]
+  },
+  "qlib_dataset": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "segments": {
+      "initial_train": [
+        "2011-01-03",
+        "2016-11-30"
+      ],
+      "tune": [
+        "2017-01-03",
+        "2019-11-29"
+      ],
+      "refit": [
+        "2011-01-03",
+        "2019-11-29"
+      ],
+      "validation": [
+        "2020-01-02",
+        "2022-12-28"
+      ],
+      "outer": [
+        "2023-01-03",
+        "2026-07-17"
+      ]
+    },
+    "segment_rows": {
+      "initial_train": 1489,
+      "tune": 733,
+      "refit": 2243,
+      "validation": 754,
+      "outer": 887
+    },
+    "purge_embargo": "initial/refit label ends are at least 22 calendar days before next evaluation segment"
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "hypotheses": {
+    "feature_only": "SOXS path and tracking-gap features may improve conditional SOXL-vs-SOXX timing",
+    "defense_sleeve": "a mutually exclusive, five-day-capped SOXS sleeve may improve tail risk",
+    "unrestricted_four_asset_allocator": "not implemented because simultaneous SOXL/SOXS softmax exposure is structurally unstable"
+  },
+  "labels": {
+    "attack": "future 21-day open-to-open log SOXL minus SOXX greater than 1 percent",
+    "defense": "future 5-day SOXX open-to-open return at or below -5 percent"
+  },
+  "constraints": {
+    "default": "100 percent SOXX",
+    "soxl_tilt": [
+      0.1,
+      0.2
+    ],
+    "soxs_weight": [
+      0.1,
+      0.2
+    ],
+    "soxl_soxs_mutually_exclusive": true,
+    "max_consecutive_soxs_days": 5,
+    "after_max_soxs_days": "cash until defense probability resets"
+  },
+  "selected_model": {
+    "variant": "soxs_defense_only",
+    "attack_threshold": 1.0,
+    "attack_tilt": 0.0,
+    "defense_threshold": 0.6,
+    "soxs_weight": 0.2,
+    "max_soxs_days": 5,
+    "validation_gate_pass": false,
+    "relative_gate_pass": false,
+    "risk_gate_pass": false,
+    "validation_score": -0.015149988877746365,
+    "validation_ratio_10bps": 0.9416605914523928,
+    "validation_ratio_25bps": 0.8757910424271765,
+    "validation_active_ir_10bps": -0.1782971938297601,
+    "validation_max_drawdown_10bps": -23.110845422189985,
+    "validation_bootstrap_outperformance_probability_10bps": 0.4462890625,
+    "positive_validation_years": 1,
+    "selection_uses_outer_test": false
+  },
+  "selected_config": {
+    "variant": "soxs_defense_only",
+    "attack_threshold": 1.0,
+    "attack_tilt": 0.0,
+    "defense_threshold": 0.6,
+    "soxs_weight": 0.2,
+    "max_soxs_days": 5
+  },
+  "model_selection_uses_segment": "validation; candidate hyperparameters fixed on tune",
+  "selected_validation_metrics": [
+    {
+      "segment": "validation",
+      "variant": "soxs_defense_only",
+      "cost_bps": 10,
+      "return_pct": 31.92416651335188,
+      "cagr_pct": 9.701990375589343,
+      "annualized_vol_pct": 23.193623040752627,
+      "max_drawdown_pct": -23.110845422189985,
+      "worst_day_pct": -6.87941312789917,
+      "cvar5_pct": -3.6358609715291923,
+      "worst_rolling_5d_pct": -14.465742589849661,
+      "avg_soxl_position_pct": 0.0,
+      "avg_equity_position_pct": 50.265251989389924,
+      "avg_effective_beta": 0.5026525198938993,
+      "upside_capture_pct": 10.853485259785685,
+      "calmar": 0.41980248659678765,
+      "total_turnover": 49.265082214239314,
+      "qlib_annualized_return_pct": 9.701990375589343,
+      "qlib_information_ratio": 0.3998567563598566,
+      "qlib_max_drawdown_pct": -23.110845422189985,
+      "rows": 754,
+      "terminal_wealth_ratio_vs_soxx": 0.9416605914523928,
+      "soxx_benchmark_return_pct": 40.09736386002465,
+      "active_information_ratio": -0.1782971938297601,
+      "avg_soxs_position_pct": 2.3076923076923075,
+      "avg_cash_position_pct": 47.42705570291777,
+      "avg_total_risk_position_pct": 52.57294429708222,
+      "soxs_days": 87
+    },
+    {
+      "segment": "validation",
+      "variant": "soxs_defense_only",
+      "cost_bps": 25,
+      "return_pct": 22.511788083513174,
+      "cagr_pct": 7.021390833774177,
+      "annualized_vol_pct": 23.20407865337892,
+      "max_drawdown_pct": -24.88129446332502,
+      "worst_day_pct": -6.87941312789917,
+      "cvar5_pct": -3.6589227102382194,
+      "worst_rolling_5d_pct": -14.722409384150515,
+      "avg_soxl_position_pct": 0.0,
+      "avg_equity_position_pct": 50.265251989389924,
+      "avg_effective_beta": 0.5026525198938993,
+      "upside_capture_pct": 10.659001117611245,
+      "calmar": 0.2821955603686011,
+      "total_turnover": 49.265082214239314,
+      "qlib_annualized_return_pct": 7.021390833774177,
+      "qlib_information_ratio": 0.2927833438778955,
+      "qlib_max_drawdown_pct": -24.88129446332502,
+      "rows": 754,
+      "terminal_wealth_ratio_vs_soxx": 0.8757910424271765,
+      "soxx_benchmark_return_pct": 39.88700745783231,
+      "active_information_ratio": -0.24478689620494226,
+      "avg_soxs_position_pct": 2.3076923076923075,
+      "avg_cash_position_pct": 47.42705570291777,
+      "avg_total_risk_position_pct": 52.57294429708222,
+      "soxs_days": 87
+    },
+    {
+      "segment": "validation",
+      "variant": "soxs_defense_only",
+      "cost_bps": 50,
+      "return_pct": 8.267669464328552,
+      "cagr_pct": 2.6904599439311783,
+      "annualized_vol_pct": 23.252744307868298,
+      "max_drawdown_pct": -27.747398937671974,
+      "worst_day_pct": -6.87941312789917,
+      "cvar5_pct": -3.7005319146888414,
+      "worst_rolling_5d_pct": -15.149330318823251,
+      "avg_soxl_position_pct": 0.0,
+      "avg_equity_position_pct": 50.265251989389924,
+      "avg_effective_beta": 0.5026525198938993,
+      "upside_capture_pct": 10.334860880653828,
+      "calmar": 0.09696259998908963,
+      "total_turnover": 49.265082214239314,
+      "qlib_annualized_return_pct": 2.6904599439311783,
+      "qlib_information_ratio": 0.11423421252147588,
+      "qlib_max_drawdown_pct": -27.747398937671974,
+      "rows": 754,
+      "terminal_wealth_ratio_vs_soxx": 0.7759097914601463,
+      "soxx_benchmark_return_pct": 39.53641345417871,
+      "active_information_ratio": -0.35520651707534057,
+      "avg_soxs_position_pct": 2.3076923076923075,
+      "avg_cash_position_pct": 47.42705570291777,
+      "avg_total_risk_position_pct": 52.57294429708222,
+      "soxs_days": 87
+    }
+  ],
+  "selected_outer_metrics": [
+    {
+      "segment": "outer",
+      "variant": "soxs_defense_only",
+      "cost_bps": 10,
+      "return_pct": 85.16945506880893,
+      "cagr_pct": 19.128986602080133,
+      "annualized_vol_pct": 22.243165992099147,
+      "max_drawdown_pct": -30.36639753167607,
+      "worst_day_pct": -6.996488571166992,
+      "cvar5_pct": -3.267120451408651,
+      "worst_rolling_5d_pct": -11.475401893262195,
+      "avg_soxl_position_pct": 0.0,
+      "avg_equity_position_pct": 48.92897406989854,
+      "avg_effective_beta": 0.48928974069898534,
+      "upside_capture_pct": 12.103835203612395,
+      "calmar": 0.6299392801574877,
+      "total_turnover": 72.38033509204485,
+      "qlib_annualized_return_pct": 19.128986602080133,
+      "qlib_information_ratio": 0.7880394491049673,
+      "qlib_max_drawdown_pct": -30.36639753167607,
+      "rows": 887,
+      "terminal_wealth_ratio_vs_soxx": 0.38581991080218786,
+      "soxx_benchmark_return_pct": 379.9375301388901,
+      "active_information_ratio": -0.9481625244377095,
+      "avg_soxs_position_pct": 2.705749718151071,
+      "avg_cash_position_pct": 48.365276211950395,
+      "avg_total_risk_position_pct": 51.634723788049605,
+      "soxs_days": 120
+    },
+    {
+      "segment": "outer",
+      "variant": "soxs_defense_only",
+      "cost_bps": 25,
+      "return_pct": 66.08837976909592,
+      "cagr_pct": 15.504578665369229,
+      "annualized_vol_pct": 22.26726372762798,
+      "max_drawdown_pct": -32.54682806257089,
+      "worst_day_pct": -6.996488571166992,
+      "cvar5_pct": -3.2833218442351306,
+      "worst_rolling_5d_pct": -11.608321710239267,
+      "avg_soxl_position_pct": 0.0,
+      "avg_equity_position_pct": 48.92897406989854,
+      "avg_effective_beta": 0.48928974069898534,
+      "upside_capture_pct": 11.879817839695473,
+      "calmar": 0.4763775639076675,
+      "total_turnover": 72.38033509204485,
+      "qlib_annualized_return_pct": 15.504578665369229,
+      "qlib_information_ratio": 0.6481195917285545,
+      "qlib_max_drawdown_pct": -32.54682806257089,
+      "rows": 887,
+      "terminal_wealth_ratio_vs_soxx": 0.34658289107546575,
+      "soxx_benchmark_return_pct": 379.2169032167588,
+      "active_information_ratio": -1.0403194705311891,
+      "avg_soxs_position_pct": 2.705749718151071,
+      "avg_cash_position_pct": 48.365276211950395,
+      "avg_total_risk_position_pct": 51.634723788049605,
+      "soxs_days": 120
+    },
+    {
+      "segment": "outer",
+      "variant": "soxs_defense_only",
+      "cost_bps": 50,
+      "return_pct": 38.50717369945431,
+      "cagr_pct": 9.696506667337367,
+      "annualized_vol_pct": 22.347452289713445,
+      "max_drawdown_pct": -36.036711450262295,
+      "worst_day_pct": -6.996488571166992,
+      "cvar5_pct": -3.3103241656125957,
+      "worst_rolling_5d_pct": -11.829854738534406,
+      "avg_soxl_position_pct": 0.0,
+      "avg_equity_position_pct": 48.92897406989854,
+      "avg_effective_beta": 0.48928974069898534,
+      "upside_capture_pct": 11.506455566500579,
+      "calmar": 0.2690730168517303,
+      "total_turnover": 72.38033509204485,
+      "qlib_annualized_return_pct": 9.696506667337367,
+      "qlib_information_ratio": 0.4145115744711924,
+      "qlib_max_drawdown_pct": -36.036711450262295,
+      "rows": 887,
+      "terminal_wealth_ratio_vs_soxx": 0.289754348691591,
+      "soxx_benchmark_return_pct": 378.0158583465427,
+      "active_information_ratio": -1.1929890869224815,
+      "avg_soxs_position_pct": 2.705749718151071,
+      "avg_cash_position_pct": 48.365276211950395,
+      "avg_total_risk_position_pct": 51.634723788049605,
+      "soxs_days": 120
+    }
+  ],
+  "recorder_id": "7180e35707854a4aab1b1a8f996f17f5",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxs_defensive_hurdle_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxs_defensive_hurdle_v1/qlib_recorder/868189153558588533/7180e35707854a4aab1b1a8f996f17f5",
+  "sidecars": {
+    "model_selection": "model_selection.csv",
+    "candidate_selection": "candidate_selection.csv",
+    "bootstrap_metrics": "bootstrap_metrics.csv",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "annual_metrics": "annual_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "feature_importance": "feature_importance.csv",
+    "selected_model": "selected_model.json",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/soxs_defensive_hurdle_v1/models/",
+      "artifacts/soxs_defensive_hurdle_v1/probabilities.csv",
+      "artifacts/soxs_defensive_hurdle_v1/positions.csv",
+      "artifacts/soxs_defensive_hurdle_v1/strategy_returns.csv",
+      "artifacts/soxs_defensive_hurdle_v1/bootstrap_terminal_wealth.csv"
+    ]
+  }
+}

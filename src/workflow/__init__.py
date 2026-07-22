@@ -52,6 +52,7 @@ __all__ = [
     "RelativeWealthLfnnSoxxSpec",
     "SoxxConstituentAlphaAttributionSpec",
     "SmartLeverageSoxlWealthControlSpec",
+    "SoxsDefensiveHurdleSpec",
     "TrainableRegimePolicyNestedWfSpec",
     "build_agentic_alpha_hypotheses",
     "build_agentic_alpha_workflow_manifest",
@@ -88,6 +89,7 @@ __all__ = [
     "run_relative_wealth_lfnn_soxx_card",
     "run_soxx_constituent_alpha_attribution_card",
     "run_smart_leverage_soxl_wealth_control_card",
+    "run_soxs_defensive_hurdle_card",
     "run_trainable_regime_policy_nested_wf_card",
 ]
 
@@ -221,6 +223,11 @@ _RELATIVE_WEALTH_LFNN_SOXX_EXPORTS = {
     "run_relative_wealth_lfnn_soxx_card",
 }
 
+_SOXS_DEFENSIVE_HURDLE_EXPORTS = {
+    "SoxsDefensiveHurdleSpec",
+    "run_soxs_defensive_hurdle_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -315,4 +322,8 @@ def __getattr__(name: str):
         from . import relative_wealth_lfnn_soxx
 
         return getattr(relative_wealth_lfnn_soxx, name)
+    if name in _SOXS_DEFENSIVE_HURDLE_EXPORTS:
+        from . import soxs_defensive_hurdle
+
+        return getattr(soxs_defensive_hurdle, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -1,0 +1,19 @@
+{
+  "variant": "soxs_defense_only",
+  "attack_threshold": 1.0,
+  "attack_tilt": 0.0,
+  "defense_threshold": 0.6,
+  "soxs_weight": 0.2,
+  "max_soxs_days": 5,
+  "validation_gate_pass": false,
+  "relative_gate_pass": false,
+  "risk_gate_pass": false,
+  "validation_score": -0.015149988877746365,
+  "validation_ratio_10bps": 0.9416605914523928,
+  "validation_ratio_25bps": 0.8757910424271765,
+  "validation_active_ir_10bps": -0.1782971938297601,
+  "validation_max_drawdown_10bps": -23.110845422189985,
+  "validation_bootstrap_outperformance_probability_10bps": 0.4462890625,
+  "positive_validation_years": 1,
+  "selection_uses_outer_test": false
+}

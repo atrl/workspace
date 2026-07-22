@@ -1,0 +1,35 @@
+{
+  "as_of": "2026-07-21",
+  "audit_snapshot_hash": "5c6fcdcc0223120f",
+  "calendar_end": "2026-07-21",
+  "calendar_start": "2010-03-11",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$high",
+    "$low",
+    "$close"
+  ],
+  "freq": "day",
+  "hash": "e1bd975a829f0c89",
+  "instruments": [
+    "SOXL",
+    "SOXS",
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-07-21",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "region": "us",
+  "row_count": 12345,
+  "source": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

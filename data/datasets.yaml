@@ -161,7 +161,7 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-07-21T02:46:41.985857+00:00'
+generated_at: '2026-07-22T06:51:16+00:00'
 intraday:
   soxl_soxx_1m:
     end: '2026-07-02T16:00:00-04:00'
@@ -257,6 +257,17 @@ qlib:
     has_calendar: true
     has_instruments: true
     path: data/qlib/soxl_multi
+  SOXL_SOXX_SOXS:
+    as_of: '2026-07-21'
+    exists: true
+    has_calendar: true
+    has_instruments: true
+    instruments:
+    - SOXL
+    - SOXX
+    - SOXS
+    path: data/qlib/soxl_soxx_soxs
+    source_manifest: data/raw/soxs_defensive_v1/source_manifest.json
   SPXL:
     exists: true
     has_calendar: true

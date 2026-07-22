@@ -67,6 +67,14 @@ from .hardware_cycle import (
     fetch_freellm_gpu_price_history,
     fetch_hardware_proxy_price_frames,
 )
+from .soxs_defensive import (
+    SoxsDefensiveDataPaths,
+    build_soxs_defensive_provider,
+    fetch_nasdaq_history,
+    fetch_yahoo_adjustment_factors,
+    normalize_nasdaq_history,
+    stitch_yahoo_to_nasdaq,
+)
 
 __all__ = [
     "QlibProviderConfig",
@@ -128,4 +136,10 @@ __all__ = [
     "fetch_fred_hardware_sales_price_series",
     "fetch_freellm_gpu_price_history",
     "fetch_hardware_proxy_price_frames",
+    "SoxsDefensiveDataPaths",
+    "build_soxs_defensive_provider",
+    "fetch_nasdaq_history",
+    "fetch_yahoo_adjustment_factors",
+    "normalize_nasdaq_history",
+    "stitch_yahoo_to_nasdaq",
 ]

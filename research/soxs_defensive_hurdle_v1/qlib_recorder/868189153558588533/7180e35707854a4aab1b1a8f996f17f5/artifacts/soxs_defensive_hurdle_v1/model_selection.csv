@@ -1,0 +1,5 @@
+variant,attack_threshold,attack_tilt,defense_threshold,soxs_weight,max_soxs_days,validation_gate_pass,relative_gate_pass,risk_gate_pass,validation_score,validation_ratio_10bps,validation_ratio_25bps,validation_active_ir_10bps,validation_max_drawdown_10bps,validation_bootstrap_outperformance_probability_10bps,positive_validation_years,selection_uses_outer_test
+soxs_defense_only,1.0,0.0,0.6,0.2,5,False,False,False,-0.015149988877746365,0.9416605914523928,0.8757910424271765,-0.1782971938297601,-23.110845422189985,0.4462890625,1,False
+soxs_features_and_defense,0.6,0.2,0.6,0.2,5,False,False,False,-0.07309214036528149,0.8942583139499994,0.8276302530297476,-0.2180994844731796,-25.858784199404063,0.392822265625,1,False
+soxs_features_no_trade,0.6,0.2,1.0,0.0,5,False,False,False,-0.16163588701683299,0.8616337350948783,0.840508578539589,-0.460156517751095,-49.127889126960746,0.25146484375,1,False
+base_no_soxs,0.55,0.2,1.0,0.0,5,False,False,False,-0.21366551939408285,0.8288478243847246,0.8115765038344669,-0.12589335372381474,-59.0884839167743,0.194580078125,2,False

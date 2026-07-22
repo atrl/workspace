@@ -1,0 +1,27 @@
+experiment: soxs_defensive_hurdle_v1
+card_type: soxs_feature_and_constrained_defense_ablation
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+recorder_uri: /Users/rziiiii/dev/workspace/research/soxs_defensive_hurdle_v1/qlib_recorder
+recorder_id: 7180e35707854a4aab1b1a8f996f17f5
+qlib:
+  market: all
+  region: us
+  dataset: [DatasetH, DataHandlerLP]
+  recorder: qlib.workflow.R
+selection:
+  candidate_segment: tune_2017_2019
+  model_selection_segment: validation_2020_2022
+  selection_uses_outer_test: false
+  costs_bps: [10, 25, 50]
+promotion:
+  decision: research_reject_soxs_ablation_failed_validation_gates
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    - artifacts/soxs_defensive_hurdle_v1/models/
+    - artifacts/soxs_defensive_hurdle_v1/probabilities.csv
+    - artifacts/soxs_defensive_hurdle_v1/positions.csv
+    - artifacts/soxs_defensive_hurdle_v1/strategy_returns.csv
+    - artifacts/soxs_defensive_hurdle_v1/bootstrap_terminal_wealth.csv
