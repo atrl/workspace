@@ -1,0 +1,32 @@
+experiment: relative_wealth_lfnn_soxx_v1
+card_type: relative_wealth_lfnn_soxx_research_card
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/relative_wealth_lfnn_soxx_v1/qlib_recorder
+recorder_id: dbd71f0291ba4ac680198c4cfc06341c
+qlib:
+  market: all
+  region: us
+  dataset: [DatasetH, DataHandlerLP]
+  recorder: qlib.workflow.R
+segments:
+  train: [2011-01-03, 2019-12-31]
+  valid: [2020-01-02, 2022-12-30]
+  outer: [2023-01-03, 2026-07-16]
+selection:
+  selection_uses_outer_test: false
+  objective: target_relative_terminal_wealth_mse
+  benchmark: SOXX
+  costs_bps: [10, 25]
+promotion:
+  decision: research_reject_relative_wealth_validation_distribution_gates_failed
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    - artifacts/relative_wealth_lfnn_soxx_v1/models/
+    - artifacts/relative_wealth_lfnn_soxx_v1/training_history.csv
+    - artifacts/relative_wealth_lfnn_soxx_v1/bootstrap_terminal_wealth.csv
+    - artifacts/relative_wealth_lfnn_soxx_v1/diagnostic_seed0_terminal_wealth.csv
+    - artifacts/relative_wealth_lfnn_soxx_v1/positions.csv
+    - artifacts/relative_wealth_lfnn_soxx_v1/strategy_returns.csv

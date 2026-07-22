@@ -49,6 +49,7 @@ __all__ = [
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
     "RiskHardenedOpen2OpenCardSpec",
+    "RelativeWealthLfnnSoxxSpec",
     "SoxxConstituentAlphaAttributionSpec",
     "SmartLeverageSoxlWealthControlSpec",
     "TrainableRegimePolicyNestedWfSpec",
@@ -84,6 +85,7 @@ __all__ = [
     "run_cognitive_alpha_evolution",
     "run_qlib_native_experiment",
     "run_risk_hardened_open2open_card",
+    "run_relative_wealth_lfnn_soxx_card",
     "run_soxx_constituent_alpha_attribution_card",
     "run_smart_leverage_soxl_wealth_control_card",
     "run_trainable_regime_policy_nested_wf_card",
@@ -214,6 +216,11 @@ _SMART_LEVERAGE_SOXL_WEALTH_CONTROL_EXPORTS = {
     "run_smart_leverage_soxl_wealth_control_card",
 }
 
+_RELATIVE_WEALTH_LFNN_SOXX_EXPORTS = {
+    "RelativeWealthLfnnSoxxSpec",
+    "run_relative_wealth_lfnn_soxx_card",
+}
+
 
 def __getattr__(name: str):
     if name in _COGNITIVE_ALPHA_EXPORTS:
@@ -304,4 +311,8 @@ def __getattr__(name: str):
         from . import smart_leverage_soxl_wealth_control
 
         return getattr(smart_leverage_soxl_wealth_control, name)
+    if name in _RELATIVE_WEALTH_LFNN_SOXX_EXPORTS:
+        from . import relative_wealth_lfnn_soxx
+
+        return getattr(relative_wealth_lfnn_soxx, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

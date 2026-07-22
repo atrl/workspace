@@ -1,0 +1,18 @@
+{
+  "variant": "market_state_augmented",
+  "annual_excess_target": 0.06,
+  "validation_gate_pass": false,
+  "selection_score": -2.5772538575408372,
+  "median_ratio_10bps": 0.8596720546211127,
+  "outperformance_probability_10bps": 0.2548828125,
+  "active_ir_10bps": -0.68956680164326,
+  "positive_seeds_10bps": 0,
+  "median_ratio_25bps": 0.8588537715489397,
+  "outperformance_probability_25bps": 0.253662109375,
+  "active_ir_25bps": -0.6958129540031411,
+  "positive_seeds_25bps": 0,
+  "avg_active_exposure_10bps": 0.3190072476863861,
+  "avg_soxl_weight_10bps": 0.32258090376853943,
+  "selection_uses_outer_test": false,
+  "status": "diagnostic_fallback"
+}
