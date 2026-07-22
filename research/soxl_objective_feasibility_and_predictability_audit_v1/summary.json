@@ -1,0 +1,230 @@
+{
+  "experiment": "soxl_objective_feasibility_and_predictability_audit_v1",
+  "card_type": "objective_feasibility_and_predictability_audit",
+  "primary_notebook": "soxl_objective_feasibility_and_predictability_audit_v1.ipynb",
+  "promotion_decision": "needs_iteration_feasible_oracle_and_some_stable_targets_but_no_tradable_rule_pass",
+  "selection_uses_outer_test": false,
+  "outer_test_use": "diagnostic_only_previously_observed",
+  "data_audit": {
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+    "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+    "as_of": "2026-07-21",
+    "instruments": [
+      "SOXL",
+      "SOXS",
+      "SOXX"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close"
+    ],
+    "calendar_rows": 4115,
+    "usable_rows": 4054,
+    "usable_start": "2010-06-04",
+    "usable_end": "2026-07-17",
+    "relationship_audit": {
+      "common_end": "2026-07-21",
+      "common_rows_per_instrument": 4115,
+      "common_start": "2010-03-11",
+      "soxs_soxl_close_return_correlation": -0.9971576228487848,
+      "soxs_soxx_close_return_correlation": -0.9979840555866599
+    },
+    "source_api": [
+      "qlib.init",
+      "qlib.data.D.calendar",
+      "qlib.data.D.features"
+    ]
+  },
+  "qlib_dataset": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "segments": {
+      "development": [
+        "2011-01-03",
+        "2022-12-30"
+      ],
+      "outer": [
+        "2023-01-03",
+        "2026-07-17"
+      ],
+      "fold_2016": [
+        "2016-01-01",
+        "2016-12-31"
+      ],
+      "fold_2017": [
+        "2017-01-01",
+        "2017-12-31"
+      ],
+      "fold_2018": [
+        "2018-01-01",
+        "2018-12-31"
+      ],
+      "fold_2019": [
+        "2019-01-01",
+        "2019-12-31"
+      ],
+      "fold_2020": [
+        "2020-01-01",
+        "2020-12-31"
+      ],
+      "fold_2021": [
+        "2021-01-01",
+        "2021-12-31"
+      ],
+      "fold_2022": [
+        "2022-01-01",
+        "2022-12-31"
+      ]
+    },
+    "segment_rows": {
+      "development": 3020,
+      "outer": 887,
+      "fold_2016": 252,
+      "fold_2017": 251,
+      "fold_2018": 251,
+      "fold_2019": 252,
+      "fold_2020": 253,
+      "fold_2021": 252,
+      "fold_2022": 251
+    },
+    "purge_embargo": "20 trading rows removed before every fold test year"
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "gates": {
+    "max_drawdown_pct_min": -20.0,
+    "worst_day_pct_min": -12.0,
+    "cvar5_pct_min": -8.0,
+    "worst_rolling_5d_pct_min": -12.0,
+    "avg_total_risk_position_pct_min": 15.0,
+    "upside_capture_pct_min": 60.0,
+    "terminal_wealth_ratio_vs_soxx_min_exclusive": 1.0,
+    "return_maxdd_exceeds_same_avg_risk_soxl": true,
+    "return_maxdd_exceeds_matched_beta": true,
+    "costs_bps": [
+      10,
+      25
+    ]
+  },
+  "audit_result": {
+    "development_mechanical_primary_gate_passes_10bps": 0,
+    "development_oracle_primary_gate_passes_10bps": 2,
+    "development_oracle_long_only_passes_10bps": 1,
+    "development_oracle_with_soxs_passes_10bps": 1,
+    "soxs_expands_oracle_pass_count": false,
+    "highest_capture_mechanical_strategy": "fixed_soxl_soxx_0.40",
+    "highest_capture_mechanical_pct": 59.650859102327715,
+    "highest_capture_mechanical_max_drawdown_pct": -72.50520544918379,
+    "highest_capture_mechanical_worst_rolling_5d_pct": -35.36670182226908,
+    "stable_base_targets": [
+      "cash_advantage_1d",
+      "future_vol_5d"
+    ],
+    "stable_base_plus_soxs_targets": [
+      "cash_advantage_1d",
+      "cash_advantage_5d",
+      "future_vol_5d"
+    ],
+    "incremental_stable_soxs_targets": [
+      "cash_advantage_5d"
+    ],
+    "oracle_is_nontradable": true
+  },
+  "predictability_protocol": {
+    "folds": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "purge_rows": 20,
+    "models": [
+      "fixed Ridge(alpha=10)",
+      "fixed balanced LogisticRegression(C=0.1)"
+    ],
+    "feature_sets": {
+      "base": [
+        "soxx_trend20",
+        "soxx_trend60",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "relative_momentum20"
+      ],
+      "base_plus_soxs": [
+        "soxx_trend20",
+        "soxx_trend60",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "relative_momentum20",
+        "soxs_trend5",
+        "soxs_trend20",
+        "inverse_tracking_gap1",
+        "inverse_tracking_gap20",
+        "soxl_soxs_path20"
+      ]
+    },
+    "targets": [
+      "cash_advantage_10d",
+      "cash_advantage_1d",
+      "cash_advantage_20d",
+      "cash_advantage_5d",
+      "future_vol_5d",
+      "leverage_advantage_10d",
+      "leverage_advantage_1d",
+      "leverage_advantage_20d",
+      "leverage_advantage_5d",
+      "tail_event_5d"
+    ],
+    "stable_definition": "at least 5 of 7 positive years and stationary-bootstrap p05 above zero or AUC 0.5"
+  },
+  "feasibility_protocol": {
+    "mechanical_rules_are_fixed": true,
+    "oracle_is_nontradable": true,
+    "oracle_dwell_days": 3,
+    "oracle_soxs_max_weight": 0.1,
+    "oracle_penalties": [
+      0,
+      10,
+      50,
+      200,
+      1000
+    ],
+    "cash_return_assumption": 0.0
+  },
+  "recorder_id": "a2c94b3e1953489ca281dc3160d4a7dc",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxl_objective_feasibility_and_predictability_audit_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxl_objective_feasibility_and_predictability_audit_v1/qlib_recorder/761868714399348284/a2c94b3e1953489ca281dc3160d4a7dc",
+  "sidecars": {
+    "feasibility_frontier": "feasibility_frontier.csv",
+    "feasibility_gate_summary": "feasibility_gate_summary.csv",
+    "predictability_fold_metrics": "predictability_fold_metrics.csv",
+    "predictability_summary": "predictability_summary.csv",
+    "outer_predictability_diagnostic": "outer_predictability_diagnostic.csv",
+    "outer_year_risk_metrics": "outer_year_risk_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "analysis_summary": "analysis_summary.json"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/soxl_objective_feasibility_and_predictability_audit_v1/models/",
+      "artifacts/soxl_objective_feasibility_and_predictability_audit_v1/predictions.csv",
+      "artifacts/soxl_objective_feasibility_and_predictability_audit_v1/strategy_returns.csv",
+      "artifacts/soxl_objective_feasibility_and_predictability_audit_v1/positions.csv",
+      "artifacts/soxl_objective_feasibility_and_predictability_audit_v1/bootstrap_metrics.csv"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+segment,strategy_kind,cost_bps,strategies,primary_gate_passes,risk_gate_passes,position_gate_passes,capture_gate_passes,relative_soxx_gate_passes,efficiency_gate_passes
+development,mechanical_tradable,10,19,0,2,18,0,2,1
+development,mechanical_tradable,25,19,0,2,18,0,2,1
+development,oracle_nontradable,10,10,2,8,10,4,10,10
+development,oracle_nontradable,25,10,2,8,10,4,10,10
+outer,mechanical_tradable,10,19,0,2,16,1,2,0
+outer,mechanical_tradable,25,19,0,2,16,1,2,0
+outer,oracle_nontradable,10,10,2,8,10,4,10,10
+outer,oracle_nontradable,25,10,2,8,10,4,10,10

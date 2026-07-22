@@ -1,0 +1,25 @@
+{
+  "promotion_decision": "needs_iteration_feasible_oracle_and_some_stable_targets_but_no_tradable_rule_pass",
+  "development_mechanical_primary_gate_passes_10bps": 0,
+  "development_oracle_primary_gate_passes_10bps": 2,
+  "development_oracle_long_only_passes_10bps": 1,
+  "development_oracle_with_soxs_passes_10bps": 1,
+  "soxs_expands_oracle_pass_count": false,
+  "highest_capture_mechanical_strategy": "fixed_soxl_soxx_0.40",
+  "highest_capture_mechanical_pct": 59.650859102327715,
+  "highest_capture_mechanical_max_drawdown_pct": -72.50520544918379,
+  "highest_capture_mechanical_worst_rolling_5d_pct": -35.36670182226908,
+  "stable_base_targets": [
+    "cash_advantage_1d",
+    "future_vol_5d"
+  ],
+  "stable_base_plus_soxs_targets": [
+    "cash_advantage_1d",
+    "cash_advantage_5d",
+    "future_vol_5d"
+  ],
+  "incremental_stable_soxs_targets": [
+    "cash_advantage_5d"
+  ],
+  "oracle_is_nontradable": true
+}

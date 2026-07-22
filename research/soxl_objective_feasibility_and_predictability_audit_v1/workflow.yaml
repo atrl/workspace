@@ -1,0 +1,29 @@
+experiment: soxl_objective_feasibility_and_predictability_audit_v1
+card_type: objective_feasibility_and_predictability_audit
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+recorder_uri: /Users/rziiiii/dev/workspace/research/soxl_objective_feasibility_and_predictability_audit_v1/qlib_recorder
+recorder_id: a2c94b3e1953489ca281dc3160d4a7dc
+qlib:
+  dataset: [DatasetH, DataHandlerLP, StaticDataLoader]
+  recorder: qlib.workflow.R
+selection:
+  development: 2011-2022
+  walk_forward_folds: 2016-2022
+  outer: 2023-2026_diagnostic_only
+  selection_uses_outer_test: false
+feasibility:
+  oracle_nontradable: true
+  oracle_min_dwell_days: 3
+  oracle_soxs_max_weight: 0.10
+promotion:
+  decision: needs_iteration_feasible_oracle_and_some_stable_targets_but_no_tradable_rule_pass
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    - artifacts/soxl_objective_feasibility_and_predictability_audit_v1/models/
+    - artifacts/soxl_objective_feasibility_and_predictability_audit_v1/predictions.csv
+    - artifacts/soxl_objective_feasibility_and_predictability_audit_v1/strategy_returns.csv
+    - artifacts/soxl_objective_feasibility_and_predictability_audit_v1/positions.csv
+    - artifacts/soxl_objective_feasibility_and_predictability_audit_v1/bootstrap_metrics.csv
