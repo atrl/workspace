@@ -1,0 +1,2 @@
+method,paths,path_days,expected_block_days,outperformance_probability,ratio_p05,ratio_p10,ratio_p50,ratio_p90,ratio_p95
+stationary_block_bootstrap,2048,1762,63,0.2470703125,0.6074466368129757,0.6540924767688107,0.8608492691877174,1.1404553438117013,1.243803432702891

@@ -1,0 +1,2 @@
+model,selected,selection_policy,all_development_gates_pass,passed_gate_count,total_gate_count,promotion_decision,selection_uses_outer_test
+two_head_fixed_ridge,True,fixed_by_requirements_no_candidate_search,False,9,15,needs_iteration_relative_wealth,False

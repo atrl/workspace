@@ -1,0 +1,49 @@
+{
+  "model": {
+    "family": "two_head_fixed_ridge",
+    "ridge_alpha": 10.0,
+    "features": [
+      "soxx_trend20",
+      "soxx_trend60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "relative_momentum20",
+      "soxs_trend5",
+      "soxs_trend20",
+      "inverse_tracking_gap1",
+      "inverse_tracking_gap20",
+      "soxl_soxs_path20"
+    ],
+    "targets": [
+      "cash_advantage_5d",
+      "future_vol_5d"
+    ],
+    "risk_score": "max(cash_advantage_5d_tail_score, future_vol_5d_tail_score)",
+    "calibration": {
+      "lower_quantile": 0.5,
+      "upper_quantile": 0.9,
+      "fit_scope": "training_fold_only"
+    }
+  },
+  "portfolio_contract": {
+    "tradable_assets": [
+      "SOXL",
+      "SOXX",
+      "cash"
+    ],
+    "soxs_feature_only": true,
+    "minimum_cash": 0.1,
+    "maximum_cash": 0.6,
+    "risky_sleeve_soxl_share": 0.3,
+    "risky_sleeve_soxx_share": 0.7,
+    "maximum_total_soxl_weight": 0.27,
+    "cash_return": 0.0,
+    "timing": "signal T close; target T+1 open to T+2 open",
+    "costs_bps": [
+      10,
+      25
+    ]
+  },
+  "selection_policy": "fixed_by_requirements_no_candidate_search",
+  "selection_uses_outer_test": false
+}

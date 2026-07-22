@@ -1,0 +1,38 @@
+experiment: cash_floor_benchmark_relative_walk_forward_v1
+card_type: cash_floor_benchmark_relative_walk_forward_research_card
+requirements_contract: /Users/rziiiii/dev/workspace/docs/superpowers/specs/2026-07-22-cash-floor-benchmark-relative-walk-forward-requirements.md
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+recorder_uri: /Users/rziiiii/dev/workspace/research/cash_floor_benchmark_relative_walk_forward_v1/qlib_recorder
+recorder_id: 17dafd78c96048aa9d9861a527b714c4
+qlib:
+  market: all
+  region: us
+  dataset: [DatasetH, DataHandlerLP, StaticDataLoader]
+  recorder: qlib.workflow.R
+  risk_analyzer: qlib.contrib.evaluate.risk_analysis
+walk_forward:
+  train_start: 2011-01-03
+  development_folds: [2016, 2017, 2018, 2019, 2020, 2021, 2022]
+  purge_rows: 20
+  outer: 2023-2026_diagnostic_only
+  selection_uses_outer_test: false
+model:
+  family: fixed_two_head_ridge
+  targets: [cash_advantage_5d, future_vol_5d]
+  ridge_alpha: 10.0
+portfolio:
+  cash_bounds: [0.10, 0.60]
+  risky_sleeve: {SOXL: 0.30, SOXX: 0.70}
+  costs_bps: [10, 25]
+promotion:
+  decision: needs_iteration_relative_wealth
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    - artifacts/cash_floor_benchmark_relative_walk_forward_v1/models/
+    - artifacts/cash_floor_benchmark_relative_walk_forward_v1/predictions.csv
+    - artifacts/cash_floor_benchmark_relative_walk_forward_v1/positions.csv
+    - artifacts/cash_floor_benchmark_relative_walk_forward_v1/strategy_returns.csv
+    - artifacts/cash_floor_benchmark_relative_walk_forward_v1/bootstrap_terminal_wealth.csv

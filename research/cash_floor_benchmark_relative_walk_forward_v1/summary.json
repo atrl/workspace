@@ -1,0 +1,215 @@
+{
+  "experiment": "cash_floor_benchmark_relative_walk_forward_v1",
+  "card_type": "cash_floor_benchmark_relative_walk_forward_research_card",
+  "primary_notebook": "cash_floor_benchmark_relative_walk_forward_v1.ipynb",
+  "requirements_contract": "/Users/rziiiii/dev/workspace/docs/superpowers/specs/2026-07-22-cash-floor-benchmark-relative-walk-forward-requirements.md",
+  "promotion_decision": "needs_iteration_relative_wealth",
+  "selection_uses_outer_test": false,
+  "outer_test_use": "diagnostic_only_previously_observed",
+  "data_audit": {
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+    "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+    "as_of": "2026-07-21",
+    "instruments": [
+      "SOXL",
+      "SOXS",
+      "SOXX"
+    ],
+    "fields": [
+      "$open",
+      "$high",
+      "$low",
+      "$close"
+    ],
+    "calendar_rows": 4115,
+    "usable_rows": 4054,
+    "usable_start": "2010-06-04",
+    "usable_end": "2026-07-17",
+    "relationship_audit": {
+      "common_end": "2026-07-21",
+      "common_rows_per_instrument": 4115,
+      "common_start": "2010-03-11",
+      "soxs_soxl_close_return_correlation": -0.9971576228487848,
+      "soxs_soxx_close_return_correlation": -0.9979840555866599
+    },
+    "source_api": [
+      "qlib.init",
+      "qlib.data.D.calendar",
+      "qlib.data.D.features"
+    ]
+  },
+  "qlib_dataset": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "segments": {
+      "development": [
+        "2016-01-01",
+        "2022-12-30"
+      ],
+      "outer": [
+        "2023-01-03",
+        "2026-07-17"
+      ],
+      "fold_2016": [
+        "2016-01-01",
+        "2016-12-31"
+      ],
+      "fold_2017": [
+        "2017-01-01",
+        "2017-12-31"
+      ],
+      "fold_2018": [
+        "2018-01-01",
+        "2018-12-31"
+      ],
+      "fold_2019": [
+        "2019-01-01",
+        "2019-12-31"
+      ],
+      "fold_2020": [
+        "2020-01-01",
+        "2020-12-31"
+      ],
+      "fold_2021": [
+        "2021-01-01",
+        "2021-12-31"
+      ],
+      "fold_2022": [
+        "2022-01-01",
+        "2022-12-31"
+      ]
+    },
+    "segment_rows": {
+      "development": 1762,
+      "outer": 887,
+      "fold_2016": 252,
+      "fold_2017": 251,
+      "fold_2018": 251,
+      "fold_2019": 252,
+      "fold_2020": 253,
+      "fold_2021": 252,
+      "fold_2022": 251
+    },
+    "purge_rows": 20,
+    "selection_uses_outer_test": false
+  },
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "model": {
+    "family": "two_head_fixed_ridge",
+    "ridge_alpha": 10.0,
+    "features": [
+      "soxx_trend20",
+      "soxx_trend60",
+      "soxx_vol20",
+      "soxx_drawdown60",
+      "relative_momentum20",
+      "soxs_trend5",
+      "soxs_trend20",
+      "inverse_tracking_gap1",
+      "inverse_tracking_gap20",
+      "soxl_soxs_path20"
+    ],
+    "targets": [
+      "cash_advantage_5d",
+      "future_vol_5d"
+    ],
+    "risk_score": "max(cash_advantage_5d_tail_score, future_vol_5d_tail_score)",
+    "calibration": {
+      "lower_quantile": 0.5,
+      "upper_quantile": 0.9,
+      "fit_scope": "training_fold_only"
+    }
+  },
+  "portfolio_contract": {
+    "tradable_assets": [
+      "SOXL",
+      "SOXX",
+      "cash"
+    ],
+    "soxs_feature_only": true,
+    "minimum_cash": 0.1,
+    "maximum_cash": 0.6,
+    "risky_sleeve_soxl_share": 0.3,
+    "risky_sleeve_soxx_share": 0.7,
+    "maximum_total_soxl_weight": 0.27,
+    "cash_return": 0.0,
+    "timing": "signal T close; target T+1 open to T+2 open",
+    "costs_bps": [
+      10,
+      25
+    ]
+  },
+  "gate_evaluation": {
+    "gates": {
+      "relative_wealth_10bps": false,
+      "relative_wealth_25bps": false,
+      "positive_fold_count": false,
+      "median_fold_ratio": false,
+      "bootstrap_outperformance_probability": false,
+      "minimum_daily_cash": true,
+      "average_cash": true,
+      "zero_cash_days": true,
+      "timing_value_vs_matched_static": false,
+      "maxdd_vs_soxx": true,
+      "worst5_vs_soxx": true,
+      "maxdd_vs_matched_static": true,
+      "worst5_vs_matched_static": true,
+      "maxdd_improvement_vs_no_cash": true,
+      "worst5_improvement_vs_no_cash": true
+    },
+    "all_development_gates_pass": false,
+    "passed_gate_count": 9,
+    "total_gate_count": 15,
+    "promotion_decision": "needs_iteration_relative_wealth",
+    "development_positive_fold_count_10bps": 3,
+    "development_fold_count": 7,
+    "development_median_fold_ratio_10bps": 0.982682324257347,
+    "selection_uses_outer_test": false
+  },
+  "bootstrap": {
+    "method": "stationary_block_bootstrap",
+    "paths": 2048,
+    "path_days": 1762,
+    "expected_block_days": 63,
+    "outperformance_probability": 0.2470703125,
+    "ratio_p05": 0.6074466368129757,
+    "ratio_p10": 0.6540924767688107,
+    "ratio_p50": 0.8608492691877174,
+    "ratio_p90": 1.1404553438117013,
+    "ratio_p95": 1.243803432702891
+  },
+  "recorder_id": "17dafd78c96048aa9d9861a527b714c4",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cash_floor_benchmark_relative_walk_forward_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cash_floor_benchmark_relative_walk_forward_v1/qlib_recorder/496757848563496074/17dafd78c96048aa9d9861a527b714c4",
+  "sidecars": {
+    "model_selection": "model_selection.csv",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "bootstrap_metrics": "bootstrap_metrics.csv",
+    "calibration_summary": "calibration_summary.csv",
+    "feature_coefficients": "feature_coefficients.csv",
+    "selected_model": "selected_model.json",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/cash_floor_benchmark_relative_walk_forward_v1/models/",
+      "artifacts/cash_floor_benchmark_relative_walk_forward_v1/predictions.csv",
+      "artifacts/cash_floor_benchmark_relative_walk_forward_v1/positions.csv",
+      "artifacts/cash_floor_benchmark_relative_walk_forward_v1/strategy_returns.csv",
+      "artifacts/cash_floor_benchmark_relative_walk_forward_v1/bootstrap_terminal_wealth.csv"
+    ]
+  }
+}
