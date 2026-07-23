@@ -1,0 +1,15 @@
+experiment: multitask_classification_allocation_v1
+system_of_record: qlib
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+benchmark: SOXX
+assets: [SOXL, SOXX, cash]
+allocation_output: direct_continuous_factorized
+auxiliary_tasks: [tail_1d, tail_3d, tail_5d, relative_alpha, recovery]
+candidates: [tabular_base_allocation_only, tabular_base_multitask, tabular_fast_multitask, gru_fast_multitask]
+base_position: none
+explicit_prior: none
+candidate_weight_grid: false
+development: [2016, 2022]
+outer_diagnostic: [2023, 2026-07-02]
+selection_uses_outer_test: false
+artifact_policy: slim_card_recorder_first

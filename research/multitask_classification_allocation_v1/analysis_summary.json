@@ -1,0 +1,11 @@
+{
+  "objective_pass": false,
+  "promotion_decision": "not_promoted_multitask_classification_or_risk_gates_failed",
+  "diagnostic_selected": "tabular_base_multitask",
+  "development_ratio_10bps": 0.874505614136621,
+  "development_max_drawdown_pct": -43.29330338371621,
+  "outer_ratio_10bps": 0.7808842335418088,
+  "outer_max_drawdown_pct": -54.921545147239456,
+  "classification_learnability_pass": false,
+  "selection_uses_outer_test": false
+}
