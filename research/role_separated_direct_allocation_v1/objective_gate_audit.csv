@@ -1,0 +1,11 @@
+gate,required,passed,detail
+no_base_or_prior,True,True,all candidates emit full SOXL/SOXX/cash weights
+cross_fitted_heads,True,True,allocator training only receives expanding-window OOF heads
+outer_not_used_for_selection,True,True,2023-2026 is selected-candidate validation only
+development_all_gates,True,False,gate_count=8/12
+outer_year_robustness,True,False,passing_outer_years=2/4
+outer_drawdown,True,False,outer_maxdd=-47.01%
+seed_stability_10bps,True,True,seed_ratio_range=1.0297-1.0439
+alpha_learnability,True,True,"positive_skill_years=3, same_sign_spearman_years=7, mean_spearman=0.1912"
+hazard_learnability,True,False,"positive_skill_years=3, same_sign_spearman_years=3, mean_spearman=-0.0201"
+recovery_learnability,True,True,auc_above_060_years=5

@@ -51,6 +51,7 @@ __all__ = [
     "DynamicSoxxSoxlCashAllocationWfSpec",
     "DirectContinuousAllocationSpec",
     "MultitaskClassificationAllocationSpec",
+    "RoleSeparatedAllocationSpec",
     "TalebFragilityAllocationSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
     "QlibNativeExperimentResult",
@@ -89,6 +90,7 @@ __all__ = [
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
     "run_direct_continuous_soxx_allocation_card",
     "run_multitask_classification_allocation_card",
+    "run_role_separated_direct_allocation_card",
     "run_taleb_fragility_allocation_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_leveraged_etf_paper_replay_card",
@@ -226,6 +228,11 @@ _TALEB_FRAGILITY_ALLOCATION_EXPORTS = {
     "run_taleb_fragility_allocation_card",
 }
 
+_ROLE_SEPARATED_ALLOCATION_EXPORTS = {
+    "RoleSeparatedAllocationSpec",
+    "run_role_separated_direct_allocation_card",
+}
+
 _LEVERAGED_ETF_PAPER_REPLAY_EXPORTS = {
     "LeveragedEtfPaperReplaySpec",
     "run_leveraged_etf_paper_replay_card",
@@ -358,6 +365,10 @@ def __getattr__(name: str):
         from . import taleb_fragility_allocation
 
         return getattr(taleb_fragility_allocation, name)
+    if name in _ROLE_SEPARATED_ALLOCATION_EXPORTS:
+        from . import role_separated_direct_allocation
+
+        return getattr(role_separated_direct_allocation, name)
     if name in _LEVERAGED_ETF_PAPER_REPLAY_EXPORTS:
         from . import leveraged_etf_paper_replay
 

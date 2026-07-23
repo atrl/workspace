@@ -1,0 +1,11 @@
+{
+  "objective_pass": false,
+  "promotion_decision": "not_promoted_role_or_risk_gates_failed",
+  "selected_candidate": "crossfit_alpha_recovery_direct_mse",
+  "development_ratio_10bps": 1.040453610074788,
+  "development_ratio_25bps": 1.0038785407003017,
+  "development_max_drawdown_pct": -53.765564958534505,
+  "outer_ratio_10bps": 1.0345687269179074,
+  "outer_max_drawdown_pct": -47.013505622259835,
+  "selection_uses_outer_test": false
+}

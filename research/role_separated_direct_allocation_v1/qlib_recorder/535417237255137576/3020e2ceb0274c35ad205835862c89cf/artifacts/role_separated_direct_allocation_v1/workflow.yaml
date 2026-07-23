@@ -1,0 +1,15 @@
+experiment: role_separated_direct_allocation_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+taleb_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/taleb_fragility_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/role_separated_direct_allocation_v1/qlib_recorder
+market: US
+region: us
+as_of: 2026-07-02
+assets: [SOXL, SOXX, cash]
+head_training: expanding_window_cross_fitted
+allocation_output: direct_full_weights
+base_position: null
+candidate_weight_grid: false
+selection_uses_outer_test: false
+artifact_policy:
+  policy: slim_card_recorder_first

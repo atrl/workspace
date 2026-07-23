@@ -1,0 +1,4 @@
+role,folds,mean_mae_skill,positive_skill_years,mean_spearman,same_sign_spearman_years,mean_roc_auc,auc_above_060_years
+alpha,7,-0.02476102926993227,3.0,0.19116274882201245,7.0,,
+hazard,7,-0.03520998103289408,3.0,-0.020057503459685537,3.0,,
+recovery,7,,,,,0.641207698591048,5.0
