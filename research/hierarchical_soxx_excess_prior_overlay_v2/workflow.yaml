@@ -1,0 +1,11 @@
+experiment: hierarchical_soxx_excess_prior_overlay_v2
+source_experiment: hierarchical_soxx_excess_walk_forward_v1
+system_of_record: qlib
+benchmark: SOXX
+assets: [SOXL, SOXX, cash]
+development: [2016, 2022]
+outer_diagnostic: [2023, 2026-07-02]
+selection_uses_outer_test: false
+base_constrained_ref_role: explicit_additive_prior_not_feature
+cash_rule: hazard_high AND predicted_cash_benefit_above_cost
+artifact_policy: slim_card_recorder_first

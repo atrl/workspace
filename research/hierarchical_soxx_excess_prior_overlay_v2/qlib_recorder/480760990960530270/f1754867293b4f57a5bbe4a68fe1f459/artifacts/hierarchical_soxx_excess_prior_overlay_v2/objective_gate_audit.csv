@@ -1,0 +1,15 @@
+gate,required,passed,evidence
+alpha_head_feature_families,True,True,source_v1_reintegrated_alpha_uses_momentum_rv_decay_trend_breadth
+crash_hazard_head,True,True,SOXX path <= -6pct OR SOXX day <= -4pct OR SOXL day <= -12pct
+cash_action_and_gate,True,True,predict whether defensive cash beats normal cash by more than 10bp-derived hurdle; cash increases only under hazard AND cash gate
+explicit_prior_not_hidden_feature,True,True,base_constrained_ref_explicit_additive_prior
+outer_not_used_for_selection,True,True,profile_selected_on_2016_2022_development_only
+development_20pct_excess_10bps,True,True,1.2840622810068618
+development_maxdd_better_than_soxx,True,True,-46.978766 vs -47.374011
+development_recovery_no_worse_than_soxx,True,True,underwater 252 vs 257; recovery 56 vs 56
+development_downside_cash,True,True,11.514851485148517
+outer_20pct_excess_10bps,True,True,1.6141763642773446
+outer_maxdd_better_than_soxx,True,True,-42.256310 vs -42.790391
+outer_recovery_better_than_soxx,True,True,underwater 247 vs 297; recovery 63 vs 113
+outer_downside_cash,True,True,15.625000000000004
+legacy_absolute_worst_5d_minus_12pct,False,False,-22.11796066276529
