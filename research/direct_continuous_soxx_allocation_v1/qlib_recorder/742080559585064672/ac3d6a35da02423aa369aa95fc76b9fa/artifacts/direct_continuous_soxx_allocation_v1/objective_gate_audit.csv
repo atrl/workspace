@@ -1,0 +1,15 @@
+gate,required,passed,evidence
+no_base_or_prior,True,True,base_constrained_ref_role=none
+no_candidate_weight_grid,True,True,network emits three continuous logits and softmax weights
+outer_not_used_for_selection,True,True,2016_2022_development_only
+development_20pct_excess_10bps,True,True,2.7625666258664983
+development_25bps_stress,True,True,2.2160857449041003
+development_year_stability,True,True,6
+development_maxdd_better_than_soxx,True,False,-51.540994 vs -47.374011
+development_recovery_better_than_soxx,True,False,underwater 272 vs 257; recovery 54 vs 56
+development_model_uses_cash_in_downside,True,True,17.224356 vs 11.065809
+outer_20pct_excess_10bps,True,True,1.5291118875789838
+outer_maxdd_better_than_soxx,True,False,-60.763552 vs -42.790391
+outer_recovery_better_than_soxx,True,False,underwater 377 vs 297; recovery 193 vs 113
+outer_model_uses_cash_in_downside,True,True,40.351102 vs 17.190471
+legacy_absolute_worst_5d_minus_12pct,False,False,-22.50204918841101

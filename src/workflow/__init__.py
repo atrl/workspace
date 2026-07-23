@@ -49,6 +49,7 @@ __all__ = [
     "LeveragedEtfPaperReplaySpec",
     "Multi3xEtfNormalizedNestedWfSpec",
     "DynamicSoxxSoxlCashAllocationWfSpec",
+    "DirectContinuousAllocationSpec",
     "ProbabilityBudgetOpen2OpenCardSpec",
     "QlibNativeExperimentResult",
     "QlibNativeExperimentSpec",
@@ -84,6 +85,7 @@ __all__ = [
     "run_hierarchical_soxx_excess_walk_forward_card",
     "run_hierarchical_soxx_excess_prior_overlay_card",
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
+    "run_direct_continuous_soxx_allocation_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_leveraged_etf_paper_replay_card",
     "run_multi_3x_etf_normalized_nested_wf_card",
@@ -203,6 +205,11 @@ _HIERARCHICAL_SOXX_EXCESS_EXPORTS = {
 _HIERARCHICAL_SOXX_EXCESS_PRIOR_OVERLAY_EXPORTS = {
     "HierarchicalSoxxExcessPriorOverlaySpec",
     "run_hierarchical_soxx_excess_prior_overlay_card",
+}
+
+_DIRECT_CONTINUOUS_SOXX_ALLOCATION_EXPORTS = {
+    "DirectContinuousAllocationSpec",
+    "run_direct_continuous_soxx_allocation_card",
 }
 
 _LEVERAGED_ETF_PAPER_REPLAY_EXPORTS = {
@@ -325,6 +332,10 @@ def __getattr__(name: str):
         from . import hierarchical_soxx_excess_prior_overlay
 
         return getattr(hierarchical_soxx_excess_prior_overlay, name)
+    if name in _DIRECT_CONTINUOUS_SOXX_ALLOCATION_EXPORTS:
+        from . import direct_continuous_soxx_allocation
+
+        return getattr(direct_continuous_soxx_allocation, name)
     if name in _LEVERAGED_ETF_PAPER_REPLAY_EXPORTS:
         from . import leveraged_etf_paper_replay
 

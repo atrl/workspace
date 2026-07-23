@@ -1,0 +1,12 @@
+{
+  "objective_pass": false,
+  "promotion_decision": "needs_iteration_direct_continuous_allocation",
+  "selected_profile": "turnover_stability",
+  "development_ratio_10bps": 2.7625666258664983,
+  "development_ratio_25bps": 2.2160857449041003,
+  "development_max_drawdown_pct": -51.54099381928119,
+  "outer_ratio_10bps": 1.5291118875789838,
+  "outer_max_drawdown_pct": -60.76355199075743,
+  "no_base_or_prior": true,
+  "no_candidate_weight_grid": true
+}
