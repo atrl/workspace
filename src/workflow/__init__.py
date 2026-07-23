@@ -42,6 +42,7 @@ __all__ = [
     "HardwareCycleProbabilityBudgetOpen2OpenCardSpec",
     "HardwareCycleCogAlphaMiningCardSpec",
     "HierarchicalFourAssetSpec",
+    "HierarchicalSoxxExcessSpec",
     "HierarchicalPolicyConfig",
     "MetaLabelRiskBudgetOpen2OpenSpec",
     "LeveragedEtfPaperReplaySpec",
@@ -79,6 +80,7 @@ __all__ = [
     "run_hardware_cycle_probability_budget_open2open_card",
     "run_hardware_cycle_cogalpha_mining_card",
     "run_hierarchical_four_asset_policy_card",
+    "run_hierarchical_soxx_excess_walk_forward_card",
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
     "run_meta_label_risk_budget_open2open_card",
     "run_leveraged_etf_paper_replay_card",
@@ -189,6 +191,11 @@ _TRAINABLE_REGIME_POLICY_NESTED_WF_EXPORTS = {
 _DYNAMIC_SOXX_SOXL_CASH_ALLOCATION_WF_EXPORTS = {
     "DynamicSoxxSoxlCashAllocationWfSpec",
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
+}
+
+_HIERARCHICAL_SOXX_EXCESS_EXPORTS = {
+    "HierarchicalSoxxExcessSpec",
+    "run_hierarchical_soxx_excess_walk_forward_card",
 }
 
 _LEVERAGED_ETF_PAPER_REPLAY_EXPORTS = {
@@ -303,6 +310,10 @@ def __getattr__(name: str):
         from . import dynamic_soxx_soxl_cash_allocation_wf
 
         return getattr(dynamic_soxx_soxl_cash_allocation_wf, name)
+    if name in _HIERARCHICAL_SOXX_EXCESS_EXPORTS:
+        from . import hierarchical_soxx_excess_walk_forward
+
+        return getattr(hierarchical_soxx_excess_walk_forward, name)
     if name in _LEVERAGED_ETF_PAPER_REPLAY_EXPORTS:
         from . import leveraged_etf_paper_replay
 
