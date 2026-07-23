@@ -1,0 +1,42 @@
+experiment: cash_floor_relative_target_feature_reintegration_v1
+card_type: cash_floor_relative_target_feature_reintegration_research_card
+provider_uri:
+  execution: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+  daily: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  normalized_cross_asset: /Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/cash_floor_relative_target_feature_reintegration_v1/qlib_recorder
+recorder_id: 58d8f39c04a740ac85945d064b98a5de
+qlib:
+  market: all
+  region: us
+  data_api: qlib.data.D.features
+  dataset: [DatasetH, DataHandlerLP, StaticDataLoader]
+  recorder: qlib.workflow.R
+walk_forward:
+  train_start: 2011-01-03
+  development_folds: [2016, 2017, 2018, 2019, 2020, 2021, 2022]
+  purge_rows: 20
+  outer: 2023-2026-07-02_diagnostic_only
+  selection_uses_outer_test: false
+objective:
+  targets: [cash_protection_5d, future_vol_5d]
+  aggregation: weighted_mean
+feature_sets: [current10, compact_reintegrated, full_reintegrated]
+model_families: [ridge, extra_trees]
+portfolio:
+  cash_bounds: [0.10, 0.60]
+  risky_sleeve: {SOXL: 0.30, SOXX: 0.70}
+  smoothing_span: 3
+  rebalance_threshold: 0.05
+  costs_bps: [10, 25]
+promotion:
+  decision: needs_iteration_tail_risk_after_feature_reintegration
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json
+  recorder_only_artifacts:
+    - artifacts/cash_floor_relative_target_feature_reintegration_v1/models/
+    - artifacts/cash_floor_relative_target_feature_reintegration_v1/predictions.csv
+    - artifacts/cash_floor_relative_target_feature_reintegration_v1/positions.csv
+    - artifacts/cash_floor_relative_target_feature_reintegration_v1/strategy_returns.csv
