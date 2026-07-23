@@ -75,6 +75,10 @@ from .soxs_defensive import (
     normalize_nasdaq_history,
     stitch_yahoo_to_nasdaq,
 )
+from .taleb_fragility import (
+    TalebFragilityDataSpec,
+    build_taleb_fragility_qlib_store,
+)
 
 __all__ = [
     "QlibProviderConfig",
@@ -89,6 +93,8 @@ __all__ = [
     "init_qlib_provider",
     "load_qlib_feature_frame",
     "write_snapshot_manifest",
+    "TalebFragilityDataSpec",
+    "build_taleb_fragility_qlib_store",
     "build_t1_intraday_feature_frame",
     "fetch_polygon_aggregate_bars",
     "fetch_futu_intraday_bars",

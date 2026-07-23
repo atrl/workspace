@@ -1,0 +1,16 @@
+gate,required,passed,evidence
+no_base_or_prior,True,True,none
+no_candidate_weight_grid,True,True,none
+outer_not_used_for_selection,True,True,development_2016_2022_only
+development_return_gate,True,False,False
+development_cost_gate,True,False,False
+development_year_gate,True,False,False
+development_maxdd_gate,True,False,False
+development_worst_day_gate,True,True,True
+development_cvar_gate,True,True,True
+development_worst_5d_gate,True,False,False
+development_cash_gate,True,True,True
+development_activity_gate,True,True,True
+development_learnability_gate,True,False,False
+outer_ratio_above_soxx_report_only,False,False,0.7808842335418088
+outer_maxdd_minus_20_report_only,False,False,-54.921545147239456

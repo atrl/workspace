@@ -100,6 +100,14 @@ from .tail_risk_external import (
     evaluate_tail_risk_candidate,
     summarize_tail_risk_branch,
 )
+from .taleb_fragility import (
+    EMPIRICAL_TAIL_FEATURES,
+    FEATURE_DEFINITIONS as TALEB_FRAGILITY_FEATURE_DEFINITIONS,
+    IMPLIED_TAIL_FEATURES,
+    STRUCTURAL_FRAGILITY_FEATURES,
+    TALEB_FRAGILITY_FEATURES,
+    build_taleb_fragility_feature_frame,
+)
 
 __all__ = [
     "AgenticAlphaFactorValidationReport",
@@ -140,6 +148,7 @@ __all__ = [
     "build_signed_overnight_component",
     "build_session_effect_frame",
     "build_tail_risk_external_frame",
+    "build_taleb_fragility_feature_frame",
     "build_tsmom_stop_component",
     "compact_agentic_ensemble_summary",
     "compact_canary_sprint_summary",
@@ -175,5 +184,10 @@ __all__ = [
     "summarize_meta_label_probability_branch",
     "summarize_session_effect_branch",
     "summarize_tail_risk_branch",
+    "EMPIRICAL_TAIL_FEATURES",
+    "IMPLIED_TAIL_FEATURES",
+    "STRUCTURAL_FRAGILITY_FEATURES",
+    "TALEB_FRAGILITY_FEATURES",
+    "TALEB_FRAGILITY_FEATURE_DEFINITIONS",
     "validate_agentic_alpha_factors",
 ]

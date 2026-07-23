@@ -1,0 +1,56 @@
+feature,feature_sets,family,definition,point_in_time,base_or_prior_feature
+soxl_ret3,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxl_ret5,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxl_ret10,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxl_ret20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxl_ret60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_ret3,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_ret5,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_ret10,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_ret20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_ret60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+relative_momentum20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_trend20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_trend60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+trend_efficiency_20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+levered_decay_20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_lead_10,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+range_pos_252,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+cross_breadth_pos_20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+cross_breadth_pos_60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+semis_vs_cross_20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+semis_vs_cross_60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+tech_breadth_20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+tech_breadth_60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_vol20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_drawdown60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+dist_high_252,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+vix,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+vix_chg5,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+vix_z_60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+rv20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+rv60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+rv20_expansion,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+tracking_error_5_z20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+tracking_error_5_pctile60,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+panic_reversal_5,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+chop_breakdown_risk,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+high_chop_pressure,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+cross_vol_breadth_high,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+cross_dispersion_20,"base,base_empirical,base_implied,base_structural,base_all_taleb",base,existing PIT base feature,True,False
+soxx_tail_xi_504,"base_empirical,base_all_taleb",empirical_tail,rolling 504d lower-tail Hill xi using the largest 10% losses,True,False
+soxx_tail_xi_instability,"base_empirical,base_all_taleb",empirical_tail,absolute disagreement between rolling 252d and 756d Hill xi,True,False
+soxx_es_var_ratio_504,"base_empirical,base_all_taleb",empirical_tail,rolling 504d absolute expected-shortfall to VaR ratio at 5%,True,False
+soxx_tail_loss_concentration_252,"base_empirical,base_all_taleb",empirical_tail,five largest rolling 252d SOXX losses divided by all losses,True,False
+soxx_exceedance_intensity_60,"base_empirical,base_all_taleb",empirical_tail,rolling 60d frequency below the lagged rolling 252d 5% quantile,True,False
+soxx_exceedance_ewm,"base_empirical,base_all_taleb",empirical_tail,20d-span exponentially weighted lagged-tail exceedance intensity,True,False
+soxx_downside_semivariance_share_20,"base_empirical,base_all_taleb",empirical_tail,rolling 20d negative squared returns divided by total squared returns,True,False
+soxx_jump_ratio_20,"base_empirical,base_all_taleb",empirical_tail,rolling 20d non-negative daily RV minus bipower variation share,True,False
+vix9d_vix3m_z_126,"base_implied,base_all_taleb",implied_tail,rolling 126d z-score of VIX9D divided by VIX3M,True,False
+vvix_vix_z_126,"base_implied,base_all_taleb",implied_tail,rolling 126d z-score of VVIX divided by VIX,True,False
+skew_z_252,"base_implied,base_all_taleb",implied_tail,rolling 252d z-score of Cboe SKEW,True,False
+tail_risk_premium_9d,"base_implied,base_all_taleb",implied_tail,VIX9D annualized variance minus rolling 9d SOXX realized variance,True,False
+soxl_fragility_curvature_504,"base_structural,base_all_taleb",structural_fragility,"rolling downside loss acceleration across 0-1, 1-2, and >2 sigma SOXX shock buckets",True,False
+soxl_downside_beta_gap_252,"base_structural,base_all_taleb",structural_fragility,rolling 252d SOXL beta on negative SOXX days minus unconditional beta,True,False
+soxx_rebalance_drag_pressure_20,"base_structural,base_all_taleb",structural_fragility,"3 times rolling 20d SOXX squared-return sum, the 3x path drag proxy",True,False
+soxl_levered_decay_acceleration_5,"base_structural,base_all_taleb",structural_fragility,five-day change in rolling 20d SOXL return minus 3x SOXX return,True,False

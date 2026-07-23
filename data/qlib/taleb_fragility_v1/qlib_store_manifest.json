@@ -1,0 +1,90 @@
+{
+  "as_of": "2026-07-02",
+  "audit_snapshot_hash": "897edd983e2f739d",
+  "calendar_end": "2026-07-02",
+  "calendar_start": "2010-03-11",
+  "excluded_sources": {
+    "intraday_external_context": "excluded_from_selection_history_starts_2024",
+    "soxx_constituents": "excluded_non_PIT_current_constituents_backfill"
+  },
+  "feature_definitions": {
+    "skew_z_252": "rolling 252d z-score of Cboe SKEW",
+    "soxl_downside_beta_gap_252": "rolling 252d SOXL beta on negative SOXX days minus unconditional beta",
+    "soxl_fragility_curvature_504": "rolling downside loss acceleration across 0-1, 1-2, and >2 sigma SOXX shock buckets",
+    "soxl_levered_decay_acceleration_5": "five-day change in rolling 20d SOXL return minus 3x SOXX return",
+    "soxx_downside_semivariance_share_20": "rolling 20d negative squared returns divided by total squared returns",
+    "soxx_es_var_ratio_504": "rolling 504d absolute expected-shortfall to VaR ratio at 5%",
+    "soxx_exceedance_ewm": "20d-span exponentially weighted lagged-tail exceedance intensity",
+    "soxx_exceedance_intensity_60": "rolling 60d frequency below the lagged rolling 252d 5% quantile",
+    "soxx_jump_ratio_20": "rolling 20d non-negative daily RV minus bipower variation share",
+    "soxx_rebalance_drag_pressure_20": "3 times rolling 20d SOXX squared-return sum, the 3x path drag proxy",
+    "soxx_tail_loss_concentration_252": "five largest rolling 252d SOXX losses divided by all losses",
+    "soxx_tail_xi_504": "rolling 504d lower-tail Hill xi using the largest 10% losses",
+    "soxx_tail_xi_instability": "absolute disagreement between rolling 252d and 756d Hill xi",
+    "tail_risk_premium_9d": "VIX9D annualized variance minus rolling 9d SOXX realized variance",
+    "vix9d_vix3m_z_126": "rolling 126d z-score of VIX9D divided by VIX3M",
+    "vvix_vix_z_126": "rolling 126d z-score of VVIX divided by VIX"
+  },
+  "feature_file_count": 16,
+  "fields": [
+    "$soxx_tail_xi_504",
+    "$soxx_tail_xi_instability",
+    "$soxx_es_var_ratio_504",
+    "$soxx_tail_loss_concentration_252",
+    "$soxx_exceedance_intensity_60",
+    "$soxx_exceedance_ewm",
+    "$soxx_downside_semivariance_share_20",
+    "$soxx_jump_ratio_20",
+    "$vix9d_vix3m_z_126",
+    "$vvix_vix_z_126",
+    "$skew_z_252",
+    "$tail_risk_premium_9d",
+    "$soxl_fragility_curvature_504",
+    "$soxl_downside_beta_gap_252",
+    "$soxx_rebalance_drag_pressure_20",
+    "$soxl_levered_decay_acceleration_5"
+  ],
+  "freq": "day",
+  "hash": "228d6a51b11f6cab",
+  "instruments": [
+    "TALEB"
+  ],
+  "market": "all",
+  "max_datetime": "2026-07-02",
+  "operation": "qlib_store_build",
+  "point_in_time": true,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/taleb_fragility_v1",
+  "raw_source_coverage": {
+    "SKEW": {
+      "end": "2026-07-02",
+      "rows": 9176,
+      "start": "1990-01-02"
+    },
+    "VIX3M": {
+      "end": "2026-07-02",
+      "rows": 4222,
+      "start": "2009-09-18"
+    },
+    "VIX9D": {
+      "end": "2026-07-02",
+      "rows": 3896,
+      "start": "2011-01-04"
+    },
+    "VVIX": {
+      "end": "2026-07-02",
+      "rows": 5053,
+      "start": "2006-03-06"
+    }
+  },
+  "region": "us",
+  "row_count": 4103,
+  "source": "qlib:data/qlib/soxl+data/raw/external/VIX9D,VIX3M,VVIX,SKEW",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

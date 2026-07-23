@@ -1,0 +1,15 @@
+experiment: taleb_fragility_allocation_v1
+system_of_record: qlib
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/taleb_fragility_v1
+execution_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+benchmark: SOXX
+assets: [SOXL, SOXX, cash]
+allocation_output: direct_continuous_factorized
+feature_ablation: [base, base_empirical, base_implied, base_structural, base_all_taleb]
+base_position: none
+explicit_prior: none
+candidate_weight_grid: false
+development: [2016, 2022]
+outer_diagnostic: [2023, 2026-07-02]
+selection_uses_outer_test: false
+artifact_policy: slim_card_recorder_first

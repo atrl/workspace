@@ -1,0 +1,13 @@
+{
+  "objective_pass": false,
+  "promotion_decision": "not_promoted_taleb_features_or_risk_gates_failed",
+  "diagnostic_selected": "tabular_base_multitask",
+  "development_ratio_10bps": 0.874505614136621,
+  "development_ratio_25bps": 0.6082286077781703,
+  "development_max_drawdown_pct": -43.29330338371621,
+  "development_tail_1d_auc": 0.5076377734421568,
+  "development_relative_alpha_auc": 0.5968252118922716,
+  "outer_ratio_10bps": 0.7808842335418088,
+  "outer_max_drawdown_pct": -54.921545147239456,
+  "selection_uses_outer_test": false
+}

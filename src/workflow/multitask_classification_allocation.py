@@ -321,6 +321,7 @@ def _build_dataset(
     frame: pd.DataFrame,
     all_features: list[str],
     spec: MultitaskClassificationAllocationSpec,
+    extra_labels: tuple[str, ...] = (),
 ):
     from qlib.data.dataset import DatasetH
     from qlib.data.dataset.handler import DataHandlerLP
@@ -332,6 +333,7 @@ def _build_dataset(
         "stress_context",
         *LABEL_COLUMNS,
         *TARGET_WEIGHT_COLUMNS,
+        *extra_labels,
     ]
     static = pd.concat(
         {
