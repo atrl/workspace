@@ -1,0 +1,13 @@
+experiment: auxiliary_3x_training_data_allocation_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+recorder_uri: /Users/rziiiii/dev/workspace/research/auxiliary_3x_training_data_allocation_v1/qlib_recorder
+market: US
+region: us
+as_of: 2026-07-02
+assets: [SOXL, SOXX, cash]
+auxiliary_training_assets: [TQQQ, TECL, SPXL]
+test_assets: [SOXL]
+allocation_output: direct_full_weights
+selection_uses_outer_test: false
+artifact_policy:
+  policy: slim_card_recorder_first

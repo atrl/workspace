@@ -1,0 +1,277 @@
+{
+  "experiment": "auxiliary_3x_training_data_allocation_v1",
+  "card_type": "qlib_auxiliary_training_data_research_card",
+  "primary_notebook": "auxiliary_3x_training_data_allocation_v1.ipynb",
+  "as_of": "2026-07-02",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "source_provider_audit": {
+    "source": "qlib.data.D.features",
+    "source_audit": {
+      "SOXL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+        "provider": "soxl",
+        "underlying": "SOXX",
+        "calendar_start": "2010-03-11",
+        "calendar_end": "2026-07-20",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-02",
+        "row_count": 3897,
+        "source": "qlib.data.D.features"
+      },
+      "TQQQ": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+        "provider": "tqqq",
+        "underlying": "QQQ",
+        "calendar_start": "2010-02-11",
+        "calendar_end": "2026-07-02",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-02",
+        "row_count": 3897,
+        "source": "qlib.data.D.features"
+      },
+      "UPRO": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/upro",
+        "provider": "upro",
+        "underlying": "SPY",
+        "calendar_start": "2009-06-25",
+        "calendar_end": "2026-07-02",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-02",
+        "row_count": 3897,
+        "source": "qlib.data.D.features"
+      },
+      "SPXL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/spxl",
+        "provider": "spxl",
+        "underlying": "SPY",
+        "calendar_start": "2008-11-05",
+        "calendar_end": "2026-07-02",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-02",
+        "row_count": 3897,
+        "source": "qlib.data.D.features"
+      },
+      "TECL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tecl",
+        "provider": "tecl",
+        "underlying": "XLK",
+        "calendar_start": "2008-12-30",
+        "calendar_end": "2026-07-02",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-02",
+        "row_count": 3897,
+        "source": "qlib.data.D.features"
+      }
+    },
+    "feature_count": 56,
+    "feature_policy": "past_only_per_asset_rolling_zscore_percentile",
+    "feature_identity_columns": [],
+    "available_instruments": [
+      "SOXL",
+      "SPXL",
+      "TECL",
+      "TQQQ",
+      "UPRO"
+    ],
+    "primary_test_instrument": "SOXL",
+    "auxiliary_assets_role": "training_rows_only",
+    "outer_assets_role": "SOXL_only",
+    "selection_uses_outer_test": false
+  },
+  "market_source_audit": {
+    "execution_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "execution_provider": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+      "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+      "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+      "as_of": "2026-07-21",
+      "instruments": [
+        "SOXL",
+        "SOXS",
+        "SOXX"
+      ],
+      "fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close"
+      ],
+      "calendar_rows": 4115,
+      "usable_rows": 4054,
+      "usable_start": "2010-06-04",
+      "usable_end": "2026-07-17",
+      "relationship_audit": {
+        "common_end": "2026-07-21",
+        "common_rows_per_instrument": 4115,
+        "common_start": "2010-03-11",
+        "soxs_soxl_close_return_correlation": -0.9971576228487848,
+        "soxs_soxx_close_return_correlation": -0.9979840555866599
+      },
+      "source_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.features"
+      ]
+    },
+    "calendar_start": "2010-06-04",
+    "calendar_end": "2026-07-02",
+    "common_feature_end": "2026-07-02",
+    "source_api": "qlib.data.D.features",
+    "excluded_sources": {
+      "soxx_constituents": "excluded_from_model_non_PIT_single_snapshot_survivorship_bias",
+      "macro_credit": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+      "hardware_cycle": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+      "intraday": "excluded_from_2016_2022_walk_forward_coverage_starts_2019"
+    },
+    "feature_count": 39,
+    "feature_families": [
+      "cross_asset_diffusion",
+      "current_soxl_soxx_soxs",
+      "normalized_regime",
+      "risk_hardened_high_chop"
+    ],
+    "base_constrained_ref_in_features": false,
+    "base_constrained_ref_role": "none",
+    "candidate_weight_grid": false,
+    "allocation_output": "direct_continuous_softmax_soxl_soxx_cash",
+    "maximum_soxl_weight_is_risk_constraint": true,
+    "selection_uses_outer_test": false
+  },
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "development_rows": 8810,
+    "instruments": [
+      "SOXL",
+      "SPXL",
+      "TECL",
+      "TQQQ",
+      "UPRO"
+    ],
+    "selection_uses_outer_test": false
+  },
+  "spec": {
+    "root": "/Users/rziiiii/dev/workspace",
+    "experiment": "auxiliary_3x_training_data_allocation_v1",
+    "train_start": "2011-01-03",
+    "development_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "development_end": "2022-12-30",
+    "outer": [
+      "2023-01-03",
+      "2026-07-02"
+    ],
+    "purge_rows": 20,
+    "hidden_units": 16,
+    "epochs": 300,
+    "learning_rate": 0.003,
+    "weight_decay": 0.05,
+    "maximum_soxl_weight": 0.3,
+    "minimum_average_cash": 0.15,
+    "costs_bps": [
+      10,
+      25
+    ],
+    "seed": 53,
+    "as_of": "2026-07-02"
+  },
+  "feature_count": 56,
+  "feature_policy": "past_only_per_asset_rolling_zscore_percentile",
+  "training_data_candidates": [
+    {
+      "name": "soxl_only_common_features",
+      "asset_weights": [
+        [
+          "SOXL",
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "spxl_aux_half_weight",
+      "asset_weights": [
+        [
+          "SOXL",
+          1.0
+        ],
+        [
+          "SPXL",
+          0.5
+        ]
+      ]
+    },
+    {
+      "name": "tech_spxl_aux_weighted",
+      "asset_weights": [
+        [
+          "SOXL",
+          1.0
+        ],
+        [
+          "TQQQ",
+          0.4
+        ],
+        [
+          "TECL",
+          0.4
+        ],
+        [
+          "SPXL",
+          0.2
+        ]
+      ]
+    }
+  ],
+  "test_data_policy": {
+    "development": "SOXL_only",
+    "outer": "SOXL_only",
+    "auxiliary_assets_in_test": false,
+    "selection_uses_outer_test": false
+  },
+  "selected_candidate": "tech_spxl_aux_weighted",
+  "objective_pass": false,
+  "promotion_decision": "not_promoted_auxiliary_training_data_risk_gates_failed",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  ],
+  "recorder_id": "d0d1e39b74fc4203ac28a25386edff3a",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/auxiliary_3x_training_data_allocation_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/auxiliary_3x_training_data_allocation_v1/qlib_recorder/743878911069380708/d0d1e39b74fc4203ac28a25386edff3a",
+  "sidecars": {
+    "selected_model": "selected_model.json",
+    "model_selection": "model_selection.csv",
+    "model_comparison": "model_comparison.csv",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "training_data_audit": "training_data_audit.csv",
+    "window_metrics": "window_metrics.csv",
+    "objective_gate_audit": "objective_gate_audit.csv",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md",
+    "conclusion": "conclusion.md",
+    "workflow_config": "workflow.yaml"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/auxiliary_3x_training_data_allocation_v1/models/",
+      "artifacts/auxiliary_3x_training_data_allocation_v1/predictions.csv",
+      "artifacts/auxiliary_3x_training_data_allocation_v1/positions.csv",
+      "artifacts/auxiliary_3x_training_data_allocation_v1/strategy_returns.csv",
+      "artifacts/auxiliary_3x_training_data_allocation_v1/training_diagnostics.csv"
+    ]
+  }
+}

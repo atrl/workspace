@@ -7,6 +7,8 @@ build/
 
 # Jupyter
 .ipynb_checkpoints/
+research/*/qlib_recorder/
+production/*/qlib_recorder/
 
 # Local environments and caches
 .venv*/

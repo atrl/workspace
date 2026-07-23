@@ -1,0 +1,8 @@
+gate,required,passed,detail
+auxiliary_assets_training_only,True,True,all development and outer test rows are SOXL
+outer_not_used_for_selection,True,True,candidate selection uses 2016-2022 SOXL only
+development_return_10bps,True,False,ratio=0.9786
+development_return_25bps,True,False,ratio=0.8629
+development_all_risk_gates,True,False,gate_count=4/9
+outer_year_robustness,True,False,passing_outer_years=1/4
+outer_maxdd,True,False,maxdd=-45.94%

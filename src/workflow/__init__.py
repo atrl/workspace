@@ -50,6 +50,7 @@ __all__ = [
     "Multi3xEtfNormalizedNestedWfSpec",
     "DynamicSoxxSoxlCashAllocationWfSpec",
     "DirectContinuousAllocationSpec",
+    "Auxiliary3xTrainingDataSpec",
     "MultitaskClassificationAllocationSpec",
     "RoleSeparatedAllocationSpec",
     "TalebFragilityAllocationSpec",
@@ -89,6 +90,7 @@ __all__ = [
     "run_hierarchical_soxx_excess_prior_overlay_card",
     "run_dynamic_soxx_soxl_cash_allocation_wf_card",
     "run_direct_continuous_soxx_allocation_card",
+    "run_auxiliary_3x_training_data_allocation_card",
     "run_multitask_classification_allocation_card",
     "run_role_separated_direct_allocation_card",
     "run_taleb_fragility_allocation_card",
@@ -216,6 +218,11 @@ _HIERARCHICAL_SOXX_EXCESS_PRIOR_OVERLAY_EXPORTS = {
 _DIRECT_CONTINUOUS_SOXX_ALLOCATION_EXPORTS = {
     "DirectContinuousAllocationSpec",
     "run_direct_continuous_soxx_allocation_card",
+}
+
+_AUXILIARY_3X_TRAINING_DATA_EXPORTS = {
+    "Auxiliary3xTrainingDataSpec",
+    "run_auxiliary_3x_training_data_allocation_card",
 }
 
 _MULTITASK_CLASSIFICATION_ALLOCATION_EXPORTS = {
@@ -357,6 +364,10 @@ def __getattr__(name: str):
         from . import direct_continuous_soxx_allocation
 
         return getattr(direct_continuous_soxx_allocation, name)
+    if name in _AUXILIARY_3X_TRAINING_DATA_EXPORTS:
+        from . import auxiliary_3x_training_data_allocation
+
+        return getattr(auxiliary_3x_training_data_allocation, name)
     if name in _MULTITASK_CLASSIFICATION_ALLOCATION_EXPORTS:
         from . import multitask_classification_allocation
 
