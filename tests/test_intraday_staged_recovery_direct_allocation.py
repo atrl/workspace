@@ -9,6 +9,7 @@ import pytest
 from src.workflow.intraday_staged_recovery_direct_allocation import (
     EXPERIMENT,
     IntradayStagedRecoveryDirectAllocationSpec,
+    apply_open_no_trade_band,
     time_limited_stage2_path,
 )
 
@@ -75,6 +76,44 @@ def test_time_limited_stage2_path_has_no_hidden_cash_turnover():
 
     assert gross_return == pytest.approx(0.0)
     assert turnover == pytest.approx(0.0)
+
+
+def test_open_no_trade_band_suppresses_only_small_legal_changes():
+    previous = np.array([0.10, 0.30, 0.60])
+    desired = np.array([0.102, 0.298, 0.60])
+
+    weights, suppressed = apply_open_no_trade_band(
+        desired,
+        previous,
+        beta_cap=0.65,
+        no_trade_band=0.01,
+    )
+    unchanged, zero_delta_suppressed = apply_open_no_trade_band(
+        previous,
+        previous,
+        beta_cap=0.65,
+        no_trade_band=0.01,
+    )
+
+    assert suppressed is True
+    assert weights == pytest.approx(previous)
+    assert zero_delta_suppressed is False
+    assert unchanged == pytest.approx(previous)
+
+
+def test_open_no_trade_band_never_blocks_required_risk_reduction():
+    previous = np.array([0.10, 0.30, 0.60])
+    desired = np.array([0.098, 0.298, 0.604])
+
+    weights, suppressed = apply_open_no_trade_band(
+        desired,
+        previous,
+        beta_cap=0.55,
+        no_trade_band=0.01,
+    )
+
+    assert suppressed is False
+    assert weights == pytest.approx(desired)
 
 
 def test_staged_recovery_card_is_executed_recorder_first_and_outer_safe():

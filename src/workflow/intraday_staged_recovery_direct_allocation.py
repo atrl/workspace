@@ -376,6 +376,261 @@ def _build_stage2_teacher_training_frame(
     return pd.DataFrame(records)
 
 
+def build_on_policy_stage2_teacher_training_frame(
+    frame: pd.DataFrame,
+    *,
+    spec: IntradayStagedRecoveryDirectAllocationSpec,
+    stage1_teacher_frame: pd.DataFrame,
+    stage1_c_value: float,
+    stage1_threshold: float,
+    stage1_action_beta: float,
+    teacher_beta: float,
+    open_no_trade_band: float = 0.0,
+) -> pd.DataFrame:
+    stage1_models = {
+        int(year): _fit_recovery_model(
+            stage1_teacher_frame,
+            year=int(year),
+            c_value=stage1_c_value,
+        )
+        for year in sorted(frame["signal_date"].dt.year.unique())
+    }
+    records: list[dict[str, Any]] = []
+    for segment_name, segment in frame.groupby("segment", sort=False):
+        equity = peak = 1.0
+        previous = np.zeros(3)
+        state = clock = 0
+        history: list[float] = []
+        first_action_year = (
+            spec.first_intraday_action_year
+            if segment_name == "development_walk_forward"
+            else min(spec.outer_years)
+        )
+        for row in segment.sort_values("signal_date").itertuples():
+            drawdown = max(0.0, 1.0 - equity / peak)
+            state, clock, q = _advance_state(state, clock, drawdown, spec)
+            cap, raw_beta = _base_cap(
+                row,
+                q=q,
+                drawdown=drawdown,
+                history=history,
+                spec=spec,
+            )
+            desired_open_weights = project_legal_weights(
+                row.soxl_weight,
+                row.soxx_weight,
+                cap,
+                minimum_cash_weight=spec.minimum_cash_weight,
+                maximum_soxl_weight=spec.maximum_soxl_weight,
+            )
+            open_weights, open_no_trade = apply_open_no_trade_band(
+                desired_open_weights,
+                previous,
+                beta_cap=cap,
+                no_trade_band=open_no_trade_band,
+                minimum_cash_weight=spec.minimum_cash_weight,
+                maximum_soxl_weight=spec.maximum_soxl_weight,
+            )
+            stage1_target = min(raw_beta, stage1_action_beta)
+            model = stage1_models.get(row.signal_date.year)
+            eligible = (
+                row.signal_date.year >= first_action_year
+                and model is not None
+                and drawdown >= spec.recovery_eligibility_drawdown
+                and stage1_target > cap + 1e-12
+                and pd.notna(row.early_ret_soxx)
+                and pd.notna(row.cut_ret_soxx)
+                and pd.notna(row.day_ret_soxx)
+            )
+            stage1_probability = np.nan
+            stage1_action = False
+            if eligible:
+                feature = pd.DataFrame(
+                    [
+                        _feature_row(
+                            row,
+                            drawdown=drawdown,
+                            cap=cap,
+                            raw_beta=raw_beta,
+                            state=state,
+                            history=history,
+                        )
+                    ]
+                )
+                stage1_probability = float(
+                    model.predict_proba(
+                        feature.loc[:, FEATURE_COLUMNS]
+                    )[0, 1]
+                )
+                stage1_action = stage1_probability >= stage1_threshold
+            open_turnover = np.abs(
+                open_weights[:2] - previous[:2]
+            ).sum()
+            if stage1_action:
+                stage1_weights = project_legal_weights(
+                    row.soxl_weight,
+                    row.soxx_weight,
+                    stage1_target,
+                    minimum_cash_weight=spec.minimum_cash_weight,
+                    maximum_soxl_weight=spec.maximum_soxl_weight,
+                )
+                first_leg = np.array(
+                    [row.early_ret_soxl, row.early_ret_soxx, 0.0]
+                )
+                value_at_stage1 = 1.0 + open_weights @ first_leg
+                drifted_at_stage1 = (
+                    open_weights
+                    * (1.0 + first_leg)
+                    / value_at_stage1
+                )
+                second_leg = np.array(
+                    [
+                        row.second_leg_ret_soxl,
+                        row.second_leg_ret_soxx,
+                        0.0,
+                    ]
+                )
+                second_leg_growth = 1.0 + stage1_weights @ second_leg
+                value_at_stage2 = (
+                    value_at_stage1 * second_leg_growth
+                )
+                drifted_at_stage2 = (
+                    stage1_weights
+                    * (1.0 + second_leg)
+                    / second_leg_growth
+                )
+                post_stage1 = np.array(
+                    [
+                        (1.0 + row.soxl_return)
+                        / (1.0 + row.early_ret_soxl)
+                        - 1.0,
+                        (1.0 + row.soxx_return)
+                        / (1.0 + row.early_ret_soxx)
+                        - 1.0,
+                        0.0,
+                    ]
+                )
+                hold_gross_return = (
+                    value_at_stage1
+                    * (1.0 + stage1_weights @ post_stage1)
+                    - 1.0
+                )
+                stage1_turnover = np.abs(
+                    stage1_weights[:2] - drifted_at_stage1[:2]
+                ).sum()
+                strategy_return = (
+                    hold_gross_return
+                    - (open_turnover + stage1_turnover)
+                    * spec.transaction_cost_bps
+                    / 10_000.0
+                )
+                teacher_target = min(raw_beta, teacher_beta)
+                if teacher_target > stage1_target + 1e-12:
+                    teacher_weights = project_legal_weights(
+                        row.soxl_weight,
+                        row.soxx_weight,
+                        teacher_target,
+                        minimum_cash_weight=spec.minimum_cash_weight,
+                        maximum_soxl_weight=spec.maximum_soxl_weight,
+                    )
+                    cut_to_close = np.array(
+                        [
+                            (1.0 + row.day_ret_soxl)
+                            / (1.0 + row.cut_ret_soxl)
+                            - 1.0,
+                            (1.0 + row.day_ret_soxx)
+                            / (1.0 + row.cut_ret_soxx)
+                            - 1.0,
+                            0.0,
+                        ]
+                    )
+                    overnight = np.array(
+                        [
+                            (1.0 + row.soxl_return)
+                            / (1.0 + row.day_ret_soxl)
+                            - 1.0,
+                            (1.0 + row.soxx_return)
+                            / (1.0 + row.day_ret_soxx)
+                            - 1.0,
+                            0.0,
+                        ]
+                    )
+                    action_gross_return, action_turnover = (
+                        time_limited_stage2_path(
+                            value_at_cut=value_at_stage2,
+                            drifted_at_cut=drifted_at_stage2,
+                            action_weights=teacher_weights,
+                            restore_weights=stage1_weights,
+                            cut_to_close_returns=cut_to_close,
+                            overnight_returns=overnight,
+                        )
+                    )
+                    post_cut = np.array(
+                        [
+                            (1.0 + row.soxl_return)
+                            / (1.0 + row.cut_ret_soxl)
+                            - 1.0,
+                            (1.0 + row.soxx_return)
+                            / (1.0 + row.cut_ret_soxx)
+                            - 1.0,
+                            0.0,
+                        ]
+                    )
+                    hold_from_cut = (
+                        value_at_stage2
+                        * (1.0 + stage1_weights @ post_cut)
+                        - 1.0
+                    )
+                    action_net_return = (
+                        action_gross_return
+                        - action_turnover
+                        * spec.transaction_cost_bps
+                        / 10_000.0
+                    )
+                    records.append(
+                        {
+                            "signal_date": row.signal_date,
+                            "trade_date": row.trade_date,
+                            "segment": row.segment,
+                            "year": row.signal_date.year,
+                            **_stage2_feature_row(
+                                row,
+                                drawdown=drawdown,
+                                cap=cap,
+                                raw_beta=raw_beta,
+                                state=state,
+                                history=history,
+                            ),
+                            "stage1_probability": stage1_probability,
+                            "open_no_trade": open_no_trade,
+                            "teacher_action_advantage": (
+                                action_net_return - hold_from_cut
+                            ),
+                            "teacher_action_label": float(
+                                action_net_return > hold_from_cut
+                            ),
+                        }
+                    )
+                final_weights = stage1_weights
+            else:
+                final_weights = open_weights
+                gross_return = (
+                    open_weights[0] * row.soxl_return
+                    + open_weights[1] * row.soxx_return
+                )
+                strategy_return = (
+                    gross_return
+                    - open_turnover
+                    * spec.transaction_cost_bps
+                    / 10_000.0
+                )
+            history.append(strategy_return)
+            equity *= 1.0 + strategy_return
+            peak = max(peak, equity)
+            previous = final_weights
+    return pd.DataFrame(records)
+
+
 def _fit_stage2_model(
     training: pd.DataFrame, *, year: int, c_value: float
 ):
@@ -425,6 +680,38 @@ def time_limited_stage2_path(
     return float(gross_return), float(additional_turnover)
 
 
+def apply_open_no_trade_band(
+    desired_weights: np.ndarray,
+    previous_weights: np.ndarray,
+    *,
+    beta_cap: float,
+    no_trade_band: float,
+    minimum_cash_weight: float = 0.15,
+    maximum_soxl_weight: float = 0.30,
+) -> tuple[np.ndarray, bool]:
+    desired = np.asarray(desired_weights, dtype="float64")
+    previous = np.asarray(previous_weights, dtype="float64")
+    if desired.shape != (3,) or previous.shape != (3,):
+        raise ValueError("desired and previous weights must have shape (3,)")
+    if no_trade_band <= 0.0:
+        return desired.copy(), False
+    previous_beta = 3.0 * previous[0] + previous[1]
+    legal_previous = (
+        previous.sum() > 0.0
+        and previous.min() >= -1e-12
+        and previous[0] <= maximum_soxl_weight + 1e-12
+        and previous[2] >= minimum_cash_weight - 1e-12
+        and previous_beta <= beta_cap + 1e-12
+    )
+    risky_delta = float(np.abs(desired[:2] - previous[:2]).sum())
+    suppressed = (
+        legal_previous
+        and risky_delta > 1e-12
+        and risky_delta < float(no_trade_band)
+    )
+    return (previous.copy(), True) if suppressed else (desired.copy(), False)
+
+
 def simulate_staged_policy(
     frame: pd.DataFrame,
     *,
@@ -441,6 +728,7 @@ def simulate_staged_policy(
     stage1_model_cache: dict[tuple[int, float], Any],
     stage2_model_cache: dict[tuple[int, float], Any],
     cost_bps: float,
+    open_no_trade_band: float = 0.0,
 ) -> pd.DataFrame:
     stage1_models: dict[int, Any] = {}
     stage2_models: dict[int, Any] = {}
@@ -478,10 +766,18 @@ def simulate_staged_policy(
             history=history,
             spec=spec,
         )
-        open_weights = project_legal_weights(
+        desired_open_weights = project_legal_weights(
             row.soxl_weight,
             row.soxx_weight,
             cap,
+            minimum_cash_weight=spec.minimum_cash_weight,
+            maximum_soxl_weight=spec.maximum_soxl_weight,
+        )
+        open_weights, open_no_trade = apply_open_no_trade_band(
+            desired_open_weights,
+            previous,
+            beta_cap=cap,
+            no_trade_band=open_no_trade_band,
             minimum_cash_weight=spec.minimum_cash_weight,
             maximum_soxl_weight=spec.maximum_soxl_weight,
         )
@@ -662,6 +958,7 @@ def simulate_staged_policy(
                 "open_soxl_weight": open_weights[0],
                 "open_soxx_weight": open_weights[1],
                 "open_cash_weight": open_weights[2],
+                "open_no_trade": open_no_trade,
                 "stage2_soxl_weight": stage2_weights[0],
                 "stage2_soxx_weight": stage2_weights[1],
                 "stage2_cash_weight": stage2_weights[2],

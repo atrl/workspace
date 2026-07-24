@@ -1,0 +1,39 @@
+{
+  "selection_uses_outer_test": false,
+  "selected_from_segment": "development_walk_forward",
+  "outer_status": "reused_diagnostic_not_fresh_unseen_test",
+  "selected_model": {
+    "teacher_recovery_beta": 1.2,
+    "action_beta": 0.6,
+    "logistic_c": 0.03,
+    "probability_threshold": 0.55,
+    "open_no_trade_band": 0.0,
+    "second_cut_bars": 8,
+    "second_cut_time": "11:30",
+    "stage2_logistic_c": 0.3,
+    "stage2_probability_threshold": 0.6,
+    "stage2_action_beta": 0.8,
+    "stage2_teacher_beta": 1.2
+  },
+  "selection_gates": {
+    "minimum_development_stage2_actions": 20,
+    "minimum_neighbor_count": 3,
+    "minimum_neighbor_wealth_ratio": 0.9,
+    "near_best_neighbor_wealth_tolerance": 0.005,
+    "selected_neighbor_count": 3,
+    "selected_neighbor_min_wealth_ratio": 1.0,
+    "selected_development_stage2_actions": 28,
+    "robust_gate_pass": true,
+    "return_preservation_gate_pass": false
+  },
+  "development_metrics": {
+    "return_pct": 411.00484141450374,
+    "max_drawdown_pct": -28.03534398775537,
+    "worst_day_pct": -7.845988052345539,
+    "cvar5_pct": -4.121869157393894,
+    "worst_rolling_5d_pct": -11.858940216431579,
+    "avg_cash_weight_pct": 42.458671278941736,
+    "neighbor_median_terminal_wealth": 5.110048414145037,
+    "neighbor_min_wealth_ratio": 1.0
+  }
+}

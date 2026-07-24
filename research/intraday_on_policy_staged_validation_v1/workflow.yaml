@@ -1,0 +1,35 @@
+experiment: intraday_on_policy_staged_validation_v1
+base_experiment: intraday_recovery_direct_allocation_v1
+prior_staged_experiment: intraday_staged_recovery_direct_allocation_v1
+source_experiment: pit_constituent_auxiliary_training_allocation_v1
+source_recorder_id: 3144ec23c3ee4478b6b1e699fb8203d3
+intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+assets: [SOXL, SOXX, cash]
+allocation_output: direct_staged_legal_three_asset_weights
+stage2_training_distribution: on_policy_stage1_actions_only
+selection_uses_outer_test: false
+outer_status: reused_diagnostic_not_fresh_unseen_test
+stage1_action_beta: 0.6
+second_cut_time: 11:30
+open_no_trade_band: 0.0
+stage2_teacher_beta: 1.2
+stage2_action_beta: 0.8
+stage2_holding_period: second_cut_to_regular_session_close
+close_action: restore_stage1_weights_before_overnight
+transaction_cost_bps: 10.0
+stress_cost_bps: 25.0
+stress_method: fixed_10bp_decisions_repriced_at_25bp
+robust_selection:
+  minimum_development_stage2_actions: 20
+  minimum_neighbor_count: 3
+  minimum_neighbor_wealth_ratio: 0.9
+  near_best_neighbor_wealth_tolerance: 0.005
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/intraday_on_policy_staged_validation_v1/positions.csv
+    - artifacts/intraday_on_policy_staged_validation_v1/strategy_returns.csv
+    - artifacts/intraday_on_policy_staged_validation_v1/stage1_training_frame.csv
+    - artifacts/intraday_on_policy_staged_validation_v1/on_policy_stage2_training_frame.csv
+    - artifacts/intraday_on_policy_staged_validation_v1/model_selection_full.csv

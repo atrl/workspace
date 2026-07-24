@@ -1,0 +1,176 @@
+{
+  "experiment": "intraday_on_policy_staged_validation_v1",
+  "card_type": "intraday_on_policy_staged_validation_card",
+  "decision": "not_promoted_on_policy_return_or_stability_gate_failed",
+  "selection_uses_outer_test": false,
+  "outer_status": "reused_diagnostic_not_fresh_unseen_test",
+  "promotion_scope": "on_policy_and_parameter_stability_validation",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "cash"
+  ],
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+  "system_of_record": "qlib",
+  "method": {
+    "training_distribution": "stage2 labels are generated only on days when the walk-forward stage1 policy actually acts",
+    "selection": "2019-2022 development only; outer excluded from all cut, band, model, threshold, and beta choices",
+    "parameter_stability": "candidate requires adjacent probability thresholds, minimum action count, and minimum neighbor wealth ratio",
+    "complexity_tie_break": "within 0.5% of best neighbor-median wealth, prefer no open no-trade band and lower action beta",
+    "stage2_holding_period": "selected cut to regular-session close; restore stage1 weights before overnight"
+  },
+  "selected_model": {
+    "teacher_recovery_beta": 1.2,
+    "action_beta": 0.6,
+    "logistic_c": 0.03,
+    "probability_threshold": 0.55,
+    "open_no_trade_band": 0.0,
+    "second_cut_bars": 8,
+    "second_cut_time": "11:30",
+    "stage2_logistic_c": 0.3,
+    "stage2_probability_threshold": 0.6,
+    "stage2_action_beta": 0.8,
+    "stage2_teacher_beta": 1.2
+  },
+  "selection_gates": {
+    "minimum_development_stage2_actions": 20,
+    "minimum_neighbor_count": 3,
+    "minimum_neighbor_wealth_ratio": 0.9,
+    "near_best_neighbor_wealth_tolerance": 0.005,
+    "selected_neighbor_count": 3,
+    "selected_neighbor_min_wealth_ratio": 1.0,
+    "selected_development_stage2_actions": 28,
+    "robust_gate_pass": true,
+    "return_preservation_gate_pass": false
+  },
+  "training_sample_audit": {
+    "development_on_policy_stage2_samples": 51,
+    "outer_prior_year_update_samples": 30,
+    "development_samples_by_year": {
+      "2020": 24,
+      "2021": 3,
+      "2022": 24
+    },
+    "outer_samples_by_year": {
+      "2023": 3,
+      "2024": 8,
+      "2025": 14,
+      "2026": 5
+    }
+  },
+  "development_metrics_10bps": {
+    "terminal_wealth": 5.110048414145037,
+    "return_pct": 411.00484141450374,
+    "max_drawdown_pct": -28.03534398775537,
+    "worst_day_pct": -7.845988052345539,
+    "cvar5_pct": -4.121869157393894,
+    "worst_rolling_5d_pct": -11.858940216431579
+  },
+  "outer_diagnostic_metrics_10bps": {
+    "terminal_wealth": 7.390243498952229,
+    "return_pct": 639.0243498952228,
+    "max_drawdown_pct": -28.105120211615297,
+    "worst_day_pct": -9.382462081165041,
+    "cvar5_pct": -5.256974325267458,
+    "worst_rolling_5d_pct": -11.301751631371836
+  },
+  "raw_model_outer_metrics_10bps": {
+    "terminal_wealth": 8.075933932506173,
+    "return_pct": 707.5933932506173,
+    "max_drawdown_pct": -48.26408101776892,
+    "worst_day_pct": -11.218521498059859,
+    "cvar5_pct": -6.291979286111666,
+    "worst_rolling_5d_pct": -19.909771746154203
+  },
+  "stage1_outer_metrics_10bps": {
+    "terminal_wealth": 7.296688733722741,
+    "return_pct": 629.6688733722741,
+    "max_drawdown_pct": -28.10512021161523,
+    "worst_day_pct": -9.382462081165041,
+    "cvar5_pct": -5.253780971823336,
+    "worst_rolling_5d_pct": -11.301751631371836
+  },
+  "prior_off_policy_staged_outer_metrics_10bps": {
+    "terminal_wealth": 8.127392091455167,
+    "return_pct": 712.7392091455167,
+    "max_drawdown_pct": -28.105120211615287,
+    "worst_day_pct": -9.382462081165041,
+    "cvar5_pct": -5.253780971823336,
+    "worst_rolling_5d_pct": -11.301751631371836
+  },
+  "fixed_decision_stress_metrics_25bps": {
+    "terminal_wealth": 6.644778976687283,
+    "return_pct": 564.4778976687282,
+    "max_drawdown_pct": -29.344469540193362,
+    "worst_day_pct": -9.382462081165041,
+    "cvar5_pct": -5.2662772478970705,
+    "worst_rolling_5d_pct": -11.371384821849496
+  },
+  "outer_effect": {
+    "return_change_vs_prior_staged_pct_points": -73.7148592502939,
+    "return_change_vs_stage1_pct_points": 9.35547652294872,
+    "return_gap_vs_raw_pct_points": -68.56904335539446,
+    "stage2_action_count": 5,
+    "total_turnover": 71.04440081921638,
+    "open_no_trade_count": 0,
+    "avg_cash_weight_pct": 35.794528014920616
+  },
+  "benchmark_comparison_10bps": {
+    "terminal_wealth_ratio_vs_soxx": 1.370883381254988,
+    "avg_effective_beta": 1.026797201458532,
+    "return_maxdd": 22.736937080636523,
+    "same_avg_risk_soxl_return_pct": 1159.2113926114982,
+    "same_avg_risk_soxl_max_drawdown_pct": -72.043308178776,
+    "same_avg_risk_soxl_return_maxdd": 16.090479767182632,
+    "matched_beta_return_pct": 456.30234944872194,
+    "matched_beta_max_drawdown_pct": -43.840777989029,
+    "matched_beta_return_maxdd": 10.40817180668897
+  },
+  "outer_annual_gate_summary": {
+    "relative_pass_count": 3,
+    "risk_pass_count": 4,
+    "required_year_count": 3
+  },
+  "no_trade_band_diagnostic": {
+    "selected_band": 0.0,
+    "conclusion": "0.5%-2% bands do not materially reduce turnover; 3%-5% bands failed development risk/relative windows in the feasibility probe"
+  },
+  "source_audit": {
+    "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+    "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+    "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "intraday_provider_as_of": "2026-07-02",
+    "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+    "intraday_coverage_start": "2018-12-31",
+    "intraday_coverage_end": "2026-06-29",
+    "rows": 2635,
+    "rows_with_intraday_features": 1883
+  },
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  },
+  "risk_gates": {
+    "max_drawdown_floor_pct": -30.0,
+    "worst_day_floor_pct": -12.0,
+    "cvar5_floor_pct": -8.0,
+    "worst_rolling_5d_floor_pct": -12.0
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/intraday_on_policy_staged_validation_v1/positions.csv",
+      "artifacts/intraday_on_policy_staged_validation_v1/strategy_returns.csv",
+      "artifacts/intraday_on_policy_staged_validation_v1/stage1_training_frame.csv",
+      "artifacts/intraday_on_policy_staged_validation_v1/on_policy_stage2_training_frame.csv",
+      "artifacts/intraday_on_policy_staged_validation_v1/model_selection_full.csv"
+    ]
+  },
+  "recorder_id": "76a6fe6a54cf4348bc0999b2316e8ea9",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/intraday_on_policy_staged_validation_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_on_policy_staged_validation_v1/qlib_recorder/300782104043818423/76a6fe6a54cf4348bc0999b2316e8ea9"
+}
