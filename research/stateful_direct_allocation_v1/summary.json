@@ -1,0 +1,313 @@
+{
+  "experiment": "stateful_direct_allocation_v1",
+  "card_type": "stateful_direct_three_asset_allocation_card",
+  "decision": "retain_current_stage1_stateful_direct_model_not_promoted",
+  "selection_uses_outer_test": false,
+  "outer_status": "reused_diagnostic_not_fresh_unseen_test",
+  "promotion_scope": "replace external cap_wait_ramp with one stateful direct SOXL_SOXX_cash allocation model",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "cash"
+  ],
+  "system_of_record": "qlib",
+  "method": {
+    "allocation_output": "direct_final_legal_three_asset_weights",
+    "external_cap_wait_ramp": false,
+    "base_plus_overlay": false,
+    "source_feature_encoder": "initialized from each frozen qlib walk-forward source fold",
+    "state_model": "causal GRU over previous weights, portfolio drawdown, recent returns, and underwater age",
+    "training": "teacher-forced fit followed by one on-policy state refresh",
+    "selection": "2019-2022 development walk-forward at 25bp open cost; outer excluded"
+  },
+  "selected_model": {
+    "name": "gru8_imitation_gate",
+    "recurrent_units": 8,
+    "teacher_loss_weight": 20.0,
+    "risk_loss_weight": 5.0,
+    "turnover_loss_weight": 0.02,
+    "trade_loss_weight": 1.0,
+    "trade_threshold": 0.6,
+    "epochs": 260,
+    "on_policy_epochs": 80,
+    "selected_from_segment": "development_walk_forward",
+    "selection_uses_outer_test": false
+  },
+  "development_selection": {
+    "candidate": "gru8_imitation_gate",
+    "segment": "development_walk_forward",
+    "selection_uses_outer_test": false,
+    "name": "gru8_imitation_gate",
+    "recurrent_units": 8,
+    "teacher_loss_weight": 20.0,
+    "risk_loss_weight": 5.0,
+    "turnover_loss_weight": 0.02,
+    "trade_loss_weight": 1.0,
+    "trade_threshold": 0.6,
+    "epochs": 260,
+    "on_policy_epochs": 80,
+    "terminal_wealth": 3.1727186111944494,
+    "return_pct": 217.27186111944494,
+    "max_drawdown_pct": -43.06513978832018,
+    "worst_day_pct": -11.97810684727639,
+    "cvar5_pct": -5.440355385413408,
+    "worst_rolling_5d_pct": -26.94984166665555,
+    "risk_window_pass_count": 0,
+    "positive_relative_window_count": 6,
+    "relative_ratio_min": 0.9950070430754134,
+    "relative_ratio_p25": 1.0542997716735876,
+    "relative_ratio_median": 1.091586803813902,
+    "open_turnover": 70.47220424260013,
+    "open_active_day_count": 889,
+    "open_material_day_count": 655,
+    "avg_cash_weight_pct": 35.28861020292555,
+    "development_gate_pass": false
+  },
+  "development_gate_pass": false,
+  "development_metrics_25bps": {
+    "terminal_wealth": 3.1727186111944494,
+    "return_pct": 217.27186111944494,
+    "max_drawdown_pct": -43.06513978832018,
+    "worst_day_pct": -11.97810684727639,
+    "cvar5_pct": -5.440355385413408,
+    "worst_rolling_5d_pct": -26.94984166665555
+  },
+  "outer_diagnostic_metrics_10bps": {
+    "terminal_wealth": 5.251761427441354,
+    "return_pct": 425.17614274413546,
+    "max_drawdown_pct": -39.24219112144893,
+    "worst_day_pct": -9.789359593530023,
+    "cvar5_pct": -5.7754151553634525,
+    "worst_rolling_5d_pct": -16.12735873707679
+  },
+  "outer_dynamic_metrics_25bps": {
+    "terminal_wealth": 4.5570964450351825,
+    "return_pct": 355.70964450351823,
+    "max_drawdown_pct": -40.26355640239605,
+    "worst_day_pct": -9.744258147672191,
+    "cvar5_pct": -5.782446319749746,
+    "worst_rolling_5d_pct": -16.110766492207752
+  },
+  "outer_fixed_decision_metrics_25bps": {
+    "terminal_wealth": 4.888218146245011,
+    "return_pct": 388.8218146245011,
+    "max_drawdown_pct": -40.3635206546632,
+    "worst_day_pct": -9.789359593530023,
+    "cvar5_pct": -5.7834100911268065,
+    "worst_rolling_5d_pct": -16.158591605634765
+  },
+  "baseline_outer_metrics_10bps": {
+    "terminal_wealth": 6.433420180351397,
+    "return_pct": 543.3420180351396,
+    "max_drawdown_pct": -28.10510967554787,
+    "worst_day_pct": -9.383714522786345,
+    "cvar5_pct": -5.233616441404358,
+    "worst_rolling_5d_pct": -11.602809404682068
+  },
+  "baseline_outer_dynamic_metrics_25_open_10_intraday": {
+    "terminal_wealth": 4.835581960852149,
+    "return_pct": 383.55819608521495,
+    "max_drawdown_pct": -29.073038800304797,
+    "worst_day_pct": -9.383714522786345,
+    "cvar5_pct": -5.193443508142945,
+    "worst_rolling_5d_pct": -11.72546681772928
+  },
+  "benchmark_comparison_10bps": {
+    "terminal_wealth_ratio_vs_soxx": 1.1003702918807987,
+    "avg_effective_beta": 1.061055038150382,
+    "return_maxdd": 10.834668773419825,
+    "same_avg_risk_soxl_return_pct": 802.9904466714104,
+    "same_avg_risk_soxl_max_drawdown_pct": -70.1858627072587,
+    "same_avg_risk_soxl_return_maxdd": 11.440914390703416,
+    "matched_beta_return_pct": 408.5853618020195,
+    "matched_beta_max_drawdown_pct": -45.162012694286446,
+    "matched_beta_return_maxdd": 9.047102585259903
+  },
+  "outer_annual_gate_summary": {
+    "relative_pass_count": 3,
+    "risk_pass_count": 1,
+    "required_count": 3
+  },
+  "turnover_effect": {
+    "model_open_turnover": 47.8613605981227,
+    "baseline_open_turnover": 61.873906029470355,
+    "open_turnover_reduction_pct": 22.646938476251233,
+    "minimum_reduction_pct": 30.0,
+    "model_open_active_day_count": 810,
+    "baseline_open_active_day_count": 404,
+    "model_avg_cash_weight_pct": 38.58889932372305,
+    "baseline_avg_cash_weight_pct": 36.09952042229019
+  },
+  "replacement_gate_pass": false,
+  "source_audit": {
+    "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+    "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+    "source_refresh_mode": "pinned_recorder_frozen_model_inference_only",
+    "source_model_frozen": true,
+    "source_selected_candidate": "pit_only_aux_005",
+    "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
+    "source_market_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "source_daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "source_normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "source_market_end": "2026-07-21",
+    "source_prediction_end": "2026-07-21",
+    "source_training_end": "2022-12-30",
+    "outer_test_used_for_selection": false,
+    "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "intraday_provider_as_of": "2026-07-23",
+    "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+    "intraday_coverage_start": "2018-12-31",
+    "intraday_coverage_end": "2026-07-22",
+    "rows": 2651,
+    "rows_with_intraday_features": 1899
+  },
+  "dataset_audit": {
+    "direct_feature_audit": {
+      "execution_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+      "daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+      "execution_provider": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+        "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+        "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+        "as_of": "2026-07-23",
+        "instruments": [
+          "SOXL",
+          "SOXS",
+          "SOXX"
+        ],
+        "fields": [
+          "$open",
+          "$high",
+          "$low",
+          "$close"
+        ],
+        "calendar_rows": 4117,
+        "usable_rows": 4056,
+        "usable_start": "2010-06-04",
+        "usable_end": "2026-07-21",
+        "relationship_audit": {
+          "common_end": "2026-07-23",
+          "common_rows_per_instrument": 4117,
+          "common_start": "2010-03-11",
+          "soxs_soxl_close_return_correlation": -0.9971573479822968,
+          "soxs_soxx_close_return_correlation": -0.9979840147370811
+        },
+        "source_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.features"
+        ]
+      },
+      "calendar_start": "2010-06-04",
+      "calendar_end": "2026-07-21",
+      "common_feature_end": "2026-07-21",
+      "source_api": "qlib.data.D.features",
+      "excluded_sources": {
+        "soxx_constituents": "excluded_from_model_non_PIT_single_snapshot_survivorship_bias",
+        "macro_credit": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+        "hardware_cycle": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+        "intraday": "excluded_from_2016_2022_walk_forward_coverage_starts_2019"
+      },
+      "feature_count": 39,
+      "feature_families": [
+        "cross_asset_diffusion",
+        "current_soxl_soxx_soxs",
+        "normalized_regime",
+        "risk_hardened_high_chop"
+      ],
+      "base_constrained_ref_in_features": false,
+      "base_constrained_ref_role": "none",
+      "candidate_weight_grid": false,
+      "allocation_output": "direct_continuous_softmax_soxl_soxx_cash",
+      "maximum_soxl_weight_is_risk_constraint": true,
+      "selection_uses_outer_test": false
+    },
+    "primary_feature_count": 39,
+    "common_feature_count": 16,
+    "state_feature_count": 9,
+    "state_features": [
+      "previous_soxl_weight",
+      "previous_soxx_weight",
+      "previous_cash_weight",
+      "portfolio_drawdown",
+      "portfolio_drawdown_squared",
+      "portfolio_return_1d",
+      "portfolio_return_3d",
+      "portfolio_return_5d",
+      "underwater_age_252"
+    ],
+    "dataset": {
+      "dataset_class": "qlib.data.dataset.DatasetH",
+      "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+      "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+      "segments": {
+        "development": [
+          "2016-01-01",
+          "2022-12-31"
+        ],
+        "outer": [
+          "2023-01-01",
+          "2026-07-21"
+        ],
+        "fold_2019": [
+          "2019-01-01",
+          "2019-12-31"
+        ],
+        "fold_2020": [
+          "2020-01-01",
+          "2020-12-31"
+        ],
+        "fold_2021": [
+          "2021-01-01",
+          "2021-12-31"
+        ],
+        "fold_2022": [
+          "2022-01-01",
+          "2022-12-31"
+        ]
+      },
+      "segment_rows": {
+        "development": 1762,
+        "outer": 889,
+        "fold_2019": 252,
+        "fold_2020": 253,
+        "fold_2021": 252,
+        "fold_2022": 251
+      },
+      "feature_count": 64,
+      "label_count": 6,
+      "purge_rows": 20,
+      "outer_labels_used_for_selection": false
+    }
+  },
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "strategy": "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  },
+  "risk_gates": {
+    "max_drawdown_floor_pct": -30.0,
+    "worst_day_floor_pct": -12.0,
+    "cvar5_floor_pct": -8.0,
+    "worst_rolling_5d_floor_pct": -12.0
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/stateful_direct_allocation_v1/models/",
+      "artifacts/stateful_direct_allocation_v1/predictions.csv",
+      "artifacts/stateful_direct_allocation_v1/positions.csv",
+      "artifacts/stateful_direct_allocation_v1/strategy_returns.csv",
+      "artifacts/stateful_direct_allocation_v1/teacher_training_frame.csv",
+      "artifacts/stateful_direct_allocation_v1/model_selection_full.csv",
+      "artifacts/stateful_direct_allocation_v1/dataset_audit.json"
+    ]
+  },
+  "recorder_id": "7943709a719f4ca9b82513476e7c92df",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stateful_direct_allocation_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stateful_direct_allocation_v1/qlib_recorder/466222303248987930/7943709a719f4ca9b82513476e7c92df"
+}

@@ -1,0 +1,22 @@
+experiment: stateful_direct_allocation_v1
+source_experiment: pit_constituent_auxiliary_training_allocation_v1
+source_recorder_id: 3144ec23c3ee4478b6b1e699fb8203d3
+baseline_experiment: intraday_on_policy_staged_validation_v1
+assets: [SOXL, SOXX, cash]
+allocation_output: direct_final_legal_three_asset_weights
+external_cap_wait_ramp: false
+base_plus_overlay: false
+training_open_cost_bps: 25.0
+selection_years: [2019, 2020, 2021, 2022]
+selection_uses_outer_test: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stateful_direct_allocation_v1/models/
+    - artifacts/stateful_direct_allocation_v1/predictions.csv
+    - artifacts/stateful_direct_allocation_v1/positions.csv
+    - artifacts/stateful_direct_allocation_v1/strategy_returns.csv
+    - artifacts/stateful_direct_allocation_v1/teacher_training_frame.csv
+    - artifacts/stateful_direct_allocation_v1/model_selection_full.csv
+    - artifacts/stateful_direct_allocation_v1/dataset_audit.json
