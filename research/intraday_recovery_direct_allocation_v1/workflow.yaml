@@ -1,0 +1,20 @@
+experiment: intraday_recovery_direct_allocation_v1
+source_experiment: pit_constituent_auxiliary_training_allocation_v1
+source_recorder_id: 3144ec23c3ee4478b6b1e699fb8203d3
+intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+assets: [SOXL, SOXX, cash]
+allocation_output: direct_legal_three_asset_weights
+selection_uses_outer_test: false
+teacher_recovery_beta: 1.2
+action_beta: 0.6
+transaction_cost_bps: 10.0
+stress_cost_bps: 25.0
+stress_method: fixed_10bp_decisions_repriced_at_25bp
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/intraday_recovery_direct_allocation_v1/positions.csv
+    - artifacts/intraday_recovery_direct_allocation_v1/strategy_returns.csv
+    - artifacts/intraday_recovery_direct_allocation_v1/recovery_training_frame.csv
+    - artifacts/intraday_recovery_direct_allocation_v1/model_selection_full.csv

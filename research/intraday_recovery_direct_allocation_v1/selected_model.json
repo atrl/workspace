@@ -1,0 +1,16 @@
+{
+  "selection_uses_outer_test": false,
+  "selected_from_segment": "development_walk_forward",
+  "teacher_recovery_beta": 1.2,
+  "action_beta": 0.6,
+  "logistic_c": 0.03,
+  "probability_threshold": 0.55,
+  "development_metrics": {
+    "return_pct": 417.2720536123832,
+    "max_drawdown_pct": -27.488582391581463,
+    "worst_day_pct": -7.845988052345539,
+    "cvar5_pct": -4.11984370114141,
+    "worst_rolling_5d_pct": -11.858940216431579,
+    "avg_cash_weight_pct": 42.567009779279495
+  }
+}

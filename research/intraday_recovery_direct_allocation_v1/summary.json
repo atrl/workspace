@@ -1,0 +1,129 @@
+{
+  "experiment": "intraday_recovery_direct_allocation_v1",
+  "card_type": "intraday_recovery_direct_three_asset_allocation_card",
+  "decision": "promoted_research_candidate_intraday_recovery_direct_allocation",
+  "selection_uses_outer_test": false,
+  "promotion_scope": "revised_soxx_relative_cash_and_risk_goal",
+  "assets": [
+    "SOXL",
+    "SOXX",
+    "cash"
+  ],
+  "allocation_output": "direct_legal_three_asset_weights_at_open_and_after_first_60m",
+  "method": {
+    "teacher_label": "counterfactual benefit of recovery to 1.2 effective beta",
+    "execution_action": "validation-selected conservative effective-beta target",
+    "reason": "asymmetric teacher-student calibration limits false-positive leverage",
+    "intraday_observation": "first four regular-session 15-minute bars",
+    "walk_forward": "annual expanding training; each outer year may use only prior years"
+  },
+  "selected_model": {
+    "teacher_recovery_beta": 1.2,
+    "action_beta": 0.6,
+    "logistic_c": 0.03,
+    "probability_threshold": 0.55
+  },
+  "development_metrics_10bps": {
+    "terminal_wealth": 5.172720536123832,
+    "return_pct": 417.2720536123832,
+    "max_drawdown_pct": -27.488582391581463,
+    "worst_day_pct": -7.845988052345539,
+    "cvar5_pct": -4.11984370114141,
+    "worst_rolling_5d_pct": -11.858940216431579
+  },
+  "outer_diagnostic_metrics_10bps": {
+    "terminal_wealth": 7.296688733722741,
+    "return_pct": 629.6688733722741,
+    "max_drawdown_pct": -28.10512021161523,
+    "worst_day_pct": -9.382462081165041,
+    "cvar5_pct": -5.253780971823336,
+    "worst_rolling_5d_pct": -11.301751631371836
+  },
+  "raw_model_outer_metrics_10bps": {
+    "terminal_wealth": 8.075933932506173,
+    "return_pct": 707.5933932506173,
+    "max_drawdown_pct": -48.26408101776892,
+    "worst_day_pct": -11.218521498059859,
+    "cvar5_pct": -6.291979286111666,
+    "worst_rolling_5d_pct": -19.909771746154203
+  },
+  "daily_controller_outer_metrics_10bps": {
+    "terminal_wealth": 6.405319692402093,
+    "return_pct": 540.5319692402094,
+    "max_drawdown_pct": -27.445162971008898,
+    "worst_day_pct": -9.382462081165041,
+    "cvar5_pct": -5.202018137421746,
+    "worst_rolling_5d_pct": -11.301751631371836
+  },
+  "fixed_decision_stress_metrics_25bps": {
+    "terminal_wealth": 6.574358297612704,
+    "return_pct": 557.4358297612705,
+    "max_drawdown_pct": -29.088729304619832,
+    "worst_day_pct": -9.382462081165041,
+    "cvar5_pct": -5.262268779697248,
+    "worst_rolling_5d_pct": -11.371384821849496
+  },
+  "benchmark_comparison_10bps": {
+    "terminal_wealth_ratio_vs_soxx": 1.3535290582332231,
+    "upside_capture_pct": 34.586990802605335,
+    "avg_effective_beta": 1.0264535588468482,
+    "return_maxdd": 22.404062627422807,
+    "same_avg_risk_soxl_return_pct": 1158.066193139309,
+    "same_avg_risk_soxl_max_drawdown_pct": -72.02103925240955,
+    "same_avg_risk_soxl_return_maxdd": 16.07955404643185,
+    "matched_beta_return_pct": 456.0720982377286,
+    "matched_beta_max_drawdown_pct": -43.82740212163757,
+    "matched_beta_return_maxdd": 10.4060947297756
+  },
+  "legacy_gate_status": {
+    "upside_capture_floor_pct": 60.0,
+    "upside_capture_gate_pass": false,
+    "note": "legacy capture gate is reported but is not part of the revised SOXX-relative goal"
+  },
+  "cash_timing_effect": {
+    "outer_return_improvement_pct_points": 89.13690413206473,
+    "outer_cash_reduction_pct_points": 1.9309185154763708,
+    "raw_model_avg_cash_weight_pct": 29.27704079227354,
+    "daily_controller_avg_cash_weight_pct": 37.75981079156537,
+    "selected_model_avg_cash_weight_pct": 35.828892276089,
+    "risk_cash_added_vs_raw_pct_points": 6.551851483815463,
+    "risk_cash_recovered_vs_daily_controller_pct": 22.76283001469531
+  },
+  "outer_annual_gate_summary": {
+    "relative_pass_count": 3,
+    "risk_pass_count": 4,
+    "required_year_count": 3
+  },
+  "source_audit": {
+    "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+    "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+    "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "intraday_provider_as_of": "2026-07-02",
+    "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+    "intraday_coverage_start": "2018-12-31",
+    "intraday_coverage_end": "2026-06-29",
+    "rows": 2635,
+    "rows_with_intraday_features": 1883
+  },
+  "risk_gates": {
+    "max_drawdown_floor_pct": -30.0,
+    "worst_day_floor_pct": -12.0,
+    "cvar5_floor_pct": -8.0,
+    "worst_rolling_5d_floor_pct": -12.0
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/intraday_recovery_direct_allocation_v1/positions.csv",
+      "artifacts/intraday_recovery_direct_allocation_v1/strategy_returns.csv",
+      "artifacts/intraday_recovery_direct_allocation_v1/recovery_training_frame.csv",
+      "artifacts/intraday_recovery_direct_allocation_v1/model_selection_full.csv"
+    ]
+  },
+  "recorder_id": "e5c1bf5e491947938535fca3ec490949",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/intraday_recovery_direct_allocation_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_recovery_direct_allocation_v1/qlib_recorder/903361124573160811/e5c1bf5e491947938535fca3ec490949"
+}
