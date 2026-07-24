@@ -729,6 +729,7 @@ def simulate_staged_policy(
     stage2_model_cache: dict[tuple[int, float], Any],
     cost_bps: float,
     open_no_trade_band: float = 0.0,
+    enable_stage2: bool = True,
 ) -> pd.DataFrame:
     stage1_models: dict[int, Any] = {}
     stage2_models: dict[int, Any] = {}
@@ -850,7 +851,8 @@ def simulate_staged_policy(
             stage2_target = min(raw_beta, stage2_action_beta)
             stage2_model = stage2_models.get(row.signal_date.year)
             stage2_eligible = (
-                stage2_model is not None
+                enable_stage2
+                and stage2_model is not None
                 and stage2_target > stage1_target + 1e-12
                 and pd.notna(row.cut_ret_soxx)
                 and pd.notna(row.day_ret_soxx)

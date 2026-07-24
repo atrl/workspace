@@ -13,7 +13,8 @@
     "stage2_logistic_c": 0.3,
     "stage2_probability_threshold": 0.6,
     "stage2_action_beta": 0.8,
-    "stage2_teacher_beta": 1.2
+    "stage2_teacher_beta": 1.2,
+    "stage2_enabled": false
   },
   "selection_gates": {
     "minimum_development_stage2_actions": 20,
@@ -24,7 +25,9 @@
     "selected_neighbor_min_wealth_ratio": 1.0,
     "selected_development_stage2_actions": 28,
     "robust_gate_pass": true,
-    "return_preservation_gate_pass": false
+    "stage2_calibration_gate_pass": false,
+    "benchmark_gate_pass": true,
+    "raw_return_preservation_gate_pass": false
   },
   "development_metrics": {
     "return_pct": 411.00484141450374,

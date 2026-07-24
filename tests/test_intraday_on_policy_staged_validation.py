@@ -63,20 +63,19 @@ def test_robust_selection_uses_neighbors_and_not_outer_diagnostic():
     assert selected["stage2_probability_threshold"] == 0.60
 
 
-def test_on_policy_card_is_recorder_first_and_not_promoted():
+def test_on_policy_card_is_recorder_first_and_gates_stage2():
     card = ROOT / "research" / EXPERIMENT
     summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
     notebook = (card / f"{EXPERIMENT}.ipynb").read_text(encoding="utf-8")
 
     assert summary["decision"] == (
-        "not_promoted_on_policy_return_or_stability_gate_failed"
+        "promoted_research_candidate_stage1_direct_allocation_stage2_gated"
     )
     assert summary["selection_uses_outer_test"] is False
     assert summary["selection_gates"]["robust_gate_pass"] is True
-    assert (
-        summary["selection_gates"]["return_preservation_gate_pass"]
-        is False
-    )
+    assert summary["selection_gates"]["stage2_calibration_gate_pass"] is False
+    assert summary["selection_gates"]["benchmark_gate_pass"] is True
+    assert summary["selected_model"]["stage2_enabled"] is False
     assert summary["training_sample_audit"][
         "development_on_policy_stage2_samples"
     ] >= 20
@@ -87,6 +86,7 @@ def test_on_policy_card_is_recorder_first_and_not_promoted():
     assert summary["fixed_decision_stress_metrics_25bps"][
         "worst_rolling_5d_pct"
     ] >= -12.0
+    assert summary["outer_effect"]["stage2_action_count"] == 0
     assert summary["artifact_policy"]["policy"] == (
         "slim_card_recorder_first"
     )

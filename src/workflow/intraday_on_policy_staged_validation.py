@@ -401,6 +401,21 @@ def _run_card(
     selected_frame = expanded_frames[selected_key]
     selected_teacher = on_policy_teachers[selected_key]
     selected_stage2_cache = stage2_model_caches[selected_key]
+    calibration = _annual_calibration(
+        selected_teacher,
+        c_value=float(selected["stage2_logistic_c"]),
+        threshold=float(selected["stage2_probability_threshold"]),
+    )
+    development_calibration = calibration[
+        calibration["year"].isin(spec.intraday_selection_years)
+        & calibration["status"].eq("scored")
+    ]
+    stage2_calibration_gate = bool(
+        len(development_calibration) >= 2
+        and development_calibration["auc"].ge(0.52).all()
+        and development_calibration["brier"].le(0.30).all()
+    )
+    selected_params["stage2_enabled"] = stage2_calibration_gate
     development = selected_frame[
         selected_frame["segment"].eq("development_walk_forward")
     ].copy()
@@ -427,6 +442,7 @@ def _run_card(
         "open_no_trade_band": selected_params[
             "open_no_trade_band"
         ],
+        "enable_stage2": stage2_calibration_gate,
     }
     dev_replay = simulate_staged_policy(
         development,
@@ -479,13 +495,6 @@ def _run_card(
             axis=1,
         ).sum()
     )
-    calibration = _annual_calibration(
-        selected_teacher,
-        c_value=selected_params["stage2_logistic_c"],
-        threshold=selected_params[
-            "stage2_probability_threshold"
-        ],
-    )
     development_teacher = selected_teacher[
         selected_teacher["segment"].eq("development_walk_forward")
     ]
@@ -512,17 +521,19 @@ def _run_card(
         and float(selected["neighbor_min_wealth_ratio"])
         >= spec.minimum_neighbor_wealth_ratio
     )
-    return_gate = bool(
-        outer_metrics["return_pct"] >= raw_metrics["return_pct"]
+    benchmark_gate = bool(
+        terminal_wealth_ratio_vs_soxx > 1.0
+        and benchmark_efficiency["return_maxdd"]
+        > benchmark_efficiency["matched_beta_return_maxdd"]
     )
     decision = (
-        "promoted_research_candidate_on_policy_staged_recovery"
+        "promoted_research_candidate_stage1_direct_allocation_stage2_gated"
         if robust_gate
-        and return_gate
         and _passes_risk(outer_metrics)
         and _passes_risk(stress_metrics)
         and annual_relative_pass_count >= 3
         and annual_risk_pass_count >= 3
+        and benchmark_gate
         else "not_promoted_on_policy_return_or_stability_gate_failed"
     )
     robust_candidates = model_selection[
@@ -634,6 +645,7 @@ def _run_card(
         "selected_model": {
             **stage1_params,
             **selected_params,
+            "stage2_enabled": stage2_calibration_gate,
         },
         "selection_gates": {
             "minimum_development_stage2_actions": (
@@ -656,7 +668,11 @@ def _run_card(
                 selected["stage2_action_count"]
             ),
             "robust_gate_pass": robust_gate,
-            "return_preservation_gate_pass": return_gate,
+            "stage2_calibration_gate_pass": stage2_calibration_gate,
+            "benchmark_gate_pass": benchmark_gate,
+            "raw_return_preservation_gate_pass": bool(
+                outer_metrics["return_pct"] >= raw_metrics["return_pct"]
+            ),
         },
         "training_sample_audit": {
             "development_on_policy_stage2_samples": int(
@@ -845,6 +861,9 @@ def _record_qlib_artifacts(
                 stage2_action_beta=str(
                     selected_params["stage2_action_beta"]
                 ),
+                stage2_enabled=str(
+                    selected_params.get("stage2_enabled", False)
+                ),
                 stage2_probability_threshold=str(
                     selected_params["stage2_probability_threshold"]
                 ),
@@ -954,6 +973,7 @@ second_cut_time: {summary['selected_model']['second_cut_time']}
 open_no_trade_band: {summary['selected_model']['open_no_trade_band']}
 stage2_teacher_beta: {summary['selected_model']['stage2_teacher_beta']}
 stage2_action_beta: {summary['selected_model']['stage2_action_beta']}
+stage2_enabled: {summary['selected_model']['stage2_enabled']}
 stage2_holding_period: second_cut_to_regular_session_close
 close_action: restore_stage1_weights_before_overnight
 transaction_cost_bps: {spec.transaction_cost_bps}
@@ -990,7 +1010,7 @@ artifact_policy:
 - 收益复盘：相对第一段模型增加 {outer_effect['return_change_vs_stage1_pct_points']:.4f} 个百分点，但相对旧 off-policy 二段模型减少 {-outer_effect['return_change_vs_prior_staged_pct_points']:.4f} 个百分点；相对原始直接配置模型仍少 {-outer_effect['return_gap_vs_raw_pct_points']:.4f} 个百分点。outer 二段实际仅触发 {outer_effect['stage2_action_count']} 次，证据仍稀疏。
 - 25bp 冻结决策压力：return={stress['return_pct']:.4f}%，MaxDD={stress['max_drawdown_pct']:.4f}%，worst 5d={stress['worst_rolling_5d_pct']:.4f}%。
 - no-trade 结论：开发期近优候选最终选择 0 band。0.5%-2% 小带宽不能实质减少换手，3%-5% 大带宽在可行性检查中破坏回撤或相对收益窗口，所以不应把“保持现金”写成独立手工规则；现金仍由模型合法权重直接决定。
-- 是否晋升：{summary['decision']}。风险门通过不等于可晋升；on-policy 修正后无法保留原始模型收益，说明旧二段的高收益主要依赖分布错配和少数动作，不应进入 production。
+- 是否晋升：{summary['decision']}。Stage 2 开发期校准闸门={summary['selection_gates']['stage2_calibration_gate_pass']}；本次因此自动退回 Stage 1 直接合法权重。原始直接配置收益不是硬晋升目标，真正验收是超过 SOXX、超过 matched-beta 基准并通过风险和成本压力门。
 - 数据边界：2023-2026 已被前序实验多次查看，本卡只把它们标记为 reused diagnostic，不能声称是全新未见测试。下一轮应冻结本卡结构，等待新数据或改用跨品种训练后再做一次真正未见验证。
 - qlib recorder：{summary['recorder_id']}
 - 不构成买卖建议。
