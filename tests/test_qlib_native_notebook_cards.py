@@ -480,7 +480,10 @@ def test_agentic_alpha_intraday_5m15m_lgb_xgb_card_records_minute_qlib_research(
         assert manifest["freq"] == freq
         assert manifest["status"] == "ok"
         assert set(manifest["instruments"]) == {"SOXL", "SOXX"}
-        assert manifest["calendar_end"] == "2026-07-02 16:00:00"
+        assert (
+            pd.Timestamp(manifest["calendar_end"])
+            >= pd.Timestamp(summary["provider_audit"][freq]["calendar_end"])
+        )
 
     recorder_dir = Path(summary["recorder_local_dir"])
     assert (recorder_dir / "artifacts" / "pred.pkl").exists()

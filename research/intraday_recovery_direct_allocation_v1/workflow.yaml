@@ -1,6 +1,7 @@
 experiment: intraday_recovery_direct_allocation_v1
 source_experiment: pit_constituent_auxiliary_training_allocation_v1
 source_recorder_id: 3144ec23c3ee4478b6b1e699fb8203d3
+source_refresh_mode: pinned_recorder_frozen_model_inference_only
 intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
 assets: [SOXL, SOXX, cash]
 allocation_output: direct_legal_three_asset_weights

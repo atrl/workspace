@@ -5,6 +5,8 @@ import pandas as pd
 import pytest
 
 from src.workflow.intraday_recovery_direct_allocation import (
+    IntradayRecoveryDirectAllocationSpec,
+    _resolve_source_recorder,
     apply_fixed_decision_cost_stress,
     project_legal_weights,
     select_development_candidate,
@@ -61,3 +63,27 @@ def test_fixed_decision_stress_changes_cost_not_decisions():
     np.testing.assert_allclose(stressed, gross - turnover * 0.0025)
     with pytest.raises(ValueError):
         apply_fixed_decision_cost_stress(gross, turnover[:2], cost_bps=25.0)
+
+
+def test_source_recorder_is_pinned_by_workflow(tmp_path):
+    spec = IntradayRecoveryDirectAllocationSpec(root=tmp_path)
+    spec.card_dir.mkdir(parents=True)
+    spec.card_dir.joinpath("workflow.yaml").write_text(
+        "source_recorder_id: frozen-recorder\n",
+        encoding="utf-8",
+    )
+    recorder = (
+        spec.source_card_dir
+        / "qlib_recorder"
+        / "experiment-id"
+        / "frozen-recorder"
+    )
+    recorder.mkdir(parents=True)
+
+    resolved, recorder_id = _resolve_source_recorder(
+        spec,
+        source_summary={"recorder_local_dir": "/unused/latest"},
+    )
+
+    assert resolved == recorder
+    assert recorder_id == "frozen-recorder"

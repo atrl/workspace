@@ -1,13 +1,13 @@
 {
   "adjustment_method": "early Yahoo OHLC scaled to first Nasdaq overlap; Nasdaq is authoritative thereafter; Yahoo adjusted-close ratio applies distributions to all OHLC",
-  "as_of": "2026-07-21",
-  "hash": "337384db7035ee2c",
+  "as_of": "2026-07-23",
+  "hash": "109a43b94baf69b6",
   "relationship_audit": {
-    "common_end": "2026-07-21",
-    "common_rows_per_instrument": 4115,
+    "common_end": "2026-07-23",
+    "common_rows_per_instrument": 4117,
     "common_start": "2010-03-11",
-    "soxs_soxl_close_return_correlation": -0.9971576228487848,
-    "soxs_soxx_close_return_correlation": -0.9979840555866599
+    "soxs_soxl_close_return_correlation": -0.9971573479822968,
+    "soxs_soxx_close_return_correlation": -0.9979840147370811
   },
   "sources": [
     "https://api.nasdaq.com/api/quote/{symbol}/historical",
@@ -16,52 +16,52 @@
   "start": "2010-03-11",
   "symbol_audits": {
     "SOXL": {
-      "combined_rows": 4115,
+      "combined_rows": 4117,
       "dividend_adjustment_factor_max": 1.0,
-      "dividend_adjustment_factor_min": 0.9097104475631814,
+      "dividend_adjustment_factor_min": 0.909710391822828,
       "max_abs_close_return": 0.5478787878787879,
       "max_anchor_relative_error": 0.005297431847036904,
       "nasdaq_rows": 2513,
-      "nasdaq_start": "2016-07-21",
+      "nasdaq_start": "2016-07-25",
       "stitch_scales": {
-        "close": 1.00000000785413,
-        "high": 1.0000000010275025,
-        "low": 0.9999999992673678,
+        "close": 1.0000000052935292,
+        "high": 0.9999999971977203,
+        "low": 1.0000000104146989,
         "open": 0.9999999610685462
       },
-      "yahoo_rows": 4115
+      "yahoo_rows": 4117
     },
     "SOXS": {
-      "combined_rows": 4115,
+      "combined_rows": 4117,
       "dividend_adjustment_factor_max": 1.0,
-      "dividend_adjustment_factor_min": 0.7928261188747129,
+      "dividend_adjustment_factor_min": 0.792826054378775,
       "max_abs_close_return": 0.5597618034878775,
       "max_anchor_relative_error": 0.01588087565481111,
       "nasdaq_rows": 2513,
-      "nasdaq_start": "2016-07-21",
+      "nasdaq_start": "2016-07-25",
       "stitch_scales": {
         "close": 0.06666933333333333,
-        "high": 0.06666933280397533,
+        "high": 0.06666933333333333,
         "low": 0.06666933333333333,
         "open": 0.06666933333333333
       },
-      "yahoo_rows": 4115
+      "yahoo_rows": 4117
     },
     "SOXX": {
-      "combined_rows": 4115,
+      "combined_rows": 4117,
       "dividend_adjustment_factor_max": 1.0,
-      "dividend_adjustment_factor_min": 0.8430547647256841,
+      "dividend_adjustment_factor_min": 0.8430547093761026,
       "max_abs_close_return": 0.18571613069869541,
       "max_anchor_relative_error": 4.55353207928777e-05,
       "nasdaq_rows": 2513,
-      "nasdaq_start": "2016-07-21",
+      "nasdaq_start": "2016-07-25",
       "stitch_scales": {
-        "close": 0.9999999978860088,
+        "close": 0.9999999935486612,
         "high": 1.0000000087023464,
         "low": 1.000000037812069,
         "open": 0.9999999803829277
       },
-      "yahoo_rows": 4115
+      "yahoo_rows": 4117
     }
   },
   "symbols": [

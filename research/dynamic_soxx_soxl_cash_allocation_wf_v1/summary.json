@@ -155,22 +155,22 @@
       "policy_id": "defensive",
       "selection_gate_status": "diagnostic_fallback_no_proxy_generalization_candidate",
       "selection_uses_outer_test": false,
-      "soxx_buyhold_max_drawdown_pct": -13.859915733337402,
-      "soxx_buyhold_return_pct": 87.47587585449219,
+      "soxx_buyhold_max_drawdown_pct": -22.236061096191406,
+      "soxx_buyhold_return_pct": 70.09671783447266,
       "soxx_constituent_feature_count": 0,
-      "test_avg_cash_weight": 0.8093990194543106,
-      "test_avg_equity_weight": 0.1906009805456894,
-      "test_avg_soxl_weight": 0.05224475640661664,
-      "test_avg_soxx_weight": 0.13835622413907275,
-      "test_end": "2026-06-30",
-      "test_excess_vs_soxx_pct": -60.20840096014188,
-      "test_max_drawdown_pct": -3.5425542206969807,
-      "test_max_soxl_weight": 0.07163996779213333,
+      "test_avg_cash_weight": 0.8110618648955422,
+      "test_avg_equity_weight": 0.18893813510445778,
+      "test_avg_soxl_weight": 0.052925488186961744,
+      "test_avg_soxx_weight": 0.13601264691749604,
+      "test_end": "2026-07-21",
+      "test_excess_vs_soxx_pct": -45.90136194691902,
+      "test_max_drawdown_pct": -5.275682186727082,
+      "test_max_soxl_weight": 0.07232132327821549,
       "test_passes_target": false,
-      "test_return_pct": 27.267474894350308,
+      "test_return_pct": 24.19535588755364,
       "test_start": "2026-01-02",
       "test_tail_cash_day_ratio": 0.0,
-      "test_total_turnover": 3.33843753951856,
+      "test_total_turnover": 4.364527619921955,
       "train_end": "2025-12-31",
       "train_start": "2011-01-03"
     }
@@ -186,7 +186,7 @@
   "benchmark_basis": "open_to_open",
   "benchmark_return_col": "underlying_open_to_open_return",
   "card_type": "dynamic_soxx_soxl_cash_allocation_wf_research_card",
-  "common_data_end": "2026-07-02",
+  "common_data_end": "2026-07-23",
   "execution_timing": "close_t_signal_next_open_to_following_open",
   "experiment": "dynamic_soxx_soxl_cash_allocation_wf_v1",
   "feature_sets": {
@@ -667,26 +667,26 @@
     "execution_replay_fields": true,
     "providers": {
       "15min": {
-        "calendar_end": "2026-07-02 16:00:00",
+        "calendar_end": "2026-07-23 16:00:00",
         "calendar_start": "2018-12-31 09:45:00",
         "execution_replay_fields": true,
         "lookback_only": true,
         "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
-        "rows": 1885,
+        "rows": 1899,
         "status": "ok"
       },
       "5min": {
-        "calendar_end": "2026-07-02 16:00:00",
+        "calendar_end": "2026-07-23 16:00:00",
         "calendar_start": "2018-12-31 09:35:00",
         "execution_replay_fields": true,
         "lookback_only": true,
         "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_5min",
-        "rows": 1885,
+        "rows": 1899,
         "status": "ok"
       }
     },
     "role": "risk_cap_and_intraday_execution_replay_not_alpha_source",
-    "rows": 1885,
+    "rows": 1899,
     "status": "ok",
     "uses_15min": true,
     "uses_5min": true
@@ -910,9 +910,9 @@
   "primary_notebook": "dynamic_soxx_soxl_cash_allocation_wf_v1.ipynb",
   "promotion_decision": "not_promoted_dynamic_allocation_goal_or_generalization_gate_failed",
   "provider_build": {
-    "as_of": "2026-07-02",
-    "audit_snapshot_hash": "f13a3ad6e4ef2e43",
-    "calendar_end": "2026-07-02",
+    "as_of": "2026-07-23",
+    "audit_snapshot_hash": "bd4fa10dedf0eafb",
+    "calendar_end": "2026-07-23",
     "calendar_start": "2011-01-03",
     "feature_file_count": 445,
     "fields": [
@@ -1007,7 +1007,7 @@
       "$soxx_const_dispersion_ret20_lag1_pctile252"
     ],
     "freq": "day",
-    "hash": "4c76030071150343",
+    "hash": "4dbf2d382474892a",
     "instruments": [
       "SOXL",
       "SPXL",
@@ -1016,11 +1016,11 @@
       "UPRO"
     ],
     "market": "all",
-    "max_datetime": "2026-07-02",
+    "max_datetime": "2026-07-23",
     "operation": "qlib_store_build",
     "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
     "region": "us",
-    "row_count": 19485,
+    "row_count": 19555,
     "source": "qlib_dynamic_soxx_soxl_cash_allocation_pair_panel",
     "source_api": [
       "qlib.init",
@@ -1033,7 +1033,7 @@
   },
   "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1/qlib_store_manifest.json",
   "provider_meta": {
-    "calendar_end": "2026-07-02",
+    "calendar_end": "2026-07-23",
     "calendar_start": "2011-01-03",
     "freq": "day",
     "instruments": {
@@ -1064,7 +1064,7 @@
       "TQQQ",
       "UPRO"
     ],
-    "proxy_avg_excess_pct": -14.480339895332358,
+    "proxy_avg_excess_pct": -14.062323215320097,
     "proxy_pass_rate": 0.0,
     "proxy_worst_drawdown_pct": -11.668615682567518,
     "selection_uses_outer_test": false
@@ -1091,8 +1091,8 @@
     "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v1/feature_sets.csv",
     "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v1/positions.csv"
   ],
-  "recorder_id": "63b99089ae494799baa78e697d284f94",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v1/qlib_recorder/904657458127058660/63b99089ae494799baa78e697d284f94",
+  "recorder_id": "b9bc3e02854c4e808d7ef2fcae357308",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v1/qlib_recorder/904657458127058660/b9bc3e02854c4e808d7ef2fcae357308",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v1/qlib_recorder",
   "return_col": "etf_open_to_open_return",
   "row_counts": {
@@ -1114,58 +1114,58 @@
   },
   "source_audit": {
     "SOXL": {
-      "calendar_end": "2026-07-02",
+      "calendar_end": "2026-07-23",
       "calendar_start": "2010-03-11",
       "provider": "soxl",
       "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
-      "row_count": 3897,
+      "row_count": 3911,
       "source": "qlib.data.D.features",
       "underlying": "SOXX",
-      "used_end": "2026-07-02",
+      "used_end": "2026-07-23",
       "used_start": "2011-01-03"
     },
     "SPXL": {
-      "calendar_end": "2026-07-02",
+      "calendar_end": "2026-07-23",
       "calendar_start": "2008-11-05",
       "provider": "spxl",
       "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/spxl",
-      "row_count": 3897,
+      "row_count": 3911,
       "source": "qlib.data.D.features",
       "underlying": "SPY",
-      "used_end": "2026-07-02",
+      "used_end": "2026-07-23",
       "used_start": "2011-01-03"
     },
     "TECL": {
-      "calendar_end": "2026-07-02",
+      "calendar_end": "2026-07-23",
       "calendar_start": "2008-12-30",
       "provider": "tecl",
       "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tecl",
-      "row_count": 3897,
+      "row_count": 3911,
       "source": "qlib.data.D.features",
       "underlying": "XLK",
-      "used_end": "2026-07-02",
+      "used_end": "2026-07-23",
       "used_start": "2011-01-03"
     },
     "TQQQ": {
-      "calendar_end": "2026-07-02",
+      "calendar_end": "2026-07-23",
       "calendar_start": "2010-02-11",
       "provider": "tqqq",
       "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
-      "row_count": 3897,
+      "row_count": 3911,
       "source": "qlib.data.D.features",
       "underlying": "QQQ",
-      "used_end": "2026-07-02",
+      "used_end": "2026-07-23",
       "used_start": "2011-01-03"
     },
     "UPRO": {
-      "calendar_end": "2026-07-02",
+      "calendar_end": "2026-07-23",
       "calendar_start": "2009-06-25",
       "provider": "upro",
       "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/upro",
-      "row_count": 3897,
+      "row_count": 3911,
       "source": "qlib.data.D.features",
       "underlying": "SPY",
-      "used_end": "2026-07-02",
+      "used_end": "2026-07-23",
       "used_start": "2011-01-03"
     }
   },

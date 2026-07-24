@@ -202,7 +202,7 @@ class PitAuxiliaryAllocationSpec:
     train_start: str = "2011-01-03"
     development_years: tuple[int, ...] = DEVELOPMENT_YEARS
     development_end: str = "2022-12-30"
-    outer: tuple[str, str] = ("2023-01-03", "2026-07-02")
+    outer: tuple[str, str] = ("2023-01-03", "2026-12-31")
     purge_rows: int = 20
     hidden_units: int = 16
     tail_hidden_units: int = 8
@@ -2259,6 +2259,9 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
         if drawdown_experiment
         else "# PIT constituent auxiliary training allocation"
     )
+    calendar_end = summary["data_audit"]["primary"][
+        "common_feature_end"
+    ]
     notebook["cells"] = [
         nbformat.v4.new_markdown_cell(
             f"{title}\n\n"
@@ -2277,7 +2280,7 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
             "qlib.init(provider_uri=str(repo_root / 'data/qlib/soxl'), "
             "region='us', kernels=1, skip_if_reg=False)\n"
             "calendar = D.calendar(start_time='2011-01-03', "
-            "end_time='2026-07-02', freq='day')\n"
+            f"end_time='{calendar_end}', freq='day')\n"
             "from src.workflow import "
             f"{runner}\n"
             "summary = "

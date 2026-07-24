@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-07-02",
-  "audit_snapshot_hash": "816bc8960684b708",
-  "calendar_end": "2026-07-02",
+  "as_of": "2026-07-23",
+  "audit_snapshot_hash": "1706e5ffe7203cbf",
+  "calendar_end": "2026-07-23",
   "calendar_start": "2008-11-05",
   "feature_file_count": 12,
   "fields": [
@@ -13,17 +13,17 @@
     "$vix"
   ],
   "freq": "day",
-  "hash": "784c4350eee4ac5b",
+  "hash": "7468e41049242247",
   "instruments": [
     "SPXL",
     "SPY"
   ],
   "market": "all",
-  "max_datetime": "2026-07-02",
+  "max_datetime": "2026-07-23",
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/spxl",
   "region": "us",
-  "row_count": 8880,
+  "row_count": 8908,
   "source": "/Users/rziiiii/dev/workspace/data/processed/panels/spxl_with_underlying_vix.csv",
   "source_api": [
     "qlib.init",

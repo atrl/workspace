@@ -66,7 +66,10 @@ def test_committed_soxs_card_is_qlib_native_constrained_and_rejected() -> None:
 
     assert provider_manifest["status"] == "ok"
     assert set(provider_manifest["instruments"]) == {"SOXL", "SOXX", "SOXS"}
-    assert provider_manifest["as_of"] == "2026-07-21"
+    assert (
+        pd.Timestamp(provider_manifest["as_of"])
+        >= pd.Timestamp(summary["data_audit"]["as_of"])
+    )
     assert source_manifest["relationship_audit"]["soxs_soxx_close_return_correlation"] < -0.99
     assert summary["promotion_decision"] == "research_reject_soxs_ablation_failed_validation_gates"
     assert summary["selection_uses_outer_test"] is False

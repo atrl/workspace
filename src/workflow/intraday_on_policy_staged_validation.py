@@ -962,6 +962,7 @@ base_experiment: {spec.base_experiment}
 prior_staged_experiment: {spec.prior_staged_experiment}
 source_experiment: {spec.source_experiment}
 source_recorder_id: {summary['source_audit']['source_recorder_id']}
+source_refresh_mode: {summary['source_audit']['source_refresh_mode']}
 intraday_provider_uri: {spec.intraday_provider_uri.resolve()}
 assets: [SOXL, SOXX, cash]
 allocation_output: direct_staged_legal_three_asset_weights

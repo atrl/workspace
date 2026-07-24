@@ -161,6 +161,8 @@ def _build_model(model_name: str, *, random_state: int):
                 reg_alpha=0.1,
                 reg_lambda=0.2,
                 random_state=random_state,
+                n_jobs=1,
+                force_col_wise=True,
                 verbose=-1,
             ),
         )
@@ -179,6 +181,8 @@ def _build_model(model_name: str, *, random_state: int):
                 reg_alpha=0.1,
                 reg_lambda=0.2,
                 random_state=random_state,
+                n_jobs=1,
+                force_col_wise=True,
                 verbose=-1,
             ),
         )

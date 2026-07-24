@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-07-02",
-  "audit_snapshot_hash": "f13a3ad6e4ef2e43",
-  "calendar_end": "2026-07-02",
+  "as_of": "2026-07-23",
+  "audit_snapshot_hash": "bd4fa10dedf0eafb",
+  "calendar_end": "2026-07-23",
   "calendar_start": "2011-01-03",
   "feature_file_count": 445,
   "fields": [
@@ -96,7 +96,7 @@
     "$soxx_const_dispersion_ret20_lag1_pctile252"
   ],
   "freq": "day",
-  "hash": "4c76030071150343",
+  "hash": "4dbf2d382474892a",
   "instruments": [
     "SOXL",
     "SPXL",
@@ -105,11 +105,11 @@
     "UPRO"
   ],
   "market": "all",
-  "max_datetime": "2026-07-02",
+  "max_datetime": "2026-07-23",
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
   "region": "us",
-  "row_count": 19485,
+  "row_count": 19555,
   "source": "qlib_dynamic_soxx_soxl_cash_allocation_pair_panel",
   "source_api": [
     "qlib.init",

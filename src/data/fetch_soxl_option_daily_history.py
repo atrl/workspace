@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+"""Fetch and persist the canonical SOXL option daily snapshot."""
+
 import argparse
 import os
 import time

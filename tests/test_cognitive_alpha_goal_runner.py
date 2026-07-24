@@ -66,13 +66,24 @@ def test_cognitive_alpha_signal_refresh_builds_paper_bark_notification_from_late
             sender=lambda url, payload, timeout: sent.append((url, payload, timeout)) or {"status": 200},
         ),
     )
-    manifest = json.loads((PROVIDER_URI / "qlib_store_manifest.json").read_text(encoding="utf-8"))
+    latest_signal = json.loads(
+        (POSITION_CARD / "latest_signal.json").read_text(
+            encoding="utf-8"
+        )
+    )
 
-    notifications = job.run([{"source": "qlib.data.D.features", "max_datetime": manifest["calendar_end"]}], [])
+    notifications = job.run(
+        [
+            {
+                "source": "qlib.data.D.features",
+                "max_datetime": latest_signal["as_of"],
+            }
+        ],
+        [],
+    )
 
     assert len(notifications) == 1
     notification = notifications[0]
-    latest_signal = json.loads((POSITION_CARD / "latest_signal.json").read_text(encoding="utf-8"))
     assert notification["source"] == "qlib_recorder.latest_signal"
     assert notification["symbol"] == "SOXL"
     assert notification["action"] == latest_signal["action"]
@@ -85,7 +96,7 @@ def test_cognitive_alpha_signal_refresh_builds_paper_bark_notification_from_late
     assert "real_broker_order=False" in sent[0][1]["body"]
     written = json.loads((tmp_path / "signals" / "latest_signal_push.json").read_text(encoding="utf-8"))
     assert written["notification"]["recorder_id"] == notification["recorder_id"]
-    assert written["data_gate"]["max_datetime"] == manifest["calendar_end"]
+    assert written["data_gate"]["max_datetime"] == latest_signal["as_of"]
 
 
 def test_cognitive_alpha_signal_refresh_updates_project_owned_paper_ledger(tmp_path):

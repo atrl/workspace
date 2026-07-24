@@ -25,7 +25,15 @@ def test_overfit_regime_template_chain_is_retired_from_repo_artifacts_and_workfl
         rel = path.relative_to(ROOT)
         if rel in allowed or not path.is_file() or path.suffix not in scanned_suffixes:
             continue
-        if any(part in rel.parts for part in {".git", "qlib_venv", "__pycache__"}):
+        if any(
+            part in rel.parts
+            for part in {
+                ".git",
+                ".worktrees",
+                "qlib_venv",
+                "__pycache__",
+            }
+        ):
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
         for token in banned_tokens:

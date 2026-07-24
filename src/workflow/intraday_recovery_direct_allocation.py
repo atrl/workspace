@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import pickle
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -8,12 +9,28 @@ from typing import Any, Iterable
 
 import numpy as np
 import pandas as pd
+import torch
+import yaml
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from src.data import QlibProviderConfig, load_qlib_feature_frame
+from src.workflow.direct_continuous_soxx_allocation import (
+    DirectContinuousAllocationSpec,
+    PROFILES,
+    _evaluate,
+    _load_frame,
+)
+from src.workflow.pit_constituent_auxiliary_training_allocation import (
+    AuxiliaryTrainingCandidate,
+    PitAuxiliaryAllocationNet,
+    PitAuxiliaryAllocationSpec,
+    _project_legal_weights,
+    _smooth_weights,
+    _soxx_common_training_frame,
+)
 
 
 EXPERIMENT = "intraday_recovery_direct_allocation_v1"
@@ -434,21 +451,34 @@ def _load_source_frame(
     source_summary = json.loads(
         (spec.source_card_dir / "summary.json").read_text(encoding="utf-8")
     )
-    recorder_dir = Path(source_summary["recorder_local_dir"])
-    artifact_dir = recorder_dir / "artifacts" / spec.source_experiment
-    returns = pd.read_csv(
-        artifact_dir / "strategy_returns.csv",
-        parse_dates=["signal_date", "trade_date", "exit_date"],
+    recorder_dir, pinned_recorder_id = _resolve_source_recorder(
+        spec, source_summary=source_summary
     )
+    artifact_dir = recorder_dir / "artifacts" / spec.source_experiment
+    if pinned_recorder_id is not None:
+        returns, predictions, frozen_audit = _extend_frozen_source_outputs(
+            spec,
+            artifact_dir=artifact_dir,
+        )
+    else:
+        returns = pd.read_csv(
+            artifact_dir / "strategy_returns.csv",
+            parse_dates=["signal_date", "trade_date", "exit_date"],
+        )
+        predictions = pd.read_csv(
+            artifact_dir / "predictions.csv",
+            parse_dates=["signal_date"],
+        )
+        frozen_audit = {
+            "source_refresh_mode": "latest_source_summary_artifacts",
+            "source_model_frozen": False,
+        }
     returns = (
         returns[returns["cost_bps"].eq(spec.transaction_cost_bps)]
         .drop_duplicates(["segment", "signal_date"])
         .copy()
     )
-    predictions = pd.read_csv(
-        artifact_dir / "predictions.csv",
-        parse_dates=["signal_date"],
-    ).drop_duplicates(["segment", "signal_date"])
+    predictions = predictions.drop_duplicates(["segment", "signal_date"])
     frame = returns.merge(
         predictions[
             ["segment", "signal_date", "tail_probability", "alpha_probability"]
@@ -472,9 +502,12 @@ def _load_source_frame(
     )
     audit = {
         "source_experiment": spec.source_experiment,
-        "source_recorder_id": source_summary["recorder_id"],
+        "source_recorder_id": (
+            pinned_recorder_id or source_summary["recorder_id"]
+        ),
         "source_recorder_local_dir": str(recorder_dir),
         "source_artifact_dir": str(artifact_dir),
+        **frozen_audit,
         "intraday_provider_uri": str(spec.intraday_provider_uri.resolve()),
         "intraday_provider_as_of": intraday_manifest.get("as_of"),
         "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
@@ -484,6 +517,235 @@ def _load_source_frame(
         "rows_with_intraday_features": int(frame["early_ret_soxx"].notna().sum()),
     }
     return frame, audit
+
+
+def _resolve_source_recorder(
+    spec: IntradayRecoveryDirectAllocationSpec,
+    *,
+    source_summary: dict[str, Any],
+) -> tuple[Path, str | None]:
+    workflow_path = spec.card_dir / "workflow.yaml"
+    source_recorder_id: str | None = None
+    if workflow_path.exists():
+        workflow = yaml.safe_load(
+            workflow_path.read_text(encoding="utf-8")
+        ) or {}
+        value = workflow.get("source_recorder_id")
+        if value:
+            source_recorder_id = str(value)
+    if source_recorder_id is None:
+        return Path(source_summary["recorder_local_dir"]), None
+    matches = sorted(
+        spec.source_card_dir.glob(
+            f"qlib_recorder/*/{source_recorder_id}"
+        )
+    )
+    if len(matches) != 1:
+        raise ValueError(
+            "blocked: pinned source recorder could not be resolved "
+            f"uniquely: {source_recorder_id}"
+        )
+    return matches[0], source_recorder_id
+
+
+def _series_scaler(
+    packed: dict[str, dict[str, float]],
+) -> dict[str, pd.Series]:
+    return {
+        name: pd.Series(values, dtype="float64")
+        for name, values in packed.items()
+    }
+
+
+def _transform_frozen_features(
+    frame: pd.DataFrame,
+    *,
+    features: list[str],
+    scaler: dict[str, dict[str, float]],
+) -> torch.Tensor:
+    unpacked = _series_scaler(scaler)
+    values = frame.loc[:, features].fillna(unpacked["median"])
+    scaled = (
+        (values - unpacked["mean"]) / unpacked["scale"]
+    ).clip(-8.0, 8.0)
+    return torch.tensor(
+        scaled.to_numpy(dtype=np.float32),
+        dtype=torch.float32,
+    )
+
+
+def _frozen_outer_predictions(
+    *,
+    market: pd.DataFrame,
+    common: pd.DataFrame,
+    state: dict[str, Any],
+    spec: PitAuxiliaryAllocationSpec,
+) -> pd.DataFrame:
+    backtest_required = [
+        "soxl_forward_open_return",
+        "soxx_forward_open_return",
+    ]
+    usable = market.loc[
+        market.index >= pd.Timestamp(spec.outer[0])
+    ].dropna(subset=backtest_required)
+    primary_features = list(state["primary_features"])
+    common_features = list(state["common_features"])
+    primary_x = _transform_frozen_features(
+        usable,
+        features=primary_features,
+        scaler=state["primary_scaler"],
+    )
+    common_x = _transform_frozen_features(
+        common.reindex(usable.index),
+        features=common_features,
+        scaler=state["common_scaler"],
+    )
+    model = PitAuxiliaryAllocationNet(
+        primary_feature_count=len(primary_features),
+        common_feature_count=len(common_features),
+        hidden_units=spec.hidden_units,
+        tail_hidden_units=spec.tail_hidden_units,
+    )
+    model.load_state_dict(
+        {
+            name: torch.tensor(values)
+            for name, values in state["model_state"].items()
+        }
+    )
+    model.eval()
+    with torch.no_grad():
+        logits, tail_logit, alpha_logit = model(primary_x, common_x)
+        weights = _project_legal_weights(
+            logits,
+            maximum_soxl_weight=spec.maximum_soxl_weight,
+            minimum_cash_weight=spec.minimum_cash_weight,
+        ).cpu().numpy()
+        tail_probability = torch.sigmoid(
+            tail_logit
+        ).cpu().numpy()
+        alpha_probability = torch.sigmoid(
+            alpha_logit
+        ).cpu().numpy()
+    prediction = pd.DataFrame(
+        weights,
+        index=usable.index,
+        columns=["soxl_weight", "soxx_weight", "cash_weight"],
+    )
+    prediction["tail_probability"] = tail_probability
+    prediction["alpha_probability"] = alpha_probability
+    candidate = AuxiliaryTrainingCandidate(**state["candidate"])
+    prediction = _smooth_weights(
+        prediction,
+        spec=spec,
+        candidate=candidate,
+    )
+    prediction["candidate"] = candidate.name
+    prediction["segment"] = "outer_diagnostic"
+    prediction["fold_year"] = prediction.index.year
+    prediction["train_end"] = pd.Timestamp(spec.development_end)
+    prediction.index.name = "signal_date"
+    return prediction
+
+
+def _extend_frozen_source_outputs(
+    spec: IntradayRecoveryDirectAllocationSpec,
+    *,
+    artifact_dir: Path,
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
+    stored_predictions = pd.read_csv(
+        artifact_dir / "predictions.csv",
+        parse_dates=["signal_date"],
+    )
+    stored_returns = pd.read_csv(
+        artifact_dir / "strategy_returns.csv",
+        parse_dates=["signal_date", "trade_date", "exit_date"],
+    )
+    selected = json.loads(
+        (artifact_dir / "selected_model.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    candidate = str(selected["candidate"])
+    model_path = artifact_dir / "models" / f"{candidate}.pkl"
+    with model_path.open("rb") as file:
+        states = pickle.load(file)
+    if "outer_refit" not in states:
+        raise ValueError(
+            "blocked: pinned source model has no outer_refit state"
+        )
+    pit_spec = PitAuxiliaryAllocationSpec(root=spec.root)
+    market, market_audit, _ = _load_frame(
+        DirectContinuousAllocationSpec(
+            root=spec.root,
+            train_start=pit_spec.train_start,
+            development_years=pit_spec.development_years,
+            development_end=pit_spec.development_end,
+            outer=pit_spec.outer,
+            purge_rows=pit_spec.purge_rows,
+        )
+    )
+    common = _soxx_common_training_frame(
+        pit_spec,
+        end=market.index.max().date().isoformat(),
+    ).reindex(market.index)
+    outer_predictions = _frozen_outer_predictions(
+        market=market,
+        common=common,
+        state=states["outer_refit"],
+        spec=pit_spec,
+    )
+    _, outer_returns, _ = _evaluate(
+        market=market,
+        predictions=outer_predictions,
+        profile=PROFILES[0],
+        cost_bps=int(spec.transaction_cost_bps),
+    )
+    outer_returns["segment"] = "outer_diagnostic"
+    outer_returns["candidate"] = candidate
+    outer_returns["cost_bps"] = spec.transaction_cost_bps
+    development_predictions = stored_predictions[
+        stored_predictions["segment"].eq("development_walk_forward")
+    ].copy()
+    development_returns = stored_returns[
+        stored_returns["segment"].eq("development_walk_forward")
+        & stored_returns["cost_bps"].eq(spec.transaction_cost_bps)
+    ].copy()
+    predictions = pd.concat(
+        [
+            development_predictions,
+            outer_predictions.reset_index(),
+        ],
+        ignore_index=True,
+        sort=False,
+    )
+    returns = pd.concat(
+        [development_returns, outer_returns],
+        ignore_index=True,
+        sort=False,
+    )
+    return returns, predictions, {
+        "source_refresh_mode": (
+            "pinned_recorder_frozen_model_inference_only"
+        ),
+        "source_model_frozen": True,
+        "source_selected_candidate": candidate,
+        "source_model_path": str(model_path),
+        "source_market_provider_uri": market_audit.get(
+            "execution_provider_uri"
+        ),
+        "source_daily_provider_uri": market_audit.get(
+            "daily_provider_uri"
+        ),
+        "source_normalized_provider_uri": market_audit.get(
+            "normalized_provider_uri"
+        ),
+        "source_market_end": str(market.index.max().date()),
+        "source_prediction_end": str(
+            outer_predictions.index.max().date()
+        ),
+        "source_training_end": pit_spec.development_end,
+        "outer_test_used_for_selection": False,
+    }
 
 
 def _load_first_hour_features(
@@ -1052,6 +1314,7 @@ def _write_card_sidecars(
     workflow = f"""experiment: {spec.experiment}
 source_experiment: {spec.source_experiment}
 source_recorder_id: {summary['source_audit']['source_recorder_id']}
+source_refresh_mode: {summary['source_audit']['source_refresh_mode']}
 intraday_provider_uri: {spec.intraday_provider_uri.resolve()}
 assets: [SOXL, SOXX, cash]
 allocation_output: direct_legal_three_asset_weights
