@@ -95,6 +95,14 @@ from .soxx_constituent_factors import (
     SOXX_CONSTITUENT_LIMITATIONS,
     build_soxx_constituent_factor_frame,
 )
+from .soxx_pit_tail_factors import (
+    CONSTITUENT_MODEL_FEATURES,
+    PIT_TAIL_RAW_FIELDS,
+    actual_2x_calibration_metrics,
+    build_constituent_2x_tail_training_frame,
+    build_daily_soxx_tail_factor_frame,
+    load_soxx_pit_leveraged_training_frame,
+)
 from .tail_risk_external import (
     build_tail_risk_external_frame,
     evaluate_tail_risk_candidate,
@@ -129,10 +137,15 @@ __all__ = [
     "QlibScoredDataset",
     "SOXX_CONSTITUENT_FACTOR_SOURCE",
     "SOXX_CONSTITUENT_LIMITATIONS",
+    "CONSTITUENT_MODEL_FEATURES",
+    "PIT_TAIL_RAW_FIELDS",
+    "actual_2x_calibration_metrics",
     "append_high_chop_strategy_metrics",
     "build_canary_trend_component",
     "build_canary_sprint_frame",
     "build_soxx_constituent_factor_frame",
+    "build_constituent_2x_tail_training_frame",
+    "build_daily_soxx_tail_factor_frame",
     "build_cross_asset_price_frame",
     "build_cognitive_alpha_seed_candidates",
     "build_column_alpha_candidates",
@@ -173,6 +186,7 @@ __all__ = [
     "evaluate_signed_session_effect_candidates",
     "evaluate_tail_risk_candidate",
     "materialize_cognitive_alpha_features",
+    "load_soxx_pit_leveraged_training_frame",
     "qlib_factor_diagnostics",
     "run_cognitive_alpha_factor_mining",
     "summarize_agentic_ensemble_components",

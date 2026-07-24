@@ -1,0 +1,73 @@
+{
+  "coverage_output": "/Users/rziiiii/dev/workspace/data/raw/soxx_leveraged_training/coverage.csv",
+  "dataset": "actual_semiconductor_and_single_stock_2x_training_calibration",
+  "hashes": {
+    "AMDL": "60e1d6ccb8680f84a19ee767739697df3051c973af892043b2c02421877b540e",
+    "INTW": "a76ef4c2045a5fa68b81718ffda20ded93427e133a9abfd558692722e084d5b5",
+    "MULL": "64114d0dde0ee5726b6e555ced9a6f5865d29253b35b926ae30ea927c45acbfc",
+    "MVLL": "4f994713657910da252bcfdaa309efc90b09abcd753cdb51e3ba2cc32a42bbde",
+    "NVDL": "c3aa6248c177b06022dc51b56bf73fdca6ae15b703c1051430a6d5b26f2a79cd",
+    "USD": "689d7820bc40a33b6faa635d4347239d572ea408947caba841b88a5609eced74"
+  },
+  "limitations": [
+    "USD is a sector-level 2x calibration series, not a SOXX clone.",
+    "Single-stock 2x ETF histories start in 2022 or later and cannot create pre-2020 crash regimes.",
+    "Synthetic constituent 2x paths are explicitly labeled and never represented as executable ETF returns."
+  ],
+  "products": {
+    "AMDL": {
+      "inception_date": "2024-03-18",
+      "leverage_multiple": 2.0,
+      "role": "short_history_single_stock_2x_calibration",
+      "underlying": "AMD",
+      "underlying_ticker": "AMD"
+    },
+    "INTW": {
+      "inception_date": "2025-02-13",
+      "leverage_multiple": 2.0,
+      "role": "short_history_single_stock_2x_calibration",
+      "underlying": "INTC",
+      "underlying_ticker": "INTC"
+    },
+    "MULL": {
+      "inception_date": "2024-11-12",
+      "leverage_multiple": 2.0,
+      "role": "short_history_single_stock_2x_calibration",
+      "underlying": "MU",
+      "underlying_ticker": "MU"
+    },
+    "MVLL": {
+      "inception_date": "2025-03-07",
+      "leverage_multiple": 2.0,
+      "role": "short_history_single_stock_2x_calibration",
+      "underlying": "MRVL",
+      "underlying_ticker": "MRVL"
+    },
+    "NVDL": {
+      "inception_date": "2022-12-13",
+      "leverage_multiple": 2.0,
+      "role": "short_history_single_stock_2x_calibration",
+      "underlying": "NVDA",
+      "underlying_ticker": "NVDA"
+    },
+    "USD": {
+      "inception_date": "2007-01-30",
+      "leverage_multiple": 2.0,
+      "role": "long_history_sector_2x_calibration",
+      "underlying": "Dow Jones U.S. Semiconductors Index",
+      "underlying_ticker": "SOXX_PROXY"
+    }
+  },
+  "requested_end": "2026-07-02",
+  "requested_start": "2007-01-30",
+  "source": "Yahoo Finance chart API",
+  "status": "ok",
+  "usable_products": [
+    "AMDL",
+    "INTW",
+    "MULL",
+    "MVLL",
+    "NVDL",
+    "USD"
+  ]
+}

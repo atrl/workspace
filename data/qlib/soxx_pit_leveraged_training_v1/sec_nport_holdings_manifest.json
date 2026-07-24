@@ -1,0 +1,278 @@
+{
+  "availability_policy": "holdings become model-eligible on or after SEC filing_date; report_date is never used as availability date",
+  "cik": "0001100663",
+  "contract_id": "C000012084",
+  "dataset": "soxx_sec_nport_point_in_time_holdings",
+  "filing_end": "2026-07-13",
+  "filing_start": "2019-11-25",
+  "filings": [
+    {
+      "accession": "0001752724-19-177706",
+      "equity_count": 30,
+      "equity_weight_pct": 99.805523695846,
+      "filing_date": "2019-11-25",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272419177706/primary_doc.xml",
+      "report_date": "2019-09-30"
+    },
+    {
+      "accession": "0001752724-20-038669",
+      "equity_count": 30,
+      "equity_weight_pct": 99.75150465726699,
+      "filing_date": "2020-02-27",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420038669/primary_doc.xml",
+      "report_date": "2019-12-31"
+    },
+    {
+      "accession": "0001752724-20-112013",
+      "equity_count": 30,
+      "equity_weight_pct": 99.69540174230299,
+      "filing_date": "2020-06-01",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420112013/primary_doc.xml",
+      "report_date": "2020-03-31"
+    },
+    {
+      "accession": "0001752724-20-176975",
+      "equity_count": 30,
+      "equity_weight_pct": 99.724722577645,
+      "filing_date": "2020-08-27",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420176975/primary_doc.xml",
+      "report_date": "2020-06-30"
+    },
+    {
+      "accession": "0001752724-20-247778",
+      "equity_count": 30,
+      "equity_weight_pct": 99.85873153754699,
+      "filing_date": "2020-11-25",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272420247778/primary_doc.xml",
+      "report_date": "2020-09-30"
+    },
+    {
+      "accession": "0001752724-21-040706",
+      "equity_count": 30,
+      "equity_weight_pct": 99.73705778598101,
+      "filing_date": "2021-02-25",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421040706/primary_doc.xml",
+      "report_date": "2020-12-31"
+    },
+    {
+      "accession": "0001752724-21-116396",
+      "equity_count": 30,
+      "equity_weight_pct": 99.82595150761499,
+      "filing_date": "2021-05-27",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421116396/primary_doc.xml",
+      "report_date": "2021-03-31"
+    },
+    {
+      "accession": "0001752724-21-186189",
+      "equity_count": 30,
+      "equity_weight_pct": 99.78951275742001,
+      "filing_date": "2021-08-26",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421186189/primary_doc.xml",
+      "report_date": "2021-06-30"
+    },
+    {
+      "accession": "0001752724-21-255817",
+      "equity_count": 30,
+      "equity_weight_pct": 99.797621665598,
+      "filing_date": "2021-11-24",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272421255817/primary_doc.xml",
+      "report_date": "2021-09-30"
+    },
+    {
+      "accession": "0001752724-22-046342",
+      "equity_count": 30,
+      "equity_weight_pct": 99.85560532065801,
+      "filing_date": "2022-02-25",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422046342/primary_doc.xml",
+      "report_date": "2021-12-31"
+    },
+    {
+      "accession": "0001752724-22-122864",
+      "equity_count": 30,
+      "equity_weight_pct": 99.813526334381,
+      "filing_date": "2022-05-26",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422122864/primary_doc.xml",
+      "report_date": "2022-03-31"
+    },
+    {
+      "accession": "0001752724-22-193694",
+      "equity_count": 30,
+      "equity_weight_pct": 99.733734684392,
+      "filing_date": "2022-08-25",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422193694/primary_doc.xml",
+      "report_date": "2022-06-30"
+    },
+    {
+      "accession": "0001752724-22-268670",
+      "equity_count": 30,
+      "equity_weight_pct": 99.787884348312,
+      "filing_date": "2022-11-28",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272422268670/primary_doc.xml",
+      "report_date": "2022-09-30"
+    },
+    {
+      "accession": "0001752724-23-039255",
+      "equity_count": 30,
+      "equity_weight_pct": 99.842437088037,
+      "filing_date": "2023-02-24",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423039255/primary_doc.xml",
+      "report_date": "2022-12-31"
+    },
+    {
+      "accession": "0001752724-23-123226",
+      "equity_count": 30,
+      "equity_weight_pct": 99.79129148090001,
+      "filing_date": "2023-05-26",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423123226/primary_doc.xml",
+      "report_date": "2023-03-31"
+    },
+    {
+      "accession": "0001752724-23-191474",
+      "equity_count": 30,
+      "equity_weight_pct": 99.734458173402,
+      "filing_date": "2023-08-25",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423191474/primary_doc.xml",
+      "report_date": "2023-06-30"
+    },
+    {
+      "accession": "0001752724-23-264274",
+      "equity_count": 30,
+      "equity_weight_pct": 99.81797529068201,
+      "filing_date": "2023-11-22",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272423264274/primary_doc.xml",
+      "report_date": "2023-09-30"
+    },
+    {
+      "accession": "0001752724-24-043112",
+      "equity_count": 30,
+      "equity_weight_pct": 99.82754851993,
+      "filing_date": "2024-02-27",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424043112/primary_doc.xml",
+      "report_date": "2023-12-31"
+    },
+    {
+      "accession": "0001752724-24-123330",
+      "equity_count": 30,
+      "equity_weight_pct": 99.84971170129299,
+      "filing_date": "2024-05-28",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424123330/primary_doc.xml",
+      "report_date": "2024-03-31"
+    },
+    {
+      "accession": "0001752724-24-194376",
+      "equity_count": 30,
+      "equity_weight_pct": 99.84766121681899,
+      "filing_date": "2024-08-27",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424194376/primary_doc.xml",
+      "report_date": "2024-06-30"
+    },
+    {
+      "accession": "0001752724-24-269906",
+      "equity_count": 30,
+      "equity_weight_pct": 99.795623881963,
+      "filing_date": "2024-11-26",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272424269906/primary_doc.xml",
+      "report_date": "2024-09-30"
+    },
+    {
+      "accession": "0001752724-25-043848",
+      "equity_count": 30,
+      "equity_weight_pct": 99.83316406826602,
+      "filing_date": "2025-02-27",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425043848/primary_doc.xml",
+      "report_date": "2024-12-31"
+    },
+    {
+      "accession": "0001752724-25-119804",
+      "equity_count": 30,
+      "equity_weight_pct": 99.80289872956,
+      "filing_date": "2025-05-27",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425119804/primary_doc.xml",
+      "report_date": "2025-03-31"
+    },
+    {
+      "accession": "0001752724-25-210398",
+      "equity_count": 30,
+      "equity_weight_pct": 99.82893445724201,
+      "filing_date": "2025-08-28",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425210398/primary_doc.xml",
+      "report_date": "2025-06-30"
+    },
+    {
+      "accession": "0002071691-25-007653",
+      "equity_count": 30,
+      "equity_weight_pct": 99.849018678707,
+      "filing_date": "2025-11-26",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169125007653/primary_doc.xml",
+      "report_date": "2025-09-30"
+    },
+    {
+      "accession": "0002071691-26-004253",
+      "equity_count": 30,
+      "equity_weight_pct": 99.876847064209,
+      "filing_date": "2026-02-25",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126004253/primary_doc.xml",
+      "report_date": "2025-12-31"
+    },
+    {
+      "accession": "0002071691-26-012504",
+      "equity_count": 30,
+      "equity_weight_pct": 99.86049514778,
+      "filing_date": "2026-05-28",
+      "form": "NPORT-P",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126012504/primary_doc.xml",
+      "report_date": "2026-03-31"
+    },
+    {
+      "accession": "0002071691-26-015796",
+      "equity_count": 30,
+      "equity_weight_pct": 99.849018678707,
+      "filing_date": "2026-07-13",
+      "form": "NPORT-P/A",
+      "primary_xml_url": "https://www.sec.gov/Archives/edgar/data/1100663/000207169126015796/primary_doc.xml",
+      "report_date": "2025-09-30"
+    }
+  ],
+  "instrument_count": 47,
+  "limitations": [
+    "SEC N-PORT coverage begins in 2019 and is periodic rather than daily.",
+    "Delisted and renamed securities require legacy ticker price coverage.",
+    "Historical holdings are training information only, not a tradable constituent rotation strategy."
+  ],
+  "output": "/Users/rziiiii/dev/workspace/data/raw/soxx_constituents/pit_holdings_history.csv",
+  "report_end": "2026-03-31",
+  "report_start": "2019-09-30",
+  "row_count": 840,
+  "series_id": "S000004354",
+  "sha256": "68d9acea5200d7ee46daa923dc1987fa61ede2a332cc02164470f271bbe48faa",
+  "snapshot_count": 28,
+  "source": "SEC EDGAR NPORT-P",
+  "source_feed": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=C000012084&type=NPORT-P&dateb=&owner=exclude&count=100&output=atom",
+  "status": "ok"
+}

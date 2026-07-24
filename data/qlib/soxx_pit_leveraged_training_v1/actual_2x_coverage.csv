@@ -1,0 +1,7 @@
+symbol,status,rows,start_date,end_date,underlying,underlying_ticker,leverage_multiple,inception_date,role,error
+AMDL,ok,575,2024-03-18,2026-07-02,AMD,AMD,2.0,2024-03-18,short_history_single_stock_2x_calibration,
+INTW,ok,347,2025-02-13,2026-07-02,INTC,INTC,2.0,2025-02-13,short_history_single_stock_2x_calibration,
+MULL,ok,409,2024-11-12,2026-07-02,MU,MU,2.0,2024-11-12,short_history_single_stock_2x_calibration,
+MVLL,ok,332,2025-03-07,2026-07-02,MRVL,MRVL,2.0,2025-03-07,short_history_single_stock_2x_calibration,
+NVDL,ok,890,2022-12-13,2026-07-02,NVDA,NVDA,2.0,2022-12-13,short_history_single_stock_2x_calibration,
+USD,ok,4885,2007-02-01,2026-07-02,Dow Jones U.S. Semiconductors Index,SOXX_PROXY,2.0,2007-01-30,long_history_sector_2x_calibration,

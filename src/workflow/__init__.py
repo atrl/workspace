@@ -51,6 +51,7 @@ __all__ = [
     "DynamicSoxxSoxlCashAllocationWfSpec",
     "DirectContinuousAllocationSpec",
     "Auxiliary3xTrainingDataSpec",
+    "PitAuxiliaryAllocationSpec",
     "MultitaskClassificationAllocationSpec",
     "RoleSeparatedAllocationSpec",
     "TalebFragilityAllocationSpec",
@@ -103,6 +104,7 @@ __all__ = [
     "run_cognitive_alpha_evolution",
     "run_qlib_native_experiment",
     "run_risk_hardened_open2open_card",
+    "run_pit_constituent_auxiliary_training_allocation_card",
     "run_relative_wealth_lfnn_soxx_card",
     "run_soxx_constituent_alpha_attribution_card",
     "run_smart_leverage_soxl_wealth_control_card",
@@ -223,6 +225,11 @@ _DIRECT_CONTINUOUS_SOXX_ALLOCATION_EXPORTS = {
 _AUXILIARY_3X_TRAINING_DATA_EXPORTS = {
     "Auxiliary3xTrainingDataSpec",
     "run_auxiliary_3x_training_data_allocation_card",
+}
+
+_PIT_CONSTITUENT_AUXILIARY_TRAINING_EXPORTS = {
+    "PitAuxiliaryAllocationSpec",
+    "run_pit_constituent_auxiliary_training_allocation_card",
 }
 
 _MULTITASK_CLASSIFICATION_ALLOCATION_EXPORTS = {
@@ -368,6 +375,12 @@ def __getattr__(name: str):
         from . import auxiliary_3x_training_data_allocation
 
         return getattr(auxiliary_3x_training_data_allocation, name)
+    if name in _PIT_CONSTITUENT_AUXILIARY_TRAINING_EXPORTS:
+        from . import pit_constituent_auxiliary_training_allocation
+
+        return getattr(
+            pit_constituent_auxiliary_training_allocation, name
+        )
     if name in _MULTITASK_CLASSIFICATION_ALLOCATION_EXPORTS:
         from . import multitask_classification_allocation
 
