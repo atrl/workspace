@@ -1,0 +1,19 @@
+experiment: drawdown_targeted_pit_allocation_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+auxiliary_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxx_pit_leveraged_training_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/drawdown_targeted_pit_allocation_v1/qlib_recorder
+market: US
+region: us
+assets: [SOXL, SOXX, cash]
+auxiliary_assets_role: training_rows_only
+allocation_output: direct_full_weights
+selection_uses_outer_test: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/drawdown_targeted_pit_allocation_v1/models/
+    - artifacts/drawdown_targeted_pit_allocation_v1/predictions.csv
+    - artifacts/drawdown_targeted_pit_allocation_v1/positions.csv
+    - artifacts/drawdown_targeted_pit_allocation_v1/strategy_returns.csv
+    - artifacts/drawdown_targeted_pit_allocation_v1/training_diagnostics.csv

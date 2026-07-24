@@ -36,6 +36,7 @@ from src.workflow.trainable_regime_policy_nested_wf import (
 
 
 EXPERIMENT = "pit_constituent_auxiliary_training_allocation_v1"
+DRAWDOWN_EXPERIMENT = "drawdown_targeted_pit_allocation_v1"
 PRIMARY_INSTRUMENT = "SOXX"
 COMMON_FEATURES = tuple(
     feature
@@ -51,11 +52,34 @@ RECORDER_ONLY_ARTIFACTS = (
 )
 
 
+def _recorder_only_artifacts(experiment: str) -> tuple[str, ...]:
+    return (
+        f"artifacts/{experiment}/models/",
+        f"artifacts/{experiment}/predictions.csv",
+        f"artifacts/{experiment}/positions.csv",
+        f"artifacts/{experiment}/strategy_returns.csv",
+        f"artifacts/{experiment}/training_diagnostics.csv",
+    )
+
+
 @dataclass(frozen=True)
 class AuxiliaryTrainingCandidate:
     name: str
     auxiliary_weight: float
     include_union_backfill: bool
+    method: str = "relative_return_baseline"
+    absolute_drawdown_penalty: float = 0.0
+    conditional_drawdown_penalty: float = 0.0
+    rolling_5d_penalty: float = 0.0
+    cash_target_penalty: float = 0.0
+    tail_event_weight_multiplier: float = 1.0
+    stress_cash_ceiling: float = 0.55
+    smoothing_span: int | None = None
+    rebalance_threshold: float | None = None
+    drawdown_floor: float | None = None
+    drawdown_budget_multiplier: float = 0.0
+    drawdown_budget_metric: str = "risky_weight"
+    drawdown_budget_buffer: float = 0.0
 
 
 CANDIDATES = (
@@ -86,6 +110,90 @@ CANDIDATES = (
     ),
 )
 
+DRAWDOWN_CANDIDATES = (
+    AuxiliaryTrainingCandidate(
+        name="primary_only",
+        auxiliary_weight=0.0,
+        include_union_backfill=False,
+        method="primary_relative_return_baseline",
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_only_aux_005",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="relative_return_baseline",
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_mdd_003",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="deepdow_absolute_max_drawdown",
+        absolute_drawdown_penalty=0.03,
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_mdd_ced_008",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="maximum_drawdown_plus_conditional_expected_drawdown",
+        absolute_drawdown_penalty=0.08,
+        conditional_drawdown_penalty=0.02,
+        rolling_5d_penalty=0.05,
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_cdar_cash_005",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="conditional_drawdown_plus_direct_cash_supervision",
+        absolute_drawdown_penalty=0.05,
+        conditional_drawdown_penalty=0.05,
+        rolling_5d_penalty=0.10,
+        cash_target_penalty=0.05,
+        tail_event_weight_multiplier=4.0,
+        stress_cash_ceiling=0.75,
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_cdar_cash_fast_010",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="conditional_drawdown_cash_supervision_fast_transition",
+        absolute_drawdown_penalty=0.10,
+        conditional_drawdown_penalty=0.08,
+        rolling_5d_penalty=0.20,
+        cash_target_penalty=0.10,
+        tail_event_weight_multiplier=8.0,
+        stress_cash_ceiling=0.85,
+        smoothing_span=1,
+        rebalance_threshold=0.0,
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_budget_risky_250",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="state_dependent_drawdown_budget_risky_weight",
+        drawdown_floor=0.70,
+        drawdown_budget_multiplier=2.50,
+        drawdown_budget_metric="risky_weight",
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_budget_beta_400",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="state_dependent_drawdown_budget_effective_beta",
+        drawdown_floor=0.70,
+        drawdown_budget_multiplier=4.00,
+        drawdown_budget_metric="effective_beta",
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_budget_risky_200",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="state_dependent_drawdown_budget_conservative",
+        drawdown_floor=0.70,
+        drawdown_budget_multiplier=2.00,
+        drawdown_budget_metric="risky_weight",
+    ),
+)
+
 
 @dataclass(frozen=True)
 class PitAuxiliaryAllocationSpec:
@@ -110,6 +218,9 @@ class PitAuxiliaryAllocationSpec:
     auxiliary_batch_size: int = 2048
     smoothing_span: int = 3
     rebalance_threshold: float = 0.02
+    research_max_drawdown_target_pct: float | None = None
+    research_worst_5d_target_pct: float = -15.0
+    research_minimum_ratio_10bps: float = 1.0
     seed: int = 71
 
     @property
@@ -179,7 +290,30 @@ def run_pit_constituent_auxiliary_training_allocation_card(
         if root is not None
         else Path(__file__).resolve().parents[2]
     )
-    return _run_card(PitAuxiliaryAllocationSpec(root=repo_root))
+    return _run_card(
+        PitAuxiliaryAllocationSpec(root=repo_root),
+        candidates=CANDIDATES,
+    )
+
+
+def run_drawdown_targeted_pit_allocation_card(
+    *, root: Path | str | None = None
+) -> dict[str, Any]:
+    repo_root = (
+        Path(root).resolve()
+        if root is not None
+        else Path(__file__).resolve().parents[2]
+    )
+    return _run_card(
+        PitAuxiliaryAllocationSpec(
+            root=repo_root,
+            experiment=DRAWDOWN_EXPERIMENT,
+            research_max_drawdown_target_pct=-30.0,
+            research_worst_5d_target_pct=-15.0,
+            research_minimum_ratio_10bps=0.50,
+        ),
+        candidates=DRAWDOWN_CANDIDATES,
+    )
 
 
 def _project_legal_weights(
@@ -465,9 +599,15 @@ def _allocation_loss(
     weights: torch.Tensor,
     returns: torch.Tensor,
     years: torch.Tensor,
+    cash_target: torch.Tensor,
+    tail_event: torch.Tensor,
+    candidate: AuxiliaryTrainingCandidate,
+    drawdown_target_pct: float,
+    worst_5d_target_pct: float,
+    minimum_cash_weight: float,
     cost_bps: int,
     turnover_weight: float,
-) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, dict[str, torch.Tensor]]:
     initial = torch.tensor(
         [0.0, 0.0, 1.0],
         dtype=weights.dtype,
@@ -482,9 +622,10 @@ def _allocation_loss(
     portfolio_return = (
         weights[:, :2] * returns
     ).sum(dim=1) - turnover * cost_bps / 10_000.0
-    relative_log = torch.log1p(
-        torch.clamp(portfolio_return, min=-0.95)
-    ) - torch.log1p(torch.clamp(returns[:, 1], min=-0.95))
+    portfolio_log = torch.log1p(torch.clamp(portfolio_return, min=-0.95))
+    relative_log = portfolio_log - torch.log1p(
+        torch.clamp(returns[:, 1], min=-0.95)
+    )
     annual = torch.stack(
         [
             relative_log[years.eq(year)].mean()
@@ -496,7 +637,82 @@ def _allocation_loss(
         + 0.50 * annual.std(unbiased=False)
         + turnover_weight * turnover.mean()
     )
-    return loss, turnover, annual
+    max_drawdown_limit = -float(np.log1p(drawdown_target_pct / 100.0))
+    conditional_drawdown_limit = -float(
+        np.log1p((drawdown_target_pct * 2.0 / 3.0) / 100.0)
+    )
+    max_drawdown_losses: list[torch.Tensor] = []
+    conditional_drawdown_losses: list[torch.Tensor] = []
+    for mask in [
+        torch.ones_like(years, dtype=torch.bool),
+        *(years.eq(year) for year in torch.unique(years)),
+    ]:
+        path = torch.cat(
+            [
+                torch.zeros(
+                    1,
+                    dtype=portfolio_log.dtype,
+                    device=portfolio_log.device,
+                ),
+                torch.cumsum(portfolio_log[mask], dim=0),
+            ]
+        )
+        drawdown = torch.cummax(path, dim=0).values - path
+        max_drawdown_losses.append(
+            torch.relu(drawdown.max() - max_drawdown_limit).square()
+        )
+        tail_count = max(1, int(np.ceil(0.10 * len(drawdown))))
+        conditional_drawdown = torch.topk(
+            drawdown, tail_count
+        ).values.mean()
+        conditional_drawdown_losses.append(
+            torch.relu(
+                conditional_drawdown - conditional_drawdown_limit
+            ).square()
+        )
+    max_drawdown_loss = torch.stack(max_drawdown_losses).mean()
+    conditional_drawdown_loss = torch.stack(
+        conditional_drawdown_losses
+    ).mean()
+
+    rolling_5d_log = portfolio_log.unfold(0, 5, 1).sum(dim=1)
+    rolling_5d_limit = float(np.log1p(worst_5d_target_pct / 100.0))
+    rolling_5d_shortfall = torch.relu(
+        rolling_5d_limit - rolling_5d_log
+    )
+    rolling_5d_loss = rolling_5d_shortfall.square().mean()
+
+    normalized_cash_target = torch.clamp(cash_target / 0.55, 0.0, 1.0)
+    supervised_cash_target = minimum_cash_weight + (
+        candidate.stress_cash_ceiling - minimum_cash_weight
+    ) * normalized_cash_target
+    cash_sample_weight = 1.0 + (
+        candidate.tail_event_weight_multiplier - 1.0
+    ) * tail_event
+    cash_target_loss = (
+        torch.nn.functional.smooth_l1_loss(
+            weights[:, 2],
+            supervised_cash_target,
+            reduction="none",
+        )
+        * cash_sample_weight
+    ).mean()
+
+    loss = (
+        loss
+        + candidate.absolute_drawdown_penalty * max_drawdown_loss
+        + candidate.conditional_drawdown_penalty
+        * conditional_drawdown_loss
+        + candidate.rolling_5d_penalty * rolling_5d_loss
+        + candidate.cash_target_penalty * cash_target_loss
+    )
+    components = {
+        "max_drawdown_loss": max_drawdown_loss,
+        "conditional_drawdown_loss": conditional_drawdown_loss,
+        "rolling_5d_loss": rolling_5d_loss,
+        "cash_target_loss": cash_target_loss,
+    }
+    return loss, turnover, annual, components
 
 
 def _fit_predict(
@@ -514,6 +730,7 @@ def _fit_predict(
         "soxl_forward_open_return",
         "soxx_forward_open_return",
         "tail_event_5d",
+        "tail_cash_target_5d",
         "relative_alpha_5d",
     ]
     train = train.dropna(subset=required).copy()
@@ -576,6 +793,10 @@ def _fit_predict(
         train["tail_event_5d"].to_numpy(dtype=np.float32),
         dtype=torch.float32,
     )
+    primary_cash_target = torch.tensor(
+        train["tail_cash_target_5d"].to_numpy(dtype=np.float32),
+        dtype=torch.float32,
+    )
     primary_upside = torch.tensor(
         train["relative_alpha_5d"].gt(0.0).to_numpy(dtype=np.float32),
         dtype=torch.float32,
@@ -610,10 +831,20 @@ def _fit_predict(
             maximum_soxl_weight=spec.maximum_soxl_weight,
             minimum_cash_weight=spec.minimum_cash_weight,
         )
-        allocation_loss, turnover, annual = _allocation_loss(
+        allocation_loss, turnover, annual, risk_components = _allocation_loss(
             weights=weights,
             returns=returns,
             years=years,
+            cash_target=primary_cash_target,
+            tail_event=primary_tail,
+            candidate=candidate,
+            drawdown_target_pct=(
+                spec.research_max_drawdown_target_pct
+                if spec.research_max_drawdown_target_pct is not None
+                else -30.0
+            ),
+            worst_5d_target_pct=spec.research_worst_5d_target_pct,
+            minimum_cash_weight=spec.minimum_cash_weight,
             cost_bps=spec.training_cost_bps,
             turnover_weight=spec.turnover_loss_weight,
         )
@@ -690,6 +921,10 @@ def _fit_predict(
             ),
             "mean_turnover_loss": float(turnover.mean().detach()),
             "mean_annual_relative_log": float(annual.mean().detach()),
+            **{
+                name: float(component.detach())
+                for name, component in risk_components.items()
+            },
         }
         if value < best_loss:
             best_loss = value
@@ -721,7 +956,7 @@ def _fit_predict(
     )
     output["tail_probability"] = tail_probability
     output["alpha_probability"] = alpha_probability
-    output = _smooth_weights(output, spec=spec)
+    output = _smooth_weights(output, spec=spec, candidate=candidate)
     state = {
         "model_state": {
             key: value.detach().cpu().numpy()
@@ -757,17 +992,29 @@ def _smooth_weights(
     prediction: pd.DataFrame,
     *,
     spec: PitAuxiliaryAllocationSpec,
+    candidate: AuxiliaryTrainingCandidate | None = None,
 ) -> pd.DataFrame:
     result = prediction.copy()
     columns = ["soxl_weight", "soxx_weight", "cash_weight"]
+    smoothing_span = (
+        candidate.smoothing_span
+        if candidate is not None and candidate.smoothing_span is not None
+        else spec.smoothing_span
+    )
+    rebalance_threshold = (
+        candidate.rebalance_threshold
+        if candidate is not None
+        and candidate.rebalance_threshold is not None
+        else spec.rebalance_threshold
+    )
     smoothed = result.loc[:, columns].ewm(
-        span=spec.smoothing_span, adjust=False
+        span=smoothing_span, adjust=False
     ).mean()
     accepted = np.empty_like(smoothed.to_numpy(dtype=float))
     previous = np.array([0.0, 0.0, 1.0], dtype=float)
     for index, values in enumerate(smoothed.to_numpy(dtype=float)):
         if 0.5 * np.abs(values - previous).sum() >= (
-            spec.rebalance_threshold
+            rebalance_threshold
         ):
             previous = values
         accepted[index] = previous
@@ -897,22 +1144,102 @@ def _profile(candidate: AuxiliaryTrainingCandidate) -> DirectLossProfile:
     )
 
 
+def _apply_drawdown_budget(
+    *,
+    market: pd.DataFrame,
+    prediction: pd.DataFrame,
+    candidate: AuxiliaryTrainingCandidate,
+    cost_bps: int,
+) -> pd.DataFrame:
+    if candidate.drawdown_floor is None:
+        return prediction.copy()
+    if not 0.0 < candidate.drawdown_floor < 1.0:
+        raise ValueError("drawdown floor must be in (0, 1)")
+    if candidate.drawdown_budget_metric not in {
+        "risky_weight",
+        "effective_beta",
+    }:
+        raise ValueError("unsupported drawdown budget metric")
+
+    aligned = market.reindex(prediction.index)
+    required = ["soxl_forward_open_return", "soxx_forward_open_return"]
+    if aligned.loc[:, required].isna().any().any():
+        raise ValueError("blocked: drawdown budget market returns missing")
+    result = prediction.copy()
+    raw = result.loc[
+        :, ["soxl_weight", "soxx_weight", "cash_weight"]
+    ].to_numpy(dtype=float)
+    accepted = np.empty_like(raw)
+    previous = np.array([0.0, 0.0, 1.0], dtype=float)
+    equity = 1.0
+    peak = 1.0
+    protected_floor = (
+        candidate.drawdown_floor + candidate.drawdown_budget_buffer
+    )
+    for row_index, values in enumerate(raw):
+        cushion = max(
+            0.0,
+            (equity - protected_floor * peak) / max(equity, 1e-12),
+        )
+        exposure_cap = candidate.drawdown_budget_multiplier * cushion
+        if candidate.drawdown_budget_metric == "effective_beta":
+            proposed_exposure = 3.0 * values[0] + values[1]
+        else:
+            proposed_exposure = values[0] + values[1]
+        scale = min(
+            1.0,
+            exposure_cap / max(proposed_exposure, 1e-12),
+        )
+        weights = np.array(
+            [
+                values[0] * scale,
+                values[1] * scale,
+                1.0 - (values[0] + values[1]) * scale,
+            ],
+            dtype=float,
+        )
+        turnover = 0.5 * np.abs(weights - previous).sum()
+        daily_return = (
+            weights[0]
+            * float(aligned.iloc[row_index]["soxl_forward_open_return"])
+            + weights[1]
+            * float(aligned.iloc[row_index]["soxx_forward_open_return"])
+            - turnover * cost_bps / 10_000.0
+        )
+        equity *= 1.0 + daily_return
+        peak = max(peak, equity)
+        previous = weights
+        accepted[row_index] = weights
+    for column_index, column in enumerate(
+        ["soxl_weight", "soxx_weight", "cash_weight"]
+    ):
+        result[column] = accepted[:, column_index]
+    return result
+
+
 def _evaluate_candidates(
     *,
     market: pd.DataFrame,
     predictions: dict[str, pd.DataFrame],
     segment: str,
     spec: PitAuxiliaryAllocationSpec,
+    candidates: tuple[AuxiliaryTrainingCandidate, ...] = CANDIDATES,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     rows: list[dict[str, Any]] = []
     annual: list[pd.DataFrame] = []
-    for candidate in CANDIDATES:
+    for candidate in candidates:
         if candidate.name not in predictions:
             continue
+        constrained_prediction = _apply_drawdown_budget(
+            market=market,
+            prediction=predictions[candidate.name],
+            candidate=candidate,
+            cost_bps=spec.training_cost_bps,
+        )
         for cost_bps in spec.costs_bps:
             metrics, result, benchmark = _evaluate(
                 market=market,
-                predictions=predictions[candidate.name],
+                predictions=constrained_prediction,
                 profile=_profile(candidate),
                 cost_bps=cost_bps,
             )
@@ -932,6 +1259,11 @@ def _evaluate_candidates(
 def _selection_table(
     comparison: pd.DataFrame,
     annual: pd.DataFrame,
+    *,
+    candidates: tuple[AuxiliaryTrainingCandidate, ...] = CANDIDATES,
+    research_max_drawdown_target_pct: float | None = None,
+    research_worst_5d_target_pct: float = -15.0,
+    research_minimum_ratio_10bps: float = 1.0,
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     baseline = comparison.loc[
@@ -942,7 +1274,7 @@ def _selection_table(
         comparison["candidate"].eq("primary_only")
         & comparison["cost_bps"].eq(25)
     ].iloc[0]
-    for candidate in CANDIDATES:
+    for candidate in candidates:
         cost10 = comparison.loc[
             comparison["candidate"].eq(candidate.name)
             & comparison["cost_bps"].eq(10)
@@ -1035,6 +1367,30 @@ def _selection_table(
         selection["relative_objective_pass"]
         & selection[risk_gates].all(axis=1)
     )
+    selection["research_maxdd_gate"] = (
+        True
+        if research_max_drawdown_target_pct is None
+        else selection["max_drawdown_pct"].ge(
+            research_max_drawdown_target_pct
+        )
+    )
+    selection["research_worst_5d_gate"] = selection[
+        "worst_rolling_5d_pct"
+    ].ge(research_worst_5d_target_pct)
+    research_minimum_ratio_25bps = max(
+        0.0, research_minimum_ratio_10bps - 0.05
+    )
+    selection["research_relative_preservation_gate"] = (
+        selection["ratio_10bps"].ge(research_minimum_ratio_10bps)
+        & selection["ratio_25bps"].ge(research_minimum_ratio_25bps)
+    )
+    research_gates = [
+        "research_maxdd_gate",
+        "research_worst_5d_gate",
+        "research_relative_preservation_gate",
+    ]
+    selection["research_gate_count"] = selection[research_gates].sum(axis=1)
+    selection["research_target_pass"] = selection[research_gates].all(axis=1)
     selection["selection_score"] = (
         np.log(selection["ratio_10bps"].clip(lower=1e-12))
         + 0.25
@@ -1043,32 +1399,79 @@ def _selection_table(
         + 0.10
         * selection["incremental_ratio_10bps_vs_primary"]
     )
-    passing = selection.loc[selection["relative_objective_pass"]]
-    pool = passing if not passing.empty else selection
-    selected_index = pool.sort_values(
-        [
-            "relative_gate_count",
-            "selection_score",
-            "risk_gate_count",
-            "candidate",
-        ],
-        ascending=[False, False, False, True],
-    ).index[0]
+    if research_max_drawdown_target_pct is not None:
+        passing = selection.loc[selection["research_target_pass"]]
+        maxdd_passing = selection.loc[selection["research_maxdd_gate"]]
+        pool = (
+            passing
+            if not passing.empty
+            else maxdd_passing
+            if not maxdd_passing.empty
+            else selection
+        )
+        if not passing.empty:
+            selected_index = passing.sort_values(
+                [
+                    "ratio_10bps",
+                    "ratio_25bps",
+                    "max_drawdown_pct",
+                    "candidate",
+                ],
+                ascending=[False, False, False, True],
+            ).index[0]
+        else:
+            selected_index = pool.sort_values(
+                [
+                    "research_gate_count",
+                    "max_drawdown_pct",
+                    "ratio_10bps",
+                    "risk_gate_count",
+                    "candidate",
+                ],
+                ascending=[False, False, False, False, True],
+            ).index[0]
+    else:
+        passing = selection.loc[selection["relative_objective_pass"]]
+        pool = passing if not passing.empty else selection
+        selected_index = pool.sort_values(
+            [
+                "relative_gate_count",
+                "selection_score",
+                "risk_gate_count",
+                "candidate",
+            ],
+            ascending=[False, False, False, True],
+        ).index[0]
     selection["selected"] = selection.index == selected_index
-    selection["selection_policy"] = np.where(
-        selection["relative_objective_pass"],
-        "development_relative_gates_then_score",
-        "diagnostic_fallback_relative_gate_count_then_score",
-    )
+    if research_max_drawdown_target_pct is not None:
+        selection["selection_policy"] = np.where(
+            selection["research_target_pass"],
+            "development_drawdown_target_then_relative_preservation",
+            "diagnostic_fallback_drawdown_closeness_then_relative_return",
+        )
+    else:
+        selection["selection_policy"] = np.where(
+            selection["relative_objective_pass"],
+            "development_relative_gates_then_score",
+            "diagnostic_fallback_relative_gate_count_then_score",
+        )
     return selection
 
 
-def _selected_candidate(selection: pd.DataFrame) -> AuxiliaryTrainingCandidate:
+def _selected_candidate(
+    selection: pd.DataFrame,
+    *,
+    candidates: tuple[AuxiliaryTrainingCandidate, ...] = CANDIDATES,
+) -> AuxiliaryTrainingCandidate:
     name = str(selection.loc[selection["selected"], "candidate"].iloc[0])
-    return next(candidate for candidate in CANDIDATES if candidate.name == name)
+    return next(candidate for candidate in candidates if candidate.name == name)
 
 
-def _run_card(spec: PitAuxiliaryAllocationSpec) -> dict[str, Any]:
+def _run_card(
+    spec: PitAuxiliaryAllocationSpec,
+    *,
+    candidates: tuple[AuxiliaryTrainingCandidate, ...] = CANDIDATES,
+) -> dict[str, Any]:
     card = spec.card_dir
     card.mkdir(parents=True, exist_ok=True)
     market, source_audit, primary_features = _load_frame(
@@ -1096,7 +1499,7 @@ def _run_card(spec: PitAuxiliaryAllocationSpec) -> dict[str, Any]:
     outer_predictions: dict[str, pd.DataFrame] = {}
     model_states: dict[str, Any] = {}
     diagnostics: list[pd.DataFrame] = []
-    for candidate in CANDIDATES:
+    for candidate in candidates:
         development, outer, states, fit = _candidate_predictions(
             primary_dataset=primary_dataset,
             auxiliary_dataset=auxiliary_dataset,
@@ -1116,20 +1519,45 @@ def _run_card(spec: PitAuxiliaryAllocationSpec) -> dict[str, Any]:
         predictions=development_predictions,
         segment="development_walk_forward",
         spec=spec,
+        candidates=candidates,
     )
     selection = _selection_table(
-        development_comparison, development_annual
+        development_comparison,
+        development_annual,
+        candidates=candidates,
+        research_max_drawdown_target_pct=(
+            spec.research_max_drawdown_target_pct
+        ),
+        research_worst_5d_target_pct=spec.research_worst_5d_target_pct,
+        research_minimum_ratio_10bps=(
+            spec.research_minimum_ratio_10bps
+        ),
     )
-    selected_candidate = _selected_candidate(selection)
-    selected_development = development_predictions[
+    selected_candidate = _selected_candidate(
+        selection, candidates=candidates
+    )
+    raw_selected_development = development_predictions[
         selected_candidate.name
     ]
-    selected_outer = outer_predictions[selected_candidate.name]
+    raw_selected_outer = outer_predictions[selected_candidate.name]
     outer_comparison, outer_annual = _evaluate_candidates(
         market=market,
-        predictions={selected_candidate.name: selected_outer},
+        predictions={selected_candidate.name: raw_selected_outer},
         segment="outer_diagnostic",
         spec=spec,
+        candidates=(selected_candidate,),
+    )
+    selected_development = _apply_drawdown_budget(
+        market=market,
+        prediction=raw_selected_development,
+        candidate=selected_candidate,
+        cost_bps=spec.training_cost_bps,
+    )
+    selected_outer = _apply_drawdown_budget(
+        market=market,
+        prediction=raw_selected_outer,
+        candidate=selected_candidate,
+        cost_bps=spec.training_cost_bps,
     )
     comparison = pd.concat(
         [development_comparison, outer_comparison], ignore_index=True
@@ -1246,6 +1674,42 @@ def _run_card(spec: PitAuxiliaryAllocationSpec) -> dict[str, Any]:
                 "passed": True,
                 "evidence": "development_2016_2022_only",
             },
+            {
+                "gate": "development_research_maxdrawdown_target",
+                "required": False,
+                "passed": bool(selected_row["research_maxdd_gate"]),
+                "evidence": float(selected_row["max_drawdown_pct"]),
+            },
+            {
+                "gate": "outer_research_maxdrawdown_target",
+                "required": False,
+                "passed": bool(
+                    spec.research_max_drawdown_target_pct is None
+                    or outer10["max_drawdown_pct"]
+                    >= spec.research_max_drawdown_target_pct
+                ),
+                "evidence": float(outer10["max_drawdown_pct"]),
+            },
+            {
+                "gate": "outer_research_worst_5d_target",
+                "required": False,
+                "passed": bool(
+                    outer10["worst_rolling_5d_pct"]
+                    >= spec.research_worst_5d_target_pct
+                ),
+                "evidence": float(outer10["worst_rolling_5d_pct"]),
+            },
+            {
+                "gate": "outer_research_relative_preservation",
+                "required": False,
+                "passed": bool(
+                    outer10["terminal_wealth_ratio_vs_soxx"]
+                    >= spec.research_minimum_ratio_10bps
+                ),
+                "evidence": float(
+                    outer10["terminal_wealth_ratio_vs_soxx"]
+                ),
+            },
         ]
     )
     objective_pass = bool(
@@ -1268,9 +1732,23 @@ def _run_card(spec: PitAuxiliaryAllocationSpec) -> dict[str, Any]:
             "passed",
         ].all()
     )
+    research_target_pass = bool(
+        selected_row["research_target_pass"]
+        and (
+            spec.research_max_drawdown_target_pct is None
+            or outer10["max_drawdown_pct"]
+            >= spec.research_max_drawdown_target_pct
+        )
+        and outer10["worst_rolling_5d_pct"]
+        >= spec.research_worst_5d_target_pct
+        and outer10["terminal_wealth_ratio_vs_soxx"]
+        >= spec.research_minimum_ratio_10bps
+    )
     decision = (
         "validated_pit_auxiliary_training_allocation"
         if objective_pass
+        else "research_target_30pct_met_not_promoted"
+        if research_target_pass
         else "not_promoted_pit_auxiliary_training_gates_failed"
     )
 
@@ -1393,7 +1871,9 @@ def _run_card(spec: PitAuxiliaryAllocationSpec) -> dict[str, Any]:
                 objective_audit=objective_audit,
                 objective_pass=objective_pass,
                 relative_objective_pass=relative_objective_pass,
+                research_target_pass=research_target_pass,
                 decision=decision,
+                candidates=candidates,
                 recorder_id=recorder_id,
                 recorder_uri=recorder_uri,
                 recorder_local_dir=recorder_local_dir,
@@ -1434,7 +1914,9 @@ def _summary(
     objective_audit: pd.DataFrame,
     objective_pass: bool,
     relative_objective_pass: bool,
+    research_target_pass: bool,
     decision: str,
+    candidates: tuple[AuxiliaryTrainingCandidate, ...],
     recorder_id: str,
     recorder_uri: Path,
     recorder_local_dir: Path,
@@ -1476,6 +1958,11 @@ def _summary(
             "allocation": (
                 "one direct network emits legal SOXL/SOXX/cash weights"
             ),
+            "path_risk_control": (
+                "the selected candidate may causally scale the model's "
+                "full risky allocation from prior realized equity and "
+                "running peak; cash remains the residual model state"
+            ),
             "tail_encoder": (
                 "shared SOXX-style encoder; constituent synthetic-2x "
                 "labels enter training loss only"
@@ -1491,6 +1978,20 @@ def _summary(
                 "maximum_soxl_weight": spec.maximum_soxl_weight,
                 "long_only": True,
                 "weights_sum_to_one": True,
+                "selected_drawdown_budget": _json_ready(
+                    {
+                        key: value
+                        for key, value in asdict(
+                            next(
+                                candidate
+                                for candidate in candidates
+                                if candidate.name
+                                == str(selected["candidate"])
+                            )
+                        ).items()
+                        if key.startswith("drawdown_")
+                    }
+                ),
             },
         },
         "primary_feature_count": len(primary_features),
@@ -1498,7 +1999,7 @@ def _summary(
         "common_feature_count": len(COMMON_FEATURES),
         "common_features": list(COMMON_FEATURES),
         "training_data_candidates": [
-            asdict(candidate) for candidate in CANDIDATES
+            asdict(candidate) for candidate in candidates
         ],
         "data_audit": {
             "primary": source_audit,
@@ -1518,19 +2019,64 @@ def _summary(
             "metrics_10bps": _json_ready(outer10.to_dict()),
         },
         "relative_objective_pass": relative_objective_pass,
+        "research_target_pass": research_target_pass,
         "objective_pass": objective_pass,
         "promotion_decision": decision,
         "objective_gate_audit": objective_audit.to_dict(
             orient="records"
         ),
         "model_selection": selection.to_dict(orient="records"),
-        "annual_metrics": annual.to_dict(orient="records"),
+        "annual_metrics": {
+            "sidecar": sidecars["backtest_walk_forward_metrics"],
+            "row_count": int(len(annual)),
+        },
         "qlib_docs": [
             "https://qlib.readthedocs.io/en/latest/component/data.html",
             "https://qlib.readthedocs.io/en/latest/component/workflow.html",
             "https://qlib.readthedocs.io/en/latest/component/strategy.html",
         ],
         "external_research": [
+            {
+                "source": (
+                    "Goldberg and Mahmoud - Drawdown: From Practice "
+                    "to Theory and Back Again"
+                ),
+                "url": "https://arxiv.org/abs/1404.7493",
+                "use": (
+                    "conditional expected drawdown captures serially "
+                    "clustered path risk"
+                ),
+            },
+            {
+                "source": (
+                    "Dorador - Constrained Max Drawdown: a Fast and "
+                    "Robust Portfolio Optimization Approach"
+                ),
+                "url": "https://arxiv.org/abs/2401.02601",
+                "use": "explicit maximum-drawdown constraint target",
+            },
+            {
+                "source": "DeepDow MaximumDrawdown loss",
+                "url": (
+                    "https://deepdow.readthedocs.io/en/latest/"
+                    "source/losses.html"
+                ),
+                "use": (
+                    "end-to-end differentiable portfolio path loss "
+                    "on direct allocation weights"
+                ),
+            },
+            {
+                "source": "Kaggle Hull Tactical solution patterns",
+                "url": (
+                    "https://www.kaggle.com/competitions/"
+                    "hull-tactical-market-prediction"
+                ),
+                "use": (
+                    "separate return objective from volatility-risk "
+                    "control under time-series validation"
+                ),
+            },
             {
                 "source": "Gu, Kelly, Xiu - Empirical Asset Pricing via Machine Learning",
                 "url": "https://www.nber.org/papers/w25398",
@@ -1554,7 +2100,9 @@ def _summary(
         "artifact_policy": {
             "policy": "slim_card_recorder_first",
             "workflow_config": "workflow.yaml",
-            "recorder_only_artifacts": list(RECORDER_ONLY_ARTIFACTS),
+            "recorder_only_artifacts": list(
+                _recorder_only_artifacts(spec.experiment)
+            ),
         },
     }
 
@@ -1617,6 +2165,7 @@ def _write_card(
             outer10["terminal_wealth_ratio_vs_soxx"]
         ),
         "relative_objective_pass": summary["relative_objective_pass"],
+        "research_target_pass": summary["research_target_pass"],
         "objective_pass": summary["objective_pass"],
         "promotion_decision": summary["promotion_decision"],
         "selection_uses_outer_test": False,
@@ -1640,7 +2189,8 @@ def _write_card(
     conclusion = (
         "# 结论\n\n"
         "- what_ran: 成分股与合成2x标签只进入训练辅助头；开发期和"
-        "outer推理均只使用原有SOXL/SOXX数据，仓位由一个网络直接输出。\n"
+        "outer推理均只使用原有SOXL/SOXX数据，网络直接输出完整仓位，"
+        "路径预算候选仅根据此前已实现净值与峰值因果缩放风险仓位。\n"
         f"- key_metrics: 开发期选择 `{selected_name}`，10bp相对SOXX="
         f"{float(selected['ratio_10bps']):.4f}，25bp="
         f"{float(selected['ratio_25bps']):.4f}，正超额年份="
@@ -1651,11 +2201,12 @@ def _write_card(
         "只在单独候选中以0.25权重作为预训练样本。\n"
         f"- promotion_decision: `{summary['promotion_decision']}`；"
         f"相对目标通过={summary['relative_objective_pass']}，完整风险门="
-        f"{summary['objective_pass']}。\n"
+        f"{summary['objective_pass']}，30%研究目标="
+        f"{summary['research_target_pass']}。\n"
         f"- risks: 失败门为 {', '.join(failed) if failed else '无'}；"
         "实际单股2x历史太短，只用于校准合成标签，不伪造早期可交易历史。\n"
-        "- next_action: 若20%相对门通过但风险门失败，应保留辅助训练头，"
-        "把研究目标转为可预测的现金风险期限；不再扩大pooled权重。\n"
+        "- next_action: 30%路径风险目标与跑赢SOXX目标分开判定；"
+        "只有开发期先达到目标后才解释outer诊断，不用outer反选。\n"
         f"- recorder: `{summary['recorder_id']}`。\n"
     )
     (card / "conclusion.md").write_text(
@@ -1677,7 +2228,10 @@ def _write_card(
         "  workflow_config: workflow.yaml\n"
         "  recorder_only_artifacts:\n"
         + "\n".join(
-            f"    - {artifact}" for artifact in RECORDER_ONLY_ARTIFACTS
+            f"    - {artifact}"
+            for artifact in summary["artifact_policy"][
+                "recorder_only_artifacts"
+            ]
         )
         + "\n"
     )
@@ -1694,9 +2248,20 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
         "language": "python",
         "name": "python3",
     }
+    drawdown_experiment = summary["experiment"] == DRAWDOWN_EXPERIMENT
+    runner = (
+        "run_drawdown_targeted_pit_allocation_card"
+        if drawdown_experiment
+        else "run_pit_constituent_auxiliary_training_allocation_card"
+    )
+    title = (
+        "# Drawdown-targeted PIT allocation"
+        if drawdown_experiment
+        else "# PIT constituent auxiliary training allocation"
+    )
     notebook["cells"] = [
         nbformat.v4.new_markdown_cell(
-            "# PIT constituent auxiliary training allocation\n\n"
+            f"{title}\n\n"
             "成分股与2x标签只参与训练；推理仍只依赖SOXL/SOXX。"
         ),
         nbformat.v4.new_code_cell(
@@ -1714,9 +2279,9 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
             "calendar = D.calendar(start_time='2011-01-03', "
             "end_time='2026-07-02', freq='day')\n"
             "from src.workflow import "
-            "run_pit_constituent_auxiliary_training_allocation_card\n"
+            f"{runner}\n"
             "summary = "
-            "run_pit_constituent_auxiliary_training_allocation_card("
+            f"{runner}("
             "root=repo_root)\n"
             "summary['promotion_decision']"
         ),
