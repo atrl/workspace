@@ -1,0 +1,25 @@
+{
+  "selection_uses_outer_test": false,
+  "selected_from_segment": "development_walk_forward",
+  "outer_status": "reused_diagnostic_not_fresh_unseen_test",
+  "selected_model": {
+    "teacher_recovery_beta": 1.2,
+    "action_beta": 0.6,
+    "logistic_c": 0.03,
+    "probability_threshold": 0.55,
+    "second_cut_bars": 6,
+    "second_cut_time": "11:00",
+    "stage2_teacher_beta": 1.2,
+    "stage2_action_beta": 1.2,
+    "stage2_logistic_c": 0.3,
+    "stage2_probability_threshold": 0.7
+  },
+  "development_metrics": {
+    "return_pct": 481.89523433200685,
+    "max_drawdown_pct": -26.17487555409691,
+    "worst_day_pct": -7.845988052345539,
+    "cvar5_pct": -4.121155521710743,
+    "worst_rolling_5d_pct": -11.96580696770624,
+    "avg_cash_weight_pct": 42.23690606654297
+  }
+}

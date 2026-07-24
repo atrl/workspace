@@ -1,0 +1,3 @@
+variant,segment,cost_bps,terminal_wealth,return_pct,max_drawdown_pct,worst_day_pct,cvar5_pct,worst_rolling_5d_pct,avg_cash_weight_pct
+selected_staged_intraday_recovery,outer_diagnostic_reused,10.0,8.127392091455167,712.7392091455167,-28.105120211615287,-9.382462081165041,-5.253780971823336,-11.301751631371836,35.73768556266179
+selected_staged_intraday_recovery_fixed_decisions,outer_diagnostic_reused,25.0,7.267773406391321,626.777340639132,-29.088729304619864,-9.382462081165041,-5.262268779697248,-11.485839271952026,35.73768556266179
