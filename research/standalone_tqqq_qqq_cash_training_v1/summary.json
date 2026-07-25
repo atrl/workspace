@@ -1,0 +1,160 @@
+{
+  "experiment": "standalone_tqqq_qqq_cash_training_v1",
+  "card_type": "qlib_standalone_tqqq_training_card",
+  "primary_notebook": "standalone_tqqq_qqq_cash_training_v1.ipynb",
+  "as_of": "2026-07-24",
+  "training_end": "2022-12-30",
+  "outer": [
+    "2023-01-03",
+    "2026-07-24"
+  ],
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+  "source_audit": {
+    "source": "qlib.data.D.features",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+    "calendar_start": "2010-02-11",
+    "calendar_end": "2026-07-24",
+    "used_start": "2011-01-03",
+    "used_end": "2026-07-24",
+    "requested_instruments": [
+      "TQQQ",
+      "QQQ"
+    ],
+    "model_instrument": "TQQQ",
+    "underlying_instrument": "QQQ",
+    "panel_instruments": [
+      "TQQQ"
+    ],
+    "forbidden_training_assets": [
+      "SOXL",
+      "SOXX"
+    ],
+    "forbidden_training_rows": 0,
+    "feature_count": 56,
+    "feature_identity_columns": [],
+    "training_policy": "TQQQ_QQQ_history_only",
+    "selection_uses_outer_test": false
+  },
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "development_rows": 1762,
+    "instruments": [
+      "TQQQ"
+    ],
+    "selection_uses_outer_test": false
+  },
+  "spec": {
+    "root": "/Users/rziiiii/dev/workspace",
+    "experiment": "standalone_tqqq_qqq_cash_training_v1",
+    "train_start": "2011-01-03",
+    "development_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "development_end": "2022-12-30",
+    "outer": [
+      "2023-01-03",
+      "2026-07-24"
+    ],
+    "purge_rows": 20,
+    "hidden_units": 16,
+    "epochs": 300,
+    "learning_rate": 0.003,
+    "weight_decay": 0.05,
+    "maximum_leveraged_weight": 0.3,
+    "minimum_cash_weight": 0.15,
+    "costs_bps": [
+      10,
+      25
+    ],
+    "seed": 113,
+    "as_of": "2026-07-24"
+  },
+  "assets": [
+    "TQQQ",
+    "QQQ",
+    "cash"
+  ],
+  "training_assets": [
+    "TQQQ",
+    "QQQ"
+  ],
+  "forbidden_training_assets": [
+    "SOXL",
+    "SOXX"
+  ],
+  "forbidden_training_rows": 0,
+  "candidates": [
+    {
+      "name": "tqqq_own_mse",
+      "auxiliary_weight": 0.0,
+      "turnover_penalty": 0.0
+    },
+    {
+      "name": "tqqq_own_turnover_0p005",
+      "auxiliary_weight": 0.0,
+      "turnover_penalty": 0.005
+    },
+    {
+      "name": "tqqq_own_turnover_0p02",
+      "auxiliary_weight": 0.0,
+      "turnover_penalty": 0.02
+    },
+    {
+      "name": "tqqq_own_turnover_0p05",
+      "auxiliary_weight": 0.0,
+      "turnover_penalty": 0.05
+    },
+    {
+      "name": "tqqq_own_turnover_0p1",
+      "auxiliary_weight": 0.0,
+      "turnover_penalty": 0.1
+    }
+  ],
+  "feature_count": 56,
+  "selection_uses_outer_test": false,
+  "outer_role": "report_only",
+  "selected_candidate": "tqqq_own_turnover_0p1",
+  "development_pass": false,
+  "outer_pass": false,
+  "objective_pass": false,
+  "promotion_decision": "not_promoted_standalone_tqqq_gates_failed",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  ],
+  "recorder_id": "1a90171034d14ba4a7e5259ae2cd29bc",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/standalone_tqqq_qqq_cash_training_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/standalone_tqqq_qqq_cash_training_v1/qlib_recorder/951838176032829386/1a90171034d14ba4a7e5259ae2cd29bc",
+  "sidecars": {
+    "selected_model": "selected_model.json",
+    "model_selection": "model_selection.csv",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "training_data_audit": "training_data_audit.csv",
+    "objective_gate_audit": "objective_gate_audit.csv",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md",
+    "conclusion": "conclusion.md",
+    "workflow_config": "workflow.yaml"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/standalone_tqqq_qqq_cash_training_v1/models/",
+      "artifacts/standalone_tqqq_qqq_cash_training_v1/predictions.csv",
+      "artifacts/standalone_tqqq_qqq_cash_training_v1/positions.csv",
+      "artifacts/standalone_tqqq_qqq_cash_training_v1/strategy_returns.csv",
+      "artifacts/standalone_tqqq_qqq_cash_training_v1/training_diagnostics.csv"
+    ]
+  }
+}

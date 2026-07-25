@@ -1,0 +1,14 @@
+experiment: standalone_tqqq_qqq_cash_training_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/tqqq
+recorder_uri: /Users/rziiiii/dev/workspace/research/standalone_tqqq_qqq_cash_training_v1/qlib_recorder
+market: US
+region: us
+as_of: 2026-07-24
+assets: [TQQQ, QQQ, cash]
+training_assets: [TQQQ, QQQ]
+forbidden_training_assets: [SOXL, SOXX]
+model_selection: TQQQ_only_development_2016_2022
+outer_role: report_only
+allocation_output: direct_cash_constrained_weights
+artifact_policy:
+  policy: slim_card_recorder_first

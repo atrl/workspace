@@ -1,0 +1,48 @@
+{
+  "candidate": "tqqq_own_turnover_0p1",
+  "training_assets": [
+    "TQQQ",
+    "QQQ"
+  ],
+  "forbidden_training_assets": [
+    "SOXL",
+    "SOXX"
+  ],
+  "forbidden_training_rows": 0,
+  "selection_uses_outer_test": false,
+  "diagnostic_only": true,
+  "development_metrics": {
+    "candidate": "tqqq_own_turnover_0p1",
+    "training_assets": "TQQQ,QQQ",
+    "forbidden_training_assets": "SOXL,SOXX",
+    "forbidden_training_rows": 0,
+    "turnover_penalty": 0.1,
+    "ratio_10bps": 0.9617110168867214,
+    "ratio_25bps": 0.9396286865155951,
+    "dynamic_vs_matched_static": 0.9773365456387677,
+    "max_drawdown_pct": -38.868953218140334,
+    "worst_day_pct": -9.051060560606478,
+    "cvar5_pct": -3.719492804490571,
+    "worst_rolling_5d_pct": -15.674007933690293,
+    "avg_cash_weight_pct": 17.69168150276115,
+    "upside_capture_pct": 34.73313455689438,
+    "total_turnover": 16.511472161859274,
+    "positive_relative_years": 3,
+    "selection_uses_outer_test": false,
+    "return_gate": false,
+    "cost_gate": false,
+    "dynamic_gate": false,
+    "maxdd_gate": false,
+    "worst_day_gate": true,
+    "cvar_gate": true,
+    "worst_5d_gate": false,
+    "cash_gate": true,
+    "capture_gate": false,
+    "year_gate": false,
+    "gate_count": 3,
+    "all_gate": false,
+    "selection_score": -0.006071004638515981,
+    "selected": true,
+    "selection_policy": "TQQQ_only_development_gate_count_then_relative_wealth"
+  }
+}
