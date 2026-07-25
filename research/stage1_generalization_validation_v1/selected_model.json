@@ -1,0 +1,22 @@
+{
+  "source_experiment": "intraday_on_policy_staged_validation_v1",
+  "source_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+  "source_training_end": "2022-12-30",
+  "source_model_frozen": true,
+  "selection_uses_outer_test": false,
+  "selected_model": {
+    "teacher_recovery_beta": 1.2,
+    "action_beta": 0.6,
+    "logistic_c": 0.03,
+    "probability_threshold": 0.55,
+    "open_no_trade_band": 0.0,
+    "second_cut_bars": 8,
+    "second_cut_time": "11:30",
+    "stage2_logistic_c": 0.3,
+    "stage2_probability_threshold": 0.6,
+    "stage2_action_beta": 0.8,
+    "stage2_teacher_beta": 1.2,
+    "stage2_enabled": false
+  },
+  "stage2_enabled": false
+}

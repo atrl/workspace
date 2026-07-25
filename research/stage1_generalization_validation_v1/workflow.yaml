@@ -1,0 +1,26 @@
+experiment: stage1_generalization_validation_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+market: all
+region: us
+as_of: 2026-07-24
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_generalization_validation_v1/qlib_recorder
+source_experiment: intraday_on_policy_staged_validation_v1
+source_recorder_id: f6b09330175e41719886d58ee2d11bec
+source_training_end: 2022-12-30
+model_selection:
+  source_model_frozen: true
+  selection_uses_outer_test: false
+  outer_role: frozen_diagnostic_only
+validation:
+  annual_years: [2023, 2024, 2025, 2026]
+  costs_bps: [10, 25, 50]
+  rolling_windows_days: [126, 252]
+  circular_block_bootstrap_days: [20, 60]
+  cross_asset_role: negative_control_only
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stage1_generalization_validation_v1/stage1_daily.csv
+    - artifacts/stage1_generalization_validation_v1/bootstrap_samples.csv
+    - artifacts/stage1_generalization_validation_v1/cross_asset_proxy_daily.csv

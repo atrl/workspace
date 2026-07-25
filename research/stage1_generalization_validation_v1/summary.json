@@ -1,0 +1,335 @@
+{
+  "experiment": "stage1_generalization_validation_v1",
+  "card_type": "stage1_frozen_generalization_validation_card",
+  "status": "generalization_not_proven_paper_validation_required",
+  "decision": "continue_futu_paper_sim_collect_clean_forward_holdout",
+  "real_money_promotion": "blocked",
+  "clean_unseen_holdout_available": false,
+  "clean_holdout_limitation": "The model was frozen after 2022, but 2023-2026 outer results have been repeatedly inspected during human-in-the-loop research. They remain diagnostic and are not a pristine final holdout.",
+  "selection_uses_outer_test": false,
+  "outer_role": "frozen_diagnostic_only_not_model_selection",
+  "system_of_record": "qlib",
+  "model_selection": {
+    "source_model_frozen": true,
+    "source_stage2_enabled": false,
+    "selection_uses_outer_test": false,
+    "validation_does_not_replace_selected_parameters": true
+  },
+  "source_experiment": "intraday_on_policy_staged_validation_v1",
+  "source_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+  "source_training_end": "2022-12-30",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "market": "all",
+  "region": "us",
+  "as_of": "2026-07-24",
+  "window": {
+    "start": "2023-01-04",
+    "end": "2026-07-24",
+    "stage1_rows": 890
+  },
+  "qlib_docs": {
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "strategy": "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+    "analysis": "https://qlib.readthedocs.io/en/latest/component/report.html"
+  },
+  "frozen_stage1_metrics_10bps": {
+    "terminal_wealth": 6.4178894962121875,
+    "return_pct": 541.7889496212188,
+    "max_drawdown_pct": -28.105112234782226,
+    "worst_day_pct": -9.383714522840133,
+    "cvar5_pct": -5.233616449643784,
+    "worst_rolling_5d_pct": -11.602809404682091
+  },
+  "soxx_metrics": {
+    "terminal_wealth": 4.762753847392585,
+    "return_pct": 376.27538473925847
+  },
+  "generalization_gates": {
+    "core_generalization_gate": false,
+    "temporal_gate": true,
+    "annual_relative_pass_count": 3,
+    "minimum_annual_relative_passes": 3,
+    "annual_risk_pass_count": 4,
+    "minimum_annual_risk_passes": 4,
+    "cost_gate": true,
+    "required_cost_bps": [
+      10.0,
+      25.0
+    ],
+    "parameter_gate": false,
+    "parameter_min_wealth_ratio": 0.840665918176072,
+    "minimum_parameter_wealth_ratio": 0.9,
+    "bootstrap_gate": true,
+    "bootstrap_min_outperformance_probability": 0.844,
+    "minimum_bootstrap_outperformance_probability": 0.7,
+    "rolling_gate": false,
+    "minimum_rolling_outperformance_rate": 0.6,
+    "matched_exposure_gate": true,
+    "stage1_terminal_wealth_ratio_vs_matched_exposure": 1.46748159174458
+  },
+  "rolling_summary": [
+    {
+      "window_days": 126,
+      "window_count": 38,
+      "beats_soxx_count": 21,
+      "beats_soxx_rate": 0.5526315789473685,
+      "risk_pass_rate": 1.0,
+      "ratio_min": 0.8157030156830228,
+      "ratio_p25": 0.9620755868695692,
+      "ratio_median": 1.0253582629753462
+    },
+    {
+      "window_days": 252,
+      "window_count": 32,
+      "beats_soxx_count": 24,
+      "beats_soxx_rate": 0.75,
+      "risk_pass_rate": 1.0,
+      "ratio_min": 0.7859246518516079,
+      "ratio_p25": 1.0062968677329165,
+      "ratio_median": 1.0911874882206845
+    }
+  ],
+  "cross_asset_negative_control": {
+    "role": "diagnostic_only_not_a_transferable_model_test",
+    "warning": "The Stage1 features and labels are semiconductor-specific. Applying its frozen open-weight schedule to other 3x/1x pairs only tests generic beta timing and cannot establish direct cross-asset model portability.",
+    "beats_underlying_count": 4,
+    "beats_matched_exposure_count": 4,
+    "pair_count": 4
+  },
+  "source_audit": {
+    "inference": {
+      "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+      "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+      "stage1_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+      "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
+      "source_model_frozen": true,
+      "source_training_end": "2022-12-30",
+      "latest_signal_date": "2026-07-24",
+      "latest_complete_signal_date": "2026-07-22",
+      "market_audit": {
+        "execution_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+        "daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+        "normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+        "execution_provider": {
+          "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+          "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+          "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+          "as_of": "2026-07-24",
+          "instruments": [
+            "SOXL",
+            "SOXS",
+            "SOXX"
+          ],
+          "fields": [
+            "$open",
+            "$high",
+            "$low",
+            "$close"
+          ],
+          "calendar_rows": 4118,
+          "usable_rows": 4059,
+          "usable_start": "2010-06-04",
+          "usable_end": "2026-07-24",
+          "include_incomplete_latest": true,
+          "relationship_audit": {
+            "common_end": "2026-07-24",
+            "common_rows_per_instrument": 4118,
+            "common_start": "2010-03-11",
+            "soxs_soxl_close_return_correlation": -0.9971607051342226,
+            "soxs_soxx_close_return_correlation": -0.9979864005517669
+          },
+          "source_api": [
+            "qlib.init",
+            "qlib.data.D.calendar",
+            "qlib.data.D.features"
+          ]
+        },
+        "calendar_start": "2010-06-04",
+        "calendar_end": "2026-07-24",
+        "common_feature_end": "2026-07-24",
+        "source_api": "qlib.data.D.features",
+        "include_incomplete_latest": true,
+        "excluded_sources": {
+          "soxx_constituents": "excluded_from_model_non_PIT_single_snapshot_survivorship_bias",
+          "macro_credit": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+          "hardware_cycle": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+          "intraday": "excluded_from_2016_2022_walk_forward_coverage_starts_2019"
+        },
+        "feature_count": 39,
+        "feature_families": [
+          "cross_asset_diffusion",
+          "current_soxl_soxx_soxs",
+          "normalized_regime",
+          "risk_hardened_high_chop"
+        ],
+        "base_constrained_ref_in_features": false,
+        "base_constrained_ref_role": "none",
+        "candidate_weight_grid": false,
+        "allocation_output": "direct_continuous_softmax_soxl_soxx_cash",
+        "maximum_soxl_weight_is_risk_constraint": true,
+        "selection_uses_outer_test": false
+      },
+      "primary_features": [
+        "soxl_ret3",
+        "soxl_ret5",
+        "soxl_ret10",
+        "soxl_ret20",
+        "soxl_ret60",
+        "soxx_ret3",
+        "soxx_ret5",
+        "soxx_ret10",
+        "soxx_ret20",
+        "soxx_ret60",
+        "relative_momentum20",
+        "soxx_trend20",
+        "soxx_trend60",
+        "trend_efficiency_20",
+        "levered_decay_20",
+        "soxx_lead_10",
+        "range_pos_252",
+        "cross_breadth_pos_20",
+        "cross_breadth_pos_60",
+        "semis_vs_cross_20",
+        "semis_vs_cross_60",
+        "tech_breadth_20",
+        "tech_breadth_60",
+        "soxx_vol20",
+        "soxx_drawdown60",
+        "dist_high_252",
+        "vix",
+        "vix_chg5",
+        "vix_z_60",
+        "rv20",
+        "rv60",
+        "rv20_expansion",
+        "tracking_error_5_z20",
+        "tracking_error_5_pctile60",
+        "panic_reversal_5",
+        "chop_breakdown_risk",
+        "high_chop_pressure",
+        "cross_vol_breadth_high",
+        "cross_dispersion_20"
+      ],
+      "common_features": [
+        "ret1",
+        "mom5",
+        "mom20",
+        "mom60",
+        "reversal1",
+        "vol10",
+        "vol20",
+        "downside_vol20",
+        "skew20",
+        "kurt60",
+        "drawdown20",
+        "drawdown60",
+        "gap1",
+        "intraday1",
+        "volume_z20",
+        "range_pct"
+      ]
+    },
+    "source_frame": {
+      "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+      "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+      "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+      "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+      "source_refresh_mode": "pinned_recorder_frozen_model_inference_only",
+      "source_model_frozen": true,
+      "source_selected_candidate": "pit_only_aux_005",
+      "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
+      "source_market_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+      "source_daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "source_normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+      "source_market_end": "2026-07-22",
+      "source_prediction_end": "2026-07-22",
+      "source_training_end": "2022-12-30",
+      "outer_test_used_for_selection": false,
+      "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+      "intraday_provider_as_of": "2026-07-24",
+      "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+      "intraday_coverage_start": "2018-12-31",
+      "intraday_coverage_end": "2026-07-23",
+      "rows": 2652,
+      "rows_with_intraday_features": 1900
+    },
+    "cross_asset": [
+      {
+        "pair": "TQQQ_QQQ",
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+        "qlib_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.instruments",
+          "qlib.data.D.features"
+        ],
+        "start": "2023-01-04",
+        "end": "2026-07-24",
+        "rows": 890
+      },
+      {
+        "pair": "UPRO_SPY",
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/upro",
+        "qlib_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.instruments",
+          "qlib.data.D.features"
+        ],
+        "start": "2023-01-04",
+        "end": "2026-07-24",
+        "rows": 890
+      },
+      {
+        "pair": "SPXL_SPY",
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/spxl",
+        "qlib_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.instruments",
+          "qlib.data.D.features"
+        ],
+        "start": "2023-01-04",
+        "end": "2026-07-24",
+        "rows": 890
+      },
+      {
+        "pair": "TECL_XLK",
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tecl",
+        "qlib_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.instruments",
+          "qlib.data.D.features"
+        ],
+        "start": "2023-01-04",
+        "end": "2026-07-24",
+        "rows": 890
+      }
+    ]
+  },
+  "sidecars": {
+    "annual_metrics": "annual_metrics.csv",
+    "cost_stress": "cost_stress.csv",
+    "rolling_window_metrics": "rolling_window_metrics.csv",
+    "rolling_summary": "rolling_summary.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "parameter_stress": "parameter_stress.csv",
+    "bootstrap_summary": "bootstrap_summary.csv",
+    "cross_asset_proxy_metrics": "cross_asset_proxy_metrics.csv",
+    "matched_exposure_metrics": "matched_exposure_metrics.csv",
+    "selected_model": "selected_model.json"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/stage1_generalization_validation_v1/stage1_daily.csv",
+      "artifacts/stage1_generalization_validation_v1/bootstrap_samples.csv",
+      "artifacts/stage1_generalization_validation_v1/cross_asset_proxy_daily.csv"
+    ]
+  },
+  "recorder_id": "ae42a549564b4588bedc33828117c1c6",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_generalization_validation_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_generalization_validation_v1/qlib_recorder/151334544858595151/ae42a549564b4588bedc33828117c1c6"
+}
