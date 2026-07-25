@@ -1,0 +1,15 @@
+experiment: cross_pair_auxiliary_training_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib
+recorder_uri: /Users/rziiiii/dev/workspace/research/cross_pair_auxiliary_training_v1/qlib_recorder
+market: US
+region: us
+as_of: 2026-07-24
+pairs:
+  - [SOXL, SOXX, cash]
+  - [TQQQ, QQQ, cash]
+training: independent_and_cross_pair_auxiliary
+model_selection: development_2016_2022_only
+outer_role: report_only
+allocation_output: direct_cash_constrained_weights
+artifact_policy:
+  policy: slim_card_recorder_first

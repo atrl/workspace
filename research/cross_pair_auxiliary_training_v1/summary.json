@@ -1,0 +1,173 @@
+{
+  "experiment": "cross_pair_auxiliary_training_v1",
+  "card_type": "qlib_cross_pair_auxiliary_training_card",
+  "primary_notebook": "cross_pair_auxiliary_training_v1.ipynb",
+  "as_of": "2026-07-24",
+  "training_end": "2022-12-30",
+  "outer": [
+    "2023-01-03",
+    "2026-07-24"
+  ],
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib",
+  "source_audit": {
+    "source": "qlib.data.D.features",
+    "source_audit": {
+      "SOXL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+        "provider": "soxl",
+        "underlying": "SOXX",
+        "calendar_start": "2010-03-11",
+        "calendar_end": "2026-07-24",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-24",
+        "row_count": 3912,
+        "source": "qlib.data.D.features"
+      },
+      "TQQQ": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+        "provider": "tqqq",
+        "underlying": "QQQ",
+        "calendar_start": "2010-02-11",
+        "calendar_end": "2026-07-24",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-24",
+        "row_count": 3912,
+        "source": "qlib.data.D.features"
+      }
+    },
+    "pair_count": 2,
+    "feature_count": 56,
+    "feature_policy": "identical_past_only_per_pair_rolling_zscore_percentile",
+    "feature_identity_columns": [],
+    "training_policy": "candidate_specific_own_only_or_bidirectional_cross_pair_rows",
+    "weight_transfer_between_pairs": false,
+    "selection_uses_outer_test": false,
+    "auxiliary_training_rows_enabled": true
+  },
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "development_rows": 3524,
+    "instruments": [
+      "SOXL",
+      "TQQQ"
+    ],
+    "selection_uses_outer_test": false
+  },
+  "spec": {
+    "root": "/Users/rziiiii/dev/workspace",
+    "experiment": "cross_pair_auxiliary_training_v1",
+    "train_start": "2011-01-03",
+    "development_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "development_end": "2022-12-30",
+    "outer": [
+      "2023-01-03",
+      "2026-07-24"
+    ],
+    "purge_rows": 20,
+    "hidden_units": 16,
+    "epochs": 300,
+    "learning_rate": 0.003,
+    "weight_decay": 0.05,
+    "maximum_leveraged_weight": 0.3,
+    "minimum_cash_weight": 0.15,
+    "costs_bps": [
+      10,
+      25
+    ],
+    "seed": 97,
+    "as_of": "2026-07-24"
+  },
+  "pairs": {
+    "SOXL_SOXX_CASH": {
+      "leveraged": "SOXL",
+      "underlying": "SOXX"
+    },
+    "TQQQ_QQQ_CASH": {
+      "leveraged": "TQQQ",
+      "underlying": "QQQ"
+    }
+  },
+  "candidates": [
+    {
+      "name": "own_only_mse",
+      "auxiliary_weight": 0.0,
+      "turnover_penalty": 0.0
+    },
+    {
+      "name": "own_only_turnover",
+      "auxiliary_weight": 0.0,
+      "turnover_penalty": 0.02
+    },
+    {
+      "name": "cross_aux25_turnover",
+      "auxiliary_weight": 0.25,
+      "turnover_penalty": 0.02
+    },
+    {
+      "name": "cross_aux50_turnover",
+      "auxiliary_weight": 0.5,
+      "turnover_penalty": 0.02
+    },
+    {
+      "name": "cross_equal_turnover",
+      "auxiliary_weight": 1.0,
+      "turnover_penalty": 0.02
+    }
+  ],
+  "feature_count": 56,
+  "model_policy": "direct_weights_daily_cash_floor_cross_pair_auxiliary",
+  "selection_uses_outer_test": false,
+  "outer_role": "report_only",
+  "pair_gate_pass": {
+    "SOXL_SOXX_CASH": false,
+    "TQQQ_QQQ_CASH": false
+  },
+  "development_pair_gate_pass": {
+    "SOXL_SOXX_CASH": false,
+    "TQQQ_QQQ_CASH": false
+  },
+  "development_gate_pass": false,
+  "objective_pass": false,
+  "promotion_decision": "not_promoted_cross_pair_training_gates_failed",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  ],
+  "recorder_id": "6df600b4529d4688a3a674bca0a45d94",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/cross_pair_auxiliary_training_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/cross_pair_auxiliary_training_v1/qlib_recorder/320943303230068262/6df600b4529d4688a3a674bca0a45d94",
+  "sidecars": {
+    "selected_model": "selected_model.json",
+    "model_selection": "model_selection.csv",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "backtest_walk_forward_metrics": "backtest_walk_forward_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "training_data_audit": "training_data_audit.csv",
+    "objective_gate_audit": "objective_gate_audit.csv",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md",
+    "conclusion": "conclusion.md",
+    "workflow_config": "workflow.yaml"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/cross_pair_auxiliary_training_v1/models/",
+      "artifacts/cross_pair_auxiliary_training_v1/predictions.csv",
+      "artifacts/cross_pair_auxiliary_training_v1/positions.csv",
+      "artifacts/cross_pair_auxiliary_training_v1/strategy_returns.csv",
+      "artifacts/cross_pair_auxiliary_training_v1/training_diagnostics.csv"
+    ]
+  }
+}

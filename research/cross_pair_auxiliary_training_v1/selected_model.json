@@ -1,0 +1,10 @@
+{
+  "selection_policy": "development_only_gate_count_then_relative_wealth_score",
+  "selected_candidates": {
+    "SOXL_SOXX_CASH": "cross_equal_turnover",
+    "TQQQ_QQQ_CASH": "cross_equal_turnover"
+  },
+  "selection_uses_outer_test": false,
+  "outer_role": "report_only",
+  "diagnostic_only": true
+}
