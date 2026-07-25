@@ -126,11 +126,16 @@ def run_cash_floor_relative_feature_reintegration_card(
 
 def _load_reintegrated_frame(
     spec: CashFloorRelativeFeatureSpec,
+    *,
+    include_incomplete_latest: bool = False,
 ) -> tuple[pd.DataFrame, dict[str, Any], dict[str, list[str]], pd.DataFrame]:
     import qlib
     from qlib.data import D
 
-    market, execution_audit = _load_feature_frame(SoxsDefensiveHurdleSpec(root=spec.root))
+    market, execution_audit = _load_feature_frame(
+        SoxsDefensiveHurdleSpec(root=spec.root),
+        include_incomplete_latest=include_incomplete_latest,
+    )
     qlib.init(
         provider_uri=spec.daily_provider_uri.resolve().as_posix(),
         region="us",
@@ -275,6 +280,7 @@ def _load_reintegrated_frame(
         "calendar_end": frame.index.max().date().isoformat(),
         "common_feature_end": common_end.date().isoformat(),
         "source_api": "qlib.data.D.features",
+        "include_incomplete_latest": bool(include_incomplete_latest),
         "excluded_sources": {
             "soxx_constituents": "excluded_from_model_non_PIT_single_snapshot_survivorship_bias",
             "macro_credit": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",

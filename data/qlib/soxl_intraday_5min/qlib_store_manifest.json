@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-07-23",
-  "audit_snapshot_hash": "a3dc43a9634b2d69",
-  "calendar_end": "2026-07-23 16:00:00",
+  "as_of": "2026-07-24",
+  "audit_snapshot_hash": "c62c5fbd1b870085",
+  "calendar_end": "2026-07-24 16:00:00",
   "calendar_start": "2018-12-31 09:35:00",
   "feature_file_count": 16,
   "fields": [
@@ -15,17 +15,17 @@
     "$bar_count"
   ],
   "freq": "5min",
-  "hash": "94026f04aa1ee2ea",
+  "hash": "e06d489fa2fe9268",
   "instruments": [
     "SOXL",
     "SOXX"
   ],
   "market": "all",
-  "max_datetime": "2026-07-23 16:00:00",
+  "max_datetime": "2026-07-24 16:00:00",
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_5min",
   "region": "us",
-  "row_count": 295320,
+  "row_count": 295476,
   "source": "data/processed/intraday/soxl_soxx_1m.parquet",
   "source_api": [
     "qlib.init",

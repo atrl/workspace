@@ -97,7 +97,11 @@ def _json_ready(value: Any) -> Any:
     return value
 
 
-def _load_feature_frame(spec: SoxsDefensiveHurdleSpec) -> tuple[pd.DataFrame, dict[str, Any]]:
+def _load_feature_frame(
+    spec: SoxsDefensiveHurdleSpec,
+    *,
+    include_incomplete_latest: bool = False,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
     import qlib
     from qlib.data import D
 
@@ -151,7 +155,18 @@ def _load_feature_frame(spec: SoxsDefensiveHurdleSpec) -> tuple[pd.DataFrame, di
     defense_return = frame["soxx_open"].shift(-6) / frame["soxx_open"].shift(-1) - 1.0
     frame["attack_label"] = np.where(attack_relative.notna(), (attack_relative > 0.01).astype(float), np.nan)
     frame["defense_label"] = np.where(defense_return.notna(), (defense_return <= -0.05).astype(float), np.nan)
-    frame = frame.dropna(subset=[*ALL_FEATURES, "soxl_forward_open_return", "soxx_forward_open_return", "soxs_forward_open_return", "trade_date", "exit_date"])
+    required = list(ALL_FEATURES)
+    if not include_incomplete_latest:
+        required.extend(
+            [
+                "soxl_forward_open_return",
+                "soxx_forward_open_return",
+                "soxs_forward_open_return",
+                "trade_date",
+                "exit_date",
+            ]
+        )
+    frame = frame.dropna(subset=required)
     frame.index.name = "signal_date"
     audit = {
         "provider_uri": spec.provider_uri.resolve().as_posix(),
@@ -164,6 +179,7 @@ def _load_feature_frame(spec: SoxsDefensiveHurdleSpec) -> tuple[pd.DataFrame, di
         "usable_rows": int(len(frame)),
         "usable_start": frame.index.min().date().isoformat(),
         "usable_end": frame.index.max().date().isoformat(),
+        "include_incomplete_latest": bool(include_incomplete_latest),
         "relationship_audit": source_manifest["relationship_audit"],
         "source_api": ["qlib.init", "qlib.data.D.calendar", "qlib.data.D.features"],
     }

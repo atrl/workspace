@@ -1,0 +1,817 @@
+from __future__ import annotations
+
+import json
+import pickle
+import tempfile
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+import pandas as pd
+import torch
+
+from soxl_backtest.reference import replay_soxlbacktest_reference
+from src.workflow.direct_continuous_soxx_allocation import (
+    DirectContinuousAllocationSpec,
+    PROFILES,
+    _evaluate,
+    _load_frame,
+)
+from src.workflow.intraday_recovery_direct_allocation import (
+    FEATURE_COLUMNS,
+    IntradayRecoveryDirectAllocationSpec,
+    _advance_state,
+    _base_cap,
+    _build_teacher_training_frame,
+    _feature_row,
+    _fit_recovery_model,
+    _load_first_hour_features,
+    _load_source_frame,
+    _passes_risk,
+    _resolve_source_recorder,
+    _risk_metrics,
+    _simulate_policy,
+    _transform_frozen_features,
+    project_legal_weights,
+)
+from src.workflow.pit_constituent_auxiliary_training_allocation import (
+    AuxiliaryTrainingCandidate,
+    PitAuxiliaryAllocationNet,
+    PitAuxiliaryAllocationSpec,
+    _project_legal_weights,
+    _smooth_weights,
+    _soxx_common_training_frame,
+)
+
+
+EXPERIMENT = "stage1_futu_sim_v1"
+SOURCE_EXPERIMENT = "intraday_on_policy_staged_validation_v1"
+SOURCE_RECORDER_ID = "f6b09330175e41719886d58ee2d11bec"
+DEFAULT_NOTIONAL = 10_000.0
+
+
+@dataclass(frozen=True)
+class Stage1FutuSimSpec:
+    root: Path
+    experiment: str = EXPERIMENT
+    source_experiment: str = SOURCE_EXPERIMENT
+    source_recorder_id: str = SOURCE_RECORDER_ID
+    account_notional: float = DEFAULT_NOTIONAL
+    transaction_cost_bps: float = 10.0
+
+    @property
+    def card_dir(self) -> Path:
+        return self.root / "production" / self.experiment
+
+    @property
+    def source_card_dir(self) -> Path:
+        return self.root / "research" / self.source_experiment
+
+
+@dataclass
+class RuntimeState:
+    equity: float = 1.0
+    peak: float = 1.0
+    previous: np.ndarray | None = None
+    risk_state: int = 0
+    risk_clock: int = 0
+    history: list[float] | None = None
+
+    def __post_init__(self) -> None:
+        if self.previous is None:
+            self.previous = np.zeros(3, dtype="float64")
+        if self.history is None:
+            self.history = []
+
+
+@dataclass(frozen=True)
+class PreparedTarget:
+    signal_date: str
+    open_weights: np.ndarray
+    close_weights: np.ndarray
+    recovery_probability: float | None
+    recovery_action: bool
+    drawdown: float
+    current_beta_cap: float
+    raw_effective_beta: float
+
+
+def _resolve_root(root: Path | str | None) -> Path:
+    if root is not None:
+        return Path(root).resolve()
+    current = Path.cwd().resolve()
+    while current != current.parent:
+        if (current / "AGENTS.md").exists() and (current / "SPEC.md").exists():
+            return current
+        current = current.parent
+    raise ValueError("could not resolve repository root")
+
+
+def _selected_stage1(spec: Stage1FutuSimSpec) -> tuple[dict[str, Any], dict[str, Any]]:
+    summary = json.loads((spec.source_card_dir / "summary.json").read_text(encoding="utf-8"))
+    selected = json.loads((spec.source_card_dir / "selected_model.json").read_text(encoding="utf-8"))
+    if summary.get("recorder_id") != spec.source_recorder_id:
+        raise ValueError("blocked: production source recorder no longer matches the pinned Stage1 recorder")
+    if not str(summary.get("decision", "")).startswith("promoted_research_candidate_stage1"):
+        raise ValueError("blocked: pinned Stage1 source is not promoted")
+    if bool(summary["selected_model"].get("stage2_enabled")):
+        raise ValueError("blocked: production v1 only permits the validated Stage1 path")
+    return summary, selected
+
+
+def _source_artifact_dir(
+    spec: Stage1FutuSimSpec,
+) -> tuple[Path, dict[str, Any]]:
+    stage1_summary, _ = _selected_stage1(spec)
+    recovery_spec = IntradayRecoveryDirectAllocationSpec(root=spec.root)
+    source_summary = json.loads(
+        (recovery_spec.source_card_dir / "summary.json").read_text(encoding="utf-8")
+    )
+    recorder_dir, recorder_id = _resolve_source_recorder(
+        recovery_spec,
+        source_summary=source_summary,
+    )
+    if recorder_id != stage1_summary["source_audit"]["source_recorder_id"]:
+        raise ValueError("blocked: Stage1 frozen source recorder drifted")
+    return recorder_dir / "artifacts" / recovery_spec.source_experiment, stage1_summary
+
+
+def load_frozen_inference_frame(
+    *, root: Path | str | None = None
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    repo_root = _resolve_root(root)
+    production_spec = Stage1FutuSimSpec(root=repo_root)
+    artifact_dir, stage1_summary = _source_artifact_dir(production_spec)
+    selected = json.loads((artifact_dir / "selected_model.json").read_text(encoding="utf-8"))
+    candidate_name = str(selected["candidate"])
+    with (artifact_dir / "models" / f"{candidate_name}.pkl").open("rb") as file:
+        states = pickle.load(file)
+    state = states.get("outer_refit")
+    if state is None:
+        raise ValueError("blocked: frozen source model has no outer_refit state")
+
+    pit_spec = PitAuxiliaryAllocationSpec(root=repo_root)
+    market, market_audit, _ = _load_frame(
+        DirectContinuousAllocationSpec(
+            root=repo_root,
+            train_start=pit_spec.train_start,
+            development_years=pit_spec.development_years,
+            development_end=pit_spec.development_end,
+            outer=pit_spec.outer,
+            purge_rows=pit_spec.purge_rows,
+        ),
+        include_incomplete_latest=True,
+    )
+    market = market.loc[market.index >= pd.Timestamp(pit_spec.outer[0])].copy()
+    common = _soxx_common_training_frame(
+        pit_spec,
+        end=market.index.max().date().isoformat(),
+    ).reindex(market.index)
+    primary_features = list(state["primary_features"])
+    common_features = list(state["common_features"])
+    primary_x = _transform_frozen_features(
+        market,
+        features=primary_features,
+        scaler=state["primary_scaler"],
+    )
+    common_x = _transform_frozen_features(
+        common,
+        features=common_features,
+        scaler=state["common_scaler"],
+    )
+    model = PitAuxiliaryAllocationNet(
+        primary_feature_count=len(primary_features),
+        common_feature_count=len(common_features),
+        hidden_units=pit_spec.hidden_units,
+        tail_hidden_units=pit_spec.tail_hidden_units,
+    )
+    model.load_state_dict(
+        {name: torch.tensor(values) for name, values in state["model_state"].items()}
+    )
+    model.eval()
+    with torch.no_grad():
+        logits, tail_logit, alpha_logit = model(primary_x, common_x)
+        weights = _project_legal_weights(
+            logits,
+            maximum_soxl_weight=pit_spec.maximum_soxl_weight,
+            minimum_cash_weight=pit_spec.minimum_cash_weight,
+        ).cpu().numpy()
+        tail_probability = torch.sigmoid(tail_logit).cpu().numpy()
+        alpha_probability = torch.sigmoid(alpha_logit).cpu().numpy()
+    predictions = pd.DataFrame(
+        weights,
+        index=market.index,
+        columns=["soxl_weight", "soxx_weight", "cash_weight"],
+    )
+    predictions["tail_probability"] = tail_probability
+    predictions["alpha_probability"] = alpha_probability
+    candidate = AuxiliaryTrainingCandidate(**state["candidate"])
+    predictions = _smooth_weights(predictions, spec=pit_spec, candidate=candidate)
+    frame = market.join(predictions, how="inner")
+    frame["soxl_return"] = frame["soxl_forward_open_return"]
+    frame["soxx_return"] = frame["soxx_forward_open_return"]
+    frame["segment"] = "outer_diagnostic"
+    frame.index.name = "signal_date"
+    audit = {
+        "source_experiment": stage1_summary["source_audit"]["source_experiment"],
+        "source_recorder_id": stage1_summary["source_audit"]["source_recorder_id"],
+        "stage1_recorder_id": stage1_summary["recorder_id"],
+        "source_model_path": str(artifact_dir / "models" / f"{candidate_name}.pkl"),
+        "source_model_frozen": True,
+        "source_training_end": pit_spec.development_end,
+        "latest_signal_date": frame.index.max().date().isoformat(),
+        "latest_complete_signal_date": frame.dropna(
+            subset=["soxl_forward_open_return", "soxx_forward_open_return"]
+        ).index.max().date().isoformat(),
+        "market_audit": market_audit,
+        "primary_features": primary_features,
+        "common_features": common_features,
+    }
+    return frame, audit
+
+
+def _with_intraday(
+    frame: pd.DataFrame,
+    *,
+    recovery_spec: IntradayRecoveryDirectAllocationSpec,
+) -> pd.DataFrame:
+    known_trade_dates = pd.to_datetime(frame["trade_date"], errors="coerce").dropna()
+    if known_trade_dates.empty:
+        return frame.copy()
+    intraday = _load_first_hour_features(recovery_spec, end=known_trade_dates.max())
+    result = frame.reset_index().merge(
+        intraday,
+        left_on="trade_date",
+        right_index=True,
+        how="left",
+        validate="many_to_one",
+    )
+    return result.set_index("signal_date").sort_index()
+
+
+def _prepare_target(
+    row: pd.Series,
+    *,
+    state: RuntimeState,
+    model: Any,
+    recovery_spec: IntradayRecoveryDirectAllocationSpec,
+    action_beta: float,
+    threshold: float,
+) -> PreparedTarget:
+    assert state.history is not None
+    drawdown = max(0.0, 1.0 - state.equity / state.peak)
+    state.risk_state, state.risk_clock, q = _advance_state(
+        state.risk_state,
+        state.risk_clock,
+        drawdown,
+        recovery_spec,
+    )
+    cap, raw_beta = _base_cap(
+        row,
+        q=q,
+        drawdown=drawdown,
+        history=state.history,
+        spec=recovery_spec,
+    )
+    open_weights = project_legal_weights(
+        float(row["soxl_weight"]),
+        float(row["soxx_weight"]),
+        cap,
+        minimum_cash_weight=recovery_spec.minimum_cash_weight,
+        maximum_soxl_weight=recovery_spec.maximum_soxl_weight,
+    )
+    target_beta = min(raw_beta, action_beta)
+    eligible = (
+        model is not None
+        and drawdown >= recovery_spec.recovery_eligibility_drawdown
+        and target_beta > cap + 1e-12
+        and pd.notna(row.get("early_ret_soxx"))
+    )
+    probability: float | None = None
+    recovery = False
+    if eligible:
+        feature = pd.DataFrame(
+            [
+                _feature_row(
+                    row,
+                    drawdown=drawdown,
+                    cap=cap,
+                    raw_beta=raw_beta,
+                    state=state.risk_state,
+                    history=state.history,
+                )
+            ]
+        )
+        probability = float(model.predict_proba(feature.loc[:, FEATURE_COLUMNS])[0, 1])
+        recovery = probability >= threshold
+    close_weights = (
+        project_legal_weights(
+            float(row["soxl_weight"]),
+            float(row["soxx_weight"]),
+            target_beta,
+            minimum_cash_weight=recovery_spec.minimum_cash_weight,
+            maximum_soxl_weight=recovery_spec.maximum_soxl_weight,
+        )
+        if recovery
+        else open_weights.copy()
+    )
+    return PreparedTarget(
+        signal_date=pd.Timestamp(row.name).date().isoformat(),
+        open_weights=open_weights,
+        close_weights=close_weights,
+        recovery_probability=probability,
+        recovery_action=recovery,
+        drawdown=drawdown,
+        current_beta_cap=cap,
+        raw_effective_beta=raw_beta,
+    )
+
+
+def _settle_target(
+    row: pd.Series,
+    prepared: PreparedTarget,
+    *,
+    state: RuntimeState,
+    soxl_return: float,
+    soxx_return: float,
+    cost_bps: float,
+) -> float:
+    assert state.previous is not None
+    assert state.history is not None
+    asset_returns = np.array([soxl_return, soxx_return, 0.0], dtype="float64")
+    if prepared.recovery_action:
+        early = np.array(
+            [float(row["early_ret_soxl"]), float(row["early_ret_soxx"]), 0.0],
+            dtype="float64",
+        )
+        value_at_cut = 1.0 + prepared.open_weights @ early
+        drifted = prepared.open_weights * (1.0 + early) / value_at_cut
+        post = np.array(
+            [
+                (1.0 + soxl_return) / (1.0 + early[0]) - 1.0,
+                (1.0 + soxx_return) / (1.0 + early[1]) - 1.0,
+                0.0,
+            ],
+            dtype="float64",
+        )
+        gross = value_at_cut * (1.0 + prepared.close_weights @ post) - 1.0
+        turnover = np.abs(prepared.open_weights[:2] - state.previous[:2]).sum()
+        turnover += np.abs(prepared.close_weights[:2] - drifted[:2]).sum()
+    else:
+        gross = float(prepared.open_weights @ asset_returns)
+        turnover = np.abs(prepared.open_weights[:2] - state.previous[:2]).sum()
+    strategy_return = float(gross - turnover * cost_bps / 10_000.0)
+    state.history.append(strategy_return)
+    state.equity *= 1.0 + strategy_return
+    state.peak = max(state.peak, state.equity)
+    state.previous = prepared.close_weights.copy()
+    return strategy_return
+
+
+def replay_runtime_state(
+    frame: pd.DataFrame,
+    *,
+    recovery_spec: IntradayRecoveryDirectAllocationSpec,
+    teacher_frame: pd.DataFrame,
+    selected_model: dict[str, Any],
+) -> tuple[RuntimeState, pd.DataFrame]:
+    state = RuntimeState()
+    model_cache: dict[int, Any] = {}
+    rows: list[dict[str, Any]] = []
+    for signal_date, row in frame.sort_index().iterrows():
+        year = int(pd.Timestamp(signal_date).year)
+        if year not in model_cache:
+            model_cache[year] = _fit_recovery_model(
+                teacher_frame,
+                year=year,
+                c_value=float(selected_model["logistic_c"]),
+            )
+        prepared = _prepare_target(
+            row,
+            state=state,
+            model=model_cache[year],
+            recovery_spec=recovery_spec,
+            action_beta=float(selected_model["action_beta"]),
+            threshold=float(selected_model["probability_threshold"]),
+        )
+        strategy_return = _settle_target(
+            row,
+            prepared,
+            state=state,
+            soxl_return=float(row["soxl_forward_open_return"]),
+            soxx_return=float(row["soxx_forward_open_return"]),
+            cost_bps=recovery_spec.transaction_cost_bps,
+        )
+        rows.append(
+            {
+                "signal_date": signal_date,
+                "open_soxl_weight": prepared.open_weights[0],
+                "open_soxx_weight": prepared.open_weights[1],
+                "open_cash_weight": prepared.open_weights[2],
+                "soxl_weight": prepared.close_weights[0],
+                "soxx_weight": prepared.close_weights[1],
+                "cash_weight": prepared.close_weights[2],
+                "recovery_probability": prepared.recovery_probability,
+                "recovery_action": prepared.recovery_action,
+                "strategy_return": strategy_return,
+            }
+        )
+    return state, pd.DataFrame(rows)
+
+
+def build_runtime_target(
+    *,
+    root: Path | str | None = None,
+    current_prices: dict[str, float] | None = None,
+    include_current_intraday: bool = False,
+    execution_date: str | None = None,
+) -> dict[str, Any]:
+    repo_root = _resolve_root(root)
+    spec = Stage1FutuSimSpec(root=repo_root)
+    source_summary, _ = _selected_stage1(spec)
+    selected_model = dict(source_summary["selected_model"])
+    recovery_spec = IntradayRecoveryDirectAllocationSpec(root=repo_root)
+    inference, audit = load_frozen_inference_frame(root=repo_root)
+    if include_current_intraday:
+        if execution_date is None:
+            raise ValueError(
+                "blocked: recovery target requires the current execution_date"
+            )
+        latest_signal = inference.index.max()
+        inference.loc[latest_signal, "trade_date"] = pd.Timestamp(execution_date)
+    inference = _with_intraday(inference, recovery_spec=recovery_spec)
+    complete = inference.dropna(
+        subset=["soxl_forward_open_return", "soxx_forward_open_return"]
+    ).copy()
+    source_frame, _ = _load_source_frame(recovery_spec)
+    teacher_frame = _build_teacher_training_frame(
+        source_frame,
+        spec=recovery_spec,
+        teacher_beta=recovery_spec.teacher_recovery_beta,
+    )
+    state, runtime_replay = replay_runtime_state(
+        complete,
+        recovery_spec=recovery_spec,
+        teacher_frame=teacher_frame,
+        selected_model=selected_model,
+    )
+    selected_replay = _simulate_policy(
+        complete.reset_index(),
+        spec=recovery_spec,
+        teacher_frame=teacher_frame,
+        c_value=float(selected_model["logistic_c"]),
+        threshold=float(selected_model["probability_threshold"]),
+        action_beta=float(selected_model["action_beta"]),
+        first_action_year=min(recovery_spec.outer_years),
+        model_cache={},
+        cost_bps=recovery_spec.transaction_cost_bps,
+    )
+    parity_error = float(
+        np.max(
+            np.abs(
+                runtime_replay["strategy_return"].to_numpy()
+                - selected_replay["strategy_return"].to_numpy()
+            )
+        )
+    )
+    if parity_error > 1e-10:
+        raise ValueError(f"blocked: runtime Stage1 replay parity error {parity_error}")
+
+    latest_complete = complete.index.max()
+    latest_signal = inference.index.max()
+    pending = inference.loc[(inference.index > latest_complete) & (inference.index < latest_signal)]
+    pending_settled: list[str] = []
+    if not pending.empty and current_prices is not None:
+        if len(pending) != 1:
+            raise ValueError("blocked: more than one unsettled Stage1 row requires historical open marks")
+        signal_date, row = next(iter(pending.iterrows()))
+        entry_date = pd.Timestamp(row["trade_date"]).date().isoformat()
+        panel = pd.read_csv(
+            repo_root / "data" / "processed" / "panels" / "soxl_soxx_vix_full.csv"
+        ).set_index("date")
+        if entry_date not in panel.index:
+            raise ValueError(f"blocked: pending entry open is missing for {entry_date}")
+        year = int(pd.Timestamp(signal_date).year)
+        model = _fit_recovery_model(
+            teacher_frame,
+            year=year,
+            c_value=float(selected_model["logistic_c"]),
+        )
+        prepared = _prepare_target(
+            row,
+            state=state,
+            model=model,
+            recovery_spec=recovery_spec,
+            action_beta=float(selected_model["action_beta"]),
+            threshold=float(selected_model["probability_threshold"]),
+        )
+        _settle_target(
+            row,
+            prepared,
+            state=state,
+            soxl_return=float(current_prices["SOXL"]) / float(panel.loc[entry_date, "soxl_open"]) - 1.0,
+            soxx_return=float(current_prices["SOXX"]) / float(panel.loc[entry_date, "soxx_open"]) - 1.0,
+            cost_bps=recovery_spec.transaction_cost_bps,
+        )
+        pending_settled.append(pd.Timestamp(signal_date).date().isoformat())
+
+    latest = inference.loc[latest_signal].copy()
+    if not include_current_intraday:
+        for column in latest.index:
+            if str(column).startswith("early_") or str(column).startswith("log_volume_"):
+                latest[column] = np.nan
+    current_year_model = _fit_recovery_model(
+        teacher_frame,
+        year=int(latest_signal.year),
+        c_value=float(selected_model["logistic_c"]),
+    )
+    prepared = _prepare_target(
+        latest,
+        state=state,
+        model=current_year_model,
+        recovery_spec=recovery_spec,
+        action_beta=float(selected_model["action_beta"]),
+        threshold=float(selected_model["probability_threshold"]),
+    )
+    status = "ready" if pending.empty or pending_settled else "pending_next_open_mark"
+    weights = prepared.close_weights if include_current_intraday else prepared.open_weights
+    return {
+        "status": status,
+        "slot": "recovery" if include_current_intraday else "open",
+        "signal_date": latest_signal.date().isoformat(),
+        "latest_complete_signal_date": latest_complete.date().isoformat(),
+        "pending_signal_dates": [pd.Timestamp(value).date().isoformat() for value in pending.index],
+        "pending_settled": pending_settled,
+        "weights": {
+            "SOXL": float(weights[0]),
+            "SOXX": float(weights[1]),
+            "cash": float(weights[2]),
+        },
+        "open_weights": {
+            "SOXL": float(prepared.open_weights[0]),
+            "SOXX": float(prepared.open_weights[1]),
+            "cash": float(prepared.open_weights[2]),
+        },
+        "recovery_weights": {
+            "SOXL": float(prepared.close_weights[0]),
+            "SOXX": float(prepared.close_weights[1]),
+            "cash": float(prepared.close_weights[2]),
+        },
+        "recovery_probability": prepared.recovery_probability,
+        "recovery_action": prepared.recovery_action,
+        "portfolio_drawdown": prepared.drawdown,
+        "current_beta_cap": prepared.current_beta_cap,
+        "raw_effective_beta": prepared.raw_effective_beta,
+        "runtime_replay_parity_max_abs_error": parity_error,
+        "source_audit": audit,
+    }
+
+
+def _legacy_cost_normalized_metrics(daily: pd.DataFrame, *, cost_bps: float) -> dict[str, float]:
+    capital = pd.to_numeric(daily["capital"], errors="coerce")
+    position = pd.to_numeric(daily["position"], errors="coerce").fillna(0.0)
+    returns = capital.pct_change().fillna(0.0)
+    turnover = position.diff().abs().fillna(position.abs())
+    return _risk_metrics((returns - turnover * cost_bps / 10_000.0).to_numpy())
+
+
+def build_matched_comparison(
+    *, root: Path | str | None = None
+) -> tuple[dict[str, Any], pd.DataFrame, pd.DataFrame]:
+    repo_root = _resolve_root(root)
+    recovery_spec = IntradayRecoveryDirectAllocationSpec(root=repo_root)
+    source_summary = json.loads(
+        (repo_root / "research" / SOURCE_EXPERIMENT / "summary.json").read_text(encoding="utf-8")
+    )
+    selected = dict(source_summary["selected_model"])
+    inference, _ = load_frozen_inference_frame(root=repo_root)
+    complete = _with_intraday(inference, recovery_spec=recovery_spec).dropna(
+        subset=["soxl_forward_open_return", "soxx_forward_open_return"]
+    )
+    source_frame, _ = _load_source_frame(recovery_spec)
+    teacher = _build_teacher_training_frame(
+        source_frame,
+        spec=recovery_spec,
+        teacher_beta=recovery_spec.teacher_recovery_beta,
+    )
+    stage1 = _simulate_policy(
+        complete.reset_index(),
+        spec=recovery_spec,
+        teacher_frame=teacher,
+        c_value=float(selected["logistic_c"]),
+        threshold=float(selected["probability_threshold"]),
+        action_beta=float(selected["action_beta"]),
+        first_action_year=min(recovery_spec.outer_years),
+        model_cache={},
+        cost_bps=recovery_spec.transaction_cost_bps,
+    )
+    start = pd.Timestamp(stage1["trade_date"].min()).date().isoformat()
+    end = pd.Timestamp(stage1["exit_date"].max()).date().isoformat()
+    legacy = replay_soxlbacktest_reference(start=start, end=end)
+    stage1_metrics = _risk_metrics(stage1["strategy_return"].to_numpy())
+    legacy_native = dict(legacy.metrics)
+    legacy_10bp = _legacy_cost_normalized_metrics(
+        legacy.daily,
+        cost_bps=recovery_spec.transaction_cost_bps,
+    )
+    soxx_wealth = float(np.prod(1.0 + stage1["soxx_return"].to_numpy()))
+    comparison = {
+        "window": {"start": start, "end": end, "stage1_rows": int(len(stage1))},
+        "stage1_10bps": stage1_metrics,
+        "soxx": {
+            "terminal_wealth": soxx_wealth,
+            "return_pct": 100.0 * (soxx_wealth - 1.0),
+        },
+        "soxlbacktest_native_frictionless": legacy_native,
+        "soxlbacktest_cost_normalized_10bps": legacy_10bp,
+        "stage1_minus_soxlbacktest_10bps_return_pct_points": (
+            stage1_metrics["return_pct"] - legacy_10bp["return_pct"]
+        ),
+        "methodology_warning": (
+            "Stage1 uses prior-close signal with open/open and 10:30 execution; "
+            "soxlbacktest is a legacy close-price rule engine. Date and cost are matched, "
+            "but execution semantics are not identical."
+        ),
+    }
+    return comparison, stage1, legacy.daily
+
+
+def _record_artifacts(
+    spec: Stage1FutuSimSpec,
+    *,
+    target: dict[str, Any],
+    comparison: dict[str, Any],
+    stage1: pd.DataFrame,
+    legacy_daily: pd.DataFrame,
+) -> dict[str, str]:
+    from qlib.workflow import R
+
+    recorder_uri = spec.card_dir / "qlib_recorder"
+    recorder_uri.mkdir(parents=True, exist_ok=True)
+    R.set_uri(recorder_uri.resolve().as_posix())
+    with tempfile.TemporaryDirectory(prefix=f"{spec.experiment}_") as tmp:
+        tmp_dir = Path(tmp)
+        stage1.to_csv(tmp_dir / "portfolio_report.csv", index=False)
+        legacy_daily.to_csv(tmp_dir / "soxlbacktest_daily.csv", index=False)
+        (tmp_dir / "latest_target.json").write_text(
+            json.dumps(target, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        with R.start(experiment_name=spec.experiment):
+            recorder = R.get_recorder()
+            R.log_params(
+                source_experiment=spec.source_experiment,
+                source_recorder_id=spec.source_recorder_id,
+                execution_environment="futu_simulate_only",
+                account_notional=str(spec.account_notional),
+                real_broker_orders="false",
+            )
+            R.log_metrics(
+                stage1_return_pct=comparison["stage1_10bps"]["return_pct"],
+                stage1_max_drawdown_pct=comparison["stage1_10bps"]["max_drawdown_pct"],
+                soxlbacktest_10bps_return_pct=comparison["soxlbacktest_cost_normalized_10bps"][
+                    "return_pct"
+                ],
+            )
+            for filename in ("portfolio_report.csv", "soxlbacktest_daily.csv", "latest_target.json"):
+                recorder.log_artifact((tmp_dir / filename).as_posix(), artifact_path=spec.experiment)
+            result = {
+                "recorder_id": recorder.id,
+                "recorder_uri": recorder_uri.resolve().as_posix(),
+                "recorder_local_dir": Path(recorder.get_local_dir()).resolve().as_posix(),
+            }
+    recorder_artifacts = Path(result["recorder_local_dir"]) / "artifacts"
+    for filename in ("code_cached.txt", "code_diff.txt", "code_status.txt"):
+        (recorder_artifacts / filename).unlink(missing_ok=True)
+    return result
+
+
+def run_stage1_futu_sim_card(
+    *, root: Path | str | None = None
+) -> dict[str, Any]:
+    repo_root = _resolve_root(root)
+    spec = Stage1FutuSimSpec(root=repo_root)
+    spec.card_dir.mkdir(parents=True, exist_ok=True)
+    source_summary, _ = _selected_stage1(spec)
+    target = build_runtime_target(root=repo_root)
+    comparison, stage1, legacy_daily = build_matched_comparison(root=repo_root)
+    recorder = _record_artifacts(
+        spec,
+        target=target,
+        comparison=comparison,
+        stage1=stage1,
+        legacy_daily=legacy_daily,
+    )
+    summary = {
+        "experiment": spec.experiment,
+        "card_type": "stage1_futu_sim_production_card",
+        "decision": "paper_sim_enabled_waiting_next_us_session",
+        "source_experiment": spec.source_experiment,
+        "source_recorder_id": spec.source_recorder_id,
+        "source_decision": source_summary["decision"],
+        "assets": ["SOXL", "SOXX", "cash"],
+        "execution": {
+            "broker": "futu",
+            "trading_environment": "SIMULATE",
+            "real_trading_supported": False,
+            "account_notional": spec.account_notional,
+            "slots": ["09:31 America/New_York", "10:31 America/New_York"],
+            "postclose_refresh": "20:15 America/New_York",
+            "order_type": "MARKET",
+            "cash_is_residual": True,
+        },
+        "latest_target": target,
+        "backtest_comparison": comparison,
+        "risk_gate_pass": _passes_risk(comparison["stage1_10bps"]),
+        "artifact_policy": {
+            "policy": "slim_card_recorder_first",
+            "workflow_config": "workflow.yaml",
+            "recorder_only_artifacts": [
+                f"artifacts/{spec.experiment}/portfolio_report.csv",
+                f"artifacts/{spec.experiment}/soxlbacktest_daily.csv",
+                f"artifacts/{spec.experiment}/latest_target.json",
+            ],
+        },
+        **recorder,
+    }
+    (spec.card_dir / "summary.json").write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    (spec.card_dir / "selected_model.json").write_text(
+        json.dumps(
+            {
+                "source_experiment": spec.source_experiment,
+                "source_recorder_id": spec.source_recorder_id,
+                "selection_uses_outer_test": False,
+                "selected_model": source_summary["selected_model"],
+                "stage2_enabled": False,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    pd.DataFrame(
+        [
+            {
+                "strategy": "Stage1",
+                "cost_bps": 10.0,
+                **comparison["stage1_10bps"],
+            },
+            {
+                "strategy": "soxlbacktest",
+                "cost_bps": 10.0,
+                **comparison["soxlbacktest_cost_normalized_10bps"],
+            },
+        ]
+    ).to_csv(spec.card_dir / "backtest_benchmark_comparison.csv", index=False)
+    (spec.card_dir / "workflow.yaml").write_text(
+        "\n".join(
+            [
+                f"experiment: {spec.experiment}",
+                f"source_experiment: {spec.source_experiment}",
+                f"source_recorder_id: {spec.source_recorder_id}",
+                "assets: [SOXL, SOXX, cash]",
+                "broker:",
+                "  name: futu",
+                "  environment: SIMULATE",
+                "  real_trading_supported: false",
+                f"  account_notional: {spec.account_notional}",
+                "schedule:",
+                "  open: 09:31 America/New_York",
+                "  recovery: 10:31 America/New_York",
+                "  postclose_refresh: 20:15 America/New_York",
+                "artifact_policy:",
+                "  policy: slim_card_recorder_first",
+                "  workflow_config: workflow.yaml",
+                "  recorder_only_artifacts:",
+                f"    - artifacts/{spec.experiment}/portfolio_report.csv",
+                f"    - artifacts/{spec.experiment}/soxlbacktest_daily.csv",
+                f"    - artifacts/{spec.experiment}/latest_target.json",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    (spec.card_dir / "conclusion.md").write_text(
+        "\n".join(
+            [
+                "# 中文结论",
+                "",
+                "- 已把晋级的 Stage1 固定为生产模拟源；Stage2 仍关闭，失败的 stateful direct 模型没有进入任务。",
+                f"- 同口径区间：{comparison['window']['start']} 至 {comparison['window']['end']}；Stage1 10bp return={comparison['stage1_10bps']['return_pct']:.4f}%，MaxDD={comparison['stage1_10bps']['max_drawdown_pct']:.4f}%。",
+                f"- legacy soxlbacktest 成本归一到 10bp 后 return={comparison['soxlbacktest_cost_normalized_10bps']['return_pct']:.4f}%，MaxDD={comparison['soxlbacktest_cost_normalized_10bps']['max_drawdown_pct']:.4f}%。",
+                f"- 当前最新信号日={target['signal_date']}；状态={target['status']}。周末无法提前知道下个开盘价，因此最终开盘仓位会在 09:31 ET 用模拟盘报价结算上一段路径后生成。",
+                "- 模拟账户只使用 10,000 美元策略名义本金；现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。",
+                "- 富途接口被限制为 SIMULATE；本任务没有真实账户分支。",
+                f"- qlib recorder：{recorder['recorder_id']}",
+                "- 不构成买卖建议。",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return summary

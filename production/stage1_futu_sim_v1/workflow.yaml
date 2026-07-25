@@ -1,0 +1,20 @@
+experiment: stage1_futu_sim_v1
+source_experiment: intraday_on_policy_staged_validation_v1
+source_recorder_id: f6b09330175e41719886d58ee2d11bec
+assets: [SOXL, SOXX, cash]
+broker:
+  name: futu
+  environment: SIMULATE
+  real_trading_supported: false
+  account_notional: 10000.0
+schedule:
+  open: 09:31 America/New_York
+  recovery: 10:31 America/New_York
+  postclose_refresh: 20:15 America/New_York
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stage1_futu_sim_v1/portfolio_report.csv
+    - artifacts/stage1_futu_sim_v1/soxlbacktest_daily.csv
+    - artifacts/stage1_futu_sim_v1/latest_target.json

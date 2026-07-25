@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-07-23",
-  "audit_snapshot_hash": "199bb9195f9cc485",
-  "calendar_end": "2026-07-23",
+  "as_of": "2026-07-24",
+  "audit_snapshot_hash": "bcb04b7c06ff9c18",
+  "calendar_end": "2026-07-24",
   "calendar_start": "2010-02-11",
   "feature_file_count": 12,
   "fields": [
@@ -13,17 +13,17 @@
     "$vix"
   ],
   "freq": "day",
-  "hash": "5873954c73e6707c",
+  "hash": "67e8a69c53931bad",
   "instruments": [
     "QQQ",
     "TQQQ"
   ],
   "market": "all",
-  "max_datetime": "2026-07-23",
+  "max_datetime": "2026-07-24",
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
   "region": "us",
-  "row_count": 8272,
+  "row_count": 8274,
   "source": "/Users/rziiiii/dev/workspace/data/processed/panels/tqqq_with_underlying_vix.csv",
   "source_api": [
     "qlib.init",

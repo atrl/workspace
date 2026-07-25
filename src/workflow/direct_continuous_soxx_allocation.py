@@ -170,10 +170,13 @@ def _attach_direct_targets(frame: pd.DataFrame) -> pd.DataFrame:
 
 def _load_frame(
     spec: DirectContinuousAllocationSpec,
+    *,
+    include_incomplete_latest: bool = False,
 ) -> tuple[pd.DataFrame, dict[str, Any], list[str]]:
     source_spec = CashFloorRelativeFeatureSpec(root=spec.root)
     frame, source_audit, _, source_manifest = _load_reintegrated_frame(
-        source_spec
+        source_spec,
+        include_incomplete_latest=include_incomplete_latest,
     )
     frame = _attach_direct_targets(frame)
     features = [column for column in DIRECT_FEATURES if column in frame]
@@ -200,6 +203,7 @@ def _load_frame(
         "allocation_output": "direct_continuous_softmax_soxl_soxx_cash",
         "maximum_soxl_weight_is_risk_constraint": True,
         "selection_uses_outer_test": False,
+        "include_incomplete_latest": bool(include_incomplete_latest),
     }
     return frame, audit, features
 
