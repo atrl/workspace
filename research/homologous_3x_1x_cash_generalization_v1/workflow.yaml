@@ -1,0 +1,15 @@
+experiment: homologous_3x_1x_cash_generalization_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib
+recorder_uri: /Users/rziiiii/dev/workspace/research/homologous_3x_1x_cash_generalization_v1/qlib_recorder
+market: US
+region: us
+as_of: 2026-07-24
+pairs:
+  - [SOXL, SOXX, cash]
+  - [TQQQ, QQQ, cash]
+training_policy: independent_pair_specific
+allocation_output: direct_full_legal_weights
+weight_transfer_between_pairs: false
+selection_uses_outer_test: false
+artifact_policy:
+  policy: slim_card_recorder_first

@@ -1,0 +1,139 @@
+{
+  "experiment": "homologous_3x_1x_cash_generalization_v1",
+  "card_type": "qlib_homologous_pair_generalization_card",
+  "primary_notebook": "homologous_3x_1x_cash_generalization_v1.ipynb",
+  "as_of": "2026-07-24",
+  "training_end": "2022-12-30",
+  "outer": [
+    "2023-01-03",
+    "2026-07-24"
+  ],
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib",
+  "source_audit": {
+    "source": "qlib.data.D.features",
+    "source_audit": {
+      "SOXL": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+        "provider": "soxl",
+        "underlying": "SOXX",
+        "calendar_start": "2010-03-11",
+        "calendar_end": "2026-07-24",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-24",
+        "row_count": 3912,
+        "source": "qlib.data.D.features"
+      },
+      "TQQQ": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+        "provider": "tqqq",
+        "underlying": "QQQ",
+        "calendar_start": "2010-02-11",
+        "calendar_end": "2026-07-24",
+        "used_start": "2011-01-03",
+        "used_end": "2026-07-24",
+        "row_count": 3912,
+        "source": "qlib.data.D.features"
+      }
+    },
+    "pair_count": 2,
+    "feature_count": 56,
+    "feature_policy": "identical_past_only_per_pair_rolling_zscore_percentile",
+    "feature_identity_columns": [],
+    "training_policy": "each_pair_trained_only_on_its_own_history",
+    "weight_transfer_between_pairs": false,
+    "selection_uses_outer_test": false
+  },
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "development_rows": 3524,
+    "instruments": [
+      "SOXL",
+      "TQQQ"
+    ],
+    "selection_uses_outer_test": false
+  },
+  "spec": {
+    "root": "/Users/rziiiii/dev/workspace",
+    "experiment": "homologous_3x_1x_cash_generalization_v1",
+    "train_start": "2011-01-03",
+    "development_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "development_end": "2022-12-30",
+    "outer": [
+      "2023-01-03",
+      "2026-07-24"
+    ],
+    "purge_rows": 20,
+    "hidden_units": 16,
+    "epochs": 300,
+    "learning_rate": 0.003,
+    "weight_decay": 0.05,
+    "maximum_leveraged_weight": 0.3,
+    "minimum_average_cash": 0.15,
+    "costs_bps": [
+      10,
+      25
+    ],
+    "seed": 79,
+    "as_of": "2026-07-24"
+  },
+  "pairs": {
+    "SOXL_SOXX_CASH": {
+      "leveraged": "SOXL",
+      "underlying": "SOXX"
+    },
+    "TQQQ_QQQ_CASH": {
+      "leveraged": "TQQQ",
+      "underlying": "QQQ"
+    }
+  },
+  "feature_count": 56,
+  "feature_policy": "identical_past_only_per_pair_rolling_zscore_percentile",
+  "model_policy": "same_fixed_direct_allocator_independent_fit_per_pair",
+  "selection_uses_outer_test": false,
+  "weight_transfer_between_pairs": false,
+  "pair_gate_pass": {
+    "SOXL_SOXX_CASH": false,
+    "TQQQ_QQQ_CASH": false
+  },
+  "generalization_decision": "not_validated_on_tqqq_homologous_pair",
+  "promotion_decision": "research_evidence_only_no_production_replacement",
+  "qlib_docs": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  ],
+  "recorder_id": "f2f5e90be7c94c31bf61a014c866a97e",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/homologous_3x_1x_cash_generalization_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/homologous_3x_1x_cash_generalization_v1/qlib_recorder/360354811803247780/f2f5e90be7c94c31bf61a014c866a97e",
+  "sidecars": {
+    "selected_model": "selected_model.json",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "annual_metrics": "annual_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "training_data_audit": "training_data_audit.csv",
+    "objective_gate_audit": "objective_gate_audit.csv",
+    "analysis_summary": "analysis_summary.json",
+    "conclusion": "conclusion.md",
+    "workflow_config": "workflow.yaml"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/homologous_3x_1x_cash_generalization_v1/models/",
+      "artifacts/homologous_3x_1x_cash_generalization_v1/predictions.csv",
+      "artifacts/homologous_3x_1x_cash_generalization_v1/positions.csv",
+      "artifacts/homologous_3x_1x_cash_generalization_v1/strategy_returns.csv",
+      "artifacts/homologous_3x_1x_cash_generalization_v1/training_diagnostics.csv"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "SOXL_SOXX_CASH": {
+    "return_pct": 302.022385568349,
+    "benchmark_return_pct": 364.59896482295227,
+    "wealth_ratio_vs_underlying": 0.8653105495436269,
+    "max_drawdown_pct": -52.569714562794246,
+    "avg_cash_weight_pct": 21.070403186081165,
+    "total_turnover": 90.13310354016721,
+    "matched_static_return_pct": 366.50128332579845,
+    "wealth_ratio_vs_matched_static": 0.8617819498849734,
+    "development_wealth_ratio_vs_underlying": 0.9923946196038228,
+    "development_wealth_ratio_vs_matched_static": 0.9549742732931922
+  },
+  "TQQQ_QQQ_CASH": {
+    "return_pct": 165.26150491642002,
+    "benchmark_return_pct": 163.60265117069082,
+    "wealth_ratio_vs_underlying": 1.0062930085807638,
+    "max_drawdown_pct": -26.577604090374717,
+    "avg_cash_weight_pct": 14.212970602838846,
+    "total_turnover": 51.800139129161835,
+    "matched_static_return_pct": 179.4047231196332,
+    "wealth_ratio_vs_matched_static": 0.9493808907548158,
+    "development_wealth_ratio_vs_underlying": 0.9181672830529911,
+    "development_wealth_ratio_vs_matched_static": 0.8856065682357349
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "policy": "fixed_identical_model_spec_per_pair",
+  "pairs": {
+    "SOXL_SOXX_CASH": {
+      "leveraged": "SOXL",
+      "underlying": "SOXX"
+    },
+    "TQQQ_QQQ_CASH": {
+      "leveraged": "TQQQ",
+      "underlying": "QQQ"
+    }
+  },
+  "training_end": "2022-12-30",
+  "selection_uses_outer_test": false,
+  "weight_transfer_between_pairs": false
+}
