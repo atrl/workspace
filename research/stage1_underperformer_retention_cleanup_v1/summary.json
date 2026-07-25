@@ -1,0 +1,52 @@
+{
+  "experiment": "stage1_underperformer_retention_cleanup_v1",
+  "card_type": "stage1_underperformer_retention_cleanup",
+  "status": "cleanup_complete_stage1_protected_no_replacement_promoted",
+  "decision": "retain_stage1_delete_three_underperforming_runnable_chains",
+  "replacement_promoted": false,
+  "selection_uses_outer_test": false,
+  "outer_role": "frozen_diagnostic_only_not_model_selection",
+  "system_of_record": "qlib",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "market": "all",
+  "region": "us",
+  "as_of": "2026-07-24",
+  "protected_paths": [
+    "research/pit_constituent_auxiliary_training_allocation_v1",
+    "research/intraday_recovery_direct_allocation_v1",
+    "research/intraday_on_policy_staged_validation_v1",
+    "research/stage1_generalization_validation_v1",
+    "production/stage1_futu_sim_v1",
+    "soxl_backtest"
+  ],
+  "deleted_runnable_chains": 3,
+  "deleted_manifest_entries": 9,
+  "stage1_metrics_10bps": {
+    "terminal_wealth": 6.4178894962121875,
+    "return_pct": 541.7889496212188,
+    "max_drawdown_pct": -28.105112234782226,
+    "worst_day_pct": -9.383714522840133,
+    "cvar5_pct": -5.233616449643784,
+    "worst_rolling_5d_pct": -11.602809404682091
+  },
+  "source_validation": "research/stage1_generalization_validation_v1",
+  "source_stage1_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "strategy": "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  },
+  "sidecars": {
+    "cleanup_decisions": "cleanup_decisions.csv",
+    "delete_manifest": "delete_manifest.csv",
+    "retained_ideas": "retained_ideas.md"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": []
+  },
+  "recorder_id": "7ea48e01114c493c948f9a660dceea09",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_underperformer_retention_cleanup_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_underperformer_retention_cleanup_v1/qlib_recorder/577638251397202674/7ea48e01114c493c948f9a660dceea09"
+}

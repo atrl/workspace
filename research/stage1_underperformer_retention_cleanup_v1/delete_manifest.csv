@@ -1,0 +1,10 @@
+path,artifact_class,recovery
+src/workflow/cost_aware_target_tracking.py,runnable_module,"Recover the method constraints and result from retained_ideas.md; implementation intentionally removed."
+tests/test_cost_aware_target_tracking.py,implementation_test,"Removed with the unpromoted runnable module."
+research/cost_aware_target_tracking_v1,rejected_research_card,"Decision and key metrics consolidated into this cleanup card."
+src/workflow/stateful_direct_allocation.py,runnable_module,"Recover the method constraints and result from retained_ideas.md; implementation intentionally removed."
+tests/test_stateful_direct_allocation.py,implementation_test,"Removed with the unpromoted runnable module."
+research/stateful_direct_allocation_v1,rejected_research_card,"Decision and key metrics consolidated into this cleanup card."
+src/workflow/stage1_feature_recovery_ablation.py,runnable_module,"Recover the feature families and generalization result from retained_ideas.md; implementation intentionally removed."
+tests/test_stage1_feature_recovery_ablation.py,implementation_test,"Removed with the unpromoted runnable module."
+research/stage1_feature_recovery_ablation_v2,rejected_research_card,"Decision, metrics, and feature-family lesson consolidated into this cleanup card."

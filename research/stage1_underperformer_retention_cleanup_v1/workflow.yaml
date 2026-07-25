@@ -1,0 +1,19 @@
+experiment: stage1_underperformer_retention_cleanup_v1
+card_type: stage1_underperformer_retention_cleanup
+system_of_record: qlib
+provider_uri: data/qlib/soxl_soxx_soxs
+market: all
+region: us
+selection:
+  benchmark: production/stage1_futu_sim_v1
+  source_validation: research/stage1_generalization_validation_v1
+  selection_uses_outer_test: false
+  outer_role: diagnostic_only
+decision:
+  replacement_promoted: false
+  protected_baseline: stage1
+  deleted_underperforming_runnable_chains: 3
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts: []
