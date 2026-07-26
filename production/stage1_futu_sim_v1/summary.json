@@ -230,6 +230,17 @@
     "methodology_warning": "Stage1 uses prior-close signal with open/open and 10:30 execution; soxlbacktest is a legacy close-price rule engine. Date and cost are matched, but execution semantics are not identical."
   },
   "risk_gate_pass": true,
+  "dashboard": {
+    "entrypoint": "production/run_stage1_dashboard.sh",
+    "url": "http://127.0.0.1:8765/",
+    "source": "qlib_recorder",
+    "features": [
+      "custom_interval_inference",
+      "trade_history",
+      "factor_change_trade_markers",
+      "soxl_soxx_benchmark_comparison"
+    ]
+  },
   "artifact_policy": {
     "policy": "slim_card_recorder_first",
     "workflow_config": "workflow.yaml",
@@ -239,7 +250,7 @@
       "artifacts/stage1_futu_sim_v1/latest_target.json"
     ]
   },
-  "recorder_id": "e3588ea9b1c944939f66f08e5d07bd25",
+  "recorder_id": "04236fdaa94748b6a580b15759bb7382",
   "recorder_uri": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/e3588ea9b1c944939f66f08e5d07bd25"
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/04236fdaa94748b6a580b15759bb7382"
 }

@@ -11,6 +11,13 @@ schedule:
   open: 09:31 America/New_York
   recovery: 10:31 America/New_York
   postclose_refresh: 20:15 America/New_York
+dashboard:
+  entrypoint: production/run_stage1_dashboard.sh
+  url: http://127.0.0.1:8765/
+  source: qlib_recorder
+  custom_interval: true
+  factor_trade_markers: true
+  benchmarks: [SOXL, SOXX]
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml

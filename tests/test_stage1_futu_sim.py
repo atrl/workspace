@@ -171,3 +171,14 @@ def test_stage1_production_card_contract():
     assert notebook["nbformat"] == 4
     assert "SIMULATE" in json.dumps(notebook, ensure_ascii=False)
     assert "soxlbacktest" in json.dumps(notebook, ensure_ascii=False)
+
+
+def test_stage1_production_card_registers_dashboard_entrypoint():
+    card = ROOT / "production" / "stage1_futu_sim_v1"
+    summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
+    workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
+
+    assert summary["dashboard"]["source"] == "qlib_recorder"
+    assert "custom_interval_inference" in summary["dashboard"]["features"]
+    assert "production/run_stage1_dashboard.sh" in workflow
+    assert "benchmarks: [SOXL, SOXX]" in workflow
