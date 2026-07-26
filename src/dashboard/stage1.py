@@ -134,6 +134,7 @@ def build_stage1_dashboard_payload(
         },
         index=selected.index,
     )
+    drawdowns = nav.div(nav.cummax()).sub(1.0)
     weight_columns = ["soxl_weight", "soxx_weight", "cash_weight"]
     weights = selected.loc[:, weight_columns].apply(pd.to_numeric, errors="coerce")
     weight_delta = weights.diff().fillna(0.0)
@@ -188,6 +189,9 @@ def build_stage1_dashboard_payload(
                 "stage1_nav": float(nav.loc[signal_date, "Stage1"]),
                 "soxl_nav": float(nav.loc[signal_date, "SOXL"]),
                 "soxx_nav": float(nav.loc[signal_date, "SOXX"]),
+                "stage1_drawdown": float(drawdowns.loc[signal_date, "Stage1"]),
+                "soxl_drawdown": float(drawdowns.loc[signal_date, "SOXL"]),
+                "soxx_drawdown": float(drawdowns.loc[signal_date, "SOXX"]),
                 "strategy_return": float(strategy.loc[signal_date]),
                 "soxl_return": float(soxl.loc[signal_date]),
                 "soxx_return": float(soxx.loc[signal_date]),
@@ -200,10 +204,15 @@ def build_stage1_dashboard_payload(
         )
 
     latest_target = source.summary["latest_target"]
+    last_completed = selected.iloc[-1]
+    total_turnover = float(turnover.sum())
+    event_turnover = turnover.loc[event_mask]
     return {
         "status": "ready",
         "source": "qlib_recorder",
         "recorder_id": source.recorder_id,
+        "artifact_policy": source.summary["artifact_policy"]["policy"],
+        "artifact": "artifacts/stage1_futu_sim_v1/portfolio_report.csv",
         "available_range": {
             "start": available_start.date().isoformat(),
             "end": available_end.date().isoformat(),
@@ -213,10 +222,33 @@ def build_stage1_dashboard_payload(
             "end": end_ts.date().isoformat(),
             "rows": len(selected),
         },
+        "window_summary": {
+            "positive_day_rate_pct": float(strategy.gt(0.0).mean() * 100.0),
+            "total_turnover": total_turnover,
+            "average_event_turnover": float(event_turnover.mean()) if len(event_turnover) else 0.0,
+            "trade_event_count": len(events),
+            "buy_event_count": sum(event["direction"] == "买入/加仓" for event in events),
+            "sell_event_count": sum(event["direction"] == "卖出/减仓" for event in events),
+            "recovery_event_count": sum(event["recovery_action"] for event in events),
+            "average_soxl_weight_pct": float(weights["soxl_weight"].mean() * 100.0),
+            "average_soxx_weight_pct": float(weights["soxx_weight"].mean() * 100.0),
+            "average_cash_weight_pct": float(weights["cash_weight"].mean() * 100.0),
+        },
         "metrics": {
             "Stage1": _risk_metrics(strategy),
             "SOXL": _risk_metrics(soxl),
             "SOXX": _risk_metrics(soxx),
+        },
+        "last_completed": {
+            "signal_date": selected.index[-1].date().isoformat(),
+            "trade_date": pd.Timestamp(last_completed["trade_date"]).date().isoformat(),
+            "weights": {
+                "SOXL": float(last_completed["soxl_weight"]),
+                "SOXX": float(last_completed["soxx_weight"]),
+                "cash": float(last_completed["cash_weight"]),
+            },
+            "turnover": float(turnover.iloc[-1]),
+            "recovery_action": bool(last_completed["recovery_action"]),
         },
         "latest_inference": {
             "signal_date": latest_target["signal_date"],
