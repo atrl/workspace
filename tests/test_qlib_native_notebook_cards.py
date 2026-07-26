@@ -4916,3 +4916,43 @@ def test_soxx_constituent_alpha_attribution_card_separates_signal_leverage_and_e
     assert "run_soxx_constituent_alpha_attribution_card" in notebook_text
     assert "反思" in conclusion
     assert "不构成买卖建议" in conclusion
+
+
+def test_stage1_open15m_defensive_sleeve_card_records_frozen_comparison():
+    card = ROOT / "research" / "stage1_open15m_defensive_sleeve_v1"
+    summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
+    selected = json.loads((card / "selected_model.json").read_text(encoding="utf-8"))
+    notebook_text = (
+        card / "stage1_open15m_defensive_sleeve_v1.ipynb"
+    ).read_text(encoding="utf-8")
+
+    assert summary["experiment"] == "stage1_open15m_defensive_sleeve_v1"
+    assert summary["source_stage1"]["frozen"] is True
+    assert summary["source_stage1"]["stage2_enabled"] is False
+    assert summary["timing"]["signal"] == "09:45_ET_after_first_15m_bar_close"
+    assert summary["timing"]["restore"] == (
+        "10:30_ET_before_existing_stage1_recovery"
+    )
+    assert summary["timing"]["overnight_stage1_weights_changed"] is False
+    assert summary["features"]["rvol_policy"] == (
+        "same_09_30_09_45_slot_trailing20_median_shift1"
+    )
+    assert summary["features"]["feature_count"] >= 15
+    assert summary["dataset_audit"]["api"] == [
+        "DatasetH",
+        "DataHandlerLP",
+        "StaticDataLoader",
+    ]
+    assert selected["selection_uses_outer_test"] is False
+    assert selected["outer_role"] == "reused_diagnostic_only_not_model_selection"
+    assert summary["decision"] in {
+        "candidate_for_forward_paper_validation_not_promoted",
+        "not_promoted_development_gate_failed",
+    }
+    assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+    assert "qlib.init" in notebook_text
+    assert "D.calendar" in notebook_text
+    assert "DatasetH" in json.dumps(summary["dataset_audit"])
+    assert "run_stage1_open15m_defensive_sleeve_card" in notebook_text
+    assert (card / "backtest_benchmark_comparison.csv").exists()
+    assert (card / "model_selection.csv").exists()

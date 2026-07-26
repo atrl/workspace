@@ -1,0 +1,9 @@
+{
+  "action_beta": 0.2,
+  "logistic_c": 0.3,
+  "outer_role": "reused_diagnostic_only_not_model_selection",
+  "probability_threshold": 0.7,
+  "selected_from_segment": "development_walk_forward_2020_2022",
+  "selection_uses_outer_test": false,
+  "teacher_beta": 0.2
+}

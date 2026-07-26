@@ -1,0 +1,43 @@
+{
+  "decision": "candidate_for_forward_paper_validation_not_promoted",
+  "development": {
+    "action_count": 12,
+    "baseline_max_drawdown_pct": -27.488582391581417,
+    "baseline_return_pct": 81.03598013082912,
+    "cvar5_pct": -4.602095062247705,
+    "max_drawdown_delta_pct_points": -7.815970093361102e-14,
+    "max_drawdown_pct": -27.488582391581495,
+    "positive_action_rate": 0.4166666666666667,
+    "return_delta_pct_points": 3.107196093114027,
+    "return_pct": 84.14317622394314,
+    "worst_day_pct": -6.427971957524732,
+    "worst_rolling_5d_pct": -11.934840346353603
+  },
+  "interpretation": "The sleeve changes only the 09:45-10:30 intraday path; outer years are reused diagnostics and cannot promote it.",
+  "outer_25bps_diagnostic": {
+    "action_count": 0,
+    "baseline_max_drawdown_pct": -28.10511223478227,
+    "baseline_return_pct": 541.1713322665895,
+    "cvar5_pct": -5.190248901313066,
+    "max_drawdown_delta_pct_points": 0.0,
+    "max_drawdown_pct": -28.10511223478227,
+    "positive_action_rate": 0.0,
+    "return_delta_pct_points": 0.0,
+    "return_pct": 541.1713322665895,
+    "worst_day_pct": -9.383714522840133,
+    "worst_rolling_5d_pct": -11.602809404682091
+  },
+  "outer_diagnostic": {
+    "action_count": 0,
+    "baseline_max_drawdown_pct": -28.10511223478227,
+    "baseline_return_pct": 541.1713322665895,
+    "cvar5_pct": -5.190248901313066,
+    "max_drawdown_delta_pct_points": 0.0,
+    "max_drawdown_pct": -28.10511223478227,
+    "positive_action_rate": 0.0,
+    "return_delta_pct_points": 0.0,
+    "return_pct": 541.1713322665895,
+    "worst_day_pct": -9.383714522840133,
+    "worst_rolling_5d_pct": -11.602809404682091
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "artifacts/stage1_open15m_defensive_sleeve_v1/comparison_daily.csv",
+      "artifacts/stage1_open15m_defensive_sleeve_v1/model_selection_full.csv",
+      "artifacts/stage1_open15m_defensive_sleeve_v1/feature_audit.csv"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
+  "card_type": "stage1_open15m_defensive_sleeve_research_card",
+  "dataset_audit": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "label": "teacher_net_delta_after_round_trip_cost_gt_0",
+    "segment_rows": {
+      "train_2020": 252,
+      "train_2021": 505,
+      "train_2022": 757,
+      "train_2023": 1008,
+      "train_2024": 1258,
+      "train_2025": 1510,
+      "train_2026": 1760
+    },
+    "segments": {
+      "train_2020": [
+        "2019-01-01",
+        "2019-12-31"
+      ],
+      "train_2021": [
+        "2019-01-01",
+        "2020-12-31"
+      ],
+      "train_2022": [
+        "2019-01-01",
+        "2021-12-31"
+      ],
+      "train_2023": [
+        "2019-01-01",
+        "2022-12-31"
+      ],
+      "train_2024": [
+        "2019-01-01",
+        "2023-12-31"
+      ],
+      "train_2025": [
+        "2019-01-01",
+        "2024-12-31"
+      ],
+      "train_2026": [
+        "2019-01-01",
+        "2025-12-31"
+      ]
+    }
+  },
+  "decision": "candidate_for_forward_paper_validation_not_promoted",
+  "development_metrics": {
+    "action_count": 12,
+    "baseline_max_drawdown_pct": -27.488582391581417,
+    "baseline_return_pct": 81.03598013082912,
+    "cvar5_pct": -4.602095062247705,
+    "max_drawdown_delta_pct_points": -7.815970093361102e-14,
+    "max_drawdown_pct": -27.488582391581495,
+    "positive_action_rate": 0.4166666666666667,
+    "return_delta_pct_points": 3.107196093114027,
+    "return_pct": 84.14317622394314,
+    "worst_day_pct": -6.427971957524732,
+    "worst_rolling_5d_pct": -11.934840346353603
+  },
+  "experiment": "stage1_open15m_defensive_sleeve_v1",
+  "features": {
+    "columns": [
+      "first_ret_soxl",
+      "first_ret_soxx",
+      "first_dislocation",
+      "first_range_soxl",
+      "first_range_soxx",
+      "first_close_pos_soxl",
+      "first_close_pos_soxx",
+      "gap_soxl",
+      "gap_soxx",
+      "gap_dislocation",
+      "first_rvol20_soxl",
+      "first_rvol20_soxx",
+      "first_volume_ratio",
+      "open_soxl_weight",
+      "open_soxx_weight",
+      "open_cash_weight",
+      "current_beta_cap"
+    ],
+    "feature_count": 17,
+    "path_aware": true,
+    "rvol_policy": "same_09_30_09_45_slot_trailing20_median_shift1"
+  },
+  "outer_25bps_diagnostic_metrics": {
+    "action_count": 0,
+    "baseline_max_drawdown_pct": -28.10511223478227,
+    "baseline_return_pct": 541.1713322665895,
+    "cvar5_pct": -5.190248901313066,
+    "max_drawdown_delta_pct_points": 0.0,
+    "max_drawdown_pct": -28.10511223478227,
+    "positive_action_rate": 0.0,
+    "return_delta_pct_points": 0.0,
+    "return_pct": 541.1713322665895,
+    "worst_day_pct": -9.383714522840133,
+    "worst_rolling_5d_pct": -11.602809404682091
+  },
+  "outer_diagnostic_metrics": {
+    "action_count": 0,
+    "baseline_max_drawdown_pct": -28.10511223478227,
+    "baseline_return_pct": 541.1713322665895,
+    "cvar5_pct": -5.190248901313066,
+    "max_drawdown_delta_pct_points": 0.0,
+    "max_drawdown_pct": -28.10511223478227,
+    "positive_action_rate": 0.0,
+    "return_delta_pct_points": 0.0,
+    "return_pct": 541.1713322665895,
+    "worst_day_pct": -9.383714522840133,
+    "worst_rolling_5d_pct": -11.602809404682091
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+  "qlib_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/stable/component/recorder.html"
+  ],
+  "recorder_id": "1fb3b77e65cb4e6baa354c10c6832890",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_open15m_defensive_sleeve_v1/qlib_recorder/305921244747741213/1fb3b77e65cb4e6baa354c10c6832890",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_open15m_defensive_sleeve_v1/qlib_recorder",
+  "selected_model": {
+    "action_beta": 0.2,
+    "logistic_c": 0.3,
+    "outer_role": "reused_diagnostic_only_not_model_selection",
+    "probability_threshold": 0.7,
+    "selected_from_segment": "development_walk_forward_2020_2022",
+    "selection_uses_outer_test": false,
+    "teacher_beta": 0.2
+  },
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "comparison": "backtest_benchmark_comparison.csv",
+    "conclusion": "conclusion.md",
+    "model_selection": "model_selection.csv",
+    "selected_model": "selected_model.json"
+  },
+  "source_audit": {
+    "intraday_coverage_end": "2026-07-23",
+    "intraday_coverage_start": "2018-12-31",
+    "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+    "intraday_provider_as_of": "2026-07-24",
+    "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "outer_test_used_for_selection": false,
+    "rows": 2652,
+    "rows_with_intraday_features": 1900,
+    "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+    "source_daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+    "source_market_end": "2026-07-22",
+    "source_market_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "source_model_frozen": true,
+    "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
+    "source_normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "source_prediction_end": "2026-07-22",
+    "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_refresh_mode": "pinned_recorder_frozen_model_inference_only",
+    "source_selected_candidate": "pit_only_aux_005",
+    "source_training_end": "2022-12-30"
+  },
+  "source_stage1": {
+    "experiment": "intraday_on_policy_staged_validation_v1",
+    "frozen": true,
+    "recorder_id": "f6b09330175e41719886d58ee2d11bec",
+    "stage2_enabled": false
+  },
+  "timing": {
+    "overnight_stage1_weights_changed": false,
+    "restore": "10:30_ET_before_existing_stage1_recovery",
+    "signal": "09:45_ET_after_first_15m_bar_close",
+    "temporary_defensive_window": "09:45_to_10:30_ET"
+  }
+}

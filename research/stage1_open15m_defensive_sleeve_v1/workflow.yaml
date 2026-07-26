@@ -1,0 +1,38 @@
+experiment: stage1_open15m_defensive_sleeve_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+source_stage1_recorder_id: f6b09330175e41719886d58ee2d11bec
+selection_uses_outer_test: false
+timing:
+  signal: 09:45_ET_after_first_15m_bar_close
+  temporary_defensive_window: 09:45_to_10:30_ET
+  restore: 10:30_ET_before_existing_stage1_recovery
+  overnight_stage1_weights_changed: false
+features:
+  columns:
+  - first_ret_soxl
+  - first_ret_soxx
+  - first_dislocation
+  - first_range_soxl
+  - first_range_soxx
+  - first_close_pos_soxl
+  - first_close_pos_soxx
+  - gap_soxl
+  - gap_soxx
+  - gap_dislocation
+  - first_rvol20_soxl
+  - first_rvol20_soxx
+  - first_volume_ratio
+  - open_soxl_weight
+  - open_soxx_weight
+  - open_cash_weight
+  - current_beta_cap
+  feature_count: 17
+  path_aware: true
+  rvol_policy: same_09_30_09_45_slot_trailing20_median_shift1
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - artifacts/stage1_open15m_defensive_sleeve_v1/comparison_daily.csv
+  - artifacts/stage1_open15m_defensive_sleeve_v1/model_selection_full.csv
+  - artifacts/stage1_open15m_defensive_sleeve_v1/feature_audit.csv
