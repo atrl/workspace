@@ -205,7 +205,24 @@
     .panel-subtitle { margin-top: 3px; color: var(--muted); font-size: 12px; }
     .chart-wrap { position: relative; min-height: 360px; }
     canvas { width: 100%; height: 360px; display: block; }
+    #performance-chart { cursor: crosshair; touch-action: none; }
     #allocation-chart { height: 285px; }
+    .selection-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 9px;
+      padding: 9px 11px;
+      border: 1px solid rgba(85, 221, 209, .28);
+      border-radius: 10px;
+      background: var(--cyan-soft);
+      color: var(--muted);
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+    .selection-bar strong { color: var(--text); }
+    [hidden] { display: none !important; }
     .chart-readout {
       min-height: 33px;
       display: flex;
@@ -444,7 +461,7 @@
         <div class="panel-header">
           <div class="panel-copy">
             <h2 id="performance-title">净值路径</h2>
-            <p class="panel-subtitle">Stage1 与直接基准同窗、同起点比较</p>
+            <p class="panel-subtitle">Stage1 与直接基准同窗、同起点比较 · 拖拽图表选择区间</p>
           </div>
           <div class="button-group" id="chart-modes" aria-label="图表模式">
             <button class="btn active" type="button" data-mode="nav" aria-pressed="true">净值</button>
@@ -455,6 +472,13 @@
         <div class="legend" id="performance-legend"></div>
         <div class="chart-wrap">
           <canvas id="performance-chart" role="img" aria-label="Stage1、SOXL 与 SOXX 的区间表现折线图"></canvas>
+        </div>
+        <div class="selection-bar" id="chart-selection" hidden>
+          <span>已选择 <strong id="chart-selection-range">—</strong> <span id="chart-selection-count"></span></span>
+          <div class="button-group">
+            <button class="btn" id="cancel-chart-selection" type="button">取消</button>
+            <button class="btn btn-primary" id="apply-chart-selection" type="button">应用图中区间</button>
+          </div>
         </div>
         <div class="chart-readout" id="performance-readout" aria-live="polite">移动到图表查看单日详情</div>
       </article>
@@ -570,7 +594,15 @@
       completed: "已完成",
       blocked: "已阻断"
     };
-    const state = { data: null, mode: "nav", eventFilter: "all", hoverIndex: null, preset: "all" };
+    const state = {
+      data: null,
+      mode: "nav",
+      eventFilter: "all",
+      hoverIndex: null,
+      preset: "all",
+      selection: null,
+      dragStart: null
+    };
     const el = id => document.getElementById(id);
     const pct = (value, digits = 1) => `${Number(value || 0).toFixed(digits)}%`;
     const signedPct = (value, digits = 1) => `${value >= 0 ? "+" : ""}${pct(value, digits)}`;
@@ -637,6 +669,8 @@
         if (!response.ok) throw new Error(payload.detail || "区间数据加载失败");
         state.data = payload;
         state.hoverIndex = null;
+        state.selection = null;
+        state.dragStart = null;
         state.preset = preset || inferPreset(payload);
         syncControls();
         renderAll();
@@ -685,6 +719,7 @@
       renderLegend();
       renderEvents();
       renderMetricsTable();
+      renderChartSelection();
       drawCharts();
     }
 
@@ -903,6 +938,7 @@
       drawGrid(context, plot, width, height, range, formatter);
       const xAt = index => plot.left + (plot.right - plot.left) * index / Math.max(1, state.data.rows.length - 1);
       const yAt = value => plot.top + (plot.bottom - plot.top) * (range.max - value) / (range.max - range.min);
+      drawSelectionOverlay(context, plot, xAt);
 
       series.forEach(item => {
         context.beginPath();
@@ -927,6 +963,33 @@
         context.fill();
       });
       drawHover(context, plot, xAt, series, yAt);
+    }
+
+    function normalisedSelection() {
+      if (!state.selection) return null;
+      return {
+        start: Math.min(state.selection.start, state.selection.end),
+        end: Math.max(state.selection.start, state.selection.end)
+      };
+    }
+
+    function drawSelectionOverlay(context, plot, xAt) {
+      const selection = normalisedSelection();
+      if (!selection) return;
+      const x1 = xAt(selection.start);
+      const x2 = xAt(selection.end);
+      context.fillStyle = css("--cyan-soft");
+      context.fillRect(x1, plot.top, Math.max(1, x2 - x1), plot.bottom - plot.top);
+      context.strokeStyle = css("--cyan");
+      context.globalAlpha = .75;
+      context.lineWidth = 1;
+      [x1, x2].forEach(x => {
+        context.beginPath();
+        context.moveTo(x, plot.top);
+        context.lineTo(x, plot.bottom);
+        context.stroke();
+      });
+      context.globalAlpha = 1;
     }
 
     function drawAllocation() {
@@ -1029,18 +1092,73 @@
       el("performance-chart").scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
-    function bindCanvas(canvasId) {
+    function renderChartSelection() {
+      const selection = normalisedSelection();
+      const bar = el("chart-selection");
+      if (!selection || !state.data) {
+        bar.hidden = true;
+        return;
+      }
+      const rows = state.data.rows;
+      const start = rows[selection.start].signal_date;
+      const end = rows[selection.end].signal_date;
+      setText("chart-selection-range", `${start} → ${end}`);
+      setText("chart-selection-count", `· ${selection.end - selection.start + 1} 个观察`);
+      bar.hidden = false;
+    }
+
+    function pointerIndex(canvas, event) {
+      const rect = canvas.getBoundingClientRect();
+      const left = 58;
+      const right = rect.width - 16;
+      const ratio = clamp((event.clientX - rect.left - left) / Math.max(1, right - left), 0, 1);
+      return Math.round(ratio * (state.data.rows.length - 1));
+    }
+
+    function bindCanvas(canvasId, allowSelection = false) {
       const canvas = el(canvasId);
+      if (allowSelection) {
+        canvas.addEventListener("pointerdown", event => {
+          if (!state.data || event.button !== 0) return;
+          const index = pointerIndex(canvas, event);
+          state.dragStart = index;
+          state.selection = { start: index, end: index };
+          state.hoverIndex = index;
+          canvas.setPointerCapture(event.pointerId);
+          renderChartSelection();
+          drawCharts();
+        });
+        canvas.addEventListener("pointerup", event => {
+          if (state.dragStart === null) return;
+          const index = pointerIndex(canvas, event);
+          state.selection.end = index;
+          const selection = normalisedSelection();
+          state.dragStart = null;
+          if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+          if (selection.end - selection.start < 2) state.selection = null;
+          renderChartSelection();
+          drawCharts();
+        });
+        canvas.addEventListener("pointercancel", event => {
+          state.dragStart = null;
+          state.selection = null;
+          if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+          renderChartSelection();
+          drawCharts();
+        });
+      }
       canvas.addEventListener("pointermove", event => {
         if (!state.data) return;
-        const rect = canvas.getBoundingClientRect();
-        const left = 58;
-        const right = rect.width - 16;
-        const ratio = clamp((event.clientX - rect.left - left) / Math.max(1, right - left), 0, 1);
-        state.hoverIndex = Math.round(ratio * (state.data.rows.length - 1));
+        const index = pointerIndex(canvas, event);
+        state.hoverIndex = index;
+        if (allowSelection && state.dragStart !== null) {
+          state.selection = { start: state.dragStart, end: index };
+          renderChartSelection();
+        }
         drawCharts();
       });
       canvas.addEventListener("pointerleave", () => {
+        if (allowSelection && state.dragStart !== null) return;
         state.hoverIndex = null;
         drawCharts();
       });
@@ -1055,6 +1173,22 @@
     });
     el("apply-range").addEventListener("click", () => {
       loadData({ start: el("start-date").value, end: el("end-date").value, preset: "custom" });
+    });
+    el("apply-chart-selection").addEventListener("click", () => {
+      const selection = normalisedSelection();
+      if (!selection) return;
+      const rows = state.data.rows;
+      loadData({
+        start: rows[selection.start].signal_date,
+        end: rows[selection.end].signal_date,
+        preset: "custom"
+      });
+    });
+    el("cancel-chart-selection").addEventListener("click", () => {
+      state.selection = null;
+      state.dragStart = null;
+      renderChartSelection();
+      drawCharts();
     });
     document.querySelectorAll("[data-mode]").forEach(button => {
       button.addEventListener("click", () => {
@@ -1079,7 +1213,7 @@
         renderEvents();
       });
     });
-    bindCanvas("performance-chart");
+    bindCanvas("performance-chart", true);
     bindCanvas("allocation-chart");
     let resizeTimer = null;
     window.addEventListener("resize", () => {

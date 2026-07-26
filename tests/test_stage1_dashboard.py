@@ -45,6 +45,8 @@ def test_stage1_dashboard_app_serves_ui_health_and_interval_api():
     assert "近 3 月" in page.text
     assert "相对收益" in page.text
     assert "换仓诊断" in page.text
+    assert "拖拽图表选择区间" in page.text
+    assert 'id="apply-chart-selection"' in page.text
     assert health.json()["source"] == "qlib_recorder"
     assert interval.status_code == 200
     assert interval.json()["selected_range"]["start"] == "2026-07-01"
