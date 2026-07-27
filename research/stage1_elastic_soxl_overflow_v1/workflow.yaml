@@ -1,0 +1,57 @@
+experiment: stage1_elastic_soxl_overflow_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+source_stage1:
+  experiment: intraday_on_policy_staged_validation_v1
+  recorder_id: f6b09330175e41719886d58ee2d11bec
+  frozen: true
+  stage2_enabled: false
+  training_end: '2022-12-30'
+timing:
+  signal: prior_close_features
+  execution: next_open
+  holding: open_to_next_open_separate_overflow_sleeve
+  cash_unchanged: true
+model_selection:
+  train_only_years:
+  - 2016
+  - 2017
+  development_years:
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  outer_years:
+  - 2023
+  - 2024
+  - 2025
+  - 2026
+  selection_uses_outer_test: false
+  candidate_count: 8
+  features:
+  - soxx_trend20
+  - relative_momentum20
+  - soxx_vol20
+  - trend_efficiency_20
+  - levered_decay_20
+  - chop_breakdown_risk
+overfit_controls:
+  fixed_logistic_c: 0.1
+  purge_rows: 1
+  minimum_training_events: 40
+  minimum_events_per_feature: 8.0
+  event_concentration_gate: 0.6
+  outer_event_rate_ratio_gate: 2.0
+  clean_forward_required_for_promotion: true
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - artifacts/stage1_elastic_soxl_overflow_v1/predictions.csv
+  - artifacts/stage1_elastic_soxl_overflow_v1/positions.csv
+  - artifacts/stage1_elastic_soxl_overflow_v1/portfolio_report.csv
+  - artifacts/stage1_elastic_soxl_overflow_v1/model_selection_full.csv
+  - artifacts/stage1_elastic_soxl_overflow_v1/fit_audit.csv
+  - artifacts/stage1_elastic_soxl_overflow_v1/overfit_audit.csv
+  - artifacts/stage1_elastic_soxl_overflow_v1/annual_metrics.csv
+  - artifacts/stage1_elastic_soxl_overflow_v1/selected_model_spec.json

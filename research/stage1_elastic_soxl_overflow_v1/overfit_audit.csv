@@ -1,0 +1,8 @@
+check,value,threshold,passed,interpretation
+candidate_count,8.0,<=8,True,small predeclared search grid
+minimum_training_cap_events,40.0,>=40,True,earliest expanding fold sample size
+minimum_events_per_feature,6.666666666666667,>=8.0,False,sparse-event model capacity control
+development_all_gates,-0.8286376175850876,all development gates true,False,selection is not rescued by outer results
+parameter_neighborhood_retention,0.0,>=0.50,False,nearby candidate does not collapse
+outer_cap_event_rate_ratio,3.608272268360202,<=2.0,False,distribution shift between development and outer
+clean_unseen_holdout,0.0,required for promotion,False,2023-2026 is reused diagnostic and cannot validate promotion

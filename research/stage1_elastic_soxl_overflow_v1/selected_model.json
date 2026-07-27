@@ -1,0 +1,15 @@
+{
+  "model_type": "always",
+  "name": "always_005",
+  "outer_role": "reused_diagnostic_only_not_model_selection",
+  "overflow_weight": 0.05,
+  "probability_threshold": null,
+  "selected_from_segment": "stitched_walk_forward_2018_2022",
+  "selection_uses_outer_test": false,
+  "source_stage1_frozen": true,
+  "source_training_end": "2022-12-30",
+  "train_only_years": [
+    2016,
+    2017
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "artifacts/stage1_elastic_soxl_overflow_v1/predictions.csv",
+      "artifacts/stage1_elastic_soxl_overflow_v1/positions.csv",
+      "artifacts/stage1_elastic_soxl_overflow_v1/portfolio_report.csv",
+      "artifacts/stage1_elastic_soxl_overflow_v1/model_selection_full.csv",
+      "artifacts/stage1_elastic_soxl_overflow_v1/fit_audit.csv",
+      "artifacts/stage1_elastic_soxl_overflow_v1/overfit_audit.csv",
+      "artifacts/stage1_elastic_soxl_overflow_v1/annual_metrics.csv",
+      "artifacts/stage1_elastic_soxl_overflow_v1/selected_model_spec.json"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-24",
+  "candidate_search": {
+    "candidate_count": 8,
+    "candidates": [
+      {
+        "model_type": "always",
+        "name": "always_005",
+        "overflow_weight": 0.05,
+        "probability_threshold": null
+      },
+      {
+        "model_type": "always",
+        "name": "always_010",
+        "overflow_weight": 0.1,
+        "probability_threshold": null
+      },
+      {
+        "model_type": "logistic",
+        "name": "logistic_055_005",
+        "overflow_weight": 0.05,
+        "probability_threshold": 0.55
+      },
+      {
+        "model_type": "logistic",
+        "name": "logistic_055_010",
+        "overflow_weight": 0.1,
+        "probability_threshold": 0.55
+      },
+      {
+        "model_type": "logistic",
+        "name": "logistic_065_005",
+        "overflow_weight": 0.05,
+        "probability_threshold": 0.65
+      },
+      {
+        "model_type": "logistic",
+        "name": "logistic_065_010",
+        "overflow_weight": 0.1,
+        "probability_threshold": 0.65
+      },
+      {
+        "model_type": "logistic",
+        "name": "logistic_075_005",
+        "overflow_weight": 0.05,
+        "probability_threshold": 0.75
+      },
+      {
+        "model_type": "logistic",
+        "name": "logistic_075_010",
+        "overflow_weight": 0.1,
+        "probability_threshold": 0.75
+      }
+    ],
+    "features_fixed_before_outer_diagnostic": [
+      "soxx_trend20",
+      "relative_momentum20",
+      "soxx_vol20",
+      "trend_efficiency_20",
+      "levered_decay_20",
+      "chop_breakdown_risk"
+    ],
+    "logistic_c_fixed": 0.1
+  },
+  "card_type": "stage1_elastic_soxl_overflow_feasibility_card",
+  "dataset_audit": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "feature_count": 6,
+    "features": [
+      "soxx_trend20",
+      "relative_momentum20",
+      "soxx_vol20",
+      "trend_efficiency_20",
+      "levered_decay_20",
+      "chop_breakdown_risk"
+    ],
+    "label": "next_open_to_open_soxl_minus_soxx_positive",
+    "outer_training_end_frozen": "2022-12-30",
+    "purge_rows": 1,
+    "segment_rows": {
+      "test_2018": 251,
+      "test_2019": 252,
+      "test_2020": 253,
+      "test_2021": 252,
+      "test_2022": 251,
+      "test_2023": 250,
+      "test_2024": 252,
+      "test_2025": 250,
+      "test_2026": 138,
+      "train_2018": 503,
+      "train_2019": 754,
+      "train_2020": 1006,
+      "train_2021": 1259,
+      "train_2022": 1511,
+      "train_2023": 1762,
+      "train_2024": 1762,
+      "train_2025": 1762,
+      "train_2026": 1762
+    },
+    "segments": {
+      "test_2018": [
+        "2018-01-01",
+        "2018-12-31"
+      ],
+      "test_2019": [
+        "2019-01-01",
+        "2019-12-31"
+      ],
+      "test_2020": [
+        "2020-01-01",
+        "2020-12-31"
+      ],
+      "test_2021": [
+        "2021-01-01",
+        "2021-12-31"
+      ],
+      "test_2022": [
+        "2022-01-01",
+        "2022-12-31"
+      ],
+      "test_2023": [
+        "2023-01-01",
+        "2023-12-31"
+      ],
+      "test_2024": [
+        "2024-01-01",
+        "2024-12-31"
+      ],
+      "test_2025": [
+        "2025-01-01",
+        "2025-12-31"
+      ],
+      "test_2026": [
+        "2026-01-01",
+        "2026-12-31"
+      ],
+      "train_2018": [
+        "2016-01-01",
+        "2017-12-31"
+      ],
+      "train_2019": [
+        "2016-01-01",
+        "2018-12-31"
+      ],
+      "train_2020": [
+        "2016-01-01",
+        "2019-12-31"
+      ],
+      "train_2021": [
+        "2016-01-01",
+        "2020-12-31"
+      ],
+      "train_2022": [
+        "2016-01-01",
+        "2021-12-31"
+      ],
+      "train_2023": [
+        "2016-01-01",
+        "2022-12-30"
+      ],
+      "train_2024": [
+        "2016-01-01",
+        "2022-12-30"
+      ],
+      "train_2025": [
+        "2016-01-01",
+        "2022-12-30"
+      ],
+      "train_2026": [
+        "2016-01-01",
+        "2022-12-30"
+      ]
+    }
+  },
+  "decision": "not_promoted_development_negative_high_overfit_risk",
+  "development_metrics": {
+    "action_count": 69,
+    "annualized_volatility_pct": 29.49660213168353,
+    "baseline_max_drawdown_pct": -27.488582391581495,
+    "baseline_return_pct": 221.41247493902614,
+    "baseline_worst_rolling_5d_pct": -11.858940216431579,
+    "cap_bind_count": 69,
+    "cap_bind_rate": 0.05480540111199365,
+    "cvar5_pct": -4.340540251760925,
+    "incremental_turnover": 1.3,
+    "max_drawdown_delta_pct_points": -0.422985544493816,
+    "max_drawdown_pct": -27.91156793607531,
+    "positive_action_rate": 0.5797101449275363,
+    "return_delta_pct_points": -0.8286376175850876,
+    "return_pct": 220.58383732144105,
+    "rows": 1259,
+    "top5_positive_contribution_share": 0.3284489262599514,
+    "worst_5d_delta_pct_points": 0.0,
+    "worst_day_pct": -7.058978409639723,
+    "worst_rolling_5d_pct": -11.858940216431579
+  },
+  "experiment": "stage1_elastic_soxl_overflow_v1",
+  "feature_audit": {
+    "allocation_output": "direct_continuous_softmax_soxl_soxx_cash",
+    "base_constrained_ref_in_features": false,
+    "base_constrained_ref_role": "none",
+    "calendar_end": "2026-07-22",
+    "calendar_start": "2010-06-04",
+    "candidate_weight_grid": false,
+    "common_feature_end": "2026-07-22",
+    "daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "excluded_sources": {
+      "hardware_cycle": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+      "intraday": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+      "macro_credit": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+      "soxx_constituents": "excluded_from_model_non_PIT_single_snapshot_survivorship_bias"
+    },
+    "execution_provider": {
+      "as_of": "2026-07-24",
+      "calendar_rows": 4118,
+      "fields": [
+        "$open",
+        "$high",
+        "$low",
+        "$close"
+      ],
+      "include_incomplete_latest": false,
+      "instruments": [
+        "SOXL",
+        "SOXS",
+        "SOXX"
+      ],
+      "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+      "relationship_audit": {
+        "common_end": "2026-07-24",
+        "common_rows_per_instrument": 4118,
+        "common_start": "2010-03-11",
+        "soxs_soxl_close_return_correlation": -0.9971607051342226,
+        "soxs_soxx_close_return_correlation": -0.9979864005517669
+      },
+      "source_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.features"
+      ],
+      "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+      "usable_end": "2026-07-22",
+      "usable_rows": 4057,
+      "usable_start": "2010-06-04"
+    },
+    "execution_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "feature_count": 39,
+    "feature_families": [
+      "cross_asset_diffusion",
+      "current_soxl_soxx_soxs",
+      "normalized_regime",
+      "risk_hardened_high_chop"
+    ],
+    "include_incomplete_latest": false,
+    "maximum_soxl_weight_is_risk_constraint": true,
+    "normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "selected_feature_count": 6,
+    "selected_features": [
+      "soxx_trend20",
+      "relative_momentum20",
+      "soxx_vol20",
+      "trend_efficiency_20",
+      "levered_decay_20",
+      "chop_breakdown_risk"
+    ],
+    "selection_uses_outer_test": false,
+    "source_api": "qlib.data.D.features"
+  },
+  "full_context_including_train_only_metrics": {
+    "action_count": 110,
+    "annualized_volatility_pct": 27.231281100469168,
+    "baseline_max_drawdown_pct": -27.488582391581463,
+    "baseline_return_pct": 417.2720536123832,
+    "baseline_worst_rolling_5d_pct": -11.858940216431579,
+    "cap_bind_count": 110,
+    "cap_bind_rate": 0.06242905788876277,
+    "cvar5_pct": -4.160126305311629,
+    "incremental_turnover": 2.4000000000000004,
+    "max_drawdown_delta_pct_points": -0.4229855444938586,
+    "max_drawdown_pct": -27.911567936075322,
+    "positive_action_rate": 0.5727272727272728,
+    "return_delta_pct_points": -1.5068707184946106,
+    "return_pct": 415.7651828938886,
+    "rows": 1762,
+    "top5_positive_contribution_share": 0.23956243151956133,
+    "worst_5d_delta_pct_points": 0.0,
+    "worst_day_pct": -7.845988052345539,
+    "worst_rolling_5d_pct": -11.858940216431579
+  },
+  "hypothesis": "When frozen Stage1 is already at its 30% SOXL cap, move at most 10 percentage points from SOXX to SOXL while leaving cash unchanged.",
+  "outer_25bps_diagnostic_metrics": {
+    "action_count": 176,
+    "annualized_volatility_pct": 37.868925531109774,
+    "baseline_max_drawdown_pct": -29.088721515490047,
+    "baseline_return_pct": 473.1961785652809,
+    "baseline_worst_rolling_5d_pct": -11.780256194727222,
+    "cap_bind_count": 176,
+    "cap_bind_rate": 0.19775280898876405,
+    "cvar5_pct": -5.360404176735501,
+    "incremental_turnover": 1.3,
+    "max_drawdown_delta_pct_points": 1.0658141036401503e-14,
+    "max_drawdown_pct": -29.088721515490036,
+    "positive_action_rate": 0.5795454545454546,
+    "return_delta_pct_points": 22.041875857347804,
+    "return_pct": 495.2380544226287,
+    "rows": 890,
+    "top5_positive_contribution_share": 0.14935286557435593,
+    "worst_5d_delta_pct_points": -0.6464206279577116,
+    "worst_day_pct": -10.086540605546585,
+    "worst_rolling_5d_pct": -12.426676822684934
+  },
+  "outer_diagnostic_metrics": {
+    "action_count": 176,
+    "annualized_volatility_pct": 37.872862363918145,
+    "baseline_max_drawdown_pct": -28.105112234782304,
+    "baseline_return_pct": 542.653315361169,
+    "baseline_worst_rolling_5d_pct": -11.602809404682091,
+    "cap_bind_count": 176,
+    "cap_bind_rate": 0.19775280898876405,
+    "cvar5_pct": -5.3490242919380675,
+    "incremental_turnover": 1.3,
+    "max_drawdown_delta_pct_points": -1.0658141036401503e-14,
+    "max_drawdown_pct": -28.105112234782315,
+    "positive_action_rate": 0.5795454545454546,
+    "return_delta_pct_points": 25.99555717276155,
+    "return_pct": 568.6488725339306,
+    "rows": 890,
+    "top5_positive_contribution_share": 0.14935286557435593,
+    "worst_5d_delta_pct_points": -0.6408436523484209,
+    "worst_day_pct": -10.086540605546585,
+    "worst_rolling_5d_pct": -12.243653057030512
+  },
+  "overfit_audit": {
+    "candidate_count": 8,
+    "clean_unseen_holdout_available": false,
+    "failed_checks": [
+      "minimum_events_per_feature",
+      "development_all_gates",
+      "parameter_neighborhood_retention",
+      "outer_cap_event_rate_ratio",
+      "clean_unseen_holdout"
+    ],
+    "minimum_events_per_feature": 6.666666666666667,
+    "minimum_training_cap_events": 40,
+    "outer_cap_event_rate_ratio": 3.608272268360202,
+    "outer_is_selection_input": false,
+    "risk_level": "high"
+  },
+  "promotion": "blocked",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "qlib_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/stable/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "recorder_id": "33b59b75c3c040179c8e341f33ceb50f",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_elastic_soxl_overflow_v1/qlib_recorder/313408341576843222/33b59b75c3c040179c8e341f33ceb50f",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_elastic_soxl_overflow_v1/qlib_recorder",
+  "selected_model": {
+    "model_type": "always",
+    "name": "always_005",
+    "outer_role": "reused_diagnostic_only_not_model_selection",
+    "overflow_weight": 0.05,
+    "probability_threshold": null,
+    "selected_from_segment": "stitched_walk_forward_2018_2022",
+    "selection_uses_outer_test": false,
+    "source_stage1_frozen": true,
+    "source_training_end": "2022-12-30",
+    "train_only_years": [
+      2016,
+      2017
+    ]
+  },
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "annual_metrics": "annual_metrics.csv",
+    "comparison": "backtest_benchmark_comparison.csv",
+    "conclusion": "conclusion.md",
+    "failure_modes": "failure_modes.md",
+    "model_selection": "model_selection.csv",
+    "overfit_audit": "overfit_audit.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json"
+  },
+  "source_audit": {
+    "intraday_coverage_end": "2026-07-23",
+    "intraday_coverage_start": "2018-12-31",
+    "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+    "intraday_provider_as_of": "2026-07-24",
+    "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "outer_test_used_for_selection": false,
+    "rows": 2652,
+    "rows_with_intraday_features": 1900,
+    "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+    "source_daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+    "source_market_end": "2026-07-22",
+    "source_market_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "source_model_frozen": true,
+    "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
+    "source_normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "source_prediction_end": "2026-07-22",
+    "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_refresh_mode": "pinned_recorder_frozen_model_inference_only",
+    "source_selected_candidate": "pit_only_aux_005",
+    "source_training_end": "2022-12-30"
+  },
+  "source_stage1": {
+    "experiment": "intraday_on_policy_staged_validation_v1",
+    "frozen": true,
+    "recorder_id": "f6b09330175e41719886d58ee2d11bec",
+    "stage2_enabled": false,
+    "training_end": "2022-12-30"
+  },
+  "system_of_record": "qlib",
+  "timing": {
+    "cash_unchanged": true,
+    "execution": "next_open",
+    "holding": "open_to_next_open_separate_overflow_sleeve",
+    "signal": "prior_close_features"
+  }
+}
