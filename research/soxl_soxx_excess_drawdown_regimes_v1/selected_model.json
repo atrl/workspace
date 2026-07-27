@@ -1,0 +1,31 @@
+{
+  "outer_role": "reused_diagnostic_only",
+  "promotion": "blocked",
+  "risk_efficient_zone_count": 0,
+  "selection_uses_outer_test": false,
+  "stable_raw_zones": [
+    {
+      "development_beta_matched_excess": -0.0009642621299780595,
+      "development_extra_max_drawdown": -0.07331044516664172,
+      "development_raw_excess": 0.015485163441775068,
+      "drawdown_band": "dd_20plus",
+      "horizon_days": 5,
+      "interpretation": "leverage_compensation_only",
+      "outer_beta_matched_excess": -0.0011299946715832368,
+      "outer_extra_max_drawdown": -0.06112960452229923,
+      "outer_raw_excess": 0.03131401288093217
+    },
+    {
+      "development_beta_matched_excess": -0.0026655044699967568,
+      "development_extra_max_drawdown": -0.15605167034864198,
+      "development_raw_excess": 0.05469094296851849,
+      "drawdown_band": "dd_20plus",
+      "horizon_days": 21,
+      "interpretation": "leverage_compensation_only",
+      "outer_beta_matched_excess": -0.003924253363097069,
+      "outer_extra_max_drawdown": -0.1390274516343967,
+      "outer_raw_excess": 0.11115452232794791
+    }
+  ],
+  "type": "historical_structure_diagnostic_not_model"
+}

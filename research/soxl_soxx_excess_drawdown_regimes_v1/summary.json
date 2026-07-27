@@ -1,0 +1,200 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "artifacts/soxl_soxx_excess_drawdown_regimes_v1/forward_observations.csv",
+      "artifacts/soxl_soxx_excess_drawdown_regimes_v1/regime_metrics_full.csv",
+      "artifacts/soxl_soxx_excess_drawdown_regimes_v1/annual_metrics_full.csv",
+      "artifacts/soxl_soxx_excess_drawdown_regimes_v1/nonoverlap_metrics_full.csv",
+      "artifacts/soxl_soxx_excess_drawdown_regimes_v1/stability_audit_full.csv"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-24",
+  "card_type": "soxl_soxx_excess_drawdown_regime_diagnostic_card",
+  "data_audit": {
+    "calendar_end": "2026-07-24",
+    "calendar_start": "2010-03-11",
+    "data_end": "2026-07-24",
+    "data_start": "2010-03-11",
+    "fields": [
+      "$open",
+      "$close"
+    ],
+    "freq": "day",
+    "instruments": [
+      "SOXL",
+      "SOXX"
+    ],
+    "kernels": 1,
+    "manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl/qlib_store_manifest.json",
+    "market": "all",
+    "provider_as_of": "2026-07-24",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "qlib_api": [
+      "qlib.init",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments"
+    ],
+    "region": "us",
+    "rows": 4118,
+    "source_api": [
+      "qlib.init",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments",
+      "qlib.data.D.features"
+    ]
+  },
+  "dataset_audit": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "feature_timing": "signal_date_close_only",
+    "features": [
+      "soxx_drawdown",
+      "soxx_return_5d",
+      "soxx_return_20d",
+      "soxx_realized_vol_20d"
+    ],
+    "label_timing": "next_open_to_future_open",
+    "labels": [
+      "raw_excess_1d",
+      "raw_excess_5d",
+      "raw_excess_21d",
+      "raw_excess_63d"
+    ],
+    "segment_rows": {
+      "development": 3221,
+      "outer_diagnostic": 890
+    },
+    "segments": {
+      "development": [
+        "2010-03-11",
+        "2022-12-30"
+      ],
+      "outer_diagnostic": [
+        "2023-01-03",
+        "2026-07-24"
+      ]
+    }
+  },
+  "decision": "descriptive_raw_excess_zone_found_no_risk_efficient_zone",
+  "deep_drawdown_21d_exception_years": [
+    2022
+  ],
+  "experiment": "soxl_soxx_excess_drawdown_regimes_v1",
+  "hypothesis": "Test whether prior-close SOXX drawdown bands identify stable next-open SOXL minus SOXX excess-return zones, and whether any zone remains positive after beta matching and extra drawdown.",
+  "overfit_audit": {
+    "fixed_primary_cells": 16,
+    "nonoverlap_audit_included": true,
+    "outer_is_clean_holdout": false,
+    "outer_is_selection_input": false,
+    "overlapping_labels": true,
+    "reason": "The thresholds are low-dimensional and economically fixed, but the same historical sample was inspected repeatedly and forward labels overlap.",
+    "risk_level_for_description": "medium",
+    "risk_level_for_trading_rule": "high",
+    "year_block_bootstrap_included": true
+  },
+  "promotion": "blocked",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "qlib_api": [
+    "qlib.init",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/stable/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ],
+  "recorder_id": "c7e0ef952e7b42d685f4c5142e375fe1",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxl_soxx_excess_drawdown_regimes_v1/qlib_recorder/238036430522411117/c7e0ef952e7b42d685f4c5142e375fe1",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxl_soxx_excess_drawdown_regimes_v1/qlib_recorder",
+  "regime_design": {
+    "fixed_before_evaluation": true,
+    "outer_role": "reused_diagnostic_only_not_selection",
+    "primary_cell_count": 16,
+    "primary_drawdown_bands": [
+      "dd_0_5",
+      "dd_5_10",
+      "dd_10_20",
+      "dd_20plus"
+    ],
+    "secondary_phase": [
+      "falling5",
+      "rebound5"
+    ],
+    "selection_uses_outer_test": false
+  },
+  "risk_efficient_zone_count": 0,
+  "risk_matching": {
+    "beta_matched_comparison": "daily rebalanced one-third SOXL plus two-thirds zero-yield cash minus SOXX",
+    "extra_drawdown": "forward SOXL max drawdown minus forward SOXX max drawdown",
+    "raw_comparison": "equal capital SOXL minus SOXX",
+    "round_trip_cost_bps": 20.0,
+    "stress_round_trip_cost_bps": 50.0
+  },
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "annual_metrics": "annual_metrics.csv",
+    "conclusion": "conclusion.md",
+    "failure_modes": "failure_modes.md",
+    "nonoverlap_metrics": "nonoverlap_metrics.csv",
+    "regime_metrics": "regime_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json",
+    "stability_audit": "stability_audit.csv"
+  },
+  "stability_definition": {
+    "25bps_per_leg_stress_must_be_positive_in_development_and_outer": true,
+    "both_falling_and_rebound_phases_positive_in_development_and_outer": true,
+    "development_year_bootstrap_lower_must_be_positive": true,
+    "minimum_development_years": 8,
+    "minimum_nonoverlap_positive_share": 0.55,
+    "minimum_positive_year_share": 0.7,
+    "minimum_rows": 40
+  },
+  "stable_raw_zone_count": 2,
+  "stable_raw_zones": [
+    {
+      "development_beta_matched_excess": -0.0009642621299780595,
+      "development_extra_max_drawdown": -0.07331044516664172,
+      "development_raw_excess": 0.015485163441775068,
+      "drawdown_band": "dd_20plus",
+      "horizon_days": 5,
+      "interpretation": "leverage_compensation_only",
+      "outer_beta_matched_excess": -0.0011299946715832368,
+      "outer_extra_max_drawdown": -0.06112960452229923,
+      "outer_raw_excess": 0.03131401288093217
+    },
+    {
+      "development_beta_matched_excess": -0.0026655044699967568,
+      "development_extra_max_drawdown": -0.15605167034864198,
+      "development_raw_excess": 0.05469094296851849,
+      "drawdown_band": "dd_20plus",
+      "horizon_days": 21,
+      "interpretation": "leverage_compensation_only",
+      "outer_beta_matched_excess": -0.003924253363097069,
+      "outer_extra_max_drawdown": -0.1390274516343967,
+      "outer_raw_excess": 0.11115452232794791
+    }
+  ],
+  "system_of_record": "qlib",
+  "timing": {
+    "entry": "next_trading_day_open",
+    "exit": "future_open_after_fixed_horizon",
+    "horizons": [
+      1,
+      5,
+      21,
+      63
+    ],
+    "state_observation": "signal_date_close"
+  }
+}

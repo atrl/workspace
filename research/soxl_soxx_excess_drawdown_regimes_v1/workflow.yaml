@@ -1,0 +1,48 @@
+experiment: soxl_soxx_excess_drawdown_regimes_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+segments:
+  development:
+  - '2010-03-11'
+  - '2022-12-30'
+  outer_diagnostic:
+  - '2023-01-03'
+  - '2026-07-24'
+timing:
+  state_observation: signal_date_close
+  entry: next_trading_day_open
+  exit: future_open_after_fixed_horizon
+  horizons:
+  - 1
+  - 5
+  - 21
+  - 63
+regime_design:
+  primary_drawdown_bands:
+  - dd_0_5
+  - dd_5_10
+  - dd_10_20
+  - dd_20plus
+  secondary_phase:
+  - falling5
+  - rebound5
+  fixed_before_evaluation: true
+  primary_cell_count: 16
+  outer_role: reused_diagnostic_only_not_selection
+  selection_uses_outer_test: false
+stability_definition:
+  minimum_rows: 40
+  minimum_development_years: 8
+  minimum_positive_year_share: 0.7
+  minimum_nonoverlap_positive_share: 0.55
+  development_year_bootstrap_lower_must_be_positive: true
+  both_falling_and_rebound_phases_positive_in_development_and_outer: true
+  25bps_per_leg_stress_must_be_positive_in_development_and_outer: true
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - artifacts/soxl_soxx_excess_drawdown_regimes_v1/forward_observations.csv
+  - artifacts/soxl_soxx_excess_drawdown_regimes_v1/regime_metrics_full.csv
+  - artifacts/soxl_soxx_excess_drawdown_regimes_v1/annual_metrics_full.csv
+  - artifacts/soxl_soxx_excess_drawdown_regimes_v1/nonoverlap_metrics_full.csv
+  - artifacts/soxl_soxx_excess_drawdown_regimes_v1/stability_audit_full.csv
