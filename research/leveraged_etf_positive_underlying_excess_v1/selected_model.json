@@ -1,0 +1,36 @@
+{
+  "future_condition_is_not_available_at_entry": true,
+  "promotion": "blocked_descriptive_not_predictive",
+  "selection_uses_outer_test": false,
+  "stable_thresholds": [
+    {
+      "horizon_days": 1,
+      "raw_minimum_underlying_return": 0.0,
+      "raw_stable": true,
+      "switch_net_25bps_minimum_underlying_return": 0.005,
+      "switch_net_25bps_stable": true
+    },
+    {
+      "horizon_days": 5,
+      "raw_minimum_underlying_return": 0.0,
+      "raw_stable": true,
+      "switch_net_25bps_minimum_underlying_return": 0.005,
+      "switch_net_25bps_stable": true
+    },
+    {
+      "horizon_days": 21,
+      "raw_minimum_underlying_return": 0.01,
+      "raw_stable": true,
+      "switch_net_25bps_minimum_underlying_return": 0.01,
+      "switch_net_25bps_stable": true
+    },
+    {
+      "horizon_days": 63,
+      "raw_minimum_underlying_return": 0.05,
+      "raw_stable": true,
+      "switch_net_25bps_minimum_underlying_return": 0.05,
+      "switch_net_25bps_stable": true
+    }
+  ],
+  "type": "descriptive_payoff_map_not_model"
+}

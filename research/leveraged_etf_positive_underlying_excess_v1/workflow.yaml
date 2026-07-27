@@ -1,0 +1,38 @@
+experiment: leveraged_etf_positive_underlying_excess_v1
+providers:
+  SOXL_SOXX: /Users/rziiiii/dev/workspace/data/qlib/soxl
+  TQQQ_QQQ: /Users/rziiiii/dev/workspace/data/qlib/tqqq
+segments:
+  development:
+  - '2010-03-11'
+  - '2022-12-30'
+  outer_diagnostic:
+  - '2023-01-03'
+  - '2026-07-23'
+timing:
+  comparison: close_to_close
+  reason: align_with_daily_leverage_reset_and_nav_objective
+  horizons:
+  - 1
+  - 5
+  - 21
+  - 63
+  condition_is_future_realized_return: true
+  is_ex_ante_signal: false
+stability_gate:
+  minimum_development_rows: 100
+  minimum_outer_rows: 50
+  minimum_nonoverlap_rows: 30
+  minimum_positive_share: 0.9
+  minimum_nonoverlap_positive_share: 0.8
+  minimum_positive_year_share: 0.8
+  must_pass_both_pairs: true
+  outer_role: reused_diagnostic_only_not_selection
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - artifacts/leveraged_etf_positive_underlying_excess_v1/forward_windows.csv
+  - artifacts/leveraged_etf_positive_underlying_excess_v1/threshold_audit_full.csv
+  - artifacts/leveraged_etf_positive_underlying_excess_v1/return_bin_metrics_full.csv
+  - artifacts/leveraged_etf_positive_underlying_excess_v1/path_quality_metrics_full.csv

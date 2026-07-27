@@ -1,0 +1,244 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": [
+      "artifacts/leveraged_etf_positive_underlying_excess_v1/forward_windows.csv",
+      "artifacts/leveraged_etf_positive_underlying_excess_v1/threshold_audit_full.csv",
+      "artifacts/leveraged_etf_positive_underlying_excess_v1/return_bin_metrics_full.csv",
+      "artifacts/leveraged_etf_positive_underlying_excess_v1/path_quality_metrics_full.csv"
+    ],
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-24",
+  "card_type": "leveraged_etf_positive_underlying_excess_map_card",
+  "data_audit": [
+    {
+      "as_of": "2026-07-24",
+      "data_end": "2026-07-24",
+      "data_start": "2010-03-11",
+      "leveraged": "SOXL",
+      "manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl/qlib_store_manifest.json",
+      "pair": "SOXL_SOXX",
+      "provider_audit": {
+        "calendar_end": "2026-07-24",
+        "calendar_start": "2010-03-11",
+        "freq": "day",
+        "instruments": {
+          "filter_pipe": [],
+          "market": "all"
+        },
+        "kernels": 1,
+        "market": "all",
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+        "qlib_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.instruments"
+        ],
+        "region": "us"
+      },
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "rows": 4118,
+      "source_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "underlying": "SOXX"
+    },
+    {
+      "as_of": "2026-07-24",
+      "data_end": "2026-07-24",
+      "data_start": "2010-03-11",
+      "leveraged": "TQQQ",
+      "manifest": "/Users/rziiiii/dev/workspace/data/qlib/tqqq/qlib_store_manifest.json",
+      "pair": "TQQQ_QQQ",
+      "provider_audit": {
+        "calendar_end": "2026-07-24",
+        "calendar_start": "2010-02-11",
+        "freq": "day",
+        "instruments": {
+          "filter_pipe": [],
+          "market": "all"
+        },
+        "kernels": 1,
+        "market": "all",
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+        "qlib_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.instruments"
+        ],
+        "region": "us"
+      },
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+      "rows": 4118,
+      "source_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "underlying": "QQQ"
+    }
+  ],
+  "dataset_audit": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "dataset_horizon_days": 21,
+    "feature_timing": "window_start_close",
+    "features": [
+      "starting_underlying_return_20d",
+      "starting_underlying_vol_20d"
+    ],
+    "label_timing": "future_close_to_close_descriptive_not_signal",
+    "labels": [
+      "underlying_return",
+      "raw_excess_return",
+      "switch_net_excess_25bps",
+      "path_efficiency"
+    ],
+    "segment_rows": {
+      "development": 6412,
+      "outer_diagnostic": 1742
+    },
+    "segments": {
+      "development": [
+        "2010-03-11",
+        "2022-12-30"
+      ],
+      "outer_diagnostic": [
+        "2023-01-03",
+        "2026-07-23"
+      ]
+    }
+  },
+  "decision": "descriptive_stable_excess_map_found_not_a_forecast_signal",
+  "definitions": {
+    "ideal_daily_reset": "compound product of one plus three times each 1x daily return",
+    "path_efficiency": "absolute cumulative log return divided by sum of absolute daily log returns; low values mean a choppy path",
+    "raw_excess": "3x ETF return minus 1x ETF return",
+    "switch_net_excess_25bps": "raw excess minus a 50bps hurdle for entering and exiting the 3x sleeve at 25bps per leg; baseline 1x leg excluded",
+    "tracking_gap": "actual 3x return minus ideal daily-reset return"
+  },
+  "experiment": "leveraged_etf_positive_underlying_excess_v1",
+  "hypothesis": "Conditional on a positive future close-to-close return in the 1x ETF, determine when the corresponding 3x ETF has stable equal-capital excess and when path volatility defeats it.",
+  "interpretation": {
+    "key_failure_mode": "positive cumulative return with low path efficiency or high realized volatility can still produce no leveraged excess",
+    "one_and_five_day": "any positive underlying return is enough for stable raw excess; 0.5pct is needed under the 50bp switch stress",
+    "sixty_three_day": "approximately 5pct underlying appreciation is needed",
+    "twenty_one_day": "approximately 1pct underlying appreciation is needed"
+  },
+  "overfit_audit": {
+    "condition_uses_future_information": true,
+    "cross_pair_confirmation": true,
+    "fixed_horizon_count": 4,
+    "fixed_threshold_count": 10,
+    "nonoverlap_audit_included": true,
+    "outer_is_clean_holdout": false,
+    "overlapping_windows": true,
+    "reason": "This is a descriptive payoff surface. The future underlying return and future path quality are not known at entry.",
+    "risk_level_for_payoff_map": "low_to_medium",
+    "risk_level_if_used_as_trading_signal": "high"
+  },
+  "pairs": [
+    {
+      "leveraged": "SOXL",
+      "name": "SOXL_SOXX",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "underlying": "SOXX"
+    },
+    {
+      "leveraged": "TQQQ",
+      "name": "TQQQ_QQQ",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+      "underlying": "QQQ"
+    }
+  ],
+  "promotion": "blocked_descriptive_not_predictive",
+  "qlib_api": [
+    "qlib.init",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/stable/component/recorder.html"
+  ],
+  "recorder_id": "0011558dc2274c1988d6a573208596aa",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/leveraged_etf_positive_underlying_excess_v1/qlib_recorder/922964591207193868/0011558dc2274c1988d6a573208596aa",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/leveraged_etf_positive_underlying_excess_v1/qlib_recorder",
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "conclusion": "conclusion.md",
+    "failure_modes": "failure_modes.md",
+    "pair_summary": "model_comparison.csv",
+    "path_quality_metrics": "path_quality_metrics.csv",
+    "return_bin_metrics": "return_bin_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json",
+    "stable_thresholds": "stable_thresholds.csv",
+    "threshold_audit": "threshold_audit.csv"
+  },
+  "stability_gate": {
+    "minimum_development_rows": 100,
+    "minimum_nonoverlap_positive_share": 0.8,
+    "minimum_nonoverlap_rows": 30,
+    "minimum_outer_rows": 50,
+    "minimum_positive_share": 0.9,
+    "minimum_positive_year_share": 0.8,
+    "must_pass_both_pairs": true,
+    "outer_role": "reused_diagnostic_only_not_selection"
+  },
+  "stable_thresholds": [
+    {
+      "horizon_days": 1,
+      "raw_minimum_underlying_return": 0.0,
+      "raw_stable": true,
+      "switch_net_25bps_minimum_underlying_return": 0.005,
+      "switch_net_25bps_stable": true
+    },
+    {
+      "horizon_days": 5,
+      "raw_minimum_underlying_return": 0.0,
+      "raw_stable": true,
+      "switch_net_25bps_minimum_underlying_return": 0.005,
+      "switch_net_25bps_stable": true
+    },
+    {
+      "horizon_days": 21,
+      "raw_minimum_underlying_return": 0.01,
+      "raw_stable": true,
+      "switch_net_25bps_minimum_underlying_return": 0.01,
+      "switch_net_25bps_stable": true
+    },
+    {
+      "horizon_days": 63,
+      "raw_minimum_underlying_return": 0.05,
+      "raw_stable": true,
+      "switch_net_25bps_minimum_underlying_return": 0.05,
+      "switch_net_25bps_stable": true
+    }
+  ],
+  "system_of_record": "qlib",
+  "timing": {
+    "comparison": "close_to_close",
+    "condition_is_future_realized_return": true,
+    "horizons": [
+      1,
+      5,
+      21,
+      63
+    ],
+    "is_ex_ante_signal": false,
+    "reason": "align_with_daily_leverage_reset_and_nav_objective"
+  }
+}
