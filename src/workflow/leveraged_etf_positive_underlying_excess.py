@@ -383,6 +383,7 @@ def _threshold_passes(
     threshold: float,
     metric: str,
     spec: PositiveUnderlyingExcessSpec,
+    include_outer: bool,
 ) -> bool:
     rows = threshold_audit[
         threshold_audit["horizon_days"].eq(horizon)
@@ -407,13 +408,11 @@ def _threshold_passes(
     )
     development = rows[rows["segment"].eq("development")]
     outer = rows[rows["segment"].eq("outer_diagnostic")]
-    return bool(
+    development_pass = bool(
         development["rows"].ge(spec.minimum_development_rows).all()
-        and outer["rows"].ge(spec.minimum_outer_rows).all()
         and development[positive_column]
         .ge(spec.minimum_positive_share)
         .all()
-        and outer[positive_column].ge(spec.minimum_positive_share).all()
         and development["nonoverlap_rows"]
         .ge(spec.minimum_nonoverlap_rows)
         .all()
@@ -424,6 +423,12 @@ def _threshold_passes(
         .ge(spec.minimum_positive_year_share)
         .all()
     )
+    if not development_pass or not include_outer:
+        return development_pass
+    return bool(
+        outer["rows"].ge(spec.minimum_outer_rows).all()
+        and outer[positive_column].ge(spec.minimum_positive_share).all()
+    )
 
 
 def build_stable_thresholds(
@@ -433,7 +438,7 @@ def build_stable_thresholds(
     for horizon in spec.horizons:
         result: dict[str, Any] = {"horizon_days": horizon}
         for metric in ("raw", "switch_net_25bps"):
-            passed = [
+            development_passed = [
                 threshold
                 for threshold in spec.return_thresholds
                 if _threshold_passes(
@@ -442,12 +447,39 @@ def build_stable_thresholds(
                     threshold=threshold,
                     metric=metric,
                     spec=spec,
+                    include_outer=False,
                 )
             ]
-            result[f"{metric}_minimum_underlying_return"] = (
-                min(passed) if passed else np.nan
+            cross_period_passed = [
+                threshold
+                for threshold in spec.return_thresholds
+                if _threshold_passes(
+                    threshold_audit,
+                    horizon=horizon,
+                    threshold=threshold,
+                    metric=metric,
+                    spec=spec,
+                    include_outer=True,
+                )
+            ]
+            development_threshold = (
+                min(development_passed) if development_passed else np.nan
             )
-            result[f"{metric}_stable"] = bool(passed)
+            result[f"{metric}_development_threshold"] = development_threshold
+            result[f"{metric}_outer_retained_at_development_threshold"] = bool(
+                development_passed
+                and _threshold_passes(
+                    threshold_audit,
+                    horizon=horizon,
+                    threshold=development_threshold,
+                    metric=metric,
+                    spec=spec,
+                    include_outer=True,
+                )
+            )
+            result[f"{metric}_historical_cross_period_threshold"] = (
+                min(cross_period_passed) if cross_period_passed else np.nan
+            )
         rows.append(result)
     return pd.DataFrame(rows)
 
@@ -696,7 +728,8 @@ def _record(
                 horizons="1,5,21,63",
                 comparison_timing="close_to_close",
                 outer_role="reused_diagnostic_only",
-                selection_uses_outer_test="false",
+                development_selection_uses_outer_test="false",
+                historical_cross_period_map_uses_outer="true",
                 switch_cost_per_leg_bps=str(
                     spec.switch_cost_per_leg_bps
                 ),
@@ -829,16 +862,22 @@ def run_leveraged_etf_positive_underlying_excess_card(
                 spec.minimum_positive_year_share
             ),
             "must_pass_both_pairs": True,
-            "outer_role": "reused_diagnostic_only_not_selection",
+            "development_selection_uses_outer_test": False,
+            "outer_role": (
+                "retention_diagnostic_and_historical_cross_period_map"
+            ),
         },
         "stable_thresholds": threshold_records,
         "interpretation": {
             "one_and_five_day": (
-                "any positive underlying return is enough for stable raw "
-                "excess; 0.5pct is needed under the 50bp switch stress"
+                "development and historical cross-period maps agree: any "
+                "positive underlying return is enough for stable raw excess; "
+                "0.5pct is needed under the 50bp switch stress"
             ),
             "twenty_one_day": (
-                "approximately 1pct underlying appreciation is needed"
+                "development suggests 0.5pct, but that exact threshold does "
+                "not retain the 90pct gate after 2023; the retrospective "
+                "cross-period boundary is 1pct"
             ),
             "sixty_three_day": (
                 "approximately 5pct underlying appreciation is needed"
@@ -857,6 +896,8 @@ def run_leveraged_etf_positive_underlying_excess_card(
             "overlapping_windows": True,
             "nonoverlap_audit_included": True,
             "outer_is_clean_holdout": False,
+            "outer_is_selection_input_for_development_threshold": False,
+            "outer_is_input_for_historical_cross_period_threshold": True,
             "condition_uses_future_information": True,
             "reason": (
                 "This is a descriptive payoff surface. The future underlying "
@@ -927,7 +968,8 @@ def run_leveraged_etf_positive_underlying_excess_card(
     selected_payload = {
         "type": "descriptive_payoff_map_not_model",
         "promotion": "blocked_descriptive_not_predictive",
-        "selection_uses_outer_test": False,
+        "development_selection_uses_outer_test": False,
+        "historical_cross_period_map_uses_outer": True,
         "future_condition_is_not_available_at_entry": True,
         "stable_thresholds": threshold_records,
     }
@@ -1010,8 +1052,9 @@ def run_leveraged_etf_positive_underlying_excess_card(
     conclusion = f"""# 中文结论
 
 - 重新定义：本卡不再按起点回撤分层，而是直接回答“未来底层上涨多少时，3x ETF 相对 1x ETF 的超额会稳定出现”。SOXL 对 SOXX、TQQQ 对 QQQ 都使用 close-to-close，以匹配日度杠杆重置。
-- 原始超额稳定门槛：1日>{_pct(threshold_by_horizon.loc[1, 'raw_minimum_underlying_return'])}，5日>{_pct(threshold_by_horizon.loc[5, 'raw_minimum_underlying_return'])}，21日>{_pct(threshold_by_horizon.loc[21, 'raw_minimum_underlying_return'])}，63日>{_pct(threshold_by_horizon.loc[63, 'raw_minimum_underlying_return'])}。
-- 若给额外 3x sleeve 的进入与退出各计25bp、合计50bp压力（不含基准1x腿），稳定门槛变为：1日>{_pct(threshold_by_horizon.loc[1, 'switch_net_25bps_minimum_underlying_return'])}，5日>{_pct(threshold_by_horizon.loc[5, 'switch_net_25bps_minimum_underlying_return'])}，21日>{_pct(threshold_by_horizon.loc[21, 'switch_net_25bps_minimum_underlying_return'])}，63日>{_pct(threshold_by_horizon.loc[63, 'switch_net_25bps_minimum_underlying_return'])}。
+- 纯开发期门槛：原始超额分别为1日>{_pct(threshold_by_horizon.loc[1, 'raw_development_threshold'])}、5日>{_pct(threshold_by_horizon.loc[5, 'raw_development_threshold'])}、21日>{_pct(threshold_by_horizon.loc[21, 'raw_development_threshold'])}、63日>{_pct(threshold_by_horizon.loc[63, 'raw_development_threshold'])}；其中21日的0.5%门槛没有在2023年后保留90%胜率。
+- 全历史描述边界：把outer也用于回看确认后，原始超额稳定门槛为1日>{_pct(threshold_by_horizon.loc[1, 'raw_historical_cross_period_threshold'])}、5日>{_pct(threshold_by_horizon.loc[5, 'raw_historical_cross_period_threshold'])}、21日>{_pct(threshold_by_horizon.loc[21, 'raw_historical_cross_period_threshold'])}、63日>{_pct(threshold_by_horizon.loc[63, 'raw_historical_cross_period_threshold'])}。该边界明确使用了outer，只能描述历史，不能冒充clean holdout。
+- 若给额外 3x sleeve 的进入与退出各计25bp、合计50bp压力（不含基准1x腿），全历史描述门槛为：1日>{_pct(threshold_by_horizon.loc[1, 'switch_net_25bps_historical_cross_period_threshold'])}，5日>{_pct(threshold_by_horizon.loc[5, 'switch_net_25bps_historical_cross_period_threshold'])}，21日>{_pct(threshold_by_horizon.loc[21, 'switch_net_25bps_historical_cross_period_threshold'])}，63日>{_pct(threshold_by_horizon.loc[63, 'switch_net_25bps_historical_cross_period_threshold'])}。
 - 所以用户的直觉在短周期成立：底层只要上涨，1–5日原始超额已经高度稳定。持有期拉长后，“上涨”本身不够，累计涨幅必须覆盖波动损耗。
 - 路径比终点同样重要：21/63日、底层最终上涨但路径效率低于20%时，原始超额胜率只有 {_pct(choppy_min)}–{_pct(choppy_max)}；路径效率20%–50%时，两组最低胜率为 {_pct(mixed_min)}。这解释了为什么指数最终上涨，杠杆 ETF 仍可能没有超额。
 - 实际产品相对“用底层每日收益机械复利3倍”的 tracking gap 平均为负，且持有期越长越明显；因此理论3倍不是长期固定倍数。

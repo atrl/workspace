@@ -69,12 +69,30 @@ def test_card_contract_and_thresholds():
     assert summary["timing"]["is_ex_ante_signal"] is False
     assert summary["overfit_audit"]["condition_uses_future_information"] is True
     assert summary["overfit_audit"]["outer_is_clean_holdout"] is False
+    assert (
+        summary["overfit_audit"][
+            "outer_is_selection_input_for_development_threshold"
+        ]
+        is False
+    )
+    assert (
+        summary["overfit_audit"][
+            "outer_is_input_for_historical_cross_period_threshold"
+        ]
+        is True
+    )
     assert [row["horizon_days"] for row in summary["stable_thresholds"]] == [
         1,
         5,
         21,
         63,
     ]
+    twenty_one = summary["stable_thresholds"][2]
+    assert twenty_one["raw_development_threshold"] == 0.005
+    assert (
+        twenty_one["raw_outer_retained_at_development_threshold"] is False
+    )
+    assert twenty_one["raw_historical_cross_period_threshold"] == 0.01
     assert summary["dataset_audit"]["api"] == [
         "DatasetH",
         "DataHandlerLP",

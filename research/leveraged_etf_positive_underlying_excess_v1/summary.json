@@ -129,9 +129,9 @@
   "hypothesis": "Conditional on a positive future close-to-close return in the 1x ETF, determine when the corresponding 3x ETF has stable equal-capital excess and when path volatility defeats it.",
   "interpretation": {
     "key_failure_mode": "positive cumulative return with low path efficiency or high realized volatility can still produce no leveraged excess",
-    "one_and_five_day": "any positive underlying return is enough for stable raw excess; 0.5pct is needed under the 50bp switch stress",
+    "one_and_five_day": "development and historical cross-period maps agree: any positive underlying return is enough for stable raw excess; 0.5pct is needed under the 50bp switch stress",
     "sixty_three_day": "approximately 5pct underlying appreciation is needed",
-    "twenty_one_day": "approximately 1pct underlying appreciation is needed"
+    "twenty_one_day": "development suggests 0.5pct, but that exact threshold does not retain the 90pct gate after 2023; the retrospective cross-period boundary is 1pct"
   },
   "overfit_audit": {
     "condition_uses_future_information": true,
@@ -140,6 +140,8 @@
     "fixed_threshold_count": 10,
     "nonoverlap_audit_included": true,
     "outer_is_clean_holdout": false,
+    "outer_is_input_for_historical_cross_period_threshold": true,
+    "outer_is_selection_input_for_development_threshold": false,
     "overlapping_windows": true,
     "reason": "This is a descriptive payoff surface. The future underlying return and future path quality are not known at entry.",
     "risk_level_for_payoff_map": "low_to_medium",
@@ -173,8 +175,8 @@
     "https://qlib.readthedocs.io/en/latest/component/data.html",
     "https://qlib.readthedocs.io/en/stable/component/recorder.html"
   ],
-  "recorder_id": "0011558dc2274c1988d6a573208596aa",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/leveraged_etf_positive_underlying_excess_v1/qlib_recorder/922964591207193868/0011558dc2274c1988d6a573208596aa",
+  "recorder_id": "0d07bd79014c422bbd1cab6e16ca1707",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/leveraged_etf_positive_underlying_excess_v1/qlib_recorder/922964591207193868/0d07bd79014c422bbd1cab6e16ca1707",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/leveraged_etf_positive_underlying_excess_v1/qlib_recorder",
   "sidecars": {
     "analysis_summary": "analysis_summary.json",
@@ -189,6 +191,7 @@
     "threshold_audit": "threshold_audit.csv"
   },
   "stability_gate": {
+    "development_selection_uses_outer_test": false,
     "minimum_development_rows": 100,
     "minimum_nonoverlap_positive_share": 0.8,
     "minimum_nonoverlap_rows": 30,
@@ -196,36 +199,44 @@
     "minimum_positive_share": 0.9,
     "minimum_positive_year_share": 0.8,
     "must_pass_both_pairs": true,
-    "outer_role": "reused_diagnostic_only_not_selection"
+    "outer_role": "retention_diagnostic_and_historical_cross_period_map"
   },
   "stable_thresholds": [
     {
       "horizon_days": 1,
-      "raw_minimum_underlying_return": 0.0,
-      "raw_stable": true,
-      "switch_net_25bps_minimum_underlying_return": 0.005,
-      "switch_net_25bps_stable": true
+      "raw_development_threshold": 0.0,
+      "raw_historical_cross_period_threshold": 0.0,
+      "raw_outer_retained_at_development_threshold": true,
+      "switch_net_25bps_development_threshold": 0.005,
+      "switch_net_25bps_historical_cross_period_threshold": 0.005,
+      "switch_net_25bps_outer_retained_at_development_threshold": true
     },
     {
       "horizon_days": 5,
-      "raw_minimum_underlying_return": 0.0,
-      "raw_stable": true,
-      "switch_net_25bps_minimum_underlying_return": 0.005,
-      "switch_net_25bps_stable": true
+      "raw_development_threshold": 0.0,
+      "raw_historical_cross_period_threshold": 0.0,
+      "raw_outer_retained_at_development_threshold": true,
+      "switch_net_25bps_development_threshold": 0.005,
+      "switch_net_25bps_historical_cross_period_threshold": 0.005,
+      "switch_net_25bps_outer_retained_at_development_threshold": true
     },
     {
       "horizon_days": 21,
-      "raw_minimum_underlying_return": 0.01,
-      "raw_stable": true,
-      "switch_net_25bps_minimum_underlying_return": 0.01,
-      "switch_net_25bps_stable": true
+      "raw_development_threshold": 0.005,
+      "raw_historical_cross_period_threshold": 0.01,
+      "raw_outer_retained_at_development_threshold": false,
+      "switch_net_25bps_development_threshold": 0.005,
+      "switch_net_25bps_historical_cross_period_threshold": 0.01,
+      "switch_net_25bps_outer_retained_at_development_threshold": false
     },
     {
       "horizon_days": 63,
-      "raw_minimum_underlying_return": 0.05,
-      "raw_stable": true,
-      "switch_net_25bps_minimum_underlying_return": 0.05,
-      "switch_net_25bps_stable": true
+      "raw_development_threshold": 0.05,
+      "raw_historical_cross_period_threshold": 0.05,
+      "raw_outer_retained_at_development_threshold": true,
+      "switch_net_25bps_development_threshold": 0.05,
+      "switch_net_25bps_historical_cross_period_threshold": 0.05,
+      "switch_net_25bps_outer_retained_at_development_threshold": true
     }
   ],
   "system_of_record": "qlib",

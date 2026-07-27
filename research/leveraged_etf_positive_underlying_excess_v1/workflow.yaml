@@ -27,7 +27,8 @@ stability_gate:
   minimum_nonoverlap_positive_share: 0.8
   minimum_positive_year_share: 0.8
   must_pass_both_pairs: true
-  outer_role: reused_diagnostic_only_not_selection
+  development_selection_uses_outer_test: false
+  outer_role: retention_diagnostic_and_historical_cross_period_map
 artifact_policy:
   policy: slim_card_recorder_first
   workflow_config: workflow.yaml
