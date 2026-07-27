@@ -1,0 +1,10 @@
+{
+  "selected_candidate": "ridge_a100_s025_u015",
+  "development_return_delta_pct_points": 44.04752904156743,
+  "development_max_drawdown_delta_pct_points": 0.960669030160954,
+  "development_worst_5d_delta_pct_points": 0.03952342463857583,
+  "development_turnover_reduction": 0.019941079334897416,
+  "outer_return_delta_pct_points": -27.602871240471018,
+  "decision": "not_promoted_turnover_or_robustness_gate_failed",
+  "selection_uses_outer_test": false
+}

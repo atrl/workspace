@@ -1,0 +1,22 @@
+experiment: stage1_controller_aware_distillation_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_controller_aware_distillation_v1/qlib_recorder
+market: US
+region: us
+source_stage1_frozen: true
+stage2_enabled: false
+selection_uses_outer_test: false
+outer_model_training_end: 2022-12-31
+incumbent_baseline: prescribed_annual_walk_forward_updates
+model_selection:
+  metric: development_terminal_wealth_then_turnover
+  parameter_neighborhood_required: true
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stage1_controller_aware_distillation_v1/teacher_training_frame.csv
+    - artifacts/stage1_controller_aware_distillation_v1/model_selection_full.csv
+    - artifacts/stage1_controller_aware_distillation_v1/portfolio_report.csv
+    - artifacts/stage1_controller_aware_distillation_v1/models/ridge_a100_s025_u015.pkl

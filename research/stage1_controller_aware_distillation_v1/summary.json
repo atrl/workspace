@@ -1,0 +1,282 @@
+{
+  "experiment": "stage1_controller_aware_distillation_v1",
+  "card_type": "stage1_controller_aware_distillation_research_card",
+  "primary_notebook": "stage1_controller_aware_distillation_v1.ipynb",
+  "system_of_record": "qlib",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+  "as_of": "2026-07-24",
+  "market": "US",
+  "region": "us",
+  "source_stage1": {
+    "experiment": "intraday_on_policy_staged_validation_v1",
+    "recorder_id": "f6b09330175e41719886d58ee2d11bec",
+    "training_end": "2022-12-30",
+    "stage2_enabled": false,
+    "frozen": true
+  },
+  "hypothesis": "A regularized continuous recovery-beta teacher can align the Stage1 safety controller with its 10:30 execution path without relaxing the 30% SOXL cap.",
+  "method": {
+    "teacher": "development-only hindsight best legal beta on the fixed 0.4/0.6/0.8/1.0/1.2 grid after the first four 15m bars",
+    "features": [
+      "portfolio_drawdown",
+      "current_beta_cap",
+      "raw_effective_beta",
+      "risk_state",
+      "early_ret_soxl",
+      "early_ret_soxx",
+      "early_dislocation",
+      "early_range_soxl",
+      "early_range_soxx",
+      "early_from_low_soxl",
+      "early_from_low_soxx",
+      "log_volume_soxl",
+      "log_volume_soxx",
+      "raw_soxl_weight",
+      "raw_soxx_weight",
+      "raw_cash_weight",
+      "tail_probability",
+      "alpha_probability",
+      "portfolio_ret_1d",
+      "portfolio_ret_3d",
+      "portfolio_ret_5d"
+    ],
+    "model": "qlib DatasetH plus regularized Ridge",
+    "development": "walk-forward annual fits through 2022",
+    "outer": "all challenger rows in 2023-2026 use one model trained only through 2022; outer is diagnostic and never selection input",
+    "incumbent_baseline": "the source Stage1 keeps its prescribed annual walk-forward prior-year teacher updates; challenger selection never reads the resulting outer comparison",
+    "hard_constraints": {
+      "maximum_soxl_weight": 0.3,
+      "minimum_cash_weight": 0.15,
+      "maximum_recovery_beta": 1.2
+    }
+  },
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "features": [
+      "portfolio_drawdown",
+      "current_beta_cap",
+      "raw_effective_beta",
+      "risk_state",
+      "early_ret_soxl",
+      "early_ret_soxx",
+      "early_dislocation",
+      "early_range_soxl",
+      "early_range_soxx",
+      "early_from_low_soxl",
+      "early_from_low_soxx",
+      "log_volume_soxl",
+      "log_volume_soxx",
+      "raw_soxl_weight",
+      "raw_soxx_weight",
+      "raw_cash_weight",
+      "tail_probability",
+      "alpha_probability",
+      "portfolio_ret_1d",
+      "portfolio_ret_3d",
+      "portfolio_ret_5d"
+    ],
+    "labels": [
+      "teacher_target_beta",
+      "teacher_target_uplift",
+      "teacher_best_return",
+      "teacher_current_beta_cap",
+      "teacher_raw_effective_beta"
+    ],
+    "segments": {
+      "all": [
+        "2019-01-02",
+        "2022-12-30"
+      ],
+      "train_outer": [
+        "2019-01-01",
+        "2022-12-31"
+      ],
+      "train_2020": [
+        "2019-01-01",
+        "2019-12-31"
+      ],
+      "train_2021": [
+        "2019-01-01",
+        "2020-12-31"
+      ],
+      "train_2022": [
+        "2019-01-01",
+        "2021-12-31"
+      ],
+      "train_2023": [
+        "2019-01-01",
+        "2022-12-31"
+      ]
+    },
+    "segment_rows": {
+      "all": 288,
+      "train_outer": 288,
+      "train_2020": 23,
+      "train_2021": 73,
+      "train_2022": 103,
+      "train_2023": 288
+    }
+  },
+  "teacher_audit": {
+    "rows": 288,
+    "positive_uplift_rows": 138,
+    "development_target_end": "2022-12-31"
+  },
+  "candidate_count": 5,
+  "selected_model": {
+    "name": "ridge_a100_s025_u015",
+    "ridge_alpha": 100.0,
+    "shrinkage": 0.25,
+    "minimum_predicted_uplift": 0.15,
+    "maximum_recovery_beta": 1.2
+  },
+  "development_baseline_metrics_10bps": {
+    "variant": "stage1_baseline",
+    "segment": "development_walk_forward",
+    "selection_uses_outer_test": false,
+    "ridge_alpha": null,
+    "shrinkage": null,
+    "minimum_predicted_uplift": null,
+    "maximum_recovery_beta": 0.6,
+    "terminal_wealth": 5.172720536123832,
+    "return_pct": 417.2720536123832,
+    "max_drawdown_pct": -27.488582391581463,
+    "worst_day_pct": -7.845988052345539,
+    "cvar5_pct": -4.11984370114141,
+    "worst_rolling_5d_pct": -11.858940216431579,
+    "stress_25bps_return_pct": 315.65524510845,
+    "stress_25bps_max_drawdown_pct": -30.509145252993587,
+    "stress_25bps_worst_rolling_5d_pct": -12.180752211372958,
+    "risk_window_pass_count": 7.0,
+    "positive_relative_window_count": 7.0,
+    "relative_ratio_min": 1.010417055454772,
+    "relative_ratio_p25": 1.0539843226104262,
+    "relative_ratio_median": 1.0699057774851397,
+    "turnover": 145.939551326174,
+    "turnover_reduction_vs_stage1": 0.0,
+    "action_count": 51,
+    "return_delta_vs_stage1_pct_points": 0.0,
+    "max_drawdown_delta_vs_stage1_pct_points": 0.0,
+    "worst_5d_delta_vs_stage1_pct_points": 0.0,
+    "selected": false
+  },
+  "development_selected_metrics_10bps": {
+    "variant": "ridge_a100_s025_u015",
+    "segment": "development_walk_forward",
+    "selection_uses_outer_test": false,
+    "ridge_alpha": 100.0,
+    "shrinkage": 0.25,
+    "minimum_predicted_uplift": 0.15,
+    "maximum_recovery_beta": 1.2,
+    "terminal_wealth": 5.613195826539506,
+    "return_pct": 461.31958265395065,
+    "max_drawdown_pct": -26.52791336142051,
+    "worst_day_pct": -7.845988052345539,
+    "cvar5_pct": -4.143565641165957,
+    "worst_rolling_5d_pct": -11.819416791793003,
+    "stress_25bps_return_pct": 353.0277993290898,
+    "stress_25bps_max_drawdown_pct": -29.802191957387926,
+    "stress_25bps_worst_rolling_5d_pct": -11.990882909424572,
+    "risk_window_pass_count": 7.0,
+    "positive_relative_window_count": 7.0,
+    "relative_ratio_min": 1.0031900497845496,
+    "relative_ratio_p25": 1.0504043075919949,
+    "relative_ratio_median": 1.0699057774851397,
+    "turnover": 143.02935915507945,
+    "turnover_reduction_vs_stage1": 0.019941079334897416,
+    "action_count": 226,
+    "return_delta_vs_stage1_pct_points": 44.04752904156743,
+    "max_drawdown_delta_vs_stage1_pct_points": 0.960669030160954,
+    "worst_5d_delta_vs_stage1_pct_points": 0.03952342463857583,
+    "selected": true
+  },
+  "outer_diagnostic_selected_metrics_10bps": {
+    "variant": "ridge_a100_s025_u015",
+    "segment": "outer_diagnostic",
+    "selection_uses_outer_test": false,
+    "ridge_alpha": 100.0,
+    "shrinkage": 0.25,
+    "minimum_predicted_uplift": 0.15,
+    "maximum_recovery_beta": 1.2,
+    "terminal_wealth": 6.141860783807477,
+    "return_pct": 514.1860783807477,
+    "max_drawdown_pct": -28.80671450820075,
+    "worst_day_pct": -9.383714522840133,
+    "cvar5_pct": -5.195224461216374,
+    "worst_rolling_5d_pct": -11.682821674959442,
+    "stress_25bps_return_pct": 443.40088666243093,
+    "stress_25bps_max_drawdown_pct": -30.028312109983602,
+    "stress_25bps_worst_rolling_5d_pct": -11.759201947438347,
+    "risk_window_pass_count": null,
+    "positive_relative_window_count": null,
+    "relative_ratio_min": null,
+    "relative_ratio_p25": null,
+    "relative_ratio_median": null,
+    "turnover": 81.79289272689766,
+    "turnover_reduction_vs_stage1": -0.13781232010812472,
+    "action_count": 211,
+    "return_delta_vs_stage1_pct_points": -27.602871240471018,
+    "max_drawdown_delta_vs_stage1_pct_points": -0.7016022734185228,
+    "worst_5d_delta_vs_stage1_pct_points": -0.0800122702773507,
+    "selected": true
+  },
+  "promotion_gates": {
+    "risk_gate_pass": true,
+    "relative_window_gate_pass": true,
+    "stage1_return_gate_pass": true,
+    "neighbor_gate_pass": true,
+    "neighbor_count": 3,
+    "neighbor_min_wealth_ratio": 0.9280767457280722,
+    "turnover_gate_pass": false,
+    "required_turnover_reduction": 0.2,
+    "development_return_delta_pct_points": 44.04752904156743,
+    "development_turnover_reduction": 0.019941079334897416,
+    "clean_unseen_holdout_available": false,
+    "outer_used_for_selection": false
+  },
+  "selection_uses_outer_test": false,
+  "outer_status": "reused_diagnostic_not_clean_unseen_holdout",
+  "decision": "not_promoted_turnover_or_robustness_gate_failed",
+  "promotion": "blocked",
+  "qlib_api": [
+    "qlib.init",
+    "qlib.data.D.calendar",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R",
+    "qlib.contrib.evaluate.risk_analysis"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/model.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html"
+  ],
+  "recorder_id": "c4c5082fa9eb4be3a6789deb7b80538a",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_controller_aware_distillation_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_controller_aware_distillation_v1/qlib_recorder/569983900966433436/c4c5082fa9eb4be3a6789deb7b80538a",
+  "sidecars": {
+    "selected_model": "selected_model.json",
+    "model_selection": "model_selection.csv",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "annual_metrics": "annual_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "training_summary": "training_summary.csv",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md",
+    "conclusion": "conclusion.md",
+    "workflow_config": "workflow.yaml"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/stage1_controller_aware_distillation_v1/teacher_training_frame.csv",
+      "artifacts/stage1_controller_aware_distillation_v1/model_selection_full.csv",
+      "artifacts/stage1_controller_aware_distillation_v1/portfolio_report.csv",
+      "artifacts/stage1_controller_aware_distillation_v1/models/ridge_a100_s025_u015.pkl"
+    ]
+  }
+}
