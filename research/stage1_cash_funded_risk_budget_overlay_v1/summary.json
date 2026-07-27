@@ -1,0 +1,410 @@
+{
+  "experiment": "stage1_cash_funded_risk_budget_overlay_v1",
+  "card_type": "stage1_cash_funded_risk_budget_research_card",
+  "primary_notebook": "stage1_cash_funded_risk_budget_overlay_v1.ipynb",
+  "system_of_record": "qlib",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "as_of": "2026-07-24",
+  "market": "US",
+  "region": "us",
+  "source_stage1": {
+    "experiment": "intraday_on_policy_staged_validation_v1",
+    "recorder_id": "f6b09330175e41719886d58ee2d11bec",
+    "training_end": "2022-12-30",
+    "stage2_enabled": false,
+    "frozen": true
+  },
+  "hypothesis": "When Stage1 is already at its 30% SOXL ceiling but retains cash, a low-frequency non-overextended trend gate can fund a small SOXL or SOXX overlay from cash without replacing SOXX.",
+  "method": {
+    "capital_source": "cash_only",
+    "holding_period": "next_open_to_following_open",
+    "base_stage1": "frozen",
+    "development": "2018-2022 expanding prior-year thresholds",
+    "outer": "2023-2026 thresholds frozen using data through 2022-12-30; outer excluded from selection",
+    "gate": {
+      "required": [
+        "Stage1 SOXL weight at 30% cap",
+        "SOXX 20d trend positive",
+        "relative momentum not above prior cap-event q67"
+      ],
+      "quality_variant_adds": [
+        "SOXX volatility below prior cap-event q75",
+        "chop risk below prior cap-event median"
+      ]
+    },
+    "hard_constraints": {
+      "minimum_cash_weight": 0.15,
+      "source_maximum_soxl_weight": 0.3,
+      "overlay_maximum_soxl_weight": 0.4,
+      "long_only": true,
+      "weights_sum_to_one": true
+    }
+  },
+  "candidate_count": 6,
+  "candidates": [
+    {
+      "name": "soxl_005_pullback",
+      "asset": "SOXL",
+      "maximum_overlay_weight": 0.05,
+      "gate": "trend_positive_momentum_not_overextended"
+    },
+    {
+      "name": "soxl_010_pullback",
+      "asset": "SOXL",
+      "maximum_overlay_weight": 0.1,
+      "gate": "trend_positive_momentum_not_overextended"
+    },
+    {
+      "name": "soxl_005_quality",
+      "asset": "SOXL",
+      "maximum_overlay_weight": 0.05,
+      "gate": "pullback_low_vol_low_chop"
+    },
+    {
+      "name": "soxl_010_quality",
+      "asset": "SOXL",
+      "maximum_overlay_weight": 0.1,
+      "gate": "pullback_low_vol_low_chop"
+    },
+    {
+      "name": "soxx_005_quality",
+      "asset": "SOXX",
+      "maximum_overlay_weight": 0.05,
+      "gate": "pullback_low_vol_low_chop"
+    },
+    {
+      "name": "soxx_010_quality",
+      "asset": "SOXX",
+      "maximum_overlay_weight": 0.1,
+      "gate": "pullback_low_vol_low_chop"
+    }
+  ],
+  "selected_model": {
+    "name": "soxl_010_pullback",
+    "asset": "SOXL",
+    "maximum_overlay_weight": 0.1,
+    "gate": "trend_positive_momentum_not_overextended",
+    "selection_uses_outer_test": false
+  },
+  "development_baseline_metrics_10bps": {
+    "variant": "stage1_baseline",
+    "segment": "development_walk_forward",
+    "selection_uses_outer_test": false,
+    "asset": "BASELINE",
+    "gate": "none",
+    "maximum_overlay_weight": 0.0,
+    "terminal_wealth": 3.2141247493902614,
+    "return_pct": 221.41247493902614,
+    "max_drawdown_pct": -27.488582391581495,
+    "worst_day_pct": -7.058978409639723,
+    "cvar5_pct": -4.30628318897681,
+    "worst_rolling_5d_pct": -11.858940216431579,
+    "stress_25bps_return_pct": 172.38654939071046,
+    "stress_25bps_max_drawdown_pct": -30.509145252993587,
+    "stress_25bps_worst_rolling_5d_pct": -12.180752211372958,
+    "baseline_return_pct": 221.41247493902614,
+    "baseline_max_drawdown_pct": -27.488582391581495,
+    "baseline_worst_rolling_5d_pct": -11.858940216431579,
+    "baseline_stress_25bps_return_pct": 172.38654939071046,
+    "return_delta_pct_points": 0.0,
+    "max_drawdown_delta_pct_points": 0.0,
+    "worst_5d_delta_pct_points": 0.0,
+    "action_count": 0,
+    "positive_action_rate": null,
+    "positive_relative_years": 0,
+    "incremental_turnover": 0.0,
+    "incremental_turnover_ratio": 0.0,
+    "average_overlay_weight": 0.0,
+    "return_gate_pass": null,
+    "action_count_gate_pass": null,
+    "positive_action_gate_pass": null,
+    "positive_years_gate_pass": null,
+    "max_drawdown_gate_pass": null,
+    "worst_5d_gate_pass": null,
+    "turnover_gate_pass": null,
+    "neighbor_gate_pass": null,
+    "neighbor_count": null,
+    "neighbor_min_wealth_ratio": null,
+    "neighbor_positive_count": null,
+    "gate_pass_count": null,
+    "all_development_gates_pass": null,
+    "selected": false
+  },
+  "development_selected_metrics_10bps": {
+    "variant": "soxl_010_pullback",
+    "segment": "development_walk_forward",
+    "selection_uses_outer_test": false,
+    "asset": "SOXL",
+    "gate": "trend_positive_momentum_not_overextended",
+    "maximum_overlay_weight": 0.1,
+    "terminal_wealth": 3.2440291055369284,
+    "return_pct": 224.40291055369283,
+    "max_drawdown_pct": -28.25894423634896,
+    "worst_day_pct": -7.058978409639723,
+    "cvar5_pct": -4.328434214999518,
+    "worst_rolling_5d_pct": -11.858940216431579,
+    "stress_25bps_return_pct": 174.63493509346773,
+    "stress_25bps_max_drawdown_pct": -31.26863210682087,
+    "stress_25bps_worst_rolling_5d_pct": -12.180752211372958,
+    "baseline_return_pct": 221.41247493902614,
+    "baseline_max_drawdown_pct": -27.488582391581495,
+    "baseline_worst_rolling_5d_pct": -11.858940216431579,
+    "baseline_stress_25bps_return_pct": 172.38654939071046,
+    "return_delta_pct_points": 2.990435614666694,
+    "max_drawdown_delta_pct_points": -0.7703618447674643,
+    "worst_5d_delta_pct_points": 0.0,
+    "action_count": 12,
+    "positive_action_rate": 0.6666666666666666,
+    "positive_relative_years": 3,
+    "incremental_turnover": 0.6934441991189375,
+    "incremental_turnover_ratio": 0.006278603258080345,
+    "average_overlay_weight": 0.0005140685948568696,
+    "return_gate_pass": false,
+    "action_count_gate_pass": true,
+    "positive_action_gate_pass": true,
+    "positive_years_gate_pass": true,
+    "max_drawdown_gate_pass": true,
+    "worst_5d_gate_pass": true,
+    "turnover_gate_pass": true,
+    "neighbor_gate_pass": true,
+    "neighbor_count": 2.0,
+    "neighbor_min_wealth_ratio": 0.9927597974308111,
+    "neighbor_positive_count": 2.0,
+    "gate_pass_count": 7.0,
+    "all_development_gates_pass": false,
+    "selected": true
+  },
+  "outer_diagnostic_selected_metrics_10bps": {
+    "variant": "soxl_010_pullback",
+    "segment": "outer_reused_diagnostic",
+    "selection_uses_outer_test": false,
+    "asset": "SOXL",
+    "gate": "trend_positive_momentum_not_overextended",
+    "maximum_overlay_weight": 0.1,
+    "terminal_wealth": 6.199957032866708,
+    "return_pct": 519.9957032866708,
+    "max_drawdown_pct": -28.105112234782304,
+    "worst_day_pct": -9.383714522840133,
+    "cvar5_pct": -5.261593661382325,
+    "worst_rolling_5d_pct": -12.808590791233865,
+    "stress_25bps_return_pct": 451.97129265104985,
+    "stress_25bps_max_drawdown_pct": -29.088721515490047,
+    "stress_25bps_worst_rolling_5d_pct": -12.904457729777906,
+    "baseline_return_pct": 542.653315361169,
+    "baseline_max_drawdown_pct": -28.105112234782304,
+    "baseline_worst_rolling_5d_pct": -11.602809404682091,
+    "baseline_stress_25bps_return_pct": 473.1961785652809,
+    "return_delta_pct_points": -22.65761207449816,
+    "max_drawdown_delta_pct_points": 0.0,
+    "worst_5d_delta_pct_points": -1.2057813865517737,
+    "action_count": 42,
+    "positive_action_rate": 0.5238095238095238,
+    "positive_relative_years": 0,
+    "incremental_turnover": 1.2121572146808863,
+    "incremental_turnover_ratio": 0.015863730763561006,
+    "average_overlay_weight": 0.0022175723780272242,
+    "return_gate_pass": false,
+    "action_count_gate_pass": true,
+    "positive_action_gate_pass": true,
+    "positive_years_gate_pass": true,
+    "max_drawdown_gate_pass": true,
+    "worst_5d_gate_pass": true,
+    "turnover_gate_pass": true,
+    "neighbor_gate_pass": true,
+    "neighbor_count": 2.0,
+    "neighbor_min_wealth_ratio": 0.9927597974308111,
+    "neighbor_positive_count": 2.0,
+    "gate_pass_count": 7.0,
+    "all_development_gates_pass": false,
+    "selected": true
+  },
+  "selection_gates": {
+    "return_gate_pass": false,
+    "action_count_gate_pass": true,
+    "positive_action_gate_pass": true,
+    "positive_years_gate_pass": true,
+    "max_drawdown_gate_pass": true,
+    "worst_5d_gate_pass": true,
+    "turnover_gate_pass": true,
+    "neighbor_gate_pass": true,
+    "all_development_gates_pass": false,
+    "gate_pass_count": 7,
+    "neighbor_count": 2,
+    "neighbor_min_wealth_ratio": 0.9927597974308111,
+    "neighbor_positive_count": 2,
+    "required_return_delta_pct_points": 20.0,
+    "clean_unseen_holdout_available": false,
+    "outer_used_for_selection": false
+  },
+  "cash_audit": {
+    "development_cap_rows": 69,
+    "development_mean_cash_weight": 0.19764796930534045,
+    "outer_cap_rows": 176,
+    "outer_mean_cash_weight": 0.21082081608981798
+  },
+  "momentum_audit": {
+    "development_spearman_vs_soxl_minus_soxx": -0.180306905370844,
+    "development_low_third_mean_spread": 0.006994045078260868,
+    "development_high_third_mean_spread": -0.0034924175400000003,
+    "outer_spearman_vs_soxl_minus_soxx": 0.03156724631300903
+  },
+  "selection_uses_outer_test": false,
+  "outer_status": "reused_diagnostic_not_clean_unseen_holdout",
+  "decision": "not_promoted_development_uplift_or_coverage_gates_failed",
+  "promotion": "blocked",
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "features": [
+      "soxx_trend20",
+      "relative_momentum20",
+      "soxx_vol20",
+      "chop_breakdown_risk"
+    ],
+    "labels": [
+      "cash_to_soxl_return",
+      "cash_to_soxx_return",
+      "cap_bind",
+      "cash_available"
+    ],
+    "segments": {
+      "all": [
+        "2016-01-04",
+        "2026-07-22"
+      ],
+      "development": [
+        "2018-01-01",
+        "2022-12-31"
+      ],
+      "outer": [
+        "2023-01-01",
+        "2026-12-31"
+      ],
+      "train_outer": [
+        "2016-01-01",
+        "2022-12-30"
+      ],
+      "train_2018": [
+        "2016-01-01",
+        "2017-12-31"
+      ],
+      "test_2018": [
+        "2018-01-01",
+        "2018-12-31"
+      ],
+      "train_2019": [
+        "2016-01-01",
+        "2018-12-31"
+      ],
+      "test_2019": [
+        "2019-01-01",
+        "2019-12-31"
+      ],
+      "train_2020": [
+        "2016-01-01",
+        "2019-12-31"
+      ],
+      "test_2020": [
+        "2020-01-01",
+        "2020-12-31"
+      ],
+      "train_2021": [
+        "2016-01-01",
+        "2020-12-31"
+      ],
+      "test_2021": [
+        "2021-01-01",
+        "2021-12-31"
+      ],
+      "train_2022": [
+        "2016-01-01",
+        "2021-12-31"
+      ],
+      "test_2022": [
+        "2022-01-01",
+        "2022-12-31"
+      ],
+      "test_2023": [
+        "2023-01-01",
+        "2023-12-31"
+      ],
+      "test_2024": [
+        "2024-01-01",
+        "2024-12-31"
+      ],
+      "test_2025": [
+        "2025-01-01",
+        "2025-12-31"
+      ],
+      "test_2026": [
+        "2026-01-01",
+        "2026-12-31"
+      ]
+    },
+    "segment_rows": {
+      "all": 2652,
+      "development": 1259,
+      "outer": 890,
+      "train_outer": 1762,
+      "train_2018": 503,
+      "test_2018": 251,
+      "train_2019": 754,
+      "test_2019": 252,
+      "train_2020": 1006,
+      "test_2020": 253,
+      "train_2021": 1259,
+      "test_2021": 252,
+      "train_2022": 1511,
+      "test_2022": 251,
+      "test_2023": 250,
+      "test_2024": 252,
+      "test_2025": 250,
+      "test_2026": 138
+    }
+  },
+  "threshold_audit": {
+    "outer_training_end": "2022-12-30",
+    "outer_unique_threshold_rows": 1
+  },
+  "qlib_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R",
+    "qlib.contrib.evaluate.risk_analysis"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/model.html"
+  ],
+  "recorder_id": "84eff9da51e943958ebe1193cc07b5dc",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_cash_funded_risk_budget_overlay_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_cash_funded_risk_budget_overlay_v1/qlib_recorder/816784797224074224/84eff9da51e943958ebe1193cc07b5dc",
+  "sidecars": {
+    "selected_model": "selected_model.json",
+    "model_selection": "model_selection.csv",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "annual_metrics": "annual_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "cash_availability": "cash_availability.csv",
+    "factor_diagnostics": "factor_diagnostics.csv",
+    "momentum_failure": "momentum_failure.csv",
+    "threshold_schedule": "threshold_schedule.csv",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md",
+    "conclusion": "conclusion.md",
+    "workflow_config": "workflow.yaml"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/stage1_cash_funded_risk_budget_overlay_v1/portfolio_report.csv",
+      "artifacts/stage1_cash_funded_risk_budget_overlay_v1/model_selection_full.csv",
+      "artifacts/stage1_cash_funded_risk_budget_overlay_v1/factor_label_frame.csv"
+    ]
+  }
+}

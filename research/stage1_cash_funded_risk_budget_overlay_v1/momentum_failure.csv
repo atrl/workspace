@@ -1,0 +1,10 @@
+year,segment,cap_rows,positive_momentum_rows,positive_momentum_success_rate,positive_momentum_mean_spread,positive_momentum_failure_count
+2018,development_walk_forward,11,11,0.8181818181818182,0.0069890999,2
+2019,development_walk_forward,46,29,0.4482758620689655,-0.00818115677310345,16
+2020,development_walk_forward,3,0,,,0
+2021,development_walk_forward,4,4,0.75,0.025478245750000003,1
+2022,development_walk_forward,5,2,0.0,-0.039241819,2
+2023,outer_reused_diagnostic,14,9,0.4444444444444444,-0.0007985830307006836,5
+2024,outer_reused_diagnostic,5,5,0.8,0.0035385727882385255,1
+2025,outer_reused_diagnostic,77,62,0.5645161290322581,0.00325852632522583,27
+2026,outer_reused_diagnostic,80,73,0.6164383561643836,0.010287091340104195,28

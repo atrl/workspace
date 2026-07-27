@@ -1,0 +1,25 @@
+experiment: stage1_cash_funded_risk_budget_overlay_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_cash_funded_risk_budget_overlay_v1/qlib_recorder
+market: US
+region: us
+source_stage1_recorder: f6b09330175e41719886d58ee2d11bec
+source_stage1_frozen: true
+stage2_enabled: false
+capital_source: cash_only
+minimum_cash_weight: 0.15
+source_maximum_soxl_weight: 0.30
+overlay_maximum_soxl_weight: 0.40
+selection_uses_outer_test: false
+outer_threshold_training_end: 2022-12-30
+model_selection:
+  candidate_count: 6
+  segment: 2018-2022_development_walk_forward
+  benchmark: frozen_stage1
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stage1_cash_funded_risk_budget_overlay_v1/portfolio_report.csv
+    - artifacts/stage1_cash_funded_risk_budget_overlay_v1/model_selection_full.csv
+    - artifacts/stage1_cash_funded_risk_budget_overlay_v1/factor_label_frame.csv
