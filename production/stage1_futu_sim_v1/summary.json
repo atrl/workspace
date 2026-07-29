@@ -1,7 +1,7 @@
 {
   "experiment": "stage1_futu_sim_v1",
   "card_type": "stage1_futu_sim_production_card",
-  "decision": "paper_sim_enabled_waiting_next_us_session",
+  "decision": "paper_sim_blocked_failed_position_risk_gates",
   "source_experiment": "intraday_on_policy_staged_validation_v1",
   "source_recorder_id": "f6b09330175e41719886d58ee2d11bec",
   "source_decision": "promoted_research_candidate_stage1_direct_allocation_stage2_gated",
@@ -24,34 +24,32 @@
     "cash_is_residual": true
   },
   "latest_target": {
-    "status": "pending_next_open_mark",
+    "status": "ready",
     "slot": "open",
-    "signal_date": "2026-07-24",
-    "latest_complete_signal_date": "2026-07-22",
-    "pending_signal_dates": [
-      "2026-07-23"
-    ],
+    "signal_date": "2026-07-27",
+    "latest_complete_signal_date": "2026-07-24",
+    "pending_signal_dates": [],
     "pending_settled": [],
     "weights": {
-      "SOXL": 0.27049207675799836,
-      "SOXX": 0.5033398929492063,
-      "cash": 0.2261680302927953
+      "SOXL": 0.0,
+      "SOXX": 0.3,
+      "cash": 0.7
     },
     "open_weights": {
-      "SOXL": 0.27049207675799836,
-      "SOXX": 0.5033398929492063,
-      "cash": 0.2261680302927953
+      "SOXL": 0.0,
+      "SOXX": 0.3,
+      "cash": 0.7
     },
     "recovery_weights": {
-      "SOXL": 0.27049207675799836,
-      "SOXX": 0.5033398929492063,
-      "cash": 0.2261680302927953
+      "SOXL": 0.0,
+      "SOXX": 0.3,
+      "cash": 0.7
     },
     "recovery_probability": null,
     "recovery_action": false,
-    "portfolio_drawdown": 0.18107626868780957,
-    "current_beta_cap": 1.3148161232232014,
-    "raw_effective_beta": 1.3148161232232014,
+    "portfolio_drawdown": 0.2747816536001595,
+    "current_beta_cap": 0.3,
+    "raw_effective_beta": 1.3625388645741205,
     "runtime_replay_parity_max_abs_error": 0.0,
     "source_audit": {
       "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
@@ -60,8 +58,8 @@
       "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
       "source_model_frozen": true,
       "source_training_end": "2022-12-30",
-      "latest_signal_date": "2026-07-24",
-      "latest_complete_signal_date": "2026-07-22",
+      "latest_signal_date": "2026-07-27",
+      "latest_complete_signal_date": "2026-07-24",
       "market_audit": {
         "execution_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
         "daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
@@ -70,7 +68,7 @@
           "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
           "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
           "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
-          "as_of": "2026-07-24",
+          "as_of": "2026-07-28",
           "instruments": [
             "SOXL",
             "SOXS",
@@ -82,17 +80,17 @@
             "$low",
             "$close"
           ],
-          "calendar_rows": 4118,
-          "usable_rows": 4059,
+          "calendar_rows": 4120,
+          "usable_rows": 4061,
           "usable_start": "2010-06-04",
-          "usable_end": "2026-07-24",
+          "usable_end": "2026-07-28",
           "include_incomplete_latest": true,
           "relationship_audit": {
-            "common_end": "2026-07-24",
-            "common_rows_per_instrument": 4118,
+            "common_end": "2026-07-28",
+            "common_rows_per_instrument": 4120,
             "common_start": "2010-03-11",
-            "soxs_soxl_close_return_correlation": -0.9971607051342226,
-            "soxs_soxx_close_return_correlation": -0.9979864005517669
+            "soxs_soxl_close_return_correlation": -0.9971658295493891,
+            "soxs_soxx_close_return_correlation": -0.9979894869540638
           },
           "source_api": [
             "qlib.init",
@@ -101,8 +99,8 @@
           ]
         },
         "calendar_start": "2010-06-04",
-        "calendar_end": "2026-07-24",
-        "common_feature_end": "2026-07-24",
+        "calendar_end": "2026-07-27",
+        "common_feature_end": "2026-07-27",
         "source_api": "qlib.data.D.features",
         "include_incomplete_latest": true,
         "excluded_sources": {
@@ -189,47 +187,47 @@
   "backtest_comparison": {
     "window": {
       "start": "2023-01-04",
-      "end": "2026-07-24",
-      "stage1_rows": 890
+      "end": "2026-07-28",
+      "stage1_rows": 892
     },
     "stage1_10bps": {
-      "terminal_wealth": 6.4178894962121875,
-      "return_pct": 541.7889496212188,
-      "max_drawdown_pct": -28.105112234782226,
+      "terminal_wealth": 5.683527953593605,
+      "return_pct": 468.35279535936047,
+      "max_drawdown_pct": -28.105109892182757,
       "worst_day_pct": -9.383714522840133,
-      "cvar5_pct": -5.233616449643784,
-      "worst_rolling_5d_pct": -11.602809404682091
+      "cvar5_pct": -5.33927059475399,
+      "worst_rolling_5d_pct": -12.109046905003872
     },
     "soxx": {
-      "terminal_wealth": 4.762753847392585,
-      "return_pct": 376.27538473925847
+      "terminal_wealth": 4.3461141770610725,
+      "return_pct": 334.61141770610726
     },
     "soxlbacktest_native_frictionless": {
       "requested_start": "2023-01-04",
       "start": "2023-01-04",
-      "end": "2026-07-24",
-      "rows": 891,
+      "end": "2026-07-28",
+      "rows": 893,
       "initial_capital": 100000.0,
-      "final_capital": 443081.5178784943,
-      "soxl_buyhold_return_pct": 1258.5899120763393,
-      "rulebase_return_pct": 343.0815178784943,
+      "final_capital": 436509.4478784943,
+      "soxl_buyhold_return_pct": 987.7855344553922,
+      "rulebase_return_pct": 336.50944787849426,
       "rulebase_max_drawdown_pct": 55.139798629149915,
-      "average_position_pct": 30.517205387205394,
+      "average_position_pct": 30.471612541993288,
       "end_position_pct": 10.16,
       "trade_count": 21
     },
     "soxlbacktest_cost_normalized_10bps": {
-      "terminal_wealth": 4.412037035565704,
-      "return_pct": 341.2037035565704,
+      "terminal_wealth": 4.346594865061355,
+      "return_pct": 334.65948650613547,
       "max_drawdown_pct": -55.16096543126543,
       "worst_day_pct": -14.448042709736661,
       "cvar5_pct": -5.5973489676148,
       "worst_rolling_5d_pct": -25.541735442663914
     },
-    "stage1_minus_soxlbacktest_10bps_return_pct_points": 200.58524606464835,
+    "stage1_minus_soxlbacktest_10bps_return_pct_points": 133.693308853225,
     "methodology_warning": "Stage1 uses prior-close signal with open/open and 10:30 execution; soxlbacktest is a legacy close-price rule engine. Date and cost are matched, but execution semantics are not identical."
   },
-  "risk_gate_pass": true,
+  "risk_gate_pass": false,
   "dashboard": {
     "entrypoint": "production/run_stage1_dashboard.sh",
     "url": "http://127.0.0.1:8765/",
@@ -250,7 +248,7 @@
       "artifacts/stage1_futu_sim_v1/latest_target.json"
     ]
   },
-  "recorder_id": "04236fdaa94748b6a580b15759bb7382",
+  "recorder_id": "723edc94be6b4ed49eb5eb28d69b8b85",
   "recorder_uri": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/04236fdaa94748b6a580b15759bb7382"
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/723edc94be6b4ed49eb5eb28d69b8b85"
 }

@@ -456,9 +456,14 @@ def _fetch_vix_with_fallback(*, start: str, end: str) -> tuple[pd.DataFrame, str
     ]:
         try:
             frame = fetcher(start=start, end=end)
-            if not frame.empty:
-                return frame, source
-            errors.append(f"{source}: empty")
+            if frame.empty:
+                errors.append(f"{source}: empty")
+                continue
+            last_date = pd.to_datetime(frame["date"]).max().date().isoformat()
+            if last_date < end:
+                errors.append(f"{source}: stale at {last_date}, requested {end}")
+                continue
+            return frame, source
         except Exception as exc:  # pragma: no cover - exercised by live provider fallback
             errors.append(f"{source}: {exc}")
     raise RuntimeError(f"no VIX provider succeeded: {'; '.join(errors)}")

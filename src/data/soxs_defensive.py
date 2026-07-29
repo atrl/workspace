@@ -103,6 +103,44 @@ def fetch_yahoo_adjustment_factors(symbol: str, *, start: str, end: str) -> pd.D
     return factors.loc[:, ["date", "adjustment_factor"]].drop_duplicates("date", keep="last")
 
 
+def merge_yahoo_adjustment_factors(
+    prices: pd.DataFrame,
+    adjustments: pd.DataFrame,
+    *,
+    symbol: str,
+    max_trailing_business_days: int = 3,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    merged = prices.merge(adjustments, on="date", how="left", validate="one_to_one")
+    missing = merged.loc[merged["adjustment_factor"].isna(), "date"].sort_values()
+    if missing.empty:
+        return merged, {
+            "adjustment_factor_source_end": pd.Timestamp(adjustments["date"].max()).date().isoformat(),
+            "trailing_adjustment_fill_dates": [],
+        }
+
+    source_end = pd.Timestamp(adjustments["date"].max())
+    missing_dates = pd.to_datetime(missing)
+    trailing_days = pd.bdate_range(source_end + pd.Timedelta(days=1), missing_dates.max())
+    latest_factor = float(
+        adjustments.sort_values("date").iloc[-1]["adjustment_factor"]
+    )
+    safe_trailing_gap = (
+        bool((missing_dates > source_end).all())
+        and len(trailing_days) <= max_trailing_business_days
+        and np.isclose(latest_factor, 1.0, atol=1e-8)
+    )
+    if not safe_trailing_gap:
+        raise ValueError(f"Yahoo dividend adjustment factors do not cover stitched {symbol} history")
+
+    merged["adjustment_factor"] = merged["adjustment_factor"].fillna(latest_factor)
+    return merged, {
+        "adjustment_factor_source_end": source_end.date().isoformat(),
+        "trailing_adjustment_fill_dates": [
+            pd.Timestamp(value).date().isoformat() for value in missing_dates
+        ],
+    }
+
+
 def stitch_yahoo_to_nasdaq(yahoo: pd.DataFrame, nasdaq: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]:
     yahoo_frame = yahoo.loc[:, ["date", *PRICE_COLUMNS]].copy()
     yahoo_frame["date"] = pd.to_datetime(yahoo_frame["date"])
@@ -163,9 +201,12 @@ def build_soxs_defensive_provider(
         nasdaq = fetch_nasdaq_history(symbol, start=start, end=end)
         combined, audit = stitch_yahoo_to_nasdaq(yahoo, nasdaq)
         adjustments = fetch_yahoo_adjustment_factors(symbol, start=start, end=end)
-        combined = combined.merge(adjustments, on="date", how="left", validate="one_to_one")
-        if combined["adjustment_factor"].isna().any():
-            raise ValueError(f"Yahoo dividend adjustment factors do not cover stitched {symbol} history")
+        combined, adjustment_audit = merge_yahoo_adjustment_factors(
+            combined,
+            adjustments,
+            symbol=symbol,
+        )
+        audit.update(adjustment_audit)
         for column in PRICE_COLUMNS:
             combined[column] *= combined["adjustment_factor"]
         audit["dividend_adjustment_factor_min"] = float(combined["adjustment_factor"].min())

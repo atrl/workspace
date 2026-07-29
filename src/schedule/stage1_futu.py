@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 
 import pandas as pd
 
-from src.api import FutuSimulatedBroker
+from src.api import FutuSimulatedBroker, opend_reachable
 from src.data import build_qlib_store_from_frame
 from src.data.intraday import (
     fetch_futu_intraday_bars,
@@ -159,6 +159,11 @@ def refresh_stage1_data(
     port: int = 11111,
 ) -> dict[str, Any]:
     repo_root = _resolve_root(root)
+    if not opend_reachable(host, port):
+        raise RuntimeError(
+            f"blocked: Futu OpenD is not reachable at {host}:{port}; "
+            "market-data refresh was not started"
+        )
     settled = end or _default_end_date()
     market = update_market_data(
         provider="futu",
@@ -206,6 +211,18 @@ def detect_slot(now: datetime | None = None) -> str:
     return "not_due"
 
 
+def _production_execution_gate(root: Path) -> tuple[bool, str | None]:
+    summary_path = root / "production" / "stage1_futu_sim_v1" / "summary.json"
+    if not summary_path.exists():
+        return False, "missing_production_summary"
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    if summary.get("risk_gate_pass") is not True:
+        return False, "failed_position_risk_gates"
+    if summary.get("decision") != "paper_sim_enabled_waiting_next_us_session":
+        return False, "production_decision_not_enabled"
+    return True, None
+
+
 def run_stage1_futu_task(
     *,
     root: Path | str | None = None,
@@ -248,6 +265,17 @@ def run_stage1_futu_task(
         return result
     if selected_slot not in {"open", "recovery"}:
         raise ValueError(f"unsupported Stage1 Futu task slot: {selected_slot}")
+
+    execution_allowed, gate_reason = _production_execution_gate(repo_root)
+    if not execution_allowed:
+        result = {
+            "status": "blocked",
+            "reason": gate_reason,
+            "slot": selected_slot,
+            "real_broker_order": False,
+        }
+        _write_latest(runtime_dir / "latest_run.json", result)
+        return result
 
     with FutuSimulatedBroker(host=host, port=port) as broker:
         prices = broker.quotes()

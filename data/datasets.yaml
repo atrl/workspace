@@ -6,10 +6,10 @@ external:
     rows: 9124
     start: null
   VIX:
-    end: '2026-07-24'
+    end: '2026-07-28'
     exists: true
     path: data/raw/external/VIX.csv
-    rows: 4118
+    rows: 4120
     start: '2010-03-11'
   VIX3M:
     end: null
@@ -96,16 +96,16 @@ external:
     rows: 391
     start: '2026-05-22'
   futu_history_kline_US_SOXL:
-    end: '2026-07-24'
+    end: '2026-07-28'
     exists: true
     path: data/raw/external/futu_history_kline_US_SOXL.csv
-    rows: 4094
+    rows: 4096
     start: '2010-03-31'
   futu_history_kline_US_SOXX:
-    end: '2026-07-24'
+    end: '2026-07-28'
     exists: true
     path: data/raw/external/futu_history_kline_US_SOXX.csv
-    rows: 4110
+    rows: 4112
     start: '2010-03-11'
   futu_snapshot_US_SOXL:
     end: '2026-05-22'
@@ -161,17 +161,17 @@ external:
     path: data/raw/external/yield_curve_10y3m.csv
     rows: 11081
     start: null
-generated_at: '2026-07-25T03:27:17.335859+00:00'
+generated_at: '2026-07-29T09:08:21.564919+00:00'
 intraday:
   soxl_soxx_1m:
-    end: '2026-07-23T16:00:00-04:00'
+    end: '2026-07-28T16:00:00-04:00'
     exists: true
     intervals:
     - 1m
     path: data/processed/intraday/soxl_soxx_1m.parquet
     providers:
     - futu
-    rows: 1476600
+    rows: 1478282
     start: '2018-12-31T09:31:00-05:00'
     symbols:
     - SOXL
@@ -187,10 +187,10 @@ layout:
   training_cache: data/cache/training/<profile>.pkl
 processed_panels:
   soxl_soxx_vix_full:
-    end: '2026-07-24'
+    end: '2026-07-28'
     exists: true
     path: data/processed/panels/soxl_soxx_vix_full.csv
-    rows: 4118
+    rows: 4120
     start: '2010-03-11'
   soxl_with_underlying_vix:
     end: '2026-04-13'
@@ -217,28 +217,28 @@ processed_panels:
     rows: 4041
     start: null
   spxl_with_underlying_vix:
-    end: '2026-07-24'
+    end: '2026-07-27'
     exists: true
     path: data/processed/panels/spxl_with_underlying_vix.csv
-    rows: 4455
+    rows: 4456
     start: '2008-11-05'
   tecl_with_underlying_vix:
-    end: '2026-07-24'
+    end: '2026-07-27'
     exists: true
     path: data/processed/panels/tecl_with_underlying_vix.csv
-    rows: 4418
+    rows: 4419
     start: '2008-12-30'
   tqqq_with_underlying_vix:
-    end: '2026-07-24'
+    end: '2026-07-27'
     exists: true
     path: data/processed/panels/tqqq_with_underlying_vix.csv
-    rows: 4137
+    rows: 4138
     start: '2010-02-11'
   upro_with_underlying_vix:
-    end: '2026-07-24'
+    end: '2026-07-27'
     exists: true
     path: data/processed/panels/upro_with_underlying_vix.csv
-    rows: 4296
+    rows: 4297
     start: '2009-06-25'
   vix:
     end: null
@@ -306,40 +306,40 @@ raw_constituents:
     survivorship_biased_current_constituents: true
 symbols:
   SOXL:
-    end: '2026-07-24'
+    end: '2026-07-28'
     exists: true
     path: data/raw/symbols/SOXL.csv
-    rows: 4118
+    rows: 4120
     start: '2010-03-11'
   SOXX:
-    end: '2026-07-24'
+    end: '2026-07-28'
     exists: true
     path: data/raw/symbols/SOXX.csv
-    rows: 4118
+    rows: 4120
     start: '2010-03-11'
   SPXL:
-    end: '2026-07-24'
+    end: '2026-07-27'
     exists: true
     path: data/raw/symbols/SPXL.csv
-    rows: 4455
+    rows: 4456
     start: '2008-11-05'
   TECL:
-    end: '2026-07-24'
+    end: '2026-07-27'
     exists: true
     path: data/raw/symbols/TECL.csv
-    rows: 4418
+    rows: 4419
     start: '2008-12-30'
   TQQQ:
-    end: '2026-07-24'
+    end: '2026-07-27'
     exists: true
     path: data/raw/symbols/TQQQ.csv
-    rows: 4137
+    rows: 4138
     start: '2010-02-11'
   UPRO:
-    end: '2026-07-24'
+    end: '2026-07-27'
     exists: true
     path: data/raw/symbols/UPRO.csv
-    rows: 4296
+    rows: 4297
     start: '2009-06-25'
 training_cache:
   SOXL_train:

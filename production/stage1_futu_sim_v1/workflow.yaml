@@ -1,6 +1,8 @@
 experiment: stage1_futu_sim_v1
 source_experiment: intraday_on_policy_staged_validation_v1
 source_recorder_id: f6b09330175e41719886d58ee2d11bec
+decision: paper_sim_blocked_failed_position_risk_gates
+risk_gate_pass: false
 assets: [SOXL, SOXX, cash]
 broker:
   name: futu

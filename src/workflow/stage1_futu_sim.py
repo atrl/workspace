@@ -696,6 +696,7 @@ def run_stage1_futu_sim_card(
     source_summary, _ = _selected_stage1(spec)
     target = build_runtime_target(root=repo_root)
     comparison, stage1, legacy_daily = build_matched_comparison(root=repo_root)
+    risk_gate_pass = _passes_risk(comparison["stage1_10bps"])
     recorder = _record_artifacts(
         spec,
         target=target,
@@ -706,7 +707,11 @@ def run_stage1_futu_sim_card(
     summary = {
         "experiment": spec.experiment,
         "card_type": "stage1_futu_sim_production_card",
-        "decision": "paper_sim_enabled_waiting_next_us_session",
+        "decision": (
+            "paper_sim_enabled_waiting_next_us_session"
+            if risk_gate_pass
+            else "paper_sim_blocked_failed_position_risk_gates"
+        ),
         "source_experiment": spec.source_experiment,
         "source_recorder_id": spec.source_recorder_id,
         "source_decision": source_summary["decision"],
@@ -723,7 +728,7 @@ def run_stage1_futu_sim_card(
         },
         "latest_target": target,
         "backtest_comparison": comparison,
-        "risk_gate_pass": _passes_risk(comparison["stage1_10bps"]),
+        "risk_gate_pass": risk_gate_pass,
         "dashboard": {
             "entrypoint": "production/run_stage1_dashboard.sh",
             "url": "http://127.0.0.1:8765/",
@@ -785,6 +790,8 @@ def run_stage1_futu_sim_card(
                 f"experiment: {spec.experiment}",
                 f"source_experiment: {spec.source_experiment}",
                 f"source_recorder_id: {spec.source_recorder_id}",
+                f"decision: {summary['decision']}",
+                f"risk_gate_pass: {str(risk_gate_pass).lower()}",
                 "assets: [SOXL, SOXX, cash]",
                 "broker:",
                 "  name: futu",
@@ -821,8 +828,9 @@ def run_stage1_futu_sim_card(
                 "",
                 "- 已把晋级的 Stage1 固定为生产模拟源；Stage2 仍关闭，失败的 stateful direct 模型没有进入任务。",
                 f"- 同口径区间：{comparison['window']['start']} 至 {comparison['window']['end']}；Stage1 10bp return={comparison['stage1_10bps']['return_pct']:.4f}%，MaxDD={comparison['stage1_10bps']['max_drawdown_pct']:.4f}%。",
+                f"- 当前生产决策={summary['decision']}；risk_gate_pass={str(risk_gate_pass).lower()}。风险门槛失败时，09:31/10:31 ET 调度会在连接券商前 fail-closed，不提交模拟订单。",
                 f"- legacy soxlbacktest 成本归一到 10bp 后 return={comparison['soxlbacktest_cost_normalized_10bps']['return_pct']:.4f}%，MaxDD={comparison['soxlbacktest_cost_normalized_10bps']['max_drawdown_pct']:.4f}%。",
-                f"- 当前最新信号日={target['signal_date']}；状态={target['status']}。周末无法提前知道下个开盘价，因此最终开盘仓位会在 09:31 ET 用模拟盘报价结算上一段路径后生成。",
+                f"- 当前最新信号日={target['signal_date']}；目标计算状态={target['status']}。该目标仅作诊断，只有生产风险门槛通过后才允许在 09:31 ET 进入模拟执行。",
                 "- 模拟账户只使用 10,000 美元策略名义本金；现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。",
                 "- 富途接口被限制为 SIMULATE；本任务没有真实账户分支。",
                 "- Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动，支持自选区间、冻结模型推理状态、交易/换仓点、因子变化诊断及 SOXL/SOXX 同窗对比。",

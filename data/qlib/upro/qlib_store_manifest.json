@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-07-24",
-  "audit_snapshot_hash": "7ad13b99964e644e",
-  "calendar_end": "2026-07-24",
+  "as_of": "2026-07-27",
+  "audit_snapshot_hash": "ff18d12c1cc4613b",
+  "calendar_end": "2026-07-27",
   "calendar_start": "2009-06-25",
   "feature_file_count": 12,
   "fields": [
@@ -13,17 +13,17 @@
     "$vix"
   ],
   "freq": "day",
-  "hash": "6a3329f97c4db146",
+  "hash": "72ad6bbb2ee323d5",
   "instruments": [
     "SPY",
     "UPRO"
   ],
   "market": "all",
-  "max_datetime": "2026-07-24",
+  "max_datetime": "2026-07-27",
   "operation": "qlib_store_build",
   "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/upro",
   "region": "us",
-  "row_count": 8592,
+  "row_count": 8594,
   "source": "/Users/rziiiii/dev/workspace/data/processed/panels/upro_with_underlying_vix.csv",
   "source_api": [
     "qlib.init",

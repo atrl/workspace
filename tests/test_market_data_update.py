@@ -180,6 +180,36 @@ def test_market_panel_to_qlib_frame_includes_vix_for_each_instrument():
     )
 
 
+def test_vix_fallback_rejects_stale_primary_source(monkeypatch):
+    from src.data import market_update
+
+    monkeypatch.setattr(
+        market_update,
+        "_fetch_yahoo_chart_vix",
+        lambda **_kwargs: pd.DataFrame(
+            [{"date": "2026-07-27", "vix": 18.67}]
+        ),
+    )
+    monkeypatch.setattr(
+        market_update,
+        "_fetch_cboe_vix",
+        lambda **_kwargs: pd.DataFrame(
+            [
+                {"date": "2026-07-27", "vix": 18.67},
+                {"date": "2026-07-28", "vix": 18.21},
+            ]
+        ),
+    )
+
+    frame, source = market_update._fetch_vix_with_fallback(
+        start="2026-07-27",
+        end="2026-07-28",
+    )
+
+    assert source == "cboe:VIX_History.csv"
+    assert frame["date"].max() == "2026-07-28"
+
+
 def test_provider_raw_sync_appends_without_rewriting_existing_rows(tmp_path):
     from src.data import market_update
 
