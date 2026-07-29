@@ -1,0 +1,34 @@
+experiment: soxl_rolling_3x_retention_factor_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+region: us
+market: all
+start: '2010-03-11'
+end: '2026-07-28'
+segments:
+  all_history:
+  - '2010-03-11'
+  - '2026-07-28'
+  development:
+  - '2010-03-11'
+  - '2022-12-30'
+  outer_diagnostic:
+  - '2023-01-03'
+  - '2026-07-28'
+factor: retention_z252_21
+targets:
+- future_actual_3x_residual_log_21
+- future_actual_3x_residual_log_63
+model:
+  class: Ridge
+  alpha: 10.0
+  walk_forward_folds:
+  - '2016_2018'
+  - '2019_2020'
+  - '2021_2022'
+  - outer_2023_2026
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - artifacts/soxl_rolling_3x_retention_factor_v1/factor_panel.csv
+  - artifacts/soxl_rolling_3x_retention_factor_v1/walk_forward_predictions.csv

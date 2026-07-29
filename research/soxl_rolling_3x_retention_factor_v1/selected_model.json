@@ -1,0 +1,6 @@
+{
+  "selected_factor": "retention_z252_21",
+  "role": "diagnostic_guardrail_candidate",
+  "predictive_alpha_promotion": "blocked",
+  "reason": "standalone short-horizon ranking exists but incremental nonoverlap and fold stability gates fail"
+}

@@ -1,0 +1,224 @@
+{
+  "experiment": "soxl_rolling_3x_retention_factor_v1",
+  "as_of": "2026-07-28",
+  "decision": "diagnostic_guardrail_value_not_incremental_alpha",
+  "promotion": "blocked_not_stable_incremental",
+  "data_audit": {
+    "status": "ok",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl/qlib_store_manifest.json",
+    "as_of": "2026-07-28",
+    "data_start": "2010-03-11",
+    "data_end": "2026-07-28",
+    "rows": 4120,
+    "missing_values": {
+      "soxl_close": 0,
+      "soxx_close": 0,
+      "vix": 0
+    },
+    "provider_audit": {
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "region": "us",
+      "market": "all",
+      "freq": "day",
+      "kernels": 1,
+      "calendar_start": "2010-03-11",
+      "calendar_end": "2026-07-28",
+      "instruments": {
+        "market": "all",
+        "filter_pipe": []
+      },
+      "qlib_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments"
+      ]
+    },
+    "source_api": [
+      "qlib.init",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments",
+      "qlib.data.D.features"
+    ]
+  },
+  "dataset_audit": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "segments": {
+      "all_history": [
+        "2010-03-11",
+        "2026-07-28"
+      ],
+      "development": [
+        "2010-03-11",
+        "2022-12-30"
+      ],
+      "outer_diagnostic": [
+        "2023-01-03",
+        "2026-07-28"
+      ]
+    },
+    "segment_rows": {
+      "all_history": 4120,
+      "development": 3226,
+      "outer_diagnostic": 894
+    },
+    "features": [
+      "actual_3x_residual_log_126",
+      "actual_3x_residual_log_21",
+      "actual_3x_residual_log_63",
+      "effective_multiple_126",
+      "effective_multiple_21",
+      "effective_multiple_63",
+      "ideal_path_drag_log_126",
+      "ideal_path_drag_log_21",
+      "ideal_path_drag_log_63",
+      "path_efficiency_63",
+      "product_tracking_log_126",
+      "product_tracking_log_21",
+      "product_tracking_log_63",
+      "retention_z252_21",
+      "soxx_log_return_63",
+      "soxx_rvol_63",
+      "soxx_rvol_z_63",
+      "vix",
+      "vix_z252"
+    ],
+    "labels": [
+      "future_actual_3x_residual_log_21",
+      "future_actual_3x_residual_log_63",
+      "future_endpoint_3x_gap_21",
+      "future_endpoint_3x_gap_63"
+    ],
+    "feature_timing": "trailing_close_to_close_available_at_date_t",
+    "label_timing": "future_close_to_close"
+  },
+  "definitions": {
+    "effective_multiple": "SOXL interval return divided by SOXX interval return; display only because denominator can be near zero",
+    "endpoint_3x_gap": "SOXL interval return minus 3 times SOXX interval return",
+    "actual_3x_residual_log": "log SOXL gross return minus 3 times log SOXX gross return",
+    "ideal_path_drag_log": "log ideal daily-reset 3x gross return minus 3 times log SOXX gross return",
+    "product_tracking_log": "log SOXL gross return minus log ideal daily-reset 3x gross return",
+    "retention_z252_21": "21-day actual 3x residual standardized against prior 252 days excluding current date"
+  },
+  "factor_gate": {
+    "decision": "diagnostic_guardrail_value_not_incremental_alpha",
+    "gate": [
+      {
+        "target_horizon_days": 21,
+        "standalone_outer_overlap_spearman": 0.4056950540295816,
+        "standalone_outer_nonoverlap_spearman": 0.4287334899927073,
+        "outer_overlap_incremental_spearman": 0.09384843797468378,
+        "outer_nonoverlap_incremental_spearman": -0.014747589336358669,
+        "positive_incremental_folds": 1,
+        "total_folds": 4,
+        "outer_plus_model_r2": -0.248782584938398,
+        "incremental_alpha_gate_pass": false
+      },
+      {
+        "target_horizon_days": 63,
+        "standalone_outer_overlap_spearman": 0.3645736584215228,
+        "standalone_outer_nonoverlap_spearman": 0.43736263736263736,
+        "outer_overlap_incremental_spearman": 0.06677638072422992,
+        "outer_nonoverlap_incremental_spearman": 0.14065934065934066,
+        "positive_incremental_folds": 1,
+        "total_folds": 4,
+        "outer_plus_model_r2": -0.8322223290171666,
+        "incremental_alpha_gate_pass": false
+      }
+    ],
+    "promotion": "blocked_not_stable_incremental"
+  },
+  "current_snapshot": [
+    {
+      "as_of": "2026-07-28",
+      "lookback_days": 21,
+      "soxx_return": -0.16693224832826847,
+      "soxl_return": -0.4919295092091319,
+      "effective_multiple": 2.9468812295738314,
+      "endpoint_3x_gap": 0.008867235775673499,
+      "continuous_3x_retention_ratio": 0.8787857421037384,
+      "actual_3x_residual_log": -0.12921416288215626,
+      "ideal_path_drag_log": -0.09353855821894508,
+      "product_tracking_log": -0.03567560466321118,
+      "retention_z252": -1.911913832350415,
+      "soxx_realized_volatility": 0.5915404929402273
+    },
+    {
+      "as_of": "2026-07-28",
+      "lookback_days": 63,
+      "soxx_return": 0.07915941130646753,
+      "soxl_return": -0.11224571312610776,
+      "effective_multiple": -1.4179705391131048,
+      "endpoint_3x_gap": -0.34972394704551035,
+      "continuous_3x_retention_ratio": 0.7063760575274969,
+      "actual_3x_residual_log": -0.3476075239141607,
+      "ideal_path_drag_log": -0.31792814324301005,
+      "product_tracking_log": -0.029679380671150682,
+      "retention_z252": -3.064859515875679,
+      "soxx_realized_volatility": 0.6420937097547156
+    },
+    {
+      "as_of": "2026-07-28",
+      "lookback_days": 126,
+      "soxx_return": 0.43253557863664605,
+      "soxl_return": 0.8046128424829819,
+      "effective_multiple": 1.8602234873235746,
+      "endpoint_3x_gap": -0.4929938934269562,
+      "continuous_3x_retention_ratio": 0.6138578200725001,
+      "actual_3x_residual_log": -0.48799194104977517,
+      "ideal_path_drag_log": -0.4375269443613361,
+      "product_tracking_log": -0.05046499668843907,
+      "retention_z252": -2.5373143872210338,
+      "soxx_realized_volatility": 0.5323657619833844
+    }
+  ],
+  "redundancy": {
+    "ideal_path_drag_vs_realized_vol_spearman": [
+      {
+        "lookback_days": 21,
+        "spearman": -0.9969325528909238
+      },
+      {
+        "lookback_days": 63,
+        "spearman": -0.9993276417479593
+      },
+      {
+        "lookback_days": 126,
+        "spearman": -0.9994278274857119
+      }
+    ],
+    "interpretation": "most pure path-drag information is already contained in underlying realized volatility"
+  },
+  "outer_role": "reused_diagnostic_not_clean_holdout",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/soxl_rolling_3x_retention_factor_v1/factor_panel.csv",
+      "artifacts/soxl_rolling_3x_retention_factor_v1/walk_forward_predictions.csv"
+    ]
+  },
+  "sidecars": {
+    "factor_correlation": "factor_correlation.csv",
+    "univariate_validation": "univariate_validation.csv",
+    "annual_validation": "annual_validation.csv",
+    "model_comparison": "model_comparison.csv",
+    "effective_multiple_audit": "effective_multiple_audit.csv",
+    "outer_bucket_metrics": "outer_bucket_metrics.csv",
+    "current_factor_snapshot": "current_factor_snapshot.json",
+    "selected_model": "selected_model.json",
+    "risk_analysis": "risk_analysis.csv",
+    "analysis_summary": "analysis_summary.json"
+  },
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  ],
+  "recorder_id": "58ee5fd74e2245afbfc10783fd6fa62a",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxl_rolling_3x_retention_factor_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxl_rolling_3x_retention_factor_v1/qlib_recorder/720395977227178321/58ee5fd74e2245afbfc10783fd6fa62a"
+}

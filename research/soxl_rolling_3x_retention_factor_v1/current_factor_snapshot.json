@@ -1,0 +1,44 @@
+[
+  {
+    "as_of": "2026-07-28",
+    "lookback_days": 21,
+    "soxx_return": -0.16693224832826847,
+    "soxl_return": -0.4919295092091319,
+    "effective_multiple": 2.9468812295738314,
+    "endpoint_3x_gap": 0.008867235775673499,
+    "continuous_3x_retention_ratio": 0.8787857421037384,
+    "actual_3x_residual_log": -0.12921416288215626,
+    "ideal_path_drag_log": -0.09353855821894508,
+    "product_tracking_log": -0.03567560466321118,
+    "retention_z252": -1.911913832350415,
+    "soxx_realized_volatility": 0.5915404929402273
+  },
+  {
+    "as_of": "2026-07-28",
+    "lookback_days": 63,
+    "soxx_return": 0.07915941130646753,
+    "soxl_return": -0.11224571312610776,
+    "effective_multiple": -1.4179705391131048,
+    "endpoint_3x_gap": -0.34972394704551035,
+    "continuous_3x_retention_ratio": 0.7063760575274969,
+    "actual_3x_residual_log": -0.3476075239141607,
+    "ideal_path_drag_log": -0.31792814324301005,
+    "product_tracking_log": -0.029679380671150682,
+    "retention_z252": -3.064859515875679,
+    "soxx_realized_volatility": 0.6420937097547156
+  },
+  {
+    "as_of": "2026-07-28",
+    "lookback_days": 126,
+    "soxx_return": 0.43253557863664605,
+    "soxl_return": 0.8046128424829819,
+    "effective_multiple": 1.8602234873235746,
+    "endpoint_3x_gap": -0.4929938934269562,
+    "continuous_3x_retention_ratio": 0.6138578200725001,
+    "actual_3x_residual_log": -0.48799194104977517,
+    "ideal_path_drag_log": -0.4375269443613361,
+    "product_tracking_log": -0.05046499668843907,
+    "retention_z252": -2.5373143872210338,
+    "soxx_realized_volatility": 0.5323657619833844
+  }
+]

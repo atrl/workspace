@@ -1,0 +1,5 @@
+risk,status,mitigation
+near_zero_denominator,blocked_for_raw_multiple_factor,use log residual and lagged rolling normalization
+factor_redundancy,material,compare incrementally against realized volatility and normalized VIX
+overlapping_labels,material,report nonoverlap samples and expanding time folds
+outer_reuse,not_clean_holdout,require new forward paper evidence before promotion
