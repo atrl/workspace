@@ -1,0 +1,7 @@
+candidate,role,target,formula,hypothesis
+signed_path_efficiency_21,alpha,future_relative_excess_21,"sum(SOXX daily log return,21) divided by sum(abs(SOXX daily log return),21)",directional and clean SOXX paths improve the value of the SOXL leverage sleeve
+retention_curve_curvature_5_21_63,alpha,future_relative_excess_21,retention_5/5 minus 2 times retention_21/21 plus retention_63/63,short-versus-medium-versus-long retention curvature identifies improving or deteriorating leverage conditions
+retention_slope_5,alpha,future_relative_excess_21,retention_z252_21 today minus its value five trading days ago,a five-day improvement in normalized retention contains more information than raw duration
+soxl_tracking_error_vol_21,retention_guardrail,future_actual_3x_residual_log_21,21-day standard deviation of SOXL daily log return minus ideal daily-reset 3x log return,SOXL-specific tracking-error volatility predicts future leverage retention after controlling for SOXX volatility
+vix_rvol_divergence_21,risk,future_soxl_worst_return_21,lagged VIX z252 minus lagged SOXX 21-day realized-volatility z252,implied-versus-realized volatility divergence identifies forward SOXL drawdown risk
+shock_concentration_21,risk,future_soxl_worst_return_21,largest absolute SOXX daily log return in 21 days divided by the 21-day sum of absolute returns,one-day shock concentration differs from persistent choppy volatility for forward SOXL risk

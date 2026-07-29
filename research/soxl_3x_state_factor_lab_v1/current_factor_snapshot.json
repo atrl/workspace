@@ -1,0 +1,18 @@
+{
+  "as_of": "2026-07-28",
+  "factors": {
+    "signed_path_efficiency_21": -0.26739878958049296,
+    "retention_curve_curvature_5_21_63": 0.0032951523721830396,
+    "retention_slope_5": 0.08568457309033439,
+    "soxl_tracking_error_vol_21": 0.0067063293737502,
+    "vix_rvol_divergence_21": -1.2459126185161316,
+    "shock_concentration_21": 0.09695889149366752
+  },
+  "context": {
+    "soxx_return_21": -0.16693224832826847,
+    "soxl_return_21": -0.4919295092091319,
+    "retention_z252_21": -1.911913832350415,
+    "vix": 18.209999084472656,
+    "soxx_rvol_21": 0.5915404929402273
+  }
+}

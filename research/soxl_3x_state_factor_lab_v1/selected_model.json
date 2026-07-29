@@ -1,0 +1,9 @@
+{
+  "selected_candidates": [],
+  "selection_scope": "development_only_2010_2022",
+  "selection_uses_outer": false,
+  "model": "StandardScaler_plus_Ridge",
+  "ridge_alpha": 10.0,
+  "purge_days": 21,
+  "promotion": "blocked_pending_new_forward_paper"
+}

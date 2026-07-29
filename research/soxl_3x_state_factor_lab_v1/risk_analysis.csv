@@ -1,0 +1,6 @@
+risk,status,mitigation
+outer_reuse,not_clean_holdout,outer metrics are diagnostic only and never used for selection
+overlapping_labels,material,use 21-day nonoverlap metrics and purge 21 train rows at every fold boundary
+multiple_hypotheses,material,pre-map each candidate to one role and target and require fold-consistent incremental evidence
+factor_redundancy,material,"compare every candidate against the VIX, SOXX volatility, trend, and path baseline"
+production_use,blocked,collect new forward paper evidence from 2026-07-29 before any Stage1 change

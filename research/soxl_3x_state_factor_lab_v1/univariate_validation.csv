@@ -1,0 +1,13 @@
+candidate,role,target,sample,rows,spearman,annual_sign_share
+signed_path_efficiency_21,alpha,future_relative_excess_21,overlap,3205,-0.08520895498075387,0.8461538461538461
+signed_path_efficiency_21,alpha,future_relative_excess_21,nonoverlap,153,-0.06601061477222467,0.8461538461538461
+retention_curve_curvature_5_21_63,alpha,future_relative_excess_21,overlap,3163,-0.04647216184211074,0.5384615384615384
+retention_curve_curvature_5_21_63,alpha,future_relative_excess_21,nonoverlap,151,-0.12327988846287903,0.5384615384615384
+retention_slope_5,alpha,future_relative_excess_21,overlap,3074,0.003172520025317059,0.4166666666666667
+retention_slope_5,alpha,future_relative_excess_21,nonoverlap,147,0.21142585134757347,0.4166666666666667
+soxl_tracking_error_vol_21,retention_guardrail,future_actual_3x_residual_log_21,overlap,3205,-0.27692462562626663,0.8461538461538461
+soxl_tracking_error_vol_21,retention_guardrail,future_actual_3x_residual_log_21,nonoverlap,153,-0.2512062241164408,0.8461538461538461
+vix_rvol_divergence_21,risk,future_soxl_worst_return_21,overlap,3079,-0.02408196135895978,0.5833333333333334
+vix_rvol_divergence_21,risk,future_soxl_worst_return_21,nonoverlap,147,-0.010627205343448005,0.5833333333333334
+shock_concentration_21,risk,future_soxl_worst_return_21,overlap,3205,0.14651884246902652,0.7692307692307693
+shock_concentration_21,risk,future_soxl_worst_return_21,nonoverlap,153,0.16438489271306608,0.7692307692307693

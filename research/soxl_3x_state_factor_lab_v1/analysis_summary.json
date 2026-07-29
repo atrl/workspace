@@ -1,0 +1,122 @@
+{
+  "decision": "no_stable_incremental_candidate",
+  "promotion": "blocked_pending_new_forward_paper",
+  "selected_candidates": [],
+  "selection_uses_outer": false,
+  "factor_gate": [
+    {
+      "candidate": "signed_path_efficiency_21",
+      "role": "alpha",
+      "target": "future_relative_excess_21",
+      "mean_candidate_overlap_spearman": 0.02217963160217541,
+      "mean_candidate_nonoverlap_spearman": 0.0065358861011034775,
+      "mean_incremental_overlap_spearman": 0.04275072460348669,
+      "mean_incremental_nonoverlap_spearman": 0.05261459261459259,
+      "positive_candidate_overlap_folds": 1,
+      "positive_candidate_nonoverlap_folds": 1,
+      "positive_overlap_folds": 3,
+      "positive_nonoverlap_folds": 3,
+      "total_folds": 3,
+      "development_gate_pass": false,
+      "promotion": "blocked_not_stable_incremental"
+    },
+    {
+      "candidate": "retention_curve_curvature_5_21_63",
+      "role": "alpha",
+      "target": "future_relative_excess_21",
+      "mean_candidate_overlap_spearman": -0.029969352932772534,
+      "mean_candidate_nonoverlap_spearman": -0.030569580569580573,
+      "mean_incremental_overlap_spearman": -0.009398259931461261,
+      "mean_incremental_nonoverlap_spearman": 0.015509125943908538,
+      "positive_candidate_overlap_folds": 1,
+      "positive_candidate_nonoverlap_folds": 1,
+      "positive_overlap_folds": 2,
+      "positive_nonoverlap_folds": 2,
+      "total_folds": 3,
+      "development_gate_pass": false,
+      "promotion": "blocked_not_stable_incremental"
+    },
+    {
+      "candidate": "retention_slope_5",
+      "role": "alpha",
+      "target": "future_relative_excess_21",
+      "mean_candidate_overlap_spearman": -0.03286066875281258,
+      "mean_candidate_nonoverlap_spearman": -0.05753251579338534,
+      "mean_incremental_overlap_spearman": -0.012289575751501308,
+      "mean_incremental_nonoverlap_spearman": -0.011453809279896235,
+      "positive_candidate_overlap_folds": 1,
+      "positive_candidate_nonoverlap_folds": 1,
+      "positive_overlap_folds": 1,
+      "positive_nonoverlap_folds": 0,
+      "total_folds": 3,
+      "development_gate_pass": false,
+      "promotion": "blocked_not_stable_incremental"
+    },
+    {
+      "candidate": "soxl_tracking_error_vol_21",
+      "role": "retention_guardrail",
+      "target": "future_actual_3x_residual_log_21",
+      "mean_candidate_overlap_spearman": 0.47573124195054967,
+      "mean_candidate_nonoverlap_spearman": 0.5171334449595318,
+      "mean_incremental_overlap_spearman": -0.01610590197932153,
+      "mean_incremental_nonoverlap_spearman": -0.003951007864051319,
+      "positive_candidate_overlap_folds": 3,
+      "positive_candidate_nonoverlap_folds": 3,
+      "positive_overlap_folds": 1,
+      "positive_nonoverlap_folds": 2,
+      "total_folds": 3,
+      "development_gate_pass": false,
+      "promotion": "blocked_not_stable_incremental"
+    },
+    {
+      "candidate": "vix_rvol_divergence_21",
+      "role": "risk",
+      "target": "future_soxl_worst_return_21",
+      "mean_candidate_overlap_spearman": -0.030327923353494022,
+      "mean_candidate_nonoverlap_spearman": -0.037163116293551075,
+      "mean_incremental_overlap_spearman": -0.023569823031709267,
+      "mean_incremental_nonoverlap_spearman": 0.022325512325512303,
+      "positive_candidate_overlap_folds": 2,
+      "positive_candidate_nonoverlap_folds": 2,
+      "positive_overlap_folds": 2,
+      "positive_nonoverlap_folds": 3,
+      "total_folds": 3,
+      "development_gate_pass": false,
+      "promotion": "blocked_not_stable_incremental"
+    },
+    {
+      "candidate": "shock_concentration_21",
+      "role": "risk",
+      "target": "future_soxl_worst_return_21",
+      "mean_candidate_overlap_spearman": 0.026636396521869322,
+      "mean_candidate_nonoverlap_spearman": 0.059331763679589755,
+      "mean_incremental_overlap_spearman": 0.03339449684365407,
+      "mean_incremental_nonoverlap_spearman": 0.11882039229865314,
+      "positive_candidate_overlap_folds": 2,
+      "positive_candidate_nonoverlap_folds": 2,
+      "positive_overlap_folds": 2,
+      "positive_nonoverlap_folds": 2,
+      "total_folds": 3,
+      "development_gate_pass": false,
+      "promotion": "blocked_not_stable_incremental"
+    }
+  ],
+  "current_snapshot": {
+    "as_of": "2026-07-28",
+    "factors": {
+      "signed_path_efficiency_21": -0.26739878958049296,
+      "retention_curve_curvature_5_21_63": 0.0032951523721830396,
+      "retention_slope_5": 0.08568457309033439,
+      "soxl_tracking_error_vol_21": 0.0067063293737502,
+      "vix_rvol_divergence_21": -1.2459126185161316,
+      "shock_concentration_21": 0.09695889149366752
+    },
+    "context": {
+      "soxx_return_21": -0.16693224832826847,
+      "soxl_return_21": -0.4919295092091319,
+      "retention_z252_21": -1.911913832350415,
+      "vix": 18.209999084472656,
+      "soxx_rvol_21": 0.5915404929402273
+    }
+  }
+}

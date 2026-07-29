@@ -1,0 +1,13 @@
+candidate,role,target,selection_uses_outer,sample,rows,baseline_spearman,candidate_spearman,incremental_spearman
+signed_path_efficiency_21,alpha,future_relative_excess_21,False,overlap,873,0.013540148715807712,-0.12105033379858876,-0.13459048251439648
+signed_path_efficiency_21,alpha,future_relative_excess_21,False,nonoverlap,42,0.24981768090106152,0.12195121951219513,-0.12786646138886637
+retention_curve_curvature_5_21_63,alpha,future_relative_excess_21,False,overlap,873,0.013540148715807712,0.018248055381628853,0.004707906665821141
+retention_curve_curvature_5_21_63,alpha,future_relative_excess_21,False,nonoverlap,42,0.24981768090106152,0.21205736974313263,-0.03776031115792888
+retention_slope_5,alpha,future_relative_excess_21,False,overlap,873,0.013540148715807712,0.007228809793781968,-0.006311338922025744
+retention_slope_5,alpha,future_relative_excess_21,False,nonoverlap,42,0.24981768090106152,0.2457661453690949,-0.004051535531966605
+soxl_tracking_error_vol_21,retention_guardrail,future_actual_3x_residual_log_21,False,overlap,873,0.4158270389662427,0.4427701008346822,0.026943061868439533
+soxl_tracking_error_vol_21,retention_guardrail,future_actual_3x_residual_log_21,False,nonoverlap,42,0.5791264889393081,0.5911190341139293,0.011992545174621227
+vix_rvol_divergence_21,risk,future_soxl_worst_return_21,False,overlap,873,0.09892503414803555,0.22902841610087532,0.13010338195283977
+vix_rvol_divergence_21,risk,future_soxl_worst_return_21,False,nonoverlap,42,0.06587796774977717,0.12081678956324447,0.054938821813467306
+shock_concentration_21,risk,future_soxl_worst_return_21,False,overlap,873,0.09892503414803555,0.14892077969194556,0.04999574554391001
+shock_concentration_21,risk,future_soxl_worst_return_21,False,nonoverlap,42,0.06587796774977717,0.3339275585446885,0.2680495907949113

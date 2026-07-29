@@ -1,0 +1,72 @@
+experiment: soxl_3x_state_factor_lab_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+region: us
+market: all
+start: '2010-03-11'
+end: '2026-07-28'
+segments:
+  all_history:
+  - '2010-03-11'
+  - '2026-07-28'
+  development:
+  - '2010-03-11'
+  - '2022-12-30'
+  outer_diagnostic:
+  - '2023-01-03'
+  - '2026-07-28'
+selection_scope: development_only_2010_2022
+selection_uses_outer: false
+forward_paper_start: '2026-07-29'
+candidate_specs:
+  signed_path_efficiency_21:
+    role: alpha
+    target: future_relative_excess_21
+    formula: sum(SOXX daily log return,21) divided by sum(abs(SOXX daily log return),21)
+    hypothesis: directional and clean SOXX paths improve the value of the SOXL leverage
+      sleeve
+  retention_curve_curvature_5_21_63:
+    role: alpha
+    target: future_relative_excess_21
+    formula: retention_5/5 minus 2 times retention_21/21 plus retention_63/63
+    hypothesis: short-versus-medium-versus-long retention curvature identifies improving
+      or deteriorating leverage conditions
+  retention_slope_5:
+    role: alpha
+    target: future_relative_excess_21
+    formula: retention_z252_21 today minus its value five trading days ago
+    hypothesis: a five-day improvement in normalized retention contains more information
+      than raw duration
+  soxl_tracking_error_vol_21:
+    role: retention_guardrail
+    target: future_actual_3x_residual_log_21
+    formula: 21-day standard deviation of SOXL daily log return minus ideal daily-reset
+      3x log return
+    hypothesis: SOXL-specific tracking-error volatility predicts future leverage retention
+      after controlling for SOXX volatility
+  vix_rvol_divergence_21:
+    role: risk
+    target: future_soxl_worst_return_21
+    formula: lagged VIX z252 minus lagged SOXX 21-day realized-volatility z252
+    hypothesis: implied-versus-realized volatility divergence identifies forward SOXL
+      drawdown risk
+  shock_concentration_21:
+    role: risk
+    target: future_soxl_worst_return_21
+    formula: largest absolute SOXX daily log return in 21 days divided by the 21-day
+      sum of absolute returns
+    hypothesis: one-day shock concentration differs from persistent choppy volatility
+      for forward SOXL risk
+model:
+  class: Ridge
+  alpha: 10.0
+  purge_days: 21
+  walk_forward_folds:
+  - '2016_2018'
+  - '2019_2020'
+  - '2021_2022'
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - artifacts/soxl_3x_state_factor_lab_v1/factor_panel.csv
+  - artifacts/soxl_3x_state_factor_lab_v1/walk_forward_predictions.csv

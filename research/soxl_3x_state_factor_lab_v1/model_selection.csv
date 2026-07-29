@@ -1,0 +1,7 @@
+candidate,role,target,mean_candidate_overlap_spearman,mean_candidate_nonoverlap_spearman,mean_incremental_overlap_spearman,mean_incremental_nonoverlap_spearman,positive_candidate_overlap_folds,positive_candidate_nonoverlap_folds,positive_overlap_folds,positive_nonoverlap_folds,total_folds,development_gate_pass,promotion
+signed_path_efficiency_21,alpha,future_relative_excess_21,0.02217963160217541,0.0065358861011034775,0.04275072460348669,0.05261459261459259,1,1,3,3,3,False,blocked_not_stable_incremental
+retention_curve_curvature_5_21_63,alpha,future_relative_excess_21,-0.029969352932772534,-0.030569580569580573,-0.009398259931461261,0.015509125943908538,1,1,2,2,3,False,blocked_not_stable_incremental
+retention_slope_5,alpha,future_relative_excess_21,-0.03286066875281258,-0.05753251579338534,-0.012289575751501308,-0.011453809279896235,1,1,1,0,3,False,blocked_not_stable_incremental
+soxl_tracking_error_vol_21,retention_guardrail,future_actual_3x_residual_log_21,0.47573124195054967,0.5171334449595318,-0.01610590197932153,-0.003951007864051319,3,3,1,2,3,False,blocked_not_stable_incremental
+vix_rvol_divergence_21,risk,future_soxl_worst_return_21,-0.030327923353494022,-0.037163116293551075,-0.023569823031709267,0.022325512325512303,2,2,2,3,3,False,blocked_not_stable_incremental
+shock_concentration_21,risk,future_soxl_worst_return_21,0.026636396521869322,0.059331763679589755,0.03339449684365407,0.11882039229865314,2,2,2,2,3,False,blocked_not_stable_incremental
