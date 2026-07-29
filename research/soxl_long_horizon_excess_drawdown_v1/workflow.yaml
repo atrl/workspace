@@ -1,0 +1,36 @@
+experiment: soxl_long_horizon_excess_drawdown_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+instruments:
+- SOXL
+- SOXX
+fields:
+- $close
+- $vix
+start: '2010-03-11'
+end: '2026-07-28'
+timing: close_to_close
+horizons:
+- 1
+- 5
+- 21
+- 63
+- 126
+- 252
+- 504
+- 756
+- 1260
+persistence_horizons:
+- 63
+- 126
+- 252
+- 504
+comparison:
+- SOXL_vs_SOXX
+- SOXL_vs_ideal_daily_reset_3x_SOXX
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - artifacts/soxl_long_horizon_excess_drawdown_v1/daily_horizon_windows.csv
+  - artifacts/soxl_long_horizon_excess_drawdown_v1/persistent_regimes_full.csv
+  - artifacts/soxl_long_horizon_excess_drawdown_v1/underwater_episodes_full.csv
