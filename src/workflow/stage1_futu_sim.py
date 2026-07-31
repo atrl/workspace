@@ -48,7 +48,7 @@ from src.workflow.pit_constituent_auxiliary_training_allocation import (
 EXPERIMENT = "stage1_futu_sim_v1"
 SOURCE_EXPERIMENT = "intraday_on_policy_staged_validation_v1"
 SOURCE_RECORDER_ID = "f6b09330175e41719886d58ee2d11bec"
-DEFAULT_NOTIONAL = 10_000.0
+DEFAULT_NOTIONAL = 100_000.0
 
 
 @dataclass(frozen=True)
@@ -487,11 +487,10 @@ def build_runtime_target(
             raise ValueError("blocked: more than one unsettled Stage1 row requires historical open marks")
         signal_date, row = next(iter(pending.iterrows()))
         entry_date = pd.Timestamp(row["trade_date"]).date().isoformat()
-        panel = pd.read_csv(
-            repo_root / "data" / "processed" / "panels" / "soxl_soxx_vix_full.csv"
-        ).set_index("date")
-        if entry_date not in panel.index:
-            raise ValueError(f"blocked: pending entry open is missing for {entry_date}")
+        entry_open = _qlib_open_prices(
+            provider_uri=Path(audit["market_audit"]["execution_provider_uri"]),
+            session_date=entry_date,
+        )
         year = int(pd.Timestamp(signal_date).year)
         model = _fit_recovery_model(
             teacher_frame,
@@ -510,8 +509,8 @@ def build_runtime_target(
             row,
             prepared,
             state=state,
-            soxl_return=float(current_prices["SOXL"]) / float(panel.loc[entry_date, "soxl_open"]) - 1.0,
-            soxx_return=float(current_prices["SOXX"]) / float(panel.loc[entry_date, "soxx_open"]) - 1.0,
+            soxl_return=float(current_prices["SOXL"]) / entry_open["SOXL"] - 1.0,
+            soxx_return=float(current_prices["SOXX"]) / entry_open["SOXX"] - 1.0,
             cost_bps=recovery_spec.transaction_cost_bps,
         )
         pending_settled.append(pd.Timestamp(signal_date).date().isoformat())
@@ -566,6 +565,28 @@ def build_runtime_target(
         "runtime_replay_parity_max_abs_error": parity_error,
         "source_audit": audit,
     }
+
+
+def _qlib_open_prices(*, provider_uri: Path, session_date: str) -> dict[str, float]:
+    import qlib
+    from qlib.constant import REG_US
+    from qlib.data import D
+
+    qlib.init(provider_uri=provider_uri.resolve().as_posix(), region=REG_US)
+    frame = D.features(
+        ["SOXL", "SOXX"],
+        ["$open"],
+        start_time=session_date,
+        end_time=session_date,
+        freq="day",
+    )
+    if frame.empty:
+        raise ValueError(f"blocked: qlib pending entry open is missing for {session_date}")
+    values = frame.reset_index().set_index("instrument")["$open"]
+    result = {symbol: float(values.loc[symbol]) for symbol in ("SOXL", "SOXX")}
+    if any(value <= 0 for value in result.values()):
+        raise ValueError(f"blocked: qlib pending entry open is invalid for {session_date}")
+    return result
 
 
 def _legacy_cost_normalized_metrics(daily: pd.DataFrame, *, cost_bps: float) -> dict[str, float]:
@@ -725,6 +746,9 @@ def run_stage1_futu_sim_card(
             "postclose_refresh": "20:15 America/New_York",
             "order_type": "MARKET",
             "cash_is_residual": True,
+            "sizing_basis": "reconciled_live_sleeve_equity",
+            "ledger": "runtime/soxl/stage1_futu_sim/paper_ledger.json",
+            "risk_failure_mode": "close_only",
             "notifications": {
                 "event_bark": "open/recovery/postclose result or failure",
                 "daily_heartbeat": "10:05 Asia/Shanghai every calendar day",
@@ -803,6 +827,9 @@ def run_stage1_futu_sim_card(
                 "  environment: SIMULATE",
                 "  real_trading_supported: false",
                 f"  account_notional: {spec.account_notional}",
+                "  sizing_basis: reconciled_live_sleeve_equity",
+                "  ledger: runtime/soxl/stage1_futu_sim/paper_ledger.json",
+                "  risk_failure_mode: close_only",
                 "schedule:",
                 "  open: 09:31 America/New_York",
                 "  recovery: 10:31 America/New_York",
@@ -836,10 +863,10 @@ def run_stage1_futu_sim_card(
                 "",
                 "- 已把晋级的 Stage1 固定为生产模拟源；Stage2 仍关闭，失败的 stateful direct 模型没有进入任务。",
                 f"- 同口径区间：{comparison['window']['start']} 至 {comparison['window']['end']}；Stage1 10bp return={comparison['stage1_10bps']['return_pct']:.4f}%，MaxDD={comparison['stage1_10bps']['max_drawdown_pct']:.4f}%。",
-                f"- 当前生产决策={summary['decision']}；risk_gate_pass={str(risk_gate_pass).lower()}。风险门槛失败时，09:31/10:31 ET 调度会在连接券商前 fail-closed，不提交模拟订单。",
+                f"- 当前生产决策={summary['decision']}；risk_gate_pass={str(risk_gate_pass).lower()}。风险门槛或数据新鲜度失败时进入 close-only：禁止增加风险，但保留减仓。",
                 f"- legacy soxlbacktest 成本归一到 10bp 后 return={comparison['soxlbacktest_cost_normalized_10bps']['return_pct']:.4f}%，MaxDD={comparison['soxlbacktest_cost_normalized_10bps']['max_drawdown_pct']:.4f}%。",
-                f"- 当前最新信号日={target['signal_date']}；目标计算状态={target['status']}。该目标仅作诊断，只有生产风险门槛通过后才允许在 09:31 ET 进入模拟执行。",
-                "- 模拟账户只使用 10,000 美元策略名义本金；现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。",
+                f"- 当前最新信号日={target['signal_date']}；目标计算状态={target['status']}。只有生产风险门槛和数据新鲜度都通过才允许增加风险；否则仅允许 close-only 减仓。",
+                "- 模拟账户初始资金为 100,000 美元；后续目标股数按已对账的实时策略净值计算，不重复使用固定初始本金。现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。",
                 "- 富途接口被限制为 SIMULATE；本任务没有真实账户分支。",
                 "- 模拟盘的 open/recovery/postclose 结果与异常会即时推送 Bark；每日上海时间 10:05 另发一次心跳，即使无交易也报告最近任务状态。Bark 凭据仅从运行环境读取，不写入仓库。",
                 "- Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动，支持自选区间、冻结模型推理状态、交易/换仓点、因子变化诊断及 SOXL/SOXX 同窗对比。",

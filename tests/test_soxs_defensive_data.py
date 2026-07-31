@@ -7,6 +7,8 @@ import pandas as pd
 import pytest
 
 from src.data.soxs_defensive import (
+    _merge_overlap_preserving_history,
+    _write_symbol_history,
     merge_yahoo_adjustment_factors,
     normalize_nasdaq_history,
     stitch_yahoo_to_nasdaq,
@@ -104,6 +106,85 @@ def test_adjustment_factors_reject_internal_or_adjusted_trailing_gaps() -> None:
         merge_yahoo_adjustment_factors(prices, internal_gap, symbol="SOXL")
     with pytest.raises(ValueError, match="do not cover"):
         merge_yahoo_adjustment_factors(prices, adjusted_tail, symbol="SOXL")
+
+
+def test_soxs_overlap_refresh_preserves_all_existing_rows_and_appends_new_dates() -> None:
+    existing = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-07-01", "2026-07-28"]),
+            "open": [10.0, 20.0],
+            "high": [11.0, 21.0],
+            "low": [9.0, 19.0],
+            "close": [10.5, 20.5],
+        }
+    )
+    update = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-07-28", "2026-07-29"]),
+            "open": [200.0, 300.0],
+            "high": [201.0, 301.0],
+            "low": [199.0, 299.0],
+            "close": [200.5, 300.5],
+        }
+    )
+
+    merged = _merge_overlap_preserving_history(
+        existing, update, refresh_start="2026-07-20"
+    )
+
+    assert merged["date"].dt.date.astype(str).tolist() == [
+        "2026-07-01",
+        "2026-07-28",
+        "2026-07-29",
+    ]
+    assert merged.loc[0, "close"] == pytest.approx(10.5)
+    assert merged.loc[1, "close"] == pytest.approx(20.5)
+    assert merged.loc[2, "close"] == pytest.approx(300.5)
+
+
+def test_soxs_overlap_refresh_requires_the_requested_overlap() -> None:
+    existing = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2026-07-28"]),
+            "open": [20.0],
+            "high": [21.0],
+            "low": [19.0],
+            "close": [20.5],
+        }
+    )
+    update = existing.assign(date=pd.to_datetime(["2026-07-29"]))
+
+    with pytest.raises(ValueError, match="missing its validation overlap"):
+        _merge_overlap_preserving_history(
+            existing,
+            update,
+            refresh_start="2026-07-20",
+        )
+
+
+def test_soxs_incremental_writer_preserves_existing_bytes(tmp_path: Path) -> None:
+    path = tmp_path / "SOXL.csv"
+    original = (
+        "datetime,instrument,open,high,low,close\n"
+        "2026-07-28,SOXL,1.0000000000000002,2.0,0.5,1.5\n"
+    )
+    path.write_text(original, encoding="utf-8")
+    frame = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(["2026-07-28", "2026-07-29"]),
+            "instrument": ["SOXL", "SOXL"],
+            "open": [1.0000000000000002, 2.0],
+            "high": [2.0, 3.0],
+            "low": [0.5, 1.0],
+            "close": [1.5, 2.5],
+        }
+    )
+
+    _write_symbol_history(path, frame, symbol="SOXL")
+
+    updated = path.read_text(encoding="utf-8")
+    assert updated.startswith(original)
+    assert updated.endswith("2026-07-29,SOXL,2.0,3.0,1.0,2.5\n")
 
 
 def test_committed_soxs_card_is_qlib_native_constrained_and_rejected() -> None:

@@ -1,13 +1,13 @@
 {
-  "adjustment_method": "early Yahoo OHLC scaled to first Nasdaq overlap; Nasdaq is authoritative thereafter; Yahoo adjusted-close ratio applies distributions to all OHLC",
-  "as_of": "2026-07-28",
-  "hash": "3b3e339ad6597982",
+  "adjustment_method": "initial build stitches early Yahoo OHLC to Nasdaq; incremental refresh preserves existing dates and appends Nasdaq OHLC; Yahoo adjusted-close ratio applies distributions to all OHLC",
+  "as_of": "2026-07-30",
+  "hash": "13a33de21f47d560",
   "relationship_audit": {
-    "common_end": "2026-07-28",
-    "common_rows_per_instrument": 4120,
+    "common_end": "2026-07-30",
+    "common_rows_per_instrument": 4122,
     "common_start": "2010-03-11",
-    "soxs_soxl_close_return_correlation": -0.9971658295493891,
-    "soxs_soxx_close_return_correlation": -0.9979894869540638
+    "soxs_soxl_close_return_correlation": -0.9971787217032566,
+    "soxs_soxx_close_return_correlation": -0.9980009683627
   },
   "sources": [
     "https://api.nasdaq.com/api/quote/{symbol}/historical",
@@ -16,64 +16,46 @@
   "start": "2010-03-11",
   "symbol_audits": {
     "SOXL": {
-      "adjustment_factor_source_end": "2026-07-27",
-      "combined_rows": 4120,
+      "adjustment_factor_source_end": "2026-07-30",
+      "appended_rows": 0,
       "dividend_adjustment_factor_max": 1.0,
-      "dividend_adjustment_factor_min": 0.9097105089304749,
-      "max_abs_close_return": 0.5478787878787879,
-      "max_anchor_relative_error": 0.005297431847036904,
-      "nasdaq_rows": 2513,
-      "nasdaq_start": "2016-07-28",
-      "stitch_scales": {
-        "close": 1.0000000063863541,
-        "high": 0.9999945509307344,
-        "low": 1.000000023426241,
-        "open": 0.9999999610685462
-      },
-      "trailing_adjustment_fill_dates": [
-        "2026-07-28"
-      ],
-      "yahoo_rows": 4119
+      "dividend_adjustment_factor_min": 1.0,
+      "incremental_source": "nasdaq_authoritative_yahoo_distribution_adjustment",
+      "nasdaq_rows": 83,
+      "nasdaq_start": "2026-04-01",
+      "preserved_rows": 4122,
+      "refresh_mode": "append_only_overlap_validation",
+      "refresh_overlap_days": 120,
+      "refresh_start": "2026-04-01",
+      "trailing_adjustment_fill_dates": []
     },
     "SOXS": {
-      "adjustment_factor_source_end": "2026-07-27",
-      "combined_rows": 4120,
+      "adjustment_factor_source_end": "2026-07-30",
+      "appended_rows": 0,
       "dividend_adjustment_factor_max": 1.0,
-      "dividend_adjustment_factor_min": 0.7928260589453393,
-      "max_abs_close_return": 0.5597618034878775,
-      "max_anchor_relative_error": 0.01588087565481111,
-      "nasdaq_rows": 2513,
-      "nasdaq_start": "2016-07-28",
-      "stitch_scales": {
-        "close": 0.06666933333333333,
-        "high": 0.06666933272831416,
-        "low": 0.06666933333333333,
-        "open": 0.06666933333333333
-      },
-      "trailing_adjustment_fill_dates": [
-        "2026-07-28"
-      ],
-      "yahoo_rows": 4119
+      "dividend_adjustment_factor_min": 0.9884848135489005,
+      "incremental_source": "nasdaq_authoritative_yahoo_distribution_adjustment",
+      "nasdaq_rows": 83,
+      "nasdaq_start": "2026-04-01",
+      "preserved_rows": 4122,
+      "refresh_mode": "append_only_overlap_validation",
+      "refresh_overlap_days": 120,
+      "refresh_start": "2026-04-01",
+      "trailing_adjustment_fill_dates": []
     },
     "SOXX": {
-      "adjustment_factor_source_end": "2026-07-27",
-      "combined_rows": 4120,
+      "adjustment_factor_source_end": "2026-07-30",
+      "appended_rows": 0,
       "dividend_adjustment_factor_max": 1.0,
-      "dividend_adjustment_factor_min": 0.8430548778052351,
-      "max_abs_close_return": 0.18571613069869541,
-      "max_anchor_relative_error": 4.551871352176384e-05,
-      "nasdaq_rows": 2513,
-      "nasdaq_start": "2016-07-28",
-      "stitch_scales": {
-        "close": 0.9999999852683821,
-        "high": 1.0000000320957776,
-        "low": 1.0000000212055533,
-        "open": 0.9999999803829277
-      },
-      "trailing_adjustment_fill_dates": [
-        "2026-07-28"
-      ],
-      "yahoo_rows": 4119
+      "dividend_adjustment_factor_min": 0.999525312338094,
+      "incremental_source": "nasdaq_authoritative_yahoo_distribution_adjustment",
+      "nasdaq_rows": 83,
+      "nasdaq_start": "2026-04-01",
+      "preserved_rows": 4122,
+      "refresh_mode": "append_only_overlap_validation",
+      "refresh_overlap_days": 120,
+      "refresh_start": "2026-04-01",
+      "trailing_adjustment_fill_dates": []
     }
   },
   "symbols": [

@@ -11,6 +11,8 @@
     <string>auto</string>
     <string>--notional</string>
     <string>100000</string>
+    <string>--broker-reserve-cash</string>
+    <string>900000</string>
     <string>--notify</string>
   </array>
   <key>WorkingDirectory</key>

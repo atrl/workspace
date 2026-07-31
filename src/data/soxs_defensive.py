@@ -191,16 +191,36 @@ def build_soxs_defensive_provider(
     root: Path | str,
     start: str = "2010-03-11",
     end: str,
+    refresh_overlap_days: int = 120,
 ) -> dict[str, Any]:
     paths = SoxsDefensiveDataPaths(root=Path(root).resolve())
     paths.raw_dir.mkdir(parents=True, exist_ok=True)
     stitched: dict[str, pd.DataFrame] = {}
     audits: dict[str, Any] = {}
     for symbol in SYMBOLS:
-        yahoo = _fetch_yahoo_chart_ohlcv(symbol, start=start, end=end)
-        nasdaq = fetch_nasdaq_history(symbol, start=start, end=end)
-        combined, audit = stitch_yahoo_to_nasdaq(yahoo, nasdaq)
-        adjustments = fetch_yahoo_adjustment_factors(symbol, start=start, end=end)
+        raw_path = paths.raw_dir / f"{symbol}.csv"
+        existing = _read_existing_symbol(raw_path, symbol=symbol)
+        fetch_start = start
+        if not existing.empty:
+            fetch_start = max(
+                pd.Timestamp(start),
+                existing["date"].max() - pd.Timedelta(days=refresh_overlap_days),
+            ).date().isoformat()
+        nasdaq = fetch_nasdaq_history(symbol, start=fetch_start, end=end)
+        if existing.empty:
+            yahoo = _fetch_yahoo_chart_ohlcv(symbol, start=fetch_start, end=end)
+            combined, audit = stitch_yahoo_to_nasdaq(yahoo, nasdaq)
+            refresh_mode = "initial_yahoo_nasdaq_stitch"
+        else:
+            combined = nasdaq.loc[:, ["date", *PRICE_COLUMNS]].copy()
+            combined["date"] = pd.to_datetime(combined["date"])
+            audit = {
+                "nasdaq_rows": int(len(combined)),
+                "nasdaq_start": pd.Timestamp(combined["date"].min()).date().isoformat(),
+                "incremental_source": "nasdaq_authoritative_yahoo_distribution_adjustment",
+            }
+            refresh_mode = "append_only_overlap_validation"
+        adjustments = fetch_yahoo_adjustment_factors(symbol, start=fetch_start, end=end)
         combined, adjustment_audit = merge_yahoo_adjustment_factors(
             combined,
             adjustments,
@@ -213,8 +233,24 @@ def build_soxs_defensive_provider(
         audit["dividend_adjustment_factor_max"] = float(combined["adjustment_factor"].max())
         combined = combined.drop(columns="adjustment_factor")
         combined = combined.loc[
-            (combined["date"] >= pd.Timestamp(start)) & (combined["date"] <= pd.Timestamp(end))
+            (combined["date"] >= pd.Timestamp(fetch_start)) & (combined["date"] <= pd.Timestamp(end))
         ].reset_index(drop=True)
+        if not existing.empty:
+            combined = _merge_overlap_preserving_history(
+                existing, combined, refresh_start=fetch_start
+            )
+        combined = combined.loc[combined["date"] >= pd.Timestamp(start)].sort_values("date").reset_index(drop=True)
+        audit.update(
+            {
+                "refresh_mode": refresh_mode,
+                "refresh_start": fetch_start,
+                "refresh_overlap_days": int(refresh_overlap_days),
+                "preserved_rows": int(len(existing)),
+                "appended_rows": int((combined["date"] > existing["date"].max()).sum())
+                if not existing.empty
+                else int(len(combined)),
+            }
+        )
         stitched[symbol] = combined
         audits[symbol] = audit
 
@@ -230,7 +266,7 @@ def build_soxs_defensive_provider(
         common = frame.loc[frame["date"].isin(ordered_dates)].copy()
         common.insert(1, "instrument", symbol)
         common = common.rename(columns={"date": "datetime"})
-        common.to_csv(paths.raw_dir / f"{symbol}.csv", index=False)
+        _write_symbol_history(paths.raw_dir / f"{symbol}.csv", common, symbol=symbol)
         rows.append(common)
     qlib_frame = pd.concat(rows, ignore_index=True)
     close_panel = qlib_frame.pivot(index="datetime", columns="instrument", values="close").sort_index()
@@ -250,7 +286,7 @@ def build_soxs_defensive_provider(
         "start": start,
         "symbols": list(SYMBOLS),
         "sources": [NASDAQ_HISTORY_URL, "query1/query2.finance.yahoo.com/v8/finance/chart"],
-        "adjustment_method": "early Yahoo OHLC scaled to first Nasdaq overlap; Nasdaq is authoritative thereafter; Yahoo adjusted-close ratio applies distributions to all OHLC",
+        "adjustment_method": "initial build stitches early Yahoo OHLC to Nasdaq; incremental refresh preserves existing dates and appends Nasdaq OHLC; Yahoo adjusted-close ratio applies distributions to all OHLC",
         "symbol_audits": audits,
         "relationship_audit": relation_audit,
     }
@@ -282,3 +318,65 @@ def build_soxs_defensive_provider(
         "qlib_audit": audit,
         "relationship_audit": relation_audit,
     }
+
+
+def _read_existing_symbol(path: Path, *, symbol: str) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame(columns=["date", *PRICE_COLUMNS])
+    frame = pd.read_csv(path)
+    date_column = "datetime" if "datetime" in frame else "date"
+    required = {date_column, *PRICE_COLUMNS}
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"existing {symbol} defensive raw data missing columns: {missing}")
+    result = frame.loc[:, [date_column, *PRICE_COLUMNS]].rename(columns={date_column: "date"})
+    result["date"] = pd.to_datetime(result["date"], errors="coerce")
+    for column in PRICE_COLUMNS:
+        result[column] = pd.to_numeric(result[column], errors="coerce")
+    return (
+        result.dropna(subset=["date", *PRICE_COLUMNS])
+        .drop_duplicates("date", keep="last")
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
+
+
+def _merge_overlap_preserving_history(
+    existing: pd.DataFrame, update: pd.DataFrame, *, refresh_start: str
+) -> pd.DataFrame:
+    pd.Timestamp(refresh_start)
+    existing_dates = set(pd.to_datetime(existing["date"]))
+    update_dates = set(pd.to_datetime(update["date"]))
+    if update.empty or not existing_dates.intersection(update_dates):
+        raise ValueError("incremental SOXS refresh is missing its validation overlap")
+    existing_end = pd.Timestamp(existing["date"].max())
+    appended = update.loc[update["date"] > existing_end]
+    return (
+        pd.concat([existing, appended], ignore_index=True)
+        .drop_duplicates("date", keep="last")
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
+
+
+def _write_symbol_history(path: Path, frame: pd.DataFrame, *, symbol: str) -> None:
+    """Append new sessions without reserializing already committed prices."""
+
+    existing = _read_existing_symbol(path, symbol=symbol)
+    if existing.empty:
+        frame.to_csv(path, index=False)
+        return
+    existing_dates = set(existing["date"])
+    frame_dates = set(pd.to_datetime(frame["datetime"]))
+    if not existing_dates.issubset(frame_dates):
+        raise ValueError(f"incremental {symbol} refresh would remove existing sessions")
+    existing_end = pd.Timestamp(existing["date"].max())
+    historical_backfills = frame.loc[
+        (pd.to_datetime(frame["datetime"]) <= existing_end)
+        & ~pd.to_datetime(frame["datetime"]).isin(existing_dates)
+    ]
+    if not historical_backfills.empty:
+        raise ValueError(f"incremental {symbol} refresh requires an explicit historical rebuild")
+    appended = frame.loc[pd.to_datetime(frame["datetime"]) > existing_end]
+    if not appended.empty:
+        appended.to_csv(path, mode="a", header=False, index=False)

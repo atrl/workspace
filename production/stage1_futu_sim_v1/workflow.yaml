@@ -8,7 +8,10 @@ broker:
   name: futu
   environment: SIMULATE
   real_trading_supported: false
-  account_notional: 10000.0
+  account_notional: 100000.0
+  sizing_basis: reconciled_live_sleeve_equity
+  ledger: runtime/soxl/stage1_futu_sim/paper_ledger.json
+  risk_failure_mode: close_only
 schedule:
   open: 09:31 America/New_York
   recovery: 10:31 America/New_York
