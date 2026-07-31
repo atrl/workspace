@@ -224,3 +224,156 @@ def test_stage1_production_card_registers_dashboard_entrypoint():
     assert "custom_interval_inference" in summary["dashboard"]["features"]
     assert "production/run_stage1_dashboard.sh" in workflow
     assert "benchmarks: [SOXL, SOXX]" in workflow
+
+
+def test_stage1_bark_message_reports_submitted_sim_orders():
+    from src.schedule.stage1_futu import build_stage1_bark_message
+
+    message = build_stage1_bark_message(
+        {
+            "status": "submitted",
+            "slot": "open",
+            "real_broker_order": False,
+            "target": {
+                "signal_date": "2026-07-30",
+                "weights": {"SOXL": 0.2, "SOXX": 0.5, "cash": 0.3},
+            },
+            "execution": {
+                "status": "submitted",
+                "environment": "SIMULATE",
+                "orders": [
+                    {"symbol": "SOXL", "side": "BUY", "quantity": 10, "status": "submitted"},
+                    {"symbol": "SOXX", "side": "SELL", "quantity": 2, "status": "submitted"},
+                ],
+            },
+        },
+        now=datetime(2026, 7, 30, 21, 31, tzinfo=ZoneInfo("Asia/Shanghai")),
+    )
+
+    assert message["title"] == "SOXL 模拟盘 submitted"
+    assert "SIMULATE" in message["body"]
+    assert "BUY 10 SOXL" in message["body"]
+    assert "SELL 2 SOXX" in message["body"]
+    assert "目标 SOXL 20.0% / SOXX 50.0% / 现金 30.0%" in message["body"]
+    assert "真实下单=false" in message["body"]
+    assert message["group"] == "SOXL Stage1 模拟盘"
+
+
+def test_stage1_daily_heartbeat_keeps_latest_actionable_run(tmp_path):
+    from src.schedule.stage1_futu import run_stage1_futu_task
+
+    runtime_dir = tmp_path / "runtime" / "soxl" / "stage1_futu_sim"
+    runtime_dir.mkdir(parents=True)
+    actionable = {
+        "status": "blocked",
+        "reason": "failed_position_risk_gates",
+        "slot": "recovery",
+        "real_broker_order": False,
+        "recorded_at": "2026-07-30T22:31:00+08:00",
+    }
+    (runtime_dir / "latest_actionable_run.json").write_text(
+        json.dumps(actionable), encoding="utf-8"
+    )
+
+    result = run_stage1_futu_task(
+        root=tmp_path,
+        slot="heartbeat",
+        now=datetime(2026, 7, 31, 10, 5, tzinfo=ZoneInfo("Asia/Shanghai")),
+    )
+
+    assert result["status"] == "heartbeat"
+    assert result["slot"] == "daily_heartbeat"
+    assert result["latest_actionable_run"]["status"] == "blocked"
+    assert result["latest_actionable_run"]["reason"] == "failed_position_risk_gates"
+    assert result["real_broker_order"] is False
+
+
+def test_stage1_bark_message_reports_daily_heartbeat_and_failure():
+    from src.schedule.stage1_futu import build_stage1_bark_message
+
+    heartbeat = build_stage1_bark_message(
+        {
+            "status": "heartbeat",
+            "slot": "daily_heartbeat",
+            "latest_actionable_run": {
+                "status": "blocked",
+                "slot": "recovery",
+                "reason": "failed_position_risk_gates",
+                "recorded_at": "2026-07-30T22:31:00+08:00",
+            },
+            "real_broker_order": False,
+        },
+        now=datetime(2026, 7, 31, 10, 5, tzinfo=ZoneInfo("Asia/Shanghai")),
+    )
+    failure = build_stage1_bark_message(
+        {
+            "status": "failed",
+            "slot": "postclose",
+            "reason": "blocked: Futu OpenD is not reachable",
+            "real_broker_order": False,
+        },
+        now=datetime(2026, 7, 31, 10, 0, tzinfo=ZoneInfo("Asia/Shanghai")),
+    )
+
+    assert heartbeat["title"] == "SOXL 模拟盘每日心跳"
+    assert "最近任务 recovery / blocked" in heartbeat["body"]
+    assert "failed_position_risk_gates" in heartbeat["body"]
+    assert failure["title"] == "SOXL 模拟盘 failed"
+    assert "Futu OpenD is not reachable" in failure["body"]
+
+
+def test_stage1_main_records_and_notifies_uncaught_failure(tmp_path, monkeypatch):
+    from src.schedule import stage1_futu
+
+    delivered = []
+    monkeypatch.setattr(stage1_futu, "_resolve_root", lambda _root: tmp_path)
+    monkeypatch.setattr(
+        stage1_futu,
+        "run_stage1_futu_task",
+        lambda **_kwargs: (_ for _ in ()).throw(RuntimeError("provider failed")),
+    )
+    monkeypatch.setattr(
+        stage1_futu,
+        "deliver_stage1_bark",
+        lambda result, **_kwargs: delivered.append(result) or {"status": "sent"},
+    )
+
+    exit_code = stage1_futu.main(["--slot", "postclose", "--notify"])
+    written = json.loads(
+        (tmp_path / "runtime" / "soxl" / "stage1_futu_sim" / "latest_actionable_run.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert exit_code == 1
+    assert written["status"] == "failed"
+    assert written["reason"] == "provider failed"
+    assert delivered[0]["status"] == "failed"
+
+
+def test_stage1_launchagents_enable_event_push_and_daily_heartbeat():
+    event_plist = (ROOT / "production" / "com.soxl.stage1.futu.sim.plist").read_text(
+        encoding="utf-8"
+    )
+    daily_plist = (
+        ROOT / "production" / "com.soxl.stage1.futu.sim.heartbeat.plist"
+    ).read_text(encoding="utf-8")
+    run_script = (ROOT / "production" / "run_stage1_futu_sim.sh").read_text(
+        encoding="utf-8"
+    )
+    summary = json.loads(
+        (ROOT / "production" / "stage1_futu_sim_v1" / "summary.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    assert "<string>--notify</string>" in event_plist
+    assert "com.soxl.stage1.futu.sim.heartbeat" in daily_plist
+    assert "<string>heartbeat</string>" in daily_plist
+    assert "<key>Hour</key><integer>10</integer>" in daily_plist
+    assert "<key>Minute</key><integer>5</integer>" in daily_plist
+    assert "<key>Weekday</key>" not in daily_plist
+    assert ".config/bark/remote.env" in run_script
+    assert summary["execution"]["notifications"]["daily_heartbeat"] == (
+        "10:05 Asia/Shanghai every calendar day"
+    )

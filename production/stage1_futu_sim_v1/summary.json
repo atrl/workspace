@@ -21,7 +21,12 @@
     ],
     "postclose_refresh": "20:15 America/New_York",
     "order_type": "MARKET",
-    "cash_is_residual": true
+    "cash_is_residual": true,
+    "notifications": {
+      "event_bark": "open/recovery/postclose result or failure",
+      "daily_heartbeat": "10:05 Asia/Shanghai every calendar day",
+      "credentials": "runtime environment only"
+    }
   },
   "latest_target": {
     "status": "ready",

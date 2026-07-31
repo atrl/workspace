@@ -36,9 +36,11 @@ from src.workflow.stage1_futu_sim import (
     build_runtime_target,
     run_stage1_futu_sim_card,
 )
+from src.schedule.notifications import BarkNotifier, BarkPushConfig
 
 
 NEW_YORK_TZ = ZoneInfo("America/New_York")
+SHANGHAI_TZ = ZoneInfo("Asia/Shanghai")
 RUNTIME_RELATIVE = Path("runtime/soxl/stage1_futu_sim")
 
 
@@ -240,7 +242,23 @@ def run_stage1_futu_task(
     runtime_dir.mkdir(parents=True, exist_ok=True)
     if selected_slot == "not_due":
         result = {"status": "not_due", "slot": selected_slot}
-        _write_latest(runtime_dir / "latest_run.json", result)
+        _record_run(runtime_dir, result, now=now, actionable=False)
+        return result
+    if selected_slot == "heartbeat":
+        latest = _read_json(runtime_dir / "latest_actionable_run.json")
+        if latest is None:
+            latest = {
+                "status": "needs_data",
+                "slot": "unknown",
+                "reason": "missing_latest_actionable_run",
+            }
+        result = {
+            "status": "heartbeat",
+            "slot": "daily_heartbeat",
+            "latest_actionable_run": latest,
+            "real_broker_order": False,
+        }
+        _record_run(runtime_dir, result, now=now, actionable=False)
         return result
     if selected_slot == "postclose":
         refresh = None if skip_refresh else refresh_stage1_data(
@@ -261,7 +279,7 @@ def run_stage1_futu_task(
             },
             "real_broker_order": False,
         }
-        _write_latest(runtime_dir / "latest_run.json", result)
+        _record_run(runtime_dir, result, now=now)
         return result
     if selected_slot not in {"open", "recovery"}:
         raise ValueError(f"unsupported Stage1 Futu task slot: {selected_slot}")
@@ -274,7 +292,7 @@ def run_stage1_futu_task(
             "slot": selected_slot,
             "real_broker_order": False,
         }
-        _write_latest(runtime_dir / "latest_run.json", result)
+        _record_run(runtime_dir, result, now=now)
         return result
 
     with FutuSimulatedBroker(host=host, port=port) as broker:
@@ -295,7 +313,7 @@ def run_stage1_futu_task(
                     "slot": selected_slot,
                     "real_broker_order": False,
                 }
-                _write_latest(runtime_dir / "latest_run.json", result)
+                _record_run(runtime_dir, result, now=now)
                 return result
             refresh_intraday_store(
                 root=repo_root,
@@ -335,7 +353,7 @@ def run_stage1_futu_task(
                 "execution": execution,
                 "real_broker_order": False,
             }
-    _write_latest(runtime_dir / "latest_run.json", result)
+    _record_run(runtime_dir, result, now=now)
     return result
 
 
@@ -378,10 +396,135 @@ def _write_latest(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8")
 
 
+def _read_json(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return payload if isinstance(payload, dict) else None
+
+
+def _record_run(
+    runtime_dir: Path,
+    result: dict[str, Any],
+    *,
+    now: datetime | None = None,
+    actionable: bool = True,
+) -> dict[str, Any]:
+    observed = now or datetime.now().astimezone()
+    if observed.tzinfo is None:
+        observed = observed.replace(tzinfo=SHANGHAI_TZ)
+    recorded = dict(result)
+    recorded["recorded_at"] = observed.astimezone(SHANGHAI_TZ).isoformat(timespec="seconds")
+    _write_latest(runtime_dir / "latest_run.json", recorded)
+    if actionable:
+        _write_latest(runtime_dir / "latest_actionable_run.json", recorded)
+    return recorded
+
+
+def build_stage1_bark_message(
+    result: dict[str, Any],
+    *,
+    now: datetime | None = None,
+) -> dict[str, str]:
+    observed = now or datetime.now().astimezone()
+    if observed.tzinfo is None:
+        observed = observed.replace(tzinfo=SHANGHAI_TZ)
+    shanghai = observed.astimezone(SHANGHAI_TZ)
+    new_york = observed.astimezone(NEW_YORK_TZ)
+    status = str(result.get("status", "unknown"))
+    slot = str(result.get("slot", "unknown"))
+
+    if status == "heartbeat":
+        title = "SOXL 模拟盘每日心跳"
+        latest = result.get("latest_actionable_run")
+        if not isinstance(latest, dict):
+            latest = {
+                "status": "needs_data",
+                "slot": "unknown",
+                "reason": "missing_latest_actionable_run",
+            }
+        latest_slot = str(latest.get("slot", "unknown"))
+        latest_status = str(latest.get("status", "unknown"))
+        lines = [
+            "调度心跳正常",
+            f"最近任务 {latest_slot} / {latest_status}",
+        ]
+        latest_reason = latest.get("reason")
+        if latest_reason:
+            lines.append(f"原因 {latest_reason}")
+        latest_at = latest.get("recorded_at")
+        if latest_at:
+            lines.append(f"最近记录 {latest_at}")
+    else:
+        title = f"SOXL 模拟盘 {status}"
+        lines = [f"任务 {slot} / {status}"]
+        reason = result.get("reason")
+        if reason:
+            lines.append(f"原因 {reason}")
+        execution = result.get("execution")
+        if isinstance(execution, dict):
+            environment = str(execution.get("environment", "SIMULATE"))
+            lines.append(f"环境 {environment}")
+            orders = execution.get("orders", [])
+            if isinstance(orders, list) and orders:
+                order_text = "; ".join(
+                    f"{order.get('side', '?')} {int(order.get('quantity', 0))} {order.get('symbol', '?')}"
+                    for order in orders
+                    if isinstance(order, dict)
+                )
+                lines.append(f"模拟委托 {order_text}")
+            else:
+                lines.append("模拟委托 无")
+        target = result.get("target")
+        if isinstance(target, dict):
+            weights = target.get("weights")
+            if isinstance(weights, dict) and {"SOXL", "SOXX", "cash"}.issubset(weights):
+                lines.append(
+                    "目标 "
+                    f"SOXL {float(weights['SOXL']):.1%} / "
+                    f"SOXX {float(weights['SOXX']):.1%} / "
+                    f"现金 {float(weights['cash']):.1%}"
+                )
+            if target.get("signal_date"):
+                lines.append(f"信号日 {target['signal_date']}")
+
+    lines.extend(
+        [
+            f"上海 {shanghai.strftime('%Y-%m-%d %H:%M')} / 纽约 {new_york.strftime('%Y-%m-%d %H:%M')}",
+            "真实下单=false",
+        ]
+    )
+    return {
+        "title": title,
+        "body": "\n".join(lines),
+        "group": "SOXL Stage1 模拟盘",
+    }
+
+
+def deliver_stage1_bark(
+    result: dict[str, Any],
+    *,
+    dry_run: bool = False,
+    notifier: BarkNotifier | None = None,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    active_notifier = notifier or BarkNotifier(
+        BarkPushConfig.from_env(dry_run=dry_run)
+    )
+    message = build_stage1_bark_message(result, now=now)
+    return active_notifier.send_message(**message)
+
+
 def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the frozen Stage1 strategy in Futu paper trading.")
-    parser.add_argument("--slot", choices=["auto", "open", "recovery", "postclose"], default="auto")
+    parser.add_argument(
+        "--slot",
+        choices=["auto", "open", "recovery", "postclose", "heartbeat"],
+        default="auto",
+    )
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--notify", action="store_true")
+    parser.add_argument("--notify-dry-run", action="store_true")
     parser.add_argument("--skip-refresh", action="store_true")
     parser.add_argument("--notional", type=float, default=DEFAULT_NOTIONAL)
     parser.add_argument("--host", default="127.0.0.1")
@@ -391,15 +534,39 @@ def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
-    result = run_stage1_futu_task(
-        slot=args.slot,
-        dry_run=args.dry_run,
-        skip_refresh=args.skip_refresh,
-        notional=args.notional,
-        host=args.host,
-        port=args.port,
-    )
+    try:
+        result = run_stage1_futu_task(
+            slot=args.slot,
+            dry_run=args.dry_run,
+            skip_refresh=args.skip_refresh,
+            notional=args.notional,
+            host=args.host,
+            port=args.port,
+        )
+    except Exception as error:
+        result = {
+            "status": "failed",
+            "slot": args.slot,
+            "reason": str(error),
+            "real_broker_order": False,
+        }
+        runtime_dir = _resolve_root(None) / RUNTIME_RELATIVE
+        _record_run(runtime_dir, result, actionable=True)
+        print(json.dumps(result, indent=2, sort_keys=True, default=str))
+        if args.notify:
+            try:
+                deliver_stage1_bark(result, dry_run=args.notify_dry_run)
+            except Exception as notify_error:
+                print(f"Bark notification failed: {notify_error}")
+        return 1
     print(json.dumps(result, indent=2, sort_keys=True, default=str))
+    if args.notify and result.get("status") != "not_due":
+        try:
+            push_result = deliver_stage1_bark(result, dry_run=args.notify_dry_run)
+            print(json.dumps({"bark": push_result}, sort_keys=True, default=str))
+        except Exception as error:
+            print(f"Bark notification failed: {error}")
+            return 3
     return 0 if result["status"] not in {"blocked"} else 2
 
 

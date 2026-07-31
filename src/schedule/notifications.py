@@ -47,6 +47,10 @@ class BarkPushConfig:
         values = os.environ if env is None else env
         server_url = values.get(server_var, "").strip()
         device_key = values.get(device_key_var, "").strip()
+        if not server_url and server_var == "BARK_SERVER_URL":
+            server_url = values.get("BARK_REMOTE_BASE_URL", "").strip()
+        if not device_key and device_key_var == "BARK_DEVICE_KEY":
+            device_key = values.get("BARK_REMOTE_DEVICE_KEY", "").strip()
         if not server_url or not device_key:
             raise ValueError(f"{server_var} and {device_key_var} are required for Bark push")
         return cls(server_url=server_url, device_key=device_key, dry_run=dry_run)
@@ -63,8 +67,21 @@ class BarkNotifier:
         self.sender = sender or _send_json
 
     def send_trade_notification(self, notification: TradeNotification) -> dict[str, Any]:
-        endpoint = self.config.server_url.rstrip("/") + "/push"
         payload = bark_payload_for_trade(notification, device_key=self.config.device_key)
+        return self.send_message(
+            title=payload["title"],
+            body=payload["body"],
+            group=payload["group"],
+        )
+
+    def send_message(self, *, title: str, body: str, group: str) -> dict[str, Any]:
+        endpoint = self.config.server_url.rstrip("/") + "/push"
+        payload = {
+            "device_key": self.config.device_key,
+            "title": str(title),
+            "body": str(body),
+            "group": str(group),
+        }
         if self.config.dry_run:
             return {
                 "status": "dry_run",
@@ -74,7 +91,11 @@ class BarkNotifier:
         response = self.sender(endpoint, payload, self.config.timeout_seconds)
         status_code = int(response.get("status", 0))
         if 200 <= status_code < 300:
-            return {"status": "sent", "response_status": status_code}
+            result: dict[str, Any] = {"status": "sent", "response_status": status_code}
+            response_message = _response_message(response.get("body", ""))
+            if response_message:
+                result["response_message"] = response_message
+            return result
         raise RuntimeError(f"Bark push failed with status {status_code}: {response.get('body', '')}")
 
 
@@ -161,3 +182,18 @@ def _send_json(endpoint: str, payload: dict[str, Any], timeout: float) -> dict[s
             return {"status": response.status, "body": response.read().decode("utf-8", errors="replace")}
     except urllib.error.HTTPError as error:
         return {"status": error.code, "body": error.read().decode("utf-8", errors="replace")}
+
+
+def _response_message(body: Any) -> str:
+    text = str(body or "").strip()
+    if not text:
+        return ""
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError:
+        return text[:200]
+    if isinstance(payload, dict):
+        for key in ("message", "msg"):
+            if payload.get(key):
+                return str(payload[key])[:200]
+    return text[:200]

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.soxl.stage1.futu.sim.heartbeat</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/rziiiii/dev/workspace/production/run_stage1_futu_sim.sh</string>
+    <string>--slot</string>
+    <string>heartbeat</string>
+    <string>--notify</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/rziiiii/dev/workspace</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PYTHONUNBUFFERED</key>
+    <string>1</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>5</integer></dict>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>/Users/rziiiii/dev/workspace/runtime/soxl/stage1_futu_sim/heartbeat.stdout.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/rziiiii/dev/workspace/runtime/soxl/stage1_futu_sim/heartbeat.stderr.log</string>
+</dict>
+</plist>

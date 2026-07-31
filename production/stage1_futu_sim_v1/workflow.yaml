@@ -13,6 +13,9 @@ schedule:
   open: 09:31 America/New_York
   recovery: 10:31 America/New_York
   postclose_refresh: 20:15 America/New_York
+  bark_event_push: open/recovery/postclose result or failure
+  bark_daily_heartbeat: 10:05 Asia/Shanghai every calendar day
+  bark_credentials: runtime environment only
 dashboard:
   entrypoint: production/run_stage1_dashboard.sh
   url: http://127.0.0.1:8765/

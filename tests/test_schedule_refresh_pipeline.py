@@ -200,7 +200,8 @@ def test_bark_notifier_builds_paper_trade_push_without_exposing_key():
     notification = trade_notification_from_order_intents(current=current, previous=previous)
     notifier = BarkNotifier(
         BarkPushConfig(server_url="https://bark.example", device_key="secret-device", dry_run=False),
-        sender=lambda url, payload, timeout: sent.append((url, payload, timeout)) or {"status": 200},
+        sender=lambda url, payload, timeout: sent.append((url, payload, timeout))
+        or {"status": 200, "body": '{"code":200,"message":"success"}'},
     )
 
     result = notifier.send_trade_notification(notification)
@@ -208,6 +209,7 @@ def test_bark_notifier_builds_paper_trade_push_without_exposing_key():
     assert notification.action == "BUY"
     assert notification.quantity_delta == 35
     assert result["status"] == "sent"
+    assert result["response_message"] == "success"
     assert sent[0][0] == "https://bark.example/push"
     assert sent[0][1]["device_key"] == "secret-device"
     assert sent[0][1]["title"] == "SOXL paper/sim BUY"
@@ -229,6 +231,22 @@ def test_bark_push_config_requires_env_key_and_server():
     assert config.dry_run is False
     with pytest.raises(ValueError, match="BARK_SERVER_URL and BARK_DEVICE_KEY"):
         BarkPushConfig.from_env({})
+
+
+def test_bark_push_config_accepts_persistent_remote_env_aliases():
+    from src.schedule import BarkPushConfig
+
+    config = BarkPushConfig.from_env(
+        {
+            "BARK_REMOTE_BASE_URL": "https://bark.example",
+            "BARK_REMOTE_DEVICE_KEY": "persistent-device",
+        },
+        dry_run=False,
+    )
+
+    assert config.server_url == "https://bark.example"
+    assert config.device_key == "persistent-device"
+    assert config.dry_run is False
 
 
 def test_refresh_plan_writes_state_and_passes_trade_notifications(tmp_path):
