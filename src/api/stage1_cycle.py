@@ -23,6 +23,8 @@ def load_stage1_cycle(path: Path) -> dict[str, Any]:
         raise ValueError("blocked: Stage1 paper cycle remark prefix is invalid")
     if float(payload.get("broker_reserve_cash", -1.0)) < 0.0:
         raise ValueError("blocked: Stage1 paper cycle reserve cash is invalid")
+    if "target_initial_equity" in payload and float(payload["target_initial_equity"]) <= 0.0:
+        raise ValueError("blocked: Stage1 paper cycle target initial equity is invalid")
     for key in ("ledger_file", "execution_state_file"):
         value = str(payload.get(key, ""))
         if not value or Path(value).name != value:
@@ -57,8 +59,19 @@ def activate_flat_stage1_cycle(
         raise RuntimeError(
             f"blocked: restart flatten is not complete; broker positions={positions}"
         )
-    reserve = float(cycle["broker_reserve_cash"])
-    initial_equity = float(snapshot.get("cash", 0.0)) - reserve
+    broker_cash = float(snapshot.get("cash", 0.0))
+    target_initial_equity = cycle.get("target_initial_equity")
+    if target_initial_equity is None:
+        reserve = float(cycle["broker_reserve_cash"])
+        initial_equity = broker_cash - reserve
+    else:
+        initial_equity = float(target_initial_equity)
+        reserve = broker_cash - initial_equity
+        if reserve < -1e-6:
+            raise RuntimeError(
+                "blocked: Futu simulated cash is below the restarted Stage1 target initial equity"
+            )
+        reserve = max(0.0, reserve)
     if initial_equity <= 0.0:
         raise RuntimeError("blocked: restarted Stage1 sleeve has no positive cash")
     activated = dict(cycle)
@@ -67,6 +80,7 @@ def activate_flat_stage1_cycle(
             "status": "active",
             "inception_date": session_date,
             "initial_equity": initial_equity,
+            "broker_reserve_cash": reserve,
             "opening_positions": positions,
             "activated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         }

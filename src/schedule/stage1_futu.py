@@ -469,6 +469,9 @@ def run_stage1_futu_task(
     runtime_dir.mkdir(parents=True, exist_ok=True)
     cycle_path = runtime_dir / CYCLE_MANIFEST
     cycle = load_stage1_cycle(cycle_path) if cycle_path.exists() else None
+    if cycle is not None and cycle.get("status") != "active":
+        cycle = dict(cycle)
+        cycle.setdefault("target_initial_equity", float(notional))
     if selected_slot == "not_due":
         result = {"status": "not_due", "slot": selected_slot}
         _record_run(runtime_dir, result, now=now, actionable=False)

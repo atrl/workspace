@@ -377,6 +377,7 @@ def test_stage1_cycle_activates_only_after_tracked_positions_are_flat(tmp_path):
         "cycle_id": "stage1_2026-08-03_v2",
         "status": "flatten_pending",
         "broker_reserve_cash": 900_000.0,
+        "target_initial_equity": 100_000.0,
     }
     with pytest.raises(RuntimeError, match="not complete"):
         activate_flat_stage1_cycle(
@@ -391,8 +392,16 @@ def test_stage1_cycle_activates_only_after_tracked_positions_are_flat(tmp_path):
         session_date="2026-08-03",
     )
     assert active["status"] == "active"
-    assert active["initial_equity"] == pytest.approx(97_250.0)
+    assert active["initial_equity"] == pytest.approx(100_000.0)
+    assert active["broker_reserve_cash"] == pytest.approx(897_250.0)
     assert active["opening_positions"] == {"SOXL": 0, "SOXX": 0}
+
+    with pytest.raises(RuntimeError, match="below the restarted Stage1 target"):
+        activate_flat_stage1_cycle(
+            cycle,
+            snapshot={"cash": 99_999.0, "positions": {"SOXL": 0, "SOXX": 0}},
+            session_date="2026-08-03",
+        )
 
 
 def test_stage1_ledger_rebuilds_confirmed_fills_and_live_drawdown(tmp_path):
