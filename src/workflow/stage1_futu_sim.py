@@ -420,12 +420,80 @@ def replay_runtime_state(
     return state, pd.DataFrame(rows)
 
 
+def runtime_state_from_paper_ledger(
+    ledger: dict[str, Any],
+    *,
+    recovery_spec: IntradayRecoveryDirectAllocationSpec,
+) -> RuntimeState:
+    """Build the live controller state from the current paper sleeve.
+
+    Historical model replay remains useful as a parity diagnostic, but it is
+    not the account state of a paper cycle that started later.  The live risk
+    controller therefore uses confirmed broker fills and qlib settled marks
+    from the active cycle only.
+    """
+
+    initial_equity = float(ledger.get("initial_equity", 0.0))
+    equity = float(ledger.get("equity", 0.0))
+    peak_equity = float(ledger.get("peak_equity", 0.0))
+    if initial_equity <= 0.0 or equity <= 0.0 or peak_equity <= 0.0:
+        raise ValueError("blocked: paper ledger has invalid live controller equity")
+
+    positions = dict(ledger.get("positions", {}))
+    prices = dict(ledger.get("prices", {}))
+    normalized_equity = equity / initial_equity
+    previous = np.array(
+        [
+            float(positions.get("SOXL", 0)) * float(prices.get("SOXL", 0.0)) / equity,
+            float(positions.get("SOXX", 0)) * float(prices.get("SOXX", 0.0)) / equity,
+            0.0,
+        ],
+        dtype="float64",
+    )
+    previous[2] = max(0.0, 1.0 - float(previous[:2].sum()))
+
+    marks = sorted(
+        [dict(row) for row in ledger.get("settled_marks", [])],
+        key=lambda row: str(row.get("date", "")),
+    )
+    history: list[float] = []
+    prior_equity = initial_equity
+    for mark in marks:
+        mark_equity = float(mark["equity"])
+        if prior_equity > 0.0:
+            history.append(mark_equity / prior_equity - 1.0)
+        prior_equity = mark_equity
+
+    risk_state = 0
+    risk_clock = 0
+    # The latest settled drawdown is consumed by _prepare_target below.  Older
+    # marks reconstruct the controller's prior discrete state exactly once.
+    for mark in marks[:-1]:
+        drawdown = max(0.0, -float(mark.get("drawdown", 0.0)))
+        risk_state, risk_clock, _ = _advance_state(
+            risk_state,
+            risk_clock,
+            drawdown,
+            recovery_spec,
+        )
+
+    return RuntimeState(
+        equity=normalized_equity,
+        peak=peak_equity / initial_equity,
+        previous=previous,
+        risk_state=risk_state,
+        risk_clock=risk_clock,
+        history=history,
+    )
+
+
 def build_runtime_target(
     *,
     root: Path | str | None = None,
     current_prices: dict[str, float] | None = None,
     include_current_intraday: bool = False,
     execution_date: str | None = None,
+    live_controller_state: RuntimeState | None = None,
 ) -> dict[str, Any]:
     repo_root = _resolve_root(root)
     spec = Stage1FutuSimSpec(root=repo_root)
@@ -482,7 +550,10 @@ def build_runtime_target(
     latest_signal = inference.index.max()
     pending = inference.loc[(inference.index > latest_complete) & (inference.index < latest_signal)]
     pending_settled: list[str] = []
-    if not pending.empty and current_prices is not None:
+    if live_controller_state is not None:
+        state = live_controller_state
+        pending_settled = ["paper_ledger_cycle"] if not pending.empty else []
+    elif not pending.empty and current_prices is not None:
         if len(pending) != 1:
             raise ValueError("blocked: more than one unsettled Stage1 row requires historical open marks")
         signal_date, row = next(iter(pending.iterrows()))
@@ -560,6 +631,9 @@ def build_runtime_target(
         "recovery_probability": prepared.recovery_probability,
         "recovery_action": prepared.recovery_action,
         "portfolio_drawdown": prepared.drawdown,
+        "controller_state_source": (
+            "paper_ledger_cycle" if live_controller_state is not None else "historical_model_replay"
+        ),
         "current_beta_cap": prepared.current_beta_cap,
         "raw_effective_beta": prepared.raw_effective_beta,
         "runtime_replay_parity_max_abs_error": parity_error,
@@ -687,6 +761,7 @@ def _record_artifacts(
                 execution_environment="futu_simulate_only",
                 account_notional=str(spec.account_notional),
                 real_broker_orders="false",
+                live_controller_state_source="active_paper_cycle_ledger",
             )
             R.log_metrics(
                 stage1_return_pct=comparison["stage1_10bps"]["return_pct"],
@@ -747,8 +822,18 @@ def run_stage1_futu_sim_card(
             "order_type": "MARKET",
             "cash_is_residual": True,
             "sizing_basis": "reconciled_live_sleeve_equity",
-            "ledger": "runtime/soxl/stage1_futu_sim/paper_ledger.json",
-            "risk_failure_mode": "close_only",
+            "cycle_manifest": "runtime/soxl/stage1_futu_sim/paper_cycle.json",
+            "ledger": "active cycle ledger selected by paper_cycle.json",
+            "controller_state_source": "confirmed cycle fills and qlib settled marks",
+            "risk_failure_mode": "blocked",
+            "historical_target_is_executable": False,
+            "paper_trial": {
+                "authorization": "explicit_user_requested_restart",
+                "production_promotion_gate_bypassed": True,
+                "scope": "Futu SIMULATE only",
+                "requires_fresh_data": True,
+                "requires_live_cycle_controller": True,
+            },
             "notifications": {
                 "event_bark": "open/recovery/postclose result or failure",
                 "daily_heartbeat": "10:05 Asia/Shanghai every calendar day",
@@ -828,8 +913,17 @@ def run_stage1_futu_sim_card(
                 "  real_trading_supported: false",
                 f"  account_notional: {spec.account_notional}",
                 "  sizing_basis: reconciled_live_sleeve_equity",
-                "  ledger: runtime/soxl/stage1_futu_sim/paper_ledger.json",
-                "  risk_failure_mode: close_only",
+                "  cycle_manifest: runtime/soxl/stage1_futu_sim/paper_cycle.json",
+                "  ledger: active cycle ledger selected by paper_cycle.json",
+                "  controller_state_source: confirmed cycle fills and qlib settled marks",
+                "  risk_failure_mode: blocked",
+                "  historical_target_is_executable: false",
+                "paper_trial:",
+                "  authorization: explicit_user_requested_restart",
+                "  production_promotion_gate_bypassed: true",
+                "  scope: Futu SIMULATE only",
+                "  requires_fresh_data: true",
+                "  requires_live_cycle_controller: true",
                 "schedule:",
                 "  open: 09:31 America/New_York",
                 "  recovery: 10:31 America/New_York",
@@ -863,10 +957,12 @@ def run_stage1_futu_sim_card(
                 "",
                 "- 已把晋级的 Stage1 固定为生产模拟源；Stage2 仍关闭，失败的 stateful direct 模型没有进入任务。",
                 f"- 同口径区间：{comparison['window']['start']} 至 {comparison['window']['end']}；Stage1 10bp return={comparison['stage1_10bps']['return_pct']:.4f}%，MaxDD={comparison['stage1_10bps']['max_drawdown_pct']:.4f}%。",
-                f"- 当前生产决策={summary['decision']}；risk_gate_pass={str(risk_gate_pass).lower()}。风险门槛或数据新鲜度失败时进入 close-only：禁止增加风险，但保留减仓。",
+                f"- 当前生产晋升决策={summary['decision']}；risk_gate_pass={str(risk_gate_pass).lower()}。晋升门仍未通过；本次仅按用户明确要求运行独立的 Futu SIMULATE 观察周期，不代表生产晋升。",
                 f"- legacy soxlbacktest 成本归一到 10bp 后 return={comparison['soxlbacktest_cost_normalized_10bps']['return_pct']:.4f}%，MaxDD={comparison['soxlbacktest_cost_normalized_10bps']['max_drawdown_pct']:.4f}%。",
-                f"- 当前最新信号日={target['signal_date']}；目标计算状态={target['status']}。只有生产风险门槛和数据新鲜度都通过才允许增加风险；否则仅允许 close-only 减仓。",
-                "- 模拟账户初始资金为 100,000 美元；后续目标股数按已对账的实时策略净值计算，不重复使用固定初始本金。现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。",
+                f"- card 内当前最新信号日={target['signal_date']}；目标计算状态={target['status']}；controller_state_source={target['controller_state_source']}。该完整历史目标只用于 qlib 回放一致性诊断，不可直接执行。",
+                "- 实际模拟目标必须读取 active paper cycle：旧周期先平仓归档，新周期按平仓后实际现金净值重新基准化；控制器只使用本周期确认成交与 qlib 结算标记。",
+                "- 数据过期、控制器来源不属于 active cycle、风险状态无法重建时一律 blocked，不再允许错误目标以 close-only 名义卖出。",
+                "- 后续目标股数按已对账的实时策略净值计算，不重复使用固定 100,000 美元。现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。",
                 "- 富途接口被限制为 SIMULATE；本任务没有真实账户分支。",
                 "- 模拟盘的 open/recovery/postclose 结果与异常会即时推送 Bark；每日上海时间 10:05 另发一次心跳，即使无交易也报告最近任务状态。Bark 凭据仅从运行环境读取，不写入仓库。",
                 "- Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动，支持自选区间、冻结模型推理状态、交易/换仓点、因子变化诊断及 SOXL/SOXX 同窗对比。",

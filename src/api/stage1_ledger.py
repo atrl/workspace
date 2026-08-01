@@ -22,6 +22,7 @@ def reconcile_stage1_ledger(
     prices: dict[str, float],
     as_of: str,
     settled_marks: Iterable[dict[str, Any]] = (),
+    remark_prefix: str = "stage1_",
 ) -> dict[str, Any]:
     """Rebuild the Stage1 sleeve from confirmed Futu SIMULATE fills.
 
@@ -39,7 +40,11 @@ def reconcile_stage1_ledger(
         raise ValueError("ledger prices must contain positive SOXL and SOXX values")
 
     previous = _load_previous(path)
-    normalized = _normalize_filled_orders(orders, inception_date=inception_date)
+    normalized = _normalize_filled_orders(
+        orders,
+        inception_date=inception_date,
+        remark_prefix=remark_prefix,
+    )
     calculated_positions = {symbol: 0 for symbol in TRACKED_CODES}
     net_trade_cash = 0.0
     for order in normalized:
@@ -91,6 +96,7 @@ def reconcile_stage1_ledger(
         "initial_equity": float(initial_equity),
         "broker_reserve_cash": float(broker_reserve_cash),
         "inception_date": inception_date,
+        "remark_prefix": remark_prefix,
         "cash": sleeve_cash,
         "positions": broker_positions,
         "prices": {symbol: float(prices[symbol]) for symbol in TRACKED_CODES},
@@ -115,7 +121,7 @@ def reconcile_stage1_ledger(
 
 
 def _normalize_filled_orders(
-    orders: Iterable[dict[str, Any]], *, inception_date: str
+    orders: Iterable[dict[str, Any]], *, inception_date: str, remark_prefix: str
 ) -> list[dict[str, Any]]:
     normalized: list[dict[str, Any]] = []
     pending: list[str] = []
@@ -123,7 +129,7 @@ def _normalize_filled_orders(
         code = str(raw.get("code", ""))
         remark = str(raw.get("remark", ""))
         created_at = str(raw.get("create_time", ""))
-        if code not in REVERSE_CODES or not remark.startswith("stage1_"):
+        if code not in REVERSE_CODES or not remark.startswith(remark_prefix):
             continue
         if created_at and created_at[:10] < inception_date:
             continue

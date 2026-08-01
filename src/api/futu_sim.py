@@ -181,6 +181,7 @@ class FutuSimulatedBroker:
         execution_mode: str = "normal",
         current_quantities: dict[str, int] | None = None,
         now: datetime | None = None,
+        remark_prefix: str = "stage1",
     ) -> dict[str, Any]:
         futu, trade_ctx, account_id = self._require_connected()
         if set(weights) != {"SOXL", "SOXX", "cash"}:
@@ -193,6 +194,8 @@ class FutuSimulatedBroker:
             raise ValueError("portfolio_equity must be positive")
         if execution_mode not in {"normal", "close_only"}:
             raise ValueError("execution_mode must be normal or close_only")
+        if not remark_prefix.startswith("stage1_") and remark_prefix != "stage1":
+            raise ValueError("remark_prefix must identify a Stage1 paper cycle")
         if not dry_run and not is_us_regular_session(now):
             raise RuntimeError("blocked: Futu SIMULATE orders are only submitted during US regular hours")
         if not dry_run and self.us_market_state() not in {"MORNING", "AFTERNOON"}:
@@ -257,7 +260,7 @@ class FutuSimulatedBroker:
                 order_type=futu.OrderType.MARKET,
                 trd_env=futu.TrdEnv.SIMULATE,
                 acc_id=account_id,
-                remark=f"stage1_{slot}_{signal_date}"[:64],
+                remark=f"{remark_prefix}_{slot}_{signal_date}"[:64],
             )
             if ret != futu.RET_OK:
                 raise RuntimeError(
@@ -269,7 +272,11 @@ class FutuSimulatedBroker:
             orders.append(order | {"status": "submitted", "order_id": order_id})
 
         result = {
-            "status": "dry_run" if dry_run else "submitted",
+            "status": (
+                "dry_run"
+                if dry_run
+                else ("submitted" if orders else "no_change_completed")
+            ),
             "slot_key": key,
             "environment": "SIMULATE",
             "real_broker_order": False,
@@ -282,11 +289,10 @@ class FutuSimulatedBroker:
             "orders": orders,
         }
         if not dry_run:
-            pending = state.setdefault("pending_slots", {})
             execution_session_date = (now or datetime.now(tz=NEW_YORK_TZ)).astimezone(
                 NEW_YORK_TZ
             ).date().isoformat()
-            pending[key] = {
+            slot_state = {
                 "signal_date": signal_date,
                 "slot": slot,
                 "execution_session_date": execution_session_date,
@@ -297,6 +303,13 @@ class FutuSimulatedBroker:
                 "status": "submitted_awaiting_fill_confirmation",
                 "recorded_at": datetime.now().astimezone().isoformat(timespec="seconds"),
             }
+            if orders:
+                state.setdefault("pending_slots", {})[key] = slot_state
+            else:
+                state.setdefault("completed_slots", {})[key] = slot_state | {
+                    "status": "no_change_completed",
+                    "confirmed_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+                }
             _write_state(state_path, state)
         return result
 
@@ -325,9 +338,9 @@ def reconcile_execution_state(path: Path, orders: list[dict[str, Any]]) -> dict[
     for key, slot in list(pending.items()):
         order_ids = [str(value) for value in slot.get("order_ids", []) if str(value)]
         statuses = [str(by_id.get(order_id, {}).get("order_status", "")).upper() for order_id in order_ids]
-        if order_ids and statuses and all(status == "FILLED_ALL" for status in statuses):
+        if not order_ids or (statuses and all(status == "FILLED_ALL" for status in statuses)):
             completed[key] = dict(slot) | {
-                "status": "filled_confirmed",
+                "status": "filled_confirmed" if order_ids else "no_change_completed",
                 "confirmed_at": datetime.now().astimezone().isoformat(timespec="seconds"),
             }
             del pending[key]

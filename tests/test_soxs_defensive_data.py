@@ -10,6 +10,7 @@ from src.data.soxs_defensive import (
     _merge_overlap_preserving_history,
     _write_symbol_history,
     merge_yahoo_adjustment_factors,
+    fetch_incremental_history_with_fallback,
     normalize_nasdaq_history,
     stitch_yahoo_to_nasdaq,
 )
@@ -31,6 +32,40 @@ def test_normalize_nasdaq_history_parses_currency_and_commas() -> None:
     assert frame.loc[0, "date"] == pd.Timestamp("2026-07-21")
     assert frame.loc[0, "open"] == pytest.approx(46.34)
     assert frame.loc[0, "close"] == pytest.approx(45.13)
+
+
+def test_soxs_incremental_fetch_falls_back_to_yahoo_when_nasdaq_is_unavailable(
+    monkeypatch,
+) -> None:
+    from src.data import soxs_defensive
+
+    monkeypatch.setattr(
+        soxs_defensive,
+        "fetch_nasdaq_history",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError("nasdaq unavailable")),
+    )
+    yahoo = pd.DataFrame(
+        {
+            "date": ["2026-07-30", "2026-07-31"],
+            "open": [10.0, 11.0],
+            "high": [10.5, 11.5],
+            "low": [9.5, 10.5],
+            "close": [10.2, 11.2],
+            "volume": [100, 200],
+        }
+    )
+    monkeypatch.setattr(soxs_defensive, "_fetch_yahoo_chart_ohlcv", lambda *_args, **_kwargs: yahoo)
+
+    frame, audit = fetch_incremental_history_with_fallback(
+        "SOXS",
+        start="2026-07-30",
+        end="2026-07-31",
+    )
+
+    assert frame["date"].tolist() == ["2026-07-30", "2026-07-31"]
+    assert audit["incremental_price_source"] == "yahoo_chart"
+    assert audit["incremental_fallback"] is True
+    assert "nasdaq unavailable" in audit["nasdaq_error"]
 
 
 def test_stitch_yahoo_to_nasdaq_scales_early_history_and_keeps_nasdaq_overlap() -> None:

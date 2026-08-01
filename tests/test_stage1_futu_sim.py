@@ -54,9 +54,25 @@ def test_stage1_runtime_target_settles_pending_label_at_next_open():
     )
 
     assert target["status"] == "ready"
-    assert target["signal_date"] == "2026-07-30"
-    assert target["pending_signal_dates"] == ["2026-07-29"]
-    assert target["pending_settled"] == ["2026-07-29"]
+    assert target["signal_date"] > target["latest_complete_signal_date"]
+    assert len(target["pending_signal_dates"]) == 1
+    assert target["pending_settled"] == target["pending_signal_dates"]
+
+
+def test_stage1_runtime_target_uses_fresh_paper_cycle_state_instead_of_historical_drawdown():
+    from src.workflow.stage1_futu_sim import RuntimeState, build_runtime_target
+
+    target = build_runtime_target(
+        root=ROOT,
+        current_prices={"SOXL": 114.72, "SOXX": 504.89},
+        live_controller_state=RuntimeState(),
+    )
+
+    assert target["status"] == "ready"
+    assert target["controller_state_source"] == "paper_ledger_cycle"
+    assert target["portfolio_drawdown"] == pytest.approx(0.0)
+    assert target["weights"]["SOXL"] > 0.0
+    assert target["weights"]["SOXX"] > 0.3
 
 
 def test_stage1_matched_comparison_beats_legacy_reference_and_recomputes_risk():
@@ -182,7 +198,7 @@ def test_stage1_refresh_uses_daily_fallback_and_marks_intraday_stale_when_opend_
     assert result["freshness"]["checks"]["intraday"] is False
 
 
-def test_stage1_execution_gate_blocks_failed_position_risk(tmp_path):
+def test_stage1_execution_gate_fails_closed_on_failed_position_risk(tmp_path):
     from src.schedule.stage1_futu import _production_execution_gate
 
     card = tmp_path / "production" / "stage1_futu_sim_v1"
@@ -203,9 +219,41 @@ def test_stage1_execution_gate_blocks_failed_position_risk(tmp_path):
     )
 
     assert _production_execution_gate(tmp_path) == (
-        "close_only",
+        "blocked",
         "failed_position_risk_gates",
     )
+
+
+def test_stage1_execution_gate_allows_explicit_restarted_paper_trial_with_live_controller(
+    tmp_path,
+):
+    from src.schedule.stage1_futu import _production_execution_gate
+
+    card = tmp_path / "production" / "stage1_futu_sim_v1"
+    card.mkdir(parents=True)
+    (card / "summary.json").write_text(
+        json.dumps(
+            {
+                "decision": "paper_sim_blocked_failed_position_risk_gates",
+                "risk_gate_pass": False,
+                "latest_target": {"status": "blocked"},
+            }
+        ),
+        encoding="utf-8",
+    )
+    target = {
+        "status": "ready",
+        "signal_date": "2026-07-31",
+        "controller_state_source": "paper_ledger_cycle",
+        "source_audit": {"market_audit": {"common_feature_end": "2026-07-31"}},
+    }
+
+    assert _production_execution_gate(
+        tmp_path,
+        target=target,
+        required_signal_date="2026-07-31",
+        paper_trial_authorized=True,
+    ) == ("normal", "user_authorized_restarted_paper_trial")
 
 
 def test_futu_simulated_broker_close_only_never_increases_positions(tmp_path, monkeypatch):
@@ -289,6 +337,62 @@ def test_futu_execution_slot_is_completed_only_after_fill_confirmation(tmp_path)
     )
     assert completed["pending_slots"] == {}
     assert completed["completed_slots"]["2026-07-30:open"]["status"] == "filled_confirmed"
+
+
+def test_futu_execution_reconciles_legacy_zero_order_pending_as_completed(tmp_path):
+    from src.api.futu_sim import reconcile_execution_state
+
+    state_path = tmp_path / "execution_state.json"
+    state_path.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "environment": "SIMULATE",
+                "real_trading_supported": False,
+                "completed_slots": {},
+                "pending_slots": {
+                    "2026-07-30:recovery": {
+                        "order_ids": [],
+                        "status": "submitted_awaiting_fill_confirmation",
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    state = reconcile_execution_state(state_path, [])
+
+    assert state["pending_slots"] == {}
+    assert state["completed_slots"]["2026-07-30:recovery"]["status"] == (
+        "no_change_completed"
+    )
+
+
+def test_stage1_cycle_activates_only_after_tracked_positions_are_flat(tmp_path):
+    from src.api.stage1_cycle import activate_flat_stage1_cycle
+
+    cycle = {
+        "version": 1,
+        "cycle_id": "stage1_2026-08-03_v2",
+        "status": "flatten_pending",
+        "broker_reserve_cash": 900_000.0,
+    }
+    with pytest.raises(RuntimeError, match="not complete"):
+        activate_flat_stage1_cycle(
+            cycle,
+            snapshot={"cash": 969_000.0, "positions": {"SOXL": 0, "SOXX": 55}},
+            session_date="2026-08-03",
+        )
+
+    active = activate_flat_stage1_cycle(
+        cycle,
+        snapshot={"cash": 997_250.0, "positions": {"SOXL": 0, "SOXX": 0}},
+        session_date="2026-08-03",
+    )
+    assert active["status"] == "active"
+    assert active["initial_equity"] == pytest.approx(97_250.0)
+    assert active["opening_positions"] == {"SOXL": 0, "SOXX": 0}
 
 
 def test_stage1_ledger_rebuilds_confirmed_fills_and_live_drawdown(tmp_path):
@@ -645,6 +749,7 @@ def test_stage1_launchagents_enable_event_push_and_daily_heartbeat():
     assert "<key>Minute</key><integer>5</integer>" in daily_plist
     assert "<key>Weekday</key>" not in daily_plist
     assert ".config/bark/remote.env" in run_script
+    assert ".config/bark/android-current.env" in run_script
     assert summary["execution"]["notifications"]["daily_heartbeat"] == (
         "10:05 Asia/Shanghai every calendar day"
     )

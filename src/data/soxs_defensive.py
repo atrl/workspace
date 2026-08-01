@@ -78,6 +78,28 @@ def fetch_nasdaq_history(symbol: str, *, start: str, end: str) -> pd.DataFrame:
     return normalize_nasdaq_history(rows)
 
 
+def fetch_incremental_history_with_fallback(
+    symbol: str,
+    *,
+    start: str,
+    end: str,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """Fetch a short incremental window without making Nasdaq a single point of failure."""
+
+    try:
+        return fetch_nasdaq_history(symbol, start=start, end=end), {
+            "incremental_price_source": "nasdaq",
+            "incremental_fallback": False,
+        }
+    except Exception as error:
+        yahoo = _fetch_yahoo_chart_ohlcv(symbol, start=start, end=end)
+        return yahoo.loc[:, ["date", *PRICE_COLUMNS]].copy(), {
+            "incremental_price_source": "yahoo_chart",
+            "incremental_fallback": True,
+            "nasdaq_error": str(error)[:500],
+        }
+
+
 def fetch_yahoo_adjustment_factors(symbol: str, *, start: str, end: str) -> pd.DataFrame:
     payload = _fetch_yahoo_chart_payload(symbol, start=start, end=end)
     result = (payload.get("chart", {}).get("result") or [None])[0]
@@ -206,18 +228,26 @@ def build_soxs_defensive_provider(
                 pd.Timestamp(start),
                 existing["date"].max() - pd.Timedelta(days=refresh_overlap_days),
             ).date().isoformat()
-        nasdaq = fetch_nasdaq_history(symbol, start=fetch_start, end=end)
         if existing.empty:
+            nasdaq = fetch_nasdaq_history(symbol, start=fetch_start, end=end)
             yahoo = _fetch_yahoo_chart_ohlcv(symbol, start=fetch_start, end=end)
             combined, audit = stitch_yahoo_to_nasdaq(yahoo, nasdaq)
             refresh_mode = "initial_yahoo_nasdaq_stitch"
         else:
-            combined = nasdaq.loc[:, ["date", *PRICE_COLUMNS]].copy()
+            combined, fetch_audit = fetch_incremental_history_with_fallback(
+                symbol,
+                start=fetch_start,
+                end=end,
+            )
+            combined = combined.loc[:, ["date", *PRICE_COLUMNS]].copy()
             combined["date"] = pd.to_datetime(combined["date"])
             audit = {
                 "nasdaq_rows": int(len(combined)),
                 "nasdaq_start": pd.Timestamp(combined["date"].min()).date().isoformat(),
-                "incremental_source": "nasdaq_authoritative_yahoo_distribution_adjustment",
+                "incremental_source": (
+                    "nasdaq_or_yahoo_chart_price_with_yahoo_distribution_adjustment"
+                ),
+                **fetch_audit,
             }
             refresh_mode = "append_only_overlap_validation"
         adjustments = fetch_yahoo_adjustment_factors(symbol, start=fetch_start, end=end)

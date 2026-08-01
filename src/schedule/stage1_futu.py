@@ -10,7 +10,14 @@ from zoneinfo import ZoneInfo
 
 import pandas as pd
 
-from src.api import FutuSimulatedBroker, opend_reachable, reconcile_stage1_ledger
+from src.api import (
+    FutuSimulatedBroker,
+    activate_flat_stage1_cycle,
+    load_stage1_cycle,
+    opend_reachable,
+    reconcile_stage1_ledger,
+    write_stage1_cycle,
+)
 from src.api.futu_sim import reconcile_execution_state
 from src.data import build_qlib_store_from_frame
 from src.data.intraday import (
@@ -41,7 +48,11 @@ from src.workflow.dynamic_soxx_soxl_cash_allocation_wf import (
 from src.workflow.stage1_futu_sim import (
     DEFAULT_NOTIONAL,
     build_runtime_target,
+    runtime_state_from_paper_ledger,
     run_stage1_futu_sim_card,
+)
+from src.workflow.intraday_recovery_direct_allocation import (
+    IntradayRecoveryDirectAllocationSpec,
 )
 from src.schedule.notifications import BarkNotifier, BarkPushConfig
 
@@ -49,8 +60,8 @@ from src.schedule.notifications import BarkNotifier, BarkPushConfig
 NEW_YORK_TZ = ZoneInfo("America/New_York")
 SHANGHAI_TZ = ZoneInfo("Asia/Shanghai")
 RUNTIME_RELATIVE = Path("runtime/soxl/stage1_futu_sim")
-STAGE1_INCEPTION_DATE = "2026-07-27"
 DEFAULT_BROKER_RESERVE_CASH = 900_000.0
+CYCLE_MANIFEST = "paper_cycle.json"
 
 
 def _resolve_root(root: Path | str | None) -> Path:
@@ -276,6 +287,7 @@ def _production_execution_gate(
     *,
     target: dict[str, Any] | None = None,
     required_signal_date: str | None = None,
+    paper_trial_authorized: bool = False,
 ) -> tuple[str, str | None]:
     summary_path = root / "production" / "stage1_futu_sim_v1" / "summary.json"
     if not summary_path.exists():
@@ -293,12 +305,150 @@ def _production_execution_gate(
         or (feature_end >= required_signal_date and signal_date >= required_signal_date)
     )
     if not fresh:
-        return "close_only", "stale_qlib_target"
+        return "blocked", "stale_qlib_target"
+    if paper_trial_authorized:
+        if active_target.get("controller_state_source") != "paper_ledger_cycle":
+            return "blocked", "paper_trial_requires_live_cycle_controller"
+        return "normal", "user_authorized_restarted_paper_trial"
     if summary.get("risk_gate_pass") is not True:
-        return "close_only", "failed_position_risk_gates"
+        return "blocked", "failed_position_risk_gates"
     if summary.get("decision") != "paper_sim_enabled_waiting_next_us_session":
-        return "close_only", "production_decision_not_enabled"
+        return "blocked", "production_decision_not_enabled"
     return "normal", None
+
+
+def _cycle_runtime_paths(
+    runtime_dir: Path,
+    cycle: dict[str, Any],
+) -> tuple[Path, Path]:
+    return (
+        runtime_dir / str(cycle["ledger_file"]),
+        runtime_dir / str(cycle["execution_state_file"]),
+    )
+
+
+def _cycle_ledger(
+    *,
+    repo_root: Path,
+    runtime_dir: Path,
+    cycle: dict[str, Any],
+    snapshot: dict[str, Any],
+    prices: dict[str, float],
+    history: list[dict[str, Any]],
+    now: datetime | None,
+) -> dict[str, Any]:
+    ledger_path, execution_state_path = _cycle_runtime_paths(runtime_dir, cycle)
+    reconcile_execution_state(execution_state_path, history)
+    return reconcile_stage1_ledger(
+        path=ledger_path,
+        initial_equity=float(cycle["initial_equity"]),
+        broker_reserve_cash=float(cycle["broker_reserve_cash"]),
+        inception_date=str(cycle["inception_date"]),
+        snapshot=snapshot,
+        orders=history,
+        prices=prices,
+        as_of=(now or datetime.now(tz=NEW_YORK_TZ)).isoformat(),
+        settled_marks=_load_qlib_settled_marks(
+            repo_root,
+            start=str(cycle["inception_date"]),
+            end=settled_date(now),
+        ),
+        remark_prefix=str(cycle["remark_prefix"]) + "_",
+    )
+
+
+def _restart_cycle_if_needed(
+    *,
+    runtime_dir: Path,
+    cycle: dict[str, Any],
+    broker: FutuSimulatedBroker,
+    snapshot: dict[str, Any],
+    prices: dict[str, float],
+    history: list[dict[str, Any]],
+    session_date: str,
+    slot: str,
+    dry_run: bool,
+    now: datetime | None,
+) -> tuple[dict[str, Any], dict[str, Any] | None]:
+    if cycle["status"] == "active":
+        return cycle, None
+    if cycle["status"] == "blocked":
+        return cycle, {
+            "status": "blocked",
+            "slot": slot,
+            "reason": "paper_cycle_blocked",
+            "cycle_id": cycle["cycle_id"],
+            "cycle_status": cycle["status"],
+            "real_broker_order": False,
+        }
+    if session_date < str(cycle["start_date"]):
+        return cycle, {
+            "status": "restart_armed",
+            "slot": slot,
+            "reason": f"waiting_for_{cycle['start_date']}_us_session",
+            "cycle_id": cycle["cycle_id"],
+            "cycle_status": cycle["status"],
+            "real_broker_order": False,
+        }
+
+    positions = {
+        symbol: int(snapshot["positions"].get(symbol, 0))
+        for symbol in ("SOXL", "SOXX")
+    }
+    execution_state_path = runtime_dir / str(cycle["execution_state_file"])
+    reconcile_execution_state(execution_state_path, history)
+    if not any(positions.values()):
+        activated = activate_flat_stage1_cycle(
+            cycle,
+            snapshot=snapshot,
+            session_date=session_date,
+        )
+        activated = write_stage1_cycle(runtime_dir / CYCLE_MANIFEST, activated)
+        return activated, None
+
+    if cycle["status"] == "flatten_pending":
+        return cycle, {
+            "status": "restart_waiting_fill",
+            "slot": slot,
+            "reason": "tracked_positions_not_flat_yet",
+            "cycle_id": cycle["cycle_id"],
+            "cycle_status": cycle["status"],
+            "positions": positions,
+            "real_broker_order": False,
+        }
+
+    sleeve_equity = (
+        float(snapshot["cash"])
+        - float(cycle["broker_reserve_cash"])
+        + sum(positions[symbol] * float(prices[symbol]) for symbol in positions)
+    )
+    execution = broker.rebalance(
+        weights={"SOXL": 0.0, "SOXX": 0.0, "cash": 1.0},
+        prices=prices,
+        portfolio_equity=sleeve_equity,
+        signal_date=str(cycle["start_date"]),
+        slot="restart_flatten",
+        state_path=execution_state_path,
+        dry_run=dry_run,
+        execution_mode="normal",
+        current_quantities=positions,
+        now=now,
+        remark_prefix=str(cycle.get("restart_remark_prefix", "stage1_restart")),
+    )
+    if not dry_run:
+        cycle = write_stage1_cycle(
+            runtime_dir / CYCLE_MANIFEST,
+            dict(cycle) | {"status": "flatten_pending"},
+        )
+    return cycle, {
+        "status": execution["status"],
+        "slot": "restart_flatten",
+        "reason": "new_paper_cycle_flattening_legacy_positions",
+        "cycle_id": cycle["cycle_id"],
+        "cycle_status": cycle["status"],
+        "execution": execution,
+        "real_broker_order": False,
+    }
 
 
 def run_stage1_futu_task(
@@ -317,6 +467,8 @@ def run_stage1_futu_task(
     selected_slot = detect_slot(now) if slot == "auto" else slot
     runtime_dir = repo_root / RUNTIME_RELATIVE
     runtime_dir.mkdir(parents=True, exist_ok=True)
+    cycle_path = runtime_dir / CYCLE_MANIFEST
+    cycle = load_stage1_cycle(cycle_path) if cycle_path.exists() else None
     if selected_slot == "not_due":
         result = {"status": "not_due", "slot": selected_slot}
         _record_run(runtime_dir, result, now=now, actionable=False)
@@ -333,6 +485,8 @@ def run_stage1_futu_task(
             "status": "heartbeat",
             "slot": "daily_heartbeat",
             "latest_actionable_run": latest,
+            "cycle_id": cycle.get("cycle_id") if cycle else None,
+            "cycle_status": cycle.get("status") if cycle else "missing",
             "real_broker_order": False,
         }
         _record_run(runtime_dir, result, now=now, actionable=False)
@@ -345,23 +499,22 @@ def run_stage1_futu_task(
         )
         card = run_stage1_futu_sim_card(root=repo_root)
         ledger = None
-        if opend_reachable(host, port):
+        if opend_reachable(host, port) and cycle and cycle.get("status") == "active":
             with FutuSimulatedBroker(host=host, port=port) as broker:
                 prices = broker.quotes()
-                history = broker.order_history(start=STAGE1_INCEPTION_DATE, end=settled_date(now))
-                reconcile_execution_state(runtime_dir / "execution_state.json", history)
-                ledger = reconcile_stage1_ledger(
-                    path=runtime_dir / "paper_ledger.json",
-                    initial_equity=notional,
-                    broker_reserve_cash=broker_reserve_cash,
-                    inception_date=STAGE1_INCEPTION_DATE,
-                    snapshot=broker.account_snapshot(),
-                    orders=history,
+                snapshot = broker.account_snapshot()
+                history = broker.order_history(
+                    start=str(cycle["inception_date"]),
+                    end=settled_date(now),
+                )
+                ledger = _cycle_ledger(
+                    repo_root=repo_root,
+                    runtime_dir=runtime_dir,
+                    cycle=cycle,
+                    snapshot=snapshot,
                     prices=prices,
-                    as_of=(now or datetime.now(tz=NEW_YORK_TZ)).isoformat(),
-                    settled_marks=_load_qlib_settled_marks(
-                        repo_root, start=STAGE1_INCEPTION_DATE, end=settled_date(now)
-                    ),
+                    history=history,
+                    now=now,
                 )
         result = {
             "status": "ok" if refresh is None or refresh.get("status") == "ok" else "needs_data",
@@ -374,49 +527,85 @@ def run_stage1_futu_task(
                 "latest_signal_date": card["latest_target"]["signal_date"],
             },
             "ledger": _ledger_summary(ledger) if ledger else None,
+            "cycle_id": cycle.get("cycle_id") if cycle else None,
+            "cycle_status": cycle.get("status") if cycle else "missing",
             "real_broker_order": False,
         }
         _record_run(runtime_dir, result, now=now)
         return result
     if selected_slot not in {"open", "recovery"}:
         raise ValueError(f"unsupported Stage1 Futu task slot: {selected_slot}")
+    if cycle is None:
+        result = {
+            "status": "blocked",
+            "slot": selected_slot,
+            "reason": "missing_paper_cycle_manifest",
+            "real_broker_order": False,
+        }
+        _record_run(runtime_dir, result, now=now)
+        return result
 
     with FutuSimulatedBroker(host=host, port=port) as broker:
         prices = broker.quotes()
+        snapshot = broker.account_snapshot()
         session_date = (now or datetime.now(tz=NEW_YORK_TZ)).astimezone(
             NEW_YORK_TZ
         ).date().isoformat()
-        history = broker.order_history(start=STAGE1_INCEPTION_DATE, end=session_date)
-        reconcile_execution_state(runtime_dir / "execution_state.json", history)
-        ledger = reconcile_stage1_ledger(
-            path=runtime_dir / "paper_ledger.json",
-            initial_equity=notional,
-            broker_reserve_cash=broker_reserve_cash,
-            inception_date=STAGE1_INCEPTION_DATE,
-            snapshot=broker.account_snapshot(),
-            orders=history,
+        history = (
+            []
+            if session_date < str(cycle["start_date"])
+            else broker.order_history(start=str(cycle["start_date"]), end=session_date)
+        )
+        cycle, restart_result = _restart_cycle_if_needed(
+            runtime_dir=runtime_dir,
+            cycle=cycle,
+            broker=broker,
+            snapshot=snapshot,
             prices=prices,
-            as_of=(now or datetime.now(tz=NEW_YORK_TZ)).isoformat(),
-            settled_marks=_load_qlib_settled_marks(
-                repo_root, start=STAGE1_INCEPTION_DATE, end=settled_date(now)
-            ),
+            history=history,
+            session_date=session_date,
+            slot=selected_slot,
+            dry_run=dry_run,
+            now=now,
+        )
+        if restart_result is not None:
+            _record_run(runtime_dir, restart_result, now=now, actionable=not dry_run)
+            return restart_result
+
+        history = broker.order_history(start=str(cycle["inception_date"]), end=session_date)
+        ledger = _cycle_ledger(
+            repo_root=repo_root,
+            runtime_dir=runtime_dir,
+            cycle=cycle,
+            snapshot=snapshot,
+            prices=prices,
+            history=history,
+            now=now,
         )
         settlement_prices = prices
         if selected_slot == "recovery":
+            _, cycle_execution_state_path = _cycle_runtime_paths(runtime_dir, cycle)
             settlement_prices = _latest_open_settlement_prices(
-                runtime_dir / "execution_state.json",
+                cycle_execution_state_path,
                 session_date=session_date,
             )
             if settlement_prices is None:
-                result = {
-                    "status": "blocked",
-                    "reason": "missing_same_day_open_mark",
-                    "slot": selected_slot,
-                    "ledger": _ledger_summary(ledger),
-                    "real_broker_order": False,
-                }
-                _record_run(runtime_dir, result, now=now)
-                return result
+                if (
+                    str(cycle.get("inception_date")) == session_date
+                    and not any(int(value) for value in ledger["positions"].values())
+                ):
+                    settlement_prices = prices
+                else:
+                    result = {
+                        "status": "blocked",
+                        "reason": "missing_same_day_open_mark",
+                        "slot": selected_slot,
+                        "ledger": _ledger_summary(ledger),
+                        "cycle_id": cycle["cycle_id"],
+                        "real_broker_order": False,
+                    }
+                    _record_run(runtime_dir, result, now=now)
+                    return result
             refresh_intraday_store(
                 root=repo_root,
                 session_date=session_date,
@@ -429,22 +618,33 @@ def run_stage1_futu_task(
                 current_prices=settlement_prices,
                 include_current_intraday=selected_slot == "recovery",
                 execution_date=session_date,
+                live_controller_state=runtime_state_from_paper_ledger(
+                    ledger,
+                    recovery_spec=IntradayRecoveryDirectAllocationSpec(root=repo_root),
+                ),
             )
-        except Exception:
-            target = _stored_target(repo_root)
+        except Exception as error:
+            target = {
+                "status": "blocked",
+                "reason": str(error),
+                "controller_state_source": "paper_ledger_cycle_failed",
+            }
         required_signal_date = settled_date(now)
         execution_mode, gate_reason = _production_execution_gate(
             repo_root,
             target=target,
             required_signal_date=required_signal_date,
+            paper_trial_authorized=bool(cycle.get("user_authorized_paper_trial")),
         )
         if target["status"] != "ready":
             result = {
                 "status": "blocked",
-                "reason": target["status"],
+                "reason": target.get("reason", target["status"]),
                 "slot": selected_slot,
                 "target": target,
                 "ledger": _ledger_summary(ledger),
+                "cycle_id": cycle["cycle_id"],
+                "cycle_status": cycle["status"],
                 "real_broker_order": False,
             }
         elif execution_mode == "blocked":
@@ -454,6 +654,8 @@ def run_stage1_futu_task(
                 "slot": selected_slot,
                 "target": target,
                 "ledger": _ledger_summary(ledger),
+                "cycle_id": cycle["cycle_id"],
+                "cycle_status": cycle["status"],
                 "real_broker_order": False,
             }
         else:
@@ -463,11 +665,12 @@ def run_stage1_futu_task(
                 portfolio_equity=float(ledger["equity"]),
                 signal_date=target["signal_date"],
                 slot=selected_slot,
-                state_path=runtime_dir / "execution_state.json",
+                state_path=_cycle_runtime_paths(runtime_dir, cycle)[1],
                 dry_run=dry_run,
                 execution_mode=execution_mode,
                 current_quantities=ledger["positions"],
                 now=now,
+                remark_prefix=str(cycle["remark_prefix"]),
             )
             result = {
                 "status": execution["status"],
@@ -477,6 +680,8 @@ def run_stage1_futu_task(
                 "execution_mode": execution_mode,
                 "reason": gate_reason,
                 "ledger": _ledger_summary(ledger),
+                "cycle_id": cycle["cycle_id"],
+                "cycle_status": cycle["status"],
                 "real_broker_order": False,
             }
     _record_run(runtime_dir, result, now=now, actionable=not dry_run)
@@ -500,6 +705,8 @@ def _load_qlib_settled_marks(root: Path, *, start: str, end: str) -> list[dict[s
     from qlib.constant import REG_US
     from qlib.data import D
 
+    if start > end:
+        return []
     provider_uri = root / "data" / "qlib" / "soxl"
     qlib.init(provider_uri=provider_uri.resolve().as_posix(), region=REG_US)
     frame = D.features(
@@ -676,6 +883,11 @@ def build_stage1_bark_message(
                     f"策略净值 ${_format_money(ledger['equity'])} / "
                     f"真实回撤 {float(ledger['drawdown']):.2%}"
                 )
+
+    if result.get("cycle_id"):
+        lines.append(
+            f"模拟周期 {result['cycle_id']} / {result.get('cycle_status', 'unknown')}"
+        )
 
     lines.extend(
         [

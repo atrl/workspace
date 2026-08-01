@@ -10,8 +10,17 @@ broker:
   real_trading_supported: false
   account_notional: 100000.0
   sizing_basis: reconciled_live_sleeve_equity
-  ledger: runtime/soxl/stage1_futu_sim/paper_ledger.json
-  risk_failure_mode: close_only
+  cycle_manifest: runtime/soxl/stage1_futu_sim/paper_cycle.json
+  ledger: active cycle ledger selected by paper_cycle.json
+  controller_state_source: confirmed cycle fills and qlib settled marks
+  risk_failure_mode: blocked
+  historical_target_is_executable: false
+paper_trial:
+  authorization: explicit_user_requested_restart
+  production_promotion_gate_bypassed: true
+  scope: Futu SIMULATE only
+  requires_fresh_data: true
+  requires_live_cycle_controller: true
 schedule:
   open: 09:31 America/New_York
   recovery: 10:31 America/New_York
