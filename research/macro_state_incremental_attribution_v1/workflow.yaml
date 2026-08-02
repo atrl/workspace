@@ -1,0 +1,12 @@
+experiment: macro_state_incremental_attribution_v1
+card_type: macro_state_incremental_attribution_research_card
+as_of: 2026-07-30
+attribution:
+  design: frozen_model_add_one_and_full_minus_one
+  selection_uses_outer_test: false
+  bootstrap_samples: 2000
+  bootstrap_block_days: 10
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

@@ -1,0 +1,106 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": {
+      "positions": "artifacts/macro_state_incremental_attribution/attribution_positions.csv",
+      "walk_forward_positions": "artifacts/macro_state_incremental_attribution/attribution_walk_forward_positions.csv"
+    },
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-07-30",
+  "base_feature_count": 63,
+  "baseline": {
+    "test_max_drawdown_pct": -4.071724438835722,
+    "test_return_pct": 7.107256753560476,
+    "validation_return_pct": 43.974794844105425,
+    "validation_selection_objective_score": 42.52834515399185
+  },
+  "bootstrap": {
+    "block_days": 10,
+    "method": "paired_circular_moving_block_bootstrap_of_compounded_return_difference",
+    "samples": 2000,
+    "seed": 20260802
+  },
+  "card_type": "macro_state_incremental_attribution_research_card",
+  "experiment": "macro_state_incremental_attribution_v1",
+  "frozen_model": {
+    "aggregation": "min",
+    "candidate": "lgb_xgb_consensus_probability_p0.45_s0.65_h0.1_hold3_mdc0.35",
+    "members": [
+      "lgbm_classifier",
+      "lgbm_regressor",
+      "xgb_classifier",
+      "xgb_regressor"
+    ],
+    "model": "lgb_xgb_consensus",
+    "position_spec": {
+      "cvar_floor_penalty": 3.0,
+      "daily_loss_floor_penalty": 6.0,
+      "drawdown_floor_penalty": 5.0,
+      "exposure_shortfall_penalty": 20.0,
+      "max_daily_change": 0.35,
+      "max_position": 0.65,
+      "min_hold_days": 3,
+      "min_position": 0.015,
+      "objective_cvar_5pct_floor": -8.0,
+      "objective_max_daily_loss_floor": -12.0,
+      "objective_max_drawdown_floor": -20.0,
+      "objective_max_underwater_day_ratio": 0.95,
+      "objective_min_avg_abs_position": 0.02,
+      "objective_return_to_drawdown_weight": 4.0,
+      "objective_return_weight": 0.5,
+      "objective_worst_5_daily_loss_floor": -6.0,
+      "position_mode": "probability",
+      "rebalance_threshold": 0.1,
+      "reversal_penalty": 2.0,
+      "scale": 0.65,
+      "threshold": 0.45,
+      "trade_penalty": 0.2,
+      "turnover_penalty": 1.0,
+      "underwater_penalty": 30.0,
+      "worst_5_floor_penalty": 2.0
+    }
+  },
+  "full_macro": {
+    "test_max_drawdown_pct": -5.070310085019003,
+    "test_return_pct": 1.0844329281923581,
+    "validation_return_pct": 30.337295176800016,
+    "validation_selection_objective_score": 15.018075349662785
+  },
+  "macro_feature_count": 18,
+  "macro_state_availability_policy": "observation_date_plus_conservative_trading_day_lag",
+  "macro_state_provider_uri": "data/qlib/macro_state_v1",
+  "promotion_decision": "not_promoted_no_strict_incremental_feature",
+  "provider_uri": "data/qlib/soxl",
+  "recorder_id": "5e7ec6e55fab40b78eaae52c023f60f2",
+  "recorder_local_dir": "research/macro_state_incremental_attribution_v1/qlib_recorder/271083772319697108/5e7ec6e55fab40b78eaae52c023f60f2",
+  "recorder_uri": "research/macro_state_incremental_attribution_v1/qlib_recorder",
+  "segments": {
+    "test": [
+      "2026-01-02",
+      "2026-07-30"
+    ],
+    "train": [
+      "2019-01-02",
+      "2024-12-31"
+    ],
+    "validation": [
+      "2025-01-02",
+      "2025-12-31"
+    ]
+  },
+  "sidecars": {
+    "add_one_attribution": "add_one_attribution.csv",
+    "drop_one_attribution": "drop_one_attribution.csv",
+    "failure_modes": "failure_modes.md",
+    "feature_diagnostics": "feature_diagnostics.csv"
+  },
+  "status": "complete",
+  "strict_gate": {
+    "definition": "positive validation score delta, validation/test risk gates pass, at least 3 of 4 positive walk-forward return deltas, and paired outer-test 95pct bootstrap CI above zero",
+    "outer_test_role": "report_and_research_gate_only",
+    "qualified_feature_count": 0,
+    "qualified_features": [],
+    "selection_uses_outer_test": false
+  }
+}
