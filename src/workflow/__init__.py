@@ -40,6 +40,7 @@ __all__ = [
     "IntradayExecutionSleeveV2Spec",
     "HybridIntraday15mOpen2OpenSpec",
     "HardwareCycleProbabilityBudgetOpen2OpenCardSpec",
+    "MacroStateFactorAblationSpec",
     "HardwareCycleCogAlphaMiningCardSpec",
     "HierarchicalFourAssetSpec",
     "HierarchicalSoxxExcessSpec",
@@ -85,6 +86,7 @@ __all__ = [
     "run_intraday_execution_sleeve_v2_card",
     "run_hybrid_intraday15m_open2open_card",
     "run_hardware_cycle_probability_budget_open2open_card",
+    "run_macro_state_factor_ablation_card",
     "run_hardware_cycle_cogalpha_mining_card",
     "run_hierarchical_four_asset_policy_card",
     "run_hierarchical_soxx_excess_walk_forward_card",
@@ -264,6 +266,11 @@ _HARDWARE_CYCLE_PROBABILITY_BUDGET_EXPORTS = {
     "run_hardware_cycle_probability_budget_open2open_card",
 }
 
+_MACRO_STATE_FACTOR_ABLATION_EXPORTS = {
+    "MacroStateFactorAblationSpec",
+    "run_macro_state_factor_ablation_card",
+}
+
 _HARDWARE_CYCLE_COGALPHA_MINING_EXPORTS = {
     "HardwareCycleCogAlphaMiningCardSpec",
     "run_hardware_cycle_cogalpha_mining_card",
@@ -407,6 +414,10 @@ def __getattr__(name: str):
         from . import hardware_cycle_probability_budget_open2open
 
         return getattr(hardware_cycle_probability_budget_open2open, name)
+    if name in _MACRO_STATE_FACTOR_ABLATION_EXPORTS:
+        from . import macro_state_factor_ablation
+
+        return getattr(macro_state_factor_ablation, name)
     if name in _HARDWARE_CYCLE_COGALPHA_MINING_EXPORTS:
         from . import hardware_cycle_cogalpha_mining
 

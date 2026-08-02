@@ -1,0 +1,99 @@
+{
+  "as_of": "2026-07-30",
+  "audit_snapshot_hash": "1ae7946a4dc1fab8",
+  "availability_policy": "observation_date_plus_conservative_trading_day_lag",
+  "calendar_end": "2026-07-30",
+  "calendar_start": "2019-01-02",
+  "feature_file_count": 30,
+  "fields": [
+    "$dgs2",
+    "$dgs2_source_observed",
+    "$dgs2_is_carried",
+    "$dgs2_staleness_days",
+    "$dgs2_publication_lag_days",
+    "$dgs2_observation_epoch_days",
+    "$dgs10",
+    "$dgs10_source_observed",
+    "$dgs10_is_carried",
+    "$dgs10_staleness_days",
+    "$dgs10_publication_lag_days",
+    "$dgs10_observation_epoch_days",
+    "$dfii10",
+    "$dfii10_source_observed",
+    "$dfii10_is_carried",
+    "$dfii10_staleness_days",
+    "$dfii10_publication_lag_days",
+    "$dfii10_observation_epoch_days",
+    "$t5y5y_inflation_proxy",
+    "$t5y5y_inflation_proxy_source_observed",
+    "$t5y5y_inflation_proxy_is_carried",
+    "$t5y5y_inflation_proxy_staleness_days",
+    "$t5y5y_inflation_proxy_publication_lag_days",
+    "$t5y5y_inflation_proxy_observation_epoch_days",
+    "$dtwexbgs",
+    "$dtwexbgs_source_observed",
+    "$dtwexbgs_is_carried",
+    "$dtwexbgs_staleness_days",
+    "$dtwexbgs_publication_lag_days",
+    "$dtwexbgs_observation_epoch_days"
+  ],
+  "freq": "day",
+  "hash": "cff76a477cd448b5",
+  "instruments": [
+    "MACRO_STATE"
+  ],
+  "limitations": [
+    "Treasury curve history is current-vintage and is not a revision-vintage archive.",
+    "The 5Y5Y inflation feature is a transparent approximation derived from Treasury 5Y/10Y nominal and real par yields, not FRED T5YIFR.",
+    "Daily Treasury and derived inflation-expectation observations are delayed one trading day before model use.",
+    "The broad-dollar series is delayed two trading days before model use.",
+    "State provenance columns expose source observations, carried values, staleness, and publication lag."
+  ],
+  "market": "all",
+  "max_datetime": "2026-07-30",
+  "operation": "qlib_store_build",
+  "provider_uri": "data/qlib/macro_state_v1",
+  "raw_manifest": "data/raw/external/macro_state/macro_state_raw_manifest.json",
+  "region": "us",
+  "row_count": 1904,
+  "series": {
+    "dfii10": {
+      "availability_lag_trading_days": 1,
+      "description": "U.S. Treasury daily real par yield at 10 years; proxy for the DFII10 concept",
+      "series_id": "UST_REAL_PAR_10Y",
+      "target_concept": "DFII10"
+    },
+    "dgs10": {
+      "availability_lag_trading_days": 1,
+      "description": "U.S. Treasury daily nominal par yield at 10 years; proxy for the DGS10 concept",
+      "series_id": "UST_NOMINAL_PAR_10Y",
+      "target_concept": "DGS10"
+    },
+    "dgs2": {
+      "availability_lag_trading_days": 1,
+      "description": "U.S. Treasury daily nominal par yield at 2 years; proxy for the DGS2 concept",
+      "series_id": "UST_NOMINAL_PAR_2Y",
+      "target_concept": "DGS2"
+    },
+    "dtwexbgs": {
+      "availability_lag_trading_days": 2,
+      "description": "Nominal Broad U.S. Dollar Index",
+      "series_id": "DTWEXBGS"
+    },
+    "t5y5y_inflation_proxy": {
+      "availability_lag_trading_days": 1,
+      "description": "Approximate 5Y5Y inflation expectation from Treasury nominal and real par curves",
+      "series_id": "UST_PAR_NOMINAL_REAL_5Y10Y_DERIVED",
+      "target_concept": "T5YIFR"
+    }
+  },
+  "source": "fred_macro_state_release_mapped_daily_state",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

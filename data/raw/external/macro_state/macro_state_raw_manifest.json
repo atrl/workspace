@@ -1,0 +1,52 @@
+{
+  "availability_policy": "observation_date_plus_conservative_trading_day_lag",
+  "calendar_end": "2026-07-30",
+  "calendar_start": "2019-01-02",
+  "limitations": [
+    "Treasury curve history is current-vintage and is not a revision-vintage archive.",
+    "The 5Y5Y inflation feature is a transparent approximation derived from Treasury 5Y/10Y nominal and real par yields, not FRED T5YIFR.",
+    "Daily Treasury and derived inflation-expectation observations are delayed one trading day before model use.",
+    "The broad-dollar series is delayed two trading days before model use.",
+    "State provenance columns expose source observations, carried values, staleness, and publication lag."
+  ],
+  "observation_count": 9468,
+  "requested_end": "2026-07-30",
+  "requested_start": "2019-01-02",
+  "row_count": 1904,
+  "series": {
+    "dfii10": {
+      "availability_lag_trading_days": 1,
+      "description": "U.S. Treasury daily real par yield at 10 years; proxy for the DFII10 concept",
+      "series_id": "UST_REAL_PAR_10Y",
+      "target_concept": "DFII10"
+    },
+    "dgs10": {
+      "availability_lag_trading_days": 1,
+      "description": "U.S. Treasury daily nominal par yield at 10 years; proxy for the DGS10 concept",
+      "series_id": "UST_NOMINAL_PAR_10Y",
+      "target_concept": "DGS10"
+    },
+    "dgs2": {
+      "availability_lag_trading_days": 1,
+      "description": "U.S. Treasury daily nominal par yield at 2 years; proxy for the DGS2 concept",
+      "series_id": "UST_NOMINAL_PAR_2Y",
+      "target_concept": "DGS2"
+    },
+    "dtwexbgs": {
+      "availability_lag_trading_days": 2,
+      "description": "Nominal Broad U.S. Dollar Index",
+      "series_id": "DTWEXBGS"
+    },
+    "t5y5y_inflation_proxy": {
+      "availability_lag_trading_days": 1,
+      "description": "Approximate 5Y5Y inflation expectation from Treasury nominal and real par curves",
+      "series_id": "UST_PAR_NOMINAL_REAL_5Y10Y_DERIVED",
+      "target_concept": "T5YIFR"
+    }
+  },
+  "source": "us_treasury_xml_plus_govspending_fred_export",
+  "source_urls": [
+    "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml",
+    "https://govspending.org/api/export/fred/DTWEXBGS.csv"
+  ]
+}

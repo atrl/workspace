@@ -1,0 +1,14 @@
+experiment: macro_state_factor_ablation_v1
+card_type: macro_state_factor_ablation_research_card
+as_of: 2026-07-30
+feature_group_selection:
+  source: validation_only
+  selection_uses_outer_test: false
+  selected: base_cogalpha_soxx
+macro_state:
+  provider_uri: data/qlib/macro_state_v1
+  availability_policy: observation_date_plus_conservative_trading_day_lag
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  machine_entrypoint: summary.json

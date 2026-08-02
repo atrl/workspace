@@ -76,6 +76,14 @@ from .macro_credit import (
     evaluate_macro_credit_candidates,
     summarize_macro_credit_branch,
 )
+from .macro_state import (
+    BROAD_DOLLAR_FEATURES,
+    MACRO_STATE_FACTOR_SOURCE,
+    MACRO_STATE_LIMITATIONS,
+    RATE_VOL_FEATURES,
+    REAL_RATE_FEATURES,
+    build_macro_state_factor_frame,
+)
 from .meta_label_probability_gate import (
     build_meta_label_probability_frame,
     compact_meta_label_probability_summary,
@@ -157,6 +165,12 @@ __all__ = [
     "build_long_short_crisis_alpha_frame",
     "build_macro_rate_gate_component",
     "build_macro_credit_frame",
+    "BROAD_DOLLAR_FEATURES",
+    "MACRO_STATE_FACTOR_SOURCE",
+    "MACRO_STATE_LIMITATIONS",
+    "RATE_VOL_FEATURES",
+    "REAL_RATE_FEATURES",
+    "build_macro_state_factor_frame",
     "build_meta_label_probability_frame",
     "build_signed_overnight_component",
     "build_session_effect_frame",

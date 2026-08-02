@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: data/qlib/macro_state_v1
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock
