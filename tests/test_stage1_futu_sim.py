@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import plistlib
 from datetime import datetime
 from pathlib import Path
 from types import SimpleNamespace
@@ -682,6 +683,17 @@ def test_stage1_bark_message_reports_daily_heartbeat_and_failure():
                 "slot": "recovery",
                 "reason": "failed_position_risk_gates",
                 "recorded_at": "2026-07-30T22:31:00+08:00",
+                "execution": {
+                    "environment": "SIMULATE",
+                    "orders": [
+                        {"symbol": "SOXX", "side": "BUY", "quantity": 3}
+                    ],
+                },
+                "ledger": {
+                    "positions": {"SOXL": 0, "SOXX": 3},
+                    "equity": 100_250.0,
+                    "drawdown": 0.0,
+                },
             },
             "real_broker_order": False,
         },
@@ -697,9 +709,11 @@ def test_stage1_bark_message_reports_daily_heartbeat_and_failure():
         now=datetime(2026, 7, 31, 10, 0, tzinfo=ZoneInfo("Asia/Shanghai")),
     )
 
-    assert heartbeat["title"] == "SOXL 模拟盘每日心跳"
+    assert heartbeat["title"] == "SOXL 模拟盘每日同步"
     assert "最近任务 recovery / blocked" in heartbeat["body"]
     assert "failed_position_risk_gates" in heartbeat["body"]
+    assert "模拟委托 BUY 3 SOXX" in heartbeat["body"]
+    assert "持仓 SOXL 0 / SOXX 3" in heartbeat["body"]
     assert failure["title"] == "SOXL 模拟盘 failed"
     assert "Futu OpenD is not reachable" in failure["body"]
 
@@ -733,13 +747,15 @@ def test_stage1_main_records_and_notifies_uncaught_failure(tmp_path, monkeypatch
     assert delivered[0]["status"] == "failed"
 
 
-def test_stage1_launchagents_enable_event_push_and_daily_heartbeat():
-    event_plist = (ROOT / "production" / "com.soxl.stage1.futu.sim.plist").read_text(
-        encoding="utf-8"
-    )
-    daily_plist = (
-        ROOT / "production" / "com.soxl.stage1.futu.sim.heartbeat.plist"
-    ).read_text(encoding="utf-8")
+def test_stage1_launchagents_limit_bark_to_daily_trade_sync():
+    event_path = ROOT / "production" / "com.soxl.stage1.futu.sim.plist"
+    daily_path = ROOT / "production" / "com.soxl.stage1.futu.sim.heartbeat.plist"
+    event_plist = event_path.read_text(encoding="utf-8")
+    daily_plist = daily_path.read_text(encoding="utf-8")
+    with event_path.open("rb") as handle:
+        event_config = plistlib.load(handle)
+    with daily_path.open("rb") as handle:
+        daily_config = plistlib.load(handle)
     run_script = (ROOT / "production" / "run_stage1_futu_sim.sh").read_text(
         encoding="utf-8"
     )
@@ -749,7 +765,8 @@ def test_stage1_launchagents_enable_event_push_and_daily_heartbeat():
         )
     )
 
-    assert "<string>--notify</string>" in event_plist
+    assert "--notify" not in event_config["ProgramArguments"]
+    assert "--notify" in daily_config["ProgramArguments"]
     assert "<string>--broker-reserve-cash</string>" in event_plist
     assert "<string>900000</string>" in event_plist
     assert "com.soxl.stage1.futu.sim.heartbeat" in daily_plist
@@ -759,6 +776,8 @@ def test_stage1_launchagents_enable_event_push_and_daily_heartbeat():
     assert "<key>Weekday</key>" not in daily_plist
     assert ".config/bark/remote.env" in run_script
     assert ".config/bark/android-current.env" in run_script
+    assert summary["execution"]["notifications"]["event_bark"].startswith("disabled")
     assert summary["execution"]["notifications"]["daily_heartbeat"] == (
-        "10:05 Asia/Shanghai every calendar day"
+        "10:05 Asia/Shanghai every calendar day with latest trade sync"
     )
+    assert summary["execution"]["notifications"]["max_pushes_per_day"] == 1

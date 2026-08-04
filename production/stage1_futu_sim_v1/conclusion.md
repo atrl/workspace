@@ -9,7 +9,7 @@
 - 数据过期、控制器来源不属于 active cycle、风险状态无法重建时一律 blocked，不再允许错误目标以 close-only 名义卖出。
 - 后续目标股数按已对账的实时策略净值计算，不重复使用固定 100,000 美元。现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。
 - 富途接口被限制为 SIMULATE；本任务没有真实账户分支。
-- 模拟盘的 open/recovery/postclose 结果与异常会即时推送 Bark；每日上海时间 10:05 另发一次心跳，即使无交易也报告最近任务状态。Bark 凭据仅从运行环境读取，不写入仓库。
+- 模拟盘的 open/recovery/postclose 执行与同步检查继续运行但不再逐次推送；每日上海时间 10:05 仅发一次 Bark，合并最近任务、模拟委托与持仓同步摘要。Bark 凭据仅从运行环境读取，不写入仓库。
 - Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动，支持自选区间、冻结模型推理状态、交易/换仓点、因子变化诊断及 SOXL/SOXX 同窗对比。
 - 因子变化只用于交易点附近的标准化诊断，属于非因果归因，不是精确 SHAP。
 - qlib recorder：7b5d8201e7824d688db4f9b988554cc5

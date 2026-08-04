@@ -816,7 +816,7 @@ def build_stage1_bark_message(
     slot = str(result.get("slot", "unknown"))
 
     if status == "heartbeat":
-        title = "SOXL 模拟盘每日心跳"
+        title = "SOXL 模拟盘每日同步"
         latest = result.get("latest_actionable_run")
         if not isinstance(latest, dict):
             latest = {
@@ -836,56 +836,11 @@ def build_stage1_bark_message(
         latest_at = latest.get("recorded_at")
         if latest_at:
             lines.append(f"最近记录 {latest_at}")
+        _append_stage1_bark_run_details(lines, latest)
     else:
         title = f"SOXL 模拟盘 {status}"
         lines = [f"任务 {slot} / {status}"]
-        reason = result.get("reason")
-        if reason:
-            lines.append(f"原因 {reason}")
-        execution = result.get("execution")
-        if isinstance(execution, dict):
-            environment = str(execution.get("environment", "SIMULATE"))
-            lines.append(f"环境 {environment}")
-            orders = execution.get("orders", [])
-            if isinstance(orders, list) and orders:
-                order_text = "; ".join(
-                    f"{order.get('side', '?')} {int(order.get('quantity', 0))} {order.get('symbol', '?')}"
-                    for order in orders
-                    if isinstance(order, dict)
-                )
-                lines.append(f"模拟委托 {order_text}")
-            else:
-                lines.append("模拟委托 无")
-        execution_mode = result.get("execution_mode")
-        if execution_mode:
-            lines.append(f"执行模式 {execution_mode}")
-        target = result.get("target")
-        if isinstance(target, dict):
-            weights = target.get("weights")
-            if isinstance(weights, dict) and {"SOXL", "SOXX", "cash"}.issubset(weights):
-                lines.append(
-                    "目标 "
-                    f"SOXL {float(weights['SOXL']):.1%} / "
-                    f"SOXX {float(weights['SOXX']):.1%} / "
-                    f"现金 {float(weights['cash']):.1%}"
-                )
-            if target.get("signal_date"):
-                lines.append(f"信号日 {target['signal_date']}")
-            if target.get("status"):
-                lines.append(f"推理状态 {target['status']}")
-        ledger = result.get("ledger")
-        if isinstance(ledger, dict):
-            positions = ledger.get("positions", {})
-            if isinstance(positions, dict):
-                lines.append(
-                    f"持仓 SOXL {int(positions.get('SOXL', 0))} / "
-                    f"SOXX {int(positions.get('SOXX', 0))}"
-                )
-            if ledger.get("equity") is not None and ledger.get("drawdown") is not None:
-                lines.append(
-                    f"策略净值 ${_format_money(ledger['equity'])} / "
-                    f"真实回撤 {float(ledger['drawdown']):.2%}"
-                )
+        _append_stage1_bark_run_details(lines, result)
 
     if result.get("cycle_id"):
         lines.append(
@@ -903,6 +858,59 @@ def build_stage1_bark_message(
         "body": "\n".join(lines),
         "group": "SOXL Stage1 模拟盘",
     }
+
+
+def _append_stage1_bark_run_details(
+    lines: list[str],
+    result: dict[str, Any],
+) -> None:
+    reason = result.get("reason")
+    if reason:
+        lines.append(f"原因 {reason}")
+    execution = result.get("execution")
+    if isinstance(execution, dict):
+        environment = str(execution.get("environment", "SIMULATE"))
+        lines.append(f"环境 {environment}")
+        orders = execution.get("orders", [])
+        if isinstance(orders, list) and orders:
+            order_text = "; ".join(
+                f"{order.get('side', '?')} {int(order.get('quantity', 0))} {order.get('symbol', '?')}"
+                for order in orders
+                if isinstance(order, dict)
+            )
+            lines.append(f"模拟委托 {order_text}")
+        else:
+            lines.append("模拟委托 无")
+    execution_mode = result.get("execution_mode")
+    if execution_mode:
+        lines.append(f"执行模式 {execution_mode}")
+    target = result.get("target")
+    if isinstance(target, dict):
+        weights = target.get("weights")
+        if isinstance(weights, dict) and {"SOXL", "SOXX", "cash"}.issubset(weights):
+            lines.append(
+                "目标 "
+                f"SOXL {float(weights['SOXL']):.1%} / "
+                f"SOXX {float(weights['SOXX']):.1%} / "
+                f"现金 {float(weights['cash']):.1%}"
+            )
+        if target.get("signal_date"):
+            lines.append(f"信号日 {target['signal_date']}")
+        if target.get("status"):
+            lines.append(f"推理状态 {target['status']}")
+    ledger = result.get("ledger")
+    if isinstance(ledger, dict):
+        positions = ledger.get("positions", {})
+        if isinstance(positions, dict):
+            lines.append(
+                f"持仓 SOXL {int(positions.get('SOXL', 0))} / "
+                f"SOXX {int(positions.get('SOXX', 0))}"
+            )
+        if ledger.get("equity") is not None and ledger.get("drawdown") is not None:
+            lines.append(
+                f"策略净值 ${_format_money(ledger['equity'])} / "
+                f"真实回撤 {float(ledger['drawdown']):.2%}"
+            )
 
 
 def _format_money(value: Any) -> str:

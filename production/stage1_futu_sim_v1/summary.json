@@ -36,8 +36,9 @@
       "requires_live_cycle_controller": true
     },
     "notifications": {
-      "event_bark": "open/recovery/postclose result or failure",
-      "daily_heartbeat": "10:05 Asia/Shanghai every calendar day",
+      "event_bark": "disabled; execution and sync checks run silently",
+      "daily_heartbeat": "10:05 Asia/Shanghai every calendar day with latest trade sync",
+      "max_pushes_per_day": 1,
       "credentials": "runtime environment only"
     }
   },
