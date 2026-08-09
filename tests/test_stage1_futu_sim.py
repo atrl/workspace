@@ -76,6 +76,59 @@ def test_stage1_runtime_target_uses_fresh_paper_cycle_state_instead_of_historica
     assert target["weights"]["SOXX"] > 0.3
 
 
+def test_stage1_settlement_marks_holdings_before_next_rebalance_cost():
+    import numpy as np
+    import pandas as pd
+
+    from src.workflow.stage1_futu_sim import (
+        PreparedTarget,
+        RuntimeState,
+        _settle_target,
+    )
+
+    target_weights = np.array([0.3, 0.5, 0.2], dtype="float64")
+    prepared = PreparedTarget(
+        signal_date="2026-07-29",
+        open_weights=target_weights,
+        close_weights=target_weights,
+        recovery_probability=None,
+        recovery_action=False,
+        drawdown=0.0,
+        current_beta_cap=0.8,
+        raw_effective_beta=0.8,
+    )
+    state = RuntimeState(previous=target_weights.copy())
+    row = pd.Series(dtype="float64")
+
+    first_return = _settle_target(
+        row,
+        prepared,
+        state=state,
+        soxl_return=0.1,
+        soxx_return=0.0,
+        cost_bps=0.0,
+    )
+    marked_weights = np.array([0.33, 0.5, 0.2]) / 1.03
+
+    assert first_return == pytest.approx(0.03)
+    assert state.previous == pytest.approx(marked_weights)
+
+    second_return = _settle_target(
+        row,
+        prepared,
+        state=state,
+        soxl_return=0.0,
+        soxx_return=0.0,
+        cost_bps=10.0,
+    )
+    expected_turnover = abs(0.3 - marked_weights[0]) + abs(
+        0.5 - marked_weights[1]
+    )
+
+    assert expected_turnover > 0.0
+    assert second_return == pytest.approx(-expected_turnover * 0.001)
+
+
 def test_stage1_matched_comparison_beats_legacy_reference_and_recomputes_risk():
     from src.workflow.intraday_recovery_direct_allocation import _passes_risk
     from src.workflow.stage1_futu_sim import build_matched_comparison
@@ -567,6 +620,12 @@ def test_stage1_production_card_contract():
         else "paper_sim_blocked_failed_position_risk_gates"
     )
     assert summary["decision"] == expected_decision
+    assert summary["execution"]["recovery_execution"].startswith(
+        "rebalance only when recovery_action is true"
+    )
+    assert summary["execution"]["backtest_position_accounting"].startswith(
+        "mark actual holdings to market"
+    )
 
 
 def test_stage1_production_card_registers_dashboard_entrypoint():
@@ -668,6 +727,101 @@ def test_stage1_daily_heartbeat_keeps_latest_actionable_run(tmp_path):
     assert result["slot"] == "daily_heartbeat"
     assert result["latest_actionable_run"]["status"] == "blocked"
     assert result["latest_actionable_run"]["reason"] == "failed_position_risk_gates"
+    assert result["real_broker_order"] is False
+
+
+def test_stage1_recovery_without_signal_is_noop(tmp_path, monkeypatch):
+    from src.schedule import stage1_futu
+    from src.workflow.stage1_futu_sim import RuntimeState
+
+    runtime_dir = tmp_path / "runtime" / "soxl" / "stage1_futu_sim"
+    runtime_dir.mkdir(parents=True)
+    cycle = {
+        "version": 1,
+        "cycle_id": "cycle-test",
+        "status": "active",
+        "start_date": "2026-07-30",
+        "inception_date": "2026-07-30",
+        "ledger_file": "cycle-test-ledger.json",
+        "execution_state_file": "cycle-test-state.json",
+        "user_authorized_paper_trial": True,
+        "remark_prefix": "stage1_test",
+        "broker_reserve_cash": 0.0,
+    }
+    (runtime_dir / stage1_futu.CYCLE_MANIFEST).write_text(
+        json.dumps(cycle), encoding="utf-8"
+    )
+
+    class FakeBroker:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return None
+
+        def quotes(self):
+            return {"SOXL": 50.0, "SOXX": 250.0}
+
+        def account_snapshot(self):
+            return {"positions": {"SOXL": 10, "SOXX": 20}}
+
+        def order_history(self, **_kwargs):
+            return []
+
+        def rebalance(self, **_kwargs):
+            raise AssertionError("recovery no-op must not call broker.rebalance")
+
+    ledger = {
+        "cash": 4_500.0,
+        "positions": {"SOXL": 10, "SOXX": 20},
+        "prices": {"SOXL": 50.0, "SOXX": 250.0},
+        "equity": 10_000.0,
+        "peak_equity": 10_000.0,
+        "drawdown": 0.0,
+        "total_inferred_fees": 0.0,
+    }
+    target = {
+        "status": "ready",
+        "signal_date": "2026-07-30",
+        "weights": {"SOXL": 0.3, "SOXX": 0.5, "cash": 0.2},
+        "recovery_action": False,
+        "controller_state_source": "paper_ledger_cycle",
+    }
+    monkeypatch.setattr(stage1_futu, "FutuSimulatedBroker", lambda **_kwargs: FakeBroker())
+    monkeypatch.setattr(
+        stage1_futu,
+        "_restart_cycle_if_needed",
+        lambda **kwargs: (kwargs["cycle"], None),
+    )
+    monkeypatch.setattr(stage1_futu, "_cycle_ledger", lambda **_kwargs: ledger)
+    monkeypatch.setattr(
+        stage1_futu,
+        "_latest_open_settlement_prices",
+        lambda *_args, **_kwargs: {"SOXL": 49.0, "SOXX": 248.0},
+    )
+    monkeypatch.setattr(stage1_futu, "refresh_intraday_store", lambda **_kwargs: {})
+    monkeypatch.setattr(
+        stage1_futu,
+        "runtime_state_from_paper_ledger",
+        lambda *_args, **_kwargs: RuntimeState(),
+    )
+    monkeypatch.setattr(stage1_futu, "build_runtime_target", lambda **_kwargs: target)
+    monkeypatch.setattr(
+        stage1_futu,
+        "_production_execution_gate",
+        lambda *_args, **_kwargs: ("normal", "user_authorized_restarted_paper_trial"),
+    )
+    monkeypatch.setattr(stage1_futu, "settled_date", lambda _now=None: "2026-07-30")
+
+    result = stage1_futu.run_stage1_futu_task(
+        root=tmp_path,
+        slot="recovery",
+        now=datetime(2026, 7, 30, 10, 31, tzinfo=NEW_YORK),
+    )
+
+    assert result["status"] == "no_action"
+    assert result["reason"] == "recovery_signal_not_triggered"
+    assert result["slot"] == "recovery"
     assert result["real_broker_order"] is False
 
 

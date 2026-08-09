@@ -33,6 +33,7 @@ from src.workflow.intraday_recovery_direct_allocation import (
     _risk_metrics,
     _simulate_policy,
     _transform_frozen_features,
+    mark_to_market_weights,
     project_legal_weights,
 )
 from src.workflow.pit_constituent_auxiliary_training_allocation import (
@@ -346,7 +347,7 @@ def _settle_target(
             dtype="float64",
         )
         value_at_cut = 1.0 + prepared.open_weights @ early
-        drifted = prepared.open_weights * (1.0 + early) / value_at_cut
+        drifted = mark_to_market_weights(prepared.open_weights, early)
         post = np.array(
             [
                 (1.0 + soxl_return) / (1.0 + early[0]) - 1.0,
@@ -358,14 +359,18 @@ def _settle_target(
         gross = value_at_cut * (1.0 + prepared.close_weights @ post) - 1.0
         turnover = np.abs(prepared.open_weights[:2] - state.previous[:2]).sum()
         turnover += np.abs(prepared.close_weights[:2] - drifted[:2]).sum()
+        ending_weights = mark_to_market_weights(prepared.close_weights, post)
     else:
         gross = float(prepared.open_weights @ asset_returns)
         turnover = np.abs(prepared.open_weights[:2] - state.previous[:2]).sum()
+        ending_weights = mark_to_market_weights(
+            prepared.open_weights, asset_returns
+        )
     strategy_return = float(gross - turnover * cost_bps / 10_000.0)
     state.history.append(strategy_return)
     state.equity *= 1.0 + strategy_return
     state.peak = max(state.peak, state.equity)
-    state.previous = prepared.close_weights.copy()
+    state.previous = ending_weights
     return strategy_return
 
 
@@ -825,6 +830,8 @@ def run_stage1_futu_sim_card(
             "cycle_manifest": "runtime/soxl/stage1_futu_sim/paper_cycle.json",
             "ledger": "active cycle ledger selected by paper_cycle.json",
             "controller_state_source": "confirmed cycle fills and qlib settled marks",
+            "recovery_execution": "rebalance only when recovery_action is true; otherwise no_action",
+            "backtest_position_accounting": "mark actual holdings to market before each target rebalance",
             "risk_failure_mode": "blocked",
             "historical_target_is_executable": False,
             "paper_trial": {
@@ -917,6 +924,8 @@ def run_stage1_futu_sim_card(
                 "  cycle_manifest: runtime/soxl/stage1_futu_sim/paper_cycle.json",
                 "  ledger: active cycle ledger selected by paper_cycle.json",
                 "  controller_state_source: confirmed cycle fills and qlib settled marks",
+                "  recovery_execution: rebalance only when recovery_action is true; otherwise no_action",
+                "  backtest_position_accounting: mark actual holdings to market before each target rebalance",
                 "  risk_failure_mode: blocked",
                 "  historical_target_is_executable: false",
                 "paper_trial:",
@@ -965,6 +974,8 @@ def run_stage1_futu_sim_card(
                 "- 实际模拟目标必须读取 active paper cycle：旧周期先平仓归档，新周期按平仓后实际现金净值重新基准化；控制器只使用本周期确认成交与 qlib 结算标记。",
                 "- 数据过期、控制器来源不属于 active cycle、风险状态无法重建时一律 blocked，不再允许错误目标以 close-only 名义卖出。",
                 "- 后续目标股数按已对账的实时策略净值计算，不重复使用固定 100,000 美元。现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。",
+                "- 10:31 仅在 recovery_action=true 时换仓；若恢复信号未触发则明确 no_action，不因价格、净值或整股取整变化重复对齐同一目标。",
+                "- 回测换手按每次决策前经价格变动漂移后的实际持仓计算，不再用上一次目标权重代替实际权重；因此交易成本与模拟执行口径一致。",
                 "- 富途接口被限制为 SIMULATE；本任务没有真实账户分支。",
                 "- 模拟盘的 open/recovery/postclose 执行与同步检查继续运行但不再逐次推送；每日上海时间 10:05 仅发一次 Bark，合并最近任务、模拟委托与持仓同步摘要。Bark 凭据仅从运行环境读取，不写入仓库。",
                 "- Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动，支持自选区间、冻结模型推理状态、交易/换仓点、因子变化诊断及 SOXL/SOXX 同窗对比。",

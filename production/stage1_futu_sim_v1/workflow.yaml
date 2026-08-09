@@ -13,6 +13,8 @@ broker:
   cycle_manifest: runtime/soxl/stage1_futu_sim/paper_cycle.json
   ledger: active cycle ledger selected by paper_cycle.json
   controller_state_source: confirmed cycle fills and qlib settled marks
+  recovery_execution: rebalance only when recovery_action is true; otherwise no_action
+  backtest_position_accounting: mark actual holdings to market before each target rebalance
   risk_failure_mode: blocked
   historical_target_is_executable: false
 paper_trial:

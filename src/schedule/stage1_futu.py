@@ -661,6 +661,20 @@ def run_stage1_futu_task(
                 "cycle_status": cycle["status"],
                 "real_broker_order": False,
             }
+        elif selected_slot == "recovery" and not bool(
+            target.get("recovery_action")
+        ):
+            result = {
+                "status": "no_action",
+                "slot": selected_slot,
+                "target": target,
+                "execution_mode": execution_mode,
+                "reason": "recovery_signal_not_triggered",
+                "ledger": _ledger_summary(ledger),
+                "cycle_id": cycle["cycle_id"],
+                "cycle_status": cycle["status"],
+                "real_broker_order": False,
+            }
         else:
             execution = broker.rebalance(
                 weights=target["weights"],

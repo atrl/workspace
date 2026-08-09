@@ -138,6 +138,16 @@ def project_legal_weights(
     return np.array([soxl, soxx, cash], dtype="float64")
 
 
+def mark_to_market_weights(
+    weights: np.ndarray, asset_returns: np.ndarray
+) -> np.ndarray:
+    """Return actual portfolio weights after assets move, before the next trade."""
+    value = float(1.0 + weights @ asset_returns)
+    if value <= 0.0:
+        raise ValueError("portfolio value must remain positive when marking weights")
+    return weights * (1.0 + asset_returns) / value
+
+
 def select_development_candidate(model_selection: pd.DataFrame) -> pd.Series:
     required = {
         "segment",
@@ -924,7 +934,7 @@ def _build_teacher_training_frame(
                 )
                 early = np.array([row.early_ret_soxl, row.early_ret_soxx, 0.0])
                 value_at_cut = 1.0 + open_weights @ early
-                drifted = open_weights * (1.0 + early) / value_at_cut
+                drifted = mark_to_market_weights(open_weights, early)
                 post = np.array(
                     [
                         (1.0 + row.soxl_return) / (1.0 + row.early_ret_soxl) - 1.0,
@@ -962,7 +972,7 @@ def _build_teacher_training_frame(
             history.append(strategy_return)
             equity *= 1.0 + strategy_return
             peak = max(peak, equity)
-            previous = open_weights
+            previous = mark_to_market_weights(open_weights, asset_returns)
     return pd.DataFrame(rows)
 
 
@@ -1062,7 +1072,7 @@ def _simulate_policy(
             )
             early = np.array([row.early_ret_soxl, row.early_ret_soxx, 0.0])
             value_at_cut = 1.0 + open_weights @ early
-            drifted = open_weights * (1.0 + early) / value_at_cut
+            drifted = mark_to_market_weights(open_weights, early)
             post = np.array(
                 [
                     (1.0 + row.soxl_return) / (1.0 + row.early_ret_soxl) - 1.0,
@@ -1074,18 +1084,20 @@ def _simulate_policy(
             turnover = np.abs(open_weights[:2] - previous[:2]).sum() + np.abs(
                 close_weights[:2] - drifted[:2]
             ).sum()
+            ending_weights = mark_to_market_weights(close_weights, post)
         else:
             close_weights = open_weights
-            gross_return = (
-                open_weights[0] * row.soxl_return
-                + open_weights[1] * row.soxx_return
+            asset_returns = np.array(
+                [row.soxl_return, row.soxx_return, 0.0], dtype="float64"
             )
+            gross_return = float(open_weights @ asset_returns)
             turnover = np.abs(open_weights[:2] - previous[:2]).sum()
+            ending_weights = mark_to_market_weights(open_weights, asset_returns)
         strategy_return = gross_return - turnover * cost_bps / 10_000.0
         history.append(strategy_return)
         equity *= 1.0 + strategy_return
         peak = max(peak, equity)
-        previous = close_weights
+        previous = ending_weights
         rows.append(
             {
                 "signal_date": row.signal_date,
