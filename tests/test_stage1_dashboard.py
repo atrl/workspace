@@ -29,6 +29,14 @@ def test_stage1_dashboard_payload_supports_custom_interval_and_benchmarks():
     assert payload["window_summary"]["trade_event_count"] == len(payload["trade_events"])
     assert payload["window_summary"]["positive_day_rate_pct"] >= 0.0
     assert payload["last_completed"]["signal_date"] == payload["selected_range"]["end"]
+    selected_inference = payload["selected_inference"]
+    assert selected_inference["status"] == "selected_range_complete"
+    assert selected_inference["signal_date"] == payload["selected_range"]["end"]
+    assert selected_inference["selection"]["end"] == payload["selected_range"]["end"]
+    assert selected_inference["weights"] == payload["last_completed"]["weights"]
+    assert set(selected_inference["raw_model_weights"]) == {"SOXL", "SOXX", "cash"}
+    assert selected_inference["evidence"]["source_model_frozen"] is True
+    assert selected_inference["evidence"]["qlib_source_api"] == "qlib.data.D.features"
     assert payload["artifact_policy"] == "slim_card_recorder_first"
     assert "非因果归因" in payload["factor_disclaimer"]
     assert all(event["factors"] for event in payload["trade_events"])
@@ -223,10 +231,36 @@ def test_stage1_dashboard_app_serves_ui_health_and_interval_api():
     assert 'id="sim-repair-status"' in page.text
     assert 'id="sim-start-mode"' in page.text
     assert "拖拽图表选择区间" in page.text
+    assert "应用并推理" in page.text
+    assert "选中区间末日目标" in page.text
     assert 'id="apply-chart-selection"' in page.text
     assert health.json()["source"] == "qlib_recorder"
     assert interval.status_code == 200
     assert interval.json()["selected_range"]["start"] == "2026-07-01"
+    assert interval.json()["selected_inference"]["signal_date"] == "2026-07-22"
+
+
+def test_stage1_dashboard_selected_end_changes_terminal_inference():
+    from src.dashboard.stage1 import build_stage1_dashboard_payload
+
+    january = build_stage1_dashboard_payload(
+        root=ROOT,
+        start="2026-01-02",
+        end="2026-01-30",
+    )
+    march = build_stage1_dashboard_payload(
+        root=ROOT,
+        start="2026-01-02",
+        end="2026-03-31",
+    )
+
+    assert january["selected_inference"]["signal_date"] == "2026-01-30"
+    assert march["selected_inference"]["signal_date"] == "2026-03-31"
+    assert (
+        january["selected_inference"]["raw_model_weights"]
+        != march["selected_inference"]["raw_model_weights"]
+    )
+    assert january["latest_inference"] == march["latest_inference"]
 
 
 def test_stage1_dashboard_rejects_inverted_interval():

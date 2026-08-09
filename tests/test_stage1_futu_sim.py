@@ -891,6 +891,7 @@ def test_stage1_production_card_registers_dashboard_entrypoint():
 
     assert summary["dashboard"]["source"] == "qlib_recorder"
     assert "custom_interval_inference" in summary["dashboard"]["features"]
+    assert "selected_range_terminal_inference" in summary["dashboard"]["features"]
     assert "paper_cycle_repair_and_execution_sync" in summary["dashboard"]["features"]
     assert "manual_start_status" in summary["dashboard"]["features"]
     assert summary["dashboard"]["cloudflare_url"] == "https://soxl.atrl.me/"

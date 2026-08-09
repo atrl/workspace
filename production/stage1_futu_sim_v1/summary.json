@@ -273,6 +273,7 @@
     "source": "qlib_recorder",
     "features": [
       "custom_interval_inference",
+      "selected_range_terminal_inference",
       "trade_history",
       "factor_change_trade_markers",
       "soxl_soxx_benchmark_comparison",
@@ -289,7 +290,7 @@
       "artifacts/stage1_futu_sim_v1/latest_target.json"
     ]
   },
-  "recorder_id": "7f11940d87d045b19b2f974c5c486fb7",
+  "recorder_id": "2ed6994d110e4563bc473760c1b0392d",
   "recorder_uri": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/7f11940d87d045b19b2f974c5c486fb7"
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/2ed6994d110e4563bc473760c1b0392d"
 }

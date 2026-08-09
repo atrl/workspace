@@ -381,10 +381,10 @@
       </div>
     </header>
 
-    <section class="control-bar" aria-label="回测区间">
+    <section class="control-bar" aria-label="推理与回测区间">
       <div class="control-copy">
         <div class="control-meta">
-          <strong>观察窗口</strong>
+          <strong>推理与观察窗口</strong>
           <span class="muted" id="range-copy">等待可用区间</span>
         </div>
         <div class="preset-group" id="presets" aria-label="快捷区间">
@@ -400,15 +400,15 @@
       <div class="date-group">
         <label class="date-field">开始<input id="start-date" type="date"></label>
         <label class="date-field">结束<input id="end-date" type="date"></label>
-        <button class="btn btn-primary" id="apply-range" type="button">应用区间</button>
+        <button class="btn btn-primary" id="apply-range" type="button">应用并推理</button>
       </div>
     </section>
 
     <div class="error-banner" id="error-banner" role="alert"></div>
 
-    <section class="snapshot" aria-label="最新推理快照">
+    <section class="snapshot" aria-label="选中区间末日推理快照">
       <div class="snapshot-cell">
-        <span class="snapshot-label">冻结推理状态</span>
+        <span class="snapshot-label">区间末日推理</span>
         <strong class="snapshot-value" id="snapshot-status">—</strong>
         <span class="snapshot-sub" id="snapshot-date">—</span>
       </div>
@@ -501,7 +501,7 @@
           <span>已选择 <strong id="chart-selection-range">—</strong> <span id="chart-selection-count"></span></span>
           <div class="button-group">
             <button class="btn" id="cancel-chart-selection" type="button">取消</button>
-            <button class="btn btn-primary" id="apply-chart-selection" type="button">应用图中区间</button>
+            <button class="btn btn-primary" id="apply-chart-selection" type="button">应用图中区间并推理</button>
           </div>
         </div>
         <div class="chart-readout" id="performance-readout" aria-live="polite">移动到图表查看单日详情</div>
@@ -511,8 +511,8 @@
         <div>
           <div class="panel-header">
             <div class="panel-copy">
-              <h2>最新目标组合</h2>
-              <p class="panel-subtitle">冻结信号，不代表已经成交</p>
+              <h2>选中区间末日目标</h2>
+              <p class="panel-subtitle">冻结模型重新推理 · recorder 风险约束回放</p>
             </div>
             <span class="chip warn" id="inference-chip">—</span>
           </div>
@@ -614,6 +614,7 @@
     };
     const STATUS_LABELS = {
       pending_next_open_mark: "等待下一开盘标记",
+      selected_range_complete: "选区推理完成",
       ready: "已就绪",
       completed: "已完成",
       blocked: "已阻断"
@@ -752,7 +753,7 @@
 
     function renderHeader() {
       const data = state.data;
-      setText("source-copy", `${data.selected_range.rows} 个信号日 · ${data.selected_range.start} → ${data.selected_range.end}`);
+      setText("source-copy", `${data.selected_range.rows} 个信号日 · ${data.selected_range.start} → ${data.selected_range.end} · 推理截止 ${data.selected_inference.signal_date}`);
       setText("range-copy", `可用 ${data.available_range.start} → ${data.available_range.end}`);
       setText("recorder-short", data.recorder_id.slice(0, 8));
       el("recorder-short").title = data.recorder_id;
@@ -762,10 +763,10 @@
     }
 
     function renderSnapshot() {
-      const latest = state.data.latest_inference;
+      const latest = state.data.selected_inference;
       const weights = latest.weights;
       setText("snapshot-status", statusLabel(latest.status));
-      setText("snapshot-date", `信号日 ${latest.signal_date} · 待下一开盘验证`);
+      setText("snapshot-date", `信号日 ${latest.signal_date} · 已按选区末日推理`);
       setText("snapshot-soxl", weightPct(weights.SOXL));
       setText("snapshot-soxx", weightPct(weights.SOXX));
       setText("snapshot-cash", weightPct(weights.cash));
@@ -850,7 +851,7 @@
 
     function renderAllocationFocus() {
       const data = state.data;
-      const latest = data.latest_inference;
+      const latest = data.selected_inference;
       const weights = latest.weights;
       const soxl = weights.SOXL * 100;
       const soxx = weights.SOXX * 100;
@@ -867,10 +868,15 @@
       setText("event-count", String(data.window_summary.trade_event_count));
       setText("avg-soxl", pct(data.window_summary.average_soxl_weight_pct, 1));
       setText("avg-cash", pct(data.window_summary.average_cash_weight_pct, 1));
+      const raw = latest.raw_model_weights;
       const action = latest.recovery_action
-        ? "恢复动作已触发，目标仓位包含恢复路径调整。"
-        : "恢复动作未触发；当前目标仍受冻结模型与 Beta 上限约束。";
-      setText("inference-note", `${action} 信号日 ${latest.signal_date}，须等待下一开盘标记后才属于已完成组合证据。`);
+        ? "恢复动作已触发，最终目标包含盘中恢复路径调整。"
+        : "恢复动作未触发，最终目标只应用冻结模型与风险上限。";
+      const rawText = `模型原始：SOXL ${weightPct(raw.SOXL)}、SOXX ${weightPct(raw.SOXX)}、现金 ${weightPct(raw.cash)}。`;
+      const probabilityText = latest.tail_probability === null
+        ? "尾部风险概率不可用。"
+        : `尾部风险概率 ${pct(latest.tail_probability * 100, 1)}。`;
+      setText("inference-note", `${rawText} ${probabilityText} ${action} 信号日 ${latest.signal_date}；这是选区末日的 recorder 回放证据，不代表模拟盘已经成交。`);
     }
 
     function renderLegend() {

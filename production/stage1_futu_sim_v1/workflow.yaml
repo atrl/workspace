@@ -44,6 +44,7 @@ dashboard:
   launchagents: [com.soxl.stage1.dashboard, com.soxl.stage1.cloudflare]
   source: qlib_recorder
   custom_interval: true
+  selected_range_terminal_inference: frozen model replay at the latest completed signal on or before selected end
   factor_trade_markers: true
   paper_cycle_repair_and_execution_sync: true
   benchmarks: [SOXL, SOXX]

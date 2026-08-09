@@ -287,7 +287,9 @@ def build_stage1_paper_simulation_status(
 
 
 @lru_cache(maxsize=2)
-def _load_stage1_frames(root_text: str, recorder_id: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+def _load_stage1_frames(
+    root_text: str, recorder_id: str
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
     from src.workflow.stage1_futu_sim import load_frozen_inference_frame
 
     source = resolve_stage1_dashboard_source(Path(root_text))
@@ -295,9 +297,81 @@ def _load_stage1_frames(root_text: str, recorder_id: str) -> tuple[pd.DataFrame,
         raise ValueError("blocked: Stage1 recorder changed while dashboard cache was loading")
     report = pd.read_csv(source.report_path, parse_dates=["signal_date", "trade_date", "exit_date"])
     report = report.set_index("signal_date").sort_index()
-    inference, _ = load_frozen_inference_frame(root=source.root)
+    inference, inference_audit = load_frozen_inference_frame(root=source.root)
     inference.index = pd.to_datetime(inference.index)
-    return report, inference.sort_index()
+    return report, inference.sort_index(), inference_audit
+
+
+def _selected_inference_snapshot(
+    *,
+    report: pd.DataFrame,
+    selected: pd.DataFrame,
+    inference: pd.DataFrame,
+    inference_audit: dict[str, Any],
+    start_ts: pd.Timestamp,
+    end_ts: pd.Timestamp,
+) -> dict[str, Any]:
+    """Return the frozen-model result for the selected window's terminal signal."""
+    signal_date = selected.index[-1]
+    if signal_date not in inference.index:
+        raise ValueError(
+            "blocked: selected Stage1 signal is missing from frozen inference"
+        )
+    report_row = selected.loc[signal_date]
+    inference_row = inference.loc[signal_date]
+    history = pd.to_numeric(
+        report.loc[:signal_date, "strategy_return"], errors="coerce"
+    ).fillna(0.0)
+    wealth = (1.0 + history).cumprod()
+    portfolio_drawdown = float(1.0 - wealth.iloc[-1] / wealth.cummax().iloc[-1])
+
+    def weights_from(row: pd.Series, prefix: str = "") -> dict[str, float]:
+        return {
+            "SOXL": float(row[f"{prefix}soxl_weight"]),
+            "SOXX": float(row[f"{prefix}soxx_weight"]),
+            "cash": float(row[f"{prefix}cash_weight"]),
+        }
+
+    def optional_float(value: Any) -> float | None:
+        return float(value) if pd.notna(value) else None
+
+    return {
+        "status": "selected_range_complete",
+        "inference_mode": "frozen_model_replay_from_qlib_data",
+        "selection": {
+            "start": start_ts.date().isoformat(),
+            "end": end_ts.date().isoformat(),
+            "terminal_signal_rule": "latest_completed_signal_on_or_before_selected_end",
+            "start_controls": "window_metrics_and_trade_diagnostics",
+            "end_controls": "terminal_frozen_model_inference",
+        },
+        "signal_date": signal_date.date().isoformat(),
+        "trade_date": pd.Timestamp(report_row["trade_date"]).date().isoformat(),
+        "exit_date": pd.Timestamp(report_row["exit_date"]).date().isoformat(),
+        "weights": weights_from(report_row),
+        "open_weights": weights_from(report_row, "open_"),
+        "raw_model_weights": weights_from(inference_row),
+        "tail_probability": optional_float(inference_row.get("tail_probability")),
+        "alpha_probability": optional_float(inference_row.get("alpha_probability")),
+        "recovery_probability": optional_float(
+            report_row.get("recovery_probability")
+        ),
+        "recovery_action": bool(report_row.get("recovery_action", False)),
+        "portfolio_drawdown": portfolio_drawdown,
+        "current_beta_cap": float(report_row["current_beta_cap"]),
+        "evidence": {
+            "source": "qlib_recorder_and_frozen_model",
+            "source_model_frozen": bool(
+                inference_audit.get("source_model_frozen", False)
+            ),
+            "source_training_end": inference_audit.get("source_training_end"),
+            "source_recorder_id": inference_audit.get("source_recorder_id"),
+            "stage1_recorder_id": inference_audit.get("stage1_recorder_id"),
+            "qlib_source_api": inference_audit.get("market_audit", {}).get(
+                "source_api"
+            ),
+        },
+    }
 
 
 def build_stage1_dashboard_payload(
@@ -307,7 +381,9 @@ def build_stage1_dashboard_payload(
     end: str | None = None,
 ) -> dict[str, Any]:
     source = resolve_stage1_dashboard_source(root)
-    report, inference = _load_stage1_frames(source.root.as_posix(), source.recorder_id)
+    report, inference, inference_audit = _load_stage1_frames(
+        source.root.as_posix(), source.recorder_id
+    )
     available_start = report.index.min()
     available_end = report.index.max()
     start_ts = max(pd.Timestamp(start) if start else available_start, available_start)
@@ -402,6 +478,14 @@ def build_stage1_dashboard_payload(
 
     latest_target = source.summary["latest_target"]
     last_completed = selected.iloc[-1]
+    selected_inference = _selected_inference_snapshot(
+        report=report,
+        selected=selected,
+        inference=inference,
+        inference_audit=inference_audit,
+        start_ts=start_ts,
+        end_ts=end_ts,
+    )
     total_turnover = float(turnover.sum())
     event_turnover = turnover.loc[event_mask]
     return {
@@ -456,6 +540,7 @@ def build_stage1_dashboard_payload(
             "recovery_probability": latest_target["recovery_probability"],
             "recovery_action": latest_target["recovery_action"],
         },
+        "selected_inference": selected_inference,
         "paper_simulation": build_stage1_paper_simulation_status(
             root=source.root,
             summary=source.summary,
