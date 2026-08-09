@@ -1,0 +1,6 @@
+tunnel: replace-with-stage1-tunnel-id
+credentials-file: /Users/rziiiii/.cloudflared/replace-with-stage1-tunnel-id.json
+ingress:
+  - hostname: soxl.atrl.me
+    service: http://127.0.0.1:8765
+  - service: http_status:404

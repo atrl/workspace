@@ -19,6 +19,14 @@
       "09:31 America/New_York",
       "10:31 America/New_York"
     ],
+    "manual_start": {
+      "supported": true,
+      "entrypoint": "production/run_stage1_futu_sim.sh --slot start-now",
+      "regular_session": "one-time idempotent rebalance from live quote and active paper ledger",
+      "after_1030_et": "include observed first-hour recovery state",
+      "outside_regular_session": "armed without order until the next regular session",
+      "same_session_repeat": "no_action"
+    },
     "postclose_refresh": "20:15 America/New_York",
     "order_type": "MARKET",
     "cash_is_residual": true,
@@ -255,12 +263,21 @@
   "dashboard": {
     "entrypoint": "production/run_stage1_dashboard.sh",
     "url": "http://127.0.0.1:8765/",
+    "cloudflare_url": "https://soxl.atrl.me/",
+    "cloudflare_status": "needs_zero_trust_free_plan_activation",
+    "cloudflare_access": "required_self_hosted_application",
+    "launchagents": [
+      "com.soxl.stage1.dashboard",
+      "com.soxl.stage1.cloudflare"
+    ],
     "source": "qlib_recorder",
     "features": [
       "custom_interval_inference",
       "trade_history",
       "factor_change_trade_markers",
-      "soxl_soxx_benchmark_comparison"
+      "soxl_soxx_benchmark_comparison",
+      "paper_cycle_repair_and_execution_sync",
+      "manual_start_status"
     ]
   },
   "artifact_policy": {
@@ -272,7 +289,7 @@
       "artifacts/stage1_futu_sim_v1/latest_target.json"
     ]
   },
-  "recorder_id": "e8afb29d73ed420d81671617922cb2bb",
+  "recorder_id": "7f11940d87d045b19b2f974c5c486fb7",
   "recorder_uri": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/e8afb29d73ed420d81671617922cb2bb"
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/7f11940d87d045b19b2f974c5c486fb7"
 }

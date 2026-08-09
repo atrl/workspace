@@ -282,6 +282,55 @@ def detect_slot(now: datetime | None = None) -> str:
     return "not_due"
 
 
+def manual_start_context(now: datetime | None = None) -> dict[str, Any]:
+    """Resolve a one-time manual paper start without pretending it is an open fill."""
+    current = now or datetime.now(tz=NEW_YORK_TZ)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=NEW_YORK_TZ)
+    current = current.astimezone(NEW_YORK_TZ)
+    regular_session = (
+        current.weekday() < 5 and time(9, 30) <= current.time() < time(16, 0)
+    )
+    return {
+        "requested_at": current.isoformat(timespec="seconds"),
+        "session_date": current.date().isoformat(),
+        "regular_session": regular_session,
+        "include_current_intraday": regular_session and current.time() >= time(10, 30),
+        "price_mark": "live_start_quote" if regular_session else None,
+    }
+
+
+def _same_session_execution(
+    state_path: Path,
+    *,
+    session_date: str,
+) -> dict[str, Any] | None:
+    payload = _read_json(state_path)
+    if payload is None:
+        return None
+    if (
+        payload.get("environment") != "SIMULATE"
+        or payload.get("real_trading_supported") is not False
+    ):
+        raise ValueError("blocked: invalid Futu simulated execution state")
+    candidates: list[dict[str, Any]] = []
+    for bucket_name in ("completed_slots", "pending_slots"):
+        bucket = payload.get(bucket_name, {})
+        if not isinstance(bucket, dict):
+            raise ValueError("blocked: invalid Futu simulated execution slots")
+        for value in bucket.values():
+            if not isinstance(value, dict):
+                continue
+            if (
+                value.get("execution_session_date") == session_date
+                and value.get("slot") in {"open", "recovery", "start_now"}
+            ):
+                candidates.append(value)
+    if not candidates:
+        return None
+    return max(candidates, key=lambda value: str(value.get("recorded_at", "")))
+
+
 def _production_execution_gate(
     root: Path,
     *,
@@ -465,6 +514,8 @@ def run_stage1_futu_task(
 ) -> dict[str, Any]:
     repo_root = _resolve_root(root)
     selected_slot = detect_slot(now) if slot == "auto" else slot
+    if selected_slot in {"start-now", "start_now"}:
+        selected_slot = "start_now"
     runtime_dir = repo_root / RUNTIME_RELATIVE
     runtime_dir.mkdir(parents=True, exist_ok=True)
     cycle_path = runtime_dir / CYCLE_MANIFEST
@@ -536,7 +587,7 @@ def run_stage1_futu_task(
         }
         _record_run(runtime_dir, result, now=now)
         return result
-    if selected_slot not in {"open", "recovery"}:
+    if selected_slot not in {"open", "recovery", "start_now"}:
         raise ValueError(f"unsupported Stage1 Futu task slot: {selected_slot}")
     if cycle is None:
         result = {
@@ -548,7 +599,66 @@ def run_stage1_futu_task(
         _record_run(runtime_dir, result, now=now)
         return result
 
+    manual_context = manual_start_context(now) if selected_slot == "start_now" else None
+    if manual_context is not None and not manual_context["regular_session"]:
+        result = {
+            "status": "armed",
+            "slot": selected_slot,
+            "reason": "waiting_for_us_regular_session",
+            "manual_start": manual_context,
+            "next_action": "scheduled_open_or_run_start_now_during_regular_session",
+            "cycle_id": cycle["cycle_id"],
+            "cycle_status": cycle["status"],
+            "real_broker_order": False,
+        }
+        _record_run(runtime_dir, result, now=now, actionable=False)
+        return result
+
+    if manual_context is not None and cycle.get("status") == "active":
+        _, state_path = _cycle_runtime_paths(runtime_dir, cycle)
+        existing = _same_session_execution(
+            state_path,
+            session_date=str(manual_context["session_date"]),
+        )
+        if existing is not None:
+            result = {
+                "status": "no_action",
+                "slot": selected_slot,
+                "reason": "paper_cycle_already_started_this_session",
+                "manual_start": manual_context,
+                "existing_execution": {
+                    key: existing.get(key)
+                    for key in (
+                        "slot",
+                        "signal_date",
+                        "status",
+                        "recorded_at",
+                        "target_quantities",
+                    )
+                },
+                "cycle_id": cycle["cycle_id"],
+                "cycle_status": cycle["status"],
+                "real_broker_order": False,
+            }
+            _record_run(runtime_dir, result, now=now, actionable=False)
+            return result
+
     with FutuSimulatedBroker(host=host, port=port) as broker:
+        if manual_context is not None and not dry_run:
+            market_state = broker.us_market_state()
+            if market_state not in {"MORNING", "AFTERNOON"}:
+                result = {
+                    "status": "armed",
+                    "slot": selected_slot,
+                    "reason": "futu_us_regular_session_not_open",
+                    "manual_start": manual_context | {"futu_market_state": market_state},
+                    "next_action": "scheduled_open_or_run_start_now_during_regular_session",
+                    "cycle_id": cycle["cycle_id"],
+                    "cycle_status": cycle["status"],
+                    "real_broker_order": False,
+                }
+                _record_run(runtime_dir, result, now=now, actionable=False)
+                return result
         prices = broker.quotes()
         snapshot = broker.account_snapshot()
         session_date = (now or datetime.now(tz=NEW_YORK_TZ)).astimezone(
@@ -586,6 +696,9 @@ def run_stage1_futu_task(
             now=now,
         )
         settlement_prices = prices
+        include_current_intraday = selected_slot == "recovery" or bool(
+            manual_context and manual_context["include_current_intraday"]
+        )
         if selected_slot == "recovery":
             _, cycle_execution_state_path = _cycle_runtime_paths(runtime_dir, cycle)
             settlement_prices = _latest_open_settlement_prices(
@@ -609,6 +722,7 @@ def run_stage1_futu_task(
                     }
                     _record_run(runtime_dir, result, now=now)
                     return result
+        if include_current_intraday:
             refresh_intraday_store(
                 root=repo_root,
                 session_date=session_date,
@@ -619,7 +733,7 @@ def run_stage1_futu_task(
             target = build_runtime_target(
                 root=repo_root,
                 current_prices=settlement_prices,
-                include_current_intraday=selected_slot == "recovery",
+                include_current_intraday=include_current_intraday,
                 execution_date=session_date,
                 live_controller_state=runtime_state_from_paper_ledger(
                     ledger,
@@ -692,6 +806,7 @@ def run_stage1_futu_task(
             result = {
                 "status": execution["status"],
                 "slot": selected_slot,
+                "manual_start": manual_context,
                 "target": target,
                 "execution": execution,
                 "execution_mode": execution_mode,
@@ -950,8 +1065,12 @@ def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the frozen Stage1 strategy in Futu paper trading.")
     parser.add_argument(
         "--slot",
-        choices=["auto", "open", "recovery", "postclose", "heartbeat"],
+        choices=["auto", "start-now", "open", "recovery", "postclose", "heartbeat"],
         default="auto",
+        help=(
+            "Use start-now for a one-time idempotent SIMULATE start at any wall-clock "
+            "time; outside US regular hours it arms the next scheduled open."
+        ),
     )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--notify", action="store_true")

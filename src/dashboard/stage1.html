@@ -7,25 +7,28 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #071019;
-      --bg-elevated: #0b1621;
-      --panel: rgba(14, 28, 40, .88);
-      --panel-strong: #102231;
-      --line: #22394b;
-      --line-soft: rgba(74, 105, 128, .22);
-      --text: #edf4f8;
-      --muted: #91a7b7;
-      --faint: #60788a;
-      --cyan: #55ddd1;
-      --cyan-soft: rgba(85, 221, 209, .13);
-      --gold: #f6c96b;
-      --gold-soft: rgba(246, 201, 107, .13);
-      --blue: #77a8ff;
-      --blue-soft: rgba(119, 168, 255, .13);
-      --red: #ff7f88;
-      --red-soft: rgba(255, 127, 136, .12);
-      --purple: #b49aff;
-      --shadow: 0 22px 60px rgba(0, 0, 0, .28);
+      --bg: #0c1016;
+      --bg-elevated: #141a23;
+      --panel: rgba(18, 24, 33, .97);
+      --panel-strong: #171f2a;
+      --line: #2a3544;
+      --line-soft: rgba(133, 148, 169, .16);
+      --text: #e8edf4;
+      --muted: #9aa6b7;
+      --faint: #667386;
+      --cyan: #6f95cf;
+      --cyan-soft: rgba(111, 149, 207, .13);
+      --green: #4fb58a;
+      --green-soft: rgba(79, 181, 138, .12);
+      --gold: #d2a85d;
+      --gold-soft: rgba(210, 168, 93, .12);
+      --blue: #907bd1;
+      --blue-soft: rgba(144, 123, 209, .12);
+      --red: #d96c75;
+      --red-soft: rgba(217, 108, 117, .12);
+      --purple: #907bd1;
+      --cash: #566170;
+      --shadow: 0 14px 36px rgba(0, 0, 0, .22);
     }
 
     * { box-sizing: border-box; }
@@ -34,10 +37,7 @@
       margin: 0;
       min-height: 100vh;
       color: var(--text);
-      background:
-        radial-gradient(circle at 88% -8%, rgba(49, 123, 151, .24), transparent 34rem),
-        radial-gradient(circle at 8% 24%, rgba(55, 92, 138, .12), transparent 32rem),
-        var(--bg);
+      background: linear-gradient(180deg, #111823 0, var(--bg) 34rem);
       font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
@@ -57,9 +57,9 @@
       height: 42px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(85, 221, 209, .35);
+      border: 1px solid rgba(111, 149, 207, .35);
       border-radius: 12px;
-      background: linear-gradient(145deg, rgba(85, 221, 209, .18), rgba(119, 168, 255, .08));
+      background: #172130;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
       color: var(--cyan);
       font-weight: 800;
@@ -88,7 +88,7 @@
       padding: 4px 9px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(10, 23, 33, .72);
+      background: #141b25;
       color: var(--muted);
       font-size: 12px;
       white-space: nowrap;
@@ -98,12 +98,11 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 12px rgba(85, 221, 209, .8);
+      background: var(--green);
     }
-    .chip.good { color: var(--cyan); border-color: rgba(85, 221, 209, .28); background: var(--cyan-soft); }
-    .chip.warn { color: var(--gold); border-color: rgba(246, 201, 107, .3); background: var(--gold-soft); }
-    .chip.bad { color: var(--red); border-color: rgba(255, 127, 136, .3); background: var(--red-soft); }
+    .chip.good { color: var(--green); border-color: rgba(79, 181, 138, .28); background: var(--green-soft); }
+    .chip.warn { color: var(--gold); border-color: rgba(210, 168, 93, .3); background: var(--gold-soft); }
+    .chip.bad { color: var(--red); border-color: rgba(217, 108, 117, .3); background: var(--red-soft); }
 
     .control-bar {
       display: grid;
@@ -113,7 +112,7 @@
       padding: 14px 16px;
       border: 1px solid var(--line);
       border-radius: 15px;
-      background: rgba(10, 22, 32, .76);
+      background: var(--panel);
       box-shadow: var(--shadow);
       backdrop-filter: blur(18px);
     }
@@ -135,16 +134,16 @@
     .btn:focus-visible, input:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
     .btn[aria-pressed="true"], .btn.active {
       color: var(--text);
-      border-color: rgba(85, 221, 209, .26);
+      border-color: rgba(111, 149, 207, .3);
       background: var(--cyan-soft);
     }
     .btn-primary {
-      border-color: rgba(85, 221, 209, .42);
+      border-color: rgba(111, 149, 207, .5);
       background: var(--cyan);
-      color: #06201f;
+      color: #f7f9fc;
       font-weight: 750;
     }
-    .btn-primary:hover { color: #06201f; background: #6ce9de; transform: translateY(-1px); }
+    .btn-primary:hover { color: #fff; background: #7ea3dc; transform: translateY(-1px); }
     .date-field { display: grid; gap: 4px; color: var(--muted); font-size: 11px; }
     input[type="date"] {
       min-height: 36px;
@@ -165,10 +164,19 @@
       border-radius: 15px;
       background: var(--line);
     }
-    .snapshot-cell { min-width: 0; padding: 13px 15px; background: rgba(13, 27, 39, .96); }
+    .snapshot-cell { min-width: 0; padding: 13px 15px; background: var(--panel); }
     .snapshot-label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 11px; }
     .snapshot-value { display: block; overflow: hidden; color: var(--text); font-size: 15px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
     .snapshot-sub { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+
+    .sim-panel { margin-top: 14px; }
+    .sim-status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+    .sim-status-cell { min-width: 0; padding: 11px 12px; border: 1px solid var(--line-soft); border-radius: 11px; background: rgba(255, 255, 255, .018); }
+    .sim-status-cell span { display: block; color: var(--muted); font-size: 11px; }
+    .sim-status-cell strong { display: block; margin-top: 4px; overflow: hidden; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
+    .sim-status-cell small { display: block; margin-top: 3px; overflow: hidden; color: var(--faint); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .repair-banner { margin-top: 10px; padding: 11px 13px; border: 1px solid rgba(210, 168, 93, .25); border-radius: 10px; background: var(--gold-soft); color: #d9bd87; font-size: 12px; }
+    .repair-banner.good { border-color: rgba(79, 181, 138, .25); background: var(--green-soft); color: var(--green); }
 
     .kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
     .card {
@@ -176,26 +184,16 @@
       min-width: 0;
       border: 1px solid var(--line);
       border-radius: 16px;
-      background: linear-gradient(145deg, rgba(16, 33, 47, .96), rgba(10, 22, 32, .94));
-      box-shadow: 0 14px 34px rgba(0, 0, 0, .18);
+      background: var(--panel);
+      box-shadow: var(--shadow);
     }
     .kpi { padding: 15px 16px 14px; overflow: hidden; }
-    .kpi::after {
-      content: "";
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      top: -80px;
-      right: -50px;
-      border-radius: 50%;
-      background: var(--cyan-soft);
-      filter: blur(4px);
-    }
+    .kpi::after { display: none; }
     .kpi-label { color: var(--muted); font-size: 12px; }
     .kpi-value { display: block; margin: 5px 0 6px; font-size: clamp(25px, 2.7vw, 34px); font-weight: 760; letter-spacing: -.045em; }
     .kpi-foot { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; min-height: 23px; color: var(--muted); font-size: 11px; }
     .delta { font-weight: 700; }
-    .positive { color: var(--cyan) !important; }
+    .positive { color: var(--green) !important; }
     .negative { color: var(--red) !important; }
 
     .workspace { display: grid; grid-template-columns: minmax(0, 2fr) minmax(300px, .82fr); gap: 14px; margin-top: 14px; }
@@ -214,7 +212,7 @@
       gap: 12px;
       margin-top: 9px;
       padding: 9px 11px;
-      border: 1px solid rgba(85, 221, 209, .28);
+      border: 1px solid rgba(111, 149, 207, .28);
       border-radius: 10px;
       background: var(--cyan-soft);
       color: var(--muted);
@@ -247,7 +245,7 @@
       width: 138px;
       aspect-ratio: 1;
       border-radius: 50%;
-      background: conic-gradient(var(--cyan) 0 28%, var(--blue) 28% 78%, #546474 78% 100%);
+      background: conic-gradient(var(--gold) 0 28%, var(--blue) 28% 78%, var(--cash) 78% 100%);
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
     }
     .donut::after {
@@ -264,7 +262,7 @@
     .weight-row { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 8px; }
     .weight-dot { width: 9px; height: 9px; border-radius: 3px; background: var(--dot-color); }
     .weight-row strong { font-variant-numeric: tabular-nums; }
-    .inference-note { padding: 12px 13px; border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; background: var(--gold-soft); color: #e9d29a; font-size: 12px; }
+    .inference-note { padding: 12px 13px; border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; background: var(--gold-soft); color: #d9bd87; font-size: 12px; }
     .mini-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
     .mini-stat { padding: 10px 11px; border: 1px solid var(--line-soft); border-radius: 10px; background: rgba(255, 255, 255, .018); }
     .mini-stat span { display: block; color: var(--muted); font-size: 11px; }
@@ -320,10 +318,10 @@
       display: none;
       margin-top: 14px;
       padding: 12px 14px;
-      border: 1px solid rgba(255, 127, 136, .36);
+      border: 1px solid rgba(217, 108, 117, .36);
       border-radius: 11px;
       background: var(--red-soft);
-      color: #ffc1c5;
+      color: #efb4b9;
     }
     .loading .card, .loading .snapshot { opacity: .5; }
     .loading-indicator { display: none; color: var(--cyan); }
@@ -334,6 +332,7 @@
       .snapshot-cell:first-child { grid-column: span 2; }
       .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .workspace { grid-template-columns: 1fr; }
+      .sim-status-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .allocation-focus { grid-template-columns: 1fr 1fr; align-items: start; }
     }
     @media (max-width: 760px) {
@@ -344,6 +343,7 @@
       .date-group { justify-content: flex-start; }
       .snapshot { grid-template-columns: repeat(2, 1fr); }
       .snapshot-cell:first-child { grid-column: span 2; }
+      .sim-status-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .allocation-focus { grid-template-columns: 1fr; }
       canvas { height: 320px; }
       .panel { padding: 15px 13px; }
@@ -352,6 +352,7 @@
       .kpi-grid { grid-template-columns: 1fr; }
       .snapshot { grid-template-columns: 1fr; }
       .snapshot-cell:first-child { grid-column: auto; }
+      .sim-status-grid { grid-template-columns: 1fr; }
       .date-group { display: grid; grid-template-columns: 1fr 1fr; }
       .date-field input { width: 100%; }
       .btn-primary { grid-column: 1 / -1; }
@@ -433,6 +434,29 @@
       </div>
     </section>
 
+    <section class="card panel sim-panel" aria-label="模拟盘修复与交易同步">
+      <div class="panel-header">
+        <div class="panel-copy">
+          <h2>模拟盘修复与交易同步</h2>
+          <p class="panel-subtitle">active paper cycle · 只读运行账本 · 不触发富途查询或下单</p>
+        </div>
+        <div class="status-cluster">
+          <span class="chip" id="sim-cycle-status">—</span>
+          <span class="chip warn" id="sim-repair-status">—</span>
+        </div>
+      </div>
+      <div class="sim-status-grid">
+        <div class="sim-status-cell"><span>运行周期</span><strong class="mono" id="sim-cycle-id">—</strong><small id="sim-cycle-date">—</small></div>
+        <div class="sim-status-cell"><span>当前持仓</span><strong id="sim-positions">—</strong><small id="sim-cash">—</small></div>
+        <div class="sim-status-cell"><span>下一开盘估算</span><strong id="sim-target-positions">—</strong><small id="sim-target-delta">—</small></div>
+        <div class="sim-status-cell"><span>策略净值</span><strong id="sim-equity">—</strong><small id="sim-drawdown">—</small></div>
+        <div class="sim-status-cell"><span>成交同步</span><strong id="sim-sync">—</strong><small id="sim-sync-detail">—</small></div>
+        <div class="sim-status-cell"><span>最近任务</span><strong id="sim-latest-run">—</strong><small id="sim-latest-run-time">—</small></div>
+        <div class="sim-status-cell"><span>启动方式</span><strong id="sim-start-mode">任意时点</strong><small class="mono" id="sim-start-command">—</small></div>
+      </div>
+      <div class="repair-banner" id="sim-repair-note">等待模拟盘运行状态。</div>
+    </section>
+
     <section class="kpi-grid" aria-label="核心指标">
       <article class="card kpi">
         <span class="kpi-label">Stage1 区间收益</span>
@@ -497,9 +521,9 @@
               <div class="donut-center"><strong id="invested-weight">—</strong><span class="muted">已投资</span></div>
             </div>
             <div class="weight-list">
-              <div class="weight-row"><span class="weight-dot" style="--dot-color:var(--cyan)"></span><span>SOXL</span><strong id="weight-soxl">—</strong></div>
+              <div class="weight-row"><span class="weight-dot" style="--dot-color:var(--gold)"></span><span>SOXL</span><strong id="weight-soxl">—</strong></div>
               <div class="weight-row"><span class="weight-dot" style="--dot-color:var(--blue)"></span><span>SOXX</span><strong id="weight-soxx">—</strong></div>
-              <div class="weight-row"><span class="weight-dot" style="--dot-color:#546474"></span><span>现金</span><strong id="weight-cash">—</strong></div>
+              <div class="weight-row"><span class="weight-dot" style="--dot-color:var(--cash)"></span><span>现金</span><strong id="weight-cash">—</strong></div>
             </div>
           </div>
         </div>
@@ -521,9 +545,9 @@
             <p class="panel-subtitle">堆叠目标权重；圆点为显著换仓或恢复动作</p>
           </div>
           <div class="legend">
-            <span class="legend-item"><span class="legend-area" style="--legend-color:var(--cyan)"></span>SOXL</span>
+            <span class="legend-item"><span class="legend-area" style="--legend-color:var(--gold)"></span>SOXL</span>
             <span class="legend-item"><span class="legend-area" style="--legend-color:var(--blue)"></span>SOXX</span>
-            <span class="legend-item"><span class="legend-area" style="--legend-color:#546474"></span>现金</span>
+            <span class="legend-item"><span class="legend-area" style="--legend-color:var(--cash)"></span>现金</span>
           </div>
         </div>
         <div class="chart-wrap" style="min-height:285px">
@@ -584,9 +608,9 @@
 
   <script>
     const SERIES = {
-      Stage1: { color: "#55ddd1", label: "Stage1" },
-      SOXL: { color: "#f6c96b", label: "SOXL" },
-      SOXX: { color: "#77a8ff", label: "SOXX" }
+      Stage1: { color: "#6f95cf", label: "Stage1" },
+      SOXL: { color: "#d2a85d", label: "SOXL" },
+      SOXX: { color: "#907bd1", label: "SOXX" }
     };
     const STATUS_LABELS = {
       pending_next_open_mark: "等待下一开盘标记",
@@ -607,7 +631,9 @@
     const pct = (value, digits = 1) => `${Number(value || 0).toFixed(digits)}%`;
     const signedPct = (value, digits = 1) => `${value >= 0 ? "+" : ""}${pct(value, digits)}`;
     const number = (value, digits = 2) => Number(value || 0).toFixed(digits);
+    const money = value => new Intl.NumberFormat("zh-CN", { style: "currency", currency: "USD", maximumFractionDigits: 2 }).format(Number(value || 0));
     const weightPct = value => pct(Number(value || 0) * 100, 1);
+    const quantityDelta = value => value === null || value === undefined ? "—" : `${value >= 0 ? "+" : ""}${value}`;
     const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     const classFor = value => value >= 0 ? "positive" : "negative";
     const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
@@ -714,6 +740,7 @@
     function renderAll() {
       renderHeader();
       renderSnapshot();
+      renderPaperSimulation();
       renderKpis();
       renderAllocationFocus();
       renderLegend();
@@ -746,6 +773,61 @@
       setText("snapshot-recovery", latest.recovery_action ? "恢复动作：是" : "恢复动作：否");
     }
 
+    function renderPaperSimulation() {
+      const paper = state.data.paper_simulation;
+      if (!paper || paper.status === "needs_data") {
+        setText("sim-cycle-status", "needs data");
+        setText("sim-repair-status", "运行账本不可用");
+        setText("sim-repair-note", paper?.reason || "模拟盘运行账本不可用；研究指标仍来自 qlib recorder。");
+        el("sim-repair-status").className = "chip bad";
+        return;
+      }
+      const cycle = paper.cycle;
+      const ledger = paper.ledger;
+      const target = paper.target;
+      const sync = paper.execution_sync;
+      const latestRun = paper.scheduler.latest_actionable_run || paper.scheduler.latest_run;
+      const manualStart = paper.policy.manual_start || {};
+      const current = ledger.positions;
+      const approximate = target.approximate_quantities_at_last_mark;
+      const delta = target.quantity_deltas_at_last_mark;
+
+      setText("sim-cycle-status", cycle.status || "—");
+      setText("sim-repair-status", cycle.repair_status === "armed" ? "修复已部署 · 待开盘纠偏" : "修复生效");
+      el("sim-repair-status").className = cycle.repair_status === "armed" ? "chip warn" : "chip good";
+      setText("sim-cycle-id", cycle.cycle_id || "—");
+      setText("sim-cycle-date", `起始 ${cycle.inception_date || "—"}`);
+      setText("sim-positions", `SOXL ${current.SOXL} · SOXX ${current.SOXX}`);
+      setText("sim-cash", `现金 ${money(ledger.cash)} · 费用 ${money(ledger.total_inferred_fees)}`);
+      setText("sim-target-positions", target.executable
+        ? `SOXL ${approximate.SOXL ?? "—"} · SOXX ${approximate.SOXX ?? "—"}`
+        : "待开盘实时重算");
+      setText("sim-target-delta", target.executable
+        ? `估算变化 SOXL ${quantityDelta(delta.SOXL)} · SOXX ${quantityDelta(delta.SOXX)}`
+        : "历史回放目标不可执行");
+      setText("sim-equity", money(ledger.equity));
+      setText("sim-drawdown", `峰值 ${money(ledger.peak_equity)} · 回撤 ${pct(ledger.drawdown * 100, 2)}`);
+      setText("sim-sync", `${sync.completed_slot_count} 已完成 · ${sync.pending_slot_count} 待确认`);
+      setText("sim-sync-detail", `${sync.recovery_slot_count} 次 recovery · ${sync.contaminated_recovery_slot_count} 次历史污染`);
+      setText("sim-latest-run", latestRun ? `${latestRun.slot || "—"} / ${latestRun.status || "—"}` : "—");
+      setText("sim-latest-run-time", latestRun?.recorded_at || ledger.updated_at || "—");
+      setText("sim-start-mode", manualStart.supported ? "任意时点 · 幂等" : "固定时点");
+      setText("sim-start-command", manualStart.entrypoint || "production/run_stage1_futu_sim.sh --slot start-now");
+      const recoveryPolicy = target.recovery_action
+        ? "当前恢复信号为真，10:31 允许执行恢复换仓。"
+        : "当前恢复信号为假，10:31 明确 no_action。";
+      const repairText = cycle.repair_status === "armed"
+        ? `纠偏边界：${cycle.repair_effective_session || "下一交易日"} 开盘按实时价格与净值重算；历史成交保留，不回写。`
+        : "模拟盘已按修复后的持仓漂移与恢复交易规则运行。";
+      const sizingText = target.executable
+        ? "数量为上次结算价格估算，不是委托。"
+        : "当前生产卡是历史回放诊断；模拟盘数量将在开盘从 active paper ledger 实时重算。";
+      const startText = manualStart.supported
+        ? "支持任意时点请求启动：盘中按实时标记一次性接管，闭市仅 armed，同日重复 no_action。"
+        : "手动启动尚未登记。";
+      setText("sim-repair-note", `${repairText} ${recoveryPolicy} ${sizingText} ${startText}`);
+    }
+
     function renderKpis() {
       const { metrics, window_summary: summary } = state.data;
       const stage = metrics.Stage1;
@@ -774,7 +856,7 @@
       const soxx = weights.SOXX * 100;
       const cash = weights.cash * 100;
       el("allocation-donut").style.background =
-        `conic-gradient(var(--cyan) 0 ${soxl}%, var(--blue) ${soxl}% ${soxl + soxx}%, #546474 ${soxl + soxx}% 100%)`;
+        `conic-gradient(var(--gold) 0 ${soxl}%, var(--blue) ${soxl}% ${soxl + soxx}%, var(--cash) ${soxl + soxx}% 100%)`;
       setText("invested-weight", pct(soxl + soxx, 0));
       setText("weight-soxl", pct(soxl, 1));
       setText("weight-soxx", pct(soxx, 1));
@@ -824,7 +906,7 @@
         const factors = event.factors.map(factor => {
           const width = Math.min(Math.abs(factor.change_z) / 5 * 50, 50);
           const left = factor.change_z >= 0 ? 50 : 50 - width;
-          const color = factor.change_z >= 0 ? "var(--cyan)" : "var(--red)";
+          const color = factor.change_z >= 0 ? "var(--green)" : "var(--red)";
           return `<div class="factor-row"><span>${factor.label}<div class="factor-bar"><span style="--factor-width:${width}%;--factor-left:${left}%;--factor-color:${color}"></span></div></span><b class="${classFor(factor.change_z)}">${factor.change_z >= 0 ? "+" : ""}${number(factor.change_z, 2)}σ</b></div>`;
         }).join("");
         return `<button class="event-item" type="button" data-event-date="${event.signal_date}">
@@ -1001,9 +1083,9 @@
       const xAt = index => plot.left + (plot.right - plot.left) * index / Math.max(1, rows.length - 1);
       const yAt = value => plot.top + (plot.bottom - plot.top) * (100 - value) / 100;
       const bands = [
-        { color: "#55ddd1", low: () => 0, high: row => row.soxl_weight * 100 },
-        { color: "#77a8ff", low: row => row.soxl_weight * 100, high: row => (row.soxl_weight + row.soxx_weight) * 100 },
-        { color: "#546474", low: row => (row.soxl_weight + row.soxx_weight) * 100, high: () => 100 }
+        { color: "#d2a85d", low: () => 0, high: row => row.soxl_weight * 100 },
+        { color: "#907bd1", low: row => row.soxl_weight * 100, high: row => (row.soxl_weight + row.soxx_weight) * 100 },
+        { color: "#566170", low: row => (row.soxl_weight + row.soxx_weight) * 100, high: () => 100 }
       ];
       bands.forEach(band => {
         context.beginPath();

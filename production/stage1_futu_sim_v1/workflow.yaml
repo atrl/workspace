@@ -26,6 +26,10 @@ paper_trial:
 schedule:
   open: 09:31 America/New_York
   recovery: 10:31 America/New_York
+  manual_start: production/run_stage1_futu_sim.sh --slot start-now
+  manual_start_regular_session: one-time idempotent rebalance from live quote and active paper ledger
+  manual_start_after_1030_et: include observed first-hour recovery state
+  manual_start_outside_regular_session: armed without order until the next regular session
   postclose_refresh: 20:15 America/New_York
   bark_event_push: disabled; execution and sync checks run silently
   bark_daily_heartbeat: 10:05 Asia/Shanghai every calendar day with latest trade sync
@@ -34,9 +38,14 @@ schedule:
 dashboard:
   entrypoint: production/run_stage1_dashboard.sh
   url: http://127.0.0.1:8765/
+  cloudflare_url: https://soxl.atrl.me/
+  cloudflare_status: needs_zero_trust_free_plan_activation
+  cloudflare_access: required_self_hosted_application
+  launchagents: [com.soxl.stage1.dashboard, com.soxl.stage1.cloudflare]
   source: qlib_recorder
   custom_interval: true
   factor_trade_markers: true
+  paper_cycle_repair_and_execution_sync: true
   benchmarks: [SOXL, SOXX]
 artifact_policy:
   policy: slim_card_recorder_first

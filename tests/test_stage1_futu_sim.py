@@ -211,12 +211,264 @@ def test_futu_simulated_broker_blocks_when_futu_market_is_closed(tmp_path, monke
 
 
 def test_stage1_schedule_detects_dst_safe_et_slots():
-    from src.schedule.stage1_futu import detect_slot
+    from src.schedule.stage1_futu import detect_slot, manual_start_context
 
     assert detect_slot(datetime(2026, 7, 27, 9, 31, tzinfo=NEW_YORK)) == "open"
     assert detect_slot(datetime(2026, 7, 27, 10, 31, tzinfo=NEW_YORK)) == "recovery"
     assert detect_slot(datetime(2026, 7, 27, 20, 20, tzinfo=NEW_YORK)) == "postclose"
     assert detect_slot(datetime(2026, 7, 26, 9, 31, tzinfo=NEW_YORK)) == "not_due"
+    assert manual_start_context(
+        datetime(2026, 7, 27, 9, 47, tzinfo=NEW_YORK)
+    ) == {
+        "requested_at": "2026-07-27T09:47:00-04:00",
+        "session_date": "2026-07-27",
+        "regular_session": True,
+        "include_current_intraday": False,
+        "price_mark": "live_start_quote",
+    }
+    assert manual_start_context(
+        datetime(2026, 7, 27, 11, 7, tzinfo=NEW_YORK)
+    )["include_current_intraday"] is True
+    assert manual_start_context(
+        datetime(2026, 7, 26, 11, 7, tzinfo=NEW_YORK)
+    )["regular_session"] is False
+
+
+def test_stage1_start_now_arms_outside_regular_session_without_broker_access(
+    tmp_path, monkeypatch
+):
+    from src.schedule import stage1_futu
+
+    runtime = tmp_path / "runtime" / "soxl" / "stage1_futu_sim"
+    runtime.mkdir(parents=True)
+    (runtime / stage1_futu.CYCLE_MANIFEST).write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "cycle_id": "cycle-anytime",
+                "status": "active",
+                "start_date": "2026-08-03",
+                "inception_date": "2026-08-03",
+                "initial_equity": 100_000.0,
+                "broker_reserve_cash": 0.0,
+                "ledger_file": "ledger.json",
+                "execution_state_file": "state.json",
+                "remark_prefix": "stage1_anytime",
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        stage1_futu,
+        "FutuSimulatedBroker",
+        lambda **_kwargs: (_ for _ in ()).throw(
+            AssertionError("closed-session start must not connect to Futu")
+        ),
+    )
+
+    result = stage1_futu.run_stage1_futu_task(
+        root=tmp_path,
+        slot="start-now",
+        now=datetime(2026, 8, 9, 11, 7, tzinfo=NEW_YORK),
+    )
+
+    assert result["status"] == "armed"
+    assert result["slot"] == "start_now"
+    assert result["reason"] == "waiting_for_us_regular_session"
+    assert result["manual_start"]["regular_session"] is False
+    assert result["real_broker_order"] is False
+
+
+def test_stage1_start_now_is_noop_when_cycle_already_started_same_session(
+    tmp_path, monkeypatch
+):
+    from src.schedule import stage1_futu
+
+    runtime = tmp_path / "runtime" / "soxl" / "stage1_futu_sim"
+    runtime.mkdir(parents=True)
+    (runtime / stage1_futu.CYCLE_MANIFEST).write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "cycle_id": "cycle-anytime",
+                "status": "active",
+                "start_date": "2026-08-03",
+                "inception_date": "2026-08-03",
+                "initial_equity": 100_000.0,
+                "broker_reserve_cash": 0.0,
+                "ledger_file": "ledger.json",
+                "execution_state_file": "state.json",
+                "remark_prefix": "stage1_anytime",
+            }
+        ),
+        encoding="utf-8",
+    )
+    (runtime / "state.json").write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "environment": "SIMULATE",
+                "real_trading_supported": False,
+                "completed_slots": {
+                    "2026-08-07:open": {
+                        "slot": "open",
+                        "signal_date": "2026-08-07",
+                        "execution_session_date": "2026-08-10",
+                        "status": "filled_confirmed",
+                        "recorded_at": "2026-08-10T09:31:10-04:00",
+                    }
+                },
+                "pending_slots": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        stage1_futu,
+        "FutuSimulatedBroker",
+        lambda **_kwargs: (_ for _ in ()).throw(
+            AssertionError("same-session start must be rejected before broker access")
+        ),
+    )
+
+    result = stage1_futu.run_stage1_futu_task(
+        root=tmp_path,
+        slot="start-now",
+        now=datetime(2026, 8, 10, 11, 7, tzinfo=NEW_YORK),
+    )
+
+    assert result["status"] == "no_action"
+    assert result["reason"] == "paper_cycle_already_started_this_session"
+    assert result["existing_execution"]["slot"] == "open"
+    assert result["real_broker_order"] is False
+
+
+def test_stage1_start_now_uses_live_quote_and_observed_intraday_state(
+    tmp_path, monkeypatch
+):
+    from src.schedule import stage1_futu
+    from src.workflow.stage1_futu_sim import RuntimeState
+
+    runtime = tmp_path / "runtime" / "soxl" / "stage1_futu_sim"
+    runtime.mkdir(parents=True)
+    (runtime / stage1_futu.CYCLE_MANIFEST).write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "cycle_id": "cycle-anytime",
+                "status": "active",
+                "start_date": "2026-08-03",
+                "inception_date": "2026-08-03",
+                "initial_equity": 100_000.0,
+                "broker_reserve_cash": 0.0,
+                "ledger_file": "ledger.json",
+                "execution_state_file": "state.json",
+                "remark_prefix": "stage1_anytime",
+                "user_authorized_paper_trial": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+    (runtime / "state.json").write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "environment": "SIMULATE",
+                "real_trading_supported": False,
+                "completed_slots": {},
+                "pending_slots": {},
+            }
+        ),
+        encoding="utf-8",
+    )
+    observed: dict[str, object] = {}
+
+    class FakeBroker:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return None
+
+        def us_market_state(self):
+            return "MORNING"
+
+        def quotes(self):
+            return {"SOXL": 142.5, "SOXX": 547.0}
+
+        def account_snapshot(self):
+            return {"cash": 40_000.0, "positions": {"SOXL": 150, "SOXX": 90}}
+
+        def order_history(self, **_kwargs):
+            return []
+
+        def rebalance(self, **kwargs):
+            observed["rebalance"] = kwargs
+            return {
+                "status": "submitted",
+                "environment": "SIMULATE",
+                "real_broker_order": False,
+                "orders": [],
+                "target_quantities": {"SOXL": 160, "SOXX": 92},
+            }
+
+    ledger = {
+        "cash": 40_000.0,
+        "positions": {"SOXL": 150, "SOXX": 90},
+        "prices": {"SOXL": 142.5, "SOXX": 547.0},
+        "equity": 110_000.0,
+        "peak_equity": 112_000.0,
+        "drawdown": -0.017857,
+        "total_inferred_fees": 10.0,
+    }
+    target = {
+        "status": "ready",
+        "signal_date": "2026-08-10",
+        "weights": {"SOXL": 0.21, "SOXX": 0.46, "cash": 0.33},
+        "recovery_action": False,
+        "controller_state_source": "paper_ledger_cycle",
+    }
+    monkeypatch.setattr(stage1_futu, "FutuSimulatedBroker", lambda **_kwargs: FakeBroker())
+    monkeypatch.setattr(stage1_futu, "_cycle_ledger", lambda **_kwargs: ledger)
+    monkeypatch.setattr(
+        stage1_futu,
+        "runtime_state_from_paper_ledger",
+        lambda *_args, **_kwargs: RuntimeState(),
+    )
+    monkeypatch.setattr(
+        stage1_futu,
+        "refresh_intraday_store",
+        lambda **kwargs: observed.setdefault("intraday", kwargs) or {},
+    )
+
+    def fake_target(**kwargs):
+        observed["target"] = kwargs
+        return target
+
+    monkeypatch.setattr(stage1_futu, "build_runtime_target", fake_target)
+    monkeypatch.setattr(
+        stage1_futu,
+        "_production_execution_gate",
+        lambda *_args, **_kwargs: ("normal", "user_authorized_restarted_paper_trial"),
+    )
+    monkeypatch.setattr(stage1_futu, "settled_date", lambda _now=None: "2026-08-07")
+
+    result = stage1_futu.run_stage1_futu_task(
+        root=tmp_path,
+        slot="start-now",
+        now=datetime(2026, 8, 10, 11, 7, tzinfo=NEW_YORK),
+    )
+
+    assert result["status"] == "submitted"
+    assert result["slot"] == "start_now"
+    assert result["manual_start"]["price_mark"] == "live_start_quote"
+    assert observed["target"]["current_prices"] == {"SOXL": 142.5, "SOXX": 547.0}
+    assert observed["target"]["include_current_intraday"] is True
+    assert observed["target"]["execution_date"] == "2026-08-10"
+    assert observed["rebalance"]["slot"] == "start_now"
+    assert observed["rebalance"]["current_quantities"] == {"SOXL": 150, "SOXX": 90}
+    assert observed["rebalance"]["portfolio_equity"] == pytest.approx(110_000.0)
+    assert result["real_broker_order"] is False
 
 
 def test_stage1_refresh_uses_daily_fallback_and_marks_intraday_stale_when_opend_is_unreachable(
@@ -626,6 +878,10 @@ def test_stage1_production_card_contract():
     assert summary["execution"]["backtest_position_accounting"].startswith(
         "mark actual holdings to market"
     )
+    assert summary["execution"]["manual_start"]["supported"] is True
+    assert summary["execution"]["manual_start"]["entrypoint"].endswith(
+        "--slot start-now"
+    )
 
 
 def test_stage1_production_card_registers_dashboard_entrypoint():
@@ -635,7 +891,15 @@ def test_stage1_production_card_registers_dashboard_entrypoint():
 
     assert summary["dashboard"]["source"] == "qlib_recorder"
     assert "custom_interval_inference" in summary["dashboard"]["features"]
+    assert "paper_cycle_repair_and_execution_sync" in summary["dashboard"]["features"]
+    assert "manual_start_status" in summary["dashboard"]["features"]
+    assert summary["dashboard"]["cloudflare_url"] == "https://soxl.atrl.me/"
+    assert summary["dashboard"]["cloudflare_access"] == (
+        "required_self_hosted_application"
+    )
     assert "production/run_stage1_dashboard.sh" in workflow
+    assert "cloudflare_url: https://soxl.atrl.me/" in workflow
+    assert "manual_start: production/run_stage1_futu_sim.sh --slot start-now" in workflow
     assert "benchmarks: [SOXL, SOXX]" in workflow
 
 

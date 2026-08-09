@@ -9,10 +9,12 @@
 - 数据过期、控制器来源不属于 active cycle、风险状态无法重建时一律 blocked，不再允许错误目标以 close-only 名义卖出。
 - 后续目标股数按已对账的实时策略净值计算，不重复使用固定 100,000 美元。现金是 SOXL/SOXX 目标后的剩余权重，不下现金订单。
 - 10:31 仅在 recovery_action=true 时换仓；若恢复信号未触发则明确 no_action，不因价格、净值或整股取整变化重复对齐同一目标。
+- 支持通过 `production/run_stage1_futu_sim.sh --slot start-now` 在任意时刻请求启动：美股常规交易时段内按实时价格和 active paper ledger 幂等接管；10:30 ET 后纳入已观察的首小时恢复状态；闭市时仅 armed，不提交订单。
 - 回测换手按每次决策前经价格变动漂移后的实际持仓计算，不再用上一次目标权重代替实际权重；因此交易成本与模拟执行口径一致。
 - 富途接口被限制为 SIMULATE；本任务没有真实账户分支。
 - 模拟盘的 open/recovery/postclose 执行与同步检查继续运行但不再逐次推送；每日上海时间 10:05 仅发一次 Bark，合并最近任务、模拟委托与持仓同步摘要。Bark 凭据仅从运行环境读取，不写入仓库。
 - Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动，支持自选区间、冻结模型推理状态、交易/换仓点、因子变化诊断及 SOXL/SOXX 同窗对比。
+- dashboard 新增模拟盘修复与交易同步面板，只读 active paper cycle、账本和执行状态；本地源仅监听 127.0.0.1。`https://soxl.atrl.me/` 是预留入口，在 Zero Trust Free 方案与 Access 应用启用、验证前保持 tunnel 停止，不公开持仓。
 - 因子变化只用于交易点附近的标准化诊断，属于非因果归因，不是精确 SHAP。
-- qlib recorder：e8afb29d73ed420d81671617922cb2bb
+- qlib recorder：7f11940d87d045b19b2f974c5c486fb7
 - 不构成买卖建议。

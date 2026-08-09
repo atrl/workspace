@@ -89,6 +89,203 @@ def _normalise_factor_changes(frame: pd.DataFrame, columns: list[str]) -> pd.Dat
     return (changes / scale).replace([np.inf, -np.inf], np.nan).clip(-5.0, 5.0)
 
 
+def _read_json(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return payload if isinstance(payload, dict) else None
+
+
+def _runtime_file(runtime_dir: Path, filename: str) -> Path:
+    if not filename or Path(filename).name != filename:
+        raise ValueError("blocked: Stage1 runtime filename is invalid")
+    path = (runtime_dir / filename).resolve()
+    if runtime_dir.resolve() not in path.parents:
+        raise ValueError("blocked: Stage1 runtime file resolved outside its directory")
+    return path
+
+
+def _run_summary(payload: dict[str, Any] | None) -> dict[str, Any] | None:
+    if payload is None:
+        return None
+    ledger = payload.get("ledger") if isinstance(payload.get("ledger"), dict) else {}
+    execution = (
+        payload.get("execution") if isinstance(payload.get("execution"), dict) else {}
+    )
+    return {
+        "status": payload.get("status"),
+        "slot": payload.get("slot"),
+        "reason": payload.get("reason"),
+        "recorded_at": payload.get("recorded_at"),
+        "order_count": len(execution.get("orders", []))
+        if isinstance(execution.get("orders"), list)
+        else 0,
+        "equity": ledger.get("equity"),
+        "drawdown": ledger.get("drawdown"),
+        "positions": ledger.get("positions"),
+    }
+
+
+def build_stage1_paper_simulation_status(
+    *, root: Path, summary: dict[str, Any]
+) -> dict[str, Any]:
+    """Build a read-only operational view from the registered paper-cycle runtime."""
+    execution = summary.get("execution", {})
+    manifest_text = str(execution.get("cycle_manifest", ""))
+    expected_runtime = (root / "runtime" / "soxl" / "stage1_futu_sim").resolve()
+    manifest_path = (root / manifest_text).resolve() if manifest_text else None
+    if (
+        manifest_path is None
+        or manifest_path.parent != expected_runtime
+        or manifest_path.name != "paper_cycle.json"
+    ):
+        return {
+            "status": "needs_data",
+            "reason": "missing_registered_paper_cycle_manifest",
+            "source": "registered_stage1_runtime",
+        }
+    cycle = _read_json(manifest_path)
+    if cycle is None:
+        return {
+            "status": "needs_data",
+            "reason": "paper_cycle_manifest_unavailable",
+            "source": "registered_stage1_runtime",
+        }
+
+    ledger = _read_json(
+        _runtime_file(expected_runtime, str(cycle.get("ledger_file", "")))
+    )
+    execution_state = _read_json(
+        _runtime_file(expected_runtime, str(cycle.get("execution_state_file", "")))
+    )
+    if ledger is None or execution_state is None:
+        return {
+            "status": "needs_data",
+            "reason": "active_cycle_ledger_or_execution_state_unavailable",
+            "source": "registered_stage1_runtime",
+            "cycle": {
+                "cycle_id": cycle.get("cycle_id"),
+                "status": cycle.get("status"),
+            },
+        }
+
+    latest_target = summary.get("latest_target", {})
+    target_is_executable = (
+        latest_target.get("status") == "ready"
+        and latest_target.get("controller_state_source") == "paper_ledger_cycle"
+    )
+    weights = latest_target.get("weights", {}) if target_is_executable else {}
+    positions = {
+        symbol: int(dict(ledger.get("positions", {})).get(symbol, 0))
+        for symbol in ("SOXL", "SOXX")
+    }
+    prices = {
+        symbol: float(dict(ledger.get("prices", {})).get(symbol, 0.0))
+        for symbol in ("SOXL", "SOXX")
+    }
+    equity = float(ledger.get("equity", 0.0))
+    approximate_quantities = {
+        symbol: int(equity * float(weights.get(symbol, 0.0)) / prices[symbol])
+        if target_is_executable and equity > 0.0 and prices[symbol] > 0.0
+        else None
+        for symbol in ("SOXL", "SOXX")
+    }
+    quantity_deltas = {
+        symbol: approximate_quantities[symbol] - positions[symbol]
+        if approximate_quantities[symbol] is not None
+        else None
+        for symbol in ("SOXL", "SOXX")
+    }
+
+    completed_slots = execution_state.get("completed_slots", {})
+    pending_slots = execution_state.get("pending_slots", {})
+    if not isinstance(completed_slots, dict) or not isinstance(pending_slots, dict):
+        raise ValueError("blocked: invalid Stage1 simulated execution state")
+    completed_rows = [value for value in completed_slots.values() if isinstance(value, dict)]
+    latest_completed = (
+        max(completed_rows, key=lambda row: str(row.get("recorded_at", "")))
+        if completed_rows
+        else None
+    )
+    repair = cycle.get("execution_repair", {})
+    contaminated = repair.get("prior_recovery_slots_contaminated", [])
+    if not isinstance(contaminated, list):
+        contaminated = []
+
+    return {
+        "status": "repair_armed"
+        if repair.get("status") == "armed"
+        else "ready",
+        "source": "registered_stage1_runtime",
+        "cycle": {
+            "cycle_id": cycle.get("cycle_id"),
+            "status": cycle.get("status"),
+            "inception_date": cycle.get("inception_date"),
+            "repair_status": repair.get("status"),
+            "repair_effective_session": repair.get("effective_session_date"),
+            "repair_commit": repair.get("applied_commit"),
+            "history_policy": repair.get("history_policy"),
+        },
+        "ledger": {
+            "cash": float(ledger.get("cash", 0.0)),
+            "equity": equity,
+            "peak_equity": float(ledger.get("peak_equity", 0.0)),
+            "drawdown": float(ledger.get("drawdown", 0.0)),
+            "total_inferred_fees": float(ledger.get("total_inferred_fees", 0.0)),
+            "positions": positions,
+            "prices": prices,
+            "updated_at": ledger.get("updated_at"),
+        },
+        "target": {
+            "status": latest_target.get("status")
+            if target_is_executable
+            else "pending_live_open_recompute",
+            "signal_date": latest_target.get("signal_date"),
+            "weights": weights if target_is_executable else None,
+            "controller_state_source": latest_target.get("controller_state_source"),
+            "executable": target_is_executable,
+            "recovery_action": bool(latest_target.get("recovery_action")),
+            "approximate_quantities_at_last_mark": approximate_quantities,
+            "quantity_deltas_at_last_mark": quantity_deltas,
+            "sizing_note": (
+                "Open quantities are shown only for a paper_ledger_cycle target; "
+                "otherwise the paper target is recomputed from live prices and "
+                "reconciled sleeve equity at the open"
+            ),
+        },
+        "execution_sync": {
+            "completed_slot_count": len(completed_slots),
+            "pending_slot_count": len(pending_slots),
+            "recovery_slot_count": sum(
+                str(key).endswith(":recovery") for key in completed_slots
+            ),
+            "contaminated_recovery_slot_count": len(contaminated),
+            "latest_completed": {
+                "slot": latest_completed.get("slot"),
+                "signal_date": latest_completed.get("signal_date"),
+                "status": latest_completed.get("status"),
+                "recorded_at": latest_completed.get("recorded_at"),
+                "target_quantities": latest_completed.get("target_quantities"),
+            }
+            if latest_completed
+            else None,
+        },
+        "scheduler": {
+            "latest_run": _run_summary(_read_json(expected_runtime / "latest_run.json")),
+            "latest_actionable_run": _run_summary(
+                _read_json(expected_runtime / "latest_actionable_run.json")
+            ),
+        },
+        "policy": {
+            "open": "rebalance_to_fresh_target",
+            "recovery": "rebalance_only_when_recovery_action_true_otherwise_no_action",
+            "manual_start": execution.get("manual_start", {}),
+            "history": "observed_fills_are_preserved_and_not_rewritten",
+            "real_broker_order": False,
+        },
+    }
+
+
 @lru_cache(maxsize=2)
 def _load_stage1_frames(root_text: str, recorder_id: str) -> tuple[pd.DataFrame, pd.DataFrame]:
     from src.workflow.stage1_futu_sim import load_frozen_inference_frame
@@ -259,6 +456,10 @@ def build_stage1_dashboard_payload(
             "recovery_probability": latest_target["recovery_probability"],
             "recovery_action": latest_target["recovery_action"],
         },
+        "paper_simulation": build_stage1_paper_simulation_status(
+            root=source.root,
+            summary=source.summary,
+        ),
         "rows": rows,
         "trade_events": events,
         "factor_labels": FACTOR_LABELS,
