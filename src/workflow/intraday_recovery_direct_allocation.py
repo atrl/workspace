@@ -1024,6 +1024,7 @@ def _simulate_policy(
     history: list[float] = []
     rows: list[dict[str, Any]] = []
     for row in frame.sort_values("signal_date").itertuples():
+        pretrade_weights = previous.copy()
         drawdown = max(0.0, 1.0 - equity / peak)
         state, clock, q = _advance_state(state, clock, drawdown, spec)
         cap, raw_beta = _base_cap(
@@ -1084,6 +1085,9 @@ def _simulate_policy(
             turnover = np.abs(open_weights[:2] - previous[:2]).sum() + np.abs(
                 close_weights[:2] - drifted[:2]
             ).sum()
+            trade_delta = (open_weights - pretrade_weights) + (
+                close_weights - drifted
+            )
             ending_weights = mark_to_market_weights(close_weights, post)
         else:
             close_weights = open_weights
@@ -1092,6 +1096,7 @@ def _simulate_policy(
             )
             gross_return = float(open_weights @ asset_returns)
             turnover = np.abs(open_weights[:2] - previous[:2]).sum()
+            trade_delta = open_weights - pretrade_weights
             ending_weights = mark_to_market_weights(open_weights, asset_returns)
         strategy_return = gross_return - turnover * cost_bps / 10_000.0
         history.append(strategy_return)
@@ -1112,6 +1117,9 @@ def _simulate_policy(
                 "soxl_weight": close_weights[0],
                 "soxx_weight": close_weights[1],
                 "cash_weight": close_weights[2],
+                "soxl_trade_delta": trade_delta[0],
+                "soxx_trade_delta": trade_delta[1],
+                "cash_trade_delta": trade_delta[2],
                 "recovery_probability": probability,
                 "recovery_action": recovery,
                 "current_beta_cap": cap,

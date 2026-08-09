@@ -70,7 +70,8 @@ def resolve_stage1_dashboard_source(
 def _risk_metrics(returns: pd.Series) -> dict[str, float]:
     values = pd.to_numeric(returns, errors="coerce").fillna(0.0)
     wealth = (1.0 + values).cumprod()
-    drawdown = wealth / wealth.cummax() - 1.0
+    peak = wealth.cummax().clip(lower=1.0)
+    drawdown = wealth / peak - 1.0
     years = max(len(values) / 252.0, 1.0 / 252.0)
     annualized = float(wealth.iloc[-1] ** (1.0 / years) - 1.0)
     volatility = float(values.std(ddof=0) * np.sqrt(252.0))
@@ -287,114 +288,45 @@ def build_stage1_paper_simulation_status(
 
 
 @lru_cache(maxsize=2)
-def _load_stage1_frames(
+def _available_stage1_trade_range(
     root_text: str, recorder_id: str
-) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
-    from src.workflow.stage1_futu_sim import load_frozen_inference_frame
-
+) -> tuple[pd.Timestamp, pd.Timestamp]:
     source = resolve_stage1_dashboard_source(Path(root_text))
     if source.recorder_id != recorder_id:
-        raise ValueError("blocked: Stage1 recorder changed while dashboard cache was loading")
-    report = pd.read_csv(source.report_path, parse_dates=["signal_date", "trade_date", "exit_date"])
-    report = report.set_index("signal_date").sort_index()
-    inference, inference_audit = load_frozen_inference_frame(root=source.root)
-    inference.index = pd.to_datetime(inference.index)
-    return report, inference.sort_index(), inference_audit
-
-
-def _selected_inference_snapshot(
-    *,
-    report: pd.DataFrame,
-    selected: pd.DataFrame,
-    inference: pd.DataFrame,
-    inference_audit: dict[str, Any],
-    start_ts: pd.Timestamp,
-    end_ts: pd.Timestamp,
-) -> dict[str, Any]:
-    """Return the frozen-model result for the selected window's terminal signal."""
-    signal_date = selected.index[-1]
-    if signal_date not in inference.index:
-        raise ValueError(
-            "blocked: selected Stage1 signal is missing from frozen inference"
-        )
-    report_row = selected.loc[signal_date]
-    inference_row = inference.loc[signal_date]
-    history = pd.to_numeric(
-        report.loc[:signal_date, "strategy_return"], errors="coerce"
-    ).fillna(0.0)
-    wealth = (1.0 + history).cumprod()
-    portfolio_drawdown = float(1.0 - wealth.iloc[-1] / wealth.cummax().iloc[-1])
-
-    def weights_from(row: pd.Series, prefix: str = "") -> dict[str, float]:
-        return {
-            "SOXL": float(row[f"{prefix}soxl_weight"]),
-            "SOXX": float(row[f"{prefix}soxx_weight"]),
-            "cash": float(row[f"{prefix}cash_weight"]),
-        }
-
-    def optional_float(value: Any) -> float | None:
-        return float(value) if pd.notna(value) else None
-
-    return {
-        "status": "selected_range_complete",
-        "inference_mode": "frozen_model_replay_from_qlib_data",
-        "selection": {
-            "start": start_ts.date().isoformat(),
-            "end": end_ts.date().isoformat(),
-            "terminal_signal_rule": "latest_completed_signal_on_or_before_selected_end",
-            "start_controls": "window_metrics_and_trade_diagnostics",
-            "end_controls": "terminal_frozen_model_inference",
-        },
-        "signal_date": signal_date.date().isoformat(),
-        "trade_date": pd.Timestamp(report_row["trade_date"]).date().isoformat(),
-        "exit_date": pd.Timestamp(report_row["exit_date"]).date().isoformat(),
-        "weights": weights_from(report_row),
-        "open_weights": weights_from(report_row, "open_"),
-        "raw_model_weights": weights_from(inference_row),
-        "tail_probability": optional_float(inference_row.get("tail_probability")),
-        "alpha_probability": optional_float(inference_row.get("alpha_probability")),
-        "recovery_probability": optional_float(
-            report_row.get("recovery_probability")
-        ),
-        "recovery_action": bool(report_row.get("recovery_action", False)),
-        "portfolio_drawdown": portfolio_drawdown,
-        "current_beta_cap": float(report_row["current_beta_cap"]),
-        "evidence": {
-            "source": "qlib_recorder_and_frozen_model",
-            "source_model_frozen": bool(
-                inference_audit.get("source_model_frozen", False)
-            ),
-            "source_training_end": inference_audit.get("source_training_end"),
-            "source_recorder_id": inference_audit.get("source_recorder_id"),
-            "stage1_recorder_id": inference_audit.get("stage1_recorder_id"),
-            "qlib_source_api": inference_audit.get("market_audit", {}).get(
-                "source_api"
-            ),
-        },
-    }
+        raise ValueError("blocked: Stage1 recorder changed while loading trade range")
+    dates = pd.read_csv(source.report_path, usecols=["trade_date"])["trade_date"]
+    dates = pd.to_datetime(dates, errors="coerce").dropna()
+    if dates.empty:
+        raise ValueError("blocked: Stage1 recorder contains no completed trade dates")
+    return dates.min().normalize(), dates.max().normalize()
 
 
 def build_stage1_dashboard_payload(
     *,
     root: Path | str | None = None,
     start: str | None = None,
-    end: str | None = None,
 ) -> dict[str, Any]:
+    from src.workflow.stage1_futu_sim import replay_stage1_simulation_from_start
+
     source = resolve_stage1_dashboard_source(root)
-    report, inference, inference_audit = _load_stage1_frames(
+    available_start, available_end = _available_stage1_trade_range(
         source.root.as_posix(), source.recorder_id
     )
-    available_start = report.index.min()
-    available_end = report.index.max()
-    start_ts = max(pd.Timestamp(start) if start else available_start, available_start)
-    end_ts = min(pd.Timestamp(end) if end else available_end, available_end)
-    if start_ts > end_ts:
-        raise ValueError("start date must not be after end date")
-
-    selected = report.loc[start_ts:end_ts].copy()
+    requested_start = pd.Timestamp(start).normalize() if start else available_start
+    start_ts = max(requested_start, available_start)
+    if start_ts > available_end:
+        raise ValueError("simulation start date is after the latest completed trade session")
+    replay, inference, simulation_audit = replay_stage1_simulation_from_start(
+        root=source.root,
+        start=start_ts.date().isoformat(),
+        stage1_recorder_id=source.recorder_id,
+    )
+    selected = replay.set_index("signal_date").sort_index()
+    selected.index = pd.to_datetime(selected.index)
+    inference.index = pd.to_datetime(inference.index)
     factors = inference.reindex(selected.index)
     if selected.empty:
-        raise ValueError("selected interval contains no Stage1 observations")
+        raise ValueError("simulation start date contains no Stage1 observations")
 
     strategy = pd.to_numeric(selected["strategy_return"], errors="coerce").fillna(0.0)
     soxl = pd.to_numeric(selected["soxl_return"], errors="coerce").fillna(0.0)
@@ -407,20 +339,41 @@ def build_stage1_dashboard_payload(
         },
         index=selected.index,
     )
-    drawdowns = nav.div(nav.cummax()).sub(1.0)
+    drawdowns = nav.div(nav.cummax().clip(lower=1.0)).sub(1.0)
     weight_columns = ["soxl_weight", "soxx_weight", "cash_weight"]
     weights = selected.loc[:, weight_columns].apply(pd.to_numeric, errors="coerce")
-    weight_delta = weights.diff().fillna(0.0)
-    turnover = weight_delta.abs().sum(axis=1)
+    trade_delta = selected.loc[
+        :, ["soxl_trade_delta", "soxx_trade_delta", "cash_trade_delta"]
+    ].apply(pd.to_numeric, errors="coerce")
+    trade_delta.columns = weight_columns
+    turnover = pd.to_numeric(selected["turnover"], errors="coerce").fillna(0.0)
 
     factor_columns = [column for column in FACTOR_LABELS if column in factors.columns]
     factor_values = factors.loc[:, factor_columns].apply(pd.to_numeric, errors="coerce")
-    factor_z = _normalise_factor_changes(factor_values, factor_columns)
+    full_factor_values = inference.loc[:, factor_columns].apply(pd.to_numeric, errors="coerce")
+    factor_z = _normalise_factor_changes(full_factor_values, factor_columns).reindex(
+        selected.index
+    )
     events: list[dict[str, Any]] = []
-    event_mask = (turnover >= 0.08) | selected["recovery_action"].fillna(False).astype(bool)
+    initial_trade = selected["initial_trade"].fillna(False).astype(bool)
+    event_mask = (
+        initial_trade
+        | (turnover > 1e-10)
+        | selected["recovery_action"].fillna(False).astype(bool)
+    )
     for signal_date in selected.index[event_mask]:
-        delta = weight_delta.loc[signal_date]
-        direction = "买入/加仓" if delta["soxl_weight"] + delta["soxx_weight"] > 0 else "卖出/减仓"
+        delta = trade_delta.loc[signal_date]
+        is_initial = bool(initial_trade.loc[signal_date])
+        invested_delta = float(delta["soxl_weight"] + delta["soxx_weight"])
+        direction = (
+            "初始建仓"
+            if is_initial
+            else "买入/加仓"
+            if invested_delta > 1e-8
+            else "卖出/减仓"
+            if invested_delta < -1e-8
+            else "再平衡"
+        )
         ranked = factor_z.loc[signal_date].dropna().sort_values(
             key=lambda values: values.abs(), ascending=False
         )
@@ -446,6 +399,7 @@ def build_stage1_dashboard_payload(
                 "soxl_delta": float(delta["soxl_weight"]),
                 "soxx_delta": float(delta["soxx_weight"]),
                 "cash_delta": float(delta["cash_weight"]),
+                "initial_trade": is_initial,
                 "recovery_action": bool(selected.loc[signal_date, "recovery_action"]),
                 "factors": drivers,
             }
@@ -472,20 +426,26 @@ def build_stage1_dashboard_payload(
                 "soxx_weight": float(row["soxx_weight"]),
                 "cash_weight": float(row["cash_weight"]),
                 "turnover": float(turnover.loc[signal_date]),
+                "initial_trade": bool(row["initial_trade"]),
                 "recovery_action": bool(row["recovery_action"]),
             }
         )
 
-    latest_target = source.summary["latest_target"]
+    first_completed = selected.iloc[0]
     last_completed = selected.iloc[-1]
-    selected_inference = _selected_inference_snapshot(
-        report=report,
-        selected=selected,
-        inference=inference,
-        inference_audit=inference_audit,
-        start_ts=start_ts,
-        end_ts=end_ts,
-    )
+    start_trade_date = pd.Timestamp(first_completed["trade_date"])
+    end_trade_date = pd.Timestamp(last_completed["trade_date"])
+    portfolio_drawdown = float(-drawdowns.iloc[-1]["Stage1"])
+    initial_open_weights = {
+        "SOXL": float(first_completed["open_soxl_weight"]),
+        "SOXX": float(first_completed["open_soxx_weight"]),
+        "cash": float(first_completed["open_cash_weight"]),
+    }
+    latest_weights = {
+        "SOXL": float(last_completed["soxl_weight"]),
+        "SOXX": float(last_completed["soxx_weight"]),
+        "cash": float(last_completed["cash_weight"]),
+    }
     total_turnover = float(turnover.sum())
     event_turnover = turnover.loc[event_mask]
     return {
@@ -498,9 +458,12 @@ def build_stage1_dashboard_payload(
             "start": available_start.date().isoformat(),
             "end": available_end.date().isoformat(),
         },
-        "selected_range": {
-            "start": start_ts.date().isoformat(),
-            "end": end_ts.date().isoformat(),
+        "simulation_range": {
+            "requested_start": requested_start.date().isoformat(),
+            "start": start_trade_date.date().isoformat(),
+            "end": end_trade_date.date().isoformat(),
+            "start_signal_date": selected.index[0].date().isoformat(),
+            "end_signal_date": selected.index[-1].date().isoformat(),
             "rows": len(selected),
         },
         "window_summary": {
@@ -508,8 +471,10 @@ def build_stage1_dashboard_payload(
             "total_turnover": total_turnover,
             "average_event_turnover": float(event_turnover.mean()) if len(event_turnover) else 0.0,
             "trade_event_count": len(events),
+            "initial_trade_count": sum(event["initial_trade"] for event in events),
             "buy_event_count": sum(event["direction"] == "买入/加仓" for event in events),
             "sell_event_count": sum(event["direction"] == "卖出/减仓" for event in events),
+            "rebalance_event_count": sum(event["direction"] == "再平衡" for event in events),
             "recovery_event_count": sum(event["recovery_action"] for event in events),
             "average_soxl_weight_pct": float(weights["soxl_weight"].mean() * 100.0),
             "average_soxx_weight_pct": float(weights["soxx_weight"].mean() * 100.0),
@@ -531,16 +496,48 @@ def build_stage1_dashboard_payload(
             "turnover": float(turnover.iloc[-1]),
             "recovery_action": bool(last_completed["recovery_action"]),
         },
-        "latest_inference": {
-            "signal_date": latest_target["signal_date"],
-            "status": latest_target["status"],
-            "weights": latest_target["weights"],
-            "portfolio_drawdown": latest_target["portfolio_drawdown"],
-            "current_beta_cap": latest_target["current_beta_cap"],
-            "recovery_probability": latest_target["recovery_probability"],
-            "recovery_action": latest_target["recovery_action"],
+        "simulation": {
+            "status": "fresh_cash_replay_complete",
+            "mode": simulation_audit["simulation_mode"],
+            "requested_start": simulation_audit["requested_start"],
+            "start_signal_date": selected.index[0].date().isoformat(),
+            "start_trade_date": start_trade_date.date().isoformat(),
+            "end_signal_date": selected.index[-1].date().isoformat(),
+            "end_trade_date": end_trade_date.date().isoformat(),
+            "initial_state": simulation_audit["initial_state"],
+            "initial_trade": {
+                "recorded": bool(first_completed["initial_trade"]),
+                "weights": initial_open_weights,
+                "turnover": float(first_completed["turnover"]),
+                "transaction_cost_bps": float(first_completed["cost_bps"]),
+            },
+            "latest_state": {
+                "weights": latest_weights,
+                "portfolio_drawdown": portfolio_drawdown,
+                "current_beta_cap": float(last_completed["current_beta_cap"]),
+                "recovery_probability": float(last_completed["recovery_probability"])
+                if pd.notna(last_completed["recovery_probability"])
+                else None,
+                "recovery_action": bool(last_completed["recovery_action"]),
+            },
+            "evidence": {
+                "source": "qlib_recorder_pinned_frozen_model_replay",
+                "source_model_frozen": bool(
+                    simulation_audit.get("source_model_frozen", False)
+                ),
+                "source_training_end": simulation_audit.get("source_training_end"),
+                "source_recorder_id": simulation_audit.get("source_recorder_id"),
+                "frozen_stage1_recorder_id": simulation_audit.get(
+                    "stage1_recorder_id"
+                ),
+                "production_recorder_id": simulation_audit.get(
+                    "production_recorder_id"
+                ),
+                "qlib_source_api": simulation_audit.get("market_audit", {}).get(
+                    "source_api"
+                ),
+            },
         },
-        "selected_inference": selected_inference,
         "paper_simulation": build_stage1_paper_simulation_status(
             root=source.root,
             summary=source.summary,

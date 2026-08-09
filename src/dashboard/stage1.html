@@ -169,15 +169,6 @@
     .snapshot-value { display: block; overflow: hidden; color: var(--text); font-size: 15px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
     .snapshot-sub { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
 
-    .sim-panel { margin-top: 14px; }
-    .sim-status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
-    .sim-status-cell { min-width: 0; padding: 11px 12px; border: 1px solid var(--line-soft); border-radius: 11px; background: rgba(255, 255, 255, .018); }
-    .sim-status-cell span { display: block; color: var(--muted); font-size: 11px; }
-    .sim-status-cell strong { display: block; margin-top: 4px; overflow: hidden; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
-    .sim-status-cell small { display: block; margin-top: 3px; overflow: hidden; color: var(--faint); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
-    .repair-banner { margin-top: 10px; padding: 11px 13px; border: 1px solid rgba(210, 168, 93, .25); border-radius: 10px; background: var(--gold-soft); color: #d9bd87; font-size: 12px; }
-    .repair-banner.good { border-color: rgba(79, 181, 138, .25); background: var(--green-soft); color: var(--green); }
-
     .kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
     .card {
       position: relative;
@@ -205,22 +196,6 @@
     canvas { width: 100%; height: 360px; display: block; }
     #performance-chart { cursor: crosshair; touch-action: none; }
     #allocation-chart { height: 285px; }
-    .selection-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 9px;
-      padding: 9px 11px;
-      border: 1px solid rgba(111, 149, 207, .28);
-      border-radius: 10px;
-      background: var(--cyan-soft);
-      color: var(--muted);
-      font-size: 12px;
-      flex-wrap: wrap;
-    }
-    .selection-bar strong { color: var(--text); }
-    [hidden] { display: none !important; }
     .chart-readout {
       min-height: 33px;
       display: flex;
@@ -332,7 +307,6 @@
       .snapshot-cell:first-child { grid-column: span 2; }
       .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .workspace { grid-template-columns: 1fr; }
-      .sim-status-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .allocation-focus { grid-template-columns: 1fr 1fr; align-items: start; }
     }
     @media (max-width: 760px) {
@@ -343,7 +317,6 @@
       .date-group { justify-content: flex-start; }
       .snapshot { grid-template-columns: repeat(2, 1fr); }
       .snapshot-cell:first-child { grid-column: span 2; }
-      .sim-status-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .allocation-focus { grid-template-columns: 1fr; }
       canvas { height: 320px; }
       .panel { padding: 15px 13px; }
@@ -352,7 +325,6 @@
       .kpi-grid { grid-template-columns: 1fr; }
       .snapshot { grid-template-columns: 1fr; }
       .snapshot-cell:first-child { grid-column: auto; }
-      .sim-status-grid { grid-template-columns: 1fr; }
       .date-group { display: grid; grid-template-columns: 1fr 1fr; }
       .date-field input { width: 100%; }
       .btn-primary { grid-column: 1 / -1; }
@@ -381,85 +353,61 @@
       </div>
     </header>
 
-    <section class="control-bar" aria-label="推理与回测区间">
+    <section class="control-bar" aria-label="模拟开始日">
       <div class="control-copy">
         <div class="control-meta">
-          <strong>推理与观察窗口</strong>
-          <span class="muted" id="range-copy">等待可用区间</span>
+          <strong>选择模拟开始日</strong>
+          <span class="muted" id="range-copy">初始账户固定为 100% 现金</span>
         </div>
-        <div class="preset-group" id="presets" aria-label="快捷区间">
+        <div class="preset-group" id="presets" aria-label="快捷开始日">
           <div class="button-group">
             <button class="btn" type="button" data-preset="ytd">YTD</button>
             <button class="btn" type="button" data-preset="3m">近 3 月</button>
             <button class="btn" type="button" data-preset="6m">近 6 月</button>
             <button class="btn" type="button" data-preset="1y">近 1 年</button>
-            <button class="btn" type="button" data-preset="all">全部</button>
+            <button class="btn" type="button" data-preset="all">最早</button>
           </div>
         </div>
       </div>
       <div class="date-group">
-        <label class="date-field">开始<input id="start-date" type="date"></label>
-        <label class="date-field">结束<input id="end-date" type="date"></label>
-        <button class="btn btn-primary" id="apply-range" type="button">应用并推理</button>
+        <label class="date-field">模拟开始日<input id="start-date" type="date"></label>
+        <button class="btn btn-primary" id="apply-range" type="button">从这天开始模拟</button>
       </div>
     </section>
 
     <div class="error-banner" id="error-banner" role="alert"></div>
 
-    <section class="snapshot" aria-label="选中区间末日推理快照">
+    <section class="snapshot" aria-label="模拟起点">
       <div class="snapshot-cell">
-        <span class="snapshot-label">区间末日推理</span>
+        <span class="snapshot-label">模拟起点</span>
         <strong class="snapshot-value" id="snapshot-status">—</strong>
         <span class="snapshot-sub" id="snapshot-date">—</span>
       </div>
       <div class="snapshot-cell">
-        <span class="snapshot-label">目标 SOXL</span>
+        <span class="snapshot-label">初始建仓 SOXL</span>
         <strong class="snapshot-value" id="snapshot-soxl">—</strong>
         <span class="snapshot-sub">杠杆风险仓</span>
       </div>
       <div class="snapshot-cell">
-        <span class="snapshot-label">目标 SOXX</span>
+        <span class="snapshot-label">初始建仓 SOXX</span>
         <strong class="snapshot-value" id="snapshot-soxx">—</strong>
         <span class="snapshot-sub">核心半导体仓</span>
       </div>
       <div class="snapshot-cell">
-        <span class="snapshot-label">目标现金</span>
+        <span class="snapshot-label">建仓后现金</span>
         <strong class="snapshot-value" id="snapshot-cash">—</strong>
         <span class="snapshot-sub">风险缓冲</span>
       </div>
       <div class="snapshot-cell">
-        <span class="snapshot-label">当前 Beta 上限</span>
+        <span class="snapshot-label">初始建仓换手</span>
         <strong class="snapshot-value" id="snapshot-beta">—</strong>
         <span class="snapshot-sub" id="snapshot-recovery">—</span>
       </div>
     </section>
 
-    <section class="card panel sim-panel" aria-label="模拟盘修复与交易同步">
-      <div class="panel-header">
-        <div class="panel-copy">
-          <h2>模拟盘修复与交易同步</h2>
-          <p class="panel-subtitle">active paper cycle · 只读运行账本 · 不触发富途查询或下单</p>
-        </div>
-        <div class="status-cluster">
-          <span class="chip" id="sim-cycle-status">—</span>
-          <span class="chip warn" id="sim-repair-status">—</span>
-        </div>
-      </div>
-      <div class="sim-status-grid">
-        <div class="sim-status-cell"><span>运行周期</span><strong class="mono" id="sim-cycle-id">—</strong><small id="sim-cycle-date">—</small></div>
-        <div class="sim-status-cell"><span>当前持仓</span><strong id="sim-positions">—</strong><small id="sim-cash">—</small></div>
-        <div class="sim-status-cell"><span>下一开盘估算</span><strong id="sim-target-positions">—</strong><small id="sim-target-delta">—</small></div>
-        <div class="sim-status-cell"><span>策略净值</span><strong id="sim-equity">—</strong><small id="sim-drawdown">—</small></div>
-        <div class="sim-status-cell"><span>成交同步</span><strong id="sim-sync">—</strong><small id="sim-sync-detail">—</small></div>
-        <div class="sim-status-cell"><span>最近任务</span><strong id="sim-latest-run">—</strong><small id="sim-latest-run-time">—</small></div>
-        <div class="sim-status-cell"><span>启动方式</span><strong id="sim-start-mode">任意时点</strong><small class="mono" id="sim-start-command">—</small></div>
-      </div>
-      <div class="repair-banner" id="sim-repair-note">等待模拟盘运行状态。</div>
-    </section>
-
     <section class="kpi-grid" aria-label="核心指标">
       <article class="card kpi">
-        <span class="kpi-label">Stage1 区间收益</span>
+        <span class="kpi-label">Stage1 模拟收益</span>
         <strong class="kpi-value" id="kpi-return">—</strong>
         <div class="kpi-foot" id="kpi-return-foot">—</div>
       </article>
@@ -485,7 +433,7 @@
         <div class="panel-header">
           <div class="panel-copy">
             <h2 id="performance-title">净值路径</h2>
-            <p class="panel-subtitle">Stage1 与直接基准同窗、同起点比较 · 拖拽图表选择区间</p>
+            <p class="panel-subtitle">从选定交易日、全现金起算，与 SOXL / SOXX 同窗比较</p>
           </div>
           <div class="button-group" id="chart-modes" aria-label="图表模式">
             <button class="btn active" type="button" data-mode="nav" aria-pressed="true">净值</button>
@@ -497,13 +445,6 @@
         <div class="chart-wrap">
           <canvas id="performance-chart" role="img" aria-label="Stage1、SOXL 与 SOXX 的区间表现折线图"></canvas>
         </div>
-        <div class="selection-bar" id="chart-selection" hidden>
-          <span>已选择 <strong id="chart-selection-range">—</strong> <span id="chart-selection-count"></span></span>
-          <div class="button-group">
-            <button class="btn" id="cancel-chart-selection" type="button">取消</button>
-            <button class="btn btn-primary" id="apply-chart-selection" type="button">应用图中区间并推理</button>
-          </div>
-        </div>
         <div class="chart-readout" id="performance-readout" aria-live="polite">移动到图表查看单日详情</div>
       </article>
 
@@ -511,13 +452,13 @@
         <div>
           <div class="panel-header">
             <div class="panel-copy">
-              <h2>选中区间末日目标</h2>
-              <p class="panel-subtitle">冻结模型重新推理 · recorder 风险约束回放</p>
+              <h2>模拟期末仓位</h2>
+              <p class="panel-subtitle">从所选起点独立运行后的最新状态</p>
             </div>
             <span class="chip warn" id="inference-chip">—</span>
           </div>
           <div class="donut-row">
-            <div class="donut" id="allocation-donut" aria-label="最新目标组合权重">
+          <div class="donut" id="allocation-donut" aria-label="模拟期末组合权重">
               <div class="donut-center"><strong id="invested-weight">—</strong><span class="muted">已投资</span></div>
             </div>
             <div class="weight-list">
@@ -527,10 +468,10 @@
             </div>
           </div>
         </div>
-        <div class="inference-note" id="inference-note">等待冻结推理状态。</div>
+        <div class="inference-note" id="inference-note">等待模拟结果。</div>
         <div class="mini-grid">
           <div class="mini-stat"><span>组合当前回撤</span><strong id="latest-drawdown">—</strong></div>
-          <div class="mini-stat"><span>窗口换仓事件</span><strong id="event-count">—</strong></div>
+          <div class="mini-stat"><span>有成交交易日</span><strong id="event-count">—</strong></div>
           <div class="mini-stat"><span>平均 SOXL 仓位</span><strong id="avg-soxl">—</strong></div>
           <div class="mini-stat"><span>平均现金仓位</span><strong id="avg-cash">—</strong></div>
         </div>
@@ -542,7 +483,7 @@
         <div class="panel-header">
           <div class="panel-copy">
             <h2>仓位路径与换仓点</h2>
-            <p class="panel-subtitle">堆叠目标权重；圆点为显著换仓或恢复动作</p>
+            <p class="panel-subtitle">堆叠目标权重；首个圆点是初始建仓，其余为显著换仓或恢复动作</p>
           </div>
           <div class="legend">
             <span class="legend-item"><span class="legend-area" style="--legend-color:var(--gold)"></span>SOXL</span>
@@ -559,15 +500,17 @@
       <aside class="card panel event-panel">
         <div class="event-toolbar">
           <div>
-            <h2>换仓诊断</h2>
+            <h2>模拟交易记录</h2>
             <p class="panel-subtitle" id="event-disclaimer">—</p>
           </div>
           <span class="chip" id="filtered-count">—</span>
         </div>
-        <div class="button-group" id="event-filters" aria-label="换仓事件筛选">
+        <div class="button-group" id="event-filters" aria-label="模拟交易筛选">
           <button class="btn active" type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button class="btn" type="button" data-filter="initial" aria-pressed="false">初始建仓</button>
           <button class="btn" type="button" data-filter="buy" aria-pressed="false">加仓</button>
           <button class="btn" type="button" data-filter="sell" aria-pressed="false">减仓</button>
+          <button class="btn" type="button" data-filter="rebalance" aria-pressed="false">再平衡</button>
           <button class="btn" type="button" data-filter="recovery" aria-pressed="false">恢复动作</button>
         </div>
         <div class="event-list" id="event-list"></div>
@@ -578,7 +521,7 @@
       <div class="panel-header">
         <div class="panel-copy">
           <h2>同窗风险收益对照</h2>
-          <p class="panel-subtitle">所有指标均在当前选择区间内重新归一计算</p>
+          <p class="panel-subtitle">所有指标均从所选开始日、100% 现金初始状态重新计算</p>
         </div>
         <span class="chip" id="observation-count">—</span>
       </div>
@@ -614,7 +557,7 @@
     };
     const STATUS_LABELS = {
       pending_next_open_mark: "等待下一开盘标记",
-      selected_range_complete: "选区推理完成",
+      fresh_cash_replay_complete: "已从现金启动",
       ready: "已就绪",
       completed: "已完成",
       blocked: "已阻断"
@@ -624,17 +567,13 @@
       mode: "nav",
       eventFilter: "all",
       hoverIndex: null,
-      preset: "all",
-      selection: null,
-      dragStart: null
+      preset: "all"
     };
     const el = id => document.getElementById(id);
     const pct = (value, digits = 1) => `${Number(value || 0).toFixed(digits)}%`;
     const signedPct = (value, digits = 1) => `${value >= 0 ? "+" : ""}${pct(value, digits)}`;
     const number = (value, digits = 2) => Number(value || 0).toFixed(digits);
-    const money = value => new Intl.NumberFormat("zh-CN", { style: "currency", currency: "USD", maximumFractionDigits: 2 }).format(Number(value || 0));
     const weightPct = value => pct(Number(value || 0) * 100, 1);
-    const quantityDelta = value => value === null || value === undefined ? "—" : `${value >= 0 ? "+" : ""}${value}`;
     const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     const classFor = value => value >= 0 ? "positive" : "negative";
     const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
@@ -672,7 +611,7 @@
       return isoDate(date);
     }
 
-    function presetRange(name) {
+    function presetStart(name) {
       const available = state.data.available_range;
       const end = available.end;
       let start = available.start;
@@ -681,29 +620,26 @@
       if (name === "6m") start = dateMonthsBefore(end, 6);
       if (name === "1y") start = dateMonthsBefore(end, 12);
       start = start < available.start ? available.start : start;
-      return { start, end };
+      return start;
     }
 
-    async function loadData({ start = "", end = "", preset = null } = {}) {
+    async function loadData({ start = "", preset = null } = {}) {
       setLoading(true);
       showError();
       const query = new URLSearchParams();
       if (start) query.set("start", start);
-      if (end) query.set("end", end);
       try {
         const response = await fetch(`/api/stage1?${query}`);
         const payload = await response.json();
         if (!response.ok) throw new Error(payload.detail || "区间数据加载失败");
         state.data = payload;
         state.hoverIndex = null;
-        state.selection = null;
-        state.dragStart = null;
         state.preset = preset || inferPreset(payload);
         syncControls();
         renderAll();
         const url = new URL(window.location.href);
-        url.searchParams.set("start", payload.selected_range.start);
-        url.searchParams.set("end", payload.selected_range.end);
+        url.search = "";
+        url.searchParams.set("start", payload.simulation_range.requested_start);
         history.replaceState(null, "", url);
       } catch (error) {
         showError(error.message);
@@ -713,10 +649,9 @@
     }
 
     function inferPreset(payload) {
-      const selected = payload.selected_range;
+      const selected = payload.simulation_range.requested_start;
       for (const name of ["ytd", "3m", "6m", "1y", "all"]) {
-        const range = presetRange(name);
-        if (range.start === selected.start && range.end === selected.end) return name;
+        if (presetStart(name) === selected) return name;
       }
       return "custom";
     }
@@ -724,13 +659,9 @@
     function syncControls() {
       const data = state.data;
       const start = el("start-date");
-      const end = el("end-date");
       start.min = data.available_range.start;
       start.max = data.available_range.end;
-      end.min = data.available_range.start;
-      end.max = data.available_range.end;
-      start.value = data.selected_range.start;
-      end.value = data.selected_range.end;
+      start.value = data.simulation_range.requested_start;
       document.querySelectorAll("[data-preset]").forEach(button => {
         const active = button.dataset.preset === state.preset;
         button.classList.toggle("active", active);
@@ -741,92 +672,37 @@
     function renderAll() {
       renderHeader();
       renderSnapshot();
-      renderPaperSimulation();
       renderKpis();
       renderAllocationFocus();
       renderLegend();
       renderEvents();
       renderMetricsTable();
-      renderChartSelection();
       drawCharts();
     }
 
     function renderHeader() {
       const data = state.data;
-      setText("source-copy", `${data.selected_range.rows} 个信号日 · ${data.selected_range.start} → ${data.selected_range.end} · 推理截止 ${data.selected_inference.signal_date}`);
-      setText("range-copy", `可用 ${data.available_range.start} → ${data.available_range.end}`);
+      const range = data.simulation_range;
+      setText("source-copy", `${range.rows} 个模拟交易日 · ${range.start} → ${range.end} · 全现金独立起算`);
+      setText("range-copy", `可选交易日 ${data.available_range.start} → ${data.available_range.end}`);
       setText("recorder-short", data.recorder_id.slice(0, 8));
       el("recorder-short").title = data.recorder_id;
       setText("artifact-path", data.artifact);
       setText("artifact-policy", data.artifact_policy);
-      setText("observation-count", `${data.selected_range.rows} 个观察`);
+      setText("observation-count", `${range.rows} 个观察`);
     }
 
     function renderSnapshot() {
-      const latest = state.data.selected_inference;
-      const weights = latest.weights;
-      setText("snapshot-status", statusLabel(latest.status));
-      setText("snapshot-date", `信号日 ${latest.signal_date} · 已按选区末日推理`);
+      const simulation = state.data.simulation;
+      const initial = simulation.initial_trade;
+      const weights = initial.weights;
+      setText("snapshot-status", statusLabel(simulation.status));
+      setText("snapshot-date", `首笔交易 ${simulation.start_trade_date} · 已记录初始建仓`);
       setText("snapshot-soxl", weightPct(weights.SOXL));
       setText("snapshot-soxx", weightPct(weights.SOXX));
       setText("snapshot-cash", weightPct(weights.cash));
-      setText("snapshot-beta", number(latest.current_beta_cap, 2));
-      setText("snapshot-recovery", latest.recovery_action ? "恢复动作：是" : "恢复动作：否");
-    }
-
-    function renderPaperSimulation() {
-      const paper = state.data.paper_simulation;
-      if (!paper || paper.status === "needs_data") {
-        setText("sim-cycle-status", "needs data");
-        setText("sim-repair-status", "运行账本不可用");
-        setText("sim-repair-note", paper?.reason || "模拟盘运行账本不可用；研究指标仍来自 qlib recorder。");
-        el("sim-repair-status").className = "chip bad";
-        return;
-      }
-      const cycle = paper.cycle;
-      const ledger = paper.ledger;
-      const target = paper.target;
-      const sync = paper.execution_sync;
-      const latestRun = paper.scheduler.latest_actionable_run || paper.scheduler.latest_run;
-      const manualStart = paper.policy.manual_start || {};
-      const current = ledger.positions;
-      const approximate = target.approximate_quantities_at_last_mark;
-      const delta = target.quantity_deltas_at_last_mark;
-
-      setText("sim-cycle-status", cycle.status || "—");
-      setText("sim-repair-status", cycle.repair_status === "armed" ? "修复已部署 · 待开盘纠偏" : "修复生效");
-      el("sim-repair-status").className = cycle.repair_status === "armed" ? "chip warn" : "chip good";
-      setText("sim-cycle-id", cycle.cycle_id || "—");
-      setText("sim-cycle-date", `起始 ${cycle.inception_date || "—"}`);
-      setText("sim-positions", `SOXL ${current.SOXL} · SOXX ${current.SOXX}`);
-      setText("sim-cash", `现金 ${money(ledger.cash)} · 费用 ${money(ledger.total_inferred_fees)}`);
-      setText("sim-target-positions", target.executable
-        ? `SOXL ${approximate.SOXL ?? "—"} · SOXX ${approximate.SOXX ?? "—"}`
-        : "待开盘实时重算");
-      setText("sim-target-delta", target.executable
-        ? `估算变化 SOXL ${quantityDelta(delta.SOXL)} · SOXX ${quantityDelta(delta.SOXX)}`
-        : "历史回放目标不可执行");
-      setText("sim-equity", money(ledger.equity));
-      setText("sim-drawdown", `峰值 ${money(ledger.peak_equity)} · 回撤 ${pct(ledger.drawdown * 100, 2)}`);
-      setText("sim-sync", `${sync.completed_slot_count} 已完成 · ${sync.pending_slot_count} 待确认`);
-      setText("sim-sync-detail", `${sync.recovery_slot_count} 次 recovery · ${sync.contaminated_recovery_slot_count} 次历史污染`);
-      setText("sim-latest-run", latestRun ? `${latestRun.slot || "—"} / ${latestRun.status || "—"}` : "—");
-      setText("sim-latest-run-time", latestRun?.recorded_at || ledger.updated_at || "—");
-      setText("sim-start-mode", manualStart.supported ? "任意时点 · 幂等" : "固定时点");
-      setText("sim-start-command", manualStart.entrypoint || "production/run_stage1_futu_sim.sh --slot start-now");
-      const recoveryPolicy = target.recovery_action
-        ? "当前恢复信号为真，10:31 允许执行恢复换仓。"
-        : "当前恢复信号为假，10:31 明确 no_action。";
-      const repairText = cycle.repair_status === "armed"
-        ? `纠偏边界：${cycle.repair_effective_session || "下一交易日"} 开盘按实时价格与净值重算；历史成交保留，不回写。`
-        : "模拟盘已按修复后的持仓漂移与恢复交易规则运行。";
-      const sizingText = target.executable
-        ? "数量为上次结算价格估算，不是委托。"
-        : "当前生产卡是历史回放诊断；模拟盘数量将在开盘从 active paper ledger 实时重算。";
-      const startText = manualStart.supported
-        ? "支持任意时点请求启动：盘中按实时标记一次性接管，闭市仅 armed，同日重复 no_action。"
-        : "手动启动尚未登记。";
-      setText("sim-repair-note", `${repairText} ${recoveryPolicy} ${sizingText} ${startText}`);
+      setText("snapshot-beta", pct(initial.turnover * 100, 1));
+      setText("snapshot-recovery", `${number(initial.transaction_cost_bps, 0)} bps 交易成本`);
     }
 
     function renderKpis() {
@@ -846,12 +722,13 @@
       setMetric("kpi-sharpe", number(stage.sharpe, 2), stage.sharpe >= 1 ? "positive" : "");
       el("kpi-sharpe-foot").innerHTML = `<span>较 SOXL <b class="${classFor(sharpeLead)}">${sharpeLead >= 0 ? "+" : ""}${number(sharpeLead, 2)}</b></span><span>年化波动 ${pct(stage.volatility_pct, 1)}</span>`;
       setMetric("kpi-hit-rate", pct(summary.positive_day_rate_pct, 1));
-      el("kpi-hit-rate-foot").innerHTML = `<span>${summary.trade_event_count} 次显著换仓</span><span>总双边换手 ${number(summary.total_turnover, 1)}×</span>`;
+      el("kpi-hit-rate-foot").innerHTML = `<span>${summary.trade_event_count} 个交易日有成交</span><span>总双边换手 ${number(summary.total_turnover, 1)}×</span>`;
     }
 
     function renderAllocationFocus() {
       const data = state.data;
-      const latest = data.selected_inference;
+      const simulation = data.simulation;
+      const latest = simulation.latest_state;
       const weights = latest.weights;
       const soxl = weights.SOXL * 100;
       const soxx = weights.SOXX * 100;
@@ -862,21 +739,17 @@
       setText("weight-soxl", pct(soxl, 1));
       setText("weight-soxx", pct(soxx, 1));
       setText("weight-cash", pct(cash, 1));
-      setText("inference-chip", statusLabel(latest.status));
+      setText("inference-chip", "模拟期末");
       setText("latest-drawdown", pct(-latest.portfolio_drawdown * 100, 1));
       el("latest-drawdown").className = latest.portfolio_drawdown > .15 ? "negative" : "";
       setText("event-count", String(data.window_summary.trade_event_count));
       setText("avg-soxl", pct(data.window_summary.average_soxl_weight_pct, 1));
       setText("avg-cash", pct(data.window_summary.average_cash_weight_pct, 1));
-      const raw = latest.raw_model_weights;
-      const action = latest.recovery_action
-        ? "恢复动作已触发，最终目标包含盘中恢复路径调整。"
-        : "恢复动作未触发，最终目标只应用冻结模型与风险上限。";
-      const rawText = `模型原始：SOXL ${weightPct(raw.SOXL)}、SOXX ${weightPct(raw.SOXX)}、现金 ${weightPct(raw.cash)}。`;
-      const probabilityText = latest.tail_probability === null
-        ? "尾部风险概率不可用。"
-        : `尾部风险概率 ${pct(latest.tail_probability * 100, 1)}。`;
-      setText("inference-note", `${rawText} ${probabilityText} ${action} 信号日 ${latest.signal_date}；这是选区末日的 recorder 回放证据，不代表模拟盘已经成交。`);
+      const action = latest.recovery_action ? "期末日触发恢复动作。" : "期末日未触发恢复动作。";
+      setText(
+        "inference-note",
+        `模拟从 ${simulation.start_trade_date} 的 100% 现金账户开始，首笔建仓已计入交易记录和成本；运行至 ${simulation.end_trade_date}。${action}`
+      );
     }
 
     function renderLegend() {
@@ -892,8 +765,10 @@
 
     function filteredEvents() {
       const events = state.data.trade_events;
+      if (state.eventFilter === "initial") return events.filter(event => event.initial_trade);
       if (state.eventFilter === "buy") return events.filter(event => event.direction.includes("买入"));
       if (state.eventFilter === "sell") return events.filter(event => event.direction.includes("卖出"));
+      if (state.eventFilter === "rebalance") return events.filter(event => event.direction === "再平衡");
       if (state.eventFilter === "recovery") return events.filter(event => event.recovery_action);
       return events;
     }
@@ -901,14 +776,19 @@
     function renderEvents() {
       const data = state.data;
       const events = filteredEvents().slice().reverse();
+      const shown = events.slice(0, 60);
       setText("event-disclaimer", data.factor_disclaimer);
-      setText("filtered-count", `${events.length} / ${data.trade_events.length}`);
+      setText("filtered-count", `${shown.length} / ${data.trade_events.length}`);
       if (!events.length) {
-        el("event-list").innerHTML = `<div class="empty">当前筛选下没有换仓事件</div>`;
+        el("event-list").innerHTML = `<div class="empty">当前筛选下没有交易记录</div>`;
         return;
       }
-      el("event-list").innerHTML = events.slice(0, 60).map(event => {
-        const directionClass = event.direction.includes("买入") ? "positive" : "negative";
+      el("event-list").innerHTML = shown.map(event => {
+        const directionClass = event.initial_trade || event.direction.includes("买入")
+          ? "positive"
+          : event.direction.includes("卖出")
+          ? "negative"
+          : "";
         const factors = event.factors.map(factor => {
           const width = Math.min(Math.abs(factor.change_z) / 5 * 50, 50);
           const left = factor.change_z >= 0 ? 50 : 50 - width;
@@ -1011,7 +891,7 @@
         const rowIndex = Math.round(index * (rows.length - 1) / Math.max(1, tickCount - 1));
         const x = plot.left + (plot.right - plot.left) * rowIndex / Math.max(1, rows.length - 1);
         context.textAlign = index === 0 ? "left" : index === tickCount - 1 ? "right" : "center";
-        context.fillText(shortDate(rows[rowIndex].signal_date), x, plot.bottom + 11);
+        context.fillText(shortDate(rows[rowIndex].trade_date), x, plot.bottom + 11);
       }
       context.textAlign = "left";
     }
@@ -1026,7 +906,6 @@
       drawGrid(context, plot, width, height, range, formatter);
       const xAt = index => plot.left + (plot.right - plot.left) * index / Math.max(1, state.data.rows.length - 1);
       const yAt = value => plot.top + (plot.bottom - plot.top) * (range.max - value) / (range.max - range.min);
-      drawSelectionOverlay(context, plot, xAt);
 
       series.forEach(item => {
         context.beginPath();
@@ -1041,7 +920,11 @@
         context.stroke();
       });
 
-      const eventDates = new Set(state.data.trade_events.map(event => event.signal_date));
+      const eventDates = new Set(
+        state.data.rows
+          .filter(row => row.initial_trade || row.turnover >= .08 || row.recovery_action)
+          .map(row => row.signal_date)
+      );
       context.fillStyle = css("--gold");
       state.data.rows.forEach((row, index) => {
         if (!eventDates.has(row.signal_date)) return;
@@ -1051,33 +934,6 @@
         context.fill();
       });
       drawHover(context, plot, xAt, series, yAt);
-    }
-
-    function normalisedSelection() {
-      if (!state.selection) return null;
-      return {
-        start: Math.min(state.selection.start, state.selection.end),
-        end: Math.max(state.selection.start, state.selection.end)
-      };
-    }
-
-    function drawSelectionOverlay(context, plot, xAt) {
-      const selection = normalisedSelection();
-      if (!selection) return;
-      const x1 = xAt(selection.start);
-      const x2 = xAt(selection.end);
-      context.fillStyle = css("--cyan-soft");
-      context.fillRect(x1, plot.top, Math.max(1, x2 - x1), plot.bottom - plot.top);
-      context.strokeStyle = css("--cyan");
-      context.globalAlpha = .75;
-      context.lineWidth = 1;
-      [x1, x2].forEach(x => {
-        context.beginPath();
-        context.moveTo(x, plot.top);
-        context.lineTo(x, plot.bottom);
-        context.stroke();
-      });
-      context.globalAlpha = 1;
     }
 
     function drawAllocation() {
@@ -1109,10 +965,10 @@
         context.globalAlpha = 1;
       });
       rows.forEach((row, index) => {
-        if (row.turnover < .08 && !row.recovery_action) return;
+        if (!row.initial_trade && row.turnover < .08 && !row.recovery_action) return;
         context.beginPath();
-        context.fillStyle = row.recovery_action ? css("--purple") : css("--gold");
-        context.arc(xAt(index), yAt(100) + 7, row.recovery_action ? 4 : 2.5, 0, Math.PI * 2);
+        context.fillStyle = row.initial_trade ? css("--green") : row.recovery_action ? css("--purple") : css("--gold");
+        context.arc(xAt(index), yAt(100) + 7, row.initial_trade || row.recovery_action ? 4 : 2.5, 0, Math.PI * 2);
         context.fill();
       });
       if (state.hoverIndex !== null) {
@@ -1167,9 +1023,9 @@
         const formatted = state.mode === "nav" ? `${number(value, 2)}×` : pct(value, 1);
         return `<span><b style="color:${item.color}">${item.name}</b> ${formatted}</span>`;
       }).join("");
-      el("performance-readout").innerHTML = `<strong>${row.signal_date}</strong>${valueText}`;
+      el("performance-readout").innerHTML = `<strong>${row.trade_date}</strong>${valueText}`;
       el("allocation-readout").innerHTML =
-        `<strong>${row.signal_date}</strong><span>SOXL ${weightPct(row.soxl_weight)}</span><span>SOXX ${weightPct(row.soxx_weight)}</span><span>现金 ${weightPct(row.cash_weight)}</span><span>换手 ${pct(row.turnover * 100, 1)}</span>`;
+        `<strong>${row.trade_date}</strong><span>SOXL ${weightPct(row.soxl_weight)}</span><span>SOXX ${weightPct(row.soxx_weight)}</span><span>现金 ${weightPct(row.cash_weight)}</span><span>换手 ${pct(row.turnover * 100, 1)}</span>`;
     }
 
     function focusDate(date) {
@@ -1180,21 +1036,6 @@
       el("performance-chart").scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
-    function renderChartSelection() {
-      const selection = normalisedSelection();
-      const bar = el("chart-selection");
-      if (!selection || !state.data) {
-        bar.hidden = true;
-        return;
-      }
-      const rows = state.data.rows;
-      const start = rows[selection.start].signal_date;
-      const end = rows[selection.end].signal_date;
-      setText("chart-selection-range", `${start} → ${end}`);
-      setText("chart-selection-count", `· ${selection.end - selection.start + 1} 个观察`);
-      bar.hidden = false;
-    }
-
     function pointerIndex(canvas, event) {
       const rect = canvas.getBoundingClientRect();
       const left = 58;
@@ -1203,50 +1044,15 @@
       return Math.round(ratio * (state.data.rows.length - 1));
     }
 
-    function bindCanvas(canvasId, allowSelection = false) {
+    function bindCanvas(canvasId) {
       const canvas = el(canvasId);
-      if (allowSelection) {
-        canvas.addEventListener("pointerdown", event => {
-          if (!state.data || event.button !== 0) return;
-          const index = pointerIndex(canvas, event);
-          state.dragStart = index;
-          state.selection = { start: index, end: index };
-          state.hoverIndex = index;
-          canvas.setPointerCapture(event.pointerId);
-          renderChartSelection();
-          drawCharts();
-        });
-        canvas.addEventListener("pointerup", event => {
-          if (state.dragStart === null) return;
-          const index = pointerIndex(canvas, event);
-          state.selection.end = index;
-          const selection = normalisedSelection();
-          state.dragStart = null;
-          if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
-          if (selection.end - selection.start < 2) state.selection = null;
-          renderChartSelection();
-          drawCharts();
-        });
-        canvas.addEventListener("pointercancel", event => {
-          state.dragStart = null;
-          state.selection = null;
-          if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
-          renderChartSelection();
-          drawCharts();
-        });
-      }
       canvas.addEventListener("pointermove", event => {
         if (!state.data) return;
         const index = pointerIndex(canvas, event);
         state.hoverIndex = index;
-        if (allowSelection && state.dragStart !== null) {
-          state.selection = { start: state.dragStart, end: index };
-          renderChartSelection();
-        }
         drawCharts();
       });
       canvas.addEventListener("pointerleave", () => {
-        if (allowSelection && state.dragStart !== null) return;
         state.hoverIndex = null;
         drawCharts();
       });
@@ -1255,28 +1061,11 @@
     document.querySelectorAll("[data-preset]").forEach(button => {
       button.addEventListener("click", () => {
         if (!state.data) return;
-        const range = presetRange(button.dataset.preset);
-        loadData({ ...range, preset: button.dataset.preset });
+        loadData({ start: presetStart(button.dataset.preset), preset: button.dataset.preset });
       });
     });
     el("apply-range").addEventListener("click", () => {
-      loadData({ start: el("start-date").value, end: el("end-date").value, preset: "custom" });
-    });
-    el("apply-chart-selection").addEventListener("click", () => {
-      const selection = normalisedSelection();
-      if (!selection) return;
-      const rows = state.data.rows;
-      loadData({
-        start: rows[selection.start].signal_date,
-        end: rows[selection.end].signal_date,
-        preset: "custom"
-      });
-    });
-    el("cancel-chart-selection").addEventListener("click", () => {
-      state.selection = null;
-      state.dragStart = null;
-      renderChartSelection();
-      drawCharts();
+      loadData({ start: el("start-date").value, preset: "custom" });
     });
     document.querySelectorAll("[data-mode]").forEach(button => {
       button.addEventListener("click", () => {
@@ -1301,7 +1090,7 @@
         renderEvents();
       });
     });
-    bindCanvas("performance-chart", true);
+    bindCanvas("performance-chart");
     bindCanvas("allocation-chart");
     let resizeTimer = null;
     window.addEventListener("resize", () => {
@@ -1310,7 +1099,7 @@
     });
 
     const initial = new URLSearchParams(window.location.search);
-    loadData({ start: initial.get("start") || "", end: initial.get("end") || "" });
+    loadData({ start: initial.get("start") || "" });
   </script>
 </body>
 </html>

@@ -43,10 +43,9 @@ dashboard:
   cloudflare_access: required_self_hosted_application
   launchagents: [com.soxl.stage1.dashboard, com.soxl.stage1.cloudflare]
   source: qlib_recorder
-  custom_interval: true
-  selected_range_terminal_inference: frozen model replay at the latest completed signal on or before selected end
+  simulation_start_date: fresh 100% cash replay from the selected trade session
+  initial_build_trade_recorded: true
   factor_trade_markers: true
-  paper_cycle_repair_and_execution_sync: true
   benchmarks: [SOXL, SOXX]
 artifact_policy:
   policy: slim_card_recorder_first

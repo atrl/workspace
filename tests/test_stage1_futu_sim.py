@@ -890,10 +890,10 @@ def test_stage1_production_card_registers_dashboard_entrypoint():
     workflow = (card / "workflow.yaml").read_text(encoding="utf-8")
 
     assert summary["dashboard"]["source"] == "qlib_recorder"
-    assert "custom_interval_inference" in summary["dashboard"]["features"]
-    assert "selected_range_terminal_inference" in summary["dashboard"]["features"]
-    assert "paper_cycle_repair_and_execution_sync" in summary["dashboard"]["features"]
-    assert "manual_start_status" in summary["dashboard"]["features"]
+    assert "simulation_start_date_replay_from_cash" in summary["dashboard"]["features"]
+    assert "initial_build_trade_record" in summary["dashboard"]["features"]
+    assert "selected_range_terminal_inference" not in summary["dashboard"]["features"]
+    assert "paper_cycle_repair_and_execution_sync" not in summary["dashboard"]["features"]
     assert summary["dashboard"]["cloudflare_url"] == "https://soxl.atrl.me/"
     assert summary["dashboard"]["cloudflare_access"] == (
         "required_self_hosted_application"
@@ -901,6 +901,8 @@ def test_stage1_production_card_registers_dashboard_entrypoint():
     assert "production/run_stage1_dashboard.sh" in workflow
     assert "cloudflare_url: https://soxl.atrl.me/" in workflow
     assert "manual_start: production/run_stage1_futu_sim.sh --slot start-now" in workflow
+    assert "simulation_start_date: fresh 100% cash replay" in workflow
+    assert "initial_build_trade_recorded: true" in workflow
     assert "benchmarks: [SOXL, SOXX]" in workflow
 
 

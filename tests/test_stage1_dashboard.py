@@ -4,39 +4,47 @@ import json
 import plistlib
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_stage1_dashboard_payload_supports_custom_interval_and_benchmarks():
+def test_stage1_dashboard_replays_from_selected_trade_date_and_cash():
     from src.dashboard.stage1 import build_stage1_dashboard_payload
 
     payload = build_stage1_dashboard_payload(
         root=ROOT,
-        start="2026-01-02",
-        end="2026-03-31",
+        start="2026-01-30",
     )
 
     assert payload["source"] == "qlib_recorder"
-    assert payload["selected_range"]["start"] == "2026-01-02"
-    assert payload["selected_range"]["end"] == "2026-03-31"
+    assert payload["simulation_range"]["requested_start"] == "2026-01-30"
+    assert payload["simulation_range"]["start"] == "2026-01-30"
+    assert payload["simulation_range"]["end"] > "2026-01-30"
     assert set(payload["metrics"]) == {"Stage1", "SOXL", "SOXX"}
     assert payload["rows"]
     assert {"soxl_weight", "soxx_weight", "cash_weight"} <= payload["rows"][0].keys()
     assert {"stage1_drawdown", "soxl_drawdown", "soxx_drawdown"} <= payload["rows"][0].keys()
     assert payload["window_summary"]["trade_event_count"] == len(payload["trade_events"])
+    assert payload["window_summary"]["initial_trade_count"] == 1
     assert payload["window_summary"]["positive_day_rate_pct"] >= 0.0
-    assert payload["last_completed"]["signal_date"] == payload["selected_range"]["end"]
-    selected_inference = payload["selected_inference"]
-    assert selected_inference["status"] == "selected_range_complete"
-    assert selected_inference["signal_date"] == payload["selected_range"]["end"]
-    assert selected_inference["selection"]["end"] == payload["selected_range"]["end"]
-    assert selected_inference["weights"] == payload["last_completed"]["weights"]
-    assert set(selected_inference["raw_model_weights"]) == {"SOXL", "SOXX", "cash"}
-    assert selected_inference["evidence"]["source_model_frozen"] is True
-    assert selected_inference["evidence"]["qlib_source_api"] == "qlib.data.D.features"
+    simulation = payload["simulation"]
+    assert simulation["status"] == "fresh_cash_replay_complete"
+    assert simulation["initial_state"] == {"SOXL": 0.0, "SOXX": 0.0, "cash": 1.0}
+    assert simulation["initial_trade"]["recorded"] is True
+    assert simulation["initial_trade"]["turnover"] > 0.0
+    assert simulation["initial_trade"]["turnover"] == pytest.approx(
+        simulation["initial_trade"]["weights"]["SOXL"]
+        + simulation["initial_trade"]["weights"]["SOXX"]
+    )
+    assert simulation["evidence"]["source_model_frozen"] is True
+    assert simulation["evidence"]["qlib_source_api"] == "qlib.data.D.features"
+    assert simulation["evidence"]["production_recorder_id"] == payload["recorder_id"]
+    assert payload["rows"][0]["initial_trade"] is True
+    assert payload["trade_events"][0]["direction"] == "初始建仓"
+    assert payload["trade_events"][0]["trade_date"] == "2026-01-30"
     assert payload["artifact_policy"] == "slim_card_recorder_first"
     assert "非因果归因" in payload["factor_disclaimer"]
     assert all(event["factors"] for event in payload["trade_events"])
@@ -220,58 +228,68 @@ def test_stage1_dashboard_app_serves_ui_health_and_interval_api():
     client = TestClient(create_stage1_app(ROOT))
     page = client.get("/")
     health = client.get("/health")
-    interval = client.get("/api/stage1?start=2026-07-01&end=2026-07-22")
+    interval = client.get("/api/stage1?start=2026-07-01")
 
     assert page.status_code == 200
     assert "Stage1 · Qlib 决策工作台" in page.text
     assert "近 3 月" in page.text
     assert "相对收益" in page.text
-    assert "换仓诊断" in page.text
-    assert "模拟盘修复与交易同步" in page.text
-    assert 'id="sim-repair-status"' in page.text
-    assert 'id="sim-start-mode"' in page.text
-    assert "拖拽图表选择区间" in page.text
-    assert "应用并推理" in page.text
-    assert "选中区间末日目标" in page.text
-    assert 'id="apply-chart-selection"' in page.text
+    assert "模拟交易记录" in page.text
+    assert "模拟盘修复与交易同步" not in page.text
+    assert "选择模拟开始日" in page.text
+    assert "从这天开始模拟" in page.text
+    assert "初始建仓" in page.text
+    assert "模拟期末仓位" in page.text
+    assert 'id="end-date"' not in page.text
     assert health.json()["source"] == "qlib_recorder"
     assert interval.status_code == 200
-    assert interval.json()["selected_range"]["start"] == "2026-07-01"
-    assert interval.json()["selected_inference"]["signal_date"] == "2026-07-22"
+    assert interval.json()["simulation_range"]["start"] == "2026-07-01"
+    assert interval.json()["simulation"]["initial_trade"]["recorded"] is True
+    assert interval.json()["trade_events"][0]["direction"] == "初始建仓"
 
 
-def test_stage1_dashboard_selected_end_changes_terminal_inference():
+def test_stage1_dashboard_selected_start_creates_independent_simulation():
     from src.dashboard.stage1 import build_stage1_dashboard_payload
 
     january = build_stage1_dashboard_payload(
         root=ROOT,
-        start="2026-01-02",
-        end="2026-01-30",
+        start="2026-01-30",
     )
     march = build_stage1_dashboard_payload(
         root=ROOT,
-        start="2026-01-02",
-        end="2026-03-31",
+        start="2026-03-31",
     )
 
-    assert january["selected_inference"]["signal_date"] == "2026-01-30"
-    assert march["selected_inference"]["signal_date"] == "2026-03-31"
-    assert (
-        january["selected_inference"]["raw_model_weights"]
-        != march["selected_inference"]["raw_model_weights"]
-    )
-    assert january["latest_inference"] == march["latest_inference"]
+    assert january["simulation"]["start_trade_date"] == "2026-01-30"
+    assert march["simulation"]["start_trade_date"] == "2026-03-31"
+    assert len(january["rows"]) > len(march["rows"])
+    assert january["rows"][0]["initial_trade"] is True
+    assert march["rows"][0]["initial_trade"] is True
+    assert january["trade_events"][0]["direction"] == "初始建仓"
+    assert march["trade_events"][0]["direction"] == "初始建仓"
+    assert january["simulation_range"]["end"] == march["simulation_range"]["end"]
 
 
-def test_stage1_dashboard_rejects_inverted_interval():
+def test_stage1_dashboard_non_trading_start_resolves_to_next_trade_session():
+    from src.dashboard.stage1 import build_stage1_dashboard_payload
+
+    payload = build_stage1_dashboard_payload(root=ROOT, start="2026-02-01")
+
+    assert payload["simulation_range"]["requested_start"] == "2026-02-01"
+    assert payload["simulation_range"]["start"] == "2026-02-02"
+    assert payload["simulation"]["initial_trade"]["recorded"] is True
+    assert payload["trade_events"][0]["trade_date"] == "2026-02-02"
+
+
+def test_stage1_dashboard_rejects_start_after_latest_completed_session():
     from src.dashboard.stage1 import build_stage1_dashboard_payload
 
     try:
-        build_stage1_dashboard_payload(root=ROOT, start="2026-07-20", end="2026-07-01")
+        build_stage1_dashboard_payload(root=ROOT, start="2030-01-01")
     except ValueError as exc:
-        assert "start date" in str(exc)
+        assert "start date is after" in str(exc)
     else:
-        raise AssertionError("inverted interval should fail closed")
+        raise AssertionError("future simulation start should fail closed")
 
 
 def test_stage1_dashboard_launchagents_keep_origin_local_and_tunnel_separate():

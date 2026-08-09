@@ -4,6 +4,7 @@ import json
 import pickle
 import tempfile
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -230,6 +231,133 @@ def load_frozen_inference_frame(
         "common_features": common_features,
     }
     return frame, audit
+
+
+@lru_cache(maxsize=2)
+def _cached_stage1_simulation_inputs(
+    root_text: str,
+    stage1_recorder_id: str,
+) -> tuple[
+    pd.DataFrame,
+    pd.DataFrame,
+    dict[str, Any],
+    pd.DataFrame,
+    dict[str, Any],
+    IntradayRecoveryDirectAllocationSpec,
+    dict[tuple[int, float], Any],
+]:
+    repo_root = Path(root_text).resolve()
+    production_spec = Stage1FutuSimSpec(root=repo_root)
+    source_summary, _ = _selected_stage1(production_spec)
+    selected_model = dict(source_summary["selected_model"])
+    recovery_spec = IntradayRecoveryDirectAllocationSpec(root=repo_root)
+    inference, inference_audit = load_frozen_inference_frame(root=repo_root)
+
+    complete = _with_intraday(inference, recovery_spec=recovery_spec).dropna(
+        subset=["soxl_forward_open_return", "soxx_forward_open_return"]
+    ).copy()
+    complete["trade_date"] = pd.to_datetime(complete["trade_date"])
+    complete["exit_date"] = pd.to_datetime(complete["exit_date"])
+    source_frame, _ = _load_source_frame(recovery_spec)
+    teacher_frame = _build_teacher_training_frame(
+        source_frame,
+        spec=recovery_spec,
+        teacher_beta=recovery_spec.teacher_recovery_beta,
+    )
+    return (
+        complete,
+        inference,
+        inference_audit,
+        teacher_frame,
+        selected_model,
+        recovery_spec,
+        {},
+    )
+
+
+@lru_cache(maxsize=16)
+def _cached_stage1_simulation_from_start(
+    root_text: str,
+    stage1_recorder_id: str,
+    requested_start: str,
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
+    """Replay Stage1 from cash at the first trade session on/after start."""
+    (
+        complete,
+        inference,
+        inference_audit,
+        teacher_frame,
+        selected_model,
+        recovery_spec,
+        model_cache,
+    ) = _cached_stage1_simulation_inputs(root_text, stage1_recorder_id)
+    requested_ts = pd.Timestamp(requested_start).normalize()
+    available_start = complete["trade_date"].min().normalize()
+    available_end = complete["trade_date"].max().normalize()
+    if requested_ts > available_end:
+        raise ValueError("simulation start date is after the latest completed trade session")
+
+    simulation_input = complete.loc[complete["trade_date"] >= requested_ts].copy()
+    if simulation_input.empty:
+        raise ValueError("simulation start date contains no completed Stage1 trade session")
+
+    report = _simulate_policy(
+        simulation_input.reset_index(),
+        spec=recovery_spec,
+        teacher_frame=teacher_frame,
+        c_value=float(selected_model["logistic_c"]),
+        threshold=float(selected_model["probability_threshold"]),
+        action_beta=float(selected_model["action_beta"]),
+        first_action_year=min(recovery_spec.outer_years),
+        model_cache=model_cache,
+        cost_bps=recovery_spec.transaction_cost_bps,
+    )
+    if report.empty:
+        raise ValueError("simulation replay produced no completed rows")
+    report["initial_trade"] = False
+    report.loc[report.index[0], "initial_trade"] = True
+    report["simulation_start_requested"] = requested_ts
+    resolved_start = pd.Timestamp(report.iloc[0]["trade_date"]).normalize()
+    initial_turnover = float(report.iloc[0]["turnover"])
+    initial_invested_weight = float(
+        report.iloc[0]["open_soxl_weight"] + report.iloc[0]["open_soxx_weight"]
+    )
+    if not np.isclose(initial_turnover, initial_invested_weight, atol=1e-10):
+        raise ValueError("blocked: initial Stage1 build was not replayed from cash")
+
+    audit = {
+        **inference_audit,
+        "production_recorder_id": stage1_recorder_id,
+        "simulation_mode": "fresh_cash_replay_from_selected_trade_date",
+        "requested_start": requested_ts.date().isoformat(),
+        "resolved_start_trade_date": resolved_start.date().isoformat(),
+        "available_trade_date_start": available_start.date().isoformat(),
+        "available_trade_date_end": available_end.date().isoformat(),
+        "initial_state": {"SOXL": 0.0, "SOXX": 0.0, "cash": 1.0},
+        "initial_trade_recorded": True,
+        "initial_turnover": initial_turnover,
+    }
+    return report, inference, audit
+
+
+def replay_stage1_simulation_from_start(
+    *,
+    root: Path | str | None = None,
+    start: str,
+    stage1_recorder_id: str,
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
+    """Build an independent historical paper replay from a selected trade date.
+
+    The account is reset to 100% cash.  The first target therefore creates an
+    explicit initial-build transaction instead of inheriting pre-start holdings.
+    """
+    repo_root = _resolve_root(root)
+    report, inference, audit = _cached_stage1_simulation_from_start(
+        repo_root.as_posix(),
+        str(stage1_recorder_id),
+        pd.Timestamp(start).date().isoformat(),
+    )
+    return report.copy(), inference.copy(), dict(audit)
 
 
 def _with_intraday(
@@ -871,13 +999,11 @@ def run_stage1_futu_sim_card(
             ],
             "source": "qlib_recorder",
             "features": [
-                "custom_interval_inference",
-                "selected_range_terminal_inference",
+                "simulation_start_date_replay_from_cash",
+                "initial_build_trade_record",
                 "trade_history",
                 "factor_change_trade_markers",
                 "soxl_soxx_benchmark_comparison",
-                "paper_cycle_repair_and_execution_sync",
-                "manual_start_status",
             ],
         },
         "artifact_policy": {
@@ -972,10 +1098,9 @@ def run_stage1_futu_sim_card(
                 "  cloudflare_access: required_self_hosted_application",
                 "  launchagents: [com.soxl.stage1.dashboard, com.soxl.stage1.cloudflare]",
                 "  source: qlib_recorder",
-                "  custom_interval: true",
-                "  selected_range_terminal_inference: frozen model replay at the latest completed signal on or before selected end",
+                "  simulation_start_date: fresh 100% cash replay from the selected trade session",
+                "  initial_build_trade_recorded: true",
                 "  factor_trade_markers: true",
-                "  paper_cycle_repair_and_execution_sync: true",
                 "  benchmarks: [SOXL, SOXX]",
                 "artifact_policy:",
                 "  policy: slim_card_recorder_first",
@@ -1007,9 +1132,9 @@ def run_stage1_futu_sim_card(
                 "- 回测换手按每次决策前经价格变动漂移后的实际持仓计算，不再用上一次目标权重代替实际权重；因此交易成本与模拟执行口径一致。",
                 "- 富途接口被限制为 SIMULATE；本任务没有真实账户分支。",
                 "- 模拟盘的 open/recovery/postclose 执行与同步检查继续运行但不再逐次推送；每日上海时间 10:05 仅发一次 Bark，合并最近任务、模拟委托与持仓同步摘要。Bark 凭据仅从运行环境读取，不写入仓库。",
-                "- Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动，支持自选区间、冻结模型推理状态、交易/换仓点、因子变化诊断及 SOXL/SOXX 同窗对比。",
-                "- dashboard 的开始日期控制区间统计与交易诊断，结束日期控制选区末日冻结模型推理；页面同时展示模型原始权重和 recorder 风险约束后的最终权重，不再固定显示全局最新信号。",
-                "- dashboard 新增模拟盘修复与交易同步面板，只读 active paper cycle、账本和执行状态；本地源仅监听 127.0.0.1。`https://soxl.atrl.me/` 是预留入口，在 Zero Trust Free 方案与 Access 应用启用、验证前保持 tunnel 停止，不公开持仓。",
+                "- Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动；只选择一个模拟开始日，账户从该交易日的 100% 现金状态独立回放到最新可用日。",
+                "- 初始建仓必须记录为首笔交易并计入换手与成本，后续交易、因子变化诊断及 SOXL/SOXX 同窗对比均来自该独立模拟，不继承开始日前仓位。",
+                "- dashboard 不突出展示 active paper cycle、账本或执行同步；本地源仅监听 127.0.0.1。`https://soxl.atrl.me/` 是预留入口，在 Zero Trust Free 方案与 Access 应用启用、验证前保持 tunnel 停止。",
                 "- 因子变化只用于交易点附近的标准化诊断，属于非因果归因，不是精确 SHAP。",
                 f"- qlib recorder：{recorder['recorder_id']}",
                 "- 不构成买卖建议。",

@@ -13,9 +13,9 @@
 - 回测换手按每次决策前经价格变动漂移后的实际持仓计算，不再用上一次目标权重代替实际权重；因此交易成本与模拟执行口径一致。
 - 富途接口被限制为 SIMULATE；本任务没有真实账户分支。
 - 模拟盘的 open/recovery/postclose 执行与同步检查继续运行但不再逐次推送；每日上海时间 10:05 仅发一次 Bark，合并最近任务、模拟委托与持仓同步摘要。Bark 凭据仅从运行环境读取，不写入仓库。
-- Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动，支持自选区间、冻结模型推理状态、交易/换仓点、因子变化诊断及 SOXL/SOXX 同窗对比。
-- dashboard 的开始日期控制区间统计与交易诊断，结束日期控制选区末日冻结模型推理；页面同时展示模型原始权重和 recorder 风险约束后的最终权重，不再固定显示全局最新信号。
-- dashboard 新增模拟盘修复与交易同步面板，只读 active paper cycle、账本和执行状态；本地源仅监听 127.0.0.1。`https://soxl.atrl.me/` 是预留入口，在 Zero Trust Free 方案与 Access 应用启用、验证前保持 tunnel 停止，不公开持仓。
+- Stage1 专用 dashboard 可通过 `production/run_stage1_dashboard.sh` 启动；只选择一个模拟开始日，账户从该交易日的 100% 现金状态独立回放到最新可用日。
+- 初始建仓必须记录为首笔交易并计入换手与成本，后续交易、因子变化诊断及 SOXL/SOXX 同窗对比均来自该独立模拟，不继承开始日前仓位。
+- dashboard 不突出展示 active paper cycle、账本或执行同步；本地源仅监听 127.0.0.1。`https://soxl.atrl.me/` 是预留入口，在 Zero Trust Free 方案与 Access 应用启用、验证前保持 tunnel 停止。
 - 因子变化只用于交易点附近的标准化诊断，属于非因果归因，不是精确 SHAP。
-- qlib recorder：2ed6994d110e4563bc473760c1b0392d
+- qlib recorder：e9c97a327bdf46f5a6a57f2d58d75062
 - 不构成买卖建议。

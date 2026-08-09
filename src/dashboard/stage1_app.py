@@ -27,10 +27,9 @@ def create_stage1_app(root: Path | str | None = None) -> FastAPI:
     @app.get("/api/stage1")
     def stage1(
         start: str | None = Query(default=None),
-        end: str | None = Query(default=None),
     ) -> dict:
         try:
-            return build_stage1_dashboard_payload(root=source.root, start=start, end=end)
+            return build_stage1_dashboard_payload(root=source.root, start=start)
         except ValueError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
 

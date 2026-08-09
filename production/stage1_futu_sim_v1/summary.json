@@ -272,13 +272,11 @@
     ],
     "source": "qlib_recorder",
     "features": [
-      "custom_interval_inference",
-      "selected_range_terminal_inference",
+      "simulation_start_date_replay_from_cash",
+      "initial_build_trade_record",
       "trade_history",
       "factor_change_trade_markers",
-      "soxl_soxx_benchmark_comparison",
-      "paper_cycle_repair_and_execution_sync",
-      "manual_start_status"
+      "soxl_soxx_benchmark_comparison"
     ]
   },
   "artifact_policy": {
@@ -290,7 +288,7 @@
       "artifacts/stage1_futu_sim_v1/latest_target.json"
     ]
   },
-  "recorder_id": "2ed6994d110e4563bc473760c1b0392d",
+  "recorder_id": "e9c97a327bdf46f5a6a57f2d58d75062",
   "recorder_uri": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/2ed6994d110e4563bc473760c1b0392d"
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_futu_sim_v1/qlib_recorder/731226718194824351/e9c97a327bdf46f5a6a57f2d58d75062"
 }
