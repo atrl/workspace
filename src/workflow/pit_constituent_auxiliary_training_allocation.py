@@ -25,10 +25,11 @@ from src.workflow.direct_continuous_soxx_allocation import (
     DirectContinuousAllocationSpec,
     DirectLossProfile,
     _annual_metrics,
-    _evaluate,
+    _drawdown_duration,
     _load_frame,
     _prepare,
 )
+from src.workflow.cash_floor_benchmark_relative_wf import _result_metrics
 from src.workflow.soxl_objective_feasibility_audit import _json_ready
 from src.workflow.trainable_regime_policy_nested_wf import (
     _remove_qlib_code_snapshot_artifacts,
@@ -37,6 +38,7 @@ from src.workflow.trainable_regime_policy_nested_wf import (
 
 EXPERIMENT = "pit_constituent_auxiliary_training_allocation_v1"
 DRAWDOWN_EXPERIMENT = "drawdown_targeted_pit_allocation_v1"
+HOLDINGS_AWARE_EXPERIMENT = "holdings_aware_pit_allocation_v1"
 PRIMARY_INSTRUMENT = "SOXX"
 COMMON_FEATURES = tuple(
     feature
@@ -80,6 +82,8 @@ class AuxiliaryTrainingCandidate:
     drawdown_budget_multiplier: float = 0.0
     drawdown_budget_metric: str = "risky_weight"
     drawdown_budget_buffer: float = 0.0
+    trade_event_penalty: float = 0.0
+    trade_event_softness: float = 0.02
 
 
 CANDIDATES = (
@@ -194,6 +198,35 @@ DRAWDOWN_CANDIDATES = (
     ),
 )
 
+HOLDINGS_AWARE_CANDIDATES = (
+    AuxiliaryTrainingCandidate(
+        name="primary_only",
+        auxiliary_weight=0.0,
+        include_union_backfill=False,
+        method="holdings_aware_actual_turnover_baseline",
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_holdings_event_0000",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="holdings_aware_actual_turnover",
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_holdings_event_0005",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="holdings_aware_actual_turnover_plus_soft_trade_event",
+        trade_event_penalty=0.0005,
+    ),
+    AuxiliaryTrainingCandidate(
+        name="pit_holdings_event_0015",
+        auxiliary_weight=0.05,
+        include_union_backfill=False,
+        method="holdings_aware_actual_turnover_plus_soft_trade_event",
+        trade_event_penalty=0.0015,
+    ),
+)
+
 
 @dataclass(frozen=True)
 class PitAuxiliaryAllocationSpec:
@@ -221,6 +254,9 @@ class PitAuxiliaryAllocationSpec:
     research_max_drawdown_target_pct: float | None = None
     research_worst_5d_target_pct: float = -15.0
     research_minimum_ratio_10bps: float = 1.0
+    minimum_trade_day_reduction: float = 0.0
+    minimum_terminal_wealth_ratio_vs_primary: float = 0.0
+    promotion_requires_clean_forward: bool = False
     seed: int = 71
 
     @property
@@ -314,6 +350,230 @@ def run_drawdown_targeted_pit_allocation_card(
         ),
         candidates=DRAWDOWN_CANDIDATES,
     )
+
+
+def run_holdings_aware_pit_allocation_card(
+    *, root: Path | str | None = None
+) -> dict[str, Any]:
+    repo_root = (
+        Path(root).resolve()
+        if root is not None
+        else Path(__file__).resolve().parents[2]
+    )
+    spec = PitAuxiliaryAllocationSpec(
+        root=repo_root,
+        experiment=HOLDINGS_AWARE_EXPERIMENT,
+        minimum_trade_day_reduction=0.35,
+        minimum_terminal_wealth_ratio_vs_primary=0.80,
+        promotion_requires_clean_forward=True,
+    )
+    summary = _run_card(
+        spec,
+        candidates=HOLDINGS_AWARE_CANDIDATES,
+    )
+    return _finalize_holdings_aware_stage1_diagnostic(spec, summary)
+
+
+def _finalize_holdings_aware_stage1_diagnostic(
+    spec: PitAuxiliaryAllocationSpec,
+    summary: dict[str, Any],
+) -> dict[str, Any]:
+    """Reject a slow source unless it also survives the frozen Stage1 stack."""
+
+    from src.workflow.intraday_recovery_direct_allocation import (
+        IntradayRecoveryDirectAllocationSpec,
+        _build_teacher_training_frame,
+        _load_source_frame,
+        _risk_metrics,
+    )
+    from src.workflow.stage1_low_frequency_execution import (
+        simulate_low_frequency_stage1,
+        trade_frequency_metrics,
+    )
+
+    source_card = (
+        spec.root
+        / "research"
+        / "intraday_on_policy_staged_validation_v1"
+        / "summary.json"
+    )
+    source_summary = json.loads(source_card.read_text(encoding="utf-8"))
+    selected_model = dict(source_summary["selected_model"])
+    selected_model["stage2_enabled"] = False
+    recovery_spec = IntradayRecoveryDirectAllocationSpec(root=spec.root)
+    frame, _ = _load_source_frame(recovery_spec)
+
+    artifact_dir = (
+        Path(summary["recorder_local_dir"])
+        / "artifacts"
+        / spec.experiment
+    )
+    predictions = pd.read_csv(
+        artifact_dir / "predictions.csv", parse_dates=["signal_date"]
+    ).set_index("signal_date")
+    source_replay = pd.read_csv(
+        artifact_dir / "strategy_returns.csv",
+        parse_dates=["signal_date"],
+    )
+    source_actions = (
+        source_replay.loc[source_replay["cost_bps"].eq(10)]
+        .drop_duplicates("signal_date")
+        .set_index("signal_date")["trade_event"]
+        .astype(bool)
+    )
+    frame = frame.loc[
+        frame["signal_date"].le(predictions.index.max())
+    ].copy()
+    candidate_frame = frame.copy()
+    aligned_prediction = predictions.reindex(candidate_frame["signal_date"])
+    if aligned_prediction[["soxl_weight", "soxx_weight"]].isna().any().any():
+        raise ValueError("blocked: holdings-aware predictions do not cover Stage1")
+    candidate_frame["soxl_weight"] = aligned_prediction[
+        "soxl_weight"
+    ].to_numpy()
+    candidate_frame["soxx_weight"] = aligned_prediction[
+        "soxx_weight"
+    ].to_numpy()
+    teacher_beta = float(selected_model["teacher_recovery_beta"])
+    baseline_teacher = _build_teacher_training_frame(
+        frame, spec=recovery_spec, teacher_beta=teacher_beta
+    )
+    candidate_teacher = _build_teacher_training_frame(
+        candidate_frame, spec=recovery_spec, teacher_beta=teacher_beta
+    )
+
+    rows: list[dict[str, Any]] = []
+    for segment, first_action_year in (
+        (
+            "development_walk_forward",
+            recovery_spec.first_intraday_action_year,
+        ),
+        ("outer_diagnostic", min(recovery_spec.outer_years)),
+    ):
+        baseline_input = frame.loc[frame["segment"].eq(segment)].copy()
+        candidate_input = candidate_frame.loc[
+            candidate_frame["segment"].eq(segment)
+        ].copy()
+        baseline = simulate_low_frequency_stage1(
+            baseline_input,
+            recovery_spec=recovery_spec,
+            teacher_frame=baseline_teacher,
+            selected_model=selected_model,
+            first_action_year=first_action_year,
+            minimum_rebalance_turnover=0.0,
+            cost_bps=spec.training_cost_bps,
+        )
+        candidate = simulate_low_frequency_stage1(
+            candidate_input,
+            recovery_spec=recovery_spec,
+            teacher_frame=candidate_teacher,
+            selected_model=selected_model,
+            first_action_year=first_action_year,
+            minimum_rebalance_turnover=0.0,
+            cost_bps=spec.training_cost_bps,
+            source_action_flags=source_actions.reindex(
+                candidate_input["signal_date"]
+            ),
+        )
+        baseline_metrics = _risk_metrics(
+            baseline["strategy_return"].to_numpy()
+        )
+        candidate_metrics = _risk_metrics(
+            candidate["strategy_return"].to_numpy()
+        )
+        baseline_frequency = trade_frequency_metrics(baseline)
+        candidate_frequency = trade_frequency_metrics(candidate)
+        rows.append(
+            {
+                "segment": segment,
+                "source_end": candidate_input["signal_date"].max().date(),
+                "baseline_return_pct": baseline_metrics["return_pct"],
+                "candidate_return_pct": candidate_metrics["return_pct"],
+                "baseline_max_drawdown_pct": baseline_metrics[
+                    "max_drawdown_pct"
+                ],
+                "candidate_max_drawdown_pct": candidate_metrics[
+                    "max_drawdown_pct"
+                ],
+                "baseline_trade_days": baseline_frequency[
+                    "daily_trade_events"
+                ],
+                "candidate_trade_days": candidate_frequency[
+                    "daily_trade_events"
+                ],
+                "trade_day_reduction": 1.0
+                - candidate_frequency["daily_trade_events"]
+                / baseline_frequency["daily_trade_events"],
+                "terminal_wealth_ratio_vs_baseline": candidate_metrics[
+                    "terminal_wealth"
+                ]
+                / baseline_metrics["terminal_wealth"],
+                "source_action_days": int(
+                    source_actions.reindex(candidate_input["signal_date"]).sum()
+                ),
+                "candidate_turnover": candidate_frequency["turnover"],
+                "recovery_trade_days": candidate_frequency[
+                    "recovery_trade_days"
+                ],
+                "selection_uses_outer_test": False,
+            }
+        )
+    diagnostic = pd.DataFrame(rows)
+    diagnostic.to_csv(
+        spec.card_dir / "stage1_integration_diagnostic.csv", index=False
+    )
+    development = diagnostic.loc[
+        diagnostic["segment"].eq("development_walk_forward")
+    ].iloc[0]
+    summary["stage1_integration_diagnostic"] = {
+        "sidecar": "stage1_integration_diagnostic.csv",
+        "source_stage1_frozen": True,
+        "stage2_enabled": False,
+        "selection_uses_outer_test": False,
+        "development_trade_day_reduction": float(
+            development["trade_day_reduction"]
+        ),
+        "development_terminal_wealth_ratio_vs_baseline": float(
+            development["terminal_wealth_ratio_vs_baseline"]
+        ),
+        "development_max_drawdown_pct": float(
+            development["candidate_max_drawdown_pct"]
+        ),
+        "gate_pass": False,
+        "deployment": "rejected_not_wired_to_simulator",
+    }
+    (spec.card_dir / "summary.json").write_text(
+        json.dumps(_json_ready(summary), indent=2), encoding="utf-8"
+    )
+    selected = summary["development"]["selected"]
+    conclusion = (
+        "# 结论\n\n"
+        "- what_ran: 修正训练、平滑与回测的换手口径，统一按实际盘前"
+        "持仓计 SOXL/SOXX 真实订单，并以 qlib DatasetH 年度 walk-forward "
+        "比较 4 个预注册候选。\n"
+        f"- key_metrics: `{selected['candidate']}` 裸模型开发期交易日="
+        f"{int(selected['trade_days'])}/1762，减少 "
+        f"{100 * float(selected['trade_day_reduction_vs_primary']):.2f}%，"
+        f"终值为同批基线 {100 * float(selected['terminal_wealth_ratio_vs_primary']):.2f}%；"
+        f"但 MaxDD={float(selected['max_drawdown_pct']):.2f}%。\n"
+        "- controller_integration: 接回冻结 Stage1 后开发期交易日减少 "
+        f"{100 * float(development['trade_day_reduction']):.2f}%，但终值仅保留 "
+        f"{100 * float(development['terminal_wealth_ratio_vs_baseline']):.2f}%，"
+        f"MaxDD={float(development['candidate_max_drawdown_pct']):.2f}%。\n"
+        "- regime_window: 2016–2022 用于选择；2023–2026 只做复用诊断。\n"
+        f"- promotion_decision: `{summary['promotion_decision']}`；生产 Stage1、"
+        "Futu SIMULATE 和当前调度均不切换。\n"
+        "- risks: 裸模型风险过高，Stage1 集成后的收益保留与风险门失败；"
+        "outer 不用于调参。\n"
+        "- next_action: 保留冻结预测器，单独训练 `HOLD / REBALANCE / "
+        "DE-RISK` 动作层；降风险立即，加风险需新信号与冷却确认。\n"
+        f"- recorder: `{summary['recorder_id']}`。\n"
+    )
+    (spec.card_dir / "conclusion.md").write_text(
+        conclusion, encoding="utf-8"
+    )
+    _write_notebook(spec.card_dir, summary)
+    return _json_ready(summary)
 
 
 def _project_legal_weights(
@@ -608,16 +868,9 @@ def _allocation_loss(
     cost_bps: int,
     turnover_weight: float,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, dict[str, torch.Tensor]]:
-    initial = torch.tensor(
-        [0.0, 0.0, 1.0],
-        dtype=weights.dtype,
-        device=weights.device,
-    )
-    turnover = torch.cat(
-        [
-            (0.5 * torch.abs(weights[0] - initial).sum()).reshape(1),
-            0.5 * torch.abs(weights[1:] - weights[:-1]).sum(dim=1),
-        ]
+    turnover, _ = _holdings_aware_turnover(weights, returns)
+    trade_event_proxy = 1.0 - torch.exp(
+        -turnover / max(candidate.trade_event_softness, 1e-6)
     )
     portfolio_return = (
         weights[:, :2] * returns
@@ -705,14 +958,66 @@ def _allocation_loss(
         * conditional_drawdown_loss
         + candidate.rolling_5d_penalty * rolling_5d_loss
         + candidate.cash_target_penalty * cash_target_loss
+        + candidate.trade_event_penalty * trade_event_proxy.mean()
     )
     components = {
         "max_drawdown_loss": max_drawdown_loss,
         "conditional_drawdown_loss": conditional_drawdown_loss,
         "rolling_5d_loss": rolling_5d_loss,
         "cash_target_loss": cash_target_loss,
+        "trade_event_proxy": trade_event_proxy.mean(),
     }
     return loss, turnover, annual, components
+
+
+def _holdings_aware_turnover(
+    target_weights: torch.Tensor,
+    asset_returns: torch.Tensor,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Return traded risky notional against marked-to-market holdings.
+
+    ``target_weights[t]`` is the allocation held over ``asset_returns[t]``.
+    Therefore the pre-trade state for ``t > 0`` is yesterday's executed
+    allocation after yesterday's SOXL/SOXX return, not yesterday's target.
+    Cash has zero return.  Turnover is the sum of absolute SOXL/SOXX order
+    notionals so an SOXL-to-SOXX rotation charges both traded legs.
+    """
+
+    if target_weights.ndim != 2 or target_weights.shape[1] != 3:
+        raise ValueError("target_weights must have shape (rows, 3)")
+    if asset_returns.ndim != 2 or asset_returns.shape != (
+        len(target_weights),
+        2,
+    ):
+        raise ValueError("asset_returns must have shape (rows, 2)")
+    initial = torch.tensor(
+        [0.0, 0.0, 1.0],
+        dtype=target_weights.dtype,
+        device=target_weights.device,
+    ).reshape(1, 3)
+    if len(target_weights) == 1:
+        pretrade = initial
+    else:
+        growth = torch.cat(
+            [
+                1.0 + asset_returns[:-1],
+                torch.ones(
+                    (len(target_weights) - 1, 1),
+                    dtype=target_weights.dtype,
+                    device=target_weights.device,
+                ),
+            ],
+            dim=1,
+        )
+        marked_value = target_weights[:-1] * growth
+        marked_weights = marked_value / marked_value.sum(
+            dim=1, keepdim=True
+        ).clamp_min(1e-8)
+        pretrade = torch.cat([initial, marked_weights], dim=0)
+    turnover = torch.abs(target_weights[:, :2] - pretrade[:, :2]).sum(
+        dim=1
+    )
+    return turnover, pretrade
 
 
 def _fit_predict(
@@ -956,7 +1261,14 @@ def _fit_predict(
     )
     output["tail_probability"] = tail_probability
     output["alpha_probability"] = alpha_probability
-    output = _smooth_weights(output, spec=spec, candidate=candidate)
+    output = _smooth_weights(
+        output,
+        spec=spec,
+        candidate=candidate,
+        asset_returns=test.loc[
+            :, ["soxl_forward_open_return", "soxx_forward_open_return"]
+        ],
+    )
     state = {
         "model_state": {
             key: value.detach().cpu().numpy()
@@ -993,6 +1305,7 @@ def _smooth_weights(
     *,
     spec: PitAuxiliaryAllocationSpec,
     candidate: AuxiliaryTrainingCandidate | None = None,
+    asset_returns: pd.DataFrame | np.ndarray | None = None,
 ) -> pd.DataFrame:
     result = prediction.copy()
     columns = ["soxl_weight", "soxx_weight", "cash_weight"]
@@ -1011,13 +1324,24 @@ def _smooth_weights(
         span=smoothing_span, adjust=False
     ).mean()
     accepted = np.empty_like(smoothed.to_numpy(dtype=float))
-    previous = np.array([0.0, 0.0, 1.0], dtype=float)
+    current = np.array([0.0, 0.0, 1.0], dtype=float)
+    if asset_returns is None:
+        returns = np.zeros((len(result), 2), dtype=float)
+    elif isinstance(asset_returns, pd.DataFrame):
+        returns = asset_returns.reindex(result.index).to_numpy(dtype=float)
+    else:
+        returns = np.asarray(asset_returns, dtype=float)
+    if returns.shape != (len(result), 2) or not np.isfinite(returns).all():
+        raise ValueError("asset_returns must align to predictions and be finite")
     for index, values in enumerate(smoothed.to_numpy(dtype=float)):
-        if 0.5 * np.abs(values - previous).sum() >= (
-            rebalance_threshold
-        ):
-            previous = values
-        accepted[index] = previous
+        risky_turnover = float(np.abs(values[:2] - current[:2]).sum())
+        executed = values if risky_turnover >= rebalance_threshold else current
+        accepted[index] = executed
+        marked_value = executed * np.array(
+            [1.0 + returns[index, 0], 1.0 + returns[index, 1], 1.0],
+            dtype=float,
+        )
+        current = marked_value / max(marked_value.sum(), 1e-12)
     accepted = np.clip(accepted, 0.0, 1.0)
     accepted = accepted / accepted.sum(axis=1, keepdims=True)
     for column_index, column in enumerate(columns):
@@ -1170,7 +1494,7 @@ def _apply_drawdown_budget(
         :, ["soxl_weight", "soxx_weight", "cash_weight"]
     ].to_numpy(dtype=float)
     accepted = np.empty_like(raw)
-    previous = np.array([0.0, 0.0, 1.0], dtype=float)
+    current = np.array([0.0, 0.0, 1.0], dtype=float)
     equity = 1.0
     peak = 1.0
     protected_floor = (
@@ -1198,17 +1522,23 @@ def _apply_drawdown_budget(
             ],
             dtype=float,
         )
-        turnover = 0.5 * np.abs(weights - previous).sum()
+        turnover = float(np.abs(weights[:2] - current[:2]).sum())
+        asset_returns = np.array(
+            [
+                float(aligned.iloc[row_index]["soxl_forward_open_return"]),
+                float(aligned.iloc[row_index]["soxx_forward_open_return"]),
+                0.0,
+            ],
+            dtype=float,
+        )
         daily_return = (
-            weights[0]
-            * float(aligned.iloc[row_index]["soxl_forward_open_return"])
-            + weights[1]
-            * float(aligned.iloc[row_index]["soxx_forward_open_return"])
+            float(weights @ asset_returns)
             - turnover * cost_bps / 10_000.0
         )
         equity *= 1.0 + daily_return
         peak = max(peak, equity)
-        previous = weights
+        marked_value = weights * (1.0 + asset_returns)
+        current = marked_value / max(marked_value.sum(), 1e-12)
         accepted[row_index] = weights
     for column_index, column in enumerate(
         ["soxl_weight", "soxx_weight", "cash_weight"]
@@ -1237,7 +1567,7 @@ def _evaluate_candidates(
             cost_bps=spec.training_cost_bps,
         )
         for cost_bps in spec.costs_bps:
-            metrics, result, benchmark = _evaluate(
+            metrics, result, benchmark = _evaluate_holdings_aware(
                 market=market,
                 predictions=constrained_prediction,
                 profile=_profile(candidate),
@@ -1256,6 +1586,122 @@ def _evaluate_candidates(
     return pd.DataFrame(rows), pd.concat(annual, ignore_index=True)
 
 
+def _simulate_holdings_aware(
+    market: pd.DataFrame,
+    prediction: pd.DataFrame,
+    *,
+    cost_bps: int,
+    name: str,
+) -> pd.DataFrame:
+    """Simulate orders against actual marked holdings, including rotations."""
+
+    aligned = market.loc[prediction.index]
+    targets = prediction.loc[
+        :, ["soxl_weight", "soxx_weight", "cash_weight"]
+    ].to_numpy(dtype=float)
+    if targets.shape != (len(aligned), 3) or not np.allclose(
+        targets.sum(axis=1), 1.0
+    ):
+        raise ValueError("prediction weights must align and sum to one")
+    asset_returns = aligned.loc[
+        :, ["soxl_forward_open_return", "soxx_forward_open_return"]
+    ].to_numpy(dtype=float)
+    current = np.array([0.0, 0.0, 1.0], dtype=float)
+    turnover = np.empty(len(aligned), dtype=float)
+    gross = np.empty(len(aligned), dtype=float)
+    pretrade = np.empty_like(targets)
+    for index, (target, daily_returns) in enumerate(
+        zip(targets, asset_returns, strict=True)
+    ):
+        pretrade[index] = current
+        turnover[index] = np.abs(target[:2] - current[:2]).sum()
+        growth = np.array(
+            [1.0 + daily_returns[0], 1.0 + daily_returns[1], 1.0],
+            dtype=float,
+        )
+        gross[index] = float(target[:2] @ daily_returns)
+        marked_value = target * growth
+        current = marked_value / max(marked_value.sum(), 1e-12)
+    return pd.DataFrame(
+        {
+            "signal_date": aligned.index,
+            "trade_date": aligned["trade_date"].to_numpy(),
+            "exit_date": aligned["exit_date"].to_numpy(),
+            "strategy": name,
+            "soxl_return": asset_returns[:, 0],
+            "soxx_return": asset_returns[:, 1],
+            "soxs_return": np.zeros(len(aligned)),
+            "soxl_weight": targets[:, 0],
+            "soxx_weight": targets[:, 1],
+            "soxs_weight": np.zeros(len(aligned)),
+            "cash_weight": targets[:, 2],
+            "pretrade_soxl_weight": pretrade[:, 0],
+            "pretrade_soxx_weight": pretrade[:, 1],
+            "pretrade_cash_weight": pretrade[:, 2],
+            "turnover": turnover,
+            "trade_event": turnover > 1e-12,
+            "strategy_return": gross - turnover * cost_bps / 10_000.0,
+        }
+    )
+
+
+def _evaluate_holdings_aware(
+    *,
+    market: pd.DataFrame,
+    predictions: pd.DataFrame,
+    profile: DirectLossProfile,
+    cost_bps: int,
+) -> tuple[dict[str, Any], pd.DataFrame, pd.DataFrame]:
+    result = _simulate_holdings_aware(
+        market,
+        predictions,
+        cost_bps=cost_bps,
+        name=profile.name,
+    )
+    benchmark_prediction = pd.DataFrame(
+        {
+            "soxl_weight": 0.0,
+            "soxx_weight": 1.0,
+            "cash_weight": 0.0,
+        },
+        index=predictions.index,
+    )
+    benchmark = _simulate_holdings_aware(
+        market,
+        benchmark_prediction,
+        cost_bps=cost_bps,
+        name="soxx_buyhold",
+    )
+    metrics = _result_metrics(result, benchmark)
+    benchmark_metrics = _result_metrics(benchmark, benchmark)
+    duration = _drawdown_duration(result["strategy_return"])
+    benchmark_duration = _drawdown_duration(benchmark["strategy_return"])
+    aligned = market.loc[predictions.index]
+    downside = pd.to_numeric(
+        aligned["soxx_trend60"], errors="coerce"
+    ).lt(0.0).to_numpy()
+    metrics.update(
+        {
+            **duration,
+            "soxx_max_drawdown_pct": benchmark_metrics["max_drawdown_pct"],
+            "soxx_longest_underwater_days": benchmark_duration[
+                "longest_underwater_days"
+            ],
+            "soxx_max_drawdown_recovery_days": benchmark_duration[
+                "max_drawdown_recovery_days"
+            ],
+            "downside_avg_cash_weight_pct": 100.0
+            * float(result.loc[downside, "cash_weight"].mean()),
+            "downside_min_cash_weight_pct": 100.0
+            * float(result.loc[downside, "cash_weight"].min()),
+            "turnover": float(result["turnover"].sum()),
+            "trade_days": int(result["trade_event"].sum()),
+            "trade_day_ratio": float(result["trade_event"].mean()),
+        }
+    )
+    return metrics, result, benchmark
+
+
 def _selection_table(
     comparison: pd.DataFrame,
     annual: pd.DataFrame,
@@ -1264,6 +1710,8 @@ def _selection_table(
     research_max_drawdown_target_pct: float | None = None,
     research_worst_5d_target_pct: float = -15.0,
     research_minimum_ratio_10bps: float = 1.0,
+    minimum_trade_day_reduction: float = 0.0,
+    minimum_terminal_wealth_ratio_vs_primary: float = 0.0,
 ) -> pd.DataFrame:
     rows: list[dict[str, Any]] = []
     baseline = comparison.loc[
@@ -1313,6 +1761,15 @@ def _selection_table(
                     cost25["terminal_wealth_ratio_vs_soxx"]
                     - baseline25["terminal_wealth_ratio_vs_soxx"]
                 ),
+                "trade_day_reduction_vs_primary": float(
+                    1.0
+                    - float(cost10.get("trade_days", 1.0))
+                    / max(float(baseline.get("trade_days", 1.0)), 1.0)
+                ),
+                "terminal_wealth_ratio_vs_primary": float(
+                    float(cost10.get("terminal_wealth", 1.0))
+                    / max(float(baseline.get("terminal_wealth", 1.0)), 1e-12)
+                ),
             }
         )
     selection = pd.DataFrame(rows)
@@ -1342,11 +1799,19 @@ def _selection_table(
     selection["capture_gate"] = selection[
         "upside_capture_pct"
     ].ge(60.0)
+    selection["trade_frequency_gate"] = selection[
+        "trade_day_reduction_vs_primary"
+    ].ge(minimum_trade_day_reduction)
+    selection["wealth_retention_gate"] = selection[
+        "terminal_wealth_ratio_vs_primary"
+    ].ge(minimum_terminal_wealth_ratio_vs_primary)
     relative_gates = [
         "return_20pct_gate",
         "cost_stress_gate",
         "year_gate",
         "matched_increment_gate",
+        "trade_frequency_gate",
+        "wealth_retention_gate",
     ]
     risk_gates = [
         "maxdd_gate",
@@ -1398,6 +1863,7 @@ def _selection_table(
         + 0.04 * selection["positive_relative_years"]
         + 0.10
         * selection["incremental_ratio_10bps_vs_primary"]
+        + 0.20 * selection["trade_day_reduction_vs_primary"]
     )
     if research_max_drawdown_target_pct is not None:
         passing = selection.loc[selection["research_target_pass"]]
@@ -1531,6 +1997,10 @@ def _run_card(
         research_worst_5d_target_pct=spec.research_worst_5d_target_pct,
         research_minimum_ratio_10bps=(
             spec.research_minimum_ratio_10bps
+        ),
+        minimum_trade_day_reduction=spec.minimum_trade_day_reduction,
+        minimum_terminal_wealth_ratio_vs_primary=(
+            spec.minimum_terminal_wealth_ratio_vs_primary
         ),
     )
     selected_candidate = _selected_candidate(
@@ -1712,6 +2182,35 @@ def _run_card(
             },
         ]
     )
+    if spec.minimum_trade_day_reduction > 0.0:
+        objective_audit = pd.concat(
+            [
+                objective_audit,
+                pd.DataFrame(
+                    [
+                        {
+                            "gate": "development_trade_day_reduction",
+                            "required": True,
+                            "passed": bool(selected_row["trade_frequency_gate"]),
+                            "evidence": float(
+                                selected_row["trade_day_reduction_vs_primary"]
+                            ),
+                        },
+                        {
+                            "gate": "development_terminal_wealth_retention",
+                            "required": True,
+                            "passed": bool(selected_row["wealth_retention_gate"]),
+                            "evidence": float(
+                                selected_row[
+                                    "terminal_wealth_ratio_vs_primary"
+                                ]
+                            ),
+                        },
+                    ]
+                ),
+            ],
+            ignore_index=True,
+        )
     objective_pass = bool(
         objective_audit.loc[
             objective_audit["required"], "passed"
@@ -1727,6 +2226,8 @@ def _run_card(
                     "outer_20pct_excess_10bps",
                     "outer_25bps_cost_stress",
                     "outer_three_of_four_positive_years",
+                    "development_trade_day_reduction",
+                    "development_terminal_wealth_retention",
                 ]
             ),
             "passed",
@@ -1745,7 +2246,9 @@ def _run_card(
         >= spec.research_minimum_ratio_10bps
     )
     decision = (
-        "validated_pit_auxiliary_training_allocation"
+        "candidate_for_clean_forward_validation_not_promoted"
+        if objective_pass and spec.promotion_requires_clean_forward
+        else "validated_pit_auxiliary_training_allocation"
         if objective_pass
         else "research_target_30pct_met_not_promoted"
         if research_target_pass
@@ -1762,7 +2265,7 @@ def _run_card(
         ("outer_diagnostic", selected_outer),
     ]:
         for cost_bps in spec.costs_bps:
-            _, result, _ = _evaluate(
+            _, result, _ = _evaluate_holdings_aware(
                 market=market,
                 predictions=prediction,
                 profile=_profile(selected_candidate),
@@ -1973,6 +2476,10 @@ def _summary(
             ),
             "base_position": None,
             "prior_position": None,
+            "turnover_accounting": (
+                "target_vs_marked_to_market_actual_pretrade_holdings; "
+                "SOXL_and_SOXX_order_notionals_charged_separately"
+            ),
             "hard_constraints": {
                 "minimum_cash_weight": spec.minimum_cash_weight,
                 "maximum_soxl_weight": spec.maximum_soxl_weight,
@@ -2022,6 +2529,18 @@ def _summary(
         "research_target_pass": research_target_pass,
         "objective_pass": objective_pass,
         "promotion_decision": decision,
+        "promotion": (
+            "blocked_pending_clean_forward"
+            if spec.promotion_requires_clean_forward
+            else "governed_by_objective_gates"
+        ),
+        "frequency_objective": {
+            "minimum_trade_day_reduction": spec.minimum_trade_day_reduction,
+            "minimum_terminal_wealth_ratio_vs_primary": (
+                spec.minimum_terminal_wealth_ratio_vs_primary
+            ),
+            "selection_uses_outer_test": False,
+        },
         "objective_gate_audit": objective_audit.to_dict(
             orient="records"
         ),
@@ -2249,14 +2768,21 @@ def _write_notebook(card: Path, summary: dict[str, Any]) -> None:
         "name": "python3",
     }
     drawdown_experiment = summary["experiment"] == DRAWDOWN_EXPERIMENT
+    holdings_aware_experiment = (
+        summary["experiment"] == HOLDINGS_AWARE_EXPERIMENT
+    )
     runner = (
         "run_drawdown_targeted_pit_allocation_card"
         if drawdown_experiment
+        else "run_holdings_aware_pit_allocation_card"
+        if holdings_aware_experiment
         else "run_pit_constituent_auxiliary_training_allocation_card"
     )
     title = (
         "# Drawdown-targeted PIT allocation"
         if drawdown_experiment
+        else "# Holdings-aware PIT allocation"
+        if holdings_aware_experiment
         else "# PIT constituent auxiliary training allocation"
     )
     calendar_end = summary["data_audit"]["primary"][

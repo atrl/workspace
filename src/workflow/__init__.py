@@ -105,6 +105,7 @@ __all__ = [
     "run_qlib_native_experiment",
     "run_risk_hardened_open2open_card",
     "run_drawdown_targeted_pit_allocation_card",
+    "run_holdings_aware_pit_allocation_card",
     "run_pit_constituent_auxiliary_training_allocation_card",
     "run_relative_wealth_lfnn_soxx_card",
     "run_soxx_constituent_alpha_attribution_card",
@@ -231,6 +232,7 @@ _AUXILIARY_3X_TRAINING_DATA_EXPORTS = {
 _PIT_CONSTITUENT_AUXILIARY_TRAINING_EXPORTS = {
     "PitAuxiliaryAllocationSpec",
     "run_drawdown_targeted_pit_allocation_card",
+    "run_holdings_aware_pit_allocation_card",
     "run_pit_constituent_auxiliary_training_allocation_card",
 }
 

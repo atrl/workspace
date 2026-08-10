@@ -1,0 +1,3 @@
+segment,source_end,baseline_return_pct,candidate_return_pct,baseline_max_drawdown_pct,candidate_max_drawdown_pct,baseline_trade_days,candidate_trade_days,trade_day_reduction,terminal_wealth_ratio_vs_baseline,source_action_days,candidate_turnover,recovery_trade_days,selection_uses_outer_test
+development_walk_forward,2022-12-30,415.428787253789,97.27644652940018,-27.528488736627075,-39.61104417651742,1762,1133,0.3569807037457434,0.382742391204984,602,177.21597531568045,188,False
+outer_diagnostic,2026-07-30,354.1322821817496,78.36957650640876,-28.59652191814357,-34.27220366533522,896,605,0.3247767857142857,0.39277008815467335,344,119.28397259222126,148,False

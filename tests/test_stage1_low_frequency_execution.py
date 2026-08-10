@@ -59,6 +59,22 @@ def test_materiality_band_is_symmetric_but_never_suppresses_illegal_holdings():
     assert effective == pytest.approx(legal)
 
 
+def test_holdings_aware_source_actions_ignore_passive_price_drift():
+    from src.workflow.stage1_low_frequency_execution import (
+        infer_holdings_aware_source_actions,
+    )
+
+    first = np.array([0.20, 0.60, 0.20])
+    marked = first * np.array([1.10, 1.00, 1.00])
+    marked = marked / marked.sum()
+    targets = np.vstack([first, marked, [0.19, 0.61, 0.20]])
+    returns = np.array([[0.10, 0.00], [0.00, 0.00], [0.00, 0.00]])
+
+    actions = infer_holdings_aware_source_actions(targets, returns)
+
+    assert actions.tolist() == [True, False, True]
+
+
 def test_low_frequency_candidate_selection_excludes_outer_and_requires_real_reduction():
     from src.workflow.stage1_low_frequency_execution import (
         select_low_frequency_candidate,

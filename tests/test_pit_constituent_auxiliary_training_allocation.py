@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
+import src.workflow.pit_constituent_auxiliary_training_allocation as pit_workflow
 
 from src.workflow.pit_constituent_auxiliary_training_allocation import (
     DRAWDOWN_CANDIDATES,
@@ -13,13 +14,31 @@ from src.workflow.pit_constituent_auxiliary_training_allocation import (
     PitAuxiliaryAllocationSpec,
     _apply_drawdown_budget,
     _allocation_loss,
+    _holdings_aware_turnover,
     _project_legal_weights,
     _selection_table,
+    _simulate_holdings_aware,
     _smooth_weights,
 )
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_drawdown_runner_keeps_its_dedicated_experiment(monkeypatch):
+    captured = {}
+
+    def fake_run(spec, *, candidates):
+        captured["experiment"] = spec.experiment
+        captured["candidate_count"] = len(candidates)
+        return captured
+
+    monkeypatch.setattr(pit_workflow, "_run_card", fake_run)
+
+    result = pit_workflow.run_drawdown_targeted_pit_allocation_card(root=ROOT)
+
+    assert result["experiment"] == "drawdown_targeted_pit_allocation_v1"
+    assert result["candidate_count"] == len(DRAWDOWN_CANDIDATES)
 
 
 def test_projection_emits_direct_legal_weights_with_cash_floor():
@@ -65,6 +84,96 @@ def test_smoothing_preserves_legal_simplex_and_reduces_small_changes():
     )
     assert result.iloc[1]["soxl_weight"] == result.iloc[0]["soxl_weight"]
     assert result.iloc[2]["soxl_weight"] != result.iloc[1]["soxl_weight"]
+
+
+def test_training_turnover_uses_marked_actual_holdings_and_both_order_legs():
+    weights = torch.tensor(
+        [[0.20, 0.60, 0.20], [0.20, 0.60, 0.20]],
+        dtype=torch.float64,
+        requires_grad=True,
+    )
+    returns = torch.tensor(
+        [[0.10, 0.00], [0.00, 0.00]], dtype=torch.float64
+    )
+
+    turnover, pretrade = _holdings_aware_turnover(weights, returns)
+
+    expected_pretrade = np.array([0.22, 0.60, 0.20]) / 1.02
+    np.testing.assert_allclose(
+        turnover.detach().numpy()[0], 0.80, rtol=0, atol=1e-12
+    )
+    np.testing.assert_allclose(
+        pretrade.detach().numpy()[1], expected_pretrade, rtol=0, atol=1e-12
+    )
+    np.testing.assert_allclose(
+        turnover.detach().numpy()[1],
+        np.abs(np.array([0.20, 0.60]) - expected_pretrade[:2]).sum(),
+        rtol=0,
+        atol=1e-12,
+    )
+    turnover.sum().backward()
+    assert torch.isfinite(weights.grad).all()
+
+
+def test_smoothing_threshold_compares_target_with_marked_holdings():
+    spec = PitAuxiliaryAllocationSpec(
+        root=ROOT,
+        smoothing_span=1,
+        rebalance_threshold=0.04,
+    )
+    prediction = pd.DataFrame(
+        {
+            "soxl_weight": [0.20, 0.19],
+            "soxx_weight": [0.60, 0.61],
+            "cash_weight": [0.20, 0.20],
+        },
+        index=pd.date_range("2020-01-01", periods=2),
+    )
+    returns = pd.DataFrame(
+        {
+            "soxl_forward_open_return": [0.10, 0.00],
+            "soxx_forward_open_return": [0.00, 0.00],
+        },
+        index=prediction.index,
+    )
+
+    result = _smooth_weights(
+        prediction, spec=spec, asset_returns=returns
+    )
+
+    # Target-to-target distance is only 2%, but actual pre-trade holdings
+    # drift to roughly 21.57% SOXL / 58.82% SOXX, requiring a real rebalance.
+    assert result.iloc[1]["soxl_weight"] == 0.19
+    assert result.iloc[1]["soxx_weight"] == 0.61
+
+
+def test_backtest_charges_rebalance_from_marked_actual_holdings():
+    index = pd.date_range("2020-01-01", periods=2)
+    market = pd.DataFrame(
+        {
+            "trade_date": index,
+            "exit_date": index + pd.Timedelta(days=1),
+            "soxl_forward_open_return": [0.10, 0.00],
+            "soxx_forward_open_return": [0.00, 0.00],
+        },
+        index=index,
+    )
+    prediction = pd.DataFrame(
+        {
+            "soxl_weight": [0.20, 0.20],
+            "soxx_weight": [0.60, 0.60],
+            "cash_weight": [0.20, 0.20],
+        },
+        index=index,
+    )
+
+    replay = _simulate_holdings_aware(
+        market, prediction, cost_bps=10, name="test"
+    )
+
+    assert replay.loc[0, "turnover"] == 0.80
+    assert replay.loc[1, "turnover"] > 0.0
+    assert replay["trade_event"].tolist() == [True, True]
 
 
 def test_selection_is_development_only_and_rewards_matched_aux_increment():

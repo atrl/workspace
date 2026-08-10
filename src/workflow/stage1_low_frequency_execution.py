@@ -106,6 +106,36 @@ def apply_materiality_band(
     return (current.copy(), True) if suppressed else (desired.copy(), False)
 
 
+def infer_holdings_aware_source_actions(
+    target_weights: np.ndarray,
+    asset_returns: np.ndarray,
+    *,
+    tolerance: float = 1e-10,
+) -> np.ndarray:
+    """Recover whether a source target requests an order versus passive drift."""
+
+    targets = np.asarray(target_weights, dtype="float64")
+    returns = np.asarray(asset_returns, dtype="float64")
+    if targets.ndim != 2 or targets.shape[1] != 3:
+        raise ValueError("target_weights must have shape (rows, 3)")
+    if returns.shape != (len(targets), 2):
+        raise ValueError("asset_returns must have shape (rows, 2)")
+    actions = np.zeros(len(targets), dtype=bool)
+    current = np.array([0.0, 0.0, 1.0], dtype="float64")
+    for index, (target, daily_returns) in enumerate(
+        zip(targets, returns, strict=True)
+    ):
+        actions[index] = (
+            np.abs(target[:2] - current[:2]).sum() > tolerance
+        )
+        marked_value = target * np.array(
+            [1.0 + daily_returns[0], 1.0 + daily_returns[1], 1.0],
+            dtype="float64",
+        )
+        current = marked_value / max(marked_value.sum(), 1e-12)
+    return actions
+
+
 def simulate_low_frequency_stage1(
     frame: pd.DataFrame,
     *,
@@ -115,6 +145,7 @@ def simulate_low_frequency_stage1(
     first_action_year: int,
     minimum_rebalance_turnover: float,
     cost_bps: float,
+    source_action_flags: pd.Series | None = None,
 ) -> pd.DataFrame:
     models: dict[int, Any] = {}
     model_cache: dict[tuple[int, float], Any] = {}
@@ -157,11 +188,19 @@ def simulate_low_frequency_stage1(
             minimum_cash_weight=recovery_spec.minimum_cash_weight,
             maximum_soxl_weight=recovery_spec.maximum_soxl_weight,
         )
+        source_action = (
+            True
+            if source_action_flags is None
+            else bool(source_action_flags.loc[row.signal_date])
+        )
+        effective_band = (
+            minimum_rebalance_turnover if source_action else float("inf")
+        )
         open_weights, open_suppressed = apply_materiality_band(
             desired_open,
             previous,
             beta_cap=cap,
-            minimum_rebalance_turnover=minimum_rebalance_turnover,
+            minimum_rebalance_turnover=effective_band,
             minimum_cash_weight=recovery_spec.minimum_cash_weight,
             maximum_soxl_weight=recovery_spec.maximum_soxl_weight,
         )
@@ -266,6 +305,7 @@ def simulate_low_frequency_stage1(
                 "desired_open_soxl_weight": desired_open[0],
                 "desired_open_soxx_weight": desired_open[1],
                 "open_rebalance_suppressed": open_suppressed,
+                "source_action": source_action,
                 "open_trade": open_trade,
                 "recovery_action": recovery_action,
                 "recovery_probability": probability,
