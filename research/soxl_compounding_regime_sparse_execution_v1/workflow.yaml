@@ -1,0 +1,20 @@
+experiment: soxl_compounding_regime_sparse_execution_v1
+source_experiment: stage1_confidence_veto_recovery_v1
+system_of_record: qlib
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+market: all
+region: us
+selection_segment: 2016-01-01_to_2022-12-31
+selection_uses_outer_test: false
+outer_role: reused_diagnostic_only_not_model_selection
+transaction_cost_bps: 10.0
+stress_cost_bps: 25.0
+stress_method: fixed_decisions_repriced_at_25bp
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/soxl_compounding_regime_sparse_execution_v1/model_selection_full.csv
+    - artifacts/soxl_compounding_regime_sparse_execution_v1/model_comparison.csv
+    - artifacts/soxl_compounding_regime_sparse_execution_v1/dataset_audit.json
+    - artifacts/soxl_compounding_regime_sparse_execution_v1/*_replay.csv

@@ -1,0 +1,7 @@
+{
+  "hypothesis": "SOXX compounding regime, volatility budgeting, and sparse execution may reduce SOXL trading without sacrificing the frozen Stage1 edge",
+  "decision": "research_reject_no_structural_profile_passed_all_gates",
+  "selected_challenger": null,
+  "retained_model": "confidence_veto_baseline",
+  "outer_role": "reused_diagnostic_only_not_model_selection"
+}
