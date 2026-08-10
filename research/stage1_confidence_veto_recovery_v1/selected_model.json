@@ -1,0 +1,10 @@
+{
+  "selection_uses_outer_test": false,
+  "selected_from_segment": "development_walk_forward",
+  "logistic_c": 0.3,
+  "probability_threshold": 0.825,
+  "action_beta": 0.6,
+  "minimum_source_alpha_probability": 0.25,
+  "threshold_plateau_count": 3,
+  "production_enabled": false
+}

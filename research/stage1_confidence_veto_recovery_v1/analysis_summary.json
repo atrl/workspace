@@ -1,0 +1,71 @@
+{
+  "root_cause": "the permissive 10:31 recovery threshold caused excess recovery actions, and the recovery model could add risk when the 09:31 source alpha probability was weak; the high recovery gate plus source-alpha veto fixes both failure modes",
+  "root_cause_ablation": {
+    "frozen_stage1": {
+      "variant": "frozen_stage1",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.15428787253789,
+      "return_pct": 415.428787253789,
+      "max_drawdown_pct": -27.528488736627075,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.120216605050257,
+      "worst_rolling_5d_pct": -11.856265095677754,
+      "total_turnover": 149.50126688572553,
+      "recovery_action_count": 51,
+      "avg_cash_weight_pct": 42.567009779279495
+    },
+    "high_recovery_gate_without_alpha_veto": {
+      "variant": "high_recovery_gate_without_alpha_veto",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.2018362043667405,
+      "return_pct": 420.18362043667406,
+      "max_drawdown_pct": -26.728104402254637,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.111616593550344,
+      "worst_rolling_5d_pct": -11.856265095677754,
+      "total_turnover": 131.8618517962812,
+      "recovery_action_count": 24,
+      "avg_cash_weight_pct": 43.284399404015005
+    },
+    "high_recovery_gate_plus_alpha_veto": {
+      "variant": "confidence_veto_candidate",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.2495603589607,
+      "return_pct": 424.95603589607003,
+      "max_drawdown_pct": -26.728104402254584,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.104527243347027,
+      "worst_rolling_5d_pct": -10.701044280515337,
+      "total_turnover": 129.06286300007162,
+      "recovery_action_count": 19,
+      "avg_cash_weight_pct": 43.37510289012771
+    }
+  },
+  "decision": "validated_research_candidate_for_forward_shadow_not_production",
+  "development_gate_pass": true,
+  "development_gates": {
+    "return_10bps_above_baseline": true,
+    "return_25bps_above_baseline": true,
+    "max_drawdown_not_worse": true,
+    "worst_day_not_worse": true,
+    "cvar5_not_worse": true,
+    "worst_5d_not_worse": true,
+    "recovery_actions_reduced_60pct": true,
+    "turnover_reduced_10pct": true,
+    "action_year_floor_pass": true,
+    "all_primary_gates_pass": true,
+    "threshold_plateau_gate_pass": true,
+    "threshold_plateau_pass": true,
+    "outer_not_used_for_selection": true
+  },
+  "frequency_definition": {
+    "primary": "10:31 recovery actions causing the repeated same-day trade",
+    "daily_09_31_rebalance": "unchanged",
+    "development_recovery_action_reduction_pct": 62.745098039215684,
+    "development_turnover_reduction_pct": 13.671057317043633
+  },
+  "outer_role": "reused_diagnostic_only_not_model_selection"
+}

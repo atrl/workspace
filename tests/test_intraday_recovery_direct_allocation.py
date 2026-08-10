@@ -10,6 +10,7 @@ from src.workflow.intraday_recovery_direct_allocation import (
     apply_fixed_decision_cost_stress,
     project_legal_weights,
     select_development_candidate,
+    _simulate_policy,
 )
 
 
@@ -87,3 +88,79 @@ def test_source_recorder_is_pinned_by_workflow(tmp_path):
 
     assert resolved == recorder
     assert recorder_id == "frozen-recorder"
+
+
+def test_policy_rejects_invalid_source_alpha_floor():
+    with pytest.raises(ValueError, match="minimum_source_alpha_probability"):
+        _simulate_policy(
+            pd.DataFrame(),
+            spec=None,
+            teacher_frame=pd.DataFrame(),
+            c_value=0.3,
+            threshold=0.85,
+            action_beta=0.6,
+            first_action_year=2020,
+            model_cache={},
+            cost_bps=10.0,
+            minimum_source_alpha_probability=1.01,
+        )
+
+
+def test_source_alpha_floor_blocks_conflicting_recovery(tmp_path):
+    class AlwaysRecover:
+        def predict_proba(self, frame):
+            return np.tile(np.array([[0.01, 0.99]]), (len(frame), 1))
+
+    dates = pd.to_datetime(["2020-03-12", "2020-03-13"])
+    frame = pd.DataFrame(
+        {
+            "signal_date": dates,
+            "trade_date": dates,
+            "exit_date": dates + pd.Timedelta(days=1),
+            "segment": "development_walk_forward",
+            "soxl_weight": 0.30,
+            "soxx_weight": 0.55,
+            "cash_weight": 0.15,
+            "soxl_return": [-0.10, 0.02],
+            "soxx_return": [-0.10, 0.01],
+            "early_ret_soxl": [-0.05, 0.01],
+            "early_ret_soxx": [-0.03, 0.005],
+            "early_range_soxl": -0.06,
+            "early_range_soxx": -0.04,
+            "early_from_low_soxl": 0.01,
+            "early_from_low_soxx": 0.01,
+            "early_volume_soxl": 1_000_000.0,
+            "early_volume_soxx": 1_000_000.0,
+            "tail_probability": 0.50,
+            "alpha_probability": 0.10,
+        }
+    )
+    spec = IntradayRecoveryDirectAllocationSpec(
+        root=tmp_path,
+        stop_drawdown=0.08,
+    )
+    kwargs = {
+        "frame": frame,
+        "spec": spec,
+        "teacher_frame": pd.DataFrame(),
+        "c_value": 0.3,
+        "threshold": 0.825,
+        "action_beta": 0.6,
+        "first_action_year": 2020,
+        "cost_bps": 10.0,
+    }
+
+    unvetoed = _simulate_policy(
+        **kwargs,
+        model_cache={(2020, 0.3): AlwaysRecover()},
+        minimum_source_alpha_probability=0.0,
+    )
+    vetoed = _simulate_policy(
+        **kwargs,
+        model_cache={(2020, 0.3): AlwaysRecover()},
+        minimum_source_alpha_probability=0.25,
+    )
+
+    assert bool(unvetoed.iloc[1]["recovery_action"]) is True
+    assert bool(vetoed.iloc[1]["recovery_action"]) is False
+    assert bool(vetoed.iloc[1]["source_alpha_veto"]) is True

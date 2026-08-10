@@ -1,0 +1,11 @@
+segment,variant,cost_bps,return_pct,max_drawdown_pct,total_turnover,recovery_action_count
+development_walk_forward,frozen_stage1,10.0,415.428787253789,-27.528488736627075,149.50126688572553,51
+development_walk_forward,confidence_veto_candidate,10.0,424.95603589607003,-26.728104402254584,129.06286300007162,19
+development_walk_forward,frozen_stage1,25.0,311.96247272698906,-30.60470524065957,149.50126688572553,51
+development_walk_forward,confidence_veto_candidate,25.0,332.71053180453356,-28.82792167438484,129.06286300007162,19
+outer_reused_diagnostic,frozen_stage1,10.0,378.0557963963428,-28.59652191814357,90.39226316002444,48
+outer_reused_diagnostic,confidence_veto_candidate,10.0,380.20614567039627,-27.494922112921817,58.61150619560644,0
+outer_reused_diagnostic,frozen_stage1,25.0,317.53175631377576,-29.469534304642973,90.39226316002444,48
+outer_reused_diagnostic,confidence_veto_candidate,25.0,339.8544676443843,-28.409823442034433,58.61150619560644,0
+development_walk_forward,high_recovery_gate_without_alpha_veto,10.0,420.18362043667406,-26.728104402254637,131.8618517962812,24
+development_walk_forward,high_recovery_gate_without_alpha_veto,25.0,326.9767456400075,-28.827921674384793,131.8618517962812,24

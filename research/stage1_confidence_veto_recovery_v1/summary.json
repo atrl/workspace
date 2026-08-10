@@ -1,0 +1,401 @@
+{
+  "experiment": "stage1_confidence_veto_recovery_v1",
+  "card_type": "stage1_development_selected_confidence_veto_recovery_card",
+  "decision": "validated_research_candidate_for_forward_shadow_not_production",
+  "production_change": "blocked_pending_clean_forward_shadow",
+  "selection_uses_outer_test": false,
+  "outer_role": "reused_diagnostic_only_not_model_selection",
+  "root_cause": "the permissive 10:31 recovery threshold caused excess recovery actions, and the recovery model could add risk when the 09:31 source alpha probability was weak; the high recovery gate plus source-alpha veto fixes both failure modes",
+  "root_cause_ablation": {
+    "frozen_stage1": {
+      "variant": "frozen_stage1",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.15428787253789,
+      "return_pct": 415.428787253789,
+      "max_drawdown_pct": -27.528488736627075,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.120216605050257,
+      "worst_rolling_5d_pct": -11.856265095677754,
+      "total_turnover": 149.50126688572553,
+      "recovery_action_count": 51,
+      "avg_cash_weight_pct": 42.567009779279495
+    },
+    "high_recovery_gate_without_alpha_veto": {
+      "variant": "high_recovery_gate_without_alpha_veto",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.2018362043667405,
+      "return_pct": 420.18362043667406,
+      "max_drawdown_pct": -26.728104402254637,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.111616593550344,
+      "worst_rolling_5d_pct": -11.856265095677754,
+      "total_turnover": 131.8618517962812,
+      "recovery_action_count": 24,
+      "avg_cash_weight_pct": 43.284399404015005
+    },
+    "high_recovery_gate_plus_alpha_veto": {
+      "variant": "confidence_veto_candidate",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.2495603589607,
+      "return_pct": 424.95603589607003,
+      "max_drawdown_pct": -26.728104402254584,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.104527243347027,
+      "worst_rolling_5d_pct": -10.701044280515337,
+      "total_turnover": 129.06286300007162,
+      "recovery_action_count": 19,
+      "avg_cash_weight_pct": 43.37510289012771
+    }
+  },
+  "selected_model": {
+    "logistic_c": 0.3,
+    "probability_threshold": 0.825,
+    "action_beta": 0.6,
+    "minimum_source_alpha_probability": 0.25,
+    "threshold_plateau_count": 3
+  },
+  "baseline_model": {
+    "logistic_c": 0.03,
+    "probability_threshold": 0.55,
+    "action_beta": 0.6,
+    "minimum_source_alpha_probability": 0.0
+  },
+  "search_contract": {
+    "candidate_count": 81,
+    "development_only": true,
+    "logistic_c_grid": [
+      0.1,
+      0.3,
+      1.0
+    ],
+    "probability_threshold_grid": [
+      0.825,
+      0.85,
+      0.875
+    ],
+    "action_beta_grid": [
+      0.55,
+      0.6,
+      0.65
+    ],
+    "source_alpha_floor_grid": [
+      0.2,
+      0.25,
+      0.3
+    ],
+    "selection_order": [
+      "action_year_min_wealth_ratio_desc",
+      "development_return_desc",
+      "recovery_action_count_asc"
+    ]
+  },
+  "development_gates": {
+    "return_10bps_above_baseline": true,
+    "return_25bps_above_baseline": true,
+    "max_drawdown_not_worse": true,
+    "worst_day_not_worse": true,
+    "cvar5_not_worse": true,
+    "worst_5d_not_worse": true,
+    "recovery_actions_reduced_60pct": true,
+    "turnover_reduced_10pct": true,
+    "action_year_floor_pass": true,
+    "all_primary_gates_pass": true,
+    "threshold_plateau_gate_pass": true,
+    "threshold_plateau_pass": true,
+    "outer_not_used_for_selection": true
+  },
+  "development_gate_pass": true,
+  "development_comparison": [
+    {
+      "variant": "frozen_stage1",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.15428787253789,
+      "return_pct": 415.428787253789,
+      "max_drawdown_pct": -27.528488736627075,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.120216605050257,
+      "worst_rolling_5d_pct": -11.856265095677754,
+      "total_turnover": 149.50126688572553,
+      "recovery_action_count": 51,
+      "avg_cash_weight_pct": 42.567009779279495
+    },
+    {
+      "variant": "confidence_veto_candidate",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.2495603589607,
+      "return_pct": 424.95603589607003,
+      "max_drawdown_pct": -26.728104402254584,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.104527243347027,
+      "worst_rolling_5d_pct": -10.701044280515337,
+      "total_turnover": 129.06286300007162,
+      "recovery_action_count": 19,
+      "avg_cash_weight_pct": 43.37510289012771
+    },
+    {
+      "variant": "frozen_stage1",
+      "segment": "development_walk_forward",
+      "cost_bps": 25.0,
+      "terminal_wealth": 4.1196247272698905,
+      "return_pct": 311.96247272698906,
+      "max_drawdown_pct": -30.60470524065957,
+      "worst_day_pct": -7.848744901551077,
+      "cvar5_pct": -4.134451314182427,
+      "worst_rolling_5d_pct": -12.174081372166047,
+      "total_turnover": 149.50126688572553,
+      "recovery_action_count": 51,
+      "avg_cash_weight_pct": 42.567009779279495
+    },
+    {
+      "variant": "confidence_veto_candidate",
+      "segment": "development_walk_forward",
+      "cost_bps": 25.0,
+      "terminal_wealth": 4.327105318045335,
+      "return_pct": 332.71053180453356,
+      "max_drawdown_pct": -28.82792167438484,
+      "worst_day_pct": -7.848744901551077,
+      "cvar5_pct": -4.115629420502353,
+      "worst_rolling_5d_pct": -10.879211371886498,
+      "total_turnover": 129.06286300007162,
+      "recovery_action_count": 19,
+      "avg_cash_weight_pct": 43.37510289012771
+    },
+    {
+      "variant": "high_recovery_gate_without_alpha_veto",
+      "segment": "development_walk_forward",
+      "cost_bps": 10.0,
+      "terminal_wealth": 5.2018362043667405,
+      "return_pct": 420.18362043667406,
+      "max_drawdown_pct": -26.728104402254637,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.111616593550344,
+      "worst_rolling_5d_pct": -11.856265095677754,
+      "total_turnover": 131.8618517962812,
+      "recovery_action_count": 24,
+      "avg_cash_weight_pct": 43.284399404015005
+    },
+    {
+      "variant": "high_recovery_gate_without_alpha_veto",
+      "segment": "development_walk_forward",
+      "cost_bps": 25.0,
+      "terminal_wealth": 4.269767456400075,
+      "return_pct": 326.9767456400075,
+      "max_drawdown_pct": -28.827921674384793,
+      "worst_day_pct": -7.848744901551077,
+      "cvar5_pct": -4.123465424420112,
+      "worst_rolling_5d_pct": -12.174081372166047,
+      "total_turnover": 131.8618517962812,
+      "recovery_action_count": 24,
+      "avg_cash_weight_pct": 43.284399404015005
+    }
+  ],
+  "outer_diagnostic_comparison": [
+    {
+      "variant": "frozen_stage1",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "terminal_wealth": 4.780557963963428,
+      "return_pct": 378.0557963963428,
+      "max_drawdown_pct": -28.59652191814357,
+      "worst_day_pct": -8.667006378939588,
+      "cvar5_pct": -5.222655016787522,
+      "worst_rolling_5d_pct": -14.754894579991728,
+      "total_turnover": 90.39226316002444,
+      "recovery_action_count": 48,
+      "avg_cash_weight_pct": 36.68246823907111
+    },
+    {
+      "variant": "confidence_veto_candidate",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "terminal_wealth": 4.802061456703963,
+      "return_pct": 380.20614567039627,
+      "max_drawdown_pct": -27.494922112921817,
+      "worst_day_pct": -8.667006378939588,
+      "cvar5_pct": -5.0720316467216175,
+      "worst_rolling_5d_pct": -14.408875155779644,
+      "total_turnover": 58.61150619560644,
+      "recovery_action_count": 0,
+      "avg_cash_weight_pct": 39.04328786322882
+    },
+    {
+      "variant": "frozen_stage1",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "terminal_wealth": 4.1753175631377575,
+      "return_pct": 317.53175631377576,
+      "max_drawdown_pct": -29.469534304642973,
+      "worst_day_pct": -8.66815401750166,
+      "cvar5_pct": -5.2327652986151065,
+      "worst_rolling_5d_pct": -14.86185985218752,
+      "total_turnover": 90.39226316002444,
+      "recovery_action_count": 48,
+      "avg_cash_weight_pct": 36.68246823907111
+    },
+    {
+      "variant": "confidence_veto_candidate",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "terminal_wealth": 4.3985446764438425,
+      "return_pct": 339.8544676443843,
+      "max_drawdown_pct": -28.409823442034433,
+      "worst_day_pct": -8.66815401750166,
+      "cvar5_pct": -5.078862994754124,
+      "worst_rolling_5d_pct": -14.506203877564527,
+      "total_turnover": 58.61150619560644,
+      "recovery_action_count": 0,
+      "avg_cash_weight_pct": 39.04328786322882
+    }
+  ],
+  "frequency_definition": {
+    "primary": "10:31 recovery actions causing the repeated same-day trade",
+    "daily_09_31_rebalance": "unchanged",
+    "development_recovery_action_reduction_pct": 62.745098039215684,
+    "development_turnover_reduction_pct": 13.671057317043633
+  },
+  "source_audit": {
+    "stage1_source_experiment": "intraday_recovery_direct_allocation_v1",
+    "stage1_source_recorder_id": "3a2f919b802c48f08198fc9a93ec0a8b",
+    "stage1_source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/intraday_recovery_direct_allocation_v1/qlib_recorder/903361124573160811/3a2f919b802c48f08198fc9a93ec0a8b",
+    "stage1_selected_model": {
+      "selection_uses_outer_test": false,
+      "selected_from_segment": "development_walk_forward",
+      "teacher_recovery_beta": 1.2,
+      "action_beta": 0.6,
+      "logistic_c": 0.03,
+      "probability_threshold": 0.55,
+      "development_metrics": {
+        "return_pct": 417.2720536123832,
+        "max_drawdown_pct": -27.488582391581463,
+        "worst_day_pct": -7.845988052345539,
+        "cvar5_pct": -4.11984370114141,
+        "worst_rolling_5d_pct": -11.858940216431579,
+        "avg_cash_weight_pct": 42.567009779279495
+      }
+    },
+    "underlying_source": {
+      "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+      "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+      "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+      "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+      "source_refresh_mode": "pinned_recorder_frozen_model_inference_only",
+      "source_model_frozen": true,
+      "source_selected_candidate": "pit_only_aux_005",
+      "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
+      "source_market_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+      "source_daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "source_normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+      "source_market_end": "2026-08-05",
+      "source_prediction_end": "2026-08-05",
+      "source_training_end": "2022-12-30",
+      "outer_test_used_for_selection": false,
+      "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+      "intraday_provider_as_of": "2026-08-07",
+      "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+      "intraday_coverage_start": "2018-12-31",
+      "intraday_coverage_end": "2026-08-06",
+      "rows": 2662,
+      "rows_with_intraday_features": 1909
+    }
+  },
+  "dataset_audit": {
+    "api": [
+      "DatasetH",
+      "DataHandlerLP",
+      "StaticDataLoader"
+    ],
+    "segments": {
+      "train_2020": [
+        "2019-01-01",
+        "2019-12-31"
+      ],
+      "train_2021": [
+        "2019-01-01",
+        "2020-12-31"
+      ],
+      "train_2022": [
+        "2019-01-01",
+        "2021-12-31"
+      ],
+      "train_2023": [
+        "2019-01-01",
+        "2022-12-31"
+      ],
+      "train_2024": [
+        "2019-01-01",
+        "2023-12-31"
+      ],
+      "train_2025": [
+        "2019-01-01",
+        "2024-12-31"
+      ],
+      "train_2026": [
+        "2019-01-01",
+        "2025-12-31"
+      ]
+    },
+    "segment_rows": {
+      "train_2020": 24,
+      "train_2021": 74,
+      "train_2022": 104,
+      "train_2023": 288,
+      "train_2024": 362,
+      "train_2025": 409,
+      "train_2026": 494
+    },
+    "features": [
+      "portfolio_drawdown",
+      "current_beta_cap",
+      "raw_effective_beta",
+      "risk_state",
+      "early_ret_soxl",
+      "early_ret_soxx",
+      "early_dislocation",
+      "early_range_soxl",
+      "early_range_soxx",
+      "early_from_low_soxl",
+      "early_from_low_soxx",
+      "log_volume_soxl",
+      "log_volume_soxx",
+      "raw_soxl_weight",
+      "raw_soxx_weight",
+      "raw_cash_weight",
+      "tail_probability",
+      "alpha_probability",
+      "portfolio_ret_1d",
+      "portfolio_ret_3d",
+      "portfolio_ret_5d"
+    ],
+    "label": "teacher_action_label",
+    "training_distribution_only_percentile": false,
+    "role": "qlib DatasetH annual expanding-segment alignment and training evidence",
+    "fit_api": "sklearn LogisticRegression on identical annual slices"
+  },
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "workflow": "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "strategy": "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/stage1_confidence_veto_recovery_v1/model_selection_full.csv",
+      "artifacts/stage1_confidence_veto_recovery_v1/baseline_development_replay.csv",
+      "artifacts/stage1_confidence_veto_recovery_v1/recovery_gate_only_development_replay.csv",
+      "artifacts/stage1_confidence_veto_recovery_v1/challenger_development_replay.csv",
+      "artifacts/stage1_confidence_veto_recovery_v1/baseline_outer_replay.csv",
+      "artifacts/stage1_confidence_veto_recovery_v1/challenger_outer_replay.csv",
+      "artifacts/stage1_confidence_veto_recovery_v1/recovery_training_frame.csv",
+      "artifacts/stage1_confidence_veto_recovery_v1/dataset_audit.json"
+    ]
+  },
+  "recorder_id": "b03eab80b52f47039489ac2119e385b4",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_confidence_veto_recovery_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_confidence_veto_recovery_v1/qlib_recorder/913265038247463375/b03eab80b52f47039489ac2119e385b4"
+}

@@ -1,0 +1,29 @@
+experiment: stage1_confidence_veto_recovery_v1
+source_experiment: intraday_recovery_direct_allocation_v1
+source_recorder_id: 3a2f919b802c48f08198fc9a93ec0a8b
+system_of_record: qlib
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+market: all
+region: us
+selection_uses_outer_test: false
+outer_role: reused_diagnostic_only_not_model_selection
+candidate_count: 81
+logistic_c: 0.3
+probability_threshold: 0.825
+action_beta: 0.6
+minimum_source_alpha_probability: 0.25
+transaction_cost_bps: 10.0
+stress_cost_bps: 25.0
+stress_method: fixed_10bp_decisions_repriced_at_25bp
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stage1_confidence_veto_recovery_v1/model_selection_full.csv
+    - artifacts/stage1_confidence_veto_recovery_v1/baseline_development_replay.csv
+    - artifacts/stage1_confidence_veto_recovery_v1/recovery_gate_only_development_replay.csv
+    - artifacts/stage1_confidence_veto_recovery_v1/challenger_development_replay.csv
+    - artifacts/stage1_confidence_veto_recovery_v1/baseline_outer_replay.csv
+    - artifacts/stage1_confidence_veto_recovery_v1/challenger_outer_replay.csv
+    - artifacts/stage1_confidence_veto_recovery_v1/recovery_training_frame.csv
+    - artifacts/stage1_confidence_veto_recovery_v1/dataset_audit.json

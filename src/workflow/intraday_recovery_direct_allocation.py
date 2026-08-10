@@ -1009,7 +1009,10 @@ def _simulate_policy(
     first_action_year: int,
     model_cache: dict[tuple[int, float], Any],
     cost_bps: float,
+    minimum_source_alpha_probability: float = 0.0,
 ) -> pd.DataFrame:
+    if not 0.0 <= minimum_source_alpha_probability <= 1.0:
+        raise ValueError("minimum_source_alpha_probability must be in [0, 1]")
     models: dict[int, Any] = {}
     for year in sorted(frame["signal_date"].dt.year.unique()):
         key = (int(year), float(c_value))
@@ -1045,6 +1048,8 @@ def _simulate_policy(
             and drawdown >= spec.recovery_eligibility_drawdown
             and target_beta > cap + 1e-12
             and pd.notna(row.early_ret_soxx)
+            and pd.notna(row.alpha_probability)
+            and row.alpha_probability >= minimum_source_alpha_probability
         )
         probability = np.nan
         recovery = False
@@ -1122,6 +1127,12 @@ def _simulate_policy(
                 "cash_trade_delta": trade_delta[2],
                 "recovery_probability": probability,
                 "recovery_action": recovery,
+                "source_alpha_probability": row.alpha_probability,
+                "source_alpha_veto": bool(
+                    pd.notna(row.early_ret_soxx)
+                    and pd.notna(row.alpha_probability)
+                    and row.alpha_probability < minimum_source_alpha_probability
+                ),
                 "current_beta_cap": cap,
                 "recovery_beta_target": target_beta if recovery else cap,
                 "gross_return": gross_return,
