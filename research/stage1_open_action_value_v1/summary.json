@@ -1,0 +1,275 @@
+{
+  "experiment": "stage1_open_action_value_v1",
+  "card_type": "stage1_open_execution_action_value_research_card",
+  "decision": "validated_research_candidate_for_clean_forward_shadow",
+  "production_change": "blocked_pending_clean_forward_shadow",
+  "selection_uses_outer_test": false,
+  "outer_role": "reused_diagnostic_only_not_model_selection",
+  "development_gate_pass": true,
+  "source_stage1": {
+    "experiment": "stage1_confidence_veto_recovery_v1",
+    "recorder_id": "b03eab80b52f47039489ac2119e385b4",
+    "selected_model": {
+      "selection_uses_outer_test": false,
+      "selected_from_segment": "development_walk_forward",
+      "logistic_c": 0.3,
+      "probability_threshold": 0.825,
+      "action_beta": 0.6,
+      "minimum_source_alpha_probability": 0.25,
+      "threshold_plateau_count": 3,
+      "production_enabled": false
+    },
+    "shadow_policy_state": "frozen_confidence_veto_target_and_recovery_path",
+    "execution_holdings_state": "actual_marked_holdings_after_router_decisions"
+  },
+  "hypothesis": "A point-in-time action-value router can skip only small non-derisk open trades whose execute-versus-hold value is predicted negative",
+  "selected_model": {
+    "model": "balanced_logistic_regression",
+    "logistic_c": 0.1,
+    "execute_probability_threshold": 0.5,
+    "maximum_skippable_turnover": 0.05,
+    "mandatory_derisk_beta_delta": 0.0,
+    "label_cost_bps": 25.0,
+    "candidate_count": 1,
+    "selection_note": "single structurally fixed candidate after exploratory development diagnostics; requires clean forward shadow before production"
+  },
+  "development_baseline": {
+    "terminal_wealth": 5.2495603589607,
+    "return_pct": 424.95603589607003,
+    "max_drawdown_pct": -26.728104402254584,
+    "worst_day_pct": -7.847090792027754,
+    "cvar5_pct": -4.104527243347027,
+    "worst_rolling_5d_pct": -10.701044280515337,
+    "total_turnover": 129.06286300007162,
+    "open_trade_days": 1762.0,
+    "recovery_action_count": 19.0,
+    "avg_cash_weight_pct": 43.37510289012771
+  },
+  "development_candidate": {
+    "terminal_wealth": 5.264929936854607,
+    "return_pct": 426.49299368546065,
+    "max_drawdown_pct": -26.72338991398454,
+    "worst_day_pct": -7.847090792027754,
+    "cvar5_pct": -4.091771097340451,
+    "worst_rolling_5d_pct": -10.701044280515337,
+    "total_turnover": 126.96102966714339,
+    "open_trade_days": 1556.0,
+    "recovery_action_count": 19.0,
+    "avg_cash_weight_pct": 43.51384575749535
+  },
+  "development_candidate_25bps": {
+    "terminal_wealth": 4.353517122181879,
+    "return_pct": 335.3517122181879,
+    "max_drawdown_pct": -28.801083764002765,
+    "worst_day_pct": -7.848744901551077,
+    "cvar5_pct": -4.102669687993396,
+    "worst_rolling_5d_pct": -10.879211371886498,
+    "total_turnover": 126.96102966714339,
+    "open_trade_days": 1556.0,
+    "recovery_action_count": 19.0,
+    "avg_cash_weight_pct": 43.51384575749535
+  },
+  "development_gates": {
+    "development_return_above_baseline": true,
+    "stress_25bps_return_above_baseline": true,
+    "max_drawdown_not_worse": true,
+    "worst_day_not_worse": true,
+    "cvar5_not_worse": true,
+    "worst_5d_not_worse": true,
+    "open_trade_days_reduced_8pct": true,
+    "turnover_not_increased": true,
+    "annual_wealth_floor_pass": true,
+    "baseline_fallback_identity": true,
+    "outer_not_used_for_selection": true
+  },
+  "outer_diagnostic": [
+    {
+      "variant": "confidence_veto_baseline",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "terminal_wealth": 4.802061456703963,
+      "return_pct": 380.20614567039627,
+      "max_drawdown_pct": -27.494922112921817,
+      "worst_day_pct": -8.667006378939588,
+      "cvar5_pct": -5.0720316467216175,
+      "worst_rolling_5d_pct": -14.408875155779644,
+      "total_turnover": 58.61150619560644,
+      "open_trade_days": 900,
+      "recovery_action_count": 0,
+      "avg_cash_weight_pct": 39.04328786322882
+    },
+    {
+      "variant": "open_action_value_candidate",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 10.0,
+      "terminal_wealth": 4.88819528001871,
+      "return_pct": 388.819528001871,
+      "max_drawdown_pct": -26.998394907041146,
+      "worst_day_pct": -8.667006378939588,
+      "cvar5_pct": -5.043097155674282,
+      "worst_rolling_5d_pct": -14.28953688816581,
+      "total_turnover": 57.56052698961183,
+      "open_trade_days": 764,
+      "recovery_action_count": 0,
+      "avg_cash_weight_pct": 39.185505690884554
+    },
+    {
+      "variant": "confidence_veto_baseline",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "terminal_wealth": 4.3985446764438425,
+      "return_pct": 339.8544676443843,
+      "max_drawdown_pct": -28.409823442034433,
+      "worst_day_pct": -8.66815401750166,
+      "cvar5_pct": -5.078862994754124,
+      "worst_rolling_5d_pct": -14.506203877564527,
+      "total_turnover": 58.61150619560644,
+      "open_trade_days": 900,
+      "recovery_action_count": 0,
+      "avg_cash_weight_pct": 39.04328786322882
+    },
+    {
+      "variant": "open_action_value_candidate",
+      "segment": "outer_reused_diagnostic",
+      "cost_bps": 25.0,
+      "terminal_wealth": 4.484508803390083,
+      "return_pct": 348.45088033900834,
+      "max_drawdown_pct": -27.887970883270974,
+      "worst_day_pct": -8.66815401750166,
+      "cvar5_pct": -5.049602656950366,
+      "worst_rolling_5d_pct": -14.386305839634794,
+      "total_turnover": 57.56052698961183,
+      "open_trade_days": 764,
+      "recovery_action_count": 0,
+      "avg_cash_weight_pct": 39.185505690884554
+    }
+  ],
+  "frequency_change": {
+    "open_trade_day_reduction_pct": 11.69125993189557,
+    "turnover_reduction_pct": 1.628534563755224,
+    "development_skipped_open_targets": 206,
+    "outer_skipped_open_targets": 136
+  },
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "features": [
+      "portfolio_drawdown",
+      "current_beta_cap",
+      "raw_effective_beta",
+      "risk_state",
+      "raw_soxl_weight",
+      "raw_soxx_weight",
+      "raw_cash_weight",
+      "tail_probability",
+      "alpha_probability",
+      "portfolio_ret_1d",
+      "portfolio_ret_3d",
+      "portfolio_ret_5d",
+      "target_soxl_weight",
+      "target_soxx_weight",
+      "target_cash_weight",
+      "pretrade_soxl_weight",
+      "pretrade_soxx_weight",
+      "pretrade_cash_weight",
+      "soxl_weight_delta",
+      "soxx_weight_delta",
+      "effective_beta_delta",
+      "open_turnover"
+    ],
+    "label": "execute_advantage_after_25bps_current_and_next_reset_cost",
+    "segments": {
+      "train_2017": [
+        "2016-01-04",
+        "2016-12-31"
+      ],
+      "train_2018": [
+        "2016-01-04",
+        "2017-12-31"
+      ],
+      "train_2019": [
+        "2016-01-04",
+        "2018-12-31"
+      ],
+      "train_2020": [
+        "2016-01-04",
+        "2019-12-31"
+      ],
+      "train_2021": [
+        "2016-01-04",
+        "2020-12-31"
+      ],
+      "train_2022": [
+        "2016-01-04",
+        "2021-12-31"
+      ],
+      "train_outer": [
+        "2016-01-04",
+        "2022-12-31"
+      ]
+    },
+    "segment_rows": {
+      "train_2017": 252,
+      "train_2018": 503,
+      "train_2019": 754,
+      "train_2020": 1006,
+      "train_2021": 1259,
+      "train_2022": 1511,
+      "train_outer": 1762
+    }
+  },
+  "source_audit": {
+    "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+    "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+    "source_refresh_mode": "pinned_recorder_frozen_model_inference_only",
+    "source_model_frozen": true,
+    "source_selected_candidate": "pit_only_aux_005",
+    "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
+    "source_market_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "source_daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "source_normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "source_market_end": "2026-08-05",
+    "source_prediction_end": "2026-08-05",
+    "source_training_end": "2022-12-30",
+    "outer_test_used_for_selection": false,
+    "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "intraday_provider_as_of": "2026-08-07",
+    "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+    "intraday_coverage_start": "2018-12-31",
+    "intraday_coverage_end": "2026-08-06",
+    "rows": 2662,
+    "rows_with_intraday_features": 1909
+  },
+  "qlib_api": [
+    "DatasetH",
+    "DataHandlerLP",
+    "StaticDataLoader",
+    "qlib.workflow.R",
+    "R.save_objects"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/stable/component/workflow.html",
+    "https://qlib.readthedocs.io/en/stable/component/recorder.html"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/pred.pkl",
+      "artifacts/label.pkl",
+      "artifacts/stage1_open_action_value_v1/action_value_training_frame.csv",
+      "artifacts/stage1_open_action_value_v1/training_diagnostics.csv",
+      "artifacts/stage1_open_action_value_v1/model_comparison.csv",
+      "artifacts/stage1_open_action_value_v1/portfolio_report.csv",
+      "artifacts/stage1_open_action_value_v1/dataset_audit.json",
+      "artifacts/stage1_open_action_value_v1/open_action_value_models.pkl"
+    ]
+  },
+  "recorder_id": "77f2ae6c0ea143c0a765366abae71aaf",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_open_action_value_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_open_action_value_v1/qlib_recorder/742969412867128395/77f2ae6c0ea143c0a765366abae71aaf"
+}

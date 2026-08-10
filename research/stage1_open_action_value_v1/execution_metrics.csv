@@ -1,0 +1,9 @@
+segment,variant,cost_bps,return_pct,total_turnover,open_trade_days,recovery_action_count
+development_walk_forward,confidence_veto_baseline,10.0,424.95603589607003,129.06286300007162,1762,19
+development_walk_forward,open_action_value_candidate,10.0,426.49299368546065,126.96102966714339,1556,19
+development_walk_forward,confidence_veto_baseline,25.0,332.71053180453356,129.06286300007162,1762,19
+development_walk_forward,open_action_value_candidate,25.0,335.3517122181879,126.96102966714339,1556,19
+outer_reused_diagnostic,confidence_veto_baseline,10.0,380.20614567039627,58.61150619560644,900,0
+outer_reused_diagnostic,open_action_value_candidate,10.0,388.819528001871,57.56052698961183,764,0
+outer_reused_diagnostic,confidence_veto_baseline,25.0,339.8544676443843,58.61150619560644,900,0
+outer_reused_diagnostic,open_action_value_candidate,25.0,348.45088033900834,57.56052698961183,764,0

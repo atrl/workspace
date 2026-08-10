@@ -1,0 +1,24 @@
+{
+  "decision": "validated_research_candidate_for_clean_forward_shadow",
+  "development_gate_pass": true,
+  "development_gates": {
+    "development_return_above_baseline": true,
+    "stress_25bps_return_above_baseline": true,
+    "max_drawdown_not_worse": true,
+    "worst_day_not_worse": true,
+    "cvar5_not_worse": true,
+    "worst_5d_not_worse": true,
+    "open_trade_days_reduced_8pct": true,
+    "turnover_not_increased": true,
+    "annual_wealth_floor_pass": true,
+    "baseline_fallback_identity": true,
+    "outer_not_used_for_selection": true
+  },
+  "frequency_change": {
+    "open_trade_day_reduction_pct": 11.69125993189557,
+    "turnover_reduction_pct": 1.628534563755224,
+    "development_skipped_open_targets": 206,
+    "outer_skipped_open_targets": 136
+  },
+  "outer_role": "reused_diagnostic_only_not_model_selection"
+}
