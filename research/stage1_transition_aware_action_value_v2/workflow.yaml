@@ -1,0 +1,23 @@
+experiment: stage1_transition_aware_action_value_v2
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_transition_aware_action_value_v2/qlib_recorder
+source_stage1_frozen: true
+stage2_enabled: false
+selection_uses_outer_test: false
+feature_contract:
+  decision_time: '10:31 America/New_York'
+  current_turnover_feature: candidate_current_turnover
+  future_reset_cost_feature: false
+  future_reset_cost_label: true
+model_selection:
+  candidate_count: 1
+  model: fixed_ridge_continuous_net_advantage_lcb
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stage1_transition_aware_action_value_v2/action_value_training_frame.csv
+    - artifacts/stage1_transition_aware_action_value_v2/oof_predictions.csv
+    - artifacts/stage1_transition_aware_action_value_v2/portfolio_report.csv
+    - artifacts/stage1_transition_aware_action_value_v2/models/net_advantage_lcb_router.pkl

@@ -1,0 +1,16 @@
+{
+  "name": "net_advantage_lcb_router",
+  "architecture": "ridge_continuous_net_advantage_plus_walk_forward_lower_bound",
+  "candidate_count": 1,
+  "feature_count": 6,
+  "features": [
+    "portfolio_drawdown",
+    "early_ret_soxl",
+    "early_dislocation",
+    "tail_probability",
+    "candidate_beta_delta",
+    "candidate_current_turnover"
+  ],
+  "label": "net_advantage_bps",
+  "selection_uses_outer_test": false
+}

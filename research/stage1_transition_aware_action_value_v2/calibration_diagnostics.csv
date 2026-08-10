@@ -1,0 +1,4 @@
+model_year,training_rows,training_end,calibration_rows,lower_residual_offset_bps,oof_spearman,oof_mae_bps,operational_model_ready
+2021,22,2020-12-31,0,,,,False
+2022,47,2021-12-31,25,-12.873893242895376,-0.041538461538461545,15.530315023166688,True
+outer_frozen_2023_2026,191,2022-12-31,169,-20.254608429134112,0.055859977126945466,16.57028081293889,True
