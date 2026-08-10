@@ -1,0 +1,158 @@
+{
+  "experiment": "stage1_low_frequency_execution_v1",
+  "card_type": "stage1_low_frequency_execution_card",
+  "decision": "not_promoted_no_low_frequency_candidate_preserves_performance",
+  "selection_uses_outer_test": false,
+  "outer_status": "validation_only_not_used_for_threshold_selection",
+  "source_experiment": "intraday_on_policy_staged_validation_v1",
+  "source_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+  "model_conclusion": "Stage1 is not operationally low-frequency: its reported recovery action count omitted daily open rebalances, and no tested no-trade band met both frequency reduction and performance preservation gates. The prior V2 also added no actions and no incremental alpha.",
+  "selected_execution_policy": null,
+  "diagnostic_execution_policy": {
+    "minimum_rebalance_turnover": 0.0025,
+    "measurement": "L1 distance of SOXL and SOXX weights",
+    "deployment": "rejected_not_wired_to_simulator",
+    "required_risk_reduction_bypass": true,
+    "recovery_rule": "10:31 executes only when recovery_action is true",
+    "broker_scope": "Futu SIMULATE only"
+  },
+  "selection_gates": {
+    "minimum_trade_day_reduction": 0.35,
+    "minimum_terminal_wealth_ratio": 0.99,
+    "maximum_drawdown_worsening_pct_points": 1.0,
+    "selected_development_gate_pass": false,
+    "outer_validation_pass": false
+  },
+  "development": {
+    "baseline_metrics_10bps": {
+      "terminal_wealth": 5.15428787253789,
+      "return_pct": 415.428787253789,
+      "max_drawdown_pct": -27.528488736627075,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.120216605050257,
+      "worst_rolling_5d_pct": -11.856265095677754
+    },
+    "diagnostic_metrics_10bps": {
+      "terminal_wealth": 5.151027749663625,
+      "return_pct": 415.1027749663625,
+      "max_drawdown_pct": -27.528791017562217,
+      "worst_day_pct": -7.847090792027754,
+      "cvar5_pct": -4.11993286380167,
+      "worst_rolling_5d_pct": -11.856265095677754
+    },
+    "baseline_trade_frequency": {
+      "session_count": 1762,
+      "open_trade_days": 1762,
+      "recovery_trade_days": 51,
+      "daily_trade_events": 1762,
+      "order_legs": 3265,
+      "open_rebalance_suppressed": 0,
+      "turnover": 149.50126688572553
+    },
+    "diagnostic_trade_frequency": {
+      "session_count": 1762,
+      "open_trade_days": 1633,
+      "recovery_trade_days": 51,
+      "daily_trade_events": 1633,
+      "order_legs": 3039,
+      "open_rebalance_suppressed": 129,
+      "turnover": 149.35549804433674
+    },
+    "trade_day_reduction": 0.0732122587968218,
+    "order_leg_reduction": 0.06921898928024506,
+    "terminal_wealth_ratio": 0.9993674930553191,
+    "stability": {
+      "risk_window_pass_count": 7,
+      "positive_relative_window_count": 7,
+      "relative_ratio_min": 1.0098077258389528,
+      "relative_ratio_p25": 1.0531282113883333,
+      "relative_ratio_median": 1.0689728835477863
+    }
+  },
+  "outer_validation": {
+    "baseline_metrics_10bps": {
+      "terminal_wealth": 6.0172972709463615,
+      "return_pct": 501.72972709463613,
+      "max_drawdown_pct": -28.112703688871633,
+      "worst_day_pct": -9.386171023088265,
+      "cvar5_pct": -5.340269148989214,
+      "worst_rolling_5d_pct": -12.110754878147423
+    },
+    "diagnostic_metrics_10bps": {
+      "terminal_wealth": 6.013723646499688,
+      "return_pct": 501.3723646499688,
+      "max_drawdown_pct": -28.121226406622345,
+      "worst_day_pct": -9.386171023088265,
+      "cvar5_pct": -5.340155631069796,
+      "worst_rolling_5d_pct": -12.110754878147423
+    },
+    "stress_metrics_25bps": {
+      "terminal_wealth": 5.346960946314383,
+      "return_pct": 434.69609463143826,
+      "max_drawdown_pct": -29.11440564352956,
+      "worst_day_pct": -9.389855773460463,
+      "cvar5_pct": -5.35282193339018,
+      "worst_rolling_5d_pct": -12.180330749412304
+    },
+    "baseline_trade_frequency": {
+      "session_count": 900,
+      "open_trade_days": 900,
+      "recovery_trade_days": 36,
+      "daily_trade_events": 900,
+      "order_legs": 1673,
+      "open_rebalance_suppressed": 0,
+      "turnover": 78.55303815749015
+    },
+    "diagnostic_trade_frequency": {
+      "session_count": 900,
+      "open_trade_days": 842,
+      "recovery_trade_days": 36,
+      "daily_trade_events": 842,
+      "order_legs": 1580,
+      "open_rebalance_suppressed": 58,
+      "turnover": 78.46986984342941
+    },
+    "trade_day_reduction": 0.06444444444444442,
+    "terminal_wealth_ratio": 0.9994061080439007
+  },
+  "source_audit": {
+    "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+    "source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3",
+    "source_artifact_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1",
+    "source_refresh_mode": "pinned_recorder_frozen_model_inference_only",
+    "source_model_frozen": true,
+    "source_selected_candidate": "pit_only_aux_005",
+    "source_model_path": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_v1/qlib_recorder/157306831391018414/3144ec23c3ee4478b6b1e699fb8203d3/artifacts/pit_constituent_auxiliary_training_allocation_v1/models/pit_only_aux_005.pkl",
+    "source_market_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "source_daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+    "source_normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+    "source_market_end": "2026-08-05",
+    "source_prediction_end": "2026-08-05",
+    "source_training_end": "2022-12-30",
+    "outer_test_used_for_selection": false,
+    "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+    "intraday_provider_as_of": "2026-08-07",
+    "intraday_feature_timing": "bar_10_30_close_known_before_recovery_decision",
+    "intraday_coverage_start": "2018-12-31",
+    "intraday_coverage_end": "2026-08-06",
+    "rows": 2662,
+    "rows_with_intraday_features": 1909
+  },
+  "qlib_docs": {
+    "recorder": "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "backtest": "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/stage1_low_frequency_execution_v1/model_selection_full.csv",
+      "artifacts/stage1_low_frequency_execution_v1/development_replay.csv",
+      "artifacts/stage1_low_frequency_execution_v1/outer_replay.csv"
+    ]
+  },
+  "recorder_id": "749db051a1ec4f2fa7eaace47cff19f1",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_low_frequency_execution_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_low_frequency_execution_v1/qlib_recorder/234674292517616475/749db051a1ec4f2fa7eaace47cff19f1"
+}

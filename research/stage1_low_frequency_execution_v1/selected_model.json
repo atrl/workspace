@@ -1,0 +1,10 @@
+{
+  "source_experiment": "intraday_on_policy_staged_validation_v1",
+  "source_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+  "selection_uses_outer_test": false,
+  "predictive_model_changed": false,
+  "minimum_rebalance_turnover": null,
+  "diagnostic_minimum_rebalance_turnover": 0.0025,
+  "required_risk_reduction_bypass": true,
+  "deployment": "rejected_not_wired_to_simulator"
+}
