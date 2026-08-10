@@ -1,0 +1,7 @@
+segment,variant,cost_bps,max_drawdown_pct,worst_day_pct,cvar5_pct,worst_rolling_5d_pct,risk_window_pass_count
+development_walk_forward,fixed_threshold_baseline,10.0,-27.528488736627075,-7.847090792027754,-4.120216605050257,-11.856265095677754,7.0
+development_walk_forward,rank_calibrated_challenger,10.0,-27.821834281160196,-7.847090792027754,-4.074382019907652,-11.395065329266895,7.0
+development_walk_forward,fixed_threshold_baseline,25.0,-30.60470524065957,-7.848744901551077,-4.134451314182427,-12.174081372166047,3.0
+development_walk_forward,rank_calibrated_challenger,25.0,-30.65782055703683,-7.848744901551077,-4.085880915258926,-11.549403598047636,6.0
+outer_reused_diagnostic,fixed_threshold_baseline,10.0,-28.112703688871633,-9.386171023088265,-5.340269148989214,-12.110754878147423,
+outer_reused_diagnostic,rank_calibrated_challenger,10.0,-27.914358351936418,-9.386171023088265,-5.333116341311068,-12.110754878147423,

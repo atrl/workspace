@@ -1,0 +1,26 @@
+experiment: stage1_rank_calibrated_recovery_sizing_v1
+source_experiment: intraday_recovery_direct_allocation_v1
+source_recorder_id: 3a2f919b802c48f08198fc9a93ec0a8b
+system_of_record: qlib
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+market: all
+region: us
+selection_uses_outer_test: false
+outer_role: reused_diagnostic_only_not_model_selection
+candidate_count: 1
+grid_search: false
+logistic_c: 0.03
+maximum_recovery_beta: 0.6
+percentile_activation_floor: 0.5
+formula: fraction=max(0, 2*training_percentile-1)
+transaction_cost_bps: 10.0
+stress_cost_bps: 25.0
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stage1_rank_calibrated_recovery_sizing_v1/baseline_outer_replay.csv
+    - artifacts/stage1_rank_calibrated_recovery_sizing_v1/challenger_outer_replay.csv
+    - artifacts/stage1_rank_calibrated_recovery_sizing_v1/recovery_training_frame.csv
+    - artifacts/stage1_rank_calibrated_recovery_sizing_v1/model_comparison.csv
+    - artifacts/stage1_rank_calibrated_recovery_sizing_v1/dataset_audit.json

@@ -1,0 +1,10 @@
+{
+  "selection_uses_outer_test": false,
+  "candidate_count": 1,
+  "grid_search": false,
+  "logistic_c": 0.03,
+  "maximum_recovery_beta": 0.6,
+  "percentile_activation_floor": 0.5,
+  "formula": "fraction=max(0, 2*training_percentile-1)",
+  "production_enabled": false
+}
