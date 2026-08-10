@@ -1,0 +1,289 @@
+{
+  "experiment": "stage1_transition_aware_action_value_v1",
+  "card_type": "stage1_transition_aware_action_value_research_card",
+  "primary_notebook": "stage1_transition_aware_action_value_v1.ipynb",
+  "system_of_record": "qlib",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "intraday_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min",
+  "as_of": "2026-08-07",
+  "source_stage1": {
+    "experiment": "intraday_on_policy_staged_validation_v1",
+    "recorder_id": "f6b09330175e41719886d58ee2d11bec",
+    "training_end": "2022-12-30",
+    "stage2_enabled": false,
+    "frozen": true
+  },
+  "hypothesis": "A learned residual router can preserve the incumbent Stage1 path exactly when confidence is absent, while softly scaling only candidate overrides whose 25bps transition-cost advantage is predicted positive.",
+  "method": {
+    "model": "two-layer distilled beta sizer plus logistic residual router",
+    "objective": "classify positive advantage versus the exact Stage1 action after 25bps current and next-session reset turnover",
+    "decision": "Stage1 is the default expert; positive router probability margin is converted continuously into override size instead of a second fixed target",
+    "development": "annual expanding walk-forward fits through 2022",
+    "outer": "one frozen model trained through 2022; diagnostic only",
+    "preserved_stage1_contract": {
+      "incumbent_daily_actions": "exact fallback",
+      "maximum_soxl_weight": 0.3,
+      "minimum_cash_weight": 0.15,
+      "stage2_enabled": false
+    },
+    "reduced_incremental_forced_logic": [
+      "no new cooldown state",
+      "no full-size binary override",
+      "no required 20pct turnover reduction runtime rule",
+      "no outer-period parameter adjustment"
+    ]
+  },
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "features": [
+      "portfolio_drawdown",
+      "current_beta_cap",
+      "raw_effective_beta",
+      "risk_state",
+      "early_ret_soxl",
+      "early_ret_soxx",
+      "early_dislocation",
+      "early_range_soxl",
+      "early_range_soxx",
+      "early_from_low_soxl",
+      "early_from_low_soxx",
+      "log_volume_soxl",
+      "log_volume_soxx",
+      "raw_soxl_weight",
+      "raw_soxx_weight",
+      "raw_cash_weight",
+      "tail_probability",
+      "alpha_probability",
+      "portfolio_ret_1d",
+      "portfolio_ret_3d",
+      "portfolio_ret_5d",
+      "candidate_beta_delta",
+      "candidate_turnover"
+    ],
+    "label": "candidate_advantage",
+    "segments": {
+      "all": [
+        "2020-02-25",
+        "2022-12-31"
+      ],
+      "train_outer": [
+        "2020-02-25",
+        "2022-12-31"
+      ],
+      "train_2020": [
+        "2020-02-25",
+        "2019-12-31"
+      ],
+      "train_2021": [
+        "2020-02-25",
+        "2020-12-31"
+      ],
+      "train_2022": [
+        "2020-02-25",
+        "2021-12-31"
+      ],
+      "train_2023": [
+        "2020-02-25",
+        "2022-12-31"
+      ]
+    },
+    "segment_rows": {
+      "all": 191,
+      "train_outer": 191,
+      "train_2020": 0,
+      "train_2021": 22,
+      "train_2022": 47,
+      "train_2023": 191
+    }
+  },
+  "selected_model": {
+    "name": "transition_aware_residual_router",
+    "architecture": "ridge_distilled_sizer_plus_soft_logistic_router",
+    "candidate_count": 1,
+    "router_probability_boundary": 0.5,
+    "router_size_mapping": "2 * max(probability - 0.5, 0)",
+    "router_label_cost_bps": 25.0,
+    "selection_uses_outer_test": false
+  },
+  "development_baseline_metrics_10bps": {
+    "variant": "stage1_baseline",
+    "segment": "development_walk_forward",
+    "selection_uses_outer_test": false,
+    "ridge_alpha": null,
+    "shrinkage": null,
+    "minimum_predicted_uplift": null,
+    "maximum_recovery_beta": 0.6,
+    "terminal_wealth": 5.15428787253789,
+    "return_pct": 415.428787253789,
+    "max_drawdown_pct": -27.528488736627075,
+    "worst_day_pct": -7.847090792027754,
+    "cvar5_pct": -4.120216605050257,
+    "worst_rolling_5d_pct": -11.856265095677754,
+    "stress_25bps_return_pct": 311.96247272698906,
+    "stress_25bps_max_drawdown_pct": -30.60470524065957,
+    "stress_25bps_worst_rolling_5d_pct": -12.174081372166047,
+    "risk_window_pass_count": 7.0,
+    "positive_relative_window_count": 7.0,
+    "relative_ratio_min": 1.0098172762589346,
+    "relative_ratio_p25": 1.0530949927056983,
+    "relative_ratio_median": 1.0691258307074363,
+    "turnover": 149.50126688572553,
+    "turnover_reduction_vs_stage1": 0.0,
+    "action_count": 51,
+    "return_delta_vs_stage1_pct_points": 0.0,
+    "max_drawdown_delta_vs_stage1_pct_points": 0.0,
+    "worst_5d_delta_vs_stage1_pct_points": 0.0,
+    "selected": false
+  },
+  "development_selected_metrics_10bps": {
+    "variant": "transition_aware_residual_router",
+    "segment": "development_walk_forward",
+    "selection_uses_outer_test": false,
+    "ridge_alpha": null,
+    "shrinkage": null,
+    "minimum_predicted_uplift": null,
+    "maximum_recovery_beta": 0.6,
+    "terminal_wealth": 5.248099374073437,
+    "return_pct": 424.8099374073437,
+    "max_drawdown_pct": -27.27440949359633,
+    "worst_day_pct": -7.847090792027754,
+    "cvar5_pct": -4.126692046126621,
+    "worst_rolling_5d_pct": -11.856265095677754,
+    "stress_25bps_return_pct": 313.46125736621184,
+    "stress_25bps_max_drawdown_pct": -30.901541358800856,
+    "stress_25bps_worst_rolling_5d_pct": -12.174081372166047,
+    "risk_window_pass_count": 7.0,
+    "positive_relative_window_count": 7.0,
+    "relative_ratio_min": 1.0115199080582105,
+    "relative_ratio_p25": 1.0539871300374943,
+    "relative_ratio_median": 1.0691258307074363,
+    "turnover": 159.12805772505456,
+    "turnover_reduction_vs_stage1": -0.06439270408783537,
+    "action_count": 171,
+    "return_delta_vs_stage1_pct_points": 9.3811501535547,
+    "max_drawdown_delta_vs_stage1_pct_points": 0.2540792430307448,
+    "worst_5d_delta_vs_stage1_pct_points": 0.0,
+    "selected": true
+  },
+  "outer_diagnostic_baseline_metrics_10bps": {
+    "variant": "stage1_baseline",
+    "segment": "outer_diagnostic",
+    "selection_uses_outer_test": false,
+    "ridge_alpha": null,
+    "shrinkage": null,
+    "minimum_predicted_uplift": null,
+    "maximum_recovery_beta": 0.6,
+    "terminal_wealth": 6.0172972709463615,
+    "return_pct": 501.72972709463613,
+    "max_drawdown_pct": -28.112703688871633,
+    "worst_day_pct": -9.386171023088265,
+    "cvar5_pct": -5.340269148989214,
+    "worst_rolling_5d_pct": -12.110754878147423,
+    "stress_25bps_return_pct": 434.9476321565687,
+    "stress_25bps_max_drawdown_pct": -29.107439305465853,
+    "stress_25bps_worst_rolling_5d_pct": -12.180330749412304,
+    "risk_window_pass_count": null,
+    "positive_relative_window_count": null,
+    "relative_ratio_min": null,
+    "relative_ratio_p25": null,
+    "relative_ratio_median": null,
+    "turnover": 78.55303815749015,
+    "turnover_reduction_vs_stage1": 0.0,
+    "action_count": 36,
+    "return_delta_vs_stage1_pct_points": 0.0,
+    "max_drawdown_delta_vs_stage1_pct_points": 0.0,
+    "worst_5d_delta_vs_stage1_pct_points": 0.0,
+    "selected": false
+  },
+  "outer_diagnostic_selected_metrics_10bps": {
+    "variant": "transition_aware_residual_router",
+    "segment": "outer_diagnostic",
+    "selection_uses_outer_test": false,
+    "ridge_alpha": null,
+    "shrinkage": null,
+    "minimum_predicted_uplift": null,
+    "maximum_recovery_beta": 0.6,
+    "terminal_wealth": 6.042010352779222,
+    "return_pct": 504.2010352779222,
+    "max_drawdown_pct": -28.09535229023532,
+    "worst_day_pct": -9.386171023088265,
+    "cvar5_pct": -5.340471556326041,
+    "worst_rolling_5d_pct": -12.187145468353977,
+    "stress_25bps_return_pct": 435.90542212282674,
+    "stress_25bps_max_drawdown_pct": -29.096579276026446,
+    "stress_25bps_worst_rolling_5d_pct": -12.256802453423965,
+    "risk_window_pass_count": null,
+    "positive_relative_window_count": null,
+    "relative_ratio_min": null,
+    "relative_ratio_p25": null,
+    "relative_ratio_median": null,
+    "turnover": 80.11132102891449,
+    "turnover_reduction_vs_stage1": -0.019837334213606894,
+    "action_count": 87,
+    "return_delta_vs_stage1_pct_points": 2.4713081832860553,
+    "max_drawdown_delta_vs_stage1_pct_points": 0.01735139863631474,
+    "worst_5d_delta_vs_stage1_pct_points": -0.07639059020655381,
+    "selected": true
+  },
+  "incremental_action_audit": {
+    "development_override_count": 122,
+    "outer_override_count": 55
+  },
+  "stress_25bps_comparison": {
+    "development_baseline_return_pct": 311.96247272698906,
+    "development_candidate_return_pct": 313.46125736621184,
+    "development_delta_pct_points": 1.4987846392227766,
+    "outer_baseline_return_pct": 434.9476321565687,
+    "outer_candidate_return_pct": 435.90542212282674
+  },
+  "promotion_gates": {
+    "development_return_gate_pass": true,
+    "development_risk_gate_pass": true,
+    "stress_cost_gate_pass": true,
+    "baseline_fallback_identity_gate_pass": true,
+    "outer_used_for_selection": false,
+    "clean_unseen_holdout_available": false
+  },
+  "selection_uses_outer_test": false,
+  "outer_status": "reused_diagnostic_not_clean_unseen_holdout",
+  "decision": "candidate_for_clean_forward_validation_not_promoted",
+  "promotion": "blocked",
+  "qlib_api": [
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R",
+    "qlib.contrib.evaluate.risk_analysis"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html"
+  ],
+  "recorder_id": "b3758f0ae6164b21aefc6c7a40243387",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_transition_aware_action_value_v1/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_transition_aware_action_value_v1/qlib_recorder/481877736169187005/b3758f0ae6164b21aefc6c7a40243387",
+  "sidecars": {
+    "selected_model": "selected_model.json",
+    "model_selection": "model_selection.csv",
+    "backtest_benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "annual_metrics": "annual_metrics.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "training_summary": "training_summary.csv",
+    "analysis_summary": "analysis_summary.json",
+    "failure_modes": "failure_modes.md",
+    "conclusion": "conclusion.md",
+    "workflow_config": "workflow.yaml"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/stage1_transition_aware_action_value_v1/residual_router_training_frame.csv",
+      "artifacts/stage1_transition_aware_action_value_v1/model_selection_full.csv",
+      "artifacts/stage1_transition_aware_action_value_v1/portfolio_report.csv",
+      "artifacts/stage1_transition_aware_action_value_v1/models/transition_aware_residual_router.pkl"
+    ]
+  }
+}

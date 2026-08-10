@@ -1,0 +1,19 @@
+experiment: stage1_transition_aware_action_value_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_transition_aware_action_value_v1/qlib_recorder
+source_stage1_frozen: true
+stage2_enabled: false
+selection_uses_outer_test: false
+outer_model_training_end: 2022-12-31
+model_selection:
+  candidate_count: 1
+  metric: development_10bps_and_25bps_return_with_risk
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/stage1_transition_aware_action_value_v1/residual_router_training_frame.csv
+    - artifacts/stage1_transition_aware_action_value_v1/model_selection_full.csv
+    - artifacts/stage1_transition_aware_action_value_v1/portfolio_report.csv
+    - artifacts/stage1_transition_aware_action_value_v1/models/transition_aware_residual_router.pkl

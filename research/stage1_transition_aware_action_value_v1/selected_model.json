@@ -1,0 +1,9 @@
+{
+  "name": "transition_aware_residual_router",
+  "architecture": "ridge_distilled_sizer_plus_soft_logistic_router",
+  "candidate_count": 1,
+  "router_probability_boundary": 0.5,
+  "router_size_mapping": "2 * max(probability - 0.5, 0)",
+  "router_label_cost_bps": 25.0,
+  "selection_uses_outer_test": false
+}
