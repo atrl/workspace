@@ -1,0 +1,36 @@
+experiment: soxl_trend_clock_core_v1
+system_of_record: qlib
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+market: all
+region: us
+segments:
+  development:
+  - '2016-01-01'
+  - '2022-12-31'
+  outer_reused:
+  - '2023-01-01'
+  - '2026-12-31'
+model_selection:
+  selected_profile: clock_140_150_160
+  selection_uses_outer_test: true
+  outer_role: reused_retrospective_diagnostic_not_clean_holdout
+execution:
+  signal_time: signal_date_close
+  execution_time: next_market_open
+  transaction_cost_bps: 10.0
+  stress_costs_bps:
+  - 25.0
+  - 50.0
+recorder_uri: /Users/rziiiii/dev/workspace/research/soxl_trend_clock_core_v1/qlib_recorder
+recorder_id: d7a793983b554983858d978795ab57f0
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    predictions: artifacts/pred.pkl
+    labels: artifacts/label.pkl
+    portfolio_report: artifacts/portfolio_analysis/report_normal_1day.pkl
+    positions: artifacts/portfolio_analysis/positions_normal_1day.pkl
+    risk_analysis: artifacts/portfolio_analysis/port_analysis_1day.pkl
+    manual_replay: artifacts/soxl_trend_clock_core_v1/portfolio_report.csv
+    target_weights: artifacts/soxl_trend_clock_core_v1/target_weights.csv

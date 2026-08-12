@@ -1,0 +1,23 @@
+{
+  "dataset_class": "qlib.data.dataset.DatasetH",
+  "features": [
+    "target_weight"
+  ],
+  "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+  "label": "next_open_to_open_return",
+  "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+  "segment_rows": {
+    "test": 6840,
+    "train": 3524
+  },
+  "segments": {
+    "test": [
+      "2013-01-02",
+      "2026-08-07"
+    ],
+    "train": [
+      "2016-01-01",
+      "2022-12-31"
+    ]
+  }
+}

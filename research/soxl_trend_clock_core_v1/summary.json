@@ -1,0 +1,311 @@
+{
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "recorder_only_artifacts": {
+      "labels": "artifacts/label.pkl",
+      "manual_replay": "artifacts/soxl_trend_clock_core_v1/portfolio_report.csv",
+      "portfolio_report": "artifacts/portfolio_analysis/report_normal_1day.pkl",
+      "positions": "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+      "predictions": "artifacts/pred.pkl",
+      "risk_analysis": "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+      "target_weights": "artifacts/soxl_trend_clock_core_v1/target_weights.csv"
+    },
+    "workflow_config": "workflow.yaml"
+  },
+  "as_of": "2026-08-11",
+  "card_type": "retrospective_qlib_search_card",
+  "cross_asset_outer_gate_pass": false,
+  "cross_asset_outer_pair_count": 4,
+  "cross_asset_outer_pass_count": 0,
+  "data_range": [
+    "2013-01-02",
+    "2026-08-11"
+  ],
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "features": [
+      "target_weight"
+    ],
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "label": "next_open_to_open_return",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "segment_rows": {
+      "test": 6840,
+      "train": 3524
+    },
+    "segments": {
+      "test": [
+        "2013-01-02",
+        "2026-08-07"
+      ],
+      "train": [
+        "2016-01-01",
+        "2022-12-31"
+      ]
+    }
+  },
+  "decision": "not_promoted_outer_contaminated_and_cross_asset_gate_failed",
+  "development_gates_pass": true,
+  "experiment": "soxl_trend_clock_core_v1",
+  "hypothesis": "A slow SOXX trend state should control leverage level: each independent clock votes SOXL or SOXX, reducing all-or-nothing timing and daily churn.",
+  "market": "all",
+  "outer_role": "reused_retrospective_diagnostic_not_clean_holdout",
+  "outer_soxl_comparison": {
+    "action_days": 11,
+    "average_leveraged_weight": 0.7021433850702142,
+    "cost_bps": 10.0,
+    "cvar5_pct": -13.02209090495455,
+    "leveraged_buy_hold_max_drawdown_pct": -88.65752201810629,
+    "leveraged_buy_hold_return_pct": 1309.4314734331263,
+    "max_drawdown_delta_vs_leveraged_pct_points": 24.128351345375307,
+    "max_drawdown_pct": -64.52917067273098,
+    "pair": "SOXL/SOXX",
+    "profile": "clock_140_150_160",
+    "return_delta_vs_leveraged_pct_points": 213.27608120432592,
+    "return_pct": 1522.7075546374522,
+    "segment": "outer_reused_2023_2026",
+    "terminal_wealth": 16.22707554637452,
+    "terminal_wealth_ratio_vs_leveraged": 1.1513206461076273,
+    "total_turnover": 11.333333333333334,
+    "underlying_buy_hold_return_pct": 370.44843421657873,
+    "worst_day_pct": -21.138811111450195,
+    "worst_rolling_5d_pct": -34.06087744043074
+  },
+  "production_change": "blocked",
+  "provider_audit": {
+    "calendar_end": "2026-08-11",
+    "calendar_start": "2010-03-11",
+    "pair": "SOXL/SOXX",
+    "provider_as_of": "2026-08-11",
+    "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+    "qlib_api": [
+      "qlib.init",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments",
+      "qlib.data.D.features"
+    ],
+    "rows": 3420,
+    "signal_timing": "signal_date close uses only underlying close and trailing moving averages; target executes from next open to following open"
+  },
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "proxy_provider_audits": [
+    {
+      "calendar_end": "2026-08-11",
+      "calendar_start": "2010-02-11",
+      "pair": "TQQQ/QQQ",
+      "provider_as_of": "2026-08-11",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tqqq",
+      "qlib_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "rows": 3420,
+      "signal_timing": "signal_date close uses only underlying close and trailing moving averages; target executes from next open to following open"
+    },
+    {
+      "calendar_end": "2026-08-11",
+      "calendar_start": "2009-06-25",
+      "pair": "UPRO/SPY",
+      "provider_as_of": "2026-08-11",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/upro",
+      "qlib_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "rows": 3420,
+      "signal_timing": "signal_date close uses only underlying close and trailing moving averages; target executes from next open to following open"
+    },
+    {
+      "calendar_end": "2026-08-11",
+      "calendar_start": "2008-11-05",
+      "pair": "SPXL/SPY",
+      "provider_as_of": "2026-08-11",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/spxl",
+      "qlib_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "rows": 3420,
+      "signal_timing": "signal_date close uses only underlying close and trailing moving averages; target executes from next open to following open"
+    },
+    {
+      "calendar_end": "2026-08-11",
+      "calendar_start": "2008-12-30",
+      "pair": "TECL/XLK",
+      "provider_as_of": "2026-08-11",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/tecl",
+      "qlib_api": [
+        "qlib.init",
+        "qlib.data.D.calendar",
+        "qlib.data.D.instruments",
+        "qlib.data.D.features"
+      ],
+      "rows": 3420,
+      "signal_timing": "signal_date close uses only underlying close and trailing moving averages; target executes from next open to following open"
+    }
+  ],
+  "qlib_docs": {
+    "data": "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "recorder": "https://qlib.readthedocs.io/en/stable/component/recorder.html",
+    "workflow": "https://qlib.readthedocs.io/en/stable/component/workflow.html"
+  },
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "qlib.workflow.R.start",
+    "SignalRecord",
+    "SigAnaRecord",
+    "PortAnaRecord",
+    "DirectTargetWeightStrategy"
+  ],
+  "qlib_native_reconciliation": [
+    {
+      "manual_open_to_open_max_drawdown_pct": -64.13297440756422,
+      "manual_open_to_open_return_pct": 1072.0518861173255,
+      "manual_soxl_buy_hold_return_pct": 509.16324183262657,
+      "qlib_minus_manual_return_pct_points": 8.400762206790887,
+      "qlib_native_benchmark_return_pct": 482.62939453125,
+      "qlib_native_cost_sum_pct_points": 2.839930818952044,
+      "qlib_native_excess_vs_benchmark_pct_points": 597.8232537928664,
+      "qlib_native_max_drawdown_pct": -62.58009027381743,
+      "qlib_native_return_pct": 1080.4526483241164,
+      "qlib_native_rows": 1762,
+      "qlib_native_turnover_sum": 28.39930818952045,
+      "segment": "development_2016_2022"
+    },
+    {
+      "manual_open_to_open_max_drawdown_pct": -64.52917067273098,
+      "manual_open_to_open_return_pct": 1522.7075546374522,
+      "manual_soxl_buy_hold_return_pct": 1309.4314734331263,
+      "qlib_minus_manual_return_pct_points": -46.470019378996085,
+      "qlib_native_benchmark_return_pct": 1273.8797607421875,
+      "qlib_native_cost_sum_pct_points": 1.1384362167687032,
+      "qlib_native_excess_vs_benchmark_pct_points": 202.3577745162686,
+      "qlib_native_max_drawdown_pct": -69.41516732921514,
+      "qlib_native_return_pct": 1476.237535258456,
+      "qlib_native_rows": 903,
+      "qlib_native_turnover_sum": 11.384362167687032,
+      "segment": "outer_reused_2023_2026"
+    }
+  ],
+  "recorder_artifacts": [
+    "artifacts/label.pkl",
+    "artifacts/portfolio_analysis/indicator_analysis_1day.pkl",
+    "artifacts/portfolio_analysis/indicators_normal_1day.pkl",
+    "artifacts/portfolio_analysis/indicators_normal_1day_obj.pkl",
+    "artifacts/portfolio_analysis/port_analysis_1day.pkl",
+    "artifacts/portfolio_analysis/positions_normal_1day.pkl",
+    "artifacts/portfolio_analysis/report_normal_1day.pkl",
+    "artifacts/pred.pkl",
+    "artifacts/sig_analysis/ic.pkl",
+    "artifacts/sig_analysis/ric.pkl",
+    "artifacts/soxl_trend_clock_core_v1/benchmark_comparison_full.csv",
+    "artifacts/soxl_trend_clock_core_v1/cross_asset_negative_control_full.csv",
+    "artifacts/soxl_trend_clock_core_v1/dataset_audit.json",
+    "artifacts/soxl_trend_clock_core_v1/model_selection_full.csv",
+    "artifacts/soxl_trend_clock_core_v1/portfolio_report.csv",
+    "artifacts/soxl_trend_clock_core_v1/target_weights.csv",
+    "meta.yaml",
+    "metrics/1day.excess_return_with_cost.annualized_return",
+    "metrics/1day.excess_return_with_cost.information_ratio",
+    "metrics/1day.excess_return_with_cost.max_drawdown",
+    "metrics/1day.excess_return_with_cost.mean",
+    "metrics/1day.excess_return_with_cost.std",
+    "metrics/1day.excess_return_without_cost.annualized_return",
+    "metrics/1day.excess_return_without_cost.information_ratio",
+    "metrics/1day.excess_return_without_cost.max_drawdown",
+    "metrics/1day.excess_return_without_cost.mean",
+    "metrics/1day.excess_return_without_cost.std",
+    "metrics/1day.ffr",
+    "metrics/1day.pa",
+    "metrics/1day.pos",
+    "metrics/IC",
+    "metrics/ICIR",
+    "metrics/Rank IC",
+    "metrics/Rank ICIR",
+    "metrics/development_excess_vs_soxl_pct_points",
+    "metrics/development_max_drawdown_pct",
+    "metrics/development_return_pct",
+    "params/architecture",
+    "params/cmd-sys.argv",
+    "params/execution_time",
+    "params/periods",
+    "params/selected_profile",
+    "params/selection_uses_outer_test",
+    "params/signal_time",
+    "tags/mlflow.runName",
+    "tags/mlflow.source.name",
+    "tags/mlflow.source.type",
+    "tags/mlflow.user"
+  ],
+  "recorder_id": "d7a793983b554983858d978795ab57f0",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/soxl_trend_clock_core_v1/qlib_recorder/978114601407108436/d7a793983b554983858d978795ab57f0",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/soxl_trend_clock_core_v1/qlib_recorder",
+  "region": "us",
+  "segments": {
+    "development": [
+      "2016-01-01",
+      "2022-12-31"
+    ],
+    "outer_reused": [
+      "2023-01-01",
+      "2026-12-31"
+    ]
+  },
+  "selected_model": {
+    "entry_buffer": 0.08,
+    "execution_time": "next_market_open",
+    "exit_buffer": 0.0,
+    "name": "clock_140_150_160",
+    "periods": [
+      140,
+      150,
+      160
+    ],
+    "selection_status": "retrospective_outer_reviewed_not_promotable",
+    "signal_time": "signal_date_close",
+    "state_continuity": "warmup_2013_then_single_path_without_segment_reset"
+  },
+  "selection_uses_outer_test": true,
+  "sidecars": {
+    "analysis_summary": "analysis_summary.json",
+    "benchmark_comparison": "backtest_benchmark_comparison.csv",
+    "conclusion": "conclusion.md",
+    "cross_asset_negative_control": "cross_asset_negative_control.csv",
+    "failure_modes": "failure_modes.md",
+    "model_selection": "model_selection.csv",
+    "qlib_native_reconciliation": "qlib_native_reconciliation.csv",
+    "risk_analysis": "risk_analysis.csv",
+    "selected_model": "selected_model.json"
+  },
+  "stage1_overlap_comparison": {
+    "end": "2026-07-21",
+    "rows": 889,
+    "source_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+    "stage1": {
+      "cvar5_pct": -5.2336164414043544,
+      "max_drawdown_pct": -28.10510967554777,
+      "return_pct": 543.3420180351412,
+      "terminal_wealth": 6.433420180351412,
+      "worst_day_pct": -9.38371452278634,
+      "worst_rolling_5d_pct": -11.602809404682024
+    },
+    "start": "2023-01-03",
+    "trend_clock": {
+      "cvar5_pct": -12.675620405762283,
+      "max_drawdown_pct": -62.772241644021335,
+      "return_pct": 1712.0594818671318,
+      "terminal_wealth": 18.120594818671318,
+      "worst_day_pct": -21.138811111450195,
+      "worst_rolling_5d_pct": -34.06087744043074
+    }
+  }
+}

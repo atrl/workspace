@@ -78,3 +78,35 @@ class SignalWeightStrategy(WeightStrategyBase):
                 self.max_weight if value is not None and value > self.score_threshold else self.min_weight
             )
         return target
+
+
+class DirectTargetWeightStrategy(WeightStrategyBase):
+    """Interpret each signal score as a non-negative portfolio target weight.
+
+    This is intentionally thinner than ``SignalWeightStrategy``: qlib owns the
+    signal calendar, execution loop, exchange and report generation, while the
+    research workflow owns the causal target-weight construction.  Scores are
+    clipped to ``[0, max_weight]`` and scaled down only when their sum exceeds
+    ``risk_degree``; unallocated capital remains cash.
+    """
+
+    def __init__(self, *, max_weight: float = 1.0, **kwargs) -> None:
+        super().__init__(**kwargs)
+        if max_weight <= 0.0:
+            raise ValueError("max_weight must be positive")
+        self.max_weight = float(max_weight)
+
+    def generate_target_weight_position(
+        self, score, current, trade_start_time, trade_end_time
+    ):
+        scores = _score_by_instrument(score, default_instrument=None)
+        target = {
+            instrument: min(self.max_weight, max(0.0, float(value)))
+            for instrument, value in scores.items()
+        }
+        total = float(sum(target.values()))
+        risk_degree = float(getattr(self, "risk_degree", 1.0))
+        if total > risk_degree and total > 0.0:
+            scale = risk_degree / total
+            target = {instrument: value * scale for instrument, value in target.items()}
+        return target

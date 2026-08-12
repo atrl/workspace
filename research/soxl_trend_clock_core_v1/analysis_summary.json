@@ -1,0 +1,78 @@
+{
+  "cross_asset_outer_gate_pass": false,
+  "decision": "not_promoted_outer_contaminated_and_cross_asset_gate_failed",
+  "interpretation": "The candidate is a materially stronger low-frequency SOXL retrospective, but it is not validated because the reused outer influenced the final profile and the same parameters fail every proxy outer benchmark.",
+  "primary_result": {
+    "action_days": 11,
+    "average_leveraged_weight": 0.7021433850702142,
+    "cost_bps": 10.0,
+    "cvar5_pct": -13.02209090495455,
+    "leveraged_buy_hold_max_drawdown_pct": -88.65752201810629,
+    "leveraged_buy_hold_return_pct": 1309.4314734331263,
+    "max_drawdown_delta_vs_leveraged_pct_points": 24.128351345375307,
+    "max_drawdown_pct": -64.52917067273098,
+    "pair": "SOXL/SOXX",
+    "profile": "clock_140_150_160",
+    "return_delta_vs_leveraged_pct_points": 213.27608120432592,
+    "return_pct": 1522.7075546374522,
+    "segment": "outer_reused_2023_2026",
+    "terminal_wealth": 16.22707554637452,
+    "terminal_wealth_ratio_vs_leveraged": 1.1513206461076273,
+    "total_turnover": 11.333333333333334,
+    "underlying_buy_hold_return_pct": 370.44843421657873,
+    "worst_day_pct": -21.138811111450195,
+    "worst_rolling_5d_pct": -34.06087744043074
+  },
+  "qlib_native_reconciliation": [
+    {
+      "manual_open_to_open_max_drawdown_pct": -64.13297440756422,
+      "manual_open_to_open_return_pct": 1072.0518861173255,
+      "manual_soxl_buy_hold_return_pct": 509.16324183262657,
+      "qlib_minus_manual_return_pct_points": 8.400762206790887,
+      "qlib_native_benchmark_return_pct": 482.62939453125,
+      "qlib_native_cost_sum_pct_points": 2.839930818952044,
+      "qlib_native_excess_vs_benchmark_pct_points": 597.8232537928664,
+      "qlib_native_max_drawdown_pct": -62.58009027381743,
+      "qlib_native_return_pct": 1080.4526483241164,
+      "qlib_native_rows": 1762,
+      "qlib_native_turnover_sum": 28.39930818952045,
+      "segment": "development_2016_2022"
+    },
+    {
+      "manual_open_to_open_max_drawdown_pct": -64.52917067273098,
+      "manual_open_to_open_return_pct": 1522.7075546374522,
+      "manual_soxl_buy_hold_return_pct": 1309.4314734331263,
+      "qlib_minus_manual_return_pct_points": -46.470019378996085,
+      "qlib_native_benchmark_return_pct": 1273.8797607421875,
+      "qlib_native_cost_sum_pct_points": 1.1384362167687032,
+      "qlib_native_excess_vs_benchmark_pct_points": 202.3577745162686,
+      "qlib_native_max_drawdown_pct": -69.41516732921514,
+      "qlib_native_return_pct": 1476.237535258456,
+      "qlib_native_rows": 903,
+      "qlib_native_turnover_sum": 11.384362167687032,
+      "segment": "outer_reused_2023_2026"
+    }
+  ],
+  "stage1_overlap": {
+    "end": "2026-07-21",
+    "rows": 889,
+    "source_recorder_id": "f6b09330175e41719886d58ee2d11bec",
+    "stage1": {
+      "cvar5_pct": -5.2336164414043544,
+      "max_drawdown_pct": -28.10510967554777,
+      "return_pct": 543.3420180351412,
+      "terminal_wealth": 6.433420180351412,
+      "worst_day_pct": -9.38371452278634,
+      "worst_rolling_5d_pct": -11.602809404682024
+    },
+    "start": "2023-01-03",
+    "trend_clock": {
+      "cvar5_pct": -12.675620405762283,
+      "max_drawdown_pct": -62.772241644021335,
+      "return_pct": 1712.0594818671318,
+      "terminal_wealth": 18.120594818671318,
+      "worst_day_pct": -21.138811111450195,
+      "worst_rolling_5d_pct": -34.06087744043074
+    }
+  }
+}

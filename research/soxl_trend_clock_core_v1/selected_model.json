@@ -1,0 +1,15 @@
+{
+  "entry_buffer": 0.08,
+  "execution_time": "next_market_open",
+  "exit_buffer": 0.0,
+  "name": "clock_140_150_160",
+  "periods": [
+    140,
+    150,
+    160
+  ],
+  "production_enabled": false,
+  "selection_status": "retrospective_outer_reviewed_not_promotable",
+  "signal_time": "signal_date_close",
+  "state_continuity": "warmup_2013_then_single_path_without_segment_reset"
+}
