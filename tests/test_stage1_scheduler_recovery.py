@@ -48,6 +48,8 @@ def test_skip_refresh_does_not_suppress_later_real_refresh(tmp_path, monkeypatch
 def test_settled_signal_date_skips_exchange_holidays():
     assert stage1_futu.settled_date(datetime(2026, 9, 8, 9, 31, tzinfo=ZoneInfo("America/New_York"))) == "2026-09-04"
     assert stage1_futu.settled_date(datetime(2026, 4, 6, 9, 31, tzinfo=ZoneInfo("America/New_York"))) == "2026-04-02"
+    assert stage1_futu.detect_slot(datetime(2026, 9, 28, 9, 30, 59, tzinfo=ZoneInfo("America/New_York"))) == "not_due"
+    assert stage1_futu.detect_slot(datetime(2026, 9, 28, 10, 30, 59, tzinfo=ZoneInfo("America/New_York"))) == "not_due"
 
 
 def test_hold_preserves_exact_shares_and_the_recovery_open_mark(tmp_path):

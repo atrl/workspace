@@ -293,9 +293,9 @@ def detect_slot(now: datetime | None = None) -> str:
     current = current.astimezone(NEW_YORK_TZ)
     if current.weekday() < 5 and time(8, 0) <= current.time() < time(9, 25):
         return "postclose"
-    if current.weekday() < 5 and time(9, 30) <= current.time() < time(9, 46):
+    if current.weekday() < 5 and time(9, 31) <= current.time() < time(9, 46):
         return "open"
-    if current.weekday() < 5 and time(10, 30) <= current.time() < time(10, 46):
+    if current.weekday() < 5 and time(10, 31) <= current.time() < time(10, 46):
         return "recovery"
     if current.weekday() < 5 and current.time() >= time(20, 15):
         return "postclose"
