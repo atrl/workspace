@@ -1,0 +1,26 @@
+experiment_name: stage1_recovery_20260928
+card_type: observed_sim_account_recovery_audit
+provider_uri: data/qlib/stage1_recovery_20260928
+recorder_uri: production/stage1_recovery_20260928/qlib_recorder
+region: us
+market: all
+as_of: '2026-09-25'
+segments:
+  observed: ['2026-08-03', '2026-09-25']
+model_selection:
+  performed: false
+  decision: no_model_change
+sources:
+  broker: runtime/soxl/stage1_futu_sim/recovery_evidence/20260928/final_observation
+  fallback_broker: summary.recorder_local_dir/artifacts/source/broker
+  original_anchor: summary.recorder_local_dir/artifacts/source/anchor
+  historical: summary.recorder_local_dir/artifacts/source/historical
+  bootstrap_only: temporary_exports_from_initial_acquisition
+cash_adjustment_policy: aggregate_residual_timing_unknown_not_per_fill_fees
+artifact_policy:
+  policy: slim_card_recorder_first
+  recorder_only_artifacts:
+    - broker_audit/observed_fills.pkl
+    - broker_audit/observed_holdings_valuation.pkl
+    - broker_audit/risk_analysis.pkl
+    - source/

@@ -1,0 +1,54 @@
+{
+  "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "input_hashes": {
+    "production/stage1_futu_sim_v1/runtime_release.json": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "runtime/soxl/stage1_futu_sim/paper_cycle.json": "aedefc1acf16ed0696ed012d9918f3012e5a83d0007e493aa9eaf625bd4faa3d",
+    "runtime/soxl/stage1_futu_sim/paper_ledger_v2.json": "66fccb5e85216c7f28f7fbd80850a44c06e8a5e2b0266bcde6bb5de69e2a386e"
+  },
+  "execution_environment": "SIMULATE",
+  "research_promotion_status": "not_promoted",
+  "paper_trial_authorization_verified": true,
+  "cycle_id": "stage1_2026-08-03_v2",
+  "inception_date": "2026-08-03",
+  "initial_equity": 100000.0,
+  "confirmed_fill_count": 20,
+  "positions": {
+    "SOXL": 200,
+    "SOXX": 98
+  },
+  "ledger_equity": 116320.32900000001,
+  "ledger_cash": 32959.769,
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_account_marks",
+  "qlib_api": [
+    "qlib.init",
+    "D.calendar",
+    "D.features"
+  ],
+  "latest_settled_session": "2026-09-25",
+  "signal_date": "2026-09-25",
+  "target_status_without_execution_mark": "needs_execution_mark",
+  "active_configuration_changed": false,
+  "orders_submitted": false,
+  "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "research_development_gates": {
+    "development_return_above_baseline": true,
+    "stress_25bps_return_above_baseline": true,
+    "max_drawdown_not_worse": false,
+    "worst_day_not_worse": true,
+    "cvar5_not_worse": false,
+    "worst_5d_not_worse": true,
+    "open_trade_days_reduced_8pct": true,
+    "turnover_not_increased": true,
+    "annual_wealth_floor_pass": true,
+    "baseline_fallback_identity": true,
+    "outer_not_used_for_selection": true
+  },
+  "authorized_failed_gates": [
+    "max_drawdown_not_worse",
+    "cvar5_not_worse"
+  ],
+  "backtest_open_trade_day_reduction_pct": 14.944541739638062,
+  "frequency_scope": "continuous_weight_backtest_open_trade_days_not_actual_fill_count_guarantee"
+}

@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "experiment": "stage1_open_action_value_net_fees_bounded_20260928",
+  "recorder_id": "929304aee8024c2eb880bd34e9d1095a",
+  "purpose": "Immutable failed-research evidence, frozen models and reproducible validation; not an active runtime release.",
+  "development_gate_pass": false,
+  "artifacts": [
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/artifacts/stage1_open_action_value_net_fees_bounded_20260928/bounded_model_selection.csv",
+      "sha256": "549bea1a97b1600d5351506a1aee9e76c414d5f511046fd3668653dfc5736dbb",
+      "size": 1077
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/artifacts/stage1_open_action_value_net_fees_bounded_20260928/development_replays.csv",
+      "sha256": "ed2fd62202e23e5d5716eae53e6a6cf3712771f396c7714aa2fd95a6c5385d4c",
+      "size": 3222436
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/artifacts/stage1_open_action_value_net_fees_bounded_20260928/selection_plan.json",
+      "sha256": "86bd011f9265d561616f92f30542399d78bad6860effaaa2d31ea42f827b991d",
+      "size": 1717
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/meta.yaml",
+      "sha256": "10944218ef68df5dbc84cbd4589803bbd9954d7288804c0cd0006d483fd77de5",
+      "size": 463
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/metrics/passing_candidates",
+      "sha256": "d68901d374027c7be6a7d9f372bbab5a8a791664d6d4567ff2de1b01526b3141",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/params/candidate_count",
+      "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a",
+      "size": 1
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/params/cmd-sys.argv",
+      "sha256": "6b782223dfc8e5b366e9a0ced87f8a5b201bfa2a58627420343058eedafb54f3",
+      "size": 202
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/params/fixed_model_recorder",
+      "sha256": "ccccfbb3ff19a47842dbb29be012f6bd4618de74d63c8170feec3c428401c87e",
+      "size": 32
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/params/selection_uses_outer",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size": 5
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "size": 89
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/929304aee8024c2eb880bd34e9d1095a/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/878004700306648159/meta.yaml",
+      "sha256": "2904a42e01465bf9b185d37579fd3513bea2e0059991bd0c2ed8cef6d907cbd8",
+      "size": 422
+    }
+  ]
+}

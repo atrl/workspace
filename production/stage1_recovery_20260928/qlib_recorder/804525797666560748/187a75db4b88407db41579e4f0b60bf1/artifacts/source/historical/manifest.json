@@ -1,0 +1,50 @@
+{
+  "evidence_type": "historical_runtime_json_extracted_from_recorded_tool_output",
+  "warning": "Historical snapshots only; do not treat these as current broker state or overwrite active runtime ledger.",
+  "source_file": "/Users/rziiiii/.codex/sessions/2026/08/04/rollout-2026-08-04T13-12-52-019fcb30-5e01-7662-8873-1caee86d62a8.jsonl",
+  "source_file_sha256": "28a3ac1bcad6387f49db40fd1292e1f84a28688e1e743ae576e1d786a0172b4b",
+  "extraction_date": "2026-09-28",
+  "encoding": "utf-8",
+  "preservation": "Exact decoded tool-output JSON substring; no JSON reserialization or whitespace normalization. Original source JSONL line remains authority.",
+  "files": {
+    "paper_cycle.json": {
+      "source_file": "/Users/rziiiii/.codex/sessions/2026/08/04/rollout-2026-08-04T13-12-52-019fcb30-5e01-7662-8873-1caee86d62a8.jsonl",
+      "source_jsonl_line": 3529,
+      "source_payload_type": "custom_tool_call_output",
+      "source_call_id": "call_vl4m3RV7Efh8ENWgwQabCCdY",
+      "source_output_block_index": 1,
+      "source_output_text_character_start": 589,
+      "source_output_text_character_end": 1980,
+      "source_event_timestamp": "2026-08-10T04:08:42.940Z",
+      "recovered_file_sha256": "9aab9e4a3db14a8c581febab1c2b823923d980941806417c61c678570230ca6a",
+      "bytes": 1391,
+      "sensitive_field_scan": "passed"
+    },
+    "paper_ledger_v2.json": {
+      "source_file": "/Users/rziiiii/.codex/sessions/2026/08/04/rollout-2026-08-04T13-12-52-019fcb30-5e01-7662-8873-1caee86d62a8.jsonl",
+      "source_jsonl_line": 3533,
+      "source_payload_type": "custom_tool_call_output",
+      "source_call_id": "call_ZUA7yHuqZVwlbwqdDpBCdRuN",
+      "source_output_block_index": 1,
+      "source_output_text_character_start": 32350,
+      "source_output_text_character_end": 40104,
+      "source_event_timestamp": "2026-08-10T04:08:50.759Z",
+      "recovered_file_sha256": "d0bd228e413572f80009d063184ecc18980c7683531d36eb2ff247637233ec97",
+      "bytes": 7754,
+      "sensitive_field_scan": "passed"
+    },
+    "execution_state_v2.json": {
+      "source_file": "/Users/rziiiii/.codex/sessions/2026/08/04/rollout-2026-08-04T13-12-52-019fcb30-5e01-7662-8873-1caee86d62a8.jsonl",
+      "source_jsonl_line": 3533,
+      "source_payload_type": "custom_tool_call_output",
+      "source_call_id": "call_ZUA7yHuqZVwlbwqdDpBCdRuN",
+      "source_output_block_index": 1,
+      "source_output_text_character_start": 135,
+      "source_output_text_character_end": 6482,
+      "source_event_timestamp": "2026-08-10T04:08:50.759Z",
+      "recovered_file_sha256": "60ca8d2c8aa9fc94f04a256f6d4853713a3d5414fcb9420715b9b5705c9004b4",
+      "bytes": 6347,
+      "sensitive_field_scan": "passed"
+    }
+  }
+}

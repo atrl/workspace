@@ -1,0 +1,5 @@
+execute_probability_threshold,return_10bps_pct,return_25bps_pct,max_drawdown_pct,open_trade_days,open_trade_day_reduction_pct,total_turnover,all_gates_pass,development_return_above_baseline,stress_25bps_return_above_baseline,max_drawdown_not_worse,worst_day_not_worse,cvar5_not_worse,worst_5d_not_worse,open_trade_days_reduced_8pct,turnover_not_increased,annual_wealth_floor_pass,baseline_fallback_identity,outer_not_used_for_selection
+0.3,115.03633877936088,83.16147003871063,-29.93061609170722,1713,0.0,106.92019076393171,False,False,False,True,True,True,True,False,True,True,True,True
+0.35,115.03633877936088,83.16147003871063,-29.93061609170722,1713,0.0,106.92019076393171,False,False,False,True,True,True,True,False,True,True,True,True
+0.4,115.54021249833171,83.47605505129356,-29.93061609170716,1696,0.9924109748978394,107.32767419429751,False,True,True,True,True,True,True,False,False,True,True,True
+0.45,169.94032605581714,131.58288990222306,-30.736645225190383,1590,7.180385288966729,102.22483710245173,False,True,True,False,True,False,True,False,True,False,True,True

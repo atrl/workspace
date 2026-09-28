@@ -1,0 +1,24 @@
+{
+  "decision": "not_promoted_open_action_value_development_gates_failed",
+  "development_gate_pass": false,
+  "development_gates": {
+    "development_return_above_baseline": true,
+    "stress_25bps_return_above_baseline": true,
+    "max_drawdown_not_worse": false,
+    "worst_day_not_worse": true,
+    "cvar5_not_worse": false,
+    "worst_5d_not_worse": true,
+    "open_trade_days_reduced_8pct": true,
+    "turnover_not_increased": true,
+    "annual_wealth_floor_pass": true,
+    "baseline_fallback_identity": true,
+    "outer_not_used_for_selection": true
+  },
+  "frequency_change": {
+    "open_trade_day_reduction_pct": 14.944541739638062,
+    "turnover_reduction_pct": 3.261133225823587,
+    "development_skipped_open_targets": 256,
+    "outer_skipped_open_targets": 121
+  },
+  "outer_role": "reused_diagnostic_only_not_model_selection"
+}

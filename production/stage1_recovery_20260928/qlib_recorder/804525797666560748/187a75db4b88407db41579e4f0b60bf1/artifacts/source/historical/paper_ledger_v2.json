@@ -1,0 +1,302 @@
+{
+  "broker_reserve_cash": 0.0,
+  "cash": 37897.395,
+  "drawdown": -0.002152588959223656,
+  "equity": 114121.125,
+  "execution_environment": "SIMULATE",
+  "fills": [
+    {
+      "create_time": "2026-08-03 09:31:19",
+      "order_id": "7543718",
+      "price": 104.85,
+      "quantity": 271,
+      "remark": "stage1_v2_open_2026-07-31",
+      "side": "BUY",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 28414.35,
+      "updated_time": "2026-08-03 09:31:21"
+    },
+    {
+      "create_time": "2026-08-03 09:31:19",
+      "order_id": "7543719",
+      "price": 489.94,
+      "quantity": 100,
+      "remark": "stage1_v2_open_2026-07-31",
+      "side": "BUY",
+      "status": "FILLED_ALL",
+      "symbol": "SOXX",
+      "trade_value": 48994.0,
+      "updated_time": "2026-08-03 09:31:27"
+    },
+    {
+      "create_time": "2026-08-03 10:31:56",
+      "order_id": "7544439",
+      "price": 111.41,
+      "quantity": 8,
+      "remark": "stage1_v2_recovery_2026-07-31",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 891.28,
+      "updated_time": "2026-08-03 10:32:03"
+    },
+    {
+      "create_time": "2026-08-03 10:31:57",
+      "order_id": "7544440",
+      "price": 500.07,
+      "quantity": 1,
+      "remark": "stage1_v2_recovery_2026-07-31",
+      "side": "BUY",
+      "status": "FILLED_ALL",
+      "symbol": "SOXX",
+      "trade_value": 500.07,
+      "updated_time": "2026-08-03 10:32:00"
+    },
+    {
+      "create_time": "2026-08-04 09:31:29",
+      "order_id": "7547577",
+      "price": 132.14,
+      "quantity": 23,
+      "remark": "stage1_v2_open_2026-08-03",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 3039.22,
+      "updated_time": "2026-08-04 09:31:33"
+    },
+    {
+      "create_time": "2026-08-04 09:31:29",
+      "order_id": "7547578",
+      "price": 529.69,
+      "quantity": 2,
+      "remark": "stage1_v2_open_2026-08-03",
+      "side": "BUY",
+      "status": "FILLED_ALL",
+      "symbol": "SOXX",
+      "trade_value": 1059.38,
+      "updated_time": "2026-08-04 09:31:36"
+    },
+    {
+      "create_time": "2026-08-04 10:32:19",
+      "order_id": "7548306",
+      "price": 133.87,
+      "quantity": 2,
+      "remark": "stage1_v2_recovery_2026-08-03",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 267.74,
+      "updated_time": "2026-08-04 10:32:21"
+    },
+    {
+      "create_time": "2026-08-05 09:31:29",
+      "order_id": "7551864",
+      "price": 137.61,
+      "quantity": 30,
+      "remark": "stage1_v2_open_2026-08-04",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 4128.3,
+      "updated_time": "2026-08-05 09:31:33"
+    },
+    {
+      "create_time": "2026-08-05 09:31:30",
+      "order_id": "7551865",
+      "price": 538.31,
+      "quantity": 3,
+      "remark": "stage1_v2_open_2026-08-04",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXX",
+      "trade_value": 1614.9299999999998,
+      "updated_time": "2026-08-05 09:31:39"
+    },
+    {
+      "create_time": "2026-08-05 10:32:17",
+      "order_id": "7552752",
+      "price": 132.975,
+      "quantity": 4,
+      "remark": "stage1_v2_recovery_2026-08-04",
+      "side": "BUY",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 531.9,
+      "updated_time": "2026-08-05 10:32:24"
+    },
+    {
+      "create_time": "2026-08-06 09:31:31",
+      "order_id": "7555747",
+      "price": 122.71,
+      "quantity": 21,
+      "remark": "stage1_v2_open_2026-08-05",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 2576.91,
+      "updated_time": "2026-08-06 09:31:39"
+    },
+    {
+      "create_time": "2026-08-06 10:32:08",
+      "order_id": "7556427",
+      "price": 137.405,
+      "quantity": 11,
+      "remark": "stage1_v2_recovery_2026-08-05",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 1511.455,
+      "updated_time": "2026-08-06 10:32:09"
+    },
+    {
+      "create_time": "2026-08-07 09:31:30",
+      "order_id": "7558679",
+      "price": 141.01,
+      "quantity": 24,
+      "remark": "stage1_v2_open_2026-08-06",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 3384.24,
+      "updated_time": "2026-08-07 09:31:33"
+    },
+    {
+      "create_time": "2026-08-07 09:31:30",
+      "order_id": "7558680",
+      "price": 543.92,
+      "quantity": 1,
+      "remark": "stage1_v2_open_2026-08-06",
+      "side": "SELL",
+      "status": "FILLED_ALL",
+      "symbol": "SOXX",
+      "trade_value": 543.92,
+      "updated_time": "2026-08-07 09:31:39"
+    },
+    {
+      "create_time": "2026-08-07 10:32:17",
+      "order_id": "7559506",
+      "price": 136.49,
+      "quantity": 4,
+      "remark": "stage1_v2_recovery_2026-08-06",
+      "side": "BUY",
+      "status": "FILLED_ALL",
+      "symbol": "SOXL",
+      "trade_value": 545.96,
+      "updated_time": "2026-08-07 10:32:27"
+    }
+  ],
+  "inception_date": "2026-08-03",
+  "initial_equity": 100000.0,
+  "ledger_type": "stage1_futu_sim_sleeve",
+  "peak_equity": 114367.31081054689,
+  "positions": {
+    "SOXL": 160,
+    "SOXX": 99
+  },
+  "prices": {
+    "SOXL": 140.25,
+    "SOXX": 543.27
+  },
+  "real_broker_orders": false,
+  "reconciliation": {
+    "as_of": "2026-08-07T22:03:15.754368-04:00",
+    "broker_cash": 37897.395,
+    "broker_positions": {
+      "SOXL": 160,
+      "SOXX": 99
+    },
+    "fill_positions": {
+      "SOXL": 160,
+      "SOXX": 99
+    },
+    "sleeve_cash": 37897.395,
+    "status": "matched"
+  },
+  "remark_prefix": "stage1_v2_",
+  "settled_marks": [
+    {
+      "cash": 22978.890000000007,
+      "date": "2026-08-03",
+      "drawdown": 0.0,
+      "equity": 104949.29901947023,
+      "peak_equity": 104949.29901947023,
+      "positions": {
+        "SOXL": 263,
+        "SOXX": 101
+      },
+      "prices": {
+        "SOXL": 116.70999908447266,
+        "SOXX": 507.67999267578125
+      },
+      "source": "qlib.data.D.features"
+    },
+    {
+      "cash": 25223.480000000007,
+      "date": "2026-08-04",
+      "drawdown": 0.0,
+      "equity": 114367.31081054689,
+      "peak_equity": 114367.31081054689,
+      "positions": {
+        "SOXL": 238,
+        "SOXX": 103
+      },
+      "prices": {
+        "SOXL": 139.89999389648438,
+        "SOXX": 542.2100219726562
+      },
+      "source": "qlib.data.D.features"
+    },
+    {
+      "cash": 30431.820000000003,
+      "date": "2026-08-05",
+      "drawdown": -0.025065274480905453,
+      "equity": 111500.6627734375,
+      "peak_equity": 114367.31081054689,
+      "positions": {
+        "SOXL": 212,
+        "SOXX": 100
+      },
+      "prices": {
+        "SOXL": 132.07000732421875,
+        "SOXX": 530.7000122070312
+      },
+      "source": "qlib.data.D.features"
+    },
+    {
+      "cash": 34518.185,
+      "date": "2026-08-06",
+      "drawdown": -0.024287740160590432,
+      "equity": 111589.58728271484,
+      "peak_equity": 114367.31081054689,
+      "positions": {
+        "SOXL": 180,
+        "SOXX": 100
+      },
+      "prices": {
+        "SOXL": 132.3300018310547,
+        "SOXX": 532.52001953125
+      },
+      "source": "qlib.data.D.features"
+    },
+    {
+      "cash": 37897.395,
+      "date": "2026-08-07",
+      "drawdown": -0.002152572052349422,
+      "equity": 114121.12693359374,
+      "peak_equity": 114367.31081054689,
+      "positions": {
+        "SOXL": 160,
+        "SOXX": 99
+      },
+      "prices": {
+        "SOXL": 140.25,
+        "SOXX": 543.27001953125
+      },
+      "source": "qlib.data.D.features"
+    }
+  ],
+  "total_inferred_fees": 14.939999999995052,
+  "updated_at": "2026-08-08T10:03:25+08:00",
+  "version": 1
+}

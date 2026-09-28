@@ -1,0 +1,89 @@
+{
+  "dataset_class": "qlib.data.dataset.DatasetH",
+  "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+  "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+  "features": [
+    "portfolio_drawdown",
+    "current_beta_cap",
+    "raw_effective_beta",
+    "risk_state",
+    "raw_soxl_weight",
+    "raw_soxx_weight",
+    "raw_cash_weight",
+    "tail_probability",
+    "alpha_probability",
+    "portfolio_ret_1d",
+    "portfolio_ret_3d",
+    "portfolio_ret_5d",
+    "target_soxl_weight",
+    "target_soxx_weight",
+    "target_cash_weight",
+    "pretrade_soxl_weight",
+    "pretrade_soxx_weight",
+    "pretrade_cash_weight",
+    "soxl_weight_delta",
+    "soxx_weight_delta",
+    "effective_beta_delta",
+    "open_turnover"
+  ],
+  "label": "execute_advantage_after_25bps_current_and_next_reset_cost",
+  "label_available_at_rule": "max(exit_date_09:30_ET, next_target_trade_date_09:31_ET)",
+  "training_cutoffs": {
+    "train_2017": "2017-01-04T14:31:00+00:00",
+    "train_2018": "2018-01-03T14:31:00+00:00",
+    "train_2019": "2019-01-03T14:31:00+00:00",
+    "train_2020": "2020-01-03T14:31:00+00:00",
+    "train_2021": "2021-01-05T14:31:00+00:00",
+    "train_2022": "2022-01-04T14:31:00+00:00",
+    "train_outer": "2023-01-04T14:31:00+00:00"
+  },
+  "label_maturity_filter": "label_available_at strictly before first test execution",
+  "segments": {
+    "train_2017": [
+      "2016-01-04",
+      "2016-12-31"
+    ],
+    "train_2018": [
+      "2016-01-04",
+      "2017-12-31"
+    ],
+    "train_2019": [
+      "2016-01-04",
+      "2018-12-31"
+    ],
+    "train_2020": [
+      "2016-01-04",
+      "2019-12-31"
+    ],
+    "train_2021": [
+      "2016-01-04",
+      "2020-12-31"
+    ],
+    "train_2022": [
+      "2016-01-04",
+      "2021-12-31"
+    ],
+    "train_outer": [
+      "2016-01-04",
+      "2022-12-31"
+    ]
+  },
+  "segment_rows": {
+    "train_2017": 251,
+    "train_2018": 502,
+    "train_2019": 753,
+    "train_2020": 1005,
+    "train_2021": 1258,
+    "train_2022": 1510,
+    "train_outer": 1755
+  },
+  "excluded_unavailable_label_rows": {
+    "train_2017": 1,
+    "train_2018": 1,
+    "train_2019": 1,
+    "train_2020": 1,
+    "train_2021": 1,
+    "train_2022": 1,
+    "train_outer": 1
+  }
+}

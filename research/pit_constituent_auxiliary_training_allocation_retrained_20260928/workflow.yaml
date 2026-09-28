@@ -1,0 +1,75 @@
+experiment: pit_constituent_auxiliary_training_allocation_retrained_20260928
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl
+region: us
+as_of: '2026-09-25'
+recorder_uri: /Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder
+candidate:
+  name: pit_only_aux_005
+  auxiliary_weight: 0.05
+  include_union_backfill: false
+  method: relative_return_baseline
+  absolute_drawdown_penalty: 0.0
+  conditional_drawdown_penalty: 0.0
+  rolling_5d_penalty: 0.0
+  cash_target_penalty: 0.0
+  tail_event_weight_multiplier: 1.0
+  stress_cash_ceiling: 0.55
+  smoothing_span: null
+  rebalance_threshold: null
+  drawdown_floor: null
+  drawdown_budget_multiplier: 0.0
+  drawdown_budget_metric: risky_weight
+  drawdown_budget_buffer: 0.0
+  trade_event_penalty: 0.0
+  trade_event_softness: 0.02
+training_spec:
+  root: /Users/rziiiii/dev/workspace
+  experiment: pit_constituent_auxiliary_training_allocation_retrained_20260928
+  train_start: '2011-01-03'
+  development_years:
+  - 2016
+  - 2017
+  - 2018
+  - 2019
+  - 2020
+  - 2021
+  - 2022
+  development_end: '2022-12-30'
+  outer:
+  - '2023-01-03'
+  - '2026-09-25'
+  purge_rows: 20
+  hidden_units: 16
+  tail_hidden_units: 8
+  epochs: 300
+  learning_rate: 0.002
+  weight_decay: 0.08
+  maximum_soxl_weight: 0.3
+  minimum_cash_weight: 0.15
+  primary_tail_loss_weight: 0.02
+  turnover_loss_weight: 0.006
+  training_cost_bps: 10
+  costs_bps:
+  - 10
+  - 25
+  auxiliary_batch_size: 2048
+  smoothing_span: 3
+  rebalance_threshold: 0.02
+  research_max_drawdown_target_pct: null
+  research_worst_5d_target_pct: -15.0
+  research_minimum_ratio_10bps: 1.0
+  minimum_trade_day_reduction: 0.0
+  minimum_terminal_wealth_ratio_vs_primary: 0.0
+  promotion_requires_clean_forward: false
+  seed: 71
+selection_uses_outer_test: false
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/models/pit_only_aux_005.pkl
+  - artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/selected_model.json
+  - artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/predictions.csv
+  - artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/strategy_returns.csv
+  - artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/training_diagnostics.csv
+  - artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/provenance.json

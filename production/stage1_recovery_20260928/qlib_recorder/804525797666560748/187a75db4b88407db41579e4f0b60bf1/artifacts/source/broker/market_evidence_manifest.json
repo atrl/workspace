@@ -1,0 +1,22 @@
+{
+  "SOXL_daily_unadjusted.json": {
+    "copied_from": "/Users/rziiiii/dev/workspace/production/stage1_recovery_20260928/qlib_recorder/804525797666560748/3766ba65e32b4c5396449f17342e9f19/artifacts/source/broker/SOXL_daily_unadjusted.json",
+    "sha256": "764b107fd84f4a8c71c588464c59a66935b072c13dde3c545442a54bfd6a79b0",
+    "market_as_of": "2026-09-25"
+  },
+  "SOXX_daily_unadjusted.json": {
+    "copied_from": "/Users/rziiiii/dev/workspace/production/stage1_recovery_20260928/qlib_recorder/804525797666560748/3766ba65e32b4c5396449f17342e9f19/artifacts/source/broker/SOXX_daily_unadjusted.json",
+    "sha256": "45af8d5e6f457b031408c0845edf8cab3d7cba3cd488d69a67094fc3b8669236",
+    "market_as_of": "2026-09-25"
+  },
+  "SOXL_corporate_actions.json": {
+    "copied_from": "/Users/rziiiii/dev/workspace/production/stage1_recovery_20260928/qlib_recorder/804525797666560748/3766ba65e32b4c5396449f17342e9f19/artifacts/source/broker/SOXL_corporate_actions.json",
+    "sha256": "c541e7a97133722a86ed35f6260799d846ad1b05508dc9c145938496a6d6cf81",
+    "market_as_of": "original corporate-action query preserved"
+  },
+  "SOXX_corporate_actions.json": {
+    "copied_from": "/Users/rziiiii/dev/workspace/production/stage1_recovery_20260928/qlib_recorder/804525797666560748/3766ba65e32b4c5396449f17342e9f19/artifacts/source/broker/SOXX_corporate_actions.json",
+    "sha256": "43d579e2fbd126d6a41671108400193856568402411f79605ff1f8be3351af8e",
+    "market_as_of": "original corporate-action query preserved"
+  }
+}

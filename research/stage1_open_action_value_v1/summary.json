@@ -1,11 +1,11 @@
 {
   "experiment": "stage1_open_action_value_v1",
   "card_type": "stage1_open_execution_action_value_research_card",
-  "decision": "validated_research_candidate_for_clean_forward_shadow",
-  "production_change": "blocked_pending_clean_forward_shadow",
+  "decision": "blocked_pending_causal_revalidation",
+  "production_change": "blocked_pending_causal_revalidation",
   "selection_uses_outer_test": false,
   "outer_role": "reused_diagnostic_only_not_model_selection",
-  "development_gate_pass": true,
+  "development_gate_pass": false,
   "source_stage1": {
     "experiment": "stage1_confidence_veto_recovery_v1",
     "recorder_id": "b03eab80b52f47039489ac2119e385b4",
@@ -70,17 +70,7 @@
     "avg_cash_weight_pct": 43.51384575749535
   },
   "development_gates": {
-    "development_return_above_baseline": true,
-    "stress_25bps_return_above_baseline": true,
-    "max_drawdown_not_worse": true,
-    "worst_day_not_worse": true,
-    "cvar5_not_worse": true,
-    "worst_5d_not_worse": true,
-    "open_trade_days_reduced_8pct": true,
-    "turnover_not_increased": true,
-    "annual_wealth_floor_pass": true,
-    "baseline_fallback_identity": true,
-    "outer_not_used_for_selection": true
+    "causal_revalidation_complete": false
   },
   "outer_diagnostic": [
     {
@@ -271,5 +261,27 @@
   },
   "recorder_id": "77f2ae6c0ea143c0a765366abae71aaf",
   "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_open_action_value_v1/qlib_recorder",
-  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_open_action_value_v1/qlib_recorder/742969412867128395/77f2ae6c0ea143c0a765366abae71aaf"
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_open_action_value_v1/qlib_recorder/742969412867128395/77f2ae6c0ea143c0a765366abae71aaf",
+  "historical_result": {
+    "decision": "validated_research_candidate_for_clean_forward_shadow",
+    "production_change": "blocked_pending_clean_forward_shadow",
+    "development_gate_pass": true,
+    "development_gates": {
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": true,
+      "max_drawdown_not_worse": true,
+      "worst_day_not_worse": true,
+      "cvar5_not_worse": true,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": true,
+      "baseline_fallback_identity": true,
+      "outer_not_used_for_selection": true
+    },
+    "recorder_id": "77f2ae6c0ea143c0a765366abae71aaf",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_open_action_value_v1/qlib_recorder/742969412867128395/77f2ae6c0ea143c0a765366abae71aaf"
+  },
+  "verification_status": "invalidated_pending_causal_revalidation",
+  "recovery_validation": "recovery_validation.json"
 }

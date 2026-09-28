@@ -1,0 +1,10 @@
+experiment: stage1_hold_paper_trial_20260928
+execution_environment: SIMULATE
+research_promotion_status: not_promoted
+release_path: production/stage1_futu_sim_v1/runtime_release.json
+account_cycle: stage1_2026-08-03_v2
+account_reset: false
+notebook_action: read_only_preflight
+runtime_entrypoint: production/run_stage1_futu_sim.sh
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_account_marks
+recorder_id: 1b62099d14d84e698e8a2f7524b46482

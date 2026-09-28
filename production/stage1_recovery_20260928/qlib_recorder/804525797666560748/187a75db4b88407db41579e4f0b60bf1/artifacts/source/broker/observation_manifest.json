@@ -1,0 +1,54 @@
+{
+  "query_started_at": "2026-09-28T17:00:13.647+08:00",
+  "query_completed_at": "2026-09-28T17:00:15.610+08:00",
+  "timezone": "Asia/Shanghai",
+  "execution_environment": "SIMULATE",
+  "account_type": "STOCK_AND_OPTION",
+  "read_only_methods_only": true,
+  "calls": [
+    {
+      "query": "STOCK_AND_OPTION_balance",
+      "started_at": "2026-09-28T17:00:13.656+08:00",
+      "completed_at": "2026-09-28T17:00:14.183+08:00"
+    },
+    {
+      "query": "STOCK_AND_OPTION_positions",
+      "started_at": "2026-09-28T17:00:14.184+08:00",
+      "completed_at": "2026-09-28T17:00:14.678+08:00"
+    },
+    {
+      "query": "STOCK_AND_OPTION_orders",
+      "started_at": "2026-09-28T17:00:14.678+08:00",
+      "completed_at": "2026-09-28T17:00:15.143+08:00"
+    },
+    {
+      "query": "quotes",
+      "started_at": "2026-09-28T17:00:15.147+08:00",
+      "completed_at": "2026-09-28T17:00:15.608+08:00"
+    }
+  ],
+  "comparison_to_1615_anchor": {
+    "cash_unchanged": true,
+    "positions_unchanged": true,
+    "orders_unchanged": true,
+    "order_count": 20
+  },
+  "files": {
+    "STOCK_AND_OPTION_balance.json": {
+      "sha256": "d777112237eb4368d313ed4ac0dc2898bc9270b8ea16bf70fd791e7aceb939b9",
+      "bytes": 1811
+    },
+    "STOCK_AND_OPTION_orders.json": {
+      "sha256": "f20ab3eec06af4a3076e68c4daa59bac2f71c439e29a8b213af41b673deef791",
+      "bytes": 13870
+    },
+    "STOCK_AND_OPTION_positions.json": {
+      "sha256": "a0a63db06e5e289632c71a79957390e4ad75f08a56d7945742fdacfd50d606d7",
+      "bytes": 1569
+    },
+    "quotes.json": {
+      "sha256": "a19acec8d7d3ab7618f37ff6ed44f42c67730aa309a401fb40516cd92c4bc877",
+      "bytes": 8682
+    }
+  }
+}

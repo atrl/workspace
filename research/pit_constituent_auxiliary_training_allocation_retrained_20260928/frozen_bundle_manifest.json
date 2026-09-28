@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "experiment": "pit_constituent_auxiliary_training_allocation_retrained_20260928",
+  "recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "training_window": [
+    "2011-01-03",
+    "2022-12-30"
+  ],
+  "diagnostic_as_of": "2026-09-25",
+  "source_sha256": {
+    "data/qlib/soxl/qlib_store_manifest.json": "26aa3b85a2ed8cddad7b47b6c6e30997448c0f92a360b47a0020e2e953d5ae0d",
+    "data/qlib/soxl_soxx_soxs/qlib_store_manifest.json": "9dec4b4dea3d7ff918d46645b9d8716238a0b007399969969fcd039d045c228d",
+    "data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1/qlib_store_manifest.json": "9e1d04142719e70e4cc74bc470b772df9a416eb9ac4e691df42d41166551552f",
+    "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+  },
+  "artifacts": [
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/models/pit_only_aux_005.pkl",
+      "sha256": "512b8d7621310caf023f7f09051d47bd8df89473378f32e56bcc5ce093f1211d",
+      "size_bytes": 53783
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/selected_model.json",
+      "sha256": "55e5ed52aec6d6b6f993c25ac51ccdaec47cecc6ff6fd793b67e12063a6e3b2f",
+      "size_bytes": 906
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/predictions.csv",
+      "sha256": "f532c84b5c3c05d181092044aa1bc6223e26e774d81a26f3bfa181828bdf342e",
+      "size_bytes": 392263
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/strategy_returns.csv",
+      "sha256": "0598a7edb6aa49df7d38d987b216512c52fa96e002f2604fcc32637d0af04d27",
+      "size_bytes": 1665305
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/training_diagnostics.csv",
+      "sha256": "de904ef6bfa74528e42877cac4f88604b1f0cbea8219477ea86a1ab2132b0506",
+      "size_bytes": 3031
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/provenance.json",
+      "sha256": "a5a04f4def7baf3ea203dc711415dc06e7cd8b825868835f4b4bd23e61e931a6",
+      "size_bytes": 7956
+    }
+  ],
+  "recorder_metadata": [
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/meta.yaml",
+      "sha256": "c6c4cd0e0af3045b3af3e42f0d0ed0103b755b61c21efe6a440059aaa5c2ddce",
+      "size_bytes": 477
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/metrics/development_max_drawdown_pct",
+      "sha256": "e7bd9308a8a2e7ebecbfe7ff5df928fe116788855e23a9f2aafc02530ba5ba43",
+      "size_bytes": 35
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/metrics/development_return_pct",
+      "sha256": "f0189c4fe0a138cbac358c38bbfae4b0c0e67ae738419dd2a852b79d1ee41194",
+      "size_bytes": 34
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/metrics/outer_max_drawdown_pct",
+      "sha256": "b6473d29ae96b2c199f8a3a3788e903c8dd320834f843a818addd813497fcf39",
+      "size_bytes": 36
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/metrics/outer_return_pct",
+      "sha256": "6e2947ad7fb1edc958ab6b84f3bad51a0901aa5f3f7fe01987d2559c75ba8292",
+      "size_bytes": 34
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/params/candidate",
+      "sha256": "7739540bf8e7d0714f6d29a419e0aee461eb07ff9949a114c6b57361a89fbd9e",
+      "size_bytes": 16
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/params/candidate_search_count",
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "size_bytes": 1
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/params/cmd-sys.argv",
+      "sha256": "e592e3b067787daff87998ebf7051799e3d9896a38365f743aed24cdce0177e2",
+      "size_bytes": 202
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/params/diagnostic_as_of",
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "size_bytes": 10
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/params/seed",
+      "sha256": "7f2253d7e228b22a08bda1f09c516f6fead81df6536eb02fa991a34bb38d9be8",
+      "size_bytes": 2
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/params/selection_uses_outer_test",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size_bytes": 5
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/params/train_start",
+      "sha256": "396a1bf61e9af5152be789918197c203eb9ad696c4831db97621f6d42e734bca",
+      "size_bytes": 10
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/params/training_information_cutoff",
+      "sha256": "04d2da39ea97d13beccf2e99c5c99db9b11022d06eb0f6b314d55163ff6efd25",
+      "size_bytes": 10
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size_bytes": 15
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "size_bytes": 89
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size_bytes": 8
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size_bytes": 7
+    },
+    {
+      "path": "qlib_recorder/188464491611747257/meta.yaml",
+      "sha256": "bfb50ac62d980ef041f8455fa1ff53af90e5c2819c549a4dd1f4a55cc393390b",
+      "size_bytes": 428
+    }
+  ]
+}

@@ -232,7 +232,10 @@ def build_stage1_paper_simulation_status(
             "equity": equity,
             "peak_equity": float(ledger.get("peak_equity", 0.0)),
             "drawdown": float(ledger.get("drawdown", 0.0)),
-            "total_inferred_fees": float(ledger.get("total_inferred_fees", 0.0)),
+            "total_inferred_fees": (
+                float(ledger["total_inferred_fees"])
+                if ledger.get("total_inferred_fees") is not None else None
+            ),
             "positions": positions,
             "prices": prices,
             "updated_at": ledger.get("updated_at"),

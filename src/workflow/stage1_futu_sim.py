@@ -82,7 +82,7 @@ class RuntimeState:
 
     def __post_init__(self) -> None:
         if self.previous is None:
-            self.previous = np.zeros(3, dtype="float64")
+            self.previous = np.array([0.0, 0.0, 1.0], dtype="float64")
         if self.history is None:
             self.history = []
 
@@ -140,11 +140,34 @@ def _source_artifact_dir(
 
 
 def load_frozen_inference_frame(
-    *, root: Path | str | None = None
+    *, root: Path | str | None = None,
+    current_prices: dict[str, float] | None = None,
+    execution_date: str | None = None,
+    current_prices_as_of: str | pd.Timestamp | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     repo_root = _resolve_root(root)
     production_spec = Stage1FutuSimSpec(root=repo_root)
     artifact_dir, stage1_summary = _source_artifact_dir(production_spec)
+    return infer_frozen_allocation(
+        root=repo_root, artifact_dir=artifact_dir,
+        current_prices=current_prices, execution_date=execution_date,
+        current_prices_as_of=current_prices_as_of,
+        source_identity={
+            "source_experiment": stage1_summary["source_audit"]["source_experiment"],
+            "source_recorder_id": stage1_summary["source_audit"]["source_recorder_id"],
+            "stage1_recorder_id": stage1_summary["recorder_id"],
+        },
+    )
+
+
+def infer_frozen_allocation(
+    *, root: Path, artifact_dir: Path, source_identity: dict[str, Any],
+    current_prices: dict[str, float] | None = None,
+    execution_date: str | None = None,
+    current_prices_as_of: str | pd.Timestamp | None = None,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """Apply explicitly identified retained weights without fitting a new model."""
+    repo_root = root
     selected = json.loads((artifact_dir / "selected_model.json").read_text(encoding="utf-8"))
     candidate_name = str(selected["candidate"])
     with (artifact_dir / "models" / f"{candidate_name}.pkl").open("rb") as file:
@@ -209,16 +232,19 @@ def load_frozen_inference_frame(
     predictions["tail_probability"] = tail_probability
     predictions["alpha_probability"] = alpha_probability
     candidate = AuxiliaryTrainingCandidate(**state["candidate"])
-    predictions = _smooth_weights(predictions, spec=pit_spec, candidate=candidate)
+    predictions, market, smoothing_audit = _smooth_frozen_allocation(
+        predictions, market=market, spec=pit_spec, candidate=candidate,
+        execution_provider_uri=Path(market_audit["execution_provider_uri"]),
+        current_prices=current_prices, execution_date=execution_date,
+        current_prices_as_of=current_prices_as_of,
+    )
     frame = market.join(predictions, how="inner")
     frame["soxl_return"] = frame["soxl_forward_open_return"]
     frame["soxx_return"] = frame["soxx_forward_open_return"]
     frame["segment"] = "outer_diagnostic"
     frame.index.name = "signal_date"
     audit = {
-        "source_experiment": stage1_summary["source_audit"]["source_experiment"],
-        "source_recorder_id": stage1_summary["source_audit"]["source_recorder_id"],
-        "stage1_recorder_id": stage1_summary["recorder_id"],
+        **source_identity,
         "source_model_path": str(artifact_dir / "models" / f"{candidate_name}.pkl"),
         "source_model_frozen": True,
         "source_training_end": pit_spec.development_end,
@@ -229,8 +255,92 @@ def load_frozen_inference_frame(
         "market_audit": market_audit,
         "primary_features": primary_features,
         "common_features": common_features,
+        "smoothing": smoothing_audit,
     }
     return frame, audit
+
+
+def _smooth_frozen_allocation(
+    predictions: pd.DataFrame,
+    *, market: pd.DataFrame, spec: PitAuxiliaryAllocationSpec,
+    candidate: AuxiliaryTrainingCandidate, execution_provider_uri: Path,
+    current_prices: dict[str, float] | None = None,
+    execution_date: str | None = None,
+    current_prices_as_of: str | pd.Timestamp | None = None,
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
+    """Replay marked holdings using observed returns; preserve unknown tail labels."""
+    columns = ["soxl_forward_open_return", "soxx_forward_open_return"]
+    market = market.copy()
+    returns = market.loc[predictions.index, columns].astype(float).copy()
+    missing_before_last = returns.iloc[:-1].isna().any(axis=1)
+    missing_dates = list(missing_before_last.index[missing_before_last])
+    audit: dict[str, Any] = {"status": "ready", "current_execution_marks": [], "pending_signal_dates": []}
+    if missing_dates and current_prices is not None:
+        if len(missing_dates) != 1 or missing_dates[0] != predictions.index[-2]:
+            raise ValueError("blocked: frozen smoothing has an unresolved historical return gap")
+        if execution_date is None or current_prices_as_of is None:
+            raise ValueError("blocked: current execution prices require an observed same-session timestamp")
+        observed = pd.Timestamp(current_prices_as_of)
+        if observed.tzinfo is None:
+            raise ValueError("blocked: current execution price timestamp must include a timezone")
+        observed = observed.tz_convert("America/New_York")
+        observed_minutes = observed.hour * 60 + observed.minute
+        if observed.date().isoformat() != execution_date or not 570 <= observed_minutes < 960:
+            raise ValueError("blocked: current execution price mark is stale or outside the regular session")
+        if set(current_prices) != {"SOXL", "SOXX"} or any(
+            not np.isfinite(float(value)) or float(value) <= 0 for value in current_prices.values()
+        ):
+            raise ValueError("blocked: invalid current execution price mark")
+        signal_date = missing_dates[0]
+        entry_date = pd.Timestamp(market.loc[signal_date, "trade_date"])
+        if pd.isna(entry_date) or entry_date != predictions.index[-1] or pd.Timestamp(execution_date) <= entry_date:
+            raise ValueError("blocked: execution mark does not settle the preceding allocation interval")
+        recorded_exit = pd.Timestamp(market.loc[signal_date, "exit_date"])
+        if pd.notna(recorded_exit) and recorded_exit != pd.Timestamp(execution_date):
+            raise ValueError("blocked: execution price mark date differs from the pending interval exit")
+        entry = _qlib_open_prices(provider_uri=execution_provider_uri, session_date=entry_date.date().isoformat())
+        for symbol, column in zip(("SOXL", "SOXX"), columns):
+            realized = float(current_prices[symbol]) / float(entry[symbol]) - 1.0
+            if pd.notna(returns.loc[signal_date, column]) and not np.isclose(
+                returns.loc[signal_date, column], realized, atol=1e-8
+            ):
+                raise ValueError("blocked: partial historical return conflicts with the execution price mark")
+            returns.loc[signal_date, column] = realized
+            market.loc[signal_date, column] = realized
+        market.loc[signal_date, "exit_date"] = pd.Timestamp(execution_date)
+        audit["current_execution_marks"].append({
+            "signal_date": pd.Timestamp(signal_date).date().isoformat(),
+            "entry_date": entry_date.date().isoformat(), "exit_date": execution_date,
+            "price_observed_at": observed.isoformat(), "prices": current_prices,
+            "basis": "observed execution quote; not an assumed official opening print",
+        })
+        missing_dates = []
+    elif len(missing_dates) > 1 or (missing_dates and missing_dates[0] != predictions.index[-2]):
+        raise ValueError("blocked: frozen smoothing has an unresolved historical return gap")
+
+    usable_count = len(predictions) - (1 if missing_dates else 0)
+    if missing_dates:
+        audit["status"] = "needs_execution_mark"
+        audit["pending_signal_dates"] = [predictions.index[-1].date().isoformat()]
+    usable_returns = returns.iloc[:usable_count].copy()
+    unobserved_final = usable_returns.iloc[-1].isna()
+    audit["unobserved_final_return_signal_date"] = (
+        usable_returns.index[-1].date().isoformat() if unobserved_final.any() else None
+    )
+    audit["unobserved_final_return_consumed"] = False
+    # _smooth_weights marks its last row only after producing the final target.
+    # An internal placeholder cannot affect any target and is never written to
+    # market/return evidence. Unknown final realized returns remain NaN there.
+    usable_returns.iloc[-1] = usable_returns.iloc[-1].fillna(0.0)
+    smoothed = _smooth_weights(
+        predictions.iloc[:usable_count], spec=spec, candidate=candidate,
+        asset_returns=usable_returns,
+    )
+    result = predictions.copy()
+    weight_columns = ["soxl_weight", "soxx_weight", "cash_weight"]
+    result[weight_columns] = np.nan
+    result.loc[smoothed.index, weight_columns] = smoothed[weight_columns]
+    return result, market, audit
 
 
 @lru_cache(maxsize=2)
@@ -469,36 +579,21 @@ def _settle_target(
     assert state.previous is not None
     assert state.history is not None
     asset_returns = np.array([soxl_return, soxx_return, 0.0], dtype="float64")
-    if prepared.recovery_action:
-        early = np.array(
-            [float(row["early_ret_soxl"]), float(row["early_ret_soxx"]), 0.0],
-            dtype="float64",
-        )
-        value_at_cut = 1.0 + prepared.open_weights @ early
-        drifted = mark_to_market_weights(prepared.open_weights, early)
-        post = np.array(
-            [
-                (1.0 + soxl_return) / (1.0 + early[0]) - 1.0,
-                (1.0 + soxx_return) / (1.0 + early[1]) - 1.0,
-                0.0,
-            ],
-            dtype="float64",
-        )
-        gross = value_at_cut * (1.0 + prepared.close_weights @ post) - 1.0
-        turnover = np.abs(prepared.open_weights[:2] - state.previous[:2]).sum()
-        turnover += np.abs(prepared.close_weights[:2] - drifted[:2]).sum()
-        ending_weights = mark_to_market_weights(prepared.close_weights, post)
-    else:
-        gross = float(prepared.open_weights @ asset_returns)
-        turnover = np.abs(prepared.open_weights[:2] - state.previous[:2]).sum()
-        ending_weights = mark_to_market_weights(
-            prepared.open_weights, asset_returns
-        )
-    strategy_return = float(gross - turnover * cost_bps / 10_000.0)
+    from src.backtest.position_accounting import settle_target_session
+    settlement = settle_target_session(
+        state.previous, open_target_weights=prepared.open_weights,
+        asset_returns=asset_returns, cost_bps=cost_bps,
+        recovery_target_weights=prepared.close_weights if prepared.recovery_action else None,
+        early_returns=(
+            np.array([float(row["early_ret_soxl"]), float(row["early_ret_soxx"]), 0.0])
+            if prepared.recovery_action else None
+        ),
+    )
+    strategy_return = float(settlement["net_return"])
     state.history.append(strategy_return)
     state.equity *= 1.0 + strategy_return
     state.peak = max(state.peak, state.equity)
-    state.previous = ending_weights
+    state.previous = settlement["ending_weights"]
     return strategy_return
 
 
@@ -627,8 +722,19 @@ def build_runtime_target(
     include_current_intraday: bool = False,
     execution_date: str | None = None,
     live_controller_state: RuntimeState | None = None,
+    current_prices_as_of: str | pd.Timestamp | None = None,
+    open_decision_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     repo_root = _resolve_root(root)
+    release_path = repo_root / "production" / EXPERIMENT / "runtime_release.json"
+    if release_path.exists():
+        from src.workflow.stage1_runtime_release import build_release_target
+        return build_release_target(
+            root=repo_root, release_path=release_path, current_prices=current_prices,
+            include_current_intraday=include_current_intraday,
+            execution_date=execution_date, live_controller_state=live_controller_state,
+            current_prices_as_of=current_prices_as_of, open_decision_context=open_decision_context,
+        )
     spec = Stage1FutuSimSpec(root=repo_root)
     source_summary, _ = _selected_stage1(spec)
     selected_model = dict(source_summary["selected_model"])

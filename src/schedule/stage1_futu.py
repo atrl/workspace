@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import fcntl
 import json
 from datetime import datetime, time
 from decimal import Decimal, ROUND_HALF_UP
@@ -18,7 +19,7 @@ from src.api import (
     reconcile_stage1_ledger,
     write_stage1_cycle,
 )
-from src.api.futu_sim import reconcile_execution_state
+from src.api.futu_sim import reconcile_execution_state, record_hold_decision
 from src.data import build_qlib_store_from_frame
 from src.data.intraday import (
     fetch_futu_intraday_bars,
@@ -74,15 +75,25 @@ def refresh_intraday_store(
     *,
     root: Path,
     session_date: str,
+    start_session_date: str | None = None,
     host: str = "127.0.0.1",
     port: int = 11111,
 ) -> dict[str, Any]:
     cache_path = root / "data" / "processed" / "intraday" / "soxl_soxx_1m.parquet"
     existing = read_intraday_cache(cache_path)
+    starts = [session_date]
+    if start_session_date is not None:
+        starts.append(start_session_date)
+    if not existing.empty:
+        for symbol in ("SOXL", "SOXX"):
+            dates = existing.loc[existing["symbol"].eq(symbol), "date"]
+            if not dates.empty:
+                starts.append(str(dates.max())[:10])
+    fetch_start = min(starts)
     fetched = [
         fetch_futu_intraday_bars(
             symbol,
-            start=session_date,
+            start=fetch_start,
             end=session_date,
             host=host,
             port=port,
@@ -123,6 +134,7 @@ def refresh_intraday_store(
     _update_intraday_registry(root, minute)
     return {
         "session_date": session_date,
+        "fetch_start": fetch_start,
         "cache_rows": int(len(minute)),
         "cache_end": str(pd.to_datetime(minute["timestamp"]).max()),
         "manifests": manifests,
@@ -202,6 +214,7 @@ def refresh_stage1_data(
         refresh_intraday_store(
             root=repo_root,
             session_date=settled,
+            start_session_date=market.get("old_last_date"),
             host=host,
             port=port,
         )
@@ -209,6 +222,11 @@ def refresh_stage1_data(
         else {"status": "needs_data", "reason": "opend_unreachable", "session_date": settled}
     )
     normalized = rebuild_normalized_provider(root=repo_root)
+    cycle = _read_json(repo_root / RUNTIME_RELATIVE / CYCLE_MANIFEST)
+    if cycle and cycle.get("marks_provider_uri"):
+        from src.data.futu_account_marks import refresh_account_marks
+        refresh_account_marks(root=repo_root, start=str(cycle["inception_date"]),
+                              end=settled, host=host, port=port)
     freshness = _refresh_freshness(
         settled=settled,
         market=market,
@@ -273,6 +291,8 @@ def detect_slot(now: datetime | None = None) -> str:
     if current.tzinfo is None:
         current = current.replace(tzinfo=NEW_YORK_TZ)
     current = current.astimezone(NEW_YORK_TZ)
+    if current.weekday() < 5 and time(8, 0) <= current.time() < time(9, 25):
+        return "postclose"
     if current.weekday() < 5 and time(9, 30) <= current.time() < time(9, 46):
         return "open"
     if current.weekday() < 5 and time(10, 30) <= current.time() < time(10, 46):
@@ -401,8 +421,14 @@ def _cycle_ledger(
             repo_root,
             start=str(cycle["inception_date"]),
             end=settled_date(now),
+            provider_uri=(repo_root / str(cycle["marks_provider_uri"])) if cycle.get("marks_provider_uri") else None,
         ),
         remark_prefix=str(cycle["remark_prefix"]) + "_",
+        cycle_id=str(cycle["cycle_id"]),
+        cash_adjustment_confirmation=(
+            _read_json(runtime_dir / str(cycle["cash_adjustment_confirmation_file"]))
+            if cycle.get("cash_adjustment_confirmation_file") else None
+        ),
     )
 
 
@@ -512,6 +538,51 @@ def run_stage1_futu_task(
     port: int = 11111,
     now: datetime | None = None,
 ) -> dict[str, Any]:
+    """Serialize reconciliation and execution; retry due work after a missed tick."""
+    repo_root = _resolve_root(root)
+    runtime_dir = repo_root / RUNTIME_RELATIVE
+    runtime_dir.mkdir(parents=True, exist_ok=True)
+    selected_slot = detect_slot(now) if slot == "auto" else slot
+    if selected_slot == "not_due":
+        return {"status": "not_due", "slot": selected_slot}
+    with (runtime_dir / "task.lock").open("a") as lock:
+        try:
+            fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            return {
+                "status": "blocked", "slot": selected_slot,
+                "reason": "stage1_task_already_running", "real_broker_order": False,
+            }
+        completed_path = runtime_dir / "latest_postclose_run.json"
+        if slot == "auto" and selected_slot == "postclose":
+            completed = _read_json(completed_path)
+            if completed and completed.get("settled_date") == settled_date(now):
+                return {
+                    "status": "no_action", "slot": selected_slot,
+                    "reason": "settled_data_already_refreshed", "real_broker_order": False,
+                }
+        result = _run_stage1_futu_task(
+            root=repo_root, slot=selected_slot, dry_run=dry_run,
+            skip_refresh=skip_refresh, notional=notional,
+            broker_reserve_cash=broker_reserve_cash, host=host, port=port, now=now,
+        )
+        if selected_slot == "postclose" and result.get("status") == "ok" and not skip_refresh:
+            _write_latest(completed_path, {**result, "settled_date": settled_date(now)})
+        return result
+
+
+def _run_stage1_futu_task(
+    *,
+    root: Path | str | None = None,
+    slot: str = "auto",
+    dry_run: bool = False,
+    skip_refresh: bool = False,
+    notional: float = DEFAULT_NOTIONAL,
+    broker_reserve_cash: float = DEFAULT_BROKER_RESERVE_CASH,
+    host: str = "127.0.0.1",
+    port: int = 11111,
+    now: datetime | None = None,
+) -> dict[str, Any]:
     repo_root = _resolve_root(root)
     selected_slot = detect_slot(now) if slot == "auto" else slot
     if selected_slot in {"start-now", "start_now"}:
@@ -546,12 +617,37 @@ def run_stage1_futu_task(
         _record_run(runtime_dir, result, now=now, actionable=False)
         return result
     if selected_slot == "postclose":
-        refresh = None if skip_refresh else refresh_stage1_data(
-            root=repo_root,
-            host=host,
-            port=port,
-        )
-        card = run_stage1_futu_sim_card(root=repo_root)
+        refresh_stamp = runtime_dir / "latest_data_refresh.json"
+        previous_refresh = _read_json(refresh_stamp)
+        if skip_refresh:
+            refresh = None
+        elif previous_refresh and previous_refresh.get("settled_date") == settled_date(now):
+            refresh = {"status": "ok", "settled_date": settled_date(now), "reused": True}
+        else:
+            refresh = refresh_stage1_data(root=repo_root, host=host, port=port)
+            if refresh.get("status") == "ok":
+                _write_latest(refresh_stamp, {"settled_date": settled_date(now), "status": "ok"})
+        card_error = None
+        try:
+            release_path = repo_root / "production/stage1_futu_sim_v1/runtime_release.json"
+            if release_path.exists():
+                from src.workflow.stage1_runtime_release import load_runtime_release
+                released = load_runtime_release(repo_root, release_path)
+                card = {
+                    "decision": (
+                        "paper_trial_not_promoted_waiting_next_open"
+                        if released.get("paper_trial_authorization")
+                        else "validated_paper_release_waiting_next_open"
+                    ),
+                    "recorder_id": released["action_summary"]["recorder_id"],
+                    "latest_target": {"status": "pending_next_open_mark", "signal_date": settled_date(now)},
+                }
+            else:
+                card = run_stage1_futu_sim_card(root=repo_root)
+        except (FileNotFoundError, ValueError) as error:
+            card_error = str(error)
+            card = {"decision": "blocked", "recorder_id": None,
+                    "latest_target": {"status": "blocked", "signal_date": None}}
         ledger = None
         if opend_reachable(host, port) and cycle and cycle.get("status") == "active":
             with FutuSimulatedBroker(host=host, port=port) as broker:
@@ -571,7 +667,8 @@ def run_stage1_futu_task(
                     now=now,
                 )
         result = {
-            "status": "ok" if refresh is None or refresh.get("status") == "ok" else "needs_data",
+            "status": "blocked" if card_error else ("ok" if refresh is None or refresh.get("status") == "ok" else "needs_data"),
+            "reason": card_error,
             "slot": "postclose",
             "refresh": refresh,
             "card": {
@@ -661,6 +758,14 @@ def run_stage1_futu_task(
                 return result
         prices = broker.quotes()
         snapshot = broker.account_snapshot()
+        if (repo_root / "production/stage1_futu_sim_v1/runtime_release.json").exists():
+            quote_error = _execution_quote_error(getattr(broker, "last_quote_as_of", None), now=now)
+            if quote_error:
+                result = {"status": "needs_data", "slot": selected_slot,
+                          "reason": quote_error, "real_broker_order": False,
+                          "quote_as_of": getattr(broker, "last_quote_as_of", None)}
+                _record_run(runtime_dir, result, now=now, actionable=not dry_run)
+                return result
         session_date = (now or datetime.now(tz=NEW_YORK_TZ)).astimezone(
             NEW_YORK_TZ
         ).date().isoformat()
@@ -696,11 +801,17 @@ def run_stage1_futu_task(
             now=now,
         )
         settlement_prices = prices
+        settlement_as_of = getattr(broker, "last_quote_as_of", None)
+        open_decision_context = None
         include_current_intraday = selected_slot == "recovery" or bool(
             manual_context and manual_context["include_current_intraday"]
         )
         if selected_slot == "recovery":
             _, cycle_execution_state_path = _cycle_runtime_paths(runtime_dir, cycle)
+            open_record = _latest_open_record(cycle_execution_state_path, session_date=session_date)
+            if open_record:
+                open_decision_context = open_record.get("decision_context")
+                settlement_as_of = (open_decision_context or {}).get("quote_as_of") or open_record.get("recorded_at")
             settlement_prices = _latest_open_settlement_prices(
                 cycle_execution_state_path,
                 session_date=session_date,
@@ -733,6 +844,8 @@ def run_stage1_futu_task(
             target = build_runtime_target(
                 root=repo_root,
                 current_prices=settlement_prices,
+                current_prices_as_of=settlement_as_of,
+                open_decision_context=open_decision_context,
                 include_current_intraday=include_current_intraday,
                 execution_date=session_date,
                 live_controller_state=runtime_state_from_paper_ledger(
@@ -789,6 +902,21 @@ def run_stage1_futu_task(
                 "cycle_status": cycle["status"],
                 "real_broker_order": False,
             }
+        elif target.get("decision") == "hold":
+            if not dry_run:
+                record_hold_decision(
+                    state_path=_cycle_runtime_paths(runtime_dir, cycle)[1],
+                    signal_date=target["signal_date"], slot=selected_slot,
+                    prices=prices, quantities=ledger["positions"],
+                    decision_context=target["decision_context"], now=now,
+                )
+            result = {
+                "status": "no_action", "slot": selected_slot,
+                "reason": "hold_model_rejected_uneconomic_rebalance",
+                "target": target, "ledger": _ledger_summary(ledger),
+                "cycle_id": cycle["cycle_id"], "cycle_status": cycle["status"],
+                "real_broker_order": False,
+            }
         else:
             execution = broker.rebalance(
                 weights=target["weights"],
@@ -802,6 +930,7 @@ def run_stage1_futu_task(
                 current_quantities=ledger["positions"],
                 now=now,
                 remark_prefix=str(cycle["remark_prefix"]),
+                decision_context=target.get("decision_context"),
             )
             result = {
                 "status": execution["status"],
@@ -824,6 +953,22 @@ def settled_date(now: datetime | None = None) -> str:
     return _max_settled_us_daily_date(now=now).isoformat()
 
 
+def _execution_quote_error(as_of: str | None, *, now: datetime | None = None) -> str | None:
+    if not as_of:
+        return "missing_execution_quote_timestamp"
+    try:
+        quote_time = datetime.fromisoformat(as_of)
+    except (ValueError, TypeError):
+        return "invalid_execution_quote_timestamp"
+    if quote_time.tzinfo is None:
+        return "undated_execution_quote_timezone"
+    current = now or datetime.now(tz=NEW_YORK_TZ)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=NEW_YORK_TZ)
+    age = (current - quote_time).total_seconds()
+    return "stale_or_future_execution_quote" if age > 120 or age < -5 else None
+
+
 def _stored_target(root: Path) -> dict[str, Any]:
     summary = _read_json(root / "production" / "stage1_futu_sim_v1" / "summary.json") or {}
     target = summary.get("latest_target")
@@ -832,15 +977,15 @@ def _stored_target(root: Path) -> dict[str, Any]:
     return target
 
 
-def _load_qlib_settled_marks(root: Path, *, start: str, end: str) -> list[dict[str, Any]]:
+def _load_qlib_settled_marks(root: Path, *, start: str, end: str, provider_uri: Path | None = None) -> list[dict[str, Any]]:
     import qlib
     from qlib.constant import REG_US
     from qlib.data import D
 
     if start > end:
         return []
-    provider_uri = root / "data" / "qlib" / "soxl"
-    qlib.init(provider_uri=provider_uri.resolve().as_posix(), region=REG_US)
+    provider_uri = provider_uri or root / "data" / "qlib" / "soxl"
+    qlib.init(provider_uri=provider_uri.resolve().as_posix(), region=REG_US, kernels=1, joblib_backend="threading")
     frame = D.features(
         ["SOXL", "SOXX"],
         ["$close"],
@@ -852,6 +997,8 @@ def _load_qlib_settled_marks(root: Path, *, start: str, end: str) -> list[dict[s
         raise RuntimeError("blocked: qlib settled marks are unavailable")
     values = frame.reset_index().pivot(index="datetime", columns="instrument", values="$close")
     values = values.dropna(subset=["SOXL", "SOXX"])
+    if values.empty or values.index.max().date().isoformat() != end:
+        raise RuntimeError("blocked: qlib account marks do not cover the latest settled session")
     return [
         {"date": index.date().isoformat(), "SOXL": row["SOXL"], "SOXX": row["SOXX"]}
         for index, row in values.iterrows()
@@ -872,6 +1019,17 @@ def _latest_open_settlement_prices(
     *,
     session_date: str,
 ) -> dict[str, float] | None:
+    latest = _latest_open_record(state_path, session_date=session_date)
+    if latest is None:
+        return None
+    prices = latest.get("prices")
+    if not isinstance(prices, dict) or set(prices) != {"SOXL", "SOXX"}:
+        return None
+    result = {symbol: float(prices[symbol]) for symbol in ("SOXL", "SOXX")}
+    return result if all(value > 0 for value in result.values()) else None
+
+
+def _latest_open_record(state_path: Path, *, session_date: str) -> dict[str, Any] | None:
     if not state_path.exists():
         return None
     payload = json.loads(state_path.read_text(encoding="utf-8"))
@@ -891,14 +1049,7 @@ def _latest_open_settlement_prices(
     ]
     if not candidates:
         return None
-    latest = max(candidates, key=lambda value: str(value.get("recorded_at", "")))
-    prices = latest.get("prices")
-    if not isinstance(prices, dict) or set(prices) != {"SOXL", "SOXX"}:
-        return None
-    result = {symbol: float(prices[symbol]) for symbol in ("SOXL", "SOXX")}
-    if any(value <= 0 for value in result.values()):
-        return None
-    return result
+    return max(candidates, key=lambda value: str(value.get("recorded_at", "")))
 
 
 def _write_latest(path: Path, payload: dict[str, Any]) -> None:

@@ -1,0 +1,24 @@
+{
+  "verified_at": "2026-09-28T17:20:20.541206+08:00",
+  "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+  "environment": "SIMULATE",
+  "research_promotion_status": "not_promoted",
+  "services": {
+    "com.soxl.stage1.opend": {
+      "registered": true,
+      "last_exit_code": 0,
+      "interval_seconds": 60
+    },
+    "com.soxl.stage1.futu.sim": {
+      "registered": true,
+      "last_exit_code": 0,
+      "interval_seconds": 60
+    }
+  },
+  "opend_trade_logged_in": true,
+  "opend_quote_logged_in": true,
+  "market_state": "PRE_MARKET_BEGIN",
+  "status": "armed_waiting_for_regular_session",
+  "next_open_check": "2026-09-28T21:31:00+08:00",
+  "no_new_orders_submitted_during_restoration": true
+}

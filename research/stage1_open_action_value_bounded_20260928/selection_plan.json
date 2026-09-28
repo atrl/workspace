@@ -1,0 +1,31 @@
+{
+  "experiment": "stage1_open_action_value_bounded_20260928",
+  "registered_at": "2026-09-28",
+  "fixed_model_source_experiment": "stage1_open_action_value_retrained_20260928",
+  "fixed_model_source_recorder": "398436752f7a41a6887a90307a6355f2",
+  "fixed_model_sha256": "e19e3fb81e12ef2689441f480865526c45a4768cac4d7c7d6990430176248ab2",
+  "threshold_candidates": [
+    0.3,
+    0.35,
+    0.4,
+    0.45
+  ],
+  "already_failed_reference_threshold": 0.5,
+  "new_candidate_count": 4,
+  "total_examined_threshold_count": 5,
+  "fixed_logistic_c": 0.1,
+  "fixed_maximum_skippable_turnover": 0.05,
+  "selection_segment": "2016-2022 development_walk_forward only",
+  "selection_rule": "Among candidates passing every unchanged original gate, choose highest fixed-path 25bp development return; tie-break lower threshold. If none pass, stop without activation or expanding search.",
+  "outer_role": "one diagnostic evaluation only after selecting on development; never used for selection",
+  "unchanged_gates": [
+    "10bp and 25bp return above baseline",
+    "MaxDD/worst-day/CVaR5/worst-5d not worse",
+    "open trade days reduced at least 8%",
+    "turnover not increased",
+    "each 2017-2022 annual wealth ratio >= 0.985",
+    "no-router fallback equals baseline",
+    "outer excluded from selection"
+  ],
+  "state_contract": "on-policy own settled equity/peak/history/risk state; same pure runtime decision functions"
+}

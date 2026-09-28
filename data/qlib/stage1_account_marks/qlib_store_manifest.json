@@ -1,0 +1,32 @@
+{
+  "as_of": "2026-09-25",
+  "audit_snapshot_hash": "d68571b76e39594b",
+  "calendar_end": "2026-09-25",
+  "calendar_start": "2026-08-03",
+  "feature_file_count": 4,
+  "fields": [
+    "$open",
+    "$close"
+  ],
+  "freq": "day",
+  "hash": "f7fee0688d2fa063",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-09-25",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_account_marks",
+  "region": "us",
+  "row_count": 78,
+  "source": "Futu request_history_kline K_DAY AuType.NONE; actual broker shares",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

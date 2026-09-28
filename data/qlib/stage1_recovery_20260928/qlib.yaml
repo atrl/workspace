@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/stage1_recovery_20260928
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

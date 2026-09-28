@@ -80,9 +80,9 @@ def _max_settled_us_daily_date(*, now: datetime | None = None) -> date:
         microsecond=0,
     )
     settled = new_york_now.date() if new_york_now >= settlement_cutoff else new_york_now.date() - timedelta(days=1)
-    while settled.weekday() >= 5:
-        settled -= timedelta(days=1)
-    return settled
+    import exchange_calendars
+    calendar = exchange_calendars.get_calendar("XNYS")
+    return calendar.date_to_session(settled.isoformat(), direction="previous").date()
 
 
 def _default_end_date() -> str:
