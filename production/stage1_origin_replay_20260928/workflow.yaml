@@ -1,0 +1,10 @@
+experiment: stage1_origin_replay_20260928
+release_id: stage1_hold_net_fees_20260928_paper_trial_v1
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+model_refit: false
+parameter_selection: false
+initial_equity: 100000
+starts: ['2026-08-03', '2026-07-27']
+end: 2026-09-25_close
+transaction_cost_bps: 10
+recorder_id: 09b53a032b77435eabcc523f562b1efd

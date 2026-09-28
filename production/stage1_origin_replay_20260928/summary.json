@@ -1,0 +1,257 @@
+{
+  "experiment": "stage1_origin_replay_20260928",
+  "card_type": "frozen_active_candidate_origin_window_replay",
+  "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+  "release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+  "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "model_refit": false,
+  "parameter_selection": false,
+  "orders_submitted": false,
+  "research_promotion_status": "not_promoted",
+  "interpretation": "Current frozen model retrospectively replayed from prior paper-account dates; not actual fills or continuously observed historical profit.",
+  "price_basis": "Existing model execution provider uses dividend-adjusted OHLC; dividends are embodied in adjusted returns and no extra cash dividends are added. Continuous weights, not actual share quantities.",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+  "price_data_source_manifest": "data/raw/soxs_defensive_v1/source_manifest.json",
+  "terminal_policy": "2026-09-24 signal executes at actual 2026-09-25 open, then settles at actual 2026-09-25 close; no 2026-09-28 open read.",
+  "initial_equity": 100000.0,
+  "transaction_cost_bps": 10.0,
+  "benchmark_fee_policy": "One entry fee funded from initial cash; no terminal liquidation fee; no later rebalancing.",
+  "observation_mark": {
+    "query_started_at": "2026-09-28T17:00:13.647+08:00",
+    "query_completed_at": "2026-09-28T17:00:15.610+08:00",
+    "prices": {
+      "SOXL": 140.49,
+      "SOXX": 558.62
+    },
+    "source": "runtime/soxl/stage1_futu_sim/recovery_evidence/20260928/final_observation/STOCK_AND_OPTION_positions.json",
+    "sha256": "a0a63db06e5e289632c71a79957390e4ad75f08a56d7945742fdacfd50d606d7",
+    "basis": "Unchanged end-of-9/25 exposures marked with the same archived broker nominal prices; no 9/28 trades. The 9/25 adjusted endpoint has adjustment factor one."
+  },
+  "inference_smoothing_audit": {
+    "status": "needs_execution_mark",
+    "current_execution_marks": [],
+    "pending_signal_dates": [
+      "2026-09-25"
+    ],
+    "unobserved_final_return_signal_date": "2026-09-24",
+    "unobserved_final_return_consumed": false
+  },
+  "comparisons": [
+    {
+      "start": "2026-08-03",
+      "variant": "active_HOLD",
+      "initial_equity": 100000.0,
+      "end": "2026-09-25_close",
+      "sessions": 39,
+      "close_equity": 103237.1931277177,
+      "close_pnl": 3237.1931277177064,
+      "close_return_pct": 3.237193127717708,
+      "observed_0928_equity": 102781.61164976825,
+      "observed_0928_pnl": 2781.6116497682524,
+      "observed_0928_return_pct": 2.7816116497682453,
+      "open_trade_days": 35,
+      "recovery_actions": 0,
+      "terminal_soxl_weight": 0.02943919719345417,
+      "terminal_soxx_weight": 0.09297016382953441,
+      "terminal_cash_weight": 0.8775906389770114,
+      "missing_intraday_dates_not_recovery_eligible": []
+    },
+    {
+      "start": "2026-08-03",
+      "variant": "baseline_without_HOLD",
+      "initial_equity": 100000.0,
+      "end": "2026-09-25_close",
+      "sessions": 39,
+      "close_equity": 103266.76836709066,
+      "close_pnl": 3266.7683670906554,
+      "close_return_pct": 3.2667683670906555,
+      "observed_0928_equity": 102811.05637482891,
+      "observed_0928_pnl": 2811.0563748289132,
+      "observed_0928_return_pct": 2.811056374828924,
+      "open_trade_days": 39,
+      "recovery_actions": 0,
+      "terminal_soxl_weight": 0.029439197193454184,
+      "terminal_soxx_weight": 0.09297016382953445,
+      "terminal_cash_weight": 0.8775906389770115,
+      "missing_intraday_dates_not_recovery_eligible": []
+    },
+    {
+      "start": "2026-08-03",
+      "variant": "SOXL_buy_hold",
+      "initial_equity": 100000.0,
+      "end": "2026-09-25_close",
+      "sessions": 39,
+      "close_equity": 142626.33648931672,
+      "close_pnl": 42626.336489316716,
+      "close_return_pct": 42.62633648931671,
+      "observed_0928_equity": 132304.88611246418,
+      "observed_0928_pnl": 32304.886112464184,
+      "observed_0928_return_pct": 32.30488611246418,
+      "open_trade_days": 1,
+      "recovery_actions": 0,
+      "terminal_soxl_weight": 1.0,
+      "terminal_soxx_weight": 0.0,
+      "terminal_cash_weight": -1.0155866988486596e-16,
+      "missing_intraday_dates_not_recovery_eligible": []
+    },
+    {
+      "start": "2026-08-03",
+      "variant": "SOXX_buy_hold",
+      "initial_equity": 100000.0,
+      "end": "2026-09-25_close",
+      "sessions": 39,
+      "close_equity": 116377.01862114138,
+      "close_pnl": 16377.018621141382,
+      "close_return_pct": 16.37701862114138,
+      "observed_0928_equity": 113519.82167338398,
+      "observed_0928_pnl": 13519.82167338398,
+      "observed_0928_return_pct": 13.51982167338397,
+      "open_trade_days": 1,
+      "recovery_actions": 0,
+      "terminal_soxl_weight": 0.0,
+      "terminal_soxx_weight": 1.0000000000000002,
+      "terminal_cash_weight": -1.244656479090706e-16,
+      "missing_intraday_dates_not_recovery_eligible": []
+    },
+    {
+      "start": "2026-07-27",
+      "variant": "active_HOLD",
+      "initial_equity": 100000.0,
+      "end": "2026-09-25_close",
+      "sessions": 44,
+      "close_equity": 92648.70479716126,
+      "close_pnl": -7351.295202838737,
+      "close_return_pct": -7.351295202838736,
+      "observed_0928_equity": 92239.84988176875,
+      "observed_0928_pnl": -7760.1501182312495,
+      "observed_0928_return_pct": -7.7601501182312465,
+      "open_trade_days": 40,
+      "recovery_actions": 0,
+      "terminal_soxl_weight": 0.02943919719345417,
+      "terminal_soxx_weight": 0.09297016382953441,
+      "terminal_cash_weight": 0.8775906389770114,
+      "missing_intraday_dates_not_recovery_eligible": [
+        "2026-07-29"
+      ]
+    },
+    {
+      "start": "2026-07-27",
+      "variant": "baseline_without_HOLD",
+      "initial_equity": 100000.0,
+      "end": "2026-09-25_close",
+      "sessions": 44,
+      "close_equity": 92675.24666195776,
+      "close_pnl": -7324.753338042239,
+      "close_return_pct": -7.324753338042244,
+      "observed_0928_equity": 92266.27461840994,
+      "observed_0928_pnl": -7733.725381590062,
+      "observed_0928_return_pct": -7.733725381590062,
+      "open_trade_days": 44,
+      "recovery_actions": 0,
+      "terminal_soxl_weight": 0.029439197193454184,
+      "terminal_soxx_weight": 0.09297016382953445,
+      "terminal_cash_weight": 0.8775906389770115,
+      "missing_intraday_dates_not_recovery_eligible": [
+        "2026-07-29"
+      ]
+    },
+    {
+      "start": "2026-07-27",
+      "variant": "SOXL_buy_hold",
+      "initial_equity": 100000.0,
+      "end": "2026-09-25_close",
+      "sessions": 44,
+      "close_equity": 107571.0463717076,
+      "close_pnl": 7571.046371707605,
+      "close_return_pct": 7.5710463717076015,
+      "observed_0928_equity": 99786.44470247209,
+      "observed_0928_pnl": -213.55529752791335,
+      "observed_0928_return_pct": -0.21355529752791202,
+      "open_trade_days": 1,
+      "recovery_actions": 0,
+      "terminal_soxl_weight": 1.0000000000000002,
+      "terminal_soxx_weight": 0.0,
+      "terminal_cash_weight": -1.3465464465553477e-16,
+      "missing_intraday_dates_not_recovery_eligible": [
+        "2026-07-29"
+      ]
+    },
+    {
+      "start": "2026-07-27",
+      "variant": "SOXX_buy_hold",
+      "initial_equity": 100000.0,
+      "end": "2026-09-25_close",
+      "sessions": 44,
+      "close_equity": 107409.84094656381,
+      "close_pnl": 7409.840946563811,
+      "close_return_pct": 7.409840946563806,
+      "observed_0928_equity": 104772.79908599943,
+      "observed_0928_pnl": 4772.799085999432,
+      "observed_0928_return_pct": 4.772799085999435,
+      "open_trade_days": 1,
+      "recovery_actions": 0,
+      "terminal_soxl_weight": 0.0,
+      "terminal_soxx_weight": 1.0000000000000002,
+      "terminal_cash_weight": -1.3485674028334676e-16,
+      "missing_intraday_dates_not_recovery_eligible": [
+        "2026-07-29"
+      ]
+    }
+  ],
+  "recorder_id": "09b53a032b77435eabcc523f562b1efd",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_origin_replay_20260928/qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd",
+  "missing_intraday_audit": [
+    {
+      "start": "2026-07-27",
+      "variant": "active_HOLD",
+      "date": "2026-07-29",
+      "portfolio_drawdown": 0.10792333212163652,
+      "beta_cap": 1.3396591634388304,
+      "recovery_target_beta": 0.6,
+      "source_alpha_probability": 0.49673786759376526,
+      "recovery_eligible_without_intraday": false,
+      "missing_feature_consumed": false
+    },
+    {
+      "start": "2026-07-27",
+      "variant": "baseline_without_HOLD",
+      "date": "2026-07-29",
+      "portfolio_drawdown": 0.10792333212163652,
+      "beta_cap": 1.3396591634388304,
+      "recovery_target_beta": 0.6,
+      "source_alpha_probability": 0.49673786759376526,
+      "recovery_eligible_without_intraday": false,
+      "missing_feature_consumed": false
+    }
+  ],
+  "observed_account_reference": {
+    "source": "production/stage1_recovery_20260928/summary.json",
+    "sha256": "77cce3ad95445925e502f8878e8734dbab35730612bc785cc3fa004f5b79eeac",
+    "account_observed_at": "2026-09-28T17:00:14.183+08:00",
+    "valuation_basis": "Close revaluation uses the 2026-09-28 observed cash balance; it is not an independently confirmed 2026-09-25 statement.",
+    "metrics": {
+      "latest_close_revaluation_equity": 119372.40899999999,
+      "latest_close_revaluation_profit": 19372.408999999985,
+      "latest_close_revaluation_return_pct": 19.37240899999999,
+      "trade_only_latest_close_equity": 119341.88499999998,
+      "trade_only_latest_close_return_pct": 19.34188499999998,
+      "account_snapshot_equity": 115802.529,
+      "account_snapshot_profit": 15802.528999999995,
+      "account_snapshot_return_pct": 15.802528999999987,
+      "trade_only_max_drawdown_pct": -13.664912281519292
+    }
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "origin_replay/daily_replays.pkl",
+      "origin_replay/aligned_inputs.pkl",
+      "origin_replay/qlib_prices.pkl",
+      "origin_replay/comparison.pkl",
+      "origin_replay/risk_analysis.pkl",
+      "origin_replay/observed_account_reference.pkl"
+    ]
+  }
+}

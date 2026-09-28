@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "experiment": "stage1_origin_replay_20260928",
+  "recorder_id": "09b53a032b77435eabcc523f562b1efd",
+  "purpose": "Frozen active model origin-window retrospective replay; no refit, no orders, no active configuration changes.",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/artifacts/origin_replay/aligned_inputs.pkl",
+      "sha256": "2d206586d16172ffd81b3354621d1e3c972c8b74ff71762be0450fe254617326",
+      "size": 70586
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/artifacts/origin_replay/comparison.pkl",
+      "sha256": "dc9fc29d33d6f43ad3c003f9cbe0d7d792ec992659c742f22ac5149ce25732fe",
+      "size": 2332
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/artifacts/origin_replay/daily_replays.pkl",
+      "sha256": "0acf7b68d7fefd26379904934c448d9ced664f059d563acb4b4834131b8b8fd8",
+      "size": 87555
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/artifacts/origin_replay/observed_account_reference.pkl",
+      "sha256": "af64887188a408e407f73e47fa017930ff48b8816fce04f505ec9fbe444c2a68",
+      "size": 729
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/artifacts/origin_replay/qlib_prices.pkl",
+      "sha256": "fdb162758dd126cc4241fb8558c6563963b159674338673f84752f7d3bf01331",
+      "size": 2348
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/artifacts/origin_replay/risk_analysis.pkl",
+      "sha256": "0aa91398e254d25f770c2a5ea114e4af46d9fcac0f8e0ea9b1892402fc0e3f82",
+      "size": 1556
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/meta.yaml",
+      "sha256": "5a23bf3e12350f5de953995366035139e6ba2f136e63c6a551aabf00f7896bf6",
+      "size": 444
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/params/cmd-sys.argv",
+      "sha256": "fc4d3ab074904995b708393187413040e538507fa1dc4d2e9f401bcdb4597eda",
+      "size": 202
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/params/initial_state",
+      "sha256": "0945e9cdb41453ba2ea472f0126f341ba85309daeab437da60f89aea58c2d268",
+      "size": 11
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/params/model_refit",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size": 5
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/params/release_id",
+      "sha256": "6951ab37375647b23daa7022eab8fe7774ecff25807e9c2fd2cc0c04328eaa5a",
+      "size": 44
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/params/terminal_basis",
+      "sha256": "7b1f8a2d048fcd98e80603ba3ed5f0336a59bf815089ac64954240ba0c7da56f",
+      "size": 16
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/params/transaction_cost_bps",
+      "sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+      "size": 2
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "size": 89
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/09b53a032b77435eabcc523f562b1efd/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/247822063159832883/meta.yaml",
+      "sha256": "9215227881618640cdcf1ca7041a22f1c6ac6d9fcaa58c5c948f910c84f3c18b",
+      "size": 360
+    }
+  ]
+}
