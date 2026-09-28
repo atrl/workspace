@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+  "execution_environment": "SIMULATE",
+  "research_promotion_status": "not_promoted",
+  "activated_at": "2026-09-28T17:07:53.610818+08:00",
+  "allocation": {
+    "card_path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "manifest_sha256": "44c1a375ea575f1055ff46850a9c8dbc30d121d97919231efbf9084504628112",
+    "recorder_id": "f696f656b3d44e868588e09a5d97c905"
+  },
+  "action": {
+    "card_path": "research/stage1_open_action_value_net_fees_20260928",
+    "summary_sha256": "f6549f17979c5e2d92f2bfd474e99a3c7c74c4df13c35f20dcb8dbf9551d7219",
+    "recorder_id": "b472a458fc9042b4905094fddeaebd33"
+  },
+  "paper_trial_authorization": {
+    "receipt_path": "production/stage1_futu_sim_v1/paper_trial_authorization_20260928.json",
+    "receipt_sha256": "df6a9036e9685f15e130c5eaaea0fe8d71878b97c56043f8987b4715299fdcaf"
+  }
+}

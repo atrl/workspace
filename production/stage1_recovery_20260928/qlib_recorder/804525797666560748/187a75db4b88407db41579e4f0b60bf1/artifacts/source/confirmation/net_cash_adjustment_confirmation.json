@@ -1,0 +1,45 @@
+{
+  "schema": "stage1_cycle_cash_adjustment_confirmation_v1",
+  "classification": "unallocated_net_investment_cash_flow",
+  "cycle_id": "stage1_2026-08-03_v2",
+  "inception_date": "2026-08-03",
+  "initial_equity": 100000.0,
+  "broker_reserve_cash": 0.0,
+  "remark_prefix": "stage1_v2_",
+  "snapshot_observed_at": "2026-09-28T16:15:00+08:00",
+  "snapshot_time_precision": "approximate acquisition window",
+  "anchor_net_cash_adjustment": 30.524,
+  "sources": {
+    "balance": {
+      "source_ref": "/Users/rziiiii/dev/workspace/runtime/soxl/stage1_futu_sim/recovery_evidence/20260928/STOCK_AND_OPTION_balance.json",
+      "source_sha256": "22d24675e6ac9602a5f0e5de0908ecf12c10edac40da89368de4e9655a86d81c"
+    },
+    "positions": {
+      "source_ref": "/Users/rziiiii/dev/workspace/runtime/soxl/stage1_futu_sim/recovery_evidence/20260928/STOCK_AND_OPTION_positions.json",
+      "source_sha256": "e8e9ce812ff41d4f2969009e66cff1358feaf5d2ba0927f4de2e8d1b8aef25a9"
+    },
+    "orders": {
+      "source_ref": "/Users/rziiiii/dev/workspace/runtime/soxl/stage1_futu_sim/recovery_evidence/20260928/STOCK_AND_OPTION_orders.json",
+      "source_sha256": "b279b82d9ca5eafdc8e013d00dc9b169b725d86613a316869dfec2d0b601c804"
+    }
+  },
+  "user_confirmation": {
+    "text": "没有加减资金，也没有再次重置",
+    "external_cash_flows": false,
+    "account_reset": false,
+    "scope_start": "2026-08-03",
+    "scope_end_snapshot": "2026-09-28T16:15:00+08:00",
+    "received_during_session_date": "2026-09-28",
+    "question_reference": [
+      "request_user_input_async",
+      "call_KTsVR2qPkxPaMVd8lZWmBn79",
+      0
+    ]
+  },
+  "evidence_recorded_at": "2026-09-28T16:40:34+08:00",
+  "limitations": [
+    "No dividend/payment-date or actual-fee attribution.",
+    "No historical date allocation of the residual.",
+    "Future cash credits need new evidence; this confirmation applies only through this snapshot."
+  ]
+}

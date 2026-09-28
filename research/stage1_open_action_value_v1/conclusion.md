@@ -1,3 +1,5 @@
+> 2026-09-28 时序审计：本卡旧晋升结论已失效，当前状态为 `blocked_pending_causal_revalidation`。09:31执行路由曾读取未来10:31恢复标记；年度训练亦未排除测试开盘后才成熟的标签。两项代码问题已修复并通过反事实/边界测试，但原冻结模型与recorder明细丢失，尚不能重验原收益。以下数字与旧结论仅为历史记录，不是修复后的验证结果。按用户授权，重新训练将使用新的card/recorder身份及原参数和门槛。详见 `recovery_validation.json`。
+
 # 中文结论
 
 - 做了什么：在当前 Stage1 confidence-veto 上新增开盘 action-value 执行路由。Stage1 继续用独立 shadow 状态产生原目标；执行层只对不超过5% L1 turnover、且不是去风险的交易判断 execute/hold，所有 beta 下降和10:31恢复日都强制执行。

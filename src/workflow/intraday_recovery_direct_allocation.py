@@ -17,6 +17,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from src.data import QlibProviderConfig, load_qlib_feature_frame
+from src.backtest.position_accounting import settle_target_session
 from src.workflow.direct_continuous_soxx_allocation import (
     DirectContinuousAllocationSpec,
     PROFILES,
@@ -648,6 +649,7 @@ def _frozen_outer_predictions(
         prediction,
         spec=spec,
         candidate=candidate,
+        asset_returns=usable.loc[:, backtest_required],
     )
     prediction["candidate"] = candidate.name
     prediction["segment"] = "outer_diagnostic"
@@ -895,7 +897,7 @@ def _build_teacher_training_frame(
     rows: list[dict[str, Any]] = []
     for _, segment in frame.groupby("segment", sort=False):
         equity = peak = 1.0
-        previous = np.zeros(3)
+        previous = np.array([0.0, 0.0, 1.0])
         state = clock = 0
         history: list[float] = []
         for row in segment.sort_values("signal_date").itertuples():
@@ -912,12 +914,11 @@ def _build_teacher_training_frame(
                 maximum_soxl_weight=spec.maximum_soxl_weight,
             )
             asset_returns = np.array([row.soxl_return, row.soxx_return, 0.0])
-            strategy_return = (
-                open_weights @ asset_returns
-                - np.abs(open_weights[:2] - previous[:2]).sum()
-                * spec.transaction_cost_bps
-                / 10_000.0
+            held = settle_target_session(
+                previous, open_target_weights=open_weights, asset_returns=asset_returns,
+                cost_bps=spec.transaction_cost_bps,
             )
+            strategy_return = held["net_return"]
             target_beta = min(raw_beta, teacher_beta)
             eligible = (
                 drawdown >= spec.recovery_eligibility_drawdown
@@ -933,23 +934,13 @@ def _build_teacher_training_frame(
                     maximum_soxl_weight=spec.maximum_soxl_weight,
                 )
                 early = np.array([row.early_ret_soxl, row.early_ret_soxx, 0.0])
-                value_at_cut = 1.0 + open_weights @ early
-                drifted = mark_to_market_weights(open_weights, early)
-                post = np.array(
-                    [
-                        (1.0 + row.soxl_return) / (1.0 + row.early_ret_soxl) - 1.0,
-                        (1.0 + row.soxx_return) / (1.0 + row.early_ret_soxx) - 1.0,
-                        0.0,
-                    ]
+                acted = settle_target_session(
+                    previous, open_target_weights=open_weights, asset_returns=asset_returns,
+                    cost_bps=spec.transaction_cost_bps,
+                    recovery_target_weights=teacher_weights, early_returns=early,
                 )
-                action_return = (
-                    value_at_cut * (1.0 + teacher_weights @ post)
-                    - 1.0
-                    - np.abs(teacher_weights[:2] - drifted[:2]).sum()
-                    * spec.transaction_cost_bps
-                    / 10_000.0
-                )
-                hold_return = open_weights @ asset_returns
+                action_return = acted["net_return"]
+                hold_return = held["net_return"]
                 features = _feature_row(
                     row,
                     drawdown=drawdown,
@@ -962,6 +953,11 @@ def _build_teacher_training_frame(
                     {
                         "signal_date": row.signal_date,
                         "trade_date": row.trade_date,
+                        "exit_date": row.exit_date,
+                        "label_available_at": (
+                            pd.Timestamp(row.exit_date).normalize()
+                            + pd.Timedelta(hours=9, minutes=30)
+                        ).tz_localize("America/New_York").tz_convert("UTC"),
                         "segment": row.segment,
                         "year": row.signal_date.year,
                         **features,
@@ -972,15 +968,33 @@ def _build_teacher_training_frame(
             history.append(strategy_return)
             equity *= 1.0 + strategy_return
             peak = max(peak, equity)
-            previous = mark_to_market_weights(open_weights, asset_returns)
-    return pd.DataFrame(rows)
+            previous = held["ending_weights"]
+    training = pd.DataFrame(rows)
+    first_trade_dates = frame.groupby(frame["signal_date"].dt.year)["trade_date"].min()
+    training.attrs["recovery_training_cutoffs"] = {
+        int(year): (
+            pd.Timestamp(trade_date).normalize() + pd.Timedelta(hours=10, minutes=31)
+        ).tz_localize("America/New_York").tz_convert("UTC").isoformat()
+        for year, trade_date in first_trade_dates.items()
+    }
+    return training
 
 
 def _fit_recovery_model(
     training: pd.DataFrame, *, year: int, c_value: float
 ):
+    if "label_available_at" not in training:
+        raise ValueError("blocked: recovery training labels have no availability timestamps")
+    # Fresh teacher frames retain actual first execution dates, including market
+    # holidays. A legacy CSV lacks attrs; the start of the year is a conservative
+    # cutoff, never permission to use a label that has not matured.
+    cutoff = training.attrs.get("recovery_training_cutoffs", {}).get(int(year))
+    if cutoff is None:
+        cutoff = pd.Timestamp(f"{year}-01-01", tz="America/New_York")
+    available_at = pd.to_datetime(training["label_available_at"], utc=True)
     train = training[
         training["year"].lt(year) & training["year"].ge(2019)
+        & available_at.notna() & available_at.lt(pd.Timestamp(cutoff))
     ].copy()
     if len(train) < 20 or train["teacher_action_label"].nunique() < 2:
         return None
@@ -1022,7 +1036,7 @@ def _simulate_policy(
             )
         models[int(year)] = model_cache[key]
     equity = peak = 1.0
-    previous = np.zeros(3)
+    previous = np.array([0.0, 0.0, 1.0])
     state = clock = 0
     history: list[float] = []
     rows: list[dict[str, Any]] = []
@@ -1077,37 +1091,24 @@ def _simulate_policy(
                 maximum_soxl_weight=spec.maximum_soxl_weight,
             )
             early = np.array([row.early_ret_soxl, row.early_ret_soxx, 0.0])
-            value_at_cut = 1.0 + open_weights @ early
-            drifted = mark_to_market_weights(open_weights, early)
-            post = np.array(
-                [
-                    (1.0 + row.soxl_return) / (1.0 + row.early_ret_soxl) - 1.0,
-                    (1.0 + row.soxx_return) / (1.0 + row.early_ret_soxx) - 1.0,
-                    0.0,
-                ]
-            )
-            gross_return = value_at_cut * (1.0 + close_weights @ post) - 1.0
-            turnover = np.abs(open_weights[:2] - previous[:2]).sum() + np.abs(
-                close_weights[:2] - drifted[:2]
-            ).sum()
-            trade_delta = (open_weights - pretrade_weights) + (
-                close_weights - drifted
-            )
-            ending_weights = mark_to_market_weights(close_weights, post)
         else:
             close_weights = open_weights
-            asset_returns = np.array(
-                [row.soxl_return, row.soxx_return, 0.0], dtype="float64"
-            )
-            gross_return = float(open_weights @ asset_returns)
-            turnover = np.abs(open_weights[:2] - previous[:2]).sum()
-            trade_delta = open_weights - pretrade_weights
-            ending_weights = mark_to_market_weights(open_weights, asset_returns)
-        strategy_return = gross_return - turnover * cost_bps / 10_000.0
+        settled = settle_target_session(
+            pretrade_weights, open_target_weights=open_weights,
+            asset_returns=[row.soxl_return, row.soxx_return, 0.0], cost_bps=cost_bps,
+            recovery_target_weights=close_weights if recovery else None,
+            early_returns=early if recovery else None,
+        )
+        gross_return, turnover = settled["gross_return"], settled["turnover"]
+        strategy_return = settled["net_return"]
+        trade_delta = open_weights - pretrade_weights
+        if recovery:
+            drifted = mark_to_market_weights(settled["open_net_weights"], early)
+            trade_delta += close_weights - drifted
         history.append(strategy_return)
         equity *= 1.0 + strategy_return
         peak = max(peak, equity)
-        previous = ending_weights
+        previous = settled["ending_weights"]
         rows.append(
             {
                 "signal_date": row.signal_date,
@@ -1116,12 +1117,22 @@ def _simulate_policy(
                 "segment": row.segment,
                 "soxl_return": row.soxl_return,
                 "soxx_return": row.soxx_return,
+                "early_ret_soxl": row.early_ret_soxl,
+                "early_ret_soxx": row.early_ret_soxx,
                 "open_soxl_weight": open_weights[0],
                 "open_soxx_weight": open_weights[1],
                 "open_cash_weight": open_weights[2],
+                "execute_open_trade": bool(
+                    np.abs(open_weights[:2] - pretrade_weights[:2]).sum() > 1e-8
+                ),
+                "execute_open_target": True,
                 "soxl_weight": close_weights[0],
                 "soxx_weight": close_weights[1],
                 "cash_weight": close_weights[2],
+                "ending_soxl_weight": previous[0],
+                "ending_soxx_weight": previous[1],
+                "ending_cash_weight": previous[2],
+                "fees": settled["fees"],
                 "soxl_trade_delta": trade_delta[0],
                 "soxx_trade_delta": trade_delta[1],
                 "cash_trade_delta": trade_delta[2],

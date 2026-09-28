@@ -1,0 +1,27 @@
+{
+  "candidate": "pit_only_aux_005",
+  "candidate_parameters": {
+    "name": "pit_only_aux_005",
+    "auxiliary_weight": 0.05,
+    "include_union_backfill": false,
+    "method": "relative_return_baseline",
+    "absolute_drawdown_penalty": 0.0,
+    "conditional_drawdown_penalty": 0.0,
+    "rolling_5d_penalty": 0.0,
+    "cash_target_penalty": 0.0,
+    "tail_event_weight_multiplier": 1.0,
+    "stress_cash_ceiling": 0.55,
+    "smoothing_span": null,
+    "rebalance_threshold": null,
+    "drawdown_floor": null,
+    "drawdown_budget_multiplier": 0.0,
+    "drawdown_budget_metric": "risky_weight",
+    "drawdown_budget_buffer": 0.0,
+    "trade_event_penalty": 0.0,
+    "trade_event_softness": 0.02
+  },
+  "selection_policy": "previously_fixed_candidate_no_new_search",
+  "selection_uses_outer_test": false,
+  "recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "training_information_cutoff": "2022-12-30"
+}

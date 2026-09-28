@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "experiment": "stage1_open_action_value_bounded_20260928",
+  "recorder_id": "7557a8295a2b448d90b4b3479109905f",
+  "purpose": "Immutable failed-research evidence, frozen models and reproducible validation; not an active runtime release.",
+  "development_gate_pass": false,
+  "artifacts": [
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/artifacts/stage1_open_action_value_bounded_20260928/bounded_model_selection.csv",
+      "sha256": "424d5577d59ede6b59d4210094313697d3e9a1433e5daf8de070e5c74979064d",
+      "size": 1076
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/artifacts/stage1_open_action_value_bounded_20260928/development_replays.csv",
+      "sha256": "f5333b8238af3582f26ea73bc2d5b4bd50a6384b356ad7a3013593fed26ee1d2",
+      "size": 2122565
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/artifacts/stage1_open_action_value_bounded_20260928/selection_plan.json",
+      "sha256": "8336ab7867822e38530fe80064bf1199d85997bd64df7c2a9d60fbfaafb7e304",
+      "size": 1417
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/meta.yaml",
+      "sha256": "19481bea7539d8ce244c5c63c081eac02c14f79ad04f91f3d779474af5f5bc3a",
+      "size": 454
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/metrics/passing_candidates",
+      "sha256": "c22efb61c31cf27ec0ec601c6d9aa1e98d0f507bd6b59a2977f0d87230967aa2",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/params/candidate_count",
+      "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a",
+      "size": 1
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/params/cmd-sys.argv",
+      "sha256": "af76a3a70e88cfbb62fad52e92d40dc71111881e51f97ccebe6a5ac4818adef6",
+      "size": 202
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/params/fixed_model_recorder",
+      "sha256": "4b0cf0e0226895ed79b38218d235b4b5343a524aae32601b48816ed2408eb594",
+      "size": 32
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/params/selection_uses_outer",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size": 5
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "size": 89
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/7557a8295a2b448d90b4b3479109905f/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/593587201115994526/meta.yaml",
+      "sha256": "9a090a5961c99b5c5d16d64b512d9bb55fddb73b9811d17ea93cfde0a217646a",
+      "size": 404
+    }
+  ]
+}

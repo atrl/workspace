@@ -1,0 +1,253 @@
+{
+  "completed_slots": {
+    "2026-07-31:open": {
+      "confirmed_at": "2026-08-03T22:31:10+08:00",
+      "execution_session_date": "2026-08-03",
+      "order_ids": [
+        "7543718",
+        "7543719"
+      ],
+      "prices": {
+        "SOXL": 104.985,
+        "SOXX": 490.58
+      },
+      "recorded_at": "2026-08-03T21:31:20+08:00",
+      "signal_date": "2026-07-31",
+      "slot": "open",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 271,
+        "SOXX": 100
+      },
+      "weights": {
+        "SOXL": 0.2854306362761047,
+        "SOXX": 0.491846388493879,
+        "cash": 0.22272297523001622
+      }
+    },
+    "2026-07-31:recovery": {
+      "confirmed_at": "2026-08-04T10:03:21+08:00",
+      "execution_session_date": "2026-08-03",
+      "order_ids": [
+        "7544439",
+        "7544440"
+      ],
+      "prices": {
+        "SOXL": 111.3276,
+        "SOXX": 499.865
+      },
+      "recorded_at": "2026-08-03T22:31:57+08:00",
+      "signal_date": "2026-07-31",
+      "slot": "recovery",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 263,
+        "SOXX": 101
+      },
+      "weights": {
+        "SOXL": 0.2854306362761047,
+        "SOXX": 0.491846388493879,
+        "cash": 0.22272297523001622
+      }
+    },
+    "2026-08-03:open": {
+      "confirmed_at": "2026-08-04T22:31:12+08:00",
+      "execution_session_date": "2026-08-04",
+      "order_ids": [
+        "7547577",
+        "7547578"
+      ],
+      "prices": {
+        "SOXL": 132.485,
+        "SOXX": 530.71
+      },
+      "recorded_at": "2026-08-04T21:31:29+08:00",
+      "signal_date": "2026-08-03",
+      "slot": "open",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 240,
+        "SOXX": 103
+      },
+      "weights": {
+        "SOXL": 0.2854306362761047,
+        "SOXX": 0.491846388493879,
+        "cash": 0.22272297523001622
+      }
+    },
+    "2026-08-03:recovery": {
+      "confirmed_at": "2026-08-05T10:03:23+08:00",
+      "execution_session_date": "2026-08-04",
+      "order_ids": [
+        "7548306"
+      ],
+      "prices": {
+        "SOXL": 134.045,
+        "SOXX": 533.1
+      },
+      "recorded_at": "2026-08-04T22:32:19+08:00",
+      "signal_date": "2026-08-03",
+      "slot": "recovery",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 238,
+        "SOXX": 103
+      },
+      "weights": {
+        "SOXL": 0.2854306362761047,
+        "SOXX": 0.491846388493879,
+        "cash": 0.22272297523001622
+      }
+    },
+    "2026-08-04:open": {
+      "confirmed_at": "2026-08-05T22:31:10+08:00",
+      "execution_session_date": "2026-08-05",
+      "order_ids": [
+        "7551864",
+        "7551865"
+      ],
+      "prices": {
+        "SOXL": 137.1442,
+        "SOXX": 538.355
+      },
+      "recorded_at": "2026-08-05T21:31:30+08:00",
+      "signal_date": "2026-08-04",
+      "slot": "open",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 208,
+        "SOXX": 100
+      },
+      "weights": {
+        "SOXL": 0.2520945127826201,
+        "SOXX": 0.47638884066629894,
+        "cash": 0.271516646551081
+      }
+    },
+    "2026-08-04:recovery": {
+      "confirmed_at": "2026-08-06T10:03:41+08:00",
+      "execution_session_date": "2026-08-05",
+      "order_ids": [
+        "7552752"
+      ],
+      "prices": {
+        "SOXL": 133.05,
+        "SOXX": 532.94
+      },
+      "recorded_at": "2026-08-05T22:32:17+08:00",
+      "signal_date": "2026-08-04",
+      "slot": "recovery",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 212,
+        "SOXX": 100
+      },
+      "weights": {
+        "SOXL": 0.2520945127826201,
+        "SOXX": 0.47638884066629894,
+        "cash": 0.271516646551081
+      }
+    },
+    "2026-08-05:open": {
+      "confirmed_at": "2026-08-06T22:31:13+08:00",
+      "execution_session_date": "2026-08-06",
+      "order_ids": [
+        "7555747"
+      ],
+      "prices": {
+        "SOXL": 124.7,
+        "SOXX": 521.9
+      },
+      "recorded_at": "2026-08-06T21:31:31+08:00",
+      "signal_date": "2026-08-05",
+      "slot": "open",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 191,
+        "SOXX": 100
+      },
+      "weights": {
+        "SOXL": 0.2186667738966398,
+        "SOXX": 0.4799910634049581,
+        "cash": 0.3013421626984021
+      }
+    },
+    "2026-08-05:recovery": {
+      "confirmed_at": "2026-08-07T10:03:35+08:00",
+      "execution_session_date": "2026-08-06",
+      "order_ids": [
+        "7556427"
+      ],
+      "prices": {
+        "SOXL": 136.88,
+        "SOXX": 538.22
+      },
+      "recorded_at": "2026-08-06T22:32:08+08:00",
+      "signal_date": "2026-08-05",
+      "slot": "recovery",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 180,
+        "SOXX": 100
+      },
+      "weights": {
+        "SOXL": 0.2186667738966398,
+        "SOXX": 0.4799910634049581,
+        "cash": 0.3013421626984021
+      }
+    },
+    "2026-08-06:open": {
+      "confirmed_at": "2026-08-07T22:31:13+08:00",
+      "execution_session_date": "2026-08-07",
+      "order_ids": [
+        "7558679",
+        "7558680"
+      ],
+      "prices": {
+        "SOXL": 140.87,
+        "SOXX": 543.545
+      },
+      "recorded_at": "2026-08-07T21:31:30+08:00",
+      "signal_date": "2026-08-06",
+      "slot": "open",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 156,
+        "SOXX": 99
+      },
+      "weights": {
+        "SOXL": 0.19326688711665285,
+        "SOXX": 0.47518345758656555,
+        "cash": 0.3315496552967816
+      }
+    },
+    "2026-08-06:recovery": {
+      "confirmed_at": "2026-08-08T10:03:15+08:00",
+      "execution_session_date": "2026-08-07",
+      "order_ids": [
+        "7559506"
+      ],
+      "prices": {
+        "SOXL": 136.225,
+        "SOXX": 537.62
+      },
+      "recorded_at": "2026-08-07T22:32:17+08:00",
+      "signal_date": "2026-08-06",
+      "slot": "recovery",
+      "status": "filled_confirmed",
+      "target_quantities": {
+        "SOXL": 160,
+        "SOXX": 99
+      },
+      "weights": {
+        "SOXL": 0.19326688711665285,
+        "SOXX": 0.47518345758656555,
+        "cash": 0.3315496552967816
+      }
+    }
+  },
+  "environment": "SIMULATE",
+  "pending_slots": {},
+  "real_trading_supported": false,
+  "version": 1
+}

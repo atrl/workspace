@@ -1,0 +1,30 @@
+experiment: stage1_open_action_value_retrained_20260928
+source_experiment: stage1_confidence_veto_recovery_v1
+allocation_source_experiment: pit_constituent_auxiliary_training_allocation_retrained_20260928
+source_recorder_id: f696f656b3d44e868588e09a5d97c905
+system_of_record: qlib
+provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs
+intraday_provider_uri: /Users/rziiiii/dev/workspace/data/qlib/soxl_intraday_15min
+selection_segment: 2016-01-01_to_2022-12-31
+selection_uses_outer_test: false
+outer_role: reused_diagnostic_only_not_model_selection
+validation_controller_state: own_on_policy_equity_peak_history_and_risk_clock
+execution_holdings_state: actual_marked_holdings
+transaction_cost_bps: 10.0
+stress_cost_bps: 25.0
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+    - artifacts/pred.pkl
+    - artifacts/label.pkl
+    - artifacts/stage1_open_action_value_retrained_20260928/action_value_training_frame.csv
+    - artifacts/stage1_open_action_value_retrained_20260928/training_diagnostics.csv
+    - artifacts/stage1_open_action_value_retrained_20260928/model_comparison.csv
+    - artifacts/stage1_open_action_value_retrained_20260928/portfolio_report.csv
+    - artifacts/stage1_open_action_value_retrained_20260928/dataset_audit.json
+    - artifacts/stage1_open_action_value_retrained_20260928/open_action_value_models.pkl
+    - artifacts/stage1_open_action_value_retrained_20260928/shadow_overlay_report.csv
+    - artifacts/stage1_open_action_value_retrained_20260928/frozen_open_action_value_model.pkl
+    - artifacts/stage1_open_action_value_retrained_20260928/frozen_recovery_model.pkl
+    - artifacts/stage1_open_action_value_retrained_20260928/runtime_models.json

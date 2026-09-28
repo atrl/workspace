@@ -1,0 +1,42 @@
+{
+  "activated_at": "2026-08-03T21:31:14+08:00",
+  "broker_reserve_cash": 0.0,
+  "cycle_id": "stage1_2026-08-03_v2",
+  "execution_state_file": "execution_state_v2.json",
+  "execution_repair": {
+    "applied_commit": "70f2e88eb9842e8511c178e32a495fb4f51a9eec",
+    "effective_session_date": "2026-08-10",
+    "history_policy": "preserve_observed_fills_without_rewriting",
+    "prior_recovery_slots_contaminated": [
+      "2026-07-31:recovery",
+      "2026-08-03:recovery",
+      "2026-08-04:recovery",
+      "2026-08-05:recovery",
+      "2026-08-06:recovery"
+    ],
+    "repair_action": "next_open_rebalance_from_live_ledger_then_recovery_no_action_unless_signal_true",
+    "status": "armed"
+  },
+  "inception_date": "2026-08-03",
+  "initial_equity": 100000.0,
+  "ledger_file": "paper_ledger_v2.json",
+  "legacy_cycle": {
+    "execution_state_file": "execution_state.json",
+    "inception_date": "2026-07-27",
+    "ledger_file": "paper_ledger.json",
+    "status": "archived_contaminated"
+  },
+  "opening_positions": {
+    "SOXL": 0,
+    "SOXX": 0
+  },
+  "remark_prefix": "stage1_v2",
+  "restart_method": "flatten_then_rebase_fixed_target_initial_equity",
+  "restart_remark_prefix": "stage1_restart_v2",
+  "start_date": "2026-08-03",
+  "status": "active",
+  "target_initial_equity": 100000.0,
+  "updated_at": "2026-08-09T17:00:00+08:00",
+  "user_authorized_paper_trial": true,
+  "version": 1
+}

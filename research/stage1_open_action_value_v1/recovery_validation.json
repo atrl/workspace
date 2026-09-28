@@ -1,0 +1,44 @@
+{
+  "audit_date": "2026-09-28",
+  "verification_status": "invalidated_pending_causal_revalidation",
+  "historical_recorder_id": "77f2ae6c0ea143c0a765366abae71aaf",
+  "historical_metrics_preserved": true,
+  "production_enabled": false,
+  "invalidated_by": [
+    {
+      "issue": "future_recovery_signal_in_open_route",
+      "location": "src/workflow/stage1_open_action_value.py::_simulate_router",
+      "detail": "The 09:31 execute decision used the recovery_action determined after observing the 10:30 bar. Counterfactual replay changed the open action when only that future flag changed."
+    },
+    {
+      "issue": "training_labels_crossed_execution_split",
+      "location": "src/workflow/stage1_open_action_value.py::_build_qlib_dataset / _fit_models",
+      "detail": "Training segments were split only by signal_date although the execute/hold label needs the exit open and the next target reset cost."
+    },
+    {
+      "issue": "outer_annual_rows_in_development_gate",
+      "location": "src/workflow/stage1_open_action_value.py::_promotion_gates",
+      "detail": "Annual wealth floor filtered variant/year but omitted the development segment, allowing reused outer results to influence a development gate."
+    },
+    {
+      "issue": "fees_not_debited_from_next_pretrade_cash",
+      "location": "stage1 baseline / action-value replay accounting",
+      "detail": "Equity deducted fees but the next pretrade weights came from gross marked values. Fee-corrected settlement now debits cash at each event and normalizes by net NAV; stress reprices the fixed events."
+    }
+  ],
+  "repairs": [
+    "The 09:31 route no longer consumes recovery_action; 10:31 recovery is evaluated after the open holdings are fixed.",
+    "Each label records max(exit_date at 09:30 ET, next target trade_date at 09:31 ET); training admits it only strictly before the actual first test execution.",
+    "The annual wealth floor now includes only development_walk_forward rows, with a counterexample test.",
+    "Shared cash-fee accounting drives baseline, teacher labels, HOLD validation, and fixed-event cost stress."
+  ],
+  "validation": {
+    "causality_and_label_split_tests": "passed",
+    "full_historical_replay": "blocked_original_frozen_model_and_recorder_artifacts_missing"
+  },
+  "original_missing_source_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+  "authorized_next_action": "Retrain the fixed original allocation candidate under a new recorder identity, then validate the repaired fixed HOLD router in a new card with unchanged gates. Do not treat it as the lost original model.",
+  "parameters_and_gates_changed": false,
+  "outer_used_for_parameter_selection": false,
+  "replacement_validation_card": "research/stage1_open_action_value_net_fees_bounded_20260928"
+}

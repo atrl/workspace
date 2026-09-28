@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-09-25",
+  "audit_snapshot_hash": "379b64e168a3a429",
+  "calendar_end": "2026-09-25",
+  "calendar_start": "2026-08-03",
+  "feature_file_count": 12,
+  "fields": [
+    "$open",
+    "$close",
+    "$high",
+    "$low",
+    "$volume",
+    "$factor"
+  ],
+  "freq": "day",
+  "hash": "c6149d758306aa05",
+  "instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "market": "all",
+  "max_datetime": "2026-09-25",
+  "operation": "qlib_store_build",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_recovery_20260928",
+  "region": "us",
+  "row_count": 78,
+  "source": "Futu request_history_kline K_DAY AuType.NONE; observed SIM audit",
+  "source_api": [
+    "qlib.init",
+    "qlib.data.storage.file_storage.FileFeatureStorage",
+    "qlib.data.D.calendar",
+    "qlib.data.D.instruments",
+    "qlib.data.D.features"
+  ],
+  "status": "ok"
+}

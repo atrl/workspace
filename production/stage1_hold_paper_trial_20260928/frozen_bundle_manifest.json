@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "experiment": "stage1_hold_paper_trial_20260928",
+  "recorder_id": "1b62099d14d84e698e8a2f7524b46482",
+  "purpose": "Read-only preflight evidence for the explicit user-authorized unpromoted SIM trial; no orders or account reset.",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/artifacts/preflight/preflight_evidence.json",
+      "sha256": "34e3f2a39d78a3764c9ae7627b78210ee93468920a04a201cbee571da498c14f",
+      "size": 2136
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/meta.yaml",
+      "sha256": "772ad9f13c67a654e448e486b074aa27b25903594a9d37013863240e12c1780f",
+      "size": 447
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/metrics/account_reset",
+      "sha256": "7e782f63b62863ad6e06e6a8710897c7f36a0331cf9899b81b132b9eca457379",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/metrics/confirmed_fill_count",
+      "sha256": "7ca568bf811ae7a4e09e3facfe3bbfb097a5c64f495d593418530e803c7450f5",
+      "size": 21
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/metrics/submitted_orders",
+      "sha256": "7e782f63b62863ad6e06e6a8710897c7f36a0331cf9899b81b132b9eca457379",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/params/cmd-sys.argv",
+      "sha256": "cf1379822cb78da0e9b6183905279e82f16f172f7b4b2db9a0fd9b91a7828730",
+      "size": 202
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/params/execution_environment",
+      "sha256": "f1c124e5e8fa00b09f788856b3db4a29664b03e18cf6c1e0376670f9260d6aa8",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/params/ledger_sha256",
+      "sha256": "50fbdd79e8298ab77032f54270f311d7d2a283f23813c901445c9fdaf2832192",
+      "size": 64
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/params/release_id",
+      "sha256": "6951ab37375647b23daa7022eab8fe7774ecff25807e9c2fd2cc0c04328eaa5a",
+      "size": 44
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/params/research_promotion_status",
+      "sha256": "30fff83053f0879f0f7bb8013c46eedf0a5b3594e9b32a397974e97be3301f8d",
+      "size": 12
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "size": 89
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/meta.yaml",
+      "sha256": "84606c8ecd9fea1a0e521cd4006c3168fb7fd283eef7535a03ed673370e36a20",
+      "size": 366
+    },
+    {
+      "path": "qlib_recorder/204932422184330359/1b62099d14d84e698e8a2f7524b46482/artifacts/deployment_observation.json",
+      "sha256": "817c7a12db0ed3a154fb9d9f42195dff478d38355ab3cffa0d320a35d3ab3e29",
+      "size_bytes": 716
+    }
+  ]
+}

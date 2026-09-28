@@ -1,0 +1,14 @@
+{
+  "frozen_open_action_value_model": {
+    "artifact": "artifacts/stage1_open_action_value_retrained_20260928/frozen_open_action_value_model.pkl",
+    "sha256": "45c1649ef8289024405f0a0c28d8cf260d7b2481c5db7a03ade5e239cdad4b16",
+    "training_signal_end": "2022-12-31",
+    "available": true
+  },
+  "frozen_recovery_model": {
+    "artifact": "artifacts/stage1_open_action_value_retrained_20260928/frozen_recovery_model.pkl",
+    "sha256": "622398175bfa014984e8a76b72263174c4c472f16d05aa0ec149cd33d6b73f73",
+    "training_signal_end": "2022-12-31",
+    "available": true
+  }
+}

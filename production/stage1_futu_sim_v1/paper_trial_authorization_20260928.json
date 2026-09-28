@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "kind": "explicit_user_unpromoted_sim_trial",
+  "execution_environment": "SIMULATE",
+  "release_id": "stage1_hold_net_fees_20260928_paper_trial_v1",
+  "action_summary_sha256": "f6549f17979c5e2d92f2bfd474e99a3c7c74c4df13c35f20dcb8dbf9551d7219",
+  "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "allocation_manifest_sha256": "44c1a375ea575f1055ff46850a9c8dbc30d121d97919231efbf9084504628112",
+  "decision": "run_unpromoted_candidate_in_simulate_only",
+  "user_instruction": "仅在模拟盘试运行新候选，保留未晋升标记",
+  "authorized_at": "2026-09-28T17:07:53.610818+08:00",
+  "authorization_context": "User chose this candidate after being told daily rebalances declined 14.94%, maximum drawdown changed from 29.93% to 30.08%, and tail risk failed the original gate. This does not authorize REAL trading or research promotion.",
+  "allowed_failed_development_gates": [
+    "cvar5_not_worse",
+    "max_drawdown_not_worse"
+  ]
+}

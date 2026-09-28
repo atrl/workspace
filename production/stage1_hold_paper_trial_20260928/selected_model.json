@@ -1,0 +1,40 @@
+{
+  "research_promotion_status": "not_promoted",
+  "execution_environment": "SIMULATE",
+  "action_recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "allocation_recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "open_action_parameters": {
+    "model": "balanced_logistic_regression",
+    "logistic_c": 0.1,
+    "execute_probability_threshold": 0.5,
+    "maximum_skippable_turnover": 0.05,
+    "mandatory_derisk_beta_delta": 0.0,
+    "label_cost_bps": 25.0,
+    "candidate_count": 1,
+    "selection_note": "single structurally fixed candidate after exploratory development diagnostics; requires clean forward shadow before production"
+  },
+  "recovery_parameters": {
+    "selection_uses_outer_test": false,
+    "selected_from_segment": "development_walk_forward",
+    "logistic_c": 0.3,
+    "probability_threshold": 0.825,
+    "action_beta": 0.6,
+    "minimum_source_alpha_probability": 0.25,
+    "threshold_plateau_count": 3,
+    "production_enabled": false
+  },
+  "runtime_models": {
+    "frozen_open_action_value_model": {
+      "artifact": "artifacts/stage1_open_action_value_net_fees_20260928/frozen_open_action_value_model.pkl",
+      "sha256": "06156d31b23d61101b4fa288f9f1bd70d2bfcbb53e7171e5f1c4efdbd5315411",
+      "training_signal_end": "2022-12-31",
+      "available": true
+    },
+    "frozen_recovery_model": {
+      "artifact": "artifacts/stage1_open_action_value_net_fees_20260928/frozen_recovery_model.pkl",
+      "sha256": "c1e0d8ddcf7e3d806e5cf44bf3828370e8ce2ae3fa377814512037cf1ad6da92",
+      "training_signal_end": "2022-12-31",
+      "available": true
+    }
+  }
+}

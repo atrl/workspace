@@ -21,5 +21,6 @@ if [[ -r "${BARK_CURRENT_DEVICE_ENV_FILE}" ]]; then
 fi
 
 export PYTHONPATH="${ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
+export MLFLOW_ALLOW_FILE_STORE=true
 cd "${ROOT}"
 exec "${PYTHON}" -m src.schedule.stage1_futu "$@"

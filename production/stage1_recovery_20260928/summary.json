@@ -1,0 +1,195 @@
+{
+  "card_type": "observed_sim_account_recovery_audit",
+  "status": "audited_with_cash_timing_limitation",
+  "execution_environment": "SIMULATE",
+  "promotion_decision": "not_applicable_no_model_change",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/stage1_recovery_20260928",
+  "region": "us",
+  "market": "all",
+  "as_of": "2026-09-25",
+  "data_range": [
+    "2026-08-03",
+    "2026-09-25"
+  ],
+  "trading_days": 39,
+  "account_observed_at": "2026-09-28T17:00:14.183+08:00",
+  "account_observed_at_precision": "recorded_query_start_and_end",
+  "close_prices": {
+    "SOXL": 151.45,
+    "SOXX": 572.68
+  },
+  "account_nominal_prices": {
+    "US.SOXL": 140.49,
+    "US.SOXX": 558.62
+  },
+  "valuation_basis": "Close revaluation uses the 2026-09-28 observed cash balance; it is not an independently confirmed 2026-09-25 statement.",
+  "performance_scope": "Actual observed fills through 2026-08-12, then unchanged shares; not a continuously executed model return.",
+  "daily_curve_basis": "Confirmed fills and qlib closes; unclassified cash adjustments are excluded because their timing is unknown.",
+  "quote_timestamp_policy": "Snapshot update_time is not the timestamp of last_price; latest regular close was verified against unadjusted daily K bars.",
+  "reconciliation": {
+    "initial_equity": 100000.0,
+    "inception_date": "2026-08-03",
+    "fill_count": 20,
+    "historical_fill_count_matched": 15,
+    "last_fill_time_new_york": "2026-08-12 09:31:51",
+    "positions": {
+      "SOXL": 200.0,
+      "SOXX": 98.0
+    },
+    "buy_value": 86662.11000000002,
+    "sell_value": 19591.355,
+    "trade_only_cash": 32929.245,
+    "broker_cash": 32959.769,
+    "unclassified_net_cash_adjustment": 30.524,
+    "cash_adjustment_interpretation": "Aggregate residual; timing/components unavailable. Not actual per-fill fees.",
+    "positions_reconciled": true,
+    "account_equity_reconciled": true,
+    "external_cash_flows": "excluded_by_scoped_user_confirmation",
+    "cash_adjustment_classification": "unallocated_net_investment_cash_flow",
+    "observation_lineage": "Same cash, share quantities and all filled-order fields as confirmed anchor; later equity changes are market marks only.",
+    "corporate_action_evidence": [
+      {
+        "symbol": "SOXL",
+        "ex_div_date": "2026-09-22",
+        "prior_shares": 200.0,
+        "per_cash_div": 0.0929,
+        "expected_gross_entitlement": 18.58
+      },
+      {
+        "symbol": "SOXX",
+        "ex_div_date": "2026-09-15",
+        "prior_shares": 98.0,
+        "per_cash_div": 0.32505,
+        "expected_gross_entitlement": 31.8549
+      }
+    ],
+    "expected_gross_cash_distributions": 50.4349,
+    "gross_distributions_less_net_adjustment": 19.910899999999998,
+    "distribution_limit": "Corporate action entitlement only; payment timing, actual SIM credits, withholding and fees not individually verified.",
+    "cash_flow_api_limitation": "Futu SIM does not support order_fee_query or account cash-flow query.",
+    "cash_flow_api_reference": "https://openapi.futunn.com/futu-api-doc/en/trade/get-acc-cash-flow.html"
+  },
+  "metrics": {
+    "latest_close_revaluation_equity": 119372.40899999999,
+    "latest_close_revaluation_profit": 19372.408999999985,
+    "latest_close_revaluation_return_pct": 19.37240899999999,
+    "trade_only_latest_close_equity": 119341.88499999998,
+    "trade_only_latest_close_return_pct": 19.34188499999998,
+    "account_snapshot_equity": 115802.529,
+    "account_snapshot_profit": 15802.528999999995,
+    "account_snapshot_return_pct": 15.802528999999987,
+    "trade_only_max_drawdown_pct": -13.664912281519292
+  },
+  "benchmark": [
+    {
+      "benchmark": "SOXL",
+      "initial_price": 104.85,
+      "close_price": 151.45,
+      "return_pct": 44.44444444444444,
+      "basis": "Hypothetical fractional buy-and-hold at first observed 09:31 fill price; price only, no fees/distributions"
+    },
+    {
+      "benchmark": "SOXX",
+      "initial_price": 489.94,
+      "close_price": 572.68,
+      "return_pct": 16.88778217740947,
+      "basis": "Hypothetical fractional buy-and-hold at first observed 09:31 fill price; price only, no fees/distributions"
+    }
+  ],
+  "model_selection": {
+    "performed": false
+  },
+  "experiment_name": "stage1_recovery_20260928",
+  "experiment_id": "804525797666560748",
+  "workflow_config": "workflow.yaml",
+  "recorder_id": "187a75db4b88407db41579e4f0b60bf1",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_recovery_20260928/qlib_recorder/804525797666560748/187a75db4b88407db41579e4f0b60bf1",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/production/stage1_recovery_20260928/qlib_recorder",
+  "qlib_native_api": [
+    "qlib.init",
+    "qlib.data.D.calendar",
+    "qlib.data.D.features",
+    "qlib.workflow.R.start",
+    "qlib.workflow.Recorder.load_object",
+    "qlib.contrib.evaluate.risk_analysis"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html#qlib.contrib.evaluate.risk_analysis"
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "primary_artifact": "stage1_recovery_20260928.ipynb",
+    "machine_entrypoint": "summary.json",
+    "prediction_artifacts": "not_applicable_observed_account_audit_no_model",
+    "recorder_only_artifacts": [
+      "broker_audit/observed_fills.pkl",
+      "broker_audit/observed_holdings_valuation.pkl",
+      "broker_audit/risk_analysis.pkl",
+      "broker_audit/benchmark.pkl",
+      "source/"
+    ]
+  },
+  "sidecars": [
+    "summary.json",
+    "conclusion.md",
+    "risk_analysis.csv",
+    "backtest_benchmark_comparison.csv"
+  ],
+  "cash_flow_confirmation": {
+    "user_confirmation": {
+      "text": "没有加减资金，也没有再次重置",
+      "external_cash_flows": false,
+      "account_reset": false,
+      "scope_start": "2026-08-03",
+      "scope_end_snapshot": "2026-09-28T16:15:00+08:00",
+      "received_during_session_date": "2026-09-28",
+      "question_reference": [
+        "request_user_input_async",
+        "call_KTsVR2qPkxPaMVd8lZWmBn79",
+        0
+      ]
+    },
+    "evidence_recorded_at": "2026-09-28T16:40:34+08:00",
+    "recorder_artifact": "source/confirmation/net_cash_adjustment_confirmation.json",
+    "classification": "unallocated_net_investment_cash_flow",
+    "total_fees": null
+  },
+  "account_observation_window": {
+    "started_at": "2026-09-28T17:00:13.647+08:00",
+    "completed_at": "2026-09-28T17:00:15.610+08:00",
+    "api_calls": [
+      {
+        "query": "STOCK_AND_OPTION_balance",
+        "started_at": "2026-09-28T17:00:13.656+08:00",
+        "completed_at": "2026-09-28T17:00:14.183+08:00"
+      },
+      {
+        "query": "STOCK_AND_OPTION_positions",
+        "started_at": "2026-09-28T17:00:14.184+08:00",
+        "completed_at": "2026-09-28T17:00:14.678+08:00"
+      },
+      {
+        "query": "STOCK_AND_OPTION_orders",
+        "started_at": "2026-09-28T17:00:14.678+08:00",
+        "completed_at": "2026-09-28T17:00:15.143+08:00"
+      },
+      {
+        "query": "quotes",
+        "started_at": "2026-09-28T17:00:15.147+08:00",
+        "completed_at": "2026-09-28T17:00:15.608+08:00"
+      }
+    ]
+  },
+  "previous_observations": [
+    {
+      "account_observed_at": "2026-09-28T16:15:00+08:00",
+      "recorder_id": "3766ba65e32b4c5396449f17342e9f19",
+      "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_recovery_20260928/qlib_recorder/804525797666560748/3766ba65e32b4c5396449f17342e9f19",
+      "account_snapshot_equity": 116320.329,
+      "account_snapshot_return_pct": 16.320329
+    }
+  ]
+}

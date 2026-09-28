@@ -1,0 +1,10 @@
+{
+  "model": "balanced_logistic_regression",
+  "logistic_c": 0.1,
+  "execute_probability_threshold": 0.5,
+  "maximum_skippable_turnover": 0.05,
+  "mandatory_derisk_beta_delta": 0.0,
+  "label_cost_bps": 25.0,
+  "candidate_count": 1,
+  "selection_note": "single structurally fixed candidate after exploratory development diagnostics; requires clean forward shadow before production"
+}

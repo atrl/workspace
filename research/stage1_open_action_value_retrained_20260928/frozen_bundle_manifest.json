@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "experiment": "stage1_open_action_value_retrained_20260928",
+  "recorder_id": "398436752f7a41a6887a90307a6355f2",
+  "purpose": "Immutable failed-research evidence, frozen models and reproducible validation; not an active runtime release.",
+  "development_gate_pass": false,
+  "artifacts": [
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/label.pkl",
+      "sha256": "976fcbe22ccd32d32fc190b2578e0000c06232855ceaa7d7606fd5ca2abf14ac",
+      "size": 43075
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/pred.pkl",
+      "sha256": "93bf2cfaf9fcf62ea708863ee493cf74c492b6c6b04f8914b52402d323072a3f",
+      "size": 65493
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/action_value_training_frame.csv",
+      "sha256": "5fa7ad8ce91e51d333723780f5c6346b84734d7713a246ce2653409deb863e0f",
+      "size": 799424
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/dataset_audit.json",
+      "sha256": "5b49f9f9b2caa259a6026223a0e1ba2061c384dddabd9aa9625c2d6f7a7479ca",
+      "size": 2211
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/frozen_open_action_value_model.pkl",
+      "sha256": "45c1649ef8289024405f0a0c28d8cf260d7b2481c5db7a03ade5e239cdad4b16",
+      "size": 2759
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/frozen_recovery_model.pkl",
+      "sha256": "622398175bfa014984e8a76b72263174c4c472f16d05aa0ec149cd33d6b73f73",
+      "size": 2660
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/model_comparison.csv",
+      "sha256": "adc143ea1662625ea9806372ab24884e6982658c980c8d49d317856d723e80dd",
+      "size": 1897
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/open_action_value_models.pkl",
+      "sha256": "e19e3fb81e12ef2689441f480865526c45a4768cac4d7c7d6990430176248ab2",
+      "size": 11892
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/portfolio_report.csv",
+      "sha256": "c48edcb4bf8ae55edf9c05217616f7aa46f6aafc7512a0d6dded67692ed83db3",
+      "size": 815605
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/qlib_risk_analysis.csv",
+      "sha256": "9095f16daff0d60f84451575cbaa2ed70eceb3f98ee75c7d00391d2d0876fad1",
+      "size": 3553
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/runtime_models.json",
+      "sha256": "577722e289a5eaa401c95903798a3cf46aba7562d024b0ed4d6baa6663118ea3",
+      "size": 577
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/shadow_overlay_report.csv",
+      "sha256": "0c47ff8f11fcf589b98f6a63fc53dc8cd75a486432fe495a0bf5793006ce629b",
+      "size": 573386
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/artifacts/stage1_open_action_value_retrained_20260928/training_diagnostics.csv",
+      "sha256": "39adf4f7bb57db38503d3aedeb3520dfe81025d4781a4b8f3f1bd78f29e0769e",
+      "size": 911
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/meta.yaml",
+      "sha256": "a0df57681d89752a4787895cfa17aa608d4ef7dd326d98ec7a96eb7317c789aa",
+      "size": 456
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/metrics/development_all_gates_pass",
+      "sha256": "f89c517048da773db8675f2fbdbc01b786259a1961da611b4140a78ab05b3ea5",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/metrics/development_open_trade_days",
+      "sha256": "67543059015b09682286b59d223df282f9a9bce7d3b144a5ea14610b32a2da06",
+      "size": 23
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/metrics/development_return_pct",
+      "sha256": "e3eed0f1fc2de51a8dbfa6cd9575facb34985280a2675a475df5a1321a815fce",
+      "size": 33
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/metrics/development_total_turnover",
+      "sha256": "00290c1e26fa0e0c2742555baf7a0a17ee2e4b7a0867f6a919cd2c3c77738a3d",
+      "size": 35
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/params/cmd-sys.argv",
+      "sha256": "a0372c86e5c1c6023dba48afb3d85500826a18c0cab7562ae04cb4ef4470956d",
+      "size": 202
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/params/execute_probability_threshold",
+      "sha256": "d2cbad71ff333de67d07ec676e352ab7f38248eb69c942950157220607c55e84",
+      "size": 3
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/params/mandatory_derisk_beta_delta",
+      "sha256": "8aed642bf5118b9d3c859bd4be35ecac75b6e873cce34e7b6f554b06f75550d7",
+      "size": 3
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/params/maximum_skippable_turnover",
+      "sha256": "0602d7c813c1f6e7351a5832730f29daf739674976caba8d9dd955be838d46ea",
+      "size": 4
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/params/model",
+      "sha256": "633cdd8e1f01cb6b27c26cf004e515af1dd064b573bb3d6d83386504884c09d8",
+      "size": 36
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/params/objective",
+      "sha256": "dbba178c3e9c111b4f845d75a5032e591c44e6d4ae31573300dfe7b2324c237b",
+      "size": 55
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/params/selection_uses_outer_test",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size": 5
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/params/source_experiment",
+      "sha256": "c1bba5f066dacda2ff378f3d3b301b3af8a8a99832c4253bc40cb05c3115f196",
+      "size": 34
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "size": 89
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/398436752f7a41a6887a90307a6355f2/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/250302650704886449/meta.yaml",
+      "sha256": "aac92d0202b29d82eb2175bfc66467aa6fe7992287dcbdfdb7eefbde483ac0f2",
+      "size": 386
+    }
+  ]
+}

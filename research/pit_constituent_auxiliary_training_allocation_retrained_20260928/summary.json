@@ -1,0 +1,287 @@
+{
+  "experiment": "pit_constituent_auxiliary_training_allocation_retrained_20260928",
+  "card_type": "fixed_candidate_retraining",
+  "decision": "fixed_candidate_retrained_not_promoted_pending_stage1_validation",
+  "promotion_decision": "not_promoted",
+  "system_of_record": "qlib",
+  "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+  "as_of": "2026-09-25",
+  "selected_model": {
+    "candidate": "pit_only_aux_005",
+    "candidate_parameters": {
+      "name": "pit_only_aux_005",
+      "auxiliary_weight": 0.05,
+      "include_union_backfill": false,
+      "method": "relative_return_baseline",
+      "absolute_drawdown_penalty": 0.0,
+      "conditional_drawdown_penalty": 0.0,
+      "rolling_5d_penalty": 0.0,
+      "cash_target_penalty": 0.0,
+      "tail_event_weight_multiplier": 1.0,
+      "stress_cash_ceiling": 0.55,
+      "smoothing_span": null,
+      "rebalance_threshold": null,
+      "drawdown_floor": null,
+      "drawdown_budget_multiplier": 0.0,
+      "drawdown_budget_metric": "risky_weight",
+      "drawdown_budget_buffer": 0.0,
+      "trade_event_penalty": 0.0,
+      "trade_event_softness": 0.02
+    },
+    "selection_policy": "previously_fixed_candidate_no_new_search",
+    "selection_uses_outer_test": false,
+    "recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "training_information_cutoff": "2022-12-30"
+  },
+  "source_audit": {
+    "kind": "user_authorized_fixed_candidate_retraining",
+    "replaces_missing_artifact_identity": false,
+    "missing_predecessor_recorder_id": "3144ec23c3ee4478b6b1e699fb8203d3",
+    "candidate": {
+      "name": "pit_only_aux_005",
+      "auxiliary_weight": 0.05,
+      "include_union_backfill": false,
+      "method": "relative_return_baseline",
+      "absolute_drawdown_penalty": 0.0,
+      "conditional_drawdown_penalty": 0.0,
+      "rolling_5d_penalty": 0.0,
+      "cash_target_penalty": 0.0,
+      "tail_event_weight_multiplier": 1.0,
+      "stress_cash_ceiling": 0.55,
+      "smoothing_span": null,
+      "rebalance_threshold": null,
+      "drawdown_floor": null,
+      "drawdown_budget_multiplier": 0.0,
+      "drawdown_budget_metric": "risky_weight",
+      "drawdown_budget_buffer": 0.0,
+      "trade_event_penalty": 0.0,
+      "trade_event_softness": 0.02
+    },
+    "training_spec": {
+      "root": "/Users/rziiiii/dev/workspace",
+      "experiment": "pit_constituent_auxiliary_training_allocation_retrained_20260928",
+      "train_start": "2011-01-03",
+      "development_years": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "development_end": "2022-12-30",
+      "outer": [
+        "2023-01-03",
+        "2026-09-25"
+      ],
+      "purge_rows": 20,
+      "hidden_units": 16,
+      "tail_hidden_units": 8,
+      "epochs": 300,
+      "learning_rate": 0.002,
+      "weight_decay": 0.08,
+      "maximum_soxl_weight": 0.3,
+      "minimum_cash_weight": 0.15,
+      "primary_tail_loss_weight": 0.02,
+      "turnover_loss_weight": 0.006,
+      "training_cost_bps": 10,
+      "costs_bps": [
+        10,
+        25
+      ],
+      "auxiliary_batch_size": 2048,
+      "smoothing_span": 3,
+      "rebalance_threshold": 0.02,
+      "research_max_drawdown_target_pct": null,
+      "research_worst_5d_target_pct": -15.0,
+      "research_minimum_ratio_10bps": 1.0,
+      "minimum_trade_day_reduction": 0.0,
+      "minimum_terminal_wealth_ratio_vs_primary": 0.0,
+      "promotion_requires_clean_forward": false,
+      "seed": 71
+    },
+    "candidate_search_count": 1,
+    "selection_policy": "previously_fixed_candidate_no_new_search",
+    "selection_uses_outer_test": false,
+    "same_weights_as_missing_predecessor_claimed": false,
+    "training_implementation": "current holdings-aware turnover implementation; new model identity",
+    "source_sha256": {
+      "data/qlib/soxl/qlib_store_manifest.json": "26aa3b85a2ed8cddad7b47b6c6e30997448c0f92a360b47a0020e2e953d5ae0d",
+      "data/qlib/soxl_soxx_soxs/qlib_store_manifest.json": "9dec4b4dea3d7ff918d46645b9d8716238a0b007399969969fcd039d045c228d",
+      "data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1/qlib_store_manifest.json": "9e1d04142719e70e4cc74bc470b772df9a416eb9ac4e691df42d41166551552f",
+      "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+      "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+    },
+    "primary_label_audit": {
+      "training_information_cutoff": "2022-12-30",
+      "primary_label_timing": "five T+1 open to T+2 open returns; final realization is fifth exit_date",
+      "excluded_cross_boundary_signal_rows": 6,
+      "last_mature_training_signal": "2022-12-21",
+      "last_training_label_realization": "2022-12-30"
+    },
+    "primary_dataset": {
+      "dataset_class": "qlib.data.dataset.DatasetH",
+      "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+      "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+      "segments": {
+        "development": [
+          "2016-01-01",
+          "2022-12-30"
+        ],
+        "outer": [
+          "2023-01-03",
+          "2026-09-23"
+        ],
+        "fold_2016": [
+          "2016-01-01",
+          "2016-12-31"
+        ],
+        "fold_2017": [
+          "2017-01-01",
+          "2017-12-31"
+        ],
+        "fold_2018": [
+          "2018-01-01",
+          "2018-12-31"
+        ],
+        "fold_2019": [
+          "2019-01-01",
+          "2019-12-31"
+        ],
+        "fold_2020": [
+          "2020-01-01",
+          "2020-12-31"
+        ],
+        "fold_2021": [
+          "2021-01-01",
+          "2021-12-31"
+        ],
+        "fold_2022": [
+          "2022-01-01",
+          "2022-12-31"
+        ]
+      },
+      "segment_rows": {
+        "development": 1762,
+        "outer": 934,
+        "fold_2016": 252,
+        "fold_2017": 251,
+        "fold_2018": 251,
+        "fold_2019": 252,
+        "fold_2020": 253,
+        "fold_2021": 252,
+        "fold_2022": 251
+      },
+      "labels": [
+        "soxl_forward_open_return",
+        "soxx_forward_open_return",
+        "tail_event_5d",
+        "tail_cash_target_5d",
+        "relative_alpha_5d"
+      ],
+      "purge_rows": 20
+    },
+    "auxiliary": {
+      "source_api": "qlib.data.D.features",
+      "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxx_pit_leveraged_training_v1",
+      "raw_observation_end": "2022-12-30",
+      "rows": 106958,
+      "label_construction": "synthetic 2x forward labels built after truncating raw observations at training cutoff",
+      "union_backfill_used": false,
+      "post_cutoff_actual_2x_calibration_used": false
+    },
+    "auxiliary_dataset": {
+      "dataset_class": "qlib.data.dataset.DatasetH",
+      "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+      "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+      "rows": 106958,
+      "feature_count": 16
+    },
+    "market_audit": {
+      "execution_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+      "daily_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+      "normalized_provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+      "execution_provider": {
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs",
+        "provider_manifest": "/Users/rziiiii/dev/workspace/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+        "source_manifest": "/Users/rziiiii/dev/workspace/data/raw/soxs_defensive_v1/source_manifest.json",
+        "as_of": "2026-09-25",
+        "instruments": [
+          "SOXL",
+          "SOXS",
+          "SOXX"
+        ],
+        "fields": [
+          "$open",
+          "$high",
+          "$low",
+          "$close"
+        ],
+        "calendar_rows": 4162,
+        "usable_rows": 4101,
+        "usable_start": "2010-06-04",
+        "usable_end": "2026-09-23",
+        "include_incomplete_latest": false,
+        "relationship_audit": {
+          "common_end": "2026-09-25",
+          "common_rows_per_instrument": 4162,
+          "common_start": "2010-03-11",
+          "soxs_soxl_close_return_correlation": -0.9972094326700555,
+          "soxs_soxx_close_return_correlation": -0.9980247172962241
+        },
+        "source_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.features"
+        ]
+      },
+      "calendar_start": "2010-06-04",
+      "calendar_end": "2026-09-23",
+      "common_feature_end": "2026-09-23",
+      "source_api": "qlib.data.D.features",
+      "include_incomplete_latest": false,
+      "excluded_sources": {
+        "soxx_constituents": "excluded_from_model_non_PIT_single_snapshot_survivorship_bias",
+        "macro_credit": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+        "hardware_cycle": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+        "intraday": "excluded_from_2016_2022_walk_forward_coverage_starts_2019"
+      },
+      "feature_count": 39,
+      "feature_families": [
+        "cross_asset_diffusion",
+        "current_soxl_soxx_soxs",
+        "normalized_regime",
+        "risk_hardened_high_chop"
+      ],
+      "base_constrained_ref_in_features": false,
+      "base_constrained_ref_role": "none",
+      "candidate_weight_grid": false,
+      "allocation_output": "direct_continuous_softmax_soxl_soxx_cash",
+      "maximum_soxl_weight_is_risk_constraint": true,
+      "selection_uses_outer_test": false
+    },
+    "recorder_id": "f696f656b3d44e868588e09a5d97c905",
+    "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905"
+  },
+  "recorder_id": "f696f656b3d44e868588e09a5d97c905",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_constituent_auxiliary_training_allocation_retrained_20260928/qlib_recorder/188464491611747257/f696f656b3d44e868588e09a5d97c905",
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/models/pit_only_aux_005.pkl",
+      "artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/selected_model.json",
+      "artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/predictions.csv",
+      "artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/strategy_returns.csv",
+      "artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/training_diagnostics.csv",
+      "artifacts/pit_constituent_auxiliary_training_allocation_retrained_20260928/provenance.json"
+    ]
+  },
+  "frozen_bundle_manifest": "frozen_bundle_manifest.json",
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ]
+}

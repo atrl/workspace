@@ -1,0 +1,14 @@
+{
+  "frozen_open_action_value_model": {
+    "artifact": "artifacts/stage1_open_action_value_net_fees_20260928/frozen_open_action_value_model.pkl",
+    "sha256": "06156d31b23d61101b4fa288f9f1bd70d2bfcbb53e7171e5f1c4efdbd5315411",
+    "training_signal_end": "2022-12-31",
+    "available": true
+  },
+  "frozen_recovery_model": {
+    "artifact": "artifacts/stage1_open_action_value_net_fees_20260928/frozen_recovery_model.pkl",
+    "sha256": "c1e0d8ddcf7e3d806e5cf44bf3828370e8ce2ae3fa377814512037cf1ad6da92",
+    "training_signal_end": "2022-12-31",
+    "available": true
+  }
+}

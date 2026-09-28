@@ -45,7 +45,9 @@
     <dict><key>Weekday</key><integer>6</integer><key>Hour</key><integer>10</integer><key>Minute</key><integer>0</integer></dict>
   </array>
   <key>RunAtLoad</key>
-  <false/>
+  <true/>
+  <key>StartInterval</key>
+  <integer>60</integer>
   <key>ProcessType</key>
   <string>Background</string>
   <key>StandardOutPath</key>

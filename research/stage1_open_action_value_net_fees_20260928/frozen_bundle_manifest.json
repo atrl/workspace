@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "experiment": "stage1_open_action_value_net_fees_20260928",
+  "recorder_id": "b472a458fc9042b4905094fddeaebd33",
+  "purpose": "Immutable failed-research evidence, frozen models and reproducible validation; not an active runtime release.",
+  "development_gate_pass": false,
+  "artifacts": [
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/label.pkl",
+      "sha256": "4e6630d6749c400c22ae9e703b2b6d7da0d52dd8d3d5e6c92c1b0fe103f29a4a",
+      "size": 43075
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/pred.pkl",
+      "sha256": "1f0c9ac639d1c9991e1cfabafdf2683de6127659d2f165aa49affd32cbfb29e2",
+      "size": 65493
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/action_value_training_frame.csv",
+      "sha256": "72f4328b5e2a99cfb5ad274cb01d90fd8a25f6d009792bfe50fc6adaae76f507",
+      "size": 802502
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/dataset_audit.json",
+      "sha256": "5b49f9f9b2caa259a6026223a0e1ba2061c384dddabd9aa9625c2d6f7a7479ca",
+      "size": 2211
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/frozen_open_action_value_model.pkl",
+      "sha256": "06156d31b23d61101b4fa288f9f1bd70d2bfcbb53e7171e5f1c4efdbd5315411",
+      "size": 2759
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/frozen_recovery_model.pkl",
+      "sha256": "c1e0d8ddcf7e3d806e5cf44bf3828370e8ce2ae3fa377814512037cf1ad6da92",
+      "size": 2660
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/model_comparison.csv",
+      "sha256": "f2ce7ea43369d5a211f633cc2609c14d5fde14d3bbf1fb708d6e1129e59bddff",
+      "size": 1896
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/open_action_value_models.pkl",
+      "sha256": "a006816c34a106e1006a18763ad5a6b1c1159e847f84dc65b40ffee1f1128e52",
+      "size": 11892
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/portfolio_report.csv",
+      "sha256": "41f511e3ed2f4693091434cb1f0e3ade8800c125c971cdfa745d3bee8ee08c2e",
+      "size": 1264795
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/qlib_risk_analysis.csv",
+      "sha256": "4c5a4626c0ba74b23fab9726ff1125b221fef3521ef8c9842d2371b2af3f2ef9",
+      "size": 3551
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/runtime_models.json",
+      "sha256": "a14bbe8a32154cdf2f07292465e84a59f34da7f064b40eeea4ea2694d59a5118",
+      "size": 575
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/shadow_overlay_report.csv",
+      "sha256": "05023dedd7cffe2550460e4ac39cb097220cba08cdeb8d596898c0c46ae7b91e",
+      "size": 577084
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/artifacts/stage1_open_action_value_net_fees_20260928/training_diagnostics.csv",
+      "sha256": "a6f70dca9b1d796e27f3f539917e98cf5a5147084ea05f1badcfd711e57cc496",
+      "size": 912
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/meta.yaml",
+      "sha256": "40ea2df95a5326829e4b97061e6f288d56331e44a70f19f600b369739724f20f",
+      "size": 455
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/metrics/development_all_gates_pass",
+      "sha256": "5569477b859cbe5c520804ab186427f9284c925d24482e77472aa9814b8bb560",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/metrics/development_open_trade_days",
+      "sha256": "46b7625b35d4aa1d6c89109ce378635e5aafffc4349fce836ad8fed4efcdb9ae",
+      "size": 23
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/metrics/development_return_pct",
+      "sha256": "499a6c7c88a135d4d5741919d2ae39d5355f4f35dff44c2a149b2195d46a2152",
+      "size": 34
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/metrics/development_total_turnover",
+      "sha256": "cd8ce571d87e062d96a16c3175e9835dfb8076d8aa3b8f2f437cf19e8ef423d7",
+      "size": 35
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/params/cmd-sys.argv",
+      "sha256": "4a33a2c7325e14ca660bd4bdf5f514ef73a53ba1aefb31e8292be8fe68a520d1",
+      "size": 202
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/params/execute_probability_threshold",
+      "sha256": "d2cbad71ff333de67d07ec676e352ab7f38248eb69c942950157220607c55e84",
+      "size": 3
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/params/mandatory_derisk_beta_delta",
+      "sha256": "8aed642bf5118b9d3c859bd4be35ecac75b6e873cce34e7b6f554b06f75550d7",
+      "size": 3
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/params/maximum_skippable_turnover",
+      "sha256": "0602d7c813c1f6e7351a5832730f29daf739674976caba8d9dd955be838d46ea",
+      "size": 4
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/params/model",
+      "sha256": "633cdd8e1f01cb6b27c26cf004e515af1dd064b573bb3d6d83386504884c09d8",
+      "size": 36
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/params/objective",
+      "sha256": "dbba178c3e9c111b4f845d75a5032e591c44e6d4ae31573300dfe7b2324c237b",
+      "size": 55
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/params/selection_uses_outer_test",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size": 5
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/params/source_experiment",
+      "sha256": "c1bba5f066dacda2ff378f3d3b301b3af8a8a99832c4253bc40cb05c3115f196",
+      "size": 34
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/tags/mlflow.source.name",
+      "sha256": "2b91bc6c6ab0849037e6bbaa702be690e7bcaffff56b8048a68ff3f095ddf989",
+      "size": 89
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/b472a458fc9042b4905094fddeaebd33/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/466758183726921937/meta.yaml",
+      "sha256": "180e44cc4a2613bba9e033bd53aa38d186b4268d2256eef3c692c023105bd653",
+      "size": 384
+    }
+  ]
+}
