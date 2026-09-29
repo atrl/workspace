@@ -1,0 +1,5 @@
+grouping,group_count,largest_group_nominal_loss_share,top5_group_nominal_loss_share,inverse_weight_concentration,interpretation
+year,4,0.33604034781455994,1.0,3.184108257293701,nominal loss-weight concentration; not gradient influence or IID sample size
+datetime,776,0.0013855851721018553,0.00692792609333992,774.3585205078125,nominal loss-weight concentration; not gradient influence or IID sample size
+instrument,32,0.04961343854665756,0.2406451255083084,26.864139556884766,nominal loss-weight concentration; not gradient influence or IID sample size
+overlap_cluster_conditional_on_crash_labels,29,0.17940756678581238,0.6730195879936218,9.083913803100586,conditional crash-label nominal weights; not gradient influence or IID sample size

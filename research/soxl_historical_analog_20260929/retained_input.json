@@ -1,0 +1,10 @@
+{
+  "canonical_card_dir": "/Users/rziiiii/dev/workspace/research/soxl_historical_analog_20260929",
+  "market_relative_path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/inputs/market_frame.pkl",
+  "market_sha256": "94e2e5085a0ea61e2e39289778793ac14ce8fcb602efb4efd00b2848b43cf94b",
+  "source_audit_relative_path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/inputs/source_audit.json",
+  "source_audit_sha256": "37a9fb000f633a8775987da13f73d30b458b552737c6a2c652145beef6f98cae",
+  "coverage_relative_path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/training_coverage.pkl",
+  "coverage_sha256": "b0dcfa8a1930c03a6616cdfc34fc76e8f4e883c8dd72b5cd533f5e876eae0bff",
+  "replay_reader": "qlib.data.dataset.loader.StaticDataLoader after artifact hash verification"
+}

@@ -1,0 +1,115 @@
+{
+  "experiment": "soxl_historical_analog_20260929",
+  "registered_before_data_extraction": true,
+  "snapshot_as_of": "2026-09-25",
+  "model_training_performed": false,
+  "production_change": false,
+  "cohorts": {
+    "training_2011_2022": [
+      "2011-01-01",
+      "2022-12-31"
+    ],
+    "untrained_2023_2025": [
+      "2023-01-01",
+      "2025-12-31"
+    ]
+  },
+  "A": {
+    "role": "retrospective completed-path coverage only; not a prospective signal or training sample selector for B",
+    "target_start": "2026-07-27",
+    "target_end": "2026-09-25",
+    "main_sessions": 44,
+    "fixed_sensitivity_sessions": [
+      40,
+      60
+    ],
+    "shape_source": "SOXX close path normalized from first session open",
+    "distance_squared": "0.5 * mean(squared differences of 21 equally spaced cumulative log-return path points divided by own daily log-return sigma * sqrt(L)) + 0.5 * mean(squared differences of training-robust-scaled amplitude features)",
+    "amplitude_features": [
+      "window_log_return",
+      "window_max_drawdown",
+      "realized_annual_volatility",
+      "vix_median",
+      "vix_max"
+    ],
+    "soxl_role": "leveraged-path comparison only, not in retrieval distance"
+  },
+  "B": {
+    "role": "as-of information-state retrieval; chosen 2026-08-31 anchor is retrospective, not a new clean OOS trial",
+    "anchor": "2026-08-31",
+    "main_windows": [
+      20,
+      60
+    ],
+    "fixed_sensitivity_windows": [
+      [
+        20
+      ],
+      [
+        60
+      ]
+    ],
+    "distance_squared": "equal average of within-block mean squared robust z differences for momentum, risk, trend and VIX blocks",
+    "features": {
+      "momentum": [
+        "soxx_log_return_20",
+        "soxx_log_return_60"
+      ],
+      "risk": [
+        "soxx_vol_20",
+        "soxx_vol_60",
+        "soxx_drawdown_20",
+        "soxx_drawdown_60"
+      ],
+      "trend": [
+        "soxx_ma_gap_20",
+        "soxx_ma_gap_60"
+      ],
+      "vix": [
+        "vix_log_level",
+        "vix_log_change_20"
+      ]
+    },
+    "actual_feature_support": "60-day return includes anchor-60 close (61 closes); use exact earliest dependency",
+    "forward_outcomes": [
+      18,
+      20
+    ],
+    "forward_outcomes_used_in_retrieval": false,
+    "query_forward20_status": "incomplete in fixed 9/25 snapshot; only 18 realized sessions reported",
+    "boundary_purge": "complete feature support through anchor+20 closing-price label must lie inside its historical cohort"
+  },
+  "scaling": {
+    "fit_cohort": "training_2011_2022 only",
+    "center": "feature median",
+    "scale": "1.4826*MAD; fallback IQR/1.349, then standard deviation, then 1 for constant features",
+    "fit_on_target": false
+  },
+  "description_threshold": {
+    "reference": "all disjoint support pairs from deterministic every-20th training-period candidate, with no outcome filtering",
+    "quantile": 0.05,
+    "interpretation": "descriptive geometry only; not a p value, predictive probability, or multiple-comparison-adjusted significance"
+  },
+  "event_deduplication": {
+    "method": "distance-ranked greedy non-overlapping full-support representatives; suppressed rows inherit the first overlapping representative cluster",
+    "B_support": "earliest feature price through anchor+20 closing price",
+    "A_support": "first session open through final session close",
+    "max_display_per_cohort": 3,
+    "report_counts": [
+      "raw_candidate_count",
+      "boundary_purged_count",
+      "below_p5_reference_count",
+      "nonoverlap_representative_count",
+      "nonoverlap_below_p5_count"
+    ],
+    "independence_warning": "nonoverlap count is not an effective IID sample size; prolonged regimes and common cross-asset shocks remain dependent"
+  },
+  "robustness": "Report every fixed window variant and all cohort results, without choosing the best-looking one. No threshold or feature search.",
+  "future_training_boundary": "A cannot select training data for a prospective B model. Any later training must nest selection/scaling inside time folds, purge matured labels, leave entire event and related assets together, and reserve new forward data.",
+  "price_source": {
+    "provider": "data/qlib/soxl",
+    "reason": "Pre-computation independent source audit found the main provider OHLC consistent; alternate contains an invalid OHLC bar. Do not mix levels from the two stores.",
+    "basis": "Existing provider price returns, with no additional dividend cash; not asserted to be total returns or tradable net profits.",
+    "soxx_role": "ETF proxy, not the underlying index itself; SOXL is not assumed to equal three times SOXX."
+  }
+}

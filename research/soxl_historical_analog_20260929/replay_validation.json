@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "retained_market_rows": 4162,
+  "retained_coverage_input_names": [
+    "primary_training_features_and_labels",
+    "primary_target_features",
+    "common_training_features",
+    "common_target_features",
+    "auxiliary_effective_training_rows",
+    "shared_training_calendar",
+    "action_counterfactual_training_rows",
+    "action_dataset_audit",
+    "action_validation_state_rows",
+    "base_walk_forward_return_rows",
+    "retained_primary_scaler",
+    "retained_common_scaler",
+    "training_spec",
+    "candidate",
+    "retained_artifact_references",
+    "usage",
+    "analog_events"
+  ],
+  "live_market_extraction_blocked_in_check": true,
+  "live_training_audit_blocked_in_check": true,
+  "ranked_candidates_counts_and_outcomes_identical_to_first_record": true,
+  "reference_recorder_id": "20f9aaab039e435ea82995f01f0bb06b",
+  "final_recorder_id": "32085144fa2c4989999530d8ed7c9c8a"
+}
