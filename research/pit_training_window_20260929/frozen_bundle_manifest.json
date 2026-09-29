@@ -1,0 +1,174 @@
+{
+  "version": 1,
+  "experiment": "pit_training_window_20260929",
+  "recorder_id": "34f7057a573d486397d2fb989a06aa56",
+  "canonical_card_dir": "/Users/rziiiii/dev/workspace/research/pit_training_window_20260929",
+  "promotion_status": "not_promoted",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/analysis/comparison.pkl",
+      "sha256": "d7ac36c35949335e794c7e1c229b8c7ea0444809fdd1fdfb7274a0d3c8dc2b07",
+      "size": 1800
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/analysis/fit_diagnostics.pkl",
+      "sha256": "30b5adb7ac1c8e207d7e4d8a6df74232bd3e8e06c4c58b24e14281ac2aadfa35",
+      "size": 2288
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/analysis/portfolio_replays.pkl",
+      "sha256": "c0be7aee2ee522dbc44a6334934b53b73330591ef626dac9893407181ad264ea",
+      "size": 154523
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/analysis/predictions_by_variant.pkl",
+      "sha256": "7e660b84e9e2119edae76625f201f61fe82c055323ce38f52fb47cf2a743fe88",
+      "size": 34967
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/analysis/qlib_risk_analysis.pkl",
+      "sha256": "122ea17b173545b12500c7ba9b4ed2d49c25201f6a096ec5f219574d30b455b5",
+      "size": 1539
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/inputs/candidate.pkl",
+      "sha256": "3936d55209cc2135fa78b8eb5f888e753e7c32df88b0eb6628ac192f5ed7d4fd",
+      "size": 575
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/inputs/common_frame.pkl",
+      "sha256": "0cfd982ad91e591a6bdc4f5c722b730fc4c210c9d35bec72992d2d2f7f2ca1ef",
+      "size": 1291307
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/inputs/market_frame.pkl",
+      "sha256": "c8952537e84effbeede2e32393e1cd059f5939b71202f2b3808b1c09611daa11",
+      "size": 2679582
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/inputs/primary_matured_frame.pkl",
+      "sha256": "e2b6983975604514892057980f4202cf2261af634aceeb1e8baf34729c9aa5e5",
+      "size": 2679569
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/inputs/provenance.pkl",
+      "sha256": "a2fa66327b5318644e80a75660a0135ac66b0673566af0b99a5a3c0db4791a8a",
+      "size": 5036
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/inputs/selection_plan.json",
+      "sha256": "085ef896185c0b1d738f9cce7d19b258d12053810d2f9ce248aa758355772cff",
+      "size": 1749
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/inputs/training_inputs_by_variant.pkl",
+      "sha256": "80ebb6e0b443c2d25b63c5a02556a7038bf17be935019c8e8ea3df317f256056",
+      "size": 16311955
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/models/expanding.pkl",
+      "sha256": "84d1b62c4e82f7e412e5a20075d46cfd501ffa29a68276772825b5375e9d6791",
+      "size": 8212
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/models/old_frozen_2022.pkl",
+      "sha256": "0708cea512d0f2f91344654e3ca4b2921f90277ea9b8a5aebcab62191016c2ec",
+      "size": 8212
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/artifacts/models/rolling8.pkl",
+      "sha256": "ce9b48a2c54c0fdf76e39917cb7d715892461b27af106be2352e3eb556abfd98",
+      "size": 8212
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/meta.yaml",
+      "sha256": "3644bd722e59d2acf354d6be204dc9fee6b5ff7a7d87c875156cbdf3f52d2f5e",
+      "size": 441
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/metrics/diagnostic_interval_count",
+      "sha256": "21a61678e8c51046f49318cab958278f896630ddb80e6546f9dd8e72c6640d2c",
+      "size": 22
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/metrics/expanding_primary_fit_rows",
+      "sha256": "2208e35266404e00f0e6ba78da91c3870449641703dd806a416693319927c300",
+      "size": 23
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/metrics/new_model_count",
+      "sha256": "e95f30d52681633ceb32633bdc3a719d7cbc980236b8c7a9969990112e759709",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/metrics/reference_model_count",
+      "sha256": "a7110631200ef53cb8d5bd9707fadab22f83ce2316bf8ad66b2af6dfc1507ff1",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/metrics/rolling8_primary_fit_rows",
+      "sha256": "b41ec4e758e53e76b2b2e877818b181b7d3195c62a6d6c33f6c2ef99391b62a6",
+      "size": 23
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/params/candidate",
+      "sha256": "7739540bf8e7d0714f6d29a419e0aee461eb07ff9949a114c6b57361a89fbd9e",
+      "size": 16
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/params/cmd-sys.argv",
+      "sha256": "96202954c09e07a73c788bf1aad894331f0049997133d4d0fe3efdfce1225e3a",
+      "size": 224
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/params/model_count",
+      "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+      "size": 1
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/params/policy_layers",
+      "sha256": "0a9e9dfd07bcda82c7ab8b4307e4b32e17f9d3a860a9cb3fd65827fba019cc1a",
+      "size": 19
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/params/seed",
+      "sha256": "7f2253d7e228b22a08bda1f09c516f6fead81df6536eb02fa991a34bb38d9be8",
+      "size": 2
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/params/selection_uses_2026",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size": 5
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/params/training_cutoff",
+      "sha256": "fc2c3e1fe76fb2455c7b056679471fd1814968e45696ee8e0b0151c1c11ca071",
+      "size": 10
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/tags/mlflow.source.name",
+      "sha256": "cabb9fcf5fc060915af0754724f934034c2ca9956372fb0acbe4da7096b4f551",
+      "size": 111
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/676355013679755019/meta.yaml",
+      "sha256": "50bd5d1d726611f9e63435a4d4efe5647bfa1114148eee22a6934cdc5592f9e6",
+      "size": 356
+    }
+  ]
+}

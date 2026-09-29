@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "experiment": "stage1_economic_action_20260929",
+  "recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+  "purpose": "Frozen economic-routing research and read-only forward shadow; not an order release",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/analysis/annual.pkl",
+      "sha256": "b8f7423783600612c6b696decb73c15abea604ce9a494242c94a84ff8be733cc",
+      "size": 4790
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/analysis/comparison.pkl",
+      "sha256": "c31ea2c023e27d489400cda8fb715543d732edf30714876b4fd8d7932b0f0356",
+      "size": 3105
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/analysis/gates.pkl",
+      "sha256": "dfcdc61dab70db1c83074dc88ad3ab6f3bfe92177f3fcf5beb43e822ee639190",
+      "size": 1476
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/analysis/origin_comparison.pkl",
+      "sha256": "3a9aa8c868439a275ce8fd505686b5ed5cf9f60961f2cf2b95038ce9eaebc724",
+      "size": 2158
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/analysis/origin_replays.pkl",
+      "sha256": "b615ca1937fbb14f69bf26472419f76607af5c5265a0ec2edeaaca989fb9d07f",
+      "size": 122455
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/analysis/portfolio_replays.pkl",
+      "sha256": "ac7281e80aa78d2cc69c9c97dadd51356ac883e85ee87d53ca46eaa976b4b306",
+      "size": 8166246
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/analysis/qlib_risk.pkl",
+      "sha256": "58eaf45fd1662b162899678e8971d245862d7c4945aa96780e854ccfdef8d11f",
+      "size": 3339
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/analysis/training_results.pkl",
+      "sha256": "a0ab9916a62cc2a00af89876b423d5cb419eec64fa7418abcefbc9b11d728e4b",
+      "size": 3257546
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/inputs/prepared_inputs.pkl",
+      "sha256": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+      "size": 1630212
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/inputs/selection_plan.json",
+      "sha256": "c53b02cbe20d224dcad39240b876afa1ccc1d88238e06953793987c6ea265a86",
+      "size": 5426
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/models/own_state_expanding_2025.pkl",
+      "sha256": "30d51913deb5d630ae5438bce0bf00bfff1d863c5821d3749291f71db079663f",
+      "size": 2199
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/models/own_state_frozen_2022.pkl",
+      "sha256": "a55ef083512375911d770cc73505b7a335e1136f93fc8345376fbd3230d7a3f2",
+      "size": 2199
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/models/rules_only_classifier.pkl",
+      "sha256": "058cb039920d197ddbebbb6b381e61a8108fbe7b0b2f7fee41877d3eac233afe",
+      "size": 2793
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/validation/implementation_notes.md",
+      "sha256": "02b01c4a0ba227820408b390d951e32d2deaf714418a0464e9d5dbf21cb5bdf7",
+      "size": 1660
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/validation/replay_validation.json",
+      "sha256": "20455ed6e27295db8404c6fe835d13ddd5841270bb0ae0f02dacf307ac2da3ff",
+      "size": 1460
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/meta.yaml",
+      "sha256": "0fd4b137ed25d63cdc385a1f478424e7515182b9e80b82fab03e7738adec131e",
+      "size": 444
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/metrics/compared_variants",
+      "sha256": "50f0623759bc0ce83bdbbc18aee350d660560b895fc16a13bebbf4a742a881be",
+      "size": 20
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/metrics/input_rows",
+      "sha256": "bec213a0cce5992409f91a546c705c7b8928ef97cdb32d916fa3554bf928795d",
+      "size": 23
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/params/cmd-sys.argv",
+      "sha256": "760dd9e66cf3849e179b354a0ce6e22642a7ef5372c0809f5d60e43652c3eaee",
+      "size": 224
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/params/plan_sha256",
+      "sha256": "450483963d393ae0038d1f49b1a5ad93e6a6f6a24c6f44e99d6d1f50dbd8a971",
+      "size": 64
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/params/selection_uses_outer",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size": 5
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/params/snapshot_as_of",
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "size": 10
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/params/training_style",
+      "sha256": "fcc5e342161c65bbc1e35f83ceaf1483d430eff2c17f3b278f89a4273d8a76c6",
+      "size": 23
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/tags/mlflow.source.name",
+      "sha256": "cabb9fcf5fc060915af0754724f934034c2ca9956372fb0acbe4da7096b4f551",
+      "size": 111
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/517305099807006126/meta.yaml",
+      "sha256": "39a981db641d325e6a0ea55f5884feacceaef451a6eace89c6a812c22aecb64d",
+      "size": 362
+    },
+    {
+      "path": "summary.json",
+      "sha256": "f15c74dcaf0fe6b55df3dba4500a1978a45b87bf4cd68c8f9c22e8cc6af1fd69",
+      "size": 8721
+    },
+    {
+      "path": "training_diagnostics_2022.csv",
+      "sha256": "0ecd506016b06033d350994d334b6b12c0307cb6bc7f64f6057ab2b80a000e97",
+      "size": 1463
+    },
+    {
+      "path": "conclusion.md",
+      "sha256": "b2b8260b8b159ae6b5b9cc040ef7433afd4ec9fbf1c997a0c508bbb02c3a476e",
+      "size": 1787
+    },
+    {
+      "path": "workflow.yaml",
+      "sha256": "c413c699c9a9e0dc5d113050ff6fcf46eef022ab640f446181dede1c9382d88f",
+      "size": 705
+    },
+    {
+      "path": "training_diagnostics_2025.csv",
+      "sha256": "b130d8adf85bde076b9f68bbccd10bc7f63fdde32954d7d0d69b5cdd747fa937",
+      "size": 1985
+    },
+    {
+      "path": "dataset_audit_2025.json",
+      "sha256": "168358b5298cf03a85ee1907abfbc71e0cdc6f88a2c3f02494a11162f2cb592f",
+      "size": 1641
+    },
+    {
+      "path": "annual_metrics.csv",
+      "sha256": "5d61f4afac42e851412d1edb23137fac1b36162354132c8536ab9437ddae9af9",
+      "size": 7724
+    },
+    {
+      "path": "replay_validation.json",
+      "sha256": "20455ed6e27295db8404c6fe835d13ddd5841270bb0ae0f02dacf307ac2da3ff",
+      "size": 1460
+    },
+    {
+      "path": "backtest_benchmark_comparison.csv",
+      "sha256": "d5059332729ff5b7e9c0764ab88e455ad60b87a9760389f79307b9194e388ae7",
+      "size": 4386
+    },
+    {
+      "path": "dataset_audit_2022.json",
+      "sha256": "ac25ad179cb1195085083e33f5a31473922bda978fe9167f90f7b15bc588ba58",
+      "size": 1641
+    },
+    {
+      "path": "origin_window_comparison.csv",
+      "sha256": "202c7656c74a78aabb0aaf62bef29f3ec7a6f8269cce45d46bd750c016a833c1",
+      "size": 2294
+    },
+    {
+      "path": "stage1_economic_action_20260929.ipynb",
+      "sha256": "6aa88b02ef48ee27cde66e53bc4ff6cc8836002f004e9391636773e7e14f0100",
+      "size": 64691
+    },
+    {
+      "path": "retained_inputs.json",
+      "sha256": "d069fd9f2756be2513e221e4371e89fc234fb0611e161a94ef7f2612d836a344",
+      "size": 324
+    },
+    {
+      "path": "selection_plan.json",
+      "sha256": "c53b02cbe20d224dcad39240b876afa1ccc1d88238e06953793987c6ea265a86",
+      "size": 5426
+    },
+    {
+      "path": "development_gates.csv",
+      "sha256": "2bb3de2b929cd00e3a2feebba26d4c3802a2624f704d7f9187969796cfb4c83e",
+      "size": 978
+    },
+    {
+      "path": "risk_analysis.csv",
+      "sha256": "7de9a6d7de19499d2d08419f758cb68be0ca3c9a85d05d8a60782820c772310a",
+      "size": 8506
+    },
+    {
+      "path": "implementation_notes.md",
+      "sha256": "02b01c4a0ba227820408b390d951e32d2deaf714418a0464e9d5dbf21cb5bdf7",
+      "size": 1660
+    }
+  ],
+  "code_sha256": {
+    "src/workflow/stage1_economic_training.py": "ffbecc0caf68a0ad792c46f5b61b45e6e322a79ed955dd9ee9145302efb84bde",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/workflow/stage1_economic_shadow.py": "4f06284cc85eb0b4256da6380de1a821c368b13b9a1e8a02494690ac3942c181",
+    "src/workflow/stage1_economic_experiment.py": "6a0031c9731dbae0291a92ee6906683ce5c287438e9df22733d7a455dc32bb5d",
+    "src/schedule/stage1_economic_shadow.py": "9790dc2e42ad341ae6a5b70b23a87b7ec4bfd4cf719bbff7dd79b867bc32e93e",
+    "src/workflow/stage1_open_action_value.py": "3b6cc0d1f385ff797bdcaaaa1aca599c554e9c91931861bb66777fb1d8f25359",
+    "src/workflow/intraday_recovery_direct_allocation.py": "7973c6395d3232868f739f1fdc4251ce03552e6e10dd70126c8481c6d1b3c784",
+    "src/workflow/stage1_futu_sim.py": "7c8f975997d35d831c2ba131c1821ba1531678017e66d0d854bd23ec93d21447",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde"
+  }
+}

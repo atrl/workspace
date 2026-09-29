@@ -1,0 +1,208 @@
+{
+  "experiment": "stage1_economic_action_20260929",
+  "decision": "not_promoted_pending_new_forward_shadow",
+  "model_training_performed": true,
+  "production_change": false,
+  "plan_sha256": "c53b02cbe20d224dcad39240b876afa1ccc1d88238e06953793987c6ea265a86",
+  "source_as_of": "2026-09-25",
+  "last_full_history_trade": "2026-09-24",
+  "last_full_history_exit": "2026-09-25",
+  "provider_uri": "data/qlib/soxl_soxx_soxs",
+  "region": "us",
+  "recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_economic_action_20260929/qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6",
+  "recorder_relative_dir": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_economic_action_20260929/qlib_recorder",
+  "selection_uses_outer_test": false,
+  "development_gates": [
+    {
+      "variant": "rules_only",
+      "reference": "no_hold_reference",
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": false,
+      "max_drawdown_not_worse": true,
+      "worst_day_not_worse": true,
+      "cvar5_not_worse": false,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": true,
+      "minimum_annual_wealth_ratio": 0.997630748952844,
+      "all_pass": false
+    },
+    {
+      "variant": "rules_only",
+      "reference": "active_hold_baseline",
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": true,
+      "max_drawdown_not_worse": true,
+      "worst_day_not_worse": true,
+      "cvar5_not_worse": true,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": true,
+      "minimum_annual_wealth_ratio": 0.9959077090200725,
+      "all_pass": true
+    },
+    {
+      "variant": "own_state_net_value_frozen_2022",
+      "reference": "no_hold_reference",
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": true,
+      "max_drawdown_not_worse": true,
+      "worst_day_not_worse": false,
+      "cvar5_not_worse": true,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": false,
+      "minimum_annual_wealth_ratio": 0.936834978494284,
+      "all_pass": false
+    },
+    {
+      "variant": "own_state_net_value_frozen_2022",
+      "reference": "active_hold_baseline",
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": true,
+      "max_drawdown_not_worse": true,
+      "worst_day_not_worse": false,
+      "cvar5_not_worse": true,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": false,
+      "minimum_annual_wealth_ratio": 0.9265397069789328,
+      "all_pass": false
+    },
+    {
+      "variant": "own_state_net_value_expanding_2025",
+      "reference": "no_hold_reference",
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": true,
+      "max_drawdown_not_worse": true,
+      "worst_day_not_worse": false,
+      "cvar5_not_worse": true,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": false,
+      "minimum_annual_wealth_ratio": 0.936834978494284,
+      "all_pass": false
+    },
+    {
+      "variant": "own_state_net_value_expanding_2025",
+      "reference": "active_hold_baseline",
+      "development_return_above_baseline": true,
+      "stress_25bps_return_above_baseline": true,
+      "max_drawdown_not_worse": true,
+      "worst_day_not_worse": false,
+      "cvar5_not_worse": true,
+      "worst_5d_not_worse": true,
+      "open_trade_days_reduced_8pct": true,
+      "turnover_not_increased": true,
+      "annual_wealth_floor_pass": false,
+      "minimum_annual_wealth_ratio": 0.9265397069789328,
+      "all_pass": false
+    }
+  ],
+  "baseline_reproduction_pass": true,
+  "preferred_forward_candidate": "own_state_net_value_expanding_2025",
+  "allocation_model_unchanged": true,
+  "action_model_training_end": "2025-12-31",
+  "model_artifacts": {
+    "own_state_frozen_2022": {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/models/own_state_frozen_2022.pkl",
+      "sha256": "a55ef083512375911d770cc73505b7a335e1136f93fc8345376fbd3230d7a3f2"
+    },
+    "own_state_expanding_2025": {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/models/own_state_expanding_2025.pkl",
+      "sha256": "30d51913deb5d630ae5438bce0bf00bfff1d863c5821d3749291f71db079663f"
+    },
+    "rules_only": {
+      "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/models/rules_only_classifier.pkl",
+      "sha256": "058cb039920d197ddbebbb6b381e61a8108fbe7b0b2f7fee41877d3eac233afe"
+    }
+  },
+  "source_sha256": {
+    "src/workflow/stage1_economic_training.py": "ffbecc0caf68a0ad792c46f5b61b45e6e322a79ed955dd9ee9145302efb84bde",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/workflow/stage1_economic_shadow.py": "4f06284cc85eb0b4256da6380de1a821c368b13b9a1e8a02494690ac3942c181",
+    "src/workflow/stage1_economic_experiment.py": "6a0031c9731dbae0291a92ee6906683ce5c287438e9df22733d7a455dc32bb5d"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/prepared_inputs.pkl",
+      "analysis/training_results.pkl",
+      "analysis/portfolio_replays.pkl",
+      "analysis/origin_replays.pkl",
+      "models/*.pkl"
+    ]
+  },
+  "limitations": [
+    "Old allocation/recovery models unchanged: this isolates action-model optimization.",
+    "2023-2026 were previously inspected; expanding-data comparison is diagnostic, not clean holdout.",
+    "One-session plus shared-next-target-reset value labels are proxies, not full multi-day counterfactual control.",
+    "Continuous weight trade days and turnover are not actual broker fill counts.",
+    "All historical failure gates are retained; no failed candidate replaces active orders automatically."
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "allocation_source": {
+    "card_path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "manifest_sha256": "44c1a375ea575f1055ff46850a9c8dbc30d121d97919231efbf9084504628112",
+    "recorder_id": "f696f656b3d44e868588e09a5d97c905"
+  },
+  "shadow_models": {
+    "own_state_frozen_2022": {
+      "policy": "net_value",
+      "available": true,
+      "artifact": "artifacts/models/own_state_frozen_2022.pkl",
+      "sha256": "a55ef083512375911d770cc73505b7a335e1136f93fc8345376fbd3230d7a3f2",
+      "training_signal_end": "2022-12-20",
+      "label_available_at_max": "2022-12-22T14:31:00+00:00",
+      "test_decision_at": "2023-01-04T14:31:00+00:00",
+      "information_cutoff_exclusive": "2023-01-01T05:00:00+00:00"
+    },
+    "own_state_expanding_2025": {
+      "policy": "net_value",
+      "available": true,
+      "artifact": "artifacts/models/own_state_expanding_2025.pkl",
+      "sha256": "30d51913deb5d630ae5438bce0bf00bfff1d863c5821d3749291f71db079663f",
+      "training_signal_end": "2025-12-29",
+      "label_available_at_max": "2025-12-31T14:31:00+00:00",
+      "test_decision_at": "2026-01-05T14:31:00+00:00",
+      "information_cutoff_exclusive": "2026-01-01T05:00:00+00:00"
+    },
+    "rules_only": {
+      "policy": "rules_only",
+      "available": true,
+      "artifact": "artifacts/models/rules_only_classifier.pkl",
+      "sha256": "058cb039920d197ddbebbb6b381e61a8108fbe7b0b2f7fee41877d3eac233afe",
+      "training_signal_end": "2022-12-31",
+      "label_available_at_max": "2022-12-22T14:31:00+00:00",
+      "test_decision_at": "2023-01-04T14:31:00+00:00"
+    }
+  },
+  "sidecars": [
+    "selection_plan.json",
+    "workflow.yaml",
+    "conclusion.md",
+    "backtest_benchmark_comparison.csv",
+    "annual_metrics.csv",
+    "development_gates.csv",
+    "origin_window_comparison.csv",
+    "risk_analysis.csv",
+    "training_diagnostics_2022.csv",
+    "training_diagnostics_2025.csv",
+    "dataset_audit_2022.json",
+    "dataset_audit_2025.json",
+    "retained_inputs.json",
+    "replay_validation.json",
+    "implementation_notes.md"
+  ]
+}

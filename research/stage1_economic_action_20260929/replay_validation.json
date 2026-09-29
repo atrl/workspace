@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "final_recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+  "prior_functional_recorder": "94d39188979a4ca9b1ea940e6f8c7bd8",
+  "replay_from_frozen_inputs": true,
+  "comparison_identical_after_native_geometric_risk_correction": true,
+  "native_risk_mode": "product",
+  "native_maxdrawdown_matched_every_comparison": true,
+  "active_baseline_reference_sha256": "41f511e3ed2f4693091434cb1f0e3ade8800c125c971cdfa745d3bee8ee08c2e",
+  "active_baseline_daily_max_abs_errors": {
+    "development_walk_forward:strategy_return": 9.974659986866641e-17,
+    "development_walk_forward:turnover": 9.952975943416931e-17,
+    "outer_reused_diagnostic:strategy_return": 9.974659986866641e-17,
+    "outer_reused_diagnostic:turnover": 9.84455572616838e-17
+  },
+  "legacy_test_limitations": {
+    "passed_related_contract_tests": 58,
+    "existing_failed_integration_tests": 4,
+    "reproduced_on_unchanged_main": true,
+    "reasons": [
+      "old tests omit required observed execution timestamps",
+      "old tests expect pending_next_open_mark rather than needs_execution_mark",
+      "old legacy comparison requires missing predecessor recorder3144ec23c3ee4478b6b1e699fb8203d3"
+    ]
+  },
+  "focused_optimization_tests": {
+    "passed": 50,
+    "command": "pytest test_stage1_economic_action test_stage1_economic_training test_stage1_economic_experiment test_stage1_economic_shadow test_stage1_economic_shadow_schedule test_pit_training_window"
+  }
+}

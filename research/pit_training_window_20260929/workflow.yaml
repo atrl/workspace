@@ -1,0 +1,13 @@
+experiment: pit_training_window_20260929
+selection_plan: selection_plan.json
+training_cutoff: 2025-12-31
+seed: 71
+model_count: 2
+selection_uses_2026: false
+promotion_status: not_promoted
+recorder_relative_dir: qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56
+provider_uri: data/qlib/soxl
+region: us
+market: all
+as_of: 2026-09-25
+artifact_policy: slim_card_recorder_first

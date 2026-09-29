@@ -1,0 +1,84 @@
+{
+  "experiment": "stage1_economic_action_20260929",
+  "baseline_git_commit": "68acb1df43af30bb535f6f9b429e9ded02d2a8aa",
+  "snapshot_as_of": "2026-09-25",
+  "scope": "bounded action-routing and own-policy supervision experiment; no change to allocation architecture or original frozen release",
+  "variants": [
+    "active_hold_baseline",
+    "rules_only",
+    "own_state_net_value_frozen_2022",
+    "own_state_net_value_expanding_2025"
+  ],
+  "rule_contract": {
+    "desired_allocation": "existing raw allocation and controller soft target unchanged",
+    "hard_beta_ceiling": "max(defensive_beta, recovery_fraction * structural_max_beta), capped by existing trailing-loss and emergency limits",
+    "structural_max_beta": "3*maximum_soxl_weight + 1-minimum_cash_weight-maximum_soxl_weight",
+    "hard_risk_limits_unchanged": [
+      "maximum_soxl_weight",
+      "minimum_cash_weight",
+      "stop_drawdown",
+      "trailing_loss_trigger",
+      "trailing_loss_beta",
+      "emergency_drawdown",
+      "emergency_beta",
+      "wait_days",
+      "ramp_days",
+      "hold_days"
+    ],
+    "rules_only": "old classifier and >5% large-transition override retained; remove any-negative-beta override and raw-target-as-hard-cap",
+    "net_value": "predict execute-versus-hold net advantage bps; execute above zero; hard violations must repair; cold start executes target",
+    "recovery": "Keep original first-hour model eligibility and soft current_beta_cap feature. Recovery may use the original conditional stop-clock exception, but its target beta cannot exceed existing trailing-loss or emergency ceilings; recovery never advances the clock a second time. A recovery target must increase actual marked first-hour beta; otherwise no recovery trade (HOLD may already retain exposure above the soft target).",
+    "fees_affordable_targets": "New policies distinguish desired post-fee normalized weights z from executable pre-fee-NAV target x. Solve v=1-c*sum(abs(v*z_risky-current_risky)); x_risky=v*z_risky. Apply at open and each recovery/reset branch. Existing baseline untouched."
+  },
+  "training": {
+    "estimator": "StandardScaler + Ridge(alpha=10)",
+    "features": "old 22 open-known features plus risk_clock, days_since_trade, hard_beta_cap",
+    "label_cost_bps": 25,
+    "label": "current execute-versus-hold net advantage plus next-target reset-cost difference; diagnostic one-session proxy",
+    "label_maturity": "strictly before min(first test decision, fit-year Jan1 00:00 America/New_York); final2025 consumes no2026 realized outcomes; incomplete final label excluded",
+    "state_generation": "causal own-policy trajectory; annual models fit only prior matured labels; no future outcomes in decision features",
+    "first_seed_year": 2016,
+    "first_fit_year": 2017,
+    "minimum_training_rows": 200,
+    "recent_training_comparison": "2023-2025 chronological expanding updates vs frozen 2022 policy; 2026 diagnostic only",
+    "hyperparameter_search": false
+  },
+  "evaluation": {
+    "development": "2016-2022 yearly walk-forward",
+    "reused_diagnostic": "2023-2026 not clean holdout, never used for hyperparameter selection",
+    "origin_window": "2026-08-03 to 2026-09-25, diagnostic only",
+    "cost_bps": [
+      10,
+      25
+    ],
+    "cost_stress": "rerun own controller at each fee level, not only subtract fees from fixed path",
+    "metrics": [
+      "net_return",
+      "maximum_drawdown",
+      "CVaR5",
+      "worst_day",
+      "worst_5d",
+      "actual_risky_notional_turnover",
+      "open_trade_days",
+      "annual_wealth_floor",
+      "mandatory_repair_count",
+      "recovery_actions"
+    ],
+    "gates": "original Stage1 development risk/cost/annual gates retained; compare active HOLD and original no-HOLD reference; report all failed variants"
+  },
+  "execution_validation": {
+    "integer_shares": "verify existing broker planner does not submit unchanged target quantities; separately report continuous-weight vs actual-share evidence",
+    "live_mutations": "only SIM/shadow; no REAL; preserve original ledger/inception and pending slots"
+  },
+  "promotion": "historical pass is not clean forward validation; new candidates remain not_promoted; failed candidates may be deployed read-only shadow without replacing active orders",
+  "artifact_policy": "slim_card_recorder_first",
+  "preferred_forward_candidate": "own_state_net_value_expanding_2025",
+  "initial_plan_registered_before_training": true,
+  "design_corrections_before_completed_comparison": [
+    "Made recovery hard-tail ceiling explicit before first model fit; no observed candidate results.",
+    "Make previous-calendar-year information cutoff strict, before first new-model fit; no2026 realization in2025 final model.",
+    "Focused zero-return boundary test found (.3,.55,.15) becomes (.300255,.550468,.149277) after10bp fees and triggers a needless next-day repair. Add exact fees-affordable targets before first new-model training, with no threshold or hyperparameter search.",
+    "Before fitting, require conditional recovery to increase actual marked holdings, since a wider hard envelope can permit HOLD above the soft cap.",
+    "First full comparison aborted on rules-only hard-cap assertion before producing metrics. Clip desired target to min(soft cap, hard cap); keep assertion and prior recovery-feature semantics. Functional smoke fits were used to validate code, not to select parameters."
+  ]
+}
