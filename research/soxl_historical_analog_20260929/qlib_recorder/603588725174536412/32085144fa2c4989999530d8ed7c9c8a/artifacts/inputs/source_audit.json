@@ -1,0 +1,148 @@
+{
+  "input_mode": "hash_verified_retained_qlib_market_artifact",
+  "as_of": "2026-09-25",
+  "source_apis": [
+    "qlib.init",
+    "D.calendar",
+    "D.features"
+  ],
+  "price_provider_relative": "data/qlib/soxl",
+  "vix_provider_relative": "data/qlib/soxl",
+  "rows": 4162,
+  "start": "2010-03-11",
+  "end": "2026-09-25",
+  "missing_by_column": {
+    "soxl_open": 0,
+    "soxx_open": 0,
+    "soxl_close": 0,
+    "soxx_close": 0,
+    "vix": 0
+  },
+  "source_manifests": {
+    "data/qlib/soxl/qlib_store_manifest.json": {
+      "sha256": "26aa3b85a2ed8cddad7b47b6c6e30997448c0f92a360b47a0020e2e953d5ae0d",
+      "content": {
+        "as_of": "2026-09-25",
+        "audit_snapshot_hash": "5d846f125dc6edaa",
+        "calendar_end": "2026-09-25",
+        "calendar_start": "2010-03-11",
+        "feature_file_count": 12,
+        "fields": [
+          "$open",
+          "$high",
+          "$low",
+          "$close",
+          "$volume",
+          "$vix"
+        ],
+        "freq": "day",
+        "hash": "401c072b3578b418",
+        "instruments": [
+          "SOXL",
+          "SOXX"
+        ],
+        "market": "all",
+        "max_datetime": "2026-09-25",
+        "operation": "qlib_store_build",
+        "provider_uri": "/Users/rziiiii/dev/workspace/data/qlib/soxl",
+        "region": "us",
+        "row_count": 8324,
+        "source": "/Users/rziiiii/dev/workspace/data/processed/panels/soxl_soxx_vix_full.csv",
+        "source_api": [
+          "qlib.init",
+          "qlib.data.storage.file_storage.FileFeatureStorage",
+          "qlib.data.D.calendar",
+          "qlib.data.D.instruments",
+          "qlib.data.D.features"
+        ],
+        "status": "ok"
+      }
+    },
+    "data/raw/soxs_defensive_v1/source_manifest.json": {
+      "sha256": "92e66d184cf5dea4312ad80e531d9480dba237074b2d40f5ac4c02f8d8c9e480",
+      "content": {
+        "adjustment_method": "initial build stitches early Yahoo OHLC to Nasdaq; incremental refresh preserves existing dates and appends Nasdaq OHLC; Yahoo adjusted-close ratio applies distributions to all OHLC",
+        "as_of": "2026-09-25",
+        "hash": "0a23400164282f6e",
+        "relationship_audit": {
+          "common_end": "2026-09-25",
+          "common_rows_per_instrument": 4162,
+          "common_start": "2010-03-11",
+          "soxs_soxl_close_return_correlation": -0.9972094326700555,
+          "soxs_soxx_close_return_correlation": -0.9980247172962241
+        },
+        "sources": [
+          "https://api.nasdaq.com/api/quote/{symbol}/historical",
+          "query1/query2.finance.yahoo.com/v8/finance/chart"
+        ],
+        "start": "2010-03-11",
+        "symbol_audits": {
+          "SOXL": {
+            "adjustment_factor_source_end": "2026-09-25",
+            "appended_rows": 40,
+            "dividend_adjustment_factor_max": 1.0,
+            "dividend_adjustment_factor_min": 0.9993447118750032,
+            "incremental_fallback": false,
+            "incremental_price_source": "nasdaq",
+            "incremental_source": "nasdaq_or_yahoo_chart_price_with_yahoo_distribution_adjustment",
+            "nasdaq_rows": 123,
+            "nasdaq_start": "2026-04-01",
+            "preserved_rows": 4122,
+            "refresh_mode": "append_only_overlap_validation",
+            "refresh_overlap_days": 120,
+            "refresh_start": "2026-04-01",
+            "trailing_adjustment_fill_dates": []
+          },
+          "SOXS": {
+            "adjustment_factor_source_end": "2026-09-25",
+            "appended_rows": 40,
+            "dividend_adjustment_factor_max": 1.0,
+            "dividend_adjustment_factor_min": 0.9762861034538173,
+            "incremental_fallback": false,
+            "incremental_price_source": "nasdaq",
+            "incremental_source": "nasdaq_or_yahoo_chart_price_with_yahoo_distribution_adjustment",
+            "nasdaq_rows": 123,
+            "nasdaq_start": "2026-04-01",
+            "preserved_rows": 4122,
+            "refresh_mode": "append_only_overlap_validation",
+            "refresh_overlap_days": 120,
+            "refresh_start": "2026-04-01",
+            "trailing_adjustment_fill_dates": []
+          },
+          "SOXX": {
+            "adjustment_factor_source_end": "2026-09-25",
+            "appended_rows": 40,
+            "dividend_adjustment_factor_max": 1.0,
+            "dividend_adjustment_factor_min": 0.9988722054455786,
+            "incremental_fallback": false,
+            "incremental_price_source": "nasdaq",
+            "incremental_source": "nasdaq_or_yahoo_chart_price_with_yahoo_distribution_adjustment",
+            "nasdaq_rows": 123,
+            "nasdaq_start": "2026-04-01",
+            "preserved_rows": 4122,
+            "refresh_mode": "append_only_overlap_validation",
+            "refresh_overlap_days": 120,
+            "refresh_start": "2026-04-01",
+            "trailing_adjustment_fill_dates": []
+          }
+        },
+        "symbols": [
+          "SOXL",
+          "SOXX",
+          "SOXS"
+        ]
+      }
+    }
+  },
+  "provider_file_hashes": {
+    "data/qlib/soxl/calendars/day.txt": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb",
+    "data/qlib/soxl/features/SOXL/close.day.bin": "403bf1a5f83f1f3b5ec28bfa2aff0d9d21c6ec59dac4f00757a41b096ca50aae",
+    "data/qlib/soxl/features/SOXL/open.day.bin": "bc299f7595454788ac4e1c42dd4e954943c78192c75bceeb758f1eefbfef0f4b",
+    "data/qlib/soxl/features/SOXL/vix.day.bin": "78d5e13b4de40ca89be4032d07c307b22e4e9acb17912c2f966d8eda6aaa1bba",
+    "data/qlib/soxl/features/SOXX/close.day.bin": "7cc9891b8a8bf8400b7c052e74253eb72da6965e815bb4303f5fb512f3d7fd4f",
+    "data/qlib/soxl/features/SOXX/open.day.bin": "e4621746c84e805ffef29de90404505fe01b94dc3b260c0a98178a3044019127",
+    "data/qlib/soxl/features/SOXX/vix.day.bin": "78d5e13b4de40ca89be4032d07c307b22e4e9acb17912c2f966d8eda6aaa1bba",
+    "data/qlib/soxl/instruments/all.txt": "cf10f6dc8dfcb4136e8bd305c48a87967441d326850c4237dd841234626de9df"
+  },
+  "price_basis": "Existing main-provider SOXL/SOXX price paths; no extra dividend cash or total-return assertion, not actual share accounting."
+}

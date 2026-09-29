@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "experiment": "soxl_historical_analog_20260929",
+  "recorder_id": "32085144fa2c4989999530d8ed7c9c8a",
+  "canonical_card_dir": "/Users/rziiiii/dev/workspace/research/soxl_historical_analog_20260929",
+  "purpose": "Frozen Qlib market and training-coverage inputs plus all descriptive retrieval evidence; no model or active configuration change.",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/B_state_feature_comparison.pkl",
+      "sha256": "94401de24325cf0ba130f749cd8c91ffac2823ebc1cb1380288dab49ea3499aa",
+      "size": 2084
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/counts.pkl",
+      "sha256": "f773433d90d40e7aec67ed62b1cb02cd3bf07666752a47eecb90947d21b5c786",
+      "size": 2131
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/displayed_analogs.pkl",
+      "sha256": "cff449281bb9db934eec83ee7e0078a2df010ecd4c7392e4e87663f8ab6d2f59",
+      "size": 12722
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/distance_references.pkl",
+      "sha256": "1b2e114812cd72d8ebcdeb84e66bcfaf0e4e68fb318077d0efa3d5b6b43876eb",
+      "size": 508619
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/ranked_candidates.pkl",
+      "sha256": "b8b900a30a711e67d0a56dc25d67a83b341dd41ff017a772003502aa76bdfad0",
+      "size": 4199151
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/scalers.pkl",
+      "sha256": "18b4ee2f1e1ad1b9ea64e422aa7b32e03933111bb0a901b887987a1bb76559a3",
+      "size": 884
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/target_features.pkl",
+      "sha256": "b2fb6b121596a09793a9d457badc1425be3a5d3c504e3715d2e986d79506c309",
+      "size": 3484
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/analysis/training_coverage.pkl",
+      "sha256": "b0dcfa8a1930c03a6616cdfc34fc76e8f4e883c8dd72b5cd533f5e876eae0bff",
+      "size": 5133982
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/figures/A44_ex_post_paths.png",
+      "sha256": "51b9d089116f2d609fb13a777e02b8fb346de6008bd9d94c4e79956b8054fb39",
+      "size": 318647
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/figures/B_forward18_outcomes.png",
+      "sha256": "dd8248c25cb9c597427f135fc5a4e857afc8498e581709ec4d086f59ed954f73",
+      "size": 96717
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/inputs/market_frame.pkl",
+      "sha256": "94e2e5085a0ea61e2e39289778793ac14ce8fcb602efb4efd00b2848b43cf94b",
+      "size": 117617
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/inputs/selection_plan.json",
+      "sha256": "03284a1eb5afe501d6102c58b1ef5b1f5e4627a0836176e39513c075d4c24bf3",
+      "size": 4631
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/inputs/source_audit.json",
+      "sha256": "37a9fb000f633a8775987da13f73d30b458b552737c6a2c652145beef6f98cae",
+      "size": 6066
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/artifacts/inputs/source_audit.pkl",
+      "sha256": "f692c15d96b2306cf040a86aa7fd0e03fc6a15ec7a9fbfb85d4c472c36aa07fd",
+      "size": 3957
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/meta.yaml",
+      "sha256": "f8bd56823f1717a1c0502459ad78cb87b0e3dc98224b93087786bad375f3c3d4",
+      "size": 444
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/metrics/displayed_rows",
+      "sha256": "0c29006ba81908d37894d57279dc39a042c19d9f0a77fb4c7ccba894a7879787",
+      "size": 21
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/metrics/market_rows",
+      "sha256": "19b211de3371d4ac420f15f92ce868d22a41435a78ba2b74548f5cf555b58e2d",
+      "size": 23
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/params/cmd-sys.argv",
+      "sha256": "f63744ddd89eb6019c60c9d0821fe5b135c08bf89cff90ff37247509945ebe74",
+      "size": 224
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/params/plan_sha256",
+      "sha256": "37db4c0c52c7d7decb578f06c45627bbc8e4bbd5fa502bbc7026b53d55e53daf",
+      "size": 64
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/params/selection_uses_forward_outcomes",
+      "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "size": 5
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/params/snapshot_as_of",
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "size": 10
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/params/threshold_role",
+      "sha256": "04849dda2d94881a2a794b480bfe9861342b8044b599fbeaeef78ef4a25178a9",
+      "size": 37
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "size": 15
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/tags/mlflow.source.name",
+      "sha256": "4786c9ff0463a975964ed17330782214e23c4ada6c5b9353105a0e9fb630da1a",
+      "size": 111
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "size": 8
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "size": 7
+    },
+    {
+      "path": "qlib_recorder/603588725174536412/meta.yaml",
+      "sha256": "72827dc4db99cb420cdab60a440705de6c1c35e62bc3a687b93bbed9f6887ada",
+      "size": 362
+    }
+  ]
+}

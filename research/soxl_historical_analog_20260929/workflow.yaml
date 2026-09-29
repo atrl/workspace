@@ -1,0 +1,18 @@
+experiment: soxl_historical_analog_20260929
+provider_uri: data/qlib/soxl
+region: us
+freq: day
+recorder_uri: research/soxl_historical_analog_20260929/qlib_recorder
+segments:
+  training_history: [2011-01-01, 2022-12-31]
+  untrained_diagnostic_history: [2023-01-01, 2025-12-31]
+  retrospective_target: [2026-07-27, 2026-09-25]
+model_selection: not_applicable_descriptive_audit
+benchmark: SOXX_price_path_proxy_not_total_return
+artifact_policy: slim_card_recorder_first
+selection_plan: selection_plan.json
+source_as_of: 2026-09-25
+retained_input_manifest: retained_input.json
+recorder_relative_dir: qlib_recorder/603588725174536412/32085144fa2c4989999530d8ed7c9c8a
+model_training_performed: false
+production_change: false
