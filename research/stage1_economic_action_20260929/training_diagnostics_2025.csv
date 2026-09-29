@@ -1,0 +1,11 @@
+model_year,training_rows,model_available,training_signal_end,label_available_at_max,information_cutoff_exclusive,first_test_decision_at,ridge_alpha,label_cost_bps,minimum_training_rows,training_state_source,dataset_class,selection_uses_future_year
+2017,250,True,2016-12-28,2016-12-30T14:31:00+00:00,2017-01-01T05:00:00+00:00,2017-01-04T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2018,501,True,2017-12-27,2017-12-29T14:31:00+00:00,2018-01-01T05:00:00+00:00,2018-01-03T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2019,752,True,2018-12-27,2018-12-31T14:31:00+00:00,2019-01-01T05:00:00+00:00,2019-01-03T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2020,1004,True,2019-12-27,2019-12-31T14:31:00+00:00,2020-01-01T05:00:00+00:00,2020-01-03T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2021,1257,True,2020-12-29,2020-12-31T14:31:00+00:00,2021-01-01T05:00:00+00:00,2021-01-05T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2022,1509,True,2021-12-29,2021-12-31T14:31:00+00:00,2022-01-01T05:00:00+00:00,2022-01-04T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2023,1755,True,2022-12-20,2022-12-22T14:31:00+00:00,2023-01-01T05:00:00+00:00,2023-01-04T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2024,2003,True,2023-12-27,2023-12-29T14:31:00+00:00,2024-01-01T05:00:00+00:00,2024-01-03T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2025,2255,True,2024-12-27,2024-12-31T14:31:00+00:00,2025-01-01T05:00:00+00:00,2025-01-03T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False
+2026,2505,True,2025-12-29,2025-12-31T14:31:00+00:00,2026-01-01T05:00:00+00:00,2026-01-05T14:31:00+00:00,10.0,25.0,200,causal_own_policy_path,qlib.data.dataset.DatasetH,False

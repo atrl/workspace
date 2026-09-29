@@ -1,0 +1,7 @@
+variant,reference,development_return_above_baseline,stress_25bps_return_above_baseline,max_drawdown_not_worse,worst_day_not_worse,cvar5_not_worse,worst_5d_not_worse,open_trade_days_reduced_8pct,turnover_not_increased,annual_wealth_floor_pass,minimum_annual_wealth_ratio,all_pass
+rules_only,no_hold_reference,True,False,True,True,False,True,True,True,True,0.997630748952844,False
+rules_only,active_hold_baseline,True,True,True,True,True,True,True,True,True,0.9959077090200725,True
+own_state_net_value_frozen_2022,no_hold_reference,True,True,True,False,True,True,True,True,False,0.936834978494284,False
+own_state_net_value_frozen_2022,active_hold_baseline,True,True,True,False,True,True,True,True,False,0.9265397069789328,False
+own_state_net_value_expanding_2025,no_hold_reference,True,True,True,False,True,True,True,True,False,0.936834978494284,False
+own_state_net_value_expanding_2025,active_hold_baseline,True,True,True,False,True,True,True,True,False,0.9265397069789328,False

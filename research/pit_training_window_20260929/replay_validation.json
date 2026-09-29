@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "model_refitted_after_metadata_update": false,
+  "completed_card_reopen_blocks_live_input_reads_and_refit": true,
+  "focused_tests_passed": 4,
+  "recorded_metrics": {
+    "new_model_count": 2,
+    "reference_model_count": 1,
+    "diagnostic_interval_count": 182,
+    "expanding_primary_fit_rows": 3766,
+    "rolling8_primary_fit_rows": 2005
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "experiment": "pit_training_window_20260929",
+  "registered_before_training": true,
+  "candidate": "pit_only_aux_005",
+  "fixed_architecture_and_objective": true,
+  "training_information_cutoff": "2025-12-31",
+  "diagnostic_window": [
+    "2026-01-02",
+    "2026-09-25"
+  ],
+  "variants": {
+    "expanding": [
+      "2011-01-03",
+      "2025-12-31"
+    ],
+    "rolling8": [
+      "2018-01-01",
+      "2025-12-31"
+    ]
+  },
+  "primary_and_auxiliary_labels": "matured by2025 cutoff, no2026 outcomes in fit",
+  "training": "fixed existing seed, epochs, costs, auxiliary coefficient; no parameter search",
+  "selection": "no winner selection from2026; report both; no automatic combined activation with newHOLD",
+  "evaluation": "base allocator only, reused2026 diagnostic; not clean OOS, not fullStage1 performance",
+  "artifact_policy": "slim_card_recorder_first",
+  "promotion": "not_promoted; candidate data-window experiment only",
+  "evaluation_contract": {
+    "common_window": "Each model is inferred on the same 2026 feature rows with known next-open-to-following-open returns; report signal/trade/exit dates and do not claim final close coverage.",
+    "smoothing": "Existing EMA3 and 2% band, reset consistently at the shared diagnostic start for all three frozen models.",
+    "net_execution": "For all three models, apply the same static project_legal_weights structural ceiling and then fee_affordable_target; settle actual cash fees and net marked holdings at 10/25bp.",
+    "constraints": "maximum SOXL .30, minimum cash .15, structural beta 1.45; no drawdown timer, no Stage1 or HOLD overlay.",
+    "metrics": "Geometric portfolio wealth from initial NAV 1, including initial NAV in drawdown; no winner selection from 2026."
+  }
+}

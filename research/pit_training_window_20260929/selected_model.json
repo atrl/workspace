@@ -1,0 +1,21 @@
+{
+  "selected": null,
+  "selection_performed": false,
+  "models": {
+    "old_frozen_2022": {
+      "artifact": "artifacts/models/old_frozen_2022.pkl",
+      "sha256": "0708cea512d0f2f91344654e3ca4b2921f90277ea9b8a5aebcab62191016c2ec",
+      "promotion_status": "not_promoted"
+    },
+    "expanding": {
+      "artifact": "artifacts/models/expanding.pkl",
+      "sha256": "84d1b62c4e82f7e412e5a20075d46cfd501ffa29a68276772825b5375e9d6791",
+      "promotion_status": "not_promoted"
+    },
+    "rolling8": {
+      "artifact": "artifacts/models/rolling8.pkl",
+      "sha256": "ce9b48a2c54c0fdf76e39917cb7d715892461b27af106be2352e3eb556abfd98",
+      "promotion_status": "not_promoted"
+    }
+  }
+}

@@ -1,0 +1,455 @@
+{
+  "experiment": "pit_training_window_20260929",
+  "decision": "diagnostic_only_no_winner_selected",
+  "promotion_status": "not_promoted",
+  "candidate": "pit_only_aux_005",
+  "architecture_or_objective_changed": false,
+  "active_configuration_changed": false,
+  "trained_models": [
+    "expanding",
+    "rolling8"
+  ],
+  "training_information_cutoff": "2025-12-31",
+  "fit_diagnostics": [
+    {
+      "variant": "expanding",
+      "train_start": "2011-01-03",
+      "training_information_cutoff": "2025-12-31",
+      "first_actual_fit_signal": "2011-01-03T00:00:00",
+      "last_actual_fit_signal": "2025-12-22T00:00:00",
+      "latest_primary_label_realization": "2025-12-31T00:00:00",
+      "first_auxiliary_fit_date": "2019-11-25T00:00:00",
+      "last_auxiliary_fit_date": "2025-12-23T00:00:00",
+      "initial_test_prediction_rows": 178,
+      "full_settled_prediction_rows": 182,
+      "test_tail_rows_restored_by_frozen_inference": 4,
+      "seed": 71,
+      "epochs": 300,
+      "loss": 0.07500159740447998,
+      "allocation_loss": -0.0006474377005361021,
+      "primary_tail_loss": 0.25767263770103455,
+      "primary_alpha_loss": 0.6830766797065735,
+      "auxiliary_tail_loss": 0.4437148869037628,
+      "auxiliary_alpha_loss": 0.692966103553772,
+      "mean_turnover_loss": 0.049164287745952606,
+      "mean_annual_relative_log": 0.0011533634969964623,
+      "max_drawdown_loss": 0.0006423668819479644,
+      "conditional_drawdown_loss": 0.0003934843698516488,
+      "rolling_5d_loss": 3.7701772725995397e-06,
+      "cash_target_loss": 0.012626182287931442,
+      "trade_event_proxy": 0.6505693793296814,
+      "best_loss": 0.07297410070896149,
+      "primary_train_rows": 3766.0,
+      "auxiliary_train_rows": 42818.0,
+      "auxiliary_crash_rows": 7146.0,
+      "test_rows": 178.0
+    },
+    {
+      "variant": "rolling8",
+      "train_start": "2018-01-01",
+      "training_information_cutoff": "2025-12-31",
+      "first_actual_fit_signal": "2018-01-02T00:00:00",
+      "last_actual_fit_signal": "2025-12-22T00:00:00",
+      "latest_primary_label_realization": "2025-12-31T00:00:00",
+      "first_auxiliary_fit_date": "2019-11-25T00:00:00",
+      "last_auxiliary_fit_date": "2025-12-23T00:00:00",
+      "initial_test_prediction_rows": 178,
+      "full_settled_prediction_rows": 182,
+      "test_tail_rows_restored_by_frozen_inference": 4,
+      "seed": 71,
+      "epochs": 300,
+      "loss": 0.07480161637067795,
+      "allocation_loss": -0.0019304855959489942,
+      "primary_tail_loss": 0.3122089207172394,
+      "primary_alpha_loss": 0.6827215552330017,
+      "auxiliary_tail_loss": 0.4434085190296173,
+      "auxiliary_alpha_loss": 0.6932613849639893,
+      "mean_turnover_loss": 0.11268391460180283,
+      "mean_annual_relative_log": 0.002645587082952261,
+      "max_drawdown_loss": 0.0,
+      "conditional_drawdown_loss": 0.0,
+      "rolling_5d_loss": 2.5573069706297247e-06,
+      "cash_target_loss": 0.04114358127117157,
+      "trade_event_proxy": 0.8211094737052917,
+      "best_loss": 0.07276275008916855,
+      "primary_train_rows": 2005.0,
+      "auxiliary_train_rows": 42818.0,
+      "auxiliary_crash_rows": 7146.0,
+      "test_rows": 178.0
+    }
+  ],
+  "actual_common_window": {
+    "signal_start": "2026-01-02T00:00:00",
+    "signal_end": "2026-09-23T00:00:00",
+    "trade_start": "2026-01-05T00:00:00",
+    "trade_end": "2026-09-24T00:00:00",
+    "exit_start": "2026-01-06T00:00:00",
+    "exit_end": "2026-09-25T00:00:00",
+    "interval_count": 182,
+    "terminal_basis": "final observed exit OPEN, not the 9/25 close"
+  },
+  "comparisons": [
+    {
+      "variant": "old_frozen_2022",
+      "cost_bps": 10.0,
+      "terminal_wealth": 1.8073861860689693,
+      "return_pct": 80.73861860689692,
+      "max_drawdown_pct": -31.274707397982993,
+      "worst_day_pct": -8.691402486218458,
+      "cvar5_pct": -7.440293774563153,
+      "worst_rolling_5d_pct": -15.756418681049666,
+      "total_turnover": 5.9988527252717745,
+      "open_trade_days": 156,
+      "average_cash_weight_pct": 30.52188289713355,
+      "static_projection_rows": 59,
+      "return_delta_vs_old_pct_points": 0.0
+    },
+    {
+      "variant": "old_frozen_2022",
+      "cost_bps": 25.0,
+      "terminal_wealth": 1.7911947446914982,
+      "return_pct": 79.11947446914982,
+      "max_drawdown_pct": -31.469504654836243,
+      "worst_day_pct": -8.692279148911375,
+      "cvar5_pct": -7.444562191791347,
+      "worst_rolling_5d_pct": -15.776896240238214,
+      "total_turnover": 5.998177093837292,
+      "open_trade_days": 156,
+      "average_cash_weight_pct": 30.52188289713355,
+      "static_projection_rows": 59,
+      "return_delta_vs_old_pct_points": 0.0
+    },
+    {
+      "variant": "expanding",
+      "cost_bps": 10.0,
+      "terminal_wealth": 1.6444476584983796,
+      "return_pct": 64.44476584983796,
+      "max_drawdown_pct": -26.54668346329626,
+      "worst_day_pct": -8.792211147309148,
+      "cvar5_pct": -6.2656510688844005,
+      "worst_rolling_5d_pct": -13.440526866306591,
+      "total_turnover": 8.005042644248428,
+      "open_trade_days": 138,
+      "average_cash_weight_pct": 37.221760373537485,
+      "static_projection_rows": 8,
+      "return_delta_vs_old_pct_points": -16.293852757058957
+    },
+    {
+      "variant": "expanding",
+      "cost_bps": 25.0,
+      "terminal_wealth": 1.6248178826058102,
+      "return_pct": 62.48178826058102,
+      "max_drawdown_pct": -26.669652648716003,
+      "worst_day_pct": -8.795497976024258,
+      "cvar5_pct": -6.270264012932733,
+      "worst_rolling_5d_pct": -13.456859750160222,
+      "total_turnover": 8.004218653382607,
+      "open_trade_days": 138,
+      "average_cash_weight_pct": 37.221760373537485,
+      "static_projection_rows": 8,
+      "return_delta_vs_old_pct_points": -16.6376862085688
+    },
+    {
+      "variant": "rolling8",
+      "cost_bps": 10.0,
+      "terminal_wealth": 1.2815157480283286,
+      "return_pct": 28.151574802832858,
+      "max_drawdown_pct": -20.161532583248142,
+      "worst_day_pct": -8.700630760917516,
+      "cvar5_pct": -5.447350679662501,
+      "worst_rolling_5d_pct": -13.287419254790978,
+      "total_turnover": 10.410941215489167,
+      "open_trade_days": 145,
+      "average_cash_weight_pct": 61.25731805227773,
+      "static_projection_rows": 4,
+      "return_delta_vs_old_pct_points": -52.587043804064066
+    },
+    {
+      "variant": "rolling8",
+      "cost_bps": 25.0,
+      "terminal_wealth": 1.2616572506048742,
+      "return_pct": 26.16572506048742,
+      "max_drawdown_pct": -20.347180460450744,
+      "worst_day_pct": -8.706710074808143,
+      "cvar5_pct": -5.454302239886807,
+      "worst_rolling_5d_pct": -13.302452161374134,
+      "total_turnover": 10.409853681951546,
+      "open_trade_days": 145,
+      "average_cash_weight_pct": 61.25731805227773,
+      "static_projection_rows": 4,
+      "return_delta_vs_old_pct_points": -52.953749408662404
+    }
+  ],
+  "source_audit": {
+    "plan_sha256": "085ef896185c0b1d738f9cce7d19b258d12053810d2f9ce248aa758355772cff",
+    "source_sha256": {
+      "data/qlib/soxl/qlib_store_manifest.json": "26aa3b85a2ed8cddad7b47b6c6e30997448c0f92a360b47a0020e2e953d5ae0d",
+      "data/qlib/soxl_soxx_soxs/qlib_store_manifest.json": "9dec4b4dea3d7ff918d46645b9d8716238a0b007399969969fcd039d045c228d",
+      "data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1/qlib_store_manifest.json": "9e1d04142719e70e4cc74bc470b772df9a416eb9ac4e691df42d41166551552f",
+      "data/qlib/soxx_pit_leveraged_training_v1/qlib_store_manifest.json": "65267558677904f78d2e44056361c5af3e795fe405483483a02a7b23099c560d",
+      "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d",
+      "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7"
+    },
+    "candidate": {
+      "name": "pit_only_aux_005",
+      "auxiliary_weight": 0.05,
+      "include_union_backfill": false,
+      "method": "relative_return_baseline",
+      "absolute_drawdown_penalty": 0.0,
+      "conditional_drawdown_penalty": 0.0,
+      "rolling_5d_penalty": 0.0,
+      "cash_target_penalty": 0.0,
+      "tail_event_weight_multiplier": 1.0,
+      "stress_cash_ceiling": 0.55,
+      "smoothing_span": null,
+      "rebalance_threshold": null,
+      "drawdown_floor": null,
+      "drawdown_budget_multiplier": 0.0,
+      "drawdown_budget_metric": "risky_weight",
+      "drawdown_budget_buffer": 0.0,
+      "trade_event_penalty": 0.0,
+      "trade_event_softness": 0.02
+    },
+    "primary_dataset": {
+      "dataset_class": "qlib.data.dataset.DatasetH",
+      "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+      "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+      "segments": {
+        "development": [
+          "2016-01-01",
+          "2025-12-31"
+        ],
+        "outer": [
+          "2026-01-02",
+          "2026-09-25"
+        ],
+        "fold_2016": [
+          "2016-01-01",
+          "2016-12-31"
+        ],
+        "fold_2017": [
+          "2017-01-01",
+          "2017-12-31"
+        ],
+        "fold_2018": [
+          "2018-01-01",
+          "2018-12-31"
+        ],
+        "fold_2019": [
+          "2019-01-01",
+          "2019-12-31"
+        ],
+        "fold_2020": [
+          "2020-01-01",
+          "2020-12-31"
+        ],
+        "fold_2021": [
+          "2021-01-01",
+          "2021-12-31"
+        ],
+        "fold_2022": [
+          "2022-01-01",
+          "2022-12-31"
+        ]
+      },
+      "segment_rows": {
+        "development": 2514,
+        "outer": 184,
+        "fold_2016": 252,
+        "fold_2017": 251,
+        "fold_2018": 251,
+        "fold_2019": 252,
+        "fold_2020": 253,
+        "fold_2021": 252,
+        "fold_2022": 251
+      },
+      "labels": [
+        "soxl_forward_open_return",
+        "soxx_forward_open_return",
+        "tail_event_5d",
+        "tail_cash_target_5d",
+        "relative_alpha_5d"
+      ],
+      "purge_rows": 20
+    },
+    "auxiliary_dataset": {
+      "dataset_class": "qlib.data.dataset.DatasetH",
+      "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+      "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+      "rows": 129035,
+      "feature_count": 16
+    },
+    "primary_label_maturity": {
+      "training_information_cutoff": "2025-12-31",
+      "primary_label_timing": "five T+1 open to T+2 open returns; final realization is fifth exit_date",
+      "excluded_cross_boundary_signal_rows": 6,
+      "last_mature_training_signal": "2025-12-22",
+      "last_training_label_realization": "2025-12-31"
+    },
+    "auxiliary_audit": {
+      "source_api": "qlib.data.D.features",
+      "provider_uri": "/Users/rziiiii/dev/.worktrees/soxl-action-20260929/data/qlib/soxx_pit_leveraged_training_v1",
+      "raw_observation_end": "2025-12-31",
+      "rows": 129035,
+      "label_construction": "synthetic 2x forward labels built after truncating raw observations at training cutoff",
+      "union_backfill_used": false,
+      "post_cutoff_actual_2x_calibration_used": false
+    },
+    "market_audit": {
+      "execution_provider_uri": "/Users/rziiiii/dev/.worktrees/soxl-action-20260929/data/qlib/soxl_soxx_soxs",
+      "daily_provider_uri": "/Users/rziiiii/dev/.worktrees/soxl-action-20260929/data/qlib/soxl",
+      "normalized_provider_uri": "/Users/rziiiii/dev/.worktrees/soxl-action-20260929/data/qlib/dynamic_soxx_soxl_cash_allocation_wf_v1",
+      "execution_provider": {
+        "provider_uri": "/Users/rziiiii/dev/.worktrees/soxl-action-20260929/data/qlib/soxl_soxx_soxs",
+        "provider_manifest": "/Users/rziiiii/dev/.worktrees/soxl-action-20260929/data/qlib/soxl_soxx_soxs/qlib_store_manifest.json",
+        "source_manifest": "/Users/rziiiii/dev/.worktrees/soxl-action-20260929/data/raw/soxs_defensive_v1/source_manifest.json",
+        "as_of": "2026-09-25",
+        "instruments": [
+          "SOXL",
+          "SOXS",
+          "SOXX"
+        ],
+        "fields": [
+          "$open",
+          "$high",
+          "$low",
+          "$close"
+        ],
+        "calendar_rows": 4162,
+        "usable_rows": 4103,
+        "usable_start": "2010-06-04",
+        "usable_end": "2026-09-25",
+        "include_incomplete_latest": true,
+        "relationship_audit": {
+          "common_end": "2026-09-25",
+          "common_rows_per_instrument": 4162,
+          "common_start": "2010-03-11",
+          "soxs_soxl_close_return_correlation": -0.9972094326700555,
+          "soxs_soxx_close_return_correlation": -0.9980247172962241
+        },
+        "source_api": [
+          "qlib.init",
+          "qlib.data.D.calendar",
+          "qlib.data.D.features"
+        ]
+      },
+      "calendar_start": "2010-06-04",
+      "calendar_end": "2026-09-25",
+      "common_feature_end": "2026-09-25",
+      "source_api": "qlib.data.D.features",
+      "include_incomplete_latest": true,
+      "excluded_sources": {
+        "soxx_constituents": "excluded_from_model_non_PIT_single_snapshot_survivorship_bias",
+        "macro_credit": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+        "hardware_cycle": "excluded_from_2016_2022_walk_forward_coverage_starts_2019",
+        "intraday": "excluded_from_2016_2022_walk_forward_coverage_starts_2019"
+      },
+      "feature_count": 39,
+      "feature_families": [
+        "cross_asset_diffusion",
+        "current_soxl_soxx_soxs",
+        "normalized_regime",
+        "risk_hardened_high_chop"
+      ],
+      "base_constrained_ref_in_features": false,
+      "base_constrained_ref_role": "none",
+      "candidate_weight_grid": false,
+      "allocation_output": "direct_continuous_softmax_soxl_soxx_cash",
+      "maximum_soxl_weight_is_risk_constraint": true,
+      "selection_uses_outer_test": false
+    },
+    "old_reference": {
+      "card": "pit_constituent_auxiliary_training_allocation_retrained_20260928",
+      "recorder_id": "f696f656b3d44e868588e09a5d97c905",
+      "model_sha256": "512b8d7621310caf023f7f09051d47bd8df89473378f32e56bcc5ce093f1211d"
+    }
+  },
+  "runtime_models": {
+    "old_frozen_2022": {
+      "artifact": "artifacts/models/old_frozen_2022.pkl",
+      "sha256": "0708cea512d0f2f91344654e3ca4b2921f90277ea9b8a5aebcab62191016c2ec",
+      "promotion_status": "not_promoted"
+    },
+    "expanding": {
+      "artifact": "artifacts/models/expanding.pkl",
+      "sha256": "84d1b62c4e82f7e412e5a20075d46cfd501ffa29a68276772825b5375e9d6791",
+      "promotion_status": "not_promoted"
+    },
+    "rolling8": {
+      "artifact": "artifacts/models/rolling8.pkl",
+      "sha256": "ce9b48a2c54c0fdf76e39917cb7d715892461b27af106be2352e3eb556abfd98",
+      "promotion_status": "not_promoted"
+    }
+  },
+  "selection_uses_2026": false,
+  "research_only": true,
+  "evaluation_contract": {
+    "common_window": "Each model is inferred on the same 2026 feature rows with known next-open-to-following-open returns; report signal/trade/exit dates and do not claim final close coverage.",
+    "smoothing": "Existing EMA3 and 2% band, reset consistently at the shared diagnostic start for all three frozen models.",
+    "net_execution": "For all three models, apply the same static project_legal_weights structural ceiling and then fee_affordable_target; settle actual cash fees and net marked holdings at 10/25bp.",
+    "constraints": "maximum SOXL .30, minimum cash .15, structural beta 1.45; no drawdown timer, no Stage1 or HOLD overlay.",
+    "metrics": "Geometric portfolio wealth from initial NAV 1, including initial NAV in drawdown; no winner selection from 2026."
+  },
+  "limitations": [
+    "2026 was already repeatedly viewed and is diagnostic, not clean OOS.",
+    "Only base allocator outputs are evaluated; results do not represent Stage1/HOLD or actual fills.",
+    "All three smoothers start on the same 2026 diagnostic window, so this is a controlled window comparison, not a claim of exact production-path parity."
+  ],
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/",
+      "models/",
+      "analysis/predictions_by_variant.pkl",
+      "analysis/portfolio_replays.pkl",
+      "analysis/comparison.pkl",
+      "analysis/fit_diagnostics.pkl",
+      "analysis/qlib_risk_analysis.pkl"
+    ]
+  },
+  "qlib_api": [
+    "D.features",
+    "DatasetH",
+    "DataHandlerLP",
+    "R.start",
+    "R.save_objects",
+    "Recorder.load_object"
+  ],
+  "recorder_id": "34f7057a573d486397d2fb989a06aa56",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/pit_training_window_20260929/qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56",
+  "recorder_relative_dir": "qlib_recorder/676355013679755019/34f7057a573d486397d2fb989a06aa56",
+  "system_of_record": "qlib",
+  "provider_uri": "data/qlib/soxl",
+  "region": "us",
+  "market": "all",
+  "as_of": "2026-09-25",
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html"
+  ],
+  "sidecars": [
+    "selection_plan.json",
+    "summary.json",
+    "selected_model.json",
+    "conclusion.md",
+    "workflow.yaml",
+    "backtest_benchmark_comparison.csv",
+    "training_summary.csv",
+    "risk_analysis.csv",
+    "frozen_bundle_manifest.json",
+    "replay_validation.json"
+  ],
+  "implementation_versions": {
+    "fit_implementation": {
+      "path": "src/workflow/pit_constituent_auxiliary_training_allocation.py",
+      "sha256_captured_at_fit": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+    },
+    "current_wrapper": {
+      "path": "src/workflow/pit_training_window.py",
+      "sha256": "d56c9f98b8e048bd94c8377ba79aa5b174aa270a1b4578b29ed77b9ef8cdcb80",
+      "changes_after_fit": "Added frozen-result cache guard, reporting metadata, and actual count metrics only; no refitting or numerical evaluation changes."
+    },
+    "original_fit_wrapper_hash_captured": false
+  }
+}

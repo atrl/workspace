@@ -1,0 +1,23 @@
+experiment: stage1_economic_action_20260929
+provider_uri: data/qlib/soxl_soxx_soxs
+region: us
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_economic_action_20260929/qlib_recorder
+selection_plan: selection_plan.json
+retained_inputs: retained_inputs.json
+segments:
+  development:
+  - '2016-01-01'
+  - '2022-12-31'
+  reused_diagnostic:
+  - '2023-01-01'
+  - '2026-09-25'
+model_selection: fixed bounded comparisons; no parameter search
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/prepared_inputs.pkl
+  - analysis/training_results.pkl
+  - analysis/portfolio_replays.pkl
+  - analysis/origin_replays.pkl
+  - models/*.pkl
