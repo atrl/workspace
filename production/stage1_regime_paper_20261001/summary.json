@@ -1,0 +1,36 @@
+{
+  "experiment": "stage1_regime_paper_20261001",
+  "decision": "independent_paper_observation_only_not_promoted",
+  "research_recorder_id": "49fdd8b009ba4487952e08b986c08376",
+  "candidate": "regime_ridge10_soft",
+  "historical_gates_pass": false,
+  "recorder_id": "0506af901ee84789ac8afa1eee60a9de",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/production/stage1_regime_paper_20261001/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/production/stage1_regime_paper_20261001/qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de",
+  "recorder_relative_dir": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de",
+  "provider_uri": "data/qlib/soxl",
+  "region": "us",
+  "market": "all",
+  "source_as_of": "2026-09-25",
+  "release_manifest": "release_manifest.json",
+  "release_manifest_sha256": "bd7210b4a907dd1da08cd26de21854be976a5cb0041f74e6d04b23972de83156",
+  "prepared": true,
+  "activated": false,
+  "new_forward_sessions": 0,
+  "orders_submitted": 0,
+  "active_broker_release_changed": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "models/*.pkl",
+      "evidence/*.pkl",
+      "forward/*"
+    ]
+  },
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ]
+}

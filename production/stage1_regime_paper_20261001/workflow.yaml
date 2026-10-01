@@ -1,0 +1,20 @@
+experiment: stage1_regime_paper_20261001
+provider_uri: data/qlib/soxl
+region: us
+recorder_uri: /Users/rziiiii/dev/workspace/production/stage1_regime_paper_20261001/qlib_recorder
+research: research/stage1_regime_deployment_20261001
+model_selection:
+  variant: regime_ridge10_soft
+  historical_all_pass: false
+  passed_gate_count: 11
+  minimum_annual_wealth_ratio: 0.8586610602400143
+  minimum_stress_annual_wealth_ratio: 0.8556855333094006
+  stress_return_pct: 229.92507507723084
+release_manifest: release_manifest.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - models/*.pkl
+  - evidence/*.pkl
+  - forward/*

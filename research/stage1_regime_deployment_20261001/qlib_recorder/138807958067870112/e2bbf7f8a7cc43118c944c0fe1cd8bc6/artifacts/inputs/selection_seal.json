@@ -1,0 +1,13 @@
+{
+  "plan_sha256": "3bbcc97c22719bbe781002a0dd89f685db15813e82dddf3edfe634e3ae443de0",
+  "followup_plan_sha256": "a056ab13e2626527f8073e0001f9a58ea714daecf6245fd322f8f9439c836db1",
+  "selection_uses_outer_test": false,
+  "selected": {
+    "variant": "regime_ridge10_soft",
+    "historical_all_pass": false,
+    "passed_gate_count": 11,
+    "minimum_annual_wealth_ratio": 0.8586610602400143,
+    "minimum_stress_annual_wealth_ratio": 0.8556855333094006,
+    "stress_return_pct": 229.92507507723084
+  }
+}

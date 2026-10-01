@@ -1,0 +1,18 @@
+{
+  "candidate": "regime_ridge10_soft",
+  "spec": {
+    "name": "regime_ridge10_soft",
+    "estimator": "ridge",
+    "use_regime": true,
+    "ridge_alpha": 10.0,
+    "min_advantage_bps": 0.0,
+    "protect_derisk": false,
+    "minimum_training_rows": 200,
+    "max_leaf_nodes": 7,
+    "max_iter": 80,
+    "l2_regularization": 10.0
+  },
+  "historical_all_pass": false,
+  "production_enabled": false,
+  "recorder_id": "49fdd8b009ba4487952e08b986c08376"
+}

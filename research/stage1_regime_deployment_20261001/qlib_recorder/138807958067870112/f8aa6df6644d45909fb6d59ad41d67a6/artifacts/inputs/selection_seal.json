@@ -1,0 +1,12 @@
+{
+  "plan_sha256": "3bbcc97c22719bbe781002a0dd89f685db15813e82dddf3edfe634e3ae443de0",
+  "selection_uses_outer_test": false,
+  "selected": {
+    "variant": "regime_hist7",
+    "historical_all_pass": false,
+    "passed_gate_count": 10,
+    "minimum_annual_wealth_ratio": 0.7986423495399515,
+    "minimum_stress_annual_wealth_ratio": 0.7981993724614224,
+    "stress_return_pct": 55.08228129851942
+  }
+}

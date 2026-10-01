@@ -1,0 +1,115 @@
+{
+  "experiment": "stage1_regime_paper_20261001",
+  "policy": "slim_card_recorder_first",
+  "source": "Qlib DatasetH + official Recorder; retained source inputs from17f81fbf27ee46859816ec1ac52151f6",
+  "date_range": [
+    "2016-01-04",
+    "2026-09-25"
+  ],
+  "model_training_information_cutoff": "2025-12-31",
+  "retention_reason": "Reproduce and audit bounded SOXL regime research and load explicitly frozen independent paper models. Heavy matrices stay recorder-only.",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/artifacts/evidence/forward_plan.pkl",
+      "sha256": "0ea9b9c5bfd6ebffaae6e597429c0f8b9c90588d1a05f8237df88b744dfc52ad",
+      "bytes": 1022,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/artifacts/evidence/research_summary.pkl",
+      "sha256": "78967349f1152e30210c537865162bb9fc6947c589bb934454a54af015ae77c5",
+      "bytes": 9628,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/artifacts/evidence/training_diagnostics.pkl",
+      "sha256": "4404c7c5377739d563fd04acc0183c9debd5f57ec958ced007342f409a703c2c",
+      "bytes": 4813,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/artifacts/models/action_model.pkl",
+      "sha256": "537ee9883280158a08d8e09216bd3696efca6a042c1cb42e3004b81a7392bec2",
+      "bytes": 4570,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/artifacts/models/baseline_action_model.pkl",
+      "sha256": "c86842d47d2b80a781f0b60dc4a5aa688d90192f4e82757656cf9a938218bb04",
+      "bytes": 2821,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/artifacts/models/recovery_model.pkl",
+      "sha256": "ed46ee42717f19e9e8388876c4b017e1597d45c6dea0fd99d935ba6e453c99a2",
+      "bytes": 2722,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/meta.yaml",
+      "sha256": "04732c84593a14a23d50ac7b81d91a7a20879de3c53bf8b9c6e1d45430c798fb",
+      "bytes": 443,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/params/candidate",
+      "sha256": "118a551336cdc7f7bc626a688d5075ceebc16dafa4b52f7b06b460af109c3802",
+      "bytes": 19,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/params/cmd-sys.argv",
+      "sha256": "163ead2387ec96ffcf89df2e0c2e1ca183b3b315dbcb5917bacd84384d441d42",
+      "bytes": 239,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/params/execution_mode",
+      "sha256": "3a4652fecfd584fc6337e2a68fd9d79e417714cb604d94f4d0e6994e166aa3d8",
+      "bytes": 17,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/params/research_promotion_status",
+      "sha256": "30fff83053f0879f0f7bb8013c46eedf0a5b3594e9b32a397974e97be3301f8d",
+      "bytes": 12,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/params/research_recorder_id",
+      "sha256": "eaed0e39ac5ac0759d844942f09aaa7a0ec54d451a5f633e45d43d4b55c09c9f",
+      "bytes": 32,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/tags/mlflow.source.name",
+      "sha256": "a99813afe4edefc4a850825c776cdb78994aaac6be45eb6ea10db97df50927ff",
+      "bytes": 126,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/0506af901ee84789ac8afa1eee60a9de/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/931227718846110202/meta.yaml",
+      "sha256": "29769413c148031a7811ce1585874277e803ca28c0d3b23ff792b641cdec884e",
+      "bytes": 358,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    }
+  ]
+}

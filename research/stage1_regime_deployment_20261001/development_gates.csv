@@ -1,0 +1,15 @@
+variant,reference,net_return_above_reference,stress_return_above_reference,max_drawdown_not_worse,worst_day_not_worse,cvar5_not_worse,worst_5d_not_worse,open_trade_days_reduced_8pct,turnover_not_increased,annual_wealth_ratio_at_least_0.985,minimum_annual_wealth_ratio,passed_gate_count,all_pass
+action_ridge,active_hold_baseline,False,False,True,False,False,False,True,True,False,0.6457154102229853,3,False
+action_ridge,no_hold_reference,False,False,True,False,False,False,True,True,False,0.7861638409356981,3,False
+regime_ridge10,active_hold_baseline,False,False,False,False,True,False,True,True,False,0.5595923125002442,3,False
+regime_ridge10,no_hold_reference,False,False,False,False,False,False,True,True,False,0.6299875114339654,2,False
+regime_ridge100,active_hold_baseline,False,True,True,False,False,False,True,True,False,0.7036690765648489,4,False
+regime_ridge100,no_hold_reference,True,False,True,False,False,False,True,True,False,0.8858983666215159,4,False
+regime_hist7,active_hold_baseline,False,False,True,False,True,True,True,True,False,0.7986423495399515,5,False
+regime_hist7,no_hold_reference,False,False,True,False,True,True,True,True,False,0.9023841011531433,5,False
+regime_ridge10_soft,active_hold_baseline,True,True,True,False,False,False,True,True,False,0.8586610602400143,5,False
+regime_ridge10_soft,no_hold_reference,True,True,True,False,False,False,True,True,True,0.9969602405680222,6,False
+regime_ridge100_soft,active_hold_baseline,True,False,False,False,True,False,True,True,False,0.613603544442504,4,False
+regime_ridge100_soft,no_hold_reference,True,False,False,False,True,False,True,True,False,0.6142707644408897,4,False
+regime_hist7_soft,active_hold_baseline,False,True,True,False,True,False,True,True,False,0.7423263621648369,5,False
+regime_hist7_soft,no_hold_reference,False,False,True,False,True,False,True,True,False,0.8760940390585108,4,False

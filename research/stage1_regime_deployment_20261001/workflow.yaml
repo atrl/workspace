@@ -1,0 +1,51 @@
+experiment: stage1_regime_deployment_20261001
+provider_uri: data/qlib/soxl_soxx_soxs
+region: us
+recorder_uri: /Users/rziiiii/dev/workspace/research/stage1_regime_deployment_20261001/qlib_recorder
+segments:
+  development:
+  - '2016-01-01'
+  - '2022-12-31'
+  reused_diagnostic:
+  - '2023-01-01'
+  - '2026-09-25'
+  references:
+  - active_hold_baseline
+  - no_hold_reference
+  - economic_own_state_reference
+  cost_bps:
+  - 10
+  - 25
+  cost_method: independent controller/holdings paths recomputed at each cost level
+  hard_gates_against_both_active_and_no_hold:
+  - net_return_above_reference
+  - stress_return_above_reference
+  - max_drawdown_not_worse
+  - worst_day_not_worse
+  - cvar5_not_worse
+  - worst_5d_not_worse
+  - open_trade_days_reduced_8pct
+  - turnover_not_increased
+  - annual_wealth_ratio_at_least_0.985
+  selection: Among candidates passing every historical gate choose highest minimum
+    cost-stressed annual wealth ratio, then higher25bp return. If none pass, choose
+    diagnostic forward-observation candidate by total passed gates then minimum annual
+    wealth ratio then25bp return; it remains NOT_PROMOTED.
+  regime_report: Only pre-decision state labels; conditional return/turnover and counts.
+    No drawdown on concatenated noncontiguous regime days; continuous episode drawdowns
+    reported separately.
+  data_timing: Audit exact first-hour bar timestamps against decision time. Any discovered
+    source defect must be fixed symmetrically for candidate and all references and
+    raw-vs-audited baseline reproduction documented.
+  native_qlib: DatasetH, Recorder, risk_analysis(mode=product) plus native backtest
+    reconciliation where execution conventions can be matched; mismatches block promotion.
+model_selection: selection_plan.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*.pkl
+  - training/*.pkl
+  - analysis/portfolio_replays.pkl
+  - portfolio_analysis/native_reconciliation.pkl
+  - models/*.pkl
