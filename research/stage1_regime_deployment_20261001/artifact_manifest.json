@@ -1,0 +1,625 @@
+{
+  "experiment": "stage1_regime_deployment_20261001",
+  "policy": "slim_card_recorder_first",
+  "source": "Qlib DatasetH + official Recorder; retained source inputs from17f81fbf27ee46859816ec1ac52151f6",
+  "date_range": [
+    "2016-01-04",
+    "2026-09-25"
+  ],
+  "model_training_information_cutoff": "2025-12-31",
+  "retention_reason": "Reproduce and audit bounded SOXL regime research and load explicitly frozen independent paper models. Heavy matrices stay recorder-only.",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/analysis/annual.pkl",
+      "sha256": "3b033b4c4ae0ae253d8e050c7d5c2fd5eb89bc597b9113a4db8c33c5e7fd2a4a",
+      "bytes": 23221,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/analysis/comparison.pkl",
+      "sha256": "7c36acb9e51b8be8970358750866fec8d9556da07f7e8b9a8390d23264668bc8",
+      "bytes": 4884,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/analysis/development_gates.pkl",
+      "sha256": "76078481fe3544811750e2b0c074d469642dab1d36564dca634eea40754aab64",
+      "bytes": 1873,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/analysis/portfolio_replays.pkl",
+      "sha256": "41b7c68b61c51d1acf786f5024aa0e2bd95bf5e68b55bd3bc9b03a0f07244c46",
+      "bytes": 21044594,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/analysis/qlib_risk.pkl",
+      "sha256": "d4a8ef13c83bd71a3bb1e3d7f58b48f71744987c5f85983e7d0f7a0eee73542d",
+      "bytes": 5406,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/analysis/regime_metrics.pkl",
+      "sha256": "3be77501cb9389b75910f5ed6bbd91bcc5f765840ffbaba150167b07573fbd10",
+      "bytes": 9275,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/inputs/audited_regime_frame.pkl",
+      "sha256": "940a2256accaa589d892e7da547f4f3c3b76ed85e98b1eac52974854c306a534",
+      "bytes": 707054,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/inputs/first_hour_audit.pkl",
+      "sha256": "32bd021ad9df9ee0a74c7b470b41f730d78ac3e46ef4800b18576411cf4fae51",
+      "bytes": 327413,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/inputs/followup_plan.json",
+      "sha256": "a056ab13e2626527f8073e0001f9a58ea714daecf6245fd322f8f9439c836db1",
+      "bytes": 1886,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/inputs/prepared_inputs.pkl",
+      "sha256": "e518b3c7e8f51b389afb9624503cc8897095bb65c324ed150ac2d8ed3c29c7b1",
+      "bytes": 1640758,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/inputs/regime_features.pkl",
+      "sha256": "a8dccf11a13472c16949df33735c2205ab40201c7b4c00bdf66520a76212c2a8",
+      "bytes": 286734,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/inputs/selection_plan.json",
+      "sha256": "3bbcc97c22719bbe781002a0dd89f685db15813e82dddf3edfe634e3ae443de0",
+      "bytes": 4179,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/inputs/selection_seal.json",
+      "sha256": "f2f69b19d9029560ec578384d718bd350f3f82b71dba28206742fc6e5945984d",
+      "bytes": 503,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/models/recovery_models.pkl",
+      "sha256": "ec8613b29fafaa7c9e57209c844b093b5fe032446de810505e77c7e694367af7",
+      "bytes": 7208,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/models/recovery_selection.pkl",
+      "sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+      "bytes": 268,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/models/selected_action.pkl",
+      "sha256": "9bbe6c69e89ed5212d6f63043ae99b2cfd4eb95c8cf6785226661e9413064b1e",
+      "bytes": 4536,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/models/selected_spec.pkl",
+      "sha256": "e08a94ebf0fd204b70e3712c7b5229893bbf60e0ae24a7567b7e98f2ca988330",
+      "bytes": 297,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "sha256": "3896e86904e59ee1471bf3c3451e4c644bc56a4bd760a458c854a67b53d93030",
+      "bytes": 1887879,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/training/development_models.pkl",
+      "sha256": "da028b3bd3dc2f20098de2bcb48ba3b30fcdcb118ef7153ab0ced5d5c5d17d55",
+      "bytes": 12321605,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/training/expanded_model_training.pkl",
+      "sha256": "92531df2677314cb8209e96d112d7834246b0b9faaaf0eed7e374f5f2d56cc22",
+      "bytes": 2264081,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/meta.yaml",
+      "sha256": "2d17a0ea93fcb75e2339c2fe8c1199877a7637bb6059f257b1088a1c0a57fa2d",
+      "bytes": 446,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/metrics/candidate_count",
+      "sha256": "5ee0e472e7e6bddb9a9f9c495c53e79cfe173d5c598e2acf7b8250e01b539018",
+      "bytes": 20,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/metrics/historical_gate_pass",
+      "sha256": "75192859913a37f27f0038336ca379e5be13df302703e3b3466ffa626f08cbc4",
+      "bytes": 20,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/metrics/input_rows",
+      "sha256": "d972f770fb46da4f9aea58df605911fefd592f99427f9555cdc7993630ce83f5",
+      "bytes": 23,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/params/cmd-sys.argv",
+      "sha256": "8f59cb0ca88ba0ce4bf4e0572de814b8e3bc1bf8d70ff0dcccfd416d7dc131e3",
+      "bytes": 239,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/params/plan_sha256",
+      "sha256": "dd2aff7268008c6606da4bd43eb0353d5c908c6e0c778acfd17c9bc88e1a823b",
+      "bytes": 64,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/params/selected",
+      "sha256": "118a551336cdc7f7bc626a688d5075ceebc16dafa4b52f7b06b460af109c3802",
+      "bytes": 19,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/params/selection_uses_outer_test",
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "bytes": 5,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/params/source_as_of",
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "bytes": 10,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/params/source_input_sha256",
+      "sha256": "9a7caedb5ca0170bbaa458c5785fa8f82ca825f58de399e3f15f613d330639c5",
+      "bytes": 64,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/tags/mlflow.source.name",
+      "sha256": "a99813afe4edefc4a850825c776cdb78994aaac6be45eb6ea10db97df50927ff",
+      "bytes": 126,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/analysis/annual.pkl",
+      "sha256": "3b033b4c4ae0ae253d8e050c7d5c2fd5eb89bc597b9113a4db8c33c5e7fd2a4a",
+      "bytes": 23221,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/analysis/comparison.pkl",
+      "sha256": "7c36acb9e51b8be8970358750866fec8d9556da07f7e8b9a8390d23264668bc8",
+      "bytes": 4884,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/analysis/development_gates.pkl",
+      "sha256": "76078481fe3544811750e2b0c074d469642dab1d36564dca634eea40754aab64",
+      "bytes": 1873,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/analysis/portfolio_replays.pkl",
+      "sha256": "41b7c68b61c51d1acf786f5024aa0e2bd95bf5e68b55bd3bc9b03a0f07244c46",
+      "bytes": 21044594,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/analysis/qlib_risk.pkl",
+      "sha256": "d4a8ef13c83bd71a3bb1e3d7f58b48f71744987c5f85983e7d0f7a0eee73542d",
+      "bytes": 5406,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/analysis/regime_metrics.pkl",
+      "sha256": "3be77501cb9389b75910f5ed6bbd91bcc5f765840ffbaba150167b07573fbd10",
+      "bytes": 9275,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/inputs/audited_regime_frame.pkl",
+      "sha256": "940a2256accaa589d892e7da547f4f3c3b76ed85e98b1eac52974854c306a534",
+      "bytes": 707054,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/inputs/first_hour_audit.pkl",
+      "sha256": "32bd021ad9df9ee0a74c7b470b41f730d78ac3e46ef4800b18576411cf4fae51",
+      "bytes": 327413,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/inputs/followup_plan.json",
+      "sha256": "a056ab13e2626527f8073e0001f9a58ea714daecf6245fd322f8f9439c836db1",
+      "bytes": 1886,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/inputs/prepared_inputs.pkl",
+      "sha256": "e518b3c7e8f51b389afb9624503cc8897095bb65c324ed150ac2d8ed3c29c7b1",
+      "bytes": 1640758,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/inputs/regime_features.pkl",
+      "sha256": "a8dccf11a13472c16949df33735c2205ab40201c7b4c00bdf66520a76212c2a8",
+      "bytes": 286734,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/inputs/selection_plan.json",
+      "sha256": "3bbcc97c22719bbe781002a0dd89f685db15813e82dddf3edfe634e3ae443de0",
+      "bytes": 4179,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/inputs/selection_seal.json",
+      "sha256": "f2f69b19d9029560ec578384d718bd350f3f82b71dba28206742fc6e5945984d",
+      "bytes": 503,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/models/recovery_models.pkl",
+      "sha256": "ec8613b29fafaa7c9e57209c844b093b5fe032446de810505e77c7e694367af7",
+      "bytes": 7208,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/models/recovery_selection.pkl",
+      "sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+      "bytes": 268,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/models/selected_action.pkl",
+      "sha256": "9bbe6c69e89ed5212d6f63043ae99b2cfd4eb95c8cf6785226661e9413064b1e",
+      "bytes": 4536,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/models/selected_spec.pkl",
+      "sha256": "e08a94ebf0fd204b70e3712c7b5229893bbf60e0ae24a7567b7e98f2ca988330",
+      "bytes": 297,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "sha256": "3896e86904e59ee1471bf3c3451e4c644bc56a4bd760a458c854a67b53d93030",
+      "bytes": 1887879,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/training/development_models.pkl",
+      "sha256": "da028b3bd3dc2f20098de2bcb48ba3b30fcdcb118ef7153ab0ced5d5c5d17d55",
+      "bytes": 12321605,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/artifacts/training/expanded_model_training.pkl",
+      "sha256": "92531df2677314cb8209e96d112d7834246b0b9faaaf0eed7e374f5f2d56cc22",
+      "bytes": 2264081,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/meta.yaml",
+      "sha256": "5d85b62bc8f9f8219f1fec261e267f353ddf3508f7ef97b4646d1efd6753832d",
+      "bytes": 446,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/metrics/candidate_count",
+      "sha256": "d7ddf25c3265774583a7050dd2bd2f20ad7f19823eca7b96bfa46431c8d87a7f",
+      "bytes": 20,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/metrics/historical_gate_pass",
+      "sha256": "55723b35d185a2b5a973ea5cee8d42e2bbce98aaa8ad69b6b89cb271bac3c16e",
+      "bytes": 20,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/metrics/input_rows",
+      "sha256": "f8d8a6924a93756f41620d1e3428590524abc5bea56156757c8d7a8ad2ffbccc",
+      "bytes": 23,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/params/cmd-sys.argv",
+      "sha256": "643b0375b49c69ce9561ac59f22bc716fda479d11a86a9cd71136cf6a8b7c9a5",
+      "bytes": 239,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/params/plan_sha256",
+      "sha256": "dd2aff7268008c6606da4bd43eb0353d5c908c6e0c778acfd17c9bc88e1a823b",
+      "bytes": 64,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/params/selected",
+      "sha256": "118a551336cdc7f7bc626a688d5075ceebc16dafa4b52f7b06b460af109c3802",
+      "bytes": 19,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/params/selection_uses_outer_test",
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "bytes": 5,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/params/source_as_of",
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "bytes": 10,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/params/source_input_sha256",
+      "sha256": "9a7caedb5ca0170bbaa458c5785fa8f82ca825f58de399e3f15f613d330639c5",
+      "bytes": 64,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/tags/mlflow.source.name",
+      "sha256": "a99813afe4edefc4a850825c776cdb78994aaac6be45eb6ea10db97df50927ff",
+      "bytes": 126,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/e2bbf7f8a7cc43118c944c0fe1cd8bc6/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/analysis/annual.pkl",
+      "sha256": "9e42f4ca50070cd92ed605dfdde5350353a18543b7c6fd476ea05ee117e8a07d",
+      "bytes": 18934,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/analysis/comparison.pkl",
+      "sha256": "a9eb4c4ce5885d40e938e1f4e2e28500d38566bfa93ab91e5f5b20e5877bc266",
+      "bytes": 4245,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/analysis/development_gates.pkl",
+      "sha256": "316f8af9aef33d7f67c6eb179e2f829fb0aed5fd4eed842b4c282ff29413ab1a",
+      "bytes": 1634,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/analysis/portfolio_replays.pkl",
+      "sha256": "5acd5170fd6f88cd77fa1e4013a74352e004000c587af585409424c42a26ecf4",
+      "bytes": 17124457,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/analysis/qlib_risk.pkl",
+      "sha256": "15a68197193e1eb7a9ec02ce905384b5d9630d0c043ad24f7ea36868c7a81938",
+      "bytes": 4659,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/analysis/regime_metrics.pkl",
+      "sha256": "74cd46ddb154c8afcb155c716cdf48e3e20c81887db55322e86ac58d053e1113",
+      "bytes": 7924,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/inputs/audited_regime_frame.pkl",
+      "sha256": "940a2256accaa589d892e7da547f4f3c3b76ed85e98b1eac52974854c306a534",
+      "bytes": 707054,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/inputs/first_hour_audit.pkl",
+      "sha256": "32bd021ad9df9ee0a74c7b470b41f730d78ac3e46ef4800b18576411cf4fae51",
+      "bytes": 327413,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/inputs/prepared_inputs.pkl",
+      "sha256": "e518b3c7e8f51b389afb9624503cc8897095bb65c324ed150ac2d8ed3c29c7b1",
+      "bytes": 1640758,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/inputs/regime_features.pkl",
+      "sha256": "a8dccf11a13472c16949df33735c2205ab40201c7b4c00bdf66520a76212c2a8",
+      "bytes": 286734,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/inputs/selection_plan.json",
+      "sha256": "3bbcc97c22719bbe781002a0dd89f685db15813e82dddf3edfe634e3ae443de0",
+      "bytes": 4179,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/inputs/selection_seal.json",
+      "sha256": "1c7794d2141fc3454f81767b54b1b3ce3eee1420f8e52f49a3e845ece0b817cc",
+      "bytes": 401,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/models/recovery_models.pkl",
+      "sha256": "ec8613b29fafaa7c9e57209c844b093b5fe032446de810505e77c7e694367af7",
+      "bytes": 7208,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/models/recovery_selection.pkl",
+      "sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116",
+      "bytes": 268,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/models/selected_action.pkl",
+      "sha256": "46b3a3e59acace5c3579799837ac2bde8468e0e0fa80034df3b189d0e0578107",
+      "bytes": 153530,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/models/selected_spec.pkl",
+      "sha256": "1b450087cdb41bf5fa58db25e37cd15f9d10b0a5d9c65c4319cacbbb0a0d9881",
+      "bytes": 307,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "sha256": "b14ff421f174e08e7d6eee9434502fa5b6bf00e717ee9dee1487fd35e56327fc",
+      "bytes": 811251,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/training/development_models.pkl",
+      "sha256": "f264ba7b76dd6c01682ce6145cb2c7e857fd95de16c75440507196a273faae80",
+      "bytes": 6757921,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/artifacts/training/expanded_model_training.pkl",
+      "sha256": "6ed587d8e616f3e873c248fb73701855d795226c86e0b7b56a901e68de0be851",
+      "bytes": 3729810,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/meta.yaml",
+      "sha256": "35ac49aec533e36bf25c7dc53a38d6049e6824d26a65c3373a204ed0731ad49f",
+      "bytes": 446,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/metrics/candidate_count",
+      "sha256": "c94c93fd0ee19fad057bf147bf6456cf7ed4b2baa83405ea493aa49a44fd0d00",
+      "bytes": 20,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/metrics/historical_gate_pass",
+      "sha256": "1b544236dc085e892a9d6724fadf4941b7611b63ebbd90f8aa109e7bceb42556",
+      "bytes": 20,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/metrics/input_rows",
+      "sha256": "bd61bac3c966ca8a4b230e2a588768e746cdb1068e2a548244eae13da6bf9f49",
+      "bytes": 23,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/params/cmd-sys.argv",
+      "sha256": "be926901ec5584a745bd5849ced7a74619f043121a2f8425adf768885a0c8964",
+      "bytes": 239,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/params/plan_sha256",
+      "sha256": "dd2aff7268008c6606da4bd43eb0353d5c908c6e0c778acfd17c9bc88e1a823b",
+      "bytes": 64,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/params/selected",
+      "sha256": "0b5b6eec301aae2005898249ca9d1618be4fe59c6465c7a8797f6966a7f39bbc",
+      "bytes": 12,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/params/selection_uses_outer_test",
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "bytes": 5,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/params/source_as_of",
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "bytes": 10,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/params/source_input_sha256",
+      "sha256": "9a7caedb5ca0170bbaa458c5785fa8f82ca825f58de399e3f15f613d330639c5",
+      "bytes": 64,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/tags/mlflow.runName",
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "bytes": 15,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/tags/mlflow.source.name",
+      "sha256": "a99813afe4edefc4a850825c776cdb78994aaac6be45eb6ea10db97df50927ff",
+      "bytes": 126,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/tags/mlflow.source.type",
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "bytes": 8,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/f8aa6df6644d45909fb6d59ad41d67a6/tags/mlflow.user",
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "bytes": 7,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    },
+    {
+      "path": "qlib_recorder/138807958067870112/meta.yaml",
+      "sha256": "af7c2b9b543fc8bb14f663e5b402e8ed6d211817fcbc10054ae85b852689796f",
+      "bytes": 366,
+      "purpose": "Qlib recorder evidence: frozen models, audited inputs, native reports, comparisons and run identity"
+    }
+  ]
+}

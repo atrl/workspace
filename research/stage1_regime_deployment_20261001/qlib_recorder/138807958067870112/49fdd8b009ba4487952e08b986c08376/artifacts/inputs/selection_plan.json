@@ -1,0 +1,49 @@
+{
+  "experiment": "stage1_regime_deployment_20261001",
+  "baseline_revision": "ab643f96",
+  "source_experiment": "stage1_economic_action_20260929",
+  "source_recorder_id": "17f81fbf27ee46859816ec1ac52151f6",
+  "source_input_sha256": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+  "source_as_of": "2026-09-25",
+  "registered_before_candidate_results": true,
+  "scope": "Shared supervised open-action model with causal market regimes; frozen allocator and recovery model; unchanged hard risk limits; independent paper deployment only after evidence gates.",
+  "candidates": [
+    {"name": "action_ridge", "estimator": "ridge", "use_regime": false, "ridge_alpha": 10.0, "protect_derisk": true},
+    {"name": "regime_ridge10", "estimator": "ridge", "use_regime": true, "ridge_alpha": 10.0, "protect_derisk": true},
+    {"name": "regime_ridge100", "estimator": "ridge", "use_regime": true, "ridge_alpha": 100.0, "protect_derisk": true},
+    {"name": "regime_hist7", "estimator": "hist_gradient_boosting", "use_regime": true, "max_leaf_nodes": 7, "max_iter": 80, "l2_regularization": 10.0, "protect_derisk": true}
+  ],
+  "training": {
+    "first_seed_year": 2016,
+    "development_end": "2022-12-31",
+    "fit": "annual expanding DatasetH; only labels matured strictly before January 1 and the first decision",
+    "final_refit_end": "2025-12-31",
+    "minimum_training_rows": 200,
+    "label_cost_bps": 25,
+    "label_scope": "one-session execute-versus-hold plus common next-target reset cost; not a multiday optimum",
+    "regime_features": "SOXX trailing20/60 momentum,20-day trend efficiency and volatility,60-day drawdown, smooth up/range/down scores and action interactions; no backward fill, future labels, or retrospective regime assignments",
+    "min_advantage_bps": 0,
+    "architecture_search": "four candidates only; no tuning against reused2023-2026 diagnostics"
+  },
+  "evaluation": {
+    "development": ["2016-01-01", "2022-12-31"],
+    "reused_diagnostic": ["2023-01-01", "2026-09-25"],
+    "references": ["active_hold_baseline", "no_hold_reference", "economic_own_state_reference"],
+    "cost_bps": [10,25],
+    "cost_method": "independent controller/holdings paths recomputed at each cost level",
+    "hard_gates_against_both_active_and_no_hold": ["net_return_above_reference", "stress_return_above_reference", "max_drawdown_not_worse", "worst_day_not_worse", "cvar5_not_worse", "worst_5d_not_worse", "open_trade_days_reduced_8pct", "turnover_not_increased", "annual_wealth_ratio_at_least_0.985"],
+    "selection": "Among candidates passing every historical gate choose highest minimum cost-stressed annual wealth ratio, then higher25bp return. If none pass, choose diagnostic forward-observation candidate by total passed gates then minimum annual wealth ratio then25bp return; it remains NOT_PROMOTED.",
+    "regime_report": "Only pre-decision state labels; conditional return/turnover and counts. No drawdown on concatenated noncontiguous regime days; continuous episode drawdowns reported separately.",
+    "data_timing": "Audit exact first-hour bar timestamps against decision time. Any discovered source defect must be fixed symmetrically for candidate and all references and raw-vs-audited baseline reproduction documented.",
+    "native_qlib": "DatasetH, Recorder, risk_analysis(mode=product) plus native backtest reconciliation where execution conventions can be matched; mismatches block promotion."
+  },
+  "deployment": {
+    "scope": "paper/SIM only; no real broker orders",
+    "historical_pass_is_not_forward_pass": true,
+    "existing_reviewed_windows_are_not_clean_holdout": true,
+    "forward": "candidate-owned continuous holdings/equity/risk clock; immutable model and input/quote hashes; fresh quotes; idempotent session/slot; missing observations fail closed",
+    "broker_switch_requires": "all research and execution gates pass and new continuous forward evidence; no reuse of older failed-candidate exception receipt",
+    "allowed_initial_release": "sealed research observation or isolated paper candidate, explicitly not promoted, without replacing active SIM"
+  },
+  "artifact_policy": "slim_card_recorder_first"
+}

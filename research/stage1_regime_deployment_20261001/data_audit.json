@@ -1,0 +1,60 @@
+{
+  "source": {
+    "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/inputs/prepared_inputs.pkl",
+    "sha256": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+    "source": "frozen Qlib feature/model/recorder inputs",
+    "source_allocation_recorder": "f696f656b3d44e868588e09a5d97c905",
+    "source_card": "stage1_economic_action_20260929",
+    "recorder_id": "17f81fbf27ee46859816ec1ac52151f6"
+  },
+  "features": {
+    "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/regime-deployment-20261001/data/qlib/soxl_soxx_soxs",
+    "source_api": "qlib.data.D.features",
+    "calendar_api": "qlib.data.D.calendar",
+    "instrument": "SOXX",
+    "fields": [
+      "$close"
+    ],
+    "schema_version": "causal_soxx_close_regime_v1",
+    "feature_scope": "price_only; canonical daily provider does not contain historical SOXX volume",
+    "warmup_start": "2010-10-05",
+    "signal_start": "2011-01-03",
+    "signal_end": "2026-09-25",
+    "future_fill": false,
+    "source_sha256": "5ab763ed456927ab6ab3d546a6c12558249661079893406e742363c7a70ff7d3"
+  },
+  "first_hour": {
+    "status": "passed",
+    "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/regime-deployment-20261001/data/qlib/soxl_intraday_15min",
+    "provider_as_of": "2026-09-25",
+    "provider_manifest_sha256": "b4b024257464981a27397b4a1169d896639c8b8fbd2340a3341a356000327664",
+    "source_api": [
+      "qlib.init",
+      "qlib.data.D.features"
+    ],
+    "rows": 2690,
+    "valid_recovery_rows": 1937,
+    "unavailable_recovery_rows": 753,
+    "invalid_retained_recovery_rows": 0,
+    "maximum_retained_feature_error": 0.0,
+    "source_unchanged": true,
+    "bar_count_semantics": "full-session 15-minute bar count, not observed first-hour minute coverage; not a model feature",
+    "limitation": "Exact aggregate bar timestamps do not prove every underlying one-minute observation is present."
+  },
+  "native": {
+    "status": "passed",
+    "sessions": 752,
+    "start": "2016-01-05",
+    "end": "2018-12-28",
+    "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/regime-deployment-20261001/data/qlib/soxl_soxx_soxs",
+    "cost_bps": 10.0,
+    "initial_cash": 100000.0,
+    "maximum_session_return_error": 4.3532117910416446e-08,
+    "tolerance": 1e-07,
+    "native_api": "qlib.backtest.backtest + SimulatorExecutor + Exchange + Position",
+    "schedule_strategy": "DirectTargetWeightStrategy subclass with observed-open sizing and fee-affordable targets",
+    "report_mark": "native daily same-day close; next-open reconciliation uses native positions and Qlib D.features",
+    "scope": "prescribed open-only schedule settlement; controller selection and intraday recovery not independently validated",
+    "execution_limitation": "Historical open marks, not executable 09:31 prices; continuous adjusted shares, no spread/impact/partial fills."
+  }
+}

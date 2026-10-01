@@ -1,0 +1,12 @@
+{
+  "registered_before_first_forward_observation": true,
+  "status": "pending",
+  "minimum_complete_paired_sessions": 60,
+  "minimum_sessions_per_regime": 15,
+  "minimum_regime_transitions": 3,
+  "paired": "candidate and incumbent controller, each from same initialcash and captured quotes at both10/25bp; separate own holdings and risk clock",
+  "quality": "No unresolved slot gaps, data-age, model/hash, accounting or timing failures; incomplete sessions excluded and explicitly reported, never retroactively traded.",
+  "performance": "At both10/25bp net terminal wealth at least paired baseline; maximum drawdown,CVaR5,worst daily loss no worse; turnover no higher. Historical failure gates remain binding for active replacement.",
+  "future_data": "Only events at or after release not_before; model/threshold changes start a new release and evidence window.",
+  "scope": "Minimum observation criteria, not statistical proof or automatic broker authorization. Fractional price-return books do not verify real fills, dividends or corporate actions."
+}

@@ -1,0 +1,268 @@
+{
+  "experiment": "stage1_regime_deployment_20261001",
+  "decision": "not_promoted_historical_gates_failed",
+  "selected": {
+    "variant": "regime_ridge10_soft",
+    "historical_all_pass": false,
+    "passed_gate_count": 11,
+    "minimum_annual_wealth_ratio": 0.8586610602400143,
+    "minimum_stress_annual_wealth_ratio": 0.8556855333094006,
+    "stress_return_pct": 229.92507507723084
+  },
+  "source_as_of": "2026-09-25",
+  "provider_uri": "data/qlib/soxl_soxx_soxs",
+  "region": "us",
+  "market": "all",
+  "data_range": [
+    "2016-01-04",
+    "2026-09-23"
+  ],
+  "plan_sha256": "3bbcc97c22719bbe781002a0dd89f685db15813e82dddf3edfe634e3ae443de0",
+  "followup_plan_sha256": "a056ab13e2626527f8073e0001f9a58ea714daecf6245fd322f8f9439c836db1",
+  "previous_trial_recorder_id": "f8aa6df6644d45909fb6d59ad41d67a6",
+  "selection_uses_outer_test": false,
+  "baseline_reproduction_pass": true,
+  "recorder_id": "49fdd8b009ba4487952e08b986c08376",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/stage1_regime_deployment_20261001/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/stage1_regime_deployment_20261001/qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376",
+  "recorder_relative_dir": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376",
+  "allocation_source": {
+    "card_path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "manifest_sha256": "44c1a375ea575f1055ff46850a9c8dbc30d121d97919231efbf9084504628112",
+    "recorder_id": "f696f656b3d44e868588e09a5d97c905"
+  },
+  "source_audit": {
+    "path": "qlib_recorder/517305099807006126/17f81fbf27ee46859816ec1ac52151f6/artifacts/inputs/prepared_inputs.pkl",
+    "sha256": "8baa4f74449c1da41eb189f51c75074a61dacb8d7c8540710f4f67560d58d4aa",
+    "source": "frozen Qlib feature/model/recorder inputs",
+    "source_allocation_recorder": "f696f656b3d44e868588e09a5d97c905",
+    "source_card": "stage1_economic_action_20260929",
+    "recorder_id": "17f81fbf27ee46859816ec1ac52151f6"
+  },
+  "feature_audit": {
+    "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/regime-deployment-20261001/data/qlib/soxl_soxx_soxs",
+    "source_api": "qlib.data.D.features",
+    "calendar_api": "qlib.data.D.calendar",
+    "instrument": "SOXX",
+    "fields": [
+      "$close"
+    ],
+    "schema_version": "causal_soxx_close_regime_v1",
+    "feature_scope": "price_only; canonical daily provider does not contain historical SOXX volume",
+    "warmup_start": "2010-10-05",
+    "signal_start": "2011-01-03",
+    "signal_end": "2026-09-25",
+    "future_fill": false,
+    "source_sha256": "5ab763ed456927ab6ab3d546a6c12558249661079893406e742363c7a70ff7d3"
+  },
+  "first_hour_audit": {
+    "status": "passed",
+    "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/regime-deployment-20261001/data/qlib/soxl_intraday_15min",
+    "provider_as_of": "2026-09-25",
+    "provider_manifest_sha256": "b4b024257464981a27397b4a1169d896639c8b8fbd2340a3341a356000327664",
+    "source_api": [
+      "qlib.init",
+      "qlib.data.D.features"
+    ],
+    "rows": 2690,
+    "valid_recovery_rows": 1937,
+    "unavailable_recovery_rows": 753,
+    "invalid_retained_recovery_rows": 0,
+    "maximum_retained_feature_error": 0.0,
+    "source_unchanged": true,
+    "bar_count_semantics": "full-session 15-minute bar count, not observed first-hour minute coverage; not a model feature",
+    "limitation": "Exact aggregate bar timestamps do not prove every underlying one-minute observation is present."
+  },
+  "native_qlib_audit": {
+    "status": "passed",
+    "sessions": 752,
+    "start": "2016-01-05",
+    "end": "2018-12-28",
+    "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/regime-deployment-20261001/data/qlib/soxl_soxx_soxs",
+    "cost_bps": 10.0,
+    "initial_cash": 100000.0,
+    "maximum_session_return_error": 4.3532117910416446e-08,
+    "tolerance": 1e-07,
+    "native_api": "qlib.backtest.backtest + SimulatorExecutor + Exchange + Position",
+    "schedule_strategy": "DirectTargetWeightStrategy subclass with observed-open sizing and fee-affordable targets",
+    "report_mark": "native daily same-day close; next-open reconciliation uses native positions and Qlib D.features",
+    "scope": "prescribed open-only schedule settlement; controller selection and intraday recovery not independently validated",
+    "execution_limitation": "Historical open marks, not executable 09:31 prices; continuous adjusted shares, no spread/impact/partial fills."
+  },
+  "selected_spec": {
+    "name": "regime_ridge10_soft",
+    "estimator": "ridge",
+    "use_regime": true,
+    "ridge_alpha": 10.0,
+    "min_advantage_bps": 0.0,
+    "protect_derisk": false,
+    "minimum_training_rows": 200,
+    "max_leaf_nodes": 7,
+    "max_iter": 80,
+    "l2_regularization": 10.0
+  },
+  "final_model_training_end": "2025-12-31",
+  "dataset_audit": {
+    "dataset_class": "qlib.data.dataset.DatasetH",
+    "handler_class": "qlib.data.dataset.handler.DataHandlerLP",
+    "loader_class": "qlib.data.dataset.loader.StaticDataLoader",
+    "features": [
+      "portfolio_drawdown",
+      "current_beta_cap",
+      "raw_effective_beta",
+      "risk_state",
+      "raw_soxl_weight",
+      "raw_soxx_weight",
+      "raw_cash_weight",
+      "tail_probability",
+      "alpha_probability",
+      "portfolio_ret_1d",
+      "portfolio_ret_3d",
+      "portfolio_ret_5d",
+      "target_soxl_weight",
+      "target_soxx_weight",
+      "target_cash_weight",
+      "pretrade_soxl_weight",
+      "pretrade_soxx_weight",
+      "pretrade_cash_weight",
+      "soxl_weight_delta",
+      "soxx_weight_delta",
+      "effective_beta_delta",
+      "open_turnover",
+      "risk_clock",
+      "days_since_trade",
+      "hard_beta_cap",
+      "regime_momentum_20",
+      "regime_momentum_60",
+      "regime_efficiency_20",
+      "regime_volatility_20",
+      "regime_drawdown_60",
+      "regime_up_probability",
+      "regime_range_probability",
+      "regime_down_probability",
+      "regime_up_probability__effective_beta_delta",
+      "regime_up_probability__open_turnover",
+      "regime_up_probability__soxl_weight_delta",
+      "regime_up_probability__soxx_weight_delta",
+      "regime_range_probability__effective_beta_delta",
+      "regime_range_probability__open_turnover",
+      "regime_range_probability__soxl_weight_delta",
+      "regime_range_probability__soxx_weight_delta",
+      "regime_down_probability__effective_beta_delta",
+      "regime_down_probability__open_turnover",
+      "regime_down_probability__soxl_weight_delta",
+      "regime_down_probability__soxx_weight_delta"
+    ],
+    "training_state": "causal_own_policy_path",
+    "evaluation_segment_reset": true,
+    "training_history_reset_on_segment": false,
+    "label_cost_bps": 25.0,
+    "label_proxy": "one session execute-versus-hold net value plus common next own-policy desired-target reset cost; not a multiday policy rollout",
+    "maturity": "label_available_at strictly before both January 1 New York of fit year and first fit-year decision",
+    "recovery_branches": "separately recomputed from each branch's marked holdings; same frozen open controller snapshot",
+    "maximum_training_signal_year": 2025,
+    "fit_year_by_decision_year": {
+      "2016": null,
+      "2017": 2017,
+      "2018": 2018,
+      "2019": 2019,
+      "2020": 2020,
+      "2021": 2021,
+      "2022": 2022,
+      "2023": 2023,
+      "2024": 2024,
+      "2025": 2025,
+      "2026": 2026
+    },
+    "regime_schema_version": "causal_soxx_close_regime_v1",
+    "regime_source": {
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/regime-deployment-20261001/data/qlib/soxl_soxx_soxs",
+      "source_api": "qlib.data.D.features",
+      "calendar_api": "qlib.data.D.calendar",
+      "instrument": "SOXX",
+      "fields": [
+        "$close"
+      ],
+      "schema_version": "causal_soxx_close_regime_v1",
+      "feature_scope": "price_only; canonical daily provider does not contain historical SOXX volume",
+      "warmup_start": "2010-10-05",
+      "signal_start": "2011-01-03",
+      "signal_end": "2026-09-25",
+      "future_fill": false,
+      "source_sha256": "5ab763ed456927ab6ab3d546a6c12558249661079893406e742363c7a70ff7d3"
+    },
+    "spec": {
+      "name": "regime_ridge10_soft",
+      "estimator": "ridge",
+      "use_regime": true,
+      "ridge_alpha": 10.0,
+      "min_advantage_bps": 0.0,
+      "protect_derisk": false,
+      "minimum_training_rows": 200,
+      "max_leaf_nodes": 7,
+      "max_iter": 80,
+      "l2_regularization": 10.0
+    }
+  },
+  "source_sha256": {
+    "src/workflow/stage1_regime_action.py": "6d906a3c4f7bc33d18aaea6c04884cfd36b50f5efa5bbc57d98f3fa0f55786d2",
+    "src/workflow/stage1_regime_experiment.py": "c761133c83c7de646c33ecc1f503a6ebdcaf7e3448c90202e9082e7875ab49c9",
+    "src/analysis/stage1_regime_validation.py": "3184a3769127b144d57c083b59d87d5f9e2e9dea7711fc47fe067b6f2503b42f"
+  },
+  "model_artifacts": {
+    "selected_action": {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/models/selected_action.pkl",
+      "sha256": "9bbe6c69e89ed5212d6f63043ae99b2cfd4eb95c8cf6785226661e9413064b1e"
+    },
+    "selected_spec": {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/models/selected_spec.pkl",
+      "sha256": "e08a94ebf0fd204b70e3712c7b5229893bbf60e0ae24a7567b7e98f2ca988330"
+    },
+    "recovery_models": {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/models/recovery_models.pkl",
+      "sha256": "ec8613b29fafaa7c9e57209c844b093b5fe032446de810505e77c7e694367af7"
+    },
+    "recovery_selection": {
+      "path": "qlib_recorder/138807958067870112/49fdd8b009ba4487952e08b986c08376/artifacts/models/recovery_selection.pkl",
+      "sha256": "ee811aab1d0ba67dfc89577503efab4dbb4e06598c73e94f8a673e736ec4c116"
+    }
+  },
+  "sealed_source_objects": {
+    "models/selected_action.pkl": "9bbe6c69e89ed5212d6f63043ae99b2cfd4eb95c8cf6785226661e9413064b1e",
+    "models/selected_spec.pkl": "e08a94ebf0fd204b70e3712c7b5229893bbf60e0ae24a7567b7e98f2ca988330",
+    "inputs/prepared_inputs.pkl": "e518b3c7e8f51b389afb9624503cc8897095bb65c324ed150ac2d8ed3c29c7b1",
+    "training/expanded_model_training.pkl": "92531df2677314cb8209e96d112d7834246b0b9faaaf0eed7e374f5f2d56cc22"
+  },
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*.pkl",
+      "training/*.pkl",
+      "analysis/portfolio_replays.pkl",
+      "portfolio_analysis/native_reconciliation.pkl",
+      "models/*.pkl"
+    ]
+  },
+  "promotion": {
+    "historical_pass": false,
+    "native_reconciliation_pass": true,
+    "new_continuous_forward_pass": false,
+    "broker_release_changed": false,
+    "real_execution": false
+  },
+  "limitations": [
+    "All2023-2026 observations were previously reviewed; reused diagnostic only.",
+    "Historical replay uses session open, not actual09:31 executable quote; native reconciliation does not remove this limitation.",
+    "No first-hour recovery history before2019; missing bars do not fabricate recovery.",
+    "Action supervision is a one-session reset-cost proxy, not a multiday controller optimum.",
+    "Regime probabilities are smooth causal state scores, not calibrated future probabilities.",
+    "Continuous-weight evidence does not demonstrate integer-share broker fills.",
+    "No candidate is promoted before new continuous forward evidence."
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/component/recorder.html",
+    "https://qlib.readthedocs.io/en/latest/component/strategy.html"
+  ]
+}

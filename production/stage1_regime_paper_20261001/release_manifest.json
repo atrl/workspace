@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "release_id": "stage1_regime_paper_20261001",
+  "execution_mode": "INDEPENDENT_PAPER",
+  "research_promotion_status": "not_promoted",
+  "not_before": "2026-10-01T05:27:03.320944+00:00",
+  "initial_cash": 100000.0,
+  "cost_bps": [
+    10.0,
+    25.0
+  ],
+  "recorder_uri": "production/stage1_regime_paper_20261001/qlib_recorder",
+  "experiment_name": "stage1_regime_paper_20261001",
+  "recorder_id": "0506af901ee84789ac8afa1eee60a9de",
+  "daily_provider_uri": "data/qlib/soxl",
+  "regime_provider_uri": "data/qlib/soxl_soxx_soxs",
+  "intraday_provider_uri": "data/qlib/soxl_intraday_15min",
+  "allocation_source": {
+    "card_path": "research/pit_constituent_auxiliary_training_allocation_retrained_20260928",
+    "manifest_sha256": "44c1a375ea575f1055ff46850a9c8dbc30d121d97919231efbf9084504628112",
+    "recorder_id": "f696f656b3d44e868588e09a5d97c905"
+  },
+  "regime_action_spec": {
+    "name": "regime_ridge10_soft",
+    "estimator": "ridge",
+    "use_regime": true,
+    "ridge_alpha": 10.0,
+    "min_advantage_bps": 0.0,
+    "protect_derisk": false,
+    "minimum_training_rows": 200,
+    "max_leaf_nodes": 7,
+    "max_iter": 80,
+    "l2_regularization": 10.0
+  },
+  "recovery_spec": {
+    "experiment": "intraday_recovery_direct_allocation_v1",
+    "source_experiment": "pit_constituent_auxiliary_training_allocation_v1",
+    "development_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "intraday_selection_years": [
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "outer_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "first_intraday_action_year": 2020,
+    "intraday_bars_observed": 4,
+    "transaction_cost_bps": 10.0,
+    "stress_cost_bps": 25.0,
+    "teacher_recovery_beta": 1.2,
+    "minimum_cash_weight": 0.15,
+    "maximum_soxl_weight": 0.3,
+    "recovery_eligibility_drawdown": 0.08,
+    "stop_drawdown": 0.12,
+    "defensive_beta": 0.2,
+    "wait_days": 5,
+    "ramp_days": 10,
+    "hold_days": 10,
+    "trailing_loss_days": 4,
+    "trailing_loss_trigger": 0.05,
+    "trailing_loss_beta": 0.6,
+    "emergency_drawdown": 0.22,
+    "emergency_beta": 0.3
+  },
+  "baseline_action_spec": {
+    "experiment": "stage1_open_action_value_v1",
+    "source_experiment": "stage1_confidence_veto_recovery_v1",
+    "transaction_cost_bps": 10.0,
+    "stress_cost_bps": 25.0,
+    "logistic_c": 0.1,
+    "execute_probability_threshold": 0.5,
+    "maximum_skippable_turnover": 0.05,
+    "mandatory_derisk_beta_delta": 0.0,
+    "minimum_training_rows": 200,
+    "maximum_open_trade_day_ratio": 0.92,
+    "minimum_annual_wealth_ratio": 0.985
+  },
+  "selected_recovery_model": {
+    "selection_uses_outer_test": false,
+    "selected_from_segment": "development_walk_forward",
+    "logistic_c": 0.3,
+    "probability_threshold": 0.825,
+    "action_beta": 0.6,
+    "minimum_source_alpha_probability": 0.25,
+    "threshold_plateau_count": 3,
+    "production_enabled": false
+  },
+  "label_available_at_max": "2025-12-31T14:31:00+00:00",
+  "training_information_cutoff": "2026-01-01T05:00:00+00:00",
+  "source_research_recorder_id": "49fdd8b009ba4487952e08b986c08376",
+  "source_research_summary_sha256": "0817f56b477ef07ace53b416148d6d12165ca5fecc641eecd1a1a56e0bb1cc96",
+  "historical_gates_pass": false,
+  "forward_plan": {
+    "registered_before_first_forward_observation": true,
+    "status": "pending",
+    "minimum_complete_paired_sessions": 60,
+    "minimum_sessions_per_regime": 15,
+    "minimum_regime_transitions": 3,
+    "paired": "candidate and incumbent controller, each from same initialcash and captured quotes at both10/25bp; separate own holdings and risk clock",
+    "quality": "No unresolved slot gaps, data-age, model/hash, accounting or timing failures; incomplete sessions excluded and explicitly reported, never retroactively traded.",
+    "performance": "At both10/25bp net terminal wealth at least paired baseline; maximum drawdown,CVaR5,worst daily loss no worse; turnover no higher. Historical failure gates remain binding for active replacement.",
+    "future_data": "Only events at or after release not_before; model/threshold changes start a new release and evidence window.",
+    "scope": "Minimum observation criteria, not statistical proof or automatic broker authorization. Fractional price-return books do not verify real fills, dividends or corporate actions."
+  },
+  "objects": {
+    "action_model": {
+      "path": "models/action_model.pkl",
+      "sha256": "537ee9883280158a08d8e09216bd3696efca6a042c1cb42e3004b81a7392bec2"
+    },
+    "recovery_model": {
+      "path": "models/recovery_model.pkl",
+      "sha256": "ed46ee42717f19e9e8388876c4b017e1597d45c6dea0fd99d935ba6e453c99a2"
+    },
+    "baseline_action_model": {
+      "path": "models/baseline_action_model.pkl",
+      "sha256": "c86842d47d2b80a781f0b60dc4a5aa688d90192f4e82757656cf9a938218bb04"
+    }
+  },
+  "code_sha256": {
+    "src/workflow/stage1_regime_action.py": "6d906a3c4f7bc33d18aaea6c04884cfd36b50f5efa5bbc57d98f3fa0f55786d2",
+    "src/workflow/stage1_regime_paper.py": "e3046205403677ab16439c44a5ed66501538f7098ee773f6a23fa5b6d528e1f4",
+    "src/schedule/stage1_regime_paper.py": "23c0358a75059a099225cbb7e307c845d2e48563e115f39d7a668ee910e349a3",
+    "src/schedule/us_open_quotes.py": "a8a71b371423356302ef2973a4c4386891fedaa66131785c69c578efc2beb684",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/workflow/stage1_economic_training.py": "ffbecc0caf68a0ad792c46f5b61b45e6e322a79ed955dd9ee9145302efb84bde",
+    "src/workflow/stage1_open_action_value.py": "3b6cc0d1f385ff797bdcaaaa1aca599c554e9c91931861bb66777fb1d8f25359",
+    "src/workflow/intraday_recovery_direct_allocation.py": "7973c6395d3232868f739f1fdc4251ce03552e6e10dd70126c8481c6d1b3c784",
+    "src/workflow/stage1_futu_sim.py": "7c8f975997d35d831c2ba131c1821ba1531678017e66d0d854bd23ec93d21447",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/analysis/stage1_regime_validation.py": "3184a3769127b144d57c083b59d87d5f9e2e9dea7711fc47fe067b6f2503b42f",
+    "src/workflow/stage1_regime_release.py": "69a526824d6c78b0fe7067674a65eb7cb1694229d3088ae60e20611cb010c81c"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "phase": 2,
+  "registered_before_followup_results": true,
+  "development_evidence_trigger": "First-round action_ridge with protect_derisk=true returned92.01% vs existing economic own-state200.49% on2016-2022. Test whether forcing every soft beta reduction defeats learned trade value. No2023+ result was used to design these candidates.",
+  "unchanged_hard_constraints": true,
+  "change": "Only protect_derisk=false; mandatory hard-risk repairs still execute. No additional thresholds, architectures, or post-hoc regime labels.",
+  "previous_trial_recorder_id": "f8aa6df6644d45909fb6d59ad41d67a6",
+  "previous_trial_experiment_id": "138807958067870112",
+  "candidates": [
+    {
+      "name": "regime_ridge10_soft",
+      "estimator": "ridge",
+      "use_regime": true,
+      "ridge_alpha": 10.0,
+      "protect_derisk": false
+    },
+    {
+      "name": "regime_ridge100_soft",
+      "estimator": "ridge",
+      "use_regime": true,
+      "ridge_alpha": 100.0,
+      "protect_derisk": false
+    },
+    {
+      "name": "regime_hist7_soft",
+      "estimator": "hist_gradient_boosting",
+      "use_regime": true,
+      "max_leaf_nodes": 7,
+      "max_iter": 80,
+      "l2_regularization": 10.0,
+      "protect_derisk": false
+    }
+  ],
+  "selection": "Same original nine gates against both references; rank all seven candidates by the original rule. Preserve all first-round results and provenance. Adaptive development is not fresh holdout evidence.",
+  "outer_usage": "Previously reviewed diagnostics only; neither new candidate design nor final ranking uses them.",
+  "max_additional_candidates": 3,
+  "stop_rule": "After seven bounded candidates, seal outcome. Failed historical gates prohibit active strategy replacement; deploy only independent diagnostic paper evidence infrastructure. Further model changes require a separately registered hypothesis and reset forward window."
+}
