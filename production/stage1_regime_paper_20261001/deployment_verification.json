@@ -1,0 +1,127 @@
+{
+  "prepared": true,
+  "activated": true,
+  "scope": "independent_paper_only_not_promoted",
+  "runtime_probe": {
+    "checked_at": "2026-10-01T05:32:55.727785+00:00",
+    "release_load": "passed",
+    "release_id": "stage1_regime_paper_20261001",
+    "models_loaded": [
+      "action_model",
+      "baseline_action_model",
+      "recovery_model"
+    ],
+    "model_spec": {
+      "name": "regime_ridge10_soft",
+      "estimator": "ridge",
+      "use_regime": true,
+      "ridge_alpha": 10.0,
+      "min_advantage_bps": 0.0,
+      "protect_derisk": false,
+      "minimum_training_rows": 200,
+      "max_leaf_nodes": 7,
+      "max_iter": 80,
+      "l2_regularization": 10.0
+    },
+    "allocation_source_verified": "f696f656b3d44e868588e09a5d97c905",
+    "latest_allocation_signal": "2026-09-30",
+    "allocation_smoothing": {
+      "status": "needs_execution_mark",
+      "current_execution_marks": [],
+      "pending_signal_dates": [
+        "2026-09-30"
+      ],
+      "unobserved_final_return_signal_date": "2026-09-29",
+      "unobserved_final_return_consumed": false
+    },
+    "off_window_probe": {
+      "orders_submitted": 0,
+      "execution_mode": "INDEPENDENT_PAPER",
+      "own_state_simulation": true,
+      "research_promotion_status": "not_promoted",
+      "status": "waiting",
+      "reason": "outside_open_or_recovery_observation_window",
+      "observed_at": "2026-10-01T01:32:55.727829-04:00"
+    },
+    "orders_submitted": 0,
+    "new_forward_sessions": 0
+  },
+  "quote_probe": {
+    "checked_at": "2026-10-01T05:33:15.259471+00:00",
+    "sdk_version": "10.02.6218",
+    "quote_connection_ok": true,
+    "market_us": "AFTER_HOURS_END",
+    "operation": "get_global_state_quote_only",
+    "orders_submitted": 0
+  },
+  "activation": {
+    "activated_at": "2026-10-01T05:33:53.607195+00:00",
+    "new_label": "com.soxl.stage1.regime.paper",
+    "new_plist": "/Users/rziiiii/Library/LaunchAgents/com.soxl.stage1.regime.paper.plist",
+    "new_plist_sha256": "cb4fbe0b678d76c39a8ea8342af78410e3221ab7171960afd4aa48744a9cc31a",
+    "interval_seconds": 60,
+    "module": "src.schedule.stage1_regime_paper",
+    "existing_shadow_adapter_module": "src.schedule.stage1_shadow_open",
+    "existing_shadow_sealed_module_unchanged": true,
+    "active_sim_release_sha256": "8e337aa5273508e13eca2d75e446dcd984bc12515743798416c287b4c6b36279",
+    "active_sim_release_unchanged": true,
+    "orders_submitted": 0
+  },
+  "scheduler_check": {
+    "checked_at": "2026-10-01T05:34:30.612427+00:00",
+    "launch_agents": {
+      "com.soxl.stage1.regime.paper": {
+        "registered": true,
+        "status_lines": [
+          "state = not running",
+          "runs = 1",
+          "last exit code = 0",
+          "state = active",
+          "state = active"
+        ]
+      },
+      "com.soxl.stage1.economic.shadow": {
+        "registered": true,
+        "status_lines": [
+          "state = not running",
+          "runs = 1",
+          "last exit code = 0",
+          "state = active",
+          "state = active"
+        ]
+      },
+      "com.soxl.stage1.futu.sim": {
+        "registered": true,
+        "status_lines": [
+          "state = not running",
+          "runs = 3214",
+          "last exit code = 0",
+          "state = active",
+          "state = active"
+        ]
+      }
+    },
+    "last_regime_job_output": {
+      "orders_submitted": 0,
+      "execution_mode": "INDEPENDENT_PAPER",
+      "own_state_simulation": true,
+      "research_promotion_status": "not_promoted",
+      "status": "waiting",
+      "reason": "outside_open_or_recovery_observation_window",
+      "observed_at": "2026-10-01T01:33:55.018248-04:00"
+    },
+    "new_forward_books": 0,
+    "orders_submitted": 0
+  },
+  "scientific_validation": {
+    "historical_gates_pass": false,
+    "new_forward_complete_sessions": 0,
+    "active_strategy_replacement_allowed": false
+  },
+  "repository": {
+    "pull_request": "https://github.com/atrl/workspace/pull/5",
+    "implementation_commit": "b5bebdc6cbccad36f68a1816fbc536b9de83fcbf",
+    "merge_commit": "2f069a69"
+  },
+  "initial_wip_preserved_files": 603
+}
