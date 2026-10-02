@@ -1,0 +1,824 @@
+{
+  "schema_version": 1,
+  "experiment": "canonical_price_basis_20261002",
+  "as_of": "2026-09-25",
+  "basis": "published_futu_affine_v1",
+  "artifact_policy": "slim_card_recorder_first",
+  "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+  "source_policy": "8308FutuNONE fullbars plus16explicitYahoo wholebar secondary observations; one published affine price basis for allrows, exactsplit-adjusted shares.",
+  "purpose": "Frozen native Qlib research source, original bounded SDK/HTTP receipts, transformation and readback evidence. No model fit or portfolio result is included; source-level quotation uncertainty is retained.",
+  "entry_count": 135,
+  "total_bytes": 17336707,
+  "entries": [
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/analysis/server_comparison.pkl",
+      "bytes": 1286,
+      "sha256": "0b3640dc5e52d2b36cad425cc58e659b98e9ff10d5e0bff29760f7b1c583ffba",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/analysis/server_comparison_detail.pkl",
+      "bytes": 1496977,
+      "sha256": "3f7901765b7e32d750af0d9ed3d3f3c73350a168e284e7bfc8001bd7632e5f63",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/conclusion.md",
+      "bytes": 1277,
+      "sha256": "bdc1c7879d6e45182a618e1965d0f2ac013e833dad29b7b8eb8e00e752b8f439",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/data_plan.json",
+      "bytes": 6453,
+      "sha256": "9898d0ffe55f5bc6cb468f57765b3c7064b6f139249d26c9fe56f42b6266b4fd",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/independent_review.json",
+      "bytes": 1162,
+      "sha256": "4fea7cbf24661d6c690ff139a49f494b7417a3e16c5fbab44f591ad19bc859f6",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/qualification.json",
+      "bytes": 1219,
+      "sha256": "439fba789a9980bf68d76742dd72c6ab461bb01b9cc2aad911f4326c08efe648",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/server_qfq_comparison.csv",
+      "bytes": 528,
+      "sha256": "abc4d34195bea44bf923b75573b341aa72090ceced5b271b279eac6ae7027386",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/summary.json",
+      "bytes": 3467,
+      "sha256": "0e444d39dd4e09e5bdcac2d44dd77fa3db356ce735ecdfc80b8f937cf0bf362f",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/transformation.json",
+      "bytes": 1439,
+      "sha256": "dbbc9313a490b1e75ed5c3de0a0e6d6d8b4f65f3dc32fc28bb48c19f74f91068",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/verification.json",
+      "bytes": 48671,
+      "sha256": "349aaea7f7d32c13ab11abb50c4456fee6e599b6e2ba96cb6a838803b7660e28",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/card/workflow.yaml",
+      "bytes": 452,
+      "sha256": "47dcc344818ec7620bf662dec7db985cb533d2b9f0a36d3f01d4a0afdb2b41a3",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/data/provider_manifest.pkl",
+      "bytes": 61643,
+      "sha256": "647b3204ec8faf1ed448d8c901bd79c8b9730475599b8347277aa9916908b810",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/data/qualification.pkl",
+      "bytes": 1047,
+      "sha256": "01874436ea4589256a27cf650301efb9e5693a7a503e4c90b26c8827784fd2c1",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/data/qualified_frame.pkl",
+      "bytes": 2729244,
+      "sha256": "a51d3684d9abfefd4cca5abb332b83d923237e83c9e6a16114924189a512bc7c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/data/transformation.pkl",
+      "bytes": 1316,
+      "sha256": "fb2f7f69193db42a60667e50974b4bf77a1ced0adbffc092104cf15e8d74d961",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/inputs/data_plan.json",
+      "bytes": 6453,
+      "sha256": "9898d0ffe55f5bc6cb468f57765b3c7064b6f139249d26c9fe56f42b6266b4fd",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/inputs/source_manifest.pkl",
+      "bytes": 65316,
+      "sha256": "f550047c546b77b4fda0200ca8235729773c0b9986fc6a4854843ec95ccd5736",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/inputs/verified_raw_inputs.pkl",
+      "bytes": 2064549,
+      "sha256": "3c1cce5d834e86bf863a0400180852cc10c768a422f988a5e7f33204d2ad025a",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/notebooks/canonical_price_basis_20261002.ipynb",
+      "bytes": 41600,
+      "sha256": "6ba999fec585b035a972f0c3e0668fc9c30be896454248ac0ead3b4e76057ef9",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXL_history_page1_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "451ff1f1a000242953f459889883e5fa3edd18934b4fc8879ee6e6d2e848ce51",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXL_history_page2_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "e770be45557e710f371682d1a6badaa56409c6d65d94a51e96e3736c101ee288",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXL_history_page3_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "647413a4e18c22284a4bb53b324e133dec67665e70b8a36e2872a374122028f1",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXL_history_page4_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "31d00b207bffd95f808af54e3336c465cd2c23ca6d446a1c85541f44c6fdaec4",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXL_history_page5_attempt1.pkl",
+      "bytes": 16531,
+      "sha256": "5dde5af083fa90fbd563c346e8ccfbc42b164b7485ef6f0371c651922f187994",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXL_rehab_after_attempt1.pkl",
+      "bytes": 9233,
+      "sha256": "da4ea60bbb17812d6d5617827823b9bfe0e6384267fddef1c3ae6eeea92b8041",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXL_rehab_before_attempt1.pkl",
+      "bytes": 9233,
+      "sha256": "da4ea60bbb17812d6d5617827823b9bfe0e6384267fddef1c3ae6eeea92b8041",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXX_history_page1_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "ca2820f3f1ce062cf8edd4b36011ea126f6859b3183fa04e9a39b6bbdc036580",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXX_history_page2_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "efdbcce00f3f2e72c6906067ac743b8572c1cbd77e8ea31840d525d7bdf2f9ea",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXX_history_page3_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "2da24052c7f74790be7346cf503fd395efb21e750efc05b84e21ec863755ce44",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXX_history_page4_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "ff520eb7bc4ff01ffca52e4bacd575e3e1b231176b84f470d310e9517ef84d13",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXX_history_page5_attempt1.pkl",
+      "bytes": 18214,
+      "sha256": "12015465a83800e4db39bfb7a685f5e9a0d44dfcab87ce1dee4698a17cf2c567",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXX_rehab_after_attempt1.pkl",
+      "bytes": 19898,
+      "sha256": "eb159c15cd44af8c3eef3797a0f41fd1d29b37f4dc553089e9b43d150fd1719c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/SOXX_rehab_before_attempt1.pkl",
+      "bytes": 19898,
+      "sha256": "eb159c15cd44af8c3eef3797a0f41fd1d29b37f4dc553089e9b43d150fd1719c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_none/manifest.json",
+      "bytes": 13248,
+      "sha256": "1ac28c78f81af3e355903c139725b3b50e523d01ad6eebc09c245b19204041d1",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXL_history_page1_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "827fbc85e4e46d5cbbee1b104ee6295c1a1e0ac9fe8581868ec399cb34243fda",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXL_history_page2_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "8bb35a219d43526e9d144d16ce6281c28147c6ccb7976eb2fa1925abbae5fcca",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXL_history_page3_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "019c11f03feec9e0cc1b9ed8e14d7dd396ba4b7e70976c196c37384517ce65f3",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXL_history_page4_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "c61b0adc303d059f17643291cc62eb7ef5da9470e1a64de65e42d738038778f2",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXL_history_page5_attempt1.pkl",
+      "bytes": 16531,
+      "sha256": "1f0e209a275a2b411fbf05df66e941e48ff3aa7ee18134e6a1997a62eee13797",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXL_rehab_after_attempt1.pkl",
+      "bytes": 9233,
+      "sha256": "da4ea60bbb17812d6d5617827823b9bfe0e6384267fddef1c3ae6eeea92b8041",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXL_rehab_before_attempt1.pkl",
+      "bytes": 9233,
+      "sha256": "da4ea60bbb17812d6d5617827823b9bfe0e6384267fddef1c3ae6eeea92b8041",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXX_history_page1_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "10faa6699ebd961341a96cb8c937507dbeb142a1220d05d5b9191c520505ea3a",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXX_history_page2_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "dc479ec00338e8c3f067166e97047a4f669e83bede87387db3a591ba2105c34c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXX_history_page3_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "63544e23e06e399bec40d84dab137121728f0d320b27f13b97e9688682a5e2c6",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXX_history_page4_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "71be85a43c9ec854cf396952d9a57e2308def1aa22203a76a09a151e475671cb",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXX_history_page5_attempt1.pkl",
+      "bytes": 18214,
+      "sha256": "c490df8a9ccecf1ed9ec97ef5a134332a5632772a7355188f8e383562934f010",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXX_rehab_after_attempt1.pkl",
+      "bytes": 19898,
+      "sha256": "eb159c15cd44af8c3eef3797a0f41fd1d29b37f4dc553089e9b43d150fd1719c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/SOXX_rehab_before_attempt1.pkl",
+      "bytes": 19898,
+      "sha256": "eb159c15cd44af8c3eef3797a0f41fd1d29b37f4dc553089e9b43d150fd1719c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/futu_qfq/manifest.json",
+      "bytes": 13222,
+      "sha256": "eeac957e5d8f341dbbbeae5c29cd5fb2a9c5b55b6315e7b01c44b663c549054c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/yahoo/manifest.json",
+      "bytes": 519,
+      "sha256": "fd4f53bae4384aa3542a0e35318dce0e33a86b86eaeffd5b2aff539ed9112236",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/artifacts/sources/yahoo/original_response.json",
+      "bytes": 106763,
+      "sha256": "f7755a228d8c347d291adc9efde9772dae0f5ee5c55dcb7ea4d0ab132abd19cf",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/meta.yaml",
+      "bytes": 443,
+      "sha256": "ccafd344ba7ecdcc4fa4ec694ee4924c00b340d674e11b7bc88c22484b7c2e0f",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/metrics/rows",
+      "bytes": 23,
+      "sha256": "0f35a81a9401f57a51ad8cc22679b696481e1259b39d1bd366a83632f6dc789f",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/metrics/secondary_whole_bars",
+      "bytes": 21,
+      "sha256": "8db800da2a79729a0f22c16942788672af6c5e1cfc71ab4d6c90e35c27b87141",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/metrics/source_qualification_pass",
+      "bytes": 20,
+      "sha256": "74b7eb322e98d0a2d9f0cda51861a8282151832ec10dbd1eda31b5de1ac163c9",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/params/basis",
+      "bytes": 24,
+      "sha256": "748e31895f1ae1ee058b38d07fb22580a9d7f01a322ffaf724f7b3c64489ff55",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/params/cmd-sys.argv",
+      "bytes": 237,
+      "sha256": "b9993099f156b902023f1322034c3d9cb07fbda8fd5ece9803ae54c886a33165",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/params/market_fits_or_pnl",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "c2aeb1efac47c48470750a288ac676593b6599d5dae20566d730becbca1dc84a",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/params/source_as_of",
+      "bytes": 10,
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/tags/mlflow.source.name",
+      "bytes": 124,
+      "sha256": "4a973efbb869037ec4f8f984fc5cb1d5757d57a2149322549491a21a5bc1c97b",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/bd754e6362b241f194351a1e7aebff6f/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/analysis/server_comparison.pkl",
+      "bytes": 1286,
+      "sha256": "0b3640dc5e52d2b36cad425cc58e659b98e9ff10d5e0bff29760f7b1c583ffba",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/analysis/server_comparison_detail.pkl",
+      "bytes": 1496977,
+      "sha256": "3f7901765b7e32d750af0d9ed3d3f3c73350a168e284e7bfc8001bd7632e5f63",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/data/provider_manifest.pkl",
+      "bytes": 60800,
+      "sha256": "f662788d357d4d7ccdd03269075b4b3e97206d9db0ff4b9ba8dec2e00356bda7",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/data/qualification.pkl",
+      "bytes": 1047,
+      "sha256": "01874436ea4589256a27cf650301efb9e5693a7a503e4c90b26c8827784fd2c1",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/data/qualified_frame.pkl",
+      "bytes": 2729219,
+      "sha256": "ef3c639088183e785606a55039263a2543f50d5349fb1ab09bdd7bbf5810cd7f",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/data/transformation.pkl",
+      "bytes": 1306,
+      "sha256": "1a402472d9dc99889c0ff166500827c63b6af57ba6445365e01e47d006515425",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/inputs/data_plan.json",
+      "bytes": 6453,
+      "sha256": "9898d0ffe55f5bc6cb468f57765b3c7064b6f139249d26c9fe56f42b6266b4fd",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/inputs/source_manifest.pkl",
+      "bytes": 65262,
+      "sha256": "dc29f2e487940f0294c53c7c0ed3723d0130ee996fe036cda7d63367bbf8efc1",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/inputs/verified_raw_inputs.pkl",
+      "bytes": 2064407,
+      "sha256": "2ccf25278c845b51b41c39ae7ef794d6ac8c90361753a54729767b7541782911",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXL_history_page1_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "451ff1f1a000242953f459889883e5fa3edd18934b4fc8879ee6e6d2e848ce51",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXL_history_page2_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "e770be45557e710f371682d1a6badaa56409c6d65d94a51e96e3736c101ee288",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXL_history_page3_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "647413a4e18c22284a4bb53b324e133dec67665e70b8a36e2872a374122028f1",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXL_history_page4_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "31d00b207bffd95f808af54e3336c465cd2c23ca6d446a1c85541f44c6fdaec4",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXL_history_page5_attempt1.pkl",
+      "bytes": 16531,
+      "sha256": "5dde5af083fa90fbd563c346e8ccfbc42b164b7485ef6f0371c651922f187994",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXL_rehab_after_attempt1.pkl",
+      "bytes": 9233,
+      "sha256": "da4ea60bbb17812d6d5617827823b9bfe0e6384267fddef1c3ae6eeea92b8041",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXL_rehab_before_attempt1.pkl",
+      "bytes": 9233,
+      "sha256": "da4ea60bbb17812d6d5617827823b9bfe0e6384267fddef1c3ae6eeea92b8041",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXX_history_page1_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "ca2820f3f1ce062cf8edd4b36011ea126f6859b3183fa04e9a39b6bbdc036580",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXX_history_page2_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "efdbcce00f3f2e72c6906067ac743b8572c1cbd77e8ea31840d525d7bdf2f9ea",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXX_history_page3_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "2da24052c7f74790be7346cf503fd395efb21e750efc05b84e21ec863755ce44",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXX_history_page4_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "ff520eb7bc4ff01ffca52e4bacd575e3e1b231176b84f470d310e9517ef84d13",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXX_history_page5_attempt1.pkl",
+      "bytes": 18214,
+      "sha256": "12015465a83800e4db39bfb7a685f5e9a0d44dfcab87ce1dee4698a17cf2c567",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXX_rehab_after_attempt1.pkl",
+      "bytes": 19898,
+      "sha256": "eb159c15cd44af8c3eef3797a0f41fd1d29b37f4dc553089e9b43d150fd1719c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/SOXX_rehab_before_attempt1.pkl",
+      "bytes": 19898,
+      "sha256": "eb159c15cd44af8c3eef3797a0f41fd1d29b37f4dc553089e9b43d150fd1719c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_none/manifest.json",
+      "bytes": 13248,
+      "sha256": "1ac28c78f81af3e355903c139725b3b50e523d01ad6eebc09c245b19204041d1",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXL_history_page1_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "827fbc85e4e46d5cbbee1b104ee6295c1a1e0ac9fe8581868ec399cb34243fda",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXL_history_page2_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "8bb35a219d43526e9d144d16ce6281c28147c6ccb7976eb2fa1925abbae5fcca",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXL_history_page3_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "019c11f03feec9e0cc1b9ed8e14d7dd396ba4b7e70976c196c37384517ce65f3",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXL_history_page4_attempt1.pkl",
+      "bytes": 107102,
+      "sha256": "c61b0adc303d059f17643291cc62eb7ef5da9470e1a64de65e42d738038778f2",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXL_history_page5_attempt1.pkl",
+      "bytes": 16531,
+      "sha256": "1f0e209a275a2b411fbf05df66e941e48ff3aa7ee18134e6a1997a62eee13797",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXL_rehab_after_attempt1.pkl",
+      "bytes": 9233,
+      "sha256": "da4ea60bbb17812d6d5617827823b9bfe0e6384267fddef1c3ae6eeea92b8041",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXL_rehab_before_attempt1.pkl",
+      "bytes": 9233,
+      "sha256": "da4ea60bbb17812d6d5617827823b9bfe0e6384267fddef1c3ae6eeea92b8041",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXX_history_page1_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "10faa6699ebd961341a96cb8c937507dbeb142a1220d05d5b9191c520505ea3a",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXX_history_page2_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "dc479ec00338e8c3f067166e97047a4f669e83bede87387db3a591ba2105c34c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXX_history_page3_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "63544e23e06e399bec40d84dab137121728f0d320b27f13b97e9688682a5e2c6",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXX_history_page4_attempt1.pkl",
+      "bytes": 107089,
+      "sha256": "71be85a43c9ec854cf396952d9a57e2308def1aa22203a76a09a151e475671cb",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXX_history_page5_attempt1.pkl",
+      "bytes": 18214,
+      "sha256": "c490df8a9ccecf1ed9ec97ef5a134332a5632772a7355188f8e383562934f010",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXX_rehab_after_attempt1.pkl",
+      "bytes": 19898,
+      "sha256": "eb159c15cd44af8c3eef3797a0f41fd1d29b37f4dc553089e9b43d150fd1719c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/SOXX_rehab_before_attempt1.pkl",
+      "bytes": 19898,
+      "sha256": "eb159c15cd44af8c3eef3797a0f41fd1d29b37f4dc553089e9b43d150fd1719c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/futu_qfq/manifest.json",
+      "bytes": 13222,
+      "sha256": "eeac957e5d8f341dbbbeae5c29cd5fb2a9c5b55b6315e7b01c44b663c549054c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/yahoo/manifest.json",
+      "bytes": 519,
+      "sha256": "fd4f53bae4384aa3542a0e35318dce0e33a86b86eaeffd5b2aff539ed9112236",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/artifacts/sources/yahoo/original_response.json",
+      "bytes": 106763,
+      "sha256": "f7755a228d8c347d291adc9efde9772dae0f5ee5c55dcb7ea4d0ab132abd19cf",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/meta.yaml",
+      "bytes": 443,
+      "sha256": "56b77114bbb0b1fbb7a420263da9e6f7a1ae946d2ea6185a7117432395ad5f2a",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/metrics/rows",
+      "bytes": 23,
+      "sha256": "292eb861f11b02ff150afab64b9e403b38f611ab5766e5d594c6bc778961148e",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/metrics/secondary_whole_bars",
+      "bytes": 21,
+      "sha256": "515435c1990cabeaae0b0f30214d87a2c7ea22771e14e7decc31086b3446c9d7",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/metrics/source_qualification_pass",
+      "bytes": 20,
+      "sha256": "c7eb6a7dd69e51e26b2dafb5cba3ec3e9969815d30ed54a0d02be284a2cac48c",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/params/basis",
+      "bytes": 24,
+      "sha256": "748e31895f1ae1ee058b38d07fb22580a9d7f01a322ffaf724f7b3c64489ff55",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/params/cmd-sys.argv",
+      "bytes": 237,
+      "sha256": "d14b3324a0648c28d5d418a9f1676e8a9de9ee0a9257191e27e5a66d3e437f98",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/params/market_fits_or_pnl",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "c2aeb1efac47c48470750a288ac676593b6599d5dae20566d730becbca1dc84a",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/params/source_as_of",
+      "bytes": 10,
+      "sha256": "e4bc2ddfd7fb7c8f9b1d17e4273031e2c91939b36926b8afe47e795d160e75dc",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/tags/mlflow.source.name",
+      "bytes": 124,
+      "sha256": "4a973efbb869037ec4f8f984fc5cb1d5757d57a2149322549491a21a5bc1c97b",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/d56c64bc92b34e6e98a45147fee91659/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "research/canonical_price_basis_20261002/qlib_recorder/521389447037827398/meta.yaml",
+      "bytes": 360,
+      "sha256": "6bdcde1783ab43a2ba72275f6d81ae686103d00fdc992dfbc394bf523b7d1c48",
+      "role": "recorder_data_lineage_and_source_evidence"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/calendars/day.txt",
+      "bytes": 45782,
+      "sha256": "d3381b900795126d9b67efdc85780345b7a85c298a1f6d02fbe86e50ee3f96eb",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxl/close.day.bin",
+      "bytes": 16652,
+      "sha256": "5c24c8ecaf3c7a16e10b54d6fa2797d58082fecf70406ff19ae42c156456a970",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxl/high.day.bin",
+      "bytes": 16652,
+      "sha256": "0ed44ae8679231f425fc117ad48eb001a885b9c5db0c25195b95fcc1d69aa63b",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxl/low.day.bin",
+      "bytes": 16652,
+      "sha256": "54a9436a3c1dd9137f105d6b841bb564ca1ebc6b98d8b3de6ff33a94e543ab54",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxl/open.day.bin",
+      "bytes": 16652,
+      "sha256": "f133c0ddceb6c94a9a3fc68e7d67da4b83a51496d83b3e76a071d02deab10195",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxl/volume.day.bin",
+      "bytes": 16652,
+      "sha256": "cfc3c13ce7d9dc8a7932e331554769ca5504e0f08a2bc3085a0722dfacc8c441",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxx/close.day.bin",
+      "bytes": 16652,
+      "sha256": "10795d93e629b42b6951cc972877b70e0e1e48ad471777a262d1a9fe85a0e647",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxx/high.day.bin",
+      "bytes": 16652,
+      "sha256": "0039b6a0543e44f2fc841f29823c427b11325e83554381fa3cf63af70e311135",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxx/low.day.bin",
+      "bytes": 16652,
+      "sha256": "411d2c3ec7b082f293d57237130e856218d39c9a67959530fc48316d767dff4f",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxx/open.day.bin",
+      "bytes": 16652,
+      "sha256": "4ec7e322c7df8837d1ca76678de33dddac6c1dd3c48585618c44bb933fbe9711",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/features/soxx/volume.day.bin",
+      "bytes": 16652,
+      "sha256": "22e4344473649f6d63d2a509469b6b9f9e27d9d5c13351014a34632f6ad903a3",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/instruments/all.txt",
+      "bytes": 54,
+      "sha256": "cf10f6dc8dfcb4136e8bd305c48a87967441d326850c4237dd841234626de9df",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/price_basis_manifest.json",
+      "bytes": 93379,
+      "sha256": "cbbdeeca2e1c7dc0bce0f9cdf3495f50d3219bddd992e1b893f8362a5e51bc65",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/price_basis_status.json",
+      "bytes": 107,
+      "sha256": "3066a4796155684d4ed8c17beb707de7c67bc78c5fdaa7a1f6edc5bd282ccd5c",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/qlib.yaml",
+      "bytes": 219,
+      "sha256": "2fb4a57dfdeeb4b75b899fa7304d2b73f83c92470ee01fd9b4472c4f3b9ecfd4",
+      "role": "qualified_native_qlib_snapshot"
+    },
+    {
+      "path": "data/qlib/published_futu_affine_20260925_v1/qlib_store_manifest.json",
+      "bytes": 840,
+      "sha256": "b57e3d31e0dfc3042c254f30f0b78739800b2994bcb3af076a5820741a5e21bb",
+      "role": "qualified_native_qlib_snapshot"
+    }
+  ]
+}

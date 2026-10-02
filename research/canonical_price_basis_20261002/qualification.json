@@ -1,0 +1,36 @@
+{
+  "schema_version": "price_basis_v1",
+  "qualification_pass": true,
+  "as_of": "2026-09-25",
+  "required_full_start": "2010-03-11",
+  "required_model_start": "2011-01-03",
+  "expected_instruments": [
+    "SOXL",
+    "SOXX"
+  ],
+  "required_full_sessions": 4162,
+  "required_model_sessions": 3956,
+  "row_count": 8324,
+  "frame_sha256": "b81784abcf92543f1f7369b335e7bb22541a250cee51ab79ad33b62586d72f21",
+  "calendar_sha256": "7639060b898781bef34d0cfaa0de7aa6a26ccde3789b4d68f97787486a0c4e4e",
+  "source_identities_sha256": "8a65a96a7cb2d76e613dd3d49aaed151ca2453e454222ebfaff38e23c888bb13",
+  "missing_columns": [],
+  "source_identity_errors": {},
+  "declared_price_bases": [
+    "published_futu_affine_v1"
+  ],
+  "basis_consistency_pass": true,
+  "missing_dates_full": {
+    "SOXL": [],
+    "SOXX": []
+  },
+  "missing_dates_model": {
+    "SOXL": [],
+    "SOXX": []
+  },
+  "invalid_rows": [],
+  "full_coverage_pass": true,
+  "model_coverage_pass": true,
+  "source_evidence_scope": "identity declarations and row binding; raw response archive verification belongs to the recorder notebook",
+  "coverage_scope": "relative to the frozen native Qlib reference calendar; not independent exchange-calendar certification"
+}

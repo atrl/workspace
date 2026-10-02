@@ -1,0 +1,91 @@
+{
+  "experiment": "canonical_price_basis_20261002",
+  "purpose": "Qualify a coherent, separately versioned price basis before any further portfolio search. Data-source selection must not use model or portfolio performance.",
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "data_as_of": "2026-09-25",
+  "required_model_signal_start": "2011-01-03",
+  "original_calendar_start": "2010-03-11",
+  "source_audit_experiment": "convex_excess_20261002",
+  "source_audit_recorder_id": "f77655b5e36e4771a7ead1343c287e37",
+  "source_result_recorder_id": "53dc5870bc8741d2a939938b0f6be9df",
+  "data_only_no_market_fits": true,
+  "registered_before_new_basis_model_or_portfolio_results": true,
+  "candidate_source": "One bounded, paginated Futu QFQ/RTH intake for SOXL and SOXX, with an unchanged before/after rehabilitation event table and original page payloads. Fresh quote vintage is preferred to appending current-adjustment bars into the mixed-vintage archive.",
+  "qualification": [
+    "Qlib-managed reference calendar and instrument-session grain; unique dates and exact coverage disclosed",
+    "All finite positive OHLC; low<=open,close<=high; no synthesized highs/lows or per-field stitching",
+    "Recorded volume source and units; no silent zero fills",
+    "No returned market dates beyond the requested as_of; original request and observation timestamps retained",
+    "All SDK pages, parameters, original responses and hashes retained; retrieval failures never masquerade as empty valid data",
+    "Compare fresh/archived overlaps and rehabilitation metadata before applying any source-level conversion",
+    "Retain and diagnose any missing sessions; do not silently remove model training rows",
+    "A secondary source may supply only a coherent full bar with explicit source identity and independently justified common adjustment; never choose fields or adjustments by portfolio results",
+    "Corporate-action transformations must be identical across each bar OHLC, preserve physical ordering and record the convention; no return-fitted arbitrary scaling",
+    "Build a NEW Qlib provider only after required source and coverage gates; native D.calendar/D.instruments/D.features readback must match its manifest",
+    "Old providers, model evidence, live SIM/paper code, and unrelated main-worktree data remain untouched"
+  ],
+  "known_initial_gaps": {
+    "SOXL": [
+      "2010-03-11 through 2010-03-30,14sessions",
+      "2012-01-13",
+      "2013-10-28"
+    ],
+    "2026_both": [
+      "2026-05-26",
+      "2026-05-27",
+      "2026-05-28",
+      "2026-05-29",
+      "2026-07-06",
+      "2026-07-07",
+      "2026-07-08",
+      "2026-07-09"
+    ]
+  },
+  "known_evidence": "Bounded Futu probes recovered the eight2026 dates. Seven disputed historical opens are corroborated by retained Futu against the execution channel; a uniform adjustment of primary Yahoo bars is therefore not automatically a qualified replacement.",
+  "scope_limits": [
+    "This data work cannot establish stable excess returns.",
+    "Unavailable inception/warm-up data must be distinguished from missing2011+training sessions; any coverage decision must be explicit before model fitting.",
+    "Previously inspected market history remains reused evidence, even after a better source version is frozen."
+  ],
+  "next_model_test": "After data qualification, preregister the conditional daily-variance comparison on a common annual budget, with expanding/open20/close20/OOFvol5 controls and unchanged H5 mean/cost/economic gates. The proposal is not authorized to select a source using returns.",
+  "real_broker_orders": false,
+  "existing_sim_change": false,
+  "artifact_policy": "slim_card_recorder_first",
+  "data_design_amendment": {
+    "registered_before_any_new_basis_model_fit_or_portfolio_result": true,
+    "reason": "Fresh full Futu QFQ and NONE both lack16SOXL sessions. Published rehabilitation A/B does not exactly reconstruct server QFQ (measured maximum ~1.44bp on control quotes), so an approximate16row splice into SDKQFQ would mix conventions.",
+    "basis_name": "published_futu_affine_v1",
+    "basis_scope": "Apply the same explicitly published affine convention to EVERY row, not just secondary-source rows. This is a separately defined research price basis, not claimed to reproduce serverQFQ exactly.",
+    "primary_source": "Fresh bounded Futu NONE/RTH all available full OHLCV bars, unchanged rehab content before/after intake.",
+    "secondary_source": "Only genuine full Yahoo chart bars for16missingSOXL dates; no replacement of available Futu bars. Original split-adjusted OHLCV retained; exact future split ratios reconstruct unadjusted input units before the common affine transform.",
+    "price_transform": "For events strictly after each session and no later thanas_of, compose published A/B chronologically: A_total=A_total*A_event;B_total=B_total*A_event+B_event. Apply raw_price*A_total+B_total identically toOHLC. No fitted coefficients or clipped bars.",
+    "volume_transform": "Exact share ratios from split/join numerator/denominator, not rounded price factors; final volume_basis=split_adjusted_shares.",
+    "known_quote_uncertainty": "NeighboringJan2012Yahoo/Futu open quotations disagree beyond floating precision. This is retained source uncertainty, not a split factor to fit away. Secondary bars are labeled Yahoo, never Futu or exchange ground truth.",
+    "qualification_scope": "Coverage, physical consistency, source evidence and correct declared transformations; does not guarantee historical market-price truth. If a financial candidate passes later, source sensitivity must be reported before deployment claims.",
+    "future_adjustment_scope": "One nonzeroB event occurs2010-09-22;none after2010 or model start2011. Preserve the affine effect in warmup history. Future multiplicative adjustments cancel in model-period price ratios; downstream feature transform invariance must still be checked.",
+    "basis_choice_uses_portfolio_results": false,
+    "observed_full_history_server_qfq_price_difference_bps": {
+      "SOXL": 1.436,
+      "SOXX": 3.223
+    }
+  },
+  "registered_secondary_dates": [
+    "2010-03-11",
+    "2010-03-12",
+    "2010-03-15",
+    "2010-03-16",
+    "2010-03-17",
+    "2010-03-18",
+    "2010-03-19",
+    "2010-03-22",
+    "2010-03-23",
+    "2010-03-24",
+    "2010-03-25",
+    "2010-03-26",
+    "2010-03-29",
+    "2010-03-30",
+    "2012-01-13",
+    "2013-10-28"
+  ]
+}
