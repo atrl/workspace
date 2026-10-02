@@ -1,0 +1,1908 @@
+{
+  "schema_version": 2,
+  "experiment": "benchmark_anchor_risk_feasibility_20261003",
+  "artifact_policy": "slim_card_recorder_first",
+  "authoritative_recorder": "b957ece9cde04b17a89b7f4e792086ea",
+  "retained_recorder_ids": [
+    "b957ece9cde04b17a89b7f4e792086ea"
+  ],
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder",
+  "canonical_recorder_local_dir": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea",
+  "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "parent_retention": "Referenced by original immutable Recorder URI and SHA attestations; parent data/checkpoints not copied.",
+  "source_as_of": "2026-09-25",
+  "created_at_utc": "2026-10-02T17:32:51.167089+00:00",
+  "path_base": "card directory",
+  "self_reference_policy": "Manifest remains at card root; no self-referential Recorder copy.",
+  "purpose": "Complete file inventory for the training-only cached-checkpoint feasibility diagnostic, including all numerical/source/test provenance.",
+  "entry_count": 124,
+  "total_bytes": 17832642,
+  "maximum_file_bytes": 5556818,
+  "entries": [
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/analysis/benchmark_risk_reports.pkl",
+      "bytes": 41849,
+      "sha256": "2669ac80a965e9151972248425b7815b1c4859dd1dcc1b88aacd344397340ab1",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "analysis/benchmark_risk_reports.pkl"
+      },
+      "purpose": "Complete cached-state feasibility metrics, rawutility reproduction, risk reports or summary; diagnostic identifiers only",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/analysis/checkpoint_cost_metrics.pkl",
+      "bytes": 5556818,
+      "sha256": "a0717b0f5a0b6c0bdbfccc8874edcbcee4323924a916d3b8308c55a56ff8bdc6",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "analysis/checkpoint_cost_metrics.pkl"
+      },
+      "purpose": "Complete cached-state feasibility metrics, rawutility reproduction, risk reports or summary; diagnostic identifiers only",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/analysis/checkpoint_joint_feasibility.pkl",
+      "bytes": 1435495,
+      "sha256": "0824a064e54f43f9a53316b0438c0724bf366849b605aba8064f68aaaaed00c6",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "analysis/checkpoint_joint_feasibility.pkl"
+      },
+      "purpose": "Complete cached-state feasibility metrics, rawutility reproduction, risk reports or summary; diagnostic identifiers only",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/analysis/integrity_audits.pkl",
+      "bytes": 91207,
+      "sha256": "68b90a86ca1e57a3cf58ac8635072b9ed7cc17f3757603296297491ac9b16b60",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "analysis/integrity_audits.pkl"
+      },
+      "purpose": "Complete cached-state feasibility metrics, rawutility reproduction, risk reports or summary; diagnostic identifiers only",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/analysis/null_joint_feasibility.pkl",
+      "bytes": 15075,
+      "sha256": "721ec20821d41ef92152a5a5f4f26a1fc0f87819f32843885c4990cb269d1719",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "analysis/null_joint_feasibility.pkl"
+      },
+      "purpose": "Complete cached-state feasibility metrics, rawutility reproduction, risk reports or summary; diagnostic identifiers only",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/analysis/null_metrics.pkl",
+      "bytes": 53977,
+      "sha256": "d41f7f59f24e214a3559e260267fd4c756accbc036f5daf3a4617bfef5742fee",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "analysis/null_metrics.pkl"
+      },
+      "purpose": "Complete cached-state feasibility metrics, rawutility reproduction, risk reports or summary; diagnostic identifiers only",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/analysis/run_summaries.pkl",
+      "bytes": 47847,
+      "sha256": "b6d78885357945bfd2bc991997249a1c5aa4c8f0d11110cfe77f07d9700a802d",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "analysis/run_summaries.pkl"
+      },
+      "purpose": "Complete cached-state feasibility metrics, rawutility reproduction, risk reports or summary; diagnostic identifiers only",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/analysis/utility_reproduction.pkl",
+      "bytes": 479361,
+      "sha256": "63b0d8cf43b46419f3d5d4f42ceecf12889bca5e199d367f742c3932ac30a7fb",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "analysis/utility_reproduction.pkl"
+      },
+      "purpose": "Complete cached-state feasibility metrics, rawutility reproduction, risk reports or summary; diagnostic identifiers only",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/conclusion.md",
+      "bytes": 2614,
+      "sha256": "b5f3db4bae97ec5d2b5afcb96db2092868d1e4313cd0547924bc79e07c81388d",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/conclusion.md",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/design.md",
+      "bytes": 11905,
+      "sha256": "a4748124a7719bca745115fa6a29a02b8912c1e88acf388482cdb573b817b14c",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/design.md",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/feasibility_counts.csv",
+      "bytes": 196,
+      "sha256": "9a686944cb7e45dab2d98574669b4c2674218ed24b87c230bbaea20cd27ae419",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/feasibility_counts.csv",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/initial_seal.json",
+      "bytes": 9368,
+      "sha256": "b31d9820ce06fb001a486f22ed2573bb3ee606c9f8b923906bd56538c3c2d249",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/initial_seal.json",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/integrity_summary.json",
+      "bytes": 283,
+      "sha256": "47d4b3cfad7520ce867fd3bea0bb16f37324b16bcfefdb94c34676dd4de4ddb3",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/integrity_summary.json",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/maturity_summary.csv",
+      "bytes": 4291,
+      "sha256": "855f812b06a2a7c0efc5b113a41cbb8e2feb22aa2b2237b833b210cad840faaa",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/maturity_summary.csv",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/numerical_audit.json",
+      "bytes": 3554,
+      "sha256": "7955d5c90184300837f953bc236c5afdec6206942127f17914fca02916594c26",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/numerical_audit.json",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/run_summary.csv",
+      "bytes": 53143,
+      "sha256": "2e0a10698dc8d50d07be835155616cd902453f627914d23c2bd7666eb4d9f9d1",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/run_summary.csv",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/selected_model.json",
+      "bytes": 183,
+      "sha256": "d2db3d33d855e7d8c7502a241d19820271707ac87fdb9fa38b01abbac8a4529b",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/selected_model.json",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/selection_plan.json",
+      "bytes": 13233,
+      "sha256": "7b4b5fe0bd767751163c878411c2720befada4fab23b36a002d064bfb7f24299",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/selection_plan.json",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/summary.json",
+      "bytes": 7777,
+      "sha256": "a5d8f98a96374b88cfa5b7a542152bfbd83fe40417ad4335fe1af6f260576a24",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/summary.json",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/verification.json",
+      "bytes": 2672,
+      "sha256": "e5c5854d1de1a1bec36d11eea04c291ef2dc9842e9368f0b4ee156a5efa61177",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/verification.json",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/card/workflow.yaml",
+      "bytes": 690,
+      "sha256": "8ca7ca6b749c641fe2ede1fd2202048b705810df29e13daeca8ca951377578ca",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/workflow.yaml",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2016/17/result.pkl",
+      "bytes": 119604,
+      "sha256": "8ba9802e9e6c420056d4882300b3e87875a4410ddaf79b87dace0df33a2f473d",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2016/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2016/41/result.pkl",
+      "bytes": 119604,
+      "sha256": "fef42b75466f7d28614562afb1225c88d32a3a5c30b7b260ec9a3fd97f34be29",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2016/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2016/71/result.pkl",
+      "bytes": 119604,
+      "sha256": "a0b767e7b6e65fdfa808757ec5054e154af7742bdeb938bf16d0ad3e812b6d1a",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2016/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2017/17/result.pkl",
+      "bytes": 118787,
+      "sha256": "181cd7b07892aeef02e2eeecedb52edbc80735a3ab2bec4d0ab86fdee31696fa",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2017/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2017/41/result.pkl",
+      "bytes": 118787,
+      "sha256": "c94c67ce0fc77076e4e7a11a3abbb3221e7d7cdef376e3829acb051c963a952f",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2017/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2017/71/result.pkl",
+      "bytes": 118787,
+      "sha256": "7490bf6ccdd152fc04d09893535e7e1a43221a25b4bdcdbf5ed8378368559eac",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2017/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2018/17/result.pkl",
+      "bytes": 118819,
+      "sha256": "fdd47fad5f7d92c88ad817addab356b20ada3a995a269d6444dec0e0fd36d876",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2018/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2018/41/result.pkl",
+      "bytes": 118819,
+      "sha256": "b1cc2e4796c73475242f3bcbb983257d8ceaacbecb083a993080c0fff06ba3ff",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2018/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2018/71/result.pkl",
+      "bytes": 118819,
+      "sha256": "29d8555d5cb0af7ac33ba93d625bae5beff43875ee1c85698c2ca87bd26d06ae",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2018/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2019/17/result.pkl",
+      "bytes": 119700,
+      "sha256": "4a9276bc5d9277cc23a50e6358be9be879f7d347dfc8165085b6bbf216a3c193",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2019/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2019/41/result.pkl",
+      "bytes": 119700,
+      "sha256": "cbb4026fa1d9e2c9145bab94956d5d0a89cbc825e84e233ad933aacc2d2adfa8",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2019/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2019/71/result.pkl",
+      "bytes": 119700,
+      "sha256": "2b75e2572c35b93b68d4aae210cb49db956bc6c9bd5398f9328efd25d241fc53",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2019/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2020/17/result.pkl",
+      "bytes": 119732,
+      "sha256": "1651112dbb2ad4110a9ac6aff81bd66f73835f67b8803c6fbd52fc066f928ef1",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2020/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2020/41/result.pkl",
+      "bytes": 119732,
+      "sha256": "6634979a73aad0610a68a39ffe737d43f1c1fe6e4c5e2e33f988c4358ea46976",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2020/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2020/71/result.pkl",
+      "bytes": 119732,
+      "sha256": "305aa11a0934b548e648dbbb04a29fa583963a0d1d9442b81c07c28057c7ac4f",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2020/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2021/17/result.pkl",
+      "bytes": 119764,
+      "sha256": "c6d60a0af04b814081fbf88365af7573343fcf62fec4dcb64d39a16030720a15",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2021/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2021/41/result.pkl",
+      "bytes": 119764,
+      "sha256": "c39d264bb4701d0e185ffb66f3a5eeb7c9af60a4ad5fe1c1cc699273f15e7a6a",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2021/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2021/71/result.pkl",
+      "bytes": 119764,
+      "sha256": "4841a74df4bd4223f7376c4192942b3ec6d7533ab0e3b8a2160a4a2d74c3e5e1",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2021/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2022/17/result.pkl",
+      "bytes": 119796,
+      "sha256": "0d535b1475aedc6dbc3c9c8be6ecc5b424b50bee7d4569a708f8b00aeec19c79",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2022/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2022/41/result.pkl",
+      "bytes": 119796,
+      "sha256": "4fd1cc74c8618ce12c2c3249c2a7bad3f1f04ac7cf171e72581d78ecec0d3dc9",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2022/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/constant/2022/71/result.pkl",
+      "bytes": 119796,
+      "sha256": "6f2e5ae4d027e2c587e1fc39bfa56ed8d1518fae87298bbfae903abbe6df8b7b",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/constant/2022/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2016/17/result.pkl",
+      "bytes": 118752,
+      "sha256": "e5a27c7ebca1ac42a93794113ca53fe970ed2388467e28ba4295b940752af36f",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2016/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2016/41/result.pkl",
+      "bytes": 118752,
+      "sha256": "75e63c6ff23f49687ad247859236fa8282a435afbb00be9ac4d94e202c409101",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2016/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2016/71/result.pkl",
+      "bytes": 118752,
+      "sha256": "af6a98b6491b70de9e6e0e0a33cd816b1ceb5c2b933936297f8eba32e63a24e7",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2016/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2017/17/result.pkl",
+      "bytes": 118784,
+      "sha256": "912de24df2ca7692d839ecc6cad79ffa3c78f74b8626af8b183ebece90fa3179",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2017/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2017/41/result.pkl",
+      "bytes": 118784,
+      "sha256": "176aad5c31c5175a16539a01124649c4c0bc53fcd28b0ca11b96c85b93ec9c83",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2017/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2017/71/result.pkl",
+      "bytes": 118784,
+      "sha256": "3b503324c251df9a5990dcf1ef282cacccd2d628f2f9d24fcdf07fe74290357b",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2017/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2018/17/result.pkl",
+      "bytes": 118816,
+      "sha256": "f54e287e7a09807eea29c22162aad0a073eb892d51281d70981897ee01233fe0",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2018/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2018/41/result.pkl",
+      "bytes": 118494,
+      "sha256": "4652bee155a2d2ef772667e792e526b05c3fad4206b8cc8c3e49568ffb3ffa5c",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2018/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2018/71/result.pkl",
+      "bytes": 118494,
+      "sha256": "c8055b97c65937b8a5132387b84e772e5febdae8cf6c557f9023278ba75ae954",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2018/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2019/17/result.pkl",
+      "bytes": 118848,
+      "sha256": "34aba58c01ccb31071e8b91aa831f752f6127dc604eadc4b092877a370155e58",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2019/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2019/41/result.pkl",
+      "bytes": 118848,
+      "sha256": "ef2468dea2b5517e105370e4fb502c95f47bf0829121a80bc5a6b42024103e31",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2019/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2019/71/result.pkl",
+      "bytes": 118848,
+      "sha256": "7ac72aa5b6970f959309f1b8335a404718a5ef7fb2d74ba63e37dcb180b6deb8",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2019/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2020/17/result.pkl",
+      "bytes": 118880,
+      "sha256": "d71863b46d7a98d5a36accd6f4ed610ab04f02018e4be6ef579179fd935ca00c",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2020/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2020/41/result.pkl",
+      "bytes": 118880,
+      "sha256": "7c5b3e362da2d88d47673e787841baa4ad55f83619270ae4298b42823855338f",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2020/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2020/71/result.pkl",
+      "bytes": 118558,
+      "sha256": "2625d274b579587bb8addf67b741f6b7517fd8398e05b4af0624df189a7e1170",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2020/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2021/17/result.pkl",
+      "bytes": 118912,
+      "sha256": "d368c38c94bea67a5c15d8c917af37a17eec4c8bb2f36a4b5543287a891daab9",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2021/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2021/41/result.pkl",
+      "bytes": 118912,
+      "sha256": "b7ffc57b0089ae7860a25cb806a85787fcc057e1e10e51cf27cabe02a550597f",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2021/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2021/71/result.pkl",
+      "bytes": 118590,
+      "sha256": "1e46b43d01bc61bfc7fac0585be991991f8629d09014c7012d4f61ab7afb443f",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2021/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2022/17/result.pkl",
+      "bytes": 118622,
+      "sha256": "b5f35c0096e4c40e0fbda1ffbe19f7877a7f7970ed6ea22076c50b082d5889f7",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2022/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2022/41/result.pkl",
+      "bytes": 118622,
+      "sha256": "f80b18f30331a5994cc78b2bd6c18f8f0a2021e8d605b4469ddd51363302d093",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2022/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price/2022/71/result.pkl",
+      "bytes": 118622,
+      "sha256": "199ee287e0e8f8c198766b6b6471dab14a1d06d029bee43909cf732137695fcf",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price/2022/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2016/17/result.pkl",
+      "bytes": 118756,
+      "sha256": "01b99ea70b3596f6524a3caac40bde656bb82c6887e7d676c4413d8ea3faad66",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2016/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2016/41/result.pkl",
+      "bytes": 118756,
+      "sha256": "fdf5bb9b21a4e5658daaf70b8a8cae2fedf50b2812502671b02edb5792f3af4c",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2016/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2016/71/result.pkl",
+      "bytes": 118756,
+      "sha256": "81983fbc5dde158c96b34b6c6fe6cee376af3b3a03cbdc8507ae57669dce84ee",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2016/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2016-01-01T00:00:00-05:00",
+        "fit_year": 2016,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2017/17/result.pkl",
+      "bytes": 118788,
+      "sha256": "53ca72dc7bff637e18608cec5e91e008f8f040fc3aecdc42d0263f4d8a2fe8b1",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2017/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2017/41/result.pkl",
+      "bytes": 118788,
+      "sha256": "424c432fee6f683817ae8dca2e3afd5e23770845d90d674a0470aa70ec31f579",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2017/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2017/71/result.pkl",
+      "bytes": 118788,
+      "sha256": "99e2e8d05ed458ed85b13ffbe6261467ec910494fc1e0c9e59bbfcb3005cf2bb",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2017/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2017-01-01T00:00:00-05:00",
+        "fit_year": 2017,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2018/17/result.pkl",
+      "bytes": 118820,
+      "sha256": "589172eeba3343113cc4f3ae6abc8fc1f78a87210558909dd29b52383a57656a",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2018/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2018/41/result.pkl",
+      "bytes": 118498,
+      "sha256": "1104dad802c39b326c318c7f2e86c59e6a64b521822cc2e23f513aee92f0ea8a",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2018/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2018/71/result.pkl",
+      "bytes": 118498,
+      "sha256": "01f0b03b77e93ae075bb4eb59a8789ae946232b6bba2f6f13589d25a46f9f279",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2018/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2018-01-01T00:00:00-05:00",
+        "fit_year": 2018,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2019/17/result.pkl",
+      "bytes": 118852,
+      "sha256": "aa2dc1c127d9bef0632a6a437adc804010f493aee92fcd389b4e310f1564310c",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2019/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2019/41/result.pkl",
+      "bytes": 118852,
+      "sha256": "96d9b5dfc7072bac487aaaa215b830bf1d03ad94713cd9a74c0dc6cba8b98f81",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2019/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2019/71/result.pkl",
+      "bytes": 118852,
+      "sha256": "0b22dd5257575f7bece6ec5529cf2bc4e6ffaae257be02a5e951721bb107e33b",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2019/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2019-01-01T00:00:00-05:00",
+        "fit_year": 2019,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2020/17/result.pkl",
+      "bytes": 118884,
+      "sha256": "fdeed4ba3a54902dd4590a0542e5f7ec2a2c71d7af277373621b48de205ef749",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2020/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2020/41/result.pkl",
+      "bytes": 118884,
+      "sha256": "ca12ee1eeac895df4eef9eaf59cce156438f8b17350fc48bf4dcfa8b5e08123d",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2020/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2020/71/result.pkl",
+      "bytes": 118562,
+      "sha256": "58d3041841b070f032273bcb0e1177896b23c32d1a199f52eaa3a4e03e213fbc",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2020/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2020-01-01T00:00:00-05:00",
+        "fit_year": 2020,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2021/17/result.pkl",
+      "bytes": 118916,
+      "sha256": "3d38c191282504c6a25691280a231d403f22d41c50596344d185b378fba49363",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2021/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2021/41/result.pkl",
+      "bytes": 118594,
+      "sha256": "dc84f1bd8192452180ea02a5a8acb2749d4cfba5e38808c97d831955efb67c75",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2021/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2021/71/result.pkl",
+      "bytes": 118594,
+      "sha256": "852ce19dde39dac94a2f7e809e80fadeb154cbde9855f044810468c482f8465c",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2021/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2021-01-01T00:00:00-05:00",
+        "fit_year": 2021,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2022/17/result.pkl",
+      "bytes": 118626,
+      "sha256": "e49c8d2eea474db6a4bfcfe6e1082cd6fccbc659ea64d27a551be45442ad38dd",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2022/17/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2022/41/result.pkl",
+      "bytes": 118626,
+      "sha256": "b9db2690f4256aec707a64196918b8d5669c6ec5844137c67568ed805d506a6e",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2022/41/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/completed_chunks/price_vol/2022/71/result.pkl",
+      "bytes": 118626,
+      "sha256": "f37f7b0c4670422921120cd57ea783a68f742487eefc1df8968242837bb2c819",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "completed_chunks/price_vol/2022/71/result.pkl"
+      },
+      "purpose": "Complete one-run122state/244cost reduction, independently recorded before final assembly; no exported checkpoint model",
+      "date_range": {
+        "training_signals_start": "2011-01-03",
+        "outcomes_strictly_before": "2022-01-01T00:00:00-05:00",
+        "fit_year": 2022,
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/inputs/checkpoint_index.pkl",
+      "bytes": 794030,
+      "sha256": "41aa00184419e7b2727325039896b79e04210cae53618a9dafa46904216e9f14",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "inputs/checkpoint_index.pkl"
+      },
+      "purpose": "Attested immutable parent object/code/plan hashes, maturity receipts or hash-only checkpoint inventory; parent raw artifacts are not copied",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/inputs/maturity.pkl",
+      "bytes": 5256,
+      "sha256": "a681593c0120f41ad7d39ab70bc880aa75fa27f9a6b070d15ddc8bef5aa0502e",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "inputs/maturity.pkl"
+      },
+      "purpose": "Attested immutable parent object/code/plan hashes, maturity receipts or hash-only checkpoint inventory; parent raw artifacts are not copied",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/inputs/parent_plan.pkl",
+      "bytes": 11265,
+      "sha256": "cd3b36fcdda669919ac3c98da73af661dc681272360c7cfe664ce7ded78b1120",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "inputs/parent_plan.pkl"
+      },
+      "purpose": "Attested immutable parent object/code/plan hashes, maturity receipts or hash-only checkpoint inventory; parent raw artifacts are not copied",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/inputs/parent_source_hashes.pkl",
+      "bytes": 1913,
+      "sha256": "719761bd347e8eaefa169b5c117302d6d480b2ba11731b2a3390ae7669d03142",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "inputs/parent_source_hashes.pkl"
+      },
+      "purpose": "Attested immutable parent object/code/plan hashes, maturity receipts or hash-only checkpoint inventory; parent raw artifacts are not copied",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/inputs/selection_plan.json",
+      "bytes": 13233,
+      "sha256": "7b4b5fe0bd767751163c878411c2720befada4fab23b36a002d064bfb7f24299",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "inputs/selection_plan.json"
+      },
+      "purpose": "Attested immutable parent object/code/plan hashes, maturity receipts or hash-only checkpoint inventory; parent raw artifacts are not copied",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/inputs/source_artifact_manifest.json",
+      "bytes": 22217,
+      "sha256": "9e37752407cc912646505c4d72ec02660e9dfc3b774667a5fac6ca26b39db3cb",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "inputs/source_artifact_manifest.json"
+      },
+      "purpose": "Attested immutable parent object/code/plan hashes, maturity receipts or hash-only checkpoint inventory; parent raw artifacts are not copied",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/inputs/source_hashes.pkl",
+      "bytes": 246,
+      "sha256": "bb5cd49229af6c9723867b146263de39ad88631f2690feb3400f10b872e531e8",
+      "source": {
+        "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+        "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+        "workflow_sha256": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+        "artifact": "inputs/source_hashes.pkl"
+      },
+      "purpose": "Attested immutable parent object/code/plan hashes, maturity receipts or hash-only checkpoint inventory; parent raw artifacts are not copied",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/notebooks/benchmark_anchor_risk_feasibility_20261003.ipynb",
+      "bytes": 821259,
+      "sha256": "da1db520522899e1b551b26a17cb43dcdf5afeecd0f06386621ad402d7fc713b",
+      "source": "/Users/rziiiii/dev/workspace-worktrees/anchor-risk-feasibility-20261003/research/benchmark_anchor_risk_feasibility_20261003/benchmark_anchor_risk_feasibility_20261003.ipynb",
+      "purpose": "Final synchronized training-only diagnostic card or executed notebook; no selected policy",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/execution/anchor-feasibility-execution.log",
+      "bytes": 2071,
+      "sha256": "18f8add5f6a2f919579879c204bae1db7c51c820bcba1a6e51e198ce1f041ca1",
+      "source": "/tmp/anchor-feasibility-execution.log",
+      "purpose": "Focused synthetic verification, fixed-parent input preflight or formal executed-notebook log",
+      "date_range": {
+        "execution_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/execution/anchor-feasibility-focused-final.log",
+      "bytes": 3290,
+      "sha256": "be89d4b351729023e76d2aaeb0f855713a8fa1c255ed7528e4c07aa920bd97c8",
+      "source": "/tmp/anchor-feasibility-focused-final.log",
+      "purpose": "Focused synthetic verification, fixed-parent input preflight or formal executed-notebook log",
+      "date_range": {
+        "execution_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/execution/anchor-feasibility-input-preflight.json",
+      "bytes": 8166,
+      "sha256": "ee0b94e72aef4732d2ba282d464b6e3b49850674b3255ff1acd3810403c4ad04",
+      "source": "/tmp/anchor-feasibility-input-preflight.json",
+      "purpose": "Focused synthetic verification, fixed-parent input preflight or formal executed-notebook log",
+      "date_range": {
+        "execution_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/execution/anchor-feasibility-input-preflight.log",
+      "bytes": 24465,
+      "sha256": "f3df08bd94f828b602e998ca32a7b5f308e1643ead61f548dff80f133339089b",
+      "source": "/tmp/anchor-feasibility-input-preflight.log",
+      "purpose": "Focused synthetic verification, fixed-parent input preflight or formal executed-notebook log",
+      "date_range": {
+        "execution_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/final/final-verification.json",
+      "bytes": 31189,
+      "sha256": "ee0d3bb53bb342924a455e7482e1d114e38f9e9d82570e65c63fc71434365097",
+      "source": "/tmp/anchor-feasibility-validation/final-verification.json",
+      "purpose": "Final source/manifest/nativefold/scaler/notebook audit or exact test evidence; baseline failures disclosed",
+      "date_range": {
+        "validation_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/final/full.log",
+      "bytes": 378444,
+      "sha256": "2164967f93e32d7de05b52fba9031aa749b81ccfc1f74ae257177f174cce9844",
+      "source": "/tmp/anchor-feasibility-validation/full.log",
+      "purpose": "Final source/manifest/nativefold/scaler/notebook audit or exact test evidence; baseline failures disclosed",
+      "date_range": {
+        "validation_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/final/required.log",
+      "bytes": 138663,
+      "sha256": "2fa561958d1f13818a1cd7dff55d70edd4616a9149767e180c89192617381dbb",
+      "source": "/tmp/anchor-feasibility-validation/required.log",
+      "purpose": "Final source/manifest/nativefold/scaler/notebook audit or exact test evidence; baseline failures disclosed",
+      "date_range": {
+        "validation_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/final/source-recorder-audit.json",
+      "bytes": 8138,
+      "sha256": "fd9d26fa0246ec77a72d298261979e4c50b25878f71f417413ebcae16b3a56dc",
+      "source": "/tmp/anchor-feasibility-validation/source-recorder-audit.json",
+      "purpose": "Final source/manifest/nativefold/scaler/notebook audit or exact test evidence; baseline failures disclosed",
+      "date_range": {
+        "validation_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/final/source-recorder-audit.log",
+      "bytes": 28396,
+      "sha256": "92c6262a0e06588559b893ccefc91f8b03088ae40e8b37dee7e8b2415aca6b42",
+      "source": "/tmp/anchor-feasibility-validation/source-recorder-audit.log",
+      "purpose": "Final source/manifest/nativefold/scaler/notebook audit or exact test evidence; baseline failures disclosed",
+      "date_range": {
+        "validation_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/final/source_recorder_audit.py",
+      "bytes": 8765,
+      "sha256": "556c3652f4e58a83ee97308ea5b392cf28adf5ce0fcccf5fe7857a96a001daa3",
+      "source": "/tmp/anchor-feasibility-validation/source_recorder_audit.py",
+      "purpose": "Final source/manifest/nativefold/scaler/notebook audit or exact test evidence; baseline failures disclosed",
+      "date_range": {
+        "validation_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/numerical/anchor-checkpoint-results-independent-audit.json",
+      "bytes": 132038,
+      "sha256": "537d1797834d851621e6b007f4c3f06868f208d8371160b3f211dd92c47fa4b8",
+      "source": "/tmp/anchor-checkpoint-results-independent-audit.json",
+      "purpose": "Independent all-state metric/status/count audit and fixed159model/318cost-path verification; no fit/OOS/newmodel selection",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25",
+        "sample_scope": "training histories only"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/numerical/anchor-checkpoint-results-independent-audit.log",
+      "bytes": 20928,
+      "sha256": "1b1ffc48c5f4215f3c844a276017bf9639829913e6fdc702830bf92b182ec9ba",
+      "source": "/tmp/anchor-checkpoint-results-independent-audit.log",
+      "purpose": "Independent all-state metric/status/count audit and fixed159model/318cost-path verification; no fit/OOS/newmodel selection",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25",
+        "sample_scope": "training histories only"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/numerical/anchor-checkpoint-results-independent-samples.csv",
+      "bytes": 36300,
+      "sha256": "d282ced679ec56001d2096b04295ae5e2b0d2e24d04b32e1652eee949fe21dd7",
+      "source": "/tmp/anchor-checkpoint-results-independent-samples.csv",
+      "purpose": "Independent all-state metric/status/count audit and fixed159model/318cost-path verification; no fit/OOS/newmodel selection",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25",
+        "sample_scope": "training histories only"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/numerical/anchor-checkpoint-utility-parity-summary.json",
+      "bytes": 342,
+      "sha256": "5c17b610fafc19832559e640bf29165b2b0b389774ef10bc88dac42dcb87a455",
+      "source": "/tmp/anchor-checkpoint-utility-parity-summary.json",
+      "purpose": "Independent all-state metric/status/count audit and fixed159model/318cost-path verification; no fit/OOS/newmodel selection",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25",
+        "sample_scope": "training histories only"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/artifacts/validation/numerical/audit_anchor_checkpoint_results.py",
+      "bytes": 13514,
+      "sha256": "8bf8051a5a500c2ff80d6abe6faea36f7f8227470387ae0b45a16109844976a2",
+      "source": "/tmp/audit_anchor_checkpoint_results.py",
+      "purpose": "Independent all-state metric/status/count audit and fixed159model/318cost-path verification; no fit/OOS/newmodel selection",
+      "date_range": {
+        "training_cutoff_years": "2016-2022",
+        "source_as_of": "2026-09-25",
+        "sample_scope": "training histories only"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/meta.yaml",
+      "bytes": 455,
+      "sha256": "a70e074fa5b103c9a418a60dc4829d488332f052b57c1ba3721b2fbf21e8e5ed",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/meta.yaml",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/new_strategy_selected",
+      "bytes": 20,
+      "sha256": "fc7fd113b84c1436925a04a43be8f5e1543fb693a17a4e9bf801603e25feaa05",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/new_strategy_selected",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/null_cost_rows",
+      "bytes": 22,
+      "sha256": "8746717251ea59906f1b527771e40622e58af8c9d4662826f030ccf5df4ff0f2",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/null_cost_rows",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/training_runs",
+      "bytes": 21,
+      "sha256": "775ddc5833634bbb15c4e20bbeca631b8faf1554d1d9c251b78edd35545e9fe0",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/training_runs",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/trajectory_cost_rows",
+      "bytes": 24,
+      "sha256": "0ed63a148c18c62cbd4366a0ccf7c447729e658206e260988801fdd1d0aea096",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/trajectory_cost_rows",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/trajectory_joint_rows",
+      "bytes": 23,
+      "sha256": "910415045050b8f5168c56e1eca2cda7ea3ffa544836f7e01eef5d0259925c90",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/metrics/trajectory_joint_rows",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/cmd-sys.argv",
+      "bytes": 245,
+      "sha256": "61903c4b409a4a023f8b1ac74fa1fcd6482820028800fe530da4a19ee3ac7b87",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/cmd-sys.argv",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/market_fits",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/market_fits",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/out_of_sample_evaluation",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/out_of_sample_evaluation",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/parent_recorder_id",
+      "bytes": 32,
+      "sha256": "f32e18369dbaefd7be3f7382e6c3eff6a9ff2057da39aec7c0f52abab6161301",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/parent_recorder_id",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "fae07fcbf87ccba0036c0297911cec523fc7c1db78379cdc9d0f9b8883617561",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/plan_sha256",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/scope",
+      "bytes": 38,
+      "sha256": "14d4564cafde3923df1d8a0a3c0b88d7069867246122a396ca9d9af90490fc4b",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/params/scope",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/tags/mlflow.runName",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/tags/mlflow.source.name",
+      "bytes": 132,
+      "sha256": "39d322fdd447da194e16bfcf5f9f4be758bf2b06ec0c829798393894cf039318",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/tags/mlflow.source.name",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/tags/mlflow.source.type",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea/tags/mlflow.user",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    },
+    {
+      "path": "qlib_recorder/457476363265613151/meta.yaml",
+      "bytes": 384,
+      "sha256": "dc36441f7dd290f7bbbcc0b0cc0088dc424f385a55d80086dd6df5b0f39e10dd",
+      "source": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/meta.yaml",
+      "purpose": "Unmodified Qlib/MLflow authoritative run or experiment metadata; canonical URI preserved",
+      "date_range": {
+        "run_date_utc": "2026-10-02",
+        "source_as_of": "2026-09-25"
+      }
+    }
+  ]
+}

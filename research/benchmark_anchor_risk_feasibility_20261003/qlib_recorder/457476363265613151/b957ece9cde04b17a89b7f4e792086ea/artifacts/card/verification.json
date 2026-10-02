@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+  "scope": "Engineering/source/numerical audit only; no new strategy selected or qualified.",
+  "focused": {
+    "summary": "52 passed, 6 warnings in 3.88s",
+    "passed": 52,
+    "warnings": 6
+  },
+  "full": {
+    "summary": "139 failed, 1023 passed, 762 warnings in 38.77s",
+    "passed": 1023,
+    "failed": 139,
+    "warnings": 762
+  },
+  "required": {
+    "summary": "61 failed, 8 passed, 42 warnings in 6.96s",
+    "passed": 8,
+    "failed": 61,
+    "warnings": 42
+  },
+  "baseline_deltas": {
+    "full": {
+      "baseline_summary": "139 failed, 971 passed, 760 warnings in 36.64s",
+      "passed_delta": 52,
+      "failed_delta": 0,
+      "new_failed_test_ids": [],
+      "resolved_failed_test_ids": [],
+      "failure_ids_unchanged": true
+    },
+    "required": {
+      "baseline_summary": "61 failed, 8 passed, 42 warnings in 6.19s",
+      "passed_delta": 0,
+      "failed_delta": 0,
+      "new_failed_test_ids": [],
+      "resolved_failed_test_ids": [],
+      "failure_ids_unchanged": true
+    }
+  },
+  "baseline_scope": "139full/61required failures remain the existing historical sparse-card/data baseline. Exact test identities and comparison evidence are in the full report; no full-suite pass is claimed.",
+  "parent_baseline_reference": {
+    "recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+    "artifact": "validation/final/final-verification.json",
+    "copied_into_this_recorder": false
+  },
+  "source_audit": {
+    "failures": [],
+    "source_artifacts": 66,
+    "folds": 21,
+    "runs": 63,
+    "trajectory_index_rows": 7623,
+    "notebook_final_markdown_pending": false,
+    "notebook_sha256": "da1db520522899e1b551b26a17cb43dcdf5afeecd0f06386621ad402d7fc713b"
+  },
+  "numerical_audit": "numerical_audit.json",
+  "source_plan_and_tests_unchanged_during_validation": true,
+  "market_model_fits": false,
+  "out_of_sample_evaluation": false,
+  "recorder_artifacts": {
+    "full_report": "validation/final/final-verification.json",
+    "source_report": "validation/final/source-recorder-audit.json",
+    "source_method": "validation/final/source_recorder_audit.py",
+    "source_log": "validation/final/source-recorder-audit.log",
+    "full_test_log": "validation/final/full.log",
+    "required_test_log": "validation/final/required.log",
+    "focused_log": "validation/execution/anchor-feasibility-focused-final.log",
+    "preflight": "validation/execution/anchor-feasibility-input-preflight.json",
+    "execution_log": "validation/execution/anchor-feasibility-execution.log"
+  },
+  "full_report_sha256": "ee0d3bb53bb342924a455e7482e1d114e38f9e9d82570e65c63fc71434365097"
+}

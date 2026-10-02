@@ -1,0 +1,149 @@
+{
+  "experiment": "benchmark_anchor_risk_feasibility_20261003",
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "decision": "training_feasibility_diagnostic_only_no_new_strategy",
+  "new_strategy_selected": false,
+  "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+  "parent_plan_sha256": "4efdeb6e391c9b4a1d75c4ae995920e125dd862245b583f43f1075db2f3b9214",
+  "parent_artifact_manifest_sha256": "8aff34f5654d89ff406d0b2993500b5639529d8d31dec2d1e1702a1f973c27dd",
+  "source_sha256": {
+    "src/analysis/anchor_checkpoint_feasibility.py": "fcfe7c2efbb12e4263060b2282378718327ae531e137b011859b892f27a95865",
+    "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5"
+  },
+  "parent_source_sha256": {
+    "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+    "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+    "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+    "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+    "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+  },
+  "plan_sha256": "7b4b5fe0bd767751163c878411c2720befada4fab23b36a002d064bfb7f24299",
+  "source_as_of": "2026-09-25",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "region": "us",
+  "market": "all",
+  "recorder_id": "b957ece9cde04b17a89b7f4e792086ea",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder",
+  "recorder_local_dir": "/Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea",
+  "recorder_relative_dir": "qlib_recorder/457476363265613151/b957ece9cde04b17a89b7f4e792086ea",
+  "counts": [
+    {
+      "variant": "constant",
+      "risk_feasible": 594,
+      "risk_and_nonnegative_J": 381,
+      "risk_and_strict_positive_J": 339,
+      "risk_and_positive_J_margin": 336,
+      "trajectory_checkpoints": 2541
+    },
+    {
+      "variant": "price",
+      "risk_feasible": 36,
+      "risk_and_nonnegative_J": 0,
+      "risk_and_strict_positive_J": 0,
+      "risk_and_positive_J_margin": 0,
+      "trajectory_checkpoints": 2541
+    },
+    {
+      "variant": "price_vol",
+      "risk_feasible": 30,
+      "risk_and_nonnegative_J": 0,
+      "risk_and_strict_positive_J": 0,
+      "risk_and_positive_J_margin": 0,
+      "trajectory_checkpoints": 2541
+    }
+  ],
+  "integrity": {
+    "all_runs_completed": true,
+    "checkpoint_models": 7623,
+    "explicit_nulls": 63,
+    "cost_rows_including_null": 15372,
+    "trajectory_cost_rows": 15246,
+    "null_cost_rows": 126,
+    "no_market_fits": true,
+    "no_out_of_sample_evaluation": true,
+    "source_and_plan_unchanged": true
+  },
+  "historical_qualification_pass": false,
+  "new_forward_qualified": false,
+  "original_phase5_selection_unchanged": true,
+  "market_model_fits": false,
+  "out_of_sample_evaluation": false,
+  "real_broker_orders": false,
+  "existing_sim_change": false,
+  "artifact_policy": {
+    "policy": "slim_card_recorder_first",
+    "workflow_config": "workflow.yaml",
+    "recorder_only_artifacts": [
+      "inputs/*.pkl",
+      "completed_chunks/*",
+      "analysis/checkpoint_cost_metrics.pkl",
+      "analysis/checkpoint_joint_feasibility.pkl",
+      "analysis/utility_reproduction.pkl",
+      "analysis/benchmark_risk_reports.pkl",
+      "validation/**/*",
+      "notebooks/benchmark_anchor_risk_feasibility_20261003.ipynb"
+    ],
+    "retained_recorder_ids": [
+      "b957ece9cde04b17a89b7f4e792086ea"
+    ]
+  },
+  "sidecars": [
+    "run_summary.csv",
+    "maturity_summary.csv",
+    "feasibility_counts.csv",
+    "integrity_summary.json",
+    "numerical_audit.json",
+    "verification.json",
+    "artifact_manifest.json"
+  ],
+  "qlib_docs_reference": [
+    "https://qlib.readthedocs.io/en/latest/component/workflow.html",
+    "https://qlib.readthedocs.io/en/latest/component/data.html",
+    "https://qlib.readthedocs.io/en/latest/reference/api.html"
+  ],
+  "limitations": [
+    "Only saved optimization trajectories are inspected; absence of a feasible improving checkpoint cannot prove the whole model class infeasible.",
+    "Training feasibility or a positive training utility is not out-of-sample excess or a promotion decision.",
+    "Repeated checkpoints/seeds share the same market observations; counts are not statistical sample sizes."
+  ],
+  "next_research": "Separately preregister whole-path constrained training with the same four SOXX tail constraints; existing conditional trajectories have no risk-feasible J>=0 checkpoint.",
+  "verification": "verification.json",
+  "numerical_audit": "numerical_audit.json",
+  "artifact_manifest": "artifact_manifest.json",
+  "recorder_evidence": {
+    "numerical": {
+      "full_report": "validation/numerical/anchor-checkpoint-results-independent-audit.json",
+      "method": "validation/numerical/audit_anchor_checkpoint_results.py",
+      "fixed_samples": "validation/numerical/anchor-checkpoint-results-independent-samples.csv",
+      "execution_log": "validation/numerical/anchor-checkpoint-results-independent-audit.log",
+      "utility_parity": "validation/numerical/anchor-checkpoint-utility-parity-summary.json"
+    },
+    "verification": {
+      "full_report": "validation/final/final-verification.json",
+      "source_report": "validation/final/source-recorder-audit.json",
+      "source_method": "validation/final/source_recorder_audit.py",
+      "source_log": "validation/final/source-recorder-audit.log",
+      "full_test_log": "validation/final/full.log",
+      "required_test_log": "validation/final/required.log",
+      "focused_log": "validation/execution/anchor-feasibility-focused-final.log",
+      "preflight": "validation/execution/anchor-feasibility-input-preflight.json",
+      "execution_log": "validation/execution/anchor-feasibility-execution.log"
+    },
+    "parent_objects": "Immutable52f objects are referenced by inputs/source_artifact_manifest.json and hashes; not duplicated into this recorder.",
+    "canonical_uri_preserved": true
+  }
+}

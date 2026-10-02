@@ -1,0 +1,17 @@
+experiment: benchmark_anchor_risk_feasibility_20261003
+parent_recorder_id: 52f40778cbe64ca6a5864da356b960d0
+provider_uri: data/qlib/published_futu_affine_20260925_v1
+recorder_uri: /Users/rziiiii/dev/workspace/research/benchmark_anchor_risk_feasibility_20261003/qlib_recorder
+region: us
+selection_plan: selection_plan.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*.pkl
+  - completed_chunks/*
+  - analysis/checkpoint_cost_metrics.pkl
+  - analysis/checkpoint_joint_feasibility.pkl
+  - analysis/utility_reproduction.pkl
+  - analysis/benchmark_risk_reports.pkl
+mode: cached_training_feasibility_no_model_fitting

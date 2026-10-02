@@ -1,0 +1,11 @@
+{
+  "all_runs_completed": true,
+  "checkpoint_models": 7623,
+  "explicit_nulls": 63,
+  "cost_rows_including_null": 15372,
+  "trajectory_cost_rows": 15246,
+  "null_cost_rows": 126,
+  "no_market_fits": true,
+  "no_out_of_sample_evaluation": true,
+  "source_and_plan_unchanged": true
+}

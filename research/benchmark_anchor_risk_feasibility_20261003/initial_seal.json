@@ -1,0 +1,213 @@
+{
+  "registered_plan_sha256": "7b4b5fe0bd767751163c878411c2720befada4fab23b36a002d064bfb7f24299",
+  "source_test_sha256": {
+    "src/analysis/anchor_checkpoint_feasibility.py": "fcfe7c2efbb12e4263060b2282378718327ae531e137b011859b892f27a95865",
+    "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+    "tests/test_anchor_checkpoint_feasibility.py": "031d0104c23ec3addff4f44288fa8d7084616ba44ebd9ec7bd209db55d28c4f1",
+    "tests/test_anchor_checkpoint_feasibility_workflow.py": "44015de7add15dc9401af7a485b979668373ee5a83c0b4f8989b0d1f8c9d3291"
+  },
+  "sealed_at_utc": "2026-10-02T17:13:30.709704+00:00",
+  "checkpoint_feasibility_evaluation_started": false,
+  "focused_passed": 52,
+  "input_preflight": {
+    "parent_recorder": "52f40778cbe64ca6a5864da356b960d0",
+    "source_artifacts": 66,
+    "folds": 21,
+    "registered_runs": 63,
+    "checkpoint_feasibility_evaluated": false,
+    "market_fits": false,
+    "training_dates_and_scalers_validated": true,
+    "maturity": [
+      {
+        "variant": "constant",
+        "year": 2016,
+        "rows": 1256,
+        "return_available_at_max": "2015-12-31T14:30:00+00:00",
+        "cutoff": "2016-01-01T00:00:00-05:00",
+        "training_rows_sha256": "f1862f4a2ed58d25ba0e1e6858a282df6689b829414484ebf980be8e4477a8d6",
+        "scaler_sha256": "e86ea4c5703f716f95832344ed2010781243b2a23ff9038598d1e895bea7e7c3"
+      },
+      {
+        "variant": "price",
+        "year": 2016,
+        "rows": 1256,
+        "return_available_at_max": "2015-12-31T14:30:00+00:00",
+        "cutoff": "2016-01-01T00:00:00-05:00",
+        "training_rows_sha256": "f1862f4a2ed58d25ba0e1e6858a282df6689b829414484ebf980be8e4477a8d6",
+        "scaler_sha256": "3a7c0267781df8668c6f4125ce8ac4d53e772367df2f3af2a47efa798a67e39d"
+      },
+      {
+        "variant": "price_vol",
+        "year": 2016,
+        "rows": 1256,
+        "return_available_at_max": "2015-12-31T14:30:00+00:00",
+        "cutoff": "2016-01-01T00:00:00-05:00",
+        "training_rows_sha256": "f1862f4a2ed58d25ba0e1e6858a282df6689b829414484ebf980be8e4477a8d6",
+        "scaler_sha256": "e33380e8f25f677fafa91acc9661a536722dd96bef6d5c6b938875ba28835156"
+      },
+      {
+        "variant": "constant",
+        "year": 2017,
+        "rows": 1508,
+        "return_available_at_max": "2016-12-30T14:30:00+00:00",
+        "cutoff": "2017-01-01T00:00:00-05:00",
+        "training_rows_sha256": "1e7ecb80097cebb1f256e542b2156fa9a7f6e6f072af808e1322da7c83989ae8",
+        "scaler_sha256": "5b977f2aac45ad3c7a4ffdb9fdc24f877622af9327d08d1398db034e7c368409"
+      },
+      {
+        "variant": "price",
+        "year": 2017,
+        "rows": 1508,
+        "return_available_at_max": "2016-12-30T14:30:00+00:00",
+        "cutoff": "2017-01-01T00:00:00-05:00",
+        "training_rows_sha256": "1e7ecb80097cebb1f256e542b2156fa9a7f6e6f072af808e1322da7c83989ae8",
+        "scaler_sha256": "10a99be89dd00f6a00d5d72ceef94638e598bdb4c68ccbb0654420eea88d1275"
+      },
+      {
+        "variant": "price_vol",
+        "year": 2017,
+        "rows": 1508,
+        "return_available_at_max": "2016-12-30T14:30:00+00:00",
+        "cutoff": "2017-01-01T00:00:00-05:00",
+        "training_rows_sha256": "1e7ecb80097cebb1f256e542b2156fa9a7f6e6f072af808e1322da7c83989ae8",
+        "scaler_sha256": "80a811244f6bd6673745c169779dad8f0ad13ef5ebc650de96fadcf5f3aecc18"
+      },
+      {
+        "variant": "constant",
+        "year": 2018,
+        "rows": 1759,
+        "return_available_at_max": "2017-12-29T14:30:00+00:00",
+        "cutoff": "2018-01-01T00:00:00-05:00",
+        "training_rows_sha256": "674a732a22e24fe5457fce8efbc2bc15d3ebb8e39e837d4a63a7c234cfbd037a",
+        "scaler_sha256": "b243974f9b817f673668c7a0b433bdb3b5981fe689a269d1d62d62d6bc8cfdec"
+      },
+      {
+        "variant": "price",
+        "year": 2018,
+        "rows": 1759,
+        "return_available_at_max": "2017-12-29T14:30:00+00:00",
+        "cutoff": "2018-01-01T00:00:00-05:00",
+        "training_rows_sha256": "674a732a22e24fe5457fce8efbc2bc15d3ebb8e39e837d4a63a7c234cfbd037a",
+        "scaler_sha256": "0b4032a3bff29681a5bb2adde0eaa0ae60e2049509c3ba80d539ec20e1c27596"
+      },
+      {
+        "variant": "price_vol",
+        "year": 2018,
+        "rows": 1759,
+        "return_available_at_max": "2017-12-29T14:30:00+00:00",
+        "cutoff": "2018-01-01T00:00:00-05:00",
+        "training_rows_sha256": "674a732a22e24fe5457fce8efbc2bc15d3ebb8e39e837d4a63a7c234cfbd037a",
+        "scaler_sha256": "211d7529bb90163d5154f1acd2a2316ff07f33bdcdef0a8405860cc9bff7cb1f"
+      },
+      {
+        "variant": "constant",
+        "year": 2019,
+        "rows": 2010,
+        "return_available_at_max": "2018-12-31T14:30:00+00:00",
+        "cutoff": "2019-01-01T00:00:00-05:00",
+        "training_rows_sha256": "625a73690c13129f8083e978c06354c9b536534148a0c617f354c1a01753dad3",
+        "scaler_sha256": "f20c55c0395a5742a4b88a4c44ab76b870fd4b4b204d8e4f1e767fb0c345473e"
+      },
+      {
+        "variant": "price",
+        "year": 2019,
+        "rows": 2010,
+        "return_available_at_max": "2018-12-31T14:30:00+00:00",
+        "cutoff": "2019-01-01T00:00:00-05:00",
+        "training_rows_sha256": "625a73690c13129f8083e978c06354c9b536534148a0c617f354c1a01753dad3",
+        "scaler_sha256": "780f264e0f5ff600a31be517d863c88789a02a5ebb32a0b8c77ba63301f1ba1a"
+      },
+      {
+        "variant": "price_vol",
+        "year": 2019,
+        "rows": 2010,
+        "return_available_at_max": "2018-12-31T14:30:00+00:00",
+        "cutoff": "2019-01-01T00:00:00-05:00",
+        "training_rows_sha256": "625a73690c13129f8083e978c06354c9b536534148a0c617f354c1a01753dad3",
+        "scaler_sha256": "2b575a15f2f1e913700b9f6fa3cf303fa4b484f7fa26671984af936cfec42e1f"
+      },
+      {
+        "variant": "constant",
+        "year": 2020,
+        "rows": 2262,
+        "return_available_at_max": "2019-12-31T14:30:00+00:00",
+        "cutoff": "2020-01-01T00:00:00-05:00",
+        "training_rows_sha256": "979ee81ca972897c9f14d64f1d97d9de7068c05fd934f7790a3129db7538a480",
+        "scaler_sha256": "3a7eb71c8fe784bc04ca75a3e752a33a4516641e00a8fbd476ecb462429e65e6"
+      },
+      {
+        "variant": "price",
+        "year": 2020,
+        "rows": 2262,
+        "return_available_at_max": "2019-12-31T14:30:00+00:00",
+        "cutoff": "2020-01-01T00:00:00-05:00",
+        "training_rows_sha256": "979ee81ca972897c9f14d64f1d97d9de7068c05fd934f7790a3129db7538a480",
+        "scaler_sha256": "31dd5aba03192cf5eb4ff4f31cce0fe6142dc89087757a9aa558aa1c275ada61"
+      },
+      {
+        "variant": "price_vol",
+        "year": 2020,
+        "rows": 2262,
+        "return_available_at_max": "2019-12-31T14:30:00+00:00",
+        "cutoff": "2020-01-01T00:00:00-05:00",
+        "training_rows_sha256": "979ee81ca972897c9f14d64f1d97d9de7068c05fd934f7790a3129db7538a480",
+        "scaler_sha256": "418c84a4c8d33a5bf1f01c40c33dacdaa76a067f5260231b78a75741020ccb8f"
+      },
+      {
+        "variant": "constant",
+        "year": 2021,
+        "rows": 2515,
+        "return_available_at_max": "2020-12-31T14:30:00+00:00",
+        "cutoff": "2021-01-01T00:00:00-05:00",
+        "training_rows_sha256": "75328dfbd54329fac427f4af3508dc3d1ab759b4e019a719cda5896e0e1600af",
+        "scaler_sha256": "372e27cfacc029556a2de54acdf22f1880f3d8146fef71935adf25f2d8e07666"
+      },
+      {
+        "variant": "price",
+        "year": 2021,
+        "rows": 2515,
+        "return_available_at_max": "2020-12-31T14:30:00+00:00",
+        "cutoff": "2021-01-01T00:00:00-05:00",
+        "training_rows_sha256": "75328dfbd54329fac427f4af3508dc3d1ab759b4e019a719cda5896e0e1600af",
+        "scaler_sha256": "cc2ee37e17a41d27240e1439c4ae3b67e80129649c7d993a1fb791ee5cc32363"
+      },
+      {
+        "variant": "price_vol",
+        "year": 2021,
+        "rows": 2515,
+        "return_available_at_max": "2020-12-31T14:30:00+00:00",
+        "cutoff": "2021-01-01T00:00:00-05:00",
+        "training_rows_sha256": "75328dfbd54329fac427f4af3508dc3d1ab759b4e019a719cda5896e0e1600af",
+        "scaler_sha256": "6acdc1c92c324f5649630d6c3133b782b06dfccae441f16344c5756af0f592ae"
+      },
+      {
+        "variant": "constant",
+        "year": 2022,
+        "rows": 2767,
+        "return_available_at_max": "2021-12-31T14:30:00+00:00",
+        "cutoff": "2022-01-01T00:00:00-05:00",
+        "training_rows_sha256": "20a95123ae84ecfc02c8e7c89541dc662427f2ee3131e4646695e73563510919",
+        "scaler_sha256": "f6ed511c68ddb1f1a3611f149318381b0619d9b27a629d833bcc59b1c79d9637"
+      },
+      {
+        "variant": "price",
+        "year": 2022,
+        "rows": 2767,
+        "return_available_at_max": "2021-12-31T14:30:00+00:00",
+        "cutoff": "2022-01-01T00:00:00-05:00",
+        "training_rows_sha256": "20a95123ae84ecfc02c8e7c89541dc662427f2ee3131e4646695e73563510919",
+        "scaler_sha256": "af613e23293db534c663dcfe29e721bedea8c896cc8f2dbafb5915f31f18c5bc"
+      },
+      {
+        "variant": "price_vol",
+        "year": 2022,
+        "rows": 2767,
+        "return_available_at_max": "2021-12-31T14:30:00+00:00",
+        "cutoff": "2022-01-01T00:00:00-05:00",
+        "training_rows_sha256": "20a95123ae84ecfc02c8e7c89541dc662427f2ee3131e4646695e73563510919",
+        "scaler_sha256": "6d01271005837dda25c9e6f6bf5cd37e15f36ab141ba2f4b0c27c3bfc84c65d4"
+      }
+    ]
+  },
+  "objective_achieved": false
+}
