@@ -1,0 +1,69 @@
+{
+  "experiment": "benchmark_risk_excess_20261002",
+  "registered_before_phase2_results": true,
+  "campaign_objective": "Find and verify stable net excess versus SOXX. A completed failed batch is not completion of this objective.",
+  "campaign_status": "active_research",
+  "source_experiment": "stable_excess_integration_20261002",
+  "source_recorder_id": "b94059c2e0754b0ab102e4f62534eefb",
+  "source_as_of": "2026-09-25",
+  "hypothesis": "Phase1 used higher market exposure to increase aggregate wealth. Training and evaluation risk objectives were inconsistent. Learn continuous budget utilization and asset composition under the same causal SOXX variance budget, then test whether any predictive excess survives actual costs and unchanged stability gates.",
+  "design": {
+    "architecture": "Reuse the same8unit continuous allocation network and actual-holdings cash-funded settlement. Three logits encode risk-budget fraction rho and risky composition p, not literal pre-projection capital weights.",
+    "parameterization": "q=softmax(logits);rho=qSOXL+qSOXX;v=qRisky/rho;funded_max=min(1,sqrt(SigmaSOXXSOXX/(v^T Sigma v)));wRisky=rho*funded_max*v;cash=1-sum(wRisky).",
+    "cash_gradient": "rho remains learnable even when the risky composition's budget binds; do not use naive radial clipping of capital weights.",
+    "covariance": "Expanding sample covariance of all complete observed SOXL/SOXX open-to-open returns ending no later than signal-day open. Uses Qlib frozen execution prices, never future-return labels without shifting. No searched rolling window or shrinkage strength.",
+    "covariance_inputs": "Three covariance elements are passed only to the feasibility transform, not fed into the neural feature encoder.",
+    "risk_budget": "Predicted variance no greater than SOXX under the SAME causal covariance. This is the preregistered benchmark-risk comparison, not proof that realized tail risk will obey it.",
+    "execution": "Long-only, fully cash-funded. No15percentcash floor,30percentSOXLcap,stop/wait/recovery timer,EMA,fixed trading band,or separateHOLD classifier."
+  },
+  "variants": [
+    {"name": "constant_budget", "market_conditioning": false, "pit_auxiliary": false, "forecast_features": false},
+    {"name": "base_budget", "market_conditioning": true, "pit_auxiliary": false, "forecast_features": false},
+    {"name": "pit_budget", "market_conditioning": true, "pit_auxiliary": true, "forecast_features": false},
+    {"name": "forecast_budget", "market_conditioning": true, "pit_auxiliary": false, "forecast_features": true}
+  ],
+  "constant_control": "The raw neural encoder receives zero market AND zero holdings inputs; actual holdings and all fees still evolve in settlement. It learns a constant budget fraction/composition from prior training data, while the same causal covariance transform may change feasible capital weights.",
+  "training": {
+    "development_signal_years": [2016,2017,2018,2019,2020,2021,2022],
+    "diagnostic_signal_years": [2023,2024,2025,2026],
+    "annual_maturity": "All selected outcome availability strictly before fit-year Jan1 NewYork; reuse exact primary/PIT/OOF maturity contracts.",
+    "seeds": [17,41,71],
+    "hidden_units": 8,
+    "epochs": 120,
+    "learning_rate": 0.003,
+    "weight_decay": 0.01,
+    "block_length": 63,
+    "warmup_sessions": 21,
+    "batch_blocks": 32,
+    "training_cost_bps": 10,
+    "objective_downside_coefficient": 1.0,
+    "pit_auxiliary_coefficient": 0.05,
+    "gradient_clip": 5.0,
+    "torch_threads": 1,
+    "checkpoint": "fixed final epoch, no best seed or checkpoint selection",
+    "objective": "Same negative mean63session net log excess plus RMS negative relative block growth; the benchmark-risk parameterization acts at EVERY training and inference step.",
+    "ensemble": "Equal target-weight mean of three seed policies, all evaluated on the same actual holdings; its own continuous path at each cost.",
+    "hyperparameter_search": false
+  },
+  "evaluation": {
+    "benchmark": "100percent SOXX fee-funded buyhold, identical dates and marks",
+    "cost_bps": [10,25],
+    "same_stability_gates_as_phase1": true,
+    "gates": ["positive cumulative net excess bothcosts", "atleast5of7positive signal-years", "positive medianannualexcess", "leave-any-one-year-out excess positive", "pairedstationarybootstrap20and60blocks lowerbounds positive", "realizedanchoredMaxDD andCVaR5 no worseSOXX", "atleast2of3same seedspositive atbothcosts"],
+    "family_size_adjustment": 7,
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20261002,
+    "risk_checks": ["causal covariance andPSD", "predictedvariance ratio<=1 eachdecision", "nonzero learnedcashgradient atcomposition budget boundary", "train/serve exactcashfeeparity", "nativeQlib10and25bp executionreconciliation"],
+    "attribution": "Report realizedbeta,HACalpha,seeddispersion,OOFforecastskill andincrement versusconstantcontrol. A risk-normalized return is not itself alpha.",
+    "selection": "Seal development-only ranking before any post2022signal evaluation. Passers ranked by worstcost/block lowerbound; ifnonepass, allremain diagnostic and campaign remainsactive.",
+    "historical_caveat": "All2016-2026data previouslyobserved. Seven-family correction covers onlythese twoexplicitrounds, notall earlier adaptive research; no freshholdoutclaim."
+  },
+  "continuation": {
+    "if_no_qualification": "Diagnose whetherpredictors have out-of-fold skill andwhetherturnover or risk-estimation error consumesit. Register the next distinct test or identify concrete missing data; do not mark the stable-excess objective complete because this batch ended.",
+    "if_historical_qualification": "Freeze the complete pipeline and accumulate new same-quote independent forward evidence before stable-forward claims.",
+    "forbidden": ["relaxinggatesafterresults", "bestseedcherry-picking", "claiminghigherbetaasalpha", "usingreviewedouteroutcomestochooseparameters"]
+  },
+  "real_broker_orders": false,
+  "existing_sim_change": false,
+  "artifact_policy": "slim_card_recorder_first"
+}

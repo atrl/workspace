@@ -1,0 +1,452 @@
+{
+  "experiment": "benchmark_risk_excess_20261002",
+  "policy": "slim_card_recorder_first",
+  "source_as_of": "2026-09-25",
+  "campaign_status": "active_research",
+  "artifacts": [
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/artifacts/notebooks/soxl_phase1_attribution.ipynb",
+      "bytes": 101451,
+      "sha256": "50305dce7b9dfc7077add9679532572b8e8d778b8e9ad14b12360510bac70d44",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/artifacts/optimizer_null_audit.pkl",
+      "bytes": 3848,
+      "sha256": "570a98784a1781a28bc34c304dd6867aff65176c06508f061fab0a7ba2fe336c",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/artifacts/prior_attribution.pkl",
+      "bytes": 21235,
+      "sha256": "e680189053f72e4e158c79e0342f9c4edb2313b7313f5191b998eae432cf1186",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/meta.yaml",
+      "bytes": 464,
+      "sha256": "f8943a7f4b4e98c72c90069ee5b65c29bbc72ec737ae80fb738d734755df87d5",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/params/cmd-sys.argv",
+      "bytes": 1,
+      "sha256": "3973e022e93220f9212c18d0d0c543ae7c309e46640da93a4a0314de999f5112",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/params/model_training_performed",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/params/parent_result_recorder",
+      "bytes": 32,
+      "sha256": "b663b57df3a701a5fcd29bcb8f696bbc21c3460071e0969293cc6c54f388ebc9",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/params/phase1_source",
+      "bytes": 32,
+      "sha256": "7e2dedbe6c79ef19f7be8e3f88bcab89f2d768adb4740eea0de6611162298d33",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/params/phase2_optimizer_source",
+      "bytes": 32,
+      "sha256": "db7fa0ab33c15454de398c223670edcc3c054b38608df03eee9df2220df81029",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/tags/mlflow.runName",
+      "bytes": 36,
+      "sha256": "3f04d7ee8abb75818664b9d642f0c5b8d82cfda5cc84ca50f0123c30926e8430",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/tags/mlflow.source.name",
+      "bytes": 1,
+      "sha256": "3973e022e93220f9212c18d0d0c543ae7c309e46640da93a4a0314de999f5112",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/tags/mlflow.source.type",
+      "bytes": 5,
+      "sha256": "646c19373ac9e27e972c8e3bdf6554c4c10d23006c1abec3407cbff80c4ab71f",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/1a41a0fc03ec4add81418b7b90ab7d7e/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/analysis/annual.pkl",
+      "bytes": 22873,
+      "sha256": "088a5f9e4aed13eea157da9ad5e181b6760a4df42cec8445623c0f4eabf22604",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/analysis/bootstrap.pkl",
+      "bytes": 3889,
+      "sha256": "c56d54b131db1321b7accaf41486a81cc3b8f36e96967dd04705c6ac22063c85",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/analysis/comparison.pkl",
+      "bytes": 5460,
+      "sha256": "095fb995dcf31830b22f8f102e05ff98639eb1202c86d4d24b59f871749ec5e5",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/analysis/constant_control.pkl",
+      "bytes": 4235,
+      "sha256": "a777fd290d60ac3fcfc279424638243ddf8391392d2f6f634f84c180ee66e152",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/analysis/gates.pkl",
+      "bytes": 2150,
+      "sha256": "9038b87c39628c2e09d75161a0aec48e630a0436a675440bdefdc91f8b9ee183",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/analysis/portfolio_replays.pkl",
+      "bytes": 9479686,
+      "sha256": "70c4699cce864790c01ebace60d8ce5d1a3d5374b534c1f41d89566f7b805835",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/analysis/risk_budget_audit.pkl",
+      "bytes": 3779,
+      "sha256": "4314438397eeea15ca0cac4d29fe24d2ddade567687fdd89cac373103a4acb28",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/analysis/seed_metrics.pkl",
+      "bytes": 8598,
+      "sha256": "f6673b7775f3605bef55e4bcf94451db5506416b856a82924dbed16d0bc64a00",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/inputs/covariance.pkl",
+      "bytes": 134524,
+      "sha256": "3f6a13921500179b03bc254e8343ae52a24a48603ad2fe4d54f2053eb10abc44",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/inputs/data_audit.pkl",
+      "bytes": 3906,
+      "sha256": "0c6e6c2395a759a24f8d1905fb46499c95e6c5e825b13b1d4efd1d72adcc000b",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/inputs/fold_audits.pkl",
+      "bytes": 6247,
+      "sha256": "d2cc3681afdae2d6fea00c6b60eea6cdf036f0a8ff9d52a07a7db01194538410",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/inputs/forecast_frame.pkl",
+      "bytes": 1222159,
+      "sha256": "3bff6cc5ff420d7e0c12245069c42357db600d80512644d8835e8259607c837e",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/inputs/primary_frame.pkl",
+      "bytes": 1222159,
+      "sha256": "1c7ddf9cab34f26f8270c4c420806fee23f91e372c09ec8baa32704dfc82695f",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/inputs/selection_plan.json",
+      "bytes": 6062,
+      "sha256": "81c0776c87661011b3dc7ab2c3e985257805ea5c9215758318833bc423d52716",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/inputs/selection_seal.json",
+      "bytes": 478,
+      "sha256": "23c7f7f6d27e39f450b662ae3889b0380b7583adb59aa68f3c3a562c772f3eeb",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/models/development.pkl",
+      "bytes": 1841855,
+      "sha256": "1e3704eed7f1c47eec7e0a0388b3cf55812a93948bfe10872bc7656ab858d0ec",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/models/forecast_models.pkl",
+      "bytes": 15616,
+      "sha256": "88d2ab4efc29d6c16d13949678006be0bd127918f270ae6ba4e4c5f12f979f53",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/models/selected_annual_refits.pkl",
+      "bytes": 266065,
+      "sha256": "91a2eba81670249c17cfc6cb750dc6305116d9a0abdf1cb480475c2a0439b198",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "bytes": 11961834,
+      "sha256": "228c5777fa41b51ba9991488cff8d9c1c7e8414c03cfdcd80b32e95507e9a3b1",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/meta.yaml",
+      "bytes": 443,
+      "sha256": "7556be4e14cfaa973d714ad6e259e7b2546a7f8300dedf7a877cc310ea87a38c",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/metrics/historical_qualification_pass",
+      "bytes": 20,
+      "sha256": "9486d019e035625ccff09490c3a0ce91f79209e7e845f698c7c4e0545ae0dbe1",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/metrics/registered_variants",
+      "bytes": 20,
+      "sha256": "face0a674fbd7be7fa17fd0f9dd06eaeb5a325cba6136423527314d4b0470512",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/params/campaign_status",
+      "bytes": 15,
+      "sha256": "220e679c2917883de0db0538214a6e730c176070e381632671814d71445a08d9",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/params/cmd-sys.argv",
+      "bytes": 243,
+      "sha256": "52b4034419f708e42bbab858e5537bf1a3de882bacc9426f043eac9c0352a052",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "ebdb183cfdc93df5a4e7c3d8a10f60c213d09a645e8a1b92f790f836c28b68ab",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/params/source_recorder_id",
+      "bytes": 32,
+      "sha256": "7e2dedbe6c79ef19f7be8e3f88bcab89f2d768adb4740eea0de6611162298d33",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/tags/mlflow.source.name",
+      "bytes": 130,
+      "sha256": "60e28f555cded0e92aee4cafb6e3aa3106ba234c2cc5b986853c480bd1147091",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/afb99e6a3d064b38acfb4e46c55ea3ed/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/analysis/annual.pkl",
+      "bytes": 22873,
+      "sha256": "088a5f9e4aed13eea157da9ad5e181b6760a4df42cec8445623c0f4eabf22604",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/analysis/bootstrap.pkl",
+      "bytes": 3889,
+      "sha256": "c56d54b131db1321b7accaf41486a81cc3b8f36e96967dd04705c6ac22063c85",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/analysis/comparison.pkl",
+      "bytes": 5460,
+      "sha256": "095fb995dcf31830b22f8f102e05ff98639eb1202c86d4d24b59f871749ec5e5",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/analysis/constant_control.pkl",
+      "bytes": 4235,
+      "sha256": "a777fd290d60ac3fcfc279424638243ddf8391392d2f6f634f84c180ee66e152",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/analysis/gates.pkl",
+      "bytes": 2150,
+      "sha256": "9038b87c39628c2e09d75161a0aec48e630a0436a675440bdefdc91f8b9ee183",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/analysis/portfolio_replays.pkl",
+      "bytes": 9479686,
+      "sha256": "70c4699cce864790c01ebace60d8ce5d1a3d5374b534c1f41d89566f7b805835",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/analysis/risk_budget_audit.pkl",
+      "bytes": 3779,
+      "sha256": "4314438397eeea15ca0cac4d29fe24d2ddade567687fdd89cac373103a4acb28",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/analysis/seed_metrics.pkl",
+      "bytes": 8598,
+      "sha256": "f6673b7775f3605bef55e4bcf94451db5506416b856a82924dbed16d0bc64a00",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/inputs/covariance.pkl",
+      "bytes": 134524,
+      "sha256": "3f6a13921500179b03bc254e8343ae52a24a48603ad2fe4d54f2053eb10abc44",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/inputs/data_audit.pkl",
+      "bytes": 3906,
+      "sha256": "0c6e6c2395a759a24f8d1905fb46499c95e6c5e825b13b1d4efd1d72adcc000b",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/inputs/fold_audits.pkl",
+      "bytes": 6247,
+      "sha256": "d2cc3681afdae2d6fea00c6b60eea6cdf036f0a8ff9d52a07a7db01194538410",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/inputs/forecast_frame.pkl",
+      "bytes": 1222159,
+      "sha256": "3bff6cc5ff420d7e0c12245069c42357db600d80512644d8835e8259607c837e",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/inputs/primary_frame.pkl",
+      "bytes": 1222159,
+      "sha256": "1c7ddf9cab34f26f8270c4c420806fee23f91e372c09ec8baa32704dfc82695f",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/inputs/selection_plan.json",
+      "bytes": 6062,
+      "sha256": "81c0776c87661011b3dc7ab2c3e985257805ea5c9215758318833bc423d52716",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/inputs/selection_seal.json",
+      "bytes": 478,
+      "sha256": "23c7f7f6d27e39f450b662ae3889b0380b7583adb59aa68f3c3a562c772f3eeb",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/models/development.pkl",
+      "bytes": 1841855,
+      "sha256": "17ca6146f8827d9ef0b329a1ba89ce06b783a3f1b39c66b44087418343dd32df",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/models/forecast_models.pkl",
+      "bytes": 15616,
+      "sha256": "88d2ab4efc29d6c16d13949678006be0bd127918f270ae6ba4e4c5f12f979f53",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/models/selected_annual_refits.pkl",
+      "bytes": 266065,
+      "sha256": "d505f1b47896c0c0a584a92f5f42cac21bc8d962e3c10b14cc2895e6f8d3b627",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/artifacts/portfolio_analysis/native_reconciliation.pkl",
+      "bytes": 11961834,
+      "sha256": "228c5777fa41b51ba9991488cff8d9c1c7e8414c03cfdcd80b32e95507e9a3b1",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/meta.yaml",
+      "bytes": 443,
+      "sha256": "84c80c4c497c77947b58cd1dc71d89c1aa7fe849e8b0b5c4aff38aff50b94902",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/metrics/historical_qualification_pass",
+      "bytes": 20,
+      "sha256": "f042058bb8ec4db95fc72788b99030217ae2e5e2277cb3a3274495f476cad254",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/metrics/registered_variants",
+      "bytes": 20,
+      "sha256": "fe75858958d692760351cc71dddb73451b371b862cd901abc51e46f0617aee07",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/params/campaign_status",
+      "bytes": 15,
+      "sha256": "220e679c2917883de0db0538214a6e730c176070e381632671814d71445a08d9",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/params/cmd-sys.argv",
+      "bytes": 243,
+      "sha256": "4b0b9eeeff29a94770b573c8787ed130f7be39c8f8888a6330c1f80d48221342",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "ebdb183cfdc93df5a4e7c3d8a10f60c213d09a645e8a1b92f790f836c28b68ab",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/params/source_recorder_id",
+      "bytes": 32,
+      "sha256": "7e2dedbe6c79ef19f7be8e3f88bcab89f2d768adb4740eea0de6611162298d33",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/tags/mlflow.source.name",
+      "bytes": 130,
+      "sha256": "60e28f555cded0e92aee4cafb6e3aa3106ba234c2cc5b986853c480bd1147091",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/bba55e94a1d04b4a9c68dca562766159/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "purpose": "QLib research and diagnostic evidence"
+    },
+    {
+      "path": "qlib_recorder/950261578068573590/meta.yaml",
+      "bytes": 360,
+      "sha256": "ba575ae26b15e06258fbdbe848cf679332d2767ddf95a5c08c5a5a383fa73ec8",
+      "purpose": "QLib research and diagnostic evidence"
+    }
+  ]
+}
