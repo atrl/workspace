@@ -1,0 +1,16 @@
+{
+  "scope": "Synthetic risk/adjoint API timing only; no market data, fitting, parameter updates or policy search",
+  "sessions": 3000,
+  "iterations": 120,
+  "costs": [
+    10,
+    25
+  ],
+  "evaluations": 240,
+  "elapsed_seconds": 0.0372349590761587,
+  "seconds_per_two_cost_evaluation": 0.0003102913256346559,
+  "all_adjoints_finite": true,
+  "source_sha256": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+  "test_sha256": "661ae0696afcf1bcab3a93b75d29044b349efe3b2239ee8b3b8b3b5b79428b89",
+  "focused_tests": 45
+}

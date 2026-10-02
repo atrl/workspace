@@ -1,0 +1,4751 @@
+{
+  "source": {
+    "recorder_id": "300530137db54b6c807c39ebb9e8c331",
+    "plan_sha256": "da17267d7d21ccb2589bc799efe33ed9149d8b4c7c0b5371aadd4b429227901d",
+    "recorder_status": "FINISHED",
+    "saved_artifact_sha256": {
+      "comparison": "b993dfb8424cfcb3903fc7ef83304d8e84b854d9d33dad3f8bde7ce9b638706d",
+      "annual": "9495fb850ce40fff5e83ec779c091de3ac64a20aa081e014960a2597802102f3",
+      "gates": "5accef3ed37fb5c79f588203ba6943b01852d313ba833ee40b02b0140d371335",
+      "seed_metrics": "80dbfd433325c41b20d2b3c13ea20fc8e34c4c6d550d5449f889403ca33e5741",
+      "training_diagnostics": "dd36fb8066072a920ca841fb804c126db3e489883020cd93602c163eed881227",
+      "ensemble_audits": "4cc98a78a33746a95b7a3ee21637ba8624dc9b3051e2a3760df03587bd129b1d",
+      "controls": "50acf76ae4770cf26c10ede40f2ae6a23aabded6e7ed9f5380558c1a53df2e41",
+      "attribution": "bf34bfd2b0cc37c15cda69b9ff9171aa52745350adf0edf30d50ca26aa690f8f",
+      "window_metrics": "e9d1e936972045cfbc6ace11fab16bedad6f245ee4ebffcf12346bd9769e0ab0",
+      "portfolio_replays": "f0b475c85deea02cc4eee939a93a4f9313f79e1ee4481451309b84a0ed770722",
+      "bootstrap": "85b38b753b7edc4632fe389e84eebf82a09b22b87b053125b18e88287b107452"
+    }
+  },
+  "comparison": [
+    {
+      "variant": "constant",
+      "segment": "development",
+      "cost_bps": 10.0,
+      "sessions": 1762,
+      "return_pct": 325.74741295054594,
+      "benchmark_return_pct": 325.7474129505662,
+      "relative_wealth": 0.999999999999952,
+      "annualized_relative_return_pct": -6.81e-13,
+      "max_drawdown_pct": -47.373291177718016,
+      "benchmark_max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.416437225150679,
+      "benchmark_cvar5_pct": -4.416437225150679,
+      "worst_day_pct": -9.324949979782104,
+      "benchmark_worst_day_pct": -9.324949979782094,
+      "worst_5d_pct": -17.254826968745675,
+      "benchmark_worst_5d_pct": -17.254826968745636,
+      "turnover": 0.999000999000999,
+      "trade_days": 1,
+      "sum_session_fee_rates": 0.000999000999001
+    },
+    {
+      "variant": "constant",
+      "segment": "development",
+      "cost_bps": 25.0,
+      "sessions": 1762,
+      "return_pct": 325.1103844024901,
+      "benchmark_return_pct": 325.1103844024901,
+      "relative_wealth": 1.0,
+      "annualized_relative_return_pct": 0.0,
+      "max_drawdown_pct": -47.373291177718016,
+      "benchmark_max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.41807858997544,
+      "benchmark_cvar5_pct": -4.41807858997544,
+      "worst_day_pct": -9.324949979782104,
+      "benchmark_worst_day_pct": -9.324949979782104,
+      "worst_5d_pct": -17.254826968745675,
+      "benchmark_worst_5d_pct": -17.254826968745675,
+      "turnover": 0.997506234413965,
+      "trade_days": 1,
+      "sum_session_fee_rates": 0.002493765586035
+    },
+    {
+      "variant": "price",
+      "segment": "development",
+      "cost_bps": 10.0,
+      "sessions": 1762,
+      "return_pct": 366.52299071715345,
+      "benchmark_return_pct": 325.7474129505662,
+      "relative_wealth": 1.095774105787277,
+      "annualized_relative_return_pct": 1.316662291307501,
+      "max_drawdown_pct": -45.418806685688274,
+      "benchmark_max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.335239181974133,
+      "benchmark_cvar5_pct": -4.416437225150679,
+      "worst_day_pct": -10.30736736913348,
+      "benchmark_worst_day_pct": -9.324949979782094,
+      "worst_5d_pct": -19.309264890991873,
+      "benchmark_worst_5d_pct": -17.254826968745636,
+      "turnover": 54.614887539233145,
+      "trade_days": 1762,
+      "sum_session_fee_rates": 0.054614887539233
+    },
+    {
+      "variant": "price",
+      "segment": "development",
+      "cost_bps": 25.0,
+      "sessions": 1762,
+      "return_pct": 329.82820537240525,
+      "benchmark_return_pct": 325.1103844024901,
+      "relative_wealth": 1.011097872794959,
+      "annualized_relative_return_pct": 0.157971368925632,
+      "max_drawdown_pct": -46.10208018877324,
+      "benchmark_max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.340367619912495,
+      "benchmark_cvar5_pct": -4.41807858997544,
+      "worst_day_pct": -10.32412467875572,
+      "benchmark_worst_day_pct": -9.324949979782104,
+      "worst_5d_pct": -19.35619773186589,
+      "benchmark_worst_5d_pct": -17.254826968745675,
+      "turnover": 54.61110929529598,
+      "trade_days": 1762,
+      "sum_session_fee_rates": 0.13652777323824
+    },
+    {
+      "variant": "price_vol",
+      "segment": "development",
+      "cost_bps": 10.0,
+      "sessions": 1762,
+      "return_pct": 379.87376735144574,
+      "benchmark_return_pct": 325.7474129505662,
+      "relative_wealth": 1.127132550320779,
+      "annualized_relative_return_pct": 1.726341736978655,
+      "max_drawdown_pct": -45.83741457949713,
+      "benchmark_max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.396078670345878,
+      "benchmark_cvar5_pct": -4.416437225150679,
+      "worst_day_pct": -10.675125477352033,
+      "benchmark_worst_day_pct": -9.324949979782094,
+      "worst_5d_pct": -20.1626880826637,
+      "benchmark_worst_5d_pct": -17.254826968745636,
+      "turnover": 59.23537491461346,
+      "trade_days": 1762,
+      "sum_session_fee_rates": 0.059235374914613
+    },
+    {
+      "variant": "price_vol",
+      "segment": "development",
+      "cost_bps": 25.0,
+      "sessions": 1762,
+      "return_pct": 339.0748752945282,
+      "benchmark_return_pct": 325.1103844024901,
+      "relative_wealth": 1.032849093798698,
+      "annualized_relative_return_pct": 0.463324054980507,
+      "max_drawdown_pct": -46.5277763228039,
+      "benchmark_max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.401900478771172,
+      "benchmark_cvar5_pct": -4.41807858997544,
+      "worst_day_pct": -10.693090914986358,
+      "benchmark_worst_day_pct": -9.324949979782104,
+      "worst_5d_pct": -20.20765253796076,
+      "benchmark_worst_5d_pct": -17.254826968745675,
+      "turnover": 59.23142188203464,
+      "trade_days": 1762,
+      "sum_session_fee_rates": 0.148078554705087
+    },
+    {
+      "variant": "price_vol_annual_refit",
+      "segment": "reused_diagnostic",
+      "cost_bps": 10.0,
+      "sessions": 934,
+      "return_pct": 345.3698781873208,
+      "benchmark_return_pct": 398.12302806808475,
+      "relative_wealth": 0.894096143104724,
+      "annualized_relative_return_pct": -2.975121179292524,
+      "max_drawdown_pct": -45.142466428524514,
+      "benchmark_max_drawdown_pct": -42.789193638172314,
+      "cvar5_pct": -4.68768895631962,
+      "benchmark_cvar5_pct": -5.295890505870354,
+      "worst_day_pct": -8.670851853457172,
+      "benchmark_worst_day_pct": -9.654277563095103,
+      "worst_5d_pct": -17.1838703899554,
+      "benchmark_worst_5d_pct": -17.688142982701457,
+      "turnover": 41.62456677993447,
+      "trade_days": 934,
+      "sum_session_fee_rates": 0.041624566779934
+    },
+    {
+      "variant": "price_vol_annual_refit",
+      "segment": "reused_diagnostic",
+      "cost_bps": 25.0,
+      "sessions": 934,
+      "return_pct": 318.4106797297998,
+      "benchmark_return_pct": 397.3777068290624,
+      "relative_wealth": 0.841233280030378,
+      "annualized_relative_return_pct": -4.557477206654746,
+      "max_drawdown_pct": -45.741880476062896,
+      "benchmark_max_drawdown_pct": -42.78919363817286,
+      "cvar5_pct": -4.693557339924082,
+      "benchmark_cvar5_pct": -5.295890505870354,
+      "worst_day_pct": -8.679167939957422,
+      "benchmark_worst_day_pct": -9.654277563095093,
+      "worst_5d_pct": -17.202080719504654,
+      "benchmark_worst_5d_pct": -17.688142982701493,
+      "turnover": 41.62303043776544,
+      "trade_days": 934,
+      "sum_session_fee_rates": 0.104057576094414
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "segment": "reused_diagnostic",
+      "cost_bps": 10.0,
+      "sessions": 934,
+      "return_pct": 331.1531303518778,
+      "benchmark_return_pct": 398.12302806808475,
+      "relative_wealth": 0.865555507489902,
+      "annualized_relative_return_pct": -3.820677393439345,
+      "max_drawdown_pct": -44.43418534161587,
+      "benchmark_max_drawdown_pct": -42.789193638172314,
+      "cvar5_pct": -4.562291998339842,
+      "benchmark_cvar5_pct": -5.295890505870354,
+      "worst_day_pct": -8.474180650761575,
+      "benchmark_worst_day_pct": -9.654277563095103,
+      "worst_5d_pct": -15.827849652336305,
+      "benchmark_worst_5d_pct": -17.688142982701457,
+      "turnover": 49.56957555273236,
+      "trade_days": 934,
+      "sum_session_fee_rates": 0.049569575552732
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "segment": "reused_diagnostic",
+      "cost_bps": 25.0,
+      "sessions": 934,
+      "return_pct": 300.2560052323667,
+      "benchmark_return_pct": 397.3777068290624,
+      "relative_wealth": 0.804732499540688,
+      "annualized_relative_return_pct": -5.692963280958715,
+      "max_drawdown_pct": -45.222956677138896,
+      "benchmark_max_drawdown_pct": -42.78919363817286,
+      "cvar5_pct": -4.569030798800212,
+      "benchmark_cvar5_pct": -5.295890505870354,
+      "worst_day_pct": -8.477289562017543,
+      "benchmark_worst_day_pct": -9.654277563095093,
+      "worst_5d_pct": -15.859653594355528,
+      "benchmark_worst_5d_pct": -17.688142982701493,
+      "turnover": 49.56674582628967,
+      "trade_days": 934,
+      "sum_session_fee_rates": 0.123916864565724
+    }
+  ],
+  "annual_development": [
+    {
+      "variant": "constant",
+      "cost_bps": 10.0,
+      "year": 2016,
+      "relative_return_pct": -1.233e-12,
+      "log_excess_sum": -1.2e-14,
+      "return_pct": 40.25270995921848,
+      "benchmark_return_pct": 40.252709959220205,
+      "max_drawdown_pct": -15.595265513971734,
+      "benchmark_max_drawdown_pct": -15.59526551397159,
+      "cvar5_pct": -3.23247869093037,
+      "benchmark_cvar5_pct": -3.232478690930361
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 10.0,
+      "year": 2017,
+      "relative_return_pct": -1.109e-12,
+      "log_excess_sum": -1.1e-14,
+      "return_pct": 43.182924706851246,
+      "benchmark_return_pct": 43.18292470685284,
+      "max_drawdown_pct": -10.576059182418444,
+      "benchmark_max_drawdown_pct": -10.576059182418364,
+      "cvar5_pct": -2.925840008306313,
+      "benchmark_cvar5_pct": -2.925840008306314
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 10.0,
+      "year": 2018,
+      "relative_return_pct": -1.355e-12,
+      "log_excess_sum": -1.4e-14,
+      "return_pct": -10.945387792111582,
+      "benchmark_return_pct": -10.945387792110374,
+      "max_drawdown_pct": -24.47759743903795,
+      "benchmark_max_drawdown_pct": -24.477597439037122,
+      "cvar5_pct": -4.210291393249633,
+      "benchmark_cvar5_pct": -4.210291393249633
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 10.0,
+      "year": 2019,
+      "relative_return_pct": -9.6e-13,
+      "log_excess_sum": -1e-14,
+      "return_pct": 65.96175784885314,
+      "benchmark_return_pct": 65.96175784885475,
+      "max_drawdown_pct": -18.323507342983415,
+      "benchmark_max_drawdown_pct": -18.323507342983287,
+      "cvar5_pct": -3.063676849244133,
+      "benchmark_cvar5_pct": -3.063676849244135
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 10.0,
+      "year": 2020,
+      "relative_return_pct": -1.06e-13,
+      "log_excess_sum": -1e-15,
+      "return_pct": 51.213685781076556,
+      "benchmark_return_pct": 51.213685781076734,
+      "max_drawdown_pct": -35.17952219847506,
+      "benchmark_max_drawdown_pct": -35.17952219847503,
+      "cvar5_pct": -5.694322977141429,
+      "benchmark_cvar5_pct": -5.694322977141431
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 10.0,
+      "year": 2021,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": 48.35062655677432,
+      "benchmark_return_pct": 48.35062655677432,
+      "max_drawdown_pct": -12.884273104479046,
+      "benchmark_max_drawdown_pct": -12.884273104479046,
+      "cvar5_pct": -4.148610243721613,
+      "benchmark_cvar5_pct": -4.148610243721613
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 10.0,
+      "year": 2022,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": -36.055293287294425,
+      "benchmark_return_pct": -36.055293287294425,
+      "max_drawdown_pct": -47.138345029337394,
+      "benchmark_max_drawdown_pct": -47.138345029337394,
+      "cvar5_pct": -5.323326753905095,
+      "benchmark_cvar5_pct": -5.323326753905095
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 25.0,
+      "year": 2016,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": 40.04285553035181,
+      "benchmark_return_pct": 40.04285553035181,
+      "max_drawdown_pct": -15.72155688726754,
+      "benchmark_max_drawdown_pct": -15.72155688726754,
+      "cvar5_pct": -3.243955217998743,
+      "benchmark_cvar5_pct": -3.243955217998743
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 25.0,
+      "year": 2017,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": 43.182924706851246,
+      "benchmark_return_pct": 43.182924706851246,
+      "max_drawdown_pct": -10.576059182418444,
+      "benchmark_max_drawdown_pct": -10.576059182418444,
+      "cvar5_pct": -2.925840008306313,
+      "benchmark_cvar5_pct": -2.925840008306313
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 25.0,
+      "year": 2018,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": -10.945387792111582,
+      "benchmark_return_pct": -10.945387792111582,
+      "max_drawdown_pct": -24.47759743903795,
+      "benchmark_max_drawdown_pct": -24.47759743903795,
+      "cvar5_pct": -4.210291393249633,
+      "benchmark_cvar5_pct": -4.210291393249633
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 25.0,
+      "year": 2019,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": 65.96175784885314,
+      "benchmark_return_pct": 65.96175784885314,
+      "max_drawdown_pct": -18.323507342983415,
+      "benchmark_max_drawdown_pct": -18.323507342983415,
+      "cvar5_pct": -3.063676849244133,
+      "benchmark_cvar5_pct": -3.063676849244133
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 25.0,
+      "year": 2020,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": 51.213685781076556,
+      "benchmark_return_pct": 51.213685781076556,
+      "max_drawdown_pct": -35.17952219847506,
+      "benchmark_max_drawdown_pct": -35.17952219847506,
+      "cvar5_pct": -5.694322977141429,
+      "benchmark_cvar5_pct": -5.694322977141429
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 25.0,
+      "year": 2021,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": 48.35062655677432,
+      "benchmark_return_pct": 48.35062655677432,
+      "max_drawdown_pct": -12.884273104479046,
+      "benchmark_max_drawdown_pct": -12.884273104479046,
+      "cvar5_pct": -4.148610243721613,
+      "benchmark_cvar5_pct": -4.148610243721613
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 25.0,
+      "year": 2022,
+      "relative_return_pct": 0.0,
+      "log_excess_sum": 0.0,
+      "return_pct": -36.055293287294425,
+      "benchmark_return_pct": -36.055293287294425,
+      "max_drawdown_pct": -47.138345029337394,
+      "benchmark_max_drawdown_pct": -47.138345029337394,
+      "cvar5_pct": -5.323326753905095,
+      "benchmark_cvar5_pct": -5.323326753905095
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "year": 2016,
+      "relative_return_pct": 7.42359831182044,
+      "log_excess_sum": 0.071609695524731,
+      "return_pct": 50.66450776803531,
+      "benchmark_return_pct": 40.252709959220205,
+      "max_drawdown_pct": -14.739203882585237,
+      "benchmark_max_drawdown_pct": -15.59526551397159,
+      "cvar5_pct": -3.431386979841432,
+      "benchmark_cvar5_pct": -3.232478690930361
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "year": 2017,
+      "relative_return_pct": -0.053088947565085,
+      "log_excess_sum": -0.000531030447364,
+      "return_pct": 43.10691039903304,
+      "benchmark_return_pct": 43.18292470685284,
+      "max_drawdown_pct": -13.086553721129967,
+      "benchmark_max_drawdown_pct": -10.576059182418364,
+      "cvar5_pct": -3.254386788116925,
+      "benchmark_cvar5_pct": -2.925840008306314
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "year": 2018,
+      "relative_return_pct": -0.170860354514696,
+      "log_excess_sum": -0.001710064872975,
+      "return_pct": -11.097546818240463,
+      "benchmark_return_pct": -10.945387792110374,
+      "max_drawdown_pct": -24.770658967864293,
+      "benchmark_max_drawdown_pct": -24.477597439037122,
+      "cvar5_pct": -4.182750827543965,
+      "benchmark_cvar5_pct": -4.210291393249633
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "year": 2019,
+      "relative_return_pct": -0.765556921050718,
+      "log_excess_sum": -0.007685023503022,
+      "return_pct": 64.6912261253454,
+      "benchmark_return_pct": 65.96175784885475,
+      "max_drawdown_pct": -17.78704143410429,
+      "benchmark_max_drawdown_pct": -18.323507342983287,
+      "cvar5_pct": -2.861034945245294,
+      "benchmark_cvar5_pct": -3.063676849244135
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "year": 2020,
+      "relative_return_pct": -0.909611915644817,
+      "log_excess_sum": -0.009137741441401,
+      "return_pct": 49.83822807712631,
+      "benchmark_return_pct": 51.213685781076734,
+      "max_drawdown_pct": -36.60063837013783,
+      "benchmark_max_drawdown_pct": -35.17952219847503,
+      "cvar5_pct": -5.648697329409793,
+      "benchmark_cvar5_pct": -5.694322977141431
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "year": 2021,
+      "relative_return_pct": -1.928734591082088,
+      "log_excess_sum": -0.019475773547724,
+      "return_pct": 45.48933670628679,
+      "benchmark_return_pct": 48.35062655677432,
+      "max_drawdown_pct": -13.67256147044324,
+      "benchmark_max_drawdown_pct": -12.884273104479046,
+      "cvar5_pct": -4.064481995312606,
+      "benchmark_cvar5_pct": -4.148610243721613
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10.0,
+      "year": 2022,
+      "relative_return_pct": 6.012942286385433,
+      "log_excess_sum": 0.058390997712111,
+      "return_pct": -32.210334977461,
+      "benchmark_return_pct": -36.055293287294425,
+      "max_drawdown_pct": -45.41880668568828,
+      "benchmark_max_drawdown_pct": -47.138345029337394,
+      "cvar5_pct": -5.103423070426065,
+      "benchmark_cvar5_pct": -5.323326753905095
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "year": 2016,
+      "relative_return_pct": 6.342224442998974,
+      "log_excess_sum": 0.061492240084468,
+      "return_pct": 48.92468774447154,
+      "benchmark_return_pct": 40.04285553035181,
+      "max_drawdown_pct": -14.946425578253672,
+      "benchmark_max_drawdown_pct": -15.72155688726754,
+      "cvar5_pct": -3.441774266457152,
+      "benchmark_cvar5_pct": -3.243955217998743
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "year": 2017,
+      "relative_return_pct": -0.801157186384778,
+      "log_excess_sum": -0.008043836950633,
+      "return_pct": 42.03580441588639,
+      "benchmark_return_pct": 43.182924706851246,
+      "max_drawdown_pct": -13.143096560238893,
+      "benchmark_max_drawdown_pct": -10.576059182418444,
+      "cvar5_pct": -3.25715431897749,
+      "benchmark_cvar5_pct": -2.925840008306313
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "year": 2018,
+      "relative_return_pct": -0.850260707812473,
+      "log_excess_sum": -0.008538960454008,
+      "return_pct": -11.702584168210029,
+      "benchmark_return_pct": -10.945387792111582,
+      "max_drawdown_pct": -25.191577257989017,
+      "benchmark_max_drawdown_pct": -24.47759743903795,
+      "cvar5_pct": -4.186969647686336,
+      "benchmark_cvar5_pct": -4.210291393249633
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "year": 2019,
+      "relative_return_pct": -1.625425282109017,
+      "log_excess_sum": -0.016387802330862,
+      "return_pct": 63.264173478145345,
+      "benchmark_return_pct": 65.96175784885314,
+      "max_drawdown_pct": -17.873886797367973,
+      "benchmark_max_drawdown_pct": -18.323507342983415,
+      "cvar5_pct": -2.864694941149043,
+      "benchmark_cvar5_pct": -3.063676849244133
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "year": 2020,
+      "relative_return_pct": -1.822443408978358,
+      "log_excess_sum": -0.018392544701671,
+      "return_pct": 48.45790193108607,
+      "benchmark_return_pct": 51.213685781076556,
+      "max_drawdown_pct": -36.702559107270424,
+      "benchmark_max_drawdown_pct": -35.17952219847506,
+      "cvar5_pct": -5.65386116645664,
+      "benchmark_cvar5_pct": -5.694322977141429
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "year": 2021,
+      "relative_return_pct": -3.954245934849027,
+      "log_excess_sum": -0.040345503214947,
+      "return_pct": 42.484477936830004,
+      "benchmark_return_pct": 48.35062655677432,
+      "max_drawdown_pct": -14.18930239419936,
+      "benchmark_max_drawdown_pct": -12.884273104479046,
+      "cvar5_pct": -4.069933275465928,
+      "benchmark_cvar5_pct": -4.148610243721613
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25.0,
+      "year": 2022,
+      "relative_return_pct": 4.21158846555868,
+      "log_excess_sum": 0.041253150828378,
+      "return_pct": -33.36220539504679,
+      "benchmark_return_pct": -36.055293287294425,
+      "max_drawdown_pct": -46.10208018877322,
+      "benchmark_max_drawdown_pct": -47.138345029337394,
+      "cvar5_pct": -5.109841940829229,
+      "benchmark_cvar5_pct": -5.323326753905095
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "year": 2016,
+      "relative_return_pct": 7.841764416398676,
+      "log_excess_sum": 0.075494822470088,
+      "return_pct": 51.250997061837175,
+      "benchmark_return_pct": 40.252709959220205,
+      "max_drawdown_pct": -15.052815535299125,
+      "benchmark_max_drawdown_pct": -15.59526551397159,
+      "cvar5_pct": -3.464627368042125,
+      "benchmark_cvar5_pct": -3.232478690930361
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "year": 2017,
+      "relative_return_pct": -0.221981468111112,
+      "log_excess_sum": -0.002222282121904,
+      "return_pct": 42.86508514850413,
+      "benchmark_return_pct": 43.18292470685284,
+      "max_drawdown_pct": -13.054186862912207,
+      "benchmark_max_drawdown_pct": -10.576059182418364,
+      "cvar5_pct": -3.246061573783975,
+      "benchmark_cvar5_pct": -2.925840008306314
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "year": 2018,
+      "relative_return_pct": 0.324845070509207,
+      "log_excess_sum": 0.003243185887686,
+      "return_pct": -10.656098274291955,
+      "benchmark_return_pct": -10.945387792110374,
+      "max_drawdown_pct": -24.95463894599984,
+      "benchmark_max_drawdown_pct": -24.477597439037122,
+      "cvar5_pct": -4.323410885890424,
+      "benchmark_cvar5_pct": -4.210291393249633
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "year": 2019,
+      "relative_return_pct": 0.962539198009612,
+      "log_excess_sum": 0.009579363023503,
+      "return_pct": 67.55920482185577,
+      "benchmark_return_pct": 65.96175784885475,
+      "max_drawdown_pct": -18.032702715991995,
+      "benchmark_max_drawdown_pct": -18.323507342983287,
+      "cvar5_pct": -2.897190683269214,
+      "benchmark_cvar5_pct": -3.063676849244135
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "year": 2020,
+      "relative_return_pct": -0.102405831360613,
+      "log_excess_sum": -0.001024583019571,
+      "return_pct": 51.05883414902156,
+      "benchmark_return_pct": 51.213685781076734,
+      "max_drawdown_pct": -37.36984320349219,
+      "benchmark_max_drawdown_pct": -35.17952219847503,
+      "cvar5_pct": -5.746521733865747,
+      "benchmark_cvar5_pct": -5.694322977141431
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "year": 2021,
+      "relative_return_pct": -1.510021063022672,
+      "log_excess_sum": -0.015215379666008,
+      "return_pct": 46.110500848640925,
+      "benchmark_return_pct": 48.35062655677432,
+      "max_drawdown_pct": -13.975433419224656,
+      "benchmark_max_drawdown_pct": -12.884273104479046,
+      "cvar5_pct": -4.153380451204622,
+      "benchmark_cvar5_pct": -4.148610243721613
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10.0,
+      "year": 2022,
+      "relative_return_pct": 5.108368719921769,
+      "log_excess_sum": 0.049821714984771,
+      "return_pct": -32.78876189153686,
+      "benchmark_return_pct": -36.055293287294425,
+      "max_drawdown_pct": -45.83741457949712,
+      "benchmark_max_drawdown_pct": -47.138345029337394,
+      "cvar5_pct": -5.139942555682826,
+      "benchmark_cvar5_pct": -5.323326753905095
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "year": 2016,
+      "relative_return_pct": 6.584613922520041,
+      "log_excess_sum": 0.063768980640847,
+      "return_pct": 49.26413689309799,
+      "benchmark_return_pct": 40.04285553035181,
+      "max_drawdown_pct": -15.278493803084158,
+      "benchmark_max_drawdown_pct": -15.72155688726754,
+      "cvar5_pct": -3.4774412323273,
+      "benchmark_cvar5_pct": -3.243955217998743
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "year": 2017,
+      "relative_return_pct": -1.014736141480445,
+      "log_excess_sum": -0.010199196846693,
+      "return_pct": 41.72999582142209,
+      "benchmark_return_pct": 43.182924706851246,
+      "max_drawdown_pct": -13.105198709333726,
+      "benchmark_max_drawdown_pct": -10.576059182418444,
+      "cvar5_pct": -3.249048244009742,
+      "benchmark_cvar5_pct": -2.925840008306313
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "year": 2018,
+      "relative_return_pct": -0.43507522481029,
+      "log_excess_sum": -0.004360244312417,
+      "return_pct": -11.332842346378984,
+      "benchmark_return_pct": -10.945387792111582,
+      "max_drawdown_pct": -25.41534241440565,
+      "benchmark_max_drawdown_pct": -24.47759743903795,
+      "cvar5_pct": -4.327816556632114,
+      "benchmark_cvar5_pct": -4.210291393249633
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "year": 2019,
+      "relative_return_pct": -0.067201013054982,
+      "log_excess_sum": -0.000672236030568,
+      "return_pct": 65.85022986629487,
+      "benchmark_return_pct": 65.96175784885314,
+      "max_drawdown_pct": -18.135372498209186,
+      "benchmark_max_drawdown_pct": -18.323507342983415,
+      "cvar5_pct": -2.901818513929836,
+      "benchmark_cvar5_pct": -3.063676849244133
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "year": 2020,
+      "relative_return_pct": -1.16906665618083,
+      "log_excess_sum": -0.011759539712394,
+      "return_pct": 49.445897001027944,
+      "benchmark_return_pct": 51.213685781076556,
+      "max_drawdown_pct": -37.479326919570426,
+      "benchmark_max_drawdown_pct": -35.17952219847506,
+      "cvar5_pct": -5.753030419655912,
+      "benchmark_cvar5_pct": -5.694322977141429
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "year": 2021,
+      "relative_return_pct": -3.618281276898307,
+      "log_excess_sum": -0.036853642157342,
+      "return_pct": 42.98288361190922,
+      "benchmark_return_pct": 48.35062655677432,
+      "max_drawdown_pct": -14.514991640357671,
+      "benchmark_max_drawdown_pct": -12.884273104479046,
+      "cvar5_pct": -4.15908338239875,
+      "benchmark_cvar5_pct": -4.148610243721613
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25.0,
+      "year": 2022,
+      "relative_return_pct": 3.292746772796212,
+      "log_excess_sum": 0.032396972500919,
+      "return_pct": -33.949756020637814,
+      "benchmark_return_pct": -36.055293287294425,
+      "max_drawdown_pct": -46.52777632280395,
+      "benchmark_max_drawdown_pct": -47.138345029337394,
+      "cvar5_pct": -5.146510880561834,
+      "benchmark_cvar5_pct": -5.323326753905095
+    }
+  ],
+  "gates": [
+    {
+      "cost_bps": 10.0,
+      "aggregate_positive_net_log_excess": false,
+      "minimum_positive_signal_years": false,
+      "median_annual_log_excess_positive": false,
+      "leave_any_one_year_out_log_excess_positive": false,
+      "anchored_max_drawdown_not_worse_than_soxx": true,
+      "cvar5_not_worse_than_soxx": true,
+      "minimum_positive_seeds_at_both_costs": false,
+      "stationary_block_20_lower_bound_positive": false,
+      "stationary_block_60_lower_bound_positive": false,
+      "all_pass": false,
+      "positive_years": 0,
+      "years": 7,
+      "positive_seeds_at_this_cost": 0,
+      "seeds_positive_at_both_costs": 0,
+      "seed_evidence_complete": true,
+      "largest_positive_year_share": null,
+      "minimum_leave_one_year_out_log_excess": -4.8e-14,
+      "zero_invalid_source_or_numerical_events": true,
+      "above_numerical_null": false,
+      "variant": "constant"
+    },
+    {
+      "cost_bps": 25.0,
+      "aggregate_positive_net_log_excess": false,
+      "minimum_positive_signal_years": false,
+      "median_annual_log_excess_positive": false,
+      "leave_any_one_year_out_log_excess_positive": false,
+      "anchored_max_drawdown_not_worse_than_soxx": true,
+      "cvar5_not_worse_than_soxx": true,
+      "minimum_positive_seeds_at_both_costs": false,
+      "stationary_block_20_lower_bound_positive": false,
+      "stationary_block_60_lower_bound_positive": false,
+      "all_pass": false,
+      "positive_years": 0,
+      "years": 7,
+      "positive_seeds_at_this_cost": 0,
+      "seeds_positive_at_both_costs": 0,
+      "seed_evidence_complete": true,
+      "largest_positive_year_share": null,
+      "minimum_leave_one_year_out_log_excess": 0.0,
+      "zero_invalid_source_or_numerical_events": true,
+      "above_numerical_null": false,
+      "variant": "constant"
+    },
+    {
+      "cost_bps": 10.0,
+      "aggregate_positive_net_log_excess": true,
+      "minimum_positive_signal_years": false,
+      "median_annual_log_excess_positive": false,
+      "leave_any_one_year_out_log_excess_positive": true,
+      "anchored_max_drawdown_not_worse_than_soxx": true,
+      "cvar5_not_worse_than_soxx": true,
+      "minimum_positive_seeds_at_both_costs": true,
+      "stationary_block_20_lower_bound_positive": false,
+      "stationary_block_60_lower_bound_positive": false,
+      "all_pass": false,
+      "positive_years": 2,
+      "years": 7,
+      "positive_seeds_at_this_cost": 3,
+      "seeds_positive_at_both_costs": 2,
+      "seed_evidence_complete": true,
+      "largest_positive_year_share": 0.550840874319562,
+      "minimum_leave_one_year_out_log_excess": 0.019851363899625,
+      "zero_invalid_source_or_numerical_events": true,
+      "above_numerical_null": true,
+      "variant": "price"
+    },
+    {
+      "cost_bps": 25.0,
+      "aggregate_positive_net_log_excess": true,
+      "minimum_positive_signal_years": false,
+      "median_annual_log_excess_positive": false,
+      "leave_any_one_year_out_log_excess_positive": false,
+      "anchored_max_drawdown_not_worse_than_soxx": true,
+      "cvar5_not_worse_than_soxx": true,
+      "minimum_positive_seeds_at_both_costs": true,
+      "stationary_block_20_lower_bound_positive": false,
+      "stationary_block_60_lower_bound_positive": false,
+      "all_pass": false,
+      "positive_years": 2,
+      "years": 7,
+      "positive_seeds_at_this_cost": 2,
+      "seeds_positive_at_both_costs": 2,
+      "seed_evidence_complete": true,
+      "largest_positive_year_share": 0.598491470402102,
+      "minimum_leave_one_year_out_log_excess": -0.050455496823745,
+      "zero_invalid_source_or_numerical_events": true,
+      "above_numerical_null": true,
+      "variant": "price"
+    },
+    {
+      "cost_bps": 10.0,
+      "aggregate_positive_net_log_excess": true,
+      "minimum_positive_signal_years": false,
+      "median_annual_log_excess_positive": true,
+      "leave_any_one_year_out_log_excess_positive": true,
+      "anchored_max_drawdown_not_worse_than_soxx": true,
+      "cvar5_not_worse_than_soxx": true,
+      "minimum_positive_seeds_at_both_costs": true,
+      "stationary_block_20_lower_bound_positive": false,
+      "stationary_block_60_lower_bound_positive": false,
+      "all_pass": false,
+      "positive_years": 4,
+      "years": 7,
+      "positive_seeds_at_this_cost": 3,
+      "seeds_positive_at_both_costs": 3,
+      "seed_evidence_complete": true,
+      "largest_positive_year_share": 0.546513115556867,
+      "minimum_leave_one_year_out_log_excess": 0.044182019088476,
+      "zero_invalid_source_or_numerical_events": true,
+      "above_numerical_null": true,
+      "variant": "price_vol"
+    },
+    {
+      "cost_bps": 25.0,
+      "aggregate_positive_net_log_excess": true,
+      "minimum_positive_signal_years": false,
+      "median_annual_log_excess_positive": false,
+      "leave_any_one_year_out_log_excess_positive": false,
+      "anchored_max_drawdown_not_worse_than_soxx": true,
+      "cvar5_not_worse_than_soxx": true,
+      "minimum_positive_seeds_at_both_costs": true,
+      "stationary_block_20_lower_bound_positive": false,
+      "stationary_block_60_lower_bound_positive": false,
+      "all_pass": false,
+      "positive_years": 2,
+      "years": 7,
+      "positive_seeds_at_this_cost": 3,
+      "seeds_positive_at_both_costs": 3,
+      "seed_evidence_complete": true,
+      "largest_positive_year_share": 0.66311390421972,
+      "minimum_leave_one_year_out_log_excess": -0.031447886558496,
+      "zero_invalid_source_or_numerical_events": true,
+      "above_numerical_null": true,
+      "variant": "price_vol"
+    }
+  ],
+  "attribution_full": [
+    {
+      "variant": "constant",
+      "cost_bps": 10,
+      "signal_year": "all",
+      "realized_beta": 0.999999999999998,
+      "annualized_arithmetic_alpha": -6e-15,
+      "alpha95_lower": -8e-15,
+      "alpha95_upper": -5e-15,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "constant",
+      "cost_bps": 25,
+      "signal_year": "all",
+      "realized_beta": 1.0,
+      "annualized_arithmetic_alpha": 8.33139703836506e-17,
+      "alpha95_lower": 7.79391260015857e-17,
+      "alpha95_upper": 8.86888147657154e-17,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "price",
+      "cost_bps": 10,
+      "signal_year": "all",
+      "realized_beta": 0.98855922318795,
+      "annualized_arithmetic_alpha": 0.015585226489976,
+      "alpha95_lower": -0.01236884218104,
+      "alpha95_upper": 0.043539295160992,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "price",
+      "cost_bps": 25,
+      "signal_year": "all",
+      "realized_beta": 0.988477752521255,
+      "annualized_arithmetic_alpha": 0.004087382868519,
+      "alpha95_lower": -0.023752330221886,
+      "alpha95_upper": 0.031927095958924,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 10,
+      "signal_year": "all",
+      "realized_beta": 1.004056333418494,
+      "annualized_arithmetic_alpha": 0.017199016437384,
+      "alpha95_lower": -0.012233513564372,
+      "alpha95_upper": 0.046631546439141,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": 25,
+      "signal_year": "all",
+      "realized_beta": 1.003972031793791,
+      "annualized_arithmetic_alpha": 0.004712873167913,
+      "alpha95_lower": -0.024621297750289,
+      "alpha95_upper": 0.034047044086115,
+      "hac_lags": 20,
+      "hac_kernel": "Bartlett",
+      "small_sample_correction": "N/(N-2)",
+      "interval": "normal95percent",
+      "sessions": 1762,
+      "scope": "linear association with benchmark net returns, not causal or selection-adjusted proof",
+      "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.stats.sandwich_covariance.cov_hac.html"
+    }
+  ],
+  "seed_metrics": [
+    {
+      "variant": "constant",
+      "seed": 17,
+      "cost_bps": 10,
+      "relative_wealth": 0.999999999999952,
+      "max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.416437225150679
+    },
+    {
+      "variant": "constant",
+      "seed": 41,
+      "cost_bps": 10,
+      "relative_wealth": 0.999999999999952,
+      "max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.416437225150679
+    },
+    {
+      "variant": "constant",
+      "seed": 71,
+      "cost_bps": 10,
+      "relative_wealth": 0.999999999999952,
+      "max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.416437225150679
+    },
+    {
+      "variant": "constant",
+      "seed": 17,
+      "cost_bps": 25,
+      "relative_wealth": 1.0,
+      "max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.41807858997544
+    },
+    {
+      "variant": "constant",
+      "seed": 41,
+      "cost_bps": 25,
+      "relative_wealth": 1.0,
+      "max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.41807858997544
+    },
+    {
+      "variant": "constant",
+      "seed": 71,
+      "cost_bps": 25,
+      "relative_wealth": 1.0,
+      "max_drawdown_pct": -47.373291177718016,
+      "cvar5_pct": -4.41807858997544
+    },
+    {
+      "variant": "price",
+      "seed": 17,
+      "cost_bps": 10,
+      "relative_wealth": 1.133621841810999,
+      "max_drawdown_pct": -44.59517916093034,
+      "cvar5_pct": -4.314561788973355
+    },
+    {
+      "variant": "price",
+      "seed": 41,
+      "cost_bps": 10,
+      "relative_wealth": 1.091046298275249,
+      "max_drawdown_pct": -45.141434519928865,
+      "cvar5_pct": -4.32359356248359
+    },
+    {
+      "variant": "price",
+      "seed": 71,
+      "cost_bps": 10,
+      "relative_wealth": 1.058427315458315,
+      "max_drawdown_pct": -46.622415647040626,
+      "cvar5_pct": -4.392904747508943
+    },
+    {
+      "variant": "price",
+      "seed": 17,
+      "cost_bps": 25,
+      "relative_wealth": 1.029959016890066,
+      "max_drawdown_pct": -45.477998871286985,
+      "cvar5_pct": -4.321188567676102
+    },
+    {
+      "variant": "price",
+      "seed": 41,
+      "cost_bps": 25,
+      "relative_wealth": 1.01218544744638,
+      "max_drawdown_pct": -45.91574065003644,
+      "cvar5_pct": -4.328955698853823
+    },
+    {
+      "variant": "price",
+      "seed": 71,
+      "cost_bps": 25,
+      "relative_wealth": 0.976832831899222,
+      "max_drawdown_pct": -47.163597074278385,
+      "cvar5_pct": -4.39794770858658
+    },
+    {
+      "variant": "price_vol",
+      "seed": 17,
+      "cost_bps": 10,
+      "relative_wealth": 1.176686718054516,
+      "max_drawdown_pct": -44.97934854419797,
+      "cvar5_pct": -4.381555815598852
+    },
+    {
+      "variant": "price_vol",
+      "seed": 41,
+      "cost_bps": 10,
+      "relative_wealth": 1.089394556128666,
+      "max_drawdown_pct": -45.363970691976654,
+      "cvar5_pct": -4.346675038035246
+    },
+    {
+      "variant": "price_vol",
+      "seed": 71,
+      "cost_bps": 10,
+      "relative_wealth": 1.109358810243576,
+      "max_drawdown_pct": -47.26379916237453,
+      "cvar5_pct": -4.481529565990033
+    },
+    {
+      "variant": "price_vol",
+      "seed": 17,
+      "cost_bps": 25,
+      "relative_wealth": 1.062646910690717,
+      "max_drawdown_pct": -45.9389018504278,
+      "cvar5_pct": -4.388376138884845
+    },
+    {
+      "variant": "price_vol",
+      "seed": 41,
+      "cost_bps": 25,
+      "relative_wealth": 1.007020730881202,
+      "max_drawdown_pct": -46.10347447550044,
+      "cvar5_pct": -4.352277796690847
+    },
+    {
+      "variant": "price_vol",
+      "seed": 71,
+      "cost_bps": 25,
+      "relative_wealth": 1.012348707130094,
+      "max_drawdown_pct": -47.7791186504953,
+      "cvar5_pct": -4.487311552614686
+    }
+  ],
+  "exposures": [
+    {
+      "variant": "constant",
+      "cost_bps": "10",
+      "avg_soxl": 0.0,
+      "avg_soxx": 1.0,
+      "avg_cash": -8.253879769248813e-20,
+      "turnover_per_year": 0.14287641983442215,
+      "all_trades": 1,
+      "anchor_sessions": 1762,
+      "first_trade": "2016-01-05T00:00:00",
+      "last_exit": "2023-01-04T00:00:00"
+    },
+    {
+      "variant": "constant",
+      "cost_bps": "25",
+      "avg_soxl": 0.0,
+      "avg_soxx": 1.0,
+      "avg_cash": -2.541475728159409e-20,
+      "turnover_per_year": 0.14266263965511874,
+      "all_trades": 1,
+      "anchor_sessions": 1762,
+      "first_trade": "2016-01-05T00:00:00",
+      "last_exit": "2023-01-04T00:00:00"
+    },
+    {
+      "variant": "price",
+      "cost_bps": "10",
+      "avg_soxl": 0.1269322601871677,
+      "avg_soxx": 0.6162386990816122,
+      "avg_cash": 0.25682904073122015,
+      "turnover_per_year": 7.810982780866488,
+      "all_trades": 1762,
+      "anchor_sessions": 0,
+      "first_trade": "2016-01-05T00:00:00",
+      "last_exit": "2023-01-04T00:00:00"
+    },
+    {
+      "variant": "price",
+      "cost_bps": "25",
+      "avg_soxl": 0.1269322601871677,
+      "avg_soxx": 0.6162386990816122,
+      "avg_cash": 0.25682904073122015,
+      "turnover_per_year": 7.810442419077519,
+      "all_trades": 1762,
+      "anchor_sessions": 0,
+      "first_trade": "2016-01-05T00:00:00",
+      "last_exit": "2023-01-04T00:00:00"
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": "10",
+      "avg_soxl": 0.13567458310012204,
+      "avg_soxx": 0.6022706606364313,
+      "avg_cash": 0.2620547562634467,
+      "turnover_per_year": 8.471801633645057,
+      "all_trades": 1762,
+      "anchor_sessions": 0,
+      "first_trade": "2016-01-05T00:00:00",
+      "last_exit": "2023-01-04T00:00:00"
+    },
+    {
+      "variant": "price_vol",
+      "cost_bps": "25",
+      "avg_soxl": 0.135674583100122,
+      "avg_soxx": 0.6022706606364312,
+      "avg_cash": 0.2620547562634467,
+      "turnover_per_year": 8.471236273707564,
+      "all_trades": 1762,
+      "anchor_sessions": 0,
+      "first_trade": "2016-01-05T00:00:00",
+      "last_exit": "2023-01-04T00:00:00"
+    }
+  ],
+  "training_summary": [
+    {
+      "variant": "constant",
+      "seed_fits": 21,
+      "null_selected": 21,
+      "failure_count": 0,
+      "training_feasibility_all": true,
+      "F_min": 0.0,
+      "F_max": 0.0,
+      "legacy_J_negative": 0,
+      "selected_epoch_min": null,
+      "selected_epoch_max": null
+    },
+    {
+      "variant": "price",
+      "seed_fits": 21,
+      "null_selected": 0,
+      "failure_count": 0,
+      "training_feasibility_all": true,
+      "F_min": 0.0006983384537166678,
+      "F_max": 0.01397652739803507,
+      "legacy_J_negative": 12,
+      "selected_epoch_min": 79.0,
+      "selected_epoch_max": 120.0
+    },
+    {
+      "variant": "price_vol",
+      "seed_fits": 21,
+      "null_selected": 0,
+      "failure_count": 0,
+      "training_feasibility_all": true,
+      "F_min": 0.0012463778160603043,
+      "F_max": 0.01586574227860472,
+      "legacy_J_negative": 8,
+      "selected_epoch_min": 79.0,
+      "selected_epoch_max": 120.0
+    }
+  ],
+  "training_development": [
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "89f4adc93f89fd40ceca821cb1e264a19a7db124efb485bfe7f5ac50c5cd97d1",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2016/17/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "89f4adc93f89fd40ceca821cb1e264a19a7db124efb485bfe7f5ac50c5cd97d1",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2016/41/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "89f4adc93f89fd40ceca821cb1e264a19a7db124efb485bfe7f5ac50c5cd97d1",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2016/71/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 17,
+      "selected_epoch": 117,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.013042935103329,
+      "centered_utility_by_cost": {
+        "10": 0.015333267770516,
+        "25": 0.013042935103329
+      },
+      "legacy_J": 0.007991993805909,
+      "null_selected": false,
+      "training_feature_sha256": "a0840cb74e8c63eeeebc8095c4655f1f9d1ef76c285b69b4a0b2acdefa6bc1ff",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.001505891173397,
+          0.0,
+          0.001724313777719
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2016/17/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 71,
+      "selected_epoch": 120,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.013976527398035,
+      "centered_utility_by_cost": {
+        "10": 0.016569375025081,
+        "25": 0.013976527398035
+      },
+      "legacy_J": 0.008492255763783,
+      "null_selected": false,
+      "training_feature_sha256": "a0840cb74e8c63eeeebc8095c4655f1f9d1ef76c285b69b4a0b2acdefa6bc1ff",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          2.2464567424e-05
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2016/71/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 41,
+      "selected_epoch": 116,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.013573297582644,
+      "centered_utility_by_cost": {
+        "10": 0.016451554839201,
+        "25": 0.013573297582644
+      },
+      "legacy_J": 0.00830956034288,
+      "null_selected": false,
+      "training_feature_sha256": "a0840cb74e8c63eeeebc8095c4655f1f9d1ef76c285b69b4a0b2acdefa6bc1ff",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.000471782595666,
+          0.0,
+          0.000489649433655
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2016/41/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 17,
+      "selected_epoch": 120,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.01351371594415,
+      "centered_utility_by_cost": {
+        "10": 0.016234470461564,
+        "25": 0.01351371594415
+      },
+      "legacy_J": 0.007194496875094,
+      "null_selected": false,
+      "training_feature_sha256": "1caa55ededf9ad39c6560144611f503d7284267371c1afd36b8ae8ac573b641d",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2016/17/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 41,
+      "selected_epoch": 119,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.014328551676922,
+      "centered_utility_by_cost": {
+        "10": 0.017515155504767,
+        "25": 0.014328551676922
+      },
+      "legacy_J": 0.009279296651663,
+      "null_selected": false,
+      "training_feature_sha256": "1caa55ededf9ad39c6560144611f503d7284267371c1afd36b8ae8ac573b641d",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          1.600650234e-05,
+          0.0,
+          2.0898998238e-05
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2016/41/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 71,
+      "selected_epoch": 120,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.012328911027728,
+      "centered_utility_by_cost": {
+        "10": 0.015253739419967,
+        "25": 0.012328911027728
+      },
+      "legacy_J": 0.005154974013707,
+      "null_selected": false,
+      "training_feature_sha256": "1caa55ededf9ad39c6560144611f503d7284267371c1afd36b8ae8ac573b641d",
+      "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2016/71/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "e83da761483beec53b5a4a2dd94d13aa23e8ed296b03944fdf5ecd2ec8d19e7c",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.002076851370031,
+          0.004161112347542,
+          0.002590083459655,
+          0.004205211782864
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2017/17/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "e83da761483beec53b5a4a2dd94d13aa23e8ed296b03944fdf5ecd2ec8d19e7c",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.002076851370031,
+          0.004161112347542,
+          0.002590083459655,
+          0.004205211782864
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2017/41/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "e83da761483beec53b5a4a2dd94d13aa23e8ed296b03944fdf5ecd2ec8d19e7c",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.002076851370031,
+          0.004161112347542,
+          0.002590083459655,
+          0.004205211782864
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2017/71/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 17,
+      "selected_epoch": 102,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.011410231647016,
+      "centered_utility_by_cost": {
+        "10": 0.014197594962844,
+        "25": 0.011410231647016
+      },
+      "legacy_J": 0.005486512275191,
+      "null_selected": false,
+      "training_feature_sha256": "1efaacad66f79e094d8e9b1bd8c068f6cda7ceaac8a36b5e9116abd654075a88",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.001954191058222,
+          0.012928795450834,
+          0.003622788329496,
+          0.01312149755379
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2017/17/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 41,
+      "selected_epoch": 102,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.004393100115818,
+      "centered_utility_by_cost": {
+        "10": 0.005949352940581,
+        "25": 0.004393100115818
+      },
+      "legacy_J": 0.001835901721357,
+      "null_selected": false,
+      "training_feature_sha256": "1efaacad66f79e094d8e9b1bd8c068f6cda7ceaac8a36b5e9116abd654075a88",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.002198290671323,
+          0.008774666102592,
+          0.00359649232712,
+          0.008889324040241
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2017/41/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 71,
+      "selected_epoch": 105,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.005187533216949,
+      "centered_utility_by_cost": {
+        "10": 0.006994146674123,
+        "25": 0.005187533216949
+      },
+      "legacy_J": 0.002349324789368,
+      "null_selected": false,
+      "training_feature_sha256": "1efaacad66f79e094d8e9b1bd8c068f6cda7ceaac8a36b5e9116abd654075a88",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.005845885651126,
+          0.013829208654992,
+          0.007213040067035,
+          0.013961491330966
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2017/71/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 41,
+      "selected_epoch": 103,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.004116118722464,
+      "centered_utility_by_cost": {
+        "10": 0.005889080417338,
+        "25": 0.004116118722464
+      },
+      "legacy_J": 0.001522640736627,
+      "null_selected": false,
+      "training_feature_sha256": "92027d9f92477317983f8721226beb48f28a149cafe8da1eeb924114dc4e51e4",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.000894350756179,
+          0.009876865057357,
+          0.002323194813594,
+          0.009999535593362
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2017/41/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 17,
+      "selected_epoch": 103,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.012486251840842,
+      "centered_utility_by_cost": {
+        "10": 0.015409868760223,
+        "25": 0.012486251840842
+      },
+      "legacy_J": 0.006912178833547,
+      "null_selected": false,
+      "training_feature_sha256": "92027d9f92477317983f8721226beb48f28a149cafe8da1eeb924114dc4e51e4",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.002636174547136,
+          0.015091061371957,
+          0.00416232123821,
+          0.015296935069166
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2017/17/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 71,
+      "selected_epoch": 106,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.008818347791653,
+      "centered_utility_by_cost": {
+        "10": 0.011118067248261,
+        "25": 0.008818347791653
+      },
+      "legacy_J": 0.005509065304309,
+      "null_selected": false,
+      "training_feature_sha256": "92027d9f92477317983f8721226beb48f28a149cafe8da1eeb924114dc4e51e4",
+      "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.005569423242608,
+          0.017481351688898,
+          0.007030768305185,
+          0.017644386086468
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2017/71/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "8a866b982d03a8546025f6abecc58526685b5ce452da865aca4f2e73c9ced638",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.019197797293084,
+          0.022752396995345,
+          0.019717465369625,
+          0.022795822139813
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2018/17/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "8a866b982d03a8546025f6abecc58526685b5ce452da865aca4f2e73c9ced638",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.019197797293084,
+          0.022752396995345,
+          0.019717465369625,
+          0.022795822139813
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2018/41/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "8a866b982d03a8546025f6abecc58526685b5ce452da865aca4f2e73c9ced638",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.019197797293084,
+          0.022752396995345,
+          0.019717465369625,
+          0.022795822139813
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2018/71/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 17,
+      "selected_epoch": 109,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.003693921469599,
+      "centered_utility_by_cost": {
+        "10": 0.005502096184957,
+        "25": 0.003693921469599
+      },
+      "legacy_J": -0.000470061628707,
+      "null_selected": false,
+      "training_feature_sha256": "72a59463e61545498635dd6339e5c228eec09cb454c7d31734c8d11a70738167",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.013230985783522,
+          0.023288925149936,
+          0.014291648882246,
+          0.023405718832784
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2018/17/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 41,
+      "selected_epoch": 112,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.000698338453717,
+      "centered_utility_by_cost": {
+        "10": 0.001915540004344,
+        "25": 0.000698338453717
+      },
+      "legacy_J": -0.001635434409986,
+      "null_selected": false,
+      "training_feature_sha256": "72a59463e61545498635dd6339e5c228eec09cb454c7d31734c8d11a70738167",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.018509695302571,
+          0.025877027474929,
+          0.01952417134441,
+          0.025960892714485
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2018/41/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 71,
+      "selected_epoch": 111,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.002140045479182,
+      "centered_utility_by_cost": {
+        "10": 0.003405309992702,
+        "25": 0.002140045479182
+      },
+      "legacy_J": -0.000185665485425,
+      "null_selected": false,
+      "training_feature_sha256": "72a59463e61545498635dd6339e5c228eec09cb454c7d31734c8d11a70738167",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.017850873379254,
+          0.025269211780511,
+          0.018891047113072,
+          0.025361129040844
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2018/71/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 41,
+      "selected_epoch": 112,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.001287112722052,
+      "centered_utility_by_cost": {
+        "10": 0.002641614311424,
+        "25": 0.001287112722052
+      },
+      "legacy_J": -0.000885898075887,
+      "null_selected": false,
+      "training_feature_sha256": "d2112bbb68e5d095fc1240758dc94ba79a479fcedb4f9d640f42ec383e7190cc",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.017959784570971,
+          0.026624796495241,
+          0.019062624360534,
+          0.026713714853287
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2018/41/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 17,
+      "selected_epoch": 110,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.004847826851536,
+      "centered_utility_by_cost": {
+        "10": 0.006717818372166,
+        "25": 0.004847826851536
+      },
+      "legacy_J": 0.000725598239565,
+      "null_selected": false,
+      "training_feature_sha256": "d2112bbb68e5d095fc1240758dc94ba79a479fcedb4f9d640f42ec383e7190cc",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.013932460700708,
+          0.024673593878059,
+          0.014896992186782,
+          0.024794173997408
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2018/17/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 71,
+      "selected_epoch": 112,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0040153170689,
+      "centered_utility_by_cost": {
+        "10": 0.005630797689839,
+        "25": 0.0040153170689
+      },
+      "legacy_J": 0.001178216542831,
+      "null_selected": false,
+      "training_feature_sha256": "d2112bbb68e5d095fc1240758dc94ba79a479fcedb4f9d640f42ec383e7190cc",
+      "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.016414994154653,
+          0.027287302006591,
+          0.017463298937105,
+          0.027396823716866
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2018/71/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "a892c9d73fac9830e2fe808193fbf15cb9b7e7a17f2ec93391a9ea9d5bbf7621",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2019/17/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "a892c9d73fac9830e2fe808193fbf15cb9b7e7a17f2ec93391a9ea9d5bbf7621",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2019/41/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "a892c9d73fac9830e2fe808193fbf15cb9b7e7a17f2ec93391a9ea9d5bbf7621",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2019/71/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 17,
+      "selected_epoch": 98,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.006717641380577,
+      "centered_utility_by_cost": {
+        "10": 0.00945171768801,
+        "25": 0.006717641380577
+      },
+      "legacy_J": 0.001330145144439,
+      "null_selected": false,
+      "training_feature_sha256": "56310b778b733e449658f891b93fd6f6fe7bf675143b08b33b568f099facdaa5",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.005360029231346,
+          0.0,
+          0.005553899514795
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2019/17/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 41,
+      "selected_epoch": 100,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.001689157823583,
+      "centered_utility_by_cost": {
+        "10": 0.003253190603745,
+        "25": 0.001689157823583
+      },
+      "legacy_J": -0.001409418549389,
+      "null_selected": false,
+      "training_feature_sha256": "56310b778b733e449658f891b93fd6f6fe7bf675143b08b33b568f099facdaa5",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.003749859691029,
+          0.0,
+          0.003869488985744
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2019/41/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 71,
+      "selected_epoch": 100,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.00251610991242,
+      "centered_utility_by_cost": {
+        "10": 0.004108442851503,
+        "25": 0.00251610991242
+      },
+      "legacy_J": -0.000763480153027,
+      "null_selected": false,
+      "training_feature_sha256": "56310b778b733e449658f891b93fd6f6fe7bf675143b08b33b568f099facdaa5",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.004509730856279,
+          0.0,
+          0.004637055606659
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2019/71/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 17,
+      "selected_epoch": 99,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.00779504112765,
+      "centered_utility_by_cost": {
+        "10": 0.010679060637758,
+        "25": 0.00779504112765
+      },
+      "legacy_J": 0.002933987589961,
+      "null_selected": false,
+      "training_feature_sha256": "17092ea5f58a893af67a55e98396d5e85a6112cbde3856e53eaffa81c6e1a027",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.007361525411434,
+          0.0,
+          0.007561458420519
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2019/17/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 41,
+      "selected_epoch": 100,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.00237776776198,
+      "centered_utility_by_cost": {
+        "10": 0.004159097282975,
+        "25": 0.00237776776198
+      },
+      "legacy_J": -0.000694588854675,
+      "null_selected": false,
+      "training_feature_sha256": "17092ea5f58a893af67a55e98396d5e85a6112cbde3856e53eaffa81c6e1a027",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.005168533083785,
+          0.0,
+          0.005296800213208
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2019/41/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 71,
+      "selected_epoch": 101,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.004466465990282,
+      "centered_utility_by_cost": {
+        "10": 0.006531010199109,
+        "25": 0.004466465990282
+      },
+      "legacy_J": 0.001126564697126,
+      "null_selected": false,
+      "training_feature_sha256": "17092ea5f58a893af67a55e98396d5e85a6112cbde3856e53eaffa81c6e1a027",
+      "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.0,
+          0.007820838743376,
+          0.0,
+          0.007973210830093
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2019/71/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "4b2a41f108aab0968486879bb43b66b3b9a63ff316b4fec3abb86ea39cbf3ada",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.018102493719229,
+          0.021367264378619,
+          0.018612958345951,
+          0.021410485413086
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2020/17/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "4b2a41f108aab0968486879bb43b66b3b9a63ff316b4fec3abb86ea39cbf3ada",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.018102493719229,
+          0.021367264378619,
+          0.018612958345951,
+          0.021410485413086
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2020/41/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "4b2a41f108aab0968486879bb43b66b3b9a63ff316b4fec3abb86ea39cbf3ada",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.018102493719229,
+          0.021367264378619,
+          0.018612958345951,
+          0.021410485413086
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2020/71/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 17,
+      "selected_epoch": 110,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.002793957212987,
+      "centered_utility_by_cost": {
+        "10": 0.004940022344002,
+        "25": 0.002793957212987
+      },
+      "legacy_J": -0.002412746857806,
+      "null_selected": false,
+      "training_feature_sha256": "6df23c2871f824acb65b44ceb331c6850cafbea5522bc5b02f57bdfea193f9f9",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.015352648716802,
+          0.022567823740639,
+          0.016718035257915,
+          0.022701888955997
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2020/17/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 41,
+      "selected_epoch": 111,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.000987345098535,
+      "centered_utility_by_cost": {
+        "10": 0.002487741647462,
+        "25": 0.000987345098535
+      },
+      "legacy_J": -0.001925488644266,
+      "null_selected": false,
+      "training_feature_sha256": "6df23c2871f824acb65b44ceb331c6850cafbea5522bc5b02f57bdfea193f9f9",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.01924821221357,
+          0.023589205242957,
+          0.020276933169988,
+          0.023681601623382
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2020/41/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 71,
+      "selected_epoch": 111,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.001702279872535,
+      "centered_utility_by_cost": {
+        "10": 0.00337932769324,
+        "25": 0.001702279872535
+      },
+      "legacy_J": -0.001930871079517,
+      "null_selected": false,
+      "training_feature_sha256": "6df23c2871f824acb65b44ceb331c6850cafbea5522bc5b02f57bdfea193f9f9",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.018872070874887,
+          0.023949168823664,
+          0.020045258597265,
+          0.024061543722996
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2020/71/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 17,
+      "selected_epoch": 111,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.004481347926128,
+      "centered_utility_by_cost": {
+        "10": 0.00680055544135,
+        "25": 0.004481347926128
+      },
+      "legacy_J": -0.000724315025114,
+      "null_selected": false,
+      "training_feature_sha256": "2bd67f2b38a9342f39e1d752944d63c03b105b7a1e27d8c324cc52f4e82ba8eb",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.015651544919435,
+          0.024423417342222,
+          0.016910909108653,
+          0.024560870370763
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2020/17/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 41,
+      "selected_epoch": 112,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.00124637781606,
+      "centered_utility_by_cost": {
+        "10": 0.002962004141812,
+        "25": 0.00124637781606
+      },
+      "legacy_J": -0.002232344604845,
+      "null_selected": false,
+      "training_feature_sha256": "2bd67f2b38a9342f39e1d752944d63c03b105b7a1e27d8c324cc52f4e82ba8eb",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.019478555410611,
+          0.024726473024887,
+          0.020584959474524,
+          0.024824432075687
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2020/41/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 71,
+      "selected_epoch": 113,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.004181376916083,
+      "centered_utility_by_cost": {
+        "10": 0.006548045998869,
+        "25": 0.004181376916083
+      },
+      "legacy_J": -0.000198366017647,
+      "null_selected": false,
+      "training_feature_sha256": "2bd67f2b38a9342f39e1d752944d63c03b105b7a1e27d8c324cc52f4e82ba8eb",
+      "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.018132013790466,
+          0.027154785759875,
+          0.019621761450304,
+          0.027301234816519
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2020/71/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "5e3f4835b115f3e599657485b42a2f8712cfc2d302cdfda6346b23bcbddf2dfd",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.026174553438114,
+          0.025488244654575,
+          0.026319107535715,
+          0.025533052208131
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2021/17/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "5e3f4835b115f3e599657485b42a2f8712cfc2d302cdfda6346b23bcbddf2dfd",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.026174553438114,
+          0.025488244654575,
+          0.026319107535715,
+          0.025533052208131
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2021/41/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "5e3f4835b115f3e599657485b42a2f8712cfc2d302cdfda6346b23bcbddf2dfd",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.026174553438114,
+          0.025488244654575,
+          0.026319107535715,
+          0.025533052208131
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2021/71/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 17,
+      "selected_epoch": 115,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.011313156684942,
+      "centered_utility_by_cost": {
+        "10": 0.016059891495252,
+        "25": 0.011313156684942
+      },
+      "legacy_J": 0.002159731386775,
+      "null_selected": false,
+      "training_feature_sha256": "04570ec5baf7b6f629c477f7809a4417bbfec9d53bd7e69e8b57d2d38512e64c",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.015046980033551,
+          0.032943862701533,
+          0.017016302010566,
+          0.033193737127269
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2021/17/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 41,
+      "selected_epoch": 116,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.007704115393545,
+      "centered_utility_by_cost": {
+        "10": 0.011778739263067,
+        "25": 0.007704115393545
+      },
+      "legacy_J": -0.000100343494457,
+      "null_selected": false,
+      "training_feature_sha256": "04570ec5baf7b6f629c477f7809a4417bbfec9d53bd7e69e8b57d2d38512e64c",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.014889510755463,
+          0.032967399224151,
+          0.016318509996489,
+          0.033154761581891
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2021/41/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 71,
+      "selected_epoch": 119,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.013841922114127,
+      "centered_utility_by_cost": {
+        "10": 0.019693061271963,
+        "25": 0.013841922114127
+      },
+      "legacy_J": 0.003748832369705,
+      "null_selected": false,
+      "training_feature_sha256": "04570ec5baf7b6f629c477f7809a4417bbfec9d53bd7e69e8b57d2d38512e64c",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.015730291539803,
+          0.032825173031149,
+          0.017418845538662,
+          0.033078755831236
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2021/71/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 17,
+      "selected_epoch": 115,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.011876900853974,
+      "centered_utility_by_cost": {
+        "10": 0.01672203564325,
+        "25": 0.011876900853974
+      },
+      "legacy_J": 0.00260902371637,
+      "null_selected": false,
+      "training_feature_sha256": "5261cb1dfaf95bf33107f80171286ec0e1649a1243b72fcbc10776317c69680f",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.014400130609121,
+          0.033459029446903,
+          0.016292802245491,
+          0.033716754345524
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2021/17/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 41,
+      "selected_epoch": 116,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.00878536124126,
+      "centered_utility_by_cost": {
+        "10": 0.012902772796585,
+        "25": 0.00878536124126
+      },
+      "legacy_J": 0.001406588932719,
+      "null_selected": false,
+      "training_feature_sha256": "5261cb1dfaf95bf33107f80171286ec0e1649a1243b72fcbc10776317c69680f",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.014881997991964,
+          0.034735270570264,
+          0.016183218526037,
+          0.034928148362179
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2021/41/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 71,
+      "selected_epoch": 119,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.015865742278605,
+      "centered_utility_by_cost": {
+        "10": 0.021848633467378,
+        "25": 0.015865742278605
+      },
+      "legacy_J": 0.006418492521779,
+      "null_selected": false,
+      "training_feature_sha256": "5261cb1dfaf95bf33107f80171286ec0e1649a1243b72fcbc10776317c69680f",
+      "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.015047373910489,
+          0.033606333206721,
+          0.016384057197526,
+          0.033861826160495
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2021/71/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "81be646c4818c1422ce63d6da27840ab1fb6e3bebe18ddae7a341a642ed2c795",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.032084921227577,
+          0.031789769705399,
+          0.032230341931329,
+          0.031834198283593
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2022/17/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "81be646c4818c1422ce63d6da27840ab1fb6e3bebe18ddae7a341a642ed2c795",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.032084921227577,
+          0.031789769705399,
+          0.032230341931329,
+          0.031834198283593
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2022/41/training_audit.pkl"
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.0,
+      "centered_utility_by_cost": {
+        "10": 0.0,
+        "25": 0.0
+      },
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "training_feature_sha256": "81be646c4818c1422ce63d6da27840ab1fb6e3bebe18ddae7a341a642ed2c795",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.032084921227577,
+          0.031789769705399,
+          0.032230341931329,
+          0.031834198283593
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/constant/2022/71/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 17,
+      "selected_epoch": 120,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.006984868451172,
+      "centered_utility_by_cost": {
+        "10": 0.011033785752919,
+        "25": 0.006984868451172
+      },
+      "legacy_J": -0.002764803221141,
+      "null_selected": false,
+      "training_feature_sha256": "5274b1870f784cb163b0b41e29b83c2a4192822447fc491a704a1e37c980b31a",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.020940040816354,
+          0.037315696629166,
+          0.022257023639707,
+          0.037517060647067
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2022/17/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 41,
+      "selected_epoch": 119,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.006293487329702,
+      "centered_utility_by_cost": {
+        "10": 0.009858376682857,
+        "25": 0.006293487329702
+      },
+      "legacy_J": -0.001735655192966,
+      "null_selected": false,
+      "training_feature_sha256": "5274b1870f784cb163b0b41e29b83c2a4192822447fc491a704a1e37c980b31a",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.018843010610103,
+          0.036717288161615,
+          0.020105709924783,
+          0.036888535291751
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2022/41/training_audit.pkl"
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 71,
+      "selected_epoch": 79,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.00121879686457,
+      "centered_utility_by_cost": {
+        "10": 0.003523361768175,
+        "25": 0.00121879686457
+      },
+      "legacy_J": -0.002739592338947,
+      "null_selected": false,
+      "training_feature_sha256": "5274b1870f784cb163b0b41e29b83c2a4192822447fc491a704a1e37c980b31a",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.020352978784054,
+          0.035531597693217,
+          0.021450053649312,
+          0.035730686689389
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price/2022/71/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 17,
+      "selected_epoch": 120,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.007672731241638,
+      "centered_utility_by_cost": {
+        "10": 0.011914447099518,
+        "25": 0.007672731241638
+      },
+      "legacy_J": -0.002278732486559,
+      "null_selected": false,
+      "training_feature_sha256": "b7b14d6e2a3ec677669c40a051ee25b749edab4da5c8e668bc43bdce6b069f33",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.020296924089709,
+          0.037490425217939,
+          0.021566815778591,
+          0.037700060253479
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2022/17/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 41,
+      "selected_epoch": 120,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.006247083506757,
+      "centered_utility_by_cost": {
+        "10": 0.009639008144468,
+        "25": 0.006247083506757
+      },
+      "legacy_J": -0.001285376743995,
+      "null_selected": false,
+      "training_feature_sha256": "b7b14d6e2a3ec677669c40a051ee25b749edab4da5c8e668bc43bdce6b069f33",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.018994279813046,
+          0.039474610117901,
+          0.020084056418033,
+          0.03963956668925
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2022/41/training_audit.pkl"
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 71,
+      "selected_epoch": 79,
+      "failure": null,
+      "qualification_eligible": true,
+      "training_feasibility_passed": true,
+      "centered_worst_utility": 0.002310115836844,
+      "centered_utility_by_cost": {
+        "10": 0.004527339493606,
+        "25": 0.002310115836844
+      },
+      "legacy_J": -0.001249052848458,
+      "null_selected": false,
+      "training_feature_sha256": "b7b14d6e2a3ec677669c40a051ee25b749edab4da5c8e668bc43bdce6b069f33",
+      "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+      "optimizer_diagnostics": {
+        "updates_completed": 120,
+        "finite_post_update_audits_completed": 120,
+        "initial_theta_mass": 0.5,
+        "weight_decay": 0.0,
+        "lambda_initial": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_final": [
+          0.019860276685433,
+          0.036063425472366,
+          0.020886240638208,
+          0.036262232499892
+        ],
+        "maximum_forward_parity_error": 4.44089209850063e-16,
+        "incumbent_separate_from_optimizer_trajectory": true,
+        "per_epoch_daily_adjoints_saved": false,
+        "normalized_constraints_change_raw_feasibility": false,
+        "lagrangian_used_for_incumbent_ranking": false,
+        "legacy_J_used_for_acceptance_or_gradient": false
+      },
+      "recorder_artifact": "fit_checkpoints/price_vol/2022/71/training_audit.pkl"
+    }
+  ],
+  "ensemble_audits": [
+    {
+      "variant": "constant",
+      "year": 2016,
+      "failure": null,
+      "ensemble_F": 0.0,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": true,
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "failure": null,
+      "ensemble_F": 0.013613026767399,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.013613026767399,
+      "legacy_J": 0.008415998251317,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "failure": null,
+      "ensemble_F": 0.013466384914755,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.013466384914755,
+      "legacy_J": 0.007391231929937,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "failure": null,
+      "ensemble_F": 0.0,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": true,
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "failure": null,
+      "ensemble_F": 0.007018471039702,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.007018471039702,
+      "legacy_J": 0.003457954874309,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "failure": null,
+      "ensemble_F": 0.008510324664064,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.008510324664064,
+      "legacy_J": 0.004865490176309,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "failure": null,
+      "ensemble_F": 0.0,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": true,
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "failure": null,
+      "ensemble_F": 0.002289491833109,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.002289491833109,
+      "legacy_J": -0.000463652142949,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "failure": null,
+      "ensemble_F": 0.003504828075267,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.003504828075267,
+      "legacy_J": 0.00059249485753,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "failure": null,
+      "ensemble_F": 0.0,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": true,
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "failure": null,
+      "ensemble_F": 0.003699659552302,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.003699659552302,
+      "legacy_J": -6.3857865525e-05,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "failure": null,
+      "ensemble_F": 0.004952388699272,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.004952388699272,
+      "legacy_J": 0.001375782272793,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "failure": null,
+      "ensemble_F": 0.0,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": true,
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "failure": null,
+      "ensemble_F": 0.001962576724732,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.001962576724732,
+      "legacy_J": -0.001792528931178,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "failure": null,
+      "ensemble_F": 0.003440790594603,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.003440790594603,
+      "legacy_J": -0.000648790237591,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "failure": null,
+      "ensemble_F": 0.0,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": true,
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "failure": null,
+      "ensemble_F": 0.011124047813808,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.011124047813808,
+      "legacy_J": 0.002283944741924,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "failure": null,
+      "ensemble_F": 0.012332301028441,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.012332301028441,
+      "legacy_J": 0.003789959024241,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "failure": null,
+      "ensemble_F": 0.0,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": true,
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "failure": null,
+      "ensemble_F": 0.005273899905222,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.005273899905222,
+      "legacy_J": -0.001609845098142,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "failure": null,
+      "ensemble_F": 0.005814349142601,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.005814349142601,
+      "legacy_J": -0.000861912593253,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "failure": null,
+      "ensemble_F": 0.011134213662256,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.011134213662256,
+      "legacy_J": 0.000328349574676,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "failure": null,
+      "ensemble_F": 0.006237636639149,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.006237636639149,
+      "legacy_J": -0.002918374124052,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "failure": null,
+      "ensemble_F": 0.004615990230996,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.004615990230996,
+      "legacy_J": -0.003872693190158,
+      "training_feasibility_passed": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "failure": null,
+      "ensemble_F": 0.00621805616903,
+      "ensemble_feasible": true,
+      "ensemble_rejected_for_training_utility_or_risk": false,
+      "anchor_selected": false,
+      "F": 0.00621805616903,
+      "legacy_J": -0.003147679742331,
+      "training_feasibility_passed": true
+    }
+  ],
+  "window_metrics": [
+    {
+      "variant": "price_vol_annual_refit",
+      "cost_bps": 10,
+      "start_position": "carried from diagnostic2023start",
+      "sessions": 38,
+      "start_signal": "2026-07-31",
+      "last_exit": "2026-09-25",
+      "return_pct": 13.297336756654296,
+      "benchmark_return_pct": 15.843222959239936,
+      "relative_return_pct": -2.197699733787121,
+      "max_drawdown_pct": -9.88232302468059,
+      "benchmark_max_drawdown_pct": -10.983647845667138,
+      "turnover": 1.547351277303729,
+      "trade_days": 38
+    },
+    {
+      "variant": "price_vol_annual_refit",
+      "cost_bps": 10,
+      "start_position": "CASH at first window trade",
+      "sessions": 38,
+      "start_signal": "2026-07-31",
+      "last_exit": "2026-09-25",
+      "return_pct": 13.210319251837236,
+      "benchmark_return_pct": 15.727495463776386,
+      "relative_return_pct": -2.175089162563828,
+      "max_drawdown_pct": -9.88232302468059,
+      "benchmark_max_drawdown_pct": -10.983647845667036,
+      "turnover": 2.20534176654598,
+      "trade_days": 38
+    },
+    {
+      "variant": "price_vol_annual_refit",
+      "cost_bps": 25,
+      "start_position": "carried from diagnostic2023start",
+      "sessions": 38,
+      "start_signal": "2026-07-31",
+      "last_exit": "2026-09-25",
+      "return_pct": 13.034660942772227,
+      "benchmark_return_pct": 15.843222959239936,
+      "relative_return_pct": -2.424450861019219,
+      "max_drawdown_pct": -9.93129838679128,
+      "benchmark_max_drawdown_pct": -10.983647845667138,
+      "turnover": 1.547300615142644,
+      "trade_days": 38
+    },
+    {
+      "variant": "price_vol_annual_refit",
+      "cost_bps": 25,
+      "start_position": "CASH at first window trade",
+      "sessions": 38,
+      "start_signal": "2026-07-31",
+      "last_exit": "2026-09-25",
+      "return_pct": 12.836466384420248,
+      "benchmark_return_pct": 15.55433711644881,
+      "relative_return_pct": -2.352028318322359,
+      "max_drawdown_pct": -9.93129838679128,
+      "benchmark_max_drawdown_pct": -10.983647845667138,
+      "turnover": 2.204536741092237,
+      "trade_days": 38
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "cost_bps": 10,
+      "start_position": "carried from diagnostic2023start",
+      "sessions": 38,
+      "start_signal": "2026-07-31",
+      "last_exit": "2026-09-25",
+      "return_pct": 14.567773914535161,
+      "benchmark_return_pct": 15.843222959239936,
+      "relative_return_pct": -1.101013086586464,
+      "max_drawdown_pct": -8.856094283506994,
+      "benchmark_max_drawdown_pct": -10.983647845667138,
+      "turnover": 1.792797550651509,
+      "trade_days": 38
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "cost_bps": 10,
+      "start_position": "CASH at first window trade",
+      "sessions": 38,
+      "start_signal": "2026-07-31",
+      "last_exit": "2026-09-25",
+      "return_pct": 14.295539470193445,
+      "benchmark_return_pct": 15.727495463776386,
+      "relative_return_pct": -1.237351579971891,
+      "max_drawdown_pct": -8.856094283506986,
+      "benchmark_max_drawdown_pct": -10.983647845667036,
+      "turnover": 2.331645075035849,
+      "trade_days": 38
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "cost_bps": 25,
+      "start_position": "carried from diagnostic2023start",
+      "sessions": 38,
+      "start_signal": "2026-07-31",
+      "last_exit": "2026-09-25",
+      "return_pct": 14.260048566235032,
+      "benchmark_return_pct": 15.843222959239936,
+      "relative_return_pct": -1.366652577994959,
+      "max_drawdown_pct": -8.913522790650093,
+      "benchmark_max_drawdown_pct": -10.983647845667138,
+      "turnover": 1.792812230169758,
+      "trade_days": 38
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "cost_bps": 25,
+      "start_position": "CASH at first window trade",
+      "sessions": 38,
+      "start_signal": "2026-07-31",
+      "last_exit": "2026-09-25",
+      "return_pct": 13.89648811417882,
+      "benchmark_return_pct": 15.55433711644881,
+      "relative_return_pct": -1.43469214885401,
+      "max_drawdown_pct": -8.913522790650106,
+      "benchmark_max_drawdown_pct": -10.983647845667138,
+      "turnover": 2.331100168858836,
+      "trade_days": 38
+    }
+  ],
+  "window_dates": [
+    {
+      "variant": "price_vol_annual_refit",
+      "cost_bps": "10",
+      "first_signal": "2026-07-31T00:00:00",
+      "first_trade": "2026-08-03T00:00:00",
+      "last_exit": "2026-09-25T00:00:00",
+      "sessions": 38,
+      "first_carried_holdings": [
+        0.011452548389747796,
+        0.6499488106332849,
+        0.3385986409769674
+      ],
+      "first_target": [
+        0.043669500371493204,
+        0.7207036409416202,
+        0.23562685868688663
+      ]
+    },
+    {
+      "variant": "price_vol_annual_refit",
+      "cost_bps": "25",
+      "first_signal": "2026-07-31T00:00:00",
+      "first_trade": "2026-08-03T00:00:00",
+      "last_exit": "2026-09-25T00:00:00",
+      "sessions": 38,
+      "first_carried_holdings": [
+        0.011452548389747793,
+        0.6499488106332848,
+        0.33859864097696746
+      ],
+      "first_target": [
+        0.04366950037149321,
+        0.7207036409416203,
+        0.23562685868688643
+      ]
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "cost_bps": "10",
+      "first_signal": "2026-07-31T00:00:00",
+      "first_trade": "2026-08-03T00:00:00",
+      "last_exit": "2026-09-25T00:00:00",
+      "sessions": 38,
+      "first_carried_holdings": [
+        0.010324128551355515,
+        0.5770360262691234,
+        0.412639845179521
+      ],
+      "first_target": [
+        0.04317497693409415,
+        0.6234397976412496,
+        0.3333852254246562
+      ]
+    },
+    {
+      "variant": "price_vol_frozen2022_parameters",
+      "cost_bps": "25",
+      "first_signal": "2026-07-31T00:00:00",
+      "first_trade": "2026-08-03T00:00:00",
+      "last_exit": "2026-09-25T00:00:00",
+      "sessions": 38,
+      "first_carried_holdings": [
+        0.010324128551355519,
+        0.5770360262691235,
+        0.4126398451795209
+      ],
+      "first_target": [
+        0.043174976934094146,
+        0.6234397976412495,
+        0.3333852254246564
+      ]
+    }
+  ],
+  "bootstrap": [
+    {
+      "cost_bps": 10.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 20,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": -2.70347265413933e-17,
+      "daily_lower_bound": -3.64344316202799e-17,
+      "daily_upper_bound": -1.6820745192598e-17,
+      "annualized_log_excess": -7e-15,
+      "annualized_lower_bound": -9e-15,
+      "annualized_upper_bound": -4e-15,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 1.0,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "constant"
+    },
+    {
+      "cost_bps": 10.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 60,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": -2.70347265413933e-17,
+      "daily_lower_bound": -4.29878921422054e-17,
+      "daily_upper_bound": -1.07932010820864e-17,
+      "annualized_log_excess": -7e-15,
+      "annualized_lower_bound": -1.1e-14,
+      "annualized_upper_bound": -3e-15,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 1.0,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "constant"
+    },
+    {
+      "cost_bps": 25.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 20,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 0.0,
+      "daily_lower_bound": 0.0,
+      "daily_upper_bound": 0.0,
+      "annualized_log_excess": 0.0,
+      "annualized_lower_bound": 0.0,
+      "annualized_upper_bound": 0.0,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 1.0,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "constant"
+    },
+    {
+      "cost_bps": 25.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 60,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 0.0,
+      "daily_lower_bound": 0.0,
+      "daily_upper_bound": 0.0,
+      "annualized_log_excess": 0.0,
+      "annualized_lower_bound": 0.0,
+      "annualized_upper_bound": 0.0,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 1.0,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "constant"
+    },
+    {
+      "cost_bps": 10.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 20,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 5.1907525212e-05,
+      "daily_lower_bound": -9.060121778e-05,
+      "daily_upper_bound": 0.000205455299401,
+      "annualized_log_excess": 0.01308069635354,
+      "annualized_lower_bound": -0.022831506880557,
+      "annualized_upper_bound": 0.051774735448994,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 0.187,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "price"
+    },
+    {
+      "cost_bps": 10.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 60,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 5.1907525212e-05,
+      "daily_lower_bound": -9.8006642127e-05,
+      "daily_upper_bound": 0.000203836086492,
+      "annualized_log_excess": 0.01308069635354,
+      "annualized_lower_bound": -0.024697673816089,
+      "annualized_upper_bound": 0.051366693796,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 0.172,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "price"
+    },
+    {
+      "cost_bps": 25.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 20,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 6.263758945e-06,
+      "daily_lower_bound": -0.000135392343134,
+      "daily_upper_bound": 0.00015808664473,
+      "annualized_log_excess": 0.001578467254087,
+      "annualized_lower_bound": -0.034118870469674,
+      "annualized_upper_bound": 0.039837834471836,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 0.4695,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "price"
+    },
+    {
+      "cost_bps": 25.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 60,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 6.263758945e-06,
+      "daily_lower_bound": -0.00014381975967,
+      "daily_upper_bound": 0.000158262765183,
+      "annualized_log_excess": 0.001578467254087,
+      "annualized_lower_bound": -0.036242579436876,
+      "annualized_upper_bound": 0.039882216826208,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 0.4545,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "price"
+    },
+    {
+      "cost_bps": 10.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 20,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 6.7921022451e-05,
+      "daily_lower_bound": -8.0184159282e-05,
+      "daily_upper_bound": 0.00022165488853,
+      "annualized_log_excess": 0.017116097657638,
+      "annualized_lower_bound": -0.020206408139102,
+      "annualized_upper_bound": 0.05585703190968,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 0.127,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "price_vol"
+    },
+    {
+      "cost_bps": 10.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 60,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 6.7921022451e-05,
+      "daily_lower_bound": -8.8346022808e-05,
+      "daily_upper_bound": 0.000215351742952,
+      "annualized_log_excess": 0.017116097657638,
+      "annualized_lower_bound": -0.022263197747613,
+      "annualized_upper_bound": 0.054268639223836,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 0.111,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "price_vol"
+    },
+    {
+      "cost_bps": 25.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 20,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 1.8343413214e-05,
+      "daily_lower_bound": -0.00012860288062,
+      "daily_upper_bound": 0.000170636809487,
+      "annualized_log_excess": 0.004622540129825,
+      "annualized_lower_bound": -0.032407925916192,
+      "annualized_upper_bound": 0.043000475990785,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 0.3895,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "price_vol"
+    },
+    {
+      "cost_bps": 25.0,
+      "declared_variant_family_size": 20,
+      "method": "paired_stationary_bootstrap_percentile_mean_log_excess",
+      "sessions": 1762,
+      "mean_block": 60,
+      "resamples": 2000,
+      "random_seed": 20261002,
+      "one_sided_confidence": 0.9975,
+      "alpha": 0.0025,
+      "daily_mean_log_excess": 1.8343413214e-05,
+      "daily_lower_bound": -0.000134169565128,
+      "daily_upper_bound": 0.000167776342177,
+      "annualized_log_excess": 0.004622540129825,
+      "annualized_lower_bound": -0.033810730412366,
+      "annualized_upper_bound": 0.042279638228537,
+      "lower_bound_positive": false,
+      "bootstrap_nonpositive_fraction_not_pvalue": 0.374,
+      "reference": "https://www.tandfonline.com/doi/abs/10.1080/01621459.1994.10476870",
+      "limitation": "Conditional on this reused path and weak stationarity; excludes model refit/selection uncertainty and is not new forward evidence.",
+      "variant": "price_vol"
+    }
+  ]
+}

@@ -1,0 +1,4950 @@
+{
+  "recorder_id": "300530137db54b6c807c39ebb9e8c331",
+  "failures": [],
+  "checks": {
+    "75fits25ensembles": true,
+    "index failure matches": true,
+    "healthy retained fit proof": true,
+    "all121states": true,
+    "epochs history alias": true,
+    "registered F and dualstep": true,
+    "fixed input hashes": true,
+    "exact actual parent initial seed tensors": true,
+    "unchanged architecture initializer": true,
+    "interior theta init": true,
+    "model dtype": true,
+    "finite primal model": true,
+    "theta simplex": true,
+    "primal tensor hash": true,
+    "finite nonnegative four duals": true,
+    "fixed worst aggregate F": true,
+    "legacy report minimum": true,
+    "exact symmetric F tie": true,
+    "raw loss gap identity": true,
+    "percentage point units": true,
+    "samecost benchmark normalizers": true,
+    "raw four risk flags": true,
+    "raw risk feasibility": true,
+    "normalizer integrity": true,
+    "normalized constraint identity": true,
+    "F63 scale": true,
+    "aggregate distinct from F": true,
+    "all four raw gates jointly": true,
+    "first strict feasible F incumbent independent of legacy and Lagrangian": true,
+    "postprimal diagnostic Lagrangian": true,
+    "zero lambda initialization": true,
+    "no pre-first-proposal dual update": true,
+    "epoch0 no dual update": true,
+    "dual continuity": true,
+    "signed postprimal uncapped dual update": true,
+    "postproposal dual update flag": true,
+    "preprimal actual current trajectory Lagrangian": true,
+    "actual projected primal step norm": true,
+    "current trajectory gradient coverage": true,
+    "finite scalar gradients": true,
+    "compact epoch gradient storage": true,
+    "current path TorchNumPy parity": true,
+    "saved selected epoch firstbest": true,
+    "saved incumbent fixedF": true,
+    "complete exact null state": true,
+    "actual final optimizer epoch": true,
+    "registered Adam settings": true,
+    "finite final Adam moment state": true,
+    "one whole-coverage chunk map": true,
+    "independent funded SOXX multiplier": true,
+    "saved model action identity": true,
+    "real cash origin": true,
+    "true own holdings": true,
+    "fee funded target identity": true,
+    "true risky L1": true,
+    "cash fee identity": true,
+    "net return identity": true,
+    "positive NAV multipliers": true,
+    "selected fullpath independent risks": true,
+    "selected independent risk reference": true,
+    "chosen path recomputed F component": true,
+    "chosen path recomputed oldJ component": true,
+    "chosen bothcost mean and rawrisks": true,
+    "chosen fullpath F": true,
+    "chosen fullpath oldJ": true,
+    "sample independent risk values": true,
+    "sample independent normalized g": true,
+    "sample current trajectory F": true,
+    "sample independent normalized adjoint hash": true,
+    "sample bothcost combined adjoint hash": true,
+    "sample global weighted gradient proxy": true,
+    "complete selected checkpoint state": true,
+    "all three ensemble members": true,
+    "healthy feasible ensemble": true,
+    "raw ensemble feasibility": true,
+    "ensemble rawF/risk acceptance only": true,
+    "own ensemble path rawF": true,
+    "retained ensemble rawconstraints and F": true,
+    "raw ensemble F minimum": true,
+    "retained ensemble F minimum": true,
+    "retained ensemble legacyJ report": true
+  },
+  "check_count": 81,
+  "counts": {
+    "fits": 75,
+    "numerical_failed_fits": 0,
+    "primal_tensor_checks": 9150,
+    "epoch_records": 9075,
+    "primal_updates": 9000,
+    "valid_null_fits": 21,
+    "selected_positiveF_negativeLegacyJ": 31,
+    "negativeLegacyJ_incumbent_acceptances": 88,
+    "sampled_checkpoint_gradient_states": 225,
+    "sampled_training_cost_paths": 450,
+    "sampled_inactive_cost_risk_contributions": 97,
+    "ensembles": 25,
+    "numerical_failed_ensembles": 0,
+    "ensemble_rejections": 0,
+    "ensemble_valid_nulls": 7,
+    "ensemble_positiveF_negativeLegacyJ": 9,
+    "saved_training_decision_checks": 558070,
+    "unique_selected_training_decisions_audited": 446456,
+    "selected_training_cost_paths_audited": 200
+  },
+  "maxima": {
+    "interior theta init": 0,
+    "raw loss gap identity": 1.1102230246251565e-16,
+    "percentage point units": 0,
+    "samecost benchmark normalizers": 5.551115123125783e-17,
+    "normalized constraint identity": 0,
+    "F63 scale": 3.469446951953614e-18,
+    "aggregate distinct from F": 1.1102230246251565e-16,
+    "postprimal diagnostic Lagrangian": 0,
+    "zero lambda initialization": 0,
+    "no pre-first-proposal dual update": 0,
+    "dual continuity": 0,
+    "signed postprimal uncapped dual update": 0,
+    "preprimal actual current trajectory Lagrangian": 0,
+    "actual projected primal step norm": 1.3877787807814457e-17,
+    "recorded_current_path_parity": 4.440892098500626e-16,
+    "saved incumbent fixedF": 0,
+    "independent funded SOXX multiplier": 1.1102230246251565e-16,
+    "saved model action identity": 0,
+    "real cash origin": 0,
+    "true own holdings": 0,
+    "fee funded target identity": 3.885780586188048e-16,
+    "true risky L1": 1.6653345369377348e-16,
+    "cash fee identity": 0,
+    "net return identity": 4.440892098500626e-16,
+    "selected fullpath independent risks": 5.551115123125783e-17,
+    "selected independent risk reference": 0,
+    "chosen path recomputed F component": 0,
+    "chosen path recomputed oldJ component": 0,
+    "chosen fullpath F": 0,
+    "chosen fullpath oldJ": 0,
+    "sample independent risk values": 0,
+    "sample independent normalized g": 0,
+    "sample current trajectory F": 0,
+    "sample global weighted gradient proxy": 3.9898639947466563e-16,
+    "own ensemble path rawF": 0,
+    "raw ensemble F minimum": 0,
+    "retained ensemble F minimum": 0,
+    "retained ensemble legacyJ report": 0
+  },
+  "fit_summary": [
+    {
+      "variant": "constant",
+      "fits": 21,
+      "valid_nulls": 21,
+      "minimum_F": 0.0,
+      "maximum_F": 0.0,
+      "mean_F": 0.0,
+      "feasible_states": 1284,
+      "feasible_positive_states": 0,
+      "maximum_lambda": 0.03518155776122417,
+      "dual_increases": 4905,
+      "dual_decreases": 3447
+    },
+    {
+      "variant": "price",
+      "fits": 21,
+      "valid_nulls": 0,
+      "minimum_F": 0.0006983384537166678,
+      "maximum_F": 0.01397652739803507,
+      "mean_F": 0.006279941362142146,
+      "feasible_states": 1215,
+      "feasible_positive_states": 172,
+      "maximum_lambda": 0.03761581934851091,
+      "dual_increases": 5068,
+      "dual_decreases": 3778
+    },
+    {
+      "variant": "price_vol",
+      "fits": 33,
+      "valid_nulls": 0,
+      "minimum_F": 0.0012463778160603043,
+      "maximum_F": 0.01586574227860472,
+      "mean_F": 0.007149691157456755,
+      "feasible_states": 1877,
+      "feasible_positive_states": 322,
+      "maximum_lambda": 0.03970004820459844,
+      "dual_increases": 8029,
+      "dual_decreases": 6196
+    }
+  ],
+  "fits": [
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 73,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.018461195515789428,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lambda_coordinate_increases": 188,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 73,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.018461195515789428,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lambda_coordinate_increases": 188,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 73,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.018461195515789428,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lambda_coordinate_increases": 188,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 17,
+      "selected_epoch": 117,
+      "F": 0.013042935103329477,
+      "legacy_J": 0.007991993805908969,
+      "null_selected": false,
+      "feasible_states": 68,
+      "feasible_positive_F_states": 38,
+      "maximum_lambda": 0.018214059616473214,
+      "final_lambda": [
+        0.0,
+        0.0015058911733968631,
+        0.0,
+        0.0017243137777190783
+      ],
+      "lambda_coordinate_increases": 198,
+      "lambda_coordinate_decreases": 198,
+      "negative_legacy_incumbent_acceptances": 3
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 71,
+      "selected_epoch": 120,
+      "F": 0.01397652739803507,
+      "legacy_J": 0.008492255763782817,
+      "null_selected": false,
+      "feasible_states": 70,
+      "feasible_positive_F_states": 38,
+      "maximum_lambda": 0.019602032901447845,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        2.2464567423519365e-05
+      ],
+      "lambda_coordinate_increases": 196,
+      "lambda_coordinate_decreases": 213,
+      "negative_legacy_incumbent_acceptances": 3
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 41,
+      "selected_epoch": 116,
+      "F": 0.013573297582643746,
+      "legacy_J": 0.008309560342880254,
+      "null_selected": false,
+      "feasible_states": 67,
+      "feasible_positive_F_states": 27,
+      "maximum_lambda": 0.019329814910902045,
+      "final_lambda": [
+        0.0,
+        0.00047178259566627934,
+        0.0,
+        0.0004896494336548069
+      ],
+      "lambda_coordinate_increases": 200,
+      "lambda_coordinate_decreases": 188,
+      "negative_legacy_incumbent_acceptances": 4
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 17,
+      "selected_epoch": 120,
+      "F": 0.013513715944150413,
+      "legacy_J": 0.0071944968750941845,
+      "null_selected": false,
+      "feasible_states": 71,
+      "feasible_positive_F_states": 41,
+      "maximum_lambda": 0.0198207861703432,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lambda_coordinate_increases": 194,
+      "lambda_coordinate_decreases": 189,
+      "negative_legacy_incumbent_acceptances": 3
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 41,
+      "selected_epoch": 119,
+      "F": 0.014328551676922251,
+      "legacy_J": 0.009279296651663329,
+      "null_selected": false,
+      "feasible_states": 69,
+      "feasible_positive_F_states": 29,
+      "maximum_lambda": 0.020352678162311223,
+      "final_lambda": [
+        0.0,
+        1.6006502339531082e-05,
+        0.0,
+        2.0898998237805647e-05
+      ],
+      "lambda_coordinate_increases": 198,
+      "lambda_coordinate_decreases": 184,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 71,
+      "selected_epoch": 120,
+      "F": 0.012328911027727547,
+      "legacy_J": 0.005154974013707219,
+      "null_selected": false,
+      "feasible_states": 69,
+      "feasible_positive_F_states": 37,
+      "maximum_lambda": 0.02071403812095204,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lambda_coordinate_increases": 199,
+      "lambda_coordinate_decreases": 204,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 63,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.026890611964375734,
+      "final_lambda": [
+        0.002076851370030878,
+        0.004161112347541983,
+        0.0025900834596549313,
+        0.004205211782863712
+      ],
+      "lambda_coordinate_increases": 225,
+      "lambda_coordinate_decreases": 180,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 63,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.026890611964375734,
+      "final_lambda": [
+        0.002076851370030878,
+        0.004161112347541983,
+        0.0025900834596549313,
+        0.004205211782863712
+      ],
+      "lambda_coordinate_increases": 225,
+      "lambda_coordinate_decreases": 180,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 63,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.026890611964375734,
+      "final_lambda": [
+        0.002076851370030878,
+        0.004161112347541983,
+        0.0025900834596549313,
+        0.004205211782863712
+      ],
+      "lambda_coordinate_increases": 225,
+      "lambda_coordinate_decreases": 180,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 17,
+      "selected_epoch": 102,
+      "F": 0.01141023164701647,
+      "legacy_J": 0.005486512275190544,
+      "null_selected": false,
+      "feasible_states": 60,
+      "feasible_positive_F_states": 17,
+      "maximum_lambda": 0.026085510699499555,
+      "final_lambda": [
+        0.001954191058222233,
+        0.012928795450833886,
+        0.0036227883294956942,
+        0.01312149755378972
+      ],
+      "lambda_coordinate_increases": 233,
+      "lambda_coordinate_decreases": 185,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 41,
+      "selected_epoch": 102,
+      "F": 0.004393100115817718,
+      "legacy_J": 0.00183590172135685,
+      "null_selected": false,
+      "feasible_states": 61,
+      "feasible_positive_F_states": 3,
+      "maximum_lambda": 0.026718340494177165,
+      "final_lambda": [
+        0.002198290671322777,
+        0.00877466610259226,
+        0.003596492327120486,
+        0.008889324040240836
+      ],
+      "lambda_coordinate_increases": 233,
+      "lambda_coordinate_decreases": 183,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 71,
+      "selected_epoch": 105,
+      "F": 0.005187533216949267,
+      "legacy_J": 0.002349324789368078,
+      "null_selected": false,
+      "feasible_states": 59,
+      "feasible_positive_F_states": 5,
+      "maximum_lambda": 0.02606959164335676,
+      "final_lambda": [
+        0.005845885651125829,
+        0.013829208654992053,
+        0.007213040067035103,
+        0.01396149133096571
+      ],
+      "lambda_coordinate_increases": 240,
+      "lambda_coordinate_decreases": 180,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 41,
+      "selected_epoch": 103,
+      "F": 0.004116118722463927,
+      "legacy_J": 0.0015226407366268405,
+      "null_selected": false,
+      "feasible_states": 60,
+      "feasible_positive_F_states": 3,
+      "maximum_lambda": 0.02725231041529644,
+      "final_lambda": [
+        0.0008943507561789113,
+        0.009876865057356942,
+        0.0023231948135938223,
+        0.009999535593361619
+      ],
+      "lambda_coordinate_increases": 235,
+      "lambda_coordinate_decreases": 183,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 17,
+      "selected_epoch": 103,
+      "F": 0.012486251840841739,
+      "legacy_J": 0.006912178833547257,
+      "null_selected": false,
+      "feasible_states": 59,
+      "feasible_positive_F_states": 16,
+      "maximum_lambda": 0.028116005763610882,
+      "final_lambda": [
+        0.0026361745471363803,
+        0.015091061371957329,
+        0.0041623212382096075,
+        0.01529693506916649
+      ],
+      "lambda_coordinate_increases": 236,
+      "lambda_coordinate_decreases": 181,
+      "negative_legacy_incumbent_acceptances": 3
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 71,
+      "selected_epoch": 106,
+      "F": 0.008818347791653225,
+      "legacy_J": 0.005509065304308897,
+      "null_selected": false,
+      "feasible_states": 58,
+      "feasible_positive_F_states": 8,
+      "maximum_lambda": 0.028411016961840896,
+      "final_lambda": [
+        0.005569423242608397,
+        0.017481351688898288,
+        0.007030768305184526,
+        0.0176443860864679
+      ],
+      "lambda_coordinate_increases": 241,
+      "lambda_coordinate_decreases": 178,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03247380777153034,
+      "final_lambda": [
+        0.019197797293084438,
+        0.02275239699534466,
+        0.019717465369624883,
+        0.022795822139812863
+      ],
+      "lambda_coordinate_increases": 248,
+      "lambda_coordinate_decreases": 154,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03247380777153034,
+      "final_lambda": [
+        0.019197797293084438,
+        0.02275239699534466,
+        0.019717465369624883,
+        0.022795822139812863
+      ],
+      "lambda_coordinate_increases": 248,
+      "lambda_coordinate_decreases": 154,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03247380777153034,
+      "final_lambda": [
+        0.019197797293084438,
+        0.02275239699534466,
+        0.019717465369624883,
+        0.022795822139812863
+      ],
+      "lambda_coordinate_increases": 248,
+      "lambda_coordinate_decreases": 154,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 17,
+      "selected_epoch": 109,
+      "F": 0.003693921469598947,
+      "legacy_J": -0.00047006162870673644,
+      "null_selected": false,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 3,
+      "maximum_lambda": 0.03080977187753285,
+      "final_lambda": [
+        0.013230985783522421,
+        0.02328892514993562,
+        0.01429164888224573,
+        0.023405718832784056
+      ],
+      "lambda_coordinate_increases": 246,
+      "lambda_coordinate_decreases": 168,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 41,
+      "selected_epoch": 112,
+      "F": 0.0006983384537166678,
+      "legacy_J": -0.0016354344099858626,
+      "null_selected": false,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 1,
+      "maximum_lambda": 0.03137614726116401,
+      "final_lambda": [
+        0.018509695302570562,
+        0.025877027474929138,
+        0.0195241713444097,
+        0.025960892714485106
+      ],
+      "lambda_coordinate_increases": 251,
+      "lambda_coordinate_decreases": 157,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 71,
+      "selected_epoch": 111,
+      "F": 0.002140045479182177,
+      "legacy_J": -0.00018566548542496013,
+      "null_selected": false,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.03064266925691534,
+      "final_lambda": [
+        0.01785087337925418,
+        0.02526921178051123,
+        0.018891047113071595,
+        0.02536112904084359
+      ],
+      "lambda_coordinate_increases": 250,
+      "lambda_coordinate_decreases": 163,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 41,
+      "selected_epoch": 112,
+      "F": 0.00128711272205215,
+      "legacy_J": -0.0008858980758867494,
+      "null_selected": false,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 1,
+      "maximum_lambda": 0.03181356442338781,
+      "final_lambda": [
+        0.01795978457097138,
+        0.026624796495241018,
+        0.019062624360533513,
+        0.026713714853287003
+      ],
+      "lambda_coordinate_increases": 250,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 17,
+      "selected_epoch": 110,
+      "F": 0.004847826851535751,
+      "legacy_J": 0.0007255982395649069,
+      "null_selected": false,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 4,
+      "maximum_lambda": 0.03128648076800884,
+      "final_lambda": [
+        0.013932460700708235,
+        0.024673593878058536,
+        0.01489699218678182,
+        0.024794173997408308
+      ],
+      "lambda_coordinate_increases": 250,
+      "lambda_coordinate_decreases": 167,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 71,
+      "selected_epoch": 112,
+      "F": 0.004015317068899817,
+      "legacy_J": 0.0011782165428305968,
+      "null_selected": false,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 3,
+      "maximum_lambda": 0.03174908053863785,
+      "final_lambda": [
+        0.016414994154652862,
+        0.02728730200659106,
+        0.01746329893710474,
+        0.027396823716866338
+      ],
+      "lambda_coordinate_increases": 252,
+      "lambda_coordinate_decreases": 163,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 66,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.02503095950157416,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lambda_coordinate_increases": 216,
+      "lambda_coordinate_decreases": 187,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 66,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.02503095950157416,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lambda_coordinate_increases": 216,
+      "lambda_coordinate_decreases": 187,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 66,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.02503095950157416,
+      "final_lambda": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lambda_coordinate_increases": 216,
+      "lambda_coordinate_decreases": 187,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 17,
+      "selected_epoch": 98,
+      "F": 0.006717641380577004,
+      "legacy_J": 0.0013301451444391224,
+      "null_selected": false,
+      "feasible_states": 62,
+      "feasible_positive_F_states": 7,
+      "maximum_lambda": 0.024562209453062995,
+      "final_lambda": [
+        0.0,
+        0.0053600292313462855,
+        0.0,
+        0.005553899514795171
+      ],
+      "lambda_coordinate_increases": 226,
+      "lambda_coordinate_decreases": 191,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 41,
+      "selected_epoch": 100,
+      "F": 0.0016891578235828596,
+      "legacy_J": -0.0014094185493891693,
+      "null_selected": false,
+      "feasible_states": 62,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.02427505747205753,
+      "final_lambda": [
+        0.0,
+        0.0037498596910285568,
+        0.0,
+        0.0038694889857443663
+      ],
+      "lambda_coordinate_increases": 227,
+      "lambda_coordinate_decreases": 189,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 71,
+      "selected_epoch": 100,
+      "F": 0.0025161099124202915,
+      "legacy_J": -0.0007634801530266509,
+      "null_selected": false,
+      "feasible_states": 62,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.024509155733774744,
+      "final_lambda": [
+        0.0,
+        0.004509730856279311,
+        0.0,
+        0.004637055606659398
+      ],
+      "lambda_coordinate_increases": 230,
+      "lambda_coordinate_decreases": 190,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 17,
+      "selected_epoch": 99,
+      "F": 0.007795041127649759,
+      "legacy_J": 0.002933987589960706,
+      "null_selected": false,
+      "feasible_states": 61,
+      "feasible_positive_F_states": 8,
+      "maximum_lambda": 0.025982536116023996,
+      "final_lambda": [
+        0.0,
+        0.007361525411433795,
+        0.0,
+        0.007561458420519326
+      ],
+      "lambda_coordinate_increases": 230,
+      "lambda_coordinate_decreases": 186,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 41,
+      "selected_epoch": 100,
+      "F": 0.0023777677619800514,
+      "legacy_J": -0.0006945888546750091,
+      "null_selected": false,
+      "feasible_states": 62,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.024494727134979175,
+      "final_lambda": [
+        0.0,
+        0.005168533083785222,
+        0.0,
+        0.005296800213208098
+      ],
+      "lambda_coordinate_increases": 227,
+      "lambda_coordinate_decreases": 191,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 71,
+      "selected_epoch": 101,
+      "F": 0.004466465990281724,
+      "legacy_J": 0.0011265646971261834,
+      "null_selected": false,
+      "feasible_states": 61,
+      "feasible_positive_F_states": 4,
+      "maximum_lambda": 0.025347421368085772,
+      "final_lambda": [
+        0.0,
+        0.007820838743376099,
+        0.0,
+        0.007973210830093
+      ],
+      "lambda_coordinate_increases": 231,
+      "lambda_coordinate_decreases": 191,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 59,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03227187691252699,
+      "final_lambda": [
+        0.018102493719228667,
+        0.021367264378618838,
+        0.018612958345951038,
+        0.02141048541308555
+      ],
+      "lambda_coordinate_increases": 244,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 59,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03227187691252699,
+      "final_lambda": [
+        0.018102493719228667,
+        0.021367264378618838,
+        0.018612958345951038,
+        0.02141048541308555
+      ],
+      "lambda_coordinate_increases": 244,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 59,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03227187691252699,
+      "final_lambda": [
+        0.018102493719228667,
+        0.021367264378618838,
+        0.018612958345951038,
+        0.02141048541308555
+      ],
+      "lambda_coordinate_increases": 244,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 17,
+      "selected_epoch": 110,
+      "F": 0.0027939572129866436,
+      "legacy_J": -0.0024127468578063636,
+      "null_selected": false,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.02912221474756606,
+      "final_lambda": [
+        0.015352648716801547,
+        0.022567823740638995,
+        0.016718035257914803,
+        0.022701888955996848
+      ],
+      "lambda_coordinate_increases": 253,
+      "lambda_coordinate_decreases": 163,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 41,
+      "selected_epoch": 111,
+      "F": 0.000987345098535323,
+      "legacy_J": -0.0019254886442663928,
+      "null_selected": false,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 1,
+      "maximum_lambda": 0.029360779175859705,
+      "final_lambda": [
+        0.019248212213569784,
+        0.02358920524295675,
+        0.020276933169987518,
+        0.023681601623382103
+      ],
+      "lambda_coordinate_increases": 252,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 71,
+      "selected_epoch": 111,
+      "F": 0.001702279872535048,
+      "legacy_J": -0.001930871079517039,
+      "null_selected": false,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 1,
+      "maximum_lambda": 0.029804571543434508,
+      "final_lambda": [
+        0.01887207087488734,
+        0.023949168823663596,
+        0.020045258597264713,
+        0.024061543722996116
+      ],
+      "lambda_coordinate_increases": 251,
+      "lambda_coordinate_decreases": 163,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 17,
+      "selected_epoch": 111,
+      "F": 0.00448134792612808,
+      "legacy_J": -0.0007243150251138717,
+      "null_selected": false,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 4,
+      "maximum_lambda": 0.029514412294773647,
+      "final_lambda": [
+        0.015651544919435174,
+        0.02442341734222213,
+        0.01691090910865279,
+        0.02456087037076283
+      ],
+      "lambda_coordinate_increases": 252,
+      "lambda_coordinate_decreases": 162,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 41,
+      "selected_epoch": 112,
+      "F": 0.0012463778160603043,
+      "legacy_J": -0.00223234460484505,
+      "null_selected": false,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 1,
+      "maximum_lambda": 0.030195545414900507,
+      "final_lambda": [
+        0.019478555410611085,
+        0.02472647302488691,
+        0.02058495947452441,
+        0.02482443207568729
+      ],
+      "lambda_coordinate_increases": 251,
+      "lambda_coordinate_decreases": 158,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 71,
+      "selected_epoch": 113,
+      "F": 0.004181376916083296,
+      "legacy_J": -0.00019836601764659716,
+      "null_selected": false,
+      "feasible_states": 54,
+      "feasible_positive_F_states": 3,
+      "maximum_lambda": 0.0307278605387659,
+      "final_lambda": [
+        0.01813201379046628,
+        0.027154785759874726,
+        0.0196217614503043,
+        0.027301234816518517
+      ],
+      "lambda_coordinate_increases": 258,
+      "lambda_coordinate_decreases": 156,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03254863802725248,
+      "final_lambda": [
+        0.026174553438114128,
+        0.02548824465457494,
+        0.026319107535714953,
+        0.025533052208130753
+      ],
+      "lambda_coordinate_increases": 252,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03254863802725248,
+      "final_lambda": [
+        0.026174553438114128,
+        0.02548824465457494,
+        0.026319107535714953,
+        0.025533052208130753
+      ],
+      "lambda_coordinate_increases": 252,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03254863802725248,
+      "final_lambda": [
+        0.026174553438114128,
+        0.02548824465457494,
+        0.026319107535714953,
+        0.025533052208130753
+      ],
+      "lambda_coordinate_increases": 252,
+      "lambda_coordinate_decreases": 160,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 17,
+      "selected_epoch": 115,
+      "F": 0.011313156684942247,
+      "legacy_J": 0.002159731386774693,
+      "null_selected": false,
+      "feasible_states": 52,
+      "feasible_positive_F_states": 8,
+      "maximum_lambda": 0.034584548917143465,
+      "final_lambda": [
+        0.015046980033551377,
+        0.03294386270153327,
+        0.01701630201056624,
+        0.03319373712726912
+      ],
+      "lambda_coordinate_increases": 260,
+      "lambda_coordinate_decreases": 189,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 41,
+      "selected_epoch": 116,
+      "F": 0.007704115393545015,
+      "legacy_J": -0.00010034349445654022,
+      "null_selected": false,
+      "feasible_states": 52,
+      "feasible_positive_F_states": 6,
+      "maximum_lambda": 0.034394089512643305,
+      "final_lambda": [
+        0.014889510755462758,
+        0.03296739922415097,
+        0.01631850999648892,
+        0.0331547615818913
+      ],
+      "lambda_coordinate_increases": 258,
+      "lambda_coordinate_decreases": 190,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 71,
+      "selected_epoch": 119,
+      "F": 0.013841922114127332,
+      "legacy_J": 0.0037488323697048966,
+      "null_selected": false,
+      "feasible_states": 50,
+      "feasible_positive_F_states": 4,
+      "maximum_lambda": 0.03320760878917512,
+      "final_lambda": [
+        0.015730291539803418,
+        0.03282517303114866,
+        0.01741884553866224,
+        0.03307875583123576
+      ],
+      "lambda_coordinate_increases": 263,
+      "lambda_coordinate_decreases": 179,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 17,
+      "selected_epoch": 115,
+      "F": 0.011876900853974085,
+      "legacy_J": 0.0026090237163704484,
+      "null_selected": false,
+      "feasible_states": 52,
+      "feasible_positive_F_states": 8,
+      "maximum_lambda": 0.03519087095905758,
+      "final_lambda": [
+        0.01440013060912086,
+        0.03345902944690298,
+        0.01629280224549146,
+        0.03371675434552419
+      ],
+      "lambda_coordinate_increases": 260,
+      "lambda_coordinate_decreases": 188,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 41,
+      "selected_epoch": 116,
+      "F": 0.008785361241259981,
+      "legacy_J": 0.001406588932719329,
+      "null_selected": false,
+      "feasible_states": 52,
+      "feasible_positive_F_states": 6,
+      "maximum_lambda": 0.036144417763527885,
+      "final_lambda": [
+        0.014881997991964095,
+        0.034735270570263876,
+        0.01618321852603707,
+        0.034928148362179175
+      ],
+      "lambda_coordinate_increases": 256,
+      "lambda_coordinate_decreases": 187,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 71,
+      "selected_epoch": 119,
+      "F": 0.01586574227860472,
+      "legacy_J": 0.00641849252177864,
+      "null_selected": false,
+      "feasible_states": 49,
+      "feasible_positive_F_states": 5,
+      "maximum_lambda": 0.03392515422055686,
+      "final_lambda": [
+        0.015047373910489322,
+        0.0336063332067209,
+        0.016384057197526135,
+        0.033861826160495045
+      ],
+      "lambda_coordinate_increases": 267,
+      "lambda_coordinate_decreases": 168,
+      "negative_legacy_incumbent_acceptances": 3
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 17,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 54,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03518155776122417,
+      "final_lambda": [
+        0.032084921227576765,
+        0.03178976970539878,
+        0.03223034193132949,
+        0.031834198283593323
+      ],
+      "lambda_coordinate_increases": 262,
+      "lambda_coordinate_decreases": 148,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 41,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 54,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03518155776122417,
+      "final_lambda": [
+        0.032084921227576765,
+        0.03178976970539878,
+        0.03223034193132949,
+        0.031834198283593323
+      ],
+      "lambda_coordinate_increases": 262,
+      "lambda_coordinate_decreases": 148,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 71,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "null_selected": true,
+      "feasible_states": 54,
+      "feasible_positive_F_states": 0,
+      "maximum_lambda": 0.03518155776122417,
+      "final_lambda": [
+        0.032084921227576765,
+        0.03178976970539878,
+        0.03223034193132949,
+        0.031834198283593323
+      ],
+      "lambda_coordinate_increases": 262,
+      "lambda_coordinate_decreases": 148,
+      "negative_legacy_incumbent_acceptances": 0
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 17,
+      "selected_epoch": 120,
+      "F": 0.006984868451171501,
+      "legacy_J": -0.00276480322114057,
+      "null_selected": false,
+      "feasible_states": 50,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.03761581934851091,
+      "final_lambda": [
+        0.020940040816353703,
+        0.03731569662916642,
+        0.022257023639706747,
+        0.037517060647066856
+      ],
+      "lambda_coordinate_increases": 266,
+      "lambda_coordinate_decreases": 179,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 41,
+      "selected_epoch": 119,
+      "F": 0.006293487329702296,
+      "legacy_J": -0.0017356551929663836,
+      "null_selected": false,
+      "feasible_states": 51,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.03702955834075215,
+      "final_lambda": [
+        0.018843010610102646,
+        0.03671728816161486,
+        0.02010570992478266,
+        0.03688853529175145
+      ],
+      "lambda_coordinate_increases": 267,
+      "lambda_coordinate_decreases": 179,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 71,
+      "selected_epoch": 79,
+      "F": 0.0012187968645699632,
+      "legacy_J": -0.0027395923389467885,
+      "null_selected": false,
+      "feasible_states": 50,
+      "feasible_positive_F_states": 1,
+      "maximum_lambda": 0.03573068668938897,
+      "final_lambda": [
+        0.020352978784053916,
+        0.03553159769321693,
+        0.02145005364931241,
+        0.03573068668938897
+      ],
+      "lambda_coordinate_increases": 268,
+      "lambda_coordinate_decreases": 171,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 17,
+      "selected_epoch": 120,
+      "F": 0.007672731241638045,
+      "legacy_J": -0.00227873248655906,
+      "null_selected": false,
+      "feasible_states": 50,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.037792136350348844,
+      "final_lambda": [
+        0.020296924089709442,
+        0.03749042521793928,
+        0.021566815778590504,
+        0.037700060253478745
+      ],
+      "lambda_coordinate_increases": 264,
+      "lambda_coordinate_decreases": 184,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 41,
+      "selected_epoch": 120,
+      "F": 0.006247083506756963,
+      "legacy_J": -0.001285376743994987,
+      "null_selected": false,
+      "feasible_states": 49,
+      "feasible_positive_F_states": 1,
+      "maximum_lambda": 0.03970004820459844,
+      "final_lambda": [
+        0.018994279813045686,
+        0.03947461011790058,
+        0.020084056418032504,
+        0.03963956668924984
+      ],
+      "lambda_coordinate_increases": 268,
+      "lambda_coordinate_decreases": 172,
+      "negative_legacy_incumbent_acceptances": 1
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 71,
+      "selected_epoch": 79,
+      "F": 0.0023101158368437416,
+      "legacy_J": -0.0012490528484576018,
+      "null_selected": false,
+      "feasible_states": 50,
+      "feasible_positive_F_states": 2,
+      "maximum_lambda": 0.0362622324998922,
+      "final_lambda": [
+        0.019860276685432558,
+        0.0360634254723659,
+        0.020886240638208216,
+        0.0362622324998922
+      ],
+      "lambda_coordinate_increases": 266,
+      "lambda_coordinate_decreases": 169,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 71,
+      "selected_epoch": 104,
+      "F": 0.01119416217008522,
+      "legacy_J": 0.0006016385160135068,
+      "null_selected": false,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 20,
+      "maximum_lambda": 0.02749767717127046,
+      "final_lambda": [
+        0.0,
+        0.02057800875115667,
+        0.0005887291102171925,
+        0.020807451282149492
+      ],
+      "lambda_coordinate_increases": 236,
+      "lambda_coordinate_decreases": 217,
+      "negative_legacy_incumbent_acceptances": 3
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 41,
+      "selected_epoch": 102,
+      "F": 0.010832981656659644,
+      "legacy_J": -0.0010008921679851492,
+      "null_selected": false,
+      "feasible_states": 59,
+      "feasible_positive_F_states": 23,
+      "maximum_lambda": 0.02600136868592209,
+      "final_lambda": [
+        0.0,
+        0.020452279642926296,
+        0.0,
+        0.02076318507618462
+      ],
+      "lambda_coordinate_increases": 220,
+      "lambda_coordinate_decreases": 214,
+      "negative_legacy_incumbent_acceptances": 5
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 17,
+      "selected_epoch": 98,
+      "F": 0.010885268463663576,
+      "legacy_J": -0.00022518246199966608,
+      "null_selected": false,
+      "feasible_states": 59,
+      "feasible_positive_F_states": 25,
+      "maximum_lambda": 0.02728610203532183,
+      "final_lambda": [
+        0.0,
+        0.015922468442285127,
+        0.0,
+        0.016162347261114325
+      ],
+      "lambda_coordinate_increases": 230,
+      "lambda_coordinate_decreases": 216,
+      "negative_legacy_incumbent_acceptances": 3
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 71,
+      "selected_epoch": 112,
+      "F": 0.0066228179033707155,
+      "legacy_J": -0.0021996767482003465,
+      "null_selected": false,
+      "feasible_states": 53,
+      "feasible_positive_F_states": 9,
+      "maximum_lambda": 0.03344801545589494,
+      "final_lambda": [
+        0.013196496862247276,
+        0.030959320147722298,
+        0.01469492494580985,
+        0.03112689232036598
+      ],
+      "lambda_coordinate_increases": 258,
+      "lambda_coordinate_decreases": 190,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 17,
+      "selected_epoch": 108,
+      "F": 0.005873678520717022,
+      "legacy_J": -0.0034885738130835927,
+      "null_selected": false,
+      "feasible_states": 54,
+      "feasible_positive_F_states": 7,
+      "maximum_lambda": 0.03185148164434707,
+      "final_lambda": [
+        0.009872402245365196,
+        0.025322552956076612,
+        0.01161029432712367,
+        0.025503664454969977
+      ],
+      "lambda_coordinate_increases": 257,
+      "lambda_coordinate_decreases": 190,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 41,
+      "selected_epoch": 112,
+      "F": 0.005790724157179559,
+      "legacy_J": -0.004363083418595872,
+      "null_selected": false,
+      "feasible_states": 54,
+      "feasible_positive_F_states": 7,
+      "maximum_lambda": 0.033080471667821354,
+      "final_lambda": [
+        0.007459091810766092,
+        0.029845079165640186,
+        0.009164036572604083,
+        0.030014969711856757
+      ],
+      "lambda_coordinate_increases": 250,
+      "lambda_coordinate_decreases": 202,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 17,
+      "selected_epoch": 105,
+      "F": 0.003993862763043384,
+      "legacy_J": -0.00414211091964529,
+      "null_selected": false,
+      "feasible_states": 57,
+      "feasible_positive_F_states": 6,
+      "maximum_lambda": 0.02861468528627148,
+      "final_lambda": [
+        0.006577132005561454,
+        0.019539011975071668,
+        0.00821055630980627,
+        0.019686165474504087
+      ],
+      "lambda_coordinate_increases": 248,
+      "lambda_coordinate_decreases": 203,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 41,
+      "selected_epoch": 108,
+      "F": 0.004694127476001591,
+      "legacy_J": -0.005565751032070363,
+      "null_selected": false,
+      "feasible_states": 55,
+      "feasible_positive_F_states": 7,
+      "maximum_lambda": 0.03045316664753868,
+      "final_lambda": [
+        0.0027990398109632815,
+        0.02451753001011192,
+        0.004814200613543536,
+        0.024770773041151828
+      ],
+      "lambda_coordinate_increases": 243,
+      "lambda_coordinate_decreases": 216,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 71,
+      "selected_epoch": 109,
+      "F": 0.004747391893521555,
+      "legacy_J": -0.003156035278319893,
+      "null_selected": false,
+      "feasible_states": 55,
+      "feasible_positive_F_states": 7,
+      "maximum_lambda": 0.030484517081860684,
+      "final_lambda": [
+        0.008415131899800176,
+        0.025642848313443038,
+        0.01008636601276043,
+        0.025801092882531202
+      ],
+      "lambda_coordinate_increases": 250,
+      "lambda_coordinate_decreases": 203,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 17,
+      "selected_epoch": 107,
+      "F": 0.0060302409138601205,
+      "legacy_J": -0.002730161574845738,
+      "null_selected": false,
+      "feasible_states": 56,
+      "feasible_positive_F_states": 7,
+      "maximum_lambda": 0.02956616264159692,
+      "final_lambda": [
+        0.008698652529059743,
+        0.022514456752522994,
+        0.010589134761718178,
+        0.02268837246017272
+      ],
+      "lambda_coordinate_increases": 251,
+      "lambda_coordinate_decreases": 206,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 41,
+      "selected_epoch": 109,
+      "F": 0.005922173776994396,
+      "legacy_J": -0.004619816846692656,
+      "null_selected": false,
+      "feasible_states": 55,
+      "feasible_positive_F_states": 8,
+      "maximum_lambda": 0.02995791426278684,
+      "final_lambda": [
+        0.005996683276405521,
+        0.024952864380080084,
+        0.008162118025354402,
+        0.025227503512325423
+      ],
+      "lambda_coordinate_increases": 248,
+      "lambda_coordinate_decreases": 214,
+      "negative_legacy_incumbent_acceptances": 2
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 71,
+      "selected_epoch": 110,
+      "F": 0.0063039123574685435,
+      "legacy_J": -0.0031568686566365873,
+      "null_selected": false,
+      "feasible_states": 55,
+      "feasible_positive_F_states": 8,
+      "maximum_lambda": 0.03053981419123636,
+      "final_lambda": [
+        0.01116686385632032,
+        0.026484722382688203,
+        0.013221648594482261,
+        0.026673205672197428
+      ],
+      "lambda_coordinate_increases": 253,
+      "lambda_coordinate_decreases": 204,
+      "negative_legacy_incumbent_acceptances": 2
+    }
+  ],
+  "ensembles": [
+    {
+      "variant": "constant",
+      "year": 2016,
+      "raw_ensemble_F": 0.0,
+      "selected_F": 0.0,
+      "legacy_J": 0.0,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "raw_ensemble_F": 0.013613026767398633,
+      "selected_F": 0.013613026767398633,
+      "legacy_J": 0.008415998251316994,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "raw_ensemble_F": 0.013466384914754645,
+      "selected_F": 0.013466384914754645,
+      "legacy_J": 0.007391231929937414,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "raw_ensemble_F": 0.0,
+      "selected_F": 0.0,
+      "legacy_J": 0.0,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "raw_ensemble_F": 0.007018471039702099,
+      "selected_F": 0.007018471039702099,
+      "legacy_J": 0.0034579548743094777,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "raw_ensemble_F": 0.008510324664064173,
+      "selected_F": 0.008510324664064173,
+      "legacy_J": 0.00486549017630918,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "raw_ensemble_F": 0.0,
+      "selected_F": 0.0,
+      "legacy_J": 0.0,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "raw_ensemble_F": 0.0022894918331091076,
+      "selected_F": 0.0022894918331091076,
+      "legacy_J": -0.00046365214294850313,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "raw_ensemble_F": 0.003504828075266855,
+      "selected_F": 0.003504828075266855,
+      "legacy_J": 0.0005924948575297969,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "raw_ensemble_F": 0.0,
+      "selected_F": 0.0,
+      "legacy_J": 0.0,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "raw_ensemble_F": 0.003699659552302306,
+      "selected_F": 0.003699659552302306,
+      "legacy_J": -6.385786552489501e-05,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "raw_ensemble_F": 0.004952388699271692,
+      "selected_F": 0.004952388699271692,
+      "legacy_J": 0.001375782272792638,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "raw_ensemble_F": 0.0,
+      "selected_F": 0.0,
+      "legacy_J": 0.0,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "raw_ensemble_F": 0.0019625767247317878,
+      "selected_F": 0.0019625767247317878,
+      "legacy_J": -0.0017925289311782843,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "raw_ensemble_F": 0.0034407905946032317,
+      "selected_F": 0.0034407905946032317,
+      "legacy_J": -0.0006487902375905665,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "raw_ensemble_F": 0.0,
+      "selected_F": 0.0,
+      "legacy_J": 0.0,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "raw_ensemble_F": 0.01112404781380798,
+      "selected_F": 0.01112404781380798,
+      "legacy_J": 0.0022839447419242603,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "raw_ensemble_F": 0.012332301028441147,
+      "selected_F": 0.012332301028441147,
+      "legacy_J": 0.00378995902424092,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "raw_ensemble_F": 0.0,
+      "selected_F": 0.0,
+      "legacy_J": 0.0,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "raw_ensemble_F": 0.005273899905221756,
+      "selected_F": 0.005273899905221756,
+      "legacy_J": -0.0016098450981420645,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "raw_ensemble_F": 0.005814349142600539,
+      "selected_F": 0.005814349142600539,
+      "legacy_J": -0.0008619125932530833,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "raw_ensemble_F": 0.011134213662256098,
+      "selected_F": 0.011134213662256098,
+      "legacy_J": 0.00032834957467604224,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "raw_ensemble_F": 0.006237636639148948,
+      "selected_F": 0.006237636639148948,
+      "legacy_J": -0.002918374124051529,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "raw_ensemble_F": 0.004615990230996071,
+      "selected_F": 0.004615990230996071,
+      "legacy_J": -0.003872693190157997,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "raw_ensemble_F": 0.006218056169029844,
+      "selected_F": 0.006218056169029844,
+      "legacy_J": -0.003147679742330524,
+      "raw_feasible": true,
+      "rejected": false,
+      "anchor_selected": false
+    }
+  ],
+  "fixed_gradient_samples": [
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.001403881079540224,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.0002493124549172426,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.005411376535098043,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.001403881079540224,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.0002493124549172426,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.005411376535098043,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.001403881079540224,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.0002493124549172426,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2016,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.005411376535098043,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -0.00018136807482450632,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.005297150417251184,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.014286197037534405,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -0.00044371190666242435,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.003977956443797344,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.013077863300497622,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -0.0001981276234714664,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.004959924315912003,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2016,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.016035398073516657,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -0.0001922373282329837,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.0056700848697567785,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.012771307605147797,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -0.00017465638942788613,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.005518790666518595,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.014328551676922251,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -0.0004372804046553758,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": 0.004813234331410292,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2016,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.011221261176935114,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.002395707193237991,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.008485791879030438,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.01750995396137671,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.002395707193237991,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.008485791879030438,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.01750995396137671,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.002395707193237991,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.008485791879030438,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2017,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.01750995396137671,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0007722807502396961,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.004561016733025941,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.0009047094967805187,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0008072450507335378,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.007622329191740128,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.013467385468076591,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0005568862950839266,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.00827502327930404,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2017,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.008028779491088987,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0008428828829677499,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.007614211663950846,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.013192170996189894,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0007583542550734272,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.004438077547289435,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.002072399361937395,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0005635216273376822,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.007735382441152294,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2017,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.005178417381530534,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.003031943140714647,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.016550781027360392,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.018404106972229193,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.003031943140714647,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.016550781027360392,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.018404106972229193,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.003031943140714647,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.016550781027360392,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2018,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.018404106972229193,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0014435089174840545,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.013725282010912995,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.009359741928333488,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.00152502446103963,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.01670017755182873,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.011710647398274366,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0011728577700805406,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.015867131704478378,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2018,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.0098918955299172,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0015632883574696467,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.016674726095801163,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.011048213447243804,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0014134594978474318,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.013893816256522933,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.0081412622124824,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0011669672663588745,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.015288019458243818,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2018,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.006458386665060836,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0020665281286136113,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.006488758339772818,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.016758518597123073,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0020665281286136113,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.006488758339772818,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.016758518597123073,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0020665281286136113,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.006488758339772818,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2019,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.016758518597123073,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0004796697782389153,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.003246751516012259,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.006231378465887016,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.000658917048027955,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.006136491113738807,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.012320212647776729,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.000280366211395815,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.005698215939365838,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2019,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.011689107234776931,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0004476383388867248,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.0032894497420782216,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.007320982905710616,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0006843837821798913,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.006048616956698663,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.01138651218442858,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.00027887493292443267,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.005279646304332079,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2019,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.010071259927843058,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0028150619322543876,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.01642886466768758,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.018974053959210375,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0028150619322543876,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.01642886466768758,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.018974053959210375,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0028150619322543876,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.01642886466768758,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2020,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.018974053959210375,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0012489900599328264,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.013774800548468366,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.010140219881021349,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.001379380597429925,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.016280596612365198,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.01213681222929142,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0010177623958162701,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.015304769227446913,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2020,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.010939818856072774,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0012121420324059553,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.013784940766323752,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.0069693277896153115,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0014112709720747792,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.01649748836245778,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.009262579235133798,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0010095605857881156,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.015286725159697964,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2020,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.004996960208695002,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0026719162016065065,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.02024588781853225,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.015597934644192906,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0026719162016065065,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.02024588781853225,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.015597934644192906,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0026719162016065065,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.02024588781853225,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2021,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.015597934644192906,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0012619230207293096,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.015505696735794319,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.005937411283714056,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.001505324222817791,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.015884867251144567,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.003180839292488918,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0011618191764527332,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.014940511217983751,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2021,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.013841922114127332,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0012077373006962587,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.015500131670655996,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.006346284401637013,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0015522038253527035,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.01632754404230847,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.0041062327441252515,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0011704298876760984,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.01583746168878692,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2021,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.01586574227860472,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0029716115226642585,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.024907709337041235,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.013769581265868242,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0029716115226642585,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.024907709337041235,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.013769581265868242,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0029716115226642585,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.024907709337041235,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "constant",
+      "year": 2022,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.013769581265868242,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0016189416671988739,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.018352868701788226,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.008759233458826277,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0017964248752159397,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.018578341064544358,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.006293487329702296,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.001432127991995427,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.018759310486747352,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price",
+      "year": 2022,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.01249612079548669,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.001563175131053736,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.017684295351527657,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.009495388782743539,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0018448656428743662,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.019360998704337145,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.008097767567738856,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0014357869612853908,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.019125958024952774,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2022,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.013417656161396544,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -0.0002018151921041879,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.0043501060729288265,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.004144573120451647,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.000263096913173469,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.00268220822414874,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.009310165975269527,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -0.00017281671323917953,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.0013331386303852546,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2023,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.0049653900735815,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0003327026794969709,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.012422922429206321,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": 0.0004044552851280419,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.00044651162308607944,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.01161590205163251,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.00513455043987772,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0008304290224567796,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.012296645608844565,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2024,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.0011620200910105831,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.00017669611222516252,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.00918059837591364,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.008251132300899432,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0005014980832732546,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.009591770320086169,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.003561871071244756,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": -6.908283294867127e-05,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.009432006695969462,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2025,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.00370872941392795,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 17,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.00025684396922694293,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 17,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.009941479789560856,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 17,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.004152531730529012,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 41,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 0.0005944818195319804,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 41,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.010760703901824861,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 41,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.002427217345470106,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 71,
+      "update": 1,
+      "parameter_epoch": 0,
+      "F": 8.404205955917341e-05,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 0,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 71,
+      "update": 60,
+      "parameter_epoch": 59,
+      "F": -0.010969611033959221,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    },
+    {
+      "variant": "price_vol",
+      "year": 2026,
+      "seed": 71,
+      "update": 120,
+      "parameter_epoch": 119,
+      "F": -0.002121834536322377,
+      "active_objective_costs": [
+        25
+      ],
+      "inactive_cost_nonzero_risk_weights": 1,
+      "normalized_adjoint_hash_match": true
+    }
+  ],
+  "sample_rule": "Declared before audit: update1/60/120, prior parameter states0/59/119 for every healthy fit. No optimizer steps or OOS replays.",
+  "scope": "All recorded epoch scalar/gate/dual/incumbent arithmetic and all retained paths checked; actual fullpath risk/globaladjoint reconstruction limited to the fixed225state sample plus chosen paths. No global convergence or forward-risk claim.",
+  "model_fits_performed": false,
+  "source_changed": false
+}

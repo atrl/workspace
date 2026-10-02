@@ -1,0 +1,174 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+{
+  "scope": "Purely synthetic derivative/value verification; no market data, model training, parameter search, repo edits, monkeypatch or old-result changes.",
+  "source_file": "src/model/integrated_allocation.py",
+  "source_sha256_before": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+  "source_sha256_after": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+  "torch_version": "2.11.0",
+  "dtype": "float64",
+  "returns": [
+    0.03,
+    0.01,
+    0.0
+  ],
+  "state_identity": "H(z)=z*(1+r)/sum(z*(1+r)); on simplex equals z*(1+r)/(1+z dot r), independent of cost and of h except through z.",
+  "prototype": "Same existing detached sign-root index and n expression; open_values=n*z, ending_weights=target-only normalized marked z. fees remain c*actual risky L1 turnover. No custom backward, straight-through estimator or detached substitute Jacobian.",
+  "maximum_legacy_state_error_no_trade": 0.0024814511526340954,
+  "maximum_legacy_state_error_away_from_kink": 4.440892098500626e-16,
+  "maximum_algebraic_state_error": 4.440892098500626e-16,
+  "maximum_independent_fd_state_error": 2.3314594699286317e-10,
+  "maximum_forward_error": 2.220446049250313e-16,
+  "scalar_boundary_scope": "Central scalar finite differences at no-trade are symmetric secants, not certified derivatives; explicit left/right secants are also retained where both directions are feasible. State smoothness does not certify scalar fee or net-NAV derivatives at no-trade. Each specified feasible curve has a definite one-sided derivative; chosen sign-root/abs subgradients need not give that derivative. S-to-L remains a counterexample after the proposed state fix.",
+  "autograd_reference": "https://docs.pytorch.org/docs/2.14/notes/autograd.html#gradients-for-non-differentiable-functions"
+}
+S_to_cash examples [
+  {
+    "case": "S_to_cash_target_at_theta0",
+    "cost_bps": 10.0,
+    "no_trade_at_point": true,
+    "finite_difference": "right",
+    "held": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "target": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "dh": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dz": [
+      0.0,
+      -1.0,
+      1.0
+    ],
+    "legacy_state_jvp": [
+      0.0,
+      -0.9910901000009911,
+      0.9910901000009911
+    ],
+    "algebraic_state_jvp": [
+      0.0,
+      -0.9900990099009901,
+      0.9900990099009901
+    ],
+    "analytic_state_jvp": [
+      0.0,
+      -0.9900990099009901,
+      0.9900990099009901
+    ],
+    "independent_numpy_fd_state_jvp": [
+      0.0,
+      -0.9900990096678441,
+      0.9900990097130776
+    ],
+    "legacy_state_max_error": 0.0009910901000009797,
+    "algebraic_state_max_error": 0.0,
+    "finite_difference_state_max_error": 2.3314594699286317e-10,
+    "scalar_log_NAV_derivatives": {
+      "legacy_autograd": -0.009910901000009919,
+      "algebraic_autograd": -0.010901991100011,
+      "independent_numpy_fd": -0.010901991082459817,
+      "right_fd": -0.010901991082459817,
+      "left_fd": null
+    },
+    "scalar_fee_derivatives": {
+      "legacy_autograd": 0.0,
+      "algebraic_autograd": 0.0,
+      "independent_numpy_fd": 0.0010010010008110195,
+      "right_fd": 0.0010010010008110195,
+      "left_fd": null
+    },
+    "forward_errors": {
+      "net_equity": 0.0,
+      "fees": 0.0,
+      "turnover": 0.0,
+      "ending_weights": 0.0,
+      "independent_numpy_ending_weights": 0.0,
+      "independent_numpy_net_equity": 0.0,
+      "cash_debit_identity": 0.0,
+      "funding_identity": 0.0
+    }
+  },
+  {
+    "case": "S_to_cash_target_at_theta0",
+    "cost_bps": 25.0,
+    "no_trade_at_point": true,
+    "finite_difference": "right",
+    "held": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "target": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "dh": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dz": [
+      0.0,
+      -1.0,
+      1.0
+    ],
+    "legacy_state_jvp": [
+      0.0,
+      -0.9925804610536242,
+      0.9925804610536242
+    ],
+    "algebraic_state_jvp": [
+      0.0,
+      -0.9900990099009901,
+      0.9900990099009901
+    ],
+    "analytic_state_jvp": [
+      0.0,
+      -0.9900990099009901,
+      0.9900990099009901
+    ],
+    "independent_numpy_fd_state_jvp": [
+      0.0,
+      -0.9900990098898887,
+      0.9900990098501786
+    ],
+    "legacy_state_max_error": 0.0024814511526340954,
+    "algebraic_state_max_error": 0.0,
+    "finite_difference_state_max_error": 5.081146614571708e-11,
+    "scalar_log_NAV_derivatives": {
+      "legacy_autograd": -0.00992580461053625,
+      "algebraic_autograd": -0.012407255763170255,
+      "independent_numpy_fd": -0.012407255530269556,
+      "right_fd": -0.012407255530269556,
+      "left_fd": null
+    },
+    "scalar_fee_derivatives": {
+      "legacy_autograd": 0.0,
+      "algebraic_autograd": 0.0,
+      "independent_numpy_fd": 0.0025062656640317815,
+      "right_fd": 0.0025062656640317815,
+      "left_fd": null
+    },
+    "forward_errors": {
+      "net_equity": 0.0,
+      "fees": 0.0,
+      "turnover": 0.0,
+      "ending_weights": 0.0,
+      "independent_numpy_ending_weights": 0.0,
+      "independent_numpy_net_equity": 0.0,
+      "cash_debit_identity": 0.0,
+      "funding_identity": 0.0
+    }
+  }
+]

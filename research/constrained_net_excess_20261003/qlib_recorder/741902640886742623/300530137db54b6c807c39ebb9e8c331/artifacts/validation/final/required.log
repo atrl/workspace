@@ -1,0 +1,2186 @@
+......FFFF.FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.FFFFFFF    [100%]
+=================================== FAILURES ===================================
+________ test_qlib_card_artifacts_are_portable_to_current_main_checkout ________
+
+    def test_qlib_card_artifacts_are_portable_to_current_main_checkout():
+        stale_tokens = [
+            ".worktrees/qlib-native-spec-v1",
+            "/Users/rziiiii/dev/workspace/.worktrees/qlib-native-spec-v1",
+        ]
+        tracked_cards = [
+            ROOT / "research" / "qlib_native_reference_v1",
+            ROOT / "research" / "qlib_signal_weight_search_v1",
+            ROOT / "research" / "qlib_validated_signal_weight_v1",
+            ROOT / "production" / "qlib_paper_sim_v1",
+        ]
+    
+        for card in tracked_cards:
+>           summary = _summary(card)
+                      ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/qlib_native_reference_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/qlib_native_reference_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_____ test_research_card_has_executed_qlib_recorder_and_analysis_sidecars ______
+
+    def test_research_card_has_executed_qlib_recorder_and_analysis_sidecars():
+        card = ROOT / "research" / "qlib_native_reference_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/qlib_native_reference_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/qlib_native_reference_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__ test_signal_weight_search_card_records_legacy_comparison_with_qlib_portana __
+
+    def test_signal_weight_search_card_records_legacy_comparison_with_qlib_portana():
+        card = ROOT / "research" / "qlib_signal_weight_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/qlib_signal_weight_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/qlib_signal_weight_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__ test_validated_signal_weight_card_beats_legacy_after_validation_selection ___
+
+    def test_validated_signal_weight_card_beats_legacy_after_validation_selection():
+        card = ROOT / "research" / "qlib_validated_signal_weight_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/qlib_validated_signal_weight_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/qlib_validated_signal_weight_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_rgevd_search_card_records_external_knowledge_and_goal_gate _
+
+    def test_agentic_alpha_rgevd_search_card_records_external_knowledge_and_goal_gate():
+        card = ROOT / "research" / "agentic_alpha_rgevd_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_rgevd_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_rgevd_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_model_replay_search_card_closes_model_and_cross_asset_branches _
+
+    def test_agentic_alpha_model_replay_search_card_closes_model_and_cross_asset_branches():
+        card = ROOT / "research" / "agentic_alpha_model_replay_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:298: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_model_replay_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_model_replay_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate __
+
+    def test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate():
+        card = ROOT / "research" / "agentic_alpha_intraday_t1_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:352: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_t1_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_t1_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_intraday_5m15m_lgb_xgb_card_records_minute_qlib_research __
+
+    def test_agentic_alpha_intraday_5m15m_lgb_xgb_card_records_minute_qlib_research():
+        card = ROOT / "research" / "agentic_alpha_intraday_5m15m_lgb_xgb_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:422: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_5m15m_lgb_xgb_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_5m15m_lgb_xgb_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_selection _
+
+    def test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_selection():
+        card = ROOT / "research" / "agentic_alpha_intraday_15m_regime_gated_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:513: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_15m_regime_gated_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_15m_regime_gated_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_multi_3x_etf_normalized_lgb_xgb_nested_wf_card_rejects_manual_templates _
+
+    def test_multi_3x_etf_normalized_lgb_xgb_nested_wf_card_rejects_manual_templates():
+        card = ROOT / "research" / "multi_3x_etf_normalized_lgb_xgb_nested_wf_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:622: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/multi_3x_etf_normalized_lgb_xgb_nested_wf_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/multi_3x_etf_normalized_lgb_xgb_nested_wf_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__ test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass ___
+
+    def test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass():
+        card = ROOT / "research" / "trainable_regime_policy_nested_wf_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:724: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/trainable_regime_policy_nested_wf_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/trainable_regime_policy_nested_wf_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_card_records_soxx_benchmark_generalization _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_card_records_soxx_benchmark_generalization():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v1"
+        summary = _summary(card)
+        notebook_text = (card / "dynamic_soxx_soxl_cash_allocation_wf_v1.ipynb").read_text(encoding="utf-8")
+        conclusion = (card / "conclusion.md").read_text(encoding="utf-8")
+    
+        assert summary["experiment"] == "dynamic_soxx_soxl_cash_allocation_wf_v1"
+        assert summary["card_type"] == "dynamic_soxx_soxl_cash_allocation_wf_research_card"
+        assert summary["benchmark_basis"] == "open_to_open"
+        assert summary["benchmark_asset"] == "SOXX"
+        assert summary["allocation_assets"] == ["SOXX", "SOXL", "cash"]
+        assert summary["execution_timing"] == "close_t_signal_next_open_to_following_open"
+        assert summary["model_selection"]["selection_policy"] == "nested_inner_soxx_benchmark_proxy_generalization_gate"
+        assert summary["model_selection"]["selection_uses_outer_test"] is False
+        assert summary["model_selection"]["proxy_generalization_role"] == "primary_selection_gate"
+        assert summary["model_selection"]["candidate_count"] == 9
+        assert set(summary["model_selection"]["model_families"]) >= {
+            "lgbm_classifier",
+            "xgb_classifier",
+            "lgb_xgb_consensus",
+        }
+        assert summary["model_selection"]["manual_template_selection"] is False
+        assert summary["model_selection"]["manual_policy_grid_used"] is False
+        assert summary["annual_goal"]["return_gate"] == "test_return_pct_ge_soxx_buyhold_return_pct_plus_20pp"
+        assert summary["annual_goal"]["excess_return_floor_pct"] == 20.0
+        assert summary["annual_goal"]["max_drawdown_floor_pct"] == -10.0
+        assert summary["annual_goal"]["selection_uses_outer_test"] is False
+        assert summary["generalization_gate"]["selection_uses_outer_test"] is False
+        assert summary["proxy_generalization_assets"] == ["TQQQ", "UPRO", "SPXL", "TECL"]
+        assert summary["allocation_policy"]["weight_sum_constraint"] == "weight_soxx + weight_soxl + weight_cash = 1"
+        assert summary["model_heads"] == {
+            "relative_alpha_probability": "relative_alpha_5d_label",
+            "underlying_positive_probability": "underlying_positive_5d_label",
+            "tail_risk_probability": "tail_risk_5d_label",
+        }
+        assert summary["intraday_risk_state"]["uses_5min"] is True
+        assert summary["intraday_risk_state"]["uses_15min"] is True
+        assert summary["soxx_constituent_factors"]["status"] == "ok"
+        assert summary["feature_sets"]["available_soxx_constituent_feature_count"] == summary["soxx_constituent_factors"]["feature_count"]
+        assert summary["overfit_audit"]["manual_template_selection"] is False
+        assert summary["overfit_audit"]["nested_walk_forward"] is True
+        assert summary["overfit_audit"]["selection_uses_outer_test"] is False
+    
+        expected_sidecars = {
+            "analysis_summary",
+            "annual_walk_forward",
+            "failure_modes",
+            "feature_sets",
+            "generalization_stress",
+            "inner_selection",
+            "model_comparison",
+            "risk_analysis",
+            "selected_candidates",
+        }
+        assert set(summary["sidecars"]) == expected_sidecars
+        assert summary["artifact_policy"]["policy"] == "slim_card_recorder_first"
+        assert summary["artifact_policy"]["recorder_only_artifacts"] == [
+            "artifacts/dynamic_soxx_soxl_cash_allocation_wf_v1/positions.csv"
+        ]
+        assert RECORDER_ONLY_ROOT_FILES.isdisjoint({path.name for path in card.iterdir() if path.is_file()})
+    
+        annual = pd.read_csv(card / summary["sidecars"]["annual_walk_forward"])
+        assert set(annual["outer_test_year"]) == {2023, 2024, 2025, 2026}
+        assert annual["selection_uses_outer_test"].eq(False).all()
+        assert "soxx_buyhold_return_pct" in annual.columns
+        assert "test_excess_vs_soxx_pct" in annual.columns
+        assert "test_avg_soxx_weight" in annual.columns
+        assert "test_avg_soxl_weight" in annual.columns
+        assert "test_avg_cash_weight" in annual.columns
+        assert annual["test_max_soxl_weight"].le(max(summary["allocation_policy"]["max_soxl_weight_candidates"]) + 1e-9).all()
+    
+        selected = pd.read_csv(card / summary["sidecars"]["selected_candidates"])
+        assert selected["selection_uses_outer_test"].eq(False).all()
+        assert selected["selection_policy"].eq("nested_inner_soxx_benchmark_proxy_generalization_gate").all()
+        assert selected["proxy_generalization_gate_applied"].eq(True).all()
+        assert "generalization_selection_satisfied" in selected.columns
+        assert "proxy_avg_excess_pct" in selected.columns
+    
+        stress = pd.read_csv(card / summary["sidecars"]["generalization_stress"])
+        assert set(stress["heldout_asset"]).issubset({"TQQQ", "UPRO", "SPXL", "TECL"})
+        assert stress["selection_uses_outer_test"].eq(False).all()
+    
+        recorder_dir = Path(summary["recorder_local_dir"])
+>       assert (recorder_dir / "artifacts" / summary["experiment"] / "positions.csv").exists()
+E       AssertionError: assert False
+E        +  where False = exists()
+E        +    where exists = (((PosixPath('/Users/rziiiii/dev/workspace/research/dynamic_soxx_soxl_cash_allocation_wf_v1/qlib_recorder/904657458127058660/b9bc3e02854c4e808d7ef2fcae357308') / 'artifacts') / 'dynamic_soxx_soxl_cash_allocation_wf_v1') / 'positions.csv').exists
+
+tests/test_qlib_native_notebook_cards.py:1000: AssertionError
+__ test_dynamic_soxx_soxl_cash_allocation_wf_v2_records_failed_frontier_goal ___
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v2_records_failed_frontier_goal():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v2"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1015: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v2/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v2/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_v3_records_signal_capacity_diagnostic _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v3_records_signal_capacity_diagnostic():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v3"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1082: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v3/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v3/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_v4_records_full_factor_frontier_diagnostic _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v4_records_full_factor_frontier_diagnostic():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v4"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1158: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v4/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v4/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_v5_records_causal_meta_label_leakage_audit _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v5_records_causal_meta_label_leakage_audit():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v5"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1257: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v5/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v5/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_v6_records_same_day_15m_capacity_and_nested_calibration _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v6_records_same_day_15m_capacity_and_nested_calibration():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v6"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1336: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v6/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v6/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_v7_records_online_threshold_generalization_audit _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v7_records_online_threshold_generalization_audit():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v7"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1422: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v7/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v7/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_v8_records_intraday_cppi_ml_risk_budget_frontier _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v8_records_intraday_cppi_ml_risk_budget_frontier():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v8"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1487: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v8/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v8/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_v9_records_high_confidence_precision_frontier _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v9_records_high_confidence_precision_frontier():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v9"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1553: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v9/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v9/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_dynamic_soxx_soxl_cash_allocation_wf_v11_records_no_template_regime_satellite_failure _
+
+    def test_dynamic_soxx_soxl_cash_allocation_wf_v11_records_no_template_regime_satellite_failure():
+        card = ROOT / "research" / "dynamic_soxx_soxl_cash_allocation_wf_v11"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1638: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v11/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/dynamic_soxx_soxl_cash_allocation_wf_v11/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay _
+
+    def test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay():
+        card = ROOT / "research" / "cognitive_alpha_intraday_execution_overlay_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1700: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_execution_overlay_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_execution_overlay_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded_intraday_source _
+
+    def test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded_intraday_source():
+        card = ROOT / "research" / "cognitive_alpha_intraday_external_context_overlay_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1831: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_external_context_overlay_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_external_context_overlay_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_policy_search _
+
+    def test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_policy_search():
+        card = ROOT / "research" / "cognitive_alpha_intraday_regime_overlay_diagnostic_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:1946: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_regime_overlay_diagnostic_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_regime_overlay_diagnostic_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust_delayed_entry _
+
+    def test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust_delayed_entry():
+        card = ROOT / "research" / "cognitive_alpha_intraday_delayed_observable_overlay_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2023: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_delayed_observable_overlay_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_cognitive_alpha_intraday_local_fallback_overlay_card_records_annual_wf __
+
+    def test_cognitive_alpha_intraday_local_fallback_overlay_card_records_annual_wf():
+        card = ROOT / "research" / "cognitive_alpha_intraday_local_fallback_overlay_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_local_fallback_overlay_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_local_fallback_overlay_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+____ test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf _____
+
+    def test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf():
+        card = ROOT / "research" / "cognitive_alpha_intraday_5min_risk_sleeve_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2263: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_5min_risk_sleeve_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_intraday_5min_risk_sleeve_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features _
+
+    def test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features():
+        card = ROOT / "research" / "agentic_alpha_intraday_execution_label_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2395: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_execution_label_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_execution_label_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_intraday_external_context_data_card_records_requested_symbols_and_fail_closed_coverage _
+
+    def test_intraday_external_context_data_card_records_requested_symbols_and_fail_closed_coverage():
+        card = ROOT / "research" / "intraday_external_context_data_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2481: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/intraday_external_context_data_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/intraday_external_context_data_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_intraday_external_context_label_card_records_external_features_and_partial_gate _
+
+    def test_agentic_alpha_intraday_external_context_label_card_records_external_features_and_partial_gate():
+        card = ROOT / "research" / "agentic_alpha_intraday_external_context_label_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2601: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_external_context_label_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_external_context_label_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap _
+
+    def test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap():
+        card = ROOT / "research" / "agentic_alpha_high_chop_execution_validation_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2669: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_high_chop_execution_validation_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_high_chop_execution_validation_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+____ test_agentic_alpha_budget_overlay_search_card_closes_cppi_tipp_branch _____
+
+    def test_agentic_alpha_budget_overlay_search_card_closes_cppi_tipp_branch():
+        card = ROOT / "research" / "agentic_alpha_budget_overlay_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2709: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_budget_overlay_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_budget_overlay_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_ml_pair_search_card_closes_crash_model_and_pair_hedge_branches _
+
+    def test_agentic_alpha_ml_pair_search_card_closes_crash_model_and_pair_hedge_branches():
+        card = ROOT / "research" / "agentic_alpha_ml_pair_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2767: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ml_pair_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ml_pair_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_tail_risk_external_search_card_records_external_store_and_goal_gate _
+
+    def test_agentic_alpha_tail_risk_external_search_card_records_external_store_and_goal_gate():
+        card = ROOT / "research" / "agentic_alpha_tail_risk_external_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2828: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_tail_risk_external_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_tail_risk_external_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_cross_asset_rotation_search_card_records_rotation_store_and_goal_gate _
+
+    def test_agentic_alpha_cross_asset_rotation_search_card_records_rotation_store_and_goal_gate():
+        card = ROOT / "research" / "agentic_alpha_cross_asset_rotation_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2892: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_cross_asset_rotation_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_cross_asset_rotation_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_factor_library_reversal_search_card_closes_factor_library_branches _
+
+    def test_agentic_alpha_factor_library_reversal_search_card_closes_factor_library_branches():
+        card = ROOT / "research" / "agentic_alpha_factor_library_reversal_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:2958: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_factor_library_reversal_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_factor_library_reversal_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_long_short_crisis_alpha_search_card_closes_trend_following_branches _
+
+    def test_agentic_alpha_long_short_crisis_alpha_search_card_closes_trend_following_branches():
+        card = ROOT / "research" / "agentic_alpha_long_short_crisis_alpha_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3023: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_long_short_crisis_alpha_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_long_short_crisis_alpha_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+___ test_agentic_alpha_canary_sprint_search_card_closes_short_hold_branches ____
+
+    def test_agentic_alpha_canary_sprint_search_card_closes_short_hold_branches():
+        card = ROOT / "research" / "agentic_alpha_canary_sprint_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3083: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_canary_sprint_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_canary_sprint_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+___ test_agentic_alpha_meta_label_probability_gate_card_records_sanity_gate ____
+
+    def test_agentic_alpha_meta_label_probability_gate_card_records_sanity_gate():
+        card = ROOT / "research" / "agentic_alpha_meta_label_probability_gate_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3145: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_meta_label_probability_gate_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_meta_label_probability_gate_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_session_effect_search_card_closes_overnight_intraday_branches _
+
+    def test_agentic_alpha_session_effect_search_card_closes_overnight_intraday_branches():
+        card = ROOT / "research" / "agentic_alpha_session_effect_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3192: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_session_effect_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_session_effect_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+___ test_agentic_alpha_macro_credit_search_card_closes_macro_credit_branches ___
+
+    def test_agentic_alpha_macro_credit_search_card_closes_macro_credit_branches():
+        card = ROOT / "research" / "agentic_alpha_macro_credit_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3248: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_macro_credit_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_macro_credit_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______ test_agentic_alpha_ensemble_search_card_records_passing_candidate _______
+
+    def test_agentic_alpha_ensemble_search_card_records_passing_candidate():
+        card = ROOT / "research" / "agentic_alpha_ensemble_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3315: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ensemble_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ensemble_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_position_sizing_search_card_compares_managed_position_budget _
+
+    def test_agentic_alpha_position_sizing_search_card_compares_managed_position_budget():
+        card = ROOT / "research" / "agentic_alpha_position_sizing_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3371: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_position_sizing_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_position_sizing_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_constrained_weight_search_card_exceeds_raw_position_reference _
+
+    def test_agentic_alpha_constrained_weight_search_card_exceeds_raw_position_reference():
+        card = ROOT / "research" / "agentic_alpha_constrained_weight_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3416: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_constrained_weight_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_constrained_weight_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_ml_position_model_card_reports_validation_selected_underperformance _
+
+    def test_agentic_alpha_ml_position_model_card_reports_validation_selected_underperformance():
+        card = ROOT / "research" / "agentic_alpha_ml_position_model_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3457: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ml_position_model_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ml_position_model_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__ test_agentic_alpha_ml_throttle_card_beats_soxl_but_not_constrained_weight ___
+
+    def test_agentic_alpha_ml_throttle_card_beats_soxl_but_not_constrained_weight():
+        card = ROOT / "research" / "agentic_alpha_ml_throttle_search_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3516: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ml_throttle_search_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ml_throttle_search_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_ml_factor_enhanced_throttle_card_records_external_factor_groups _
+
+    def test_agentic_alpha_ml_factor_enhanced_throttle_card_records_external_factor_groups():
+        card = ROOT / "research" / "agentic_alpha_ml_factor_enhanced_throttle_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3580: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ml_factor_enhanced_throttle_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_ml_factor_enhanced_throttle_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal _
+
+    def test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal():
+        card = ROOT / "research" / "agentic_alpha_high_chop_lgb_xgb_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3667: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_high_chop_lgb_xgb_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_high_chop_lgb_xgb_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_high_chop_open2open_lgb_xgb_card_records_execution_aligned_reject _
+
+    def test_agentic_alpha_high_chop_open2open_lgb_xgb_card_records_execution_aligned_reject():
+        card = ROOT / "research" / "agentic_alpha_high_chop_open2open_lgb_xgb_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3768: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_high_chop_open2open_lgb_xgb_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_high_chop_open2open_lgb_xgb_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_agentic_alpha_cognitive_alpha_soxl_card_records_codex_alpha158_framework _
+
+    def test_agentic_alpha_cognitive_alpha_soxl_card_records_codex_alpha158_framework():
+        card = ROOT / "research" / "agentic_alpha_cognitive_alpha_soxl_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3861: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_cognitive_alpha_soxl_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_cognitive_alpha_soxl_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+___ test_cognitive_alpha_evolution_smoke_card_records_resumable_goal_runner ____
+
+    def test_cognitive_alpha_evolution_smoke_card_records_resumable_goal_runner():
+        card = ROOT / "research" / "cognitive_alpha_evolution_smoke_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:3939: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_evolution_smoke_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_evolution_smoke_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__ test_cognitive_alpha_evolution_full_card_records_full_goal_runner_profile ___
+
+    def test_cognitive_alpha_evolution_full_card_records_full_goal_runner_profile():
+        card = ROOT / "research" / "cognitive_alpha_evolution_full_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4005: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_evolution_full_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_evolution_full_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_cognitive_alpha_external_provider_smoke_card_records_codex_provider_readiness _
+
+    def test_cognitive_alpha_external_provider_smoke_card_records_codex_provider_readiness():
+        card = ROOT / "research" / "cognitive_alpha_external_provider_smoke_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4061: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_external_provider_smoke_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_external_provider_smoke_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain _
+
+    def test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain():
+        card = ROOT / "research" / "cognitive_alpha_goal_codex_exec_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_goal_codex_exec_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_goal_codex_exec_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_execution_stress _
+
+    def test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_execution_stress():
+        card = ROOT / "research" / "risk_hardened_open2open_v2"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4412: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/risk_hardened_open2open_v2/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/risk_hardened_open2open_v2/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__ test_hybrid_intraday15m_open2open_card_records_lagged_hybrid_walk_forward ___
+
+    def test_hybrid_intraday15m_open2open_card_records_lagged_hybrid_walk_forward():
+        card = ROOT / "research" / "agentic_alpha_hybrid_intraday15m_open2open_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4495: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_hybrid_intraday15m_open2open_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_hybrid_intraday15m_open2open_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__ test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal __
+
+    def test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal():
+        card = ROOT / "research" / "agentic_alpha_intraday_execution_sleeve_v2"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4549: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_execution_sleeve_v2/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/agentic_alpha_intraday_execution_sleeve_v2/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_meta_label_risk_budget_open2open_card_replaces_probability_boost_and_records_failure _
+
+    def test_meta_label_risk_budget_open2open_card_replaces_probability_boost_and_records_failure():
+        card = ROOT / "research" / "meta_label_risk_budget_open2open_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4620: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/meta_label_risk_budget_open2open_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/meta_label_risk_budget_open2open_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal _
+
+    def test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal():
+        card = ROOT / "research" / "cognitive_alpha_position_model_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4676: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_position_model_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/cognitive_alpha_position_model_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_soxx_constituent_alpha_attribution_card_separates_signal_leverage_and_execution _
+
+    def test_soxx_constituent_alpha_attribution_card_separates_signal_leverage_and_execution():
+        card = ROOT / "research" / "soxx_constituent_alpha_attribution_v1"
+>       summary = _summary(card)
+                  ^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4892: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_qlib_native_notebook_cards.py:43: in _summary
+    return json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/soxx_constituent_alpha_attribution_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/soxx_constituent_alpha_attribution_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_____ test_stage1_open15m_defensive_sleeve_card_records_frozen_comparison ______
+
+    def test_stage1_open15m_defensive_sleeve_card_records_frozen_comparison():
+        card = ROOT / "research" / "stage1_open15m_defensive_sleeve_v1"
+>       summary = json.loads((card / "summary.json").read_text(encoding="utf-8"))
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_qlib_native_notebook_cards.py:4923: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/stage1_open15m_defensive_sleeve_v1/summary.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/research/stage1_open15m_defensive_sleeve_v1/summary.json'
+
+../../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+=============================== warnings summary ===============================
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:19: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_DAY = pd.Timedelta("1day")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:20: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    ONE_MIN = pd.Timedelta("1min")
+
+qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/constant.py:21: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    EPS_T = pd.Timedelta("1s")  # use 1 second to exclude the right interval point
+
+tests/test_qlib_native_workflow.py::test_qlib_data_api_and_dataset_are_native
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/google/protobuf/internal/well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+tests/test_qlib_native_workflow.py::test_qlib_workflow_recorder_and_record_outputs_are_durable
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3028: RuntimeWarning: Degrees of freedom <= 0 for slice
+    c = cov(x, y, rowvar, dtype=dtype)
+
+tests/test_qlib_native_workflow.py::test_qlib_workflow_recorder_and_record_outputs_are_durable
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:2901: RuntimeWarning: divide by zero encountered in divide
+    c *= np.true_divide(1, fact)
+
+tests/test_qlib_native_workflow.py::test_qlib_workflow_recorder_and_record_outputs_are_durable
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/utils/time.py:201: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return pd.Timedelta(f"{n}{freq}")
+
+tests/test_qlib_native_workflow.py: 30 warnings
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/utils/time.py:369: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+    return date_time - pd.Timedelta(seconds=1)
+
+tests/test_qlib_native_workflow.py::test_qlib_workflow_recorder_and_record_outputs_are_durable
+tests/test_qlib_native_workflow.py::test_qlib_workflow_recorder_and_record_outputs_are_durable
+tests/test_qlib_native_workflow.py::test_qlib_workflow_recorder_and_record_outputs_are_durable
+tests/test_qlib_native_workflow.py::test_qlib_workflow_recorder_and_record_outputs_are_durable
+tests/test_qlib_native_workflow.py::test_qlib_workflow_recorder_and_record_outputs_are_durable
+  /Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/qlib_venv/lib/python3.12/site-packages/qlib/utils/index_data.py:492: RuntimeWarning: Mean of empty slice
+    return np.nanmean(self.data)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_qlib_native_notebook_cards.py::test_qlib_card_artifacts_are_portable_to_current_main_checkout
+FAILED tests/test_qlib_native_notebook_cards.py::test_research_card_has_executed_qlib_recorder_and_analysis_sidecars
+FAILED tests/test_qlib_native_notebook_cards.py::test_signal_weight_search_card_records_legacy_comparison_with_qlib_portana
+FAILED tests/test_qlib_native_notebook_cards.py::test_validated_signal_weight_card_beats_legacy_after_validation_selection
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_rgevd_search_card_records_external_knowledge_and_goal_gate
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_model_replay_search_card_closes_model_and_cross_asset_branches
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_intraday_t1_search_card_records_qlib_store_and_goal_gate
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_intraday_5m15m_lgb_xgb_card_records_minute_qlib_research
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_intraday_15m_regime_gated_card_records_cost_stable_selection
+FAILED tests/test_qlib_native_notebook_cards.py::test_multi_3x_etf_normalized_lgb_xgb_nested_wf_card_rejects_manual_templates
+FAILED tests/test_qlib_native_notebook_cards.py::test_trainable_regime_policy_nested_wf_card_replaces_manual_template_pass
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_card_records_soxx_benchmark_generalization
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v2_records_failed_frontier_goal
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v3_records_signal_capacity_diagnostic
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v4_records_full_factor_frontier_diagnostic
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v5_records_causal_meta_label_leakage_audit
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v6_records_same_day_15m_capacity_and_nested_calibration
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v7_records_online_threshold_generalization_audit
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v8_records_intraday_cppi_ml_risk_budget_frontier
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v9_records_high_confidence_precision_frontier
+FAILED tests/test_qlib_native_notebook_cards.py::test_dynamic_soxx_soxl_cash_allocation_wf_v11_records_no_template_regime_satellite_failure
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_intraday_execution_overlay_card_records_daily_plus_intraday_overlay
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_intraday_external_context_overlay_card_records_upgraded_intraday_source
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_intraday_regime_overlay_diagnostic_card_records_causal_policy_search
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_intraday_delayed_observable_overlay_card_records_robust_delayed_entry
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_intraday_local_fallback_overlay_card_records_annual_wf
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_intraday_5min_risk_sleeve_card_records_replay_wf
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_intraday_execution_label_card_records_upgraded_labels_and_context_features
+FAILED tests/test_qlib_native_notebook_cards.py::test_intraday_external_context_data_card_records_requested_symbols_and_fail_closed_coverage
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_intraday_external_context_label_card_records_external_features_and_partial_gate
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_high_chop_execution_validation_card_records_minute_execution_gap
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_budget_overlay_search_card_closes_cppi_tipp_branch
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_ml_pair_search_card_closes_crash_model_and_pair_hedge_branches
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_tail_risk_external_search_card_records_external_store_and_goal_gate
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_cross_asset_rotation_search_card_records_rotation_store_and_goal_gate
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_factor_library_reversal_search_card_closes_factor_library_branches
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_long_short_crisis_alpha_search_card_closes_trend_following_branches
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_canary_sprint_search_card_closes_short_hold_branches
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_meta_label_probability_gate_card_records_sanity_gate
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_session_effect_search_card_closes_overnight_intraday_branches
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_macro_credit_search_card_closes_macro_credit_branches
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_ensemble_search_card_records_passing_candidate
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_position_sizing_search_card_compares_managed_position_budget
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_constrained_weight_search_card_exceeds_raw_position_reference
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_ml_position_model_card_reports_validation_selected_underperformance
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_ml_throttle_card_beats_soxl_but_not_constrained_weight
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_ml_factor_enhanced_throttle_card_records_external_factor_groups
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_high_chop_lgb_xgb_card_uses_new_factors_and_latest_signal
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_high_chop_open2open_lgb_xgb_card_records_execution_aligned_reject
+FAILED tests/test_qlib_native_notebook_cards.py::test_agentic_alpha_cognitive_alpha_soxl_card_records_codex_alpha158_framework
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_evolution_smoke_card_records_resumable_goal_runner
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_evolution_full_card_records_full_goal_runner_profile
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_external_provider_smoke_card_records_codex_provider_readiness
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_goal_codex_exec_card_records_real_codex_exec_goal_chain
+FAILED tests/test_qlib_native_notebook_cards.py::test_risk_hardened_open2open_v2_card_records_strict_lgb_xgb_ablation_and_execution_stress
+FAILED tests/test_qlib_native_notebook_cards.py::test_hybrid_intraday15m_open2open_card_records_lagged_hybrid_walk_forward
+FAILED tests/test_qlib_native_notebook_cards.py::test_intraday_execution_sleeve_v2_card_records_trend_protected_annual_goal
+FAILED tests/test_qlib_native_notebook_cards.py::test_meta_label_risk_budget_open2open_card_replaces_probability_boost_and_records_failure
+FAILED tests/test_qlib_native_notebook_cards.py::test_cognitive_alpha_position_model_card_records_lightgbm_benchmark_and_signal
+FAILED tests/test_qlib_native_notebook_cards.py::test_soxx_constituent_alpha_attribution_card_separates_signal_leverage_and_execution
+FAILED tests/test_qlib_native_notebook_cards.py::test_stage1_open15m_defensive_sleeve_card_records_frozen_comparison
+61 failed, 8 passed, 42 warnings in 6.96s

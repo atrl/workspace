@@ -1,0 +1,250 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[15937:MainThread](2026-10-03 03:01:55,389) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[15937:MainThread](2026-10-03 03:01:55,390) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[15937:MainThread](2026-10-03 03:01:55,390) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2058.05it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1827.58it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3041.55it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2704.26it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 337.60it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 330.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 834.02it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 799.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3344.74it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2993.79it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4655.17it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 4064.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 180.93it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 180.06it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 152.86it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 152.09it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 316.55it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 313.69it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 187.72it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 186.66it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 974.74it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 928.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 813.64it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 786.63it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 958.70it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 923.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 803.97it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 777.73it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 969.11it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 935.60it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 813.16it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 787.96it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1063.73it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1029.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 424.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 419.81it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 912.40it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 887.50it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 872.36it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 840.21it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 960.45it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 927.53it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 715.26it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 695.92it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 960.67it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 926.92it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 855.63it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 832.70it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 910.82it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 880.23it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 728.81it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 709.22it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 784.42it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 763.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 792.42it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 768.61it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 730.59it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 712.35it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 783.10it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 762.18it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 808.46it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 779.61it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 905.90it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 878.76it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 952.17it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 919.80it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 601.33it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 588.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 885.81it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 859.84it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 918.39it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 891.27it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 619.09it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 606.38it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 784.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 763.29it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 652.40it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 637.82it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 643.10it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 628.45it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 800.75it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 780.77it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 588.59it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 575.75it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 627.70it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 615.36it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 760.39it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 739.08it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 674.76it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 658.76it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 635.40it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 621.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 593.84it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 579.72it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 740.78it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 721.91it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 732.50it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 711.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 583.51it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 572.13it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 597.31it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 583.76it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 605.68it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 593.51it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 621.10it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 608.22it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 568.18it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 557.75it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 600.22it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 586.21it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 751.94it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 730.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 595.61it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 582.06it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 412.38it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 407.37it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 637.34it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 622.76it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 612.75it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 596.29it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 675.19it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 659.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 542.25it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 530.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 671.63it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 654.95it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 623.04it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 608.22it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 672.49it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 655.77it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 461.93it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 453.73it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 694.88it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 677.48it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 655.36it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 639.08it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 645.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 628.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 680.34it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 662.82it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 666.19it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 649.78it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 280.91it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 278.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 634.92it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 620.73it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 673.46it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 655.36it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 368.02it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 362.95it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 523.83it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 513.63it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 463.36it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 454.72it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 277.79it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 274.75it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 422.51it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 415.98it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 451.88it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 445.21it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 526.06it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 513.13it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 542.95it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 531.13it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 555.61it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 542.88it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 373.69it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 367.50it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3204.20it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2857.16it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3192.01it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2914.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1170.94it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1112.25it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3368.92it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3041.55it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1196.32it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1148.18it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3297.41it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3010.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1172.25it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1137.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 758.19it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 741.83it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1269.08it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1228.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3070.50it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2841.67it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1034.10it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1005.11it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 928.56it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 894.31it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1111.07it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1076.29it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3160.74it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2914.74it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1239.45it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1203.53it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2016.49it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1919.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1121.17it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1087.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 894.31it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 873.27it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1060.24it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1023.50it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 445.07it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 440.16it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 990.16it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 958.70it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3125.41it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2890.63it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 969.11it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 941.69it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 3050.40it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2833.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 953.25it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 932.90it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2904.64it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2714.76it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 987.13it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 958.70it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2832.08it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2639.59it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1046.22it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1009.22it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2866.92it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2697.30it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 958.70it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 928.56it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2008.77it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1897.02it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 977.47it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 945.30it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2718.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2531.26it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1018.28it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 987.13it/s] 
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2857.16it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2673.23it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 827.12it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 804.43it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1642.25it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1550.00it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 508.65it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 500.99it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1630.76it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1567.38it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 383.88it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 379.64it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2552.83it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2387.20it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 881.90it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 855.28it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1798.59it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1715.46it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 711.26it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 698.82it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1600.27it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1536.38it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 641.04it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 628.45it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 428.87it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 423.03it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 623.13it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 610.17it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 308.09it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 305.24it/s]
+{
+  "recorder_id": "300530137db54b6c807c39ebb9e8c331",
+  "failures": [],
+  "check_count": 81,
+  "counts": {
+    "fits": 75,
+    "numerical_failed_fits": 0,
+    "primal_tensor_checks": 9150,
+    "epoch_records": 9075,
+    "primal_updates": 9000,
+    "valid_null_fits": 21,
+    "saved_training_decisions_audited": 558070,
+    "selected_positiveF_negativeLegacyJ": 31,
+    "negativeLegacyJ_incumbent_acceptances": 88,
+    "sampled_checkpoint_gradient_states": 225,
+    "sampled_training_cost_paths": 450,
+    "sampled_inactive_cost_risk_contributions": 97,
+    "ensembles": 25,
+    "numerical_failed_ensembles": 0,
+    "ensemble_rejections": 0,
+    "ensemble_valid_nulls": 7,
+    "ensemble_positiveF_negativeLegacyJ": 9
+  },
+  "maxima": {
+    "interior theta init": 0,
+    "raw loss gap identity": 1.1102230246251565e-16,
+    "percentage point units": 0,
+    "samecost benchmark normalizers": 5.551115123125783e-17,
+    "normalized constraint identity": 0,
+    "F63 scale": 3.469446951953614e-18,
+    "aggregate distinct from F": 1.1102230246251565e-16,
+    "postprimal diagnostic Lagrangian": 0,
+    "zero lambda initialization": 0,
+    "no pre-first-proposal dual update": 0,
+    "dual continuity": 0,
+    "signed postprimal uncapped dual update": 0,
+    "preprimal actual current trajectory Lagrangian": 0,
+    "actual projected primal step norm": 1.3877787807814457e-17,
+    "recorded_current_path_parity": 4.440892098500626e-16,
+    "saved incumbent fixedF": 0,
+    "independent funded SOXX multiplier": 1.1102230246251565e-16,
+    "saved model action identity": 0,
+    "real cash origin": 0,
+    "true own holdings": 0,
+    "fee funded target identity": 3.885780586188048e-16,
+    "true risky L1": 1.6653345369377348e-16,
+    "cash fee identity": 0,
+    "net return identity": 4.440892098500626e-16,
+    "selected fullpath independent risks": 5.551115123125783e-17,
+    "selected independent risk reference": 0,
+    "chosen path recomputed F component": 0,
+    "chosen path recomputed oldJ component": 0,
+    "chosen fullpath F": 0,
+    "chosen fullpath oldJ": 0,
+    "sample independent risk values": 0,
+    "sample independent normalized g": 0,
+    "sample current trajectory F": 0,
+    "sample global weighted gradient proxy": 3.9898639947466563e-16,
+    "own ensemble path rawF": 0,
+    "raw ensemble F minimum": 0,
+    "retained ensemble F minimum": 0,
+    "retained ensemble legacyJ report": 0
+  },
+  "fit_summary": [
+    {
+      "variant": "constant",
+      "fits": 21,
+      "valid_nulls": 21,
+      "minimum_F": 0.0,
+      "maximum_F": 0.0,
+      "mean_F": 0.0,
+      "feasible_states": 1284,
+      "feasible_positive_states": 0,
+      "maximum_lambda": 0.03518155776122417,
+      "dual_increases": 4905,
+      "dual_decreases": 3447
+    },
+    {
+      "variant": "price",
+      "fits": 21,
+      "valid_nulls": 0,
+      "minimum_F": 0.0006983384537166678,
+      "maximum_F": 0.01397652739803507,
+      "mean_F": 0.006279941362142146,
+      "feasible_states": 1215,
+      "feasible_positive_states": 172,
+      "maximum_lambda": 0.03761581934851091,
+      "dual_increases": 5068,
+      "dual_decreases": 3778
+    },
+    {
+      "variant": "price_vol",
+      "fits": 33,
+      "valid_nulls": 0,
+      "minimum_F": 0.0012463778160603043,
+      "maximum_F": 0.01586574227860472,
+      "mean_F": 0.007149691157456755,
+      "feasible_states": 1877,
+      "feasible_positive_states": 322,
+      "maximum_lambda": 0.03970004820459844,
+      "dual_increases": 8029,
+      "dual_decreases": 6196
+    }
+  ],
+  "sample_rule": "Declared before audit: update1/60/120, prior parameter states0/59/119 for every healthy fit. No optimizer steps or OOS replays.",
+  "scope": "All recorded epoch scalar/gate/dual/incumbent arithmetic and all retained paths checked; actual fullpath risk/globaladjoint reconstruction limited to the fixed225state sample plus chosen paths. No global convergence or forward-risk claim.",
+  "model_fits_performed": false,
+  "source_changed": false
+}

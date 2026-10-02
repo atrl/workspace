@@ -1,0 +1,18 @@
+{
+  "synthetic_only": true,
+  "market_data_used": false,
+  "rows": 3000,
+  "updates": 120,
+  "elapsed_seconds": 6.544004458002746,
+  "seconds_per_update": 0.05453337048335622,
+  "failure": null,
+  "epochs": 121,
+  "metadata_pickle_bytes": 1472450,
+  "epoch_records_pickle_bytes": 403755,
+  "selected_paths_pickle_bytes": 1009225,
+  "final_optimizer_state_pickle_bytes": 6953,
+  "maximum_forward_parity_error": 2.220446049250313e-16,
+  "per_epoch_daily_adjoints_saved": false,
+  "chunk_boundaries_stored_once": true,
+  "schedule_changed": false
+}

@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "recorder_id": "300530137db54b6c807c39ebb9e8c331",
+  "scope": "Final engineering/source/forward-accounting/retained-training-feasibility audit, distinct from economic qualification and post-fit derivative limitation.",
+  "focused": {
+    "summary": "82 passed, 46 warnings in 17.79s",
+    "passed": 82,
+    "warnings": 46
+  },
+  "full": {
+    "summary": "139 failed, 1105 passed, 804 warnings in 58.88s",
+    "passed": 1105,
+    "failed": 139,
+    "warnings": 804
+  },
+  "required": {
+    "summary": "61 failed, 8 passed, 42 warnings in 6.96s",
+    "passed": 8,
+    "failed": 61,
+    "warnings": 42
+  },
+  "workflow_final": {
+    "log": "/tmp/constrained-net-excess-validation/workflow-final.log",
+    "summary": "17 passed, 4 warnings in 2.85s",
+    "passed": 17,
+    "warnings": 4,
+    "failed_test_ids": []
+  },
+  "baseline_deltas": {
+    "full": {
+      "baseline_summary": "139 failed, 1023 passed, 762 warnings in 38.77s",
+      "passed_delta": 82,
+      "failed_delta": 0,
+      "new_failed_test_ids": [],
+      "resolved_failed_test_ids": [],
+      "failure_ids_unchanged": true
+    },
+    "required": {
+      "baseline_summary": "61 failed, 8 passed, 42 warnings in 6.96s",
+      "passed_delta": 0,
+      "failed_delta": 0,
+      "new_failed_test_ids": [],
+      "resolved_failed_test_ids": [],
+      "failure_ids_unchanged": true
+    }
+  },
+  "baseline_scope": "Exact pre-existing failure identities/deltas remain in full report; no full-suite pass is claimed. Prior baseline Recorder artifacts stay referenced, not duplicated.",
+  "source_portfolio_audit": {
+    "failures": [],
+    "annual_variant_folds": [
+      {
+        "variant": "constant",
+        "year": 2016,
+        "rows": 1256,
+        "max_return_available": "2015-12-31T14:30:00+00:00",
+        "cutoff": "2016-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "constant",
+        "year": 2017,
+        "rows": 1508,
+        "max_return_available": "2016-12-30T14:30:00+00:00",
+        "cutoff": "2017-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "constant",
+        "year": 2018,
+        "rows": 1759,
+        "max_return_available": "2017-12-29T14:30:00+00:00",
+        "cutoff": "2018-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "constant",
+        "year": 2019,
+        "rows": 2010,
+        "max_return_available": "2018-12-31T14:30:00+00:00",
+        "cutoff": "2019-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "constant",
+        "year": 2020,
+        "rows": 2262,
+        "max_return_available": "2019-12-31T14:30:00+00:00",
+        "cutoff": "2020-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "constant",
+        "year": 2021,
+        "rows": 2515,
+        "max_return_available": "2020-12-31T14:30:00+00:00",
+        "cutoff": "2021-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "constant",
+        "year": 2022,
+        "rows": 2767,
+        "max_return_available": "2021-12-31T14:30:00+00:00",
+        "cutoff": "2022-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price",
+        "year": 2016,
+        "rows": 1256,
+        "max_return_available": "2015-12-31T14:30:00+00:00",
+        "cutoff": "2016-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price",
+        "year": 2017,
+        "rows": 1508,
+        "max_return_available": "2016-12-30T14:30:00+00:00",
+        "cutoff": "2017-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price",
+        "year": 2018,
+        "rows": 1759,
+        "max_return_available": "2017-12-29T14:30:00+00:00",
+        "cutoff": "2018-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price",
+        "year": 2019,
+        "rows": 2010,
+        "max_return_available": "2018-12-31T14:30:00+00:00",
+        "cutoff": "2019-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price",
+        "year": 2020,
+        "rows": 2262,
+        "max_return_available": "2019-12-31T14:30:00+00:00",
+        "cutoff": "2020-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price",
+        "year": 2021,
+        "rows": 2515,
+        "max_return_available": "2020-12-31T14:30:00+00:00",
+        "cutoff": "2021-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price",
+        "year": 2022,
+        "rows": 2767,
+        "max_return_available": "2021-12-31T14:30:00+00:00",
+        "cutoff": "2022-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2016,
+        "rows": 1256,
+        "max_return_available": "2015-12-31T14:30:00+00:00",
+        "cutoff": "2016-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2017,
+        "rows": 1508,
+        "max_return_available": "2016-12-30T14:30:00+00:00",
+        "cutoff": "2017-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2018,
+        "rows": 1759,
+        "max_return_available": "2017-12-29T14:30:00+00:00",
+        "cutoff": "2018-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2019,
+        "rows": 2010,
+        "max_return_available": "2018-12-31T14:30:00+00:00",
+        "cutoff": "2019-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2020,
+        "rows": 2262,
+        "max_return_available": "2019-12-31T14:30:00+00:00",
+        "cutoff": "2020-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2021,
+        "rows": 2515,
+        "max_return_available": "2020-12-31T14:30:00+00:00",
+        "cutoff": "2021-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2022,
+        "rows": 2767,
+        "max_return_available": "2021-12-31T14:30:00+00:00",
+        "cutoff": "2022-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2023,
+        "rows": 3018,
+        "max_return_available": "2022-12-30T14:30:00+00:00",
+        "cutoff": "2023-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2024,
+        "rows": 3268,
+        "max_return_available": "2023-12-29T14:30:00+00:00",
+        "cutoff": "2024-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2025,
+        "rows": 3520,
+        "max_return_available": "2024-12-31T14:30:00+00:00",
+        "cutoff": "2025-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      },
+      {
+        "variant": "price_vol",
+        "year": 2026,
+        "rows": 3770,
+        "max_return_available": "2025-12-31T14:30:00+00:00",
+        "cutoff": "2026-01-01T00:00:00-05:00",
+        "invalid_training": false,
+        "numerical_failure": false
+      }
+    ],
+    "saved_paths": 32,
+    "native_maximum_return_errors": {
+      "10": 5.1010703883136443e-08,
+      "25": 5.0987577271399687e-08
+    },
+    "notebook_final_markdown_pending": false,
+    "notebook_sha256": "9d1038b63a5cbdf1ae4e76b5ab3c144d6c29bcbb6fe94e47ee06a3682fe73f1f"
+  },
+  "optimizer_audit": "optimizer_audit.json",
+  "post_fit_derivative_limitation": "analysis/diagnostics/post_fee_state_gradient/post_fee_state_gradient_audit.json",
+  "financial_qualification_pass": false,
+  "objective_achieved": false,
+  "recorder_artifacts": {
+    "full_report": "validation/final/final-verification.json",
+    "source_report": "validation/final/source-recorder-audit.json",
+    "source_method": "validation/final/source_recorder_audit.py",
+    "source_log": "validation/final/source-recorder-audit.log",
+    "focused_log": "validation/final/focused.log",
+    "full_log": "validation/final/full.log",
+    "required_log": "validation/final/required.log",
+    "execution_log": "validation/execution/constrained-net-excess-execution.log"
+  },
+  "full_report_sha256": "f8a25f483a1eb6d85fe9178d133f237acced5eeaeaf85c2e0a2d6aee57d8330d"
+}

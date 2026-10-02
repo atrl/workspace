@@ -1,0 +1,346 @@
+{
+  "source_audit": {
+    "parent_experiment": "benchmark_anchor_utility_20261002",
+    "parent_recorder_id": "52f40778cbe64ca6a5864da356b960d0",
+    "parent_artifact_manifest_sha256": "8aff34f5654d89ff406d0b2993500b5639529d8d31dec2d1e1702a1f973c27dd",
+    "qualified_source_recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "as_of": "2026-09-25",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "native_frame_sha256": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f",
+    "raw_frame_sha256": "bf5586573a4c51feb348c8e1a661ccf0f334f3a7d83b9ce9558629bfd16cf02b",
+    "prices_frame_sha256": "25d1e2486924c3e21f0aa6e1a004c7a8b02cb8acc5c279713f18f5aae0fdba9a",
+    "forecasts_frame_sha256": "2767bbbd286dece22518147ee81dfca74d9c3b523468376b1614f92b498ef2a5",
+    "rows": 3956,
+    "calendar_sessions": 4162,
+    "forecast_model_count": 14,
+    "verified_development_folds": 21,
+    "verified_parent_artifacts": 8,
+    "details_sha256": "3530c83960c8603cccc48a4312f2439e5b66501629741d196c71b6d1af679704",
+    "forecast_refit_performed": false,
+    "allocation_models_loaded": false,
+    "data_refreshed": false,
+    "source_api": [
+      "qlib.workflow.R.get_recorder",
+      "Recorder.load_object",
+      "qlib.data.D.calendar",
+      "qlib.data.D.instruments",
+      "qlib.data.D.features",
+      "qlib.data.dataset.DatasetH.prepare"
+    ]
+  },
+  "source_details": {
+    "source_artifacts": [
+      {
+        "artifact": "inputs/source_hashes.pkl",
+        "sha256": "719761bd347e8eaefa169b5c117302d6d480b2ba11731b2a3390ae7669d03142",
+        "bytes": 1913,
+        "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/source_hashes.pkl"
+      },
+      {
+        "artifact": "inputs/source_audit.pkl",
+        "sha256": "a0fde6348ec1e1e386e05c9908faae1284f547c396b7376859698f5353147d9a",
+        "bytes": 2432,
+        "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/source_audit.pkl"
+      },
+      {
+        "artifact": "inputs/primary_frame.pkl",
+        "sha256": "a9caf7a71b98ea4e1cb3ce661b3f89f94a67d436078031ba09e5350749ce9105",
+        "bytes": 1253808,
+        "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/primary_frame.pkl"
+      },
+      {
+        "artifact": "inputs/execution_prices.pkl",
+        "sha256": "f607a4d09990f8fdd3ea306627e6b7a50b867403f6572d042e1230966dbd1002",
+        "bytes": 101350,
+        "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/execution_prices.pkl"
+      },
+      {
+        "artifact": "inputs/forecasts.pkl",
+        "sha256": "7d824043ea43a7b0284c004d8e29c44fb04f11e5c573fb5ca3746cfc4b848ef5",
+        "bytes": 1285599,
+        "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/forecasts.pkl"
+      },
+      {
+        "artifact": "models/forecast_models.pkl",
+        "sha256": "ed08618afbe60a83d4873c031cefd8c687aabab60669733ad7033364aa899b34",
+        "bytes": 15616,
+        "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/models/forecast_models.pkl"
+      },
+      {
+        "artifact": "inputs/forecast_fit_audit.pkl",
+        "sha256": "86ae3bbf25a1d6e92ec0735c453d3a476030df2182f27eb9d2509e148f5f4e19",
+        "bytes": 3950,
+        "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/forecast_fit_audit.pkl"
+      },
+      {
+        "artifact": "inputs/development_fold_inputs.pkl",
+        "sha256": "af640e3d5b7da732e14902a516141512daf137e359a93c67f48d48d761a9c325",
+        "bytes": 13682596,
+        "parent_manifest_path": "qlib_recorder/739185096068764456/52f40778cbe64ca6a5864da356b960d0/artifacts/inputs/development_fold_inputs.pkl"
+      }
+    ],
+    "parent_source_hashes": {
+      "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+      "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+      "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+      "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+      "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+      "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+      "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+      "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+      "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+      "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+      "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+      "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+      "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+      "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+      "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+      "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+      "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+      "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+    },
+    "native": {
+      "native_frame_sha256": "b7a59f39feed5aed6e61fec2b4239092c474e453c91d4d133c73f9dcc571a03f",
+      "native_rows": 8324,
+      "calendar_sessions": 4162,
+      "provider_manifest_sha256": "cbbdeeca2e1c7dc0bce0f9cdf3495f50d3219bddd992e1b893f8362a5e51bc65",
+      "provider_marker_canonical_sha256": "f1953da3c171072f29fc1c6e96d17155d4099ffcacad5d835718ee6d26477e3d",
+      "provider_uri": "/Users/rziiiii/dev/workspace-worktrees/constrained-net-excess-20261003/data/qlib/published_futu_affine_20260925_v1"
+    },
+    "forecasts": {
+      "forecast_frame_sha256": "2767bbbd286dece22518147ee81dfca74d9c3b523468376b1614f92b498ef2a5",
+      "forecast_audit_json_sha256": "c924a80cf225de57d4ea7e70684592b6dd35f689a60f18179fbee6ee71092892",
+      "forecast_years": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "forecast_refit_performed": false
+    },
+    "development_folds": [
+      {
+        "variant": "constant",
+        "model_year": 2016,
+        "rows": 1256,
+        "dates_sha256": "004689778084e27242869ca22687e47128bdacd85f054a4f60493c2d2f10f271",
+        "scaler_sha256": "e86ea4c5703f716f95832344ed2010781243b2a23ff9038598d1e895bea7e7c3",
+        "training_feature_sha256": "89f4adc93f89fd40ceca821cb1e264a19a7db124efb485bfe7f5ac50c5cd97d1",
+        "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+        "invalid_training": false
+      },
+      {
+        "variant": "price",
+        "model_year": 2016,
+        "rows": 1256,
+        "dates_sha256": "004689778084e27242869ca22687e47128bdacd85f054a4f60493c2d2f10f271",
+        "scaler_sha256": "3a7c0267781df8668c6f4125ce8ac4d53e772367df2f3af2a47efa798a67e39d",
+        "training_feature_sha256": "a0840cb74e8c63eeeebc8095c4655f1f9d1ef76c285b69b4a0b2acdefa6bc1ff",
+        "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+        "invalid_training": false
+      },
+      {
+        "variant": "price_vol",
+        "model_year": 2016,
+        "rows": 1256,
+        "dates_sha256": "004689778084e27242869ca22687e47128bdacd85f054a4f60493c2d2f10f271",
+        "scaler_sha256": "e33380e8f25f677fafa91acc9661a536722dd96bef6d5c6b938875ba28835156",
+        "training_feature_sha256": "1caa55ededf9ad39c6560144611f503d7284267371c1afd36b8ae8ac573b641d",
+        "training_return_sha256": "cbab9cb0621b10c29d5184dd302c3e50c53cb7f4790e289383eca91f33d2ed00",
+        "invalid_training": false
+      },
+      {
+        "variant": "constant",
+        "model_year": 2017,
+        "rows": 1508,
+        "dates_sha256": "eacc495f59f1cc1a55f37625cdfc673fa719a4b20641a215f3283605940a2204",
+        "scaler_sha256": "5b977f2aac45ad3c7a4ffdb9fdc24f877622af9327d08d1398db034e7c368409",
+        "training_feature_sha256": "e83da761483beec53b5a4a2dd94d13aa23e8ed296b03944fdf5ecd2ec8d19e7c",
+        "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+        "invalid_training": false
+      },
+      {
+        "variant": "price",
+        "model_year": 2017,
+        "rows": 1508,
+        "dates_sha256": "eacc495f59f1cc1a55f37625cdfc673fa719a4b20641a215f3283605940a2204",
+        "scaler_sha256": "10a99be89dd00f6a00d5d72ceef94638e598bdb4c68ccbb0654420eea88d1275",
+        "training_feature_sha256": "1efaacad66f79e094d8e9b1bd8c068f6cda7ceaac8a36b5e9116abd654075a88",
+        "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+        "invalid_training": false
+      },
+      {
+        "variant": "price_vol",
+        "model_year": 2017,
+        "rows": 1508,
+        "dates_sha256": "eacc495f59f1cc1a55f37625cdfc673fa719a4b20641a215f3283605940a2204",
+        "scaler_sha256": "80a811244f6bd6673745c169779dad8f0ad13ef5ebc650de96fadcf5f3aecc18",
+        "training_feature_sha256": "92027d9f92477317983f8721226beb48f28a149cafe8da1eeb924114dc4e51e4",
+        "training_return_sha256": "8b5f494e4a30b9c13a848c33eaf604cfad6763096790b44b1cb4652020091082",
+        "invalid_training": false
+      },
+      {
+        "variant": "constant",
+        "model_year": 2018,
+        "rows": 1759,
+        "dates_sha256": "11d5dab2e4d6c427a4d0919c179c37530cba94ca704c4acb41973a692f700174",
+        "scaler_sha256": "b243974f9b817f673668c7a0b433bdb3b5981fe689a269d1d62d62d6bc8cfdec",
+        "training_feature_sha256": "8a866b982d03a8546025f6abecc58526685b5ce452da865aca4f2e73c9ced638",
+        "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+        "invalid_training": false
+      },
+      {
+        "variant": "price",
+        "model_year": 2018,
+        "rows": 1759,
+        "dates_sha256": "11d5dab2e4d6c427a4d0919c179c37530cba94ca704c4acb41973a692f700174",
+        "scaler_sha256": "0b4032a3bff29681a5bb2adde0eaa0ae60e2049509c3ba80d539ec20e1c27596",
+        "training_feature_sha256": "72a59463e61545498635dd6339e5c228eec09cb454c7d31734c8d11a70738167",
+        "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+        "invalid_training": false
+      },
+      {
+        "variant": "price_vol",
+        "model_year": 2018,
+        "rows": 1759,
+        "dates_sha256": "11d5dab2e4d6c427a4d0919c179c37530cba94ca704c4acb41973a692f700174",
+        "scaler_sha256": "211d7529bb90163d5154f1acd2a2316ff07f33bdcdef0a8405860cc9bff7cb1f",
+        "training_feature_sha256": "d2112bbb68e5d095fc1240758dc94ba79a479fcedb4f9d640f42ec383e7190cc",
+        "training_return_sha256": "7338c51cf547cfd56c018ebbae4dc16df4d4875df9c87cf2c42f09f3b1243cd3",
+        "invalid_training": false
+      },
+      {
+        "variant": "constant",
+        "model_year": 2019,
+        "rows": 2010,
+        "dates_sha256": "3d083be00f954029c8f9c1632bba6d9b3a0c0c9bb55021f964d6c7750ae5b903",
+        "scaler_sha256": "f20c55c0395a5742a4b88a4c44ab76b870fd4b4b204d8e4f1e767fb0c345473e",
+        "training_feature_sha256": "a892c9d73fac9830e2fe808193fbf15cb9b7e7a17f2ec93391a9ea9d5bbf7621",
+        "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+        "invalid_training": false
+      },
+      {
+        "variant": "price",
+        "model_year": 2019,
+        "rows": 2010,
+        "dates_sha256": "3d083be00f954029c8f9c1632bba6d9b3a0c0c9bb55021f964d6c7750ae5b903",
+        "scaler_sha256": "780f264e0f5ff600a31be517d863c88789a02a5ebb32a0b8c77ba63301f1ba1a",
+        "training_feature_sha256": "56310b778b733e449658f891b93fd6f6fe7bf675143b08b33b568f099facdaa5",
+        "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+        "invalid_training": false
+      },
+      {
+        "variant": "price_vol",
+        "model_year": 2019,
+        "rows": 2010,
+        "dates_sha256": "3d083be00f954029c8f9c1632bba6d9b3a0c0c9bb55021f964d6c7750ae5b903",
+        "scaler_sha256": "2b575a15f2f1e913700b9f6fa3cf303fa4b484f7fa26671984af936cfec42e1f",
+        "training_feature_sha256": "17092ea5f58a893af67a55e98396d5e85a6112cbde3856e53eaffa81c6e1a027",
+        "training_return_sha256": "c9cdbffb99641c4aabf008193ef003010b59ecb04edd58e8307f0afd533fe404",
+        "invalid_training": false
+      },
+      {
+        "variant": "constant",
+        "model_year": 2020,
+        "rows": 2262,
+        "dates_sha256": "a5d6c1b85ff2b015682a030e88ed91293a92e8b330d193e42ab1f6f1d99a7d34",
+        "scaler_sha256": "3a7eb71c8fe784bc04ca75a3e752a33a4516641e00a8fbd476ecb462429e65e6",
+        "training_feature_sha256": "4b2a41f108aab0968486879bb43b66b3b9a63ff316b4fec3abb86ea39cbf3ada",
+        "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+        "invalid_training": false
+      },
+      {
+        "variant": "price",
+        "model_year": 2020,
+        "rows": 2262,
+        "dates_sha256": "a5d6c1b85ff2b015682a030e88ed91293a92e8b330d193e42ab1f6f1d99a7d34",
+        "scaler_sha256": "31dd5aba03192cf5eb4ff4f31cce0fe6142dc89087757a9aa558aa1c275ada61",
+        "training_feature_sha256": "6df23c2871f824acb65b44ceb331c6850cafbea5522bc5b02f57bdfea193f9f9",
+        "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+        "invalid_training": false
+      },
+      {
+        "variant": "price_vol",
+        "model_year": 2020,
+        "rows": 2262,
+        "dates_sha256": "a5d6c1b85ff2b015682a030e88ed91293a92e8b330d193e42ab1f6f1d99a7d34",
+        "scaler_sha256": "418c84a4c8d33a5bf1f01c40c33dacdaa76a067f5260231b78a75741020ccb8f",
+        "training_feature_sha256": "2bd67f2b38a9342f39e1d752944d63c03b105b7a1e27d8c324cc52f4e82ba8eb",
+        "training_return_sha256": "d1922f821be568389c4cfec4dd22ec5f65d4c728410fb5c71e1ff36bc9186c5b",
+        "invalid_training": false
+      },
+      {
+        "variant": "constant",
+        "model_year": 2021,
+        "rows": 2515,
+        "dates_sha256": "b72a6622a2d7f19117f831acaa87133055e64acf7c2e35d6051cf8f41bd97dac",
+        "scaler_sha256": "372e27cfacc029556a2de54acdf22f1880f3d8146fef71935adf25f2d8e07666",
+        "training_feature_sha256": "5e3f4835b115f3e599657485b42a2f8712cfc2d302cdfda6346b23bcbddf2dfd",
+        "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+        "invalid_training": false
+      },
+      {
+        "variant": "price",
+        "model_year": 2021,
+        "rows": 2515,
+        "dates_sha256": "b72a6622a2d7f19117f831acaa87133055e64acf7c2e35d6051cf8f41bd97dac",
+        "scaler_sha256": "cc2ee37e17a41d27240e1439c4ae3b67e80129649c7d993a1fb791ee5cc32363",
+        "training_feature_sha256": "04570ec5baf7b6f629c477f7809a4417bbfec9d53bd7e69e8b57d2d38512e64c",
+        "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+        "invalid_training": false
+      },
+      {
+        "variant": "price_vol",
+        "model_year": 2021,
+        "rows": 2515,
+        "dates_sha256": "b72a6622a2d7f19117f831acaa87133055e64acf7c2e35d6051cf8f41bd97dac",
+        "scaler_sha256": "6acdc1c92c324f5649630d6c3133b782b06dfccae441f16344c5756af0f592ae",
+        "training_feature_sha256": "5261cb1dfaf95bf33107f80171286ec0e1649a1243b72fcbc10776317c69680f",
+        "training_return_sha256": "32bd092b42e7bb243a405ccc04dfb9762aebf863c9b9fc6fda3e8f915e98a2a2",
+        "invalid_training": false
+      },
+      {
+        "variant": "constant",
+        "model_year": 2022,
+        "rows": 2767,
+        "dates_sha256": "e7500aa7029553aee1460da7ac233e6965e257c2546d4a6c98e622a7c4dad09a",
+        "scaler_sha256": "f6ed511c68ddb1f1a3611f149318381b0619d9b27a629d833bcc59b1c79d9637",
+        "training_feature_sha256": "81be646c4818c1422ce63d6da27840ab1fb6e3bebe18ddae7a341a642ed2c795",
+        "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+        "invalid_training": false
+      },
+      {
+        "variant": "price",
+        "model_year": 2022,
+        "rows": 2767,
+        "dates_sha256": "e7500aa7029553aee1460da7ac233e6965e257c2546d4a6c98e622a7c4dad09a",
+        "scaler_sha256": "af613e23293db534c663dcfe29e721bedea8c896cc8f2dbafb5915f31f18c5bc",
+        "training_feature_sha256": "5274b1870f784cb163b0b41e29b83c2a4192822447fc491a704a1e37c980b31a",
+        "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+        "invalid_training": false
+      },
+      {
+        "variant": "price_vol",
+        "model_year": 2022,
+        "rows": 2767,
+        "dates_sha256": "e7500aa7029553aee1460da7ac233e6965e257c2546d4a6c98e622a7c4dad09a",
+        "scaler_sha256": "6d01271005837dda25c9e6f6bf5cd37e15f36ab141ba2f4b0c27c3bfc84c65d4",
+        "training_feature_sha256": "b7b14d6e2a3ec677669c40a051ee25b749edab4da5c8e668bc43bdce6b069f33",
+        "training_return_sha256": "1121a8f416d2dd16bb4a0cef737681f8752e25b341af8608936e4b14a233af33",
+        "invalid_training": false
+      }
+    ],
+    "raw_frame_sha256": "bf5586573a4c51feb348c8e1a661ccf0f334f3a7d83b9ce9558629bfd16cf02b",
+    "prices_frame_sha256": "25d1e2486924c3e21f0aa6e1a004c7a8b02cb8acc5c279713f18f5aae0fdba9a"
+  }
+}

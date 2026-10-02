@@ -1,0 +1,39 @@
+{
+  "plan_sha256": "da17267d7d21ccb2589bc799efe33ed9149d8b4c7c0b5371aadd4b429227901d",
+  "source_sha256": {
+    "src/objective/benchmark_tail_constraints.py": "c94b59e8377945b7e84d1a7055fcbeb24286ebc97bc7b6eb987679bb2a9017fb",
+    "src/model/constrained_net_excess.py": "7a068cef362d24651c661289881662e6384e93396d1e7821ee38ebdbac74a08d",
+    "src/data/constrained_net_excess.py": "f140218167b67c42e56be08c269f04754970b2211e00ac415c277743bf631be9",
+    "src/workflow/constrained_net_excess.py": "3e28ed6fbfde26258b90d1c6d890ea8d659a4cc1da89153b4d92f637d491a948",
+    "src/workflow/anchor_checkpoint_feasibility.py": "0f8a59db1233296833396fb1501a1152287213bffcb14883732c07dd18316cd5",
+    "src/data/benchmark_anchor_utility.py": "a6025810237efc7b958b3f66abf2bccf6a30f4144805d84ea117baed4d8cfa4e",
+    "src/model/benchmark_anchor_utility.py": "327fb77dd441e8f4db27f138060e97aad3bb396b85c41989dfdd840b04317bf5",
+    "src/workflow/benchmark_anchor_utility.py": "56e11dd98c5942028d99393dc3bf3bbe152f67db4643c98dfab4989a72729f0a",
+    "src/model/integrated_allocation.py": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+    "src/data/conditional_variance.py": "818cfe475f6631cb231e66f6f11fca4b150b55fbca81bc32986d1612c81d19e6",
+    "src/workflow/conditional_variance.py": "5b2ae71b45d308db376166a29b015b35ec8c38499d51b0426d066222eaa7a2b5",
+    "src/data/integrated_allocation.py": "73f2495f6a9860860a76a5a8c2f679c42f5a76f089c10fb7d347ce66acc36e9c",
+    "src/data/convex_allocation.py": "915c7eae8da16d69221d660e040b26ad5ba16e37fd607afd01ae0842e0fba82f",
+    "src/analysis/integrated_allocation.py": "63a04045c59e8266efc2642a4db3d080845bdefbad6c2ac914a2194d26c17fc4",
+    "src/analysis/convex_qlib.py": "7bb60f7a3365cc36623785f25aa62c2f585211eb85483c0a3891caa53d7fd9e9",
+    "src/backtest/qlib_continuous_position.py": "f06bb596b6d3d3f875e9b6c59490080684d13fbe9f6763bd039d1b2afa4c5721",
+    "src/workflow/stable_excess_integration.py": "7753c5bc16dddda5758d6fe5609fa7be915c6484f05e1881989a67afdf17771c",
+    "src/backtest/position_accounting.py": "070a42a631f4ddc5aaa251791c9c8e43b263d34e9ae70d7e0a66a486f6b4fdde",
+    "src/workflow/stage1_economic_action.py": "17a580e1a0fdf1e991fdfd150d59e80f272f199a9f0bd45a99d325d155cd5fe7",
+    "src/data/qlib_native.py": "ad0bd14a95347bc2e7513f71654abdc7ec12553730472dea2f8e668e25f9054b",
+    "src/data/price_basis.py": "8e73d8267c474afd589e10df67d7391b8b938160d1fa13016aff7c717e80382e",
+    "src/factor/soxx_pit_tail_factors.py": "46adf9dc728225657273cd220993630c6beba504c430d80f955c025454f19976",
+    "src/workflow/pit_constituent_auxiliary_training_allocation.py": "1120abca4fdc1257c3a2ed9b42cd8b515356eeea0f5ef9e79622f3b38ceff85d"
+  },
+  "test_sha256": {
+    "tests/test_benchmark_tail_constraints.py": "661ae0696afcf1bcab3a93b75d29044b349efe3b2239ee8b3b8b3b5b79428b89",
+    "tests/test_constrained_net_excess.py": "913986f16ca1fef8c1bd0714234ae99ba38d5ea7e96eab95be91a5c40f06ddc9",
+    "tests/test_constrained_net_excess_data.py": "ad3ce6895d7cb7368a5b6697674fe68b8b3bd06fd36710ee19f08dd2bd206451",
+    "tests/test_constrained_net_excess_workflow.py": "8afd5da2e33e9db5edb6bcc05f2710a788bd40e2c79c5a7cd9610678d3d445d5"
+  },
+  "sealed_at_utc": "2026-10-02T18:46:57.660155+00:00",
+  "market_model_fits_started": false,
+  "focused_passed": 82,
+  "synthetic_known_information_all_seeds_and_ensemble_passed": true,
+  "objective_achieved": false
+}

@@ -1,0 +1,3752 @@
+{
+  "scope": "Purely synthetic derivative/value verification; no market data, model training, parameter search, repo edits, monkeypatch or old-result changes.",
+  "source_file": "src/model/integrated_allocation.py",
+  "source_sha256_before": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+  "source_sha256_after": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+  "torch_version": "2.11.0",
+  "dtype": "float64",
+  "returns": [
+    0.03,
+    0.01,
+    0.0
+  ],
+  "state_identity": "H(z)=z*(1+r)/sum(z*(1+r)); on simplex equals z*(1+r)/(1+z dot r), independent of cost and of h except through z.",
+  "prototype": "Same existing detached sign-root index and n expression; open_values=n*z, ending_weights=target-only normalized marked z. fees remain c*actual risky L1 turnover. No custom backward, straight-through estimator or detached substitute Jacobian.",
+  "cases": [
+    {
+      "case": "S_to_cash_target_at_theta0",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "right",
+      "held": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "target": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        -0.9900990097788664,
+        0.9900990099009904
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 1.2212364453034752e-10,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00990099009900991,
+        "algebraic_autograd": -0.00990099009900991,
+        "independent_numpy_fd": -0.009900990480607441,
+        "right_fd": -0.009900990480607441,
+        "left_fd": null
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": null
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "S_to_L_scalar_boundary_control",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "right",
+      "held": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "target": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.0198019801980194,
+        -1.0198019801954672,
+        0.0
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 2.55262477821816e-12,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.01980198019801982,
+        "algebraic_autograd": 0.01980198019801982,
+        "independent_numpy_fd": 0.019801979965483607,
+        "right_fd": 0.019801979965483607,
+        "left_fd": null
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": null
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_S_to_cash",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "legacy_state_max_error": 1.3010426069826053e-17,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 1.6433743255106492e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00988142292490124,
+        "algebraic_autograd": -0.00988142292490124,
+        "independent_numpy_fd": -0.009881422975005494,
+        "right_fd": -0.009881422866585277,
+        "left_fd": -0.009881423303735593
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_S_to_cash",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        0.0,
+        1.3877787807814457e-11
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 1.3877787807814457e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -1.0928757898653885e-10,
+        "right_fd": -4.380176776841438e-10,
+        "left_fd": -1.0842021724855044e-10
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_S_to_cash",
+      "cost_bps": 0.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.003011199909566553,
+        -0.9931015261618701,
+        0.9900903262523036
+      ],
+      "algebraic_state_jvp": [
+        0.003011199909566553,
+        -0.9931015261618701,
+        0.9900903262523036
+      ],
+      "analytic_state_jvp": [
+        0.003011199909566555,
+        -0.9931015261618699,
+        0.9900903262523034
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0030111999005377754,
+        -0.9931015261532838,
+        0.9900903261972349
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 5.506850531133978e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.009871668311944748,
+        "algebraic_autograd": -0.009871668311944748,
+        "independent_numpy_fd": -0.009871668251934529,
+        "right_fd": -0.009871668583266713,
+        "left_fd": -0.009871667811314766
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 1.1102230246251565e-16,
+        "independent_numpy_net_equity": 2.220446049250313e-16,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_L_to_cash",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        -1.0117522535893388,
+        0.01775140995797464,
+        0.9940008436313643
+      ],
+      "algebraic_state_jvp": [
+        -1.0117522535893388,
+        0.01775140995797464,
+        0.9940008436313643
+      ],
+      "analytic_state_jvp": [
+        -1.011752253589339,
+        0.017751409957974675,
+        0.9940008436313643
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -1.0117522535879608,
+        0.017751409953081776,
+        0.9940008436348791
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 4.892898586295047e-12,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.029644268774703497,
+        "algebraic_autograd": -0.029644268774703497,
+        "independent_numpy_fd": -0.02964426881399418,
+        "right_fd": -0.02964426881399418,
+        "left_fd": -0.02964426881399418
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_L_to_cash",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 0.0,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": -8.673617379884035e-13,
+        "left_fd": 8.673617379884035e-13
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_L_to_cash",
+      "cost_bps": 0.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        -1.0077482364016066,
+        0.011810920033639705,
+        0.9959373163679668
+      ],
+      "algebraic_state_jvp": [
+        -1.0077482364016066,
+        0.011810920033639705,
+        0.9959373163679668
+      ],
+      "analytic_state_jvp": [
+        -1.0077482364016062,
+        0.01181092003363969,
+        0.9959373163679666
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -1.0077482363313184,
+        0.011810920047539142,
+        0.995937316367046
+      ],
+      "legacy_state_max_error": 4.440892098500626e-16,
+      "algebraic_state_max_error": 4.440892098500626e-16,
+      "finite_difference_state_max_error": 7.028777559980881e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.029615004935834244,
+        "algebraic_autograd": -0.029615004935834244,
+        "independent_numpy_fd": -0.029615004974378745,
+        "right_fd": -0.029615004865958527,
+        "left_fd": -0.0296150050819316
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 1.1102230246251565e-16,
+        "independent_numpy_net_equity": 2.220446049250313e-16,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_S_to_L",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.0039057007608305216
+      ],
+      "algebraic_state_jvp": [
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.003905700760830494
+      ],
+      "analytic_state_jvp": [
+        1.0137636894811668,
+        -1.0098579887203363,
+        -0.003905700760830512
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.01376368952244,
+        -1.009857988731877,
+        -0.003905700735051809
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 4.127320707425497e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.019762845849802257,
+        "algebraic_autograd": 0.019762845849802257,
+        "independent_numpy_fd": 0.019762845729701106,
+        "right_fd": 0.019762845617811442,
+        "left_fd": 0.01976284562214825
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_S_to_L",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 0.0,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": -8.673617379884035e-13,
+        "left_fd": 8.673617379884035e-13
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_S_to_L",
+      "cost_bps": 0.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.0107594363111732,
+        -1.00491244619551,
+        -0.005846990115663142
+      ],
+      "algebraic_state_jvp": [
+        1.0107594363111732,
+        -1.00491244619551,
+        -0.005846990115663198
+      ],
+      "analytic_state_jvp": [
+        1.0107594363111727,
+        -1.0049124461955095,
+        -0.005846990115663213
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.0107594362873673,
+        -1.0049124461730674,
+        -0.005846990114299899
+      ],
+      "legacy_state_max_error": 4.440892098500626e-16,
+      "algebraic_state_max_error": 4.440892098500626e-16,
+      "finite_difference_state_max_error": 2.3805402094012607e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.019743336623889496,
+        "algebraic_autograd": 0.019743336623889496,
+        "independent_numpy_fd": 0.019743336613156637,
+        "right_fd": 0.019743336391112032,
+        "left_fd": 0.0197433367250463
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 1.1102230246251565e-16,
+        "independent_numpy_net_equity": 2.220446049250313e-16,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_cash_to_S",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "legacy_state_jvp": [
+        -0.002011435891827701,
+        0.9921065787623615,
+        -0.9900951428705338
+      ],
+      "algebraic_state_jvp": [
+        -0.002011435891827701,
+        0.9921065787623615,
+        -0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        -0.002011435891827714,
+        0.9921065787623615,
+        -0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -0.002011435906723591,
+        0.9921065787787953,
+        -0.9900951428720717
+      ],
+      "legacy_state_max_error": 1.3010426069826053e-17,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 1.6433743255106492e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.00988142292490124,
+        "algebraic_autograd": 0.00988142292490124,
+        "independent_numpy_fd": 0.009881422975005494,
+        "right_fd": 0.009881423303735593,
+        "left_fd": 0.009881422866585277
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_cash_to_S",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        0.0,
+        -1.3877787807814457e-11
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 1.3877787807814457e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 1.0928757898653885e-10,
+        "right_fd": 1.0842021724855044e-10,
+        "left_fd": 4.380176776841438e-10
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_cash_to_S",
+      "cost_bps": 0.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "legacy_state_jvp": [
+        -0.003011199909566553,
+        0.9931015261618701,
+        -0.9900903262523036
+      ],
+      "algebraic_state_jvp": [
+        -0.003011199909566553,
+        0.9931015261618701,
+        -0.9900903262523036
+      ],
+      "analytic_state_jvp": [
+        -0.003011199909566555,
+        0.9931015261618699,
+        -0.9900903262523034
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -0.0030111999005377754,
+        0.9931015261532838,
+        -0.9900903261972349
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 5.506850531133978e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.009871668311944748,
+        "algebraic_autograd": 0.009871668311944748,
+        "independent_numpy_fd": 0.009871668251934529,
+        "right_fd": 0.009871667811314766,
+        "left_fd": 0.009871668583266713
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 1.1102230246251565e-16,
+        "independent_numpy_net_equity": 2.220446049250313e-16,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_coupled_HOLD_0.7",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -0.7,
+        0.7
+      ],
+      "legacy_state_jvp": [
+        0.0014080051242793905,
+        -0.694474605133653,
+        0.6930666000093736
+      ],
+      "algebraic_state_jvp": [
+        0.0014080051242793823,
+        -0.694474605133653,
+        0.6930666000093737
+      ],
+      "analytic_state_jvp": [
+        0.0014080051242793996,
+        -0.694474605133653,
+        0.6930666000093737
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0014080051152776107,
+        -0.6944746051562589,
+        0.6930665999854702
+      ],
+      "legacy_state_max_error": 1.1102230246251565e-16,
+      "algebraic_state_max_error": 1.734723475976807e-17,
+      "finite_difference_state_max_error": 2.390354580938947e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.006916996047430867,
+        "algebraic_autograd": -0.006916996047430901,
+        "independent_numpy_fd": -0.006916996071401615,
+        "right_fd": -0.006916996291711497,
+        "left_fd": -0.006916995961246675
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_coupled_HOLD_1.0",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0020114359344791666,
+        -0.9921065787232841,
+        0.990095142913705
+      ],
+      "legacy_state_max_error": 1.3010426069826053e-17,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 4.317124435715414e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00988142292490124,
+        "algebraic_autograd": -0.00988142292490124,
+        "independent_numpy_fd": -0.009881423194448014,
+        "right_fd": -0.009881423744355355,
+        "left_fd": -0.009881423413023172
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "explicit_None_HOLD_control",
+      "cost_bps": 0.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": null,
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "legacy_state_max_error": 1.3010426069826053e-17,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 1.6433743255106492e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00988142292490124,
+        "algebraic_autograd": -0.00988142292490124,
+        "independent_numpy_fd": -0.009881422975005494,
+        "right_fd": -0.009881422866585277,
+        "left_fd": -0.009881423303735593
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "S_to_cash_target_at_theta0",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "right",
+      "held": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "target": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        -0.9910901000009911,
+        0.9910901000009911
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        -0.9900990096678441,
+        0.9900990097130776
+      ],
+      "legacy_state_max_error": 0.0009910901000009797,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 2.3314594699286317e-10,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.009910901000009919,
+        "algebraic_autograd": -0.010901991100011,
+        "independent_numpy_fd": -0.010901991082459817,
+        "right_fd": -0.010901991082459817,
+        "left_fd": null
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0010010010008110195,
+        "right_fd": 0.0010010010008110195,
+        "left_fd": null
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "S_to_L_scalar_boundary_control",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "right",
+      "held": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "target": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.019801980198019,
+        -1.0198019803064895,
+        -1.0335417728969258e-10
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 1.084696776842975e-10,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.01980198019801982,
+        "algebraic_autograd": 0.01980198019801982,
+        "independent_numpy_fd": 0.017799978322026455,
+        "right_fd": 0.017799978322026455,
+        "left_fd": null
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0020020020019818605,
+        "right_fd": 0.0020020020019818605,
+        "left_fd": null
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_S_to_cash",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.0018101312589386184,
+        -0.9926987661775595,
+        0.9908886349186209
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0020114358789680153,
+        -0.9921065787787953,
+        0.9900951429275828
+      ],
+      "legacy_state_max_error": 0.0007934920480870966,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 5.7049032164968594e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.009893290126172138,
+        "algebraic_autograd": -0.010882223565413685,
+        "independent_numpy_fd": -0.009882023184991373,
+        "right_fd": -0.010882223538087599,
+        "left_fd": -0.008881822811945828
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 6.002402325177942e-07,
+        "right_fd": 0.0010008006405271,
+        "left_fd": -0.0009996001600481865
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_S_to_cash",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.00020130463288908245,
+        0.0005921874151979805,
+        -0.0007934920480870629
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        2.7755575615628914e-11,
+        0.0,
+        -1.3877787807814457e-11
+      ],
+      "legacy_state_max_error": 0.0007934920480870629,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 2.7755575615628914e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 1.1867201270898165e-05,
+        "algebraic_autograd": 0.0010008006405124099,
+        "independent_numpy_fd": 6.000911573211809e-07,
+        "right_fd": -0.0009996008205198637,
+        "left_fd": 0.0010008005648168283
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -6.002402741511387e-07,
+        "right_fd": 0.000999600159881653,
+        "left_fd": -0.0010008006404577108
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_S_to_cash",
+      "cost_bps": 10.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.003011199909566542,
+        -0.9931015261618701,
+        0.9900903262523035
+      ],
+      "algebraic_state_jvp": [
+        0.003011199909566553,
+        -0.9931015261618701,
+        0.9900903262523036
+      ],
+      "analytic_state_jvp": [
+        0.003011199909566555,
+        -0.9931015261618699,
+        0.9900903262523034
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.003011199928293351,
+        -0.9931015260977727,
+        0.9900903262249905
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 6.409717201449894e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.010871768321945703,
+        "algebraic_autograd": -0.010871768321945585,
+        "independent_numpy_fd": -0.010871768345820099,
+        "right_fd": -0.010871768344085375,
+        "left_fd": -0.01087176834668746
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.000999799949991999,
+        "algebraic_autograd": 0.000999799949991999,
+        "independent_numpy_fd": 0.000999799949942667,
+        "right_fd": 0.0009997999498342468,
+        "left_fd": 0.000999799949942667
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 5.551115123125783e-17,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_L_to_cash",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        -1.0119535582222279,
+        0.01715922254277666,
+        0.9947943356794514
+      ],
+      "algebraic_state_jvp": [
+        -1.0117522535893388,
+        0.01775140995797464,
+        0.9940008436313643
+      ],
+      "analytic_state_jvp": [
+        -1.011752253589339,
+        0.017751409957974675,
+        0.9940008436313643
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -1.0117522536018386,
+        0.017751409897570625,
+        0.9940008436071235
+      ],
+      "legacy_state_max_error": 0.0007934920480870966,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 6.040404981755287e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.029656135975974395,
+        "algebraic_autograd": -0.030645069415215942,
+        "independent_numpy_fd": -0.029644468946439517,
+        "right_fd": -0.03064506915589904,
+        "left_fd": -0.02864386856610973
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 2.0024024105500267e-07,
+        "right_fd": 0.001000800640443833,
+        "left_fd": -0.0010004001598645784
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_L_to_cash",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.00020130463288908245,
+        0.0005921874151979805,
+        -0.0007934920480870629
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.3877787807814457e-11,
+        0.0,
+        0.0
+      ],
+      "legacy_state_max_error": 0.0007934920480870629,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 1.3877787807814457e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 1.1867201270898165e-05,
+        "algebraic_autograd": 0.0010008006405124099,
+        "independent_numpy_fd": 2.002131099798632e-07,
+        "right_fd": -0.0010004002478844476,
+        "left_fd": 0.0010008006741044073
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -2.0024024105500267e-07,
+        "right_fd": 0.0010004001598645784,
+        "left_fd": -0.001000800640443833
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_L_to_cash",
+      "cost_bps": 10.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        -1.0077482364016064,
+        0.011810920033639694,
+        0.9959373163679667
+      ],
+      "algebraic_state_jvp": [
+        -1.0077482364016066,
+        0.011810920033639705,
+        0.9959373163679668
+      ],
+      "analytic_state_jvp": [
+        -1.0077482364016062,
+        0.01181092003363969,
+        0.9959373163679666
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -1.0077482363868295,
+        0.011810920019783566,
+        0.9959373163392904
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 4.440892098500626e-16,
+      "finite_difference_state_max_error": 2.8676172547648093e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.028614904925833105,
+        "algebraic_autograd": -0.028614904925833073,
+        "independent_numpy_fd": -0.02861490490304458,
+        "right_fd": -0.028614905120752376,
+        "left_fd": -0.028614904686204146
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": -0.000999799949991999,
+        "algebraic_autograd": -0.000999799949991999,
+        "independent_numpy_fd": -0.000999799949942667,
+        "right_fd": -0.000999799949942667,
+        "left_fd": -0.0009997999498342468
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 5.551115123125783e-17,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_S_to_L",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.0039057007608305216
+      ],
+      "algebraic_state_jvp": [
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.003905700760830494
+      ],
+      "analytic_state_jvp": [
+        1.0137636894811668,
+        -1.0098579887203363,
+        -0.003905700760830512
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.0137636894669289,
+        -1.0098579888428993,
+        -0.00390570066566287
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 1.2256307080349416e-10,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.019762845849802257,
+        "algebraic_autograd": 0.019762845849802257,
+        "independent_numpy_fd": 0.019762045904217485,
+        "right_fd": 0.01776204589746394,
+        "left_fd": 0.021762046052350992
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 8.00000066192272e-07,
+        "right_fd": 0.0020008003202287576,
+        "left_fd": -0.001999200320151884
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_S_to_L",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        0.0,
+        -5.551115123125783e-11
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 5.551115123125783e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 8.00084824781333e-07,
+        "right_fd": -0.0019992003235172473,
+        "left_fd": 0.0020008006033217507
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -8.00000066192272e-07,
+        "right_fd": 0.0019992003201518838,
+        "left_fd": -0.0020008003202148794
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_S_to_L",
+      "cost_bps": 10.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.010759436311173,
+        -1.0049124461955097,
+        -0.005846990115663142
+      ],
+      "algebraic_state_jvp": [
+        1.0107594363111732,
+        -1.00491244619551,
+        -0.005846990115663198
+      ],
+      "analytic_state_jvp": [
+        1.0107594363111727,
+        -1.0049124461955095,
+        -0.005846990115663213
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.0107594362873673,
+        -1.0049124461730674,
+        -0.005846990086544324
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 4.440892098500626e-16,
+      "finite_difference_state_max_error": 2.911888959122866e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.0177431366038874,
+        "algebraic_autograd": 0.017743136603887488,
+        "independent_numpy_fd": 0.01774313655635712,
+        "right_fd": 0.01774313677579964,
+        "left_fd": 0.017743136337781962
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.001999599899983998,
+        "algebraic_autograd": 0.001999599899983998,
+        "independent_numpy_fd": 0.0019995998999395442,
+        "right_fd": 0.001999599899831124,
+        "left_fd": 0.0019995998999937543
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 5.551115123125783e-17,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_cash_to_S",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "legacy_state_jvp": [
+        -0.0018101312589386184,
+        0.9926987661775595,
+        -0.9908886349186209
+      ],
+      "algebraic_state_jvp": [
+        -0.002011435891827701,
+        0.9921065787623615,
+        -0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        -0.002011435891827714,
+        0.9921065787623615,
+        -0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -0.0020114358789680153,
+        0.9921065787787953,
+        -0.9900951429275828
+      ],
+      "legacy_state_max_error": 0.0007934920480870966,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 5.7049032164968594e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.009893290126172138,
+        "algebraic_autograd": 0.010882223565413685,
+        "independent_numpy_fd": 0.009882023184991373,
+        "right_fd": 0.008881822811945828,
+        "left_fd": 0.010882223538087599
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -6.002402325177942e-07,
+        "right_fd": 0.0009996001600481865,
+        "left_fd": -0.0010008006405271
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_cash_to_S",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        -0.00020130463288908245,
+        -0.0005921874151979805,
+        0.0007934920480870629
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -2.7755575615628914e-11,
+        0.0,
+        1.3877787807814457e-11
+      ],
+      "legacy_state_max_error": 0.0007934920480870629,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 2.7755575615628914e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -1.1867201270898165e-05,
+        "algebraic_autograd": -0.0010008006405124099,
+        "independent_numpy_fd": -6.000911573211809e-07,
+        "right_fd": -0.0010008005648168283,
+        "left_fd": 0.0009996008205198637
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 6.002402741511387e-07,
+        "right_fd": 0.0010008006404577108,
+        "left_fd": -0.000999600159881653
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_cash_to_S",
+      "cost_bps": 10.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "legacy_state_jvp": [
+        -0.003011199909566542,
+        0.9931015261618701,
+        -0.9900903262523035
+      ],
+      "algebraic_state_jvp": [
+        -0.003011199909566553,
+        0.9931015261618701,
+        -0.9900903262523036
+      ],
+      "analytic_state_jvp": [
+        -0.003011199909566555,
+        0.9931015261618699,
+        -0.9900903262523034
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -0.003011199928293351,
+        0.9931015260977727,
+        -0.9900903262249905
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 6.409717201449894e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.010871768321945703,
+        "algebraic_autograd": 0.010871768321945585,
+        "independent_numpy_fd": 0.010871768345820099,
+        "right_fd": 0.01087176834668746,
+        "left_fd": 0.010871768344085375
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": -0.000999799949991999,
+        "algebraic_autograd": -0.000999799949991999,
+        "independent_numpy_fd": -0.000999799949942667,
+        "right_fd": -0.000999799949942667,
+        "left_fd": -0.0009997999498342468
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 5.551115123125783e-17,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_coupled_HOLD_0.7",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -0.7,
+        0.7
+      ],
+      "legacy_state_jvp": [
+        0.0014683965141461153,
+        -0.6942969489090937,
+        0.6928285523949475
+      ],
+      "algebraic_state_jvp": [
+        0.0014080051242793823,
+        -0.694474605133653,
+        0.6930666000093737
+      ],
+      "analytic_state_jvp": [
+        0.0014080051242793996,
+        -0.694474605133653,
+        0.6930666000093737
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0014080051152776107,
+        -0.6944746051562589,
+        0.6930666000132257
+      ],
+      "legacy_state_max_error": 0.0002380476144262511,
+      "algebraic_state_max_error": 1.734723475976807e-17,
+      "finite_difference_state_max_error": 2.2605917138207587e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.006913435887049598,
+        "algebraic_autograd": -0.006616755855277247,
+        "independent_numpy_fd": -0.0069168159359811465,
+        "right_fd": -0.007216876415049034,
+        "left_fd": -0.0066167555618640295
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -1.8007205448978212e-07,
+        "right_fd": 0.0002998800480435993,
+        "left_fd": -0.00030024019206931213
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_coupled_HOLD_1.0",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0020114359344791666,
+        -0.9921065787232841,
+        0.990095142913705
+      ],
+      "legacy_state_max_error": 1.3010426069826053e-17,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 4.317124435715414e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00988142292490124,
+        "algebraic_autograd": -0.009881422924901274,
+        "independent_numpy_fd": -0.009881423194448014,
+        "right_fd": -0.009881423744355355,
+        "left_fd": -0.009881423413023172
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 6.938893903907228e-14,
+        "right_fd": 2.7755575615628914e-13,
+        "left_fd": 6.938893903907228e-14
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "explicit_None_HOLD_control",
+      "cost_bps": 10.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": null,
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "legacy_state_max_error": 1.3010426069826053e-17,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 1.6433743255106492e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00988142292490124,
+        "algebraic_autograd": -0.00988142292490124,
+        "independent_numpy_fd": -0.009881422975005494,
+        "right_fd": -0.009881422866585277,
+        "left_fd": -0.009881423303735593
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "S_to_cash_target_at_theta0",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "right",
+      "held": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "target": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        -0.9925804610536242,
+        0.9925804610536242
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        -0.9900990098898887,
+        0.9900990098501786
+      ],
+      "legacy_state_max_error": 0.0024814511526340954,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 5.081146614571708e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00992580461053625,
+        "algebraic_autograd": -0.012407255763170255,
+        "independent_numpy_fd": -0.012407255530269556,
+        "right_fd": -0.012407255530269556,
+        "left_fd": null
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0025062656640317815,
+        "right_fd": 0.0025062656640317815,
+        "left_fd": null
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "S_to_L_scalar_boundary_control",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "right",
+      "held": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "target": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.0198019801980185,
+        -1.0198019803064895,
+        6.052886511203392e-11
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 1.084696776842975e-10,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.01980198019801982,
+        "algebraic_autograd": 0.01980198019801982,
+        "independent_numpy_fd": 0.01478944898491985,
+        "right_fd": 0.01478944898491985,
+        "left_fd": null
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.005012531328824341,
+        "right_fd": 0.005012531328824341,
+        "left_fd": null
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_S_to_cash",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.0015075691854580337,
+        -0.993588827422847,
+        0.992081258237389
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.002011435892845803,
+        -0.9921065787232841,
+        0.9900951429275828
+      ],
+      "legacy_state_max_error": 0.0019861153668552234,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 5.7049032164968594e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.009911126601028197,
+        "algebraic_autograd": -0.01238643294494135,
+        "independent_numpy_fd": -0.009885176693695541,
+        "right_fd": -0.012386432898456312,
+        "left_fd": -0.007383920438627789
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 3.7537612254667454e-06,
+        "right_fd": 0.002505010020178999,
+        "left_fd": -0.0024975024976239824
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_S_to_cash",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.0005038667063696672,
+        0.0014822486604855261,
+        -0.0019861153668551935
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        0.0,
+        2.7755575615628914e-11
+      ],
+      "legacy_state_max_error": 0.0019861153668551935,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 2.7755575615628914e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 2.970367612695753e-05,
+        "algebraic_autograd": 0.00250501002004008,
+        "independent_numpy_fd": 3.753694403918484e-06,
+        "right_fd": -0.0024975027549528628,
+        "left_fd": 0.0025050098141632393
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -3.753761190772309e-06,
+        "right_fd": 0.0024975024974852045,
+        "left_fd": -0.0025050100197279708
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_S_to_cash",
+      "cost_bps": 25.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.0030111999095665644,
+        -0.9931015261618702,
+        0.9900903262523035
+      ],
+      "algebraic_state_jvp": [
+        0.003011199909566553,
+        -0.9931015261618701,
+        0.9900903262523036
+      ],
+      "analytic_state_jvp": [
+        0.003011199909566555,
+        -0.9931015261618699,
+        0.9900903262523034
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.003011199845026624,
+        -0.993101526208795,
+        0.9900903263082572
+      ],
+      "legacy_state_max_error": 3.3306690738754696e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 6.453993069144293e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.012372293468233798,
+        "algebraic_autograd": -0.012372293468233875,
+        "independent_numpy_fd": -0.012372293438020487,
+        "right_fd": -0.012372293657463007,
+        "left_fd": -0.012372293218577968
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0024987492184373925,
+        "algebraic_autograd": 0.0024987492184373925,
+        "independent_numpy_fd": 0.0024987492183345915,
+        "right_fd": 0.002498749218063541,
+        "left_fd": 0.0024987492183888016
+      },
+      "forward_errors": {
+        "net_equity": 2.220446049250313e-16,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 5.551115123125783e-17,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_L_to_cash",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        -1.0122561202957086,
+        0.016269161297489114,
+        0.9959869589982195
+      ],
+      "algebraic_state_jvp": [
+        -1.0117522535893388,
+        0.01775140995797464,
+        0.9940008436313643
+      ],
+      "analytic_state_jvp": [
+        -1.011752253589339,
+        0.017751409957974675,
+        0.9940008436313643
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -1.0117522535879608,
+        0.017751409953081776,
+        0.9940008436210013
+      ],
+      "legacy_state_max_error": 0.0019861153668552234,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 1.0363043756456136e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.029673972450830456,
+        "algebraic_autograd": -0.03214927879474361,
+        "independent_numpy_fd": -0.029645522496915544,
+        "right_fd": -0.03214927862989214,
+        "left_fd": -0.02714176632577503
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 1.253758694086509e-06,
+        "right_fd": 0.002505010019727971,
+        "left_fd": -0.0025025025024091874
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_L_to_cash",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.0005038667063696672,
+        0.0014822486604855261,
+        -0.0019861153668551935
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.3877787807814457e-11,
+        5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "legacy_state_max_error": 0.0019861153668551935,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 5.551115123125783e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 2.970367612695753e-05,
+        "algebraic_autograd": 0.00250501002004008,
+        "independent_numpy_fd": 1.25371848319622e-06,
+        "right_fd": -0.0025025027059269456,
+        "left_fd": 0.002505010033605759
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -1.2537586593918658e-06,
+        "right_fd": 0.0025025025025479652,
+        "left_fd": -0.0025050100196932763
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_L_to_cash",
+      "cost_bps": 25.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        -1.0077482364016066,
+        0.0118109200336397,
+        0.9959373163679668
+      ],
+      "algebraic_state_jvp": [
+        -1.0077482364016066,
+        0.011810920033639705,
+        0.9959373163679668
+      ],
+      "analytic_state_jvp": [
+        -1.0077482364016062,
+        0.01181092003363969,
+        0.9959373163679666
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -1.0077482363313184,
+        0.011810920103050293,
+        0.9959373163115348
+      ],
+      "legacy_state_max_error": 4.440892098500626e-16,
+      "algebraic_state_max_error": 4.440892098500626e-16,
+      "finite_difference_state_max_error": 7.028777559980881e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.0271143797795451,
+        "algebraic_autograd": -0.027114379779545117,
+        "independent_numpy_fd": -0.027114379849008108,
+        "right_fd": -0.027114380177738207,
+        "left_fd": -0.027114379629565588
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": -0.0024987492184373925,
+        "algebraic_autograd": -0.0024987492184373925,
+        "independent_numpy_fd": -0.0024987492184430117,
+        "right_fd": -0.0024987492183888016,
+        "left_fd": -0.002498749218497222
+      },
+      "forward_errors": {
+        "net_equity": 2.220446049250313e-16,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 5.551115123125783e-17,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_S_to_L",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.0039057007608305216
+      ],
+      "algebraic_state_jvp": [
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.003905700760830494
+      ],
+      "analytic_state_jvp": [
+        1.0137636894811668,
+        -1.0098579887203363,
+        -0.003905700760830512
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.0137636894808066,
+        -1.0098579887873882,
+        -0.003905700679540658
+      ],
+      "legacy_state_max_error": 2.220446049250313e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 8.128985418826007e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.019762845849802257,
+        "algebraic_autograd": 0.019762845849802257,
+        "independent_numpy_fd": 0.019757845765716597,
+        "right_fd": 0.014757840753262808,
+        "left_fd": 0.024757850471124332
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 5.000004854593854e-06,
+        "right_fd": 0.005005005005338792,
+        "left_fd": -0.004995004995560215
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_S_to_L",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        2.7755575615628914e-11,
+        5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "legacy_state_max_error": 0.0,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 5.551115123125783e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 4.999952708806266e-06,
+        "right_fd": -0.004995005180308265,
+        "left_fd": 0.005005004975570937
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -5.000004854593854e-06,
+        "right_fd": 0.004995004995664299,
+        "left_fd": -0.005005005005200014
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_S_to_L",
+      "cost_bps": 25.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        1.0107594363111732,
+        -1.00491244619551,
+        -0.005846990115663253
+      ],
+      "algebraic_state_jvp": [
+        1.0107594363111732,
+        -1.00491244619551,
+        -0.005846990115663198
+      ],
+      "analytic_state_jvp": [
+        1.0107594363111727,
+        -1.0049124461955095,
+        -0.005846990115663213
+      ],
+      "independent_numpy_fd_state_jvp": [
+        1.0107594362318562,
+        -1.004912446200823,
+        -0.005846990058788748
+      ],
+      "legacy_state_max_error": 4.440892098500626e-16,
+      "algebraic_state_max_error": 4.440892098500626e-16,
+      "finite_difference_state_max_error": 7.931655332527043e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.014742086311311301,
+        "algebraic_autograd": 0.014742086311311242,
+        "independent_numpy_fd": 0.01474208630083268,
+        "right_fd": 0.014742086519407838,
+        "left_fd": 0.01474208608139016
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.004997498436874785,
+        "algebraic_autograd": 0.004997498436874785,
+        "independent_numpy_fd": 0.004997498436777603,
+        "right_fd": 0.004997498436831813,
+        "left_fd": 0.004997498436560763
+      },
+      "forward_errors": {
+        "net_equity": 2.220446049250313e-16,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 5.551115123125783e-17,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_target_cash_to_S",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "legacy_state_jvp": [
+        -0.0015075691854580337,
+        0.993588827422847,
+        -0.992081258237389
+      ],
+      "algebraic_state_jvp": [
+        -0.002011435891827701,
+        0.9921065787623615,
+        -0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        -0.002011435891827714,
+        0.9921065787623615,
+        -0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -0.002011435892845803,
+        0.9921065787232841,
+        -0.9900951429275828
+      ],
+      "legacy_state_max_error": 0.0019861153668552234,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 5.7049032164968594e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.009911126601028197,
+        "algebraic_autograd": 0.01238643294494135,
+        "independent_numpy_fd": 0.009885176693695541,
+        "right_fd": 0.007383920438627789,
+        "left_fd": 0.012386432898456312
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -3.7537612254667454e-06,
+        "right_fd": 0.0024975024976239824,
+        "left_fd": -0.002505010020178999
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_no_trade_pretrade_only_cash_to_S",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "legacy_state_jvp": [
+        -0.0005038667063696672,
+        -0.0014822486604855261,
+        0.0019861153668551935
+      ],
+      "algebraic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_state_jvp": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0,
+        0.0,
+        -2.7755575615628914e-11
+      ],
+      "legacy_state_max_error": 0.0019861153668551935,
+      "algebraic_state_max_error": 0.0,
+      "finite_difference_state_max_error": 2.7755575615628914e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -2.970367612695753e-05,
+        "algebraic_autograd": -0.00250501002004008,
+        "independent_numpy_fd": -3.753694403918484e-06,
+        "right_fd": -0.0025050098141632393,
+        "left_fd": 0.0024975027549528628
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 3.753761190772309e-06,
+        "right_fd": 0.0025050100197279708,
+        "left_fd": -0.0024975024974852045
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "away_from_kink_target_cash_to_S",
+      "cost_bps": 25.0,
+      "no_trade_at_point": false,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        1.0,
+        -1.0
+      ],
+      "legacy_state_jvp": [
+        -0.0030111999095665644,
+        0.9931015261618702,
+        -0.9900903262523035
+      ],
+      "algebraic_state_jvp": [
+        -0.003011199909566553,
+        0.9931015261618701,
+        -0.9900903262523036
+      ],
+      "analytic_state_jvp": [
+        -0.003011199909566555,
+        0.9931015261618699,
+        -0.9900903262523034
+      ],
+      "independent_numpy_fd_state_jvp": [
+        -0.003011199845026624,
+        0.993101526208795,
+        -0.9900903263082572
+      ],
+      "legacy_state_max_error": 3.3306690738754696e-16,
+      "algebraic_state_max_error": 2.220446049250313e-16,
+      "finite_difference_state_max_error": 6.453993069144293e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": 0.012372293468233798,
+        "algebraic_autograd": 0.012372293468233875,
+        "independent_numpy_fd": 0.012372293438020487,
+        "right_fd": 0.012372293218577968,
+        "left_fd": 0.012372293657463007
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": -0.0024987492184373925,
+        "algebraic_autograd": -0.0024987492184373925,
+        "independent_numpy_fd": -0.0024987492183345915,
+        "right_fd": -0.0024987492183888016,
+        "left_fd": -0.002498749218063541
+      },
+      "forward_errors": {
+        "net_equity": 2.220446049250313e-16,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 5.551115123125783e-17,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_coupled_HOLD_0.7",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -0.7,
+        0.7
+      ],
+      "legacy_state_jvp": [
+        0.0015591651361902908,
+        -0.6940299305355073,
+        0.6924707653993171
+      ],
+      "algebraic_state_jvp": [
+        0.0014080051242793823,
+        -0.694474605133653,
+        0.6930666000093737
+      ],
+      "analytic_state_jvp": [
+        0.0014080051242793996,
+        -0.694474605133653,
+        0.6930666000093737
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0014080051152776107,
+        -0.6944746051007478,
+        0.6930665999715924
+      ],
+      "legacy_state_max_error": 0.0005958346100566336,
+      "algebraic_state_max_error": 1.734723475976807e-17,
+      "finite_difference_state_max_error": 3.778133361720393e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00690808494459278,
+        "algebraic_autograd": -0.0061654930414189206,
+        "independent_numpy_fd": -0.006915870055454465,
+        "right_fd": -0.007666247412926874,
+        "left_fd": -0.0061654930163038135
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": -1.1261282184538125e-06,
+        "right_fd": 0.000749250749498831,
+        "left_fd": -0.0007515030056581827
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "mixed_coupled_HOLD_1.0",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.0020114359344791666,
+        -0.9921065787232841,
+        0.990095142913705
+      ],
+      "legacy_state_max_error": 1.3010426069826053e-17,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 4.317124435715414e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00988142292490124,
+        "algebraic_autograd": -0.009881422924901271,
+        "independent_numpy_fd": -0.009881423194448014,
+        "right_fd": -0.009881423744355355,
+        "left_fd": -0.009881423413023172
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 1.7347234759768073e-13,
+        "right_fd": 6.938893903907229e-13,
+        "left_fd": 1.7347234759768073e-13
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 5.551115123125783e-17,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 5.551115123125783e-17,
+        "funding_identity": 0.0
+      }
+    },
+    {
+      "case": "explicit_None_HOLD_control",
+      "cost_bps": 25.0,
+      "no_trade_at_point": true,
+      "finite_difference": "central",
+      "held": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "target": null,
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "legacy_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "algebraic_state_jvp": [
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_state_jvp": [
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "independent_numpy_fd_state_jvp": [
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "legacy_state_max_error": 1.3010426069826053e-17,
+      "algebraic_state_max_error": 1.3010426069826053e-17,
+      "finite_difference_state_max_error": 1.6433743255106492e-11,
+      "scalar_log_NAV_derivatives": {
+        "legacy_autograd": -0.00988142292490124,
+        "algebraic_autograd": -0.00988142292490124,
+        "independent_numpy_fd": -0.009881422975005494,
+        "right_fd": -0.009881422866585277,
+        "left_fd": -0.009881423303735593
+      },
+      "scalar_fee_derivatives": {
+        "legacy_autograd": 0.0,
+        "algebraic_autograd": 0.0,
+        "independent_numpy_fd": 0.0,
+        "right_fd": 0.0,
+        "left_fd": 0.0
+      },
+      "forward_errors": {
+        "net_equity": 0.0,
+        "fees": 0.0,
+        "turnover": 0.0,
+        "ending_weights": 0.0,
+        "independent_numpy_ending_weights": 0.0,
+        "independent_numpy_net_equity": 0.0,
+        "cash_debit_identity": 0.0,
+        "funding_identity": 0.0
+      }
+    }
+  ],
+  "return_jacobian_controls": [
+    {
+      "cost_bps": 0.0,
+      "legacy_max_error": 5.551115123125783e-17,
+      "algebraic_max_error": 2.7755575615628914e-17
+    },
+    {
+      "cost_bps": 10.0,
+      "legacy_max_error": 5.551115123125783e-17,
+      "algebraic_max_error": 2.7755575615628914e-17
+    },
+    {
+      "cost_bps": 25.0,
+      "legacy_max_error": 5.551115123125783e-17,
+      "algebraic_max_error": 2.7755575615628914e-17
+    }
+  ],
+  "maximum_legacy_state_error_no_trade": 0.0024814511526340954,
+  "maximum_legacy_state_error_away_from_kink": 4.440892098500626e-16,
+  "maximum_algebraic_state_error": 4.440892098500626e-16,
+  "maximum_independent_fd_state_error": 2.3314594699286317e-10,
+  "maximum_forward_error": 2.220446049250313e-16,
+  "scalar_boundary_scope": "Central scalar finite differences at no-trade are symmetric secants, not certified derivatives; explicit left/right secants are also retained where both directions are feasible. State smoothness does not certify scalar fee or net-NAV derivatives at no-trade. Each specified feasible curve has a definite one-sided derivative; chosen sign-root/abs subgradients need not give that derivative. S-to-L remains a counterexample after the proposed state fix.",
+  "autograd_reference": "https://docs.pytorch.org/docs/2.14/notes/autograd.html#gradients-for-non-differentiable-functions"
+}
