@@ -1,0 +1,7 @@
+cost_bps,aggregate_positive_net_log_excess,minimum_positive_signal_years,median_annual_log_excess_positive,leave_any_one_year_out_log_excess_positive,anchored_max_drawdown_not_worse_than_soxx,cvar5_not_worse_than_soxx,all_repeats_positive_at_both_costs,stationary_block_20_lower_bound_positive,stationary_block_60_lower_bound_positive,all_pass,positive_years,years,positive_repeats_at_this_cost,repeats_positive_at_both_costs,repeat_evidence_complete,largest_positive_year_share,minimum_leave_one_year_out_log_excess,all_three_fresh_runs_match,all_convex_solutions_verified,measurable_log_excess_above_numerical_tolerance,variant
+10.0,False,False,False,False,False,True,False,False,False,False,0,7,0,0,True,,-0.20476260146453443,True,True,False,prior_h5
+25.0,False,False,False,False,False,True,False,False,False,False,0,7,0,0,True,,-0.22518674584367987,True,True,False,prior_h5
+10.0,False,False,False,False,True,True,False,False,False,False,3,7,0,0,True,0.5373965663522846,-0.23309691234373217,True,True,False,ridge_h5
+25.0,False,False,False,False,True,True,False,False,False,False,0,7,0,0,True,,-0.416839046930534,True,True,False,ridge_h5
+10.0,False,False,False,False,True,True,False,False,False,False,3,7,0,0,True,0.640864418352701,-0.10628956454574712,True,True,False,robust_ridge_h5
+25.0,False,False,False,False,True,True,False,False,False,False,3,7,0,0,True,0.4444036952653532,-0.1479267814456836,True,True,False,robust_ridge_h5

@@ -1,0 +1,4 @@
+variant,historical_qualification_pass,passed_gates,worst_annualized_lower_bound,worst_relative_wealth,positive_years_10bps
+robust_ridge_h5,False,10,-0.06800690503604515,0.8968674994575024,3
+ridge_h5,False,10,-0.15873612113874475,0.6550680430378667,3
+prior_h5,False,8,-0.06941668318593026,0.7874489322995666,0

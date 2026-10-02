@@ -1,0 +1,235 @@
+{
+  "recorder_id": "53dc5870bc8741d2a939938b0f6be9df",
+  "source_mismatches": [],
+  "profile_count": 30,
+  "daily_profile_count": 30,
+  "total_decisions": 42924,
+  "violations": [],
+  "all_profiles_optimality_verified": true,
+  "total_reported_fallback_sessions": 0,
+  "profile_coverage": [
+    {
+      "key": "(1, 'prior_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(1, 'prior_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(1, 'ridge_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(1, 'ridge_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(1, 'robust_ridge_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 2
+    },
+    {
+      "key": "(1, 'robust_ridge_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 2
+    },
+    {
+      "key": "(2, 'prior_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(2, 'prior_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(2, 'ridge_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(2, 'ridge_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(2, 'robust_ridge_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 2
+    },
+    {
+      "key": "(2, 'robust_ridge_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 2
+    },
+    {
+      "key": "(3, 'prior_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(3, 'prior_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(3, 'ridge_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(3, 'ridge_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 0
+    },
+    {
+      "key": "(3, 'robust_ridge_h5', 10)",
+      "sessions": 1762,
+      "cold_retries": 2
+    },
+    {
+      "key": "(3, 'robust_ridge_h5', 25)",
+      "sessions": 1762,
+      "cold_retries": 2
+    },
+    {
+      "key": "('outer', 1, 'annual_refit', 10)",
+      "sessions": 934,
+      "cold_retries": 2
+    },
+    {
+      "key": "('outer', 1, 'annual_refit', 25)",
+      "sessions": 934,
+      "cold_retries": 3
+    },
+    {
+      "key": "('outer', 1, 'frozen2022', 10)",
+      "sessions": 934,
+      "cold_retries": 3
+    },
+    {
+      "key": "('outer', 1, 'frozen2022', 25)",
+      "sessions": 934,
+      "cold_retries": 2
+    },
+    {
+      "key": "('outer', 2, 'annual_refit', 10)",
+      "sessions": 934,
+      "cold_retries": 2
+    },
+    {
+      "key": "('outer', 2, 'annual_refit', 25)",
+      "sessions": 934,
+      "cold_retries": 3
+    },
+    {
+      "key": "('outer', 2, 'frozen2022', 10)",
+      "sessions": 934,
+      "cold_retries": 3
+    },
+    {
+      "key": "('outer', 2, 'frozen2022', 25)",
+      "sessions": 934,
+      "cold_retries": 2
+    },
+    {
+      "key": "('outer', 3, 'annual_refit', 10)",
+      "sessions": 934,
+      "cold_retries": 2
+    },
+    {
+      "key": "('outer', 3, 'annual_refit', 25)",
+      "sessions": 934,
+      "cold_retries": 3
+    },
+    {
+      "key": "('outer', 3, 'frozen2022', 10)",
+      "sessions": 934,
+      "cold_retries": 3
+    },
+    {
+      "key": "('outer', 3, 'frozen2022', 25)",
+      "sessions": 934,
+      "cold_retries": 2
+    }
+  ],
+  "certificate_maxima": {
+    "primal_residual_abs": 2.7100362699695846e-09,
+    "dual_residual_abs": 7.603566665181916e-09,
+    "primal_cone_violation": 0.0,
+    "dual_cone_violation": 0.0,
+    "absolute_duality_gap": 2.3087459374848684e-10,
+    "primal_objective_identity_error": 2.7755575615628914e-17,
+    "dual_objective_identity_error": 1.3877787807814457e-17,
+    "reported_primal_residual": 8.551801463085392e-10,
+    "reported_dual_residual": 2.0176381913651715e-09,
+    "physical_bound_gap": 2.1069856970257206e-10,
+    "funding_residual": 3.7015146503449614e-10,
+    "objective_reconstruction": 3.756022159961958e-10
+  },
+  "repetition_audit_rows": 26,
+  "all_repetition_audits_pass": true,
+  "maximum_reported_repeat_difference": 0.0,
+  "model_repeat_schemas": [
+    {
+      "scope": "development",
+      "repeat_ids": [
+        1,
+        2,
+        3
+      ],
+      "model_years": [
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ]
+    },
+    {
+      "scope": "diagnostic",
+      "repeat_ids": [
+        1,
+        2,
+        3
+      ],
+      "model_years": [
+        2023,
+        2024,
+        2025,
+        2026
+      ]
+    }
+  ],
+  "independent_model_array_max_difference": 0.0,
+  "independent_prediction_max_difference": 0.0,
+  "native": {
+    "10": {
+      "status": "passed",
+      "sessions": 1762,
+      "cost_bps": 10.0,
+      "maximum_session_return_error": 5.9565412824369446e-08,
+      "tolerance": 1e-07,
+      "position_type": "src.backtest.qlib_continuous_position.QlibContinuousPosition",
+      "sealed_stage1_code_changed": false
+    },
+    "25": {
+      "status": "passed",
+      "sessions": 1762,
+      "cost_bps": 25.0,
+      "maximum_session_return_error": 5.946452930061241e-08,
+      "tolerance": 1e-07,
+      "position_type": "src.backtest.qlib_continuous_position.QlibContinuousPosition",
+      "sealed_stage1_code_changed": false
+    }
+  },
+  "repeats_are_independent_statistical_observations": false
+}

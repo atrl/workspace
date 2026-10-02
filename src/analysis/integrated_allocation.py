@@ -318,7 +318,7 @@ def seed_dispersion(paths: Mapping[str, pd.DataFrame], benchmark: pd.DataFrame) 
 
 
 def native_allocation_reconciliation(frame: pd.DataFrame, replay: pd.DataFrame, *, provider_uri: str | Path,
-                                      cost_bps: float = 10., account: float = 100_000.) -> dict:
+                                      cost_bps: float = 10., account: float = 100_000., native_reconciler=None) -> dict:
     """Qlib daily execution of declared net targets, without legacy risk caps.
 
     Reuse only the generic fee-funded target/Exchange/Position reconciliation;
@@ -350,7 +350,8 @@ def native_allocation_reconciliation(frame: pd.DataFrame, replay: pd.DataFrame, 
     if not np.isfinite(weights).all() or (weights < -1e-12).any() or not np.allclose(weights.sum(axis=1), 1, rtol=0, atol=1e-10):
         raise ValueError("blocked: integrated targets must be normalized finite long-only weights")
     schedule.loc[:, [f"open_{asset}_weight" for asset in ASSETS]] = weights
-    native = native_open_reconciliation(market, schedule, provider_uri=provider_uri, cost_bps=cost_bps, account=account)
+    reconcile = native_open_reconciliation if native_reconciler is None else native_reconciler
+    native = reconcile(market, schedule, provider_uri=provider_uri, cost_bps=cost_bps, account=account)
     close_net = native["report"]["return"] - native["report"]["cost"]
     open_net = native["reconciliation"]["native_next_open_return"]
     # The generic older helper uses Qlib's regional default scaler. Explicitly
