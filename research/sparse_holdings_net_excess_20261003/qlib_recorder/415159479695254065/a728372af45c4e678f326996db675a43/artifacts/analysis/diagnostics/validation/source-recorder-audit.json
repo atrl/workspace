@@ -1,0 +1,90 @@
+{
+  "scope": "Final diagnostic Recorder/card identity and conclusion consistency only; no market fits, replays, repeated data reconstruction or retests. Earlier363-state independent synthetic audit is linked separately.",
+  "recorder_id": "a728372af45c4e678f326996db675a43",
+  "recorder_status": "FINISHED",
+  "completion_scope": "Evidence archival complete; registered positive-control gate FAILED.",
+  "cache_reference_recorder_id": "a728372af45c4e678f326996db675a43",
+  "one_recorder_suffices_for_cached_rerun": true,
+  "plan_sha256": "6b02b5948263606e4e75b57f1d3e51397d40fa3876c7f5943cfe77a32cac4ca2",
+  "observer_source_count": 32,
+  "observer_sources_match_frozen_verification": true,
+  "sealed_test_count": 4,
+  "native_source_counts": {
+    "rows": 3956,
+    "calendar_sessions": 4162,
+    "forecast_heads": 14,
+    "mapped_folds": 21
+  },
+  "original_preflight_artifacts": {
+    "original_payload.pkl": {
+      "artifact": "preflight/original_payload.pkl",
+      "sha256": "3d589805851fc3c4a959fd00e53f9f5fd8409adef0d9c8da111c095b9c3f36d5"
+    },
+    "identity_receipt.json": {
+      "artifact": "preflight/identity_receipt.json",
+      "sha256": "6e629a4ec7b8fb9a0cae562e77a8bc497b1aa078c70b1245407f09ef6da573a9"
+    },
+    "initial_model.py": {
+      "artifact": "preflight/initial_model.py",
+      "sha256": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd"
+    },
+    "retention_model.py": {
+      "artifact": "preflight/retention_model.py",
+      "sha256": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d"
+    },
+    "initial_probe_summary.json": {
+      "artifact": "preflight/initial_probe_summary.json",
+      "sha256": "4fa56ff711920e1f62c328c04e4a54b708824ee4fded7b2d990d05af1f6ee182"
+    }
+  },
+  "original_source_change": "Diagnostic-key spelling only; no original full-trajectory equality claim.",
+  "toy_seed_count": 3,
+  "toy_saved_states": 363,
+  "registered_positive_control_pass": false,
+  "mathematical_and_data_contracts_passed": true,
+  "market_model_fits": 0,
+  "market_backtests": 0,
+  "market_gate_rejected_actual_failed_seal": "blocked: initial seal identity or pre-fit evidence differs",
+  "selected": null,
+  "objective_achieved": false,
+  "historical_qualification_assessed": false,
+  "notebook_final_markdown_pending": false,
+  "notebook_conclusion_equal": true,
+  "executed_code_cells": 3,
+  "notebook_error_outputs": 0,
+  "notebook_sha256": "f5713f93566d65129ce7aeaacca0b8d4896270a3186ef688a052e5132d0b9450",
+  "conclusion_sha256": "684c9796eca0aa9d4ca0fbf7f6054f7f58ebd6cf58c84ef2d85f82a6a633a1cb",
+  "card_sha256": {
+    "conclusion.md": "684c9796eca0aa9d4ca0fbf7f6054f7f58ebd6cf58c84ef2d85f82a6a633a1cb",
+    "core_integration.json": "7f1712d93619b5d2ac6c130c3469144f71f1320d683977e8ba90878d76f591b3",
+    "design.md": "4c7863ffd9924dbab5eb8b703f0d6739c7e294012609edac261d78bf16db0b03",
+    "gradient_audit.json": "ac2742894125a57f3f47587a2d81fff7d557359561f941f80042f431cbf07fb8",
+    "implicit_settlement_gradient_audit.md": "c34e7a3832b9283a643709fdc388ac89ac35806be16eed18ff366aa7618fc51f",
+    "initial_seal.json": "ee6c9c9bbd8384b579a783414294b71a4cc28e250bd2d2e50b90310e590c6bae",
+    "input_readback.json": "93394b5f442f57b0ad062d3afc412193daaf39d6140fa44e66ac381e097c6b8c",
+    "known_information_audit.json": "533da667b977ea20cb5ec1e8ff3fec7b3fd3c0c3cc82805a2a926a894877ece0",
+    "next_optimizer_design_review.md": "8f7196baf5e67e65c54ea862a95b2f0172ef6f2fbd683fd1043c88cb1d345a11",
+    "post_fee_state_gradient_audit.md": "8087166236e14c321ab213ddd0bbba697e016079303c25fcfea2346586b00b92",
+    "preflight_probe_reference.json": "ee4a61b7dcf73627ff9274187eea7388cd1f8a3f144547e98e0b88350f8fde62",
+    "preflight_seed_summary.csv": "f64b5e401a8e5b9e19fb97f5d359feaf4137fbf1b80e8a385fda8c46d1f18cf8",
+    "selected_model.json": "77f73bfc9438a6c9fbbb95780c5802a3805af3ba6fd3c6db4cca88bd30929b33",
+    "selection_plan.json": "6b02b5948263606e4e75b57f1d3e51397d40fa3876c7f5943cfe77a32cac4ca2",
+    "settlement_audit.json": "ddc0be57f24cccca0c41ce007d87adb5a577355bb5db08023d9ffba3363e6423",
+    "sparse_holdings_net_excess_20261003.ipynb": "f5713f93566d65129ce7aeaacca0b8d4896270a3186ef688a052e5132d0b9450",
+    "summary.json": "38a96037231ee4d4256516a378547d5de89f79430a451482da00f40339fe8414",
+    "synthetic_known_information.json": "4fa56ff711920e1f62c328c04e4a54b708824ee4fded7b2d990d05af1f6ee182",
+    "synthetic_runtime.json": "418f2007e0cf2a46af24e1c9023c4d005fa5587d964d87a23513f039d44389b0",
+    "workflow.yaml": "30c11ee0d5ac0160bcef5be8436d137c24f883725e0cb13d9c542a697c4f77e8"
+  },
+  "card_hash_scope": "Before archivist adds evidence pointers/manifest and verification copy; notebook/conclusion are final frozen bytes.",
+  "independent_known_information_audit": {
+    "path": "/tmp/sparse-holdings-validation/known-information-independent-audit.json",
+    "sha256": "533da667b977ea20cb5ec1e8ff3fec7b3fd3c0c3cc82805a2a926a894877ece0"
+  },
+  "failures": [],
+  "final_editorial_refresh": {
+    "scope": "Notebook/conclusion/next-design wording and byte hashes only after completed Recorder audit; no retests/replays/refits or repeated source/data audit.",
+    "correction": "Removed inaccurate36independent wording; prospective36-to33 affine-coordinate redundancy explained before any next registration/fitting. Current model/results unchanged.",
+    "notebook_conclusion_equal": true
+  }
+}

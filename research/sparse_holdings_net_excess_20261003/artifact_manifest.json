@@ -1,0 +1,2076 @@
+{
+  "schema_version": 2,
+  "experiment": "sparse_holdings_net_excess_20261003",
+  "artifact_policy": "slim_card_recorder_first",
+  "authoritative_recorder": "a728372af45c4e678f326996db675a43",
+  "record_type": "failed_registered_synthetic_preflight_diagnostic",
+  "recorder_finished_means": "Diagnostic evidence archived; registered positive-control gate FAILED; no market fit/backtest",
+  "retained_recorder_ids": [
+    "a728372af45c4e678f326996db675a43"
+  ],
+  "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder",
+  "parent_input_recorder": "52f40778cbe64ca6a5864da356b960d0",
+  "qualified_price_recorder": "bd754e6362b241f194351a1e7aebff6f",
+  "prior_phase7_recorder": "300530137db54b6c807c39ebb9e8c331",
+  "parent_retention": "References only; no full parent Recorder trees copied.",
+  "source_as_of": "2026-09-25",
+  "created_at_utc": "2026-10-02T21:18:42.989834+00:00",
+  "path_base": "card directory",
+  "self_reference_policy": "Root manifest excluded from itself and not copied into Recorder.",
+  "entry_count": 111,
+  "total_bytes": 5480345,
+  "maximum_file_bytes": 3125021,
+  "entries": [
+    {
+      "path": "conclusion.md",
+      "bytes": 4213,
+      "sha256": "684c9796eca0aa9d4ca0fbf7f6054f7f58ebd6cf58c84ef2d85f82a6a633a1cb",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "core_integration.json",
+      "bytes": 4059,
+      "sha256": "7f1712d93619b5d2ac6c130c3469144f71f1320d683977e8ba90878d76f591b3",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "design.md",
+      "bytes": 18547,
+      "sha256": "4c7863ffd9924dbab5eb8b703f0d6739c7e294012609edac261d78bf16db0b03",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "gradient_audit.json",
+      "bytes": 6271,
+      "sha256": "ac2742894125a57f3f47587a2d81fff7d557359561f941f80042f431cbf07fb8",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "implicit_settlement_gradient_audit.md",
+      "bytes": 4771,
+      "sha256": "c34e7a3832b9283a643709fdc388ac89ac35806be16eed18ff366aa7618fc51f",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "initial_seal.json",
+      "bytes": 4584,
+      "sha256": "ee6c9c9bbd8384b579a783414294b71a4cc28e250bd2d2e50b90310e590c6bae",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "input_readback.json",
+      "bytes": 1939,
+      "sha256": "93394b5f442f57b0ad062d3afc412193daaf39d6140fa44e66ac381e097c6b8c",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "known_information_audit.json",
+      "bytes": 14482,
+      "sha256": "533da667b977ea20cb5ec1e8ff3fec7b3fd3c0c3cc82805a2a926a894877ece0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "next_optimizer_design_review.md",
+      "bytes": 6052,
+      "sha256": "8f7196baf5e67e65c54ea862a95b2f0172ef6f2fbd683fd1043c88cb1d345a11",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "post_fee_state_gradient_audit.md",
+      "bytes": 7357,
+      "sha256": "8087166236e14c321ab213ddd0bbba697e016079303c25fcfea2346586b00b92",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "preflight_probe_reference.json",
+      "bytes": 1274,
+      "sha256": "ee4a61b7dcf73627ff9274187eea7388cd1f8a3f144547e98e0b88350f8fde62",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "preflight_seed_summary.csv",
+      "bytes": 428,
+      "sha256": "f64b5e401a8e5b9e19fb97f5d359feaf4137fbf1b80e8a385fda8c46d1f18cf8",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/archival/archive_sparse_holdings_phase8.py",
+      "bytes": 9729,
+      "sha256": "81e559e27f5048b1e4d6a3d20b77c9645bb4116dfb29cd71fa4bb61e18bc463b",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Method used to archive existing evidence and build an exact card/Recorder manifest",
+      "source": {
+        "archived_from": "/tmp/archive_sparse_holdings_phase8.py",
+        "original_sha256": "81e559e27f5048b1e4d6a3d20b77c9645bb4116dfb29cd71fa4bb61e18bc463b",
+        "original_mtime_utc": "2026-10-02T21:16:42.575500+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/execution/sparse-holdings-notebook-execution.log",
+      "bytes": 543,
+      "sha256": "bda38a6992915e7550606012b2bdf2999fbbc71a9e3460acb9854939ec9581ac",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Execution log of diagnostic-only notebook; zero market fits/backtests",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-notebook-execution.log",
+        "original_sha256": "bda38a6992915e7550606012b2bdf2999fbbc71a9e3460acb9854939ec9581ac",
+        "original_mtime_utc": "2026-10-02T21:06:32.596958+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/failed_optimizer_diagnosis/diagnose_sparse_holdings_failed_probe.py",
+      "bytes": 9006,
+      "sha256": "159b5918f5076a5b9d824ccde43dd16455ec7b82382feb3ae6a0010747e5861e",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Analysis of already-retained synthetic states; no new target, fit or optimizer trajectory",
+      "source": {
+        "archived_from": "/tmp/diagnose_sparse_holdings_failed_probe.py",
+        "original_sha256": "159b5918f5076a5b9d824ccde43dd16455ec7b82382feb3ae6a0010747e5861e",
+        "original_mtime_utc": "2026-10-02T21:00:46.521811+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/failed_optimizer_diagnosis/sparse-holdings-failed-optimization-diagnosis.json",
+      "bytes": 29902,
+      "sha256": "7e9b965a2d054b854c3da2302bb4534262fa38b924c62fbb15dd4224c174b6ea",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Analysis of already-retained synthetic states; no new target, fit or optimizer trajectory",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-failed-optimization-diagnosis.json",
+        "original_sha256": "7e9b965a2d054b854c3da2302bb4534262fa38b924c62fbb15dd4224c174b6ea",
+        "original_mtime_utc": "2026-10-02T21:00:53.687325+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/failed_optimizer_diagnosis/sparse-holdings-failed-optimization-diagnosis.log",
+      "bytes": 1314,
+      "sha256": "281ba9978c1cf53c8ade10dbd5912e3ddd5ca7ea81243d5d10a6f48509eb5ad7",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Analysis of already-retained synthetic states; no new target, fit or optimizer trajectory",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-failed-optimization-diagnosis.log",
+        "original_sha256": "281ba9978c1cf53c8ade10dbd5912e3ddd5ca7ea81243d5d10a6f48509eb5ad7",
+        "original_mtime_utc": "2026-10-02T21:00:53.688074+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/implicit_settlement_gradient_audit/implicit_settlement_gradient_audit.json",
+      "bytes": 148769,
+      "sha256": "282ff81ef6ad14814af4e4e38dca4dcf6f1ab83a4ba58fba1169f90fb31812f0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Synthetic fee/state derivative method, full numerical audit and original log; no financial strategy result",
+      "source": {
+        "archived_from": "/tmp/implicit_settlement_gradient_audit.json",
+        "original_sha256": "282ff81ef6ad14814af4e4e38dca4dcf6f1ab83a4ba58fba1169f90fb31812f0",
+        "original_mtime_utc": "2026-10-02T20:06:09.070210+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/implicit_settlement_gradient_audit/implicit_settlement_gradient_audit.log",
+      "bytes": 5800,
+      "sha256": "d3ecc30f9b2d36937c6a07b75e4ac407a860277c145cec0df1963f54efec8a46",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Synthetic fee/state derivative method, full numerical audit and original log; no financial strategy result",
+      "source": {
+        "archived_from": "/tmp/implicit_settlement_gradient_audit.log",
+        "original_sha256": "d3ecc30f9b2d36937c6a07b75e4ac407a860277c145cec0df1963f54efec8a46",
+        "original_mtime_utc": "2026-10-02T20:06:09.070413+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/implicit_settlement_gradient_audit/implicit_settlement_gradient_audit.md",
+      "bytes": 4771,
+      "sha256": "c34e7a3832b9283a643709fdc388ac89ac35806be16eed18ff366aa7618fc51f",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Synthetic fee/state derivative method, full numerical audit and original log; no financial strategy result",
+      "source": {
+        "archived_from": "/tmp/implicit_settlement_gradient_audit.md",
+        "original_sha256": "c34e7a3832b9283a643709fdc388ac89ac35806be16eed18ff366aa7618fc51f",
+        "original_mtime_utc": "2026-10-02T20:08:03.604940+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/implicit_settlement_gradient_audit/implicit_settlement_gradient_audit.py",
+      "bytes": 11642,
+      "sha256": "20ceb9692a731bbbb3e118e60af269381f4fa52606e1e797e53fb85828fb6591",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Synthetic fee/state derivative method, full numerical audit and original log; no financial strategy result",
+      "source": {
+        "archived_from": "/tmp/implicit_settlement_gradient_audit.py",
+        "original_sha256": "20ceb9692a731bbbb3e118e60af269381f4fa52606e1e797e53fb85828fb6591",
+        "original_mtime_utc": "2026-10-02T20:06:07.172945+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/post_fee_state_gradient_audit/post_fee_state_gradient_audit.json",
+      "bytes": 98895,
+      "sha256": "abd440b063576066fe2f33ef79edeb8858ee862f2769441c631adfb6b93035d5",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Synthetic fee/state derivative method, full numerical audit and original log; no financial strategy result",
+      "source": {
+        "archived_from": "/tmp/post_fee_state_gradient_audit.json",
+        "original_sha256": "abd440b063576066fe2f33ef79edeb8858ee862f2769441c631adfb6b93035d5",
+        "original_mtime_utc": "2026-10-02T19:45:32.109165+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/post_fee_state_gradient_audit/post_fee_state_gradient_audit.log",
+      "bytes": 5658,
+      "sha256": "0d9cd0a8b47ecb326890ff0ef9e8e5973db94d426c093f4587b9417cca866e01",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Synthetic fee/state derivative method, full numerical audit and original log; no financial strategy result",
+      "source": {
+        "archived_from": "/tmp/post_fee_state_gradient_audit.log",
+        "original_sha256": "0d9cd0a8b47ecb326890ff0ef9e8e5973db94d426c093f4587b9417cca866e01",
+        "original_mtime_utc": "2026-10-02T19:45:32.109348+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/post_fee_state_gradient_audit/post_fee_state_gradient_audit.md",
+      "bytes": 7357,
+      "sha256": "8087166236e14c321ab213ddd0bbba697e016079303c25fcfea2346586b00b92",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Synthetic fee/state derivative method, full numerical audit and original log; no financial strategy result",
+      "source": {
+        "archived_from": "/tmp/post_fee_state_gradient_audit.md",
+        "original_sha256": "8087166236e14c321ab213ddd0bbba697e016079303c25fcfea2346586b00b92",
+        "original_mtime_utc": "2026-10-02T19:48:31.115730+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/post_fee_state_gradient_audit/post_fee_state_gradient_audit.py",
+      "bytes": 9913,
+      "sha256": "19409d306817b2e193a0df10b68190ce9df4afce493ee91f1dcd214a305cbd40",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Synthetic fee/state derivative method, full numerical audit and original log; no financial strategy result",
+      "source": {
+        "archived_from": "/tmp/post_fee_state_gradient_audit.py",
+        "original_sha256": "19409d306817b2e193a0df10b68190ce9df4afce493ee91f1dcd214a305cbd40",
+        "original_mtime_utc": "2026-10-02T19:45:30.300248+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/registered_toy_methods/preserve_sparse_holdings_failed_probe.py",
+      "bytes": 2783,
+      "sha256": "a27594ba80f5bad082e6401b9dd5fc41ba8529f1c4ff7cca5c04c4048cc0ffff",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Original positive-control and retention methods/logs/summary; original full payload remains in preflight/original_payload.pkl",
+      "source": {
+        "archived_from": "/tmp/preserve_sparse_holdings_failed_probe.py",
+        "original_sha256": "a27594ba80f5bad082e6401b9dd5fc41ba8529f1c4ff7cca5c04c4048cc0ffff",
+        "original_mtime_utc": "2026-10-02T20:42:22.742602+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/registered_toy_methods/sparse-holdings-known-information-probe.log",
+      "bytes": 5854,
+      "sha256": "ef73fe301dbc21105d0f43cd07182a01938f8003dac4c3433617ff6d39f02758",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Original positive-control and retention methods/logs/summary; original full payload remains in preflight/original_payload.pkl",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-known-information-probe.log",
+        "original_sha256": "ef73fe301dbc21105d0f43cd07182a01938f8003dac4c3433617ff6d39f02758",
+        "original_mtime_utc": "2026-10-02T20:36:48.746773+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/registered_toy_methods/sparse-holdings-known-information-retention.log",
+      "bytes": 729,
+      "sha256": "013caccbb2ea60a081de9129564ec182cd2a5b9b66659b4591c0bce056459184",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Original positive-control and retention methods/logs/summary; original full payload remains in preflight/original_payload.pkl",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-known-information-retention.log",
+        "original_sha256": "013caccbb2ea60a081de9129564ec182cd2a5b9b66659b4591c0bce056459184",
+        "original_mtime_utc": "2026-10-02T20:42:49.752447+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/registered_toy_methods/sparse-holdings-known-information-trajectories.csv",
+      "bytes": 87772,
+      "sha256": "ef4726403b14a39db27dbf22ce5e3e60b507ffc8b508f20ba32170252bddcfe4",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Original positive-control and retention methods/logs/summary; original full payload remains in preflight/original_payload.pkl",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-known-information-trajectories.csv",
+        "original_sha256": "ef4726403b14a39db27dbf22ce5e3e60b507ffc8b508f20ba32170252bddcfe4",
+        "original_mtime_utc": "2026-10-02T20:42:49.752373+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/registered_toy_methods/sparse_holdings_known_information_probe.py",
+      "bytes": 2270,
+      "sha256": "81d06a0285740a5f4e4f2d582333c649edff5606f3ca44300082f1c9b2d5af48",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Original positive-control and retention methods/logs/summary; original full payload remains in preflight/original_payload.pkl",
+      "source": {
+        "archived_from": "/tmp/sparse_holdings_known_information_probe.py",
+        "original_sha256": "81d06a0285740a5f4e4f2d582333c649edff5606f3ca44300082f1c9b2d5af48",
+        "original_mtime_utc": "2026-10-02T20:36:21.445844+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/source_readback/sparse_holdings_data_readback.json",
+      "bytes": 29951,
+      "sha256": "1a1694cf60606cf88097bf3317f70cb8925dbd2b11a1223408a5fa2738ae200d",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Frozen native Qlib source and21mapped development-fold identity readback; no market fitting",
+      "source": {
+        "archived_from": "/tmp/sparse_holdings_data_readback.json",
+        "original_sha256": "1a1694cf60606cf88097bf3317f70cb8925dbd2b11a1223408a5fa2738ae200d",
+        "original_mtime_utc": "2026-10-02T20:06:54.435297+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/synthetic_runtime/profile_sparse_holdings.py",
+      "bytes": 1784,
+      "sha256": "7e340d7f3e8809f96810b873eea1077f5a21abeb51643996babb47e1a4157a1f",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Original synthetic implementation timing and method, retaining its original model source identity",
+      "source": {
+        "archived_from": "/tmp/profile_sparse_holdings.py",
+        "original_sha256": "7e340d7f3e8809f96810b873eea1077f5a21abeb51643996babb47e1a4157a1f",
+        "original_mtime_utc": "2026-10-02T20:35:51.696284+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/synthetic_runtime/sparse-holdings-runtime.json",
+      "bytes": 1799,
+      "sha256": "418f2007e0cf2a46af24e1c9023c4d005fa5587d964d87a23513f039d44389b0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Original synthetic implementation timing and method, retaining its original model source identity",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-runtime.json",
+        "original_sha256": "418f2007e0cf2a46af24e1c9023c4d005fa5587d964d87a23513f039d44389b0",
+        "original_mtime_utc": "2026-10-02T20:36:17.390125+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/synthetic_runtime/sparse-holdings-runtime.log",
+      "bytes": 1250,
+      "sha256": "d5f406bc43009cc6c8c2a4515dc7a443f7a890290d518cf316b9be34770df982",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Original synthetic implementation timing and method, retaining its original model source identity",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-runtime.log",
+        "original_sha256": "d5f406bc43009cc6c8c2a4515dc7a443f7a890290d518cf316b9be34770df982",
+        "original_mtime_utc": "2026-10-02T20:36:17.390851+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/baseline-phase7.json",
+      "bytes": 34622,
+      "sha256": "f8a25f483a1eb6d85fe9178d133f237acced5eeaeaf85c2e0a2d6aee57d8330d",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/baseline-phase7.json",
+        "original_sha256": "f8a25f483a1eb6d85fe9178d133f237acced5eeaeaf85c2e0a2d6aee57d8330d",
+        "original_mtime_utc": "2026-10-02T20:17:08.830986+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/core-integration.json",
+      "bytes": 4059,
+      "sha256": "7f1712d93619b5d2ac6c130c3469144f71f1320d683977e8ba90878d76f591b3",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/core-integration.json",
+        "original_sha256": "7f1712d93619b5d2ac6c130c3469144f71f1320d683977e8ba90878d76f591b3",
+        "original_mtime_utc": "2026-10-02T20:39:04.765764+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/core-integration.log",
+      "bytes": 4225,
+      "sha256": "99cfdcb5bcd0f49542e7c859b8b0e03dc1c3429836435e293f766a03c1c84287",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/core-integration.log",
+        "original_sha256": "99cfdcb5bcd0f49542e7c859b8b0e03dc1c3429836435e293f766a03c1c84287",
+        "original_mtime_utc": "2026-10-02T20:30:06.031805+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/final-verification.json",
+      "bytes": 37159,
+      "sha256": "b3ba4424164b091656bcfd3386dee331046006008570ee14fc86fa7f38e06936",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/final-verification.json",
+        "original_sha256": "b3ba4424164b091656bcfd3386dee331046006008570ee14fc86fa7f38e06936",
+        "original_mtime_utc": "2026-10-02T21:17:25.839673+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/focused.log",
+      "bytes": 5990,
+      "sha256": "15e19ac5003ebb166ea75fee289c6b27c069953129222514842f42865fb4d6cb",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/focused.log",
+        "original_sha256": "15e19ac5003ebb166ea75fee289c6b27c069953129222514842f42865fb4d6cb",
+        "original_mtime_utc": "2026-10-02T21:06:22.014525+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/full.log",
+      "bytes": 378884,
+      "sha256": "c5898e9d61c49325d51b038bd17babb2f8335b68075fc95cab85ae90b6da4fe6",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/full.log",
+        "original_sha256": "c5898e9d61c49325d51b038bd17babb2f8335b68075fc95cab85ae90b6da4fe6",
+        "original_mtime_utc": "2026-10-02T21:07:46.978945+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/gradient-audit.json",
+      "bytes": 6271,
+      "sha256": "ac2742894125a57f3f47587a2d81fff7d557359561f941f80042f431cbf07fb8",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/gradient-audit.json",
+        "original_sha256": "ac2742894125a57f3f47587a2d81fff7d557359561f941f80042f431cbf07fb8",
+        "original_mtime_utc": "2026-10-02T20:34:07.116156+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/gradient-audit.log",
+      "bytes": 6764,
+      "sha256": "08cd3291e4f7b388daaea86746afbe5d1c61a4fb617a5d26b8525d0a0e9d0a4d",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/gradient-audit.log",
+        "original_sha256": "08cd3291e4f7b388daaea86746afbe5d1c61a4fb617a5d26b8525d0a0e9d0a4d",
+        "original_mtime_utc": "2026-10-02T20:32:33.476435+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/known-information-independent-audit.json",
+      "bytes": 14482,
+      "sha256": "533da667b977ea20cb5ec1e8ff3fec7b3fd3c0c3cc82805a2a926a894877ece0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/known-information-independent-audit.json",
+        "original_sha256": "533da667b977ea20cb5ec1e8ff3fec7b3fd3c0c3cc82805a2a926a894877ece0",
+        "original_mtime_utc": "2026-10-02T20:51:20.070755+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/known-information-independent-audit.log",
+      "bytes": 14269,
+      "sha256": "f9ede3147bb8718e07d89b0bc8eb0efc2aaada06b55c5e006746200c9cb2a8f4",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/known-information-independent-audit.log",
+        "original_sha256": "f9ede3147bb8718e07d89b0bc8eb0efc2aaada06b55c5e006746200c9cb2a8f4",
+        "original_mtime_utc": "2026-10-02T20:48:59.122374+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/known-information-independent-epochs.json",
+      "bytes": 515240,
+      "sha256": "3e76d8f3e1e03a81e8e0b875acefe671b3d0eedc1c26511f82933c99caf2d875",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/known-information-independent-epochs.json",
+        "original_sha256": "3e76d8f3e1e03a81e8e0b875acefe671b3d0eedc1c26511f82933c99caf2d875",
+        "original_mtime_utc": "2026-10-02T20:48:59.122099+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/pre-fit-review.json",
+      "bytes": 3598,
+      "sha256": "34ceeb268d600eace8b0ed31aebc26af96377926323e023aa3c087c94ab6845e",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/pre-fit-review.json",
+        "original_sha256": "34ceeb268d600eace8b0ed31aebc26af96377926323e023aa3c087c94ab6845e",
+        "original_mtime_utc": "2026-10-02T20:51:20.070991+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/pretest-source-state.json",
+      "bytes": 4712,
+      "sha256": "bebf62b3d76f476534d9717ad6247da19b2408f769aaf9dfac29b564aad9c62e",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/pretest-source-state.json",
+        "original_sha256": "bebf62b3d76f476534d9717ad6247da19b2408f769aaf9dfac29b564aad9c62e",
+        "original_mtime_utc": "2026-10-02T21:06:02.146245+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/required.log",
+      "bytes": 139050,
+      "sha256": "c28eeb9c80725feec41eedfbc385b65286d4b1529f13558e0acaf80dda5b4cb0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/required.log",
+        "original_sha256": "c28eeb9c80725feec41eedfbc385b65286d4b1529f13558e0acaf80dda5b4cb0",
+        "original_mtime_utc": "2026-10-02T21:06:56.459369+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/source-recorder-audit.json",
+      "bytes": 5386,
+      "sha256": "9afc3189077595a6fe397536ed3ed0a790f5f1bb152bbbb3e28ee0a7cb45a2a6",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/source-recorder-audit.json",
+        "original_sha256": "9afc3189077595a6fe397536ed3ed0a790f5f1bb152bbbb3e28ee0a7cb45a2a6",
+        "original_mtime_utc": "2026-10-02T21:17:25.839155+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/source-recorder-audit.log",
+      "bytes": 2789,
+      "sha256": "9698f92f28d6ad1c8a546aaa29f789e1f532fc09d1f05d5e89d75081fc89517b",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/source-recorder-audit.log",
+        "original_sha256": "9698f92f28d6ad1c8a546aaa29f789e1f532fc09d1f05d5e89d75081fc89517b",
+        "original_mtime_utc": "2026-10-02T21:14:23.819967+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation/source_recorder_audit.py",
+      "bytes": 8896,
+      "sha256": "84caab2f736edace7d77bcf4741a5fc1554a13d1b1dad6e84825b4f814b4dca7",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Independent technical/data/gradient/registered-toy and regression verification; no market fit",
+      "source": {
+        "archived_from": "/tmp/sparse-holdings-validation/source_recorder_audit.py",
+        "original_sha256": "84caab2f736edace7d77bcf4741a5fc1554a13d1b1dad6e84825b4f814b4dca7",
+        "original_mtime_utc": "2026-10-02T21:14:21.592089+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation_methods/audit_sparse_known_failure.py",
+      "bytes": 10507,
+      "sha256": "180d658771421a16d809b6f3a2dedf4b5c12a50484400df5dff0cc2091957f05",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Executable method for the archived independent synthetic verification",
+      "source": {
+        "archived_from": "/tmp/audit_sparse_known_failure.py",
+        "original_sha256": "180d658771421a16d809b6f3a2dedf4b5c12a50484400df5dff0cc2091957f05",
+        "original_mtime_utc": "2026-10-02T20:48:51.188074+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation_methods/sparse_holdings_core_integration.py",
+      "bytes": 8407,
+      "sha256": "26d32f8e16e686f3b75147da35f64f1bd7e668307dfecef5f125e3c969969457",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Executable method for the archived independent synthetic verification",
+      "source": {
+        "archived_from": "/tmp/sparse_holdings_core_integration.py",
+        "original_sha256": "26d32f8e16e686f3b75147da35f64f1bd7e668307dfecef5f125e3c969969457",
+        "original_mtime_utc": "2026-10-02T20:25:02.261644+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/diagnostics/validation_methods/sparse_holdings_gradient_audit.py",
+      "bytes": 7567,
+      "sha256": "85f31c8b945ef86c7531f97325c6a3a0e9c81a0345e7e585aebdb2fcfbfea55d",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Executable method for the archived independent synthetic verification",
+      "source": {
+        "archived_from": "/tmp/sparse_holdings_gradient_audit.py",
+        "original_sha256": "85f31c8b945ef86c7531f97325c6a3a0e9c81a0345e7e585aebdb2fcfbfea55d",
+        "original_mtime_utc": "2026-10-02T20:34:07.115811+00:00"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/preflight_audit.pkl",
+      "bytes": 824,
+      "sha256": "6b51cdc338c56dc339e46a06939741563104300e39c95ba70980c9eb4b44161f",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native frozen source identity or saved synthetic preflight analysis",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "analysis/preflight_audit.pkl",
+        "parent_input_recorder": "52f40778cbe64ca6a5864da356b960d0"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/analysis/synthetic_seed_summary.pkl",
+      "bytes": 1430,
+      "sha256": "9ff86e796adc0bd73dcdcdb57d3a26b91d82ccc2d7e20f2dea8aec5713bb844d",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native frozen source identity or saved synthetic preflight analysis",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "analysis/synthetic_seed_summary.pkl",
+        "parent_input_recorder": "52f40778cbe64ca6a5864da356b960d0"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/conclusion.md",
+      "bytes": 4213,
+      "sha256": "684c9796eca0aa9d4ca0fbf7f6054f7f58ebd6cf58c84ef2d85f82a6a633a1cb",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "conclusion.md",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/core_integration.json",
+      "bytes": 4059,
+      "sha256": "7f1712d93619b5d2ac6c130c3469144f71f1320d683977e8ba90878d76f591b3",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "core_integration.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/design.md",
+      "bytes": 18547,
+      "sha256": "4c7863ffd9924dbab5eb8b703f0d6739c7e294012609edac261d78bf16db0b03",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "design.md",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/gradient_audit.json",
+      "bytes": 6271,
+      "sha256": "ac2742894125a57f3f47587a2d81fff7d557359561f941f80042f431cbf07fb8",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "gradient_audit.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/implicit_settlement_gradient_audit.md",
+      "bytes": 4771,
+      "sha256": "c34e7a3832b9283a643709fdc388ac89ac35806be16eed18ff366aa7618fc51f",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "implicit_settlement_gradient_audit.md",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/initial_seal.json",
+      "bytes": 4584,
+      "sha256": "ee6c9c9bbd8384b579a783414294b71a4cc28e250bd2d2e50b90310e590c6bae",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "initial_seal.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/input_readback.json",
+      "bytes": 1939,
+      "sha256": "93394b5f442f57b0ad062d3afc412193daaf39d6140fa44e66ac381e097c6b8c",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "input_readback.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/known_information_audit.json",
+      "bytes": 14482,
+      "sha256": "533da667b977ea20cb5ec1e8ff3fec7b3fd3c0c3cc82805a2a926a894877ece0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "known_information_audit.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/next_optimizer_design_review.md",
+      "bytes": 6052,
+      "sha256": "8f7196baf5e67e65c54ea862a95b2f0172ef6f2fbd683fd1043c88cb1d345a11",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "next_optimizer_design_review.md",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/post_fee_state_gradient_audit.md",
+      "bytes": 7357,
+      "sha256": "8087166236e14c321ab213ddd0bbba697e016079303c25fcfea2346586b00b92",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "post_fee_state_gradient_audit.md",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/preflight_probe_reference.json",
+      "bytes": 1274,
+      "sha256": "ee4a61b7dcf73627ff9274187eea7388cd1f8a3f144547e98e0b88350f8fde62",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "preflight_probe_reference.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/preflight_seed_summary.csv",
+      "bytes": 428,
+      "sha256": "f64b5e401a8e5b9e19fb97f5d359feaf4137fbf1b80e8a385fda8c46d1f18cf8",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "preflight_seed_summary.csv",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/selected_model.json",
+      "bytes": 103,
+      "sha256": "77f73bfc9438a6c9fbbb95780c5802a3805af3ba6fd3c6db4cca88bd30929b33",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "selected_model.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/selection_plan.json",
+      "bytes": 22260,
+      "sha256": "6b02b5948263606e4e75b57f1d3e51397d40fa3876c7f5943cfe77a32cac4ca2",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "selection_plan.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/settlement_audit.json",
+      "bytes": 2884,
+      "sha256": "ddc0be57f24cccca0c41ce007d87adb5a577355bb5db08023d9ffba3363e6423",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "settlement_audit.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/sparse_holdings_net_excess_20261003.ipynb",
+      "bytes": 112367,
+      "sha256": "f5713f93566d65129ce7aeaacca0b8d4896270a3186ef688a052e5132d0b9450",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "sparse_holdings_net_excess_20261003.ipynb",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/summary.json",
+      "bytes": 10043,
+      "sha256": "38a96037231ee4d4256516a378547d5de89f79430a451482da00f40339fe8414",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "summary.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/synthetic_known_information.json",
+      "bytes": 8370,
+      "sha256": "4fa56ff711920e1f62c328c04e4a54b708824ee4fded7b2d990d05af1f6ee182",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "synthetic_known_information.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/synthetic_runtime.json",
+      "bytes": 1799,
+      "sha256": "418f2007e0cf2a46af24e1c9023c4d005fa5587d964d87a23513f039d44389b0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "synthetic_runtime.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/verification.json",
+      "bytes": 37159,
+      "sha256": "b3ba4424164b091656bcfd3386dee331046006008570ee14fc86fa7f38e06936",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "verification.json",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/card/workflow.yaml",
+      "bytes": 564,
+      "sha256": "30c11ee0d5ac0160bcef5be8436d137c24f883725e0cb13d9c542a697c4f77e8",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Final independently reviewed slim-card snapshot",
+      "source": {
+        "card_file": "workflow.yaml",
+        "recorder_id": "a728372af45c4e678f326996db675a43"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/inputs/native_frozen_source_audit.pkl",
+      "bytes": 1410,
+      "sha256": "ee1859a9567986209d25f18fdba2e95e8d2720802883ddb58ffdfcfcf1dabac2",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native frozen source identity or saved synthetic preflight analysis",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "inputs/native_frozen_source_audit.pkl",
+        "parent_input_recorder": "52f40778cbe64ca6a5864da356b960d0"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/inputs/native_frozen_source_details.pkl",
+      "bytes": 15639,
+      "sha256": "3477bd7c2069a325fcf99d93e1b999116ccefd80e99dd4ed07d0f394d770837b",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native frozen source identity or saved synthetic preflight analysis",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "inputs/native_frozen_source_details.pkl",
+        "parent_input_recorder": "52f40778cbe64ca6a5864da356b960d0"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/inputs/observer_source_hashes.pkl",
+      "bytes": 3393,
+      "sha256": "83ba97f9012d8213fb9575993bbc87418fcb487daab8813de32f43e28bbd9628",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native frozen source identity or saved synthetic preflight analysis",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "inputs/observer_source_hashes.pkl",
+        "parent_input_recorder": "52f40778cbe64ca6a5864da356b960d0"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/inputs/selection_plan.json",
+      "bytes": 22260,
+      "sha256": "6b02b5948263606e4e75b57f1d3e51397d40fa3876c7f5943cfe77a32cac4ca2",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native frozen source identity or saved synthetic preflight analysis",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "inputs/selection_plan.json",
+        "parent_input_recorder": "52f40778cbe64ca6a5864da356b960d0"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/preflight/identity_receipt.json",
+      "bytes": 1346,
+      "sha256": "6e629a4ec7b8fb9a0cae562e77a8bc497b1aa078c70b1245407f09ef6da573a9",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Byte-preserved registered synthetic failed probe, original26ed summary/source and retention3c690 full payload/source; never market results",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "preflight/identity_receipt.json",
+        "identity_reference": "preflight_probe_reference.json"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/preflight/initial_model.py",
+      "bytes": 34898,
+      "sha256": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Byte-preserved registered synthetic failed probe, original26ed summary/source and retention3c690 full payload/source; never market results",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "preflight/initial_model.py",
+        "identity_reference": "preflight_probe_reference.json"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/preflight/initial_probe_summary.json",
+      "bytes": 8370,
+      "sha256": "4fa56ff711920e1f62c328c04e4a54b708824ee4fded7b2d990d05af1f6ee182",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Byte-preserved registered synthetic failed probe, original26ed summary/source and retention3c690 full payload/source; never market results",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "preflight/initial_probe_summary.json",
+        "identity_reference": "preflight_probe_reference.json"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/preflight/original_payload.pkl",
+      "bytes": 3125021,
+      "sha256": "3d589805851fc3c4a959fd00e53f9f5fd8409adef0d9c8da111c095b9c3f36d5",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Byte-preserved registered synthetic failed probe, original26ed summary/source and retention3c690 full payload/source; never market results",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "preflight/original_payload.pkl",
+        "identity_reference": "preflight_probe_reference.json"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/artifacts/preflight/retention_model.py",
+      "bytes": 34904,
+      "sha256": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Byte-preserved registered synthetic failed probe, original26ed summary/source and retention3c690 full payload/source; never market results",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "artifact": "preflight/retention_model.py",
+        "identity_reference": "preflight_probe_reference.json"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": "0..503",
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/meta.yaml",
+      "bytes": 448,
+      "sha256": "b24dc9bfccbe62f33b388bfc443b164a581a69d092c8bf7f2b2153aaf11362de",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/params/chronology",
+      "bytes": 17,
+      "sha256": "d6ea86a99d1e48532da508f83f4d8e53c8f1d29ec850ca6ea5892cecda6f2031",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/params/cmd-sys.argv",
+      "bytes": 248,
+      "sha256": "4ee4bea35720a6acbe950406ac0a48c105819d18970fdcbbbb1441dd0ee72409",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/params/market_backtests",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/params/market_fits",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/params/plan_sha256",
+      "bytes": 64,
+      "sha256": "03aa67c9b5d2f4c68e79f4018e8ae2ea6118eaa44282c038f741a66660f16da2",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/params/probe_sha256",
+      "bytes": 64,
+      "sha256": "3791e2f35cfac6b759c49a3bf6a9c316277e58d4391913de7648f070dc13fffb",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/tags/historical_qualification_pass",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/tags/market_model_fits_started",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/tags/mlflow.runName",
+      "bytes": 15,
+      "sha256": "e210afbd2a5a7b09d08be575b2edc101d6e4c442e7e865e1d07b7b3321d2eb86",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/tags/mlflow.source.name",
+      "bytes": 135,
+      "sha256": "30b02c3989afcb1bdae984ec37f195aa416a30ba98ff003e9152e1e99224c1ba",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/tags/mlflow.source.type",
+      "bytes": 8,
+      "sha256": "c5ce086a14ea48fd26ac36ef868d31af1a5638e960bceb5cc8f6686b002f04f0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/tags/mlflow.user",
+      "bytes": 7,
+      "sha256": "794e1b40e6313c087fa15dfa63123c54353fa62090a43f453e84503f453aeceb",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/tags/objective_achieved",
+      "bytes": 5,
+      "sha256": "60a33e6cf5151f2d52eddae9685cfa270426aa89d8dbc7dfb854606f1d1a40fe",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/a728372af45c4e678f326996db675a43/tags/role",
+      "bytes": 37,
+      "sha256": "268ece181ebc13a74c32fe671f3240acdf076111fc1f379b8c06d15fdc42b161",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "qlib_recorder/415159479695254065/meta.yaml",
+      "bytes": 370,
+      "sha256": "ea565c12ae3089ec3b0fef897ed86043a9a875682d3eaa351c2886a4403c05c2",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Native Qlib/MLflow experiment/run identity, parameters and diagnostic-only scope tags",
+      "source": {
+        "recorder_id": "a728372af45c4e678f326996db675a43",
+        "canonical_recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "selected_model.json",
+      "bytes": 103,
+      "sha256": "77f73bfc9438a6c9fbbb95780c5802a3805af3ba6fd3c6db4cca88bd30929b33",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "selection_plan.json",
+      "bytes": 22260,
+      "sha256": "6b02b5948263606e4e75b57f1d3e51397d40fa3876c7f5943cfe77a32cac4ca2",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "settlement_audit.json",
+      "bytes": 2884,
+      "sha256": "ddc0be57f24cccca0c41ce007d87adb5a577355bb5db08023d9ffba3363e6423",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "sparse_holdings_net_excess_20261003.ipynb",
+      "bytes": 112367,
+      "sha256": "f5713f93566d65129ce7aeaacca0b8d4896270a3186ef688a052e5132d0b9450",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "summary.json",
+      "bytes": 10043,
+      "sha256": "38a96037231ee4d4256516a378547d5de89f79430a451482da00f40339fe8414",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "synthetic_known_information.json",
+      "bytes": 8370,
+      "sha256": "4fa56ff711920e1f62c328c04e4a54b708824ee4fded7b2d990d05af1f6ee182",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "synthetic_runtime.json",
+      "bytes": 1799,
+      "sha256": "418f2007e0cf2a46af24e1c9023c4d005fa5587d964d87a23513f039d44389b0",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "verification.json",
+      "bytes": 37159,
+      "sha256": "b3ba4424164b091656bcfd3386dee331046006008570ee14fc86fa7f38e06936",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    },
+    {
+      "path": "workflow.yaml",
+      "bytes": 564,
+      "sha256": "30c11ee0d5ac0160bcef5be8436d137c24f883725e0cb13d9c542a697c4f77e8",
+      "recorder_id": "a728372af45c4e678f326996db675a43",
+      "role": "failed_registered_synthetic_preflight_diagnostic",
+      "purpose": "Slim card entry, registration, executed diagnostic notebook, gate/verification summary or explicitly unrun next-design note",
+      "source": {
+        "card_root": true,
+        "experiment": "sparse_holdings_net_excess_20261003"
+      },
+      "date_range": {
+        "native_source_as_of": "2026-09-25",
+        "registered_toy_ordinal_rows": null,
+        "other_synthetic_fixtures": "Artificial units/labels specified by each audit; not observed market performance",
+        "market_fit_or_backtest_dates": null
+      }
+    }
+  ]
+}

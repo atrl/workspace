@@ -1,0 +1,499 @@
+{
+  "scope": "Independent NumPy reconstruction of all363 saved synthetic training checkpoints at both costs, registered finite witness and retained anchor paths; no fitting, optimizer calls, new model choice, market data or OOS. Fullinput payload immutable.",
+  "payload_path": "/tmp/sparse-holdings-known-information-full.pkl",
+  "payload_sha256": "3d589805851fc3c4a959fd00e53f9f5fd8409adef0d9c8da111c095b9c3f36d5",
+  "model_source_sha256_in_payload": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+  "math_data_contracts_passed": true,
+  "known_information_feasible_training_gate_passed": false,
+  "market_fits_permitted": false,
+  "checkpoint_count": 363,
+  "checkpoint_cost_paths": 726,
+  "training_decisions_reconstructed": 365904,
+  "maximum_reconstruction_errors": {
+    "F": 1.3905543383430086e-14,
+    "raw_gap_pp": 4.4075854077618715e-14,
+    "normalized_g": 7.34412530789541e-14,
+    "dual_update": 0.0,
+    "risk_percent": 4.4075854077618715e-14,
+    "selected_saved_path": 0.0
+  },
+  "registered_witness": {
+    "10.0": {
+      "A": 0.2918258493349054,
+      "raw_gap_pp": [
+        -0.1539004562951675,
+        -0.15390045629516386
+      ]
+    },
+    "25.0": {
+      "A": 0.2554697794890323,
+      "raw_gap_pp": [
+        -0.09573912088558754,
+        -0.09573912088559605
+      ]
+    }
+  },
+  "seeds": [
+    {
+      "seed": 17,
+      "positive_F_states": 52,
+      "feasible_states": 69,
+      "feasible_positive_F_states": 0,
+      "first_feasible_epoch": 52,
+      "first_all_SOXX_singleton_epoch": 52,
+      "zero_gradient_updates": 68,
+      "first_zero_gradient_update": 53,
+      "maximum_F_state": {
+        "seed": 17,
+        "epoch": 23,
+        "F": 0.12608888780438332,
+        "independent_F": 0.12608888780438332,
+        "feasible": false,
+        "raw_gap_pp": [
+          0.6117261580793469,
+          0.6117261556969273,
+          0.619496988233899,
+          0.6194969822609184
+        ],
+        "lambda_next": [
+          0.04988730845605224,
+          0.04983636846944361,
+          0.050618333676729105,
+          0.05023367694280687
+        ],
+        "costs": {
+          "10": {
+            "raw_gap_pp": [
+              0.6117261580793469,
+              0.6117261556969273
+            ],
+            "positive_signal_mean_q": [
+              0.5259500778833374,
+              0.47256886716567104,
+              0.0,
+              0.0014810549509903096
+            ],
+            "negative_signal_mean_q": [
+              0.5054548605735807,
+              0.49454513942641926,
+              0.0,
+              0.0
+            ],
+            "active_experts": [
+              0,
+              1,
+              3
+            ],
+            "all_SOXX_support": false
+          },
+          "25": {
+            "raw_gap_pp": [
+              0.619496988233899,
+              0.6194969822609184
+            ],
+            "positive_signal_mean_q": [
+              0.5259500778833374,
+              0.47256886716567104,
+              0.0,
+              0.0014810549509903096
+            ],
+            "negative_signal_mean_q": [
+              0.5054548605735807,
+              0.49454513942641926,
+              0.0,
+              0.0
+            ],
+            "active_experts": [
+              0,
+              1,
+              3
+            ],
+            "all_SOXX_support": false
+          }
+        },
+        "zero_gradient_update": false,
+        "max_forward_parity_error": 0.0,
+        "support_mismatches": 0
+      },
+      "final_state": {
+        "seed": 17,
+        "epoch": 120,
+        "F": 0.0,
+        "independent_F": 0.0,
+        "feasible": true,
+        "raw_gap_pp": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_next": [
+          0.09938373901833047,
+          0.0993102197628788,
+          0.10130581236914563,
+          0.10086103527763977
+        ],
+        "costs": {
+          "10": {
+            "raw_gap_pp": [
+              0.0,
+              0.0
+            ],
+            "positive_signal_mean_q": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "negative_signal_mean_q": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "active_experts": [
+              1
+            ],
+            "all_SOXX_support": true
+          },
+          "25": {
+            "raw_gap_pp": [
+              0.0,
+              0.0
+            ],
+            "positive_signal_mean_q": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "negative_signal_mean_q": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "active_experts": [
+              1
+            ],
+            "all_SOXX_support": true
+          }
+        },
+        "zero_gradient_update": true,
+        "max_forward_parity_error": 0.0,
+        "support_mismatches": 0
+      }
+    },
+    {
+      "seed": 41,
+      "positive_F_states": 53,
+      "feasible_states": 68,
+      "feasible_positive_F_states": 0,
+      "first_feasible_epoch": 53,
+      "first_all_SOXX_singleton_epoch": 53,
+      "zero_gradient_updates": 67,
+      "first_zero_gradient_update": 54,
+      "maximum_F_state": {
+        "seed": 41,
+        "epoch": 23,
+        "F": 0.1267247814799755,
+        "independent_F": 0.12672478147997557,
+        "feasible": false,
+        "raw_gap_pp": [
+          0.6114302814784863,
+          0.6114302814784867,
+          0.6199849053577292,
+          0.6199849053577291
+        ],
+        "lambda_next": [
+          0.04980155800588076,
+          0.049764077950913796,
+          0.05059811908224379,
+          0.050221558698190324
+        ],
+        "costs": {
+          "10": {
+            "raw_gap_pp": [
+              0.6114302814784863,
+              0.6114302814784867
+            ],
+            "positive_signal_mean_q": [
+              0.5206801025343967,
+              0.46344452293476995,
+              0.0,
+              0.015875374530831734
+            ],
+            "negative_signal_mean_q": [
+              0.5007725305499812,
+              0.49173102595990964,
+              0.0,
+              0.007496443490104676
+            ],
+            "active_experts": [
+              0,
+              1,
+              3
+            ],
+            "all_SOXX_support": false
+          },
+          "25": {
+            "raw_gap_pp": [
+              0.6199849053577292,
+              0.6199849053577291
+            ],
+            "positive_signal_mean_q": [
+              0.5206801025343967,
+              0.46344452293476995,
+              0.0,
+              0.015875374530831734
+            ],
+            "negative_signal_mean_q": [
+              0.5007725305499812,
+              0.49173102595990964,
+              0.0,
+              0.007496443490104676
+            ],
+            "active_experts": [
+              0,
+              1,
+              3
+            ],
+            "all_SOXX_support": false
+          }
+        },
+        "zero_gradient_update": false,
+        "max_forward_parity_error": 2.220446049250313e-16,
+        "support_mismatches": 0
+      },
+      "final_state": {
+        "seed": 41,
+        "epoch": 120,
+        "F": 0.0,
+        "independent_F": 0.0,
+        "feasible": true,
+        "raw_gap_pp": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lambda_next": [
+          0.09961756082459614,
+          0.09954319724855847,
+          0.10181874578364222,
+          0.10134372665186686
+        ],
+        "costs": {
+          "10": {
+            "raw_gap_pp": [
+              0.0,
+              0.0
+            ],
+            "positive_signal_mean_q": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "negative_signal_mean_q": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "active_experts": [
+              1
+            ],
+            "all_SOXX_support": true
+          },
+          "25": {
+            "raw_gap_pp": [
+              0.0,
+              0.0
+            ],
+            "positive_signal_mean_q": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "negative_signal_mean_q": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "active_experts": [
+              1
+            ],
+            "all_SOXX_support": true
+          }
+        },
+        "zero_gradient_update": true,
+        "max_forward_parity_error": 0.0,
+        "support_mismatches": 0
+      }
+    },
+    {
+      "seed": 71,
+      "positive_F_states": 45,
+      "feasible_states": 36,
+      "feasible_positive_F_states": 0,
+      "first_feasible_epoch": 85,
+      "first_all_SOXX_singleton_epoch": null,
+      "zero_gradient_updates": 0,
+      "first_zero_gradient_update": null,
+      "maximum_F_state": {
+        "seed": 71,
+        "epoch": 22,
+        "F": 0.11528163503889613,
+        "independent_F": 0.11528163503889617,
+        "feasible": false,
+        "raw_gap_pp": [
+          0.5806233617815962,
+          0.5806233617815962,
+          0.5832078011615545,
+          0.5832078011615562
+        ],
+        "lambda_next": [
+          0.04617213995577284,
+          0.04616768405012095,
+          0.046847293821680125,
+          0.04633010234760789
+        ],
+        "costs": {
+          "10": {
+            "raw_gap_pp": [
+              0.5806233617815962,
+              0.5806233617815962
+            ],
+            "positive_signal_mean_q": [
+              0.45582769085097435,
+              0.48098029407515946,
+              0.0,
+              0.06319201507387179
+            ],
+            "negative_signal_mean_q": [
+              0.44904506182070403,
+              0.48301309919859237,
+              0.0,
+              0.06794183898070168
+            ],
+            "active_experts": [
+              0,
+              1,
+              3
+            ],
+            "all_SOXX_support": false
+          },
+          "25": {
+            "raw_gap_pp": [
+              0.5832078011615545,
+              0.5832078011615562
+            ],
+            "positive_signal_mean_q": [
+              0.45582769085097435,
+              0.48098029407515946,
+              0.0,
+              0.06319201507387179
+            ],
+            "negative_signal_mean_q": [
+              0.44904506182070403,
+              0.48301309919859237,
+              0.0,
+              0.06794183898070168
+            ],
+            "active_experts": [
+              0,
+              1,
+              3
+            ],
+            "all_SOXX_support": false
+          }
+        },
+        "zero_gradient_update": false,
+        "max_forward_parity_error": 2.220446049250313e-16,
+        "support_mismatches": 0
+      },
+      "final_state": {
+        "seed": 71,
+        "epoch": 120,
+        "F": -0.0002988189833744712,
+        "independent_F": -0.0002988189833744437,
+        "feasible": true,
+        "raw_gap_pp": [
+          1.1015494072452725e-14,
+          1.1275702593849246e-14,
+          1.1015494072452725e-14,
+          1.1275702593849246e-14
+        ],
+        "lambda_next": [
+          0.08599158576480866,
+          0.08594132815292968,
+          0.08947135953755042,
+          0.08670249698538787
+        ],
+        "costs": {
+          "10": {
+            "raw_gap_pp": [
+              1.1015494072452725e-14,
+              1.1275702593849246e-14
+            ],
+            "positive_signal_mean_q": [
+              0.0,
+              0.645961881509864,
+              0.0,
+              0.3540381184901337
+            ],
+            "negative_signal_mean_q": [
+              0.0,
+              0.6575424408144348,
+              0.0,
+              0.34245755918556453
+            ],
+            "active_experts": [
+              1,
+              3
+            ],
+            "all_SOXX_support": false
+          },
+          "25": {
+            "raw_gap_pp": [
+              1.1015494072452725e-14,
+              1.1275702593849246e-14
+            ],
+            "positive_signal_mean_q": [
+              0.0,
+              0.645961881509864,
+              0.0,
+              0.3540381184901337
+            ],
+            "negative_signal_mean_q": [
+              0.0,
+              0.6575424408144348,
+              0.0,
+              0.34245755918556453
+            ],
+            "active_experts": [
+              1,
+              3
+            ],
+            "all_SOXX_support": false
+          }
+        },
+        "zero_gradient_update": false,
+        "max_forward_parity_error": 0.0,
+        "support_mismatches": 0
+      }
+    }
+  ],
+  "failures": [],
+  "interpretation": "All positive-F learned states violate at least one original raw tail gate. Seeds17/41 enter all-SOXX singleton support at epochs52/53, after which every projected-score Jacobian is0 and updates53/54 onward have zero parameter gradients; later Adam momentum can move parameters without informative gradients. Seed71 remains a non-singleton SOXX/HOLD policy with nonzero gradients, but its first feasible state is epoch85 and every feasible state has nonpositiveF. This is finite-budget constrained optimization failure with observed sparse-support saturation in two starts, not evidence of class infeasibility, no signal, or a demonstrated arithmetic bug. Prior off-kink derivative audits passed; those do not establish optimizer convergence or certify every nonsmooth trajectory gradient.",
+  "selection_status": "The stored exact SOXX incumbent and ensemble F0 are the correct registered rejection, not a passing information-use control. Risk and positive-F gates are unchanged.",
+  "retention_provenance": {
+    "initial_probe_model_source_sha256": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd",
+    "retention_model_source_sha256": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d",
+    "source_change": "Reporting key spelling only: reported_trade_count_gt_1e12 -> reported_trade_count_gt_1e_minus12; unchanged numerical algorithm/parameters/schedule. Both source versions and exact diff are preserved by parent.",
+    "scope": "The full retained trajectories are one deterministic replay under the retention source. Initial probe F/epoch counts/maxima match; original full trajectories were not retained, so no all-state byte equality against the initial probe is claimed. No third toy replay."
+  }
+}

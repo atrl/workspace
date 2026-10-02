@@ -1,0 +1,24 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[29802:MainThread](2026-10-03 05:14:23,779) INFO - qlib.Initialization - [config.py:452] - default_conf: client.
+[29802:MainThread](2026-10-03 05:14:23,780) INFO - qlib.Initialization - [__init__.py:75] - qlib successfully initialized based on client settings.
+[29802:MainThread](2026-10-03 05:14:23,780) INFO - qlib.Initialization - [__init__.py:77] - data_path={'__DEFAULT_FREQ': PosixPath('/Users/rziiiii/dev/workspace-worktrees/sparse-holdings-net-excess-20261003/data/qlib/published_futu_affine_20260925_v1')}
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1897.88it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1689.21it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2154.24it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 1996.34it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2136.68it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2006.84it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2570.04it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2359.00it/s]
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2849.39it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 2624.72it/s]
+{
+  "recorder_id": "a728372af45c4e678f326996db675a43",
+  "notebook_sha256": "68b50c72bab9a98c0f9447af5bf8e437c3e2802ae95b65b790064eed71d02ab1",
+  "conclusion_sha256": "0af0028ab23bc692a89111f70b4b52a0300a37f06573d740c261d415253b3f0a",
+  "toy_saved_states": 363,
+  "market_model_fits": 0,
+  "market_backtests": 0,
+  "registered_positive_control_pass": false,
+  "failures": []
+}
+source_report_sha256 4ccb6de1fb6ff29203db05004d3862ec807a31998ce78f6263cf5202352dc756
+final_verification_sha256 272df00104346d802cc4c37040afbe7f3843e89c5d9bcf13c07b0fa7a5fcd856

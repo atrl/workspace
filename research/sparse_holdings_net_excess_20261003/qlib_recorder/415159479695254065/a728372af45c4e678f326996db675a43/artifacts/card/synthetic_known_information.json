@@ -1,0 +1,271 @@
+{
+  "synthetic_only": true,
+  "market_data_used": false,
+  "fixture": {
+    "rows": 504,
+    "feature": "alternating+1/-1 column0,other26zero",
+    "SOXX_return": ".002+.008x",
+    "SOXL_return": "3*SOXX"
+  },
+  "unchanged_schedule": true,
+  "witness": {
+    "F": 0.25546977948902533,
+    "feasible": true
+  },
+  "fits": [
+    {
+      "seed": 17,
+      "elapsed_seconds": 8.686487999977544,
+      "failure": null,
+      "epochs": 121,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "feasible": true,
+      "null_selected": true,
+      "feasible_positive_F_states": 0,
+      "maximum_trajectory_F": 0.12608888780438332,
+      "selected_action_diagnostics": {
+        "10.0": {
+          "support_cardinality_fraction": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          },
+          "sole_expert_fraction": {
+            "soxl": 0.0,
+            "soxx": 1.0,
+            "cash": 0.0,
+            "hold": 0.0
+          },
+          "support_change_count": 0,
+          "exact_hold_count": 0,
+          "exact_zero_order_count": 503,
+          "reported_trade_count_gt_1e12": 1,
+          "maximum_absolute_logit": 1.0
+        },
+        "25.0": {
+          "support_cardinality_fraction": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          },
+          "sole_expert_fraction": {
+            "soxl": 0.0,
+            "soxx": 1.0,
+            "cash": 0.0,
+            "hold": 0.0
+          },
+          "support_change_count": 0,
+          "exact_hold_count": 0,
+          "exact_zero_order_count": 503,
+          "reported_trade_count_gt_1e12": 1,
+          "maximum_absolute_logit": 1.0
+        }
+      },
+      "initial_path_parity": {
+        "parent_initial_tensor_sha256": "334020e802f27842d452f032282014993d00eed9eea88692ff10ba51011bc7c7",
+        "costs": {
+          "10.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 1.1102230246251565e-16,
+              "pretrade_weights": 3.3306690738754696e-16,
+              "ending_weights": 3.3306690738754696e-16,
+              "fees": 3.3288394827094003e-19,
+              "net_equity": 4.440892098500626e-16,
+              "F_component": 7.065528717653535e-15
+            },
+            "maximum_relative_nav_error": 5.728750807065808e-14
+          },
+          "25.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 1.1102230246251565e-16,
+              "pretrade_weights": 3.3306690738754696e-16,
+              "ending_weights": 3.3306690738754696e-16,
+              "fees": 1.0410034921755351e-18,
+              "net_equity": 4.440892098500626e-16,
+              "F_component": 1.714600683655476e-14
+            },
+            "maximum_relative_nav_error": 1.3911094498553211e-13
+          }
+        },
+        "worst_F_error": 1.714600683655476e-14
+      },
+      "metadata_pickle_bytes": 708999
+    },
+    {
+      "seed": 41,
+      "elapsed_seconds": 8.255062708980404,
+      "failure": null,
+      "epochs": 121,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "feasible": true,
+      "null_selected": true,
+      "feasible_positive_F_states": 0,
+      "maximum_trajectory_F": 0.1267247814799755,
+      "selected_action_diagnostics": {
+        "10.0": {
+          "support_cardinality_fraction": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          },
+          "sole_expert_fraction": {
+            "soxl": 0.0,
+            "soxx": 1.0,
+            "cash": 0.0,
+            "hold": 0.0
+          },
+          "support_change_count": 0,
+          "exact_hold_count": 0,
+          "exact_zero_order_count": 503,
+          "reported_trade_count_gt_1e12": 1,
+          "maximum_absolute_logit": 1.0
+        },
+        "25.0": {
+          "support_cardinality_fraction": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          },
+          "sole_expert_fraction": {
+            "soxl": 0.0,
+            "soxx": 1.0,
+            "cash": 0.0,
+            "hold": 0.0
+          },
+          "support_change_count": 0,
+          "exact_hold_count": 0,
+          "exact_zero_order_count": 503,
+          "reported_trade_count_gt_1e12": 1,
+          "maximum_absolute_logit": 1.0
+        }
+      },
+      "initial_path_parity": {
+        "parent_initial_tensor_sha256": "257d81ac871658b278d3a9ad740fcb0882c4b10edabff70016cd109fd40d0821",
+        "costs": {
+          "10.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 2.220446049250313e-16,
+              "pretrade_weights": 3.3306690738754696e-16,
+              "ending_weights": 3.3306690738754696e-16,
+              "fees": 2.354751593366955e-19,
+              "net_equity": 4.440892098500626e-16,
+              "F_component": 3.408731630294426e-15
+            },
+            "maximum_relative_nav_error": 2.90878432451791e-14
+          },
+          "25.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 2.220446049250313e-16,
+              "pretrade_weights": 2.220446049250313e-16,
+              "ending_weights": 2.220446049250313e-16,
+              "fees": 4.336808689942018e-19,
+              "net_equity": 3.3306690738754696e-16,
+              "F_component": 1.017588791007995e-14
+            },
+            "maximum_relative_nav_error": 8.171241461241152e-14
+          }
+        },
+        "worst_F_error": 1.017588791007995e-14
+      },
+      "metadata_pickle_bytes": 708987
+    },
+    {
+      "seed": 71,
+      "elapsed_seconds": 8.510615542065352,
+      "failure": null,
+      "epochs": 121,
+      "selected_epoch": "anchor",
+      "F": 0.0,
+      "legacy_J": 0.0,
+      "feasible": true,
+      "null_selected": true,
+      "feasible_positive_F_states": 0,
+      "maximum_trajectory_F": 0.11528163503889613,
+      "selected_action_diagnostics": {
+        "10.0": {
+          "support_cardinality_fraction": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          },
+          "sole_expert_fraction": {
+            "soxl": 0.0,
+            "soxx": 1.0,
+            "cash": 0.0,
+            "hold": 0.0
+          },
+          "support_change_count": 0,
+          "exact_hold_count": 0,
+          "exact_zero_order_count": 503,
+          "reported_trade_count_gt_1e12": 1,
+          "maximum_absolute_logit": 1.0
+        },
+        "25.0": {
+          "support_cardinality_fraction": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          },
+          "sole_expert_fraction": {
+            "soxl": 0.0,
+            "soxx": 1.0,
+            "cash": 0.0,
+            "hold": 0.0
+          },
+          "support_change_count": 0,
+          "exact_hold_count": 0,
+          "exact_zero_order_count": 503,
+          "reported_trade_count_gt_1e12": 1,
+          "maximum_absolute_logit": 1.0
+        }
+      },
+      "initial_path_parity": {
+        "parent_initial_tensor_sha256": "9703523e4aebd1bd1b616c021819fa6e9c7b3e45dd88df6ec714d95a26b8f2e3",
+        "costs": {
+          "10.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 1.1102230246251565e-16,
+              "pretrade_weights": 2.220446049250313e-16,
+              "ending_weights": 2.220446049250313e-16,
+              "fees": 2.337810934421869e-19,
+              "net_equity": 2.220446049250313e-16,
+              "F_component": 1.3721662694976544e-14
+            },
+            "maximum_relative_nav_error": 1.1057821325266559e-13
+          },
+          "25.0": {
+            "maximum_absolute_errors": {
+              "target_weights": 1.1102230246251565e-16,
+              "pretrade_weights": 3.3306690738754696e-16,
+              "ending_weights": 3.3306690738754696e-16,
+              "fees": 7.995991022080595e-19,
+              "net_equity": 2.220446049250313e-16,
+              "F_component": 7.034303695085953e-15
+            },
+            "maximum_relative_nav_error": 5.5067062021407764e-14
+          }
+        },
+        "worst_F_error": 7.034303695085953e-15
+      },
+      "metadata_pickle_bytes": 708883
+    }
+  ],
+  "ensemble": {
+    "F": 0.0,
+    "legacy_J": 0.0,
+    "training_feasibility_passed": true,
+    "anchor_selected": true,
+    "failure": null
+  },
+  "all3seeds_and_ensemble_positive": false
+}

@@ -1,0 +1,6805 @@
+{
+  "scope": "Read-only pure synthetic audit of actual separately versioned kernel; no market data, fits, parameter selection, source edits, monkeypatch or changed historical results.",
+  "kernel_source": "src/model/post_fee_settlement.py",
+  "source_sha256_before": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+  "source_sha256_after": "26e61888c05d61d47cfb50c40b3eefb1c4f0327fc1a3ed9d0429e60357317ff1",
+  "legacy_source_sha256_before": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+  "legacy_source_sha256_after": "946f20b41afa528fef19562f696ccda81343a78dbade018d3371e18698d23f30",
+  "torch_version": "2.11.0",
+  "dtype": "float64",
+  "case_count": 49,
+  "random_forward_cases": 300,
+  "invalid_input_cases": 9,
+  "maximum_forward_error": 2.220446049250313e-16,
+  "maximum_random_forward_error": 6.661338147750939e-16,
+  "maximum_implicit_formula_error": 4.440892098500626e-16,
+  "maximum_smooth_fd_error": 1.2099365953588403e-10,
+  "maximum_state_identity_error": 4.440892098500626e-16,
+  "maximum_state_fd_error": 3.2638558522535277e-10,
+  "maximum_funding_gradient_error": 0.0,
+  "maximum_cash_debit_gradient_error": 2.220446049250313e-16,
+  "maximum_Clarke_convex_combination_error": 4.336808689942018e-19,
+  "cases": [
+    {
+      "case": "mixed_zero_trade_target_S_to_C",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        -0.0100000003833145,
+        0.002011435962234742,
+        -0.9921065785567507,
+        0.9900951429275828
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -0.00999999993922529,
+        0.002011435906723591,
+        -0.9921065790008399,
+        0.9900951428443161
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        -0.010000000050247593,
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "implicit_formula_error": 1.3010426069826053e-17,
+      "state_identity_error": 1.3010426069826053e-17,
+      "state_fd_error": 1.6433743255106492e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_S_to_C",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_S_to_C",
+      "cost_bps": 0.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.09999999999999998,
+        -0.19999999999999996
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.003011199909566553,
+        -0.9931015261618701,
+        0.9900903262523036
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.003011199909566555,
+        -0.9931015261618699,
+        0.9900903262523034
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        -0.009999999384113778,
+        0.003011199789515473,
+        -0.9931015263198173,
+        0.9900903259751903
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -0.0100000003833145,
+        0.003011200011560078,
+        -0.9931015259867504,
+        0.9900903263082572
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        -0.00999999993922529,
+        0.0030111999005377754,
+        -0.9931015261532838,
+        0.9900903261972349
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 5.506850531133978e-11,
+      "smooth_fd_error": 6.07747185910057e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "branch_gradients": [
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_held_S_to_C",
+      "cost_bps": 0.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09999999999999998,
+        -0.19999999999999996
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        1.1102230246251565e-10,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -1.1102230246251565e-10,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 0.0,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "branch_gradients": [
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_target_S_to_L",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.020000000000000018,
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.003905700760830494
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.020000000000000018,
+        1.0137636894811668,
+        -1.0098579887203363,
+        -0.003905700760830512
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        0.019999999767428278,
+        1.0137636895501956,
+        -1.009857988676366,
+        -0.0039057007072962335
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        0.019999999767428278,
+        1.0137636895640734,
+        -1.0098579888984105,
+        -0.0039057007211740213
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        0.01999999987845058,
+        1.01376368952244,
+        -1.009857988731877,
+        -0.003905700735051809
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 4.127320707425497e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_S_to_L",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_S_to_L",
+      "cost_bps": 0.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09999999999999998,
+        -0.19999999999999996
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.020000000000000018,
+        1.0107594363111732,
+        -1.00491244619551,
+        -0.005846990115663198
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.020000000000000018,
+        1.0107594363111727,
+        -1.0049124461955095,
+        -0.005846990115663213
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        0.020000000211517488,
+        1.0107594362041006,
+        -1.004912446200823,
+        -0.005846990197566626
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        0.019999999656405976,
+        1.0107594363151229,
+        -1.0049124460898007,
+        -0.005846990003277597
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        0.019999999989472883,
+        1.0107594362873673,
+        -1.0049124461730674,
+        -0.005846990114299899
+      ],
+      "implicit_formula_error": 4.440892098500626e-16,
+      "state_identity_error": 4.440892098500626e-16,
+      "state_fd_error": 2.3805402094012607e-11,
+      "smooth_fd_error": 2.3805846183222457e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "branch_gradients": [
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_held_S_to_L",
+      "cost_bps": 0.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09999999999999998,
+        -0.19999999999999996
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        1.1102230246251565e-10,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -1.1102230246251565e-10,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 0.0,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "branch_gradients": [
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_target_L_to_C",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.030000000000000027,
+        -1.0117522535893388,
+        0.01775140995797464,
+        0.9940008436313643
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.030000000000000027,
+        -1.011752253589339,
+        0.017751409957974675,
+        0.9940008436313643
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        -0.030000000039720476,
+        -1.0117522535879608,
+        0.017751410008592927,
+        0.9940008436348791
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -0.030000000039720476,
+        -1.0117522536018386,
+        0.017751409842059473,
+        0.9940008436348791
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        -0.030000000039720476,
+        -1.0117522535879608,
+        0.017751409953081776,
+        0.9940008436348791
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 4.892898586295047e-12,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_L_to_C",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_L_to_C",
+      "cost_bps": 0.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.09999999999999998,
+        -0.19999999999999996
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.030000000000000027,
+        -1.0077482364016066,
+        0.011810920033639705,
+        0.9959373163679668
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.030000000000000027,
+        -1.0077482364016062,
+        0.01181092003363969,
+        0.9959373163679666
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        -0.030000000039720476,
+        -1.007748236220296,
+        0.011810920103050293,
+        0.9959373163392904
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -0.030000000039720476,
+        -1.0077482363035628,
+        0.01181091999202799,
+        0.995937316367046
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        -0.030000000039720476,
+        -1.0077482363313184,
+        0.011810920047539142,
+        0.995937316367046
+      ],
+      "implicit_formula_error": 4.440892098500626e-16,
+      "state_identity_error": 4.440892098500626e-16,
+      "state_fd_error": 7.028777559980881e-11,
+      "smooth_fd_error": 7.028821968901866e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "branch_gradients": [
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_held_L_to_C",
+      "cost_bps": 0.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09999999999999998,
+        -0.19999999999999996
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        1.1102230246251565e-10,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -1.1102230246251565e-10,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 0.0,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "branch_gradients": [
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "pure_SOXX_boundary_S_to_C",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "z": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -0.010000000494336803,
+        0.0,
+        -0.9900990097788664,
+        0.9900990099009904
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 1.2212364453034752e-10,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "pure_SOXX_boundary_S_to_L",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "z": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.020000000000000018,
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.020000000000000018,
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        0.019999999656405976,
+        1.0198019801980194,
+        -1.0198019801954672,
+        0.0
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 2.55262477821816e-12,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "partial_zero_absent_L_buy",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        0.6,
+        0.4
+      ],
+      "z": [
+        0.0,
+        0.4,
+        0.6
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        0.0,
+        -1.0
+      ],
+      "actual_trade": [
+        0.0,
+        -0.19999999999999996
+      ],
+      "actual_signs": [
+        0.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.030000000000000027,
+        1.0258964143426295,
+        -0.012023618672719505,
+        -1.01387279566991
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.030000000000000027,
+        1.0258964143426295,
+        -0.012023618672719491,
+        -1.01387279566991
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        0.030000000039720476,
+        1.0258964143426277,
+        -0.012023618656265,
+        -1.0138727959962957
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 1.3877787807814457e-17,
+      "state_identity_error": 1.3877787807814457e-17,
+      "state_fd_error": 3.2638558522535277e-10,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "minimum_weight": 0.5,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0,
+          -0.0,
+          0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "coupled_exact_HOLD",
+      "cost_bps": 0.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        -0.0100000003833145,
+        0.002011435962234742,
+        -0.9921065785567507,
+        0.9900951429275828
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -0.00999999993922529,
+        0.002011435906723591,
+        -0.9921065790008399,
+        0.9900951428443161
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        -0.010000000050247593,
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "implicit_formula_error": 1.3010426069826053e-17,
+      "state_identity_error": 1.3010426069826053e-17,
+      "state_fd_error": 1.6433743255106492e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "minimum_weight": 0.25,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.0,
+            -0.0,
+            0.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.0,
+            -0.0
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_target_S_to_C",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "left_fd_vector": [
+        0.0009995998473399936,
+        -0.0009996001600481865,
+        -0.008988405131304944,
+        0.002011435962234742,
+        -0.9921065785567507,
+        0.9900951429275828
+      ],
+      "right_fd_vector": [
+        -0.0010008005535411257,
+        0.0010008006405271,
+        -0.011012809886246089,
+        0.002011435906723591,
+        -0.9921065790008399,
+        0.9900951428443161
+      ],
+      "center_fd_vector": [
+        -6.002975894148221e-07,
+        6.002402325177942e-07,
+        -0.010000607453264365,
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "implicit_formula_error": 1.3010426069826053e-17,
+      "state_identity_error": 1.3010426069826053e-17,
+      "state_fd_error": 1.6433743255106492e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2498,
+          0.2501,
+          0.2499,
+          0.2502
+        ],
+        "minimum_weight": 0.2498,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00100080064051241,
+            -0.00100080064051241,
+            0.00100080064051241,
+            0.00100080064051241
+          ],
+          [
+            -0.0009996001599360256,
+            0.0009996001599360256,
+            0.0009996001599360256,
+            -0.0009996001599360256
+          ],
+          [
+            0.0010004001600640256,
+            -0.0010004001600640256,
+            -0.0010004001600640256,
+            0.0010004001600640256
+          ],
+          [
+            0.0009992006394884093,
+            0.0009992006394884093,
+            -0.0009992006394884093,
+            -0.0009992006394884093
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_S_to_C",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0010008005535411257,
+        -0.0010008006405270997,
+        0.0010128099470207985,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        -0.0009995998473399936,
+        0.0009996001600481865,
+        -0.0010115952520095561,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        6.002975894148221e-07,
+        -6.002402325177942e-07,
+        6.074030167724231e-07,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2498,
+          0.2501,
+          0.2499,
+          0.2502
+        ],
+        "minimum_weight": 0.2498,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00100080064051241,
+            -0.00100080064051241,
+            0.00100080064051241,
+            0.00100080064051241
+          ],
+          [
+            -0.0009996001599360256,
+            0.0009996001599360256,
+            0.0009996001599360256,
+            -0.0009996001599360256
+          ],
+          [
+            0.0010004001600640256,
+            -0.0010004001600640256,
+            -0.0010004001600640256,
+            0.0010004001600640256
+          ],
+          [
+            0.0009992006394884093,
+            0.0009992006394884093,
+            -0.0009992006394884093,
+            -0.0009992006394884093
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_S_to_C",
+      "cost_bps": 10.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.09990999099909992,
+        -0.20012001200120005
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        -0.000999799949991999,
+        0.000999799949991999,
+        -0.011009797049311931,
+        0.003011199909566553,
+        -0.9931015261618701,
+        0.9900903262523036
+      ],
+      "analytic_selected_vector": [
+        -0.000999799949991999,
+        0.000999799949991999,
+        -0.011009797049311902,
+        0.003011199909566555,
+        -0.9931015261618699,
+        0.9900903262523034
+      ],
+      "left_fd_vector": [
+        -0.0009998000205513335,
+        0.000999799949942667,
+        -0.011009796740957256,
+        0.003011199789515473,
+        -0.9931015263198173,
+        0.9900903259751903
+      ],
+      "right_fd_vector": [
+        -0.0009997996874844262,
+        0.000999799949942667,
+        -0.011009796963001861,
+        0.003011200011560078,
+        -0.9931015259867504,
+        0.9900903263082572
+      ],
+      "center_fd_vector": [
+        -0.000999799909529031,
+        0.0009997999499697721,
+        -0.011009796963001861,
+        0.0030111999005377754,
+        -0.9931015261532838,
+        0.9900903261972349
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 5.506850531133978e-11,
+      "smooth_fd_error": 8.631007020198922e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.001000100010001,
+          -0.001000100010001,
+          -0.000999799949991999,
+          0.000999799949991999
+        ],
+        "branch_gradients": [
+          [
+            0.001000100010001,
+            -0.001000100010001,
+            -0.000999799949991999,
+            0.000999799949991999
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.9999
+      }
+    },
+    {
+      "case": "away_kink_held_S_to_C",
+      "cost_bps": 10.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09990999099909992,
+        -0.20012001200120005
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.001000100010001,
+        -0.001000100010001,
+        0.001013101310131013,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.001000100010001,
+        -0.001000100010001,
+        0.0010131013101310133,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0010001000028125873,
+        -0.0010001000101038469,
+        0.0010131012695424602,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        0.0010001000028125873,
+        -0.001000100010130952,
+        0.0010131011585201577,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        0.0010001000028125873,
+        -0.0010001000100496368,
+        0.0010131012695424602,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 2.168404344971009e-19,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 4.058855291796948e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.001000100010001,
+          -0.001000100010001,
+          -0.000999799949991999,
+          0.000999799949991999
+        ],
+        "branch_gradients": [
+          [
+            0.001000100010001,
+            -0.001000100010001,
+            -0.000999799949991999,
+            0.000999799949991999
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.9999
+      }
+    },
+    {
+      "case": "mixed_zero_trade_target_S_to_L",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.020000000000000018,
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.003905700760830494
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.020000000000000018,
+        1.0137636894811668,
+        -1.0098579887203363,
+        -0.003905700760830512
+      ],
+      "left_fd_vector": [
+        0.0019992000277468946,
+        -0.001999200320151884,
+        0.022023190160425088,
+        1.0137636895501956,
+        -1.009857988676366,
+        -0.0039057007072962335
+      ],
+      "right_fd_vector": [
+        -0.0020008000811699844,
+        0.0020008003202287576,
+        0.01797519000312775,
+        1.0137636895640734,
+        -1.0098579888984105,
+        -0.0039057007211740213
+      ],
+      "center_fd_vector": [
+        -8.000267115448878e-07,
+        8.00000066192272e-07,
+        0.01999919019279872,
+        1.01376368952244,
+        -1.009857988731877,
+        -0.003905700735051809
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 4.127320707425497e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2498,
+          0.2501,
+          0.2499,
+          0.2502
+        ],
+        "minimum_weight": 0.2498,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00100080064051241,
+            -0.00100080064051241,
+            0.00100080064051241,
+            0.00100080064051241
+          ],
+          [
+            -0.0009996001599360256,
+            0.0009996001599360256,
+            0.0009996001599360256,
+            -0.0009996001599360256
+          ],
+          [
+            0.0010004001600640256,
+            -0.0010004001600640256,
+            -0.0010004001600640256,
+            0.0010004001600640256
+          ],
+          [
+            0.0009992006394884093,
+            0.0009992006394884093,
+            -0.0009992006394884093,
+            -0.0009992006394884093
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_S_to_L",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0020008000811699844,
+        -0.0020008003202148794,
+        0.0020248098753228305,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        -0.0019992000277468946,
+        0.0019992003201518838,
+        -0.00202319039299681,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        8.000267115448878e-07,
+        -8.00000066192272e-07,
+        8.096856518591267e-07,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2498,
+          0.2501,
+          0.2499,
+          0.2502
+        ],
+        "minimum_weight": 0.2498,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00100080064051241,
+            -0.00100080064051241,
+            0.00100080064051241,
+            0.00100080064051241
+          ],
+          [
+            -0.0009996001599360256,
+            0.0009996001599360256,
+            0.0009996001599360256,
+            -0.0009996001599360256
+          ],
+          [
+            0.0010004001600640256,
+            -0.0010004001600640256,
+            -0.0010004001600640256,
+            0.0010004001600640256
+          ],
+          [
+            0.0009992006394884093,
+            0.0009992006394884093,
+            -0.0009992006394884093,
+            -0.0009992006394884093
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_S_to_L",
+      "cost_bps": 10.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09990999099909992,
+        -0.20012001200120005
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        -0.001999599899983998,
+        0.001999599899983998,
+        0.01796840470125627,
+        1.0107594363111732,
+        -1.00491244619551,
+        -0.005846990115663198
+      ],
+      "analytic_selected_vector": [
+        -0.001999599899983998,
+        0.001999599899983998,
+        0.017968404701256224,
+        1.0107594363111727,
+        -1.0049124461955095,
+        -0.005846990115663213
+      ],
+      "left_fd_vector": [
+        -0.0019996001521249696,
+        0.0019995998999937543,
+        0.017968404542045846,
+        1.0107594362041006,
+        -1.004912446200823,
+        -0.005846990197566626
+      ],
+      "right_fd_vector": [
+        -0.001999599819058062,
+        0.001999599899804019,
+        0.017968404542045846,
+        1.0107594363151229,
+        -1.0049124460898007,
+        -0.005846990003277597
+      ],
+      "center_fd_vector": [
+        -0.0019995999300803646,
+        0.0019995998999395442,
+        0.01796840465306815,
+        1.0107594362873673,
+        -1.0049124461730674,
+        -0.005846990114299899
+      ],
+      "implicit_formula_error": 4.440892098500626e-16,
+      "state_identity_error": 4.440892098500626e-16,
+      "state_fd_error": 2.3805402094012607e-11,
+      "smooth_fd_error": 4.8188120160830294e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 2.220446049250313e-16,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.001000100010001,
+          -0.001000100010001,
+          -0.000999799949991999,
+          0.000999799949991999
+        ],
+        "branch_gradients": [
+          [
+            0.001000100010001,
+            -0.001000100010001,
+            -0.000999799949991999,
+            0.000999799949991999
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.9999
+      }
+    },
+    {
+      "case": "away_kink_held_S_to_L",
+      "cost_bps": 10.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09990999099909992,
+        -0.20012001200120005
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.002000200020002,
+        -0.002000200020002,
+        0.002026202620262026,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.002000200020002,
+        -0.002000200020002,
+        0.0020262026202620266,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0020002000056251745,
+        -0.0020002000200450634,
+        0.0020262027611295252,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        0.002000199894602872,
+        -0.0020002000200721685,
+        0.0020262025390849203,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        0.0020002000056251745,
+        -0.0020002000200179584,
+        0.0020262026501072228,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 4.336808689942018e-19,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 2.98451966265767e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.001000100010001,
+          -0.001000100010001,
+          -0.000999799949991999,
+          0.000999799949991999
+        ],
+        "branch_gradients": [
+          [
+            0.001000100010001,
+            -0.001000100010001,
+            -0.000999799949991999,
+            0.000999799949991999
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.9999
+      }
+    },
+    {
+      "case": "mixed_zero_trade_target_L_to_C",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.030000000000000027,
+        -1.0117522535893388,
+        0.01775140995797464,
+        0.9940008436313643
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.030000000000000027,
+        -1.011752253589339,
+        0.017751409957974675,
+        0.9940008436313643
+      ],
+      "left_fd_vector": [
+        0.0010003998740515385,
+        -0.0010004001598645784,
+        -0.028987595324103665,
+        -1.0117522535879608,
+        0.017751410008592927,
+        0.9940008436348791
+      ],
+      "right_fd_vector": [
+        -0.0010008005535411257,
+        0.001000800640443833,
+        -0.031012810097763577,
+        -1.0117522536018386,
+        0.017751409842059473,
+        0.9940008436348791
+      ],
+      "center_fd_vector": [
+        -2.0028423364237824e-07,
+        2.0024024105500267e-07,
+        -0.03000020265542247,
+        -1.0117522535879608,
+        0.017751409953081776,
+        0.9940008436348791
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 4.892898586295047e-12,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2498,
+          0.2501,
+          0.2499,
+          0.2502
+        ],
+        "minimum_weight": 0.2498,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00100080064051241,
+            -0.00100080064051241,
+            0.00100080064051241,
+            0.00100080064051241
+          ],
+          [
+            -0.0009996001599360256,
+            0.0009996001599360256,
+            0.0009996001599360256,
+            -0.0009996001599360256
+          ],
+          [
+            0.0010004001600640256,
+            -0.0010004001600640256,
+            -0.0010004001600640256,
+            0.0010004001600640256
+          ],
+          [
+            0.0009992006394884093,
+            0.0009992006394884093,
+            -0.0009992006394884093,
+            -0.0009992006394884093
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_L_to_C",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0010008005535411257,
+        -0.001000800640443833,
+        0.0010128099470207985,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        -0.0010003998740515385,
+        0.0010004001598645784,
+        -0.0010124047156168103,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        2.0028423364237824e-07,
+        -2.0024024105500267e-07,
+        2.0261570199409107e-07,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2498,
+          0.2501,
+          0.2499,
+          0.2502
+        ],
+        "minimum_weight": 0.2498,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00100080064051241,
+            -0.00100080064051241,
+            0.00100080064051241,
+            0.00100080064051241
+          ],
+          [
+            -0.0009996001599360256,
+            0.0009996001599360256,
+            0.0009996001599360256,
+            -0.0009996001599360256
+          ],
+          [
+            0.0010004001600640256,
+            -0.0010004001600640256,
+            -0.0010004001600640256,
+            0.0010004001600640256
+          ],
+          [
+            0.0009992006394884093,
+            0.0009992006394884093,
+            -0.0009992006394884093,
+            -0.0009992006394884093
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_L_to_C",
+      "cost_bps": 10.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.09990999099909992,
+        -0.20012001200120005
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.000999799949991999,
+        -0.000999799949991999,
+        -0.0289782017505682,
+        -1.0077482364016066,
+        0.011810920033639705,
+        0.9959373163679668
+      ],
+      "analytic_selected_vector": [
+        0.000999799949991999,
+        -0.000999799949991999,
+        -0.028978201750568124,
+        -1.0077482364016062,
+        0.01181092003363969,
+        0.9959373163679666
+      ],
+      "left_fd_vector": [
+        0.0009997996874844262,
+        -0.000999799949942667,
+        -0.028978202171181522,
+        -1.007748236220296,
+        0.011810920103050293,
+        0.9959373163392904
+      ],
+      "right_fd_vector": [
+        0.0009998000205513335,
+        -0.000999799949942667,
+        -0.02897820161607001,
+        -1.0077482363035628,
+        0.01181091999202799,
+        0.995937316367046
+      ],
+      "center_fd_vector": [
+        0.000999799909529031,
+        -0.0009997999499697721,
+        -0.028978201838114614,
+        -1.0077482363313184,
+        0.011810920047539142,
+        0.995937316367046
+      ],
+      "implicit_formula_error": 4.440892098500626e-16,
+      "state_identity_error": 4.440892098500626e-16,
+      "state_fd_error": 7.028777559980881e-11,
+      "smooth_fd_error": 8.75464145622118e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 2.220446049250313e-16,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.001000100010001,
+          -0.001000100010001,
+          -0.000999799949991999,
+          0.000999799949991999
+        ],
+        "branch_gradients": [
+          [
+            0.001000100010001,
+            -0.001000100010001,
+            -0.000999799949991999,
+            0.000999799949991999
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.9999
+      }
+    },
+    {
+      "case": "away_kink_held_L_to_C",
+      "cost_bps": 10.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09990999099909992,
+        -0.20012001200120005
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        -0.001000100010001,
+        0.001000100010001,
+        -0.001013101310131013,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        -0.001000100010001,
+        0.001000100010001,
+        -0.0010131013101310133,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        -0.0010001000028125873,
+        0.0010001000098870064,
+        -0.0010131011585201577,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        -0.0010001000028125873,
+        0.0010001000099683216,
+        -0.0010131012695424602,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        -0.0010001000028125873,
+        0.0010001000099683216,
+        -0.0010131012695424602,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 2.168404344971009e-19,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 4.058855291796948e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.001000100010001,
+          -0.001000100010001,
+          -0.000999799949991999,
+          0.000999799949991999
+        ],
+        "branch_gradients": [
+          [
+            0.001000100010001,
+            -0.001000100010001,
+            -0.000999799949991999,
+            0.000999799949991999
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.9999
+      }
+    },
+    {
+      "case": "pure_SOXX_boundary_S_to_C",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "z": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        -0.0010010007267524657,
+        0.0010010010008110195,
+        -0.011011011213923894,
+        0.0,
+        -0.9900990097788664,
+        0.9900990099009904
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 1.2212364453034752e-10,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.24975,
+          0.25025,
+          0.24975,
+          0.25025
+        ],
+        "minimum_weight": 0.24975,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.001001001001001001,
+            -0.001001001001001001,
+            0.001001001001001001,
+            0.001001001001001001
+          ],
+          [
+            -0.0009990009990009992,
+            0.0009990009990009992,
+            0.0009990009990009992,
+            -0.0009990009990009992
+          ],
+          [
+            0.001001001001001001,
+            -0.001001001001001001,
+            -0.001001001001001001,
+            0.001001001001001001
+          ],
+          [
+            0.0009990009990009992,
+            0.0009990009990009992,
+            -0.0009990009990009992,
+            -0.0009990009990009992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "pure_SOXX_boundary_S_to_L",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "z": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.020000000000000018,
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.020000000000000018,
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        -0.002002001897594141,
+        0.002002002001981861,
+        0.017977977884164886,
+        1.0198019801980194,
+        -1.0198019801954672,
+        0.0
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 2.55262477821816e-12,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.24975,
+          0.25025,
+          0.24975,
+          0.25025
+        ],
+        "minimum_weight": 0.24975,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.001001001001001001,
+            -0.001001001001001001,
+            0.001001001001001001,
+            0.001001001001001001
+          ],
+          [
+            -0.0009990009990009992,
+            0.0009990009990009992,
+            0.0009990009990009992,
+            -0.0009990009990009992
+          ],
+          [
+            0.001001001001001001,
+            -0.001001001001001001,
+            -0.001001001001001001,
+            0.001001001001001001
+          ],
+          [
+            0.0009990009990009992,
+            0.0009990009990009992,
+            -0.0009990009990009992,
+            -0.0009990009990009992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "partial_zero_absent_L_buy",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        0.6,
+        0.4
+      ],
+      "z": [
+        0.0,
+        0.4,
+        0.6
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        0.0,
+        -1.0
+      ],
+      "actual_trade": [
+        0.0,
+        -0.2000800320128051
+      ],
+      "actual_signs": [
+        0.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.029993997599039646,
+        1.0258964143426295,
+        -0.012023618672719505,
+        -1.01387279566991
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.02999399759903964,
+        1.0258964143426295,
+        -0.012023618672719491,
+        -1.01387279566991
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        -0.001000199811862501,
+        0.0010001999999173679,
+        0.028989796896361497,
+        1.0258964143426277,
+        -0.012023618656265,
+        -1.0138727959962957
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 1.3877787807814457e-17,
+      "state_identity_error": 1.3877787807814457e-17,
+      "state_fd_error": 3.2638558522535277e-10,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 1.1102230246251565e-16,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 1.1102230246251565e-16
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "minimum_weight": 0.5,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0010004001600640256,
+          -0.0,
+          0.0010001999999679743
+        ],
+        "branch_gradients": [
+          [
+            -0.0010004001600640256,
+            -0.0010004001600640256,
+            0.0010001999999679743,
+            0.0010001999999679743
+          ],
+          [
+            0.0010004001600640256,
+            -0.0010004001600640256,
+            -0.0010001999999679743,
+            0.0010001999999679743
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.9996
+      }
+    },
+    {
+      "case": "coupled_exact_HOLD",
+      "cost_bps": 10.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        -0.0100000003833145,
+        0.002011435962234742,
+        -0.9921065785567507,
+        0.9900951429275828
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -0.00999999993922529,
+        0.002011435906723591,
+        -0.9921065790008399,
+        0.9900951428443161
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        -0.010000000050247593,
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "implicit_formula_error": 1.3010426069826053e-17,
+      "state_identity_error": 1.3010426069826053e-17,
+      "state_fd_error": 1.6433743255106492e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2498,
+          0.2501,
+          0.2499,
+          0.2502
+        ],
+        "minimum_weight": 0.2498,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00100080064051241,
+            -0.00100080064051241,
+            0.00100080064051241,
+            0.00100080064051241
+          ],
+          [
+            -0.0009996001599360256,
+            0.0009996001599360256,
+            0.0009996001599360256,
+            -0.0009996001599360256
+          ],
+          [
+            0.0010004001600640256,
+            -0.0010004001600640256,
+            -0.0010004001600640256,
+            0.0010004001600640256
+          ],
+          [
+            0.0009992006394884093,
+            0.0009992006394884093,
+            -0.0009992006394884093,
+            -0.0009992006394884093
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_target_S_to_C",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "left_fd_vector": [
+        0.002497502427090126,
+        -0.0024975024976239824,
+        -0.007472527929763828,
+        0.002011435962234742,
+        -0.9921065785567507,
+        0.9900951429275828
+      ],
+      "right_fd_vector": [
+        -0.002505009977227246,
+        0.002505010020178999,
+        -0.012535070204044985,
+        0.002011435906723591,
+        -0.9921065790008399,
+        0.9900951428443161
+      ],
+      "center_fd_vector": [
+        -3.7537750685601168e-06,
+        3.7537612254667454e-06,
+        -0.010003798900370953,
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "implicit_formula_error": 1.3010426069826053e-17,
+      "state_identity_error": 1.3010426069826053e-17,
+      "state_fd_error": 1.6433743255106492e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2495,
+          0.25025,
+          0.24975,
+          0.2505
+        ],
+        "minimum_weight": 0.2495,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00250501002004008,
+            -0.00250501002004008,
+            0.00250501002004008,
+            0.00250501002004008
+          ],
+          [
+            -0.002497502497502498,
+            0.002497502497502498,
+            0.002497502497502498,
+            -0.002497502497502498
+          ],
+          [
+            0.0025025025025025025,
+            -0.0025025025025025025,
+            -0.0025025025025025025,
+            0.0025025025025025025
+          ],
+          [
+            0.00249500998003992,
+            0.00249500998003992,
+            -0.00249500998003992,
+            -0.00249500998003992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_S_to_C",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.002505009977227246,
+        -0.002505010019901444,
+        0.0025350702648196943,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        -0.002497502427090126,
+        0.002497502497901538,
+        -0.002527472453550672,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        3.7537750685601168e-06,
+        -3.753761086689e-06,
+        3.798850123359898e-06,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2495,
+          0.25025,
+          0.24975,
+          0.2505
+        ],
+        "minimum_weight": 0.2495,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00250501002004008,
+            -0.00250501002004008,
+            0.00250501002004008,
+            0.00250501002004008
+          ],
+          [
+            -0.002497502497502498,
+            0.002497502497502498,
+            0.002497502497502498,
+            -0.002497502497502498
+          ],
+          [
+            0.0025025025025025025,
+            -0.0025025025025025025,
+            -0.0025025025025025025,
+            0.0025025025025025025
+          ],
+          [
+            0.00249500998003992,
+            0.00249500998003992,
+            -0.00249500998003992,
+            -0.00249500998003992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_S_to_C",
+      "cost_bps": 25.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.09977494373593399,
+        -0.20030007501875463
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        -0.0024987492184373925,
+        0.0024987492184373925,
+        -0.012523731082808354,
+        0.003011199909566553,
+        -0.9931015261618701,
+        0.9900903262523036
+      ],
+      "analytic_selected_vector": [
+        -0.0024987492184373925,
+        0.0024987492184373925,
+        -0.01252373108280822,
+        0.003011199909566555,
+        -0.9931015261618699,
+        0.9900903262523034
+      ],
+      "left_fd_vector": [
+        -0.0024987496516359897,
+        0.002498749218605642,
+        -0.01252373071913837,
+        0.003011199789515473,
+        -0.9931015263198173,
+        0.9900903259751903
+      ],
+      "right_fd_vector": [
+        -0.0024987490965244774,
+        0.002498749218063541,
+        -0.012523731274249883,
+        0.003011200011560078,
+        -0.9931015259867504,
+        0.9900903263082572
+      ],
+      "center_fd_vector": [
+        -0.0024987493185690823,
+        0.0024987492183888016,
+        -0.012523731052205278,
+        0.0030111999005377754,
+        -0.9931015261532838,
+        0.9900903261972349
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 5.506850531133978e-11,
+      "smooth_fd_error": 1.0013168983205589e-10,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.002500625156289072,
+          -0.002500625156289072,
+          -0.0024987492184373925,
+          0.0024987492184373925
+        ],
+        "branch_gradients": [
+          [
+            0.002500625156289072,
+            -0.002500625156289072,
+            -0.0024987492184373925,
+            0.0024987492184373925
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.99975
+      }
+    },
+    {
+      "case": "away_kink_held_S_to_C",
+      "cost_bps": 25.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09977494373593399,
+        -0.20030007501875463
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.002500625156289072,
+        -0.002500625156289072,
+        0.00253313328332083,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.002500625156289072,
+        -0.002500625156289072,
+        0.0025331332833208303,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0025006248183245816,
+        -0.002500625156487239,
+        0.002533133258708631,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        0.002500625373436094,
+        -0.0025006251565414493,
+        0.002533133591775538,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        0.002500625151391489,
+        -0.002500625156378819,
+        0.0025331333697309333,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 4.336808689942018e-19,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 8.641010346491229e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 4.336808689942018e-19,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.002500625156289072,
+          -0.002500625156289072,
+          -0.0024987492184373925,
+          0.0024987492184373925
+        ],
+        "branch_gradients": [
+          [
+            0.002500625156289072,
+            -0.002500625156289072,
+            -0.0024987492184373925,
+            0.0024987492184373925
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.99975
+      }
+    },
+    {
+      "case": "mixed_zero_trade_target_S_to_L",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.020000000000000018,
+        1.0137636894811666,
+        -1.009857988720336,
+        -0.003905700760830494
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.020000000000000018,
+        1.0137636894811668,
+        -1.0098579887203363,
+        -0.003905700760830512
+      ],
+      "left_fd_vector": [
+        0.004995004854180252,
+        -0.004995004995560215,
+        0.025054944896574227,
+        1.0137636895501956,
+        -1.009857988676366,
+        -0.0039057007072962335
+      ],
+      "right_fd_vector": [
+        -0.005005004855007655,
+        0.005005005005338792,
+        0.014934934844390568,
+        1.0137636895640734,
+        -1.0098579888984105,
+        -0.0039057007211740213
+      ],
+      "center_fd_vector": [
+        -5.000000413701855e-06,
+        5.000004854593854e-06,
+        0.019994939814971247,
+        1.01376368952244,
+        -1.009857988731877,
+        -0.003905700735051809
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 4.127320707425497e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2495,
+          0.25025,
+          0.24975,
+          0.2505
+        ],
+        "minimum_weight": 0.2495,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00250501002004008,
+            -0.00250501002004008,
+            0.00250501002004008,
+            0.00250501002004008
+          ],
+          [
+            -0.002497502497502498,
+            0.002497502497502498,
+            0.002497502497502498,
+            -0.002497502497502498
+          ],
+          [
+            0.0025025025025025025,
+            -0.0025025025025025025,
+            -0.0025025025025025025,
+            0.0025025025025025025
+          ],
+          [
+            0.00249500998003992,
+            0.00249500998003992,
+            -0.00249500998003992,
+            -0.00249500998003992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_S_to_L",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.005005004743985353,
+        -0.005005005005200014,
+        0.0050650645899708024,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        -0.004995004743157949,
+        0.004995004995664299,
+        -0.005054944796079042,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        5.000000413701855e-06,
+        -5.000004854593854e-06,
+        5.0599524570316134e-06,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2495,
+          0.25025,
+          0.24975,
+          0.2505
+        ],
+        "minimum_weight": 0.2495,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00250501002004008,
+            -0.00250501002004008,
+            0.00250501002004008,
+            0.00250501002004008
+          ],
+          [
+            -0.002497502497502498,
+            0.002497502497502498,
+            0.002497502497502498,
+            -0.002497502497502498
+          ],
+          [
+            0.0025025025025025025,
+            -0.0025025025025025025,
+            -0.0025025025025025025,
+            0.0025025025025025025
+          ],
+          [
+            0.00249500998003992,
+            0.00249500998003992,
+            -0.00249500998003992,
+            -0.00249500998003992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_S_to_L",
+      "cost_bps": 25.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09977494373593399,
+        -0.20030007501875463
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        -0.004997498436874785,
+        0.004997498436874785,
+        0.014922530332507788,
+        1.0107594363111732,
+        -1.00491244619551,
+        -0.005846990115663198
+      ],
+      "analytic_selected_vector": [
+        -0.004997498436874785,
+        0.004997498436874785,
+        0.014922530332508125,
+        1.0107594363111727,
+        -1.0049124461955095,
+        -0.005846990115663213
+      ],
+      "left_fd_vector": [
+        -0.00499749885918277,
+        0.004997498436560763,
+        0.014922530100491826,
+        1.0107594362041006,
+        -1.004912446200823,
+        -0.005846990197566626
+      ],
+      "right_fd_vector": [
+        -0.00499749841509356,
+        0.004997498436560763,
+        0.014922529989469524,
+        1.0107594363151229,
+        -1.0049124460898007,
+        -0.005846990003277597
+      ],
+      "center_fd_vector": [
+        -0.004997498526115862,
+        0.004997498436723393,
+        0.014922530211514129,
+        1.0107594362873673,
+        -1.0049124461730674,
+        -0.005846990114299899
+      ],
+      "implicit_formula_error": 4.440892098500626e-16,
+      "state_identity_error": 4.440892098500626e-16,
+      "state_fd_error": 2.3805402094012607e-11,
+      "smooth_fd_error": 1.2099365953588403e-10,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 1.1102230246251565e-16,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.002500625156289072,
+          -0.002500625156289072,
+          -0.0024987492184373925,
+          0.0024987492184373925
+        ],
+        "branch_gradients": [
+          [
+            0.002500625156289072,
+            -0.002500625156289072,
+            -0.0024987492184373925,
+            0.0024987492184373925
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.99975
+      }
+    },
+    {
+      "case": "away_kink_held_S_to_L",
+      "cost_bps": 25.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09977494373593399,
+        -0.20030007501875463
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.005001250312578144,
+        -0.005001250312578144,
+        0.00506626656664166,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.005001250312578144,
+        -0.005001250312578144,
+        0.0050662665666416605,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.0050012501917606755,
+        -0.005001250312757638,
+        0.005066266517417262,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        0.005001250746872188,
+        -0.005001250312757638,
+        0.005066266850484169,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        0.0050012504138052805,
+        -0.005001250312649218,
+        0.005066266628439564,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 8.673617379884035e-19,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 1.0122713604843181e-10,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 8.673617379884035e-19,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.002500625156289072,
+          -0.002500625156289072,
+          -0.0024987492184373925,
+          0.0024987492184373925
+        ],
+        "branch_gradients": [
+          [
+            0.002500625156289072,
+            -0.002500625156289072,
+            -0.0024987492184373925,
+            0.0024987492184373925
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.99975
+      }
+    },
+    {
+      "case": "mixed_zero_trade_target_L_to_C",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.030000000000000027,
+        -1.0117522535893388,
+        0.01775140995797464,
+        0.9940008436313643
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.030000000000000027,
+        -1.011752253589339,
+        0.017751409957974675,
+        0.9940008436313643
+      ],
+      "left_fd_vector": [
+        0.0025025024275038277,
+        -0.002502502502409188,
+        -0.027467467411668167,
+        -1.0117522535879608,
+        0.017751410008592927,
+        0.9940008436348791
+      ],
+      "right_fd_vector": [
+        -0.002505009977227246,
+        0.002505010019727971,
+        -0.03253506997147326,
+        -1.0117522536018386,
+        0.017751409842059473,
+        0.9940008436348791
+      ],
+      "center_fd_vector": [
+        -1.2537748617091893e-06,
+        1.2537586940863023e-06,
+        -0.030001268691570715,
+        -1.0117522535879608,
+        0.017751409953081776,
+        0.9940008436348791
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 4.892898586295047e-12,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2495,
+          0.25025,
+          0.24975,
+          0.2505
+        ],
+        "minimum_weight": 0.2495,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00250501002004008,
+            -0.00250501002004008,
+            0.00250501002004008,
+            0.00250501002004008
+          ],
+          [
+            -0.002497502497502498,
+            0.002497502497502498,
+            0.002497502497502498,
+            -0.002497502497502498
+          ],
+          [
+            0.0025025025025025025,
+            -0.0025025025025025025,
+            -0.0025025025025025025,
+            0.0025025025025025025
+          ],
+          [
+            0.00249500998003992,
+            0.00249500998003992,
+            -0.00249500998003992,
+            -0.00249500998003992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "mixed_zero_trade_held_L_to_C",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        0.002505009977227246,
+        -0.0025050100196932763,
+        0.0025350702648196943,
+        -1.3877787807814457e-11,
+        5.551115123125783e-11,
+        1.3877787807814457e-11
+      ],
+      "right_fd_vector": [
+        -0.0025025024275038277,
+        0.0025025025025479652,
+        -0.0025325324060077037,
+        1.3877787807814457e-11,
+        -5.551115123125783e-11,
+        -1.3877787807814457e-11
+      ],
+      "center_fd_vector": [
+        1.2537748617091893e-06,
+        -1.2537586593918658e-06,
+        1.2688738948440914e-06,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2495,
+          0.25025,
+          0.24975,
+          0.2505
+        ],
+        "minimum_weight": 0.2495,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00250501002004008,
+            -0.00250501002004008,
+            0.00250501002004008,
+            0.00250501002004008
+          ],
+          [
+            -0.002497502497502498,
+            0.002497502497502498,
+            0.002497502497502498,
+            -0.002497502497502498
+          ],
+          [
+            0.0025025025025025025,
+            -0.0025025025025025025,
+            -0.0025025025025025025,
+            0.0025025025025025025
+          ],
+          [
+            0.00249500998003992,
+            0.00249500998003992,
+            -0.00249500998003992,
+            -0.00249500998003992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "away_kink_target_L_to_C",
+      "cost_bps": 25.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.09977494373593399,
+        -0.20030007501875463
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0024987492184373925,
+        -0.0024987492184373925,
+        -0.027446261415316142,
+        -1.0077482364016066,
+        0.011810920033639705,
+        0.9959373163679668
+      ],
+      "analytic_selected_vector": [
+        0.0024987492184373925,
+        -0.0024987492184373925,
+        -0.027446261415316343,
+        -1.0077482364016062,
+        0.01181092003363969,
+        0.9959373163679666
+      ],
+      "left_fd_vector": [
+        0.0024987490965244774,
+        -0.0024987492182803814,
+        -0.02744626181883092,
+        -1.007748236220296,
+        0.011810920103050293,
+        0.9959373163392904
+      ],
+      "right_fd_vector": [
+        0.0024987496516359897,
+        -0.002498749218605642,
+        -0.0274462609306525,
+        -1.0077482363035628,
+        0.01181091999202799,
+        0.995937316367046
+      ],
+      "center_fd_vector": [
+        0.0024987493185690823,
+        -0.0024987492184430117,
+        -0.02744626137474171,
+        -1.0077482363313184,
+        0.011810920047539142,
+        0.995937316367046
+      ],
+      "implicit_formula_error": 4.440892098500626e-16,
+      "state_identity_error": 4.440892098500626e-16,
+      "state_fd_error": 7.028777559980881e-11,
+      "smooth_fd_error": 1.0013168983205589e-10,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 1.1102230246251565e-16,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.002500625156289072,
+          -0.002500625156289072,
+          -0.0024987492184373925,
+          0.0024987492184373925
+        ],
+        "branch_gradients": [
+          [
+            0.002500625156289072,
+            -0.002500625156289072,
+            -0.0024987492184373925,
+            0.0024987492184373925
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.99975
+      }
+    },
+    {
+      "case": "away_kink_held_L_to_C",
+      "cost_bps": 25.0,
+      "smooth": true,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "dh": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.09977494373593399,
+        -0.20030007501875463
+      ],
+      "actual_signs": [
+        1.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        -0.002500625156289072,
+        0.002500625156289072,
+        -0.00253313328332083,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        -0.002500625156289072,
+        0.002500625156289072,
+        -0.0025331332833208303,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "left_fd_vector": [
+        -0.002500625373436094,
+        0.0025006251562703988,
+        -0.002533133591775538,
+        2.7755575615628914e-11,
+        2.7755575615628914e-11,
+        -2.7755575615628914e-11
+      ],
+      "right_fd_vector": [
+        -0.0025006248183245816,
+        0.002500625155945138,
+        -0.002533133258708631,
+        -2.7755575615628914e-11,
+        -2.7755575615628914e-11,
+        2.7755575615628914e-11
+      ],
+      "center_fd_vector": [
+        -0.002500625151391489,
+        0.0025006251562161887,
+        -0.0025331333697309333,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "implicit_formula_error": 4.336808689942018e-19,
+      "state_identity_error": 0.0,
+      "state_fd_error": 0.0,
+      "smooth_fd_error": 8.641010346491229e-11,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 4.336808689942018e-19,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [],
+        "weights": [
+          1.0
+        ],
+        "minimum_weight": 1.0,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.002500625156289072,
+          -0.002500625156289072,
+          -0.0024987492184373925,
+          0.0024987492184373925
+        ],
+        "branch_gradients": [
+          [
+            0.002500625156289072,
+            -0.002500625156289072,
+            -0.0024987492184373925,
+            0.0024987492184373925
+          ]
+        ],
+        "sign_patterns": [
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.99975
+      }
+    },
+    {
+      "case": "pure_SOXX_boundary_S_to_C",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "z": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.0,
+        -0.9900990099009901,
+        0.9900990099009901
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        -0.002506265639468097,
+        0.0025062656640317815,
+        -0.012531328752451998,
+        0.0,
+        -0.9900990097788664,
+        0.9900990099009904
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 1.2212364453034752e-10,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.249375,
+          0.250625,
+          0.249375,
+          0.250625
+        ],
+        "minimum_weight": 0.249375,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.002506265664160401,
+            -0.002506265664160401,
+            0.002506265664160401,
+            0.002506265664160401
+          ],
+          [
+            -0.002493765586034913,
+            0.002493765586034913,
+            0.002493765586034913,
+            -0.002493765586034913
+          ],
+          [
+            0.002506265664160401,
+            -0.002506265664160401,
+            -0.002506265664160401,
+            0.002506265664160401
+          ],
+          [
+            0.002493765586034913,
+            0.002493765586034913,
+            -0.002493765586034913,
+            -0.002493765586034913
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "pure_SOXX_boundary_S_to_L",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "z": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        -1.0,
+        0.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.020000000000000018,
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.020000000000000018,
+        1.0198019801980198,
+        -1.0198019801980198,
+        0.0
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        -0.005012531389958497,
+        0.005012531328824341,
+        0.014937342807108678,
+        1.0198019801980194,
+        -1.0198019801954672,
+        0.0
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 0.0,
+      "state_identity_error": 0.0,
+      "state_fd_error": 2.55262477821816e-12,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 0.0,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.249375,
+          0.250625,
+          0.249375,
+          0.250625
+        ],
+        "minimum_weight": 0.249375,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.002506265664160401,
+            -0.002506265664160401,
+            0.002506265664160401,
+            0.002506265664160401
+          ],
+          [
+            -0.002493765586034913,
+            0.002493765586034913,
+            0.002493765586034913,
+            -0.002493765586034913
+          ],
+          [
+            0.002506265664160401,
+            -0.002506265664160401,
+            -0.002506265664160401,
+            0.002506265664160401
+          ],
+          [
+            0.002493765586034913,
+            0.002493765586034913,
+            -0.002493765586034913,
+            -0.002493765586034913
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "partial_zero_absent_L_buy",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.0,
+        0.6,
+        0.4
+      ],
+      "z": [
+        0.0,
+        0.4,
+        0.6
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        0.0,
+        -1.0
+      ],
+      "actual_trade": [
+        0.0,
+        -0.20020020020020013
+      ],
+      "actual_signs": [
+        0.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.02998498498498503,
+        1.0258964143426295,
+        -0.012023618672719505,
+        -1.01387279566991
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.029984984984985013,
+        1.0258964143426295,
+        -0.012023618672719491,
+        -1.01387279566991
+      ],
+      "left_fd_vector": null,
+      "right_fd_vector": [
+        -0.002501250206954353,
+        0.0025012499991127965,
+        0.027473729624638565,
+        1.0258964143426277,
+        -0.012023618656265,
+        -1.0138727959962957
+      ],
+      "center_fd_vector": null,
+      "implicit_formula_error": 1.734723475976807e-17,
+      "state_identity_error": 1.3877787807814457e-17,
+      "state_fd_error": 3.2638558522535277e-10,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 1.1102230246251565e-16,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "minimum_weight": 0.5,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0025025025025025025,
+          -0.0,
+          0.0025012499987474967
+        ],
+        "branch_gradients": [
+          [
+            -0.0025025025025025025,
+            -0.0025025025025025025,
+            0.0025012499987474967,
+            0.0025012499987474967
+          ],
+          [
+            0.0025025025025025025,
+            -0.0025025025025025025,
+            -0.0025012499987474967,
+            0.0025012499987474967
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.999
+      }
+    },
+    {
+      "case": "coupled_exact_HOLD",
+      "cost_bps": 25.0,
+      "smooth": false,
+      "h": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "z": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "dh": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "dz": [
+        0.0,
+        -1.0,
+        1.0
+      ],
+      "actual_trade": [
+        0.0,
+        0.0
+      ],
+      "actual_signs": [
+        0.0,
+        0.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        -0.010000000000000009,
+        0.002011435891827701,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        -0.010000000000000009,
+        0.002011435891827714,
+        -0.9921065787623615,
+        0.9900951428705338
+      ],
+      "left_fd_vector": [
+        0.0,
+        0.0,
+        -0.0100000003833145,
+        0.002011435962234742,
+        -0.9921065785567507,
+        0.9900951429275828
+      ],
+      "right_fd_vector": [
+        0.0,
+        0.0,
+        -0.00999999993922529,
+        0.002011435906723591,
+        -0.9921065790008399,
+        0.9900951428443161
+      ],
+      "center_fd_vector": [
+        0.0,
+        0.0,
+        -0.010000000050247593,
+        0.002011435906723591,
+        -0.9921065787787953,
+        0.9900951428720717
+      ],
+      "implicit_formula_error": 1.3010426069826053e-17,
+      "state_identity_error": 1.3010426069826053e-17,
+      "state_fd_error": 1.6433743255106492e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 0.0,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 0.0,
+        "scalar_nav": 0.0,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0,
+          1
+        ],
+        "weights": [
+          0.2495,
+          0.25025,
+          0.24975,
+          0.2505
+        ],
+        "minimum_weight": 0.2495,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 0.0,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          0.0,
+          -0.0,
+          -0.0
+        ],
+        "branch_gradients": [
+          [
+            -0.00250501002004008,
+            -0.00250501002004008,
+            0.00250501002004008,
+            0.00250501002004008
+          ],
+          [
+            -0.002497502497502498,
+            0.002497502497502498,
+            0.002497502497502498,
+            -0.002497502497502498
+          ],
+          [
+            0.0025025025025025025,
+            -0.0025025025025025025,
+            -0.0025025025025025025,
+            0.0025025025025025025
+          ],
+          [
+            0.00249500998003992,
+            0.00249500998003992,
+            -0.00249500998003992,
+            -0.00249500998003992
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            -1.0,
+            1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "denominator": 1.0
+      }
+    },
+    {
+      "case": "partial_zero_interior_non_absent_L",
+      "cost_bps": 25,
+      "smooth": false,
+      "h": [
+        0.2499847412109375,
+        0.524383544921875,
+        0.2256317138671875
+      ],
+      "z": [
+        0.25,
+        0.5,
+        0.25
+      ],
+      "dh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dz": [
+        1.0,
+        0.0,
+        -1.0
+      ],
+      "actual_trade": [
+        0.0,
+        -0.0244140625
+      ],
+      "actual_signs": [
+        0.0,
+        -1.0
+      ],
+      "autograd_vector_n_fee_nav_state": [
+        0.0,
+        0.0,
+        0.029998168945312598,
+        1.0097485139460447,
+        -0.014778235025148634,
+        -0.9949702789208961
+      ],
+      "analytic_selected_vector": [
+        0.0,
+        -0.0,
+        0.02999816894531253,
+        1.0097485139460447,
+        -0.01477823502514862,
+        -0.9949702789208963
+      ],
+      "left_fd_vector": [
+        0.002504543572534601,
+        -0.0025045434307345094,
+        0.03253401903435815,
+        1.0097485138582663,
+        -0.014778235024603958,
+        -0.9949702789030512
+      ],
+      "right_fd_vector": [
+        -0.0025014109672483187,
+        0.002501410793803076,
+        0.027465490881617427,
+        1.0097485138582663,
+        -0.014778235052359534,
+        -0.994970278916929
+      ],
+      "center_fd_vector": [
+        1.5663026431411708e-06,
+        -1.5663184995979434e-06,
+        0.029999754791454336,
+        1.0097485139137774,
+        -0.014778235024603958,
+        -0.994970278916929
+      ],
+      "implicit_formula_error": 2.220446049250313e-16,
+      "state_identity_error": 2.220446049250313e-16,
+      "state_fd_error": 3.2267299943100625e-11,
+      "smooth_fd_error": null,
+      "funding_identity_gradient_error": 0.0,
+      "cash_debit_gradient_error": 0.0,
+      "forward_errors": {
+        "bisection": 2.220446049250313e-16,
+        "legacy_nav": 0.0,
+        "legacy_fee": 0.0,
+        "legacy_state": 5.551115123125783e-17,
+        "scalar_state": 1.1102230246251565e-16,
+        "scalar_nav": 2.220446049250313e-16,
+        "scalar_fee": 0.0,
+        "funding": 0.0
+      },
+      "ambient_Clarke_convex_combination": {
+        "zero_legs": [
+          0
+        ],
+        "weights": [
+          0.4996871088861076,
+          0.5003128911138923
+        ],
+        "minimum_weight": 0.4996871088861076,
+        "weight_sum_error": 0.0,
+        "gradient_mixture_error": 4.336808689942018e-19,
+        "chosen_gradient_h_then_z": [
+          0.0,
+          -0.0025031289111389237,
+          -0.0,
+          0.0025029761322747186
+        ],
+        "branch_gradients": [
+          [
+            -0.002504696305572949,
+            -0.002504696305572949,
+            0.00250454343104258,
+            0.00250454343104258
+          ],
+          [
+            0.0025015634771732333,
+            -0.0025015634771732333,
+            -0.002501410793855535,
+            0.002501410793855535
+          ]
+        ],
+        "sign_patterns": [
+          [
+            -1.0,
+            -1.0
+          ],
+          [
+            1.0,
+            -1.0
+          ]
+        ],
+        "denominator": 0.99875
+      }
+    }
+  ],
+  "invalid_inputs": [
+    {
+      "case": "nan_held",
+      "exception": "NumericalFitFailure",
+      "message": "invalid settlement simplex"
+    },
+    {
+      "case": "inf_target",
+      "exception": "NumericalFitFailure",
+      "message": "invalid settlement simplex"
+    },
+    {
+      "case": "negative_target",
+      "exception": "NumericalFitFailure",
+      "message": "invalid settlement simplex"
+    },
+    {
+      "case": "bad_sum",
+      "exception": "NumericalFitFailure",
+      "message": "invalid settlement simplex"
+    },
+    {
+      "case": "invalid_physical_return",
+      "exception": "NumericalFitFailure",
+      "message": "invalid physical settlement returns"
+    },
+    {
+      "case": "nan_return",
+      "exception": "NumericalFitFailure",
+      "message": "invalid physical settlement returns"
+    },
+    {
+      "case": "negative_cost",
+      "exception": "ValueError",
+      "message": "blocked: invalid proportional fee rate"
+    },
+    {
+      "case": "unit_cost",
+      "exception": "ValueError",
+      "message": "blocked: invalid proportional fee rate"
+    },
+    {
+      "case": "infinite_cost",
+      "exception": "ValueError",
+      "message": "blocked: invalid proportional fee rate"
+    }
+  ],
+  "failures": [],
+  "proof": "For zero-trade indices Z, hold other signs fixed and enumerate sigma_Z in{-1,+1}. D_sigma=1+c*sigma dot z; D_0=1+c*s_0 dot z. The probabilities mu_sigma=D_sigma/(2^|Z|*D_0) are positive and sum1, and their weighted gradients c/D_sigma*(sigma,-n*sigma) average to c/D_0*(s_0,-n*s_0). Adjacent ambient branches are reached by perturbing trades t, setting n=1-c*sum|t| and h=n*z-t. The implicit funding function is strictly increasing in n when c*||z_r||_1<1, hence locally unique and Lipschitz. This certifies the chosen ambient Clarke gradient of n, not every feasible one-sided derivative or the Clarke gradient of an arbitrary multi-step network composition.",
+  "constraint_scope": "At boundaries or after restriction to a fixed-held/policy curve, some adjacent ambient branches can be inaccessible. The partial-zero absent-L example has chosen dn0 but a negative feasible buy-L right derivative. No unique scalar derivative is claimed at kinks. No minimum-norm claim is made for partial-zero sign0.",
+  "numerical_scope": "Exact floating-point trade zero alone selects sign0. Roundoff-sized nonzero trades retain their actual signs; there is no near-zero tolerance override. First-order backward only; higher derivatives not certified.",
+  "definition_reference": "https://jmlr.org/papers/volume23/20-899/20-899.pdf (Definition5: generalized gradient as convex hull of limiting gradients)"
+}

@@ -1,0 +1,124 @@
+{
+  "scope": "Real new policy and workflow API, synthetic data only; no model fitting, market data, fake model stub, monkeypatch or repo edits.",
+  "source_sha256_before": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd",
+  "source_sha256_after": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd",
+  "projection_cases": 40,
+  "parent_embedding_cases": 20,
+  "max_torch_numpy_projection_error": 0.0,
+  "max_support_Jacobian_error": 0.0,
+  "max_projection_FD_error": 6.988898348936345e-11,
+  "max_parent_embedding_error": 2.220446049250313e-16,
+  "fresh_initial_paths": [
+    {
+      "seed": 17,
+      "cost_bps": 10,
+      "errors": {
+        "target_weights": 2.220446049250313e-16,
+        "pretrade_weights": 3.608224830031759e-16,
+        "ending_weights": 3.608224830031759e-16,
+        "net_equity": 4.440892098500626e-16,
+        "fees": 4.573977915173222e-19,
+        "turnover": 4.579669976578771e-16
+      }
+    },
+    {
+      "seed": 17,
+      "cost_bps": 25,
+      "errors": {
+        "target_weights": 2.220446049250313e-16,
+        "pretrade_weights": 3.3306690738754696e-16,
+        "ending_weights": 3.3306690738754696e-16,
+        "net_equity": 4.440892098500626e-16,
+        "fees": 9.012430558785756e-19,
+        "turnover": 3.608224830031759e-16
+      }
+    },
+    {
+      "seed": 41,
+      "cost_bps": 10,
+      "errors": {
+        "target_weights": 2.220446049250313e-16,
+        "pretrade_weights": 4.440892098500626e-16,
+        "ending_weights": 4.440892098500626e-16,
+        "net_equity": 4.440892098500626e-16,
+        "fees": 4.718502911798487e-19,
+        "turnover": 4.718447854656915e-16
+      }
+    },
+    {
+      "seed": 41,
+      "cost_bps": 25,
+      "errors": {
+        "target_weights": 2.220446049250313e-16,
+        "pretrade_weights": 4.440892098500626e-16,
+        "ending_weights": 4.440892098500626e-16,
+        "net_equity": 4.440892098500626e-16,
+        "fees": 9.351243737687476e-19,
+        "turnover": 3.7470027081099033e-16
+      }
+    },
+    {
+      "seed": 71,
+      "cost_bps": 10,
+      "errors": {
+        "target_weights": 2.220446049250313e-16,
+        "pretrade_weights": 3.3306690738754696e-16,
+        "ending_weights": 3.3306690738754696e-16,
+        "net_equity": 4.440892098500626e-16,
+        "fees": 4.163166935754886e-19,
+        "turnover": 4.163336342344337e-16
+      }
+    },
+    {
+      "seed": 71,
+      "cost_bps": 25,
+      "errors": {
+        "target_weights": 2.220446049250313e-16,
+        "pretrade_weights": 3.3306690738754696e-16,
+        "ending_weights": 3.3306690738754696e-16,
+        "net_equity": 4.440892098500626e-16,
+        "fees": 9.690056916589196e-19,
+        "turnover": 3.885780586188048e-16
+      }
+    }
+  ],
+  "real_workflow_annual_owned_state_and_HOLD": [
+    {
+      "cost_bps": 10,
+      "sessions": 8,
+      "maximum_absolute_errors": {
+        "pretrade": 2.220446049250313e-16,
+        "ending": 2.220446049250313e-16,
+        "return": 2.220446049250313e-16,
+        "fee": 2.168404344971009e-19,
+        "turnover": 0.0
+      },
+      "passed": true,
+      "exact_hold_sessions": 7
+    },
+    {
+      "cost_bps": 25,
+      "sessions": 8,
+      "maximum_absolute_errors": {
+        "pretrade": 4.3731729406037696e-17,
+        "ending": 4.3731729406037696e-17,
+        "return": 0.0,
+        "fee": 4.336808689942018e-19,
+        "turnover": 0.0
+      },
+      "passed": true,
+      "exact_hold_sessions": 7
+    }
+  ],
+  "current_date_bad_vol_forced_SOXX_and_future_owned_state": true,
+  "ensemble_shared_book_max_error": 0.0,
+  "serialized_tensor_tamper_rejected": true,
+  "huge_finite_exact_anchor_forward_and_zero_Jacobian": true,
+  "trainer_review_pending": false,
+  "failures": [],
+  "trainer_gradient_audit": {
+    "path": "/tmp/sparse-holdings-validation/gradient-audit.json",
+    "sha256": "ac2742894125a57f3f47587a2d81fff7d557359561f941f80042f431cbf07fb8",
+    "scope": "Separate completed synthetic gradient/worker/retention/ensemble audit on identical source; no additional run for this status refresh."
+  }
+}

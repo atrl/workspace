@@ -1,0 +1,29 @@
+{
+  "experiment": "sparse_holdings_net_excess_20261003",
+  "recorder_id": "a728372af45c4e678f326996db675a43",
+  "recorder_uri": "/Users/rziiiii/dev/workspace/research/sparse_holdings_net_excess_20261003/qlib_recorder",
+  "plan_sha256": "6b02b5948263606e4e75b57f1d3e51397d40fa3876c7f5943cfe77a32cac4ca2",
+  "probe_sha256": "3d589805851fc3c4a959fd00e53f9f5fd8409adef0d9c8da111c095b9c3f36d5",
+  "artifacts": {
+    "original_payload.pkl": {
+      "artifact": "preflight/original_payload.pkl",
+      "sha256": "3d589805851fc3c4a959fd00e53f9f5fd8409adef0d9c8da111c095b9c3f36d5"
+    },
+    "identity_receipt.json": {
+      "artifact": "preflight/identity_receipt.json",
+      "sha256": "6e629a4ec7b8fb9a0cae562e77a8bc497b1aa078c70b1245407f09ef6da573a9"
+    },
+    "initial_model.py": {
+      "artifact": "preflight/initial_model.py",
+      "sha256": "26ed0c13087973061ada0704255dd7763b58d04afb6dbdcddbb957f4b39ef1dd"
+    },
+    "retention_model.py": {
+      "artifact": "preflight/retention_model.py",
+      "sha256": "3c690d1185bbd0ff8c64c64f149320eabfbbcd79fd418a192c5fad78b54fbe8d"
+    },
+    "initial_probe_summary.json": {
+      "artifact": "preflight/initial_probe_summary.json",
+      "sha256": "4fa56ff711920e1f62c328c04e4a54b708824ee4fded7b2d990d05af1f6ee182"
+    }
+  }
+}
