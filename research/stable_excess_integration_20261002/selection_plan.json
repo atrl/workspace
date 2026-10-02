@@ -1,0 +1,69 @@
+{
+  "experiment": "stable_excess_integration_20261002",
+  "registered_before_training_results": true,
+  "baseline_revision": "d7ffaa2516158105f6afc5c6a2233b6edecdf53e",
+  "data_as_of": "2026-09-25",
+  "data_policy": "Use committed isolated-worktree Qlib snapshots, not mutable live providers with different end dates. Source manifests, feature rows and labels are hashed and retained in Recorder.",
+  "user_objective": "stable net excess versus SOXX; no claim of guaranteed future excess",
+  "architecture": {
+    "reuse": "DirectContinuousAllocationNet with8hiddenunits,actual3asset pretrade holdings,fee-funded cash settlement",
+    "assets": ["SOXL", "SOXX", "cash"],
+    "output": "continuous softmax weights, long-only and fully cash-funded",
+    "removed_policy_overlays": ["minimum15percentcash", "maximum30percentSOXL", "drawdown_stop_timer", "wait_ramp_hold_days", "recovery_probability_gate", "EMA", "fixed_rebalance_band", "separate_HOLD_router"],
+    "execution_constraints": ["nonnegative holdings and cash", "normalized target weights", "fees funded from own cash", "causal inputs", "mature training labels"]
+  },
+  "variants": [
+    {"name": "base", "pit_auxiliary": false, "forecast_features": false},
+    {"name": "pit_auxiliary", "pit_auxiliary": true, "forecast_features": false},
+    {"name": "cash_vol_forecasts", "pit_auxiliary": false, "forecast_features": true}
+  ],
+  "training": {
+    "training_start": "2011-01-03",
+    "development_years": [2016,2017,2018,2019,2020,2021,2022],
+    "diagnostic_years": [2023,2024,2025,2026],
+    "refit": "annual expanding; all train outcome-availability timestamps strictly before fit-year January1 NewYork",
+    "seeds": [17,41,71],
+    "ensemble": "equal mean of three target-weight predictions on the same actual current holdings; its own continuous cost-dependent path, never average portfolio returns or pick a seed",
+    "hidden_units": 8,
+    "epochs": 120,
+    "learning_rate": 0.003,
+    "weight_decay": 0.01,
+    "block_length": 63,
+    "warmup_sessions": 21,
+    "batch_blocks": 32,
+    "block_sampling": "without replacement up to32chronological blocks per epoch; all blocks if fewer; stride63 plus final complete84session block",
+    "gradient_clip": 5.0,
+    "torch_threads": 1,
+    "training_cost_bps": 10,
+    "objective": "For each chronological block, compute63-session own-portfolio logwealth growth minus SOXX logwealth growth after21warmup sessions; minimize negative mean relative growth plus root mean squared negative relative growth. Actual risky notional fees are inside every portfolio step. No added arbitrary trade-count penalty.",
+    "objective_downside_coefficient": 1.0,
+    "pit_auxiliary_coefficient": 0.05,
+    "pit_auxiliary": "Shared common-feature projection, regression of constituent5-day close-return and volatility; published PIT members only with conservative1session publication lag; no union backfill or short-history2x products; each marketdate has total sampleweight1. Before PIT history is available B equals A.",
+    "forecast_features": "Annual out-of-fold Ridge(alpha10) predictions of cash_advantage_1d and future_vol_5d from16SOXX common features, using only matured prior-year labels. Minimum252mature rows; explicit availability indicator, neutral0for unavailable forecasts. A/B reserve the same two zero forecast fields and availability0.",
+    "hyperparameter_search": false,
+    "checkpoint_selection": "fixed final epoch; all seeds retained"
+  },
+  "features": {
+    "primary_ordered": ["soxx_ret1","soxx_mom5","soxx_mom20","soxx_mom60","soxx_reversal1","soxx_vol10","soxx_vol20","soxx_downside_vol20","soxx_skew20","soxx_kurt60","soxx_drawdown20","soxx_drawdown60","soxx_gap1","soxx_intraday1","soxx_volume_z20","soxx_range_pct","soxl_gap1","soxl_intraday1","soxl_volume_z20","soxl_range_pct","relative_log_return_1d","relative_log_return_5d","relative_log_return_20d","relative_volatility_20","soxx_efficiency_20","cash_advantage_prediction","future_vol_prediction","forecast_available"],
+    "excluded": ["old allocator target weights", "manual regime probabilities", "old controller state", "future return or risk labels", "current-constituent backfilled memberships"]
+  },
+  "evaluation": {
+    "benchmark": "100percentSOXX,entryfee funded from cash, same sessions and prices",
+    "cost_bps": [10,25],
+    "cost_method": "rerun each actual policy and seed/ensemble from its own holdings at each cost, not subtract costs from a frozen trade path",
+    "development_gate": ["positive cumulative net relativewealth at10and25bp", "atleast5of7signal-years positive excess atbothcosts", "positive median annualexcess", "leave-one-year-out cumulativeexcess remains positive", "paired-logexcess stationarybootstrap lowerbound positive with20and60session meanblocks", "anchoredMaxDD andCVaR5 no worse thanSOXX", "atleast2of3individual seeds positive cumulativeexcess atbothcosts"],
+    "bootstrap": {"resamples": 2000,"mean_blocks": [20,60],"one_sided_alpha": 0.016666666666666666,"seed": 20261002,"interpretation": "Bonferroni adjustment for three preregistered variants; conditional historical evidence only, not correction for all prior research or a future guarantee"},
+    "native_verification": "Qlib backtest/Exchange/Position next-open settlement reconciliation with actual schedule; US252annualization and initialNAV1 anchoreddrawdown",
+    "selection": "Choose only from full historical passers, highest minimum20/60block lowerbound across bothcosts; otherwise retain highest number of passed gates as diagnostic only. Seal selection before post2022 evaluation.",
+    "static_risk_reference": "SOXX/cash fixedmix0.25/0.5/0.75/1.0,reported only; do not choose fullsample volatility-matched weight and present it as deployable",
+    "outer": "2023-2026 already viewed in earlier research; diagnostic only. Annual refits mature before each decision year; never change selected family based on these results.",
+    "negative_result": "Do not relax gates, choose the best seed, change horizon, add overlays, or continue an unregistered grid after observing failure. Retain all outcomes and identify evidence missing for stable excess."
+  },
+  "deployment": {
+    "real_broker_orders": false,
+    "change_existing_sim": false,
+    "historical_pass_is_not_forward_pass": true,
+    "new_forward": "Frozen models and same-quote independent candidate/baseline paths are required before any stable-forward-excess claim; existing prior model forward days do not transfer to this model."
+  },
+  "artifact_policy": "slim_card_recorder_first"
+}

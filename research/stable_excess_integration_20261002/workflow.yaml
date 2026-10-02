@@ -1,0 +1,20 @@
+experiment: stable_excess_integration_20261002
+provider_uri: data/qlib/stable_excess_integration_20261002
+region: us
+recorder_uri: /Users/rziiiii/dev/workspace/research/stable_excess_integration_20261002/qlib_recorder
+segments:
+  development:
+  - '2016-01-01'
+  - '2022-12-31'
+  reused_diagnostic:
+  - '2023-01-01'
+  - '2026-09-25'
+model_selection: selection_plan.json
+artifact_policy:
+  policy: slim_card_recorder_first
+  workflow_config: workflow.yaml
+  recorder_only_artifacts:
+  - inputs/*.pkl
+  - models/*.pkl
+  - analysis/portfolio_replays.pkl
+  - portfolio_analysis/native_reconciliation.pkl

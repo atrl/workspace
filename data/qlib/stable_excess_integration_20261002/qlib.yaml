@@ -1,0 +1,8 @@
+# Qlib configuration
+provider_uri: /Users/rziiiii/dev/workspace-worktrees/stable-excess-integration-20261002/data/qlib/stable_excess_integration_20261002
+redis:
+  host: null
+  port: null
+market:
+  market: all
+  market_type: stock

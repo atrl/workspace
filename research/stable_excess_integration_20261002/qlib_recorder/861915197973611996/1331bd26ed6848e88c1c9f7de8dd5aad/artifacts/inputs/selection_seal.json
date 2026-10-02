@@ -1,0 +1,13 @@
+{
+  "plan_sha256": "6d2836d363045da5629c6264edbbc0106d19f09fbc0c4890fd3b3ed07c7143c6",
+  "selected": {
+    "variant": "cash_vol_forecasts",
+    "historical_qualification_pass": false,
+    "passed_gates": 9,
+    "worst_annualized_lower_bound": -0.26519249630566816,
+    "worst_relative_wealth": 1.7186507206139465,
+    "positive_years_10bps": 5
+  },
+  "selection_uses_post2022": false,
+  "cache_identity": "a8a11b7aa764a684527ed7ccaa5ecd6cb86c0b8dae5fb43f6dd2c7b5d7262ec7"
+}
