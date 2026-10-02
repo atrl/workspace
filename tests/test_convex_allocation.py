@@ -324,3 +324,149 @@ def test_invalid_inputs_fail_closed_without_forecast_clipping(kwargs, match):
     arguments.update(kwargs)
     with pytest.raises(ValueError, match=match):
         DPPConvexAllocationSolver().solve(**arguments)
+
+
+@pytest.mark.parametrize("cost", [10., 25.])
+def test_external_lower_budget_matches_analytic_scaled_soxx_and_exact_cash_funding(cost):
+    variance = .0001
+    covariance = variance * np.array([[9., 3.], [3., 1.]])
+    budget = variance / 4
+    solver = DPPConvexAllocationSolver(cost_bps=cost, budget_mode="external_positive")
+    result = solver.solve([0., 0., 1.], [0., .05], covariance,
+        risk_budget_variance=budget, robust_radius=0.)
+    assert result["status"] == "solved", result["solver_audit"]
+    assert not result["full_soxx_feasible"]
+    assert not result["null_objectives"]["SOXX"]["feasible"]
+    assert result["null_objectives"]["SCALED_SOXX"]["feasible"]
+    assert result["scaled_soxx_fraction"] == pytest.approx(.5)
+    np.testing.assert_allclose(result["target_net_weights"], [0., .5, .5], atol=1e-7, rtol=0)
+    expected_net = 1. / (1. + cost / 10000. * .5)
+    assert result["objective"] == pytest.approx(expected_net * 1.025, abs=1e-8)
+    assert result["benchmark_variance"] == pytest.approx(variance)
+    assert result["risk_budget_variance"] == budget
+    assert result["predicted_variance_ratio_to_budget"] == pytest.approx(1., abs=1e-7)
+    assert result["predicted_variance_ratio_to_current_soxx"] == pytest.approx(.25, abs=1e-7)
+    assert result["chosen_positive_feasible_reference"] == "SCALED_SOXX"
+
+
+@pytest.mark.parametrize("cost", [10., 25.])
+def test_external_higher_budget_reports_more_risk_than_current_soxx_without_mislabeling(cost):
+    variance = .0001
+    covariance = variance * np.array([[9., 3.], [3., 1.]])
+    solver = DPPConvexAllocationSolver(cost_bps=cost, budget_mode="external_positive")
+    result = solver.solve([0., 0., 1.], [.3, .01], covariance,
+        risk_budget_variance=4 * variance, robust_radius=0.)
+    assert result["status"] == "solved", result["solver_audit"]
+    np.testing.assert_allclose(result["target_net_weights"], [2/3, 0., 1/3], atol=1e-7, rtol=0)
+    assert result["full_soxx_feasible"] and result["scaled_soxx_fraction"] == 1.
+    assert result["null_objectives"]["SOXX"]["objective"] == result["null_objectives"]["SCALED_SOXX"]["objective"]
+    assert result["predicted_variance_ratio_to_current_soxx"] == pytest.approx(4., abs=1e-7)
+    assert result["predicted_variance_ratio_to_budget"] <= 1 + 1e-8
+    assert result["solver_audit"]["branch"] == "positive_external_risk_budget"
+
+
+def test_external_fixed_budget_does_not_follow_a_changed_current_covariance():
+    variance = .0001
+    covariance = variance * np.array([[9., 3.], [3., 1.]])
+    solver = DPPConvexAllocationSolver(budget_mode="external_positive")
+    first = solver.solve([0., 0., 1.], [0., .05], covariance,
+        risk_budget_variance=variance/4, robust_radius=0.)
+    second = solver.solve([0., 0., 1.], [0., .05], 4*covariance,
+        risk_budget_variance=variance/4, robust_radius=0.)
+    assert first["risk_budget_variance"] == second["risk_budget_variance"] == variance/4
+    assert first["scaled_soxx_fraction"] == pytest.approx(.5)
+    assert second["scaled_soxx_fraction"] == pytest.approx(.25)
+    assert second["target_net_weights"][1] == pytest.approx(.25, abs=1e-7)
+    assert second["soxx_variance_same_covariance"] == pytest.approx(4*variance)
+
+
+@pytest.mark.parametrize("covariance", [np.zeros((2, 2)), np.diag([.0009, 0.])])
+def test_external_positive_budget_keeps_zero_current_soxx_variance_distinct(covariance):
+    budget = .0001
+    result = DPPConvexAllocationSolver(budget_mode="external_positive").solve(
+        [0., 0., 1.], [.05, .01], covariance, risk_budget_variance=budget, robust_radius=0.)
+    assert result["status"] == "solved", result["solver_audit"]
+    assert result["benchmark_variance"] == 0.
+    assert result["risk_budget_variance"] == budget
+    assert result["full_soxx_feasible"] and result["scaled_soxx_fraction"] == 1.
+    assert result["predicted_variance_ratio_to_current_soxx"] is None
+    assert result["predicted_variance_ratio_to_budget"] <= 1+1e-8
+    if covariance[0, 0] > 0:
+        assert result["target_net_weights"][0] <= 1/3 + 1e-8
+
+
+def test_external_nulls_and_settlement_use_budget_not_sigma22():
+    covariance = np.diag([.0009, .0001])
+    held = np.array([0., .7, .3])
+    result = DPPConvexAllocationSolver(cost_bps=25., budget_mode="external_positive").solve(
+        held, [.01, .02], covariance, risk_budget_variance=.000025, robust_radius=0.)
+    assert result["status"] == "solved", result["solver_audit"]
+    assert not result["null_objectives"]["HOLD"]["feasible"]
+    assert not result["null_objectives"]["SOXX"]["feasible"]
+    assert result["null_objectives"]["CASH"]["feasible"]
+    actual = settle_target_session(held, open_target_weights=result["execution_target_weights"],
+        asset_returns=[0., 0., 0.], cost_bps=25.)
+    weights = actual["open_net_weights"]
+    assert weights[:2] @ covariance @ weights[:2] / .000025 <= 1+1e-8
+    np.testing.assert_allclose(actual["ending_values"], result["post_fee_values"], atol=1e-12, rtol=0)
+    assert result["null_gap"] >= 0.
+
+
+def test_external_tiny_positive_budget_is_not_replaced_by_an_epsilon():
+    budget = 1e-16
+    result = DPPConvexAllocationSolver(budget_mode="external_positive").solve(
+        [0., 0., 1.], [0., .01], np.diag([.0009, .0001]),
+        risk_budget_variance=budget, robust_radius=0.)
+    assert result["risk_budget_variance"] == budget
+    assert result["scaled_soxx_fraction"] == pytest.approx(1e-6, rel=1e-12)
+    assert result["portfolio_variance"] <= budget * (1+1e-8)
+    assert result["null_objectives"]["SCALED_SOXX"]["feasible"]
+
+
+@pytest.mark.parametrize("budget", [None, 0., -1., np.nan, np.inf])
+def test_external_budget_requires_an_explicit_finite_positive_value(budget):
+    with pytest.raises(ValueError, match="(explicit positive|finite and strictly positive)"):
+        DPPConvexAllocationSolver(budget_mode="external_positive").solve(
+            [0., 0., 1.], [.01, .01], SIGMA, risk_budget_variance=budget, robust_radius=0.)
+
+
+def test_external_mode_rejects_ambiguity_and_any_positive_robust_radius():
+    solver = DPPConvexAllocationSolver(budget_mode="external_positive")
+    with pytest.raises(ValueError, match="benchmark_variance"):
+        solver.solve([0., 0., 1.], [.01, .01], SIGMA,
+            benchmark_variance=.0001, risk_budget_variance=.0001, robust_radius=0.)
+    for radius in (1., 1e-300):
+        with pytest.raises(ValueError, match="robust_radius=0"):
+            solver.solve([0., 0., 1.], [.01, .01], SIGMA,
+                risk_budget_variance=.0001, robust_radius=radius)
+    with pytest.raises(ValueError, match="requires external_positive"):
+        DPPConvexAllocationSolver().solve([0., 0., 1.], [.01, .01], SIGMA, risk_budget_variance=.0001)
+    with pytest.raises(ValueError, match="unknown convex risk-budget"):
+        DPPConvexAllocationSolver(budget_mode="implicit_external")
+
+
+def test_external_provenance_is_retained_without_claiming_solver_verified_maturity():
+    provenance = {"model_year": 2020, "estimation_cutoff": "2020-01-01T00:00:00-05:00",
+                  "last_observation_at": "2019-12-31T14:30:00Z", "training_source_hash": "a"*64,
+                  "method": "synthetic prior-only variance", "units": "one_session_simple_return_variance"}
+    result = DPPConvexAllocationSolver(budget_mode="external_positive").solve(
+        [0., 0., 1.], [.01, .01], SIGMA, risk_budget_variance=.0002,
+        robust_radius=0., budget_provenance=provenance)
+    assert result["budget_provenance"] == provenance
+    assert result["budget_fit_year"] == 2020 and result["budget_source_sha256"] == "a"*64
+    assert "caller declared" in result["solver_audit"]["budget_provenance_scope"]
+    provenance["model_year"] = 2021
+    assert result["budget_provenance"]["model_year"] == 2020
+
+
+def test_default_and_explicit_same_soxx_modes_have_identical_numerical_paths():
+    first = DPPConvexAllocationSolver()
+    explicit = DPPConvexAllocationSolver(budget_mode="same_soxx")
+    rng = np.random.default_rng(238)
+    for _ in range(8):
+        held = rng.dirichlet(np.ones(3)); mu = rng.normal(.005, .01, 2)
+        a, b = first.solve(held, mu, SIGMA), explicit.solve(held, mu, SIGMA)
+        np.testing.assert_array_equal(a["target_net_weights"], b["target_net_weights"])
+        assert a["objective"] == b["objective"]
+        assert list(a["null_objectives"]) == ["HOLD", "SOXX", "CASH"]
+        assert a["benchmark_variance"] == a["risk_budget_variance"]

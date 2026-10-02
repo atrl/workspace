@@ -1,0 +1,157 @@
+{
+  "experiment": "conditional_variance_20261002",
+  "registered_before_market_model_fits_or_portfolio_results": true,
+  "campaign_status": "active_research",
+  "objective_achieved": false,
+  "hypothesis": "The prior volatility head has more out-of-fold information than the return/cash head. Isolate conditional variance information inside one cost-aware allocator with the same annual risk budget, H5 prior means, covariance shape and dates. Distinguish learned information from simple persistence and the close-versus-open observation clock.",
+  "source": {
+    "experiment": "canonical_price_basis_20261002",
+    "recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+    "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+    "as_of": "2026-09-25",
+    "model_signal_start": "2011-01-03",
+    "history_start": "2010-03-11",
+    "basis": "published_futu_affine_v1",
+    "secondary_bars": 16,
+    "limitations": "Published affine basis differs slightly from serverQFQ; Jan2012 secondary quote uncertainty remains. Rebuilt history is not fresh out-of-sample evidence."
+  },
+  "features": {
+    "primary": "Same25primary market features constructed from one qualified nativeQlibOHLCV store; no old mixed feature/label price channels.",
+    "volume_transform": "Strictly positive volume permits log(volume), replacing log1p(volume) in the two20session volume zscores to ensure invariance under future common split rescaling. Window/minperiod/std/epsilon unchanged. No outcome-based feature selection.",
+    "feature_time": "price/volume features through signal-day close; risk shape and open20 comparator through signal-day open; close20 uses the same adjustedclose as model inputs."
+  },
+  "variants": [
+    {
+      "name": "expanding_variance_control",
+      "variance_key": "expanding"
+    },
+    {
+      "name": "observed_open20",
+      "variance_key": "open20"
+    },
+    {
+      "name": "observed_close20",
+      "variance_key": "close20"
+    },
+    {
+      "name": "learned_vol5",
+      "variance_key": "learned"
+    }
+  ],
+  "estimation": {
+    "horizon_sessions": 5,
+    "expected_returns": "Annual prior mean of ALL strictly matureH5SOXL/SOXX open[t+6]/open[t+1]-1 labels since2011; minimum252. Same2means for everyvariancevariant. No directional forecast selection.",
+    "oof_volatility_head": "Same annual Ridge(alpha10), train-only StandardScaler,16SOXXcommon features and existing conservative jointcash1d/vol5maturity; minimum252. Retain original two-output estimator but onlyvol5 enters allocation. Freshly refit on qualified basis; nohyperparametersearch.",
+    "volatility_target": "Sample standard deviation(ddof1) of5future DAILY open-to-open returns; squared prediction has daily-variance units, not5day cumulative-return variance.",
+    "covariance_shape": "Expanding sample covariance(ddof1) of complete observedSOXL/SOXXopen returns ending no later than signal-dayopen. Same shape for all4variants. No searched covariance window or shrinkage.",
+    "raw_marginals": {
+      "expanding": "expandingSOXXdailyvariance",
+      "open20": "samplevariance ddof1 of20complete observedSOXXopen returns ending signal-dayopen",
+      "close20": "samplevariance ddof1 of20complete observedSOXXclose returns ending signal-dayclose",
+      "learned": "square of positivefinite available annualOOFfuture_vol_prediction; negative predictions are invalid, not squared into validity"
+    }
+  },
+  "calibration": {
+    "cutoff": "Strictly before fit-year Jan1America/New_York; all parameters fixed for the following signalyear.",
+    "common_dates": "Prior OOFavailability flag true; nextdaySOXXreturn and original5dayvoltarget both mature beforecutoff; samecalendarI_y for all4estimators. Minimum252pairs. No selective drops for invalid estimators.",
+    "center": "mu1_y=mean priorSOXX1dreturns onI_y",
+    "risk_budget": "B_y=mean((r1_i-mu1_y)^2) onI_y, ddof0; fixed DAILY variance, not annualized.",
+    "calibrators": "c_j,y=B_y/mean(raw_marginal_j on I_y); every estimator receives the same one-scalar calibration opportunity.",
+    "conditional_covariance": "Sigma_j,t=(c_j,y*m_j,t/Sigma_E,t[SOXX,SOXX])*Sigma_E,t. Budget isB_y for ALL variants; neverreplace itbyconditionalvariance, whichwouldcancelthesignal.",
+    "history_scope": "H5means use all2011+maturelabels; calibration/B use2013+availableOOFdates. Separate counts/cutoffs are mandatory.",
+    "support": "Report below/above prior inputmin/max as extrapolation flags only; no quantile clipping.",
+    "algebraic_interpretation": "Since c_j=B/mean_I(m_j), Sigma_j/B=(m_j/mean_I(m_j))*(Sigma_E/Sigma_E22). Absolute B scale cancels under this common calibration; the TIME-VARYING marginal ratio remains. This tests normalized variance timing, not a separately adjustable budget-scale effect."
+  },
+  "failure_policy": {
+    "common_inputs": "InvalidB,expandingvariance/covariance,calendar orreturnlabels stop qualification; no epsilon variance or shortenedpaths.",
+    "estimator_calibration": "Any invalid/missing/nonpositive marginal oncommonI_y yields c_j=None for that estimator, records ALLoffendingdates, and disqualifies it. Valid controls still use the unaltered commondate set.",
+    "later_invalid_estimator": "Use same-date calibratedexpanding covariance solely to preserve accounting, recordreason/date, anddisqualify thatvariant. No rowdrop or reset.",
+    "solver": "Existing primal/dual numericalcertificate1e-8, requestedCLARABELtolerances1e-10, atmostone coldretry withsameinputs. Anyunverifieddecision disqualifies. Invalid/nonphysicalH5means abort, no clipping."
+  },
+  "allocation": {
+    "mode": "external_positive; explicitfiniteB>0; robust_radius0 for all4",
+    "objective": "maximize netNAV + mu_H5 @ postfeeRiskyValues; equivalent centered mu@xRisky-cost*absoluteTradeSum. Dailyreoptimization; assumes no further trades insideH5 planning horizon, actualpathpays alldailytrades.",
+    "funding": "long-onlySOXL/SOXX/cash, no accountborrowing; exact cash-funded transaction costs and own actualholdings",
+    "risk": "norm(sqrt(Sigma_j,t)*xRisky)<=sqrt(B_y)*sum(xAll)",
+    "nulls": [
+      "fee-fundedrisk-scaledSOXX/cash q=min(1,sqrt(B/Sigma_j22));q1ifSigma_j22zero",
+      "cash",
+      "HOLDonlyiffeasible",
+      "fullSOXXonlyiffeasible"
+    ],
+    "no_legacy_rules": [
+      "cashfloor",
+      "SOXLcap",
+      "stop/wait/recoverytimer",
+      "EMA",
+      "fixedtradingband",
+      "HOLDclassifier"
+    ]
+  },
+  "training": {
+    "development_signal_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022
+    ],
+    "diagnostic_signal_years": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "repeat_ids": [
+      1,
+      2,
+      3
+    ],
+    "reproduction": "3genuinelyfreshOOFfits,annualcalibrationsandsolves; all3models/predictions/weights/objectives/settledpaths match1e-8. No initializationseeds andnoextra statisticalsamples. No fitting cache betweenrepeats."
+  },
+  "evaluation": {
+    "benchmark": "100percentSOXXfee-fundedbuyhold, identical signal/trade/exitdates andinitialcash",
+    "cost_bps": [
+      10,
+      25
+    ],
+    "family_size_adjustment": 14,
+    "bootstrap_resamples": 2000,
+    "bootstrap_seed": 20261002,
+    "mean_block_lengths": [
+      20,
+      60
+    ],
+    "economic_gates": [
+      "cumulative netlogexcess>1e-8 bothcosts",
+      "atleast5of7positive signalyears",
+      "positive medianannualexcess",
+      "leave-any-year-outpositive",
+      "both20and60stationarybootstrapfamilyadjustedlowerboundspositive",
+      "anchoredMaxDD andexact-tailCVaR5 noworsethanSOXX",
+      "all3repeatsexcesspositivebothcosts andall3numericallymatch",
+      "zero invalidestimator/numericalfallbackevents"
+    ],
+    "control_increment": "Report bothcost paired excess versusexpanding control and open20/close20. A learned-information claim additionallyrequires positiveincrement overBOTHobservedvolcontrols atbothcosts; no suchclaimmerelyfromSOXXoutperformance. The simplest qualifying policy remainseligible eveniflearnedheadaddsnoincrement.",
+    "attribution": "Annual/full realizedbeta andHAC20alpha, actualturnover/costs/exposures, riskbudgetbinding, forecastsupport/fallbackcounts. Nevercallhigherbetabyitselfalpha.",
+    "forecast_skill": "Prior-centerednextday squared-return calibration plusQLIKE/squaredloss vsallcontrols; pairedstationary20/60 blockmeans onONEpath, no poolingrepeats. Reportlimits; noforecast-loss tuning.",
+    "selection": "Seal DEVELOPMENTgates/ranking before anypost2022signalportfolio. Rankpassers byworstcost/blocklowerbound; ifnonepass keepdiagnostic rankandcampaignactive. Noouterparameterchoice.",
+    "outer_modes": [
+      "annual_refit",
+      "frozen2022_calibration: freeze2023H5means,B,c andvolhead/scaler; rolling/expandingcausal marketinputsstillupdated, no newparameterfits"
+    ],
+    "native": "Selecteddevelopment portfolio atbothcosts uses nativeQlib continuousPositionadapter; unchanged1e-7 reconciliationtolerance.",
+    "source_sensitivity": "Anyhistoricallyqualifyingpolicy requires a separate source-sensitivity check fordeclared secondary quotes/published-vs-server basis beforedeploymentclaims; no choosingthebetterdatasource.",
+    "forward": "Allhistoryhasbeenreviewed. Historicalpassqualifiesonlyforfrozen newforwardstudy; freshforwardevidence remainsrequiredforobjectivecompletion.",
+    "forecast_loss_scope": "Squared return around the prior annual mean is an observable conditional second-moment proxy; it is not an observation of latent true conditional variance."
+  },
+  "cash_return": 0.0,
+  "cash_policy": "No hypothetical interestbackfill; any futurecashcarry study needs actualattainableinstrument/source andallcontrolledgers samecontract. ETFobservedreturns alreadyinclude fundeconomics; no doublecharging syntheticfinancing.",
+  "real_broker_orders": false,
+  "existing_sim_change": false,
+  "artifact_policy": "slim_card_recorder_first",
+  "mechanism_reference": "https://www.nber.org/papers/w22208",
+  "reference_scope": "Volatilitymanagement mechanism only, not evidence thatSOXL/SOXXwilloutperform or a replication ofthatpapers strategy."
+}

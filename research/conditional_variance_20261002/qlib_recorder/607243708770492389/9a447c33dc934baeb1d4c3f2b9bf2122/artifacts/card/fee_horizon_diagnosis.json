@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+  "scope": "Same saved one-step holdings, frozen mu_H5, daily covariance and B. No new return paths; no realized returns used. Cost-zero solve is gross-objective diagnosis only.",
+  "fee_accounting": "True sum of absolute risky traded NAV fractions, cash-funded. Net expected wealth=(1-fee)*(1+w_risky dot mu_H5).",
+  "break_even_scope": "Algebraically extrapolate the same mu_H5 linearly with h/5, hold both compared targets and their upfront fees fixed, ignore all future trades and changes in risk/moments. Not a forecast, not an optimized horizon, not evidence of long-run superiority.",
+  "selected_points": 58,
+  "equations": {
+    "expected_terminal_wealth": "(1-f)*(1+w_risky dot mu_H5)",
+    "chosen_minus_alternative": "gross_growth_difference + alternative_fee_terminal_drag - chosen_fee_terminal_drag",
+    "linear_break_even_sessions": "5*(f_alt-f_chosen)/((1-f_alt)*g_alt-(1-f_chosen)*g_chosen), only when both numerator and denominator are positive"
+  },
+  "counts": {
+    "SOXX_higher_gross_reward_per_daily_risk": 58,
+    "gross_optimal_alternative_has_higher_gross_growth": 58,
+    "gross_optimal_alternative_has_lower_net_objective_at_actual_cost": 58,
+    "scaled_SOXX_has_higher_gross_growth": 40
+  },
+  "examples": [
+    {
+      "signal_date": "2016-01-04",
+      "cost_bps": 10,
+      "actual_holdings": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "chosen": {
+        "target": [
+          0.3414973810617724,
+          1.2290617078683832e-07,
+          0.6585024960320568
+        ],
+        "gross_expected_h5_growth": 0.002550736789147092,
+        "fee": 0.00034138092323475624,
+        "fee_terminal_wealth_drag": 0.0003422516961147641,
+        "net_expected_h5_growth": 0.0022084850930323974,
+        "net_invested_expected_growth_component": 0.002549866016267084,
+        "turnover": 0.3413809232347563
+      },
+      "scaled_soxx": {
+        "target": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "gross_expected_h5_growth": 0.002636671185381972,
+        "fee": 0.000999000999000999,
+        "fee_terminal_wealth_drag": 0.0010016350361492328,
+        "net_expected_h5_growth": 0.0016350361492327714,
+        "net_invested_expected_growth_component": 0.0026340371482337383,
+        "turnover": 0.9990009990009991
+      },
+      "chosen_vs_scaled_soxx": {
+        "chosen_minus_alternative_gross_h5_bps": -0.8593439623488016,
+        "chosen_fee_advantage_terminal_bps": 6.593833400344686,
+        "chosen_minus_alternative_net_h5_bps": 5.73448943799626,
+        "alternative_extra_upfront_fee_bps": 6.576200757662427,
+        "alternative_growth_component_advantage_h5_bps": 0.8417113196665426,
+        "linear_frozen_moment_break_even_sessions": 39.064466664578624
+      }
+    },
+    {
+      "signal_date": "2016-01-04",
+      "cost_bps": 25,
+      "actual_holdings": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "chosen": {
+        "target": [
+          0.3414974193374222,
+          1.0983426632671786e-08,
+          0.6585025696791512
+        ],
+        "gross_expected_h5_growth": 0.0025507367799348164,
+        "fee": 0.0008530153194530783,
+        "fee_terminal_wealth_drag": 0.0008551911370022552,
+        "net_expected_h5_growth": 0.0016955456429326166,
+        "net_invested_expected_growth_component": 0.0025485609623856396,
+        "turnover": 0.3412061277812313
+      },
+      "scaled_soxx": {
+        "target": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "gross_expected_h5_growth": 0.002636671185381972,
+        "fee": 0.0024937655860349127,
+        "fee_terminal_wealth_drag": 0.002500340825898708,
+        "net_expected_h5_growth": 0.00013633035948346084,
+        "net_invested_expected_growth_component": 0.0026300959455181766,
+        "turnover": 0.9975062344139651
+      },
+      "chosen_vs_scaled_soxx": {
+        "chosen_minus_alternative_gross_h5_bps": -0.8593440544715564,
+        "chosen_fee_advantage_terminal_bps": 16.45149688896453,
+        "chosen_minus_alternative_net_h5_bps": 15.592152834491557,
+        "alternative_extra_upfront_fee_bps": 16.407502665818345,
+        "alternative_growth_component_advantage_h5_bps": 0.8153498313253704,
+        "linear_frozen_moment_break_even_sessions": 100.61633691116093
+      }
+    },
+    {
+      "signal_date": "2022-01-03",
+      "cost_bps": 10,
+      "actual_holdings": [
+        0.3198485053130423,
+        7.673593546357433e-06,
+        0.6801438210934113
+      ],
+      "chosen": {
+        "target": [
+          0.31165509480976417,
+          7.671793435670964e-06,
+          0.6883372333968001
+        ],
+        "gross_expected_h5_growth": 0.004256379298531822,
+        "fee": 8.195966681039576e-06,
+        "fee_terminal_wealth_drag": 8.23085182395221e-06,
+        "net_expected_h5_growth": 0.0042481484467078445,
+        "net_invested_expected_growth_component": 0.0042563444133889095,
+        "turnover": 0.008195966681039576
+      },
+      "scaled_soxx": {
+        "target": [
+          0.0,
+          0.940305776920396,
+          0.059694223079604036
+        ],
+        "gross_expected_h5_growth": 0.0046518237597951255,
+        "fee": 0.001258962798647396,
+        "fee_terminal_wealth_drag": 0.0012648192717068423,
+        "net_expected_h5_growth": 0.0033870044880883743,
+        "net_invested_expected_growth_component": 0.0046459672867356794,
+        "turnover": 1.2589627986473961
+      },
+      "chosen_vs_scaled_soxx": {
+        "chosen_minus_alternative_gross_h5_bps": -3.954444612633036,
+        "chosen_fee_advantage_terminal_bps": 12.5658841988289,
+        "chosen_minus_alternative_net_h5_bps": 8.611439586194702,
+        "alternative_extra_upfront_fee_bps": 12.507668319663564,
+        "alternative_growth_component_advantage_h5_bps": 3.8962287334676997,
+        "linear_frozen_moment_break_even_sessions": 16.05099337755199
+      }
+    },
+    {
+      "signal_date": "2022-01-03",
+      "cost_bps": 25,
+      "actual_holdings": [
+        0.319851004011335,
+        2.179589941287432e-07,
+        0.6801487780296709
+      ],
+      "chosen": {
+        "target": [
+          0.31165751211246284,
+          2.171446390844971e-07,
+          0.6883422707428982
+        ],
+        "gross_expected_h5_growth": 0.004256375432973204,
+        "fee": 2.0499704011074177e-05,
+        "fee_terminal_wealth_drag": 2.0586958447610136e-05,
+        "net_expected_h5_growth": 0.004235788474525659,
+        "net_invested_expected_growth_component": 0.004256288178536668,
+        "turnover": 0.00819988160442967
+      },
+      "scaled_soxx": {
+        "target": [
+          0.0,
+          0.940305776920396,
+          0.059694223079604036
+        ],
+        "gross_expected_h5_growth": 0.0046518237597951255,
+        "fee": 0.0031430029478599656,
+        "fee_terminal_wealth_drag": 0.0031576236436499272,
+        "net_expected_h5_growth": 0.0014942001161453167,
+        "net_invested_expected_growth_component": 0.004637203064005164,
+        "turnover": 1.2572011791439863
+      },
+      "chosen_vs_scaled_soxx": {
+        "chosen_minus_alternative_gross_h5_bps": -3.954483268219216,
+        "chosen_fee_advantage_terminal_bps": 31.37036685202317,
+        "chosen_minus_alternative_net_h5_bps": 27.415883583803424,
+        "alternative_extra_upfront_fee_bps": 31.225032438488917,
+        "alternative_growth_component_advantage_h5_bps": 3.809148854684967,
+        "linear_frozen_moment_break_even_sessions": 40.98688923653439
+      }
+    }
+  ],
+  "conclusion": "At these fixed decisions the finite five-session objective prefers cheaper SOXL exposure and later avoids a costly SOXX switch. This is an objective-mechanics finding, not a solver defect or proof that another horizon improves realized returns.",
+  "limitations": [
+    "Same already-reviewed historical inputs; no fresh statistical evidence.",
+    "Gross optimum can mix SOXL and SOXX when full SOXX leaves budget unused.",
+    "Cost-zero solves identify one-step gross optima only; no zero-cost policy path was generated.",
+    "Break-even horizons linearly extrapolate fixed moments and omit future trades/risk changes; none was selected."
+  ],
+  "recorder_artifacts": {
+    "ipynb": "analysis/diagnostics/fee_horizon/conditional-variance-one-step-fee-diagnosis.ipynb",
+    "json": "analysis/diagnostics/fee_horizon/conditional-variance-one-step-fee-diagnosis.json",
+    "csv": "analysis/diagnostics/fee_horizon/conditional-variance-one-step-fee-diagnosis.csv",
+    "method": "analysis/diagnostics/fee_horizon/conditional_variance_one_step_audit.py"
+  },
+  "full_evidence_sha256": "ea7a5cdadf985f1e81266e6b3227684c05b47d41223fb4c8b057c2dc7de0eb27"
+}

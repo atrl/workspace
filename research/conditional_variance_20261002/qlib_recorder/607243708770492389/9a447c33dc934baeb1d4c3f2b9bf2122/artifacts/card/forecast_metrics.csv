@@ -1,0 +1,5 @@
+variant,rows,mean_qlike,mean_squared_loss,estimator_fallback_sessions,scope
+expanding_variance_control,1762,-6.782006845690015,5.859668263680704e-07,0,prior-centered conditional second-moment proxy
+observed_open20,1762,-7.016790807745393,5.166378156799911e-07,0,prior-centered conditional second-moment proxy
+observed_close20,1762,-7.031139259967731,6.11050095731591e-07,0,prior-centered conditional second-moment proxy
+learned_vol5,1762,-7.102349368605938,4.795205001825019e-07,0,prior-centered conditional second-moment proxy

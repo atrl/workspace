@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "recorder_id": "9a447c33dc934baeb1d4c3f2b9bf2122",
+  "source_recorder_id": "bd754e6362b241f194351a1e7aebff6f",
+  "provider_uri": "data/qlib/published_futu_affine_20260925_v1",
+  "source_as_of": "2026-09-25",
+  "analysis_scope": "read-only planning-moment diagnostic; no model fitting, no new policy or P&L search",
+  "cutoff_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "native_arithmetic": "float64 ratios of the same native float32 stored prices",
+  "equations": {
+    "H5": "product(1+r_d, d=1..5)-1 = open[t+6]/open[t+1]-1",
+    "arithmetic_comparison": "mu_H5 - 5*mu_1d = within_window_cross_products + offset_sample_mean_difference",
+    "equal_risk_score": "asset reward / daily standard deviation; an algebraic score, not portfolio P&L"
+  },
+  "equal_volatility_score_rows": 48,
+  "summary": {
+    "same_dates_counts": {
+      "2016": 1252,
+      "2017": 1504,
+      "2018": 1755,
+      "2019": 2006,
+      "2020": 2258,
+      "2021": 2511,
+      "2022": 2763,
+      "2023": 3014
+    },
+    "higher_gross_reward_per_risk_by_cutoff": {
+      "2016": {
+        "compound_mu_1d_to5": "SOXX",
+        "five_mu_1d": "SOXX",
+        "mu_h5": "SOXX"
+      },
+      "2017": {
+        "compound_mu_1d_to5": "SOXX",
+        "five_mu_1d": "SOXX",
+        "mu_h5": "SOXX"
+      },
+      "2018": {
+        "compound_mu_1d_to5": "SOXX",
+        "five_mu_1d": "SOXX",
+        "mu_h5": "SOXX"
+      },
+      "2019": {
+        "compound_mu_1d_to5": "SOXX",
+        "five_mu_1d": "SOXX",
+        "mu_h5": "SOXX"
+      },
+      "2020": {
+        "compound_mu_1d_to5": "SOXX",
+        "five_mu_1d": "SOXX",
+        "mu_h5": "SOXX"
+      },
+      "2021": {
+        "compound_mu_1d_to5": "SOXX",
+        "five_mu_1d": "SOXX",
+        "mu_h5": "SOXX"
+      },
+      "2022": {
+        "compound_mu_1d_to5": "SOXX",
+        "five_mu_1d": "SOXX",
+        "mu_h5": "SOXX"
+      },
+      "2023": {
+        "compound_mu_1d_to5": "SOXX",
+        "five_mu_1d": "SOXX",
+        "mu_h5": "SOXX"
+      }
+    },
+    "h5_vs_5mu1_choice_flip_years": [],
+    "h5_vs_compound_mu1_choice_flip_years": [],
+    "planning_scope": "Means compare asset holding returns. A daily reoptimized multi-asset portfolio has different compounding, turnover and future holdings; no policy return computed here."
+  },
+  "checks": {
+    "H5_product_identity_max_abs": {
+      "SOXL": 6.661338147750939e-16,
+      "SOXX": 6.661338147750939e-16
+    },
+    "daily_label_float32_rounding_max_abs": {
+      "SOXL": 5.958481796852766e-08,
+      "SOXX": 5.953013904047566e-08
+    }
+  },
+  "limitations": [
+    "Previously reviewed historical data; no new out-of-sample evidence.",
+    "No financing/index mechanism attribution from arithmetic residuals.",
+    "Identical H5-mature dates are used for all moment comparisons; annual price-clock residuals use return-end calendar years.",
+    "No costs subtracted from moment means: costs depend on the existing position path, which this diagnostic does not replay.",
+    "Equal-volatility scores are algebraic moment normalizations, not portfolio backtests or a source for selected weights.",
+    "Published affine basis and 16 secondary Yahoo bars retain parent-source limitations."
+  ],
+  "recorder_artifacts": {
+    "ipynb": "analysis/diagnostics/horizon_moments/soxl_horizon_moment_diagnostic.ipynb",
+    "json": "analysis/diagnostics/horizon_moments/soxl_horizon_moment_diagnostic.json"
+  },
+  "full_evidence_sha256": "5ec498cc7ea677e91ab33c427a9b4274a626bf53738aefff0394a072af7d32c8"
+}

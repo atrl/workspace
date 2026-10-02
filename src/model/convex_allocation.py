@@ -8,6 +8,7 @@ and causal covariance/mean-error estimation belong to the Qlib workflow.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from copy import deepcopy
 from time import perf_counter
 from typing import Any
 
@@ -139,6 +140,7 @@ class ConvexSolverSettings:
     solver_tolerance: float = 1e-10
     max_iter: int = 200
     forecast_horizon_sessions: int = 5
+    budget_mode: str = "same_soxx"
 
     def __post_init__(self):
         if not np.isfinite([self.cost_bps, self.tolerance, self.solver_tolerance]).all():
@@ -147,6 +149,8 @@ class ConvexSolverSettings:
             raise ValueError("blocked: invalid convex cost or numerical tolerances")
         if self.max_iter < 1 or self.forecast_horizon_sessions < 1:
             raise ValueError("blocked: invalid convex horizon or iteration limit")
+        if self.budget_mode not in {"same_soxx", "external_positive"}:
+            raise ValueError("blocked: unknown convex risk-budget mode")
 
 
 class DPPConvexAllocationSolver:
@@ -160,8 +164,8 @@ class DPPConvexAllocationSolver:
     """
     def __init__(self, cost_bps: float = 10., tolerance: float = 1e-8, *,
                  solver_tolerance: float = 1e-10, max_iter: int = 200,
-                 forecast_horizon_sessions: int = 5):
-        self.settings = ConvexSolverSettings(cost_bps, tolerance, solver_tolerance, max_iter, forecast_horizon_sessions)
+                 forecast_horizon_sessions: int = 5, budget_mode: str = "same_soxx"):
+        self.settings = ConvexSolverSettings(cost_bps, tolerance, solver_tolerance, max_iter, forecast_horizon_sessions, budget_mode)
         if "CLARABEL" not in cp.installed_solvers():
             raise RuntimeError("blocked: CLARABEL is unavailable for convex allocation")
         self._x = cp.Variable(3, nonneg=True, name="post_fee_values")
@@ -182,8 +186,10 @@ class DPPConvexAllocationSolver:
         common = [self._trades >= self._x[:2] - self._held,
                   self._trades >= self._held - self._x[:2],
                   net + self._rate * cp.sum(self._trades) == 1.]
+        self._positive_branch = ("positive_benchmark_variance" if budget_mode == "same_soxx"
+                                 else "positive_external_risk_budget")
         self._problems = {
-            "positive_benchmark_variance": cp.Problem(objective, [*common, cp.norm(self._risk_root @ self._x[:2], 2) <= net]),
+            self._positive_branch: cp.Problem(objective, [*common, cp.norm(self._risk_root @ self._x[:2], 2) <= net]),
             "zero_benchmark_positive_soxl_variance": cp.Problem(objective, [*common, self._x[0] == 0.]),
             "all_zero_variance": cp.Problem(objective, common),
         }
@@ -218,12 +224,12 @@ class DPPConvexAllocationSolver:
         return problem.value
 
     def _risk_violation(self, weights: np.ndarray, *, matrix: np.ndarray, normalized_root: np.ndarray | None,
-                        branch: str) -> float:
-        if branch == "positive_benchmark_variance":
+                        branch: str, budget: float) -> float:
+        if branch == self._positive_branch:
             risky = weights[:2]
             variance = (risky[0]**2 * matrix[0, 0] + 2 * risky[0]*risky[1]*matrix[0, 1]
                         + risky[1]**2 * matrix[1, 1])
-            return max(0., float(variance / matrix[1, 1]) - 1.)
+            return max(0., float(variance / budget) - 1.)
         if branch == "zero_benchmark_positive_soxl_variance":
             return float(abs(weights[0]))
         return 0.
@@ -238,34 +244,69 @@ class DPPConvexAllocationSolver:
         expected = net + float(mu @ post[:2])
         penalty = float(np.linalg.norm(uncertainty_root @ (post[:2] - net * BENCHMARK_RISKY_WEIGHTS)))
         variance = float(target[:2] @ covariance @ target[:2])
+        soxx_variance = float(covariance[1, 1])
+        budget_ratio = variance / budget if budget > 0 else None
         return {"target_net_weights": target.copy(), "execution_target_weights": execution,
             "post_fee_values": post, "net_equity_after_fees": net,
             "turnover": float(settled["turnover"]), "fees": float(settled["fees"]),
             "expected_terminal_wealth": expected, "robust_penalty": penalty,
             "objective": expected - penalty, "portfolio_variance": max(0., variance),
-            "benchmark_variance": budget, "predicted_variance_ratio": variance / budget if budget > 0 else None}
+            "benchmark_variance": soxx_variance, "risk_budget_variance": budget,
+            "soxx_variance_same_covariance": soxx_variance,
+            "predicted_variance_ratio": budget_ratio,
+            "predicted_variance_ratio_to_budget": budget_ratio,
+            "predicted_variance_ratio_to_current_soxx": variance / soxx_variance if soxx_variance > 0 else None}
 
     def solve(self, pretrade_weights, expected_returns_H, covariance_daily, *, benchmark_variance=None,
-              mean_error_covariance_H=None, robust_radius: float = 1.) -> dict[str, Any]:
+              mean_error_covariance_H=None, robust_radius: float = 1., risk_budget_variance=None,
+              budget_provenance: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Solve with one explicitly resolved daily-variance budget.
+
+        The default retains the original same-SOXX constraint. External mode
+        requires ``risk_budget_variance>0`` and ``robust_radius=0``; it does not
+        infer a budget from the current covariance. Budget provenance is a
+        caller declaration: its annual cutoff and data maturity must be
+        verified by the Qlib workflow, not inferred by this numerical solver.
+        """
         held, holding_repair = _holdings(pretrade_weights)
         mu = np.asarray(expected_returns_H, dtype=np.float64)
         if mu.shape != (2,) or not np.isfinite(mu).all() or (mu <= -1.).any():
             raise ValueError("blocked: expected asset returns must be finite and greater than -100 percent")
         if not np.isfinite(robust_radius) or robust_radius < 0:
             raise ValueError("blocked: invalid mean-uncertainty radius")
+        if budget_provenance is not None and not isinstance(budget_provenance, dict):
+            raise ValueError("blocked: budget provenance must be a metadata mapping")
+        provenance = deepcopy(budget_provenance or {})
         covariance, risk_root, covariance_audit = _psd_matrix_root(covariance_daily, name="daily covariance")
-        budget = float(covariance[1, 1])
-        if benchmark_variance is not None:
-            supplied = float(benchmark_variance)
-            if not np.isfinite(supplied) or supplied < 0 or (budget == 0 and supplied != 0) or (budget > 0 and not np.isclose(supplied, budget, rtol=1e-12, atol=0)):
-                raise ValueError("blocked: risk budget must equal the same covariance's SOXX variance")
+        soxx_variance = float(covariance[1, 1])
+        if self.settings.budget_mode == "same_soxx":
+            if risk_budget_variance is not None:
+                raise ValueError("blocked: explicit external budget requires external_positive mode")
+            budget = soxx_variance
+            if benchmark_variance is not None:
+                supplied = float(benchmark_variance)
+                if not np.isfinite(supplied) or supplied < 0 or (budget == 0 and supplied != 0) or (budget > 0 and not np.isclose(supplied, budget, rtol=1e-12, atol=0)):
+                    raise ValueError("blocked: risk budget must equal the same covariance's SOXX variance")
+        else:
+            if benchmark_variance is not None:
+                raise ValueError("blocked: external mode cannot also specify benchmark_variance")
+            if risk_budget_variance is None:
+                raise ValueError("blocked: external mode requires an explicit positive risk budget")
+            budget = float(risk_budget_variance)
+            if not np.isfinite(budget) or budget <= 0:
+                raise ValueError("blocked: external risk budget must be finite and strictly positive")
+            if robust_radius != 0:
+                raise ValueError("blocked: external risk budgets require robust_radius=0")
         mean_error, error_root, uncertainty_audit = _psd_matrix_root(
             np.zeros((2, 2)) if mean_error_covariance_H is None else mean_error_covariance_H,
             name="mean-error covariance")
         uncertainty_root = robust_radius * error_root
         if budget > 0:
-            branch = "positive_benchmark_variance"
-            normalized_root = risk_root / np.sqrt(budget)
+            branch = self._positive_branch
+            with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
+                normalized_root = risk_root / np.sqrt(budget)
+            if not np.isfinite(normalized_root).all():
+                raise ValueError("blocked: covariance normalization is nonfinite at the declared risk budget")
         elif covariance[0, 0] > 0:
             branch = "zero_benchmark_positive_soxl_variance"
             normalized_root = None
@@ -274,8 +315,17 @@ class DPPConvexAllocationSolver:
             normalized_root = None
         nulls, null_results = {}, {}
         # HOLD wins an exact objective tie, without adding a trade threshold.
-        for name, target in (("HOLD", held), ("SOXX", np.array([0., 1., 0.])), ("CASH", np.array([0., 0., 1.]))):
-            risk_violation = self._risk_violation(target, matrix=covariance, normalized_root=normalized_root, branch=branch)
+        null_targets = [("HOLD", held), ("SOXX", np.array([0., 1., 0.])), ("CASH", np.array([0., 0., 1.]))]
+        scaled_soxx_fraction = 1.
+        positive_reference = "SOXX"
+        if self.settings.budget_mode == "external_positive":
+            # Separate square roots avoid prematurely underflowing B/Sigma22.
+            if soxx_variance > budget:
+                scaled_soxx_fraction = float(np.sqrt(budget) / np.sqrt(soxx_variance))
+            null_targets.insert(2, ("SCALED_SOXX", np.array([0., scaled_soxx_fraction, 1. - scaled_soxx_fraction])))
+            positive_reference = "SCALED_SOXX"
+        for name, target in null_targets:
+            risk_violation = self._risk_violation(target, matrix=covariance, normalized_root=normalized_root, branch=branch, budget=budget)
             feasible = risk_violation <= self.settings.tolerance if budget > 0 else risk_violation == 0
             nulls[name] = {"feasible": bool(feasible), "risk_violation": risk_violation, "objective": None}
             if feasible:
@@ -284,7 +334,7 @@ class DPPConvexAllocationSolver:
                 nulls[name]["objective"] = scored["objective"]
         best_name = max(null_results, key=lambda name: null_results[name]["objective"])
         best_null = null_results[best_name]
-        if null_results["SOXX"]["objective"] <= 0:
+        if positive_reference not in null_results or null_results[positive_reference]["objective"] <= 0:
             raise ValueError("blocked: positive feasible benchmark wealth required for fee-tightness proof")
         self._held.value, self._mu.value = held[:2], mu
         self._uncertainty_root.value = uncertainty_root
@@ -307,6 +357,13 @@ class DPPConvexAllocationSolver:
             "solver_exception": error, "tolerance": self.settings.tolerance,
             "solver_tolerance": self.settings.solver_tolerance, "pretrade_roundoff_repair": holding_repair,
             "covariance": covariance_audit, "mean_error_covariance": uncertainty_audit,
+            "budget_mode": self.settings.budget_mode, "risk_budget_variance": budget,
+            "soxx_variance_same_covariance": soxx_variance,
+            "risk_budget_units": "one_session_simple_return_variance",
+            "budget_provenance": deepcopy(provenance),
+            "budget_provenance_scope": "caller declared; annual cutoff and data maturity verified by workflow",
+            "full_soxx_feasible": nulls["SOXX"]["feasible"], "scaled_soxx_fraction": scaled_soxx_fraction,
+            "chosen_positive_feasible_reference": positive_reference,
             "robust_radius": float(robust_radius), "dual_gap_available": self._last_certificate is not None,
             "risk_tolerance_units": "variance_ratio_excess; same units as independent workflow audit",
             "optimization_objective_offset": 1.,
@@ -341,7 +398,7 @@ class DPPConvexAllocationSolver:
                 }
                 target = np.maximum(raw, 0.)
                 target /= target.sum()
-                violation = self._risk_violation(target, matrix=covariance, normalized_root=normalized_root, branch=branch)
+                violation = self._risk_violation(target, matrix=covariance, normalized_root=normalized_root, branch=branch, budget=budget)
                 primal["risk_violation_before_roundoff_repair"] = violation
                 if any(abs(value) > self.settings.tolerance for value in primal.values()):
                     audit.update(primal)
@@ -388,6 +445,13 @@ class DPPConvexAllocationSolver:
             "optimality_verified": bool(verified), "solution_source": source,
             "pretrade_weights": held, "expected_returns_H": mu.copy(),
             "covariance_daily": covariance, "mean_error_covariance_H": mean_error,
+            "budget_mode": self.settings.budget_mode, "budget_provenance": provenance,
+            "risk_budget_units": "one_session_simple_return_variance",
+            "budget_fit_year": provenance.get("model_year"),
+            "budget_available_at": provenance.get("estimation_cutoff"),
+            "budget_source_sha256": provenance.get("training_source_hash"),
+            "full_soxx_feasible": nulls["SOXX"]["feasible"], "scaled_soxx_fraction": scaled_soxx_fraction,
+            "chosen_positive_feasible_reference": positive_reference,
             "cost_bps": self.settings.cost_bps, "forecast_horizon_sessions": self.settings.forecast_horizon_sessions,
             "reoptimization": "every decision; forecast horizon is not a holding lock",
             "future_transactions_assumed": False, "null_objectives": nulls,
